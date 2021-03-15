@@ -1,6 +1,9 @@
 import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
+import debug from 'debug';
+
+const log = debug('formActions');
 
 const alternativeFields = [
   'name',
@@ -14,72 +17,6 @@ const alternativeFields = [
   'longitude',
   'countryCode',
 ];
-
-module.exports = actions;
-
-module.exports.tests = {
-  initialize,
-  loadAlternative,
-  loadTagAlternative,
-  checkLanguage,
-  startPageSpin,
-  stopPageSpin,
-  showExtId,
-};
-
-function actions(options) {
-  let { getState, setState } = utils.extend(
-    {
-      setState: function () {}, // state setter
-      getState: function () {},
-    },
-    options
-  );
-
-  return {
-    // not actually an action
-    getState,
-
-    initialize,
-
-    loadAlternative: assign(loadAlternative),
-
-    loadTagAlternative: assign(loadTagAlternative),
-
-    checkLanguage: assign(checkLanguage),
-
-    sourceLanguageChange: assign(sourceLanguageChange),
-
-    startPageSpin: assign(startPageSpin),
-
-    stopPageSpin: assign(stopPageSpin),
-
-    setError: assign(setError),
-
-    setStart: assign(setStart),
-
-    setErrorResponse: assign(setErrorResponse),
-
-    setSuccess: assign(setSuccess),
-
-    showExtId: assign(showExtId),
-  };
-
-  /**
-   * simplifies stateless testing. calls
-   * input function by prepending current state
-   * and applies value as new state
-   */
-
-  function assign(fn) {
-    return function (...args) {
-      let state = getState(),
-        newState = fn(...[state].concat(args));
-
-      setState(newState);
-    };
-  }
-}
 
 function initialize(props) {
   const state = {
@@ -98,17 +35,15 @@ function initialize(props) {
     showExtIdInput: false,
   };
 
-  state.location = {};
-
-  for (const f in props.location) {
-    state.location[f] = props.location[f];
-  }
+  state.location = Object.keys(props.location || {}).reduce((carried, field) => ({
+    ...carried,
+    [field]: props.location[field]
+  }), {});
 
   if (!state.location.countryCode) {
-    state.location.countryCode =
-      props.settings && props.settings.defaultCountryCode
-        ? props.settings.defaultCountryCode
-        : 'FR';
+    state.location.countryCode = props.settings && props.settings.defaultCountryCode
+      ? props.settings.defaultCountryCode
+      : 'FR';
   }
 
   if (!state.enableGeocode && !state.location.latitude) {
@@ -155,8 +90,8 @@ function initialize(props) {
  */
 
 function loadTagAlternative(state, tag, check) {
-  let changes = {},
-    isChecked = state.location.tags.filter(t => t.id === tag.id).length;
+  const changes = {};
+  const isChecked = state.location.tags.filter(t => t.id === tag.id).length;
 
   if (check && !isChecked) {
     changes.location = {
@@ -201,7 +136,7 @@ function setErrorResponse(state, message) {
 }
 
 function setSuccess(state, location) {
-  let change = {
+  const change = {
     loadingError: false,
     pageSpin: false,
   };
@@ -220,7 +155,7 @@ function startPageSpin(state, message = null) {
   return { pageSpin: { message } };
 }
 
-function stopPageSpin(state) {
+function stopPageSpin() {
   return { pageSpin: false };
 }
 
@@ -237,9 +172,9 @@ function checkLanguage(state, check, source, language) {
   };
 }
 
-function sourceLanguageChange(state) {
-  console.log(arguments[1]);
-  console.log(arguments[2]);
+function sourceLanguageChange(...args) {
+  log(args[1]);
+  log(args[2]);
 }
 
 /**
@@ -257,15 +192,17 @@ function loadAlternative(
   alternatives,
   fieldName,
   alternativeIndex,
-  lang,
-  pasteNames
+  paramLang,
+  paramPasteNames
 ) {
+  let pasteNames = paramPasteNames;
+  let lang = paramLang;
   if (arguments.length === 5) {
     pasteNames = lang;
     lang = false;
   }
 
-  let updated = {
+  const updated = {
     location: {},
     activeAlternatives: {},
   };
@@ -298,3 +235,69 @@ function loadAlternative(
 
   return update(state, updated);
 }
+
+function actions(options) {
+  const { getState, setState } = utils.extend(
+    {
+      setState() {}, // state setter
+      getState() {},
+    },
+    options
+  );
+
+  /**
+   * simplifies stateless testing. calls
+   * input function by prepending current state
+   * and applies value as new state
+   */
+
+  function assign(fn) {
+    return (...args) => {
+      const state = getState();
+      const newState = fn(...[state].concat(args));
+
+      setState(newState);
+    };
+  }
+
+  return {
+    // not actually an action
+    getState,
+
+    initialize,
+
+    loadAlternative: assign(loadAlternative),
+
+    loadTagAlternative: assign(loadTagAlternative),
+
+    checkLanguage: assign(checkLanguage),
+
+    sourceLanguageChange: assign(sourceLanguageChange),
+
+    startPageSpin: assign(startPageSpin),
+
+    stopPageSpin: assign(stopPageSpin),
+
+    setError: assign(setError),
+
+    setStart: assign(setStart),
+
+    setErrorResponse: assign(setErrorResponse),
+
+    setSuccess: assign(setSuccess),
+
+    showExtId: assign(showExtId),
+  };
+}
+
+export default Object.assign(actions, {
+  tests: {
+    initialize,
+    loadAlternative,
+    loadTagAlternative,
+    checkLanguage,
+    startPageSpin,
+    stopPageSpin,
+    showExtId,
+  }
+});

@@ -2,11 +2,11 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('list');
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 
 const addListQuery = require('./lib/addListQuery');
 const addPagination = require('./lib/addPagination');
 const addSelect = require('./lib/addSelect');
-const BadRequestError = require('./lib/BadRequestError');
 const createStream = require('./lib/createStream');
 const validateNav = require('./lib/validateNav');
 const validateListOptions = require('./lib/validateListOptions');

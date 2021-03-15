@@ -1,7 +1,7 @@
 'use strict';
 
-var onHit = false;
-var monitoredElem;
+let onHit = false;
+let monitoredElem;
 
 _addEvent(document, 'scroll', _monitor);
 
@@ -31,7 +31,7 @@ function _monitor() {
 }
 
 function _addEvent(elem, types, eventHandle) {
-  if (elem == null || elem == undefined) return;
+  if (elem === null || elem === undefined) return;
 
   if (typeof types === 'string') types = [types];
 
@@ -73,7 +73,7 @@ function _getScrollOffsets(w) {
 
   // For IE (or any browser) in Standards mode
   const d = w.document;
-  if (document.compatMode == 'CSS1Compat') {
+  if (document.compatMode === 'CSS1Compat') {
     return {
       x: d.documentElement.scrollLeft,
       y: d.documentElement.scrollTop,

@@ -1,22 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import debug from 'debug';
+
+const log = debug('LocationItem');
 
 class LocationItem extends Component {
-  isInMergeSelection() {
-    return (
-      this.props.merge.locationUids.indexOf(this.props.location.uid) !== -1
-    );
+  static propTypes = {
+    merge: PropTypes.object,
+    location: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getCountryLabel: PropTypes.func,
+    onSelect: PropTypes.func,
+    onEdit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    seeEventsRes: PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+    // Binding
+    this.onRemove = this.onRemove.bind(this);
+    this.seeEvents = this.seeEvents.bind(this);
   }
 
   onRemove(e) {
     e.stopPropagation();
-    this.props.onRemove();
+    const { onRemove } = this.props;
+    onRemove();
+  }
+
+  onEdit(e) {
+    e.stopPropagation();
+    const { onEdit } = this.props;
+    onEdit();
+  }
+
+  isInMergeSelection() {
+    const { merge, location } = this.props;
+    return (
+      merge.locationUids.indexOf(location.uid) !== -1
+    );
+  }
+
+  seeEvents(e) {
+    const { location, seeEventsRes } = this.props;
+    e.stopPropagation();
+    window.location.href = seeEventsRes.replace(
+      ':locationUid',
+      location.uid
+    );
   }
 
   renderMergeCheckbox() {
     return (
       <div className="checkbox">
-        <label>
+        <label htmlFor="merge-checkbox">
           <input
             ref={r => (this.checkbox = r)}
             type="checkbox"
@@ -27,84 +66,90 @@ class LocationItem extends Component {
     );
   }
 
-  seeEvents(e) {
-    e.stopPropagation();
-    window.location.href = this.props.seeEventsRes.replace(
-      ':locationUid',
-      this.props.location.uid
-    );
-  }
-
   render() {
-    const l = this.props.location;
+    const {
+      location, merge, getCountryLabel, getLabel, onSelect, settings
+    } = this.props;
     const className = ['item'];
-    const country = this.props.getCountryLabel(l.countryCode);
+    const country = getCountryLabel(location.countryCode);
+    const editButton = (
+      <button
+        type="button"
+        className={!settings.access.update.authorized ? 'btn btn-default disabled' : 'btn btn-default'}
+        aria-label={getLabel('edit')}
+        onClick={this.onEdit.bind(this)}
+      >
+        <i className="fa fa-edit" />
+      </button>
+    );
+    const removeButton = (
+      <button
+        type="button"
+        className={!settings.access.delete.authorized ? 'btn btn-default disabled' : 'btn btn-default'}
+        aria-label={getLabel('remove')}
+        onClick={this.onRemove}
+      >
+        <i className="fa fa-trash" />
+      </button>
+    );
 
-    if (this.props.merge) {
+    if (merge) {
       className.push('merge');
     }
 
     return (
       <div
         className={className.join(' ')}
-        key={l.uid}
-        onClick={this.props.onSelect.bind(this)}
+        key={location.uid}
+        onClick={onSelect.bind(this)}
       >
-        {this.props.merge ? this.renderMergeCheckbox() : null}
-        {!this.props.merge ? (
+        {merge ? this.renderMergeCheckbox() : null}
+        {!merge ? (
           <div className="actions btn-group">
-            <button
-              className="btn btn-default"
-              aria-label={this.props.getLabel('remove')}
-              onClick={this.onRemove.bind(this)}
-            >
-              <i className="fa fa-trash"></i>
-            </button>
-            <button
-              className="btn btn-default"
-              aria-label={this.props.getLabel('edit')}
-              onClick={this.props.onEdit.bind(this)}
-            >
-              <i className="fa fa-edit"></i>
-            </button>
+            {removeButton}
+            {editButton}
           </div>
         ) : null}
         <div className="item-body">
-          <div className="title">{l.name}</div>
-          <div>{l.address}</div>
+          <div className="title">{location.name}</div>
+          <div>{location.address}</div>
           <div className="text-muted">
-            {l.department ? l.department : null}
-            {l.region ? (l.department ? ', ' : '') + l.region : null}
-            {country ? (l.department || l.region ? ', ' : '') + country : null}
+            {location.department ? location.department : null}
+            {location.region ? (location.department ? ', ' : '') + location.region : null}
+            {country ? (location.department || location.region ? ', ' : '') + country : null}
           </div>
           <div className="indicators">
             <i
               className={
-                l.image ? 'fa fa-picture-o' : 'fa fa-picture-o disabled'
+                location.image ? 'fa fa-picture-o' : 'fa fa-picture-o disabled'
               }
-            ></i>
+            />
             <i
               className={
-                l.description
+                location.description
                   ? 'fa fa-file-text-o '
                   : 'fa fa-file-text-o disabled'
               }
-            ></i>
-            {l.state === 0 ? (
+            />
+            {location.state === 0 ? (
               <span className="badge badge-warning">
-                {this.props.getLabel('verify')}
+                {getLabel('verify')}
               </span>
             ) : null}
-            {l.agendaEventCount ? (
-              <a onClick={this.seeEvents.bind(this)}>
-                {this.props.getLabel(
-                  l.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents',
-                  { count: l.agendaEventCount }
+            {location.agendaEventCount ? (
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={this.seeEvents}
+              >
+                {getLabel(
+                  location.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents',
+                  { count: location.agendaEventCount }
                 )}
-              </a>
+              </button>
             ) : (
               <span className="text-muted">
-                {this.props.getLabel('noEvent')}
+                {getLabel('noEvent')}
               </span>
             )}
           </div>
@@ -113,10 +158,5 @@ class LocationItem extends Component {
     );
   }
 }
-
-LocationItem.propTypes = {
-  getLabel: PropTypes.func,
-  getCountryLabel: PropTypes.func,
-};
 
 export default LocationItem;

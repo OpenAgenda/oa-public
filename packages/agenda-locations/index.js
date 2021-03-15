@@ -19,9 +19,15 @@ const imageVariants = require('./lib/imageVariants');
 const getSet = require('./sets/get');
 const createSet = require('./sets/create');
 
+const getSettings = require('./settings/get');
+
 const sets = {
   get: getSet,
   create: createSet,
+};
+
+const settings = {
+  get: getSettings,
 };
 
 module.exports = Object.assign(
@@ -40,10 +46,11 @@ module.exports = Object.assign(
         schema: 'location',
         setSchema: 'location_set',
         interfaces: {
-          getAgendaDetailsByUid: async () => null, // takes uid
+          getAgendaDetailsByUid: async () => null, // takes uid, returns an obj with a locationSetUid key
           getEventCounts: async () => [], // takes identifiers, locationUids
           beforeMerge: async () => {}, // takes mergeIn, mergedLocations
           beforeRemove: async () => {}, // takes location
+          getAgendaLocationSettings: async () => {},
           onUpdate: null,
         },
       }
@@ -85,44 +92,54 @@ module.exports = Object.assign(
       get: sets.get.bind(null, service),
     };
 
-    const setEndpoints = Object.assign(
-      setUid => ({
+    const setEndpoints = Object.assign(setUid => {
+      const svc = { ...service, getSettings: settings.get.bySetUid.bind(null, service, setUid) };
+      return {
         locations: {
-          create: create.bySetUid.bind(null, service, setUid),
-          get: get.bySetUid.bind(null, service, setUid),
-          list: list.bySetUid.bind(null, service, setUid),
-          merge: merge.bySetUid.bind(null, service, setUid),
-          patch: update.bySetUid.bind(null, { service, isPatch: true }, setUid),
-          terms: terms.bySetUid.bind(null, service, setUid),
-          remove: remove.bySetUid.bind(null, service, setUid),
+          create: create.bySetUid.bind(null, svc, setUid),
+          get: get.bySetUid.bind(null, svc, setUid),
+          list: list.bySetUid.bind(null, svc, setUid),
+          merge: merge.bySetUid.bind(null, svc, setUid),
+          patch: update.bySetUid.bind(null, { service: svc, isPatch: true }, setUid),
+          terms: terms.bySetUid.bind(null, svc, setUid),
+          remove: remove.bySetUid.bind(null, svc, setUid),
           update: update.bySetUid.bind(
             null,
-            { service, isPatch: false },
+            { service: svc, isPatch: false },
             setUid
           ),
         },
-      }),
-      service.sets
-    );
+        settings: {
+          get: settings.get.bySetUid.bind(null, svc, setUid),
+        }
+      };
+    }, service.sets);
 
-    const agendaEndpoints = agendaUid => ({
-      create: create.byAgendaUid.bind(null, service, agendaUid),
-      update: update.byAgendaUid.bind(
-        null,
-        { service, isPatch: false },
-        agendaUid
-      ),
-      patch: update.byAgendaUid.bind(
-        null,
-        { service, isPatch: true },
-        agendaUid
-      ),
-      remove: remove.byAgendaUid.bind(null, service, agendaUid),
-      list: list.byAgendaUid.bind(null, service, agendaUid),
-      terms: terms.byAgendaUid.bind(null, service, agendaUid),
-      merge: merge.byAgendaUid.bind(null, service, agendaUid),
-      get: get.byAgendaUid.bind(null, service, agendaUid),
-    });
+    const agendaEndpoints = agendaUid => {
+      const svc = { ...service, getSettings: settings.get.byAgendaUid.bind(null, service, agendaUid) };
+
+      return {
+        create: create.byAgendaUid.bind(null, svc, agendaUid),
+        update: update.byAgendaUid.bind(
+          null,
+          { service: svc, isPatch: false },
+          agendaUid
+        ),
+        patch: update.byAgendaUid.bind(
+          null,
+          { service: svc, isPatch: true },
+          agendaUid
+        ),
+        remove: remove.byAgendaUid.bind(null, svc, agendaUid),
+        list: list.byAgendaUid.bind(null, svc, agendaUid),
+        terms: terms.byAgendaUid.bind(null, svc, agendaUid),
+        merge: merge.byAgendaUid.bind(null, svc, agendaUid),
+        get: get.byAgendaUid.bind(null, svc, agendaUid),
+        settings: {
+          get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
+        },
+      };
+    };
 
     return Object.assign(agendaEndpoints, {
       get: get.bind(null, service),

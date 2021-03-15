@@ -15,6 +15,7 @@ const Files = require('@openagenda/files');
 const multer = require('multer');
 
 const fixtures = require('./test/fixtures');
+const Service = require('.');
 
 (async () => {
   const f = fixtures({
@@ -31,7 +32,7 @@ const fixtures = require('./test/fixtures');
 
   const server = http.createServer(app);
 
-  const svc = require('.')({
+  const svc = Service({
     knex: f.client,
     redis: redis.createClient(),
     Files: Files({
@@ -54,12 +55,12 @@ const fixtures = require('./test/fixtures');
         {
           uid: 60763721,
           eventCount: 12,
-          agendaEventCount: 8,
+          agendaEventCount: 1,
         },
         {
           uid: 51665985,
-          eventCount: 9,
-          agendaEventCount: 2,
+          eventCount: 1,
+          agendaEventCount: 1,
         },
       ],
     },
@@ -123,6 +124,11 @@ const fixtures = require('./test/fixtures');
     ],
   }));
 
+  app.get('/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
+    ({ total }) => res.json({ count: total }),
+    next
+  ));
+
   app.get('/insee', (req, res, next) => svc.utils
     .getINSEECode(
       _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
@@ -155,9 +161,11 @@ const fixtures = require('./test/fixtures');
   });
 
   app.get('/:locationUid', (req, res, next) => {
+    log('get for %s detailed %s', req.params.locationUid, req.query.detailed);
     svc(7196947)
       .get(req.params.locationUid, {
         includeImagePath: true,
+        eventCounts: req.query.detailed === '1'
       })
       .then(location => res.json(location), next);
   });

@@ -2,15 +2,18 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('update');
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
 const cleanOptions = require('./lib/cleanSetOptions');
 const get = require('./get');
 const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
-const NotFoundError = require('./lib/NotFoundError');
+const allow = require('./lib/AllowAction');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
+
+  await allow(service, 'update', current.uid);
 
   const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
 

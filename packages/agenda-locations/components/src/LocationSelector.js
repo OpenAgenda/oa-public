@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
+import debug from 'debug';
 import labels from '@openagenda/labels/agenda-locations/selector';
 import createLabels from '@openagenda/labels/agenda-locations/create';
 import LocationForm from './LocationForm';
@@ -9,91 +8,110 @@ import LocationSearch from './LocationSearch';
 import LocationConfirmation from './LocationConfirmation';
 import CreateFormHeader from './CreateFormHeader';
 
+const log = debug('LocationSelector');
+
 class LocationSelector extends Component {
   static defaultProps = {
     mode: 'create',
     enableGeocode: true,
+    disableChange: false,
+    allowCreate: true,
+    confirmRequired: false,
+    detailedInfo: false,
     settings: {
       eventForm: {
         detailed: false,
       },
     },
-    disableChange: false,
-    allowCreate: true,
-    confirmRequired: false,
-    detailedInfo: false,
   };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: '',
-    };
+    // Binding
+    this.onConfirm = this.onConfirm.bind(this);
+    this.switchToSearch = this.switchToSearch.bind(this);
+    this.getLabel = this.getLabel.bind(this);
+    this.onCreateRequest = this.onCreateRequest.bind(this);
+    //this.onSelect = this.onSelect.bind(this, false);
+  }
+
+  onSelect(confirmRequired, location) {
+    log('onSelect location:', location);
+    const { onChange } = this.props;
+    onChange(confirmRequired ? 'confirm' : 'show', location);
+  }
+
+  onConfirm() {
+    const { onChange, location } = this.props;
+    onChange('show', location);
+  }
+
+  onCreateRequest(value) {
+    const { onChange } = this.props;
+    onChange('create', { name: value });
   }
 
   getLabel(name, values) {
+    const { lang } = this.props;
     const label = labels[name];
 
-    let str = _.get(label, this.props.lang, label[_.first(_.keys(label))]);
+    let str = _.get(label, lang, label[_.first(_.keys(label))]);
     let k;
 
     if (values) {
       for (k in values) {
-        str = str.replace(k, values[k]);
+        if (Object.prototype.hasOwnProperty.call(values, k)) {
+          str = str.replace(k, values[k]);
+        }
       }
     }
 
     return str;
   }
 
-  onSelect(confirmRequired, location) {
-    this.props.onChange(confirmRequired ? 'confirm' : 'show', location);
-  }
-
-  onConfirm() {
-    this.props.onChange('show', this.props.location);
-  }
-
-  onCreateRequest(value) {
-    this.props.onChange('create', { name: value });
-  }
-
   switchToSearch() {
-    this.props.onChange('search');
+    const { onChange } = this.props;
+    onChange('search');
   }
 
   renderConfirmation() {
+    const {
+      res, lang, location, mapboxKey, settings
+    } = this.props;
     return (
       <LocationConfirmation
-        res={this.props.res}
-        lang={this.props.lang}
-        location={this.props.location}
-        mapboxKey={this.props.mapboxKey}
-        settings={this.props.settings}
-        onConfirm={this.onConfirm.bind(this)}
-        onCancel={this.switchToSearch.bind(this)}
+        res={res}
+        lang={lang}
+        location={location}
+        mapboxKey={mapboxKey}
+        settings={settings}
+        onConfirm={this.onConfirm}
+        onCancel={this.switchToSearch}
       />
     );
   }
 
   renderSelected() {
+    const { location, disableChange } = this.props;
+    log('renderSelected location', location);
     return (
       <div className="selected-location">
-        {!this.props.disableChange ? (
+        {!disableChange ? (
           <div className="actions">
-            <a
-              onClick={this.switchToSearch.bind(this)}
+            <button
+              type="button"
+              onClick={this.switchToSearch}
               className="btn btn-default"
             >
-              {this.getLabel(this.props.location ? 'change' : 'find')}
-            </a>
+              {this.getLabel(location ? 'change' : 'find')}
+            </button>
           </div>
         ) : null}
-        {this.props.location ? (
+        {location ? (
           <div>
-            <div className="name">{this.props.location.name}</div>
-            <div className="address">{this.props.location.address}</div>
+            <div className="name">{location.name}</div>
+            <div className="address">{location.address}</div>
           </div>
         ) : (
           <div>
@@ -105,57 +123,67 @@ class LocationSelector extends Component {
   }
 
   renderSearch() {
+    const {
+      location, res, lang, allowCreate
+    } = this.props;
     const confirmRequired = !!_.get(this.props, 'confirmRequired');
+    const onSelect = this.onSelect.bind(this, confirmRequired);
     return (
       <LocationSearch
-        init={this.props.location ? this.props.location.name : ''}
-        getLabel={this.getLabel.bind(this)}
-        res={this.props.res}
-        lang={this.props.lang}
-        onSelect={this.onSelect.bind(this, confirmRequired)}
-        allowCreate={this.props.allowCreate}
-        onCreateRequest={this.onCreateRequest.bind(this)}
+        init={location ? location.name : ''}
+        lang={lang}
+        res={res}
+        allowCreate={allowCreate}
+        getLabel={this.getLabel}
+        onCreateRequest={this.onCreateRequest}
+        onSelect={onSelect}
       />
     );
   }
 
   renderHeader() {
+    const { settings, lang } = this.props;
     return (
-      <CreateFormHeader settings={this.props.settings} lang={this.props.lang} />
+      <CreateFormHeader settings={settings} lang={lang} />
     );
   }
 
   renderCreateForm() {
+    const {
+      res, settings, lang, location, detailedInfo, enableGeocode
+    } = this.props;
+    const onSelect = this.onSelect.bind(this, false);
     return (
       <LocationForm
-        postRes={this.props.res.create}
         Header={this.renderHeader()}
-        settings={this.props.settings}
-        detailedInfo={
-          (this.props.settings.eventForm &&
-            this.props.settings.eventForm.detailed) ||
-          this.props.detailedInfo
-        }
-        res={this.props.res}
-        enableGeocode={this.props.enableGeocode}
-        lang={this.props.lang}
-        onCancel={this.switchToSearch.bind(this)}
-        onSuccess={this.onSelect.bind(this, false)}
         labels={createLabels}
-        location={this.props.location}
+        res={res}
+        lang={lang}
+        location={location}
+        detailedInfo={
+          (settings.eventForm
+            && settings.eventForm.detailed)
+            || detailedInfo
+        }
+        settings={settings}
+        onCancel={this.switchToSearch}
+        onSuccess={onSelect}
+        enableGeocode={enableGeocode}
+        postRes={res.create}
       />
     );
   }
 
   render() {
     const { mode } = this.props;
+    log('render mode:', mode);
 
     const renderComponent = () => {
       if (mode === 'search') {
         return this.renderSearch();
-      } else if (mode === 'create') {
+      } if (mode === 'create') {
         return this.renderCreateForm();
-      } else if (mode === 'confirm') {
+      } if (mode === 'confirm') {
         return this.renderConfirmation();
       }
       return this.renderSelected();

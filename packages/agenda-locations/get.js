@@ -1,13 +1,13 @@
 'use strict';
 
 const log = require('@openagenda/logs')('get');
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
-const NotFoundError = require('./lib/NotFoundError');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 async function get(service, identifiers, options = {}) {
@@ -27,7 +27,6 @@ async function get(service, identifiers, options = {}) {
   });
 
   addSelect(k, 'public', { first: true, includeFields });
-
   const location = await k.then(l => (l
     ? fromDbEntryToItem(l, {
       includeFields,

@@ -1,48 +1,64 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import utils from '@openagenda/utils';
-import createLabels from '@openagenda/labels/agenda-locations/create';
 import formLabels from '@openagenda/labels/agenda-locations/form';
-import makeLabelGetter from '@openagenda/labels';
+import createLabels from '@openagenda/labels/agenda-locations/create';
 import LocationForm from './LocationForm';
 import CreateFormHeader from './CreateFormHeader';
 
-const getLabel = makeLabelGetter({ ...formLabels, ...createLabels });
+const labels = {
+  ...formLabels,
+  ...createLabels
+};
 
-module.exports = createReactClass({
-  propTypes: {
-    lang: PropTypes.string,
+class CreateForm extends Component {
+  static propTypes = {
+    lang: PropTypes.string.isRequired,
+    enableGeocode: PropTypes.bool.isRequired,
     actions: PropTypes.object,
     res: PropTypes.object,
     settings: PropTypes.object,
-  },
+  }
   renderHeader() {
+    const {
+      settings,
+      actions,
+      lang
+    } = this.props;
     return (
       <CreateFormHeader
-        settings={this.props.settings}
-        actions={this.props.actions}
-        lang={this.props.lang}
+        settings={settings}
+        actions={actions}
+        lang={lang}
       />
     );
-  },
+  }
 
   render() {
+    const {
+      res,
+      enableGeocode,
+      lang,
+      actions,
+      detailedInfo,
+      settings
+    } = this.props;
     return (
       <LocationForm
-        postRes={this.props.res.create}
         Header={this.renderHeader()}
-        location={null}
-        enableGeocode={this.props.enableGeocode}
-        labels={createLabels}
+        labels={labels}
         showToggler={false}
-        res={this.props.res}
-        lang={this.props.lang}
-        onCancel={this.props.actions.closeForm}
-        onSuccess={this.props.actions.addLocation}
-        detailedInfo={this.props.detailedInfo}
-        settings={this.props.settings}
+        res={res}
+        lang={lang}
+        location={null}
+        detailedInfo={detailedInfo}
+        settings={settings}
+        onCancel={actions.closeForm}
+        onSuccess={actions.addLocation}
+        enableGeocode={enableGeocode}
+        postRes={res.create}
       />
     );
-  },
-});
+  }
+}
+
+export default CreateForm;

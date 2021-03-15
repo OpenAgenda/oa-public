@@ -2,14 +2,16 @@
 
 const log = require('@openagenda/logs')('merge');
 
-const BadRequestError = require('./lib/BadRequestError');
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 const list = require('./list');
 const get = require('./get');
 const update = require('./update');
 const remove = require('./remove');
+const allow = require('./lib/AllowAction');
 
 async function merge(service, mergeInItem, items, data = {}) {
   log('received %j', items);
+  await allow(service, 'merge', mergeInItem.uid);
 
   const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
 

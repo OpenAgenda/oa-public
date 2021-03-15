@@ -1,35 +1,44 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import debug from 'debug';
+import { Spinner } from '@openagenda/react-components';
+import SearchField from './List/SearchField';
+import List from './List/List';
 
-var React = require('react');
-var PropTypes = require('prop-types');
-var createReactClass = require('create-react-class');
-var { Spinner } = require('@openagenda/react-components');
-var SearchField = require('./List/SearchField');
-var List = require('./List/List');
+const log = debug('LocationSearch');
 
-module.exports = createReactClass({
-  propTypes: {
-    lang: PropTypes.string,
+class LocationSearch extends React.Component {
+  static propTypes = {
+    init: PropTypes.string.isRequired,
+    allowCreate: PropTypes.bool.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    onCreateRequest: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
+  };
 
-    onCreateRequest: PropTypes.func,
-
-    onSelect: PropTypes.func,
-
-    getLabel: PropTypes.func,
-
-    allowCreate: PropTypes.bool,
-  },
-
-  getInitialState() {
-    return {
-      query: this.props.init ? { search: this.props.init } : {},
+  constructor(props) {
+    super(props);
+    const {
+      init
+    } = this.props;
+    this.state = {
+      query: init ? { search: init } : {},
       showDropdown: false,
       loading: false,
       page: 1,
       total: null,
       locations: [],
     };
-  },
+    // Binding
+    this.renderEmpty = this.renderEmpty.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+    this.renderCreateItem = this.renderCreateItem.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.triggerClose = this.triggerClose.bind(this);
+    this.onListLoaded = this.onListLoaded.bind(this);
+    this.onListLoading = this.onListLoading.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+  }
 
   /**
    * click outside the component means the dropdown
@@ -41,7 +50,7 @@ module.exports = createReactClass({
     this['location-search'].addEventListener('click', this.preemptClose);
 
     bodyElem.addEventListener('click', this.triggerClose);
-  },
+  }
 
   componentWillUnmount() {
     const bodyElem = document.getElementsByTagName('body')[0];
@@ -49,7 +58,34 @@ module.exports = createReactClass({
     bodyElem.removeEventListener('click', this.triggerClose);
 
     this['location-search'].removeEventListener('click', this.preemptClose);
-  },
+  }
+
+  onSearchChange(value) {
+    this.setState({
+      query: { search: value },
+    });
+  }
+
+  onFocus(value) {
+    this.setState({
+      query: { search: value },
+      showDropdown: true,
+    });
+  }
+
+  onListLoading() {
+    this.setState({
+      loading: true,
+      showDropdown: false,
+    });
+  }
+
+  onListLoaded() {
+    this.setState({
+      loading: false,
+      showDropdown: true,
+    });
+  }
 
   triggerClose() {
     if (!this.closePreempted) {
@@ -57,43 +93,17 @@ module.exports = createReactClass({
     }
 
     this.closePreempted = false;
-  },
+  }
 
   preemptClose() {
     this.closePreempted = true;
-  },
-
-  onSearchChange(value) {
-    this.setState({
-      query: { search: value },
-    });
-  },
-
-  onFocus(value) {
-    this.setState({
-      query: { search: value },
-      showDropdown: true,
-    });
-  },
-
-  onListLoading() {
-    this.setState({
-      loading: true,
-      showDropdown: false,
-    });
-  },
-
-  onListLoaded(total) {
-    this.setState({
-      loading: false,
-      showDropdown: true,
-    });
-  },
+  }
 
   renderItem(l) {
+    const { onSelect } = this.props;
     return (
       <li
-        onClick={this.props.onSelect.bind(null, l)}
+        onClick={onSelect.bind(null, l)}
         className="search-item"
         key={l.uid}
       >
@@ -101,69 +111,96 @@ module.exports = createReactClass({
         <div className="address">{l.address}</div>
       </li>
     );
-  },
+  }
 
   renderCreateItem() {
+    const {
+      query
+    } = this.state;
+
+    const {
+      getLabel,
+      onCreateRequest
+    } = this.props;
+
     return (
       <li
         className="search-item"
-        onClick={this.props.onCreateRequest.bind(null, this.state.query.search)}
+        onClick={onCreateRequest.bind(null, query.search)}
       >
-        <a>{this.props.getLabel('create')}</a>
+        <a>{getLabel('create')}</a>
       </li>
     );
-  },
+  }
 
   renderEmpty() {
+    const {
+      getLabel
+    } = this.props;
     return (
-      <li className="no-search-result">{this.props.getLabel('noresult')}</li>
+      <li className="no-search-result">{getLabel('noresult')}</li>
     );
-  },
+  }
 
   render() {
-    const self = this;
+    const {
+      loading,
+      query,
+      showDropdown,
+      locations,
+      page,
+      total,
+    } = this.state;
+
+    const {
+      getLabel,
+      res,
+      allowCreate
+    } = this.props;
 
     return (
       <div
         ref={r => (this['location-search'] = r)}
-        className={this.state.showDropdown ? 'dropdown open' : 'dropdown'}
+        className={showDropdown ? 'dropdown open' : 'dropdown'}
       >
         <SearchField
           name="name"
-          loading={this.state.loading}
-          value={this.state.query.search}
+          loading={loading}
+          value={query.search}
           onFocus={this.onFocus}
-          placeholder={this.props.getLabel('namePlaceholder')}
+          placeholder={getLabel('namePlaceholder')}
           onChange={this.onSearchChange}
         />
-        {this.state.loading ? (
+        {loading ? (
           <Spinner
             mode="inline"
             loading
-            message={this.props.getLabel('searching')}
+            message={getLabel('searching')}
           />
         ) : null}
         <List
-          items={this.state.locations}
-          page={this.state.page}
-          total={this.state.total}
+          items={locations}
+          page={page}
+          total={total}
           onItemsUpdate={(locations, total, page) => {
             this.setState({ locations, total, page });
           }}
           limit={10}
           dropdownMode
-          res={this.props.res.index}
-          query={this.state.query}
+          res={res.index}
+          query={query}
           renderItem={this.renderItem}
           renderHead={this.renderHead}
           renderEmpty={this.renderEmpty}
           renderBottom={
-            this.props.allowCreate ? this.renderCreateItem : () => {}
+            allowCreate ? this.renderCreateItem : () => {}
           }
           onLoaded={this.onListLoaded}
           onLoading={this.onListLoading}
         />
       </div>
     );
-  },
-});
+  }
+}
+
+export default LocationSearch;

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import sa from 'superagent';
 
 export default (res, values, cb) => {

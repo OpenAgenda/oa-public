@@ -1,69 +1,92 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import xhr from 'xhr';
 import Select from 'react-select';
 
-export default createReactClass({
-  propTypes: {
+class TermSelector extends React.Component {
+  static defaultProps = {
+    lang: 'en',
+    placeholder: null
+  };
+
+  static propTypes = {
+    placeholder: PropTypes.string,
     // interface language
     lang: PropTypes.string,
-
     // currently selected term
-    //value: PropTypes.obj,
-
+    value: PropTypes.string.isRequired,
     // field from which to extract terms
     // for more than one field, comma-separate.
     field: PropTypes.string.isRequired,
-
     // ressource to fetch terms
-    res: PropTypes.string,
-
+    res: PropTypes.string.isRequired,
     // callback to go to when change is made
-    onChange: PropTypes.func,
-  },
+    onChange: PropTypes.func.isRequired,
+  };
 
-  getDefaultProps() {
-    return {
-      lang: 'en',
+  constructor(props) {
+    super(props);
+    this.state = {
+      terms: []
     };
-  },
-
-  getInitialState() {
-    return {
-      terms: [],
-    };
-  },
-
-  componentWillReceiveProps({ field }) {
-    if (this.props.field == field) return;
-
-    this.setState({ terms: [] });
-  },
-
-  componentDidUpdate({ field }, prevState) {
-    if (this.props.field == field) return;
-
-    this.fetchTerms();
-  },
+  }
 
   componentDidMount() {
     this.fetchTerms();
-  },
+  }
+
+  UNSAFE_componentWillReceiveProps({ field }) {
+    const { field: pField } = this.props;
+    if (pField === field) return;
+
+    this.setState({ terms: [] });
+  }
+
+  componentDidUpdate({ field }) {
+    const { field: pField } = this.props;
+    if (pField === field) return;
+
+    this.fetchTerms();
+  }
+
+  onChange(index) {
+    const { onChange } = this.props;
+    const { terms } = this.state;
+    onChange(terms[index]);
+  }
+
+  getTermIndex(value) {
+    const { terms } = this.state;
+    if (!value) return null;
+
+    return terms.findIndex(t => {
+      let found = false;
+
+      for (const k in t) {
+        if (
+          !['country', 'countryCode'].includes(k)
+          && (typeof value === 'string' ? value : value[k]) === t[k]
+        ) {
+          found = true;
+        }
+      }
+
+      return found;
+    });
+  }
 
   fetchTerms() {
-    const self = this;
-
+    const { res, field } = this.props;
     xhr(
       {
         json: true,
-        uri: `${this.props.res}?field=${this.props.field}`,
+        uri: `${res}?field=${field}`,
       },
       (err, { body }) => {
         if (err) return;
 
-        const firstTerm = self.props.field.split(',')[0];
+        const firstTerm = field.split(',')[0];
 
         const sortedTerms = body.terms.sort((a, b) => {
           if (a[firstTerm] > b[firstTerm]) {
@@ -78,52 +101,28 @@ export default createReactClass({
           return 0;
         });
 
-        self.setState({
+        this.setState({
           terms: sortedTerms,
         });
       }
     );
-  },
-
-  onChange(index) {
-    this.props.onChange(this.state.terms[index]);
-  },
-
-  getTermIndex(value) {
-    if (!value) return null;
-
-    return this.state.terms.findIndex(t => {
-      let found = false;
-
-      for (const k in t) {
-        if (
-          !['country', 'countryCode'].includes(k) &&
-          (typeof value === 'string' ? value : value[k]) === t[k]
-        ) {
-          found = true;
-        }
-      }
-
-      return found;
-    });
-  },
+  }
 
   termOption(term, index) {
     const option = {
       value: index,
       label: '',
     };
-
+    const { field: pField, lang } = this.props;
     const labelParts = [];
-    const self = this;
 
-    this.props.field.split(',').forEach(field => {
+    pField.split(',').forEach(field => {
       // country is specific as it is multilingual
-      if (field == 'country') {
+      if (field === 'country') {
         labelParts.push(
           _.get(
             term.country,
-            self.props.lang,
+            lang,
             term.country[_.first(_.keys(term.country))]
           )
         );
@@ -135,11 +134,11 @@ export default createReactClass({
     option.label = labelParts.join(', ');
 
     return option;
-  },
+  }
 
   render() {
-    const self = this;
-
+    const { value: pValue, placeholder } = this.props;
+    const { terms } = this.state;
     const selectStyles = {
       container: provided => ({
         ...provided,
@@ -152,24 +151,25 @@ export default createReactClass({
         borderLeft: 'none',
       }),
     };
-    const options = this.state.terms.map((t, i) => self.termOption(t, i));
+    const options = terms.map((t, i) => this.termOption(t, i));
     const value = options.find(
-      option =>
-        option.value ===
-        (this.getTermIndex(this.props.value) || this.props.value)
+      option => option.value
+        === (this.getTermIndex(pValue) || pValue)
     );
 
     return (
       <div className="terms-selector">
         <Select
           styles={selectStyles}
-          placeholder={this.props.placeholder || null}
+          placeholder={placeholder || null}
           value={value}
           options={options}
           onChange={value => this.onChange(value ? value.value : value)}
-          clearable={true}
+          clearable
         />
       </div>
     );
-  },
-});
+  }
+}
+
+export default TermSelector;

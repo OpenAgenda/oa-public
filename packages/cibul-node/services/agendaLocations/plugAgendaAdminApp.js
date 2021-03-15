@@ -14,7 +14,6 @@ const layout = require( '../lib/layouts' ).load(
 
 const {
   loadLocation,
-  getLocationSettings,
   getLocationSet,
   parseDataWithImageStream
 } = require('./lib/middleware');
@@ -37,10 +36,8 @@ module.exports = (config, services, instance, app, base) => {
  );
 
   app.get(base,
-    getLocationSettings,
     getLocationSet(instance),
     (req, res, next) => {
-
       res.send(layout('<div class="js_canvas"></div>', {
         role: req.member.role,
         lang: req.lang,
@@ -49,7 +46,7 @@ module.exports = (config, services, instance, app, base) => {
           name: 'data-options',
           value: JSON.stringify({
             detailedInfo: _.get(req, 'locationLegacySettings.admin.detailed', true),
-            settings: req.locationLegacySettings,
+            settings: req.settings,
             lang: req.lang,
             enableGeocode: true,
             agenda: {
@@ -133,7 +130,8 @@ module.exports = (config, services, instance, app, base) => {
     expressUtils.https,
     (req, res, next) => {
       instance.get(req.params.locationUid, {
-        includeImagePath: true
+        includeImagePath: true,
+        eventCounts: true,
       }).then(location => res.json(location), next);
     }
  );

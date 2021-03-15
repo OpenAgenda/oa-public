@@ -1,32 +1,30 @@
-import createReactClass from 'create-react-class';
-import React from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 
-import countries from '@openagenda/countries/labels.js';
+import countries from '@openagenda/countries/labels';
 
-module.exports = createReactClass({
-  getDefaultProps() {
-    return {
-      enabled: true,
-    };
-  },
-
-  extractCountryNames() {
-    return countries.map(c => {
-      return {
-        value: c.code,
-        label: c[this.props.lang],
-      };
-    });
-  },
+class CountryField extends Component {
+  static defaultProps = {
+    enabled: true,
+  };
 
   onChange(code) {
-    this.props.onChange('countryCode', code);
-  },
+    const { onChange } = this.props;
+    onChange('countryCode', code);
+  }
+
+  extractCountryNames() {
+    const { lang } = this.props;
+    return countries.map(c => ({
+      value: c.code,
+      label: c[lang],
+    }));
+  }
 
   render() {
+    const { enabled, getLabel, value: pValue } = this.props;
     const options = this.extractCountryNames();
-    const value = options.find(option => option.value === this.props.value);
+    const value = options.find(option => option.value === pValue);
 
     const selectStyles = {
       menu: provided => ({
@@ -38,15 +36,15 @@ module.exports = createReactClass({
     return (
       <div
         className={
-          this.props.enabled
+          enabled
             ? 'form-group country'
             : 'form-group country disabled'
         }
       >
-        <label>{this.props.getLabel('country')}</label>
+        <label htmlFor="Country">{getLabel('country')}</label>
         <Select
           styles={selectStyles}
-          disabled={!this.props.enabled}
+          disabled={!enabled}
           options={options}
           value={value}
           onChange={value => this.onChange(value ? value.value : value)}
@@ -54,5 +52,7 @@ module.exports = createReactClass({
         />
       </div>
     );
-  },
-});
+  }
+}
+
+export default CountryField;
