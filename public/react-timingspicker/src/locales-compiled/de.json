@@ -1,0 +1,644 @@
+{
+  "rtp.defineTiming": [
+    {
+      "type": 0,
+      "value": "Klicken und ziehen Sie auf das Gitter, um einen Zeitplan zu definieren"
+    }
+  ],
+  "rtp.definedTimings": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Keine definierte Zeit"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " definierte Zeit"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " definierte Zeiten"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": []
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "das "
+            },
+            {
+              "style": "short",
+              "type": 3,
+              "value": "when"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    }
+  ],
+  "rtp.definedTimingsInRange": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Keine definierte Zeit"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " definierte Zeit"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " definierte Zeiten"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": []
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "das "
+            },
+            {
+              "style": "short",
+              "type": 3,
+              "value": "when"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    }
+  ],
+  "rtp.editForm.adjust": [
+    {
+      "type": 0,
+      "value": "Adjust"
+    }
+  ],
+  "rtp.editForm.endNotAfterBegin": [
+    {
+      "type": 0,
+      "value": "Das Ende muss nach dem Anfang liegen"
+    }
+  ],
+  "rtp.editForm.endTime": [
+    {
+      "type": 0,
+      "value": "Endzeit"
+    }
+  ],
+  "rtp.editForm.invalidTime": [
+    {
+      "type": 0,
+      "value": "UngültigeZeit"
+    }
+  ],
+  "rtp.editForm.openRecurrencerModal": [
+    {
+      "type": 0,
+      "value": "Definieren Sie einen wiederkehrenden Zeitplan"
+    }
+  ],
+  "rtp.editForm.startTime": [
+    {
+      "type": 0,
+      "value": "Startzeit"
+    }
+  ],
+  "rtp.editForm.title": [
+    {
+      "type": 0,
+      "value": "Zeitplan bearbeiten"
+    }
+  ],
+  "rtp.multiRecurrencerForm.after": [
+    {
+      "type": 0,
+      "value": "Nachher"
+    }
+  ],
+  "rtp.multiRecurrencerForm.confirmation": [
+    {
+      "type": 0,
+      "value": "Wiederkehrende Zeitpläne wurden hinzugefügt"
+    }
+  ],
+  "rtp.multiRecurrencerForm.countTooSmall": [
+    {
+      "type": 0,
+      "value": "Das Konto muss größer als 0 sein"
+    }
+  ],
+  "rtp.multiRecurrencerForm.day": [
+    {
+      "type": 0,
+      "value": "Tag"
+    }
+  ],
+  "rtp.multiRecurrencerForm.endBeforeStart": [
+    {
+      "type": 0,
+      "value": "Das Ende muss nach dem Anfang liegen"
+    }
+  ],
+  "rtp.multiRecurrencerForm.ends": [
+    {
+      "type": 0,
+      "value": "Endet"
+    }
+  ],
+  "rtp.multiRecurrencerForm.everyMonthByDate": [
+    {
+      "type": 0,
+      "value": "Jeden Monat an den gleichen Daten"
+    }
+  ],
+  "rtp.multiRecurrencerForm.everyMonthByWeekday": [
+    {
+      "type": 0,
+      "value": "Every month week by week"
+    }
+  ],
+  "rtp.multiRecurrencerForm.forceSubmit": [
+    {
+      "type": 0,
+      "value": "Trotzdem erstellen"
+    }
+  ],
+  "rtp.multiRecurrencerForm.intervalTooSmall": [
+    {
+      "type": 0,
+      "value": "Das Intervall muss größer als 0 sein"
+    }
+  ],
+  "rtp.multiRecurrencerForm.invalidDate": [
+    {
+      "type": 0,
+      "value": "Ungültiges Enddatum"
+    }
+  ],
+  "rtp.multiRecurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Invalid frequence"
+    }
+  ],
+  "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": [
+    {
+      "type": 0,
+      "value": "Ungültiger Monats-Intervall-Typ"
+    }
+  ],
+  "rtp.multiRecurrencerForm.month": [
+    {
+      "type": 0,
+      "value": "Monat"
+    }
+  ],
+  "rtp.multiRecurrencerForm.monthlyCount": [
+    {
+      "type": 0,
+      "value": "Monat"
+    }
+  ],
+  "rtp.multiRecurrencerForm.occurrences": [
+    {
+      "type": 0,
+      "value": "Vorkommen"
+    }
+  ],
+  "rtp.multiRecurrencerForm.repeatEvery": [
+    {
+      "type": 0,
+      "value": "Alles wiederholen"
+    }
+  ],
+  "rtp.multiRecurrencerForm.repeatThe": [
+    {
+      "type": 0,
+      "value": "Wiederholen Sie die"
+    }
+  ],
+  "rtp.multiRecurrencerForm.someDisabledValues": [
+    {
+      "type": 0,
+      "value": "Einige Werte sind deaktiviert"
+    }
+  ],
+  "rtp.multiRecurrencerForm.submit": [
+    {
+      "type": 0,
+      "value": "Anwenden"
+    }
+  ],
+  "rtp.multiRecurrencerForm.the": [
+    {
+      "type": 0,
+      "value": "die"
+    }
+  ],
+  "rtp.multiRecurrencerForm.title": [
+    {
+      "type": 0,
+      "value": "Definieren Sie eine Wiederholung"
+    }
+  ],
+  "rtp.multiRecurrencerForm.week": [
+    {
+      "type": 0,
+      "value": "Woche"
+    }
+  ],
+  "rtp.multiRecurrencerForm.weeklyCount": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "semaine"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "semaines"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "}"
+    }
+  ],
+  "rtp.recurrencerForm.after": [
+    {
+      "type": 0,
+      "value": "Nachher"
+    }
+  ],
+  "rtp.recurrencerForm.confirmation": [
+    {
+      "type": 0,
+      "value": "Wiederkehrende Zeitpläne wurden hinzugefügt"
+    }
+  ],
+  "rtp.recurrencerForm.countTooSmall": [
+    {
+      "type": 0,
+      "value": "Das Konto muss größer als 0 sein"
+    }
+  ],
+  "rtp.recurrencerForm.dailyCount": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Tag"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Tagen"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rtp.recurrencerForm.day": [
+    {
+      "type": 0,
+      "value": "Tag"
+    }
+  ],
+  "rtp.recurrencerForm.endBeforeStart": [
+    {
+      "type": 0,
+      "value": "Das Ende muss nach dem Anfang liegen"
+    }
+  ],
+  "rtp.recurrencerForm.ends": [
+    {
+      "type": 0,
+      "value": "Endet"
+    }
+  ],
+  "rtp.recurrencerForm.everyMonthByDate": [
+    {
+      "type": 0,
+      "value": "Jede "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": "te"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            }
+          ]
+        }
+      },
+      "pluralType": "ordinal",
+      "type": 6,
+      "value": "dayNumber"
+    },
+    {
+      "type": 0,
+      "value": " des Monats"
+    }
+  ],
+  "rtp.recurrencerForm.everyMonthByWeekday": [
+    {
+      "type": 0,
+      "value": "Jede "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": "te"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": "te"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": "te"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": "te"
+            }
+          ]
+        }
+      },
+      "pluralType": "ordinal",
+      "type": 6,
+      "value": "weekNumber"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "weekday"
+    },
+    {
+      "type": 0,
+      "value": " des Monats"
+    }
+  ],
+  "rtp.recurrencerForm.forceSubmit": [
+    {
+      "type": 0,
+      "value": "Trotzdem erstellen"
+    }
+  ],
+  "rtp.recurrencerForm.intervalTooSmall": [
+    {
+      "type": 0,
+      "value": "Das Intervall muss größer als 0 sein"
+    }
+  ],
+  "rtp.recurrencerForm.invalidDate": [
+    {
+      "type": 0,
+      "value": "Ungültiges Enddatum"
+    }
+  ],
+  "rtp.recurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Invalid frequence"
+    }
+  ],
+  "rtp.recurrencerForm.invalidMonthlyIntervalType": [
+    {
+      "type": 0,
+      "value": "Ungültiger Monats-Intervall-Typ"
+    }
+  ],
+  "rtp.recurrencerForm.month": [
+    {
+      "type": 0,
+      "value": "Monat"
+    }
+  ],
+  "rtp.recurrencerForm.monthlyCount": [
+    {
+      "type": 0,
+      "value": "Monat"
+    }
+  ],
+  "rtp.recurrencerForm.repeatEvery": [
+    {
+      "type": 0,
+      "value": "Alle wiederholen"
+    }
+  ],
+  "rtp.recurrencerForm.repeatThe": [
+    {
+      "type": 0,
+      "value": "Wiederholen Sie die"
+    }
+  ],
+  "rtp.recurrencerForm.someDisabledValues": [
+    {
+      "type": 0,
+      "value": "Einige Zeitpläne sind bereits in Gebrauch oder nicht zur Eingabe geöffnet:"
+    }
+  ],
+  "rtp.recurrencerForm.submit": [
+    {
+      "type": 0,
+      "value": "Anwenden"
+    }
+  ],
+  "rtp.recurrencerForm.the": [
+    {
+      "type": 0,
+      "value": "Die"
+    }
+  ],
+  "rtp.recurrencerForm.title": [
+    {
+      "type": 0,
+      "value": "Wiederkehrenden Zeitplan definieren"
+    }
+  ],
+  "rtp.recurrencerForm.week": [
+    {
+      "type": 0,
+      "value": "Woche"
+    }
+  ],
+  "rtp.recurrencerForm.weeklyCount": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Woche"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Wochen"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rtp.reset": [
+    {
+      "type": 0,
+      "value": "Alle Zeitpläne löschen"
+    }
+  ],
+  "rtp.scheduler.openMultiRecurrencerModal": [
+    {
+      "type": 0,
+      "value": "Wiederholung definieren"
+    }
+  ]
+}

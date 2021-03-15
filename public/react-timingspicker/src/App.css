@@ -1,0 +1,708 @@
+/* Global */
+
+.rtp__calendar * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.rtp__calendar {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #eee;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    line-height: 1.5;
+    color: #777;
+}
+
+/* Utils */
+
+.rtp__calendar .rtp__clearfix {
+    clear: both;
+}
+
+/* Stats, header */
+
+.rtp__calendar .rtp__stats {
+    float: left;
+    margin-top: 4px;
+    margin-left: 12px;
+}
+
+.rtp__calendar .rtp__reset {
+    float: right;
+    margin-top: 4px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__reset:hover {
+    text-decoration: underline;
+}
+
+.rtp__calendar .rtp__header {
+    margin: .5em 0;
+}
+
+.rtp__calendar .rtp__header .rtp__prev-week,
+.rtp__calendar .rtp__header .rtp__next-week {
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 700;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.rtp__calendar .rtp__header .rtp__prev-week .rtp__icon,
+.rtp__calendar .rtp__header .rtp__next-week .rtp__icon {
+    margin: 1em;
+    -webkit-transition: .12s ease-out;
+    -o-transition: .12s ease-out;
+    transition: .12s ease-out;
+    -webkit-transition-property: color, margin, -webkit-transform;
+    transition-property: color, margin, -webkit-transform;
+    -o-transition-property: transform, color, margin;
+    transition-property: transform, color, margin;
+    transition-property: transform, color, margin, -webkit-transform;
+}
+
+.rtp__calendar .rtp__header .rtp__prev-week:hover .rtp__icon,
+.rtp__calendar .rtp__header .rtp__next-week:hover .rtp__icon {
+    -webkit-transform: scale(1.30);
+    -ms-transform: scale(1.30);
+    transform: scale(1.30);
+    color: #1a8fff;
+    -webkit-transition: .12s ease-out;
+    -o-transition: .12s ease-out;
+    transition: .12s ease-out;
+    -webkit-transition-property: color, -webkit-transform;
+    transition-property: color, -webkit-transform;
+    -o-transition-property: transform, color;
+    transition-property: transform, color;
+    transition-property: transform, color, -webkit-transform;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors {
+    float: right;
+    text-align: right;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector {
+    display: inline-block;
+    width: 180px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 15px;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector {
+    display: inline-block;
+    width: 100px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 15px;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector__Select__option,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector__Select__option {
+    color: #666666;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector__Select__single-value,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector__Select__single-value {
+    text-align: left;
+    color: #666666;
+}
+
+/* Calendar */
+
+.rtp__calendar .rtp__index-column {
+    -webkit-box-flex: .1;
+    -ms-flex: .1;
+    flex: .1;
+}
+
+.rtp__calendar .rtp__content-column {
+    -webkit-box-flex: .9;
+    -ms-flex: .9;
+    flex: .9;
+}
+
+.rtp__calendar .rtp__days {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #999;
+    font-size: 11px;
+    padding: 8px 16px 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.rtp__calendar .rtp__days .rtp__row {
+    margin: 0;
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    width: 100%;
+}
+
+.rtp__calendar .rtp__days .rtp__row .rtp__col {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.rtp__calendar .rtp__scheduler {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    height: 360px;
+    overflow-y: scroll
+}
+
+.rtp__calendar .rtp__body {
+    position: relative;
+    -ms-touch-action: none;
+    touch-action: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.rtp__calendar .rtp__body .rtp__cell,
+.rtp__calendar .rtp__cell.rtp__timing {
+    position: relative;
+    border-right: 1px solid #ffffff;
+    overflow: hidden;
+    background: #fff;
+    -webkit-transition: background-color .12s ease-out;
+    -o-transition: background-color .12s ease-out;
+    transition: background-color .12s ease-out;
+}
+
+.rtp__calendar .rtp__body .rtp__cell {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__body.rtp__timing-moving .rtp__cell {
+    cursor: move;
+}
+
+.rtp__calendar .rtp__body.rtp__timing-resizing .rtp__cell {
+    cursor: s-resize;
+}
+
+.rtp__calendar .rtp__body .rtp__row {
+    border-bottom: 1px solid #eee;
+}
+
+.rtp__calendar .rtp__body .rtp__row:last-child {
+    border-bottom: none;
+}
+
+.rtp__calendar .rtp__body .rtp__column {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0px;
+    flex: 1 1 0px;
+}
+
+.rtp__calendar .rtp__body .rtp__column:last-child .rtp__cell {
+    border-right: none;
+}
+
+.rtp__calendar .rtp__column-timing .rtp__cell:not(:last-child),
+.rtp__calendar .rtp__column .rtp__cell:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.rtp__calendar .rtp__column-timing .rtp__cell:nth-child(2n-1) {
+    background: #f5f5f5;
+}
+
+.rtp__calendar .rtp__column .rtp__cell:nth-child(2n-1) {
+    background: #f5f5f5;
+}
+
+.rtp__calendar .rtp__column .rtp__cell:hover {
+    background: #f9f9f9;
+    -webkit-transition: background-color .12s ease-out;
+    -o-transition: background-color .12s ease-out;
+    transition: background-color .12s ease-out;
+}
+
+.rtp__calendar .rtp__column .rtp__cell:nth-child(2n-1):hover {
+    background: #f0f0f0;
+    -webkit-transition: background-color .12s ease-out;
+    -o-transition: background-color .12s ease-out;
+    transition: background-color .12s ease-out;
+}
+
+.rtp__calendar .rtp__column-timing .rtp__cell.rtp__timing .rtp__number {
+    position: absolute;
+    font-size: 82.5%;
+    line-height: 1;
+    font-weight: 700;
+    top: 50%;
+    right: 50%;
+    -webkit-transform: translate(50%, -50%);
+    -ms-transform: translate(50%, -50%);
+    transform: translate(50%, -50%);
+}
+
+.rtp__calendar .rtp__body .rtp__column-timing {
+    -webkit-box-flex: 0.6;
+    -ms-flex-positive: 0.6;
+    flex-grow: 0.6;
+}
+
+.rtp__calendar .rtp__body .rtp__disabled {
+    color: #999;
+    pointer-events: none;
+}
+
+.rtp__calendar .rtp__body .rtp__col {
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-preferred-size: calc(100% / 7);
+    flex-basis: calc(100% / 7);
+    width: calc(100% / 7);
+}
+
+.rtp__calendar .rtp__body .rtp__disallowed-timing,
+.rtp__calendar .rtp__body .rtp__value-timing,
+.rtp__calendar .rtp__body .rtp__selection-timing,
+.rtp__calendar .rtp__body .rtp__selection-moving-timing,
+.rtp__calendar .rtp__body .rtp__selection-resizing-timing {
+    -webkit-box-shadow: lightslategrey 1px 1px 0px 0px inset, lightslategrey 1px 1px 0px 0px;
+    box-shadow: lightslategrey 1px 1px 0px 0px inset, lightslategrey 1px 1px 0px 0px;
+}
+
+.rtp__calendar .rtp__body .rtp__value-timing,
+.rtp__calendar .rtp__body .rtp__selection-timing,
+.rtp__calendar .rtp__body .rtp__selection-moving-timing,
+.rtp__calendar .rtp__body .rtp__selection-resizing-timing {
+    background: #41c2ff;
+}
+
+.rtp__calendar .rtp__body .rtp__disallowed-timing,
+.rtp__calendar .rtp__body .rtp__selection-timing.rtp__disabled,
+.rtp__calendar .rtp__body .rtp__selection-timing.rtp__disabled,
+.rtp__calendar .rtp__body .rtp__selection-moving-timing.rtp__disabled,
+.rtp__calendar .rtp__body .rtp__selection-resizing-timing.rtp__disabled {
+    background: -webkit-repeating-linear-gradient(315deg, #ccc, #ccc 10px, #fff 10px, #fff 20px);
+    background: -o-repeating-linear-gradient(315deg, #ccc, #ccc 10px, #fff 10px, #fff 20px);
+    background: repeating-linear-gradient(135deg, #ccc, #ccc 10px, #fff 10px, #fff 20px);
+
+
+    /* https://stackoverflow.com/questions/47382245/unwanted-whitespace-in-webkit-linear-gradient-in-chrome */
+    background-size: 101% 101%;
+}
+
+.rtp__calendar .rtp__body .rtp__timing-resizer {
+    position: absolute;
+    bottom: 0;
+    height: 10px;
+    line-height: 10px;
+    width: 100%;
+    text-align: center;
+    cursor: s-resize;
+    color: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.rtp__calendar .rtp__body .rtp__timing-resizer:before {
+    content: '=';
+    display: block;
+    height: 8px;
+    line-height: 8px;
+    padding-top: 2px;
+    overflow: hidden;
+}
+
+.rtp__calendar .rtp__body .rtp__timing-value {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3px;
+    color: #fff;
+    line-height: 13px;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    margin-right: 12px;
+    margin-top: 1px;
+    margin-bottom: 6px;
+}
+
+.rtp__calendar .rtp__body .rtp__timing-remove {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    float: right;
+    color: #fff;
+    height: 14px;
+    line-height: 14px;
+    font-weight: bold;
+    font-size: 16px;
+    padding-right: 2px;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+.rtp__calendar .rtp__body .rtp__selection-timing {
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__body .rtp__value-timing,
+.rtp__calendar .rtp__body .rtp__selection-moving-timing,
+.rtp__calendar .rtp__body .rtp__selection-moving-timing .timing-resizer, /* fix visual glitch */
+.rtp__calendar .rtp__body.rtp__timing-moving .rtp__value-timing .rtp__timing-resizer {
+    cursor: move;
+}
+
+.rtp__calendar .rtp__body .rtp__selection-resizing-timing,
+.rtp__calendar .rtp__body.rtp__timing-resizing .rtp__value-timing,
+.rtp__calendar .rtp__body.rtp__timing-resizing .rtp__value-timing .rtp__timing-resizer {
+    cursor: s-resize;
+}
+
+/********************/
+/* Size adjustments */
+/********************/
+
+.rtp__calendar.rtp__md .rtp__body .rtp__timing-value {
+    line-height: 11px;
+    font-size: 11px;
+}
+
+.rtp__calendar.rtp__sm .rtp__body .rtp__timing-value {
+    line-height: 10px;
+    font-size: 11px;
+}
+
+.rtp__calendar.rtp__xs .rtp__body .rtp__timing-value {
+    line-height: 10px;
+    font-size: 11px;
+}
+
+.rtp__calendar.rtp__sm .rtp__body .rtp__timing-value,
+.rtp__calendar.rtp__xs .rtp__body .rtp__timing-value {
+    text-align: left;
+    padding-left: 3px;
+}
+
+/*!*.rtp__calendar.rtp__sm .rtp__body .rtp__timing-resizer,*!*/
+/*.rtp__calendar.rtp__xs .rtp__body .rtp__timing-resizer {*/
+/*    text-align: right;*/
+/*    padding-right: 3px;*/
+/*}*/
+
+
+/* thin timings */
+
+/*.rtp__calendar.rtp__xs .rtp__body .rtp__value-timing-thin .rtp__timing-value,*/
+/*.rtp__calendar.rtp__xs .rtp__body .rtp__selection-timing-thin .rtp__timing-value,*/
+/*.rtp__calendar.rtp__xs .rtp__body .rtp__selection-moving-timing-thin .rtp__timing-value,*/
+/*.rtp__calendar.rtp__xs .rtp__body .rtp__selection-resizing-timing-thin .rtp__timing-value {*/
+/*    text-align: left;*/
+/*    padding-left: 3px;*/
+/*}*/
+
+.rtp__calendar.rtp__xs .rtp__body .rtp__value-timing-thin .rtp__timing-resizer,
+.rtp__calendar.rtp__xs .rtp__body .rtp__selection-timing-thin .rtp__timing-resizer,
+.rtp__calendar.rtp__xs .rtp__body .rtp__selection-moving-timing-thin .rtp__timing-resizer,
+.rtp__calendar.rtp__xs .rtp__body .rtp__selection-resizing-timing-thin .rtp__timing-resizer {
+    text-align: right;
+    padding-right: 3px;
+}
+
+/* Modals */
+
+.rtp__calendar .rtp__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.rtp__calendar .rtp__modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25%;
+    max-height: calc( 100% - 20px );
+    /* height: 65%; */
+    min-width: 190px;
+    transform: translate(-50%,-50%);
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 12px;
+}
+
+.rtp__calendar .rtp__modal h3 {
+    margin: 0 0 5px 0;
+}
+
+.rtp__calendar .rtp__modal .rtp__close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__modal input {
+    position: relative;
+    font-size: 12px;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    line-height: 16px;
+    padding: 6px 10px 5px;
+    width: 100%;
+}
+
+.rtp__calendar .rtp__modal input:focus {
+    outline: none;
+    border-color: #aaa;
+    -webkit-box-shadow: 0 0 2px 0px #019ece;
+    box-shadow: 0 0 2px 0px #019ece;
+}
+
+.rtp__calendar .rtp__modal .rtp__error {
+    color: #FF1238;
+    margin-top: 8px;
+}
+
+.rtp__calendar .rtp__edit-modal section ~ section {
+    margin-top: 5px;
+}
+
+.rtp__calendar .rtp__edit-modal button[type="submit"] {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-button {
+    display: inline-block;
+    margin-top: 12px;
+    float: right;
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__multi-recurrencer-button {
+    display: inline-block;
+    margin: 6px 8px 4px;
+    cursor: pointer;
+}
+
+/* Recurrencer */
+
+/*.rtp__calendar .rtp__recurrencer-modal {*/
+/*    width: 50%;*/
+/*}*/
+
+.rtp__calendar .rtp__recurrencer-modal h3,
+.rtp__calendar .rtp__multi-recurrencer-modal h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal button[type="submit"],
+.rtp__calendar .rtp__multi-recurrencer-modal button[type="submit"] {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal input[type="radio"],
+.rtp__calendar .rtp__multi-recurrencer-modal input[type="radio"] {
+    width: auto;
+    padding: 4px 8px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal input.rtp__recurrencer-interval__input,
+.rtp__calendar .rtp__multi-recurrencer-modal input.rtp__recurrencer-interval__input {
+    display: inline-block;
+    width: 65px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal input.rtp__recurrencer-count__input,
+.rtp__calendar .rtp__multi-recurrencer-modal input.rtp__recurrencer-count__input {
+    display: inline-block;
+    width: 65px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence {
+    display: inline-block;
+    width: 140px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__control {
+    height: 30px;
+    min-height: 30px;
+    line-height: 1;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control--is-focused,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__control--is-focused {
+    border-color: #ccc;
+    box-shadow: 0 0 2px 0px #019ece;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__value-container,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__value-container {
+    min-width: 65px;
+    padding: 0 8px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__indicator,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__indicator {
+    padding: 0 8px;
+}
+
+.rtp__calendar .rtp__recurrencer-monthlyIntervalType,
+.rtp__calendar .rtp__multi-recurrencer-monthlyIntervalType {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section .DayPicker,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section .DayPicker {
+    font-size: 14px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section .DayPicker-wrapper,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section .DayPicker-wrapper {
+    padding-bottom: 0;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section .DayPicker-Month,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section .DayPicker-Month {
+    margin: 4px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__input-error,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__input-error {
+    color: #FF1238;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-weekday,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-weekday {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending label {
+    display: inline-block;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-until"],
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-count"],
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending label[for="endType-until"],
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending label[for="endType-count"] {
+    margin-top: 4px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-error__disabledTimings ul,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-error__disabledTimings ul {
+    margin: 4px 0;
+    padding-left: 30px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-confirmation-icon,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-confirmation-icon {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 24px;
+    color: mediumseagreen;
+}
+
+/* Weekday picker */
+
+.rtp__calendar .rtp__WeekdayPicker {
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.rtp__calendar .rtp__WeekdayPicker .rtp__WeekdayPicker-Weekday {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__WeekdayPicker .rtp__WeekdayPicker-Weekday--selected {
+    color: #fff;
+    background-color: #019ece;
+}
+
+.rtp__calendar .rtp__WeekdayPicker .rtp__WeekdayPicker-Weekday ~ .rtp__WeekdayPicker-Weekday {
+    margin-left: 4px;
+}

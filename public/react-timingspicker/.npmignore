@@ -1,0 +1,14 @@
+.idea/
+.npmignore
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log
+yarn-error.log
+coverage/
+
+# sources are useless in npm package
+src/
+.babelrc
+test/
+testconfig.js
