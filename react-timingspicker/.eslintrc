@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "@openagenda"
+  ],
+
+  "parserOptions": {
+    "sourceType": "script"
+  },
+
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".babelrc.js",
+          ".storybook/**/*.js",
+          "stories/**/*.js",
+          "test/**/*.js",
+          "scripts/**/*.js"
+        ]
+      }
+    ]
+  },
+
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.js",
+        ".storybook/**/*.js",
+        "stories/**/*.js",
+        "test/**/*.js"
+      ],
+
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    },
+    {
+      "files": [
+        "**/*.{test,spec}.js",
+        "scripts/**/*.js"
+      ],
+      "rules": {
+        "import/default": "off"
+      }
+    }
+  ]
+}

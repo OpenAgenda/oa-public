@@ -1,0 +1,649 @@
+{
+  "rtp.defineTiming": [
+    {
+      "type": 0,
+      "value": "Cliquez et faites glisser sur la grille pour définir un horaire"
+    }
+  ],
+  "rtp.definedTimings": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun horaire défini"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "timingsCount"
+            },
+            {
+              "type": 0,
+              "value": " horaire défini"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "timingsCount"
+            },
+            {
+              "type": 0,
+              "value": " horaires définis"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": []
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "le "
+            },
+            {
+              "style": "short",
+              "type": 3,
+              "value": "when"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    }
+  ],
+  "rtp.definedTimingsInRange": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun horaire défini"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "timingsCount"
+            },
+            {
+              "type": 0,
+              "value": " horaire défini"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "timingsCount"
+            },
+            {
+              "type": 0,
+              "value": " horaires définis"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "timingsCount"
+    },
+    {
+      "type": 0,
+      "value": " du "
+    },
+    {
+      "style": "short",
+      "type": 3,
+      "value": "from"
+    },
+    {
+      "type": 0,
+      "value": " au "
+    },
+    {
+      "style": "short",
+      "type": 3,
+      "value": "to"
+    }
+  ],
+  "rtp.editForm.adjust": [
+    {
+      "type": 0,
+      "value": "Ajuster"
+    }
+  ],
+  "rtp.editForm.endNotAfterBegin": [
+    {
+      "type": 0,
+      "value": "La fin doit être après le début"
+    }
+  ],
+  "rtp.editForm.endTime": [
+    {
+      "type": 0,
+      "value": "Horaire de fin"
+    }
+  ],
+  "rtp.editForm.invalidTime": [
+    {
+      "type": 0,
+      "value": "Horaire invalide"
+    }
+  ],
+  "rtp.editForm.openRecurrencerModal": [
+    {
+      "type": 0,
+      "value": "Définir un horaire récurrent"
+    }
+  ],
+  "rtp.editForm.startTime": [
+    {
+      "type": 0,
+      "value": "Horaire de début"
+    }
+  ],
+  "rtp.editForm.title": [
+    {
+      "type": 0,
+      "value": "Editer l'horaire"
+    }
+  ],
+  "rtp.multiRecurrencerForm.after": [
+    {
+      "type": 0,
+      "value": "Après"
+    }
+  ],
+  "rtp.multiRecurrencerForm.confirmation": [
+    {
+      "type": 0,
+      "value": "Les horaires récurrents ont été ajoutés."
+    }
+  ],
+  "rtp.multiRecurrencerForm.countTooSmall": [
+    {
+      "type": 0,
+      "value": "Le compte doit être supérieur à 0"
+    }
+  ],
+  "rtp.multiRecurrencerForm.day": [
+    {
+      "type": 0,
+      "value": "jour"
+    }
+  ],
+  "rtp.multiRecurrencerForm.endBeforeStart": [
+    {
+      "type": 0,
+      "value": "La fin doit être après le début"
+    }
+  ],
+  "rtp.multiRecurrencerForm.ends": [
+    {
+      "type": 0,
+      "value": "Se termine"
+    }
+  ],
+  "rtp.multiRecurrencerForm.everyMonthByDate": [
+    {
+      "type": 0,
+      "value": "Tous les mois aux mêmes dates"
+    }
+  ],
+  "rtp.multiRecurrencerForm.everyMonthByWeekday": [
+    {
+      "type": 0,
+      "value": "Tous les mois semaine par semaine"
+    }
+  ],
+  "rtp.multiRecurrencerForm.forceSubmit": [
+    {
+      "type": 0,
+      "value": "Créer quand même"
+    }
+  ],
+  "rtp.multiRecurrencerForm.intervalTooSmall": [
+    {
+      "type": 0,
+      "value": "L'interval doit être supérieur à 0"
+    }
+  ],
+  "rtp.multiRecurrencerForm.invalidDate": [
+    {
+      "type": 0,
+      "value": "Date de fin invalide"
+    }
+  ],
+  "rtp.multiRecurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Frequence invalide"
+    }
+  ],
+  "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": [
+    {
+      "type": 0,
+      "value": "Type d'intervalle mensuel non valide"
+    }
+  ],
+  "rtp.multiRecurrencerForm.month": [
+    {
+      "type": 0,
+      "value": "mois"
+    }
+  ],
+  "rtp.multiRecurrencerForm.monthlyCount": [
+    {
+      "type": 0,
+      "value": "mois"
+    }
+  ],
+  "rtp.multiRecurrencerForm.occurrences": [
+    {
+      "type": 0,
+      "value": "occurrences"
+    }
+  ],
+  "rtp.multiRecurrencerForm.repeatEvery": [
+    {
+      "type": 0,
+      "value": "Répéter tou(te)s les"
+    }
+  ],
+  "rtp.multiRecurrencerForm.repeatThe": [
+    {
+      "type": 0,
+      "value": "Répéter le"
+    }
+  ],
+  "rtp.multiRecurrencerForm.someDisabledValues": [
+    {
+      "type": 0,
+      "value": "Certaines valeurs sont désactivées"
+    }
+  ],
+  "rtp.multiRecurrencerForm.submit": [
+    {
+      "type": 0,
+      "value": "Appliquer"
+    }
+  ],
+  "rtp.multiRecurrencerForm.the": [
+    {
+      "type": 0,
+      "value": "le"
+    }
+  ],
+  "rtp.multiRecurrencerForm.title": [
+    {
+      "type": 0,
+      "value": "Définir une récurrence"
+    }
+  ],
+  "rtp.multiRecurrencerForm.week": [
+    {
+      "type": 0,
+      "value": "semaine"
+    }
+  ],
+  "rtp.multiRecurrencerForm.weeklyCount": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "semaine"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "semaines"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rtp.recurrencerForm.after": [
+    {
+      "type": 0,
+      "value": "Après"
+    }
+  ],
+  "rtp.recurrencerForm.confirmation": [
+    {
+      "type": 0,
+      "value": "Les horaires récurrents ont été ajoutés."
+    }
+  ],
+  "rtp.recurrencerForm.countTooSmall": [
+    {
+      "type": 0,
+      "value": "Le compte doit être supérieur à 0"
+    }
+  ],
+  "rtp.recurrencerForm.dailyCount": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "jour"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "jours"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rtp.recurrencerForm.day": [
+    {
+      "type": 0,
+      "value": "jour"
+    }
+  ],
+  "rtp.recurrencerForm.endBeforeStart": [
+    {
+      "type": 0,
+      "value": "La fin doit être après le début"
+    }
+  ],
+  "rtp.recurrencerForm.ends": [
+    {
+      "type": 0,
+      "value": "Se termine"
+    }
+  ],
+  "rtp.recurrencerForm.everyMonthByDate": [
+    {
+      "type": 0,
+      "value": "Tous les "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "dayNumber"
+            },
+            {
+              "type": 0,
+              "value": "er"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "dayNumber, number"
+            }
+          ]
+        }
+      },
+      "pluralType": "ordinal",
+      "type": 6,
+      "value": "dayNumber"
+    },
+    {
+      "type": 0,
+      "value": " du mois"
+    }
+  ],
+  "rtp.recurrencerForm.everyMonthByWeekday": [
+    {
+      "type": 0,
+      "value": "Tous les "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "weekNumber"
+            },
+            {
+              "type": 0,
+              "value": "e"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "weekNumber"
+            },
+            {
+              "type": 0,
+              "value": "er"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "weekNumber"
+            },
+            {
+              "type": 0,
+              "value": "e"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "weekNumber"
+            },
+            {
+              "type": 0,
+              "value": "e"
+            }
+          ]
+        }
+      },
+      "pluralType": "ordinal",
+      "type": 6,
+      "value": "weekNumber"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "weekday"
+    },
+    {
+      "type": 0,
+      "value": " du mois"
+    }
+  ],
+  "rtp.recurrencerForm.forceSubmit": [
+    {
+      "type": 0,
+      "value": "Créer quand même"
+    }
+  ],
+  "rtp.recurrencerForm.intervalTooSmall": [
+    {
+      "type": 0,
+      "value": "L'interval doit être supérieur à 0"
+    }
+  ],
+  "rtp.recurrencerForm.invalidDate": [
+    {
+      "type": 0,
+      "value": "Date de fin invalide"
+    }
+  ],
+  "rtp.recurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Frequence invalide"
+    }
+  ],
+  "rtp.recurrencerForm.invalidMonthlyIntervalType": [
+    {
+      "type": 0,
+      "value": "Type d'intervalle mensuel non valide"
+    }
+  ],
+  "rtp.recurrencerForm.month": [
+    {
+      "type": 0,
+      "value": "mois"
+    }
+  ],
+  "rtp.recurrencerForm.monthlyCount": [
+    {
+      "type": 0,
+      "value": "mois"
+    }
+  ],
+  "rtp.recurrencerForm.repeatEvery": [
+    {
+      "type": 0,
+      "value": "Répéter tou(te)s les"
+    }
+  ],
+  "rtp.recurrencerForm.repeatThe": [
+    {
+      "type": 0,
+      "value": "Répéter le"
+    }
+  ],
+  "rtp.recurrencerForm.someDisabledValues": [
+    {
+      "type": 0,
+      "value": "Certains horaires sont déjà utilisés ou non ouverts à la saisie:"
+    }
+  ],
+  "rtp.recurrencerForm.submit": [
+    {
+      "type": 0,
+      "value": "Appliquer"
+    }
+  ],
+  "rtp.recurrencerForm.the": [
+    {
+      "type": 0,
+      "value": "Le"
+    }
+  ],
+  "rtp.recurrencerForm.title": [
+    {
+      "type": 0,
+      "value": "Définir un horaire récurrent"
+    }
+  ],
+  "rtp.recurrencerForm.week": [
+    {
+      "type": 0,
+      "value": "semaine"
+    }
+  ],
+  "rtp.recurrencerForm.weeklyCount": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "semaine"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "semaines"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "rtp.reset": [
+    {
+      "type": 0,
+      "value": "Supprimer tous les horaires"
+    }
+  ],
+  "rtp.scheduler.openMultiRecurrencerModal": [
+    {
+      "type": 0,
+      "value": "Définir une récurrence"
+    }
+  ]
+}
