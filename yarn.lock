@@ -7983,9 +7983,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-timingspicker@^1.2.1, @openagenda/react-timingspicker@workspace:packages/react-timingspicker":
+"@openagenda/react-timingspicker@^1.2.1, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
   version: 0.0.0-use.local
-  resolution: "@openagenda/react-timingspicker@workspace:packages/react-timingspicker"
+  resolution: "@openagenda/react-timingspicker@workspace:public/react-timingspicker"
   dependencies:
     "@babel/cli": ^7.12.1
     "@babel/core": ^7.12.3
