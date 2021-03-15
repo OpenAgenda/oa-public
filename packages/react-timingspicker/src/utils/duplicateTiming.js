@@ -33,40 +33,34 @@ export default function duplicateTiming(timing, options) {
   const until = options.endType === 'until'
     ? new Date(options.until)
     : addFn(timing.begin, options.count || 1);
-  const bymonthday = options.frequence === 'monthly' && options.monthlyIntervalType === 'date'
-    ? timing.begin.getDate()
-    : undefined;
-  const bysetpos = options.frequence === 'monthly' && options.monthlyIntervalType === 'weekday'
-    ? getWeekOfMonth(timing.begin)
-    : undefined;
-  let byweekday;
 
-  if (
-    options.frequence === 'weekly'
-    && options.weekday
-    && options.weekday.length
-  ) {
-    byweekday = options.weekday.map(
-      v => RRule[UTCweekdays[dayToUTCDay(v, weekStartsOn)]]
-    );
-  } else if (
-    options.frequence === 'monthly'
-    && options.monthlyIntervalType === 'weekday'
-  ) {
-    byweekday = RRule[UTCweekdays[timing.begin.getUTCDay()]];
-  }
-
-  const rule = new RRule({
+  const ruleOptions = {
     wkst,
+    until,
     dtstart: convertLocalDateToUTCDate(timing.begin),
     freq: RRule[options.frequence.toUpperCase()],
-    interval: options.interval,
-    until,
-    byweekday,
-    bymonthday,
-    bysetpos,
-  });
+  };
 
+  if (options.interval) {
+    ruleOptions.interval = options.interval;
+  }
+
+  if (options.frequence === 'monthly') {
+    if (options.monthlyIntervalType === 'weekday') {
+      ruleOptions.byweekday = RRule[UTCweekdays[timing.begin.getUTCDay()]];
+      ruleOptions.bysetpos = getWeekOfMonth(timing.begin);
+    } else if (options.monthlyIntervalType === 'date') {
+      ruleOptions.bymonthday = timing.begin.getDate();
+    }
+  } else if (options.frequence === 'weekly') {
+    if (options.weekday?.length) {
+      ruleOptions.byweekday = options.weekday.map(
+        v => RRule[UTCweekdays[dayToUTCDay(v, weekStartsOn)]]
+      );
+    }
+  }
+
+  const rule = new RRule(ruleOptions);
   const begins = rule.all().map(convertUTCDateToLocalDate);
   const duration = timing.end.getTime() - timing.begin.getTime();
 
