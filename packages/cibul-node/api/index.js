@@ -202,6 +202,19 @@ module.exports = core => {
       }), next)
   ]);
 
+  app.get(
+    '/v2/agendas/:agendaUid/locations',
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .list(req.query, req.query)
+      .then(({ items, total, after }) => res.json({
+        success: true,
+        locations: items,
+        after,
+        total
+      }))
+  )
+
   app.post('/v2/agendas/:agendaUid/settings/resync', [
     verifySuperAdmin,
     settings.resync

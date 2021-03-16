@@ -5,9 +5,6 @@ const axios = require('axios');
 const assert = require('assert');
 const FormData = require('form-data');
 const fs = require('fs');
-const knex = require('knex');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
@@ -67,6 +64,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
     it('locations are placed in an items key', () => {
       assert.equal(typeof result.items[0].name, 'string');
+    });
+
+    it('a total is provided in result', () => {
+      assert.equal(result.total, 6);
+    });
+
+    it('an after key is provided', () => {
+      assert.equal(result.after, 1);
     });
   });
 
@@ -367,6 +372,101 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
     });
 
+    describe('successful list', () => {
+      let result, allResults;
+
+      beforeAll(async () => {
+        allResults = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9'
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        result = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            limit: 1
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+      });
+
+      it('locations are in locations key of response', () => {
+        assert(Array.isArray(result.locations));
+      });
+
+      it('total is in total key', () => {
+        assert.equal(result.total, allResults.locations.length);
+      });
+
+      it('by default, only uid, name, address, latitude longitude and state are provided', () => {
+        assert.deepEqual(
+          Object.keys(result.locations[0]),
+          ['uid', 'name', 'address', 'latitude', 'longitude', 'state']
+        ); 
+      });
+
+      it('detailed option is useful to retrieve all location info', async () => {
+        const detailedResults = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            limit: 1,
+            detailed: true
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        assert.deepEqual(
+          Object.keys(detailedResults.locations[0]),
+          [
+            'uid',       'setUid',      'slug',
+            'name',      'address',     'city',
+            'region',    'department',  'postalCode',
+            'insee',     'countryCode', 'district',
+            'latitude',  'longitude',   'updatedAt',
+            'createdAt', 'image',       'description',
+            'tags',      'website',     'email',
+            'phone',     'links',       'access',
+            'state',     'timezone',    'imageCredits',
+            'extId'
+          ]
+        );
+      });
+
+      it('value provided in after key can be used to fetch next location values', async () => {
+        const nextResults = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            limit: 1,
+            after: result.after
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        const locationNames = allResults.locations.map(l => l.name);
+        const nextLocationName = locationNames[locationNames.indexOf(result.locations[0].name) + 1];
+
+        assert.equal(nextResults.locations[0].name, nextLocationName);
+      });
+    });
+
     describe('head', () => {
 
       it('location is given using account key', async () => {
@@ -487,7 +587,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         });
 
         core.agendas(55268170).locations.remove(76464022);
-      })
+      });
 
       it('a location deletion triggers the deletion of related events', async () => {
         const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 55268456);
@@ -499,58 +599,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         const legacyEntry = await core.services.knex('event').first().where('uid', 55268456);
         assert(!legacyEntry);
       });
-    });
-
-    describe('merge', () => {
-
-      beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
-
-      beforeAll(async () => {
-        // the merge does not find the locations as they are not listed in the agenda.
-        await core.agendas(55268170).locations.merge(76464022, {
-          uids: [95155140, 97506318]
-        }, {
-          name: 'Fusionné'
-        });
-      });
-
-      it('merge location name is updated', async () => {
-        assert.equal(
-          await core.services.knex('location').first('placename').where('uid', 76464022).then(r => r.placename),
-          'Fusionné'
-        );
-      });
-
-      it('merged locations have been removed', async () => {
-        assert.equal(
-          await core.services.knex('location')
-            .select('id')
-            .whereIn('uid', [95155140, 97506318])
-            .then(rows => rows.length),
-          0
-        );
-      });
-
-      it('event linked to merged location has been updated', async () => {
-        assert.equal(
-          await core.services.knex('event_2')
-            .first('location_uid')
-            .where('slug', 'que-ferons-nous-de-nos-deserts')
-            .then(r => r.location_uid),
-          76464022
-        );
-      });
-
-      it('legacy event reference linked to merged location also has been updated', async () => {
-        assert.equal(
-          await core.services.knex('event_location')
-            .first('location_id')
-            .where('event_id', 802994)
-            .then(r => r.location_id),
-          8
-        );
-      });
-
     });
 
   });

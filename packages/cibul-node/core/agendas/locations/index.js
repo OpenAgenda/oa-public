@@ -21,15 +21,17 @@ module.exports = (core, agendaOrUid) => {
       includeImagePath: true
     }),
     remove: uid => locations.remove(uid),
-    get: (identifiers, options = {}) => {
-      return locations.get(identifiers, {
-        ...options,
-        includeImagePath: true
-      });
-    },
-    list: (query, nav) => locations.list(query, nav, {
-      total: true,
+    get: (identifiers, options = {}) => locations.get(identifiers, {
+      ...options,
       includeImagePath: true
+    }),
+    list: (query, nav) => locations.list(query, {
+      ...nav,
+      useAfter: true
+    }, {
+      total: true,
+      includeImagePath: true,
+      detailed: !!query?.detailed
     }),
     merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data)
   }
