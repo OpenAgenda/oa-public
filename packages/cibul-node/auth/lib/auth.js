@@ -231,8 +231,8 @@ function init(service) {
 
         .then(ifUnresolved(ifUserLoaded(false, errorDefaultMessage)))
 
-        .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? _pLoadCaptcha : _.noop)))
-
+        .then(ifUnresolved(ifUserLoaded(false, name === 'signup' ? _pLoadCaptcha : v => v)))
+      
         .then(ifUnresolved(ifUserLoaded(false, module.exports[name == 'signup' ? 'renderSignup' : 'renderSignin'])))
 
         .done(done , cmn.catchError(req, res));
@@ -290,12 +290,7 @@ function serviceCreate(fieldName, activate = false) {
           service: { [fieldName]: data.id },
         };
       })
-      .then(values => cb(null, values.user, values), err => {
-
-        console.log(err)
-        cb(err);
-
-      });
+      .then(values => cb(null, values.user, values), cb);
 
   };
 
@@ -487,12 +482,12 @@ function errorDefaultMessage(values) {
 }
 
 
-function errorExistingEmail(values) {
+async function errorExistingEmail(values) {
   if (values.resolved) return values;
 
   values.req.log('checking if account with same email exists');
 
-  if (values.data && values.data.errors && values.data.errors.email) {
+  if (values?.data?.errors?.email) {
     values.req.log('an account exists with email: %s', JSON.stringify(values.profile));
 
     delete values.data.errors.email;

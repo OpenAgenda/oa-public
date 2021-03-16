@@ -1,6 +1,6 @@
 "use strict";
 
-process.env.DEBUG='oa:requests:incoming, oa:core*, oa:services/agendaContribute*';
+// process.env.DEBUG='oa:requests:incoming, oa*';
 
 const _ = require('lodash');
 const fs = require('fs');
