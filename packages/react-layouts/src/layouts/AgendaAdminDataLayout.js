@@ -74,7 +74,7 @@ function AgendaAdminDataLayout({
     && !data.agenda?.settings?.lab?.eventAdmin
   ) {
     const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
-    window.location.href = `${phpPrefix}${data.agenda.slug}/admin`;
+    window.location.href = `${phpPrefix}${data.agenda.slug}/admin${location.search}`;
 
     return <Loading />;
   }
