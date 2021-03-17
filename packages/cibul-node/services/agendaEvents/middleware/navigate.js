@@ -1,0 +1,103 @@
+'use strict';
+
+const qs = require('qs');
+
+const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
+const PAGE_SIZE = 20;
+
+function removeQueryPrefix(query, prefix = 'q.') {
+  const result = {};
+
+  for (const key in query) {
+    if (Object.prototype.hasOwnProperty.call(query, key)) {
+      if (key.startsWith(prefix)) {
+        result[key.slice(prefix.length)] = query[key];
+      }
+    }
+  }
+
+  return result;
+}
+
+function getRequestedAdminNav(nav, total, page, index) {
+  const pos = (page - 1) * PAGE_SIZE + index;
+  const nextPos = nav === 'prev' ? Math.max(0, pos - 1) : Math.min(total - 1, pos + 1);
+
+  return {
+    page: Math.floor((nextPos + 1) % PAGE_SIZE !== 0 ? (nextPos + 1) / PAGE_SIZE + 1 : (nextPos + 1) / PAGE_SIZE),
+    index: nextPos % PAGE_SIZE,
+    first: nextPos === 0 || null,
+    last: nextPos === total - 1 || null
+  };
+}
+
+module.exports = async function navigate(req, res, next) {
+  try {
+    const { agenda } = req;
+    const { core } = req.app.services;
+
+    if (!agenda.settings?.lab?.eventAdmin) {
+      const queryString = qs.stringify(req.query, {
+        addQueryPrefix: true,
+        arrayFormat: 'brackets',
+        skipNulls: true,
+      });
+
+      return res.redirect(`${phpPrefix}/${agenda.slug}/admin/navigate${queryString}`);
+    }
+
+    const {
+      nav,
+      admin_nav: dirtyAdminNav,
+      ...restQuery
+    } = req.query;
+    const {
+      page: pageStr,
+      index: indexStr,
+      first,
+      last,
+      ...adminNav
+    } = dirtyAdminNav;
+    const page = parseInt(pageStr, 10) || 1;
+    const index = parseInt(indexStr, 10) || 0;
+    const pos = (page - 1) * PAGE_SIZE + index;
+    const query = removeQueryPrefix(adminNav);
+
+    const access = req.member.role === 2 ? 'administrator' : 'moderator';
+
+    const { total, events } = await core
+      .agendas(req.agenda.uid)
+      .events.search({
+        state: null,
+        ...query
+      }, {
+        from: nav === 'prev' ? pos - 1 : pos + 1,
+        size: 1
+      }, {
+        ...query,
+        access
+      });
+
+    console.log(getRequestedAdminNav(nav, total, page, index));
+
+    const queryString = qs.stringify({
+      ...restQuery,
+      admin_nav: {
+        ...adminNav,
+        ...getRequestedAdminNav(nav, total, page, index)
+      }
+    }, {
+      addQueryPrefix: true,
+      arrayFormat: 'brackets',
+      skipNulls: true,
+    });
+
+    if (!events.length) {
+      next({ code : 404 });
+    }
+
+    res.redirect(`/${agenda.slug}/events/${events[0].slug}${queryString}`);
+  } catch (e) {
+    next(e);
+  }
+}

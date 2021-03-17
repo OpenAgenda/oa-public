@@ -321,8 +321,7 @@ const config = {
         },
         agendaEventAdminNavigate: {
           method: 'get',
-          uri: '/:slug/admin/navigate',
-          legacy: true
+          uri: '/:slug/admin/events/navigate'
         },
         agendaAdminWeb: {
           method: 'get',
