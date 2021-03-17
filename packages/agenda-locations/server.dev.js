@@ -9,7 +9,10 @@ const knex = require('knex');
 const redis = require('redis');
 const express = require('express');
 const morgan = require('morgan');
-const log = require('@openagenda/logs')('server.dev');
+const log = (...args) => {
+  console.log.apply(null, args);
+}
+
 
 const Files = require('@openagenda/files');
 const multer = require('multer');
@@ -83,7 +86,6 @@ const Service = require('.');
   app.use(express.urlencoded({ extended: true }));
 
   app.use((req, res, next) => {
-    req.log = console.log;
     req.agendaId = 123;
     req.userUid = 456;
     next();
@@ -186,6 +188,7 @@ const Service = require('.');
   );
 
   app.post('/merge', (req, res, next) => {
+    log('merge route called');
     const fieldsToOmit = Object.keys(req.data || {})
       .filter(field => req.data[field] === null)
       .concat(['agendaId', 'uid']);

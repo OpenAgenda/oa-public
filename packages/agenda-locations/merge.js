@@ -23,12 +23,12 @@ async function merge(service, mergeInItem, items, data = {}) {
     await service.interfaces.beforeMerge(mergeInItem, toBeMerged);
   }
 
-  log('updating merged location');
-  const updatedMerged = await update(
+  log('updating merged location'); // if data
+  const updatedMerged = data ? await update(
     { service, isPatch: true },
     mergeInItem.uid,
     data
-  );
+  ) : mergeInItem;
 
   log('removing other locations'); // why not remove with remove fn?
   for (const location of toBeMerged) {

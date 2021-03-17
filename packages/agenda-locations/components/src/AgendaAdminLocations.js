@@ -2,6 +2,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import xhr from 'xhr';
+import qs from 'qs';
 
 import countries from '@openagenda/countries';
 import get from '@openagenda/utils/get';
@@ -16,9 +17,10 @@ import Filters from './Filters';
 import List from './List/List';
 import LocationItem from './LocationItem';
 import SetHeader from './SetHeader';
-import MergeForm from './MergeForm';
+//import MergeForm from './MergeForm';
 import UpdateForm from './UpdateForm';
 import AdminActionModal from './AdminActionModal';
+import post from './post';
 
 const log = debug('AgendaAdminLocations');
 
@@ -134,6 +136,15 @@ class AgendaAdminLocations extends Component {
     }
   }
 
+  onDefineAsMergeTarget(location) {
+    const { merge } = this.state;
+
+    if (merge){
+      this.actions.defineAsMergeTarget(location);
+    }
+
+  }
+
   getLabel(name, values) {
     const label = labels[name];
     const { lang } = this.props;
@@ -176,30 +187,40 @@ class AgendaAdminLocations extends Component {
 
   launchMerge() {
     const { res } = this.props;
-    const { merge } = this.state;
-    if (!merge || !merge.locationUids.length) return;
+    const { merge, locations } = this.state;
+    const merged = merge.locationUids.filter(uid => uid !== merge.targetUid);
+    const timeOut =  merged.length * 100 < 10000 ?  merged.length * 100 : 10000 ;
+    log('timeout:', timeOut);
+    if (!merge.targetUid) {
+      log('no target for merge!!');
+    }
+    if (!merge || !merge.targetUid ||!merge.locationUids.length) return;
 
-    get(
-      res.index,
-      {
-        uids: merge.locationUids,
-      },
-      (err, result) => {
-        if (err) {
-          debug('error', err);
-          return;
-        }
+    const route = `${res.merge}?${
+      qs.stringify({
+        mergeIn: merge.targetUid,
+        merged: merged,
+      })
+    }`;
 
-        const { items } = result;
+    this.actions.mergeOnGoing();
 
-        if (items.length !== merge.locationUids.length) {
-          debug('error', 'not all locations to be merged could be found');
-          return;
-        }
-
-        this.actions.launchMerge(items);
+    post(route, {}, (err, result) => {
+      if (err) {
+        log('error', err);
+        return;
       }
-    );
+
+      if (!result.success) {
+        log('no success');
+        return;
+      }
+
+      if (result.success) {
+        setTimeout(() => this.actions.closeMerge(),timeOut < 1000 ? 1000 : timeOut);
+        log('state:', this.state);
+      }
+    });
   }
 
   displayActionModal(accessType, location) {
@@ -239,6 +260,7 @@ class AgendaAdminLocations extends Component {
     const editLocation = this.onLocationEdit.bind(this, item, itemIndex);
     const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
     const onSelect = this.onLocationSelect.bind(this, item, itemIndex);
+    const defineAsMergeTarget =  this.onDefineAsMergeTarget.bind(this, item);
 
     return (
       <LocationItem
@@ -255,6 +277,7 @@ class AgendaAdminLocations extends Component {
         onRemove={confirmRemove}
         getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
+        defineAsMergeTarget={merge ? defineAsMergeTarget : null}
       />
     );
   }
@@ -397,6 +420,21 @@ class AgendaAdminLocations extends Component {
     );
   }
 
+  renderMergeModal() {
+    return (
+      <Modal
+      title='Merge Modal'
+      onClose={this.actions.closeModal}
+      >
+        <div>
+        <p className="text-center">Merge in progress,
+          blablablablalblalbal </p>
+        </div>
+
+      </Modal>
+    )
+  }
+
   renderMergeMenu() {
     const { merge } = this.state;
     return (
@@ -411,7 +449,11 @@ class AgendaAdminLocations extends Component {
             {this.getLabel('launchmerge')}
           </button>
         </p>
-
+        {merge.targetUid ? (
+          <span className="info"><i class="fa fa-check-circle"/> Vous avez selectionné un lieu cible</span>
+        ) : (
+          <span className="info"><i class="fa fa-exclamation-triangle"/> Vous n'avez pas selectionné un lieu cible</span>
+        )}
         {merge.locationUids.length ? (
           <span className="info">
             {this.getLabel('mergeselection', {
@@ -432,6 +474,7 @@ class AgendaAdminLocations extends Component {
         ) : (
           <span className="info">{this.getLabel('mergenoselection')}</span>
         )}
+        
       </div>
     );
   }
@@ -476,12 +519,12 @@ class AgendaAdminLocations extends Component {
     } = this.state;
 
     switch (this.getMode()) {
-      case 'merge':
-        return (
-          <div className="agenda-admin-locations">
-            <MergeForm {...this.props} actions={this.actions} />
-          </div>
-        );
+      // case 'merge':
+      //   return (
+      //     <div className="agenda-admin-locations">
+      //       <MergeForm {...this.props} actions={this.actions} />
+      //     </div>
+      //   );
       case 'create':
         return (
           <div className="agenda-admin-locations">
@@ -574,7 +617,7 @@ class AgendaAdminLocations extends Component {
           <div className="row list">
             <div className="col col-sm-12">
               {merge ? this.renderMergeMenu() : null}
-              <List
+              {merge.onGoing ? null : <List
                 res={res.index}
                 query={this.actions.getQuery()}
                 renderItem={this.renderItem}
@@ -583,7 +626,7 @@ class AgendaAdminLocations extends Component {
                 page={page}
                 total={total}
                 onItemsUpdate={this.actions.updateLocationList}
-              />
+              />}
             </div>
           </div>
           {modal
@@ -591,6 +634,8 @@ class AgendaAdminLocations extends Component {
               switch (modal.type) {
                 case 'removeLocation':
                   return this.renderRemoveLocationModal();
+                  case 'merge':
+                    return this.renderMergeModal();
                 case 'actions':
                   return (
                     <AdminActionModal

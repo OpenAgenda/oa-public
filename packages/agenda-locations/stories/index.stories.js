@@ -7,7 +7,7 @@ import debug from 'debug';
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
 import termStore from './term.story';
-import mergeStory from './merge.story';
+//import mergeStory from './merge.story';
 
 import mergePropsFixtures from './fixtures/mergeProps.json';
 import mergeFormStateFixtures from './fixtures/mergeFormState.json';
@@ -124,15 +124,15 @@ storiesOf('Access', module)
     })
   );
 
-storiesOf('Merge form', module)
-  .add('On distinguera plus tard', () => mergeStory({
-    ...mergePropsFixtures,
-    actions: {
-      getState: () => ({
-        form: mergeFormStateFixtures
-      })
-    }
-  }));
+// storiesOf('Merge form', module)
+//   .add('On distinguera plus tard', () => mergeStory({
+//     ...mergePropsFixtures,
+//     actions: {
+//       getState: () => ({
+//         form: mergeFormStateFixtures
+//       })
+//     }
+//   }));
 
 storiesOf('Location form component', module)
   .add('Search mode', () =>

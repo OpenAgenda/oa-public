@@ -1,6 +1,7 @@
 import update from 'immutability-helper';
 import utils from '@openagenda/utils';
 import dl from '@openagenda/dom-utils/documentLocation';
+import { log } from 'async';
 
 // little counter
 function _syncCounter() {
@@ -98,6 +99,19 @@ function toggleMergeItem(state, location) {
   return {
     merge: {
       locationUids,
+      targetUid: state.merge.targetUid
+    },
+  };
+}
+
+/* change merge target */
+
+function defineAsMergeTarget(state, location) {
+  const locationUids = state.merge.locationUids.concat();
+  return {
+    merge: {
+      locationUids,
+      targetUid: location.uid,
     },
   };
 }
@@ -107,6 +121,7 @@ function toggleMergeItem(state, location) {
  * Optionnally, close the form
  */
 function updateEditedLocation(state, location, closeForm) {
+  console.log('this is happenning')
   const updatedState = {
     locations: {},
   };
@@ -122,28 +137,40 @@ function updateEditedLocation(state, location, closeForm) {
   return update(state, updatedState);
 }
 
-function launchMerge(state, mergedLocations) {
+//function launchMerge(state, mergedLocations) {
+  // return update(state, {
+  //   merge: {
+  //     $set: state.merge || true,
+  //   },
+  //   form: {
+  //     $set: {
+  //       location: mergedLocations[0],
+  //       alternatives: mergedLocations.map((l, i) => ({
+  //         location: l,
+  //       })),
+  //     },
+  //   },
+  // });
+//}
+function mergeOnGoing(state){
   return update(state, {
     merge: {
-      $set: state.merge || true,
+      $set : {
+        locationUids: state.merge.locationUids,
+        targetUid: state.merge.targetUid,
+        onGoing :true,
+      }
     },
-    form: {
-      $set: {
-        location: mergedLocations[0],
-        alternatives: mergedLocations.map((l, i) => ({
-          location: l,
-        })),
-      },
-    },
-  });
-}
+    modal: { $set : {type: 'merge'}}, 
+  })
+} 
 
 function closeMerge(state) {
   return update(state, {
     merge: { $set: false },
-    form: { $set: false },
     query: { $set: {} },
-    locations: { $set: [] },
+    locations:{ $set: [] },
+    modal: {$set: false}
   });
 }
 
@@ -156,6 +183,7 @@ function toggleMerge(state, on) {
     return {
       merge: {
         locationUids: [],
+        target: null,
       },
     };
   }
@@ -251,10 +279,11 @@ function actions(options) {
 
     closeMerge: assign(closeMerge),
     toggleMerge: assign(toggleMerge),
-    launchMerge: assign(launchMerge),
+    mergeOnGoing: assign(mergeOnGoing),
 
     updateLocationList: assign(updateLocationList),
     toggleMergeItem: assign(toggleMergeItem),
+    defineAsMergeTarget: assign(defineAsMergeTarget),
 
     queryChange: assign(queryChange),
 
@@ -275,7 +304,7 @@ export default Object.assign(actions, {
     closeMerge,
     toggleMerge,
     toggleMergeItem,
-    launchMerge,
+    mergeOnGoing,
     updateLocationList,
     editLocation,
     removedLocation,

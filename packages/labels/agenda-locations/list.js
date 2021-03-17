@@ -1,6 +1,14 @@
 "use strict";
 
 module.exports = {
+  "defineMergeTarget": {
+    "fr": "Definir comme cible de la fusion",
+    "en": "Define as merge target",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
   "cantDo": {
     "fr": "Vous ne possedez pas les droits pour:",
     "en": "You do not have the rights for:",
@@ -114,12 +122,12 @@ module.exports = {
     "it": "Avviare la fusione"
   },
   "mergenoselection": {
-    "fr": "Une fois votre sélection faite, lancez la fusion. Vous pourrez sélectionner les valeurs à retenir",
-    "en": "Once your selection is done, launch the merge to choose the values to save in the merged location",
-    "de": "Sobald Sie Deine Auswahl abgeschlossen ist, starte die Zusammenführung die Werte zu wählen, in dem fusionierten Ort zu speichern",
-    "es": "Una vez hecha la selección, inicie la combinación. Puede seleccionar los valores a ser",
-    "br": "Pa vo graet ho tiuzadenn, lañsit ar c'hendeuziñ. Gallout a rit choaz an talvoudoù da enrollañ el lec'h kendeuzet",
-    "it": "Una volta effettuata la selezione, avviare la fusione. Sarete in grado di selezionare i valori da ricordare"
+    "fr": "Une fois votre sélection faite, lancez la fusion.", //  Vous pourrez sélectionner les valeurs à retenir
+    "en": "Once your selection is done, launch the merge.", // to choose the values to save in the merged location
+    "de": "Sobald Sie Deine Auswahl abgeschlossen ist, starte die Zusammenführung.", // die Werte zu wählen, in dem fusionierten Ort zu speichern
+    "es": "Una vez hecha la selección, inicie la combinación.", // Puede seleccionar los valores a ser
+    "br": "Pa vo graet ho tiuzadenn, lañsit ar c'hendeuziñ.", // Gallout a rit choaz an talvoudoù da enrollañ el lec'h kendeuzet
+    "it": "Una volta effettuata la selezione, avviare la fusione." // Sarete in grado di selezionare i valori da ricordare
   },
   "mergeselection": {
     "fr": "Vous avez actuellement sélectionné %count% lieux.",
