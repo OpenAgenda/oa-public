@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import qs from 'qs';
 import { css } from '@emotion/react';
 import { getLocaleValue } from '@openagenda/react-shared';
+import addQueryPrefix from '../utils/addQueryPrefix';
 import EventStateSelector from './EventStateSelector';
 
 const messages = defineMessages({
@@ -54,11 +56,15 @@ const messages = defineMessages({
 export default function EventItem({
   agenda,
   event,
-  pageIndex,
   openRemoveModal,
   selected,
   selectEvent,
   selectionMode,
+  query,
+  page,
+  index,
+  isFirst,
+  isLast,
 }) {
   const intl = useIntl();
 
@@ -93,6 +99,26 @@ export default function EventItem({
     []
   );
 
+  const adminNavStr = useMemo(
+    () => qs.stringify(
+      {
+        admin_nav: {
+          ...addQueryPrefix(query),
+          page: page > 1 ? page : null,
+          index,
+          first: isFirst || null,
+          last: isLast || null,
+        },
+      },
+      {
+        addQueryPrefix: true,
+        arrayFormat: 'brackets',
+        skipNulls: true,
+      }
+    ),
+    [query]
+  );
+
   return (
     <li
       key={event.uid}
@@ -105,7 +131,7 @@ export default function EventItem({
     >
       <div>
         <a
-          href={`/${agenda.slug}/events/${event.slug}`}
+          href={`/${agenda.slug}/events/${event.slug}${adminNavStr}`}
           css={css`
             color: inherit;
           `}
@@ -167,11 +193,7 @@ export default function EventItem({
       <div className="margin-top-xs">
         <ul className="list-inline">
           <li>
-            <EventStateSelector
-              agenda={agenda}
-              event={event}
-              pageIndex={pageIndex}
-            />
+            <EventStateSelector agenda={agenda} event={event} />
           </li>
 
           <li>
