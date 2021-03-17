@@ -74,7 +74,7 @@ const choiceFilter = ({
 
 const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
   label: intl.formatMessage(messages.tags),
-  value: rule.query.tags.join(', '),
+  value: [].concat(rule.query.tags).join(', '),
   detail: intl.formatMessage(messages.sourceAgendaTagsDetail, {
     agendaTitle: sourceAgenda.title,
   }),
