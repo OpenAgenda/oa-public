@@ -3,8 +3,6 @@
 const _ = require('lodash');
 const assert = require('assert');
 const axios = require('axios');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
 const api = require('../api');
@@ -48,17 +46,15 @@ describe('core - functional (server): core.agendas().events.update()', function(
     await core.agendas(17026855).events.search.rebuild();
   });
 
-  afterAll(() => {
-    core.services.core.destroy();
-    testConfig.redisClient.quit();
-  });
-
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
       });
     } catch (e) {}
+
+    core.services.core.destroy();
+    testConfig.redisClient.quit();
   });
 
   describe('simple update', function() {

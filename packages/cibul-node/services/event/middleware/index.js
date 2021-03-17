@@ -37,10 +37,10 @@ async function loadMissing(req) {
     .first(['timings', 'online_access_link'])
     .where('uid', req.event.uid);
   
-  req.event.timings = JSON.parse(record.timings).map(t => ({
+  req.event.timings = record ? (JSON.parse(record.timings) || []).map(t => ({
     start: t.begin,
     end: t.end
-  }));
+  })) : [];
 
   req.event.onlineAccessLink = record.online_access_link;
 }

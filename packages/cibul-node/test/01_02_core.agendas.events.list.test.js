@@ -3,9 +3,6 @@
 process.env.NODE_ENV = 'test';
 
 const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/001.sql');

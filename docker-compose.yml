@@ -147,6 +147,8 @@ services:
       MAP_TILES: ${MAP_TILES}
       OA_SESSION_KEYS: ${OA_SESSION_KEYS}
       OA_SESSION_SECRET: ${OA_SESSION_SECRET}
+      OA_OAUTH_GOOGLE_ID: ${OA_OAUTH_GOOGLE_ID}
+      OA_OAUTH_GOOGLE_SECRET: ${OA_OAUTH_GOOGLE_SECRET}
 
   mysql:
     container_name: mysql

@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendaContribute/middlewares/event');
 
 module.exports = (req, res, next) => req.app.services.core
@@ -11,7 +12,7 @@ module.exports = (req, res, next) => req.app.services.core
   }).then(event => {
     if (!event) return next(404);
 
-    req.event = event;
+    req.event = _.omit(event, ['state']);
 
-      next();
+    next();
   }).catch(next);
