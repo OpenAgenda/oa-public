@@ -37,13 +37,9 @@ function clean(entrySettings, options) {
     const agendaSettings = (settings.agendas || [])
       .filter(s => s.agendaUid === options.agendaUid)
       .pop();
-    if (!agendaSettings) {
-      throw new NotFoundError('location set agenda settings', {
-        setUid: options.setUid,
-        agendaUid: options.agendaUid
-      });
+    if (agendaSettings) {
+      return _.omit(agendaSettings, ['agendaUid']);
     }
-    return _.omit(agendaSettings, ['agendaUid']);
   }
   return settings;
 }

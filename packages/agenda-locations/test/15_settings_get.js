@@ -196,19 +196,15 @@ describe('agenda-locations - functional - settings get', function() {
     it('agenda-specific settings are provided if requested in set settings get', async () => {
       const settings = await svc.sets(1903812).settings.get({ agendaUid: 11 });
 
-      assert.equal(settings.access.update.authorized, false);
+      assert.equal(settings.access.update.authorized, true);
     });
 
-    it('if agenda-specific settings are requested but not found, not found error is thrown', async () => {
-      try {
-        await svc.sets(1903811).settings.get({
-          agendaUid: 12
-        });
-      } catch (error) {
-        assert.equal(error.name, 'NotFoundError');
-        return;
-      }
-      throw new Error('Error was not thrown');
+    it('if agenda-specific settings are requested but not found, set settings are returned', async () => {
+      const settings = await svc.sets(1903811).settings.get({
+        agendaUid: 12
+      });
+
+      assert.equal(settings.access.update.authorized, false);
     });
   });
 
