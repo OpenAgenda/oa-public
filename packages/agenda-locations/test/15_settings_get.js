@@ -19,12 +19,14 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsP = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsP = {
+  ...initSettings, access: {
+    create: {...defaultAccess, authorized: false},
+    delete: {...defaultAccess, authorized: false},
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
 describe('agenda-locations - functional - settings get', function() {
   this.timeout(10000);
@@ -43,8 +45,10 @@ describe('agenda-locations - functional - settings get', function() {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async (uid) =>
-          uid % 2 === 0 ? initSettings : initSettingsP ,
+          getAgendaLocationSettings: async uid => ({
+            5: initSettingsP,
+            10: null
+          })[uid],
           getAgendaDetailsByUid: async () => null
         },
       });
@@ -80,7 +84,6 @@ describe('agenda-locations - functional - settings get', function() {
     });
   
 
-  
     it('setUid with no settings in database, return default values', async() => {
       settings = await svc.sets(5).settings.get();
   
@@ -125,11 +128,13 @@ describe('agenda-locations - functional - settings get', function() {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async (uid) =>
-          uid % 2 === 0 ? initSettings : initSettingsP ,
-          getAgendaDetailsByUid: async (uid, fields) =>  (
-            {locationSetUid: 1903810}
-          ),
+          getAgendaLocationSettings: async uid => ({
+            5: initSettingsP,
+            10: initSettings
+          })[uid],
+          getAgendaDetailsByUid: async (uid, fields) =>  ({
+            locationSetUid: 1903810
+          }),
         },
       });      
     });
