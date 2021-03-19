@@ -133,7 +133,8 @@
     }
   },
   "_search_description": {
-    "type": "text"
+    "type": "text",
+    "analyzer": "french"
   },
   "_search_languages": {
     "type": "keyword"
@@ -159,7 +160,8 @@
     "type": "text"
   },
   "_search_full_address_text": {
-    "type": "text"
+    "type": "text",
+    "analyzer": "french"
   },
   "_search_additional_keywords": {
     "type": "keyword"

@@ -25,7 +25,7 @@ module.exports = (query = {}, nav = {}, formSchema = null, includes = null) => {
     query: getDSLQueryPart(clean, formSchema),
     _source: getDSLSourcePart(includes)
   };
-
+  
   const sort = getDSLSortPart(clean.sort);
 
   if (sort) DSL.sort = sort;

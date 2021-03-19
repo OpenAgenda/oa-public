@@ -27,9 +27,9 @@ describe('02 - event search - functional: search', function() {
 
     before(async () => {
       await service('simple_search').rebuild({
-        eventsList: async (lastId, limit) => {
-          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`))
-        }
+        eventsList: async (lastId, limit) => JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`)
+        )
       });
     });
 
@@ -297,7 +297,6 @@ describe('02 - event search - functional: search', function() {
   
       it('search on word with apostrophe', async () => {
         const {
-          events,
           total
         } = await service('simple_search').search({
           search: 'Horreur'
@@ -316,7 +315,6 @@ describe('02 - event search - functional: search', function() {
 
         assert.equal(total, 1);
       });
-  
   
       it('open search on a city name', async () => {
         const {
@@ -360,6 +358,22 @@ describe('02 - event search - functional: search', function() {
         assert.deepEqual(
           events.map(e => e.slug),
           ['evenement_suisse']
+        );
+      });
+
+      it('Search prioritizes title field', async () => {
+        const {
+          events
+        } = await service('simple_search').search({
+          state: null,
+          search: 'Les chaussettes de l\'Archiduchesse'
+        }, {
+          size: 3
+        });
+
+        assert.deepEqual(
+          events.map(e => e.uid),
+          [9876, 45747, 9879]
         );
       });
     });
@@ -694,7 +708,10 @@ describe('02 - event search - functional: search', function() {
       const {
         events,
         total
-      } = await service('simple_search').search({ search: 'Trié' });
+      } = await service('simple_search').search({
+        search: 'Trié',
+        sort: 'timings.asc'
+      });
 
       assert.equal(total, 5);
       assert.deepEqual(
