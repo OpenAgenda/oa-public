@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const assert = require('assert');
 
 const Files = require('@openagenda/files');
@@ -130,7 +131,8 @@ describe('agenda-locations - functional - settings get', function() {
         interfaces: {
           getAgendaLocationSettings: async uid => ({
             5: initSettingsP,
-            10: initSettings
+            10: initSettings,
+            11: null
           })[uid],
           getAgendaDetailsByUid: async (uid, fields) =>  ({
             locationSetUid: 1903810
@@ -160,11 +162,11 @@ describe('agenda-locations - functional - settings get', function() {
 
 
     it('setUid with settings in database, values are not default', async() => {
-      settings = await svc.sets(1903810).settings.get();
+      const settings = await svc.sets(1903812).settings.get();
   
-      assert.deepEqual(settings, {
+      assert.deepEqual(_.omit(settings, ['agendas']), {
         eventForm: {
-          detailed: false
+          detailed: true
         },
         labels: {},
         tagSet: {
@@ -176,8 +178,38 @@ describe('agenda-locations - functional - settings get', function() {
           merge: {...defaultAccess, authorized: false},
           update: defaultAccess
         }
-      })
-    })
+      });
+    });
+
+    it('settings from set can contain an array of agenda-specific settings', async () => {
+      const settings = await svc.sets(1903812).settings.get();
+
+      assert(Array.isArray(settings.agendas));
+    });
+
+    it('agenda specific settings default to general set settings when left unspecified', async () => {
+      const settings = await svc.sets(1903812).settings.get();
+
+      assert.equal(settings.agendas[0].eventForm.detailed, true);
+    });
+
+    it('agenda-specific settings are provided if requested in set settings get', async () => {
+      const settings = await svc.sets(1903812).settings.get({ agendaUid: 11 });
+
+      assert.equal(settings.access.update.authorized, false);
+    });
+
+    it('if agenda-specific settings are requested but not found, not found error is thrown', async () => {
+      try {
+        await svc.sets(1903811).settings.get({
+          agendaUid: 12
+        });
+      } catch (error) {
+        assert.equal(error.name, 'NotFoundError');
+        return;
+      }
+      throw new Error('Error was not thrown');
+    });
   });
 
   describe('fromDbEntryToSettings', ()=>{

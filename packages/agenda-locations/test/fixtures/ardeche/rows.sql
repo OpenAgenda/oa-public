@@ -388,4 +388,5 @@ INSERT INTO `location_set` (`id`, `uid`, `title`, `created_at`, `updated_at`) va
 (1, 1903810, 'Les lieux du département Ardèchois', '2019-09-20 07:21:41', '2020-04-28 14:25:01');
 
 INSERT INTO `location_set` (`id`, `uid`, `title`, `created_at`, `updated_at`, `settings`) values
-(2, 1903811, 'Les lieux du département Ardèchois2', '2019-09-20 07:21:41', '2020-04-28 14:25:01', '{"access": {"create": false, "delete": false, "merge": false, "update":false}}');
+(2, 1903811, 'Les autres lieux du département Ardèchois', '2019-09-20 07:21:41', '2020-04-28 14:25:01', '{"eventForm": {"detailed": true}, "access": {"create": false, "delete": false, "merge": false, "update":false}}'),
+(3, 1903812, 'Les lieux du Bouchonnois', '2019-09-20 07:21:41', '2020-04-28 14:25:01', '{"eventForm": {"detailed": true}, "access": {"create": false, "delete": false, "merge": false, "update":true}, "agendas": [{"agendaUid": 11, "access": {"create": false, "delete": false, "merge": false, "update":false}}]}');

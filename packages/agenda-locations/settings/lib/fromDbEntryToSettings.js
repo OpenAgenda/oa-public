@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const flattenLocationTagSet = require('./flattenLocationTagSet');
 
 const defaultAccess = {
@@ -9,8 +11,12 @@ const defaultAccess = {
   link: null
 };
 
-module.exports = (entrySettings, options) => {
-  const settings = { ...entrySettings };
+function clean(entrySettings, options) {
+  const settings = {
+    ...(options.defaultSettings || {}),
+    ..._.omit(entrySettings, ['agendas'])
+  };
+
   if (options.lang && settings?.tagSet) {
     settings.tagSet = flattenLocationTagSet(settings.tagSet, options.lang);
   }
@@ -19,5 +25,27 @@ module.exports = (entrySettings, options) => {
       settings.access[field] = settings.access[field] ? defaultAccess : { ...defaultAccess, authorized: false };
     }
   }
+
+  if (Array.isArray(entrySettings.agendas)) {
+    settings.agendas = entrySettings.agendas.map(s => clean(s, { 
+      ..._.omit(options, ['agendaUid']),
+      defaultSettings: settings
+    }));
+  }
+
+  if (options.agendaUid) {
+    const agendaSettings = (settings.agendas || [])
+      .filter(s => s.agendaUid === options.agendaUid)
+      .pop();
+    if (!agendaSettings) {
+      throw new NotFoundError('location set agenda settings', {
+        setUid: options.setUid,
+        agendaUid: options.agendaUid
+      });
+    }
+    return _.omit(agendaSettings, ['agendaUid']);
+  }
   return settings;
-};
+}
+
+module.exports = clean;
