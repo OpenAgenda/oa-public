@@ -150,6 +150,9 @@
   "_search_last_timing": {
     "type": "date"
   },
+  "_search_first_timing": {
+    "type": "date"
+  },
   "_search_location": {
     "type": "geo_point"
   },

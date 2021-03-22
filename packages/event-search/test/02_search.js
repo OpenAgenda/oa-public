@@ -244,9 +244,9 @@ describe('02 - event search - functional: search', function() {
           'dateRange',
           'country',
           'longDescription'
-      ].map(f => events[0][f]).forEach(data => {
-        assert.equal(typeof data, 'string');
-      });
+        ].map(f => events[0][f]).forEach(data => {
+          assert.equal(typeof data, 'string');
+        });
       });
   
       it('all fields are returned when detailed option is true', async () => {

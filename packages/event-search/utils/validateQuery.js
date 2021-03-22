@@ -50,6 +50,10 @@ const validate = schema({
     type: 'text',
     list: true
   },
+  relative: {
+    type: 'choice',
+    options: ['passed', 'upcoming', 'current']
+  },
   city: {
     type: 'text',
     list: true
