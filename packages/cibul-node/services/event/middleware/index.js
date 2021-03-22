@@ -42,7 +42,7 @@ async function loadMissing(req) {
     end: t.end
   })) : [];
 
-  req.event.onlineAccessLink = record.online_access_link;
+  req.event.onlineAccessLink = record?.online_access_link;
 }
 
 
