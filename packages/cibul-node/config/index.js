@@ -298,6 +298,9 @@ const config = {
     comexposium: {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
+    translators: [ // user uids for crowdin translators
+      31046551
+    ],
     routes: {
       globals: {
         agendaFeed: {

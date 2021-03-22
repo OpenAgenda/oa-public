@@ -39,14 +39,20 @@ const initialState = async req => {
     includeImagePath: true
   }) : null;
 
+  const isTranslator = user ? config.translators.includes(user.uid) : false;
+  const translateMode = req.cookies.translateMode === 'true';
+  const lang = isTranslator && translateMode ? 'io' : req.lang;
+
   return {
     layout: {
       main: {
         apiRoot,
-        lang: req.lang,
+        lang,
         user,
         userLoaded: true,
-        userLoading: false
+        userLoading: false,
+        isTranslator,
+        translateMode
       },
       res: {
         main: {
@@ -108,7 +114,7 @@ const initialState = async req => {
       settings: {
         prefix: '/new',
         apiRoot,
-        lang: req.lang
+        lang
       },
       res: {
         create: '/new',
@@ -120,7 +126,7 @@ const initialState = async req => {
       settings: {
         prefix: '/home/activities',
         apiRoot,
-        lang: req.lang,
+        lang,
         perPageLimit: 20
       },
       res: {
@@ -148,7 +154,7 @@ const initialState = async req => {
     agendaSettingsEdit: {
       settings: {
         prefix: '/:slug/admin',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`
       },
       res: {
@@ -170,7 +176,7 @@ const initialState = async req => {
       settings: {
         context: 'user',
         prefix: '/home/inbox',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         emptyInboxLabel: 'homeInboxDesc',
@@ -198,10 +204,10 @@ const initialState = async req => {
       settings: {
         context: 'user',
         prefix: '/support',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
-        creationDesc: getInboxLabel('supportInboxDesc', req.lang),
+        creationDesc: getInboxLabel('supportInboxDesc', lang),
         // displayHelp: true,
         hideEmptyList: true, // redirect on creation if the list is empty
         allowCreateConversation: true, // show creation button
@@ -234,7 +240,7 @@ const initialState = async req => {
       settings: {
         context: 'agenda',
         prefix: '/:slug/admin/inbox',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         emptyInboxLabel: 'agendaInboxDesc',
@@ -260,7 +266,7 @@ const initialState = async req => {
     members: {
       settings: {
         prefix: '/:slug/admin/members',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
@@ -281,7 +287,7 @@ const initialState = async req => {
     agendaActivities: {
       settings: {
         prefix: '/:slug/admin/activities',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
@@ -292,7 +298,7 @@ const initialState = async req => {
     agendaStats: {
       settings: {
         prefix: '/:slug/admin/statistics',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`
       },
       res: {
@@ -303,7 +309,7 @@ const initialState = async req => {
     eventAdmin: {
       settings: {
         prefix: '/:slug/admin/events',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
@@ -316,7 +322,7 @@ const initialState = async req => {
       settings: {
         context: 'user',
         prefix: '/admin/support',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         autoFocus: true
@@ -340,7 +346,7 @@ const initialState = async req => {
     supervisor: {
       settings: {
         prefix: '/supervisor',
-        lang: req.lang,
+        lang,
         apiRoot: `http://localhost:${config.port}`
       }
     }
@@ -389,7 +395,7 @@ module.exports = app => {
     cmn.loadBaseData('oasfmain.css'),
     (req, res, next) => matchMw({
       initialState,
-      lang: req.lang,
+      lang: req.cookies.translateMode === 'true' ? 'io' : req.lang,
       // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
     })(req, res, next)
   );
