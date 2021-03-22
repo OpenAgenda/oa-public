@@ -1,0 +1,9 @@
+{
+  "invitationError": "Une erreur est parvenue lors du traitement des invitations. Veuillez retenter dans quelques instants",
+  "invitationNotSent": "L'invitation n'a pas pu être envoyée",
+  "emailSubmitted": "Les %count% emails soumis sont en cours de traitement",
+  "noNewInvite": "Aucune nouvelle invitation a été envoyée",
+  "sentInvites": "Invitations envoyées: %count%",
+  "resentInvites": "%count% invitations sont en cours d'envoi. <br/><br/>Notez que les invitations ne peuvent être relancées qu'une fois toutes les 24h.",
+  "resentInvite": "L'invitation est en cours de ré-envoi"
+}

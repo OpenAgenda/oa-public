@@ -1,0 +1,14 @@
+{
+  "signin": "Login",
+  "search": "Suchen",
+  "help": "Hilfe",
+  "": {
+    "fr": "Allemand",
+    "en": "German",
+    "es": "Aleman",
+    "it": "Tedesco"
+  },
+  "de": null,
+  "fr": null,
+  "es": null
+}

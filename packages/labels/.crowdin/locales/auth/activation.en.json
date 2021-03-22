@@ -1,0 +1,12 @@
+{
+  "sendAgain": "The activation email is being sent again",
+  "checkEmail": "Check your mail for a validation link",
+  "checkEmailInstruction": "An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.",
+  "didNotReceive": "Didn't receive any mail? %resend% or write us at %support%",
+  "resend": "Click here to resend",
+  "stayUpToDate": "Stay up to date with what is going on with OpenAgenda!",
+  "followUs": "Follow us",
+  "getOurNewsletter": "Get our newsletter",
+  "yourEmail": "Your email",
+  "subscribe": "Subscribe"
+}

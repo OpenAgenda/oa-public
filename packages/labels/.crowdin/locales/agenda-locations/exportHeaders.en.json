@@ -1,0 +1,19 @@
+{
+  "uid": "Id",
+  "name": "Name",
+  "address": "Address",
+  "city": "City",
+  "department": "Department",
+  "latitude": "Latitude",
+  "longitude": "Longitude",
+  "postalCode": "Postal code",
+  "insee": "INSEE Code",
+  "countryCode": "Country code",
+  "district": "District",
+  "region": "Region",
+  "eventCount": "Associated events",
+  "agendaEventCount": "Associated events in agenda",
+  "state": "Verified",
+  "extId": "External id",
+  "slug": "URL code"
+}

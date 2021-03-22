@@ -1,0 +1,6 @@
+{
+  "subject": "{nbr} notificaciones no vistas desde la {date}",
+  "dailySummary": "Resumen cotidiano de las notificaciones",
+  "goToOA": "Ir sobre OpenAgenda",
+  "unsubsribe": "Dejar de recibir resumen agendas"
+}

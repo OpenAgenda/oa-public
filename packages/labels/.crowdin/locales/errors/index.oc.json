@@ -1,0 +1,23 @@
+{
+  "number.toosmall": null,
+  "number.toobig": null,
+  "multi-input.info": null,
+  "multi-input.error": null,
+  "string.tooshort": null,
+  "string.toolong": null,
+  "email.invalid": null,
+  "phone.invalid": null,
+  "link.invalid": null,
+  "number.invalid": null,
+  "integer.invalid": null,
+  "integer.toobig": null,
+  "groupTags.required": null,
+  "required": null,
+  "choice.required": null,
+  "serverException": null,
+  "serverErrorTooLargeFile": null,
+  "noOrigin": null,
+  "defaultBack": null,
+  "defaultAgendaBack": null,
+  "pageDoesNotExist": null
+}

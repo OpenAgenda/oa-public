@@ -1,0 +1,9 @@
+{
+  "required": "Campo obbligatorio",
+  "groupErrorHeader": "Alcune voci devono essere corrette",
+  "submit": "Registrati",
+  "help": "Aiuto",
+  "noChoice": "Nessuna scelta",
+  "noOption": null,
+  "selectPlaceholder": null
+}

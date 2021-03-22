@@ -1,0 +1,19 @@
+{
+  "editorTitle": "Related events",
+  "editorInfo": "Link other events of the agenda to your event",
+  "showTitle": "See also",
+  "emptyReferences": "There are currently no linked events",
+  "emptySearch": "No result for this search",
+  "addEvent": "Add an event",
+  "addEventOr": "or",
+  "addEventSuggest": "Load similar events",
+  "search": "Search by title or location name",
+  "searchResultTitle": "Search results",
+  "suggestionResultTitle": "Suggested similar events",
+  "nothingToSuggestTitle": "Similar events",
+  "nothingToSuggest": "Similar events can only be loaded if you have already filled the event form",
+  "noSuggestionsTitle": "Similar events",
+  "noSuggestions": "No similar event was found",
+  "noOtherSuggestionsTitle": "Similar events",
+  "noOtherSuggestions": "No other similar event was found"
+}

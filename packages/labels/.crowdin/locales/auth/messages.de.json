@@ -1,0 +1,11 @@
+{
+  "isBlacklisted": null,
+  "isBlacklistedInfo": null,
+  "authRequired": null,
+  "limitedAccessEvent": "Du musst authentifiziert sein, um auf dieses Veranstaltung zugreifen zu können. Bitte melde sich an",
+  "limitedAccessAgenda": "Du musst authentifiziert werden, um auf dieseVerwaltungskalender zugreifen zu können. Bitte melde sich an",
+  "abortedAuth": "Die Authentifizierung wurde bei %service% abgebrochen.",
+  "facebookEmailMissing": "Die E-Mail in deinem Facebook-Konto ist nicht verfügbar. Überprüfe es auf Facebook, bevor Sie es wieder versuchen.",
+  "genericError": "Es gab ein Problem. Bitte versuche es später noch einmal.",
+  "accountEmailAlreadyExists": "Ein Konto mit deiner E-Mail existiert bereits. Bitte melde sich mit deiner E-Mail-Adresse und Ihrem Passwort an."
+}

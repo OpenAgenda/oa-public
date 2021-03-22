@@ -1,0 +1,13 @@
+{
+  "createAgenda": "Create an agenda",
+  "searchAgenda": "Search an agenda",
+  "officialAgenda": "Official agenda",
+  "noResult": "No result found",
+  "searchEvent": "Search an event",
+  "selectAgenda": "Select an agenda in which to create the event",
+  "privateAgenda": "Private agenda",
+  "or": "Or",
+  "modalBigSentence": "You are about to create a new event based on a precedent.",
+  "modalReminder": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.",
+  "createNewEventIn": "Create the new event in"
+}

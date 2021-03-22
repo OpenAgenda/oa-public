@@ -1,0 +1,11 @@
+{
+  "isBlacklisted": null,
+  "isBlacklistedInfo": null,
+  "authRequired": null,
+  "limitedAccessEvent": "El acceso a este evento es limitado. La cuenta para el acceso.",
+  "limitedAccessAgenda": "El acceso a este agenda es limitado. La cuenta para el acceso.",
+  "abortedAuth": "Autenticación se detuvo en %service%",
+  "facebookEmailMissing": "El correo electrónico asociada con su cuenta de Facebook no está disponible. Visita Facebook para confirmar.",
+  "genericError": "Hubo una preocupación. Gracias a volver a intentarlo más tarde",
+  "accountEmailAlreadyExists": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña."
+}

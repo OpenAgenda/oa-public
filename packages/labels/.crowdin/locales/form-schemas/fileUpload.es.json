@@ -1,0 +1,10 @@
+{
+  "upload": "Subir un archivo",
+  "error": "Se produjo un problema durante la carga. Por favor, inténtelo de nuevo.",
+  "tip": "Arrastre un archivo en la zona gris.",
+  "replace": "reemplazar archivo",
+  "loading": "Cargando",
+  "or": "O",
+  "acceptedExtensions": "formatos aceptados",
+  "remove": "Eliminar"
+}

@@ -1,0 +1,6 @@
+{
+  "subject": "{nbr} notifications not seen since the {date}",
+  "dailySummary": "Daily summary of your notifications",
+  "goToOA": "Go to OpenAgenda",
+  "unsubsribe": "No longer receiving a daily summary of notifications"
+}

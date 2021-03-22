@@ -1,0 +1,10 @@
+{
+  "upload": "Caricare un file",
+  "error": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
+  "tip": "Trascinare un file nell'area ombreggiata.",
+  "replace": "Sostituire il file",
+  "loading": "Caricamento in corso",
+  "or": "OPPURE",
+  "acceptedExtensions": "File accettati",
+  "remove": "Cancellare"
+}

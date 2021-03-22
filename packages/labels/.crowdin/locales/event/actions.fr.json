@@ -1,0 +1,9 @@
+{
+  "agendaShareError": "L'événement n'a pas pu être ajouté à l'agenda \"%agenda%\". Veuillez retenter l'opération dans un instant.",
+  "agendaShareToControl": "L'événement a été ajouté à l'agenda \"%agenda%\". Il est actuellement en modération",
+  "agendaSharePublished": "L'événement a été publié avec succès sur l'agenda \"%agenda%\"",
+  "agendaShareRemoveUnauthorized": "Vous ne disposez pas des droits nécéssaires pour retirer cet événement de l'agenda \"%agenda%\"",
+  "agendaShareRemoveError": "L'événmeent n'a pas pu être retiré de l'agenda \"%agenda%\". Veuillez retenter l'opération dans un instant.",
+  "agendaShareRemoved": "L'événement a été retiré de l'agenda \"%agenda%\".",
+  "eventEmailSend": "L'événement est en cours d'envoi à %count% adresses mail"
+}

@@ -1,0 +1,11 @@
+{
+  "radio": "Einzigartige Auswahlliste",
+  "checkbox": "Liste à choix Multiples",
+  "select": "Wählen Sie Eingabe",
+  "integer": "Ganze Zahl",
+  "number": "Nummer",
+  "text": "Einfaches Textfeld",
+  "textarea": "Mehrzeilige Textfeld",
+  "markdown": "Rich-Text-Feld",
+  "image": "Bild"
+}

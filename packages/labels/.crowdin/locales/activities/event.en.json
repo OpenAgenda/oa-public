@@ -1,0 +1,15 @@
+{
+  "agenda.changeEventState": "{user} passed {event} from \"{before}\" to \"{after}\" on {agenda}.",
+  "agenda.publishEvent": "{user} published {event} on {agenda}.",
+  "agenda.unpublishEvent": "{user} unpublished {event} on {agenda}.",
+  "agenda.removeEvent": "{user} removed {event} from {agenda}.",
+  "agenda.aggregateEvent": "{agenda} aggregated {event} from {sourceAgenda}.",
+  "agenda.addEvent": "{user} added {event} from {sourceAgenda}.",
+  "event.create": "{user} created {event} in the agenda {agenda}.",
+  "event.update": "{user} updated {event} on {agenda}.",
+  "event.updateWithOneChange": "{user} updated the field {fields} of {event} on {agenda}.",
+  "event.updateWithSomeChanges": "{user} updated {event} on {agenda}: {fields} have been changed.",
+  "event.updateWithLotOfChanges": "{user} updated {event} on {agenda} ({fieldsCount} fields).",
+  "event.delete": "{user} deleted {event} on {agenda}.",
+  "unknownActivity": "Activity label missing for {verb}"
+}

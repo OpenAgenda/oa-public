@@ -1,0 +1,20 @@
+{
+  "unsubscribedSuccess": null,
+  "unsubscribedFail": null,
+  "unsubscribeFromNotification": null,
+  "unsubscribeFromAllNotifications": null,
+  "notificationTitle": null,
+  "seeAgenda": null,
+  "seeEvent": null,
+  "agendaEventPublished": null,
+  "agendaEventSubmitModeration": null,
+  "userNewContributor": null,
+  "agendaNewContributor": null,
+  "agendaNewAdministrator": null,
+  "userEventUpdate": null,
+  "userNewAdministrator": null,
+  "userNewModerator": null,
+  "agendaNewModerator": null,
+  "agendaNewAggregator": null,
+  "agendaEventUpdate": null
+}

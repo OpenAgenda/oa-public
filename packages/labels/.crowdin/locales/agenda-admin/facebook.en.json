@@ -1,0 +1,8 @@
+{
+  "facebookTabAdded": "The agenda tab was added to your Facebook page",
+  "title": "Facebook",
+  "description": "Add your agenda to a Facebook page",
+  "footnote": "As facebook has updated its %link%, this feature is only available to pages with more than 2000 likes.",
+  "add": "Choose a Facebook page",
+  "conditions": "terms of use"
+}

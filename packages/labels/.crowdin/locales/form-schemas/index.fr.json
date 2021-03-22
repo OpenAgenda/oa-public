@@ -1,0 +1,9 @@
+{
+  "required": "Champ obligatoire",
+  "groupErrorHeader": "Certaines saisies doivent être corrigées",
+  "submit": "Enregistrer",
+  "help": "Aide",
+  "noChoice": "Aucun choix",
+  "noOption": "Pas de correspondance",
+  "selectPlaceholder": "Sélectionner..."
+}

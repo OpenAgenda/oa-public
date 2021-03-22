@@ -1,0 +1,9 @@
+{
+  "invitationError": "An error occurred during the processing of the invitations. Please try again in a short while.",
+  "invitationNotSent": "Invitation could not be sent",
+  "emailSubmitted": "Your %count% submitted emails are being processed",
+  "noNewInvite": "No new invitation was sent",
+  "sentInvites": "Sent invitations: %count%",
+  "resentInvites": "%count% invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours",
+  "resentInvite": "The invitation is being resent"
+}

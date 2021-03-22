@@ -1,0 +1,15 @@
+{
+  "agenda.changeEventState": null,
+  "agenda.publishEvent": "{user} {event} auf {agenda} veröffentlicht.",
+  "agenda.unpublishEvent": "{user} nicht veröffentlichtes {event} auf {agenda}.",
+  "agenda.removeEvent": "{user} {event} von {agenda} entfernt.",
+  "agenda.aggregateEvent": "{agenda} {event} from {sourceAgenda} aggregiert.",
+  "agenda.addEvent": null,
+  "event.create": "{user} Veranstaltung auf der Kalender {agenda} erstellt.",
+  "event.update": "{user} {event} auf {agenda} aktualisiert.",
+  "event.updateWithOneChange": null,
+  "event.updateWithSomeChanges": null,
+  "event.updateWithLotOfChanges": null,
+  "event.delete": "{user} {event} auf {agenda} gelöscht.",
+  "unknownActivity": null
+}

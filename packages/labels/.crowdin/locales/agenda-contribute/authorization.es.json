@@ -1,0 +1,7 @@
+{
+  "noAccessToClosedAgenda": "Este agenda está cerrado a la contribución",
+  "noAccessToEdit": null,
+  "noAccessToCreate": null,
+  "noAccessToDraft": null,
+  "eventNotLinkedToAgenda": null
+}

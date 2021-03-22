@@ -1,0 +1,11 @@
+{
+  "translationTitle": "Automated translation",
+  "translationInfo": "",
+  "sourceLanguage": "Source language",
+  "targetLanguages": "Destination languages",
+  "translationHelp": "Find out more",
+  "processingTranslation": "Processing translation",
+  "savingPartialTranslation": "Translations were retrieved partially only. Saving anyways",
+  "sourceChange": "Change",
+  "deactivatedTranslation": "The automated translation is deactivated"
+}

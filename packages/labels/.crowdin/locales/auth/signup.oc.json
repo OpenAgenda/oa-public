@@ -1,0 +1,21 @@
+{
+  "usedAccount": null,
+  "fieldCannotBeEmpty": null,
+  "usedEmail": null,
+  "invalidEmail": null,
+  "passwordTooShort": null,
+  "passwordNotEqual": null,
+  "createAccount": null,
+  "captchaTryAgain": null,
+  "hasAccount": null,
+  "connect": null,
+  "nameSurname": null,
+  "email": null,
+  "password": null,
+  "repeatPassword": null,
+  "signup": null,
+  "agree": null,
+  "termsOfUse": null,
+  "policy": null,
+  "culture": null
+}

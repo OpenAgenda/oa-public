@@ -3,20 +3,31 @@
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
-const all = require('../all');
+const mkdirp = require('mkdirp');
+const getLabelFiles = require('../getLabelFiles');
 
 const DEFAULT_LANG = 'en';
-const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br'];
+const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
-const defaultLocales = toFlatPropertyMap(all, DEFAULT_LANG);
+const labelFiles = getLabelFiles();
 
 for (const lang of LANGS) {
-  const locales = {
-    ..._.mapValues(defaultLocales, () => null),
-    ...toFlatPropertyMap(all, lang)
-  };
+  for (const labelFile of labelFiles) {
+    const labels = require(path.join(__dirname, '..', labelFile));
+    const defaultLocales = toFlatPropertyMap(labels, DEFAULT_LANG);
 
-  fs.writeFileSync(path.join(__dirname, 'locales', `${lang}.json`), JSON.stringify(locales, null, 2));
+    const locales = {
+      ..._.mapValues(defaultLocales, () => null),
+      ...toFlatPropertyMap(labels, lang)
+    };
+
+    const fileName = labelFile.split('.').slice(0, -1).join('.');
+    const dirname = path.dirname(fileName);
+
+    mkdirp.sync(path.join(__dirname, 'locales', dirname));
+
+    fs.writeFileSync(path.join(__dirname, 'locales', `${fileName}.${lang}.json`), JSON.stringify(locales, null, 2));
+  }
 }
 
 function toFlatPropertyMap(obj, neededKey = '', keySeparator = '|') {

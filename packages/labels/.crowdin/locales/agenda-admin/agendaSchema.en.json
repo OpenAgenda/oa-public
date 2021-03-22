@@ -1,0 +1,6 @@
+{
+  "network": "Network",
+  "networkDetail": "Field required by the agenda network",
+  "event": "Standard",
+  "eventDetail": "Standard event field"
+}

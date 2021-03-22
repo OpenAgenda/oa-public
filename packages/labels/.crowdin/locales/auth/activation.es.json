@@ -1,0 +1,12 @@
+{
+  "sendAgain": "El correo electrónico de activación está siendo re-enviado",
+  "checkEmail": "Haga clic en el enlace de validación en su caja de bares",
+  "checkEmailInstruction": "Un correo electrónico con su cuenta de enlace de activación será enviado a usted en un momento. Compruebe su bandeja de entrada para completar su registro.",
+  "didNotReceive": "No se recibe un correo electrónico? %resend% o escribir en %support%",
+  "resend": "Haga clic aquí para iniciar el envío",
+  "stayUpToDate": "Mantenerse al tanto de lo que está sucediendo en OpenAgenda!",
+  "followUs": "Síguenos",
+  "getOurNewsletter": "Recibe nuestro boletín",
+  "yourEmail": "Su email",
+  "subscribe": "suscribir"
+}

@@ -1,0 +1,14 @@
+{
+  "administrator": null,
+  "moderator": null,
+  "contributor": null,
+  "reader": null,
+  "emailSubject": null,
+  "emailTitle": null,
+  "emailTitleForExistantUser": null,
+  "emailInscription": null,
+  "emailShowAgenda": null,
+  "emailSignup": null,
+  "emailDescription": null,
+  "newMessage": null
+}

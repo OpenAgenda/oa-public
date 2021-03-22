@@ -1,0 +1,15 @@
+{
+  "empty": "the category name cannot be empty",
+  "duplicate": "this category already exists",
+  "categories": "Categories",
+  "subtitle": "Categories form a single selection list",
+  "listName": "Name of the list",
+  "listInfo": "Information field",
+  "listSection": "Agenda categories",
+  "add": "Add",
+  "noCategories": "You haven't yet defined any categories for this agendda",
+  "linkError": "An error occurred while saving your data. Please try again later",
+  "cancelUpdateTag": "Cancel",
+  "updateTag": "Ok",
+  "required": "Make required. One category must be selected."
+}

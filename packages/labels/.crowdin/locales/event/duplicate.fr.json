@@ -1,0 +1,13 @@
+{
+  "createAgenda": "Créer un agenda",
+  "searchAgenda": "Rechercher un agenda",
+  "officialAgenda": "Agenda officiel",
+  "noResult": "Aucun résultat trouvé",
+  "searchEvent": "Rechercher un événement",
+  "selectAgenda": "Sélectionner l'agenda dans lequel créer l'événement",
+  "privateAgenda": "Agenda privé",
+  "or": "Ou",
+  "modalBigSentence": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.",
+  "modalReminder": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
+  "createNewEventIn": "Créer le nouvel événement dans"
+}

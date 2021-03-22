@@ -1,0 +1,18 @@
+{
+  "aggregatorExplanation": "This feature allows you to automatically fetch the events added to the agendas of your choice.",
+  "createAggregator": "Activate agenda aggregation",
+  "sourceAgendas": "Source agendas",
+  "sourcesExplanation": "The events published by the agendas listed here are automatically added to the [%title%](%link%) agenda.",
+  "addSources": "To aggregate new agendas, [go to the page of the agenda](%searchLink%) you wish to add and click on Export > Aggregate in > **%agenda%**",
+  "sourcesHelp": "Click here to find out more about aggregations",
+  "aggregationLoop": "This agenda agregates events from the agenda you want to add it to. Agregation loops are not permitted.",
+  "searchAgenda": "Search an agenda",
+  "officialAgenda": "Official agenda",
+  "noResult": "No result found",
+  "removeSource": "Remove source",
+  "removeConfirmMessage": "Are you sure you want to delete this agenda from sources ?",
+  "sourceAdded": "%source% was added to the sources of %agg%. Its upcoming events will be added shortly.",
+  "sourceRemoved": "%source% was removed from the sources of %agg%.",
+  "numberOfResults": "Number of results",
+  "totalSources": "Total sources"
+}

@@ -1,0 +1,13 @@
+{
+  "today": null,
+  "yesterday": null,
+  "tomorrow": null,
+  "thisWeekend": null,
+  "thisWeek": null,
+  "thisMonth": null,
+  "relativeToNowPast": null,
+  "relativeToNowUpcoming": null,
+  "days": null,
+  "months": null,
+  "years": null
+}

@@ -1,0 +1,23 @@
+{
+  "number.toosmall": "The number must be equal to or higher than %min%",
+  "number.toobig": "The number must be equal to or lower than %max%",
+  "multi-input.info": "Type in one or multiple values",
+  "multi-input.error": "Invalid entries will not be saved",
+  "string.tooshort": "The field must contain at least %min% caracters",
+  "string.toolong": "The field must contain at must %max% caracters",
+  "email.invalid": "A valid email must be input",
+  "phone.invalid": "A valid phone number must be input",
+  "link.invalid": "A valid link must be input",
+  "number.invalid": "A valid number must be input",
+  "integer.invalid": "A valid integer must be intput",
+  "integer.toobig": "This value is too big",
+  "groupTags.required": "At least one item must be selected",
+  "required": "Required",
+  "choice.required": "Required",
+  "serverException": "There was trouble while saving the data, try again in a short while",
+  "serverErrorTooLargeFile": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes",
+  "noOrigin": "This event is unavailable as it is not associated to any agenda.",
+  "defaultBack": "Back to the home page",
+  "defaultAgendaBack": "Back to the agenda page",
+  "pageDoesNotExist": "The page you requested does not exist"
+}

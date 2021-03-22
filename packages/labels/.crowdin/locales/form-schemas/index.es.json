@@ -1,0 +1,9 @@
+{
+  "required": "campo obligatorio",
+  "groupErrorHeader": "Algunas entradas deben ser corregidos",
+  "submit": "Guardar",
+  "help": "Ayuda",
+  "noChoice": "otra opción",
+  "noOption": null,
+  "selectPlaceholder": null
+}

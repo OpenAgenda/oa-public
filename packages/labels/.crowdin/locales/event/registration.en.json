@@ -1,0 +1,7 @@
+{
+  "info": "Registration tools",
+  "placeholder": "Links, emails or phone numbers. Separate each value with a tab or a comma.",
+  "error": "Invalid entries will not be saved. Separate each value with a tab or a comma.",
+  "invalid": "Only links, emails or phone numbers are accepted",
+  "registerBook": "Register / book"
+}

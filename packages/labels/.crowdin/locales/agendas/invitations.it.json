@@ -1,0 +1,9 @@
+{
+  "invitationError": "Si è verificato un errore durante l'elaborazione degli inviti. Si prega di riprovare in breve tempo.",
+  "invitationNotSent": "L'invito non ha potuto essere inviato",
+  "emailSubmitted": "I %count% e-mail sono in corso di elaborazione",
+  "noNewInvite": "Nessun nuovo invito è stato inviato",
+  "sentInvites": "Inviti inviati: %count%",
+  "resentInvites": "Nota che gli inviti non possono essere inviati all'ingrosso più di una volta ogni 24 ore",
+  "resentInvite": "L'invito è essere risentito."
+}

@@ -1,0 +1,11 @@
+{
+  "connection": null,
+  "incorrectPassword": null,
+  "resetPassword": null,
+  "email": null,
+  "password": null,
+  "signin": null,
+  "lostPassword": null,
+  "noAccount": null,
+  "createAccount": null
+}

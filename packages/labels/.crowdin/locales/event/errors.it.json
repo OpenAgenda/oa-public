@@ -1,0 +1,5 @@
+{
+  "timings.empty": null,
+  "location.required": "La posizione deve essere specificata",
+  "timings.toolong": "Non possono esserci più di 800 fasce orarie per un singolo evento."
+}
