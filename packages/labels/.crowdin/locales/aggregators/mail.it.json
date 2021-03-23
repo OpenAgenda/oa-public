@@ -1,8 +1,1 @@
-{
-  "newAggregationSubject": "%agenda% ha aggregato un nuovo evento: %event%",
-  "newAggregationBody": "**%event%** dal **%sourceAgenda%** è stato aggregato con lo stato **%stato%**",
-  "newAggregationAction": "Vedi l'evento",
-  "toBeControlled": "verificabile",
-  "readyToPublish": "pronto per la pubblicazione",
-  "published": "pubblicato"
-}
+{}

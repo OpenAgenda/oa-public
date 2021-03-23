@@ -1,14 +1,1 @@
-{
-  "empty": "la categoría no puede estar vacía",
-  "duplicate": "Esta categoría ya existe",
-  "categories": "Categorías",
-  "subtitle": "Las categorías son una lista única opción",
-  "listName": "Encabezando la lista",
-  "listInfo": "Campo indicativo",
-  "listSection": "Categorías de eventos",
-  "add": "Añadir",
-  "noCategories": "No se ha definido ninguna categoría para esta agenda",
-  "linkError": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
-  "cancelUpdateTag": "Anular",
-  "required": "Los mandatos. Se seleccionará una categoría."
-}
+{}

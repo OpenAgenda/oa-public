@@ -11,6 +11,5 @@
   "react-layouts.MainLayout.settings": "Paramètres",
   "react-layouts.MainLayout.signin": "Se connecter",
   "react-layouts.MainLayout.signout": "Se déconnecter",
-  "react-layouts.MainLayout.translate": "Traduire",
   "react-layouts.components.Search.search": "Rechercher"
 }

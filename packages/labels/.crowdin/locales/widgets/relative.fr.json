@@ -1,13 +1,4 @@
 {
   "today": "Aujourd'hui",
-  "yesterday": "hier",
-  "tomorrow": "Demain",
-  "thisWeekend": "Ce week-end",
-  "thisWeek": "Cette semaine",
-  "thisMonth": "Ce mois-ci",
-  "relativeToNowPast": "il y a %count% %units%",
-  "relativeToNowUpcoming": "dans %count% %units%",
-  "days": "jours",
-  "months": "mois",
-  "years": "ans"
+  "tomorrow": "Demain"
 }

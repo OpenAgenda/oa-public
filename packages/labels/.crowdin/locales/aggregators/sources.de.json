@@ -1,18 +1,1 @@
-{
-  "aggregatorExplanation": "Automatisch Import",
-  "createAggregator": "Aktivieren Agenda Aggregation",
-  "sourceAgendas": "Quelle Kalenders",
-  "sourcesExplanation": "Die Veranstaltungen, die von der Kalender veröffentlicht hier aufgeführt sind, auf die [%title%](%link%) Kalender automatisch hinzugefügt.",
-  "addSources": "Um neue Agenden zusammenzufassen, [rufen Sie die Seite](%searchLink%) der Tagesordnung auf, die Sie hinzufügen möchten und klicken Sie auf Exportieren > Agregieren in > **%agenda%**",
-  "sourcesHelp": "Weitere Informationen zur Aggregation",
-  "aggregationLoop": "DieseVerwaltungskalender agregates Veranstaltungen von andere Kalenders.",
-  "searchAgenda": "Suche eine Verwaltungskalender",
-  "officialAgenda": "offizielle Kalender",
-  "noResult": "Keine Einträge gefunden",
-  "removeSource": "entfernen Quelle",
-  "removeConfirmMessage": "Bist du sicher, dass du dieseVerwaltungskalender von Quellen löschen willst ?",
-  "sourceAdded": "% Source% wurde auf die Quellen von %agg% zugesetzt. Seine bevorstehende Veranstaltungen werden in Kürze hinzugefügt.",
-  "sourceRemoved": "% Source% wurde von den Quellen %agg% entfernt.",
-  "numberOfResults": "Anzahl der Ergebnisse",
-  "totalSources": "insgesamt Quellen"
-}
+{}
