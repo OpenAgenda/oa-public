@@ -1,12 +1,10 @@
 'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const getLabelFiles = require('../getLabelFiles');
 
-const DEFAULT_LANG = 'en';
 const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
 const labelFiles = getLabelFiles();
@@ -14,12 +12,7 @@ const labelFiles = getLabelFiles();
 for (const lang of LANGS) {
   for (const labelFile of labelFiles) {
     const labels = require(path.join(__dirname, '..', labelFile));
-    const defaultLocales = toFlatPropertyMap(labels, DEFAULT_LANG);
-
-    const locales = {
-      ..._.mapValues(defaultLocales, () => null),
-      ...toFlatPropertyMap(labels, lang)
-    };
+    const locales = toFlatPropertyMap(labels, lang);
 
     const fileName = labelFile.split('.').slice(0, -1).join('.');
     const dirname = path.dirname(fileName);
