@@ -71,6 +71,12 @@
       "value": "Abmelden"
     }
   ],
+  "react-layouts.MainLayout.translate": [
+    {
+      "type": 0,
+      "value": "Translate"
+    }
+  ],
   "react-layouts.components.Search.search": [
     {
       "type": 0,

@@ -6,7 +6,8 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
-import { useInterval } from 'react-use';
+import { useCookie, useInterval } from 'react-use';
+import { css } from '@emotion/core';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import * as mainActions from '../reducers/main';
@@ -54,7 +55,46 @@ const messages = defineMessages({
     id: 'react-layouts.MainLayout.signin',
     defaultMessage: 'Signin',
   },
+  translate: {
+    id: 'react-layouts.MainLayout.translate',
+    defaultMessage: 'Translate',
+  },
 });
+
+function TranslateLink() {
+  const intl = useIntl();
+
+  // Not come from cookie because of SSR
+  const translateMode = useSelector(state => state.main.translateMode);
+
+  const [, setTranslateMode, deleteTranslateMode] = useCookie('translateMode');
+
+  const toggleTranslateMode = useCallback(() => {
+    if (translateMode) {
+      deleteTranslateMode();
+    } else {
+      setTranslateMode('true');
+    }
+
+    window.location.reload();
+  }, [translateMode, setTranslateMode, deleteTranslateMode]);
+
+  return (
+    <button
+      type="button"
+      className={translateMode ? 'btn btn-default active' : 'btn btn-link'}
+      css={css`
+        padding: 13px;
+        font-size: 22px;
+        line-height: 14px;
+      `}
+      title={intl.formatMessage(messages.translate)}
+      onClick={toggleTranslateMode}
+    >
+      <i className="fa fa-language" />
+    </button>
+  );
+}
 
 const getDefaultSessionUser = () => session.getUser();
 
@@ -76,6 +116,7 @@ function MainLayout({
   const apiRoot = useSelector(state => state.main.apiRoot);
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
+  const isTranslator = useSelector(state => state.main.isTranslator);
 
   const dispatch = useDispatch();
 
@@ -225,6 +266,12 @@ function MainLayout({
             <Search />
 
             <ul className="nav navbar-nav navbar-right">
+              {isTranslator ? (
+                <li>
+                  <TranslateLink />
+                </li>
+              ) : null}
+
               <li>
                 <HelpLink />
               </li>

@@ -71,6 +71,12 @@
       "value": "Se déconnecter"
     }
   ],
+  "react-layouts.MainLayout.translate": [
+    {
+      "type": 0,
+      "value": "Traduire"
+    }
+  ],
   "react-layouts.components.Search.search": [
     {
       "type": 0,
