@@ -1,14 +1,1 @@
-{
-  "title": "Introduzca su evento",
-  "submit": "Guardar",
-  "create": "Crear evento",
-  "draft": "Guardar borrador",
-  "update": "Guardar",
-  "editEvent": "actualización de eventos",
-  "updateDraft": "Actualización del proyecto",
-  "deleteDraft": "Eliminar el proyecto",
-  "undraft": "crear evento",
-  "addEvent": "Añadir un evento",
-  "editDraftTitle": "Borrador",
-  "close": "cerca"
-}
+{}

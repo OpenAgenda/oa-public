@@ -1,15 +1,1 @@
-{
-  "react-layouts.AdminHeader.administration": "Verwaltung",
-  "react-layouts.AdminHeader.return": "Kalender Startseite",
-  "react-layouts.AdminSections.newTab": "Neu !",
-  "react-layouts.MainLayout.createAgenda": "Agenda Anlegen",
-  "react-layouts.MainLayout.general": "Allgemein",
-  "react-layouts.MainLayout.help": "Hilfe",
-  "react-layouts.MainLayout.myAgendas": "Meine Agendas",
-  "react-layouts.MainLayout.myEvents": "Meine Veranstaltungen",
-  "react-layouts.MainLayout.searchAgenda": "Finde eine Agenda",
-  "react-layouts.MainLayout.settings": "Einstellungen",
-  "react-layouts.MainLayout.signin": "Login",
-  "react-layouts.MainLayout.signout": "Abmelden",
-  "react-layouts.components.Search.search": "Suche"
-}
+{}

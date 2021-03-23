@@ -1,14 +1,1 @@
-{
-  "title": "Aggiungete il suo evento",
-  "submit": "Salva",
-  "create": "Registrare l’evento",
-  "draft": "Registrare una bozza",
-  "update": "Aggiorna",
-  "editEvent": "Modificare l’evento",
-  "updateDraft": "Modificare la bozza",
-  "deleteDraft": "Cancellare la bozza",
-  "undraft": "Registrare l’evento",
-  "addEvent": "Aggiungi un evento",
-  "editDraftTitle": "Bozza",
-  "close": "Chiudere"
-}
+{}

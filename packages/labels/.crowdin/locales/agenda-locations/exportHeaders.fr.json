@@ -1,17 +1,5 @@
 {
-  "uid": "Identifiant",
-  "name": "Nom",
-  "address": "Adresse",
   "city": "Ville",
   "department": "Département",
-  "postalCode": "Code postal",
-  "insee": "Code INSEE",
-  "countryCode": "Code pays",
-  "district": "Quartier",
-  "region": "Région",
-  "eventCount": "Evénements liés",
-  "agendaEventCount": "Evénements liés dans l'agenda",
-  "state": "Vérifié",
-  "extId": "Identifiant externe",
-  "slug": "Code URL"
+  "region": "Région"
 }

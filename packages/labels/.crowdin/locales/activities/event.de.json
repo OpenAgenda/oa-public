@@ -1,9 +1,1 @@
-{
-  "agenda.publishEvent": "{user} {event} auf {agenda} veröffentlicht.",
-  "agenda.unpublishEvent": "{user} nicht veröffentlichtes {event} auf {agenda}.",
-  "agenda.removeEvent": "{user} {event} von {agenda} entfernt.",
-  "agenda.aggregateEvent": "{agenda} {event} from {sourceAgenda} aggregiert.",
-  "event.create": "{user} Veranstaltung auf der Kalender {agenda} erstellt.",
-  "event.update": "{user} {event} auf {agenda} aktualisiert.",
-  "event.delete": "{user} {event} auf {agenda} gelöscht."
-}
+{}

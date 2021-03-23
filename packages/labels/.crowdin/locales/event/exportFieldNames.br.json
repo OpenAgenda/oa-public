@@ -1,11 +1,5 @@
 {
-  "keywords": "Gerioù-alc'hwez",
   "imageCredits": "Perc'henn ar skeudenn",
   "featured": "Keleier pennañ",
-  "location.address": "Chomlec'h",
-  "location.postalCode": "Kod-post",
-  "location.city": "Kêr",
-  "location.department": "Departamant",
-  "location.countryCode": "Bro",
-  "location.district": "Karter"
+  "location.countryCode": "Bro"
 }

@@ -1,14 +1,14 @@
 {
-  "signin": "Conectarse",
-  "search": "Buscar",
-  "help": "Ayuda",
+  "signin": "",
+  "search": "",
+  "help": "",
   "": {
-    "fr": "Francès",
-    "en": "inglés",
-    "es": "Español",
-    "it": "Spagnolo"
+    "fr": "",
+    "en": "",
+    "es": "",
+    "it": ""
   },
-  "de": "Aleman",
+  "de": "",
   "fr": "",
   "es": ""
 }

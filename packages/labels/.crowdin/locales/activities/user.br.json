@@ -1,6 +1,5 @@
 {
   "agenda.setMemberRole": "{user} en/he deus anvet {originMember} da {credential} war {agenda}.",
   "agenda.changeEventState": "{user} en deus lakaet {event} da \"{after}\" war {agenda}.",
-  "next": "War-lerc'h",
   "noActivity": "Diskwelet e vo hoc'h obererezhioù amañ."
 }
