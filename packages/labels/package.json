@@ -17,6 +17,7 @@
     "export-labels": "node labelsToCSV"
   },
   "dependencies": {
+    "deep-diff": "^1.0.2",
     "immutability-helper": "^3.0.1",
     "intl-messageformat": "^9.0.2",
     "intl-messageformat-parser": "^5.2.4",
