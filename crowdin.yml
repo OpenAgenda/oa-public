@@ -6,5 +6,4 @@ files:
     translation: /%original_path%/%original_file_name%.%two_letters_code%.%file_extension%
     update_option: update_as_unapproved
     translation_replace:
-      .en.json: ""
-
+      .en.json: ''
