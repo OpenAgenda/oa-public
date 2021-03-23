@@ -1,10 +1,14 @@
 {
-  "signin": "Accesso",
-  "search": "Ricerca",
+  "signin": "Accedi",
+  "search": "",
   "help": "Aiuto",
-  "": null,
-  "de": "Tedesco",
-  "fr": "Francese",
-  "es": "Spagnolo",
-  "en": "Italiano"
+  "": {
+    "fr": "",
+    "en": "",
+    "es": "",
+    "it": ""
+  },
+  "de": "",
+  "fr": "",
+  "es": ""
 }

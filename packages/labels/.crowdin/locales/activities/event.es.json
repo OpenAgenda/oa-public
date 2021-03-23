@@ -1,15 +1,9 @@
 {
-  "agenda.changeEventState": null,
   "agenda.publishEvent": "{user} registró {event} sobre el agenda {agenda}.",
   "agenda.unpublishEvent": "{user} ha cancellado la publicacion de {event} en la agenda  {agenda}.",
   "agenda.removeEvent": "{user} {event} sobre el agenda {agenda} eliminado.",
   "agenda.aggregateEvent": "{event} del agenda agregada de {sourceAgenda}.",
-  "agenda.addEvent": null,
   "event.create": "{user} creado {event} en el agenda del {agenda}.",
   "event.update": "{user} ha actualizado {event} de {agenda}.",
-  "event.updateWithOneChange": null,
-  "event.updateWithSomeChanges": null,
-  "event.updateWithLotOfChanges": null,
-  "event.delete": "{user} elimina eventos de la agenda {agenda}.",
-  "unknownActivity": null
+  "event.delete": "{user} elimina eventos de la agenda {agenda}."
 }

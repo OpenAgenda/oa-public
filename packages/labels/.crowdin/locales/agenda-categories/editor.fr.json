@@ -10,6 +10,5 @@
   "noCategories": "Vous n'avez encore défini aucune catégorie pour cet agenda",
   "linkError": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
   "cancelUpdateTag": "Annuler",
-  "updateTag": "Ok",
   "required": "Rendre obligatoire. Une catégorie devra être sélectionnée."
 }

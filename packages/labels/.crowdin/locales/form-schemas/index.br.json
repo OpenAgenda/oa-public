@@ -1,9 +1,4 @@
 {
-  "required": null,
-  "groupErrorHeader": null,
-  "submit": null,
-  "help": null,
-  "noChoice": null,
-  "noOption": null,
-  "selectPlaceholder": null
+  "submit": "Kemmañ",
+  "help": "Skoazell"
 }

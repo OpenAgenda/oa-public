@@ -1,10 +1,4 @@
 {
-  "title": null,
-  "info": null,
-  "submit": null,
-  "submitError": null,
-  "singleSuggestionCount": null,
-  "suggestionCount": null,
-  "loadSuggestion": null,
-  "suggestionInstruction": null
+  "submit": "Hizivaat",
+  "loadSuggestion": "Gwelet"
 }

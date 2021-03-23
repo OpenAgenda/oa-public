@@ -1,13 +1,7 @@
 {
-  "title": "Evento modificato su %agenda%: %event%.",
-  "body": "Il **%event%** è stato modificato sulla **%agenda%**.",
-  "bodyText": "%event% è stato modificato nell'agenda %agenda%.",
   "actionDescription": "Vedi l'evento",
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",
-  "refused": "respinto",
-  "unsubscribe": "Interrompere la ricezione dei cambiamenti di evento",
-  "memberUnsubscribe": "Non riceverete più i cambiamenti di evento da questo calendario",
-  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
+  "refused": "rifiutato"
 }

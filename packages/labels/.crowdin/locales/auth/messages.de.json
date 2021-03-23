@@ -1,7 +1,4 @@
 {
-  "isBlacklisted": null,
-  "isBlacklistedInfo": null,
-  "authRequired": null,
   "limitedAccessEvent": "Du musst authentifiziert sein, um auf dieses Veranstaltung zugreifen zu können. Bitte melde sich an",
   "limitedAccessAgenda": "Du musst authentifiziert werden, um auf dieseVerwaltungskalender zugreifen zu können. Bitte melde sich an",
   "abortedAuth": "Die Authentifizierung wurde bei %service% abgebrochen.",

@@ -1,14 +1,1 @@
-{
-  "administrator": "amministratore",
-  "moderator": "moderatore",
-  "contributor": "Contributore",
-  "reader": "lettore",
-  "emailSubject": "Invito ad un ordine del giorno",
-  "emailTitle": "Siete stati invitati a contribuire all'agenda %title% agenda",
-  "emailTitleForExistantUser": "Sei diventato %credenziale% dell'agenda %title%",
-  "emailInscription": "Iscriviti ora",
-  "emailShowAgenda": "Vedi l'agenda",
-  "emailSignup": "Iscriviti",
-  "emailDescription": "Siete stati invitati a contribuire all'agenda **%titolo%** come **%credenziali%**.",
-  "newMessage": "Il agenda %agenda% vi ha scritto un messaggio"
-}
+{}

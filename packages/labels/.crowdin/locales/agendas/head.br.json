@@ -1,9 +1,4 @@
 {
   "officialAgenda": "Ofisiel",
-  "privateAgenda": "Deiziataer prevez",
-  "contact": "Mont e darempred",
-  "export": "Ezporzhiañ",
-  "addEvent": "Ouzhpennañ un darvoud",
-  "showCalendar": "Diskwel ar gwel deiziadur",
-  "manage": "Merañ"
+  "showCalendar": "Diskwel ar gwel deiziadur"
 }

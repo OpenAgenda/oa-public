@@ -1,13 +1,4 @@
 {
-  "refused": null,
-  "tocontrol": null,
-  "tobecontrolled": null,
-  "controlled": null,
-  "published": null,
-  "featured": null,
-  "all": null,
-  "state": null,
-  "stateChanged": null,
-  "featuredChange": null,
-  "unfeaturedChange": null
+  "refused": "refusat",
+  "published": "publicat"
 }

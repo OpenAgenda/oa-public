@@ -1,10 +1,5 @@
 {
-  "cantDo": "",
-  "info": "Kelaouadur",
   "cancel": "Nullañ",
-  "confirm": "Kadarnaat",
-  "edit": "Kemmañ",
-  "remove": "Dilemel",
   "total": "En holl : %count% a lec'hioù",
   "totalzero": "N'eus lec'h ebet hag a glot gant an enklask-mañ",
   "create": "Ouzhpennañ ul lec'h",
@@ -32,17 +27,5 @@
   "removeComplete": "Lamet eo bet al lec'h",
   "closeModal": "Serriñ",
   "cancelRemove": "Nullañ",
-  "confirmRemoveMessage": "Lamet e vo al lec'h eus an diaz roadennoù",
-  "cannotRemoveStart=": "Kevelet eo al lec'h gant ",
-  "cannotRemoveLinkUnique=": "unan darvoud",
-  "cannotRemoveEndUnique=": " Dilemel al lec'h ,dilemel darvoud.",
-  "cannotRemoveLink=": "%eventCount% a zarvoudoù.",
-  "cannotRemoveEnd=": " Dilemel al lec'h ,dilemel a zarvoudoù.",
-  "cannotRemoveStart": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù,",
-  "cannotRemoveLinkUnique": " a denn unan",
-  "cannotRemoveEndUnique": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
-  "cannotRemoveLink": " a denn %agendaEventCount%",
-  "cannotRemoveEnd": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
-  "doOn": null,
-  "newtab": null
+  "confirmRemoveMessage": "Lamet e vo al lec'h eus an diaz roadennoù"
 }

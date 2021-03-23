@@ -1,16 +1,1 @@
-{
-  "subject": null,
-  "contributorVerb": null,
-  "moderatorVerb": null,
-  "administratorVerb": null,
-  "subjectForExistingMember": null,
-  "signup": null,
-  "memberAction": null,
-  "administrator": null,
-  "moderator": null,
-  "contributor": null,
-  "reader": null,
-  "unsubscribe": null,
-  "unsubscribeGuest": null,
-  "changeEmailSettings": null
-}
+{}

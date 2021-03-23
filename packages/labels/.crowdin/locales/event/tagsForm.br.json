@@ -1,14 +1,4 @@
 {
-  "description": null,
-  "loadingError": null,
-  "invalidError": null,
-  "submit": null,
-  "submitted": null,
-  "saveErrorTitle": null,
-  "saveError": null,
-  "saveSuccess": null,
-  "invalidTags": null,
-  "invalidCategories": null,
-  "cancel": null,
-  "uploadButton": null
+  "submit": "Kemmañ",
+  "cancel": "Nullañ"
 }

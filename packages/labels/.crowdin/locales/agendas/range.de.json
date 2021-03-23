@@ -1,22 +1,14 @@
 {
-  "oneDate": "%day%, %times%",
   "twoDates": "%firstDate% und %lastDate%",
-  "moreDates": "%firstDate% - %lastDate%",
   "noDates": "keine Termine vorhanden%",
   "months|0": "januar",
   "months|1": "februar",
   "months|2": "märz",
-  "months|3": "april",
   "months|4": "mai",
   "months|5": "juni",
   "months|6": "juli",
-  "months|7": "august",
-  "months|8": "september",
   "months|9": "oktober",
-  "months|10": "november",
   "months|11": "dezember",
-  "months": null,
-  "minuteSeparator": ":",
   "prefix": "am",
   "weekdays|0": "sonntag",
   "weekdays|1": "montag",
@@ -24,6 +16,5 @@
   "weekdays|3": "mittwoch",
   "weekdays|4": "donnerstag",
   "weekdays|5": "freitag",
-  "weekdays|6": "sonnabend",
-  "weekdays": null
+  "weekdays|6": "sonnabend"
 }

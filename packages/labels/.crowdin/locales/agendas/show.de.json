@@ -1,10 +1,8 @@
 {
   "export": "exportieren",
   "share": "teilen",
-  "online": null,
   "addEvent": "Veranstaltung hinzufügen",
   "startToFinish": "von %start% zu %finish%",
-  "startTime": "%start%, %time%",
   "addToMyAgenda": "Zu meinem Kalender hinzufügen",
   "searchInThisAgenda": "in diesem Kalender suchen",
   "tags": "Stichworte",

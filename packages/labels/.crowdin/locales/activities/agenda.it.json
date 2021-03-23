@@ -1,5 +1,4 @@
 {
-  "agenda.sendInvitation": null,
   "agenda.acceptInvitation": "{user} ha accettato l'invito de {originMember} ha diventare {credential}.",
   "agenda.addMember": "{originMember} ha aggiunto {user} come {credential}.",
   "agenda.removeMember": "{originMember} ha rimosso {user} ({credential}).",
@@ -25,7 +24,6 @@
   "event.updateWithLotOfChanges": "{user} ha aggiornato {event} ({fieldsCount} champs).",
   "event.delete": "{user} ha cancellato {event}.",
   "activities": "Attività",
-  "next": "Avanti",
   "noActivity": "L'attività del vostro agenda sarà visualizzata qui.",
   "unknownActivity": "Etichetta di attività mancante per {verb}."
 }

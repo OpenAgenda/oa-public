@@ -1,0 +1,21 @@
+{
+  "usedAccount": "crwdns8204:0crwdne8204:0",
+  "fieldCannotBeEmpty": "crwdns8206:0crwdne8206:0",
+  "usedEmail": "crwdns8208:0crwdne8208:0",
+  "invalidEmail": "crwdns8210:0crwdne8210:0",
+  "passwordTooShort": "crwdns8212:0crwdne8212:0",
+  "passwordNotEqual": "crwdns8214:0crwdne8214:0",
+  "createAccount": "crwdns8216:0crwdne8216:0",
+  "captchaTryAgain": "crwdns8218:0crwdne8218:0",
+  "hasAccount": "crwdns8220:0crwdne8220:0",
+  "connect": "crwdns8222:0crwdne8222:0",
+  "nameSurname": "crwdns8224:0crwdne8224:0",
+  "email": "crwdns8226:0crwdne8226:0",
+  "password": "crwdns8228:0crwdne8228:0",
+  "repeatPassword": "crwdns8230:0crwdne8230:0",
+  "signup": "crwdns8232:0crwdne8232:0",
+  "agree": "crwdns8234:0%terms%crwdnd8234:0%policy%crwdne8234:0",
+  "termsOfUse": "crwdns8236:0crwdne8236:0",
+  "policy": "crwdns8238:0crwdne8238:0",
+  "culture": "crwdns8240:0crwdne8240:0"
+}

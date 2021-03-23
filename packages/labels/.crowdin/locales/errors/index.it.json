@@ -1,23 +1,4 @@
 {
-  "number.toosmall": null,
-  "number.toobig": "Il numero deve essere inferiore o uguale a %max%.",
-  "multi-input.info": "Inserire uno o più valori",
-  "multi-input.error": "Le voci non valide non verranno salvate.",
-  "string.tooshort": "Il campo deve contenere almeno %min% di caratteri.",
-  "string.toolong": "Il campo non deve contenere più di %max% di caratteri.",
-  "email.invalid": "Deve essere compilata un'e-mail valida",
-  "phone.invalid": "È necessario inserire un numero di telefono valido.",
-  "link.invalid": "Un link valido deve essere compilato",
-  "number.invalid": "Deve essere inserito un numero valido",
-  "integer.invalid": "Deve essere inserito un numero intero valido",
-  "integer.toobig": "Questo valore è troppo alto",
-  "groupTags.required": "Almeno una voce deve essere selezionata",
   "required": "Richiesto",
-  "choice.required": "Richiesto",
-  "serverException": "C'è stato un problema durante il backup, riprovare tra un attimo.",
-  "serverErrorTooLargeFile": null,
-  "noOrigin": "Questo evento non è disponibile perché non è associato ad alcun ordine del giorno.",
-  "defaultBack": "Torna alla home page",
-  "defaultAgendaBack": "Torna all'ordine del giorno",
-  "pageDoesNotExist": "La pagina richiesta non esiste."
+  "choice.required": "Richiesto"
 }

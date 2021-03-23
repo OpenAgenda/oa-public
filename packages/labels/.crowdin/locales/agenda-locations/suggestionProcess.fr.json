@@ -5,7 +5,6 @@
   "submitError": "La suggestion n'a pas pu être traitée. Veuillez retenter dans un instant",
   "previous": "Précédent",
   "next": "Suivant",
-  "suggestionCount": "Suggestion %current%/%total%",
   "suggestionFrom": "Suggestion de %stakeholder%",
   "currentValue": "Au lieu de",
   "suggestionUnknownFrom": "Suggestion d'un ancien contributeur",

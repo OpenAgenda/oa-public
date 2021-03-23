@@ -1,0 +1,15 @@
+{
+  "agenda.changeEventState": "crwdns6184:0{user}crwdnd6184:0{event}crwdnd6184:0{before}crwdnd6184:0{after}crwdnd6184:0{agenda}crwdne6184:0",
+  "agenda.publishEvent": "crwdns6186:0{user}crwdnd6186:0{event}crwdnd6186:0{agenda}crwdne6186:0",
+  "agenda.unpublishEvent": "crwdns6188:0{user}crwdnd6188:0{event}crwdnd6188:0{agenda}crwdne6188:0",
+  "agenda.removeEvent": "crwdns6190:0{user}crwdnd6190:0{event}crwdnd6190:0{agenda}crwdne6190:0",
+  "agenda.aggregateEvent": "crwdns6192:0{agenda}crwdnd6192:0{event}crwdnd6192:0{sourceAgenda}crwdne6192:0",
+  "agenda.addEvent": "crwdns6194:0{user}crwdnd6194:0{event}crwdnd6194:0{sourceAgenda}crwdne6194:0",
+  "event.create": "crwdns6196:0{user}crwdnd6196:0{event}crwdnd6196:0{agenda}crwdne6196:0",
+  "event.update": "crwdns6198:0{user}crwdnd6198:0{event}crwdnd6198:0{agenda}crwdne6198:0",
+  "event.updateWithOneChange": "crwdns6200:0{user}crwdnd6200:0{fields}crwdnd6200:0{event}crwdnd6200:0{agenda}crwdne6200:0",
+  "event.updateWithSomeChanges": "crwdns6202:0{user}crwdnd6202:0{event}crwdnd6202:0{agenda}crwdnd6202:0{fields}crwdne6202:0",
+  "event.updateWithLotOfChanges": "crwdns6204:0{user}crwdnd6204:0{event}crwdnd6204:0{agenda}crwdnd6204:0{fieldsCount}crwdne6204:0",
+  "event.delete": "crwdns6206:0{user}crwdnd6206:0{event}crwdnd6206:0{agenda}crwdne6206:0",
+  "unknownActivity": "crwdns6208:0{verb}crwdne6208:0"
+}

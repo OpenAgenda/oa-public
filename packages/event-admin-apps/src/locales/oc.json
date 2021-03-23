@@ -1,0 +1,9 @@
+{
+  "EventAdminApp.Actions.select": "Seleccionar",
+  "EventAdminApp.Dashboard.filters": "Filtres",
+  "EventAdminApp.FiltersPart.lessFilters": "Mostrar mens de filtres",
+  "EventAdminApp.FiltersPart.moreFilters": "Mostrar mai de filtres",
+  "EventAdminApp.messages.states.controlled": "Revisat",
+  "EventAdminApp.messages.states.published": "Publicat",
+  "EventAdminApp.messages.states.refused": "Refusat"
+}

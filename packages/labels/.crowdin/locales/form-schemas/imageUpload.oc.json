@@ -1,11 +1,3 @@
 {
-  "upload": null,
-  "update": null,
-  "error": null,
-  "tip": null,
-  "replace": null,
-  "loading": null,
-  "remove": null,
-  "or": null,
-  "acceptedExtensions": null
+  "remove": "Suprimir"
 }

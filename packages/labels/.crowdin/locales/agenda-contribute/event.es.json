@@ -10,15 +10,5 @@
   "undraft": "crear evento",
   "addEvent": "Añadir un evento",
   "editDraftTitle": "Borrador",
-  "shareEvent": null,
-  "takeEvent": null,
-  "fromAgenda": null,
-  "toAgenda": null,
-  "confirmAdd": null,
-  "noEditionRights": null,
-  "onlyAdditionalFieldsCanBeEdited": null,
-  "requestEditionRights": null,
-  "onlyAdditionalFieldsCanBeEditedInfo": null,
-  "requestEditionRightsInfo": null,
-  "close": null
+  "close": "cerca"
 }

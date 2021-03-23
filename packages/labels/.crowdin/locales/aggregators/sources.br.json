@@ -1,18 +1,5 @@
 {
-  "aggregatorExplanation": null,
-  "createAggregator": null,
-  "sourceAgendas": null,
-  "sourcesExplanation": null,
-  "addSources": null,
-  "sourcesHelp": null,
-  "aggregationLoop": null,
-  "searchAgenda": null,
-  "officialAgenda": null,
-  "noResult": null,
-  "removeSource": null,
-  "removeConfirmMessage": null,
-  "sourceAdded": null,
-  "sourceRemoved": null,
-  "numberOfResults": null,
-  "totalSources": null
+  "searchAgenda": "Klask un deiziataer",
+  "officialAgenda": "Deiziataer ofisiel",
+  "noResult": "N'eus bet kavet disoc'h ebet"
 }

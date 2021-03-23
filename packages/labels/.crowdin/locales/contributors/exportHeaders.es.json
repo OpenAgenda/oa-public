@@ -1,11 +1,9 @@
 {
   "name": "Apellido",
-  "email": "Email",
+  "email": "e-mail",
   "organization": "Organización",
   "phone": "Teléfono",
   "position": "Función",
   "contributions": "eventos contribudos",
-  "credential": "Role",
-  "role": "Role",
   "state": "Estado"
 }

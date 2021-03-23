@@ -42,7 +42,5 @@
   "cannotRemoveLinkUnique": " un de los cuales",
   "cannotRemoveEndUnique": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
   "cannotRemoveLink": " %agendaEventCount% de los cuales",
-  "cannotRemoveEnd": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
-  "doOn": null,
-  "newtab": null
+  "cannotRemoveEnd": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados."
 }

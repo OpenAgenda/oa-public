@@ -1,13 +1,7 @@
 {
-  "title": "Veranstaltung geändert auf %agenda%: %event% ",
-  "body": "**%event% ** auf der Kalender **%agenda%** geändert.",
-  "bodyText": "%event% auf der Kalender %agenda% geändert.",
-  "actionDescription": "Siehe die Veranstaltung",
+  "actionDescription": "Deine Veranstaltung hier ansehen",
   "tocontrol": "kontrolliert werden",
   "controlled": "bereit zu veröffentlichen",
-  "published": "veröffentlicht",
-  "refused": "verweigert",
-  "unsubscribe": "Stop-Veranstaltung Änderungen Empfang",
-  "memberUnsubscribe": "Erhalte keine Veranstaltungsänderungen in dem Veranstaltungskalender",
+  "refused": "Erhalte Ablehnungsstatus",
   "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
 }

@@ -2,7 +2,6 @@
   "viewAllActivities": "Vedi tutte le attività",
   "markAllAsRead": "Segna tutto come letto",
   "noNotif": "Nessuna notifica.",
-  "next": "Avanti",
   "user": "{others, plural, =0 {{user}} one {{user} et 1 altro utente} other {{user} et {others} altri utenti}}",
   "event": "{others, plural, =0 {{event}} one {{event} et 1 autre evento} other {{event} et {others} autres eventi}}",
   "email": "{others, plural, =0 {{email}} one {{email} et 1 autre} other {{email} et {others} autres}}",
@@ -31,5 +30,5 @@
   "agenda.addEvent": "{actor} ha aggiunto {object} su {target} da {sourceAgenda}.",
   "event.create": "{actorCount, plural, one {{actor} ha creato} other {{actor} hanno creato}} {object} su {target}.",
   "event.update": "{actorCount, plural, one {{actor} ha aggiornato} other {{actor} hanno aggiornato}}  {object} su {target}.",
-  "event.delete": "{actorCount, plural, one {{actor} ha cancellato} other {{actor} hanno supprimé}} {object} de {target}."
+  "event.delete": "{actorCount, plural, one {{actor} ha rimosso} other {{actor} hanno rimosso }} {object} de {target}."
 }

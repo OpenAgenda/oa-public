@@ -4,8 +4,6 @@
   "address": "Adresse",
   "city": "Ville",
   "department": "Département",
-  "latitude": "Latitude",
-  "longitude": "Longitude",
   "postalCode": "Code postal",
   "insee": "Code INSEE",
   "countryCode": "Code pays",

@@ -1,11 +1,6 @@
 {
-  "myProfile": "Mein Profil",
   "myEvents": "Meine Veranstaltungen",
   "settings": "Einstellungen",
-  "signout": "Abmelden",
-  "myAgendas": "Meine Agendas",
-  "searchAgendas": "Finde eine Agenda",
   "createAgenda": "Agenda Anlegen",
-  "general": "Allgemein",
-  "agendasTitle": "Agendas"
+  "general": "Allgemein"
 }

@@ -1,0 +1,20 @@
+{
+  "aggregator-sources.AddSourceModal.cancel": "Anullar",
+  "aggregator-sources.AggregatorRulesModal.cancel": "Anullar",
+  "aggregator-sources.AggregatorRulesModal.save": "Enregistrar",
+  "aggregator-sources.DefineRules.RuleItem.update": "Metre a jorn",
+  "aggregator-sources.DefineRules.add": "Apondre",
+  "aggregator-sources.DefineRules.cancel": "Anullar",
+  "aggregator-sources.DefineRules.published": "Publicat",
+  "aggregator-sources.DefineRules.refused": "Refusat",
+  "aggregator-sources.DefineRules.remove": "Suprimir",
+  "aggregator-sources.DefineRules.update": "Metre a jorn",
+  "aggregator-sources.RemoveSourceModal.cancel": "Anullar",
+  "aggregator-sources.SourcesList.remove": "Suprimir",
+  "aggregator-sources.UpdateSourceModal.cancel": "Anullar",
+  "aggregator-sources.UpdateSourceModal.updateSource": "Metre a jorn",
+  "aggregator-sources.add": "Apondre",
+  "aggregator-sources.utils.stateMessages.stateControlled": "Revisat",
+  "aggregator-sources.utils.stateMessages.statePublished": "Publicat",
+  "aggregator-sources.utils.stateMessages.stateToControl": "De revisar"
+}

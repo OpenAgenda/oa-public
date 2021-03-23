@@ -1,10 +1,9 @@
 {
   "export": "Exportación",
   "share": "Compartir",
-  "online": null,
+  "online": "En linea",
   "addEvent": "Añadir un evento",
   "startToFinish": "del %start% a %finish%",
-  "startTime": "%start%, %time%",
   "addToMyAgenda": "Añadir a mi agenda",
   "searchInThisAgenda": "Buscar en este agenda",
   "tags": "Etiquetas",

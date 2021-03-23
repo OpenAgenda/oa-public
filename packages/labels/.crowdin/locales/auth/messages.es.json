@@ -1,7 +1,4 @@
 {
-  "isBlacklisted": null,
-  "isBlacklistedInfo": null,
-  "authRequired": null,
   "limitedAccessEvent": "El acceso a este evento es limitado. La cuenta para el acceso.",
   "limitedAccessAgenda": "El acceso a este agenda es limitado. La cuenta para el acceso.",
   "abortedAuth": "Autenticación se detuvo en %service%",

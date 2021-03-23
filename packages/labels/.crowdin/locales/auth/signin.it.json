@@ -1,8 +1,7 @@
 {
   "connection": "Connessione",
   "incorrectPassword": "L'e-mail o la parola d'accesso non è corretta.",
-  "resetPassword": "Reimposta la tua parola d'accesso",
-  "email": "Email",
+  "resetPassword": "Reimpostare la parola d'accesso",
   "password": "Parola d'accesso",
   "signin": "Accedi",
   "lostPassword": "Ho perso la mia parola d'accesso",

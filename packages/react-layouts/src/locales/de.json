@@ -11,6 +11,5 @@
   "react-layouts.MainLayout.settings": "Einstellungen",
   "react-layouts.MainLayout.signin": "Login",
   "react-layouts.MainLayout.signout": "Abmelden",
-  "react-layouts.MainLayout.translate": "",
   "react-layouts.components.Search.search": "Suche"
 }

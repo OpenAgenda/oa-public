@@ -4,12 +4,11 @@
   "help": "Aide",
   "": {
     "fr": "Français",
-    "en": "French",
-    "es": "Francès",
+    "en": "Anglais",
+    "es": "Espagnol",
     "it": "Francese"
   },
   "de": "Allemand",
-  "fr": null,
-  "es": "Espagnol",
-  "en": "Anglais"
+  "fr": "",
+  "es": ""
 }

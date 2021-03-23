@@ -1,23 +1,4 @@
 {
-  "number.toosmall": null,
-  "number.toobig": "Arabat d'an niver bezañ ouzhpenn %max%",
-  "multi-input.info": "Skrivit un talvoud pe meur a hini",
-  "multi-input.error": "Ne vo ket enrollet an traoù direizh",
-  "string.tooshort": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ",
-  "string.toolong": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ",
-  "email.invalid": "Ret eo lakaat ur chomlec'h postel reizh",
-  "phone.invalid": "Ret eo lakaat un niverenn bellgomz reizh",
-  "link.invalid": "Ret eo lakaat ul liamm reizh",
-  "number.invalid": "Ret eo lakaat un niver reizh",
-  "integer.invalid": "Ret eo lakaat un niver anterin reizh",
-  "integer.toobig": "Re vras eo an talvoud-mañ",
-  "groupTags.required": "Ret eo diuzañ un elfenn da vihanañ",
   "required": "Rekis",
-  "choice.required": "Rekis",
-  "serverException": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
-  "serverErrorTooLargeFile": null,
-  "noOrigin": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
-  "defaultBack": null,
-  "defaultAgendaBack": null,
-  "pageDoesNotExist": null
+  "choice.required": "Rekis"
 }

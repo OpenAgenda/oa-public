@@ -4,7 +4,6 @@
   "submit": "Convalida",
   "submitError": "Il suggerimento non ha potuto essere accolto. Riprovare tra un attimo",
   "previous": "Precedente",
-  "next": "Avanti",
   "suggestionCount": "Suggerimento %current%/%total%",
   "suggestionFrom": "Suggerimento di %stakeholder%",
   "currentValue": "Invece di",

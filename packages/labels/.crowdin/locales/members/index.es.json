@@ -51,7 +51,6 @@
   "resendInvitation": "invitación reinicio",
   "invitationResended": "La invitación fue enviada.",
   "invitationNotResended": "La invitación no podía ser de nuevo enviada.",
-  "roleInsufficient": null,
   "message": "mensaje",
   "replyTo": "contestará la dirección de correo electrónico",
   "active": "Activo",
@@ -65,7 +64,6 @@
   "nameModerators": "nombrar a los moderadores",
   "messageSent": "El mensaje ha sido enviado.",
   "close": "cerca",
-  "memberRequired": null,
   "moreinfoActive": "miembro de usuario del agenda de eventos que contribuyen",
   "moreinfoInactive": "agenda usuario miembro aún no ha contribuido a eventos",
   "moreinfoInvited": "El usuario ha sido invitado a convertirse en miembro. Este usuario no tiene cuenta en OpenAgenda. Un correo electrónico fue enviado a él para invitarle a crearlo.",
@@ -73,9 +71,5 @@
   "writeToHim": "Enviar un mensaje",
   "writeToThem": "su escritura",
   "sendOnlyToInactives": "Enviar sólo a los usuarios inactivos",
-  "export": "Exportar",
-  "order.arrivalDate": null,
-  "order.name": null,
-  "order.activity": null,
-  "orderSort": null
+  "export": "Exportar"
 }

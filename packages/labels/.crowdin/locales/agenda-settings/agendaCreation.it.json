@@ -1,5 +1,5 @@
 {
-  "image": "Immagine",
+  "image": "Illustrazione",
   "description": "Descrizione",
   "parameters": "Impostazioni",
   "yourAgenda": "Il tuo programma",
@@ -9,7 +9,6 @@
   "website": "Sito web",
   "websitePlaceholder": "http://monsite.com",
   "personalizedSlug": "Indirizzo web personalizzato",
-  "next": "Avanti",
   "contribType": "Chi può aggiungere eventi a questo calendario?",
   "contribTypeChoosen": "Solo persone selezionate e io",
   "contribTypeAll": "Tutti",

@@ -10,6 +10,5 @@
   "noCategories": "No se ha definido ninguna categoría para esta agenda",
   "linkError": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
   "cancelUpdateTag": "Anular",
-  "updateTag": "Ok",
   "required": "Los mandatos. Se seleccionará una categoría."
 }

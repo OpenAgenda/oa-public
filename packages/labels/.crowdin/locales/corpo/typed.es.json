@@ -1,5 +1,4 @@
 {
-  "festival": "festival",
   "fair": "espectáculo",
   "federation": "federación",
   "theatre": "teatro",
@@ -12,6 +11,5 @@
   "coworkingSpace": "el tercer puesto",
   "fireStation": "barraca",
   "ministry": "ministerio",
-  "church": "diócesis",
-  "hospital": "hospital"
+  "church": "diócesis"
 }

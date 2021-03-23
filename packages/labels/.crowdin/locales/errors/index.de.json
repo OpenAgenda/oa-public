@@ -1,5 +1,4 @@
 {
-  "number.toosmall": null,
   "number.toobig": "Die Zahl muss gleich oder niedriger als %max%",
   "multi-input.info": "Geben Sie in einem oder mehreren Werten",
   "multi-input.error": "Ungültige Einträge werden nicht gespeichert",
@@ -15,7 +14,6 @@
   "required": "Erforderlich",
   "choice.required": "Erforderlich",
   "serverException": "Es gab Probleme, während die Daten zu speichern, wiederholen Sie den Vorgang in kurzer Zeit",
-  "serverErrorTooLargeFile": null,
   "noOrigin": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
   "defaultBack": "Zurück zur Startseite",
   "defaultAgendaBack": "Zurück zum Veranstaltungskalender",

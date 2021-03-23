@@ -1,24 +1,14 @@
 {
   "title": "Aggiungete il suo evento",
-  "submit": "Registrare",
+  "submit": "Salva",
   "create": "Registrare l’evento",
   "draft": "Registrare una bozza",
-  "update": "Modificare",
+  "update": "Aggiorna",
   "editEvent": "Modificare l’evento",
   "updateDraft": "Modificare la bozza",
   "deleteDraft": "Cancellare la bozza",
   "undraft": "Registrare l’evento",
-  "addEvent": "Aggiungere un evento ",
+  "addEvent": "Aggiungi un evento",
   "editDraftTitle": "Bozza",
-  "shareEvent": null,
-  "takeEvent": null,
-  "fromAgenda": null,
-  "toAgenda": null,
-  "confirmAdd": null,
-  "noEditionRights": null,
-  "onlyAdditionalFieldsCanBeEdited": null,
-  "requestEditionRights": null,
-  "onlyAdditionalFieldsCanBeEditedInfo": null,
-  "requestEditionRightsInfo": null,
-  "close": null
+  "close": "Chiudere"
 }

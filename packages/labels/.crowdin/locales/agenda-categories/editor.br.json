@@ -1,15 +1,3 @@
 {
-  "empty": null,
-  "duplicate": null,
-  "categories": null,
-  "subtitle": null,
-  "listName": null,
-  "listInfo": null,
-  "listSection": null,
-  "add": null,
-  "noCategories": null,
-  "linkError": null,
-  "cancelUpdateTag": null,
-  "updateTag": null,
-  "required": null
+  "cancelUpdateTag": "Nullañ"
 }

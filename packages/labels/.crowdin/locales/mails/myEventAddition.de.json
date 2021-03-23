@@ -1,13 +1,7 @@
 {
-  "title": null,
-  "body": null,
-  "bodyText": null,
-  "actionDescription": null,
+  "actionDescription": "Deine Veranstaltung hier ansehen",
   "tocontrol": "kontrolliert werden",
   "controlled": "bereit zu veröffentlichen",
-  "published": "veröffentlicht",
-  "refused": "verweigert",
-  "unsubscribe": null,
-  "memberUnsubscribe": null,
+  "refused": "Erhalte Ablehnungsstatus",
   "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
 }

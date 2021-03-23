@@ -1,12 +1,3 @@
 {
-  "title": null,
-  "subtitle": null,
-  "description": null,
-  "organisation": null,
-  "phone": null,
-  "phoneSub": null,
-  "name": null,
-  "position": null,
-  "email": null,
-  "submit": null
+  "submit": "Sometre"
 }

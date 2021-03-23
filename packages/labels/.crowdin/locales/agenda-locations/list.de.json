@@ -1,6 +1,5 @@
 {
   "cantDo": "Sie haben nicht die Rechte dazu:",
-  "info": "Information",
   "cancel": "Abbrechen",
   "confirm": "Löschung",
   "edit": "Bearbeiten",
@@ -42,7 +41,5 @@
   "cannotRemoveLinkUnique": " von denen ein",
   "cannotRemoveEndUnique": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
   "cannotRemoveLink": " von denen %agendaEventCount%",
-  "cannotRemoveEnd": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
-  "doOn": null,
-  "newtab": null
+  "cannotRemoveEnd": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht."
 }

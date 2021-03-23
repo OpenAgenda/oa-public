@@ -1,7 +1,5 @@
 {
-  "oneDate": "%day%, %times%",
   "twoDates": "%firstDate% et %lastDate%",
-  "moreDates": "%firstDate% - %lastDate%",
   "noDates": "aucune date disponible",
   "months|0": "janvier",
   "months|1": "février",
@@ -15,7 +13,6 @@
   "months|9": "octobre",
   "months|10": "novembre",
   "months|11": "décembre",
-  "months": "",
   "minuteSeparator": "h",
   "prefix": "les",
   "weekdays|0": "dimanches",
@@ -24,6 +21,5 @@
   "weekdays|3": "mercredis",
   "weekdays|4": "jeudis",
   "weekdays|5": "vendredis",
-  "weekdays|6": "samedis",
-  "weekdays": ""
+  "weekdays|6": "samedis"
 }

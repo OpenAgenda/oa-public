@@ -3,13 +3,12 @@
   "search": "Buscar",
   "help": "Ayuda",
   "": {
-    "fr": "Espagnol",
-    "en": "Spanish",
+    "fr": "Francès",
+    "en": "inglés",
     "es": "Español",
     "it": "Spagnolo"
   },
   "de": "Aleman",
-  "fr": "Francès",
-  "es": null,
-  "en": "inglés"
+  "fr": "",
+  "es": ""
 }

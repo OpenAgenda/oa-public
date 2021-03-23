@@ -1,0 +1,16 @@
+{
+  "subject": "crwdns10522:0%roleVerb%crwdnd10522:0%agenda%crwdne10522:0",
+  "contributorVerb": "crwdns10524:0crwdne10524:0",
+  "moderatorVerb": "crwdns10526:0crwdne10526:0",
+  "administratorVerb": "crwdns10528:0crwdne10528:0",
+  "subjectForExistingMember": "crwdns10530:0%role%crwdnd10530:0%agenda%crwdne10530:0",
+  "signup": "crwdns10532:0crwdne10532:0",
+  "memberAction": "crwdns10534:0{Manage the agenda}crwdnd10534:0{Moderate events}crwdnd10534:0{Contribute to the agenda}crwdnd10534:0{See the agenda}crwdne10534:0",
+  "administrator": "crwdns10536:0crwdne10536:0",
+  "moderator": "crwdns10538:0crwdne10538:0",
+  "contributor": "crwdns10540:0crwdne10540:0",
+  "reader": "crwdns10542:0crwdne10542:0",
+  "unsubscribe": "crwdns10544:0crwdne10544:0",
+  "unsubscribeGuest": "crwdns10546:0crwdne10546:0",
+  "changeEmailSettings": "crwdns10548:0crwdne10548:0"
+}

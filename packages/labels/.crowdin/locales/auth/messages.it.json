@@ -1,7 +1,4 @@
 {
-  "isBlacklisted": null,
-  "isBlacklistedInfo": null,
-  "authRequired": "",
   "limitedAccessEvent": "Devi essere autenticato per accedere a questo evento. Accedi",
   "limitedAccessAgenda": "Devi essere autenticato per accedere a questo programma. Accedi",
   "abortedAuth": "L'autenticazione è stata interrotta su %service%%.",

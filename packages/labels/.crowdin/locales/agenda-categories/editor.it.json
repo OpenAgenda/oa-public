@@ -10,6 +10,5 @@
   "noCategories": "Non avete ancora definito alcuna categoria per questo calendario.",
   "linkError": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve.",
   "cancelUpdateTag": "Annulla",
-  "updateTag": "Ok",
   "required": "Rendetelo obbligatorio. Deve essere selezionata una categoria."
 }

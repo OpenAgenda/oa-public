@@ -1,6 +1,5 @@
 {
   "cantDo": "Vous ne possedez pas les droits pour:",
-  "info": "Information",
   "cancel": "Annuler",
   "confirm": "Confirmer",
   "edit": "Modifier",
@@ -24,8 +23,6 @@
   "seeEvents": "%count% événements associés",
   "seeEvent": "1 événement associé",
   "noEvent": "Aucun événement associé",
-  "hassuggestions": "%s suggestions",
-  "hassuggestion": "%s suggestion",
   "seesuggestions": "Voir les suggestions",
   "removeTitle": "Supprimer un lieu",
   "confirmRemove": "Confirmer la suppression",
@@ -44,6 +41,5 @@
   "cannotRemoveLink": " dont %agendaEventCount%",
   "cannotRemoveEnd": " ont été contribués sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
   "doOn": "Cette action est à efféctuer sur le site de",
-  "newtab": "Un nouvel onglet va s'ouvrir dans un instant.",
-  "goTo": "Aller sur"
+  "newtab": "Un nouvel onglet va s'ouvrir dans un instant."
 }

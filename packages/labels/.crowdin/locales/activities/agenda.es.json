@@ -1,11 +1,7 @@
 {
-  "agenda.sendInvitation": null,
   "agenda.acceptInvitation": "{user} ha aceptado una invitación para unirse {originMember} {credential}.",
   "agenda.addMember": "{originMember} añadió {user} como {credential}.",
-  "agenda.removeMember": null,
   "agenda.setMemberRole": "{user} pasó {originMember} de a {beforeCredential} {credential}.",
-  "agenda.addSource": null,
-  "agenda.removeSource": null,
   "agenda.create": "{user} ha establecido el agenda.",
   "agenda.updateContribution": "{user} ha actualizado los parámetros de entrada.",
   "agenda.updateProfile": "{user} ha actualizado el perfil agenda.",
@@ -17,15 +13,10 @@
   "agenda.unpublishEvent": "{user} ha inéditos {event}.",
   "agenda.removeEvent": "{user} eliminó{event}.",
   "agenda.aggregateEvent": "{event} del agenda agregada de {sourceAgenda}.",
-  "agenda.addEvent": null,
   "event.create": "{user} creada {event}.",
   "event.update": "{user} ha actualizado {event}.",
-  "event.updateWithOneChange": null,
-  "event.updateWithSomeChanges": null,
-  "event.updateWithLotOfChanges": null,
   "event.delete": "{user} eliminió {eventos}.",
   "activities": "actividades",
   "next": "Próximo",
-  "noActivity": "La actividad de su agenda aparecerá aquí.",
-  "unknownActivity": null
+  "noActivity": "La actividad de su agenda aparecerá aquí."
 }

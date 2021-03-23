@@ -1,15 +1,1 @@
-{
-  "noAccountFound": "",
-  "accountAlreadyActivated": "",
-  "incorrectPassword": "",
-  "invalidToken": "",
-  "userNotFound": "",
-  "userNotActivated": "",
-  "userAlreadyActivated": "",
-  "passwordsMustMatch": "",
-  "fieldCannotBeEmpty": "",
-  "passwordCouldNotBeModified": "",
-  "passwordResetSent": "",
-  "resetLinkOutdated": "",
-  "passwordUpdated": ""
-}
+{}

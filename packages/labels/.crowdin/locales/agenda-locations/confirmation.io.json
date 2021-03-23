@@ -1,0 +1,19 @@
+{
+  "guide": "crwdns6606:0crwdne6606:0",
+  "guideDetail": "crwdns6608:0crwdne6608:0",
+  "cancel": "crwdns6610:0crwdne6610:0",
+  "suggest": "crwdns6612:0crwdne6612:0",
+  "hoverInfo": "crwdns6614:0crwdne6614:0",
+  "suggestChangeMessage": "crwdns6616:0crwdne6616:0",
+  "confirm": "crwdns6618:0crwdne6618:0",
+  "description": "crwdns6620:0crwdne6620:0",
+  "access": "crwdns6622:0crwdne6622:0",
+  "noContent": "crwdns6624:0%lang%crwdne6624:0",
+  "noImage": "crwdns6626:0crwdne6626:0",
+  "noValue": "crwdns6628:0crwdne6628:0",
+  "image": "crwdns6630:0crwdne6630:0",
+  "emptyGeo": "crwdns6632:0crwdne6632:0",
+  "phone": "crwdns6634:0crwdne6634:0",
+  "website": "crwdns6636:0crwdne6636:0",
+  "links": "crwdns6638:0crwdne6638:0"
+}

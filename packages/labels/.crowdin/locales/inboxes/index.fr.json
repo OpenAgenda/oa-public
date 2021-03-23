@@ -1,7 +1,5 @@
 {
   "inbox": "Messagerie",
-  "conversation": "Conversation",
-  "conversations": "Conversations",
   "ongoingConversations": "conversations en cours",
   "ongoingConversation": "conversation en cours",
   "pastConversations": "conversations fermées",
@@ -11,7 +9,6 @@
   "noResult": "Aucun résultat",
   "back": "Retour",
   "showAllConversations": "Voir toutes les conversations",
-  "actions": "Actions",
   "resolvedConversation": "Conversation résolue",
   "conversationAreClosed": "La conversation est fermée.",
   "conversationAreResolved": "La conversation est résolue.",
@@ -21,7 +18,6 @@
   "viewConversation": "Voir la conversation",
   "submit": "Envoyer",
   "required": "Requis",
-  "message": "Message",
   "yourMessage": "Votre message",
   "send": "Envoyer",
   "reply": "Répondre",

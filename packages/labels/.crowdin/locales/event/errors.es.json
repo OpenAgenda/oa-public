@@ -1,5 +1,4 @@
 {
-  "timings.empty": null,
   "location.required": "El lugar debe especificarse",
   "timings.toolong": "No puede haber más de 800 segmentos de tiempo para el mismo evento"
 }

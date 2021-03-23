@@ -1,9 +1,14 @@
 {
-  "signin": null,
-  "search": null,
-  "help": null,
-  "": null,
-  "de": null,
-  "fr": null,
-  "es": null
+  "signin": "Kevreañ",
+  "search": "",
+  "help": "Skoazell",
+  "": {
+    "fr": "",
+    "en": "",
+    "es": "",
+    "it": ""
+  },
+  "de": "",
+  "fr": "",
+  "es": ""
 }

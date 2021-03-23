@@ -1,19 +1,10 @@
 {
-  "uid": null,
-  "name": null,
-  "address": null,
-  "city": null,
-  "department": null,
-  "latitude": null,
-  "longitude": null,
-  "postalCode": null,
-  "insee": null,
-  "countryCode": null,
-  "district": null,
-  "region": null,
-  "eventCount": null,
-  "agendaEventCount": null,
-  "state": null,
-  "extId": null,
-  "slug": null
+  "address": "Chomlec'h",
+  "city": "Kêr",
+  "department": "Departamant",
+  "postalCode": "Kod-post",
+  "insee": "Kod EBSSA",
+  "district": "Karter",
+  "eventCount": "Darvoudoù kevelet",
+  "agendaEventCount": "Darvoudoù kevelet en deiziataer"
 }

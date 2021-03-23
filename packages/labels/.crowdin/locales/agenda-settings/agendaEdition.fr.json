@@ -1,12 +1,10 @@
 {
-  "image": "Image",
-  "description": "Description",
+  "image": "Illustration",
   "title": "Titre",
   "titlePlaceholder": "Mon organisation, mon festival, ma ville, autre",
   "website": "Site web",
   "websitePlaceholder": "http://monsite.com",
   "personalizedSlug": "Adresse web personnalisée",
-  "contribution": "Contribution",
   "contribType": "Qui peut ajouter des événements à cet agenda ?",
   "contribTypeChoosen": "Seulement des personnes choisies et moi",
   "contribTypeAll": "Tout le monde",
@@ -90,7 +88,6 @@
   "stats": "Statistiques",
   "statsTabDescription": "Paramètrez votre identifiant de suivi Google Analytics",
   "statsDescription": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",
-  "lab": "Lab",
   "labTabDescription": "Utilisez les fonctionnalités disponibles en version bêta",
   "eventAdminDesc": "Utiliser la nouvelle interface d'administration des événements"
 }

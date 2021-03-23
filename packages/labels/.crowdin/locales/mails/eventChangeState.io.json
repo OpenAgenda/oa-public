@@ -1,0 +1,13 @@
+{
+  "subject": "crwdns10426:0%agenda%crwdnd10426:0%event%crwdne10426:0",
+  "title": "crwdns10428:0%event%crwdnd10428:0%beforeState%crwdnd10428:0%afterState%crwdnd10428:0%agenda%crwdne10428:0",
+  "titleText": "crwdns10430:0%event%crwdnd10430:0%beforeState%crwdnd10430:0%afterState%crwdnd10430:0%agenda%crwdne10430:0",
+  "actionDescription": "crwdns10432:0crwdne10432:0",
+  "tocontrol": "crwdns10434:0crwdne10434:0",
+  "controlled": "crwdns10436:0crwdne10436:0",
+  "published": "crwdns10438:0crwdne10438:0",
+  "refused": "crwdns10440:0crwdne10440:0",
+  "unsubscribe": "crwdns10442:0{refused}crwdnd10442:0{to control}crwdnd10442:0{controlled}crwdnd10442:0{published}crwdne10442:0",
+  "memberUnsubscribe": "crwdns10444:0{refused}crwdnd10444:0{to control}crwdnd10444:0{controlled}crwdnd10444:0{published}crwdne10444:0",
+  "changeEmailSettings": "crwdns10446:0crwdne10446:0"
+}

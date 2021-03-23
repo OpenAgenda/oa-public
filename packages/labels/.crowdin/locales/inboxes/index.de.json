@@ -117,7 +117,6 @@
   "attachFile": "Anhang hinzufügen",
   "attachment": "Befestigung",
   "attachments": "Anlagen",
-  "oneAttachment": "1 attachment",
   "nAttachments": "%number% Attachments",
   "uploadError": "Fehler beim hochladen",
   "from": "Von",

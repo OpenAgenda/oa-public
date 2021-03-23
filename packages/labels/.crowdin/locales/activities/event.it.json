@@ -1,5 +1,4 @@
 {
-  "agenda.changeEventState": null,
   "agenda.publishEvent": "{user} ha pubblicato {event} su {agenda}.",
   "agenda.unpublishEvent": "{user} ha inedito {event} su {agenda}.",
   "agenda.removeEvent": "{user} ha rimosso {event} de {agenda}.",

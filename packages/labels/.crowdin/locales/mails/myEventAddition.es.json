@@ -1,13 +1,8 @@
 {
-  "title": null,
-  "body": null,
-  "bodyText": null,
-  "actionDescription": null,
+  "actionDescription": "Ver evento",
   "tocontrol": "al control",
   "controlled": "listo para su publicación",
   "published": "publicado",
   "refused": "rechazado",
-  "unsubscribe": null,
-  "memberUnsubscribe": null,
   "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
 }

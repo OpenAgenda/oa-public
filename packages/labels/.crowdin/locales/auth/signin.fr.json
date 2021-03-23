@@ -2,7 +2,6 @@
   "connection": "Connexion",
   "incorrectPassword": "L'email ou le mot de passe sont incorrects",
   "resetPassword": "Réinitialiser le mot de passe",
-  "email": "Email",
   "password": "Mot de passe",
   "signin": "Se connecter",
   "lostPassword": "J'ai perdu mon mot de passe",

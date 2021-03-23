@@ -1,0 +1,11 @@
+{
+  "radio": "crwdns9088:0crwdne9088:0",
+  "checkbox": "crwdns9090:0crwdne9090:0",
+  "select": "crwdns9092:0crwdne9092:0",
+  "integer": "crwdns9094:0crwdne9094:0",
+  "number": "crwdns9096:0crwdne9096:0",
+  "text": "crwdns9098:0crwdne9098:0",
+  "textarea": "crwdns9100:0crwdne9100:0",
+  "markdown": "crwdns9102:0crwdne9102:0",
+  "image": "crwdns9104:0crwdne9104:0"
+}

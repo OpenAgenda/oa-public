@@ -1,0 +1,14 @@
+{
+  "administrator": "crwdns10848:0crwdne10848:0",
+  "moderator": "crwdns10850:0crwdne10850:0",
+  "contributor": "crwdns10852:0crwdne10852:0",
+  "reader": "crwdns10854:0crwdne10854:0",
+  "emailSubject": "crwdns10856:0crwdne10856:0",
+  "emailTitle": "crwdns10858:0%title%crwdne10858:0",
+  "emailTitleForExistantUser": "crwdns10860:0%credential%crwdnd10860:0%title%crwdne10860:0",
+  "emailInscription": "crwdns10862:0crwdne10862:0",
+  "emailShowAgenda": "crwdns10864:0crwdne10864:0",
+  "emailSignup": "crwdns10866:0crwdne10866:0",
+  "emailDescription": "crwdns10868:0%title%crwdnd10868:0%credential%crwdne10868:0",
+  "newMessage": "crwdns10870:0%agenda%crwdne10870:0"
+}

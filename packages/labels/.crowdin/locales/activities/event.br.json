@@ -1,15 +1,1 @@
-{
-  "agenda.changeEventState": null,
-  "agenda.publishEvent": null,
-  "agenda.unpublishEvent": null,
-  "agenda.removeEvent": null,
-  "agenda.aggregateEvent": null,
-  "agenda.addEvent": null,
-  "event.create": null,
-  "event.update": null,
-  "event.updateWithOneChange": null,
-  "event.updateWithSomeChanges": null,
-  "event.updateWithLotOfChanges": null,
-  "event.delete": null,
-  "unknownActivity": null
-}
+{}

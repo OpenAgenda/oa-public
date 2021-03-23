@@ -28,7 +28,6 @@
   "saved": "Cambios guardan",
   "agendaProfile": "Perfil de la agenda",
   "yes": "Sí",
-  "no": "No",
   "contribUseFields": "Invite a cada miembro de que se presenten (organización, teléfono, nombre, título, correo electrónico)",
   "removeAgenda": "Eliminar agenda",
   "removeAgendaWarning": "¿Está seguro de que desea eliminar este agenda?",
@@ -89,8 +88,5 @@
   "googleAnalyticsId": "Seguimiento de Google Analytics ID",
   "stats": "Estadística",
   "statsTabDescription": "Configurar su ID de seguimiento de Google Analytics",
-  "statsDescription": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com",
-  "lab": null,
-  "labTabDescription": null,
-  "eventAdminDesc": null
+  "statsDescription": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com"
 }

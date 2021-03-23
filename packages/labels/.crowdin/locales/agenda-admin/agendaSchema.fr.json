@@ -1,6 +1,5 @@
 {
   "network": "Réseau",
   "networkDetail": "Champ requis par le réseau d'agendas",
-  "event": "Standard",
   "eventDetail": "Champ événement standard"
 }

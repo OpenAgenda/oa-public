@@ -1,9 +1,1 @@
-{
-  "agendaShareError": "L'evento non ha potuto essere inserito nell'agenda \"%agenda%\". Si prega di provare di nuovo in un attimo",
-  "agendaShareToControl": "L'evento è stato aggiunto all'agenda \"%agenda%\". Attualmente è in moderazione",
-  "agendaSharePublished": "L'evento è stato pubblicato con successo nell'agenda \"%agenda%\".",
-  "agendaShareRemoveUnauthorized": "Non avete i diritti necessari per eliminare questo evento dall'agenda \"%agenda%\".",
-  "agendaShareRemoveError": "L'evento non ha potuto essere rimosso dall'agenda \"%agenda%\". La preghiamo di riprovare tra un momento.",
-  "agendaShareRemoved": "L'evento è stato rimosso dall'agenda \"%agenda%\".",
-  "eventEmailSend": "L'evento viene inviato a %count% indirizzi e-mail."
-}
+{}
