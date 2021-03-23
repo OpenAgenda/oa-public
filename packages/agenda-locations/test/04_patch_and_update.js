@@ -303,7 +303,7 @@ describe('agenda-locations - functional - patch & update - no rights', function 
       }
     })
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');;
+      assert.equal(thrownError.name, 'UnauthorizedError');
     });
   });
 });

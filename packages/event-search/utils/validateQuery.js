@@ -50,6 +50,10 @@ const validate = schema({
     type: 'text',
     list: true
   },
+  relative: {
+    type: 'choice',
+    options: ['passed', 'upcoming', 'current']
+  },
   city: {
     type: 'text',
     list: true
@@ -152,6 +156,7 @@ const validate = schema({
   sort: {
     type: 'choice',
     options: [
+      'timings.asc',
       'updatedAt.desc',
       'updatedAt.asc',
       'location.name.asc',
@@ -181,6 +186,10 @@ module.exports = function validateQuery(dirty, formSchema) {
   const preCleaned = preCleanRawQuery(dirty);
 
   const clean = validate(preCleaned);
+
+  if ((clean.search || '').length && !clean.sort) {
+    clean.sort = 'score';
+  }
 
   const additionalFields = getFormSchemaAdditionalFields(formSchema);
 

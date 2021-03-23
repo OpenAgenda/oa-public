@@ -24,16 +24,29 @@ module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
   const filterParts = _getQueryFilterParts(cleanQuery, additionalFields);
 
   if (mustParts.length === 1 && !filterParts.length) {
-
     _.extend(query, mustParts[0]);
-
   } else if (mustParts.length > 1 || (filterParts.length && mustParts.length)) {
     _.set(query, 'bool.must', mustParts);
   }
 
-
   if (filterParts.length) {
     _.set(query, 'bool.filter', filterParts);
+  }
+
+  if (cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2) {
+    _.set(query, 'bool.must_not', {
+      bool: {
+        filter: [{
+          range: {
+            _search_first_timing: { lte: 'now' }
+          }
+        }, {
+          range: {
+            _search_last_timing: { gte: 'now' }
+          }
+        }]
+      }
+    });
   }
 
   return query;
@@ -51,6 +64,9 @@ function _terms(fieldName, value) {
 function _getQueryFilterParts(cleanQuery, additionalFields) {
 
   const parts = [];
+  const {
+    relative
+  } = cleanQuery;
 
   if (_.get(cleanQuery, 'set')) {
     parts.push({ term: { _set:  cleanQuery.set } });
@@ -62,6 +78,23 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
 
   if (_.get(cleanQuery, 'timings.gte') || _.get(cleanQuery, 'timings.lte')) {
     parts.push(_timingsExcludingOngoing(cleanQuery.timings));
+  }
+
+  if (relative.includes('passed') && relative.includes('upcoming') && relative.includes('current')) {
+    // not a filter.
+  } else if (relative.includes('passed') && relative.includes('upcoming')) {
+    // defined in should, not filter part
+  } else if (relative.includes('passed') && relative.includes('current')) {
+    parts.push(_havingPassedTimings());
+  } else if (relative.includes('passed')) {
+    parts.push(_timestampFilter('_search_last_timing', { lt: 'now' }));
+  } else if (relative.includes('upcoming') && relative.includes('current')) {
+    parts.push(_havingUpcomingTimings());
+  } else if (relative.includes('upcoming')) {
+    parts.push(_timestampFilter('_search_first_timing', { gt: 'now' }));
+  } else if (relative.includes('current')) {
+    parts.push(_timestampFilter('_search_last_timing', { gt: 'now' }));
+    parts.push(_timestampFilter('_search_first_timing', { lt: 'now' }));
   }
 
   if (_.get(cleanQuery, 'createdAt.gte') || _.get(cleanQuery, 'createdAt.lte')) {
@@ -140,7 +173,7 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
     && _.get(cleanQuery, 'geo.northEast.lng')
     && _.get(cleanQuery, 'geo.southWest.lat')
     && _.get(cleanQuery, 'geo.southWest.lng')
- ) {
+  ) {
     parts.push(_geoBounds(cleanQuery.geo));
   }
 
@@ -162,6 +195,31 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
   return parts;
 }
 
+function _havingUpcomingTimings() {
+  return {
+    nested: {
+      path: 'timings',
+      query: {
+        range: {
+          'timings.begin': { gte: 'now' }
+        }
+      }
+    }
+  }
+}
+
+function _havingPassedTimings() {
+  return {
+    nested: {
+      path: 'timings',
+      query: {
+        range: {
+          'timings.end': { lte: 'now' }
+        }
+      }
+    }
+  }
+}
 
 function _timingsExcludingOngoing(d) {
   let range = {};
@@ -205,7 +263,7 @@ function _filterBySourceAgendaUid(sourceAgendaUid) {
   }
 }
 
-function _timestampFilter(field, { gte, lte }) {
+function _timestampFilter(field, { gte, lte, lt, gt }) {
   const range = {};
 
   if (gte) {
@@ -213,6 +271,12 @@ function _timestampFilter(field, { gte, lte }) {
   }
   if (lte) {
     range.lte = lte;
+  }
+  if (lt) {
+    range.lt = lt;
+  }
+  if (gt) {
+    range.gt = gt;
   }
 
   return {

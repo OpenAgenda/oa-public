@@ -1,4 +1,27 @@
 {
   "lastId": -1,
-  "events": []
+  "events": [{
+    "uid": 9876,
+    "title": {
+      "fr": "Les chaussettes de l'Archiduchesse"
+    }
+  }, {
+    "uid": 9879,
+    "title": {
+      "fr": "Les bobettes de l'Archiduchesse"
+    }
+  }, {
+    "uid": 6768,
+    "title": {
+      "fr": "Le bob de l'Archiduc"
+    }
+  }, {
+    "uid": 45747,
+    "title": {
+      "fr": "Les mots clés en parlent"
+    },
+    "keywords": {
+      "fr": ["chaussettes"]
+    }
+  }]
 }

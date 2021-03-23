@@ -44,6 +44,12 @@ module.exports = (event, formSchema = null) => {
         event.timings[0].end
       ))
     };
+    transform['_search_first_timing'] = {
+      $set: new Date(event.timings.reduce(
+        (first, timing) => timing.begin < first ? timing.begin : first,
+        event.timings[0].begin
+      ))
+    };
     transform.timings = {
       $set: event.timings.map(t => ({
         ...t,
@@ -189,7 +195,6 @@ module.exports = (event, formSchema = null) => {
         .filter(({ integer }) => integer < 2147483648)
       };
   }
-
   return ih(event, transform);
 }
 

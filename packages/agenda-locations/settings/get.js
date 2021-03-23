@@ -3,6 +3,8 @@
 const fromDbEntryToSettings = require('./lib/fromDbEntryToSettings');
 
 async function get(service, { setUid, agendaUid }, options = {}) {
+  const requestedAgendaUid = agendaUid || options.agendaUid;
+
   const {
     knex
   } = service.clients;
@@ -30,13 +32,13 @@ async function get(service, { setUid, agendaUid }, options = {}) {
     }
   };
 
-  const agendaSettings = agendaUid ? await service.interfaces.getAgendaLocationSettings(agendaUid) : null;
+  const agendaSettings = requestedAgendaUid ? await service.interfaces.getAgendaLocationSettings(requestedAgendaUid) : null;
 
   if (agendaSettings) {
     Object.assign(settings, agendaSettings);
   }
 
-  const effectiveSetUid = setUid || (await service.interfaces.getAgendaDetailsByUid(agendaUid).then(d => d?.locationSetUid));
+  const effectiveSetUid = setUid || (await service.interfaces.getAgendaDetailsByUid(requestedAgendaUid).then(d => d?.locationSetUid));
   if (effectiveSetUid) {
     const locationSetSettings = await knex
       .first('settings')
@@ -47,7 +49,7 @@ async function get(service, { setUid, agendaUid }, options = {}) {
       Object.assign(settings, locationSetSettings);
     }
   }
-  return fromDbEntryToSettings(settings, options);
+  return fromDbEntryToSettings(settings, { ...options, setUid: effectiveSetUid });
 }
 
 module.exports.byAgendaUid = (service, uid, options) => get(service, { agendaUid: uid }, options);

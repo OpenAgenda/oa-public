@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const assert = require('assert');
 
 const Files = require('@openagenda/files');
@@ -19,12 +20,14 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsP = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsP = {
+  ...initSettings, access: {
+    create: {...defaultAccess, authorized: false},
+    delete: {...defaultAccess, authorized: false},
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
 describe('agenda-locations - functional - settings get', function() {
   this.timeout(10000);
@@ -33,7 +36,6 @@ describe('agenda-locations - functional - settings get', function() {
   const f = fixtures(config.mysql);
 
   let svc;
-  let settings;
 
   describe('location set without settings', function() {
     before(async () => {
@@ -43,16 +45,18 @@ describe('agenda-locations - functional - settings get', function() {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async (uid) =>
-          uid % 2 === 0 ? initSettings : initSettingsP ,
+          getAgendaLocationSettings: async uid => ({
+            5: initSettingsP,
+            10: null
+          })[uid],
           getAgendaDetailsByUid: async () => null
         },
       });
       
     });
   
-    it('settings.access is not default if retrieved', async() => {
-      settings = await svc(5).settings.get();
+    it('settings.access is not default if retrieved', async () => {
+      const settings = await svc(5).settings.get();
       
       assert.deepEqual(settings.access, {
         create : {...defaultAccess, authorized: false},
@@ -62,8 +66,8 @@ describe('agenda-locations - functional - settings get', function() {
       })
     });
   
-    it('settings.access is default if not retrieved', async() => {
-      settings = await svc(10).settings.get();
+    it('settings.access is default if not retrieved', async () => {
+      const settings = await svc(10).settings.get();
       
       assert.deepEqual(settings.access, {
         create : defaultAccess,
@@ -73,16 +77,15 @@ describe('agenda-locations - functional - settings get', function() {
       })
     });
   
-    it('settings.eventForm is not default', async() => {
-      settings = await svc(5).settings.get();
+    it('settings.eventForm is not default', async () => {
+      const settings = await svc(5).settings.get();
       
       assert.deepEqual(settings.eventForm.detailed, true)
     });
   
 
-  
-    it('setUid with no settings in database, return default values', async() => {
-      settings = await svc.sets(5).settings.get();
+    it('setUid with no settings in database, returns default values', async () => {
+      const settings = await svc.sets(5).settings.get();
   
       assert.deepEqual(settings, {
         eventForm: {
@@ -125,11 +128,14 @@ describe('agenda-locations - functional - settings get', function() {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async (uid) =>
-          uid % 2 === 0 ? initSettings : initSettingsP ,
-          getAgendaDetailsByUid: async (uid, fields) =>  (
-            {locationSetUid: 1903810}
-          ),
+          getAgendaLocationSettings: async uid => ({
+            5: initSettingsP,
+            10: initSettings,
+            11: null
+          })[uid],
+          getAgendaDetailsByUid: async (uid, fields) =>  ({
+            locationSetUid: 1903810
+          }),
         },
       });      
     });
@@ -137,7 +143,7 @@ describe('agenda-locations - functional - settings get', function() {
     describe('settings are fetched from agenda endpoint and agenda is linked to a location set', () => {
 
       it('when defined, values from the set override any value defined at the agenda level', async () => {
-        settings = await svc(10).settings.get();
+        const settings = await svc(10).settings.get();
         assert.deepEqual(settings.access, {
           create: {...defaultAccess, authorized: false},
           delete: {...defaultAccess, authorized: false},
@@ -146,20 +152,20 @@ describe('agenda-locations - functional - settings get', function() {
         })
       });
 
-      it('when not defined at set level, values from agenda are used', async()=> {
-        settings = await svc(10).settings.get();
+      it('when not defined at set level, values from agenda are used', async ()=> {
+        const settings = await svc(10).settings.get();
         assert.deepEqual(settings.labels.translationInfo.fr, "C'est pour traduire automatiquement");
       });
   
     });
 
 
-    it('setUid with settings in database, values are not default', async() => {
-      settings = await svc.sets(1903810).settings.get();
+    it('setUid with settings in database, values are not default', async () => {
+      const settings = await svc.sets(1903812).settings.get();
   
-      assert.deepEqual(settings, {
+      assert.deepEqual(_.omit(settings, ['agendas']), {
         eventForm: {
-          detailed: false
+          detailed: true
         },
         labels: {},
         tagSet: {
@@ -171,8 +177,34 @@ describe('agenda-locations - functional - settings get', function() {
           merge: {...defaultAccess, authorized: false},
           update: defaultAccess
         }
-      })
-    })
+      });
+    });
+
+    it('settings from set can contain an array of agenda-specific settings', async () => {
+      const settings = await svc.sets(1903812).settings.get();
+
+      assert(Array.isArray(settings.agendas));
+    });
+
+    it('agenda specific settings default to general set settings when left unspecified', async () => {
+      const settings = await svc.sets(1903812).settings.get();
+
+      assert.equal(settings.agendas[0].eventForm.detailed, true);
+    });
+
+    it('agenda-specific settings are provided if requested in set settings get', async () => {
+      const settings = await svc.sets(1903812).settings.get({ agendaUid: 11 });
+
+      assert.equal(settings.access.update.authorized, true);
+    });
+
+    it('if agenda-specific settings are requested but not found, set settings are returned', async () => {
+      const settings = await svc.sets(1903811).settings.get({
+        agendaUid: 12
+      });
+
+      assert.equal(settings.access.update.authorized, false);
+    });
   });
 
   describe('fromDbEntryToSettings', ()=>{
@@ -199,19 +231,19 @@ describe('agenda-locations - functional - settings get', function() {
       });      
     });
 
-    it('settings.access is transformed into object if stored as boolean', async() => {
-      settings = await svc(5).settings.get();
+    it('settings.access is transformed into object if stored as boolean', async () => {
+      const settings = await svc(5).settings.get();
       
       assert.deepEqual(settings.access, {
         create : {...defaultAccess, authorized: false},
         delete: {...defaultAccess, authorized: false},
         merge: defaultAccess,
         update: {...defaultAccess, authorized: false},
-      })
+      });
     });
     
-    it('languages in tagSet are not flattened if lang is not passed in options', async() => {
-      settings = await svc(10).settings.get();
+    it('languages in tagSet are not flattened if lang is not passed in options', async () => {
+      const settings = await svc(10).settings.get();
       
       assert.deepEqual(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
         .tags.filter(e => e.id === 21 || e.id === 22),
@@ -219,18 +251,18 @@ describe('agenda-locations - functional - settings get', function() {
           { id: 21, label: { fr: 'Insolites', en: 'Unusual' } },
           { id: 22, label: { fr: 'Société et civilisation', en: 'Society and civilization' }}
         ]
-      )
+      );
     });
   
-    it('languages in tagSet are flattened if lang is passed in options', async() => {
-      settings = await svc(10).settings.get({ lang: 'fr' });
+    it('languages in tagSet are flattened if lang is passed in options', async () => {
+      const settings = await svc(10).settings.get({ lang: 'fr' });
       assert.deepEqual(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
         .tags.filter(e => e.id === 21 || e.id === 22),
         [
           { id: 21, label: 'Insolites' },
           { id: 22, label: 'Société et civilisation' }
         ]
-      )
+      );
     });
   })
 })
