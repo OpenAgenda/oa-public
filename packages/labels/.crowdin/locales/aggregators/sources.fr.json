@@ -2,17 +2,11 @@
   "aggregatorExplanation": "Cette fonction permet de récupérer automatiquement les événements des agendas que vous aurez choisi.",
   "createAggregator": "Activer l'agrégation d'agendas",
   "sourceAgendas": "Agendas sources",
-  "sourcesExplanation": "Les événements publiés par les agendas listés ici sont automatiquement ajoutés à l'agenda [%title%](%link%).",
-  "addSources": "Pour agréger de nouveaux agendas, [allez sur un agenda que vous souhaitez agréger](%searchLink%), puis cliquez sur Exporter > Agréger dans > **%agenda%**.",
   "sourcesHelp": "Cliquez ici pour en savoir plus",
-  "aggregationLoop": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
   "searchAgenda": "Rechercher un agenda",
   "officialAgenda": "Agenda officiel",
   "noResult": "Aucun résultat trouvé",
-  "removeSource": "Retirer des sources",
-  "removeConfirmMessage": "Êtes-vous sûr de vouloir supprimer cet agenda des sources ?",
-  "sourceAdded": "%source% a été ajouté aux sources de %agg%. Les événements à venir seront rajoutés dans un instant.",
-  "sourceRemoved": "%source% a été retiré des sources de %agg%.",
-  "numberOfResults": "Nombre de résultats",
-  "totalSources": "Total des sources"
+  "removeSource": "Retirer la source",
+  "removeConfirmMessage": "Êtes-vous sûr de vouloir supprimer cet agenda des sources?",
+  "numberOfResults": "Nombre de résultats"
 }

@@ -1,7 +1,6 @@
 {
   "editFieldSave": "Enrollañ",
   "editFieldCancel": "Nullañ",
-  "submitLabelLanguages": "Kemmañ",
   "emailFieldType": "Postel",
   "buttonSave": "Enrollañ",
   "orderCancel": "Nullañ",
@@ -10,6 +9,5 @@
   "cancelFieldEdit": "Nullañ",
   "optionUpdateAction": "Hizivaat",
   "optionEditCancel": "Nullañ",
-  "optionOrder": "Cheñch an urzh",
   "optionRemove": "Lemel"
 }

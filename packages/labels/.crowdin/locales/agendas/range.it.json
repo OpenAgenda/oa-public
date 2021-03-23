@@ -1,16 +1,1 @@
-{
-  "twoDates": "%firstDate% et %lastDate%",
-  "noDates": "Nessun data disponible",
-  "months|0": "gennaio",
-  "months|1": "febbraio",
-  "months|2": "marzo",
-  "months|3": "aprile",
-  "months|4": "maggio",
-  "months|5": "giugno",
-  "months|6": "luglio",
-  "months|7": "agosto",
-  "months|8": "settembre",
-  "months|9": "ottobre",
-  "months|10": "novembre",
-  "months|11": "dicembre"
-}
+{}

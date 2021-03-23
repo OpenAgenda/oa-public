@@ -1,17 +1,1 @@
-{
-  "contributor": "Beiträger",
-  "reader": "Leser",
-  "contributors": "Mitwirkende",
-  "administrators": "Administratoren",
-  "moderators": "Moderatoren",
-  "events": "veranstaltungen",
-  "actions": "Aktionen",
-  "role": "Rolle",
-  "email": "E-Mail",
-  "phone": "Telefon",
-  "organization": "Organisation",
-  "required": "Erforderlich",
-  "string.tooshort": "String zu kurz",
-  "message": "Botschaft",
-  "close": "Schließen"
-}
+{}

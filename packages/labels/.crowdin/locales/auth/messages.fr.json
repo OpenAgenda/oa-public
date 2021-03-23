@@ -1,11 +1,1 @@
-{
-  "isBlacklisted": "Votre compte a été ajouté a notre liste de comptes frauduleux.",
-  "isBlacklistedInfo": "En cas d'erreur de notre part, contactez-nous soit via notre robot ou depuis le menu d'Aide.",
-  "authRequired": "L' accès à la page demandée est restreint. Connectez-vous pour y accéder.",
-  "limitedAccessEvent": "L' accès à cet événement est restreint. Connectez-vous pour y accéder.",
-  "limitedAccessAgenda": "L'accès à cet agenda est restreint. Connectez-vous pour y accéder.",
-  "abortedAuth": "L'authentification a été interrompue sur %service%",
-  "facebookEmailMissing": "L'email associé à votre compte Facebook est indisponible. Rendez-vous sur Facebook pour le valider.",
-  "genericError": "Il y a eu un souci. Merci de ré-essayer plus tard",
-  "accountEmailAlreadyExists": "Un compte utilisant cet email existe déjà. Veuillez vous authentifier en utilisant votre email et mot de passe."
-}
+{}

@@ -2,7 +2,6 @@
   "viewAllActivities": "Gwelet an holl obererezhioù",
   "markAllAsRead": "Merkañ pep tra evel lennet",
   "noNotif": "N'eus kemenn ebet.",
-  "next": "War-lerc'h",
   "user": "{others, plural, =0 {{user}} one {{user} hag 1 implijer all} other {{user} ha {others} implijer all}}",
   "event": "{others, plural, =0 {{event}} one {{event} hag 1 darvoud all} other {{event} ha {others} a zarvoudoù all}}",
   "email": "{others, plural, =0 {{email}} one {{email} hag 1 all} other {{email} ha {others} all}}",

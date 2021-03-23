@@ -1,8 +1,1 @@
-{
-  "sourcesExplanation": "Gli eventi pubblicati dai calendari qui elencati vengono aggiunti automaticamente al agenda [%title%](%link%).",
-  "addSources": "Per aggregare nuovi calendari, [vai a un agenda che vuoi aggregare](%searchLink%), quindi clicca su Esporta > Aggrega in > **%agenda%**.",
-  "aggregationLoop": "Questo agenda aggrega gli eventi del agenda a cui si desidera aggiungerlo. I cicli di aggregazione non sono ammessi.",
-  "sourceAdded": "%source% è stato aggiunto alle fonti di %agg%. I prossimi eventi si aggiungeranno tra un attimo.",
-  "sourceRemoved": "%sorgente% è stata rimossa dalle fonti di %agg%.",
-  "totalSources": "Totale fonti"
-}
+{}

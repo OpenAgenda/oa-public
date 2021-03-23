@@ -1,13 +1,3 @@
 {
-  "title": "Valider une suggestion",
-  "info": "Les modifications proposées par le contributeur sont chargées dans les champs actifs. Editez-les avant de les valider.",
-  "submit": "Valider",
-  "submitError": "La suggestion n'a pas pu être traitée. Veuillez retenter dans un instant",
-  "previous": "Précédent",
-  "next": "Suivant",
-  "suggestionFrom": "Suggestion de %stakeholder%",
-  "currentValue": "Au lieu de",
-  "suggestionUnknownFrom": "Suggestion d'un ancien contributeur",
-  "suggestionDiscard": "Ignorer cette suggestion",
-  "back": "Retour"
+  "next": "Suivant"
 }
