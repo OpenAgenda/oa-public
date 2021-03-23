@@ -299,7 +299,10 @@ const config = {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
     translators: [ // user uids for crowdin translators
-      31046551
+      31046551,
+      75052324,
+      99999999,
+      55507091
     ],
     routes: {
       globals: {
