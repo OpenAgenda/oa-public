@@ -395,7 +395,6 @@ module.exports = app => {
     cmn.loadBaseData('oasfmain.css'),
     (req, res, next) => matchMw({
       initialState,
-      lang: req.cookies.translateMode === 'true' ? 'io' : req.lang,
       // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
     })(req, res, next)
   );
