@@ -12,7 +12,7 @@ const labelFiles = getLabelFiles();
 for (const lang of LANGS) {
   for (const labelFile of labelFiles) {
     const labels = require(path.join(__dirname, '..', labelFile));
-    const locales = toFlatPropertyMap(labels, lang);
+    const locales = getLocaleLabels(labels, lang);
 
     const fileName = labelFile.split('.').slice(0, -1).join('.');
     const dirname = path.dirname(fileName);
@@ -23,25 +23,16 @@ for (const lang of LANGS) {
   }
 }
 
-function toFlatPropertyMap(obj, neededKey = '', keySeparator = '|') {
-  const flattenRecursive = (obj, parentProperty, propertyMap = {}) => {
-    for (const [key, value] of Object.entries(obj)) {
-      const property = parentProperty ? `${parentProperty}${keySeparator}${key}` : key;
+function getLocaleLabels(labels, lang) {
+  const result = {};
 
-      if (key === neededKey) {
-        const property = parentProperty || '';
-        propertyMap[property] = value;
+  for (const key in labels) {
+    const value = labels[key][lang];
 
-        continue;
-      }
-
-      if (value && typeof value === 'object') {
-        flattenRecursive(value, property, propertyMap);
-      }
+    if (value) {
+      result[key] = value;
     }
+  }
 
-    return propertyMap;
-  };
-
-  return flattenRecursive(obj);
+  return result;
 }

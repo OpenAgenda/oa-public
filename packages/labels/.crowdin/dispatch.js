@@ -8,8 +8,6 @@ const getLabelFiles = require('../getLabelFiles');
 
 const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
-// BLA: se battre avec crowdin pour la PR:
-
 const labelFiles = getLabelFiles();
 
 for (const labelFile of labelFiles) {
