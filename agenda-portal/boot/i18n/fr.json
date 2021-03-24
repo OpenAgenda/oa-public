@@ -7,5 +7,5 @@
   "previous": "Précédent",
   "next": "Suivant",
   "contribute": "Proposer un événement",
-  "eventsTotal": "{total} {total, plural, =0 {événement} one {événements} other {événements}}"
+  "eventsTotal": "{total} {total, plural, =0 {événement} one {événement} other {événements}}"
 }
