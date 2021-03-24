@@ -1,7 +1,5 @@
 "use strict";
 
-// process.env.DEBUG='oa:requests:incoming, oa*';
-
 const _ = require('lodash');
 const fs = require('fs');
 const redis = require('redis');

@@ -358,19 +358,18 @@ function _main( v ) {
     postalCode: 'getPostalCode',
     latitude: 'getLatitude',
     longitude: 'getLongitude',
-    pricingInfo: 'getPricingInfo',
-    ticketLink: 'getTicketLink',
     accessibility: 'getAccessibility',
     age: 'getAge'
   };
 
-  v.formatted.onlineAccessLink = v.req.event.onlineAccessLink;
-
-  Object.assign(v.formatted, v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang));
-
-  v.formatted.longDescriptionLinks = v.req.event.getLinks();
-
-  v.formatted.freeText = renderHTMLFromMarkdown(v.req.app.services, v.formatted.longDescriptionLinks, v.formatted.freeText);
+  Object.assign(v.formatted,
+    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo']), 
+    v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
+    {
+      longDescriptionLinks: v.req.event.getLinks(),
+      freeText: renderHTMLFromMarkdown(v.req.app.services, v.formatted.longDescriptionLinks, v.formatted.freeText)
+    }
+  );
 
   Object.keys(map).forEach( k => {
     v.formatted[ k ] = v.req.event[ map[ k ] ]();
