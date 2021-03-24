@@ -1,1 +1,13 @@
-{}
+{
+  "createAgenda": "Neuen Veranstaltungskalender erstellen",
+  "searchAgenda": "Veranstaltungskalender suchen",
+  "officialAgenda": "Offizieller Veranstaltungskalender",
+  "noResult": "Keine Ergebnisse gefunden",
+  "searchEvent": "Eine Veranstaltungen finden",
+  "selectAgenda": "Wähle den Veranstaltungskalender, in dem du Deine Veranstaltung eintragen möchtest.",
+  "privateAgenda": "Privater Kalender",
+  "or": "Oder",
+  "modalBigSentence": "Du bist dabei, eine neue Veranstaltung auf der Grundlage einen Präzedenzfalls zu schaffen.",
+  "modalReminder": "Zur Erinnerung: Eine einzelne Veranstaltung kann über mehrere Veranstaltungskalender gemeinsam genutzt werden. Erstelle bitte kein Duplikat, dies würde sonst als neues Event angezeigt werden. ",
+  "createNewEventIn": "Erstellen Sie das neue Veranstaltung in"
+}

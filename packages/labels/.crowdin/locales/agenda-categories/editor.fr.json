@@ -1,4 +1,15 @@
 {
+  "empty": "la categorie ne peut être vide",
+  "duplicate": "cette catégorie est déjà existante",
+  "categories": "Catégories",
+  "subtitle": "Les catégories forment une liste à choix uniques",
+  "listName": "Intitulé de la liste",
+  "listInfo": "Champ indicatif",
+  "listSection": "Catégories de l'agenda",
   "add": "Ajouter",
-  "cancelUpdateTag": "Annuler"
+  "noCategories": "Vous n'avez encore défini aucune catégorie pour cet agenda",
+  "linkError": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
+  "cancelUpdateTag": "Annuler",
+  "updateTag": "Ok",
+  "required": "Rendre obligatoire. Une catégorie devra être sélectionnée."
 }

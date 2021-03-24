@@ -1,1 +1,20 @@
-{}
+{
+  "unsubscribedSuccess": "Ora non sei più iscritto",
+  "unsubscribedFail": "È sorto un problema. Si prega di riprovare presto o di contattare il supporto.",
+  "unsubscribeFromNotification": "Cancellatemi da tali notifiche",
+  "unsubscribeFromAllNotifications": "Cancellatemi dalle notifiche di questo calendario",
+  "notificationTitle": "Notifica",
+  "seeAgenda": "Vedi l'agenda",
+  "seeEvent": "Vedi l'evento",
+  "agendaEventPublished": "%user% ha pubblicato %event%.",
+  "agendaEventSubmitModeration": "%user% ha presentato %event% a %agenda% per moderazione",
+  "userNewContributor": "Ora sei un contributore di %agenda%.",
+  "agendaNewContributor": "%user% è ora un collaboratore dell'agenda %agenda%.",
+  "agendaNewAdministrator": "%user% è ora amministratore dell'agenda %agenda%.",
+  "userEventUpdate": "%user% ha apportato modifiche a %event%.",
+  "userNewAdministrator": "Lei è ora amministratore dell'agenda %agenda%.",
+  "userNewModerator": "Lei è ora il moderatore dell'agenda %agenda%.",
+  "agendaNewModerator": "%user% è ora un moderatore dell'agenda %agenda%.",
+  "agendaNewAggregator": "%aggregator% ora importa gli eventi dalla vostra agenda %agenda%.",
+  "agendaEventUpdate": "%agenda%: l'evento %event% è stato aggiornato da %user%."
+}

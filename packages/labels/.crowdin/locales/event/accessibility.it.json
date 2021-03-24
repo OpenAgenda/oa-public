@@ -1,1 +1,9 @@
-{}
+{
+  "mi": "Incapacità motoria",
+  "hi": "Disabilità uditiva",
+  "ii": "Disabilità mental",
+  "pi": "Disabilità psichica",
+  "vi": "Invalidità visiva",
+  "sl": "Lingua dei segni",
+  "input": "Questo evento include alloggi per l'accessibilità"
+}

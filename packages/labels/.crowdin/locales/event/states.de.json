@@ -1,1 +1,13 @@
-{}
+{
+  "refused": "verweigert",
+  "tocontrol": "in Maßen",
+  "tobecontrolled": "in Maßen",
+  "controlled": "bereit zu veröffentlichen",
+  "published": "veröffentlicht",
+  "featured": "funktions",
+  "all": "alles sehen",
+  "state": "Zustand",
+  "stateChanged": "Der Zustand des Veranstaltungens geändert hat",
+  "featuredChange": "Die Veranstaltung wird nun vorgestellt",
+  "unfeaturedChange": "Die Veranstaltung ist nicht mehr funktions"
+}

@@ -1,1 +1,21 @@
-{}
+{
+  "usedAccount": "Questo conto di servizio è già in uso",
+  "fieldCannotBeEmpty": "Questo campo non può essere vuoto",
+  "usedEmail": "Questa e-mail è già in uso",
+  "invalidEmail": "L'e-mail non è valida",
+  "passwordTooShort": "La password è troppo corta",
+  "passwordNotEqual": "Le parole chiave non sono identiche",
+  "createAccount": "Crea un conto",
+  "captchaTryAgain": "Riprovaci ancora una volta",
+  "hasAccount": "Hai già utilizzato OpenAgenda ?",
+  "connect": "Connettiti",
+  "nameSurname": "Nome Cognome",
+  "email": "Email eMail",
+  "password": "La parola d'accesso",
+  "repeatPassword": "Ripetere la parola d'accesso",
+  "signup": "Iscriviti",
+  "agree": "Creando un conto si accettano le %terms% e le %policy%.",
+  "termsOfUse": "Condizioni d'uso",
+  "policy": "Informativa sulla privacy",
+  "culture": "Lingua"
+}

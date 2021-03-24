@@ -1,1 +1,11 @@
-{}
+{
+  "myProfile": "Ma frofil",
+  "myEvents": "Ma darvoudoù",
+  "settings": "Arventennoù",
+  "signout": "Digevreañ",
+  "myAgendas": "Ma Deiziataerioù",
+  "searchAgendas": "Klask un deiziataer",
+  "createAgenda": "Krouiñ un deiziataer",
+  "general": "Dre vras",
+  "agendasTitle": "Deiziataerioù"
+}

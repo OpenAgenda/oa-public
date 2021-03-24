@@ -1,1 +1,7 @@
-{}
+{
+  "info": "Outils d'inscription",
+  "placeholder": "Liens, emails ou numéros de téléphone. Séparez chaque valeur par une tabulation ou une virgule.",
+  "error": "Séparez chaque valeur par une tabulation ou une virgule. Les saisies non valides ne seront pas sauvegardées.",
+  "invalid": "Seuls les liens, emails ou numéros de téléphone sont acceptés",
+  "registerBook": "S'inscrire / réserver"
+}

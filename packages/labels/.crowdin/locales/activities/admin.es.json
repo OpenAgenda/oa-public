@@ -1,1 +1,20 @@
-{}
+{
+  "agenda.acceptInvitation": "{user} ha aceptado una invitación para unirse {originMember} {credential} sobre el agenda {agenda}.",
+  "agenda.addMember": "{originMember} añadió {user} como de la {agenda} {credential}.",
+  "agenda.setMemberRole": "{user} pasó {originMember} de {beforeCredential} hacia {credential} en {agenda}.",
+  "agenda.create": "{user} ha creado el agenda del {agenda}.",
+  "agenda.updateContribution": "{user} ha actualizado el agenda de configuración de contribución.",
+  "agenda.updateProfile": "{user} ha actualizado el perfil {agenda}.",
+  "agenda.rename": "{user} cambió el nombre del agenda {before} a {after}.",
+  "agenda.setOfficial": "El agenda {agenda} se convirtió oficial.",
+  "agenda.setUnofficial": "El agenda {agenda} se convirtió oficial.",
+  "agenda.changeEventState": "{user} pasó del {event} \"{before}\" a \"{after}\".",
+  "agenda.publishEvent": "{user} registró {event} sobre el agenda {agenda}.",
+  "agenda.unpublishEvent": "{user} ha cancellado la publicacion de {event} en la agenda {agenda}.",
+  "agenda.removeEvent": "{user} {event} sobre el agenda {agenda} eliminado.",
+  "agenda.aggregateEvent": "{event} del {agenda} agregada de {sourceAgenda}.",
+  "event.create": "{user} creado {event} en el agenda del {agenda}.",
+  "event.update": "{user} ha actualizado {event} de {agenda}.",
+  "event.delete": "{user} elimina eventos de la agenda {agenda}.",
+  "noActivity": "No hay actividad"
+}

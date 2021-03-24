@@ -1,1 +1,13 @@
-{}
+{
+  "createAgenda": "Crear un diario",
+  "searchAgenda": "Buscar un agenda",
+  "officialAgenda": "Agenda oficial",
+  "noResult": "ningún resultado encontrado",
+  "searchEvent": "Buscar un evento",
+  "selectAgenda": "Seleccione el agenda en el que crear el evento",
+  "privateAgenda": "Agenda privado",
+  "or": "o",
+  "modalBigSentence": "Vas a crear un nuevo evento en la base de un precedente.",
+  "modalReminder": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar.",
+  "createNewEventIn": "Crear nuevo evento"
+}

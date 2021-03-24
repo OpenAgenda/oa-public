@@ -1,1 +1,13 @@
-{}
+{
+  "title": "Gebe Deine Veranstaltung ein",
+  "submit": "Registrieren",
+  "create": "Erstelle die Veranstalltung",
+  "draft": "Einen Entwurf speichern",
+  "update": "ändern",
+  "editEvent": "Aktualisiere die Veranstalltung",
+  "updateDraft": "Den Entwurf aktualisieren",
+  "deleteDraft": "Den Entwurf löschen",
+  "undraft": "Die Veranstalltung erstellen",
+  "addEvent": "Veranstaltung hinzufügen",
+  "editDraftTitle": "Entwurf"
+}

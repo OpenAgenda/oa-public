@@ -1,1 +1,13 @@
-{}
+{
+  "refused": "rechazado",
+  "tocontrol": "con moderación",
+  "tobecontrolled": "con moderación",
+  "controlled": "listo para publicar",
+  "published": "publicado",
+  "featured": "en una",
+  "all": "ver todas",
+  "state": "estatus",
+  "stateChanged": "El estado del evento fue cambiado",
+  "featuredChange": "El caso está ahora en una",
+  "unfeaturedChange": "El evento ya no es una"
+}

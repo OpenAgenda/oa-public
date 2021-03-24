@@ -1,4 +1,24 @@
 {
-  "submit": "Sauvegarder",
-  "update": "Modifier"
+  "title": "Saisissez votre événement",
+  "submit": "Enregistrer",
+  "create": "Créer l'événement",
+  "draft": "Enregistrer un brouillon",
+  "update": "Mettre à jour",
+  "editEvent": "Mettre à jour l'événement",
+  "updateDraft": "Mettre à jour le brouillon",
+  "deleteDraft": "Supprimer le brouillon",
+  "undraft": "Créer l'événement",
+  "addEvent": "Ajouter un événement",
+  "editDraftTitle": "Brouillon",
+  "shareEvent": "Partager un événement",
+  "takeEvent": "Reprendre",
+  "fromAgenda": "de l'agenda",
+  "toAgenda": "sur l'agenda",
+  "confirmAdd": "Ajouter l'événement",
+  "noEditionRights": "Vous n'avez pas les droits d'édition sur cet événement.",
+  "onlyAdditionalFieldsCanBeEdited": "Seuls les champs additionnels de l'agenda peuvent être édités ici.",
+  "requestEditionRights": "Demander les droits d'édition",
+  "onlyAdditionalFieldsCanBeEditedInfo": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu.",
+  "requestEditionRightsInfo": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
+  "close": "Fermer"
 }

@@ -1,5 +1,7 @@
 {
   "administration": "Administration",
   "back": "Aller à l'accueil de l'agenda",
-  "settings": "Paramètres"
+  "manage": "Gérer",
+  "export": "Exporter",
+  "settings": "Paramétrer"
 }

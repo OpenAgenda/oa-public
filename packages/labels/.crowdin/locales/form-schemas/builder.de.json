@@ -1,1 +1,4 @@
-{}
+{
+  "emailFieldType": "Email",
+  "linkFieldType": "Hyperlink"
+}

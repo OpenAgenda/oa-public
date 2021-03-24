@@ -1,14 +1,5 @@
 {
-  "signin": "",
-  "search": "",
-  "help": "",
-  "": {
-    "fr": "",
-    "en": "",
-    "es": "",
-    "it": ""
-  },
-  "de": "",
-  "fr": "",
-  "es": ""
+  "signin": "Login",
+  "search": "Suchen",
+  "help": "Hilfe"
 }

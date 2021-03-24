@@ -1,1 +1,7 @@
-{}
+{
+  "tokenNotFound": "Il gettone di cancellazione non può essere trovato.",
+  "tokenAlreadyUsed": "Il link non è più valido. Probabilmente è già stato usato.",
+  "tokenMalformed": "Il gettone di cancellazione è mal formato.",
+  "unsubscriptionSucceed": "Le vostre impostazioni sono state aggiornate.",
+  "guestUnsubscriptionSucceed": "Ora non sei più iscritto."
+}

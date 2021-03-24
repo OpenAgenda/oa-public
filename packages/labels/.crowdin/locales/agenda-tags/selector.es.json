@@ -1,1 +1,8 @@
-{}
+{
+  "tagsTitle": "etiquetas",
+  "defaultTagGroupName": "etiquetas de grupo",
+  "defaultTagGroupInfo": "Seleccione una o más etiquetas",
+  "required": "Requerido.",
+  "requiredTagError": "Usted debe hacer al menos una selección",
+  "noSelection": "otra opción"
+}

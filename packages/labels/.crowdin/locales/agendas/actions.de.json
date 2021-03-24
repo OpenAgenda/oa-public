@@ -1,1 +1,7 @@
-{}
+{
+  "actionsInProcess": "Ihre Aktion wird bearbeitet. Die Veranstaltungen im Staat %oldstate% werden in Kürze in %newstate% geändert.",
+  "ownershipTransfered": "Das Eigentum an der Veranstaltung wurde erfolgreich übertragen.",
+  "spreadsheetTitle": "Herunterladen",
+  "allLanguages": "Alle Sprachen",
+  "spreadsheetDescription": "Beschränkung heruntergeladener Inhalte auf bestimmte Sprachen"
+}
