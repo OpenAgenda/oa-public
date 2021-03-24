@@ -36,6 +36,14 @@ module.exports = (options = {}) => dirty => {
     }];
   }
 
+  if (options.max && (timings.length > options.max)) {
+    throw [{
+      ...baseError,
+      code: `timings.max.${options.max}`,
+      message: `maximum authorized number of timings (${options.max}) exceeded: ${timings.length}`
+    }]
+  }
+
   const isDHM = isDateHoursMinutesTiming(timings[0]);
   const validateSingle = isDHM ? validateDateHoursMinutesTiming : validateTiming;
   const cleanTimings = [];

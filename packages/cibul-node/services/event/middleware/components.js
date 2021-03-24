@@ -177,7 +177,7 @@ function _timings( v ) {
 function _registration( v ) {
 
   v.req.formatted.registrationComponent = renderComponent( Registration, {
-    value: v.req.event.getTicketLink( true ) || '',
+    value: v.req.event.ticketLink || v.req.event.getTicketLink( true ) || '',
     lang: v.req.lang
   } );
 
@@ -187,7 +187,7 @@ function _registration( v ) {
 
 function renderComponent( component, data ) {
 
-  let rendered = ReactDOMServer.renderToStaticMarkup( React.createElement(component, data) );
+  const rendered = ReactDOMServer.renderToStaticMarkup( React.createElement(component, data) );
 
   return rendered === '<noscript></noscript>' ? false : rendered;
 

@@ -320,6 +320,28 @@ describe('timings', () => {
       assert.deepEqual(validate(), defaultValue);
     });
 
+    it('throws error if provided items count exceeds specified max', () => {
+      const values = [];
+      const cursor = new Date();
+      for (let i = 0; i<=800; i++) {
+        cursor.setHours(8);
+        const begin = new Date(cursor);
+        cursor.setHours(18);
+        const end = new Date(cursor);
+        values.push({ begin, end });
+        cursor.setDate(cursor.getDate()+1);
+      }
+
+      try {
+        validateTimings({ max: 800 })(values);
+      } catch (errors) {
+        assert.equal(errors[0].code, 'timings.max.800');
+        return;
+      }
+
+      throw new Error('test should have excited in catch');
+    });
+
 
   });
 
