@@ -1,1 +1,12 @@
-{}
+{
+  "title": "Willkommen!",
+  "subtitle": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
+  "description": "Schön, dass du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
+  "organisation": "Unternehmen",
+  "phone": "Telefonnummer",
+  "phoneSub": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()",
+  "name": "Vorname Nachname",
+  "position": "Funktion",
+  "email": "E-Mail",
+  "submit": "Weiter"
+}

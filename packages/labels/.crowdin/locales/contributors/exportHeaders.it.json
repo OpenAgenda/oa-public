@@ -1,1 +1,11 @@
-{}
+{
+  "name": "Nome",
+  "email": "Invia un'e-mail a",
+  "organization": "Organizzazione",
+  "phone": "Telefono",
+  "position": "Funzione",
+  "contributions": "Eventi collaterali",
+  "credential": "Ruolo",
+  "role": "Ruolo",
+  "state": "Stato"
+}

@@ -1,1 +1,6 @@
-{}
+{
+  "title": "Acceso no autorizado",
+  "content": "El acceso a este calendario está restringido, póngase en contacto con el administrador del calendario para obtener más información.",
+  "contact": "Póngase en contacto con el administrador",
+  "back": "Volver a la agenda"
+}

@@ -1,1 +1,6 @@
-{}
+{
+  "categoriesTitle": "Kategorien",
+  "categoriesInfo": "Diese werden zu indizieren Ihre Veranstaltung in der Agenda eingesetzt. Wähle eins.",
+  "categoriesRequired": "Erforderlich.",
+  "requiredCategoryError": "Du musst ein Element auswählen"
+}

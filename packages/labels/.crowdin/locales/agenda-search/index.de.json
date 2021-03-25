@@ -1,1 +1,16 @@
-{}
+{
+  "official": "Offizieller Kalender",
+  "latestUpdated": "Kürzlich aktualisierte Kalender",
+  "results": "Suchergebnisse für \"%search%",
+  "searchTitle": "Kalendersucher",
+  "genericSearchTitle": "Kalendersuchergebnisse",
+  "found": "Kalender gefunden",
+  "empty": "Leider stimmte keine Agenda mit dieser Suche überein",
+  "publishedEvent": "1 vergangene Veranstaltung",
+  "publishedEvents": "%count% vergangenen Veranstaltungen",
+  "upcomingEvent": "1 bevorstehendes Veranstaltung",
+  "upcomingEvents": "%count% bevorstehende Veranstaltungen",
+  "loadPrevious": "Vorherige Ergebnisse laden",
+  "loadNext": "Nächste Ergebnisse laden",
+  "addEvent": "Veranstaltung hinzufügen"
+}

@@ -1,1 +1,7 @@
-{}
+{
+  "actionsInProcess": "Votre demande est en cours de traitement. Les événements portant le statut %oldstate% passeront à %newstate% sous peu.",
+  "ownershipTransfered": "La propriété de l'événement a été transférée avec succès",
+  "spreadsheetTitle": "Télécharger",
+  "allLanguages": "Toutes les langues",
+  "spreadsheetDescription": "Limiter les données téléchargées à certaines langues"
+}

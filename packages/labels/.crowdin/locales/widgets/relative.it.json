@@ -1,1 +1,13 @@
-{}
+{
+  "today": "Oggi",
+  "yesterday": "ieri",
+  "tomorrow": "Domani",
+  "thisWeekend": "Questo week end",
+  "thisWeek": "Questa settimana",
+  "thisMonth": "In questo mese",
+  "relativeToNowPast": "%count% %units% fa",
+  "relativeToNowUpcoming": "tra %count% %units%",
+  "days": "giorni",
+  "months": "mese",
+  "years": "anni"
+}

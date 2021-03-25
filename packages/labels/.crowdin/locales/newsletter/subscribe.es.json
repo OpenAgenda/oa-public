@@ -1,1 +1,5 @@
-{}
+{
+  "invalidEmail": "O bien el correo electrónico introducido no es válido o el servicio de noticias no está disponible. Por favor, vuelva a intentar el registro en unos pocos minutos.",
+  "subscribed": "Se le ha añadido al de listas de correo. ¡Gracias!",
+  "unsubscribed": "Ahora recibirá más eventos a %email%"
+}

@@ -1,1 +1,11 @@
-{}
+{
+  "connection": "Login",
+  "incorrectPassword": "Deine E-Mail oder dein Passwort ist falsch.",
+  "resetPassword": "Passwort zurücksetzen",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "signin": "Anmelden",
+  "lostPassword": "Ich habe mein Passwort vergessen",
+  "noAccount": "Noch nicht registriert? Hier geht's zur Anmeldung.",
+  "createAccount": "Erstelle eine!"
+}

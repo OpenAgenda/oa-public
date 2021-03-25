@@ -1,5 +1,14 @@
 {
-  "submit": "Modifier",
+  "description": "Cet événement est issu d'un autre agenda. Vous pouvez éditer les informations ci-dessous, spécifique à votre agenda",
+  "loadingError": "Il y a eu un problème lors du chargement des données. Rechargez la page dans un instant.",
+  "invalidError": "Certains champs contiennent des valeurs non valides. Corrigez-les avant de retenter une soumission.",
+  "submit": "Valider",
+  "submitted": "Validé",
+  "saveErrorTitle": "Erreur de sauvegarde",
+  "saveError": "Il y a eu un problème lors de la sauvegarde. Retentez ou rechargez la page.",
+  "saveSuccess": "Les données ont été mises à jour",
+  "invalidTags": "Certains tags soumis ne sont pas valides",
+  "invalidCategories": "La catégorie sélectionnée n'est pas valide",
   "cancel": "Annuler",
-  "uploadButton": "Séléctionner"
+  "uploadButton": "Sélectionner"
 }

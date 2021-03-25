@@ -1,14 +1,9 @@
 {
-  "signin": "",
+  "signin": "Se connecter",
   "search": "Rechercher",
   "help": "Aide",
-  "": {
-    "fr": "",
-    "en": "",
-    "es": "",
-    "it": ""
-  },
-  "de": "",
-  "fr": "",
-  "es": ""
+  "en": "Anglais",
+  "de": "Allemand",
+  "fr": "Français",
+  "es": "Espagnol"
 }

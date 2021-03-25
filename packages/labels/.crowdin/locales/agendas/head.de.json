@@ -1,1 +1,9 @@
-{}
+{
+  "officialAgenda": "offiziell",
+  "privateAgenda": "privater Kalender",
+  "contact": "kontaktieren",
+  "export": "exportieren",
+  "addEvent": "Veranstaltung hinzufügen",
+  "showCalendar": "Kalenderansicht anzeigen",
+  "manage": "verwalten"
+}

@@ -1,1 +1,17 @@
-{}
+{
+  "title": "Felicitaciones, su agenda está listo!",
+  "someActions": "Unas pocas acciones simples para un buen comienzo con su agenda",
+  "addYourFirstEvent": "Añadir su primer evento!",
+  "addEvent": "Añadir un evento",
+  "addProfileImage": "Añadir una imagen de perfil a su agenda",
+  "sendLink": "Enviar el enlace a su agenda con sus colaboradores",
+  "copyLinkAndSend": "Copiar y pegar este enlace y enviarlo por correo electrónico o las redes sociales.",
+  "copyLink": "Copiar el enlace",
+  "embedYourAgenda": "Integre su agenda en su sitio web",
+  "createEmbedded": "Crear una visión integrada",
+  "needPrivate": "¿Quieres una agenda privada? Esta característica es nueva, nos dice su uso.",
+  "requestPrivate": "Solicitar un agenda íntimo",
+  "needOfficial": "¿Quieres una agenda formal?",
+  "requestOfficial": "Solicitar agenda oficial",
+  "learnMore": "Más información"
+}
