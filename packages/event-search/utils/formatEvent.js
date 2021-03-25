@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
+const log = require('@openagenda/logs')('formatEvent');
 const moment = require('moment-timezone');
 const countries = require('@openagenda/labels/agenda-locations/countries');
 const dateRange = require('@openagenda/date-range');
