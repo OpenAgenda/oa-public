@@ -32,6 +32,10 @@ module.exports = async (services, eventSearch, agenda) => {
 
   log(logPrefix + ' done', result);
 
+  if (result.error) {
+    log('error', result.error?.meta);
+  }
+
   return result;
 }
 

@@ -94,22 +94,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
   });
 
-  describe('patch', () => {
-    let result;
-
-    beforeAll(async () => {
-      result = await core.agendas({
-        uid: 17026855
-      }).locations.patch(24505639, {
-        name: 'Patched location'
-      });
-    });
-
-    it('the location is patched', () => {
-      assert(result.name === 'Patched location');
-    });
-  });
-
   describe('remove', () => {
     let result;
 

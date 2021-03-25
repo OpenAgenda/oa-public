@@ -43,6 +43,8 @@ module.exports = async function(services, before, after) {
       .byEventUid(eventUid)
       .then(({ items }) => items);
 
+    log('found %s references', relatedReferences.length);
+
     for (const ae of relatedReferences) {
       const { agendaUid } = ae;
 

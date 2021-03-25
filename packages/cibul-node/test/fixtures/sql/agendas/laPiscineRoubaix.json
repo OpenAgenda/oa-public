@@ -1,0 +1,20 @@
+{
+  "id": 15442,
+  "title": "La Piscine - Roubaix",
+  "owner_id": 1,
+  "slug": "la-piscine-roubaix",
+  "description": "Agenda de tous les événements du musée La Piscine de la ville de Roubaix",
+  "image": "agenda79017343.jpg",
+  "url": "http://www.roubaix-lapiscine.com/",
+  "created_at": "2018-05-28 08:40:07",
+  "updated_at": "2021-02-16 10:39:35",
+  "uid": 79017343,
+  "official": 1,
+  "credentials": "{\"useContributeApp\":true,\"useAgendaSchema\":true,\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"embedsHead\":false,\"embedsTemplates\":true,\"indesign\":false,\"activatingInvitations\":false,\"emailstrategie\":false,\"aggregator\":false,\"invitationMessage\":false,\"prioritizedAggregator\":false,\"docxExport\":false,\"calendarView\":false,\"eventOwnershipTransfer\":false}",
+  "settings": "{\"tracking\":{\"googleAnalytics\":null},\"lab\":{\"eventAdmin\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"translation\":{\"enabled\":false,\"source\":\"fr\",\"sets\":[],\"service\":\"reverso\",\"options\":null}}",
+  "private": 0,
+  "officialized_at": "2018-05-28 08:40:31",
+  "indexed": 1,
+  "network_uid": 2998724,
+  "location_set_uid": null
+}
