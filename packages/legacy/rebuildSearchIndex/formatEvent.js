@@ -5,6 +5,15 @@ const VError = require( 'verror' );
 
 const validateLink = require( '@openagenda/validators/link' )();
 
+const getLatestUpdated = (event, articles) => [event.updatedAt]
+  .concat(articles.map(a => a.updatedAt))
+  .reduce((latestUpdatedAt, updatedAt) => {
+    if (!latestUpdatedAt) {
+      return updatedAt;
+    }
+    return latestUpdatedAt < updatedAt ? updatedAt : latestUpdatedAt;
+  });
+
 module.exports = async ( { knex, imageBasePath }, id ) => {
 
   const {
@@ -30,7 +39,6 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       'ownerId',
       'slug',
       'createdAt',
-      'updatedAt',
       'uid',
       'store'
     ] ),
@@ -44,6 +52,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       'isPublished',
       'fileKey'
     ] ),
+    updatedAt: getLatestUpdated(event, articles),
     age: _age( legacyEvent ),
     accessibility: _accessibility( legacyEvent ),
     locations: !location ? [{
@@ -179,7 +188,8 @@ async function _fetch( knex, identifier ) {
     'timings',
     'timezone',
     'references',
-    'agenda_uid as agendaUid'
+    'agenda_uid as agendaUid',
+    'updated_at as updatedAt'
   ] ).where( 'uid', legacyEvent.uid )
     .then( e => {
 
@@ -254,6 +264,7 @@ async function _fetch( knex, identifier ) {
     'ra.store as store',
     'featured',
     'rr.organization as reviewer.organization',
+    'ra.updated_at as updatedAt',
     'rr.store as reviewer.store'
   ] ).leftJoin( 'reviewer as rr', function() {
     this
