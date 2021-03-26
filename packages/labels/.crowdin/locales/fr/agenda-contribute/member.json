@@ -1,12 +1,3 @@
 {
-  "title": "Bienvenue !",
-  "subtitle": "Présentez-vous avant de saisir vos événements",
-  "description": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
-  "organisation": "Organisation",
-  "phone": "Téléphone",
-  "phoneSub": "Caractères autorisés: chiffres, espace, -, + ou ()",
-  "name": "Prénom Nom",
-  "position": "Fonction",
-  "email": "Email",
-  "submit": "Valider"
+  "submit": "Modifier"
 }

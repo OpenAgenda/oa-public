@@ -1,4 +1,6 @@
 {
   "editFieldSave": "Guardar",
-  "buttonSave": "Guardar"
+  "emailFieldType": "e-mail",
+  "buttonSave": "Guardar",
+  "requiredField": "necesario"
 }

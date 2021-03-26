@@ -1,0 +1,23 @@
+{
+  "number.toosmall": "crwdns14032:0%min%crwdne14032:0",
+  "number.toobig": "crwdns14034:0%max%crwdne14034:0",
+  "multi-input.info": "crwdns14036:0crwdne14036:0",
+  "multi-input.error": "crwdns14038:0crwdne14038:0",
+  "string.tooshort": "crwdns14040:0%min%crwdne14040:0",
+  "string.toolong": "crwdns14042:0%max%crwdne14042:0",
+  "email.invalid": "crwdns14044:0crwdne14044:0",
+  "phone.invalid": "crwdns14046:0crwdne14046:0",
+  "link.invalid": "crwdns14048:0crwdne14048:0",
+  "number.invalid": "crwdns14050:0crwdne14050:0",
+  "integer.invalid": "crwdns14052:0crwdne14052:0",
+  "integer.toobig": "crwdns14054:0crwdne14054:0",
+  "groupTags.required": "crwdns14056:0crwdne14056:0",
+  "required": "crwdns14058:0crwdne14058:0",
+  "choice.required": "crwdns14060:0crwdne14060:0",
+  "serverException": "crwdns14062:0crwdne14062:0",
+  "serverErrorTooLargeFile": "crwdns14064:0%max%crwdne14064:0",
+  "noOrigin": "crwdns14066:0crwdne14066:0",
+  "defaultBack": "crwdns14068:0crwdne14068:0",
+  "defaultAgendaBack": "crwdns14070:0crwdne14070:0",
+  "pageDoesNotExist": "crwdns14072:0crwdne14072:0"
+}

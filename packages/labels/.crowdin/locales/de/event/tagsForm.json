@@ -1,14 +1,1 @@
-{
-  "description": "Dieses Veranstaltung wurde von einem anderen Kalender hinzugefügt. du kannst die folgenden Informationen für deinen Veranstaltungskalender beabeiten.",
-  "loadingError": "Es gab ein Problem, während die Daten geladen werden. Bitte aktualisieren Sie die Seite.",
-  "invalidError": "Einige Felder enthalten ungültige Daten. Bitte korrigiere diese, bevor du das Formular abschickst.",
-  "submit": "einreichen",
-  "submitted": "eingereicht",
-  "saveErrorTitle": "Speichern Fehler",
-  "saveError": "Es gab ein Problem, während der Datenspeicherung. Bitte sende wieder oder lade die Seite neu.",
-  "saveSuccess": "Die Daten wurden erfolgreich aktualisiert",
-  "invalidTags": "Einige eingereichten Tags sind nicht gültig",
-  "invalidCategories": "Die eingereichten Kategorie ist nicht gültig",
-  "cancel": "Stornieren",
-  "uploadButton": "Wählen"
-}
+{}

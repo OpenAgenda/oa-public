@@ -1,18 +1,1 @@
-{
-  "aggregatorExplanation": "Esta función recuperará automáticamente el agenda de eventos que ha elegido.",
-  "createAggregator": "Habilitar la agregación de los agendas",
-  "sourceAgendas": "fuentes agendas",
-  "sourcesExplanation": "Eventos publicados por los organizadores figuran en esta lista se añaden automáticamente al agenda [%title%](%link%).",
-  "addSources": "Para añadir nuevos calendarios, [abre la pagina del calendario](%searchLink%) que desea y pulsa sobre Exportar > Agregar en > **%agenda%**",
-  "sourcesHelp": "Más información sobre la agregación",
-  "aggregationLoop": "Este agenda agrupa los eventos del agenda que desee agregar. Los bucles de agregación no están permitidos.",
-  "searchAgenda": "agenda de búsqueda",
-  "officialAgenda": "agenda",
-  "noResult": "ningún resultado encontrado",
-  "removeSource": "eliminar las fuentes",
-  "removeConfirmMessage": "¿Está seguro de que desea eliminar este agenda fuentes?",
-  "sourceAdded": "%source% se añadió a las fuentes de agg %. Próximos eventos se añadirán en breve.",
-  "sourceRemoved": "%source% fue retirado fuentes agg.",
-  "numberOfResults": "Numero de resultados",
-  "totalSources": "Total orígenes"
-}
+{}

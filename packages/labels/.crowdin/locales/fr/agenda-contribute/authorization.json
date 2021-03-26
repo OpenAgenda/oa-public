@@ -1,7 +1,1 @@
-{
-  "noAccessToClosedAgenda": "Cet agenda est fermé à la contribution",
-  "noAccessToEdit": "Vous n'avez pas accès à l'édition de cet événement",
-  "noAccessToCreate": "Vous n'avez pas accès à la création d'événements sur cet agenda",
-  "noAccessToDraft": "Vous n'avez pas accès à l'édition de ce brouillon",
-  "eventNotLinkedToAgenda": "L'événement n'est pas réferencé sur l'agenda"
-}
+{}

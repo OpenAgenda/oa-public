@@ -1,15 +1,1 @@
-{
-  "empty": "la categoria non può essere vuota",
-  "duplicate": "questa categoria esiste già",
-  "categories": "Categorie",
-  "subtitle": "Le categorie formano un elenco a scelta unica",
-  "listName": "Titolo della lista",
-  "listInfo": "Campo indicativo",
-  "listSection": "Categorie del diario",
-  "add": "Aggiungi",
-  "noCategories": "Non avete ancora definito alcuna categoria per questo calendario.",
-  "linkError": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve.",
-  "cancelUpdateTag": "Annulla",
-  "updateTag": "Ok",
-  "required": "Rendetelo obbligatorio. Deve essere selezionata una categoria."
-}
+{}
