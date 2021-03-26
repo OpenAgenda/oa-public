@@ -1,14 +1,6 @@
 {
-  "allDay": "Toute la journée",
   "previous": "Précédent",
   "next": "Suivant",
   "today": "Aujourd'hui",
-  "month": "Mois",
-  "week": "Semaine",
-  "day": "Jour",
-  "agenda": "Journal",
-  "date": "Date",
-  "time": "Heure",
-  "event": "Evénement",
-  "more": "Voir tous les événements"
+  "agenda": "Agenda"
 }

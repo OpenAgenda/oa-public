@@ -1,12 +1,1 @@
-{
-  "sendAgain": "Die Aktivierungs-E-Mail wird erneut gesendet.",
-  "checkEmail": "Überprüfe Deine Mail auf einen Validierungslink.",
-  "checkEmailInstruction": "Eine E-Mail mit dem Aktivierungslink für dein Konto abgesendet wurde. Überprüfe deinen Posteingang, um deinen Kontoerstellungsprozess abzuschließen.",
-  "didNotReceive": "Du hast keine Mail erhalten? %resend% oder schreibe uns an %support%.",
-  "resend": "Klicke hier, um wieder zu senden.",
-  "stayUpToDate": "Bleibe auf dem Laufenden über das Geschehen mit der OpenAgenda!",
-  "followUs": "Uns folgen",
-  "getOurNewsletter": "Unseren Newsletter bekommen",
-  "yourEmail": "Deine E-Mail",
-  "subscribe": "Abonnieren"
-}
+{}

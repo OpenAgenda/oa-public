@@ -1,8 +1,1 @@
-{
-  "oneDate": "%day%, %times%",
-  "twoDates": "%firstDate% und %lastDate%",
-  "moreDates": "%firstDate% - %lastDate%",
-  "noDates": "keine Termine vorhanden%",
-  "minuteSeparator": ":",
-  "prefix": "am"
-}
+{}

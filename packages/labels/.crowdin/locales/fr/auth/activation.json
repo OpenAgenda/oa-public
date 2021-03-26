@@ -1,12 +1,1 @@
-{
-  "sendAgain": "Le mail d'activation est en cours de ré-envoi",
-  "checkEmail": "Cliquez sur le lien de validation dans votre boîte de récéption",
-  "checkEmailInstruction": "Un email contenant le lien d'activation de votre compte va vous être envoyé dans un instant. Vérifiez votre boîte de réception pour terminer votre inscription.",
-  "didNotReceive": "Vous n'avez pas reçu de mail? %resend% ou écrivez-nous à %support%",
-  "resend": "Cliquez ici pour relancer l'envoi",
-  "stayUpToDate": "Restez au courant de ce qui se passe chez OpenAgenda!",
-  "followUs": "Suivez nous",
-  "getOurNewsletter": "Recevez notre lettre d'information",
-  "yourEmail": "Votre email",
-  "subscribe": "Abonnez-vous"
-}
+{}

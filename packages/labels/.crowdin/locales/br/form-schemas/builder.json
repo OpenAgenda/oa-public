@@ -1,1 +1,11 @@
-{}
+{
+  "editFieldSave": "Enrollañ",
+  "editFieldCancel": "Nullañ",
+  "buttonSave": "Enrollañ",
+  "orderCancel": "Nullañ",
+  "confirmFieldUpdate": "Hizivaat",
+  "cancelFieldEdit": "Nullañ",
+  "optionUpdateAction": "Hizivaat",
+  "optionEditCancel": "Nullañ",
+  "optionRemove": "Lemel"
+}

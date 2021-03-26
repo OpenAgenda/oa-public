@@ -1,13 +1,4 @@
 {
   "refused": "refusé",
-  "tocontrol": "en modération",
-  "tobecontrolled": "en modération",
-  "controlled": "prêt à publier",
-  "published": "publié",
-  "featured": "en une",
-  "all": "voir tous",
-  "state": "statut",
-  "stateChanged": "Le statut de l'événement a été modifié",
-  "featuredChange": "L'événement est désormais en une",
-  "unfeaturedChange": "L'événement n'est plus en une"
+  "published": "publié"
 }

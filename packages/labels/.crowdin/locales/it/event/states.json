@@ -1,13 +1,1 @@
-{
-  "refused": "respinto",
-  "tocontrol": "moderatamente",
-  "tobecontrolled": "moderatamente",
-  "controlled": "pronto a pubblicare",
-  "published": "pubblicato",
-  "featured": "prima pagina",
-  "all": "vedi tutti",
-  "state": "stato",
-  "stateChanged": "Lo stato dell'evento è stato modificato",
-  "featuredChange": "L'evento è ora in uno",
-  "unfeaturedChange": "L'evento non è più in uno"
-}
+{}

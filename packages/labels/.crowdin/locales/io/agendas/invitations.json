@@ -1,0 +1,9 @@
+{
+  "invitationError": "crwdns12870:0crwdne12870:0",
+  "invitationNotSent": "crwdns12872:0crwdne12872:0",
+  "emailSubmitted": "crwdns12874:0%count%crwdne12874:0",
+  "noNewInvite": "crwdns12876:0crwdne12876:0",
+  "sentInvites": "crwdns12878:0%count%crwdne12878:0",
+  "resentInvites": "crwdns12880:0%count%crwdne12880:0",
+  "resentInvite": "crwdns12882:0crwdne12882:0"
+}

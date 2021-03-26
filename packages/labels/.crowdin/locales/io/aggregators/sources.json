@@ -1,0 +1,18 @@
+{
+  "aggregatorExplanation": "crwdns13004:0crwdne13004:0",
+  "createAggregator": "crwdns13006:0crwdne13006:0",
+  "sourceAgendas": "crwdns13008:0crwdne13008:0",
+  "sourcesExplanation": "crwdns13010:0[%title%]crwdnd13010:0%link%crwdne13010:0",
+  "addSources": "crwdns13012:0%searchLink%crwdnd13012:0%agenda%crwdne13012:0",
+  "sourcesHelp": "crwdns13014:0crwdne13014:0",
+  "aggregationLoop": "crwdns13016:0crwdne13016:0",
+  "searchAgenda": "crwdns13018:0crwdne13018:0",
+  "officialAgenda": "crwdns13020:0crwdne13020:0",
+  "noResult": "crwdns13022:0crwdne13022:0",
+  "removeSource": "crwdns13024:0crwdne13024:0",
+  "removeConfirmMessage": "crwdns13026:0crwdne13026:0",
+  "sourceAdded": "crwdns13028:0%source%crwdnd13028:0%agg%crwdne13028:0",
+  "sourceRemoved": "crwdns13030:0%source%crwdnd13030:0%agg%crwdne13030:0",
+  "numberOfResults": "crwdns13032:0crwdne13032:0",
+  "totalSources": "crwdns13034:0crwdne13034:0"
+}

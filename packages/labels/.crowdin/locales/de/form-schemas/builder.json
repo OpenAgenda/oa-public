@@ -1,4 +1,7 @@
 {
   "emailFieldType": "Email",
-  "linkFieldType": "Hyperlink"
+  "linkFieldType": "Hyperlink",
+  "languagesFieldType": "Wählen Sie eine Sprache",
+  "buttonSaved": "Gerettet",
+  "requiredField": "Erforderlich"
 }

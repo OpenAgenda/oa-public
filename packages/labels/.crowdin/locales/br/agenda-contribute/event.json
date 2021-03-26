@@ -1,13 +1,5 @@
 {
-  "title": "Skrivit ho tarvoud",
   "submit": "Enrollañ",
-  "create": "Krouiñ an darvoud",
-  "draft": "Enrollañ ur brouilhed",
   "update": "Hizivaat",
-  "editEvent": "Hizivaat an darvoud",
-  "updateDraft": "Hizivaat ar brouilhed",
-  "deleteDraft": "Dilemel ar brouilhed",
-  "undraft": "Krouiñ an darvoud",
-  "addEvent": "Ouzhpennañ un darvoud",
-  "editDraftTitle": "Brouilhed"
+  "close": "Serriñ"
 }
