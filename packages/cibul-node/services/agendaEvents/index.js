@@ -3,7 +3,7 @@
 const express = require('express');
 const AgendaEvents = require('@openagenda/agenda-events');
 const eventStates = require('@openagenda/agendas/service/validate/eventStates');
-
+const log = require('@openagenda/logs')('services/agendaEvents');
 const beforeRemove = require('./beforeRemove');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');

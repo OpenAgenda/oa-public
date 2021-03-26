@@ -18,14 +18,12 @@ const plugAgendaAdminApp = require('./plugAgendaAdminApp');
 const plugApp = require('./plugApp');
 
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
-const resyncAllAgendaLocations = require('./tasks/resyncAllAgendaLocations');
 
 module.exports.init = async (config, services) => {
   const queue = services.queues('locations');
 
   queue.register({
-    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas.bind(null, services),
-    resyncAllAgendaLocations: resyncAllAgendaLocations.bind(null, services),
+    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas.bind(null, services)
   });
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
