@@ -6,7 +6,7 @@ const path = require('path');
 const { diff } = require('deep-diff');
 const getLabelFiles = require('../getLabelFiles');
 
-const LANGS = ['io', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
+const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
 const labelFiles = getLabelFiles();
 
@@ -35,6 +35,12 @@ for (const labelFile of labelFiles) {
         _.set(result, [key, lang], newValue);
       }
     }
+
+    const ioValue = _.get(locales, ['io', key]) || _.get(labels, [key, 'io']);
+
+    if (ioValue) {
+      _.set(result, [key, 'io'], ioValue);
+    }
   }
 
   const rawLabels = fs.readFileSync(path.join(__dirname, '..', labelFile), 'utf-8');
@@ -47,7 +53,7 @@ for (const labelFile of labelFiles) {
 }
 
 function getLocales(root, filePath) {
-  return LANGS.reduce((accu, lang) => ({
+  return [...LANGS, 'io'].reduce((accu, lang) => ({
     ...accu,
     [lang]: require(path.join(root, lang, filePath))
   }), {});
