@@ -12,7 +12,7 @@ const labelFiles = getLabelFiles();
 
 for (const labelFile of labelFiles) {
   const labels = require(path.join(__dirname, '..', labelFile));
-  const locales = getLocales(path.join(__dirname, 'locales', labelFile));
+  const locales = getLocales(path.join(__dirname, 'locales'), labelFile.replace(/\.js$/, '.json'));
   const result = {};
 
   for (const key in labels) {
@@ -41,14 +41,16 @@ for (const labelFile of labelFiles) {
   const start = rawLabels.slice(0, rawLabels.indexOf('{'));
   const end = rawLabels.slice(rawLabels.lastIndexOf('}') + 1);
 
+  console.log(labels, result);
+
   if (diff(labels, result)) {
     fs.writeFileSync(path.join(__dirname, '..', labelFile), `${start}${JSON.stringify(result, null, 2)}${end}`);
   }
 }
 
-function getLocales(sourcePath) {
+function getLocales(root, filePath) {
   return LANGS.reduce((accu, lang) => ({
     ...accu,
-    [lang]: require(`${sourcePath.split('.').slice(0, -1).join('.')}.${lang}.json`)
+    [lang]: require(path.join(root, lang, filePath))
   }), {});
 }
