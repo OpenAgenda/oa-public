@@ -1,1 +1,7 @@
-{}
+{
+  "title": "título",
+  "locationName": "Lugar Nombre",
+  "region": "Región",
+  "contributor": "contribuyente",
+  "loading": "Cargando"
+}

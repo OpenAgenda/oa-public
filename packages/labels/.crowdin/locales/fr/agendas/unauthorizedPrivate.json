@@ -1,1 +1,5 @@
-{}
+{
+  "title": "Cet agenda est privé",
+  "message": "L'accès à cet agenda est **restreint**. Pour obtenir un accès, contactez son administrateur",
+  "contactAdmin": "Contacter l'administrateur"
+}

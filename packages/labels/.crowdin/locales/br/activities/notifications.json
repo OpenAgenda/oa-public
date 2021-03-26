@@ -1,1 +1,17 @@
-{}
+{
+  "viewAllActivities": "Gwelet an holl obererezhioù",
+  "markAllAsRead": "Merkañ pep tra evel lennet",
+  "noNotif": "N'eus kemenn ebet.",
+  "next": "War-lerc'h",
+  "user": "{others, plural, =0 {{user}} one {{user} hag 1 implijer all} other {{user} ha {others} implijer all}}",
+  "event": "{others, plural, =0 {{event}} one {{event} hag 1 darvoud all} other {{event} ha {others} a zarvoudoù all}}",
+  "email": "{others, plural, =0 {{email}} one {{email} hag 1 all} other {{email} ha {others} all}}",
+  "agenda": "{others, plural, =0 {{agenda}} one {{agenda} hag 1 all} other {{agenda} ha {others} all}}",
+  "agenda.addMember.withYou": "{actor} en/he deus ouzhpennet ac'hanoc'h evel {credential} war {target}.",
+  "agenda.setMemberRole.withYou": "{actor} en/he deus anvet ac'hanoc'h da {credential} war {target}.",
+  "agenda.create": "{actor} en/he deus krouet an deiziataer {target}.",
+  "agenda.setOfficial": "Deuet eo an deiziataer {target} da vezañ ofisiel.",
+  "agenda.setUnofficial": "Deuet eo an deiziataer {target} da vezañ diofisiel.",
+  "agenda.publishEvent": "{actor} en/he deus embannet {object} war {target}.",
+  "agenda.aggregateEvent": "{target} en/he deus toueziet {object} diwar {actor}."
+}

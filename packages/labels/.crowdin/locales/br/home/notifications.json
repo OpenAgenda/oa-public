@@ -1,1 +1,20 @@
-{}
+{
+  "unsubscribedSuccess": "Digoumanantet oc'h",
+  "unsubscribedFail": "Un diaester zo bet. Esaeit adarre a-benn nebeut pe kit e darempred gant ur skoazeller, mar plij.",
+  "unsubscribeFromNotification": "Digoumanantiñ ac'hanon diouzh ar c'hemennoù seurt-se",
+  "unsubscribeFromAllNotifications": "Digoumanantiñ ac'hanon diouzh an deiziataer-mañ",
+  "notificationTitle": "Kemenn",
+  "seeAgenda": "Gwelet an deiziataer",
+  "seeEvent": "Gwelet an darvoud",
+  "agendaEventPublished": "%user% en/he deus embannet %event%.",
+  "agendaEventSubmitModeration": "%user% en/he deus kaset %event% da %agenda% evit bezañ habaskaet",
+  "userNewContributor": "Ur c'hendaoler eus an deiziataer %agenda% oc'h bremañ.",
+  "agendaNewContributor": "%user% a gendaol d'an deiziataer %agenda% bremañ.",
+  "agendaNewAdministrator": "%user% zo ur merour eus an deiziataer %agenda% bremañ.",
+  "userEventUpdate": "%user% en/he deus graet cheñchamantoù e %event%.",
+  "userNewAdministrator": "Ur merour eus an deiziataer %agenda% oc'h bremañ.",
+  "userNewModerator": "Un habaskaer eus an deiziataer %agenda% oc'h bremañ.",
+  "agendaNewModerator": "%user% zo un habaskaer eus an deiziataer  %agenda% bremañ.",
+  "agendaNewAggregator": "Hiviziken e enporzh %aggregator% an darvoudoù diwar ho teiziataer %agenda%.",
+  "agendaEventUpdate": "%agenda% : Hizivaet eo bet an darvoud  %event% gant %user%."
+}

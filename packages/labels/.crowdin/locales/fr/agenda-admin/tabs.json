@@ -1,5 +1,25 @@
 {
+  "events": "Evénements",
+  "contributors": "Contributeurs",
+  "moderators": "Modérateurs",
   "members": "Membres",
+  "activities": "Activités",
   "newTab": "Nouveau !",
-  "settings": "Paramètres"
+  "locations": "Lieux",
+  "categories": "Catégories et Tags",
+  "inbox": "Messagerie",
+  "customized": "Champs personnalisés",
+  "sources": "Sources",
+  "facebook": "Facebook",
+  "swapcard": "Swapcard",
+  "web": "Intégration Web",
+  "indesign": "Indesign - Xml",
+  "emailstrategie": "EmailStrategie",
+  "administrators": "Administrateurs",
+  "settings": "Paramètres",
+  "settings_profile": "Profil",
+  "schema": "Formulaire",
+  "settings_contribution": "Contribution",
+  "settings_advanced": "Avancé",
+  "statistics": "Statistiques"
 }

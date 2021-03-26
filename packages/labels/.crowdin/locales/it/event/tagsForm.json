@@ -1,1 +1,14 @@
-{}
+{
+  "description": "Questo evento viene da un'altra agenda. Potete modificare le informazioni qui sotto, specifiche per la vostra agenda",
+  "loadingError": "C'è stato un problema nel caricare i dati. Ricaricare la pagina in un attimo.",
+  "invalidError": "Alcuni campi contengono valori non validi. Correggerli prima di riprovare una presentazione.",
+  "submit": "Convalida",
+  "submitted": "Convalidato",
+  "saveErrorTitle": "Errore di backup",
+  "saveError": "C'è stato un problema durante il backup. Riprovare o ricaricare la pagina.",
+  "saveSuccess": "I dati sono stati aggiornati",
+  "invalidTags": "Alcuni tag inviati non sono validi",
+  "invalidCategories": "La categoria selezionata non è valida",
+  "cancel": "Annulla",
+  "uploadButton": "Selezionare"
+}

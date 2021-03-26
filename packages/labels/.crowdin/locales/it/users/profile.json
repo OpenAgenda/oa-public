@@ -1,1 +1,11 @@
-{}
+{
+  "myProfile": "Il mio profilo",
+  "myEvents": "I miei eventi",
+  "settings": "Impostazioni",
+  "signout": "Uscire",
+  "myAgendas": "Le mie agende",
+  "searchAgendas": "Agenda",
+  "createAgenda": "Creare un agenda",
+  "general": "In generale",
+  "agendasTitle": "Le agende"
+}

@@ -1,1 +1,21 @@
-{}
+{
+  "january": "genver",
+  "february": "c'hwevrer",
+  "march": "meurzh",
+  "april": "ebrel",
+  "may": "mae",
+  "june": "mezheven",
+  "july": "gouere",
+  "august": "eost",
+  "september": "gwengolo",
+  "october": "here",
+  "november": "du",
+  "december": "kerzu",
+  "monday": "lun",
+  "tuesday": "meurzh",
+  "wednesday": "merc'her",
+  "thursday": "yaou",
+  "friday": "gwener",
+  "saturday": "sadorn",
+  "sunday": "sul"
+}

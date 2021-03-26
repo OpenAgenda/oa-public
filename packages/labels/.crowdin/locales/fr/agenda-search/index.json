@@ -1,1 +1,16 @@
-{}
+{
+  "official": "Agenda officiel",
+  "latestUpdated": "Agendas mis à jour récemment",
+  "results": "Résultats de la recherche \"%search%\"",
+  "searchTitle": "Recherche d'agendas",
+  "genericSearchTitle": "Résultats de la recherche agendas",
+  "found": "Trouvé %count% agendas",
+  "empty": "Désolé, aucun agenda ne correspond à cette recherche",
+  "publishedEvent": "1 événement passé",
+  "publishedEvents": "%count% événements passés",
+  "upcomingEvent": "1 événement à venir",
+  "upcomingEvents": "%count% événements à venir",
+  "loadPrevious": "Charger les résultats précédents",
+  "loadNext": "Charger les résultats suivants",
+  "addEvent": "Ajouter un événement"
+}

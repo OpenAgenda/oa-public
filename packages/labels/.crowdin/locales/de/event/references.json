@@ -1,1 +1,19 @@
-{}
+{
+  "editorTitle": "ähnliche Veranstaltungen",
+  "editorInfo": "Verbinde andere Veranstaltungen des Veranstaltungskalenders mit deiner Veranstaltung. ",
+  "showTitle": "Siehe auch",
+  "emptyReferences": "Es gibt derzeit keine verknüpfte Veranstaltungen",
+  "emptySearch": "Kein Ergebnis für diese Suche",
+  "addEvent": "Veranstaltung hinzufügen",
+  "addEventOr": "oder",
+  "addEventSuggest": "Laden Sie ähnliche Veranstaltungen",
+  "search": "Suche nach Titel oder Ortsnamen",
+  "searchResultTitle": "Suchergebnisse",
+  "suggestionResultTitle": "Empfohlene ähnliche Veranstaltungen",
+  "nothingToSuggestTitle": "ähnliche Veranstaltungen",
+  "nothingToSuggest": "Ähnliche Veranstaltungen können nur geladen werden, wenn du bereits das Veranstaltungsformular ausgefüllt hast.",
+  "noSuggestionsTitle": "ähnliche Veranstaltungen",
+  "noSuggestions": "Kein ähnlicher Fall wurde gefunden",
+  "noOtherSuggestionsTitle": "ähnliche Veranstaltungen",
+  "noOtherSuggestions": "Kein anderes ähnliches Veranstaltung wurde gefunden"
+}

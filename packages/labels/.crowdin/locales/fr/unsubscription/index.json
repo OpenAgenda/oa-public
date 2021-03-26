@@ -1,1 +1,7 @@
-{}
+{
+  "tokenNotFound": "Le jeton de désabonnement est introuvable.",
+  "tokenAlreadyUsed": "Le lien n'est plus valide. Il a probablement déjà été utilisé.",
+  "tokenMalformed": "Le jeton de désabonnement est mal formé.",
+  "unsubscriptionSucceed": "Vos paramètres ont été mis à jour.",
+  "guestUnsubscriptionSucceed": "Vous êtes maintenant désinscrit."
+}

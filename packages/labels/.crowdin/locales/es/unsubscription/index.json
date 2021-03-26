@@ -1,1 +1,7 @@
-{}
+{
+  "tokenNotFound": "token de la rotación se encuentra.",
+  "tokenAlreadyUsed": "El enlace ya no es válida. Él probablemente ya ha sido utilizada.",
+  "tokenMalformed": "token de la rotación está mal formado.",
+  "unsubscriptionSucceed": "Sus ajustes se han actualizado.",
+  "guestUnsubscriptionSucceed": "Ahora está de baja."
+}
