@@ -570,13 +570,19 @@
   "AgendaStats.RangeTypeFilter.typeCreatedAt": [
     {
       "type": 0,
-      "value": "Par date de création"
+      "value": "Par création"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeDate": [
     {
       "type": 0,
       "value": "Par horaire"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
     }
   ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
@@ -631,6 +637,12 @@
     {
       "type": 0,
       "value": " s'applique sur:"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "Modifier"
     }
   ],
   "AgendaStats.Separator.remove": [
@@ -865,6 +877,30 @@
       "value": "Événements mis à jour"
     }
   ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Prêt à publier"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Publié"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refusé"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "À modérer"
+    }
+  ],
   "AgendaStats.utils.addRestItem.noValue": [
     {
       "type": 0,
@@ -875,42 +911,6 @@
     {
       "type": 0,
       "value": "Autres"
-    }
-  ],
-  "ReactFilters.messages.states.controlled": [
-    {
-      "type": 0,
-      "value": "Prêt à publier"
-    }
-  ],
-  "ReactFilters.messages.states.published": [
-    {
-      "type": 0,
-      "value": "Publié"
-    }
-  ],
-  "ReactFilters.messages.states.refused": [
-    {
-      "type": 0,
-      "value": "Refusé"
-    }
-  ],
-  "ReactFilters.messages.states.toModerate": [
-    {
-      "type": 0,
-      "value": "À modérer"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.cancel": [
-    {
-      "type": 0,
-      "value": "Annuler"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.submit": [
-    {
-      "type": 0,
-      "value": "Modifier"
     }
   ]
 }

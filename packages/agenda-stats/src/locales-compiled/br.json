@@ -8,13 +8,13 @@
   "AgendaStats.ChartWrapper.remove": [
     {
       "type": 0,
-      "value": "Retirer"
+      "value": "Lemel"
     }
   ],
   "AgendaStats.ChartWrapper.update": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Hizivaat"
     }
   ],
   "AgendaStats.ChartWrapper.withSelector": [
@@ -247,7 +247,7 @@
   "AgendaStats.Dashboard.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "AgendaStats.Dashboard.changeOrder": [
@@ -265,7 +265,7 @@
   "AgendaStats.Dashboard.filters": [
     {
       "type": 0,
-      "value": "Filtres"
+      "value": "Siloù"
     }
   ],
   "AgendaStats.Dashboard.lessFilters": [
@@ -289,7 +289,7 @@
   "AgendaStats.Dashboard.save": [
     {
       "type": 0,
-      "value": "Sauvegarder"
+      "value": "Enrollañ"
     }
   ],
   "AgendaStats.Dashboard.totalEvents": [
@@ -509,13 +509,13 @@
   "AgendaStats.RangeFilter.update": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Hizivaat"
     }
   ],
   "AgendaStats.RangeModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "AgendaStats.RangeModal.modalTitle": [
@@ -564,19 +564,25 @@
   "AgendaStats.RangeTypeFilter.submit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Hizivaat"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeCreatedAt": [
     {
       "type": 0,
-      "value": "Par date de création"
+      "value": "Par création"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeDate": [
     {
       "type": 0,
       "value": "Par horaire"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "Nullañ"
     }
   ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
@@ -633,10 +639,16 @@
       "value": " s'applique sur:"
     }
   ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
   "AgendaStats.Separator.remove": [
     {
       "type": 0,
-      "value": "Retirer"
+      "value": "Lemel"
     }
   ],
   "AgendaStats.Separator.separator": [
@@ -736,7 +748,7 @@
   "AgendaStats.form.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "AgendaStats.form.charts": [
@@ -772,7 +784,7 @@
   "AgendaStats.form.remove": [
     {
       "type": 0,
-      "value": "Retirer"
+      "value": "Lemel"
     }
   ],
   "AgendaStats.form.separator": [
@@ -790,7 +802,7 @@
   "AgendaStats.form.update": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Hizivaat"
     }
   ],
   "AgendaStats.form.widthSelectPlaceholder": [
@@ -865,6 +877,30 @@
       "value": "Événements mis à jour"
     }
   ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Prêt à publier"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Publié"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refusé"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "À modérer"
+    }
+  ],
   "AgendaStats.utils.addRestItem.noValue": [
     {
       "type": 0,
@@ -875,42 +911,6 @@
     {
       "type": 0,
       "value": "Autres"
-    }
-  ],
-  "ReactFilters.messages.states.controlled": [
-    {
-      "type": 0,
-      "value": "Prêt à publier"
-    }
-  ],
-  "ReactFilters.messages.states.published": [
-    {
-      "type": 0,
-      "value": "Publié"
-    }
-  ],
-  "ReactFilters.messages.states.refused": [
-    {
-      "type": 0,
-      "value": "Refusé"
-    }
-  ],
-  "ReactFilters.messages.states.toModerate": [
-    {
-      "type": 0,
-      "value": "À modérer"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.cancel": [
-    {
-      "type": 0,
-      "value": "Annuler"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.submit": [
-    {
-      "type": 0,
-      "value": "Modifier"
     }
   ]
 }

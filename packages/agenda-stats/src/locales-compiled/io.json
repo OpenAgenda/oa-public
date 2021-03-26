@@ -56,6 +56,30 @@
     },
     {
       "type": 0,
+      "value": "crwdnd314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
       "value": "crwdne314:0"
     }
   ],
@@ -63,6 +87,30 @@
     {
       "type": 0,
       "value": "crwdns316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd316:0value="
     },
     {
       "type": 1,
@@ -84,6 +132,30 @@
     },
     {
       "type": 0,
+      "value": "crwdnd318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
       "value": "crwdne318:0"
     }
   ],
@@ -91,6 +163,30 @@
     {
       "type": 0,
       "value": "crwdns320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd320:0value="
     },
     {
       "type": 1,
@@ -467,6 +563,12 @@
       "value": "crwdns1050:0crwdne1050:0"
     }
   ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns488:0crwdne488:0"
+    }
+  ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
     {
       "type": 0,
@@ -489,6 +591,12 @@
     {
       "type": 0,
       "value": "crwdns398:0crwdne398:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "crwdns490:0crwdne490:0"
     }
   ],
   "AgendaStats.Separator.remove": [
@@ -727,6 +835,30 @@
       "value": "crwdns474:0crwdne474:0"
     }
   ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "crwdns480:0crwdne480:0"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "crwdns482:0crwdne482:0"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "crwdns484:0crwdne484:0"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "crwdns486:0crwdne486:0"
+    }
+  ],
   "AgendaStats.utils.addRestItem.noValue": [
     {
       "type": 0,
@@ -737,42 +869,6 @@
     {
       "type": 0,
       "value": "crwdns478:0crwdne478:0"
-    }
-  ],
-  "ReactFilters.messages.states.controlled": [
-    {
-      "type": 0,
-      "value": "crwdns480:0crwdne480:0"
-    }
-  ],
-  "ReactFilters.messages.states.published": [
-    {
-      "type": 0,
-      "value": "crwdns482:0crwdne482:0"
-    }
-  ],
-  "ReactFilters.messages.states.refused": [
-    {
-      "type": 0,
-      "value": "crwdns484:0crwdne484:0"
-    }
-  ],
-  "ReactFilters.messages.states.toModerate": [
-    {
-      "type": 0,
-      "value": "crwdns486:0crwdne486:0"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.cancel": [
-    {
-      "type": 0,
-      "value": "crwdns488:0crwdne488:0"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.submit": [
-    {
-      "type": 0,
-      "value": "crwdns490:0crwdne490:0"
     }
   ]
 }

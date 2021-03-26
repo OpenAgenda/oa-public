@@ -66,7 +66,7 @@ function RangeTypeForm({
           onClick={onClose}
         >
           <FormattedMessage
-            id="aggregator-sources.RangeTypeModal.cancel"
+            id="AgendaStats.RangeTypeModal.cancel"
             defaultMessage="Cancel"
           />
         </button>
@@ -77,7 +77,7 @@ function RangeTypeForm({
           disabled={submitting}
         >
           <FormattedMessage
-            id="aggregator-sources.RangeTypeModal.submit"
+            id="AgendaStats.RangeTypeModal.submit"
             defaultMessage="Submit"
           />
 
