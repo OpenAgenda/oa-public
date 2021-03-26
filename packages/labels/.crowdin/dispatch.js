@@ -6,7 +6,7 @@ const path = require('path');
 const { diff } = require('deep-diff');
 const getLabelFiles = require('../getLabelFiles');
 
-const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
+const LANGS = ['io', 'en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
 const labelFiles = getLabelFiles();
 
@@ -40,8 +40,6 @@ for (const labelFile of labelFiles) {
   const rawLabels = fs.readFileSync(path.join(__dirname, '..', labelFile), 'utf-8');
   const start = rawLabels.slice(0, rawLabels.indexOf('{'));
   const end = rawLabels.slice(rawLabels.lastIndexOf('}') + 1);
-
-  console.log(labels, result);
 
   if (diff(labels, result)) {
     fs.writeFileSync(path.join(__dirname, '..', labelFile), `${start}${JSON.stringify(result, null, 2)}${end}`);
