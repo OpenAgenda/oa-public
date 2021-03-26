@@ -33,16 +33,11 @@ if (Array.isArray(argv.langs)) {
 }
 
 function getMessages(localesPath) {
-  let existingMessages;
-
-  // local translations
   try {
-    existingMessages = JSON.parse(fs.readFileSync(localesPath, 'utf8'));
+    return JSON.parse(fs.readFileSync(localesPath, 'utf8'));
   } catch (e) {
-    existingMessages = {};
+    return {};
   }
-
-  return existingMessages;
 }
 
 function getFallbackedMessages(lang) {
@@ -76,12 +71,9 @@ async function extractLang(defaultMessages, lang) {
   const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
   const existingMessages = getMessages(localesPath);
 
-  const messages = _.merge(
-    {},
-    lang === DEFAULT_LANG
-      ? defaultMessages
-      : _.mapValues(defaultMessages, () => ''),
-    _.pickBy(existingMessages, (value, key) => key in defaultMessages && value)
+  const messages = _.pickBy(
+    existingMessages,
+    (value, key) => key in defaultMessages && value
   );
 
   fs.writeFileSync(localesPath, `${JSON.stringify(messages, null, 2)}\n`);
