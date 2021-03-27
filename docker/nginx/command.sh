@@ -15,3 +15,7 @@ fi
 if [ "$4" -lt 1 ]; then
   rm /etc/nginx/conf.d/elastichq.conf
 fi
+
+if [ "$5" -lt 1 ]; then
+  rm /etc/nginx/conf.d/api.conf
+fi
