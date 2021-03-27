@@ -1,11 +1,8 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/001.sql');
 const loadFixtures = require('./fixtures/load');
 
 const Core = require('../core');

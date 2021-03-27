@@ -86,7 +86,7 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       let agenda;
 
       beforeAll(async () => {
-        const result = await axios.get('http://localhost:3000/v2/agendas/92983929?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9');
+        const result = await axios.get('http://localhost:3000/agendas/92983929?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9');
         agenda = result.data;
       });
 
@@ -106,7 +106,7 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       let agenda;
 
       beforeAll(async () => {
-        const result = await axios.get('http://localhost:3000/v2/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9');
+        const result = await axios.get('http://localhost:3000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9');
         agenda = result.data;
       });
 

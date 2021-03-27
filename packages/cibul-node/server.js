@@ -2,7 +2,6 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-
 const supervisor = require('./lib/supervisor');
 
 const ADMIN = process.argv.includes('admin');
@@ -17,6 +16,8 @@ supervisor(async loadTasks => {
     const config = require('./config');
     const services = await require('./services/init')();
     const core = require('./core')(services, config);
+    const express = require('express');
+    const api = require('./api')(core);
 
     services.core = core;
 
@@ -65,6 +66,7 @@ supervisor(async loadTasks => {
 
     // run 'web' type modules
     if (WEB) {
+      app.use('/api', api);
       web(app);
     }
 
@@ -100,7 +102,7 @@ supervisor(async loadTasks => {
     });
 
     if (WEB) {
-      require('./api')(core).listen(config.apiPort);
+      express().use('/v2', api).listen(config.apiPort);
     }
 
     // only one process runs background tasks. supervisor handles that.

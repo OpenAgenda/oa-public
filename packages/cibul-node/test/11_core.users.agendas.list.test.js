@@ -132,7 +132,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', functio
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/v2/me/agendas?key=${key}`
+          url: `http://localhost:3000/me/agendas?key=${key}`
         }).then(r => r.data);
       });
 

@@ -120,7 +120,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/v2/requestAccessToken',
+        url: 'http://localhost:3000/requestAccessToken',
         headers: {
           'content-type': 'application/json'
         },
@@ -135,7 +135,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations',
+            url: 'http://localhost:3000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
               nonce: 1231456,
@@ -180,7 +180,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations',
+            url: 'http://localhost:3000/agendas/17026855/locations',
             headers: form.getHeaders(),
             data: form
           });
@@ -213,7 +213,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations',
+            url: 'http://localhost:3000/agendas/17026855/locations',
             headers: form.getHeaders(),
             data: form
           });
@@ -232,7 +232,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations/24505639',
+            url: 'http://localhost:3000/agendas/17026855/locations/24505639',
             headers: {
               'access-token': accessToken,
               nonce: 789456,
@@ -267,7 +267,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         try {
           response = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations/24505639',
+            url: 'http://localhost:3000/agendas/17026855/locations/24505639',
             headers: {
               'access-token': accessToken,
               nonce: 10111213,
@@ -293,7 +293,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         try {
           response = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations/ext/ard04',
+            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04',
             headers: {
               'access-token': accessToken,
               nonce: 1011883,
@@ -323,7 +323,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('location is given using account key', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json'
           }
@@ -339,7 +339,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('location is given using access token', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142',
+          url: 'http://localhost:3000/agendas/17026855/locations/95455142',
           headers: {
             'access-token': accessToken,
             nonce: 1014563,
@@ -362,7 +362,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       beforeAll(async () => {
         allResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9'
           },
@@ -373,7 +373,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
         result = await axios({
           method: 'get',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1
@@ -402,7 +402,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('detailed option is useful to retrieve all location info', async () => {
         const detailedResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
@@ -433,7 +433,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('value provided in after key can be used to fetch next location values', async () => {
         const nextResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations',
+          url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
@@ -456,7 +456,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('location is given using account key', async () => {
         const response = await axios({
           method: 'head',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json'
           }
@@ -468,7 +468,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('location is given using access token', async () => {
         const response = await axios({
           method: 'head',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142',
+          url: 'http://localhost:3000/agendas/17026855/locations/95455142',
           headers: {
             'access-token': accessToken,
             nonce: 7894548789,
@@ -482,7 +482,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('no location is found', async () => {
         const error = await axios({
           method: 'head',
-          url: 'http://localhost:3000/v2/agendas/17026855/locations/456489786456',
+          url: 'http://localhost:3000/agendas/17026855/locations/456489786456',
           headers: {
             'access-token': accessToken,
             nonce: 10145789,
@@ -502,7 +502,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         try {
           response = await axios({
             method: 'delete',
-            url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142',
+            url: 'http://localhost:3000/agendas/17026855/locations/95455142',
             headers: {
               'access-token': accessToken,
               nonce: 7894523,

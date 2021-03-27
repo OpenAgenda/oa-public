@@ -52,7 +52,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
   const axiosJSONPayload = {
     method: 'post',
-    url: 'http://localhost:3000/v2/requestAccessToken',
+    url: 'http://localhost:3000/requestAccessToken',
     headers: {
       'content-type': 'application/json'
     },
@@ -84,7 +84,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
     const accessToken = await axios({
       method: 'post',
-      url: 'http://localhost:3000/v2/requestAccessToken',
+      url: 'http://localhost:3000/requestAccessToken',
       headers: form.getHeaders(),
       data: form
     }).then(r => r.data.access_token);
