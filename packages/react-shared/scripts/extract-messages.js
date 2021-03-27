@@ -20,7 +20,7 @@ const COMPILE_ONLY = argv.compile || argv.c;
 const FORMAT = 'simple';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
-let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'io'];
+let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
 
 const FALLBACK_MAP = {
   br: 'fr',

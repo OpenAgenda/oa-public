@@ -1,0 +1,13 @@
+{
+  "today": "crwdns15928:0crwdne15928:0",
+  "yesterday": "crwdns15930:0crwdne15930:0",
+  "tomorrow": "crwdns15932:0crwdne15932:0",
+  "thisWeekend": "crwdns15934:0crwdne15934:0",
+  "thisWeek": "crwdns15936:0crwdne15936:0",
+  "thisMonth": "crwdns15938:0crwdne15938:0",
+  "relativeToNowPast": "crwdns15940:0%count%crwdnd15940:0%units%crwdne15940:0",
+  "relativeToNowUpcoming": "crwdns15942:0%count%crwdnd15942:0%units%crwdne15942:0",
+  "days": "crwdns15944:0crwdne15944:0",
+  "months": "crwdns15946:0crwdne15946:0",
+  "years": "crwdns15948:0crwdne15948:0"
+}

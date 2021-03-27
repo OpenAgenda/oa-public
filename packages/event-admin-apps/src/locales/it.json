@@ -1,1 +1,18 @@
-{}
+{
+  "EventAdminApp.Actions.createAnEvent": "Creare un evento",
+  "EventAdminApp.Actions.select": "Seleziona",
+  "EventAdminApp.BatchedStateSelector.ok": "Chiudere",
+  "EventAdminApp.BatchedStateSelector.title": "Conferma",
+  "EventAdminApp.Dashboard.filters": "Filtri",
+  "EventAdminApp.Dashboard.previous": "Precedente",
+  "EventAdminApp.FiltersPart.lessFilters": "Mostra meno filtri",
+  "EventAdminApp.FiltersPart.moreFilters": "Mostra più filtri",
+  "EventAdminApp.messages.attendanceModes.mixed": "Misto",
+  "EventAdminApp.messages.attendanceModes.offline": "Disconnesso",
+  "EventAdminApp.messages.attendanceModes.online": "In linea",
+  "EventAdminApp.messages.exports.export": "Esportazione",
+  "EventAdminApp.messages.exports.exportSelection": "Esportazione",
+  "EventAdminApp.messages.states.controlled": "Controllato",
+  "EventAdminApp.messages.states.published": "Pubblicato",
+  "EventAdminApp.messages.states.refused": "Rifiutato"
+}

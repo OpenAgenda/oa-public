@@ -579,6 +579,12 @@
       "value": "By timing"
     }
   ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
     {
       "type": 0,
@@ -629,6 +635,12 @@
     {
       "type": 0,
       "value": " applies to:"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "Submit"
     }
   ],
   "AgendaStats.Separator.remove": [
@@ -863,6 +875,30 @@
       "value": "Updated events"
     }
   ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Controlled"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refused"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "To control"
+    }
+  ],
   "AgendaStats.utils.addRestItem.noValue": [
     {
       "type": 0,
@@ -873,42 +909,6 @@
     {
       "type": 0,
       "value": "Others"
-    }
-  ],
-  "ReactFilters.messages.states.controlled": [
-    {
-      "type": 0,
-      "value": "Controlled"
-    }
-  ],
-  "ReactFilters.messages.states.published": [
-    {
-      "type": 0,
-      "value": "Published"
-    }
-  ],
-  "ReactFilters.messages.states.refused": [
-    {
-      "type": 0,
-      "value": "Refused"
-    }
-  ],
-  "ReactFilters.messages.states.toModerate": [
-    {
-      "type": 0,
-      "value": "To control"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.cancel": [
-    {
-      "type": 0,
-      "value": "Cancel"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.submit": [
-    {
-      "type": 0,
-      "value": "Submit"
     }
   ]
 }

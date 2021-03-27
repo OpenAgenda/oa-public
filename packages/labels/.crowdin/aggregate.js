@@ -14,12 +14,12 @@ for (const lang of LANGS) {
     const labels = require(path.join(__dirname, '..', labelFile));
     const locales = getLocaleLabels(labels, lang);
 
-    const fileName = labelFile.split('.').slice(0, -1).join('.');
-    const dirname = path.dirname(fileName);
+    const dirname = path.dirname(labelFile);
+    const fileName = labelFile.replace(/\.js$/, '.json');
 
-    mkdirp.sync(path.join(__dirname, 'locales', dirname));
+    mkdirp.sync(path.join(__dirname, 'locales', lang, dirname));
 
-    fs.writeFileSync(path.join(__dirname, 'locales', `${fileName}.${lang}.json`), JSON.stringify(locales, null, 2));
+    fs.writeFileSync(path.join(__dirname, 'locales', lang, fileName), JSON.stringify(locales, null, 2));
   }
 }
 

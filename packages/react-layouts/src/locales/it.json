@@ -1,1 +1,10 @@
-{}
+{
+  "react-layouts.AdminSections.newTab": "Nuovo!",
+  "react-layouts.MainLayout.help": "Aiuto",
+  "react-layouts.MainLayout.myAgendas": "Le mie agende",
+  "react-layouts.MainLayout.myEvents": "I miei eventi",
+  "react-layouts.MainLayout.searchAgenda": "Cerca un'agenda",
+  "react-layouts.MainLayout.settings": "Impostazioni",
+  "react-layouts.MainLayout.signout": "Uscire",
+  "react-layouts.components.Search.search": "Cerca"
+}

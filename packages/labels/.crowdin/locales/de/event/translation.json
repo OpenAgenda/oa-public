@@ -1,0 +1,10 @@
+{
+  "translationTitle": "automatisierte Übersetzung",
+  "sourceLanguage": "Ausgangssprache",
+  "targetLanguages": "Zielsprachen",
+  "translationHelp": "Finde mehr heraus",
+  "processingTranslation": "Verarbeitung Übersetzung",
+  "savingPartialTranslation": "Übersetzungen wurden zum Teil nur abgerufen. Speichern sowieso",
+  "sourceChange": "Veränderung",
+  "deactivatedTranslation": "Die automatische Übersetzung ist deaktiviert"
+}

@@ -2,19 +2,19 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   refused: {
-    id: 'ReactFilters.messages.states.refused',
+    id: 'AgendaStats.messages.states.refused',
     defaultMessage: 'Refused',
   },
   toModerate: {
-    id: 'ReactFilters.messages.states.toModerate',
+    id: 'AgendaStats.messages.states.toModerate',
     defaultMessage: 'To moderate',
   },
   controlled: {
-    id: 'ReactFilters.messages.states.controlled',
+    id: 'AgendaStats.messages.states.controlled',
     defaultMessage: 'Controlled',
   },
   published: {
-    id: 'ReactFilters.messages.states.published',
+    id: 'AgendaStats.messages.states.published',
     defaultMessage: 'Published',
   },
 });
