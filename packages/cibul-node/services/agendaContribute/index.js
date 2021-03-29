@@ -15,6 +15,7 @@ const middlewares = require('./middlewares');
 const interfaces = require('./interfaces');
 const memberSchema = require('./lib/memberSchema');
 const isDraftRequested = require('./lib/isDraftRequested');
+const config = require('../../config');
 
 const base64 = require('@openagenda/utils/base64');
 
@@ -104,12 +105,12 @@ module.exports = Object.assign((parentApp, path = '') => {
     setInReq({ mode: 'create' }),
     isDraftRequested({ draft: true })
   );
-    
+
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid',
     setInReq({ mode: 'edit' })
   );
-  
+
   parentApp.get(
     '/:agendaSlug/contribute/event/:eventUid/draft',
     setInReq({ mode: 'create', draft: true })
@@ -177,6 +178,18 @@ module.exports = Object.assign((parentApp, path = '') => {
         message: _.get(req, 'agenda.settings.contribution.messages.complete'),
         state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
       }
+    };
+
+    req.translateMode = Boolean(req.cookies.translateMode);
+    req.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+    if (req.cookies.translateMode) {
+      req.scripts = {
+        top: [
+          { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+          { src: '//cdn.crowdin.com/jipt/jipt.js' }
+        ]
+      };
     }
 
     next();
