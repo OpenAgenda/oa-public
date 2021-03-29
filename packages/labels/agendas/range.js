@@ -7,7 +7,8 @@ module.exports = {
     "he": "%day%, %times%",
     "ar": "%day%, %times%",
     "de": "%day%, %times%",
-    "it": "%day%, %times%"
+    "it": "%day%, %times%",
+    "io": "crwdns12888:0%day%crwdnd12888:0%times%crwdne12888:0"
   },
   "twoDates": {
     "en": "%firstDate% and %lastDate%",
@@ -15,7 +16,8 @@ module.exports = {
     "he": "%firstDate% וגם %lastDate% ",
     "ar": "%firstDate% و %lastDate% ",
     "de": "%firstDate% und %lastDate%",
-    "it": "%firstDate% et %lastDate%"
+    "it": "%firstDate% et %lastDate%",
+    "io": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0"
   },
   "moreDates": {
     "en": "%firstDate% - %lastDate%",
@@ -23,7 +25,8 @@ module.exports = {
     "he": "%firstDate% - %lastDate%",
     "ar": "%firstDate% - %lastDate%",
     "de": "%firstDate% - %lastDate%",
-    "it": "%firstDate% - %lastDate%"
+    "it": "%firstDate% - %lastDate%",
+    "io": "crwdns12892:0%firstDate%crwdnd12892:0%lastDate%crwdne12892:0"
   },
   "noDates": {
     "en": "no dates available",
@@ -31,7 +34,8 @@ module.exports = {
     "he": "אין תאריך זמין",
     "ar": "لا يتوفر أي تاريخ",
     "de": "keine Termine vorhanden%",
-    "it": "Nessun data disponible"
+    "it": "Nessun data disponible",
+    "io": "crwdns12894:0crwdne12894:0"
   },
   "minuteSeparator": {
     "en": ":",
@@ -39,7 +43,8 @@ module.exports = {
     "he": ":",
     "ar": ":",
     "de": ":",
-    "it": ":"
+    "it": ":",
+    "io": "crwdns12896:0crwdne12896:0"
   },
   "prefix": {
     "en": "on",
@@ -47,7 +52,8 @@ module.exports = {
     "he": "במועדים",
     "ar": "في",
     "de": "am",
-    "it": ""
+    "it": "",
+    "io": "crwdns12898:0crwdne12898:0"
   },
   "weekday-0": {
     "en": "sundays",

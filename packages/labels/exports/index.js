@@ -6,6 +6,7 @@ module.exports = {
     "fr": "Voir plus",
     "de": "Mehr sehen",
     "es": "Ver más",
-    "it": "Vedere di più"
+    "it": "Vedere di più",
+    "io": "crwdns14666:0crwdne14666:0"
   }
 }

@@ -7,7 +7,8 @@ module.exports = {
     "de": "Aktivieren Sie Ihr Konto OpenAgenda",
     "es": "Active su cuenta OpenAgenda",
     "br": "Gweredekaat ho kont OpenAgenda",
-    "it": "Attivare il conto OpenAgenda"
+    "it": "Attivare il conto OpenAgenda",
+    "io": "crwdns15260:0crwdne15260:0"
   },
   "description": {
     "fr": "Félicitations! Vous venez de créer votre compte OpenAgenda.\nCliquez sur le bouton suivant pour l'activer et commencer à utiliser votre agenda:",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Herzliche Glückwünsche! Sie haben gerade Ihr OpenAgenda Konto erstellt.\nKlicken Sie auf den folgenden Button um es zu aktivieren und starten Sie Ihren Kalender mit:",
     "es": "Felicitaciones! Usted ha creado su cuenta OpenAgenda.\nHaga clic en el botón situado junto a activarlo y comenzar a usar su agenda:",
     "br": "Gourc'hemennoù ! Emaoc'h o paouez krouiñ ho kont OpenAgenda.\nKlikit war ar bouton war-lerc'h evit gweredekaat anezhi ha kregiñ da implijout ho teiziataer :",
-    "it": "Congratulazioni! Congratulazioni! Avete appena creato il vostro conto OpenAgenda. Cliccate sul seguente pulsante per attivarlo e iniziare a utilizzare la vostra agenda:"
+    "it": "Congratulazioni! Congratulazioni! Avete appena creato il vostro conto OpenAgenda. Cliccate sul seguente pulsante per attivarlo e iniziare a utilizzare la vostra agenda:",
+    "io": "crwdns15262:0crwdne15262:0"
   },
   "actionDescription": {
     "fr": "Activer votre compte",
@@ -23,6 +25,7 @@ module.exports = {
     "de": "aktiviere deinen Account",
     "es": "Active su cuenta",
     "br": "Gweredekaat ho kont",
-    "it": "Attivare il tuo conto"
+    "it": "Attivare il tuo conto",
+    "io": "crwdns15264:0crwdne15264:0"
   }
 }

@@ -117,12 +117,13 @@ function MainLayout({
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
   const isTranslator = useSelector(state => state.main.isTranslator);
+  const translateMode = useSelector(state => state.main.translateMode);
 
   const dispatch = useDispatch();
 
   const loadLayoutData = useCallback(() => {
     dispatch(mainActions.getUser());
-  }, [dispatch, userLoaded]);
+  }, [dispatch]);
 
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),
@@ -266,7 +267,7 @@ function MainLayout({
             <Search />
 
             <ul className="nav navbar-nav navbar-right">
-              {isTranslator ? (
+              {isTranslator || translateMode ? (
                 <li>
                   <TranslateLink />
                 </li>

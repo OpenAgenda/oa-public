@@ -8,7 +8,7 @@
   "Abilities.AbilitiesForm.save": [
     {
       "type": 0,
-      "value": "Save"
+      "value": "Guardar"
     }
   ],
   "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [

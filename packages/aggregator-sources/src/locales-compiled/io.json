@@ -394,7 +394,7 @@
   "aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail": [
     {
       "type": 0,
-      "value": "Field & Value of \""
+      "value": "crwdns6024:0"
     },
     {
       "type": 1,
@@ -402,7 +402,7 @@
     },
     {
       "type": 0,
-      "value": "\" that will be associated with event"
+      "value": "crwdne6024:0"
     }
   ],
   "aggregator-sources.DefineRules.allEvents": [
@@ -432,13 +432,13 @@
   "aggregator-sources.DefineRules.choice": [
     {
       "type": 0,
-      "value": "Source agenda field"
+      "value": "crwdns6026:0crwdne6026:0"
     }
   ],
   "aggregator-sources.DefineRules.choiceFilter": [
     {
       "type": 0,
-      "value": "Choice field filter"
+      "value": "crwdns6028:0crwdne6028:0"
     }
   ],
   "aggregator-sources.DefineRules.city": [
@@ -746,7 +746,7 @@
   "aggregator-sources.DefineRules.textFilterValue": [
     {
       "type": 0,
-      "value": "contains \""
+      "value": "crwdns6030:0"
     },
     {
       "type": 1,
@@ -754,7 +754,7 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "crwdne6030:0"
     }
   ],
   "aggregator-sources.DefineRules.toModerate": [
@@ -880,7 +880,7 @@
   "aggregator-sources.RuleForm.choiceFilter": [
     {
       "type": 0,
-      "value": "Choice field filter"
+      "value": "crwdns6032:0crwdne6032:0"
     }
   ],
   "aggregator-sources.RuleForm.city": [
@@ -930,7 +930,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "Apply the rule to events corresponding to one or more values coming from additional fields of the source."
+      "value": "crwdns6034:0crwdne6034:0"
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -948,7 +948,7 @@
   "aggregator-sources.RuleForm.helpFilterText": [
     {
       "type": 0,
-      "value": "Apply the rule to events corresponding to one value coming from text fields of the source."
+      "value": "crwdns6036:0crwdne6036:0"
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [
@@ -1034,7 +1034,7 @@
   "aggregator-sources.RuleForm.substring": [
     {
       "type": 0,
-      "value": "substring"
+      "value": "crwdns6042:0crwdne6042:0"
     }
   ],
   "aggregator-sources.RuleForm.tagFilter": [
@@ -1054,7 +1054,7 @@
   "aggregator-sources.RuleForm.textFilter": [
     {
       "type": 0,
-      "value": "Text field filter"
+      "value": "crwdns6038:0crwdne6038:0"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [
@@ -1084,7 +1084,7 @@
   "aggregator-sources.RuleForm.value": [
     {
       "type": 0,
-      "value": "Value:"
+      "value": "crwdns6040:0crwdne6040:0"
     }
   ],
   "aggregator-sources.RuleForm.values": [

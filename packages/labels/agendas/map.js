@@ -8,7 +8,8 @@ module.exports = {
     "es": "busca cuando el mapa cambia",
     "de": "suchen, wenn ich die Karte verschiebe",
     "ar": "إبحت عندما أزيح الخيطة",
-    "br": "klask pa zilec'hian ar gartenn"
+    "br": "klask pa zilec'hian ar gartenn",
+    "io": "crwdns12884:0crwdne12884:0"
   },
   "events": {
     "it": "eventi",
@@ -17,6 +18,7 @@ module.exports = {
     "es": "eventos",
     "de": "veranstaltungen",
     "ar": "أحداث",
-    "br": "kevelet"
+    "br": "kevelet",
+    "io": "crwdns12886:0crwdne12886:0"
   }
 }

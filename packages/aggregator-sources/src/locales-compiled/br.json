@@ -8,7 +8,7 @@
   "aggregator-sources.AddSourceModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "aggregator-sources.AddSourceModal.chooseAnotherSource": [
@@ -20,7 +20,7 @@
   "aggregator-sources.AddSourceModal.confirmationStep": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Kadarnaat"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRules": [
@@ -161,7 +161,7 @@
   "aggregator-sources.AddSourceModal.official": [
     {
       "type": 0,
-      "value": "Officiel"
+      "value": "Ofisiel"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
@@ -173,7 +173,7 @@
   "aggregator-sources.AddSourceModal.private": [
     {
       "type": 0,
-      "value": "Privé"
+      "value": "Prevez"
     }
   ],
   "aggregator-sources.AddSourceModal.removeConfirmMessage": [
@@ -185,7 +185,7 @@
   "aggregator-sources.AddSourceModal.searchAgenda": [
     {
       "type": 0,
-      "value": "Rechercher un agenda"
+      "value": "Klask un deiziataer"
     }
   ],
   "aggregator-sources.AddSourceModal.selectAgenda": [
@@ -197,7 +197,7 @@
   "aggregator-sources.AddSourceModal.selectStep": [
     {
       "type": 0,
-      "value": "Agenda"
+      "value": "Deiziataer"
     }
   ],
   "aggregator-sources.AddSourceModal.selectThisAgenda": [
@@ -221,7 +221,7 @@
   "aggregator-sources.AggregatorRulesModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "aggregator-sources.AggregatorRulesModal.modalTitle": [
@@ -233,13 +233,13 @@
   "aggregator-sources.AggregatorRulesModal.next": [
     {
       "type": 0,
-      "value": "Suivant"
+      "value": "War-lerc'h"
     }
   ],
   "aggregator-sources.AggregatorRulesModal.save": [
     {
       "type": 0,
-      "value": "Sauvegarder"
+      "value": "Enrollañ"
     }
   ],
   "aggregator-sources.Dashboard.addASource": [
@@ -321,7 +321,7 @@
   "aggregator-sources.Dashboard.noResult": [
     {
       "type": 0,
-      "value": "Aucun résultat trouvé"
+      "value": "N'eus bet kavet disoc'h ebet"
     }
   ],
   "aggregator-sources.Dashboard.noSources": [
@@ -339,13 +339,13 @@
   "aggregator-sources.Dashboard.searchAgenda": [
     {
       "type": 0,
-      "value": "Rechercher un agenda source"
+      "value": "Klask un deiziataer"
     }
   ],
   "aggregator-sources.Dashboard.sourceAgendas": [
     {
       "type": 0,
-      "value": "Source agendas"
+      "value": "Agendas sources"
     }
   ],
   "aggregator-sources.Dashboard.sourcesExplanation": [
@@ -385,7 +385,7 @@
   "aggregator-sources.DefineRules.RuleItem.update": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Hizivaat"
     }
   ],
   "aggregator-sources.DefineRules.actionStatusDetail": [
@@ -443,7 +443,7 @@
   "aggregator-sources.DefineRules.allEvents": [
     {
       "type": 0,
-      "value": "Tous les événements"
+      "value": "An holl zarvoudoù"
     }
   ],
   "aggregator-sources.DefineRules.automatic": [
@@ -461,7 +461,7 @@
   "aggregator-sources.DefineRules.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "aggregator-sources.DefineRules.choice": [
@@ -496,13 +496,13 @@
   "aggregator-sources.DefineRules.city": [
     {
       "type": 0,
-      "value": "Ville"
+      "value": "Kêr"
     }
   ],
   "aggregator-sources.DefineRules.department": [
     {
       "type": 0,
-      "value": "Département"
+      "value": "Departamant"
     }
   ],
   "aggregator-sources.DefineRules.description": [
@@ -681,7 +681,7 @@
   "aggregator-sources.DefineRules.published": [
     {
       "type": 0,
-      "value": "Publié"
+      "value": "Embannet"
     }
   ],
   "aggregator-sources.DefineRules.readyToPublish": [
@@ -693,7 +693,7 @@
   "aggregator-sources.DefineRules.refused": [
     {
       "type": 0,
-      "value": "Refusé"
+      "value": "Nac'het"
     }
   ],
   "aggregator-sources.DefineRules.region": [
@@ -705,7 +705,7 @@
   "aggregator-sources.DefineRules.remove": [
     {
       "type": 0,
-      "value": "Retirer"
+      "value": "Lemel"
     }
   ],
   "aggregator-sources.DefineRules.replacingActionDetail": [
@@ -867,7 +867,7 @@
   "aggregator-sources.DefineRules.update": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Hizivaat"
     }
   ],
   "aggregator-sources.DefineRules.updateARule": [
@@ -907,9 +907,7 @@
               "value": "avec "
             },
             {
-              "style": null,
-              "type": 2,
-              "value": "actionCount"
+              "type": 7
             },
             {
               "type": 0,
@@ -926,7 +924,7 @@
   "aggregator-sources.RemoveSourceModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "aggregator-sources.RemoveSourceModal.evaluateKeepEvents": [
@@ -1008,7 +1006,7 @@
   "aggregator-sources.RuleForm.city": [
     {
       "type": 0,
-      "value": "Ville"
+      "value": "Kêr"
     }
   ],
   "aggregator-sources.RuleForm.clearAssignment": [
@@ -1040,7 +1038,7 @@
   "aggregator-sources.RuleForm.department": [
     {
       "type": 0,
-      "value": "Département"
+      "value": "Departamant"
     }
   ],
   "aggregator-sources.RuleForm.field": [
@@ -1190,7 +1188,7 @@
   "aggregator-sources.RuleForm.value": [
     {
       "type": 0,
-      "value": "Valeur"
+      "value": "Valeur:"
     }
   ],
   "aggregator-sources.RuleForm.values": [
@@ -1222,9 +1220,7 @@
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "count"
+              "type": 7
             },
             {
               "type": 0,
@@ -1247,25 +1243,25 @@
   "aggregator-sources.SourcesList.copy": [
     {
       "type": 0,
-      "value": "Copier"
+      "value": "Kopiañ"
     }
   ],
   "aggregator-sources.SourcesList.officialAgenda": [
     {
       "type": 0,
-      "value": "Agenda officiel"
+      "value": "Deiziataer ofisiel"
     }
   ],
   "aggregator-sources.SourcesList.remove": [
     {
       "type": 0,
-      "value": "Retirer"
+      "value": "Lemel"
     }
   ],
   "aggregator-sources.SourcesList.seeAgenda": [
     {
       "type": 0,
-      "value": "Voir l'agenda"
+      "value": "Gwelet an deiziataer"
     }
   ],
   "aggregator-sources.SourcesList.update": [
@@ -1295,9 +1291,7 @@
               "value": "Voir les "
             },
             {
-              "style": null,
-              "type": 2,
-              "value": "rulesCount"
+              "type": 7
             },
             {
               "type": 0,
@@ -1314,7 +1308,7 @@
   "aggregator-sources.UpdateSourceModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
@@ -1326,7 +1320,7 @@
   "aggregator-sources.UpdateSourceModal.updateSource": [
     {
       "type": 0,
-      "value": "Mettre à jour"
+      "value": "Hizivaat"
     }
   ],
   "aggregator-sources.add": [
@@ -1350,19 +1344,19 @@
   "aggregator-sources.utils.stateMessages.stateControlled": [
     {
       "type": 0,
-      "value": "Pret à publier"
+      "value": "Prest da vezañ embannet"
     }
   ],
   "aggregator-sources.utils.stateMessages.statePublished": [
     {
       "type": 0,
-      "value": "Publié"
+      "value": "Embannet"
     }
   ],
   "aggregator-sources.utils.stateMessages.stateToControl": [
     {
       "type": 0,
-      "value": "À contrôler"
+      "value": "Da gontrollañ"
     }
   ]
 }

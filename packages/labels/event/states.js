@@ -7,7 +7,8 @@ module.exports = {
     "de": "verweigert",
     "es": "rechazado",
     "br": "nac'het",
-    "it": "respinto"
+    "it": "respinto",
+    "io": "crwdns14602:0crwdne14602:0"
   },
   "tocontrol": {
     "fr": "en modération",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "in Maßen",
     "es": "con moderación",
     "br": "da habaskaat",
-    "it": "moderatamente"
+    "it": "moderatamente",
+    "io": "crwdns14604:0crwdne14604:0"
   },
   "tobecontrolled": {
     "fr": "en modération",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "in Maßen",
     "es": "con moderación",
     "br": "da habaskaat",
-    "it": "moderatamente"
+    "it": "moderatamente",
+    "io": "crwdns14606:0crwdne14606:0"
   },
   "controlled": {
     "fr": "prêt à publier",
@@ -31,7 +34,8 @@ module.exports = {
     "de": "bereit zu veröffentlichen",
     "es": "listo para publicar",
     "br": "Prest da vezañ embannet",
-    "it": "pronto a pubblicare"
+    "it": "pronto a pubblicare",
+    "io": "crwdns14608:0crwdne14608:0"
   },
   "published": {
     "fr": "publié",
@@ -39,7 +43,8 @@ module.exports = {
     "de": "veröffentlicht",
     "es": "publicado",
     "br": "embannet",
-    "it": "pubblicato"
+    "it": "pubblicato",
+    "io": "crwdns14610:0crwdne14610:0"
   },
   "featured": {
     "fr": "en une",
@@ -47,7 +52,8 @@ module.exports = {
     "de": "funktions",
     "es": "en una",
     "br": "keleier pennañ",
-    "it": "prima pagina"
+    "it": "prima pagina",
+    "io": "crwdns14612:0crwdne14612:0"
   },
   "all": {
     "fr": "voir tous",
@@ -55,7 +61,8 @@ module.exports = {
     "de": "alles sehen",
     "es": "ver todas",
     "br": "gwelet pep tra",
-    "it": "vedi tutti"
+    "it": "vedi tutti",
+    "io": "crwdns14614:0crwdne14614:0"
   },
   "state": {
     "fr": "statut",
@@ -63,7 +70,8 @@ module.exports = {
     "de": "Zustand",
     "es": "estatus",
     "br": "Statud",
-    "it": "stato"
+    "it": "stato",
+    "io": "crwdns14616:0crwdne14616:0"
   },
   "stateChanged": {
     "fr": "Le statut de l'événement a été modifié",
@@ -71,7 +79,8 @@ module.exports = {
     "de": "Der Zustand des Veranstaltungens geändert hat",
     "es": "El estado del evento fue cambiado",
     "br": "Cheñchet eo stad an darvoud",
-    "it": "Lo stato dell'evento è stato modificato"
+    "it": "Lo stato dell'evento è stato modificato",
+    "io": "crwdns14618:0crwdne14618:0"
   },
   "featuredChange": {
     "fr": "L'événement est désormais en une",
@@ -79,7 +88,8 @@ module.exports = {
     "de": "Die Veranstaltung wird nun vorgestellt",
     "es": "El caso está ahora en una",
     "br": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
-    "it": "L'evento è ora in uno"
+    "it": "L'evento è ora in uno",
+    "io": "crwdns14620:0crwdne14620:0"
   },
   "unfeaturedChange": {
     "fr": "L'événement n'est plus en une",
@@ -87,6 +97,7 @@ module.exports = {
     "de": "Die Veranstaltung ist nicht mehr funktions",
     "es": "El evento ya no es una",
     "br": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ",
-    "it": "L'evento non è più in uno"
+    "it": "L'evento non è più in uno",
+    "io": "crwdns14622:0crwdne14622:0"
   }
 }

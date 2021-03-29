@@ -239,7 +239,7 @@
   "aggregator-sources.AggregatorRulesModal.save": [
     {
       "type": 0,
-      "value": "Save"
+      "value": "Guardar"
     }
   ],
   "aggregator-sources.Dashboard.addASource": [
