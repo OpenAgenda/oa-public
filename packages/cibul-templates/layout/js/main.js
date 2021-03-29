@@ -17,6 +17,8 @@ if (!module.hot) {
 
 const layout = require( './layout' );
 
+const translateLink = require('./translateLink');
+
 var utils = require( '@openagenda/utils' ),
 
   du = require( '../../js/lib/domUtils' ),
@@ -96,6 +98,8 @@ du.asapReady( function () {
   inboxConversationForm();
 
   callToAction();
+
+  translateLink();
 
   du.forEach( asaps, function ( asapHook ) {
 
