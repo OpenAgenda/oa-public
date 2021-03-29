@@ -132,7 +132,7 @@ function createIndex(dir) {
   )}
 
     module.exports = {
-      ${LANGS.sort().join(',\n      ')}
+      ${LANGS.sort().join(',\n      ')},
     };
     `}\n`
   );
