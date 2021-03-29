@@ -12,6 +12,8 @@ import { Modal, Spinner } from '@openagenda/react-components';
 
 import EventItem from './EventItem';
 
+const isArrayLike = (obj = {}) => Object.keys(obj).filter(key => parseInt(key) !== NaN).length === Object.keys(obj).length;
+
 export default class References extends Component {
 
   constructor( props ) {
@@ -126,40 +128,21 @@ export default class References extends Component {
   }
 
   getSuggestQuery() {
-
     const q = {
-      sample: this.assignExtraToKey( this.props.relatedValues, [ 'title', 'description', 'location' ], 'custom' ),
+      sample: isArrayLike(this.props.relatedValues) ? Object.keys(this.props.relatedValues)
+        .map(k => this.props.relatedValues[k])
+        .reduce((carry, v) => ({
+          ...carry,
+          ...v
+        }), {}) : this.props.relatedValues,
       limit: _.get( this.props, 'field.limit', 3 )
-    }
+    };
 
     if ( this.props.field.boost ) {
-
       q.boost = this.props.field.boost;
-
     }
 
     return q;
-
-  }
-
-  assignExtraToKey( values, baseFields, extraKey ) {
-
-    return _.keys( values ).reduce( ( obj, key ) => {
-
-      if ( baseFields.includes( key ) ) {
-
-        obj[ key ] = values[ key ];
-
-      } else {
-
-        obj[ extraKey ] = _.set( obj[ extraKey ] || {}, key, values[ key ] );
-
-      }
-
-      return obj;
-
-    }, {} );
-
   }
 
   onSuggestEvents() {
