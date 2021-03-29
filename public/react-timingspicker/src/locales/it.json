@@ -1,5 +1,4 @@
 {
-  "rtp.defineTiming": "",
   "rtp.definedTimings": "{timingsCount, plural, =0 {Nessun orario definito} one {# orario definito} other {# orari definiti}} {timingsCount, plural, =0 {} other {il {when, date, short}}}",
   "rtp.definedTimingsInRange": "{timingsCount, plural, =0 {Nessun orario definito} one {# orario definito} other {# orari definiti}} del {from, date, short} al {to, date, short}",
   "rtp.editForm.adjust": "Adjust",
@@ -20,7 +19,6 @@
   "rtp.multiRecurrencerForm.forceSubmit": "Crea comunque",
   "rtp.multiRecurrencerForm.intervalTooSmall": "L'intervallo deve essere maggiore di 0",
   "rtp.multiRecurrencerForm.invalidDate": "data finale non è valida",
-  "rtp.multiRecurrencerForm.invalidFrequence": "",
   "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": "Invalid monthly interval type",
   "rtp.multiRecurrencerForm.month": "mese",
   "rtp.multiRecurrencerForm.monthlyCount": "mese",
@@ -45,7 +43,6 @@
   "rtp.recurrencerForm.forceSubmit": "Crea comunque",
   "rtp.recurrencerForm.intervalTooSmall": "L'intervallo deve essere maggiore di 0",
   "rtp.recurrencerForm.invalidDate": "Data di scadenza non valida",
-  "rtp.recurrencerForm.invalidFrequence": "",
   "rtp.recurrencerForm.invalidMonthlyIntervalType": "L'intervallo non è valido",
   "rtp.recurrencerForm.month": "mese",
   "rtp.recurrencerForm.monthlyCount": "mese",
