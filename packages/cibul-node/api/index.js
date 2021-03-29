@@ -6,7 +6,6 @@ const express = require('express');
 const logRequests = require('../services/logRequests');
 const log = require('@openagenda/logs')('api');
 const mw = require('./middleware');
-const ih = require('immutability-helper');
 
 const settings = {
   get: require('./endpoints/settingsGet'),
@@ -17,12 +16,12 @@ const handleError = require('../services/errors').bind(null, 'api');
 
 module.exports = core => {
   log('init');
+
   const app = express();
 
   app.core = core;
   app.services = core.services;
 
-  const { upload } = app.services.events;
   const {
     verifySuperAdmin
   } = app.services.users.mw;
@@ -38,42 +37,41 @@ module.exports = core => {
     mw.parseBodyData
   ];
 
-  // should only apply to create and upload really
-  app.post(/^\/v2.+/, postMw);
-  app.patch(/^\/v2.+/, postMw);
+  app.post('*', postMw);
+  app.patch('*', postMw);
 
-  app.post('/v2/requestAccessToken', mw.requestAccessToken);
+  app.post('/requestAccessToken', mw.requestAccessToken);
 
   // access token control and user load
-  app.post(/^\/v2.+/, mw.verifyAndLoadAccessTokenUser);
-  app.patch(/^\/v2.+/, mw.verifyAndLoadAccessTokenUser);
-  app.delete(/^\/v2.+/, mw.verifyAndLoadAccessTokenUser);
+  app.post('*', mw.verifyAndLoadAccessTokenUser);
+  app.patch('*', mw.verifyAndLoadAccessTokenUser);
+  app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
-  app.get(/^\/v2.+/, mw.verifyAndLoadKeyUser);
+  app.get('*', mw.verifyAndLoadKeyUser);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
   app.param('eventUid', mw.loadEvent);
 
   // control all the things
-  app.post('/v2/agendas/:agendaUid/events*', mw.member.verify);
-  app.patch('/v2/agendas/:agendaUid/events*', mw.member.verify);
-  app.get('/v2/agendas/:agendaUid.prv', mw.member.verify);
-  app.get('/v2/agendas/:agendaUid', mw.member.load);
+  app.post('/agendas/:agendaUid/events*', mw.member.verify);
+  app.patch('/agendas/:agendaUid/events*', mw.member.verify);
+  app.get('/agendas/:agendaUid.prv', mw.member.verify);
+  app.get('/agendas/:agendaUid', mw.member.load);
 
-  app.post('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-  app.patch('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-  app.delete('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
+  app.post('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
+  app.patch('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
+  app.delete('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
 
-  app.get('/v2/agendas/:agendaUid', mw.redirectIfPrivate);
+  app.get('/agendas/:agendaUid', mw.redirectIfPrivate);
   app.get([
-    '/v2/agendas/:agendaUid',
-    '/v2/agendas/:agendaUid.prv'
+    '/agendas/:agendaUid',
+    '/agendas/:agendaUid.prv'
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access
   })));
 
-  app.post('/v2/agendas/:agendaUid/events', (req, res, next) => req.app.core
+  app.post('/agendas/:agendaUid/events', (req, res, next) => core
     .agendas(req.agenda.uid).events
     .create(req.parsedData, {
       context: {
@@ -88,11 +86,11 @@ module.exports = core => {
   );
 
   // update the thing
-  app.post('/v2/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
-  app.patch('/v2/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+  app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+  app.patch('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
   // remove the thing
-  app.delete('/v2/agendas/:agendaUid/events/:eventUid', (req, res, next) => req.app.core
+  app.delete('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
     .agendas(req.agenda.uid).events
     .remove(req.event.uid, {
       context: {
@@ -102,14 +100,14 @@ module.exports = core => {
     }).then(event => res.json({ success: true, event }), next)
   );
 
-  app.get('/v2/agendas/:agendaUid/settings', [
+  app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     settings.get
   ]);
 
-  app.get('/v2/agendas/:agendaUid/members', [
+  app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator']),
-    (req, res, next) => req.app.core
+    (req, res, next) => core
       .agendas(req.agenda.uid).members.list(req.query)
       .then(data => res.json({
         ...data,
@@ -117,9 +115,9 @@ module.exports = core => {
       }), next)
   ]);
 
-  app.post('/v2/agendas/:agendaUid/locations', [
+  app.post('/agendas/:agendaUid/locations', [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => req.app.core
+    (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .create(req.parsedData)
       .then(location => res.json({
@@ -143,11 +141,11 @@ module.exports = core => {
   });
 
   app.get([
-    '/v2/agendas/:agendaUid/locations/:locationUid',
-    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/:locationUid',
+    '/agendas/:agendaUid/locations/ext/:locationExtId'
   ], [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => req.app.core
+    (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .get(req.locationIdentifier, {
         access: req.access,
@@ -161,11 +159,11 @@ module.exports = core => {
   ]);
 
   app.post([
-    '/v2/agendas/:agendaUid/locations/:locationUid',
-    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/:locationUid',
+    '/agendas/:agendaUid/locations/ext/:locationExtId'
   ], [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => req.app.core
+    (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .update(req.locationIdentifier, req.parsedData)
       .then(location => res.json({
@@ -175,11 +173,11 @@ module.exports = core => {
   ]);
 
   app.patch([
-    '/v2/agendas/:agendaUid/locations/:locationUid',
-    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/:locationUid',
+    '/agendas/:agendaUid/locations/ext/:locationExtId'
   ], [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => req.app.core
+    (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .patch(req.locationIdentifier, req.parsedData)
       .then(location => res.json({
@@ -189,11 +187,11 @@ module.exports = core => {
   ]);
 
   app.delete([
-    '/v2/agendas/:agendaUid/locations/:locationUid',
-    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/:locationUid',
+    '/agendas/:agendaUid/locations/ext/:locationExtId'
   ], [
     mw.member.allow(['administrator', 'moderator']),
-    (req, res, next) => req.app.core
+    (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .remove(req.locationIdentifier)
       .then(location => res.json({
@@ -203,8 +201,8 @@ module.exports = core => {
   ]);
 
   app.get(
-    '/v2/agendas/:agendaUid/locations',
-    (req, res, next) => req.app.core
+    '/agendas/:agendaUid/locations',
+    (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .list(req.query, req.query)
       .then(({ items, total, after }) => res.json({
@@ -215,12 +213,12 @@ module.exports = core => {
       }))
   )
 
-  app.post('/v2/agendas/:agendaUid/settings/resync', [
+  app.post('/agendas/:agendaUid/settings/resync', [
     verifySuperAdmin,
     settings.resync
   ]);
 
-  app.get('/v2/me/agendas', (req, res, next) => {
+  app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)
       .then(data => res.json({...data, success: true }), next);
   });

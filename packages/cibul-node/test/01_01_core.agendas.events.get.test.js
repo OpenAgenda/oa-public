@@ -1,12 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/001.sql');
 const loadFixtures = require('./fixtures/load');
 
 const Core = require('../core');

@@ -654,7 +654,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/v2/requestAccessToken',
+        url: 'http://localhost:3000/requestAccessToken',
         headers: {
           'content-type': 'application/json'
         },
@@ -670,7 +670,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/events',
+            url: 'http://localhost:3000/agendas/17026855/events',
             headers: {
               'access-token': accessToken,
               nonce: 123,
@@ -721,7 +721,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       });
 
       it('create with superagent', async () => {
-        const response = await request.post('http://localhost:3000/v2/agendas/17026855/events')
+        const response = await request.post('http://localhost:3000/agendas/17026855/events')
           .type('form')
           .accept('json')
           .query({ key: null })
@@ -737,7 +737,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       it('contributor may not set state through api', async () => {
         let error;
         try {
-          await request.post('http://localhost:3000/v2/agendas/17026855/events')
+          await request.post('http://localhost:3000/agendas/17026855/events')
             .type('form')
             .accept('json')
             .query({ key: null })
@@ -790,7 +790,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/events',
+            url: 'http://localhost:3000/agendas/17026855/events',
             data: form,
             headers: form.getHeaders()
           }).then(r => r.data);
@@ -815,7 +815,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       it('Event is created in french if lang is set to french in header', async () => {
         const response = await axios({
           method: 'post',
-          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
             nonce: 1234567,
@@ -838,7 +838,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       beforeAll(async () => {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
             nonce: 1234,

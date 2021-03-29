@@ -100,7 +100,7 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
       beforeAll(async () => {
         const result = await axios({
           method: 'post',
-          url: 'http://localhost:3000/v2/requestAccessToken',
+          url: 'http://localhost:3000/requestAccessToken',
           headers: {
             'content-type': 'application/json'
           },
@@ -128,7 +128,7 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
       beforeAll(async () => {
         accessToken = await axios({
           method: 'post',
-          url: 'http://localhost:3000/v2/requestAccessToken',
+          url: 'http://localhost:3000/requestAccessToken',
           headers: {
             'content-type': 'application/json'
           },
@@ -141,7 +141,7 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
       beforeAll(async () => {
         response = await axios({
           method: 'post',
-          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          url: 'http://localhost:3000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
             nonce: 123,

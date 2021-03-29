@@ -138,7 +138,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/v2/requestAccessToken',
+        url: 'http://localhost:3000/requestAccessToken',
         headers: {
           'content-type': 'application/json'
         },
@@ -151,7 +151,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
     beforeAll(async () => {
       response = await axios({
         method: 'delete',
-        url: 'http://localhost:3000/v2/agendas/17026855/events/90298390',
+        url: 'http://localhost:3000/agendas/17026855/events/90298390',
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
