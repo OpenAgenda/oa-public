@@ -4,6 +4,11 @@
   "nextOptionId": 37,
   "fields": [
     {
+      "field" : "customtextField",
+      "fieldType": "email",
+      "label": "Custom text field"
+    },
+    {
       "field": "entreelibre",
       "label": {
         "fr": "Entrée libre",

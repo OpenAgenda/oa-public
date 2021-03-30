@@ -1,58 +1,69 @@
-[{
+[
+  { 
+    "query":{},
+    "actions": [
+      {
+        "field": "someEmailField",
+        "values": "test@mail.com"
+      }
+    ]
+  },
+  {
+    "query":{},
+    "actions": [
+      {
+        "field": "types-devenements",
+        "values": 16
+      }
+    ]
+  },
+  {
     "query": {
       "text": {
-        "title": "92ORG"
+        "title": "NEW"
       }
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "someEmailField",
+        "values": {"$set": "test2@mail.com"}
+      }
+    ]
+  },
+  {
+    "query": {
+      "text": {
+        "organisateur": "92ORG"
+      }
+    },
+    "required": false,
+    "actions": []
+  },
+  {
+    "query": {
+      "tags": [
+        "Événement d'intérêt intercommunal",
+        "Événement d’intérêt métropolitain"
+      ]
     },
     "required": true,
     "actions": []
-  },{
-  "query": {
-    "location": {
-      "city": "Mondonville"
-    }
   },
-  "required": true,
-  "actions": []
-}, {
-  "query": {
-    "location": {
-      "department": ["Haute-Garonne"]
-    }
-  },
-  "required": false,
-  "actions": [{
-    "field": "thematiques-metropolitaines",
-    "values": 3
-  }, {
-    "field": "state",
-    "values": 2
-  }]
-}, {
-  "query": {
-    "tags": [
-      "Événement d'intérêt intercommunal",
-      "Événement d’intérêt métropolitain"
-    ]
-  },
-  "actions": [{
-    "field": "thematiques-metropolitaines",
-    "values": { "$set": 4 }
-  }, {
-    "field": "types-devenements",
-    "automatic": true
-  }]
-}, {
-  "actions": [{
-    "field": "entreelibre",
-    "values": 1
-  }]
-}, {
-  "query": {
-    "types-devenement": [2]
-  },
-  "actions": [{
-    "field": "state",
-    "values": 1
-  }]
-}]
+  {
+    "query": {
+      "location": {
+        "department": ["Haute-Garonne"]
+      }
+    },
+    "required": false,
+    "actions": [{
+      "field": "types-devenements",
+      "values": 15
+    }, {
+      "field": "state",
+      "values": 2
+    }]
+  }
+
+]
