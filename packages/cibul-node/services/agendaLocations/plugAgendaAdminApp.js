@@ -172,14 +172,14 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.post(`${base}/merge`, (req, res, next) => {
-    const fieldsToOmit = Object.keys(req.body || {})
-      .filter(field => req.body[field] === null)
-      .concat(['agendaId', 'uid']);
+    // const fieldsToOmit = Object.keys(req.body || {})
+    //   .filter(field => req.body[field] === null)
+    //   .concat(['agendaId', 'uid']);
 
     req.locations.merge(
-      req.query.mergeIn,
-      { uids: req.query.merged },
-      _.omit(req.body || {}, fieldsToOmit)
+      req.body.mergeIn,
+      { uids: req.body.merged },
+      //_.omit(req.body || {}, fieldsToOmit)
    ).then(location => res.json({
       location,
       success: true
