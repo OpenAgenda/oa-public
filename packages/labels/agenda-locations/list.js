@@ -1,13 +1,69 @@
 "use strict";
 
 module.exports = {
-  "defineMergeTarget": {
-    "fr": "Definir comme cible de la fusion",
-    "en": "Define as merge target",
+  "contactsupport": {
+    "fr": "Contacter le support",
+    "en": "Contact support",
     "de": "",
     "es": "",
     "br": "",
     "it": ""
+  },
+  "somethingwentwrong": {
+    "fr": "Une erreur est survenue, veuillez contacter le support si cela se reproduit",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "reflocationinfo": {
+    "fr": "choisissez un lieu qui sera retenu à l'issu de la fusion",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "reflocationmerge": {
+    "fr": "Lieu référence de la fusion",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "reflocation": {
+    "fr": "Lieu de référence: ",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "unselect": {
+    "fr": "Déselectionner",
+    "en": "Unselect",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "mergeInProgress": {
+    "fr": "La fusion est en cours",
+    "en": "Merge is in progress",
+    "de": "Die Zusammenführung ist im Gange",
+    "es": "La fusión está en curso",
+    "br": "",
+    "it": "L'unione è in corso"
+  },
+  "defineMergeTarget": {
+    "fr": "Definir comme lieu référence de la fusion",
+    "en": "Define as merge target",
+    "de": "Als Zusammenführungsziel definieren",
+    "es": "Definir como destino de fusión",
+    "br": "",
+    "it": "Definisci come obiettivo di unione"
   },
   "cantDo": {
     "fr": "Vous ne possedez pas les droits pour:",
@@ -105,8 +161,8 @@ module.exports = {
     "br": "Nullañ ar c'hendeuziñ",
     "it": "Annullare la fusione"
   },
-  "mergedescription": {
-    "fr": "Sélectionnez les lieux à fusionner puis",
+  "mergedescription": { //change trads
+    "fr": "Fusion de Lieux",
     "en": "Select the locations to merge, then",
     "de": "Wähle die Orte zu fusionieren, dann",
     "es": "Seleccione la escena a fusionar y",
@@ -122,7 +178,7 @@ module.exports = {
     "it": "Avviare la fusione"
   },
   "mergenoselection": {
-    "fr": "Une fois votre sélection faite, lancez la fusion.", //  Vous pourrez sélectionner les valeurs à retenir
+    "fr": "Vous n'avez encore sélectionné aucun lieu à fusionner", //  Une fois votre sélection faite, lancez la fusion. Vous pourrez sélectionner les valeurs à retenir
     "en": "Once your selection is done, launch the merge.", // to choose the values to save in the merged location
     "de": "Sobald Sie Deine Auswahl abgeschlossen ist, starte die Zusammenführung.", // die Werte zu wählen, in dem fusionierten Ort zu speichern
     "es": "Una vez hecha la selección, inicie la combinación.", // Puede seleccionar los valores a ser
@@ -146,7 +202,7 @@ module.exports = {
     "it": "Vedi"
   },
   "toverify": {
-    "fr": "Voir les lieux à vérifer",
+    "fr": "Filtrer sur les lieux à vérifer",
     "en": "See locations to verify",
     "de": "Orte ansehen, um zu überprüfen",
     "es": "Ver lugares Verificador",
@@ -232,6 +288,14 @@ module.exports = {
     "es": "Mostrar sugerencias",
     "br": "Gwelet an alioù",
     "it": "Vedi suggerimenti"
+  },
+  "seeselection": {
+    "fr": "Voir la sélection",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
   },
   "removeTitle": {
     "fr": "Supprimer un lieu",
@@ -371,6 +435,6 @@ module.exports = {
   },
   "goTo": {
     "fr": "Aller sur",
-    "go": "Go to"
+    "en": "Go to"
   }
 }

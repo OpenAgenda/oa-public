@@ -1,7 +1,6 @@
 import update from 'immutability-helper';
 import utils from '@openagenda/utils';
 import dl from '@openagenda/dom-utils/documentLocation';
-import { log } from 'async';
 
 // little counter
 function _syncCounter() {
@@ -106,11 +105,20 @@ function toggleMergeItem(state, location) {
 
 /* change merge target */
 
-function defineAsMergeTarget(state, location) {
-  const locationUids = state.merge.locationUids.concat();
+function toggleMergeTarget(state, location) {
+  const {merge} = state;
+  const locationUids = merge.locationUids.concat();
+  if (merge.targetUid === location.uid) {
+    return {
+      merge: {
+        locationUids: locationUids.filter(i => i !== location.uid),
+        targetUid: null,
+      },
+    }
+  }
   return {
     merge: {
-      locationUids,
+      locationUids: locationUids.filter(i => i !== location.uid),
       targetUid: location.uid,
     },
   };
@@ -152,7 +160,7 @@ function updateEditedLocation(state, location, closeForm) {
   //   },
   // });
 //}
-function mergeOnGoing(state){
+function mergeOnGoing(state) {
   return update(state, {
     merge: {
       $set : {
@@ -163,7 +171,21 @@ function mergeOnGoing(state){
     },
     modal: { $set : {type: 'merge'}}, 
   })
-} 
+}
+
+function changeMergeModal(state, err) {
+  console.log('changeMergeModal', state);
+  return update(state, {
+    merge: {
+      $set : {
+        locationUids: state.merge.locationUids,
+        targetUid: state.merge.targetUid,
+        onGoing :true,
+      }
+    },
+    modal: { $set : {type: 'merge', err}}, 
+  })
+}
 
 function closeMerge(state) {
   return update(state, {
@@ -280,10 +302,11 @@ function actions(options) {
     closeMerge: assign(closeMerge),
     toggleMerge: assign(toggleMerge),
     mergeOnGoing: assign(mergeOnGoing),
+    changeMergeModal: assign(changeMergeModal),
 
     updateLocationList: assign(updateLocationList),
     toggleMergeItem: assign(toggleMergeItem),
-    defineAsMergeTarget: assign(defineAsMergeTarget),
+    toggleMergeTarget: assign(toggleMergeTarget),
 
     queryChange: assign(queryChange),
 
@@ -302,8 +325,10 @@ export default Object.assign(actions, {
     newLocation,
     closeForm,
     closeMerge,
+    changeMergeModal,
     toggleMerge,
     toggleMergeItem,
+    toggleMergeTarget,
     mergeOnGoing,
     updateLocationList,
     editLocation,

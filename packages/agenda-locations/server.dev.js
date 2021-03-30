@@ -9,9 +9,10 @@ const knex = require('knex');
 const redis = require('redis');
 const express = require('express');
 const morgan = require('morgan');
+
 const log = (...args) => {
   console.log.apply(null, args);
-}
+};
 
 
 const Files = require('@openagenda/files');
@@ -19,6 +20,7 @@ const multer = require('multer');
 
 const fixtures = require('./test/fixtures');
 const Service = require('.');
+const { truncate } = require('lodash');
 
 (async () => {
   const f = fixtures({
@@ -173,7 +175,7 @@ const Service = require('.');
   });
 
   app.post(
-    ['/', '/:locationUid', '/merge'],
+    ['/', '/:locationUid'],
     multer({ dest: '/tmp/' }).single('image'),
     (req, res, next) => {
       req.data = req.body.data ? JSON.parse(req.body.data) : req.body;
@@ -189,23 +191,29 @@ const Service = require('.');
 
   app.post('/merge', (req, res, next) => {
     log('merge route called');
-    const fieldsToOmit = Object.keys(req.data || {})
-      .filter(field => req.data[field] === null)
-      .concat(['agendaId', 'uid']);
+    log('req.body:', req.body);
 
-    svc(7196947)
-      .merge(
-        req.query.mergeIn,
-        req.query.merged,
-        _.omit(req.data || {}, fieldsToOmit)
-      )
-      .then(
-        location => res.json({
-          location,
-          success: true,
-        }),
-        next
-      );
+    // simulating error for merge Modal
+    if (req.body.mergeIn === 60763722) {
+      log('should resp error');
+      res.status(400).json({
+        errors: 'details',
+        success: false,
+      });
+    } else {
+      svc(7196947)
+        .merge(
+          req.body.mergeIn,
+          req.body.merged
+        )
+        .then(
+          location => res.json({
+            location,
+            success: true,
+          }),
+          next
+        );
+    }
   });
 
   app.post('/', (req, res, next) => {

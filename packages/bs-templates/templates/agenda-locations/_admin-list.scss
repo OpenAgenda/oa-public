@@ -44,17 +44,29 @@
 
   }
 
+  .btn-link-group {
+    strong, span {
+      vertical-align: middle;
+      border: 1px transparent;
+    }
+  }
+
   .merge-menu {
 
-    padding: 2em 0 0;
+    border-left: 2px solid $oa-blue;
+
+    // .info {
+
+    //   font-size: 0.95em;
+    //   color: $oa-gray;
+    //   display: block;
+    //   height: 2em;
+
+    // }
 
     .info {
-
-      font-size: 0.95em;
-      color: $oa-gray;
       display: block;
       height: 2em;
-
     }
   
   }

@@ -15,7 +15,7 @@ class LocationItem extends Component {
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     seeEventsRes: PropTypes.string,
-    defineAsMergeTarget :PropTypes.func
+    toggleMergeTarget :PropTypes.func
   };
 
   constructor(props) {
@@ -24,7 +24,7 @@ class LocationItem extends Component {
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
     
-    this.defineAsMergeTarget =  this.defineAsMergeTarget.bind(this);
+    this.toggleMergeTarget =  this.toggleMergeTarget.bind(this);
   }
 
   onRemove(e) {
@@ -53,10 +53,10 @@ class LocationItem extends Component {
     )
   }
 
-  defineAsMergeTarget(e) {
+  toggleMergeTarget(e) {
     e.stopPropagation();
-    const {defineAsMergeTarget} = this.props;
-    defineAsMergeTarget();
+    const {toggleMergeTarget} = this.props;
+    toggleMergeTarget();
   }
 
   seeEvents(e) {
@@ -106,14 +106,27 @@ class LocationItem extends Component {
         {getLabel('remove')}
       </button>
     );
-    const defineAsMergeTarget = (
+    const toggleMergeTargetButton = (
       <button
       type="button"
       className="btn btn-link action"
-      onClick={this.defineAsMergeTarget}
+      onClick={this.toggleMergeTarget}
       >
       {getLabel('defineMergeTarget')}
       </button>
+    )
+
+    const mergeTarget = (
+      <span>
+        <strong>{getLabel("reflocationmerge")}</strong>
+        <button
+        type="button"
+        className="btn btn-link text-danger action"
+        onClick={this.toggleMergeTarget}
+        >
+          {getLabel("unselect")}
+        </button>
+      </span>
     )
 
     if (merge) {
@@ -135,7 +148,7 @@ class LocationItem extends Component {
             {location.region ? (location.department ? ', ' : '') + location.region : null}
             {country ? (location.department || location.region ? ', ' : '') + country : null}
           </div>
-          <div>
+          <div className="btn-link-group">
             <i
               className={'indicator'.concat(' ',location.image ? 'fa fa-picture-o margin-right-xs' : 'fa fa-picture-o disabled margin-right-xs')}
             />
@@ -169,8 +182,8 @@ class LocationItem extends Component {
             )}
             {!merge ? editButton : null}
             {!merge ? removeButton : null}
-            {merge && this.isInMergeSelection() && this.isMergeTarget() ? <i className='fa fa-bullseye margin-right-xs' /> : null}
-            {merge && this.isInMergeSelection() && !this.isMergeTarget() ? defineAsMergeTarget : null}
+            {merge && this.isMergeTarget() ? mergeTarget : null}
+            {merge && !this.isMergeTarget() ? toggleMergeTargetButton : null}
           </div>
         </div>
         <div className="col col-xs-2 col-md-1 text-center">{merge ? this.renderMergeCheckbox() : null}</div>

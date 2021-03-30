@@ -9,7 +9,7 @@ const update = require('./update');
 const remove = require('./remove');
 const allow = require('./lib/AllowAction');
 
-async function merge(service, mergeInItem, items, data = {}) {
+async function merge(service, mergeInItem, items, data = null) {
   log('received %j', items);
   await allow(service, 'merge', mergeInItem.uid);
 

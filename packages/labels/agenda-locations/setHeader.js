@@ -2,8 +2,12 @@
 
 module.exports = {
   "setSubtitle": {
-    "fr": "Jeu de %locationsCount% lieux mutualisés entre %agendasCount% agendas",
-    "en": "Set of %locationsCount% locations used in %agendasCount% agendas"
+    "fr": "Jeu de %locationsCount% lieux mutualisés entre ",
+    "en": "Set of %locationsCount% locations used in "
+  },
+  "setSubtitleLink": {
+    "fr": "%agendasCount% agendas",
+    "en": "%agendasCount% agendas"
   },
   "help": {
     "fr": "Les administrateurs des agendas liés à ce jeu de lieu ont accès à toutes les opérations d'édition: ajout, suppression, fusion, mise à jour. Les opérations seront répercutées sur tous les agendas liés.",
