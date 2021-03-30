@@ -2,7 +2,7 @@
   "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "Create an event"
+      "value": "Neue Veranstaltung erstellen"
     }
   ],
   "EventAdminApp.Actions.select": [
@@ -20,7 +20,7 @@
   "EventAdminApp.BatchedStateSelector.ok": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "EventAdminApp.BatchedStateSelector.title": [
@@ -108,7 +108,7 @@
   "EventAdminApp.Dashboard.previous": [
     {
       "type": 0,
-      "value": "Previous"
+      "value": "Bisherige"
     }
   ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
@@ -490,7 +490,7 @@
   "EventAdminApp.messages.attendanceModes.mixed": [
     {
       "type": 0,
-      "value": "Mixed"
+      "value": "Gemischt"
     }
   ],
   "EventAdminApp.messages.attendanceModes.offline": [
@@ -567,49 +567,49 @@
   "EventAdminApp.messages.exports.toCSV": [
     {
       "type": 0,
-      "value": "en .csv"
+      "value": "csv"
     }
   ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
-      "value": "en .docx"
+      "value": "docx"
     }
   ],
   "EventAdminApp.messages.exports.toICS": [
     {
       "type": 0,
-      "value": "en .ics"
+      "value": "ics"
     }
   ],
   "EventAdminApp.messages.exports.toJSON": [
     {
       "type": 0,
-      "value": "en .json"
+      "value": "json"
     }
   ],
   "EventAdminApp.messages.exports.toMD": [
     {
       "type": 0,
-      "value": "en .md"
+      "value": "md"
     }
   ],
   "EventAdminApp.messages.exports.toRSS": [
     {
       "type": 0,
-      "value": "en .rss"
+      "value": "rss"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
-      "value": "en .txt"
+      "value": "txt"
     }
   ],
   "EventAdminApp.messages.exports.toXLSX": [
     {
       "type": 0,
-      "value": "en .xlsx"
+      "value": "xlsx"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

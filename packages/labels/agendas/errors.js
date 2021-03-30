@@ -7,7 +7,8 @@ module.exports = {
     "it": "l'evento è già nel agenda",
     "de": "Veranstaltung steht bereits auf dem Programm",
     "pl": "wydarzenie jest już częścią porządku dziennego",
-    "es": "el evento se ha añadido a la agenda"
+    "es": "el evento se ha añadido a la agenda",
+    "io": "crwdns12842:0crwdne12842:0"
   },
   "selectActionBefore": {
     "en": "Select an action to execute before pressing the button",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Selezionare un'azione da eseguire prima di premere il pulsante",
     "de": "Wähle eine Aktion aus, die ausgeführt werden soll, bevor du die Taste drückst.",
     "pl": "Wybierz czynność do wykonania przed naciśnięciem przycisku",
-    "es": "Seleccione una acción a ejecutar antes de hacer clic en el botón"
+    "es": "Seleccione una acción a ejecutar antes de hacer clic en el botón",
+    "io": "crwdns12844:0crwdne12844:0"
   },
   "unknownAction": {
     "en": "The action you requested is unknown",
@@ -23,6 +25,7 @@ module.exports = {
     "it": "L'azione richiesta è sconosciuta",
     "de": "Die von Ihnen angeforderte Aktion ist unbekannt.",
     "pl": "Działanie, o które wnioskowałeś, jest nieznane",
-    "es": "La acción solicitada es desconocida"
+    "es": "La acción solicitada es desconocida",
+    "io": "crwdns12846:0crwdne12846:0"
   }
 }

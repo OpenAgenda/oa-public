@@ -23,6 +23,7 @@ const validate = schema({
   limit: {
     type: 'integer',
     default: 20,
+    max: 300
   },
   useAfter: {
     type: 'boolean',

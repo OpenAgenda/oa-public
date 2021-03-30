@@ -1,0 +1,6 @@
+{
+  "categoriesTitle": "Categories",
+  "categoriesInfo": "These are used to index your event in the agenda. Pick one.",
+  "categoriesRequired": "Required.",
+  "requiredCategoryError": "You must select one item"
+}

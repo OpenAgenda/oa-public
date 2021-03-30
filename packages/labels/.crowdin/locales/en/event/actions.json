@@ -1,0 +1,9 @@
+{
+  "agendaShareError": "The event could not be added to the agenda \"%agenda%\". Please retry in a moment.",
+  "agendaShareToControl": "The event was added to the agenda \"%agenda%\". It is currently in moderation",
+  "agendaSharePublished": "Then event was successfully published on the agenda \"%agenda%\"",
+  "agendaShareRemoveUnauthorized": "You do not have the required credentials to remove this event from the agenda \"%agenda%\"",
+  "agendaShareRemoveError": "The event could not be removed from the agenda \"%agenda%\". Please retry in a moment",
+  "agendaShareRemoved": "The event was successully removed from the agenda \"%agenda%\".",
+  "eventEmailSend": "The event is being sent to %count% emails"
+}

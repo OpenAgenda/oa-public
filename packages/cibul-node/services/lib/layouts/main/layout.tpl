@@ -11,6 +11,13 @@
 <% for ( meta of metas ) { %>
     <meta property="<%= meta.property %>" content="<%= meta.content %>" />
 <% } %>
+<% for ( script of scripts.top ) { %>
+  <% if (script.src) { %>
+    <script type="text/javascript" src="<%= script.src %>"></script>
+  <% } else if (script.body) { %>
+    <script type="text/javascript"><%= script.body %></script>
+  <% } %>
+<% } %>
   </head>
   <body <% for ( attr of bodyAttributes ) { %>
     <%- attr.name %>="<%- attr.value %>"
@@ -41,7 +48,23 @@
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right js_header_links">
-            <li><a target="_blank" href="/support"><%= labels.help %></a></li>
+            <% if ((typeof isTranslator !== 'undefined' && isTranslator) || (typeof translateMode !== 'undefined' && translateMode)) { %>
+            <li>
+              <button
+                type="button"
+                class="<%= translateMode ? 'btn btn-default active translate-button' : 'btn btn-link translate-button' %>"
+              >
+                <i class="fa fa-language"></i>
+              </button>
+            </li>
+            <% } %>
+            <li>
+              <div class="help-button-canvas">
+                <a class="btn btn-primary btn-rounded btn-bordered" target="_blank" rel="nofollow" href="/support">
+                  <i class="fa fa-question-circle"></i>&nbsp;<%= labels.help %>
+                </a>
+              </div>
+            </li>
             <li class="js_toggle language-menu js_not_logged js_language_menu" data-toggle="js_languages_menu">
               <a href="#"><%= lang %></a>
               <ul class="dropdown-menu js_languages_menu collapse">

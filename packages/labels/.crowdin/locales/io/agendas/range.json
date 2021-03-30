@@ -1,0 +1,8 @@
+{
+  "oneDate": "crwdns12888:0%day%crwdnd12888:0%times%crwdne12888:0",
+  "twoDates": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0",
+  "moreDates": "crwdns12892:0%firstDate%crwdnd12892:0%lastDate%crwdne12892:0",
+  "noDates": "crwdns12894:0crwdne12894:0",
+  "minuteSeparator": "crwdns12896:0crwdne12896:0",
+  "prefix": "crwdns12898:0crwdne12898:0"
+}

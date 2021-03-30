@@ -1,0 +1,10 @@
+{
+  "translationTitle": "traducción automática",
+  "sourceLanguage": "idioma de referencia",
+  "targetLanguages": "idiomas de destino",
+  "translationHelp": "Más información",
+  "processingTranslation": "Traducción en curso",
+  "savingPartialTranslation": "Las traducciones no pudieron recuperarse parcialmente. ahorro",
+  "sourceChange": "Cambiar",
+  "deactivatedTranslation": "El módulo de traducción automática se desactiva"
+}

@@ -1,0 +1,10 @@
+{
+  "upload": "Upload a file",
+  "error": "A problem occurred during the upload. Please try again",
+  "tip": "Drag and drop a file in the grayed area.",
+  "replace": "Replace the file",
+  "loading": "Upload ongoing",
+  "or": "OR",
+  "acceptedExtensions": "Accepted files",
+  "remove": "Delete"
+}

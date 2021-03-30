@@ -1,0 +1,15 @@
+{
+  "noAccountFound": "crwdns13056:0crwdne13056:0",
+  "accountAlreadyActivated": "crwdns13058:0crwdne13058:0",
+  "incorrectPassword": "crwdns13060:0crwdne13060:0",
+  "invalidToken": "crwdns13062:0crwdne13062:0",
+  "userNotFound": "crwdns13064:0crwdne13064:0",
+  "userNotActivated": "crwdns13066:0crwdne13066:0",
+  "userAlreadyActivated": "crwdns13068:0crwdne13068:0",
+  "passwordsMustMatch": "crwdns13070:0crwdne13070:0",
+  "fieldCannotBeEmpty": "crwdns13072:0crwdne13072:0",
+  "passwordCouldNotBeModified": "crwdns13074:0crwdne13074:0",
+  "passwordResetSent": "crwdns13076:0crwdne13076:0",
+  "resetLinkOutdated": "crwdns13078:0crwdne13078:0",
+  "passwordUpdated": "crwdns13080:0crwdne13080:0"
+}

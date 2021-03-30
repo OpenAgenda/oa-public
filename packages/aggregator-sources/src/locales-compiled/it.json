@@ -2,49 +2,49 @@
   "aggregator-sources.AddSourceModal.alreadyInSources": [
     {
       "type": 0,
-      "value": "Already in sources"
+      "value": "Già un agenda-fonte"
     }
   ],
   "aggregator-sources.AddSourceModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "aggregator-sources.AddSourceModal.chooseAnotherSource": [
     {
       "type": 0,
-      "value": "Choose another source agenda"
+      "value": "Scegli un'altra agenda fonte"
     }
   ],
   "aggregator-sources.AddSourceModal.confirmationStep": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Conferma"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRules": [
     {
       "type": 0,
-      "value": "Define rules"
+      "value": "Definisci regole"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRulesStep": [
     {
       "type": 0,
-      "value": "Rules"
+      "value": "Regole"
     }
   ],
   "aggregator-sources.AddSourceModal.enterALink": [
     {
       "type": 0,
-      "value": "Enter an agenda link"
+      "value": "Inserisci il collegamento di un agenda"
     }
   ],
   "aggregator-sources.AddSourceModal.evaluateMessage": [
     {
       "type": 0,
-      "value": "The agenda "
+      "value": "L'agenda "
     },
     {
       "type": 1,
@@ -52,7 +52,7 @@
     },
     {
       "type": 0,
-      "value": " is about to be added to the sources of "
+      "value": " sarà aggregato da "
     },
     {
       "type": 1,
@@ -69,7 +69,7 @@
           "value": [
             {
               "type": 0,
-              "value": "without rule"
+              "value": "direttamente"
             }
           ]
         },
@@ -77,7 +77,7 @@
           "value": [
             {
               "type": 0,
-              "value": "with 1 rule"
+              "value": "con 1 regola"
             }
           ]
         },
@@ -85,7 +85,7 @@
           "value": [
             {
               "type": 0,
-              "value": "with "
+              "value": "con "
             },
             {
               "type": 1,
@@ -93,7 +93,7 @@
             },
             {
               "type": 0,
-              "value": " rules"
+              "value": " regole"
             }
           ]
         }
@@ -110,19 +110,19 @@
   "aggregator-sources.AddSourceModal.evaluateOption0": [
     {
       "type": 0,
-      "value": "Evaluate only events added to the agenda from now on"
+      "value": "Aggregare solo i nuovi eventi"
     }
   ],
   "aggregator-sources.AddSourceModal.evaluateOption1": [
     {
       "type": 0,
-      "value": "Evaluate all events"
+      "value": "Aggregare tutti i eventi, anche i passati"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [
     {
       "type": 0,
-      "value": "Make a search"
+      "value": "Cerca"
     }
   ],
   "aggregator-sources.AddSourceModal.modalTitle": [
@@ -221,7 +221,7 @@
   "aggregator-sources.AggregatorRulesModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "aggregator-sources.AggregatorRulesModal.modalTitle": [
@@ -239,7 +239,7 @@
   "aggregator-sources.AggregatorRulesModal.save": [
     {
       "type": 0,
-      "value": "Save"
+      "value": "Salva"
     }
   ],
   "aggregator-sources.Dashboard.addASource": [
@@ -385,7 +385,7 @@
   "aggregator-sources.DefineRules.RuleItem.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "aggregator-sources.DefineRules.actionStatusDetail": [
@@ -413,7 +413,7 @@
   "aggregator-sources.DefineRules.add": [
     {
       "type": 0,
-      "value": "Add"
+      "value": "Aggiungi"
     }
   ],
   "aggregator-sources.DefineRules.addARule": [
@@ -457,7 +457,7 @@
   "aggregator-sources.DefineRules.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "aggregator-sources.DefineRules.choice": [
@@ -647,7 +647,7 @@
   "aggregator-sources.DefineRules.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Pubblicato"
     }
   ],
   "aggregator-sources.DefineRules.readyToPublish": [
@@ -659,7 +659,7 @@
   "aggregator-sources.DefineRules.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Rifiutato"
     }
   ],
   "aggregator-sources.DefineRules.region": [
@@ -671,7 +671,7 @@
   "aggregator-sources.DefineRules.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Rimuovi"
     }
   ],
   "aggregator-sources.DefineRules.replacingActionDetail": [
@@ -833,7 +833,7 @@
   "aggregator-sources.DefineRules.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "aggregator-sources.DefineRules.updateARule": [
@@ -890,7 +890,7 @@
   "aggregator-sources.RemoveSourceModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "aggregator-sources.RemoveSourceModal.evaluateKeepEvents": [
@@ -1261,7 +1261,7 @@
   "aggregator-sources.SourcesList.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Rimuovi"
     }
   ],
   "aggregator-sources.SourcesList.seeAgenda": [
@@ -1306,7 +1306,7 @@
   "aggregator-sources.UpdateSourceModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
@@ -1318,13 +1318,13 @@
   "aggregator-sources.UpdateSourceModal.updateSource": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "aggregator-sources.add": [
     {
       "type": 0,
-      "value": "Add"
+      "value": "Aggiungi"
     }
   ],
   "aggregator-sources.edit": [
@@ -1342,19 +1342,19 @@
   "aggregator-sources.utils.stateMessages.stateControlled": [
     {
       "type": 0,
-      "value": "Controlled"
+      "value": "Controllato"
     }
   ],
   "aggregator-sources.utils.stateMessages.statePublished": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Pubblicato"
     }
   ],
   "aggregator-sources.utils.stateMessages.stateToControl": [
     {
       "type": 0,
-      "value": "To control"
+      "value": "Per controllare"
     }
   ]
 }

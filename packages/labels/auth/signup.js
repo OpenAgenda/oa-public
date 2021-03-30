@@ -8,7 +8,8 @@ module.exports = {
     "de": "Dieses Servicekonto ist bereits in Gebrauch.",
     "pl": "To konto serwisu jest już w użyciu",
     "es": "Este servicio ya está en uso en otra cuenta",
-    "br": "En implij emañ ar servij-mañ war ur gont all dija"
+    "br": "En implij emañ ar servij-mañ war ur gont all dija",
+    "io": "crwdns13130:0crwdne13130:0"
   },
   "fieldCannotBeEmpty": {
     "en": "This field cannot be empty",
@@ -17,7 +18,8 @@ module.exports = {
     "de": "Dieses Feld darf nicht leer sein.",
     "pl": "To pole nie może być puste",
     "es": "Este campo no debe estar vacía",
-    "br": "Ne c'hall ket ar vaezienn-mañ bezañ goullo"
+    "br": "Ne c'hall ket ar vaezienn-mañ bezañ goullo",
+    "io": "crwdns13132:0crwdne13132:0"
   },
   "usedEmail": {
     "en": "This email is already in use",
@@ -26,7 +28,8 @@ module.exports = {
     "de": "Diese E-Mail ist bereits in Verwendung.",
     "pl": "Ten e-mail jest już używany",
     "es": "Este correo electrónico ya está en uso",
-    "br": "En implij emañ ar chomlec'h postel-mañ dija"
+    "br": "En implij emañ ar chomlec'h postel-mañ dija",
+    "io": "crwdns13134:0crwdne13134:0"
   },
   "invalidEmail": {
     "en": "The email is not valid",
@@ -35,7 +38,8 @@ module.exports = {
     "de": "Die E-Mail ist nicht gültig.",
     "pl": "Wiadomość e-mail jest nieważna",
     "es": "Este correo electrónico no es válida",
-    "br": "Direizh eo ar chomlec'h postel-mañ"
+    "br": "Direizh eo ar chomlec'h postel-mañ",
+    "io": "crwdns13136:0crwdne13136:0"
   },
   "passwordTooShort": {
     "en": "Password is too short",
@@ -44,7 +48,8 @@ module.exports = {
     "de": "Passwort ist zu kurz",
     "pl": "Hasło jest za krótkie",
     "es": "La contraseña es muy corta",
-    "br": "Le mot de passe est trop court"
+    "br": "Le mot de passe est trop court",
+    "io": "crwdns13138:0crwdne13138:0"
   },
   "passwordNotEqual": {
     "en": "The passwords are not identical",
@@ -53,7 +58,8 @@ module.exports = {
     "de": "Die Passwörter sind nicht identisch.",
     "pl": "Hasła nie są identyczne",
     "es": "Las contraseñas no son idénticas",
-    "br": "Les mots de passe ne sont pas identiques"
+    "br": "Les mots de passe ne sont pas identiques",
+    "io": "crwdns13140:0crwdne13140:0"
   },
   "createAccount": {
     "fr": "Créez un compte",
@@ -62,7 +68,8 @@ module.exports = {
     "de": "Ein Konto erstellen",
     "pl": "Utwórz konto",
     "es": "Crear una cuenta",
-    "br": "Krouiñ ur gont"
+    "br": "Krouiñ ur gont",
+    "io": "crwdns13142:0crwdne13142:0"
   },
   "captchaTryAgain": {
     "fr": "Veuillez ré-essayer",
@@ -71,7 +78,8 @@ module.exports = {
     "de": "Versuche dies noch einmal",
     "pl": "Spróbuj to jeszcze raz",
     "es": "Por favor, inténtelo de nuevo",
-    "br": "Esaeit adarre"
+    "br": "Esaeit adarre",
+    "io": "crwdns13144:0crwdne13144:0"
   },
   "hasAccount": {
     "fr": "Vous avez déjà utilisé OpenAgenda ?",
@@ -80,7 +88,8 @@ module.exports = {
     "de": "Schon registriert ?",
     "pl": "Czy korzystałeś już z OpenAgendy ?",
     "es": "Ya ha utilizado OpenAgenda ?",
-    "br": "Daoust hag implijet ho peus OpenAgenda c'hoazh ?"
+    "br": "Daoust hag implijet ho peus OpenAgenda c'hoazh ?",
+    "io": "crwdns13146:0crwdne13146:0"
   },
   "connect": {
     "fr": "Connectez-vous",
@@ -89,7 +98,8 @@ module.exports = {
     "de": "Anmelden",
     "pl": "Połącz się",
     "es": "login",
-    "br": "Kevreit"
+    "br": "Kevreit",
+    "io": "crwdns13148:0crwdne13148:0"
   },
   "nameSurname": {
     "fr": "Prénom Nom",
@@ -98,7 +108,8 @@ module.exports = {
     "de": "Vorname Nachname",
     "pl": "Imię i nazwisko",
     "es": "Nombre Apellido",
-    "br": "Anv Anv-bihan"
+    "br": "Anv Anv-bihan",
+    "io": "crwdns13150:0crwdne13150:0"
   },
   "email": {
     "fr": "Email",
@@ -107,7 +118,8 @@ module.exports = {
     "de": "E-Mail",
     "pl": "Poczta elektroniczna",
     "es": "e-mail",
-    "br": "Postel"
+    "br": "Postel",
+    "io": "crwdns13152:0crwdne13152:0"
   },
   "password": {
     "fr": "Mot de passe",
@@ -116,7 +128,8 @@ module.exports = {
     "de": "Passwort",
     "pl": "Hasło",
     "es": "Contraseña",
-    "br": "Ger-tremen"
+    "br": "Ger-tremen",
+    "io": "crwdns13154:0crwdne13154:0"
   },
   "repeatPassword": {
     "fr": "Répéter le mot de passe",
@@ -125,7 +138,8 @@ module.exports = {
     "de": "Passwort wiederholen",
     "pl": "Powtórz hasło",
     "es": "Repetir contraseña",
-    "br": "Adskrivañ ar ger-tremen"
+    "br": "Adskrivañ ar ger-tremen",
+    "io": "crwdns13156:0crwdne13156:0"
   },
   "signup": {
     "fr": "S'inscrire",
@@ -134,7 +148,8 @@ module.exports = {
     "de": "Registriere dich",
     "pl": "Zarejestruj się",
     "es": "Inscribirse",
-    "br": "En em enskrivañ"
+    "br": "En em enskrivañ",
+    "io": "crwdns13158:0crwdne13158:0"
   },
   "agree": {
     "fr": "En créant un compte vous acceptez les %terms% ainsi que la %policy%.",
@@ -143,7 +158,8 @@ module.exports = {
     "de": "Mit der Erstellung eines Kontos, akzeptieren Sie den %terms% und der %policy%.",
     "pl": "Tworząc konto zgadzasz się na %terms% i %policy%.",
     "es": "Al crear una cuenta en la que acepta los términos% y la política .",
-    "br": "Pa grouit ur gont e asantit d'ar %terms% ha d'ar %policy%."
+    "br": "Pa grouit ur gont e asantit d'ar %terms% ha d'ar %policy%.",
+    "io": "crwdns13160:0%terms%crwdnd13160:0%policy%crwdne13160:0"
   },
   "termsOfUse": {
     "fr": "Conditions d'Utilisation",
@@ -152,7 +168,8 @@ module.exports = {
     "de": "Nutzungsbedingungen",
     "pl": "Warunki użytkowania",
     "es": "Condiciones de uso",
-    "br": "Penndivizoù implij"
+    "br": "Penndivizoù implij",
+    "io": "crwdns13162:0crwdne13162:0"
   },
   "policy": {
     "fr": "Politique de confidentialité",
@@ -161,13 +178,15 @@ module.exports = {
     "de": "Datenschutzerklärung",
     "pl": "Polityka prywatności",
     "es": "política de confidencialidad",
-    "br": "Reolennoù prevezded"
+    "br": "Reolennoù prevezded",
+    "io": "crwdns13164:0crwdne13164:0"
   },
   "culture": {
     "fr": "Langue",
     "en": "Language",
     "de": "Sprache",
     "es": "Idioma",
-    "it": "Lingua"
+    "it": "Lingua",
+    "io": "crwdns13166:0crwdne13166:0"
   }
 }

@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
+const log = require('@openagenda/logs')('formatEvent');
 const moment = require('moment-timezone');
 const countries = require('@openagenda/labels/agenda-locations/countries');
 const dateRange = require('@openagenda/date-range');
@@ -42,6 +43,12 @@ module.exports = (event, formSchema = null) => {
       $set: new Date(event.timings.reduce(
         (last, timing) => timing.end > last ? timing.end : last,
         event.timings[0].end
+      ))
+    };
+    transform['_search_first_timing'] = {
+      $set: new Date(event.timings.reduce(
+        (first, timing) => timing.begin < first ? timing.begin : first,
+        event.timings[0].begin
       ))
     };
     transform.timings = {
@@ -189,7 +196,6 @@ module.exports = (event, formSchema = null) => {
         .filter(({ integer }) => integer < 2147483648)
       };
   }
-
   return ih(event, transform);
 }
 

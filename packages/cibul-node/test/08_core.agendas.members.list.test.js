@@ -91,7 +91,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/v2/agendas/2/members?key=${key}`
+          url: `http://localhost:3000/agendas/2/members?key=${key}`
         }).then(r => r.data);
       });
 
@@ -111,7 +111,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/v2/agendas/2/members?key=${key}&limit=1111`
+            url: `http://localhost:3000/agendas/2/members?key=${key}&limit=1111`
           })
         } catch (e) {
           response = e.response;

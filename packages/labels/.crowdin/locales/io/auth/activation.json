@@ -1,0 +1,12 @@
+{
+  "sendAgain": "crwdns13036:0crwdne13036:0",
+  "checkEmail": "crwdns13038:0crwdne13038:0",
+  "checkEmailInstruction": "crwdns13040:0crwdne13040:0",
+  "didNotReceive": "crwdns13042:0%resend%crwdnd13042:0%support%crwdne13042:0",
+  "resend": "crwdns13044:0crwdne13044:0",
+  "stayUpToDate": "crwdns13046:0crwdne13046:0",
+  "followUs": "crwdns13048:0crwdne13048:0",
+  "getOurNewsletter": "crwdns13050:0crwdne13050:0",
+  "yourEmail": "crwdns13052:0crwdne13052:0",
+  "subscribe": "crwdns13054:0crwdne13054:0"
+}

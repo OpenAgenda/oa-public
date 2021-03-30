@@ -1,0 +1,8 @@
+{
+  "upcomingEvents": "%count% upcoming events",
+  "upcomingEvent": "1 upcoming event",
+  "totalEvents": "%count% events",
+  "totalEvent": "1 event",
+  "includePassed": "Include passed events",
+  "excludePassed": "Exclude passed events"
+}

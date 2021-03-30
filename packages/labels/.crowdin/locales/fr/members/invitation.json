@@ -1,0 +1,14 @@
+{
+  "administrator": "administrateur",
+  "moderator": "modérateur",
+  "contributor": "contributeur",
+  "reader": "lecteur",
+  "emailSubject": "Invitation à un agenda",
+  "emailTitle": "Vous avez été invité à contribuer à l'agenda %title%",
+  "emailTitleForExistantUser": "Vous êtes devenu %credential% de l'agenda %title%",
+  "emailInscription": "S'inscrire",
+  "emailShowAgenda": "Voir l'agenda",
+  "emailSignup": "Sign up",
+  "emailDescription": "Vous avez été invité à contribuer à l'agenda **%title%** en tant que **%credential%**",
+  "newMessage": "L'agenda %agenda% vous a écrit un message"
+}

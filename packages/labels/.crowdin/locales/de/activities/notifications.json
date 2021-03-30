@@ -1,0 +1,17 @@
+{
+  "viewAllActivities": "Alle Aktivitäten",
+  "markAllAsRead": "Alles als gelesen markieren",
+  "noNotif": "Keine Benachrichtigung.",
+  "next": "Nächster",
+  "user": "{others, plural, =0 {{user}} one {{user} und 1 andere Benutzer} other {{user} und {others} andere Benutzer}}",
+  "event": "{others, plural, =0 {{event}} one {{event} und 1 andere Veranstaltung} other {{event} und {others} andere Veranstaltungen}}",
+  "email": "{others, plural, =0 {{email}} one {{email} und 1 anderer} other {{email} und {others} andere}}",
+  "agenda": "{others, plural, =0 {{agenda}} one {{agenda} und 1 anderer} other {{agenda} und {others} andere}}",
+  "agenda.addMember.withYou": "{actor} hinzugefügt Sie als {credential} auf {target}.",
+  "agenda.setMemberRole.withYou": "{actor} Sie als {credential} auf {target} ernannt.",
+  "agenda.create": "{actor} der Kalender {target} erstellt.",
+  "agenda.setOfficial": "Die Kalender {target} wurde offiziell.",
+  "agenda.setUnofficial": "Die Kalender {target} wurde inoffiziell.",
+  "agenda.publishEvent": "{actor} {object} auf {target} veröffentlicht.",
+  "agenda.aggregateEvent": "{target} {object} {from} {actor} aggregiert."
+}

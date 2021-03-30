@@ -1,0 +1,13 @@
+{
+  "refused": "refused",
+  "tocontrol": "in moderation",
+  "tobecontrolled": "in moderation",
+  "controlled": "ready to publish",
+  "published": "published",
+  "featured": "featured",
+  "all": "see all",
+  "state": "state",
+  "stateChanged": "The event state has changed",
+  "featuredChange": "The event is now featured",
+  "unfeaturedChange": "The event is no longer featured"
+}

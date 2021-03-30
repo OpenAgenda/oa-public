@@ -43,6 +43,10 @@ router.get( '/', async ( req, res, next ) => {
   const props = { lang: req.lang };
   const layoutData = { lang: req.lang };
 
+  if (req.layoutData) {
+    _.assign(layoutData, req.layoutData);
+  }
+
   try {
 
     const resources = await router.service.loadAppResources( { slug: req.params.agendaSlug } );

@@ -1,0 +1,7 @@
+{
+  "tokenNotFound": "Unsubscription Token nicht gefunden wird.",
+  "tokenAlreadyUsed": "Unsubscription Token wurde bereits verwendet.",
+  "tokenMalformed": "Der Link ist nicht mehr gültig. Er wird wahrscheinlich bereits verwendet worden.",
+  "unsubscriptionSucceed": "Deine Einstellungen wurden aktualisiert.",
+  "guestUnsubscriptionSucceed": "Du bist jetzt abgemeldet."
+}

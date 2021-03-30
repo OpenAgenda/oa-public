@@ -1,0 +1,7 @@
+{
+  "info": "Registrierung Tools",
+  "placeholder": "Links, E-Mails oder Telefonnummern. Trennen Sie jeden Wert mit einer Registerkarte oder ein Komma.",
+  "error": "Ungültige Einträge werden nicht gespeichert. Trenne jeden Wert mit einer Registerkarte oder ein Komma.",
+  "invalid": "Nur Links, werden E-Mails oder Telefonnummern akzeptiert",
+  "registerBook": "Registrieren / Buch"
+}

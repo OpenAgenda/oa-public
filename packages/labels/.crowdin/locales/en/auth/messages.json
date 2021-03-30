@@ -1,0 +1,11 @@
+{
+  "isBlacklisted": "Your account has been added to our fraudulous accounts list.",
+  "isBlacklistedInfo": "In case of an error on our part, contact us either via our chat app or the Help menu.",
+  "authRequired": "You need to be authenticated to access this page.",
+  "limitedAccessEvent": "You need to be authenticated to access this event. Please sign in",
+  "limitedAccessAgenda": "You need to be authenticated to access this agenda. Please sign in",
+  "abortedAuth": "The authentication was aborted on %service%",
+  "facebookEmailMissing": "The email in your Facebook account is not available. Validate it on Facebook before retrying.",
+  "genericError": "There was a problem. Please try again later",
+  "accountEmailAlreadyExists": "An account with your email already exists. Please sign in using your email and password"
+}

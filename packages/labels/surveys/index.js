@@ -6,13 +6,16 @@ module.exports = {
     "en": "Thank you for your contribution!",
     "de": "Danke für Ihren Beitrag!",
     "es": "Gracias por participar!",
-    "it": "Grazie per aver partecipato!"
+    "it": "Grazie per aver partecipato!",
+    "io": "crwdns15788:0crwdne15788:0"
   },
   "done": {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
     "es": "cerca",
-    "it": "Chiudere"
+    "it": "Chiudere",
+    "br": "Serriñ",
+    "io": "crwdns15790:0crwdne15790:0"
   }
 }

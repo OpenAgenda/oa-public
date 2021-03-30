@@ -1,0 +1,8 @@
+{
+  "tagsTitle": "Tags",
+  "defaultTagGroupName": "Tag Group",
+  "defaultTagGroupInfo": "Select one or several tags",
+  "required": "Required.",
+  "requiredTagError": "You must select at least one item",
+  "noSelection": "None of the above"
+}

@@ -23,7 +23,8 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
 
   const {
     client,
-    defaultIndex
+    defaultIndex,
+    interfaces
   } = config;
 
   if (!eventPart) {
@@ -55,6 +56,11 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
       set,
       identifiers
     });
+    if (interfaces?.onUpdate) {
+      try {
+        interfaces.onUpdate({ identifiers, set });
+      } catch (e) {}
+    }
   } else {
     log('warn', 'event %j was not updated in set %s', identifiers, set, {
       operation: 'update',

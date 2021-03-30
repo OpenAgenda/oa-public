@@ -1,0 +1,6 @@
+{
+  "network": "Red",
+  "networkDetail": "Campo requerido por la red de agendas",
+  "event": "Estándar",
+  "eventDetail": "Campo de evento estándar"
+}

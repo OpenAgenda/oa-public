@@ -6583,6 +6583,7 @@ __metadata:
     imagesloaded: ^4.1
     immutability-helper: ^3.0.0
     iscroll: ^5.2.0
+    js-cookie: ^2.2.1
     languages: 0.1.3
     leaflet: 0.7.3
     lodash: ^4.17.15
@@ -6819,7 +6820,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-timingspicker": ^1.2.1
+    "@openagenda/react-timingspicker": ^1.2.2
     "@openagenda/validators": ^2.4.0
     babel-jest: ^26.6.3
     babel-loader: ^8.2.1
@@ -7269,9 +7270,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/labels@workspace:packages/labels"
   dependencies:
+    deep-diff: ^1.0.2
     immutability-helper: ^3.0.1
     intl-messageformat: ^9.0.2
     intl-messageformat-parser: ^5.2.4
+    mkdirp: ^1.0.4
     mocha: ^7.0.1
     prompt-confirm: ^2.0.4
     prompt-input: ^3.0.0
@@ -7824,6 +7827,7 @@ __metadata:
     flatted: ^2.0.1
     he: ^1.2.0
     history: ^4.10.1
+    immer: ^8.0.1
     iscroll: ^5.2.0
     lint-staged: ^10.2.11
     lodash: ^4.17.15
@@ -7982,9 +7986,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-timingspicker@^1.2.1, @openagenda/react-timingspicker@workspace:packages/react-timingspicker":
+"@openagenda/react-timingspicker@^1.2.2, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
   version: 0.0.0-use.local
-  resolution: "@openagenda/react-timingspicker@workspace:packages/react-timingspicker"
+  resolution: "@openagenda/react-timingspicker@workspace:public/react-timingspicker"
   dependencies:
     "@babel/cli": ^7.12.1
     "@babel/core": ^7.12.3
@@ -23031,6 +23035,13 @@ __metadata:
   version: 1.10.0
   resolution: "immer@npm:1.10.0"
   checksum: 9cec946ed092e0a9e5c33789e3bdddce2b1831ddb17eaade00be032ea5dcbb157a674e18e3050c84b451023ec9060a6ccc0f92ed54f637733ee410d81d0da8b9
+  languageName: node
+  linkType: hard
+
+"immer@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "immer@npm:8.0.1"
+  checksum: a8c8d531af8f968f4d5a2ec3c5eeb6dd6933c69d216b3f8c55275e34c87926d556db4e3d81f5f038e66f9886e874da4ab4f7ffe228e33d718593820e2f57b68f
   languageName: node
   linkType: hard
 

@@ -81,12 +81,14 @@ function Layout({ firstOnly = true, apps, ...props }) {
   const history = useHistory();
   const location = useLocation();
 
+  const translateMode = useSelector(state => state.main.translateMode);
   const userCulture = useSelector(state => state.main.user?.culture);
   const ssrLang = useSelector(state => state.main.lang);
 
   const userLang = useMemo(
     () => (
       qs.parse(location.search, { ignoreQueryPrefix: true }).lang
+        || (translateMode && 'io')
         || userCulture
         || ssrLang
         || (typeof navigator === 'object' && navigator.language)
@@ -113,7 +115,7 @@ function Layout({ firstOnly = true, apps, ...props }) {
     <IntlProvider
       messages={i18n.messages}
       locale={i18n.locale}
-      defaultLocale={defaultLocale}
+      defaultLocale="en"
       otherKey={i18n.locale}
     >
       {layouts.map(layoutProps => (

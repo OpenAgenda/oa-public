@@ -7,7 +7,8 @@ module.exports = {
     "it": "Benvenuta !",
     "de": "Willkommen!",
     "br": "Degemer mat deoc'h !",
-    "es": "Bienvenido!"
+    "es": "Bienvenido!",
+    "io": "crwdns11550:0crwdne11550:0"
   },
   "subtitle": {
     "fr": "Présentez-vous avant de saisir vos événements",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Presentatevi prima di aggiungere i vostri eventi",
     "de": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
     "br": "Lavarit piv oc'h a-raok skrivañ ho tarvoudoù",
-    "es": "Presentarse antes de introducir sus eventos"
+    "es": "Presentarse antes de introducir sus eventos",
+    "io": "crwdns11552:0crwdne11552:0"
   },
   "description": {
     "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
     "de": "Schön, dass du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
     "br": "Ne vo gwelet ho titouroù personnel nemet gant skipailh an deiziataer. N'eus nemet anv hoc'h aozadur a c'hallo bezañ foran.",
-    "es": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública."
+    "es": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública.",
+    "io": "crwdns11554:0crwdne11554:0"
   },
   "organisation": {
     "fr": "Organisation",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "Organizzazione",
     "de": "Unternehmen",
     "br": "Aozadur",
-    "es": "organización"
+    "es": "organización",
+    "io": "crwdns11556:0crwdne11556:0"
   },
   "phone": {
     "fr": "Téléphone",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "Telefono",
     "de": "Telefonnummer",
     "br": "Pellgomz",
-    "es": "Teléfono"
+    "es": "Teléfono",
+    "io": "crwdns11558:0crwdne11558:0"
   },
   "phoneSub": {
     "fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
@@ -47,7 +52,8 @@ module.exports = {
     "it": "Carattere autorizzati : ciffri, spazio, -, + o ()",
     "de": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()",
     "br": "Arouezennoù aotreet : sifroù, lizherennoù, esaouennoù, -, + pe ()",
-    "es": "Los caracteres permitidos: cifras, espacio, -, + o ()"
+    "es": "Los caracteres permitidos: cifras, espacio, -, + o ()",
+    "io": "crwdns11560:0crwdne11560:0"
   },
   "name": {
     "fr": "Prénom Nom",
@@ -55,7 +61,8 @@ module.exports = {
     "it": "Nome e cognome",
     "de": "Vorname Nachname",
     "br": "Anv Anv-bihan",
-    "es": "Nombre Apellido"
+    "es": "Nombre Apellido",
+    "io": "crwdns11562:0crwdne11562:0"
   },
   "position": {
     "fr": "Fonction",
@@ -63,7 +70,8 @@ module.exports = {
     "it": "Posizione lavorativa",
     "de": "Funktion",
     "br": "Karg",
-    "es": "función"
+    "es": "función",
+    "io": "crwdns11564:0crwdne11564:0"
   },
   "email": {
     "fr": "Email",
@@ -71,7 +79,8 @@ module.exports = {
     "it": "Email",
     "de": "E-Mail",
     "br": "Postel",
-    "es": "e-mail"
+    "es": "e-mail",
+    "io": "crwdns11566:0crwdne11566:0"
   },
   "submit": {
     "fr": "Valider",
@@ -79,6 +88,7 @@ module.exports = {
     "it": "Validare",
     "de": "Weiter",
     "br": "Validañ",
-    "es": "validar"
+    "es": "validar",
+    "io": "crwdns11568:0crwdne11568:0"
   }
 }

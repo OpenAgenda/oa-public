@@ -2,19 +2,19 @@
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
-      "value": "Add a chart"
+      "value": "Aggiungi un grafico"
     }
   ],
   "AgendaStats.ChartWrapper.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Rimuovi"
     }
   ],
   "AgendaStats.ChartWrapper.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "AgendaStats.ChartWrapper.withSelector": [
@@ -24,7 +24,7 @@
     },
     {
       "type": 0,
-      "value": " by "
+      "value": " di "
     },
     {
       "type": 1,
@@ -34,7 +34,7 @@
   "AgendaStats.ComposedChart.noValue": [
     {
       "type": 0,
-      "value": "No value."
+      "value": "Nessun valore."
     }
   ],
   "AgendaStats.ComposedChart.tooltipContentCreatedAt": [
@@ -44,39 +44,33 @@
         "=0": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " created event"
+              "value": " evento creato"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " created event"
+              "value": " evento creato"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " created events"
+              "value": " eventi creati"
             }
           ]
         }
@@ -93,39 +87,33 @@
         "=0": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " event"
+              "value": " evento"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " event"
+              "value": " evento"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " events"
+              "value": " eventi"
             }
           ]
         }
@@ -142,39 +130,33 @@
         "=0": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " timing"
+              "value": " orario"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " timing"
+              "value": " orario"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " timings"
+              "value": " orari"
             }
           ]
         }
@@ -191,39 +173,33 @@
         "=0": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " updated event"
+              "value": " evento aggiornato"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " updated event"
+              "value": " evento aggiornato"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " updated events"
+              "value": " eventi aggiornati"
             }
           ]
         }
@@ -241,55 +217,55 @@
     },
     {
       "type": 0,
-      "value": " events"
+      "value": " eventi"
     }
   ],
   "AgendaStats.Dashboard.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "AgendaStats.Dashboard.changeOrder": [
     {
       "type": 0,
-      "value": "Change ordrer"
+      "value": "Ordina"
     }
   ],
   "AgendaStats.Dashboard.edit": [
     {
       "type": 0,
-      "value": "Edit the report"
+      "value": "Modifica le statistiche"
     }
   ],
   "AgendaStats.Dashboard.filters": [
     {
       "type": 0,
-      "value": "Filters"
+      "value": "Filtri"
     }
   ],
   "AgendaStats.Dashboard.lessFilters": [
     {
       "type": 0,
-      "value": "Display less filters"
+      "value": "Mostra meno filtri"
     }
   ],
   "AgendaStats.Dashboard.moreFilters": [
     {
       "type": 0,
-      "value": "Display more filters"
+      "value": "Mostra più filtri"
     }
   ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
-      "value": "Activity of the past year"
+      "value": "Attività dello anno scorso"
     }
   ],
   "AgendaStats.Dashboard.save": [
     {
       "type": 0,
-      "value": "Save"
+      "value": "Salva"
     }
   ],
   "AgendaStats.Dashboard.totalEvents": [
@@ -309,7 +285,7 @@
           "value": [
             {
               "type": 0,
-              "value": "event"
+              "value": "evento"
             }
           ]
         },
@@ -317,7 +293,7 @@
           "value": [
             {
               "type": 0,
-              "value": "event"
+              "value": "evento"
             }
           ]
         },
@@ -325,7 +301,7 @@
           "value": [
             {
               "type": 0,
-              "value": "events"
+              "value": "eventi"
             }
           ]
         }
@@ -402,7 +378,7 @@
     },
     {
       "type": 0,
-      "value": "Week "
+      "value": "Settimana "
     },
     {
       "type": 1,
@@ -412,73 +388,73 @@
   "AgendaStats.IntervalSelect.day": [
     {
       "type": 0,
-      "value": "day"
+      "value": "giorno"
     }
   ],
   "AgendaStats.IntervalSelect.month": [
     {
       "type": 0,
-      "value": "month"
+      "value": "mese"
     }
   ],
   "AgendaStats.IntervalSelect.week": [
     {
       "type": 0,
-      "value": "week"
+      "value": "settimana"
     }
   ],
   "AgendaStats.LoadMore.loadMore": [
     {
       "type": 0,
-      "value": "Load more"
+      "value": "Carica altro"
     }
   ],
   "AgendaStats.LoadMore.nothingMore": [
     {
       "type": 0,
-      "value": "There is nothing more"
+      "value": "Non c'è niente di più"
     }
   ],
   "AgendaStats.OrderModal.modalTitle": [
     {
       "type": 0,
-      "value": "Change order"
+      "value": "Ordina"
     }
   ],
   "AgendaStats.OrderModal.oneColumn": [
     {
       "type": 0,
-      "value": "One column"
+      "value": "Una colonna"
     }
   ],
   "AgendaStats.OrderModal.oneLine": [
     {
       "type": 0,
-      "value": "One line"
+      "value": "Una riga"
     }
   ],
   "AgendaStats.OrderModal.separator": [
     {
       "type": 0,
-      "value": "Separator"
+      "value": "Separatore"
     }
   ],
   "AgendaStats.OrderModal.submit": [
     {
       "type": 0,
-      "value": "Submit"
+      "value": "Invia"
     }
   ],
   "AgendaStats.OrderModal.width": [
     {
       "type": 0,
-      "value": "Width:"
+      "value": "Larghezza:"
     }
   ],
   "AgendaStats.RangeFilter.range": [
     {
       "type": 0,
-      "value": "From "
+      "value": "Da "
     },
     {
       "style": null,
@@ -487,7 +463,7 @@
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " a "
     },
     {
       "style": null,
@@ -498,7 +474,7 @@
   "AgendaStats.RangeFilter.sameDayRange": [
     {
       "type": 0,
-      "value": "The "
+      "value": "Il "
     },
     {
       "style": null,
@@ -509,31 +485,31 @@
   "AgendaStats.RangeFilter.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "AgendaStats.RangeModal.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "AgendaStats.RangeModal.modalTitle": [
     {
       "type": 0,
-      "value": "Choose period"
+      "value": "Scegli periodo"
     }
   ],
   "AgendaStats.RangeModal.submit": [
     {
       "type": 0,
-      "value": "Submit"
+      "value": "Invia"
     }
   ],
   "AgendaStats.RangeTypeFilter.range": [
     {
       "type": 0,
-      "value": "From "
+      "value": "Da "
     },
     {
       "style": null,
@@ -542,7 +518,7 @@
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " a "
     },
     {
       "style": null,
@@ -553,7 +529,7 @@
   "AgendaStats.RangeTypeFilter.sameDayRange": [
     {
       "type": 0,
-      "value": "The "
+      "value": "Il "
     },
     {
       "style": null,
@@ -564,43 +540,49 @@
   "AgendaStats.RangeTypeFilter.submit": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeCreatedAt": [
     {
       "type": 0,
-      "value": "By creation"
+      "value": "Per creazione"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeDate": [
     {
       "type": 0,
-      "value": "By timing"
+      "value": "Per orario"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
     }
   ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
     {
       "type": 0,
-      "value": "the creation date of the events"
+      "value": "la data di creazione degli eventi"
     }
   ],
   "AgendaStats.RangeTypeModal.dateDesc": [
     {
       "type": 0,
-      "value": "the event timings"
+      "value": "gli orari degli eventi"
     }
   ],
   "AgendaStats.RangeTypeModal.modalTitle": [
     {
       "type": 0,
-      "value": "Choose type of period range"
+      "value": "Scegli il tipo di intervallo di periodo"
     }
   ],
   "AgendaStats.RangeTypeModal.rangeTypeDesc": [
     {
       "type": 0,
-      "value": "The period from "
+      "value": "Il periodo compreso tra "
     },
     {
       "children": [
@@ -614,7 +596,7 @@
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " e "
     },
     {
       "children": [
@@ -628,25 +610,31 @@
     },
     {
       "type": 0,
-      "value": " applies to:"
+      "value": " si applica:"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "Invia"
     }
   ],
   "AgendaStats.Separator.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Rimuovi"
     }
   ],
   "AgendaStats.Separator.separator": [
     {
       "type": 0,
-      "value": "Separator"
+      "value": "Separatore"
     }
   ],
   "AgendaStats.StatEditModal.modalTitle": [
     {
       "type": 0,
-      "value": "Edit the chart: "
+      "value": "Modifica il grafico: "
     },
     {
       "type": 1,
@@ -656,259 +644,247 @@
   "AgendaStats.StateTooltipItem.controlled": [
     {
       "type": 0,
-      "value": "Controlled"
+      "value": "Controllato"
     }
   ],
   "AgendaStats.StateTooltipItem.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Pubblicato"
     }
   ],
   "AgendaStats.StateTooltipItem.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Rifiutato"
     }
   ],
   "AgendaStats.StateTooltipItem.toModerate": [
     {
       "type": 0,
-      "value": "To control"
+      "value": "Per controllare"
     }
   ],
   "AgendaStats.dateRanges.currentMonth": [
     {
       "type": 0,
-      "value": "Current month"
+      "value": "Mese corrente"
     }
   ],
   "AgendaStats.dateRanges.currentWeek": [
     {
       "type": 0,
-      "value": "Current week"
+      "value": "Settimana corrente"
     }
   ],
   "AgendaStats.dateRanges.currentYear": [
     {
       "type": 0,
-      "value": "Current year"
+      "value": "Anno corrente"
     }
   ],
   "AgendaStats.dateRanges.daysStartingToday": [
     {
       "type": 0,
-      "value": "days starting today"
+      "value": "giorni da oggi"
     }
   ],
   "AgendaStats.dateRanges.daysUpToToday": [
     {
       "type": 0,
-      "value": "days up to today"
+      "value": "giorni fino ad oggi"
     }
   ],
   "AgendaStats.dateRanges.lastMonth": [
     {
       "type": 0,
-      "value": "Last Month"
+      "value": "Mese Scorso"
     }
   ],
   "AgendaStats.dateRanges.lastWeek": [
     {
       "type": 0,
-      "value": "Last Week"
+      "value": "Ultima Settimana"
     }
   ],
   "AgendaStats.dateRanges.lastYear": [
     {
       "type": 0,
-      "value": "Last year"
+      "value": "Anno scorso"
     }
   ],
   "AgendaStats.form.add": [
     {
       "type": 0,
-      "value": "Add"
+      "value": "Aggiungi"
     }
   ],
   "AgendaStats.form.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "AgendaStats.form.charts": [
     {
       "type": 0,
-      "value": "Charts"
+      "value": "Grafici"
     }
   ],
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
-      "value": "Component width:"
+      "value": "Larghezza componente:"
     }
   ],
   "AgendaStats.form.oneColumn": [
     {
       "type": 0,
-      "value": "1 column"
+      "value": "1 colonna"
     }
   ],
   "AgendaStats.form.oneLine": [
     {
       "type": 0,
-      "value": "1 line"
+      "value": "1 linea"
     }
   ],
   "AgendaStats.form.others": [
     {
       "type": 0,
-      "value": "Others"
+      "value": "Altri"
     }
   ],
   "AgendaStats.form.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Rimuovi"
     }
   ],
   "AgendaStats.form.separator": [
     {
       "type": 0,
-      "value": "Separator"
+      "value": "Separatore"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [
     {
       "type": 0,
-      "value": "Select an element to add"
+      "value": "Seleziona un elemento da aggiungere"
     }
   ],
   "AgendaStats.form.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "AgendaStats.form.widthSelectPlaceholder": [
     {
       "type": 0,
-      "value": "Select"
+      "value": "Seleziona"
     }
   ],
   "AgendaStats.messages.chartTitles.cities": [
     {
       "type": 0,
-      "value": "Cities"
+      "value": "Città"
     }
   ],
   "AgendaStats.messages.chartTitles.createdAt": [
     {
       "type": 0,
-      "value": "Created events"
+      "value": "Eventi creati"
     }
   ],
   "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
     {
       "type": 0,
-      "value": "Saved events"
+      "value": "Eventi salvati"
     }
   ],
   "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
-      "value": "Departments"
+      "value": "Dipartimenti"
     }
   ],
   "AgendaStats.messages.chartTitles.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Parole Chiave"
     }
   ],
   "AgendaStats.messages.chartTitles.members": [
     {
       "type": 0,
-      "value": "Members"
+      "value": "Membri"
     }
   ],
   "AgendaStats.messages.chartTitles.originAgendas": [
     {
       "type": 0,
-      "value": "Origin agendas"
+      "value": "Agende di origine"
     }
   ],
   "AgendaStats.messages.chartTitles.regions": [
     {
       "type": 0,
-      "value": "Regions"
+      "value": "Regioni"
     }
   ],
   "AgendaStats.messages.chartTitles.states": [
     {
       "type": 0,
-      "value": "States"
+      "value": "Stati"
     }
   ],
   "AgendaStats.messages.chartTitles.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Orari"
     }
   ],
   "AgendaStats.messages.chartTitles.updatedAt": [
     {
       "type": 0,
-      "value": "Updated events"
+      "value": "Eventi aggiornati"
+    }
+  ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Controllato"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Pubblicato"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Rifiutato"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "Per controllare"
     }
   ],
   "AgendaStats.utils.addRestItem.noValue": [
     {
       "type": 0,
-      "value": "No value"
+      "value": "Nessun valore"
     }
   ],
   "AgendaStats.utils.addRestItem.others": [
     {
       "type": 0,
-      "value": "Others"
-    }
-  ],
-  "ReactFilters.messages.states.controlled": [
-    {
-      "type": 0,
-      "value": "Controlled"
-    }
-  ],
-  "ReactFilters.messages.states.published": [
-    {
-      "type": 0,
-      "value": "Published"
-    }
-  ],
-  "ReactFilters.messages.states.refused": [
-    {
-      "type": 0,
-      "value": "Refused"
-    }
-  ],
-  "ReactFilters.messages.states.toModerate": [
-    {
-      "type": 0,
-      "value": "To control"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.cancel": [
-    {
-      "type": 0,
-      "value": "Cancel"
-    }
-  ],
-  "aggregator-sources.RangeTypeModal.submit": [
-    {
-      "type": 0,
-      "value": "Submit"
+      "value": "Altri"
     }
   ]
 }

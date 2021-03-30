@@ -1,0 +1,8 @@
+{
+  "facebookTabAdded": "La pestaña de agenda ha sido añadido a su página de Facebook",
+  "title": "Facebook",
+  "description": "Añadir su agenda en una página de Facebook",
+  "footnote": "Facebook ha actualizado su %link%, esta función sólo está disponible para páginas con más de 2.000 gustos.",
+  "add": "Seleccione una página de Facebook",
+  "conditions": "condiciones de uso"
+}

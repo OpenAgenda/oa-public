@@ -1,0 +1,6 @@
+{
+  "map": "karte",
+  "passed": "vergangenheit",
+  "location": "platz",
+  "fromTo": "von %start% bis %end%"
+}

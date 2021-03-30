@@ -19,8 +19,7 @@ module.exports.init = async (config, services) => {
   log('init');
   const {
     queues,
-    agendaEvents,
-    core
+    tracker
   } = services;
 
   const port = _.get(config, 'es75.port', 9200);
@@ -39,7 +38,12 @@ module.exports.init = async (config, services) => {
       ssl: _.get(config, 'es75.ssl')
     },
     defaultIndex,
-    logger: config.getLogConfig('svc', 'eventSearch')
+    logger: config.getLogConfig('svc', 'eventSearch'),
+    interfaces: {
+      onUpdate: ({ set }) => {
+        tracker(`eventSearch.onUpdate.${set}`)
+      }
+    }
   });
 
   const queue = queues('eventSearch');

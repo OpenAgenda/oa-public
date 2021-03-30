@@ -1,3 +1,5 @@
+"use strict";
+
 var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'activeFilter dom' ),

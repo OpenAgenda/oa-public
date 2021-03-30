@@ -38,44 +38,60 @@ module.exports = (config, services, instance, app, base) => {
   app.get(base,
     getLocationSet(instance),
     (req, res, next) => {
-      res.send(layout('<div class="js_canvas"></div>', {
+      const layoutData = {
         role: req.member.role,
         lang: req.lang,
         agenda: req.agenda,
-        bodyAttributes: [{
-          name: 'data-options',
-          value: JSON.stringify({
-            detailedInfo: _.get(req, 'locationLegacySettings.admin.detailed', true),
-            settings: req.settings,
-            lang: req.lang,
-            enableGeocode: true,
-            agenda: {
-              slug: req.agenda.slug,
-              title: req.agenda.title,
-              uid: req.agenda.uid
-            },
-            mapboxKey: config.mapboxAccessToken,
-            set: req.locationSet,
-            res: {
-              csv: `/${req.agenda.slug}/admin/locations.csv`,
-              xlsx: `/${req.agenda.slug}/admin/locations.xlsx`,
-              index: `/${req.agenda.slug}/admin/locations.json`,
-              geocode: `/locations/geocode`,
-              insee: `/locations/insee`,
-              reverseGeocode: `/locations/geocode/reverse`,
-              seeEvents: `/${process.NODE_ENV === 'development' ? 'frontend_dev.php/' : ''}${req.agenda.slug}/admin?locationUid=:locationUid`,
-              create: `/${req.agenda.slug}/admin/locations`,
-              update: `/${req.agenda.slug}/admin/locations/:locationUid`,
-              get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
-              remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
-              merge: `/${req.agenda.slug}/admin/locations/merge`
-            }
-          })
-        }],
+        bodyAttributes: [
+          {
+            name: 'data-options',
+            value: JSON.stringify({
+              detailedInfo: _.get(req, 'locationLegacySettings.admin.detailed', true),
+              settings: req.settings,
+              lang: req.lang,
+              enableGeocode: true,
+              agenda: {
+                slug: req.agenda.slug,
+                title: req.agenda.title,
+                uid: req.agenda.uid
+              },
+              mapboxKey: config.mapboxAccessToken,
+              set: req.locationSet,
+              res: {
+                csv: `/${req.agenda.slug}/admin/locations.csv`,
+                xlsx: `/${req.agenda.slug}/admin/locations.xlsx`,
+                index: `/${req.agenda.slug}/admin/locations.json`,
+                geocode: `/locations/geocode`,
+                insee: `/locations/insee`,
+                reverseGeocode: `/locations/geocode/reverse`,
+                seeEvents: `/${process.NODE_ENV === 'development'
+                  ? 'frontend_dev.php/'
+                  : ''}${req.agenda.slug}/admin?locationUid=:locationUid`,
+                create: `/${req.agenda.slug}/admin/locations`,
+                update: `/${req.agenda.slug}/admin/locations/:locationUid`,
+                get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
+                remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
+                merge: `/${req.agenda.slug}/admin/locations/merge`
+              }
+            })
+          }
+        ],
         scripts: {
-          bottom: [ { src: '/js/locationsIndex.js' } ]
+          bottom: [{ src: '/js/locationsIndex.js' }]
         }
-      }));
+      };
+
+      layoutData.translateMode = Boolean(req.cookies.translateMode);
+      layoutData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+      if (req.cookies.translateMode) {
+        layoutData.scripts.top = [
+          { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+          { src: '//cdn.crowdin.com/jipt/jipt.js' }
+        ];
+      }
+
+      res.send(layout('<div class="js_canvas"></div>', layoutData));
     }
   );
 

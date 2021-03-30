@@ -1,0 +1,9 @@
+{
+  "agendaShareError": "Die Veranstaltung kann nicht auf die Kalender „ %agenda%“ hinzugefügt werden. Bitte versuchen Sie es in einem Moment.",
+  "agendaShareToControl": "Die Veranstaltung wurde auf die Veranstaltungskalender „ %agenda%“ hinzugefügt. Er wird derzeit moderiert.",
+  "agendaSharePublished": "Die Veranstaltung wurde erfolgreich auf dem Veranstaltungskalender „ %agenda%“ veröffentlicht",
+  "agendaShareRemoveUnauthorized": "Du hast nicht die erforderlichen Anmeldeinformationen des Veranstaltungskalenders, um diese Veranstaltung zu löschen.",
+  "agendaShareRemoveError": "Die Veranstaltung konnte nicht von der Kalender „ %agenda%“ entfernt werden. Bitte versuche es zu einem späteren Zeitpunkt.",
+  "agendaShareRemoved": "Die Veranstaltung wurde efolgreich von dem Veranstaltungskalender „ %agenda%“ entfernt.",
+  "eventEmailSend": "Die Veranstaltung wurde nach %count% Mail Adressen "
+}

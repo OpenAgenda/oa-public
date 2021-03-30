@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const fs = require('fs');
 const assert = require('assert');
-const should = require('should');
 
 const config = require('../testconfig');
 
@@ -28,9 +27,9 @@ describe('02 - event search - functional: search', function() {
 
     before(async () => {
       await service('simple_search').rebuild({
-        eventsList: async (lastId, limit) => {
-          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`))
-        }
+        eventsList: async (lastId, limit) => JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`)
+        )
       });
     });
 
@@ -41,9 +40,11 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({ uid: 6 });
   
-        total.should.equal(1);
-  
-        events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+        assert(total === 1);
+        assert.equal(
+          events[0].slug,
+          'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
+        );
       });
   
       it('several events can be retrieved by uid at once', async () => {
@@ -51,13 +52,16 @@ describe('02 - event search - functional: search', function() {
           events,
           total
         } = await service('simple_search').search({ uid: [6, 11] });
-  
-        total.should.equal(2);
-  
-        events.map(e => e.slug).should.eql([
-          'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
-          'serres-la-claranda-cafe-citoyen'
-      ]);
+        
+        assert(total === 2);
+
+        assert.deepEqual(
+          events.map(e => e.slug),
+          [
+            'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+            'serres-la-claranda-cafe-citoyen'
+          ]
+        );
       });
   
       it('an event can be retrieved with its slug', async () => {
@@ -67,8 +71,8 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           slug: 'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
         });
-  
-        events[0].uid.should.equal(6);
+
+        assert.equal(events[0].uid, 6);
       });
   
       it('several events can be retrieved by slug at once', async () => {
@@ -82,8 +86,11 @@ describe('02 - event search - functional: search', function() {
         ]
         });
   
-        total.should.equal(2);
-        events.map(e => e.uid).should.eql([6, 11]);
+        assert(total === 2);
+        assert.deepEqual(
+          events.map(e => e.uid),
+          [6, 11]
+        );
       });
 
 
@@ -93,9 +100,11 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({ countryCode: 'CH' });
 
-        total.should.equal(1)
-
-        events.map(e => e.slug).should.eql(['evenement_suisse']);
+        assert.equal(total, 1);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['evenement_suisse']
+        );
       });
 
 
@@ -105,9 +114,11 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({ keyword: 'word' });
 
-        total.should.equal(1);
-
-        events.map(e => e.slug).should.eql(['keyword_event']);
+        assert.equal(total, 1);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['keyword_event']
+        );
       });
 
 
@@ -117,9 +128,11 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({ keyword: ['autre', 'clé'] });
 
-        total.should.equal(1);
-
-        events.map(e => e.slug).should.eql(['keyword_event_2']);
+        assert.equal(total, 1);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['keyword_event_2']
+        );
       });
 
 
@@ -129,9 +142,11 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({ lang: 'de' });
 
-        total.should.equal(1);
-
-        events.map(e => e.slug).should.eql(['german_event']);
+        assert.equal(total, 1);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['german_event']
+        );
       });
 
 
@@ -177,9 +192,11 @@ describe('02 - event search - functional: search', function() {
   
         const expectedFields = service.getConfig().baseSearchIncludes.concat(postParseFields).map(f => f.split('.')[0]);
   
-        _.keys(events[0])
-          .filter(field => !expectedFields.includes(field))
-          .should.eql([]);
+        assert.deepEqual(
+          Object.keys(events[0])
+            .filter(field => !expectedFields.includes(field)),
+          []
+        );
       });
   
       it('by default, event timings are converted to local timezone', async () => {
@@ -191,8 +208,11 @@ describe('02 - event search - functional: search', function() {
         }, null, {
           detailed: true
         });
-  
-        events[0].timings[0].begin.should.equal('2016-10-24T14:00:00+02:00');
+
+        assert.equal(
+          events[0].timings[0].begin,
+          '2016-10-24T14:00:00+02:00'
+        );
       });
   
       it('by default, undetailed search returns location name, address, latitude and longitude', async () => {
@@ -203,7 +223,10 @@ describe('02 - event search - functional: search', function() {
           uid: 6
         });
   
-        _.keys(events[0].location).sort().should.eql(['address', 'latitude', 'longitude', 'name']);
+        assert.deepEqual(
+          Object.keys(events[0].location).sort(),
+          ['address', 'latitude', 'longitude', 'name']
+        );
       });
   
       it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
@@ -221,8 +244,8 @@ describe('02 - event search - functional: search', function() {
           'dateRange',
           'country',
           'longDescription'
-      ].map(f => events[0][f]).forEach(data => {
-          (typeof data).should.equal('string');
+        ].map(f => events[0][f]).forEach(data => {
+          assert.equal(typeof data, 'string');
         });
       });
   
@@ -234,22 +257,25 @@ describe('02 - event search - functional: search', function() {
           detailed: true
         });
 
-        Object.keys(events[0]).should.eql([
-          'longDescription',  'country',
-          'private',          'keywords',
-          'accessibility',    'dateRange',
-          'timezone',         'originAgenda',
-          'description',      'title',
-          'onlineAccessLink', 'uid',
-          'createdAt',        'draft',
-          'timings',          'member',
-          'state',            'slug',
-          'updatedAt',        'image',
-          'attendanceMode',   'creatorUid',
-          'registration',     'location',
-          'age',              'lastTiming',
-          'nextTiming'
-        ]);
+        assert.deepEqual(
+          Object.keys(events[0]),
+          [
+            'longDescription',  'country',
+            'private',          'keywords',
+            'accessibility',    'dateRange',
+            'timezone',         'originAgenda',
+            'description',      'title',
+            'onlineAccessLink', 'uid',
+            'createdAt',        'draft',
+            'timings',          'member',
+            'state',            'slug',
+            'updatedAt',        'image',
+            'attendanceMode',   'creatorUid',
+            'registration',     'location',
+            'age',              'lastTiming',
+            'nextTiming'
+          ]
+        );
       });
     });
 
@@ -261,15 +287,16 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           search: 'Mississipi'
         });
-  
-        total.should.equal(3);
-  
-        events.map(e => e.slug).should.eql(['multi_1', 'multi_2', 'multi_3']);
+        
+        assert.equal(total, 3);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['multi_1', 'multi_2', 'multi_3']
+        );
       });
   
       it('search on word with apostrophe', async () => {
         const {
-          events,
           total
         } = await service('simple_search').search({
           search: 'Horreur'
@@ -289,7 +316,6 @@ describe('02 - event search - functional: search', function() {
         assert.equal(total, 1);
       });
   
-  
       it('open search on a city name', async () => {
         const {
           events,
@@ -299,8 +325,10 @@ describe('02 - event search - functional: search', function() {
         });
   
         assert.equal(total, 1);
-  
-        events.map(e => e.slug).should.eql(['quimper_event']);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['quimper_event']
+        );
       });
   
       it('open search on country name in french', async () => {
@@ -310,10 +338,12 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           search: 'Suisse'
         });
-  
-        total.should.equal(1)
-  
-        events.map(e => e.slug).should.eql(['evenement_suisse']);
+
+        assert.equal(total, 1);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['evenement_suisse']
+        );
       });
   
       it('open search on country name in english', async () => {
@@ -323,10 +353,28 @@ describe('02 - event search - functional: search', function() {
         } = await service('simple_search').search({
           search: 'Switzerland'
         });
-  
-        total.should.equal(1)
-  
-        events.map(e => e.slug).should.eql(['evenement_suisse']);
+
+        assert.equal(total, 1);
+        assert.deepEqual(
+          events.map(e => e.slug),
+          ['evenement_suisse']
+        );
+      });
+
+      it('Search prioritizes title field', async () => {
+        const {
+          events
+        } = await service('simple_search').search({
+          state: null,
+          search: 'Les chaussettes de l\'Archiduchesse'
+        }, {
+          size: 3
+        });
+
+        assert.deepEqual(
+          events.map(e => e.uid),
+          [9876, 45747, 9879]
+        );
       });
     });
 
@@ -369,9 +417,9 @@ describe('02 - event search - functional: search', function() {
           keyword: 'local_time'
         }
 
-        let { total } = await service('simple_search').search(query);
+        const { total } = await service('simple_search').search(query);
 
-        total.should.equal(2);
+        assert.equal(total, 2);
       });
 
       it('before 11am', async () => {
@@ -382,9 +430,9 @@ describe('02 - event search - functional: search', function() {
           }
         };
 
-        let { total } = await service('simple_search').search(query);
+        const { total } = await service('simple_search').search(query);
 
-        total.should.equal(0);
+        assert.equal(total, 0);
       });
 
       it('after 11am', async () => {
@@ -397,7 +445,7 @@ describe('02 - event search - functional: search', function() {
 
         let { total } = await service('simple_search').search(query);
 
-        total.should.equal(2);
+        assert.equal(total, 2);
       });
 
       it('after 11am, before 12am', async () => {
@@ -414,9 +462,8 @@ describe('02 - event search - functional: search', function() {
           events
         } = await service('simple_search').search(query);
 
-        total.should.equal(1);
-
-        events[0].slug.should.equal('local_time_1');
+        assert.equal(total, 1);
+        assert.equal(events[0].slug, 'local_time_1');
       });
 
       it('after 12am', async () => {
@@ -427,16 +474,14 @@ describe('02 - event search - functional: search', function() {
           }
         };
 
-        let {
+        const {
           total,
           events
         } = await service('simple_search').search(query);
 
-        total.should.equal(1);
-
-        events[0].slug.should.equal('local_time_2');
+        assert.equal(total, 1);
+        assert.equal(events[0].slug, 'local_time_2');
       });
-
     });
 
     describe('date', () => {
@@ -447,9 +492,9 @@ describe('02 - event search - functional: search', function() {
           keyword: 'date_event'
         }
 
-        let { total } = await service('simple_search').search(query);
+        const { total } = await service('simple_search').search(query);
 
-        total.should.equal(2);
+        assert.equal(total, 2);
       });
 
       it('after 2000', async () => {
@@ -461,11 +506,10 @@ describe('02 - event search - functional: search', function() {
           }
         }
 
-        let { total, events } = await service('simple_search').search(query);
+        const { total, events } = await service('simple_search').search(query);
 
-        total.should.equal(1);
-
-        events[0].slug.should.equal('date_2');
+        assert.equal(total, 1);
+        assert.equal(events[0].slug, 'date_2');
       });
 
       it('before 2000', async () => {
@@ -479,9 +523,8 @@ describe('02 - event search - functional: search', function() {
 
         let { total, events } = await service('simple_search').search(query);
 
-        total.should.equal(1);
-
-        events[0].slug.should.equal('date_1');
+        assert.equal(total, 1);
+        assert.equal(events[0].slug, 'date_1');
       });
 
       it('relative search: greater than today', async () => {
@@ -493,7 +536,7 @@ describe('02 - event search - functional: search', function() {
           }
         });
 
-        total.should.equal(3);
+        assert.equal(total, 3);
       });
 
     });
@@ -510,7 +553,7 @@ describe('02 - event search - functional: search', function() {
           aggregations: ['keywords', 'timings']
         });
 
-        aggregations.should.eql({
+        assert.deepEqual(aggregations, {
           keywords: [
             { key: 'clé', eventCount: 1 },
             { key: 'key', eventCount: 1 },
@@ -531,13 +574,12 @@ describe('02 - event search - functional: search', function() {
           aggregations: 'eventsByDateRanges'
         });
 
-        total.should.equal(1);
+        assert.equal(total, 1);
 
         // one day for each. Depends of the month
-        aggregations.eventsByDateRanges.length.should.aboveOrEqual(28);
-        aggregations.eventsByDateRanges.length.should.belowOrEqual(31);
-
-        aggregations.eventsByDateRanges.filter(h => h.eventCount !== 0).length.should.equal(0);
+        assert(aggregations.eventsByDateRanges.length >= 28);
+        assert(aggregations.eventsByDateRanges.length <= 31);
+        assert(aggregations.eventsByDateRanges.filter(h => h.eventCount !== 0).length === 0);
       });
 
 
@@ -554,11 +596,9 @@ describe('02 - event search - functional: search', function() {
           aggregations: 'eventsByDateRanges'
         });
 
-        aggregations.eventsByDateRanges.length.should.equal(30);
-
-        aggregations.eventsByDateRanges[0].eventCount.should.equal(1);
-
-        aggregations.eventsByDateRanges[0].sampleEvents[0].uid.should.equal(14);
+        assert.equal(aggregations.eventsByDateRanges.length, 30);
+        assert.equal(aggregations.eventsByDateRanges[0].eventCount, 1);
+        assert.equal(aggregations.eventsByDateRanges[0].sampleEvents[0].uid, 14);
       });
     });
 
@@ -577,7 +617,7 @@ describe('02 - event search - functional: search', function() {
 
         return new Promise(rs => {
           stream.on('end', () => {
-            count.should.equal(total);
+            assert.equal(count, total);
             rs();
           });
         });
@@ -606,9 +646,10 @@ describe('02 - event search - functional: search', function() {
         stream.on('data', event => {});
 
         stream.on('reloading', data => {
-
-          _.keys(data).should.eql(['cursor', 'total']);
-
+          assert.deepEqual(
+            Object.keys(data),
+            ['cursor', 'total']
+          );
         });
 
         return new Promise(rs => stream.on('end', rs));
@@ -630,7 +671,7 @@ describe('02 - event search - functional: search', function() {
 
         return new Promise(rs => {
           stream.on('end', () => {
-            total.should.equal(count+1);
+            assert.equal(total, count+1);
             rs();
           });
         });
@@ -655,9 +696,11 @@ describe('02 - event search - functional: search', function() {
         }
       });
 
-      total.should.equal(1);
-
-      events.map(e => e.slug).should.eql(['verdun_bound_box']);
+      assert.equal(total, 1);
+      assert.deepEqual(
+        events.map(e => e.slug),
+        ['verdun_bound_box']
+      );
     });
 
 
@@ -665,36 +708,39 @@ describe('02 - event search - functional: search', function() {
       const {
         events,
         total
-      } = await service('simple_search').search({ search: 'Trié' });
+      } = await service('simple_search').search({
+        search: 'Trié',
+        sort: 'timings.asc'
+      });
 
-      total.should.equal(5);
-
-      events.map(e => e.slug).should.eql([
-        'nearest_in_the_future_0',
-        'almost_furthest_in_the_future_1',
-        'furthest_in_the_future_2',
-        'nearest_past_event_3',
-        'furthest_past_event_4'
-     ]);
+      assert.equal(total, 5);
+      assert.deepEqual(
+        events.map(e => e.slug),
+        [
+          'nearest_in_the_future_0',
+          'almost_furthest_in_the_future_1',
+          'furthest_in_the_future_2',
+          'nearest_past_event_3',
+          'furthest_past_event_4'
+      ]);
     });
 
     it('sorting works in updatedAt asc order', async () => {
-      const { events, total } = await service('simple_search').search({
+      const { events } = await service('simple_search').search({
         search: 'Trié',
         sort: 'updatedAt.asc'
       }, {}, { detailed: true });
 
       events.forEach((e, i) => {
         if (i === 0) return;
-        e.updatedAt.should.above(events[i - 1].updatedAt);
+        assert(e.updatedAt >= events[i - 1].updatedAt);
       });
     });
 
 
     it('sorting works in updatedAt desc order', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({
         search: 'Trié',
         sort: 'updatedAt.desc'
@@ -705,14 +751,13 @@ describe('02 - event search - functional: search', function() {
       events.forEach((e, i) => {
         if (i === 0) return;
 
-        e.updatedAt.should.below(events[i - 1].updatedAt);
+        assert(e.updatedAt < events[i - 1].updatedAt);
       });
     });
 
     it('sorting works as an array as well: descending on city name', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({
         keyword: 'lieu',
         sort: [
@@ -720,55 +765,58 @@ describe('02 - event search - functional: search', function() {
        ]
       }, {}, { detailed: true });
 
-      events.map(e => _.pick(e, ['location.city']).location?.city).should.eql([
-        'Quimper',
-        'New York',
-        'Grandson',
-        undefined // online event
-     ]);
+      assert.deepEqual(
+        events.map(e => _.pick(e, ['location.city']).location?.city),
+        [
+          'Quimper',
+          'New York',
+          'Grandson',
+          undefined // online event
+        ]
+      );
     });
 
     it('sorting works as an array as well: ascending on city name', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({
         keyword: 'lieu',
         sort: [
           'location.city.asc'
-       ]
+        ]
       }, {}, { detailed: true });
 
-      events.map(e => _.pick(e, ['location.city']).location?.city).should.eql([
-        'Grandson',
-        'New York',
-        'Quimper',
-        undefined // online event
-     ]);
+      assert.deepEqual(
+        events.map(e => _.pick(e, ['location.city']).location?.city),
+        [
+          'Grandson',
+          'New York',
+          'Quimper',
+          undefined // online event
+        ]
+      );
     });
 
 
     it('navigate using from & size returns expected number of events', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({}, { from: 0, size: 4 });
 
-      events.length.should.equal(4);
+      assert.equal(events.length, 4);
     });
 
 
     it('navigate using from & size maintains order', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({}, { from: 0, size: 4 });
 
       let fourth = events[3].uid;
 
       const more = (await service('simple_search').search({}, { from: 3, size: 4 })).events;
 
-      more[0].uid.should.equal(fourth);
+      assert.deepEqual(more[0].uid, fourth);
     });
 
   });
@@ -817,7 +865,6 @@ describe('02 - event search - functional: search', function() {
 
     it('custom field is searched through custom key', async () => {
       const {
-        events,
         total
       } = await service('simple_search').search({
         organizeremail: 'cannes@reedexpo.fr'
@@ -825,17 +872,17 @@ describe('02 - event search - functional: search', function() {
         formSchema
       });
 
-      total.should.equal(1);
+      assert.equal(total, 1);
     });
 
     it('backward compatibility', async () => {
-      const { events, total } = await service('simple_search').search({
+      const { total } = await service('simple_search').search({
         'custom.organizeremail' : 'cannes@reedexpo.fr'
       }, {}, {
         formSchema
       });
 
-      total.should.equal(1);
+      assert.equal(total, 1);
     });
 
     it('extension data is not part of detailed result by default', async () => {
@@ -846,42 +893,48 @@ describe('02 - event search - functional: search', function() {
         'uid' : 15
       }, {}, { detailed: true });
 
-      _.keys(events[0]).includes('custom').should.equal(false);
+      assert.equal(Object.keys(events[0]).includes('custom'), false);
     });
 
 
     it('additional data is part of result', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({
         'organizeremail' : 'cannes@reedexpo.fr'
       }, {}, { detailed: true, formSchema });
 
-      _.keys(events[0]).includes('organizeremail').should.equal(true);
+      assert.equal(
+        Object.keys(events[0]).includes('organizeremail'),
+        true
+      );
     });
 
 
     it('events from a specific agenda can be retrieved based on the agenda uid', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({
         originAgendaUid : 21475128
       }, {}, { detailed: true });
 
-      events[0].originAgenda.uid.should.equal(21475128);
+      assert.equal(
+        events[0].originAgenda.uid,
+        21475128
+      );
     });
 
     it('events matching a selection of origin agendas', async () => {
       const {
-        events,
-        total
+        events
       } = await service('simple_search').search({
         originAgendaUid : [21475128, 7678114]
       }, {}, { detailed: true });
 
-      _.uniq(events.map(e => e.originAgenda.uid)).sort().should.eql([21475128, 7678114]);
+      assert.deepEqual(
+        _.uniq(events.map(e => e.originAgenda.uid)).sort(),
+        [21475128, 7678114]
+      );
     });
 
   });

@@ -1,0 +1,20 @@
+{
+  "unsubscribedSuccess": "crwdns14962:0crwdne14962:0",
+  "unsubscribedFail": "crwdns14964:0crwdne14964:0",
+  "unsubscribeFromNotification": "crwdns14966:0crwdne14966:0",
+  "unsubscribeFromAllNotifications": "crwdns14968:0crwdne14968:0",
+  "notificationTitle": "crwdns14970:0crwdne14970:0",
+  "seeAgenda": "crwdns14972:0crwdne14972:0",
+  "seeEvent": "crwdns14974:0crwdne14974:0",
+  "agendaEventPublished": "crwdns14976:0%user%crwdnd14976:0%event%crwdne14976:0",
+  "agendaEventSubmitModeration": "crwdns14978:0%user%crwdnd14978:0%event%crwdnd14978:0%agenda%crwdne14978:0",
+  "userNewContributor": "crwdns14980:0%agenda%crwdne14980:0",
+  "agendaNewContributor": "crwdns14982:0%user%crwdnd14982:0%agenda%crwdne14982:0",
+  "agendaNewAdministrator": "crwdns14984:0%user%crwdnd14984:0%agenda%crwdne14984:0",
+  "userEventUpdate": "crwdns14986:0%user%crwdnd14986:0%event%crwdne14986:0",
+  "userNewAdministrator": "crwdns14988:0%agenda%crwdne14988:0",
+  "userNewModerator": "crwdns14990:0%agenda%crwdne14990:0",
+  "agendaNewModerator": "crwdns14992:0%user%crwdnd14992:0%agenda%crwdne14992:0",
+  "agendaNewAggregator": "crwdns14994:0%aggregator%crwdnd14994:0%agenda%crwdne14994:0",
+  "agendaEventUpdate": "crwdns14996:0%agenda%crwdnd14996:0%event%crwdnd14996:0%user%crwdne14996:0"
+}

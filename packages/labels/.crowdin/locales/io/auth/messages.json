@@ -1,0 +1,11 @@
+{
+  "isBlacklisted": "crwdns13094:0crwdne13094:0",
+  "isBlacklistedInfo": "crwdns13096:0crwdne13096:0",
+  "authRequired": "crwdns13098:0crwdne13098:0",
+  "limitedAccessEvent": "crwdns13100:0crwdne13100:0",
+  "limitedAccessAgenda": "crwdns13102:0crwdne13102:0",
+  "abortedAuth": "crwdns13104:0%service%crwdne13104:0",
+  "facebookEmailMissing": "crwdns13106:0crwdne13106:0",
+  "genericError": "crwdns13108:0crwdne13108:0",
+  "accountEmailAlreadyExists": "crwdns13110:0crwdne13110:0"
+}

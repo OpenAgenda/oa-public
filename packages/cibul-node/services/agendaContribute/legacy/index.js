@@ -6,6 +6,7 @@ const getLabel = require('@openagenda/labels/makeLabelGetter')(
   require('@openagenda/labels/event/addEvent')
 );
 const layouts = require('../../lib/layouts');
+const config = require('../../../config');
 
 const renderAddEvent = _.template(
   require('fs').readFileSync(__dirname + '/addEvent.tpl', 'utf-8')
@@ -42,16 +43,28 @@ module.exports = app => {
       );
     },
     (req, res, next) => {
+      const layoutData = {
+        agenda: req.agenda,
+        lang: req.lang,
+        title: '/addevent'
+      };
+
+      layoutData.translateMode = Boolean(req.cookies.translateMode);
+      layoutData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+      if (req.cookies.translateMode) {
+        layoutData.scripts.top = [
+          { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+          { src: '//cdn.crowdin.com/jipt/jipt.js' }
+        ];
+      }
+
       res.send(layouts.agenda(renderAddEvent({
         title: getLabel('title', req.lang),
         message: marked(getLabel('message', req.lang)),
         support: getLabel('support', req.lang),
         supportLink: `/support?origin=${encodeURIComponent(`/${req.agenda.slug}/addevent`)}`
-      }), {
-        agenda: req.agenda,
-        lang: req.lang,
-        title: '/addevent'
-      }));
+      }), layoutData));
     }
   );
 

@@ -35,7 +35,9 @@ module.exports = async (service, items = [], decorate = []) => {
       item.member = _.find(members, { userUid: item.userUid });
     }
     if (sourceAgendas) {
-      item.sourceAgendas = getPathLeaves(item).map(uid => _.find(sourceAgendas, { uid }));
+      item.sourceAgendas = getPathLeaves(item)
+        .map(uid => _.find(sourceAgendas, { uid }))
+        .filter(uid => !!uid);
     }
   });
 }

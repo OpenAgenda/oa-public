@@ -1,0 +1,11 @@
+{
+  "upload": "Upload an image",
+  "update": "Update the image",
+  "error": "A problem occurred during the upload. Please try again",
+  "tip": "Drag and drop an image in the grayed area.",
+  "replace": "Replace the file",
+  "loading": "Upload ongoing",
+  "remove": "Remove",
+  "or": "OR",
+  "acceptedExtensions": "Accepted files"
+}

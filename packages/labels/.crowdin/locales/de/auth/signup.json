@@ -1,0 +1,21 @@
+{
+  "usedAccount": "Dieses Servicekonto ist bereits in Gebrauch.",
+  "fieldCannotBeEmpty": "Dieses Feld darf nicht leer sein.",
+  "usedEmail": "Diese E-Mail ist bereits in Verwendung.",
+  "invalidEmail": "Die E-Mail ist nicht gültig.",
+  "passwordTooShort": "Passwort ist zu kurz",
+  "passwordNotEqual": "Die Passwörter sind nicht identisch.",
+  "createAccount": "Ein Konto erstellen",
+  "captchaTryAgain": "Versuche dies noch einmal",
+  "hasAccount": "Schon registriert ?",
+  "connect": "Anmelden",
+  "nameSurname": "Vorname Nachname",
+  "email": "E-Mail",
+  "password": "Passwort",
+  "repeatPassword": "Passwort wiederholen",
+  "signup": "Registriere dich",
+  "agree": "Mit der Erstellung eines Kontos, akzeptieren Sie den %terms% und der %policy%.",
+  "termsOfUse": "Nutzungsbedingungen",
+  "policy": "Datenschutzerklärung",
+  "culture": "Sprache"
+}

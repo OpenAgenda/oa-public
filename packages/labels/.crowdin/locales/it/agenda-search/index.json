@@ -1,0 +1,16 @@
+{
+  "official": "agenda ufficiale",
+  "latestUpdated": "Agende aggiornate di recente",
+  "results": "Risultati della ricerca per \"%search%\".",
+  "searchTitle": "Ricerca del diario",
+  "genericSearchTitle": "Risultati della ricerca del diario",
+  "found": "Trovati %count% diari",
+  "empty": "Spiacenti, nessun agenda corrisponde a questa ricerca",
+  "publishedEvent": "1 evento passato",
+  "publishedEvents": "%sconto% eventi passati",
+  "upcomingEvent": "1 evento imminente",
+  "upcomingEvents": "%sconto% eventi in programma",
+  "loadPrevious": "Carica i risultati precedenti",
+  "loadNext": "Caricare i seguenti risultati",
+  "addEvent": "Aggiungi un evento"
+}

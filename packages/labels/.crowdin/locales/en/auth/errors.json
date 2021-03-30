@@ -1,0 +1,15 @@
+{
+  "noAccountFound": "No account was found",
+  "accountAlreadyActivated": "The account is already activated",
+  "incorrectPassword": "This password is incorrect",
+  "invalidToken": "Invalid token",
+  "userNotFound": "User not found",
+  "userNotActivated": "User not activated",
+  "userAlreadyActivated": "User already activated",
+  "passwordsMustMatch": "Password must match.",
+  "fieldCannotBeEmpty": "Field cannot be empty",
+  "passwordCouldNotBeModified": "The password could not be modified",
+  "passwordResetSent": "A password reset is being sent to your email",
+  "resetLinkOutdated": "The link is outdated. Try again.",
+  "passwordUpdated": "Your password has been updated."
+}

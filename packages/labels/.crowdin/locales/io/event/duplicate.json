@@ -1,0 +1,13 @@
+{
+  "createAgenda": "crwdns14118:0crwdne14118:0",
+  "searchAgenda": "crwdns14120:0crwdne14120:0",
+  "officialAgenda": "crwdns14122:0crwdne14122:0",
+  "noResult": "crwdns14124:0crwdne14124:0",
+  "searchEvent": "crwdns14126:0crwdne14126:0",
+  "selectAgenda": "crwdns14128:0crwdne14128:0",
+  "privateAgenda": "crwdns14130:0crwdne14130:0",
+  "or": "crwdns14132:0crwdne14132:0",
+  "modalBigSentence": "crwdns14134:0crwdne14134:0",
+  "modalReminder": "crwdns14136:0crwdne14136:0",
+  "createNewEventIn": "crwdns14138:0crwdne14138:0"
+}

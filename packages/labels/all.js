@@ -1,71 +1,32 @@
 "use strict";
 
-const fs = require( 'fs' );
-const path = require( 'path' );
+const path = require('path');
+const getLabelFiles = require('./getLabelFiles');
 
 module.exports = getAllLabels();
 
 function getAllLabels() {
   let result = {};
-  let files = getLabelsDirectories();
+  let files = getLabelFiles();
 
-  for ( let file of files ) {
+  for (let file of files) {
 
-    let branches = path.dirname( file ).split( '/' );
+    let branches = path.dirname(file).split('/');
     let currentBranch;
     let currentPos = result;
 
-    while ( currentBranch = branches.shift() ) {
+    while (currentBranch = branches.shift()) {
 
-        currentPos[ currentBranch ] = Object.assign(
-          currentPos[ currentBranch ] || {},
-          { [path.basename( file ).replace( '.js', '' )]: require( './' + file ) }
-        );
+      currentPos[currentBranch] = Object.assign(
+        currentPos[currentBranch] || {},
+        { [path.basename(file).replace('.js', '')]: require('./' + file) }
+      );
 
-      currentPos = currentPos[ currentBranch ];
+      currentPos = currentPos[currentBranch];
 
     }
 
   }
 
   return result;
-}
-
-function getLabelsDirectories() {
-  let results = [];
-  let files = fs.readdirSync( __dirname );
-
-  for ( let file of files ) {
-    let stats = fs.statSync( path.join( __dirname, file ) );
-
-    if ( stats.isDirectory() && !~[ 'node_modules', '.git', '.idea', '.crowdin', 'test', 'lib' ].indexOf( file ) ) {
-      results = results.concat( walkSync( file ) );
-    }
-  }
-
-  return results;
-}
-
-function walkSync( dir ) {
-  let results = [];
-  let files = fs.readdirSync( path.join( __dirname, dir ) );
-
-  let i = 0;
-  (function next() {
-    let file = files[ i++ ];
-    if ( !file ) return results;
-
-    file = dir + '/' + file;
-
-    let stat = fs.statSync( path.join( __dirname, file ) );
-    if ( stat && stat.isDirectory() ) {
-      results = results.concat( walkSync( file ) );
-      next();
-    } else {
-      results.push( file );
-      next();
-    }
-  })();
-
-  return results;
 }

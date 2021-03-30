@@ -42,7 +42,6 @@ module.exports = async (req, res, next) => {
 
 module.exports.edit = async (req, res, next) => {
   const {
-    agendaEvents,
     core
   } = req.app.services;
 

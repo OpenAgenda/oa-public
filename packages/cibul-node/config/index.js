@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.DEBUG='oa:requests:incoming, oa:core*, oa:services/agendaContribute*';
-
 const _ = require('lodash');
 const fs = require('fs');
 const redis = require('redis');
@@ -152,10 +150,10 @@ const config = {
         key: prod.twitter.key,
         secret: prod.twitter.secret
       } || null,
-      google: prod.google && {
-        id: prod.googleApps.id,
-        secret: prod.googleApps.secret
-      } || null,
+      google: prod?.googleApps || process.env.OA_OAUTH_GOOGLE_ID ? {
+        id: prod?.googleApps?.id || process.env.OA_OAUTH_GOOGLE_ID,
+        secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET
+      } : null,
     },
     slackApp: {
       signingSecret: _.get(prod, 'slackApp.signingSecret'),
@@ -298,6 +296,12 @@ const config = {
     comexposium: {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
+    translators: [ // user uids for crowdin translators
+      31046551,
+      75052324,
+      99999999,
+      55507091
+    ],
     routes: {
       globals: {
         agendaFeed: {
@@ -321,8 +325,7 @@ const config = {
         },
         agendaEventAdminNavigate: {
           method: 'get',
-          uri: '/:slug/admin/navigate',
-          legacy: true
+          uri: '/:slug/admin/events/navigate'
         },
         agendaAdminWeb: {
           method: 'get',
@@ -795,8 +798,8 @@ const config = {
         secret: 'kstpqny90OSAQuaqrblDJXtv51B6jO4NO8j3TbdgErZa5RyDDt'
       },
       google: {
-        id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',
-        secret: 'VmmU8IWHXKT_BGXghqrvFyXI'
+        id: process.env.OA_OAUTH_GOOGLE_ID,
+        secret: process.env.OA_OAUTH_GOOGLE_SECRET
       }
     },
     slackApp: {
@@ -878,29 +881,15 @@ const config = {
     auth: {
       facebook: {
         id: '160151044018305',
-        secret: '12f736eeec5b1be1ee3bf5705e65aa7a',
-        testAccount: {
-          email: 'gaetan@cibul.net',
-          password: 'cibulon'
-        }
+        secret: '12f736eeec5b1be1ee3bf5705e65aa7a'
       },
       twitter: {
         key: 'hMcfdN7tfpzdfvTAeGUQ',
-        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc',
-        testAccount: {
-          email: 'gaetan@cibul.net',
-          password: 'cibulon',
-          id: 341470576
-        }
+        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc'
       },
       google: {
-        id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',
-        secret: 'VmmU8IWHXKT_BGXghqrvFyXI',
-        testAccount: {
-          email: 'gaetanlatouche79@gmail.com',
-          password: 'cibulon79',
-          id: 110557384511109386749
-        }
+        id: null,
+        secret: null
       }
     },
     es: {

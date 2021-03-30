@@ -1,6 +1,7 @@
 'use strict';
 
 const NotFoundError = require('../../utils/NotFoundError');
+const log = require('@openagenda/logs')('core/agendas/events/search');
 
 module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const agenda = await core.agendas(agendaUid).get({
@@ -57,24 +58,28 @@ module.exports.resyncEvent = async (core, agendaUid, eventUid, options = {}) => 
     throwOnError: true,
     ...options
   }
-  const eventPayload = await core.agendas(agendaUid).events.get(eventUid, {
-    internal: true,
-    detailed: true,
-    returnPayload: true
-  });
-
-  if (!eventPayload && throwOnError) {
-    throw new NotFoundError('event', eventUid);
-  }
-
-  if (!eventPayload) {
-    return;
-  }
-
-  return core.services.eventSearch.update(eventPayload)
-    .catch(err => {
-      if (throwOnError) {
-        throw err;
-      }
+  try {
+    const eventPayload = await core.agendas(agendaUid).events.get(eventUid, {
+      internal: true,
+      detailed: true,
+      returnPayload: true
     });
+
+    if (!eventPayload && throwOnError) {
+      throw new NotFoundError('event', eventUid);
+    }
+
+    if (!eventPayload) {
+      return;
+    }
+
+    log('resyncing event %s on index of agenda %s', eventUid, agendaUid);
+
+    const result = await core.services.eventSearch.update(eventPayload);
+
+    return result;
+  } catch (err) {
+    if (throwOnError) throw err;
+    log('error', err);
+  }
 }

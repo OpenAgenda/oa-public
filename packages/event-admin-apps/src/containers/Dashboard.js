@@ -39,6 +39,8 @@ import DownloadLink from '../components/DownloadLink';
 import exportsMessages from '../messages/exports';
 import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
+import removeQueryPrefix from '../utils/removeQueryPrefix';
+import addQueryPrefix from '../utils/addQueryPrefix';
 
 const PAGE_SIZE = 20;
 
@@ -132,32 +134,6 @@ const messages = defineMessages({
   },
 });
 
-function addQueryPrefix(query, prefix = 'q.') {
-  const result = {};
-
-  for (const key in query) {
-    if (Object.prototype.hasOwnProperty.call(query, key)) {
-      result[`${prefix}${key}`] = query[key];
-    }
-  }
-
-  return result;
-}
-
-function removeQueryPrefix(query, prefix = 'q.') {
-  const result = {};
-
-  for (const key in query) {
-    if (Object.prototype.hasOwnProperty.call(query, key)) {
-      if (key.startsWith(prefix)) {
-        result[key.slice(prefix.length)] = query[key];
-      }
-    }
-  }
-
-  return result;
-}
-
 function SearchField({ input, disabled, isLoading }) {
   const intl = useIntl();
 
@@ -250,6 +226,7 @@ function GroupedActions({
   const usedQuery = extendedAllSelected ? query : { uid: [...selectedEvents] };
   const queryString = qs.stringify(usedQuery, {
     addQueryPrefix: true,
+    arrayFormat: 'brackets',
     skipNulls: true,
   });
 
@@ -815,7 +792,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       </header>
 
       <ul className="list-unstyled">
-        {data.events.map(event => (
+        {data.events.map((event, index) => (
           <EventItem
             key={event.uid}
             agenda={agenda}
@@ -824,6 +801,11 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             selected={isSelectedEvent(event.uid)}
             selectEvent={selectEvent}
             selectionMode={selectMode || !!selectedEvents.size}
+            query={query}
+            page={page}
+            index={index}
+            isFirst={(page - 1) * PAGE_SIZE + index === 0}
+            isLast={(page - 1) * PAGE_SIZE + index === data.total - 1}
           />
         ))}
       </ul>

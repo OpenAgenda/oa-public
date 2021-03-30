@@ -1,5 +1,8 @@
 <html>
   <head>
+<% if (controlData) { %>
+    <script type="text/javascript">window.testControlData = '<%= controlData %>'</script>
+<% } %>
 <% js.forEach( function( jsPath ) { %>
   <script type="text/javascript" src="<%= jsPath %>"></script>
 <% }) %>
@@ -9,8 +12,17 @@
     <div style="width:400px; margin: 2em auto;">
       <% if (story === 'default') { %>
         <p>Map with basic settings should encompass all locations</p>
-        <div class="cbpgmp cibulMap"
+        <div class="cibulMap"
+          data-oamp
           data-cbctl="48959239/46744426|fr"
+        ></div>
+      <% } else if (story === 'autoOn') { %>
+        <strong>Map with data-auto on</strong>
+        <p>Map should refresh filter on move</p>
+        <div class="cibulMap"
+          data-oamp
+          data-cbctl="48959239/46744426|fr"
+          data-auto="true"
         ></div>
       <% } else if (story === 'coords') { %>
         <strong>Map with data-coords</strong>
@@ -44,6 +56,29 @@
           data-cbctl="48959239/46744426|fr"
           data-tiles="https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750"
         ></div>
+      <% } else if (story === 'autoWithActiveFilters') { %>
+        <strong>Map initialized with auto on and active filters</strong>
+        <p>Zooming on a marker and then unselecting the active "map" badge should not make other markers disappear</p>
+        <div class="cbpgmp cibulMap"
+          data-cbctl="48959239/46744426|fr"
+          data-auto="on"
+        ></div>
+        <div>--------------------</div>
+        <div class="row filters cbpgft" data-cbctl="48959239/46744426|fr"></div>
+        <script type="text/javascript" src="//openagenda.com/js/embed/oaActiveFilters.js"></script>
+      <% } else if (story === 'bisounours') { %>
+        <script type="text/javascript">window.testControlData = 'fdsqfdsq.json'</script>
+        <strong>Bah voilà</strong>
+        <div
+          class="cibulMap"
+          data-tiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          data-oamp
+          data-cbctl="13988937"
+          data-lang="fr"
+          data-auto="true" 
+          data-event-uid=7949707
+          data-zoom=12>
+        </div>
       <% } %>
     </div>
   </body>

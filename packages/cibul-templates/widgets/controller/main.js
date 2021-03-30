@@ -82,6 +82,8 @@ if ( !window.cibul ) {
 
   }
 
+  window.oa = Object.assign(window.oa || {}, window.cibul);
+
 
 
   /**

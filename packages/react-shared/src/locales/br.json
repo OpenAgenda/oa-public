@@ -1,10 +1,3 @@
 {
-  "ReactShared.ImageInput.acceptedFiles": "",
-  "ReactShared.ImageInput.fileTooLarge": "",
-  "ReactShared.ImageInput.fileTooSmall": "",
-  "ReactShared.ImageInput.notSupported": "",
-  "ReactShared.ImageInput.remove": "",
-  "ReactShared.ImageInput.tooManyFiles": "",
-  "ReactShared.ImageInput.update": "",
-  "ReactShared.ImageInput.upload": ""
+  "ReactShared.ImageInput.remove": "Lemel"
 }

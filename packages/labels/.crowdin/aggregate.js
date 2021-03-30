@@ -1,43 +1,38 @@
 'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
-const all = require('../all');
+const mkdirp = require('mkdirp');
+const getLabelFiles = require('../getLabelFiles');
 
-const DEFAULT_LANG = 'en';
-const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br'];
+const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
-const defaultLocales = toFlatPropertyMap(all, DEFAULT_LANG);
+const labelFiles = getLabelFiles();
 
 for (const lang of LANGS) {
-  const locales = {
-    ..._.mapValues(defaultLocales, () => null),
-    ...toFlatPropertyMap(all, lang)
-  };
+  for (const labelFile of labelFiles) {
+    const labels = require(path.join(__dirname, '..', labelFile));
+    const locales = getLocaleLabels(labels, lang);
 
-  fs.writeFileSync(path.join(__dirname, 'locales', `${lang}.json`), JSON.stringify(locales, null, 2));
+    const dirname = path.dirname(labelFile);
+    const fileName = labelFile.replace(/\.js$/, '.json');
+
+    mkdirp.sync(path.join(__dirname, 'locales', lang, dirname));
+
+    fs.writeFileSync(path.join(__dirname, 'locales', lang, fileName), JSON.stringify(locales, null, 2));
+  }
 }
 
-function toFlatPropertyMap(obj, neededKey = '', keySeparator = '|') {
-  const flattenRecursive = (obj, parentProperty, propertyMap = {}) => {
-    for (const [key, value] of Object.entries(obj)) {
-      const property = parentProperty ? `${parentProperty}${keySeparator}${key}` : key;
+function getLocaleLabels(labels, lang) {
+  const result = {};
 
-      if (key === neededKey) {
-        const property = parentProperty || '';
-        propertyMap[property] = value;
+  for (const key in labels) {
+    const value = labels[key][lang];
 
-        continue;
-      }
-
-      if (value && typeof value === 'object') {
-        flattenRecursive(value, property, propertyMap);
-      }
+    if (value) {
+      result[key] = value;
     }
+  }
 
-    return propertyMap;
-  };
-
-  return flattenRecursive(obj);
+  return result;
 }

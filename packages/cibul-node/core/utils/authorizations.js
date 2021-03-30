@@ -88,6 +88,10 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, prom
     includeImagePath: true
   });
 
+  if (!member) {
+    log('getForUserOnAgenda - user %s is not a member of %s', userUid, agendaUid);
+  }
+
   if (member) {
     return fromMember(
       core,
@@ -102,6 +106,8 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, prom
       event ? await agenda.changeEventState(agenda.uid).get(event.uid) : null,
       promisedAccess
     );
+  } else {
+    return [];
   }
 }
 

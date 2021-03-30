@@ -52,7 +52,6 @@ describe('events - functional - create', function() {
     before(async () => {
       try {
         created = await svc.create(data);
-
       } catch (e) {
         console.log(e);
       }
@@ -77,6 +76,10 @@ describe('events - functional - create', function() {
       assert.deepEqual(created.keywords, {
         en: ['One', 'Two', 'Three']
       });
+    });
+
+    it('if timezone is not specified, defaults to Europe/Paris', async () => {
+      assert.equal(created.timezone, 'Europe/Paris');
     });
   });
 
@@ -181,7 +184,7 @@ describe('events - functional - create', function() {
 
   });
 
-  describe('other', () => {
+  describe('timings', () => {
 
     it('using datehourminutes format', async () => {
       const event = await svc.create({
@@ -205,6 +208,56 @@ describe('events - functional - create', function() {
 
       assert.equal(event.timings[0].begin, '2020-10-21T20:10:00.000+02:00');
     });
+
+    it('fix: DHM timing with hours value at 0 is valid', async () => {
+      await svc.create({
+        title: 'Event with datehourminutes timing',
+        description: 'Nope',
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: {
+            date: '2020-10-21',
+            hours: 0,
+            minutes: 0
+          },
+          end: {
+            date: '2020-10-21',
+            hours: 23,
+            minutes: 59
+          }
+        }]
+      });
+    });
+
+    it('if timezone is unspecified but location object with timezone is provided, location timezone is used', async () => {
+      const created = await svc.create({
+        ...data,
+        location: {
+          ...data.location,
+          timezone: 'America/Vancouver'
+        }
+      });
+
+      assert.equal(created.timezone, 'America/Vancouver');
+    });
+
+    it('if timezone is specified, it is preferred over timezone present in location object', async () => {
+      const created = await svc.create({
+        ...data,
+        timezone: 'Asia/Tokyo',
+        location: {
+          ...data.location,
+          timezone: 'America/Vancouver'
+        }
+      });
+
+      assert.equal(created.timezone, 'Asia/Tokyo');
+    });
+
+  });
+
+  describe('other', () => {
 
     it('draft create does not require all fields to be specified', async () => {
       try {
@@ -291,26 +344,6 @@ describe('events - functional - create', function() {
 
     });
 
-    it('fix: DHM timing with hours value at 0 is valid', async () => {
-      await svc.create({
-        title: 'Event with datehourminutes timing',
-        description: 'Nope',
-        attendanceMode: 2,
-        onlineAccessLink: 'https://openagenda.com',
-        timings: [{
-          begin: {
-            date: '2020-10-21',
-            hours: 0,
-            minutes: 0
-          },
-          end: {
-            date: '2020-10-21',
-            hours: 23,
-            minutes: 59
-          }
-        }]
-      });
-    });
   });
 
 })

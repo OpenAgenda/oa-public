@@ -1,0 +1,11 @@
+{
+  "connection": "Connection",
+  "incorrectPassword": "Your email or password is incorrect.",
+  "resetPassword": "Reset your password",
+  "email": "Email",
+  "password": "Password",
+  "signin": "Sign in",
+  "lostPassword": "I lost my password",
+  "noAccount": "Don't have an account yet?",
+  "createAccount": "Create one!"
+}

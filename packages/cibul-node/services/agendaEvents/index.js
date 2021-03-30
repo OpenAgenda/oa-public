@@ -3,7 +3,7 @@
 const express = require('express');
 const AgendaEvents = require('@openagenda/agenda-events');
 const eventStates = require('@openagenda/agendas/service/validate/eventStates');
-
+const log = require('@openagenda/logs')('services/agendaEvents');
 const beforeRemove = require('./beforeRemove');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
@@ -18,7 +18,8 @@ const mw = {
   changeState: require('./middleware/changeState'),
   changeFeatured: require('./middleware/changeFeatured'),
   toggleCancelled: require('./middleware/toggleCancelled'),
-  batch: require('./middleware/batch')
+  batch: require('./middleware/batch'),
+  navigate: require('./middleware/navigate')
 }
 
 module.exports = Object.assign(plugApp, {
@@ -138,5 +139,13 @@ function plugApp(parentApp) {
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
     mw.batch
+  );
+
+  parentApp.get('/:agendaSlug/admin/events/navigate',
+    sessions.mw.loadOrRedirect(),
+    mw.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
+    members.mw.loadAndAuthorize('moderator'),
+    mw.navigate
   );
 }

@@ -32,31 +32,31 @@
   "react-layouts.MainLayout.help": [
     {
       "type": 0,
-      "value": "Help"
+      "value": "Aiuto"
     }
   ],
   "react-layouts.MainLayout.myAgendas": [
     {
       "type": 0,
-      "value": "My agendas"
+      "value": "Le mie agende"
     }
   ],
   "react-layouts.MainLayout.myEvents": [
     {
       "type": 0,
-      "value": "My events"
+      "value": "I miei eventi"
     }
   ],
   "react-layouts.MainLayout.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Cerca un'agenda"
     }
   ],
   "react-layouts.MainLayout.settings": [
     {
       "type": 0,
-      "value": "Settings"
+      "value": "Impostazioni"
     }
   ],
   "react-layouts.MainLayout.signin": [
@@ -68,13 +68,19 @@
   "react-layouts.MainLayout.signout": [
     {
       "type": 0,
-      "value": "Signout"
+      "value": "Uscire"
+    }
+  ],
+  "react-layouts.MainLayout.translate": [
+    {
+      "type": 0,
+      "value": "Translate"
     }
   ],
   "react-layouts.components.Search.search": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Cerca"
     }
   ]
 }

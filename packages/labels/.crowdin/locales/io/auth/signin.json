@@ -1,0 +1,11 @@
+{
+  "connection": "crwdns13112:0crwdne13112:0",
+  "incorrectPassword": "crwdns13114:0crwdne13114:0",
+  "resetPassword": "crwdns13116:0crwdne13116:0",
+  "email": "crwdns13118:0crwdne13118:0",
+  "password": "crwdns13120:0crwdne13120:0",
+  "signin": "crwdns13122:0crwdne13122:0",
+  "lostPassword": "crwdns13124:0crwdne13124:0",
+  "noAccount": "crwdns13126:0crwdne13126:0",
+  "createAccount": "crwdns13128:0crwdne13128:0"
+}

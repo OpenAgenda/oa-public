@@ -1,8 +1,12 @@
 {
   "base": {
+    "controlData": null
   },
   "default": {
     "story": "default"
+  },
+  "autoOn": {
+    "story": "autoOn"
   },
   "coords": {
     "story": "coords"
@@ -15,5 +19,12 @@
   },
   "tiles": {
     "story": "tiles"
+  },
+  "bisounours": {
+    "controlData": "controldata-bisounours.json",
+    "story": "bisounours"
+  },
+  "autoWithActiveFilters": {
+    "story": "autoWithActiveFilters"
   }
 }

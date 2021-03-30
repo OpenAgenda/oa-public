@@ -1,0 +1,8 @@
+{
+  "newAggregationSubject": "%agenda% aggregated a new event: %event%",
+  "newAggregationBody": "**%event%** from the agenda **%sourceAgenda%** has been aggregated with the state **%state%**",
+  "newAggregationAction": "See the event",
+  "toBeControlled": "to be controlled",
+  "readyToPublish": "ready to publish",
+  "published": "published"
+}

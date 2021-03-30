@@ -1,0 +1,17 @@
+{
+  "title": "Bravo, il tuo programma è pronto!",
+  "someActions": "Poche semplici azioni per iniziare bene la vostra agenda",
+  "addYourFirstEvent": "Aggiungi il tuo primo evento!",
+  "addEvent": "Aggiungi un evento",
+  "addProfileImage": "Aggiungi un'immagine del profilo al tuo calendario",
+  "sendLink": "Invia il link del tuo diario ai tuoi collaboratori!",
+  "copyLinkAndSend": "Copia e incolla questo link e invialo via e-mail o tramite i tuoi social network.",
+  "copyLink": "Copiare il link",
+  "embedYourAgenda": "Integrate la vostra agenda nel vostro sito web",
+  "createEmbedded": "Creare una vista integrata",
+  "needPrivate": "Volete un diario privato? Questa è una nuova funzione, spiegateci il vostro utilizzo.",
+  "requestPrivate": "Richiedi un'agenda privata",
+  "needOfficial": "Volete un agenda ufficiale?",
+  "requestOfficial": "Richiedi un agenda ufficiale",
+  "learnMore": "Per saperne di più"
+}

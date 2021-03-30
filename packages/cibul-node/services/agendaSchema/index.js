@@ -12,6 +12,23 @@ const getSchemaExtensions = require('./interfaces/getSchemaExtensions');
 const setSchemaFields = require('./interfaces/setSchemaFields');
 
 const layouts = require( '../lib/layouts' );
+const config = require( '../../config' );
+
+function layoutData(req, res, next) {
+  req.layoutData = req.cookies.translateMode ? {
+    scripts: {
+      top: [
+        { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+        { src: '//cdn.crowdin.com/jipt/jipt.js' }
+      ]
+    }
+  } : {};
+
+  req.layoutData.translateMode = Boolean(req.cookies.translateMode);
+  req.layoutData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+  return next();
+}
 
 module.exports = parentApp => {
   const {
@@ -31,6 +48,7 @@ module.exports = parentApp => {
     agendas.mw.load,
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('administrator'),
+    layoutData,
     agendaSchemaRouter
   );
 };

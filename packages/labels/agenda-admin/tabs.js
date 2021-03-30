@@ -6,160 +6,184 @@ module.exports = {
     "fr": "Evénements",
     "de": "Veranstaltungen",
     "es": "Eventos",
-    "it": "Eventi"
+    "it": "Eventi",
+    "io": "crwdns11398:0crwdne11398:0"
   },
   "contributors": {
     "en": "Contributors",
     "fr": "Contributeurs",
     "de": "Mitwirkende",
     "es": "Colaboradores",
-    "it": "Collaboratori"
+    "it": "Collaboratori",
+    "io": "crwdns11400:0crwdne11400:0"
   },
   "moderators": {
     "en": "Moderators",
     "fr": "Modérateurs",
     "de": "Moderatoren",
     "es": "Moderadores",
-    "it": "Moderatori"
+    "it": "Moderatori",
+    "io": "crwdns11402:0crwdne11402:0"
   },
   "members": {
     "en": "Members",
     "fr": "Membres",
     "de": "Mitglieder",
     "es": "Miembros",
-    "it": "Membri"
+    "it": "Membri",
+    "br": "Izili",
+    "io": "crwdns11404:0crwdne11404:0"
   },
   "activities": {
     "en": "Activities",
     "fr": "Activités",
     "de": "Aktivitäten",
     "es": "Actividades",
-    "it": "Attività"
+    "it": "Attività",
+    "io": "crwdns11406:0crwdne11406:0"
   },
   "newTab": {
     "en": "New !",
     "fr": "Nouveau !",
     "de": "Neu !",
     "es": "Nuevo!",
-    "it": "Nuovo!"
+    "it": "Nuovo!",
+    "io": "crwdns11408:0crwdne11408:0"
   },
   "locations": {
     "en": "Locations",
     "fr": "Lieux",
     "de": "Standorte",
     "es": "Lugares",
-    "it": "Sedi"
+    "it": "Sedi",
+    "io": "crwdns11410:0crwdne11410:0"
   },
   "categories": {
     "en": "Categories and Tags",
     "fr": "Catégories et Tags",
     "de": "Kategorien und Schlagwörter",
     "es": "Categorías y Etiquetas",
-    "it": "Categorie e Tag"
+    "it": "Categorie e Tag",
+    "io": "crwdns11412:0crwdne11412:0"
   },
   "inbox": {
     "en": "Inbox",
     "fr": "Messagerie",
     "de": "Posteingang",
     "es": "Mensajería",
-    "it": "Posta"
+    "it": "Posta",
+    "io": "crwdns11414:0crwdne11414:0"
   },
   "customized": {
     "en": "Customized fields",
     "fr": "Champs personnalisés",
     "de": "Angepasste Felder",
     "es": "Campos personalizados",
-    "it": "Campi personalizzati"
+    "it": "Campi personalizzati",
+    "io": "crwdns11416:0crwdne11416:0"
   },
   "sources": {
     "en": "Sources",
     "fr": "Sources",
     "de": "Quellen",
     "es": "fuentes",
-    "it": "Fonti"
+    "it": "Fonti",
+    "io": "crwdns11418:0crwdne11418:0"
   },
   "facebook": {
     "en": "Facebook",
     "fr": "Facebook",
     "de": "Facebook",
     "es": "Facebook",
-    "it": "Facebook"
+    "it": "Facebook",
+    "io": "crwdns11420:0crwdne11420:0"
   },
   "swapcard": {
     "en": "Swapcard",
     "fr": "Swapcard",
     "de": "Swapcard",
     "es": "Swapcard",
-    "it": "Swapcard"
+    "it": "Swapcard",
+    "io": "crwdns11422:0crwdne11422:0"
   },
   "web": {
     "en": "Web Integration",
     "fr": "Intégration Web",
     "de": "Web-Integration",
     "es": "Integración web",
-    "it": "Integrazione web"
+    "it": "Integrazione web",
+    "io": "crwdns11424:0crwdne11424:0"
   },
   "indesign": {
     "en": "Indesign - Xml",
     "fr": "Indesign - Xml",
     "de": "Indesign - Xml",
     "es": "InDesign - XML",
-    "it": "Indesign - Xml"
+    "it": "Indesign - Xml",
+    "io": "crwdns11426:0crwdne11426:0"
   },
   "emailstrategie": {
     "en": "EmailStrategie",
     "fr": "EmailStrategie",
     "de": "EmailStrategie",
     "es": "EmailStrategie",
-    "it": "EmailStrategia"
+    "it": "EmailStrategia",
+    "io": "crwdns11428:0crwdne11428:0"
   },
   "administrators": {
     "en": "Administrators",
     "fr": "Administrateurs",
     "de": "Administratoren",
     "es": "Administradores",
-    "it": "Amministratori"
+    "it": "Amministratori",
+    "io": "crwdns11430:0crwdne11430:0"
   },
   "settings": {
     "en": "Settings",
     "fr": "Paramètres",
     "de": "Die Einstellungen",
     "es": "Configuraciones",
-    "it": "Impostazioni"
+    "it": "Impostazioni",
+    "io": "crwdns11432:0crwdne11432:0"
   },
   "settings_profile": {
     "en": "Profile",
     "fr": "Profil",
     "de": "Profil",
     "es": "Perfil",
-    "it": "Profilo"
+    "it": "Profilo",
+    "io": "crwdns11434:0crwdne11434:0"
   },
   "schema": {
     "en": "Form",
     "fr": "Formulaire",
     "de": "Bilden",
     "es": "Formulario",
-    "it": "Modulo"
+    "it": "Modulo",
+    "io": "crwdns11436:0crwdne11436:0"
   },
   "settings_contribution": {
     "en": "Contribution",
     "fr": "Contribution",
     "de": "Beitrag",
     "es": "Contribución",
-    "it": "Contributo"
+    "it": "Contributo",
+    "io": "crwdns11438:0crwdne11438:0"
   },
   "settings_advanced": {
     "en": "Advanced",
     "fr": "Avancé",
     "de": "Fortgeschritten",
     "es": "Avanzado",
-    "it": "Avanzato"
+    "it": "Avanzato",
+    "io": "crwdns11440:0crwdne11440:0"
   },
   "statistics": {
     "en": "Statistics",
     "fr": "Statistiques",
     "de": "Statistik",
     "es": "Estadísticas",
-    "it": "Statistica"
+    "it": "Statistica",
+    "io": "crwdns11442:0crwdne11442:0"
   }
 }

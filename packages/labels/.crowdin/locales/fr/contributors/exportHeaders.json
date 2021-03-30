@@ -1,0 +1,11 @@
+{
+  "name": "Nom",
+  "email": "Email",
+  "organization": "Organisation",
+  "phone": "Téléphone",
+  "position": "Fonction",
+  "contributions": "Evénements contribués",
+  "credential": "Rôle",
+  "role": "Rôle",
+  "state": "Statut"
+}

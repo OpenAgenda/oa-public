@@ -1,0 +1,9 @@
+{
+  "required": "Required field",
+  "groupErrorHeader": "Some values need to be corrected",
+  "submit": "Submit",
+  "help": "Help",
+  "noChoice": "No choice",
+  "noOption": "No match",
+  "selectPlaceholder": "Select..."
+}

@@ -1,0 +1,17 @@
+{
+  "festival": "festival",
+  "fair": "fair",
+  "federation": "federation",
+  "theatre": "theatre",
+  "city": "city",
+  "association": "association",
+  "university": "university",
+  "company": "company",
+  "conventionCenter": "convention center",
+  "incubator": "incubator",
+  "coworkingSpace": "coworking space",
+  "fireStation": "fire station",
+  "ministry": "ministry",
+  "church": "church",
+  "hospital": "hospital"
+}

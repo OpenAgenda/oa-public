@@ -227,6 +227,7 @@ module.exports = [{
   optional: false,
   read: ['internal', 'public'],
   write: ['internal', 'public'],
+  max: 800,
   db: {
     type: 'json'
   }

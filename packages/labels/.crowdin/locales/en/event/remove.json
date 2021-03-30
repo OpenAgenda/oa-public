@@ -1,0 +1,9 @@
+{
+  "eventRemoved": "The event was removed from the agenda",
+  "eventRemoveTitle": "Remove an event from the agenda",
+  "eventRemoveDetails": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events",
+  "eventDeleteTitle": "Event deletion",
+  "eventDeleteDetails": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
+  "confirm": "Confirm",
+  "eventDeleted": "The event as permanently deleted"
+}

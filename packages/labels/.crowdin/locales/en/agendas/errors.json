@@ -1,0 +1,5 @@
+{
+  "eventAlreadyAdded": "event is already part of agenda",
+  "selectActionBefore": "Select an action to execute before pressing the button",
+  "unknownAction": "The action you requested is unknown"
+}

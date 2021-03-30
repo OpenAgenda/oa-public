@@ -1,11 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-const fs = require('fs');
-const ih = require('immutability-helper');
-const mysql = require('mysql');
-const { promisify } = require('util');
-
 const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 

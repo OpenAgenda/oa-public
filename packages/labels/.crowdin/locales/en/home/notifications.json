@@ -1,0 +1,20 @@
+{
+  "unsubscribedSuccess": "You have been successfully unsubscribed",
+  "unsubscribedFail": "A problem occurred. Please retry shortly or contact support",
+  "unsubscribeFromNotification": "Unsubscribe me from notifications of this type",
+  "unsubscribeFromAllNotifications": "Unsubscribe me from this agenda",
+  "notificationTitle": "Notification",
+  "seeAgenda": "See the agenda",
+  "seeEvent": "See the event",
+  "agendaEventPublished": "%user% published %event%.",
+  "agendaEventSubmitModeration": "%user% has submitted %event% to %agenda% for moderation",
+  "userNewContributor": "You are now a contributor of the agenda %agenda%.",
+  "agendaNewContributor": "%user% is now contributor of the agenda %agenda%.",
+  "agendaNewAdministrator": "%user% is now administrator of the agenda %agenda%.",
+  "userEventUpdate": "%user% made changes on %event%.",
+  "userNewAdministrator": "You are now an administrator of the agenda %agenda%.",
+  "userNewModerator": "You are now a moderator of the agenda %agenda%.",
+  "agendaNewModerator": "%user% is now moderator of the agenda %agenda%.",
+  "agendaNewAggregator": "%aggregator% is now importing the events of your agenda %agenda%.",
+  "agendaEventUpdate": "%agenda%: the event %event% has been updated by %user%."
+}

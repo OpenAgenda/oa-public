@@ -20,9 +20,10 @@ function parser( data ) {
 
   if ( !data.querySearch ) data.querySearch = '';
 
-  if ( !data.scripts ) data.scripts = {
-    bottom: []
-  };
+  if ( !data.scripts ) data.scripts = {};
+
+  if ( !data.scripts.top ) data.scripts.top = [];
+  if ( !data.scripts.bottom ) data.scripts.bottom = [];
 
   data.scripts.bottom.splice( data.scripts.bottom.length, 0,
     { src: '//code.jquery.com/jquery-2.2.4.min.js' },

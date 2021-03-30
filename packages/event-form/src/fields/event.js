@@ -188,6 +188,7 @@ module.exports = ({ labels, mapboxKey, locationRes, fileStore }) => [{
 }, {
   field: 'timings',
   fieldType: 'timings',
+  max: 800,
   optional: false,
   label: labels.timings,
   info: labels.timingsInfo,

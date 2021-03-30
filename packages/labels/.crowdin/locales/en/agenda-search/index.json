@@ -1,0 +1,16 @@
+{
+  "official": "Official calendar",
+  "latestUpdated": "Recently updated calendars",
+  "results": "Search results for \"%search%\"",
+  "searchTitle": "Search agendas",
+  "genericSearchTitle": "Calendar search results",
+  "found": "Found %count% agendas",
+  "empty": "Sorry, no agendas matched this search",
+  "publishedEvent": "1 past event",
+  "publishedEvents": "%count% past events",
+  "upcomingEvent": "1 upcoming event",
+  "upcomingEvents": "%count% upcoming events",
+  "loadPrevious": "Load previous results",
+  "loadNext": "Load next results",
+  "addEvent": "Add an event"
+}

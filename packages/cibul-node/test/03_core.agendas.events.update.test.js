@@ -3,8 +3,6 @@
 const _ = require('lodash');
 const assert = require('assert');
 const axios = require('axios');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
 const api = require('../api');
@@ -48,17 +46,15 @@ describe('core - functional (server): core.agendas().events.update()', function(
     await core.agendas(17026855).events.search.rebuild();
   });
 
-  afterAll(() => {
-    core.services.core.destroy();
-    testConfig.redisClient.quit();
-  });
-
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
       });
     } catch (e) {}
+
+    core.services.core.destroy();
+    testConfig.redisClient.quit();
   });
 
   describe('simple update', function() {
@@ -498,7 +494,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/v2/requestAccessToken',
+        url: 'http://localhost:3000/requestAccessToken',
         headers: {
           'content-type': 'application/json'
         },
@@ -514,7 +510,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+            url: 'http://localhost:3000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
               nonce: 123,
@@ -567,7 +563,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+            url: 'http://localhost:3000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
               nonce: 12893,
@@ -616,7 +612,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         try {
           response = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/v2/agendas/17026855/events/19390293',
+            url: 'http://localhost:3000/agendas/17026855/events/19390293',
             headers: {
               'access-token': accessToken,
               nonce: 12345,
@@ -654,7 +650,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       it('monolingual patch is by default english', async () => {
         const response = await axios({
           method: 'patch',
-          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          url: 'http://localhost:3000/agendas/17026855/events/19201989',
           headers: {
             'access-token': accessToken,
             nonce: 12345897,
@@ -673,7 +669,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       it('monolingual patch is in language specified in header', async () => {
         const response = await axios({
           method: 'patch',
-          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          url: 'http://localhost:3000/agendas/17026855/events/19201989',
           headers: {
             'access-token': accessToken,
             nonce: 123405,

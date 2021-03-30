@@ -1,0 +1,21 @@
+{
+  "usedAccount": "This service account is already in use",
+  "fieldCannotBeEmpty": "This field cannot be empty",
+  "usedEmail": "This email is already in use",
+  "invalidEmail": "The email is not valid",
+  "passwordTooShort": "Password is too short",
+  "passwordNotEqual": "The passwords are not identical",
+  "createAccount": "Create an account",
+  "captchaTryAgain": "Try this again",
+  "hasAccount": "Have you already used OpenAgenda ?",
+  "connect": "Connect",
+  "nameSurname": "Name Surname",
+  "email": "Email",
+  "password": "Password",
+  "repeatPassword": "Repeat Password",
+  "signup": "Sign Up",
+  "agree": "By creating an account you agree to the %terms% and to the %policy%.",
+  "termsOfUse": "Terms of Use",
+  "policy": "Privacy Policy",
+  "culture": "Language"
+}

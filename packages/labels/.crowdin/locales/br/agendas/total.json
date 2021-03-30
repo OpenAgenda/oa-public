@@ -1,0 +1,8 @@
+{
+  "upcomingEvents": "%count% a zarvoudoù da zont",
+  "upcomingEvent": "1 darvoud da zont",
+  "totalEvents": "%count% a zarvoudoù",
+  "totalEvent": "1 darvoud",
+  "includePassed": "Lakaat an darvoudoù tremenet e-barzh",
+  "excludePassed": "Lezel an darvoudoù tremenet a-gostez"
+}

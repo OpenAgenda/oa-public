@@ -1,0 +1,11 @@
+{
+  "connection": "Kevreañ",
+  "incorrectPassword": "Direizh eo ar chomlec'h postel pe ar ger-tremen",
+  "resetPassword": "Adderaouekaat ho ker-tremen",
+  "email": "Postel",
+  "password": "Ger-tremen",
+  "signin": "Kevreañ",
+  "lostPassword": "Kollet em eus ma ger-tremen",
+  "noAccount": "N'ho peus kont ebet c'hoazh ?",
+  "createAccount": "Krouit unan !"
+}

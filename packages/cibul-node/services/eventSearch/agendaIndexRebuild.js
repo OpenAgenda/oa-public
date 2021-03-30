@@ -32,20 +32,24 @@ module.exports = async (services, eventSearch, agenda) => {
 
   log(logPrefix + ' done', result);
 
+  if (result.error) {
+    log('error', result.error?.meta);
+  }
+
   return result;
 }
 
 function eventsList(core, agenda) {
   let count = 0;
   return (lastId, limit) => {
-    let lId = lastId;
     return core.agendas(agenda.uid).events.list({}, {
       lastId,
       limit
     }, {
       returnPayload: true,
-      detailed: true
-    }).then(({ events, lastId, agenda, formSchema, total }) => {
+      detailed: true,
+      access: 'internal',
+    }).then(({ events, lastId, agenda }) => {
       log('listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)', events.length, agenda.slug, lastId, count += events.length);
       return { lastId, events };
     });

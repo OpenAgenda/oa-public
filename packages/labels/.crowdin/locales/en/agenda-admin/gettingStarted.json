@@ -1,0 +1,17 @@
+{
+  "title": "Congratulations, your agenda is ready !",
+  "someActions": "Here are few simple actions to get you started using your agenda",
+  "addYourFirstEvent": "Add your first event!",
+  "addEvent": "Add an event",
+  "addProfileImage": "Add a profile image to your agenda",
+  "sendLink": "Send the link of your agenda to your contributors !",
+  "copyLinkAndSend": "Copy and paste the link below and send it via email or post it on social networks.",
+  "copyLink": "Copy the link",
+  "embedYourAgenda": "Embed your agenda into your website",
+  "createEmbedded": "Create an embedded view",
+  "needPrivate": "You want a private agenda? This is a new feature, let us know more about your requirement.",
+  "requestPrivate": "Request a private agenda",
+  "needOfficial": "You want an official agenda?",
+  "requestOfficial": "Request an official agenda",
+  "learnMore": "Learn more"
+}

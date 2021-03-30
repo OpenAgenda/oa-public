@@ -345,7 +345,7 @@
   "aggregator-sources.Dashboard.sourceAgendas": [
     {
       "type": 0,
-      "value": "Source agendas"
+      "value": "Agendas sources"
     }
   ],
   "aggregator-sources.Dashboard.sourcesExplanation": [
@@ -907,9 +907,7 @@
               "value": "avec "
             },
             {
-              "style": null,
-              "type": 2,
-              "value": "actionCount"
+              "type": 7
             },
             {
               "type": 0,
@@ -1190,7 +1188,7 @@
   "aggregator-sources.RuleForm.value": [
     {
       "type": 0,
-      "value": "Valeur"
+      "value": "Valeur:"
     }
   ],
   "aggregator-sources.RuleForm.values": [
@@ -1222,9 +1220,7 @@
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "count"
+              "type": 7
             },
             {
               "type": 0,
@@ -1295,9 +1291,7 @@
               "value": "Voir les "
             },
             {
-              "style": null,
-              "type": 2,
-              "value": "rulesCount"
+              "type": 7
             },
             {
               "type": 0,

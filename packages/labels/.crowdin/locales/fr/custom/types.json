@@ -1,0 +1,11 @@
+{
+  "radio": "Liste à choix uniques",
+  "checkbox": "Multiple choice list",
+  "select": "Champ de selection",
+  "integer": "Entier",
+  "number": "Nombre",
+  "text": "Champ de texte simple",
+  "textarea": "Champ de texte à plusieurs lignes",
+  "markdown": "Champ de texte riche",
+  "image": "Image"
+}

@@ -1,0 +1,14 @@
+{
+  "description": "This event was added from another calendar. You can edit the following information, specific to your calendar",
+  "loadingError": "There was a problem while loading the data. Please refresh the page.",
+  "invalidError": "Some fields contain invalid data. Please correct them before submitting the form.",
+  "submit": "Submit",
+  "submitted": "Submitted",
+  "saveErrorTitle": "Save error",
+  "saveError": "There was a problem while saving the data. Please submit again or reload the page.",
+  "saveSuccess": "The data was successfully updated",
+  "invalidTags": "Some submitted tags are not valid",
+  "invalidCategories": "The submitted category is not valid",
+  "cancel": "Cancel",
+  "uploadButton": "Select"
+}

@@ -71,6 +71,12 @@
       "value": "crwdns908:0crwdne908:0"
     }
   ],
+  "react-layouts.MainLayout.translate": [
+    {
+      "type": 0,
+      "value": "crwdns6070:0crwdne6070:0"
+    }
+  ],
   "react-layouts.components.Search.search": [
     {
       "type": 0,

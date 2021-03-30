@@ -1,15 +1,3 @@
 {
-  "react-layouts.AdminHeader.administration": "",
-  "react-layouts.AdminHeader.return": "",
-  "react-layouts.AdminSections.newTab": "Nuevo!",
-  "react-layouts.MainLayout.createAgenda": "",
-  "react-layouts.MainLayout.general": "",
-  "react-layouts.MainLayout.help": "",
-  "react-layouts.MainLayout.myAgendas": "",
-  "react-layouts.MainLayout.myEvents": "",
-  "react-layouts.MainLayout.searchAgenda": "",
-  "react-layouts.MainLayout.settings": "",
-  "react-layouts.MainLayout.signin": "",
-  "react-layouts.MainLayout.signout": "",
-  "react-layouts.components.Search.search": ""
+  "react-layouts.AdminSections.newTab": "Nuevo!"
 }

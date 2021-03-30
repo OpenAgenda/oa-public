@@ -32,7 +32,9 @@ module.exports = function(timezone = 'Europe/Paris') {
 
     if ( count < 3 ) return;
 
-    return labels.weekdays[ weekdays[ 0 ] ][ lang ];
+    const weekdayIndex = weekdays[0];
+
+    return labels[ 'weekday-' + weekdayIndex ][ lang ];
 
   }
 

@@ -2,7 +2,7 @@
   "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "Créer un événement"
+      "value": "Krouiñ un darvoud"
     }
   ],
   "EventAdminApp.Actions.select": [
@@ -20,13 +20,13 @@
   "EventAdminApp.BatchedStateSelector.ok": [
     {
       "type": 0,
-      "value": "Fermer"
+      "value": "Serriñ"
     }
   ],
   "EventAdminApp.BatchedStateSelector.title": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Kadarnaat"
     }
   ],
   "EventAdminApp.Dashboard.allSelected": [
@@ -90,7 +90,7 @@
   "EventAdminApp.Dashboard.filters": [
     {
       "type": 0,
-      "value": "Filtres"
+      "value": "Siloù"
     }
   ],
   "EventAdminApp.Dashboard.groupedActions": [
@@ -102,7 +102,7 @@
   "EventAdminApp.Dashboard.next": [
     {
       "type": 0,
-      "value": "Suivant"
+      "value": "War-lerc'h"
     }
   ],
   "EventAdminApp.Dashboard.previous": [
@@ -293,7 +293,7 @@
           "value": [
             {
               "type": 0,
-              "value": "événements"
+              "value": "événement"
             }
           ]
         },
@@ -320,7 +320,7 @@
   "EventAdminApp.Dashboard.yourSelection": [
     {
       "type": 0,
-      "value": "Votre séléction:"
+      "value": "Votre sélection:"
     }
   ],
   "EventAdminApp.EventItem.addedBy": [
@@ -422,13 +422,13 @@
   "EventAdminApp.FiltersPart.lessFilters": [
     {
       "type": 0,
-      "value": "Afficher moins de filtres"
+      "value": "Diskouez nebeutoc'h a siloù"
     }
   ],
   "EventAdminApp.FiltersPart.moreFilters": [
     {
       "type": 0,
-      "value": "Afficher plus de filtres"
+      "value": "Diskouez muioc'h a siloù"
     }
   ],
   "EventAdminApp.RemoveModal.confirm": [
@@ -476,19 +476,19 @@
   "EventAdminApp.messages.attendanceModes.mixed": [
     {
       "type": 0,
-      "value": "Mixte"
+      "value": "Kemmesk"
     }
   ],
   "EventAdminApp.messages.attendanceModes.offline": [
     {
       "type": 0,
-      "value": "Hors ligne"
+      "value": "War al lec’h"
     }
   ],
   "EventAdminApp.messages.attendanceModes.online": [
     {
       "type": 0,
-      "value": "En ligne"
+      "value": "Enlinenn"
     }
   ],
   "EventAdminApp.messages.exports.export": [
@@ -553,67 +553,67 @@
   "EventAdminApp.messages.exports.toCSV": [
     {
       "type": 0,
-      "value": "en .csv"
+      "value": "csv"
     }
   ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
-      "value": "en .docx"
+      "value": "docx"
     }
   ],
   "EventAdminApp.messages.exports.toICS": [
     {
       "type": 0,
-      "value": "en .ics"
+      "value": "ics"
     }
   ],
   "EventAdminApp.messages.exports.toJSON": [
     {
       "type": 0,
-      "value": "en .json"
+      "value": "json"
     }
   ],
   "EventAdminApp.messages.exports.toMD": [
     {
       "type": 0,
-      "value": "en .md"
+      "value": "md"
     }
   ],
   "EventAdminApp.messages.exports.toRSS": [
     {
       "type": 0,
-      "value": "en .rss"
+      "value": "rss"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
-      "value": "en .txt"
+      "value": "txt"
     }
   ],
   "EventAdminApp.messages.exports.toXLSX": [
     {
       "type": 0,
-      "value": "en .xlsx"
+      "value": "xlsx"
     }
   ],
   "EventAdminApp.messages.states.controlled": [
     {
       "type": 0,
-      "value": "Prêt à publier"
+      "value": "Prest da vezañ embannet"
     }
   ],
   "EventAdminApp.messages.states.published": [
     {
       "type": 0,
-      "value": "Publié"
+      "value": "Embannet"
     }
   ],
   "EventAdminApp.messages.states.refused": [
     {
       "type": 0,
-      "value": "Refusé"
+      "value": "Nac'het"
     }
   ],
   "EventAdminApp.messages.states.toModerate": [
