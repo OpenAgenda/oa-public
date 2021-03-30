@@ -315,6 +315,7 @@ module.exports = {
     "br": "Gwelet an alioù",
     "it": "Vedi suggerimenti",
     "io": "crwdns12280:0crwdne12280:0"
+<<<<<<< HEAD
   },
   "seeselection": {
     "fr": "Voir la sélection",
@@ -323,6 +324,8 @@ module.exports = {
     "es": "",
     "br": "",
     "it": ""
+=======
+>>>>>>> 621436599c21e0aa05d80b49a4a7359438c8aefd
   },
   "removeTitle": {
     "fr": "Supprimer un lieu",
