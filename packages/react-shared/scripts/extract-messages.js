@@ -21,6 +21,7 @@ const FORMAT = 'simple';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
 let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
+const DEFINED_DEFAULT = ['fr'];
 
 const FALLBACK_MAP = {
   br: 'fr',
@@ -67,16 +68,31 @@ function getFallbackedMessages(lang) {
   return getMessages(localesPath);
 }
 
+function getDefaults(defaultMessages, lang) {
+  if (lang === DEFAULT_LANG) {
+    return defaultMessages;
+  }
+
+  if (DEFINED_DEFAULT.includes(lang)) {
+    return _.mapValues(defaultMessages, () => '');
+  }
+
+  return {};
+}
+
 async function extractLang(defaultMessages, lang) {
   const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
   const existingMessages = getMessages(localesPath);
 
+  const defaults = getDefaults(defaultMessages, lang);
   const messages = _.pickBy(
     existingMessages,
     (value, key) => key in defaultMessages && value
   );
 
-  fs.writeFileSync(localesPath, `${JSON.stringify(messages, null, 2)}\n`);
+  const result = _.merge(defaults, messages);
+
+  fs.writeFileSync(localesPath, `${JSON.stringify(result, null, 2)}\n`);
 }
 
 async function compileLang(lang) {
