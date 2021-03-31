@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ({ labels, mapboxKey, locationRes, fileStore }) => [{
+module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   field: 'id',
   fieldType: 'integer',
   optional: false,
@@ -174,7 +174,7 @@ module.exports = ({ labels, mapboxKey, locationRes, fileStore }) => [{
     value: 2
   },
   disableChange: false,
-  mapboxKey
+  tiles
 }, {
   display: false,
   field: 'onlineAccessLink',

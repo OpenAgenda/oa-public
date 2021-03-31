@@ -23,6 +23,7 @@ class UpdateForm extends React.Component {
     actions: PropTypes.object,
     res: PropTypes.object,
     settings: PropTypes.object,
+    tiles: PropTypes.string
   };
 
   renderHeader() {
@@ -46,7 +47,8 @@ class UpdateForm extends React.Component {
       enableGeocode,
       lang,
       detailedInfo,
-      settings
+      settings,
+      tiles
     } = this.props;
     const formState = actions.getState().form;
 
@@ -69,6 +71,7 @@ class UpdateForm extends React.Component {
           ':locationUid',
           formState.location.uid
         )}
+        tiles={tiles}
       />
     );
   }

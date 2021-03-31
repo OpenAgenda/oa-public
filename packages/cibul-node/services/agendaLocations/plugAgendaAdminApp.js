@@ -55,7 +55,7 @@ module.exports = (config, services, instance, app, base) => {
                 title: req.agenda.title,
                 uid: req.agenda.uid
               },
-              mapboxKey: config.mapboxAccessToken,
+              tiles: config.tiles,
               set: req.locationSet,
               res: {
                 csv: `/${req.agenda.slug}/admin/locations.csv`,

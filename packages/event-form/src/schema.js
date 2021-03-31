@@ -28,7 +28,7 @@ module.exports = (options = {}) => {
     includeEventFields,
     interfaceLanguage,
     locationRes,
-    mapboxKey,
+    tiles,
     referencesRes,
     suggestionsRes,
     languages,
@@ -54,7 +54,7 @@ module.exports = (options = {}) => {
   if (includeEventFields) {
     eventSchema.fields = eventFields({
       labels,
-      mapboxKey,
+      tiles,
       locationRes,
       fileStore
     });

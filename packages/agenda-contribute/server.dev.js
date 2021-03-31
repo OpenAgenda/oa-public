@@ -24,6 +24,7 @@ const devLayout = require('./dev/layout');
 
 service.init({
   //frontAppPath: '/dist', //set only to troubleshoot dist file
+  tiles: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
   layout: devLayout,
   interfaces: {
     setMember: require('./dev/setMember'),
