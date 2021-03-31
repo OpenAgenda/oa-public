@@ -351,7 +351,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
     apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
       () => queryClient
-        .refetchQueries(['event-admin-apps', 'events'])
+        .refetchQueries(['event-admin-apps', 'events', agenda.slug])
         .catch(() => null),
       e => console.log('ERROR', e)
     );
@@ -360,7 +360,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, [agenda.slug, apiClient, queryClient, removeModal]);
 
   const filtersQuery = useQuery(
-    ['event-admin-apps', 'filtersBase'],
+    ['event-admin-apps', 'filtersBase', agenda.slug],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -379,7 +379,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const {
     data, isLoading, isFetching, error
   } = useQuery(
-    ['event-admin-apps', 'events', { query, page }],
+    ['event-admin-apps', 'events', agenda.slug, { query, page }],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -460,7 +460,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, []);
 
   const allSelected = useMemo(() => {
-    if (!data?.events) {
+    if (!data?.events?.length) {
       return false;
     }
 

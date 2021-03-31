@@ -33,7 +33,7 @@ function FiltersPart({
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
-    ['event-admin-apps', 'filtersBase'],
+    ['event-admin-apps', 'filtersBase', agenda.slug],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -50,7 +50,7 @@ function FiltersPart({
   );
 
   const { data, isFetching } = useQuery(
-    ['event-admin-apps', 'events', { query, page }],
+    ['event-admin-apps', 'events', agenda.slug, { query, page }],
     () => getEvents(
       apiClient,
       res.jsonExport,
