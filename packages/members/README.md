@@ -57,3 +57,12 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at
  * **success**: true if create is successful
  * **errors**: array of validation errors
  * **member**: created member data, including id value
+
+### Utilities
+
+Can be loaded through utils key of instance or service
+
+#### Role comparison utilities
+
+ * `svc.utils.compareRoles.isSuperiorTo(isThisRole, superiorToThatOne)`
+ * `svc.utils.compareRoles.isSuperiorOrEqual(isThisRole, superiorOrEqualToThatOne)`
