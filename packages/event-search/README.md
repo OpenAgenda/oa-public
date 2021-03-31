@@ -2,7 +2,7 @@
 
 The event search service. For searching events.
 
-# Examples
+## Examples
 
 Filter events of a set by their origin agenda and last update date:
 
@@ -12,3 +12,9 @@ Filter events of a set by their origin agenda and last update date:
         gte: new Date('2020-10-19')
       }
     });
+
+## Options
+
+Loaded in the third argument.
+
+ * `monolingual`: flatten multilingual field values in response
