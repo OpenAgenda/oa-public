@@ -13,9 +13,7 @@ const layout = require( '../lib/layouts' ).load(
 );
 
 const {
-  loadLocation,
   getLocationSet,
-  parseDataWithImageStream
 } = require('./lib/middleware');
 
 module.exports = (config, services, instance, app, base) => {
@@ -162,7 +160,8 @@ module.exports = (config, services, instance, app, base) => {
 
   app.post(`${base}`, (req, res, next) => {
     req.locations.create({ ...req.body, state: 1 }, {
-      includeImagePath: true
+      includeImagePath: true,
+      agendaUid: req.agenda?.uid
     }).then(location => {
       res.json({
         location,
@@ -179,7 +178,8 @@ module.exports = (config, services, instance, app, base) => {
     req.locations.merge(
       req.query.mergeIn,
       { uids: req.query.merged },
-      _.omit(req.body || {}, fieldsToOmit)
+      _.omit(req.body || {}, fieldsToOmit),
+      { agendaUid: req.agenda?.uid }
    ).then(location => res.json({
       location,
       success: true
@@ -188,7 +188,8 @@ module.exports = (config, services, instance, app, base) => {
 
   app.post(`${base}/:locationUid`, (req, res, next) => {
     req.locations.update(req.params.locationUid, req.body, {
-      includeImagePath: true
+      includeImagePath: true,
+      agendaUid: req.agenda?.uid
     }).then(location => {
       res.json({
         location,
@@ -199,7 +200,8 @@ module.exports = (config, services, instance, app, base) => {
 
   app.delete(`${base}/:locationUid`, (req, res, next) => {
     req.locations.remove(req.params.locationUid, {
-      includeImagePath: true
+      includeImagePath: true,
+      agendaUid: req.agenda?.uid
     }).then(location => {
       res.json({
         location,

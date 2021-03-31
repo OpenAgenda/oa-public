@@ -86,6 +86,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
       } = await core.agendas(17026800).events.search({
         uid: 19201989,
         state: null
+      }, {}, {
+        access: 'administrator'
       });
 
       expect(total).toBe(1);

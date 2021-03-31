@@ -27,6 +27,7 @@ module.exports = function pulseSvg() {
             lte: now
           }
         }, { size: 0 }, {
+          userUid: req.user.uid,
           aggregations: [
             {
               key: 'pulse',
