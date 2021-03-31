@@ -154,7 +154,7 @@ module.exports = Object.assign((parentApp, path = '') => {
         insee: `/locations/insee`,
         default: `/agendas/${req.agenda.uid}/locations`,
       },
-      referencesRes: `/agendas/${req.agenda.uid}/events`,
+      referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },
       redirects: {
