@@ -41,12 +41,18 @@ export default class References extends Component {
 
     this.setState({ loading: true });
 
-    this.get({ uids: this.props.value }).then(events => {
+    this.get({ uid: this.props.value }).then(events => {
       this.setState({
         loading: false,
         events
       });
     });
+  }
+
+  filterOutLoadedEvents(events = []) {
+    const loadedEventUids = this.state.events.map(e => e.uid);
+
+    return events.filter(e => !loadedEventUids.includes(e.uid));
   }
 
   search(query, suggested = false) {
@@ -63,7 +69,7 @@ export default class References extends Component {
       this.setState({
         search: ih(this.state.search, {
           loading: { $set: false },
-          events: { $set: events },
+          events: { $set: this.filterOutLoadedEvents(events) },
           error: { $set: false },
           dropdown: { $set: true },
           suggested: { $set: suggested }
@@ -78,9 +84,7 @@ export default class References extends Component {
   }
 
   get(query, suggestion = false) {
-    return sa.get(this.props.field.res[suggestion ? 'suggestions' : 'references'], ih(query, {
-      exclude: { $set: this.state.events.map(e => e.uid) }
-    })).then(res => _.get(res, 'body').events)
+    return sa.get(this.props.field.res[suggestion ? 'suggestions' : 'references'], query).then(res => _.get(res, 'body').events)
   }
 
   onSearchFocus(input) {
@@ -134,7 +138,9 @@ export default class References extends Component {
 
     this.setState({ loading: true });
 
-    this.get(this.getSuggestQuery(), true).then(additionalEvents => {
+    this.get(this.getSuggestQuery(), true).then(suggestions => {
+      const additionalEvents = this.filterOutLoadedEvents(suggestions);
+
       if (!additionalEvents.length && this.state.events.length) {
         this.setState({
           loading: false,
