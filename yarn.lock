@@ -5801,53 +5801,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-event-references@^1.1.16, @openagenda/agenda-event-references@workspace:packages/agenda-event-references":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/agenda-event-references@workspace:packages/agenda-event-references"
-  dependencies:
-    "@babel/cli": ^7.12.1
-    "@babel/core": ^7.12.3
-    "@babel/node": ^7.12.6
-    "@babel/runtime-corejs3": ^7.12.5
-    "@openagenda/babel-preset": ^1.4.1
-    "@openagenda/bs-templates": ^2.5.0
-    "@openagenda/dom-utils": ^2.2.12
-    "@openagenda/fixtures": ^2.0.2
-    "@openagenda/labels": ^2.3.0
-    "@openagenda/mysql-utils": ^2.0.4
-    "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/utils": ^1.3.0
-    "@storybook/react": ^6.1.0
-    babel-loader: ^8.2.1
-    concurrently: ^5.1.0
-    core-js: ^3.6.5
-    cors: ^2.8.5
-    create-react-class: ^15.5.2
-    errorhandler: ^1.5.0
-    es6-promise: ^3.2.1
-    express: ^4.17.1
-    immutability-helper: ^3.0.0
-    knex: ^0.19.5
-    lodash: ^4.17.15
-    mocha: ^7.0.1
-    morgan: ^1.9.1
-    mysql: ^2.11.1
-    nodemon: ^2.0.4
-    prop-types: ^15.5.8
-    react: ^16.13.1
-    react-dom: ^16.13.1
-    react-redux: ^7.1.3
-    redux: ^3.5.2
-    redux-thunk: ^2.1.0
-    rimraf: ^3.0.1
-    should: ^13.2.3
-    when: ^3.7.8
-  peerDependencies:
-    react: ^16.12.0
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/agenda-events@^1.11.14, @openagenda/agenda-events@workspace:packages/agenda-events":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-events@workspace:packages/agenda-events"
@@ -6537,7 +6490,6 @@ __metadata:
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/admin-agendas": ^1.1.17
     "@openagenda/agenda-categories": ^1.0.5
-    "@openagenda/agenda-event-references": ^1.1.16
     "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
@@ -14664,7 +14616,6 @@ __metadata:
     "@openagenda/agenda-categories": ^1.0.5
     "@openagenda/agenda-contribute": ^1.5.2
     "@openagenda/agenda-docx": ^1.2.1
-    "@openagenda/agenda-event-references": ^1.1.16
     "@openagenda/agenda-events": ^1.11.14
     "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-portal": ^2.13.1
@@ -18801,13 +18752,6 @@ __metadata:
     es5-ext: ^0.10.35
     es6-symbol: ^3.1.1
   checksum: 1880ce31210da874cbb92b404c3128bdf68f616f3a902b2ca1d12f268aaedb11c5e6a2d9d364cde762de0130652a0474ba91abc09fa35f4abf6a8f22a592265e
-  languageName: node
-  linkType: hard
-
-"es6-promise@npm:^3.2.1":
-  version: 3.3.1
-  resolution: "es6-promise@npm:3.3.1"
-  checksum: 49fefad27ef0cb6a6cdf62dd0040c96596a50b5e0d3901ca1fa1faa5caa690068d5c789c8bcd1d71f917311f67d0d11f617d97957551936575dad0c5154c721e
   languageName: node
   linkType: hard
 
@@ -27212,7 +27156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.15, lodash-es@npm:^4.2.1":
+"lodash-es@npm:^4.17.15":
   version: 4.17.15
   resolution: "lodash-es@npm:4.17.15"
   checksum: ee2871b76deefd1754527e659a8c8b688f2e427e67b30709296878e18ad9cb54b4f0fc16a7161298156b4e0ebc2a37dfe501a3ea8725f195763f9de8a7ba6da6
@@ -35880,22 +35824,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux-thunk@npm:^2.1.0, redux-thunk@npm:^2.3.0":
+"redux-thunk@npm:^2.3.0":
   version: 2.3.0
   resolution: "redux-thunk@npm:2.3.0"
   checksum: 2d7210b88cef244384ab15bfe0c0f79a7d5a2fe059825da121121ec75378b175860695fafd5265386a0fd4b86212cc49e5972825f7bc9f803ad8753229f0258b
-  languageName: node
-  linkType: hard
-
-"redux@npm:^3.5.2":
-  version: 3.7.2
-  resolution: "redux@npm:3.7.2"
-  dependencies:
-    lodash: ^4.2.1
-    lodash-es: ^4.2.1
-    loose-envify: ^1.1.0
-    symbol-observable: ^1.0.3
-  checksum: 3adb0672320b41c001cd39a7a95627b9d60323f59d01bafa5581db14346fee173a64a4ec5f9e03a8933d780867ec3605cc9fa43752a735fff054a68b595379b3
   languageName: node
   linkType: hard
 
@@ -39367,7 +39299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"symbol-observable@npm:^1.0.2, symbol-observable@npm:^1.0.3, symbol-observable@npm:^1.0.4, symbol-observable@npm:^1.2.0":
+"symbol-observable@npm:^1.0.2, symbol-observable@npm:^1.0.4, symbol-observable@npm:^1.2.0":
   version: 1.2.0
   resolution: "symbol-observable@npm:1.2.0"
   checksum: 268834a1d4cba19d40f367e5c2755f612969c8418e43a3be17408e392802a667f8bb542893440d58a080a8ea8da05ea98e27e472b9f4ff6fbda78a21a1a41c53
