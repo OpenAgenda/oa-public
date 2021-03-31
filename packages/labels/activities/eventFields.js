@@ -4,31 +4,37 @@ module.exports = {
   "title": {
     "fr": "titre",
     "en": "title",
-    "it": "titolo"
+    "it": "titolo",
+    "io": "crwdns11180:0crwdne11180:0"
   },
   "description": {
     "fr": "description",
     "en": "description",
-    "it": "descrizione"
+    "it": "descrizione",
+    "io": "crwdns11182:0crwdne11182:0"
   },
   "longDescription": {
     "fr": "description longue",
     "en": "long description",
-    "it": "descrizione lunga"
+    "it": "descrizione lunga",
+    "io": "crwdns11184:0crwdne11184:0"
   },
   "timings": {
     "fr": "horaires",
     "en": "timings",
-    "it": "orari"
+    "it": "orari",
+    "io": "crwdns11186:0crwdne11186:0"
   },
   "location": {
     "fr": "lieu",
     "en": "location",
-    "it": "posto"
+    "it": "posto",
+    "io": "crwdns11188:0crwdne11188:0"
   },
   "image": {
     "fr": "image",
     "en": "image",
-    "it": "immagine"
+    "it": "immagine",
+    "io": "crwdns11190:0crwdne11190:0"
   }
 }

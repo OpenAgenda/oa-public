@@ -32,7 +32,7 @@
   "react-layouts.MainLayout.help": [
     {
       "type": 0,
-      "value": "Aide"
+      "value": "Skoazell"
     }
   ],
   "react-layouts.MainLayout.myAgendas": [
@@ -50,7 +50,7 @@
   "react-layouts.MainLayout.searchAgenda": [
     {
       "type": 0,
-      "value": "Rechercher un agenda"
+      "value": "Klask un deiziataer"
     }
   ],
   "react-layouts.MainLayout.settings": [

@@ -464,6 +464,15 @@ function loadBaseData( func, cssFile ) {
       _.set( req, 'baseData.bottom.scripts', [] );
     }
 
+    req.baseData.translateMode = Boolean(req.cookies.translateMode);
+    req.baseData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+    if (req.cookies.translateMode) {
+      // Note: bottom is before head
+      req.baseData.bottom.scripts.push(`window._jipt = [['project', 'openagenda']];`);
+      req.baseData.head.js.crowdin = '//cdn.crowdin.com/jipt/jipt.js';
+    }
+
     req.baseData.bottom.scripts.push(`
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -853,7 +862,11 @@ function lang( req, res, next ) {
       req.genUrl.preload( { lang: req.lang } );
     }
 
-    if ( next ) next();
+    if (Boolean(req.cookies.translateMode)) {
+      req.lang = 'io';
+    }
+
+    if ( next ) {}next();
 
   } );
 
@@ -866,13 +879,17 @@ function lang( req, res, next ) {
 
 function _getLang( req ) {
 
-  return req.lang || _cleanLang( req.query ? req.query.lang : 'fr' );
+  if (req.lang) {
+    return req.lang;
+  }
+
+  return _cleanLang( req.query ? req.query.lang : 'fr' );
 
 }
 
 function _cleanLang( dirtyLang ) {
 
-  if ( languages.isValid( dirtyLang ) ) return dirtyLang;
+  if ( languages.isValid( dirtyLang ) || dirtyLang === 'io' ) return dirtyLang;
 
   return 'fr';
 

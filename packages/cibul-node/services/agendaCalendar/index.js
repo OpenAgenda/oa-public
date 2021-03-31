@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const service = require( '@openagenda/agenda-calendar-apps' );
 const layout = require( '../lib/layouts' ).agenda;
+const config = require('../../config');
 
 module.exports = _.extend( app => {
 
@@ -24,6 +25,18 @@ module.exports = _.extend( app => {
     ( req, res, next ) => {
 
       req.agendaUid = req.agenda.uid
+
+      req.translateMode = Boolean(req.cookies.translateMode);
+      req.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+      if (req.cookies.translateMode) {
+        req.scripts = {
+          top: [
+            { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+            { src: '//cdn.crowdin.com/jipt/jipt.js' }
+          ]
+        };
+      }
 
       next();
 

@@ -8,7 +8,8 @@ module.exports = {
     "de": "Mein Profil",
     "pl": "Mój profil",
     "es": "perfil",
-    "br": "Ma frofil"
+    "br": "Ma frofil",
+    "io": "crwdns15802:0crwdne15802:0"
   },
   "myEvents": {
     "en": "My events",
@@ -17,7 +18,8 @@ module.exports = {
     "de": "Meine Veranstaltungen",
     "pl": "Moje wydarzenia",
     "es": "Mis eventos",
-    "br": "Ma darvoudoù"
+    "br": "Ma darvoudoù",
+    "io": "crwdns15804:0crwdne15804:0"
   },
   "settings": {
     "en": "Settings",
@@ -26,7 +28,8 @@ module.exports = {
     "de": "Einstellungen",
     "pl": "Ustawienia",
     "es": "configuraciones",
-    "br": "Arventennoù"
+    "br": "Arventennoù",
+    "io": "crwdns15806:0crwdne15806:0"
   },
   "signout": {
     "en": "Sign out",
@@ -35,7 +38,8 @@ module.exports = {
     "de": "Abmelden",
     "pl": "Wyloguj się",
     "es": "Salir",
-    "br": "Digevreañ"
+    "br": "Digevreañ",
+    "io": "crwdns15808:0crwdne15808:0"
   },
   "myAgendas": {
     "en": "My Agendas",
@@ -44,7 +48,8 @@ module.exports = {
     "de": "Meine Agendas",
     "pl": "Moje porządki dzienne",
     "es": "mis agendas",
-    "br": "Ma Deiziataerioù"
+    "br": "Ma Deiziataerioù",
+    "io": "crwdns15810:0crwdne15810:0"
   },
   "searchAgendas": {
     "en": "Search agenda",
@@ -53,7 +58,8 @@ module.exports = {
     "de": "Finde eine Agenda",
     "pl": "Porządek dzienny wyszukiwania",
     "es": "Buscar un agenda",
-    "br": "Klask un deiziataer"
+    "br": "Klask un deiziataer",
+    "io": "crwdns15812:0crwdne15812:0"
   },
   "createAgenda": {
     "en": "Create an agenda",
@@ -62,7 +68,8 @@ module.exports = {
     "de": "Agenda Anlegen",
     "pl": "Stwórz porządek obrad",
     "es": "Crear un agenda",
-    "br": "Krouiñ un deiziataer"
+    "br": "Krouiñ un deiziataer",
+    "io": "crwdns15814:0crwdne15814:0"
   },
   "general": {
     "en": "General",
@@ -71,7 +78,8 @@ module.exports = {
     "de": "Allgemein",
     "pl": "Uwagi ogólne",
     "es": "general",
-    "br": "Dre vras"
+    "br": "Dre vras",
+    "io": "crwdns15816:0crwdne15816:0"
   },
   "agendasTitle": {
     "en": "Agendas",
@@ -80,6 +88,7 @@ module.exports = {
     "de": "Agendas",
     "pl": "Porządek dzienny",
     "es": "agendas",
-    "br": "Deiziataerioù"
+    "br": "Deiziataerioù",
+    "io": "crwdns15818:0crwdne15818:0"
   }
 }

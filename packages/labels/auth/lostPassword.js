@@ -8,7 +8,8 @@ module.exports = {
     "de": "Passwort zurücksetzen",
     "pl": "Zresetuj hasło",
     "es": "Restablecimiento de la contraseña",
-    "br": "Adderaouekaat ho ker-tremen"
+    "br": "Adderaouekaat ho ker-tremen",
+    "io": "crwdns13082:0crwdne13082:0"
   },
   "mailBody": {
     "en": "Follow this link to reset your password: %link%",
@@ -17,6 +18,7 @@ module.exports = {
     "de": "Folge diesem Link, um deinPasswort zurückzusetzen: %link%.",
     "pl": "Kliknij ten link, aby zresetować hasło: %link%",
     "es": "Siga este enlace para restablecer la contraseña:%link%",
-    "br": "Klikit war al liamm-mañ evit adderaouekaat ho ker-tremen : %link%"
+    "br": "Klikit war al liamm-mañ evit adderaouekaat ho ker-tremen : %link%",
+    "io": "crwdns13084:0%link%crwdne13084:0"
   }
 }

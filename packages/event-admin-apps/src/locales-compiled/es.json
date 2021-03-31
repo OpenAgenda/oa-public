@@ -2,7 +2,7 @@
   "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "Create an event"
+      "value": "crear evento"
     }
   ],
   "EventAdminApp.Actions.select": [
@@ -20,7 +20,7 @@
   "EventAdminApp.BatchedStateSelector.ok": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "cerca"
     }
   ],
   "EventAdminApp.BatchedStateSelector.title": [
@@ -108,7 +108,7 @@
   "EventAdminApp.Dashboard.previous": [
     {
       "type": 0,
-      "value": "Previous"
+      "value": "anterior"
     }
   ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
@@ -490,25 +490,25 @@
   "EventAdminApp.messages.attendanceModes.mixed": [
     {
       "type": 0,
-      "value": "Mixed"
+      "value": "Mezclado"
     }
   ],
   "EventAdminApp.messages.attendanceModes.offline": [
     {
       "type": 0,
-      "value": "Offline"
+      "value": "Desconnectad"
     }
   ],
   "EventAdminApp.messages.attendanceModes.online": [
     {
       "type": 0,
-      "value": "Online"
+      "value": "En linea"
     }
   ],
   "EventAdminApp.messages.exports.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportar"
     }
   ],
   "EventAdminApp.messages.exports.exportDesc": [
@@ -561,55 +561,55 @@
   "EventAdminApp.messages.exports.exportSelection": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportar"
     }
   ],
   "EventAdminApp.messages.exports.toCSV": [
     {
       "type": 0,
-      "value": "en .csv"
+      "value": "csv"
     }
   ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
-      "value": "en .docx"
+      "value": "docx"
     }
   ],
   "EventAdminApp.messages.exports.toICS": [
     {
       "type": 0,
-      "value": "en .ics"
+      "value": "ics"
     }
   ],
   "EventAdminApp.messages.exports.toJSON": [
     {
       "type": 0,
-      "value": "en .json"
+      "value": "json"
     }
   ],
   "EventAdminApp.messages.exports.toMD": [
     {
       "type": 0,
-      "value": "en .md"
+      "value": "md"
     }
   ],
   "EventAdminApp.messages.exports.toRSS": [
     {
       "type": 0,
-      "value": "en .rss"
+      "value": "rss"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
-      "value": "en .txt"
+      "value": "txt"
     }
   ],
   "EventAdminApp.messages.exports.toXLSX": [
     {
       "type": 0,
-      "value": "en .xlsx"
+      "value": "xlsx"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

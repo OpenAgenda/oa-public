@@ -2,7 +2,7 @@
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
-      "value": "Ajouter un graphique"
+      "value": "Ouzhpennañ ur grafik"
     }
   ],
   "AgendaStats.ChartWrapper.remove": [
@@ -24,7 +24,7 @@
     },
     {
       "type": 0,
-      "value": " par "
+      "value": " digant "
     },
     {
       "type": 1,
@@ -34,49 +34,54 @@
   "AgendaStats.ComposedChart.noValue": [
     {
       "type": 0,
-      "value": "Aucune valeur."
+      "value": "Talvoud ebet."
     }
   ],
   "AgendaStats.ComposedChart.tooltipContentCreatedAt": [
     {
       "offset": 0,
       "options": {
-        "=0": {
+        "2": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événement créé"
+              "value": " zarvoud krouet"
+            }
+          ]
+        },
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud krouet"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événement créé"
+              "value": " darvoud krouet"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événements créés"
+              "value": " darvoud krouet"
             }
           ]
         }
@@ -90,42 +95,47 @@
     {
       "offset": 0,
       "options": {
-        "=0": {
+        "2": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événement"
+              "value": " zarvoud"
+            }
+          ]
+        },
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événement"
+              "value": " darvoud"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " darvoud"
             }
           ]
         }
@@ -142,39 +152,33 @@
         "=0": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " horaire"
+              "value": " eur"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " horaire"
+              "value": " eur"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " horaires"
+              "value": " eur"
             }
           ]
         }
@@ -188,42 +192,47 @@
     {
       "offset": 0,
       "options": {
-        "=0": {
+        "2": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événement mis à jour"
+              "value": " zarvoud hizivaet"
+            }
+          ]
+        },
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud hizivaet"
             }
           ]
         },
         "one": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événement mis à jour"
+              "value": " darvoud hizivaet"
             }
           ]
         },
         "other": {
           "value": [
             {
-              "style": null,
-              "type": 2,
-              "value": "value"
+              "type": 7
             },
             {
               "type": 0,
-              "value": " événements mis à jour"
+              "value": " darvoud hizivaet"
             }
           ]
         }
@@ -241,7 +250,7 @@
     },
     {
       "type": 0,
-      "value": " événements"
+      "value": " a zarvoud"
     }
   ],
   "AgendaStats.Dashboard.cancel": [
@@ -253,13 +262,13 @@
   "AgendaStats.Dashboard.changeOrder": [
     {
       "type": 0,
-      "value": "Modifier l'ordre"
+      "value": "Kemmañ an urzh"
     }
   ],
   "AgendaStats.Dashboard.edit": [
     {
       "type": 0,
-      "value": "Éditer le rapport"
+      "value": "Embann an danevell"
     }
   ],
   "AgendaStats.Dashboard.filters": [
@@ -271,19 +280,19 @@
   "AgendaStats.Dashboard.lessFilters": [
     {
       "type": 0,
-      "value": "Afficher moins de filtres"
+      "value": "Diskouez nebeutoc'h a siloù"
     }
   ],
   "AgendaStats.Dashboard.moreFilters": [
     {
       "type": 0,
-      "value": "Afficher plus de filtres"
+      "value": "Diskouez muioc'h a siloù"
     }
   ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
-      "value": "Activité de l'année passée"
+      "value": "Obererezh ar bloaz tremenet"
     }
   ],
   "AgendaStats.Dashboard.save": [
@@ -305,11 +314,19 @@
     {
       "offset": 0,
       "options": {
+        "2": {
+          "value": [
+            {
+              "type": 0,
+              "value": "zarvoud"
+            }
+          ]
+        },
         "=0": {
           "value": [
             {
               "type": 0,
-              "value": "événement"
+              "value": "darvoud"
             }
           ]
         },
@@ -317,7 +334,7 @@
           "value": [
             {
               "type": 0,
-              "value": "événement"
+              "value": "darvoud"
             }
           ]
         },
@@ -325,7 +342,7 @@
           "value": [
             {
               "type": 0,
-              "value": "événements"
+              "value": "darvoud"
             }
           ]
         }
@@ -402,7 +419,7 @@
     },
     {
       "type": 0,
-      "value": "Semaine "
+      "value": "Sizhun "
     },
     {
       "type": 1,
@@ -412,73 +429,73 @@
   "AgendaStats.IntervalSelect.day": [
     {
       "type": 0,
-      "value": "jour"
+      "value": "deiz"
     }
   ],
   "AgendaStats.IntervalSelect.month": [
     {
       "type": 0,
-      "value": "mois"
+      "value": "miz"
     }
   ],
   "AgendaStats.IntervalSelect.week": [
     {
       "type": 0,
-      "value": "semaine"
+      "value": "sizhun"
     }
   ],
   "AgendaStats.LoadMore.loadMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Gwelet muioc'h"
     }
   ],
   "AgendaStats.LoadMore.nothingMore": [
     {
       "type": 0,
-      "value": "Il n'y a rien de plus."
+      "value": "N'eus netra ouzhpenn"
     }
   ],
   "AgendaStats.OrderModal.modalTitle": [
     {
       "type": 0,
-      "value": "Modifier l'ordre"
+      "value": "Cheñch an urzh"
     }
   ],
   "AgendaStats.OrderModal.oneColumn": [
     {
       "type": 0,
-      "value": "1 colonne"
+      "value": "1 golonenn"
     }
   ],
   "AgendaStats.OrderModal.oneLine": [
     {
       "type": 0,
-      "value": "1 ligne"
+      "value": "1 linenn"
     }
   ],
   "AgendaStats.OrderModal.separator": [
     {
       "type": 0,
-      "value": "Séparateur"
+      "value": "Dispartier"
     }
   ],
   "AgendaStats.OrderModal.submit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Kemmañ"
     }
   ],
   "AgendaStats.OrderModal.width": [
     {
       "type": 0,
-      "value": "Largeur:"
+      "value": "Ledander:"
     }
   ],
   "AgendaStats.RangeFilter.range": [
     {
       "type": 0,
-      "value": "Du "
+      "value": "Eus an/ar "
     },
     {
       "style": null,
@@ -487,7 +504,7 @@
     },
     {
       "type": 0,
-      "value": " au "
+      "value": " d'an/ar "
     },
     {
       "style": null,
@@ -498,7 +515,7 @@
   "AgendaStats.RangeFilter.sameDayRange": [
     {
       "type": 0,
-      "value": "Le "
+      "value": "D'an/ar "
     },
     {
       "style": null,
@@ -521,19 +538,19 @@
   "AgendaStats.RangeModal.modalTitle": [
     {
       "type": 0,
-      "value": "Choisir une période"
+      "value": "Dibab ur maread"
     }
   ],
   "AgendaStats.RangeModal.submit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Kemmañ"
     }
   ],
   "AgendaStats.RangeTypeFilter.range": [
     {
       "type": 0,
-      "value": "Du "
+      "value": "Eus an/ar "
     },
     {
       "style": null,
@@ -542,7 +559,7 @@
     },
     {
       "type": 0,
-      "value": " au "
+      "value": " d'an/ar "
     },
     {
       "style": null,
@@ -553,7 +570,7 @@
   "AgendaStats.RangeTypeFilter.sameDayRange": [
     {
       "type": 0,
-      "value": "Le "
+      "value": "D'an/ar "
     },
     {
       "style": null,
@@ -570,7 +587,7 @@
   "AgendaStats.RangeTypeFilter.typeCreatedAt": [
     {
       "type": 0,
-      "value": "Par création"
+      "value": "Dre grouiñ"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeDate": [
@@ -642,7 +659,7 @@
   "AgendaStats.RangeTypeModal.submit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Kemmañ"
     }
   ],
   "AgendaStats.Separator.remove": [
@@ -654,7 +671,7 @@
   "AgendaStats.Separator.separator": [
     {
       "type": 0,
-      "value": "Séparateur"
+      "value": "Dispartier"
     }
   ],
   "AgendaStats.StatEditModal.modalTitle": [
@@ -670,25 +687,25 @@
   "AgendaStats.StateTooltipItem.controlled": [
     {
       "type": 0,
-      "value": "Prêt à publier"
+      "value": "Prest da vezañ embannet"
     }
   ],
   "AgendaStats.StateTooltipItem.published": [
     {
       "type": 0,
-      "value": "Publié"
+      "value": "Embannet"
     }
   ],
   "AgendaStats.StateTooltipItem.refused": [
     {
       "type": 0,
-      "value": "Refusé"
+      "value": "Nac'het"
     }
   ],
   "AgendaStats.StateTooltipItem.toModerate": [
     {
       "type": 0,
-      "value": "À modérer"
+      "value": "Da gontrollañ"
     }
   ],
   "AgendaStats.dateRanges.currentMonth": [
@@ -766,13 +783,13 @@
   "AgendaStats.form.oneColumn": [
     {
       "type": 0,
-      "value": "1 colonne"
+      "value": "1 golonenn"
     }
   ],
   "AgendaStats.form.oneLine": [
     {
       "type": 0,
-      "value": "1 ligne"
+      "value": "1 linenn"
     }
   ],
   "AgendaStats.form.others": [
@@ -790,7 +807,7 @@
   "AgendaStats.form.separator": [
     {
       "type": 0,
-      "value": "Séparateur"
+      "value": "Dispartier"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [
@@ -814,13 +831,13 @@
   "AgendaStats.messages.chartTitles.cities": [
     {
       "type": 0,
-      "value": "Villes"
+      "value": "Kêrioù"
     }
   ],
   "AgendaStats.messages.chartTitles.createdAt": [
     {
       "type": 0,
-      "value": "Événements créés"
+      "value": "Darvoudoù krouet"
     }
   ],
   "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
@@ -832,19 +849,19 @@
   "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
-      "value": "Départements"
+      "value": "Departamantoù"
     }
   ],
   "AgendaStats.messages.chartTitles.keywords": [
     {
       "type": 0,
-      "value": "Mots clés"
+      "value": "Gerioù-alc'hwez"
     }
   ],
   "AgendaStats.messages.chartTitles.members": [
     {
       "type": 0,
-      "value": "Membres"
+      "value": "Izili"
     }
   ],
   "AgendaStats.messages.chartTitles.originAgendas": [
@@ -856,19 +873,19 @@
   "AgendaStats.messages.chartTitles.regions": [
     {
       "type": 0,
-      "value": "Régions"
+      "value": "Rannvroioù"
     }
   ],
   "AgendaStats.messages.chartTitles.states": [
     {
       "type": 0,
-      "value": "Statuts"
+      "value": "Statudoù"
     }
   ],
   "AgendaStats.messages.chartTitles.timings": [
     {
       "type": 0,
-      "value": "Horaires"
+      "value": "Eurioù"
     }
   ],
   "AgendaStats.messages.chartTitles.updatedAt": [
@@ -880,31 +897,31 @@
   "AgendaStats.messages.states.controlled": [
     {
       "type": 0,
-      "value": "Prêt à publier"
+      "value": "Prest da vezañ embannet"
     }
   ],
   "AgendaStats.messages.states.published": [
     {
       "type": 0,
-      "value": "Publié"
+      "value": "Embannet"
     }
   ],
   "AgendaStats.messages.states.refused": [
     {
       "type": 0,
-      "value": "Refusé"
+      "value": "Nac'het"
     }
   ],
   "AgendaStats.messages.states.toModerate": [
     {
       "type": 0,
-      "value": "À modérer"
+      "value": "Da gontrollañ"
     }
   ],
   "AgendaStats.utils.addRestItem.noValue": [
     {
       "type": 0,
-      "value": "Aucune valeur"
+      "value": "Talvoud ebet"
     }
   ],
   "AgendaStats.utils.addRestItem.others": [

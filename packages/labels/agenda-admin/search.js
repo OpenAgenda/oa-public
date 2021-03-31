@@ -6,6 +6,7 @@ module.exports = {
     "fr": "Rechercher",
     "de": "Suche",
     "es": "Buscar",
-    "it": "Ricerca"
+    "it": "Ricerca",
+    "io": "crwdns11396:0crwdne11396:0"
   }
 }

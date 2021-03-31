@@ -7,7 +7,8 @@ module.exports = {
     "de": "Meine Veranstaltungskalender",
     "br": "Ma deiziataerioù",
     "es": "mis agendas",
-    "it": "Le mie agende"
+    "it": "Le mie agende",
+    "io": "crwdns14900:0crwdne14900:0"
   },
   "createAgenda": {
     "fr": "Créer un agenda",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Veranstaltungskalender erstellen",
     "br": "Krouiñ un deiziataer",
     "es": "Crear un agenda",
-    "it": "Creare un'agenda"
+    "it": "Creare un'agenda",
+    "io": "crwdns14902:0crwdne14902:0"
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
@@ -23,7 +25,8 @@ module.exports = {
     "de": "Veranstaltungskalender suchen",
     "br": "Klask un deiziataer",
     "es": "agenda de búsqueda",
-    "it": "Cerca un'agenda"
+    "it": "Cerca un'agenda",
+    "io": "crwdns14904:0crwdne14904:0"
   },
   "myEvents": {
     "fr": "Mes événements",
@@ -31,7 +34,8 @@ module.exports = {
     "de": "Meine Veranstaltungen",
     "br": "Ma darvoudoù",
     "es": "Mis eventos",
-    "it": "I miei eventi"
+    "it": "I miei eventi",
+    "io": "crwdns14906:0crwdne14906:0"
   },
   "messages": {
     "fr": "Messages",
@@ -39,7 +43,8 @@ module.exports = {
     "de": "Nachrichten",
     "br": "Kemennadennoù",
     "es": "mensajes",
-    "it": "Messaggi"
+    "it": "Messaggi",
+    "io": "crwdns14908:0crwdne14908:0"
   },
   "notifications": {
     "fr": "Notifications",
@@ -47,7 +52,8 @@ module.exports = {
     "de": "Benachrichtigungen",
     "br": "Kemennoù",
     "es": "Notificaciones",
-    "it": "Notifiche"
+    "it": "Notifiche",
+    "io": "crwdns14910:0crwdne14910:0"
   },
   "addAnEvent": {
     "fr": "Ajouter un événement",
@@ -55,7 +61,8 @@ module.exports = {
     "de": "Veranstaltung hinzufügen",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento",
-    "it": "Aggiungi un evento"
+    "it": "Aggiungi un evento",
+    "io": "crwdns14912:0crwdne14912:0"
   },
   "manage": {
     "fr": "Gérer",
@@ -63,7 +70,8 @@ module.exports = {
     "de": "Verwalten",
     "br": "Merañ",
     "es": "gestionar",
-    "it": "Gestisci"
+    "it": "Gestisci",
+    "io": "crwdns14914:0crwdne14914:0"
   },
   "moderate": {
     "fr": "Modérer",
@@ -71,7 +79,8 @@ module.exports = {
     "de": "Moderieren",
     "br": "Habaskaat",
     "es": "moderado",
-    "it": "Moderato"
+    "it": "Moderato",
+    "io": "crwdns14916:0crwdne14916:0"
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
@@ -79,7 +88,8 @@ module.exports = {
     "de": "Offizieller Veranstaltungskalender",
     "br": "Deiziataer ofisiel",
     "es": "agenda",
-    "it": "agenda ufficiale"
+    "it": "agenda ufficiale",
+    "io": "crwdns14918:0crwdne14918:0"
   },
   "welcomeTitle": {
     "fr": "Bienvenue sur votre compte OpenAgenda!",
@@ -87,7 +97,8 @@ module.exports = {
     "de": "Willkommen in Ihrem OpenAgenda-Konto!",
     "br": "Degemer mat en ho kont OpenAgenda !",
     "es": "Bienvenido a su cuenta OpenAgenda!",
-    "it": "Benvenuti nel vostro conto OpenAgenda!"
+    "it": "Benvenuti nel vostro conto OpenAgenda!",
+    "io": "crwdns14920:0crwdne14920:0"
   },
   "welcomeMessage": {
     "fr": "Vous pouvez rejoindre des agendas ouverts à la contribution ou créer votre propre agenda.",
@@ -95,7 +106,8 @@ module.exports = {
     "de": "Sie können Kalendern beitreten, die für Beiträge geöffnet sind, oder Ihren eigenen Kalender erstellen.",
     "br": "",
     "es": "Puedes unirte a calendarios abiertos a contribución o crear tu propio calendario.",
-    "it": "Puoi iscriverti a calendari aperti al contributo o creare il tuo calendario."
+    "it": "Puoi iscriverti a calendari aperti al contributo o creare il tuo calendario.",
+    "io": "crwdns14922:0crwdne14922:0"
   },
   "openAgendasOfMoment": {
     "fr": "Les agendas du moment ouverts à la contribution :",
@@ -103,7 +115,8 @@ module.exports = {
     "de": "Aktuelle offene Tagebücher :",
     "br": "",
     "es": "Diarios abiertos actuales :",
-    "it": "Diari aperti attuali :"
+    "it": "Diari aperti attuali :",
+    "io": "crwdns14924:0crwdne14924:0"
   },
   "contributeToExisting": {
     "fr": "Contribuez à un agenda existant",
@@ -111,7 +124,8 @@ module.exports = {
     "de": "Fügen Sie Ihre Veranstaltung einem bestehenden Kalender hinzu.",
     "br": "Labourit war un deiziataer hag a zo anezhañ dija",
     "es": "Contribuir a un agenda existente",
-    "it": "Contribuire ad un'agenda esistente"
+    "it": "Contribuire ad un'agenda esistente",
+    "io": "crwdns14926:0crwdne14926:0"
   },
   "orCreateYourAgenda": {
     "fr": "Ou créez votre propre agenda",
@@ -119,7 +133,8 @@ module.exports = {
     "de": "Fügen Sie Ihre Veranstaltung einem bestehenden Kalender hinzu.",
     "br": "Labourit war un deiziataer hag a zo anezhañ dija",
     "es": "Contribuir a un agenda existente",
-    "it": "Contribuire ad un'agenda esistente"
+    "it": "Contribuire ad un'agenda esistente",
+    "io": "crwdns14928:0crwdne14928:0"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -127,7 +142,8 @@ module.exports = {
     "de": "Keine Ergebnisse gefunden",
     "br": "N'eus bet kavet disoc'h ebet",
     "es": "ningún resultado encontrado",
-    "it": "Nessun risultato trovato"
+    "it": "Nessun risultato trovato",
+    "io": "crwdns14930:0crwdne14930:0"
   },
   "createEvent": {
     "fr": "Créer un événement",
@@ -135,7 +151,8 @@ module.exports = {
     "de": "Neue Veranstaltung erstellen",
     "br": "Krouiñ un darvoud",
     "es": "crear evento",
-    "it": "Creare un evento"
+    "it": "Creare un evento",
+    "io": "crwdns14932:0crwdne14932:0"
   },
   "searchEvent": {
     "fr": "Rechercher un événement",
@@ -143,7 +160,8 @@ module.exports = {
     "de": "Eine Veranstaltungen finden",
     "br": "Klask un darvoud",
     "es": "Busca un evento",
-    "it": "Ricerca di un evento"
+    "it": "Ricerca di un evento",
+    "io": "crwdns14934:0crwdne14934:0"
   },
   "selectAgenda": {
     "fr": "Sélectionner l'agenda dans lequel créer l'événement",
@@ -151,7 +169,8 @@ module.exports = {
     "de": "Wähle den Veranstaltungskalender, in dem du deine Veranstaltung eintragen möchtest.",
     "br": "Diuzañ an deiziataer da grouiñ an darvoud ennañ",
     "es": "Seleccione el agenda en el que crear el evento",
-    "it": "Selezionare il agenda in cui creare l'evento"
+    "it": "Selezionare il agenda in cui creare l'evento",
+    "io": "crwdns14936:0crwdne14936:0"
   },
   "privateAgenda": {
     "fr": "Agenda privé",
@@ -159,7 +178,8 @@ module.exports = {
     "de": "Privater Veranstaltungskalender",
     "br": "Deiziataer prevez",
     "es": "Eventos privados",
-    "it": "Diario privato"
+    "it": "Diario privato",
+    "io": "crwdns14938:0crwdne14938:0"
   },
   "privateEvent": {
     "fr": "Événement privé",
@@ -167,7 +187,8 @@ module.exports = {
     "de": "Private Veranstalltung",
     "br": "Darvoud prevez",
     "es": "evento privado",
-    "it": "Evento privato"
+    "it": "Evento privato",
+    "io": "crwdns14940:0crwdne14940:0"
   },
   "draft": {
     "fr": "Brouillon",
@@ -175,7 +196,8 @@ module.exports = {
     "de": "Entwurf",
     "br": "Brouilhed",
     "es": "Borrador",
-    "it": "Bozza"
+    "it": "Bozza",
+    "io": "crwdns14942:0crwdne14942:0"
   },
   "contact": {
     "fr": "Contacter",
@@ -183,7 +205,8 @@ module.exports = {
     "de": "Nachricht",
     "br": "Mont e darempred",
     "es": "Contactar con",
-    "it": "Contatto"
+    "it": "Contatto",
+    "io": "crwdns14944:0crwdne14944:0"
   },
   "see": {
     "fr": "Voir",
@@ -191,7 +214,8 @@ module.exports = {
     "de": "Sehen",
     "br": "Gwelet",
     "es": "Ver",
-    "it": "Vedi"
+    "it": "Vedi",
+    "io": "crwdns14946:0crwdne14946:0"
   },
   "support": {
     "fr": "Support",
@@ -199,7 +223,8 @@ module.exports = {
     "de": "Unterstützung",
     "br": "Skor",
     "es": "apoyo",
-    "it": "Supporto"
+    "it": "Supporto",
+    "io": "crwdns14948:0crwdne14948:0"
   },
   "modify": {
     "fr": "Modifier",
@@ -207,7 +232,8 @@ module.exports = {
     "de": "Bearbeiten",
     "br": "Kemmañ",
     "es": "Editar",
-    "it": "Modifica"
+    "it": "Modifica",
+    "io": "crwdns14950:0crwdne14950:0"
   },
   "noTitle": {
     "fr": "Titre non défini",
@@ -215,7 +241,8 @@ module.exports = {
     "de": "Bitte fügen Sie Ihrer Veranstaltung einen Titel hinzu.",
     "br": "N'eo ket termenet an titl",
     "es": "título indefinido",
-    "it": "Titolo non definito"
+    "it": "Titolo non definito",
+    "io": "crwdns14952:0crwdne14952:0"
   },
   "noLocation": {
     "fr": "Lieu non défini",
@@ -223,7 +250,8 @@ module.exports = {
     "de": "Bitte geben Sie den Veranstaltungsort an.",
     "br": "N'eo ket termenet al lec'h",
     "es": "Localización no especificado",
-    "it": "Posizione non definita"
+    "it": "Posizione non definita",
+    "io": "crwdns14954:0crwdne14954:0"
   },
   "noEventsCreated": {
     "fr": "Vous n'avez encore créé aucun événement",
@@ -231,13 +259,15 @@ module.exports = {
     "de": "Du hast noch keine Veranstaltung erstellt.",
     "br": "N'ho peus krouet darvoud ebet c'hoazh",
     "es": "No ha creado ningún evento",
-    "it": "Non avete ancora creato alcun evento"
+    "it": "Non avete ancora creato alcun evento",
+    "io": "crwdns14956:0crwdne14956:0"
   },
   "show": {
     "fr": "Afficher",
     "en": "Open",
     "de": "Ansehen",
-    "es": "Ver"
+    "es": "Ver",
+    "io": "crwdns14958:0crwdne14958:0"
   },
   "seeMore": {
     "fr": "Voir plus",
@@ -245,6 +275,7 @@ module.exports = {
     "de": "Mehr sehen",
     "br": "",
     "es": "Ver más",
-    "it": "Vedere di più"
+    "it": "Vedere di più",
+    "io": "crwdns14960:0crwdne14960:0"
   }
 }

@@ -59,6 +59,16 @@
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right js_header_links">
+            <% if ((typeof isTranslator !== 'undefined' && isTranslator) || (typeof translateMode !== 'undefined' && translateMode)) { %>
+              <li>
+                <button
+                  type="button"
+                  class="<%= translateMode ? 'btn btn-default active translate-button' : 'btn btn-link translate-button' %>"
+                >
+                  <i class="fa fa-language"></i>
+                </button>
+              </li>
+            <% } %>
             <li>
               <div class="help-button-canvas">
                 <a class="btn btn-primary btn-rounded btn-bordered" rel="nofollow" target="_blank" href="/support?origin=<%= encodeURIComponent( originalUrl ) %>">

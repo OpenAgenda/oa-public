@@ -2,13 +2,13 @@
   "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "Create an event"
+      "value": "Creare un evento"
     }
   ],
   "EventAdminApp.Actions.select": [
     {
       "type": 0,
-      "value": "Select"
+      "value": "Seleziona"
     }
   ],
   "EventAdminApp.BatchedStateSelector.confirmation": [
@@ -20,13 +20,13 @@
   "EventAdminApp.BatchedStateSelector.ok": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Chiudere"
     }
   ],
   "EventAdminApp.BatchedStateSelector.title": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Conferma"
     }
   ],
   "EventAdminApp.Dashboard.allSelected": [
@@ -90,7 +90,7 @@
   "EventAdminApp.Dashboard.filters": [
     {
       "type": 0,
-      "value": "Filters"
+      "value": "Filtri"
     }
   ],
   "EventAdminApp.Dashboard.groupedActions": [
@@ -108,7 +108,7 @@
   "EventAdminApp.Dashboard.previous": [
     {
       "type": 0,
-      "value": "Previous"
+      "value": "Precedente"
     }
   ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
@@ -436,13 +436,13 @@
   "EventAdminApp.FiltersPart.lessFilters": [
     {
       "type": 0,
-      "value": "Display less filters"
+      "value": "Mostra meno filtri"
     }
   ],
   "EventAdminApp.FiltersPart.moreFilters": [
     {
       "type": 0,
-      "value": "Display more filters"
+      "value": "Mostra più filtri"
     }
   ],
   "EventAdminApp.RemoveModal.confirm": [
@@ -490,25 +490,25 @@
   "EventAdminApp.messages.attendanceModes.mixed": [
     {
       "type": 0,
-      "value": "Mixed"
+      "value": "Misto"
     }
   ],
   "EventAdminApp.messages.attendanceModes.offline": [
     {
       "type": 0,
-      "value": "Offline"
+      "value": "Disconnesso"
     }
   ],
   "EventAdminApp.messages.attendanceModes.online": [
     {
       "type": 0,
-      "value": "Online"
+      "value": "In linea"
     }
   ],
   "EventAdminApp.messages.exports.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Esportazione"
     }
   ],
   "EventAdminApp.messages.exports.exportDesc": [
@@ -561,73 +561,73 @@
   "EventAdminApp.messages.exports.exportSelection": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Esportazione"
     }
   ],
   "EventAdminApp.messages.exports.toCSV": [
     {
       "type": 0,
-      "value": "en .csv"
+      "value": "csv"
     }
   ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
-      "value": "en .docx"
+      "value": "docx"
     }
   ],
   "EventAdminApp.messages.exports.toICS": [
     {
       "type": 0,
-      "value": "en .ics"
+      "value": "ics"
     }
   ],
   "EventAdminApp.messages.exports.toJSON": [
     {
       "type": 0,
-      "value": "en .json"
+      "value": "json"
     }
   ],
   "EventAdminApp.messages.exports.toMD": [
     {
       "type": 0,
-      "value": "en .md"
+      "value": "md"
     }
   ],
   "EventAdminApp.messages.exports.toRSS": [
     {
       "type": 0,
-      "value": "en .rss"
+      "value": "rss"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
-      "value": "en .txt"
+      "value": "txt"
     }
   ],
   "EventAdminApp.messages.exports.toXLSX": [
     {
       "type": 0,
-      "value": "en .xlsx"
+      "value": "xlsx"
     }
   ],
   "EventAdminApp.messages.states.controlled": [
     {
       "type": 0,
-      "value": "Controlled"
+      "value": "Controllato"
     }
   ],
   "EventAdminApp.messages.states.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Pubblicato"
     }
   ],
   "EventAdminApp.messages.states.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Rifiutato"
     }
   ],
   "EventAdminApp.messages.states.toModerate": [

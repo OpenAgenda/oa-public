@@ -2,89 +2,77 @@
   "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "Create an event"
+      "value": "crwdns5978:0crwdne5978:0"
     }
   ],
   "EventAdminApp.Actions.select": [
     {
       "type": 0,
-      "value": "Select"
+      "value": "crwdns6044:0crwdne6044:0"
     }
   ],
   "EventAdminApp.BatchedStateSelector.confirmation": [
     {
       "type": 0,
-      "value": "The state change is in progress and may take some time."
+      "value": "crwdns5980:0crwdne5980:0"
     }
   ],
   "EventAdminApp.BatchedStateSelector.ok": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "crwdns5982:0crwdne5982:0"
     }
   ],
   "EventAdminApp.BatchedStateSelector.title": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "crwdns5984:0crwdne5984:0"
     }
   ],
   "EventAdminApp.Dashboard.allSelected": [
     {
       "type": 0,
-      "value": "All "
+      "value": "crwdns5986:0"
     },
     {
-      "children": [
-        {
-          "type": 1,
-          "value": "size"
-        }
-      ],
-      "type": 8,
-      "value": "b"
+      "type": 1,
+      "value": "size"
     },
     {
       "type": 0,
-      "value": " events on this page are selected."
+      "value": "crwdne5986:0"
     }
   ],
   "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,
-      "value": "Cancel selection"
+      "value": "crwdns5988:0crwdne5988:0"
     }
   ],
   "EventAdminApp.Dashboard.changeState": [
     {
       "type": 0,
-      "value": "Change state"
+      "value": "crwdns5990:0crwdne5990:0"
     }
   ],
   "EventAdminApp.Dashboard.clearFilters": [
     {
       "type": 0,
-      "value": "Clear filters"
+      "value": "crwdns6056:0crwdne6056:0"
     }
   ],
   "EventAdminApp.Dashboard.extendedAllSelected": [
     {
       "type": 0,
-      "value": "The "
+      "value": "crwdns5992:0"
     },
     {
-      "children": [
-        {
-          "type": 1,
-          "value": "total"
-        }
-      ],
-      "type": 8,
-      "value": "b"
+      "type": 1,
+      "value": "total"
     },
     {
       "type": 0,
-      "value": " events corresponding to the current filters are selected."
+      "value": "crwdne5992:0"
     }
   ],
   "EventAdminApp.Dashboard.filters": [
@@ -96,19 +84,19 @@
   "EventAdminApp.Dashboard.groupedActions": [
     {
       "type": 0,
-      "value": "Grouped actions on selection"
+      "value": "crwdns5994:0crwdne5994:0"
     }
   ],
   "EventAdminApp.Dashboard.next": [
     {
       "type": 0,
-      "value": "Next"
+      "value": "crwdns6046:0crwdne6046:0"
     }
   ],
   "EventAdminApp.Dashboard.previous": [
     {
       "type": 0,
-      "value": "Previous"
+      "value": "crwdns6048:0crwdne6048:0"
     }
   ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
@@ -120,70 +108,43 @@
   "EventAdminApp.Dashboard.selectAll": [
     {
       "type": 0,
-      "value": "Select all"
+      "value": "crwdns5996:0crwdne5996:0"
     }
   ],
   "EventAdminApp.Dashboard.selectExtendedAll": [
     {
       "type": 0,
-      "value": "Select "
+      "value": "crwdns5998:0"
     },
     {
-      "children": [
-        {
-          "type": 1,
-          "value": "total"
-        }
-      ],
-      "type": 8,
-      "value": "b"
+      "type": 1,
+      "value": "total"
     },
     {
       "type": 0,
-      "value": " events matching the current filters."
+      "value": "crwdne5998:0"
     }
   ],
   "EventAdminApp.Dashboard.selectedEvents": [
     {
-      "style": null,
-      "type": 2,
+      "type": 0,
+      "value": "crwdns6050:0count="
+    },
+    {
+      "type": 1,
       "value": "count"
     },
     {
       "type": 0,
-      "value": " "
+      "value": "crwdnd6050:0count="
     },
     {
-      "offset": 0,
-      "options": {
-        "=0": {
-          "value": [
-            {
-              "type": 0,
-              "value": "event"
-            }
-          ]
-        },
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "event"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "events"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "type": 1,
       "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne6050:0"
     }
   ],
   "EventAdminApp.Dashboard.sortedBy": [
@@ -195,7 +156,7 @@
   "EventAdminApp.Dashboard.state": [
     {
       "type": 0,
-      "value": "State"
+      "value": "crwdns6000:0crwdne6000:0"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -247,27 +208,19 @@
     },
     {
       "type": 0,
-      "value": "crwdnd794:0filters="
-    },
-    {
-      "type": 1,
-      "value": "filters"
-    },
-    {
-      "type": 0,
       "value": "crwdne794:0"
     }
   ],
   "EventAdminApp.Dashboard.unselect": [
     {
       "type": 0,
-      "value": "Unselect"
+      "value": "crwdns6052:0crwdne6052:0"
     }
   ],
   "EventAdminApp.Dashboard.yourSelection": [
     {
       "type": 0,
-      "value": "Your selection:"
+      "value": "crwdns6054:0crwdne6054:0"
     }
   ],
   "EventAdminApp.EventItem.addedBy": [
@@ -341,7 +294,7 @@
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,
-      "value": "Online event"
+      "value": "crwdns6058:0crwdne6058:0"
     }
   ],
   "EventAdminApp.EventItem.passed": [
@@ -365,7 +318,7 @@
   "EventAdminApp.EventItem.showOnlineLocation": [
     {
       "type": 0,
-      "value": "Access the online event"
+      "value": "crwdns6060:0crwdne6060:0"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [
@@ -425,31 +378,31 @@
   "EventAdminApp.messages.attendanceModes.mixed": [
     {
       "type": 0,
-      "value": "Mixed"
+      "value": "crwdns6064:0crwdne6064:0"
     }
   ],
   "EventAdminApp.messages.attendanceModes.offline": [
     {
       "type": 0,
-      "value": "Offline"
+      "value": "crwdns6066:0crwdne6066:0"
     }
   ],
   "EventAdminApp.messages.attendanceModes.online": [
     {
       "type": 0,
-      "value": "Online"
+      "value": "crwdns6068:0crwdne6068:0"
     }
   ],
   "EventAdminApp.messages.exports.export": [
     {
       "type": 0,
-      "value": "crwdns5952:0crwdne5952:0"
+      "value": "crwdns6002:0crwdne6002:0"
     }
   ],
   "EventAdminApp.messages.exports.exportDesc": [
     {
       "type": 0,
-      "value": "crwdns5954:0total="
+      "value": "crwdns6004:0total="
     },
     {
       "type": 1,
@@ -457,61 +410,61 @@
     },
     {
       "type": 0,
-      "value": "crwdne5954:0"
+      "value": "crwdne6004:0"
     }
   ],
   "EventAdminApp.messages.exports.exportSelection": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "crwdns6006:0crwdne6006:0"
     }
   ],
   "EventAdminApp.messages.exports.toCSV": [
     {
       "type": 0,
-      "value": "crwdns5956:0crwdne5956:0"
+      "value": "crwdns6008:0crwdne6008:0"
     }
   ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
-      "value": "crwdns5958:0crwdne5958:0"
+      "value": "crwdns6010:0crwdne6010:0"
     }
   ],
   "EventAdminApp.messages.exports.toICS": [
     {
       "type": 0,
-      "value": "crwdns5960:0crwdne5960:0"
+      "value": "crwdns6012:0crwdne6012:0"
     }
   ],
   "EventAdminApp.messages.exports.toJSON": [
     {
       "type": 0,
-      "value": "crwdns5962:0crwdne5962:0"
+      "value": "crwdns6014:0crwdne6014:0"
     }
   ],
   "EventAdminApp.messages.exports.toMD": [
     {
       "type": 0,
-      "value": "crwdns5964:0crwdne5964:0"
+      "value": "crwdns6016:0crwdne6016:0"
     }
   ],
   "EventAdminApp.messages.exports.toRSS": [
     {
       "type": 0,
-      "value": "crwdns5966:0crwdne5966:0"
+      "value": "crwdns6018:0crwdne6018:0"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
-      "value": "crwdns5968:0crwdne5968:0"
+      "value": "crwdns6020:0crwdne6020:0"
     }
   ],
   "EventAdminApp.messages.exports.toXLSX": [
     {
       "type": 0,
-      "value": "crwdns5970:0crwdne5970:0"
+      "value": "crwdns6022:0crwdne6022:0"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

@@ -566,7 +566,7 @@
   "AgendaStats.RangeTypeModal.cancel": [
     {
       "type": 0,
-      "value": "crwdns488:0crwdne488:0"
+      "value": "crwdns15950:0crwdne15950:0"
     }
   ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
@@ -596,7 +596,7 @@
   "AgendaStats.RangeTypeModal.submit": [
     {
       "type": 0,
-      "value": "crwdns490:0crwdne490:0"
+      "value": "crwdns15952:0crwdne15952:0"
     }
   ],
   "AgendaStats.Separator.remove": [
@@ -838,25 +838,25 @@
   "AgendaStats.messages.states.controlled": [
     {
       "type": 0,
-      "value": "crwdns480:0crwdne480:0"
+      "value": "crwdns15954:0crwdne15954:0"
     }
   ],
   "AgendaStats.messages.states.published": [
     {
       "type": 0,
-      "value": "crwdns482:0crwdne482:0"
+      "value": "crwdns15956:0crwdne15956:0"
     }
   ],
   "AgendaStats.messages.states.refused": [
     {
       "type": 0,
-      "value": "crwdns484:0crwdne484:0"
+      "value": "crwdns15958:0crwdne15958:0"
     }
   ],
   "AgendaStats.messages.states.toModerate": [
     {
       "type": 0,
-      "value": "crwdns486:0crwdne486:0"
+      "value": "crwdns15960:0crwdne15960:0"
     }
   ],
   "AgendaStats.utils.addRestItem.noValue": [

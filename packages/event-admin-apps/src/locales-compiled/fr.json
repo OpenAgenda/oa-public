@@ -293,7 +293,7 @@
           "value": [
             {
               "type": 0,
-              "value": "événements"
+              "value": "événement"
             }
           ]
         },
@@ -320,7 +320,7 @@
   "EventAdminApp.Dashboard.yourSelection": [
     {
       "type": 0,
-      "value": "Votre séléction:"
+      "value": "Votre sélection:"
     }
   ],
   "EventAdminApp.EventItem.addedBy": [
@@ -553,49 +553,49 @@
   "EventAdminApp.messages.exports.toCSV": [
     {
       "type": 0,
-      "value": "en .csv"
+      "value": "csv"
     }
   ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
-      "value": "en .docx"
+      "value": "docx"
     }
   ],
   "EventAdminApp.messages.exports.toICS": [
     {
       "type": 0,
-      "value": "en .ics"
+      "value": "ics"
     }
   ],
   "EventAdminApp.messages.exports.toJSON": [
     {
       "type": 0,
-      "value": "en .json"
+      "value": "json"
     }
   ],
   "EventAdminApp.messages.exports.toMD": [
     {
       "type": 0,
-      "value": "en .md"
+      "value": "md"
     }
   ],
   "EventAdminApp.messages.exports.toRSS": [
     {
       "type": 0,
-      "value": "en .rss"
+      "value": "rss"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
-      "value": "en .txt"
+      "value": "txt"
     }
   ],
   "EventAdminApp.messages.exports.toXLSX": [
     {
       "type": 0,
-      "value": "en .xlsx"
+      "value": "xlsx"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

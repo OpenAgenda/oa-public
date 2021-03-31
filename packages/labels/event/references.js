@@ -6,118 +6,135 @@ module.exports = {
     "en": "Related events",
     "de": "ähnliche Veranstaltungen",
     "es": "eventos relacionados",
-    "it": "Eventi correlati"
+    "it": "Eventi correlati",
+    "io": "crwdns14368:0crwdne14368:0"
   },
   "editorInfo": {
     "fr": "Liez d'autres événements de l'agenda à votre événement",
     "en": "Link other events of the agenda to your event",
     "de": "Verbinde andere Veranstaltungen des Veranstaltungskalenders mit deiner Veranstaltung. ",
     "es": "Enlace a otros eventos de agenda a su evento",
-    "it": "Collega altri eventi in agenda al tuo evento"
+    "it": "Collega altri eventi in agenda al tuo evento",
+    "io": "crwdns14370:0crwdne14370:0"
   },
   "showTitle": {
     "fr": "Voir aussi",
     "en": "See also",
     "de": "Siehe auch",
     "es": "Ver también",
-    "it": "Vedi anche"
+    "it": "Vedi anche",
+    "io": "crwdns14372:0crwdne14372:0"
   },
   "emptyReferences": {
     "fr": "Aucun événement lié n'est encore défini",
     "en": "There are currently no linked events",
     "de": "Es gibt derzeit keine verknüpfte Veranstaltungen",
     "es": "Sin acontecimientos relacionados aún no está definida",
-    "it": "Non sono ancora stati definiti eventi correlati"
+    "it": "Non sono ancora stati definiti eventi correlati",
+    "io": "crwdns14374:0crwdne14374:0"
   },
   "emptySearch": {
     "fr": "Aucun résultat pour cette recherche",
     "en": "No result for this search",
     "de": "Kein Ergebnis für diese Suche",
     "es": "No hay resultados para esta búsqueda",
-    "it": "Nessun risultato per questa ricerca"
+    "it": "Nessun risultato per questa ricerca",
+    "io": "crwdns14376:0crwdne14376:0"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
     "en": "Add an event",
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
-    "it": "Aggiungi un evento"
+    "it": "Aggiungi un evento",
+    "io": "crwdns14378:0crwdne14378:0"
   },
   "addEventOr": {
     "fr": "ou",
     "en": "or",
     "de": "oder",
     "es": "o",
-    "it": "oppure"
+    "it": "oppure",
+    "io": "crwdns14380:0crwdne14380:0"
   },
   "addEventSuggest": {
     "fr": "Charger des événements similaires",
     "en": "Load similar events",
     "de": "Laden Sie ähnliche Veranstaltungen",
     "es": "Cargar eventos similares",
-    "it": "Caricare eventi simili"
+    "it": "Caricare eventi simili",
+    "io": "crwdns14382:0crwdne14382:0"
   },
   "search": {
     "fr": "Chercher via titre ou lieu",
     "en": "Search by title or location name",
     "de": "Suche nach Titel oder Ortsnamen",
     "es": "Buscar a través de título o lugar",
-    "it": "Ricerca per titolo o località"
+    "it": "Ricerca per titolo o località",
+    "io": "crwdns14384:0crwdne14384:0"
   },
   "searchResultTitle": {
     "fr": "Résultats de la recherche",
     "en": "Search results",
     "de": "Suchergebnisse",
     "es": "resultados de la búsqueda",
-    "it": "Risultati della ricerca"
+    "it": "Risultati della ricerca",
+    "io": "crwdns14386:0crwdne14386:0"
   },
   "suggestionResultTitle": {
     "fr": "Suggestions d'événements similaires",
     "en": "Suggested similar events",
     "de": "Empfohlene ähnliche Veranstaltungen",
     "es": "Sugerencias de eventos similares",
-    "it": "Suggerimenti per eventi simili"
+    "it": "Suggerimenti per eventi simili",
+    "io": "crwdns14388:0crwdne14388:0"
   },
   "nothingToSuggestTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
     "de": "ähnliche Veranstaltungen",
     "es": "Eventos similares",
-    "it": "Eventi simili"
+    "it": "Eventi simili",
+    "io": "crwdns14390:0crwdne14390:0"
   },
   "nothingToSuggest": {
     "fr": "Des événements similaires ne peuvent être chargés que si vous avez entamé la saisie de votre événement!",
     "en": "Similar events can only be loaded if you have already filled the event form",
     "de": "Ähnliche Veranstaltungen können nur geladen werden, wenn du bereits das Veranstaltungsformular ausgefüllt hast.",
     "es": "Eventos similares sólo pueden ser cargados si usted comenzó a escribir su evento!",
-    "it": "Eventi simili possono essere caricati solo se avete iniziato a partecipare al vostro evento!"
+    "it": "Eventi simili possono essere caricati solo se avete iniziato a partecipare al vostro evento!",
+    "io": "crwdns14392:0crwdne14392:0"
   },
   "noSuggestionsTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
     "de": "ähnliche Veranstaltungen",
     "es": "Eventos similares",
-    "it": "Eventi simili"
+    "it": "Eventi simili",
+    "io": "crwdns14394:0crwdne14394:0"
   },
   "noSuggestions": {
     "fr": "Aucun événement similaire n'a été trouvé",
     "en": "No similar event was found",
     "de": "Kein ähnlicher Fall wurde gefunden",
     "es": "No se encontraron eventos relacionados",
-    "it": "Non sono stati trovati eventi simili"
+    "it": "Non sono stati trovati eventi simili",
+    "io": "crwdns14396:0crwdne14396:0"
   },
   "noOtherSuggestionsTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
     "de": "ähnliche Veranstaltungen",
     "es": "Eventos similares",
-    "it": "Eventi simili"
+    "it": "Eventi simili",
+    "io": "crwdns14398:0crwdne14398:0"
   },
   "noOtherSuggestions": {
     "fr": "Aucun autre événement similaire n'a été trouvé",
     "en": "No other similar event was found",
     "de": "Kein anderes ähnliches Veranstaltung wurde gefunden",
     "es": "No se encontraron eventos similares",
-    "it": "Non sono stati trovati altri eventi simili"
+    "it": "Non sono stati trovati altri eventi simili",
+    "io": "crwdns14400:0crwdne14400:0"
   }
 }

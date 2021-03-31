@@ -133,13 +133,13 @@
   "ReactFilters.dateRanges.currentMonth": [
     {
       "type": 0,
-      "value": "Current month"
+      "value": "Mese corrente"
     }
   ],
   "ReactFilters.dateRanges.currentWeek": [
     {
       "type": 0,
-      "value": "Current week"
+      "value": "Settimana corrente"
     }
   ],
   "ReactFilters.dateRanges.past": [
@@ -175,7 +175,7 @@
   "ReactFilters.messages.filterTitles.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "Modalità di partecipazione"
     }
   ],
   "ReactFilters.messages.filterTitles.city": [
@@ -211,7 +211,7 @@
   "ReactFilters.messages.filterTitles.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Orari"
     }
   ],
   "ReactFilters.messages.filterTitles.updatedAt": [
