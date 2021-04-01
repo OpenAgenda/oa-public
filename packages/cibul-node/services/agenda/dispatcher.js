@@ -4,7 +4,6 @@ const redis = require( 'redis' );
 
 const log = require( '@openagenda/logs' )( 'services/agenda/dispatcher' );
 
-const clearReferences = require( '../event/clearReferences' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 
@@ -50,8 +49,6 @@ module.exports = agenda => {
     }, options || {} );
 
     log( 'agenda.%s.onEventUnpublish.%s', agenda.id, event.id );
-
-    clearReferences( agenda.id, event.id );
 
     if ( !params.refresh ) return;
 

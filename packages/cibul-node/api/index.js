@@ -85,11 +85,10 @@ module.exports = core => {
     }), next)
   );
 
-  // update the thing
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+
   app.patch('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
-  // remove the thing
   app.delete('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
     .agendas(req.agenda.uid).events
     .remove(req.event.uid, {
@@ -98,6 +97,21 @@ module.exports = core => {
         userUid: req.user.uid
       }
     }).then(event => res.json({ success: true, event }), next)
+  );
+
+  app.get('/agendas/:agendaUid/events', (req, res, next) => core
+    .agendas(req.agenda.uid).events
+    .search(req.query, req.query, {
+      ...req.query,
+      search_after: req.query.after
+    }).then(({
+      events, sort, total
+    }) => res.json({
+      success: true,
+      after: sort,
+      total,
+      events
+    }), next)
   );
 
   app.get('/agendas/:agendaUid/settings', [

@@ -145,7 +145,6 @@ function plugApp(parentApp) {
     sessions.mw.loadOrRedirect(),
     mw.loadAgenda,
     agendas.mw.authorizeByIPAddress(),
-    members.mw.loadAndAuthorize('moderator'),
     mw.navigate
   );
 }

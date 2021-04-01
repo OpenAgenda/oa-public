@@ -4,18 +4,18 @@ const _ = require('lodash');
 const fs = require('fs');
 const should = require('should');
 
-const config = require( '../testconfig' );
+const config = require('../testconfig');
 
-const Service = require( '../' );
+const Service = require('../');
 const postDSL = require('../utils/postDSL');
 
 describe('16 - event search - functional: more like this', function() {
 
   let service, dslSearch;
 
-  this.timeout( 20000 );
+  this.timeout(20000);
 
-  before( async () => {
+  before(async () => {
     service = Service(config);
   });
 
@@ -28,10 +28,10 @@ describe('16 - event search - functional: more like this', function() {
   });
 
   before(async () => {
-    await service( 'simple_search' ).rebuild({
+    await service('simple_search').rebuild({
       eventsList: async (lastId, limit) => JSON.parse(fs.readFileSync(
         `${__dirname}/fixtures/16_events.${lastId}.${limit}.json`
-      ))
+     ))
     });
   });
 
@@ -39,7 +39,7 @@ describe('16 - event search - functional: more like this', function() {
     dslSearch = postDSL.bind(null, _.pick(service.getConfig(), ['client']));
   });
 
-  describe( 'dsl more like this', () => {
+  describe('dsl more like this', () => {
 
     it('a more like this taken from keywords', async () => {
 
@@ -48,15 +48,15 @@ describe('16 - event search - functional: more like this', function() {
        * for generic like search.
        */
 
-      const { events } = await dslSearch( 'test', {
+      const { events } = await dslSearch('test', {
         query: {
           bool: {
             must: [{
               more_like_this: {
-                fields: [ '_search_keywords' ],
+                fields: ['_search_keywords'],
                 min_term_freq: 1,
                 min_doc_freq: 1,
-                like: [ 'vin chaud' ]
+                like: ['vin chaud']
               }
             }],
             filter: [{
@@ -66,19 +66,19 @@ describe('16 - event search - functional: more like this', function() {
             }]
           }
         }
-      } );
+      });
 
       events.map(e => e.uid).sort().should.eql([57, 82]);
     });
 
-  } );
+  });
 
-  describe( 'service more like this', () => {
+  describe('service more like this', () => {
 
     it('mlt on one keyword', async () => {
       const { events, total } = await service('simple_search').moreLikeThis({
         keywords: {
-          fr: [ 'vin chaud' ]
+          fr: ['vin chaud']
         }
       });
 
@@ -90,7 +90,7 @@ describe('16 - event search - functional: more like this', function() {
     it('mlt on two keywords', async () => {
       const { total, events } = await service('simple_search').moreLikeThis({
         keywords: {
-          fr: [ 'vin chaud', 'bières' ]
+          fr: ['vin chaud', 'bières']
         }
       });
 
@@ -102,7 +102,7 @@ describe('16 - event search - functional: more like this', function() {
     });
 
     it('mlt on title', async () => {
-      const { total, events } = await service('simple_search').moreLikeThis( {
+      const { total, events } = await service('simple_search').moreLikeThis({
         title: {
           fr: 'Bazar'
         }
@@ -129,16 +129,16 @@ describe('16 - event search - functional: more like this', function() {
 
     it('mlt on title and keywords', async () => {
 
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+      const { total, events } = await service('simple_search').moreLikeThis({
         title: {
           fr: 'Les doigts de la main'
         },
         keywords: {
-          fr: [ 'doigts' ]
+          fr: ['doigts']
         }
       });
 
-      events.map( e => e.uid ).should.eql([132, 157]);
+      events.map(e => e.uid).should.eql([132, 157]);
     });
 
     it('mlt on title and keywords with boosts', async () => {
@@ -148,27 +148,27 @@ describe('16 - event search - functional: more like this', function() {
           fr: 'Les doigts de la main'
         },
         keywords: {
-          fr: [ 'doigts' ]
+          fr: ['doigts']
         }
       };
 
-      ( await service( 'simple_search' ).moreLikeThis( mltRequest, {
+      (await service('simple_search').moreLikeThis(mltRequest, {
         boost: { title: 20, keywords: 50 }
-      } ) ).events.map( e => e.uid ).sort().should.eql( [ 132, 157 ] );
+      })).events.map(e => e.uid).sort().should.eql([132, 157]);
 
-      ( await service( 'simple_search' ).moreLikeThis( mltRequest, {
+      (await service('simple_search').moreLikeThis(mltRequest, {
         boost: { title: 50, keywords: 30 }
-      } ) ).events.map( e => e.uid ).sort().should.eql( [ 132, 157 ] );
+      })).events.map(e => e.uid).sort().should.eql([132, 157]);
 
     });
 
     it('mlt on nothing should return empty result', async () => {
 
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {} );
+      const { total, events } = await service('simple_search').moreLikeThis({});
 
-      total.should.equal( 0 );
+      total.should.equal(0);
 
-      events.length.should.equal( 0 );
+      events.length.should.equal(0);
 
     });
 
@@ -190,24 +190,24 @@ describe('16 - event search - functional: more like this', function() {
       events.map(e => e.slug).should.eql([
         'finger_event_2',
         'shop_event_2'
-      ]);
+     ]);
     });
 
     it('mlt on department with title in different department with different boost', async () => {
 
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+      const { total, events } = await service('simple_search').moreLikeThis({
         keywords: {
-          fr: [ 'janine' ]
+          fr: ['janine']
         },
         location: {
           department: 'Finistère'
         }
-      }, { boost: { keywords : 20, 'location.department' : 10 } } );
+      }, { boost: { keywords : 20, 'location.department' : 10 } });
 
-      events.map( e => e.slug ).should.eql( [ 'shop_event_2', 'finger_event_2' ] );
+      events.map(e => e.slug).should.eql(['shop_event_2', 'finger_event_2']);
 
     });
 
-  } );
+  });
 
-} );
+});

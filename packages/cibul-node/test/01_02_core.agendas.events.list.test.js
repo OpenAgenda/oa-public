@@ -10,7 +10,7 @@ const Services = require('../services/init');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events.list()', function() {
+describe('01 - core - functional (server): core.agendas().events.list()', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));

@@ -11,7 +11,6 @@ const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
-
 describe('13 - core - functional(server): core.agendas().locations.patch', () => {
   let core;
   let stopSearchTask;
@@ -50,6 +49,8 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
 
     core.services.agendaLocations.task({ reset: true });
     stopSearchTask = services.aggregators.task().stopAndClear;
+
+    core.services.tracker.flush();
   });
 
   afterAll(async () => {

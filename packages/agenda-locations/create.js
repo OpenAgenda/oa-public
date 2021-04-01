@@ -8,12 +8,12 @@ const defineUnique = require('./lib/defineUnique');
 const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const validate = require('./lib/validate');
-const allow = require('./lib/AllowAction');
+const authorize = require('./lib/authorize');
 
 async function create(service, data, options = {}) {
-  log('received %j payload', data.name);
+  log('received %j payload with options %j', data.name, options);
 
-  await allow(service, 'create');
+  await authorize(service, 'create', null, options);
 
   const { context, includeImagePath, geocodeIfUndefined } = cleanOptions(
     options

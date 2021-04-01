@@ -10,17 +10,20 @@ module.exports = (core, agendaOrUid) => {
   return {
     create: data => locations.create(data, {
       geocodeIfUndefined: true,
-      includeImagePath: true
+      includeImagePath: true,
+      agendaUid
     }),
     update: (uid, data) => locations.update(uid, data, {
       geocodeIfUndefined: true,
-      includeImagePath: true
+      includeImagePath: true,
+      agendaUid
     }),
     patch: (uid, data) => locations.patch(uid, data, {
       geocodeIfUndefined: true,
-      includeImagePath: true
+      includeImagePath: true,
+      agendaUid
     }),
-    remove: uid => locations.remove(uid),
+    remove: uid => locations.remove(uid, { agendaUid }),
     get: (identifiers, options = {}) => locations.get(identifiers, {
       ...options,
       includeImagePath: true

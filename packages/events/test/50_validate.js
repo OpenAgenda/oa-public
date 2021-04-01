@@ -87,6 +87,14 @@ describe('validate', () => {
     }
   });
 
+  it('references is a list of integers', async () => {
+    const clean = await validate({
+      references: [123, 456]
+    }, { isDraft: true });
+
+    assert.deepEqual(clean.references, [123, 456]);
+  });
+
   it('age should be an object with min and max values', async () => {
     const clean = await validate({
       age: { min: 12, max: 100 }

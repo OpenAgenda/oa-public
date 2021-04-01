@@ -362,12 +362,14 @@ function _main( v ) {
     age: 'getAge'
   };
 
+  const longDescriptionLinks = v.req.event.getLinks();
+  
   Object.assign(v.formatted,
     _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo']), 
     v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
     {
-      longDescriptionLinks: v.req.event.getLinks(),
-      freeText: renderHTMLFromMarkdown(v.req.app.services, v.formatted.longDescriptionLinks, v.formatted.freeText)
+      longDescriptionLinks,
+      freeText: renderHTMLFromMarkdown(v.req.app.services, longDescriptionLinks, v.req.event.getFreeText())
     }
   );
 

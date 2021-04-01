@@ -6,7 +6,7 @@ const gaTrack = require('../../lib/gaTrack.mw');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
 
-module.exports = (config, services, service, app, base) => {
+module.exports = (services, service, app, base) => {
   const {
     members,
     agendas,
@@ -62,7 +62,8 @@ module.exports = (config, services, service, app, base) => {
         ...req.body,
         state: 0
       }, {
-        includeImagePath: true
+        includeImagePath: true,
+        agendaUid: req.agenda.uid
       }).then(location => {
         res.json({
           location,
