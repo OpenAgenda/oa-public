@@ -741,27 +741,6 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
-      describe('pastAndUpcoming', () => {
-        let agg, total;
-
-        before(async () => {
-          const result = await service('bdx').search({ state: null }, { size: 0 }, {
-            aggregations: 'pastAndUpcoming'
-          });
-
-          agg = result.aggregations.pastAndUpcoming;
-          total = result.total;
-        });
-
-        it('provides two sets, one for past events, the other for upcoming', () => {
-          agg.map(s => s.key).should.eql(['past', 'upcoming']);
-        });
-
-        it('sum of past & upcoming matches total', () => {
-          agg.reduce((sum, { eventCount }) => sum+=eventCount, 0).should.equal(total);
-        });
-      });
-
       describe('timespan', () => {
         let timespanAggregation;
 
