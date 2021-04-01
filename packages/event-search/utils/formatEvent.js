@@ -17,9 +17,12 @@ module.exports = (event, formSchema = null) => {
   };
 
   if (event.location) {
-    const country = _clearEmptyLabels(_.get(countries,
-      (_.get(event, 'location.countryCode') || '').toUpperCase()
-    , {}));
+    const country = _.omit(
+      _clearEmptyLabels(_.get(countries,
+        (_.get(event, 'location.countryCode') || '').toUpperCase()
+      , {})),
+      ['io']
+    );
     transform.country = {
       $set: country
     };
