@@ -55,6 +55,26 @@ describe('02 - event search - functional: relative filter', () => {
     assert.equal(events[0].title.fr, 'Eclipses lunaires');
   });
 
+  it('aggregation', async () => {
+    const {
+      aggregations
+    } = await service('relative').search({}, { size: 0 }, { aggregations: 'relative' });
+
+    assert.deepEqual(
+      aggregations.relative,
+      [{
+        key: 'current',
+        eventCount: 1
+      }, {
+        key: 'passed',
+        eventCount: 1
+      }, {
+        key: 'upcoming',
+        eventCount: 1
+      }]
+    );
+  });
+
   it('relative filter set to current and upcoming returns current and upcoming', async () => {
     const { events } = await service('relative').search({
       relative: ['current', 'upcoming']

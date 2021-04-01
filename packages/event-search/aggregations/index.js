@@ -14,7 +14,7 @@ const aggregationTypes = {
   members: require('./members'),
   timespan: require('./timespan'),
   originAgendas: require('./originAgendas'),
-  pastAndUpcoming: require('./pastAndUpcoming'),
+  relative: require('./relative'),
   regions: terms('location.region'),
   sourceAgendas: require('./sourceAgendas'),
   states: terms('state', { order: { _key: 'desc' } }),
