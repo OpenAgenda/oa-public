@@ -107,7 +107,12 @@ module.exports = services => {
           .events.search({
             state: null,
             ...req.query
-          }, null, { detailed: true, returnAgenda: true, stream: true, userUid: req.user.uid });
+          }, null, {
+            detailed: true,
+            returnAgenda: true,
+            stream: true,
+            userUid: req.user.uid
+          });
 
         switch (format) {
           case 'csv': {

@@ -103,13 +103,18 @@ module.exports = core => {
     .agendas(req.agenda.uid).events
     .search(req.query, req.query, {
       ...req.query,
-      search_after: req.query.after
+      useAfterKey: true,
+      userUid: req.user?.uid
     }).then(({
-      events, sort, total
+      events,
+      sort,
+      total,
+      after
     }) => res.json({
       success: true,
-      after: sort,
+      sort,
       total,
+      after,
       events
     }), next)
   );
@@ -224,7 +229,7 @@ module.exports = core => {
         locations: items,
         after,
         total
-      }))
+      }), next)
   )
 
   app.post('/agendas/:agendaUid/settings/resync', [

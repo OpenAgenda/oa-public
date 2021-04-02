@@ -17,6 +17,10 @@ module.exports = schema({
     type: 'pass',
     default: null
   },
+  useAfterKey: {
+    type: 'boolean',
+    default: false
+  },
   monolingual: {
     type: 'text',
     list: { max: 2 }

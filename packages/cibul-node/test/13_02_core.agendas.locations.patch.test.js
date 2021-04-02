@@ -54,6 +54,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
   });
 
   afterAll(async () => {
+    core.services.tracker.flush();
     await stopSearchTask();
     await core.services.agendaLocations.task.stop({ reset: true });
     core.services.knex.destroy();
