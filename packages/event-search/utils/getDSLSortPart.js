@@ -40,5 +40,7 @@ module.exports = (s = []) => {
     return {
       [field]: order
     };
+  }).concat({
+    uid: { order: 'asc' } // tie breaker
   });
 }

@@ -41,5 +41,10 @@ module.exports = schema({
     type: 'text',
     optional: true,
     list: { default: null }
+  },
+  useAfterKey: {
+    type: 'boolean',
+    optional: true,
+    default: false
   }
 });

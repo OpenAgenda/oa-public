@@ -18,26 +18,23 @@ const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
 const appendMLT = require('./utils/appendMLT');
+const cleanNavResult = require('./utils/cleanNavResult');
 
-const textLog = require('./utils/textLog');
+const {
+  inflateAndClean: inflateAndCleanQuery
+} = require('./utils/validateQuery');
 
 const log = require('@openagenda/logs')('search');
 
 async function search(config, set, query = {}, nav = {}, options = {}) {
-  log('searching on set %s with query %j', set, query);
+  log('searching on set %s', set);
 
-  let cleanNav = {}, cleanOptions = {}, cleanDSL;
+  let cleanNav = {}, cleanDSL;
 
   const {
     defaultIndex,
     predefinedAggregations
   } = config;
-
-  try {
-    cleanNav = validateNav(nav);
-  } catch(e) {
-    throw new VError(e, 'nav is not valid');
-  }
 
   const {
     detailed,
@@ -46,8 +43,15 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     monolingual,
     first,
     access,
-    includes: requestedIncludes
+    includes: requestedIncludes,
+    useAfterKey
   } = validateOptions(options);
+
+  try {
+    cleanNav = validateNav(nav, { useAfterKey });
+  } catch(e) {
+    throw new VError(e, 'nav is not valid');
+  }
 
   const index = getIndexName(set, defaultIndex);
   const includes = defineIncludes(config, {
@@ -57,10 +61,12 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     requested: requestedIncludes
   });
 
-  query.set = set;
+  const cleanQuery = inflateAndCleanQuery(query, { set, formSchema });
+
+  log('searching with query %j and nav %j', cleanQuery, cleanNav);
 
   cleanDSL = queryToDSL(
-    query,
+    cleanQuery,
     cleanNav.size !== undefined ? cleanNav : {},
     formSchema,
     includes
@@ -101,8 +107,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   return Object.assign({
     total,
     events: parsedEvents,
-    scrollId,
-    sort
+    ...cleanNavResult(cleanQuery, { scrollId, sort }, { useAfterKey }),
   }, aggregationResults ? { aggregations: aggregationResults } : {});
 }
 
