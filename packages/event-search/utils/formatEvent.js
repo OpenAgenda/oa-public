@@ -132,7 +132,11 @@ module.exports = (event, formSchema = null) => {
 
   transform.onlineAccessLink = {
     $set: event.onlineAccessLink || null
-  }
+  };
+
+  transform.featured = {
+    $set: !!event.featured
+  };
 
   transform['_search_languages'] = {
     $set: ['title', 'description','longDescription']
@@ -199,6 +203,7 @@ module.exports = (event, formSchema = null) => {
         .filter(({ integer }) => integer < 2147483648)
       };
   }
+  
   return ih(event, transform);
 }
 

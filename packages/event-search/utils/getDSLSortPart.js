@@ -2,6 +2,25 @@
 
 const _ = require('lodash');
 
+const timings = [{
+  '_search_timings.accessible_until' : {
+    mode: 'min',
+    order: 'asc',
+    nested: {
+      path: '_search_timings',
+      filter: {
+        range: {
+          '_search_timings.accessible_until' : { 'gte': 'now' }
+        }
+      }
+    }
+  }
+}, {
+  _search_last_timing: { order: 'desc' }
+}, {
+  uid: { order: 'asc' } // tie breaker
+}];
+
 module.exports = (s = []) => {
   const sorts = [].concat(s);
 
@@ -11,25 +30,14 @@ module.exports = (s = []) => {
 
   if (sorts[0] === 'score') return null;
 
-  if (sorts[0].split('.')[0] === 'timings') {
+  if (sorts[0].split('.')[0] === 'timingsWithFeatured') {
     return [{
-      '_search_timings.accessible_until' : {
-        mode: 'min',
-        order: 'asc',
-        nested: {
-          path: '_search_timings',
-          filter: {
-            range: {
-              '_search_timings.accessible_until' : { 'gte': 'now' }
-            }
-          }
-        }
-      }
-    }, {
-      _search_last_timing: { order: 'desc' }
-    }, {
-      uid: { order: 'asc' } // tie breaker
-    }];
+      featured: { order: 'desc' }
+    }].concat(timings);
+  }
+
+  if (sorts[0].split('.')[0] === 'timings') {
+    return timings;
   }
 
   return sorts.map(sort => {

@@ -3,6 +3,7 @@
     "uid",
     "title",
     "dateRange",
+    "featured",
     "image",
     "keywords",
     "slug",

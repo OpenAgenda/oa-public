@@ -84,6 +84,12 @@ const validate = schema({
     options: [null, -1, 0, 1, 2],
     default: 2
   },
+  featured: {
+    optional: true,
+    type: 'boolean',
+    allowNull: true,
+    default: null
+  },
   attendanceMode: {
     optional: true,
     type: 'choice',
@@ -159,6 +165,7 @@ const validate = schema({
     type: 'choice',
     options: [
       'timings.asc',
+      'timingsWithFeatured.asc',
       'updatedAt.desc',
       'updatedAt.asc',
       'location.name.asc',
@@ -192,7 +199,7 @@ function validateQuery(dirty, formSchema) {
   if ((clean.search || '').length && !clean.sort) {
     clean.sort = 'score';
   } else if (!clean.sort) {
-    clean.sort = 'timings.asc';
+    clean.sort = 'timingsWithFeatured.asc';
   }
 
   const additionalFields = getFormSchemaAdditionalFields(formSchema);

@@ -7,12 +7,14 @@ import RuleForm from '../src/components/RuleForm';
 import { ruleToValues } from '../src/utils/rules';
 import ModalDecorator from './decorators/ModalDecorator';
 import IntlDecorator from './decorators/IntlDecorator';
+import SourcesCanvasDecorator from './decorators/SourcesCanvas';
 
 import villeDeLille from './mocks/RuleForm/villeDeLille.schema.json';
 import MEL from './mocks/RuleForm/MEL.schema.json';
 import villeDeLilleToMELRules from './mocks/RuleForm/villeDeLilleToMEL.rules.json';
 
 export default storiesOf('RuleForm', module)
+  .addDecorator(SourcesCanvasDecorator)
   .addDecorator(ModalDecorator())
   .addDecorator(IntlDecorator)
   .add('when the rule is new', () => (

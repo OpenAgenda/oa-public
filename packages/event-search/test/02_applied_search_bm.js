@@ -293,7 +293,7 @@ describe('02 - event search - functional: Applied search', function() {
           sort
         } = await service('bdx').search({}, { size: 2 }, { useAfterKey: true });
 
-        assert.equal(sort, 'timings.asc');
+        assert.equal(sort, 'timingsWithFeatured.asc');
       });
 
     });
