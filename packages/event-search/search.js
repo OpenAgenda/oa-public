@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 const VError = require('verror');
 
 const aggregations = require('./aggregations');
@@ -9,6 +9,7 @@ const aggregations = require('./aggregations');
 const defineIncludes = require('./utils/defineIncludes');
 const postDSL = require('./utils/postDSL');
 const getIndexName = require('./utils/getIndexName');
+const getMLTDSLPart = require('./utils/getMLTDSLPart');
 const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
@@ -17,7 +18,6 @@ const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
-const appendMLT = require('./utils/appendMLT');
 const cleanNavResult = require('./utils/cleanNavResult');
 
 const {
@@ -75,11 +75,14 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   if (query.mlt && query.boost) {
     cleanDSL = spreadByMLTBoostScores(cleanDSL, query.mlt, query.boost, { formSchema });
   } else if (query.mlt) {
-    cleanDSL = appendMLT(cleanDSL, query.mlt, { formSchema })
+    cleanDSL.query.bool.must = (cleanDSL.query.bool.must || []).concat({
+      more_like_this: getMLTDSLPart(query.mlt, {
+        formSchema: options.formSchema
+      })
+    });
   }
 
   // sorting and _source added after
-
   if (requestedAggregations) {
     cleanDSL.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
   }
@@ -151,7 +154,10 @@ function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggre
   ];
 
   if (!detailed) {
-    parsers.push(e => ih(e, { $unset: ['timings', 'timezone'] }));
+    parsers.push(e => produce(e, draft => {
+      delete draft.timings;
+      delete draft.timezone;
+    }));
   }
 
   if (monolingual) {

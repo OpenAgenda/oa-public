@@ -242,9 +242,9 @@ module.exports.inflateAndClean = (query, options = {}) => {
     query[key]
   ), {});
 
-  const derelativized = derelativize(inflated);
+  inflated.set = set;
 
-  derelativized.set = set;
+  const derelativized = derelativize(inflated);
 
   return validateQuery(derelativized, formSchema);
 }

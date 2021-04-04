@@ -134,7 +134,6 @@ describe('02 - event search - functional: search', function() {
         );
       });
 
-
       it('lang search', async () => {
         const {
           events,

@@ -715,7 +715,7 @@ describe('02 - event search - functional: Applied search', function() {
         });
 
         it('source agendas are listed with corresponding event counts', () => {
-          agg[0].should.eql({
+          agg.filter(a => a.key === 38598267)[0].should.eql({
             key: 38598267,
             agenda: {
               uid: 38598267,

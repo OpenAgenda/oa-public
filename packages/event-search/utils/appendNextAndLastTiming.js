@@ -1,43 +1,30 @@
 'use strict';
 
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 
-// assumes timings are sorted
-module.exports = event => {
+module.exports = produce(event => {
   if (!event.timings || !event.timings.length) {
     return event;
   }
 
-  let last = event.timings.slice( -1 )[ 0 ],
+  const now = new Date();
 
-    next = null, now = new Date(),
-
-    update = {
-      lastTiming: { $set: last },
-      nextTiming: { $set: null }
-    };
-
-  if ( last && ( new Date( last.end ) < now ) ) {
-
-    // if last is in the past, there is no next timing
-
-    return ih( event, update );
-
+  Object.assign(event, {
+    lastTiming: event.timings.slice(-1).shift(),
+    nextTiming: null
+  });
+  
+  if (event.lastTiming && (new Date(event.lastTiming) < now)) {
+    return event;
   }
 
-  for ( let t of event.timings ) {
-
-    // go through timings, keep the first one that finishes in the future
-    if ( new Date( t.end ) > now ) {
-
-      update.nextTiming = { $set: t };
-
-      break;
-
+  for (const timing of event.timings) {
+    if (new Date(timing.end) < now) {
+      continue;
     }
-
+    event.nextTiming = timing;
+    break;
   }
 
-  return ih( event, update );
-
-}
+  return event;
+});
