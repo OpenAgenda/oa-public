@@ -1,19 +1,15 @@
 'use strict';
 
 const moment = require('moment-timezone');
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 
-module.exports = event => {
+module.exports = produce(event => {
   if (!event.timezone || !event.timings) {
     return event;
   }
 
-  return ih(event, {
-    timings: {
-      $set: event.timings.map(t => ({
-        begin: moment.tz(t.begin, event.timezone).format(),
-        end: moment.tz(t.end, event.timezone).format()
-      }))
-    }
-  });
-}
+  event.timings = event.timings.map(t => ({
+    begin: moment.tz(t.begin, event.timezone).format(),
+    end: moment.tz(t.end, event.timezone).format()
+  }));
+});

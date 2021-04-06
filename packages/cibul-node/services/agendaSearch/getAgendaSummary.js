@@ -19,7 +19,7 @@ module.exports = async (config, services, agenda) => {
   }, { size: 0 });
 
   const publishedResult = await services.core.agendas(agenda.uid).events.search({}, { size: 0 }, {
-    aggregations: ['cities', 'departments', 'regions', 'pastAndUpcoming', 'keywords']
+    aggregations: ['cities', 'departments', 'regions', 'relative', 'keywords']
   });
 
   const keywords = ['cities', 'departments', 'regions', 'keywords']
@@ -28,8 +28,17 @@ module.exports = async (config, services, agenda) => {
       []
     );
 
-  const upcomingPublishedEvents = publishedResult.aggregations.pastAndUpcoming.filter(a => a.key === 'upcoming').pop().eventCount;
-  const publishedEvents = agenda.upcomingPublishedEvents + publishedResult.aggregations.pastAndUpcoming.filter(a => a.key === 'past').pop().eventCount;
+  const upcomingPublishedEvents = publishedResult
+    .aggregations
+    .relative
+    .filter(a => a.key === 'upcoming').pop()
+    .eventCount;
+  const publishedEvents = agenda.upcomingPublishedEvents + publishedResult
+    .aggregations
+    .relative
+    .filter(a => a.key === 'passed')
+    .pop()
+    .eventCount;
 
   const result = await services.core.agendas(agenda.uid).events.search({}, { size: 0 }, {
     aggregations: ['states']

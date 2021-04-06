@@ -93,7 +93,6 @@ describe('02 - event search - functional: search', function() {
         );
       });
 
-
       it('country code search', async () => {
         const {
           events,
@@ -134,7 +133,6 @@ describe('02 - event search - functional: search', function() {
           ['keyword_event_2']
         );
       });
-
 
       it('lang search', async () => {
         const {
@@ -261,7 +259,8 @@ describe('02 - event search - functional: search', function() {
           Object.keys(events[0]),
           [
             'longDescription',  'country',
-            'private',          'keywords',
+            'private',
+            'featured',         'keywords',
             'accessibility',    'dateRange',
             'timezone',         'originAgenda',
             'description',      'title',

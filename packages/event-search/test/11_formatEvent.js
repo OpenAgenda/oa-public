@@ -1,6 +1,6 @@
 "use strict";
 
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 const should = require('should');
 const formatEvent = require('../utils/formatEvent');
 
@@ -81,8 +81,8 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('additional value is null if is not in formatted data', () => {
-    const eventWithNoAdditionalValue = ih(event, {
-      $unset: ['someAdditionalValue']
+    const eventWithNoAdditionalValue = produce(event, draft => {
+      delete draft.someAdditionalValue;
     });
 
     const formatted = formatEvent(eventWithNoAdditionalValue, formSchema);
@@ -91,8 +91,8 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('additional value is empty array if is not in formatted data and field is of list type (radio)', () => {
-    const eventWithNoAdditionalValue = ih(event, {
-      $unset: ['someAdditionalValue']
+    const eventWithNoAdditionalValue = produce(event, draft => {
+      delete draft.someAdditionalValue;
     });
 
     const formatted = formatEvent(eventWithNoAdditionalValue, {
@@ -175,25 +175,21 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('timestamp _exclusiveUpdatedAt is unset if updatedAt is less than 1mn appart from createdAt', () => {
-    should(formatEvent(ih(event, {
-      createdAt: {
-        $set: new Date('2020-05-11T15:25:30+0200')
-      },
-      updatedAt: {
-        $set: new Date('2020-05-11T15:26+0200')
-      }
-    }), formSchema)._exclusiveUpdatedAt).equal(undefined);
+    const newEvent = produce(event, draft => {
+      draft.createdAt = new Date('2020-05-11T15:25:30+0200');
+      draft.updatedAt = new Date('2020-05-11T15:26+0200');
+    });
+    
+    should(formatEvent(newEvent, formSchema)._exclusiveUpdatedAt).equal(undefined);
   });
 
   it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
-    formatEvent(ih(event, {
-      createdAt: {
-        $set: new Date('2020-05-11T15:25:30+0200')
-      },
-      updatedAt: {
-        $set: new Date('2020-05-11T15:27+0200')
-      }
-    }), formSchema)._exclusiveUpdatedAt.getTime().should.equal((new Date('2020-05-11T15:27+0200')).getTime());
+    const eventWithUpdate = produce(event, draft => {
+      draft.createdAt = new Date('2020-05-11T15:25:30+0200');
+      draft.updatedAt = new Date('2020-05-11T15:27+0200'); 
+    });
+    
+    formatEvent(eventWithUpdate, formSchema)._exclusiveUpdatedAt.getTime().should.equal((new Date('2020-05-11T15:27+0200')).getTime());
   });
 
 });

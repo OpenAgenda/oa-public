@@ -1,17 +1,13 @@
 'use strict';
 
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 
-module.exports = (query = {}) => {
-  const update = {
-    $unset: []
-  };
-
+module.exports = produce((query = {}) => {
   try {
     if (query.state) {
-      update.state = {
-        $set: [].concat(query.state).map(s => typeof s === 'string' ? parseInt(s) : s)
-      }
+      query.state = []
+        .concat(query.state)
+        .map(s => typeof s === 'string' ? parseInt(s) : s);
     }
   } catch (e) {
     log('error', 'provided state is invalid %j', query);
@@ -19,20 +15,16 @@ module.exports = (query = {}) => {
 
   try {
     if (query.attendanceMode) {
-      update.attendanceMode = {
-        $set: [].concat(query.attendanceMode).map(s => typeof s === 'string' ? parseInt(s) : s)
-      }
+      query.attendanceMode = []
+        .concat(query.attendanceMode)
+        .map(s => typeof s === 'string' ? parseInt(s) : s);
     }
   } catch (e) {
     log('error', 'provided attendanceMode is invalid %j', query);
   }
 
   if (query.date && (query.date.gte || query.date.lte)) {
-    update['$unset'].push('date');
-    update.timings = {
-      $set: query.date
-    }
+    query.timings = query.date;
+    delete query.date;
   }
-
-  return ih(query, update);
-}
+});

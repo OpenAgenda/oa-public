@@ -1,9 +1,11 @@
-"use strict";
+'use strict';
 
+const _ = require('lodash');
 const schema = require('@openagenda/validators/schema');
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const preCleanRawQuery = require('./preCleanRawQuery');
+const derelativize = require('./derelativize');
 
 schema.register({
   text: require('@openagenda/validators/text'),
@@ -82,6 +84,12 @@ const validate = schema({
     options: [null, -1, 0, 1, 2],
     default: 2
   },
+  featured: {
+    optional: true,
+    type: 'boolean',
+    allowNull: true,
+    default: null
+  },
   attendanceMode: {
     optional: true,
     type: 'choice',
@@ -157,6 +165,7 @@ const validate = schema({
     type: 'choice',
     options: [
       'timings.asc',
+      'timingsWithFeatured.asc',
       'updatedAt.desc',
       'updatedAt.asc',
       'location.name.asc',
@@ -182,13 +191,15 @@ function cleanAdditionalField(fieldSchema, dirty) {
   return dirty;
 }
 
-module.exports = function validateQuery(dirty, formSchema) {
+function validateQuery(dirty, formSchema) {
   const preCleaned = preCleanRawQuery(dirty);
 
   const clean = validate(preCleaned);
 
   if ((clean.search || '').length && !clean.sort) {
     clean.sort = 'score';
+  } else if (!clean.sort) {
+    clean.sort = 'timingsWithFeatured.asc';
   }
 
   const additionalFields = getFormSchemaAdditionalFields(formSchema);
@@ -215,4 +226,25 @@ module.exports = function validateQuery(dirty, formSchema) {
       return additionalValues;
     }, {})
   };
+}
+
+module.exports = validateQuery;
+
+module.exports.inflateAndClean = (query, options = {}) => {
+  const {
+    set = null,
+    formSchema = null
+  } = options;
+
+  const inflated = Object.keys(query).reduce((inflated, key) => _.set(
+    inflated,
+    key.split('.'),
+    query[key]
+  ), {});
+
+  inflated.set = set;
+
+  const derelativized = derelativize(inflated);
+
+  return validateQuery(derelativized, formSchema);
 }

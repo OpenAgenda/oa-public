@@ -6819,7 +6819,7 @@ __metadata:
     "@openagenda/validators": ^2.4.0
     axios: ^0.19.0
     debug: ^4.1.1
-    immutability-helper: ^3.0.0
+    immer: ^9.0.1
     lodash: ^4.17.15
     mocha: ^7.0.1
     moment: ^2.27.0
@@ -22986,6 +22986,13 @@ __metadata:
   version: 8.0.1
   resolution: "immer@npm:8.0.1"
   checksum: a8c8d531af8f968f4d5a2ec3c5eeb6dd6933c69d216b3f8c55275e34c87926d556db4e3d81f5f038e66f9886e874da4ab4f7ffe228e33d718593820e2f57b68f
+  languageName: node
+  linkType: hard
+
+"immer@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "immer@npm:9.0.1"
+  checksum: 7f4b19cd814298750493edeb80bbe701b1a026caa1968ffacea87c8a8c20412cce0d07651e7dd5bb894419ca67036f39c94e9e9e1b3a23fd82e3d3870d2d1b9e
   languageName: node
   linkType: hard
 

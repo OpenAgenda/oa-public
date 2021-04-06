@@ -66,7 +66,7 @@ describe('actions', () => {
       })
 
       .should.eql({
-        form: false,
+        modal: false,
         merge: false,
         query: {},
         locations: [],
@@ -77,7 +77,7 @@ describe('actions', () => {
     const a = actions({
       setState: newState => {
         newState.should.eql({
-          form: false,
+          modal: false,
           merge: false,
           query: {},
           locations: [],

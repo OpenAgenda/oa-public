@@ -10,7 +10,7 @@ module.exports = async (core, agendaUid, options) => {
   if (options.access) {
     return options.access;
   }
-  
+
   const member = options.userUid ? await members.get({
     agendaUid,
     userUid: options.userUid

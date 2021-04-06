@@ -19,12 +19,14 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   }
 
   const access = await loadSearchAccess(core, agendaUid, options);
+
   const authorizedQuery = filterAuthorizedSearchFields(core, query, access);
 
   const {
     returnAgenda = false,
     stream = false,
     apiNav = false,
+    useAfterKey = false,
     userUid = null,
     ...searchOptions
   } = options;
@@ -42,6 +44,7 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
     : await search(authorizedQuery, nav, {
       ...searchOptions,
       formSchema: agenda.schema,
+      useAfterKey,
       access
     }).then(r => _.omit(r, ['scrollId']));
 

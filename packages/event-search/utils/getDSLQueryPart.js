@@ -97,6 +97,10 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_timestampFilter('_search_first_timing', { lt: 'now' }));
   }
 
+  if (cleanQuery.featured !== null) {
+    parts.push(_terms('featured', cleanQuery.featured));
+  }
+
   if (_.get(cleanQuery, 'createdAt.gte') || _.get(cleanQuery, 'createdAt.lte')) {
     parts.push(_timestampFilter('createdAt', cleanQuery.createdAt));
   }

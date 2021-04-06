@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 const VError = require('verror');
 
 const aggregations = require('./aggregations');
@@ -9,6 +9,7 @@ const aggregations = require('./aggregations');
 const defineIncludes = require('./utils/defineIncludes');
 const postDSL = require('./utils/postDSL');
 const getIndexName = require('./utils/getIndexName');
+const getMLTDSLPart = require('./utils/getMLTDSLPart');
 const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
@@ -17,27 +18,23 @@ const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
-const appendMLT = require('./utils/appendMLT');
+const cleanNavResult = require('./utils/cleanNavResult');
 
-const textLog = require('./utils/textLog');
+const {
+  inflateAndClean: inflateAndCleanQuery
+} = require('./utils/validateQuery');
 
 const log = require('@openagenda/logs')('search');
 
 async function search(config, set, query = {}, nav = {}, options = {}) {
-  log('searching on set %s with query %j', set, query);
+  log('searching on set %s', set);
 
-  let cleanNav = {}, cleanOptions = {}, cleanDSL;
+  let cleanNav = {}, cleanDSL;
 
   const {
     defaultIndex,
     predefinedAggregations
   } = config;
-
-  try {
-    cleanNav = validateNav(nav);
-  } catch(e) {
-    throw new VError(e, 'nav is not valid');
-  }
 
   const {
     detailed,
@@ -46,8 +43,15 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     monolingual,
     first,
     access,
-    includes: requestedIncludes
+    includes: requestedIncludes,
+    useAfterKey
   } = validateOptions(options);
+
+  try {
+    cleanNav = validateNav(nav, { useAfterKey });
+  } catch(e) {
+    throw new VError(e, 'nav is not valid');
+  }
 
   const index = getIndexName(set, defaultIndex);
   const includes = defineIncludes(config, {
@@ -57,10 +61,12 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     requested: requestedIncludes
   });
 
-  query.set = set;
+  const cleanQuery = inflateAndCleanQuery(query, { set, formSchema });
+
+  log('searching with query %j and nav %j', cleanQuery, cleanNav);
 
   cleanDSL = queryToDSL(
-    query,
+    cleanQuery,
     cleanNav.size !== undefined ? cleanNav : {},
     formSchema,
     includes
@@ -69,11 +75,14 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   if (query.mlt && query.boost) {
     cleanDSL = spreadByMLTBoostScores(cleanDSL, query.mlt, query.boost, { formSchema });
   } else if (query.mlt) {
-    cleanDSL = appendMLT(cleanDSL, query.mlt, { formSchema })
+    cleanDSL.query.bool.must = (cleanDSL.query.bool.must || []).concat({
+      more_like_this: getMLTDSLPart(query.mlt, {
+        formSchema: options.formSchema
+      })
+    });
   }
 
   // sorting and _source added after
-
   if (requestedAggregations) {
     cleanDSL.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
   }
@@ -101,8 +110,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   return Object.assign({
     total,
     events: parsedEvents,
-    scrollId,
-    sort
+    ...cleanNavResult(cleanQuery, { scrollId, sort }, { useAfterKey }),
   }, aggregationResults ? { aggregations: aggregationResults } : {});
 }
 
@@ -146,7 +154,10 @@ function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggre
   ];
 
   if (!detailed) {
-    parsers.push(e => ih(e, { $unset: ['timings', 'timezone'] }));
+    parsers.push(e => produce(e, draft => {
+      delete draft.timings;
+      delete draft.timezone;
+    }));
   }
 
   if (monolingual) {

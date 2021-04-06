@@ -98,6 +98,28 @@ function toggleMergeItem(state, location) {
   return {
     merge: {
       locationUids,
+      targetUid: state.merge.targetUid
+    },
+  };
+}
+
+/* change merge target */
+
+function toggleMergeTarget(state, location) {
+  const {merge} = state;
+  const locationUids = merge.locationUids.concat();
+  if (merge.targetUid === location.uid) {
+    return {
+      merge: {
+        locationUids: locationUids.filter(i => i !== location.uid),
+        targetUid: null,
+      },
+    }
+  }
+  return {
+    merge: {
+      locationUids: locationUids.filter(i => i !== location.uid),
+      targetUid: location.uid,
     },
   };
 }
@@ -107,6 +129,7 @@ function toggleMergeItem(state, location) {
  * Optionnally, close the form
  */
 function updateEditedLocation(state, location, closeForm) {
+  console.log('this is happenning')
   const updatedState = {
     locations: {},
   };
@@ -122,28 +145,54 @@ function updateEditedLocation(state, location, closeForm) {
   return update(state, updatedState);
 }
 
-function launchMerge(state, mergedLocations) {
+//function launchMerge(state, mergedLocations) {
+  // return update(state, {
+  //   merge: {
+  //     $set: state.merge || true,
+  //   },
+  //   form: {
+  //     $set: {
+  //       location: mergedLocations[0],
+  //       alternatives: mergedLocations.map((l, i) => ({
+  //         location: l,
+  //       })),
+  //     },
+  //   },
+  // });
+//}
+function mergeOnGoing(state) {
   return update(state, {
     merge: {
-      $set: state.merge || true,
+      $set : {
+        locationUids: state.merge.locationUids,
+        targetUid: state.merge.targetUid,
+        onGoing :true,
+      }
     },
-    form: {
-      $set: {
-        location: mergedLocations[0],
-        alternatives: mergedLocations.map((l, i) => ({
-          location: l,
-        })),
-      },
+    modal: { $set : {type: 'merge'}}, 
+  })
+}
+
+function changeMergeModal(state, err) {
+  console.log('changeMergeModal', state);
+  return update(state, {
+    merge: {
+      $set : {
+        locationUids: state.merge.locationUids,
+        targetUid: state.merge.targetUid,
+        onGoing :true,
+      }
     },
-  });
+    modal: { $set : {type: 'merge', err}}, 
+  })
 }
 
 function closeMerge(state) {
   return update(state, {
     merge: { $set: false },
-    form: { $set: false },
     query: { $set: {} },
-    locations: { $set: [] },
+    locations:{ $set: [] },
+    modal: {$set: false}
   });
 }
 
@@ -156,6 +205,7 @@ function toggleMerge(state, on) {
     return {
       merge: {
         locationUids: [],
+        target: null,
       },
     };
   }
@@ -251,10 +301,12 @@ function actions(options) {
 
     closeMerge: assign(closeMerge),
     toggleMerge: assign(toggleMerge),
-    launchMerge: assign(launchMerge),
+    mergeOnGoing: assign(mergeOnGoing),
+    changeMergeModal: assign(changeMergeModal),
 
     updateLocationList: assign(updateLocationList),
     toggleMergeItem: assign(toggleMergeItem),
+    toggleMergeTarget: assign(toggleMergeTarget),
 
     queryChange: assign(queryChange),
 
@@ -273,9 +325,11 @@ export default Object.assign(actions, {
     newLocation,
     closeForm,
     closeMerge,
+    changeMergeModal,
     toggleMerge,
     toggleMergeItem,
-    launchMerge,
+    toggleMergeTarget,
+    mergeOnGoing,
     updateLocationList,
     editLocation,
     removedLocation,

@@ -229,14 +229,28 @@ describe('event-search - unit: utils', function() {
     it('sort can be on a mapped field', () => {
       assert.deepEqual(
         getDSLSortPart('featured.desc'),
-        [{ featured: 'desc' }]
+        [{
+          featured: 'desc'
+        }, {
+          uid: {
+            order: 'asc'
+          }
+        }]
       );
     });
 
     it('sort can be on multiple mapped fields', () => {
       assert.deepEqual(
         getDSLSortPart(['featured.desc', 'updatedAt.asc']),
-        [{ featured: 'desc' }, { updatedAt: 'asc' }]
+        [{
+          featured: 'desc'
+        }, {
+          updatedAt: 'asc'
+        }, {
+          uid: {
+            order: 'asc'
+          }
+        }]
       );
     });
 

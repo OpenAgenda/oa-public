@@ -9,9 +9,9 @@ const update = require('./update');
 const remove = require('./remove');
 const authorize = require('./lib/authorize');
 
-async function merge(service, mergeInItem, items, data = {}, options = {}) {
+async function merge(service, mergeInItem, items, data = null, options = {}) {
   log('received %j', items);
-  
+
   await authorize(service, 'merge', mergeInItem.uid, options);
 
   const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
@@ -24,12 +24,12 @@ async function merge(service, mergeInItem, items, data = {}, options = {}) {
     await service.interfaces.beforeMerge(mergeInItem, toBeMerged);
   }
 
-  log('updating merged location');
-  const updatedMerged = await update(
+  log('updating merged location'); // if data
+  const updatedMerged = data ? await update(
     { service, isPatch: true },
     mergeInItem.uid,
     data
-  );
+  ) : mergeInItem;
 
   log('removing other locations'); // why not remove with remove fn?
   for (const location of toBeMerged) {
@@ -65,7 +65,8 @@ module.exports.byAgendaUid = async (
     {},
     { ...options, total: null, detailed: true }
   ),
-  data
+  data,
+  options
 );
 
 module.exports.bySetUid = async (
@@ -85,5 +86,6 @@ module.exports.bySetUid = async (
     {},
     { ...options, total: null, detailed: true }
   ),
-  data
+  data,
+  options
 );

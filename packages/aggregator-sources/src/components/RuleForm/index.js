@@ -29,6 +29,8 @@ export default function RuleForm({
   const intl = useIntl();
   const formState = useFormState();
 
+  console.log('RuleForm', values);
+
   const error = !formState.dirtySinceLastSubmit && formState.submitError
     ? formState.submitError
     : null;
@@ -120,7 +122,7 @@ export default function RuleForm({
             type="radio"
             label={intl.formatMessage(messages.textFilter)}
             value="text"
-            classNameGroup="radio"
+            classNameGroup={classNames('radio')}
             helpBlock={(
               <div className="radio-sub-block text-muted">
                 {intl.formatMessage(messages.helpFilterText)}

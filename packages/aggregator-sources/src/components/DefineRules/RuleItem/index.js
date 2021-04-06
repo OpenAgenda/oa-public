@@ -15,6 +15,7 @@ export default function RuleItem({
   aggregatorAgendaSchema,
 }) {
   const intl = useIntl();
+  console.log('RuleItem: ', rule);
 
   return (
     <>

@@ -15,6 +15,7 @@ class LocationItem extends Component {
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     seeEventsRes: PropTypes.string,
+    toggleMergeTarget :PropTypes.func
   };
 
   constructor(props) {
@@ -22,6 +23,8 @@ class LocationItem extends Component {
     // Binding
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
+    
+    this.toggleMergeTarget =  this.toggleMergeTarget.bind(this);
   }
 
   onRemove(e) {
@@ -43,6 +46,19 @@ class LocationItem extends Component {
     );
   }
 
+  isMergeTarget() {
+    const {merge, location } = this.props;
+    return (
+      merge.targetUid === location.uid
+    )
+  }
+
+  toggleMergeTarget(e) {
+    e.stopPropagation();
+    const {toggleMergeTarget} = this.props;
+    toggleMergeTarget();
+  }
+
   seeEvents(e) {
     const { location, seeEventsRes } = this.props;
     e.stopPropagation();
@@ -54,7 +70,7 @@ class LocationItem extends Component {
 
   renderMergeCheckbox() {
     return (
-      <div className="checkbox">
+      <div className="checkbox margin-v-md">
         <label htmlFor="merge-checkbox">
           <input
             ref={r => (this.checkbox = r)}
@@ -70,32 +86,53 @@ class LocationItem extends Component {
     const {
       location, merge, getCountryLabel, getLabel, onSelect, settings
     } = this.props;
-    const className = ['item'];
+    const className = ['row item'];
     const country = getCountryLabel(location.countryCode);
     const editButton = (
       <button
         type="button"
-        className={!settings.access.update.authorized ? 'btn btn-default disabled' : 'btn btn-default'}
-        aria-label={getLabel('edit')}
+        className={!settings.access.update.authorized ? 'btn btn-link disabled action' : 'btn btn-link action'}
         onClick={this.onEdit.bind(this)}
       >
-        <i className="fa fa-edit" />
+        {getLabel('edit')}
       </button>
     );
     const removeButton = (
       <button
         type="button"
-        className={!settings.access.delete.authorized ? 'btn btn-default disabled' : 'btn btn-default'}
-        aria-label={getLabel('remove')}
+        className={!settings.access.delete.authorized ? 'btn btn-link text-danger disabled action' : 'btn btn-link text-danger action'}
         onClick={this.onRemove}
       >
-        <i className="fa fa-trash" />
+        {getLabel('remove')}
       </button>
     );
+    const toggleMergeTargetButton = (
+      <button
+      type="button"
+      className="btn btn-link action"
+      onClick={this.toggleMergeTarget}
+      >
+      {getLabel('defineMergeTarget')}
+      </button>
+    )
+
+    const mergeTarget = (
+      <span>
+        <strong>{getLabel("reflocationmerge")}</strong>
+        <button
+        type="button"
+        className="btn btn-link text-danger action"
+        onClick={this.toggleMergeTarget}
+        >
+          {getLabel("unselect")}
+        </button>
+      </span>
+    )
 
     if (merge) {
       className.push('merge');
     }
+    className.push('padding-v-sm')
 
     return (
       <div
@@ -103,32 +140,23 @@ class LocationItem extends Component {
         key={location.uid}
         onClick={onSelect.bind(this)}
       >
-        {merge ? this.renderMergeCheckbox() : null}
-        {!merge ? (
-          <div className="actions btn-group">
-            {removeButton}
-            {editButton}
-          </div>
-        ) : null}
-        <div className="item-body">
+        <div className="col col-xs-10 col-md-11 item-body">
           <div className="title">{location.name}</div>
-          <div>{location.address}</div>
+          <div>{location.address}</div>       
           <div className="text-muted">
             {location.department ? location.department : null}
             {location.region ? (location.department ? ', ' : '') + location.region : null}
             {country ? (location.department || location.region ? ', ' : '') + country : null}
           </div>
-          <div className="indicators">
+          <div className="btn-link-group">
             <i
-              className={
-                location.image ? 'fa fa-picture-o' : 'fa fa-picture-o disabled'
-              }
+              className={'indicator'.concat(' ',location.image ? 'fa fa-picture-o margin-right-xs' : 'fa fa-picture-o disabled margin-right-xs')}
             />
             <i
-              className={
+              className={'indicator'.concat(' ',
                 location.description
-                  ? 'fa fa-file-text-o '
-                  : 'fa fa-file-text-o disabled'
+                  ? 'fa fa-file-text-o margin-right-xs'
+                  : 'fa fa-file-text-o disabled margin-right-xs')
               }
             />
             {location.state === 0 ? (
@@ -139,7 +167,7 @@ class LocationItem extends Component {
             {location.agendaEventCount ? (
               <button
                 type="button"
-                className="btn btn-link"
+                className="action btn btn-link"
                 onClick={this.seeEvents}
               >
                 {getLabel(
@@ -148,12 +176,17 @@ class LocationItem extends Component {
                 )}
               </button>
             ) : (
-              <span className="text-muted">
+              <span className="action text-muted">
                 {getLabel('noEvent')}
               </span>
             )}
+            {!merge ? editButton : null}
+            {!merge ? removeButton : null}
+            {merge && this.isMergeTarget() ? mergeTarget : null}
+            {merge && !this.isMergeTarget() ? toggleMergeTargetButton : null}
           </div>
         </div>
+        <div className="col col-xs-2 col-md-1 text-center">{merge ? this.renderMergeCheckbox() : null}</div>
       </div>
     );
   }

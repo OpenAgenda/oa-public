@@ -268,6 +268,33 @@ describe('02 - event search - functional: Applied search', function() {
         );
       });
 
+      it('if useAfterKey option is used, after key is provided', async () => {
+        const {
+          events: chunkOfEvents,
+        } = await service('bdx').search({}, { size: 10 });
+
+        const {
+          events: firstSmallerChunkOfEvents,
+          after
+        } = await service('bdx').search({}, { size: 2 }, { useAfterKey: true });
+
+        const {
+          events: secondSmallerChunkOfEvents,
+        } = await service('bdx').search({}, { size: 2, after }, { useAfterKey: true });
+
+        assert.equal(
+          chunkOfEvents[2].uid,
+          secondSmallerChunkOfEvents[0].uid
+        );
+      });
+
+      it('if useAfterKey option is used, given sort key gives effective sort', async () => {
+        const {
+          sort
+        } = await service('bdx').search({}, { size: 2 }, { useAfterKey: true });
+
+        assert.equal(sort, 'timingsWithFeatured.asc');
+      });
 
     });
 
@@ -688,7 +715,7 @@ describe('02 - event search - functional: Applied search', function() {
         });
 
         it('source agendas are listed with corresponding event counts', () => {
-          agg[0].should.eql({
+          agg.filter(a => a.key === 38598267)[0].should.eql({
             key: 38598267,
             agenda: {
               uid: 38598267,

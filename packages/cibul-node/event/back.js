@@ -68,7 +68,7 @@ module.exports = app => {
         req.references = event.references;
         next();
       }, next),
-    (req, res, next) => req.references.length ? next() : res.json({
+    (req, res, next) => req.references?.length ? next() : res.json({
       references: null,
       events: []
     }),
@@ -81,7 +81,7 @@ module.exports = app => {
           references: renderReferences({ events }),
           events
         });
-      })
+      }, next)
  );
 
   app.get([
@@ -164,16 +164,6 @@ module.exports = app => {
     }
  );
 
-}
-
-
-
-function _monolingual(events, multilingualFields, preferredLang = 'en') {
-  return events.map(ev => _.keys(ev)
-    .reduce((e, k) => _.set(e, k, multilingualFields.includes(k) ?
-      _.get(ev, [k, preferredLang], ev[k][_.first(_.keys(ev[k]))])
-      : ev[k])
-    , {}));
 }
 
 

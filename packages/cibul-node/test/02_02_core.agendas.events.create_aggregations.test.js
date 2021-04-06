@@ -57,6 +57,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
   });
 
   afterAll(async () => {
+    core.services.tracker.flush();
     await stopTask();
     core.services.knex.destroy();
     testConfig.redisClient.quit();

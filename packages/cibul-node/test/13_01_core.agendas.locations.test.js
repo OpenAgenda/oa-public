@@ -49,6 +49,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
   });
 
   afterAll(() => {
+    core.services.tracker.flush();
     core.services.knex.destroy();
     testConfig.redisClient.quit();
   });

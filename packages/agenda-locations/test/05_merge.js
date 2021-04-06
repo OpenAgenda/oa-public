@@ -93,6 +93,36 @@ describe('agenda-locations - functional - merge', function () {
     });
   });
 
+  describe('no data', () => {
+    before(async () => {
+      beforeCount = await f
+        .client('location')
+        .count()
+        .then(r => r[0]['count(*)']);
+    });
+
+    before(async () => {
+      location = await svc(7196947).merge(
+        95301591,
+        { uids: [13470871, 43404100] },
+        null
+      );
+    });
+
+    it('result is merged location', () => {
+      assert.equal(location.uid, 95301591);
+    });
+
+    it('count after merge is total - (merge count + 1)', async () => {
+      const afterCount = await f
+        .client('location')
+        .count()
+        .then(r => r[0]['count(*)']);
+
+      assert.equal(afterCount, beforeCount - 2);
+    });
+  });
+
   describe('set', () => {
     before(async () => {
       beforeCount = await f

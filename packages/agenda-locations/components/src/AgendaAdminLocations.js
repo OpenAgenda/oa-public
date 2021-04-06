@@ -16,9 +16,9 @@ import Filters from './Filters';
 import List from './List/List';
 import LocationItem from './LocationItem';
 import SetHeader from './SetHeader';
-import MergeForm from './MergeForm';
 import UpdateForm from './UpdateForm';
 import AdminActionModal from './AdminActionModal';
+import post from './post';
 
 const log = debug('AgendaAdminLocations');
 
@@ -134,6 +134,15 @@ class AgendaAdminLocations extends Component {
     }
   }
 
+  onToggleMergeTarget(location) {
+    const { merge } = this.state;
+
+    if (merge){
+      this.actions.toggleMergeTarget(location);
+    }
+
+  }
+
   getLabel(name, values) {
     const label = labels[name];
     const { lang } = this.props;
@@ -176,30 +185,39 @@ class AgendaAdminLocations extends Component {
 
   launchMerge() {
     const { res } = this.props;
-    const { merge } = this.state;
-    if (!merge || !merge.locationUids.length) return;
+    const { merge, locations } = this.state;
+    const merged = merge.locationUids.filter(uid => uid !== merge.targetUid);
+    const timeOut =  1000;
+    log('timeout:', timeOut);
+    if (!merge.targetUid) {
+      log('no target for merge!!');
+    }
+    if (!merge || !merge.targetUid ||!merge.locationUids.length) return;
 
-    get(
-      res.index,
-      {
-        uids: merge.locationUids,
-      },
-      (err, result) => {
-        if (err) {
-          debug('error', err);
-          return;
-        }
+    const body = {
+      mergeIn: merge.targetUid,
+      merged: merged,
+    }
 
-        const { items } = result;
+    this.actions.mergeOnGoing();
 
-        if (items.length !== merge.locationUids.length) {
-          debug('error', 'not all locations to be merged could be found');
-          return;
-        }
-
-        this.actions.launchMerge(items);
+    post(res.merge, body, (err, result) => {
+      if (err) {
+        log('error', err);
+        this.actions.changeMergeModal(err);
       }
-    );
+
+      if (!result.success) {
+        log('no success');
+        this.actions.changeMergeModal(result);
+      }
+
+      if (result.success) {
+      }
+      log('state:', this.state);
+      setTimeout(() => {this.actions.closeMerge(); log('state:', this.state);}, timeOut);
+    });
+
   }
 
   displayActionModal(accessType, location) {
@@ -239,6 +257,7 @@ class AgendaAdminLocations extends Component {
     const editLocation = this.onLocationEdit.bind(this, item, itemIndex);
     const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
     const onSelect = this.onLocationSelect.bind(this, item, itemIndex);
+    const toggleMergeTarget =  this.onToggleMergeTarget.bind(this, item);
 
     return (
       <LocationItem
@@ -255,6 +274,7 @@ class AgendaAdminLocations extends Component {
         onRemove={confirmRemove}
         getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
+        toggleMergeTarget={merge ? toggleMergeTarget : null}
       />
     );
   }
@@ -397,41 +417,115 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  renderMergeMenu() {
-    const { merge } = this.state;
+  renderMergeModal() {
+    const { modal } = this.state;
+    log('modal: ',modal);
+    log('path-name:', window.location.pathname);
     return (
-      <div className="merge-menu">
-        <p>
-          {this.getLabel('mergedescription')}
-          <button
-            type="button"
-            onClick={this.launchMerge.bind(this)}
-            className="btn btn-primary margin-left-sm"
-          >
-            {this.getLabel('launchmerge')}
-          </button>
-        </p>
+      <Modal
+      title={this.getLabel('mergedescription')}
+      onClose={this.actions.closeModal}
+      >
+        <div>
+          <p className="text-center">
+            {modal.err ? this.getLabel('somethingwentwrong') : this.getLabel('mergeInProgress')} 
+          </p>
+          {modal.err ? (<a href={`/support?origin=${window.location.pathname}`} className="btn btn-primary"> Contact Support</a>) : null}
+        </div>
 
+      </Modal>
+    )
+  }
+
+  renderMergeMenu() {
+    const { merge, locations } = this.state;
+    log('locations', merge.locationUids);
+    return (
+      <div className="merge-menu row margin-bottom-md">
+        <div className="col-sm-12">
+          <div className="btn-link-group">
+            <strong>{this.getLabel('mergedescription')}</strong>
+            <button
+              type="button"
+              onClick={this.actions.toggleMerge.bind(null, false)}
+              className="btn btn-link text-danger"
+            >
+              {this.getLabel('cancel')}
+            </button>
+        </div>
+        
+        {merge.targetUid ? (
+          <div className="btn-link-group">
+            <span>{this.getLabel("reflocation")}</span>
+            <strong>{locations.find(l => l.uid === merge.targetUid).name}</strong>
+            <button
+              type="button"
+              onClick={this.onSearchChange.bind(
+                this,
+                'uids',
+                merge.targetUid
+              )}
+              className="btn btn-link"
+            >
+              {this.getLabel("seemergelist")}
+            </button>
+            <button
+              type="button"
+              onClick={this.onToggleMergeTarget.bind(this, {uid: null})}
+              className="btn btn-link text-danger padding-h-xs"
+            >
+              {this.getLabel("unselect")}
+            </button>
+          </div>
+        ) : (
+          <div className="btn-link-group">
+            {this.getLabel("reflocation")}{this.getLabel("reflocationinfo")}
+            <MoreInfo
+                    className="margin-left-sm"
+                    id="target-help"
+                    content="test infos"
+                    placement="top"
+                  />          
+          </div>
+        )}
+        
         {merge.locationUids.length ? (
-          <span className="info">
+          <span>
             {this.getLabel('mergeselection', {
               count: merge.locationUids.length,
             })}
-            <button
+
+          </span>
+        ) : (
+          <span>{this.getLabel('mergenoselection')}</span>
+        )}
+        <div>            
+          <button
               type="button"
-              className="btn btn-link"
+              className={merge.locationUids.length ? "btn btn-link padding-left-z padding-right-xs" : "btn btn-link disabled padding-left-z padding-right-xs"}
               onClick={this.onSearchChange.bind(
                 this,
                 'uids',
                 merge.locationUids
               )}
             >
-              {this.getLabel('seemergelist')}
-            </button>
-          </span>
-        ) : (
-          <span className="info">{this.getLabel('mergenoselection')}</span>
-        )}
+              {this.getLabel("seeselection")}
+          </button>
+          {false ? <button
+              type="button"
+              className="btn btn-link disabled padding-h-xs"
+            >
+              Charger des suggestion de doublons
+          </button> : null}
+        </div>
+        <button
+          type="button"
+          className={ merge.locationUids.length && merge.targetUid ? "btn btn-primary margin-top-xs" : "btn btn-primary disabled margin-top-xs" }
+          onClick={this.launchMerge.bind(this)}
+        >
+          {this.getLabel('launchmerge')}  
+        </button>
+        </div>
       </div>
     );
   }
@@ -443,10 +537,10 @@ class AgendaAdminLocations extends Component {
       return (
         <button
           type="button"
-          className="btn btn-danger"
+          className='btn btn-default disabled'
           onClick={this.actions.toggleMerge.bind(null, false)}
         >
-          {this.getLabel('cancelmerge')}
+          {this.getLabel('merge')}
         </button>
       );
     }
@@ -476,12 +570,6 @@ class AgendaAdminLocations extends Component {
     } = this.state;
 
     switch (this.getMode()) {
-      case 'merge':
-        return (
-          <div className="agenda-admin-locations">
-            <MergeForm {...this.props} actions={this.actions} />
-          </div>
-        );
       case 'create':
         return (
           <div className="agenda-admin-locations">
@@ -507,6 +595,16 @@ class AgendaAdminLocations extends Component {
             <div className="col col-sm-12">
               <div className="form-inline">
                 <div className="form-group">
+                <div className="btn-group margin-left-sm">
+                    <a href={res.csv} className="btn btn-default">
+                      <span>csv</span>
+                    </a>
+                    <a href={res.xlsx} className="btn btn-default">
+                      <span>xlsx</span>
+                    </a>
+                  </div>
+                </div>
+                <div className="form-group">
                   <button
                     type="button"
                     className={settings.access.create.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
@@ -523,18 +621,11 @@ class AgendaAdminLocations extends Component {
                 </div>
                 <div className="form-group">
                   {this.renderMergeAction()}
-                  <div className="btn-group margin-left-sm">
-                    <a href={res.csv} className="btn btn-default">
-                      <span>csv</span>
-                    </a>
-                    <a href={res.xlsx} className="btn btn-default">
-                      <span>xlsx</span>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
+          {merge ? this.renderMergeMenu() : null}
           <div className="row list-filters">
             <div className="col col-sm-12">
               <div className="form-inline">
@@ -568,22 +659,23 @@ class AgendaAdminLocations extends Component {
                     placement="top"
                   />
                 </div>
+                {this.renderHead()}
               </div>
             </div>
           </div>
           <div className="row list">
             <div className="col col-sm-12">
-              {merge ? this.renderMergeMenu() : null}
-              <List
+             
+              {merge.onGoing ? null : <List
                 res={res.index}
                 query={this.actions.getQuery()}
                 renderItem={this.renderItem}
-                renderHead={this.renderHead}
+                renderHead={null} //this.renderHead}
                 items={locations}
                 page={page}
                 total={total}
                 onItemsUpdate={this.actions.updateLocationList}
-              />
+              />}
             </div>
           </div>
           {modal
@@ -591,6 +683,8 @@ class AgendaAdminLocations extends Component {
               switch (modal.type) {
                 case 'removeLocation':
                   return this.renderRemoveLocationModal();
+                  case 'merge':
+                    return this.renderMergeModal();
                 case 'actions':
                   return (
                     <AdminActionModal

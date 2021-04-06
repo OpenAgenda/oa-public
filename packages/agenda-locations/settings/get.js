@@ -32,7 +32,7 @@ async function get(service, { setUid, agendaUid }, options = {}) {
     }
   };
 
-  const agendaSettings = requestedAgendaUid ? await service.interfaces.getAgendaLocationSettings(requestedAgendaUid) : null;
+  const agendaSettings = requestedAgendaUid && service.interfaces?.getAgendaLocationSettings ? await service.interfaces.getAgendaLocationSettings(requestedAgendaUid) : null;
 
   if (agendaSettings) {
     Object.assign(settings, agendaSettings);
