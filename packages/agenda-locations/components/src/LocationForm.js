@@ -78,7 +78,7 @@ class LocationForm extends Component {
     log(props);
     const initState = this.actions.initialize(props);
 
-    log('initializing form state: %j', initState);
+    // log('initializing form state: %j', initState);
 
     this.state = initState;
 
@@ -1073,7 +1073,7 @@ class LocationForm extends Component {
     const {
       location, enableGeocode, pageSpin, geocodeError, autoGeocode, showExtIdInput, loadingError, errors
     } = this.state;
-    log('rendering form with data %j', location);
+    // log('rendering form with data %j', location);
     return (
       <div ref={r => (this['location-form'] = r)} className="location-form">
         {Header}

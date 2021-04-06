@@ -13,14 +13,8 @@ const SetHeader = ({ set, lang }) => (
     <div className="col-sm-12 margin-bottom-md">
       <h2>{set.title}</h2>
       <div>
-        {getLabel(
-          'setSubtitle',
-          {
-            agendasCount: set.agendasCount,
-            locationsCount: set.locationsCount,
-          },
-          lang
-        )}
+        {getLabel('setSubtitle', {locationsCount: set.locationsCount,}, lang)}
+        {getLabel('setSubtitleLink', {agendasCount: set.agendasCount,}, lang)}
         <MoreInfo
           className="margin-left-sm"
           id="checkbox-help"

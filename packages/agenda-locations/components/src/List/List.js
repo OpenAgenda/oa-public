@@ -5,10 +5,9 @@ import _ from 'lodash';
 import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import monitorBottomHit from './lib/monitorBottomHit';
+import debug from 'debug';
 
-function log() {
-  // console.log.apply( console, arguments );
-}
+const log = debug('List');
 
 class List extends React.Component {
   static defaultProps = {
@@ -44,12 +43,14 @@ class List extends React.Component {
       dropped: false,
       buffer: null
     };
+    log('construct props;',props);
     this.getPage = this.getPage.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.getAdjacentPage = this.getAdjacentPage.bind(this);
   }
 
   componentDidMount() {
+    log('ccomponent did Mount props;',this.props);
     const { dropdownMode, query, items } = this.props;
     if (dropdownMode && !utils.size(query)) return;
     if (items.length) {

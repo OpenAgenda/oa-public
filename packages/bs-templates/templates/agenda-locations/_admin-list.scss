@@ -44,25 +44,35 @@
 
   }
 
+  .btn-link-group {
+    strong, span {
+      vertical-align: middle;
+      border: 1px transparent;
+    }
+  }
+
   .merge-menu {
 
-    padding: 2em 0 0;
+    border-left: 2px solid $oa-blue;
+
+    // .info {
+
+    //   font-size: 0.95em;
+    //   color: $oa-gray;
+    //   display: block;
+    //   height: 2em;
+
+    // }
 
     .info {
-
-      font-size: 0.95em;
-      color: $oa-gray;
       display: block;
       height: 2em;
-
     }
   
   }
 
   .item {
 
-    margin: 0.5em 0;
-    padding: 0.5em;
     position: relative;
 
     &:hover {
@@ -78,31 +88,23 @@
 
     }
 
-    &.merge {
-
-      .checkbox {
-
-        float: left;
-
-      }
-
-      .item-body {
-
-        margin-left: 2em;
-
-      }
+    .action {
+      padding: 0px 5px;
 
     }
 
-    .actions {
+    i.indicator {
+      color: $oa-gray;
 
-      position: absolute;
-      top: 0.5em;
-      right: 0.5em;
-      padding: 0.2em;
-      display: none;
+      &.disabled {
+        color: lighten( $oa-gray-light, 9 );
+      }
 
+      &.red {
+        color: $oa-red;
+      }
     }
+
 
     .indicators {
 
@@ -114,25 +116,6 @@
 
       }
 
-      i {
-
-        color: $oa-gray;
-
-        &.disabled {
-
-          color: lighten( $oa-gray-light, 9 );
-
-        }
-
-        &.red {
-
-          color: $oa-red;
-
-        }
-        
-      }
-
-
     }
 
     .detailed {
@@ -143,17 +126,6 @@
 
         height: 200px;
         margin: 0.5em 0
-
-      }
-
-    }
-
-
-    &:hover, &.detailed {
-
-      .actions {
-
-        display: block;
 
       }
 
