@@ -94,7 +94,7 @@ function FiltersPart({
     (filter, option) => {
       const aggregation = aggregations[`${filter.name}-${filter.id}`];
 
-      if (!aggregation) return 0;
+      if (!aggregation) return null;
 
       const dataKey = 'id' in option ? 'id' : 'key';
       const optionKey = 'id' in option ? 'id' : 'value';

@@ -6724,6 +6724,7 @@ __metadata:
     core-js: ^3.6.5
     eslint: ^6.8.0
     history: ^4.10.1
+    immer: ^9.0.1
     lint-staged: ^10.2.11
     lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0

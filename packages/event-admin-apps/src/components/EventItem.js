@@ -15,6 +15,10 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.addedBy',
     defaultMessage: 'Added by <link>{name}</link>',
   },
+  sharedFrom: {
+    id: 'EventAdminApp.EventItem.sharedFrom',
+    defaultMessage: 'Shared from <link>{title}</link>',
+  },
   aggregatedFrom: {
     id: 'EventAdminApp.EventItem.aggregatedFrom',
     defaultMessage: 'Aggregated from <link>{title}</link>',
@@ -116,7 +120,7 @@ export default function EventItem({
         skipNulls: true,
       }
     ),
-    [query]
+    [index, isFirst, isLast, page, query]
   );
 
   return (
@@ -177,6 +181,17 @@ export default function EventItem({
             </div>
           )}
         </>
+      ) : null}
+
+      {event.originAgenda && !event.sourceAgendas?.length ? (
+        <div className="margin-top-xs">
+          {intl.formatMessage(messages.sharedFrom, {
+            title: event.originAgenda.title,
+            link: chunks => (
+              <a href={`/${event.originAgenda.slug}`}>{chunks}</a>
+            ),
+          })}
+        </div>
       ) : null}
 
       {event.sourceAgendas?.length ? (

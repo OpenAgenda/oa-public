@@ -162,12 +162,6 @@
       "value": "crwdns860:0crwdne860:0"
     }
   ],
-  "ReactFilters.dateRanges.past": [
-    {
-      "type": 0,
-      "value": "crwdns862:0crwdne862:0"
-    }
-  ],
   "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
@@ -184,12 +178,6 @@
     {
       "type": 0,
       "value": "crwdns868:0crwdne868:0"
-    }
-  ],
-  "ReactFilters.dateRanges.upcoming": [
-    {
-      "type": 0,
-      "value": "crwdns870:0crwdne870:0"
     }
   ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
@@ -216,10 +204,22 @@
       "value": "crwdns876:0crwdne876:0"
     }
   ],
+  "ReactFilters.messages.filterTitles.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,
       "value": "crwdns878:0crwdne878:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.relative": [
+    {
+      "type": 0,
+      "value": "Passed / current / upcoming"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [

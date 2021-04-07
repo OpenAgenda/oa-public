@@ -11,11 +11,17 @@ export default async function getEvents(
   pageParam
 ) {
   const aggregations = filters
-    .map(filter => ({
-      key: `${filter.name}-${filter.id}`,
-      type: filter.name,
-      ...filter.aggregation,
-    }))
+    .map(filter => {
+      if (filter.aggregation === null) {
+        return false;
+      }
+
+      return {
+        key: `${filter.name}-${filter.id}`,
+        type: filter.name,
+        ...filter.aggregation,
+      };
+    })
     .filter(Boolean)
     .flat();
 

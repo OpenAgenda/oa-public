@@ -5,6 +5,10 @@ import { defineMessages, useIntl } from 'react-intl';
 const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 
 const messages = defineMessages({
+  relevance: {
+    id: 'EventAdminApp.SortSelector.relevance',
+    defaultMessage: 'Relevance',
+  },
   chronological: {
     id: 'EventAdminApp.SortSelector.chronological',
     defaultMessage: 'Chronological order',
@@ -32,11 +36,16 @@ const stateSelectStyles = {
   }),
 };
 
-export default function SortSelector({ onFilterChange, query }) {
+export default function SortSelector({ query, setQuery }) {
   const intl = useIntl();
 
   const orderOptions = useMemo(
     () => [
+      {
+        label: intl.formatMessage(messages.relevance),
+        value: 'score',
+        // isDisabled: true
+      },
       {
         label: intl.formatMessage(messages.chronological),
         value: 'timings.asc',
@@ -50,11 +59,11 @@ export default function SortSelector({ onFilterChange, query }) {
   );
 
   const onChange = useCallback(
-    option => onFilterChange({ ...query, sort: option.value }),
-    [onFilterChange, query]
+    option => setQuery({ ...query, sort: option.value }),
+    [setQuery, query]
   );
 
-  const value = query.sort === 'updatedAt.desc' ? orderOptions[1] : orderOptions[0];
+  const value = orderOptions.find(option => option.value === query.sort) || orderOptions[1];
 
   return (
     <ReactSelectInput
