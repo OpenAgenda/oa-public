@@ -323,6 +323,76 @@
       "value": "Your selection:"
     }
   ],
+  "EventAdminApp.EmptyDashboard.addSources": [
+    {
+      "type": 0,
+      "value": "Aggregate events published on other agendas by "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "adding them to sources"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.alternatively": [
+    {
+      "type": 0,
+      "value": "Alternatively, you can:"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.createFirstEvent": [
+    {
+      "type": 0,
+      "value": "Create a first event"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.inviteMembers": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Invite people"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to contribute"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.noEvents": [
+    {
+      "type": 0,
+      "value": "Your agenda does not yet reference any event!"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.visitDoc": [
+    {
+      "type": 0,
+      "value": "Visit "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "our documentation"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to find out more."
+    }
+  ],
   "EventAdminApp.EventItem.addedBy": [
     {
       "type": 0,
@@ -421,6 +491,22 @@
       "value": "Remove from agenda"
     }
   ],
+  "EventAdminApp.EventItem.sharedFrom": [
+    {
+      "type": 0,
+      "value": "Shared from "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
   "EventAdminApp.EventItem.showLocation": [
     {
       "type": 0,
@@ -485,6 +571,18 @@
     {
       "type": 0,
       "value": "Recently updated"
+    }
+  ],
+  "EventAdminApp.SortSelector.relevance": [
+    {
+      "type": 0,
+      "value": "Relevance"
+    }
+  ],
+  "EventAdminApp.hooks.useFilters.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
     }
   ],
   "EventAdminApp.messages.attendanceModes.mixed": [
@@ -610,6 +708,24 @@
     {
       "type": 0,
       "value": "xlsx"
+    }
+  ],
+  "EventAdminApp.messages.relative.current": [
+    {
+      "type": 0,
+      "value": "Current"
+    }
+  ],
+  "EventAdminApp.messages.relative.passed": [
+    {
+      "type": 0,
+      "value": "Passed"
+    }
+  ],
+  "EventAdminApp.messages.relative.upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

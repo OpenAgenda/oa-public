@@ -142,12 +142,6 @@
       "value": "Current week"
     }
   ],
-  "ReactFilters.dateRanges.past": [
-    {
-      "type": 0,
-      "value": "Past"
-    }
-  ],
   "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
@@ -164,12 +158,6 @@
     {
       "type": 0,
       "value": "Tomorrow"
-    }
-  ],
-  "ReactFilters.dateRanges.upcoming": [
-    {
-      "type": 0,
-      "value": "Upcoming"
     }
   ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
@@ -196,10 +184,22 @@
       "value": "Department"
     }
   ],
+  "ReactFilters.messages.filterTitles.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,
       "value": "Region"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.relative": [
+    {
+      "type": 0,
+      "value": "Passed / current / upcoming"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [

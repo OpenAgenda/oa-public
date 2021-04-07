@@ -48,6 +48,10 @@ function parseValue(value) {
 }
 
 function formatValue(value) {
+  // if (value !== undefined) {
+  //   return [].concat(value);
+  // }
+
   return value;
 }
 
@@ -82,11 +86,17 @@ function Preview({
   const { input } = useField(name, { subscription });
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
-  const valueOptions = useMemo(
-    () => input.value
-      && input.value.map(v => options.find(option => option.value === v)),
-    [input.value, options]
-  );
+  const valueOptions = useMemo(() => {
+    if ([undefined, null, ''].includes(input?.value)) {
+      return [];
+    }
+
+    if (!Array.isArray(input.value)) {
+      return [options.find(option => option.value === input.value)];
+    }
+
+    return input.value.map(v => options.find(option => option.value === v));
+  }, [input.value, options]);
 
   const onRemove = useCallback(
     option => e => {
