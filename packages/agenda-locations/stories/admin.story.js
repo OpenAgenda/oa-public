@@ -14,6 +14,7 @@ export default ({ settings, res, set }) => (
       lang="fr"
       enableGeocode={true}
       res={res}
+      tiles='https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750'
     />
   </div>
 );

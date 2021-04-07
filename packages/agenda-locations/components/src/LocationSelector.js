@@ -77,14 +77,14 @@ class LocationSelector extends Component {
 
   renderConfirmation() {
     const {
-      res, lang, location, mapboxKey, settings
+      res, lang, location, tiles, settings
     } = this.props;
     return (
       <LocationConfirmation
         res={res}
         lang={lang}
         location={location}
-        mapboxKey={mapboxKey}
+        tiles={tiles}
         settings={settings}
         onConfirm={this.onConfirm}
         onCancel={this.switchToSearch}
@@ -150,9 +150,10 @@ class LocationSelector extends Component {
 
   renderCreateForm() {
     const {
-      res, settings, lang, location, detailedInfo, enableGeocode
+      res, settings, lang, location, detailedInfo, enableGeocode, tiles
     } = this.props;
     const onSelect = this.onSelect.bind(this, false);
+    console.log('locationSelector settings:',settings);
     return (
       <LocationForm
         Header={this.renderHeader()}
@@ -170,6 +171,7 @@ class LocationSelector extends Component {
         onSuccess={onSelect}
         enableGeocode={enableGeocode}
         postRes={res.create}
+        tiles={tiles}
       />
     );
   }
