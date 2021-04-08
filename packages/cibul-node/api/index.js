@@ -59,10 +59,6 @@ module.exports = core => {
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
   app.get('/agendas/:agendaUid', mw.member.load);
 
-  app.post('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-  app.patch('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-  app.delete('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-
   app.get('/agendas/:agendaUid', mw.redirectIfPrivate);
   app.get([
     '/agendas/:agendaUid',
