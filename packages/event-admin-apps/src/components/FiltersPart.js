@@ -59,8 +59,8 @@ function FiltersPart({
         filter => filter.type !== 'dateRange'
       ),
       {
+        sort: 'updatedAt.desc',
         ...query,
-        // sort: 'updatedAt.desc',
         detailed: true,
       },
       page
