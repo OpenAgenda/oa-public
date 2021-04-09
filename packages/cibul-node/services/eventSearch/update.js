@@ -98,7 +98,7 @@ async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, even
   log('update current agenda index', agenda.uid);
   await searchIndex.update({
     uid: event.uid
-  }, data, { refresh: true, formSchema });
+  }, data, { refresh: true, formSchema, agenda });
 
   log('updated');
 }

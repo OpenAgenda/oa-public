@@ -20,7 +20,7 @@ module.exports = (services, queue, eventSearch) => {
       member
     };
 
-    const result = await searchIndex.add(data, { refresh: true, formSchema });
+    const result = await searchIndex.add(data, { refresh: true, formSchema, agenda });
 
     log('added', result);
 

@@ -49,7 +49,7 @@ function eventsList(core, agenda) {
       returnPayload: true,
       detailed: true,
       access: 'internal',
-    }).then(({ events, lastId, agenda }) => {
+    }).then(({ events, lastId }) => {
       log('listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)', events.length, agenda.slug, lastId, count += events.length);
       return { lastId, events };
     });

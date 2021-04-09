@@ -56,6 +56,10 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       expect(event.uid).toBe(1);
     });
 
+    it('addMethod', () => {
+      expect(event.addMethod).toBe('share');
+    });
+
     it('additional field is provided', () => {
       expect(event.thematique).toBe(2);
     });
