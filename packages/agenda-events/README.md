@@ -33,12 +33,6 @@ Services methods are prefixed by a call with agenda id ( as in examples ):
  * **set**: does an update or an insert. takes eventId, data, callback
  * **remove**: removes a reference. takes eventId
 
-Tasks are called without requiring an agenda id prefix:
-
- * **svc.tasks.transferLegacyData**: apply compete state of legacy data unto new agenda-event reference data set. Will override any changes made in dataset with legacy values.
-
-No options for the time being.
-
 ## Examples
 
     svc( 2802 ).list( 0, 10, ( err, refs, total ) => { /* go nuts */ } );

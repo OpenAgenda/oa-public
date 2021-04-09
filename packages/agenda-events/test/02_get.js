@@ -38,19 +38,38 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     get = svc.get;
   });
 
-  it('simple get', async () => {
-    const ref = await svc(62792452).get(10974548);
+  describe('simple get', () => {
+    let ref;
 
-    _.omit(ref, ['updatedAt', 'createdAt']).should.eql({
-      agendaUid: 62792452,
-      eventUid: 10974548,
-      userUid: 12312312,
-      aggregated: false,
-      sourcePaths: [[6789678], [896785]],
-      state: config.eventStates.VALIDATED,
-      featured: false,
-      canEdit: false,
-      legacyId: '42.24'
+    before(async () => {
+      ref = await svc(62792452).get(10974548)
+    });
+
+    it('agendaUid, eventUid, userUid are provided', () => {
+      assert.equal(ref.agendaUid, 62792452);
+      assert.equal(ref.eventUid, 10974548);
+      assert.equal(ref.userUid, 12312312);
+    });
+
+    it('if aggregated, sourcePaths are provided and aggregated bool is true', () => {
+      assert.deepEqual(ref.sourcePaths, [[6789678], [896785]]);
+      assert(ref.aggregated);
+    });
+
+    it('canEdit bool indicates if agenda has edit rights on event', () => {
+      assert.equal(ref.canEdit, false);
+    });
+
+    it('state in agenda is provided', () => {
+      assert.equal(ref.state, config.eventStates.VALIDATED);
+    });
+
+    it('featured bool is provided', () => {
+      assert.equal(ref.featured, false);
+    });
+
+    it('legacyId is provided and is composed of legacy agenda id and event id', () => {
+      assert.equal(ref.legacyId, '42.24');
     });
   });
 
@@ -59,11 +78,14 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       decorate: ['member']
     });
 
-    ref.member.should.eql({
-      agendaUid: 62792452,
-      userUid: 12312312,
-      role: 1
-    });
+    assert.deepEqual(
+      ref.member,
+      {
+        agendaUid: 62792452,
+        userUid: 12312312,
+        role: 1
+      }
+    );
   });
 
   it('get with decorate to get sourceAgenda details', async () => {
@@ -71,13 +93,16 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       decorate: ['sourceAgendas']
     });
 
-    ref.sourceAgendas.should.eql([{
-      uid: 6789678,
-      title: 'La source'
-    }, {
-      uid: 896785,
-      title: 'Et encore une source'
-    }]);
+    assert.deepEqual(
+      ref.sourceAgendas,
+      [{
+        uid: 6789678,
+        title: 'La source'
+      }, {
+        uid: 896785,
+        title: 'Et encore une source'
+      }]
+    );
   });
 
   it('explicit error is thrown when event uid is not provided', async () => {
@@ -87,7 +112,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     } catch (e) {
       error = e;
     }
-    error.message.should.equal('Event uid is missing');
+    assert.equal(error.message, 'Event uid is missing');
   });
 
   it('explicit error is thrown when agenda uid is not provided', async () => {
@@ -97,36 +122,39 @@ describe('agendaEvents - 02 - functional (server): get', function() {
     } catch (e) {
       error = e;
     }
-    error.message.should.equal('Agenda uid is missing');
+
+    assert.equal(error.message, 'Agenda uid is missing');
   });
 
   it('get provides empty sourcePaths list when none are stored in entry', async () => {
     const ae = await svc(62792452).get(53117383);
 
-    ae.sourcePaths.should.eql([]);
+    assert.deepEqual(ae.sourcePaths, []);
   });
 
   it('get provides sourcePaths as list of uids (or list of list) when a json is stored in entry', async () => {
     const ae = await svc(62792452).get(60059313);
 
-    ae.sourcePaths.should.eql([11, [22], 33]);
+    assert.deepEqual(ae.sourcePaths, [11, [22], 33]);
   });
 
-
   it('get by legacy id', async () => {
-    let ref = await get.byLegacyId(42, 24);
+    const ref = await get.byLegacyId(42, 24);
 
-    _.omit(ref, ['updatedAt', 'createdAt']).should.eql({
-      eventUid: 10974548,
-      agendaUid: 62792452,
-      userUid: 12312312,
-      aggregated: false,
-      sourcePaths: [[6789678], [896785]],
-      featured: false,
-      canEdit: false,
-      state: config.eventStates.VALIDATED,
-      legacyId: '42.24'
-    });
+    assert.deepEqual(
+      _.omit(ref, ['updatedAt', 'createdAt']),
+      {
+        eventUid: 10974548,
+        agendaUid: 62792452,
+        userUid: 12312312,
+        aggregated: true,
+        sourcePaths: [[6789678], [896785]],
+        featured: false,
+        canEdit: false,
+        state: config.eventStates.VALIDATED,
+        legacyId: '42.24'
+      }
+    );  
   });
 
   it('get returns null if no match is found', async () => {

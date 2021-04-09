@@ -30,12 +30,12 @@ module.exports = async (service, items = [], decorate = []) => {
     sourceAgendas = await config.interfaces.getSourceAgendas(sourceAgendaUids);
   }
 
-  items.forEach(item => {
+  items.forEach(ae => {
     if (members) {
-      item.member = _.find(members, { userUid: item.userUid });
+      ae.member = _.find(members, { userUid: ae.userUid });
     }
     if (sourceAgendas) {
-      item.sourceAgendas = getPathLeaves(item)
+      ae.sourceAgendas = getPathLeaves(ae)
         .map(uid => _.find(sourceAgendas, { uid }))
         .filter(uid => !!uid);
     }
