@@ -11,7 +11,11 @@ const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields')
 const aggObjects = require('./aggregatorObjects');
 const { produce } = require('immer');
 
-module.exports = produce((event, formSchema = null) => {
+module.exports = produce((event, options = {}) => {
+  const {
+    formSchema = null
+  } = options;
+  
   Object.assign(event, {
     attendanceMode: event.attendanceMode || 1,
     onlineAccessLink: event.onlineAccessLink || null,

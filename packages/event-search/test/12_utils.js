@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require('lodash');
-const elasticsearch = require('@elastic/elasticsearch');
 const moment = require('moment');
 const assert = require('assert');
 
@@ -11,7 +10,6 @@ const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const getDSLSortPart = require('../utils/getDSLSortPart');
 const preCleanRawQuery = require('../utils/preCleanRawQuery');
-const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
 const monolingual = require('../utils/monolingualize');
 
 const config = require('../testconfig');
@@ -157,22 +155,6 @@ describe('event-search - unit: utils', function() {
 
   });
 
-  describe('lastTimingEndsIn', () => {
-
-    it('gives the number of days between now and the time the last timing ends', () => {
-      let timings = [{
-        start: _dateStrFromNow(4),
-        end: _dateStrFromNow(5)
-      }, {
-        start: _dateStrFromNow(2),
-        end: _dateStrFromNow(2)
-      }];
-
-      assert(lastTimingEndsIn({ timings }) > 3);
-    });
-
-  });
-
   describe('preCleanRawQuery', () => {
 
     it('converts state to numbers when strings are provided', () => {
@@ -275,27 +257,9 @@ describe('event-search - unit: utils', function() {
       assert.equal(query.date.gte instanceof Date, true);
     });
 
-    it('gives the number of days between now and the last timing ends also in the past', () => {
-      const timings = [{
-        end: _getYesterdayDate(1)
-      }];
-
-      assert.equal(lastTimingEndsIn({ timings }), -1);
-    });
   });
 
 });
-
-
-function _getYesterdayDate(secondsOffset) {
-  const yesterday = new Date();
-
-  yesterday.setDate((new Date()).getDate() - 1);
-
-  yesterday.setSeconds(yesterday.getSeconds() + secondsOffset);
-
-  return yesterday;
-}
 
 function _dateStrFromNow(count = 0) {
   const d = moment().add(count, 'day').toDate();

@@ -69,7 +69,7 @@ describe('11 - event-search - unit: formatEvent', function() {
   let formatted;
 
   before(() => {
-    formatted = formatEvent(event, formSchema);
+    formatted = formatEvent(event, { formSchema });
   });
 
   it('_search_languages contains list of languages used for event', () => {
@@ -85,7 +85,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       delete draft.someAdditionalValue;
     });
 
-    const formatted = formatEvent(eventWithNoAdditionalValue, formSchema);
+    const formatted = formatEvent(eventWithNoAdditionalValue, { formSchema });
 
     should(formatted.someAdditionalValue).equal(null);
   });
@@ -96,11 +96,13 @@ describe('11 - event-search - unit: formatEvent', function() {
     });
 
     const formatted = formatEvent(eventWithNoAdditionalValue, {
-      fields: [{
-        schemaId: 123,
-        field: 'someAdditionalValue',
-        fieldType: 'radio',
-      }]
+      formSchema: {
+        fields: [{
+          schemaId: 123,
+          field: 'someAdditionalValue',
+          fieldType: 'radio',
+        }]
+      }
     });
 
     should(formatted.someAdditionalValue).eql([]);
@@ -180,7 +182,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       draft.updatedAt = new Date('2020-05-11T15:26+0200');
     });
     
-    should(formatEvent(newEvent, formSchema)._exclusiveUpdatedAt).equal(undefined);
+    should(formatEvent(newEvent, { formSchema })._exclusiveUpdatedAt).equal(undefined);
   });
 
   it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
@@ -189,7 +191,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       draft.updatedAt = new Date('2020-05-11T15:27+0200'); 
     });
     
-    formatEvent(eventWithUpdate, formSchema)._exclusiveUpdatedAt.getTime().should.equal((new Date('2020-05-11T15:27+0200')).getTime());
+    formatEvent(eventWithUpdate, { formSchema })._exclusiveUpdatedAt.getTime().should.equal((new Date('2020-05-11T15:27+0200')).getTime());
   });
 
 });
