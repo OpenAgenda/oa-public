@@ -1,5 +1,6 @@
 'use strict';
 
+const clean = require('@openagenda/validators/schema/clean');
 const _ = require('lodash');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 
@@ -65,7 +66,8 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
 
   const parts = [];
   const {
-    relative
+    relative,
+    addMethod
   } = cleanQuery;
 
   if (_.get(cleanQuery, 'set')) {
@@ -111,6 +113,10 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
 
   if (_.get(cleanQuery, 'sourceAgendaUid', []).length) {
     parts.push(_filterBySourceAgendaUid(cleanQuery.sourceAgendaUid));
+  }
+
+  if (addMethod?.length) {
+    parts.push(_terms('addMethod', addMethod));
   }
 
   Object.keys(termsFiltersMap)
