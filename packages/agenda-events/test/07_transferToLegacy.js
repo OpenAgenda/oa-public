@@ -9,7 +9,7 @@ const Service = require('../');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 
-describe('agenda-events - 07 - transferLegacyData - transfer to legacy', function() {
+describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function() {
   let svc;
   this.timeout(40000);
 

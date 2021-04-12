@@ -13,7 +13,7 @@ export default class DevEventForm extends Component {
       devOnChange={this.props.devOnChange}
       schemaExtensions={this.props.schemaExtensions}
       locationRes="/locations"
-      mapboxKey={this.props.mapboxKey}
+      tiles={this.props.tiles}
       referencesRes="/references"
       suggestionsRes="/references"
       lang="fr"

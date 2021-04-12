@@ -100,7 +100,7 @@ class LocationComponent extends Component {
 
     const {
       default: defaultValue,
-      mapboxKey,
+      tiles,
       detailedInfo,
       disableChange,
       allowCreate,
@@ -110,7 +110,7 @@ class LocationComponent extends Component {
     return <LocationSelector
       allowCreate={allowCreate}
       confirmRequired={confirmRequired}
-      mapboxKey={mapboxKey}
+      tiles={tiles}
       mode={this.state.mode}
       disableChange={disableChange}
       detailedInfo={detailedInfo}

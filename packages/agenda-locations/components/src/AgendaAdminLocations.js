@@ -50,7 +50,7 @@ class AgendaAdminLocations extends Component {
     res: PropTypes.object.isRequired,
     // general agenda info (title, slug,)
     agenda: PropTypes.object.isRequired,
-
+    tiles: PropTypes.string
   };
 
   constructor(props) {

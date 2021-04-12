@@ -56,6 +56,10 @@ const validate = schema({
     type: 'choice',
     options: ['passed', 'upcoming', 'current']
   },
+  addMethod: {
+    type: 'choice',
+    options: ['contribution', 'share', 'aggregation']
+  },
   city: {
     type: 'text',
     list: true

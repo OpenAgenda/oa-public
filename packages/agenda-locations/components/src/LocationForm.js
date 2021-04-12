@@ -50,7 +50,8 @@ class LocationForm extends Component {
     onSuccess: PropTypes.func, // takes location and update mode (true if is)
     onCancel: PropTypes.func,
     alternatives: PropTypes.array, // alternative to loaded location values
-    Header: PropTypes.object.isRequired
+    Header: PropTypes.object.isRequired,
+    tiles: PropTypes.string
   };
 
   static defaultProps = {
@@ -75,7 +76,7 @@ class LocationForm extends Component {
       },
     });
 
-    log(props);
+    log('PROPS:',props);
     const initState = this.actions.initialize(props);
 
     // log('initializing form state: %j', initState);
@@ -1068,7 +1069,7 @@ class LocationForm extends Component {
 
   render() {
     const {
-      Header, showToggler, lang, detailedInfo, cancel, enableGeocode: propsEnableGeocode
+      Header, showToggler, lang, detailedInfo, cancel, enableGeocode: propsEnableGeocode, tiles
     } = this.props;
     const {
       location, enableGeocode, pageSpin, geocodeError, autoGeocode, showExtIdInput, loadingError, errors
@@ -1166,6 +1167,7 @@ class LocationForm extends Component {
             draggableMarker
             onMarkerDragged={this.onMarkerDragged}
             draggable
+            tiles={tiles}
           />
         </div>
 

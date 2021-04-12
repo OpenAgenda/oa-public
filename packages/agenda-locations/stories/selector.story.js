@@ -19,7 +19,7 @@ class BaseSelectorStory extends Component {
     return (
       <div className="top-margined col-sm-6 col-sm-offset-3 wsq content">
         <SelectorApp
-          mapboxKey="pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow"
+          tiles='https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750'
           settings={this.props.settings}
           location={this.state.location}
           mode={this.state.mode}

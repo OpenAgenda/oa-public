@@ -7,7 +7,7 @@ module.exports = services => async (uid, lang) => {
     core
   } = services;
 
-  const schema = await core.agendas(uid).settings.get();
+  const schema = await core.agendas(uid).settings.get({ access: 'internal' });
 
   if (!schema || !_.isArray(schema.fields)) {
     return null;

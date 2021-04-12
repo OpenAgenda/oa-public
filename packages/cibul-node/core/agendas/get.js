@@ -4,25 +4,25 @@ const _ = require('lodash');
 const getMergedSchema = require('./settings/getMergedSchema');
 const NotFoundError = require('../utils/NotFoundError');
 
-module.exports = async (services, agendaUid, options = {}) => {
+const log = require('@openagenda/logs')('core/agendas/get');
+
+module.exports = async (core, agendaUid, options = {}) => {
+  const {
+    services
+  } = core;
+  
   const {
     agendas
   } = services;
 
   const {
-    access,
-    detailed,
-    internal,
-    includeEvent,
-    throwNotFound
-  } = {
-    access: 'public',
-    detailed: false,
-    internal: options.access === 'internal',
-    includeEvent: false,
-    throwNotFound: false,
-    ...options
-  };
+    access = 'public',
+    detailed = false,
+    includeEvent = false,
+    throwNotFound = false
+  } = options;
+
+  log('getting agenda info with access %s', access);
 
   const agenda = await agendas.get({ uid: agendaUid }, {
     ...options,
@@ -36,15 +36,17 @@ module.exports = async (services, agendaUid, options = {}) => {
   }
 
   if (!detailed && !includeEvent) {
-    return internal ? agenda : agendas.utils.filterByAccess(agenda, 'read', access);
+    return access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access);
   }
 
+  log('getting detailed info with access %s', access);
+  
   const schema = await getMergedSchema(services, agenda, {
     includeEvent,
-    access
+    access: typeof access === 'string' ? { read: access } : access
   });
 
-  if (internal) {
+  if (access === 'internal') {
     return { ...agenda, schema }
   } else {
     return {

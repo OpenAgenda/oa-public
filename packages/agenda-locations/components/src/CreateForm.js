@@ -17,6 +17,7 @@ class CreateForm extends Component {
     actions: PropTypes.object,
     res: PropTypes.object,
     settings: PropTypes.object,
+    tiles: PropTypes.string
   }
   renderHeader() {
     const {
@@ -40,7 +41,8 @@ class CreateForm extends Component {
       lang,
       actions,
       detailedInfo,
-      settings
+      settings,
+      tiles
     } = this.props;
     return (
       <LocationForm
@@ -56,6 +58,7 @@ class CreateForm extends Component {
         onSuccess={actions.addLocation}
         enableGeocode={enableGeocode}
         postRes={res.create}
+        tiles={tiles}
       />
     );
   }

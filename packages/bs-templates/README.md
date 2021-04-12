@@ -30,3 +30,9 @@ npm start
   * partial scss files start with an underscore
 
   * partials start with an underscore they often match a corresponding scss file.
+
+# Notes
+
+Margins and paddings can be tweaked using classes as follows:
+
+    .(margin|padding)-(all|left|right|top|bottom)-(z|xs|sm|md|lg)

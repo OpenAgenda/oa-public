@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 
-const VError = require('verror');
 const log = require('@openagenda/logs')('list');
 
 const validate = require('../iso/validate');
@@ -13,9 +12,8 @@ const validateOptions = require('./lib/validateOptions');
 const decorateListItems = require('./lib/decorateListItems');
 const buildListQuery = require('./lib/buildListQuery');
 
-
 module.exports = async (service, agendaUid, query, offset, limit, options) => {
-  const { config, client } = service;
+  const { client } = service;
 
   const params = extractListParameters(agendaUid, query, offset, limit, options);
 
@@ -41,7 +39,7 @@ module.exports = async (service, agendaUid, query, offset, limit, options) => {
 }
 
 module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 20, options = {}) => {
-  const { config, client } = service;
+  const { client } = service;
 
   const cleanQuery = {
     agendaUid
@@ -76,7 +74,7 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 20, 
 }
 
 module.exports.byUserUid = async (service, userUid, offset, limit) => {
-  const { config, client } = service;
+  const { client } = service;
   return {
     items: (await buildListQuery(service, { userUid }, { offset, limit })).map(validate),
     total: await _total(client, { userUid })
@@ -84,7 +82,7 @@ module.exports.byUserUid = async (service, userUid, offset, limit) => {
 }
 
 module.exports.byEventUid = async (service, eventUid, ...args) => {
-  const { config, client } = service;
+  const { client } = service;
 
   const offset = args.length === 2 ? args[0] : args[1];
   const limit = args.length === 2 ? args[1] : (args[2] || 20);

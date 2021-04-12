@@ -24,7 +24,7 @@ module.exports = c => {
     detailedSearchIncludes: searchIncludes.detailed,
     defaultIndex: 'main'
   }, c);
-
+  
   if (c.logger) {
     logger.setModuleConfig(c.logger);
   }

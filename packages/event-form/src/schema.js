@@ -28,7 +28,7 @@ module.exports = (options = {}) => {
     includeEventFields,
     interfaceLanguage,
     locationRes,
-    mapboxKey,
+    tiles,
     referencesRes,
     suggestionsRes,
     languages,
@@ -48,13 +48,14 @@ module.exports = (options = {}) => {
 
   const eventSchema = {
     custom: eventValidators,
-    fields: []
-  }
+    fields: [],
+    type: 'event'
+  };
 
   if (includeEventFields) {
     eventSchema.fields = eventFields({
       labels,
-      mapboxKey,
+      tiles,
       locationRes,
       fileStore
     });

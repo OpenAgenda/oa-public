@@ -26,7 +26,7 @@ module.exports = {
 const config = {
   layout: (content, data) => 'The service is not ready',
   CDNPath: null,
-  mapboxKey: null,
+  tiles: null,
   frontAppPath: null,
   interfaces: {}
 }
@@ -58,7 +58,7 @@ function init(c) {
         fromAgenda: _.pick(req.fromAgenda, ['uid', 'title', 'slug']) || null,
         agenda: _.pick(req.agenda, ['uid', 'title', 'slug']),
         ...req.config,
-        mapboxKey: config.mapboxKey,
+        tiles : config.tiles,
         maxFileSize: config.maxFileSize,
         schemaExtensions: _.get(req, 'schemaExtensions', []),
       },

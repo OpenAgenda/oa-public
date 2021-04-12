@@ -88,6 +88,11 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
       expect(ref.sourcePaths).toEqual([[17026855]]);
     });
+
+    it('addMethod is aggregation', async () => {
+      const ref = await core.agendas(55268170).events.get(event.uid);
+      expect(ref.addMethod).toEqual('aggregation');
+    });
   });
 
   describe('aggregation after add', function() {

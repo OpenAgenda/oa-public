@@ -11,7 +11,6 @@ const fixtures = require('./fixtures');
 
 const membersFixtures = require('./fixtures/members.json');
 const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
-const { equal } = require('assert');
 
 
 describe('agendaEvents - 01 - functional (server): list', function() {
@@ -104,9 +103,9 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   });
 
   it('list filtered by aggregated boolean', async () => {
-    const result = await svc(62792452).list({ aggregated: true }, 0, 0);
+    const result = await svc(62792452).list({ aggregated: false }, 0, 0);
 
-    assert.equal(result.total, 1);
+    assert.equal(result.total, 2);
   });
 
   it('total gives an integer equal to the total number of items', async () => {
@@ -144,7 +143,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   it('listByLastId for faster list', async () => {
     const result = await svc(62792452).listByLastId(0, 10);
 
-    result.items.length.should.equal(10);
+    assert.equal(result.items.length, 10);
 
     const lastId = result.lastId;
 

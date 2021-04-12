@@ -92,8 +92,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
       });
 
       assert.equal(events[0].uid, 1);
-      assert.equal(sort, 'timings.asc');
-      assert.deepEqual(after, [32503683600000, 1569578400000, 1]);
+      assert.equal(sort, 'timingsWithFeatured.asc');
+      assert.deepEqual(after, [0, 32503683600000, 1569578400000, 1]);
 
       const result = await core.agendas(2).events.search({ state: null }, { size: 1, after }, {
         userUid: 63170200,
