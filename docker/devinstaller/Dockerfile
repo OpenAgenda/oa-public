@@ -4,7 +4,7 @@ RUN apt-get update -y \
     && apt-get install -y apt-utils apt-transport-https curl ssh git gcc g++ make
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt-get install -y nodejs \
+    && apt-get install -y --force-yes nodejs \
     && node -v
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \

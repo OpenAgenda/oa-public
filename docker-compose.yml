@@ -151,6 +151,7 @@ services:
       OA_SESSION_SECRET: ${OA_SESSION_SECRET}
       OA_OAUTH_GOOGLE_ID: ${OA_OAUTH_GOOGLE_ID}
       OA_OAUTH_GOOGLE_SECRET: ${OA_OAUTH_GOOGLE_SECRET}
+      OAPUBLIC_LOCKFILE: yarn.lock
 
   mysql:
     container_name: mysql
