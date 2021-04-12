@@ -1,0 +1,33 @@
+#!/bin/sh
+. "$(dirname $0)/_/husky.sh"
+
+set -e
+
+[ -n "$DISABLE_AUTO_COMMIT" ] && exit 0
+
+#
+# Update a superproject when a commit is made to a submodule.
+# Intended for .git/**modules/{THE_SUBMODULE}/hooks/post-commit
+# where the double-star indicates variadic path elements.
+#
+# Depends on Git >= 2.13.
+
+# Clean the Git environment before crossing repository boundaries.
+# From https://stackoverflow.com/questions/36196548/cannot-trigger-post-commit-git-hook-on-git-submodule
+
+unset $(env | grep "^GIT_" | cut -d '=' -f 1)
+
+SUPERPROJECT_WORKING_TREE=$(git rev-parse --show-superproject-working-tree)
+
+# It's not a submodule
+[ -z "$SUPERPROJECT_WORKING_TREE" ] && exit 0
+
+GIT="git"
+SUBMODULE=$(git rev-parse --show-toplevel)
+SUBMODULE_NAME=$(basename "$SUBMODULE")
+COMMIT_MSG="chore: update submodule $SUBMODULE_NAME"
+
+echo "Committing to $SUPERPROJECT_WORKING_TREE"
+cd "$SUPERPROJECT_WORKING_TREE"
+$GIT add "$SUBMODULE"
+$GIT commit --no-verify -m "$COMMIT_MSG" -- "$SUBMODULE"

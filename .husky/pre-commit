@@ -1,0 +1,28 @@
+#!/bin/sh
+. "$(dirname $0)/_/husky.sh"
+
+set -e
+
+WORKSPACES=$(yarn workspaces list --json)
+MODIFIED_PACKAGES=""
+
+maybe_modified_package() {
+  NAME=$(echo "$1" | jq -r .name)
+  LOCATION=$(echo "$1" | jq -r .location)
+
+  if [ -n "$(git --no-pager diff --cached --name-only --diff-filter=ACDMR -z -- "$LOCATION")" ]; then
+    MODIFIED_PACKAGES="$MODIFIED_PACKAGES --include $NAME"
+  fi
+}
+
+for WORSPACE in $WORKSPACES; do
+  maybe_modified_package "$WORSPACE"
+done
+
+if [ -z "$MODIFIED_PACKAGES" ]; then
+  exit 0
+fi
+
+yarn workspaces foreach \
+  --verbose --topological-dev $(echo "$MODIFIED_PACKAGES" | xargs) \
+  run lint-staged
