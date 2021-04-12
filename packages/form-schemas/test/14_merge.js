@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
+const assert = require('assert');
 const fs = require('fs');
 const should = require('should');
 
@@ -16,6 +17,7 @@ describe('unit - assigning schema properties to another schema', () => {
 
       const networkSchema = {
         id: 1,
+        type: 'network',
         fields: [{
           field: 'somenetworkfield',
           fieldType: 'checkbox',
@@ -33,6 +35,7 @@ describe('unit - assigning schema properties to another schema', () => {
 
       const agendaSchema = {
         id: 2,
+        type: 'agenda',
         fields: [{
           field: 'someagendafield',
           fieldType: 'radio',
@@ -50,6 +53,16 @@ describe('unit - assigning schema properties to another schema', () => {
 
       merged = merge(networkSchema, agendaSchema);
 
+    });
+
+    it('in each field, type of schema where field is defined is provided in schemaType key', () => {
+      assert.deepEqual(
+        merged.fields.map(f => _.pick(f, ['field', 'schemaType'])),
+        [
+          { field: 'someagendafield', schemaType: 'agenda' },
+          { field: 'somenetworkfield', schemaType: 'network' }
+        ]
+      );
     });
 
     it('ids of options of merged schemas are no longer unique', () => {
@@ -246,13 +259,15 @@ describe('unit - assigning schema properties to another schema', () => {
           optional: false,
           fieldType: 'text',
           label: 'Budget',
-          schemaId: 3
+          schemaId: 3,
+          schemaType: null
         }, {
           field: 'organizer',
           optional: false,
           fieldType: 'text',
           label: 'Organizer',
-          schemaId: 2
+          schemaId: 2,
+          schemaType: null
         }, {
           field: 'keywords',
           fieldType: 'keywords',
@@ -260,14 +275,16 @@ describe('unit - assigning schema properties to another schema', () => {
           max: 255,
           optional: true,
           display: false,
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }, {
           field: 'participants',
           optional: false,
           fieldType: 'integer',
           label: 'Participants',
           info: 'Combien de participants',
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }]
       });
 
@@ -359,7 +376,8 @@ describe('unit - assigning schema properties to another schema', () => {
           },
           "placeholder" : null,
           "sub" : null,
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }]
       });
 
@@ -392,12 +410,14 @@ describe('unit - assigning schema properties to another schema', () => {
           field: 'references',
           fieldType: 'abstract',
           label: 'Références',
-          schemaId: null
+          schemaId: null,
+          schemaType: null
         }, {
           field: 'title',
           fieldType: 'text',
           label: 'Titre',
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }]
       });
 
@@ -436,7 +456,8 @@ describe('unit - assigning schema properties to another schema', () => {
           suggest: true,
           related: [ 'title', 'description', 'location' ],
           res: '/references',
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }]
       });
 
@@ -460,7 +481,8 @@ describe('unit - assigning schema properties to another schema', () => {
           "field": "title",
           "fieldType": "text",
           "label": "Titre",
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }]
       });
 
@@ -470,7 +492,8 @@ describe('unit - assigning schema properties to another schema', () => {
           "field": "title",
           "fieldType": "text",
           "label": "Titre",
-          schemaId: 1
+          schemaId: 1,
+          schemaType: null
         }]
       });
 
@@ -581,7 +604,8 @@ describe('unit - assigning schema properties to another schema', () => {
           label: 'Phteven',
           id: 2
         }],
-        schemaId: 1
+        schemaId: 1,
+        schemaType: null
       }]);
 
     });

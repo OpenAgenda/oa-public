@@ -3,6 +3,19 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
+const getIsAbstract = field => (field.fieldType || 'abstract') === 'abstract';
+const assignSchemaValuesToNonAbstractFields = schema => ({
+  custom: schema?.custom || {},
+  fields: (schema?.fields || []).map(f => { 
+    const isAbstract = getIsAbstract(f);
+    return {
+      ...f,
+      schemaId: isAbstract ? null : (schema.id || null),
+      schemaType: isAbstract ? null : (schema.type || null)
+    };
+  } )
+});
+
 module.exports = mergeAll;
 
 function mergeAll(...args) {
@@ -18,7 +31,7 @@ function mergeAll(...args) {
 
   const merged = args.slice(1).reduce(
     reduceFields,
-    _assignSchemaIdToNonAbstractFields(args[0])
+    assignSchemaValuesToNonAbstractFields(args[0])
   );
 
   if (!options.access) return merged;
@@ -40,7 +53,7 @@ function reduceFields(mergedIn, mergeWith) {
   if ( !_.get( mergedIn, 'fields' ) ) return mergeWith;
 
   return _.assign( {}, mergedIn, {
-    fields: _assignSchemaIdToNonAbstractFields( mergeWith ).fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
+    fields: assignSchemaValuesToNonAbstractFields(mergeWith).fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
 
       const index = fields.map( f => f.field ).indexOf( field.field );
 
@@ -94,25 +107,14 @@ function _mergeField( field, mergeWithField ) {
 
   }
 
+  if ( field.schemaType ) {
+
+    update[ 'schemaType' ] = { $set: field.schemaType };
+
+  }
+
   if ( !_.keys( update ).length ) return field;
 
   return ih( field, update );
-
-}
-
-function _assignSchemaIdToNonAbstractFields( schema ) {
-
-  return {
-    custom: _.get( schema, 'custom', {} ),
-    fields: _.get( schema, 'fields', [] ).map( f => _.assign( {}, f, {
-      schemaId: _isAbstract( f ) ? null : _.get( schema, 'id', null )
-    } ) )
-  }
-
-}
-
-function _isAbstract( field ) {
-
-  return _.get( field, 'fieldType', 'abstract' ) === 'abstract'
 
 }
