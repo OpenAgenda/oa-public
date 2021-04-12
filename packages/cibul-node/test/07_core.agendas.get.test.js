@@ -1,11 +1,8 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const axios = require('axios');
 const mysql = require('mysql');
-const { promisify } = require('util');
 
 const api = require('../api');
 const assignClients = require('./utils/assignClients');
@@ -66,9 +63,23 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     });
 
     it('detailed get provides consolidated schema', async () => {
-      const agenda = await core.agendas(92983929).get({ detailed: true });
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'administrator'
+      });
 
       expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
+    });
+
+    it('schema fields each include a schemaType', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        includeEvent: true
+      });
+
+      expect(
+        _.uniq(agenda.schema.fields.map(f => f.schemaType))
+      ).toEqual(['agenda', 'event']);
     });
 
   });
@@ -113,7 +124,6 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       it('get from administrator provides administrator-access field', () => {
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
-
     });
 
   });

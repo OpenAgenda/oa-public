@@ -68,8 +68,10 @@ module.exports = core => {
     '/agendas/:agendaUid',
     '/agendas/:agendaUid.prv'
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
-    access: req.access
-  })));
+    access: req.access,
+    includeEvent: true,
+    detailed: req.query.detailed
+  }).catch(next)));
 
   app.post('/agendas/:agendaUid/events', (req, res, next) => core
     .agendas(req.agenda.uid).events

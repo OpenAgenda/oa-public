@@ -34,8 +34,7 @@ module.exports = core => {
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
-    pushDataToFormSchema: agendaUid =>
-     pushDataToFormSchema(services, agendaUid)
+    pushDataToFormSchema: agendaUid => pushDataToFormSchema(services, agendaUid)
   }
 
   tasks.register(resyncFn);
