@@ -21,7 +21,7 @@ docker run \
   -v "${SF_PROJECT_PATH}:/root/cibul-symfony" \
   -v "${SF_API_PROJECT_PATH}:/root/cibulapi-symfony" \
   -v "${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini" \
-  -e "OAPUBLIC_LOCKFILE=yarn.lock" \
+  -e "OA_PUBLIC_LOCKFILE=yarn.lock" \
   -e "HOME=/root" \
   --env-file "$env_file" \
   -w /root/oa \
