@@ -48,8 +48,9 @@ module.exports = (options = {}) => {
 
   const eventSchema = {
     custom: eventValidators,
-    fields: []
-  }
+    fields: [],
+    type: 'event'
+  };
 
   if (includeEventFields) {
     eventSchema.fields = eventFields({
