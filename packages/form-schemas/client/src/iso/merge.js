@@ -4,6 +4,7 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 
 const getIsAbstract = field => (field.fieldType || 'abstract') === 'abstract';
+
 const assignSchemaValuesToNonAbstractFields = schema => ({
   custom: schema?.custom || {},
   fields: (schema?.fields || []).map(f => { 
@@ -13,7 +14,7 @@ const assignSchemaValuesToNonAbstractFields = schema => ({
       schemaId: isAbstract ? null : (schema.id || null),
       schemaType: isAbstract ? null : (schema.type || null)
     };
-  } )
+  })
 });
 
 module.exports = mergeAll;
@@ -47,74 +48,61 @@ function mergeAll(...args) {
 }
 
 function reduceFields(mergedIn, mergeWith) {
+  if (!_.get(mergeWith, 'fields')) {
+    return mergedIn;
+  }
 
-  if ( !_.get( mergeWith, 'fields' ) ) return mergedIn;
+  if (!_.get(mergedIn, 'fields')) {
+    return mergeWith;
+  }
 
-  if ( !_.get( mergedIn, 'fields' ) ) return mergeWith;
+  return {
+    ...mergedIn,
+    fields: assignSchemaValuesToNonAbstractFields(mergeWith).fields.concat(mergedIn.fields).reduce((fields, field) => {
+      const index = fields.map(f => f.field).indexOf(field.field);
 
-  return _.assign( {}, mergedIn, {
-    fields: assignSchemaValuesToNonAbstractFields(mergeWith).fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
-
-      const index = fields.map( f => f.field ).indexOf( field.field );
-
-      if ( index === -1 ) {
-
-        fields.push( field );
-
+      if (index === -1) {
+        fields.push(field);
       } else {
-
-        fields[ index ] = _mergeField( field, fields[ index ] );
-
+        fields[index] = _mergeField(field, fields[index]);
       }
 
       return fields;
-
-    }, [] )
-  } );
-
+    }, [])
+  }
 }
 
-function _mergeField( field, mergeWithField ) {
+function _mergeField(field, mergeWithField) {
+  if (!mergeWithField) return field;
 
-  if ( !mergeWithField ) return field;
+  const protectedKeys = ['field', 'fieldType', 'origin'];
 
-  const protectedKeys = [ 'field', 'fieldType', 'origin' ];
+  const update = _.keys(mergeWithField)
+    .filter(k => !protectedKeys.includes(k))
+    .filter(f => mergeWithField[f] !== undefined )
+    .reduce((c, f) => _.set(c, f, { $set: mergeWithField[f] }), {});
 
-  const update = _.keys( mergeWithField )
-    .filter( k => !protectedKeys.includes( k ) )
-    .filter( f => mergeWithField[ f ] !== undefined  )
-    .reduce( ( c, f ) => _.set( c, f, { $set: mergeWithField[ f ] } ), {} );
-
-  if ( field.optional && mergeWithField.optional === false ) {
-
+  if (field.optional && mergeWithField.optional === false) {
     update.optional = { $set: false }
-
   }
 
-  if ( _.get( mergeWithField, 'allowedOptions' ) ) {
-
+  if (_.get(mergeWithField, 'allowedOptions')) {
     update.options = {
-      $set: _.get( field, 'options' ).filter( o => mergeWithField.allowedOptions.includes( o.id ) )
+      $set: _.get(field, 'options').filter(o => mergeWithField.allowedOptions.includes(o.id))
     };
 
-    update[ '$unset' ] = [ 'allowedOptions' ];
-
+    update['$unset'] = ['allowedOptions'];
   }
 
-  if ( field.schemaId ) {
-
-    update[ 'schemaId' ] = { $set: field.schemaId };
-
+  if (field.schemaId) {
+    update['schemaId'] = { $set: field.schemaId };
   }
 
-  if ( field.schemaType ) {
-
-    update[ 'schemaType' ] = { $set: field.schemaType };
-
+  if (field.schemaType) {
+    update['schemaType'] = { $set: field.schemaType };
   }
 
-  if ( !_.keys( update ).length ) return field;
+  if (!_.keys(update).length) return field;
 
-  return ih( field, update );
-
+  return ih(field, update);
 }
