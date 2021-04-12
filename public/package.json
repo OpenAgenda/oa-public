@@ -1,0 +1,42 @@
+{
+  "name": "oa-public",
+  "version": "1.0.0",
+  "description": "OpenAgenda monorepo - public part",
+  "repository": "https://github.com/OpenAgenda/oa-public",
+  "author": "OpenAgenda Dev Team",
+  "license": "SEE LICENCE IN LICENSE",
+  "private": true,
+  "scripts": {
+    "postinstall": "husky install"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@openagenda/cz-conventional-changelog"
+    }
+  },
+  "workspaces": [
+    "*"
+  ],
+  "dependencies": {
+    "mime": "^2.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/runtime-corejs3": "^7.12.5",
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@commitlint/config-lerna-scopes": "^9.1.1",
+    "@commitlint/load": "^9.1.1",
+    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/cz-conventional-changelog": "^3.2.1",
+    "codecov": "^3.6.2",
+    "commitizen": "^4.1.2",
+    "concurrently": "^5.2.0",
+    "conventional-changelog-conventionalcommits": "^4.3.0",
+    "core-js": "^3.6.5",
+    "husky": "^5.0.4",
+    "jest": "^26.1.0",
+    "lerna": "^3.22.1",
+    "regenerator-runtime": "^0.13.5"
+  }
+}
