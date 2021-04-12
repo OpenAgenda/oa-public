@@ -15,7 +15,8 @@ class LocationItem extends Component {
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     seeEventsRes: PropTypes.string,
-    toggleMergeTarget :PropTypes.func
+    toggleMergeTarget :PropTypes.func,
+    seeRef : PropTypes.func
   };
 
   constructor(props) {
@@ -66,6 +67,12 @@ class LocationItem extends Component {
       ':locationUid',
       location.uid
     );
+  }
+
+  seeDetails(e) {
+    const { seeDetails} = this.props;
+    e.stopPropagation();
+    seeDetails();
   }
 
   renderMergeCheckbox() {
@@ -126,6 +133,7 @@ class LocationItem extends Component {
         >
           {getLabel("unselect")}
         </button>
+       
       </span>
     )
 
@@ -180,6 +188,13 @@ class LocationItem extends Component {
                 {getLabel('noEvent')}
               </span>
             )}
+            <button
+              type="button"
+              className="btn btn-link  action"
+              onClick={this.seeDetails.bind(this)}
+            >
+                Details
+            </button>
             {!merge ? editButton : null}
             {!merge ? removeButton : null}
             {merge && this.isMergeTarget() ? mergeTarget : null}

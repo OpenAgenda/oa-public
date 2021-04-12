@@ -18,6 +18,7 @@ import LocationItem from './LocationItem';
 import SetHeader from './SetHeader';
 import UpdateForm from './UpdateForm';
 import AdminActionModal from './AdminActionModal';
+import LocationDetails  from './LocationDetails';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
@@ -50,7 +51,8 @@ class AgendaAdminLocations extends Component {
     res: PropTypes.object.isRequired,
     // general agenda info (title, slug,)
     agenda: PropTypes.object.isRequired,
-    tiles: PropTypes.string
+    tiles: PropTypes.string,
+    staticTiles : PropTypes.string
   };
 
   constructor(props) {
@@ -80,7 +82,6 @@ class AgendaAdminLocations extends Component {
     this.renderHead = this.renderHead.bind(this);
     this.getCountryLabel = this.getCountryLabel.bind(this);
     this.displayActionModal = this.displayActionModal.bind(this);
-
   }
 
   onSearchChange(field, newSearchValue) {
@@ -213,9 +214,10 @@ class AgendaAdminLocations extends Component {
       }
 
       if (result.success) {
+        setTimeout(() => {this.actions.closeMerge(); log('state:', this.state);}, timeOut);
       }
       log('state:', this.state);
-      setTimeout(() => {this.actions.closeMerge(); log('state:', this.state);}, timeOut);
+      
     });
 
   }
@@ -275,6 +277,7 @@ class AgendaAdminLocations extends Component {
         getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
         toggleMergeTarget={merge ? toggleMergeTarget : null}
+        seeDetails={this.actions.openDetailModal.bind(this, item)}
       />
     );
   }
@@ -424,7 +427,7 @@ class AgendaAdminLocations extends Component {
     return (
       <Modal
       title={this.getLabel('mergedescription')}
-      onClose={this.actions.closeModal}
+      onClose={this.actions.closeMerge}
       >
         <div>
           <p className="text-center">
@@ -435,6 +438,35 @@ class AgendaAdminLocations extends Component {
 
       </Modal>
     )
+  }
+
+  renderDetailModal() {
+    const { modal } = this.state;
+    const { lang, settings, staticTiles } = this.props;
+    log('settings:', settings, 'static:', staticTiles)
+    return (
+      <Modal
+        classNames={{ overlay: 'popup-overlay big' }}
+        onClose={this.actions.closeModal}
+      >
+        <LocationDetails
+          location= {modal.location}
+          lang= {lang}
+          settings= {settings}
+          hover= {false}
+          staticTiles={staticTiles}
+        />
+
+        <button
+          type="button"
+          onClick={this.actions.closeModal}
+          className="btn btn-danger padding-h-xs"
+        >
+         {this.getLabel('closeModal')}
+        </button>
+      </Modal>
+    )
+
   }
 
   renderMergeMenu() {
@@ -683,8 +715,10 @@ class AgendaAdminLocations extends Component {
               switch (modal.type) {
                 case 'removeLocation':
                   return this.renderRemoveLocationModal();
-                  case 'merge':
-                    return this.renderMergeModal();
+                case 'merge':
+                  return this.renderMergeModal();
+                case 'detail':
+                  return this.renderDetailModal();
                 case 'actions':
                   return (
                     <AdminActionModal

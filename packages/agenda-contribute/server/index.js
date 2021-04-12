@@ -59,6 +59,7 @@ function init(c) {
         agenda: _.pick(req.agenda, ['uid', 'title', 'slug']),
         ...req.config,
         tiles : config.tiles,
+        staticTiles: config.staticTiles,
         maxFileSize: config.maxFileSize,
         schemaExtensions: _.get(req, 'schemaExtensions', []),
       },

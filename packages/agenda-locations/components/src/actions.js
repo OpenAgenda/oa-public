@@ -1,6 +1,7 @@
 import update from 'immutability-helper';
 import utils from '@openagenda/utils';
 import dl from '@openagenda/dom-utils/documentLocation';
+import { func } from 'prop-types';
 
 // little counter
 function _syncCounter() {
@@ -196,6 +197,13 @@ function closeMerge(state) {
   });
 }
 
+function openDetailModal(state, location) {
+  return update(state ,{
+    modal : {$set : {type: 'detail', location}}
+  })
+}
+
+
 /**
  * toggle merge mode on or off
  * used in AgendaAdminLocations
@@ -307,6 +315,7 @@ function actions(options) {
     updateLocationList: assign(updateLocationList),
     toggleMergeItem: assign(toggleMergeItem),
     toggleMergeTarget: assign(toggleMergeTarget),
+    openDetailModal: assign(openDetailModal),
 
     queryChange: assign(queryChange),
 
@@ -330,6 +339,7 @@ export default Object.assign(actions, {
     toggleMergeItem,
     toggleMergeTarget,
     mergeOnGoing,
+    openDetailModal,
     updateLocationList,
     editLocation,
     removedLocation,

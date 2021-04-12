@@ -209,6 +209,7 @@ function init(config, services) {
     logger: config.getLogConfig('svc', 'agendaContribute'),
     CDNPath: config.aws.servicesBucketPath,
     tiles: config.tiles,
+    staticTiles: config.staticTiles,
     maxFileSize: parseInt(config.maxFileSize / 1000000),
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
     layout,
@@ -216,7 +217,7 @@ function init(config, services) {
     interfaces: interfaces(services)
   });
 
-  console.log('Contribute Init tiles:', config.tiles);
+  console.log('Contribute Init tiles:', config.tiles, ' staticTiles', config.staticTiles);
   return {
     mw: middlewares
   }

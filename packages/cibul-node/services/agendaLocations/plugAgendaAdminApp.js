@@ -56,6 +56,7 @@ module.exports = (config, services, instance, app, base) => {
                 uid: req.agenda.uid
               },
               tiles: config.tiles,
+              staticTiles: config.staticTiles,
               set: req.locationSet,
               res: {
                 csv: `/${req.agenda.slug}/admin/locations.csv`,

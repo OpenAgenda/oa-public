@@ -33,6 +33,8 @@ window.hook( function( options ) {
     lang={params.lang}
     set={params.set}
     detailedInfo={params.detailedInfo}
+    tiles={params.tiles}
+    staticTiles={params.staticTiles}
     res={params.res} />,
   du.el( params.selectors.canvas ) );
 

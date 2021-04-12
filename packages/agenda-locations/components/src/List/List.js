@@ -43,14 +43,12 @@ class List extends React.Component {
       dropped: false,
       buffer: null
     };
-    log('construct props;',props);
     this.getPage = this.getPage.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.getAdjacentPage = this.getAdjacentPage.bind(this);
   }
 
   componentDidMount() {
-    log('ccomponent did Mount props;',this.props);
     const { dropdownMode, query, items } = this.props;
     if (dropdownMode && !utils.size(query)) return;
     if (items.length) {

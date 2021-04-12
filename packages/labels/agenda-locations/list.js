@@ -58,7 +58,7 @@ module.exports = {
     "it": "L'unione è in corso"
   },
   "defineMergeTarget": {
-    "fr": "Definir comme lieu référence de la fusion",
+    "fr": "Définir comme lieu référence de la fusion",
     "en": "Define as merge target",
     "de": "Als Zusammenführungsziel definieren",
     "es": "Definir como destino de fusión",

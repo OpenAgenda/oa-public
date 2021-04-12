@@ -66,6 +66,7 @@ const config = {
     callToActionEmails: prod.sales && prod.sales.emails,
     contactResource: prod.sales && prod.sales.pipedriveForm,
     tiles: prod.tiles || process.env.MAP_TILES,
+    staticTiles: prod.staticTiles || process.env.STATIC_MAP_TILES,
     opencage: {
       key: process.env.OPENCAGE_KEY || prod.opencage && prod.opencage.key
     },
