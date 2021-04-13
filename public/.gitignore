@@ -6,6 +6,7 @@ npm-debug.log
 coverage/
 doctor.log
 .env
+.envrc
 sftp-config.*
 
 # yarn
