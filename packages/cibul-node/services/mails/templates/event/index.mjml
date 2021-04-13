@@ -91,7 +91,7 @@
       >
         <mj-column>
           <mj-image
-            src="<%= `https://api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/static/pin-l-circle+41acdd(${map.lng},${map.lat})/${map.lng},${map.lat},${map.zoom}/600x140?access_token=${map.accessToken}` %>"
+            src="<%= `${map.staticMap}` %>"
             href="<%= link %>"
             padding="0"
             alt="map"

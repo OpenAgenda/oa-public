@@ -20,6 +20,7 @@ class BaseSelectorStory extends Component {
       <div className="top-margined col-sm-6 col-sm-offset-3 wsq content">
         <SelectorApp
           tiles='https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750'
+          staticTiles='https://maps.geoapify.com/v1/staticmap?style=osm-carto&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&apiKey=9f8da49724b645f486f281abbe690750'
           settings={this.props.settings}
           location={this.state.location}
           mode={this.state.mode}

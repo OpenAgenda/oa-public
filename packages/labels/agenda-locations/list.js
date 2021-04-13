@@ -1,6 +1,14 @@
 "use strict";
 
 module.exports = {
+  "detailsButton": {
+    "fr": "Détail",
+    "en": "Details",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
   "contactsupport": {
     "fr": "Contacter le support",
     "en": "Contact support",
@@ -19,6 +27,14 @@ module.exports = {
   },
   "reflocationinfo": {
     "fr": "choisissez un lieu qui sera retenu à l'issu de la fusion",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "reflocationinfo2": {
+    "fr": "Ce lieu sera retenu à l'issu de la fusion",
     "en": "",
     "de": "",
     "es": "",
@@ -58,7 +74,7 @@ module.exports = {
     "it": "L'unione è in corso"
   },
   "defineMergeTarget": {
-    "fr": "Definir comme lieu référence de la fusion",
+    "fr": "Définir comme lieu référence de la fusion",
     "en": "Define as merge target",
     "de": "Als Zusammenführungsziel definieren",
     "es": "Definir como destino de fusión",

@@ -305,6 +305,18 @@ async function eventMailSend(req, res, next) {
       end: new Date(t.end)
     })), req.lang, req.event.timezone);
 
+
+    const staticMap = config.staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi,
+      (matched) => { return {
+       '{w}': 600,
+       '{h}': 140,
+       '{z}': 16,
+       '{lon}':req.event.location.longitude,
+       '{lat}':req.event.location.latitude
+     }[matched]});
+
+     log('staticMap', staticMap);
+
     await mails.send({
       template: 'event',
       to: emails.map(email => ({
@@ -344,7 +356,8 @@ async function eventMailSend(req, res, next) {
           lat: req.event.location.latitude,
           lng: req.event.location.longitude,
           zoom: 16,
-          accessToken: config.mapboxAccessToken
+          //accessToken: config.mapboxAccessToken
+          staticMap,
         }
       },
       lang: req.lang
@@ -355,6 +368,21 @@ async function eventMailSend(req, res, next) {
     sessions.setFlash(req, res, getActionLabel('eventEmailSend', { count: emails.length }, req.lang));
 
     res.redirect(302, `${config.root}/${req.agenda.slug}/events/${req.event.slug}`);
+    log('ICI ', {
+      name: req.event.location.name,
+      lat: req.event.location.latitude,
+      lng: req.event.location.longitude,
+      zoom: 16,
+      staticMap: config.staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi,
+         (matched) => { return ({
+          'w': 600,
+          'h': 140,
+          'z': 16,
+          'lon':req.event.location.longitude,
+          'lat':req.event.location.latitude
+        }[matched])}),
+    
+    })
   } catch (err) {
     return next(err);
   }
