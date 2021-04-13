@@ -207,12 +207,10 @@ class AgendaAdminLocations extends Component {
         log('error', err);
         this.actions.changeMergeModal(err);
       }
-
       if (!result.success) {
         log('no success');
         this.actions.changeMergeModal(result);
       }
-
       if (result.success) {
         setTimeout(() => {this.actions.closeMerge(); log('state:', this.state);}, timeOut);
       }
@@ -508,16 +506,16 @@ class AgendaAdminLocations extends Component {
             >
               {this.getLabel("unselect")}
             </button>
-          </div>
-        ) : (
-          <div className="btn-link-group">
-            {this.getLabel("reflocation")}{this.getLabel("reflocationinfo")}
             <MoreInfo
                     className="margin-left-sm"
                     id="target-help"
-                    content="test infos"
+                    content={this.getLabel("reflocationinfo2")}
                     placement="top"
                   />          
+          </div>
+        ) : (
+          <div className="btn-link-group">
+            {this.getLabel("reflocation")}{this.getLabel("reflocationinfo")}     
           </div>
         )}
         
@@ -526,7 +524,6 @@ class AgendaAdminLocations extends Component {
             {this.getLabel('mergeselection', {
               count: merge.locationUids.length,
             })}
-
           </span>
         ) : (
           <span>{this.getLabel('mergenoselection')}</span>
@@ -702,7 +699,7 @@ class AgendaAdminLocations extends Component {
                 res={res.index}
                 query={this.actions.getQuery()}
                 renderItem={this.renderItem}
-                renderHead={null} //this.renderHead}
+                renderHead={null}
                 items={locations}
                 page={page}
                 total={total}

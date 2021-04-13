@@ -17,6 +17,7 @@ const mapValues = (location) => {
   return {
     '{w}': 500,
     '{h}': 160,
+    '{z}': 14,
     '{lon}': location.longitude,
     '{lat}': location.latitude
   }
@@ -69,7 +70,7 @@ class LocationDetails extends Component {
     const { contentLang } = this.state;
 
     const hoverInfo = hover ? getLabel('hoverInfo', lang) : null;
-    const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}/gi, (matched) => mapValues(location)[matched]);
+    const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, (matched) => mapValues(location)[matched]);
     const existingLangs = getExistingLangs(location);
     log('lang:', lang, ' settings:', settings, 'static:', staticMap);
     return (

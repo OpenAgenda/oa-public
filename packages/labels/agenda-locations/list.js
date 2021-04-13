@@ -1,6 +1,14 @@
 "use strict";
 
 module.exports = {
+  "detailsButton": {
+    "fr": "Détail",
+    "en": "Details",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
   "contactsupport": {
     "fr": "Contacter le support",
     "en": "Contact support",
@@ -19,6 +27,14 @@ module.exports = {
   },
   "reflocationinfo": {
     "fr": "choisissez un lieu qui sera retenu à l'issu de la fusion",
+    "en": "",
+    "de": "",
+    "es": "",
+    "br": "",
+    "it": ""
+  },
+  "reflocationinfo2": {
+    "fr": "Ce lieu sera retenu à l'issu de la fusion",
     "en": "",
     "de": "",
     "es": "",

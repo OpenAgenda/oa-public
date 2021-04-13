@@ -193,7 +193,7 @@ class LocationItem extends Component {
               className="btn btn-link  action"
               onClick={this.seeDetails.bind(this)}
             >
-                Details
+                {getLabel('detailsButton')}
             </button>
             {!merge ? editButton : null}
             {!merge ? removeButton : null}
