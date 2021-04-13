@@ -90,8 +90,8 @@ export default function FiltersPreview({
         filter => filter.type !== 'dateRange'
       ),
       {
+        sort: 'updatedAt.desc',
         ...query,
-        // sort: 'updatedAt.desc',
         detailed: true,
       },
       page

@@ -393,6 +393,12 @@
       "value": " pour en savoir plus."
     }
   ],
+  "EventAdminApp.EventItem.addFeatured": [
+    {
+      "type": 0,
+      "value": "Mettre en une"
+    }
+  ],
   "EventAdminApp.EventItem.addedBy": [
     {
       "type": 0,
@@ -459,6 +465,12 @@
       "value": "Modifier"
     }
   ],
+  "EventAdminApp.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "En une"
+    }
+  ],
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,
@@ -477,10 +489,16 @@
       "value": "Retirer de l'agenda"
     }
   ],
+  "EventAdminApp.EventItem.removeFeatured": [
+    {
+      "type": 0,
+      "value": "Retirer de la une"
+    }
+  ],
   "EventAdminApp.EventItem.sharedFrom": [
     {
       "type": 0,
-      "value": "Shared from "
+      "value": "Partagé depuis "
     },
     {
       "children": [
@@ -699,19 +717,19 @@
   "EventAdminApp.messages.relative.current": [
     {
       "type": 0,
-      "value": "Current"
+      "value": "En cours"
     }
   ],
   "EventAdminApp.messages.relative.passed": [
     {
       "type": 0,
-      "value": "Passed"
+      "value": "Passé"
     }
   ],
   "EventAdminApp.messages.relative.upcoming": [
     {
       "type": 0,
-      "value": "Upcoming"
+      "value": "À venir"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

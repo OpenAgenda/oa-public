@@ -293,6 +293,12 @@
       "value": " to find out more."
     }
   ],
+  "EventAdminApp.EventItem.addFeatured": [
+    {
+      "type": 0,
+      "value": "Add to featured"
+    }
+  ],
   "EventAdminApp.EventItem.addedBy": [
     {
       "type": 0,
@@ -361,6 +367,12 @@
       "value": "crwdns806:0crwdne806:0"
     }
   ],
+  "EventAdminApp.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,
@@ -377,6 +389,12 @@
     {
       "type": 0,
       "value": "crwdns810:0crwdne810:0"
+    }
+  ],
+  "EventAdminApp.EventItem.removeFeatured": [
+    {
+      "type": 0,
+      "value": "Remove from featured"
     }
   ],
   "EventAdminApp.EventItem.sharedFrom": [
