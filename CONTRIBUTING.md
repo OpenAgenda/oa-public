@@ -1,3 +1,18 @@
+## Set up Yarn
+
+The `public` submodule must work independently of the main repo, for that you have to tell Yarn that it must use the same `yarn.lock` for the submodule when working on `public` from OA.
+For that add the following line to your `.profile`, `.bashrc` or `.zshrc`:
+
+```bash
+export OA_PUBLIC_LOCKFILE="yarn.lock"
+```
+
+> If you want to install both oa and oa-public, you must install [`direnv`](https://direnv.net/) and add an `.envrc` with the following content in your `oa-public` repo:
+> 
+> ```bash
+> export OA_PUBLIC_LOCKFILE="yarn.lock-workspace"
+> ```
+
 ## Set up git
 
 OA contains a git submodule with the public packages.
