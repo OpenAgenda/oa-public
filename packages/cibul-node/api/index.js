@@ -59,17 +59,15 @@ module.exports = core => {
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
   app.get('/agendas/:agendaUid', mw.member.load);
 
-  app.post('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-  app.patch('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-  app.delete('/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
-
   app.get('/agendas/:agendaUid', mw.redirectIfPrivate);
   app.get([
     '/agendas/:agendaUid',
     '/agendas/:agendaUid.prv'
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
-    access: req.access
-  })));
+    access: req.access,
+    includeEvent: true,
+    detailed: req.query.detailed
+  }).catch(next)));
 
   app.post('/agendas/:agendaUid/events', (req, res, next) => core
     .agendas(req.agenda.uid).events
@@ -85,11 +83,10 @@ module.exports = core => {
     }), next)
   );
 
-  // update the thing
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+
   app.patch('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
-  // remove the thing
   app.delete('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
     .agendas(req.agenda.uid).events
     .remove(req.event.uid, {
@@ -98,6 +95,26 @@ module.exports = core => {
         userUid: req.user.uid
       }
     }).then(event => res.json({ success: true, event }), next)
+  );
+
+  app.get('/agendas/:agendaUid/events', (req, res, next) => core
+    .agendas(req.agenda.uid).events
+    .search(req.query, req.query, {
+      ...req.query,
+      useAfterKey: true,
+      userUid: req.user?.uid
+    }).then(({
+      events,
+      sort,
+      total,
+      after
+    }) => res.json({
+      success: true,
+      sort,
+      total,
+      after,
+      events
+    }), next)
   );
 
   app.get('/agendas/:agendaUid/settings', [
@@ -210,7 +227,7 @@ module.exports = core => {
         locations: items,
         after,
         total
-      }))
+      }), next)
   )
 
   app.post('/agendas/:agendaUid/settings/resync', [

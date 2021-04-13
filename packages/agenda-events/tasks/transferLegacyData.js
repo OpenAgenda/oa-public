@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('tasks/transferLegacyData');
 const queue = require('@openagenda/queue');
 const getLegacyState = require('../service/lib/getLegacyState');
 

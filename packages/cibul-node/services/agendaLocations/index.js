@@ -51,7 +51,7 @@ module.exports.init = async (config, services) => {
   return Object.assign(instance, {
     apps: Object.assign(plugApp.bind(null, { ...config, geocoder }, services, instance), {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
-      agenda: plugAgendaApp.bind(null, config, services, instance)
+      agenda: plugAgendaApp.bind(null, services, instance)
     }),
     task: Object.assign(async (options = {}) => {
       log('task');

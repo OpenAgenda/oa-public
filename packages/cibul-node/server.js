@@ -40,6 +40,7 @@ supervisor(async loadTasks => {
     const admin = require('./admin');
     const web = require('./web');
 
+    app.core = core;
     app.services = services;
 
     app.use(sessions.mw);

@@ -1,0 +1,80 @@
+{
+  "fields": [
+    {
+      "field": "someEmailField",
+      "fieldType": "email",
+      "label": {
+        "fr": "Un champ email",
+        "en": "Some email field"
+      }
+    },
+    {
+      "field": "somePhoneField",
+      "fieldType": "phone",
+      "label": {
+        "fr": "Un champ telephone",
+        "en": "Some phone field"
+      }
+    },
+    {
+      "field": "someLinkField",
+      "fieldType": "link",
+      "label": {
+        "fr": "Un champ lien",
+        "en": "Some link field"
+      }
+    },
+    {
+      "field": "types-devenements",
+      "label": {
+        "fr": "Types d'événements",
+        "en": "Types d'événements"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": [
+        15
+      ],
+      "info": {
+        "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)",
+        "en": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 15,
+          "value": "tous",
+          "label": {
+            "fr": "Tous"
+          }
+        },
+        {
+          "id": 16,
+          "value": "conference",
+          "label": {
+            "fr": "Conférence"
+          }
+        },
+        {
+          "id": 17,
+          "value": "congres-colloque",
+          "label": {
+            "fr": "Congrès - Colloque"
+          }
+        }
+      ],
+      "fieldType": "checkbox"
+    }
+  ]
+}

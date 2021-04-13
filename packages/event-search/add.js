@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const VError = require('verror');
 const formatEvent = require('./utils/formatEvent');
-const lastTimingEndsIn = require('./utils/lastTimingEndsIn');
 const getDocumentId = require('./utils/getDocumentId');
 const getIndexName = require('./utils/getIndexName');
 
@@ -11,13 +10,9 @@ const log = require('@openagenda/logs')('add');
 
 module.exports = async function(config, set, event, options = {}) {
   const {
-    refresh,
-    formSchema
-  } = {
-    refresh: false,
-    formSchema: null,
-    ...options
-  };
+    refresh = false,
+    formSchema = null
+  } = options;
 
   const {
     client,
@@ -37,7 +32,7 @@ module.exports = async function(config, set, event, options = {}) {
       id: getDocumentId(set, event.uid),
       routing: set,
       body: {
-        ...formatEvent(event, formSchema),
+        ...formatEvent(event, { formSchema }),
         _set: set
       }
     });

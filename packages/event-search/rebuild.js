@@ -24,18 +24,13 @@ module.exports = async (config, set, options = {}) => {
   } = config;
 
   const {
-    eventsList,
-    formSchema,
-    on
-  } = {
-    eventsList: null,
-    formSchema: null,
-    on: {
+    eventsList = null,
+    formSchema = null,
+    on = {
       bulk: () => {},
       error: () => {}
-    },
-    ...options
-  };
+    }
+  } = options;
 
   const index = getIndexName(set, defaultIndex);
 
@@ -87,7 +82,7 @@ module.exports = async (config, set, options = {}) => {
                   routing: set
                 }
               }, {
-                ...formatEvent(event, formSchema),
+                ...formatEvent(event, { formSchema }),
                 _build: build,
                 _set: set
               }]);

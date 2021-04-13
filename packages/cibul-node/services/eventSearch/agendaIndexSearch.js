@@ -10,7 +10,6 @@ module.exports = (eventSearch, agenda) => {
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
     log('agenda %s', agenda.uid);
-
     return searchIndex.search(query, nav, {
       ...validateAgendaSearchOptions(options),
       formSchema: agenda.schema

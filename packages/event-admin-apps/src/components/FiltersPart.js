@@ -33,7 +33,7 @@ function FiltersPart({
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
-    ['event-admin-apps', 'filtersBase'],
+    ['event-admin-apps', 'filtersBase', agenda.slug],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -50,7 +50,7 @@ function FiltersPart({
   );
 
   const { data, isFetching } = useQuery(
-    ['event-admin-apps', 'events', { query, page }],
+    ['event-admin-apps', 'events', agenda.slug, { query, page }],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -59,8 +59,8 @@ function FiltersPart({
         filter => filter.type !== 'dateRange'
       ),
       {
+        sort: 'updatedAt.desc',
         ...query,
-        // sort: 'updatedAt.desc',
         detailed: true,
       },
       page
@@ -94,7 +94,7 @@ function FiltersPart({
     (filter, option) => {
       const aggregation = aggregations[`${filter.name}-${filter.id}`];
 
-      if (!aggregation) return 0;
+      if (!aggregation) return null;
 
       const dataKey = 'id' in option ? 'id' : 'key';
       const optionKey = 'id' in option ? 'id' : 'value';

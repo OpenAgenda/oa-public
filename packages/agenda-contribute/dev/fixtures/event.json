@@ -10,8 +10,16 @@
     "en": "A wee description"
   },
   "timings": [ {
-    "begin":{"date":"2021-06-04","hours":"08","minutes":"00"},
-    "end":{"date":"2021-06-04","hours":"08","minutes":"10"}
+    "begin": {
+      "date": "2018-11-28",
+      "hours": "10",
+      "minutes": "00"
+    },
+    "end": {
+      "date": "2018-11-28",
+      "hours": "12",
+      "minutes": "00"
+    }
   } ],
   "location": { "uid": 50148047 }
 }

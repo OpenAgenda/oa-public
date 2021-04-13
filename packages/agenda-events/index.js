@@ -16,7 +16,6 @@ const validate = require('./iso/validate');
 const legacy = require('./service/legacy');
 const stats = require('./service/stats');
 const interfacesTask = require('./tasks/interfaces');
-const transferLegacyDataTask = require('./tasks/transferLegacyData');
 const setSourcePaths = require('./utils/setSourcePaths');
 const states = require('./iso/states');
 
@@ -65,8 +64,7 @@ module.exports = c => {
     fromLegacy: legacy.from.bind(null, service),
     removeLegacy: legacy.remove.bind(null, service),
     countByUserUid: stats.countByUserUid.bind(null, service),
-    interfacesTask: interfacesTask.bind(null, service),
-    transferLegacyDataTask: transferLegacyDataTask.bind(null, service)
+    interfacesTask: interfacesTask.bind(null, service)
   });
 
   service.exposed = Object.assign(agendaUid => ({
@@ -93,8 +91,7 @@ module.exports = c => {
       byLegacyId: service.removeByLegacyId
     }),
     tasks: {
-      interfaces: service.interfacesTask,
-      transferLegacyData: service.transferLegacyDataTask
+      interfaces: service.interfacesTask
     },
     legacyTransfer: Object.assign(service.fromLegacy, {
       to: service.toLegacy,

@@ -706,7 +706,7 @@ function wrap( fn ) {
 
 function _loadAgendaCoreSettings( req, res, next ) {
 
-  req.app.services.core.agendas( req.agenda.uid ).settings.get().then( settings => {
+  req.app.services.core.agendas( req.agenda.uid ).settings.get({ access: 'internal' }).then( settings => {
 
     req.agendaSettings = settings;
 

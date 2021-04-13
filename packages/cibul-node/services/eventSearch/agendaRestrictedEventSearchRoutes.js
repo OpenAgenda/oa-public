@@ -25,7 +25,6 @@ module.exports = services => {
   );
 
   router.get('', async (req, res, next) => {
-    const access = req.member.role === 2 ? 'administrator' : 'moderator';
     const { format } = req.params;
 
     try {
@@ -42,7 +41,7 @@ module.exports = services => {
               ...req.query
             }, null, {
               ...req.query,
-              access,
+              userUid: req.user.uid,
               returnAgenda: true,
               stream: true
             });
@@ -76,7 +75,7 @@ module.exports = services => {
               ...req.query
             }, req.query, {
               ...req.query,
-              access,
+              userUid: req.user.uid,
               returnAgenda: true
             });
 
@@ -93,7 +92,8 @@ module.exports = services => {
         const languagesResult = await core
           .agendas(req.params.agendaUid)
           .events.search(req.query, { size: 0 }, {
-            aggregations: ['languages']
+            aggregations: ['languages'],
+            userUid: req.user.uid
           });
 
         // this should be loaded from some agenda cache
@@ -107,7 +107,12 @@ module.exports = services => {
           .events.search({
             state: null,
             ...req.query
-          }, null, { detailed: true, returnAgenda: true, stream: true });
+          }, null, {
+            detailed: true,
+            returnAgenda: true,
+            stream: true,
+            userUid: req.user.uid
+          });
 
         switch (format) {
           case 'csv': {
@@ -227,7 +232,7 @@ module.exports = services => {
 };
 
 function _getFirstSortField(query) {
-  const firstSort = _.head(query.sort, null);
+  const firstSort = query.sort?.length ? query.sort[0] : null;
 
   if (!firstSort) return null;
 

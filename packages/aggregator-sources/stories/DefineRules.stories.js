@@ -12,23 +12,9 @@ import sourceAgendaSchema from './mocks/DefineRules/NDM.schema.json';
 import steps from './mocks/DefineRules/steps.json';
 import rules from './mocks/DefineRules/rules.json';
 
-import melSchema from './mocks/DefineRules/MEL_example/MEL.schema.json';
-import melRules from './mocks/DefineRules/MEL_example/rules.json';
-import melRulesTags from './mocks/DefineRules/MEL_example/rulesWithTagRule.json';
-import melAggregatorAgenda from './mocks/DefineRules/MEL_example/melAgenda.json';
+import manyAddFieldsAggrSchema from './mocks/DefineRules/manyAdditionalFields.aggregator.schema.json';
 
-const melSourceAgenda = {
-  uid: 85645563,
-  title: 'Office de Tourisme du Val de Deûle et Lys',
-  description: "Agenda de l'Office de Tourisme du Val de Deûle et Lys.",
-};
-
-const melSourceAgendaSchema = {
-  custom: {},
-  fields: [],
-};
-
-const melSourceAgendaSchemaAdditional = {
+const sourceAgendaSchemaOneAdditional = {
   custom: {},
   fields: [
     {
@@ -105,54 +91,15 @@ storiesOf('DefineRules - edit', module)
       onCancel={() => {}}
     />
   ))
-  .add('some rules exist', () => (
+  .add('many rules exist', () => (
     <DefineRules
       displayInfo={false}
-      aggregator={aggregator}
+      aggregator={null}
       aggregatorAgenda={aggregatorAgenda}
-      aggregatorAgendaSchema={aggregatorAgendaSchema}
+      aggregatorAgendaSchema={manyAddFieldsAggrSchema}
       sourceAgenda={sourceAgenda}
-      sourceSchema={sourceAgendaSchema}
+      sourceSchema={sourceAgendaSchemaOneAdditional}
       initialRules={rules}
-      onSubmit={() => {}}
-      onCancel={() => {}}
-    />
-  ))
-  .add('one rule with text filter, without additional text field', () => (
-    <DefineRules
-      displayInfo={false}
-      aggregator={aggregator}
-      aggregatorAgenda={melAggregatorAgenda}
-      aggregatorAgendaSchema={melSchema}
-      sourceAgenda={melSourceAgenda}
-      sourceSchema={melSourceAgendaSchema}
-      initialRules={melRules}
-      onSubmit={() => {}}
-      onCancel={() => {}}
-    />
-  ))
-  .add('one rule with text filter, with additional text field', () => (
-    <DefineRules
-      displayInfo={false}
-      aggregator={aggregator}
-      aggregatorAgenda={melAggregatorAgenda}
-      aggregatorAgendaSchema={melSchema}
-      sourceAgenda={melSourceAgenda}
-      sourceSchema={melSourceAgendaSchemaAdditional}
-      initialRules={melRules}
-      onSubmit={() => {}}
-      onCancel={() => {}}
-    />
-  ))
-  .add('one rule with text filter, one rule with tags filter', () => (
-    <DefineRules
-      displayInfo={false}
-      aggregator={aggregator}
-      aggregatorAgenda={melAggregatorAgenda}
-      aggregatorAgendaSchema={melSchema}
-      sourceAgenda={melSourceAgenda}
-      sourceSchema={melSourceAgendaSchema}
-      initialRules={melRulesTags}
       onSubmit={() => {}}
       onCancel={() => {}}
     />

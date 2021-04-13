@@ -135,7 +135,10 @@ describe('core - functional (server): core.agendas().events.update()', function(
         result = await core.agendas(17026855).events.search({
           uid: event.uid,
           state: null
-        }, {}, { detailed: true });
+        }, {}, {
+          detailed: true,
+          access: 'administrator'
+        });
       });
 
       it('indexed document is updated', () => {

@@ -5,6 +5,10 @@ const verifyAndLoadAccessTokenUser = require('./verifyAndLoadAccessTokenUser');
 module.exports = async (req, res, next) => {
   const { accessTokens } = req.app.services;
 
+  if (req.user) {
+    return next();
+  }
+
   if (!req.query.key && req.headers['access-token']) {
     return verifyAndLoadAccessTokenUser(req, res, next);
   }

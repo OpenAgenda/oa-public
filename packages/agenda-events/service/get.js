@@ -5,8 +5,7 @@ const _ = require('lodash');
 const utils = require('./lib/utils');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
-const { errorFromList } = require('verror');
-const NotFoundError = require('./lib/NotFoundError')
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
 module.exports = async (service, agendaUid, eventUid, options = {}) => {
   const {
@@ -34,7 +33,7 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
   if (!ae && !throwOnNotFound) {
     return null;
   } else if (!ae) {
-    throw new NotFoundError(agendaUid, eventUid);
+    throw new NotFoundError('agendaEvent', [agendaUid, eventUid].join('.'));
   }
 
   if (decorate.includes('member') && config.interfaces.getMembers) {

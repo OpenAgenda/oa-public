@@ -10,7 +10,7 @@ const Services = require('../services/init');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events.list()', function() {
+describe('01 - core - functional (server): core.agendas().events.list()', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
@@ -71,6 +71,10 @@ describe('core - functional (server): core.agendas().events.list()', function() 
 
     it('origin agenda is not provided', () => {
       expect(events[0].originAgenda).toBeUndefined();
+    });
+
+    it('addMethod indicates event was referenced through a share', () => {
+      expect(events[0].addMethod).toBe('share');
     });
   });
 

@@ -17,7 +17,9 @@ module.exports = async (req, res, next) => {
     return next();
   }
 
-  const mergedSchemaFields = _.get(await core.agendas(agendaUid).settings.get(), 'fields', []);
+  const mergedSchemaFields = _.get(await core.agendas(agendaUid).settings.get({
+    userUid: req.user.uid
+  }), 'fields', []);
 
   const event = await core.agendas(agendaUid).events.get(req.query.eventUid, {
     access: await members.get({

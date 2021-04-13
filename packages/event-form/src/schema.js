@@ -48,8 +48,9 @@ module.exports = (options = {}) => {
 
   const eventSchema = {
     custom: eventValidators,
-    fields: []
-  }
+    fields: [],
+    type: 'event'
+  };
 
   if (includeEventFields) {
     eventSchema.fields = eventFields({
@@ -63,12 +64,13 @@ module.exports = (options = {}) => {
   const hasExtensions = Array.isArray(schemaExtensions);
 
   if (includeEventFields && hasExtensions && _hasReferencesField(schemaExtensions)) {
-    eventSchema.fields.push(eventReferencesField({
+    const fieldIndex = eventSchema.fields.map(f => f.field).indexOf('references');
+    eventSchema.fields[fieldIndex] = eventReferencesField({
       res: {
         references: referencesRes,
         suggestions: suggestionsRes
       }
-    }));
+    });
   }
 
   // here, for generating the form, provided access as write should suffice

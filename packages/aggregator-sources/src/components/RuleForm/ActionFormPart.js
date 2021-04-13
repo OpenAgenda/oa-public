@@ -9,6 +9,7 @@ import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
 import getLocalValue from '../../utils/getLocalValue';
 import stateMessages from '../../utils/stateMessages';
+import stringType from '../../utils/stringType';
 import messages from './messages';
 import Radio from './Radio';
 
@@ -22,6 +23,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     values.actions,
   ]);
   const fieldName = useMemoOne(() => action?.field, [action]);
+  // console.log('fieldName ', fieldName);
   const prevFieldName = usePrevious(fieldName);
   const initialValues = useRef(initials).current;
 
@@ -33,6 +35,16 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     [fieldName, initialValues]
   );
 
+  // console.log('aggregatorAgendaSchema.fields ', aggregatorAgendaSchema.fields);
+
+  const textFieldOptions = aggregatorAgendaSchema.fields.filter(v => stringType.includes(v.fieldType));
+
+  function isStringType(fieldSchema) {
+    return stringType.includes(fieldSchema?.fieldType);
+  }
+
+  // console.log('textFielOptions', textFieldOptions);
+
   const fieldOptions = useMemoOne(
     () => aggregatorAgendaSchema.fields
       .filter(
@@ -42,6 +54,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
         field: 'state',
         label: intl.formatMessage(stateMessages.state),
       })
+      .concat(textFieldOptions)
       .filter(
         v => v.field === fieldName
             || !values.actions.find(w => w && v.field === w.field)
@@ -50,14 +63,26 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
         value: v.field,
         label: getLocalValue(v.label, intl.locale),
       })),
-    [aggregatorAgendaSchema.fields, intl, fieldName, values.actions]
+    [
+      aggregatorAgendaSchema.fields,
+      intl,
+      fieldName,
+      values.actions,
+      textFieldOptions,
+    ]
   );
+
+  // console.log('fieldOptions', fieldOptions);
 
   const fieldSchema = useMemoOne(
     () => fieldName
       && aggregatorAgendaSchema.fields.find(v => v.field === fieldName),
     [aggregatorAgendaSchema.fields, fieldName]
   );
+
+  // console.log('fieldSchema', fieldSchema);
+  // console.log('isStringType', isStringType(fieldSchema));
+
   const valuesOptions = useMemoOne(() => {
     if (fieldName === 'state') {
       return [
@@ -83,6 +108,8 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       }));
     }
   }, [fieldName, fieldSchema, intl]);
+
+  // console.log('valuesOptions', valuesOptions);
 
   const areAdvancedOptionsUsed = () => action?.automatic || action?.set;
 
@@ -130,6 +157,23 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     advancedMode,
   ]);
 
+  const advanceModeSetField = (
+    <Field
+      key="set"
+      component={Radio}
+      name={`${name}.set`}
+      initialValue={!!initialAction?.set}
+      type="checkbox"
+      label={intl.formatMessage(messages.clearAssignment)}
+      classNameGroup="checkbox"
+      helpBlock={(
+        <div className="radio-sub-block text-muted">
+          {intl.formatMessage(messages.clearDescription)}
+        </div>
+      )}
+    />
+  );
+
   return (
     <>
       <ReactSelectField
@@ -176,22 +220,33 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
                   </div>
                 )}
               />
-              <Field
-                key="set"
-                component={Radio}
-                name={`${name}.set`}
-                initialValue={!!initialAction?.set}
-                type="checkbox"
-                label={intl.formatMessage(messages.clearAssignment)}
-                classNameGroup="checkbox"
-                helpBlock={(
-                  <div className="radio-sub-block text-muted">
-                    {intl.formatMessage(messages.clearDescription)}
-                  </div>
-                )}
-              />
+              {advanceModeSetField}
             </>
           ) : null}
+        </>
+      ) : null}
+
+      {isStringType(fieldSchema) ? (
+        <>
+          <Field
+            keys="values"
+            name={`${name}.values`}
+            render={({ input }) => (
+              <div className="row">
+                <div className="form-group form-group-v-aligned">
+                  <div className="col-sm-12">
+                    <input
+                      type="text"
+                      className="form-control"
+                      {...input}
+                      placeholder={fieldSchema.fieldType} // intl.formatMessage(messages.substring)
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          />
+          <>{advancedMode ? advanceModeSetField : null}</>
         </>
       ) : null}
 

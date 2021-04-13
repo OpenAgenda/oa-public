@@ -26,7 +26,6 @@
     "@openagenda/agenda-categories": "^1.0.5",
     "@openagenda/agenda-contribute": "^1.5.2",
     "@openagenda/agenda-docx": "^1.2.1",
-    "@openagenda/agenda-event-references": "^1.1.16",
     "@openagenda/agenda-events": "^1.11.14",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/agenda-portal": "^2.13.1",

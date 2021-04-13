@@ -418,6 +418,29 @@ describe('05_02 - utils - rules', () => {
         thematiques: [12, 13, 14],
       });
     });
+
+    test('action on text Field', () => {
+      const input = {
+        content: 'test',
+      };
+
+      const ruleset = [
+        {
+          actions: [
+            {
+              field: 'content',
+              values: 'test2',
+            },
+          ],
+        },
+      ];
+
+      const result = rules(ruleset, null, null, input);
+
+      expect(result).toEqual({
+        content: 'test2',
+      });
+    });
   });
 
   describe('automatic actions', () => {

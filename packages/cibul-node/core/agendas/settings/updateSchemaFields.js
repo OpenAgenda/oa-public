@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const { promisify } = require('util');
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 const log = require('@openagenda/logs')('core/agendas/settings/updateFields');

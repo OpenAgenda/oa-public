@@ -6,6 +6,7 @@ import React, {
   useState,
   useRef,
   useLayoutEffect,
+  useEffect,
 } from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
@@ -14,9 +15,9 @@ import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
-import { Field, useForm } from 'react-final-form';
-import { OnChange } from 'react-final-form-listeners';
+import { useField } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
+import produce from 'immer';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
 import {
@@ -31,6 +32,7 @@ import FiltersPart from '../components/FiltersPart';
 import FiltersPreview from '../components/FiltersPreview';
 import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
+import EmptyDashboard from '../components/EmptyDashboard';
 import RemoveModal from '../components/RemoveModal';
 import EventItem from '../components/EventItem';
 import SortSelector from '../components/SortSelector';
@@ -156,23 +158,66 @@ function SearchField({ input, disabled, isLoading }) {
   );
 }
 
-function SearchFilter({ disabled, isLoading }) {
-  const form = useForm();
+function SearchFilter({
+  disabled, isLoading, query, setQuery
+}) {
+  const fieldProps = useField('search');
 
-  const { callback: onChange } = useDebouncedCallback(() => form.submit(), 400);
+  const { value } = fieldProps.input;
+  const [previousValue, setPreviousValue] = useState(() => value);
+
+  const [userSort, setUserSort] = useState(() => query.sort);
+
+  useEffect(() => {
+    if (query.sort !== 'score') {
+      setUserSort(query.sort);
+    }
+  }, [query.sort, userSort]);
+
+  const { callback: onChange } = useDebouncedCallback(() => {
+    if (previousValue === '' && value !== '') {
+      setUserSort(query.sort);
+
+      setQuery({
+        ...query,
+        search: value,
+        sort: 'score',
+      });
+    } else if (query.sort === 'score' && previousValue !== '' && value === '') {
+      setQuery(
+        produce(draft => {
+          delete draft.search;
+
+          if (userSort) {
+            draft.sort = userSort;
+          } else {
+            delete draft.sort;
+          }
+        })
+      );
+    } else {
+      setQuery(
+        produce(draft => {
+          if (value) {
+            draft.search = value;
+          } else {
+            delete draft.search;
+          }
+        })
+      );
+    }
+
+    if (value !== previousValue) {
+      setPreviousValue(value);
+    }
+  }, 400);
+
+  useUpdateEffect(() => {
+    onChange();
+  }, [fieldProps.input.value, onChange]);
 
   return (
-    <>
-      <Field
-        component={SearchField}
-        name="search"
-        type="text"
-        isLoading={isLoading}
-        disabled={disabled}
-      />
-
-      <OnChange name="search">{onChange}</OnChange>
-    </>
+    <SearchField {...fieldProps} isLoading={isLoading} disabled={disabled} />
   );
 }
 
@@ -333,7 +378,11 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     );
   });
 
-  const hasQuery = useMemo(() => !!Object.keys(query).length, [query]);
+  const hasFilter = useMemo(
+    () => Object.keys(query).length
+      && Object.keys(query).some(key => key !== 'sort'),
+    [query]
+  );
 
   const [page, setPage] = useState(() => (parsedLocationSearch.page ? parseInt(parsedLocationSearch.page, 10) : 1));
 
@@ -351,7 +400,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
     apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
       () => queryClient
-        .refetchQueries(['event-admin-apps', 'events'])
+        .refetchQueries(['event-admin-apps', 'events', agenda.slug])
         .catch(() => null),
       e => console.log('ERROR', e)
     );
@@ -360,7 +409,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, [agenda.slug, apiClient, queryClient, removeModal]);
 
   const filtersQuery = useQuery(
-    ['event-admin-apps', 'filtersBase'],
+    ['event-admin-apps', 'filtersBase', agenda.slug],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -379,7 +428,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const {
     data, isLoading, isFetching, error
   } = useQuery(
-    ['event-admin-apps', 'events', { query, page }],
+    ['event-admin-apps', 'events', agenda.slug, { query, page }],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -388,8 +437,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         filter => filter.type !== 'dateRange'
       ),
       {
+        sort: 'updatedAt.desc',
         ...query,
-        // sort: 'updatedAt.desc',
         detailed: true,
       },
       page
@@ -439,7 +488,13 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     }
   );
 
-  const onFilterChange = useCallback(values => setQuery(values), []);
+  const onFilterChange = useCallback(
+    values => setQuery(old => ({
+      sort: old.sort, // sort is not in form
+      ...values,
+    })),
+    [setQuery]
+  );
 
   // Selection
   const isSelectedEvent = useCallback(uid => selectedEvents.has(uid), [
@@ -460,7 +515,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, []);
 
   const allSelected = useMemo(() => {
-    if (!data?.events) {
+    if (!data?.events?.length) {
       return false;
     }
 
@@ -540,7 +595,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   // for FiltersProvider
   const filtersFormRef = useRef();
-  const [initialQuery] = useState(query);
+  const [initialValues] = useState(() => _.without(query, 'sort'));
   const validate = useCallback(
     values => {
       try {
@@ -563,8 +618,14 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       Object.keys(baseQuery)
     );
 
+    if ('featured' in cleanQuery) {
+      cleanQuery.featured = [].concat(cleanQuery.featured);
+    }
+
     if (!_.isEqual(cleanQuery, latestQuery.current)) {
-      filtersFormRef.current.initialize(cleanQuery);
+      const form = filtersFormRef.current;
+
+      form.initialize(cleanQuery);
     }
   }, [
     additionalsFilters,
@@ -592,12 +653,14 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     throw error;
   }
 
-  const kind = 'warning';
+  if (!filtersQuery.data.total) {
+    return <EmptyDashboard agenda={agenda} />;
+  }
 
   return (
     <FiltersProvider
       onSubmit={onFilterChange}
-      initialValues={initialQuery}
+      initialValues={initialValues}
       validate={validate}
       intl={intl}
       ref={filtersFormRef}
@@ -616,20 +679,25 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             width: 50%;
           `}
         >
-          <SearchFilter disabled={isFetching} isLoading={isFetching} />
+          <SearchFilter
+            disabled={isFetching}
+            isLoading={isFetching}
+            query={query}
+            setQuery={setQuery}
+          />
         </div>
 
         <div className="pull-right">
           {intl.formatMessage(messages.sortedBy)}
           &nbsp;
-          <SortSelector onFilterChange={onFilterChange} query={query} />
+          <SortSelector query={query} setQuery={setQuery} />
         </div>
 
         <div className="clearfix" />
 
-        {hasQuery ? (
+        {hasFilter ? (
           <div
-            className="hidden-sm margin-top-sm"
+            className="margin-top-sm"
             css={css`
               line-height: 24px;
 
@@ -638,16 +706,18 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
               }
             `}
           >
-            <FiltersPreview
-              agenda={agenda}
-              query={query}
-              page={page}
-              standardsFilters={standardsFilters}
-              additionalsFilters={additionalsFilters}
-            />
+            <span className="hidden-sm">
+              <FiltersPreview
+                agenda={agenda}
+                query={query}
+                page={page}
+                standardsFilters={standardsFilters}
+                additionalsFilters={additionalsFilters}
+              />
+            </span>
             <button
               type="button"
-              className="btn-link btn-link-inline"
+              className="btn btn-link btn-link-inline"
               css={css`
                 line-height: 16px;
               `}
@@ -695,8 +765,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         ) : null}
 
         {allSelected && selectedEvents.size < data.total ? (
-          <div className={`announcement bg-${kind} margin-bottom-md`}>
-            <div className={`container-fluid text-${kind}`}>
+          <div className="announcement bg-warning margin-bottom-md">
+            <div className="container-fluid text-warning">
               <div className="row padding-top-sm padding-right-sm padding-left-md">
                 {!extendedAllSelected ? (
                   <p className="text-center">
@@ -754,7 +824,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
           <div className="padding-top-xs">
             <span className="margin-right-md">
-              {hasQuery
+              {hasFilter
                 ? intl.formatMessage(messages.totalWithFilters, {
                   selection: data.total,
                   total: filtersQuery.data.total,

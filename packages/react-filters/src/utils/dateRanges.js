@@ -13,14 +13,6 @@ import * as dateFnsLocales from 'date-fns/locale';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  past: {
-    id: 'ReactFilters.dateRanges.past',
-    defaultMessage: 'Past',
-  },
-  upcoming: {
-    id: 'ReactFilters.dateRanges.upcoming',
-    defaultMessage: 'Upcoming',
-  },
   today: {
     id: 'ReactFilters.dateRanges.today',
     defaultMessage: 'Today',
@@ -99,20 +91,6 @@ export default function dateRanges(intl) {
 
   return {
     staticRanges: createStaticRanges([
-      {
-        label: intl.formatMessage(messages.past),
-        range: () => ({
-          startDate: null,
-          endDate: now,
-        }),
-      },
-      {
-        label: intl.formatMessage(messages.upcoming),
-        range: () => ({
-          startDate: now,
-          endDate: null,
-        }),
-      },
       {
         label: intl.formatMessage(messages.today),
         range: () => ({

@@ -4,6 +4,10 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('api/middleware/verifyAndLoadAccessTokenUser');
 
 module.exports = async (req, res, next) => {
+  if (req.user) {
+    return next();
+  }
+  
   try {
     req.user = await req.app.core.users.get.byAccessToken(
       _.get(req, 'headers.access-token', _.get(req, 'body.access_token')),

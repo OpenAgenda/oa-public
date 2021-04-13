@@ -1,28 +1,28 @@
 'use strict';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
 const moment = require('moment-timezone');
+const { produce } = require('immer');
 
-module.exports = (query = {}) => {
-  const timezone = _.get(query, 'date.timezone');
+module.exports = produce(query => {
+  const timezone = query?.date?.timezone;
 
-  if (!timezone) return query;
+  if (!timezone) return;
 
   _validateTimezone(timezone);
 
   const localMidnightToday = _getMidnight(timezone);
 
-  const timestampFields = Object.keys(query.date || {})
-    .filter(f => f !== 'timezone');
+  delete query.date.timezone;
 
-  return ih(query, timestampFields.reduce((update, field) => {
-    if (query.date[field] !== 'today') {
-      return update
-    }
-    return _.set(update, ['date', field], { $set: localMidnightToday });
-  }, { date: { $unset: ['timezone'] } }));
-}
+  const timestampFieldsWithToday = Object
+    .keys(query.date || {})
+    .filter(f => f !== 'timezone')
+    .filter(f => query.date[f] === 'today');
+
+  for (const field of timestampFieldsWithToday) {
+    query.date[field] = localMidnightToday;
+  }
+});
 
 
 function _getMidnight(timezone) {

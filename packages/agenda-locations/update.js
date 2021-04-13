@@ -8,12 +8,12 @@ const cleanOptions = require('./lib/cleanSetOptions');
 const get = require('./get');
 const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
-const allow = require('./lib/AllowAction');
+const authorize = require('./lib/authorize');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
 
-  await allow(service, 'update', current.uid);
+  await authorize(service, 'update', current.uid, options);
 
   const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
 

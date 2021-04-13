@@ -57,6 +57,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
   });
 
   afterAll(async () => {
+    core.services.tracker.flush();
     await stopTask();
     core.services.knex.destroy();
     testConfig.redisClient.quit();
@@ -86,6 +87,11 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     it('sourcePaths is saved in agendaEvent ref', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
       expect(ref.sourcePaths).toEqual([[17026855]]);
+    });
+
+    it('addMethod is aggregation', async () => {
+      const ref = await core.agendas(55268170).events.get(event.uid);
+      expect(ref.addMethod).toEqual('aggregation');
     });
   });
 

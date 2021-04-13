@@ -186,6 +186,12 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
     value: [2, 3]
   }
 }, {
+  field: 'references',
+  fieldType: 'integer',
+  list: true,
+  optional: true,
+  write: ['internal']
+}, {
   field: 'timings',
   fieldType: 'timings',
   max: 800,

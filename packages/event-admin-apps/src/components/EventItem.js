@@ -1,8 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import { useMutation, useQueryClient } from 'react-query';
 import qs from 'qs';
 import { css } from '@emotion/react';
-import { getLocaleValue } from '@openagenda/react-shared';
+import { getLocaleValue, useApiClient } from '@openagenda/react-shared';
+import { MoreInfo } from '@openagenda/react-components';
 import addQueryPrefix from '../utils/addQueryPrefix';
 import EventStateSelector from './EventStateSelector';
 
@@ -14,6 +16,10 @@ const messages = defineMessages({
   addedBy: {
     id: 'EventAdminApp.EventItem.addedBy',
     defaultMessage: 'Added by <link>{name}</link>',
+  },
+  sharedFrom: {
+    id: 'EventAdminApp.EventItem.sharedFrom',
+    defaultMessage: 'Shared from <link>{title}</link>',
   },
   aggregatedFrom: {
     id: 'EventAdminApp.EventItem.aggregatedFrom',
@@ -51,6 +57,18 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.showOnlineLocation',
     defaultMessage: 'Access the online event',
   },
+  removeFeatured: {
+    id: 'EventAdminApp.EventItem.removeFeatured',
+    defaultMessage: 'Remove from featured',
+  },
+  addFeatured: {
+    id: 'EventAdminApp.EventItem.addFeatured',
+    defaultMessage: 'Add to featured',
+  },
+  featured: {
+    id: 'EventAdminApp.EventItem.featured',
+    defaultMessage: 'Featured',
+  },
 });
 
 export default function EventItem({
@@ -66,6 +84,8 @@ export default function EventItem({
   isFirst,
   isLast,
 }) {
+  const apiClient = useApiClient();
+  const queryClient = useQueryClient();
   const intl = useIntl();
 
   const isPassed = useMemo(() => {
@@ -89,6 +109,41 @@ export default function EventItem({
     event.uid,
     selectEvent,
   ]);
+
+  const mutation = useMutation(
+    value => apiClient.patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
+      featured: value,
+    }),
+    {
+      onSuccess: (result, value) => {
+        const eventsQuery = queryClient
+          .getQueryCache()
+          .find(['event-admin-apps', 'events', agenda.slug]);
+
+        const queryData = eventsQuery.state.data;
+        const eventIndex = queryData.events.findIndex(
+          v => v.slug === event.slug
+        );
+
+        const eventData = {
+          ...queryData.events[eventIndex],
+          featured: value,
+        };
+
+        queryClient.setQueryData(eventsQuery.queryKey, {
+          ...queryData,
+          events: [
+            ...queryData.events.slice(0, eventIndex),
+            eventData,
+            ...queryData.events.slice(eventIndex + 1),
+          ],
+        });
+      },
+    }
+  );
+
+  const removeFeatured = useCallback(() => mutation.mutate(false), [mutation]);
+  const addFeatured = useCallback(() => mutation.mutate(true), [mutation]);
 
   const onMouseEnter = useCallback(
     () => setTimeout(() => setHovered(true)),
@@ -116,7 +171,7 @@ export default function EventItem({
         skipNulls: true,
       }
     ),
-    [query]
+    [index, isFirst, isLast, page, query]
   );
 
   return (
@@ -179,6 +234,17 @@ export default function EventItem({
         </>
       ) : null}
 
+      {event.originAgenda && !event.sourceAgendas?.length ? (
+        <div className="margin-top-xs">
+          {intl.formatMessage(messages.sharedFrom, {
+            title: event.originAgenda.title,
+            link: chunks => (
+              <a href={`/${event.originAgenda.slug}`}>{chunks}</a>
+            ),
+          })}
+        </div>
+      ) : null}
+
       {event.sourceAgendas?.length ? (
         <div className="margin-top-xs">
           {intl.formatMessage(messages.aggregatedFrom, {
@@ -194,6 +260,32 @@ export default function EventItem({
         <ul className="list-inline">
           <li>
             <EventStateSelector agenda={agenda} event={event} />
+          </li>
+
+          <li>
+            {event.featured ? (
+              <MoreInfo
+                id={`featured-${event.uid}`}
+                content={intl.formatMessage(messages.removeFeatured)}
+                placement="bottom"
+              >
+                <button
+                  type="button"
+                  className="btn btn-link btn-link-inline"
+                  onClick={removeFeatured}
+                >
+                  {intl.formatMessage(messages.featured)}
+                </button>
+              </MoreInfo>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-link btn-link-inline"
+                onClick={addFeatured}
+              >
+                {intl.formatMessage(messages.addFeatured)}
+              </button>
+            )}
           </li>
 
           <li>

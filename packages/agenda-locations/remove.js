@@ -4,11 +4,12 @@ const log = require('@openagenda/logs')('remove');
 const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
 const get = require('./get');
-const allow = require('./lib/AllowAction');
+const authorize = require('./lib/authorize');
 
-async function remove(service, current) {
-  log('received %j payload', current.uid);
-  await allow(service, 'delete', current.uid);
+async function remove(service, current, options = {}) {
+  log('received %j payload with options %j', current.uid, options);
+
+  await authorize(service, 'delete', current.uid, options);
 
   if (service.interfaces.beforeRemove) {
     await service.interfaces.beforeRemove(current);
@@ -41,7 +42,7 @@ module.exports.byAgendaUid = async (
     throw new NotFoundError('location', { identifiers, agendaUid });
   }
 
-  return remove(service, current);
+  return remove(service, current, options);
 };
 
 module.exports.bySetUid = async (
@@ -56,5 +57,5 @@ module.exports.bySetUid = async (
     throw new NotFoundError('location', { identifiers, setUid });
   }
 
-  return remove(service, current);
+  return remove(service, current, options);
 };

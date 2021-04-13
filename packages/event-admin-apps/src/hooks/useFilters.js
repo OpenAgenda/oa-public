@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
-import { useIntl } from 'react-intl';
+import { defineMessage, useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
 import stateMessages from '../messages/states';
 import attendanceModeMessages from '../messages/attendanceModes';
+import relativeMessages from '../messages/relative';
 
 const AGGREGATION_SIZE = 20000;
 
@@ -12,12 +13,45 @@ const defaultOptions = {
   additionals: true,
 };
 
+const featuredMessage = defineMessage({
+  id: 'EventAdminApp.hooks.useFilters.featured',
+  defaultMessage: 'Featured',
+});
+
 export default function useFilters(
   agendaSchema,
   { standards, additionals } = defaultOptions
 ) {
   const intl = useIntl();
   const seed = useUIDSeed();
+
+  const relativeOptions = useMemo(
+    () => [
+      {
+        label: intl.formatMessage(relativeMessages.passed),
+        value: 'passed',
+      },
+      {
+        label: intl.formatMessage(relativeMessages.current),
+        value: 'current',
+      },
+      {
+        label: intl.formatMessage(relativeMessages.upcoming),
+        value: 'upcoming',
+      },
+    ],
+    [intl]
+  );
+
+  const featuredOptions = useMemo(
+    () => [
+      {
+        label: intl.formatMessage(featuredMessage),
+        value: true,
+      },
+    ],
+    [intl]
+  );
 
   const stateOptions = useMemo(
     () => [
@@ -64,6 +98,20 @@ export default function useFilters(
 
     const standardFilters = standards
       ? [
+        {
+          name: 'featured',
+          type: 'radio',
+          options: featuredOptions,
+          aggregation: null,
+        },
+        {
+          name: 'relative',
+          type: 'radio',
+          options: relativeOptions,
+          // aggregation: {
+          //   type: 'relative',
+          // },
+        },
         {
           name: 'timings',
           type: 'dateRange',
@@ -154,12 +202,14 @@ export default function useFilters(
       id: seed(v),
     }));
   }, [
-    additionals,
-    agendaSchema.fields,
     intl,
-    seed,
     standards,
+    featuredOptions,
+    relativeOptions,
     stateOptions,
     attendanceModeOptions,
+    additionals,
+    agendaSchema.fields,
+    seed,
   ]);
 }

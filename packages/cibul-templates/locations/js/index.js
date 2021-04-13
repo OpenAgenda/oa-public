@@ -32,6 +32,7 @@ window.hook( function( options ) {
     settings={params.settings}
     lang={params.lang}
     set={params.set}
+    tiles={params.tiles}
     detailedInfo={params.detailedInfo}
     tiles={params.tiles}
     staticTiles={params.staticTiles}
