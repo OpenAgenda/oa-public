@@ -1,5 +1,7 @@
 'use strict';
 
+//require('../config/debug.namespaces');
+
 const _ = require('lodash');
 const axios = require('axios');
 const assert = require('assert');
