@@ -68,6 +68,7 @@ const { truncate } = require('lodash');
           agendaEventCount: 1,
         },
       ],
+      getLinkedAgendas: async (locationUid) => 22,
     },
   });
 
