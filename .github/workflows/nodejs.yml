@@ -34,3 +34,5 @@ jobs:
         AWS_DEV_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_ACCESS_KEY_ID }}
         AWS_DEV_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_ACCESS_KEY_ID }}
         AWS_TEST_BUCKET: ${{ secrets.AWS_DEV_ACCESS_KEY_ID }}
+        OA_API_PUBLIC_KEY: ${{ secrets.TEST_SDK_PUBLIC_KEY }}
+        OA_API_SECRET_KEY: ${{ secrets.TEST_SDK_SECRET_KEY }}
