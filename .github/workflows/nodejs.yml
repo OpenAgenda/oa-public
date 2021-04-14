@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn -v
+    - run: yarn config
     - run: yarn
     - run: yarn workspaces foreach --parallel --topological-dev --interlaced --verbose run prepack
     - run: yarn workspaces foreach -tv run test --colors
