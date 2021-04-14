@@ -212,7 +212,7 @@ class AgendaAdminLocations extends Component {
         this.actions.changeMergeModal(result);
       }
       if (result.success) {
-        setTimeout(() => {this.actions.closeMerge(); log('state:', this.state);}, timeOut);
+        setTimeout(() => {this.actions.closeMerge();}, timeOut);
       }
       log('state:', this.state);
       
@@ -441,7 +441,7 @@ class AgendaAdminLocations extends Component {
   renderDetailModal() {
     const { modal } = this.state;
     const { lang, settings, staticTiles } = this.props;
-    log('settings:', settings, 'static:', staticTiles)
+    log('location:', modal.location, ' settings:', settings, 'static:', staticTiles)
     return (
       <Modal
         classNames={{ overlay: 'popup-overlay big' }}

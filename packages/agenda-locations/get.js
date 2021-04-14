@@ -19,6 +19,7 @@ async function get(service, identifiers, options = {}) {
     includeImagePath,
     includeFields,
     throwOnNotFound,
+    includeLinkedAgendas,
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
@@ -47,6 +48,10 @@ async function get(service, identifiers, options = {}) {
       location,
       await service.interfaces.getEventCounts([location.uid], context)
     );
+  }
+
+  if (service.interfaces.getLinkedAgendas && includeLinkedAgendas) {
+    location.linkedAgendas = await service.interfaces.getLinkedAgendas(location.uid);
   }
 
   return location;

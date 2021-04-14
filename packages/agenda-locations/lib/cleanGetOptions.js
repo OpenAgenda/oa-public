@@ -30,6 +30,10 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
+  includeLinkedAgendas: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     agendaUid: {
       type: 'integer',

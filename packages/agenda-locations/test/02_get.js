@@ -51,6 +51,16 @@ describe('agenda-locations - functional - get', function () {
             agendaEventCount: 2,
           },
         ],
+        getLinkedAgendas :  async (locationUid) => [
+          {
+            uid: 100000,
+            title: 'BLABLA'
+          },
+          {
+            uid: 200000,
+            title: 'BLIBLI'
+          }
+        ]
       },
     });
   });
@@ -142,6 +152,11 @@ describe('agenda-locations - functional - get', function () {
       const { extId } = await svc.get(87202261);
 
       assert.equal(extId, 'ard_leg_01');
+    });
+
+    it('when includeLinkedAgendas is provided', async () => {
+      const { linkedAgendas } = await svc.get(87202261, { includeLinkedAgendas : true });
+      assert.deepEqual(linkedAgendas, [ { uid: 100000, title: 'BLABLA' }, { uid: 200000, title: 'BLIBLI' } ])
     });
   });
 });
