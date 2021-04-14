@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.13.10",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/react-form-components": "^2.1.14",
     "core-js": "^3.6.5",
@@ -28,13 +28,13 @@
     "react-waypoint": "^9.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@storybook/addon-actions": "^6.1.0",
     "@storybook/react": "^6.1.0",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "final-form": "^4.20.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

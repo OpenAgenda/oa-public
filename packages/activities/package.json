@@ -17,7 +17,7 @@
     "prepack": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.13.10",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/queue": "^1.0.1",
@@ -35,8 +35,8 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/fixtures": "^2.0.2",
     "knex": "^0.19.5",
