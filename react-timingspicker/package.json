@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/OpenAgenda/oa-public",
   "main": "dist/index.js",
   "scripts": {
