@@ -29,7 +29,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Start Redis
-      uses: superchargejs/redis-github-action@v1
+      uses: superchargejs/redis-github-action@1.2.0
 
     - run: yarn -v
 
