@@ -32,7 +32,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.13.10",
     "@emotion/core": "^10.0.35",
     "@formatjs/cli": "^2.11.3",
     "axios": "^0.21.1",
@@ -56,8 +56,8 @@
     "yargs": "^15.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@loadable/component": "^5.12.0",
     "@openagenda/babel-preset": "^1.4.1",
