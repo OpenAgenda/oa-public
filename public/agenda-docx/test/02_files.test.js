@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const config = require('../config.dev');
 
@@ -6,7 +7,11 @@ const AgendaFiles = require('../server/lib/agendaFiles');
 
 describe('unit - files', () => {
   const {
-    setJSON, getJSON, get, set, remove
+    setJSON,
+    getJSON,
+    get,
+    set,
+    remove
   } = AgendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
@@ -43,11 +48,13 @@ describe('unit - files', () => {
     const { path } = await set(`${localTmpPath}/test.txt`, 'mytestfile.txt');
 
     expect(path).toEqual(
-      `https://${config.s3.bucket}.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt`
+      `https://${config.s3.bucket}.s3.${config.s3.region}.amazonaws.com/test02/mytestfile.txt`
     );
   });
 
   test('get a docx as a Buffer', async () => {
+    await set(path.join(__dirname, 'data/template.docx'), 'template.docx');
+
     const templateContent = await get('template.docx');
 
     expect(templateContent).toBeInstanceOf(Buffer);
