@@ -1,6 +1,0 @@
-diff a/packages/agenda-docx/test/02_files.test.js b/packages/agenda-docx/test/02_files.test.js	(rejected hunks)
-@@ -46,3 +46 @@ describe('unit - files', () => {
--      `https://${
--        config.s3.bucket
--      }.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt`
-+      `https://${config.s3.bucket}.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt`
