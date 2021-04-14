@@ -1,0 +1,106 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": [
+    {
+      "type": 0,
+      "value": "crwdns912:0crwdne912:0"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooLarge": [
+    {
+      "type": 0,
+      "value": "crwdns914:0"
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd914:0"
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd914:0"
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
+    },
+    {
+      "type": 0,
+      "value": "crwdne914:0"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooSmall": [
+    {
+      "type": 0,
+      "value": "crwdns916:0"
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd916:0"
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd916:0"
+    },
+    {
+      "type": 1,
+      "value": "minSize"
+    },
+    {
+      "type": 0,
+      "value": "crwdne916:0"
+    }
+  ],
+  "ReactShared.ImageInput.notSupported": [
+    {
+      "type": 0,
+      "value": "crwdns918:0"
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne918:0"
+    }
+  ],
+  "ReactShared.ImageInput.remove": [
+    {
+      "type": 0,
+      "value": "crwdns920:0crwdne920:0"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "crwdns922:0crwdne922:0"
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "crwdns924:0crwdne924:0"
+    }
+  ],
+  "ReactShared.ImageInput.upload": [
+    {
+      "type": 0,
+      "value": "crwdns926:0crwdne926:0"
+    }
+  ]
+}

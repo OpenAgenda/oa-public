@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "@openagenda"
+  ],
+
+  "parserOptions": {
+    "sourceType": "script"
+  },
+
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.js",
+        "test/**/*.js"
+      ],
+
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ]
+}

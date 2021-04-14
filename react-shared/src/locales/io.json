@@ -1,0 +1,10 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": "crwdns912:0crwdne912:0",
+  "ReactShared.ImageInput.fileTooLarge": "crwdns914:0{fileName}crwdnd914:0{fileSize}crwdnd914:0{maxSize}crwdne914:0",
+  "ReactShared.ImageInput.fileTooSmall": "crwdns916:0{fileName}crwdnd916:0{fileSize}crwdnd916:0{minSize}crwdne916:0",
+  "ReactShared.ImageInput.notSupported": "crwdns918:0{fileName}crwdne918:0",
+  "ReactShared.ImageInput.remove": "crwdns920:0crwdne920:0",
+  "ReactShared.ImageInput.tooManyFiles": "crwdns922:0crwdne922:0",
+  "ReactShared.ImageInput.update": "crwdns924:0crwdne924:0",
+  "ReactShared.ImageInput.upload": "crwdns926:0crwdne926:0"
+}

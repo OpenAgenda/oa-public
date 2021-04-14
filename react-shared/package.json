@@ -1,0 +1,125 @@
+{
+  "name": "@openagenda/react-shared",
+  "version": "2.1.1",
+  "main": "lib/index.js",
+  "jsnext:main": "esm/index.js",
+  "module": "esm/index.js",
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git"
+  },
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib",
+    "esm"
+  ],
+  "bin": {
+    "oa:extract-messages": "./scripts/extract-messages.js"
+  },
+  "scripts": {
+    "prepack": "yarn clean && yarn build",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "babel --copy-files src -d esm -s --env-name esm",
+    "build:cjs": "babel --copy-files src -d lib -s",
+    "extract-messages": "yarn oa:extract-messages",
+    "clean": "rimraf esm lib",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "lint-staged": "lint-staged",
+    "test": "jest --forceExit --detectOpenHandles"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.13.10",
+    "@emotion/core": "^10.0.35",
+    "@formatjs/cli": "^2.11.3",
+    "axios": "^0.21.1",
+    "bytes": "^3.1.0",
+    "core-js": "^3.6.5",
+    "dedent": "^0.7.0",
+    "glob": "^7.1.6",
+    "history": "^4.10.1",
+    "hoist-non-react-statics": "^3.3.1",
+    "lodash": "^4.17.20",
+    "mkdirp": "^1.0.4",
+    "prop-types": "^15.7.2",
+    "qs": "^6.9.1",
+    "react-dropzone": "^11.2.0",
+    "react-intl": "^5.12.2",
+    "react-redux": "^7.1.3",
+    "react-router-config": "^5.1.1",
+    "redial": "^0.5.0",
+    "shallowequal": "^1.1.0",
+    "tmp": "^0.2.1",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
+    "@loadable/component": "^5.12.0",
+    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/eslint-config": "^1.3.1",
+    "babel-jest": "^26.6.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.5.0",
+    "eslint": "^6.8.0",
+    "final-form": "^4.20.1",
+    "jest": "^26.1.0",
+    "jest-emotion": "^10.0.32",
+    "lint-staged": "^10.2.11",
+    "prettier-eslint-cli": "^5.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-final-form": "^6.4.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-select": "^3.1.0",
+    "redux": "^4.0.5",
+    "rimraf": "^3.0.1"
+  },
+  "peerDependencies": {
+    "@loadable/component": "^5.12.0",
+    "final-form": "*",
+    "react": "^16.12.0",
+    "react-final-form": "*",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-select": "^3.0.0",
+    "redux": "^4.0.5"
+  },
+  "peerDependenciesMeta": {
+    "@loadable/component": {
+      "optional": true
+    },
+    "final-form": {
+      "optional": true
+    },
+    "react-final-form": {
+      "optional": true
+    },
+    "react-router": {
+      "optional": true
+    },
+    "react-router-dom": {
+      "optional": true
+    },
+    "react-select": {
+      "optional": true
+    },
+    "redux": {
+      "optional": true
+    }
+  }
+}
