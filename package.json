@@ -29,20 +29,19 @@
   "devDependencies": {
     "@babel/core": "^7.13.15",
     "@babel/runtime-corejs3": "^7.13.10",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@commitlint/config-lerna-scopes": "^9.1.1",
-    "@commitlint/load": "^9.1.1",
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "@commitlint/config-lerna-scopes": "^12.1.1",
+    "@commitlint/load": "^12.1.1",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/cz-conventional-changelog": "^3.2.1",
     "codecov": "^3.6.2",
     "commitizen": "^4.1.2",
     "concurrently": "^5.2.0",
-    "conventional-changelog-conventionalcommits": "^4.3.0",
+    "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.6.5",
     "husky": "^5.0.4",
     "jest": "^26.1.0",
-    "lerna": "^3.22.1",
     "regenerator-runtime": "^0.13.5"
   }
 }
