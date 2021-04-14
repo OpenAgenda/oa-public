@@ -156,7 +156,7 @@ describe('agenda-locations - functional - get', function () {
 
     it('when includeLinkedAgendas is provided', async () => {
       const { linkedAgendas } = await svc.get(87202261, { includeLinkedAgendas : true });
-      assert.deepEqual(linkedAgendas, [ { uid: 100000, title: 'BLABLA' }, { uid: 200000, title: 'BLIBLI' } ])
+      assert.deepEqual(linkedAgendas, [{ uid: 100000, title: 'BLABLA' }, { uid: 200000, title: 'BLIBLI' }])
     });
   });
 });
