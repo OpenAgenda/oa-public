@@ -46,8 +46,6 @@ async function setAgendaFile(client, bucket, uid, localFilePath, name = null) {
 
 async function getAgendaJSON(client, bucket, uid, name, defaultValue) {
   try {
-    console.log('getAgendaJSON args:', { client, bucket, uid, name, defaultValue });
-
     log('fetching agenda JSON state file for agenda %s', uid);
 
     const result = (await getAgendaFile(client, bucket, uid, name)).toString();
