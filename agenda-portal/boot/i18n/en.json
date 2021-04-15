@@ -7,5 +7,6 @@
   "previous": "Previous",
   "next": "Next",
   "contribute": "Contribute an event",
-  "eventsTotal": "{total} {total, plural, =0 {events} one {event} other {events}}"
+  "eventsTotal": "{total} {total, plural, =0 {events} one {event} other {events}}",
+  "onlineAccessLink": "Access online event"
 }

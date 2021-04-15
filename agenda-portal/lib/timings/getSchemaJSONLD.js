@@ -24,8 +24,8 @@ module.exports = (event, timing) => {
         || event.permalink
         || `https://openagenda.com/events/${event.slug}`,
       ...(event.image ? { image: [event.image] } : {}),
-      startDate: tz(begin, event.location.timezone).format('YYYY-MM-DDTHH:mm'),
-      endDate: tz(end, event.location.timezone).format('YYYY-MM-DDTHH:mm'),
+      startDate: tz(begin, event.timezone).format('YYYY-MM-DDTHH:mm'),
+      endDate: tz(end, event.timezone).format('YYYY-MM-DDTHH:mm'),
       duration: getJSONDuration(begin, end),
       ...(event.registration.filter(r => r.type === 'link').length
         ? {
@@ -40,7 +40,7 @@ module.exports = (event, timing) => {
           typicalAgeRange: [event.age.min, event.age.max].join('-'),
         }
         : {}),
-      location: {
+      location: event.location ? {
         '@type': 'Place',
         name: event.location.name,
         address: {
@@ -56,7 +56,7 @@ module.exports = (event, timing) => {
           latitude: event.location.latitude,
           longitude: event.location.longitude,
         },
-      },
+      } : null,
     },
     null,
     2

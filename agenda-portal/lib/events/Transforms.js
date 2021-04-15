@@ -9,6 +9,7 @@ const relativeTimings = require('../timings/relative');
 const applySchemaJSONLD = require('./applySchemaJSONLD');
 const flatten = require('./flattenMultilingual');
 const links = require('./links');
+const defineEventTimezone = require('./defineEventTimezone');
 const spreadPerMonthPerDay = require('./spreadPerMonthPerDay');
 
 function _preEventTransform(options, event, req, res) {
@@ -18,6 +19,7 @@ function _preEventTransform(options, event, req, res) {
       ['range', 'title', 'description', 'html', 'conditions'],
       res.locals.lang
     ),
+    defineEventTimezone.bind(null, options),
     _.partialRight(relativeTimings, { lang: res.locals.lang }),
     links.bind(null, res.locals),
   ].reduce((e, fn) => fn(e), event);
@@ -35,6 +37,7 @@ module.exports = options => {
   const postTransform = _postEventTransform.bind(null, options);
 
   return {
+    
     listItem: (event, req, res, listContext) => {
       const transformed = preTransform(event, req, res);
 
@@ -45,6 +48,7 @@ module.exports = options => {
         postTransform(transformed, req, res)
       );
     },
+
     show: (event, req, res) => {
       const transformed = preTransform(event, req, res);
 

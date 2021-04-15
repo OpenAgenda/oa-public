@@ -6,7 +6,7 @@ const { getKey: getBeginKey, getValue: getBeginValue } = require('./begin');
 
 const { tz } = moment;
 
-module.exports = (timing, timezone = 'Europe/Paris', locale = 'en') => {
+module.exports = (timing, timezone, locale = 'en') => {
   const beginKey = getBeginKey(timing);
   const beginValue = getBeginValue(timing);
 

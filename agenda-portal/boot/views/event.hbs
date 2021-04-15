@@ -3,7 +3,15 @@
 <div class="container">
   <div class="row py-4">
     <div class="col-sm-4 order-sm-12">
-      {{>event/map}}
+      
+      {{#if event.location}}
+        {{>event/map}}
+      {{/if}}
+      
+      {{#if event.onlineAccessLink}}
+        <a class="btn btn-primary btn-block mb-4" href="{{event.onlineAccessLink}}" target="_blank">{{i18n 'onlineAccessLink'}}</a>
+      {{/if}}
+
       {{>event/timings}}
     </div>
     <div class="col-sm-8 order-sm-1">
