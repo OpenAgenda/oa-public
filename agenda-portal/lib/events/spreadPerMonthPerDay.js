@@ -97,8 +97,15 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   const dayCursor = keyedTimings.first;
 
   const last = tz(keyedTimings.last, timezone).locale(locale).format('YYYY-MM');
+  let current = null;
+  let previous = null;
 
-  while (tz(dayCursor, timezone).locale(locale).format('YYYY-MM') <= last) {
+  while ((current = tz(dayCursor, timezone).locale(locale).format('YYYY-MM')) <= last) {
+    if (current === previous) {
+      dayCursor.setMonth(dayCursor.getMonth() + 1);
+      continue;
+    }
+
     const keys = _getKeys(dayCursor, timezone, locale);
 
     months.push({
@@ -119,6 +126,8 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
     });
 
     dayCursor.setMonth(dayCursor.getMonth() + 1);
+
+    previous = current;
   }
 
   const nearestMonthIndex = months.reduce(
