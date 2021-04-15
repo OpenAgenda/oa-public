@@ -25,11 +25,13 @@ function _preEventTransform(options, event, req, res) {
   ].reduce((e, fn) => fn(e), event);
 }
 
-function _postEventTransform({ eventHook }, event, req, res) {
+function _postEventTransform(options, event, req, res) {
+  const { eventHook } = options;
+
   return [
     applySchemaJSONLD,
     eventHook ? _.partialRight(eventHook, res.locals) : e => e,
-  ].reduce((e, fn) => fn(e), event);
+  ].reduce((e, fn) => fn(e, options), event);
 }
 
 module.exports = options => {
@@ -37,7 +39,7 @@ module.exports = options => {
   const postTransform = _postEventTransform.bind(null, options);
 
   return {
-    
+
     listItem: (event, req, res, listContext) => {
       const transformed = preTransform(event, req, res);
 

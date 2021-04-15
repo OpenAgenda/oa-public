@@ -4,10 +4,11 @@ const { tz } = require('moment-timezone');
 const getJSONDuration = require('./getJSONDuration');
 const { getValue: getBeginValue } = require('./begin');
 
-module.exports = (event, timing) => {
+module.exports = (event, timing, defaultTimezone) => {
   const { end, permalink } = timing;
 
   const begin = getBeginValue(timing);
+  const timezone = event.timezone || event.location?.timezone || defaultTimezone;
 
   return JSON.stringify(
     {
@@ -24,8 +25,8 @@ module.exports = (event, timing) => {
         || event.permalink
         || `https://openagenda.com/events/${event.slug}`,
       ...(event.image ? { image: [event.image] } : {}),
-      startDate: tz(begin, event.timezone).format('YYYY-MM-DDTHH:mm'),
-      endDate: tz(end, event.timezone).format('YYYY-MM-DDTHH:mm'),
+      startDate: tz(begin, timezone).format('YYYY-MM-DDTHH:mm'),
+      endDate: tz(end, timezone).format('YYYY-MM-DDTHH:mm'),
       duration: getJSONDuration(begin, end),
       ...(event.registration.filter(r => r.type === 'link').length
         ? {

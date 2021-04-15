@@ -5,11 +5,13 @@ const getSchemaJSONLD = require('./getSchemaJSONLD');
 const links = require('./links');
 
 module.exports = ({ event, req }, timing, locale = 'en') => {
+  const { defaultTimezone } = req.app.locals;
+  const timezone = event.timezone || event.location.timezone || defaultTimezone;
 
   return ({
     ...timing,
-    labels: getLabels(timing, event.timezone, locale),
-    JSONLD: getSchemaJSONLD(event, timing),
+    labels: getLabels(timing, timezone, locale),
+    JSONLD: getSchemaJSONLD(event, timing, defaultTimezone),
     ...links({ event, req }, timing),
   });
 };
