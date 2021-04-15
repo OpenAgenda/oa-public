@@ -24,7 +24,7 @@ describe('connection', () => {
   it('fail connection', async () => {
     const oa = new OaSdk();
 
-    await expect(oa.connect('inexistant')).rejects.toThrow('Forbidden');
+    await expect(oa.connect('inexistant')).rejects.toThrow('Unauthorized');
   });
 });
 

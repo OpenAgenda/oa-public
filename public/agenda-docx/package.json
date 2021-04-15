@@ -11,7 +11,7 @@
     "start": "DEBUG=agendaFiles,fetch,generateDocument nodemon server.dev",
     "build": "babel client/src -d client/build -s",
     "dist": "webpack-cli --config webpack.dist.js",
-    "test": "jest --runInBand --forceExit",
+    "test": "jest --runInBand --forceExit --detectOpenHandles",
     "cli": "node cli",
     "prepack": "yarn build && yarn dist",
     "lint": "eslint -c .eslintrc '**/*.js'",
