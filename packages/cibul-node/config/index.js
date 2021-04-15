@@ -296,10 +296,11 @@ const config = {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
     translators: [ // user uids for crowdin translators
-      31046551,
-      75052324,
-      99999999,
-      55507091
+      31046551, // Kévin
+      75052324, // Kaoré
+      99999999, // Romain
+      55507091, // Clément
+      91586633 // rendezvous@dggl.org (Susanne Yacoub)
     ],
     routes: {
       globals: {
