@@ -1,5 +1,7 @@
 'use strict';
 
+const os = require('os');
+
 module.exports = {
   s3: {
     region: 'eu-west-1',
@@ -15,5 +17,5 @@ module.exports = {
       host: 'localhost'
     }
   },
-  localTmpPath: '/var/tmp'
+  localTmpPath: os.tmpdir()
 };

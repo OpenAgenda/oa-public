@@ -1,0 +1,98 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": [
+    {
+      "type": 0,
+      "value": "formatos aceptados"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooLarge": [
+    {
+      "type": 0,
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the upper limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooSmall": [
+    {
+      "type": 0,
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the lower limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "minSize"
+    }
+  ],
+  "ReactShared.ImageInput.notSupported": [
+    {
+      "type": 0,
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is not supported"
+    }
+  ],
+  "ReactShared.ImageInput.remove": [
+    {
+      "type": 0,
+      "value": "Eliminar"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "Too many files, only accepts a single file"
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Cambiar imagen"
+    }
+  ],
+  "ReactShared.ImageInput.upload": [
+    {
+      "type": 0,
+      "value": "Cargar imagen"
+    }
+  ]
+}

@@ -15,7 +15,6 @@
   },
   "scripts": {
     "start": "nodemon server.js -e js,json,mjml,ejs -w ./templates",
-    "test": "jest --forceExit --detectOpenHandles",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "lint-staged": "lint-staged"

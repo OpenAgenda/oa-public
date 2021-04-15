@@ -1,0 +1,106 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": [
+    {
+      "type": 0,
+      "value": "Fichiers acceptés"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooLarge": [
+    {
+      "type": 0,
+      "value": "Le fichier "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " fait "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", la limite maximale est de "
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ReactShared.ImageInput.fileTooSmall": [
+    {
+      "type": 0,
+      "value": "Le fichier "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " fait "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", la limite minimale est de "
+    },
+    {
+      "type": 1,
+      "value": "minSize"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ReactShared.ImageInput.notSupported": [
+    {
+      "type": 0,
+      "value": "Le fichier "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " n'est pas accepté."
+    }
+  ],
+  "ReactShared.ImageInput.remove": [
+    {
+      "type": 0,
+      "value": "Lemel"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "Trop de fichiers, un seul fichier accepté."
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Mettre à jour l'image"
+    }
+  ],
+  "ReactShared.ImageInput.upload": [
+    {
+      "type": 0,
+      "value": "Charger une image"
+    }
+  ]
+}
