@@ -15,7 +15,14 @@
       <div class="wbg px-4 py-3">
         <h3>{{title}}</h3>
         <p>{{description}}</p>
-        <span>{{range}}</span>
+        <p>{{range}}</p>
+        
+        {{#if location}}
+          <p>{{locationName}}</p>
+        {{else}}
+          <p>En ligne</p>
+        {{/if}}
+        
       </div>
       {{#if image}}
       <div class="text-center">

@@ -16,6 +16,8 @@ Portal({
   uid: process.env.PORTAL_AGENDA_UID,
   // site language
   lang: process.env.PORTAL_LANG || 'fr',
+  // default timezone
+  defaultTimezone: process.env.PORTAL_DEFAULT_TIMEZONE || 'Europe/Paris',
   // associated OA account key
   key: process.env.PORTAL_KEY,
   // views folder

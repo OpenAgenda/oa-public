@@ -59,7 +59,6 @@ module.exports = async options => {
     eventsPerPage: 20,
     assetsRoot: null,
     jsonExportVersion: 1,
-    defaultTimezone: 'Europe/Paris',
     ...options,
   };
 
