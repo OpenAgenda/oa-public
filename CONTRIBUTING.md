@@ -42,6 +42,19 @@ For more details about git submodules see https://git-scm.com/book/en/v2/Git-Too
 > export GIT_STATUS_IGNORE_SUBMODULES=none
 > ```
 
+`git sstatus` is not accessible from the public submodule, for that you can replace the `gss` alias in your `.zshrc` with these lines:
+
+```bash
+unalias gss
+gss() {
+  local dir=$(git rev-parse --show-superproject-working-tree --show-toplevel | head -1)
+
+  [ -z "$dir" ] && return
+
+  git -C "$dir" status -sb && git -C "$dir" submodule foreach "git status -sb"
+}
+```
+
 ## Commit Message Guidelines
 
 We have very precise rules over how our git commit messages can be formatted.  This leads to **more
