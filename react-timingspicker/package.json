@@ -13,7 +13,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "start-storybook -p 9001",
-    "test": "jest --forceExit --detectOpenHandles",
+    "test": "TZ=Europe/Paris jest --forceExit --detectOpenHandles",
     "build": "babel --copy-files src -d dist -s",
     "extract-messages": "yarn oa:extract-messages",
     "clean": "rimraf dist",
