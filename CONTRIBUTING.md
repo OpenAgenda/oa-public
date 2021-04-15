@@ -187,3 +187,9 @@ cd public && git push --tags
 ```
 
 More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/release-workflow).
+
+## Troubleshoot
+
+### Updating public submodule reference
+
+It may occure that the reference to the submodule commit in the monorepo has not been automatically updated. When this happens, a git diff on the root of the monorepo hints that there have been commits on the submodule that have not been accounted for. Commiting the public submodule on the monorepo updates the submodule reference.

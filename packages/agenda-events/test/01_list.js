@@ -159,10 +159,15 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     assert.equal(items.length, 1);
   });
 
+  it('list by event uids', async () => {
+    const { total } = await svc.list.byEventUid([54434612, 28028226], 0, 20);
+    assert.equal(total, 2);   
+  });
+
   it('list by event uid and filtering out agenda uid from results', async () => {
     const { items } = await svc.list.byEventUid(54434612, { excludeAgendaUid: 62792452 }, 0, 1);
 
-    assert.equal(items.length ,0);
+    assert.equal(items.length ,0);  
   });
 
   it('list by event uid and filtering by canEdit', async () => {

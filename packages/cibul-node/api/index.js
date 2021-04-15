@@ -69,18 +69,20 @@ module.exports = core => {
     detailed: req.query.detailed
   }).catch(next)));
 
-  app.post('/agendas/:agendaUid/events', (req, res, next) => core
-    .agendas(req.agenda.uid).events
-    .create(req.parsedData, {
-      context: {
-        userUid: req.member.userUid
-      },
-      access: req.access,
-      defaultLang: req.headers.lang
-    }).then(event => res.json({
-      success: true,
-      event
-    }), next)
+  app.post('/agendas/:agendaUid/events', 
+    mw.moveEventLegacyImageCredits,
+    (req, res, next) => core
+      .agendas(req.agenda.uid).events
+      .create(req.parsedData, {
+        context: {
+          userUid: req.member.userUid
+        },
+        access: req.access,
+        defaultLang: req.headers.lang
+      }).then(event => res.json({
+        success: true,
+        event
+      }), next)
   );
 
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);

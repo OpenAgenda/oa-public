@@ -77,7 +77,7 @@ class LocationSelector extends Component {
 
   renderConfirmation() {
     const {
-      res, lang, location, tiles, settings
+      res, lang, location, tiles, settings, staticMapTiles
     } = this.props;
     return (
       <LocationConfirmation
@@ -85,6 +85,7 @@ class LocationSelector extends Component {
         lang={lang}
         location={location}
         tiles={tiles}
+        staticMapTiles={staticMapTiles}
         settings={settings}
         onConfirm={this.onConfirm}
         onCancel={this.switchToSearch}

@@ -8,6 +8,7 @@ module.exports = {
   eventUpdate: require('./eventUpdate'),
   redirectIfPrivate: require('./redirectIfPrivate'),
   loadEvent: require('./loadEvent'),
+  moveEventLegacyImageCredits: require('./moveEventLegacyImageCredits'),
   parseBodyData: require('./parseBodyData'),
   requestAccessToken: require('./requestAccessToken')
 }

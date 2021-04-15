@@ -26,7 +26,6 @@ module.exports.plugApp = app => {
 
 module.exports.init = async (config, _services) => {
   services = _services;
-
   unsubscription.init(config);
 
   const mails = await createMails({

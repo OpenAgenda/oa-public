@@ -1,5 +1,7 @@
 'use strict';
 
+//require('../config/debug.namespaces');
+
 const _ = require('lodash');
 const axios = require('axios');
 const assert = require('assert');
@@ -495,6 +497,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         description: {
           fr: 'Autre format d\'horaires'
         },
+        image: {
+          url: 'https://openagenda.com/images/openagenda.png'
+        },
         timings: [{
           begin: {
             date: '2019-12-06',
@@ -684,7 +689,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
                 fr: 'Un tout petit événement'
               },
               image: {
-                url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg'
+                url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+                credits: 'Les crédits'
               },
               timings: [{
                 begin: new Date( '2019-05-06T10:00:00' ),
@@ -718,6 +724,10 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
       it('response provides created event in event key', () => {
         expect(response.event.slug).toBe('un-evenement-cree-par-api');
+      });
+
+      it('backwards compatibility: credits placed in image.credits are moved to imageCredits', () => {
+        expect(response.event.imageCredits).toBe('Les crédits');
       });
 
       it('create with superagent', async () => {
