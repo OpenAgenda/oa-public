@@ -8047,9 +8047,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-shared@^2.1.1, @openagenda/react-shared@workspace:packages/react-shared":
+"@openagenda/react-shared@^2.1.1, @openagenda/react-shared@workspace:public/react-shared":
   version: 0.0.0-use.local
-  resolution: "@openagenda/react-shared@workspace:packages/react-shared"
+  resolution: "@openagenda/react-shared@workspace:public/react-shared"
   dependencies:
     "@babel/cli": ^7.13.14
     "@babel/core": ^7.13.15
