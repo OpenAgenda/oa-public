@@ -14,6 +14,8 @@ module.exports.init = (config, services) => {
     tracker
   } = services;
 
+  let task;
+
   const aggregators = Aggregators({
     knex: config.knex,
     queues: services.queues,
@@ -106,6 +108,14 @@ module.exports.init = (config, services) => {
 
   return Object.assign({
     plugApp: plugApp.bind(null, config),
-    ...aggregators
+    ...aggregators,
+    shutdown: async options => {
+      if (!task) return;
+      return options.clear ? task.stopAndClear() : task.stop();
+    },
+    task: () => {
+      task = aggregators.task();
+      return task;
+    }
   });
 }

@@ -1,17 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const axios = require('axios');
-const ih = require('immutability-helper');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
-const api = require('../api');
 const Core = require('../core');
 const Services = require('../services/init');
 const loadFixtures = require('./fixtures/load');
-
-const assignClients = require('./utils/assignClients');
 
 const fixtures = {
   events: require('./fixtures/events')
@@ -25,12 +18,12 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
   let core, stopTask;
 
   beforeAll(() => loadFixtures(testConfig.db, '003.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'tracker', // for testing
         'queues',
         'files',
@@ -56,15 +49,10 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     stopTask = services.aggregators.task().stopAndClear;
   });
 
-  afterAll(async () => {
-    core.services.tracker.flush();
-    await stopTask();
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('direct aggregation', function() {
-    let event, tracked;
+    let event;
 
     beforeAll(done => {
       core.services.tracker.on('aggregators.referenceEvent.done', stack => {

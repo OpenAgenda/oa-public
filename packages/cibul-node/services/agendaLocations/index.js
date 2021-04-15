@@ -21,6 +21,7 @@ const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgend
 
 module.exports.init = async (config, services) => {
   const queue = services.queues('locations');
+  let taskRunning = false;
 
   queue.register({
     syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas.bind(null, services)
@@ -53,19 +54,22 @@ module.exports.init = async (config, services) => {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
       agenda: plugAgendaApp.bind(null, services, instance)
     }),
-    task: Object.assign(async (options = {}) => {
+    shutdown: async (options = {}) => {
+      if (!taskRunning) return;
+
+      log('stopping task');
+      if (options.clear || options.reset) {
+        await queue.clear();
+      }
+      return queue.stop();
+    },
+    task: async (options = {}) => {
+      taskRunning = true;
       log('task');
       if (options.reset) {
         await queue.clear();
       }
       queue.run();
-    }, {
-      stop: async (options = {}) => {
-        if (options.reset) {
-          await queue.clear();
-        }
-        return queue.stop();
-      }
-    })
+    }
   })
 }

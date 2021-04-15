@@ -1,7 +1,5 @@
 'use strict';
 
-//require('../config/debug.namespaces');
-
 const _ = require('lodash');
 const axios = require('axios');
 const assert = require('assert');
@@ -11,7 +9,6 @@ const ih = require('immutability-helper');
 const request = require('superagent');
 
 const api = require('../api');
-const assignClients = require('./utils/assignClients');
 const Core = require('../core');
 const Services = require('../services/init');
 const eventsFixtures = require('./fixtures/events');
@@ -21,35 +18,13 @@ const testConfig = require('./testConfig');
 describe('02 - core - functional (server): core.agendas().events.create()', function() {
   let core;
 
-  const eventData = {
-    title: {
-      fr: 'Un événement'
-    },
-    description: {
-      fr: 'Un tout petit événement'
-    },
-    timings: [{
-      begin: new Date('2019-05-06T10:00:00'),
-      end: new Date('2019-05-06T11:00:00')
-    }],
-    keywords: {
-      fr: ['un', 'deux', 'trois']
-    },
-    location: {
-      uid: 123
-    },
-    'categories-agenda-metropolitain': 42,
-    'thematiques-bordeaux-metropole' : [3, 4],
-    accessibility: { sl: true }
-  };
-
   beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -76,10 +51,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   afterAll(async () => {
     try {

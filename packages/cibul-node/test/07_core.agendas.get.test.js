@@ -2,12 +2,9 @@
 
 const _ = require('lodash');
 const axios = require('axios');
-const mysql = require('mysql');
 
 const api = require('../api');
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
-
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -18,12 +15,12 @@ describe('07 - core - functional (server): core.agendas().get', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '008.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -47,10 +44,7 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
 
@@ -69,6 +63,35 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       });
 
       expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
+    });
+
+    it('detailed get with internal access includes admin fields in schema', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'internal'
+      });
+
+      expect(
+        agenda.schema.fields
+          .map(f => f.field)
+          .filter(f => f === 'organisation-interne')
+          .length
+      ).toBe(1);
+    });
+
+    it('detailed get with internal access and includeEvent includes admin fields in schema', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'internal',
+        includeEvent: true
+      });
+
+      expect(
+        agenda.schema.fields
+          .map(f => f.field)
+          .filter(f => f === 'organisation-interne')
+          .length
+      ).toBe(1);
     });
 
     it('schema fields each include a schemaType', async () => {

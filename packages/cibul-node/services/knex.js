@@ -19,5 +19,9 @@ module.exports.init = config => {
     log.error('Knex query error:', { error });
   });
 
-  return knex;
+  return Object.assign(knex, {
+    shutdown: async () => {
+      await knex.destroy();
+    }
+  });
 };
