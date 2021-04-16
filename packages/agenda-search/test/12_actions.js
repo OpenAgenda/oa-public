@@ -3,7 +3,7 @@
 const assert = require('assert');
 const actions = require('../components/src/actions');
 
-describe('12 components actions', () => {
+describe('12 - Components actions', () => {
   const currentState = {
     query: {
       search: 'blip'

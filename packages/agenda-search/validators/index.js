@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  query: require( './query' ),
-  nav: require( './nav' )
-}
+  query: require('./query'),
+  nav: require('./nav')
+};

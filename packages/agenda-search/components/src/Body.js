@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import AgendaItem from './AgendaItem';
-import SearchField from '@openagenda/react-form-components/build/SearchField';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import { List } from '@openagenda/react-components';
 import get from '@openagenda/utils/get';
 import actions from './actions';
-import utils from '@openagenda/utils';
 import labels from '@openagenda/labels/agenda-search';
 import makeLabelGetter from '@openagenda/labels';
 import documentLocation from '@openagenda/dom-utils/documentLocation';
@@ -98,7 +95,7 @@ class Body extends Component {
     const filtered = {};
 
     Object.keys(query).forEach(k => {
-      if (query[ k] === null) return;
+      if (query[k] === null) return;
 
       if (typeof query[k] === 'string' && !query[k].length) return;
 

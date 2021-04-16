@@ -1,6 +1,5 @@
 "use strict";
 
-const utils = require('@openagenda/utils');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const rss = require('rss');
