@@ -42,6 +42,11 @@ const validate = schemas({
     optional: true,
     default: null
   },
+  locationSet: {
+    type: 'integer',
+    optional: true,
+    default: null
+  },
   uid: {
     type: 'integer',
     list: { default: null }

@@ -20,6 +20,7 @@ describe('11 - validators - query', () => {
       official: null,
       sort: null,
       network: null,
+      locationSet: null,
       updatedAt: {
         gte: null,
         lte: null

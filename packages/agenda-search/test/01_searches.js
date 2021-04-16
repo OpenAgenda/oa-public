@@ -232,6 +232,15 @@ describe('01 - Search', function() {
       assert.equal(items.pop().network.uid, 1);
     });
 
+    it('fetch for certain location set only', async () => {
+      const { total, items } = await svc.list({
+        locationSet: 5675667
+      }, 0, 10);
+
+      assert.equal(items.pop().locationSet.uid, 5675667);
+      assert.equal(total, 3);
+    });
+
     it('fetch agendas open & members only contribution types', async () => {
       const { total, items } = await svc.list({
         contributionType: [0, 1]

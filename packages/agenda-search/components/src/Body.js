@@ -120,6 +120,12 @@ class Body extends Component {
     </div>
   }
 
+  renderLocationSetHead() {
+    return <div className="header">
+      <h1>{this.props.locationSet.title}</h1>
+    </div>
+  }
+
   renderSearchHead() {
     return <div className="header">
       <h1>{getLabel('results', { search: this.state.query.search }, this.props.lang)}</h1>
@@ -132,6 +138,8 @@ class Body extends Component {
       return this.renderSearchHead();
     } else if (this.props.network) {
       return this.renderNetworkHead();
+    } else if (this.props.locationSet) {
+      return this.renderLocationSetHead();
     } else {
       return this.renderDefaultHead();
     }

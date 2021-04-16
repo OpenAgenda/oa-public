@@ -81,6 +81,7 @@ function list(service, req, res, next) {
       lang: req.lang,
       page: nav.page,
       network: req.network,
+      locationSet: req.locationSet,
       query,
       agendas,
       total

@@ -15,6 +15,7 @@ module.exports = (suffix = 'test') => {
     'upcomingPublishedEvents',
     'eventCountsByState',
     'keywords',
-    'network'
+    'network',
+    'locationSet'
   ]);
 }

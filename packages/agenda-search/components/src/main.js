@@ -13,7 +13,8 @@ module.exports = options => {
     canvas: '.js_search_canvas',
     dataTag: 'data-options',
     lang: 'en',
-    network: null
+    network: null,
+    locationSet: null
   }, options );
 
   const data = du.parseJsonAttribute( 'body', params.dataTag, {
@@ -28,6 +29,7 @@ module.exports = options => {
     page: parseInt( dl.getQueryPart( 'page', 1 ), 10 ),
     agendas: data.agendas,
     network: params.network,
+    locationSet: params.locationSet,
     total: data.total
   } );
 
