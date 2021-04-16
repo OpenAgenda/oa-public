@@ -7,7 +7,7 @@ const getRelatedFieldValues = (field, values, withField) => {
   return _.pick(values, [].concat(field.related[withField]));
 }
 
-export default (field, values) => Object.keys(field.related)
+export default (field, values) => Object.keys(field.related || {})
   .reduce((relatedValues, withField) => ({
     ...relatedValues,
     [withField]: getRelatedFieldValues(field, values, withField)

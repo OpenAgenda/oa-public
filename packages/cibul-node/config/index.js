@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const fs = require('fs');
-const redis = require('redis');
 const debug = require('debug');
 
 const prod = require('./prod');
@@ -937,8 +936,6 @@ currentConfig.loadEnv = _loadEnv;
 currentConfig.emailStrategieDb = _.merge({}, currentConfig.db, {
   database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
 });
-
-currentConfig.redisClient = redis.createClient(currentConfig.redis.port, currentConfig.redis.host);
 
 if (process.env.DEBUG) {
   currentConfig.logger.debug.enable = process.env.DEBUG;

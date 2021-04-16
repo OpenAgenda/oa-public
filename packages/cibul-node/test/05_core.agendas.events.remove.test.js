@@ -1,15 +1,9 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const axios = require('axios');
-const ih = require('immutability-helper');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const api = require('../api');
-const assignClients = require('./utils/assignClients');
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -22,12 +16,11 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
   beforeAll(() => loadFixtures(testConfig.db, '006.sql'));
 
-  beforeAll(() => assignClients(testConfig));
-
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -52,12 +45,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
     await core.agendas(17026800).events.search.rebuild();
   });
-
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
-
+  
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
@@ -65,6 +53,8 @@ describe('core - functional (server): core agendas() events.remove()', function(
       });
     } catch (e) {}
   });
+  
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('remove from other agenda', () => {
     let event, searchResultBefore;

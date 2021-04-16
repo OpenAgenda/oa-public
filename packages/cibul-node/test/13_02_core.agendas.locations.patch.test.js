@@ -6,22 +6,20 @@ const assert = require('assert');
 const Core = require('../core');
 const Services = require('../services/init');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
 describe('13 - core - functional(server): core.agendas().locations.patch', () => {
   let core;
-  let stopSearchTask;
 
   beforeAll(() => loadFixtures(testConfig.db, '016.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -48,18 +46,10 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     await core.agendas(89904399).events.search.rebuild();
 
     core.services.agendaLocations.task({ reset: true });
-    stopSearchTask = services.aggregators.task().stopAndClear;
-
-    core.services.tracker.flush();
+    services.aggregators.task();
   });
 
-  afterAll(async () => {
-    core.services.tracker.flush();
-    await stopSearchTask();
-    await core.services.agendaLocations.task.stop({ reset: true });
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   it('location is patched', async () => {
     await core.agendas(64260763).locations.patch(37923057, {
@@ -76,7 +66,9 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     });
 
     core.services.tracker.on('eventSearch.onUpdate.agendas_89904399', async stack => {
-      const { events } = await core.agendas(64260763).events.search({ locationUid: 37923057 });
+      const { events } = await core.agendas(64260763).events.search({
+        locationUid: 37923057
+      });
       assert.equal(events[0].location.address, '13 rue du désespoir, Roubaix');
       done();
     }, true);

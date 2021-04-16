@@ -51,7 +51,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   }
 
   log('returning schema without event for access %s', access);
-  return formSchemas.utils.merge(networkSchema, formSchema, { access });
+  return formSchemas.utils.merge(networkSchema, formSchema, access?.read === 'internal' ? null : { access });
 }
 
 async function _loadFormSchema(formSchemas, agendaId, formSchemaId, hasNetworkSchema = false ) {

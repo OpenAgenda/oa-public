@@ -5,7 +5,6 @@ const assert = require('assert');
 const axios = require('axios');
 const ih = require('immutability-helper');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const api = require('../api');
@@ -20,12 +19,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -49,10 +48,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
     await core.agendas(2).events.search.rebuild();
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
     it('response object contains total, events and sort keys', async () => {

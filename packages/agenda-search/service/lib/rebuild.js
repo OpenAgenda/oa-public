@@ -21,7 +21,7 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
     }).then(r => r.body));
   } catch (err) {
     if (err.meta.statusCode !== 404) {
-      throw new VError('failed to retrieve previous indices', err);
+      throw new Error('failed to retrieve previous indices', err);
     }
   }
 

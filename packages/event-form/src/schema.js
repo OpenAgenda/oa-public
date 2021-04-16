@@ -34,7 +34,6 @@ module.exports = (options = {}) => {
     languages,
     fileStore,
     schemaExtensions,
-    excludeEventFields,
     excludeNonDataFields,
     access
   } = {
@@ -52,14 +51,12 @@ module.exports = (options = {}) => {
     type: 'event'
   };
 
-  if (includeEventFields) {
-    eventSchema.fields = eventFields({
-      labels,
-      tiles,
-      locationRes,
-      fileStore
-    });
-  }
+  eventSchema.fields = eventFields({
+    labels,
+    tiles,
+    locationRes,
+    fileStore
+  });
 
   const hasExtensions = Array.isArray(schemaExtensions);
 
@@ -76,7 +73,7 @@ module.exports = (options = {}) => {
   // here, for generating the form, provided access as write should suffice
   const finalSchema = merge.apply(null, [eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
 
-  if (hasExtensions && excludeEventFields) {
+  if (hasExtensions && !includeEventFields) {
     const eventSchemaFields = eventSchema.fields.map(f => f.field);
     finalSchema.fields = finalSchema.fields.filter(f => !eventSchemaFields.includes(f.field));
   }

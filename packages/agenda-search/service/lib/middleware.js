@@ -1,6 +1,5 @@
 "use strict";
 
-const utils = require('@openagenda/utils');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const rss = require('rss');
@@ -81,6 +80,7 @@ function list(service, req, res, next) {
       lang: req.lang,
       page: nav.page,
       network: req.network,
+      locationSet: req.locationSet,
       query,
       agendas,
       total

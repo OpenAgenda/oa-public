@@ -1,13 +1,12 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
-const config = require('../testconfig');
+const config = require('./config');
 const Service = require('../service');
 const listInterface = require('./app/listInterface');
 const getAgendaSummary = require('./app/getAgendaSummary');
 
-describe('Search', function() {
+describe('01 - Search', function() {
   let svc;
   this.timeout(30000);
 
@@ -231,6 +230,15 @@ describe('Search', function() {
       }, 0, 10);
 
       assert.equal(items.pop().network.uid, 1);
+    });
+
+    it('fetch for certain location set only', async () => {
+      const { total, items } = await svc.list({
+        locationSet: 5675667
+      }, 0, 10);
+
+      assert.equal(items.pop().locationSet.uid, 5675667);
+      assert.equal(total, 3);
     });
 
     it('fetch agendas open & members only contribution types', async () => {

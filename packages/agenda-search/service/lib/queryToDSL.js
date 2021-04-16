@@ -116,6 +116,14 @@ module.exports = (query, from = 0, size = 10) => {
     })
   }
 
+  if (clean.locationSet !== null) {
+    filteredPart.push({
+      term: {
+        'locationSet.uid': clean.locationSet
+      }
+    });
+  }
+
   if (mustPart.length) {
     dsl.query.bool.must = mustPart;
   }

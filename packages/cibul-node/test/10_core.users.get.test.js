@@ -1,12 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
@@ -18,12 +13,12 @@ describe('10 - core - functional (server): core.users().get()', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '011.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'accessTokens',
         'files',
         'queues',
@@ -46,10 +41,7 @@ describe('10 - core - functional (server): core.users().get()', function() {
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('authorizations', () => {
 

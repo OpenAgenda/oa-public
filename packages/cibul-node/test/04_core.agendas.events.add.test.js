@@ -1,6 +1,5 @@
 'use strict';
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
@@ -13,12 +12,11 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
   beforeAll(() => loadFixtures(testConfig.db, '005.sql'));
 
-  beforeAll(() => assignClients(testConfig));
-
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -43,12 +41,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     await core.agendas(17026800).events.search.rebuild();
   });
-
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
-
+  
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
@@ -56,6 +49,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
       });
     } catch (e) {}
   });
+
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('simple add', function() {
     let event;

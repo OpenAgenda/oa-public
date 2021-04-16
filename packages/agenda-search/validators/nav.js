@@ -1,18 +1,18 @@
-"use strict";
+'use strict';
 
-const schemas = require( '@openagenda/validators/schema' ),
+const schemas = require('@openagenda/validators/schema');
 
-defaults = {
+const defaults = {
   page: null,
   offset: 0,
   limit: 20
 };
 
-schemas.register( {
-  number: require( '@openagenda/validators/number' )
-} );
+schemas.register({
+  number: require('@openagenda/validators/number')
+});
 
-const schema = schemas( {
+const schema = schemas({
   page: {
     type: 'number',
     optional: true,
@@ -30,10 +30,9 @@ const schema = schemas( {
     default: defaults.limit,
     max: 100
   }
-} );
+});
 
-module.exports = function( navQuery ) {
-
+module.exports = navQuery => {
   let clean = {
     page: defaults.page,
     offset: defaults.offset,
@@ -41,23 +40,15 @@ module.exports = function( navQuery ) {
   };
 
   try {
-
-    clean = schema( navQuery );
-
-  } catch( e ) {
-
-    console.error( 'got nav errors: %s', e );
-
+    clean = schema(navQuery);
+  } catch(e) {
+    console.error('got nav errors: %s', e);
   }
 
-  if ( clean.page !== null ) {
-
-    clean.offset = ( clean.page - 1 ) * clean.limit;
-
+  if (clean.page !== null) {
+    clean.offset = (clean.page - 1) * clean.limit;
   } else {
-
-    clean.page = Math.ceil( clean.offset / clean.limit + 1 );
-
+    clean.page = Math.ceil(clean.offset / clean.limit + 1);
   }
 
   return {
@@ -65,5 +56,4 @@ module.exports = function( navQuery ) {
     limit: clean.limit,
     page: clean.page
   }
-
-}
+};

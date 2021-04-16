@@ -53,6 +53,10 @@
       "contribution": {
         "type": 1
       }
+    },
+    "locationSet": {
+      "uid": 5675667,
+      "name": "Le jeu de lieux"
     }
   },
   {
@@ -252,7 +256,11 @@
     "officializedAt": null,
     "publishedEvents": 389,
     "upcomingPublishedEvents": 156,
-    "keywords": []
+    "keywords": [],
+    "locationSet": {
+      "uid": 5675667,
+      "name": "Le jeu de lieux"
+    }
   },
   {
     "id": 99991,
@@ -263,7 +271,11 @@
     "officializedAt": null,
     "publishedEvents": 389,
     "upcomingPublishedEvents": 156,
-    "keywords": []
+    "keywords": [],
+    "locationSet": {
+      "uid": 5675667,
+      "name": "Le jeu de lieux"
+    }
   },
   {
     "id": 20202,

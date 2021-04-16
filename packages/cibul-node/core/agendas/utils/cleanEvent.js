@@ -94,7 +94,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     access: {
       write: member ? services.members.utils.getRoleSlug(member.role) : access
     },
-    excludeEventFields: !evaluateEvent
+    includeEventFields: !!evaluateEvent
   });
 
   const clean = {

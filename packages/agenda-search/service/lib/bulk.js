@@ -1,16 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('bulk');
 
 module.exports = async ({ client, index, formatForIndex, operation }, agendas) => {
   const body = [];
-
-  const filtered = agendas.filter(a => {
-    if (/(t|T)est/.test(a.title)) return false;
-    if (/(t|T)est/.test(a.description)) return false;
-    return true;
-  });
 
   for (const agenda of agendas) {
     body.push({
@@ -36,5 +29,5 @@ module.exports = async ({ client, index, formatForIndex, operation }, agendas) =
     log('error', `could not bulk index agenda ${issue.index._id}`, issue.index);
   }
 
-  return _.get(result, 'body.items', []).length;
+  return (result.body.items || []).length;
 }

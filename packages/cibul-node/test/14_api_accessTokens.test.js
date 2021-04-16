@@ -4,7 +4,6 @@ const axios = require('axios');
 const assert = require('assert');
 const FormData = require('form-data');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const api = require('../api');
@@ -14,17 +13,17 @@ const Core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe('13 - core - functional(server): core.agendas().locations.list', function() {
+describe('14 - core - functional(server): api get accessToken', function() {
   let core, server;
   let accessToken;
 
   beforeAll(() => loadFixtures(testConfig.db, '015.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'accessTokens',
         'files',
         'queues',
@@ -67,10 +66,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
   afterAll(() => server.close());
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   it('access token was fetched through json post', () => {
     assert.equal(typeof accessToken, 'string');

@@ -45,6 +45,7 @@ module.exports = (config) => (req, res, next) => {
       value: JSON.stringify({
         lang: req.lang,
         network: req.network,
+        locationSet: req.locationSet,
         canvas: '.js_search_canvas',
         agendas: req.data.agendas,
         total: req.data.total,
