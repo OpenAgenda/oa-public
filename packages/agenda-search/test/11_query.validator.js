@@ -10,7 +10,7 @@ const validators = require('../validators');
  * purposes
  */
 
-describe('validators - query', () => {
+describe('11 - validators - query', () => {
 
   it('give it nothing and get default query values', () => {
     assert.deepEqual(validators.query(), {

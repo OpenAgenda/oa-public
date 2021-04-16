@@ -58,8 +58,7 @@
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "rimraf": "^3.0.1",
-    "should": "^13.2.3"
+    "rimraf": "^3.0.1"
   },
   "peerDependencies": {
     "react": "^16.12.0"

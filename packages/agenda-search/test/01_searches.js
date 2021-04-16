@@ -6,7 +6,7 @@ const Service = require('../service');
 const listInterface = require('./app/listInterface');
 const getAgendaSummary = require('./app/getAgendaSummary');
 
-describe('Search', function() {
+describe('01 - Search', function() {
   let svc;
   this.timeout(30000);
 
