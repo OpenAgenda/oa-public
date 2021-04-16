@@ -30,9 +30,10 @@ COMMIT_MSG="chore: update submodule $SUBMODULE_NAME"
 
 SUPERPROJECT_BRANCH=$(git -C "$SUPERPROJECT" rev-parse --abbrev-ref HEAD)
 SUBMODULE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 
-if [ "$SUPERPROJECT_BRANCH" != "$SUBMODULE_BRANCH" ]; then
-    echo "Skip committing to $SUPERPROJECT_NAME, the branches are different ($SUPERPROJECT_NAME:$SUPERPROJECT_BRANCH <- $SUBMODULE_NAME:$SUBMODULE_BRANCH)"
+if [ "$SUBMODULE_BRANCH" != "$MAIN_BRANCH" ]; then
+    echo "Skip committing to $SUPERPROJECT_NAME, the submodule $SUBMODULE_NAME is not on the branch $MAIN_BRANCH"
     exit 0
 fi
 
