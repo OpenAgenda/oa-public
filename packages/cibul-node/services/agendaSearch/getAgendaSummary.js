@@ -44,12 +44,16 @@ module.exports = async (config, services, agenda) => {
     aggregations: ['states']
   });
 
+  const locationSet = agenda.locationSetUid ? await services.agendaLocations.sets.get(agenda.locationSetUid) : null;
+  const network = agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
+
   return {
     recentlyContributedEvents,
     upcomingPublishedEvents,
     publishedEvents,
     keywords,
     eventCountsByState: result.aggregations.states,
-    network: agenda.networkUid ? await services.networks.get(agenda.networkUid) : null
+    network,
+    locationSet
   }
 }
