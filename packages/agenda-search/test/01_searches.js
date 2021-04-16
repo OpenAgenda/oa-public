@@ -1,8 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
-const config = require('../testconfig');
+const config = require('./config');
 const Service = require('../service');
 const listInterface = require('./app/listInterface');
 const getAgendaSummary = require('./app/getAgendaSummary');
