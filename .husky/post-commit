@@ -17,17 +17,27 @@ set -e
 
 unset $(env | grep "^GIT_" | cut -d '=' -f 1)
 
-SUPERPROJECT_WORKING_TREE=$(git rev-parse --show-superproject-working-tree)
+SUPERPROJECT=$(git rev-parse --show-superproject-working-tree)
+SUPERPROJECT_NAME=$(basename "$SUPERPROJECT")
 
 # It's not a submodule
-[ -z "$SUPERPROJECT_WORKING_TREE" ] && exit 0
+[ -z "$SUPERPROJECT" ] && exit 0
 
 GIT="git"
 SUBMODULE=$(git rev-parse --show-toplevel)
 SUBMODULE_NAME=$(basename "$SUBMODULE")
 COMMIT_MSG="chore: update submodule $SUBMODULE_NAME"
 
-echo "Committing to $SUPERPROJECT_WORKING_TREE"
-cd "$SUPERPROJECT_WORKING_TREE"
-$GIT add "$SUBMODULE"
-$GIT commit --no-verify -m "$COMMIT_MSG" -- "$SUBMODULE"
+SUPERPROJECT_BRANCH=$(git -C "$SUPERPROJECT" rev-parse --abbrev-ref HEAD)
+SUBMODULE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+if [ "$SUBMODULE_BRANCH" != "$MAIN_BRANCH" ]; then
+    echo "Skip committing to $SUPERPROJECT_NAME, the submodule $SUBMODULE_NAME is not on the branch $MAIN_BRANCH"
+    exit 0
+fi
+
+echo "Committing to $SUPERPROJECT_NAME"
+
+$GIT -C "$SUPERPROJECT" add "$SUBMODULE"
+$GIT -C "$SUPERPROJECT" commit --no-verify -m "$COMMIT_MSG" -- "$SUBMODULE"
