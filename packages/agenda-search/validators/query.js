@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const schemas = require('@openagenda/validators/schema');
 
