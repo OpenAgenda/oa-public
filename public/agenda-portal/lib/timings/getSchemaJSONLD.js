@@ -8,7 +8,7 @@ module.exports = (event, timing, defaultTimezone) => {
   const { end, permalink } = timing;
 
   const begin = getBeginValue(timing);
-  const timezone = event.timezone || event.location?.timezone || defaultTimezone;
+  const timezone = event.timezone || (event.location && event.location.timezone) || defaultTimezone;
 
   return JSON.stringify(
     {
