@@ -15,11 +15,12 @@ storiesOf( 'App', module )
           <form className="js_agenda_search"><input type="text" /></form>
         </div>
         <div className="js_search_canvas">
-          {createApp( {
+          {createApp({
             skipRender: true,
             res: `${apiRoot}/json`,
-            lang: 'fr'
-          } )}
+            lang: 'fr',
+            loadOnMount: true // use only for storybook (without SSR)
+          })}
         </div>
       </>
     )

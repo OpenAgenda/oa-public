@@ -35,6 +35,9 @@ class Body extends Component {
 
   componentDidMount() {
     monitorField('.js_agenda_search', search => this.resetPage({ search }));
+    if (this.props.loadOnMount) {
+      this.resetPage();
+    }
   }
 
   prepareGetQuery(query, page) {
@@ -77,7 +80,7 @@ class Body extends Component {
     this.resetPage({ search });
   }
 
-  resetPage(newQuery) {
+  resetPage(newQuery = {}) {
     this.setState({ loading: true });
 
     get(this.props.res, this.getHrefQuery({ page: 1, ...newQuery }), (err, data) => {
@@ -172,7 +175,8 @@ Body.propTypes = {
   agendas: PropTypes.array,
   page: PropTypes.number,
   lang: PropTypes.string,
-  query: PropTypes.object
+  query: PropTypes.object,
+  loadOnMount: PropTypes.bool
 };
 
 Body.defaultProps = {
@@ -180,7 +184,8 @@ Body.defaultProps = {
   agendas: [],
   page: 1,
   lang: 'fr',
-  query: null
+  query: null,
+  loadOnMount: false
 };
 
 module.exports = Body;

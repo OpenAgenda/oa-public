@@ -50,7 +50,6 @@ function addPageItems( current, next, data ) {
  * pagerange is 1,1, state is new, items are replaced
  */
 function resetPageItems( currentState, query, data ) {
-
   var changes = {};
 
   changes.pageRange = {

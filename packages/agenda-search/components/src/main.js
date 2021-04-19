@@ -13,7 +13,8 @@ module.exports = (options = {}) => {
     dataTag = 'data-options',
     lang = 'en',
     network = null,
-    locationSet = null
+    locationSet = null,
+    loadOnMount = false
   } = options;
 
   const data = du.parseJsonAttribute('body', dataTag, {
@@ -29,6 +30,7 @@ module.exports = (options = {}) => {
     agendas: data.agendas,
     network,
     locationSet,
+    loadOnMount,
     total: data.total
   });
 
