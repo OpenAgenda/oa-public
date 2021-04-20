@@ -257,7 +257,7 @@ Look for the widgets folder in the sample partial templates for an example of im
 
  * **Map widget**: Placed next to the main event list, this widget allows filtering the events dynamically by navigating in the map.
  * **Calendar widget**: Placed next to the main event list, this widget provides date and date range filtering.
- * **Tags**: Placed next to the main event list, this widget provides grouped tags filtering.
+ * **Tags**: Placed next to the main event list, this widget provides grouped tags filtering. In OpenAgenda terminology, tags are the legacy name for additional field where discrete values can be picked. By default, all possible values are listed. To limit the selection to a specific field, a `data-group` attribute can be added to the widget specifying the index of the desired field. For example, if the field appears first in the form, the value should be `data-group="0"`.
  * **Search**: Placed next to the main event list, this widget provides text search filtering.
  * **Preview**: This widget can be placed on any page. By default, it loads the three first events of the agenda. It is demoed on the provided 404 template page.
 
