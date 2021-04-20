@@ -79,7 +79,9 @@ function OrderField({ action, input, title }) {
 
 @connect(
   (state, props) => {
-    const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
+    const query = qs.parse(props.history.location.search, {
+      ignoreQueryPrefix: true,
+    });
 
     return {
       query,
@@ -194,14 +196,14 @@ class Dashboard extends Component {
 
   search = ({ search, sortBy, sortOrder }) => {
     const {
-      list, agenda, location, credFilters, history
+      list, agenda, credFilters, history
     } = this.props;
 
     const order = sortBy && sortOrder ? `${sortBy}.${sortOrder}` : undefined;
     const query = { search: search || undefined, role: credFilters, order };
 
     return list(agenda, query).then(() => history.push({
-      ...location,
+      ...history.location,
       search: qs.stringify(query, { arrayFormat: 'brackets' }),
     }));
   };
@@ -221,7 +223,7 @@ class Dashboard extends Component {
       res,
       showModal,
       resendInvitation,
-      location,
+      history,
       agenda,
       role: userCredential,
       i18n,
@@ -234,7 +236,9 @@ class Dashboard extends Component {
       if (deletedUser && !invited) return 'deleted';
     })();
 
-    const base64url = Base64.encode(location.pathname + location.search);
+    const base64url = Base64.encode(
+      history.location.pathname + history.location.search
+    );
 
     const resendInvitationHandler = () => resendInvitation(agenda, id)
       .then(() => showModal('memberReinvited', { member, success: true }))
