@@ -75,6 +75,22 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
   });
 
+  describe('get', function() {
+    let result;
+
+    beforeAll(async () => {
+      result = await core
+        .agendas(17026855)
+        .locations
+        .get(95455142, { includeLinkedAgendas : true });
+    });
+
+    it('get location with option includeLinkedAgendas', () => {
+     assert.deepEqual(result.linkedAgendas, [{ uid: 17026855, title: 'La Gargouille' }])
+    });
+
+  });
+
   describe('create', () => {
     let result;
 
@@ -326,7 +342,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json'
-          }
+          },
         });
 
         const {
@@ -406,12 +422,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
-            detailed: true
+            detailed: true,
           },
           headers: {
             'content-type': 'application/json'
           }
         }).then(r => r?.data);
+
 
         assert.deepEqual(
           Object.keys(detailedResults.locations[0]),

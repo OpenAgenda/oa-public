@@ -12,6 +12,7 @@ const beforeMerge = require('./interfaces/beforeMerge');
 const beforeRemove = require('./interfaces/beforeRemove');
 const onUpdate = require('./interfaces/onUpdate');
 const getAgendaLocationSettings = require('./interfaces/getAgendaLocationSettings');
+const getLinkedAgendas = require('./interfaces/getLinkedAgendas');
 
 const plugAgendaApp = require('./plugAgendaApp');
 const plugAgendaAdminApp = require('./plugAgendaAdminApp');
@@ -42,12 +43,12 @@ module.exports.init = async (config, services) => {
       getEventCounts: getEventCounts(config, services),
       getSetAgendasCount: getSetAgendasCount(services),
       geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language }),
-      getAgendaLocationSettings: getAgendaLocationSettings(services)
+      getAgendaLocationSettings: getAgendaLocationSettings(services),
+      getLinkedAgendas: getLinkedAgendas(services)
     },
     Files: services.files,
     logger: config.getLogConfig('svc', 'agendaLocations')
   });
-
   return Object.assign(instance, {
     apps: Object.assign(plugApp.bind(null, { ...config, geocoder }, services, instance), {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),

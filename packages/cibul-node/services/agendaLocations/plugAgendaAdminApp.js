@@ -72,7 +72,8 @@ module.exports = (config, services, instance, app, base) => {
                 update: `/${req.agenda.slug}/admin/locations/:locationUid`,
                 get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
                 remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
-                merge: `/${req.agenda.slug}/admin/locations/merge`
+                merge: `/${req.agenda.slug}/admin/locations/merge`,
+                agendaSearch: `/agendas`,
               }
             })
           }
@@ -149,6 +150,7 @@ module.exports = (config, services, instance, app, base) => {
       instance.get(req.params.locationUid, {
         includeImagePath: true,
         eventCounts: true,
+        includeLinkedAgendas: true,
       }).then(location => res.json(location), next);
     }
  );

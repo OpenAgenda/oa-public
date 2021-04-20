@@ -55,6 +55,7 @@ raw.push(knex('location').insert([
 insertEventSet(knex, raw, 3);
 insertEventSet(knex, raw, 4);
 insertEventSet(knex, raw, 5);
+insertEventSet(knex, raw, 7);
 
 raw.push(knex('form_schema').insert([{
   id: 2,
