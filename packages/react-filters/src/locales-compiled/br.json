@@ -160,6 +160,12 @@
       "value": "Demain"
     }
   ],
+  "ReactFilters.messages.filterTitles.addMethod": [
+    {
+      "type": 0,
+      "value": "Provenance"
+    }
+  ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
     {
       "type": 0,
@@ -190,6 +196,12 @@
       "value": "Mis en une"
     }
   ],
+  "ReactFilters.messages.filterTitles.memberUid": [
+    {
+      "type": 0,
+      "value": "Membre"
+    }
+  ],
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,
@@ -200,6 +212,12 @@
     {
       "type": 0,
       "value": "Passé / en cours / à venir"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": [
+    {
+      "type": 0,
+      "value": "Agenda source"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [

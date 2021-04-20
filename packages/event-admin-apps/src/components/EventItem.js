@@ -201,6 +201,8 @@ export default function EventItem({
         </a>
       </div>
 
+      {/* Location */}
+
       {hasOfflineLocation ? (
         <div className="margin-top-xs">
           {event.location.name}, {getLocaleValue(event.dateRange, intl.locale)}
@@ -214,38 +216,29 @@ export default function EventItem({
         </div>
       ) : null}
 
-      {event.member?.name ? (
-        <>
-          {event.originAgenda ? (
-            <div className="margin-top-xs">
-              {intl.formatMessage(messages.addedBy, {
-                name: event.member.name,
-                link: chunks => <i>{chunks}</i>,
-              })}
-            </div>
-          ) : (
-            <div className="margin-top-xs">
-              {intl.formatMessage(messages.createdBy, {
-                name: event.member.name,
-                link: chunks => <i>{chunks}</i>,
-              })}
-            </div>
-          )}
-        </>
+      {/* Add method */}
+
+      {event.addMethod === 'contribution' && event.member?.name ? (
+        <div className="margin-top-xs">
+          {intl.formatMessage(messages.createdBy, {
+            name: event.member.name,
+            link: chunks => <i>{chunks}</i>,
+          })}
+        </div>
       ) : null}
 
-      {event.originAgenda && !event.sourceAgendas?.length ? (
+      {event.addMethod === 'share' ? (
         <div className="margin-top-xs">
           {intl.formatMessage(messages.sharedFrom, {
             title: event.originAgenda.title,
             link: chunks => (
-              <a href={`/${event.originAgenda.slug}`}>{chunks}</a>
+              <a href={`/agendas/${event.originAgenda.uid}`}>{chunks}</a>
             ),
           })}
         </div>
       ) : null}
 
-      {event.sourceAgendas?.length ? (
+      {event.addMethod === 'aggregation' ? (
         <div className="margin-top-xs">
           {intl.formatMessage(messages.aggregatedFrom, {
             title: event.sourceAgendas[0].title,

@@ -370,12 +370,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
 
   const [query, setQuery] = useState(() => {
-    const baseQuery = removeQueryPrefix(parsedLocationSearch);
+    const urlQuery = removeQueryPrefix(parsedLocationSearch);
 
-    return _.pick(
-      validateQuery(baseQuery, agendaSchema),
-      Object.keys(baseQuery)
-    );
+    return _.pick(validateQuery(urlQuery, agendaSchema), Object.keys(urlQuery));
   });
 
   const hasFilter = useMemo(
@@ -452,7 +449,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         setSelectedEvents(new Set());
         setExtendedAllSelected(false);
 
-        const baseQuery = removeQueryPrefix(parsedLocationSearch);
+        const urlQuery = removeQueryPrefix(parsedLocationSearch);
         const queryRest = Object.keys(parsedLocationSearch).reduce(
           (accu, key) => (key.startsWith('q.')
             ? accu
@@ -460,7 +457,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           {}
         );
 
-        if (!_.isEqual(query, baseQuery) || page !== queryRest.page) {
+        if (!_.isEqual(query, urlQuery) || page !== queryRest.page) {
           const search = qs.stringify(
             {
               ...queryRest,
@@ -595,7 +592,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   // for FiltersProvider
   const filtersFormRef = useRef();
-  const [initialValues] = useState(() => _.without(query, 'sort'));
+  const [initialValues] = useState(() => _.omit(query, 'sort'));
   const validate = useCallback(
     values => {
       try {
@@ -612,10 +609,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   // Update query when location change
   useUpdateEffect(() => {
-    const baseQuery = removeQueryPrefix(parsedLocationSearch);
+    const urlQuery = removeQueryPrefix(parsedLocationSearch);
     const cleanQuery = _.pick(
-      validateQuery(baseQuery, agendaSchema),
-      Object.keys(baseQuery)
+      validateQuery(urlQuery, agendaSchema),
+      Object.keys(urlQuery)
     );
 
     if ('featured' in cleanQuery) {
