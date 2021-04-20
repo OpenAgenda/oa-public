@@ -21,6 +21,7 @@
   "ReactFilters.messages.filterTitles.createdAt": "Creation date",
   "ReactFilters.messages.filterTitles.department": "Department",
   "ReactFilters.messages.filterTitles.featured": "Featured",
+  "ReactFilters.messages.filterTitles.memberUid": "Member",
   "ReactFilters.messages.filterTitles.region": "Region",
   "ReactFilters.messages.filterTitles.relative": "Passed / current / upcoming",
   "ReactFilters.messages.filterTitles.sourceAgendaUid": "Source agenda",

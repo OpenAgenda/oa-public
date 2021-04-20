@@ -196,6 +196,12 @@
       "value": "Mis en une"
     }
   ],
+  "ReactFilters.messages.filterTitles.memberUid": [
+    {
+      "type": 0,
+      "value": "Membre"
+    }
+  ],
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,

@@ -139,6 +139,16 @@ export default function useFilters(
           },
         },
         {
+          name: 'memberUid',
+          type: 'radio',
+          options: null, // from the aggregation
+          labelKey: 'member.name',
+          aggregation: {
+            type: 'members',
+            size: AGGREGATION_SIZE,
+          },
+        },
+        {
           name: 'sourceAgendaUid',
           type: 'radio',
           options: null, // from the aggregation

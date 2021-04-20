@@ -5,6 +5,10 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.addMethod',
     defaultMessage: 'Provenance',
   },
+  memberUid: {
+    id: 'ReactFilters.messages.filterTitles.memberUid',
+    defaultMessage: 'Member',
+  },
   sourceAgendaUid: {
     id: 'ReactFilters.messages.filterTitles.sourceAgendaUid',
     defaultMessage: 'Source agenda',
