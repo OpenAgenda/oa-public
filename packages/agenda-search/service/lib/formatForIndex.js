@@ -11,7 +11,8 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
     recentlyContributedEvents,
     eventCountsByState,
     keywords,
-    network
+    network,
+    locationSet
   } = await getAgendaSummary(agenda);
 
   return {
@@ -36,6 +37,7 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
     eventCountsByState,
     recentlyContributedEvents,
     keywords,
-    ...(network ? { network } : {} )
+    ...(network ? { network } : {} ),
+    ...(locationSet ? { locationSet } : {})
   };
 }

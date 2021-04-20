@@ -1,6 +1,26 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  addMethod: {
+    id: 'ReactFilters.messages.filterTitles.addMethod',
+    defaultMessage: 'Provenance',
+  },
+  memberUid: {
+    id: 'ReactFilters.messages.filterTitles.memberUid',
+    defaultMessage: 'Member',
+  },
+  sourceAgendaUid: {
+    id: 'ReactFilters.messages.filterTitles.sourceAgendaUid',
+    defaultMessage: 'Source agenda',
+  },
+  featured: {
+    id: 'ReactFilters.messages.filterTitles.featured',
+    defaultMessage: 'Featured',
+  },
+  relative: {
+    id: 'ReactFilters.messages.filterTitles.relative',
+    defaultMessage: 'Passed / current / upcoming',
+  },
   region: {
     id: 'ReactFilters.messages.filterTitles.region',
     defaultMessage: 'Region',

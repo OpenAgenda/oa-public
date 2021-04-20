@@ -4,7 +4,6 @@ const _ = require('lodash');
 const assert = require('assert');
 const axios = require('axios');
 
-const assignClients = require('./utils/assignClients');
 const api = require('../api');
 const Services = require('../services/init');
 const Core = require('../core');
@@ -15,12 +14,12 @@ describe('core - functional (server): core.agendas().events.update()', function(
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '004.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -52,10 +51,9 @@ describe('core - functional (server): core.agendas().events.update()', function(
         index: 'test'
       });
     } catch (e) {}
-
-    core.services.core.destroy();
-    testConfig.redisClient.quit();
   });
+
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('simple update', function() {
     let event;
@@ -135,7 +133,10 @@ describe('core - functional (server): core.agendas().events.update()', function(
         result = await core.agendas(17026855).events.search({
           uid: event.uid,
           state: null
-        }, {}, { detailed: true });
+        }, {}, {
+          detailed: true,
+          access: 'administrator'
+        });
       });
 
       it('indexed document is updated', () => {

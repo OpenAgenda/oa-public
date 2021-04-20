@@ -17,11 +17,19 @@ raw.push(knex('network').insert([
 ]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/01.json')
+  require('./sql/users/01.json'),
+  require('./sql/users/50300.json'),
+  require('./sql/users/jean-benoit.json')
+]));
+
+raw.push(knex('api_key_set').insert([
+  { ...require('./sql/apiKeySets/01.json'), user_id: 50300 },
+  require('./sql/apiKeySets/jean-benoit.keys.json')
 ]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/01.json')
+  require('./sql/members/01.json'),
+  require('./sql/members/50300.admin.02.json')
 ]));
 
 raw.push(knex('location').insert([{
@@ -111,6 +119,7 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   event_uid: 2,
   source_agenda_uid: JSON.stringify([[1]]),
+  aggregated: 1,
   created_at: new Date(),
   updated_at: new Date()
 }]));

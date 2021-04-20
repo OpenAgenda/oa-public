@@ -1,8 +1,8 @@
 'use strict';
 
-const ih = require('immutability-helper');
 const { merge } = require('@openagenda/form-schemas').utils;
 const eventFormSchema = require('@openagenda/event-form/src/schema');
+const getAddMethod = require('./getAddMethod');
 
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
   const {
@@ -31,6 +31,9 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
       }
       compiled[eventField] = event[eventField];
     });
+  }
+  if (event && load.event && agendaEvent) {
+    compiled.addMethod = getAddMethod(event, agendaEvent);
   }
 
   [networkCustom, agendaCustom].filter(d => !!d).forEach(data => {
@@ -70,7 +73,7 @@ module.exports.schemas = merge;
 module.exports.schemasWithEvent = (networkSchema, agendaSchema, access) => eventFormSchema({
   languages: true,
   schemaExtensions: [networkSchema, agendaSchema],
-  access,
+  access: access?.read === 'internal' ? null : access,
   excludeNonDataFields: true
 });
 

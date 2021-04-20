@@ -142,12 +142,6 @@
       "value": "Settimana corrente"
     }
   ],
-  "ReactFilters.dateRanges.past": [
-    {
-      "type": 0,
-      "value": "Past"
-    }
-  ],
   "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
@@ -166,10 +160,10 @@
       "value": "Tomorrow"
     }
   ],
-  "ReactFilters.dateRanges.upcoming": [
+  "ReactFilters.messages.filterTitles.addMethod": [
     {
       "type": 0,
-      "value": "Upcoming"
+      "value": "Provenance"
     }
   ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
@@ -196,10 +190,34 @@
       "value": "Department"
     }
   ],
+  "ReactFilters.messages.filterTitles.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.memberUid": [
+    {
+      "type": 0,
+      "value": "Member"
+    }
+  ],
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,
       "value": "Region"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.relative": [
+    {
+      "type": 0,
+      "value": "Passed / current / upcoming"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": [
+    {
+      "type": 0,
+      "value": "Source agenda"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [

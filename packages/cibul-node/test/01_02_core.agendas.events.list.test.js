@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const Core = require('../core');
@@ -10,16 +9,16 @@ const Services = require('../services/init');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events.list()', function() {
+describe('01 - core - functional (server): core.agendas().events.list()', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -40,10 +39,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('simple list', () => {
     let events;
@@ -71,6 +67,10 @@ describe('core - functional (server): core.agendas().events.list()', function() 
 
     it('origin agenda is not provided', () => {
       expect(events[0].originAgenda).toBeUndefined();
+    });
+
+    it('addMethod indicates event was referenced through a share', () => {
+      expect(events[0].addMethod).toBe('share');
     });
   });
 
@@ -215,5 +215,19 @@ describe('core - functional (server): core.agendas().events.list()', function() 
       expect(internalResult.formSchema.fields.filter(f => f.field === 'id').length).toBe(1);
     });
   });
+
+  describe('other', () => {
+
+    it('list can indicate addMethod to be contribution', async () => {
+      const events = await core.agendas(1).events.list({}, { limit: 10 });
+      expect(events.filter(e => e.uid === 1).pop().addMethod).toBe('contribution');
+    });
+
+    it('list can indicate addMethod to be aggregation', async () => {
+      const events = await core.agendas(2).events.list({}, { limit: 10 });
+      expect(events.filter(e => e.uid === 2).pop().addMethod).toBe('aggregation');
+    });
+
+  })
 
 });

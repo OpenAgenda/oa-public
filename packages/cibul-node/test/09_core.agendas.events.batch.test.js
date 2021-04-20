@@ -7,21 +7,18 @@ const loadFixtures = require('./fixtures/load');
 const Services = require('../services/init');
 const Core = require('../core');
 
-const getLogConfig = require('./mock/getLogConfig');
-const assignClients = require('./utils/assignClients');
-
 const testConfig = require('./testConfig');
 
 describe('09 - core - fuctional (server): core.agendas().events.batch()', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '010.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'accessTokens',
         'queues',
         'files',

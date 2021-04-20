@@ -1,13 +1,12 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
-const config = require('../testconfig');
+const config = require('./config');
 const Service = require('../service');
 const listInterface = require('./app/listInterface');
 const getAgendaSummary = require('./app/getAgendaSummary');
 
-describe('Search', function() {
+describe('01 - Search', function() {
   let svc;
   this.timeout(30000);
 
@@ -35,7 +34,7 @@ describe('Search', function() {
     });
 
     it('updated recently appears first', () => {
-      assert.equal(result.items[0].uid, 3);
+      assert.equal(result.agendas[0].uid, 3);
     });
 
   });
@@ -43,51 +42,51 @@ describe('Search', function() {
   describe('Title', () => {
 
     it('Exact match', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'La Roche-Posay'
-      }, 0, 10);
+      });
 
-      assert.equal(items[0].title, 'La Roche-Posay');
+      assert.equal(agendas[0].title, 'La Roche-Posay');
     });
 
     it('Near match', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'Roche-Posay'
-      }, 0, 10);
+      });
 
-      assert.equal(items[0].title, 'La Roche-Posay');
+      assert.equal(agendas[0].title, 'La Roche-Posay');
     });
 
     it('match', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'Roche'
-      }, 0, 10);
+      });
 
-      assert.equal(items[0].title, 'La Roche-Posay');
+      assert.equal(agendas[0].title, 'La Roche-Posay');
     });
 
     it('With accents', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'Théâtre'
-      }, 0, 10);
+      });
 
-      assert.equal(items[0].title, 'Au Théâtre ce soir');
+      assert.equal(agendas[0].title, 'Au Théâtre ce soir');
     });
 
     it('Singular can provide plural', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'musée'
       });
 
-      assert.equal(items.length, 3);
+      assert.equal(agendas.length, 3);
     });
 
     it('With accents but unspecified in search', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'Theatre'
-      }, 0, 10);
+      });
 
-      assert.equal(items[0].title, 'Au Théâtre ce soir');
+      assert.equal(agendas[0].title, 'Au Théâtre ce soir');
     });
 
   });
@@ -96,22 +95,41 @@ describe('Search', function() {
 
     it('matchs on a keyword', async () => {
       const {
-        items
-      } = await svc.list({ search: 'mcc' }, 0, 10);
+        agendas
+      } = await svc.list({ search: 'mcc' });
 
-      assert.equal(items[0].title, 'Journées Européennes du Patrimoine');
+      assert.equal(agendas[0].title, 'Journées Européennes du Patrimoine');
     });
 
   });
 
-  describe('Sorting', () => {
+  describe('Navigation', () => {
+    it('after key is provided in result', async () => {
+      const { after } = await svc({ search: 'musées' }, { size: 1 });
+      assert(Array.isArray(after));
+    });
 
+    it('after key is used to get next results', async () => {
+      const { agendas } = await svc({ search: 'musées' }, { size: 2 });
+
+      const result = await svc({ search: 'musées' }, { size: 1 });
+      const secondResult = await svc({ search: 'musées' }, {
+        size: 1,
+        after: result.after
+      });
+
+      assert.equal(agendas[0].uid, result.agendas[0].uid);
+      assert.equal(secondResult.agendas[0].uid, agendas[1].uid);
+    });
+  });
+
+  describe('Sorting', () => {
     it('An agenda with upcoming events is prioritized for a given search', async () => {
       const {
-        items
-      } = await svc({ search: 'musées' }, 0, 10);
+        agendas
+      } = await svc({ search: 'musées' }, { size: 3 });
 
-      assert.deepEqual(items.map(a => a.title), [
+      assert.deepEqual(agendas.map(a => a.title), [
         'Nuit européenne des musées 2020 : Île-de-France',
         'Nuit européenne des musées 2018 : Île-de-France',
         'Nuit européenne des musées 2019 : Île-de-France'
@@ -120,10 +138,10 @@ describe('Search', function() {
 
     it('Official agendas are prioritized in a search', async () => {
       const {
-        items
-      } = await svc({ search: 'Rendez-vous aux jardins' }, 0, 10);
+        agendas
+      } = await svc({ search: 'Rendez-vous aux jardins' }, { size: 4 });
 
-      assert.deepEqual(items.map(i => i.title), [
+      assert.deepEqual(agendas.map(i => i.title), [
         'Rendez-vous aux jardins : Pays de la Loire qui va bien', // officiel
         'Rendez-vous aux jardins', // pas officiel
         'Rendez-vous aux jardins : Pays de la Loire qui ne va pas', // pas officiel
@@ -133,22 +151,29 @@ describe('Search', function() {
 
     it('Title search is more important than description which is more important than keywords', async () => {
       const {
-        items
-      } = await svc({ search: 'cuillère' }, 0, 10);
+        agendas
+      } = await svc({
+        search: 'cuillère'
+      });
 
-      assert.deepEqual(items.map(i => i.title), [
+      assert.deepEqual(agendas.map(i => i.title), [
         'Cuillère à soupe',
         'Téléphone',
         'Froid estival'
-      ]);
+      ], {
+        size: 3
+      });
     });
 
     it('createdAt.desc sort', async () => {
       const {
-        items
-      } = await svc({ sort: 'createdAt.desc' }, 0, 3);
+        agendas
+      } = await svc({}, {
+        size: 3,
+        sort: 'createdAt.desc'
+      });
 
-      assert.deepEqual(items.map(i => i.title), [
+      assert.deepEqual(agendas.map(i => i.title), [
         'La Gargouille',
         'Journées Européennes du Patrimoine',
         'Métropole Européenne de Lille'
@@ -157,28 +182,30 @@ describe('Search', function() {
 
     it('recentlyContributed.desc sort', async () => {
       const {
-        items
-      } = await svc({ sort: 'recentlyContributed.desc' }, 0, 3);
+        agendas
+      } = await svc({}, {
+        sort: 'recentlyContributed.desc',
+        size: 3
+      });
 
-      assert.deepEqual(items.map(i => i.title), [
+      assert.deepEqual(agendas.map(i => i.title), [
         'Nuit européenne des musées 2018 : Île-de-France',
         'Meudon',
         'Froid estival'
       ]);
     });
-
   });
 
   describe('Structure', () => {
 
     it('detailed event count by state is given', async () => {
       const {
-        items
+        agendas
       } = await svc({
         search: 'Nuit européenne des musées 2018 : Île-de-France'
-      }, 0, 1);
+      }, { size: 1 });
 
-      assert.deepEqual(items[0].eventCountsByState, [
+      assert.deepEqual(agendas[0].eventCountsByState, [
         { eventCount: 20, key: -1 },
         { eventCount: 150, key: 1 },
         { eventCount: 389, key: 2 }
@@ -190,11 +217,11 @@ describe('Search', function() {
   describe('Filters', () => {
 
     it('fetch official only', async () => {
-      const { total, items } = await svc.list({
+      const { agendas } = await svc.list({
         official: true
-      }, 0, 10);
+      });
 
-      items.forEach(agenda => {
+      agendas.forEach(agenda => {
         assert.equal(agenda.official, true);
       });
     });
@@ -202,15 +229,15 @@ describe('Search', function() {
     it('fetch by uid', async () => {
       const uids = [4602853, 91785059];
 
-      const { total, items } = await svc.list({
+      const { agendas } = await svc.list({
         uid: uids
-      }, 0, 10);
+      });
 
-      assert.deepEqual(items.map(i => i.uid), uids);
+      assert.deepEqual(agendas.map(i => i.uid), uids);
     });
 
     it('fetch updated after a certain date', async () => {
-      const { total, items } = await svc.list({
+      const { total } = await svc.list({
         updatedAt: { gte: JSON.stringify('2020-04-01') }
       });
 
@@ -218,7 +245,7 @@ describe('Search', function() {
     });
 
     it('query can be given with flat keys', async () => {
-      const { total, items } = await svc.list({
+      const { total } = await svc.list({
         'updatedAt.gte': JSON.stringify('2020-04-01')
       });
 
@@ -226,19 +253,28 @@ describe('Search', function() {
     });
 
     it('fetch for certain network only', async () => {
-      const { total, items } = await svc.list({
+      const { agendas } = await svc.list({
         network: 1
       }, 0, 10);
 
-      assert.equal(items.pop().network.uid, 1);
+      assert.equal(agendas.pop().network.uid, 1);
+    });
+
+    it('fetch for certain location set only', async () => {
+      const { total, agendas } = await svc.list({
+        locationSet: 5675667
+      }, 0, 10);
+
+      assert.equal(agendas.pop().locationSet.uid, 5675667);
+      assert.equal(total, 3);
     });
 
     it('fetch agendas open & members only contribution types', async () => {
-      const { total, items } = await svc.list({
+      const { agendas } = await svc.list({
         contributionType: [0, 1]
       }, 0, 10);
 
-      items.forEach(agenda => {
+      agendas.forEach(agenda => {
         assert([0, 1].includes(agenda.settings.contribution.type));
       });
     });
@@ -248,27 +284,27 @@ describe('Search', function() {
   describe('Fixes and tweaks', () => {
 
     it('official should be indexed as boolean', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'Lille'
-      }, 0, 20);
+      });
 
-      assert.equal(items.length, 1);
+      assert.equal(agendas.length, 1);
     });
 
     it('"Meudon" search puts "Meudon" official agenda first', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'Meudon'
-      }, 0, 1);
+      });
 
-      assert.equal(items[0].title, 'Meudon');
+      assert.equal(agendas[0].title, 'Meudon');
     });
 
     it('"meudon" search puts "Meudon" official agenda first', async () => {
-      const { items } = await svc({
+      const { agendas } = await svc({
         search: 'meudon'
-      }, 0, 1);
+      }, { size: 1 });
 
-      assert.equal(items[0].title, 'Meudon');
+      assert.equal(agendas[0].title, 'Meudon');
     });
 
   });

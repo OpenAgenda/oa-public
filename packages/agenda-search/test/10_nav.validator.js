@@ -1,45 +1,83 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' ),
+const assert = require('assert');
+const navValidator = require('../validators/nav');
 
-validators = require( '../validators' );
+describe('10 - validators - nav', () => {
 
-describe( 'validators - nav', () => {
+  it('give it nothing and get default nav values', () => {
+    assert.deepEqual(
+      navValidator(),
+      {
+        from: 0,
+        size: 20,
+        page: 1
+      }
+    );
+  });
 
-  it( 'give it nothing and get default nav values', () => {
+  it('give it a page only and get all nav values', () => {
+    assert.deepEqual(
+      navValidator({ page: 2 }),
+      {
+        page: 2,
+        from: 20,
+        size: 20
+      }
+    );
+  });
 
-    let n = validators.nav();
+  it('give it a from and get all nav values', () => {
+    assert.deepEqual(
+      navValidator({ from: 20 }),
+      {
+        page: 2,
+        from: 20,
+        size: 20
+      }
+    );
+  });
 
-    n.should.eql( {
-      page: 1,
-      offset: 0,
-      limit: 20
-    } );
+  it('give it an after and get an after', () => {
+    assert.deepEqual(
+      navValidator({ after: [1] }),
+      {
+        after: [1],
+        size: 20,
+        sort: null
+      }
+    );
+  });
 
-  } );
+  it('possible values for sort are not random', () => {
+    try {
+      navValidator({
+        sort: 'fqfdsqdf'
+      });
+    } catch (error) {
+      assert.equal(error.name, 'BadRequestError');
+      return;
+    }
 
-  it( 'give it a page only and get all nav values', () => {
+    throw new Error('Should not reach here');
+  });
 
-    let n = validators.nav( { page: 2 } )
+  it('sort value can be createdAt.desc', () => {
+    assert.equal(navValidator({
+      sort: 'createdAt.desc'
+    }).sort, 'createdAt.desc');
+  });
 
-    n.should.eql( {
-      page: 2,
-      offset: 20,
-      limit: 20
-    } );
+  it('BadRequestError is thrown when nav contains invalid values', () => {
+    try {
+      navValidator({
+        from: 'Truc'
+      });
+    } catch (error) {
+      assert.equal(error.name, 'BadRequestError');
+      return;
+    }
+    throw new Error('should not reach here');
+  });
 
-  } );
-
-  it( 'give it an offset and get all nav values', () => {
-
-    validators.nav( { offset: 20 } )
-
-    .should.eql( {
-      page: 2,
-      offset: 20,
-      limit: 20
-    } );
-
-  } );
-
-} )
+})

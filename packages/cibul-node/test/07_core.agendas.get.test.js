@@ -1,16 +1,10 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const axios = require('axios');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const api = require('../api');
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
-
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -21,12 +15,12 @@ describe('07 - core - functional (server): core.agendas().get', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '008.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -48,12 +42,11 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(92983929).events.search.rebuild();
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
 
@@ -66,9 +59,65 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     });
 
     it('detailed get provides consolidated schema', async () => {
-      const agenda = await core.agendas(92983929).get({ detailed: true });
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'administrator'
+      });
 
       expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
+    });
+
+    it('detailed get with internal access includes admin fields in schema', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'internal'
+      });
+
+      expect(
+        agenda.schema.fields
+          .map(f => f.field)
+          .filter(f => f === 'organisation-interne')
+          .length
+      ).toBe(1);
+    });
+
+    it('detailed get with internal access and includeEvent includes admin fields in schema', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'internal',
+        includeEvent: true
+      });
+
+      expect(
+        agenda.schema.fields
+          .map(f => f.field)
+          .filter(f => f === 'organisation-interne')
+          .length
+      ).toBe(1);
+    });
+
+    it('schema fields each include a schemaType', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        includeEvent: true
+      });
+
+      expect(
+        _.uniq(agenda.schema.fields.map(f => f.schemaType))
+      ).toEqual(['agenda', 'event']);
+    });
+
+    it('detailed gets returns a summary object', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true
+      });
+
+      expect(agenda.summary).toEqual({
+        keywords: [],
+        publishedEvents: { current: 0, passed: 0, upcoming: 0 },
+        recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 }
+      });
+
     });
 
   });
@@ -113,7 +162,6 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       it('get from administrator provides administrator-access field', () => {
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
-
     });
 
   });

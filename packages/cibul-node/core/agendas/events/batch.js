@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/batch');
 
-const tasks = require('../../tasks');
 const list = require('./list');
 const search = require('./search');
 const update = require('./update');
@@ -39,7 +38,7 @@ module.exports = core => {
       ...options
     };
 
-    return core.tasks.enqueue(search ? 'agendaBatchSearch' : 'agendaBatchList', agendaUid, operation, query, args);
+    return core.tasks.enqueue(search ? 'agendaBatchSearch' : 'agendaBatchList', agendaUid, operation, query, ...args);
   }
 }
 

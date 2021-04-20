@@ -172,9 +172,9 @@ describe('agenda-locations - functional - settings get', function() {
           groups: []
         },
         access: {
-          create: {...defaultAccess, authorized: false},
-          delete: {...defaultAccess, authorized: false},
-          merge: {...defaultAccess, authorized: false},
+          create: { ...defaultAccess, authorized: false },
+          delete: { ...defaultAccess, authorized: false },
+          merge: { ...defaultAccess, authorized: false },
           update: defaultAccess
         }
       });

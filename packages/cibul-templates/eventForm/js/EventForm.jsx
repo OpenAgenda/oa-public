@@ -9,7 +9,6 @@ import formLabels from '@openagenda/labels/event/form';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 import { Modal, Spinner } from '@openagenda/react-components';
-import References from '@openagenda/agenda-event-references/react/build/Editor';
 import Registration from '@openagenda/registration/lib/Registration.js';
 import TagSelector from '@openagenda/agenda-tags/build/TagSelector';
 import Translation from '@openagenda/react-form-components/build/Translation'; // suspected missing key prop
@@ -779,24 +778,6 @@ function EventFormFactory() {
             info={this.props.configuration.field( 'age' ).getInfo( true, false )}
             onChange={this.onChange( 'age' )}
             labelsLang={this.props.lang} /> : null}</div>;
-
-        }
-
-        if ( o.field === 'references' ) {
-
-          const sample = _.extend( _.pick( this.state, [ 'title', 'description', 'keywords', 'location', 'custom' ] ), {
-            tags: _.get( this.state, 'agendas.0.tags', [] ),
-            category: _.get( this.state, 'agendas.0.category' )
-          } );
-
-          return <div>{this.props.configuration.field( 'references' ).display( false ) ? <References
-            uid={this.state.uid}
-            initUids={this.state.references}
-            res={this.props.referenceRes}
-            info={this.props.configuration.field( 'references' ).getInfo( true, false )}
-            sample={sample}
-            onChange={this.props.onReferencesChange}
-          /> : null}</div>
 
         }
 

@@ -233,8 +233,7 @@ module.exports = [{
   }
 }, {
   field: 'references',
-  fieldType: 'integer',
-  list: true,
+  fieldType: 'references',
   optional: true,
   write: ['internal', 'public'],
   read: ['internal', 'public'],

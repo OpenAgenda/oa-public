@@ -16,11 +16,9 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     events,
     custom,
     agendaEvents,
-    formSchemas
   } = services;
 
   const {
-    internal,
     lang,
     load,
     access,
@@ -29,7 +27,6 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat,
     useLocationObjectFormat
   } = {
-    internal: false, // deprecated, use "access":"internal" - load internal use fields ( id )
     lang: null,
     load: {
       event: true,
@@ -91,22 +88,4 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   const result = await payload.getResponse('event', { access, load });
 
   return returnPayload ? result : result.event;
-}
-
-
-function _eventIsLoaded(payload) {
-  return !!payload.getItem('event');
-}
-
-
-function _flatten( event, lang ) {
-  return ih( event, [
-    'title',
-    'description',
-    'keywords',
-    'longDescription',
-    'conditions'
-  ].reduce( ( flattened, field ) => _.set( flattened, field, {
-    $set: _.get( event, [ field, lang ] , _.get( event, [ field, _.first( _.keys( event[ field ] ) ) ] ) )
-  } ), {} ) );
 }

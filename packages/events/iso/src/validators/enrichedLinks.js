@@ -20,7 +20,7 @@ const validateSingle = schema({
 module.exports = ({ field }) => v => {
   const clean = [];
   const errors = [];
-  const arrayOfValues = [].concat(v);
+  const arrayOfValues = [].concat(v).filter(v => v !== undefined);
 
   for (const index in arrayOfValues) {
     try {
@@ -33,6 +33,8 @@ module.exports = ({ field }) => v => {
       }
     }
   }
+
+  if (errors.length) throw errors;
 
   return clean;
 }

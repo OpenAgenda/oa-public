@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const Core = require('../core');
@@ -14,12 +13,12 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'queues',
         'files',
         'events',
@@ -40,10 +39,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('simple get', () => {
     let event;
@@ -54,6 +50,10 @@ describe('core - functional (server): core.agendas().events.get()', function() {
 
     it('requested event is returned directly by get', () => {
       expect(event.uid).toBe(1);
+    });
+
+    it('addMethod', () => {
+      expect(event.addMethod).toBe('share');
     });
 
     it('additional field is provided', () => {

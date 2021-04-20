@@ -42,6 +42,7 @@ module.exports = async function (configObject, options = {}) {
   // init services
 
   await init('knex', require('./knex'));
+  await init('redis', require('./redis'))
   await init('errors', require('./errors'));
   await init('tracker', require('./tracker'));
   await init('redisConfigStore', require('./redisConfigStore'));
@@ -58,7 +59,6 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaCategories', require('./agendaCategories'));
   await init('agendaContribute', require('./agendaContribute'));
   await init('agendaDocx', require('./agendaDocx'));
-  await init('agendaEventReferences', require('./agendaEventReferences'));
   await init('agendaEvents', require('./agendaEvents'));
   await init('agendaLocations', require('./agendaLocations'));
   await init('agendaSettings', require('./agendaSettings'));
@@ -99,9 +99,21 @@ module.exports = async function (configObject, options = {}) {
 
   log(`initialized in ${debug.useColors() ? color(3, timeDiff) : timeDiff}ms`);
 
-  return init.services;
+  return applyShutdown(init.services);
 };
 
+function applyShutdown(services) {
+  services.shutdown = async (options = {}) => {
+    for (const name of Object.keys(services).reverse()) {
+      const service = services[name];
+      if (service.shutdown) {
+        log('shutting down %s', name);
+        await service.shutdown(options);
+      }
+    }
+  }
+  return services;
+}
 
 function createInitier(config, options) {
   const services = {};

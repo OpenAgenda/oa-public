@@ -412,7 +412,11 @@
     "slug": "agenda-emploi-insertion-bondy-noisy-le-sec-romainville",
     "updatedAt": "2020-11-16T13:32:10.000Z",
     "recentlyContributedEvents": 1,
-    "id": 5
+    "id": 5,
+    "locationSet": {
+      "uid": 1,
+      "name": "Jeu de lieux"
+    }
   },
   {
     "image": "https://cibul.s3.amazonaws.com/agenda89954817.jpg",

@@ -2,7 +2,6 @@
 
 const assert = require('assert');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
@@ -14,12 +13,12 @@ describe('13 - core - functional(server): core.agendas().locations.merge', funct
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'tracker',
         'accessTokens',
         'files',
@@ -42,10 +41,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', funct
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   beforeAll(async () => {
     // the merge does not find the locations as they are not listed in the agenda.

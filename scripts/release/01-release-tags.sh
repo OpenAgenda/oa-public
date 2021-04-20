@@ -11,16 +11,20 @@ NL=$'\n'
 
 MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 
-# Ask for dependency bumps
 if [[ $(git rev-parse --abbrev-ref HEAD) == "$MAIN_BRANCH" ]]; then
-  YARN_CHANGESET_BASE_REFS=$(git --no-pager log -1 --format="%H" --tags --abbrev=0) yarn version check -i
+  YARN_CHANGESET_BASE_REFS=$(git --no-pager log -1 --format="%H" --tags --abbrev=0)
 else
-  yarn version check -i
+  YARN_CHANGESET_BASE_REFS=""
 fi
+
+# Ask for dependency bumps
+YARN_CHANGESET_BASE_REFS=$YARN_CHANGESET_BASE_REFS yarn version check -i
+
+echo
 
 # Bump the packages, and store which ones have been bumped (and thus need to be re-released)
 echo 'Apply versions...'
-RELEASE_DETAILS=$(yarn version apply --all --json)
+RELEASE_DETAILS=$(YARN_CHANGESET_BASE_REFS=$YARN_CHANGESET_BASE_REFS yarn version apply --all --json)
 
 echo
 
@@ -38,8 +42,6 @@ PUBLIC_COMMIT_MESSAGE=""
 UPDATE_ARGUMENTS=()
 
 while read -r line; do
-  echo "$line"
-
   IDENT=$(jq -r .ident <<<"$line")
   VERSION=$(jq -r .newVersion <<<"$line")
   PACKAGE_CWD=$(jq -r .cwd <<<"$line")
@@ -57,9 +59,10 @@ while read -r line; do
 
   UPDATE_ARGUMENTS+=(--include "$IDENT")
 
+  echo "Prepacking $IDENT (Bumped to $VERSION)"
+
   yarn workspace "$IDENT" pack --dry-run >&/dev/null || (
     echo "Couldn't run prepack on $IDENT"
-    exit 1
   )
 done <<<"$RELEASE_DETAILS"
 

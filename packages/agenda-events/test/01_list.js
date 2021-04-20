@@ -11,7 +11,6 @@ const fixtures = require('./fixtures');
 
 const membersFixtures = require('./fixtures/members.json');
 const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
-const { equal } = require('assert');
 
 
 describe('agendaEvents - 01 - functional (server): list', function() {
@@ -104,9 +103,9 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   });
 
   it('list filtered by aggregated boolean', async () => {
-    const result = await svc(62792452).list({ aggregated: true }, 0, 0);
+    const result = await svc(62792452).list({ aggregated: false }, 0, 0);
 
-    assert.equal(result.total, 1);
+    assert.equal(result.total, 2);
   });
 
   it('total gives an integer equal to the total number of items', async () => {
@@ -144,7 +143,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   it('listByLastId for faster list', async () => {
     const result = await svc(62792452).listByLastId(0, 10);
 
-    result.items.length.should.equal(10);
+    assert.equal(result.items.length, 10);
 
     const lastId = result.lastId;
 
@@ -160,10 +159,20 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     assert.equal(items.length, 1);
   });
 
+  it('fix: aggregated is true if is referenced as such in db', async () => {
+    const { items } = await svc.list.byEventUid(60059313, 0, 20);
+    assert.equal(items[0].aggregated, true);
+  });
+
+  it('list by event uids', async () => {
+    const { total } = await svc.list.byEventUid([54434612, 28028226], 0, 20);
+    assert.equal(total, 2);   
+  });
+
   it('list by event uid and filtering out agenda uid from results', async () => {
     const { items } = await svc.list.byEventUid(54434612, { excludeAgendaUid: 62792452 }, 0, 1);
 
-    assert.equal(items.length ,0);
+    assert.equal(items.length ,0);  
   });
 
   it('list by event uid and filtering by canEdit', async () => {

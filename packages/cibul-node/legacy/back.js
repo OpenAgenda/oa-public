@@ -8,7 +8,6 @@ const qs = require( 'qs' );
 
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
-const referencesSvc = require( '@openagenda/agenda-event-references' );
 const utils = require( '@openagenda/utils' );
 
 const agendaSvc = require('@openagenda/agendas');
@@ -95,16 +94,7 @@ module.exports = app => {
     apiSystem
   );
 
-  /**
-   * process a save for event references
-   */
-  app.post(
-    '/legacy/:slug/events/:eventUid/references',
-    preMw,
-    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    _loadEventByUid,
-    referencesSave
-  );
+  
 
   /**
    * process an event delete
@@ -283,30 +273,6 @@ function _loadEventByUid( req, res, next ) {
 
 }
 
-
-function referencesSave( req, res, next ) {
-
-  req.log( 'received request to save references for uids %s', req.body.uids );
-
-  req.agenda.search( { uids: req.body.uids || [] }, { showAll: true, limit: 150 }, ( err, result ) => {
-
-    if ( err ) return next( err );
-
-    req.log( 'events added as reference: %s', result.events.map( e => e.slug + ':' + e.id ).join( ',' ) );
-
-    const refIds = result.events.map( e => parseInt( e.id.split( '@' )[ 0 ] ) );
-
-    referencesSvc( req.agenda.id ).set( req.event.id, refIds, err => {
-
-      req.log( 'references for event %s set: %s', req.event.id, refIds.join( ', ' ) );
-
-      res.send( 'ok' );
-
-    } );
-
-  } );
-
-}
 
 function api( req, res ) {
 

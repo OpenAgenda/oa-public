@@ -1,0 +1,25 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "state": 2,
+      "addMethod": "contribution"
+    },
+    {
+      "uid": 2,
+      "state": 2,
+      "addMethod": "share"
+    },
+    {
+      "uid": 3,
+      "state": 2,
+      "addMethod": "aggregation"
+    },
+    {
+      "uid": 4,
+      "state": 1,
+      "addMethod": "contribution"
+    }
+  ]
+}

@@ -1,69 +1,78 @@
-"use strict";
+'use strict';
 
-const schemas = require( '@openagenda/validators/schema' ),
+const schemas = require('@openagenda/validators/schema');
 
-defaults = {
-  page: null,
-  offset: 0,
-  limit: 20
-};
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 
-schemas.register( {
-  number: require( '@openagenda/validators/number' )
-} );
+schemas.register({
+  number: require('@openagenda/validators/number'),
+  integer: require('@openagenda/validators/integer'),
+  regex: require('@openagenda/validators/regex'),
+  text: require('@openagenda/validators/text')
+});
 
-const schema = schemas( {
+const schema = schemas({
   page: {
-    type: 'number',
+    type: 'integer',
     optional: true,
-    default: defaults.page,
+    default: null,
     min: 1
   },
-  offset: {
-    type: 'number',
+  from: {
+    type: 'integer',
     optional: true,
-    default: defaults.offset
+    default: 0
   },
-  limit: {
-    type: 'number',
+  size: {
+    type: 'integer',
     optional: true,
-    default: defaults.limit,
+    default: 20,
     max: 100
+  },
+  after: {
+    type: 'text',
+    list: { default: null },
+    optional: true
+  },
+  sort: {
+    type: 'regex',
+    optional: true,
+    error: {
+      code: 'sort.invalid',
+      message: 'sort value is not valid'
+    },
+    regex: /(createdAt|recentlyContributed)\.desc/,
+    default: null
   }
-} );
+});
 
-module.exports = function( navQuery ) {
-
-  let clean = {
-    page: defaults.page,
-    offset: defaults.offset,
-    limit: defaults.limit
-  };
+module.exports = navQuery => {
+  let clean;
 
   try {
-
-    clean = schema( navQuery );
-
-  } catch( e ) {
-
-    console.error( 'got nav errors: %s', e );
-
+    clean = schema(navQuery);
+  } catch(e) {
+    throw new BadRequestError('nav', e);
   }
 
-  if ( clean.page !== null ) {
-
-    clean.offset = ( clean.page - 1 ) * clean.limit;
-
+  if (clean.page !== null) {
+    clean.from = (clean.page - 1) * clean.size;
   } else {
-
-    clean.page = Math.ceil( clean.offset / clean.limit + 1 );
-
+    clean.page = Math.ceil(clean.from / clean.size + 1);
   }
 
-  return {
-    offset: clean.offset,
-    limit: clean.limit,
-    page: clean.page
-  }
+  if (clean.after !== null) {
+    return {
+      after: clean.after,
+      size: clean.size,
+      sort: clean.sort
+    };
+  };
 
-}
+  return Object.keys(clean).reduce((nav, field) => {
+    if (clean[field] !== null) {
+      nav[field] = clean[field];
+    }
+    return nav;
+  }, {});
+};

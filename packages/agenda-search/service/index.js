@@ -20,8 +20,7 @@ module.exports = (config = {}) => {
     defaultImage,
     imagePath,
     elasticsearch,
-    site,
-    logo
+    site
   } = {
     alias: 'agendas',
     site: {

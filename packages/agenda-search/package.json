@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.13.10",
     "@elastic/elasticsearch": "^7.0.0",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/labels": "^2.3.0",
@@ -41,14 +41,14 @@
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/node": "^7.12.6",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@storybook/react": "^6.1.0",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
@@ -58,8 +58,7 @@
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "rimraf": "^3.0.1",
-    "should": "^13.2.3"
+    "rimraf": "^3.0.1"
   },
   "peerDependencies": {
     "react": "^16.12.0"

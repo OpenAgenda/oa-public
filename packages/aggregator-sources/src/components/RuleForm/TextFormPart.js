@@ -5,6 +5,7 @@ import { Field, useForm } from 'react-final-form';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import formLabels from '@openagenda/labels/event/form';
 import getLocalValue from '../../utils/getLocalValue';
+import stringType from '../../utils/stringType';
 import messages from './messages';
 
 const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
@@ -14,7 +15,7 @@ const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
   })
 );
 
-export default ({ sourceSchema }) => {
+export default ({ sourceSchema = { fields: [] } }) => {
   const intl = useIntl();
   const form = useForm();
 
@@ -22,7 +23,7 @@ export default ({ sourceSchema }) => {
 
   const options = useMemoOne(
     () => sourceSchema.fields
-      .filter(v => ['text', 'textarea', 'markdown'].includes(v.fieldType))
+      .filter(v => stringType.includes(v.fieldType))
       .concat(eventFields)
       .map(({ field, label }) => ({
         value: field,

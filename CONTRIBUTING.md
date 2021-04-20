@@ -1,3 +1,18 @@
+## Set up Yarn
+
+The `public` submodule must work independently of the main repo, for that you have to tell Yarn that it must use the same `yarn.lock` for the submodule when working on `public` from OA.
+For that add the following line to your `.profile`, `.bashrc` or `.zshrc`:
+
+```bash
+export OA_PUBLIC_LOCKFILE="yarn.lock"
+```
+
+> If you want to install both oa and oa-public, you must install [`direnv`](https://direnv.net/) and add an `.envrc` with the following content in your `oa-public` repo:
+> 
+> ```bash
+> export OA_PUBLIC_LOCKFILE="yarn.lock-workspace"
+> ```
+
 ## Set up git
 
 OA contains a git submodule with the public packages.
@@ -26,6 +41,19 @@ For more details about git submodules see https://git-scm.com/book/en/v2/Git-Too
 > ```bash
 > export GIT_STATUS_IGNORE_SUBMODULES=none
 > ```
+
+`git sstatus` is not accessible from the public submodule, for that you can replace the `gss` alias in your `.zshrc` with these lines:
+
+```bash
+unalias gss
+gss() {
+  local dir=$(git rev-parse --show-superproject-working-tree --show-toplevel | head -1)
+
+  [ -z "$dir" ] && return
+
+  git -C "$dir" status -sb && git -C "$dir" submodule foreach "git status -sb"
+}
+```
 
 ## Commit Message Guidelines
 
@@ -172,3 +200,9 @@ cd public && git push --tags
 ```
 
 More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/release-workflow).
+
+## Troubleshoot
+
+### Updating public submodule reference
+
+It may occure that the reference to the submodule commit in the monorepo has not been automatically updated. When this happens, a git diff on the root of the monorepo hints that there have been commits on the submodule that have not been accounted for. Commiting the public submodule on the monorepo updates the submodule reference.

@@ -7,7 +7,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
-import testconfig from './testconfig';
+import config from './test/config';
 import Service from './';
 import listInterface from './test/app/listInterface';
 import getAgendaSummary from './test/app/getAgendaSummary';
@@ -20,11 +20,11 @@ app.server = server;
 
 (async () => {
   const service = Service({
-    alias: testconfig.alias,
-    elasticsearch: testconfig.elasticsearch,
+    alias: config.alias,
+    elasticsearch: config.elasticsearch,
     listAgendas: listInterface('story', 100, a => a),
-    imagePath: testconfig.imagePath,
-    defaultImage: testconfig.defaultImage,
+    imagePath: config.imagePath,
+    defaultImage: config.defaultImage,
     getAgendaSummary: getAgendaSummary('story')
   });
 

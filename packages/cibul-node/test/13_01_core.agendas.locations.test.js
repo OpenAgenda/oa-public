@@ -6,7 +6,6 @@ const assert = require('assert');
 const FormData = require('form-data');
 const fs = require('fs');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const api = require('../api');
@@ -20,12 +19,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'tracker',
         'accessTokens',
         'files',
@@ -48,10 +47,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('list', function() {
     let result;
@@ -539,12 +535,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
   describe('sets and interfaces', () => {
 
-    beforeEach(() => {
-      core.services.agendaLocations.task({ reset: true });
+    beforeAll(async () => {
+      await core.services.agendaLocations.task({
+        reset: true
+      });
     });
 
-    afterEach(() => {
-      core.services.agendaLocations.task.stop({ reset: true });
+    afterAll(async () => {
+      await core.services.agendaLocations.task.stop({
+        reset: true
+      });
     });
 
     describe('create and update', () => {

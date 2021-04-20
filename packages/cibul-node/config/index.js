@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const fs = require('fs');
-const redis = require('redis');
 const debug = require('debug');
 
 const prod = require('./prod');
@@ -297,10 +296,11 @@ const config = {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
     translators: [ // user uids for crowdin translators
-      31046551,
-      75052324,
-      99999999,
-      55507091
+      31046551, // Kévin
+      75052324, // Kaoré
+      99999999, // Romain
+      55507091, // Clément
+      91586633 // rendezvous@dggl.org (Susanne Yacoub)
     ],
     routes: {
       globals: {
@@ -936,8 +936,6 @@ currentConfig.loadEnv = _loadEnv;
 currentConfig.emailStrategieDb = _.merge({}, currentConfig.db, {
   database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
 });
-
-currentConfig.redisClient = redis.createClient(currentConfig.redis.port, currentConfig.redis.host);
 
 if (process.env.DEBUG) {
   currentConfig.logger.debug.enable = process.env.DEBUG;

@@ -21,7 +21,7 @@
     "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.12.5",
+    "@babel/runtime-corejs3": "^7.13.10",
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/call-to-action": "^2.2.16",
     "@openagenda/labels": "^2.3.0",
@@ -49,10 +49,10 @@
     "slugify": "^1.4.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/node": "^7.12.6",
-    "@babel/register": "^7.12.1",
+    "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/register": "^7.13.14",
     "@loadable/babel-plugin": "^5.13.0",
     "@loadable/component": "^5.13.1",
     "@openagenda/babel-preset": "^1.4.1",
@@ -60,7 +60,7 @@
     "@openagenda/files": "^3.1.0",
     "@openagenda/keys": "^2.2.10",
     "@storybook/react": "^6.1.0",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "body-parser": "^1.15.2",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",

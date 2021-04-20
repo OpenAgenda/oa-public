@@ -7,11 +7,12 @@ const list = require('./list');
 const get = require('./get');
 const update = require('./update');
 const remove = require('./remove');
-const allow = require('./lib/AllowAction');
+const authorize = require('./lib/authorize');
 
-async function merge(service, mergeInItem, items, data = null) {
+async function merge(service, mergeInItem, items, data = null, options = {}) {
   log('received %j', items);
-  await allow(service, 'merge', mergeInItem.uid);
+
+  await authorize(service, 'merge', mergeInItem.uid, options);
 
   const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
 
@@ -64,7 +65,8 @@ module.exports.byAgendaUid = async (
     {},
     { ...options, total: null, detailed: true }
   ),
-  data
+  data,
+  options
 );
 
 module.exports.bySetUid = async (
@@ -84,5 +86,6 @@ module.exports.bySetUid = async (
     {},
     { ...options, total: null, detailed: true }
   ),
-  data
+  data,
+  options
 );

@@ -208,12 +208,8 @@ module.exports = {
     "io": "crwdns12252:0crwdne12252:0"
   },
   "mergenoselection": {
-    "fr": "Vous n'avez encore sélectionné aucun lieu à fusionner", //  Une fois votre sélection faite, lancez la fusion. Vous pourrez sélectionner les valeurs à retenir
-    "en": "Once your selection is done, launch the merge.", // to choose the values to save in the merged location
-    "de": "Sobald Sie Deine Auswahl abgeschlossen ist, starte die Zusammenführung.", // die Werte zu wählen, in dem fusionierten Ort zu speichern
-    "es": "Una vez hecha la selección, inicie la combinación.", // Puede seleccionar los valores a ser
-    "br": "Pa vo graet ho tiuzadenn, lañsit ar c'hendeuziñ.", // Gallout a rit choaz an talvoudoù da enrollañ el lec'h kendeuzet
-    "it": "Una volta effettuata la selezione, avviare la fusione." // Sarete in grado di selezionare i valori da ricordare
+    "fr": "Vous n'avez encore sélectionné aucun lieu à fusionner",
+    "en": "You haven't selected any location to merge",
   },
   "mergeselection": {
     "fr": "Vous avez actuellement sélectionné %count% lieux.",

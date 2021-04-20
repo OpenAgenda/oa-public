@@ -19,10 +19,10 @@ export default function Checkbox({
 
   return (
     <div className={cn('checkbox', { disabled })}>
-      <label htmlFor={seed(input.value)}>
+      <label htmlFor={seed(input)}>
         <input
           type="checkbox"
-          id={seed(input.value)}
+          id={seed(input)}
           disabled={disabled}
           {...input}
         />{' '}

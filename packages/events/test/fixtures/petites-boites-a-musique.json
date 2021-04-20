@@ -10,6 +10,7 @@
     "locationUid": 46084324,
     "image": "950de3a396df447dbb66364d036e0067.base.image.jpg",
     "imageCredits": "MEL",
+    "references": [123, 456, 789],
     "title": {
         "fr": "ANNULÉ : Petites boîtes à musique"
     },

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import AgendaItem from './AgendaItem';
-import SearchField from '@openagenda/react-form-components/build/SearchField';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import { List } from '@openagenda/react-components';
 import get from '@openagenda/utils/get';
 import actions from './actions';
-import utils from '@openagenda/utils';
 import labels from '@openagenda/labels/agenda-search';
 import makeLabelGetter from '@openagenda/labels';
 import documentLocation from '@openagenda/dom-utils/documentLocation';
@@ -38,6 +35,9 @@ class Body extends Component {
 
   componentDidMount() {
     monitorField('.js_agenda_search', search => this.resetPage({ search }));
+    if (this.props.loadOnMount) {
+      this.resetPage();
+    }
   }
 
   prepareGetQuery(query, page) {
@@ -80,7 +80,7 @@ class Body extends Component {
     this.resetPage({ search });
   }
 
-  resetPage(newQuery) {
+  resetPage(newQuery = {}) {
     this.setState({ loading: true });
 
     get(this.props.res, this.getHrefQuery({ page: 1, ...newQuery }), (err, data) => {
@@ -98,7 +98,7 @@ class Body extends Component {
     const filtered = {};
 
     Object.keys(query).forEach(k => {
-      if (query[ k] === null) return;
+      if (query[k] === null) return;
 
       if (typeof query[k] === 'string' && !query[k].length) return;
 
@@ -120,6 +120,12 @@ class Body extends Component {
     </div>
   }
 
+  renderLocationSetHead() {
+    return <div className="header">
+      <h1>{this.props.locationSet.title}</h1>
+    </div>
+  }
+
   renderSearchHead() {
     return <div className="header">
       <h1>{getLabel('results', { search: this.state.query.search }, this.props.lang)}</h1>
@@ -132,6 +138,8 @@ class Body extends Component {
       return this.renderSearchHead();
     } else if (this.props.network) {
       return this.renderNetworkHead();
+    } else if (this.props.locationSet) {
+      return this.renderLocationSetHead();
     } else {
       return this.renderDefaultHead();
     }
@@ -167,7 +175,8 @@ Body.propTypes = {
   agendas: PropTypes.array,
   page: PropTypes.number,
   lang: PropTypes.string,
-  query: PropTypes.object
+  query: PropTypes.object,
+  loadOnMount: PropTypes.bool
 };
 
 Body.defaultProps = {
@@ -175,7 +184,8 @@ Body.defaultProps = {
   agendas: [],
   page: 1,
   lang: 'fr',
-  query: null
+  query: null,
+  loadOnMount: false
 };
 
 module.exports = Body;

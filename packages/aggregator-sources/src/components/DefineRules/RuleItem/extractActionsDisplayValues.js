@@ -77,6 +77,7 @@ export default ({
     set: isSet(action),
   };
 
+  console.log('extratActionsIdplayValues action:', action, getValues(action));
   if (type === 'state') {
     return {
       ...base,
@@ -96,8 +97,9 @@ export default ({
       detail: null,
     };
   }
-
+  // console.log('field: ', field);
   const label = getLocalValue(field.label);
+  // console.log('label: ', label);
 
   if (action.automatic) {
     return {
@@ -112,12 +114,23 @@ export default ({
     };
   }
 
-  const matchingOptions = getValues(action).map(value => field.options.filter(o => o.id === value).pop());
+  const matchingOptions = getValues(action).map(value => field.options?.filter(o => o.id === value).pop());
+
+  // console.log('matchingOptions', matchingOptions, matchingOptions.length);
+  console.log(
+    'value : ',
+    matchingOptions[0] !== undefined
+      ? matchingOptions.map(o => getLocalValue(o?.label)).join(', ')
+      : getValues(action)[0]
+  );
 
   return {
     ...base,
     label,
-    value: matchingOptions.map(o => getLocalValue(o.label)).join(', '),
+    value:
+      matchingOptions[0] !== undefined
+        ? matchingOptions.map(o => getLocalValue(o?.label)).join(', ')
+        : getValues(action)[0],
     detail: intl.formatMessage(
       messages.aggregatorAgendaChoiceFieldValueDetail,
       {

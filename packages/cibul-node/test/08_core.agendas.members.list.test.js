@@ -2,11 +2,7 @@
 
 const _ = require('lodash');
 const axios = require('axios');
-const knex = require('knex');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
 const api = require('../api');
@@ -20,12 +16,12 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'accessTokens',
         'files',
         'queues',
@@ -48,10 +44,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('results contents', function() {
     let result;
@@ -78,7 +71,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
 
   describe('api', function() {
     const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
-    let server, accessToken, response;
+    let server, response;
 
     beforeAll(done => {
        server = api(core).listen(3000, done);

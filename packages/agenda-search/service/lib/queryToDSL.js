@@ -1,23 +1,11 @@
 'use strict';
 
-const _ = require('lodash');
-const validate = require('../../validators/query');
-
-module.exports = (query, from = 0, size = 10) => {
+module.exports = (query, nav) => {
   const mustPart = [];
   const filteredPart = [];
 
-  const inflatedQuery = Object.keys(query).reduce((inflated, key) => _.set(
-    inflated,
-    key.split('.'),
-    query[key]
-  ), {});
-
-  const clean = validate(inflatedQuery);
-
   const dsl = {
-    from,
-    size,
+    size: nav.size,
     _source: { excludes: ['*_es'] },
     query: {
       bool: {
@@ -46,28 +34,34 @@ module.exports = (query, from = 0, size = 10) => {
       }
     }
   };
+  
+  if (nav.after) {
+    dsl.search_after = nav.after;
+  } else {
+    dsl.from = nav.from;
+  }
 
-  if (clean.contributionType) {
+  if (query.contributionType) {
     filteredPart.push({
       terms: {
-        'settings.contribution.type' : clean.contributionType
+        'settings.contribution.type' : query.contributionType
       }
     });
   }
 
-  if (clean.updatedAt.lte || clean.updatedAt.gte) {
-    filteredPart.push(_timestampFilter('updatedAt', clean.updatedAt));
+  if (query.updatedAt.lte || query.updatedAt.gte) {
+    filteredPart.push(_timestampFilter('updatedAt', query.updatedAt));
   }
 
-  if (clean.uid) {
+  if (query.uid) {
     filteredPart.push({
       terms: {
-        uid: clean.uid
+        uid: query.uid
       }
     });
   }
 
-  if (clean.sort) {
+  if (nav.sort) {
     dsl.sort = ({
       'createdAt.desc' : [{
         createdAt: {
@@ -79,14 +73,22 @@ module.exports = (query, from = 0, size = 10) => {
           order: 'desc'
         }
       }]
-    })[clean.sort];
+    })[nav.sort];
+  } else {
+    dsl.sort = [
+      '_score'
+    ];
   }
 
+  dsl.sort.push({
+    uid: { order: 'asc' }
+  });
+
   // when a text search is made, look into title and description
-  if (clean.search !== null) {
+  if (query.search !== null) {
     mustPart.push({
       multi_match: {
-        query: clean.search,
+        query: query.search,
         type: 'best_fields',
         fields: [
           'title^4', 'description^2', 'keywords^1'
@@ -100,20 +102,28 @@ module.exports = (query, from = 0, size = 10) => {
     });
   }
 
-  if (clean.official !== null) {
+  if (query.official !== null) {
     filteredPart.push({
       term: {
-        official: clean.official
+        official: query.official
       }
     });
   }
 
-  if (clean.network !== null) {
+  if (query.network !== null) {
     filteredPart.push({
       term: {
-        'network.uid': clean.network
+        'network.uid': query.network
       }
     })
+  }
+
+  if (query.locationSet !== null) {
+    filteredPart.push({
+      term: {
+        'locationSet.uid': query.locationSet
+      }
+    });
   }
 
   if (mustPart.length) {

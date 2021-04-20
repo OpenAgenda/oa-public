@@ -3,6 +3,7 @@
 const expressUtils = require('@openagenda/utils/express');
 const agendaSearchPage = require('./lib/agendaSearchPage');
 const loadNetwork = require('./lib/loadNetwork');
+const loadLocationSet = require('./lib/loadLocationSet');
 const modifiedSince1am = require('./lib/modifiedSince1am');
 const redirect = require('./lib/redirect');
 
@@ -12,6 +13,7 @@ module.exports = (config, services, agendaSearch, app, base) => {
     redirect.slashed,
     modifiedSince1am,
     loadNetwork,
+    loadLocationSet,
     agendaSearch.mw.list,
     agendaSearchPage(config)
   );

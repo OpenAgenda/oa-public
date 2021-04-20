@@ -38,7 +38,7 @@ describe('event-form eventSchema', () => {
 
   test('event schema fields can be excluded altogether', () => {
     const es = eventSchema( {
-      excludeEventFields: true,
+      includeEventFields: false,
       schemaExtensions: [ {
         fields: [ {
           field: 'title',

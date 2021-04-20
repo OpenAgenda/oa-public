@@ -2,25 +2,22 @@
 
 const _ = require('lodash');
 const { promisify } = require('util');
-const w = require('when');
 
 const contributorLabels = require('@openagenda/labels/event/contributors');
-const eventReferences = require('@openagenda/agenda-event-references');
-const __ = require('@openagenda/labels')(require('@openagenda/labels/event/states'));
 
 const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
 const legacyAgendaSvc = require('../services/agenda');
-const activitiesSvc = require('../services/activities');
 
 const getAgendaTags = promisify(require('@openagenda/agenda-tags').get);
 const { getRoleSlug } = require('@openagenda/members').utils;
+const renderReferences = _.template(require('fs').readFileSync(__dirname + '/references.tpl'));
 
 module.exports = app => {
   const {
     sessions,
     members,
-    agendas
+    core
   } = app.services;
 
   app.get(
@@ -61,35 +58,30 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/events/:eventUid/references',
-    legacyAgendaSvc.mw.load('uid'),
     sessions.mw.load(),
-    members.mw.loadOr((req, res) => {
-      res.json({ references: null });
+    (req, res, next) => core
+      .agendas(req.params.uid)
+      .events
+      .get(req.params.eventUid)
+      .then(event => {
+        req.originAgendaUid = event.agendaUid;
+        req.references = event.references;
+        next();
+      }, next),
+    (req, res, next) => req.references?.length ? next() : res.json({
+      references: null,
+      events: []
     }),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    legacyEventSvc.mw.components.getReferences,
-    (req, res, next) => {
-      res.json({
-        references: req.referencesRender,
-        events: _monolingual(_.get(req, 'references', []), ['title', 'dateRange', 'description'], req.lang)
-      });
-    }
- );
-
-  app.get(
-    '/agendas/:uid/events',
-    sessions.mw.loadOrRedirect(),
-    legacyAgendaSvc.mw.load('uid'),
-    members.mw.load,
-    (req, res, next) => {
-      req.agendaId = req.agenda.id;
-      if (req.member) {
-        req.access = members.utils.getRoleSlug(req.member.role);
-      }
-      next();
-    },
-    eventReferences.mw.events,
-    (req, res) => res.json(_.pick(req, ['events']))
+    (req, res, next) => core
+      .agendas(req.originAgendaUid)
+      .events
+      .search({ uid: req.references }, {}, { monolingual: req.lang })
+      .then(({ events }) => {
+        res.json({
+          references: renderReferences({ events }),
+          events
+        });
+      }, next)
  );
 
   app.get([
@@ -100,45 +92,25 @@ module.exports = app => {
       req.agenda = { uid: req.params.uid };
       next();
     },
-    members.mw.load,
     (req, res, next) => {
-      req.sample = Object.keys(req.query.sample).reduce((clean, field) => {
-        if (field === 'custom') { // custom key is no longer necessary
-          return {
-            ...clean,
-            ...req.query.sample.custom
-          }
-        } else {
-          return {
-            ...clean,
-            [field]: req.query.sample[field]
-          }
-        }
-      }, {});
+      req.sample = req.query.sample;
       req.agendaUid = req.params.uid;
       req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
       next();
     },
-    (req, res, next) => {
-      const memberRole = req.app.services.members.utils.getRoleSlug(req.member.role);
+    (req, res) => {
       req.app.services.core.agendas(req.params.uid).events.search({
         date: {
           gte: JSON.stringify(new Date()).split('T')[0],
           timezone: 'Europe/Paris'
         },
         mlt: req.sample,
-        boost: req.query.boost,
-        state: ['administrator', 'moderator'].includes(memberRole) ? null : 2
+        boost: req.query.boost
       }, {}, {
-        access: memberRole
-      }).then(({ events }) => {
-        res.json({
-          events: _monolingual(events
-            .filter(e => !req.exclude.includes(e.uid))
-            .slice(0, parseInt(req.query.limit || 20)),
-          ['title', 'dateRange', 'description'],
-          req.lang)
-        });
+        userUid: req?.user.uid,
+        monolingual: req.lang
+      }).then(result => {
+        res.json(result);
       });
     });
 
@@ -150,6 +122,9 @@ module.exports = app => {
       or: (req, res) => res.json({ count: 0})
     }),
     (req, res, next) => {
+      const {
+        activities: activitiesSvc
+      } = req.app.services;
 
       const limit = 20;
 
@@ -189,16 +164,6 @@ module.exports = app => {
     }
  );
 
-}
-
-
-
-function _monolingual(events, multilingualFields, preferredLang = 'en') {
-  return events.map(ev => _.keys(ev)
-    .reduce((e, k) => _.set(e, k, multilingualFields.includes(k) ?
-      _.get(ev, [k, preferredLang], ev[k][_.first(_.keys(ev[k]))])
-      : ev[k])
-    , {}));
 }
 
 

@@ -26,6 +26,7 @@ module.exports = (service, query, nav, options = {}) => {
     'user_uid',
     'can_edit',
     'state',
+    'aggregated',
     'featured',
     'legacy_id'
   ];

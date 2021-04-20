@@ -1,14 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
-const axios = require('axios');
-const mysql = require('mysql');
-const { promisify } = require('util');
-
-const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
 
-const api = require('../api');
 const Services = require('../services/init');
 const Core = require('../core');
 
@@ -18,12 +11,12 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '013.sql'));
-  beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'redis',
         'accessTokens',
         'files',
         'queues',
@@ -44,10 +37,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
-    core.services.knex.destroy();
-    testConfig.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core.networks.agendas.add', () => {
 

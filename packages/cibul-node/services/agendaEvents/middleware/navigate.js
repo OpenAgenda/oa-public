@@ -1,6 +1,7 @@
 'use strict';
 
 const qs = require('qs');
+const log = require('@openagenda/logs')('services/agendaEvents/middleware/navigate');
 
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
 const PAGE_SIZE = 20;
@@ -32,6 +33,7 @@ function getRequestedAdminNav(nav, total, page, index) {
 }
 
 module.exports = async function navigate(req, res, next) {
+  log('navigating');
   try {
     const { agenda } = req;
     const { core } = req.app.services;
@@ -63,8 +65,6 @@ module.exports = async function navigate(req, res, next) {
     const pos = (page - 1) * PAGE_SIZE + index;
     const query = removeQueryPrefix(adminNav);
 
-    const access = req.member.role === 2 ? 'administrator' : 'moderator';
-
     const { total, events } = await core
       .agendas(req.agenda.uid)
       .events.search({
@@ -75,10 +75,8 @@ module.exports = async function navigate(req, res, next) {
         size: 1
       }, {
         ...query,
-        access
+        userUid: req.user.uid
       });
-
-    console.log(getRequestedAdminNav(nav, total, page, index));
 
     const queryString = qs.stringify({
       ...restQuery,
@@ -95,6 +93,8 @@ module.exports = async function navigate(req, res, next) {
     if (!events.length) {
       next({ code : 404 });
     }
+
+    log('redirecting to %s event %s', nav, events[0].slug);
 
     res.redirect(`/${agenda.slug}/events/${events[0].slug}${queryString}`);
   } catch (e) {

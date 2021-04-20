@@ -52,7 +52,10 @@ module.exports = attr => {
   }
   if (['1', 'on', 'true', true].includes(attr.auto)) {
     state.auto = true;
+  } else if (['0', 'off', 'false'].includes(attr.auto)) {
+    state.auto = false;
   }
+  
   if (attr.latitude && attr.longitude) {
     state.center = [parseFloat(attr.latitude), parseFloat(attr.longitude)];
     state.explicitInitialPosition = true;
