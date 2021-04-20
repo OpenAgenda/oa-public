@@ -1,0 +1,10 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": "Fichiers acceptés",
+  "ReactShared.ImageInput.fileTooLarge": "Le fichier {fileName} fait {fileSize}, la limite maximale est de {maxSize}.",
+  "ReactShared.ImageInput.fileTooSmall": "Le fichier {fileName} fait {fileSize}, la limite minimale est de {minSize}.",
+  "ReactShared.ImageInput.notSupported": "Le fichier {fileName} n'est pas accepté.",
+  "ReactShared.ImageInput.remove": "Supprimer",
+  "ReactShared.ImageInput.tooManyFiles": "Trop de fichiers, un seul fichier accepté.",
+  "ReactShared.ImageInput.update": "Mettre à jour l'image",
+  "ReactShared.ImageInput.upload": "Charger une image"
+}

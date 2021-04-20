@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/components/Case.js"],"names":["Case","children"],"mappings":";;;;;;;;;;AAAe,SAASA,IAAT,OAA4B;AAAA,MAAZC,QAAY,QAAZA,QAAY;AACzC,SAAOA,QAAP,aAAOA,QAAP,cAAOA,QAAP,GAAmB,IAAnB;AACD","sourcesContent":["export default function Case({ children }) {\n  return children ?? null;\n}\n"],"file":"Case.js"}
