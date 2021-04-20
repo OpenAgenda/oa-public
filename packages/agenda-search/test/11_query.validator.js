@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const validators = require('../validators');
+const queryValidator = require('../validators/query');
 
 /**
  * this is a validator created from schemas of the
@@ -13,12 +13,11 @@ const validators = require('../validators');
 describe('11 - validators - query', () => {
 
   it('give it nothing and get default query values', () => {
-    assert.deepEqual(validators.query(), {
+    assert.deepEqual(queryValidator(), {
       uid: null,
       contributionType: null,
       search: null,
       official: null,
-      sort: null,
       network: null,
       locationSet: null,
       updatedAt: {
@@ -28,27 +27,16 @@ describe('11 - validators - query', () => {
     });
   });
 
-  it('possible values for sort are not random', () => {
-    let errors = [];
-
+  it('BadRequestError is thrown when query contains invalid values', () => {
     try {
-      validators.query({
-        sort: 'fqfdsqdf'
+      queryValidator({
+        network: 'Truc'
       });
-    } catch(e) { errors = e; }
-
-    assert.deepEqual(errors, [{
-      origin: 'fqfdsqdf',
-      field: 'sort',
-      code: 'sort.invalid',
-      message: 'sort value is not valid'
-    }]);
-  });
-
-  it('sort value can be createdAt.desc', () => {
-    assert.equal(validators.query({
-      sort: 'createdAt.desc'
-    }).sort, 'createdAt.desc');
+    } catch (error) {
+      assert.equal(error.name, 'BadRequestError');
+      return;
+    }
+    throw new Error('should not reach here');
   });
 
 });

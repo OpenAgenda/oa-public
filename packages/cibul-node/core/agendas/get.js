@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const getMergedSchema = require('./settings/getMergedSchema');
 const NotFoundError = require('../utils/NotFoundError');
+const loadSummary = require('./utils/loadSummary');
 
 const log = require('@openagenda/logs')('core/agendas/get');
 
@@ -25,6 +26,7 @@ module.exports = async (core, agendaUid, options = {}) => {
   log('getting agenda info with access %s', access);
 
   const agenda = await agendas.get({ uid: agendaUid }, {
+    includeImagePath: true,
     ...options,
     internal: true
   });
@@ -40,6 +42,11 @@ module.exports = async (core, agendaUid, options = {}) => {
   }
 
   log('getting detailed info with access %s', access);
+
+  const summary = await loadSummary(core, agenda, { access });
+
+  const network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
+  const locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
   
   const schema = await getMergedSchema(services, agenda, {
     includeEvent,
@@ -47,11 +54,14 @@ module.exports = async (core, agendaUid, options = {}) => {
   });
 
   if (access === 'internal') {
-    return { ...agenda, schema }
+    return { ...agenda, schema, summary }
   } else {
     return {
       ...agendas.utils.filterByAccess(agenda, 'read', access),
-      schema
+      network,
+      locationSet,
+      schema,
+      summary
     }
   }
 }

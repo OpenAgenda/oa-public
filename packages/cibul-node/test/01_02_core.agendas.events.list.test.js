@@ -216,4 +216,18 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
     });
   });
 
+  describe('other', () => {
+
+    it('list can indicate addMethod to be contribution', async () => {
+      const events = await core.agendas(1).events.list({}, { limit: 10 });
+      expect(events.filter(e => e.uid === 1).pop().addMethod).toBe('contribution');
+    });
+
+    it('list can indicate addMethod to be aggregation', async () => {
+      const events = await core.agendas(2).events.list({}, { limit: 10 });
+      expect(events.filter(e => e.uid === 2).pop().addMethod).toBe('aggregation');
+    });
+
+  })
+
 });

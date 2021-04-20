@@ -42,6 +42,8 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(92983929).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -103,6 +105,19 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       expect(
         _.uniq(agenda.schema.fields.map(f => f.schemaType))
       ).toEqual(['agenda', 'event']);
+    });
+
+    it('detailed gets returns a summary object', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true
+      });
+
+      expect(agenda.summary).toEqual({
+        keywords: [],
+        publishedEvents: { current: 0, passed: 0, upcoming: 0 },
+        recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 }
+      });
+
     });
 
   });

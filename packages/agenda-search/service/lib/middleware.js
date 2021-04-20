@@ -9,7 +9,6 @@ const log = require('@openagenda/logs')('middleware');
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/agenda-search/index'));
 
 const url = require('./url');
-const validators = require('../../validators');
 
 const createFactory = type => React.createElement.bind(null, type);
 
@@ -47,43 +46,22 @@ async function update(service, req, res, next) {
 
 
 function list(service, req, res, next) {
-  let nav, query;
-
-  try {
-    nav = validators.nav(req.query);
-    query = validators.query(req.query);
-  } catch (errors) {
-    res.status(400);
-    return next(errors.map(e => e.message).join(', '));
-  }
-
-  service.list(query, nav.offset, nav.limit).then(({
-    items: agendas,
-    total
-  }) => {
-    req.data = {
-      offset: nav.offset,
-      limit: nav.limit,
-      total,
-      agendas
-    };
-
+  service.list(req.query, req.query).then(result => {
     if (req.params.format === 'json') {
-      return res.json(req.data);
+      return res.json(result);
     }
+    
+    req.result = result;
 
     if (req.params.format === 'rss') {
       return _renderRss(service, req, res);
     }
 
     req.content = ReactDOMServer.renderToString(Body({
+      ...result,
       lang: req.lang,
-      page: nav.page,
       network: req.network,
       locationSet: req.locationSet,
-      query,
-      agendas,
-      total
     }));
 
     next();
@@ -109,7 +87,7 @@ function _renderRss(service, req, res) {
     ttl: 24*60
   });
 
-  req.data.agendas.forEach(a => {
+  req.result.agendas.forEach(a => {
     feed.item({
       title: a.title,
       description: a.description,

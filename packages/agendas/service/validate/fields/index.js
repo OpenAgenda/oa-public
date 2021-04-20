@@ -13,7 +13,7 @@ module.exports = [{
   field: 'uid',
   type: 'integer',
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator'],
   write: ['internal']
 }, {
   field: 'title',
@@ -21,45 +21,45 @@ module.exports = [{
   min: 2,
   max: 255,
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPublic']
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator']
 }, {
   field: 'description',
   type: 'text',
   max: 160,
   optional: false,
-  read: ['internal', 'private', 'legacy', 'legacyPublic']
+  read: ['internal', 'private', 'legacy', 'legacyPublic', 'administrator']
 }, {
   field: 'slug',
   type: 'slug',
   min: 2,
   max: 255,
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
   write: ['internal']
 }, {
   field: 'url',
   type: 'link',
-  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
   max: 255
 }, {
   field: 'official',
   type: 'boolean',
   default: false,
-  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
   write: ['internal']
 }, {
   field: 'networkUid',
   type: 'integer',
   optional: true,
   default: null,
-  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
   write: ['internal']
 }, {
   field: 'locationSetUid',
   type: 'integer',
   optional: true,
   default: null,
-  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
   write: ['internal']
 }, {
   field: 'ownerId',
@@ -71,13 +71,13 @@ module.exports = [{
   field: 'updatedAt',
   type: 'date',
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator'],
   write: ['internal']
 }, {
   field: 'createdAt',
   type: 'date',
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator'],
   write: ['internal']
 }, {
   field: 'formSchemaId',
@@ -94,7 +94,7 @@ module.exports = [{
   write: ['internal']
 }, {
   field: 'image',
-  read: ['public', 'legacy', 'legacyPrivate'],
+  read: ['public', 'legacy', 'legacyPrivate', 'administrator'],
   type: 'pass',
   default: null
 }, {

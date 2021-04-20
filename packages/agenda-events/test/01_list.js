@@ -159,6 +159,11 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     assert.equal(items.length, 1);
   });
 
+  it('fix: aggregated is true if is referenced as such in db', async () => {
+    const { items } = await svc.list.byEventUid(60059313, 0, 20);
+    assert.equal(items[0].aggregated, true);
+  });
+
   it('list by event uids', async () => {
     const { total } = await svc.list.byEventUid([54434612, 28028226], 0, 20);
     assert.equal(total, 2);   
