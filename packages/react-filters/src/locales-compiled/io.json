@@ -180,6 +180,12 @@
       "value": "crwdns868:0crwdne868:0"
     }
   ],
+  "ReactFilters.messages.filterTitles.addMethod": [
+    {
+      "type": 0,
+      "value": "Provenance"
+    }
+  ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
     {
       "type": 0,
@@ -220,6 +226,12 @@
     {
       "type": 0,
       "value": "Passed / current / upcoming"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": [
+    {
+      "type": 0,
+      "value": "Source agenda"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [

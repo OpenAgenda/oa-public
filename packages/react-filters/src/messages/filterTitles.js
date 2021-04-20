@@ -1,6 +1,14 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  addMethod: {
+    id: 'ReactFilters.messages.filterTitles.addMethod',
+    defaultMessage: 'Provenance',
+  },
+  sourceAgendaUid: {
+    id: 'ReactFilters.messages.filterTitles.sourceAgendaUid',
+    defaultMessage: 'Source agenda',
+  },
   featured: {
     id: 'ReactFilters.messages.filterTitles.featured',
     defaultMessage: 'Featured',

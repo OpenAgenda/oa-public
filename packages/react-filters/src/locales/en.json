@@ -15,6 +15,7 @@
   "ReactFilters.dateRanges.thisWeekend": "This week-end",
   "ReactFilters.dateRanges.today": "Today",
   "ReactFilters.dateRanges.tomorrow": "Tomorrow",
+  "ReactFilters.messages.filterTitles.addMethod": "Provenance",
   "ReactFilters.messages.filterTitles.attendanceMode": "Attendance mode",
   "ReactFilters.messages.filterTitles.city": "City",
   "ReactFilters.messages.filterTitles.createdAt": "Creation date",
@@ -22,6 +23,7 @@
   "ReactFilters.messages.filterTitles.featured": "Featured",
   "ReactFilters.messages.filterTitles.region": "Region",
   "ReactFilters.messages.filterTitles.relative": "Passed / current / upcoming",
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": "Source agenda",
   "ReactFilters.messages.filterTitles.state": "State",
   "ReactFilters.messages.filterTitles.timings": "Timings",
   "ReactFilters.messages.filterTitles.updatedAt": "Date of update"
