@@ -47,8 +47,8 @@ module.exports = (config) => (req, res, next) => {
         network: req.network,
         locationSet: req.locationSet,
         canvas: '.js_search_canvas',
-        agendas: req.data.agendas,
-        total: req.data.total,
+        agendas: req.result.agendas,
+        total: req.result.total,
         res: '/agendas.json'
       })
     }],
