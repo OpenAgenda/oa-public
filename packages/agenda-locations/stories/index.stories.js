@@ -1,16 +1,12 @@
 import { storiesOf } from '@storybook/react';
+import debug from 'debug';
+
 import agendaTestSettings from './fixtures/agendaTestSettings.json';
 import locationSet from './fixtures/locationSet.json';
-
-import debug from 'debug';
 
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
 import termStore from './term.story';
-//import mergeStory from './merge.story';
-
-import mergePropsFixtures from './fixtures/mergeProps.json';
-import mergeFormStateFixtures from './fixtures/mergeFormState.json';
 
 import '../components/src/verifiedLocationsCounter';
 
@@ -46,93 +42,92 @@ const res = {
   xlsx: '#xlsx',
   seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid`,
   suggestChange: `https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create`,
+  agendaSearch: `${apiRoot}/agendas`,
 };
 
 storiesOf('Administration app', module)
-  .add('Main', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
+  .add('Main', () => adminStory({
+    res,
+    settings: {
+      ...agendaTestSettings,
+      access: {
         create: defaultAccess,
         update: defaultAccess,
         merge: defaultAccess,
         delete: defaultAccess
-      }},
-    })
-  )
-  .add('with location set', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
+      }
+    },
+  }))
+
+  .add('with location set', () => adminStory({
+    res,
+    settings: {
+      ...agendaTestSettings,
+      access: {
         create: defaultAccess,
         update: defaultAccess,
         merge: defaultAccess,
         delete: defaultAccess
-      }},
-      set: locationSet,
-    })
-  );
+      }
+    },
+    set: locationSet,
+  }));
 
 storiesOf('Access', module)
-
-  .add('All access', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
+  .add('All access', () => adminStory({
+    res,
+    settings: {
+      ...agendaTestSettings,
+      access: {
         create: defaultAccess,
         update: defaultAccess,
         merge: defaultAccess,
         delete: defaultAccess
-      }},
-      set: locationSet,
-    })
-  )
-  .add('No Access', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
-        create: {...defaultAccess, authorized: false},
-        update: {...defaultAccess, authorized: false},
-        merge: {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false}
-      }},
-      set: locationSet,
-    })
-  )
-  .add('Update Only', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
-        create: {...defaultAccess, authorized: false},
+      }
+    },
+    set: locationSet,
+  }))
+  .add('No Access', () => adminStory({
+    res,
+    settings: {
+      ...agendaTestSettings,
+      access: {
+        create: { ...defaultAccess, authorized: false },
+        update: { ...defaultAccess, authorized: false },
+        merge: { ...defaultAccess, authorized: false },
+        delete: { ...defaultAccess, authorized: false }
+      }
+    },
+    set: locationSet,
+  }))
+  .add('Update Only', () => adminStory({
+    res,
+    settings: {
+      ...agendaTestSettings,
+      access: {
+        create: { ...defaultAccess, authorized: false },
         update: defaultAccess,
-        merge: {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false}
-      }},
-      set: locationSet,
-    })
-  )
-  .add('Update Link, CCN', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
+        merge: { ...defaultAccess, authorized: false },
+        delete: { ...defaultAccess, authorized: false }
+      }
+    },
+    set: locationSet,
+  }))
+  .add('Update Link, CCN', () => adminStory({
+    res,
+    settings: {
+      ...agendaTestSettings,
+      access: {
         create: defaultAccess,
-        update : {authorized: true, external: true, link: 'https://cartes.culture.gouv.fr/lieux/{extId}?jwtToken=token', serviceLabel: 'CultureChezNous' },
-        merge: {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false}
-      }},
-      set: locationSet,
-    })
-  );
-
-// storiesOf('Merge form', module)
-//   .add('On distinguera plus tard', () => mergeStory({
-//     ...mergePropsFixtures,
-//     actions: {
-//       getState: () => ({
-//         form: mergeFormStateFixtures
-//       })
-//     }
-//   }));
+        update: {
+          authorized: true, external: true, link: 'https://cartes.culture.gouv.fr/lieux/{extId}?jwtToken=token', serviceLabel: 'CultureChezNous'
+        },
+        merge: { ...defaultAccess, authorized: false },
+        delete: { ...defaultAccess, authorized: false }
+      }
+    },
+    set: locationSet,
+  }));
 
 storiesOf('Location form component', module)
   .add('Search mode', () =>

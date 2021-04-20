@@ -107,7 +107,7 @@ function toggleMergeItem(state, location) {
 /* change merge target */
 
 function toggleMergeTarget(state, location) {
-  const {merge} = state;
+  const { merge } = state;
   const locationUids = merge.locationUids.concat();
   if (merge.targetUid === location.uid) {
     return {
@@ -115,7 +115,7 @@ function toggleMergeTarget(state, location) {
         locationUids: locationUids.filter(i => i !== location.uid),
         targetUid: null,
       },
-    }
+    };
   }
   return {
     merge: {
@@ -130,7 +130,6 @@ function toggleMergeTarget(state, location) {
  * Optionnally, close the form
  */
 function updateEditedLocation(state, location, closeForm) {
-  console.log('this is happenning')
   const updatedState = {
     locations: {},
   };
@@ -146,61 +145,45 @@ function updateEditedLocation(state, location, closeForm) {
   return update(state, updatedState);
 }
 
-//function launchMerge(state, mergedLocations) {
-  // return update(state, {
-  //   merge: {
-  //     $set: state.merge || true,
-  //   },
-  //   form: {
-  //     $set: {
-  //       location: mergedLocations[0],
-  //       alternatives: mergedLocations.map((l, i) => ({
-  //         location: l,
-  //       })),
-  //     },
-  //   },
-  // });
-//}
 function mergeOnGoing(state) {
   return update(state, {
     merge: {
-      $set : {
+      $set: {
         locationUids: state.merge.locationUids,
         targetUid: state.merge.targetUid,
-        onGoing :true,
+        onGoing: true,
       }
     },
-    modal: { $set : {type: 'merge'}}, 
-  })
+    modal: { $set: { type: 'merge' } },
+  });
 }
 
 function changeMergeModal(state, err) {
-  console.log('changeMergeModal', state);
   return update(state, {
     merge: {
-      $set : {
+      $set: {
         locationUids: state.merge.locationUids,
         targetUid: state.merge.targetUid,
-        onGoing :true,
+        onGoing: true,
       }
     },
-    modal: { $set : {type: 'merge', err}}, 
-  })
+    modal: { $set: { type: 'merge', err } },
+  });
 }
 
 function closeMerge(state) {
   return update(state, {
     merge: { $set: false },
     query: { $set: {} },
-    locations:{ $set: [] },
-    modal: {$set: false}
+    locations: { $set: [] },
+    modal: { $set: false }
   });
 }
 
 function openDetailModal(state, location) {
-  return update(state ,{
-    modal : {$set : {type: 'detail', location}}
-  })
+  return update(state, {
+    modal: { $set: { type: 'detail', location } }
+  });
 }
 
 

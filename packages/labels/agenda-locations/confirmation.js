@@ -1,6 +1,36 @@
 "use strict";
 
 module.exports = {
+  "noRefAgendas": {
+    "fr": "Ce lieu n'est référencé dans aucun autre agenda.",
+    "en": "This place is not referenced in any other agenda.",
+    "it": "Questo posto non è menzionato in nessun altro programma.",
+  },
+  "oneRefAgendas": {
+    "fr": "Ce lieu est aussi référencé sur l'agenda : ",
+    "en": "This place is also referenced on the agenda",
+    "it": "Anche questo posto è menzionato nell'agenda :",
+  },
+  "multiRefAgendas": {
+    "fr": "Ce lieu est aussi référencé sur les agendas ",
+    "en": "This place is also referenced on the agendas ",
+    "it": "Questo luogo è indicato anche sui calendari ",
+  },
+  "andOn": {
+    "fr": " et sur ",
+    "en": " and on",
+    "it": " e così via ",
+  },
+  "oneOther": {
+    "fr": "un autre.",
+    "en": "one other",
+    "it": "l`uno e l`altro",
+  },
+  "others": {
+    "fr": " autres;",
+    "en": " others",
+    "it": " altri",
+  },
   "guide": {
     "fr": "Ce lieu est-il correctement décrit ?",
     "en": "Are the details of this location correct ?",

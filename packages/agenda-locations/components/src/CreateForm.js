@@ -19,6 +19,7 @@ class CreateForm extends Component {
     settings: PropTypes.object,
     tiles: PropTypes.string
   }
+
   renderHeader() {
     const {
       settings,

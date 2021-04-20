@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import debug from 'debug';
 
 import makeLabelGetter from '@openagenda/labels';
 import confirmationLabels from '@openagenda/labels/agenda-locations/confirmation';
 
-import LocationDetails  from './LocationDetails';
-import debug from 'debug';
+import LocationDetails from './LocationDetails';
 
 const log = debug('locationConfirmation');
 const getLabel = makeLabelGetter(confirmationLabels);
@@ -67,13 +67,13 @@ class LocationConfirmation extends Component {
             </button>
           </div>
         </div>
-        {<LocationDetails
-        location={location}
-        lang={lang}
-        settings={settings}
-        staticMapTiles={staticMapTiles}
-        hover
-        />}
+        <LocationDetails
+          location={location}
+          lang={lang}
+          settings={settings}
+          staticMapTiles={staticMapTiles}
+          hover
+        />
       </div>
     );
   }
