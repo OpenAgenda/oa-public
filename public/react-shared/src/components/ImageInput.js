@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import locales from '../locales-compiled';
 import Image from './Image';
 

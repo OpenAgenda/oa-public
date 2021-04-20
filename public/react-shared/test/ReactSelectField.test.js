@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { mount } from 'enzyme';
 import { Form } from 'react-final-form';
 import ReactSelectField from '../src/components/ReactSelectField';
