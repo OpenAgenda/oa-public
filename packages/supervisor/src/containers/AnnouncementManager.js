@@ -3,7 +3,7 @@ import { createForm } from 'final-form';
 import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { useConstant, useApiClient } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 

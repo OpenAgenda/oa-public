@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { ClassNames } from '@emotion/core';
+import { ClassNames } from '@emotion/react';
 import DefaultTooltipItem from './DefaultTooltipItem';
 
 export default function CustomTooltip({

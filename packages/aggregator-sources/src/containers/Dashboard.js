@@ -14,7 +14,7 @@ import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
 import Fuse from 'fuse.js';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
 import { useApiClient } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';

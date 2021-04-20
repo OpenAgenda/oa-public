@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useIntl } from 'react-intl';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { useApiClient } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';

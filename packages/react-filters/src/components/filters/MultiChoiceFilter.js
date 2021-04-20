@@ -8,7 +8,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import Fuse from 'fuse.js';
 import { usePrevious } from 'react-use';
 import { defineMessages, useIntl } from 'react-intl';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { useConstant } from '@openagenda/react-shared';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import Checkbox from '../fields/Checkbox';

@@ -15,7 +15,7 @@
     "build": "rimraf client/build && babel client/src -d client/build -s"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.10",
+    "@babel/runtime-corejs3": "^7.13.16",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-components": "^2.3.10",
@@ -23,8 +23,8 @@
     "@openagenda/validators": "^2.4.0",
     "aws-sdk": "^2.544.0",
     "body-parser": "^1.18.3",
-    "classnames": "^2.2.6",
-    "core-js": "^3.6.5",
+    "classnames": "^2.3.1",
+    "core-js": "^3.10.2",
     "debug": "^4.1.1",
     "immutability-helper": "^3.0.0",
     "immutable": "^3.8.2",
@@ -50,8 +50,8 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.14",
-    "@babel/core": "^7.13.15",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.13.16",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",

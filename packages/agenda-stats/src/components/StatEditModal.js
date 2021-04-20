@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { Modal } from '@openagenda/react-components';
 import { ReactSelectField } from '@openagenda/react-shared';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import useChartTitle from '../hooks/useChartTitle';
 import formMessages from './messages/form';
 
