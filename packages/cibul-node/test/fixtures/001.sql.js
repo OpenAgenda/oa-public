@@ -119,6 +119,7 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   event_uid: 2,
   source_agenda_uid: JSON.stringify([[1]]),
+  aggregated: 1,
   created_at: new Date(),
   updated_at: new Date()
 }]));
