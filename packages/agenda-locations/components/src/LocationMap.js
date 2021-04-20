@@ -24,7 +24,7 @@ class LocationMap extends Component {
     draggableMarker: PropTypes.bool,
     scrollable: PropTypes.bool,
     onMarkerDragged: PropTypes.func,
-    tiles : PropTypes.string.isRequired,
+    tiles: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -40,7 +40,6 @@ class LocationMap extends Component {
     if (this.isGeolocated()) {
       this.updateMarker();
     }
-    log(this.props.tiles)
   }
 
   componentDidUpdate() {
@@ -59,7 +58,9 @@ class LocationMap extends Component {
   }
 
   initMap() {
-    const { scrollable, enabled, defaultZoom, tiles } = this.props;
+    const {
+      scrollable, enabled, defaultZoom, tiles
+    } = this.props;
     const pos = this.getPos();
     const mapOptions = {
       scrollWheelZoom: scrollable && enabled,
@@ -81,7 +82,7 @@ class LocationMap extends Component {
       );
     }
 
-    L.tileLayer(/*defaults.*/tiles, {
+    L.tileLayer(tiles, {
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       tileSize: 512,

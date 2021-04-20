@@ -8,13 +8,13 @@ import createLabelGetter from '@openagenda/labels';
 const getLabel = createLabelGetter(labels);
 
 
-const SetHeader = ({ set, lang }) => (
+const SetHeader = ({ set, lang, res }) => (
   <div className="row">
     <div className="col-sm-12 margin-bottom-md">
       <h2>{set.title}</h2>
       <div>
-        {getLabel('setSubtitle', {locationsCount: set.locationsCount,}, lang)}
-        {getLabel('setSubtitleLink', {agendasCount: set.agendasCount,}, lang)}
+        {getLabel('setSubtitle', { locationsCount: set.locationsCount }, lang)}
+        <a href={`${res.agendaSearch}?locationSet=${set.uid}`}>{getLabel('setSubtitleLink', { agendasCount: set.agendasCount }, lang)}</a>
         <MoreInfo
           className="margin-left-sm"
           id="checkbox-help"
@@ -29,6 +29,7 @@ const SetHeader = ({ set, lang }) => (
 SetHeader.propTypes = {
   lang: PropTypes.string.isRequired,
   set: PropTypes.object.isRequired,
+  res: PropTypes.object.isRequired,
 };
 
 export default SetHeader;

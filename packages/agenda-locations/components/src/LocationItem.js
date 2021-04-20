@@ -24,8 +24,7 @@ class LocationItem extends Component {
     // Binding
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
-    
-    this.toggleMergeTarget =  this.toggleMergeTarget.bind(this);
+    this.toggleMergeTarget = this.toggleMergeTarget.bind(this);
   }
 
   onRemove(e) {
@@ -48,7 +47,7 @@ class LocationItem extends Component {
   }
 
   isMergeTarget() {
-    const {merge, location } = this.props;
+    const { merge, location } = this.props;
     return (
       merge.targetUid === location.uid
     )
@@ -56,7 +55,7 @@ class LocationItem extends Component {
 
   toggleMergeTarget(e) {
     e.stopPropagation();
-    const {toggleMergeTarget} = this.props;
+    const { toggleMergeTarget } = this.props;
     toggleMergeTarget();
   }
 
@@ -70,7 +69,7 @@ class LocationItem extends Component {
   }
 
   seeDetails(e) {
-    const { seeDetails} = this.props;
+    const { seeDetails } = this.props;
     e.stopPropagation();
     seeDetails();
   }
@@ -115,32 +114,31 @@ class LocationItem extends Component {
     );
     const toggleMergeTargetButton = (
       <button
-      type="button"
-      className="btn btn-link action"
-      onClick={this.toggleMergeTarget}
+        type="button"
+        className="btn btn-link action"
+        onClick={this.toggleMergeTarget}
       >
-      {getLabel('defineMergeTarget')}
+        {getLabel('defineMergeTarget')}
       </button>
-    )
+    );
 
     const mergeTarget = (
       <span>
-        <strong>{getLabel("reflocationmerge")}</strong>
+        <strong>{getLabel('reflocationmerge')}</strong>
         <button
-        type="button"
-        className="btn btn-link text-danger action"
-        onClick={this.toggleMergeTarget}
+          type="button"
+          className="btn btn-link text-danger action"
+          onClick={this.toggleMergeTarget}
         >
-          {getLabel("unselect")}
+          {getLabel('unselect')}
         </button>
-       
       </span>
-    )
+    );
 
     if (merge) {
       className.push('merge');
     }
-    className.push('padding-v-sm')
+    className.push('padding-v-sm');
 
     return (
       <div
@@ -150,7 +148,7 @@ class LocationItem extends Component {
       >
         <div className="col col-xs-10 col-md-11 item-body">
           <div className="title">{location.name}</div>
-          <div>{location.address}</div>       
+          <div>{location.address}</div>
           <div className="text-muted">
             {location.department ? location.department : null}
             {location.region ? (location.department ? ', ' : '') + location.region : null}
@@ -158,7 +156,7 @@ class LocationItem extends Component {
           </div>
           <div className="btn-link-group">
             <i
-              className={'indicator'.concat(' ',location.image ? 'fa fa-picture-o margin-right-xs' : 'fa fa-picture-o disabled margin-right-xs')}
+              className={'indicator'.concat(' ', location.image ? 'fa fa-picture-o margin-right-xs' : 'fa fa-picture-o disabled margin-right-xs')}
             />
             <i
               className={'indicator'.concat(' ',
@@ -193,7 +191,7 @@ class LocationItem extends Component {
               className="btn btn-link  action"
               onClick={this.seeDetails.bind(this)}
             >
-                {getLabel('detailsButton')}
+              {getLabel('detailsButton')}
             </button>
             {!merge ? editButton : null}
             {!merge ? removeButton : null}

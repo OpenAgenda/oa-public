@@ -51,6 +51,7 @@ module.exports = Object.assign(
           beforeMerge: async () => {}, // takes mergeIn, mergedLocations
           beforeRemove: async () => {}, // takes location
           getAgendaLocationSettings: async () => {},
+          getLinkedAgendas: async () => {}, // takes uid, returns linked agendas
           onUpdate: null,
         },
       }

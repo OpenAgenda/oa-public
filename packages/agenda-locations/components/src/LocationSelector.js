@@ -33,11 +33,10 @@ class LocationSelector extends Component {
     this.switchToSearch = this.switchToSearch.bind(this);
     this.getLabel = this.getLabel.bind(this);
     this.onCreateRequest = this.onCreateRequest.bind(this);
-    //this.onSelect = this.onSelect.bind(this, false);
+    // this.onSelect = this.onSelect.bind(this, false);
   }
 
   onSelect(confirmRequired, location) {
-    log('onSelect location:', location);
     const { onChange } = this.props;
     onChange(confirmRequired ? 'confirm' : 'show', location);
   }
@@ -95,7 +94,6 @@ class LocationSelector extends Component {
 
   renderSelected() {
     const { location, disableChange } = this.props;
-    log('renderSelected location', location);
     return (
       <div className="selected-location">
         {!disableChange ? (
@@ -154,7 +152,6 @@ class LocationSelector extends Component {
       res, settings, lang, location, detailedInfo, enableGeocode, tiles
     } = this.props;
     const onSelect = this.onSelect.bind(this, false);
-    console.log('locationSelector settings:',settings);
     return (
       <LocationForm
         Header={this.renderHeader()}

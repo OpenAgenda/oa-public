@@ -7,15 +7,16 @@ export default ({ settings, res, set }) => (
     <AdminApp
       agenda={{
         slug: 'theagendaslug',
+        uid: 79882300
       }}
-      detailedInfo={true}
+      detailedInfo
       settings={settings}
       set={set || null}
       lang="fr"
-      enableGeocode={true}
+      enableGeocode
       res={res}
-      tiles='https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750'
-      staticTiles='https://maps.geoapify.com/v1/staticmap?style=osm-carto&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&apiKey=9f8da49724b645f486f281abbe690750'
+      tiles="https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750"
+      staticTiles="https://maps.geoapify.com/v1/staticmap?style=osm-carto&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&apiKey=9f8da49724b645f486f281abbe690750"
     />
   </div>
 );

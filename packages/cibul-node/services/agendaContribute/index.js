@@ -217,7 +217,6 @@ function init(config, services) {
     interfaces: interfaces(services)
   });
 
-  console.log('Contribute Init tiles:', config.tiles, ' staticTiles', config.staticTiles);
   return {
     mw: middlewares
   }

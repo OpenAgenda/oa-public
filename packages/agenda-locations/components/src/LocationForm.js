@@ -76,7 +76,6 @@ class LocationForm extends Component {
       },
     });
 
-    log('PROPS:',props);
     const initState = this.actions.initialize(props);
 
     // log('initializing form state: %j', initState);
@@ -95,7 +94,6 @@ class LocationForm extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    log('UNSAFE_componentWillMount');
     this.setState({
       originScrollPosition:
         (window.pageYOffset || document.documentElement.scrollTop)
@@ -104,7 +102,6 @@ class LocationForm extends Component {
   }
 
   componentDidMount() {
-    log('componentDidMount');
     this.setState(
       {
         originScrollPosition:

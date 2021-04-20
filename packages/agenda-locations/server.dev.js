@@ -20,7 +20,6 @@ const multer = require('multer');
 
 const fixtures = require('./test/fixtures');
 const Service = require('.');
-const { truncate } = require('lodash');
 
 (async () => {
   const f = fixtures({
@@ -68,6 +67,24 @@ const { truncate } = require('lodash');
           agendaEventCount: 1,
         },
       ],
+      getLinkedAgendas: async () => [
+        {
+          uid: 79882300,
+          title: 'Morbihan test'
+        },
+        {
+          uid: 79882301,
+          title: 'Morbihan test2'
+        },
+        {
+          uid: 79882302,
+          title: 'Morbihan test3'
+        },
+        {
+          uid: 79882303,
+          title: 'Morbihan test4'
+        }
+      ]
     },
   });
 
@@ -169,7 +186,8 @@ const { truncate } = require('lodash');
     svc(7196947)
       .get(req.params.locationUid, {
         includeImagePath: true,
-        eventCounts: req.query.detailed === '1'
+        eventCounts: req.query.detailed === '1',
+        includeLinkedAgendas: true,
       })
       .then(location => res.json(location), next);
   });

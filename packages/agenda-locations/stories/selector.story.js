@@ -30,8 +30,6 @@ class BaseSelectorStory extends Component {
           res={this.props.res}
           enableGeocode={this.props.enableGeocode}
           onChange={(mode, location) => {
-            log('onChange', mode);
-            log('location:', location);
             this.setState({ location, mode });
           }}
           disableChange={false}
