@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { defineMessage, useIntl } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
 import stateMessages from '../messages/states';
@@ -13,9 +13,23 @@ const defaultOptions = {
   additionals: true,
 };
 
-const featuredMessage = defineMessage({
-  id: 'EventAdminApp.hooks.useFilters.featured',
-  defaultMessage: 'Featured',
+const messages = defineMessages({
+  featured: {
+    id: 'EventAdminApp.hooks.useFilters.featured',
+    defaultMessage: 'Featured',
+  },
+  contribution: {
+    id: 'EventAdminApp.hooks.useFilters.contribution',
+    defaultMessage: 'Contribution',
+  },
+  aggregation: {
+    id: 'EventAdminApp.hooks.useFilters.aggregation',
+    defaultMessage: 'Aggregation',
+  },
+  share: {
+    id: 'EventAdminApp.hooks.useFilters.share',
+    defaultMessage: 'Share',
+  },
 });
 
 export default function useFilters(
@@ -46,8 +60,26 @@ export default function useFilters(
   const featuredOptions = useMemo(
     () => [
       {
-        label: intl.formatMessage(featuredMessage),
+        label: intl.formatMessage(messages.featured),
         value: true,
+      },
+    ],
+    [intl]
+  );
+
+  const provenanceOptions = useMemo(
+    () => [
+      {
+        label: intl.formatMessage(messages.contribution),
+        value: 'contribution',
+      },
+      {
+        label: intl.formatMessage(messages.aggregation),
+        value: 'aggregation',
+      },
+      {
+        label: intl.formatMessage(messages.share),
+        value: 'share',
       },
     ],
     [intl]
@@ -98,6 +130,24 @@ export default function useFilters(
 
     const standardFilters = standards
       ? [
+        {
+          name: 'addMethod',
+          type: 'radio',
+          options: provenanceOptions,
+          aggregation: {
+            type: 'addMethods',
+          },
+        },
+        {
+          name: 'sourceAgendaUid',
+          type: 'radio',
+          options: null, // from the aggregation
+          labelKey: 'agenda.title',
+          aggregation: {
+            type: 'sourceAgendas',
+            size: AGGREGATION_SIZE,
+          },
+        },
         {
           name: 'featured',
           type: 'radio',
@@ -204,6 +254,7 @@ export default function useFilters(
   }, [
     intl,
     standards,
+    provenanceOptions,
     featuredOptions,
     relativeOptions,
     stateOptions,

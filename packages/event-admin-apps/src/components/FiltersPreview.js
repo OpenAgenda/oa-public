@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
@@ -10,6 +10,7 @@ import {
   useFilterTitle,
 } from '@openagenda/react-filters';
 import getEvents from '../api/getEvents';
+import useFilterOptions from '../hooks/useFilterOptions';
 
 function DateRangePreview({
   name,
@@ -110,21 +111,7 @@ export default function FiltersPreview({
 
   const { aggregations: filterAggs } = filtersQuery.data;
 
-  const getOptions = useCallback(
-    filter => {
-      if (filter.options) return filter.options;
-
-      const aggregation = filterAggs[`${filter.name}-${filter.id}`];
-
-      if (!aggregation) return [];
-
-      return aggregation.map(v => ({
-        label: v.key,
-        value: v.key,
-      }));
-    },
-    [filterAggs]
-  );
+  const getOptions = useFilterOptions(filterAggs);
 
   const dateRangeProps = useMemo(() => ({ component: DateRangePreview }), []);
   const checkboxProps = useMemo(() => ({ component: MultiChoicePreview }), []);
