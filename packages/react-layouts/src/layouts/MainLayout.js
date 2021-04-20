@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useCookie, useInterval } from 'react-use';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import * as mainActions from '../reducers/main';

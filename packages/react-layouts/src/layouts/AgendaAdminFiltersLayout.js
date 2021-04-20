@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import AdminHeader from '../components/AdminHeader';

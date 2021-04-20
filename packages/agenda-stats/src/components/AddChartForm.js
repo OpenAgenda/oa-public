@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 import React, { useMemo } from 'react';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { ReactSelectField, getLocaleValue } from '@openagenda/react-shared';
 import titleMessages from '../messages/chartTitles';
 import form from './messages/form';
