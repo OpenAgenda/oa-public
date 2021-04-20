@@ -2,9 +2,10 @@
 
 const inflate = require('../utils/aggregatorObjects').inflate;
 
-module.exports.formatDSL = () => ({
+module.exports.formatDSL = (query, options = {}) => ({
   terms: {
-    field: 'member._agg'
+    field: 'member._agg',
+    size: options.size
   }
 })
 
