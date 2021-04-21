@@ -238,7 +238,7 @@ export default function EventItem({
         </div>
       ) : null}
 
-      {event.addMethod === 'aggregation' ? (
+      {event.addMethod === 'aggregation' && event.sourceAgendas?.length ? (
         <div className="margin-top-xs">
           {intl.formatMessage(messages.aggregatedFrom, {
             title: event.sourceAgendas[0].title,
