@@ -20,8 +20,6 @@ module.exports = core => {
     services
   } = core;
 
-  const config = core.getConfig();
-
   const {
     legacy: legacySvc
   } = services;

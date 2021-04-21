@@ -30,7 +30,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
 
   log('fetched agenda and location');
 
-  const pre = locationUid ? { ...data, locationUid } : data;
+  const pre = locationUid ? { ...data, locationUid } : data;
 
   if (location) {
     pre.location = location;

@@ -34,7 +34,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const {
     events,
-    agendas,
     agendaEvents,
     eventSearch,
     oembed,
@@ -76,7 +75,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   
   log('  loaded event %s', event.slug);
 
-  const agendaEvent = shouldHaveAgendaEvent('update', event) ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true }) : null;
+  const agendaEvent = shouldHaveAgendaEvent('update', event) ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true }) : null;
   
   const member = userUid ? await members.get({
     agendaUid: agenda.uid,

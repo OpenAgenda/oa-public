@@ -48,7 +48,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     filterUnauthorizedData: false,
     returnPayload: false,
     ...options
-  }
+  };
 
   const userUid = extractUserUid(data, options);
 
