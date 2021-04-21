@@ -16,7 +16,7 @@ export default ({ settings, res, set }) => (
       enableGeocode
       res={res}
       tiles="https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750"
-      staticTiles="https://maps.geoapify.com/v1/staticmap?style=osm-carto&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&apiKey=9f8da49724b645f486f281abbe690750"
+      staticTiles="https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750"
     />
   </div>
 );

@@ -86,7 +86,7 @@ describe('agenda-locations - functional - list', function () {
           7630650,
           7630649,
           51665986,
-          51665985,
+          51665987,
           30433086,
           30433085,
           87316763,
@@ -318,6 +318,18 @@ describe('agenda-locations - functional - list', function () {
 
     it('retrieved locations belong to set', () => {
       assert(items.length === 4);
+    });
+  });
+
+  describe('deleted', () => {
+    let items;
+
+    before(async () => {
+      items = await svc(7196947).list();
+    });
+
+    it('soft deleted item not listed', () => {
+      assert.equal(items.filter(i=> i.uid === 7630652).length, 0)
     });
   });
 

@@ -69,15 +69,15 @@ describe('agenda-locations - functional - get', function () {
     let location;
 
     before(async () => {
-      location = await svc.get(51665985);
+      location = await svc.get(51665987);
     });
-
+    
     it('location is the result', () => {
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
 
     it('requested location is provided location', () => {
-      assert.equal(location.uid, 51665985);
+      assert.equal(location.uid, 51665987);
     });
 
     it('image is provided without path', () => {
@@ -85,10 +85,21 @@ describe('agenda-locations - functional - get', function () {
     });
   });
 
+  describe('deleted', () => {
+    let location;
+
+    before(async () => {
+      location = await svc.get(7630652);
+    });
+
+    it('soft-deleted location is not accessible through get by default', () => {
+      assert.equal(location, null);
+    });
+  });
+
   describe('set', () =>  {
     it('location in set is the result', async () => {
       const location = await svc.sets(1903810).locations.get(7630649);
-
       assert.equal(location.name, 'St André Lachamp');
     });
 
@@ -100,14 +111,14 @@ describe('agenda-locations - functional - get', function () {
 
   describe('other', () => {
     it('uid can be provided within object', async () => {
-      const location = await svc.get({ uid: 51665985 });
+      const location = await svc.get({ uid: 51665987 });
 
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
 
     it('get specific fields only', async () => {
       const location = await svc.get(
-        { uid: 51665985 },
+        { uid: 51665987 },
         { includeFields: ['name'] }
       );
       assert.deepEqual(Object.keys(location), ['name']);
@@ -118,7 +129,7 @@ describe('agenda-locations - functional - get', function () {
     });
 
     it('uid can be provided as a string', async () => {
-      const location = await svc.get('51665985');
+      const location = await svc.get('51665987');
 
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
@@ -143,7 +154,7 @@ describe('agenda-locations - functional - get', function () {
     });
 
     it('when includeImagePath is provided, image path is in image value', async () => {
-      const { image } = await svc.get(51665985, { includeImagePath: true });
+      const { image } = await svc.get(51665987, { includeImagePath: true });
 
       assert.ok(image.split('/').length > 1);
     });

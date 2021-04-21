@@ -65,4 +65,5 @@ module.exports = async (service, k, query) => {
   if (state !== null) {
     k.where('store', 'like', `%"state":${state}%`);
   }
+  k.where('deleted', '<>', 1);
 };

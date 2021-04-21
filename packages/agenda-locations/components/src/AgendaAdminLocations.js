@@ -432,18 +432,6 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  // getLinkedAgendas(location) {
-  //   log('location:',location)
-  //   const { res } = this.props;
-  //   const resp = get(res.get.replace(':locationUid', location.uid),  {includeLinkedAgendas: true},
-  //    (err,res) => {
-  //      log('in get callBack', res.linkedAgendas)
-  //      return(res.linkedAgendas)
-  //     })
-  //   log('resp:', resp)
-  //   return resp;
-  // }
-
   renderDetailModal() {
     const { modal } = this.state;
     const {

@@ -57,4 +57,6 @@ module.exports = async (service, k, query) => {
   } else {
     k.where('uid', uid);
   }
+
+  k.where('deleted', '<>', 1);
 };
