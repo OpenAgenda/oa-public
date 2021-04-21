@@ -31,9 +31,13 @@ module.exports = async (services, req, data) => {
         })
       };
     } else if (mode === 'edit') {
-      log('updating event %s', current.uid);
+      const undrafting = current?.draft && !draft;
+      // distinction is important as an undrafting
+      // needs a complete update to force hidden default values
+      log('%s event %s', undrafting ? 'undrafting' : 'updating', current.uid);
+
       return {
-        event: await core.agendas(agenda.uid).events.patch(current.uid, data, {
+        event: await core.agendas(agenda.uid).events[undrafting ? 'update' : 'patch'](current.uid, data, {
           draft,
           userUid: user.uid,
           filterUnauthorizedData: true
