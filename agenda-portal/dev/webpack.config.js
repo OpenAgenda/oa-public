@@ -39,7 +39,6 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin],
   },
   resolveLoader: {
     plugins: [PnpWebpackPlugin.moduleLoader(module)],
