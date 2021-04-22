@@ -1,7 +1,6 @@
 'use strict';
 
 const webpack = require('webpack');
-const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -22,6 +21,14 @@ module.exports = {
   ],
   module: {
     rules: [
+      {
+        test: /\.(js|mjs|jsx)$/,
+        enforce: 'pre',
+        loader: require.resolve('source-map-loader'),
+        resolve: {
+          fullySpecified: false
+        },
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -45,9 +52,5 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin],
-  },
-  resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)],
   },
 };

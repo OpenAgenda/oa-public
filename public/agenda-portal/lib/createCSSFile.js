@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const webpack = require('webpack');
 
 const unusedFile = 'unused.js';
@@ -31,7 +31,7 @@ module.exports = (mainSASSFilePath, assetsPath) => new Promise((rs, rj) => {
         }),
       ],
       optimization: {
-        minimizer: [new OptimizeCSSAssetsPlugin()],
+        minimizer: [new CssMinimizerPlugin()],
       },
     },
     err => {
