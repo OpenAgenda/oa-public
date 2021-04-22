@@ -187,6 +187,9 @@ module.exports = (env = {}, argv = {}) => {
         'react-dom/server': require.resolve('@hot-loader/react-dom/server'),
         'react-dom': require.resolve('@hot-loader/react-dom'),
       },
+      fallback: {
+        buffer: require.resolve('buffer'),
+      },
       conditionNames: ['oa', '...'],
     },
     performance: {
@@ -241,6 +244,9 @@ module.exports = (env = {}, argv = {}) => {
         __SERVER__: false,
         __DEVELOPMENT__: envName === 'development',
         __DEVTOOLS__: envName === 'development',
+      }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
       }),
       new LoadablePlugin(),
       new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),

@@ -59,7 +59,8 @@ module.exports = ( { entry, output } ) => ({
     extensions: [ '.js', '.jsx', '.json' ],
     fallback: {
       fs: false,
-      path: require.resolve('path-browserify')
+      path: require.resolve('path-browserify'),
+      buffer: require.resolve('buffer')
     }
   },
   performance: {
@@ -90,6 +91,9 @@ module.exports = ( { entry, output } ) => ({
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false
     } ),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
     new LoadablePlugin()
   ]
 });
