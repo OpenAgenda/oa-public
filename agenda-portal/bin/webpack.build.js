@@ -4,7 +4,6 @@ const fs = require('fs');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 const jsEntryFiles = fs
   .readdirSync(`${__dirname}/../client`)
@@ -42,9 +41,5 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin],
-  },
-  resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)],
   },
 };
