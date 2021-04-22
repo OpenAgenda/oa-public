@@ -47,7 +47,7 @@
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
-    "@storybook/react": "^6.1.0",
+    "@storybook/react": "^6.2.8",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",

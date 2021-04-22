@@ -43,7 +43,7 @@
     "@openagenda/fixtures": "^2.0.2",
     "@openagenda/keys": "^2.2.10",
     "@openagenda/unsubscribed": "^2.1.9",
-    "@storybook/react": "^6.1.0",
+    "@storybook/react": "^6.2.8",
     "async": "^2.6.1",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.0.2",
