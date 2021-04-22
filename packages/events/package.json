@@ -24,7 +24,7 @@
     "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.4.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@openagenda/eslint-config": "workspace:public/eslint-config",
     "@openagenda/files": "^3.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "mocha": "^7.0.1",
     "rimraf": "^3.0.1"
   }

@@ -20,7 +20,7 @@
     "test": "mocha --exit --require @babel/register"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.16",
+    "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.2.12",

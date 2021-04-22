@@ -3,7 +3,7 @@
  */
 var cn = require('../../js/lib/common/common.mod.js'),
 
-ejs = require('ejs'),
+_ = require('lodash'),
 
 labels = {
   add: 'Add',
@@ -39,7 +39,7 @@ module.exports = function(ctl, options) {
   }, options);
 
   cn.extend(labels, typeof params.labels !== 'undefined'?params.labels:{});
-  
+
   return create;
 
 };
@@ -48,13 +48,13 @@ var create = function(callback) {
 
   var sandbox = document.createElement('div');
 
-  sandbox.innerHTML = ejs.render(params.templates.add, labels);
+  sandbox.innerHTML = _.template(params.templates.add)(labels);
 
   var addButton = cn.childObject(sandbox, 0);
 
   cn.addEvent(addButton, 'click', function(e) {
     cn.preventDefault(e);
-    
+
     createMenu(addButton, callback);
     removeButton(addButton);
 
@@ -67,10 +67,10 @@ var create = function(callback) {
 createMenu = function(button, callback) {
 
   // initialize dom object
-  
+
   var sandbox = document.createElement('div');
 
-  sandbox.innerHTML = ejs.render(params.templates.menu, labels);
+  sandbox.innerHTML = _.template(params.templates.menu)(labels);
 
   var menu = cn.childObject(sandbox, 0),
 
@@ -86,7 +86,7 @@ createMenu = function(button, callback) {
 
   subsectionMenu = false; // subsection menu does not exist
 
-  
+
   // add behavior and content to section selectbox
 
   addSectionOptions(sectionSelect, labels.sectionSelect);
@@ -104,12 +104,12 @@ createMenu = function(button, callback) {
       subsectionLink.removeAttribute('style');
 
     }
-      
+
   });
 
 
   // add behavior and content to filter select box
-  
+
   createFilterSelect(filterSelect, function(value) {
 
     filter = value;
@@ -118,7 +118,7 @@ createMenu = function(button, callback) {
 
 
   // add behavior to subsection link
-  
+
   cn.addEvent(subsectionLink, 'click', function(e) {
 
     cn.preventDefault(e);
@@ -130,7 +130,7 @@ createMenu = function(button, callback) {
       subsection = cn.el(subsectionMenu, 'select').value;
 
     }, function() { // cancel callback
-      
+
       subsection = subsectionMenu = false;
 
       subsectionLink.removeAttribute('style');
@@ -142,7 +142,7 @@ createMenu = function(button, callback) {
   });
 
   // add behavior to create link
-  
+
   cn.addEvent(createLink, 'click', function(e) {
 
     cn.preventDefault(e);
@@ -169,14 +169,14 @@ createSubsection = function(currentSection, selectCallback, cancelCallback) {
 
   var sandbox = document.createElement('div');
 
-  sandbox.innerHTML = ejs.render(params.templates.subsectionMenu, labels);
+  sandbox.innerHTML = _.template(params.templates.subsectionMenu)(labels);
 
   var subsection = cn.childObject(sandbox, 0);
 
   resetSubsection(subsection, currentSection);
 
   cn.addEvent(subsection, 'change', selectCallback);
-  
+
   // the first a of the subsection is the cancel link
   cn.addEvent(cn.el(subsection, 'a'), 'click', function(e) {
 
@@ -240,7 +240,7 @@ addSectionOptions = function(select, defaultLabel, exclusions) {
     if ((typeof exclusions !== 'undefined') && cn.contains(exclusions, section)) return;
 
     addOption(select, section, labels.sections[section]);
-    
+
   });
 
 },
@@ -250,7 +250,7 @@ addOption = function(select, value, label) {
   if (typeof label == 'undefined') label = value;
 
   var option = document.createElement('option');
-    
+
   option.value = value;
   option.innerHTML = label;
   select.appendChild(option);

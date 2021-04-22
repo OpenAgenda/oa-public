@@ -23,7 +23,7 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/admin-agendas",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.16",
+    "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",

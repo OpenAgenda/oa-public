@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default storyFn => (
+export default Story => (
   <div className="container top-margined">
     <div className="row wsq">
       <div className="col col-sm-3 nav">
@@ -18,7 +18,9 @@ export default storyFn => (
         </ul>
       </div>
       <div className="col-sm-9 body">
-        <div className="js_canvas">{storyFn()}</div>
+        <div className="js_canvas">
+          <Story />
+        </div>
       </div>
     </div>
   </div>

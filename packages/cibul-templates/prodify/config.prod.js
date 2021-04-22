@@ -2,7 +2,7 @@
 
 const path = require( 'path' );
 const webpack = require( 'webpack' );
-const ManifestPlugin = require( 'webpack-manifest-plugin' );
+const { WebpackManifestPlugin } = require( 'webpack-manifest-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
@@ -28,7 +28,15 @@ module.exports = ( { entry, output } ) => ({
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|mjs|jsx)$/,
+        enforce: 'pre',
+        loader: require.resolve('source-map-loader'),
+        resolve: {
+          fullySpecified: false
+        },
+      },
+      {
+        test: /\.(js|mjs|jsx)?$/,
         loader: 'babel-loader',
         exclude: BABEL_EXCLUDE_REGEX,
         options: {
@@ -48,13 +56,18 @@ module.exports = ( { entry, output } ) => ({
   },
   resolve: {
     // symlinks: false,
-    extensions: [ '.js', '.jsx', '.json' ]
+    extensions: [ '.js', '.jsx', '.json' ],
+    fallback: {
+      fs: false,
+      path: require.resolve('path-browserify')
+    }
   },
   performance: {
     hints: false,
     maxAssetSize: 2000000
   },
   optimization: {
+    moduleIds: 'deterministic',
     // minimize: false,
     minimizer: [
       new TerserPlugin( {
@@ -65,22 +78,18 @@ module.exports = ( { entry, output } ) => ({
   },
   plugins: [
     // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
-    new ManifestPlugin(),
-    new ProgressBar( { minimal: false } ),
+    new WebpackManifestPlugin(),
+    new ProgressBar( { basic: false } ),
     new CleanWebpackPlugin( {
       cleanOnceBeforeBuildPatterns: [ '**/*.chunk.js', '**/webapp*.js' ]
     } ),
     new webpack.DefinePlugin( {
-      'process.env.NODE_ENV': '"production"',
+      'process.env': JSON.stringify({ NODE_ENV: 'production' }),
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false
     } ),
-    new LoadablePlugin(),
-    new webpack.HashedModuleIdsPlugin()
-  ],
-  node: {
-    fs: 'empty'
-  }
+    new LoadablePlugin()
+  ]
 });

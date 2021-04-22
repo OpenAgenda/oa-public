@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import DefineRules from '../src/components/DefineRules';
 import Stepper from '../src/components/Stepper';
@@ -13,6 +12,8 @@ import steps from './mocks/DefineRules/steps.json';
 import rules from './mocks/DefineRules/rules.json';
 
 import manyAddFieldsAggrSchema from './mocks/DefineRules/manyAdditionalFields.aggregator.schema.json';
+
+import '@openagenda/bs-templates/compiled/main.css';
 
 const sourceAgendaSchemaOneAdditional = {
   custom: {},
@@ -53,54 +54,70 @@ const aggregator = {
   ],
 };
 
-storiesOf('DefineRules - add', module)
-  .addDecorator(SourcesCanvasDecorator)
-  .addDecorator(ModalDecorator('Ajouter une source'))
-  .addDecorator(IntlDecorator)
-  .add('Adding a source - empty rule list', () => (
-    <div>
-      <div className="padding-v-sm">
-        <Stepper steps={steps} onSelect={() => {}} additionals={[]} />
-      </div>
-      <DefineRules
-        displayInfo
-        aggregatorAgenda={aggregatorAgenda}
-        aggregatorAgendaSchema={aggregatorAgendaSchema}
-        sourceSchema={sourceAgendaSchema}
-        initialRules={[]}
-        onSubmit={() => {}}
-        onCancel={() => {}}
-      />
-    </div>
-  ));
+export default {
+  title: 'DefineRules',
+  component: DefineRules,
+};
 
-storiesOf('DefineRules - edit', module)
-  .addDecorator(SourcesCanvasDecorator)
-  .addDecorator(ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`))
-  .addDecorator(IntlDecorator)
-  .add('empty rule list', () => (
+export const AddSource = () => (
+  <div>
+    <div className="padding-v-sm">
+      <Stepper steps={steps} onSelect={() => {}} additionals={[]} />
+    </div>
     <DefineRules
-      displayInfo={false}
-      aggregator={aggregator}
+      displayInfo
       aggregatorAgenda={aggregatorAgenda}
       aggregatorAgendaSchema={aggregatorAgendaSchema}
-      sourceAgenda={sourceAgenda}
       sourceSchema={sourceAgendaSchema}
       initialRules={[]}
       onSubmit={() => {}}
       onCancel={() => {}}
     />
-  ))
-  .add('many rules exist', () => (
-    <DefineRules
-      displayInfo={false}
-      aggregator={null}
-      aggregatorAgenda={aggregatorAgenda}
-      aggregatorAgendaSchema={manyAddFieldsAggrSchema}
-      sourceAgenda={sourceAgenda}
-      sourceSchema={sourceAgendaSchemaOneAdditional}
-      initialRules={rules}
-      onSubmit={() => {}}
-      onCancel={() => {}}
-    />
-  ));
+  </div>
+);
+AddSource.storyName = 'Add/Empty rule list';
+AddSource.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator('Ajouter une source'),
+  IntlDecorator,
+];
+
+export const EditEmpty = () => (
+  <DefineRules
+    displayInfo={false}
+    aggregator={aggregator}
+    aggregatorAgenda={aggregatorAgenda}
+    aggregatorAgendaSchema={aggregatorAgendaSchema}
+    sourceAgenda={sourceAgenda}
+    sourceSchema={sourceAgendaSchema}
+    initialRules={[]}
+    onSubmit={() => {}}
+    onCancel={() => {}}
+  />
+);
+EditEmpty.storyName = 'Edit/Empty rule list';
+EditEmpty.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
+  IntlDecorator,
+];
+
+export const EditMany = () => (
+  <DefineRules
+    displayInfo={false}
+    aggregator={null}
+    aggregatorAgenda={aggregatorAgenda}
+    aggregatorAgendaSchema={manyAddFieldsAggrSchema}
+    sourceAgenda={sourceAgenda}
+    sourceSchema={sourceAgendaSchemaOneAdditional}
+    initialRules={rules}
+    onSubmit={() => {}}
+    onCancel={() => {}}
+  />
+);
+EditMany.storyName = 'Edit/Many rules exist';
+EditMany.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
+  IntlDecorator,
+];

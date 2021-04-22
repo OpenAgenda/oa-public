@@ -1,7 +1,6 @@
 "use strict";
 
 const webpack = require( 'webpack' );
-const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 module.exports = {
   mode: 'development',
@@ -33,13 +32,5 @@ module.exports = {
       // required only for the timings component
       'react': require.resolve( 'react' )
     },
-    plugins: [
-      PnpWebpackPlugin
-    ]
   },
-  resolveLoader: {
-    plugins: [
-      PnpWebpackPlugin.moduleLoader(module)
-    ]
-  }
 };

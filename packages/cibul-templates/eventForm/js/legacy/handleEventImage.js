@@ -1,9 +1,9 @@
 "use strict";
 
 const _ = {
-  extend: require( 'lodash/extend' )
+  extend: require( 'lodash/extend' ),
+  template: require( 'lodash/template' )
 }
-const ejs = require( 'ejs' );
 const Spinner = require( 'spin.js' );
 
 const du = require( '@openagenda/dom-utils' );
@@ -264,7 +264,7 @@ module.exports = function( params ) {
 
   _displayEmptyMessage = function() {
 
-    du.el(elem, params.selectors.imageCanvas).innerHTML = ejs.render( params.templates.empty, params.labels );
+    du.el(elem, params.selectors.imageCanvas).innerHTML = _.template( params.templates.empty )( params.labels );
 
   },
 
@@ -414,7 +414,7 @@ module.exports = function( params ) {
       imageCreditsPlaceholder: JSON.parse( du.el( params.canvas ).getAttribute( 'attr-credits-placeholder' ) ) || params.labels.imageCreditsPlaceholder
     } );
 
-    elem.innerHTML = ejs.render( params.templates.main, params.labels );
+    elem.innerHTML = _.template( params.templates.main )( params.labels );
 
     du.el( params.canvas ).appendChild(elem);
 

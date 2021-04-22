@@ -9,7 +9,7 @@
     "build": "rimraf build && babel src -d build -s"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.13.16",
+    "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/form-schemas": "^1.9.2",
     "@openagenda/labels": "^2.3.0",
@@ -40,18 +40,18 @@
     "compression-webpack-plugin": "^3.0.0",
     "express": "^4.17.1",
     "jest": "^26.1.0",
-    "lodash-webpack-plugin": "^0.11.5",
+    "lodash-webpack-plugin": "^0.11.6",
     "nodemon": "^2.0.4",
     "react-json-editor-ajrm": "^2.5.9",
     "rimraf": "^3.0.1",
     "store": "^2.0.12",
     "verror": "^1.10.0",
-    "webpack": "^4.43.0",
-    "webpack-assets-manifest": "^3.1.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-middleware": "^3.7.2",
+    "webpack": "^5.35.0",
+    "webpack-assets-manifest": "^5.0.5",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-middleware": "^4.1.0",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-s3-plugin": "^1.0.3"
+    "webpack-s3-plugin": "^1.2.0-rc.0"
   },
   "jest": {
     "testMatch": [
