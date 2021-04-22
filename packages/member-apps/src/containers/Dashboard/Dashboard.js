@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect, ReactReduxContext } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
@@ -220,7 +220,6 @@ class Dashboard extends Component {
       owner,
     } = member;
     const {
-      res,
       showModal,
       resendInvitation,
       history,
@@ -305,17 +304,18 @@ class Dashboard extends Component {
               </p>
             )}
 
-            <a
-              href={res.showContributor
-                .replace(':slug', agenda.slug)
-                .replace(':contributorId', id)}
+            <Link
+              to={`/${agenda.slug}/admin/events?${qs.stringify({
+                contributorId: id,
+                'q.memberUid': [member.userUid],
+              })}`}
               className="text-muted"
             >
               {/* <span className="badge badge-info"> */}
               {eventCount}{' '}
               {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
               {/* </span> */}
-            </a>
+            </Link>
 
             {(userCredential !== 3 || ![2, 3].includes(role)) && (
               <button
