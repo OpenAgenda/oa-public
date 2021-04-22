@@ -2,8 +2,6 @@
 
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-const PnpWebpackPlugin = require('pnp-webpack-plugin');
-
 module.exports = {
   mode: 'production',
   context: __dirname,
@@ -19,6 +17,14 @@ module.exports = {
   plugins: [new LodashModuleReplacementPlugin()],
   module: {
     rules: [
+      {
+        test: /\.(js|mjs|jsx)$/,
+        enforce: 'pre',
+        loader: require.resolve('source-map-loader'),
+        resolve: {
+          fullySpecified: false
+        },
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -42,9 +48,5 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin],
-  },
-  resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)],
   },
 };
