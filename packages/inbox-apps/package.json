@@ -70,7 +70,7 @@
     "chai-as-promised": "^7.1.1",
     "chai-jest-diff": "^1.0.2",
     "chai-jest-snapshot": "^2.0.0",
-    "concurrently": "^5.1.0",
+    "concurrently": "^6.0.2",
     "cors": "^2.8.5",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
