@@ -916,6 +916,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helpers@npm:^7.13.17":
+  version: 7.13.17
+  resolution: "@babel/helpers@npm:7.13.17"
+  dependencies:
+    "@babel/template": ^7.12.13
+    "@babel/traverse": ^7.13.17
+    "@babel/types": ^7.13.17
+  checksum: 825fee47344a08b83b25c167bbd5cc4b1b87068a61ab013c7f091f78394c41095981af424cb6c5d22f7ea7fc4f4c11c3137a8602ef9f8bb76da74f15aa22235c
+  languageName: node
+  linkType: hard
+
 "@babel/highlight@npm:^7.10.4, @babel/highlight@npm:^7.8.3":
   version: 7.10.4
   resolution: "@babel/highlight@npm:7.10.4"
@@ -3720,7 +3731,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs3@npm:^7.12.5, @babel/runtime-corejs3@npm:^7.13.16, @babel/runtime-corejs3@npm:^7.13.17":
+"@babel/runtime-corejs3@npm:^7.12.5, @babel/runtime-corejs3@npm:^7.13.17":
   version: 7.13.17
   resolution: "@babel/runtime-corejs3@npm:7.13.17"
   dependencies:
@@ -3873,6 +3884,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/traverse@npm:^7.13.17":
+  version: 7.13.17
+  resolution: "@babel/traverse@npm:7.13.17"
+  dependencies:
+    "@babel/code-frame": ^7.12.13
+    "@babel/generator": ^7.13.16
+    "@babel/helper-function-name": ^7.12.13
+    "@babel/helper-split-export-declaration": ^7.12.13
+    "@babel/parser": ^7.13.16
+    "@babel/types": ^7.13.17
+    debug: ^4.1.0
+    globals: ^11.1.0
+  checksum: beed02a48bb674484c63e3eda1b487943ef738773d13627781b5d729fe72747a9cc45400a052a0371b5c89b70829fe535d99cdc0f201a100c7e6e4286a861e5e
+  languageName: node
+  linkType: hard
+
 "@babel/types@npm:^7.0.0, @babel/types@npm:^7.0.0-beta.49, @babel/types@npm:^7.10.4, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.0, @babel/types@npm:^7.4.4, @babel/types@npm:^7.7.0":
   version: 7.10.4
   resolution: "@babel/types@npm:7.10.4"
@@ -3924,6 +3951,16 @@ __metadata:
     "@babel/helper-validator-identifier": ^7.12.11
     to-fast-properties: ^2.0.0
   checksum: b3c63e7b9ab78b3dbae678d6ba6d66736d71034eede28a9c708ef7715d93947b54052876cce99bcd4379594300cf0e4eae17d0879205cb5db911ad8550ec3a0f
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.13.17":
+  version: 7.13.17
+  resolution: "@babel/types@npm:7.13.17"
+  dependencies:
+    "@babel/helper-validator-identifier": ^7.12.11
+    to-fast-properties: ^2.0.0
+  checksum: 985ea4639aae263c12837c79f86866a7ac35a2e355fe7dd9d1a16f0492ffa7705acd5cbf8b881feca7f17816b8cff5cb3964f064077e8e8b939c4478fc78d896
   languageName: node
   linkType: hard
 
@@ -5973,7 +6010,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
@@ -6163,7 +6200,7 @@ __metadata:
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
     "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
     "@formatjs/intl": ^1.6.7
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
@@ -6579,7 +6616,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.13.16
     "@babel/helper-plugin-utils": ^7.13.0
-    "@babel/helpers": ^7.13.16
+    "@babel/helpers": ^7.13.17
     "@babel/plugin-proposal-class-properties": ^7.13.0
     "@babel/plugin-proposal-decorators": ^7.13.15
     "@babel/plugin-proposal-do-expressions": ^7.12.13
@@ -8084,7 +8121,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
     "@emotion/babel-preset-css-prop": ^11.2.0
     "@emotion/react": ^11.1.5
     "@formatjs/cli": ^2.11.3
@@ -8163,7 +8200,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/react-shared": ^2.1.1
@@ -8220,7 +8257,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
     babel-jest: ^26.6.3
@@ -31021,7 +31058,7 @@ fsevents@~2.3.1:
   resolution: "oa-public@workspace:public"
   dependencies:
     "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
     "@commitlint/cli": ^12.1.1
     "@commitlint/config-conventional": ^12.1.1
     "@commitlint/config-lerna-scopes": ^12.1.1
