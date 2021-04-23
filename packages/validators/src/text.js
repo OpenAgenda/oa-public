@@ -22,7 +22,8 @@ export default config => {
 
   function validate( value ) {
 
-    var clean = value ? value + '' : '';
+    var clean = [undefined, null].includes(value) ? '' : value + '';
+
 
     if ( typeof value == 'object' && clean ) {
 

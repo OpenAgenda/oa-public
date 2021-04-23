@@ -207,6 +207,14 @@ describe('text validator', () => {
   });
 
   describe('fixes', () => {
+    
+    it('0 as integer cleans to 0 as string', () => {
+      const validate = validators.text();
+      
+      expect(
+        validate(0)
+      ).toEqual('0');
+    })
 
     it('if default is explicitely undefined, required is still required', () => {
       const validate = validators.text({
