@@ -129,6 +129,21 @@ describe('text validator', () => {
       expect(validate()).toEqual([]);
     });
 
+    it('min error', () => {
+      const validate = validators.text({
+        field: 'text',
+        min: 10
+      });
+
+      try {
+        validate('short');
+      } catch (errors) {
+        expect(errors[0].values.min).toBe(10);
+        return;
+      }
+      throw new Error('should not be here');
+    });
+
     it('cleans a single value as a single list item', () => {
       const validate = validators.text({
         field: 'text',

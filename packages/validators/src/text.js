@@ -1,7 +1,8 @@
 import listify from './listify';
 import cleanParams from './lib/params';
-export default config => {
+import errors from './lib/errors';
 
+export default config => {
   const params = cleanParams('text', config, {
     field: false, // required
     min: 0,
@@ -18,90 +19,56 @@ export default config => {
     field: params.field
   });
 
-  return params.list ? listify( validator, params ) : validator;
+  return params.list ? listify(validator, params) : validator;
 
-  function validate( value ) {
+  function validate(value) {
+    let clean = [undefined, null].includes(value) ? '' : value + '';
 
-    var clean = [undefined, null].includes(value) ? '' : value + '';
-
-
-    if ( typeof value == 'object' && clean ) {
-
-      // there is something there and it is not a string
-
-      throw [ {
-        field: validate.field,
-        code: 'string.invalidtype',
-        message: 'not a string',
-        origin: value
-      } ]
-
+    if (typeof value == 'object' && clean) {
+      throw errors(params, value, 'string.invalidtype', 'not a string');
     }
 
-    if ( typeof value !== 'undefined' && typeof value !== 'string' && params.strict ) {
-
-      throw [ {
-        field: validate.field,
-        code: 'string.invalidtype',
-        message: 'not a string',
-        origin: value
-      } ];
-
+    if (value !== undefined && typeof value !== 'string' && params.strict) {
+      throw errors(params, value, 'string.invalidtype', 'not a string');
     }
 
-    if ( params.trim ) {
-
+    if (params.trim) {
       clean = clean.trim();
-
     }
 
-    if ( typeof value === 'undefined' || value === null || !clean.length ) {
-
+    if (value === undefined || value === null || !clean.length) {
       if (params.optional || ![undefined, null].includes(params.default)) {
         return params.default;
       }
-
-      throw [ {
-        field: validate.field,
-        code: 'required',
-        message: 'a string is required',
-        origin: value
-      } ];
-
+      throw errors(params, value, 'required', 'a string is required');
     }
 
-    if ( clean.length < params.min ) {
-
-      throw [ {
-        field: validate.field,
-        code: 'string.tooshort',
-        message: 'the string is too short',
-        values: {
-          min: params.min,
-          max: params.max
-        },
-        origin: value
-      } ];
-
+    if (clean.length < params.min) {
+      throw errors(params, value,
+        'string.tooshort',
+        'the string is too short',
+        { 
+          values: {
+            min: params.min,
+            max: params.max
+          }
+        }
+      );
     }
 
-    if ( clean.length > params.max ) {
-
-      throw [ {
-        field: validate.field,
-        code: 'string.toolong',
-        message: 'the string is too long',
-        values: {
-          min: params.min,
-          max: params.max
-        },
-        origin: value
-      } ];
-
+    if (clean.length > params.max) {
+      throw errors(params, value,
+        'string.toolong',
+        'the string is too long',
+        { 
+          values: {
+            min: params.min,
+            max: params.max
+          }
+        }
+      );
     }
 
     return clean;
-
   }
-
 }
