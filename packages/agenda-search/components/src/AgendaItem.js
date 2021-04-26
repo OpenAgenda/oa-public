@@ -5,10 +5,35 @@ import makeLabelGetter from '@openagenda/labels';
 
 import PropTypes from 'prop-types';
 import url from '../../service/lib/url';
+import publishedEvents from './lib/publishedEvents';
 
 const getLabel = makeLabelGetter(labels);
 
 class AgendaItem extends Component {
+  renderEventCount() {
+    const {
+      agenda,
+      lang
+    } = this.props;
+
+    const currentAndUpcoming = publishedEvents.getCurrentAndUpcoming(agenda);
+
+    if (currentAndUpcoming === 1) {
+      return <li className="margin-bottom-xs"><span className="badge badge-default">{getLabel('publishedEvent', lang)}</span></li>;
+    }
+
+    if (currentAndUpcoming > 1) {
+      return <li className="margin-bottom-xs"><span className="badge badge-info">{getLabel('upcomingEvents', { count: currentAndUpcoming }, lang)}</span></li>;
+    }
+
+    const passed = publishedEvents.getPassed(agenda);
+
+    if (passed > 0) {
+      return <li className="margin-bottom-xs"><span className="badge badge-default">{getLabel(passed === 1 ? 'publishedEvent' : 'publishedEvents', { count: passed }, lang)}</span></li>;
+    }
+          
+    return null;
+  }
   render() {
     const {
       agenda,
@@ -50,10 +75,7 @@ class AgendaItem extends Component {
           <p className="description">{agenda.description}</p>
         </a>
         <ul className="list-inline">
-          { agenda.upcomingPublishedEvents === 0 && agenda.publishedEvents === 1 ? <li className="margin-bottom-xs"><span className="badge badge-default">{getLabel('publishedEvent', lang)}</span></li> : null }
-          { agenda.upcomingPublishedEvents === 0 && agenda.publishedEvents > 1 ? <li className="margin-bottom-xs"><span className="badge badge-default">{getLabel('publishedEvents', { count: agenda.publishedEvents }, lang)}</span></li> : null }
-          { agenda.upcomingPublishedEvents === 1 ? <li className="margin-bottom-xs"><span className="badge badge-info">{getLabel('upcomingEvent', lang)}</span></li> : null }
-          { agenda.upcomingPublishedEvents > 1 ? <li className="margin-bottom-xs"><span className="badge badge-info">{getLabel('upcomingEvents', { count: agenda.upcomingPublishedEvents }, lang)}</span></li> : null }
+          {this.renderEventCount()}
           { isContributive ? <li className="margin-bottom-xs"><a href={url.contribute(agenda, { lang })}>{getLabel('addEvent', lang)}</a></li> : null }
         </ul>
       </div>

@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 
-module.exports = (suffix = 'test', total, decorate) => {
+module.exports = (suffix = 'test', total) => {
   const agendas = JSON.parse(fs.readFileSync(
     `${__dirname}/../fixtures/agendas.${suffix}.json`, 
     'utf-8'
@@ -17,16 +17,9 @@ module.exports = (suffix = 'test', total, decorate) => {
       .filter(a => a.id > lastId)
       .filter((a, i) => i < limit)
       .filter(a => updatedAtGreaterThan ? a.updatedAt > updatedAtGreaterThan : true)
-      .map(decorate)
       .map(a => _.pick(a, [
         'id',
-        'uid',
-        'title',
-        'description',
-        'official',
-        'updatedAt',
-        'settings',
-        'createdAt'
+        'uid'
       ]));
 
     return {
