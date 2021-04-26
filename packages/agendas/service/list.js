@@ -150,11 +150,16 @@ async function _total(k) {
 
 function _listFields(options) {
   return map.filter(field => {
-    if (typeof field === 'string') {
+    
+    if (field?.db === 'id') {
       return true;
     }
+    
+    if (options.onlyIncludeFields.length && !options.onlyIncludeFields.includes(field.obj || field)) {
+      return false;
+    }
 
-    if (field.db === 'id') {
+    if (typeof field === 'string') {
       return true;
     }
 
