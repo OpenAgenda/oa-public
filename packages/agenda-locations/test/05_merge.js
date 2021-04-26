@@ -133,7 +133,7 @@ describe('agenda-locations - functional - merge', function () {
 
     before(async () => {
       location = await svc.sets(1903810).locations.merge(
-        51665985,
+        51665987,
         {
           uids: [7630649, 60763721],
         },
@@ -144,7 +144,7 @@ describe('agenda-locations - functional - merge', function () {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 51665985);
+      assert.equal(location.uid, 51665987);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {

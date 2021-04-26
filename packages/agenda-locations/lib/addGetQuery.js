@@ -22,7 +22,8 @@ const validate = schema({
   },
 });
 
-module.exports = async (service, k, query) => {
+module.exports = async (service, k, deleted, query) => {
+  //console.log(deleted);
   const cleanQuery = {};
 
   try {
@@ -58,5 +59,10 @@ module.exports = async (service, k, query) => {
     k.where('uid', uid);
   }
 
-  k.where('deleted', '<>', 1);
+  if (deleted === true) {
+    k.where('deleted', 1);
+  }
+  if (deleted === false) {
+    k.where('deleted', '<>', 1);
+  }
 };

@@ -23,11 +23,12 @@ async function list(service, query = {}, nav = {}, options = {}) {
     detailed,
     includeFields,
     stream: streamOptions,
+    deleted
   } = cleanListOptions;
 
   const cleanNav = validateNav(nav);
 
-  await addListQuery(service, k, {
+  await addListQuery(service, k, deleted, {
     ...query,
     ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });

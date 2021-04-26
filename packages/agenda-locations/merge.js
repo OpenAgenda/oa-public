@@ -10,7 +10,7 @@ const remove = require('./remove');
 const authorize = require('./lib/authorize');
 
 async function merge(service, mergeInItem, items, data = null, options = {}) {
-  log('received %j', items);
+  log('received :', mergeInItem, '|||', items);
 
   await authorize(service, 'merge', mergeInItem.uid, options);
 

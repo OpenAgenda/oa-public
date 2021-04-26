@@ -34,6 +34,11 @@ module.exports = schema({
     type: 'boolean',
     default: false
   },
+  deleted: {
+    type: 'boolean',
+    default: false,
+    allowNull: true
+  },
   context: {
     agendaUid: {
       type: 'integer',

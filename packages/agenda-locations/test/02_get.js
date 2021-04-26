@@ -86,14 +86,29 @@ describe('agenda-locations - functional - get', function () {
   });
 
   describe('deleted', () => {
-    let location;
-
-    before(async () => {
-      location = await svc.get(7630652);
+    it('soft-deleted location is not accessible through get by default', async () => {
+      const location = await svc.get(7630652);
+      assert.equal(location, null);
     });
 
-    it('soft-deleted location is not accessible through get by default', () => {
+    it('soft-deleted location is accessible through get with option deleted:true', async () => {
+      const location = await svc.get(7630652, { deleted: true });
+      assert.equal(location.uid, 7630652);
+    });
+
+    it('Not soft-deleted location is not accessible through get with option deleted:true', async () => {
+      const location = await svc.get(51665987, { deleted: true });
       assert.equal(location, null);
+    });
+
+    it('soft-deleted location is accessible through get with option deleted:null', async () => {
+      const location = await svc.get(7630652, { deleted: null });     
+      assert.equal(location.uid, 7630652);
+    });
+
+    it('Not soft-deleted location is accessible through get with option deleted:null', async () => {
+      const location = await svc.get(51665987, { deleted: null });
+      assert.equal(location.uid, 51665987);
     });
   });
 

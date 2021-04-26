@@ -100,7 +100,7 @@ describe('agenda-locations - functional - list', function () {
           80369196,
           60725900,
           7749634,
-          24334735
+          76306
         ]
       );
     });
@@ -322,14 +322,22 @@ describe('agenda-locations - functional - list', function () {
   });
 
   describe('deleted', () => {
-    let items;
 
-    before(async () => {
-      items = await svc(7196947).list();
+    it('soft deleted item not listed', async () => {
+      const items = await svc(7196947).list();
+      assert.equal(items.filter(i=> i.uid === 7630652).length, 0)
     });
 
-    it('soft deleted item not listed', () => {
-      assert.equal(items.filter(i=> i.uid === 7630652).length, 0)
+    it('soft deleted item listed with option deleted: null', async () => {
+      const items = await svc(7196947).list({},{}, { deleted: null });
+      assert.equal(items.filter(i=> i.uid === 7630652).length, 1)
+
+    });
+
+    it('only soft deleted item listed with option deleted: true', async () => {
+      const items = await svc(7196947).list({},{}, { deleted: true });
+      assert.equal(items.filter(i=> i.uid === 7630652).length, 1)
+
     });
   });
 

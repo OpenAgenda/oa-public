@@ -94,11 +94,11 @@ describe('agenda-locations - functional - remove', function () {
     let removed;
 
     before(async () => {
-      removed = await svc.sets(1903810).locations.remove(51665985);
+      removed = await svc.sets(1903810).locations.remove(51665987);
     });
 
     it('remove provides removed location in response', () => {
-      assert.equal(removed.uid, 51665985);
+      assert.equal(removed.uid, 51665987);
     });
 
     it('removed location is no longer present in db', async () => {
