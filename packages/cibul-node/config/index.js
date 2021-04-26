@@ -169,6 +169,7 @@ const config = {
     esEvents: {
       maxIndexableTimingCount: 3000
     },
+    agendaSearchAlias: process.env.OA_AGENDA_SEARCH_ALIAS || prod.agendaSearchAlias || 'agendas',
     redis: {
       host: _.get(prod, 'redis.host', 'localhost'),
       port: _.get(prod, 'redis.port', 6379)

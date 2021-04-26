@@ -44,10 +44,7 @@ module.exports = async (core, agenda, options = {}) => {
       state: null
     }, { size: 0 }, {
       aggregations: ['states']
-    }).then(({ aggregations }) => aggregations.states.reduce((carry, { key, eventCount }) => ({
-      ...carry,
-      [key]: eventCount
-    }), { '2': 0, '1': 0, '0': 0, '-1': 0 }));
+    }).then(({ aggregations }) => aggregations.states);
   }
 
   return summary;

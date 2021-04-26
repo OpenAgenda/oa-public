@@ -2,30 +2,17 @@
 
 const log = require('@openagenda/logs')('services/agendaSearch/listAgendas');
 
-module.exports = async (services, query, lastId, limit) => {
+module.exports = services => async (query, lastId, limit) => {
+  const {
+    core
+  } = services;
   const {
     agendas,
     lastId: nextLastId
   } = await services.agendas.list(query, lastId, limit, {
-    indexed: true,
     offsetAsLastId: true,
     keywords: [],
-    includeFields: [
-      'uid',
-      'slug',
-      'official',
-      'title',
-      'description',
-      'url',
-      'image',
-      'updatedAt',
-      'createdAt',
-      'officializedAt',
-      'private',
-      'indexed',
-      'networkUid',
-      'settings'
-    ]
+    fields: ['uid', 'slug']
   });
 
   log('info', 'listed %s agendas for reindexing', agendas.length);
