@@ -2,14 +2,14 @@ import { createMemoryHistory } from 'history';
 import axios from 'axios';
 
 import MockAdapter from 'axios-mock-adapter';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
 
-import '@openagenda/bs-templates/compiled/main.css';
 import sourcesJson from './mocks/sources.json';
 import agendasJson from './mocks/agendas.json';
+
+import '@openagenda/bs-templates/compiled/main.css';
 
 const mock = new MockAdapter(axios);
 
@@ -34,11 +34,50 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
     getAggregator: '/:slug/admin/aggregator',
     setAggregator: '/:slug/admin/aggregator',
   },
+  sources: {},
+  modals: {},
 });
 
-export default storiesOf('Main', module)
-  .addDecorator(PageDecorator)
-  .add('Presentation', () => wrapApp(
+export default {
+  title: 'Main',
+  decorators: [PageDecorator],
+};
+
+export const Presentation = () => wrapApp(
+  createApp({
+    history: createMemoryHistory(),
+    initialState: getDefaultState({
+      apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+    }),
+  }),
+  {
+    extraProps: {
+      lang: 'fr',
+      agenda: {
+        uid: 48959239,
+        slug: 'la-gargouille',
+        title: 'La gargouille',
+        credentials: {
+          aggregator: true,
+        },
+      },
+    },
+  }
+);
+
+export const EmptyList = () => {
+  mock.onGet('/sources.json').reply(200, {
+    sources: [],
+    aggregator: {
+      limit: 12,
+    },
+  });
+  mock
+    .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
+    .reply(200, { agenda: agendasJson.agendas[0] });
+  mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
+
+  return wrapApp(
     createApp({
       history: createMemoryHistory(),
       initialState: getDefaultState({
@@ -58,73 +97,36 @@ export default storiesOf('Main', module)
         },
       },
     }
-  ))
-  .add('Empty list', () => {
-    mock.onGet('/sources.json').reply(200, {
-      sources: [],
-      aggregator: {
-        limit: 12,
+  );
+};
+
+export const List = () => {
+  mock.onGet('/sources.json').reply(200, sourcesJson);
+  mock.onGet('/agendas.json').reply(200, agendasJson);
+  mock
+    .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
+    .reply(200, { agenda: agendasJson.agendas[0] });
+  mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
+
+  return wrapApp(
+    createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState({
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+      }),
+    }),
+    {
+      extraProps: {
+        lang: 'fr',
+        agenda: {
+          uid: 48959239,
+          slug: 'la-gargouille',
+          title: 'La gargouille',
+          credentials: {
+            aggregator: true,
+          },
+        },
       },
-    });
-    mock
-      .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
-      .reply(200, { agenda: agendasJson.agendas[0] });
-    mock
-      .onGet(/^\/([^/]+?)\/?$/)
-      .reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
-
-    return wrapApp(
-      createApp({
-        history: createMemoryHistory(),
-        initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        }),
-      }),
-      {
-        extraProps: {
-          lang: 'fr',
-          agenda: {
-            uid: 48959239,
-            slug: 'la-gargouille',
-            title: 'La gargouille',
-            credentials: {
-              aggregator: true,
-            },
-          },
-        },
-      }
-    );
-  })
-
-  .add('List', () => {
-    mock.onGet('/sources.json').reply(200, sourcesJson);
-    mock.onGet('/agendas.json').reply(200, agendasJson);
-    mock
-      .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
-      .reply(200, { agenda: agendasJson.agendas[0] });
-    mock
-      .onGet(/^\/([^/]+?)\/?$/)
-      .reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
-
-    return wrapApp(
-      createApp({
-        history: createMemoryHistory(),
-        initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        }),
-      }),
-      {
-        extraProps: {
-          lang: 'fr',
-          agenda: {
-            uid: 48959239,
-            slug: 'la-gargouille',
-            title: 'La gargouille',
-            credentials: {
-              aggregator: true,
-            },
-          },
-        },
-      }
-    );
-  });
+    }
+  );
+};

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Modal } from '@openagenda/react-components';
 
-export default title => storyFn => (
+export default title => Story => (
   <Modal
     classNames={{ overlay: 'popup-overlay big' }}
     title={title || 'A story'}
     onClose={() => {}}
   >
-    {storyFn()}
+    <Story />
   </Modal>
 );

@@ -8,7 +8,7 @@ totals,
 
 gChartWrapper = require('./googleChartWrapper.js'),
 
-ejs = require('ejs'),
+_ = require('lodash'),
 
 labels = {
   unset: 'Unset',
@@ -71,7 +71,7 @@ module.exports = function(ctl, options, callback) {
   cn.extend(params, options);
 
   canvas = params.canvas;
-  
+
   parser = statsParser(ctl, {
     labels: labels
   });
@@ -126,7 +126,7 @@ createTotals = function() {
 
   var sandbox = params.d.createElement('div');
 
-  sandbox.innerHTML = ejs.render(params.templates.total, cn.extend({labels: labels}, totals));
+  sandbox.innerHTML = _.template(params.templates.total)(cn.extend({labels: labels}, totals));
 
   canvas.appendChild(cn.childObject(sandbox, 0));
 
@@ -138,7 +138,7 @@ setContent = function(wCanvas, wData, currentMode, wConfig, removeCallback) {
 
   var label = setTitleLabel(wConfig.sections, wConfig.filter);
 
-  wCanvas.innerHTML = ejs.render(params.templates.main, { labels: labels, linkContent: labels.linkContent[currentMode], classes: params.classes, label: label });
+  wCanvas.innerHTML = _.template(params.templates.main)({ labels: labels, linkContent: labels.linkContent[currentMode], classes: params.classes, label: label });
 
   cn.addEvent(cn.els(wCanvas, 'a')[2], 'click', function(e) {
 
@@ -201,7 +201,7 @@ renderList = function(canvas, label, data, sections) {
 
   var child;
 
-  canvas.innerHTML = ejs.render(template, cn.extend({labels: params.labels, classes: params.classes, odd: true}, {data: data}));
+  canvas.innerHTML = _.template(template)(cn.extend({labels: params.labels, classes: params.classes, odd: true}, {data: data}));
 
 },
 
@@ -213,7 +213,7 @@ renderCsv = function(data, sections, filter) {
 
     var cols = [labels.sections[sections[0]]];
 
-    // define columns 
+    // define columns
     for (var topSection in data)
       for (i in data[topSection])
         if (!cn.contains(cols, data[topSection][i].label)) cols.push(data[topSection][i].label);
@@ -254,7 +254,7 @@ renderCsv = function(data, sections, filter) {
 
   }
 
-  return ejs.render(params.templates.csv, {rows: rows});
+  return _.template(params.templates.csv)({rows: rows});
 
 },
 
@@ -277,7 +277,7 @@ sortRequired = function(sections) {
 },
 
 toArray = function(data, sort) {
-  
+
   if (typeof sort == 'undefined') sort = false;
 
   var aData = [];
@@ -315,7 +315,7 @@ countTotals = function(ctl) {
   for (var i in ctl.a)
     for (var l in ctl.a[i].l)
       dates += ctl.a[i].l[l].d.length;
-      
+
 
   for (i in upcoming)
     for (l in upcoming[i].l)
@@ -352,7 +352,7 @@ filters = {
     var today = new Date();
 
     today = today.getFullYear() + '-' + cn.addZero(today.getMonth()+1) + '-' + cn.addZero(today.getDate());
-    
+
     var a = JSON.parse(JSON.stringify(articles));
 
     for (var aId in a) {

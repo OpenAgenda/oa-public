@@ -8,7 +8,7 @@ import { useConstant, useApiClient } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 
 const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
-const reactMdPlugins = [breaks];
+const remarkPlugins = [breaks];
 
 function AnnouncementPreview({ kind = 'info', content }) {
   return (
@@ -24,11 +24,9 @@ function AnnouncementPreview({ kind = 'info', content }) {
             </button>
           </div>
 
-          <ReactMarkdown
-            linkTarget={getTarget}
-            source={content}
-            plugins={reactMdPlugins}
-          />
+          <ReactMarkdown linkTarget={getTarget} remarkPlugins={remarkPlugins}>
+            {content}
+          </ReactMarkdown>
         </div>
       </div>
     </div>

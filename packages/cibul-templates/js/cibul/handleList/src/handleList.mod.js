@@ -6,7 +6,7 @@ remote = require('../../../lib/remote/remote.mod.js'),
 
 hash = require('../../../lib/hash/hash.mod.js'),
 
-ejs = require('ejs'),
+_ = require('lodash'),
 
 lockElt,
 spinner,
@@ -89,7 +89,7 @@ module.exports = function(canvas, eh, options) {
     if (!initLoad)
       if (Object.size(asymDiff(aParameters, parameters)) || Object.size(asymDiff(parameters, aParameters)))
         initLoad = true;
-      
+
     parameters = aParameters;
 
   }
@@ -134,7 +134,7 @@ var _writePage = function(newParams) {
       } else {
         _setParameter(index, newParams[index]);
       }
-      
+
     }
 
   }
@@ -142,7 +142,7 @@ var _writePage = function(newParams) {
   if (!pageSet) _setParameter('page', 1);
 
   pageRange = false;
-  
+
   _loadAndWriteContent(OVERWRITE);
 
 },
@@ -180,7 +180,7 @@ _setParameter = function(name, value) {
 _updatePageRange = function() {
 
   var page = parseInt(_getParameter('page',1), 10);
-  
+
   if (pageRange) {
     pageRange = [Math.min(pageRange[0], page), Math.max(pageRange[1], page)];
   } else {
@@ -236,7 +236,7 @@ _loadAndWriteContent = function(position){
 
       element = document.createElement('div');
 
-      element.innerHTML = ejs.render(params.templates[value.template], value);
+      element.innerHTML = _.template(params.templates[value.template])(value);
       element = element.firstChild;
 
       if (params.scripts && params.scripts[value.template]) params.scripts[value.template](element, value);

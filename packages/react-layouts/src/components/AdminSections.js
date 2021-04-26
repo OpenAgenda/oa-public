@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import compareRoles from '@openagenda/members/build/compareRoles';
 
 const TABS_IN_APP = [
+  'events',
   'members',
   'sources',
   'inbox',

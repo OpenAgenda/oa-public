@@ -32,7 +32,10 @@ const stories = require( './stories' ).reduce( ( stories, story ) => {
 
 
 dev.use( require( 'webpack-dev-middleware' )( compiler, {
-  noInfo: true,
+  stats: {
+    noInfo: true,
+    errorDetails: true
+  },
   publicPath: '/js'
 } ) );
 

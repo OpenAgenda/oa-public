@@ -2,7 +2,7 @@
 
 const path = require( 'path' );
 const webpack = require( 'webpack' );
-const ManifestPlugin = require( 'webpack-manifest-plugin' );
+const { WebpackManifestPlugin } = require( 'webpack-manifest-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const LoadablePlugin = require( '@loadable/webpack-plugin' );
@@ -26,12 +26,15 @@ module.exports = ( { entry, output } ) => ({
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|mjs|jsx)$/,
         enforce: 'pre',
-        loader: 'source-map-loader'
+        loader: require.resolve('source-map-loader'),
+        resolve: {
+          fullySpecified: false
+        },
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(js|mjs|jsx)$/,
         loader: 'babel-loader',
         exclude: BABEL_EXCLUDE_REGEX,
         options: {
@@ -51,29 +54,36 @@ module.exports = ( { entry, output } ) => ({
   },
   resolve: {
     // symlinks: false,
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
+    fallback: {
+      fs: false,
+      path: require.resolve('path-browserify'),
+      buffer: require.resolve('buffer')
+    }
   },
   performance: {
     hints: false,
     maxAssetSize: Infinity
   },
+  optimization: {
+    moduleIds: 'named'
+  },
   plugins: [
-    new ManifestPlugin(),
-    new ProgressBar({ minimal: false }),
+    new WebpackManifestPlugin(),
+    new ProgressBar({ basic: false }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*.chunk.js']
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"development"',
+      'process.env': JSON.stringify({ NODE_ENV: 'development' }),
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true
     }),
-    new LoadablePlugin(),
-    new webpack.NamedModulesPlugin()
-  ],
-  node: {
-    fs: 'empty'
-  }
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
+    new LoadablePlugin()
+  ]
 });

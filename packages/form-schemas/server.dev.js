@@ -31,7 +31,10 @@ const dev = express();
 const style = require('@openagenda/bs-templates').getCss('main');
 
 dev.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
+  stats: {
+    noInfo: true,
+    errorDetails: true
+  },
   publicPath: '/js'
 }));
 

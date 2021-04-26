@@ -1,8 +1,8 @@
 "use strict";
 
-var cn = require('../../js/lib/common/common.mod.js'),
+const _ = require('lodash');
 
-  ejs = require( 'ejs' ),
+var cn = require('../../js/lib/common/common.mod.js'),
 
   controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
 
@@ -46,7 +46,7 @@ module.exports = function(options) {
 
   controlDataFetch( {
     uid: params.uid,
-    embedUid: params.embedUid 
+    embedUid: params.embedUid
   }, function( err, ctl ) {
 
       if ( err ) return console.error( 'could not fetch control data' );
@@ -68,14 +68,14 @@ module.exports = function(options) {
         _createOption(tag);
 
       });
-      
+
     });
 
 }
 
 
 function _onSelectionChange( newConfig ) {
-  
+
   var src = cn.el(params.selectors.frame).src;
 
   cn.el(params.selectors.frame).src = (src.indexOf('?')!==-1?src.substr(0, src.indexOf('?')):src) + '?config=' + newConfig;
@@ -154,7 +154,7 @@ function _createOption( tag ) {
 
   var ul = document.createElement('ul');
 
-  ul.innerHTML = ejs.render( params.templates.option, tag );
+  ul.innerHTML = _.template( params.templates.option )( tag );
 
   var li = cn.el( ul, 'li' );
 
@@ -173,7 +173,7 @@ function _createOption( tag ) {
       cn.el(li, 'input').checked = false;
 
     }
-    
+
   });
 
   canvas.appendChild(cn.el(ul, 'li'));

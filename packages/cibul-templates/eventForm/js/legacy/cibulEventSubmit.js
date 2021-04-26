@@ -6,7 +6,7 @@ rUtils = require( '../reactUtils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 
-ejs = require( 'ejs' ),
+_ = require( 'lodash' ),
 
 remote = require( '../../../js/lib/remote/remote.mod' );
 
@@ -109,7 +109,7 @@ module.exports = function( params ) {
     if ( e ) du.preventDefault( e );
 
     params.beforeSubmit( function() {
-      
+
       _process[ name ]( function( encodedEvent ) {
 
         params.onSubmit();
@@ -125,7 +125,7 @@ module.exports = function( params ) {
           window.location.href = url;
 
         }
-        
+
       });
 
     } );
@@ -224,8 +224,8 @@ module.exports = function( params ) {
 
   _checkValidation = function(onSuccess, postEvent) {
 
-    eh.trigger(params.events.validate, { 
-      onChange: _displayErrors, 
+    eh.trigger(params.events.validate, {
+      onChange: _displayErrors,
       onSuccess: function() {
 
       if (postEvent) {
@@ -295,7 +295,7 @@ module.exports = function( params ) {
 
         du.el( errorElem, 'ul' ).appendChild( er );
 
-      });      
+      });
 
       du.removeClass( errorElem, 'display-none' );
 
@@ -311,7 +311,7 @@ module.exports = function( params ) {
 
     elem.className = params.classes.main;
 
-    elem.innerHTML =  ejs.render( params.template, params.labels );
+    elem.innerHTML =  _.template( params.template )( params.labels );
 
     du.el( params.canvas ).appendChild(elem);
 

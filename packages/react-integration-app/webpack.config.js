@@ -9,12 +9,10 @@ const ProgressBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
-
-const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const WebpackDashboardPlugin = require('webpack-dashboard/plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const modulesToInclude = [
   '@feathersjs',
@@ -79,42 +77,56 @@ module.exports = (env = {}, argv = {}) => {
       publicPath: pushToCDN
         ? '//d1771xfuxsyp4n.cloudfront.net/' // `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
         : `/dist/${serviceName}/`,
-      filename: envName === 'production' ? '[id].[chunkhash].js' : '[name].js',
+      filename: '[name].[contenthash].js',
     },
+    target: envName === 'development' ? 'web' : 'browserslist',
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',
     devServer: {
       host: devServerHost,
       port: devServerPort,
-      https: true,
-      key: process.env.DEV_SSL_KEY
-        ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_KEY))
-        : null,
-      cert: process.env.DEV_SSL_CERT
-        ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_CERT))
-        : null,
-      ca: process.env.DEV_SSL_CA
-        ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_CA))
-        : null,
-      contentBase: './dist',
-      disableHostCheck: true,
+      https: {
+        key: process.env.DEV_SSL_KEY
+          ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_KEY))
+          : undefined,
+        cert: process.env.DEV_SSL_CERT
+          ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_CERT))
+          : undefined,
+        ca: process.env.DEV_SSL_CA
+          ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_CA))
+          : undefined,
+      },
+      static: path.resolve(__dirname, 'dist'),
+      firewall: false,
       headers: { 'Access-Control-Allow-Origin': '*' },
-      transportMode: 'ws',
       compress: true,
       hot: true,
-      inline: true,
-      lazy: false,
+      liveReload: false,
+      dev: {
+        publicPath: `/dist/${serviceName}/`,
+        writeToDisk: filePath => /loadable-stats\.json$/.test(filePath),
+      },
     },
-    stats: 'minimal',
+    stats: {
+      preset: 'minimal',
+      colors: true,
+      assets: false,
+      modules: false,
+      errorDetails: true,
+      errorStack: true,
+    },
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.(js|mjs|jsx)$/,
           enforce: 'pre',
           loader: require.resolve('source-map-loader'),
+          resolve: {
+            fullySpecified: false,
+          },
         },
         {
-          test: /\.jsx?$/,
+          test: /\.(js|mjs|jsx)$/,
           loader: require.resolve('babel-loader'),
           exclude: BABEL_EXCLUDE_REGEX,
           options: {
@@ -175,17 +187,21 @@ module.exports = (env = {}, argv = {}) => {
         'react-dom/server': require.resolve('@hot-loader/react-dom/server'),
         'react-dom': require.resolve('@hot-loader/react-dom'),
       },
-      plugins: [PnpWebpackPlugin],
-    },
-    resolveLoader: {
-      plugins: [PnpWebpackPlugin.moduleLoader(module)],
+      fallback: {
+        buffer: require.resolve('buffer'),
+      },
+      conditionNames: ['oa', '...'],
     },
     performance: {
       hints: false,
       maxAssetSize: envName === 'production' ? 2000000 : Infinity,
     },
+    cache: {
+      type: process.env.DISABLE_WEBPACK_CACHE ? 'memory' : 'filesystem',
+    },
     optimization: {
       nodeEnv: envName,
+      moduleIds: envName === 'production' ? 'deterministic' : 'named',
       runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
@@ -206,7 +222,6 @@ module.exports = (env = {}, argv = {}) => {
         //   }
         // }
       },
-      moduleIds: 'hashed',
       minimize: envName === 'production',
       minimizer: [
         new TerserPlugin({
@@ -216,71 +231,67 @@ module.exports = (env = {}, argv = {}) => {
           // parallel: true
           sourceMap: true,
         }),
-        new OptimizeCSSAssetsPlugin(),
+        new CssMinimizerPlugin(),
       ],
     },
     plugins: [
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
       new WebpackDashboardPlugin(),
-      new ProgressBar({ minimal: false }),
-      new CleanWebpackPlugin(),
+      new ProgressBar({ basic: false }),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': `"${envName}"`,
+        'process.env': JSON.stringify({ NODE_ENV: envName }),
         __CLIENT__: true,
         __SERVER__: false,
         __DEVELOPMENT__: envName === 'development',
         __DEVTOOLS__: envName === 'development',
       }),
-      new LoadablePlugin({ writeToDisk: true }),
-      envName === 'production'
-        ? new webpack.HashedModuleIdsPlugin()
-        : new webpack.NamedModulesPlugin(),
-      new MiniCssExtractPlugin({
-        filename:
-          envName === 'production' ? '[id].[contenthash].css' : '[name].css',
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
       }),
-    ].concat(
-      pushToCDN
-        ? [
-          // new CompressionPlugin( {
-          //   test: /\.(js|css)$/,
-          //   filename: 'gz/[path][query]'
-          // } ),
-          new S3Plugin({
-            s3Options: {
-              accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-              secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-              region,
-            },
-            s3UploadOptions: {
-              Bucket: bucket,
-              // ContentEncoding( fileName ) {
-              //   if ( /^gz\//.test( fileName ) ) {
-              //     return 'gzip';
-              //   }
-              // },
-              ContentType(fileName) {
-                if (/\.css$/.test(fileName)) {
-                  return 'text/css';
-                }
-                if (/\.js$/.test(fileName)) {
-                  return 'text/javascript';
-                }
+      new LoadablePlugin(),
+      new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
+      new CleanWebpackPlugin(),
+    ]
+      .concat(
+        pushToCDN
+          ? [
+            // new CompressionPlugin( {
+            //   test: /\.(js|css)$/,
+            //   filename: 'gz/[path][query]'
+            // } ),
+            new S3Plugin({
+              s3Options: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                region,
               },
-            },
-            cloudfrontInvalidateOptions: {
-              DistributionId: CLOUDFRONT_DISTRIBUTION_ID,
-              Items: ['/*'],
-            },
-            progress: false,
-            basePath: serviceName,
-            // directory: 'dist/gz'
-          }),
-        ]
-        : []
-    ),
-    node: {
-      fs: 'empty',
-    },
+              s3UploadOptions: {
+                Bucket: bucket,
+                // ContentEncoding( fileName ) {
+                //   if ( /^gz\//.test( fileName ) ) {
+                //     return 'gzip';
+                //   }
+                // },
+                ContentType(fileName) {
+                  if (/\.css$/.test(fileName)) {
+                    return 'text/css';
+                  }
+                  if (/\.js$/.test(fileName)) {
+                    return 'text/javascript';
+                  }
+                },
+              },
+              cloudfrontInvalidateOptions: {
+                DistributionId: CLOUDFRONT_DISTRIBUTION_ID,
+                Items: ['/*'],
+              },
+              progress: false,
+              basePath: serviceName,
+              // directory: 'dist/gz'
+            }),
+          ]
+          : []
+      )
+      .filter(Boolean),
   };
 };

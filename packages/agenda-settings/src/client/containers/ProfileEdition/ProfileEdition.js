@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import { updateSyncErrors } from 'redux-form/lib/actions';
+import { reduxForm, Field, updateSyncErrors } from 'redux-form';
 import { Modal } from '@openagenda/react-components';
 import { ImageInput } from '@openagenda/react-shared';
 import * as agendaActions from '../../reducers/agenda';

@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
 
 const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
-const reactMdPlugins = [breaks];
+const remarkPlugins = [breaks];
 
 function Announcement({ kind = 'info', content, onClose }) {
   return (
@@ -20,11 +20,9 @@ function Announcement({ kind = 'info', content, onClose }) {
             </button>
           </div>
 
-          <ReactMarkdown
-            linkTarget={getTarget}
-            source={content}
-            plugins={reactMdPlugins}
-          />
+          <ReactMarkdown linkTarget={getTarget} remarkPlugins={remarkPlugins}>
+            {content}
+          </ReactMarkdown>
         </div>
       </div>
     </div>

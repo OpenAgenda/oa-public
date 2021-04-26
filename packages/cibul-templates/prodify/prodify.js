@@ -548,9 +548,11 @@ var ugly = require( 'uglify-js' ),
         moduleTrace: true,
         errorDetails: true,
         warnings: true,
-        warningsFilter: [
-          /ejs\/lib\/ejs/,
-          /jsondiffpatch/
+        ignoreWarnings: [
+          warning => {
+            console.log(warning);
+            return true;
+          }
         ]
       } ) );
 

@@ -388,13 +388,12 @@ function Dashboard({
             >
               {intl.formatMessage(messages.addASource)}
             </button>
-            <ReactMarkdown
-              className="text-muted"
-              source={intl.formatMessage(messages.sourcesExplanation, {
+            <ReactMarkdown className="text-muted">
+              {intl.formatMessage(messages.sourcesExplanation, {
                 title: aggregatorAgenda.title,
                 link: res.showAgenda.replace(':slug', aggregatorAgenda.slug),
               })}
-            />
+            </ReactMarkdown>
           </div>
           <SourcesList
             sources={filteredSources}

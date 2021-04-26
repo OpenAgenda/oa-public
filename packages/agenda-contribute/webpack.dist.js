@@ -5,7 +5,6 @@ const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
 const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
-const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 const serviceName = require( './package.json' ).name.split( '/' ).pop();
 
@@ -37,7 +36,7 @@ module.exports = {
   ],
   output: {
     path: localDistPath,
-    filename: '[name]-[hash].js',
+    filename: '[name]-[contenthash].js',
     chunkFilename: '[id]-[chunkhash].js',
   },
   plugins: [
@@ -68,6 +67,15 @@ module.exports = {
   ] : [] ),
   module: {
     rules: [ {
+      test: /\.(js|mjs|jsx)$/,
+      enforce: 'pre',
+      loader: require.resolve('source-map-loader'),
+      resolve: {
+        fullySpecified: false
+      },
+      exclude: [/\/node_modules\/rrule\//] // https://github.com/jakubroztocil/rrule/issues/303
+    },
+      {
       test: /\.js$/,
       exclude: BABEL_EXCLUDE_REGEX,
       loader: require.resolve('babel-loader'),
@@ -95,13 +103,5 @@ module.exports = {
       // required only for the timings component
       'react': require.resolve( 'react' )
     },
-    plugins: [
-      PnpWebpackPlugin
-    ]
   },
-  resolveLoader: {
-    plugins: [
-      PnpWebpackPlugin.moduleLoader(module)
-    ]
-  }
 };

@@ -14,7 +14,7 @@ const params = {
 
 du = require( '@openagenda/dom-utils' ),
 
-ejs = require( 'ejs' ),
+_ = require( 'lodash' ),
 
 qs = require( 'qs' ),
 
@@ -58,10 +58,10 @@ module.exports = function( selector, lang ) {
 
     let passedIncluded = !!parseInt( elem.getAttribute( params.attributes.passedIncluded ) );
 
-    elem.innerHTML = ejs.render(  `
+    elem.innerHTML = _.template(  `
 <span><%= __( !handlePassed || passedIncluded ? 'totalEvents' : 'upcomingEvents', { count: total } ) %></span><% if ( handlePassed && !passedIncluded) { %> - 
 <a href="<%= link %>"><%= __( 'includePassed' ) %></a><% } %>
-    `, {
+    `)( {
       total: elem.getAttribute( params.attributes.total ),
       passedIncluded: passedIncluded,
       handlePassed: !_hasOtherTimeFilter(),

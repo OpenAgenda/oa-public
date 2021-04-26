@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default storyFn => (
+export default Story => (
   <div className="container margin-top-lg">
     <div className="row">
       <div className="wsq col-sm-offset-3 col-sm-6 padding-v-sm">
-        {storyFn()}
+        <Story />
       </div>
     </div>
   </div>

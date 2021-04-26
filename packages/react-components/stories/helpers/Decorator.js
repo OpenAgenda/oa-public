@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default story => (
+export default Story => (
   <div className="container">
     <div className="row">
       <div className="wsq col-sm-offset-3 col-sm-6 margin-top-lg padding-all-md">
-        {story()}
+        <Story />
       </div>
     </div>
   </div>
