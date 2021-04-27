@@ -43,13 +43,13 @@ raw.push(knex('location_set').insert([
 raw.push(knex('location').insert([
   require('./sql/locations/1.json'),
   require('./sql/locations/2.json'),
-  require('./sql/locations/3.json'),
+  require('./sql/locations/3.json'), // eventSet 3 (removed by core test)
   require('./sql/locations/4.json'),
   require('./sql/locations/5.json'),
   require('./sql/locations/6.json'),
-  require('./sql/locations/7.json'),
-  require('./sql/locations/8.json'),
-  require('./sql/locations/9.json')
+  require('./sql/locations/7.json'), // eventSet 7 (removed by api test)
+  require('./sql/locations/8.json'), // eventSet 4 (removed by api test)
+  require('./sql/locations/9.json')  // eventSet 5
 ]));
 
 insertEventSet(knex, raw, 3);
