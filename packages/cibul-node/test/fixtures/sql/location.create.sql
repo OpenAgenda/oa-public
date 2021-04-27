@@ -23,6 +23,7 @@ create table if not exists `location` (
   set_uid bigint,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
+  deleted tinyint(1) not null default 0,
   UNIQUE INDEX slug_idx (slug),
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),

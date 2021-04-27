@@ -116,7 +116,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
 
     it('location is removed', async () => {
-      assert(await testConfig.knex('location').first().where('uid', 9955517) === undefined);
+      const location = await testConfig.knex('location').first().where('uid', 9955517);
+      assert(location.deleted === 1);
     });
   });
 
@@ -581,14 +582,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
     });
     
-    describe('removal', () => {
+    describe('hard removal', () => {
 
       beforeAll(done => {
         core.services.tracker.on('events.onRemove.55268456', stack => {
           done();
         });
 
-        core.agendas(55268170).locations.remove(76464022);
+        core.agendas(55268170).locations.remove(76464022, {removeEvents: true});
       });
 
       it('a location deletion triggers the deletion of related events', async () => {
@@ -603,6 +604,29 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       });
     });
 
-  });
+    describe('soft removal', () => {
 
+      beforeAll(done => {
+        core.services.tracker.on('events.onRemove.83829657', stack => {
+          done();
+        });
+
+        core.agendas({ uid: 99501607 }).locations.remove(34566591);
+        done();
+      });
+
+      it('a location soft deletion does not triggers the deletion of related events', async (done) => {
+        const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 20774404);
+
+        assert(!dbEntry.deleted_at);
+        done()
+      });
+
+      it('legacy entry is not removed', async (done) => {
+        const legacyEntry = await core.services.knex('event').first().where('uid', 20774404);
+        assert(legacyEntry);
+        done()
+      });
+    });
+  });
 });

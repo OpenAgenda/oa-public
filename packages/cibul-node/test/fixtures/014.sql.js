@@ -26,7 +26,8 @@ raw.push(knex('access_token').insert([
 
 raw.push(knex('review').insert([
   require('./sql/agendas/218.json'),
-  require('./sql/agendas/219.json')
+  require('./sql/agendas/219.json'),
+  require('./sql/agendas/arles.json')
 ]));
 
 raw.push(knex('reviewer').insert([
@@ -49,13 +50,15 @@ raw.push(knex('location').insert([
   require('./sql/locations/6.json'),
   require('./sql/locations/7.json'), // eventSet 7 (removed by api test)
   require('./sql/locations/8.json'), // eventSet 4 (removed by api test)
-  require('./sql/locations/9.json')  // eventSet 5
+  require('./sql/locations/9.json'), // eventSet 5
+  require('./sql/locations/chezVous.json')
 ]));
 
 insertEventSet(knex, raw, 3);
 insertEventSet(knex, raw, 4);
 insertEventSet(knex, raw, 5);
 insertEventSet(knex, raw, 7);
+insertEventSet(knex, raw, 'videoReportage');
 
 raw.push(knex('form_schema').insert([{
   id: 2,
