@@ -5515,6 +5515,7 @@ __metadata:
     mocha: ^7.0.1
     moment: ^2.27.0
     moment-timezone: ^0.5.31
+    ngeohash: ^0.6.3
     prompts: ^2.0.1
     should: ^13.2.3
     verror: ^1.10.0
@@ -28096,6 +28097,13 @@ fsevents@~2.3.1:
   version: 1.0.0
   resolution: "next-tick@npm:1.0.0"
   checksum: 83fcb3d4f8d9380210b1c2b8a610463602d80283f0c0c8571c1688e1ad6cbf3a16b345f5bb7212617d4898bedcfa10dff327dc09ec20a112a5bf43a0271375fb
+  languageName: node
+  linkType: hard
+
+"ngeohash@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "ngeohash@npm:0.6.3"
+  checksum: 563a6c403514237111a3524991640deaf962a49eb920e4426030c6aa4b084f4e8ed766aa53f060ade7914cfe77eb6103b8f7e1488de53e5214bbeb5dbc81d340
   languageName: node
   linkType: hard
 
