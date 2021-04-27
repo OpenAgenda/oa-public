@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 module.exports = {
-  alias: 'agenda_test',
+  alias: 'agenda_service_test',
   site: {
     url: 'https://openagenda.com',
     image: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
@@ -16,7 +16,5 @@ module.exports = {
       key: fs.readFileSync(process.env.ES_CLIENT_SSL_KEY, 'utf-8'),
       cert: fs.readFileSync(process.env.ES_CLIENT_SSL_CERT, 'utf-8')
     } : null
-  },
-  imagePath: '//cibul.s3.amazonaws.com/',
-  defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+  }
 }

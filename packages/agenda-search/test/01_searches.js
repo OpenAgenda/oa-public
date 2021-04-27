@@ -1,10 +1,12 @@
 'use strict';
 
+const _ = require('lodash');
 const assert = require('assert');
 const config = require('./config');
 const Service = require('../service');
 const listInterface = require('./app/listInterface');
-const getAgendaSummary = require('./app/getAgendaSummary');
+const getDetailedAgenda = require('./app/getDetailedAgenda');
+
 
 describe('01 - Search', function() {
   let svc;
@@ -14,29 +16,34 @@ describe('01 - Search', function() {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
-      listAgendas: listInterface('test', 100, a => {
-        if (a.uid === 3) a.updatedAt = new Date;
+      listAgendas: listInterface('test', 100),
+      getDetailedAgenda: getDetailedAgenda('test', a => {
+        if (a.uid === 3) {
+          a.updatedAt = new Date;
+        }
         return a;
-      }),
-      getAgendaSummary: getAgendaSummary('test'),
-      imagePath: config.imagePath,
-      defaultImage: config.defaultImage
+      })
     });
   });
 
   before(() => svc.rebuild());
 
-  describe('Default (no searches, no filters)', () => {
+  describe('Default (no searches, no filters, no options)', () => {
     let result;
 
     before(async () => {
-      result = await svc({}, 0, 10);
+      result = await svc({});
     });
 
     it('updated recently appears first', () => {
       assert.equal(result.agendas[0].uid, 3);
     });
 
+    it('returns fields are limited to basic list', () => {
+      const fields = Object.keys(result.agendas[0]);
+      assert(fields.includes('uid'));
+      assert(!fields.includes('summary'));
+    });
   });
 
   describe('Title', () => {
@@ -93,10 +100,12 @@ describe('01 - Search', function() {
 
   describe('Keywords', () => {
 
-    it('matchs on a keyword', async () => {
+    it('matches on a keyword', async () => {
       const {
         agendas
-      } = await svc.list({ search: 'mcc' });
+      } = await svc.list({
+        search: 'mcc'
+      });
 
       assert.equal(agendas[0].title, 'Journées Européennes du Patrimoine');
     });
@@ -171,27 +180,26 @@ describe('01 - Search', function() {
       } = await svc({}, {
         size: 3,
         sort: 'createdAt.desc'
-      });
+      }, { includeFields: 'createdAt' });
 
-      assert.deepEqual(agendas.map(i => i.title), [
-        'La Gargouille',
-        'Journées Européennes du Patrimoine',
-        'Métropole Européenne de Lille'
-      ]);
+      agendas.forEach((agenda, index) => {
+        if (!index) return;
+        assert(agendas[index].createdAt <= agendas[index -1].createdAt);
+      });
     });
 
-    it('recentlyContributed.desc sort', async () => {
+    it('recentlyAddedEvents.desc sort', async () => {
       const {
         agendas
       } = await svc({}, {
-        sort: 'recentlyContributed.desc',
+        sort: 'recentlyAddedEvents.desc',
         size: 3
       });
 
       assert.deepEqual(agendas.map(i => i.title), [
-        'Nuit européenne des musées 2018 : Île-de-France',
-        'Meudon',
-        'Froid estival'
+        'Au Théâtre ce soir',
+        'Froid estival',
+        'Meudon'
       ]);
     });
   });
@@ -203,9 +211,9 @@ describe('01 - Search', function() {
         agendas
       } = await svc({
         search: 'Nuit européenne des musées 2018 : Île-de-France'
-      }, { size: 1 });
+      }, { size: 1 }, { includeFields: 'summary', access: 'internal' });
 
-      assert.deepEqual(agendas[0].eventCountsByState, [
+      assert.deepEqual(agendas[0].summary.eventCountsByState, [
         { eventCount: 20, key: -1 },
         { eventCount: 150, key: 1 },
         { eventCount: 389, key: 2 }
@@ -238,7 +246,7 @@ describe('01 - Search', function() {
 
     it('fetch updated after a certain date', async () => {
       const { total } = await svc.list({
-        updatedAt: { gte: JSON.stringify('2020-04-01') }
+        updatedAt: { gte: JSON.stringify('2020-04-01') },
       });
 
       assert.equal(total, 2);
@@ -255,7 +263,7 @@ describe('01 - Search', function() {
     it('fetch for certain network only', async () => {
       const { agendas } = await svc.list({
         network: 1
-      }, 0, 10);
+      }, { size: 1 }, { includeFields: ['network']});
 
       assert.equal(agendas.pop().network.uid, 1);
     });
@@ -263,7 +271,7 @@ describe('01 - Search', function() {
     it('fetch for certain location set only', async () => {
       const { total, agendas } = await svc.list({
         locationSet: 5675667
-      }, 0, 10);
+      }, {}, { includeFields: 'locationSet' });
 
       assert.equal(agendas.pop().locationSet.uid, 5675667);
       assert.equal(total, 3);
@@ -272,7 +280,7 @@ describe('01 - Search', function() {
     it('fetch agendas open & members only contribution types', async () => {
       const { agendas } = await svc.list({
         contributionType: [0, 1]
-      }, 0, 10);
+      }, {}, { includeFields: 'settings' });
 
       agendas.forEach(agenda => {
         assert([0, 1].includes(agenda.settings.contribution.type));

@@ -1,12 +1,21 @@
 'use strict';
 
-module.exports = (query, nav) => {
+const { defineIncludes } = require('./fields');
+const cleanAfter = require('./cleanAfter');
+const log = require('@openagenda/logs')('queryToDSL');
+
+module.exports = (query, nav, options = {}) => {
   const mustPart = [];
   const filteredPart = [];
 
+  const includes = defineIncludes(options);
+
   const dsl = {
     size: nav.size,
-    _source: { excludes: ['*_es'] },
+    _source: {
+      excludes: ['_*'],
+      includes
+    },
     query: {
       bool: {
         should: [{
@@ -25,7 +34,7 @@ module.exports = (query, nav) => {
           }
         }, {
           term: {
-            hasUpcomingPublished: {
+            _hasUpcomingPublished: {
               value: true,
               boost: 1
             }
@@ -36,12 +45,13 @@ module.exports = (query, nav) => {
   };
   
   if (nav.after) {
-    dsl.search_after = nav.after;
+    const after = cleanAfter(query, nav)
+    dsl.search_after = after;
   } else {
     dsl.from = nav.from;
   }
 
-  if (query.contributionType) {
+  if (query?.contributionType) {
     filteredPart.push({
       terms: {
         'settings.contribution.type' : query.contributionType
@@ -49,11 +59,19 @@ module.exports = (query, nav) => {
     });
   }
 
-  if (query.updatedAt.lte || query.updatedAt.gte) {
+  if (query?.updatedAt.lte || query?.updatedAt.gte) {
     filteredPart.push(_timestampFilter('updatedAt', query.updatedAt));
   }
 
-  if (query.uid) {
+  if (options.indexed !== null) {
+    filteredPart.push({
+      term: {
+        indexed: options.indexed
+      }
+    });
+  }
+
+  if (query?.uid) {
     filteredPart.push({
       terms: {
         uid: query.uid
@@ -68,12 +86,18 @@ module.exports = (query, nav) => {
           order: 'desc'
         }
       }],
-      'recentlyContributed.desc' : [{
-        recentlyContributedEvents: {
+      'recentlyAddedEvents.desc' : [{
+        _recentlyAddedEvents: {
           order: 'desc'
         }
       }]
     })[nav.sort];
+  } else if (!query?.search) {
+    dsl.sort = [{
+      _recentlyAddedEvents: {
+        order: 'desc'
+      }
+    }];
   } else {
     dsl.sort = [
       '_score'
@@ -85,13 +109,13 @@ module.exports = (query, nav) => {
   });
 
   // when a text search is made, look into title and description
-  if (query.search !== null) {
+  if (query && query.search !== null) {
     mustPart.push({
       multi_match: {
         query: query.search,
         type: 'best_fields',
         fields: [
-          'title^4', 'description^2', 'keywords^1'
+          'title^4', 'description^2', 'summary.keywords^1'
         ],
         "tie_breaker": 0.1
       }
@@ -102,7 +126,7 @@ module.exports = (query, nav) => {
     });
   }
 
-  if (query.official !== null) {
+  if (query && query.official !== null) {
     filteredPart.push({
       term: {
         official: query.official
@@ -110,7 +134,7 @@ module.exports = (query, nav) => {
     });
   }
 
-  if (query.network !== null) {
+  if (query && query.network !== null) {
     filteredPart.push({
       term: {
         'network.uid': query.network
@@ -118,7 +142,7 @@ module.exports = (query, nav) => {
     })
   }
 
-  if (query.locationSet !== null) {
+  if (query && query.locationSet !== null) {
     filteredPart.push({
       term: {
         'locationSet.uid': query.locationSet

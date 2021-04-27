@@ -5,19 +5,21 @@ const _ = require('lodash');
 const queryToDSL = require('./queryToDSL');
 const validateNav = require('../../validators/nav');
 const validateQuery = require('../../validators/query');
+const validateOptions = require('../../validators/options');
 
-module.exports = async ({ alias, client }, query, nav) => {
-  const inflatedQuery = validateQuery(Object.keys(query).reduce((inflated, key) => _.set(
+module.exports = async ({ alias, client }, query, nav, options) => {
+  const inflatedQuery = Object.keys(query || {}).length ? validateQuery(Object.keys(query).reduce((inflated, key) => _.set(
     inflated,
     key.split('.'),
     query[key]
-  ), {}));
+  ), {})) : null;
 
   const cleanNav = validateNav(nav);
 
   const DSL = queryToDSL(
     inflatedQuery,
-    cleanNav
+    cleanNav,
+    validateOptions(options)
   );
     
   const result = await client.search({
@@ -26,7 +28,7 @@ module.exports = async ({ alias, client }, query, nav) => {
   });
 
   return {
-    after: _.last(result.body.hits.hits).sort,
+    after: _.last(result.body.hits.hits)?.sort,
     sort: cleanNav.sort,
     agendas: result.body.hits.hits.map(hit => hit._source),
     total: result.body.hits.total.value

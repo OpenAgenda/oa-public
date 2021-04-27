@@ -1,0 +1,74 @@
+{
+  "lastId": -1,
+  "events": [{
+    "uid": 1,
+    "state": 2,
+    "title": {
+      "fr": "A Villeneuve d'Ascq"
+    },
+    "location": {
+      "uid": 97059657,
+      "name": "Maison des Compagnons",
+      "latitude": 50.652664,
+      "longitude": 3.145094,
+      "city": "Villeneuve-d'Ascq",
+      "region": "Hauts-de-France"
+    }
+  }, {
+    "uid": 2,
+    "state": 2,
+    "title": {
+      "fr": "A Bordeaux"
+    },
+    "location": {
+      "uid": 76939860,
+      "name": "Pub the Red Lion",
+      "latitude": 44.841279,
+      "longitude": -0.558579,
+      "city": "Bordeaux",
+      "region": "Nouvelle-Aquitaine" 
+    }
+  }, {
+    "uid": 3,
+    "state": 2,
+    "title": {
+      "fr": "A Lille"
+    },
+    "location": {
+      "uid": 13089676,
+      "name": "Librairie L'Affranchie",
+      "latitude": 50.628480,
+      "longitude": 3.058576,
+      "city": "Lille",
+      "region": "Hauts-de-France"
+    }
+  }, {
+    "uid": 4,
+    "state": 2,
+    "title": {
+      "fr": "A Albi"
+    },
+    "location": {
+      "uid": 12817023,
+      "name": "Espace Sportif Gausserand",
+      "latitude": 43.924849,
+      "longitude": 2.168135,
+      "city": "Albi",
+      "region": "Occitanie"
+    }
+  }, {
+    "uid": 5,
+    "state": 2,
+    "title": {
+      "fr": "Autour de Lisieux"
+    },
+    "location": {
+      "uid": 6645848,
+      "name": "Le Billot",
+      "latitude": 48.967367,
+      "longitude": 0.074710,
+      "city": "Le Billot",
+      "region": "Normandie"
+    }
+  }]
+}

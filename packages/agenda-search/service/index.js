@@ -5,20 +5,16 @@ const es = require('@elastic/elasticsearch');
 const logger = require('@openagenda/logs');
 
 const mw = require('./lib/middleware');
-const formatForIndex = require('./lib/formatForIndex');
+const formatAgenda = require('./lib/formatAgenda');
 const resyncUpdated = require('./lib/resyncUpdated');
 const rebuild = require('./lib/rebuild');
 const list = require('./lib/list');
 
-let log, search, config;
-
 module.exports = (config = {}) => {
   const {
     alias,
-    getAgendaSummary,
+    getDetailedAgenda,
     listAgendas,
-    defaultImage,
-    imagePath,
     elasticsearch,
     site
   } = {
@@ -33,7 +29,7 @@ module.exports = (config = {}) => {
   if (!listAgendas) {
     throw new Error('listAgendas function is required');
   }
-  if (!getAgendaSummary) {
+  if (!getDetailedAgenda) {
     throw new Error('getAgendaSummary function is required');
   }
   if (!elasticsearch) {
@@ -46,14 +42,12 @@ module.exports = (config = {}) => {
     logger.setModuleConfig(config.logger);
   }
 
-  const boundFormatForIndex = formatForIndex.bind(null, { imagePath, defaultImage, getAgendaSummary });
-
   const utilities = {
     timeout: elasticsearch.timeout,
     alias,
     client,
     listAgendas,
-    formatForIndex: boundFormatForIndex
+    getDetailedAgenda
   };
 
   const service = {
@@ -63,7 +57,7 @@ module.exports = (config = {}) => {
     set: async agenda => client.index({
       index: alias,
       id: agenda.uid,
-      body: await boundFormatForIndex(agenda)
+      body: await getDetailedAgenda(agenda).then(a => formatAgenda(a))
     }),
     remove: agenda => client.delete({
       index: alias,

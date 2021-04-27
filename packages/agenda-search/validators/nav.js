@@ -41,7 +41,7 @@ const schema = schemas({
       code: 'sort.invalid',
       message: 'sort value is not valid'
     },
-    regex: /(createdAt|recentlyContributed)\.desc/,
+    regex: /(createdAt|recentlyAddedEvents)\.desc/,
     default: null
   }
 });

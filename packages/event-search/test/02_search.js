@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const fs = require('fs');
@@ -154,7 +154,7 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({
           region: 'Ile-de-France'
-        }, { size: 100 }, { detailed: true });
+        }, { size: 100 }, { detailed: true });
 
         const regions = _.uniq(events.map(e => e.location.region));
 
@@ -169,7 +169,7 @@ describe('02 - event search - functional: search', function() {
           total
         } = await service('simple_search').search({
           region: ['Ile-de-France', 'New York']
-        }, { size: 100 }, { detailed: true });
+        }, { size: 100 }, { detailed: true });
 
         const regions = _.uniq(events.map(e => e.location.region));
 

@@ -10,7 +10,7 @@ import errorHandler from 'errorhandler';
 import config from './test/config';
 import Service from './';
 import listInterface from './test/app/listInterface';
-import getAgendaSummary from './test/app/getAgendaSummary';
+import getDetailedAgenda from './test/app/getDetailedAgenda';
 
 const app = express();
 
@@ -23,9 +23,7 @@ app.server = server;
     alias: config.alias,
     elasticsearch: config.elasticsearch,
     listAgendas: listInterface('story', 100, a => a),
-    imagePath: config.imagePath,
-    defaultImage: config.defaultImage,
-    getAgendaSummary: getAgendaSummary('story')
+    getDetailedAgenda: getDetailedAgenda('story')
   });
 
   service.rebuild();

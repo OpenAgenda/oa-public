@@ -220,7 +220,7 @@ function actionDatesShow(req, res, next) {
   const service = ['google', 'yahoo', 'live', 'ics'].find(v => v === req.query.service) || 'google';
 
   try {
-    addCalendarLinks(
+    addCalendarLinks({ root: config.root },
       req.event,
       `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
       req.agenda,
@@ -424,7 +424,7 @@ function _calendarAction(req, res, next) {
   const multipleTimings = timings.length > 1;
   const datesUri = req.agenda ? 'agendaEventActionDatesShow' : 'eventActionDatesShow';
 
-  addCalendarLinks(
+  addCalendarLinks({ root: config.root },
     req.event,
     `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
     req.agenda,

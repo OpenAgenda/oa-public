@@ -4,15 +4,24 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('rebuild');
 const mapping = require('./mapping.json');
 const analysis = require('./analysis.json');
-const utils = require('@openagenda/utils');
+const { fZ } = require('@openagenda/utils');
 const bulk = require('./bulk');
+const formatAgenda = require('./formatAgenda');
 
 const LIMIT = 20;
 
-module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex }) => {
+const dateStr = d => {
+  const date = d ? new Date(d) : new Date();
+  return [
+    [date.getFullYear(), fZ(date.getMonth() + 1), fZ(date.getDate())].join(''),
+    [fZ(date.getHours()), fZ(date.getMinutes()), fZ(date.getSeconds()), fZ(date.getMilliseconds())].join('')
+  ].join('_');
+};
+
+module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda }) => {
   log('rebuild');
 
-  const newIndex = alias + '_' + _dateStr();
+  const newIndex = alias + '_' + dateStr();
 
   let previousIndices = [];
   try {
@@ -49,12 +58,16 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
       items: agendas
     } = await listAgendas({}, lastId, LIMIT);
 
+    const formattedAgendas = [];
+    for (const agenda of agendas) {
+      formattedAgendas.push(await getDetailedAgenda(agenda).then(a => formatAgenda(a)));
+    }
+
     const inserted = await bulk({
       client,
       index: newIndex,
-      formatForIndex,
       operation: 'index'
-    }, agendas);
+    }, formattedAgendas);
 
     count += inserted;
 
@@ -69,6 +82,8 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
     index: newIndex
   });
 
+  log('pointing alias %s to index %s', alias, newIndex);
+  
   await client.indices.putAlias({
     index: newIndex,
     name: alias
@@ -78,18 +93,6 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
     await client.indices.delete({
       index: previousIndices.join(',')
     });
+    log('previous indices have been deleted (%s)', previousIndices.length);
   }
-}
-
-
-function _dateStr(d) {
-  const date = d ? new Date(d) : new Date();
-  return [
-    [ date.getFullYear(),
-    utils.fZ(date.getMonth() + 1),
-    utils.fZ(date.getDate()) ].join(''),
-    [ utils.fZ(date.getHours()),
-    utils.fZ(date.getMinutes()),
-    utils.fZ(date.getSeconds()) ].join('')
-  ].join('_');
-}
+};
