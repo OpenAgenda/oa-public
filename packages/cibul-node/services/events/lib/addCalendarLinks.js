@@ -24,25 +24,22 @@ module.exports = function addCalendarLinks(event, eventUrl, agenda, lang) {
         '&dates=', _linkifyTime( timing.begin ), '/', _linkifyTime( timing.end ),
         '&sprop=website:', eventUrl,
         '&details=', encodeURIComponent( eventDescription + ' - ' + eventUrl ),
-        '&location=', encodeURIComponent( event.location.name + ' - ' + event.location.address )
-      ].join(''),
+      ].concat(event.location ? ['&location=', encodeURIComponent( event.location.name + ' - ' + event.location.address)] : []).join(''),
       yahoo: [
         'http://calendar.yahoo.com/?v=60',
         '&TITLE=', encodeURIComponent( eventTitle ),
         '&ST=', _linkifyTime( timing.begin ),
         '&DUR=', ( timing.end - timing.begin ) / ( 1000 * 60 * 60 ),
-        '&in_loc=', encodeURIComponent( event.location.name + ' - ' + event.location.address ),
         '&DESC=', encodeURIComponent( eventDescription + ' - ' + eventUrl ),
         '&URL=', eventUrl
-      ].join(''),
+      ].concat(event.location ? ['&in_loc=', encodeURIComponent( event.location.name + ' - ' + event.location.address )] : []).join(''),
       live: [
         'http://calendar.live.com/calendar/calendar.aspx?rru=addevent',
         '&summary=', encodeURIComponent( eventTitle ),
-        '&location=', encodeURIComponent( event.location.name + ' - ' + event.location.address ),
         '&dtstart=', _linkifyTime( timing.begin ),
         '&dtend=', _linkifyTime( timing.end ),
         '&description=', encodeURIComponent( eventDescription + ' - ' + eventUrl )
-      ].join( '' )
+      ].concat(event.location ? ['&location=', encodeURIComponent( event.location.name + ' - ' + event.location.address )] : []).join(''),
     };
 
     if ( agenda ) {

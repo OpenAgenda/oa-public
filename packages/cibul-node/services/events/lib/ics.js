@@ -70,11 +70,14 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
     formatIcsText('SUMMARY:' + espaceIcsValue(getLocaleValue(event.title, lang))),
     formatIcsText('DESCRIPTION:' + espaceIcsValue(description) + ' ' + getLabel('seeMore', lang) + ': ' + url),
     'STATUS:CONFIRMED',
-    formatIcsText('LOCATION:' + espaceIcsValue(event.location.name + ' - ' + event.location.address)),
-    'GEO:' + event.location.latitude + ';' + event.location.longitude,
     formatIcsText('URL:' + url),
     'LAST-MODIFIED:' + formatIcsDate(event.updatedAt)
   ];
+
+  if (event.location) {
+    repeatedParts.push(formatIcsText('LOCATION:' + espaceIcsValue(event.location.name + ' - ' + event.location.address)));
+    repeatedParts.push('GEO:' + event.location.latitude + ';' + event.location.longitude);
+  }
 
   return usedTimings(event, timingIndex)
     .filter((t, i) => (i < 10))
