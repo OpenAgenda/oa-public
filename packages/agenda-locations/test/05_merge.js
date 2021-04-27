@@ -68,6 +68,7 @@ describe('agenda-locations - functional - merge', function () {
       beforeCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
     });
 
@@ -87,6 +88,7 @@ describe('agenda-locations - functional - merge', function () {
       const afterCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
@@ -98,6 +100,7 @@ describe('agenda-locations - functional - merge', function () {
       beforeCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
     });
 
@@ -117,6 +120,7 @@ describe('agenda-locations - functional - merge', function () {
       const afterCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
@@ -128,6 +132,7 @@ describe('agenda-locations - functional - merge', function () {
       beforeCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
     });
 
@@ -151,6 +156,7 @@ describe('agenda-locations - functional - merge', function () {
       const afterCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
@@ -164,8 +170,6 @@ describe('agenda-locations - functional - merge - no rights', function () {
   const f = fixtures(config.mysql);
 
   let svc;
-  let location;
-  let beforeCount;
 
   before(async () => {
     await f.load();

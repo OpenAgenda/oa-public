@@ -109,7 +109,7 @@ class AgendaAdminLocations extends Component {
         if (err || result.statusCode !== 200) {
           debug('error', err || result.statusCode);
         } else if (JSON.parse(result.body).location) {
-          this.actions.removedLocation(index);
+          this.actions.removedLocation(index); // remove index front list 
         }
       }
     );
@@ -404,6 +404,17 @@ class AgendaAdminLocations extends Component {
                     >
                       {this.getLabel('confirm')}
                     </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary margin-h-sm"
+                      onClick={this.onRemoveLocation.bind(
+                        this,
+                        modal.data.location,
+                        modal.data.index
+                      )}
+                    >
+                      Supprimer avec les évenements associés
+                    </button>
                   </div>
                 </div>
               );
@@ -459,13 +470,6 @@ class AgendaAdminLocations extends Component {
         >
           {this.getLabel('closeModal')}
         </button>
-        {/* <button
-          type="button"
-          onClick={this.getLinkedAgendas.bind(this, modal.location, null)}
-          className="btn btn-danger padding-h-xs"
-        >
-         TEST
-        </button> */}
       </Modal>
     );
   }
