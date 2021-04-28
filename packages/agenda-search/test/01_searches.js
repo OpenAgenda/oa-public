@@ -244,6 +244,17 @@ describe('01 - Search', function() {
       assert.deepEqual(agendas.map(i => i.uid), uids);
     });
 
+    it('fetch by slug', async () => {
+      const slugs = ['ndm-2020-idf', 'ndm-2019-idf'];
+      const {
+        agendas
+      } = await svc.list({
+        slug: slugs
+      });
+
+      assert.deepEqual(agendas.map(i => i.slug), slugs);
+    });
+
     it('fetch updated after a certain date', async () => {
       const { total } = await svc.list({
         updatedAt: { gte: JSON.stringify('2020-04-01') },
