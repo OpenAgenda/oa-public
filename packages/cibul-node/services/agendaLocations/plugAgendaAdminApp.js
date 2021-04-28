@@ -216,7 +216,8 @@ module.exports = (config, services, instance, app, base) => {
   app.delete(`${base}/:locationUid`, (req, res, next) => {
     req.locations.remove(req.params.locationUid, {
       includeImagePath: true,
-      agendaUid: req.agenda?.uid
+      agendaUid: req.agenda?.uid,
+      removeEvents: !!req.query.removeEvents
     }).then(location => {
       res.json({
         location,
