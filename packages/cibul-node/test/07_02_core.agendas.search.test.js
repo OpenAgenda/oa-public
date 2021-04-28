@@ -71,6 +71,15 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(agendas[0].uid).toBe(17026800);
     });
 
+    it('target specific agendas to fetch through slug filter', async () => {
+      const { agendas } = await core.agendas.search({
+        slug: 'le-fennec'
+      });
+
+      expect(agendas.length).toBe(1);
+      expect(agendas[0].slug).toBe('le-fennec');
+    });
+
     it('after nav value can be used to fetch next results', async () => {
       const { agendas: allAgendas } = await core.agendas.search();
       const { agendas: firstAgendas, after } = await core.agendas.search({}, { size: 1 });
