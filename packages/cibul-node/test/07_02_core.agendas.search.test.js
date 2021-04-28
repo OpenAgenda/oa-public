@@ -49,7 +49,6 @@ describe('07 - core - functional (server): core.agendas().get', () => {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
-
     it('search returns all indexed agendas by default', async () => {
       const { total } = await core.agendas.search();
 
