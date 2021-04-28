@@ -23,11 +23,12 @@ module.exports = async (core, agendaUid, options = {}) => {
     throwNotFound = false
   } = options;
 
-  log('getting agenda info with access %s', access);
+  log('getting agenda %s, info with access %s', agendaUid, access);
 
   const agenda = await agendas.get({ uid: agendaUid }, {
     includeImagePath: true,
     ...options,
+    detailed: false,
     internal: true
   });
 

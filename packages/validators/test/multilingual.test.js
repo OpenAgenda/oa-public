@@ -163,7 +163,6 @@ describe( 'multilingual validator', () => {
 
       expect(error).toEqual([ {
         lang: 'en',
-        field: false,
         code: 'required',
         message: 'a string is required',
         origin: ''
@@ -195,7 +194,6 @@ describe( 'multilingual validator', () => {
 
       expect(error).toEqual([ {
         lang: 'en',
-        field: false,
         code: 'required',
         message: 'a string is required',
         origin: null

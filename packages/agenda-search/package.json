@@ -29,6 +29,7 @@
     "async": "^1.5.2",
     "core-js": "^3.10.2",
     "create-react-class": "^15.5.2",
+    "immer": "^9.0.1",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
@@ -58,7 +59,8 @@
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "rimraf": "^3.0.1"
+    "rimraf": "^3.0.1",
+    "webpack": "^4.43.0"
   },
   "peerDependencies": {
     "react": "^16.12.0"

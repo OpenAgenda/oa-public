@@ -46,7 +46,9 @@ async function update(service, req, res, next) {
 
 
 function list(service, req, res, next) {
-  service.list(req.query, req.query).then(result => {
+  service.list(req.query, req.query, {
+    includeFields: ['summary']
+  }).then(result => {
     if (req.params.format === 'json') {
       return res.json(result);
     }

@@ -11,6 +11,10 @@ raw.push(knex('user').insert([
   require('./sql/users/01.json')
 ]));
 
+raw.push(knex('network').insert([
+  require('./sql/networks/01.json')
+]));
+
 raw.push(knex('api_key_set').insert([
   require('./sql/apiKeySets/01.json')
 ]));

@@ -4616,6 +4616,7 @@ __metadata:
     slugify: ^1.4.5
     superagent: ^3.8.2
     uuid: ^3.4.0
+    webpack: ^4.43.0
     when: ^3.7.8
     xhr: ^2.2.0
   peerDependencies:
@@ -4746,6 +4747,7 @@ __metadata:
     create-react-class: ^15.5.2
     errorhandler: ^1.5.0
     express: ^4.17.1
+    immer: ^9.0.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -4760,6 +4762,7 @@ __metadata:
     rimraf: ^3.0.1
     rss: ^1.2.1
     verror: ^1.10.0
+    webpack: ^4.43.0
     when: ^3.7.8
     xhr: ^2.2.0
   peerDependencies:
@@ -5512,6 +5515,7 @@ __metadata:
     mocha: ^7.0.1
     moment: ^2.27.0
     moment-timezone: ^0.5.31
+    ngeohash: ^0.6.3
     prompts: ^2.0.1
     should: ^13.2.3
     verror: ^1.10.0
@@ -28093,6 +28097,13 @@ fsevents@~2.3.1:
   version: 1.0.0
   resolution: "next-tick@npm:1.0.0"
   checksum: 83fcb3d4f8d9380210b1c2b8a610463602d80283f0c0c8571c1688e1ad6cbf3a16b345f5bb7212617d4898bedcfa10dff327dc09ec20a112a5bf43a0271375fb
+  languageName: node
+  linkType: hard
+
+"ngeohash@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "ngeohash@npm:0.6.3"
+  checksum: 563a6c403514237111a3524991640deaf962a49eb920e4426030c6aa4b084f4e8ed766aa53f060ade7914cfe77eb6103b8f7e1488de53e5214bbeb5dbc81d340
   languageName: node
   linkType: hard
 

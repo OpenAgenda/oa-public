@@ -3,21 +3,16 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('search/resyncUpdated');
 const bulk = require('./bulk');
+const formatAgenda = require('./formatAgenda');
 
 module.exports = async ({
   client,
   alias,
   listAgendas,
-  formatForIndex
+  getDetailedAgenda
 }, since = null) => {
   let updated = 0;
   let indexed = 0;
-
-  const bulkConfig = {
-    client,
-    index: alias,
-    formatForIndex
-  };
 
   const updatedAtGreaterThan = _cleanTimestamp(since);
 
@@ -26,6 +21,13 @@ module.exports = async ({
   const {
     items: agendas
   } = await listAgendas({ updatedAtGreaterThan }, 0, 20);
+
+  const formattedAgendas = [];
+  for (const agenda of agendas) {
+    formattedAgendas.push(
+      await getDetailedAgenda(agenda).then(a => formatAgenda(a))
+    );
+  }
 
   log('info', '%s agendas to update since %s', agendas.length, updatedAtGreaterThan);
 
@@ -59,7 +61,8 @@ module.exports = async ({
 
   if (toUpdate.length) {
     updated = await bulk({
-      ...bulkConfig,
+      client,
+      index: alias,
       operation: 'update'
     }, toUpdate);
 
@@ -68,7 +71,8 @@ module.exports = async ({
 
   if (toIndex.length) {
     indexed = await bulk({
-      ...bulkConfig,
+      client,
+      index: alias,
       operation: 'index'
     }, toIndex);
 

@@ -565,11 +565,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
       it('a location update triggers syncs on all related events and agendas', done => {
         core.services.tracker.on('eventSearch.update:55268170.55268456', stack => {
-          assert.deepEqual(stack, [
+          assert.equal(stack.filter(s => [
             'agendaLocations.syncImpactedEventsAndAgendas',
             'eventSearch.update:17026855.48564567',
             'eventSearch.update:55268170.55268456'
-          ]);
+          ].includes(s)).length, 3);
+          
           done();
         });
 

@@ -56,5 +56,6 @@ module.exports = {
       cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
       rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY
     } : null
-  }
+  },
+  agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test'
 }

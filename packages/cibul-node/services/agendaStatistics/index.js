@@ -192,7 +192,8 @@ async function _resyncLegacySearch( agendaUid ) {
 async function _resyncSearch(core, eventSearch, agendaUid ) {
   const agenda = await core.agendas(agendaUid).get({
     detailed: true,
-    access: 'internal'
+    access: 'internal',
+    private: null
   });
 
   log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);

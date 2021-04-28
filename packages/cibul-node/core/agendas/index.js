@@ -8,12 +8,13 @@ const remove = require('./remove');
 const members = require('./members');
 const locations = require('./locations');
 const get = require('./get');
+const search = require('./search');
 
 module.exports = core => {
   const settings = Settings(core);
 
   return Object.assign(agendaUid => ({
-    get: get.bind(null, core, agendaUid),
+    get: get.bind(null, core, agendaUid),    
     update: update.bind(null, core, agendaUid),
     remove: remove.bind(null, agendaUid),
     events: events(core, agendaUid),
@@ -21,6 +22,8 @@ module.exports = core => {
     members: members(core.services, agendaUid),
     settings: settings(agendaUid)
   }), {
-    create: create.bind(null, core)
+    search: search(core),
+    create: create.bind(null, core),
+    rebuildIndex: () => core.services.agendaSearch.rebuild()
   });
 }

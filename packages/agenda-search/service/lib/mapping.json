@@ -5,14 +5,24 @@
   "uid": {
     "type": "integer"
   },
-  "hasUpcomingPublished": {
+  "slug": {
+    "type": "keyword"
+  },
+  "indexed": {
     "type": "boolean"
   },
-  "upcomingPublishedEvents": {
-    "type": "integer"
-  },
-  "recentlyContributedEvents": {
-    "type": "integer"
+  "publishedEvents": {
+    "properties": {
+      "passed": {
+        "type": "integer"
+      },
+      "current": {
+        "type": "integer"
+      },
+      "upcoming": {
+        "type": "integer"
+      }
+    }
   },
   "settings": {
     "properties": {
@@ -35,9 +45,6 @@
         "type": "integer"
       }
     }
-  },
-  "slug": {
-    "type": "keyword"
   },
   "title": {
     "type": "text",
@@ -62,8 +69,12 @@
   "officializedAt": {
     "type": "date"
   },
-  "keywords": {
-    "type": "keyword"
+  "summary": {
+    "properties": {
+      "keywords": {
+        "type": "keyword"
+      }
+    }
   },
   "locationSet": {
     "properties": {
@@ -84,5 +95,11 @@
         "type": "text"
       }
     }
+  },
+  "_recentlyAddedEvents": {
+    "type": "boolean"
+  },
+  "_hasUpcomingPublished": {
+    "type": "boolean"
   }
 }

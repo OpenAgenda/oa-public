@@ -4,6 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
 const should = require( 'should' );
+const assert = require('assert');
 const Files = require('@openagenda/files');
 
 const {
@@ -160,6 +161,20 @@ describe( 'agendas - functional (server): list', function () {
     }, 94, 1, ( err, agendas ) => {
 
       agendas[ 0 ].publishedEvents.should.equal( 9 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'onlyIncludeFields option', done => {
+
+    svc.list( {}, 0, 1, {
+      onlyIncludeFields: ['uid']
+    }, ( err, agendas ) => {
+
+      assert.deepEqual(Object.keys(agendas[0]), ['uid']);
 
       done();
 
