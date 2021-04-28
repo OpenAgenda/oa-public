@@ -100,7 +100,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     const locationUids = fetched.events.map(e => e.locationUid);
     fetched.locations = await agendaLocations.list({
       uids: locationUids
-    }, { offset: 0, limit: locationUids.length }, { detailed: true });
+    }, { offset: 0, limit: locationUids.length }, { detailed: true, deleted: null });
   }
 
   if (detailed && load.member) {
