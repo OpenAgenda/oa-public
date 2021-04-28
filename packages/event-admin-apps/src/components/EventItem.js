@@ -19,7 +19,12 @@ const messages = defineMessages({
   },
   sharedFrom: {
     id: 'EventAdminApp.EventItem.sharedFrom',
-    defaultMessage: 'Shared from <link>{title}</link>',
+    defaultMessage: 'Shared from <agendaLink>{agendaTitle}</agendaLink>',
+  },
+  sharedFromBy: {
+    id: 'EventAdminApp.EventItem.sharedFromBy',
+    defaultMessage:
+      'Shared from <agendaLink>{agendaTitle}</agendaLink> by <memberLink>{memberName}</memberLink>',
   },
   aggregatedFrom: {
     id: 'EventAdminApp.EventItem.aggregatedFrom',
@@ -68,6 +73,10 @@ const messages = defineMessages({
   featured: {
     id: 'EventAdminApp.EventItem.featured',
     defaultMessage: 'Featured',
+  },
+  memberPlaceholder: {
+    id: 'EventAdminApp.EventItem.memberPlaceholder',
+    defaultMessage: '<decorate>Unnamed member</decorate>',
   },
 });
 
@@ -174,6 +183,10 @@ export default function EventItem({
     [index, isFirst, isLast, page, query]
   );
 
+  const memberPlaceholderMsg = intl.formatMessage(messages.memberPlaceholder, {
+    decorate: chunks => <i>{chunks}</i>,
+  });
+
   return (
     <li
       key={event.uid}
@@ -221,20 +234,39 @@ export default function EventItem({
       {event.addMethod === 'contribution' && event.member?.name ? (
         <div className="margin-top-xs">
           {intl.formatMessage(messages.createdBy, {
-            name: event.member.name,
-            link: chunks => <i>{chunks}</i>,
+            name: event.member?.name ?? memberPlaceholderMsg,
+            link: chunks => (event.member?.name ? (
+              <a
+                href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
+              >
+                {chunks}
+              </a>
+            ) : (
+              <i>{chunks}</i>
+            )),
           })}
         </div>
       ) : null}
 
       {event.addMethod === 'share' ? (
         <div className="margin-top-xs">
-          {intl.formatMessage(messages.sharedFrom, {
-            title: event.originAgenda.title,
-            link: chunks => (
-              <a href={`/agendas/${event.originAgenda.uid}`}>{chunks}</a>
-            ),
-          })}
+          {intl.formatMessage(
+            event.member?.name ? messages.sharedFromBy : messages.sharedFrom,
+            {
+              agendaTitle: event.originAgenda.title,
+              memberName: event.member?.name ?? memberPlaceholderMsg,
+              agendaLink: chunks => (
+                <a href={`/agendas/${event.originAgenda.uid}`}>{chunks}</a>
+              ),
+              memberLink: chunks => (
+                <a
+                  href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
+                >
+                  {chunks}
+                </a>
+              ),
+            }
+          )}
         </div>
       ) : null}
 

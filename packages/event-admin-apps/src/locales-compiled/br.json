@@ -471,6 +471,18 @@
       "value": "En une"
     }
   ],
+  "EventAdminApp.EventItem.memberPlaceholder": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Membre sans nom"
+        }
+      ],
+      "type": 8,
+      "value": "decorate"
+    }
+  ],
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,
@@ -504,11 +516,41 @@
       "children": [
         {
           "type": 1,
-          "value": "title"
+          "value": "agendaTitle"
         }
       ],
       "type": 8,
-      "value": "link"
+      "value": "agendaLink"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedFromBy": [
+    {
+      "type": 0,
+      "value": "Partagé depuis "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaTitle"
+        }
+      ],
+      "type": 8,
+      "value": "agendaLink"
+    },
+    {
+      "type": 0,
+      "value": " par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "memberName"
+        }
+      ],
+      "type": 8,
+      "value": "memberLink"
     }
   ],
   "EventAdminApp.EventItem.showLocation": [
@@ -583,10 +625,28 @@
       "value": "Pertinence"
     }
   ],
+  "EventAdminApp.hooks.useFilters.aggregation": [
+    {
+      "type": 0,
+      "value": "Aggrégation"
+    }
+  ],
+  "EventAdminApp.hooks.useFilters.contribution": [
+    {
+      "type": 0,
+      "value": "Contribution"
+    }
+  ],
   "EventAdminApp.hooks.useFilters.featured": [
     {
       "type": 0,
       "value": "En une"
+    }
+  ],
+  "EventAdminApp.hooks.useFilters.share": [
+    {
+      "type": 0,
+      "value": "Partage"
     }
   ],
   "EventAdminApp.messages.attendanceModes.mixed": [
