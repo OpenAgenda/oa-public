@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const EventSearch = require('@openagenda/event-search');
@@ -15,6 +15,21 @@ const transverseEventSearchApp = require('./transverseEventSearchApp');
 const agendaPublicEventSearchRoutes = require('./agendaPublicEventSearchRoutes');
 const agendaRestrictedEventSearchRoutes = require('./agendaRestrictedEventSearchRoutes');
 
+function task({ queue, rebuildQueue, updateMapping }) {
+  log('task');
+
+  queue.on('error', (fn, args, error) => log('error', fn, args, error));
+  queue.on('execute', fn => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
+  queue.on('success', fn => log(fn, 'execute')); // (fn, args, result) => log(fn, 'success'));
+
+  queue.run();
+
+  rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
+  rebuildQueue.run();
+
+  updateMapping();
+}
+
 module.exports.init = async (config, services) => {
   log('init');
   const {
@@ -26,7 +41,7 @@ module.exports.init = async (config, services) => {
   const protocol = _.get(config, 'es75.protocol', _.get(config, 'es75.ssl') ? 'https' : 'http');
   const host = _.get(config, 'es75.host', 'localhost');
 
-  const node = protocol + '://' + host + ':' + port;
+  const node = `${protocol}://${host}:${port}`;
 
   const defaultIndex = _.get(config, 'es75.defaultIndex', process.env.NODE_ENV === 'production' ? 'main' : 'dev');
 
@@ -79,19 +94,4 @@ module.exports.init = async (config, services) => {
     },
     cluster: eventSearch.cluster
   };
-}
-
-function task({ queue, rebuildQueue, updateMapping }) {
-  log('task');
-
-  queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', (fn, args) => log(fn, 'execute'));
-  queue.on('success', (fn, args, result) => log(fn, 'success'));
-
-  queue.run();
-
-  rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
-  rebuildQueue.run();
-
-  updateMapping();
-}
+};

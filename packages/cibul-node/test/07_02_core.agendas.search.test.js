@@ -1,13 +1,12 @@
 'use strict';
 
-const loadFixtures = require('./fixtures/load');
-
 const Services = require('../services/init');
 const Core = require('../core');
 
+const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
-describe('07 - core - functional (server): core.agendas().get', function() {
+describe('07 - core - functional (server): core.agendas().get', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '008.sql'));
@@ -83,8 +82,8 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     });
 
     it('use includeFields option to fetch summary of agendas', async () => {
-      const { agendas } = await core.agendas.search({}, { size: 1 }, { includeFields: ['summary']});
-     
+      const { agendas } = await core.agendas.search({}, { size: 1 }, { includeFields: ['summary'] });
+
       expect(Object.keys(agendas[0]).includes('summary')).toBe(true);
     });
 
@@ -107,6 +106,5 @@ describe('07 - core - functional (server): core.agendas().get', function() {
 
       expect(Array.isArray(agendas[0].summary.eventCountsByState)).toBe(true);
     });
-  
   });
 });
