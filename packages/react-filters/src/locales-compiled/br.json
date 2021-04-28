@@ -196,6 +196,12 @@
       "value": "Mis en une"
     }
   ],
+  "ReactFilters.messages.filterTitles.locationUid": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
   "ReactFilters.messages.filterTitles.memberUid": [
     {
       "type": 0,

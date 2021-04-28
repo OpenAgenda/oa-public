@@ -12,6 +12,7 @@ const aggregationTypes = {
   departments: terms('location.department'),
   keywords: require('./keywords'),
   languages: require('./languages'),
+  locations: require('./locations'),
   members: require('./members'),
   timespan: require('./timespan'),
   originAgendas: require('./originAgendas'),

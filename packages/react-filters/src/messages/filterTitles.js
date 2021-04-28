@@ -9,6 +9,10 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.memberUid',
     defaultMessage: 'Member',
   },
+  locationUid: {
+    id: 'ReactFilters.messages.filterTitles.locationUid',
+    defaultMessage: 'Location',
+  },
   sourceAgendaUid: {
     id: 'ReactFilters.messages.filterTitles.sourceAgendaUid',
     defaultMessage: 'Source agenda',
