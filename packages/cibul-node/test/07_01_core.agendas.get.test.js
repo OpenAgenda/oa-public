@@ -4,14 +4,13 @@ const _ = require('lodash');
 const axios = require('axios');
 
 const api = require('../api');
-const loadFixtures = require('./fixtures/load');
-
 const Services = require('../services/init');
 const Core = require('../core');
 
+const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
-describe('07 - core - functional (server): core.agendas().get', function() {
+describe('07 - core - functional (server): core.agendas().get', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '008.sql'));
@@ -49,7 +48,6 @@ describe('07 - core - functional (server): core.agendas().get', function() {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
-
     it('simple get provides uid, title and slug', async () => {
       const agenda = await core.agendas(92983929).get();
 
@@ -117,16 +115,14 @@ describe('07 - core - functional (server): core.agendas().get', function() {
         publishedEvents: { current: 0, passed: 0, upcoming: 0 },
         recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 }
       });
-
     });
-
   });
 
   describe('api', () => {
     let server;
 
-    beforeAll(done => {
-       server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -148,7 +144,6 @@ describe('07 - core - functional (server): core.agendas().get', function() {
       it('get from non-administrator does not provide administrator access field', () => {
         expect(agenda.settings.contribution.authorizedIPAddresses).toBe(undefined);
       });
-
     });
 
     describe('get from administrator', () => {
@@ -163,7 +158,5 @@ describe('07 - core - functional (server): core.agendas().get', function() {
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
     });
-
   });
-
 });
