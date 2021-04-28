@@ -3,15 +3,14 @@
 const _ = require('lodash');
 const axios = require('axios');
 
-const loadFixtures = require('./fixtures/load');
-
 const api = require('../api');
-const Services = require('../services/init');
 const Core = require('../core');
+const Services = require('../services/init');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
-describe('11 - core - functional (server): core.users().agendas.list()', function() {
+describe('11 - core - functional (server): core.users().agendas.list()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '012.sql'));
@@ -45,7 +44,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', functio
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('results contents', function() {
+  describe('results contents', () => {
     let result;
 
     beforeAll(async () => {
@@ -72,10 +71,9 @@ describe('11 - core - functional (server): core.users().agendas.list()', functio
         role: 'contributor'
       });
     });
-
   });
 
-  describe('navigation', function() {
+  describe('navigation', () => {
     const results = [];
 
     beforeAll(async () => {
@@ -91,11 +89,11 @@ describe('11 - core - functional (server): core.users().agendas.list()', functio
         after = result.after;
 
         results.push(result);
-      } while (_.last(results).items.length)
+      } while (_.last(results).items.length);
     });
 
     it('provided after key can be used to fetch next results', () => {
-      const titles = results.reduce((titles, { items }) => titles.concat(items.map(item => item.title)), [])
+      const titles = results.reduce((carry, { items }) => carry.concat(items.map(item => item.title)), []);
 
       expect(titles).toEqual([
         'Un agenda thématique',
@@ -110,18 +108,18 @@ describe('11 - core - functional (server): core.users().agendas.list()', functio
     });
   });
 
-  describe('api', function() {
+  describe('api', () => {
     const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
-    let server, accessToken, response;
+    let server;
+    let response;
 
-    beforeAll(done => {
-       server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
     });
 
     afterAll(() => server.close());
 
     describe('successful call', () => {
-
       beforeAll(async () => {
         response = await axios({
           method: 'get',
@@ -137,9 +135,6 @@ describe('11 - core - functional (server): core.users().agendas.list()', functio
           'success'
         ]);
       });
-
     });
-
   });
-
 });
