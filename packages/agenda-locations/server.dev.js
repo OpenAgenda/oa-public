@@ -14,7 +14,6 @@ const log = (...args) => {
   console.log.apply(null, args);
 };
 
-
 const Files = require('@openagenda/files');
 const multer = require('multer');
 
@@ -264,9 +263,11 @@ const Service = require('.');
   });
 
   app.delete('/:locationUid', (req, res, next) => {
+    log('delete with removeEvents:', !!req.query.removeEvents);
     svc(7196947)
       .remove(req.params.locationUid, {
         includeImagePath: true,
+        removeEvents: !!req.query.removeEvents
       })
       .then(location => {
         res.json({

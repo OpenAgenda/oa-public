@@ -9,7 +9,7 @@ module.exports = {
     "br": "",
     "it": ""
   },
-  "contactsupport": {
+  "contactSupport": {
     "fr": "Contacter le support",
     "en": "Contact support",
     "de": "",
@@ -189,7 +189,7 @@ module.exports = {
     "it": "Annullare la fusione",
     "io": "crwdns12248:0crwdne12248:0"
   },
-  "mergedescription": { //change trads
+  "mergedescription": {
     "fr": "Fusion de Lieux",
     "en": "Select the locations to merge, then",
     "de": "Wähle die Orte zu fusionieren, dann",
@@ -454,7 +454,7 @@ module.exports = {
     "io": "crwdns12306:0crwdne12306:0"
   },
   "cannotRemoveEndUnique": {
-    "fr": " a été contribué sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
+    "fr": " a été contribué sur l'agenda.",
     "en": " has been contributed on the agenda. By deleting the location, the associated events will also be deleted.",
     "de": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
     "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
@@ -472,13 +472,43 @@ module.exports = {
     "io": "crwdns12310:0%agendaEventCount%crwdne12310:0"
   },
   "cannotRemoveEnd": {
-    "fr": " ont été contribués sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
+    "fr": " ont été contribués sur l'agenda.",
     "en": " have been contributed on the agenda. By deleting the location, the associated events will also be deleted.",
     "de": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
     "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
     "br": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
     "it": " sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
     "io": "crwdns12312:0crwdne12312:0"
+  },
+  "notRemoveUnique": {
+    "fr": "Ne pas supprimer l'événements.",
+    "en": "",
+    "io": "",
+  },
+  "notRemove": {
+    "fr": "Ne pas supprimer les %eventCount% événements.",
+    "en": "",
+    "io": "",
+  },
+  "notRemoveInfo": {
+    "fr": "Ceux-cis continueront d'afficher les données du lieu supprimé jusqu'à leur prochaine mise à jour.",
+    "en": "",
+    "io": "",
+  },
+  "notRemoveInfoUnique": {
+    "fr": "Celui-ci continuera d'afficher les données du lieu supprimé jusqu'à sa prochaine mise à jour.",
+    "en": "",
+    "io": "",
+  },
+  "removeUnique": {
+    "fr": "Supprimer l'événements.",
+    "en": "",
+    "io": "",
+  },
+  "removeEvents": {
+    "fr": "Supprimer les %eventCount% événements.",
+    "en": "",
+    "io": "",
   },
   "doOn": {
     "fr": "Cette action est à efféctuer sur le site de",
@@ -492,6 +522,6 @@ module.exports = {
   },
   "goTo": {
     "fr": "Aller sur",
-    "en": "Go to"
+    "en": "Go to",
   }
 }
