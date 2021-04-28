@@ -30,6 +30,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         'formSchemas',
         'custom',
         'eventSearch',
+        'agendaSearch',
         'members',
         'networks',
         'legacy',
@@ -40,6 +41,8 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas.rebuildIndex();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -69,6 +72,16 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         phone: null,
         position: null,
         role: 'contributor'
+      });
+    });
+
+    it('detailed option provides more data per item', async () => {
+      const {
+        items
+      } = await core.users({ uid: 1 }).agendas.list({ limit: 2 }, { detailed: 1 });
+
+      ['summary', 'schema', 'settings'].forEach(field => {
+        expect(Object.keys(items[0]).includes(field)).toBe(true);
       });
     });
   });

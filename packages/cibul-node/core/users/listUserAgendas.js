@@ -5,12 +5,18 @@ const NotFoundError = require('../utils/NotFoundError');
 const formatMember = require('../agendas/members/lib/format');
 const validateIdentifier = require('./lib/validateIdentifier');
 const validateNav = require('./lib/validateNav');
+const validateOptions = require('./lib/validateOptions');
+const assignDetailedAgendaInfo = require('./lib/assignDetailedAgendaInfo');
 
-module.exports = async (services, identifier, nav = {}) => {
+module.exports = (core, identifier) => async (nav = {}, options = {}) => {
   const {
     users,
     members: membersSvc
-  } = services;
+  } = core.services;
+
+  const {
+    detailed
+  } = validateOptions(options);
 
   const user = await users.findOne({
     query: validateIdentifier(identifier, { pickOne: true })
@@ -20,7 +26,7 @@ module.exports = async (services, identifier, nav = {}) => {
     throw new NotFoundError('user', identifier);
   }
 
-  return membersSvc.list({
+  const result = await membersSvc.list({
     userUid: user.uid
   }, validateNav(nav), {
     detailed: true,
@@ -33,4 +39,10 @@ module.exports = async (services, identifier, nav = {}) => {
       member: formatMember(membersSvc, item)
     }))
   }));
+
+  if (detailed) {
+    await assignDetailedAgendaInfo(core, result);
+  }
+
+  return result;
 };

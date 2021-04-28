@@ -11,7 +11,7 @@ module.exports = core => Object.assign(identifier => ({
   agendas: Object.assign(agendaUid => ({
     getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid)
   }), {
-    list: listUserAgendas.bind(null, core.services, identifier)
+    list: listUserAgendas(core, identifier)
   }),
   generateToken: core.services.accessTokens.generateToken.bind(null, identifier),
   canEditEvent: canEditEvent.bind(null, core, identifier)
