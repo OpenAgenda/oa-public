@@ -1,10 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
+const NotFoundError = require('../utils/NotFoundError');
+const formatMember = require('../agendas/members/lib/format');
 const validateIdentifier = require('./lib/validateIdentifier');
 const validateNav = require('./lib/validateNav');
-const formatMember = require('../agendas/members/lib/format');
-const NotFoundError = require('../utils/NotFoundError');
 
 module.exports = async (services, identifier, nav = {}) => {
   const {
@@ -33,4 +33,4 @@ module.exports = async (services, identifier, nav = {}) => {
       member: formatMember(membersSvc, item)
     }))
   }));
-}
+};
