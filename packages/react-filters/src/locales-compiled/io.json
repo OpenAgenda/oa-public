@@ -216,6 +216,12 @@
       "value": "Featured"
     }
   ],
+  "ReactFilters.messages.filterTitles.locationUid": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
   "ReactFilters.messages.filterTitles.memberUid": [
     {
       "type": 0,

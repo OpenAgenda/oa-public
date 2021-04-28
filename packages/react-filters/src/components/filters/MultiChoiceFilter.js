@@ -200,7 +200,7 @@ function MultiChoiceFilter({
       location: 0,
       distance: 100,
       minMatchCharLength: 1,
-      keys: ['value'],
+      keys: ['label'],
     })
   );
 
