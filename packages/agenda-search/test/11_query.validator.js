@@ -23,7 +23,8 @@ describe('11 - validators - query', () => {
       updatedAt: {
         gte: null,
         lte: null
-      }
+      },
+      slug: null
     });
   });
 

@@ -51,6 +51,11 @@ const validate = schemas({
   uid: {
     type: 'integer',
     list: { default: null }
+  },
+  slug: {
+    type: 'text',
+    optional: true,
+    list: { default: null }
   }
 });
 
