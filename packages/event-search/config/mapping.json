@@ -50,6 +50,9 @@
       },
       "country": {
         "type": "keyword"
+      },
+      "_agg": {
+        "type": "keyword"
       }
     }
   },

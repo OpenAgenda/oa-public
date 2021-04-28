@@ -703,6 +703,32 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('locations', () => {
+        let agg;
+
+        before(async () => {
+          const result = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: ['locations']
+          });
+          agg = result.aggregations.locations;
+          //textLog('locations.json', agg);
+        });
+
+        it('each aggregation key is the uid of the location', () => {
+          agg[0].key.should.equal(18191842);
+        });
+
+        it('each aggregation provides name and uid of location', () => {
+          agg[0].should.eql({
+            key: 18191842,
+            location: { uid: 18191842, name: 'Rocher de Palmer' },
+            eventCount: 174
+          });
+        });
+
+      });
+
       describe('source agendas', () => {
         let agg;
 
