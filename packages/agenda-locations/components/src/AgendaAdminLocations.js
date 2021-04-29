@@ -318,7 +318,7 @@ class AgendaAdminLocations extends Component {
     const { isRemoved } = modal.data;
 
     let withEventsText = (
-      <span>
+      <div className="margin-v-sm">
         <p className="text-left">
           {this.getLabel('cannotRemoveStart', { eventCount })}
           <a href={seeEventsLink}>
@@ -326,7 +326,7 @@ class AgendaAdminLocations extends Component {
           </a>
           {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd')}
         </p>
-      </span>
+      </div>
     );
 
     let modalStates = isRemoved ? 'removed' : null;
@@ -393,9 +393,9 @@ class AgendaAdminLocations extends Component {
                 );
               }
               return (
-                <div className="form-group">
+                <div className="form-group margin-v-sm">
                   {withEventsText}
-                  <div className="radio">
+                  <div className="radio margin-v-sm">
                     <label onClick={() => {           
                       this.setState({...this.actions.getState(), withEvents: false})
                     }}>
@@ -404,7 +404,7 @@ class AgendaAdminLocations extends Component {
                         <div className="text-muted">{this.getLabel(eventCount === 1 ? 'notRemoveInfoUnique' : 'notRemoveInfo')}</div>
                     </label>
                   </div>
-                  <div className='radio padding-top-sm'>
+                  <div className='radio margin-v-sm'>
                     <label onClick={() => {
                       this.setState({...this.actions.getState(), withEvents: true})
                       }}>
@@ -415,14 +415,14 @@ class AgendaAdminLocations extends Component {
                   <div>
                     <button
                         type="button"
-                        className="btn btn-default margin-v-sm"
+                        className="btn btn-default margin-top-sm"
                         onClick={this.actions.closeModal}
                       >
                         {this.getLabel('cancel')}
                       </button>
                       <button
                           type="button"
-                          className="btn btn-primary margin-v-sm pull-right"
+                          className="btn btn-primary margin-top-sm pull-right"
                           onClick={() => remove(withEvents)}
                         >
                           {this.getLabel('confirm')}
