@@ -19,7 +19,7 @@ module.exports = {
   },
   "somethingwentwrong": {
     "fr": "Une erreur est survenue, veuillez contacter le support si cela se reproduit",
-    "en": "",
+    "en": "An error has occurred, please contact support if it happens again",
     "de": "",
     "es": "",
     "br": "",
@@ -27,7 +27,7 @@ module.exports = {
   },
   "reflocationinfo": {
     "fr": "choisissez un lieu qui sera retenu à l'issu de la fusion",
-    "en": "",
+    "en": "choose a location that will be retained at the end of the merge",
     "de": "",
     "es": "",
     "br": "",
@@ -35,7 +35,7 @@ module.exports = {
   },
   "reflocationinfo2": {
     "fr": "Ce lieu sera retenu à l'issu de la fusion",
-    "en": "",
+    "en": "This location will be retained at the end of the merge",
     "de": "",
     "es": "",
     "br": "",
@@ -51,7 +51,7 @@ module.exports = {
   },
   "reflocation": {
     "fr": "Lieu de référence: ",
-    "en": "",
+    "en": "Reference location of the merge",
     "de": "",
     "es": "",
     "br": "",
@@ -330,7 +330,7 @@ module.exports = {
   },
   "seeselection": {
     "fr": "Voir la sélection",
-    "en": "",
+    "en": "View selection",
     "de": "",
     "es": "",
     "br": "",
@@ -455,11 +455,11 @@ module.exports = {
   },
   "cannotRemoveEndUnique": {
     "fr": " a été contribué sur l'agenda.",
-    "en": " has been contributed on the agenda. By deleting the location, the associated events will also be deleted.",
-    "de": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
-    "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
-    "br": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
-    "it": " è stato aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
+    "en": " has been contributed on the agenda.",
+    "de": " im Kalender.",
+    "es": " se han agregado a la agenda.",
+    "br": " war al deiziataer.",
+    "it": " è stato aggiunti all'agenda.",
     "io": "crwdns12308:0crwdne12308:0"
   },
   "cannotRemoveLink": {
@@ -481,33 +481,33 @@ module.exports = {
     "io": "crwdns12312:0crwdne12312:0"
   },
   "notRemoveUnique": {
-    "fr": "Ne pas supprimer l'événements.",
-    "en": "",
+    "fr": "Ne pas supprimer l'événement.",
+    "en": "Do not delete the event",
     "io": "",
   },
   "notRemove": {
     "fr": "Ne pas supprimer les %eventCount% événements.",
-    "en": "",
+    "en": "Do not delete %eventCount% events",
     "io": "",
   },
   "notRemoveInfo": {
     "fr": "Ceux-cis continueront d'afficher les données du lieu supprimé jusqu'à leur prochaine mise à jour.",
-    "en": "",
+    "en": "These will continue to display the data of the deleted location until their next update.",
     "io": "",
   },
   "notRemoveInfoUnique": {
     "fr": "Celui-ci continuera d'afficher les données du lieu supprimé jusqu'à sa prochaine mise à jour.",
-    "en": "",
+    "en": "This will continue to display the data of the deleted location until it is updated the next time.",
     "io": "",
   },
   "removeUnique": {
-    "fr": "Supprimer l'événements.",
-    "en": "",
+    "fr": "Supprimer l'événement.",
+    "en": "Delete the event.",
     "io": "",
   },
   "removeEvents": {
     "fr": "Supprimer les %eventCount% événements.",
-    "en": "",
+    "en": "Delete the %eventCount% events.",
     "io": "",
   },
   "doOn": {

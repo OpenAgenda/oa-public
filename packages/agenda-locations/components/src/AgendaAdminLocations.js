@@ -67,6 +67,7 @@ class AgendaAdminLocations extends Component {
       page: 1,
       total: null,
       modal: false,
+      withEvents:false
     };
 
     this.actions = actions({
@@ -301,7 +302,7 @@ class AgendaAdminLocations extends Component {
   }
 
   renderRemoveLocationModal() {
-    const { modal } = this.state;
+    const { modal, withEvents } = this.state;
     const { agenda, res } = this.props;
     const { eventCount, agendaEventCount } = modal.data.location;
 
@@ -323,6 +324,7 @@ class AgendaAdminLocations extends Component {
           <a href={seeEventsLink}>
             {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveLinkUnique' : 'cannotRemoveLink', { agendaEventCount })}
           </a>
+          {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd')}
         </p>
       </span>
     );
@@ -338,7 +340,6 @@ class AgendaAdminLocations extends Component {
         onClose={this.actions.closeModal}
       >
         {(() => {
-          let withEvents = false;
           switch (modalStates) {
             case 'removed':
               return (
@@ -386,6 +387,7 @@ class AgendaAdminLocations extends Component {
                       <a href={seeEventsLink}>
                         {this.getLabel(eventCount === 1 ? 'cannotRemoveLinkUnique=' : 'cannotRemoveLink=', { eventCount })}
                       </a>
+                      {this.getLabel(eventCount === 1 ? 'cannotRemoveEndUnique=' : 'cannotRemoveEnd=')}
                     </p>
                   </span>
                 );
@@ -394,16 +396,20 @@ class AgendaAdminLocations extends Component {
                 <div className="form-group">
                   {withEventsText}
                   <div className="radio">
-                    <label onClick={() => withEvents = false}>
-                        <input type="radio" id="withoutEvents" name="withEvents" value={withEvents} checked/>
+                    <label onClick={() => {           
+                      this.setState({...this.actions.getState(), withEvents: false})
+                    }}>
+                        <input type="radio" id="withoutEvents" name="withEvents" value={false} checked={withEvents === false}/>
                         {this.getLabel(eventCount === 1 ? 'notRemoveUnique' : 'notRemove', { eventCount })}
                         <div className="text-muted">{this.getLabel(eventCount === 1 ? 'notRemoveInfoUnique' : 'notRemoveInfo')}</div>
                     </label>
                   </div>
                   <div className='radio padding-top-sm'>
-                    <label onClick={() => withEvents = true}>
-                        <input type="radio" id="withEvents" name="withEvents" value={withEvents}/>
-                        {this.getLabel(eventCount === 1 ? 'removeUnique' : 'remove', { eventCount })}
+                    <label onClick={() => {
+                      this.setState({...this.actions.getState(), withEvents: true})
+                      }}>
+                        <input type="radio" id="withEvents" name="withEvents" value={true} checked={withEvents === true}/>
+                        {this.getLabel(eventCount === 1 ? 'removeUnique' : 'removeEvents', { eventCount })}
                     </label>
                   </div>
                   <div>
