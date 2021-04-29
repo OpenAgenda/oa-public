@@ -23,12 +23,14 @@ create table if not exists location (
   agenda_id bigint(20) default null,
   set_uid bigint(20) default null,
   insee varchar(10) default null,
+  deleted tinyint(1) not null default 0,
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
   index owner_id_idx (owner_id),
   index agenda_id_idx (agenda_id),
   index set_uid_idx (set_uid),
   index ext_id_idx (ext_id),
+  index deleted_idx (deleted),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;
 

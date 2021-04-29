@@ -59,13 +59,14 @@ describe('13 - core - functional(server): core.agendas().locations.merge', funct
     );
   });
 
-  it('merged locations have been removed', async () => {
+  it('merged locations have been soft removed', async () => {
     assert.equal(
       await core.services.knex('location')
         .select('id')
         .whereIn('uid', [95155140, 97506318])
+        .where('deleted',1)
         .then(rows => rows.length),
-      0
+      2
     );
   });
 

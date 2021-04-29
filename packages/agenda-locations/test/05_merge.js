@@ -68,6 +68,7 @@ describe('agenda-locations - functional - merge', function () {
       beforeCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
     });
 
@@ -87,6 +88,7 @@ describe('agenda-locations - functional - merge', function () {
       const afterCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
@@ -98,6 +100,7 @@ describe('agenda-locations - functional - merge', function () {
       beforeCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
     });
 
@@ -117,6 +120,7 @@ describe('agenda-locations - functional - merge', function () {
       const afterCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
@@ -128,12 +132,13 @@ describe('agenda-locations - functional - merge', function () {
       beforeCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
     });
 
     before(async () => {
       location = await svc.sets(1903810).locations.merge(
-        51665985,
+        51665987,
         {
           uids: [7630649, 60763721],
         },
@@ -144,13 +149,14 @@ describe('agenda-locations - functional - merge', function () {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 51665985);
+      assert.equal(location.uid, 51665987);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
       const afterCount = await f
         .client('location')
         .count()
+        .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
@@ -164,8 +170,6 @@ describe('agenda-locations - functional - merge - no rights', function () {
   const f = fixtures(config.mysql);
 
   let svc;
-  let location;
-  let beforeCount;
 
   before(async () => {
     await f.load();

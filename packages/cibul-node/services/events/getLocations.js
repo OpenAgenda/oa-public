@@ -23,7 +23,8 @@ const getLocations = (services, uids, options) => {
   return services.agendaLocations
     .list({ uids }, { limit: uids.length }, {
       detailed: true,
-      includeFields
+      includeFields,
+      deleted: null
     });
 }
 

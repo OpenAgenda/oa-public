@@ -34,7 +34,7 @@ const validate = schema({
   },
 });
 
-module.exports = async (service, k, query) => {
+module.exports = async (service, k, deleted, query) => {
   const {
     agendaUid, setUid, search, state, uids, updatedAt
   } = validate(query);
@@ -77,5 +77,11 @@ module.exports = async (service, k, query) => {
 
   if (state !== null) {
     k.where('store', 'like', `%"state":${state}%`);
+  }
+  if (deleted === true) {
+    k.where('deleted', 1);
+  }
+  if (deleted === false) {
+    k.where('deleted', '<>', 1);
   }
 };
