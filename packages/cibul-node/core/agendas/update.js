@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const { promisify } = require('util');
+const _ = require('lodash');
 
 const log = require('@openagenda/logs')('core/agendas/update');
 
@@ -16,16 +16,15 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
 
   const {
     success,
-    agenda,
-    errors
+    agenda
   } = await setAgenda({ uid: agendaUid }, data, options);
 
-  if (!success) throw new Error( 'could not update agenda' );
+  if (!success) throw new Error('could not update agenda');
 
   if (options.updateLegacy) {
     log('updating legacy settings of agenda');
-    await agendaSettings(core)(agenda).legacy.update( true );
+    await agendaSettings(core)(agenda).legacy.update(true);
   }
 
   return agenda;
-}
+};

@@ -37,5 +37,5 @@ module.exports = (core, agendaOrUid) => {
       detailed: !!query?.detailed
     }),
     merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data)
-  }
-}
+  };
+};

@@ -1,17 +1,15 @@
 'use strict';
 
-const _ = require('lodash');
-const getMergedSchema = require('./settings/getMergedSchema');
-const NotFoundError = require('../utils/NotFoundError');
-const loadSummary = require('./utils/loadSummary');
-
 const log = require('@openagenda/logs')('core/agendas/get');
+const NotFoundError = require('../utils/NotFoundError');
+const getMergedSchema = require('./settings/getMergedSchema');
+const loadSummary = require('./utils/loadSummary');
 
 module.exports = async (core, agendaUid, options = {}) => {
   const {
     services
   } = core;
-  
+
   const {
     agendas
   } = services;
@@ -48,7 +46,7 @@ module.exports = async (core, agendaUid, options = {}) => {
 
   const network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
   const locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
-  
+
   const schema = await getMergedSchema(services, agenda, {
     includeEvent,
     access: typeof access === 'string' ? { read: access } : access
@@ -56,13 +54,13 @@ module.exports = async (core, agendaUid, options = {}) => {
 
   if (access === 'internal') {
     return { ...agenda, schema, summary };
-  } else {
-    return {
-      ...agendas.utils.filterByAccess(agenda, 'read', access),
-      network,
-      locationSet,
-      schema,
-      summary
-    };
   }
-}
+
+  return {
+    ...agendas.utils.filterByAccess(agenda, 'read', access),
+    network,
+    locationSet,
+    schema,
+    summary
+  };
+};

@@ -8,4 +8,4 @@ module.exports = core => (query, nav, options) => {
   } = core;
 
   return agendaSearch(query, nav, options);
-}
+};
