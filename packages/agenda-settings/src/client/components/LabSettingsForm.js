@@ -1,6 +1,7 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import { Form, Field } from 'react-final-form';
 import I18nContext from '../contexts/I18nContext';
+import { Spinner } from '@openagenda/react-components';
 
 export default function LabSettingsForm({ agenda, onSubmit }) {
   const { getLabel } = useContext(I18nContext);
@@ -10,7 +11,7 @@ export default function LabSettingsForm({ agenda, onSubmit }) {
       onSubmit={onSubmit}
       initialValues={agenda.settings.lab}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           <Field
             name="eventAdmin"
@@ -25,8 +26,14 @@ export default function LabSettingsForm({ agenda, onSubmit }) {
             )}
           />
 
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary" type="submit" disabled={submitting}>
             {getLabel('update')}
+
+            {submitting ? (
+              <span className="margin-left-xs">
+                  <Spinner mode="inline" />
+                </span>
+            ) : null}
           </button>
         </form>
       )}
