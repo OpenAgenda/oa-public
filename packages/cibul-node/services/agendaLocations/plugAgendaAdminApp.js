@@ -63,9 +63,7 @@ module.exports = (config, services, instance, app, base) => {
                 geocode: `/locations/geocode`,
                 insee: `/locations/insee`,
                 reverseGeocode: `/locations/geocode/reverse`,
-                seeEvents: `/${process.NODE_ENV === 'development'
-                  ? 'frontend_dev.php/'
-                  : ''}${req.agenda.slug}/admin?locationUid=:locationUid`,
+                seeEvents: `/${req.agenda.slug}/admin/events?locationUid=:locationUid&q.locationUid=:locationUid`,
                 create: `/${req.agenda.slug}/admin/locations`,
                 update: `/${req.agenda.slug}/admin/locations/:locationUid`,
                 get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
