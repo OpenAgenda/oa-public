@@ -166,8 +166,17 @@ async function _removeEventZombies(services, ES, agendaId) {
         await ES.updateEvent(zombieEvent.eventId);
         removed++;
       } catch (e) {
-        log('error', 'failed to remove event %s', zombieEvent.eventId);
-        log('error', e);
+        if (['no legacy event record', 'no review_article record'].includes(e.message)) {
+          try {
+            await ES.removeEvent(zombieEvent.eventId);
+          } catch (e) {
+            log('error', 'failed to completely removed event %s (legacy id: %s)', zombieEvent.slug, zombieEvent.eventId);
+            log('error', e);
+          }
+        } else {
+          log('error', 'failed to remove event %s (legacy id: %s)', zombieEvent.slug, zombieEvent.eventId);
+          log('error', e);
+        }
       }
     }
 

@@ -4,9 +4,6 @@ const log = require('@openagenda/logs')('services/agendaSearch/listAgendas');
 
 module.exports = services => async (query, lastId, limit) => {
   const {
-    core
-  } = services;
-  const {
     agendas,
     lastId: nextLastId
   } = await services.agendas.list(query, lastId, limit, {
@@ -20,5 +17,5 @@ module.exports = services => async (query, lastId, limit) => {
   return {
     items: agendas,
     lastId: nextLastId
-  }
-}
+  };
+};

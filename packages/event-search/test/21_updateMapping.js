@@ -27,7 +27,14 @@ describe('21 - event-search - updateMapping', function() {
         mappings: {
           dynamic: false,
           properties: {
-            uid: { type: 'integer' }
+            uid: { type: 'integer' },
+            location: {
+              properties: {
+                uid: {
+                  type: 'integer'
+                }
+              }
+            }
           }
         }
       }
@@ -37,7 +44,17 @@ describe('21 - event-search - updateMapping', function() {
   before(async () => {
     updateResponse = await updateMapping({ client }, indexName, {
       uid: { type: 'integer' },
-      slug: { type: 'keyword' }
+      slug: { type: 'keyword' },
+      location: {
+        properties: {
+          uid: {
+            type: 'integer'
+          },
+          region: {
+            type: 'keyword'
+          }
+        }
+      }
     });
   });
 
@@ -56,7 +73,7 @@ describe('21 - event-search - updateMapping', function() {
 
     assert.deepEqual(
       Object.keys(updated.body[indexName].mappings.properties),
-      ['slug', 'uid']
+      ['location', 'slug', 'uid']
     );
   });
 });
