@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
+import { getLocaleValue } from '@openagenda/react-shared';
 import stateMessages from '../messages/states';
 import attendanceModeMessages from '../messages/attendanceModes';
 import relativeMessages from '../messages/relative';
@@ -257,6 +258,7 @@ export default function useFilters(
           fieldSchema,
           options: fieldSchema.options.map(option => ({
             ...option,
+            label: getLocaleValue(option.label, intl.locale),
             value: option.id,
           })),
           aggregation: {
