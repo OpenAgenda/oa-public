@@ -1,10 +1,11 @@
 'use strict';
 
+const date = require('@openagenda/validators/date');
 const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
 const text = require('@openagenda/validators/text');
 
-schema.register({ integer, text });
+schema.register({ integer, text, date });
 
 const validate = schema({
   agendaUid: {
@@ -21,6 +22,10 @@ const validate = schema({
     type: 'integer',
     default: null,
   },
+  updatedAt: ['gt', 'lt', 'gte', 'lte'].reduce((updatedAt, op) => ({
+    ...updatedAt,
+    [op]: { type: 'date' }
+  }), {}),
   uids: {
     type: 'integer',
     list: {
@@ -31,7 +36,7 @@ const validate = schema({
 
 module.exports = async (service, k, query) => {
   const {
-    agendaUid, setUid, search, state, uids
+    agendaUid, setUid, search, state, uids, updatedAt
   } = validate(query);
 
   const agendaId = agendaUid
@@ -57,6 +62,14 @@ module.exports = async (service, k, query) => {
         .orWhere('city', 'like', `%${search}%`);
     });
   }
+
+  Object.keys(updatedAt)
+    .filter(op => !!updatedAt[op])
+    .forEach(op => {
+      k.where('updated_at', ({
+        gt: '>', gte: '>=', lt: '<', lte: '<='
+      })[op], updatedAt[op]);
+    });
 
   if (uids) {
     k.whereIn('uid', uids.filter(uid => !!uid));

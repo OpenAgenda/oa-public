@@ -192,6 +192,32 @@ describe('agenda-locations - functional - list', function () {
       );
     });
 
+    it('"updatedAt.gte" filter', async () => {
+      const gte = new Date('2019-09-05 14:45:18');
+
+      const agendas = await svc(7196947).list({ updatedAt: { gte } }, {}, {
+        detailed: true
+      });
+
+      assert(agendas.length > 0);
+      agendas.forEach(agenda => {
+        assert(agenda.updatedAt >= gte);
+      });
+    });
+
+    it('"updatedAt.lte" filter', async () => {
+      const lte = new Date('2019-09-05 14:45:18');
+
+      const agendas = await svc(7196947).list({ updatedAt: { lte } }, {}, {
+        detailed: true
+      });
+
+      assert(agendas.length > 0);
+      agendas.forEach(agenda => {
+        assert(agenda.updatedAt <= lte);
+      });
+    });
+
     it('fix: undefined uids are filtered out from query', async () => {
       await svc(7196947).list({ uids: [10175539, undefined] });
     });
