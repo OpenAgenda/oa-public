@@ -79,6 +79,14 @@ module.exports = (query, nav, options = {}) => {
     });
   }
 
+  if (query?.slug) {
+    filteredPart.push({
+      terms: {
+        slug: query.slug
+      }
+    });
+  }
+
   if (nav.sort) {
     dsl.sort = ({
       'createdAt.desc' : [{

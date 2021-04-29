@@ -50,6 +50,9 @@
       },
       "country": {
         "type": "keyword"
+      },
+      "_agg": {
+        "type": "keyword"
       }
     }
   },
@@ -137,7 +140,7 @@
   },
   "_search_description": {
     "type": "text",
-    "analyzer": "french"
+    "analyzer": "default"
   },
   "_search_languages": {
     "type": "keyword"
@@ -167,7 +170,7 @@
   },
   "_search_full_address_text": {
     "type": "text",
-    "analyzer": "french"
+    "analyzer": "default"
   },
   "_search_additional_keywords": {
     "type": "keyword"

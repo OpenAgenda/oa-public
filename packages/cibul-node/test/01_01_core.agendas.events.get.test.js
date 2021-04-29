@@ -1,15 +1,12 @@
 'use strict';
 
-const _ = require('lodash');
-
-const loadFixtures = require('./fixtures/load');
-
 const Core = require('../core');
 const Services = require('../services/init');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events.get()', function() {
+describe('core - functional (server): core.agendas().events.get()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
@@ -78,7 +75,6 @@ describe('core - functional (server): core.agendas().events.get()', function() {
         image: null,
         url: null
       });
-      event
     });
   });
 
@@ -100,7 +96,6 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   });
 
   describe('get with access option', () => {
-
     describe('access: null', () => {
       let event;
 
@@ -192,8 +187,8 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   });
 
   describe('get with option returnPayload: true and access set', () => {
-
-    let adminResult, internalResult;
+    let adminResult;
+    let internalResult;
 
     beforeAll(async () => {
       adminResult = await core.agendas(2).events.get(1, {
@@ -233,11 +228,9 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     it('id field is present if formSchema if access is internal', () => {
       expect(internalResult.formSchema.fields.filter(f => f.field === 'id').length).toEqual(1);
     });
-
   });
 
   describe('other', () => {
-
     it('get on event includes source paths', async () => {
       const ev = await core.agendas(2).events.get(2);
 
@@ -278,7 +271,5 @@ describe('core - functional (server): core.agendas().events.get()', function() {
         note: 'Une note interne pour les administrateurs'
       });
     });
-
   });
-
 });

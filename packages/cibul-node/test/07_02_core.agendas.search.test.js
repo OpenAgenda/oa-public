@@ -1,5 +1,8 @@
 'use strict';
 
+const axios = require('axios');
+
+const api = require('../api');
 const Services = require('../services/init');
 const Core = require('../core');
 
@@ -46,7 +49,6 @@ describe('07 - core - functional (server): core.agendas().get', () => {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
-
     it('search returns all indexed agendas by default', async () => {
       const { total } = await core.agendas.search();
 
@@ -66,6 +68,15 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       expect(agendas.length).toBe(1);
       expect(agendas[0].uid).toBe(17026800);
+    });
+
+    it('target specific agendas to fetch through slug filter', async () => {
+      const { agendas } = await core.agendas.search({
+        slug: 'le-fennec'
+      });
+
+      expect(agendas.length).toBe(1);
+      expect(agendas[0].slug).toBe('le-fennec');
     });
 
     it('after nav value can be used to fetch next results', async () => {
@@ -105,6 +116,55 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       expect(Array.isArray(agendas[0].summary.eventCountsByState)).toBe(true);
+    });
+  });
+
+  describe('api', () => {
+    const publicKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
+    let server;
+
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
+    });
+
+    afterAll(() => server.close());
+
+    describe('default', () => {
+      let response;
+
+      beforeAll(async () => {
+        response = await axios.get(`http://localhost:3000/agendas?key=${publicKey}`);
+      });
+
+      it('agendas, total, success and after keys are provided in response', async () => {
+        expect(Object.keys(response.data)).toEqual([
+          'after',
+          'agendas',
+          'total',
+          'success'
+        ]);
+      });
+    });
+
+    describe('detailed', () => {
+      let response;
+
+      beforeAll(async () => {
+        response = await axios.get(`http://localhost:3000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`);
+      });
+
+      it('explicitely requested fields can be requested', () => {
+        expect(Object.keys(response.data.agendas[0])).toEqual([
+          'schema',
+          'summary',
+          'settings',
+          'uid',
+          'description',
+          'official',
+          'title',
+          'slug'
+        ]);
+      });
     });
   });
 });

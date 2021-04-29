@@ -15,7 +15,7 @@ module.exports = produce((event, options = {}) => {
   const {
     formSchema = null
   } = options;
-  
+
   Object.assign(event, {
     attendanceMode: event.attendanceMode || 1,
     onlineAccessLink: event.onlineAccessLink || null,
@@ -37,6 +37,7 @@ module.exports = produce((event, options = {}) => {
       , {})),
       ['io']
     );
+
     Object.assign(event, {
       country,
       '_search_full_address_text': _searchFullAddressText(event.location, country),
@@ -45,6 +46,8 @@ module.exports = produce((event, options = {}) => {
         lon: event.location.longitude
       }
     });
+
+    event.location._agg = aggObjects.flatten(event.location, ['uid', 'name']);
   }
 
   if (event.timings) {

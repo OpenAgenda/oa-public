@@ -21,6 +21,7 @@
   "ReactFilters.messages.filterTitles.createdAt": "Date de création",
   "ReactFilters.messages.filterTitles.department": "Département",
   "ReactFilters.messages.filterTitles.featured": "Mis en une",
+  "ReactFilters.messages.filterTitles.locationUid": "Lieu",
   "ReactFilters.messages.filterTitles.memberUid": "Membre",
   "ReactFilters.messages.filterTitles.region": "Région",
   "ReactFilters.messages.filterTitles.relative": "Passé / en cours / à venir",

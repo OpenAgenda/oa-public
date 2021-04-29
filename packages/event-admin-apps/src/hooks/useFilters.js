@@ -149,6 +149,16 @@ export default function useFilters(
           },
         },
         {
+          name: 'locationUid',
+          type: 'radio',
+          options: null, // from the aggregation
+          labelKey: 'location.name',
+          aggregation: {
+            type: 'locations',
+            size: AGGREGATION_SIZE,
+          },
+        },
+        {
           name: 'sourceAgendaUid',
           type: 'radio',
           options: null, // from the aggregation
