@@ -12504,7 +12504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.16.0, browserslist@npm:^4.16.4":
+"browserslist@npm:^4.16.0, browserslist@npm:^4.16.4, browserslist@npm:^4.16.5":
   version: 4.16.5
   resolution: "browserslist@npm:4.16.5"
   dependencies:
@@ -28746,6 +28746,7 @@ fsevents@~2.3.1:
     "@commitlint/load": ^12.1.1
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/cz-conventional-changelog": ^3.2.1
+    browserslist: ^4.16.5
     codecov: ^3.6.2
     commitizen: ^4.1.2
     concurrently: ^6.0.2
