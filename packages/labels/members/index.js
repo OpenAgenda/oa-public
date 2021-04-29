@@ -627,5 +627,13 @@ module.exports = {
     "en": "Sort order",
     "it": "Ordina ordine",
     "io": "crwdns15756:0crwdne15756:0"
+  },
+  "sortBy": {
+    "fr": "Trié par",
+    "en": "Order by"
+  },
+  "removeFilter": {
+    "fr": "Supprimer le filtre",
+    "en": "Remove filter"
   }
 }
