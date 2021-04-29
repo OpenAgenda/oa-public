@@ -196,15 +196,36 @@ class Dashboard extends Component {
 
   search = ({ search, sortBy, sortOrder }) => {
     const {
-      list, agenda, credFilters, history
+      list, agenda, credFilters, history, query
     } = this.props;
 
     const order = sortBy && sortOrder ? `${sortBy}.${sortOrder}` : undefined;
-    const query = { search: search || undefined, role: credFilters, order };
+    const newQuery = {
+      ...query,
+      search: search || undefined,
+      role: credFilters,
+      order,
+    };
 
-    return list(agenda, query).then(() => history.push({
+    return list(agenda, newQuery).then(() => history.push({
       ...history.location,
-      search: qs.stringify(query, { arrayFormat: 'brackets' }),
+      search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
+    }));
+  };
+
+  removeMemberFilter = () => {
+    const {
+      list, agenda, history, query
+    } = this.props;
+
+    const newQuery = {
+      ...query,
+      userUid: undefined,
+    };
+
+    return list(agenda, newQuery).then(() => history.push({
+      ...history.location,
+      search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
     }));
   };
 
@@ -520,8 +541,28 @@ class Dashboard extends Component {
                 loading={listLoading}
               />
 
+              {query.userUid && members?.length ? (
+                <div className="pull-left">
+                  <div className="badge badge-info">
+                    {members[0].custom.contactName
+                      || members[0].user?.fullName
+                      || (members[0].invited
+                        ? members[0].custom.email || getLabel('invited')
+                        : getLabel('noName'))}
+                    <button
+                      type="button"
+                      title={getLabel('removeFilter')}
+                      className="btn btn-link btn-link-inline margin-left-xs"
+                      onClick={this.removeMemberFilter}
+                    >
+                      <i className="fa fa-times" aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
               <div className="text-right form-group form-inline">
-                Trié par{' '}
+                {getLabel('sortBy')}{' '}
                 <Field
                   name="sortBy"
                   className="form-control"
