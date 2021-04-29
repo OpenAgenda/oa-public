@@ -101,7 +101,9 @@ function parseResponseItem({ raw }, item) {
     district: _.get(item, 'components.city_district', _.get(item, 'components.suburb', null)),
     city: _.get(item, 'components.village', _.get(item, 'components.town', _.get(item, 'components.city', null))),
     postalCode: _.get(item, 'components.postcode', null),
-    department: _.get(item, 'components.state_district', null),
+    department: _.get(item, 'components.state_district',
+      _.get(item, 'components.county', null)
+    ),
     region: _.get(item, 'components.state', null),
     timezone: _.get(item, 'annotations.timezone.name', null),
     latitude: _.get(item, 'geometry.lat', null),
