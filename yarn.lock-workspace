@@ -3614,6 +3614,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/browserslist-config@workspace:browserslist-config":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/browserslist-config@workspace:browserslist-config"
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/cz-conventional-changelog@npm:^3.2.1":
   version: 3.2.1
   resolution: "@openagenda/cz-conventional-changelog@npm:3.2.1"
