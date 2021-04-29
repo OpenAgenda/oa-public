@@ -5086,6 +5086,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openagenda/browserslist-config@workspace:public/browserslist-config":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/browserslist-config@workspace:public/browserslist-config"
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/bs-templates@^2.2.0, @openagenda/bs-templates@^2.5.0, @openagenda/bs-templates@workspace:packages/bs-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/bs-templates@workspace:packages/bs-templates"
