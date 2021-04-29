@@ -79,7 +79,6 @@ module.exports = (env = {}, argv = {}) => {
         : `/dist/${serviceName}/`,
       filename: '[name].[contenthash].js',
     },
-    target: envName === 'development' ? 'web' : 'browserslist',
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',
     devServer: {
