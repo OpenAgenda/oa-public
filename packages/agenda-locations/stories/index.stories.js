@@ -40,7 +40,7 @@ const res = {
   merge: `${apiRoot}/merge`,
   csv: '#csv',
   xlsx: '#xlsx',
-  seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid`,
+  seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid`,
   suggestChange: `https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create`,
   agendaSearch: `${apiRoot}/agendas`,
 };
