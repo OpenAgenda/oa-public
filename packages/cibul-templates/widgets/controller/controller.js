@@ -182,6 +182,18 @@ module.exports = function(uid) {
       widgetParams.enable(currentRequestParams);
     }
 
+    try {
+      window.dispatchEvent(new CustomEvent('oa', {
+        detail: {
+          type: 'register',
+          origin: widgetParams.name,
+          query: currentRequestParams
+        }
+      }));
+    } catch (e) {
+      log('error', 'could not dispatch register event', e);
+    }
+
     return {
       update: update,
       getControlData: getControlData,
@@ -308,7 +320,7 @@ module.exports = function(uid) {
         }
       }));
     } catch (e) {
-      log('error', 'could not dispatch event', e);
+      log('error', 'could not dispatch update event', e);
     }
 
     _forEachWidget('change', currentRequestParams, originWidget);
