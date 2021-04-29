@@ -14,6 +14,9 @@
       "path": "@openagenda/cz-conventional-changelog"
     }
   },
+  "browserslist": [
+    "extends @openagenda/browserslist-config"
+  ],
   "workspaces": [
     "*"
   ],
