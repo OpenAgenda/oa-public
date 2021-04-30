@@ -28,11 +28,13 @@ const modulesToInclude = [
   '@openagenda/react-layouts',
   '@openagenda/react-shared',
   '@openagenda/supervisor',
+  'buffer',
   'debug',
   'intl-messageformat',
   'intl-messageformat-parser',
   'lru-cache',
   'react-intl',
+  'react-markdown',
   'yallist',
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(
@@ -71,6 +73,7 @@ module.exports = (env = {}, argv = {}) => {
     mode: envName === 'production' ? 'production' : 'development',
     entry: {
       webapp: path.join(__dirname, 'client/index.js'),
+      outdated: path.join(__dirname, 'client/outdated.js'),
     },
     output: {
       path: path.join(__dirname, 'dist'),
