@@ -242,8 +242,6 @@ function MainLayout({
         <html lang={intl.locale} />
       </Helmet>
 
-      <div id="outdated" />
-
       <nav
         id="nav"
         className="oa-page-header navbar navbar-default navbar-static-top"
