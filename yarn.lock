@@ -6468,6 +6468,7 @@ __metadata:
     "@openagenda/user-apps": ^1.2.1
     "@welldone-software/why-did-you-render": ^6.0.0-rc.1
     babel-loader: ^8.2.2
+    browserslist-useragent: ^3.0.3
     buffer: ^6.0.3
     clean-webpack-plugin: ^3.0.0
     core-js: ^3.10.2
@@ -6500,10 +6501,12 @@ __metadata:
     sass-loader: ^8.0.2
     source-map-loader: ^2.0.1
     terser-webpack-plugin: ^2.3.3
+    ua-parser-js: ^0.7.28
     webpack: ^5.35.0
     webpack-cli: ^4.6.0
     webpack-dashboard: ^3.3.1
     webpack-dev-server: ^4.0.0-beta.2
+    webpack-merge: ^5.7.3
     webpack-s3-plugin: ^1.2.0-rc.0
     webpackbar: ^5.0.0-3
   languageName: unknown
@@ -9836,12 +9839,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.0.4":
-  version: 8.1.1
-  resolution: "acorn@npm:8.1.1"
+"acorn@npm:^8.2.1":
+  version: 8.2.2
+  resolution: "acorn@npm:8.2.2"
   bin:
     acorn: bin/acorn
-  checksum: 8e33848192989aec641e1d8945372791da093ccc60a4fa985ef18a1561dda2bb5e063791aa2ca26ae31e3efcf47da007717b19998ebac7f20670c8af859b4d82
+  checksum: 46d3205ed296fa544b3d3f57880929ca7f7207e9aed7444ff1d73c21c7964e0c24a507799c334c0ab947cec3acb6dc9b831ec3ad01853e7db3da71ccdf4337f3
   languageName: node
   linkType: hard
 
@@ -12481,6 +12484,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browserslist-useragent@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "browserslist-useragent@npm:3.0.3"
+  dependencies:
+    browserslist: ^4.12.0
+    semver: ^7.3.2
+    useragent: ^2.3.0
+  checksum: fa3c856c9c5173c9873ccbf263f6f7c88b9369b85dcf7ee0fb23087beec2c007e06b54922290acac98fa178f1ab5a3bea1a738e3da16dca02b1282cb4057eda5
+  languageName: node
+  linkType: hard
+
 "browserslist@npm:4.14.2":
   version: 4.14.2
   resolution: "browserslist@npm:4.14.2"
@@ -13508,6 +13522,7 @@ __metadata:
     aws-sdk: ^2.544.0
     axios: ^0.21.1
     body-parser: ^1.19.0
+    browserslist-useragent: ^3.0.3
     date-fns: ^2.16.1
     debug: ^3.2.6
     dedent: ^0.7.0
@@ -26157,20 +26172,20 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^2.5.0":
-  version: 2.7.3
-  resolution: "lru-cache@npm:2.7.3"
-  checksum: f3bff3990f2936826da865d1b56f591185df9163e9ebc5e1234a9c5fd4574f8bbb67373fe6f8b914a2a88a3988591fc6b80b5e77705d5ca6ce2c9ef2ea08b572
-  languageName: node
-  linkType: hard
-
-"lru-cache@npm:^4.0.0, lru-cache@npm:^4.0.1, lru-cache@npm:^4.1.2, lru-cache@npm:^4.1.5":
+"lru-cache@npm:4.1.x, lru-cache@npm:^4.0.0, lru-cache@npm:^4.0.1, lru-cache@npm:^4.1.2, lru-cache@npm:^4.1.5":
   version: 4.1.5
   resolution: "lru-cache@npm:4.1.5"
   dependencies:
     pseudomap: ^1.0.2
     yallist: ^2.1.2
   checksum: 4bb4b58a36cd7dc4dcec74cbe6a8f766a38b7426f1ff59d4cf7d82a2aa9b9565cd1cb98f6ff60ce5cd174524868d7bc9b7b1c294371851356066ca9ac4cf135a
+  languageName: node
+  linkType: hard
+
+"lru-cache@npm:^2.5.0":
+  version: 2.7.3
+  resolution: "lru-cache@npm:2.7.3"
+  checksum: f3bff3990f2936826da865d1b56f591185df9163e9ebc5e1234a9c5fd4574f8bbb67373fe6f8b914a2a88a3988591fc6b80b5e77705d5ca6ce2c9ef2ea08b572
   languageName: node
   linkType: hard
 
@@ -34980,6 +34995,15 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"semver@npm:5.5.x":
+  version: 5.5.1
+  resolution: "semver@npm:5.5.1"
+  bin:
+    semver: ./bin/semver
+  checksum: ab920176f5324376c683a2f1bdb5f8d5ccdcc3f5c0a4547bddae7958a457f0813cf9f32ef3cdc77a40c1066d9c3a7599a986d47abae628d37bc637a0f6e6bbc5
+  languageName: node
+  linkType: hard
+
 "semver@npm:7.0.0":
   version: 7.0.0
   resolution: "semver@npm:7.0.0"
@@ -37679,21 +37703,21 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"tmp@npm:0.0.x, tmp@npm:^0.0.33":
+  version: 0.0.33
+  resolution: "tmp@npm:0.0.33"
+  dependencies:
+    os-tmpdir: ~1.0.2
+  checksum: 902d7aceb74453ea02abbf58c203f4a8fc1cead89b60b31e354f74ed5b3fb09ea817f94fb310f884a5d16987dd9fa5a735412a7c2dd088dd3d415aa819ae3a28
+  languageName: node
+  linkType: hard
+
 "tmp@npm:^0.0.29":
   version: 0.0.29
   resolution: "tmp@npm:0.0.29"
   dependencies:
     os-tmpdir: ~1.0.1
   checksum: 6caab5b6660b0087c83727b5c34d668aa882f521d0c6bb8d2179b2220e4622fee6fc3a16f6c437c0f4da1e04f84dfd7b11da116803fcb60061e6cd29f7b19d6c
-  languageName: node
-  linkType: hard
-
-"tmp@npm:^0.0.33":
-  version: 0.0.33
-  resolution: "tmp@npm:0.0.33"
-  dependencies:
-    os-tmpdir: ~1.0.2
-  checksum: 902d7aceb74453ea02abbf58c203f4a8fc1cead89b60b31e354f74ed5b3fb09ea817f94fb310f884a5d16987dd9fa5a735412a7c2dd088dd3d415aa819ae3a28
   languageName: node
   linkType: hard
 
@@ -38309,6 +38333,13 @@ typescript@^4.0:
   version: 0.7.21
   resolution: "ua-parser-js@npm:0.7.21"
   checksum: 5c1f523e784442ee03d859981fccd642c3825c50365148c3803e151ba19419cef0ec1c47af9ebde1cb7be211ed194d255f7e5ba659a9f1f77d3c674da7b454da
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^0.7.28":
+  version: 0.7.28
+  resolution: "ua-parser-js@npm:0.7.28"
+  checksum: a7da4ad54527211e878ee016c2ef64efad5c2f5a31277d36c9da93b4c89ecaa64f391ad4cf158ada76a9ad8e53004a950705ff1c2f27a52ca8bfb3f1381c39ff
   languageName: node
   linkType: hard
 
@@ -39037,6 +39068,16 @@ typescript@^4.0:
   bin:
     user-home: cli.js
   checksum: f02a2c292a7fbf83ed69c773daa4fe5d51e34f1f6ba538cfe155deef7711b2f0447ad1e1a36c313a4f5a646055dd8830690fa26bc346b9192d70b747fb5a0940
+  languageName: node
+  linkType: hard
+
+"useragent@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "useragent@npm:2.3.0"
+  dependencies:
+    lru-cache: 4.1.x
+    tmp: 0.0.x
+  checksum: 966e418122ca87cf54266360f4cb13b61dea36a8dcc7a34bad0eb447ab7b3b3fbbeda64135eb5bfb015e0d97924364bd2196b819f485cfe883a0dd57064573c4
   languageName: node
   linkType: hard
 
@@ -39867,15 +39908,15 @@ typescript@^4.0:
   linkType: hard
 
 "webpack@npm:^5.35.0":
-  version: 5.35.0
-  resolution: "webpack@npm:5.35.0"
+  version: 5.36.1
+  resolution: "webpack@npm:5.36.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.47
     "@webassemblyjs/ast": 1.11.0
     "@webassemblyjs/wasm-edit": 1.11.0
     "@webassemblyjs/wasm-parser": 1.11.0
-    acorn: ^8.0.4
+    acorn: ^8.2.1
     browserslist: ^4.14.5
     chrome-trace-event: ^1.0.2
     enhanced-resolve: ^5.8.0
@@ -39898,7 +39939,7 @@ typescript@^4.0:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: f4d27563fe8c51d1bdc9e195f7eb46abc73c9ec05ab508c66d82eca7a55eed385889e95575149ce47840f62a004700cb0cba3cb2fab3dd0eeb28a1f33269c287
+  checksum: 9b5f52c2abfab19e0822c2cca385738ae0ea4bc61f69545cb841d9fed3cc90c5a312698cff35604ae5fb41bb6ee90fa89862b7b60241e1cd2caf40868ec6e1cc
   languageName: node
   linkType: hard
 
@@ -40636,6 +40677,13 @@ typescript@^4.0:
   dependencies:
     "@babel/runtime": ^7.8.7
   checksum: 764f4d7c78408317ed833cce7efd8311b52f19c25bdf7908f48e10760d9923e49db22c04a7ddf924ddcb3c912cc9afbb384f2b0a31b9bee9fc7f5853e8dffe87
+  languageName: node
+  linkType: hard
+
+"yamlparser@npm:0.0.x":
+  version: 0.0.2
+  resolution: "yamlparser@npm:0.0.2"
+  checksum: 9f09b0af2bc24f22153250b0eac88b491d59c38449fbfec665d13e746941e3a089f47c592a9ca8d9f0aab8b7014fe813642f955de93d23a179f05fe1e29e6f3e
   languageName: node
   linkType: hard
 
