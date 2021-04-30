@@ -12,13 +12,16 @@ async function remove(service, current, options = {}) {
   await authorize(service, 'delete', current.uid, options);
 
   if (service.interfaces.beforeRemove) {
-    await service.interfaces.beforeRemove(current);
+    await service.interfaces.beforeRemove(current, options);
   }
 
   await service.clients
     .knex(service.config.schema)
     .where('uid', current.uid)
-    .del();
+    .update({
+      deleted: 1,
+      updated_at: new Date(),
+    });
 
   return current;
 }
@@ -29,7 +32,7 @@ module.exports.byAgendaUid = async (
   service,
   agendaUid,
   identifiers,
-  options = {}
+  options = {},
 ) => {
   const current = await get.byAgendaUid(
     service,

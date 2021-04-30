@@ -13,14 +13,14 @@ describe('13 - fields', () => {
     it('by default, non detailed fields are included', () => {
       assert.deepEqual(
         defineIncludes({ detailed: false }),
-        ['uid', 'description', 'official', 'title', 'slug']
+        ['image', 'uid', 'description', 'official', 'title', 'slug']
       );
     });
 
     it('includeFields amends base fields', () => {
       assert.deepEqual(
         defineIncludes({ includeFields: 'createdAt' }),
-        ['uid', 'description', 'official', 'title', 'slug', 'createdAt']
+        ['image', 'uid', 'description', 'official', 'title', 'slug', 'createdAt']
       );
     });
 
@@ -28,6 +28,7 @@ describe('13 - fields', () => {
       assert.deepEqual(
         defineIncludes({ detailed: true }),
         [
+          'image',
           'uid',
           'description',
           'official',

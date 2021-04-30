@@ -76,38 +76,39 @@ describe('agenda-locations - functional - remove', function () {
       assert.equal(removed.uid, 95301591);
     });
 
-    it('removed location is no longer present in db', async () => {
+    it('removed location is still present in db with deleted = 1', async () => {
       const entry = await f
         .client('location')
         .first()
         .where('uid', removed.uid);
-
-      assert.ok(entry === undefined);
+        
+      assert.equal(entry.deleted, 1);
     });
 
     it('removed location is passed to interface before it is removed', async () => {
       assert.equal(passedToInterface && passedToInterface.uid, 95301591);
     });
+
   });
 
   describe('set', () => {
     let removed;
 
     before(async () => {
-      removed = await svc.sets(1903810).locations.remove(51665985);
+      removed = await svc.sets(1903810).locations.remove(51665987);
     });
 
     it('remove provides removed location in response', () => {
-      assert.equal(removed.uid, 51665985);
+      assert.equal(removed.uid, 51665987);
     });
 
-    it('removed location is no longer present in db', async () => {
+    it('removed location is still present in db with deleted = 1', async () => {
       const entry = await f
         .client('location')
         .first()
         .where('uid', removed.uid);
 
-      assert.ok(entry === undefined);
+      assert.equal(entry.deleted, 1);
     });
   });
 });

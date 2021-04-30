@@ -63,7 +63,7 @@ class LocationItem extends Component {
     const { location, seeEventsRes } = this.props;
     e.stopPropagation();
     window.location.href = seeEventsRes.replace(
-      ':locationUid',
+      /\:locationUid/g,
       location.uid
     );
   }

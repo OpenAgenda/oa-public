@@ -1,21 +1,18 @@
 'use strict';
 
-const _ = require('lodash');
-const axios = require('axios');
-const assert = require('assert');
-const FormData = require('form-data');
 const fs = require('fs');
-
-const loadFixtures = require('./fixtures/load');
+const axios = require('axios');
+const FormData = require('form-data');
 
 const api = require('../api');
-
 const Services = require('../services/init');
 const Core = require('../core');
 
+const loadFixtures = require('./fixtures/load');
+
 const testConfig = require('./testConfig');
 
-describe('13 - core - functional(server): core.agendas().locations.list', function() {
+describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
@@ -49,7 +46,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('list', function() {
+  describe('list', () => {
     let result;
 
     beforeAll(async () => {
@@ -59,32 +56,33 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
 
     it('locations are placed in an items key', () => {
-      assert.equal(typeof result.items[0].name, 'string');
+      expect(typeof result.items[0].name).toBe('string');
     });
 
     it('a total is provided in result', () => {
-      assert.equal(result.total, 6);
+      expect(result.total).toBe(6);
     });
 
     it('an after key is provided', () => {
-      assert.equal(result.after, 1);
+      expect(result.after).toBe(1);
     });
   });
 
-  describe('get', function() {
+  describe('get', () => {
     let result;
 
     beforeAll(async () => {
       result = await core
         .agendas(17026855)
         .locations
-        .get(95455142, { includeLinkedAgendas : true });
+        .get(95455142, {
+          includeLinkedAgendas: true
+        });
     });
 
     it('get location with option includeLinkedAgendas', () => {
-     assert.deepEqual(result.linkedAgendas, [{ uid: 17026855, title: 'La Gargouille' }])
+      expect(result.linkedAgendas).toEqual([{ uid: 17026855, title: 'La Gargouille' }]);
     });
-
   });
 
   describe('create', () => {
@@ -102,29 +100,30 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
 
     it('location is created', () => {
-      assert(typeof result.uid === 'number');
+      expect(typeof result.uid).toBe('number');
     });
   });
 
   describe('remove', () => {
-    let result;
-
     beforeAll(async () => {
-      result = await core.agendas({
+      await core.agendas({
         uid: 17026855
       }).locations.remove(9955517);
     });
 
     it('location is removed', async () => {
-      assert(await testConfig.knex('location').first().where('uid', 9955517) === undefined);
+      const location = await testConfig.knex('location').first().where('uid', 9955517);
+      expect(location.deleted).toBe(1);
     });
   });
 
   describe('api', () => {
-    let server, accessToken, response;
+    let server;
+    let accessToken;
+    let response;
 
-    beforeAll(done => {
-      server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -160,16 +159,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             }
           });
         } catch (e) {
-          console.log(e.response.data);
+          // console.log(e.response.data);
         }
       });
 
       it('created location is provided in response', () => {
-        assert.equal(response.data.location.name, 'Chez les beaufs de kevin');
+        expect(response.data.location.name).toBe('Chez les beaufs de kevin');
       });
 
       it('agendaId is not provided in response', () => {
-        assert.equal(response.data.location.agendaId, undefined);
+        expect(response.data.location.agendaId).toBeUndefined();
       });
     });
 
@@ -197,19 +196,19 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             data: form
           });
         } catch (e) {
-          console.log(e.response.data);
+          // console.log(e.response.data);
         }
       });
 
       it('image of created location is uploaded', async () => {
         const uploadedHead = await axios.head(response.data.location.image);
-        const sinceLastModified = (new Date).getTime() - (new Date(uploadedHead.headers['last-modified'])).getTime();
-        assert(sinceLastModified < 5000);
+        const sinceLastModified = (new Date()).getTime() - (new Date(uploadedHead.headers['last-modified'])).getTime();
+        expect(sinceLastModified).toBeLessThan(5000);
       });
     });
 
     describe('successful create with multipart/form-data enc type', () => {
-      let response;
+      let createdLocation;
 
       beforeAll(async () => {
         try {
@@ -223,19 +222,19 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             countryCode: 'FR'
           }));
 
-          response = await axios({
+          createdLocation = await axios({
             method: 'post',
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: form.getHeaders(),
             data: form
           });
         } catch (e) {
-          console.log(e);
+          // console.log(e);
         }
       });
 
       it('response contains created location', () => {
-        assert.equal(response.data.location.name, 'Un lieu sans image mais en enctype form-data');
+        expect(createdLocation.data.location.name).toBe('Un lieu sans image mais en enctype form-data');
       });
     });
 
@@ -265,12 +264,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             }
           });
         } catch (e) {
-          console.log(e.response.data);
+          // console.log(e.response.data);
         }
       });
 
       it('response contains the updated location', () => {
-        assert.equal(response.data.location.name, 'Tournon-sur-Rhône');
+        expect(response.data.location.name).toBe('Tournon-sur-Rhône');
       });
     });
 
@@ -290,20 +289,20 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             }
           });
         } catch (e) {
-          //console.log(e.response.data);
+          // console.log(e.response.data);
         }
       });
 
       it('response contains the patched location', () => {
-        assert.equal(response.data.location.name, 'Tournon-sur-Rhône patché');
+        expect(response.data.location.name).toBe('Tournon-sur-Rhône patché');
       });
     });
 
     describe('successful patch through extId', () => {
-      let response;
+      let patchResponse;
       beforeAll(async () => {
         try {
-          response = await axios({
+          patchResponse = await axios({
             method: 'patch',
             url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04',
             headers: {
@@ -316,24 +315,22 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             }
           });
         } catch (e) {
-          //console.log(e);
-          //console.log(e.response.data);
+          // console.log(e.response.data);
         }
       });
 
       it('response code is 200', () => {
-        assert.equal(response.status, 200);
+        expect(patchResponse.status).toBe(200);
       });
 
       it('patched data is in response', () => {
-        assert.equal(response.data.location.name, 'patché par extId');
+        expect(patchResponse.data.location.name).toBe('patché par extId');
       });
     });
 
     describe('sucessful get', () => {
-
       it('location is given using account key', async () => {
-        const response = await axios({
+        const getResponse = await axios({
           method: 'get',
           url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
@@ -343,13 +340,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
         const {
           location
-        } = response.data;
+        } = getResponse.data;
 
-        assert.equal(location.uid, 95455142);
+        expect(location.uid).toBe(95455142);
       });
 
       it('location is given using access token', async () => {
-        const response = await axios({
+        const getResponse = await axios({
           method: 'get',
           url: 'http://localhost:3000/agendas/17026855/locations/95455142',
           headers: {
@@ -361,15 +358,15 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
         const {
           location
-        } = response.data;
+        } = getResponse.data;
 
-        assert.equal(location.uid, 95455142);
+        expect(location.uid).toBe(95455142);
       });
-
     });
 
     describe('successful list', () => {
-      let result, allResults;
+      let result;
+      let allResults;
 
       beforeAll(async () => {
         allResults = await axios({
@@ -397,18 +394,17 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       });
 
       it('locations are in locations key of response', () => {
-        assert(Array.isArray(result.locations));
+        expect(Array.isArray(result.locations)).toBeTruthy();
       });
 
       it('total is in total key', () => {
-        assert.equal(result.total, allResults.locations.length);
+        expect(result.total).toBe(allResults.locations.length);
       });
 
       it('by default, only uid, name, address, latitude longitude and state are provided', () => {
-        assert.deepEqual(
-          Object.keys(result.locations[0]),
+        expect(Object.keys(result.locations[0])).toEqual(
           ['uid', 'name', 'address', 'latitude', 'longitude', 'state']
-        ); 
+        );
       });
 
       it('detailed option is useful to retrieve all location info', async () => {
@@ -425,19 +421,17 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           }
         }).then(r => r?.data);
 
-
-        assert.deepEqual(
-          Object.keys(detailedResults.locations[0]),
+        expect(Object.keys(detailedResults.locations[0])).toEqual(
           [
-            'uid',       'setUid',      'slug',
-            'name',      'address',     'city',
-            'region',    'department',  'postalCode',
-            'insee',     'countryCode', 'district',
-            'latitude',  'longitude',   'updatedAt',
-            'createdAt', 'image',       'description',
-            'tags',      'website',     'email',
-            'phone',     'links',       'access',
-            'state',     'timezone',    'imageCredits',
+            'uid', 'setUid', 'slug',
+            'name', 'address', 'city',
+            'region', 'department', 'postalCode',
+            'insee', 'countryCode', 'district',
+            'latitude', 'longitude', 'updatedAt',
+            'createdAt', 'image', 'description',
+            'tags', 'website', 'email',
+            'phone', 'links', 'access',
+            'state', 'timezone', 'imageCredits',
             'extId'
           ]
         );
@@ -460,14 +454,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         const locationNames = allResults.locations.map(l => l.name);
         const nextLocationName = locationNames[locationNames.indexOf(result.locations[0].name) + 1];
 
-        assert.equal(nextResults.locations[0].name, nextLocationName);
+        expect(nextResults.locations[0].name).toBe(nextLocationName);
       });
     });
 
     describe('head', () => {
-
       it('location is given using account key', async () => {
-        const response = await axios({
+        const headResponse = await axios({
           method: 'head',
           url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
@@ -475,11 +468,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           }
         });
 
-        assert.equal(response.status, 200);
+        expect(headResponse.status).toBe(200);
       });
 
       it('location is given using access token', async () => {
-        const response = await axios({
+        const headResponse = await axios({
           method: 'head',
           url: 'http://localhost:3000/agendas/17026855/locations/95455142',
           headers: {
@@ -489,7 +482,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           }
         });
 
-        assert.equal(response.status, 200);
+        expect(headResponse.status).toBe(200);
       });
 
       it('no location is found', async () => {
@@ -503,17 +496,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           }
         }).catch(e => e);
 
-        assert.equal(error.response.status, 404);
+        expect(error.response.status).toBe(404);
       });
-
     });
 
     describe('successful remove', () => {
-      let response;
+      let removeResponse;
 
       beforeAll(async () => {
         try {
-          response = await axios({
+          removeResponse = await axios({
             method: 'delete',
             url: 'http://localhost:3000/agendas/17026855/locations/95455142',
             headers: {
@@ -523,18 +515,17 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
             }
           });
         } catch (e) {
-          console.log(e);
+          // console.log(e);
         }
       });
 
       it('response contains the removed location', () => {
-        assert.equal(response.data.location.uid, 95455142);
+        expect(removeResponse.data.location.uid).toBe(95455142);
       });
     });
   });
 
   describe('sets and interfaces', () => {
-
     beforeAll(async () => {
       await core.services.agendaLocations.task({
         reset: true
@@ -548,7 +539,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
 
     describe('create and update', () => {
-
       it('a location creation on an agenda linked to a location set also links that location to the set', async () => {
         const created = await core.agendas(55268170).locations.create({
           name: 'Muséonum',
@@ -560,49 +550,68 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
           phone: '0531229417'
         });
 
-        assert.equal(created.setUid, 1);
+        expect(created.setUid).toBe(1);
       });
 
-      it('a location update triggers syncs on all related events and agendas', done => {
-        core.services.tracker.on('eventSearch.update:55268170.55268456', stack => {
-          assert.equal(stack.filter(s => [
-            'agendaLocations.syncImpactedEventsAndAgendas',
-            'eventSearch.update:17026855.48564567',
-            'eventSearch.update:55268170.55268456'
-          ].includes(s)).length, 3);
-          
-          done();
+      it('a location update triggers syncs on all related events and agendas', async () => {
+        const promisedStack = new Promise(rs => {
+          core.services.tracker.on('eventSearch.update:55268170.55268456', stack => {
+            rs(stack);
+          });
         });
 
         core.agendas(55268170).locations.patch(76464022, {
           name: 'Lille Métropole Musée d\'art moderne'
         });
+
+        expect((await promisedStack).filter(s => [
+          'agendaLocations.syncImpactedEventsAndAgendas',
+          'eventSearch.update:17026855.48564567',
+          'eventSearch.update:55268170.55268456'
+        ].includes(s)).length).toBe(3);
       });
-
     });
-    
-    describe('removal', () => {
 
-      beforeAll(done => {
-        core.services.tracker.on('events.onRemove.55268456', stack => {
-          done();
+    describe('removal including linked events', () => {
+      beforeAll(() => {
+        const promisedTrack = new Promise(rs => {
+          core.services.tracker.on('events.onRemove.55268456', rs);
         });
 
-        core.agendas(55268170).locations.remove(76464022);
+        core.agendas(55268170).locations.remove(76464022, { removeEvents: true });
+
+        return promisedTrack;
       });
 
       it('a location deletion triggers the deletion of related events', async () => {
         const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 55268456);
 
-        assert(!!dbEntry.deleted_at);
+        expect(!!dbEntry.deleted_at).toBeTruthy();
       });
 
       it('legacy entry is also removed', async () => {
         const legacyEntry = await core.services.knex('event').first().where('uid', 55268456);
-        assert(!legacyEntry);
+        expect(legacyEntry).toBeFalsy();
       });
     });
 
-  });
+    describe('soft removal', () => {
+      beforeAll(async () => {
+        await core.agendas(99501607).locations.remove(34566591);
 
+        return new Promise(rs => setTimeout(rs, 2000));
+      });
+
+      it('a location soft deletion does not triggers the deletion of related events', async () => {
+        const dbEntry = await core.services.knex('event_2').first('deleted_at').where('uid', 20774404);
+
+        expect(dbEntry.deleted_at).toBeFalsy();
+      });
+
+      it('legacy entry is not removed', async () => {
+        const legacyEntry = await core.services.knex('event').first().where('uid', 20774404);
+        expect(legacyEntry).toBeTruthy();
+      });
+    });
+  });
 });

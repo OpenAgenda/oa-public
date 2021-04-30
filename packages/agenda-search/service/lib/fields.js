@@ -1,6 +1,9 @@
 'use strict';
 
 const fields = [{
+  field: 'image',
+  access: ['public', 'internal', 'administrator', 'moderator']
+}, {
   field: 'uid',
   access: ['public', 'internal', 'administrator', 'moderator']
 }, {

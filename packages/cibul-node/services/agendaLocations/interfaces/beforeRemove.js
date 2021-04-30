@@ -4,12 +4,18 @@ const _ = require('lodash');
 
 const log = require('@openagenda/logs')('services/agendaLocations/beforeRemove');
 
-module.exports = services => async location => {
+module.exports = services => async (location, options = {}) => {
   const {
     events: eventSvc,
     core
   } = services;
+  const {
+    removeEvents
+  } = options;
 
+  if (!removeEvents) {
+    return;
+  }
   log('info', 'deleting events associated with location of uid %s', location.uid);
 
   let hasMore = true;
@@ -18,7 +24,7 @@ module.exports = services => async location => {
   do {
     const event = await eventSvc.list({
       locationUid: location.uid
-    }, { offset: offsetErrored, limit: 1 }, { private: null, draft: null }).then(events => events.pop());
+    }, { offset: offsetErrored, limit: 1 }, { private: null, draft: null, includeFields: ['uid', 'agendaUid']}).then(events => events.pop());
 
     if (!event) {
       hasMore = false;

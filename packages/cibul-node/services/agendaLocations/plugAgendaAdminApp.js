@@ -63,9 +63,7 @@ module.exports = (config, services, instance, app, base) => {
                 geocode: `/locations/geocode`,
                 insee: `/locations/insee`,
                 reverseGeocode: `/locations/geocode/reverse`,
-                seeEvents: `/${process.NODE_ENV === 'development'
-                  ? 'frontend_dev.php/'
-                  : ''}${req.agenda.slug}/admin?locationUid=:locationUid`,
+                seeEvents: `/${req.agenda.slug}/admin/events?locationUid=:locationUid&q.locationUid=:locationUid`,
                 create: `/${req.agenda.slug}/admin/locations`,
                 update: `/${req.agenda.slug}/admin/locations/:locationUid`,
                 get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
@@ -216,7 +214,8 @@ module.exports = (config, services, instance, app, base) => {
   app.delete(`${base}/:locationUid`, (req, res, next) => {
     req.locations.remove(req.params.locationUid, {
       includeImagePath: true,
-      agendaUid: req.agenda?.uid
+      agendaUid: req.agenda?.uid,
+      removeEvents: !!req.query.removeEvents
     }).then(location => {
       res.json({
         location,

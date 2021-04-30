@@ -20,9 +20,10 @@ async function get(service, identifiers, options = {}) {
     includeFields,
     throwOnNotFound,
     includeLinkedAgendas,
+    deleted,
   } = cleanGetOptions(options);
 
-  await addGetQuery(service, k, {
+  await addGetQuery(service, k, deleted, {
     ...cleanGetIdentifiers(identifiers),
     ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });

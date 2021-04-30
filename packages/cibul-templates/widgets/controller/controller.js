@@ -182,6 +182,18 @@ module.exports = function(uid) {
       widgetParams.enable(currentRequestParams);
     }
 
+    try {
+      window.dispatchEvent(new CustomEvent('oa', {
+        detail: {
+          type: 'register',
+          origin: widgetParams.name,
+          query: currentRequestParams
+        }
+      }));
+    } catch (e) {
+      log('error', 'could not dispatch register event', e);
+    }
+
     return {
       update: update,
       getControlData: getControlData,
@@ -269,7 +281,9 @@ module.exports = function(uid) {
       originWidget = {};
     }
 
-    log('updating with %s (%sexclusive) from %s', JSON.stringify(updatedParams), isExclusive ? 'is ' : 'not ', originWidget);
+    const previousParams = JSON.parse(JSON.stringify(currentRequestParams || {}));
+
+    log('updating with %j (%sexclusive) from %s', updatedParams, isExclusive ? 'is ' : 'not ', originWidget);
 
     var newParams = isExclusive ? updatedParams : _clean(cn.extend({}, currentRequestParams, {
       uid: null,
@@ -296,12 +310,24 @@ module.exports = function(uid) {
       window.oa.onWidgetUpdate(originWidget, updatedParams, currentRequestParams);
     }
 
+    try {
+      window.dispatchEvent(new CustomEvent('oa', {
+        detail: {
+          type: 'update',
+          origin: originWidget,
+          previous: previousParams,
+          updated: currentRequestParams
+        }
+      }));
+    } catch (e) {
+      log('error', 'could not dispatch update event', e);
+    }
+
     _forEachWidget('change', currentRequestParams, originWidget);
 
     _fetchWhatUids(() => {
       sweep(originWidget);
     });
-
   }
 
 

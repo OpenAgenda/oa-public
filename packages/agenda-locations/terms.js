@@ -30,7 +30,7 @@ async function terms(service, requestedTerms, query = {}, options = {}) {
     throw new BadRequestError('No valid term was requested');
   }
 
-  await addListQuery(service, k, {
+  await addListQuery(service, k, null, {
     ...query,
     ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });

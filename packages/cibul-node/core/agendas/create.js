@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 const { promisify } = require('util');
 
-module.exports = async (core, data, options = {} ) => {
+module.exports = async (core, data, options = {}) => {
   const setAgenda = promisify(core.services.agendas.set);
 
   const {
@@ -19,5 +19,4 @@ module.exports = async (core, data, options = {} ) => {
   }
 
   return agenda;
-
-}
+};

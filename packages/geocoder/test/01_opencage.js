@@ -36,7 +36,7 @@ describe('opencage', function() {
       (await geocode('31 rue des Francs-Bourgeois 75004 Paris', {
         countryCode: 'FR',
         first: true
-      })).postalCode.should.eql('75003');
+      })).postalCode.should.eql('75004');
 
     });
 
@@ -231,7 +231,7 @@ describe('opencage', function() {
           first: true
         });
 
-        result.city.should.equal('中區 Central District');
+        result.city.should.equal('Île de Hong Kong');
 
       });
 
@@ -350,14 +350,14 @@ describe('opencage', function() {
 
   describe('reverse', () => {
 
-    describe('Lille', () => {
+    describe('Lomme', () => {
 
-      it('city is Lille', async () => {
+      it('city is Lomme', async () => {
 
         (await geocode.reverse(50.6310623, 3.012141, {
           first: true,
           language: 'fr'
-        })).city.should.equal('Lille');
+        })).city.should.equal('Lomme');
 
       });
 
