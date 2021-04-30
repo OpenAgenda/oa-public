@@ -7,5 +7,6 @@ module.exports = [
   'not dead',
 
   'firefox >= 43',
-  'chrome >= 42'
+  'chrome >= 42',
+  'unreleased versions'
 ];
