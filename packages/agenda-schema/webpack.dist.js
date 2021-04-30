@@ -39,11 +39,12 @@ module.exports = {
   ].concat(
     pushToCDN ? [
       new CompressionPlugin( {
-        test: /\.js/,
+        test: /\.js$/,
         filename ( asset ) {
           return asset.file.replace( '.gz', '' );
         }
       } ), new S3Plugin( {
+        include: /\.js$/,
         s3Options: {
           accessKeyId: process.env.AWS_ACCESS_KEY_ID,
           secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
