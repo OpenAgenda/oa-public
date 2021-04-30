@@ -50,6 +50,7 @@ function Html({
         {extractor ? extractor.getLinkElements() : null}
       </head>
       <body {...bodyAttrs}>
+        <div id="outdated" />
         <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
 
         {initialState && (
