@@ -9,11 +9,13 @@ const oaModulesToBuild = [
 const modulesToInclude = [
   '@feathersjs',
   `@openagenda/(?:${oaModulesToBuild.join('|')})`,
+  'buffer',
   'debug',
   'intl-messageformat',
   'intl-messageformat-parser',
   'lru-cache',
   'react-intl',
+  'react-markdown',
   'yallist'
 ];
 
