@@ -4435,6 +4435,7 @@ __metadata:
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
+    "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.1.1
     "@openagenda/validators": ^2.4.0
@@ -6249,6 +6250,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/outdated-browser@^0.0.0, @openagenda/outdated-browser@workspace:packages/outdated-browser":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/outdated-browser@workspace:packages/outdated-browser"
+  dependencies:
+    lodash: ^4.17.15
+    ua-parser-js: ^0.7.28
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/pdf@npm:^0.1.3":
   version: 0.1.3
   resolution: "@openagenda/pdf@npm:0.1.3"
@@ -6461,6 +6471,7 @@ __metadata:
     "@openagenda/home": ^2.2.1
     "@openagenda/inbox-apps": ^1.2.1
     "@openagenda/member-apps": ^2.1.1
+    "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-layouts": ^2.2.1
     "@openagenda/react-shared": ^2.1.1
