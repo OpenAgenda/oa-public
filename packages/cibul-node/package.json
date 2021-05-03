@@ -91,6 +91,7 @@
     "aws-sdk": "^2.544.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "browserslist-useragent": "^3.0.3",
     "date-fns": "^2.16.1",
     "debug": "^3.2.6",
     "dedent": "^0.7.0",

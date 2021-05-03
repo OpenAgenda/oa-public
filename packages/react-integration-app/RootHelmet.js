@@ -3,7 +3,7 @@
 const { createElement: el } = require('react');
 const { Helmet } = require('react-helmet-async');
 
-module.exports = () => el(
+module.exports = ({ children }) => el(
   Helmet,
   { title: 'OpenAgenda', defaultTitle: 'OpenAgenda' },
   el('title', null, 'OpenAgenda'),
@@ -23,5 +23,6 @@ module.exports = () => el(
   el('meta', {
     name: 'viewport',
     content: 'width=device-width, initial-scale=1',
-  })
+  }),
+  children
 );
