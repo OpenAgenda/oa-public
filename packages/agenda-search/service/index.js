@@ -4,6 +4,7 @@ const _ = require('lodash');
 const es = require('@elastic/elasticsearch');
 const logger = require('@openagenda/logs');
 
+const cleanIndexedAgenda = require('./lib/cleanIndexedAgenda');
 const mw = require('./lib/middleware');
 const formatAgenda = require('./lib/formatAgenda');
 const resyncUpdated = require('./lib/resyncUpdated');
@@ -16,9 +17,11 @@ module.exports = (config = {}) => {
     getDetailedAgenda,
     listAgendas,
     elasticsearch,
+    defaultImage,
     site
   } = {
     alias: 'agendas',
+    defaultImage: null,
     site: {
       url: 'https://openagenda.com',
       image: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
@@ -47,7 +50,8 @@ module.exports = (config = {}) => {
     alias,
     client,
     listAgendas,
-    getDetailedAgenda
+    getDetailedAgenda,
+    cleanIndexedAgenda: cleanIndexedAgenda({ defaultImage })
   };
 
   const service = {

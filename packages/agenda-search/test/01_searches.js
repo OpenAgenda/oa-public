@@ -7,7 +7,6 @@ const Service = require('../service');
 const listInterface = require('./app/listInterface');
 const getDetailedAgenda = require('./app/getDetailedAgenda');
 
-
 describe('01 - Search', function() {
   let svc;
   this.timeout(30000);
@@ -16,6 +15,7 @@ describe('01 - Search', function() {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
+      defaultImage: config.defaultImage,
       listAgendas: listInterface('test', 100),
       getDetailedAgenda: getDetailedAgenda('test', a => {
         if (a.uid === 3) {
@@ -220,6 +220,20 @@ describe('01 - Search', function() {
       ]);
     });
 
+  });
+
+  describe('options', () => {
+    it('if agenda has no image, no image is returned by default', async () => {
+      const { agendas } = await svc.list({ uid: 30166879 });
+
+      assert.equal(agendas[0].image, null);
+    });
+
+    it('if agenda has no image and useDefaultImage is true, default image is provided', async () => {
+      const { agendas } = await svc.list({ uid: 30166879 }, {}, { useDefaultImage: true });
+
+      assert.equal(agendas[0].image, config.defaultImage);
+    });
   });
 
   describe('Filters', () => {
