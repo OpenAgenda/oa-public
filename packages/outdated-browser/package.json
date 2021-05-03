@@ -1,0 +1,17 @@
+{
+  "name": "@openagenda/outdated-browser",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "ua-parser-js": "^0.7.28"
+  }
+}
