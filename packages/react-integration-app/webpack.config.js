@@ -24,6 +24,7 @@ const modulesToInclude = [
   '@openagenda/home',
   '@openagenda/inbox-apps',
   '@openagenda/member-apps',
+  '@openagenda/outdated-browser',
   '@openagenda/user-apps',
   '@openagenda/react-layouts',
   '@openagenda/react-shared',
@@ -73,7 +74,7 @@ module.exports = (env = {}, argv = {}) => {
     mode: envName === 'production' ? 'production' : 'development',
     entry: {
       webapp: path.join(__dirname, 'client/index.js'),
-      outdated: path.join(__dirname, 'client/outdated.js'),
+      outdated: '@openagenda/outdated-browser',
     },
     output: {
       path: path.join(__dirname, 'dist'),
