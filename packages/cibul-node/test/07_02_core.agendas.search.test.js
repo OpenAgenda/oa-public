@@ -157,6 +157,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         expect(Object.keys(response.data.agendas[0])).toEqual([
           'schema',
           'summary',
+          'image',
           'settings',
           'uid',
           'description',

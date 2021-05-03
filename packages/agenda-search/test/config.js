@@ -8,6 +8,7 @@ module.exports = {
     url: 'https://openagenda.com',
     image: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
   },
+  defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
   elasticsearch: {
     node: 'https://' + process.env.ES_HOST,
     log: 'trace',

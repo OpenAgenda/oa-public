@@ -7,7 +7,7 @@ const validateNav = require('../../validators/nav');
 const validateQuery = require('../../validators/query');
 const validateOptions = require('../../validators/options');
 
-module.exports = async ({ alias, client }, query, nav, options) => {
+module.exports = async ({ alias, client, cleanIndexedAgenda }, query, nav, options) => {
   const inflatedQuery = Object.keys(query || {}).length ? validateQuery(Object.keys(query).reduce((inflated, key) => _.set(
     inflated,
     key.split('.'),
@@ -30,7 +30,9 @@ module.exports = async ({ alias, client }, query, nav, options) => {
   return {
     after: _.last(result.body.hits.hits)?.sort,
     sort: cleanNav.sort,
-    agendas: result.body.hits.hits.map(hit => hit._source),
+    agendas: result.body.hits.hits
+      .map(hit => hit._source)
+      .map(agenda => cleanIndexedAgenda(agenda, options)),
     total: result.body.hits.total.value
   };
 }

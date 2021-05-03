@@ -18,6 +18,10 @@ module.exports = schemas({
     type: 'choice',
     options: paths
   },
+  useDefaultImage: {
+    type: 'boolean',
+    default: false
+  },
   indexed: {
     type: 'boolean',
     allowNull: true,
