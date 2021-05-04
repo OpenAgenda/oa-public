@@ -14,6 +14,7 @@ const localDistPath = __dirname + '/client/dist';
 
 const modulesToInclude = [
   '@feathersjs',
+  '@openagenda/outdated-browser',
   'debug',
   'intl-messageformat',
   'intl-messageformat-parser',
@@ -29,11 +30,14 @@ module.exports = {
   context: __dirname,
   // defaults at true
   optimization: { minimize: true },
-  entry: [
-    'core-js/stable',
-    'regenerator-runtime/runtime',
-    './client/src/index.js'
-  ],
+  entry: {
+    main: [
+      'core-js/stable',
+      'regenerator-runtime/runtime',
+      './client/src/index.js'
+    ],
+    outdated: '@openagenda/outdated-browser'
+  },
   output: {
     path: localDistPath,
     filename: '[name]-[contenthash].js',

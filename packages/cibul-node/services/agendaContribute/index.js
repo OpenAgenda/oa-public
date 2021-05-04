@@ -16,6 +16,7 @@ const interfaces = require('./interfaces');
 const memberSchema = require('./lib/memberSchema');
 const isDraftRequested = require('./lib/isDraftRequested');
 const config = require('../../config');
+const outdatedBrowserMw = require('../../lib/outdatedBrowser.mw');
 
 const base64 = require('@openagenda/utils/base64');
 
@@ -133,67 +134,79 @@ module.exports = Object.assign((parentApp, path = '') => {
     middlewares.defineBackRedirect
  );
 
-  parentApp.all([
-    '/:agendaSlug/contribute',
-    '/:agendaSlug/contribute/:step',
-    '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft',
-    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
-  ], (req, res, next) => {
-    req.config = {
-      draft: !!(req.event?.draft || req.draft),
-      lang: req.lang,
-      base: `/${req.agenda.slug}/contribute`,
-      mode: req.mode,
-      authorizations: req.authorizations,
-      locationRes: {
-        get: `/locations/:uid.json`,
-        index: `/agendas/${req.agenda.uid}/locations.json?sample=1`,
-        create: `/agendas/${req.agenda.uid}/locations`,
-        geocode: `/locations/geocode`,
-        reverse: `/locations/geocode/reverse`,
-        insee: `/locations/insee`,
-        default: `/agendas/${req.agenda.uid}/locations`,
-      },
-      referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
-      suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
-      fileStore: { type: 's3', bucket },
-      redirects: {
-        back: req.backRedirect,
-        seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
-        createOtherEvent: `/${req.agenda.slug}/contribute`,
-        duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
-        seeAllEvents: `/home/events`,
-        contactAdministrators: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/:eventUid/contact` : `/${req.agenda.slug}/contact`,
-        draft: `/home/events`
-      },
-      member: {
-        dataIsRequired: _.get(req, 'agenda.settings.contribution.useFields', false),
-        schema: memberSchema(req.agenda.uid)
-      },
-      event: {
-        message: _.get(req, 'agenda.settings.contribution.messages.instructions')
-      },
-      confirmation: {
-        message: _.get(req, 'agenda.settings.contribution.messages.complete'),
-        state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
+  parentApp.all(
+    [
+      '/:agendaSlug/contribute',
+      '/:agendaSlug/contribute/:step',
+      '/:agendaSlug/contribute/event/:eventUid',
+      '/:agendaSlug/contribute/event/:eventUid/draft',
+      '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
+    ],
+    outdatedBrowserMw,
+    (req, res, next) => {
+      req.config = {
+        draft: !!(req.event?.draft || req.draft),
+        lang: req.lang,
+        base: `/${req.agenda.slug}/contribute`,
+        mode: req.mode,
+        authorizations: req.authorizations,
+        locationRes: {
+          get: `/locations/:uid.json`,
+          index: `/agendas/${req.agenda.uid}/locations.json?sample=1`,
+          create: `/agendas/${req.agenda.uid}/locations`,
+          geocode: `/locations/geocode`,
+          reverse: `/locations/geocode/reverse`,
+          insee: `/locations/insee`,
+          default: `/agendas/${req.agenda.uid}/locations`,
+        },
+        referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
+        suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
+        fileStore: { type: 's3', bucket },
+        redirects: {
+          back: req.backRedirect,
+          seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
+          createOtherEvent: `/${req.agenda.slug}/contribute`,
+          duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
+          seeAllEvents: `/home/events`,
+          contactAdministrators: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/:eventUid/contact` : `/${req.agenda.slug}/contact`,
+          draft: `/home/events`
+        },
+        member: {
+          dataIsRequired: _.get(req, 'agenda.settings.contribution.useFields', false),
+          schema: memberSchema(req.agenda.uid)
+        },
+        event: {
+          message: _.get(req, 'agenda.settings.contribution.messages.instructions')
+        },
+        confirmation: {
+          message: _.get(req, 'agenda.settings.contribution.messages.complete'),
+          state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
+        }
+      };
+
+      req.translateMode = Boolean(req.cookies.translateMode);
+      req.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+      if (!req.scripts) req.scripts = {};
+      if (!req.scripts.top) req.scripts.top = [];
+
+      if (req.outdatedBrowser) {
+        req.scripts.top.push(
+          { body: `window.oaOutdatedOptions = { language: "${req.lang}" };` },
+          { src: contribute.getClientScriptPath('outdated.js') }
+        );
       }
-    };
 
-    req.translateMode = Boolean(req.cookies.translateMode);
-    req.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
-
-    if (req.cookies.translateMode) {
-      req.scripts = {
-        top: [
+      if (req.cookies.translateMode) {
+        req.scripts.top.push(
           { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
           { src: '//cdn.crowdin.com/jipt/jipt.js' }
-        ]
-      };
-    }
+        );
+      }
 
-    next();
-  });
+      next();
+    }
+  );
 
   parentApp.use('/:agendaSlug/contribute', contribute.app);
 

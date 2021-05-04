@@ -20,7 +20,8 @@ const serviceName = require('../package.json').name.split('/').pop();
 module.exports = {
   app,
   init,
-  dist: express.static(__dirname + '/../client/dist')
+  dist: express.static(__dirname + '/../client/dist'),
+  getClientScriptPath
 }
 
 const config = {
@@ -73,7 +74,7 @@ function init(c) {
       `<div class="agenda-body">
         <div class="js_preload_spin" id="app"></div>
         <script type="application/json" id="init">${serialize(frontAppInit, { isJSON: true })}</script>
-        <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
+        <script defer type="text/javascript" src="${getClientScriptPath()}"></script>
       </div>`, req));
   });
 
@@ -132,7 +133,6 @@ function init(c) {
       res.status(400);
     });
   });
-
 }
 
 function _loadEventSchema(req, res, next) {
@@ -162,8 +162,8 @@ function _defineEventFileKey(req, res, next) {
   });
 }
 
-function _getClientAppPath() {
-  const distFileName = manifest['main.js'];
+function getClientScriptPath(entry = 'main.js') {
+  const distFileName = manifest[entry];
 
   if (config.frontAppPath) {
     return config.frontAppPath + '/' + distFileName;

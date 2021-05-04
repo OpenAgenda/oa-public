@@ -22,6 +22,7 @@
   <body <% for ( attr of bodyAttributes ) { %>
     <%- attr.name %>="<%- attr.value %>"
   <% } %>>
+    <div id="outdated"></div>
     <nav class="oa-page-header navbar navbar-default navbar-static-top js_top_nav" id="nav">
       <div class="container">
         <div class="navbar-header">
