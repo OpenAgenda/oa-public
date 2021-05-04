@@ -19,6 +19,7 @@ import SetHeader from './SetHeader';
 import UpdateForm from './UpdateForm';
 import AdminActionModal from './AdminActionModal';
 import LocationDetails from './LocationDetails';
+import RemoveLocationModal from './RemoveLocationModal';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
@@ -97,12 +98,12 @@ class AgendaAdminLocations extends Component {
 
   onRemoveLocation(location, index, withEvents) {
     const { res } = this.props;
-    log('withEvents option:',withEvents);
+    log('withEvents option:', withEvents);
     xhr(
       {
-        uri: withEvents ?
-        res.remove.replace(':locationUid', location.uid).concat('?removeEvents=true') :
-        res.remove.replace(':locationUid', location.uid),
+        uri: withEvents
+          ? res.remove.replace(':locationUid', location.uid).concat('?removeEvents=true') 
+          : res.remove.replace(':locationUid', location.uid),
         method: 'delete',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -151,7 +152,7 @@ class AgendaAdminLocations extends Component {
     const label = labels[name];
     const { lang } = this.props;
     let str;
-    
+
     str = _.get(label, lang, label[_.first(_.keys(label))]);
 
     if (values) {
@@ -302,138 +303,25 @@ class AgendaAdminLocations extends Component {
   }
 
   renderRemoveLocationModal() {
-    const { modal, withEvents } = this.state;
+    const { modal } = this.state;
     const { agenda, res } = this.props;
-    const { eventCount, agendaEventCount } = modal.data.location;
-
-    const remove = (a) => {this.onRemoveLocation.bind(
-      this,
-      modal.data.location,
-      modal.data.index
-    )(a)}
     const seeEventsLink = res.seeEvents
       .replace(':agendaSlug', agenda.slug)
       .replace(':locationUid', modal.data.location.uid);
-
-    const { isRemoved } = modal.data;
-
-    let withEventsText = (
-      <div className="margin-v-sm">
-        <p className="text-left">
-          {this.getLabel('cannotRemoveStart', { eventCount })}
-          <a href={seeEventsLink}>
-            {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveLinkUnique' : 'cannotRemoveLink', { agendaEventCount })}
-          </a>
-          {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd')}
-        </p>
-      </div>
-    );
-
-    let modalStates = isRemoved ? 'removed' : null;
-    if (!modalStates) {
-      modalStates = eventCount ? 'withEvents' : 'noEvents';
-    }
-
+    const remove = a => {
+      this.onRemoveLocation.bind(
+        this,
+        modal.data.location,
+        modal.data.index
+      )(a);
+    };
     return (
-      <Modal
-        title={this.getLabel('removeTitle')}
+      <RemoveLocationModal
+        modal={modal}
+        seeEventsLink={seeEventsLink}
         onClose={this.actions.closeModal}
-      >
-        {(() => {
-          switch (modalStates) {
-            case 'removed':
-              return (
-                <div>
-                  <p className="text-center">
-                    {this.getLabel('removeComplete')}
-                  </p>
-                  <div className="text-center">
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={this.actions.closeModal}
-                    >
-                      {this.getLabel('closeModal')}
-                    </button>
-                  </div>
-                </div>
-              );
-            case 'noEvents':
-              return (
-                <div>
-                  <p className="text-center">
-                    {this.getLabel('confirmRemoveMessage')}
-                  </p>
-                  <div className="text-center">
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={this.onRemoveLocation.bind(
-                        this,
-                        modal.data.location,
-                        modal.data.index
-                      )}
-                    >{this.getLabel('confirmRemove')}
-                    </button>
-                  </div>
-                </div>
-              );
-            case 'withEvents':
-              if (eventCount === agendaEventCount) {
-                withEventsText = (
-                  <span>
-                    <p className="text-left"> 
-                      {this.getLabel('cannotRemoveStart=')}
-                      <a href={seeEventsLink}>
-                        {this.getLabel(eventCount === 1 ? 'cannotRemoveLinkUnique=' : 'cannotRemoveLink=', { eventCount })}
-                      </a>
-                      {this.getLabel(eventCount === 1 ? 'cannotRemoveEndUnique=' : 'cannotRemoveEnd=')}
-                    </p>
-                  </span>
-                );
-              }
-              return (
-                <div className="form-group margin-v-sm">
-                  {withEventsText}
-                  <div className="radio margin-v-sm">
-                    <label onClick={() => {           
-                      this.setState({...this.actions.getState(), withEvents: false})
-                    }}>
-                        <input type="radio" id="withoutEvents" name="withEvents" value={false} checked={withEvents === false}/>
-                        {this.getLabel(eventCount === 1 ? 'notRemoveUnique' : 'notRemove', { eventCount })}
-                        <div className="text-muted">{this.getLabel(eventCount === 1 ? 'notRemoveInfoUnique' : 'notRemoveInfo')}</div>
-                    </label>
-                  </div>
-                  <div className='radio margin-v-sm'>
-                    <label onClick={() => {
-                      this.setState({...this.actions.getState(), withEvents: true})
-                      }}>
-                        <input type="radio" id="withEvents" name="withEvents" value={true} checked={withEvents === true}/>
-                        {this.getLabel(eventCount === 1 ? 'removeUnique' : 'removeEvents', { eventCount })}
-                    </label>
-                  </div>
-                  <div>
-                    <button
-                        type="button"
-                        className="btn btn-default margin-top-sm"
-                        onClick={this.actions.closeModal}
-                      >
-                        {this.getLabel('cancel')}
-                      </button>
-                      <button
-                          type="button"
-                          className="btn btn-primary margin-top-sm pull-right"
-                          onClick={() => remove(withEvents)}
-                        >
-                          {this.getLabel('confirm')}
-                        </button>
-                    </div>
-                </div> 
-              );
-            default:
-          }
-        })()}
-      </Modal>
+        onRemove={remove}
+      />
     );
   }
 
