@@ -8,4 +8,4 @@ module.exports = (req, res, next) => {
   today1am.setHours(1, 0, 0, 0);
 
   expressUtils.compareModifiedSince(today1am)(req, res, next);
-}
+};
