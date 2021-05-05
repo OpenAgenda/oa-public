@@ -4,11 +4,11 @@ const Service = require('..');
 const fixtures = require('./fixtures');
 
 describe('02 - embeds - get', () => {
-  let client;
+  let fx;
   let svc;
 
   beforeAll(async () => {
-    const fx = fixtures({
+    fx = fixtures({
       database: 'embed_test',
       host: process.env.OA_MYSQL_TEST_HOST,
       user: process.env.OA_MYSQL_TEST_USER,
@@ -18,12 +18,12 @@ describe('02 - embeds - get', () => {
 
     await fx.load();
 
-    client = fx.client;
-
     svc = Service({
-      knex: client
+      knex: fx.client
     });
   });
+
+  afterAll(() => fx.destroyClient());
 
   describe('simple get', () => {
     let embed;
