@@ -64,7 +64,7 @@ async function create(service, data, options = {}) {
     .knex(service.config.schema)
     .insert(entry);
 
-  log('created with id %s and uid %s', insertedID, entry.uid);
+  log('info', 'created with id %s and uid %s', insertedID, entry.uid, clean);
 
   if (includeImagePath && clean.image) {
     clean.image = service.config.imagePath + clean.image;
