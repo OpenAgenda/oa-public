@@ -15,5 +15,16 @@
         ]
       }
     ]
-  }
+  },
+
+  "overrides": [
+    {
+      "files": [
+        "components/src/**/*.js"
+      ],
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ]
 }
