@@ -19,7 +19,8 @@ import SetHeader from './SetHeader';
 import UpdateForm from './UpdateForm';
 import AdminActionModal from './AdminActionModal';
 import LocationDetails from './LocationDetails';
-import RemoveLocationModal from './RemoveLocationModal';
+import RemoveModal from './RemoveModal';
+import MergeMenu from './MergeMenu';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
@@ -68,7 +69,6 @@ class AgendaAdminLocations extends Component {
       page: 1,
       total: null,
       modal: false,
-      withEvents:false
     };
 
     this.actions = actions({
@@ -114,7 +114,7 @@ class AgendaAdminLocations extends Component {
         if (err || result.statusCode !== 200) {
           debug('error', err || result.statusCode);
         } else if (JSON.parse(result.body).location) {
-          this.actions.removedLocation(index); // remove index from list 
+          this.actions.removedLocation(index); // remove index from list
         }
       }
     );
@@ -304,7 +304,7 @@ class AgendaAdminLocations extends Component {
 
   renderRemoveLocationModal() {
     const { modal } = this.state;
-    const { agenda, res } = this.props;
+    const { agenda, res, lang } = this.props;
     const seeEventsLink = res.seeEvents
       .replace(':agendaSlug', agenda.slug)
       .replace(':locationUid', modal.data.location.uid);
@@ -316,8 +316,9 @@ class AgendaAdminLocations extends Component {
       )(a);
     };
     return (
-      <RemoveLocationModal
+      <RemoveModal
         modal={modal}
+        lang={lang}
         seeEventsLink={seeEventsLink}
         onClose={this.actions.closeModal}
         onRemove={remove}
@@ -338,7 +339,6 @@ class AgendaAdminLocations extends Component {
           </p>
           {modal.err ? (<a href={`/support?origin=${window.location.pathname}`} className="btn btn-primary">{this.getLabel('contactSupport')}</a>) : null}
         </div>
-
       </Modal>
     );
   }
@@ -375,94 +375,33 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeMenu() {
+    const { lang } = this.props;
     const { merge, locations } = this.state;
+    const closeMerge = this.actions.toggleMerge.bind(null, false);
+    const launchMerge = this.launchMerge.bind(this);
+    const unselectRef = this.onToggleMergeTarget.bind(this, { uid: null });
+    const seeRef = this.onSearchChange.bind(
+      this,
+      'uids',
+      merge.targetUid
+    );
+    const seeSelection = this.onSearchChange.bind(
+      this,
+      'uids',
+      merge.locationUids
+    );
     log('locations', merge.locationUids);
     return (
-      <div className="merge-menu row margin-bottom-md">
-        <div className="col-sm-12">
-          <div className="btn-link-group">
-            <strong>{this.getLabel('mergedescription')}</strong>
-            <button
-              type="button"
-              onClick={this.actions.toggleMerge.bind(null, false)}
-              className="btn btn-link text-danger"
-            >
-              {this.getLabel('cancel')}
-            </button>
-          </div>
-          {merge.targetUid ? (
-            <div className="btn-link-group">
-              <span>{this.getLabel('reflocation')}</span>
-              <strong>{locations.find(l => l.uid === merge.targetUid).name}</strong>
-              <button
-                type="button"
-                onClick={this.onSearchChange.bind(
-                  this,
-                  'uids',
-                  merge.targetUid
-                )}
-                className="btn btn-link"
-              >
-                {this.getLabel('seemergelist')}
-              </button>
-              <button
-                type="button"
-                onClick={this.onToggleMergeTarget.bind(this, { uid: null })}
-                className="btn btn-link text-danger padding-h-xs"
-              >
-                {this.getLabel('unselect')}
-              </button>
-              <MoreInfo
-                className="margin-left-sm"
-                id="target-help"
-                content={this.getLabel('reflocationinfo2')}
-                placement="top"
-              />
-            </div>
-          ) : (
-            <div className="btn-link-group">
-              {this.getLabel('reflocation')}{this.getLabel('reflocationinfo')}
-            </div>
-          )}
-          {merge.locationUids.length ? (
-            <span>
-              {this.getLabel('mergeselection', {
-                count: merge.locationUids.length,
-              })}
-            </span>
-          ) : (
-            <span>{this.getLabel('mergenoselection')}</span>
-          )}
-          <div>
-            <button
-              type="button"
-              className={merge.locationUids.length ? 'btn btn-link padding-left-z padding-right-xs' : 'btn btn-link disabled padding-left-z padding-right-xs'}
-              onClick={this.onSearchChange.bind(
-                this,
-                'uids',
-                merge.locationUids
-              )}
-            >
-              {this.getLabel('seeselection')}
-            </button>
-            {false ? (
-              <button
-                type="button"
-                className="btn btn-link disabled padding-h-xs"
-              >
-                Charger des suggestion de doublons
-              </button>
-            ) : null}
-          </div>
-          <button
-            type="button"
-            className={merge.locationUids.length && merge.targetUid ? 'btn btn-primary margin-top-xs' : 'btn btn-primary disabled margin-top-xs'}
-            onClick={this.launchMerge.bind(this)}
-          >
-            {this.getLabel('launchmerge')}
-          </button>
-        </div>
-      </div>
+      <MergeMenu
+        merge={merge}
+        locations={locations}
+        lang={lang}
+        closeMerge={closeMerge}
+        launchMerge={launchMerge}
+        unselectRef={unselectRef}
+        seeRef={seeRef}
+        seeSelection={seeSelection}
+      />
     );
   }
 

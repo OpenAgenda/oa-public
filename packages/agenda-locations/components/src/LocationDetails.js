@@ -56,7 +56,7 @@ class LocationDetails extends Component {
 
     this.state = {
       contentLang: getPreferredLang(
-        this.props.location.description,
+        props.location.description,
         props.lang
       ),
       linkedAgendas: null,

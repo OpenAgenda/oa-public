@@ -51,7 +51,7 @@ module.exports = {
   },
   "reflocation": {
     "fr": "Lieu de référence: ",
-    "en": "Reference location of the merge",
+    "en": "Reference location: ",
     "de": "",
     "es": "",
     "br": "",
@@ -191,11 +191,11 @@ module.exports = {
   },
   "mergedescription": {
     "fr": "Fusion de Lieux",
-    "en": "Select the locations to merge, then",
-    "de": "Wähle die Orte zu fusionieren, dann",
-    "es": "Seleccione la escena a fusionar y",
-    "br": "Diuzit al lec'hioù da gendeuziñ, ha goude-se",
-    "it": "Selezionare le località da unire e poi",
+    "en": "Locations merge",
+    "de": "Fusionieren",
+    "es": "",
+    "br": "",
+    "it": "",
     "io": "crwdns12250:0crwdne12250:0"
   },
   "launchmerge": {

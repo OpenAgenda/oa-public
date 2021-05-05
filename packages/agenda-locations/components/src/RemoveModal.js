@@ -5,12 +5,13 @@ import { Modal } from '@openagenda/react-components';
 import makeLabelGetter from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-locations/list';
 
-const log = debug('RemoveLocationModal');
+const log = debug('RemoveModal');
 const getLabel = makeLabelGetter(labels);
 
 class RemoveLocationModal extends Component {
   static propTypes = {
     modal: PropTypes.object.isRequired,
+    lang: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     seeEventsLink: PropTypes.string.isRequired,
@@ -24,11 +25,11 @@ class RemoveLocationModal extends Component {
   }
 
   renderRemovedModal() {
-    const { onClose } = this.props;
+    const { onClose, lang } = this.props;
     return (
       <div>
         <p className="text-center">
-          {getLabel('removeComplete')}
+          {getLabel('removeComplete', lang)}
         </p>
         <div className="text-center">
           <button
@@ -36,7 +37,7 @@ class RemoveLocationModal extends Component {
             className="btn btn-primary"
             onClick={onClose}
           >
-            {getLabel('closeModal')}
+            {getLabel('closeModal', lang)}
           </button>
         </div>
       </div>
@@ -44,18 +45,18 @@ class RemoveLocationModal extends Component {
   }
 
   renderNoEventsModal() {
-    const { onRemove } = this.props;
+    const { onRemove, lang } = this.props;
     return (
       <div>
         <p className="text-center">
-          {getLabel('confirmRemoveMessage')}
+          {getLabel('confirmRemoveMessage', lang)}
         </p>
         <div className="text-center">
           <button
             type="button"
             className="btn btn-danger"
             onClick={() => onRemove()}
-          >{getLabel('confirmRemove')}
+          >{getLabel('confirmRemove', lang)}
           </button>
         </div>
       </div>
@@ -67,7 +68,8 @@ class RemoveLocationModal extends Component {
       modal,
       seeEventsLink,
       onClose,
-      onRemove
+      onRemove,
+      lang
     } = this.props;
     const { removeEvents } = this.state;
     const { eventCount, agendaEventCount } = modal.data.location;
@@ -75,11 +77,11 @@ class RemoveLocationModal extends Component {
     let infoText = (
       <div className="margin-v-sm">
         <p className="text-left">
-          {getLabel('cannotRemoveStart', { eventCount })}
+          {getLabel('cannotRemoveStart', { eventCount }, lang)}
           <a href={seeEventsLink}>
-            {getLabel(agendaEventCount === 1 ? 'cannotRemoveLinkUnique' : 'cannotRemoveLink', { agendaEventCount })}
+            {getLabel(agendaEventCount === 1 ? 'cannotRemoveLinkUnique' : 'cannotRemoveLink', { agendaEventCount }, lang)}
           </a>
-          {getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd')}
+          {getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd', lang)}
         </p>
       </div>
     );
@@ -87,11 +89,11 @@ class RemoveLocationModal extends Component {
       infoText = (
         <span>
           <p className="text-left">
-            {getLabel('cannotRemoveStart=')}
+            {getLabel('cannotRemoveStart=', lang)}
             <a href={seeEventsLink}>
-              {getLabel(eventCount === 1 ? 'cannotRemoveLinkUnique=' : 'cannotRemoveLink=', { eventCount })}
+              {getLabel(eventCount === 1 ? 'cannotRemoveLinkUnique=' : 'cannotRemoveLink=', { eventCount }, lang)}
             </a>
-            {getLabel(eventCount === 1 ? 'cannotRemoveEndUnique=' : 'cannotRemoveEnd=')}
+            {getLabel(eventCount === 1 ? 'cannotRemoveEndUnique=' : 'cannotRemoveEnd=', lang)}
           </p>
         </span>
       );
@@ -102,14 +104,14 @@ class RemoveLocationModal extends Component {
         <div className="radio margin-v-sm">
           <label htmlFor="withoutEvents" onClick={() => this.setState({ removeEvents: false })}>
             <input type="radio" id="withoutEvents" name="withEvents" checked={removeEvents === false} />
-            {getLabel(eventCount === 1 ? 'notRemoveUnique' : 'notRemove', { eventCount })}
+            {getLabel(eventCount === 1 ? 'notRemoveUnique' : 'notRemove', { eventCount }, lang)}
             <div className="text-muted">{getLabel(eventCount === 1 ? 'notRemoveInfoUnique' : 'notRemoveInfo')}</div>
           </label>
         </div>
         <div className="radio margin-v-sm">
           <label htmlFor="withEvents" onClick={() => this.setState({ removeEvents: true })}>
             <input type="radio" id="withEvents" name="withEvents" checked={removeEvents === true} />
-            {getLabel(eventCount === 1 ? 'removeUnique' : 'removeEvents', { eventCount })}
+            {getLabel(eventCount === 1 ? 'removeUnique' : 'removeEvents', { eventCount }, lang)}
           </label>
         </div>
         <div>
@@ -118,14 +120,14 @@ class RemoveLocationModal extends Component {
             className="btn btn-default margin-top-sm"
             onClick={onClose}
           >
-            {getLabel('cancel')}
+            {getLabel('cancel', lang)}
           </button>
           <button
             type="button"
             className="btn btn-primary margin-top-sm pull-right"
             onClick={() => onRemove(removeEvents)}
           >
-            {getLabel('confirm')}
+            {getLabel('confirm', lang)}
           </button>
         </div>
       </div>
@@ -133,7 +135,7 @@ class RemoveLocationModal extends Component {
   }
 
   render() {
-    const { modal, onClose } = this.props;
+    const { modal, onClose, lang } = this.props;
     const { isRemoved } = modal.data;
     const { eventCount } = modal.data.location;
     let modalStates = isRemoved ? 'removed' : null;
@@ -143,7 +145,7 @@ class RemoveLocationModal extends Component {
 
     return (
       <Modal
-        title={getLabel('removeTitle')}
+        title={getLabel('removeTitle', lang)}
         onClose={onClose}
       >
         {(() => {
