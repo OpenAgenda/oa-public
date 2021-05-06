@@ -19,7 +19,10 @@ describe('02 - embeds - get', () => {
     await fx.load();
 
     svc = Service({
-      knex: fx.client
+      knex: fx.client,
+      interfaces: {
+        getAgendaId: async () => 13115
+      }
     });
   });
 
@@ -29,7 +32,7 @@ describe('02 - embeds - get', () => {
     let embed;
 
     beforeAll(async () => {
-      embed = await svc.get(80717033);
+      embed = await svc(789456).get(80717033);
     });
 
     it('fetches embed with given uid', () => {
