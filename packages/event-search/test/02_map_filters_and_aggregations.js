@@ -121,4 +121,20 @@ describe('02 - event search - functional: relative filter', () => {
     ]);
   });
 
+  it('viewport', async () => {
+    const {
+      aggregations: {
+        viewport
+      }
+    } = await service('map').search({}, { size: 0 }, {
+      aggregations: {
+        type: 'viewport'
+      }
+    });
+
+    assert.deepEqual(viewport, {
+      topLeft: { latitude: 50.652663968503475, longitude: -0.5585790798068047 },
+      bottomRight: { latitude: 43.92484896350652, longitude: 3.1450939178466797 }
+    });
+  });
 });
