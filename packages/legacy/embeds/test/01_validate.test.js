@@ -1,6 +1,6 @@
 'use strict';
 
-const validate = require('../lib/validate');
+const validate = require('../service/lib/validate');
 
 describe('01 - embeds - validate', () => {
   describe('root', () => {
