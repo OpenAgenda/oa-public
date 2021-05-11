@@ -1,8 +1,8 @@
 {
   "title": "Gebe Deine Veranstaltung ein",
-  "submit": "Registrieren",
-  "create": "Erstelle die Veranstalltung",
-  "draft": "Einen Entwurf speichern",
+  "submit": "Speichern",
+  "create": "Deine Veranstaltung senden",
+  "draft": "Deinen Entwurf speichern",
   "update": "ändern",
   "editEvent": "Aktualisiere die Veranstalltung",
   "updateDraft": "Den Entwurf aktualisieren",
@@ -10,5 +10,15 @@
   "undraft": "Die Veranstalltung erstellen",
   "addEvent": "Veranstaltung hinzufügen",
   "editDraftTitle": "Entwurf",
+  "shareEvent": "Share an event",
+  "takeEvent": "Take",
+  "fromAgenda": "from the agenda",
+  "toAgenda": "to the agenda",
+  "confirmAdd": "Add the event",
+  "noEditionRights": "You do not have edition rights on this event.",
+  "onlyAdditionalFieldsCanBeEdited": "Only additional fields of the agenda can be edited here.",
+  "requestEditionRights": "Request edition rights",
+  "onlyAdditionalFieldsCanBeEditedInfo": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.",
+  "requestEditionRightsInfo": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
   "close": "Schließen"
 }
