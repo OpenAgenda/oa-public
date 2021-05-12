@@ -11,20 +11,10 @@
       {
         "devDependencies": [
           "test/**/*.js",
-          "testconfig.sample.js"
+          "testconfig.sample.js",
+          "testconfig.js"
         ]
       }
     ]
-  },
-
-  "overrides": [
-    {
-      "files": [
-        "components/src/**/*.js"
-      ],
-      "parserOptions": {
-        "sourceType": "module"
-      }
-    }
-  ]
+  }
 }

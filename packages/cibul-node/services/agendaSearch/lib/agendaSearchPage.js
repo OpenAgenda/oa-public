@@ -3,7 +3,7 @@
 const getAgendaSearchLabel = require('@openagenda/labels')(require('@openagenda/labels/agenda-search'));
 const layouts = require('../../lib/layouts');
 
-module.exports = (config) => (req, res, next) => {
+module.exports = config => (req, res, next) => {
   if (req.xhr) {
     return next();
   }
@@ -55,4 +55,4 @@ module.exports = (config) => (req, res, next) => {
     translateMode,
     isTranslator
   }));
-}
+};
