@@ -42,6 +42,7 @@ const embedCodeTemplate = '<iframe style="width:100%;" frameborder="0" scrolling
 
 export const embedCodePresentation = () => (
   <EmbedCodePresentation
+    label="Vue principale de l'agenda intégré. Elle montre la liste des événements de l'agenda ainsi que la vue détaillée de n'importe quel événement par simple clic. Affichez-le sur votre site en y plaçant le code."
     embedCodeTemplate={embedCodeTemplate}
     embedLanguages={['fr', 'en', 'es', 'it', 'de']}
     initialLanguage="fr"
@@ -50,6 +51,31 @@ export const embedCodePresentation = () => (
 
 export const configutionMenuSelector = () => (
   <ConfigurationMenuSelector
+    options={[{
+      label: 'Général',
+      value: 'general'
+    }, {
+      label: 'Partages',
+      value: 'shares'
+    }, {
+      label: 'Widgets: Carte',
+      value: 'map'
+    }, {
+      label: 'Widgets: Champs à choix',
+      value: 'tags'
+    }, {
+      label: 'Widgets: Calendrier',
+      value: 'calendar'
+    }, {
+      label: 'Widgets: Recherche',
+      value: 'search'
+    }, {
+      label: 'Widgets: Aperçu',
+      value: 'preview'
+    }, {
+      label: 'Avancé',
+      value: 'advanced'
+    }]}
     onSelect={menu => log(menu)}
   />
 );

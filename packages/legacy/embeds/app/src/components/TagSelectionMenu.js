@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useIntl, defineMessages } from 'react-intl';
 import { useQuery } from 'react-query';
 
 const extractTagGroupsFromSchema = schema => schema.fields.filter(f => !!f.options);
@@ -11,11 +12,32 @@ const flatten = (label, lang = 'fr') => {
   return label[Object.keys(label).includes(lang) ? lang : Object.keys(label).shift()];
 };
 
+const messages = defineMessages({
+  tagSelectionLabel: {
+    id: 'LegacyEmbed.TagSelectionMenu.tagSelectionLabel',
+    defaultMessage: 'Select the values to load in the widget'
+  },
+  useAllValues: {
+    id: 'LegacyEmbed.TagSelectionMenu.useAllValues',
+    defaultMessage: 'Use all values'
+  },
+  useGroupValues: {
+    id: 'LegacyEmbed.TagSelectionMenu.useGroupValues',
+    defaultMessage: 'Use all values from a field'
+  },
+  useSelection: {
+    id: 'LegacyEmbed.TagSelectionMenu.useSelection',
+    defaultMessage: 'Pick specific values'
+  }
+});
+
 export default ({
   res,
   lang,
   onChange
 }) => {
+  const intl = useIntl();
+
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectionMode, setSelectionMode] = useState('all');

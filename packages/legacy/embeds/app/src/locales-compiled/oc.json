@@ -1,0 +1,176 @@
+{
+  "LegacyEmbed.AdvancedMenu.autoScroll": [
+    {
+      "type": 0,
+      "value": "Load events automatically when the bottom of the list is reached"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customCSS": [
+    {
+      "type": 0,
+      "value": "Type in your css"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customEvent": [
+    {
+      "type": 0,
+      "value": "Custom event page template"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customHead": [
+    {
+      "type": 0,
+      "value": "Custom &lt;head&gt; segment"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customListHead": [
+    {
+      "type": 0,
+      "value": "Custom list head template"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customListItem": [
+    {
+      "type": 0,
+      "value": "Custom list item template"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.linkCSS": [
+    {
+      "type": 0,
+      "value": "Add a link to a stylesheet"
+    }
+  ],
+  "LegacyEmbed.AdvancedWidgetMenu.useDefaultCSS": [
+    {
+      "type": 0,
+      "value": "Use default CSS"
+    }
+  ],
+  "LegacyEmbed.ConfigurationMenuSelector.placeholder": [
+    {
+      "type": 0,
+      "value": "Sélectionner un menu"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.cascadingLayout": [
+    {
+      "type": 0,
+      "value": "Cascading"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.layoutPresentation": [
+    {
+      "type": 0,
+      "value": "List view presentation"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.noCSSLayout": [
+    {
+      "type": 0,
+      "value": "No CSS"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.standardLayout": [
+    {
+      "type": 0,
+      "value": "Standard"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.syncHref": [
+    {
+      "type": 0,
+      "value": "Update the browser address bar as the user navigates the calendar"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.tiledLayout": [
+    {
+      "type": 0,
+      "value": "Tiled"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.useEventSlug": [
+    {
+      "type": 0,
+      "value": "Use slugs as event identifiers in the address bar"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapAuto": [
+    {
+      "type": 0,
+      "value": "Update browser address bar with agenda parameters"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapPositionMode": [
+    {
+      "type": 0,
+      "value": "Define inital map position"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapPositionModeAuto": [
+    {
+      "type": 0,
+      "value": "Automatic"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapPositionModeManual": [
+    {
+      "type": 0,
+      "value": "Manual"
+    }
+  ],
+  "LegacyEmbed.ShareMenu.facebookAppId": [
+    {
+      "type": 0,
+      "value": "Your website's Facebook app identifier"
+    }
+  ],
+  "LegacyEmbed.ShareMenu.facebookAppIdSub": [
+    {
+      "type": 0,
+      "value": "Required to share events on Facebook with links pointing on your website"
+    }
+  ],
+  "LegacyEmbed.ShareMenu.siteURL": [
+    {
+      "type": 0,
+      "value": "Use the URL of your website in share links (activate the url update option)"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.tagSelectionLabel": [
+    {
+      "type": 0,
+      "value": "Select the values to load in the widget"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.useAllValues": [
+    {
+      "type": 0,
+      "value": "Use all values"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.useGroupValues": [
+    {
+      "type": 0,
+      "value": "Use all values from a field"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.useSelection": [
+    {
+      "type": 0,
+      "value": "Pick specific values"
+    }
+  ],
+  "LegacyEmbed.TilesMapMenu.tilesInputLabel": [
+    {
+      "type": 0,
+      "value": "Specify a custom tiles link to be used by the map"
+    }
+  ],
+  "LegacyEmbed.TilesMapMenu.tilesInputPlaceholder": [
+    {
+      "type": 0,
+      "value": "Paste the tile link template here"
+    }
+  ]
+}

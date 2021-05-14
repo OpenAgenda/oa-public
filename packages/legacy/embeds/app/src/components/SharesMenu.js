@@ -1,6 +1,22 @@
 import React from 'react';
+import { defineMessages, useIntl } from 'react-intl';
 import InputComponent from './InputComponent';
 import CheckboxComponent from './CheckboxComponent';
+
+const messages = defineMessages({
+  facebookAppId: {
+    id: 'LegacyEmbed.ShareMenu.facebookAppId',
+    defaultMessage: 'Your website\'s Facebook app identifier'
+  },
+  facebookAppIdSub: {
+    id: 'LegacyEmbed.ShareMenu.facebookAppIdSub',
+    defaultMessage: 'Required to share events on Facebook with links pointing on your website'
+  },
+  siteURL: {
+    id: 'LegacyEmbed.ShareMenu.siteURL',
+    defaultMessage: 'Use the URL of your website in share links (activate the url update option)'
+  }
+});
 
 const shares = [{
   label: 'Facebook',
@@ -22,23 +38,27 @@ const shares = [{
 export default ({
   embed,
   onChange
-}) => (
-  <div>
-    {shares.map(s => (<CheckboxComponent embed={embed} onChange={onChange} {...s} />))}
-    <InputComponent
-      embed={embed}
-      type="text"
-      label="L'identifiant de l'app Facebook de votre site"
-      path="config.facebookappid"
-      sub="Requis pour partager des événements sur facebook avec des liens pointant vers votre site"
-      onChange
-    />
-    <InputComponent
-      embed={embed}
-      type="'url"
-      label="Utilisez l'url de votre site pour les liens de partages (activez l'option de mise à jour de la barre d'adresse)"
-      path="config.siteurl"
-      onChange
-    />
-  </div>
-);
+}) => {
+  const m = useIntl().formatMessage;
+
+  return (
+    <div>
+      {shares.map(s => (<CheckboxComponent embed={embed} onChange={onChange} {...s} />))}
+      <InputComponent
+        embed={embed}
+        type="text"
+        label={m(messages.facebookAppId)}
+        path="config.facebookappid"
+        sub={m(messages.facebookAppIdSub)}
+        onChange
+      />
+      <InputComponent
+        embed={embed}
+        type="'url"
+        label={m(messages.siteURL)}
+        path="config.siteurl"
+        onChange
+      />
+    </div>
+  );
+};

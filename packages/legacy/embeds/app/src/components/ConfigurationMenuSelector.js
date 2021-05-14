@@ -2,38 +2,28 @@ import React from 'react';
 
 import { ReactSelectInput } from '@openagenda/react-shared';
 
+import { defineMessages, useIntl } from 'react-intl';
+
+const messages = defineMessages({
+  menuSelectorPlaceholder: {
+    id: 'LegacyEmbed.ConfigurationMenuSelector.placeholder',
+    defaultMessage: 'Select a menu'
+  }
+});
+
 export default ({
-  onSelect
-}) => (
-  <ReactSelectInput
-    name="configurationMenuSelector"
-    isClearable={false}
-    placeholder="Sélectionner un menu"
-    onChange={({ value }) => onSelect(value)}
-    options={[{
-      label: 'Général',
-      value: 'general'
-    }, {
-      label: 'Partages',
-      value: 'shares'
-    }, {
-      label: 'Widgets: Carte',
-      value: 'map'
-    }, {
-      label: 'Widgets: Champs à choix',
-      value: 'tags'
-    }, {
-      label: 'Widgets: Calendrier',
-      value: 'calendar'
-    }, {
-      label: 'Widgets: Recherche',
-      value: 'search'
-    }, {
-      label: 'Widgets: Aperçu',
-      value: 'preview'
-    }, {
-      label: 'Avancé',
-      value: 'advanced'
-    }]}
-  />
-);
+  onSelect,
+  options
+}) => {
+  const m = useIntl().formatMessage;
+
+  return (
+    <ReactSelectInput
+      name="configurationMenuSelector"
+      isClearable={false}
+      placeholder={m(messages.menuSelectorPlaceholder)}
+      onChange={({ value }) => onSelect(value)}
+      options={options}
+    />
+  );
+};

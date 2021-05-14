@@ -5,13 +5,14 @@ import { ReactSelectInput } from '@openagenda/react-shared';
 export default ({
   embedCodeTemplate,
   initialLanguage = 'fr',
-  embedLanguages
+  embedLanguages,
+  label
 }) => {
   const [language, setLanguage] = useState(initialLanguage);
 
   return (
     <div>
-      <p>Vue principale de l'agenda intégré. Elle montre la liste des événements de l'agenda ainsi que la vue détaillée de n'importe quel événement par simple clic. Affichez-le sur votre site en y plaçant le code.</p>
+      <p>{label}</p>
       <div className="row">
         <div className="col-sm-10">
           <input
