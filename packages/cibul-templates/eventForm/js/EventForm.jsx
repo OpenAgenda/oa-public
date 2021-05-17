@@ -8,6 +8,7 @@ import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/event/form';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
+import Provider from '@openagenda/agenda-locations/components/build/Provider';
 import { Modal, Spinner } from '@openagenda/react-components';
 import Registration from '@openagenda/registration/lib/Registration.js';
 import TagSelector from '@openagenda/agenda-tags/build/TagSelector';
@@ -571,17 +572,19 @@ function EventFormFactory() {
       return <div className="form-section">
         { this.props.configuration.field( 'location' ).info && ( this.state.locationMode !== 'create' ) ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
-        <LocationSelector
-          enableGeocode={_.get( this.props, 'enableGeocode', false )}
-          allowCreate={this.props.contributionConfiguration.allowLocationCreate}
-          settings={settings}
-          mode={this.state.locationMode}
-          disableChange={this.props.configuration.field( 'location' ).disableChange}
-          onChangeMode={this.onLocationModeChange}
-          location={this.state.location}
-          lang={this.props.lang}
-          res={this.props.locationRes}
-          onChange={this.onLocationChange} />
+        <Provider lang={this.props.lang}>
+          <LocationSelector
+            enableGeocode={_.get( this.props, 'enableGeocode', false )}
+            allowCreate={this.props.contributionConfiguration.allowLocationCreate}
+            settings={settings}
+            mode={this.state.locationMode}
+            disableChange={this.props.configuration.field( 'location' ).disableChange}
+            onChangeMode={this.onLocationModeChange}
+            location={this.state.location}
+            lang={this.props.lang}
+            res={this.props.locationRes}
+            onChange={this.onLocationChange} />
+          </Provider>
       </div>
 
     },

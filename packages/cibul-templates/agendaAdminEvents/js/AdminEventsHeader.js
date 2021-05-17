@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import Select from 'react-select';
 import TermSelectorPicker from '@openagenda/agenda-locations/components/build/TermSelectorPicker';
+import Provider from '@openagenda/agenda-locations/components/build/Provider';
 import du from '@openagenda/dom-utils';
 import labels from '@openagenda/labels/agenda-admin-events/filters';
 import stateLabels from '@openagenda/labels/event/states';
@@ -272,19 +273,21 @@ const AdminEventsHeader = createReactClass( {
                 placeholder={getLabel( 'contributor', this.props.lang )} />
             </div>
             <div className="col-sm-6">
-              <TermSelectorPicker
-                lang={this.props.lang}
-                fields={this.props.geographicFields}
-                defaultField='region'
-                res={this.props.res.terms}
-                value={this.state.term}
-                labels={{
-                  region: { fr: 'région', en: 'region' },
-                  department: { fr: 'département', en: 'department' },
-                  city: { fr: 'ville', en: 'city' }
-                }}
-                onChange={this.onTermChange}
-              />
+              <Provider lang={this.props.lang}>
+                <TermSelectorPicker
+                  lang={this.props.lang}
+                  fields={this.props.geographicFields}
+                  defaultField='region'
+                  res={this.props.res.terms}
+                  value={this.state.term}
+                  labels={{
+                    region: { fr: 'région', en: 'region' },
+                    department: { fr: 'département', en: 'department' },
+                    city: { fr: 'ville', en: 'city' }
+                  }}
+                  onChange={this.onTermChange}
+                />
+              </Provider>
             </div>
           </div>
         </div>
