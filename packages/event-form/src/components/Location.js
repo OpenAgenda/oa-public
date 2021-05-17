@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { Modal, Spinner } from '@openagenda/react-components';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
+import Provider from '@openagenda/agenda-locations/components/build/Provider';
 
 import flattenLocationTagSet from '../utils/flattenLocationTagSet';
 
@@ -107,22 +108,24 @@ class LocationComponent extends Component {
       confirmRequired
     } = this.props.field;
 
-    return <LocationSelector
-      allowCreate={allowCreate}
-      confirmRequired={confirmRequired}
-      tiles={tiles}
-      mode={this.state.mode}
-      disableChange={disableChange}
-      detailedInfo={detailedInfo}
-      classNames={{
-        input: ''
-      }}
-      location={_.assign({}, defaultValue || {}, value)}
-      lang={lang}
-      settings={this.getSettings()}
-      res={this.state.res}
-      onChange={this.onChange.bind(this)}
-    />
+    return <Provider lang={lang}>
+        <LocationSelector
+        allowCreate={allowCreate}
+        confirmRequired={confirmRequired}
+        tiles={tiles}
+        mode={this.state.mode}
+        disableChange={disableChange}
+        detailedInfo={detailedInfo}
+        classNames={{
+          input: ''
+        }}
+        location={_.assign({}, defaultValue || {}, value)}
+        lang={lang}
+        settings={this.getSettings()}
+        res={this.state.res}
+        onChange={this.onChange.bind(this)}
+      />
+    </Provider>
   }
 
   render() {
