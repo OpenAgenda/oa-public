@@ -209,6 +209,7 @@ storiesOf('Location form component', module)
       }},
       initialLocation: undefined,
       enableGeocode: false,
+      mode: 'create',
     })
   );
 

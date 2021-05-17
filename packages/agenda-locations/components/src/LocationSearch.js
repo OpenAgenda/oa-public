@@ -1,19 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+
 import { Spinner } from '@openagenda/react-components';
 import SearchField from './List/SearchField';
 import List from './List/List';
 
 const log = debug('LocationSearch');
 
+const messages = defineMessages({
+  create: {
+    id: 'AgendaLocations.LocationSearch.create',
+    defaultMessage: 'Create a new location',
+  },
+  noResult: {
+    id: 'AgendaLocations.LocationSearch.noResult',
+    defaultMessage: 'No result match your entry',
+  },
+  namePlaceholder: {
+    id: 'AgendaLocations.LocationSearch.namePlaceholder',
+    defaultMessage: 'Type the name of the location of the event',
+  },
+  searching: {
+    id: 'AgendaLocations.LocationSearch.searching',
+    defaultMessage: 'Searching...',
+  },
+});
+
 class LocationSearch extends React.Component {
   static propTypes = {
     init: PropTypes.string.isRequired,
     allowCreate: PropTypes.bool.isRequired,
-    getLabel: PropTypes.func.isRequired,
     onCreateRequest: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -119,7 +140,6 @@ class LocationSearch extends React.Component {
     } = this.state;
 
     const {
-      getLabel,
       onCreateRequest
     } = this.props;
 
@@ -128,17 +148,14 @@ class LocationSearch extends React.Component {
         className="search-item"
         onClick={onCreateRequest.bind(null, query.search)}
       >
-        <a>{getLabel('create')}</a>
+        <a><FormattedMessage {...messages.create} /></a>
       </li>
     );
   }
 
   renderEmpty() {
-    const {
-      getLabel
-    } = this.props;
     return (
-      <li className="no-search-result">{getLabel('noresult')}</li>
+      <li className="no-search-result"><FormattedMessage {...messages.noResult} /></li>
     );
   }
 
@@ -153,9 +170,9 @@ class LocationSearch extends React.Component {
     } = this.state;
 
     const {
-      getLabel,
       res,
-      allowCreate
+      allowCreate,
+      intl
     } = this.props;
 
     return (
@@ -168,14 +185,14 @@ class LocationSearch extends React.Component {
           loading={loading}
           value={query.search}
           onFocus={this.onFocus}
-          placeholder={getLabel('namePlaceholder')}
+          placeholder={intl.formatMessage(messages.namePlaceholder)}
           onChange={this.onSearchChange}
         />
         {loading ? (
           <Spinner
             mode="inline"
             loading
-            message={getLabel('searching')}
+            message={intl.formatMessage(messages.searching)}
           />
         ) : null}
         <List
@@ -203,4 +220,4 @@ class LocationSearch extends React.Component {
   }
 }
 
-export default LocationSearch;
+export default injectIntl(LocationSearch);

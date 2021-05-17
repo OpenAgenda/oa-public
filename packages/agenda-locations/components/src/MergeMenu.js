@@ -1,24 +1,64 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
-import makeLabelGetter from '@openagenda/labels';
 import { MoreInfo } from '@openagenda/react-components';
-import labels from '@openagenda/labels/agenda-locations/list';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 const log = debug('MergeMenu');
-const getLabel = makeLabelGetter(labels);
+
+const messages = defineMessages({
+  seeMergeList: {
+    id: 'AgendaLocations.MergeMenu.seeMergeList',
+    defaultMessage: 'See',
+  },
+  refLocation: {
+    id: 'AgendaLocations.MergeMenu.refLocation',
+    defaultMessage: 'Reference location: ',
+  },
+  retaineRefLocation: { // was ref location2
+    id: 'AgendaLocations.MergeMenu.retaineRefLocation',
+    defaultMessage: 'This location will be retained at the end of the merge',
+  },
+  refLocationInfo: {
+    id: 'AgendaLocations.MergeMenu.refLocationInfo',
+    defaultMessage: 'choose a location that will be retained at the end of the merge',
+  },
+  unselect: {
+    id: 'AgendaLocations.MergeMenu.unselect',
+    defaultMessage: 'Unselect',
+  },
+  cancel: {
+    id: 'AgendaLocations.MergeMenu.cancel',
+    defaultMessage: 'Cancel',
+  },
+  mergeSelection: {
+    id: 'AgendaLocations.MergeMenu.mergeSelection',
+    defaultMessage: '{count, plural, =0 {You haven`t selected any location to merge} one {You currently selected one location.} other {You currently selected # locations.}}',
+  },
+  seeSelection: {
+    id: 'AgendaLocations.MergeMenu.seeSelection',
+    defaultMessage: 'View selection',
+  },
+  launchMerge: {
+    id: 'AgendaLocations.MergeMenu.launchMerge',
+    defaultMessage: 'Launch merge',
+  },
+  mergeDescription: {
+    id: 'AgendaLocations.MergeMenu.mergeDescription',
+    defaultMessage: 'Locations merge',
+  },
+});
 
 class MergeMenu extends Component {
   static propTypes = {
     merge: PropTypes.object.isRequired,
-    locations: PropTypes.object.isRequired,
-    lang: PropTypes.string.isRequired,
+    locations: PropTypes.array.isRequired,
     closeMerge: PropTypes.func.isRequired,
     launchMerge: PropTypes.func.isRequired,
     unselectRef: PropTypes.func.isRequired,
     seeRef: PropTypes.func.isRequired,
     seeSelection: PropTypes.func.isRequired,
-
+    intl: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -33,31 +73,31 @@ class MergeMenu extends Component {
       locations,
       unselectRef,
       seeRef,
-      lang
+      intl
     } = this.props;
     if (merge.targetUid) {
       return (
         <div className="btn-link-group">
-          <span>{getLabel('reflocation', lang)}</span>
+          <span><FormattedMessage {...messages.refLocation} /></span>
           <strong>{locations.find(l => l.uid === merge.targetUid).name}</strong>
           <button
             type="button"
             onClick={seeRef}
             className="btn btn-link"
           >
-            {getLabel('seemergelist')}
+            <FormattedMessage {...messages.seeMergeList} />
           </button>
           <button
             type="button"
             onClick={unselectRef}
             className="btn btn-link text-danger padding-h-xs"
           >
-            {getLabel('unselect', lang)}
+            <FormattedMessage {...messages.unselect} />
           </button>
           <MoreInfo
             className="margin-left-sm"
             id="target-help"
-            content={getLabel('reflocationinfo2', lang)}
+            content={intl.formatMessage(messages.retaineRefLocation)}
             placement="top"
           />
         </div>
@@ -65,7 +105,8 @@ class MergeMenu extends Component {
     }
     return (
       <div className="btn-link-group">
-        {getLabel('reflocation', lang)}{getLabel('reflocationinfo', lang)}
+        <FormattedMessage {...messages.refLocation} />
+        <FormattedMessage {...messages.refLocationInfo} />
       </div>
     );
   }
@@ -76,38 +117,31 @@ class MergeMenu extends Component {
       closeMerge,
       launchMerge,
       seeSelection,
-      lang
     } = this.props;
     return (
       <div className="merge-menu row margin-bottom-md">
         <div className="col-sm-12">
           <div className="btn-link-group">
-            <strong>{getLabel('mergedescription', lang)}</strong>
+            <strong><FormattedMessage {...messages.mergeDescription} /></strong>
             <button
               type="button"
               onClick={closeMerge}
               className="btn btn-link text-danger"
             >
-              {getLabel('cancel', lang)}
+              <FormattedMessage {...messages.cancel} />
             </button>
           </div>
           {this.renderRefInfo()}
-          {merge.locationUids.length ? (
-            <span>
-              {getLabel('mergeselection', {
-                count: merge.locationUids.length,
-              }, lang)}
-            </span>
-          ) : (
-            <span>{getLabel('mergenoselection', lang)}</span>
-          )}
+          <span>
+            <FormattedMessage values={{ count: merge.locationUids.length }} {...messages.mergeSelection} />
+          </span>
           <div>
             <button
               type="button"
               className={merge.locationUids.length ? 'btn btn-link padding-left-z padding-right-xs' : 'btn btn-link disabled padding-left-z padding-right-xs'}
               onClick={seeSelection}
             >
-              {getLabel('seeselection', lang)}
+              <FormattedMessage {...messages.seeSelection} />
             </button>
           </div>
           <button
@@ -115,7 +149,7 @@ class MergeMenu extends Component {
             className={merge.locationUids.length && merge.targetUid ? 'btn btn-primary margin-top-xs' : 'btn btn-primary disabled margin-top-xs'}
             onClick={launchMerge}
           >
-            {getLabel('launchmerge', lang)}
+            <FormattedMessage {...messages.launchMerge} />
           </button>
         </div>
       </div>
@@ -123,4 +157,4 @@ class MergeMenu extends Component {
   }
 }
 
-export default MergeMenu;
+export default injectIntl(MergeMenu);

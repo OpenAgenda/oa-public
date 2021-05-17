@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
+import { defineMessages, FormattedMessage } from 'react-intl';
+import debug from 'debug';
 
 import countries from '@openagenda/countries/labels';
+
+const log = debug('CountryField');
+
+const messages = defineMessages({
+  country: {
+    id: 'AgendaLocations.CountryField.country',
+    defaultMessage: 'Country',
+  },
+});
 
 class CountryField extends Component {
   static defaultProps = {
@@ -22,9 +33,10 @@ class CountryField extends Component {
   }
 
   render() {
-    const { enabled, getLabel, value: pValue } = this.props;
+    const { enabled, value: pValue } = this.props;
     const options = this.extractCountryNames();
     const value = options.find(option => option.value === pValue);
+    log(options);
 
     const selectStyles = {
       menu: provided => ({
@@ -41,7 +53,7 @@ class CountryField extends Component {
             : 'form-group country disabled'
         }
       >
-        <label htmlFor="Country">{getLabel('country')}</label>
+        <label htmlFor="Country"><FormattedMessage {...messages.country} /></label>
         <Select
           styles={selectStyles}
           disabled={!enabled}

@@ -2,11 +2,12 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 import get from '@openagenda/utils/get';
 import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSelector';
 import { ImageInput } from '@openagenda/react-shared';
-import InputField from '@openagenda/react-form-components/build/InputField';
+
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
 import MultilingualInputField from '@openagenda/react-form-components/build/MultilingualInputField';
@@ -14,9 +15,7 @@ import { Spinner } from '@openagenda/react-components';
 import utils from '@openagenda/utils';
 import debug from 'debug';
 
-import errorLabels from '@openagenda/labels/errors';
-import formLabels from '@openagenda/labels/agenda-locations/form';
-
+import InputField from './InputField'; // '@openagenda/react-form-components/build/InputField';
 import post from './post';
 import actions from './formActions';
 import CountryField from './CountryField';
@@ -29,10 +28,146 @@ import extraGeoFields from './extraGeoFields';
 
 const alternativeMaxLength = 50;
 const log = debug('LocationForm');
-const labels = {
-  ...formLabels,
-  ...errorLabels,
-};
+
+const messages = defineMessages({
+  district: {
+    id: 'AgendaLocations.LocationForm.district',
+    defaultMessage: 'District',
+  },
+  city: {
+    id: 'AgendaLocations.LocationForm.city',
+    defaultMessage: 'City',
+  },
+  region: {
+    id: 'AgendaLocations.LocationForm.region',
+    defaultMessage: 'Region',
+  },
+  department: {
+    id: 'AgendaLocations.LocationForm.department',
+    defaultMessage: 'Department',
+  },
+  postalCode: {
+    id: 'AgendaLocations.LocationForm.postalCode',
+    defaultMessage: 'Postal code',
+  },
+  insee: {
+    id: 'AgendaLocations.LocationForm.insee',
+    defaultMessage: 'INSEE code',
+  },
+  loadingError: {
+    id: 'AgendaLocations.LocationForm.loadingError',
+    defaultMessage: 'A problem occurred during the load. Please retry.',
+  },
+  saving: {
+    id: 'AgendaLocations.LocationForm.saving',
+    defaultMessage: 'Saving',
+  },
+  required: {
+    id: 'AgendaLocations.LocationForm.required',
+    defaultMessage: 'Required',
+  },
+  name: {
+    id: 'AgendaLocations.LocationForm.name',
+    defaultMessage: 'Name of the location',
+  },
+  namePlaceholder: {
+    id: 'AgendaLocations.LocationForm.namePlaceholder',
+    defaultMessage: 'Example: Moulin Rouge',
+  },
+  description: {
+    id: 'AgendaLocations.LocationForm.description',
+    defaultMessage: 'Description',
+  },
+  descriptionInfo: {
+    id: 'AgendaLocations.LocationForm.descriptionInfo',
+    defaultMessage: 'Details about the location',
+  },
+  adress: {
+    id: 'AgendaLocations.LocationForm.adress',
+    defaultMessage: 'Address',
+  },
+  adressPlaceholder: {
+    id: 'AgendaLocations.LocationForm.adressPlaceholder',
+    defaultMessage: 'Number Street, City ( example : 82 Boulevard de Clichy, Paris )',
+  },
+  links: {
+    id: 'AgendaLocations.LocationForm.links',
+    defaultMessage: 'Additional links',
+  },
+
+  linksInfo: {
+    id: 'AgendaLocations.LocationForm.linksInfo',
+    defaultMessage: 'Add social media references, or any other link related to the location',
+  },
+  access: {
+    id: 'AgendaLocations.LocationForm.access',
+    defaultMessage: 'Access',
+  },
+  website: {
+    id: 'AgendaLocations.LocationForm.website',
+    defaultMessage: 'Website',
+  },
+  phone: {
+    id: 'AgendaLocations.LocationForm.phone',
+    defaultMessage: 'Telephone number',
+  },
+  email: {
+    id: 'AgendaLocations.LocationForm.email',
+    defaultMessage: 'Contact email',
+  },
+  geocodeFieldSave: {
+    id: 'AgendaLocations.LocationForm.geocodeFieldSave',
+    defaultMessage: 'Ok',
+  },
+  geocodeFieldCancel: {
+    id: 'AgendaLocations.LocationForm.geocodeFieldCancel',
+    defaultMessage: 'Cancel',
+  },
+  geocodeNoResults: {
+    id: 'AgendaLocations.LocationForm.geocodeNoResults',
+    defaultMessage: 'We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed.',
+  },
+  disabledGeocode: {
+    id: 'AgendaLocations.LocationForm.disabledGeocode',
+    defaultMessage: 'The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually.',
+  },
+  extId: {
+    id: 'AgendaLocations.LocationForm.extId',
+    defaultMessage: 'External Identifier',
+  },
+  extIdInfo: {
+    id: 'AgendaLocations.LocationForm.extIdInfo',
+    defaultMessage: 'Optionnally, specify a unique identifier for this location',
+  },
+  extIdLink: {
+    id: 'AgendaLocations.LocationForm.extIdLink',
+    defaultMessage: 'Define a unique identifier for this location',
+  },
+  cancel: {
+    id: 'AgendaLocations.LocationForm.cancel',
+    defaultMessage: 'Cancel',
+  },
+  createSubmit: {
+    id: 'AgendaLocations.LocationForm.createSubmit',
+    defaultMessage: 'Create',
+  },
+  updateSubmit: {
+    id: 'AgendaLocations.LocationForm.updateSubmit',
+    defaultMessage: 'Update',
+  },
+  createSubmitError: {
+    id: 'AgendaLocations.LocationForm.createSubmitError',
+    defaultMessage: 'The location could not be created',
+  },
+  updateSubmitError: {
+    id: 'AgendaLocations.LocationForm.updateSubmitError',
+    defaultMessage: 'The location could not be updated',
+  },
+  addLanguage: {
+    id: 'AgendaLocations.LocationForm.addLanguage',
+    defaultMessage: 'Add a language',
+  },
+});
 
 class LocationForm extends Component {
   static propTypes = {
@@ -46,12 +181,13 @@ class LocationForm extends Component {
     res: PropTypes.object,
     location: PropTypes.object, // if set, we are editing a location
     settings: PropTypes.object, // optional settings of agenda (such as tags requirements)
-    labels: PropTypes.object, // overloading labels
     onSuccess: PropTypes.func, // takes location and update mode (true if is)
     onCancel: PropTypes.func,
     alternatives: PropTypes.array, // alternative to loaded location values
     Header: PropTypes.object.isRequired,
-    tiles: PropTypes.string
+    tiles: PropTypes.string,
+    intl: PropTypes.object.isRequired,
+    mode: PropTypes.string
   };
 
   static defaultProps = {
@@ -60,7 +196,7 @@ class LocationForm extends Component {
     enableGeocode: true,
     detailedInfo: false,
     settings: {},
-    labels: {},
+    // labels: {},
     alternatives: [],
     disableNoAlternatives: false,
     displayLanguageTabs: true,
@@ -124,6 +260,7 @@ class LocationForm extends Component {
 
   onChange(name, value) {
     const updated = { location: {} };
+    log('onChange:', name, value);
 
     updated.location[name] = { $set: value };
     const newState = update(this.state, updated);
@@ -242,7 +379,7 @@ class LocationForm extends Component {
   }
 
   getLabel(name, values) {
-    const { settings, lang, labels: propsLabels } = this.props;
+    const { settings, lang, intl } = this.props;
     let str;
     let k;
 
@@ -250,22 +387,28 @@ class LocationForm extends Component {
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
       str = _.get(l, lang, l[_.first(_.keys(l))]);
-    } else if (propsLabels[name] || labels[name]) {
-      const l = propsLabels[name] || labels[name];
-      str = _.get(l, lang, l[_.first(_.keys(l))]);
-    }
-
-    if (!str) {
-      return null;
-    }
-
-    if (values) {
-      for (k in values) {
-        str = str.replace(`%${k}%`, values[k]);
+      if (!str) {
+        return null;
       }
+      if (values) {
+        for (k in values) {
+          str = str.replace(`%${k}%`, values[k]);
+        }
+      }
+      log('labels from settings', name);
+      return str;
     }
-
-    return str;
+    // use intl to format standard labels
+    if (messages[name]) {
+      log('labels from messages', name);
+      if (!values) {
+        str = intl.formatMessage(messages[name]);
+        return str;
+      }
+      str = intl.formatMessage(messages[name], values);
+      return str;
+    }
+    return null;
   }
 
   getMultilingual(field) {
@@ -315,7 +458,7 @@ class LocationForm extends Component {
   set(field, value) { //, ...args
     log('set');
     let clean;
-    const { settings } = this.props;
+    const { settings, intl } = this.props;
     const { location } = this.state;
 
     // if stuff is given in args, we need to do a partial update only
@@ -333,13 +476,15 @@ class LocationForm extends Component {
       clean.uid = location.uid;
     }
 
-    this.actions.setStart(this.getLabel('saving'));
+    this.actions.setStart(intl.formatMessage(messages.saving));
 
     this.post(partial, clean);
   }
 
   post(partial, clean) {
-    const { getSetRes, postRes, onSuccess } = this.props;
+    const {
+      getSetRes, postRes, onSuccess, intl
+    } = this.props;
     log('post clean', clean);
     post(
       getSetRes ? getSetRes() : postRes,
@@ -347,11 +492,11 @@ class LocationForm extends Component {
       (err, result) => {
         if (err) {
           log('error', err);
-          return this.actions.setErrorResponse(this.getLabel('loadingError'));
+          return this.actions.setErrorResponse(intl.formatMessage(messages.loadingError));
         }
 
         if (!result.success) {
-          return this.actions.setErrorResponse(this.getLabel('loadingError'));
+          return this.actions.setErrorResponse(intl.formatMessage(messages.loadingError));
         }
 
         this.actions.setSuccess(result.location);
@@ -515,7 +660,7 @@ class LocationForm extends Component {
   fetchINSEE(location) {
     log('getting insee data for location %j', location);
     const { res } = this.props;
-    const { location: stateLocation } = this.state;
+    // const { location: stateLocation } = this.state;
 
     get(
       res.insee,
@@ -737,13 +882,13 @@ class LocationForm extends Component {
   }
 
   renderErrors() {
-    const { lang } = this.props;
+    const { lang, mode } = this.props;
     const { errors: stateErrors } = this.state;
     const errors = stateErrors.filter(e => (e.field !== 'longitude')); // for displaying, latitude is enough.
 
     return (
       <div className="errors">
-        <label htmlFor="err-submit">{this.getLabel('submitError')}:</label>
+        <label htmlFor="err-submit"><FormattedMessage {...messages[`${mode}SubmitError`]} />:</label>
         {errors.map((err, i) => {
           const values = {};
 
@@ -757,7 +902,7 @@ class LocationForm extends Component {
             return (
               <div key={`err${err.id}`}>
                 <label htmlFor="required">{err.group[lang]}</label>:{' '}
-                <span>{this.getLabel('required')}</span>
+                <span><FormattedMessage {...messages.required} /></span>
               </div>
             );
           }
@@ -1012,14 +1157,14 @@ class LocationForm extends Component {
                 geocodeEditValue
               )}
             >
-              {this.getLabel('geocodeFieldSave')}
+              <FormattedMessage {...messages.geocodeFieldSave} />
             </button>
             <button
               type="button"
               className="btn btn-default"
               onClick={() => this.cancelEditGeocode()}
             >
-              {this.getLabel('geocodeFieldCancel')}
+              <FormattedMessage {...messages.geocodeFieldCancel} />
             </button>
           </div>
         </div>
@@ -1031,7 +1176,7 @@ class LocationForm extends Component {
         {geocodeNoResults ? (
           <div className="alert alert-warning" role="alert">
             <a href="#" className="alert-link">
-              {this.getLabel('geocodeNoResults')}
+              <FormattedMessage {...messages.geocodeNoResults} />
             </a>
           </div>
         ) : null}
@@ -1066,12 +1211,12 @@ class LocationForm extends Component {
 
   render() {
     const {
-      Header, showToggler, lang, detailedInfo, cancel, enableGeocode: propsEnableGeocode, tiles
+      Header, showToggler, lang, detailedInfo, cancel, enableGeocode: propsEnableGeocode, tiles, mode
     } = this.props;
     const {
       location, enableGeocode, pageSpin, geocodeError, autoGeocode, showExtIdInput, loadingError, errors
     } = this.state;
-    // log('rendering form with data %j', location);
+    log('rendering form with data %j', location);
     return (
       <div ref={r => (this['location-form'] = r)} className="location-form">
         {Header}
@@ -1084,14 +1229,13 @@ class LocationForm extends Component {
                 state: { $set: state },
               }),
             })}
-            getLabel={this.getLabel}
           />
         ) : null}
 
         <InputField
           name="name"
           enabled={this.isFieldEnabled('name')}
-          value={location.name}
+          value={location.name ? location.name : ''}
           info="nameInfo"
           placeholder="namePlaceholder"
           getLabel={this.getLabel}
@@ -1145,7 +1289,7 @@ class LocationForm extends Component {
 
         {!enableGeocode ? (
           <div className="alert alert-warning" role="alert">
-            {this.getLabel('disabledGeocode')}
+            <FormattedMessage {...messages.disabledGeocode} />
           </div>
         ) : null}
 
@@ -1193,7 +1337,7 @@ class LocationForm extends Component {
                 this.actions.showExtId();
               }}
             >
-              {this.getLabel('extIdLink')}
+              <FormattedMessage {...messages.extIdLink} />
             </button>
           </div>
         ))}
@@ -1212,7 +1356,7 @@ class LocationForm extends Component {
             className="btn btn-link"
             onClick={this.onCancel}
           >
-            <span className="text-danger">{this.getLabel('cancel')}</span>
+            <span className="text-danger"><FormattedMessage {...messages.cancel} /></span>
           </button>
           )}
           <button
@@ -1223,7 +1367,7 @@ class LocationForm extends Component {
               this.set();
             }}
           >
-            {this.getLabel('submit')}
+            <FormattedMessage {...messages[`${mode}Submit`]} />
           </button>
         </div>
 
@@ -1235,4 +1379,4 @@ class LocationForm extends Component {
   }
 }
 
-export default LocationForm;
+export default injectIntl(LocationForm);

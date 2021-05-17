@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import debug from 'debug';
-
-import makeLabelGetter from '@openagenda/labels';
-import confirmationLabels from '@openagenda/labels/agenda-locations/confirmation';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 import LocationDetails from './LocationDetails';
 
+const messages = defineMessages({
+  guide: {
+    id: 'AgendaLocations.LocationConfirmation.guide',
+    defaultMessage: 'Are the details of this location correct ?',
+  },
+  guideDetail: {
+    id: 'AgendaLocations.LocationConfirmation.guideDetail',
+    defaultMessage: 'If some changes have to be made, click on the button below to provide details on the change to agenda administrators',
+  },
+  suggest: {
+    id: 'AgendaLocations.LocationConfirmation.suggest',
+    defaultMessage: 'Suggest a change',
+  },
+  suggestChangeMessage: {
+    id: 'AgendaLocations.LocationConfirmation.suggestChangeMessage',
+    defaultMessage: 'A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection',
+  },
+  confirm: {
+    id: 'AgendaLocations.LocationConfirmation.confirm',
+    defaultMessage: 'Confirm',
+  },
+  cancel: {
+    id: 'AgendaLocations.LocationConfirmation.cancel',
+    defaultMessage: 'Select another location',
+  },
+});
+
 const log = debug('locationConfirmation');
-const getLabel = makeLabelGetter(confirmationLabels);
 
 class LocationConfirmation extends Component {
   constructor(props) {
@@ -34,8 +58,8 @@ class LocationConfirmation extends Component {
     return (
       <div>
         <div className="margin-top-md">
-          <label htmlFor="guide">{getLabel('guide', lang)}</label>
-          <p>{getLabel('guideDetail', lang)}</p>
+          <label htmlFor="guide"><FormattedMessage {...messages.guide} /></label>
+          <p><FormattedMessage {...messages.guideDetail} /></p>
         </div>
         <div className="info-block margin-bottom-md text-center">
           <div>
@@ -46,28 +70,29 @@ class LocationConfirmation extends Component {
               onClick={() => this.setState({ suggestChangeMessage: true })}
               className="btn btn-default margin-h-sm margin-bottom-sm"
             >
-              {getLabel('suggest', lang)}
+              <FormattedMessage {...messages.suggest} />
             </a>
             <button
               type="button"
               onClick={onCancel}
               className="btn btn-default margin-bottom-sm"
             >
-              {getLabel('cancel', lang)}
+              <FormattedMessage {...messages.cancel} />
             </button>
             {suggestChangeMessage ? (
               <div className="margin-bottom-sm">
-                {getLabel('suggestChangeMessage', lang)}
+                <FormattedMessage {...messages.suggestChangeMessage} />
               </div>
             ) : null}
           </div>
           <div>
             <button type="button" onClick={onConfirm} className="btn btn-primary margin-h-sm">
-              {getLabel('confirm', lang)}
+              <FormattedMessage {...messages.confirm} />
             </button>
           </div>
         </div>
         <LocationDetails
+          res={res}
           location={location}
           lang={lang}
           settings={settings}

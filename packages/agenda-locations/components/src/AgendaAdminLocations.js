@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import xhr from 'xhr';
 
 import countries from '@openagenda/countries';
 import get from '@openagenda/utils/get';
-import labels from '@openagenda/labels/agenda-locations/list';
 import { Modal, MoreInfo } from '@openagenda/react-components';
 import SearchField from '@openagenda/react-form-components/build/SearchField';
 import debug from 'debug';
@@ -24,6 +24,53 @@ import MergeMenu from './MergeMenu';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
+
+const messages = defineMessages({
+  toVerify: {
+    id: 'AgendaLocations.AgendaAdminLocation.toVerify',
+    defaultMessage: 'See locations to verify',
+  },
+  verifiedInfo: {
+    id: 'AgendaLocations.AgendaAdminLocation.verifiedInfo',
+    defaultMessage: 'Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them'
+  },
+  create: {
+    id: 'AgendaLocations.AgendaAdminLocation.create',
+    defaultMessage: 'Add a location',
+  },
+  merge: {
+    id: 'AgendaLocations.AgendaAdminLocation.merge',
+    defaultMessage: 'Merge locations',
+  },
+  closeModal: {
+    id: 'AgendaLocations.AgendaAdminLocation.closeModal',
+    defaultMessage: 'Close',
+  },
+  somethingWentWrong: {
+    id: 'AgendaLocations.AgendaAdminLocation.somethingWentWrong',
+    defaultMessage: 'An error has occurred, please contact support if it happens again',
+  },
+  mergeInProgress: {
+    id: 'AgendaLocations.AgendaAdminLocation.mergeInProgress',
+    defaultMessage: 'Merge is in progress',
+  },
+  total: {
+    id: 'AgendaLocations.AgendaAdminLocation.total',
+    defaultMessage: '{itemCount, plural, =0 {No location matches this search} one {Total: one location} other {Total: # locations}}',
+  },
+  contactSupport: {
+    id: 'AgendaLocations.AgendaAdminLocation.contactSupport',
+    defaultMessage: 'Contact support',
+  },
+  mergeDescription: {
+    id: 'AgendaLocations.AgendaAdminLocation.mergeDescription',
+    defaultMessage: 'Locations merge',
+  },
+  search: { 
+    id: 'AgendaLocations.AgendaAdminLocation.search',
+    defaultMessage: 'Filter list',
+  },
+});
 
 const loaded = {};
 
@@ -54,7 +101,8 @@ class AgendaAdminLocations extends Component {
     // general agenda info (title, slug,)
     agenda: PropTypes.object.isRequired,
     tiles: PropTypes.string.isRequired,
-    staticTiles: PropTypes.string.isRequired
+    staticTiles: PropTypes.string.isRequired,
+    intl: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -78,7 +126,6 @@ class AgendaAdminLocations extends Component {
 
     this.state = state;
     // Binding
-    this.getLabel = this.getLabel.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.renderHead = this.renderHead.bind(this);
@@ -146,24 +193,6 @@ class AgendaAdminLocations extends Component {
     if (merge) {
       this.actions.toggleMergeTarget(location);
     }
-  }
-
-  getLabel(name, values) {
-    const label = labels[name];
-    const { lang } = this.props;
-    let str;
-
-    str = _.get(label, lang, label[_.first(_.keys(label))]);
-
-    if (values) {
-      let k;
-      for (k in values) {
-        if (Object.prototype.hasOwnProperty.call(values, k)) {
-          str = str.replace(`%${k}%`, values[k]);
-        }
-      }
-    }
-    return str;
   }
 
   getCountryLabel(code) {
@@ -274,7 +303,6 @@ class AgendaAdminLocations extends Component {
         onSelect={onSelect}
         onEdit={editLocation}
         onRemove={confirmRemove}
-        getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
         toggleMergeTarget={merge ? toggleMergeTarget : null}
         seeDetails={this.actions.openDetailModal.bind(this, item)}
@@ -289,15 +317,11 @@ class AgendaAdminLocations extends Component {
         {Object.keys(this.actions.getQuery()).length ? (
           <Filters
             locations={locations}
-            getLabel={this.getLabel}
             onQueryChange={this.actions.queryChange}
             query={this.actions.getQuery()}
           />
         ) : null}
-        {total ? (
-          <p>{this.getLabel('total', { count: total })}</p>
-        ) : null}
-        {total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
+        <p><FormattedMessage values={{ itemCount: total }} {...messages.total} /></p>
       </div>
     );
   }
@@ -327,17 +351,21 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeModal() {
-    const { modal } = this.state;
+    const { modal, intl } = this.state;
     return (
       <Modal
-        title={this.getLabel('mergedescription')}
+        title={intl.formatMessage(messages.mergeDescription)}
         onClose={this.actions.closeMerge}
       >
         <div>
           <p className="text-center">
-            {modal.err ? this.getLabel('somethingwentwrong') : this.getLabel('mergeInProgress')}
+            {modal.err ? <FormattedMessage {...messages.somethingWentWrong} /> : <FormattedMessage {...messages.mergeInProgress} />}
           </p>
-          {modal.err ? (<a href={`/support?origin=${window.location.pathname}`} className="btn btn-primary">{this.getLabel('contactSupport')}</a>) : null}
+          {modal.err ? (
+            <a href={`/support?origin=${window.location.pathname}`} className="btn btn-primary">
+              <FormattedMessage {...messages.contactSupport} />
+            </a>
+          ) : null}
         </div>
       </Modal>
     );
@@ -368,7 +396,7 @@ class AgendaAdminLocations extends Component {
           onClick={this.actions.closeModal}
           className="btn btn-danger padding-h-xs"
         >
-          {this.getLabel('closeModal')}
+          <FormattedMessage {...messages.closeModal} />
         </button>
       </Modal>
     );
@@ -415,7 +443,7 @@ class AgendaAdminLocations extends Component {
           className="btn btn-default disabled"
           onClick={this.actions.toggleMerge.bind(null, false)}
         >
-          {this.getLabel('merge')}
+          <FormattedMessage {...messages.merge} />
         </button>
       );
     }
@@ -431,14 +459,14 @@ class AgendaAdminLocations extends Component {
           }
         }}
       >
-        {this.getLabel('merge')}
+        <FormattedMessage {...messages.merge} />
       </button>
     );
   }
 
   render() {
     const {
-      set, lang, res, settings
+      set, lang, res, settings, intl
     } = this.props;
     const {
       merge, locations, page, total, modal
@@ -464,7 +492,7 @@ class AgendaAdminLocations extends Component {
       <div className="agenda-admin-locations">
         <div>
           {set ? (
-            <SetHeader set={set} lang={lang} res={res} />
+            <SetHeader set={set} res={res} />
           ) : null}
           <div className="row list-actions">
             <div className="col col-sm-12">
@@ -491,7 +519,7 @@ class AgendaAdminLocations extends Component {
                       }
                     }}
                   >
-                    {this.getLabel('create')}
+                    <FormattedMessage {...messages.create} />
                   </button>
                 </div>
                 <div className="form-group">
@@ -507,8 +535,8 @@ class AgendaAdminLocations extends Component {
                 <div className="form-group">
                   <SearchField
                     value={this.actions.getQuery().search}
-                    label={this.getLabel('search')}
-                    placeholder={this.getLabel('search')}
+                    label={intl.formatMessage(messages.search)}
+                    placeholder={intl.formatMessage(messages.search)}
                     onChange={this.onSearchChange}
                   />
                 </div>
@@ -525,12 +553,14 @@ class AgendaAdminLocations extends Component {
                       )}
                       checked={parseInt(this.actions.getQuery().state, 10) === 0}
                     />{' '}
-                    {this.getLabel('toverify')}
+                    <FormattedMessage
+                      {...messages.toVerify}
+                    />
                   </label>
                   <MoreInfo
                     className="margin-left-sm"
                     id="checkbox-help"
-                    content={this.getLabel('verifiedInfo')}
+                    content={intl.formatMessage(messages.verifiedInfo)}
                     placement="top"
                   />
                 </div>
@@ -569,7 +599,6 @@ class AgendaAdminLocations extends Component {
                       data={modal.data}
                       settings={settings}
                       close={this.actions.closeModal}
-                      getLabel={this.getLabel}
                     />
                   );
                 default:
@@ -582,4 +611,4 @@ class AgendaAdminLocations extends Component {
   }
 }
 
-export default AgendaAdminLocations;
+export default injectIntl(AgendaAdminLocations);
