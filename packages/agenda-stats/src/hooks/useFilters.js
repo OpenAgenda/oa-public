@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
+import { getLocaleValue } from '@openagenda/react-shared';
 import stateMessages from '../messages/states';
 
 const AGGREGATION_SIZE = 20000;
@@ -113,6 +114,7 @@ export default function useFilters(
           fieldSchema,
           options: fieldSchema.options.map(option => ({
             ...option,
+            label: getLocaleValue(option.label, intl.locale),
             value: option.id,
           })),
           aggregation: {

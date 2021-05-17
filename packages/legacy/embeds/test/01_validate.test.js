@@ -7,18 +7,22 @@ describe('01 - embeds - validate', () => {
     const defaults = validate();
 
     it('facebookappid is false by default', () => {
-      expect(defaults.facebookappid).toBe(false);
+      expect(defaults.config.facebookappid).toBe(false);
     });
 
     it('siteurl is empty string by default', () => {
-      expect(defaults.siteurl).toBe('');
+      expect(defaults.config.siteurl).toBe('');
     });
 
     it('facebookappid is a string', () => {
       const {
-        facebookappid
+        config: {
+          facebookappid
+        }
       } = validate({
-        facebookappid: '123'
+        config: {
+          facebookappid: '123'
+        }
       });
 
       expect(facebookappid).toBe('123');
@@ -26,9 +30,13 @@ describe('01 - embeds - validate', () => {
 
     it('siteurl is a link', () => {
       const {
-        siteurl
+        config: {
+          siteurl
+        }
       } = validate({
-        siteurl: 'https://openagenda.com'
+        config: {
+          siteurl: 'https://openagenda.com'
+        }
       });
 
       expect(siteurl).toBe('https://openagenda.com');
@@ -39,15 +47,17 @@ describe('01 - embeds - validate', () => {
     const defaults = validate();
 
     it('lang is en by default', () => {
-      expect(defaults.layout.lang).toEqual('en');
+      expect(defaults.config.layout.lang).toEqual('en');
     });
 
     it('lang is 2 characters long', () => {
       const errors = {};
       try {
         validate({
-          layout: {
-            lang: 'fra'
+          config: {
+            layout: {
+              lang: 'fra'
+            }
           }
         });
       } catch (e) {
@@ -55,21 +65,23 @@ describe('01 - embeds - validate', () => {
       }
       try {
         validate({
-          layout: {
-            lang: 'f'
+          config: {
+            layout: {
+              lang: 'f'
+            }
           }
         });
       } catch (e) {
         errors.short = e;
       }
-      expect(errors.long[0].code).toBe('string.toolong');
-      expect(errors.short[0].code).toBe('string.tooshort');
+      expect(errors.long.info[0].code).toBe('string.toolong');
+      expect(errors.short.info[0].code).toBe('string.tooshort');
     });
 
     it('mapTiles is false when not specified', () => {
       const {
         layout
-      } = defaults;
+      } = defaults.config;
 
       expect(layout.mapTiles).toEqual(false);
     });
@@ -78,10 +90,14 @@ describe('01 - embeds - validate', () => {
       const tiles = 'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f48';
 
       const {
-        layout
+        config: {
+          layout
+        }
       } = validate({
-        layout: {
-          mapTiles: tiles
+        config: {
+          layout: {
+            mapTiles: tiles
+          }
         }
       });
 
@@ -91,17 +107,21 @@ describe('01 - embeds - validate', () => {
     it('layoutmode is standard by default', () => {
       const {
         layout
-      } = defaults;
+      } = defaults.config;
 
       expect(layout.layoutmode).toBe('standard');
     });
 
     it('layoutmode can be tiled', () => {
       const {
-        layout
+        config: {
+          layout
+        }
       } = validate({
-        layout: {
-          layoutmode: 'tiled'
+        config: {
+          layout: {
+            layoutmode: 'tiled'
+          }
         }
       });
 
@@ -111,7 +131,7 @@ describe('01 - embeds - validate', () => {
     it('autoscroll is true if unspecified', () => {
       const {
         layout
-      } = defaults;
+      } = defaults.config;
 
       expect(layout.autoscroll).toBe(true);
     });
@@ -119,7 +139,7 @@ describe('01 - embeds - validate', () => {
     it('use_event_slug is false by default', () => {
       const {
         layout
-      } = defaults;
+      } = defaults.config;
 
       expect(layout.use_event_slug).toBe(false);
     });
@@ -127,7 +147,7 @@ describe('01 - embeds - validate', () => {
     it('use_default_css is an object of truths by default', () => {
       const {
         layout
-      } = defaults;
+      } = defaults.config;
 
       expect(layout.use_default_css).toEqual({
         list: true,
@@ -140,7 +160,7 @@ describe('01 - embeds - validate', () => {
     });
 
     it('shares defaults are false', () => {
-      expect(defaults.layout.shares).toEqual({
+      expect(defaults.config.layout.shares).toEqual({
         fb: false,
         tw: false,
         li: false,

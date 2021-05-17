@@ -2,7 +2,19 @@
 
 This service replaces the embed save features implemented in php.
 
-get, update and create need to be implemented
+See tests for details on create, get, update methods of service.
+
+## Get
+
+`const embed = await svc([agendaUid]).get([embedUid])`
+
+## Create
+
+`const embed = await svc([agendaUid]).create({ config, template });`
+
+## Update
+
+`const embed = await svc([agendaUid]).update({ config, template });`
 
 ## Data structure
 
