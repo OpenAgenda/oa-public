@@ -82,19 +82,18 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.descriptionInfo',
     defaultMessage: 'Details about the location',
   },
-  adress: {
-    id: 'AgendaLocations.LocationForm.adress',
+  address: {
+    id: 'AgendaLocations.LocationForm.address',
     defaultMessage: 'Address',
   },
-  adressPlaceholder: {
-    id: 'AgendaLocations.LocationForm.adressPlaceholder',
+  addressPlaceholder: {
+    id: 'AgendaLocations.LocationForm.addressPlaceholder',
     defaultMessage: 'Number Street, City ( example : 82 Boulevard de Clichy, Paris )',
   },
   links: {
     id: 'AgendaLocations.LocationForm.links',
     defaultMessage: 'Additional links',
   },
-
   linksInfo: {
     id: 'AgendaLocations.LocationForm.linksInfo',
     defaultMessage: 'Add social media references, or any other link related to the location',
@@ -114,6 +113,18 @@ const messages = defineMessages({
   email: {
     id: 'AgendaLocations.LocationForm.email',
     defaultMessage: 'Contact email',
+  },
+  image: {
+    id: 'AgendaLocations.LocationForm.image',
+    defaultMessage: 'Image',
+  },
+  imageInfo: {
+    id: 'AgendaLocations.LocationForm.imageInfo',
+    defaultMessage: 'Only upload images you have the right to re-use',
+  },
+  imageCredits: {
+    id: 'AgendaLocations.LocationForm.imageCredits',
+    defaultMessage: 'Image credits',
   },
   geocodeFieldSave: {
     id: 'AgendaLocations.LocationForm.geocodeFieldSave',
@@ -238,6 +249,7 @@ class LocationForm extends Component {
   }
 
   componentDidMount() {
+    log(this.props.settings);
     this.setState(
       {
         originScrollPosition:
@@ -906,7 +918,6 @@ class LocationForm extends Component {
               </div>
             );
           }
-          log(values);
           return (
             <div key={`err${err.id}`}>
               <label htmlFor="err-field">{this.getLabel(err.field) || err.field}</label>:

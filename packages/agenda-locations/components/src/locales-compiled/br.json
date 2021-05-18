@@ -394,13 +394,13 @@
       "value": "Ajouter une langue"
     }
   ],
-  "AgendaLocations.LocationForm.adress": [
+  "AgendaLocations.LocationForm.address": [
     {
       "type": 0,
       "value": "Adresse"
     }
   ],
-  "AgendaLocations.LocationForm.adressPlaceholder": [
+  "AgendaLocations.LocationForm.addressPlaceholder": [
     {
       "type": 0,
       "value": "Numéro Voie, Ville ( exemple : 82 Boulevard de Clichy, Paris )"
@@ -500,6 +500,24 @@
     {
       "type": 0,
       "value": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse."
+    }
+  ],
+  "AgendaLocations.LocationForm.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "AgendaLocations.LocationForm.imageCredits": [
+    {
+      "type": 0,
+      "value": "Crédits de l'image"
+    }
+  ],
+  "AgendaLocations.LocationForm.imageInfo": [
+    {
+      "type": 0,
+      "value": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
     }
   ],
   "AgendaLocations.LocationForm.insee": [
