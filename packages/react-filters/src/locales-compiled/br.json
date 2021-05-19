@@ -100,6 +100,18 @@
       "value": "date"
     }
   ],
+  "ReactFilters.MapField.searchWithMap": [
+    {
+      "type": 0,
+      "value": "Rechercher avec la carte"
+    }
+  ],
+  "ReactFilters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Map"
+    }
+  ],
   "ReactFilters.MultiChoiceFilter.lessOptions": [
     {
       "type": 0,
@@ -194,6 +206,12 @@
     {
       "type": 0,
       "value": "Mis en une"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.geo": [
+    {
+      "type": 0,
+      "value": "Géolocalisation"
     }
   ],
   "ReactFilters.messages.filterTitles.locationUid": [
