@@ -19,7 +19,7 @@ debug.enable('*');
 const getHostname = () =>
   typeof window !== 'undefined' ? window.location.hostname : 'localhost';
 
-const apiRoot = `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`;
+const apiRoot = `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}/locations`;
 
 const defaultAccess = {
   authorized: true,

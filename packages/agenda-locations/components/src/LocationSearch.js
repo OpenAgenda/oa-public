@@ -49,13 +49,17 @@ class LocationSearch extends React.Component {
       page: 1,
       total: null,
       locations: [],
+      searchFieldError: false,
+      closePreempted: false,
     };
     // Binding
     this.renderEmpty = this.renderEmpty.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.renderCreateItem = this.renderCreateItem.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.triggerClose = this.triggerClose.bind(this);
+    this.preemptClose = this.preemptClose.bind(this);
     this.onListLoaded = this.onListLoaded.bind(this);
     this.onListLoading = this.onListLoading.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
@@ -76,9 +80,9 @@ class LocationSearch extends React.Component {
   componentWillUnmount() {
     const bodyElem = document.getElementsByTagName('body')[0];
 
-    bodyElem.removeEventListener('click', this.triggerClose);
-
     this['location-search'].removeEventListener('click', this.preemptClose);
+
+    bodyElem.removeEventListener('click', this.triggerClose);
   }
 
   onSearchChange(value) {
@@ -91,6 +95,13 @@ class LocationSearch extends React.Component {
     this.setState({
       query: { search: value },
       showDropdown: true,
+    });
+  }
+
+  onBlur(value) {
+    log('Blur', value);
+    this.setState({
+      searchFieldError: true
     });
   }
 
@@ -108,16 +119,17 @@ class LocationSearch extends React.Component {
     });
   }
 
-  triggerClose() {
-    if (!this.closePreempted) {
+  triggerClose(e) {
+    const { closePreempted } = this.state;
+    e.preventDefault();
+    if (!closePreempted) {
       this.setState({ showDropdown: false });
     }
-
-    this.closePreempted = false;
+    this.setState({ closePreempted: false });
   }
 
   preemptClose() {
-    this.closePreempted = true;
+    this.setState({ closePreempted: true });
   }
 
   renderItem(l) {
@@ -136,12 +148,29 @@ class LocationSearch extends React.Component {
 
   renderCreateItem() {
     const {
-      query
+      query,
+      locations
     } = this.state;
 
     const {
       onCreateRequest
     } = this.props;
+
+    if (locations.length === 0) {
+      return (
+        <li
+          className="no-search-button"
+        >
+          <button
+            onClick={onCreateRequest.bind(null, query.search)}
+            type="button"
+            className="btn btn-primary"
+          >
+            <FormattedMessage {...messages.create} />
+          </button>
+        </li>
+      );
+    }
 
     return (
       <li
@@ -167,6 +196,7 @@ class LocationSearch extends React.Component {
       locations,
       page,
       total,
+      searchFieldError,
     } = this.state;
 
     const {
@@ -185,8 +215,10 @@ class LocationSearch extends React.Component {
           loading={loading}
           value={query.search}
           onFocus={this.onFocus}
+          onBlur={this.onBlur}
           placeholder={intl.formatMessage(messages.namePlaceholder)}
           onChange={this.onSearchChange}
+          error={searchFieldError}
         />
         {loading ? (
           <Spinner
