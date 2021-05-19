@@ -1,10 +1,7 @@
-"use strict";
+'use strict';
 
-var utils = require( '@openagenda/utils' );
-
-module.exports = function( config ) {
-
-  var params = utils.extend( {
+module.exports = (config = {}) => {
+  const params = {
     optional: false,
     field: false, // required
     regex: false, // required
@@ -16,39 +13,32 @@ module.exports = function( config ) {
     trim: true,
     type: false,
     min: null,
-    max: null
-  }, config || {} ),
+    max: null,
+    ...config
+  };
 
-  validator = function( value ) {
+  const validator = value => {
+    let clean = value ? (`${value}`) : value;
 
-    var clean = value ? ( value + '' ) : value;
-
-    if ( params.optional && ( !clean || !clean.length ) ) {
-
+    if (params.optional && (!clean || !clean.length)) {
       return 'default' in params ? params.default : clean;
-
     }
 
-    if ( !params.optional && !clean ) {
-
-      throw [ {
+    if (!params.optional && !clean) {
+      throw [{
         origin: value,
         field: params.field,
         code: 'required',
         message: 'value must not be empty'
-      } ];
-
+      }];
     }
 
-    if ( typeof clean == 'string' && params.trim ) {
-
+    if (typeof clean == 'string' && params.trim) {
       clean = clean.trim();
-
     }
 
-    if ( params.min !== null && clean.length < params.min ) {
-
-      throw [ {
+    if (params.min !== null && clean.length < params.min) {
+      throw [{
         origin: value,
         field: params.field,
         code: 'toosmall',
@@ -57,13 +47,11 @@ module.exports = function( config ) {
           min: params.min,
           max: params.max
         }
-      } ];
-
+      }];
     }
 
-    if ( params.max !== null && clean.length > params.max ) {
-
-      throw [ {
+    if (params.max !== null && clean.length > params.max) {
+      throw [{
         origin: value,
         field: params.field,
         code: 'toolong',
@@ -73,34 +61,25 @@ module.exports = function( config ) {
           max: params.max
         }
       }]
-
     }
 
-    if ( !params.regex.test( clean ) ) {
-
-      throw [ utils.extend( {
+    if (!params.regex.test(clean)) {
+      throw [Object.assign({
         origin: value,
         field: params.field
-      }, params.error ) ];
-
+      }, params.error)];
     }
 
-    return params.clean ? clean.match( params.regex )[ 0 ] : clean;
-
+    return params.clean ? clean.match(params.regex)[0] : clean;
   };
 
-  if ( params.type ) {
-
+  if (params.type) {
     validator.type = params.type;
-
   }
 
-  if ( params.field ) {
-
+  if (params.field) {
     validator.field = params.field;
-
   }
 
   return validator;
-
-}
+};
