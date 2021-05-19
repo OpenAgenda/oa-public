@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
@@ -6,19 +6,15 @@ import {
   Filters,
   DateRangeFilter,
   MultiChoiceFilter,
+  MapFilter,
   ValueBadge,
   useFilterTitle,
 } from '@openagenda/react-filters';
 import getEvents from '../api/getEvents';
 import useFilterOptions from '../hooks/useFilterOptions';
 
-function DateRangePreview({
-  name,
-  filter,
-  label,
-  onRemove,
-  disabled,
-  className,
+function BadgePreview({
+  name, filter, label, onRemove, disabled, className
 }) {
   const title = useFilterTitle(name, filter.fieldSchema);
 
@@ -53,27 +49,29 @@ function MultiChoicePreview({
   );
 }
 
+function DateRangePreviewer(props) {
+  return <DateRangeFilter.Preview component={BadgePreview} {...props} />;
+}
+
+function MultiChoicePreviewer(props) {
+  return (
+    <MultiChoiceFilter.Preview component={MultiChoicePreview} {...props} />
+  );
+}
+
+function MapPreviewer(props) {
+  return <MapFilter.Preview component={BadgePreview} {...props} />;
+}
+
 export default function FiltersPreview({
-  agenda,
-  query,
-  page,
-  standardsFilters,
-  additionalsFilters,
+  agenda, query, page, filters
 }) {
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
-      { size: 0 }
-    ),
+    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
@@ -87,9 +85,7 @@ export default function FiltersPreview({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
+      filters,
       {
         sort: 'updatedAt.desc',
         ...query,
@@ -104,29 +100,18 @@ export default function FiltersPreview({
     }
   );
 
-  const filters = useMemo(() => [...standardsFilters, ...additionalsFilters], [
-    additionalsFilters,
-    standardsFilters,
-  ]);
-
   const { aggregations: filterAggs } = filtersQuery.data;
 
   const getOptions = useFilterOptions(filterAggs);
-
-  const dateRangeProps = useMemo(() => ({ component: DateRangePreview }), []);
-  const checkboxProps = useMemo(() => ({ component: MultiChoicePreview }), []);
-  const radioProps = useMemo(() => ({ component: MultiChoicePreview }), []);
 
   return (
     <Filters
       filters={filters}
       disabled={isFetching || filtersQuery.isFetching}
-      dateRangeComponent={DateRangeFilter.Preview}
-      dateRangeProps={dateRangeProps}
-      checkboxComponent={MultiChoiceFilter.Preview}
-      checkboxProps={checkboxProps}
-      radioComponent={MultiChoiceFilter.Preview}
-      radioProps={radioProps}
+      dateRangeComponent={DateRangePreviewer}
+      checkboxComponent={MultiChoicePreviewer}
+      radioComponent={MultiChoicePreviewer}
+      mapComponent={MapPreviewer}
       // getTotal={getTotal}
       getOptions={getOptions}
     />

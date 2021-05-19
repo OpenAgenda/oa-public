@@ -87,7 +87,7 @@
       "value": " événements correspondant aux filtres actuels sont sélectionnés."
     }
   ],
-  "EventAdminApp.Dashboard.filters": [
+  "EventAdminApp.FiltersPortal.filters": [
     {
       "type": 0,
       "value": "Filtres"

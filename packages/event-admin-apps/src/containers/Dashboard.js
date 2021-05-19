@@ -8,7 +8,6 @@ import React, {
   useLayoutEffect,
   useEffect,
 } from 'react';
-import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
@@ -23,12 +22,11 @@ import { Spinner } from '@openagenda/react-components';
 import {
   a11yButtonActionHandler,
   useApiClient,
-  useConstant,
   useModal,
 } from '@openagenda/react-shared';
 import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
-import FiltersPart from '../components/FiltersPart';
+import FiltersPortal from '../components/FiltersPortal';
 import FiltersPreview from '../components/FiltersPreview';
 import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
@@ -62,10 +60,6 @@ const messages = defineMessages({
     id: 'EventAdminApp.Dashboard.totalWithFilters',
     defaultMessage:
       '<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}',
-  },
-  filters: {
-    id: 'EventAdminApp.Dashboard.filters',
-    defaultMessage: 'Filters',
   },
   searchPlaceholder: {
     id: 'EventAdminApp.Dashboard.searchPlaceholder',
@@ -221,44 +215,6 @@ function SearchFilter({
   );
 }
 
-function FiltersPortal({
-  filtersContainerRef,
-  agenda,
-  standardsFilters,
-  additionalsFilters,
-  query,
-  page,
-}) {
-  const intl = useIntl();
-
-  const filtersContainer = useConstant(() => document.createElement('div'));
-
-  useLayoutEffect(() => {
-    const filtersContainerElem = filtersContainerRef.current;
-
-    filtersContainerElem.appendChild(filtersContainer);
-
-    return () => filtersContainerElem.removeChild(filtersContainer);
-  }, [filtersContainer, filtersContainerRef]);
-
-  return ReactDOM.createPortal(
-    <div>
-      <div className="margin-bottom-xs">
-        <b>{intl.formatMessage(messages.filters)}</b>
-      </div>
-
-      <FiltersPart
-        agenda={agenda}
-        standardsFilters={standardsFilters}
-        additionalsFilters={additionalsFilters}
-        query={query}
-        page={page}
-      />
-    </div>,
-    filtersContainer
-  );
-}
-
 function GroupedActions({
   agenda,
   query,
@@ -387,8 +343,43 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
 
-  const standardsFilters = useFilters(agendaSchema, { standards: true });
-  const additionalsFilters = useFilters(agendaSchema, { additionals: true });
+  const loadGeoData = useCallback(
+    async (filter, bounds, zoom) => {
+      const url = res.jsonExport
+        .replace(':slug', agenda.slug)
+        .replace(':uid', agenda.uid);
+
+      const northEast = bounds.getNorthEast().wrap();
+      const southWest = bounds.getSouthWest().wrap();
+
+      const params = {
+        // oaq: { passed: 1 },
+        size: 0,
+        ...query,
+        aggregations: [
+          {
+            type: 'geohash',
+            size: 2000,
+            zoom,
+          },
+        ],
+        geo: {
+          northEast,
+          southWest,
+        },
+      };
+
+      const result = (await apiClient.get(url, { params })).data;
+
+      return result.aggregations.geohash;
+    },
+    [agenda.slug, agenda.uid, apiClient, query, res.jsonExport]
+  );
+
+  const filters = useFilters(agendaSchema);
+  const mapFilter = useMemo(() => filters.find(v => v.name === 'geo'), [
+    filters,
+  ]);
 
   const removeModal = useModal();
 
@@ -407,15 +398,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
-      { size: 0 }
-    ),
+    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
@@ -430,9 +413,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
+      filters,
       {
         sort: 'updatedAt.desc',
         ...query,
@@ -444,7 +425,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
-      onSuccess: () => {
+      onSuccess: newData => {
         // Cancel selection
         setSelectedEvents(new Set());
         setExtendedAllSelected(false);
@@ -457,6 +438,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           {}
         );
 
+        // Update location
         if (!_.isEqual(query, urlQuery) || page !== queryRest.page) {
           const search = qs.stringify(
             {
@@ -475,6 +457,13 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             ...history.location,
             search,
           });
+        }
+
+        // Update map markers
+        const mapElem = mapFilter.elemRef.current;
+
+        if (mapElem) {
+          mapElem.onQueryChange(newData.aggregations.viewport);
         }
       },
       getNextPageParam: lastPage => {
@@ -625,12 +614,11 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       form.initialize(cleanQuery);
     }
   }, [
-    additionalsFilters,
     agenda,
     agendaSchema,
+    filters,
     history.location,
     latestQuery,
-    standardsFilters,
     parsedLocationSearch,
   ]);
 
@@ -708,8 +696,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 agenda={agenda}
                 query={query}
                 page={page}
-                standardsFilters={standardsFilters}
-                additionalsFilters={additionalsFilters}
+                filters={filters}
               />
             </span>
             <button
@@ -902,10 +889,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       <FiltersPortal
         filtersContainerRef={filtersContainerRef}
         agenda={agenda}
-        standardsFilters={standardsFilters}
-        additionalsFilters={additionalsFilters}
+        filters={filters}
         query={query}
         page={page}
+        loadGeoData={loadGeoData}
       />
     </FiltersProvider>
   );
