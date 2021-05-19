@@ -24,7 +24,7 @@
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^1.5.2",
-    "react-final-form": "^6.4.0",
+    "react-final-form": "^6.5.3",
     "react-waypoint": "^9.0.2"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "@storybook/addon-actions": "^6.2.8",
     "@storybook/react": "^6.2.8",
     "babel-loader": "^8.2.2",
-    "final-form": "^4.20.1",
+    "final-form": "^4.20.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^6.0.0",

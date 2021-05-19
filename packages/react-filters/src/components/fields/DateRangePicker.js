@@ -1,16 +1,13 @@
 import _ from 'lodash';
 import React, {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
+  useCallback, useLayoutEffect, useMemo, useState
 } from 'react';
 import { DateRange, DefinedRange } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale';
 import { useIntl } from 'react-intl';
 import { useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
+import { useConstant } from '@openagenda/react-shared';
 
 const defaultGetInitialValue = () => [
   {
@@ -22,17 +19,15 @@ const defaultGetInitialValue = () => [
 
 const rangeColors = ['#41acdd'];
 
-function DateRangePicker({
-  input,
-  meta,
-  staticRanges = [],
-  inputRanges = [],
-  disabled,
-  ...otherProps
-}) {
+function DateRangePicker(
+  {
+    input, meta, staticRanges = [], inputRanges = [], disabled, ...otherProps
+  },
+  ref
+) {
   const intl = useIntl();
 
-  const dateRangeRef = useRef();
+  const dateRangeRef = useConstant(() => ref || React.createRef());
 
   const [ranges, setRanges] = useState(
     () => input.value ?? defaultGetInitialValue()
@@ -47,22 +42,28 @@ function DateRangePicker({
   const { onChange } = input;
 
   // Update state for re-calculate rdrNoSelection
-  const onSelectPreviewChange = useCallback(value => {
-    const dateRange = dateRangeRef.current;
+  const onSelectPreviewChange = useCallback(
+    value => {
+      const dateRange = dateRangeRef.current;
 
-    setDragStatus(dateRangeRef.current?.calendar.state.drag.status);
-    dateRange.updatePreview(value ? dateRange.calcNewSelection(value) : null);
-  }, []);
+      setDragStatus(dateRangeRef.current?.calendar.state.drag.status);
+      dateRange.updatePreview(value ? dateRange.calcNewSelection(value) : null);
+    },
+    [dateRangeRef]
+  );
 
-  const onDefinedPreviewChange = useCallback(value => {
-    const dateRange = dateRangeRef.current;
+  const onDefinedPreviewChange = useCallback(
+    value => {
+      const dateRange = dateRangeRef.current;
 
-    return dateRange.updatePreview(
-      value
-        ? dateRange.calcNewSelection(value, typeof value === 'string')
-        : null
-    );
-  }, []);
+      return dateRange.updatePreview(
+        value
+          ? dateRange.calcNewSelection(value, typeof value === 'string')
+          : null
+      );
+    },
+    [dateRangeRef]
+  );
 
   const onTemporaryChange = useCallback(
     item => {
@@ -155,4 +156,4 @@ function DateRangePicker({
   );
 }
 
-export default DateRangePicker;
+export default React.forwardRef(DateRangePicker);

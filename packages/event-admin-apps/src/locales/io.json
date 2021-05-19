@@ -9,7 +9,7 @@
   "EventAdminApp.Dashboard.changeState": "crwdns5990:0crwdne5990:0",
   "EventAdminApp.Dashboard.clearFilters": "crwdns6056:0crwdne6056:0",
   "EventAdminApp.Dashboard.extendedAllSelected": "crwdns5992:0{total}crwdne5992:0",
-  "EventAdminApp.Dashboard.filters": "crwdns788:0crwdne788:0",
+  "EventAdminApp.FiltersPortal.filters": "crwdns788:0crwdne788:0",
   "EventAdminApp.Dashboard.groupedActions": "crwdns5994:0crwdne5994:0",
   "EventAdminApp.Dashboard.next": "crwdns6046:0crwdne6046:0",
   "EventAdminApp.Dashboard.previous": "crwdns6048:0crwdne6048:0",

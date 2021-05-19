@@ -40,7 +40,7 @@
     "browserslist-useragent": "^3.0.3",
     "buffer": "^6.0.3",
     "core-js": "^3.10.2",
-    "final-form": "^4.20.1",
+    "final-form": "^4.20.2",
     "flatted": "^2.0.1",
     "he": "^1.2.0",
     "history": "^4.10.1",

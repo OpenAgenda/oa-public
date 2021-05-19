@@ -177,7 +177,8 @@ services:
 
   es7:
     container_name: es7
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    build:
+      context: ./docker/elasticsearch
     restart: always
     environment:
       - cluster.name=es-docker-cluster

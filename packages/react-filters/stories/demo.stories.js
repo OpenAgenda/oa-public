@@ -1,5 +1,4 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import {
   FiltersProvider,
   Filters,
@@ -13,6 +12,7 @@ const lang = 'fr';
 
 export default {
   title: 'OpenAgenda/Demo',
+  argTypes: { onSubmit: { action: 'submit' } },
 };
 
 const filters = [
@@ -46,8 +46,8 @@ const filters = [
   },
 ];
 
-export const CompleteExample = () => (
-  <FiltersProvider onSubmit={action('onSubmit')} locale={lang}>
+export const CompleteExample = ({ onSubmit }) => (
+  <FiltersProvider onSubmit={onSubmit} locale={lang}>
     <div className="oa-collapse">
       <Filters
         filters={filters}
@@ -60,8 +60,8 @@ export const CompleteExample = () => (
 );
 CompleteExample.storyName = 'Filters';
 
-export const FilterByFilter = () => (
-  <FiltersProvider onSubmit={action('onSubmit')} locale={lang}>
+export const FilterByFilter = ({ onSubmit }) => (
+  <FiltersProvider onSubmit={onSubmit} locale={lang}>
     <div className="oa-collapse">
       <DateRangeFilter name="timings" />
       <DateRangeFilter name="createdAt" />

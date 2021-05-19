@@ -6,7 +6,7 @@ export default function (filterAggs) {
     filter => {
       if (filter.options) return filter.options;
 
-      const aggregation = filterAggs[`${filter.name}-${filter.id}`];
+      const aggregation = filterAggs[filter.name];
 
       if (!aggregation) return [];
 

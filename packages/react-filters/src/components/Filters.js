@@ -1,14 +1,21 @@
 import React from 'react';
 import { useUIDSeed } from 'react-uid';
 
+function Noop() {
+  return null;
+}
+
 function Filters({
   filters,
-  dateRangeComponent: DateRangeComponent,
-  checkboxComponent: CheckboxComponent,
-  radioComponent: RadioComponent,
+  withRef = false,
+  dateRangeComponent: DateRangeComponent = Noop,
+  checkboxComponent: CheckboxComponent = Noop,
+  radioComponent: RadioComponent = Noop,
+  mapComponent: MapComponent = Noop,
   dateRangeProps,
   checkboxProps,
   radioProps,
+  mapProps,
   ...additionnalProps
 }) {
   const seed = useUIDSeed();
@@ -21,6 +28,7 @@ function Filters({
             return (
               <DateRangeComponent
                 key={seed(filter.name)}
+                ref={withRef ? filter.elemRef : null}
                 filter={filter}
                 {...filter}
                 {...dateRangeProps}
@@ -31,9 +39,21 @@ function Filters({
             return (
               <CheckboxComponent
                 key={seed(filter.name)}
+                ref={withRef ? filter.elemRef : null}
                 filter={filter}
                 {...filter}
                 {...checkboxProps}
+                {...additionnalProps}
+              />
+            );
+          case 'map':
+            return (
+              <MapComponent
+                key={seed(filter.name)}
+                ref={withRef ? filter.elemRef : null}
+                filter={filter}
+                {...filter}
+                {...mapProps}
                 {...additionnalProps}
               />
             );
@@ -41,6 +61,7 @@ function Filters({
             return (
               <RadioComponent
                 key={seed(filter.name)}
+                ref={withRef ? filter.elemRef : null}
                 filter={filter}
                 {...filter}
                 {...radioProps}

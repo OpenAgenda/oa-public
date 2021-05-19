@@ -49,34 +49,10 @@ describe('02 - event search - functional: relative filter', () => {
 
     assert.deepEqual(geohash, [
       {
-        key: 'u140p',
-        eventCount: 1,
-        latitude: 50.64697265625,
-        longitude: 3.14208984375
-      },
-      {
-        key: 'u140j',
-        eventCount: 1,
-        latitude: 50.64697265625,
-        longitude: 3.05419921875
-      },
-      {
-        key: 'u08n9',
-        eventCount: 1,
-        latitude: 48.97705078125,
-        longitude: 0.06591796875
-      },
-      {
-        key: 'spc9c',
-        eventCount: 1,
-        latitude: 43.92333984375,
-        longitude: 2.17529296875
-      },
-      {
-        key: 'ezzx5',
-        eventCount: 1,
-        latitude: 44.84619140625,
-        longitude: -0.54931640625
+        key: 'u1',
+        eventCount: 5,
+        latitude: 47.80292777437717,
+        longitude: 1.5775871649384499
       }
     ]);
   });
@@ -89,7 +65,7 @@ describe('02 - event search - functional: relative filter', () => {
     } = await service('map').search({}, { size: 0 }, {
       aggregations: {
         type: 'geohash',
-        precision: 4
+        zoom: 6
       }
     });
 
@@ -97,28 +73,44 @@ describe('02 - event search - functional: relative filter', () => {
       {
         key: 'u140',
         eventCount: 2,
-        latitude: 50.712890625,
-        longitude: 2.98828125
+        latitude: 50.64057198353112,
+        longitude: 3.101834957487881
       },
       {
         key: 'u08n',
         eventCount: 1,
-        latitude: 48.955078125,
-        longitude: 0.17578125
+        latitude: 48.96736695896834,
+        longitude: 0.07470999844372272
       },
       {
         key: 'spc9',
         eventCount: 1,
-        latitude: 43.857421875,
-        longitude: 2.28515625
+        latitude: 43.92484896350652,
+        longitude: 2.168134991079569
       },
       {
         key: 'ezzx',
         eventCount: 1,
-        latitude: 44.912109375,
-        longitude: -0.52734375
+        latitude: 44.84127898234874,
+        longitude: -0.5585790798068047
       }
     ]);
   });
 
+  it('viewport', async () => {
+    const {
+      aggregations: {
+        viewport
+      }
+    } = await service('map').search({}, { size: 0 }, {
+      aggregations: {
+        type: 'viewport'
+      }
+    });
+
+    assert.deepEqual(viewport, {
+      topLeft: { latitude: 50.652663968503475, longitude: -0.5585790798068047 },
+      bottomRight: { latitude: 43.92484896350652, longitude: 3.1450939178466797 }
+    });
+  });
 });

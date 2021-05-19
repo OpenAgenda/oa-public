@@ -8,6 +8,8 @@ elif [ $# -gt 2 ]; then
   exit 2
 fi
 
+mkdir -p clients/private
+
 openssl genrsa -aes256 -passout pass:xxxx -out clients/private/$1.pass.key 4096 \
     && openssl rsa -passin pass:xxxx -in clients/private/$1.pass.key -out clients/private/$1.key \
     && rm clients/private/$1.pass.key

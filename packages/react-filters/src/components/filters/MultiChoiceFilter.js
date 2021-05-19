@@ -155,16 +155,19 @@ function Title({
   );
 }
 
-function MultiChoiceFilter({
-  name, filter, getTotal, getOptions, disabled
-}) {
+function MultiChoiceFilter(
+  {
+    name, filter, getTotal, getOptions, disabled
+  },
+  _ref
+) {
   const intl = useIntl();
   const form = useForm();
   const seed = useUIDSeed();
   const [maxOptions, setMaxOptions] = useState(OPTIONS_PAGE_SIZE);
   const [collapsed, setCollapsed] = useState(true);
 
-  const { callback: onChange } = useDebouncedCallback(() => form.submit(), 1);
+  const onChange = useDebouncedCallback(() => form.submit(), 1);
 
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
@@ -302,7 +305,7 @@ function MultiChoiceFilter({
   );
 }
 
-const exported = React.memo(MultiChoiceFilter);
+const exported = React.memo(React.forwardRef(MultiChoiceFilter));
 
 // React.memo lose statics
 exported.Preview = Preview;
