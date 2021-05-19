@@ -45,6 +45,7 @@ module.exports = {
     'no-continue': 'off',
     'no-await-in-loop': 'off',
     'no-cond-assign': ['error', 'except-parens'],
+    'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true, argsIgnorePattern: '^_' }],
     'consistent-return': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],
