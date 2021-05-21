@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  geo: {
+    id: 'ReactFilters.messages.filterTitles.geo',
+    defaultMessage: 'Geolocation',
+  },
   addMethod: {
     id: 'ReactFilters.messages.filterTitles.addMethod',
     defaultMessage: 'Provenance',

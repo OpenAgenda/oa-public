@@ -15,8 +15,6 @@ const defaults = {
       remove: '#',
       search: '#',
     },
-    agenda: {},
-    sources: {},
     modals: {},
   },
 };

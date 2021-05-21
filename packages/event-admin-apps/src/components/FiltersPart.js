@@ -1,49 +1,36 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { defineMessages, useIntl } from 'react-intl';
 import { useQuery } from 'react-query';
 import {
   DateRangeFilter,
   Filters,
   MultiChoiceFilter,
+  MapFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
 import getEvents from '../api/getEvents';
 import useFilterOptions from '../hooks/useFilterOptions';
 
-const messages = defineMessages({
-  moreFilters: {
-    id: 'EventAdminApp.FiltersPart.moreFilters',
-    defaultMessage: 'Display more filters',
-  },
-  lessFilters: {
-    id: 'EventAdminApp.FiltersPart.lessFilters',
-    defaultMessage: 'Display less filters',
-  },
-});
+// TODO apiKey from config
+
+const MapFilterComponent = React.forwardRef((props, ref) => (
+  <MapFilter
+    ref={ref}
+    tileAttribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    tileUrl="https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750"
+    {...props}
+  />
+));
 
 function FiltersPart({
-  agenda,
-  standardsFilters,
-  additionalsFilters,
-  query,
-  page,
+  agenda, filters, query, page, loadGeoData
 }) {
-  const intl = useIntl();
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
-      { size: 0 }
-    ),
+    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
@@ -56,9 +43,7 @@ function FiltersPart({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
+      filters,
       {
         sort: 'updatedAt.desc',
         ...query,
@@ -76,24 +61,9 @@ function FiltersPart({
   const { aggregations: filterAggs } = filtersQuery.data;
   const { aggregations } = data;
 
-  const [moreFilters, setMoreFilters] = useState(() => {
-    const names = additionalsFilters.map(v => v.name);
-
-    for (const key in query) {
-      if (
-        Object.prototype.hasOwnProperty.call(query, key)
-        && names.includes(key)
-      ) {
-        return true;
-      }
-    }
-
-    return false;
-  });
-
   const getTotal = useCallback(
     (filter, option) => {
-      const aggregation = aggregations[`${filter.name}-${filter.id}`];
+      const aggregation = aggregations[filter.name];
 
       if (!aggregation) return null;
 
@@ -114,48 +84,37 @@ function FiltersPart({
   );
 
   const getOptions = useFilterOptions(filterAggs);
+  const getAggregation = useCallback(
+    filter => aggregations[filter.name] || [],
+    [aggregations]
+  );
+  const getViewport = useCallback(() => aggregations.viewport, [aggregations]);
 
-  const toggleMoreFilters = useCallback(
-    () => setMoreFilters(prevState => !prevState),
-    []
+  const mapProps = useMemo(
+    () => ({
+      query,
+    }),
+    [query]
   );
 
   return (
     <>
       <div className="oa-collapse">
         <Filters
-          filters={standardsFilters}
+          filters={filters}
           disabled={isFetching || filtersQuery.isFetching}
           dateRangeComponent={DateRangeFilter}
           checkboxComponent={MultiChoiceFilter}
           radioComponent={MultiChoiceFilter}
+          mapComponent={MapFilterComponent}
+          mapProps={mapProps}
           getTotal={getTotal}
           getOptions={getOptions}
+          getAggregation={getAggregation}
+          getViewport={getViewport}
+          loadGeoData={loadGeoData}
+          withRef
         />
-        {moreFilters ? (
-          <Filters
-            filters={additionalsFilters}
-            disabled={isFetching || filtersQuery.isFetching}
-            dateRangeComponent={DateRangeFilter}
-            checkboxComponent={MultiChoiceFilter}
-            radioComponent={MultiChoiceFilter}
-            getTotal={getTotal}
-            getOptions={getOptions}
-          />
-        ) : null}
-        {additionalsFilters.length ? (
-          <div className="margin-v-xs">
-            <button
-              type="button"
-              className="btn btn-link-inline"
-              onClick={toggleMoreFilters}
-            >
-              {intl.formatMessage(
-                moreFilters ? messages.lessFilters : messages.moreFilters
-              )}
-            </button>
-          </div>
-        ) : null}
       </div>
     </>
   );

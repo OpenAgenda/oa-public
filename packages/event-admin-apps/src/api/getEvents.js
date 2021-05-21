@@ -17,7 +17,7 @@ export default async function getEvents(
       }
 
       return {
-        key: `${filter.name}-${filter.id}`,
+        key: filter.name,
         type: filter.name,
         ...filter.aggregation,
       };

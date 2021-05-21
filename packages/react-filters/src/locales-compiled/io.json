@@ -120,6 +120,18 @@
       "value": "crwdne846:0"
     }
   ],
+  "ReactFilters.MapField.searchWithMap": [
+    {
+      "type": 0,
+      "value": "Search with map"
+    }
+  ],
+  "ReactFilters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Map"
+    }
+  ],
   "ReactFilters.MultiChoiceFilter.lessOptions": [
     {
       "type": 0,
@@ -214,6 +226,12 @@
     {
       "type": 0,
       "value": "Featured"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.geo": [
+    {
+      "type": 0,
+      "value": "Geolocation"
     }
   ],
   "ReactFilters.messages.filterTitles.locationUid": [

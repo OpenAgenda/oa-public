@@ -8,7 +8,6 @@ elif [ $# -gt 1 ]; then
   exit 2
 fi
 
-mkdir -p $1/certs
 mkdir -p $1/certs/private
 
 if [ ! -f $1/certs/ca.crt ]; then

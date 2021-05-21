@@ -1,4 +1,5 @@
 export { default as DateRangeFilter } from './filters/DateRangeFilter';
+export { default as MapFilter } from './filters/MapFilter';
 export { default as MultiChoiceFilter } from './filters/MultiChoiceFilter';
 export { default as Filters } from './Filters';
 export { default as FiltersProvider } from './FiltersProvider';
