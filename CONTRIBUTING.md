@@ -7,7 +7,7 @@ For that add the following line to your `.profile`, `.bashrc` or `.zshrc`:
 export OA_PUBLIC_LOCKFILE="yarn.lock"
 ```
 
-> If you want to install both oa and oa-public, you must install [`direnv`](https://direnv.net/) and add an `.envrc` with the following content in your `oa-public` repo:
+> If you want to install both oa and oa-public separately, you must install [`direnv`](https://direnv.net/) and add an `.envrc` with the following content in your `oa-public` repo (outside of oa):
 > 
 > ```bash
 > export OA_PUBLIC_LOCKFILE="yarn.lock-workspace"
@@ -58,89 +58,10 @@ gss() {
 ## Commit Message Guidelines
 
 We have very precise rules over how our git commit messages can be formatted.  This leads to **more
-readable messages** that are easy to follow when looking through the **project history**.  But also,
-we use the git commit messages to **generate the change log**.
+readable messages** that are easy to follow when looking through the **project history**.  ~~But also,
+we use the git commit messages to **generate the change log**~~.
 
-### Commit Message Format
-
-Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
-format that includes a **type**, a **scope** and a **subject**:
-
-```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
-
-The **header** is mandatory and the **scope** of the header is optional.
-
-Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
-to read on GitHub as well as in various git tools.
-
-The footer should contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) if any.
-
-Samples: (even more [samples](https://github.com/angular/angular/commits/master))
-
-```
-docs(changelog): update changelog to beta.5
-```
-```
-fix(release): need to depend on latest rxjs and zone.js
-
-The version in our package.json gets copied to the one we publish, and users need the latest of these.
-```
-
-### Revert
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
-
-### Type
-Must be one of the following:
-
-* **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-* **chore**: Other changes that don't modify src or test files
-* **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-* **docs**: Documentation only changes
-* **feat**: A new feature
-* **fix**: A bug fix
-* **perf**: A code change that improves performance
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **revert**: Reverts a previous commit
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-* **test**: Adding missing tests or correcting existing tests
-
-### Scope
-The scope should be the name of the npm package affected (as perceived by the person reading the changelog generated from commit messages.
-
-There are currently a few exceptions to the "use package name" rule:
-
-* **packaging**: used for changes that change the npm package layout in all of our packages, e.g. public path changes, package.json changes done to all packages, d.ts file/format changes, changes to bundles, etc.
-* **changelog**: used for updating the release notes in CHANGELOG.md
-* none/empty string: useful for `style`, `test` and `refactor` changes that are done across all packages (e.g. `style: add missing semicolons`)
-
-### Subject
-The subject contains a succinct description of the change:
-
-* use the imperative, present tense: "change" not "changed" nor "changes"
-* don't capitalize the first letter
-* no dot (.) at the end
-
-### Body
-Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes".
-The body should include the motivation for the change and contrast this with previous behavior.
-
-### Footer
-The footer should contain any information about **Breaking Changes** and is also the place to
-reference GitHub issues that this commit **Closes**.
-
-**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
-
-A detailed explanation can be found in this [document](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit).
-
-## commitlint
-
-[commitlint](http://marionebl.github.io/commitlint/) helps your team adhering to a commit convention. By supporting npm-installed configurations it makes sharing of commit conventions easy.
+[commitlint](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the [conventional commit format](https://www.conventionalcommits.org/).
 
 ## Release workflow
 
@@ -206,3 +127,7 @@ More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/relea
 ### Updating public submodule reference
 
 It may occure that the reference to the submodule commit in the monorepo has not been automatically updated. When this happens, a git diff on the root of the monorepo hints that there have been commits on the submodule that have not been accounted for. Commiting the public submodule on the monorepo updates the submodule reference.
+
+```bash
+git commit -m 'chore: update submodule public' -- public
+```
