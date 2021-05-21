@@ -154,7 +154,7 @@ const config = {
         secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET
       } : null,
     },
-    discord: {
+    discord: prod.discord || {
       token: process.env.OA_DISCORD_TOKEN,
       channel: process.env.OA_DISCORD_CHANNEL
     },
