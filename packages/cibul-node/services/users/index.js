@@ -148,7 +148,7 @@ async function init(config, services) {
     interfaces: {
       beforeRemove,
       beforeCreate: beforeCreate.bind(null, config, services),
-      onCreate,
+      onCreate: onCreate.bind(null, config, services),
       onGenerateApiKey,
       onActivation,
       sendToken: sendToken.bind(null, config),

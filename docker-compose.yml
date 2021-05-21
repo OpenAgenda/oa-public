@@ -153,6 +153,8 @@ services:
       OA_OAUTH_GOOGLE_ID: ${OA_OAUTH_GOOGLE_ID}
       OA_OAUTH_GOOGLE_SECRET: ${OA_OAUTH_GOOGLE_SECRET}
       OA_PUBLIC_LOCKFILE: yarn.lock
+      OA_DISCORD_CHANNEL: ${OA_DISCORD_CHANNEL}
+      OA_DISCORD_TOKEN: ${OA_DISCORD_TOKEN}
 
   mysql:
     container_name: mysql
