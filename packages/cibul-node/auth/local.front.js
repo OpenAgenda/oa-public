@@ -409,8 +409,7 @@ async function activate(req, res) {
     users,
     agendas,
     tokens,
-    redisConfigStore,
-    slackApp
+    redisConfigStore
   } = req.app.services;
 
   const optionals = _.pickBy(
@@ -434,13 +433,6 @@ async function activate(req, res) {
       const user = await users.findOne({ query: { id: token.userId }, detailed: true });
 
       await tokens.remove(token.id);
-
-      slackApp.postMessage.userRegistration({
-        user,
-        automaticActivation: false
-      }).catch(error => {
-        log.error('Error while sending registration slack message:', error);
-      });
     }
 
     const html = renderManualPage(req.lang);
@@ -461,13 +453,6 @@ async function activate(req, res) {
       { token: req.params.token },
       { optionals, detailed: true }
     );
-
-    slackApp.postMessage.userRegistration({
-      user,
-      automaticActivation: true
-    }).catch(error => {
-      log.error('Error while sending registration slack message:', error);
-    });
 
     if (!req.query || !req.query.invitation) {
       return auth.signin({ req, res, user });
