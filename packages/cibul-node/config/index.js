@@ -154,10 +154,9 @@ const config = {
         secret: prod?.googleApps?.secret || process.env.OA_OAUTH_GOOGLE_SECRET
       } : null,
     },
-    slackApp: {
-      signingSecret: _.get(prod, 'slackApp.signingSecret'),
-      token: _.get(prod, 'slackApp.token'),
-      channel: 'G019D3L6NTD'
+    discord: {
+      token: process.env.OA_DISCORD_TOKEN,
+      channel: process.env.OA_DISCORD_CHANNEL
     },
     es: {
       host: process.env.LEGACY_ES_HOST || (prod.elasticsearch && prod.elasticsearch.v1_3.host),
@@ -803,9 +802,9 @@ const config = {
         secret: process.env.OA_OAUTH_GOOGLE_SECRET
       }
     },
-    slackApp: {
-      signingSecret: 'd87b1fab0342f49acd148c0c33ac43af',
-      token: 'xoxb-2602725364-1335364695348-UhXJ9AJOgD4y0pIFfxdW97jC'
+    discord: {
+      token: process.env.OA_DISCORD_TOKEN,
+      channel: process.env.OA_DISCORD_CHANNEL
     },
     es: {
       host: process.env.OA_ELASTICSEARCH_134_DEV_HOST || 'localhost',
