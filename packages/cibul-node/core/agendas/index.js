@@ -14,7 +14,7 @@ module.exports = core => {
   const settings = Settings(core);
 
   return Object.assign(agendaUid => ({
-    get: get.bind(null, core, agendaUid),    
+    get: get.bind(null, core, agendaUid),
     update: update.bind(null, core, agendaUid),
     remove: remove.bind(null, agendaUid),
     events: events(core, agendaUid),

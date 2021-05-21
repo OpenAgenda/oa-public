@@ -4201,8 +4201,8 @@ __metadata:
     errorhandler: ^1.5.0
     eslint: ^6.8.0
     express: ^4.17.1
-    final-form: ^4.20.2
-    final-form-calculate: ^1.3.2
+    final-form: ^4.20.1
+    final-form-calculate: ^1.3.1
     final-form-set-field-data: ^1.0.2
     fuse.js: ^3.4.6
     jest: ^26.1.0
@@ -4804,7 +4804,7 @@ __metadata:
     cors: ^2.8.5
     errorhandler: ^1.5.0
     express: ^4.17.1
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
@@ -4817,7 +4817,7 @@ __metadata:
     react: ^16.13.1
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -4865,7 +4865,7 @@ __metadata:
     date-fns: ^2.11.1
     distinct-colors: ^2.1.0
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     jest: ^26.1.0
     lint-staged: ^10.2.11
@@ -4877,7 +4877,7 @@ __metadata:
     react-content-loader: ^5.1.0
     react-date-range: ^1.1.3
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-intl: ^5.12.2
     react-query: ^3.6.0
@@ -4979,7 +4979,7 @@ __metadata:
     classnames: ^2.3.1
     core-js: ^3.10.2
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     final-form-arrays: ^3.0.2
     fuse.js: ^3.4.6
     history: ^4.10.1
@@ -4993,7 +4993,7 @@ __metadata:
     react-beautiful-dnd: ^13.0.0
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-final-form-arrays: ^3.1.1
     react-hot-loader: ^4.12.20
     react-intl: ^5.12.2
@@ -5225,7 +5225,7 @@ __metadata:
     ejs: 2.4.2
     ejs-compiled-loader-webpack4: ^2.2.0
     express: ^4.17.1
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     form-serialize: 0.3.0
     imagesloaded: ^4.1
     immutability-helper: ^3.0.0
@@ -5419,7 +5419,7 @@ __metadata:
     classnames: ^2.3.1
     core-js: ^3.10.2
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     immer: ^9.0.1
     lint-staged: ^10.2.11
@@ -5428,8 +5428,7 @@ __metadata:
     qs: ^6.9.4
     react: ^16.13.1
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
-    react-helmet-async: ^1.0.3
+    react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-intl: ^5.12.2
     react-query: ^3.6.0
@@ -5524,6 +5523,7 @@ __metadata:
     mocha: ^7.0.1
     moment: ^2.27.0
     moment-timezone: ^0.5.31
+    ngeohash: ^0.6.3
     prompts: ^2.0.1
     should: ^13.2.3
     verror: ^1.10.0
@@ -5729,7 +5729,7 @@ __metadata:
     classnames: ^2.3.1
     core-js: ^3.10.2
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     lint-staged: ^10.2.11
     lodash: ^4.17.15
@@ -5738,7 +5738,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.13.1
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-query: ^3.6.0
     react-redux: ^7.1.3
@@ -5800,7 +5800,7 @@ __metadata:
     enzyme-to-json: ^3.4.2
     errorhandler: ^1.5.0
     express: ^4.17.1
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     immutability-helper: ^3.0.0
     jest: ^26.1.0
@@ -5818,7 +5818,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.13.1
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -5965,37 +5965,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/legacy@workspace:packages/legacy"
   dependencies:
-    "@openagenda/bs-templates": ^2.5.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-shared": ^2.1.1
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
-    "@storybook/react": ^6.2.8
-    axios: ^0.21.1
-    axios-mock-adapter: ^1.19.0
-    debug: ^4.1.1
     immer: ^9.0.1
     immutability-helper: ^3.0.0
     jest: ^26.1.0
     knex: ^0.19.5
-    leaflet: ^1.7.1
     locutus: ^2.0.14
     lodash: ^4.17.15
     moment-timezone: ^0.5.31
     mysql: ^2.16.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
-    react-helmet-async: ^1.0.3
-    react-intl: ^5.12.2
-    react-leaflet: ^3.1.0
-    react-query: ^3.6.0
     redis: ^2.8.0
     should: ^13.2.3
     verror: ^1.10.0
-  peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
   languageName: unknown
   linkType: soft
 
@@ -6086,7 +6070,7 @@ __metadata:
     errorhandler: ^1.5.0
     eslint: ^6.8.0
     express: ^4.17.1
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     js-base64: ^2.5.1
     knex: ^0.19.5
@@ -6100,7 +6084,7 @@ __metadata:
     react: ^16.13.1
     react-bootstrap: ^0.33.1
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -6374,12 +6358,12 @@ __metadata:
     babel-loader: ^8.2.2
     core-js: ^3.10.2
     create-react-class: ^15.5.3
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     prop-types: ^15.7.2
     react: ^16.13.1
     react-bootstrap: ^1.5.2
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-markdown: ^6.0.0
     react-waypoint: ^9.0.2
     rimraf: ^3.0.1
@@ -6414,9 +6398,8 @@ __metadata:
     core-js: ^3.10.2
     date-fns: ^2.11.1
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     fuse.js: ^6.4.6
-    leaflet: ^1.7.1
     lint-staged: ^10.2.11
     lodash: ^4.17.20
     prettier-eslint-cli: ^5.0.0
@@ -6424,14 +6407,13 @@ __metadata:
     react: ^16.13.1
     react-date-range: ^1.1.3
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-final-form-listeners: ^1.0.2
     react-intl: ^5.12.2
-    react-leaflet: ^3.1.0
     react-uid: ^2.3.0
     react-use: ^15.3.4
     rimraf: ^3.0.1
-    use-debounce: ^6.0.1
+    use-debounce: ^5.0.3
   peerDependencies:
     final-form: ^4.18.5
     react: ^16.12.0
@@ -6506,7 +6488,7 @@ __metadata:
     core-js: ^3.10.2
     css-minimizer-webpack-plugin: ^2.0.0
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     flatted: ^2.0.1
     he: ^1.2.0
     history: ^4.10.1
@@ -6858,7 +6840,7 @@ __metadata:
     classnames: ^2.3.1
     core-js: ^3.10.2
     eslint: ^6.8.0
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     final-form-arrays: ^3.0.2
     fuse.js: ^3.4.6
     history: ^4.10.1
@@ -6870,7 +6852,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.13.1
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.4.0
     react-final-form-arrays: ^3.1.1
     react-hot-loader: ^4.12.20
     react-intl: ^5.12.2
@@ -6994,7 +6976,7 @@ __metadata:
     cors: ^2.8.5
     errorhandler: ^1.5.0
     express: ^4.17.1
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     history: ^4.10.1
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -7178,17 +7160,6 @@ __metadata:
     react: 15.x || 16.x || 16.4.0-alpha.0911da3
     react-dom: 15.x || 16.x || 16.4.0-alpha.0911da3
   checksum: f64372497e0464a9fdfd79283fec3f4fd01ee093f1599d8a8035e0a41fbce22113bfa46dcea63aa8b7b4e0796e916f134aa8e3fccd3974be397e7c19468de3c4
-  languageName: node
-  linkType: hard
-
-"@react-leaflet/core@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@react-leaflet/core@npm:1.1.0"
-  peerDependencies:
-    leaflet: ^1.7.1
-    react: ^17.0.1
-    react-dom: ^17.0.1
-  checksum: 314b689b047622e87a128cc5c0b345ac86d355fda92648b696a540d831f86eee63eb9639c6329e50d3b2602b9c937a412b5991661c470dc7b5f19e05e69adc94
   languageName: node
   linkType: hard
 
@@ -13588,7 +13559,7 @@ __metadata:
     fast-levenshtein: ^2.0.6
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
-    final-form: ^4.20.2
+    final-form: ^4.20.1
     form-data: ^3.0.0
     history: ^4.10.1
     http-proxy: ^1.18.0
@@ -18937,12 +18908,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"final-form-calculate@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "final-form-calculate@npm:1.3.2"
+"final-form-calculate@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "final-form-calculate@npm:1.3.1"
   peerDependencies:
     final-form: ">=1.3.0"
-  checksum: eab0d27e7b896939248309ad2a2114a566beba34ce9472bde823430537d867fa07cd01f84585fbff4c7aa9f0395dc582f6eb63ac201166f0de1b539972264ff0
+  checksum: c2990ed6c7757bd14b9f15e32864b3a71fb74e1864e20b30d262374fcca53d2da8a30c4fd7f9e804e3cfa2a344819dc190d5f0aa64ce0b55a4a9d02716b539e9
   languageName: node
   linkType: hard
 
@@ -25224,13 +25195,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"leaflet@npm:^1.7.1":
-  version: 1.7.1
-  resolution: "leaflet@npm:1.7.1"
-  checksum: f69149ab482eeb6cdabd837939c4782c97a7a18bc0b2a9330d4a828ca0dc6e035981f2ecdb71c6646aa173bc369cd3b4fd6bbe5d81df4c59c45254f9e9361d03
-  languageName: node
-  linkType: hard
-
 "left-pad@npm:^1.3.0":
   version: 1.3.0
   resolution: "left-pad@npm:1.3.0"
@@ -28191,6 +28155,13 @@ fsevents@~2.3.1:
   version: 1.0.0
   resolution: "next-tick@npm:1.0.0"
   checksum: 83fcb3d4f8d9380210b1c2b8a610463602d80283f0c0c8571c1688e1ad6cbf3a16b345f5bb7212617d4898bedcfa10dff327dc09ec20a112a5bf43a0271375fb
+  languageName: node
+  linkType: hard
+
+"ngeohash@npm:^0.6.3":
+  version: 0.6.3
+  resolution: "ngeohash@npm:0.6.3"
+  checksum: 563a6c403514237111a3524991640deaf962a49eb920e4426030c6aa4b084f4e8ed766aa53f060ade7914cfe77eb6103b8f7e1488de53e5214bbeb5dbc81d340
   languageName: node
   linkType: hard
 
@@ -32412,18 +32383,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-final-form@npm:^6.5.3":
-  version: 6.5.3
-  resolution: "react-final-form@npm:6.5.3"
-  dependencies:
-    "@babel/runtime": ^7.12.1
-  peerDependencies:
-    final-form: ^4.20.0
-    react: ^16.8.0 || ^17.0.0
-  checksum: f05bcbea51f004895f46d9be43bb0d70ecd10d172c6e6bb1498740a245ae54267789e1f8b9ca2ac77f75b240841d44f20fe698871bf267aa3baf58e7c7be1154
-  languageName: node
-  linkType: hard
-
 "react-helmet-async@npm:^1.0.3":
   version: 1.0.4
   resolution: "react-helmet-async@npm:1.0.4"
@@ -32596,19 +32555,6 @@ fsevents@~2.3.1:
     react: ">=16.2.0"
     react-dom: ">=16.2.0"
   checksum: 96cd5d07f925f48b023ff3a0947533a065800f925cd1e50bd4ecd7725cbdd46b98dc29d8cee96c6267011bb420e437c3197e41e806881ea6f5ff74a9f0aeaa57
-  languageName: node
-  linkType: hard
-
-"react-leaflet@npm:^3.1.0":
-  version: 3.2.0
-  resolution: "react-leaflet@npm:3.2.0"
-  dependencies:
-    "@react-leaflet/core": ^1.1.0
-  peerDependencies:
-    leaflet: ^1.7.1
-    react: ^17.0.1
-    react-dom: ^17.0.1
-  checksum: 49b540952d883893ad7e0ec70679bfc5e443ba7c25a6b74ec11bfd114f0fd3be33abb86f40acee490abfe6670951f3ce8c2ac86cc32d308c7fd2dc31a684ca57
   languageName: node
   linkType: hard
 
@@ -39114,15 +39060,6 @@ typescript@^4.0:
   peerDependencies:
     react: ">=16.8.0"
   checksum: 49c2463a3aa715242eaa4a92dca63a3f81e28903305a1fced6ed028f265ee7318dd515054c1a1fccc3fbb8101474afcb90457873838e0919a77696053eb1a8ed
-  languageName: node
-  linkType: hard
-
-"use-debounce@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "use-debounce@npm:6.0.1"
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: 9f811075652712b418dd0f6b09de62a37b0e1bb65295d3b6f797aed0eb2267188def0039e820f67aa5b6cb866a00f02da9bcf680e098a524d22e7d33438e4935
   languageName: node
   linkType: hard
 
