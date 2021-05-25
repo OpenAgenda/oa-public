@@ -95,11 +95,26 @@ module.exports = (iframe, options = {}) => {
 
   // This iframe parent should track base and
 
-  if (iframe.getAttribute('data-count')) {
+  if (iframe.getAttribute('data-count') && !iframe.getAttribute('data-random-from-set')) {
     relative = appendAttributeValueToQuery(
       iframe,
       relative,
       'limit',
+      'data-count'
+    );
+  }
+
+  if (iframe.getAttribute('data-count') && iframe.getAttribute('data-random-from-set')) {
+    relative = appendAttributeValueToQuery(
+      iframe,
+      relative,
+      'limit',
+      'data-random-from-set'
+    );
+    relative = appendAttributeValueToQuery(
+      iframe,
+      relative,
+      'subsetRandom',
       'data-count'
     );
   }
