@@ -305,6 +305,8 @@ The specified iframe attributes:
 
  * `data-oa-preview`: route to the preview endpoint of your portal
  * `data-target-url`: base url where the portal is deployed
+ * `data-count`: number of events to show in the preview
+ * `data-random-from-set`: randomize selection of `data-count` events to display from a set of `data-random-from-set` events
  * `data-target-iframe`: set this attribute only if the portal is hosted within an iframe on the target page.
  * `data-query`: query to filter events to be displayed in preview widget
  * `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
