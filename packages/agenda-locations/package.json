@@ -27,7 +27,6 @@
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/files": "^3.1.0",
     "@openagenda/geocoder": "^1.2.8",
-    "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
