@@ -146,7 +146,7 @@ describe('agenda-locations - functional - list', function () {
     });
   });
 
-  describe('filters', () => {
+  describe.only('filters', () => {
     it('"search" queries region field', async () => {
       const items = await svc(7196947).list({ search: 'nom de région' });
 
@@ -190,6 +190,37 @@ describe('agenda-locations - functional - list', function () {
         selection.map(l => l.uid),
         uids
       );
+    });
+
+    it('"excludeUid" filter exclude provided location uid from list', async () => {
+      const excludeUid = 76248298;
+
+      const selection = await svc(7196947).list({ excludeUid });
+
+      assert.equal(selection.find(e => e.uid === excludeUid), undefined);
+    });
+
+    it('"excludeUid" filter exclude provided locations uid from list', async () => {
+      const excludeUid = [76248298, 10175539];
+
+      const selection = await svc(7196947).list({ excludeUid });
+      assert.equal(selection.find(e => e.uid === 10175539), undefined);
+    });
+
+    it('"geo" filter list locations in square', async () => {
+      const geo = {
+        northEast : {
+          lat: 47,
+          lng: 4,
+        },
+        southWest : {
+          lat: 44,
+          lng: 3,
+        }
+      }
+
+      const selection = await svc(7196947).list({ geo });
+      assert.equal(selection.length, 4)
     });
 
     it('"updatedAt.gte" filter', async () => {
