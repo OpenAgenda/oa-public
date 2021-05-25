@@ -188,9 +188,13 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       let result;
 
       beforeAll(async () => {
-        result = await core.agendas(17026855).events.search({
-          uid: event.uid
-        });
+        try {
+          result = await core.agendas(17026855).events.search({
+            uid: event.uid
+          });
+        } catch (e) {
+          console.log(e);
+        }
       });
 
       it('event is retrieved by its uid', async () => {
@@ -431,7 +435,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
 
     it('no legacy event is created for draft', async () => {
       const legacyEvent = await core.services.knex('event').first().where('uid', event.uid);
-      expect(legacyEvent).toBeNull();
+      expect(legacyEvent).toBeUndefined();
     });
 
     it('custom data is stored even if incomplete', async () => {
