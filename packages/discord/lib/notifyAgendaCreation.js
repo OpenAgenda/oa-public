@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 module.exports = channel => (agenda, user) => {
   const { uid, title } = agenda;
-  const { fullName, email, userUid } = user;
+  const { fullName, email, uid: userUid } = user;
   const embed = new Discord.MessageEmbed()
     .setColor('#3f97fc')
     .setTitle(title)
