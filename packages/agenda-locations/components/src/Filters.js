@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages, injectIntl } from 'react-intl';
+
+const messages = defineMessages({
+  verify: {
+    id: 'AgendaLocations.Filters.verify',
+    defaultMessage: 'To verify',
+  },
+  locationSelection: {
+    id: 'AgendaLocations.Filters.locationSelection',
+    defaultMessage: 'Locations selection',
+  },
+});
 
 class Filters extends Component {
   static propTypes = {
     locations: PropTypes.array.isRequired,
-    getLabel: PropTypes.func.isRequired,
     onQueryChange: PropTypes.func.isRequired,
     query: PropTypes.object.isRequired,
+    intl: PropTypes.object.isRequired
   };
 
   getFilterList() {
@@ -25,11 +37,11 @@ class Filters extends Component {
   getLabel(field, value) {
     const {
       locations,
-      getLabel
+      intl
     } = this.props;
 
     if (field === 'state') {
-      return getLabel('verify');
+      return intl.formatMessage(messages.verify);
     } if (field === 'uids') {
       const selected = locations
 
@@ -38,7 +50,7 @@ class Filters extends Component {
         .map(l => l.name);
 
       if (selected.length > 4 || !selected.length) {
-        return getLabel('locationselection');
+        return intl.formatMessage(messages.locationSelection);
       }
       return selected.join(', ');
     }
@@ -80,4 +92,4 @@ class Filters extends Component {
   }
 }
 
-export default Filters;
+export default injectIntl(Filters);

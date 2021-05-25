@@ -7,7 +7,9 @@ class SearchField extends React.Component {
     value: '',
     name: 'search',
     loading: false,
-    onFocus: () => {}
+    error: false,
+    onFocus: () => {},
+    onBlur: () => {}
   }
 
   static propTypes = {
@@ -16,6 +18,8 @@ class SearchField extends React.Component {
     loading: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    error: PropTypes.bool
   };
 
   constructor(props) {
@@ -23,6 +27,7 @@ class SearchField extends React.Component {
     // Binding
     this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.onCommit = this.onCommit.bind(this);
   }
 
@@ -34,6 +39,11 @@ class SearchField extends React.Component {
   onFocus(e) {
     const { onFocus } = this.props;
     onFocus(e.target.value);
+  }
+
+  onBlur(e) {
+    const { onBlur } = this.props;
+    onBlur(e.target.value);
   }
 
   onCommit(e) {
@@ -56,7 +66,7 @@ class SearchField extends React.Component {
 
   render() {
     const {
-      dynamic, name, label, placeholder, value, loading
+      dynamic, name, label, placeholder, value, loading, error
     } = this.props;
     return (
       <div className={dynamic ? 'search-field' : 'search-field input-group'}>
@@ -64,9 +74,10 @@ class SearchField extends React.Component {
         <input
           placeholder={placeholder}
           type="text"
-          className="form-control"
+          className={error ? 'form-control error' : 'form-control'}
           onChange={this.onChange}
           onFocus={this.onFocus}
+          onBlur={this.onBlur}
           onKeyUp={this.onCommit}
           value={value || ''}
         />

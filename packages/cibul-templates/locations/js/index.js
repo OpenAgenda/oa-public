@@ -21,22 +21,27 @@ React = require( 'react' ),
 ReactDom = require( 'react-dom' ),
 
 LocactionsAdmin = require( '@openagenda/agenda-locations/components/build/AgendaAdminLocations' );
+var Provider = require( '@openagenda/agenda-locations/components/build/Provider' );
 
 window.hook( function( options ) {
 
   deepExtend( params, options );
 
-  ReactDom.render( <LocactionsAdmin
-    enableGeocode={params.enableGeocode}
-    agenda={params.agenda}
-    settings={params.settings}
-    lang={params.lang}
-    set={params.set}
-    tiles={params.tiles}
-    detailedInfo={params.detailedInfo}
-    tiles={params.tiles}
-    staticTiles={params.staticTiles}
-    res={params.res} />,
+  ReactDom.render(
+    <Provider lang={params.lang}>
+      <LocactionsAdmin
+        enableGeocode={params.enableGeocode}
+        agenda={params.agenda}
+        settings={params.settings}
+        lang={params.lang}
+        set={params.set}
+        tiles={params.tiles}
+        detailedInfo={params.detailedInfo}
+        tiles={params.tiles}
+        staticTiles={params.staticTiles}
+        res={params.res}
+      />
+    </Provider>,
   du.el( params.selectors.canvas ) );
 
 } );

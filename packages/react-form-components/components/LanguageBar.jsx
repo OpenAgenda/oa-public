@@ -231,7 +231,9 @@ var LanguageItem = createReactClass( {
           value={lInfo.nativeName}
           options={this.props.getRemainingLanguages()}
           onChange={this.onChange}
-          clearable={false} />
+          clearable={false}
+          className="change-select"
+        />
       </li>
 
     } else {

@@ -1,14 +1,28 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import debug from 'debug';
-import labels from '@openagenda/labels/agenda-locations/selector';
-import createLabels from '@openagenda/labels/agenda-locations/create';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import LocationForm from './LocationForm';
 import LocationSearch from './LocationSearch';
 import LocationConfirmation from './LocationConfirmation';
 import CreateFormHeader from './CreateFormHeader';
 
 const log = debug('LocationSelector');
+
+const messages = defineMessages({
+  change: {
+    id: 'AgendaLocations.LocationSelector.change',
+    defaultMessage: 'change',
+  },
+  find: {
+    id: 'AgendaLocations.LocationSelector.find',
+    defaultMessage: 'Find',
+  },
+  noLocation: {
+    id: 'AgendaLocations.LocationSelector.noLocation',
+    defaultMessage: 'Select a location',
+  },
+});
 
 class LocationSelector extends Component {
   static defaultProps = {
@@ -31,7 +45,6 @@ class LocationSelector extends Component {
     // Binding
     this.onConfirm = this.onConfirm.bind(this);
     this.switchToSearch = this.switchToSearch.bind(this);
-    this.getLabel = this.getLabel.bind(this);
     this.onCreateRequest = this.onCreateRequest.bind(this);
     // this.onSelect = this.onSelect.bind(this, false);
   }
@@ -49,24 +62,6 @@ class LocationSelector extends Component {
   onCreateRequest(value) {
     const { onChange } = this.props;
     onChange('create', { name: value });
-  }
-
-  getLabel(name, values) {
-    const { lang } = this.props;
-    const label = labels[name];
-
-    let str = _.get(label, lang, label[_.first(_.keys(label))]);
-    let k;
-
-    if (values) {
-      for (k in values) {
-        if (Object.prototype.hasOwnProperty.call(values, k)) {
-          str = str.replace(k, values[k]);
-        }
-      }
-    }
-
-    return str;
   }
 
   switchToSearch() {
@@ -103,7 +98,7 @@ class LocationSelector extends Component {
               onClick={this.switchToSearch}
               className="btn btn-default"
             >
-              {this.getLabel(location ? 'change' : 'find')}
+              {location ? <FormattedMessage {...messages.change} /> : <FormattedMessage {...messages.find} />}
             </button>
           </div>
         ) : null}
@@ -114,7 +109,7 @@ class LocationSelector extends Component {
           </div>
         ) : (
           <div>
-            <p className="nolocation">{this.getLabel('nolocation')}</p>
+            <p className="nolocation"><FormattedMessage {...messages.noLocation} /></p>
           </div>
         )}
       </div>
@@ -130,10 +125,8 @@ class LocationSelector extends Component {
     return (
       <LocationSearch
         init={location ? location.name : ''}
-        lang={lang}
         res={res}
         allowCreate={allowCreate}
-        getLabel={this.getLabel}
         onCreateRequest={this.onCreateRequest}
         onSelect={onSelect}
       />
@@ -141,9 +134,8 @@ class LocationSelector extends Component {
   }
 
   renderHeader() {
-    const { settings, lang } = this.props;
     return (
-      <CreateFormHeader settings={settings} lang={lang} />
+      <CreateFormHeader/>
     );
   }
 
@@ -155,7 +147,6 @@ class LocationSelector extends Component {
     return (
       <LocationForm
         Header={this.renderHeader()}
-        labels={createLabels}
         res={res}
         lang={lang}
         location={location}
@@ -170,6 +161,7 @@ class LocationSelector extends Component {
         enableGeocode={enableGeocode}
         postRes={res.create}
         tiles={tiles}
+        mode="create"
       />
     );
   }

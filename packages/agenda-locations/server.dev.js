@@ -109,7 +109,7 @@ const Service = require('.');
     next();
   });
 
-  app.get('/', (req, res, next) => svc(7196947)
+  app.get('/locations/', (req, res, next) => svc(7196947)
     .list(req.query, _.pick(req.query, ['offset', 'limit']), {
       total: true,
       eventCounts: true,
@@ -121,12 +121,12 @@ const Service = require('.');
       ...result,
     })));
 
-  app.get('/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
+  app.get('/locations/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
     ({ total }) => res.json({ count: total }),
     next
   ));
 
-  app.get('/geocode', (req, res, next) => res.json({
+  app.get('/locations/geocode', (req, res, next) => res.json({
     results: [
       {
         address: 'Rue Alice, 92400 Courbevoie, France',
@@ -144,18 +144,18 @@ const Service = require('.');
     ],
   }));
 
-  app.get('/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
+  app.get('/locations/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
     ({ total }) => res.json({ count: total }),
     next
   ));
 
-  app.get('/insee', (req, res, next) => svc.utils
+  app.get('/locations/insee', (req, res, next) => svc.utils
     .getINSEECode(
       _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
     )
     .then(code => res.json({ code }), next));
 
-  app.get('/geocode/reverse', (req, res, next) => res.json({
+  app.get('/locations/geocode/reverse', (req, res, next) => res.json({
     results: [
       {
         address:
@@ -174,13 +174,13 @@ const Service = require('.');
     ],
   }));
 
-  app.get('/terms', (req, res, next) => {
+  app.get('/locations/terms', (req, res, next) => {
     svc(7196947)
       .terms(req.query.field.split(','), {}, { filterNulls: true })
       .then(terms => res.json({ terms }));
   });
 
-  app.get('/:locationUid', (req, res, next) => {
+  app.get('/locations/:locationUid', (req, res, next) => {
     log('get for %s detailed %s', req.params.locationUid, req.query.detailed);
     svc(7196947)
       .get(req.params.locationUid, {
@@ -192,7 +192,7 @@ const Service = require('.');
   });
 
   app.post(
-    ['/', '/:locationUid'],
+    ['/locations/', '/locations/:locationUid'],
     multer({ dest: '/tmp/' }).single('image'),
     (req, res, next) => {
       req.data = req.body.data ? JSON.parse(req.body.data) : req.body;
@@ -206,7 +206,7 @@ const Service = require('.');
     }
   );
 
-  app.post('/merge', (req, res, next) => {
+  app.post('/locations/merge', (req, res, next) => {
     log('merge route called');
     log('req.body:', req.body);
 
@@ -233,7 +233,7 @@ const Service = require('.');
     }
   });
 
-  app.post('/', (req, res, next) => {
+  app.post('/locations/', (req, res, next) => {
     svc(7196947)
       .create(
         { ...req.data, state: 1 },
@@ -249,7 +249,7 @@ const Service = require('.');
       }, next);
   });
 
-  app.post('/:locationUid', (req, res, next) => {
+  app.post('/locations/:locationUid', (req, res, next) => {
     svc(7196947)
       .update(req.params.locationUid, req.data, {
         includeImagePath: true,
