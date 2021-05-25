@@ -19,6 +19,7 @@ const error = require('./middleware/error');
 const eventMiddlewares = require('./middleware/event');
 const { redirectToNeighbor } = require('./middleware/eventNavigation');
 const list = require('./middleware/listEvents');
+const randomFromSet = require('./middleware/randomFromSet');
 const pageGlobals = require('./middleware/pageGlobals');
 const renderSelection = require('./middleware/renderSelection');
 const webpackSASSMiddleware = require('./dev/webpackSASSMiddleware');
@@ -34,6 +35,7 @@ const mw = {
   event: eventMiddlewares,
   redirectToNeighbor,
   list,
+  randomFromSet,
   preview: renderSelection('preview'),
   pageGlobals,
   redirectLegacyEventQuery,
@@ -178,6 +180,7 @@ module.exports = async options => {
     '/preview',
     mw.pageGlobals.withOptions({ mainScript: 'preview.js', iframable: true }),
     mw.list,
+    mw.randomFromSet,
     middlewareHooks.preview.preRender,
     mw.preview
   );
