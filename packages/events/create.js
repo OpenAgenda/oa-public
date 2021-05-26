@@ -5,7 +5,6 @@ const log = require('@openagenda/logs')('create');
 const validate = require('./lib/validate');
 const cleanSetOptions = require('./lib/cleanSetOptions');
 const defineUnique = require('./lib/defineUnique');
-const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const generateSlug = require('./lib/generateSlug');
 const setLegacy = require('./lib/legacy/set');
 const generateFileKey = require('./lib/generateFileKey');
@@ -65,7 +64,7 @@ module.exports = async (service, data, o = {}) => {
 
   await handleInterface(service, 'beforeCreate', clean, options.context);
 
-  const entry = fromItemToDbEntry(clean);
+  const entry = service.fieldUtils.fromItemToEntry(clean);
 
   const [insertedID] = await service.clients
     .knex(service.config.schema)

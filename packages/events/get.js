@@ -3,12 +3,11 @@
 const log = require('@openagenda/logs')('get');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
-const getFieldsByAccess = require('./lib/getFieldsByAccess');
-const getDatabaseFieldName = require('./lib/databaseField').getName;
-const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
+const getDatabaseFieldName = require('@openagenda/utils/fields/databaseField').getName;
 const NotFoundError = require('./lib/NotFoundError');
 const handleInterface = require('./lib/handleInterface');
 const lastClean = require('./lib/lastEventClean');
+
 
 module.exports = async (service, identifiers, o = {}) => {
   log('called %s with options %j', identifiers, o);
@@ -22,7 +21,7 @@ module.exports = async (service, identifiers, o = {}) => {
   } = options;
 
   const query = k.first(
-    getFieldsByAccess('read', options.access)
+    service.fieldUtils.getFieldsByAccess('read', options.access)
       .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
       .map(getDatabaseFieldName)
   ).where(cleanGetIdentifiers(identifiers));
@@ -45,7 +44,7 @@ module.exports = async (service, identifiers, o = {}) => {
     return null;
   }
 
-  const item = fromDbEntryToItem(service, entry, options);
+  const item = service.fieldUtils.fromEntryToItem(entry, options);
 
   return lastClean(item, {
     ...options,
