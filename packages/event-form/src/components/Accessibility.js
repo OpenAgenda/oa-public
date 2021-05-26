@@ -78,7 +78,7 @@ module.exports = class AccessibilityComponent extends Component {
                 id={type}
                 name={type}
                 type="checkbox"
-                checked={!!value[type]}
+                checked={!!value?.[type]}
                 onChange={this.toggleAccessibility.bind( this, type )}/>
               <i></i>{labels[ type ]}
             </label>
