@@ -22,11 +22,10 @@ module.exports = props => {
           className="checkbox"
           key={[name, o.value].join('.')}
         >
-          <label htmlFor={name}>
+          <label htmlFor={`${name}.${o.value}`}>
             <input
-              id={name}
+              id={`${name}.${o.value}`}
               type="checkbox"
-              name={name}
               onChange={onChange.bind(null, checked.includes(o.id) ? checked.filter(cId => cId !== o.id) : checked.concat(o.id))}
               checked={checked.includes(o.id)}
             />
