@@ -119,9 +119,9 @@ class LocationSearch extends React.Component {
     });
   }
 
-  triggerClose(e) {
+  triggerClose() {
     const { closePreempted } = this.state;
-    e.preventDefault();
+
     if (!closePreempted) {
       this.setState({ showDropdown: false });
     }
