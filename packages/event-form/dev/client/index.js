@@ -2,12 +2,11 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import store from 'store';
-import VError from 'verror';
+import VError from '@openagenda/verror';
 
 if ( module.hot ) module.hot.accept();
 
 import EventForm from './EventForm';
-import SchemaEditorComponent from './SchemaEditorComponent';
 import validateFormField from '@openagenda/form-schemas/iso/validateField';
 import {
   tiles
@@ -116,9 +115,6 @@ class Main extends Component {
 
     return <div className="container-fluid top-margined">
       <div className="row">
-        <div className="col-sm-4">
-          <SchemaEditorComponent onChange={this.onJSONChange.bind( this )} schemas={schemas} />
-        </div>
         <div className="col-sm-4">
           <EventForm tiles={tiles} schemaExtensions={schemas} devOnChange={this.onValuesChange.bind( this )} /> 
         </div>

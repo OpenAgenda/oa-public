@@ -55,8 +55,10 @@ module.exports = class AccessibilityComponent extends Component {
   }
 
   render() {
-
-    const { value, lang } = this.props;
+    const {
+      value,
+      lang
+    } = this.props;
 
     const labels = flatten( mLabels, lang, true );
 
@@ -67,14 +69,22 @@ module.exports = class AccessibilityComponent extends Component {
           {labels.input}
         </label>
       </div>
-      { this.state.enabled && <div className="accessibility-detail margin-left-md margin-top-md">{
-        TYPES.map( ( type, i ) => <div className={ 'checkbox ' + type + ( i + 1 < TYPES.length ? ' margin-bottom-md' : ' margin-bottom-xs' ) } key={type}>
-          <label>
-            <input type="checkbox" checked={!!_.get( value, type )} onChange={this.toggleAccessibility.bind( this, type )}/>
-            <i></i>{labels[ type ]}
-          </label>
-        </div> )
-      }</div> }
+      {this.state.enabled && <div className="accessibility-detail margin-left-md margin-top-md">{
+        TYPES.map((type, i) => (
+          <div
+            className={'checkbox ' + type + ( i + 1 < TYPES.length ? ' margin-bottom-md' : ' margin-bottom-xs' ) } key={type}>
+            <label htmlFor={type}>
+              <input
+                id={type}
+                name={type}
+                type="checkbox"
+                checked={!!value[type]}
+                onChange={this.toggleAccessibility.bind( this, type )}/>
+              <i></i>{labels[ type ]}
+            </label>
+          </div>
+        ))
+      }</div>}
     </div>
 
   }

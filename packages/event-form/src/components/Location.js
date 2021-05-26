@@ -109,7 +109,7 @@ class LocationComponent extends Component {
     } = this.props.field;
 
     return <Provider lang={lang}>
-        <LocationSelector
+      <LocationSelector
         allowCreate={allowCreate}
         confirmRequired={confirmRequired}
         tiles={tiles}
