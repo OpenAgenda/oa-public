@@ -1,6 +1,6 @@
 'use strict';
 
-const Service = require('..');
+const Service = require('../service');
 const fixtures = require('./fixtures');
 
 describe('03 - embeds - create', () => {

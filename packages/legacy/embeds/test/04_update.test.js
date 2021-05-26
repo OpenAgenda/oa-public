@@ -1,8 +1,8 @@
 'use strict';
 
-const Service = require('..');
-const fixtures = require('./fixtures');
 const { produce } = require('immer');
+const Service = require('../service');
+const fixtures = require('./fixtures');
 
 describe('04 - embeds - update', () => {
   let fx;

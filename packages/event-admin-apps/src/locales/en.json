@@ -9,7 +9,7 @@
   "EventAdminApp.Dashboard.changeState": "Change state",
   "EventAdminApp.Dashboard.clearFilters": "Clear filters",
   "EventAdminApp.Dashboard.extendedAllSelected": "The <b>{total}</b> events corresponding to the current filters are selected.",
-  "EventAdminApp.Dashboard.filters": "Filters",
+  "EventAdminApp.FiltersPortal.filters": "Filters",
   "EventAdminApp.Dashboard.groupedActions": "Grouped actions on selection",
   "EventAdminApp.Dashboard.next": "Next",
   "EventAdminApp.Dashboard.previous": "Previous",

@@ -16,5 +16,16 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "embeds/app/stories/**/*.js",
+        "embeds/app/src/**/*.js"
+      ],
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ]
 }

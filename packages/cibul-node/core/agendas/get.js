@@ -53,7 +53,7 @@ module.exports = async (core, agendaUid, options = {}) => {
   });
 
   if (access === 'internal') {
-    return { ...agenda, schema, summary };
+    return { ...agenda, schema, summary, network };
   }
 
   return {

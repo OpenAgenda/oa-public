@@ -9,7 +9,7 @@
   "EventAdminApp.Dashboard.changeState": "Modifier le statut",
   "EventAdminApp.Dashboard.clearFilters": "Effacer les filtres",
   "EventAdminApp.Dashboard.extendedAllSelected": "Les <b>{total}</b> événements correspondant aux filtres actuels sont sélectionnés.",
-  "EventAdminApp.Dashboard.filters": "Filtres",
+  "EventAdminApp.FiltersPortal.filters": "Filtres",
   "EventAdminApp.Dashboard.groupedActions": "Actions groupées sur la sélection",
   "EventAdminApp.Dashboard.next": "Suivant",
   "EventAdminApp.Dashboard.previous": "Précédent",

@@ -187,17 +187,16 @@ function Title({
   );
 }
 
-function DateRangeFilter({
-  name,
-  filter,
-  disabled,
-  staticRanges,
-  inputRanges,
-}) {
+function DateRangeFilter(
+  {
+    name, filter, disabled, staticRanges, inputRanges
+  },
+  ref
+) {
   const intl = useIntl();
   const form = useForm();
 
-  const { callback: onChange } = useDebouncedCallback(() => form.submit(), 1);
+  const onChange = useDebouncedCallback(() => form.submit(), 1);
 
   return (
     <Panel
@@ -211,6 +210,7 @@ function DateRangeFilter({
       )}
     >
       <Field
+        ref={ref}
         name={name}
         subscription={subscription}
         parse={parseValue}
@@ -226,7 +226,7 @@ function DateRangeFilter({
   );
 }
 
-const exported = React.memo(DateRangeFilter);
+const exported = React.memo(React.forwardRef(DateRangeFilter));
 
 // React.memo lose statics
 exported.Preview = Preview;

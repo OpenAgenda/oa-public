@@ -1,0 +1,176 @@
+{
+  "LegacyEmbed.AdvancedMenu.autoScroll": [
+    {
+      "type": 0,
+      "value": "Charger les événements automatiquement quand la fin de la liste est atteinte"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customCSS": [
+    {
+      "type": 0,
+      "value": "Saisissez votre css"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customEvent": [
+    {
+      "type": 0,
+      "value": "Définissez un gabarit pour les pages événements"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customHead": [
+    {
+      "type": 0,
+      "value": "Segment &lt;head&gt; personnalisé"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customListHead": [
+    {
+      "type": 0,
+      "value": "En tête de vue liste"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.customListItem": [
+    {
+      "type": 0,
+      "value": "Définissez un gabarit pour les élements de liste"
+    }
+  ],
+  "LegacyEmbed.AdvancedMenu.linkCSS": [
+    {
+      "type": 0,
+      "value": "Ajoutez un lien vers une feuille de style"
+    }
+  ],
+  "LegacyEmbed.AdvancedWidgetMenu.useDefaultCSS": [
+    {
+      "type": 0,
+      "value": "Utiliser le css par défaut"
+    }
+  ],
+  "LegacyEmbed.ConfigurationMenuSelector.placeholder": [
+    {
+      "type": 0,
+      "value": "Sélectionner un menu"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.cascadingLayout": [
+    {
+      "type": 0,
+      "value": "En cascade"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.layoutPresentation": [
+    {
+      "type": 0,
+      "value": "Présentation de la liste"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.noCSSLayout": [
+    {
+      "type": 0,
+      "value": "Aucun css (avancé)"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.standardLayout": [
+    {
+      "type": 0,
+      "value": "Standard"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.syncHref": [
+    {
+      "type": 0,
+      "value": "Mettre à jour la barre d'adresse du navigateur avec les paramètres de l'agenda"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.tiledLayout": [
+    {
+      "type": 0,
+      "value": "Damier"
+    }
+  ],
+  "LegacyEmbed.GeneralMenu.useEventSlug": [
+    {
+      "type": 0,
+      "value": "Utiliser les titres des événements dans les liens"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapAuto": [
+    {
+      "type": 0,
+      "value": "Mettre à jour la sélection automatiquement lors de la navigation avec la carte"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapPositionMode": [
+    {
+      "type": 0,
+      "value": "Définir le positionnement initial de la carte"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapPositionModeAuto": [
+    {
+      "type": 0,
+      "value": "Automatique"
+    }
+  ],
+  "LegacyEmbed.PositioningMapMenu.mapPositionModeManual": [
+    {
+      "type": 0,
+      "value": "Manuel"
+    }
+  ],
+  "LegacyEmbed.ShareMenu.facebookAppId": [
+    {
+      "type": 0,
+      "value": "L'identifiant de l'app Facebook de votre site"
+    }
+  ],
+  "LegacyEmbed.ShareMenu.facebookAppIdSub": [
+    {
+      "type": 0,
+      "value": "Requis pour partager des événements sur facebook avec des liens pointant vers votre site"
+    }
+  ],
+  "LegacyEmbed.ShareMenu.siteURL": [
+    {
+      "type": 0,
+      "value": "Utilisez l'url de votre site pour les liens de partages (activez l'option de mise à jour de la barre d'adresse)"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.tagSelectionLabel": [
+    {
+      "type": 0,
+      "value": "Select the values to load in the widget"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.useAllValues": [
+    {
+      "type": 0,
+      "value": "Use all values"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.useGroupValues": [
+    {
+      "type": 0,
+      "value": "Use all values from a field"
+    }
+  ],
+  "LegacyEmbed.TagSelectionMenu.useSelection": [
+    {
+      "type": 0,
+      "value": "Pick specific values"
+    }
+  ],
+  "LegacyEmbed.TilesMapMenu.tilesInputLabel": [
+    {
+      "type": 0,
+      "value": "Utilisez des tuiles spécifiques sur votre widget carte"
+    }
+  ],
+  "LegacyEmbed.TilesMapMenu.tilesInputPlaceholder": [
+    {
+      "type": 0,
+      "value": "Collez ici le lien des tuiles à charger"
+    }
+  ]
+}

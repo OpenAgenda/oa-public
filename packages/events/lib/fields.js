@@ -231,7 +231,34 @@ module.exports = [{
   db: {
     type: 'json'
   }
-}, {
+}, /*{
+  field: 'status',
+  fieldType: 'radio',
+  default: 1,
+  options: [{
+    // event is scheduled to occur at provided timings
+    id: 1,
+    value: 'scheduled'
+  }, {
+    // event has been rescheduled, timings have been changed from what was previously published
+    id: 2,
+    value: 'rescheduled'
+  }, {
+    // event has been rescheduled and will occur entirely online
+    id: 3,
+    value: 'movedOnline'
+  }, {
+    // event was cancelled
+    id: 4,
+    value: 'cancelled'
+  }, {
+    // new timings are unknown...
+    id: 5,
+    value: 'postponed'
+  }],
+  write: ['internal', 'public'],
+  read: ['internal', 'public']
+}, */{
   field: 'references',
   fieldType: 'references',
   optional: true,

@@ -14,7 +14,7 @@ module.exports = async (services, agenda) => {
     inboxes: { Inbox },
     eventSearch,
     agendaSearch,
-    slackApp
+    discord
   } = services;
 
   const controlDataSvc = legacy.controlData;
@@ -119,12 +119,11 @@ module.exports = async (services, agenda) => {
     log('error', 'failed to create agenda index');
   }
 
-  slackApp.postMessage.agendaCreation({
-    user,
-    agenda
-  }).catch(error => {
-    log.error('Error while sending registration slack message:', error);
-  });
+  try {
+    await discord.notifyAgendaCreation(agenda, user);
+  } catch (e) {
+    log('error', 'failed to notify discord %s', e);
+  }
 
   log('done');
 }

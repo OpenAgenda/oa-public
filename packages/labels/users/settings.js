@@ -37,7 +37,7 @@ module.exports = {
   "email": {
     "en": "Email",
     "fr": "Email",
-    "de": "Email",
+    "de": "E-Mail",
     "es": "e-mail",
     "it": "Invia un'e-mail a",
     "br": "Postel",
@@ -95,7 +95,7 @@ module.exports = {
   "updatePasswordSuccess": {
     "en": "Your password has been updated successfully.",
     "fr": "Votre mot de passe a été mis à jour.",
-    "de": "Ihr Passwort wurde erfolgreich aktuallisiert.",
+    "de": "Ihr Passwort wurde erfolgreich aktualisiert.",
     "es": "La contraseña se ha actualizado.",
     "it": "La tua password è stata aggiornata.",
     "io": "crwdns15842:0crwdne15842:0"
@@ -135,7 +135,7 @@ module.exports = {
   "save": {
     "en": "Save",
     "fr": "Sauvegarder",
-    "de": "sparen",
+    "de": "Speichern",
     "es": "guardar cambios",
     "it": "Salva",
     "br": "Enrollañ",
@@ -144,7 +144,7 @@ module.exports = {
   "saving": {
     "fr": "Sauvegarde en cours",
     "en": "Saving...",
-    "de": "Speichern ...",
+    "de": "Speichern...",
     "es": "Ahorro",
     "it": "Backup in corso",
     "io": "crwdns15854:0crwdne15854:0"
@@ -225,7 +225,7 @@ module.exports = {
   "showApiKeys": {
     "en": "Show api keys",
     "fr": "Voir vos clés API",
-    "de": "API Schlüssel Zeigen ",
+    "de": "API Schlüssel Zeigen",
     "es": "Ver su llave API",
     "it": "Vedi le tue chiavi API",
     "io": "crwdns15874:0crwdne15874:0"
@@ -241,7 +241,7 @@ module.exports = {
   "deleteModalText": {
     "en": "Are you sure you want to delete your account permanently?\n\n Your calendars and events will remain online, you can delete them manually if you do not want to leave them online",
     "fr": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ?\n\n Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
-    "de": "Bist du sicher, dass du Dein Konto dauerhaft löschen willst ?\n\nDeine Kalender und Veranstaltungen werden online bleiben. du kannst diese manuell löschen, wenn du sie online nicht speichern willst.",
+    "de": "Bist du sicher, dass du Dein Konto dauerhaft löschen willst?\n\nDeine Kalender und Veranstaltungen werden online bleiben. du kannst diese manuell löschen, wenn du sie online nicht speichern willst",
     "es": "¿Está seguro de que quiere eliminar su cuenta de forma permanente?\n\n Sus agendas y eventos permanecerán en línea, puede eliminarlos manualmente si no desea permitir en línea",
     "it": "Sei sicuro di voler cancellare il tuo account in modo permanente?   Le vostre agende e i vostri eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online.",
     "io": "crwdns15878:0crwdne15878:0"
@@ -273,7 +273,7 @@ module.exports = {
   "password.badpassword": {
     "en": "Bad password",
     "fr": "Mauvais mot de passe",
-    "de": "Schlechtes Passwort",
+    "de": "Falsches Passwort",
     "es": "contraseña incorrecta",
     "it": "Password errata",
     "io": "crwdns15886:0crwdne15886:0"
@@ -314,7 +314,7 @@ module.exports = {
   "validationEmailContent": {
     "en": "Hello, you requested to change the email address associated with your OpenAgenda account.If you are not the author of the request, please ignore this message.",
     "fr": "Bonjour,\n\nVous avez demandé à changer l'adresse email liée à votre compte OpenAgenda.\nSi vous n'êtes pas l'auteur de la demande de changement d'adresse email, ne cliquez pas sur le lien, tout simplement.",
-    "de": "Hallo, du wurdest aufgefordert, die E-Mail-Adresse zu ändern, die mit Deinem OpenAgenda Account verbunden ist. Wenn du keine Anfrage zur Änderung angefordert hast, ignorier diese Mail. ",
+    "de": "Hallo, du wurdest aufgefordert, die E-Mail-Adresse zu ändern, die mit Deinem OpenAgenda Account verbunden ist. Wenn du keine Anfrage zur Änderung angefordert hast, ignorieren diese Mail.",
     "es": "Buenos dias,\n\nUsted pedirá que cambie la dirección de correo electrónico asociada con su cuenta de OpenAgenda.\nSi usted no es el autor de la solicitud de cambio de dirección de correo electrónico, no haga clic en el enlace, simplemente.",
     "it": "Salve, Lei ha richiesto di modificare l'indirizzo e-mail associato al suo conto OpenAgenda. Se non sei l'autore della richiesta di modifica dell'indirizzo e-mail, non cliccare sul link.",
     "br": "Demat deoc'h,\n\nGoulennet ho peus cheñch ar chomlec'h postel a zo stag ouzh ho kont OpenAgenda.\nMa n'eo ket ganeoc'h eo bet graet ar goulenn cheñchamant, na glikit ket war al liamm, ken eeun ha tra.",
@@ -364,7 +364,7 @@ module.exports = {
   "agendaEventUpdate": {
     "en": "Event updated",
     "fr": "Événement mis à jour",
-    "de": "Veranstaltungaktualisiert",
+    "de": "Veranstaltung aktualisert",
     "es": "evento actualiza",
     "it": "Evento aggiornato",
     "io": "crwdns15908:0crwdne15908:0"
@@ -436,7 +436,7 @@ module.exports = {
   "filterInputPlaceholder": {
     "en": "Search an agenda",
     "fr": "Rechercher un agenda",
-    "de": "Suche einen Veranstaltungskalender.",
+    "de": "Suche einen Veranstaltungskalender",
     "es": "agenda de búsqueda",
     "it": "Cerca un'agenda",
     "br": "Klask un deiziataer",
