@@ -36,6 +36,25 @@ const Main = () => {
           display: false
         }]
       }, {
+        field: 'acheckboxfieldwithmax',
+        fieldType: 'checkbox',
+        label: 'Make a choice with max number of possible selection',
+        max: 2,
+        default: [6, 7],
+        options: [{
+          id: 6,
+          value: 'option-six',
+          label: 'Option six'
+        }, {
+          id: 7,
+          value: 'option-seven',
+          label: 'Option seven'
+        }, {
+          id: 8,
+          value: 'option-eight',
+          label: 'Option eight'
+        }]
+      }, {
         field: 'arequiredcheckboxfieldwithoutdefaults',
         fieldType: 'checkbox',
         label: 'Make a choice without default',
