@@ -111,11 +111,14 @@ module.exports = class Field extends Component {
 
   getFieldComponent(isMultilingual) {
     const {
-      fieldType,
-      field: fieldName
-    } = this.props.field;
+      field: {
+        fieldType,
+        field
+      },
+      customComponents
+    } = this.props;
 
-    const CustomComponent = _.get(this.props.customComponents, fieldType);
+    const CustomComponent = _.get(customComponents, fieldType);
 
     if (CustomComponent) {
       return CustomComponent;
@@ -126,15 +129,13 @@ module.exports = class Field extends Component {
     }
 
     if (FieldComponents[fieldType]) {
-      return FieldComponents[fieldType]; 
+      return FieldComponents[fieldType];
     }
 
-    throw new Error(`Field ${this.props.field.field} type has no associated component: ${this.props.field.fieldType}`);
+    throw new Error(`Field ${field} type has no associated component: ${fieldType}`);
   }
-
-}
-
+};
 
 function _hasHelp(field) {
-  return field.help || field.helpLink || field.helpContent
+  return field.help || field.helpLink || field.helpContent;
 }
