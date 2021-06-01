@@ -3,8 +3,7 @@
 const log = require('@openagenda/logs')('terms');
 const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 const addListQuery = require('./lib/addListQuery');
-const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
-const termFields = require('./lib/fields.json').filter(f => f.read.includes('terms'));
+const termFields = require('./lib/fields').filter(f => f.read.includes('terms'));
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 const { getMatchingDatabaseField } = require('./lib/addSelect');
@@ -47,7 +46,7 @@ async function terms(service, requestedTerms, query = {}, options = {}) {
     .select(dbFields)
     .groupBy(dbFields)
     .orderBy(dbFields[dbFields.length - 1], 'asc')
-    .then(rows => rows.map(r => fromDbEntryToItem(r, {
+    .then(rows => rows.map(r => service.fieldUtils.fromEntryToItem(r, {
       includeFields: requestedTermFieldNames,
       omitUndefinedFields: true,
     })));

@@ -10,7 +10,7 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fields = require('../lib/fields.json');
+const fields = require('../lib/fields');
 const fixtures = require('./fixtures');
 const Service = require('..');
 
@@ -146,7 +146,7 @@ describe('agenda-locations - functional - list', function () {
     });
   });
 
-  describe.only('filters', () => {
+  describe('filters', () => {
     it('"search" queries region field', async () => {
       const items = await svc(7196947).list({ search: 'nom de région' });
 
@@ -361,7 +361,6 @@ describe('agenda-locations - functional - list', function () {
           detailed: true,
         }
       );
-
       assert.ok(items[0].image.split('/').length > 1);
     });
   });

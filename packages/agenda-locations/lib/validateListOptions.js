@@ -6,7 +6,7 @@ const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
 const pass = require('@openagenda/validators/pass');
 
-const fields = require('./fields.json');
+const fields = require('./fields');
 
 schema.register({
   boolean,

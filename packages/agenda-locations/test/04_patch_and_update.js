@@ -122,6 +122,10 @@ describe('agenda-locations - functional - patch & update', function () {
         'location94482437.jpg'
       );
     });
+
+    it('patching image in store does not affect other store fields', () => {
+      assert.equal(JSON.parse(entry.store).extId, 22);
+    });
   });
 
   describe('set', () => {
@@ -216,7 +220,7 @@ describe('agenda-locations - functional - patch & update', function () {
     });
 
     it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
-      await svc.sets(1903810).locations.patch(60763721, {
+      const updated = await svc.sets(1903810).locations.patch(60763721, {
         extId: 'ard_leg_1200',
       });
 
@@ -229,11 +233,8 @@ describe('agenda-locations - functional - patch & update', function () {
           extId: r.ext_id,
         }));
 
-      await svc.sets(1903810).locations.patch(60763721, {
-        extId: 'ard_leg_1200',
-      });
-
       assert.equal(store.extId, 'ard_leg_1200');
+      assert.equal(updated.extId, 'ard_leg_1200');
     });
 
     it('if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {

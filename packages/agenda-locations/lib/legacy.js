@@ -1,39 +1,25 @@
 'use strict';
 
-const ih = require('immutability-helper');
+const { produce } = require('immer');
 
-module.exports.patch = (entry, store, current) => {
-  const patch = { entry: {}, store: {} };
-
+module.exports.patch = produce((entry, currentItem, currentEntry) => {
   const entryHasExtId = Object.keys(entry).includes('ext_id');
-  const extId = entryHasExtId ? entry.ext_id : current.extId;
+  const extId = entryHasExtId ? entry.ext_id : currentItem.extId;
 
-  patch.store = {
-    extId: { $set: extId },
-  };
+  const store = JSON.parse(currentEntry?.store || '{}');
 
-  if (entry.ext_id !== extId) {
-    patch.entry.ext_id = {
-      $set: extId,
-    };
+  if (entry.store) {
+    Object.assign(store, JSON.parse(entry.store));
   }
+  store.extId = extId;
+  entry.store = JSON.stringify(store);
+});
 
-  return {
-    entry: Object.keys(patch.entry).length ? ih(entry, patch.entry) : entry,
-    store: Object.keys(patch.store).length ? ih(store, patch.store) : store,
-  };
-};
-
-module.exports.load = (location, entry, store) => {
+module.exports.load = produce((location, entry) => {
+  const store = entry?.store ? JSON.parse(entry.store) : {};
   const fields = Object.keys(location);
 
-  const patch = {};
-
   if (fields.includes('extId') && store.extId) {
-    patch.extId = {
-      $set: store.extId,
-    };
+    location.extId = store.extId;
   }
-
-  return Object.keys(patch).length ? ih(location, patch) : location;
-};
+});

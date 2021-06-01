@@ -113,7 +113,6 @@ module.exports = async (service, k, deleted, query) => {
     k.whereBetween('latitude', [geo.southWest.lat, geo.northEast.lat]);
     k.whereBetween('longitude', [geo.southWest.lng, geo.northEast.lng]);
   }
-
   if (state !== null) {
     k.where('store', 'like', `%"state":${state}%`);
   }
