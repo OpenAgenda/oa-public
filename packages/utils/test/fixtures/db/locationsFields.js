@@ -3,30 +3,31 @@
 module.exports = [{
   field: 'id',
   optional: false,
-  type: 'integer',
+  fieldType: 'integer',
   read: ['internal'],
   write: ['internal']
 }, {
   field: 'uid',
-  type: 'integer',
+  fieldType: 'integer',
   optional: false,
   read: ['internal', 'public', 'list'],
   write: ['internal']
-},{
+}, {
   field: 'agendaId',
-  type: 'integer',
+  fieldType: 'integer',
   optional: false,
   read: ['internal'],
   write: ['internal']
 }, {
   field: 'setUid',
-  type: 'integer',
+  fieldType: 'integer',
   optional: true,
+  default: null,
   read: ['internal', 'public'],
   write: ['internal']
 }, {
   field: 'slug',
-  type: 'text',
+  fieldType: 'text',
   optional: false,
   read: ['internal', 'public'],
   write: ['internal'],
@@ -37,47 +38,47 @@ module.exports = [{
   optional: false,
   read: ['internal', 'public', 'list', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'text',
+  fieldType: 'text',
   max: 100
 }, {
   field: 'address',
   optional: false,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
   field: 'city',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 100
 }, {
   field: 'region',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
   field: 'department',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
   field: 'postalCode',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 20
 }, {
   field: 'insee',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 10
@@ -85,14 +86,14 @@ module.exports = [{
   field: 'countryCode',
   db: 'country',
   optional: false,
-  type: 'text',
+  fieldType: 'text',
   max: 2,
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'district',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   db: 'city_district',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
@@ -100,94 +101,130 @@ module.exports = [{
 }, {
   field: 'latitude',
   optional: false,
-  type: 'latitude',
+  fieldType: 'latitude',
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'longitude',
   optional: false,
-  type: 'longitude',
+  fieldType: 'longitude',
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'updatedAt',
   optional: false,
-  type: 'date',
+  fieldType: 'date',
   read: ['internal', 'public'],
   write: ['internal']
 }, {
   field: 'createdAt',
   optional: false,
-  type: 'date',
+  fieldfieldType: 'date',
   read: ['internal', 'public'],
   write: ['internal']
 }, {
   field: 'image',
   optional: true,
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.image',
+    assign: true
+  },
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'stream',
+  fieldType: 'stream',
   'allowNull': true
 }, {
   field: 'description',
   optional: true,
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.description',
+    assign: true
+  },
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'multilingual',
+  fieldType: 'multilingual',
   languages: [],
   max: 5000
 }, {
   field: 'tags',
   optional: true,
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.tags',
+    assign: true
+  },
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'pass'
+  fieldType: 'pass'
 }, {
   field: 'website',
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.website',
+    assign: true
+  },
   optional: true,
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'link'
+  fieldType: 'link'
 }, {
   field: 'email',
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.email',
+    assign: true
+  },
   optional: true,
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'email'
+  fieldType: 'email'
 }, {
   field: 'phone',
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.phone',
+    assign: true
+  },
   optional: true,
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'phone'
+  fieldType: 'phone'
 }, {
   field: 'links',
   optional: true,
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.links',
+    assign: true
+  },
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   'list': true,
-  type: 'link'
+  fieldType: 'link'
 }, {
   field: 'access',
   optional: true,
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.access',
+    assign: true
+  },
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
-  type: 'multilingual',
+  fieldType: 'multilingual',
   languages: [],
   max: 1000
 }, {
   field: 'state',
   optional: true,
-  db: 'store',
-  type : 'choice',
+  db: {
+    type: 'json',
+    field: 'store.state',
+    assign: true
+  },
+  fieldType : 'choice',
   unique: true,
   read: ['internal', 'public', 'list'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
@@ -196,39 +233,55 @@ module.exports = [{
 }, {
   field: 'timezone',
   optional: true,
-  db: 'store',
-  type: 'text',
+  db: {
+    type: 'json',
+    field: 'store.timezone',
+    assign: true
+  },
+  fieldType: 'text',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'imageCredits',
   optional: true,
-  db: 'store',
-  type: 'text',
+  db: {
+    type: 'json',
+    field: 'store.imageCredits',
+    assign: true
+  },
+  fieldType: 'text',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   enableWith: 'image'
 }, {
   field: 'extId',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'eveId',
   optional: true,
-  type: 'text',
+  fieldType: 'text',
   read: ['internal'],
   write: ['internal']
 }, {
   field: 'candidates',
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.candidates',
+    assign: true
+  },
   optional: true,
   read: ['internal', 'public'],
   write: ['internal']
 }, {
   field: 'confirmedNonDuplicates',
-  db: 'store',
+  db: {
+    type: 'json',
+    field: 'store.confirmedNonDuplicates',
+    assign: true
+  },
   optional: true,
   read: ['internal', 'public'],
   write: ['internal']

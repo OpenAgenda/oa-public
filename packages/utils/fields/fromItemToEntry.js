@@ -7,8 +7,8 @@ const {
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-const preFormat = data => {
-  if (typeof data.image === 'string') {
+const preFormat = (data, hasLocationImage)  => {
+  if (typeof data.image === 'string' && !hasLocationImage) {
     return {
       ...data,
       image: { filename: data.image }
@@ -58,10 +58,9 @@ function fromItemToDbEntry(fields, data, current) {
   // console.log('item', { data, current });
   const currentEntry = current && fromItemToDbEntry(fields, current);
 
-  const intermediate = preFormat(data);
 
   const dbEntry = fields.reduce((entry, field) => {
-    if (intermediate[field.field] === undefined) {
+    if (data[field.field] === undefined) {
       return entry;
     }
 
@@ -69,14 +68,17 @@ function fromItemToDbEntry(fields, data, current) {
       field: entryField,
       type: entryType,
       path: entryPath,
-      assign: entryAssign
+      assign: entryAssign,
+      format: formatFunction
     } = extractDbRules(field);
 
     if (entryType === 'json') {
+      const preformatted = formatFunction ? formatFunction(data) : data[field.field]
+      //console.log(preformatted, entryField)
       const value = loadJSONValue(
         entry[entryField] !== undefined ? entry[entryField]: currentEntry?.[entryField],
         entryPath,
-        intermediate[field.field],
+        preformatted,
         entryAssign
       );
       return {
@@ -85,19 +87,8 @@ function fromItemToDbEntry(fields, data, current) {
       };
     }
 
-/*     if (entryField === 'store') {
-      const currentValue =  entry?.[entryField];
-      const name = field.field;
-      const newValue =  data?.[name];
-      const value = currentValue ? {...currentValue, [name]: newValue} : {[name]: newValue};
-      return {
-        ...entry,
-        [entryField]: value
-      };
-    }
- */
     const currentValue = currentEntry?.[entryField] !== undefined ? currentEntry[entryField] : undefined;
-    const value = intermediate[field.field] !== undefined ? intermediate[field.field] : currentValue;
+    const value = data[field.field] !== undefined ? data[field.field] : currentValue;
     return {
       ...entry,
       [entryField]: value
@@ -105,7 +96,7 @@ function fromItemToDbEntry(fields, data, current) {
 
   }, {});
 
-/*   console.log('entry', dbEntry); */
+   //console.log('entry', dbEntry);
 
   return dbEntry;
 }

@@ -8,6 +8,31 @@ const fixtures = require('./fixtures/db');
 
 
 describe('utils - fromItemToEntry', () => {
+  describe('db key', () => {
+    it('when defined, format function is used to transform data', () => {
+      const { image } = fromItemToEntry([{
+        field: 'image',
+        db: {
+          format: data => typeof data.image === 'string' ? { filename: data.image } : data.image,
+          type: 'json',
+          fields: 'image'
+        }
+      }], { image: 'image.jpg' });
+
+      expect(image).toEqual('{"filename":"image.jpg"}');
+    });
+
+    it('use case: extId on location service in field', () => {
+      const entry = fromItemToEntry([{
+        field: 'extId',
+        fieldType: 'text',
+      }], {extId: 10})
+      expect(entry.ext_id).toEqual(10);
+    })
+    
+  });
+
+
   describe('Events', ()=> {
     it('title is jsonified', () => {
       const entry = fromItemToEntry(eventsFields, {
@@ -110,25 +135,76 @@ describe('utils - fromItemToEntry', () => {
     });
   })
 
-/*   describe('Locations', ()=> {
+  describe('Locations', ()=> {
 
-    it('placeName', ()=> {
-      const entry = fromItemToEntry(locationsFields, {name: 'The Name'});
+    it('name to placeName', ()=> {
+      const entry = fromItemToEntry([ {
+        field: 'name',
+        db: 'placename',
+        optional: false,
+        read: ['internal', 'public', 'list', 'terms'],
+        write: ['internal', 'administrator', 'moderator', 'contributor'],
+        fieldType: 'text',
+        max: 100
+      }], {name: 'The Name'});
       assert.deepStrictEqual(entry, {placename: 'The Name'})
     })
 
     it('image && imageCredits', ()=> {
-      const entry = fromItemToEntry(locationsFields, {image: '//cibuldev.s3.amazonaws.com/location36419450.jpg', imageCredits: 'me'});
-      assert.deepStrictEqual(entry, {store: {
-        image: '//cibuldev.s3.amazonaws.com/location36419450.jpg',
-        imageCredits: 'me'
-      }})
+      const entry = fromItemToEntry([
+        {
+          field: 'image',
+          optional: true,
+          db: {
+            type: 'json',
+            field: 'store.image',
+            assign: true
+          },
+          read: ['internal', 'public'],
+          write: ['internal', 'administrator', 'moderator', 'contributor'],
+          fieldType: 'stream',
+          'allowNull': true
+        }, {
+          field: 'imageCredits',
+          optional: true,
+          db: {
+            type: 'json',
+            field: 'store.imageCredits',
+            assign: true
+          },
+          fieldType: 'text',
+          read: ['internal', 'public'],
+          write: ['internal', 'administrator', 'moderator', 'contributor'],
+          enableWith: 'image'
+        }
+      ], {image: '//cibuldev.s3.amazonaws.com/location36419450.jpg', imageCredits: 'me'});
+      assert.deepStrictEqual(entry.store, "{\"image\":\"//cibuldev.s3.amazonaws.com/location36419450.jpg\",\"imageCredits\":\"me\"}")
     })
 
-    it('id', ()=> {
-      const entry = fromItemToEntry(locationsFields, {"id": 834568});
-      assert.deepStrictEqual(entry, { id: 834568})
+    it('candidates && confirmedNonDuplicates- keep non changed store items', ()=> {
+      const entry = fromItemToEntry([ {
+        field: 'candidates',
+        db: {
+          type: 'json',
+          field: 'store.candidates',
+          assign: true
+        },
+        optional: true,
+        read: ['internal', 'public'],
+        write: ['internal']
+      }, {
+        field: 'confirmedNonDuplicates',
+        db: {
+          type: 'json',
+          field: 'store.confirmedNonDuplicates',
+          assign: true
+        },
+        optional: true,
+        read: ['internal', 'public'],
+        write: ['internal']
+      }
+      ], { candidates: [1,2] }, { candidates: [3,4], confirmedNonDuplicates : [5,6] });
+      assert.deepStrictEqual(entry.store, "{\"candidates\":[1,2],\"confirmedNonDuplicates\":[5,6]}")
     })
-
-  }) */
+  })
 });

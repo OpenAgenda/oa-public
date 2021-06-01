@@ -16,9 +16,8 @@ const getPath = (field, options = {}) => {
   } else if (typeof field.db === 'string') {
     path = field.db;
   } else {
-    path = field.db.field || _.snakeCase(field.field);
+    path = field.db?.field || _.snakeCase(field.field);
   }
-
   if (!excludeField) {
     return path;
   }

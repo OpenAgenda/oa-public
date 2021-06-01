@@ -13,13 +13,15 @@ module.exports = (fields, entry = {}, options = {}) => {
 
   const {
     access,
-    includeFields
+    includeFields,
+    omitUndefinedFields
   } = {
     access: 'public',
     includeFields: [],
+    omitUndefinedFields: false,
     ...options
   };
-
+  //console.log('includeFields:', includeFields, 'omitUndefinedFields:', omitUndefinedFields)
 
   const compiledItem = getFieldsByAccess(fields, 'read', access)
     .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
@@ -29,6 +31,7 @@ module.exports = (fields, entry = {}, options = {}) => {
       const dbPath = getDatabaseFieldPath(field);
       const value = raw && (field?.db?.type === 'json') ? JSON.parse(raw) : raw;
 
+
       if (dbPath.length) {
         item[field.field] = _.get(value, dbPath);
       } else {
@@ -37,6 +40,7 @@ module.exports = (fields, entry = {}, options = {}) => {
 
       return item;
     }, {});
-
+  if (omitUndefinedFields)
+    return _.pickBy(compiledItem, v => v !== undefined);
   return compiledItem;
 };

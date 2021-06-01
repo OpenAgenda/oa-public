@@ -115,6 +115,7 @@ module.exports = [{
   read: ['internal', 'public'],
   write: ['internal', 'public'],
   db: {
+    format: data => typeof data.image === 'string' ? { filename: data.image } : data.image,
     type: 'json',
     field: 'image',
     assign: true
