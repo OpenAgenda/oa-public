@@ -265,25 +265,4 @@ module.exports = [{
   fieldType: 'text',
   read: ['internal'],
   write: ['internal']
-}, {
-  field: 'candidates',
-  default: null,
-  db: {
-    type: 'json',
-    field: 'store.candidates',
-  },
-  optional: true,
-  read: ['internal', 'public'],
-  write: ['internal']
-}, {
-  field: 'confirmedNonDuplicates',
-  default: null,
-  db: {
-    type: 'json',
-    field: 'store.confirmedNonDuplicates',
-  },
-  optional: true,
-  read: ['internal', 'public'],
-  write: ['internal']
-}
-];
+}];

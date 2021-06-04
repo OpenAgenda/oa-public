@@ -353,7 +353,7 @@ describe('agenda-locations - functional - list', function () {
       items = await svc(7196947).list({}, {}, { detailed: true });
     });
 
-    it('if detailed option is provided, all public fields are given', async () => {
+    it('if detailed option is provided, all public fields are given', () => {
       assert.deepEqual(
         Object.keys(items[0]),
         fields.filter(f => f.read.includes('public')).map(f => f.field)
@@ -376,7 +376,7 @@ describe('agenda-locations - functional - list', function () {
       assert.ok(items[0].image.split('/').length > 1);
     });
   });
-
+  
   describe('set', () => {
     let items;
 

@@ -13,9 +13,9 @@ module.exports = async (service, items, options = {}) => {
   } = options;
 
   const transformed = items.map(i => service.fieldUtils.fromEntryToItem(i, {
-    // imagePath: includeImagePath ? service.config.imagePath : null,
     access: detailed ? 'public' : 'list',
-    includeFields
+    includeFields,
+    nullifyUndefined: true
   }));
 
   if (service.interfaces.getEventCounts && includeEventCounts) {
@@ -31,5 +31,6 @@ module.exports = async (service, items, options = {}) => {
   if (includeImagePath && service.config.imagePath) {
     injectImagePath(transformed, service.config.imagePath);
   }
+
   return transformed;
 };
