@@ -1,6 +1,6 @@
-'use strict';
+import errors from './lib/errors';
 
-module.exports = (config = {}) => {
+export default (config = {}) => {
   const params = {
     optional: false,
     field: false, // required
@@ -25,49 +25,38 @@ module.exports = (config = {}) => {
     }
 
     if (!params.optional && !clean) {
-      throw [{
-        origin: value,
-        field: params.field,
-        code: 'required',
-        message: 'value must not be empty'
-      }];
+      throw errors(
+        params,
+        value,
+        'required',
+        'value must not be empty'
+      );
     }
 
-    if (typeof clean == 'string' && params.trim) {
+    if (typeof clean === 'string' && params.trim) {
       clean = clean.trim();
     }
 
     if (params.min !== null && clean.length < params.min) {
-      throw [{
-        origin: value,
-        field: params.field,
-        code: 'toosmall',
-        message: 'value is too short',
-        values: {
-          min: params.min,
-          max: params.max
-        }
-      }];
+      throw errors(
+        params,
+        value,
+        'toosmall',
+        'value is too short'
+      );
     }
 
     if (params.max !== null && clean.length > params.max) {
-      throw [{
-        origin: value,
-        field: params.field,
-        code: 'toolong',
-        message: 'value is too long',
-        values: {
-          min: params.min,
-          max: params.max
-        }
-      }]
+      throw errors(
+        params,
+        value,
+        'too long',
+        'value is too long'
+      );
     }
 
     if (!params.regex.test(clean)) {
-      throw [Object.assign({
-        origin: value,
-        field: params.field
-      }, params.error)];
+      throw errors(params, value, params.error.code, params.error.message);
     }
 
     return params.clean ? clean.match(params.regex)[0] : clean;

@@ -1,64 +1,34 @@
-"use strict"; // ES5
+import errors from './lib/errors';
 
-var utils = require( '@openagenda/utils' );
+export default (config = {}) => {
+  const params = {
+    field: false,
+    optional: true,
+    ...config
+  };
 
-module.exports = function( config ) {
-
-  var params = utils.extend( {
-    field: false, 
-    optional: true
-  }, config || {} );
-
-  return utils.extend( validate, {
-    field: params.field,
-    type: 'longitude'
-  } );
-
-  function validate( value ) {
-
-    if ( value === undefined && params.optional ) {
-
+  return Object.assign(value => {
+    if (value === undefined && params.optional) {
       return null;
-
     }
 
-    var clean = parseFloat( value );
+    const clean = parseFloat(value);
 
-    if ( isNaN( clean ) ) {
-
-      throw [ {
-        field: params.field,
-        code: 'longitude.invalid',
-        message: 'not a number',
-        origin: value
-      } ];
-
+    if (Number.isNaN(clean)) {
+      throw errors(params, value, 'longitude.invalid', 'not a number');
     }
 
-    if ( clean < -180 ) {
-
-      throw [ {
-        field: params.field,
-        code: 'longitude.toosmall',
-        message: 'longitude cannot be less than -180',
-        origin: value
-      } ]
-
+    if (clean < -180) {
+      throw errors(params.field, value, 'longitude.toosmall', 'longitude cannot be less than -180');
     }
 
-    if ( clean > 180 ) {
-
-      throw [ {
-        field: params.field,
-        code: 'longitude.toobig',
-        message: 'longitude cannot be more than 180',
-        origin: value
-      } ];
-
+    if (clean > 180) {
+      throw errors(params.field, value, 'longitude.toobig', 'longitude cannot be more than 180');
     }
 
     return clean;
-
-  }
-
-}
+  }, {
+    type: 'longitude',
+    field: params.field
+  });
+};

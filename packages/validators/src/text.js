@@ -14,17 +14,10 @@ export default config => {
     strict: false
   }, config || {});
 
-  const validator = Object.assign(validate, {
-    type: 'text',
-    field: params.field
-  });
+  const validate = value => {
+    let clean = [undefined, null].includes(value) ? '' : `${value}`;
 
-  return params.list ? listify(validator, params) : validator;
-
-  function validate(value) {
-    let clean = [undefined, null].includes(value) ? '' : value + '';
-
-    if (typeof value == 'object' && clean) {
+    if (typeof value === 'object' && clean) {
       throw errors(params, value, 'string.invalidtype', 'not a string');
     }
 
@@ -44,10 +37,12 @@ export default config => {
     }
 
     if (clean.length < params.min) {
-      throw errors(params, value,
+      throw errors(
+        params,
+        value,
         'string.tooshort',
         'the string is too short',
-        { 
+        {
           values: {
             min: params.min,
             max: params.max
@@ -57,10 +52,12 @@ export default config => {
     }
 
     if (clean.length > params.max) {
-      throw errors(params, value,
+      throw errors(
+        params,
+        value,
         'string.toolong',
         'the string is too long',
-        { 
+        {
           values: {
             min: params.min,
             max: params.max
@@ -70,5 +67,12 @@ export default config => {
     }
 
     return clean;
-  }
-}
+  };
+
+  const validator = Object.assign(validate, {
+    type: 'text',
+    field: params.field
+  });
+
+  return params.list ? listify(validator, params) : validator;
+};
