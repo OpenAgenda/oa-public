@@ -45,4 +45,4 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   }
 
   return agenda;
-}
+};

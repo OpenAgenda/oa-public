@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const ih = require('immutability-helper');
 
 const log = require('@openagenda/logs')('core/agendas/events/create');
@@ -33,7 +32,6 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   const {
     access,
-    context,
     draft,
     defaultLang,
     formSchemaDataFormat,
@@ -41,7 +39,6 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     returnPayload,
   } = {
     access: 'public', // read or write?
-    context: {},
     draft: false,
     defaultLang: 'en',
     formSchemaDataFormat: false,
@@ -65,7 +62,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     member,
     access
   });
-  
+
   log('  cleaned data');
 
   const authorizations = await loadAuthorizations(core, 'create', {
@@ -136,4 +133,4 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   });
 
   return returnPayload ? response : response.event;
-}
+};

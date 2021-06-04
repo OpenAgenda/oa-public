@@ -74,7 +74,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     access: 'public',
     ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
   };
-  
+
   const schemaExtensions = {
     network: networkFormSchema,
     agenda: formSchema
@@ -126,7 +126,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     Object.assign(
       clean,
       _distributeCleanData(consolidatedClean, schemaExtensions)
-   );
+    );
   } catch (consolidatedErrors) {
     if (!_.isArray(consolidatedErrors)) {
       throw consolidatedErrors;
