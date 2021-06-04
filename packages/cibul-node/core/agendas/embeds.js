@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = (core, agendaUid) => {
+  if (!core.services.legacy) {
+    return;
+  }
+
   const {
     services: {
       legacy: {
