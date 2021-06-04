@@ -494,5 +494,29 @@ module.exports = {
     "es": "Se requieren los campos marcados con *",
     "br": "Ret eo leuniañ ar maeziennoù merket gant ur *",
     "io": "crwdns14366:0crwdne14366:0"
+  },
+  "scheduled": {
+    "fr": "Programmé",
+    "en": "Scheduled"
+  },
+  "rescheduled": {
+    "fr": "Re-programmé",
+    "en": "Re-scheduled"
+  },
+  "movedOnline": {
+    "fr": "Passé en ligne",
+    "en": "Moved online"
+  },
+  "cancelled": {
+    "fr": "Annulé",
+    "en": "Cancelled"
+  },
+  "postponed": {
+    "fr": "Reporté",
+    "en": "Postponed"
+  },
+  "status": {
+    "fr": "État",
+    "en": "Status"
   }
-}
+};
