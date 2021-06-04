@@ -233,6 +233,42 @@ module.exports = core => {
       }), next)
   );
 
+  app.get(
+    '/agendas/:agendaUid/embeds/:embedUid',
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds(req.params.embedUid)
+      .get().then(embed => res.json(embed), next)
+  );
+
+  app.post(
+    '/agendas/:agendaUid/embeds/:embedUid',
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds(req.params.embedUid)
+      .update(req.parsedData)
+      .then(embed => res.json(embed), next)
+  );
+
+  app.get(
+    '/agendas/:agendaUid/embeds',
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds.list()
+      .then(embeds => res.json(embeds), next)
+  );
+
+  app.post(
+    '/agendas/:agendaUid/embeds',
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds.create(req.parsedData)
+      .then(embed => res.json(embed), next)
+  );
+
   app.post('/agendas/:agendaUid/settings/resync', [
     verifySuperAdmin,
     settings.resync

@@ -33,10 +33,9 @@
     "section": "manage"
   },
   {
-    "name": "web",
+    "name": "embeds",
     "section": "export",
-    "php": true,
-    "route": "/webembed",
+    "route": "/embeds",
     "roles": [
       "administrator"
     ]

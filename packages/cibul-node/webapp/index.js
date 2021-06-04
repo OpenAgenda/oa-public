@@ -301,6 +301,16 @@ const initialState = async req => {
         sendMessage: '/:slug/admin/members/send-message'
       }
     },
+    legacyEmbeds: {
+      prefix: '/:slug/admin/embeds',
+      lang,
+      apiRoot: `http://localhost:${config.port}`,
+      res: {
+        embeds: '/api/agendas/:agendaUid/embeds',
+        preview: '/agendas/:agendaUid/previewEmbeds/:embedUid/events',
+        previewScript: '/js/embed/cibulBodyWidget.js'
+      }
+    },
     agendaActivities: {
       settings: {
         prefix: '/:slug/admin/activities',
@@ -400,6 +410,7 @@ module.exports = app => {
       '/:slug/admin/inbox(/*?)?',
       '/:slug/admin/sources(/*?)?',
       '/:slug/admin/members(/*?)?',
+      '/:slug/admin/embeds(/*?)?',
       '/:slug/admin/activities(/*?)?',
       '/:slug/admin/statistics(/*?)?',
       '/:slug/admin/getting-started(/*?)?',
