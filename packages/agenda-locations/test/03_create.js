@@ -114,6 +114,16 @@ describe('agenda-locations - functional - create', function () {
     it('result does not provide agendaId', () => {
       assert(created.agendaId === undefined);
     });
+
+
+    it('store after creation', async () => {
+      const entry = await f
+      .client('location')
+      .first('store', 'ext_id')
+      .where('uid', created.uid);
+
+      assert.equal(JSON.parse(entry.store).extId, 123456);
+    });
   });
 
   describe('set', () => {

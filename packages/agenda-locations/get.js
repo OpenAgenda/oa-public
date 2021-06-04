@@ -7,9 +7,9 @@ const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
-const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
+const legacy = require('./lib/legacy');
 
 async function get(service, identifiers, options = {}) {
   log('received %j', identifiers);
@@ -30,13 +30,12 @@ async function get(service, identifiers, options = {}) {
   });
 
   addSelect(k, 'public', { first: true, includeFields });
-  const location = await k.then(l => (l
-    ? fromDbEntryToItem(l, {
-      includeFields,
-      imagePath: includeImagePath ? service.config.imagePath : null,
-      access: 'public',
-    })
-    : null));
+  const entry = await k;
+
+  const location = entry ? service.fieldUtils.fromEntryToItem(entry, {
+    includeFields,
+    access: 'public',
+  }) : null;
 
   if (!location) {
     if (throwOnNotFound) {
@@ -56,7 +55,11 @@ async function get(service, identifiers, options = {}) {
     location.linkedAgendas = await service.interfaces.getLinkedAgendas(location.uid);
   }
 
-  return location;
+  if (includeImagePath && service.config.imagePath) {
+    location.image = service.config.imagePath + location.image;
+  }
+
+  return legacy.load(location, entry);
 }
 
 module.exports = get;

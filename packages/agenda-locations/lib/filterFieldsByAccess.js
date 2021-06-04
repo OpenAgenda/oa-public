@@ -1,6 +1,6 @@
 'use strict';
 
-const fields = require('./fields.json');
+const fields = require('./fields');
 
 module.exports = (location, access = 'public') => fields
   .filter(field => field.read.includes(access))

@@ -4,6 +4,9 @@ const geolib = require('geolib');
 const knex = require('knex');
 const logger = require('@openagenda/logs');
 const countries = require('@openagenda/countries');
+const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
+const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
+const fields = require('./lib/fields');
 
 const create = require('./create');
 const get = require('./get');
@@ -84,6 +87,10 @@ module.exports = Object.assign(
         variants: imageVariants(config.Files),
       }),
       getINSEECode: c.redis ? getINSEECode(c.redis) : null,
+      fieldUtils: {
+        fromItemToEntry: fromItemToEntry.bind(null, fields),
+        fromEntryToItem: fromEntryToItem.bind(null, fields)
+      }
     };
 
     service.decorateWithGeocodeData = decorateWithGeocodeData(service);

@@ -4,7 +4,6 @@ const log = require('@openagenda/logs')('update');
 
 const get = require('./get');
 const cleanSetOptions = require('./lib/cleanSetOptions');
-const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const generateFileKey = require('./lib/generateFileKey');
 const validate = require('./lib/validate');
 const setLegacy = require('./lib/legacy/set');
@@ -52,7 +51,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
   await handleInterface(service, 'beforeUpdate', current, updated, options.context);
 
   await service.clients.knex(service.config.schema)
-    .update(fromItemToDbEntry(clean, current))
+    .update(service.fieldUtils.fromItemToEntry(clean, current))
     .where('uid', current.uid);
 
   log('updated event with uid %s', current.uid);

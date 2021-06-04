@@ -2,16 +2,13 @@
 
 const _ = require('lodash');
 
-const log = require('@openagenda/logs')('fromItemToDbEntry');
-
-const fields = require('./fields');
 const {
   getName: getDatabaseFieldName,
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-const preFormat = data => {
-  if (typeof data.image === 'string') {
+const preFormat = (data, hasLocationImage)  => {
+  if (typeof data.image === 'string' && !hasLocationImage) {
     return {
       ...data,
       image: { filename: data.image }
@@ -57,14 +54,13 @@ const loadJSONValue = (JSONValue, path, value, assign = false) => {
   });
 };
 
-function fromItemToDbEntry(data, current) {
-  log('item', { data, current });
-  const currentEntry = current && fromItemToDbEntry(current);
+function fromItemToDbEntry(fields, data, current) {
+  // console.log('item', { data, current });
+  const currentEntry = current && fromItemToDbEntry(fields, current);
 
-  const intermediate = preFormat(data);
 
   const dbEntry = fields.reduce((entry, field) => {
-    if (intermediate[field.field] === undefined) {
+    if (data[field.field] === undefined) {
       return entry;
     }
 
@@ -72,14 +68,17 @@ function fromItemToDbEntry(data, current) {
       field: entryField,
       type: entryType,
       path: entryPath,
-      assign: entryAssign
+      assign: entryAssign,
+      format: formatFunction
     } = extractDbRules(field);
 
     if (entryType === 'json') {
+      const preformatted = formatFunction ? formatFunction(data) : data[field.field]
+      //console.log(preformatted, entryField)
       const value = loadJSONValue(
         entry[entryField] !== undefined ? entry[entryField]: currentEntry?.[entryField],
         entryPath,
-        intermediate[field.field],
+        preformatted,
         entryAssign
       );
       return {
@@ -89,7 +88,7 @@ function fromItemToDbEntry(data, current) {
     }
 
     const currentValue = currentEntry?.[entryField] !== undefined ? currentEntry[entryField] : undefined;
-    const value = intermediate[field.field] !== undefined ? intermediate[field.field] : currentValue;
+    const value = data[field.field] !== undefined ? data[field.field] : currentValue;
     return {
       ...entry,
       [entryField]: value
@@ -97,7 +96,7 @@ function fromItemToDbEntry(data, current) {
 
   }, {});
 
-  log('entry', dbEntry);
+   //console.log('entry', dbEntry);
 
   return dbEntry;
 }

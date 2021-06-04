@@ -1,7 +1,6 @@
 'use strict';
 
 const decorateWithCounts = require('./decorateWithCounts');
-const fromDbEntryToItem = require('./fromDbEntryToItem');
 
 module.exports = async (service, items, options = {}) => {
   const {
@@ -12,8 +11,8 @@ module.exports = async (service, items, options = {}) => {
     includeImagePath,
   } = options;
 
-  const transformed = items.map(i => fromDbEntryToItem(i, {
-    imagePath: includeImagePath ? service.config.imagePath : null,
+  const transformed = items.map(i => service.fieldUtils.fromEntryToItem(i, {
+    // imagePath: includeImagePath ? service.config.imagePath : null,
     access: detailed ? 'public' : 'list',
     includeFields,
   }));
@@ -28,5 +27,11 @@ module.exports = async (service, items, options = {}) => {
     );
   }
 
+  if (includeImagePath && service.config.imagePath) {
+    return transformed.map(i => ({
+      ...i,
+      image: service.config.imagePath + i.image
+    }));
+  }
   return transformed;
 };

@@ -1,0 +1,80 @@
+{
+  "entry": {
+    "id":834568,
+    "slug":"chateau224_5033_5563_8809_14370_20060",
+    "placename":"Château d'Alba-la-Romaine",
+    "address":"Place du château, 07400 Alba-la-Romaine, Ardèche, Auvergne-Rhône-Alpes",
+    "city":"Alba-la-Romaine",
+    "country":"FR",
+    "latitude":44.554773,
+    "longitude":4.599308,
+    "owner_id":null,
+    "created_at":"2019-04-29T13:38:04.000Z",
+    "updated_at":"2019-04-29T13:38:04.000Z",
+    "uid":5122576,
+    "main":0,
+    "store":"{\"image\":\"location36419450.jpg\",\"description\":{\"fr\":\"Façade nord-ouest du XIe - XIIIe visible du parc. La partie habitable et visitable date de la Renaissance avec des transformations au XIXe siècle. Façade du XIe siècle reliée au château datant de la Renaissance par une façade en trompe-l’œil du XIXe siècle.\",\"en\":\"Northwest facade of XIth - XIIIth visible of the park. Habitable part(party) and visitable dates Renaissance with transformations in the XIXth century. Facade of the XIth century connected(bound) with the castle dating Renaissance by a trompe l'oeil(window-dressing) facade of the XIXth century.\",\"de\":\"Nordwestliche Fassade XI. - XIII. die Park sichtbare. Der bewohnbare Teil(Seite) und visitable die Renaissance mit Veränderungen im XIX. Jahrhundert datiert. Fassade des XI. Jahrhunderts, die im die Renaissance von einer Fassade datierenden Schloss eingebunden(verbunden) ist, täusche es Auge des XIX. Jahrhunderts.\",\"es\":\"Fachada noroeste de XIo - XIIIo visible del parque. La parte habitable y visitable fecha Renacimiento con transformaciones en el siglo XIX. Fachada del siglo XI relacionada al castillo que feche Renacimiento por una fachada engáñalo ojo del siglo XIX.\",\"it\":\"Facciata di nordovest di XIth - XIIIth visibile(evidente) del parco. Parte abitabile (partito) e Rinascimento di date visitable con trasformazioni(metamorfosi) nel secolo XIXth. La facciata del secolo XIth si è connessa (legato) con il Rinascimento di datazione di castello da un trompe l'oeil (l'addobbo di vetrine(arte di presentare una situazione sotto una luce favorevole)) la facciata del secolo XIXth.\"},\"tags\":[{\"id\":42,\"label\":\"Monument historique\"},{\"id\":2,\"label\":\"Château, hôtel urbain, palais, manoir\"}],\"website\":\"http://www.chateaudalba.com/\",\"phone\":\"04 75 52 42 90\",\"links\":[],\"access\":{\"fr\":\"9 km après Le Teil, route d'Aubenas\",\"en\":\"9 km after Teil, road of Aubenas\",\"de\":\"9 km nach Teil, Weg von Aubenas\",\"es\":\"9 kms después de Teil, camino de Aubenas\",\"it\":\"9 chilometri dopo Teil, stradale di Aubenas\"},\"state\":1,\"timezone\":\"Europe/Paris\",\"imageCredits\":\"© Château d'Alba-la-Romaine\",\"candidates\":[1,2],\"confirmedNonDuplicates\":[3,4]}",
+    "processed_at":"2016-03-16T08:22:38.000Z",
+    "department":"Ardèche",
+    "region":"Auvergne-Rhône-Alpes",
+    "city_district":null,
+    "postal_code":"07400",
+    "eve_id":null,
+    "agenda_id":25221,
+    "insee":"07005"
+    
+  },
+  "item": {
+    "uid": 5122576,
+    "name": "Château d'Alba-la-Romaine",
+    "slug":"chateau224_5033_5563_8809_14370_20060",
+    "region": "Auvergne-Rhône-Alpes",
+    "phone": "04 75 52 42 90",
+    "department": "Ardèche",
+    "state": 1,
+    "city": "Alba-la-Romaine",
+    "timezone": "Europe/Paris",
+    "postalCode": "07400",
+    "description": {
+      "fr": "Façade nord-ouest du XIe - XIIIe visible du parc. La partie habitable et visitable date de la Renaissance avec des transformations au XIXe siècle. Façade du XIe siècle reliée au château datant de la Renaissance par une façade en trompe-l’œil du XIXe siècle.",
+      "en": "Northwest facade of XIth - XIIIth visible of the park. Habitable part(party) and visitable dates Renaissance with transformations in the XIXth century. Facade of the XIth century connected(bound) with the castle dating Renaissance by a trompe l'oeil(window-dressing) facade of the XIXth century.",
+      "de": "Nordwestliche Fassade XI. - XIII. die Park sichtbare. Der bewohnbare Teil(Seite) und visitable die Renaissance mit Veränderungen im XIX. Jahrhundert datiert. Fassade des XI. Jahrhunderts, die im die Renaissance von einer Fassade datierenden Schloss eingebunden(verbunden) ist, täusche es Auge des XIX. Jahrhunderts.",
+      "es": "Fachada noroeste de XIo - XIIIo visible del parque. La parte habitable y visitable fecha Renacimiento con transformaciones en el siglo XIX. Fachada del siglo XI relacionada al castillo que feche Renacimiento por una fachada engáñalo ojo del siglo XIX.",
+      "it": "Facciata di nordovest di XIth - XIIIth visibile(evidente) del parco. Parte abitabile (partito) e Rinascimento di date visitable con trasformazioni(metamorfosi) nel secolo XIXth. La facciata del secolo XIth si è connessa (legato) con il Rinascimento di datazione di castello da un trompe l'oeil (l'addobbo di vetrine(arte di presentare una situazione sotto una luce favorevole)) la facciata del secolo XIXth."
+    },
+    "longitude": 4.599308,
+    "district": null,
+    "tags": [
+      {
+        "id": 42,
+        "label": "Monument historique"
+      },
+      {
+        "id": 2,
+        "label": "Château, hôtel urbain, palais, manoir"
+      }
+    ],
+    "website": "http://www.chateaudalba.com/",
+    "countryCode": "FR",
+    "image": "//cibuldev.s3.amazonaws.com/location36419450.jpg",
+    "links": [],
+    "access": {
+      "fr": "9 km après Le Teil, route d'Aubenas",
+      "en": "9 km after Teil, road of Aubenas",
+      "de": "9 km nach Teil, Weg von Aubenas",
+      "es": "9 kms después de Teil, camino de Aubenas",
+      "it": "9 chilometri dopo Teil, stradale di Aubenas"
+    },
+    "createdAt": "2019-04-29T13:38:04.000Z",
+    "updatedAt": "2019-04-29T13:38:04.000Z",
+    "insee": "07005",
+    "address": "Place du château, 07400 Alba-la-Romaine, Ardèche, Auvergne-Rhône-Alpes",
+    "imageCredits": "© Château d'Alba-la-Romaine",
+    "latitude": 44.554773,
+    "extId": null, 
+    "setUid": null,
+    "email": null,
+    "candidates": [1,2],
+    "confirmedNonDuplicates":[3,4]
+  }
+}

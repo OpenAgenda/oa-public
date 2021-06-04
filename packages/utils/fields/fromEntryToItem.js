@@ -2,33 +2,35 @@
 
 const _ = require('lodash');
 
-const log = require('@openagenda/logs')('fromDBEntryToItem');
-
 const getFieldsByAccess = require('./getFieldsByAccess');
 const {
   getName: getDatabaseFieldName,
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-module.exports = (service, entry = {}, options = {}) => {
-  log('entry %j', entry);
+module.exports = (fields, entry = {}, options = {}) => {
+  // console.log('fromEntryToItem', entry, options)
 
   const {
     access,
-    includeFields
+    includeFields,
+    omitUndefinedFields
   } = {
     access: 'public',
     includeFields: [],
+    omitUndefinedFields: false,
     ...options
   };
+  //console.log('includeFields:', includeFields, 'omitUndefinedFields:', omitUndefinedFields)
 
-  const compiledItem = getFieldsByAccess('read', access)
+  const compiledItem = getFieldsByAccess(fields, 'read', access)
     .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
     .reduce((item, field) => {
       const dbFieldName = getDatabaseFieldName(field);
       const raw = entry[dbFieldName];
       const dbPath = getDatabaseFieldPath(field);
       const value = raw && (field?.db?.type === 'json') ? JSON.parse(raw) : raw;
+
 
       if (dbPath.length) {
         item[field.field] = _.get(value, dbPath);
@@ -38,8 +40,7 @@ module.exports = (service, entry = {}, options = {}) => {
 
       return item;
     }, {});
-
-  log('item %j', compiledItem);
-
+  if (omitUndefinedFields)
+    return _.pickBy(compiledItem, v => v !== undefined);
   return compiledItem;
 };

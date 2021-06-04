@@ -3,7 +3,6 @@
 const assert = require('assert');
 const Files = require('@openagenda/files');
 
-
 const {
   service: config,
   dependencies: dConfig,

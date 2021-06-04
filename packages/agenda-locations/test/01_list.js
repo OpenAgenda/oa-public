@@ -10,7 +10,7 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fields = require('../lib/fields.json');
+const fields = require('../lib/fields');
 const fixtures = require('./fixtures');
 const Service = require('..');
 
@@ -192,6 +192,37 @@ describe('agenda-locations - functional - list', function () {
       );
     });
 
+    it('"excludeUid" filter exclude provided location uid from list', async () => {
+      const excludeUid = 76248298;
+
+      const selection = await svc(7196947).list({ excludeUid });
+
+      assert.equal(selection.find(e => e.uid === excludeUid), undefined);
+    });
+
+    it('"excludeUid" filter exclude provided locations uid from list', async () => {
+      const excludeUid = [76248298, 10175539];
+
+      const selection = await svc(7196947).list({ excludeUid });
+      assert.equal(selection.find(e => e.uid === 10175539), undefined);
+    });
+
+    it('"geo" filter list locations in square', async () => {
+      const geo = {
+        northEast : {
+          lat: 47,
+          lng: 4,
+        },
+        southWest : {
+          lat: 44,
+          lng: 3,
+        }
+      }
+
+      const selection = await svc(7196947).list({ geo });
+      assert.equal(selection.length, 4)
+    });
+
     it('"updatedAt.gte" filter', async () => {
       const gte = new Date('2019-09-05 14:45:18');
 
@@ -330,7 +361,6 @@ describe('agenda-locations - functional - list', function () {
           detailed: true,
         }
       );
-
       assert.ok(items[0].image.split('/').length > 1);
     });
   });

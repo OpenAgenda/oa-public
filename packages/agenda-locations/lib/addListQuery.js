@@ -32,11 +32,43 @@ const validate = schema({
       default: null,
     },
   },
+  excludeUid: {
+    type: 'integer',
+    list: {
+      default: null,
+    },
+  },
+  geo: {
+    fields: {
+      northEast: {
+        optional: false,
+        fields: {
+          lat: {
+            type: 'latitude'
+          },
+          lng: {
+            type: 'longitude'
+          }
+        }
+      },
+      southWest: {
+        optional: false,
+        fields: {
+          lat: {
+            type: 'latitude'
+          },
+          lng: {
+            type: 'longitude'
+          }
+        }
+      }
+    }
+  },
 });
 
 module.exports = async (service, k, deleted, query) => {
   const {
-    agendaUid, setUid, search, state, uids, updatedAt
+    agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo
   } = validate(query);
 
   const agendaId = agendaUid
@@ -74,7 +106,13 @@ module.exports = async (service, k, deleted, query) => {
   if (uids) {
     k.whereIn('uid', uids.filter(uid => !!uid));
   }
-
+  if (excludeUid) {
+    k.whereNotIn('uid', excludeUid);
+  }
+  if (geo?.northEast?.lat && geo?.northEast?.lng && geo?.southWest?.lat && geo?.southWest?.lng) {
+    k.whereBetween('latitude', [geo.southWest.lat, geo.northEast.lat]);
+    k.whereBetween('longitude', [geo.southWest.lng, geo.northEast.lng]);
+  }
   if (state !== null) {
     k.where('store', 'like', `%"state":${state}%`);
   }
