@@ -34,6 +34,7 @@ import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
+import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
@@ -120,6 +121,11 @@ const apps = [
   [
     'agendaStats',
     createAgendaStatsApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'legacyEmbeds',
+    createLegacyEmbedsApp,
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
   ],
   [

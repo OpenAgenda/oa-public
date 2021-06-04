@@ -38,6 +38,7 @@ const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/
 const createAgendaStatsApp = require('@openagenda/agenda-stats/dist/app');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const createMembersApp = require('@openagenda/member-apps/dist/app');
+const createLegacyEmbedsApp = require('@openagenda/legacy/embeds/app/dist');
 const createEventAdminApp = require('@openagenda/event-admin-apps/dist/app');
 const createSupervisorApp = require('@openagenda/supervisor/lib/app');
 const RootHelmet = require('./RootHelmet');
@@ -128,6 +129,16 @@ module.exports = function match({ initialState, publicPath }) {
           'agendaStats',
           createAgendaStatsApp,
           [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+        ],
+        [
+          'legacyEmbeds',
+          createLegacyEmbedsApp,
+          [
+            MainLayout,
+            RequiredUser,
+            AgendaAdminDataLayout,
+            AgendaAdminFiltersLayout,
+          ],
         ],
         [
           'eventAdmin',
