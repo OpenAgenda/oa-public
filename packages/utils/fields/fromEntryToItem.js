@@ -9,8 +9,6 @@ const {
 } = require('./databaseField');
 
 module.exports = (fields, entry = {}, options = {}) => {
-  // console.log('fromEntryToItem', entry, options)
-
   const {
     access,
     includeFields,
@@ -23,7 +21,7 @@ module.exports = (fields, entry = {}, options = {}) => {
     nullifyUndefined: false,
     ...options
   };
-  //console.log('includeFields:', includeFields, 'omitUndefinedFields:', omitUndefinedFields)
+
   const compiledItem = getFieldsByAccess(fields, 'read', access)
     .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
     .reduce((item, field) => {
@@ -31,7 +29,6 @@ module.exports = (fields, entry = {}, options = {}) => {
       const raw = entry[dbFieldName];
       const dbPath = getDatabaseFieldPath(field);
       const value = raw && (field?.db?.type === 'json') ? JSON.parse(raw) : raw;
-
 
       if (dbPath.length) {
         item[field.field] = _.get(value, dbPath);
@@ -41,9 +38,10 @@ module.exports = (fields, entry = {}, options = {}) => {
 
       return item;
     }, {});
-  if (omitUndefinedFields)
-    return _.pickBy(compiledItem, v => v !== undefined);
 
+  if (omitUndefinedFields) {
+    return _.pickBy(compiledItem, v => v !== undefined);
+  }
   if (nullifyUndefined) {
     return _.mapValues(compiledItem, v => (v === undefined ? null : v));
   }
