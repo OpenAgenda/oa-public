@@ -1,6 +1,7 @@
 'use strict';
 
 const ControlData = require('@openagenda/legacy/controlData');
+const Embeds = require('@openagenda/legacy/embeds');
 const TagsAndCustom = require('@openagenda/legacy/tagsAndCustom');
 const utils = require('@openagenda/legacy/utils');
 
@@ -12,7 +13,8 @@ module.exports.init = (config, services) => {
   const {
     knex,
     redis,
-    queues: Queues
+    queues: Queues,
+    agendas
   } = services;
 
   ControlData.updateLoggerConfig(config.getLogConfig('svc', 'controlData'));
@@ -29,6 +31,18 @@ module.exports.init = (config, services) => {
     knex,
     queue: Queues('legacyTagsAndCustom')
   }));
+
+  module.exports.embeds = Embeds({
+    knex,
+    interfaces: {
+      getAgendaId: agendaUid => agendas.get({
+        uid: agendaUid
+      }, {
+        internal: true,
+        private: null
+      }).then(a => a?.id)
+    }
+  });
 
   return module.exports;
 };
