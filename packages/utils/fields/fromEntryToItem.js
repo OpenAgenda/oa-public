@@ -14,15 +14,16 @@ module.exports = (fields, entry = {}, options = {}) => {
   const {
     access,
     includeFields,
-    omitUndefinedFields
+    omitUndefinedFields,
+    nullifyUndefined
   } = {
     access: 'public',
     includeFields: [],
     omitUndefinedFields: false,
+    nullifyUndefined: false,
     ...options
   };
   //console.log('includeFields:', includeFields, 'omitUndefinedFields:', omitUndefinedFields)
-
   const compiledItem = getFieldsByAccess(fields, 'read', access)
     .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
     .reduce((item, field) => {
@@ -42,5 +43,9 @@ module.exports = (fields, entry = {}, options = {}) => {
     }, {});
   if (omitUndefinedFields)
     return _.pickBy(compiledItem, v => v !== undefined);
+
+  if (nullifyUndefined) {
+    return _.mapValues(compiledItem, v => (v === undefined ? null : v));
+  }
   return compiledItem;
 };

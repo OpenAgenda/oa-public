@@ -8,6 +8,16 @@ const eventEntry = require('./fixtures/db/eventEntry');
 const fixtures = require('./fixtures/db');
 
 describe('utils - fromEntryToItem', () => {
+  it('nullifyUndefined sets empty values to null', () => {
+    const item = fromEntryToItem([{
+      field: 'image',
+      read: ['public']
+    }], {}, { nullifyUndefined: true });
+
+    expect(item.image).toBeNull();
+  });
+
+
   describe('Events', () => {
 
     it('image', () => {
