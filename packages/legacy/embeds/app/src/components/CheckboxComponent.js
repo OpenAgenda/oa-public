@@ -14,7 +14,7 @@ export default ({
       <input
         key={path}
         checked={_.get(embed, path)}
-        name={path}
+        id={path}
         type="checkbox"
         onChange={toggleCheckbox(embed, path, onChange)}
       /> {label}

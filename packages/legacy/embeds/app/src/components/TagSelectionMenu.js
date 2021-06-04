@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useQuery } from 'react-query';
+import { Spinner } from '@openagenda/react-components';
 
 const extractTagGroupsFromSchema = schema => schema.fields.filter(f => !!f.options);
 
@@ -28,36 +29,41 @@ const messages = defineMessages({
   useSelection: {
     id: 'LegacyEmbed.TagSelectionMenu.useSelection',
     defaultMessage: 'Pick specific values'
+  },
+  tagMenuInfo: {
+    id: 'LegacyEmbed.TagSelectionMenu.tagMenuInfo',
+    defaultMessage: 'Changes you bring here update the embed code'
   }
 });
 
-export default ({
+export default function TagSelectionMenu({
   res,
-  lang,
-  onChange
-}) => {
-  const intl = useIntl();
+  lang
+}) {
+  const m = useIntl().formatMessage;
 
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectionMode, setSelectionMode] = useState('all');
 
-  useEffect(() => {
-    onChange({ selectedTags, selectedGroup });
-  }, [selectedTags, selectedGroup, onChange]);
-
   const query = useQuery('schema', () => axios.get(res), {
     select: ({ data }) => data
   });
 
+  useEffect(() => {
+    setSelectedGroup(null);
+    setSelectedTags([]);
+  }, [selectionMode]);
+
   if (query.isLoading || !query.data) {
-    return <div>Chargement...</div>;
+    return <Spinner page />;
   }
 
   return (
     <div>
       <div className="margin-bottom-md">
-        <strong>Sélectionnez les valeurs à afficher dans le Widget</strong>
+        <strong>{m(messages.tagSelectionLabel)}</strong>
+        <p>{m(messages.tagMenuInfo)}</p>
         <ul className="list-unstyled">
           <li className="radio">
             <label htmlFor="allSelectionMode">
@@ -67,7 +73,7 @@ export default ({
                 checked={selectionMode === 'all'}
                 onChange={() => setSelectionMode('all')}
               />
-              Utiliser toutes les valeurs
+              {m(messages.useAllValues)}
             </label>
           </li>
           <li className="radio">
@@ -78,7 +84,7 @@ export default ({
                 checked={selectionMode === 'group'}
                 onChange={() => setSelectionMode('group')}
               />
-              Ne reprendre qu'un jeu de valeurs
+              {m(messages.useGroupValues)}
             </label>
           </li>
           <li className="radio">
@@ -89,7 +95,7 @@ export default ({
                 checked={selectionMode === 'picked'}
                 onChange={() => setSelectionMode('picked')}
               />
-              Choisir les valeurs une à une
+              {m(messages.useSelection)}
             </label>
           </li>
         </ul>
@@ -97,7 +103,7 @@ export default ({
       {selectionMode === 'group' ? (
         <div>
           {extractTagGroupsFromSchema(query.data.schema).map((field, index) => (
-            <div className="radio">
+            <div className="radio" key={`group-${field.field}`}>
               <label htmlFor={field.field}>
                 <input
                   id={field.field}
@@ -124,13 +130,13 @@ export default ({
               <strong>{flatten(field.label, lang)}</strong>
               <ul className="margin-left-xs list-unstyled">
                 {field.options.map(o => (
-                  <li className="checkbox" key={`${field}.${o.id}`}>
-                    <label htmlFor={`${field}.${o.id}`}>
+                  <li className="checkbox" key={`${field.field}.${o.id}`}>
+                    <label htmlFor={`${field.field}.${o.id}`}>
                       <input
                         disabled={selectedGroup !== null}
                         key={`${field.field}.${o.id}`}
                         checked={selectedTags.includes(o.value) || selectedGroup === index}
-                        name={`${field.field}.${o.id}`}
+                        id={`${field.field}.${o.id}`}
                         type="checkbox"
                         onChange={e => {
                           if (e.target.checked) {
@@ -150,4 +156,4 @@ export default ({
       ) : null}
     </div>
   );
-};
+}

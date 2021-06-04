@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 
+import {
+  template
+} from 'lodash';
+
 import { ReactSelectInput } from '@openagenda/react-shared';
 
 export default ({
+  embed,
   embedCodeTemplate,
   initialLanguage = 'fr',
   embedLanguages,
   label
 }) => {
   const [language, setLanguage] = useState(initialLanguage);
+
+  const render = template(embedCodeTemplate);
 
   return (
     <div>
@@ -17,7 +24,11 @@ export default ({
         <div className="col-sm-10">
           <input
             type="text"
-            value={embedCodeTemplate.replace(/<%=\slang\s%>/g, language)}
+            value={render({
+              lang: language,
+              agendaUid: embed.agendaUid,
+              uid: embed.uid
+            })}
             className="form-control"
             onClick={e => e.target.select()}
             onChange={() => {}}

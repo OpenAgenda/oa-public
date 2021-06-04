@@ -19,18 +19,23 @@ const messages = defineMessages({
 });
 
 const shares = [{
+  key: 'fb',
   label: 'Facebook',
   path: 'config.layout.shares.fb'
 }, {
+  key: 'tw',
   label: 'Twitter',
   path: 'config.layout.shares.tw'
 }, {
+  key: 'li',
   label: 'LinkedIn',
   path: 'config.layout.shares.li'
 }, {
+  key: 'pi',
   label: 'Pinterest',
   path: 'config.layout.shares.pi'
 }, {
+  key: 'em',
   label: 'Email',
   path: 'config.layout.shares.em'
 }];
@@ -50,14 +55,14 @@ export default ({
         label={m(messages.facebookAppId)}
         path="config.facebookappid"
         sub={m(messages.facebookAppIdSub)}
-        onChange
+        onChange={onChange}
       />
       <InputComponent
         embed={embed}
         type="'url"
         label={m(messages.siteURL)}
         path="config.siteurl"
-        onChange
+        onChange={onChange}
       />
     </div>
   );

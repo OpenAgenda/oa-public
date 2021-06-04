@@ -20,7 +20,7 @@ const messages = defineMessages({
   },
   customHead: {
     id: 'LegacyEmbed.AdvancedMenu.customHead',
-    defaultMessage: 'Custom &lt;head&gt; segment'
+    defaultMessage: 'Custom <head/> segment'
   },
   customListHead: {
     id: 'LegacyEmbed.AdvancedMenu.customListHead',
