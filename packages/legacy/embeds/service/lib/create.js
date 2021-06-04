@@ -27,12 +27,13 @@ module.exports = ({ interfaces, knex }, agendaUid) => async data => {
     created_at: new Date(),
     updated_at: new Date(),
     store: serialize(config),
-    template,
+    template: JSON.stringify(template),
     mapping: null
   });
 
   return {
     uid,
+    agendaUid,
     config
   };
 };

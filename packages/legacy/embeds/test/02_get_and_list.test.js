@@ -42,6 +42,7 @@ describe('02 - embeds - get', () => {
     it('uid, config, templates fields are provided', () => {
       expect(Object.keys(embed)).toEqual([
         'uid',
+        'agendaUid',
         'template',
         'config'
       ]);
@@ -56,6 +57,27 @@ describe('02 - embeds - get', () => {
         'header',
         'eventitem',
         'event'
+      ]);
+    });
+  });
+
+  describe('simple list', () => {
+    let embeds;
+
+    beforeAll(async () => {
+      embeds = await svc(789456).list();
+    });
+
+    it('returns a list', () => {
+      expect(Array.isArray(embeds)).toBeTruthy();
+    });
+
+    it('provided values are same as get in each item', () => {
+      expect(Object.keys(embeds[0])).toEqual([
+        'uid',
+        'agendaUid',
+        'template',
+        'config'
       ]);
     });
   });

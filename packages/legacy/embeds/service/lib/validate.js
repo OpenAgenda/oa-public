@@ -33,6 +33,10 @@ const validate = schema({
       default: false,
       max: 100
     },
+    head: {
+      type: 'text',
+      default: ''
+    },
     siteurl: {
       type: 'link',
       default: '',
@@ -55,7 +59,7 @@ const validate = schema({
         options: ['all', 'manual'],
         default: 'all'
       },
-      mapCorners: fieldCollection('number', ['neLat', 'neLng', 'swLat', 'swLng'], null),
+      mapCorners: fieldCollection('text', ['neLat', 'neLng', 'swLat', 'swLng'], null),
       mapAuto: {
         type: 'boolean',
         default: false
@@ -90,7 +94,7 @@ const validate = schema({
       shares: fieldCollection('boolean', ['fb', 'tw', 'li', 'pi', 'em'], { default: false })
     }
   },
-  templates: fieldCollection('text', ['header', 'event', 'eventitem'], { default: false, max: 10000 })
+  template: fieldCollection('text', ['header', 'event', 'eventitem'], { default: false, max: 10000 })
 });
 
 module.exports = data => {

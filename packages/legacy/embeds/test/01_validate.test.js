@@ -169,4 +169,16 @@ describe('01 - embeds - validate', () => {
       });
     });
   });
+
+  describe('templates', () => {
+    it('templates are in template key', () => {
+      const clean = validate({
+        template: {
+          header: 'something'
+        }
+      });
+
+      expect(clean.template.header).toBe('something');
+    });
+  });
 });

@@ -15,7 +15,7 @@ module.exports = ({ interfaces, knex }, agendaUid) => async (uid, data = {}) => 
 
   await knex('review_embed').update({
     store: serialize(config),
-    template,
+    template: JSON.stringify(template),
     updated_at: new Date()
   }).where({
     id: embed.id
@@ -23,6 +23,7 @@ module.exports = ({ interfaces, knex }, agendaUid) => async (uid, data = {}) => 
 
   return {
     uid,
+    agendaUid,
     template,
     config
   };

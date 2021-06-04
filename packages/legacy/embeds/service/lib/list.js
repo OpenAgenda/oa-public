@@ -6,7 +6,7 @@ const {
 
 const fromEntryToItem = require('./fromEntryToItem');
 
-module.exports = async ({ interfaces, knex }, agendaUid, uid, options = {}) => {
+module.exports = async ({ interfaces, knex }, agendaUid, options = {}) => {
   const agendaId = await interfaces.getAgendaId(agendaUid);
   if (!agendaId && options.throwIfNotFound) {
     throw new NotFound('agenda id not found for uid %d', agendaUid);
@@ -15,18 +15,12 @@ module.exports = async ({ interfaces, knex }, agendaUid, uid, options = {}) => {
   }
 
   return knex('review_embed')
-    .first('*')
+    .select('*')
     .where({
-      review_id: agendaId,
-      uid
+      review_id: agendaId
     })
-    .then(entry => {
-      if (!entry && !!options.throwIfNotFound) {
-        throw new NotFound('embed not found for uid %d', uid);
-      } else if (!entry) {
-        return null;
-      }
-
-      return fromEntryToItem({ ...options, agendaUid }, entry);
-    });
+    .then(entries => entries.map(fromEntryToItem.bind(null, {
+      ...options,
+      agendaUid
+    })));
 };
