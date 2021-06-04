@@ -96,7 +96,7 @@
   "aggregator-sources.DefineRules.withActions": "{actionCount, plural, =1 {avec 1 action} other {avec # actions}}",
   "aggregator-sources.RemoveSourceModal.cancel": "Annuler",
   "aggregator-sources.RemoveSourceModal.evaluateKeepEvents": "Oui, mais je veux garder les événements déjà agrégés",
-  "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": "Oui, et je veux aussi supprimer les événements déjà agrégés",
+  "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": "Oui, et je veux aussi retirer les événements déjà agrégés",
   "aggregator-sources.RemoveSourceModal.removeASource": "Retirer une source",
   "aggregator-sources.RemoveSourceModal.removeConfirmMessage": "Les événements qui seront publiés dans l'agenda {agenda} ne seront plus agrégés.{br} Voulez-vous vraiment supprimer cet agenda des sources?",
   "aggregator-sources.RemoveSourceModal.removeSource": "Retirer la source",

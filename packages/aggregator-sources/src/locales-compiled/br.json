@@ -936,7 +936,7 @@
   "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": [
     {
       "type": 0,
-      "value": "Oui, et je veux aussi supprimer les événements déjà agrégés"
+      "value": "Oui, et je veux aussi retirer les événements déjà agrégés"
     }
   ],
   "aggregator-sources.RemoveSourceModal.removeASource": [
