@@ -115,6 +115,18 @@ describe('agenda-locations - functional - list', function () {
         'state',
       ]);
     });
+
+    it('fix: provided fields by default do not include image event if includeImagePath option is set', async () => {
+      const items = await svc(7196947).list({}, {}, { includeImagePath: true });
+      assert.deepEqual(Object.keys(items[0]), [
+        'uid',
+        'name',
+        'address',
+        'latitude',
+        'longitude',
+        'state',
+      ]);
+    })
   });
 
   describe('nav', () => {
