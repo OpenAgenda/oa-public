@@ -1,5 +1,5 @@
 const invitationsSvc = require( '@openagenda/invitations' );
-
+const log = require('@openagenda/logs')('services/users/onCreate');
 
 module.exports = function onCreate(config, services) {
   const { discord } = services;
