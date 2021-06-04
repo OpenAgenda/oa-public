@@ -180,6 +180,17 @@ describe('agenda-locations - functional - get', function () {
       assert.equal(extId, 'ard_leg_01');
     });
 
+    it('agenda identifiers must be provided when agenda endpoint is used', async () => {
+      let error;
+      try {
+        await svc().get(60763721);
+      } catch (e) {
+        error = e;
+      }
+      assert.equal(error.name, 'BadRequestError');
+      assert.equal(error.message, 'agenda identifier is missing');
+    });
+
     it('when includeLinkedAgendas is provided', async () => {
       const { linkedAgendas } = await svc.get(87202261, { includeLinkedAgendas : true });
       assert.deepEqual(linkedAgendas, [{ uid: 100000, title: 'BLABLA' }, { uid: 200000, title: 'BLIBLI' }])

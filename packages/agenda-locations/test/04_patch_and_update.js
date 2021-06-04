@@ -107,7 +107,7 @@ describe('agenda-locations - functional - patch & update', function () {
     this.timeout(20000);
 
     before(async () => {
-      await svc().patch(94482437, {
+      await svc(7196947).patch(94482437, {
         image: fs.createReadStream(
           `${__dirname}/fixtures/images/vieilles_pierres.jpg`
         ),

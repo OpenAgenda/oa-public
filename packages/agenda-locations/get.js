@@ -2,6 +2,7 @@
 
 const log = require('@openagenda/logs')('get');
 const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
@@ -65,6 +66,16 @@ module.exports.byAgendaUid = async (
   agendaUid,
   identifiers,
   options = {}
-) => get(service, identifiers, { ...options, context: { agendaUid } });
+) => {
+  if (!agendaUid) {
+    throw new BadRequestError('agenda identifier is missing');
+  }
+  return get(service, identifiers, { ...options, context: { agendaUid } })
+};
 
-module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => get(service, identifiers, { ...options, context: { setUid } });
+module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => {
+  if (!setUid) {
+    throw new BadRequestError('set identifier is missing');
+  }
+  return get(service, identifiers, { ...options, context: { setUid } });
+};
