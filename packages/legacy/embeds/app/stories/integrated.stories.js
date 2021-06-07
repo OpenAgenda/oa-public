@@ -43,6 +43,7 @@ export function Integrated() {
                 apiRoot: `http://localhost:${process.env.STORYBOOK_PORT}`,
                 prefix: '',
                 res: {
+                  legacy: '/agendas/:agendaUid/admin/webembed',
                   embeds: '/agendas/:agendaUid/embeds',
                   agendaSettings: '/agendas/:agendaUid',
                   preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',

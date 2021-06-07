@@ -39,6 +39,7 @@ export function DashboardBeforeCreate() {
           selectionMenuContainerRef={selectionMenuRef}
           agendaUid={50522407}
           res={{
+            legacy: '/agendas/:agendaUid/admin/webembed',
             embeds: '/agendas/:agendaUid/embeds',
             agendaSettings: '/agendas/:agendaUid',
             preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
@@ -71,6 +72,7 @@ export function DashboardDefaultView() {
           selectionMenuContainerRef={selectionMenuRef}
           agendaUid={50522407}
           res={{
+            legacy: '/agendas/:agendaUid/admin/webembed',
             embeds: '/agendas/:agendaUid/embeds',
             agendaSettings: '/agendas/:agendaUid',
             preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
