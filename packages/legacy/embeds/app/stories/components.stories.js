@@ -127,7 +127,7 @@ export const mapPresentation = () => (
   <MapPresentation
     onChange={onChange}
     embed={toulouseEmbed}
-    tiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    defaultTiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   />
 );
 
@@ -230,4 +230,4 @@ export const EmbedPresentation = () => {
       onCreate={() => {}}
     />
   );
-}
+};
