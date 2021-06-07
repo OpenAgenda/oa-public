@@ -103,6 +103,18 @@
       "value": "Sélectionner un menu"
     }
   ],
+  "LegacyEmbed.Dashboard.applicationInfo": [
+    {
+      "type": 0,
+      "value": "You are now using an new iteration of the the integrated views configuration tool."
+    }
+  ],
+  "LegacyEmbed.Dashboard.backToLegacy": [
+    {
+      "type": 0,
+      "value": "Use the legacy application instead"
+    }
+  ],
   "LegacyEmbed.EmbedSelection.calendar": [
     {
       "type": 0,

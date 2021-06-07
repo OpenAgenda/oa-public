@@ -103,6 +103,18 @@
       "value": "Sélectionner un menu"
     }
   ],
+  "LegacyEmbed.Dashboard.applicationInfo": [
+    {
+      "type": 0,
+      "value": "Vous utilisez une nouvelle version de l'outil de configuration des agendas intégrés."
+    }
+  ],
+  "LegacyEmbed.Dashboard.backToLegacy": [
+    {
+      "type": 0,
+      "value": "Utiliser l'ancienne version"
+    }
+  ],
   "LegacyEmbed.EmbedSelection.calendar": [
     {
       "type": 0,

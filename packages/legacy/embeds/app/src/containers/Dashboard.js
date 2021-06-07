@@ -1,11 +1,8 @@
-import _ from 'lodash';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { diff } from 'deep-diff';
 import { useQuery } from 'react-query';
 import { Spinner } from '@openagenda/react-components';
 import { useIntl, defineMessages } from 'react-intl';
-import { unloadWarning } from '@openagenda/react-shared';
 
 import EmbedSelection from '../components/EmbedSelection';
 
@@ -35,29 +32,15 @@ function Dashboard({
   defaultTiles = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 }) {
   const [editedEmbed, setEditedEmbed] = useState(null);
-  const [savedEmbed, setSavedEmbed] = useState(null);
 
   const m = useIntl().formatMessage;
 
   const baseRes = res.embeds.replace(':agendaUid', agendaUid);
 
-  const embedDiff = useMemo(() => diff(savedEmbed, editedEmbed), [savedEmbed, editedEmbed]);
-  const isEmbedLoaded = useMemo(() => !!savedEmbed, [savedEmbed]);
-
-  useEffect(() => {
-    if (!isEmbedLoaded || !embedDiff) {
-      unloadWarning.unset();
-      return;
-    }
-    unloadWarning.set();
-  }, [embedDiff, isEmbedLoaded]);
-
   const query = useQuery('embeds', () => axios.get(baseRes), {
     select: ({ data }) => data,
     onSettled: embeds => {
-      const saved = embeds.pop();
-      setSavedEmbed(saved);
-      setEditedEmbed(_.cloneDeep(saved));
+      setEditedEmbed(embeds.pop());
     }
   });
   const [activeMenu, setActiveMenu] = useState('list');
@@ -135,7 +118,6 @@ function Dashboard({
         updateRes={`${baseRes}/${editedEmbed.uid}`}
         embed={editedEmbed}
         onSave={() => {
-          setSavedEmbed(_.cloneDeep(editedEmbed));
           setDisplayEmbed(false);
           setTimeout(() => {
             setDisplayEmbed(true);
