@@ -97,14 +97,15 @@ const validate = schema({
   template: fieldCollection('text', ['header', 'event', 'eventitem'], { default: false, max: 10000 })
 });
 
-module.exports = data => {
+module.exports = (data = {}) => {
   try {
     const clean = validate(data);
-    if (clean.layout.mapCorners.neLat === 'false') {
-      Object.keys(clean.layout.mapCorners).forEach(corner => {
-        clean.layout.mapCorner[corner] = false;
+    if (clean.config.layout.mapCorners.neLat === 'false') {
+      Object.keys(clean.config.layout.mapCorners).forEach(corner => {
+        clean.config.layout.mapCorner[corner] = false;
       });
     }
+    return clean;
   } catch (errors) {
     throw new BadRequest({
       info: errors,

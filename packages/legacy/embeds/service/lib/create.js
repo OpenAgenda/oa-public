@@ -7,7 +7,7 @@ const {
 const defineUnique = require('@openagenda/utils/knex/defineUnique');
 const validate = require('./validate');
 
-module.exports = ({ interfaces, knex }, agendaUid) => async data => {
+module.exports = ({ interfaces, knex }, agendaUid) => async (data = {}) => {
   const agendaId = await interfaces.getAgendaId(agendaUid);
   if (!agendaId) {
     throw new NotFound('agenda id not found for uid %d', agendaUid);
