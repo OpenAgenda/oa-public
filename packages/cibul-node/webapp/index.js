@@ -306,9 +306,12 @@ const initialState = async req => {
       lang,
       apiRoot: `http://localhost:${config.port}`,
       res: {
+        legacy: '/agendas/:agendaUid/admin/webembed',
+        events: '/api/agendas/:agendaUid/events?state[]=2&state[]=1&state[]=0',
         embeds: '/api/agendas/:agendaUid/embeds',
         preview: '/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-        previewScript: '/js/embed/cibulBodyWidget.js'
+        previewScript: '/js/embed/cibulBodyWidget.js',
+        agendaSettings: '/api/agendas/:agendaUid'
       }
     },
     agendaActivities: {
