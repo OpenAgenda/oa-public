@@ -99,7 +99,12 @@ const validate = schema({
 
 module.exports = data => {
   try {
-    return validate(data);
+    const clean = validate(data);
+    if (clean.layout.mapCorners.neLat === 'false') {
+      Object.keys(clean.layout.mapCorners).forEach(corner => {
+        clean.layout.mapCorner[corner] = false;
+      });
+    }
   } catch (errors) {
     throw new BadRequest({
       info: errors,

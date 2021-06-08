@@ -12,7 +12,6 @@ import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
 
 import AdminCanvas from './decorators/AdminCanvas';
 
-
 export default {
   title: 'Integrated',
   decorators: [AdminCanvas]
@@ -44,6 +43,7 @@ export function Integrated() {
                 prefix: '',
                 res: {
                   legacy: '/agendas/:agendaUid/admin/webembed',
+                  events: '/agendas/:agendaUid/events',
                   embeds: '/agendas/:agendaUid/embeds',
                   agendaSettings: '/agendas/:agendaUid',
                   preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',

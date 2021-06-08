@@ -61,10 +61,22 @@
       "value": "Advanced"
     }
   ],
+  "LegacyEmbed.App.eventPreview": [
+    {
+      "type": 0,
+      "value": "Detailed"
+    }
+  ],
   "LegacyEmbed.App.generalMenu": [
     {
       "type": 0,
       "value": "General"
+    }
+  ],
+  "LegacyEmbed.App.listPreview": [
+    {
+      "type": 0,
+      "value": "List view"
     }
   ],
   "LegacyEmbed.App.mapCodeLabel": [

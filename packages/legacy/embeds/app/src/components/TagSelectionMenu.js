@@ -38,7 +38,8 @@ const messages = defineMessages({
 
 export default function TagSelectionMenu({
   res,
-  lang
+  lang,
+  onChange
 }) {
   const m = useIntl().formatMessage;
 
@@ -54,6 +55,14 @@ export default function TagSelectionMenu({
     setSelectedGroup(null);
     setSelectedTags([]);
   }, [selectionMode]);
+
+  useEffect(() => {
+    onChange({
+      mode: selectionMode,
+      tags: selectedTags,
+      group: selectedGroup
+    });
+  }, [selectionMode, selectedTags, selectedGroup, onChange]);
 
   if (query.isLoading || !query.data) {
     return <Spinner page />;

@@ -41,6 +41,7 @@ export function DashboardBeforeCreate() {
           res={{
             legacy: '/agendas/:agendaUid/admin/webembed',
             embeds: '/agendas/:agendaUid/embeds',
+            events: '/agendas/:agendaUid/events',
             agendaSettings: '/agendas/:agendaUid',
             preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',
             previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'

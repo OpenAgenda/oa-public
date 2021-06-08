@@ -71,12 +71,14 @@ function Dashboard({
         <div className="col-sm-12">
           {activeMenu === 'list' ? (
             <ListMenu
-              preview={
-                res.preview
+              res={{
+                preview: res.preview
                   .replace(':embedUid', editedEmbed.uid)
+                  .replace(':agendaUid', agendaUid),
+                previewScript: res.previewScript,
+                events: res.events
                   .replace(':agendaUid', agendaUid)
-              }
-              previewScript={res.previewScript}
+              }}
               embed={editedEmbed}
               onChange={setEditedEmbed}
               displayEmbed={displayEmbed}

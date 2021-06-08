@@ -70,7 +70,7 @@ export default ({
       scrollWheelZoom: false
     };
 
-    if (corners.neLat) {
+    if (corners.neLat && (corners.neLat !== 'false')) {
       result.bounds = [
         [corners.neLat, corners.neLng],
         [corners.swLat, corners.swLng]

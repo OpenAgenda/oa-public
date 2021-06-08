@@ -61,10 +61,22 @@
       "value": "Avancé"
     }
   ],
+  "LegacyEmbed.App.eventPreview": [
+    {
+      "type": 0,
+      "value": "Vue événement"
+    }
+  ],
   "LegacyEmbed.App.generalMenu": [
     {
       "type": 0,
       "value": "Général"
+    }
+  ],
+  "LegacyEmbed.App.listPreview": [
+    {
+      "type": 0,
+      "value": "Vue liste"
     }
   ],
   "LegacyEmbed.App.mapCodeLabel": [

@@ -26,12 +26,14 @@ import ComponentCanvas from './decorators/ComponentCanvas';
 import Providers from './decorators/Providers';
 
 import toulouseEmbed from './fixtures/toulouse.json';
+import toulouseEvents from './fixtures/toulouse.events.json';
 import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
 
 const mockApi = () => {
   const mock = new MockAdapter(axios, {
     delayResponse: 2000
   });
+  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
   mock.onGet('/agendas/50522407/embeds/80717033').reply(200, apiAgendasToulouse);
   mock.onPost('/agendas/50522407/embeds').reply(200, apiAgendasToulouse);
   mock.onPost('/agendas/50522407/embeds/80717033').reply(200);
@@ -45,7 +47,7 @@ export default {
 const log = debug('stories');
 const onChange = updatedEmbed => log(updatedEmbed);
 
-const embedCodeTemplate = '<iframe style="width:100%;" frameborder="0" scrolling="no" allowtransparency="allowtransparency" class="cibulFrame cbpgbdy" data-oabdy src="//openagenda.com/agendas/<%= agendaUid %>/embeds/<%= uid %>/events?lang=<%= lang %>" data-lang="<%= lang %>"></iframe><script type="text/javascript" src="//openagenda.com/js/embed/cibulBodyWidget.js"></script>';
+const embedCodeTemplate = '<div class="cbpgtg cibulTags" data-oatg data-cbctl="<%= agendaUid %>/<%= uid %>"></div><script type="text/javascript" src="//openagenda.com/js/embed/cibulTagsWidget.js"></script>';
 
 export const embedCodePresentation = () => (
   <EmbedCodePresentation
@@ -145,22 +147,29 @@ export const tagSelectionMenu = () => {
   return (
     <TagSelectionMenu
       embed={toulouseEmbed}
-      onChange={onChange}
+      onChange={() => {}}
       res="/agendas/50522407/embeds/80717033"
     />
   );
 };
 
-export const listMenu = () => (
-  <ListMenu
-    embed={toulouseEmbed}
-    onChange={onChange}
-    res={{
-      preview: 'https://d.openagenda.com/agendas/50522407/previewEmbeds/80717033/events',
-      previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
-    }}
-  />
-);
+export const listMenu = () => {
+  mockApi();
+
+  return (
+    <ListMenu
+      lang="fr"
+      embed={toulouseEmbed}
+      onChange={onChange}
+      displayEmbed
+      res={{
+        events: '/agendas/50522407/events',
+        preview: 'https://d.openagenda.com/agendas/50522407/previewEmbeds/80717033/events',
+        previewScript: 'https://d.openagenda.com/js/embed/cibulBodyWidget.js'
+      }}
+    />
+  );
+};
 
 export const mapMenu = () => (
   <MapMenu
