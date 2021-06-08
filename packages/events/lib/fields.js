@@ -231,7 +231,7 @@ module.exports = [{
   db: {
     type: 'json'
   }
-}, /*{
+}, {
   field: 'status',
   fieldType: 'radio',
   default: 1,
@@ -258,7 +258,7 @@ module.exports = [{
   }],
   write: ['internal', 'public'],
   read: ['internal', 'public']
-}, */{
+}, {
   field: 'references',
   fieldType: 'references',
   optional: true,
