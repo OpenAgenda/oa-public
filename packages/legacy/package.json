@@ -9,6 +9,7 @@
     "build": "babel --copy-files embeds/app/src -d embeds/app/dist -s",
     "start": "start-storybook -c embeds/app/.storybook -p 9001 --ci",
     "test": "jest --runInBand --testEnvironment=node",
+    "prepack": "yarn build",
     "extract-messages": "yarn oa:extract-messages 'embeds/app/src/**/*.js' --out-dir 'embeds/app/src/locales' --compiled-dir 'embeds/app/src/locales-compiled'"
   },
   "dependencies": {
