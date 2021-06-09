@@ -1,35 +1,27 @@
-"use strict";
+'use strict';
 
-const validate = require( '../service/validate' );
-const should = require( 'should' );
 const assert = require('assert');
 
-const publicValidate = require( '../service/validate/public' );
+const validate = require('../service/validate');
+const publicValidate = require('../service/validate/public');
 
-describe( 'agendas - unit (server): validate', () => {
+describe('agendas - unit (server): validate', () => {
 
-  describe( 'public validator', () => {
+  describe('public validator', () => {
+    it('validates exposable agenda data', () => {
+      let errors = [];
+      let clean;
 
-    it( 'validates exposable agenda data', () => {
-
-      let errors = [],
-
-      clean,
-
-      data = {
+      const data = {
         title: 'Title of the agenda',
         description: 'Description of the agenda',
         slug: 'title-of-the-agenda'
-      }
+      };
 
       try {
-
-        clean = publicValidate( data );
-
-      } catch( e ) {
-
+        clean = publicValidate(data);
+      } catch(e) {
         errors = e;
-
       }
 
       assert.equal(errors.length, 0);
@@ -81,17 +73,14 @@ describe( 'agendas - unit (server): validate', () => {
           }
         },
         url: undefined
-      } );
+      });
+    });
 
-    } );
+    it('validate configured translation', () => {
+      let errors = [];
+      let clean;
 
-    it( 'validate configured translation', () => {
-
-      let errors = [],
-
-      clean,
-
-      data = {
+      const data = {
         title: 'Title of the agenda',
         description: 'Description of the agenda',
         slug: 'title-of-the-agenda',
@@ -107,62 +96,54 @@ describe( 'agendas - unit (server): validate', () => {
           translation: {
             enabled: true,
             source: 'en',
-            sets: [ {
+            sets: [{
               source: 'fr',
-              target: [ 'en', 'de' ],
+              target: ['en', 'de'],
               checked: []
             }, {
               source: 'en',
-              target: [ 'fr', 'it' ],
-              checked: [ 'fr', 'it' ]
-            } ]
+              target: ['fr', 'it'],
+              checked: ['fr', 'it']
+            }]
           }
         }
       };
 
       try {
-
-        clean = publicValidate( data );
-
-      } catch( e ) {
-
+        clean = publicValidate(data);
+      } catch(e) {
         errors = e;
-
       }
 
-      errors.length.should.equal( 0 );
+      assert.strictEqual(errors.length, 0);
 
-      clean.settings.translation.should.eql( {
+      assert.deepStrictEqual(clean.settings.translation, {
         enabled: true,
         source: 'en',
         options: null,
         service: 'reverso',
-        sets: [ {
+        sets: [{
           source: 'fr',
-          target: [ 'en', 'de' ],
+          target: ['en', 'de'],
           checked: []
         }, {
           source: 'en',
-          target: [ 'fr', 'it' ],
-          checked: [ 'fr', 'it' ]
-        } ]
-      } );
+          target: ['fr', 'it'],
+          checked: ['fr', 'it']
+        }]
+      });
+    });
+  });
 
-    } );
+  describe('complete validator', () => {
+    it('validates data', () => {
+      let clean;
+      let errors = [];
 
-  } );
-
-  describe( 'complete validator', () => {
-
-    it( 'validates data', () => {
-
-      let clean, errors = [],
-
-      now = new Date();
+      const now = new Date();
 
       try {
-
-        clean = validate( {
+        clean = validate({
           uid: 122312,
           ownerId: 1,
           title: 'La gargouille',
@@ -170,9 +151,8 @@ describe( 'agendas - unit (server): validate', () => {
           description: 'Un agenda de tests',
           updatedAt: now,
           createdAt: now
-        } );
-
-      } catch( e ) {
+        });
+      } catch(e) {
         errors = e;
       }
 
@@ -218,7 +198,7 @@ describe( 'agendas - unit (server): validate', () => {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
-            canPublish: [ 'administrators', 'moderators' ],
+            canPublish: ['administrators', 'moderators'],
             moderateOnChangeBy: []
           },
           translation: {
@@ -253,12 +233,7 @@ describe( 'agendas - unit (server): validate', () => {
           eventOwnershipTransfer: false,
           graphs: false
         }
-      } );
-
-    } );
-
-  } );
-
-
-
-} );
+      });
+    });
+  });
+});
