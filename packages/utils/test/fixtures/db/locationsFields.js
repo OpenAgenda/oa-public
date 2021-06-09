@@ -269,7 +269,7 @@ module.exports = [{
   field: 'candidates',
   db: {
     type: 'json',
-    field: 'store.candidates',
+    field: 'duplicates.candidates',
     assign: true
   },
   optional: true,
@@ -279,7 +279,7 @@ module.exports = [{
   field: 'confirmedNonDuplicates',
   db: {
     type: 'json',
-    field: 'store.confirmedNonDuplicates',
+    field: 'duplicates.confirmedNonDuplicates',
     assign: true
   },
   optional: true,

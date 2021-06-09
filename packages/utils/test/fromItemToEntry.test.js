@@ -183,28 +183,34 @@ describe('utils - fromItemToEntry', () => {
 
     it('candidates && confirmedNonDuplicates- keep non changed store items', ()=> {
       const entry = fromItemToEntry([ {
-        field: 'candidates',
+        field: 'duplicateCandidates',
+        fieldType: 'integer',
+        list: true,
+        default: null,
         db: {
+          assign: true,
           type: 'json',
-          field: 'store.candidates',
-          assign: true
+          field: 'duplicates.candidates',
         },
         optional: true,
         read: ['internal', 'public'],
-        write: ['internal']
+        write: ['internal', 'contributor']
       }, {
-        field: 'confirmedNonDuplicates',
+        field: 'disqualifiedDuplicates',
+        fieldType: 'integer',
+        list: true,
+        default: null,
         db: {
+          assign: true,
           type: 'json',
-          field: 'store.confirmedNonDuplicates',
-          assign: true
+          field: 'duplicates.disqualified',
         },
         optional: true,
         read: ['internal', 'public'],
-        write: ['internal']
+        write: ['internal', 'contributor']
       }
-      ], { candidates: [1,2] }, { candidates: [3,4], confirmedNonDuplicates : [5,6] });
-      assert.deepStrictEqual(entry.store, "{\"candidates\":[1,2],\"confirmedNonDuplicates\":[5,6]}")
+      ], { duplicateCandidates: [1,2] }, { duplicateCandidates: [3,4], disqualifiedDuplicates: [5,6] });
+      assert.deepStrictEqual(entry.duplicates, "{\"candidates\":[1,2],\"disqualified\":[5,6]}")
     })
   })
 });
