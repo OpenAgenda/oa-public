@@ -12,7 +12,7 @@ const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 const legacy = require('./lib/legacy');
 
 async function get(service, identifiers, options = {}) {
-  log('received %j', identifiers);
+  log('received %j %j', identifiers, options);
   const k = service.clients.knex(service.config.schema);
   const {
     eventCounts: includeEventCounts,
@@ -31,12 +31,10 @@ async function get(service, identifiers, options = {}) {
 
   addSelect(k, 'public', { first: true, includeFields });
   const entry = await k;
-
   const location = entry ? service.fieldUtils.fromEntryToItem(entry, {
     includeFields,
     access: 'public',
   }) : null;
-
   if (!location) {
     if (throwOnNotFound) {
       throw new NotFoundError('location', identifiers);
@@ -73,7 +71,7 @@ module.exports.byAgendaUid = async (
   if (!agendaUid) {
     throw new BadRequestError('agenda identifier is missing');
   }
-  return get(service, identifiers, { ...options, context: { agendaUid } })
+  return get(service, identifiers, { ...options, context: { agendaUid } });
 };
 
 module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => {

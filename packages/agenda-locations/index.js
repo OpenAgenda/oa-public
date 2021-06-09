@@ -18,6 +18,10 @@ const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
 const decorateWithGeocodeData = require('./lib/decorateWithGeocodeData');
 const imageVariants = require('./lib/imageVariants');
+const duplicates = require('./duplicates/detectDuplicatesCandidates');
+const allDuplicates = require('./duplicates/detectAllDuplicatesCandidates');
+const disqualifyCandidate = require('./duplicates/disqualifyCandidate');
+const clearCandidates = require('./duplicates/clearCandidates');
 
 const getSet = require('./sets/get');
 const createSet = require('./sets/create');
@@ -57,6 +61,7 @@ module.exports = Object.assign(
           getLinkedAgendas: async () => {}, // takes uid, returns linked agendas
           onUpdate: null,
         },
+        duplicates
       }
     );
 
@@ -102,13 +107,16 @@ module.exports = Object.assign(
 
     const setEndpoints = Object.assign(setUid => {
       const svc = { ...service, getSettings: settings.get.bySetUid.bind(null, service, setUid) };
+      const endpoints = {
+        list: list.bySetUid.bind(null, svc, setUid),
+        get: get.bySetUid.bind(null, svc, setUid),
+        patch: update.bySetUid.bind(null, { service: svc, isPatch: true }, setUid),
+      };
       return {
         locations: {
+          ...endpoints,
           create: create.bySetUid.bind(null, svc, setUid),
-          get: get.bySetUid.bind(null, svc, setUid),
-          list: list.bySetUid.bind(null, svc, setUid),
           merge: merge.bySetUid.bind(null, svc, setUid),
-          patch: update.bySetUid.bind(null, { service: svc, isPatch: true }, setUid),
           terms: terms.bySetUid.bind(null, svc, setUid),
           remove: remove.bySetUid.bind(null, svc, setUid),
           update: update.bySetUid.bind(
@@ -116,6 +124,12 @@ module.exports = Object.assign(
             { service: svc, isPatch: false },
             setUid
           ),
+          duplicates: {
+            detect: duplicates.bind(null, { internals: svc, endpoints }),
+            detectAll: allDuplicates.bind(null, { internals: svc, endpoints }),
+            disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
+            clearCandidates: clearCandidates.bind(null, endpoints),
+          }
         },
         settings: {
           get: settings.get.bySetUid.bind(null, svc, setUid),
@@ -125,17 +139,22 @@ module.exports = Object.assign(
 
     const agendaEndpoints = agendaUid => {
       const svc = { ...service, getSettings: settings.get.byAgendaUid.bind(null, service, agendaUid) };
+      const endpoints = {
+        list: list.byAgendaUid.bind(null, svc, agendaUid),
+        get: get.byAgendaUid.bind(null, svc, agendaUid),
+        patch: update.byAgendaUid.bind(
+          null,
+          { service: svc, isPatch: true },
+          agendaUid
+        ),
+      };
 
       return {
+        ...endpoints,
         create: create.byAgendaUid.bind(null, svc, agendaUid),
         update: update.byAgendaUid.bind(
           null,
           { service: svc, isPatch: false },
-          agendaUid
-        ),
-        patch: update.byAgendaUid.bind(
-          null,
-          { service: svc, isPatch: true },
           agendaUid
         ),
         remove: remove.byAgendaUid.bind(null, svc, agendaUid),
@@ -146,6 +165,12 @@ module.exports = Object.assign(
         settings: {
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
         },
+        duplicates: {
+          detect: duplicates.bind(null, { internals: svc, endpoints }),
+          detectAll: allDuplicates.bind(null, { internals: svc, endpoints }),
+          disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
+          clearCandidates: clearCandidates.bind(null, endpoints),
+        }
       };
     };
 

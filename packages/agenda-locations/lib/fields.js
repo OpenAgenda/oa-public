@@ -265,4 +265,31 @@ module.exports = [{
   fieldType: 'text',
   read: ['internal'],
   write: ['internal']
-}];
+}, {
+  field: 'duplicateCandidates',
+  fieldType: 'integer',
+  list: true,
+  default: null,
+  db: {
+    assign: true,
+    type: 'json',
+    field: 'duplicates.candidates',
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal', 'contributor']
+}, {
+  field: 'disqualifiedDuplicates',
+  fieldType: 'integer',
+  list: true,
+  default: null,
+  db: {
+    assign: true,
+    type: 'json',
+    field: 'duplicates.disqualified',
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal', 'contributor']
+}
+];
