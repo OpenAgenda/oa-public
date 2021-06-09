@@ -2,6 +2,7 @@
 
 const validate = require( '../service/validate' );
 const should = require( 'should' );
+const assert = require('assert');
 
 const publicValidate = require( '../service/validate/public' );
 
@@ -31,9 +32,9 @@ describe( 'agendas - unit (server): validate', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      assert.equal(errors.length, 0);
 
-      clean.should.eql( {
+      assert.deepStrictEqual(clean, {
         title: 'Title of the agenda',
         description: 'Description of the agenda',
         slug: 'title-of-the-agenda',
@@ -42,7 +43,8 @@ describe( 'agendas - unit (server): validate', () => {
         locationSetUid: null,
         settings: {
           lab: {
-            eventAdmin: false
+            eventAdmin: false,
+            status: false
           },
           inbox: {
             mailto: {
@@ -174,9 +176,9 @@ describe( 'agendas - unit (server): validate', () => {
         errors = e;
       }
 
-      errors.length.should.equal( 0 );
+      assert.strictEqual(errors.length, 0);
 
-      clean.should.eql( {
+      assert.deepStrictEqual(clean, {
         title: 'La gargouille',
         slug: 'la-gargouille',
         uid: 122312,
@@ -190,7 +192,8 @@ describe( 'agendas - unit (server): validate', () => {
         locationSetUid: null,
         settings: {
           lab: {
-            eventAdmin: false
+            eventAdmin: false,
+            status: false
           },
           tracking: {
             googleAnalytics: null

@@ -7,6 +7,7 @@ const {
 
 const mysql = require( 'mysql' );
 const should = require( 'should' );
+const assert = require('assert');
 const Files = require('@openagenda/files');
 
 const svc = require( '../' );
@@ -66,9 +67,9 @@ describe( 'agendas - functional (server): set (update)', function() {
       title: 'Le Frometon'
     }, ( err, result ) => {
 
-      should( err ).equal( null );
+      assert.strictEqual(err, null);
 
-      result.agenda.should.eql( {
+      assert.deepStrictEqual(result.agenda, {
         slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
         uid: 52084961,
         title: 'Le Frometon',
@@ -78,7 +79,8 @@ describe( 'agendas - functional (server): set (update)', function() {
         networkUid: null,
         settings: {
           lab: {
-            eventAdmin: false
+            eventAdmin: false,
+            status: false
           },
           inbox: {
             mailto: {
@@ -259,9 +261,9 @@ describe( 'agendas - functional (server): set (update)', function() {
       protected: false
     }, ( err, result ) => {
 
-      should( err ).equal( null )
+      assert.strictEqual(err, null);
 
-      result.should.eql( {
+      assert.deepStrictEqual(result, {
         agenda: {
           id: 4887,
           ownerId: 7388,
@@ -280,7 +282,8 @@ describe( 'agendas - functional (server): set (update)', function() {
           image: null,
           settings: {
             lab: {
-              eventAdmin: false
+              eventAdmin: false,
+              status: false
             },
             inbox: {
               mailto: {
@@ -345,8 +348,7 @@ describe( 'agendas - functional (server): set (update)', function() {
         valid: true,
         success: true,
         errors: []
-      } );
-
+      });
 
       done();
 

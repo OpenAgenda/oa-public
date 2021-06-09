@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const should = require('should');
+const assert = require('assert');
 
 const {
   utils
@@ -58,7 +59,7 @@ describe('agendas - utils', () => {
   describe('internal unit - do not use outside of service', () => {
 
     it('objectified fields derived from legacy public matches legacy format', () => {
-      legacy.public.should.eql(fx.public);
+      assert.deepStrictEqual(legacy.public, fx.public);
     });
 
     it('objectified fields derived from legacy private matches legacy format', () => {
