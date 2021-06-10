@@ -75,14 +75,69 @@
         <li class="list-group-item js_admin_item js_role_event_editor">
           <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><label><%= __( 'duplicate' ) %></label><span><%= __('duplicateInfo') %></span></a>
         </li>
+<% if (useDetailedStatusActions) { %>
         <li class="list-group-item w25">
-          <a class="item active js_cancel display-none" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow">
+          <a
+            class="item <% if (event.status !== 1) { %>active<% } %> js_status"
+            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=1` %>"
+            rel="nofollow"
+          >
+            <label><%= __('markAsScheduled') %></label>
+            <span><%= __('markAsScheduledInfo') %></span>
+          </a>
+        </li>
+        <li class="list-group-item w25">
+          <a
+            class="item <% if (event.status !== 2) { %>active<% } %> js_status"
+            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=2` %>"
+            rel="nofollow"
+          >
+            <label><%= __('markAsRescheduled') %></label>
+            <span><%= __('markAsRescheduledInfo') %></span>
+          </a>
+        </li>
+        <li class="list-group-item w25">
+          <a
+          class="item <% if (event.status !== 3) { %>active<% } %> js_status"
+          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=3` %>"
+          rel="nofollow"
+          >
+          <label><%= __('markAsMovedOnline') %></label>
+          <span><%= __('markAsMovedOnlineInfo') %></span>
+        </a>
+      </li>
+      <li class="list-group-item w25">
+        <a
+          class="item <% if (event.status !== 4) { %>active<% } %> js_status"
+          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=4` %>"
+          rel="nofollow"
+        >
+          <label><%= __('markAsPostponed') %></label>
+          <span><%= __('markAsPostponedInfo') %></span>
+        </a>
+      </li>
+        <li class="list-group-item w25">
+          <a
+            class="item <% if (event.status !== 5) { %>active<% } %> js_status"
+            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=5` %>"
+            rel="nofollow"
+          >
+            <label><%= __('markAsCancelled') %></label>
+            <span><%= __('markAsCancelledInfo') %></span>
+          </a>
+        </li>
+<% } else { %>
+        <li class="list-group-item w25">
+          <a class="item active js_status display-none" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow">
             <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
             <span><%= __(isCancelled ? 'uncancelInfo' : 'cancelInfo') %></span>
           </a>
-          <a class="item js_disabled_cancel display-none" title="<%= __('cannotCancel') %>" rel="nofollow">
-            <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
-            <span><%= __(isCancelled ? 'uncancelInfo' : 'cancelInfo') %></span>
+        </li>
+<% } %>
+        <li class="list-group-item w25 js_disabled_status display-none">
+          <a class="item" title="<%= __('cannotChangeStatus') %>" rel="nofollow">
+            <label><%= __('cannotChangeStatus') %></label>
+            <span><%= __('cannotChangeStatusInfo') %></span>
           </a>
         </li>
         <li class="list-group-item js_request_edition_rights display-none">
