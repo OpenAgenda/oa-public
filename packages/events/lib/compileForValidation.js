@@ -9,6 +9,7 @@ const axios = require('axios');
 const log = require('@openagenda/logs')('compileForValidation');
 
 const fields = require('./fields');
+const statusSlugs = fields.find(f => f.field === 'status').options.map(o => o.value);
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
 
 const isDHM = require('../iso/src/validators/dateHoursMinutesTiming').is;
@@ -74,6 +75,13 @@ module.exports = async (current, data, options = {}) => {
   if (data?.location instanceof Object && !data?.timezone && data.location.timezone) {
     compiled.timezone = data.location.timezone;
     editedFields.push('timezone');
+  }
+
+  if (statusSlugs.includes(data?.status)) {
+    compiled.status = fields
+      .find(f => f.field === 'status')
+      .options
+      .find(o => o.value === data.status).id;
   }
 
   return {

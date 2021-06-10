@@ -248,13 +248,13 @@ module.exports = [{
     id: 3,
     value: 'movedOnline'
   }, {
-    // event was cancelled
-    id: 4,
-    value: 'cancelled'
-  }, {
     // new timings are unknown...
-    id: 5,
+    id: 4,
     value: 'postponed'
+  }, {
+    // event was cancelled
+    id: 5,
+    value: 'cancelled'
   }],
   write: ['internal', 'public'],
   read: ['internal', 'public']

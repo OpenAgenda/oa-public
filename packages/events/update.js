@@ -14,6 +14,7 @@ const lastClean = require('./lib/lastEventClean');
 
 async function update({ service, isPatch }, current, data, o = {}) {
   const options = cleanSetOptions(o);
+  log('received payload for %s: %j', isPatch ? 'patch' : 'update', data);
 
   const clean = {
     ...(await validate(data, {
