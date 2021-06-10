@@ -365,7 +365,7 @@ function _main( v ) {
   const longDescriptionLinks = v.req.event.getLinks();
   
   Object.assign(v.formatted,
-    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo']), 
+    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo', 'status']), 
     v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
     {
       longDescriptionLinks,

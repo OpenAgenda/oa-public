@@ -34,9 +34,9 @@ async function loadMissing(req) {
 
   const record = await req.app.services
     .knex('event_2')
-    .first(['timings', 'online_access_link', 'registration', 'conditions'])
+    .first(['timings', 'online_access_link', 'registration', 'conditions', 'status'])
     .where('uid', req.event.uid);
-  
+
   req.event.timings = record ? (JSON.parse(record.timings) || []).map(t => ({
     start: t.begin,
     end: t.end
@@ -46,6 +46,8 @@ async function loadMissing(req) {
 
   req.event.ticketLink = JSON.parse(record?.registration || '[]').join(', ');
   req.event.pricingInfo = JSON.parse(record?.conditions || '{}')[req.lang];
+
+  req.event.status = record?.status === undefined ? 1 : record?.status;
 }
 
 

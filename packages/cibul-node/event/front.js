@@ -590,6 +590,9 @@ function _appendSettings(req, res, next) {
       useContributeApp: {
         $set: _.get(agenda, 'credentials.useContributeApp', false)
       },
+      useDetailedStatusActions: {
+        $set: !!agenda?.settings?.lab?.status
+      },
       bottom: {
         scripts: { $push: [ cmn.extractGoogleAnalytics( agendas ) ] }
       }
