@@ -1,4 +1,10 @@
 {
+  "noRefAgendas": "Questo posto non è menzionato in nessun altro programma.",
+  "oneRefAgendas": "Anche questo posto è menzionato nell'agenda :",
+  "multiRefAgendas": "Questo luogo è indicato anche sui calendari ",
+  "andOn": " e così via ",
+  "oneOther": "l`uno e l`altro",
+  "others": " altri",
   "guide": "Questo posto è descritto correttamente?",
   "guideDetail": "Se è necessario apportare alcune modifiche, si prega di specificarle utilizzando il pulsante qui sotto prima di confermare la selezione.",
   "cancel": "Scegliere un altro luogo",

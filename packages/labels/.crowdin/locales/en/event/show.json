@@ -86,5 +86,22 @@
   "contactForm": "Contact form",
   "contactEmail": "Contact agenda administrators",
   "contactEmailButton": "Send an email",
-  "contributionRestricted": "The contribution to this agenda is restricted"
+  "contributionRestricted": "The contribution to this agenda is restricted",
+  "markAsScheduled": "Clear the status of the event",
+  "statusScheduledInfo": "The event is not cancelled, nor rescheduled, etc..",
+  "statusRescheduled": "Rescheduled",
+  "markAsRescheduled": "The event was rescheduled",
+  "statusRescheduledInfo": "The timings and dates of the event have been modified",
+  "statusMovedOnline": "Moved online",
+  "markAsMovedOnline": "The event is moved online",
+  "statusMovedOnlineInfo": "The event will no longer be attended to at a physical location",
+  "statusPostponed": "Postponed",
+  "markAsPostponed": "The event is postponed",
+  "statusPostponedInfo": "The event dates are no longer valid. New dates are not yet known",
+  "statusCancelled": "Cancelled",
+  "markAsCancelled": "The event is cancelled",
+  "statusCancelledInfo": "The event has been permanently cancelled",
+  "statusFull": "Fully booked",
+  "markAsFull": "The event is fully booked",
+  "statusFullInfo": "New participants are no longer accepted to the event"
 }

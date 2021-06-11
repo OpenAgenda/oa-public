@@ -14,6 +14,7 @@
   "groupTags.required": "At least one item must be selected",
   "required": "Required",
   "choice.required": "Required",
+  "choice.required.max": "The selection must not exceed %max% choices",
   "serverException": "There was trouble while saving the data, try again in a short while",
   "serverErrorTooLargeFile": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes",
   "noOrigin": "This event is unavailable as it is not associated to any agenda.",
