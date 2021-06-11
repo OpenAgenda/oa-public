@@ -33,6 +33,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
     end: t.end
   } ) );
 
+  
   const e = {
     ..._.pick( legacyEvent, [
       'id',
@@ -52,6 +53,9 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       'isPublished',
       'fileKey'
     ] ),
+    status: event.status || 1,
+    attendanceMode: event.attendance_mode || 1,
+    onlineAccessLink: event.online_access_link || null,
     updatedAt: getLatestUpdated(event, articles),
     age: _age( legacyEvent ),
     accessibility: _accessibility( legacyEvent ),
@@ -146,7 +150,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       'credits'
     ] ) : {},
     ..._.pick( legacyEvent, [ 'customFields' ] )
-  }
+  };
 
   return e;
 }
@@ -188,6 +192,9 @@ async function _fetch( knex, identifier ) {
     'timings',
     'timezone',
     'references',
+    'status',
+    'attendance_mode',
+    'online_access_link',
     'agenda_uid as agendaUid',
     'updated_at as updatedAt'
   ] ).where( 'uid', legacyEvent.uid )
