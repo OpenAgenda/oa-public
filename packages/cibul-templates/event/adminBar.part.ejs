@@ -83,7 +83,7 @@
             rel="nofollow"
           >
             <label><%= __('markAsScheduled') %></label>
-            <span><%= __('markAsScheduledInfo') %></span>
+            <span><%= __('statusScheduledInfo') %></span>
           </a>
         </li>
         <li class="list-group-item w25">
@@ -93,7 +93,7 @@
             rel="nofollow"
           >
             <label><%= __('markAsRescheduled') %></label>
-            <span><%= __('markAsRescheduledInfo') %></span>
+            <span><%= __('statusRescheduledInfo') %></span>
           </a>
         </li>
         <li class="list-group-item w25">
@@ -103,7 +103,7 @@
           rel="nofollow"
           >
           <label><%= __('markAsMovedOnline') %></label>
-          <span><%= __('markAsMovedOnlineInfo') %></span>
+          <span><%= __('statusMovedOnlineInfo') %></span>
         </a>
       </li>
       <li class="list-group-item w25">
@@ -113,7 +113,7 @@
           rel="nofollow"
         >
           <label><%= __('markAsPostponed') %></label>
-          <span><%= __('markAsPostponedInfo') %></span>
+          <span><%= __('statusPostponedInfo') %></span>
         </a>
       </li>
         <li class="list-group-item w25">
@@ -123,12 +123,16 @@
             rel="nofollow"
           >
             <label><%= __('markAsCancelled') %></label>
-            <span><%= __('markAsCancelledInfo') %></span>
+            <span><%= __('statusCancelledInfo') %></span>
           </a>
         </li>
 <% } else { %>
         <li class="list-group-item w25">
-          <a class="item active js_status display-none" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow">
+          <a
+            class="item active js_status display-none"
+            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}` %>"
+            rel="nofollow"
+          >
             <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
             <span><%= __(isCancelled ? 'uncancelInfo' : 'cancelInfo') %></span>
           </a>
