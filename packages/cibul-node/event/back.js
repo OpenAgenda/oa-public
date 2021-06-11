@@ -64,7 +64,7 @@ module.exports = app => {
       .events
       .get(req.params.eventUid)
       .then(event => {
-        if (!event.references?.length) {
+        if (!event?.references?.length) {
           return res.json({
             references: null,
             events: []
