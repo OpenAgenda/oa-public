@@ -59,6 +59,8 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
     updatedAt: getLatestUpdated(event, articles),
     age: _age( legacyEvent ),
     accessibility: _accessibility( legacyEvent ),
+    attendanceMode: event.attendanceMode || 1,
+    onlineAccessLink: event.onlineAccessLink || null,
     locations: !location ? [{
       timings
     }] : [ {
@@ -188,6 +190,8 @@ async function _fetch( knex, identifier ) {
     'keywords as tags',
     'location_uid as locationUid',
     'registration',
+    'attendance_mode as attendanceMode',
+    'online_access_link as onlineAccessLink',
     'conditions',
     'timings',
     'timezone',

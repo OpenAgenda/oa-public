@@ -10,6 +10,7 @@ import Providers from './decorators/Providers';
 
 import toulouseEmbed from './fixtures/toulouse.json';
 import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
+import toulouseEvents from './fixtures/toulouse.events.json';
 
 export default {
   title: 'Containers',
@@ -21,13 +22,9 @@ export function DashboardBeforeCreate() {
     delayResponse: 1000
   });
   mock.onGet('/agendas/50522407').reply(200, apiAgendasToulouse);
-
-  mock.onGet('/agendas/50522407/embeds').reply(
-    200,
-    []
-  );
-
+  mock.onGet('/agendas/50522407/embeds').reply(200, []);
   mock.onPost('/agendas/50522407/embeds').reply(200, toulouseEmbed);
+  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
 
   const selectionMenuRef = useRef();
 
@@ -58,10 +55,8 @@ export function DashboardDefaultView() {
   });
 
   mock.onGet('/agendas/50522407').reply(200, apiAgendasToulouse);
-  mock.onGet('/agendas/50522407/embeds').reply(
-    200,
-    [toulouseEmbed]
-  );
+  mock.onGet('/agendas/50522407/embeds').reply(200, [toulouseEmbed]);
+  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
   mock.onPost('/agendas/50522407/embeds/80717033').reply(200);
 
   const selectionMenuRef = useRef();
@@ -74,6 +69,7 @@ export function DashboardDefaultView() {
           agendaUid={50522407}
           res={{
             legacy: '/agendas/:agendaUid/admin/webembed',
+            events: '/agendas/:agendaUid/events',
             embeds: '/agendas/:agendaUid/embeds',
             agendaSettings: '/agendas/:agendaUid',
             preview: 'https://d.openagenda.com/agendas/:agendaUid/previewEmbeds/:embedUid/events',

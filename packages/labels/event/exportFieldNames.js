@@ -469,5 +469,21 @@ module.exports = {
     "es": "eventos relacionados",
     "it": "Eventi correlati",
     "io": "crwdns14260:0crwdne14260:0"
+  },
+  "attendanceMode": {
+    "fr": "Mode de participation",
+    "en": "Attendance mode",
+    "it": "Modalità di partecipazione",
+    "es": "Modo de asistencia",
+    "de": "Anwesenheitsmodus",
+    "br": "Doare perzhiañ"
+  },
+  "onlineAccessLink": {
+    "fr": "Lien d'accès",
+    "en": "Access link",
+    "de": "Zugangslink",
+    "es": "Enlace de acceso",
+    "it": "Collegamento di accesso",
+    "br": "Liamm moned"
   }
 }

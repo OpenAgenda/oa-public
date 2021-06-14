@@ -9,6 +9,7 @@ import createApp from '../src';
 
 import toulouseEmbed from './fixtures/toulouse.json';
 import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
+import toulouseEvents from './fixtures/toulouse.events.json';
 
 import AdminCanvas from './decorators/AdminCanvas';
 
@@ -23,10 +24,8 @@ export function Integrated() {
   });
 
   mock.onGet('/agendas/50522407').reply(200, apiAgendasToulouse);
-  mock.onGet('/agendas/50522407/embeds').reply(
-    200,
-    [toulouseEmbed]
-  );
+  mock.onGet('/agendas/50522407/embeds').reply(200, [toulouseEmbed]);
+  mock.onGet('/agendas/50522407/events').reply(200, toulouseEvents);
   mock.onPost('/agendas/50522407/embeds/80717033').reply(200);
 
   const selectionMenuRef = useRef();
