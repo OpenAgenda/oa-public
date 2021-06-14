@@ -529,11 +529,12 @@ module.exports = {
 };
 ```
 
-On rajoute le script build dans le package.json:
+On rajoute le script build dans le package.json... le script "prepack" peut-être référencé aussi, il est appelé lors d'une installation générale du projet oa:
 
 ```
   ...
   "build": "babel --copy-files embeds/app/src -d embeds/app/dist -s",
+  "prepack": "yarn build"
   ...
 ```
 

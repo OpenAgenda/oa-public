@@ -94,7 +94,7 @@ export default ({
         onChange={onChange}
         type="textarea"
         rows={10}
-        path="template.eventitem"
+        path="template.event"
         label={m(messages.customEvent)}
       />
     </div>

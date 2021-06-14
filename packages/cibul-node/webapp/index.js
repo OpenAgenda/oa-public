@@ -13,7 +13,7 @@ const cmn = require('../lib/commons-app');
 const getInboxLabel = makeLabelGetter(inboxLabels);
 
 const apiRoot = `http://localhost:${config.port}`;
-const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
+
 // const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
 const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || null;
 const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
@@ -306,9 +306,12 @@ const initialState = async req => {
       lang,
       apiRoot: `http://localhost:${config.port}`,
       res: {
+        legacy: '/agendas/:agendaUid/admin/webembed',
+        events: '/api/agendas/:agendaUid/events?state[]=2&state[]=1&state[]=0',
         embeds: '/api/agendas/:agendaUid/embeds',
         preview: '/agendas/:agendaUid/previewEmbeds/:embedUid/events',
-        previewScript: '/js/embed/cibulBodyWidget.js'
+        previewScript: '/js/embed/cibulBodyWidget.js',
+        agendaSettings: '/api/agendas/:agendaUid'
       }
     },
     agendaActivities: {

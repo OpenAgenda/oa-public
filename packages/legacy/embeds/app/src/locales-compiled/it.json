@@ -61,10 +61,22 @@
       "value": "Advanced"
     }
   ],
+  "LegacyEmbed.App.eventPreview": [
+    {
+      "type": 0,
+      "value": "Detailed"
+    }
+  ],
   "LegacyEmbed.App.generalMenu": [
     {
       "type": 0,
       "value": "General"
+    }
+  ],
+  "LegacyEmbed.App.listPreview": [
+    {
+      "type": 0,
+      "value": "List view"
     }
   ],
   "LegacyEmbed.App.mapCodeLabel": [
@@ -101,6 +113,18 @@
     {
       "type": 0,
       "value": "Sélectionner un menu"
+    }
+  ],
+  "LegacyEmbed.Dashboard.applicationInfo": [
+    {
+      "type": 0,
+      "value": "You are now using an new iteration of the the integrated views configuration tool."
+    }
+  ],
+  "LegacyEmbed.Dashboard.backToLegacy": [
+    {
+      "type": 0,
+      "value": "Use the legacy application instead"
     }
   ],
   "LegacyEmbed.EmbedSelection.calendar": [

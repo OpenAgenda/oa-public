@@ -5394,9 +5394,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/es-node@npm:^1.2.5":
-  version: 1.2.5
-  resolution: "@openagenda/es-node@npm:1.2.5"
+"@openagenda/es-node@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "@openagenda/es-node@npm:1.2.6"
   dependencies:
     "@openagenda/utils": ^1.2.2
     async: ~0.9
@@ -5406,7 +5406,7 @@ __metadata:
     moment: ^2.27.0
     moment-timezone: ^0.5.31
     should: ~4.0
-  checksum: c5e714386acd0815b1e57e2505e750339cec423aa61ddff5272e50612c4d956c786f588ab52f14bd79ed07efdb5b30e6657b05c932b397cc49ded89505994ff0
+  checksum: f1dcf3aa8b7871b030f53707130e9cb092c90378694f903f93b9a5301c8a8fbc85793eef4e52cc76028ce3323324cba1916bfd8bcaa882ac965183eef1134e5c
   languageName: node
   linkType: hard
 
@@ -13585,7 +13585,7 @@ __metadata:
     "@openagenda/date-range": ^2.3.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/email-strategie": ^0.1.12
-    "@openagenda/es-node": ^1.2.5
+    "@openagenda/es-node": ^1.2.6
     "@openagenda/event-form": ^1.5.1
     "@openagenda/event-search": ^2.8.0
     "@openagenda/events": ^2.0.0

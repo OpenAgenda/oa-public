@@ -61,10 +61,22 @@
       "value": "Avancé"
     }
   ],
+  "LegacyEmbed.App.eventPreview": [
+    {
+      "type": 0,
+      "value": "Vue événement"
+    }
+  ],
   "LegacyEmbed.App.generalMenu": [
     {
       "type": 0,
       "value": "Général"
+    }
+  ],
+  "LegacyEmbed.App.listPreview": [
+    {
+      "type": 0,
+      "value": "Vue liste"
     }
   ],
   "LegacyEmbed.App.mapCodeLabel": [
@@ -101,6 +113,18 @@
     {
       "type": 0,
       "value": "Sélectionner un menu"
+    }
+  ],
+  "LegacyEmbed.Dashboard.applicationInfo": [
+    {
+      "type": 0,
+      "value": "Vous utilisez une nouvelle version de l'outil de configuration des agendas intégrés."
+    }
+  ],
+  "LegacyEmbed.Dashboard.backToLegacy": [
+    {
+      "type": 0,
+      "value": "Utiliser l'ancienne version"
     }
   ],
   "LegacyEmbed.EmbedSelection.calendar": [
