@@ -125,7 +125,8 @@ function cleanEvent(services, eInst, options, cb ) {
     },
     location: null,
     attendanceMode: eInst.attendanceMode,
-    onlineAccessLink: eInst.onlineAccessLink || null
+    onlineAccessLink: eInst.onlineAccessLink || null,
+    status: eInst.status || 1
   };
 
   const l = eInst.locations.length ? eInst.locations[ 0 ] : false;
