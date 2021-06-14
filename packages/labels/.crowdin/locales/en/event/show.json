@@ -87,6 +87,7 @@
   "contactEmail": "Contact agenda administrators",
   "contactEmailButton": "Send an email",
   "contributionRestricted": "The contribution to this agenda is restricted",
+  "statusScheduled": "Scheduled",
   "markAsScheduled": "Clear the status of the event",
   "statusScheduledInfo": "The event is not cancelled, nor rescheduled, etc..",
   "statusRescheduled": "Rescheduled",

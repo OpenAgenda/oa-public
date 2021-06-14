@@ -87,6 +87,7 @@
   "contactEmail": "Contacter les administrateurs",
   "contactEmailButton": "Envoyer un email",
   "contributionRestricted": "La contribution à cet agenda est restreinte",
+  "statusScheduled": "Programmé",
   "markAsScheduled": "Réinitialiser l'état de l'événement",
   "statusScheduledInfo": "L'événement n'est pas annulé, ni reprogrammé, etc..",
   "statusRescheduled": "Reprogrammé",

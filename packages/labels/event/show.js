@@ -816,6 +816,10 @@ module.exports = {
     "br": "Strishaet eo ar c'hendeurel d'an deiziataer-mañ",
     "io": "crwdns14600:0crwdne14600:0"
   },
+  "statusScheduled": {
+    "en": "Scheduled",
+    "fr": "Programmé"
+  },
   "markAsScheduled": {
     "en": "Clear the status of the event",
     "fr": "Réinitialiser l'état de l'événement"
