@@ -2,6 +2,7 @@
   "base" : [
     "uid",
     "title",
+    "status",
     "dateRange",
     "featured",
     "image",

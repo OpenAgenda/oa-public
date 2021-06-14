@@ -68,6 +68,9 @@
   "attendanceMode": {
     "type": "integer"
   },
+  "status": {
+    "type": "integer"
+  },
   "member": {
     "properties": {
       "uid": {

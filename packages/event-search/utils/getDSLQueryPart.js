@@ -129,6 +129,10 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_mustPart('terms', 'state', cleanQuery.state));
   }
 
+  if (_.get(cleanQuery, 'status', []).filter(s => s !== null).length) {
+    parts.push(_mustPart('terms', 'status', cleanQuery.status));
+  }
+
   if (_.get(cleanQuery, 'attendanceMode', []).length) {
     parts.push(_mustPart('terms', 'attendanceMode', cleanQuery.attendanceMode));
   }

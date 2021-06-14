@@ -21,6 +21,7 @@ const aggregationTypes = {
   regions: terms('location.region'),
   sourceAgendas: require('./sourceAgendas'),
   states: terms('state', { order: { _key: 'desc' } }),
+  status: terms('status', { order: { _key: 'asc' } }),
   addMethods: terms('addMethod'),
   attendanceModes: terms('attendanceMode', { order: { _key: 'desc' } }),
   timings: require('./timings'),
