@@ -4,7 +4,7 @@ const assert = require('assert');
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
-const buildDistancesAndEvaluate = require('../duplicates/buidlDistancesAndEvaluate');
+const buildDistancesAndEvaluate = require('../duplicates/buildDistancesAndEvaluate');
 
 const {
   service: config,
@@ -27,7 +27,7 @@ async function getAgendaDetailsByUid(uid, fields = []) {
 describe('agenda-locations - functional - Duplicates functions', function () {
   this.timeout(10000);
 
-  const f = fixtures(config.mysql,'hauteSavoie.sql');
+  const f = fixtures(config.mysql, 'hauteSavoie.sql');
 
   let svc;
 

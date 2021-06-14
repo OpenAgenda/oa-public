@@ -9,7 +9,7 @@ module.exports = (location1, location2, config) => {
   const score = distances.geoDistance * weights.geo + distances.levensteinName * weights.levensteinName;
   const sameExtId = location1.extId && location2.extId ? location1.extId === location2.extId : false;
   if (score < scoreThreshold || sameExtId) {
-    log({
+    log('info', {
       ref: {
         uid: location1.uid,
         name: location1.name,

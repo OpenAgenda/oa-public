@@ -1,6 +1,6 @@
 'use strict';
 
-const detectDuplicatesCandidates = require('./detectDuplicatesCandidates');
+const detectDuplicatesCandidates = require('./detectCandidates');
 
 async function detectAllDuplicatesCandidates({ endpoints, internals }) {
   let after = 0;

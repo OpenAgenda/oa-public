@@ -18,12 +18,13 @@ const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
 const decorateWithGeocodeData = require('./lib/decorateWithGeocodeData');
 const imageVariants = require('./lib/imageVariants');
-const duplicates = require('./duplicates/detectDuplicatesCandidates');
-const allDuplicates = require('./duplicates/detectAllDuplicatesCandidates');
+const detectCandidates = require('./duplicates/detectCandidates');
+const detectAllCandidates = require('./duplicates/detectAllCandidates');
 const disqualifyCandidate = require('./duplicates/disqualifyCandidate');
 const clearCandidates = require('./duplicates/clearCandidates');
 
 const getSet = require('./sets/get');
+const listSet = require('./sets/list');
 const createSet = require('./sets/create');
 
 const getSettings = require('./settings/get');
@@ -31,6 +32,7 @@ const getSettings = require('./settings/get');
 const sets = {
   get: getSet,
   create: createSet,
+  list: listSet,
 };
 
 const settings = {
@@ -61,8 +63,14 @@ module.exports = Object.assign(
           getLinkedAgendas: async () => {}, // takes uid, returns linked agendas
           onUpdate: null,
         },
-        duplicates
-      }
+        duplicates: {
+          scoreThreshold: 200,
+          weights: {
+            geo: 1,
+            levensteinName: 15,
+          },
+        },
+      },
     );
 
     if (c.logger) {
@@ -103,6 +111,7 @@ module.exports = Object.assign(
     service.sets = {
       create: sets.create.bind(null, service),
       get: sets.get.bind(null, service),
+      list: sets.list.bind(null, service),
     };
 
     const setEndpoints = Object.assign(setUid => {
@@ -125,8 +134,8 @@ module.exports = Object.assign(
             setUid
           ),
           duplicates: {
-            detect: duplicates.bind(null, { internals: svc, endpoints }),
-            detectAll: allDuplicates.bind(null, { internals: svc, endpoints }),
+            detect: detectCandidates.bind(null, { internals: svc, endpoints }),
+            detectAll: detectAllCandidates.bind(null, { internals: svc, endpoints }),
             disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
             clearCandidates: clearCandidates.bind(null, endpoints),
           }
@@ -166,8 +175,8 @@ module.exports = Object.assign(
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
         },
         duplicates: {
-          detect: duplicates.bind(null, { internals: svc, endpoints }),
-          detectAll: allDuplicates.bind(null, { internals: svc, endpoints }),
+          detect: detectCandidates.bind(null, { internals: svc, endpoints }),
+          detectAll: detectAllCandidates.bind(null, { internals: svc, endpoints }),
           disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
           clearCandidates: clearCandidates.bind(null, endpoints),
         }

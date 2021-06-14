@@ -2,9 +2,9 @@
 
 const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 
-const buildDistancesAndEvaluate = require('./buidlDistancesAndEvaluate');
+const buildDistancesAndEvaluate = require('./buildDistancesAndEvaluate');
 const cleanDetectCandidatesOptions = require('./cleanDetectCandidatesOptions');
-const addDuplicatesCandidates = require('./addDuplicatesCandidates');
+const addDuplicatesCandidates = require('./addCandidates');
 
 async function getLocation(endpoints, locationOrUid) {
   const location = locationOrUid?.constructor.name === 'Object' ? locationOrUid : await endpoints.get(locationOrUid);
