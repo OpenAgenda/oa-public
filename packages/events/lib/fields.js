@@ -252,8 +252,11 @@ module.exports = [{
     id: 4,
     value: 'postponed'
   }, {
-    // event was cancelled
     id: 5,
+    value: 'full'
+  }, {
+    // event was cancelled
+    id: 6,
     value: 'cancelled'
   }],
   write: ['internal', 'public'],
