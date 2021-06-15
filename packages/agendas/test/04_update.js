@@ -1,21 +1,21 @@
-"use strict";
+'use strict';
 
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig.sample' );
+} = require('../testconfig.sample');
 
-const mysql = require( 'mysql' );
-const should = require( 'should' );
+const mysql = require('mysql');
+const assert = require('assert');
 const Files = require('@openagenda/files');
 
-const svc = require( '../' );
+const svc = require('../');
 
-describe( 'agendas - functional (server): set (update)', function() {
+describe('agendas - functional (server): set (update)', function() {
 
-  this.timeout( 30000 );
+  this.timeout(30000);
 
-  before( require( './fixtures/load.js' ).bind( null, {
+  before(require('./fixtures/load.js').bind(null, {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
@@ -24,7 +24,7 @@ describe( 'agendas - functional (server): set (update)', function() {
       __dirname + '/fixtures/agendaEvent.data.sql',
       __dirname + '/fixtures/occurrence.data.sql',
       __dirname + '/fixtures/legacyCredentialSet.data.sql'
-    ],
+   ],
     map: {
       database: config.mysql.database,
       agenda: 'agenda',
@@ -32,24 +32,24 @@ describe( 'agendas - functional (server): set (update)', function() {
       occurrence: 'occurrence',
       legacyCredential: 'legacy_credential_set'
     }
-  } ) );
+  }));
 
-  before( () => svc.init( {
+  before(() => svc.init({
     ...config,
     Files: Files(dConfig.files)
-  } ) );
+  }));
 
-  afterEach( () => svc.init( {
+  afterEach(() => svc.init({
     ...config,
     Files: Files(dConfig.files)
-  } ) );
+  }));
 
   it('set returns a promise', async () => {
     const { agenda } = await svc.set(4875, {
       title: 'La promesse'
     });
 
-    agenda.title.should.equal('La promesse');
+    assert.strictEqual(agenda.title, 'La promesse');
   });
 
   it('set in promise mode can take options', async () => {
@@ -57,18 +57,16 @@ describe( 'agendas - functional (server): set (update)', function() {
       title: 'La 2ème promesse'
     }, { protected: false });
 
-    agenda.title.should.equal('La 2ème promesse');
+    assert.strictEqual(agenda.title, 'La 2ème promesse');
   });
 
-  it( 'set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
-
-    svc.set( 4875, {
+  it('set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
+    svc.set(4875, {
       title: 'Le Frometon'
-    }, ( err, result ) => {
+    }, (err, result) => {
+      assert.strictEqual(err, null);
 
-      should( err ).equal( null );
-
-      result.agenda.should.eql( {
+      assert.deepStrictEqual(result.agenda, {
         slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
         uid: 52084961,
         title: 'Le Frometon',
@@ -78,7 +76,8 @@ describe( 'agendas - functional (server): set (update)', function() {
         networkUid: null,
         settings: {
           lab: {
-            eventAdmin: false
+            eventAdmin: false,
+            status: false
           },
           inbox: {
             mailto: {
@@ -103,7 +102,7 @@ describe( 'agendas - functional (server): set (update)', function() {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
-            canPublish: [ 'administrators', 'moderators' ],
+            canPublish: ['administrators', 'moderators'],
             moderateOnChangeBy: []
           },
           translation: {
@@ -120,148 +119,104 @@ describe( 'agendas - functional (server): set (update)', function() {
         private: 0,
         indexed: 1,
         locationSetUid: null
-      } );
+      });
 
       done();
+    });
+  });
 
-    } );
-
-  } );
-
-
-  it( 'set by slug works too', done => {
-
-    svc.set( { slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
+  it('set by slug works too', done => {
+    svc.set({ slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
       official: true
-    }, { protected: false }, ( err, result ) => {
-
-      should( err ).equal( null );
-
-      result.agenda.official.should.equal( 1 ); // because I don't clean at db read
+    }, { protected: false }, (err, result) => {
+      assert.strictEqual(err, null);
+      assert.strictEqual(result.agenda.official, 1);
 
       done();
+    });
+  });
 
-    } );
-
-  } );
-
-
-  it( 'setting official timestamps offialized_at', done => {
-
+  it('setting official timestamps offialized_at', done => {
     let now = new Date();
 
-    svc.set( 4875, {
+    svc.set(4875, {
       official: true
-    }, { protected: false, internal: true }, ( err, result ) => {
-
-      ( result.agenda.officializedAt.getTime() - now.getTime() ).should.lessThan( 1000 );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'set without internal option returns an updated agenda that excludes internal fields', done => {
-
-    svc.set( 4875, { title: 'Booyah' }, ( err, result ) => {
-
-      should( result.agenda.id ).equal( undefined );
+    }, { protected: false, internal: true }, (err, result) => {
+      assert(result.agenda.officializedAt.getTime() - now.getTime() < 1000);
 
       done();
+    });
+  });
 
-    } );
-
-  } );
-
-
-  it( 'set with internal option set to true returns an updated agenda that includes internal fields', done => {
-
-    svc.set( 4875, { title: 'Boom.' }, { internal: true }, ( err, result ) => {
-
-      should( result.agenda.id ).equal( 4875 );
+  it('set without internal option returns an updated agenda that excludes internal fields', done => {
+    svc.set(4875, { title: 'Booyah' }, (err, result) => {
+      assert.strictEqual(result.agenda.id, undefined);
 
       done();
+    });
+  });
 
-    } );
-
-  } );
-
-
-  it( 'set with includeImagePath to true returns an updated agenda that includes image paths', done => {
-
-    svc.set( 4875, { title: 'Le mur' }, { includeImagePath: true }, ( err, result ) => {
-
-      result.agenda.image.should.equal( '//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' );
+  it('set with internal option set to true returns an updated agenda that includes internal fields', done => {
+    svc.set(4875, { title: 'Boom.' }, { internal: true }, (err, result) => {
+      assert.strictEqual(result.agenda.id, 4875);
 
       done();
+    });
+  });
 
-    } );
+  it('set with includeImagePath to true returns an updated agenda that includes image paths', done => {
+    svc.set(4875, { title: 'Le mur' }, { includeImagePath: true }, (err, result) => {
+      result.agenda.image.should.equal('//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg');
 
-  } );
+      done();
+    });
+  });
 
-
-  it( 'set slug', done => {
-
-    svc.set( { slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
+  it('set slug', done => {
+    svc.set({ slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016' }, {
       slug: 'lait'
-    }, ( err, result ) => {
+    }, (err, result) => {
+      assert.strictEqual(err, null);
 
-      should( err ).equal( null );
-
-      result.agenda.slug.should.equal( 'lait' );
+      result.agenda.slug.should.equal('lait');
 
       done();
+    });
+  });
 
-    } );
-
-  } );
-
-
-  it( 'set credentials on agenda updates legacy data structure', done => {
-
-    svc.set( { uid: 41416256 }, {
+  it('set credentials on agenda updates legacy data structure', done => {
+    svc.set({ uid: 41416256 }, {
       credentials: {
         aggregator: true
       }
     }, {
       internal: true,
       protected: false
-    }, ( err, result ) => {
+    }, (err, result) => {
+      assert.strictEqual(result.agenda.credentials.aggregator, true);
 
-      result.agenda.credentials.aggregator.should.equal( true );
+      const con = mysql.createConnection(config.mysql);
 
-      let con = mysql.createConnection( config.mysql );
-
-      con.query( `select * from legacy_credential_set where review_id = ?`, result.agenda.id, ( err, rows ) => {
-
-        rows[ 0 ].aggregator.should.equal( 1 );
-
+      con.query(`select * from legacy_credential_set where review_id = ?`, result.agenda.id, (err, rows) => {
+        assert.strictEqual(rows[0].aggregator, 1);
+        
         done();
+      });
+    });
+  });
 
-      } );
-
-    } );
-
-
-  } );
-
-
-  it( 'set credentials on pre-exisiting agenda', done => {
-
-    svc.set( { uid: 65903437 }, {
+  it('set credentials on pre-exisiting agenda', done => {
+    svc.set({ uid: 65903437 }, {
       credentials: {
         moderators: true
       }
     }, {
       internal: true, // to retrieve credentials after update
       protected: false
-    }, ( err, result ) => {
+    }, (err, result) => {
+      assert.strictEqual(err, null);
 
-      should( err ).equal( null )
-
-      result.should.eql( {
+      assert.deepStrictEqual(result, {
         agenda: {
           id: 4887,
           ownerId: 7388,
@@ -280,7 +235,8 @@ describe( 'agendas - functional (server): set (update)', function() {
           image: null,
           settings: {
             lab: {
-              eventAdmin: false
+              eventAdmin: false,
+              status: false
             },
             inbox: {
               mailto: {
@@ -305,7 +261,7 @@ describe( 'agendas - functional (server): set (update)', function() {
               type: 2,
               useFields: false,
               authorizedIPAddresses: [],
-              canPublish: [ 'administrators', 'moderators' ],
+              canPublish: ['administrators', 'moderators'],
               moderateOnChangeBy: []
             },
             translation: {
@@ -345,17 +301,13 @@ describe( 'agendas - functional (server): set (update)', function() {
         valid: true,
         success: true,
         errors: []
-      } );
-
+      });
 
       done();
+    });
+  });
 
-    } );
-
-  } );
-
-  it( 'empty moderateOnChangeBy keeped', done => {
-
+  it('empty moderateOnChangeBy keeped', done => {
     svc.set(
       { uid: 35338076 },
       {
@@ -367,128 +319,96 @@ describe( 'agendas - functional (server): set (update)', function() {
       }, {
         internal: true, // to retrieve credentials after update
         protected: false
-      }, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        should( result.agenda.settings.contribution.moderateOnChangeBy ).eql( [] );
+      }, (err, result) => {
+        assert.strictEqual(err, null);
+        assert.deepStrictEqual(result.agenda.settings.contribution.moderateOnChangeBy, []);
 
         done();
+      });
+  });
 
-    } );
+  it('unprotected set cannot update protected field', done => {
+    const uid = 65903437;
 
-  } );
-
-
-  it( 'unprotected set cannot update protected field', done => {
-
-    let uid = 65903437;
-
-    svc.set( { uid }, {
+    svc.set({ uid }, {
       credentials: {
         moderators: true
       }
-    }, { protected: false }, ( err, result ) => {
-
-      svc.set( { uid }, {
+    }, { protected: false }, (err, result) => {
+      svc.set({ uid }, {
         title: 'Nouveau titre',
         credentials: {}
       }, () => {
-
-        svc.get( { uid }, { internal: true }, ( err, data ) => {
-
-          data.credentials.moderators.should.equal( true );
+        svc.get({ uid }, { internal: true }, (err, data) => {
+          assert(data.credentials.moderators);
 
           done();
+        });
+      });
+    });
+  });
 
-        } );
-
-      } );
-
-    } );
-
-  } );
-
-  it( 'partial settings set does not impact remaining settings values', done => {
-
+  it('partial settings set does not impact remaining settings values', done => {
     let uid = 65903437;
 
-    svc.set( { uid }, {
+    svc.set({ uid }, {
       settings: {
         translation: {
           enabled: true
         }
       }
-    }, ( err, result ) => {
-
-      svc.set( { uid }, {
+    }, (err, result) => {
+      svc.set({ uid }, {
         settings: {
           contribution: {
             defaultState: 1,
           }
         }
-      }, ( err, result ) => {
-
-        result.agenda.settings.translation.enabled.should.equal( true );
+      }, (err, result) => {
+        assert(result.agenda.settings.translation.enabled);
 
         done();
+      });
+    });
+  });
 
-      } );
-
-    } );
-
-  } );
-
-
-  it( 'onUpdate callbacks with agenda data before and after update', done => {
-
-    svc.init( Object.assign( {}, config, {
+  it('onUpdate callbacks with agenda data before and after update', done => {
+    svc.init(Object.assign({}, config, {
       Files: Files(dConfig.files),
       interfaces: {
-        onUpdate: ( before, after ) => {
-
-          before.settings.contribution.useFields.should.equal( false );
-
-          after.settings.contribution.useFields.should.equal( true );
+        onUpdate: (before, after) => {
+          assert.strictEqual(before.settings.contribution.useFields, false);
+          assert.strictEqual(after.settings.contribution.useFields, true);
 
           done();
-
         }
       }
-    } ) );
+    }));
 
-    svc.set( 4830, {
+    svc.set(4830, {
       settings: {
         contribution: {
           useFields: true
         }
       }
-    }, () => {} );
+    }, () => {});
+  });
 
-  } );
-
-
-  it( 'onUpdate callbacks with agenda data that includes internal fields', done => {
-
-    svc.init( Object.assign( {}, config, {
+  it('onUpdate callbacks with agenda data that includes internal fields', done => {
+    svc.init(Object.assign({}, config, {
       Files: Files(dConfig.files),
       interfaces: {
-        onUpdate: ( before, after ) => {
-
-          should( before.id ).equal( 4830 );
-
-          should( after.id ).equal( 4830 );
+        onUpdate: (before, after) => {
+          assert.strictEqual(before.id, 4830);
+          assert.strictEqual(after.id, 4830);
 
           done();
-
         }
       }
-    } ) );
+    }));
 
-    svc.set( 4830, {
+    svc.set(4830, {
       title: 'Blaaargh'
-    }, () => {} );
-
-  } );
-
-} );
+    }, () => {});
+  });
+});

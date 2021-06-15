@@ -25,14 +25,25 @@ export default function LabSettingsForm({ agenda, onSubmit }) {
               </div>
             )}
           />
-
+          <Field
+            name="status"
+            type="checkbox"
+            render={({ input }) => (
+              <div className="checkbox">
+                <label>
+                  <input {...input} />
+                  {getLabel('eventStatusDesc')}
+                </label>
+              </div>
+            )}
+          />
           <button className="btn btn-primary" type="submit" disabled={submitting}>
             {getLabel('update')}
 
             {submitting ? (
               <span className="margin-left-xs">
-                  <Spinner mode="inline" />
-                </span>
+                <Spinner mode="inline" />
+              </span>
             ) : null}
           </button>
         </form>

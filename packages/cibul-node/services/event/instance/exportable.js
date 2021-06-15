@@ -104,6 +104,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         originalImage: pickEventImage( config, instance, 'full' ),
         attendanceMode: instance.attendanceMode,
         onlineAccessLink: instance.onlineAccessLink,
+        status: instance.status,
         updatedAt: instance.updatedAt,
         createdAt: instance.createdAt,
         age: instance.getAge(),

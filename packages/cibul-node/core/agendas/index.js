@@ -28,4 +28,4 @@ module.exports = core => {
     create: create.bind(null, core),
     rebuildIndex: () => core.services.agendaSearch.rebuild()
   });
-}
+};

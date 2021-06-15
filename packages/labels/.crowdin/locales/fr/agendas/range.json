@@ -4,5 +4,12 @@
   "moreDates": "%firstDate% - %lastDate%",
   "noDates": "aucune date disponible",
   "minuteSeparator": "h",
-  "prefix": "les"
+  "prefix": "les",
+  "weekday-0": "dimanches",
+  "weekday-1": "lundis",
+  "weekday-2": "mardis",
+  "weekday-3": "mercredis",
+  "weekday-4": "jeudis",
+  "weekday-5": "vendredis",
+  "weekday-6": "samedis"
 }

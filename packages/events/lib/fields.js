@@ -231,7 +231,7 @@ module.exports = [{
   db: {
     type: 'json'
   }
-}, /*{
+}, {
   field: 'status',
   fieldType: 'radio',
   default: 1,
@@ -248,17 +248,20 @@ module.exports = [{
     id: 3,
     value: 'movedOnline'
   }, {
-    // event was cancelled
-    id: 4,
-    value: 'cancelled'
-  }, {
     // new timings are unknown...
-    id: 5,
+    id: 4,
     value: 'postponed'
+  }, {
+    id: 5,
+    value: 'full'
+  }, {
+    // event was cancelled
+    id: 6,
+    value: 'cancelled'
   }],
   write: ['internal', 'public'],
   read: ['internal', 'public']
-}, */{
+}, {
   field: 'references',
   fieldType: 'references',
   optional: true,

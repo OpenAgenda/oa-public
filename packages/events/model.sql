@@ -16,6 +16,7 @@ CREATE TABLE `${schema}` (
   image VARCHAR(1500),
   draft TINYINT(1) DEFAULT 0,
   private TINYINT(1) DEFAULT 0,
+  status TINYINT(1) DEFAULT 1,
   timezone VARCHAR(255),
   timings TEXT,
   accessibility VARCHAR( 100 ),

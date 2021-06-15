@@ -368,5 +368,25 @@ module.exports = {
     "br": "Gwel deiziadur",
     "es": "Ver el agenda",
     "io": "crwdns12972:0crwdne12972:0"
+  },
+  "statusRescheduled": {
+    "en": "Rescheduled",
+    "fr": "Reprogrammé"
+  },
+  "statusMovedOnline": {
+    "en": "Moved online",
+    "fr": "Déplacé en ligne"
+  },
+  "statusPostponed": {
+    "en": "Postponed",
+    "fr": "Reporté"
+  },
+  "statusCancelled": {
+    "en": "Cancelled",
+    "fr": "Annulé"
+  },
+  "statusFull": {
+    "en": "Fully booked",
+    "fr": "Complet"
   }
 }

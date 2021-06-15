@@ -186,6 +186,33 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
     value: [2, 3]
   }
 }, {
+  field: 'status',
+  fieldType: 'select',
+  default: 1,
+  display: false,
+  label: labels.status,
+  options: [{
+    id: 1,
+    value: 'scheduled',
+    label: labels.scheduled
+  }, {
+    id: 2,
+    value: 'rescheduled',
+    label: labels.rescheduled
+  }, {
+    id: 3,
+    value: 'movedOnline',
+    label: labels.movedOnline
+  }, {
+    id: 4,
+    value: 'cancelled',
+    label: labels.cancelled
+  }, {
+    id: 5,
+    value: 'postponed',
+    label: labels.postponed
+  }]
+}, {
   field: 'references',
   fieldType: 'integer',
   list: true,
