@@ -91,8 +91,7 @@ const validate = schema({
   status: {
     optional: true,
     type: 'choice',
-    options: [null, 1, 2, 3, 4, 5],
-    default: null
+    options: [1, 2, 3, 4, 5]
   },
   featured: {
     optional: true,

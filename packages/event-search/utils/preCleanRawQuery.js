@@ -4,11 +4,15 @@ const { produce } = require('immer');
 
 module.exports = produce((query = {}) => {
   try {
-    if (query.state) {
-      query.state = []
-        .concat(query.state)
+    ['state', 'status'].forEach(f => {
+      if (!query[f]) {
+        return;
+      }
+
+      query[f] = []
+        .concat(query[f])
         .map(s => typeof s === 'string' ? parseInt(s) : s);
-    }
+    });
   } catch (e) {
     log('error', 'provided state is invalid %j', query);
   }
