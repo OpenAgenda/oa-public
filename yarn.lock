@@ -5547,6 +5547,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.0.0
     axios: ^0.21.1
     debug: ^4.1.1
     deep-diff: ^1.0.2
@@ -5557,7 +5558,6 @@ __metadata:
     moment-timezone: ^0.5.31
     prompts: ^2.0.1
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
