@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const formatEvent = require('./utils/formatEvent');
 const getDocumentId = require('./utils/getDocumentId');
@@ -32,7 +32,7 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
       routing: set,
       body: {
         doc: {
-          ...formatEvent(eventPart, { formSchema }),
+          ...formatEvent(eventPart, { formSchema }),
           _set: set
         }
       },
