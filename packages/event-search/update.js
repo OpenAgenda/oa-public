@@ -7,12 +7,14 @@ const formatEvent = require('./utils/formatEvent');
 const getDocumentId = require('./utils/getDocumentId');
 const getIndexName = require('./utils/getIndexName');
 const log = require('@openagenda/logs')('update');
+const validateOptions = require('./utils/validateUpdateOptions');
 
 module.exports = async function(config, set, identifiers, eventPart, options = {}) {
   const {
-    refresh = false,
-    formSchema = null
-  } = options;
+    refresh,
+    formSchema,
+    operation
+  } = validateOptions(options);
 
   const {
     client,
@@ -27,15 +29,14 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
   let result;
 
   try {
-    result = await client.update({
+    const doc = {
+      ...formatEvent(eventPart, { formSchema }),
+      _set: set
+    };
+    result = await client[operation]({
       index: getIndexName(set, defaultIndex),
       routing: set,
-      body: {
-        doc: {
-          ...formatEvent(eventPart, { formSchema }),
-          _set: set
-        }
-      },
+      body: operation === 'update' ? { doc } : doc,
       id: getDocumentId(set, identifiers.uid),
       refresh
     });
@@ -43,7 +44,9 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
     throw new VError(err, 'failed to update event %s to index of set %s', identifiers.uid, set);
   }
 
-  if (result.body.result === 'updated') {
+  let success = false;
+
+  if (operation === 'update' && (result.body.result === 'updated')) {
     log('info', 'event %j was updated in set %s', identifiers, set, {
       operation: 'update',
       set,
@@ -54,15 +57,23 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
         interfaces.onUpdate({ identifiers, set });
       } catch (e) {}
     }
+    success = true;
+  } else if (operation === 'index' && ['created', 'updated'].includes(result.body.result)) {
+    log('info', 'event %j was %s in set %s', result.body.result, identifiers, set, {
+      operation,
+      set,
+      identifiers
+    });
+    success = true;
   } else {
-    log('warn', 'event %j was not updated in set %s', identifiers, set, {
-      operation: 'update',
+    log('warn', 'event %j was not %s in set %s', operation === 'update' ? 'updated' : 'indexed', identifiers, set, {
+      operation,
       set,
       identifiers
     });
   }
 
   return {
-    success: result.body.result === 'updated'
+    success
   }
 }
