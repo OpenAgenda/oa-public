@@ -52,11 +52,6 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
       set,
       identifiers
     });
-    if (interfaces?.onUpdate) {
-      try {
-        interfaces.onUpdate({ identifiers, set });
-      } catch (e) {}
-    }
     success = true;
   } else if (operation === 'index' && ['created', 'updated'].includes(result.body.result)) {
     log('info', 'event %j was %s in set %s', result.body.result, identifiers, set, {
@@ -71,6 +66,14 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
       set,
       identifiers
     });
+  }
+
+  if (success) {
+    if (interfaces?.onUpdate) {
+      try {
+        interfaces.onUpdate({ identifiers, set });
+      } catch (e) {}
+    }
   }
 
   return {
