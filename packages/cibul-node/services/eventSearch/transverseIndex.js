@@ -12,7 +12,7 @@ async function transverseIndexUpdate(searchIndex, event) {
 
   if (await searchIndex.search({ uid }).then(r => r.total)) {
     log('updating event %s in transverse index', uid);
-    return searchIndex.update({ uid }, event);
+    return searchIndex.update({ uid }, event, { operation: 'index' });
   }
 
   log('adding event %s to transverse index', uid);
