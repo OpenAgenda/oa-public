@@ -43,6 +43,7 @@ async function updateAgendaIndex(eventSearch, {
     uid: event.uid
   }, data, {
     refresh: true,
+    index: true,
     formSchema,
     agenda
   });
