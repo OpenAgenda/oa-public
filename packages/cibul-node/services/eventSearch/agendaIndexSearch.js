@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const log = require('@openagenda/logs')('services/eventSearch/agendaIndexSearch');
 
@@ -28,4 +28,4 @@ module.exports = (eventSearch, agenda) => {
   }
 
   return Object.assign(search, { stream });
-}
+};
