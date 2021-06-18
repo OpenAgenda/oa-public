@@ -18,6 +18,7 @@ const modulesToInclude = [
   'debug',
   'intl-messageformat',
   'intl-messageformat-parser',
+  'is-plain-obj',
   'lru-cache',
   'react-intl',
   'yallist'
