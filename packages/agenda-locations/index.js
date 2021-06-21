@@ -64,11 +64,8 @@ module.exports = Object.assign(
           onUpdate: null,
         },
         duplicates: {
-          scoreThreshold: 200,
-          weights: {
-            geo: 1,
-            levensteinName: 15,
-          },
+          geoThreshold: 40,
+          nameDistanceThreshold: 10,
         },
       },
     );

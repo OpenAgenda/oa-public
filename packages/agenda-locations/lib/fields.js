@@ -268,7 +268,9 @@ module.exports = [{
 }, {
   field: 'duplicateCandidates',
   fieldType: 'integer',
-  list: true,
+  list: {
+    max: 100
+  },
   default: null,
   db: {
     assign: true,
@@ -281,7 +283,9 @@ module.exports = [{
 }, {
   field: 'disqualifiedDuplicates',
   fieldType: 'integer',
-  list: true,
+  list: {
+    max: 100
+  },
   default: null,
   db: {
     assign: true,
@@ -290,6 +294,7 @@ module.exports = [{
   },
   optional: true,
   read: ['internal', 'public'],
-  write: ['internal', 'contributor']
+  write: ['internal', 'contributor'],
+  max: 100
 }
 ];

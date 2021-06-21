@@ -53,56 +53,6 @@ describe('agenda-locations - functional - Duplicates functions', function () {
     });
   });
 
-
-  describe('buildDistancesAndEvaluate', () => {
-    const config = {
-      scoreThreshold: 200,
-      weights: {
-        geo: 1,
-        levensteinName: 15,
-      },
-    };
-
-    it('a location with different name is not marked as a duplicate', () => {
-      const res = buildDistancesAndEvaluate({
-        name: 'Grotte Chauvet 2 - Ardèche',
-        latitude: 44.406684,
-        longitude: 4.429893,
-      }, {
-        name: 'Caverne du Pont d`Arc',
-        latitude: 44.406684,
-        longitude: 4.429893,
-      }, config);
-      assert.strictEqual(res, false);
-    });
-    it('a location with a very similar name is marked as a duplicate', () => {
-      const res = buildDistancesAndEvaluate({
-        name: 'Grotte Chauvet 2 - Ardèche',
-        latitude: 44.406684,
-        longitude: 4.429893,
-      }, {
-        name: 'Grotte Chauvet',
-        latitude: 44.406685,
-        longitude: 4.429894,
-      }, config);
-      assert.strictEqual(res, true);
-    })
-    it('if same extId marked as duplicate', () => {
-      const res = buildDistancesAndEvaluate({
-        name: 'Grotte Chauvet 2 - Ardèche',
-        latitude: 44.406684,
-        longitude: 4.429893,
-        extId: 100,
-      }, {
-        name: 'Same extId',
-        latitude: 144.406685,
-        longitude: 14.429894,
-        extId: 100,
-      }, config);
-      assert.strictEqual(res, true);
-    })
-  });
-
   describe('detectDuplicateCandidates with sample', () => {
     const location = {
       name: 'Château de Montrottier - Musée Léon Marès',

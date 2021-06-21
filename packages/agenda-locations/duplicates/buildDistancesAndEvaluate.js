@@ -3,12 +3,32 @@
 const log = require('@openagenda/logs')('duplicates');
 const getDistances = require('./getDistances');
 
+const isNullIsland = location => {
+  if (!location.latitude && !location.longitude) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = (location1, location2, config) => {
-  const { weights, scoreThreshold } = config;
-  const distances = getDistances(location1, location2);
-  const score = distances.geoDistance * weights.geo + distances.levensteinName * weights.levensteinName;
   const sameExtId = location1.extId && location2.extId ? location1.extId === location2.extId : false;
-  if (score < scoreThreshold || sameExtId) {
+  if (sameExtId) {
+    log('info', {
+      ref: {
+        uid: location1.uid,
+        name: location1.name,
+      },
+      candidate: {
+        uid: location2.uid,
+        name: location2.name,
+      },
+      sameExtId
+    });
+    return true;
+  }
+  const { nameDistanceThreshold, geoThreshold } = config;
+  const distances = getDistances(location1, location2);
+  if ((distances.jaroName < nameDistanceThreshold && distances.geoDistance < geoThreshold)) {
     log('info', {
       ref: {
         uid: location1.uid,
@@ -20,11 +40,14 @@ module.exports = (location1, location2, config) => {
       },
       distances: {
         geoDistance: distances.geoDistance,
-        levensteinName: distances.levensteinName,
+        levenshteinPercent: distances.levenshteinPercent,
+        jaro: distances.jaroName,
       },
-      score,
-      sameExtId,
     });
+    if (isNullIsland(location1) || isNullIsland(location2)) {
+      if (distances.jaroName < nameDistanceThreshold / 2) return true;
+      return false;
+    }
     return true;
   }
   return false;
