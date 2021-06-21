@@ -92,8 +92,6 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   log('  pre-validation done', { agendaUid });
 
-  let result;
-
   try {
     const event = await events.create(clean.event, {
       context: {

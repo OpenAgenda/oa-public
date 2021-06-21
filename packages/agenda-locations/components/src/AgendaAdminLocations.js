@@ -351,7 +351,8 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeModal() {
-    const { modal, intl } = this.state;
+    const { modal } = this.state;
+    const { intl } = this.props;
     return (
       <Modal
         title={intl.formatMessage(messages.mergeDescription)}
