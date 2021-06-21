@@ -89,7 +89,6 @@ describe( 'agendas - functional (server): slugs', function() {
           taken: null,
           valid: false,
           errors: [ {
-            field: undefined,
             code: 'slug.invalid',
             message: 'only small case characters, numbers or dashes are allowed',
             origin: 'This is not a slug'
