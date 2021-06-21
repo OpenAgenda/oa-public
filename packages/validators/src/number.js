@@ -1,10 +1,8 @@
-'use strict';
-
 import errors from './lib/errors';
 import cleanParams from './lib/params';
 
 export default config => {
-  const params = cleanParams('link', config, {
+  const params = cleanParams('number', config, {
     min: null,
     max: null,
   });
@@ -12,13 +10,13 @@ export default config => {
   return Object.assign(value => {
     let clean;
 
-    if (typeof value == 'string' && value.length) {
+    if (typeof value === 'string' && value.length) {
       clean = parseFloat(value, 10);
     } else if (typeof value === 'number') {
       clean = value;
     }
 
-    if (clean === undefined && !params.optional &&[undefined, null ].includes(params.default)) {
+    if (clean === undefined && !params.optional && [undefined, null].includes(params.default)) {
       throw errors(params, value, 'required', 'a number is required');
     } else if (clean === undefined && (params.default !== undefined)) {
       return params.default;
@@ -26,32 +24,16 @@ export default config => {
       return;
     }
 
-    if (isNaN(clean)) {
+    if (Number.isNaN(clean)) {
       throw errors(params, value, 'number.invalid', 'not a number');
     }
 
     if (params.min !== null && clean < params.min) {
-      throw [{
-        code: 'number.toosmall',
-        message: 'the number is too small',
-        values: {
-          min: params.min
-        },
-        origin: value,
-        ...(params.field ? { field: params.field } : {})
-      }];
+      throw errors(params, value, 'number.toosmall', 'the number is too small');
     }
 
     if (params.max !== null && clean > params.max) {
-      throw [{
-        code: 'number.toobig',
-        message: 'the number is too big',
-        values: {
-          max: params.max
-        },
-        origin: value,
-        ...(params.field ? { field: params.field } : {})
-      }];
+      throw errors(params, value, 'number.toobig', 'the number is too big');
     }
 
     return clean;
@@ -59,4 +41,4 @@ export default config => {
     type: 'number',
     field: params.field
   });
-}
+};

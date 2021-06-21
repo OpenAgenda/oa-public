@@ -1,188 +1,135 @@
-"use strict";
+const validators = require('../src');
 
-const should = require( 'should' );
+describe('integer validator', () => {
+  it('validates an integer', () => {
+    const validate = validators.integer();
 
-const validators = require( '../src' );
+    expect(validate(2)).toBe(2);
+  });
 
-describe( 'integer validator', () => {
-
-  it( 'validates an integer', () => {
-
-    let validate = validators.integer();
-
-    try {
-
-      validate( 2 ).should.equal( 2 );
-
-    } catch ( e ) {
-
-      console.log( e );
-
-    }
-
-  } );
-
-  it( 'optional by default', () => {
+  it('optional by default', () => {
     const validate = validators.integer();
 
     expect(validate()).toBeUndefined();
   });
 
-  it( 'cleans an integer that was given as text', () => {
+  it('cleans an integer that was given as text', () => {
+    expect(validators.integer()('2')).toBe(2);
+  });
 
-    validators.integer()( '2' ).should.equal( 2 );
-
-  } );
-
-  it( 'does not validate if something that does not parse into integer is given', () => {
-
-    let errors = [];
-
+  it('throws error when random string is given', () => {
+    let errors;
     try {
-
-      validators.integer()( 'one two three' );
-
-    } catch( e ) {
-
+      validators.integer()('one two three');
+    } catch (e) {
       errors = e;
-
     }
 
-    errors.length.should.equal( 1 );
-
-    errors[ 0 ].should.eql( {
+    expect(errors.length).toBe(1);
+    expect(errors[0]).toEqual({
       code: 'integer.invalid',
       message: 'not an integer',
       origin: 'one two three'
-    } );
+    });
+  });
 
-  } );
+  it('defaults to default when no value is given', () => {
+    expect(validators.integer({
+      default: 3
+    })()).toBe(3);
+  });
 
-  it( 'defaults to default when no value is given', () => {
+  it('...even when default is null', () => {
+    expect(validators.integer({
+      default: null
+    })()).toBeNull();
+  });
 
-    validators.integer( { default: 3 } )().should.equal( 3 );
-
-  } );
-
-  it( '...even when default is null', () => {
-
-    should( validators.integer( { default: null } )() ).equal( null );
-
-  } );
-
-  it( 'throws an error if is not optional and null default is specified', () => {
-
+  it('throws an error if is not optional and null default is specified', () => {
     let errors = [];
 
     try {
-
-      validators.integer( {
+      validators.integer({
         default: null,
         optional: false
-      } )();
-
-    } catch( e ) {
-
+      })();
+    } catch (e) {
       errors = e;
-
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
+  });
 
-  } );
-
-  it( 'does not validate a number that is not an integer', () => {
-
+  it('does not validate a number that is not an integer', () => {
     let errors = [];
 
     try {
-
-      validators.integer()( 2.2 );
-
-    } catch( e ) {
-
+      validators.integer()(2.2);
+    } catch (e) {
       errors = e;
-
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
-    errors[ 0 ].should.eql( {
+    expect(errors[0]).toEqual({
       code: 'integer.invalid',
       message: 'not an integer',
       origin: 2.2
-    } );
+    });
+  });
 
-  } );
+  it('validates a list of integers', () => {
+    expect(
+      validators.integer({
+        list: true
+      })([1, 2, 3])
+    ).toEqual([1, 2, 3]);
+  });
 
-  it( 'validates a list of integers', () => {
+  it('if no value is provided to list validator, empty list is returned', () => {
+    expect(validators.integer({ list: true })()).toEqual([]);
+  });
 
-    validators.integer( { list: true } )( [ 1, 2, 3 ] )
+  it('if no value is provided to list validator with predefined default, default is returned', () => {
+    expect(validators.integer({
+      list: { default: null }
+    })()).toBeNull();
+  });
 
-    .should.eql( [ 1, 2, 3 ] );
-
-  } );
-
-  it( 'if no value is provided to list validator, empty list is returned', () => {
-
-    validators.integer( { list: true } )()
-
-    .should.eql( [] );
-
-  } );
-
-  it( 'if no value is provided to list validator with predefined default, default is returned', () => {
-
-    should( validators.integer( { list: { default: null } } )() ).equal( null );
-
-  } );
-
-  it( 'if its not optional, its not optional', () => {
-
-    const validate = validators.integer( { optional: false } );
+  it('if its not optional, its not optional', () => {
+    const validate = validators.integer({ optional: false });
+    let errors;
 
     try {
-
       validate();
-
-    } catch ( e ) {
-
-      e.should.eql( [ {
-        code: 'required',
-        message: 'a integer is required',
-        origin: undefined
-      } ] );
-
-      return;
-
+    } catch (e) {
+      errors = e;
     }
 
-    should.not.ok();
+    expect(errors).toEqual([{
+      code: 'required',
+      message: 'a integer is required',
+      origin: undefined
+    }]);
+  });
 
-  } );
+  it('an empty string is read as an empty value', () => {
+    let errors;
 
-  it( 'an empty string is read as an empty value', () => {
-
-    const validate = validators.integer( { optional: false } );
+    const validate = validators.integer({
+      optional: false
+    });
 
     try {
-
-      validate( '' );
-
-    } catch ( e ) {
-
-      e.should.eql( [ {
-        code: 'required',
-        message: 'a integer is required',
-        origin: ''
-      } ] );
-
-      return;
-
+      validate('');
+    } catch (e) {
+      errors = e;
     }
 
-    should.not.ok();
-
-  } );
-
-} );
+    expect(errors).toEqual([{
+      code: 'required',
+      message: 'a integer is required',
+      origin: ''
+    }]);
+  });
+});
