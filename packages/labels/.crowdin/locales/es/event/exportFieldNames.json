@@ -56,5 +56,7 @@
   "category": "categoría",
   "location.district": "Barrio",
   "state": "estatus",
-  "references": "eventos relacionados"
+  "references": "eventos relacionados",
+  "attendanceMode": "Modo de asistencia",
+  "onlineAccessLink": "Enlace de acceso"
 }

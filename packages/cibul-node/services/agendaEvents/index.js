@@ -17,7 +17,7 @@ const mw = {
   requireCanEdit: require('./middleware/requireCanEdit'),
   changeState: require('./middleware/changeState'),
   changeFeatured: require('./middleware/changeFeatured'),
-  toggleCancelled: require('./middleware/toggleCancelled'),
+  updateStatus: require('./middleware/updateStatus'),
   batch: require('./middleware/batch'),
   navigate: require('./middleware/navigate')
 }
@@ -96,12 +96,12 @@ function plugApp(parentApp) {
     mw.changeState
   );
 
-  parentApp.get('/:agendaSlug/events/:eventSlug/toggle-cancelled',
+  parentApp.get('/:agendaSlug/events/:eventSlug/status',
     requireLoggedMw,
     loadMw,
     members.mw.load,
     members.mw.authorizeAdminModOrEventOwner,
-    mw.toggleCancelled
+    mw.updateStatus
   );
 
   parentApp.delete('/:agendaSlug/events/:eventSlug',

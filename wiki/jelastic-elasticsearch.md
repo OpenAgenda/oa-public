@@ -4,11 +4,13 @@
 
  * Un compte sur jelastic cloud
  * Le certificat d'une autorité de certification est requis. Elle sert à l'authentification des connexions sur le cluster une fois celui-ci déployé. Avoir un certificat client d'installé sur son navigateur sera utile également pour vérifier que le cluster reste bien accessible une fois la sécurisation faite.
- * Une image sur docker hub pour lancer un noeud elasticsearch, à `openagenda/jelastic-elasticsearch`
+ * Une image sur docker hub pour lancer un noeud elasticsearch, à `openagenda/jelastic-elasticsearch`. (Pour info: le Dockerfile à l'origine de cette image est dans le monorepo, dossier docker/elasticsearch.)
 
 ## Vérifier la disponibilité de l'image sur Docker Hub
 
-Une image sert
+Elle devrait être ici: https://hub.docker.com/repository/docker/openagenda/jelastic-elasticsearch
+
+Elle ajoute à l'image elasticsearch [un plugin dévelopé par OpenDataSoft](https://github.com/opendatasoft/elasticsearch-aggregation-geoclustering) pour permettre l'affichage d'agrégats de points géographiques.
 
 ## Création d'un environnement
 
@@ -17,7 +19,7 @@ Sur https://app.jpe.infomaniak.com/
 Lancer la création d'un nouvel environnement. Avec:
 
  * Un équilibrage nginx 1.16.1
- * Des serveurs d'applications à partir de l'image `openagenda/jelastic-elasticsearch`
+ * Des serveurs d'applications  à partir de l'image `openagenda/jelastic-elasticsearch`
 
 L'option ssl qui chapotte doit rester désactivée. Nous utiliserons le composant letsencrypt pour sécurisé un accès via un domaine défini sur le DNS principal d'OpenAgenda.
 
@@ -44,6 +46,8 @@ Le répartiteur de charge s'autoconfigure au fil de l'ajout et de la suppression
 Dans la configuration d'un noeud elasticsearch, une liste d'IP est donnée pour que le noeud puisse se signaler un un noeud 'master' et rejoindre le cluster. L'image `openagenda/jelastic-elasticsearch` liste le noeud donnée par la variable jelastic `MASTER_IP` mais permet également de préciser plus d'IP. C'est utile de désigner plusieurs IP lorsque le cluster comporte plusieurs noeuds pour le rendre plus résilient. Mais pour démarrer, la variable d'environnement servant à préciser ces IP additionnelles peut être laissée vide. Elle doit être définie:
 
     OTHER_SEED_HOSTS:
+
+Si jelastic ne permet pas de définir des variables d'environnement vides, laisser un espace suffira
 
 ## Routage, accès non sécurisé
 
@@ -117,7 +121,13 @@ Ouvrir la topologie de l'environnement et cliquer sur `+1` dans la section de re
 1. ici: https://es7.openagenda.com/_cat/nodes?format=json
 2. Et dans le fichier `/etc/nginx/nginx-jelastic.conf` sous la clause `upstream common`
 
+## Configuration au lancement
 
+2 noeuds ça parait bien
+
+## Quelques routes utiles:
+
+Lister les shards: `/_cat/shards?format=json`
 
 ## Liens utiles
 

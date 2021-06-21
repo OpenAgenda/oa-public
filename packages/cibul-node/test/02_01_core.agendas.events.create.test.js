@@ -193,7 +193,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
             uid: event.uid
           });
         } catch (e) {
-          console.log(e);
+          /* console.log(e); */
         }
       });
 
@@ -346,6 +346,33 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       });
 
       expect(event.state).toBe(2);
+    });
+  });
+
+  describe('status', () => {
+    it('create on agenda with published default state creates published event', async () => {
+      const event = await core.agendas(17026855).events.create({
+        title: {
+          fr: 'Titre'
+        },
+        description: {
+          fr: 'Desc'
+        },
+        status: 3,
+        timings: [{
+          begin: new Date('2021-05-28T12:00:00+0100'),
+          end: new Date('2021-05-28T14:00:00+0100')
+        }],
+        location: {
+          uid: 123
+        },
+        'categories-agenda-metropolitain': 42
+      }, {
+        context: { userUid: 63170200 },
+        access: 'contributor'
+      });
+
+      expect(event.status).toBe(3);
     });
   });
 

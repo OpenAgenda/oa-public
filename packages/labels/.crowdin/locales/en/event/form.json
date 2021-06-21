@@ -51,5 +51,11 @@
   "requiredTagError": "You must select at least one item",
   "requiredCategoryError": "You must select one item",
   "noSelection": "None of the above",
-  "compulsoryNote": "Fields marked with a * must be filled"
+  "compulsoryNote": "Fields marked with a * must be filled",
+  "scheduled": "Scheduled",
+  "rescheduled": "Re-scheduled",
+  "movedOnline": "Moved online",
+  "cancelled": "Cancelled",
+  "postponed": "Postponed",
+  "status": "Status"
 }

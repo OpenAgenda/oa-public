@@ -95,6 +95,14 @@ describe('validate', () => {
     assert.deepEqual(clean.references, [123, 456]);
   });
 
+  it('status is converted when provided as a slug', async () => {
+    const clean = await validate({
+      status: 'movedOnline'
+    }, { isDraft: true });
+
+    assert.strictEqual(clean.status, 3);
+  });
+
   it('age should be an object with min and max values', async () => {
     const clean = await validate({
       age: { min: 12, max: 100 }

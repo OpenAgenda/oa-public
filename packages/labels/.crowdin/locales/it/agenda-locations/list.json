@@ -1,4 +1,6 @@
 {
+  "mergeInProgress": "L'unione è in corso",
+  "defineMergeTarget": "Definisci come obiettivo di unione",
   "cantDo": "Non disponi dei diritti di:",
   "info": "Informazione",
   "cancel": "Annullare",
@@ -11,9 +13,7 @@
   "search": "Filtrare l'elenco",
   "merge": "Unendo i luoghi",
   "cancelmerge": "Annullare la fusione",
-  "mergedescription": "Selezionare le località da unire e poi",
   "launchmerge": "Avviare la fusione",
-  "mergenoselection": "Una volta effettuata la selezione, avviare la fusione. Sarete in grado di selezionare i valori da ricordare",
   "mergeselection": "Attualmente avete selezionato %count% località.",
   "seemergelist": "Vedi",
   "toverify": "Vedi i posti da controllare",
@@ -40,7 +40,7 @@
   "cannotRemoveEnd=": " Eliminando la posizione verranno eliminati anche gli eventi associati.",
   "cannotRemoveStart": "Il luogo è associato a eventi %eventCount% eventi,",
   "cannotRemoveLinkUnique": " un dei quali",
-  "cannotRemoveEndUnique": " è stato aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
+  "cannotRemoveEndUnique": " è stato aggiunti all'agenda.",
   "cannotRemoveLink": " %agendaEventCount% dei quali",
   "cannotRemoveEnd": " sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati."
 }

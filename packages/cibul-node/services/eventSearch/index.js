@@ -56,7 +56,7 @@ module.exports.init = async (config, services) => {
     logger: config.getLogConfig('svc', 'eventSearch'),
     interfaces: {
       onUpdate: ({ set }) => {
-        tracker(`eventSearch.onUpdate.${set}`)
+        tracker(`eventSearch.onUpdate.${set}`);
       }
     }
   });

@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('search/resyncUpdated');
+const log = require('@openagenda/logs')('resyncUpdated');
 const bulk = require('./bulk');
 const formatAgenda = require('./formatAgenda');
 
@@ -24,14 +24,13 @@ module.exports = async ({
 
   const formattedAgendas = [];
   for (const agenda of agendas) {
-    formattedAgendas.push(
-      await getDetailedAgenda(agenda).then(a => formatAgenda(a))
-    );
+    const formatted = await getDetailedAgenda(agenda).then(a => formatAgenda(a));
+    formattedAgendas.push(formatted);
   }
 
   log('info', '%s agendas to update since %s', agendas.length, updatedAtGreaterThan);
 
-  if (!agendas.length) {
+  if (!formattedAgendas.length) {
     return {
       updated,
       indexed
@@ -42,7 +41,7 @@ module.exports = async ({
     index: alias,
     type: 'agenda',
     body: {
-      ids: agendas.map(a => a.uid)
+      ids: formattedAgendas.map(a => a.uid)
     }
   });
 
@@ -53,7 +52,7 @@ module.exports = async ({
   const {
     toUpdate,
     toIndex
-  } = agendas.reduce((split, agenda) => {
+  } = formattedAgendas.reduce((split, agenda) => {
     split[uids.includes(agenda.uid) ? 'toUpdate' : 'toIndex'].push(agenda);
 
     return split;

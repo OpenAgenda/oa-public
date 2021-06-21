@@ -1,22 +1,8 @@
 'use strict';
 
-const LIMIT = 20;
-
 const log = require('@openagenda/logs')('services/eventSearch/transverseIndex');
 
-module.exports = (services, eventSearch, queue) => {
-  const searchIndex = eventSearch('events');
-
-  queue.register({
-    transverseIndexRebuild: transverseIndexRebuild.bind(null, services, searchIndex),
-    transverseIndexUpdate: transverseIndexUpdate.bind(null, searchIndex),
-    transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex)
-  });
-
-  return searchIndex.search;
-}
-
-async function transverseIndexRemove(searchIndex, eventUid) {;
+async function transverseIndexRemove(searchIndex, eventUid) {
   log('removing event %s from transverse index', eventUid);
   return searchIndex.remove({ uid: eventUid });
 }
@@ -26,11 +12,11 @@ async function transverseIndexUpdate(searchIndex, event) {
 
   if (await searchIndex.search({ uid }).then(r => r.total)) {
     log('updating event %s in transverse index', uid);
-    return searchIndex.update({ uid }, event);
-  } else {
-    log('adding event %s to transverse index', uid);
-    return searchIndex.add(event);
+    return searchIndex.update({ uid }, event, { operation: 'index' });
   }
+
+  log('adding event %s to transverse index', uid);
+  return searchIndex.add(event);
 }
 
 async function transverseIndexRebuild(services, searchIndex, options = {}) {
@@ -45,7 +31,7 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
     createdSince: 180, // days
     stopAtCount: null,
     ...options
-  }
+  };
 
   const createdAt = new Date();
   createdAt.setDate(createdAt.getDate() - createdSince);
@@ -63,7 +49,7 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
         return {
           lastId: -1,
           events: []
-        }
+        };
       }
 
       const {
@@ -83,10 +69,10 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       return {
         lastId: newLastId === null ? -1 : newLastId,
         events
-      }
+      };
     },
     on: {
-      bulk: ({ lastId, counts, result }) => {
+      bulk: ({ lastId, counts }) => {
         log('info', `bulk done for ${counts.indexed} events`, lastId);
         if (stopAtCount !== null && counts.indexed > stopAtCount) {
           stop = true;
@@ -98,3 +84,15 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
     }
   });
 }
+
+module.exports = (services, eventSearch, queue) => {
+  const searchIndex = eventSearch('events');
+
+  queue.register({
+    transverseIndexRebuild: transverseIndexRebuild.bind(null, services, searchIndex),
+    transverseIndexUpdate: transverseIndexUpdate.bind(null, searchIndex),
+    transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex)
+  });
+
+  return searchIndex.search;
+};

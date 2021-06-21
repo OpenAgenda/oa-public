@@ -1,4 +1,10 @@
 {
+  "noRefAgendas": "This place is not referenced in any other agenda.",
+  "oneRefAgendas": "This place is also referenced on the agenda",
+  "multiRefAgendas": "This place is also referenced on the agendas ",
+  "andOn": " and on",
+  "oneOther": "one other",
+  "others": " others",
   "guide": "Are the details of this location correct ?",
   "guideDetail": "If some changes have to be made, click on the button below to provide details on the change to agenda administrators",
   "cancel": "Select another location",

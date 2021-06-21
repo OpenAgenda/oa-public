@@ -154,16 +154,16 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       it('explicitely requested fields can be requested', () => {
-        expect(Object.keys(response.data.agendas[0])).toEqual([
-          'schema',
-          'summary',
-          'image',
-          'settings',
-          'uid',
+        expect(Object.keys(response.data.agendas[0]).sort()).toEqual([
           'description',
+          'image',
           'official',
+          'schema',
+          'settings',
+          'slug',
+          'summary',
           'title',
-          'slug'
+          'uid'
         ]);
       });
     });

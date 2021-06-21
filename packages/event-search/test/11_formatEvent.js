@@ -1,6 +1,7 @@
 "use strict";
 
 const { produce } = require('immer');
+const assert = require('assert');
 const should = require('should');
 const formatEvent = require('../utils/formatEvent');
 
@@ -51,6 +52,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       fr: 'Gratuit',
       en: 'Free'
     },
+    status: 5,
     originAgenda: {
       uid: 123456,
       title: 'L\'agenda d\'origine je crois',
@@ -146,6 +148,10 @@ describe('11 - event-search - unit: formatEvent', function() {
       es: 'Francia (Metropolitana)',
       it: 'Francia (continente)'
     });
+  });
+
+  it('status is set', () => {
+    assert.equal(formatted.status, 5);
   });
 
   it('_search_full_address_text key contains a strict with address-specific information', () => {

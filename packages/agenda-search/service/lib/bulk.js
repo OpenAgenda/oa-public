@@ -12,7 +12,7 @@ module.exports = async ({ client, index, operation }, agendas) => {
     }, operation === 'index' ? agenda : { doc: agenda }]), [])
   });
 
-  for (const issue of result.body.items.filter(item => item.index.status !== 201)) {
+  for (const issue of result.body.items.filter(item => ![200, 201].includes(item.index.status))) {
     log('error', `could not bulk index agenda ${issue.index._id}`, issue.index);
   }
 

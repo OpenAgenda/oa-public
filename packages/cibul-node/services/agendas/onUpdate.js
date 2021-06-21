@@ -8,7 +8,6 @@ module.exports = async (services, before, after, context) => {
   const {
     activities,
     elasticsearch: legacyEventSearch,
-    agendaSearch
   } = services;
 
   const hasContributionSettingsChange = JSON.stringify(before.settings.contribution) !== JSON.stringify(after.settings.contribution);
@@ -32,25 +31,8 @@ module.exports = async (services, before, after, context) => {
   } else if (!_.isEqual(
     _.omit(before, ['settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt']),
     _.omit(after, ['settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt'])
- )) {
+  )) {
     updateType = 'profile';
-  }
-
-  const shouldIndex = (!before.indexed && after.indexed) || (before.private && !after.private && after.indexed);
-  const shouldUnindex = (before.indexed && !after.indexed) || (before.indexed && !before.private && after.private);
-
-  if (shouldIndex) {
-    try {
-      await agendaSearch.set(after);
-    } catch (e) {
-      log('error', 'failed to index agenda in agenda search', e);
-    }
-  } else if (shouldUnindex) {
-    try {
-      await agendaSearch.remove(after);
-    } catch (e) {
-      log('error', 'failed to remove agenda from agenda search', e);
-    }
   }
 
   if (!activities) {

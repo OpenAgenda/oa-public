@@ -33,22 +33,36 @@
     background: white;
     border: 1px solid $oa-gray-lighter;
 
-    p {
-      margin: 0;
-      padding: 10px 20px;
+  }
+
+  .fav {
+    font-size: 1.4em;
+
+    i {
+      color: $oa-gray;
     }
 
+    i.active {
+      color: $oa-blue;
+    }
   }
 
   .event-title {
 
-    padding: 20px;
+    .status {
+      vertical-align: middle;
+    }
+
+    h3 {
+      vertical-align: middle;
+      display: inline-block;
+      padding: 0;
+      font-size: 22px;
+    }
 
   }
 
   .metas {
-
-    padding: 10px 20px;
 
     li {
 

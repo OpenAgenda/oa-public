@@ -109,9 +109,6 @@ export default function EventItem({
     return endOfLastTiming < now;
   }, [event]);
 
-  const hasOfflineLocation = event.attendanceMode === 1 || event.attendanceMode === 3;
-  const hasOnlineLocation = event.attendanceMode === 2 || event.attendanceMode === 3;
-
   const [hovered, setHovered] = useState(false);
 
   const onSelect = useCallback(() => selectEvent(event.uid), [
@@ -216,7 +213,7 @@ export default function EventItem({
 
       {/* Location */}
 
-      {hasOfflineLocation ? (
+      {event.location ? (
         <div className="margin-top-xs">
           {event.location.name}, {getLocaleValue(event.dateRange, intl.locale)}
         </div>
@@ -333,7 +330,7 @@ export default function EventItem({
 
           {event.member
           && event.originAgenda?.uid === agenda.uid
-          && hasOfflineLocation ? (
+          && event.location ? (
             <li>
               <a
                 className="btn btn-link btn-link-inline"
@@ -344,7 +341,7 @@ export default function EventItem({
             </li>
             ) : null}
 
-          {hasOnlineLocation ? (
+          {event.onlineAccessLink ? (
             <li>
               <a
                 className="btn btn-link btn-link-inline"

@@ -56,5 +56,7 @@
   "category": "Categoria",
   "location.district": "Comune",
   "state": "Stato",
-  "references": "Eventi correlati"
+  "references": "Eventi correlati",
+  "attendanceMode": "Modalità di partecipazione",
+  "onlineAccessLink": "Collegamento di accesso"
 }
