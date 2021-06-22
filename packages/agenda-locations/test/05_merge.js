@@ -124,6 +124,15 @@ describe('agenda-locations - functional - merge', function () {
 
       assert.equal(afterCount, beforeCount - 2);
     });
+
+    it('deleted location as merged_in field', async () => {
+      const mergedInObj = await f
+        .client('location')
+        .first('merged_in')
+        .where('uid', 13470871)
+        .then(r => r);
+      assert.equal(mergedInObj.merged_in, 95301591);
+    });
   });
 
   describe('set', () => {
