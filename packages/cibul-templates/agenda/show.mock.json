@@ -33,7 +33,8 @@
       "lang" : "fr",
       "res" : {
         "actions" : "#actions" 
-      }
+      },
+      "languages": ["fr", "en", "de", "nl"]
     },
     
     "pager" : {

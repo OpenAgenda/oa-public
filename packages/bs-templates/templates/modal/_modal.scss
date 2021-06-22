@@ -1,5 +1,4 @@
 .popup-overlay {
-
   background: rgba(0, 0, 0, 0.62);
   z-index: 3000;
   display: flex;
@@ -50,12 +49,8 @@
     }
 
     .popup-content {
-      padding: 1em 2em 0;
+      padding: 1em 2em;
       overflow: auto;
-
-      &>*:last-child {
-        margin-bottom: 2em;
-      }
     }
   }
 

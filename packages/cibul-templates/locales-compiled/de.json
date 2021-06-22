@@ -1,0 +1,26 @@
+{
+  "all-languages": [
+    {
+      "type": 0,
+      "value": "Alle"
+    }
+  ],
+  "input-format": [
+    {
+      "type": 0,
+      "value": "Eine Format auswählen"
+    }
+  ],
+  "input-language": [
+    {
+      "type": 0,
+      "value": "Eine Sprache auswählen"
+    }
+  ],
+  "modal-title": [
+    {
+      "type": 0,
+      "value": "Exportieren"
+    }
+  ]
+}

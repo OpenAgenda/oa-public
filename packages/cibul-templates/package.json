@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --ignore build --ignore node_modules app.js",
+    "extract-messages": "yarn oa:extract-messages '../../public/react-share-menus/**/*.js' --out-dir 'locales' --compiled-dir 'locales-compiled'",
     "build:dev": "bnr build:dev",
     "build:prod": "bnr build:prod"
   },
@@ -50,6 +51,7 @@
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
     "@openagenda/react-layouts": "^2.2.1",
+    "@openagenda/react-share-menus": "workspace:public/react-share-menus",
     "@openagenda/react-shared": "^2.1.1",
     "@openagenda/registration": "^1.1.4",
     "@openagenda/sessions": "^4.1.0",
@@ -99,6 +101,7 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
+    "react-intl": "^5.12.2",
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",

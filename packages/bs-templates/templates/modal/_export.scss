@@ -1,0 +1,86 @@
+.export {
+
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+  
+  &__form {
+    position: relative;
+    max-width: 100%;
+  }
+
+  &__title {
+    &--big {
+      font-size: 3rem;
+    }
+    &--md {
+      font-size: large;
+    }
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: #4f4f4f;
+    line-height: 40px;
+    padding: 0 10px;
+    position: absolute;
+    right: -1.5rem;
+    top: -2.5rem;
+    vertical-align: middle;
+    cursor: pointer;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  &__btn {
+    background-color: $oa-blue;
+    color: $oa-white;
+    margin-bottom: 20px;
+  }
+
+  &__link {
+    margin-bottom: 10px;
+  }
+}
+
+.side-note {
+  color: #7a7676;
+  font-size: 12px;
+  margin-left: 5px;
+
+  > a:hover {
+    cursor: pointer;
+  }
+}
+
+.input-textarea {
+  width: 80%;
+  font-size: 1.3rem;
+}
+
+.form-group > .input-group > .form-control.export__ {
+  &input,
+  &textarea {
+    border-radius: 5px;
+  }
+}
+
+.input-icon-right {
+  position: relative;
+  max-width: 60%;
+  & > button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: transparent;
+  }
+}
+
+.input-container {
+  max-width: 50%;
+}

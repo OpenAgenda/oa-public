@@ -29,6 +29,7 @@ const pickEventImage = require( '../services/event/lib/pickImage' );
 const legacyEventSvc = require( '../services/event' );
 const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
 const lib = require( '../lib/lib' );
+const { next } = require('locutus/php/array');
 
 const perPage = 20;
 
@@ -43,7 +44,8 @@ const middlewares = {
     _formatShowLinks,
     showXhr('agenda/show'),
     cmn.loadBaseData(_layoutData, 'oasfmain.css'),
-    show
+    _loadAgendaLanguages,
+    show,
   ],
   embedShow: [
     _optionalClearCookie,
@@ -57,8 +59,8 @@ const middlewares = {
     cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData(_layoutData),
     embedSvc.mw.loadCustomLayoutData,
-    renderEmbedShow
-  ]
+    renderEmbedShow,
+  ],
 };
 
 
@@ -758,6 +760,14 @@ function _formatCustomEmbedLinks( req, res, next ) {
 }
 
 
+function _loadAgendaLanguages(req, res, next) {
+  req.agenda.getLanguages((err, languages) => {
+    req.baseData.scriptParams['languages'] = languages;
+
+    next();
+  });
+}
+
 function _layoutData( req, res ) {
 
   req.log( 'loading layout data' );
@@ -826,9 +836,7 @@ function _layoutData( req, res ) {
   });
 
   return data;
-
 }
-
 
 function unauthorizedIP( req, res ) {
 

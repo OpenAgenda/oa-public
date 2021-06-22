@@ -1,43 +1,33 @@
-"use strict";
+'use strict';
 
-const controllers = require( '../../widgets/controller/main' ),
+import { setOptions } from 'marked';
+import displayExportButton from './displayExportButton';
 
-  qs = require( 'qs' ),
-
-  debug = require( 'debug' ),
-
+const controllers = require('../../widgets/controller/main'),
+  qs = require('qs'),
+  debug = require('debug'),
   // deprecate this
-  cn = require( '../../js/lib/common/common.mod' ),
-
+  cn = require('../../js/lib/common/common.mod'),
   // in favor of this
-  du = require( '@openagenda/dom-utils' ),
-
+  du = require('@openagenda/dom-utils'),
   _ = {
-    includes: require( 'lodash/includes' )
+    includes: require('lodash/includes'),
   },
-
-  get = require( '@openagenda/utils/get' ),
-
-  list = require( './list' ),
-
-  timeliner = require( './timeliner' ),
-
-  documentLocation = require( '@openagenda/dom-utils/documentLocation' ),
-
-  config = require( './config' ),
-
-  favorites = require( './favorites' ),
-
+  get = require('@openagenda/utils/get'),
+  list = require('./list'),
+  timeliner = require('./timeliner'),
+  documentLocation = require('@openagenda/dom-utils/documentLocation'),
+  config = require('./config'),
+  favorites = require('./favorites'),
   widgets = {
-    search: require( '../../widgets/search/search' ),
-    tags: require( '../../widgets/tags/tags' ),
-    categories: require( '../../widgets/categories/categories' ),
-    map: require( '../../widgets/map/map' ),
-    calendar: require( '../../widgets/calendar/calendar' ),
-    activeFilters: require( '../../widgets/activeFilters/activeFilters' ),
-    organizations: require( '../../widgets/organizations/organizations' )
+    search: require('../../widgets/search/search'),
+    tags: require('../../widgets/tags/tags'),
+    categories: require('../../widgets/categories/categories'),
+    map: require('../../widgets/map/map'),
+    calendar: require('../../widgets/calendar/calendar'),
+    activeFilters: require('../../widgets/activeFilters/activeFilters'),
+    organizations: require('../../widgets/organizations/organizations'),
   },
-
   params = {
     selectors: {
       list: '.js_list_content',
@@ -45,310 +35,257 @@ const controllers = require( '../../widgets/controller/main' ),
       admin: '.js_admin_button',
       org: '.js_org_widget',
       titleSection: '.js_agenda_title',
-      searchLinks: '.js_use_search' // add search params to links with this class
+      searchLinks: '.js_use_search', // add search params to links with this class
+      export: '.js_export',
     },
     res: {
-      role: '/session/agendas/:agendaUid/role'
+      role: '/session/agendas/:agendaUid/role',
+      export: {
+        json: '/agendas/:agendaUid/events.json',
+        pdf: '/agendas/:agendaUid/events.pdf',
+        xl: '/agendas/:agendaUid/events.xlsx',
+        gcal: '/agendas/:agendaUid/events.ics',
+        ical: '/agendas/:agendaUid/events.ics',
+        csv: '/agendas/:agendaUid/events.csv',
+        ics: '/agendas/:agendaUid/events.ics',
+        rss: '/agendas/:agendaUid/events.rss',
+      },
     },
     classes: {
-      displayNone: 'display-none'
-    }
+      displayNone: 'display-none',
+    },
   },
-
-  totalLib = require( './total' );
+  totalLib = require('./total');
 
 let uid, log, total;
 
-if ( _.includes( [ 'tpl', 'development' ], window.env ) ) {
+if (_.includes(['tpl', 'development'], window.env)) {
+  debug.enable('*');
 
-  debug.enable( '*' );
-
-  if ( window.env === 'tpl' ) params.res.role = 'role.txt';
-
+  if (window.env === 'tpl') params.res.role = 'role.txt';
 }
 
-window.asap( options => {
+window.asap(options => {
+  log = debug('agendaPage');
 
-  log = debug( 'agendaPage' );
+  log('initing', options);
 
-  log( 'initing' );
-
-  let controller = window.cibul.getController( options.uid ),
-
+  let controller = window.cibul.getController(options.uid),
     loader,
-
     uid = options.uid,
+    timeline = timeliner(options.lang),
+    total = totalLib('.js_total', options.lang);
 
-    timeline = timeliner( options.lang ),
-
-    total = totalLib( '.js_total', options.lang );
-
-  favorites.init( {
+  favorites.init({
     agendaUid: options.uid,
-    res: options.res
-  } );
+    res: options.res,
+  });
 
   try {
-    if ( window.location.href.split( '?' ).pop().indexOf( 'lang=' ) !== -1 ) {
-      cn.el( params.selectors.add ).setAttribute( 'href',
-        cn.el( params.selectors.add ).getAttribute( 'href' ) + '?lang=' + window.location.href.split( 'lang=' ).pop().substr( 0, 2 )
-      )
+    if (window.location.href.split('?').pop().indexOf('lang=') !== -1) {
+      cn.el(params.selectors.add).setAttribute(
+        'href',
+        cn.el(params.selectors.add).getAttribute('href') +
+          '?lang=' +
+          window.location.href.split('lang=').pop().substr(0, 2)
+      );
     }
-  } catch( e ) { console.log( 'could not assign language to contribute button', e ) }
+  } catch (e) {
+    console.log('could not assign language to contribute button', e);
+  }
 
-  get( params.res.role.replace( ':agendaUid', uid ), ( err, res ) => {
-
-    controller.getControlData( ctl => {
-
-      if ( parseInt( ctl.c ) !== 0 ) {
-
-        if ( !ctl.prv || res !== 'reader' ) _displayAddButton();
-
+  get(params.res.role.replace(':agendaUid', uid), (err, res) => {
+    controller.getControlData(ctl => {
+      if (parseInt(ctl.c) !== 0) {
+        if (!ctl.prv || res !== 'reader') _displayAddButton();
       }
 
-      if ( [ 'administrator', 'moderator' ].indexOf( res ) !== -1 ) {
+      if (!ctl.prv) displayExportButton(params, uid, controller, options);
 
+      if (['administrator', 'moderator'].indexOf(res) !== -1) {
         _displayAddButton();
 
         _displayAdminButton();
 
         _removeAddButtonAsPrimary();
-
       }
+    });
+  });
 
-    } );
-
-  } );
-
-
-  if ( !options.empty ) {
-
+  if (!options.empty) {
     favorites.sweep();
 
-    list.init( {
+    list.init({
       total: options.total,
       perPage: options.perPage,
-      onLoad: function( err, data ) {
-
+      onLoad: function (err, data) {
         timeline.dom();
 
         favorites.sweep();
 
-        total( data.total );
+        total(data.total);
+      },
+    });
 
-      }
-    } );
+    _onWidgetLoaded(function () {
+      log('widgets are loaded and initialized');
+    });
 
-    _onWidgetLoaded( function() {
-
-      log( 'widgets are loaded and initialized' );
-
-    } );
-
-    _onControllerChange( controller, function( newSearchValues ) {
-
-      log( 'query values changed to %s', JSON.stringify( newSearchValues ) );
+    _onControllerChange(controller, function (newSearchValues) {
+      log('query values changed to %s', JSON.stringify(newSearchValues));
 
       let newQuery = {
-        oaq: newSearchValues
+        oaq: newSearchValues,
+      };
+
+      if (documentLocation.getQueryPart('lang')) {
+        newQuery.lang = documentLocation.getQueryPart('lang');
       }
 
-      if ( documentLocation.getQueryPart( 'lang' ) ) {
+      documentLocation.setQueryPart(newQuery);
 
-        newQuery.lang = documentLocation.getQueryPart( 'lang' );
+      list.reset(window.location.href);
 
-      }
+      _copyToSearch(newSearchValues);
+    });
 
-      documentLocation.setQueryPart( newQuery );
-
-      list.reset( window.location.href );
-
-      _copyToSearch( newSearchValues );
-
-    } );
-
-    _showOptionalWidgets( controller );
-
+    _showOptionalWidgets(controller);
   }
 
-  if ( window.location.href.search("[?&]newContact") != -1 ) {
-
-    du.els( '.js_create_conversation_contact' ).forEach( elem => {
-
-      du.addEvent( elem, 'click', e => {
-
-        du.preventDefault( e );
-        window.openConversationForm( e );
-
-      } );
-
-    } );
-
+  if (window.location.href.search('[?&]newContact') != -1) {
+    du.els('.js_create_conversation_contact').forEach(elem => {
+      du.addEvent(elem, 'click', e => {
+        du.preventDefault(e);
+        window.openConversationForm(e);
+      });
+    });
   }
+});
 
-} );
-
-
-function _isAdmin( ctl ) {
-
-  return function( session ) {
-
-    if ( !session.logged ) {
-
+function _isAdmin(ctl) {
+  return function (session) {
+    if (!session.logged) {
       return false;
-
     }
 
-    if ( !cn.contains( ctl.adm, parseInt( session.uid, 10 ) )
-
-    && !cn.contains( typeof ctl.mod !== 'undefined' ? ctl.mod : [], parseInt( session.uid, 10 ) ) ) {
-
+    if (
+      !cn.contains(ctl.adm, parseInt(session.uid, 10)) &&
+      !cn.contains(
+        typeof ctl.mod !== 'undefined' ? ctl.mod : [],
+        parseInt(session.uid, 10)
+      )
+    ) {
       return false;
-
     }
 
     return true;
-
-  }
-
+  };
 }
-
 
 function _removeAddButtonAsPrimary() {
+  let addButton = cn.el(params.selectors.add);
 
-  let addButton = cn.el( params.selectors.add );
-
-  cn.addClass( addButton, 'btn-default' );
-  cn.removeClass( addButton, 'btn-primary' );
-
+  cn.addClass(addButton, 'btn-default');
+  cn.removeClass(addButton, 'btn-primary');
 }
-
 
 function _displayAdminButton() {
+  let adminButton = cn.el(params.selectors.admin);
 
-  let adminButton = cn.el( params.selectors.admin );
+  adminButton.setAttribute('href', adminButton.getAttribute('data-href'));
 
-  adminButton.setAttribute( 'href', adminButton.getAttribute( 'data-href' ) );
-
-  cn.removeClass( adminButton, params.classes.displayNone );
-
+  cn.removeClass(adminButton, params.classes.displayNone);
 }
 
-
-
-function _showOptionalWidgets( controller ) {
-
-  controller.getControlData( function( data ) {
-
-    cn.forEach( [ {
-      sel: '.js_category_widget',
-      key: 'ct'
-    }, {
-      sel: '.js_tags_widget',
-      key: 't'
-    }, {
-      sel: '.js_org_widget',
-      key: 'org'
-    } ], function( cfg ) {
-
-      if ( ( typeof data[ cfg.key ] !== 'undefined' ) && data[ cfg.key ].length && cn.el( cfg.sel ) ) {
-
-        cn.removeClass( cn.el( cfg.sel ), params.classes.displayNone );
-
+function _showOptionalWidgets(controller) {
+  controller.getControlData(function (data) {
+    cn.forEach(
+      [
+        {
+          sel: '.js_category_widget',
+          key: 'ct',
+        },
+        {
+          sel: '.js_tags_widget',
+          key: 't',
+        },
+        {
+          sel: '.js_org_widget',
+          key: 'org',
+        },
+      ],
+      function (cfg) {
+        if (
+          typeof data[cfg.key] !== 'undefined' &&
+          data[cfg.key].length &&
+          cn.el(cfg.sel)
+        ) {
+          cn.removeClass(cn.el(cfg.sel), params.classes.displayNone);
+        }
       }
-
-    } );
-
+    );
   });
-
 }
 
-
-function _onWidgetLoaded( cb ) {
-
-  log( 'setting widget ready callbacks' );
+function _onWidgetLoaded(cb) {
+  log('setting widget ready callbacks');
 
   var loadCount = 0,
+    _onReady = function () {
+      loadCount++;
 
-  _onReady = function() {
+      if (loadCount == cn.size(widgets)) {
+        cb();
+      }
+    };
 
-    loadCount++;
-
-    if ( loadCount == cn.size( widgets ) ) {
-
-      cb();
-
-    }
-
-  };
-
-  for ( var widgetName in widgets ) {
-
-    widgets[ widgetName ].setOnReady( _onReady );
-
+  for (var widgetName in widgets) {
+    widgets[widgetName].setOnReady(_onReady);
   }
-
 }
-
 
 function _displayAddButton() {
-
-  cn.removeClass( cn.el( params.selectors.add ), params.classes.displayNone );
-
+  cn.removeClass(cn.el(params.selectors.add), params.classes.displayNone);
 }
 
+function _copyToSearch(values) {
+  cn.forEach(cn.els(params.selectors.searchLinks) || [], function (el) {
+    var href =
+      el.getAttribute('href').split('?')[0] +
+      '?' +
+      qs.stringify({ oaq: values });
 
-function _copyToSearch( values ) {
-
-  cn.forEach( cn.els( params.selectors.searchLinks ) || [], function( el ) {
-
-    var href = el.getAttribute( 'href' ).split( '?' )[ 0 ]
-
-             + '?' + qs.stringify( { oaq: values } );
-
-    el.setAttribute( 'href', href );
-
+    el.setAttribute('href', href);
   });
-
 }
 
-
-function _onControllerChange( controller, cb ) {
-
+function _onControllerChange(controller, cb) {
   var currentSearchValues = controller.getCurrentQuery();
 
-  log( 'registering page list as widget' );
+  log('registering page list as widget');
 
-  controller.register( {
+  controller.register({
     name: 'site',
-    enable: function( newValues ) {
-
-      if ( !controller.isDifferent( currentSearchValues ) ) {
-
+    enable: function (newValues) {
+      if (!controller.isDifferent(currentSearchValues)) {
         return;
-
       }
 
-      currentSearchValues = cn.extend( {}, newValues );
+      currentSearchValues = cn.extend({}, newValues);
 
-      cb( newValues );
-
-    }
+      cb(newValues);
+    },
   });
-
 }
 
+function _getQueryValues(href, key) {
+  var v = href.split('?');
 
-function _getQueryValues( href, key ) {
+  if (v.length == 1) return {};
 
-  var v = href.split( '?' );
+  v = qs.parse(v[1].split('#').shift());
 
-  if ( v.length == 1 ) return {};
-
-  v = qs.parse( v[1].split('#').shift() );
-
-  if ( !key ) return v;
+  if (!key) return v;
 
   return v[key] ? v[key] : {};
-
 }
