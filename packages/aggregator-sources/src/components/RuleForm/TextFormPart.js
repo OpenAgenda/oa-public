@@ -9,19 +9,22 @@ import stringType from '../../utils/stringType';
 import messages from './messages';
 import Radio from './Radio';
 
-const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
-  field => ({
-    field,
-    label: formLabels[field],
-  })
-);
+const eventFields = [
+  'title',
+  'description',
+  'longDescription',
+  'keywords',
+  'conditions',
+].map(field => ({
+  field,
+  label: formLabels[field],
+}));
 
 export default ({ sourceSchema = { fields: [] } }) => {
   const intl = useIntl();
   const form = useForm();
 
   const { values, initialValues } = form.getState();
-  console.log('text rule: ', values, initialValues);
 
   const options = useMemoOne(
     () => sourceSchema.fields

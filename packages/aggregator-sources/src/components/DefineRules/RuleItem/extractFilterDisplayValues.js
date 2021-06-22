@@ -3,12 +3,16 @@ import { hasFilter } from '../../../utils/rules';
 import getLocalValue from '../../../utils/getLocalValue';
 import messages from './messages';
 
-const eventTextFields = ['title', 'description', 'keywords', 'conditions'].map(
-  field => ({
-    field,
-    label: formLabels[field],
-  })
-);
+const eventTextFields = [
+  'title',
+  'description',
+  'longDescription',
+  'keywords',
+  'conditions',
+].map(field => ({
+  field,
+  label: formLabels[field],
+}));
 
 const attendanceModeField = {
   field: 'attendanceMode',
