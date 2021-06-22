@@ -7,13 +7,18 @@ import formLabels from '@openagenda/labels/event/form';
 import getLocalValue from '../../utils/getLocalValue';
 import stringType from '../../utils/stringType';
 import messages from './messages';
+import Radio from './Radio';
 
-const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
-  field => ({
-    field,
-    label: formLabels[field],
-  })
-);
+const eventFields = [
+  'title',
+  'description',
+  'longDescription',
+  'keywords',
+  'conditions',
+].map(field => ({
+  field,
+  label: formLabels[field],
+}));
 
 export default ({ sourceSchema = { fields: [] } }) => {
   const intl = useIntl();
@@ -78,6 +83,23 @@ export default ({ sourceSchema = { fields: [] } }) => {
           )}
         />
       ) : null}
+      <div className="row">
+        <div className="col-sm-2" />
+        <div className="col-sm-10">
+          <Field
+            component={Radio}
+            name="caseSensitive"
+            type="checkbox"
+            label="Respecter la casse"
+            classNameGroup="radio filter-choice"
+            helpBlock={(
+              <div className="margin-h-z text-muted">
+                {intl.formatMessage(messages.textFilterCaseSensitive)}
+              </div>
+            )}
+          />
+        </div>
+      </div>
     </>
   );
 };

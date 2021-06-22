@@ -432,7 +432,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'tags', 'website', 'email',
             'phone', 'links', 'access',
             'state', 'timezone', 'imageCredits',
-            'extId'
+            'extId', 'duplicateCandidates',
+            'disqualifiedDuplicates',
           ]
         );
       });

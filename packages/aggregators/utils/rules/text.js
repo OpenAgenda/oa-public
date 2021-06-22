@@ -1,6 +1,6 @@
 'use strict';
 
-const evaluateFieldData = (filterValue, fieldData) => {
+const evaluateFieldData = (filterValue, fieldData, caseSensitive) => {
   const items = fieldData?.constructor.name === 'Object'
     ? Object.keys(fieldData).reduce(
       (carry, key) => carry.concat(fieldData[key]),
@@ -9,7 +9,11 @@ const evaluateFieldData = (filterValue, fieldData) => {
     : [].concat(fieldData);
 
   for (const item of items) {
-    if (item.search(filterValue) !== -1) {
+    if (
+      caseSensitive
+        ? item.search(filterValue) !== -1
+        : item.toUpperCase().search(filterValue.toUpperCase()) !== -1
+    ) {
       return true;
     }
   }
@@ -17,8 +21,8 @@ const evaluateFieldData = (filterValue, fieldData) => {
 };
 
 module.exports = (filter, data) => {
-  for (const field of Object.keys(filter)) {
-    if (evaluateFieldData(filter[field], data[field])) {
+  for (const field of Object.keys(filter).filter(e => e !== 'caseSensitive')) {
+    if (evaluateFieldData(filter[field], data[field], filter?.caseSensitive)) {
       return true;
     }
   }

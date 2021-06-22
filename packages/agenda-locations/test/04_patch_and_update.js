@@ -128,6 +128,27 @@ describe('agenda-locations - functional - patch & update', function () {
     });
   });
 
+   describe('patching duplicates', function(){
+    let entry;
+    this.timeout(20000);
+
+    before(async () => {
+      await svc(7196947).patch(51665987, {
+        duplicateCandidates: [30]
+      });
+
+      entry = await f.client('location').first().where('uid', 51665987);
+    });
+
+    it('saves uploaded candidates in db', () => {
+        assert.deepEqual(JSON.parse(entry.duplicates).candidates, [30]);
+    });
+
+    it('patching candidates in duplicates does not affect other duplicates fields', () => {
+      assert.deepEqual(JSON.parse(entry.duplicates).disqualified, [5]);
+    });
+  });
+
   describe('set', () => {
     it('updates', async () => {
       const result = await svc

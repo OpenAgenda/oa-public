@@ -375,8 +375,20 @@ describe('agenda-locations - functional - list', function () {
       );
       assert.ok(items[0].image.split('/').length > 1);
     });
+
+    it('duplicates candidates are fetch with detailed option', async () => {
+      const items = await svc(7196947).list(
+        {},
+        {},
+        {
+          detailed: true,
+        }
+      );
+      assert.deepStrictEqual(items.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates, [10, 20]);
+      assert.deepEqual(items.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].disqualifiedDuplicates, [5]);
+    });
   });
-  
+
   describe('set', () => {
     let items;
 

@@ -460,6 +460,18 @@
       "value": "Cancel"
     }
   ],
+  "aggregator-sources.DefineRules.caseInsensitive": [
+    {
+      "type": 0,
+      "value": "case-insensitive"
+    }
+  ],
+  "aggregator-sources.DefineRules.caseSensitive": [
+    {
+      "type": 0,
+      "value": "case-sensitive"
+    }
+  ],
   "aggregator-sources.DefineRules.choice": [
     {
       "type": 0,
@@ -821,7 +833,7 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "\" "
     }
   ],
   "aggregator-sources.DefineRules.toModerate": [
@@ -1165,6 +1177,12 @@
     {
       "type": 0,
       "value": "Text field filter"
+    }
+  ],
+  "aggregator-sources.RuleForm.textFilterCaseSensitive": [
+    {
+      "type": 0,
+      "value": "The filter is case sensitive"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [

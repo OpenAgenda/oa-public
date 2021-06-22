@@ -915,6 +915,69 @@ describe('05_02 - utils - rules', () => {
         )
       ).toEqual({});
     });
+    test('simple string, case option true', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  title: '92ORG',
+                  caseSensitive: true,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            title: '092org',
+          }
+        )
+      ).toEqual(null);
+    });
+    test('simple string, case option false', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  title: '92ORG',
+                  caseSensitive: false,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            title: '092org',
+          }
+        )
+      ).toEqual({});
+    });
+    test('longDesc', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  longDescription: 'description Longue',
+                  caseSensitive: false,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            longDescription: { fr: 'ceci est dans la description longue' },
+          }
+        )
+      ).toEqual({});
+    });
   });
   describe('attendanceMode', () => {
     test('attendanceMode match', () => {

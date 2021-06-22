@@ -5,13 +5,14 @@ import extract from './extractFilterDisplayValues';
 export default ({
   rule, intl, sourceAgendaSchema, sourceAgenda
 }) => {
-  const { label, value, detail } = extract({
+  const {
+    label, value, detail, casse
+  } = extract({
     intl,
     rule,
     sourceAgendaSchema,
     sourceAgenda,
   });
-
   return (
     <div className="padding-v-xs">
       <span
@@ -30,6 +31,18 @@ export default ({
             {label}:
           </label>
           {value}
+          {rule.query.text ? (
+            <span
+              className={`badge badge-pill margin-right-xs badge-${
+                casse ? 'info' : 'default'
+              }`}
+              title={intl.formatMessage(
+                casse ? messages.caseSensitive : messages.caseInsensitive
+              )}
+            >
+              aA
+            </span>
+          ) : null}
         </div>
       </div>
     </div>

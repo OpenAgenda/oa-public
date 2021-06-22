@@ -121,6 +121,7 @@ describe( 'agendas - functional (server): list', function () {
     }, ( err, agendas ) => {
 
       Object.keys( agendas[ 0 ] ).should.eql( [
+        'locationSetUid',
         'slug',
         'uid',
         'official',

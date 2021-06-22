@@ -10,11 +10,11 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
-describe('agenda-locations - functional - get', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - get', () => {
+  // this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
@@ -71,7 +71,7 @@ describe('agenda-locations - functional - get', function () {
     before(async () => {
       location = await svc.get(51665987);
     });
-    
+
     it('location is the result', () => {
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
@@ -82,6 +82,9 @@ describe('agenda-locations - functional - get', function () {
 
     it('image is provided without path', () => {
       assert.equal(location.image.split('/').length, 1);
+    });
+    it('duplicates candidates && disqulified are in result', () => {
+      assert.deepStrictEqual({ duplicateCandidates: location.duplicateCandidates, disqualifiedDuplicates: location.disqualifiedDuplicates }, { duplicateCandidates: [10, 20], disqualifiedDuplicates: [5] });
     });
   });
 

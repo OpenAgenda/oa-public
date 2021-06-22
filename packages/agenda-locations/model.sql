@@ -24,6 +24,8 @@ create table if not exists location (
   set_uid bigint(20) default null,
   insee varchar(10) default null,
   deleted tinyint(1) not null default 0,
+  duplicates varchar(2000) default null,
+  merged_in bigint(20) default null,
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
   index owner_id_idx (owner_id),
