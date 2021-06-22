@@ -45,6 +45,12 @@
 
   .event-item-info {
 
+    br {
+      display: block;
+      content: " ";
+      height: 0.3em;
+    }
+
     dt {
 
       padding: 0 0 5px;
