@@ -1,0 +1,154 @@
+{
+    "longDescription": {
+        "fr": "Une alternance entre jeux de détente et de relaxation et jeux d’attention et de concentration, …. afin d’acquérir de petites astuces pour gérer ses émotions, et pour s’apaiser pendant les vacances d’été …. avant la rentrée ? !\n\\>Pour les 6-12 ans\n\\> de 9h30 à 12h30 / apporter son tapis, sa serviette et une gourde d’eau\n\\> Animé par Sandra CHOURAQUI\n\\> Tarif : 25€ adhérents / 30€ non adhérents"
+    },
+    "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+    },
+    "featured": false,
+    "private": 0,
+    "keywords": {},
+    "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+    },
+    "dateRange": {
+        "ar": "٧ و ٨ يوليو ",
+        "de": "7 und 8 Juli",
+        "en": "7 and 8 July",
+        "fr": "7 et 8 juillet",
+        "es": "7 and 8 July"
+    },
+    "timezone": "Europe/Paris",
+    "originAgenda": {
+        "uid": 93399464,
+        "image": "agenda93399464.jpg?__ts=1608212900162",
+        "title": "Communauté d'agglomération de l'Albigeois"
+    },
+    "description": {
+        "fr": "2 matinées estivales et zen autour du yoga animé par Sandra Chouraqui"
+    },
+    "title": {
+        "fr": "Stage yoga pour les 6/12 ans"
+    },
+    "onlineAccessLink": null,
+    "createdAt": "2021-06-04T12:59:37.000Z",
+    "uid": 73490605,
+    "draft": 0,
+    "timings": [
+        {
+            "begin": "2021-07-07T09:30:00+02:00",
+            "end": "2021-07-07T12:30:00+02:00"
+        },
+        {
+            "begin": "2021-07-08T09:30:00+02:00",
+            "end": "2021-07-08T12:30:00+02:00"
+        }
+    ],
+    "member": {
+        "uid": 5283663,
+        "role": 1,
+        "name": null,
+        "_agg": "eyJ1aWQiOjUyODM2NjMsIm5hbWUiOm51bGx9"
+    },
+    "state": -1,
+    "categories": [],
+    "type-devenement": 11,
+    "slug": "stage-yoga-pour-les-612-ans",
+    "updatedAt": "2021-06-04T12:59:37.000Z",
+    "addMethod": "contribution",
+    "image": {
+        "filename": "f1ac900dacd24663b7e69f5d9d8d936e.base.image.jpg",
+        "size": {
+            "width": 700,
+            "height": 445
+        },
+        "variants": [
+            {
+                "filename": "f1ac900dacd24663b7e69f5d9d8d936e.full.image.jpg",
+                "size": {
+                    "width": 474,
+                    "height": 301
+                },
+                "type": "full"
+            },
+            {
+                "filename": "f1ac900dacd24663b7e69f5d9d8d936e.thumb.image.jpg",
+                "size": {
+                    "width": 200,
+                    "height": 200
+                },
+                "type": "thumbnail"
+            }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+    },
+    "attendanceMode": 1,
+    "test-de-champ-suppl": [],
+    "sourceAgendas": [],
+    "creatorUid": 5283663,
+    "type-de-public": 8,
+    "registration": [
+        {
+            "type": "phone",
+            "value": "07-67-54-77-60"
+        },
+        {
+            "type": "email",
+            "value": "animation@mjcalbi.fr"
+        }
+    ],
+    "location": {
+        "access": {},
+        "city": "Albi",
+        "timezone": "Europe/Paris",
+        "postalCode": "81000",
+        "latitude": 43.929952,
+        "imageCredits": null,
+        "description": {},
+        "setUid": 478946547,
+        "uid": 4627510,
+        "createdAt": "2021-06-01T14:17:12.000Z",
+        "countryCode": "FR",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Tarn",
+        "slug": "mjc-albi_8271148",
+        "email": null,
+        "longitude": 2.151382,
+        "updatedAt": "2021-06-01T14:17:12.000Z",
+        "image": null,
+        "website": null,
+        "address": "13 rue de la République 81000 albi",
+        "_agg": "eyJ1aWQiOjQ2Mjc1MTAsIm5hbWUiOiJNSkMgQWxiaSJ9",
+        "tags": null,
+        "insee": "81004",
+        "phone": null,
+        "district": null,
+        "name": "MJC Albi",
+        "region": "Occitanie"
+    },
+    "conditions": {},
+    "age": {
+        "min": 6,
+        "max": 12
+    },
+    "status": 1,
+    "lastTiming": {
+        "begin": "2021-07-08T09:30:00+02:00",
+        "end": "2021-07-08T12:30:00+02:00"
+    },
+    "nextTiming": {
+        "begin": "2021-07-07T09:30:00+02:00",
+        "end": "2021-07-07T12:30:00+02:00"
+    }
+}

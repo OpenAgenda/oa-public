@@ -87,12 +87,6 @@
       "value": " events corresponding to the current filters are selected."
     }
   ],
-  "EventAdminApp.FiltersPortal.filters": [
-    {
-      "type": 0,
-      "value": "Filtri"
-    }
-  ],
   "EventAdminApp.Dashboard.groupedActions": [
     {
       "type": 0,
@@ -429,6 +423,12 @@
       "value": "agendaLink"
     }
   ],
+  "EventAdminApp.EventItem.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
   "EventAdminApp.EventItem.aggregatedFrom": [
     {
       "type": 0,
@@ -449,6 +449,12 @@
     {
       "type": 0,
       "value": "Contact"
+    }
+  ],
+  "EventAdminApp.EventItem.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
     }
   ],
   "EventAdminApp.EventItem.createdBy": [
@@ -497,6 +503,12 @@
       "value": "decorate"
     }
   ],
+  "EventAdminApp.EventItem.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,
@@ -519,6 +531,22 @@
     {
       "type": 0,
       "value": "Remove from featured"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedBy": [
+    {
+      "type": 0,
+      "value": "Shared by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "memberName"
+        }
+      ],
+      "type": 8,
+      "value": "memberLink"
     }
   ],
   "EventAdminApp.EventItem.sharedFrom": [
@@ -579,16 +607,16 @@
       "value": "Access the online event"
     }
   ],
-  "EventAdminApp.FiltersPart.lessFilters": [
+  "EventAdminApp.EventItem.unnamedMemberInfo": [
     {
       "type": 0,
-      "value": "Mostra meno filtri"
+      "value": "Member has not specified his/her name"
     }
   ],
-  "EventAdminApp.FiltersPart.moreFilters": [
+  "EventAdminApp.FiltersPortal.filters": [
     {
       "type": 0,
-      "value": "Mostra più filtri"
+      "value": "Filtri"
     }
   ],
   "EventAdminApp.RemoveModal.confirm": [
