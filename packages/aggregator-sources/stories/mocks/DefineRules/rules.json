@@ -34,7 +34,8 @@
   {
     "query": {
       "text": {
-        "organisateur": "92ORG"
+        "organisateur": "92ORG",
+        "caseSensitive": true
       }
     },
     "required": false,

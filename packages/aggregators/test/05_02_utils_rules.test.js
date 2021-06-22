@@ -915,6 +915,48 @@ describe('05_02 - utils - rules', () => {
         )
       ).toEqual({});
     });
+    test('simple string, case option true', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  title: '92ORG',
+                  caseSensitive: true,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            title: '092org',
+          }
+        )
+      ).toEqual({});
+    });
+    test('simple string, case option false', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  title: '92ORG',
+                  caseSensitive: false,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            title: '092org',
+          }
+        )
+      ).toEqual(null);
+    });
   });
   describe('attendanceMode', () => {
     test('attendanceMode match', () => {

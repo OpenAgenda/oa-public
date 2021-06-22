@@ -17,6 +17,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.textFilter',
     defaultMessage: 'Text field filter',
   },
+  textFilterCaseSensitive: {
+    id: 'aggregator-sources.RuleForm.textFilterCaseSensitive',
+    defaultMessage: 'the filter is case sensitive',
+  },
   tagFilter: {
     id: 'aggregator-sources.RuleForm.tagFilter',
     defaultMessage: 'Tag filter',

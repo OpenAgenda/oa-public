@@ -103,6 +103,7 @@ const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
     value: intl.formatMessage(messages.textFilterValue, {
       value: rule.query.text[textField],
     }),
+    casse: rule.query.text?.caseSensitive,
   };
 };
 

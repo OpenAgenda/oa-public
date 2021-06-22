@@ -110,16 +110,17 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 
   // Text
   if (query.text) {
-    const [key] = Object.keys(query.text);
-    if (!key) {
+    const keys = Object.keys(query.text);
+    if (!keys) {
       return result;
     }
 
     Object.assign(result, {
       withFilter: true,
       type: 'text',
-      textField: key,
-      textValue: query.text[key],
+      textField: keys,
+      textValue: query.text[keys[0]],
+      caseSensitive: keys.length > 1 ? query.text[keys[1]] : false,
     });
     return result;
   }
@@ -213,6 +214,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
         query: {
           text: {
             [values.textField]: values.textValue,
+            caseSensitive: values.caseSensitive,
           },
         },
         required,

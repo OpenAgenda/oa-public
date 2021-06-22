@@ -7,6 +7,7 @@ import formLabels from '@openagenda/labels/event/form';
 import getLocalValue from '../../utils/getLocalValue';
 import stringType from '../../utils/stringType';
 import messages from './messages';
+import Radio from './Radio';
 
 const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
   field => ({
@@ -20,6 +21,7 @@ export default ({ sourceSchema = { fields: [] } }) => {
   const form = useForm();
 
   const { values, initialValues } = form.getState();
+  console.log('text rule: ', values, initialValues);
 
   const options = useMemoOne(
     () => sourceSchema.fields
@@ -78,6 +80,23 @@ export default ({ sourceSchema = { fields: [] } }) => {
           )}
         />
       ) : null}
+      <div className="row">
+        <div className="col-sm-2" />
+        <div className="col-sm-10">
+          <Field
+            component={Radio}
+            name="caseSensitive"
+            type="checkbox"
+            label="Respecter la casse"
+            classNameGroup="radio filter-choice"
+            helpBlock={(
+              <div className="margin-h-z text-muted">
+                {intl.formatMessage(messages.textFilterCaseSensitive)}
+              </div>
+            )}
+          />
+        </div>
+      </div>
     </>
   );
 };
