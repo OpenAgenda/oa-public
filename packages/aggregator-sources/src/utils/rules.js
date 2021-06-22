@@ -118,7 +118,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     Object.assign(result, {
       withFilter: true,
       type: 'text',
-      textField: keys,
+      textField: keys[0],
       textValue: query.text[keys[0]],
       caseSensitive: keys.length > 1 ? query.text[keys[1]] : false,
     });
