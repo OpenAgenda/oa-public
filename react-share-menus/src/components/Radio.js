@@ -42,6 +42,10 @@ Radio.propTypes = {
   id: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  span: PropTypes.bool.isRequired,
+  span: PropTypes.bool,
   setChoice: PropTypes.func.isRequired,
+};
+
+Radio.defaultProps = {
+  span: false,
 };
