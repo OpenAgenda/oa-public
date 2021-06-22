@@ -7,11 +7,12 @@ const evaluateFieldData = (filterValue, fieldData, caseSensitive) => {
       []
     )
     : [].concat(fieldData);
+
   for (const item of items) {
     if (
       caseSensitive
-        ? item.toUpperCase().search(filterValue) !== -1
-        : item.search(filterValue) !== -1
+        ? item.search(filterValue) !== -1
+        : item.toUpperCase().search(filterValue.toUpperCase()) !== -1
     ) {
       return true;
     }
@@ -20,22 +21,11 @@ const evaluateFieldData = (filterValue, fieldData, caseSensitive) => {
 };
 
 module.exports = (filter, data) => {
-  if (filter?.caseSensitive) {
-    for (const field of Object.keys(filter).filter(
-      e => e !== 'caseSensitive'
-    )) {
-      if (evaluateFieldData(filter[field], data[field], true)) {
-        return true;
-      }
-    }
-  } else {
-    for (const field of Object.keys(filter).filter(
-      e => e !== 'caseSensitive'
-    )) {
-      if (evaluateFieldData(filter[field].toUpperCase(), data[field], false)) {
-        return true;
-      }
+  for (const field of Object.keys(filter).filter(e => e !== 'caseSensitive')) {
+    if (evaluateFieldData(filter[field], data[field], filter?.caseSensitive)) {
+      return true;
     }
   }
+
   return false;
 };

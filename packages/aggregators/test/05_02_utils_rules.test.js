@@ -934,7 +934,7 @@ describe('05_02 - utils - rules', () => {
             title: '092org',
           }
         )
-      ).toEqual({});
+      ).toEqual(null);
     });
     test('simple string, case option false', () => {
       expect(
@@ -955,7 +955,28 @@ describe('05_02 - utils - rules', () => {
             title: '092org',
           }
         )
-      ).toEqual(null);
+      ).toEqual({});
+    });
+    test('longDesc', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  longDescription: 'description Longue',
+                  caseSensitive: false,
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            longDescription: { fr: 'ceci est dans la description longue' },
+          }
+        )
+      ).toEqual({});
     });
   });
   describe('attendanceMode', () => {
