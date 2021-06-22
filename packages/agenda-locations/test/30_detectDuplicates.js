@@ -44,11 +44,8 @@ describe('agenda-locations - functional - Duplicates functions', function () {
         getAgendaDetailsByUid,
       },
       duplicates: {
-        scoreThreshold: 200,
-        weights: {
-          geo: 1,
-          levensteinName: 15,
-        },
+        geoThreshold: 40,
+        nameDistanceThreshold: 10,
       },
     });
   });

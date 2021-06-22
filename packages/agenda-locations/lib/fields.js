@@ -295,6 +295,5 @@ module.exports = [{
   optional: true,
   read: ['internal', 'public'],
   write: ['internal', 'contributor'],
-  max: 100
 }
 ];

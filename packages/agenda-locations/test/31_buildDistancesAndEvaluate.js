@@ -8,11 +8,6 @@ const buildDistancesAndEvaluate = require('../duplicates/buildDistancesAndEvalua
 describe('agenda-locations - functional - buildDistancesAndEvaluate', function () {
   this.timeout(10000);
   const config = {
-/*     scoreThreshold: 200,
-    weights: {
-      geo: 1,
-      levensteinName: 4,
-    }, */
     geoThreshold: 40,
     nameDistanceThreshold: 10,
   };
