@@ -93,12 +93,14 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
         'latitude', 'longitude', 'updatedAt',
         'createdAt', 'image', 'description', 'tags',
         'website', 'email', 'phone', 'links', 'access',
-        'state', 'timezone', 'imageCredits', 'extId'
+        'state', 'timezone', 'imageCredits', 'extId',
+        'duplicateCandidates', 'disqualifiedDuplicates'
       ]);
     });
 
     it('origin agenda is provided', () => {
       expect(Object.keys(events[0].originAgenda)).toEqual([
+        'locationSetUid',
         'slug',
         'uid',
         'official',

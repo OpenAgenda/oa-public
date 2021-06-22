@@ -25,6 +25,7 @@ create table if not exists `location` (
   updated_at DATETIME NOT NULL,
   deleted tinyint(1) not null default 0,
   duplicates varchar(2000) default null,
+  merged_in bigint(20) default null,
   UNIQUE INDEX slug_idx (slug),
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),
