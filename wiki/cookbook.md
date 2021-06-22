@@ -22,3 +22,7 @@ Utilitaires pour gérer des regex avec des routes express:
  * [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
 
 express,regex
+
+## structure d'un projet
+
+[Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
