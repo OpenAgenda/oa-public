@@ -40,6 +40,7 @@
   "EventAdminApp.EventItem.featured": "Featured",
   "EventAdminApp.EventItem.memberPlaceholder": "<decorate>Unnamed member</decorate>",
   "EventAdminApp.EventItem.moderator": "Moderator",
+  "EventAdminApp.EventItem.noRoleMemberPlaceholder": "a member",
   "EventAdminApp.EventItem.onlineEvent": "Online event",
   "EventAdminApp.EventItem.passed": "Passed",
   "EventAdminApp.EventItem.remove": "Remove from agenda",

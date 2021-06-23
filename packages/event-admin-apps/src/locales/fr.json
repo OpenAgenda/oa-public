@@ -40,6 +40,7 @@
   "EventAdminApp.EventItem.featured": "En une",
   "EventAdminApp.EventItem.memberPlaceholder": "un membre {role}",
   "EventAdminApp.EventItem.moderator": "modérateur",
+  "EventAdminApp.EventItem.noRoleMemberPlaceholder": "un membre",
   "EventAdminApp.EventItem.onlineEvent": "Événement en ligne",
   "EventAdminApp.EventItem.passed": "Passé",
   "EventAdminApp.EventItem.remove": "Retirer de l'agenda",

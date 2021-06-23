@@ -493,6 +493,12 @@
       "value": "modérateur"
     }
   ],
+  "EventAdminApp.EventItem.noRoleMemberPlaceholder": [
+    {
+      "type": 0,
+      "value": "un membre"
+    }
+  ],
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,

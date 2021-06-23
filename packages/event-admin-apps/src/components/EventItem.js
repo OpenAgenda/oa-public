@@ -70,6 +70,10 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.memberPlaceholder',
     defaultMessage: 'a {role} member',
   },
+  noRoleMemberPlaceholder: {
+    id: 'EventAdminApp.EventItem.noRoleMemberPlaceholder',
+    defaultMessage: 'a member',
+  },
   contributor: {
     id: 'EventAdminApp.EventItem.contributor',
     defaultMessage: 'contributor',
@@ -190,13 +194,15 @@ export default function EventItem({
 
   const memberPlaceholderMsg = member => event.member?.name ?? (
   <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
-    {intl.formatMessage(messages.memberPlaceholder, {
-      role: intl.formatMessage(
-        messages[
-          ['contributor', 'administrator', 'moderator'][member.role - 1]
-        ]
-      ),
-    })}
+    {member.role
+      ? intl.formatMessage(messages.memberPlaceholder, {
+        role: intl.formatMessage(
+          messages[
+            ['contributor', 'administrator', 'moderator'][member.role - 1]
+          ]
+        ),
+      })
+      : intl.formatMessage(messages.noRoleMemberPlaceholder)}
   </span>
   );
 

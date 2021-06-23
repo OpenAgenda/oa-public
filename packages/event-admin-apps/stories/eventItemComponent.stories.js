@@ -22,10 +22,39 @@ const agenda = {
 export function AnonymouslyContributedEvent() {
   return (
     <div className="list-unstyled">
+      <p>The member name is not available</p>
       <EventItem
         key={3}
         agenda={agenda}
         event={anonymouslyContributedEvent}
+        openRemoveModal={() => {}}
+        selected={false}
+        selectEvent={() => {}}
+        query={{}}
+        page={1}
+        index={0}
+        isFirst={false}
+        isLast={false}
+      />
+    </div>
+  );
+}
+
+export function AnonymouslyContributedEventWithNoRole() {
+  return (
+    <div className="list-unstyled">
+      <p className="margin-v-sm">
+        The role is not available in the member dataset
+      </p>
+      <EventItem
+        key={3}
+        agenda={agenda}
+        event={{
+          ...anonymouslyContributedEvent,
+          member: {
+            uid: 123,
+          },
+        }}
         openRemoveModal={() => {}}
         selected={false}
         selectEvent={() => {}}
