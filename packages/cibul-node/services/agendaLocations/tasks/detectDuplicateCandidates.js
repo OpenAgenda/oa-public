@@ -2,16 +2,17 @@
 
 const log = require('@openagenda/logs')('services/agendaLocations/tasks/detectDuplicatesCandidates');
 
-module.exports = async (services, option) => {
+module.exports = async (services, options) => {
   const {
     agendas: agendasSVC,
     agendaLocations,
   } = services;
+
   const sets = await agendaLocations.sets.list();
-  for (const set of sets) {
+  for (const set of sets.filter(s => !options.ignoredUids.setUids.includes(s.uid))) {
     log(`detection started in locationSet ${set.uid}`);
     try {
-      await agendaLocations.sets(set.uid).locations.duplicates.detectAll(option);
+      await agendaLocations.sets(set.uid).locations.duplicates.detectAll(options);
     } catch (e) {
       log(e);
     }
@@ -29,10 +30,10 @@ module.exports = async (services, option) => {
       continue;
     }
     offset = lastId;
-    for (const agenda of agendas.filter(a => a.locationSetUid === null)) {
+    for (const agenda of agendas.filter(a => a.locationSetUid === null && !options.ignoredUids.agendaUids.includes(a.uid))) {
       log(`detection started in agenda ${agenda.uid}`);
       try {
-        await agendaLocations(agenda.uid).duplicates.detectAll(option);
+        await agendaLocations(agenda.uid).duplicates.detectAll(options);
       } catch (e) {
         log(e);
       }

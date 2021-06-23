@@ -79,6 +79,13 @@ const config = {
       timezone: 'UTC',
       charset: 'utf8mb4'
     },
+    locationDuplicationDetection: {
+      ignoredUids: {
+        setUids: [1],
+        agendaUids: [],
+      },
+      sleep: 100,
+    },
     schemas: {
       activity: 'activity',
       agenda: 'review',
