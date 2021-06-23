@@ -25,9 +25,9 @@ export const Export = () => {
     rss: '/',
   };
 
-  const closeModal = () => {
+  /* const closeModal = () => {
     setDisplay(false);
-  };
+  }; */
 
   const handleExportLanguage = format => {
     return format === 'csv' || format === 'xl'

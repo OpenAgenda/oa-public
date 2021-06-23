@@ -12,6 +12,7 @@ const ExportModal = ({
 }) => {
   const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
   const [options, setOptions] = useState(false);
+  const [gCal, setGCal] = useState(false);
   const [newTab, setNewTab] = useState(false);
 
   const intl = useIntl();
@@ -32,6 +33,34 @@ const ExportModal = ({
     allLanguages: {
       id: 'all-languages',
       defaultMessage: 'All',
+    },
+    close: {
+      id: 'close',
+      defaultMessage: 'Close'
+    },
+    cancel: {
+      id: 'cancel',
+      defaultMessage: 'Cancel'
+    },
+    instructions: {
+      id: 'instructions',
+      defaultMessage: 'Instructions'
+    },
+    instructionsStep1: {
+      id: 'instructionsStep1',
+      defaultMessage: 'Copy the link in the field above'
+    },
+    instructionsStep2: {
+      id: 'instructionsStep2',
+      defaultMessage: 'Open '
+    },
+    instructionsStep3: {
+      id: 'instructionsStep3',
+      defaultMessage: 'In the left section, open "Other Calendars > Add by URL"'
+    },
+    instructionsStep4: {
+      id: 'instructionsStep4',
+      defaultMessage: 'Follow the instructions by pasting the link you copied in step 1'
     }
   });
 
@@ -39,7 +68,7 @@ const ExportModal = ({
     { type: 'PDF', id: 'pdf' },
     { type: 'JSON', id: 'json' },
     { type: 'Microsoft Excel (xlsx)', id: 'xl' },
-    { type: 'Google Calendar', id: 'gcal' },
+    { type: 'Google Agenda', id: 'gagenda' },
     { type: 'iCal', id: 'ical' },
     { type: 'ICS', id: 'ics' },
     { type: 'RSS', id: 'rss' },
@@ -48,13 +77,11 @@ const ExportModal = ({
 
   const setChoice = (value, id) => {
     setFormatChoice({ value, id });
+    setGCal(false);
     setOptions(false);
-    if (id === 'csv' || id === 'xl') {
-      setOptions(true);
-    }
-    if (id === 'json' || id === 'rss') {
-      setNewTab(true);
-    }
+    if (id === 'csv' || id === 'xl') setOptions(true);
+    if (id === 'json' || id === 'rss') setNewTab(true);
+    if (id === 'gagenda') setGCal(true);
   };
 
   const handleSubmit = e => {
@@ -77,6 +104,14 @@ const ExportModal = ({
   };
 
   const selectLanguage = lang => (lang ? exportLanguage(lang.value) : null);
+
+  const handleClick = e => e.target.select();
+
+  const buttonText = () => {
+    if (formatChoice.id === '') return intl.formatMessage(messages.cancel);
+    if (formatChoice.id === 'gagenda') return intl.formatMessage(messages.close);
+    return intl.formatMessage(messages.modalTitle);
+  };
 
   return (
     <Modal
@@ -116,7 +151,17 @@ const ExportModal = ({
             </div>
           )}
         </div>
-        <Button content={intl.formatMessage(messages.modalTitle)} />
+        {gCal && (
+          <div className="mg-bottom-sm">
+            <input className="form-control url-input" value={`https://openagenda.com${res.gcal}`} readOnly onClick={handleClick} />
+            <h4>{intl.formatMessage(messages.instructions)}</h4>
+            <p>1. {intl.formatMessage(messages.instructionsStep1)}</p>
+            <p>2. {intl.formatMessage(messages.instructionsStep2)}<a target="_blank" href="https://calendar.google.com" rel="noreferrer">Google Calendar</a></p>
+            <p>3. {intl.formatMessage(messages.instructionsStep3)}</p>
+            <p>4. {intl.formatMessage(messages.instructionsStep4)}</p>
+          </div>
+        )}
+        <Button content={buttonText} />
       </form>
     </Modal>
   );

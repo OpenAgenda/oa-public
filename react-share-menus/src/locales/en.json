@@ -1,6 +1,13 @@
 {
   "all-languages": "All",
+  "cancel": "Cancel",
+  "close": "Close",
   "input-format": "Choose a format",
   "input-language": "Choose a language",
+  "instructions": "Instructions",
+  "instructionsStep1": "Copy the link in the field above",
+  "instructionsStep2": "Open ",
+  "instructionsStep3": "In the left section, open \"Other Calendars > Add by URL\"",
+  "instructionsStep4": "Follow the instructions by pasting the link you copied in step 1",
   "modal-title": "Export"
 }
