@@ -43,7 +43,7 @@
 <% if ( agenda.url ) { %>
         <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>
 <% } %>
-            <% if ( includeActionLinks ) { %><div class="ctas">
+            <% if ( includeActionLinks ) { %><div class="ctas export__container">
                 <a
                   <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default js_create_conversation_contact margin-bottom-xs"
@@ -57,9 +57,7 @@
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>
                 <% if ( agenda.importUri ) { %>
-                <a class="btn btn-default js_use_search margin-bottom-xs" href="<%= agenda.importUri %>" rel="nofollow">
-                    <i class="fa fa-share-alt"></i> <%= __( 'export' ) %>
-                </a>
+                <div class="js_export_all"></div>
                 <% } %>
                 <a class="btn btn-primary display-none js_add_button margin-bottom-xs" href="<%= `/${agenda.slug}/contribute` %>">
                     <i class="fa fa-plus" aria-hidden="true"></i> <%= __( 'addEvent' ) %>
@@ -75,3 +73,4 @@
     </div>
   </div>
 </header>
+

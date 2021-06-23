@@ -37,6 +37,7 @@ const controllers = require('../../widgets/controller/main'),
       titleSection: '.js_agenda_title',
       searchLinks: '.js_use_search', // add search params to links with this class
       export: '.js_export',
+      exportAll: '.js_export_all'
     },
     res: {
       role: '/session/agendas/:agendaUid/role',
@@ -100,7 +101,13 @@ window.asap(options => {
         if (!ctl.prv || res !== 'reader') _displayAddButton();
       }
 
-      if (!ctl.prv) displayExportButton(params, uid, controller, options);
+      if (res?.length && !ctl.prv) {
+        displayExportButton(params, uid, controller, options, { exportAll: true });
+      }
+
+      if (!ctl.prv) {
+        displayExportButton(params, uid, controller, options, { exportAll: false });
+      }
 
       if (['administrator', 'moderator'].indexOf(res) !== -1) {
         _displayAddButton();
