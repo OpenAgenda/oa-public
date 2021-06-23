@@ -68,6 +68,9 @@
   "attendanceMode": {
     "type": "integer"
   },
+  "status": {
+    "type": "integer"
+  },
   "member": {
     "properties": {
       "uid": {
@@ -75,6 +78,9 @@
       },
       "name": {
         "type": "text"
+      },
+      "role": {
+        "type": "integer"
       },
       "_agg": {
         "type": "keyword"

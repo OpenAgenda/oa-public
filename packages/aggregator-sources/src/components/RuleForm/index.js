@@ -29,8 +29,6 @@ export default function RuleForm({
   const intl = useIntl();
   const formState = useFormState();
 
-  console.log('RuleForm', values);
-
   const error = !formState.dirtySinceLastSubmit && formState.submitError
     ? formState.submitError
     : null;

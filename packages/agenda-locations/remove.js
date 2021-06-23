@@ -14,13 +14,13 @@ async function remove(service, current, options = {}) {
   if (service.interfaces.beforeRemove) {
     await service.interfaces.beforeRemove(current, options);
   }
-
   await service.clients
     .knex(service.config.schema)
     .where('uid', current.uid)
     .update({
       deleted: 1,
       updated_at: new Date(),
+      merged_in: options?.mergedIn
     });
 
   return current;

@@ -1,0 +1,165 @@
+{
+  "longDescription": {
+      "fr": "Découvrez en famille une technique d'art plastique en lien avec les oeuvres de la collection du musée ou de ses expositions"
+  },
+  "country": {
+      "de": "Frankreich (Metropolitan)",
+      "code": "FR",
+      "en": "France (Metropolitan)",
+      "it": "Francia (continente)",
+      "fr": "France (Métropole)",
+      "es": "Francia (Metropolitana)"
+  },
+  "interetintercommunal": [
+      null
+  ],
+  "featured": false,
+  "private": 0,
+  "keywords": {},
+  "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": false
+  },
+  "dateRange": {
+      "ar": "٢٠ يونيو - ٢٦ أغسطس",
+      "de": "20 Juni - 26 August",
+      "en": "20 June - 26 August",
+      "fr": "20 juin - 26 août",
+      "es": "20 June - 26 August"
+  },
+  "timezone": "Europe/Paris",
+  "originAgenda": {
+      "uid": 51302149,
+      "image": "agenda51302149.jpg",
+      "title": "LaM"
+  },
+  "description": {
+      "fr": "Découvrez en famille une technique d'art plastique en lien avec les oeuvres de la collection du musée ou de ses expositions"
+  },
+  "title": {
+      "fr": "Main dans la main"
+  },
+  "onlineAccessLink": null,
+  "createdAt": "2019-08-28T15:07:52.000Z",
+  "uid": 18419228,
+  "draft": 0,
+  "timings": [
+      {
+          "begin": "2021-06-20T11:00:00+02:00",
+          "end": "2021-06-20T19:00:00+02:00"
+      },
+      {
+          "begin": "2021-07-18T11:00:00+02:00",
+          "end": "2021-07-18T19:00:00+02:00"
+      },
+      {
+          "begin": "2021-08-15T11:00:00+02:00",
+          "end": "2021-08-15T19:00:00+02:00"
+      },
+      {
+          "begin": "2021-08-17T11:00:00+02:00",
+          "end": "2021-08-17T19:00:00+02:00"
+      },
+      {
+          "begin": "2021-08-26T11:00:00+02:00",
+          "end": "2021-08-26T19:00:00+02:00"
+      }
+  ],
+  "member": {
+      "uid": 75052324,
+      "name": "Kaoré - OpenAgenda",
+      "_agg": "eyJ1aWQiOjc1MDUyMzI0LCJuYW1lIjoiS2FvcsOpIC0gT3BlbkFnZW5kYSJ9"
+  },
+  "state": 2,
+  "categories-metropolitaines": [
+      3
+  ],
+  "slug": "main-dans-la-main_761639",
+  "updatedAt": "2021-06-04T10:21:38.000Z",
+  "addMethod": "share",
+  "image": {
+      "filename": "07cbd4cba79c4e36a812ec1adb4691a1.base.image.jpg",
+      "size": {
+          "width": 700,
+          "height": 521
+      },
+      "variants": [
+          {
+              "filename": "07cbd4cba79c4e36a812ec1adb4691a1.full.image.jpg",
+              "size": {
+                  "width": 1377,
+                  "height": 1024
+              },
+              "type": "full"
+          },
+          {
+              "filename": "07cbd4cba79c4e36a812ec1adb4691a1.thumb.image.jpg",
+              "size": {
+                  "width": 200,
+                  "height": 200
+              },
+              "type": "thumbnail"
+          }
+      ],
+      "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "sourceAgendas": [],
+  "label": [
+      null
+  ],
+  "creatorUid": 10392898,
+  "recurringevent": [
+      null
+  ],
+  "registration": [],
+  "location": {
+      "access": {
+          "fr": "– par la route : à 20 min. de la gare Lille Flandres, autoroute Paris-Gand (A1/A22/N227), sortie 5 ou 6 Flers / Château / Musée d’art moderne.  -Parking : -Les emplacements de parking réservé PMR se situe juste avant le rond point de l’allée du Musée, face au pavillon d’entrée du musée.  -2 parkings publics (non surveillés) sont disponibles : parking P7 (dit Des Moulins – hauteur maxi : 1,80m). Le Parking P8 (hauteur maxi : 1,80m), juste à coté du musée, mais plus petit."
+      },
+      "city": "Villeneuve-d'Ascq",
+      "timezone": "Europe/Paris",
+      "postalCode": "59650",
+      "latitude": 50.637583,
+      "imageCredits": "M.Lerouge / LMCU",
+      "description": {
+          "fr": "En acceptant la donation Masurel en 1979, Arthur Notebart, qui était alors Président de la Communauté urbaine de Lille, engageait la collectivité territoriale dans une aventure qui n’était pas jusque-là dans ses attributions. Une association loi 1901 fut donc créée pour la gestion du musée d’art moderne et ses statuts permirent de structurer et d’organiser le fonctionnement du Musée.\n\nPierre Chaigneau fut alors recruté comme conservateur pour mettre en place un programme fidèle à l’acte de donation qui précisait les volontés de Geneviève et Jean Masurel. Ce programme devait trouver sa place dans le bâtiment que l’architecte Roland Simounet était chargé de construire dans la ville nouvelle de Villeneuve-d’Ascq.\n\nLes dialogues féconds entre donateurs, architecte et conservateur permirent l’ouverture, en 1983, d’un musée associant parfaitement les fonctions de conservation et de diffusion grâce à des salles d’exposition permanente et temporaire, un parc de sculptures, un auditorium, une bibliothèque, un service éducatif et culturel. Joëlle Pijaudier-Cabot succéda à Pierre Chaigneau en 1987 et exerça ses fonctions jusqu’en 2007.\nPendant cette période, une politique active d’acquisitions et une programmation de grandes expositions d’art moderne et contemporain hissèrent le Musée à une reconnaissance internationale.\n\nUn nouvel épisode de la vie du MAM commença quand la collection d’art brut de L’Aracine fut donnée au Musée en 1999, engageant la Communauté urbaine de Lille à agrandir le Musée afin de présenter de façon permanente l’art brut aux visiteurs. Le Musée devenait celui de l’art moderne, de l’art contemporain et de l’art brut.\n\nEn 2008, fut choisi un nouveau nom, le LaM (Lille Métropole, musée d’art moderne, d’art contemporain et d’art brut), annonçant la réouverture du Musée dans sa nouvelle configuration."
+      },
+      "setUid": null,
+      "uid": 8000280,
+      "createdAt": "2018-12-31T12:29:41.000Z",
+      "countryCode": "FR",
+      "links": [],
+      "state": 1,
+      "extId": null,
+      "department": "Nord",
+      "slug": "lam404",
+      "email": null,
+      "longitude": 3.148595,
+      "updatedAt": "2018-12-31T12:29:44.000Z",
+      "image": "location8000280.jpg",
+      "website": "http://www.musee-lam.fr",
+      "address": "1 allée du Musée, VIlleneuve-d'Ascq",
+      "_agg": "eyJ1aWQiOjgwMDAyODAsIm5hbWUiOiJMYU0ifQ==",
+      "tags": null,
+      "insee": "59009",
+      "phone": "+33 (0)3 20 19 68 68",
+      "district": null,
+      "name": "LaM",
+      "region": "Hauts-de-France"
+  },
+  "conditions": {},
+  "age": {},
+  "status": 1,
+  "lastTiming": {
+      "begin": "2021-08-26T11:00:00+02:00",
+      "end": "2021-08-26T19:00:00+02:00"
+  },
+  "nextTiming": {
+      "begin": "2021-07-18T11:00:00+02:00",
+      "end": "2021-07-18T19:00:00+02:00"
+  }
+}

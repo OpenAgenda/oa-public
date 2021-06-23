@@ -1,4 +1,6 @@
 {
+  "mergeInProgress": "La fusión está en curso",
+  "defineMergeTarget": "Definir como destino de fusión",
   "cantDo": "No tiene los derechos para:",
   "info": "Información",
   "cancel": "Anular",
@@ -11,9 +13,7 @@
   "search": "Se filtra la lista",
   "merge": "Combinar lugares",
   "cancelmerge": "unmerge",
-  "mergedescription": "Seleccione la escena a fusionar y",
   "launchmerge": "Iniciar la fusión",
-  "mergenoselection": "Una vez hecha la selección, inicie la combinación. Puede seleccionar los valores a ser",
   "mergeselection": "Ha seleccionado actualmente% lugares de conteo%.",
   "seemergelist": "Ver",
   "toverify": "Ver lugares Verificador",
@@ -40,7 +40,7 @@
   "cannotRemoveEnd=": " Al eliminar la ubicación, también se eliminarán los eventos asociados.",
   "cannotRemoveStart": "El lugar se asocia con eventos %eventCount%,",
   "cannotRemoveLinkUnique": " un de los cuales",
-  "cannotRemoveEndUnique": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
+  "cannotRemoveEndUnique": " se han agregado a la agenda.",
   "cannotRemoveLink": " %agendaEventCount% de los cuales",
   "cannotRemoveEnd": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados."
 }

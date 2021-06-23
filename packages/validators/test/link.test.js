@@ -1,5 +1,3 @@
-"use strict";
-
 const validators = require('../src');
 
 describe('link validator', () => {

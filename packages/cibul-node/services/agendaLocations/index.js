@@ -19,6 +19,8 @@ const plugAgendaAdminApp = require('./plugAgendaAdminApp');
 const plugApp = require('./plugApp');
 
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
+const detectDuplicateCandidates = require('./tasks/detectDuplicateCandidates');
+const clearAllDuplicateCandidates = require('./tasks/clearAllDuplicateCandidates');
 
 module.exports.init = async (config, services) => {
   const queue = services.queues('locations');
@@ -67,10 +69,12 @@ module.exports.init = async (config, services) => {
     task: async (options = {}) => {
       taskRunning = true;
       log('task');
+      detectDuplicateCandidates(services);
+      // clearAllDuplicateCandidates(services);
       if (options.reset) {
         await queue.clear();
       }
       queue.run();
     }
-  })
-}
+  });
+};

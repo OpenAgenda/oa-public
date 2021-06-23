@@ -14,6 +14,7 @@
   "groupTags.required": "Au moins un élément doit être sélectionné",
   "required": "Requis",
   "choice.required": "Requis",
+  "choice.required.max": "La sélection ne peut excéder %max% choix",
   "serverException": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
   "serverErrorTooLargeFile": "L'enregistrement a échoué: une image ou un fichier trop volumineux a été chargé dans le formulaire. La taille maximale autorisée est de %max% mégaoctets",
   "noOrigin": "Cet événement est indisponible car il n'est associé a aucun agenda",

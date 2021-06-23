@@ -4,6 +4,7 @@
     "loner": false,
     "private" : false,
     "useContributeApp" : false,
+    "useDetailedStatusActions" : false,
     "title": "Jeu de Territoire pour développer la qualité de Vie",
     "description": "l'agenda des évènements repérés par ChezNous",
     "image": "review_cheznous_598_00.jpg",
@@ -376,12 +377,6 @@
           "value": "contact.bijorhca@reedexpo.fr",
           "label": "contact.bijorhca@reedexpo.fr",
           "fieldType": "email"
-        },
-        {
-          "name": "nomenclature",
-          "value": "Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode\n",
-          "label": "Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode\n",
-          "fieldType": "textarea"
         },
         {
           "name": "visitorprofiles",

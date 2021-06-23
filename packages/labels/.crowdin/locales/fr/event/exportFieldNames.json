@@ -56,5 +56,8 @@
   "category": "Catégorie",
   "location.district": "Arrondissement",
   "state": "Statut",
-  "references": "Evénements liés"
+  "references": "Evénements liés",
+  "attendanceMode": "Mode de participation",
+  "onlineAccessLink": "Lien d'accès",
+  "status": "État"
 }

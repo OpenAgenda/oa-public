@@ -1,72 +1,50 @@
 import numberValidator from './number';
-import extend from 'lodash/extend';
+import cleanParams from './lib/params';
+import errors from './lib/errors';
+
 import listify from './listify';
 
-export default config => {
+export default (config = {}) => {
+  const params = cleanParams('integer', config, {
+    error: {
+      code: 'integer.invalid',
+      message: 'value is not an integer'
+    }
+  });
 
-  const params = extend( {
-    field: false,
-    optional: true,
-    min: null,
-    max: null,
-    default: undefined,
-    list: false
-  }, config || {} ),
+  const validateNumber = numberValidator(params);
 
-  validateNumber = numberValidator( params ),
-
-  integerValidator = extend( validate, {
-    type: 'integer',
-    field: params.field
-  } );
-
-  return params.list ? listify( integerValidator, params ) : integerValidator;
-
-  function validate( value ) {
-
-    let clean = undefined, errors = [];
+  const validate = value => {
+    let clean;
 
     try {
-
-      clean = validateNumber( value );
-
-    } catch ( e ) {
-
-      errors = e;
-
-    }
-
-    if ( errors.length ) {
-
-      throw errors.map( e => {
-
-        e.code = e.code.replace( 'number', 'integer' );
-        e.message = e.message.replace( 'number', 'integer' ).replace( ' a ', ' an ' );
-
-        return e;
-
-      } );
-
+      clean = validateNumber(value);
+    } catch (numberErrors) {
+      throw numberErrors.map(e => ({
+        ...e,
+        code: e.code.replace('number', 'integer'),
+        message: e.message.replace('number', 'integer').replace(' a ', ' an ')
+      }));
     }
 
     if ([undefined, null].includes(clean)) {
-
       return clean;
-
     }
 
-    if ( parseInt( clean ) !== parseFloat( clean ) ) {
-
-      throw [ extend( {
-        code: 'integer.invalid',
-        message: 'not an integer',
-        origin: value
-      }, params.field ? { field: params.field } : {} ) ];
-
+    if (parseInt(clean, 10) !== parseFloat(clean)) {
+      throw errors(
+        params,
+        value,
+        'integer.invalid',
+        'not an integer'
+      );
     }
 
     return clean;
+  };
 
-  }
+  validate.type = 'integer';
+  validate.field = params.field;
 
-}
+  return params.list ? listify(validate, params) : validate;
+};

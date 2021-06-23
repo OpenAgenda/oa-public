@@ -19,7 +19,7 @@ describe('utils - fromEntryToItem', () => {
       const item = fromEntryToItem(eventsFields, {
         image: '{"filename":"950de3a396df447dbb66364d036e0067.base.image.jpg","credits":"MEL","size":{"height":344,"width":700},"variants":[{"type":"full","filename":"950de3a396df447dbb66364d036e0067.full.image.jpg","size":{"height":344,"width":700}},{"type":"thumbnail","filename":"950de3a396df447dbb66364d036e0067.thumb.image.jpg","size":{"height":200,"width":200}}]}',
       });
-      expect(item.image).equal({
+      expect(item.image).toEqual({
         credits: 'MEL',
         filename: '950de3a396df447dbb66364d036e0067.base.image.jpg',
         size: {
@@ -102,5 +102,39 @@ describe('utils - fromEntryToItem', () => {
         imageCredits: '© Château d\'Alba-la-Romaine'
       });
     });
-  });
+  
+    it('duplicates', () => {
+      let item = fromEntryToItem([
+        {
+          field: 'duplicateCandidates',
+          fieldType: 'integer',
+          list: true,
+          default: null,
+          db: {
+            assign: true,
+            type: 'json',
+            field: 'duplicates.candidates',
+          },
+          optional: true,
+          read: ['internal', 'public'],
+          write: ['internal', 'contributor']
+        }, {
+          field: 'disqualifiedDuplicates',
+          fieldType: 'integer',
+          list: true,
+          default: null,
+          db: {
+            assign: true,
+            type: 'json',
+            field: 'duplicates.disqualified',
+          },
+          optional: true,
+          read: ['internal', 'public'],
+          write: ['internal', 'contributor']
+        }
+      ], { duplicates: "{\"candidates\": [20, 30] ,\"disqualified\": [10]}"}, { includeFields: [], access: 'public' });
+      expect(item).toEqual({ duplicateCandidates: [20, 30], disqualifiedDuplicates: [ 10 ] });
+    })
+
+  })
 });

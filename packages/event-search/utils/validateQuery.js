@@ -88,6 +88,11 @@ const validate = schema({
     options: [null, -1, 0, 1, 2],
     default: 2
   },
+  status: {
+    optional: true,
+    type: 'choice',
+    options: [1, 2, 3, 4, 5]
+  },
   featured: {
     optional: true,
     type: 'boolean',

@@ -7,15 +7,6 @@ const {
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-const preFormat = (data, hasLocationImage)  => {
-  if (typeof data.image === 'string' && !hasLocationImage) {
-    return {
-      ...data,
-      image: { filename: data.image }
-    }
-  }
-  return data;
-}
 
 const extractDbRules = field => {
   return {

@@ -66,7 +66,7 @@ const messages = defineMessages({
     id: 'AgendaLocations.AgendaAdminLocation.mergeDescription',
     defaultMessage: 'Locations merge',
   },
-  search: { 
+  search: {
     id: 'AgendaLocations.AgendaAdminLocation.search',
     defaultMessage: 'Filter list',
   },
@@ -239,6 +239,7 @@ class AgendaAdminLocations extends Component {
       if (err) {
         log('error', err);
         this.actions.changeMergeModal(err);
+        return;
       }
       if (!result.success) {
         log('no success');
@@ -351,7 +352,8 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeModal() {
-    const { modal, intl } = this.state;
+    const { modal } = this.state;
+    const { intl } = this.props;
     return (
       <Modal
         title={intl.formatMessage(messages.mergeDescription)}

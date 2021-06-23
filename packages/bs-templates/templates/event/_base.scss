@@ -3,11 +3,9 @@
 
   // header
   #header {
-
     .row {
       position: relative;
     }
-
   }
 
   //content
@@ -19,6 +17,10 @@
       position: relative;
     }
 
+  }
+
+  .status {
+    font-size: 18px;
   }
 
   .event-content {
@@ -42,6 +44,12 @@
   }
 
   .event-item-info {
+
+    br {
+      display: block;
+      content: " ";
+      height: 0.3em;
+    }
 
     dt {
 

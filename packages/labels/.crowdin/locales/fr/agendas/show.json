@@ -35,5 +35,10 @@
   "contact": "Contacter",
   "officialAgenda": "Agenda officiel",
   "privateAgenda": "Agenda privé",
-  "showCalendar": "Vue calendrier"
+  "showCalendar": "Vue calendrier",
+  "statusRescheduled": "Reprogrammé",
+  "statusMovedOnline": "Déplacé en ligne",
+  "statusPostponed": "Reporté",
+  "statusCancelled": "Annulé",
+  "statusFull": "Complet"
 }

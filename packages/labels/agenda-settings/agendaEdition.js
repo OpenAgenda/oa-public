@@ -752,5 +752,9 @@ module.exports = {
     "fr": "Utiliser la nouvelle interface d'administration des événements",
     "en": "Use the new event administration interface",
     "io": "crwdns12684:0crwdne12684:0"
+  },
+  "eventStatusDesc": {
+    "fr": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)",
+    "en": "Activate event status controls (cancelled, full, rescheduled...)"
   }
 }

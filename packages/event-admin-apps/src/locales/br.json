@@ -4,8 +4,6 @@
   "EventAdminApp.BatchedStateSelector.title": "Kadarnaat",
   "EventAdminApp.FiltersPortal.filters": "Siloù",
   "EventAdminApp.Dashboard.next": "War-lerc'h",
-  "EventAdminApp.FiltersPart.lessFilters": "Diskouez nebeutoc'h a siloù",
-  "EventAdminApp.FiltersPart.moreFilters": "Diskouez muioc'h a siloù",
   "EventAdminApp.messages.attendanceModes.mixed": "Kemmesk",
   "EventAdminApp.messages.attendanceModes.offline": "War al lec’h",
   "EventAdminApp.messages.attendanceModes.online": "Enlinenn",

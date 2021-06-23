@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const { produce } = require('immer');
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 
 const aggregations = require('./aggregations');
 

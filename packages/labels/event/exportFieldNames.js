@@ -485,5 +485,9 @@ module.exports = {
     "es": "Enlace de acceso",
     "it": "Collegamento di accesso",
     "br": "Liamm moned"
+  },
+  "status": {
+    "fr": "État",
+    "en": "Status"
   }
 }

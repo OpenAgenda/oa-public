@@ -35,5 +35,10 @@
   "contact": "Contact",
   "officialAgenda": "Official agenda",
   "privateAgenda": "Private agenda",
-  "showCalendar": "Calendar view"
+  "showCalendar": "Calendar view",
+  "statusRescheduled": "Rescheduled",
+  "statusMovedOnline": "Moved online",
+  "statusPostponed": "Postponed",
+  "statusCancelled": "Cancelled",
+  "statusFull": "Fully booked"
 }

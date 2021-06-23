@@ -52,15 +52,22 @@ module.exports = async (core, agendaUid, options = {}) => {
     access: typeof access === 'string' ? { read: access } : access
   });
 
+  const related = {
+    schema,
+    summary,
+    network,
+    locationSet
+  };
+
   if (access === 'internal') {
-    return { ...agenda, schema, summary, network };
+    return {
+      ...agenda,
+      ...related
+    };
   }
 
   return {
     ...agendas.utils.filterByAccess(agenda, 'read', access),
-    network,
-    locationSet,
-    schema,
-    summary
+    ...related
   };
 };

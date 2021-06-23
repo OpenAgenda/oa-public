@@ -10,7 +10,7 @@ const members = require( '../services/members' );
 
 
 module.exports = app => {
-  const { agendas } = app.services;
+  const { agendas, core } = app.services;
 
   app.post(
     '/new',
@@ -38,12 +38,21 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    agendas.getConfig().upload.middleware([{ name: 'image', unique: true }]),
-    ( req, res, next ) => {
-      req.context = { user: req.user };
-      next();
-    },
-    mw.set
+    agendas.getConfig().upload.middleware([{
+      name: 'image',
+      unique: true
+    }]),
+    (req, res, next) => {
+      core.agendas(req.agenda).update(req.body, {
+        includeImagePath: true,
+        private: null,
+        context: { user: req.user },
+        internal: true
+      }).then(agenda => res.json({
+        success: true,
+        agenda
+      }), next);
+    }
   );
 
   app.post(

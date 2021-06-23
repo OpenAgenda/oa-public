@@ -54,7 +54,7 @@
     <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
   </dt>
   <dd>
-    <span><%= custom[ i ].value %></span>
+    <span><%- _txt.nl2br(custom[ i ].value) %></span>
   </dd>
 <% } %>
 <% } %>

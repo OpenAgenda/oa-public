@@ -13,7 +13,7 @@
   "AgendaLocations.AgendaAdminLocation.contactSupport": "Contacter le support",
   "AgendaLocations.AgendaAdminLocation.create": "Ajouter un lieu",
   "AgendaLocations.AgendaAdminLocation.merge": "Fusionner des lieux",
-  "AgendaLocations.AgendaAdminLocation.mergeDescription": "Sélectionnez les lieux à fusionner puis",
+  "AgendaLocations.AgendaAdminLocation.mergeDescription": "Fusion de lieux",
   "AgendaLocations.AgendaAdminLocation.mergeInProgress": "La fusion est en cours",
   "AgendaLocations.AgendaAdminLocation.search": "Filtrer la liste",
   "AgendaLocations.AgendaAdminLocation.somethingWentWrong": "Une erreur est survenue, veuillez contacter le support si cela se reproduit",

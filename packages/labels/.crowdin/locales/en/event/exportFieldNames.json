@@ -56,5 +56,8 @@
   "category": "Category",
   "location.district": "District",
   "state": "State",
-  "references": "Linked events"
+  "references": "Linked events",
+  "attendanceMode": "Attendance mode",
+  "onlineAccessLink": "Access link",
+  "status": "Status"
 }

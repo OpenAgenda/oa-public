@@ -7,6 +7,7 @@ import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
+import textHelpers from '../../helpers/text.js';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 
@@ -78,10 +79,10 @@ module.exports = options => {
       }
 
       if (data.authorizations?.canEditEvent) {
-        du.removeClass(du.el('.js_cancel'), 'display-none');
+        du.removeClass(du.el('.js_status'), 'display-none');
       } else {
         du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
-        du.removeClass(du.el('.js_disabled_cancel'), 'display-none');
+        du.removeClass(du.el('.js_disabled_status'), 'display-none');
       }
 
       if (data.authorizations?.canChangeState) {
@@ -275,7 +276,8 @@ module.exports = options => {
         }
 
         return '//cibul.s3.amazonaws.com/' + image;
-      }
+      },
+      _txt: textHelpers()
     }, data));
   }
 
