@@ -22,7 +22,10 @@ async function agendasList(req, res, next) {
   const offset = (page - 1) * LIST_LIMIT;
 
   try {
-    const members = await membersSvc.list({ userUid: req.user.uid }, { offset: 0, limit: 1000 });
+    const members = await membersSvc.list({
+      userUid: req.user.uid,
+      ...(req.query.role ? { role: req.query.role } : {})
+    }, { offset: 0, limit: 1000 });
 
     const { total, agendas } = await agendaSvc.list({
       uid: members.map(s => s.agendaUid),
