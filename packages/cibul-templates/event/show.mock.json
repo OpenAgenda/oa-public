@@ -379,12 +379,6 @@
           "fieldType": "email"
         },
         {
-          "name": "nomenclature",
-          "value": "Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode\n",
-          "label": "Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode\n",
-          "fieldType": "textarea"
-        },
-        {
           "name": "visitorprofiles",
           "value": "Professionnels de la distribution française et internationale (grossistes, chaînes, détaillants, grands magasins, bureaux d'achats)",
           "label": "Professionnels de la distribution française et internationale (grossistes, chaînes, détaillants, grands magasins, bureaux d'achats)",
