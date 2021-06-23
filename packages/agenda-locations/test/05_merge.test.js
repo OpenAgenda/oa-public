@@ -35,8 +35,8 @@ const initSettingsCantMerge = {...initSettings, access: {
   update: defaultAccess
 }}
 
-describe('agenda-locations - functional - merge', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - merge', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
@@ -44,7 +44,7 @@ describe('agenda-locations - functional - merge', function () {
   let location;
   let beforeCount;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -63,7 +63,7 @@ describe('agenda-locations - functional - merge', function () {
   });
 
   describe('basic', () => {
-    before(async () => {
+    beforeAll(async () => {
       beforeCount = await f
         .client('location')
         .count()
@@ -71,7 +71,7 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc(7196947).merge(
         95301591,
         { uids: [40305210, 52758960] },
@@ -95,7 +95,7 @@ describe('agenda-locations - functional - merge', function () {
   });
 
   describe('no data', () => {
-    before(async () => {
+    beforeAll(async () => {
       beforeCount = await f
         .client('location')
         .count()
@@ -103,7 +103,7 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc(7196947).merge(
         95301591,
         { uids: [13470871, 43404100] },
@@ -136,7 +136,7 @@ describe('agenda-locations - functional - merge', function () {
   });
 
   describe('set', () => {
-    before(async () => {
+    beforeAll(async () => {
       beforeCount = await f
         .client('location')
         .count()
@@ -144,7 +144,7 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc.sets(1903810).locations.merge(
         51665987,
         {
@@ -172,14 +172,14 @@ describe('agenda-locations - functional - merge', function () {
   });
 });
 
-describe('agenda-locations - functional - merge - no rights', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - merge - no rights', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -199,7 +199,7 @@ describe('agenda-locations - functional - merge - no rights', function () {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async ()=>{
       try {
         await svc(7196947).merge(
           95301591,
@@ -218,7 +218,7 @@ describe('agenda-locations - functional - merge - no rights', function () {
   describe('test allow bySetUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async ()=>{
       try {
         await svc.sets(1903811).locations.merge(
           51665986,

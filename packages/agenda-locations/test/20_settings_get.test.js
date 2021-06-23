@@ -29,16 +29,16 @@ const initSettingsP = {
   }
 };
 
-describe('agenda-locations - functional - settings get', function() {
-  this.timeout(10000);
+describe('agenda-locations - functional - settings get', () => {
+  //this.timeout(10000);
 
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  describe('location set without settings', function() {
-    before(async () => {
+  describe('location set without settings', () => {
+    beforeAll(async () => {
       await f.load();
   
       svc = Service({
@@ -84,30 +84,33 @@ describe('agenda-locations - functional - settings get', function() {
     });
   
 
-    it('setUid with no settings in database, returns default values', async () => {
-      const settings = await svc.sets(5).settings.get();
-  
-      assert.deepEqual(settings, {
-        eventForm: {
-          detailed: false
-        },
-        labels: {},
-        tagSet: {
-          groups: []
-        },
-        access: {
-          create: defaultAccess,
-          delete: defaultAccess,
-          merge: defaultAccess,
-          update: defaultAccess
-        }
-      })
-    });
+    it(
+      'setUid with no settings in database, returns default values',
+      async () => {
+        const settings = await svc.sets(5).settings.get();
+    
+        assert.deepEqual(settings, {
+          eventForm: {
+            detailed: false
+          },
+          labels: {},
+          tagSet: {
+            groups: []
+          },
+          access: {
+            create: defaultAccess,
+            delete: defaultAccess,
+            merge: defaultAccess,
+            update: defaultAccess
+          }
+        })
+      }
+    );
   })
 
-  describe('location set with settings', function() {
+  describe('location set with settings', () => {
     
-    before(async () => {
+    beforeAll(async () => {
       await f.load();
 
       await f.client('location_set').where('uid',1903810).update({
@@ -142,15 +145,18 @@ describe('agenda-locations - functional - settings get', function() {
 
     describe('settings are fetched from agenda endpoint and agenda is linked to a location set', () => {
 
-      it('when defined, values from the set override any value defined at the agenda level', async () => {
-        const settings = await svc(10).settings.get();
-        assert.deepEqual(settings.access, {
-          create: {...defaultAccess, authorized: false},
-          delete: {...defaultAccess, authorized: false},
-          merge: {...defaultAccess, authorized: false},
-          update: defaultAccess
-        })
-      });
+      it(
+        'when defined, values from the set override any value defined at the agenda level',
+        async () => {
+          const settings = await svc(10).settings.get();
+          assert.deepEqual(settings.access, {
+            create: {...defaultAccess, authorized: false},
+            delete: {...defaultAccess, authorized: false},
+            merge: {...defaultAccess, authorized: false},
+            update: defaultAccess
+          })
+        }
+      );
 
       it('when not defined at set level, values from agenda are used', async ()=> {
         const settings = await svc(10).settings.get();
@@ -180,35 +186,47 @@ describe('agenda-locations - functional - settings get', function() {
       });
     });
 
-    it('settings from set can contain an array of agenda-specific settings', async () => {
-      const settings = await svc.sets(1903812).settings.get();
+    it(
+      'settings from set can contain an array of agenda-specific settings',
+      async () => {
+        const settings = await svc.sets(1903812).settings.get();
 
-      assert(Array.isArray(settings.agendas));
-    });
+        assert(Array.isArray(settings.agendas));
+      }
+    );
 
-    it('agenda specific settings default to general set settings when left unspecified', async () => {
-      const settings = await svc.sets(1903812).settings.get();
+    it(
+      'agenda specific settings default to general set settings when left unspecified',
+      async () => {
+        const settings = await svc.sets(1903812).settings.get();
 
-      assert.equal(settings.agendas[0].eventForm.detailed, true);
-    });
+        assert.equal(settings.agendas[0].eventForm.detailed, true);
+      }
+    );
 
-    it('agenda-specific settings are provided if requested in set settings get', async () => {
-      const settings = await svc.sets(1903812).settings.get({ agendaUid: 11 });
+    it(
+      'agenda-specific settings are provided if requested in set settings get',
+      async () => {
+        const settings = await svc.sets(1903812).settings.get({ agendaUid: 11 });
 
-      assert.equal(settings.access.update.authorized, true);
-    });
+        assert.equal(settings.access.update.authorized, true);
+      }
+    );
 
-    it('if agenda-specific settings are requested but not found, set settings are returned', async () => {
-      const settings = await svc.sets(1903811).settings.get({
-        agendaUid: 12
-      });
+    it(
+      'if agenda-specific settings are requested but not found, set settings are returned',
+      async () => {
+        const settings = await svc.sets(1903811).settings.get({
+          agendaUid: 12
+        });
 
-      assert.equal(settings.access.update.authorized, false);
-    });
+        assert.equal(settings.access.update.authorized, false);
+      }
+    );
   });
 
   describe('fromDbEntryToSettings', ()=>{
-    before(async () => {
+    beforeAll(async () => {
       await f.load();
   
       svc = Service({
@@ -231,38 +249,47 @@ describe('agenda-locations - functional - settings get', function() {
       });      
     });
 
-    it('settings.access is transformed into object if stored as boolean', async () => {
-      const settings = await svc(5).settings.get();
-      
-      assert.deepEqual(settings.access, {
-        create : {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false},
-        merge: defaultAccess,
-        update: {...defaultAccess, authorized: false},
-      });
-    });
+    it(
+      'settings.access is transformed into object if stored as boolean',
+      async () => {
+        const settings = await svc(5).settings.get();
+        
+        assert.deepEqual(settings.access, {
+          create : {...defaultAccess, authorized: false},
+          delete: {...defaultAccess, authorized: false},
+          merge: defaultAccess,
+          update: {...defaultAccess, authorized: false},
+        });
+      }
+    );
     
-    it('languages in tagSet are not flattened if lang is not passed in options', async () => {
-      const settings = await svc(10).settings.get();
-      
-      assert.deepEqual(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
-        .tags.filter(e => e.id === 21 || e.id === 22),
-        [
-          { id: 21, label: { fr: 'Insolites', en: 'Unusual' } },
-          { id: 22, label: { fr: 'Société et civilisation', en: 'Society and civilization' }}
-        ]
-      );
-    });
+    it(
+      'languages in tagSet are not flattened if lang is not passed in options',
+      async () => {
+        const settings = await svc(10).settings.get();
+        
+        assert.deepEqual(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
+          .tags.filter(e => e.id === 21 || e.id === 22),
+          [
+            { id: 21, label: { fr: 'Insolites', en: 'Unusual' } },
+            { id: 22, label: { fr: 'Société et civilisation', en: 'Society and civilization' }}
+          ]
+        );
+      }
+    );
   
-    it('languages in tagSet are flattened if lang is passed in options', async () => {
-      const settings = await svc(10).settings.get({ lang: 'fr' });
-      assert.deepEqual(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
-        .tags.filter(e => e.id === 21 || e.id === 22),
-        [
-          { id: 21, label: 'Insolites' },
-          { id: 22, label: 'Société et civilisation' }
-        ]
-      );
-    });
+    it(
+      'languages in tagSet are flattened if lang is passed in options',
+      async () => {
+        const settings = await svc(10).settings.get({ lang: 'fr' });
+        assert.deepEqual(settings.tagSet.groups.find(e => e.name === 'Types de lieu')
+          .tags.filter(e => e.id === 21 || e.id === 22),
+          [
+            { id: 21, label: 'Insolites' },
+            { id: 22, label: 'Société et civilisation' }
+          ]
+        );
+      }
+    );
   })
 })

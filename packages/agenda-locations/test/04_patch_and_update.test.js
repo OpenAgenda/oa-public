@@ -39,14 +39,14 @@ const initSettingsCantUpdate = {...initSettings, access: {
   update: {...defaultAccess, authorized: false}
 }}
 
-describe('agenda-locations - functional - patch & update', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - patch & update', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -67,7 +67,7 @@ describe('agenda-locations - functional - patch & update', function () {
   describe('default update', () => {
     let updated;
 
-    before(async () => {
+    beforeAll(async () => {
       updated = await svc(7196947).update(95301591, payload);
     });
 
@@ -80,7 +80,7 @@ describe('agenda-locations - functional - patch & update', function () {
     let patched;
     const entry = {};
 
-    before(async () => {
+    beforeAll(async () => {
       entry.before = await f.client('location').first().where('uid', 89634707);
 
       patched = await svc(7196947).patch(89634707, {
@@ -102,11 +102,11 @@ describe('agenda-locations - functional - patch & update', function () {
     });
   });
 
-  describe('patching image', function(){
+  describe('patching image', () => {
     let entry;
-    this.timeout(20000);
+    //this.timeout(20000);
 
-    before(async () => {
+    beforeAll(async () => {
       await svc(7196947).patch(94482437, {
         image: fs.createReadStream(
           `${__dirname}/fixtures/images/vieilles_pierres.jpg`
@@ -128,11 +128,11 @@ describe('agenda-locations - functional - patch & update', function () {
     });
   });
 
-   describe('patching duplicates', function(){
+   describe('patching duplicates', () => {
     let entry;
-    this.timeout(20000);
+    //this.timeout(20000);
 
-    before(async () => {
+    beforeAll(async () => {
       await svc(7196947).patch(51665987, {
         duplicateCandidates: [30]
       });
@@ -144,9 +144,12 @@ describe('agenda-locations - functional - patch & update', function () {
         assert.deepEqual(JSON.parse(entry.duplicates).candidates, [30]);
     });
 
-    it('patching candidates in duplicates does not affect other duplicates fields', () => {
-      assert.deepEqual(JSON.parse(entry.duplicates).disqualified, [5]);
-    });
+    it(
+      'patching candidates in duplicates does not affect other duplicates fields',
+      () => {
+        assert.deepEqual(JSON.parse(entry.duplicates).disqualified, [5]);
+      }
+    );
   });
 
   describe('set', () => {
@@ -178,17 +181,20 @@ describe('agenda-locations - functional - patch & update', function () {
       );
     });
 
-    it('update through agendas endpoint does not clear set uid of location', async () => {
-      const result = await svc(7196947).update(30433085, payload);
-      assert.equal(
-        await f
-          .client('location')
-          .first()
-          .where('uid', 30433085)
-          .then(r => r.set_uid),
-        1903810
-      );
-    });
+    it(
+      'update through agendas endpoint does not clear set uid of location',
+      async () => {
+        const result = await svc(7196947).update(30433085, payload);
+        assert.equal(
+          await f
+            .client('location')
+            .first()
+            .where('uid', 30433085)
+            .then(r => r.set_uid),
+          1903810
+        );
+      }
+    );
   });
 
   describe('other', () => {
@@ -240,47 +246,53 @@ describe('agenda-locations - functional - patch & update', function () {
       assert.equal(entry.ext_id, 'leg_ard_03');
     });
 
-    it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
-      const updated = await svc.sets(1903810).locations.patch(60763721, {
-        extId: 'ard_leg_1200',
-      });
+    it(
+      'if extId is part of patch, it is synced to legacy and set in dedicated field',
+      async () => {
+        const updated = await svc.sets(1903810).locations.patch(60763721, {
+          extId: 'ard_leg_1200',
+        });
 
-      const { store, extId } = await f
-        .client('location')
-        .first(['store', 'ext_id'])
-        .where('uid', 60763721)
-        .then(r => ({
-          store: JSON.parse(r.store),
-          extId: r.ext_id,
-        }));
+        const { store, extId } = await f
+          .client('location')
+          .first(['store', 'ext_id'])
+          .where('uid', 60763721)
+          .then(r => ({
+            store: JSON.parse(r.store),
+            extId: r.ext_id,
+          }));
 
-      assert.equal(store.extId, 'ard_leg_1200');
-      assert.equal(updated.extId, 'ard_leg_1200');
-    });
+        assert.equal(store.extId, 'ard_leg_1200');
+        assert.equal(updated.extId, 'ard_leg_1200');
+      }
+    );
 
-    it('if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
-      const updated = await svc(7196947).update(
-        95301591,
-        _.omit(payload, ['latitude', 'longitude']),
-        {
-          geocodeIfUndefined: true,
-        }
-      );
+    it(
+      'if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address',
+      async () => {
+        const updated = await svc(7196947).update(
+          95301591,
+          _.omit(payload, ['latitude', 'longitude']),
+          {
+            geocodeIfUndefined: true,
+          }
+        );
 
-      assert.equal(updated.latitude, 10);
-      assert.equal(updated.longitude, 11);
-    });
+        assert.equal(updated.latitude, 10);
+        assert.equal(updated.longitude, 11);
+      }
+    );
   });
 });
 
-describe('agenda-locations - functional - patch & update - no rights', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - patch & update - no rights', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -300,7 +312,7 @@ describe('agenda-locations - functional - patch & update - no rights', function 
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async ()=>{
       try {
         await svc(7196947).update(95301591, payload);
       }
@@ -314,7 +326,7 @@ describe('agenda-locations - functional - patch & update - no rights', function 
   });describe('test allow bySetUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async ()=>{
       try {
         await svc.sets(1903811).locations.patch(60763722, {
           extId: 'ard_leg_1200',

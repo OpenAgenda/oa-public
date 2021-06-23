@@ -11,14 +11,14 @@ const {
 const fixtures = require('./fixtures');
 const Service = require('..');
 
-describe('agenda-locations - functional - sets get', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - sets get', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({

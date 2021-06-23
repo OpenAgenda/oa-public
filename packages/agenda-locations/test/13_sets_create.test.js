@@ -11,15 +11,15 @@ const {
 const fixtures = require('./fixtures');
 const Service = require('..');
 
-describe('agenda-locations - functional - sets create', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - sets create', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
   let created;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -29,7 +29,7 @@ describe('agenda-locations - functional - sets create', function () {
     });
   });
 
-  before(async () => {
+  beforeAll(async () => {
     created = await svc.sets.create({
       title: 'Un jeu de lieux',
     });

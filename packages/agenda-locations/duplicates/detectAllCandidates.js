@@ -1,6 +1,7 @@
 'use strict';
 
 const detectDuplicatesCandidates = require('./detectCandidates');
+
 const sleep = ms => new Promise(rs => setTimeout(rs, ms));
 
 async function detectAllDuplicatesCandidates({ endpoints, internals }, option = {}) {

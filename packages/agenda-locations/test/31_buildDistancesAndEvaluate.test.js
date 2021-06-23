@@ -5,8 +5,8 @@ const _ = require('lodash');
 
 const buildDistancesAndEvaluate = require('../duplicates/buildDistancesAndEvaluate');
 
-describe('agenda-locations - functional - buildDistancesAndEvaluate', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - buildDistancesAndEvaluate', () => {
+  //this.timeout(10000);
   const config = {
     geoThreshold: 40,
     nameDistanceThreshold: 10,
@@ -81,41 +81,50 @@ describe('agenda-locations - functional - buildDistancesAndEvaluate', function (
   });
 
   describe('Locations close enough should resp True', () => {
-    it('a location with a very similar name && geo close is marked as a duplicate', () => {
-      const res = buildDistancesAndEvaluate({
-        name: 'Grotte Chauvet 2',
-        latitude: 44.406685,
-        longitude: 4.429893,
-      }, {
-        name: 'Grotte Chauvet',
-        latitude: 44.406685,
-        longitude: 4.429894,
-      }, config);
-      assert.strictEqual(res, true);
-    })
-    it('a location with a very similar name && geo close is marked as a duplicate', () => {
-      const res = buildDistancesAndEvaluate({
-        name: 'Gare du Nord',
-        latitude: 48.8813990,
-        longitude: 2.3574380,
-      }, {
-        name: 'Gare du Nord (RER)',
-        latitude: 48.8814990,
-        longitude: 2.3574380,
-      }, config);
-      assert.strictEqual(res, true);
-    });
-      it('a location with a very similar name && geo close is marked as a duplicate', () => {
+    it(
+      'a location with a very similar name && geo close is marked as a duplicate',
+      () => {
+        const res = buildDistancesAndEvaluate({
+          name: 'Grotte Chauvet 2',
+          latitude: 44.406685,
+          longitude: 4.429893,
+        }, {
+          name: 'Grotte Chauvet',
+          latitude: 44.406685,
+          longitude: 4.429894,
+        }, config);
+        assert.strictEqual(res, true);
+      }
+    )
+    it(
+      'a location with a very similar name && geo close is marked as a duplicate',
+      () => {
         const res = buildDistancesAndEvaluate({
           name: 'Gare du Nord',
           latitude: 48.8813990,
           longitude: 2.3574380,
         }, {
-          name: 'RER-Gare du Nord',
+          name: 'Gare du Nord (RER)',
           latitude: 48.8814990,
           longitude: 2.3574380,
         }, config);
         assert.strictEqual(res, true);
-    })
+      }
+    );
+      it(
+        'a location with a very similar name && geo close is marked as a duplicate',
+        () => {
+          const res = buildDistancesAndEvaluate({
+            name: 'Gare du Nord',
+            latitude: 48.8813990,
+            longitude: 2.3574380,
+          }, {
+            name: 'RER-Gare du Nord',
+            latitude: 48.8814990,
+            longitude: 2.3574380,
+          }, config);
+          assert.strictEqual(res, true);
+      }
+      )
   });   
 });

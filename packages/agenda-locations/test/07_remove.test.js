@@ -36,8 +36,8 @@ const initSettingsCantRemove = {...initSettings, access: {
   update: defaultAccess
 }}
 
-describe('agenda-locations - functional - remove', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - remove', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
@@ -45,7 +45,7 @@ describe('agenda-locations - functional - remove', function () {
 
   let passedToInterface;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -68,7 +68,7 @@ describe('agenda-locations - functional - remove', function () {
   describe('basic', () => {
     let removed;
 
-    before(async () => {
+    beforeAll(async () => {
       removed = await svc(7196947).remove(95301591);
     });
 
@@ -85,16 +85,19 @@ describe('agenda-locations - functional - remove', function () {
       assert.equal(entry.deleted, 1);
     });
 
-    it('removed location is passed to interface before it is removed', async () => {
-      assert.equal(passedToInterface && passedToInterface.uid, 95301591);
-    });
+    it(
+      'removed location is passed to interface before it is removed',
+      async () => {
+        assert.equal(passedToInterface && passedToInterface.uid, 95301591);
+      }
+    );
 
   });
 
   describe('set', () => {
     let removed;
 
-    before(async () => {
+    beforeAll(async () => {
       removed = await svc.sets(1903810).locations.remove(51665987);
     });
 
@@ -113,8 +116,8 @@ describe('agenda-locations - functional - remove', function () {
   });
 });
 
-describe('agenda-locations - functional - remove - no rights', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - remove - no rights', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
@@ -122,7 +125,7 @@ describe('agenda-locations - functional - remove - no rights', function () {
 
   let passedToInterface;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -144,7 +147,7 @@ describe('agenda-locations - functional - remove - no rights', function () {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async ()=>{
       try {
         await svc(7196947).remove(95301591);
       }
@@ -159,7 +162,7 @@ describe('agenda-locations - functional - remove - no rights', function () {
   describe('test allow bySetUid', () => {
     let thrownError;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.remove(60763722);
       }

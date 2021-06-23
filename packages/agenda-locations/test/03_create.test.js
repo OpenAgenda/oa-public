@@ -5,7 +5,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const redis = require('redis');
 
-const UnauthorizedError = require('../../utils/errors/UnauthorizedError');
+const UnauthorizedError = require('@openagenda/utils/errors/UnauthorizedError');
 const Files = require('@openagenda/files');
 const {
   service: config,
@@ -39,14 +39,14 @@ const initSettingsCantCreate = {...initSettings, access: {
   update: defaultAccess
 }}
 
-describe('agenda-locations - functional - create', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - create', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -82,7 +82,7 @@ describe('agenda-locations - functional - create', function () {
   describe('defaults', () => {
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       created = await svc(7196947).create(payload);
     });
 
@@ -129,7 +129,7 @@ describe('agenda-locations - functional - create', function () {
   describe('set', () => {
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       created = await svc.sets(1903810).locations.create(
         {
           name: 'Bruchon',
@@ -155,34 +155,40 @@ describe('agenda-locations - functional - create', function () {
       );
     });
 
-    it('location cannot be created if specified set does not exist', async () => {
-      try {
-        await svc.sets(90389033829).locations.create(
-          {
-            name: 'Bruchon',
-            address: 'Bruchon, Lamastre',
-            countryCode: 'FR',
-          },
-          { geocodeIfUndefined: true }
-        );
-      } catch (e) {
-        assert.equal(e.message, 'Not found');
-        return;
+    it(
+      'location cannot be created if specified set does not exist',
+      async () => {
+        try {
+          await svc.sets(90389033829).locations.create(
+            {
+              name: 'Bruchon',
+              address: 'Bruchon, Lamastre',
+              countryCode: 'FR',
+            },
+            { geocodeIfUndefined: true }
+          );
+        } catch (e) {
+          assert.equal(e.message, 'Not found');
+          return;
+        }
+        throw new Error('Should not reach here');
       }
-      throw new Error('Should not reach here');
-    });
+    );
 
-    it('location created on agendas endpoints and on an agenda associated with set is also associated to set', async () => {
-      const created = await svc(7196947).create(payload);
-      assert.equal(created.setUid, 1903810);
-    });
+    it(
+      'location created on agendas endpoints and on an agenda associated with set is also associated to set',
+      async () => {
+        const created = await svc(7196947).create(payload);
+        assert.equal(created.setUid, 1903810);
+      }
+    );
   });
 
-  describe('with image', function () {
-    this.timeout(10000);
+  describe('with image', () => {
+    //this.timeout(10000);
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         created = await svc(7196947).create({
           ...payload,
@@ -205,12 +211,12 @@ describe('agenda-locations - functional - create', function () {
     });
   });
 
-  describe('geocodeIfUndefined', async () => {
-    this.timeout(10000);
+  describe('geocodeIfUndefined', () => {
+    //this.timeout(10000);
 
     let location;
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc(7196947).create(
         {
           name: 'Le Colisée',
@@ -233,34 +239,37 @@ describe('agenda-locations - functional - create', function () {
     });
   });
 
-  describe('fixes', async () => {
-    it('long name does not trigger an exception due to slug overflow', async () => {
-      const l = await svc(7196947).create({
-        name:
-          'Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...',
-        address: '41160 Membrolles',
-        latitude: '47.996436',
-        longitude: '1.48131',
-        city: 'Membrolles',
-        department: 'Loir-et-Cher',
-        region: 'Centre-Val de Loire',
-        postalCode: '41160',
-        insee: '41173',
-        countryCode: 'FR',
-      });
-    });
+  describe('fixes', () => {
+    it(
+      'long name does not trigger an exception due to slug overflow',
+      async () => {
+        const l = await svc(7196947).create({
+          name:
+            'Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...',
+          address: '41160 Membrolles',
+          latitude: '47.996436',
+          longitude: '1.48131',
+          city: 'Membrolles',
+          department: 'Loir-et-Cher',
+          region: 'Centre-Val de Loire',
+          postalCode: '41160',
+          insee: '41173',
+          countryCode: 'FR',
+        });
+      }
+    );
   });
 });
 
 
-describe('agenda-locations - functional - create - no rights', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - create - no rights', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -296,7 +305,7 @@ describe('agenda-locations - functional - create - no rights', function () {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         await svc(7196947).create(payload);
       }
@@ -312,7 +321,7 @@ describe('agenda-locations - functional - create - no rights', function () {
   describe('test allow bySetUid', () => {
     let thrownError;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.create(
           {

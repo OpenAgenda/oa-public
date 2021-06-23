@@ -24,18 +24,18 @@ async function getAgendaDetailsByUid(uid, fields = []) {
   );
 }
 
-describe('agenda-locations - functional - Duplicates functions', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - Duplicates functions', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql, 'hauteSavoie.sql');
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
@@ -90,11 +90,11 @@ describe('agenda-locations - functional - Duplicates functions', function () {
     });
   });
 
-  describe('disqualify duplicate', async () => {
+  describe('disqualify duplicate', () => {
     let entry1;
     let entry2;
 
-    before(async () => {
+    beforeAll(async () => {
       await svc(7196947).duplicates.disqualifyCandidate(77164958, 90760072);
       entry1 = await f.client('location').first().where('uid', 90760072);
       entry2 = await f.client('location').first().where('uid', 77164958);
@@ -109,8 +109,8 @@ describe('agenda-locations - functional - Duplicates functions', function () {
     });
   });
 
-  describe('detect all duplicates', async () => {
-    before(async () => {
+  describe('detect all duplicates', () => {
+    beforeAll(async () => {
       await svc(7196947).duplicates.detectAll();
     });
     it('duplicates are found and saved', async () => {
@@ -122,10 +122,10 @@ describe('agenda-locations - functional - Duplicates functions', function () {
     })
   })
   
-  describe('clear all candidates', async () => {
+  describe('clear all candidates', () => {
     let entry1;
     let entry2;
-    before(async ()=> {
+    beforeAll(async ()=> {
         await svc(7196947).duplicates.clearCandidates();
         entry1 = await f.client('location').first().where('uid', 49975881);
         entry2 = await f.client('location').first().where('uid', 49975880);

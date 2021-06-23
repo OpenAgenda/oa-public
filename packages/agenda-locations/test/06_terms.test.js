@@ -13,14 +13,14 @@ const {
 const fixtures = require('./fixtures');
 const Service = require('..');
 
-describe('agenda-locations - functional - terms', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - terms', () => {
+  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -61,20 +61,23 @@ describe('agenda-locations - functional - terms', function () {
       ]);
     });
 
-    it('result is ordered following the last requested term, in ascending order', async () => {
-      const terms = await svc(7196947).terms(
-        ['department', 'city'],
-        {},
-        { filterNulls: true }
-      );
-
-      for (let i = 1; i < terms.length; i++) {
-        assert.ok(
-          slug(terms[i - 1].city, { lower: true })
-            <= slug(terms[i].city, { lower: true })
+    it(
+      'result is ordered following the last requested term, in ascending order',
+      async () => {
+        const terms = await svc(7196947).terms(
+          ['department', 'city'],
+          {},
+          { filterNulls: true }
         );
+
+        for (let i = 1; i < terms.length; i++) {
+          assert.ok(
+            slug(terms[i - 1].city, { lower: true })
+              <= slug(terms[i].city, { lower: true })
+          );
+        }
       }
-    });
+    );
   });
 
   describe('sets', () => {
