@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl';
 import locales from '../../src/locales-compiled';
 
 export default Story => {
-  const lang = 'de';
+  const lang = 'fr';
 
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>

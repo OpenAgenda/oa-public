@@ -3,10 +3,10 @@ import React from 'react';
 const Button = ({ content, children, onClose }) => (
   <button
     type="submit"
-    className="btn btn-default export__btn"
+    className="btn btn-primary export__btn"
     onClick={onClose}
   >
-    {content || children}
+    {content() || children}
   </button>
 );
 
