@@ -35,7 +35,7 @@
   <div class="container">
     <div class="row">
 
-      <section class="col-sm-7 col-sm-offset-1">
+      <section class="col-sm-7 col-sm-offset-1 col-xs-12">
 
 <% if ( event.languages ) { %>
         <div class="langs">
@@ -87,140 +87,142 @@
         </div>
       </section>
 
-      <aside class="col-sm-4 col-aside sidebar">
-        <section class="detail-item margin-bottom-xs">
-          <h3><i class="fa fa-share-alt"></i></h3>
-          <div class="detail-item-content">
-            <a rel="nofollow" class="btn btn-primary event-action" href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=agendas' %>">
-              <img alt="logo" src="//oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png">
-              <%= __('shareOnOA') %>
-            </a>
-          </div>
-        </section>
-
-<% if (!private && ( event.currentState === 'published' ) ) { %>
-        <section class="detail-item share margin-bottom-md margin-top-xs">
-          <%= __('otherShares') %>&nbsp;:
-          <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
-          <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
-          <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
-          <a href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
-          <a href="<%= event.importUri %>"><%= __('allShares') %></a>
-        </section>
-<% } %>
-<% if (event.onlineAccessLink) { %>
-        <section class="detail-item margin-bottom-md">
-          <h3><i class="fa fa-link"></i></h3>
-          <a
-            target="_blank"
-            href="<%= event.onlineAccessLink %>"
-            class="btn btn-default"
-          ><%= __('onlineAccess') %></a>
-        </section>
-<% } %>
-        <section class="detail-item margin-bottom-sm">
-          <h3><% if (event.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
-          <p class="detail-item-content">
-            <span><%= event.dateRange %></span>
-            <% if (!event.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
-          </p>
-        </section>
-        <section class="detail-item display-none js_hours timings margin-bottom-md">
-          <ul class="months"></ul>
-        </section>
-
-<% if ( event.pricingInfo || event.registrationComponent ) { %>
-        <section class="detail-item conditions margin-v-md">
-          <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
-            <% if ( event.pricingInfo ) { %>
-              <div class="detail-item-content">
-                <p><%= event.pricingInfo %></p>
-              </div>
-            <% } %>
-            <% if (event.registrationComponent) { %>
-              <%- event.registrationComponent %>
-            <% } %>
-        </section>
-<% } %>
-
-<% if ( event.accessibility && event.accessibility.length ) { %>
-<% event.accessibility.forEach( function( i ) { %>
-        <section class="detail-item margin-v-sm">
-          <h3><i class="acc <%= i %>"></i></h3>
-          <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
-        </section>
-<% }) %>
-<% } %>
-<% if ( event.age ) { %>
-        <section class="detail-item margin-v-md">
-          <h3><i class="fa fa-child"></i></h3>
-<% if ( !event.age.max ) { %>
-          <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
-<% } else { %>
-          <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
-<% } %>
-        </section>
-<% } %>
-<% if (hasLocation) { %>
-        <section class="detail-item location-side margin-v-md">
-          <h3><i class="fa fa-map-marker"></i></h3>
-          <div class="detail-item-content">
-            <p>
-              <%- event.location.name %><% /* escaped in model already */ %>
-            </p>
-            <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
-            <ul class="info list-inline location-info-parts">
-<% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
-<% if ( event.location[ part ] && locationPart( part ) ) { %>
-              <li><span><%= locationPart( part ) %></span></li>
-<% } %>
-<% }); %>
-            </ul>
-          </div><!--
-          --><div
-              class="map js_map"
-              data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"
-              data-tiles="<%= tiles %>"
-            ></div>
-        </section>
-<% } %>
-
-
-<% if ( event.agendaReferences.length > 1 ) { %>
-        <div class="sharers">
-          <ul><!--
-<% event.agendaReferences.forEach( function( ref ) { %>
-<% if ( loner || ( ref.slug !== slug ) ) { %>
-            --><li <% if ( !ref.thumbnail ) { %>class="empty"<% } %>>
-              <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
-<% if ( ref.thumbnail ) { %>
-                --><img class="avatar" alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
-<% } else { %>
-                --><div class="avatar"></div><!--
-<% } %>
-                --><span><%= _txt.truncate( ref.title, 26, ' ...' ) %></span>
+      <aside class="col-sm-4 col-aside sidebar col-xs-12">
+        <div class="sidebar-content">
+          <section class="detail-item margin-bottom-xs shares">
+            <h3><i class="fa fa-share-alt"></i></h3>
+            <div class="detail-item-content">
+              <a rel="nofollow" class="btn btn-primary event-action" href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=agendas' %>">
+                <img alt="logo" src="//oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png">
+                <%= __('shareOnOA') %>
               </a>
-            </li><!--
-<% } %>
-<% }); %>
-          --></ul>
+            </div>
+          </section>
+          <% if (!private && ( event.currentState === 'published' ) ) { %>
+          <section class="detail-item share margin-bottom-md margin-top-xs shares">
+            <%= __('otherShares') %>&nbsp;:
+            <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
+            <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
+            <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+            <a href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
+            <a href="<%= event.importUri %>"><%= __('allShares') %></a>
+          </section>
+          <% } %>
+          <div class="row">
+            <div class="col-sm-12 col-print-6">
+              <% if (event.onlineAccessLink) { %>
+              <section class="detail-item margin-bottom-md online-access-link">
+                <h3><i class="fa fa-link"></i></h3>
+                <a
+                  target="_blank"
+                  href="<%= event.onlineAccessLink %>"
+                  class="btn btn-default"
+                ><%= __('onlineAccess') %></a>
+              </section>
+              <% } %>
+              <section class="detail-item margin-bottom-sm">
+                <h3><% if (event.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
+                <p class="detail-item-content">
+                  <span><%= event.dateRange %></span>
+                  <% if (!event.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
+                </p>
+              </section>
+              <% if ( event.pricingInfo || event.registrationComponent ) { %>
+              <section class="detail-item conditions margin-v-md">
+                <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
+                  <% if ( event.pricingInfo ) { %>
+                    <div class="detail-item-content">
+                      <p><%= event.pricingInfo %></p>
+                    </div>
+                  <% } %>
+                  <% if (event.registrationComponent) { %>
+                    <%- event.registrationComponent %>
+                  <% } %>
+              </section>
+              <% } %>
+            </div>
+            <div class="col-sm-12 col-print-6">
+              <section class="detail-item display-none js_hours timings margin-bottom-md">
+                <ul class="months"></ul>
+              </section>
+              <% if ( event.accessibility && event.accessibility.length ) { %>
+              <% event.accessibility.forEach( function( i ) { %>
+              <section class="detail-item margin-v-sm">
+                <h3><i class="acc <%= i %>"></i></h3>
+                <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
+              </section>
+              <% }) %>
+              <% } %>
+              <% if ( event.age ) { %>
+                <section class="detail-item margin-v-md">
+                  <h3><i class="fa fa-child"></i></h3>
+                  <% if ( !event.age.max ) { %>
+                  <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
+                  <% } else { %>
+                  <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
+                  <% } %>
+                </section>
+              <% } %>
+            </div>
+          </div>
+          <% if (hasLocation) { %>
+          <section class="detail-item location-side margin-v-md">
+            <h3><i class="fa fa-map-marker"></i></h3>
+            <div class="detail-item-content">
+              <p>
+                <%- event.location.name %><% /* escaped in model already */ %>
+              </p>
+              <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
+              <ul class="info list-inline location-info-parts">
+              <% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
+              <% if ( event.location[ part ] && locationPart( part ) ) { %>
+                <li><span><%= locationPart( part ) %></span></li>
+              <% } %>
+              <% }); %>
+              </ul>
+            </div><!--
+            --><div
+                class="map js_map"
+                data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"
+                data-tiles="<%= tiles %>"
+              ></div>
+          </section>
+          <% } %>
+          <% if ( event.agendaReferences.length > 1 ) { %>
+          <div class="sharers">
+            <ul><!--
+          <% event.agendaReferences.forEach( function( ref ) { %>
+          <% if ( loner || ( ref.slug !== slug ) ) { %>
+                      --><li <% if ( !ref.thumbnail ) { %>class="empty"<% } %>>
+                        <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
+          <% if ( ref.thumbnail ) { %>
+                          --><img class="avatar" alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
+          <% } else { %>
+                          --><div class="avatar"></div><!--
+          <% } %>
+                          --><span><%= _txt.truncate( ref.title, 26, ' ...' ) %></span>
+                        </a>
+                      </li><!--
+          <% } %>
+          <% }); %>
+            --></ul>
+          </div>
+          <% } %>
+          <section class="detail-item timings no-js js_timings_canvas">
+            <h3><i class="fa fa-calendar-o"></i></h3>
+          <% if ( typeof event.timingsComponents !== 'undefined' ) { %>
+            <%- event.timingsComponent %>
+          <% } else { %>
+            <% include _hours.part.ejs %>
+          <% } %>
+          </section>
+          <section class="detail-item">
+            <% include ../bsLayout/footer.part.ejs %>
+          </section>
         </div>
-<% } %>
-
-        <section class="detail-item timings no-js js_timings_canvas">
-          <h3><i class="fa fa-calendar-o"></i></h3>
-<% if ( typeof event.timingsComponents !== 'undefined' ) { %>
-          <%- event.timingsComponent %>
-<% } else { %>
-          <% include _hours.part.ejs %>
-<% } %>
-        </section>
-        
-        <% include ../bsLayout/footer.part.ejs %>
-
       </aside>
 
-      <section class="col-sm-7 col-sm-offset-1">
+      <section class="col-sm-7 col-sm-offset-1 col-xs-12">
         <div class="event-content">
 <% if ( event.category ) { %>
           <div class="category">
@@ -286,7 +288,7 @@
   || event.location.website
   || event.location.phone
   || event.location.tags )) { %>
-    <div class="location-details">
+    <div class="location-details event-secondary">
       <h3><%= __( 'aboutTheVenue' ) %></h3>
       <div class="event-content">
 
@@ -372,15 +374,14 @@
 
     <div class="js_contributor"></div>
 
-    <div class="js_activities"></div>
-
+    <div class="js_activities activity-section"></div>
 <% if ( mailto ) { %>
     <h3 class="margin-top-lg"><%= __( 'contactEmail' ) %></h3>
     <div class="padding-all-md wsq" style="text-align: center;">
       <a href="<%= mailto %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
     </div>
 <% } else { %>
-    <div class="display-none js_inbox_event_canvas" id="inbox">
+    <div class="display-none js_inbox_event_canvas inbox-section" id="inbox">
       <div class="event-secondary">
         <div class="js_inbox_event inbox"></div>
       </div>
