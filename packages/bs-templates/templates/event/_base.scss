@@ -211,6 +211,10 @@
     a {
       color: $oa-gray;
 
+      &.disabled {
+        opacity: 0.4;
+      }
+
       &:hover {
         color: $oa-blue;
 
