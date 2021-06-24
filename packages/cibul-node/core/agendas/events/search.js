@@ -75,7 +75,7 @@ module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUi
 
   try {
     const eventPayload = await core.agendas(agendaUid).events.get(eventUid, {
-      internal: true,
+      access: 'internal',
       detailed: true,
       returnPayload: true
     });
