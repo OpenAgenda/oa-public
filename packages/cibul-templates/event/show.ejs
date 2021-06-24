@@ -179,6 +179,7 @@
                   href="<%= event.onlineAccessLink %>"
                   class="btn btn-default"
                 ><%= __('onlineAccess') %></a>
+                <span class="display-none"><%= event.onlineAccessLink %></span>
               </section>
               <% } %>
               <section class="detail-item margin-bottom-sm">
@@ -320,12 +321,16 @@
           </div>
 <% } %>
 
-<% if ( event.image ) { %>
-          <img  class="img-responsive" src="<%= event.image %>">
-<% if ( event.credits ) { %>
-          <div class="credits margin-h-xs"><%= event.credits %></div>
-<% } %>
-<% } %>
+          <% if ( event.image ) { %>
+          <div class="row">
+            <div class="col-xs-12 col-print-6">
+              <img  class="img-responsive col-print-6" src="<%= event.image %>">
+              <% if ( event.credits ) { %>
+              <div class="credits margin-h-xs"><%= event.credits %></div>
+              <% } %>
+            </div>
+          </div>
+          <% } %>
           <div class="description event-content-section"><%- event.freeText %></div>
 
           <div class="js_custom event-content-section">
@@ -392,11 +397,13 @@
         </p>
 <% } %>
 <% if ( event.location.image ) { %>
-        <div class="location-image">
-          <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
-<% if ( event.location.imageCredits ) { %>
-          <span class="credits"><%= event.location.imageCredits %></span>
-<% } %>
+        <div class="location-image row">
+          <div class="col-xs-12 col-print-6">
+            <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
+            <% if ( event.location.imageCredits ) { %>
+            <span class="credits"><%= event.location.imageCredits %></span>
+            <% } %>
+          </div>
         </div>
 <% } %>
 
