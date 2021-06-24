@@ -15,4 +15,4 @@ module.exports = queue => async (before, after) => {
   } catch (e) {
     log('error', 'failed to evaluate distance', e);
   }
-}
+};
