@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+// const log = require('@openagenda/logs')('core/agendas/utils/createPayload');
 const merge = require('./merge');
 
 const cleanAccess = dirty => {

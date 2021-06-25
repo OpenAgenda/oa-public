@@ -91,7 +91,7 @@ module.exports = (services, queue, eventSearch) => {
     formSchema,
     event
   }) => {
-    log('update', { agendaUid: agenda.uid, eventUid: event.uid });
+    log('update', { agendaUid: agenda.uid, eventUid: event.uid, member: member?.userUid });
 
     if (tracker) {
       tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
