@@ -90,7 +90,9 @@ module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUi
 
     log('resyncing event %s on index of agenda %s', eventUid, agendaUid);
 
-    const result = await core.services.eventSearch.update(eventPayload);
+    const result = await core.services.eventSearch.update(eventPayload, {
+      updateOtherIndices: false
+    });
 
     return result;
   } catch (err) {

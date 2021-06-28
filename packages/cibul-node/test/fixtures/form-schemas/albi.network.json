@@ -1,0 +1,337 @@
+{
+    "custom": null,
+    "defaultLabelLanguage": null,
+    "nextOptionId": 28,
+    "fields": [
+        {
+            "field": "categories",
+            "label": {
+                "fr": "Catégories"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "default": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "related": [],
+            "options": [
+                {
+                    "id": 1,
+                    "value": "culture",
+                    "label": {
+                        "fr": "Culture"
+                    }
+                },
+                {
+                    "id": 2,
+                    "value": "sports",
+                    "label": {
+                        "fr": "Sports"
+                    }
+                },
+                {
+                    "id": 3,
+                    "value": "education",
+                    "label": {
+                        "fr": "Éducation"
+                    }
+                },
+                {
+                    "id": 4,
+                    "value": "economie-innovation",
+                    "label": {
+                        "fr": "Économie - Innovation"
+                    }
+                },
+                {
+                    "id": 5,
+                    "value": "nature-environnement",
+                    "label": {
+                        "fr": "Nature - Environnement"
+                    }
+                },
+                {
+                    "id": 6,
+                    "value": "patrimoine",
+                    "label": {
+                        "fr": "Patrimoine"
+                    }
+                },
+                {
+                    "id": 7,
+                    "value": "loisirs",
+                    "label": {
+                        "fr": "Loisirs"
+                    }
+                }
+            ],
+            "fieldType": "radio"
+        },
+        {
+            "field": "types-de-manifestation",
+            "label": {
+                "fr": "Types de manifestation"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "default": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "related": [],
+            "options": [
+                {
+                    "id": 8,
+                    "value": "atelier-stage",
+                    "label": {
+                        "fr": "Atelier - Stage"
+                    }
+                },
+                {
+                    "id": 9,
+                    "value": "spectacle-concert",
+                    "label": {
+                        "fr": "Spectacle - Concert"
+                    }
+                },
+                {
+                    "id": 10,
+                    "value": "salon-foire",
+                    "label": {
+                        "fr": "Salon - Foire"
+                    }
+                },
+                {
+                    "id": 11,
+                    "value": "rencontre-conferencedebat",
+                    "label": {
+                        "fr": "Rencontre - Conférence/débat"
+                    }
+                },
+                {
+                    "id": 12,
+                    "value": "marche-nocturne",
+                    "label": {
+                        "fr": "Marché - Nocturne"
+                    }
+                },
+                {
+                    "id": 13,
+                    "value": "cinema-projection",
+                    "label": {
+                        "fr": "Cinéma - Projection"
+                    }
+                },
+                {
+                    "id": 14,
+                    "value": "exposition-visite",
+                    "label": {
+                        "fr": "Exposition - Visite"
+                    }
+                },
+                {
+                    "id": 15,
+                    "value": "manifestation-sportive",
+                    "label": {
+                        "fr": "Manifestation sportive"
+                    }
+                },
+                {
+                    "id": 21,
+                    "value": "theatre",
+                    "label": {
+                        "fr": "Théâtre"
+                    }
+                },
+                {
+                    "id": 24,
+                    "value": "grand-evenement-la-nuit-pastel",
+                    "label": {
+                        "fr": "Grand événement : la Nuit Pastel"
+                    }
+                },
+                {
+                    "id": 25,
+                    "value": "grand-evenement-places-aux-artistes",
+                    "label": {
+                        "fr": "Grand événement : Place(s) aux artistes"
+                    }
+                },
+                {
+                    "id": 26,
+                    "value": "grand-evenement-journees-du-patrimoine",
+                    "label": {
+                        "fr": "Grand événement : Journées du Patrimoine"
+                    }
+                },
+                {
+                    "id": 27,
+                    "value": "grand-evenement-noel",
+                    "label": {
+                        "fr": "Grand événement : Noël"
+                    }
+                }
+            ],
+            "fieldType": "radio"
+        },
+        {
+            "field": "types-de-publics",
+            "label": {
+                "fr": "Types de publics"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "default": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "related": [],
+            "min": null,
+            "max": null,
+            "options": [
+                {
+                    "id": 16,
+                    "value": "petits-moins-de-5-ans",
+                    "label": {
+                        "fr": "Petits (moins de 5 ans)"
+                    }
+                },
+                {
+                    "id": 17,
+                    "value": "enfant-famille",
+                    "label": {
+                        "fr": "Enfant - Famille"
+                    }
+                },
+                {
+                    "id": 22,
+                    "value": "jeunes",
+                    "label": {
+                        "fr": "Jeunes"
+                    }
+                },
+                {
+                    "id": 18,
+                    "value": "seniors",
+                    "label": {
+                        "fr": "Seniors"
+                    }
+                },
+                {
+                    "id": 19,
+                    "value": "tout-public",
+                    "label": {
+                        "fr": "Tout public"
+                    }
+                }
+            ],
+            "fieldType": "checkbox"
+        },
+        {
+            "field": "detail-des-conditions",
+            "label": {
+                "fr": "Détail des conditions"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "default": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "related": [],
+            "min": null,
+            "max": null,
+            "options": [
+                {
+                    "id": 20,
+                    "value": "gratuit",
+                    "label": {
+                        "fr": "Gratuit"
+                    }
+                }
+            ],
+            "fieldType": "checkbox"
+        },
+        {
+            "field": "image",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "imageCredits",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "languages",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "title",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "description",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "keywords",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "longDescription",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "conditions",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "age",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "registration",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "accessibility",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "location",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "timings",
+            "fieldType": "abstract"
+        }
+    ]
+}

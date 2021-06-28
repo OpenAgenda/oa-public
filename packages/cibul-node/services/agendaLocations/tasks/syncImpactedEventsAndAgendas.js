@@ -25,6 +25,8 @@ module.exports = async function syncImpactedEventsAndAgendas(services, before, a
     })
     .then(events => events.map(e => e.uid));
 
+  log('%s impacted events by location %s update', uids.length, before.uid, uids.length < 20 ? `(${uids.join(', ')})` : null);
+
   const impactedAgendaUids = [];
 
   for (const eventUid of uids) {
@@ -44,7 +46,7 @@ module.exports = async function syncImpactedEventsAndAgendas(services, before, a
       .byEventUid(eventUid)
       .then(({ items }) => items);
 
-    log('found %s references', relatedReferences.length);
+    log('found %s references for event %s', relatedReferences.length, eventUid);
 
     for (const ae of relatedReferences) {
       const { agendaUid } = ae;
