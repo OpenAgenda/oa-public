@@ -25,6 +25,10 @@ module.exports = {
     "en": "This share is not available for private or unpublished events",
     "fr": "Ce partage n'est pas disponible pour les événements privés ou non-publiés"
   },
+  "copyInClipboard": {
+    "en": "Click to copy link to clipboard",
+    "fr": "Cliquer pour copier le lien dans le presse-papier"
+  },
   "otherShares": {
     "en": "Other shares",
     "fr": "Autres partages",
