@@ -1,21 +1,16 @@
 'use strict';
 
-const _ = require('lodash');
-
 const Core = require('../core');
 const Services = require('../services/init');
 const loadFixtures = require('./fixtures/load');
-
-const fixtures = {
-  events: require('./fixtures/events')
-};
+const eventFixtures = require('./fixtures/events');
 
 const testConfig = require('./testConfig');
 
-describe('02 - core - functional (server): core.agendas().events.create() - aggregations', function() {
+describe('02 - core - functional (server): core.agendas().events.create() - aggregations', () => {
   const memberUserUid = 63170200;
 
-  let core, stopTask;
+  let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '003.sql'));
 
@@ -46,25 +41,27 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
     core = Core(services, testConfig);
 
-    stopTask = services.aggregators.task().stopAndClear;
+    services.aggregators.task();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('direct aggregation', function() {
+  describe('direct aggregation', () => {
     let event;
 
-    beforeAll(done => {
-      core.services.tracker.on('aggregators.referenceEvent.done', stack => {
-        done();
-      }, true);
+    beforeAll(() => {
+      const promise = new Promise(rs => {
+        core.services.tracker.on('aggregators.referenceEvent.done', rs, true);
+      });
 
-      core.agendas(17026855).events.create(fixtures.events[2], {
+      core.agendas(17026855).events.create(eventFixtures[2], {
         context: {
           userUid: memberUserUid
         },
         access: 'contributor'
       }).then(e => { event = e; });
+
+      return promise;
     });
 
     it('event was aggregated, taking default state', async () => {
@@ -83,34 +80,33 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     });
   });
 
-  describe('aggregation after add', function() {
+  describe('aggregation after add', () => {
     const context = {
       userUid: memberUserUid
     };
     let event;
 
     beforeAll(async () => {
-      event = await core.agendas(58025176).events.create(fixtures.events[1], {
+      event = await core.agendas(58025176).events.create(eventFixtures[1], {
         context,
         access: 'contributor'
       });
     });
 
-    beforeAll(done => {
+    beforeAll(() => {
       core.agendas(17026855).events.add(event.uid, {
         'thematiques-metropolitaines': 3,
         'categories-agenda-metropolitain': 42
       }, { context });
 
-      core.services.tracker.on('aggregators.referenceEvent.done', stack => {
-        done();
-      }, true);
+      return new Promise(rs => {
+        core.services.tracker.on('aggregators.referenceEvent.done', rs, true);
+      });
     });
 
     it('event is aggregated and source path starts at agenda where it was added', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
       expect(ref.sourcePaths).toEqual([[17026855]]);
     });
-
   });
 });
