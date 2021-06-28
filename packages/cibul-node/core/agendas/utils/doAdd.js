@@ -62,7 +62,7 @@ module.exports = async (core, payload, clean, options = {}) => {
           sourceAgenda,
           userUid
         },
-        decorate: ['member']
+        decorate: ['member', 'sourceAgendas']
       });
 
       payload.setItem('agendaEvent', before, created);

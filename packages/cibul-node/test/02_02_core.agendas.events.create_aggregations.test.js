@@ -42,6 +42,8 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     core = Core(services, testConfig);
 
     services.aggregators.task();
+
+    await core.agendas(55268170).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -50,10 +52,6 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     let event;
 
     beforeAll(() => {
-      const promise = new Promise(rs => {
-        core.services.tracker.on('aggregators.referenceEvent.done', rs, true);
-      });
-
       core.agendas(17026855).events.create(eventFixtures[2], {
         context: {
           userUid: memberUserUid
@@ -61,7 +59,9 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
         access: 'contributor'
       }).then(e => { event = e; });
 
-      return promise;
+      return new Promise(rs => {
+        core.services.tracker.on('aggregators.referenceEvent.done', rs, true);
+      });
     });
 
     it('event was aggregated, taking default state', async () => {
@@ -77,6 +77,14 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     it('addMethod is aggregation', async () => {
       const ref = await core.agendas(55268170).events.get(event.uid);
       expect(ref.addMethod).toEqual('aggregation');
+    });
+
+    it('sourceAgendas are indexed in event document of aggregator', async () => {
+      const {
+        events
+      } = await core.agendas(55268170).events.search({ uid: event.uid }, {}, { detailed: true });
+
+      expect(events[0].sourceAgendas.length).toBe(1);
     });
   });
 
