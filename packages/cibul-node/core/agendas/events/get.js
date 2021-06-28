@@ -51,14 +51,16 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   payload.setItem('agendaEvent', agendaEvent);
 
   if (load.event) {
-    payload.setItem('event', await events.get(eventUid, {
+    const event = await events.get(eventUid, {
       access: access === 'internal' ? 'internal' : 'public',
       detailed,
       lang,
       useFallbackLang: true,
       useDateHoursMinutesFormat,
       useLocationObjectFormat
-    }));
+    });
+
+    payload.setItem('event', event);
   }
 
   if (
