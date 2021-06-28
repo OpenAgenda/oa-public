@@ -18,6 +18,7 @@
     "isOriginAgenda": true,
     "event": {
       "uri" : "#",
+      "permalink": "http://localhost:3000/agendas/829089289/events/82938983",
       "importUri": "/event/action.part",
       "languages": false,
       "updatedAt": "2014-10-01T18:30:00.000Z",

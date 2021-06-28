@@ -155,6 +155,7 @@
               ><i class="fa fa-envelope-o"></i></a>
             <% } %>
             <a href="#" onclick="window.print(); return false;"><i class="fa fa-print"></i></a>
+            <a title="<%= __('copyInClipboard') %>" href="<%= event.permalink %>" class="js_permalink"><i class="fa fa-link"></i></a>
             <% if (!private && (event.currentState === 'published')) { %>
               <a
                 rel="nofollow"
