@@ -70,6 +70,7 @@ function _loadTagSet( v ) {
 function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   toDecorate.canonicalUrl = `${config.root}/${agenda.slug}/events/${event.slug}`;
+  toDecorate.permalink = `${config.root}/agendas/${agenda.uid}/events/${event.uid}`;
 
   w( utils.extend( {
     multiLang: true,
