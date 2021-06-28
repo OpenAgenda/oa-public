@@ -29,6 +29,10 @@ module.exports = {
     "en": "Click to copy link to clipboard",
     "fr": "Cliquer pour copier le lien dans le presse-papier"
   },
+  "printPermalink": {
+    "en": "Online version",
+    "fr": "Version en ligne"
+  },
   "otherShares": {
     "en": "Other shares",
     "fr": "Autres partages",

@@ -51,7 +51,8 @@
         </div>
 <% } %>
 
-        <div class="event-content margin-print-v-lg">
+        <div class="event-content margin-print-bottom-lg">
+          <span class="print-permalink padding-bottom-sm"><%= __('printPermalink') %>: <%= event.permalink %></span>
 <% if (typeof event.status !== 'undefined' && event.status > 1) { %>
           <div class="padding-h-md padding-top-md status">
 <% if (event.status === 2) { %> 
