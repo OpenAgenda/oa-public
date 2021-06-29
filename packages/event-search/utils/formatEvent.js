@@ -99,7 +99,8 @@ module.exports = produce((event, options = {}) => {
   if (event.member) {
     event.member = {
       uid: event.member?.userUid || null,
-      name: event.member?.custom?.contactName || null
+      name: event.member?.custom?.contactName || null,
+      role: event.member?.role ?? null
     };
 
     event.member._agg = aggObjects.flatten(event.member, ['uid', 'name']);

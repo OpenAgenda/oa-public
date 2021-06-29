@@ -189,7 +189,7 @@
     },
     {
       "name": "visitorprofiles",
-      "type": "public",
+      "type": "private",
       "fieldType": "textarea",
       "optional": true,
       "max": 1000,

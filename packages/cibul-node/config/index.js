@@ -859,7 +859,8 @@ const config = {
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
       bucket: 'cibuldev',
       tmpBucket: 'cibuldevtmp'
-    }
+    },
+    detectLocationDuplicates: prod.detectLocationDuplicates??(!!process.env.DETECT_LOCATION_DUPLICATES)
   },
 
   test: {

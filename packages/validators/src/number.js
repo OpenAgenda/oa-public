@@ -29,11 +29,19 @@ export default config => {
     }
 
     if (params.min !== null && clean < params.min) {
-      throw errors(params, value, 'number.toosmall', 'the number is too small');
+      throw errors(params, value, 'number.toosmall', 'the number is too small', {
+        values: {
+          min: params.min
+        }
+      });
     }
 
     if (params.max !== null && clean > params.max) {
-      throw errors(params, value, 'number.toobig', 'the number is too big');
+      throw errors(params, value, 'number.toobig', 'the number is too big', {
+        values: {
+          max: params.max
+        }
+      });
     }
 
     return clean;

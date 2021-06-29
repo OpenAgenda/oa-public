@@ -16,9 +16,7 @@
 
       <div class="container">
         <div class="row">
-
-          <section class="col-sm-7 col-sm-offset-1">
-
+          <section class="col-sm-7 col-sm-offset-1 col-xs-12">
             <div class="langs">
               <ul>
                 <li class="current"><a>fr</a></li>
@@ -26,115 +24,129 @@
               </ul>
             </div>
 
-            <div class="event-content">
+            <div class="event-content margin-print-bottom-lg">
+              <span class="print-permalink padding-bottom-sm display-none">Lien: https://lepermalien.com</span>
               <div class="padding-h-md padding-top-md status">
                 <span class="label label-warning" title="Les dates de cet événement ont été déplacées">Reprogrammé</span>
                 <span class="label label-warning">Passé en ligne</span>
                 <span class="label label-danger">Reporté</span>
                 <span class="label label-danger">Annulé</span>
               </div>
-              <!--<h1>Portes ouvertes à la ferme</h1>-->
-              <h1>FHKHkhdskflhsqlfhjdlhlhklHKLHFKLDHSKLHSFKLHSDJKLHFjdklhfklhjsklhfkjlfhklfhdsklhHJLHFDSLHFJKLDSHLFHJDSLHJSFdlhlhfdslhfkdlHDLHJDLHFSLHFJLSHDJLDHJdfhskjhfdlshfjklhLHJLDFHKLHFDJLHFDJSLHFJSLDHFJDSLHJLHdjlsfhjdslhfjldshjlHHHFLDHL</h1>
+              <h1>Portes ouvertes à la ferme</h1>
+              <!--<h1>FHKHkhdskflhsqlfhjdlhlhklHKLHFKLDHSKLHSFKLHSDJKLHFjdklhfklhjsklhfkjlfhklfhdsklhHJLHFDSLHFJKLDSHLFHJDSLHJSFdlhlhfdslhfkdlHDLHJDLHFSLHFJLSHDJLDHJdfhskjhfdlshfjklhLHJLDFHKLHFDJLHFDJSLHFJSLDHFJDSLHJLHdjlsfhjdslhfjldshjlHHHFLDHL</h1>-->
+              <div class="row">
+                <div class="col-xs-12 col-print-6">
+                  <img class="img-responsive " src="//cibul.s3.amazonaws.com/event_mastodon-big-business-krokodil_512724.jpg">
+                </div>
+              </div>
               <p class="short-description">Bienvenue à la ferme de la butte ! Ici, ânesses, moutons, chèvres, poneys, lapins, canards et poules évoluent dans un milieu naturel. Venez-vous initier à la vie de fermier !</p>
             </div>
 
           </section>
 
-          <aside class="col-sm-4 col-aside sidebar">
-
-            <section class="detail-item margin-bottom-xs">
-              <h3><i class="fa fa-share-alt"></i></h3>
-              <div class="detail-item-content">
-                <a rel="nofollow" class="btn btn-primary event-action" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/action">
-                  <img alt="logo" src="https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png"> Partager sur OpenAgenda
-                </a>
+          <aside class="col-sm-4 col-aside sidebar col-xs-12">
+            <div class="sidebar-content">
+              <section class="detail-item margin-bottom-xs shares">
+                <h3><i class="fa fa-share-alt"></i></h3>
+                <div class="detail-item-content">
+                  <a rel="nofollow" class="btn btn-primary event-action" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/action">
+                    <img alt="logo" src="https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png"> Partager sur OpenAgenda
+                  </a>
+                </div>
+              </section>
+              <section class="detail-item share margin-bottom-md shares">
+                Autre&nbsp;:
+                <a href="#" title="Facebook" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
+                <a href="#" title="Twitter" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
+                <a href="#" title="LinkedIn" target="_blank" class="li disabled" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+                <a href="#" title="Imprimer" target="_blank" class="li" rel="nofollow"><i class="fa fa-print"></i></a>
+                <a href="#" title="Permalien" target="_blank" class="li" rel="nofollow"><i class="fa fa-link"></i></a>
+                <a href="#" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
+              </section>
+  
+              <div class="row">
+                <div class="col-sm-12 col-print-6 padding-print-h-z">
+                  <section class="detail-item">
+                    <h3><i class="fa fa-clock-o"></i></h3>
+                    <p class="detail-item-content">6 mars - 2 octobre, les dimanches</p>
+                  </section>
+                  <section class="detail-item">
+                    <h3><i class="fa fa-history"></i></h3>
+                    <p class="detail-item-content"><span>6 mars - 2 octobre, les dimanches</span><span class="badge badge-outline-default margin-all-xs">passé</span></p>
+                  </section>
+                  <section class="detail-item margin-bottom-sm">
+                    <% include _hours.js.ejs %>
+                  </section>
+                </div>
+                <div class="col-sm-12 col-print-6 padding-print-h-z">
+                  <section class="detail-item margin-bottom-md">
+                    <h3><i class="fa fa-ticket"></i></h3>
+                    <div class="detail-item-content">
+                      <p>sans réservation</p>
+                    </div>
+                  </section>
+      
+                  <section class="detail-item margin-bottom-md online-access-link">
+                    <h3><i class="fa fa-link"></i></h3>
+                    <a href="#" class="btn btn-default">Accéder à l'événement</a>
+                    <span class="display-none">https://streamingouebbsite.com</span>
+                  </section>
+      
+                  <section class="detail-item location-side margin-bottom-md">
+                    <h3><i class="fa fa-map-marker"></i></h3>
+                    <div class="detail-item-content">
+                      <p>
+                        <a href="/aev-iledefrance?oaq%5Blocation%5D=52370332&amp;lang=fr">Lieu de RDV : Ferme pédagogique de la Butte Pinson</a>
+                      </p>
+                      <span class="margin-right-xs">16 Rue Suzanne Valadon, 95360 Montmagny, France</span>
+                      <ul class="info list-inline location-info-parts">
+                        <li><span>Val-d'Oise</span></li>
+                        <li><span>Ile-de-France</span></li>
+                        <li><span>France</span></li>
+                      </ul>
+                    </div><!--
+                    --><% include _leaflet-map.ejs %>
+                  </section>
+                </div>
               </div>
-            </section>
-            <section class="detail-item share margin-bottom-md">
-              Autre&nbsp;:
-              <a href="#" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
-              <a href="#" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
-              <a href="#" target="_blank" class="gp" rel="nofollow"><i class="fa fa-google-plus"></i></a>
-              <a href="#" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
-              <a href="#" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
-            </section>
-
-            <section class="detail-item">
-              <h3><i class="fa fa-clock-o"></i></h3>
-              <p class="detail-item-content">6 mars - 2 octobre, les dimanches</p>
-            </section>
-            <section class="detail-item">
-              <h3><i class="fa fa-history"></i></h3>
-              <p class="detail-item-content"><span>6 mars - 2 octobre, les dimanches</span><span class="badge badge-outline-default margin-all-xs">passé</span></p>
-            </section>
-            <section class="detail-item margin-bottom-sm">
-              <% include _hours.js.ejs %>
-            </section>
-
-            <section class="detail-item margin-bottom-md">
-              <h3><i class="fa fa-ticket"></i></h3>
-              <div class="detail-item-content">
-                <p>sans réservation</p>
-              </div>
-            </section>
-
-            <section class="detail-item margin-bottom-md">
-              <h3><i class="fa fa-link"></i></h3>
-              <a href="#" class="btn btn-default">Accéder à l'événement</a>
-            </section>
-
-            <section class="detail-item location-side margin-bottom-md">
-              <h3><i class="fa fa-map-marker"></i></h3>
-              <div class="detail-item-content">
-                <p>
-                  <a href="/aev-iledefrance?oaq%5Blocation%5D=52370332&amp;lang=fr">Lieu de RDV : Ferme pédagogique de la Butte Pinson</a>
-                </p>
-                <span class="margin-right-xs">16 Rue Suzanne Valadon, 95360 Montmagny, France</span>
-                <ul class="info list-inline location-info-parts">
-                  <li><span>Val-d'Oise</span></li>
-                  <li><span>Ile-de-France</span></li>
-                  <li><span>France</span></li>
-                </ul>
-              </div><!--
-              --><% include _leaflet-map.ejs %>
-            </section>
-
-            <section class="sharers">
-              <ul><!--
-                --><li>
-                  <a href="/enlarge-your-paris"><!--
-
-                    --><img class="avatar" alt="Enlarge your Paris" src="//cibul.s3.amazonaws.com/rwtbreview_enlarge-your-paris_01.jpg"><!--
-
-                    --><span>Enlarge your Paris</span>
-                  </a>
-                </li><!--
-
-                --><li>
-                  <a href="/parisdepeches"><!--
-
-                    --><img class="avatar" alt="Paris Dépêches" src="//cibul.s3.amazonaws.com/rwtbreview_parisdepeches_00.jpg"><!--
-
-                    --><span>Paris Dépêches</span>
-                  </a>
-                </li><!--
-
-                --><li>
-                  <a href="/hop"><!--
-
-                    --><img class="avatar" alt="Hop" src="//cibul.s3.amazonaws.com/rwtbreview_hop_00.jpg"><!--
-
-                    --><span>Hop</span>
-                  </a>
-                </li><!--
-              --></ul>
-            </section>
-
-            <% include _hours.nojs.ejs %>
-
+  
+  
+              <section class="sharers">
+                <ul><!--
+                  --><li>
+                    <a href="/enlarge-your-paris"><!--
+  
+                      --><img class="avatar" alt="Enlarge your Paris" src="//cibul.s3.amazonaws.com/rwtbreview_enlarge-your-paris_01.jpg"><!--
+  
+                      --><span>Enlarge your Paris</span>
+                    </a>
+                  </li><!--
+  
+                  --><li>
+                    <a href="/parisdepeches"><!--
+  
+                      --><img class="avatar" alt="Paris Dépêches" src="//cibul.s3.amazonaws.com/rwtbreview_parisdepeches_00.jpg"><!--
+  
+                      --><span>Paris Dépêches</span>
+                    </a>
+                  </li><!--
+  
+                  --><li>
+                    <a href="/hop"><!--
+  
+                      --><img class="avatar" alt="Hop" src="//cibul.s3.amazonaws.com/rwtbreview_hop_00.jpg"><!--
+  
+                      --><span>Hop</span>
+                    </a>
+                  </li><!--
+                --></ul>
+              </section>
+  
+              <% include _hours.nojs.ejs %>
+            </div>
           </aside>
 
-          <section class="col-sm-7 col-sm-offset-1">
+          <section class="col-sm-7 col-sm-offset-1 col-xs-12">
 
             <div class="event-content">
 
@@ -150,14 +162,24 @@
                 </ul>
               </div>
 
-              <img class="img-responsive" src="https://cibul.s3.amazonaws.com/event_les-arbres-des-buttes-du-parisis_444686.jpg" />
+              <div class="row">
+                <div class="col-xs-12 col-print-6">
+                  <img class="img-responsive col-print-6" src="https://cibul.s3.amazonaws.com/event_les-arbres-des-buttes-du-parisis_444686.jpg" />
+                </div>
+              </div>
               <div class="credits margin-h-xs">Les crédits de l'image</div>
 
               <div class="description event-content-section">
 
                 <p>Bienvenue à la ferme de la butte ! Ici, ânesses, moutons, chèvres, poneys, lapins, canards et poules évoluent dans un milieu naturel. Venez-vous initier à la vie de fermier ! Au programme : mise en pâturage du troupeau et soins apportés aux animaux...</p>
 
-                <p><img src="http://3.bp.blogspot.com/-YQ9659xqKA8/T3R3snSFpwI/AAAAAAAAAd4/rmaUgAkQQWM/s1600/The-Titanic.jpg"></p>
+                <p>
+                  <div class="row">
+                    <div class="col-xs-12 col-print-6">
+                      <img src="http://3.bp.blogspot.com/-YQ9659xqKA8/T3R3snSFpwI/AAAAAAAAAd4/rmaUgAkQQWM/s1600/The-Titanic.jpg">
+                    </div>
+                  </div>
+                </p>
 
               </div>
 
@@ -204,7 +226,11 @@
                     <span>1 - Apprendre</span>
                   </dd>
                   <dd>
-                    <img src="//cibul.s3.amazonaws.com/47863189.75190536.illustration.jpg" alt="Photo d'illustration">
+                    <div class="row">
+                      <div class="col-xs-12 col-print-6">
+                        <img src="//cibul.s3.amazonaws.com/47863189.75190536.illustration.jpg" alt="Photo d'illustration">
+                      </div>
+                    </div>
                   </dd>
                 </dl>
 
@@ -240,9 +266,15 @@
                   <span>Ouvert toute l'année de 7h à 21h. Visite libre et gratuite. Parking.</span>
                 </p>
 
-                <div class="location-image">
-                  <img class="img-responsive" src="//cibul.s3.amazonaws.com/location29143614.jpg" alt="Arboretum Le jardin de Gaston">
-                  <span class="credits">Les crédits de l'image</span>
+                <div class="location-image row">
+                  <div class="col-xs-12 col-print-6">
+                    <img
+                      class="img-responsive"
+                      src="//cibul.s3.amazonaws.com/location29143614.jpg"
+                      alt="Arboretum Le jardin de Gaston"
+                    >
+                    <span class="credits">Les crédits de l'image</span>
+                  </div>
                 </div>
 
                 <ul class="list-unstyled">
@@ -310,7 +342,7 @@
 
             </div>
 
-            <div class="event-secondary">
+            <div class="event-secondary activity-section">
               <h3 class="privateable">
                 <span>Activité</span>
                 <div class="private-label">
@@ -340,7 +372,7 @@
 
           </section>
 
-          <footer id="footer" class="col-sm-4">
+          <footer id="footer" class="col-sm-4 col-xs-12">
             <p>
               <a href="/">OpenAgenda</a> ·
               <a href="/about">À propos</a> ·

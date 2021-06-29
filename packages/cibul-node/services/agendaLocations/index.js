@@ -67,11 +67,15 @@ module.exports.init = async (config, services) => {
       return queue.stop();
     },
     task: async (options = {}) => {
+      const {
+        detectDuplicates = true,
+        reset = false
+      } = options;
       taskRunning = true;
       log('task');
       detectDuplicateCandidates(services, config.locationDuplicationDetection);
       // clearAllDuplicateCandidates(services);
-      if (options.reset) {
+      if (reset) {
         await queue.clear();
       }
       queue.run();

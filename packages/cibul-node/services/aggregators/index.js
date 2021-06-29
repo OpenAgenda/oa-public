@@ -10,7 +10,7 @@ const plugApp = require('./plugApp');
 module.exports.init = (config, services) => {
   log('init');
   const {
-    agendas,
+    agendas: agendasSvc,
     tracker
   } = services;
 
@@ -21,9 +21,9 @@ module.exports.init = (config, services) => {
     queues: services.queues,
     logger: config.getLogConfig('svc', 'aggregators'),
     interfaces: {
-      getMergedSchema: agendaUid => {
-        return services.core.agendas(agendaUid).settings.schema.getMerged()
-      },
+      getMergedSchema: agendaUid => services
+        .core.agendas(agendaUid)
+        .settings.schema.getMerged(),
       updateSourcePaths: services.agendaEvents.utils.setSourcePaths,
       referenceEvent: async (aggregatorAgendaUid, eventUid, data, { batched, paths, sourceAgenda }) => {
         tracker('aggregators.referenceEvent');
@@ -40,14 +40,13 @@ module.exports.init = (config, services) => {
           tracker('aggregators.referenceEvent.done');
           return {
             success: true
-          }
+          };
         } catch (e) {
           log('error', 'could not add event %s from %s to aggregator %s',
             eventUid,
             sourceAgenda.uid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.detail : e
-          );
+            e.name === 'ValidationError' ? e.detail : e);
           return {
             success: false,
             errors: e.name === 'ValidationError' ? e.detail : e
@@ -59,13 +58,12 @@ module.exports.init = (config, services) => {
           await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, { batched });
           return {
             success: true
-          }
+          };
         } catch (e) {
           log('error', 'could not remove event %s from aggregator %s',
             eventUid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.detail : e
-          );
+            e.name === 'ValidationError' ? e.detail : e);
           return {
             success: false,
             errors: e.name === 'ValidationError' ? e.detail : e
@@ -74,10 +72,10 @@ module.exports.init = (config, services) => {
       },
       getEventReference: (agendaUid, eventUid) => services
         .agendaEvents(agendaUid).get(eventUid)
-        .then(ae => ae ? {
+        .then(ae => (ae ? {
           sourcePaths: ae.sourceAgendaUid,
           aggregated: ae.aggregated
-        } : null),
+        } : null)),
       listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
         .events.list({
           state: 2,
@@ -92,21 +90,21 @@ module.exports.init = (config, services) => {
         }),
       loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
         .events.get(eventUid, { detailed: true }),
-      getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
+      getAgendasByUidsAndSearch: (agendaUids, search = null) => agendasSvc.list({
         uid: agendaUids,
         ...(search ? { search } : {})
       }, 0, 200, {
         internal: true,
         includeImagePath: true,
         useDefaultImage: true
-      }).then(({ agendas }) => agendas.map(a =>
-        _.pick(a, ['id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'])
-      )),
+      }).then(({ agendas }) => agendas.map(a => _.pick(a, [
+        'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'
+      ]))),
       getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount()
     }
   });
 
-  return Object.assign({
+  return {
     plugApp: plugApp.bind(null, config),
     ...aggregators,
     shutdown: async options => {
@@ -117,5 +115,5 @@ module.exports.init = (config, services) => {
       task = aggregators.task();
       return task;
     }
-  });
-}
+  };
+};

@@ -85,7 +85,10 @@ module.exports = (config, core, services) => {
 
   core.tasks();
 
-  services.agendaLocations.task();
+  services.agendaLocations.task({
+    detectDuplicates: config.detectLocationDuplicates,
+    reset: false
+  });
 
   require( './services/members' ).task();
 

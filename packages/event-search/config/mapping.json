@@ -79,6 +79,9 @@
       "name": {
         "type": "text"
       },
+      "role": {
+        "type": "integer"
+      },
       "_agg": {
         "type": "keyword"
       }

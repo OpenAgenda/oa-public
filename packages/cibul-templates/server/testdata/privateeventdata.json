@@ -24,10 +24,16 @@
       "value":"professionalsonly",
       "label":"Réservé aux professionnels",
       "fieldType":"radio"
+    }, {
+      "name": "nomenclature",
+      "value": "Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode",
+      "label": "Bijouterie Fantaisie et Créateurs, Haute couture et Licences, Argent, Or, Montres, Accessoires de mode",
+      "fieldType": "textarea"
     } ],
     "labels" : {
       "periodicity": "Périodicité",
-      "visitortypes": "Type de visiteurs"
+      "visitortypes": "Type de visiteurs",
+      "nomenclature": "Nomenclature"
     }
   }
 }

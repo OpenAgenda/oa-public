@@ -1,0 +1,133 @@
+{
+    "custom": null,
+    "defaultLabelLanguage": null,
+    "nextOptionId": 25,
+    "fields": [
+        {
+            "field": "type-devenement",
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "categories",
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "test-de-champ-suppl",
+            "label": "Agenda source",
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": false,
+            "origin": "tags",
+            "enableWith": null,
+            "optionalWith": null,
+            "related": {
+                "enable": [],
+                "optional": []
+            },
+            "options": [
+                {
+                    "id": 21,
+                    "value": "mediatheques",
+                    "label": {
+                        "en": "Médiathèques"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 23,
+                    "value": "ville-de-saint-juery",
+                    "label": {
+                        "en": "Ville de Saint-Juéry"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 24,
+                    "value": "ville-de-puygouzon",
+                    "label": {
+                        "en": "Ville de Puygouzon"
+                    },
+                    "info": null,
+                    "display": true
+                }
+            ],
+            "fieldType": "radio"
+        },
+        {
+            "field": "image",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "imageCredits",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "languages",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "title",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "description",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "keywords",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "longDescription",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "conditions",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "type-de-public",
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "age",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "registration",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "accessibility",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "attendanceMode",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "location",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "onlineAccessLink",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "timings",
+            "fieldType": "abstract"
+        }
+    ]
+}

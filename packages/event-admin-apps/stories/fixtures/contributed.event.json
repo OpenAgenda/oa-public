@@ -1,0 +1,125 @@
+{
+  "longDescription": {
+      "fr": "10h30 11h30 Table ronde \"l'e-commerce moteur essentiel de la relance\"\n11h30 12h30 Remise des Trophés"
+  },
+  "country": {
+      "de": "Frankreich (Metropolitan)",
+      "code": "FR",
+      "en": "France (Metropolitan)",
+      "it": "Francia (continente)",
+      "fr": "France (Métropole)",
+      "es": "Francia (Metropolitana)"
+  },
+  "featured": false,
+  "keywords": {},
+  "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": false
+  },
+  "dateRange": {
+      "ar": "الأربعاء ٣٠ يونيو, 10:00",
+      "de": "Mittwoch 30 Juni, 10:00",
+      "en": "Wednesday 30 June, 10:00",
+      "fr": "Mercredi 30 juin, 10h00",
+      "es": "Wednesday 30 June, 10:00"
+  },
+  "timezone": "Europe/Paris",
+  "originAgenda": {
+      "uid": 48353388,
+      "image": "https://cibul.s3.amazonaws.com/agenda48353388.jpg",
+      "title": "Albi"
+  },
+  "description": {
+      "fr": "La Mêlée et la CCI  Occitanie vous invitent à la remise des trophés"
+  },
+  "title": {
+      "fr": "20 ans Trophés de l'économie numérique"
+  },
+  "onlineAccessLink": null,
+  "createdAt": "2021-06-21T13:43:42.042Z",
+  "uid": 70564786,
+  "draft": false,
+  "timings": [
+      {
+          "begin": "2021-06-30T10:00:00+02:00",
+          "end": "2021-06-30T15:00:00+02:00"
+      }
+  ],
+  "member": {
+      "uid": 65176613,
+      "name": "Carole Germain Mairie-albi",
+      "_agg": "eyJ1aWQiOjY1MTc2NjEzLCJuYW1lIjoiQ2Fyb2xlIEdlcm1haW4gTWFpcmllLWFsYmkifQ=="
+  },
+  "state": 2,
+  "categories": 4,
+  "slug": "20-ans-trophes-de-leconomie-numerique",
+  "updatedAt": "2021-06-21T13:43:42.042Z",
+  "addMethod": "contribution",
+  "image": {
+      "filename": "be76bc6440c840b78160a016a8a86fe3.base.image.jpg",
+      "size": {
+          "width": 700,
+          "height": 330
+      },
+      "variants": [
+          {
+              "filename": "be76bc6440c840b78160a016a8a86fe3.full.image.jpg",
+              "size": {
+                  "width": 2481,
+                  "height": 1171
+              },
+              "type": "full"
+          },
+          {
+              "filename": "be76bc6440c840b78160a016a8a86fe3.thumb.image.jpg",
+              "size": {
+                  "width": 200,
+                  "height": 200
+              },
+              "type": "thumbnail"
+          }
+      ],
+      "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "creatorUid": 65176613,
+  "types-de-manifestation": 11,
+  "types-de-publics": [
+      19
+  ],
+  "registration": [],
+  "location": {
+      "address": "Palais de la Berbie, place Sainte-Cécile Albi",
+      "city": "Albi",
+      "postalCode": "81000",
+      "latitude": 43.92872,
+      "_agg": "eyJ1aWQiOjIyNDg2NDQsIm5hbWUiOiJNdXPDqWUgVG91bG91c2UtTGF1dHJlYyJ9",
+      "uid": 2248644,
+      "insee": "81004",
+      "countryCode": "FR",
+      "district": null,
+      "name": "Musée Toulouse-Lautrec",
+      "region": "Occitanie",
+      "department": "Tarn",
+      "slug": "musee-toulouse-lautrec215",
+      "longitude": 2.142774,
+      "updatedAt": "2018-12-14T15:07:50.000Z"
+  },
+  "detail-des-conditions": [
+      null
+  ],
+  "conditions": {},
+  "age": {},
+  "status": 1,
+  "lastTiming": {
+      "begin": "2021-06-30T10:00:00+02:00",
+      "end": "2021-06-30T15:00:00+02:00"
+  },
+  "nextTiming": {
+      "begin": "2021-06-30T10:00:00+02:00",
+      "end": "2021-06-30T15:00:00+02:00"
+  }
+}

@@ -7,7 +7,7 @@ const log = require('@openagenda/logs')('services/tracker');
  */
 module.exports.init = config => {
   log('initing');
-  
+
   const stack = [];
   let on = null;
   const flush = () => {
@@ -18,7 +18,7 @@ module.exports.init = config => {
     }
     return flushed;
   };
-  
+
   return Object.assign(message => {
     if (!config.track) {
       return;
@@ -35,7 +35,7 @@ module.exports.init = config => {
     getStack: () => stack,
     on: (message, fn, flush = false) => {
       log('setting on');
-      on = [message, fn, flush]
+      on = [message, fn, flush];
     },
     shutdown: async () => {
       flush();

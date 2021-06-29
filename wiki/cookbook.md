@@ -11,3 +11,18 @@ Une fois que la réplication est faite (la ram doit être occupée d'une manièr
     redis-cli slaveof no one
 
 Et voilà. [Source](https://www.tothenew.com/blog/copying-redis-database-from-one-server-to-another/)
+
+redis,configuration
+
+## regex
+
+Utilitaires pour gérer des regex avec des routes express:
+
+ * [PillarJs](https://github.com/pillarjs/path-to-regexp): convertit une route express en regex
+ * [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
+
+express,regex
+
+## structure d'un projet
+
+[Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)

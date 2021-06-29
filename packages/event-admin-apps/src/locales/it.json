@@ -5,8 +5,6 @@
   "EventAdminApp.BatchedStateSelector.title": "Conferma",
   "EventAdminApp.FiltersPortal.filters": "Filtri",
   "EventAdminApp.Dashboard.previous": "Precedente",
-  "EventAdminApp.FiltersPart.lessFilters": "Mostra meno filtri",
-  "EventAdminApp.FiltersPart.moreFilters": "Mostra più filtri",
   "EventAdminApp.messages.attendanceModes.mixed": "Misto",
   "EventAdminApp.messages.attendanceModes.offline": "Disconnesso",
   "EventAdminApp.messages.attendanceModes.online": "In linea",

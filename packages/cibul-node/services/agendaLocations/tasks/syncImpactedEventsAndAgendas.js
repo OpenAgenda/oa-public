@@ -1,9 +1,8 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendaLocations/tasks/syncImpactedEventsAndAgendas');
 
-module.exports = async function(services, before, after) {
+module.exports = async function syncImpactedEventsAndAgendas(services, before, after) {
   const {
     core,
     elasticsearch: legacyEventSearch,
@@ -15,7 +14,7 @@ module.exports = async function(services, before, after) {
 
   tracker('agendaLocations.syncImpactedEventsAndAgendas');
 
-  const controlData = legacy.controlData;
+  const { controlData } = legacy;
 
   const uids = await eventsSvc
     .list({ locationUid: before.uid }, { limit: 1000 }, {
@@ -26,16 +25,20 @@ module.exports = async function(services, before, after) {
     })
     .then(events => events.map(e => e.uid));
 
+  log('%s impacted events by location %s update', uids.length, before.uid, uids.length < 20 ? `(${uids.join(', ')})` : null);
+
   const impactedAgendaUids = [];
 
   for (const eventUid of uids) {
     // reindex impacted events on legacy search
-    try {
-      legacyEventSearch && await legacyEventSearch.updateEvent({
-        uid: eventUid
-      });
-    } catch (e) {
-      log('error', 'could not update event %s index', eventUid, e);
+    if (legacyEventSearch) {
+      try {
+        await legacyEventSearch.updateEvent({
+          uid: eventUid
+        });
+      } catch (e) {
+        log('error', 'could not update event %s index', eventUid, e);
+      }
     }
 
     // update search indices
@@ -43,7 +46,7 @@ module.exports = async function(services, before, after) {
       .byEventUid(eventUid)
       .then(({ items }) => items);
 
-    log('found %s references', relatedReferences.length);
+    log('found %s references for event %s', relatedReferences.length, eventUid);
 
     for (const ae of relatedReferences) {
       const { agendaUid } = ae;
@@ -56,7 +59,7 @@ module.exports = async function(services, before, after) {
       if (!impactedAgendaUids.includes(agendaUid)) {
         impactedAgendaUids.push(agendaUid);
       }
-    };
+    }
   }
 
   // update control data and search indices of impacted agendas
@@ -68,4 +71,4 @@ module.exports = async function(services, before, after) {
   }
 
   tracker('agendaLocations.syncImpactedEventsAndAgendas.done');
-}
+};
