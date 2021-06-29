@@ -73,7 +73,9 @@ module.exports.init = async (config, services) => {
       } = options;
       taskRunning = true;
       log('task');
-      detectDuplicateCandidates(services, config.locationDuplicationDetection);
+      if (detectDuplicates) {
+        detectDuplicateCandidates(services);
+      }
       // clearAllDuplicateCandidates(services);
       if (reset) {
         await queue.clear();
