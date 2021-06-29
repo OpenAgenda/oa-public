@@ -8,107 +8,52 @@ import FieldCounter from './FieldCounter';
 import Help from './Help';
 import Info from './Info';
 import Sub from './Sub';
+import MultilingualField from './Multilingual';
+import TextField from './TextField';
+import HTMLField from './HTMLField';
+import MarkdownField from './MarkdownField';
+import SlateField from './SlateField';
+import RadioField from './RadioField';
+import SingleSelectField from './SingleSelectField';
+import MultiSelectField from './MultiSelectField';
+import CheckboxField from './CheckboxField';
+import BooleanField from './BooleanField';
+import DateField from './DateField';
+import FileField from './FileField';
+import ImageField from './ImageField';
 
 const flattenFieldLabels = require('../lib/flatten');
 const isFieldEnabled = require('../lib/isFieldEnabled');
 const isFieldOptional = require('../lib/isFieldOptional');
 
 const FieldComponents = {
-  multilingual: require('./Multilingual'),
-  text: require('./TextField'),
-  integer: require('./TextField'),
-  number: require('./TextField'),
-  textarea: require('./TextField'),
-  link: require('./TextField'),
-  email: require('./TextField'),
-  phone: require('./TextField'),
-  html: require('./HTMLField'),
-  markdown: require('./MarkdownField'),
-  slate: require('./SlateField'),
-  radio: require('./RadioField'),
-  select: require('./SingleSelectField'),
-  multiselect: require('./MultiSelectField'),
-  checkbox: require('./CheckboxField'),
-  boolean: require('./BooleanField'),
-  date: require('./DateField'),
-  file: require('./FileField'),
-  image: require('./ImageField')
+  multilingual: MultilingualField,
+  text: TextField,
+  integer: TextField,
+  number: TextField,
+  textarea: TextField,
+  link: TextField,
+  email: TextField,
+  phone: TextField,
+  html: HTMLField,
+  markdown: MarkdownField,
+  slate: SlateField,
+  radio: RadioField,
+  select: SingleSelectField,
+  multiselect: MultiSelectField,
+  checkbox: CheckboxField,
+  boolean: BooleanField,
+  date: DateField,
+  file: FileField,
+  image: ImageField
 };
 
 const log = debug('Field');
 
-module.exports = class Field extends Component {
-
-  render() {
-
-    const field = flattenFieldLabels(this.props.field, this.props.lang);
-
-    const isMultilingual = Array.isArray(field.languages);
-
-    const hasMaxCounter = field.max
-      && !isMultilingual
-      && ![ 'integer', 'number' ].includes(field.fieldType);
-
-    // field is decorated with labels
-    const decorated = ![ 'boolean' ].includes(field.fieldType);
-
-    const Component = this.getFieldComponent(isMultilingual);
-
-    const {
-      value,
-      onChange,
-      error,
-      labels,
-      lang,
-      className,
-      relatedValues
-    } = this.props;
-    
-    const isEnabled = isFieldEnabled(field, relatedValues.enable, this.props.disabled);
-    const isOptional = isFieldOptional(field, relatedValues.optional);
-    log(
-      'field %s is %s and %s',
-      field.field,
-      isOptional ? 'optional' : 'required',
-      isEnabled ? 'enabled' : 'disabled'
-    );
-
-    return <div className={className + ' ' + classNames({
-      disabled : !isEnabled,
-      'has-error' : !!error,
-      'multilingual-input-field' : isMultilingual
-    }) } key={field.field}>
-      {decorated && field.label ? <label className={classNames({
-        'control-label' : true,
-        'margin-right-xs' : !isOptional || _hasHelp(field)
-      })}>{field.label}</label> : null}
-      {!decorated || isOptional ? '' : <span className={classNames({
-        'margin-right-xs' : _hasHelp(field),
-        error: !!error
-      })}>{'(' + labels.required + ')'}</span>}
-      {_hasHelp(field) ? <Help
-        id={'help-' + field.field}
-        label={field.help}
-        lang={lang}
-        link={field.helpLink}
-        content={field.helpContent}
-      /> : null }
-      {decorated ? <Info value={field.info}/> : null}
-      <Component
-        enabled={isEnabled}
-        lang={lang}
-        field={field}
-        value={value}
-        error={error}
-        onChange={onChange}
-        relatedValues={relatedValues}
-      />
-      {hasMaxCounter ? <FieldCounter value={value} max={field.max}/> : null }
-      {!isMultilingual ? <Sub label={field.sub} error={error}/> : null}
-    </div>
-
-  }
-
+function hasHelp(field) {
+  return field.help || field.helpLink || field.helpContent;
+}
+export default class Field extends Component {
   getFieldComponent(isMultilingual) {
     const {
       field: {
@@ -134,8 +79,95 @@ module.exports = class Field extends Component {
 
     throw new Error(`Field ${field} type has no associated component: ${fieldType}`);
   }
-};
 
-function _hasHelp(field) {
-  return field.help || field.helpLink || field.helpContent;
+  render() {
+    const {
+      field: schemaField,
+      disabled,
+      value,
+      onChange,
+      error,
+      labels,
+      lang,
+      className,
+      relatedValues
+    } = this.props;
+
+    const field = flattenFieldLabels(schemaField, lang);
+
+    const isMultilingual = Array.isArray(field.languages);
+
+    const hasMaxCounter = field.max
+      && !isMultilingual
+      && !['integer', 'number'].includes(field.fieldType);
+
+    // field is decorated with labels
+    const decorated = !['boolean'].includes(field.fieldType);
+
+    const FieldComponent = this.getFieldComponent(isMultilingual);
+
+    const isEnabled = isFieldEnabled(field, relatedValues.enable, disabled);
+    const isOptional = isFieldOptional(field, relatedValues.optional);
+    log(
+      'field %s is %s and %s',
+      field.field,
+      isOptional ? 'optional' : 'required',
+      isEnabled ? 'enabled' : 'disabled'
+    );
+
+    return (
+      <div
+        className={classNames({
+          [className]: true,
+          disabled: !isEnabled,
+          'has-error': !!error,
+          'multilingual-input-field': isMultilingual
+        })}
+        key={field.field}
+      >
+        {decorated && field.label ? (
+          <label
+            htmlFor={field.field}
+            className={classNames({
+              'control-label': true,
+              'margin-right-xs': !isOptional || hasHelp(field)
+            })}
+          >
+            {field.label}
+          </label>
+        ) : null}
+        {!decorated || isOptional ? '' : (
+          <span
+            className={classNames({
+              'margin-right-xs': hasHelp(field),
+              error: !!error
+            })}
+          >
+            {`(${labels.required})`}
+          </span>
+        )}
+        {hasHelp(field) ? (
+          <Help
+            id={`help-${field.field}`}
+            label={field.help}
+            lang={lang}
+            link={field.helpLink}
+            content={field.helpContent}
+          />
+        ) : null}
+        {decorated ? <Info value={field.info} /> : null}
+        <FieldComponent
+          enabled={isEnabled}
+          lang={lang}
+          field={field}
+          value={value}
+          error={error}
+          onChange={onChange}
+          relatedValues={relatedValues}
+        />
+        {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null }
+        {!isMultilingual ? <Sub label={field.sub} error={error} /> : null}
+      </div>
+    );
+  }
 }

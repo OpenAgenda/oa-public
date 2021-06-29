@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import TextField from './TextField';
 
-module.exports = class DateField extends Component {
+export default class DateField extends Component {
 
   parse( value ) {
 

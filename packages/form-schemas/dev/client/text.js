@@ -13,6 +13,9 @@ render(<div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-m
         redirect: '/'
       }}
       lang="fr"
+      onSubmit={({ clean, files, values }) => {
+        alert(values['atextfield']);
+      }}
       schema={{
         fields: [{
           field: 'atextfield',

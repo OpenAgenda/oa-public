@@ -8,7 +8,7 @@ import HTMLSerializer from './HTMLSerializer';
 
 import markdown from '../iso/markdown';
 
-module.exports = class MarkdownField extends Component {
+export default class MarkdownField extends Component {
 
   onChange(value) {
     this.props.onChange(markdown.to(HTMLSerializer.serialize(value)));

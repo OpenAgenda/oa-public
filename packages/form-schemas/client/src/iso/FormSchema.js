@@ -1,10 +1,8 @@
-'use strict';
-
 const _ = {
   get: require('lodash/get'),
   omit: require('lodash/omit'),
   pick: require('lodash/pick')
-}
+};
 
 const isObject = require('./isObject');
 
@@ -14,11 +12,79 @@ const {
   extractNextOptionId
 } = require('./fieldOptions');
 
-const validateField = require('./validateField');
 const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionIds');
 
 const getSchema = require('./getSchema');
 const getWithFieldName = require('./getWithFieldName');
+
+function validate(data, options = {}) {
+  const {
+    client,
+    requireLabels
+  } = {
+    client: false,
+    requireLabels: true,
+    ...(typeof options === 'boolean' ? {
+      client: options
+    } : options)
+  };
+
+  let errors = [];
+
+  let dirty = Object.assign({
+    id: null,
+    nextOptionId: 1,
+    fields: [],
+    res: null,
+    custom: null,
+    defaultLabelLanguage: null
+  }, data || {});
+
+  // these we take as is
+  const clean = _.pick(dirty, [
+    'id',
+    'res',
+    'custom',
+    'defaultLabelLanguage'
+  ]);
+
+  clean.nextOptionId = extractNextOptionId(data);
+
+  clean.fields = [];
+
+  // clean each field
+  dirty.fields.forEach(f => {
+    try {
+      const {
+        field: cleanField,
+        nextOptionId: updatedNextOptionId
+      } = validateFieldAndAssignOptionIds(f, {
+        requireLabels,
+        custom: clean.custom,
+        defaultLabelLanguage: clean.defaultLabelLanguage,
+        nextOptionId: clean.nextOptionId
+      });
+
+      clean.nextOptionId = updatedNextOptionId;
+
+      clean.fields.push(cleanField);
+    } catch (e) {
+      if (!Array.isArray(e)) {
+        throw { ...e,
+          message: `Validation of field ${f.field} failed: ${e.message}`
+        }
+      }
+
+      errors = errors.concat(e);
+    }
+  });
+
+  if (errors.length) {
+    throw errors;
+  }
+
+  return client ? clean : _.omit(clean, ['res', 'id']);
+}
 
 module.exports = class {
 
@@ -41,7 +107,7 @@ module.exports = class {
       nextOptionId
     } = validateFieldAndAssignOptionIds(fieldData, _.pick(this.data, [
       'custom', 'defaultLabelLanguage', 'nextOptionId'
-   ]));
+    ]));
 
     if (!this.isFieldNameAvailable(clean.field)) {
       throw 'This field name is taken! : ' + clean.field;
@@ -203,80 +269,9 @@ module.exports = class {
   _popField(index) {
     return this.data.fields.splice(index, 1)[0];
   }
-}
+};
 
 module.exports.validate = validate;
-
-function validate(data, options = {}) {
-
-  const {
-    client,
-    requireLabels
-  } = {
-    client: false,
-    requireLabels: true,
-    ...(typeof options === 'boolean' ? {
-      client: options
-    } : options)
-  };
-
-  let errors = [],
-
-  dirty = Object.assign({
-    id: null,
-    nextOptionId: 1,
-    fields: [],
-    res: null,
-    custom: null,
-    defaultLabelLanguage: null
-  }, data || {}),
-
-  // these we take as is
-  clean = _.pick(dirty, [
-    'id',
-    'res',
-    'custom',
-    'defaultLabelLanguage'
- ]);
-
-  clean.nextOptionId = extractNextOptionId(data);
-
-  clean.fields = [];
-
-  // clean each field
-  dirty.fields.forEach(f => {
-    try {
-      const {
-        field: cleanField,
-        nextOptionId: updatedNextOptionId
-      } = validateFieldAndAssignOptionIds(f, {
-        requireLabels,
-        custom: clean.custom,
-        defaultLabelLanguage: clean.defaultLabelLanguage,
-        nextOptionId: clean.nextOptionId
-      });
-
-      clean.nextOptionId = updatedNextOptionId;
-
-      clean.fields.push(cleanField);
-    } catch (e) {
-      if (!Array.isArray(e)) {
-        throw { ...e,
-          message: `Validation of field ${f.field} failed: ${e.message}`
-        }
-      }
-
-      errors = errors.concat(e);
-    }
-  });
-
-  if (errors.length) {
-    throw errors;
-  }
-
-  return client ? clean : _.omit(clean, ['res', 'id']);
-}
-
 
 function _isNew(data) {
   return data.id === null;

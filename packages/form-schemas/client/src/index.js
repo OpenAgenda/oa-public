@@ -14,9 +14,7 @@ import {
 
 import FormSchema from './iso/FormSchema';
 import getErrorLabel from './iso/getErrorLabel';
-import getWithFieldName from './iso/getWithFieldName';
 
-import flatten from './lib/flatten';
 import submit from './lib/submit';
 import getRelatedFieldValues from './lib/getRelatedFieldValues';
 import isFieldDisplayed from './lib/isFieldDisplayed';
@@ -25,7 +23,6 @@ const log = debug('FormSchemaComponent');
 const Field = require('./Components/Field');
 
 export default class FormSchemaComponent extends Component {
-
   constructor(props) {
     super(props);
 
@@ -33,8 +30,12 @@ export default class FormSchemaComponent extends Component {
       lang,
       values,
       withErrors,
-      labels
+      labels,
+      stateless
     } = props;
+
+    this.sanitize = this.sanitize.bind(this);
+    this.onChange = this.onChange.bind(this);
 
     log('values at init: %j', values);
 
@@ -43,10 +44,10 @@ export default class FormSchemaComponent extends Component {
         errors: flattenLabels(_.assign({}, errorLabels, _.get(labels, 'errors', {})), lang, true),
         main: flattenLabels(formSchemaLabels, lang, true)
       },
-      defaultLabelLanguage: this.props.lang
-    }
+      defaultLabelLanguage: lang
+    };
 
-    if (!this.props.stateless) {
+    if (!stateless) {
       init.values = values;
       init.errors = [];
       init.loading = false;
@@ -61,29 +62,13 @@ export default class FormSchemaComponent extends Component {
 
     // display of errors at load
     const {
-      errors,
-      files
+      errors
     } = withErrors ? sanitized : { errors: [] };
 
-    if (errors && !this.props.stateless) {
+    if (errors && !stateless) {
       this.state.errors = errors;
     } else if (errors && errors.length) {
       this.set({ errors });
-    }
-  }
-
-  get(field, defaultValue = null) {
-    return _.get(this, [this.props.stateless ? 'props' : 'state', field], defaultValue);
-  }
-
-  set(update) {
-    log('update', update);
-    if (!this.props.stateless) {
-      this.setState(update);
-    }
-
-    if (this.props.onChange) {
-      this.props.onChange(update);
     }
   }
 
@@ -91,9 +76,16 @@ export default class FormSchemaComponent extends Component {
     log('onSubmit');
     if (e) e.preventDefault();
 
-    const { draft } = Object.assign({
-      draft: false
-    }, options);
+    const {
+      res,
+      onSubmit,
+      unloadWarning: enableUnloadWarning,
+      onSubmitSuccess
+    } = this.props;
+
+    const {
+      draft = false
+    } = options;
 
     const query = draft ? { draft: true } : null;
 
@@ -108,18 +100,18 @@ export default class FormSchemaComponent extends Component {
       return this.set({ errors });
     }
 
-    if (this.props.onSubmit) {
-      const p = this.props.onSubmit({
+    if (onSubmit) {
+      const p = onSubmit({
         values,
         clean,
         files: this.get('files')
       });
 
-      if ((p instanceof Promise) && (this.props.unloadWarning)) {
+      if ((p instanceof Promise) && (enableUnloadWarning)) {
         p.then(() => {
           unloadWarning.unset();
         });
-      } else if (this.props.unloadWarning) {
+      } else if (enableUnloadWarning) {
         unloadWarning.unset();
       }
       return;
@@ -130,23 +122,23 @@ export default class FormSchemaComponent extends Component {
     });
 
     submit({
-      res: _.get(this.props.res, 'post', ''),
+      res: _.get(res, 'post', ''),
       formSchema: this._getFormSchema(),
       values, // values can be clean anew once received by server
       files: this.get('files'),
       query
-    }).then(res => {
-      if (res.statusCode !== 200) {
-        this.onServerError(res);
+    }).then(response => {
+      if (response.statusCode !== 200) {
+        this.onServerError(response);
         return;
       }
-      
-      if (this.props.unloadWarning) {
+
+      if (enableUnloadWarning) {
         unloadWarning.unset();
       }
 
-      if (this.props.onSubmitSuccess) {
-        this.props.onSubmitSuccess(this.get('values'), res);
+      if (onSubmitSuccess) {
+        onSubmitSuccess(this.get('values'), res);
       } else {
         this.set({
           submitted: true,
@@ -155,14 +147,13 @@ export default class FormSchemaComponent extends Component {
           loading: false
         });
       }
-
-    }).catch(err => {
-      console.log('form-schemas: there was an error during submit', err);
+    }).catch(() => {
+      // console.log('form-schemas: there was an error during submit', err);
     });
   }
 
   onServerError(res) {
-    console.log('evaluating server error', res.body);
+    // console.log('evaluating server error', res.body);
 
     const errors = _.get(res, 'body.errors');
 
@@ -178,6 +169,10 @@ export default class FormSchemaComponent extends Component {
   }
 
   onServerException(res) {
+    const {
+      maxFileSize
+    } = this.props;
+
     let globalErrorPath = 'state.labels.errors.serverException';
 
     if (res.statusCode === 413) {
@@ -185,107 +180,25 @@ export default class FormSchemaComponent extends Component {
     }
 
     this.set({
-      globalError: _.get(this, globalErrorPath).replace('%max%', this.props.maxFileSize || 22),
+      globalError: _.get(this, globalErrorPath).replace('%max%', maxFileSize || 22),
       loading: false
     });
   }
 
-  getCurrentValues() {
-    return this.get('values', {}) || {};
-  }
-
-  /**
-   * onChange focuses on current field. Should impacted fields be considered too?
-   * if so, values of impacted fields should also be given to function
-   * 
-   */
-  getFieldErrors(field, value, relatedFields = [], currentValues = {}) {
-    const values = {};
-
-    values[field.field] = value;
-
-    relatedFields.forEach(relatedField => {
-      values[relatedField.field] = currentValues[relatedField.field];
-    });
-
-    const {
-      clean,
-      errors
-    } = this.sanitize(values);
-
-    const keepFields = relatedFields.map(f => f.field).concat(field.field);
-
-    const fieldErrors = (errors || []).filter(e => keepFields.includes(e.field));
-
-    log('getFieldErrors', { field, value, fieldErrors });
-
-    return fieldErrors;
-  }
-
-  _getFormSchema() {
-    // building the formSchema is a bit costly, so memoizition is useful here
-
-    const hasChanged = !!['hash', 'lang'].filter(
-      memoizeKey => _.get(this.memoized, memoizeKey, '') !== _.get(this.props, memoizeKey, '')
-   ).length;
-
-    if (hasChanged || !this.memoized) {
-      this.memoized = {
-        formSchema: new FormSchema(
-          ih(this.props.schema, {
-            defaultLabelLanguage: { $set: this.props.lang }
-          })
-       ),
-        hash: _.get(this, 'props.hash', ''),
-        lang: _.get(this, 'props.lang', '')
-      }
-    }
-
-    return this.memoized.formSchema;
-  }
-
-  sanitize(values, options) {
-    const formSchema = this._getFormSchema();
-    try {
-      // options may contain draft bool at true.
-      const validate = formSchema.getValidate(options);
-      const clean = validate(values);
-
-      return { clean, errors: [] };
-    } catch (errors) {
-      if (!Array.isArray(errors)) {
-        throw errors;
-      }
-
-      // simpler to always keep errors as arrays.
-      return {
-        clean: null,
-        errors: errors.map(e => {
-          const field = formSchema.getField(e.field);
-          if (!field) {
-            throw new Error('did not find field matching validation error', e);
-          }
-
-          return ih(e, {
-            label: {
-              $set: getErrorLabel(this.state.labels.errors, field, e)
-            },
-            fieldLabel: {
-              $set: _.get(field.label, this.props.lang)
-            }
-          });
-        })
-      }
-    }
-  }
-
   onSubmitConfirm(e) {
+    const {
+      res
+    } = this.props;
     e.preventDefault();
 
-    window.location.href = this.props.res.redirect;
+    window.location.href = res.redirect;
   }
 
   onChange(fieldName, value, files) {
+    const {
+      unloadWarning: enableUnloadWarning
+    } = this.props;
+
     log('onChange', fieldName, value, files);
 
     const formSchema = this._getFormSchema();
@@ -315,10 +228,10 @@ export default class FormSchemaComponent extends Component {
     if (isFileField && value) {
       filesUpdate[fieldName] = { $set: files };
     } else if (isFileField) {
-      filesUpdate['$unset'] = [fieldName];
+      filesUpdate.$unset = [fieldName];
     }
 
-    if (this.props.unloadWarning) {
+    if (enableUnloadWarning) {
       unloadWarning.set();
     }
 
@@ -329,57 +242,119 @@ export default class FormSchemaComponent extends Component {
     });
   }
 
-  render() {
-    const { lang, classNames, role } = this.props;
+  getFieldErrors(field, value, relatedFields = [], currentValues = {}) {
+    const values = {};
 
-    const { submitted } = this.state;
+    values[field.field] = value;
 
-    const values = this.get('values');
-    const loading = this.get('loading');
-    const errors = this.get('errors', []);
-
-    log('rendering', { values, errors });
-
-    const { clean: cleanValues } = this.sanitize(values, {
-      draft: true
+    relatedFields.forEach(relatedField => {
+      values[relatedField.field] = currentValues[relatedField.field];
     });
 
-    if (submitted) {
-      return <div className="text-center">
-        <div className="padding-all-sm">
-          <span>{this.state.labels.main.confirmation}</span>
-        </div>
-        <button className="btn btn-primary" onClick={this.onSubmitConfirm}>{this.state.labels.main.done}</button>
-      </div>
+    const {
+      errors
+    } = this.sanitize(values);
+
+    const keepFields = relatedFields.map(f => f.field).concat(field.field);
+
+    const fieldErrors = (errors || []).filter(e => keepFields.includes(e.field));
+
+    log('getFieldErrors', { field, value, fieldErrors });
+
+    return fieldErrors;
+  }
+
+  getCurrentValues() {
+    return this.get('values', {}) || {};
+  }
+
+  get(field, defaultValue = null) {
+    const {
+      stateless
+    } = this.props;
+    return _.get(this, [stateless ? 'props' : 'state', field], defaultValue);
+  }
+
+  set(update) {
+    const {
+      stateless,
+      onChange
+    } = this.props;
+    log('update', update);
+    if (!stateless) {
+      this.setState(update);
     }
 
-    return <div className="oa-form">
-      <div className={_.get(classNames, 'fieldsCanvas', '') }>
-        {this._getFormSchema().getFields().filter(isFieldDisplayed.bind(null, role)).map((f, i) => {
+    if (onChange) {
+      onChange(update);
+    }
+  }
 
-          const flatLabels = flatten(formSchemaLabels, lang);
+  _getFormSchema() {
+    const {
+      schema,
+      lang
+    } = this.props;
+    // building the formSchema is a bit costly, so memoizition is useful here
 
-          return <Field
-            disabled={loading}
-            className={_.get(classNames, 'field', 'form-group') }
-            customComponents={this.props.components}
-            lang={this.props.lang}
-            labels={this.state.labels.main}
-            type={f.fieldType}
-            key={'field' + i}
-            field={f}
-            value={_.get(values, f.field, null)}
-            relatedValues={getRelatedFieldValues(f, cleanValues === null ? values : cleanValues)}
-            error={errors.filter(e => e.field === f.field).shift()?.label}
-            onChange={this.onChange.bind(this, f.field)}
-          />
+    const hasChanged = !!['hash', 'lang'].filter(
+      memoizeKey => _.get(this.memoized, memoizeKey, '') !== _.get(this.props, memoizeKey, '')
+    ).length;
 
-        })}
-      </div>
-      {this.renderGroupedErrors()}
-      {this.renderBottomActions()}
-    </div>
+    if (hasChanged || !this.memoized) {
+      this.memoized = {
+        formSchema: new FormSchema(
+          ih(schema, {
+            defaultLabelLanguage: { $set: lang }
+          })
+        ),
+        hash: _.get(this, 'props.hash', ''),
+        lang: _.get(this, 'props.lang', '')
+      };
+    }
 
+    return this.memoized.formSchema;
+  }
+
+  sanitize(values, options) {
+    const {
+      lang
+    } = this.props;
+    const {
+      labels
+    } = this.state;
+    const formSchema = this._getFormSchema();
+    try {
+      // options may contain draft bool at true.
+      const validate = formSchema.getValidate(options);
+      const clean = validate(values);
+
+      return { clean, errors: [] };
+    } catch (errors) {
+      if (!Array.isArray(errors)) {
+        throw errors;
+      }
+
+      // simpler to always keep errors as arrays.
+      return {
+        clean: null,
+        errors: errors.map(e => {
+          const field = formSchema.getField(e.field);
+          if (!field) {
+            throw new Error('did not find field matching validation error', e);
+          }
+
+          return ih(e, {
+            label: {
+              $set: getErrorLabel(labels.errors, field, e)
+            },
+            fieldLabel: {
+              $set: _.get(field.label, lang)
+            }
+          });
+        })
+      };
+    }
   }
 
   renderGroupedErrors() {
@@ -392,25 +367,39 @@ export default class FormSchemaComponent extends Component {
     const matching = _.first(_.get(this.props, 'errorComponents', []).filter(a => a.position === 'bottom'));
 
     if (matching) {
-      const { Component } = matching;
+      const {
+        Component: ErrorComponent
+      } = matching;
 
-      return <Component errors={errors} global={globalError} />
+      return <ErrorComponent errors={errors} global={globalError} />;
     }
 
-    return <div className={_.get(this.props, 'classNames.bottomErrorsCanvas') || 'error-summary boxed padding-v-sm padding-h-sm margin-v-md'}>
-      { errors.length ? <div>
-        <div className="padding-bottom-sm">{this.state.labels.main.groupErrorHeader}:</div>
-        <ul className="list-unstyled margin-left-xs">
-        {errors.map((e, i) => <li key={'error-' + i}>
-          <label>{e.fieldLabel}</label>:&nbsp;
-          <span>{e.label}</span>
-        </li>)}
-        </ul>
-      </div> : null }
-      { globalError ? <div className="text-center padding-top-xs">
-        <label>{globalError}</label>
-      </div>: null }
-    </div>
+    const {
+      labels
+    } = this.state;
+
+    return (
+      <div className={_.get(this.props, 'classNames.bottomErrorsCanvas') || 'error-summary boxed padding-v-sm padding-h-sm margin-v-md'}>
+        { errors.length ? (
+          <div>
+            <div className="padding-bottom-sm">{labels.main.groupErrorHeader}:</div>
+            <ul className="list-unstyled margin-left-xs">
+              {errors.map(e => (
+                <li key={`error-${e.code}`}>
+                  <label htmlFor={e.code}>{e.fieldLabel}</label>:&nbsp;
+                  <span>{e.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null }
+        {globalError ? (
+          <div className="text-center padding-top-xs">
+            <label htmlFor={globalError.code}>{globalError}</label>
+          </div>
+        ) : null}
+      </div>
+    );
   }
 
   renderBottomActions() {
@@ -419,17 +408,82 @@ export default class FormSchemaComponent extends Component {
     const loading = this.get('loading');
 
     if (matching) {
-      const { Component } = matching;
+      const { Component: BottomActionsComponent } = matching;
 
-      return <Component onSubmit={this.onSubmit} loading={loading} sanitize={this.sanitize.bind(this)} />
+      return <BottomActionsComponent onSubmit={this.onSubmit} loading={loading} sanitize={this.sanitize} />;
     }
 
-    return <div style={{position: 'relative'}} className={_.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'}>
-      <button className={loading ? 'btn btn-default' : 'btn btn-primary' } type="submit" disabled={loading} onClick={this.onSubmit}>{this.state.labels.main.submit }</button>
-      {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
-    </div>
+    const {
+      labels
+    } = this.state;
+
+    return (
+      <div style={{ position: 'relative' }} className={_.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'}>
+        <button className={loading ? 'btn btn-default' : 'btn btn-primary'} type="submit" disabled={loading} onClick={this.onSubmit}>{labels.main.submit}</button>
+        {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
+      </div>
+    );
   }
 
+  render() {
+    const {
+      lang,
+      classNames,
+      components,
+      role
+    } = this.props;
+
+    const {
+      labels,
+      submitted
+    } = this.state;
+
+    const values = this.get('values');
+    const loading = this.get('loading');
+    const errors = this.get('errors', []);
+
+    log('rendering', { values, errors });
+
+    const { clean: cleanValues } = this.sanitize(values, {
+      draft: true
+    });
+
+    if (submitted) {
+      return (
+        <div className="text-center">
+          <div className="padding-all-sm">
+            <span>{labels.main.confirmation}</span>
+          </div>
+          <button type="submit" className="btn btn-primary" onClick={this.onSubmitConfirm}>{labels.main.done}</button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="oa-form">
+        <div className={_.get(classNames, 'fieldsCanvas', '')}>
+          {this._getFormSchema().getFields().filter(isFieldDisplayed.bind(null, role)).map(f => (
+            <Field
+              disabled={loading}
+              className={_.get(classNames, 'field', 'form-group')}
+              customComponents={components}
+              lang={lang}
+              labels={labels.main}
+              type={f.fieldType}
+              key={`field${f.field}`}
+              field={f}
+              value={_.get(values, f.field, null)}
+              relatedValues={getRelatedFieldValues(f, cleanValues === null ? values : cleanValues)}
+              error={errors.filter(e => e.field === f.field).shift()?.label}
+              onChange={(value, files) => this.onChange(f.field, value, files)}
+            />
+          ))}
+        </div>
+        {this.renderGroupedErrors()}
+        {this.renderBottomActions()}
+      </div>
+    );
+  }
 }
 
 FormSchemaComponent.defaultPropTypes = {
@@ -445,4 +499,4 @@ FormSchemaComponent.defaultPropTypes = {
     errors: {}
   },
   fileKey: null
-}
+};

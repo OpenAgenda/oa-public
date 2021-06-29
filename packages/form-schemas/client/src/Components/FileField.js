@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload';
 import flattenLabels from '@openagenda/labels/flatten';
 
-module.exports = class FileField extends Component {
+export default class FileField extends Component {
 
   onRemove() {
 
