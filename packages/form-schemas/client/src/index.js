@@ -138,7 +138,7 @@ export default class FormSchemaComponent extends Component {
       }
 
       if (onSubmitSuccess) {
-        onSubmitSuccess(this.get('values'), res);
+        onSubmitSuccess(this.get('values'), response);
       } else {
         this.set({
           submitted: true,

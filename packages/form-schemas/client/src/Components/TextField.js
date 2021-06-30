@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 
 export default class TextField extends Component {
@@ -14,9 +13,8 @@ export default class TextField extends Component {
       onChange
     } = this.props;
 
-    const { value } = e.target;
-
-    onChange(_.isString(value) && !value.length ? null : value);
+    // text field should be able to change to empty string
+    onChange(e.target.value);
   }
 
   render() {
