@@ -1,71 +1,63 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' );
-const flattener = require( '@openagenda/flattener' );
-const timings = require( '../lib/transform/timings' );
-const multilingual = require( '../lib/transform/multilingual' );
-const accessibility = require( '../lib/transform/accessibility' );
+const flattener = require('@openagenda/flattener');
+const timings = require('../lib/transform/timings');
+const multilingual = require('../lib/transform/multilingual');
+const accessibility = require('../lib/transform/accessibility');
 
-describe( 'flat-exports - unit - transforms', () => {
+describe('flat-exports - unit - transforms', () => {
+  describe('timings', () => {
+    test('transformer spreads detailed timings over one ISO column and multiple language-specific columns', () => {
+      const map = [timings({
+        languages: ['fr', 'en']
+      }, {})];
 
-  describe( 'timings', () => {
+      const flatten = flattener(map);
 
-    test( 'transformer spreads detailed timings over one ISO column and multiple language-specific columns', () => {
-
-      const map = [ timings( {
-        languages: [ 'fr', 'en' ]
-      }, {} ) ];
-
-      const flatten = flattener( map );
-
-      const flat = flatten( {
-        timings: [ {
+      const flat = flatten({
+        timings: [{
           begin: '2017-03-16T09:30:00+01:00',
           end: '2017-03-16T12:00:00+01:00'
-        } ]
-      } );
+        }]
+      });
 
-      flat.should.eql( { 
-        'ISO': '2017-03-16T09:30:00+01:00 -> 2017-03-16T12:00:00+01:00',
+      expect(flat).toEqual({
+        ISO: '2017-03-16T09:30:00+01:00 -> 2017-03-16T12:00:00+01:00',
         'timings - FR': 'jeudi 16 mars 2017 - 09:30',
         'timings - EN': 'Thursday 16 March 2017 - 09:30'
-      } );
+      });
+    });
 
-    } );
+    test('transformer displays times in timezone explicited in source data', () => {
+      const map = [timings({
+        languages: ['fr', 'en']
+      }, {})];
 
-    test( 'transformer displays times in timezone explicited in source data', () => {
+      const flatten = flattener(map);
 
-      const map = [ timings( {
-        languages: [ 'fr', 'en' ]
-      }, {} ) ];
-
-      const flatten = flattener( map );
-
-      const flat = flatten( {
-        timings: [ {
+      const flat = flatten({
+        timings: [{
           begin: '2017-03-16T09:30:00-01:00',
           end: '2017-03-16T12:00:00-01:00'
-        } ]
-      } );
+        }]
+      });
 
-      flat.should.eql( { 
-        'ISO': '2017-03-16T09:30:00-01:00 -> 2017-03-16T12:00:00-01:00',
+      expect(flat).toEqual({
+        ISO: '2017-03-16T09:30:00-01:00 -> 2017-03-16T12:00:00-01:00',
         'timings - FR': 'jeudi 16 mars 2017 - 09:30',
         'timings - EN': 'Thursday 16 March 2017 - 09:30'
-      } );      
+      });
+    });
 
-    } );
+    test('transformer concatenates timings which occur in the same day', () => {
+      const map = [timings({
+        languages: ['fr']
+      }, {})];
 
-    test( 'transformer concatenates timings which occur in the same day', () => {
+      const flatten = flattener(map);
 
-      const map = [ timings( {
-        languages: [ 'fr' ]
-      }, {} ) ];
-
-      const flatten = flattener( map );
-
-      const flat = flatten( {
-        timings: [ {
+      const flat = flatten({
+        timings: [{
           begin: '2017-03-16T09:30:00+06:00',
           end: '2017-03-16T12:00:00+06:00'
         }, {
@@ -74,211 +66,184 @@ describe( 'flat-exports - unit - transforms', () => {
         }, {
           begin: '2017-03-17T09:30:00+06:00',
           end: '2017-03-17T12:00:00+06:00'
-        } ]
-      } );
+        }]
+      });
 
-      flat.should.eql( { 
-        'ISO': '2017-03-16T09:30:00+06:00 -> 2017-03-16T12:00:00+06:00 | 2017-03-16T14:30:00+06:00 -> 2017-03-16T22:00:00+06:00 | 2017-03-17T09:30:00+06:00 -> 2017-03-17T12:00:00+06:00',
-        timings: 'jeudi 16 mars 2017 - 09:30, 14:30 | vendredi 17 mars 2017 - 09:30' 
-      } );
+      expect(flat).toEqual({
+        ISO: '2017-03-16T09:30:00+06:00 -> 2017-03-16T12:00:00+06:00 | 2017-03-16T14:30:00+06:00 -> 2017-03-16T22:00:00+06:00 | 2017-03-17T09:30:00+06:00 -> 2017-03-17T12:00:00+06:00',
+        timings: 'jeudi 16 mars 2017 - 09:30, 14:30 | vendredi 17 mars 2017 - 09:30'
+      });
+    });
+  });
 
-    } );
+  describe('accessibility', () => {
+    test('transformer returns single language when language is specified and available in labels', () => {
+      const map = [accessibility({
+        languages: ['fr']
+      }, {})];
 
-  } );
+      const flatten = flattener(map);
 
-  describe( 'accessibility', () => {
-
-    test( 'transformer returns single language when language is specified and available in labels', () => {
-
-      const map = [ accessibility( {
-        languages: [ 'fr' ]
-      }, {} ) ];
-
-      const flatten = flattener( map );
-
-      const flat = flatten( {
+      const flat = flatten({
         accessibility: { hi: true, vi: true, pi: false }
-      } );
+      });
 
-      flat.should.eql( {
-        accessibility: 'handicap auditif | handicap visuel'
-      } );
+      expect(flat).toEqual({
+        accessibility: 'Handicap auditif | Handicap visuel'
+      });
+    });
 
-    } );
+    test('transformer returns language columns when a corresponding label is available', () => {
+      const map = [accessibility({
+        languages: ['fr', 'en', 'de']
+      }, {})];
 
-    test( 'transformer returns language columns when a corresponding label is available', () => {
+      const flatten = flattener(map);
 
-      const map = [ accessibility( {
-        languages: [ 'fr', 'en', 'de' ]
-      }, {} ) ];
-
-      const flatten = flattener( map );
-
-      const flat = flatten( {
+      const flat = flatten({
         accessibility: { vi: true, pi: false }
-      } );
+      });
 
-      flat.should.eql( {
-        'accessibility - EN': 'visual impairment',
-        'accessibility - FR': 'handicap visuel'
-      } );
+      expect(flat).toEqual({
+        'accessibility - DE': 'Sehbehinderung',
+        'accessibility - EN': 'Visual impairment',
+        'accessibility - FR': 'Handicap visuel'
+      });
+    });
 
-    } );
-
-    test( 'transformer puts result in specified target', () => {
-
-      const map = [ accessibility( {
-        languages: [ 'fr' ]
+    test('transformer puts result in specified target', () => {
+      const map = [accessibility({
+        languages: ['fr']
       }, {
         target: 'Accessibilité'
-      } ) ];
+      })];
 
-      const flatten = flattener( map );
+      const flatten = flattener(map);
 
-      const flat = flatten( {
-        accessibility: { vi: true, pi: false, hi: false }
-      } );
+      const flat = flatten({
+        accessibility: { vi: true, pi: false, hi: false }
+      });
 
-      flat.should.eql( {
-        'Accessibilité' : 'handicap visuel'
-      } );
-
-    } );
-
-  } );
+      expect(flat).toEqual({
+        Accessibilité: 'Handicap visuel'
+      });
+    });
+  });
 
   /**
    * these helpers build mapping for flattener
    */
 
-  describe( 'multilingual', () => {
-
-    test( 'multilingual field returns single value configuration when one language is specified', () => {
-
-      const map = [ multilingual( {
-        languages: [ 'fr' ]
+  describe('multilingual', () => {
+    test('multilingual field returns single value configuration when one language is specified', () => {
+      const map = [multilingual({
+        languages: ['fr']
       }, {
         source: 'title'
-      } ) ];
+      })];
 
-      const flatten = flattener( map );
+      const flatten = flattener(map);
 
-      const flat = flatten( {
+      const flat = flatten({
         title: {
           fr: 'Un titre',
           en: 'A title'
         }
-      } );
+      });
 
-      flat.should.eql( {
+      expect(flat).toEqual({
         title: 'Un titre'
-      } );
+      });
+    });
 
-    } );
-
-    test( 'multilingual field puts value in target field when set', () => {
-
-      const map = [ multilingual( { 
-        languages: [ 'en' ]
+    test('multilingual field puts value in target field when set', () => {
+      const map = [multilingual({
+        languages: ['en']
       }, {
         source: 'title',
         target: 'Titre'
-      } ) ];
+      })];
 
-      const flatten = flattener( map );
+      const flatten = flattener(map);
 
-      const flat = flatten( {
+      const flat = flatten({
         title: {
           en: 'Here is the title'
         }
-      } );
+      });
 
-      flat.should.eql( {
-        'Titre' : 'Here is the title'
-      } );
+      expect(flat).toEqual({
+        Titre: 'Here is the title'
+      });
+    });
 
-    } );
-
-
-    test( 'multilingual field with specified possible languages does not provide other flat values than for said languages', () => {
-
-      const map = [ multilingual( {
-        languages: [ 'en', 'it', 'fr', 'es' ],
+    test('multilingual field with specified possible languages does not provide other flat values than for said languages', () => {
+      const map = [multilingual({
+        languages: ['en', 'it', 'fr', 'es'],
       }, {
         source: 'country',
-        possibleLanguages: [ 'fr', 'en' ]
-      } ) ];
+        possibleLanguages: ['fr', 'en']
+      })];
 
-      const flatten = flattener( map );
+      const flatten = flattener(map);
 
-      const flat = flatten( {
+      const flat = flatten({
         country: {
           en: 'Iceland',
           fr: 'Islande'
         }
-      } );
+      });
 
-      flat.should.eql( {
-        'country - FR' : 'Islande',
-        'country - EN' : 'Iceland'
-      } );
+      expect(flat).toEqual({
+        'country - FR': 'Islande',
+        'country - EN': 'Iceland'
+      });
+    });
 
-
-    } );
-
-
-    test( 'multilingual field passes data in post parser', () => {
-
-      const map = [ multilingual( {
-        languages: [ 'fr', 'en' ]
+    test('multilingual field passes data in post parser', () => {
+      const map = [multilingual({
+        languages: ['fr', 'en']
       }, {
         source: 'some_field',
-        postParse: v => v.join( '|' )
-      } ) ];
+        postParse: v => v.join('|')
+      })];
 
-      const flatten = flattener( map );
+      const flatten = flattener(map);
 
-      const flat = flatten( {
+      const flat = flatten({
         some_field: {
-          en: [ 'a', 'field' ],
+          en: ['a', 'field'],
           fr: []
         }
-      } );
+      });
 
-      flat.should.eql( { 
-        'some_field - FR': null, 
-        'some_field - EN': 'a|field' 
-      } );
+      expect(flat).toEqual({
+        'some_field - FR': null,
+        'some_field - EN': 'a|field'
+      });
+    });
 
-    } );
-
-
-    test( 'multilingual field spreads result over multiple fields if language is not set', () => {
-
-      const map = [ multilingual( {
-        languages: [ 'fr', 'en', 'it' ]
+    test('multilingual field spreads result over multiple fields if language is not set', () => {
+      const map = [multilingual({
+        languages: ['fr', 'en', 'it']
       }, {
         source: 'title'
-      } ) ];
+      })];
 
-      const flatten = flattener( map );
+      const flatten = flattener(map);
 
-      const flat = flatten( {
+      const flat = flatten({
         title: {
           fr: 'Vente A Emporter',
           en: 'Takeaway'
         }
-      } );
+      });
 
-      flat.should.eql( {
-        'title - FR' : 'Vente A Emporter',
-        'title - EN' : 'Takeaway',
-        'title - IT' : null
-      } );
-
-    } );
-
-
-  } );
-
-} );
+      expect(flat).toEqual({
+        'title - FR': 'Vente A Emporter',
+        'title - EN': 'Takeaway',
+        'title - IT': null
+      });
+    });
+  });
+});
