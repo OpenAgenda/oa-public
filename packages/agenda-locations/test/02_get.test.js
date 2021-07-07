@@ -83,9 +83,9 @@ describe('agenda-locations - functional - get', () => {
       expect(location.image.split('/').length).toBe(1);
     });
 
-    it('duplicates candidates && disqulified are in result', () => {
+    it('duplicates candidates && disqualified are in result', () => {
       expect({ duplicateCandidates: location.duplicateCandidates, disqualifiedDuplicates: location.disqualifiedDuplicates }).toStrictEqual(
-        { duplicateCandidates: [10, 20], disqualifiedDuplicates: [5] }
+        { duplicateCandidates: [10, 20, 51665986], disqualifiedDuplicates: [5] }
       );
     });
   });

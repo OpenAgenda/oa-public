@@ -59,6 +59,12 @@
       "value": "Supprimer"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Annuler la fusion"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.closeModal": [
     {
       "type": 0,
@@ -86,7 +92,7 @@
   "AgendaLocations.AgendaAdminLocation.mergeDescription": [
     {
       "type": 0,
-      "value": "Sélectionnez les lieux à fusionner puis"
+      "value": "Fusion de lieux"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.mergeInProgress": [
@@ -110,7 +116,7 @@
   "AgendaLocations.AgendaAdminLocation.toVerify": [
     {
       "type": 0,
-      "value": "Voir les lieux à vérifer"
+      "value": "Voir les lieux à vérifier"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.total": [
@@ -604,12 +610,6 @@
       "value": "Site web"
     }
   ],
-  "AgendaLocations.LocationItem.defineMergeTarget": [
-    {
-      "type": 0,
-      "value": "Définir comme lieu référence de la fusion"
-    }
-  ],
   "AgendaLocations.LocationItem.detailsButton": [
     {
       "type": 0,
@@ -677,6 +677,12 @@
       "value": "count"
     }
   ],
+  "AgendaLocations.LocationItem.select": [
+    {
+      "type": 0,
+      "value": "Sélectionner"
+    }
+  ],
   "AgendaLocations.LocationItem.unselect": [
     {
       "type": 0,
@@ -687,6 +693,49 @@
     {
       "type": 0,
       "value": "À vérifier"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyAndMerge": [
+    {
+      "type": 0,
+      "value": "Vérifier et fusionner"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyDuplicates": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 doublon à vérifier"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " doublons à vérifier"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "AgendaLocations.LocationSearch.create": [
@@ -1303,6 +1352,121 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.Selection": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun doublon indentifié"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 doublon sélectionné"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " doublons sélectionnés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.backToSelection": [
+    {
+      "type": 0,
+      "value": "Retour à la sélection"
+    }
+  ],
+  "AgendaLocations.stepper.backToTargetSelection": [
+    {
+      "type": 0,
+      "value": "Retour à la sélection du lieu cible"
+    }
+  ],
+  "AgendaLocations.stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "AgendaLocations.stepper.duplicatesSelection": [
+    {
+      "type": 0,
+      "value": "Sélection de doublons"
+    }
+  ],
+  "AgendaLocations.stepper.infoConfirmation": [
+    {
+      "type": 0,
+      "value": "Les lieux fusionnés seront supprimés et leurs évenements associés seront liés au lieu cible :"
+    }
+  ],
+  "AgendaLocations.stepper.infoRefSelection": [
+    {
+      "type": 0,
+      "value": "Sélectionnez un lieu cible parmi la sélection, celui-ci sera gardé a l'issue de la fusion"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelection": [
+    {
+      "type": 0,
+      "value": "Sélectionnez les lieux à fusionner (2 mininum)"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelectionFromDP": [
+    {
+      "type": 0,
+      "value": "Vérifiez la sélection de lieux à fusionner et retirez ceux qui ne sont pas des doublons."
+    }
+  ],
+  "AgendaLocations.stepper.launchMerge": [
+    {
+      "type": 0,
+      "value": "Launch merge"
+    }
+  ],
+  "AgendaLocations.stepper.next": [
+    {
+      "type": 0,
+      "value": "Suivant: "
+    }
+  ],
+  "AgendaLocations.stepper.see": [
+    {
+      "type": 0,
+      "value": "voir"
+    }
+  ],
+  "AgendaLocations.stepper.seeDetails": [
+    {
+      "type": 0,
+      "value": "Détails"
+    }
+  ],
+  "AgendaLocations.stepper.targetChoice": [
+    {
+      "type": 0,
+      "value": "Choix du lieu cible"
     }
   ]
 }
