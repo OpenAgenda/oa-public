@@ -20,6 +20,10 @@
     justify-content: space-between;
     padding-left: 0;
 
+    &.gray-bg-lightest .step {
+      background-color: $oa-gray-lightest;
+    }
+
     .step {
       font-size: 14px;
       color: #7d7d7d;
