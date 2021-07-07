@@ -80,6 +80,7 @@ module.exports = async options => {
     proxy: injectedProxy,
     jsonExportVersion,
     assetsRoot,
+    proxyHookBeforeGet
   } = config;
 
   const middlewareHooks = {
@@ -121,6 +122,7 @@ module.exports = async options => {
       defaultLimit: eventsPerPage,
       defaultFilter,
       defaultTimezone,
+      proxyHookBeforeGet
     });
 
   app.set('proxy', proxy);

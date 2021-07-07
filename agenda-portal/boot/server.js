@@ -56,4 +56,5 @@ Portal({
     zoom: 20,
   },
   eventHook,
+  // proxyHookBeforeGet
 }).then(({ app }) => app.launch(process.env.PORTAL_PORT));

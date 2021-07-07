@@ -31,6 +31,7 @@ module.exports = ({
   defaultFilter,
   defaultTimezone,
   jsonExportVersion,
+  proxyHookBeforeGet
 }) => {
   async function _fetch(agendaUid, res, query, forcedLimit = null) {
     const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
@@ -66,15 +67,17 @@ module.exports = ({
         offset,
       };
 
-    log('fetching', params);
-
     if (query && query.detailed) {
       params.detailed = query.detailed;
     }
 
+    const appliedParams = proxyHookBeforeGet ? proxyHookBeforeGet(params) : params;
+
+    log('fetching', appliedParams);
+
     return axios
       .get(`https://openagenda.com/agendas/${agendaUid}/${res}`, {
-        params,
+        params: appliedParams,
         paramsSerializer: unserialized => qs.stringify(unserialized, { arrayFormat: 'brackets' }),
       })
       .then(({ data }) => data);
