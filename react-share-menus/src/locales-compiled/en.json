@@ -1,8 +1,40 @@
 {
+  "aggregator-description": [
+    {
+      "type": 0,
+      "value": "Events published by "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " will be automatically added to the selected calendar."
+    }
+  ],
+  "aggregator-title": [
+    {
+      "type": 0,
+      "value": "Aggregate to an agenda"
+    }
+  ],
   "all-languages": [
     {
       "type": 0,
       "value": "All"
+    }
+  ],
+  "cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Close"
     }
   ],
   "input-format": [
@@ -17,10 +49,64 @@
       "value": "Choose a language"
     }
   ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "Instructions"
+    }
+  ],
+  "instructionsStep1": [
+    {
+      "type": 0,
+      "value": "Copy the link in the field above"
+    }
+  ],
+  "instructionsStep2": [
+    {
+      "type": 0,
+      "value": "Open "
+    }
+  ],
+  "instructionsStep3": [
+    {
+      "type": 0,
+      "value": "In the left section, open \"Other Calendars > Add by URL\""
+    }
+  ],
+  "instructionsStep4": [
+    {
+      "type": 0,
+      "value": "Follow the instructions by pasting the link you copied in step 1"
+    }
+  ],
   "modal-title": [
     {
       "type": 0,
       "value": "Export"
+    }
+  ],
+  "no-result": [
+    {
+      "type": 0,
+      "value": "Loading"
+    }
+  ],
+  "official-agenda": [
+    {
+      "type": 0,
+      "value": "Official agenda"
+    }
+  ],
+  "private-agenda": [
+    {
+      "type": 0,
+      "value": "Private agenda"
+    }
+  ],
+  "search-agenda": [
+    {
+      "type": 0,
+      "value": "Search"
     }
   ]
 }

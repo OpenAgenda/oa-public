@@ -1,4 +1,6 @@
 {
+  "aggregator-description": "Les événements publiés par {targetAgenda} seront automatiquement ajoutés à l'agenda sélectionné.",
+  "aggregator-title": "Agréger à un agenda",
   "all-languages": "Toutes",
   "cancel": "Annuler",
   "close": "Fermer",
@@ -9,5 +11,9 @@
   "instructionsStep2": "Ouvrez ",
   "instructionsStep3": "Dans la section de gauche, ouvrez \"Autres Calendriers > Ajouter par URL\"",
   "instructionsStep4": "Suivez les instructions en collant le lien que vous avez copié à l'étape 1",
-  "modal-title": "Exporter"
+  "modal-title": "Exporter",
+  "no-result": "Aucun résultat",
+  "official-agenda": "Agenda officiel",
+  "private-agenda": "Agenda privé",
+  "search-agenda": "Recherche"
 }

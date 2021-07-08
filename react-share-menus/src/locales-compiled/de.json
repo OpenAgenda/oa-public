@@ -1,8 +1,40 @@
 {
+  "aggregator-description": [
+    {
+      "type": 0,
+      "value": "Events published by "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " will be automatically added to the selected calendar."
+    }
+  ],
+  "aggregator-title": [
+    {
+      "type": 0,
+      "value": "Aggregate to an agenda"
+    }
+  ],
   "all-languages": [
     {
       "type": 0,
       "value": "Alle"
+    }
+  ],
+  "cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Schließen"
     }
   ],
   "input-format": [
@@ -17,10 +49,64 @@
       "value": "Eine Sprache auswählen"
     }
   ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "Anweisungen"
+    }
+  ],
+  "instructionsStep1": [
+    {
+      "type": 0,
+      "value": "Kopieren Sie den obigen Link"
+    }
+  ],
+  "instructionsStep2": [
+    {
+      "type": 0,
+      "value": "Öffnen Sie "
+    }
+  ],
+  "instructionsStep3": [
+    {
+      "type": 0,
+      "value": "Öffnen Sie im linken Bereich, \"Weitere Kalender > Per URL\""
+    }
+  ],
+  "instructionsStep4": [
+    {
+      "type": 0,
+      "value": "Einfügen Sie den Link den Sie in Schritt 1 kopiert haben und folgen Sie den Anweisungen"
+    }
+  ],
   "modal-title": [
     {
       "type": 0,
       "value": "Exportieren"
+    }
+  ],
+  "no-result": [
+    {
+      "type": 0,
+      "value": "Loading"
+    }
+  ],
+  "official-agenda": [
+    {
+      "type": 0,
+      "value": "Official agenda"
+    }
+  ],
+  "private-agenda": [
+    {
+      "type": 0,
+      "value": "Private agenda"
+    }
+  ],
+  "search-agenda": [
+    {
+      "type": 0,
+      "value": "Search"
     }
   ]
 }
