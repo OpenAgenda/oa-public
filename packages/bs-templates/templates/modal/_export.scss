@@ -3,15 +3,14 @@
     display: flex;
     align-items: center;
   }
-  
+
   &__form {
-    position: relative;
-    max-width: 100%;
+    width: 100%;
     color: black;
+    position: relative;
   }
 
-  &__title
-  {
+  &__title {
     &--big {
       font-size: 3rem;
     }
@@ -20,24 +19,39 @@
     }
   }
 
-  &__close {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__close
+  {
+    margin-left: 100%;
+    position: sticky;
+    display: inline-block;
     background: none;
     border: none;
     color: #4f4f4f;
-    line-height: 40px;
-    padding: 0 10px;
-    position: absolute;
-    right: -1.5rem;
-    top: -2.5rem;
+    transform: translateY(10px);
+    padding: 0;
+    right: 0;
+    top: -0.5rem;
     vertical-align: middle;
     cursor: pointer;
+    z-index: 1;
 
     &:hover {
       color: black;
     }
   }
 
-   &__btn {
+  #event &__close {
+    right: 1rem;
+    top: -0.5rem;
+  }
+
+  &__btn {
     margin-bottom: 20px;
   }
 
@@ -53,17 +67,12 @@
 
   > a {
     color: $oa-blue;
-  
-  &:hover {
-    cursor: pointer;
-    }
-  }  
-}
 
-/* .input-textarea {
-  width: 80%;
-  font-size: 1.3rem;
-} */
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
 
 .form-group > .input-group > .form-control.export {
   &__input,
@@ -97,6 +106,10 @@
   &--big {
     margin-top: 20px;
     font-size: 3rem;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 0;
+    transform: translateY(-20px);
   }
 }
 
@@ -104,3 +117,13 @@
   margin-bottom: 20px;
 }
 
+.aggregator__input.input-icon-right {
+  max-width: 100%;
+}
+
+#event h1.export__title--big {
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 0;
+  transform: translateY(-20px);
+}
