@@ -13,14 +13,11 @@ export default Story => {
             <div className="row wsq header">
               <div className="col col-sm-2">
                 <a className="agenda-logo" href="/">
-                  <img
-                    src="https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
-                    alt="Logo OpenAgenda"
-                  />
+                  <img src="https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png" alt="Logo OpenAgenda" />
                 </a>
               </div>
               <div className="col col-sm-10">
-                <h1>OpenAgenda</h1>
+                <h1>Ville de Lille</h1>
               </div>
             </div>
           </div>
@@ -43,4 +40,4 @@ export default Story => {
       </div>
     </IntlProvider>
   );
-}
+};
