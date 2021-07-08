@@ -30,7 +30,11 @@ module.exports = (mainSASSFilePath, assetsPath) => new Promise((rs, rj) => {
           filename: '[name].css',
           chunkFilename: '[id].css',
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin({
+          cleanOnceBeforeBuildPatterns: [
+            `${assetsPath}/main.css`
+          ]
+        })
       ],
       optimization: {
         minimizer: [new CssMinimizerPlugin()],
