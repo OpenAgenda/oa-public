@@ -55,9 +55,10 @@
                 >
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>
-                <% if ( agenda.importUri ) { %>
+              <% if ( agenda.importUri ) { %>
                 <div class="js_export_all"></div>
-                <% } %>
+              <% } %>
+                <div class="js_aggregate"></div>
                 <a class="btn btn-primary display-none js_add_button margin-bottom-xs" href="<%= `/${agenda.slug}/contribute` %>">
                     <i class="fa fa-plus" aria-hidden="true"></i> <%= __( 'addEvent' ) %>
                 </a>

@@ -2,6 +2,7 @@
 
 import { setOptions } from 'marked';
 import displayExportButton from './displayExportButton';
+import displayAggregateButton from './displayAggregateButton';
 
 const controllers = require('../../widgets/controller/main'),
   qs = require('qs'),
@@ -37,7 +38,8 @@ const controllers = require('../../widgets/controller/main'),
       titleSection: '.js_agenda_title',
       searchLinks: '.js_use_search', // add search params to links with this class
       export: '.js_export',
-      exportAll: '.js_export_all'
+      exportAll: '.js_export_all',
+      aggregate: '.js_aggregate',
     },
     res: {
       role: '/session/agendas/:agendaUid/role',
@@ -103,10 +105,12 @@ window.asap(options => {
 
       if (res?.length && !ctl.prv) {
         displayExportButton(params, uid, controller, options, { exportAll: true });
+        
       }
 
       if (!ctl.prv) {
         displayExportButton(params, uid, controller, options, { exportAll: false });
+        displayAggregateButton(params, options);
       }
 
       if (['administrator', 'moderator'].indexOf(res) !== -1) {
