@@ -85,13 +85,12 @@ class Stepper extends Component {
     const { merge } = this.props;
     const { step } = merge;
     const {
-      goToMergeStep2, goToMergeStep3, seeSelection, launchMerge
+      goToMergeStep2, seeSelection, launchMerge
     } = this.props;
     if (step === 1) {
-      goToMergeStep2();
       seeSelection();
+      setTimeout(() => { goToMergeStep2(); }, 600);
     }
-    if (step === 2 && merge.target) goToMergeStep3();
     if (step === 3) launchMerge();
   }
 

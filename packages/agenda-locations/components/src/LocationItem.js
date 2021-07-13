@@ -242,7 +242,7 @@ class LocationItem extends Component {
             {!merge ? editButton : null}
             {!merge ? removeButton : null}
           </div>
-          {location.duplicateCandidates ? (
+          {location.duplicateCandidates && location.duplicateCandidates.length > 0 ? (
             <div>
               <span className="badge badge-warning">
                 <FormattedMessage values={{ count: location.duplicateCandidates.length }} {...messages.verifyDuplicates} />
