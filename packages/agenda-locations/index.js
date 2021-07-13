@@ -122,9 +122,9 @@ module.exports = Object.assign(
         locations: {
           ...endpoints,
           create: create.bySetUid.bind(null, svc, setUid),
-          merge: merge.bySetUid.bind(null, svc, setUid),
+          merge: merge.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
           terms: terms.bySetUid.bind(null, svc, setUid),
-          remove: remove.bySetUid.bind(null, svc, setUid),
+          remove: remove.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
           update: update.bySetUid.bind(
             null,
             { service: svc, isPatch: false },
@@ -163,10 +163,10 @@ module.exports = Object.assign(
           { service: svc, isPatch: false },
           agendaUid
         ),
-        remove: remove.byAgendaUid.bind(null, svc, agendaUid),
+        remove: remove.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         list: list.byAgendaUid.bind(null, svc, agendaUid),
         terms: terms.byAgendaUid.bind(null, svc, agendaUid),
-        merge: merge.byAgendaUid.bind(null, svc, agendaUid),
+        merge: merge.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         get: get.byAgendaUid.bind(null, svc, agendaUid),
         settings: {
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
