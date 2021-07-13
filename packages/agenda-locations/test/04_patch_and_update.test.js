@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const fs = require('fs');
 const _ = require('lodash');
 
@@ -11,10 +10,10 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
+const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/updateData.json');
-const Service = require('..');
 
 const initSettings = require('./fixtures/agendaTestSettings');
 
@@ -25,23 +24,27 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsDA = {...initSettings, access: {
-  create: defaultAccess,
-  delete: defaultAccess,
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsDA = {
+  ...initSettings,
+  access: {
+    create: defaultAccess,
+    delete: defaultAccess,
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-const initSettingsCantUpdate = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: defaultAccess,
-  update: {...defaultAccess, authorized: false}
-}}
+const initSettingsCantUpdate = {
+  ...initSettings,
+  access: {
+    create: { ...defaultAccess, authorized: false },
+    delete: { ...defaultAccess, authorized: false },
+    merge: defaultAccess,
+    update: { ...defaultAccess, authorized: false }
+  }
+};
 
 describe('agenda-locations - functional - patch & update', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -72,39 +75,34 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('basic update provides updated location as a response', async () => {
-      assert.equal(updated.name, payload.name);
+      expect(updated.name).toEqual(payload.name);
     });
   });
 
   describe('default patch', () => {
-    let patched;
     const entry = {};
 
     beforeAll(async () => {
       entry.before = await f.client('location').first().where('uid', 89634707);
 
-      patched = await svc(7196947).patch(89634707, {
+      await svc(7196947).patch(89634707, {
         name: 'Patched name',
       });
       entry.after = await f.client('location').first().where('uid', 89634707);
     });
 
     it('basic patch only affects provided fields', () => {
-      assert.equal(entry.after.placename, 'Patched name');
-      assert.equal(entry.after.address, 'Rue du château, 07570 Désaignes');
+      expect(entry.after.placename).toEqual('Patched name');
+      expect(entry.after.address).toEqual('Rue du château, 07570 Désaignes');
     });
 
     it('updatedAt is updated', async () => {
-      assert.notEqual(
-        JSON.stringify(entry.before.updated_at),
-        JSON.stringify(entry.after.updated_at)
-      );
+      expect(JSON.stringify(entry.before.updated_at)).not.toEqual(JSON.stringify(entry.after.updated_at));
     });
   });
 
   describe('patching image', () => {
     let entry;
-    //this.timeout(20000);
 
     beforeAll(async () => {
       await svc(7196947).patch(94482437, {
@@ -117,20 +115,16 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('saves uploaded image name in db', () => {
-      assert.equal(
-        JSON.parse(entry.store).image.split('?').shift(),
-        'location94482437.jpg'
-      );
+      expect(JSON.parse(entry.store).image.split('?').shift()).toEqual('location94482437.jpg');
     });
 
     it('patching image in store does not affect other store fields', () => {
-      assert.equal(JSON.parse(entry.store).extId, 22);
+      expect(JSON.parse(entry.store).extId).toEqual('22');
     });
   });
 
-   describe('patching duplicates', () => {
+  describe('patching duplicates', () => {
     let entry;
-    //this.timeout(20000);
 
     beforeAll(async () => {
       await svc(7196947).patch(51665987, {
@@ -141,60 +135,51 @@ describe('agenda-locations - functional - patch & update', () => {
     });
 
     it('saves uploaded candidates in db', () => {
-        assert.deepEqual(JSON.parse(entry.duplicates).candidates, [30]);
+      expect(JSON.parse(entry.duplicates).candidates).toStrictEqual([30]);
     });
 
-    it(
-      'patching candidates in duplicates does not affect other duplicates fields',
-      () => {
-        assert.deepEqual(JSON.parse(entry.duplicates).disqualified, [5]);
-      }
-    );
+    it('patching candidates in duplicates does not affect other duplicates fields', () => {
+      expect(JSON.parse(entry.duplicates).disqualified).toStrictEqual([5]);
+    });
   });
 
   describe('set', () => {
     it('updates', async () => {
-      const result = await svc
+      await svc
         .sets(1903810)
         .locations.update(30433085, payload);
-      assert.equal(
+      expect(
         await f
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.placename),
-        payload.name
-      );
+          .then(r => r.placename)
+      ).toEqual(payload.name);
     });
 
     it('patches', async () => {
       await svc.sets(1903810).locations.patch(30433085, {
         name: 'Patched',
       });
-      assert.equal(
+      expect(
         await f
           .client('location')
           .first()
           .where('uid', 30433085)
-          .then(r => r.placename),
-        'Patched'
-      );
+          .then(r => r.placename)
+      ).toEqual('Patched');
     });
 
-    it(
-      'update through agendas endpoint does not clear set uid of location',
-      async () => {
-        const result = await svc(7196947).update(30433085, payload);
-        assert.equal(
-          await f
-            .client('location')
-            .first()
-            .where('uid', 30433085)
-            .then(r => r.set_uid),
-          1903810
-        );
-      }
-    );
+    it('update through agendas endpoint does not clear set uid of location', async () => {
+      await svc(7196947).update(30433085, payload);
+      expect(
+        await f
+          .client('location')
+          .first()
+          .where('uid', 30433085)
+          .then(r => r.set_uid)
+      ).toEqual(1903810);
+    });
   });
 
   describe('other', () => {
@@ -204,7 +189,7 @@ describe('agenda-locations - functional - patch & update', () => {
         uid: 1,
       });
 
-      assert.equal(updated.uid, 95301591);
+      expect(updated.uid).toEqual(95301591);
     });
 
     it('imageCredits can be patched on location with image', async () => {
@@ -223,7 +208,7 @@ describe('agenda-locations - functional - patch & update', () => {
         latitude: 44.339599
       });
 
-      assert.equal(updated.imageCredits, 'New credits');
+      expect(updated.imageCredits).toEqual('New credits');
     });
 
     it('uid cannot be modified through patch', async () => {
@@ -232,7 +217,7 @@ describe('agenda-locations - functional - patch & update', () => {
         uid: 1,
       });
 
-      assert.equal(updated.uid, 95301591);
+      expect(updated.uid).toEqual(95301591);
     });
 
     it('if extId is not part of patch, it is synced from legacy', async () => {
@@ -243,7 +228,7 @@ describe('agenda-locations - functional - patch & update', () => {
         .first('ext_id')
         .where('uid', 7630649);
 
-      assert.equal(entry.ext_id, 'leg_ard_03');
+      expect(entry.ext_id).toEqual('leg_ard_03');
     });
 
     it(
@@ -262,8 +247,8 @@ describe('agenda-locations - functional - patch & update', () => {
             extId: r.ext_id,
           }));
 
-        assert.equal(store.extId, 'ard_leg_1200');
-        assert.equal(updated.extId, 'ard_leg_1200');
+        expect(store.extId).toEqual('ard_leg_1200');
+        expect(updated.extId).toEqual('ard_leg_1200');
       }
     );
 
@@ -273,21 +258,17 @@ describe('agenda-locations - functional - patch & update', () => {
         const updated = await svc(7196947).update(
           95301591,
           _.omit(payload, ['latitude', 'longitude']),
-          {
-            geocodeIfUndefined: true,
-          }
+          { geocodeIfUndefined: true }
         );
 
-        assert.equal(updated.latitude, 10);
-        assert.equal(updated.longitude, 11);
+        expect(updated.latitude).toEqual(10);
+        expect(updated.longitude).toEqual(11);
       }
     );
   });
 });
 
 describe('agenda-locations - functional - patch & update - no rights', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -309,35 +290,38 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
       Files: Files(dConfig.files),
     });
   });
+
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    beforeAll(async ()=>{
+    beforeAll(async () => {
       try {
         await svc(7196947).update(95301591, payload);
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
-    it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');;
     });
-  });describe('test allow bySetUid', () => {
+
+    it('allow should throw Error', () => {
+      expect(thrownError.name).toEqual('UnauthorizedError');
+    });
+  });
+
+  describe('test allow bySetUid', () => {
     let thrownError;
 
-    beforeAll(async ()=>{
+    beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.patch(60763722, {
           extId: 'ard_leg_1200',
         });
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
+    });
+
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
 });

@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const fs = require('fs');
 const _ = require('lodash');
 const redis = require('redis');
@@ -12,10 +11,10 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
+const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/createData.json');
-const Service = require('..');
 const initSettings = require('./fixtures/agendaTestSettings');
 
 const defaultAccess = {
@@ -25,23 +24,27 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsDA = {...initSettings, access: {
-  create: defaultAccess,
-  delete: defaultAccess,
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsDA = {
+  ...initSettings,
+  access: {
+    create: defaultAccess,
+    delete: defaultAccess,
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-const initSettingsCantCreate = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsCantCreate = {
+  ...initSettings,
+  access: {
+    create: { ...defaultAccess, authorized: false },
+    delete: { ...defaultAccess, authorized: false },
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
 describe('agenda-locations - functional - create', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -87,19 +90,19 @@ describe('agenda-locations - functional - create', () => {
     });
 
     it('basic create provides created location as a response', async () => {
-      assert.equal(created.name, payload.name);
+      expect(created.name).toEqual(payload.name);
     });
 
     it('uid is added during create', () => {
-      assert.equal(typeof created.uid, 'number');
+      expect(typeof created.uid).toEqual('number');
     });
 
     it('slug is added during create', () => {
-      assert.equal(typeof created.slug, 'string');
+      expect(typeof created.slug).toEqual('string');
     });
 
     it('by default state value is 0', () => {
-      assert.equal(created.state, 0);
+      expect(created.state).toEqual(0);
     });
 
     it('new entry is in db', async () => {
@@ -108,21 +111,20 @@ describe('agenda-locations - functional - create', () => {
         .first('placename')
         .where('uid', created.uid);
 
-      assert.equal(entry.placename, created.name);
+      expect(entry.placename).toEqual(created.name);
     });
 
     it('result does not provide agendaId', () => {
-      assert(created.agendaId === undefined);
+      expect(created.agendaId).toBeUndefined();
     });
-
 
     it('store after creation', async () => {
       const entry = await f
-      .client('location')
-      .first('store', 'ext_id')
-      .where('uid', created.uid);
+        .client('location')
+        .first('store', 'ext_id')
+        .where('uid', created.uid);
 
-      assert.equal(JSON.parse(entry.store).extId, 123456);
+      expect(JSON.parse(entry.store).extId).toBe('123456');
     });
   });
 
@@ -141,23 +143,22 @@ describe('agenda-locations - functional - create', () => {
     });
 
     it('created location is associated to set', () => {
-      assert.equal(created.setUid, 1903810);
+      expect(created.setUid).toBe(1903810);
     });
 
     it('entry has set uid', async () => {
-      assert.equal(
-        await f
-          .client('location')
-          .first('set_uid')
-          .where('uid', created.uid)
-          .then(r => r.set_uid),
-        1903810
-      );
+      const entrySetUid = await f
+        .client('location')
+        .first('set_uid')
+        .where('uid', created.uid)
+        .then(r => r.set_uid);
+      expect(entrySetUid).toBe(1903810);
     });
 
     it(
       'location cannot be created if specified set does not exist',
       async () => {
+        let error;
         try {
           await svc.sets(90389033829).locations.create(
             {
@@ -168,24 +169,21 @@ describe('agenda-locations - functional - create', () => {
             { geocodeIfUndefined: true }
           );
         } catch (e) {
-          assert.equal(e.message, 'Not found');
-          return;
+          error = e;
         }
-        throw new Error('Should not reach here');
+        expect(error.message).toBe('Not found');
       }
     );
 
     it(
       'location created on agendas endpoints and on an agenda associated with set is also associated to set',
       async () => {
-        const created = await svc(7196947).create(payload);
-        assert.equal(created.setUid, 1903810);
+        expect((await svc(7196947).create(payload)).setUid).toBe(1903810);
       }
     );
   });
 
   describe('with image', () => {
-    //this.timeout(10000);
     let created;
 
     beforeAll(async () => {
@@ -207,13 +205,11 @@ describe('agenda-locations - functional - create', () => {
         .first('store')
         .where('uid', created.uid);
 
-      assert.equal(JSON.parse(entry.store).image, `location${created.uid}.jpg`);
+      expect(JSON.parse(entry.store).image).toBe(`location${created.uid}.jpg`);
     });
   });
 
   describe('geocodeIfUndefined', () => {
-    //this.timeout(10000);
-
     let location;
 
     beforeAll(async () => {
@@ -230,12 +226,12 @@ describe('agenda-locations - functional - create', () => {
     });
 
     it('latitude and longitude are defined in created location', () => {
-      assert.equal(location.latitude, 47.6576571);
-      assert.equal(location.longitude, -2.7834928);
+      expect(location.latitude).toBe(47.6576571);
+      expect(location.longitude).toBe(-2.7834928);
     });
 
     it('insee code is defined if provided by interface', () => {
-      assert.equal(location.insee, '56260');
+      expect(location.insee).toBe('56260');
     });
   });
 
@@ -256,14 +252,13 @@ describe('agenda-locations - functional - create', () => {
           insee: '41173',
           countryCode: 'FR',
         });
+        expect(l).toBeDefined();
       }
     );
   });
 });
 
-
 describe('agenda-locations - functional - create - no rights', () => {
-  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
@@ -308,13 +303,12 @@ describe('agenda-locations - functional - create - no rights', () => {
     beforeAll(async () => {
       try {
         await svc(7196947).create(payload);
-      }
-      catch(error) {
-        thrownError = error
+      } catch (error) {
+        thrownError = error;
       }
     });
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toBe('UnauthorizedError');
     });
   });
 
@@ -331,13 +325,13 @@ describe('agenda-locations - functional - create - no rights', () => {
           },
           { geocodeIfUndefined: true }
         );
-      } catch(error) {
-        thrownError = error
+      } catch (error) {
+        thrownError = error;
       }
     });
 
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toBe('UnauthorizedError');
     });
   });
 });

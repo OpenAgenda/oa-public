@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
@@ -10,8 +9,8 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
 const initSettings = require('./fixtures/agendaTestSettings');
 
@@ -22,22 +21,27 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsDA = {...initSettings, access: {
-  create: defaultAccess,
-  delete: defaultAccess,
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsDA = {
+  ...initSettings,
+  access: {
+    create: defaultAccess,
+    delete: defaultAccess,
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-const initSettingsCantRemove = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsCantRemove = {
+  ...initSettings,
+  access: {
+    create: { ...defaultAccess, authorized: false },
+    delete: { ...defaultAccess, authorized: false },
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
 describe('agenda-locations - functional - remove', () => {
-  //this.timeout(10000);
 
   const f = fixtures(config.mysql);
 
@@ -73,7 +77,7 @@ describe('agenda-locations - functional - remove', () => {
     });
 
     it('remove provides removed location in response', () => {
-      assert.equal(removed.uid, 95301591);
+      expect(removed.uid).toEqual(95301591);
     });
 
     it('removed location is still present in db with deleted = 1', async () => {
@@ -81,28 +85,39 @@ describe('agenda-locations - functional - remove', () => {
         .client('location')
         .first()
         .where('uid', removed.uid);
-        
-      assert.equal(entry.deleted, 1);
+
+      expect(entry.deleted).toEqual(1);
     });
 
     it(
       'removed location is passed to interface before it is removed',
       async () => {
-        assert.equal(passedToInterface && passedToInterface.uid, 95301591);
+        expect(passedToInterface && passedToInterface.uid).toEqual(95301591);
       }
     );
+  });
 
+  describe('duplicates handling', () => {
+    beforeAll(async () => {
+      await svc(7196947).remove(51665987);
+    });
+
+    it('remove removed uid from duplicates candidates', async () => {
+      await new Promise(r => setTimeout(r, 40));
+      const test = await svc(7196947).get(51665986);
+      expect(test.duplicateCandidates).toStrictEqual([]);
+    });
   });
 
   describe('set', () => {
     let removed;
 
     beforeAll(async () => {
-      removed = await svc.sets(1903810).locations.remove(51665987);
+      removed = await svc.sets(1903810).locations.remove(60763721);
     });
 
     it('remove provides removed location in response', () => {
-      assert.equal(removed.uid, 51665987);
+      expect(removed.uid).toEqual(60763721);
     });
 
     it('removed location is still present in db with deleted = 1', async () => {
@@ -111,19 +126,15 @@ describe('agenda-locations - functional - remove', () => {
         .first()
         .where('uid', removed.uid);
 
-      assert.equal(entry.deleted, 1);
+      expect(entry.deleted).toEqual(1);
     });
   });
 });
 
 describe('agenda-locations - functional - remove - no rights', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
-
-  let passedToInterface;
 
   beforeAll(async () => {
     await f.load();
@@ -138,7 +149,8 @@ describe('agenda-locations - functional - remove - no rights', () => {
           }[uid],
         }),
         beforeRemove: async l => {
-          passedToInterface = l;
+          const passedToInterface = l;
+          return passedToInterface;
         },
         getAgendaLocationSettings: async (uid) => initSettingsCantRemove
       },
@@ -147,16 +159,15 @@ describe('agenda-locations - functional - remove - no rights', () => {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    beforeAll(async ()=>{
+    beforeAll(async () => {
       try {
         await svc(7196947).remove(95301591);
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
+    });
     it('allow should throw Error', async () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
   describe('test allow bySetUid', () => {
@@ -165,13 +176,12 @@ describe('agenda-locations - functional - remove - no rights', () => {
     beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.remove(60763722);
-      }
-      catch(error){
+      } catch (error) {
         thrownError = error;
       }
-    })
+    });
     it('allow should throw Error', async () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
 });

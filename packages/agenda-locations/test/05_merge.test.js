@@ -1,17 +1,15 @@
 'use strict';
 
-const assert = require('assert');
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig,
 } = require('../testconfig.sample');
+const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/mergeData.json');
-const Service = require('..');
-
 const initSettings = require('./fixtures/agendaTestSettings');
 
 const defaultAccess = {
@@ -21,23 +19,27 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsDA = {...initSettings, access: {
-  create: defaultAccess,
-  delete: defaultAccess,
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsDA = {
+  ...initSettings,
+  access: {
+    create: defaultAccess,
+    delete: defaultAccess,
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-const initSettingsCantMerge = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: {...defaultAccess, authorized: false},
-  update: defaultAccess
-}}
+const initSettingsCantMerge = {
+  ...initSettings,
+  access: {
+    create: { ...defaultAccess, authorized: false },
+    delete: { ...defaultAccess, authorized: false },
+    merge: { ...defaultAccess, authorized: false },
+    update: defaultAccess
+  }
+};
 
 describe('agenda-locations - functional - merge', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -80,7 +82,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 95301591);
+      expect(location.uid).toEqual(95301591);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
@@ -90,7 +92,7 @@ describe('agenda-locations - functional - merge', () => {
         .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
-      assert.equal(afterCount, beforeCount - 2);
+      expect(afterCount).toEqual(beforeCount - 2);
     });
   });
 
@@ -112,7 +114,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 95301591);
+      expect(location.uid).toEqual(95301591);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
@@ -122,7 +124,7 @@ describe('agenda-locations - functional - merge', () => {
         .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
-      assert.equal(afterCount, beforeCount - 2);
+      expect(afterCount).toEqual(beforeCount - 2);
     });
 
     it('deleted location as merged_in field', async () => {
@@ -131,7 +133,7 @@ describe('agenda-locations - functional - merge', () => {
         .first('merged_in')
         .where('uid', 13470871)
         .then(r => r);
-      assert.equal(mergedInObj.merged_in, 95301591);
+      expect(mergedInObj.merged_in).toEqual(95301591);
     });
   });
 
@@ -157,7 +159,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 51665987);
+      expect(location.uid).toEqual(51665987);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
@@ -167,14 +169,12 @@ describe('agenda-locations - functional - merge', () => {
         .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
-      assert.equal(afterCount, beforeCount - 2);
+      expect(afterCount).toEqual(beforeCount - 2);
     });
   });
 });
 
 describe('agenda-locations - functional - merge - no rights', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -199,26 +199,27 @@ describe('agenda-locations - functional - merge - no rights', () => {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    beforeAll(async ()=>{
+    beforeAll(async () => {
       try {
         await svc(7196947).merge(
           95301591,
           { uids: [40305210, 52758960] },
           { name: 'fusionné' }
         );
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
+    });
+
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
+
   describe('test allow bySetUid', () => {
     let thrownError;
 
-    beforeAll(async ()=>{
+    beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.merge(
           51665986,
@@ -229,13 +230,13 @@ describe('agenda-locations - functional - merge - no rights', () => {
             name: 'fusionné',
           }
         );
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
+    });
+
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
 });

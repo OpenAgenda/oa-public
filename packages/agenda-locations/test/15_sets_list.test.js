@@ -1,19 +1,15 @@
 'use strict';
 
-const assert = require('assert');
-
 const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
 describe('agenda-locations - functional - sets list', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -31,7 +27,7 @@ describe('agenda-locations - functional - sets list', () => {
 
   it('basic list gets uids and titles', async () => {
     const sets = await svc.sets.list();
-    assert.deepStrictEqual(sets, [
+    expect(sets).toStrictEqual([
       {
         uid: 1903810,
         title: 'Les lieux du département Ardèchois'
@@ -40,7 +36,8 @@ describe('agenda-locations - functional - sets list', () => {
         title: 'Les autres lieux du département Ardèchois'
       }, {
         uid: 1903812,
-        title: 'Les lieux du Bouchonnois' 
-      }])
+        title: 'Les lieux du Bouchonnois'
+      }
+    ]);
   });
 });

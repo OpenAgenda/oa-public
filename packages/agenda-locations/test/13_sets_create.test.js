@@ -1,19 +1,15 @@
 'use strict';
 
-const assert = require('assert');
-
 const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
 describe('agenda-locations - functional - sets create', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -36,7 +32,7 @@ describe('agenda-locations - functional - sets create', () => {
   });
 
   it('created set is given as the response', () => {
-    assert.deepEqual(Object.keys(created), [
+    expect(Object.keys(created)).toStrictEqual([
       'uid',
       'title',
       'createdAt',
@@ -45,17 +41,14 @@ describe('agenda-locations - functional - sets create', () => {
   });
 
   it('entry is added', async () => {
-    assert(await f.client('location_set').first().where('uid', created.uid));
+    expect(await f.client('location_set').first().where('uid', created.uid)).toBeDefined();
   });
 
   it('title is in entry', async () => {
-    assert.equal(
-      await f
-        .client('location_set')
-        .first()
-        .where('uid', created.uid)
-        .then(r => r.title),
-      'Un jeu de lieux'
-    );
+    expect(await f
+      .client('location_set')
+      .first()
+      .where('uid', created.uid)
+      .then(r => r.title)).toEqual('Un jeu de lieux');
   });
 });

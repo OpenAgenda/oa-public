@@ -12,7 +12,7 @@ const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 const legacy = require('./lib/legacy');
 
 async function get(service, identifiers, options = {}) {
-  log('received %j %j', identifiers, options);
+  log('received %j %j %j', identifiers, options, service);
   const k = service.clients.knex(service.config.schema);
   const {
     eventCounts: includeEventCounts,

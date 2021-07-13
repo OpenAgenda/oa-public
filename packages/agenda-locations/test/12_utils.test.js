@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const decorateWithCounts = require('../lib/decorateWithCounts');
 
 describe('utils', () => {
@@ -25,7 +24,7 @@ describe('utils', () => {
         },
       ]);
 
-      assert.deepEqual(locations, [
+      expect(locations).toStrictEqual([
         {
           uid: 111,
           name: 'Le Monop',

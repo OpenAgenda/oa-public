@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
@@ -85,7 +84,7 @@ describe('agenda-locations - functional - get', () => {
 
     it('duplicates candidates && disqualified are in result', () => {
       expect({ duplicateCandidates: location.duplicateCandidates, disqualifiedDuplicates: location.disqualifiedDuplicates }).toStrictEqual(
-        { duplicateCandidates: [10, 20, 51665986], disqualifiedDuplicates: [5] }
+        { duplicateCandidates: [51665986, 2], disqualifiedDuplicates: [5] }
       );
     });
   });
@@ -115,13 +114,10 @@ describe('agenda-locations - functional - get', () => {
       }
     );
 
-    it(
-      'soft-deleted location is accessible through get with option deleted:null',
-      async () => {
-        const location = await svc.get(7630652, { deleted: null });
-        expect(location.uid).toBe(7630652);
-      }
-    );
+    it('soft-deleted location is accessible through get with option deleted:null', async () => {
+      const location = await svc.get(7630652, { deleted: null });
+      expect(location.uid).toBe(7630652);
+    });
 
     it(
       'Not soft-deleted location is accessible through get with option deleted:null',

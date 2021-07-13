@@ -1,18 +1,16 @@
 'use strict';
 
-const assert = require('assert');
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
-const buildDistancesAndEvaluate = require('../duplicates/buildDistancesAndEvaluate');
 
 const {
   service: config,
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
 async function getAgendaDetailsByUid(uid, fields = []) {
   return _.pick(
@@ -25,8 +23,6 @@ async function getAgendaDetailsByUid(uid, fields = []) {
 }
 
 describe('agenda-locations - functional - Duplicates functions', () => {
-  //this.timeout(10000);
-
   const f = fixtures(config.mysql, 'hauteSavoie.sql');
 
   let svc;
@@ -56,25 +52,26 @@ describe('agenda-locations - functional - Duplicates functions', () => {
       latitude: 45.898752,
       longitude: 6.040199,
     };
-    
+
     it('detects one duplicate candidate', async () => {
       const candidates = await svc(7196947).duplicates.detect(location);
-      assert.deepStrictEqual(candidates, [77635823, 77635822]);
+      expect(candidates).toStrictEqual([77635823, 77635822]);
     });
 
     it('detects one duplicate candidate through SetUid', async () => {
       const candidates = await svc.sets(1903810).locations.duplicates.detect(location);
-      assert.deepStrictEqual(candidates, [77635823, 77635822]);
+      expect(candidates).toStrictEqual([77635823, 77635822]);
     });
 
     it('save option with sample', async () => {
+      let thrownError;
       try {
-        await svc(7196947).duplicates.detect(location,{ saveCandidates: true });
+        await svc(7196947).duplicates.detect(location, { saveCandidates: true });
+      } catch (e) {
+        thrownError = e;
+        return (e);
       }
-      catch(e) {
-        assert(e.message, 'Bad request');
-        return(e);
-      }
+      expect(thrownError.name).toEqual('Bad request');
       throw new Error('Should have thrown an error');
     });
   });
@@ -85,8 +82,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
       await svc(7196947).duplicates.detect(77635822,{ saveCandidates: true });
       const entry1 = await f.client('location').first().where('uid', 77635822);
       const entry2 = await f.client('location').first().where('uid', 77635823);
-      assert.deepStrictEqual(JSON.parse(entry1.duplicates).candidates, [77635823]);
-      assert.deepStrictEqual(JSON.parse(entry2.duplicates).candidates, [77635822]);
+      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([77635823]);
+      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([77635822]);
     });
   });
 
@@ -98,14 +95,16 @@ describe('agenda-locations - functional - Duplicates functions', () => {
       await svc(7196947).duplicates.disqualifyCandidate(77164958, 90760072);
       entry1 = await f.client('location').first().where('uid', 90760072);
       entry2 = await f.client('location').first().where('uid', 77164958);
-    })
-    it('both location uid are not in each other candidates anymore', () => {
-      assert.deepStrictEqual(JSON.parse(entry1.duplicates).candidates, []);
-      assert.deepStrictEqual(JSON.parse(entry2.duplicates).candidates, []);
     });
+
+    it('both location uid are not in each other candidates anymore', () => {
+      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([]);
+      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([]);
+    });
+
     it('both location uid are now in each other disqualified duplicates', () => {
-      assert.deepStrictEqual(JSON.parse(entry1.duplicates).disqualified, [77164958]);
-      assert.deepStrictEqual(JSON.parse(entry2.duplicates).disqualified, [90760072]);
+      expect(JSON.parse(entry1.duplicates).disqualified).toStrictEqual([77164958]);
+      expect(JSON.parse(entry2.duplicates).disqualified).toStrictEqual([90760072]);
     });
   });
 
@@ -113,30 +112,31 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     beforeAll(async () => {
       await svc(7196947).duplicates.detectAll();
     });
+
     it('duplicates are found and saved', async () => {
       const entry1 = await f.client('location').first().where('uid', 48681219);
       const entry2 = await f.client('location').first().where('uid', 62705984);
-      assert.deepStrictEqual(JSON.parse(entry1.duplicates).candidates, [62705984]);
-      assert.deepStrictEqual(JSON.parse(entry2.duplicates).candidates, [48681219]);
+      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([62705984]);
+      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([48681219]);
+    });
+  });
 
-    })
-  })
-  
   describe('clear all candidates', () => {
     let entry1;
     let entry2;
-    beforeAll(async ()=> {
-        await svc(7196947).duplicates.clearCandidates();
-        entry1 = await f.client('location').first().where('uid', 49975881);
-        entry2 = await f.client('location').first().where('uid', 49975880);
-      })
+    beforeAll(async () => {
+      await svc(7196947).duplicates.clearCandidates();
+      entry1 = await f.client('location').first().where('uid', 49975881);
+      entry2 = await f.client('location').first().where('uid', 49975880);
+    });
+
     it('clear all candidates', () => {
-      assert.deepStrictEqual(JSON.parse(entry1.duplicates).candidates, []);
-      assert.deepStrictEqual(JSON.parse(entry2.duplicates).candidates, []);
+      expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([]);
+      expect(JSON.parse(entry2.duplicates).candidates).toStrictEqual([]);
     });
+
     it('doesn`t change the disqualified', () => {
-      assert.deepStrictEqual(JSON.parse(entry1.duplicates).disqualified, [1]);
+      expect(JSON.parse(entry1.duplicates).disqualified).toStrictEqual([1]);
     });
-  
   });
 });
