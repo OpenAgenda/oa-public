@@ -39,7 +39,7 @@ module.exports = services => ({
     }),
     loadSearchEndpoint(services.core),
     ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream(services)),
-    ifJSONStreamRequested(loadSearchStream),
+    ifJSONStreamRequested(loadSearchStream(services)),
     ifFormat('csv', streamCSV),
     ifFormat('xlsx', streamXLSX),
     ifFormat('ics', streamICS),
