@@ -5646,11 +5646,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/flat-exports@workspace:packages/flat-exports"
   dependencies:
-    "@openagenda/flattener": ^1.1.0
     "@openagenda/labels": ^2.1.0
     "@openagenda/stream-utils": ^1.1.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.0.0
     fast-csv: ^2.4.1
     global: ^4.3.2
     jest: ^26.1.0
@@ -5662,15 +5662,6 @@ __metadata:
     xlsx-writestream: ^0.5.1
   languageName: unknown
   linkType: soft
-
-"@openagenda/flattener@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@openagenda/flattener@npm:1.1.0"
-  dependencies:
-    lodash: ^4.17.4
-  checksum: 183d5481cbf0a9cdd8f6cfa6abde352b9bb5ccc9731fc150be207fa1498f9483ff7308c7f33cf1d63f9909fd11d0761cf5574cf925701c856cd0f558397024d8
-  languageName: node
-  linkType: hard
 
 "@openagenda/form-schemas@^1.9.1, @openagenda/form-schemas@^1.9.2, @openagenda/form-schemas@workspace:packages/form-schemas":
   version: 0.0.0-use.local
@@ -13596,7 +13587,6 @@ __metadata:
     "@openagenda/facebook": ^0.1.5
     "@openagenda/files": ^3.1.0
     "@openagenda/flat-exports": ^1.4.0
-    "@openagenda/flattener": ^1.1.0
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/geocoder": ^1.2.8
     "@openagenda/home": ^2.2.1
