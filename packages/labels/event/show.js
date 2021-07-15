@@ -259,10 +259,13 @@ module.exports = {
     "br": "Kadarnaat",
     "io": "crwdns14478:0crwdne14478:0"
   },
-  "cannotCancel": {
-    "en": "You do not have edition rights over this event.",
-    "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
-    "io": "crwdns14480:0crwdne14480:0"
+  "cannotChangeStatus": {
+    "en": "Cancel / Full / Postponed...",
+    "fr": "Annuler / Complet / Reporté...",
+  },
+  "cannotChangeStatusInfo": {
+    "en": "You do not have edition rights over this event",
+    "fr": "Vous n'avez pas les droits d'édition sur cet événement"
   },
   "cancel": {
     "en": "Cancel",
