@@ -78,7 +78,7 @@
 <% if (useDetailedStatusActions) { %>
         <li class="list-group-item w25">
           <a
-            class="item <% if (event.status !== 1) { %>active<% } %> js_status"
+            class="item <% if (event.status !== 1) { %>active<% } %> js_status display-none"
             href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=1` %>"
             rel="nofollow"
           >
@@ -88,7 +88,7 @@
         </li>
         <li class="list-group-item w25">
           <a
-            class="item <% if (event.status !== 2) { %>active<% } %> js_status"
+            class="item <% if (event.status !== 2) { %>active<% } %> js_status display-none"
             href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=2` %>"
             rel="nofollow"
           >
@@ -98,7 +98,7 @@
         </li>
         <li class="list-group-item w25">
           <a
-          class="item <% if (event.status !== 3) { %>active<% } %> js_status"
+          class="item <% if (event.status !== 3) { %>active<% } %> js_status display-none"
           href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=3` %>"
           rel="nofollow"
           >
@@ -108,7 +108,7 @@
       </li>
       <li class="list-group-item w25">
         <a
-          class="item <% if (event.status !== 4) { %>active<% } %> js_status"
+          class="item <% if (event.status !== 4) { %>active<% } %> js_status display-none"
           href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=4` %>"
           rel="nofollow"
         >
@@ -116,16 +116,26 @@
           <span><%= __('statusPostponedInfo') %></span>
         </a>
       </li>
-        <li class="list-group-item w25">
-          <a
-            class="item <% if (event.status !== 5) { %>active<% } %> js_status"
-            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=5` %>"
-            rel="nofollow"
-          >
-            <label><%= __('markAsCancelled') %></label>
-            <span><%= __('statusCancelledInfo') %></span>
-          </a>
-        </li>
+      <li class="list-group-item w25">
+        <a
+          class="item <% if (event.status !== 5) { %>active<% } %> js_status display-none"
+          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=5` %>"
+          rel="nofollow"
+        >
+          <label><%= __('markAsFull') %></label>
+          <span><%= __('statusFullInfo') %></span>
+        </a>
+      </li>
+      <li class="list-group-item w25">
+        <a
+          class="item <% if (event.status !== 6) { %>active<% } %> js_status display-none"
+          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=6` %>"
+          rel="nofollow"
+        >
+          <label><%= __('markAsCancelled') %></label>
+          <span><%= __('statusCancelledInfo') %></span>
+        </a>
+      </li>
 <% } else { %>
         <li class="list-group-item w25">
           <a
