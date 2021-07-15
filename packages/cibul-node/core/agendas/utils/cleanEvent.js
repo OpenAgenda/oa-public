@@ -28,7 +28,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
     }
   }) : null;
 
-  log('fetched agenda and location');
+  log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
 
   const pre = locationUid ? { ...data, locationUid } : data;
 
@@ -150,7 +150,9 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
-  if (!draft && clean.event && (clean.event.location || clean.event.locationUid) && !location) {
+  // location uid needs to be evaluated in location object
+  // as default location values set to prepare location creation could be set
+  if (!draft && clean.event && (clean.event.location?.uid || clean.event.locationUid) && !location) {
     errors.push(invalidLocationUidErrorItem(clean.locationUid));
   }
 
