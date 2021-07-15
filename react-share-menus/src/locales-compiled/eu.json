@@ -13,6 +13,24 @@
       "value": " will be automatically added to the selected calendar."
     }
   ],
+  "aggregator-success": [
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " was successfully added as a source! "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "'s events are being aggregated."
+    }
+  ],
   "aggregator-title": [
     {
       "type": 0,
@@ -35,6 +53,12 @@
     {
       "type": 0,
       "value": "Close"
+    }
+  ],
+  "create-agenda": [
+    {
+      "type": 0,
+      "value": "Create an agenda"
     }
   ],
   "input-format": [
@@ -83,6 +107,20 @@
     {
       "type": 0,
       "value": "Export"
+    }
+  ],
+  "no-agenda": [
+    {
+      "type": 0,
+      "value": "Warning: No agenda is administered by your account. Please create one first if you wish to aggregate "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "'s events."
     }
   ],
   "no-result": [
