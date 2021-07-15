@@ -25,10 +25,6 @@ export const Export = () => {
     rss: '/',
   };
 
-  /* const closeModal = () => {
-    setDisplay(false);
-  }; */
-
   const handleExportLanguage = format => {
     return format === 'csv' || format === 'xl'
       ? `&cols.lang=${languageQuery}`
@@ -52,14 +48,14 @@ export const Export = () => {
   };
 
   return (
-    <>
+    <div className="ctas export__container">
       <button
-        className="js_export_button btn btn-link"
+        className="btn btn-default"
         type="button"
         onClick={() => setDisplay(true)}
       >
         <i className="fa fa-external-link" />
-        <span>&nbsp; Exporter la sélection</span>
+        <span>&nbsp; Exporter</span>
       </button>
       {display ? (
         <ExportModal
@@ -69,6 +65,6 @@ export const Export = () => {
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
         />
       ) : null}
-    </>
+    </div>
   );
 };

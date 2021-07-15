@@ -13,6 +13,24 @@
       "value": " seront automatiquement ajoutés à l'agenda sélectionné."
     }
   ],
+  "aggregator-success": [
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " a été ajouté aux sources! Les événements de "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " sont en cours d'aggrégation."
+    }
+  ],
   "aggregator-title": [
     {
       "type": 0,
@@ -35,6 +53,12 @@
     {
       "type": 0,
       "value": "Fermer"
+    }
+  ],
+  "create-agenda": [
+    {
+      "type": 0,
+      "value": "Créer un agenda"
     }
   ],
   "input-format": [
@@ -85,6 +109,20 @@
       "value": "Exporter"
     }
   ],
+  "no-agenda": [
+    {
+      "type": 0,
+      "value": "Attention: Vous n'administrez actuellement aucun agenda. Vous devrez en créer un avant de pouvoir reprendre la programmation de "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "no-result": [
     {
       "type": 0,
@@ -100,7 +138,7 @@
   "private-agenda": [
     {
       "type": 0,
-      "value": "Private agenda"
+      "value": "Agenda privé"
     }
   ],
   "search-agenda": [
