@@ -784,6 +784,8 @@ function _layoutData( req, res ) {
       perPage,
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
       lang: req.lang,
+      title: req.agenda.title,
+      slug: req.agenda.slug,
       res: {
         actions: url + '/actions'
       }

@@ -15,7 +15,9 @@ const model = require( '../services/model' );
 
 module.exports = app => {
   app.get(
-    '/:slug/actions',
+    '/:slug/actions', (req, res, next) => {
+      return res.redirect(`/${req.params.slug}?sharemodal=1`);
+    },
     agendaSvc.mw.load( 'slug' ),
     ( req, res, next ) => {
       req.params.sourceAgendaUid = req.query.sourceAgendaUid;

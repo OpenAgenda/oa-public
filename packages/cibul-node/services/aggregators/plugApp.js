@@ -22,7 +22,18 @@ module.exports = (config, parentApp) => {
     members.mw.loadAndAuthorize('administrator')
   ]);
 
-  parentApp.get('/:agendaSlug/admin/sources', (req, res, next) => {
+  parentApp.get('/:agendaSlug/admin/sources', async (req, res, next) => {
+    const aggregator = await aggregators.get(req.agenda.uid);
+    if(aggregator !== null) {
+      return next();
+    }
+    try {
+      await aggregators.set(req.agenda.uid);
+    } catch (err) {
+      return next(err);
+    }
+    return next();
+  }, (req, res, next) => {
     res.vary('Accept');
 
     if (req.accepts(['json', 'html']) !== 'json') {
