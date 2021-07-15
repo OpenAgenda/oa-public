@@ -20,7 +20,7 @@ module.exports = function ( { languages }, { target, isoTarget } ) {
 
       let cursor;
 
-      v.forEach( t => {
+      (v??[]).forEach( t => {
 
         // pop out timezone info
         const begin = t.begin.replace( /(\+|\-)[0-9][0-9]\:[0-9][0-9]$/, '' );

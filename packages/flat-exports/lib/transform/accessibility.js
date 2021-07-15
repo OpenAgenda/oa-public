@@ -13,7 +13,7 @@ module.exports = function ({ languages }, { target }) {
     target: targetLanguages.map(l => (target || 'accessibility') + (languages.length > 1 ? ' - ' + l.toUpperCase() : '')),
     transform: v => targetLanguages
       .map(l => {
-        return Object.keys(v).filter(k => !!v[k]).map(code => labels[code][l]).join(' | ');
+        return Object.keys(v??{}).filter(k => !!v[k]).map(code => labels[code][l]).join(' | ');
       })
   }
 }
