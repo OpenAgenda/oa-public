@@ -489,5 +489,33 @@ module.exports = {
   "status": {
     "fr": "État",
     "en": "Status"
+  },
+  "member.uid": {
+    "fr": "Membre: identifiant",
+    "en": "Member: Identifier"
+  },
+  "member.role": {
+    "fr": "Membre: rôle",
+    "en": "Member: role"
+  },
+  "member.phone": {
+    "fr": "Membre: téléphone",
+    "en": "Member: phone"
+  },
+  "member.email": {
+    "fr": "Membre: email",
+    "en": "Member: email"
+  },
+  "member.organization": {
+    "fr": "Membre: organisme",
+    "en": "Member: organization"
+  },
+  "member.name": {
+    "fr": "Membre: nom",
+    "en": "Member: name"
+  },
+  "member.position": {
+    "fr": "Membre: fonction",
+    "en": "Member: title"
   }
 }
