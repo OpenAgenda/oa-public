@@ -16,10 +16,12 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const {
     preloadedNetwork,
     includeEvent,
+    includeMember,
     access
   } = {
     preloadedNetwork: null,
     includeEvent: false,
+    includeMember: false,
     access: 'public',
     ...options
   };
@@ -45,14 +47,29 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     .get(_.get(network, 'formSchemaId'))
     .then(s => s ? ({ ...s, type: 'network' }) : s) : null;
 
+  const mergeArgs = [networkSchema, formSchema];
+
+  if (includeMember) {
+    mergeArgs.push({
+      fields: [{
+        field: 'member',
+        read: ['administrator', 'moderator'],
+        fieldType: 'abstract'
+      }]
+    });
+  }
+
   if (includeEvent) {
+    mergeArgs.push(access);
     log('returning schema with event for access %s', access);
-    return merge.schemasWithEvent(networkSchema, formSchema, access);
+    return merge.schemasWithEvent.apply(null, mergeArgs);
   }
 
   log('returning schema without event for access %s', access);
-  return formSchemas.utils.merge(networkSchema, formSchema, access?.read === 'internal' ? null : { access });
-}
+  mergeArgs.push(access?.read === 'internal' ? null : { access });
+
+  return formSchemas.utils.merge.apply(null, mergeArgs);
+};
 
 async function _loadFormSchema(formSchemas, agendaId, formSchemaId, hasNetworkSchema = false ) {
   if (formSchemaId) {

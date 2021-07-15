@@ -12,8 +12,7 @@ const agendaIndexSearch = require('./agendaIndexSearch');
 const agendaIndexRebuild = require('./agendaIndexRebuild');
 const transverseIndex = require('./transverseIndex');
 const transverseEventSearchApp = require('./transverseEventSearchApp');
-const agendaPublicEventSearchRoutes = require('./agendaPublicEventSearchRoutes');
-const agendaRestrictedEventSearchRoutes = require('./agendaRestrictedEventSearchRoutes');
+const agendaRoutes = require('./agendaRoutes');
 
 function task({ queue, rebuildQueue, updateMapping }) {
   log('task');
@@ -87,10 +86,7 @@ module.exports.init = async (config, services) => {
     },
     apps: {
       events: transverseEventSearchApp.bind(null, services),
-      agendas: {
-        public: agendaPublicEventSearchRoutes.bind(null, services),
-        restricted: agendaRestrictedEventSearchRoutes.bind(null, services)
-      }
+      agendas: agendaRoutes(services)
     },
     cluster: eventSearch.cluster
   };

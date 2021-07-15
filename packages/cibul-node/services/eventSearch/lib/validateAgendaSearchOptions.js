@@ -24,5 +24,8 @@ module.exports = schema({
   monolingual: {
     type: 'text',
     list: { max: 2 }
+  },
+  access: {
+    type: 'text'
   }
-})
+});

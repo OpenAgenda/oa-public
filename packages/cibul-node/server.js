@@ -74,7 +74,6 @@ supervisor(async loadTasks => {
     if (TASK || WEB) {
       require('./legacy/back')(app);
       require('./general/unsubscribed.front')(app);
-      require('./agenda/exports')(app);
     }
 
     app.use((req, res, next) => {
