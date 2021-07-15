@@ -79,6 +79,8 @@ window.asap(options => {
     timeline = timeliner(options.lang),
     total = totalLib('.js_total', options.lang);
 
+  const initialQuery = window.location.href;
+
   favorites.init({
     agendaUid: options.uid,
     res: options.res,
@@ -110,7 +112,7 @@ window.asap(options => {
 
       if (!ctl.prv) {
         displayExportButton(params, uid, controller, options, { exportAll: false });
-        displayAggregateButton(params, options);
+        displayAggregateButton(params, options, initialQuery);
       }
 
       if (['administrator', 'moderator'].indexOf(res) !== -1) {
