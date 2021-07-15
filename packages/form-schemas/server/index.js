@@ -7,13 +7,15 @@ const log = logger('index');
 
 const FormSchema = require('../iso/FormSchema');
 const merge = require('../iso/merge');
+const filterByAccess = require('../iso/filterByAccess');
 const markdown = require('../iso/markdown');
 const legacy = require('./legacy');
 const filesMw = require('./middleware/files');
 
 const utils = {
   merge,
-  markdown
+  markdown,
+  filterByAccess
 };
 
 module.exports = Object.assign(config => {
