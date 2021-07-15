@@ -102,7 +102,7 @@ module.exports = produce((event, options = {}) => {
       name: event.member?.custom?.contactName ?? null,
       role: event.member?.role ?? null,
       organization: event.member?.custom?.organization ?? null,
-      position: event.member?.custom?.position ?? null,
+      position: event.member?.custom?.contactPosition ?? null,
       phone: event.member?.custom?.contactNumber ?? null,
       email: event.member?.custom?.email ?? null
     };
