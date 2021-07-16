@@ -1,7 +1,8 @@
 'use strict';
 
 const flatExports = require('@openagenda/flat-exports');
-const labels = require('@openagenda/labels/event/exportFieldNames');
+const fieldNameLabels = require('@openagenda/labels/event/exportFieldNames');
+const memberLabels = require('@openagenda/labels/members');
 
 const xlsx = flatExports.xlsx();
 
@@ -9,7 +10,12 @@ module.exports = (req, res) => {
   xlsx(req.stream, {
     lang: req.lang,
     languages: req.languages,
-    labels
+    labels: {
+      ...fieldNameLabels,
+      ...memberLabels
+    },
+    maintainedFields: ['dateRange', 'country'],
+    formSchema: req.formSchema
   }).pipe(res);
 
   res.writeHead(200, {

@@ -17,9 +17,9 @@ module.exports = services => async (req, res, next) => {
         }
       },
       agenda
-    } = await req.search(req.query, { size: 0 }, {
+    } = await req.search(req.searchQuery, { size: 0 }, {
+      ...req.searchOptions,
       aggregations: ['languages'],
-      access: 'public',
       returnAgenda: true
     });
 
