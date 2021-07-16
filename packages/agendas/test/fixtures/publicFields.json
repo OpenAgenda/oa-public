@@ -40,7 +40,7 @@
         "fields": {
           "eventAdmin": {
             "type": "boolean",
-            "default": false
+            "default": true
           },
           "status": {
             "type": "boolean",
