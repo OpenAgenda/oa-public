@@ -35,7 +35,7 @@ export default class TextField extends Component {
       name,
       rows: 3,
       className: 'form-control',
-      value: value || defaultValue || '',
+      value: value ?? (defaultValue ?? ''),
       placeholder,
       onChange: this.onChange,
       disabled: !enabled
