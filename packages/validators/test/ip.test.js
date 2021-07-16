@@ -1,70 +1,48 @@
-"use strict";
+import validators from '../src';
 
-const validators = require( '../src' );
+describe('ip validator', () => {
+  const validate = validators.ip({ field: 'ip' });
 
-describe( 'ip validator', () => {
+  it('is an ip', () => {
+    expect(validate('191.168.0.1')).toBe('191.168.0.1');
+  });
 
-  const validate = validators.ip( { field: 'ip' } );
-
-  it( 'is an ip', () => {
-
-    let clean = validate( '191.168.0.1' );
-
-    expect(clean).toBe('191.168.0.1');
-
-  } );
-
-  it( 'is not an ip', () => {
-
+  it('is not an ip', () => {
     let errors;
 
     try {
-
-      validate( 'nimpornawak' );
-
-    } catch ( e ) {
-
+      validate('nimpornawak');
+    } catch (e) {
       errors = e;
-
     }
 
-    expect(errors).toEqual([ { 
+    expect(errors).toEqual([{
       origin: 'nimpornawak',
       field: 'ip',
       code: 'ip.invalid',
-      message: 'ip address is invalid' 
-    } ]);
+      message: 'ip address is invalid'
+    }]);
+  });
 
-  } );
+  describe('lists', () => {
+    const validateList = validators.ip({ field: 'ip', list: true });
 
-  describe( 'lists', () => {
-
-    const validate = validators.ip( { field: 'ip', list: true } );
-
-    it( 'is a list of ips', () => {
-
-      expect(validate( [
+    it('is a list of ips', () => {
+      expect(validateList([
         '192.3.1.2',
         '192.12.0.1'
-      ] )).toEqual([
+      ])).toEqual([
         '192.3.1.2',
         '192.12.0.1'
       ]);
+    });
 
-    } );
+    it('nothing given to list returns an empty list', () => {
+      expect(validateList()).toEqual([]);
+    });
 
-    it( 'nothing given to list returns an empty list', () => {
-
-      expect(validate()).toEqual([]);
-
-    } );
-
-    it( 'null given to list returns an empty list', () => {
-
-      expect(validate( null )).toEqual([]);
-
-    } );
-
-  } );
-
-} );
+    it('null given to list returns an empty list', () => {
+      expect(validateList(null)).toEqual([]);
+    });
+  });
+});

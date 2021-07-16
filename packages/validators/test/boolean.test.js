@@ -1,9 +1,6 @@
-"use strict";
-
-let validators = require('../src');
+import validators from '../src';
 
 describe('boolean validator', () => {
-
   it('cleans true to true', () => {
     expect(validators.boolean()(true)).toBe(true);
   });
@@ -42,14 +39,13 @@ describe('boolean validator', () => {
 
     try {
       validate();
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
     expect(errors.length).toBe(1);
     expect(errors[0].code).toBe('required');
   });
-
 
   it('cleans a valid entry', () => {
     const validate = validators.boolean({
@@ -102,5 +98,4 @@ describe('boolean validator', () => {
 
     expect(validate(null)).toBeNull();
   });
-
 });
