@@ -14,7 +14,7 @@ const getRecentlyAddedEvents = (core, agenda) => {
       ...carry,
       [key]: eventCount
     }), { contribution: 0, shared: 0, aggregation: 0 }));
-}
+};
 
 module.exports = async (core, agenda, options = {}) => {
   const {
@@ -22,7 +22,7 @@ module.exports = async (core, agenda, options = {}) => {
   } = options;
 
   const { search } = core.services.eventSearch.agendas(agenda);
-  
+
   const publishedResult = await search({}, { size: 0 }, {
     aggregations: ['cities', 'departments', 'regions', 'relative', 'keywords']
   }).then(({ aggregations }) => aggregations);
@@ -48,4 +48,4 @@ module.exports = async (core, agenda, options = {}) => {
   }
 
   return summary;
-}
+};

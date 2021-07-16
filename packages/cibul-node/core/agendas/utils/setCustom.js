@@ -10,7 +10,7 @@ module.exports = async (customService, formSchemaId, eventUid, data, { agendaId 
       context: { legacy: false },
       validate: false,
       partial: true // always true, considering that data is already validated
-    }
+    };
 
     if (agendaId) {
       options.agendaId = agendaId;
@@ -20,9 +20,9 @@ module.exports = async (customService, formSchemaId, eventUid, data, { agendaId 
       result,
       await customService(formSchemaId).set(eventUid, data, options)
     );
-  } catch(errors) {
+  } catch (errors) {
     result.errors = errors;
   }
 
   return result;
-}
+};
