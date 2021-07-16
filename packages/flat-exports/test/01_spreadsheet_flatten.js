@@ -5,6 +5,17 @@ const { getFlattener } = require('../lib/transform');
 
 const event = require('./fixtures/sortir-a-boulogne-billancourt.json');
 
+const simpleFormSchema = {
+  fields: [{
+    field: 'description',
+    fieldType: 'text',
+    languages: [],
+    label: {
+      fr: 'Chapô'
+    }
+  }]
+};
+
 describe('flat-exports - unit - spreadsheet_flatten', () => {
   describe('default flattener', () => {
     let flat;
@@ -21,6 +32,16 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(flat['Titre - FR']).toEqual(event.title.fr);
     });
 
+    test('dateRange is part of result', () => {
+      expect(
+        Object.keys(flat)
+          .filter(item => {
+            return ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item);
+          })
+          .length
+      ).toEqual(2);
+    });
+
     test('keywords are "|" separated', () => {
       expect(flat['Mots clés - FR']).toEqual('Expo | Jeu');
     });
@@ -32,21 +53,32 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         lang: 'fr',
         languages: ['fr'],
         labels,
-        formSchema: {
-          fields: [{
-            field: 'description',
-            fieldType: 'text',
-            languages: [],
-            label: {
-              fr: 'Chapô'
-            }
-          }]
-        }
+        formSchema: simpleFormSchema
       });
 
       const flat = flatten(event);
 
       expect(flat['Chapô - FR']).toEqual(event.description.fr);
+    });
+
+    test('dateRange is part of result of a flatten with formSchema', () => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr'],
+        labels,
+        formSchema: simpleFormSchema,
+        maintainedFields: ['dateRange']
+      });
+
+      const flat = flatten(event);
+
+      expect(
+        Object.keys(flat)
+          .filter(item => {
+            return ['Résumé horaires'].includes(item);
+          })
+          .length
+      ).toEqual(1);
     });
 
     test('optioned additional field provides values in requested language', () => {

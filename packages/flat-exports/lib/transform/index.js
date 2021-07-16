@@ -7,15 +7,24 @@ const Flattener = require('./Flattener');
 const getDefaultFieldMap = require('./getDefaultFieldMap');
 
 function getFlattener(options = {}) {
+  const {
+    formSchema = null,
+    maintainedFields = []
+  } = options;
+
   const defaultFieldMap = getDefaultFieldMap(options);
 
-  if (!options.formSchema?.fields) {
+  if (!formSchema?.fields) {
     return Flattener(defaultFieldMap);
   }
 
-  const filteredDefaultFieldMap = options.formSchema?.fields ? defaultFieldMap.filter(mapItem => (
-    options.formSchema.fields.find(f => f.field === mapItem.source.split('.').shift())
-  )) : defaultFieldMap;
+  const filteredDefaultFieldMap = formSchema?.fields ? defaultFieldMap.filter(mapItem => {
+    const sourceBaseField = mapItem.source.split('.').shift();
+    const isInFormSchema = !!formSchema.fields.find(f => f.field === sourceBaseField);
+    const isInMaintainedFields = maintainedFields.includes(sourceBaseField);
+
+    return isInFormSchema || isInMaintainedFields;
+  }) : defaultFieldMap;
 
   return Flattener(decorateFieldMap(filteredDefaultFieldMap, options), options);
 }
