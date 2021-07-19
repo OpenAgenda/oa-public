@@ -57,6 +57,6 @@
   "rtp.recurrencerForm.title": "Define a recurring timing",
   "rtp.recurrencerForm.week": "week",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {week} other {weeks}}",
-  "rtp.reset": "Delete all timings",
+  "rtp.reset": "Clear",
   "rtp.scheduler.openMultiRecurrencerModal": "Define a recurrence"
 }
