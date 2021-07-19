@@ -6,8 +6,10 @@ module.exports = async (core, agendaUid, options) => {
   const {
     members
   } = core.services;
-  
-  const getRoleSlug = members.utils.getRoleSlug;
+
+  const {
+    getRoleSlug
+  } = members.utils;
 
   if (options.access) {
     log('using provided access: %s', options.access);
@@ -24,6 +26,6 @@ module.exports = async (core, agendaUid, options) => {
     log('member is loaded, using role as access', role);
     return role;
   }
-    
+
   return 'public';
-}
+};
