@@ -15,7 +15,7 @@
     "@openagenda/labels": "^2.3.0",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-timingspicker": "^1.2.2",
+    "@openagenda/react-timingspicker": "^1.3.0",
     "@openagenda/validators": "^2.4.0",
     "core-js": "^3.10.2",
     "immutability-helper": "^3.0.1",
