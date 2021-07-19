@@ -127,6 +127,11 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
       const twoEvents = await core.agendas(2).events.list({}, { limit: 2 }, { detailed: true });
       expect(twoEvents[1].sourceAgendas.length).toBe(1);
     });
+
+    it('canEdit and state are provided', () => {
+      expect(typeof events[0].state).toBe('number');
+      expect(typeof events[0].canEdit).toBe('boolean');
+    });
   });
 
   describe('list with access option', () => {
