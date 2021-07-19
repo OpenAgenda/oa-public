@@ -3,11 +3,11 @@
 const _ = require('lodash');
 
 const config = require('../testconfig');
+const Service = require('..');
 const fixtures = require('./fixtures');
 const getUsersByUid = require('./fixtures/getUsersByUid');
 const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
 const getUserByEmail = require('./fixtures/getUserByEmail');
-const Service = require('..');
 
 describe('members - functional - get', () => {
   const f = fixtures(config.mysql);

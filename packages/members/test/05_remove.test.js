@@ -1,10 +1,10 @@
 'use strict';
 
 const config = require('../testconfig');
+const Service = require('..');
 const fixtures = require('./fixtures');
 const getUsersByUid = require('./fixtures/getUsersByUid');
 const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
-const Service = require('..');
 
 describe('members - functional - remove', () => {
   const f = fixtures(config.mysql);
