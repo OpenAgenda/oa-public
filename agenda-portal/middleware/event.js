@@ -15,6 +15,8 @@ module.exports.get = async (req, res, next) => {
   req.data.event = transform(event, req, res);
 
   setPageProp(req, 'pageType', 'event');
+  setPageProp(req, 'lang', res.locals.lang);
+  setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
 
   next();
 };

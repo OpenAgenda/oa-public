@@ -10,7 +10,7 @@ const jsEntryFiles = fs
   .filter(filesAndFolders => filesAndFolders.split('.').length > 1);
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   context: `${__dirname}/../`,
   optimization: { minimize: true },
   entry: jsEntryFiles.reduce(

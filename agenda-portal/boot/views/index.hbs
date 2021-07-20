@@ -1,24 +1,26 @@
 {{>layout.top}}
+
 {{>head tagName="h1"}}
+
 <div class="container">
-
   <div class="row pt-4">
-
     <div class="col-md-4 mb-4 order-md-12">
-      {{>widgets/search}}
+      {{>filters/search id="search" name="search"}}
     </div>
 
     <div class="col-md-8 order-md-1 mb-4">
       <div class="row">
         <div class="col-md-10 offset-md-2">
-          <span 
+          <span
             class="js_total mr-2"
-            data-total="{{total}}" 
-            data-label-none="{{i18n 'noSearchResult'}}" 
-            data-label-one="{{i18n 'oneEvent'}}" 
+            data-total="{{total}}"
+            data-label-none="{{i18n 'noSearchResult'}}"
+            data-label-one="{{i18n 'oneEvent'}}"
             data-label-plural="{{i18n 'multipleEvents'}}">{{i18n 'eventsTotal' total=total}}
           </span>
+
           {{>activeFilters}}
+
           <button class="main-show-sidebar float-right btn btn-outline-primary btn-sm wbg" data-sidebar-toggle>
             <i class="fa fa-plus"></i>
             {{i18n 'filters'}}
@@ -29,7 +31,6 @@
   </div>
 
   <div class="row">
-
     <div class="col-md-8">
       <div class="events">
         {{>list}}
@@ -39,7 +40,9 @@
     <div class="col-md-4">
       {{>sidebar}}
     </div>
-
   </div>
 </div>
+
+<div data-oa-filters-root></div>
+
 {{>layout.bottom}}
