@@ -15,6 +15,10 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.sharedBy',
     defaultMessage: 'Shared by <memberLink>{memberName}</memberLink>',
   },
+  shared: {
+    id: 'EventAdminApp.EventItem.shared',
+    defaultMessage: 'Shared',
+  },
 });
 
 export default function EventItem({ event, agenda, memberPlaceholderMsg }) {
@@ -43,7 +47,9 @@ export default function EventItem({ event, agenda, memberPlaceholderMsg }) {
     return m(messages.sharedFrom, messageData);
   }
 
-  if (event.member.name) {
+  if (event.member?.name) {
     return m(messages.sharedBy, messageData);
   }
+
+  return m(messages.shared, messageData);
 }
