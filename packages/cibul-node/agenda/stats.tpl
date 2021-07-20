@@ -40,7 +40,6 @@
 <div class="row">
   <h3>Autres</h3>
   <a class="margin-v-sm btn btn-default" href="<%= actions.rebuildSearch %>">rebuildSearch</a>
-  <a class="margin-v-sm btn btn-default" href="<%= actions.resyncAgendaEvents %>">resyncAgendaEvents</a>
   <a class="margin-v-sm btn btn-default" href="<%= actions.resyncInbox %>">resyncInbox</a>
   <a class="margin-v-sm btn btn-default" href="<%= actions.resyncActivityFeeds %>">resyncActivityFeeds</a>
 </div>

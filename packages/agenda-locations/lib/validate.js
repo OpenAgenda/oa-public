@@ -31,11 +31,14 @@ schema.register({
 
 const validateStream = stream({ optional: false });
 
-const fields = require('./fields.json').filter(field => field.write.includes('contributor'))
+const fields = require('./fields').filter(field => field.write.includes('contributor'))
   .reduce(
     (sch, field) => ({
       ...sch,
-      [field.field]: _.omit(field, ['field', 'db', 'read']),
+      [field.field]: {
+        ..._.omit(field, ['field', 'db', 'read', 'fieldType']),
+        type: field.fieldType,
+      }
     }),
     {}
   );

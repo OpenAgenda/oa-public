@@ -132,6 +132,10 @@ module.exports = {
     "it": "Richiesto",
     "io": "crwdns14060:0crwdne14060:0"
   },
+  "choice.required.max": {
+    "fr": "La sélection ne peut excéder %max% choix",
+    "en": "The selection must not exceed %max% choices"
+  },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
     "en": "There was trouble while saving the data, try again in a short while",

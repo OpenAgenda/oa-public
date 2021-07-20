@@ -1,15 +1,54 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 const log = debug('LocationItem');
+
+const messages = defineMessages({
+  edit: {
+    id: 'AgendaLocations.LocationItem.edit',
+    defaultMessage: 'Edit',
+  },
+  remove: {
+    id: 'AgendaLocations.LocationItem.remove',
+    defaultMessage: 'Delete',
+  },
+  defineMergeTarget: {
+    id: 'AgendaLocations.LocationItem.defineMergeTarget',
+    defaultMessage: 'Define as merge target',
+  },
+  refLocationMerge: {
+    id: 'AgendaLocations.LocationItem.refLocationMerge',
+    defaultMessage: 'Reference location for merge',
+  },
+  unselect: {
+    id: 'AgendaLocations.LocationItem.unselect',
+    defaultMessage: 'Unselect',
+  },
+  verify: {
+    id: 'AgendaLocations.LocationItem.verify',
+    defaultMessage: 'To verify',
+  },
+  noEvent: {
+    id: 'AgendaLocations.LocationItem.noEvent',
+    defaultMessage: 'No associated event',
+  },
+  detailsButton: {
+    id: 'AgendaLocations.LocationItem.detailsButton',
+    defaultMessage: 'Details',
+  },
+  seeEvents: {
+    id: 'AgendaLocations.LocationItem.seeEvents',
+    defaultMessage: '{count, plural, =0 {nothing} one {1 associated event} other {# associated events}}',
+  },
+});
 
 class LocationItem extends Component {
   static propTypes = {
     merge: PropTypes.object,
     location: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
-    getLabel: PropTypes.func.isRequired,
     getCountryLabel: PropTypes.func,
     onSelect: PropTypes.func,
     onEdit: PropTypes.func.isRequired,
@@ -50,7 +89,7 @@ class LocationItem extends Component {
     const { merge, location } = this.props;
     return (
       merge.targetUid === location.uid
-    )
+    );
   }
 
   toggleMergeTarget(e) {
@@ -90,7 +129,7 @@ class LocationItem extends Component {
 
   render() {
     const {
-      location, merge, getCountryLabel, getLabel, onSelect, settings
+      location, merge, getCountryLabel, onSelect, settings
     } = this.props;
     const className = ['row item'];
     const country = getCountryLabel(location.countryCode);
@@ -100,7 +139,7 @@ class LocationItem extends Component {
         className={!settings.access.update.authorized ? 'btn btn-link disabled action' : 'btn btn-link action'}
         onClick={this.onEdit.bind(this)}
       >
-        {getLabel('edit')}
+        <FormattedMessage {...messages.edit} />
       </button>
     );
     const removeButton = (
@@ -109,7 +148,7 @@ class LocationItem extends Component {
         className={!settings.access.delete.authorized ? 'btn btn-link text-danger disabled action' : 'btn btn-link text-danger action'}
         onClick={this.onRemove}
       >
-        {getLabel('remove')}
+        <FormattedMessage {...messages.remove} />
       </button>
     );
     const toggleMergeTargetButton = (
@@ -118,19 +157,19 @@ class LocationItem extends Component {
         className="btn btn-link action"
         onClick={this.toggleMergeTarget}
       >
-        {getLabel('defineMergeTarget')}
+        <FormattedMessage {...messages.defineMergeTarget} />
       </button>
     );
 
     const mergeTarget = (
       <span>
-        <strong>{getLabel('reflocationmerge')}</strong>
+        <strong><FormattedMessage {...messages.refLocationMerge} /></strong>
         <button
           type="button"
           className="btn btn-link text-danger action"
           onClick={this.toggleMergeTarget}
         >
-          {getLabel('unselect')}
+          <FormattedMessage {...messages.unselect} />
         </button>
       </span>
     );
@@ -162,12 +201,11 @@ class LocationItem extends Component {
               className={'indicator'.concat(' ',
                 location.description
                   ? 'fa fa-file-text-o margin-right-xs'
-                  : 'fa fa-file-text-o disabled margin-right-xs')
-              }
+                  : 'fa fa-file-text-o disabled margin-right-xs')}
             />
             {location.state === 0 ? (
               <span className="badge badge-warning">
-                {getLabel('verify')}
+                <FormattedMessage {...messages.verify} />
               </span>
             ) : null}
             {location.agendaEventCount ? (
@@ -176,14 +214,11 @@ class LocationItem extends Component {
                 className="action btn btn-link"
                 onClick={this.seeEvents}
               >
-                {getLabel(
-                  location.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents',
-                  { count: location.agendaEventCount }
-                )}
+                <FormattedMessage values={{ count: location.agendaEventCount}} {...messages.seeEvents} />
               </button>
             ) : (
               <span className="action text-muted">
-                {getLabel('noEvent')}
+                <FormattedMessage {...messages.noEvent} />
               </span>
             )}
             <button
@@ -191,7 +226,7 @@ class LocationItem extends Component {
               className="btn btn-link  action"
               onClick={this.seeDetails.bind(this)}
             >
-              {getLabel('detailsButton')}
+              <FormattedMessage {...messages.detailsButton} />
             </button>
             {!merge ? editButton : null}
             {!merge ? removeButton : null}

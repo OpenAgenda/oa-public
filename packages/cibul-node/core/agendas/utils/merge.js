@@ -46,7 +46,7 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   });
 
   if (agendaEvent && load.agendaEvent) {
-    ['state', 'featured', 'sourcePaths', 'aggregated'].forEach(aeField => {
+    ['state', 'featured', 'sourcePaths', 'aggregated', 'canEdit'].forEach(aeField => {
       compiled[aeField] = agendaEvent[aeField];
     });
   }
@@ -70,12 +70,16 @@ module.exports.event = mergeEvent;
 
 module.exports.schemas = merge;
 
-module.exports.schemasWithEvent = (networkSchema, agendaSchema, access) => eventFormSchema({
-  languages: true,
-  schemaExtensions: [networkSchema, agendaSchema],
-  access: access?.read === 'internal' ? null : access,
-  excludeNonDataFields: true
-});
+module.exports.schemasWithEvent = function schemasWithEvent(...args) {
+  const schemas = args.concat([]);
+  const access = schemas.pop();
+  return eventFormSchema({
+    languages: true,
+    schemaExtensions: schemas,
+    access: access?.read === 'internal' ? null : access,
+    excludeNonDataFields: true
+  });
+};
 
 module.exports.eventFromObject = ({
   event,

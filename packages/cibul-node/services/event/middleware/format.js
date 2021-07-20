@@ -350,7 +350,6 @@ function _main( v ) {
   const map = {
     uid: 'getUid',
     slug: 'getSlug',
-    isUpcoming: 'isUpcoming',
     placeName: 'getLocationName',
     address: 'getAddress',
     region: 'getRegion',
@@ -363,13 +362,15 @@ function _main( v ) {
   };
 
   const longDescriptionLinks = v.req.event.getLinks();
-  
+  const now = new Date();
+
   Object.assign(v.formatted,
-    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo']), 
+    _.pick(v.req.event, ['onlineAccessLink', 'ticketLink', 'pricingInfo', 'status']), 
     v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang),
     {
       longDescriptionLinks,
-      freeText: renderHTMLFromMarkdown(v.req.app.services, longDescriptionLinks, v.req.event.getFreeText())
+      freeText: renderHTMLFromMarkdown(v.req.app.services, longDescriptionLinks, v.req.event.getFreeText()),
+      isUpcoming: !!(v.req.event.timings ?? []).filter(t => new Date(t.end) > now).length
     }
   );
 

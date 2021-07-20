@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
-import makeLabelGetter from '@openagenda/labels';
-import labels from '@openagenda/labels/agenda-locations/form';
-import confirmationLabels from '@openagenda/labels/agenda-locations/confirmation';
 import { Spinner } from '@openagenda/react-components';
 import get from '@openagenda/utils/get';
 
@@ -12,8 +10,97 @@ import extraGeoFields from './extraGeoFields';
 import flattenTagSetLabels from './flattenTagSetLabels';
 
 const log = debug('locationDetails');
-const getFormLabel = makeLabelGetter(labels);
-const getLabel = makeLabelGetter(confirmationLabels);
+
+const messages = defineMessages({
+  district: {
+    id: 'AgendaLocations.LocationDetails.district',
+    defaultMessage: 'District',
+  },
+  city: {
+    id: 'AgendaLocations.LocationDetails.city',
+    defaultMessage: 'City',
+  },
+  region: {
+    id: 'AgendaLocations.LocationDetails.region',
+    defaultMessage: 'Region',
+  },
+  department: {
+    id: 'AgendaLocations.LocationDetails.department',
+    defaultMessage: 'Department',
+  },
+  postalCode: {
+    id: 'AgendaLocations.LocationDetails.postalCode',
+    defaultMessage: 'Postal code',
+  },
+  insee: {
+    id: 'AgendaLocations.LocationDetails.insee',
+    defaultMessage: 'INSEE code',
+  },
+  description: {
+    id: 'AgendaLocations.LocationDetails.description',
+    defaultMessage: 'Description',
+  },
+  access: {
+    id: 'AgendaLocations.LocationDetails.access',
+    defaultMessage: 'Access',
+  },
+  noRefAgendas: {
+    id: 'AgendaLocations.LocationDetails.noRefAgendas',
+    defaultMessage: 'This place is not referenced in any other agenda.',
+  },
+  hoverInfo: {
+    id: 'AgendaLocations.LocationDetails.hoverInfo',
+    defaultMessage: 'This information is not correct? Click on the button on top of this menu to detail the changes to bring',
+  },
+  emptyGeo: {
+    id: 'AgendaLocations.LocationDetails.emptyGeo',
+    defaultMessage: 'Empty',
+  },
+  phone: {
+    id: 'AgendaLocations.LocationDetails.phone',
+    defaultMessage: 'Telephone number',
+  },
+  email: {
+    id: 'AgendaLocations.LocationDetails.email',
+    defaultMessage: 'Contact email',
+  },
+  website: {
+    id: 'AgendaLocations.LocationDetails.website',
+    defaultMessage: 'Website',
+  },
+  links: {
+    id: 'AgendaLocations.LocationDetails.links',
+    defaultMessage: 'Additional links',
+  },
+  image: {
+    id: 'AgendaLocations.LocationDetails.image',
+    defaultMessage: 'Image',
+  },
+  noImage: {
+    id: 'AgendaLocations.LocationDetails.noImage',
+    defaultMessage: 'No image is defined',
+  },
+  noValue: {
+    id: 'AgendaLocations.LocationDetails.noValue',
+    defaultMessage: 'Not specified',
+  },
+  andOn: {
+    id: 'AgendaLocations.LocationDetails.andOn',
+    defaultMessage: ' and on',
+  },
+  refAgendas: {
+    id: 'AgendaLocations.LocationDetails.refAgendas',
+    defaultMessage: '{count, plural, =0 {nothing} one {This place is also referenced on the agenda} other {This place is also referenced on the agendas}}',
+  },
+  others: {
+    id: 'AgendaLocations.LocationDetails.others',
+    defaultMessage: '{count, plural, =0 {nothing} one {one other} other {#  others}}',
+  },
+  noContent: {
+    id: 'AgendaLocations.LocationDetails.noContent',
+    defaultMessage: 'No content {lang} is defined',
+  },
+});
 
 const mapValues = location => ({
   '{w}': 500,
@@ -49,6 +136,7 @@ class LocationDetails extends Component {
     hover: PropTypes.bool.isRequired,
     agenda: PropTypes.object.isRequired,
     res: PropTypes.object.isRequired,
+    intl: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -56,7 +144,7 @@ class LocationDetails extends Component {
 
     this.state = {
       contentLang: getPreferredLang(
-        this.props.location.description,
+        props.location.description,
         props.lang
       ),
       linkedAgendas: null,
@@ -80,7 +168,7 @@ class LocationDetails extends Component {
   }
 
   renderLinkedAgendas() {
-    const { agenda, lang, res } = this.props;
+    const { agenda, res } = this.props;
     const { linkedAgendas } = this.state;
 
     const filteredLAgendas = linkedAgendas.filter(a => a.uid !== agenda.uid);
@@ -89,14 +177,12 @@ class LocationDetails extends Component {
     const link = `${res.agendaSearch}?uid[]=${filteredLAgendas.map(a => a.uid).join('&uid[]=')}`;
 
     if (nbAgendasRendered === 0) {
-      return (<p>{ getLabel('noRefAgendas', lang) }</p>);
+      return (<p><FormattedMessage {...messages.noRefAgendas} /></p>);
     }
     return (
       <div>
         <p>
-          {nbAgendasRendered === 1
-            ? <span>{ getLabel('oneRefAgendas', lang) }</span>
-            : <span>{ getLabel('multiRefAgendas', lang) }</span>}
+          <span><FormattedMessage values={{ count: nbAgendasRendered }} {...messages.refAgendas} /></span>
           {filteredLAgendas.slice(0, nbAgendasRendered - 1).map(a => (
             <>
               <a href={`${res.agendaSearch}/${a.uid}`}>{a.title}</a>
@@ -104,9 +190,8 @@ class LocationDetails extends Component {
             </>
           ))}
           <a href={`${res.agendaSearch}/${filteredLAgendas[nbAgendasRendered - 1].uid}`}>{filteredLAgendas[nbAgendasRendered - 1].title}</a>
-          {nbAgendasUnrendered !== 0 ? <span>{ getLabel('andOn', lang) }</span> : null}
-          {nbAgendasUnrendered === 1 ? <a href={link}>{ getLabel('oneOther', lang) }</a> : null}
-          {nbAgendasUnrendered > 1 ? <a href={link}>{nbAgendasUnrendered}{ getLabel('others', lang) }</a> : null}
+          {nbAgendasUnrendered !== 0 ? <span><FormattedMessage {...messages.andOn} /></span> : null}
+          <a href={link}><FormattedMessage values={{ count: nbAgendasUnrendered }} {...messages.others} /> </a>
         </p>
       </div>
     );
@@ -114,11 +199,11 @@ class LocationDetails extends Component {
 
   render() {
     const {
-      location, lang, settings, hover, staticTiles
+      location, lang, settings, hover, staticTiles, intl
     } = this.props;
     const { contentLang, linkedAgendas } = this.state;
 
-    const hoverInfo = hover ? getLabel('hoverInfo', lang) : null;
+    const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
     const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
     const existingLangs = getExistingLangs(location);
     log('lang:', lang, ' settings:', settings, 'static:', staticMap);
@@ -168,8 +253,8 @@ class LocationDetails extends Component {
                   }
                 >
                   <span>
-                    {getFormLabel(f, lang)}:
-                    {location[f] || getLabel('emptyGeo', lang)}
+                    <FormattedMessage {...messages[f]} />:
+                    {location[f] || intl.formatMessage(messages.emptyGeo)}
                   </span>
                 </div>
               </li>
@@ -206,21 +291,21 @@ class LocationDetails extends Component {
           : null}
         <ul className="list-unstyled" title={hoverInfo}>
           <li>
-            <label htmlFor="phone">{getFormLabel('phone', lang)} </label>:{' '}
-            <span>{location.phone || <i>{getLabel('noValue', lang)}</i>}</span>
+            <label htmlFor="phone">{intl.formatMessage(messages.phone)} </label>:{' '}
+            <span>{location.phone || <i>{intl.formatMessage(messages.noValue)}</i>}</span>
           </li>
           <li>
-            <label htmlFor="email">{getFormLabel('email', lang)} </label>:{' '}
-            <span>{location.email || <i>{getLabel('noValue', lang)}</i>}</span>
+            <label htmlFor="email">{intl.formatMessage(messages.email)} </label>:{' '}
+            <span>{location.email || <i>{intl.formatMessage(messages.noValue)}</i>}</span>
           </li>
           <li>
-            <label htmlFor="website">{getFormLabel('website', lang)} </label>:{' '}
+            <label htmlFor="website">{intl.formatMessage(messages.website)} </label>:{' '}
             <span>
-              {location.website || <i>{getLabel('noValue', lang)}</i>}
+              {location.website || <i>{intl.formatMessage(messages.noValue)}</i>}
             </span>
           </li>
           <li>
-            <label htmlFor="links">{getFormLabel('links', lang)} </label>:
+            <label htmlFor="links">{intl.formatMessage(messages.links)} </label>:
             {(location.links || []).length ? (
               location.links.map((l, i) => (
                 <div className="margin-bottom-xs" key={`l-link-${i}`}>
@@ -230,17 +315,17 @@ class LocationDetails extends Component {
                 </div>
               ))
             ) : (
-              <i>{getLabel('noValue', lang)}</i>
+              <i>{intl.formatMessage(messages.noValue)}</i>
             )}
           </li>
         </ul>
         <div className="padding-v-sm" title={hoverInfo}>
-          <label htmlFor="image">{getLabel('image', lang)}</label>
+          <label htmlFor="image">{intl.formatMessage(messages.image)}</label>
           {location.image ? (
             <img className="img-responsive" src={location.image} alt="" />
           ) : (
             <p>
-              <i>{getLabel('noImage', lang)}</i>
+              <i>{intl.formatMessage(messages.noImage)}</i>
             </p>
           )}
         </div>
@@ -260,17 +345,15 @@ class LocationDetails extends Component {
           <div className="padding-top-md" title={hoverInfo}>
             {['description', 'access'].map(mlField => (
               <div key={`field-${mlField}`}>
-                <label htmlFor="mlField">{getLabel(mlField, lang)}</label>
+                <label htmlFor="mlField"><FormattedMessage {...messages[mlField]} /></label>
                 <p>
                   {location[mlField] && location[mlField][contentLang] ? (
                     location[mlField][contentLang]
                   ) : (
                     <i>
-                      {getLabel(
-                        existingLangs.length ? 'noContent' : 'noValue',
-                        { lang: contentLang.toUpperCase() },
-                        lang
-                      )}
+                      {existingLangs.length
+                        ? <FormattedMessage values={{ lang: contentLang.toUpperCase() }} {...messages.noContent} />
+                        : <FormattedMessage {...messages.noValue} />}
                     </i>
                   )}
                 </p>
@@ -283,4 +366,4 @@ class LocationDetails extends Component {
   }
 }
 
-export default LocationDetails;
+export default injectIntl(LocationDetails);

@@ -4,7 +4,12 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/utils/assignState');
 const UnauthorizedError = require('../../utils/UnauthorizedError');
 
-function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requestedState) {
+function defineState({
+  agenda,
+  authorizations,
+  isUndrafted,
+  hasEvent
+}, requestedState) {
   const {
     canChangeState,
     canPublish,
@@ -17,17 +22,19 @@ function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requeste
   if (isUndrafted && !explicitStateRequested) {
     log('no explicit state requested%s', isUndrafted ? ', event is undrafted' : '');
     return agendaDefaultState;
-  } else if (isUndrafted) {
+  }
+
+  if (isUndrafted) {
     log('event is undrafted');
     return canChangeState ? requestedState : agendaDefaultState;
   }
 
   if (
     explicitStateRequested
-    && (parseInt(requestedState) === 2)
+    && (parseInt(requestedState, 10) === 2)
     && !canPublish
   ) {
-    throw new UnauthorizedError('agenda', agenda.uid, `not authorized to publish events`);
+    throw new UnauthorizedError('agenda', agenda.uid, 'not authorized to publish events');
   }
 
   if (hasEvent && explicitStateRequested && canChangeState) {
@@ -38,7 +45,9 @@ function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requeste
   if (hasEvent && !canChangeState) {
     log('event %s to be moderated', mustBeModerated ? 'needs' : 'does not need');
     return mustBeModerated ? 0 : undefined;
-  } else if (hasEvent) {
+  }
+
+  if (hasEvent) {
     return explicitStateRequested ? requestedState : undefined;
   }
 
@@ -60,4 +69,4 @@ module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
   } else if (!draft) {
     clean.agendaEvent = _.omit(clean.agendaEvent, ['state']);
   }
-}
+};

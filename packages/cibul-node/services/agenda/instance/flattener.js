@@ -10,6 +10,8 @@ const agendaCategories = require( '@openagenda/agenda-categories' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' );
 const stateLabels = require( '@openagenda/labels/event/states' );
+const eventFormLabels = require('@openagenda/labels/event/form');
+const eventLabels = require('@openagenda/labels/event/show');
 const utils = require( '@openagenda/utils' );
 const config = require( '../../../config' );
 const possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
@@ -267,6 +269,17 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'imageCredits',
         'thumbnail',
         'originalImage',
+        {
+          sourceField: 'attendanceMode',
+          destField: 'attendanceMode',
+          fn: _attendanceMode( params.lang )
+        },
+        'onlineAccessLink',
+        {
+          sourceField: 'status',
+          destField: 'status',
+          fn: _status(params.lang)
+        },
         'updatedAt',
         'createdAt'
       ], hasFrench ? [ {
@@ -644,6 +657,44 @@ function _state( lang ) {
   }
 
 }
+
+function _attendanceMode( lang ) {
+  return s => {
+    if (!s) {
+      return '';
+    };
+
+    const label = eventFormLabels[
+      ['offlineAttendanceMode', 'onlineAttendanceMode', 'mixedAttendanceMode'][parseInt(s) - 1]
+    ][lang];
+
+    if (label) {
+      return label;
+    }
+
+    return s;
+  }
+}
+
+function _status( lang ) {
+  return s => {
+    if (!s) {
+      return ''
+    }
+
+    const label = eventLabels[
+      ['statusScheduled', 'statusRescheduled', 'statusMovedOnline', 'statusPostponed', 'statusCancelled', 'statusFull'][parseInt(s) - 1]
+    ][lang];
+    
+    if (label) {
+      return label;
+    }
+
+    return s;
+  }
+}
+
+
 
 
 function _defineCountryLabel( lang ) {

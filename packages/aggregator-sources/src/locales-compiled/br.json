@@ -464,6 +464,18 @@
       "value": "Nullañ"
     }
   ],
+  "aggregator-sources.DefineRules.caseInsensitive": [
+    {
+      "type": 0,
+      "value": "case-insensitive"
+    }
+  ],
+  "aggregator-sources.DefineRules.caseSensitive": [
+    {
+      "type": 0,
+      "value": "case-sensitive"
+    }
+  ],
   "aggregator-sources.DefineRules.choice": [
     {
       "type": 0,
@@ -855,7 +867,7 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "\" "
     }
   ],
   "aggregator-sources.DefineRules.toModerate": [
@@ -936,7 +948,7 @@
   "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": [
     {
       "type": 0,
-      "value": "Oui, et je veux aussi supprimer les événements déjà agrégés"
+      "value": "Oui, et je veux aussi retirer les événements déjà agrégés"
     }
   ],
   "aggregator-sources.RemoveSourceModal.removeASource": [
@@ -1159,6 +1171,12 @@
     {
       "type": 0,
       "value": "Filtre textuel"
+    }
+  ],
+  "aggregator-sources.RuleForm.textFilterCaseSensitive": [
+    {
+      "type": 0,
+      "value": "Rend le filtre sensilbe à la casse (min/maj)"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [

@@ -1,0 +1,6 @@
+{
+  "fields": [{
+    "field" : "timings",
+    "fieldType" : "abstract"
+  }]
+}

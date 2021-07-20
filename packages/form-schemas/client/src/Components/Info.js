@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-module.exports = ( { value } ) => value ? <div className="margin-bottom-xs">
+export default ( { value } ) => value ? <div className="margin-bottom-xs">
   {value.split( '\n' ).map( ( line, index ) => <div key={'line-' + index}>{line}</div> )}
 </div> : null;

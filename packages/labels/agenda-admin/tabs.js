@@ -114,6 +114,14 @@ module.exports = {
     "it": "Integrazione web",
     "io": "crwdns11424:0crwdne11424:0"
   },
+  "embeds": {
+    "en": "Web Integration",
+    "fr": "Intégration Web",
+    "de": "Web-Integration",
+    "es": "Integración web",
+    "it": "Integrazione web",
+    "io": "crwdns11424:0crwdne11424:0"
+  },
   "indesign": {
     "en": "Indesign - Xml",
     "fr": "Indesign - Xml",

@@ -6,12 +6,11 @@ const log = require('@openagenda/logs')('list');
 const validateNav = require('./lib/validateNav');
 const addListQuery = require('./lib/addListQuery');
 const cleanListOptions = require('./lib/cleanListOptions');
-const getDatabaseFieldName = require('./lib/databaseField').getName;
-const getFieldsByAccess = require('./lib/getFieldsByAccess');
+const getDatabaseFieldName = require('@openagenda/utils/fields/databaseField').getName;
 const addPaginationAndOrder = require('./lib/paginationAndOrder');
-const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const handleInterface = require('./lib/handleInterface');
 const lastEventClean = require('./lib/lastEventClean');
+
 
 module.exports = async (service, query = {}, n = {}, o = {}) => {
   log('called', query);
@@ -31,7 +30,7 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
     .then(r => r[0].total) : null;
 
   k.select(
-    getFieldsByAccess('read', options.access)
+    service.fieldUtils.getFieldsByAccess('read', options.access)
       .filter(f => (options.includeFields.length ? options.includeFields.includes(f.field) : true))
       .map(getDatabaseFieldName)
       .concat(options.useAfter ? ['id'] : [])
@@ -43,7 +42,7 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
   
   result.rows = await k;
 
-  result.items = result.rows.map(item => fromDbEntryToItem(service, item, options));
+  result.items = result.rows.map(item => service.fieldUtils.fromEntryToItem(item, options));
   
   if (total !== null) {
     result.total = total;

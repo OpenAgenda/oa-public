@@ -1,49 +1,46 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 
-module.exports = class TextField extends Component {
-
-  constructor( props ) {
-
-    super( props );
-
-    this.onChange = this.onChange.bind( this );
-
+export default class TextField extends Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
   }
 
-  onChange( e ) {
-
+  onChange(e) {
     e.preventDefault();
 
-    const value = e.target.value;
+    const {
+      onChange
+    } = this.props;
 
-    this.props.onChange( _.isString( value ) && !value.length ? null : value );
-
+    // text field should be able to change to empty string
+    onChange(e.target.value);
   }
 
   render() {
+    const {
+      field,
+      value,
+      enabled
+    } = this.props;
 
     const {
       field: name,
       placeholder,
       fieldType,
       default: defaultValue
-    } = this.props.field;
-
-    const { value, onChange, enabled } = this.props;
+    } = field;
 
     const fieldProps = {
       name,
       rows: 3,
       className: 'form-control',
-      value: value || defaultValue || '',
+      value: value ?? (defaultValue ?? ''),
       placeholder,
       onChange: this.onChange,
       disabled: !enabled
-    }
+    };
 
-    return fieldType === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />
-
+    return fieldType === 'textarea' ? <textarea {...fieldProps} /> : <input {...fieldProps} />;
   }
-
 }

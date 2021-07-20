@@ -1,11 +1,20 @@
 import isString from 'lodash/isString';
 import isURL from 'validator/lib/isURL';
 import listify from './listify';
-import rgx from './regex';
 import emailValidator from './email';
 import cleanParams from './lib/params';
 
 const validateEmail = emailValidator();
+
+const isEmail = v => {
+  try {
+    validateEmail(v);
+  } catch (e) {
+    return false;
+  }
+
+  return true;
+};
 
 export default config => {
   const params = cleanParams('link', config, {
@@ -15,11 +24,7 @@ export default config => {
     }
   });
 
-  const shouldntMatch = [
-    /\s/,
-    /\/:/,
-    /;/
- ];
+  const shouldntMatch = [/\s/, /\/:/, /;/];
 
   const validate = value => {
     const templateError = {
@@ -43,20 +48,20 @@ export default config => {
       return params.default !== undefined ? params.default : clean;
     }
 
-    if (/^mailto\:/.test(clean) && _isEmail(clean.replace(/^mailto\:/, ''))) {
+    if ((new RegExp('^mailto\\:')).test(clean) && isEmail(clean.replace(new RegExp('^mailto\\:'), ''))) {
       return clean;
     }
 
-    const startsWithProtocol = /^((http(s|):|)\/\/|mailto\:)/.test(clean);
+    const startsWithProtocol = (new RegExp('^((http(s|):|)\\/\\/|mailto\\:)')).test(clean);
 
-    if (!startsWithProtocol && _isEmail(clean)) throw error;
+    if (!startsWithProtocol && isEmail(clean)) throw error;
 
     // add http:// if link is like www.google.com (protocol missing)
     if (!startsWithProtocol) {
-      clean = 'http://' + clean;
+      clean = `http://${clean}`;
     }
 
-    if (clean.indexOf('.') == -1) {
+    if (clean.indexOf('.') === -1) {
       throw error;
     }
 
@@ -83,14 +88,4 @@ export default config => {
   validate.field = params.field;
 
   return params.list ? listify(validate, params) : validate;
-}
-
-function _isEmail(v) {
-  try {
-    validateEmail(v);
-  } catch(e) {
-    return false;
-  }
-
-  return true;
-}
+};

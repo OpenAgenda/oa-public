@@ -1,0 +1,289 @@
+'use strict';
+
+module.exports = [{
+  field: 'id',
+  optional: false,
+  fieldType: 'integer',
+  read: ['internal'],
+  write: ['internal']
+}, {
+  field: 'uid',
+  fieldType: 'integer',
+  optional: false,
+  read: ['internal', 'public', 'list'],
+  write: ['internal']
+}, {
+  field: 'agendaId',
+  fieldType: 'integer',
+  optional: false,
+  read: ['internal'],
+  write: ['internal']
+}, {
+  field: 'setUid',
+  fieldType: 'integer',
+  optional: true,
+  default: null,
+  read: ['internal', 'public'],
+  write: ['internal']
+}, {
+  field: 'slug',
+  fieldType: 'text',
+  optional: false,
+  read: ['internal', 'public'],
+  write: ['internal'],
+  max: 100
+}, {
+  field: 'name',
+  db: 'placename',
+  optional: false,
+  read: ['internal', 'public', 'list', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'text',
+  max: 100
+}, {
+  field: 'address',
+  optional: false,
+  fieldType: 'text',
+  read: ['internal', 'public', 'list'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'city',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 100
+}, {
+  field: 'region',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'department',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'postalCode',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 20
+}, {
+  field: 'insee',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 10
+}, {
+  field: 'countryCode',
+  db: 'country',
+  optional: false,
+  fieldType: 'text',
+  max: 2,
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'district',
+  optional: true,
+  fieldType: 'text',
+  db: 'city_district',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'latitude',
+  optional: false,
+  fieldType: 'latitude',
+  read: ['internal', 'public', 'list'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'longitude',
+  optional: false,
+  fieldType: 'longitude',
+  read: ['internal', 'public', 'list'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'updatedAt',
+  optional: false,
+  fieldType: 'date',
+  read: ['internal', 'public'],
+  write: ['internal']
+}, {
+  field: 'createdAt',
+  optional: false,
+  fieldfieldType: 'date',
+  read: ['internal', 'public'],
+  write: ['internal']
+}, {
+  field: 'image',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.image',
+    assign: true
+  },
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'stream',
+  'allowNull': true
+}, {
+  field: 'description',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.description',
+    assign: true
+  },
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'multilingual',
+  languages: [],
+  max: 5000
+}, {
+  field: 'tags',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.tags',
+    assign: true
+  },
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'pass'
+}, {
+  field: 'website',
+  db: {
+    type: 'json',
+    field: 'store.website',
+    assign: true
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'link'
+}, {
+  field: 'email',
+  db: {
+    type: 'json',
+    field: 'store.email',
+    assign: true
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'email'
+}, {
+  field: 'phone',
+  db: {
+    type: 'json',
+    field: 'store.phone',
+    assign: true
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'phone'
+}, {
+  field: 'links',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.links',
+    assign: true
+  },
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  'list': true,
+  fieldType: 'link'
+}, {
+  field: 'access',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.access',
+    assign: true
+  },
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  fieldType: 'multilingual',
+  languages: [],
+  max: 1000
+}, {
+  field: 'state',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.state',
+    assign: true
+  },
+  fieldType : 'choice',
+  unique: true,
+  read: ['internal', 'public', 'list'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  default: 0,
+  options: [0, 1]
+}, {
+  field: 'timezone',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.timezone',
+    assign: true
+  },
+  fieldType: 'text',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'imageCredits',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.imageCredits',
+    assign: true
+  },
+  fieldType: 'text',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  enableWith: 'image'
+}, {
+  field: 'extId',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'eveId',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal'],
+  write: ['internal']
+}, {
+  field: 'candidates',
+  db: {
+    type: 'json',
+    field: 'duplicates.candidates',
+    assign: true
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal']
+}, {
+  field: 'confirmedNonDuplicates',
+  db: {
+    type: 'json',
+    field: 'duplicates.confirmedNonDuplicates',
+    assign: true
+  },
+  optional: true,
+  read: ['internal', 'public'],
+  write: ['internal']
+}
+]

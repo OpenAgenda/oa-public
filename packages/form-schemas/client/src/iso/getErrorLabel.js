@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = (labels, field, error) => {
   const { code, message } = error;
 
@@ -10,7 +8,7 @@ module.exports = (labels, field, error) => {
   return Object.keys(field)
     .filter(fieldKey => ['min', 'max'].includes(fieldKey))
     .reduce((rendered, fieldKey) => rendered.replace(
-      '%' + fieldKey + '%',
+      `%${fieldKey}%`,
       field[fieldKey]
     ), matchingLabel);
-}
+};

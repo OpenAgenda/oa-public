@@ -13,7 +13,7 @@ const cmn = require('../lib/commons-app');
 const getInboxLabel = makeLabelGetter(inboxLabels);
 
 const apiRoot = `http://localhost:${config.port}`;
-const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
+
 // const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
 const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || null;
 const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
@@ -301,6 +301,19 @@ const initialState = async req => {
         sendMessage: '/:slug/admin/members/send-message'
       }
     },
+    legacyEmbeds: {
+      prefix: '/:slug/admin/embeds',
+      lang,
+      apiRoot: `http://localhost:${config.port}`,
+      res: {
+        legacy: '/agendas/:agendaUid/admin/webembed',
+        events: '/api/agendas/:agendaUid/events?state[]=2&state[]=1&state[]=0',
+        embeds: '/api/agendas/:agendaUid/embeds',
+        preview: '/agendas/:agendaUid/previewEmbeds/:embedUid/events',
+        previewScript: '/js/embed/cibulBodyWidget.js',
+        agendaSettings: '/api/agendas/:agendaUid'
+      }
+    },
     agendaActivities: {
       settings: {
         prefix: '/:slug/admin/activities',
@@ -400,6 +413,7 @@ module.exports = app => {
       '/:slug/admin/inbox(/*?)?',
       '/:slug/admin/sources(/*?)?',
       '/:slug/admin/members(/*?)?',
+      '/:slug/admin/embeds(/*?)?',
       '/:slug/admin/activities(/*?)?',
       '/:slug/admin/statistics(/*?)?',
       '/:slug/admin/getting-started(/*?)?',

@@ -42,6 +42,7 @@
     "draft",
     "age",
     "state",
+    "canEdit",
     "member"
   ],
   "detailed": true

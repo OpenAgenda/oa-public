@@ -1,16 +1,13 @@
-'use strict';
-
 const validators = require('../src');
 
 describe('number validator', () => {
-
   it('is optional by default', () => {
     const validate = validators.number();
     const validateWithExplicitOptional = validators.number({
       optional: undefined
     });
 
-    validate();
+    expect(validate()).toBeUndefined();
     validateWithExplicitOptional();
   });
 
@@ -53,7 +50,7 @@ describe('number validator', () => {
 
     try {
       clean = requiredValidate();
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
@@ -71,13 +68,13 @@ describe('number validator', () => {
 
     try {
       validate('');
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
     expect(errors.length).toBe(1);
 
-    expect(errors[ 0 ].code).toBe('required');
+    expect(errors[0].code).toBe('required');
   });
 
   it('throws an error if is not optional and null default is specified', () => {
@@ -88,7 +85,7 @@ describe('number validator', () => {
         default: null,
         optional: false
       })();
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
@@ -102,12 +99,12 @@ describe('number validator', () => {
 
     try {
       validate('fdsqfds');
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
     expect(errors.length).toBe(1);
-    expect(errors[ 0 ].code).toBe('number.invalid');
+    expect(errors[0].code).toBe('number.invalid');
   });
 
   it('throws an error if value exceeds a limit', () => {
@@ -119,12 +116,12 @@ describe('number validator', () => {
 
     try {
       validate('56');
-    } catch(e) {
+    } catch (e) {
       errors = e;
     }
 
     expect(errors.length).toBe(1);
-    expect(errors[ 0 ].code).toBe('number.toobig');
+    expect(errors[0].code).toBe('number.toobig');
   });
 
   it('cleans a valid entry', () => {
@@ -143,5 +140,4 @@ describe('number validator', () => {
 
     expect(validate('11.1')).toBe(11.1);
   });
-
 });

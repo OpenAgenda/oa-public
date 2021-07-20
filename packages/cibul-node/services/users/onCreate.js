@@ -1,7 +1,8 @@
 const invitationsSvc = require( '@openagenda/invitations' );
+const log = require('@openagenda/logs')('services/users/onCreate');
 
-
-module.exports = function onCreate() {
+module.exports = function onCreate(config, services) {
+  const { discord } = services;
   return async context => {
     const user = context.result;
     const { optionals } = context.params;
@@ -17,6 +18,12 @@ module.exports = function onCreate() {
         invitation.email = user.email;
         await invitation.save();
       }
+    }
+
+    try {
+      await discord.notifyUserCreation(user);
+    } catch (e) {
+      log('error', 'failed to notify discord');
     }
   };
 };

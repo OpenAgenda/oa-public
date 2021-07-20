@@ -1,15 +1,13 @@
 'use strict';
 
-const _ = require('lodash');
-
-const loadFixtures = require('./fixtures/load');
-
 const Core = require('../core');
 const Services = require('../services/init');
 
+const loadFixtures = require('./fixtures/load');
+
 const testConfig = require('./testConfig');
 
-describe('01 - core - functional (server): core.agendas().events.list()', function() {
+describe('01 - core - functional (server): core.agendas().events.list()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
@@ -93,12 +91,14 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
         'latitude', 'longitude', 'updatedAt',
         'createdAt', 'image', 'description', 'tags',
         'website', 'email', 'phone', 'links', 'access',
-        'state', 'timezone', 'imageCredits', 'extId'
+        'state', 'timezone', 'imageCredits', 'extId',
+        'duplicateCandidates', 'disqualifiedDuplicates'
       ]);
     });
 
     it('origin agenda is provided', () => {
       expect(Object.keys(events[0].originAgenda)).toEqual([
+        'locationSetUid',
         'slug',
         'uid',
         'official',
@@ -124,8 +124,13 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
     });
 
     it('sourceAgendas are provided', async () => {
-      const events = await core.agendas(2).events.list({}, { limit: 2 }, { detailed: true });
-      expect(events[1].sourceAgendas.length).toBe(1);
+      const twoEvents = await core.agendas(2).events.list({}, { limit: 2 }, { detailed: true });
+      expect(twoEvents[1].sourceAgendas.length).toBe(1);
+    });
+
+    it('canEdit and state are provided', () => {
+      expect(typeof events[0].state).toBe('number');
+      expect(typeof events[0].canEdit).toBe('boolean');
     });
   });
 
@@ -176,7 +181,8 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
   });
 
   describe('list with option returnPayload: true and access set', () => {
-    let adminResult, internalResult;
+    let adminResult;
+    let internalResult;
 
     beforeAll(async () => {
       adminResult = await core.agendas(2).events.list({}, { limit: 1 }, {
@@ -217,7 +223,6 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
   });
 
   describe('other', () => {
-
     it('list can indicate addMethod to be contribution', async () => {
       const events = await core.agendas(1).events.list({}, { limit: 10 });
       expect(events.filter(e => e.uid === 1).pop().addMethod).toBe('contribution');
@@ -227,7 +232,5 @@ describe('01 - core - functional (server): core.agendas().events.list()', functi
       const events = await core.agendas(2).events.list({}, { limit: 10 });
       expect(events.filter(e => e.uid === 2).pop().addMethod).toBe('aggregation');
     });
-
-  })
-
+  });
 });

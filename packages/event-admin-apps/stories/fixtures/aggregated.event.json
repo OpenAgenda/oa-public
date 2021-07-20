@@ -1,0 +1,163 @@
+{
+    "longDescription": {
+        "fr": "6 comédiens improvisateurs, répartis en deux équipes, cherchent à faire briller l’instant en vous racontant les plus belles histoires. À l’aide du musicien improvisateur, ils cherchent à se laisser guider par l’imprévu. Une soirée d'impro se joue en trois actes, jusqu’à désigner le membre du mois.\n\nQue ce soit drôle, touchant, poétique, absurde, onirique ou déjanté : ce qui se passe pendant le match ne sera plus joué.Ce qui nous rappelle la règle numéro d'or de la troupe : « Profitez-en autant que les comédiens »"
+    },
+    "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+    },
+    "interetintercommunal": [
+        null
+    ],
+    "featured": false,
+    "private": 0,
+    "keywords": {},
+    "accessibility": {
+        "ii": false,
+        "hi": false,
+        "vi": false,
+        "pi": false,
+        "mi": false
+    },
+    "dateRange": {
+        "ar": "الأحد ٢١ نوفمبر, 20:00",
+        "de": "Sonntag 21 November, 20:00",
+        "en": "Sunday 21 November, 20:00",
+        "fr": "Dimanche 21 novembre, 20h00",
+        "es": "Sunday 21 November, 20:00"
+    },
+    "timezone": "Europe/Paris",
+    "originAgenda": {
+        "uid": 57621068,
+        "image": "agenda57621068.jpg",
+        "title": "Ville de Lille"
+    },
+    "description": {
+        "fr": "L’instant est important, mais la rencontre est primordiale."
+    },
+    "title": {
+        "fr": "Match d'impro : la Cric - Improdisiaque"
+    },
+    "onlineAccessLink": null,
+    "createdAt": "2021-06-17T14:50:26.000Z",
+    "uid": 25464175,
+    "draft": 0,
+    "timings": [
+        {
+            "begin": "2021-11-21T20:00:00+01:00",
+            "end": "2021-11-21T22:30:00+01:00"
+        }
+    ],
+    "state": 2,
+    "categories-metropolitaines": [
+        20
+    ],
+    "slug": "match-dimpro-la-cric-improdisiaque",
+    "updatedAt": "2021-06-17T14:50:26.000Z",
+    "addMethod": "aggregation",
+    "image": {
+        "filename": "9ec5b81200694f23a808e5a0ed230ee3.base.image.jpg",
+        "size": {
+            "width": 700,
+            "height": 990
+        },
+        "variants": [
+            {
+                "filename": "9ec5b81200694f23a808e5a0ed230ee3.full.image.jpg",
+                "size": {
+                    "width": 1587,
+                    "height": 2245
+                },
+                "type": "full"
+            },
+            {
+                "filename": "9ec5b81200694f23a808e5a0ed230ee3.thumb.image.jpg",
+                "size": {
+                    "width": 200,
+                    "height": 200
+                },
+                "type": "thumbnail"
+            }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+    },
+    "attendanceMode": 1,
+    "sourceAgendas": [
+        {
+            "image": "agenda57621068.jpg",
+            "private": 0,
+            "indexed": 1,
+            "official": 1,
+            "description": "Agenda de tous les événements de la Ville de Lille",
+            "title": "Ville de Lille",
+            "url": "https://www.lille.fr",
+            "_agg": "eyJ1aWQiOjU3NjIxMDY4LCJ0aXRsZSI6IlZpbGxlIGRlIExpbGxlIiwiaW1hZ2UiOiJhZ2VuZGE1NzYyMTA2OC5qcGcifQ==",
+            "uid": 57621068,
+            "createdAt": "2017-07-12T09:18:29.000Z",
+            "officializedAt": "2018-04-09T09:19:31.000Z",
+            "slug": "ville-de-lille",
+            "updatedAt": "2021-06-17T18:04:24.000Z"
+        }
+    ],
+    "label": [
+        null
+    ],
+    "creatorUid": 33558118,
+    "recurringevent": [
+        null
+    ],
+    "registration": [
+        {
+            "type": "link",
+            "value": "http://www.lamava.fr"
+        }
+    ],
+    "location": {
+        "access": {},
+        "city": "Lille",
+        "timezone": "Europe/Paris",
+        "postalCode": "59042",
+        "latitude": 50.63137,
+        "imageCredits": null,
+        "description": {},
+        "setUid": null,
+        "uid": 84045287,
+        "createdAt": "2020-01-02T14:09:13.000Z",
+        "countryCode": "FR",
+        "links": [],
+        "state": 0,
+        "extId": null,
+        "department": "Nord",
+        "slug": "la-mava996",
+        "email": null,
+        "longitude": 3.087907,
+        "updatedAt": "2020-01-02T14:09:13.000Z",
+        "image": null,
+        "website": null,
+        "address": "34 rue du Long Pot",
+        "_agg": "eyJ1aWQiOjg0MDQ1Mjg3LCJuYW1lIjoiTGEgTUFWQSJ9",
+        "tags": null,
+        "insee": "59350",
+        "phone": null,
+        "district": "Fives",
+        "name": "La MAVA",
+        "region": "Hauts-de-France"
+    },
+    "conditions": {
+        "fr": "Sur réservations"
+    },
+    "age": {},
+    "status": 1,
+    "lastTiming": {
+        "begin": "2021-11-21T20:00:00+01:00",
+        "end": "2021-11-21T22:30:00+01:00"
+    },
+    "nextTiming": {
+        "begin": "2021-11-21T20:00:00+01:00",
+        "end": "2021-11-21T22:30:00+01:00"
+    }
+}

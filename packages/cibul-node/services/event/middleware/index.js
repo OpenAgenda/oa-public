@@ -12,6 +12,17 @@ const p = require( '../../../lib/promises' );
 const w = p.w;
 const { getRoleSlug } = membersSvc.utils;
 
+const validateLink = require('@openagenda/validators/link')();
+
+const isURL = url => {
+  try {
+    validateLink(url);
+    return true;
+  } catch(e) {
+    return false;
+  }
+};
+
 let svc;
 
 module.exports = function( eventService ) {
@@ -34,9 +45,9 @@ async function loadMissing(req) {
 
   const record = await req.app.services
     .knex('event_2')
-    .first(['timings', 'online_access_link', 'registration', 'conditions'])
+    .first(['timings', 'online_access_link', 'registration', 'conditions', 'status'])
     .where('uid', req.event.uid);
-  
+
   req.event.timings = record ? (JSON.parse(record.timings) || []).map(t => ({
     start: t.begin,
     end: t.end
@@ -44,8 +55,13 @@ async function loadMissing(req) {
 
   req.event.onlineAccessLink = record?.online_access_link;
 
-  req.event.ticketLink = JSON.parse(record?.registration || '[]').join(', ');
+  req.event.ticketLink = JSON.parse(record?.registration || '[]')
+    .filter(isURL)
+    .pop();
+
   req.event.pricingInfo = JSON.parse(record?.conditions || '{}')[req.lang];
+
+  req.event.status = record?.status === undefined ? 1 : record?.status;
 }
 
 

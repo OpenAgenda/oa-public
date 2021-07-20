@@ -1,36 +1,53 @@
-"use strict";
+'use strict';
 
-const ControlData = require( '@openagenda/legacy/controlData' );
-const TagsAndCustom = require( '@openagenda/legacy/tagsAndCustom' );
-const utils = require( '@openagenda/legacy/utils' );
-
-const Queues = require( './queues' );
+const ControlData = require('@openagenda/legacy/controlData');
+const Embeds = require('@openagenda/legacy/embeds');
+const TagsAndCustom = require('@openagenda/legacy/tagsAndCustom');
+const utils = require('@openagenda/legacy/utils');
 
 module.exports.controlData = {};
 module.exports.tagsAndCustom = {};
 module.exports.utils = utils;
 
-module.exports.init = config => {
+module.exports.init = (config, services) => {
+  const {
+    knex,
+    redis,
+    queues: Queues,
+    agendas
+  } = services;
 
-  ControlData.updateLoggerConfig( config.getLogConfig( 'svc', 'controlData' ) );
-  TagsAndCustom.updateLoggerConfig( config.getLogConfig( 'svc', 'legacyTagsAndCustom' ) );
+  ControlData.updateLoggerConfig(config.getLogConfig('svc', 'controlData'));
+  TagsAndCustom.updateLoggerConfig(config.getLogConfig('svc', 'legacyTagsAndCustom'));
 
-  Object.assign( module.exports.controlData, ControlData( {
-    knex: config.knex,
-    redis: config.redisClient,
+  Object.assign(module.exports.controlData, ControlData({
+    knex,
+    redis,
     prefix: 'agendaControlData:',
     imagePath: config.aws.imageBucketPath
-  } ) );
+  }));
 
-  Object.assign( module.exports.tagsAndCustom, TagsAndCustom( {
-    knex: config.knex,
-    queue: Queues( 'legacyTagsAndCustom' )
-  } ) );
+  Object.assign(module.exports.tagsAndCustom, TagsAndCustom({
+    knex,
+    queue: Queues('legacyTagsAndCustom')
+  }));
+
+  module.exports.embeds = Embeds({
+    knex,
+    interfaces: {
+      getAgendaId: agendaUid => agendas.get({
+        uid: agendaUid
+      }, {
+        internal: true,
+        private: null
+      }).then(a => a?.id)
+    }
+  });
 
   return module.exports;
-}
+};
 
 module.exports.task = () => {
   module.exports.controlData.task();
   module.exports.tagsAndCustom.task();
-}
+};

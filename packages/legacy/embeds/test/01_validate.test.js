@@ -1,6 +1,6 @@
 'use strict';
 
-const validate = require('../lib/validate');
+const validate = require('../service/lib/validate');
 
 describe('01 - embeds - validate', () => {
   describe('root', () => {
@@ -167,6 +167,18 @@ describe('01 - embeds - validate', () => {
         pi: false,
         em: false
       });
+    });
+  });
+
+  describe('templates', () => {
+    it('templates are in template key', () => {
+      const clean = validate({
+        template: {
+          header: 'something'
+        }
+      });
+
+      expect(clean.template.header).toBe('something');
     });
   });
 });

@@ -2,16 +2,17 @@
 
 const log = require('@openagenda/logs')('get');
 const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
-const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
+const legacy = require('./lib/legacy');
 
 async function get(service, identifiers, options = {}) {
-  log('received %j', identifiers);
+  log('received %j %j', identifiers, options);
   const k = service.clients.knex(service.config.schema);
   const {
     eventCounts: includeEventCounts,
@@ -29,14 +30,11 @@ async function get(service, identifiers, options = {}) {
   });
 
   addSelect(k, 'public', { first: true, includeFields });
-  const location = await k.then(l => (l
-    ? fromDbEntryToItem(l, {
-      includeFields,
-      imagePath: includeImagePath ? service.config.imagePath : null,
-      access: 'public',
-    })
-    : null));
-
+  const entry = await k;
+  const location = entry ? service.fieldUtils.fromEntryToItem(entry, {
+    includeFields,
+    access: 'public',
+  }) : null;
   if (!location) {
     if (throwOnNotFound) {
       throw new NotFoundError('location', identifiers);
@@ -55,7 +53,11 @@ async function get(service, identifiers, options = {}) {
     location.linkedAgendas = await service.interfaces.getLinkedAgendas(location.uid);
   }
 
-  return location;
+  if (includeImagePath && service.config.imagePath) {
+    location.image = service.config.imagePath + location.image;
+  }
+
+  return legacy.load(location, entry);
 }
 
 module.exports = get;
@@ -65,6 +67,16 @@ module.exports.byAgendaUid = async (
   agendaUid,
   identifiers,
   options = {}
-) => get(service, identifiers, { ...options, context: { agendaUid } });
+) => {
+  if (!agendaUid) {
+    throw new BadRequestError('agenda identifier is missing');
+  }
+  return get(service, identifiers, { ...options, context: { agendaUid } });
+};
 
-module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => get(service, identifiers, { ...options, context: { setUid } });
+module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => {
+  if (!setUid) {
+    throw new BadRequestError('set identifier is missing');
+  }
+  return get(service, identifiers, { ...options, context: { setUid } });
+};

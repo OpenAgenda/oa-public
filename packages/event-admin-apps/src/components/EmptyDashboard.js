@@ -39,9 +39,9 @@ export default function EmptyDashboard({ agenda }) {
         <b>{intl.formatMessage(messages.noEvents)}</b>
 
         <div className="margin-top-lg">
-          <Link to={`/${agenda.slug}/contribute`} className="btn btn-primary">
+          <a href={`/${agenda.slug}/contribute`} className="btn btn-primary">
             {intl.formatMessage(messages.createFirstEvent)}
-          </Link>
+          </a>
         </div>
       </div>
 

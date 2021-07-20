@@ -429,6 +429,18 @@
       "value": "crwdns596:0crwdne596:0"
     }
   ],
+  "aggregator-sources.DefineRules.caseInsensitive": [
+    {
+      "type": 0,
+      "value": "case-insensitive"
+    }
+  ],
+  "aggregator-sources.DefineRules.caseSensitive": [
+    {
+      "type": 0,
+      "value": "case-sensitive"
+    }
+  ],
   "aggregator-sources.DefineRules.choice": [
     {
       "type": 0,
@@ -1055,6 +1067,12 @@
     {
       "type": 0,
       "value": "crwdns6038:0crwdne6038:0"
+    }
+  ],
+  "aggregator-sources.RuleForm.textFilterCaseSensitive": [
+    {
+      "type": 0,
+      "value": "The filter is case sensitive"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [

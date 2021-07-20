@@ -107,7 +107,7 @@ describe('agenda-locations - functional - patch & update', function () {
     this.timeout(20000);
 
     before(async () => {
-      await svc().patch(94482437, {
+      await svc(7196947).patch(94482437, {
         image: fs.createReadStream(
           `${__dirname}/fixtures/images/vieilles_pierres.jpg`
         ),
@@ -121,6 +121,31 @@ describe('agenda-locations - functional - patch & update', function () {
         JSON.parse(entry.store).image.split('?').shift(),
         'location94482437.jpg'
       );
+    });
+
+    it('patching image in store does not affect other store fields', () => {
+      assert.equal(JSON.parse(entry.store).extId, 22);
+    });
+  });
+
+   describe('patching duplicates', function(){
+    let entry;
+    this.timeout(20000);
+
+    before(async () => {
+      await svc(7196947).patch(51665987, {
+        duplicateCandidates: [30]
+      });
+
+      entry = await f.client('location').first().where('uid', 51665987);
+    });
+
+    it('saves uploaded candidates in db', () => {
+        assert.deepEqual(JSON.parse(entry.duplicates).candidates, [30]);
+    });
+
+    it('patching candidates in duplicates does not affect other duplicates fields', () => {
+      assert.deepEqual(JSON.parse(entry.duplicates).disqualified, [5]);
     });
   });
 
@@ -216,7 +241,7 @@ describe('agenda-locations - functional - patch & update', function () {
     });
 
     it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
-      await svc.sets(1903810).locations.patch(60763721, {
+      const updated = await svc.sets(1903810).locations.patch(60763721, {
         extId: 'ard_leg_1200',
       });
 
@@ -229,11 +254,8 @@ describe('agenda-locations - functional - patch & update', function () {
           extId: r.ext_id,
         }));
 
-      await svc.sets(1903810).locations.patch(60763721, {
-        extId: 'ard_leg_1200',
-      });
-
       assert.equal(store.extId, 'ard_leg_1200');
+      assert.equal(updated.extId, 'ard_leg_1200');
     });
 
     it('if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {

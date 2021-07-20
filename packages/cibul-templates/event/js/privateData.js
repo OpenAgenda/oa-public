@@ -7,6 +7,7 @@ import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
+import textHelpers from '../../helpers/text.js';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 
@@ -58,6 +59,7 @@ module.exports = options => {
   }
 
   function load(agendaUid, eventUid, lang) {
+    log('loading private data');
     _fetch(_defineRes(agendaUid, eventUid, lang), (err, data) => {
 
       if (err) {
@@ -65,6 +67,7 @@ module.exports = options => {
 
         return;
       }
+      log('loaded');
 
       if (_.keys(data.custom.custom).length) {
         du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
@@ -78,10 +81,12 @@ module.exports = options => {
       }
 
       if (data.authorizations?.canEditEvent) {
-        du.removeClass(du.el('.js_cancel'), 'display-none');
+        log('can edit event, displaying status change controls');
+        du.removeClass(du.el('.js_status'), 'display-none');
       } else {
+        log('cannot edit event, displaying disabled status change message');
         du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
-        du.removeClass(du.el('.js_disabled_cancel'), 'display-none');
+        du.removeClass(du.el('.js_disabled_status'), 'display-none');
       }
 
       if (data.authorizations?.canChangeState) {
@@ -275,7 +280,8 @@ module.exports = options => {
         }
 
         return '//cibul.s3.amazonaws.com/' + image;
-      }
+      },
+      _txt: textHelpers()
     }, data));
   }
 

@@ -83,6 +83,14 @@ module.exports = async ({ alias, client, timeout, listAgendas, getDetailedAgenda
   });
 
   log('pointing alias %s to index %s', alias, newIndex);
+
+  if (
+    await client.indices.exists({ index: alias }).then(r => r.body)
+    && !await client.indices.existsAlias({ name: alias }).then(r => r.body)
+  ) {
+    log('info', 'agendas index exists.. deleting');
+    await client.indices.delete({ index: alias })
+  }
   
   await client.indices.putAlias({
     index: newIndex,

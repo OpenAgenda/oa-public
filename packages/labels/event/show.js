@@ -21,6 +21,18 @@ module.exports = {
     "br": "Ezporzhiañ",
     "io": "crwdns14428:0crwdne14428:0"
   },
+  "cannotShareInfo": {
+    "en": "This share is not available for private or unpublished events",
+    "fr": "Ce partage n'est pas disponible pour les événements privés ou non-publiés"
+  },
+  "copyInClipboard": {
+    "en": "Click to copy link to clipboard",
+    "fr": "Cliquer pour copier le lien dans le presse-papier"
+  },
+  "printPermalink": {
+    "en": "Online version",
+    "fr": "Version en ligne"
+  },
   "otherShares": {
     "en": "Other shares",
     "fr": "Autres partages",
@@ -247,10 +259,13 @@ module.exports = {
     "br": "Kadarnaat",
     "io": "crwdns14478:0crwdne14478:0"
   },
-  "cannotCancel": {
-    "en": "You do not have edition rights over this event.",
-    "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
-    "io": "crwdns14480:0crwdne14480:0"
+  "cannotChangeStatus": {
+    "en": "Cancel / Full / Postponed...",
+    "fr": "Annuler / Complet / Reporté...",
+  },
+  "cannotChangeStatusInfo": {
+    "en": "You do not have edition rights over this event",
+    "fr": "Vous n'avez pas les droits d'édition sur cet événement"
   },
   "cancel": {
     "en": "Cancel",
@@ -815,5 +830,77 @@ module.exports = {
     "es": "La contribución a este agenda está restringido",
     "br": "Strishaet eo ar c'hendeurel d'an deiziataer-mañ",
     "io": "crwdns14600:0crwdne14600:0"
+  },
+  "statusScheduled": {
+    "en": "Scheduled",
+    "fr": "Programmé"
+  },
+  "markAsScheduled": {
+    "en": "Clear the status of the event",
+    "fr": "Réinitialiser l'état de l'événement"
+  },
+  "statusScheduledInfo": {
+    "en": "The event is not cancelled, nor rescheduled, etc..",
+    "fr": "L'événement n'est pas annulé, ni reprogrammé, etc.."
+  },
+  "statusRescheduled": {
+    "en": "Rescheduled",
+    "fr": "Reprogrammé"
+  },
+  "markAsRescheduled": {
+    "en": "The event was rescheduled",
+    "fr": "L'événement a été reprogrammé"
+  },
+  "statusRescheduledInfo": {
+    "en": "The timings and dates of the event have been modified",
+    "fr": "Les dates et/ou horaires de l'événement ont été modifiées"
+  },
+  "statusMovedOnline": {
+    "en": "Moved online",
+    "fr": "Déplacé en ligne"
+  },
+  "markAsMovedOnline": {
+    "en": "The event is moved online",
+    "fr": "L'événement a lieu en ligne"
+  },
+  "statusMovedOnlineInfo": {
+    "en": "The event will no longer be attended to at a physical location",
+    "fr": "La participation de l'événement n'est désormais plus possible en présentiel"
+  },
+  "statusPostponed": {
+    "en": "Postponed",
+    "fr": "Reporté"
+  },
+  "markAsPostponed": {
+    "en": "The event is postponed",
+    "fr": "L'événement est reporté"
+  },
+  "statusPostponedInfo": {
+    "en": "The event dates are no longer valid. New dates are not yet known",
+    "fr": "L'événement a été reporté à des dates encore non connues"
+  },
+  "statusCancelled": {
+    "en": "Cancelled",
+    "fr": "Annulé"
+  },
+  "markAsCancelled": {
+    "en": "The event is cancelled",
+    "fr": "L'événement est annulé"
+  },
+  "statusCancelledInfo": {
+    "en": "The event has been permanently cancelled",
+    "fr": "L'événement a été annulé de manière permanente"
+  },
+  "statusFull": {
+    "en": "Fully booked",
+    "fr": "Complet"
+  },
+  "markAsFull": {
+    "en": "The event is fully booked",
+    "fr": "L'événement est complet"
+  },
+  "statusFullInfo": {
+    "en": "New participants are no longer accepted to the event",
+    "fr": "L'événement n'accepte plus de nouveaux participants"
   }
 }

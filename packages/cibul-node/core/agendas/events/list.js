@@ -62,7 +62,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   });
 
   if (load.agendaEvent) {
-    fetched.agendaEvents = agendaEvents
+    fetched.agendaEvents = agendaEvents;
   }
 
   const eventUids = agendaEvents.map(ae => ae.eventUid);
@@ -103,11 +103,11 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     }, { offset: 0, limit: locationUids.length }, { detailed: true, deleted: null });
   }
 
-  if (detailed && load.member) {
+  if (detailed && load.member && agendaEvents.length) {
     fetched.members = await members.list({
       agendaUid: agenda.uid,
       userUid: agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid)
-    }, { limit }).then(m => m.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
+    }, { limit }).then(rows => rows.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
   }
 
   const compiledEvents = eventUids.map((uid, index) => {
@@ -116,21 +116,24 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       log('warn', 'event uid %s was not found', uid);
       return null;
     }
-    return { uid, ...merge.eventFromObject({
-      agendaEvent: fetched.agendaEvents[index],
-      event: load.event ? Object.assign(event, detailed ? {
-        location: _.find(fetched.locations, { uid: event.locationUid }, null)
-      } : {}) : null,
-      custom: load.custom ? {
-        agenda: (_.find(fetched.custom, { identifier: uid }) || {}).custom,
-        network: (_.find(fetched.networkCustom, { identifier: uid }) || {}).custom
-      } : null
-    }, {
-      includeFields: formSchema.fields.map(f => f.field),
-      originAgenda: load.event ? _.find(fetched.originAgendas, { uid: event.agendaUid }) : null,
-      member: load.event ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
-      load
-    }) }
+    return {
+      uid,
+      ...merge.eventFromObject({
+        agendaEvent: fetched.agendaEvents[index],
+        event: load.event ? Object.assign(event, detailed ? {
+          location: _.find(fetched.locations, { uid: event.locationUid }, null)
+        } : {}) : null,
+        custom: load.custom ? {
+          agenda: (_.find(fetched.custom, { identifier: uid }) || {}).custom,
+          network: (_.find(fetched.networkCustom, { identifier: uid }) || {}).custom
+        } : null
+      }, {
+        includeFields: formSchema.fields.map(f => f.field),
+        originAgenda: load.event ? _.find(fetched.originAgendas, { uid: event.agendaUid }) : null,
+        member: load.event ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
+        load
+      })
+    };
   }).filter(event => !!event);
 
   return returnPayload ? {
@@ -140,5 +143,4 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     agenda,
     formSchema
   } : compiledEvents;
-
-}
+};

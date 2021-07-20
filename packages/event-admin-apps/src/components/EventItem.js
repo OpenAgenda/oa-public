@@ -7,6 +7,7 @@ import { getLocaleValue, useApiClient } from '@openagenda/react-shared';
 import { MoreInfo } from '@openagenda/react-components';
 import addQueryPrefix from '../utils/addQueryPrefix';
 import EventStateSelector from './EventStateSelector';
+import EventItemShareLine from './EventItemShareLine';
 
 const messages = defineMessages({
   createdBy: {
@@ -16,15 +17,6 @@ const messages = defineMessages({
   addedBy: {
     id: 'EventAdminApp.EventItem.addedBy',
     defaultMessage: 'Added by <link>{name}</link>',
-  },
-  sharedFrom: {
-    id: 'EventAdminApp.EventItem.sharedFrom',
-    defaultMessage: 'Shared from <agendaLink>{agendaTitle}</agendaLink>',
-  },
-  sharedFromBy: {
-    id: 'EventAdminApp.EventItem.sharedFromBy',
-    defaultMessage:
-      'Shared from <agendaLink>{agendaTitle}</agendaLink> by <memberLink>{memberName}</memberLink>',
   },
   aggregatedFrom: {
     id: 'EventAdminApp.EventItem.aggregatedFrom',
@@ -76,7 +68,27 @@ const messages = defineMessages({
   },
   memberPlaceholder: {
     id: 'EventAdminApp.EventItem.memberPlaceholder',
-    defaultMessage: '<decorate>Unnamed member</decorate>',
+    defaultMessage: 'a {role} member',
+  },
+  noRoleMemberPlaceholder: {
+    id: 'EventAdminApp.EventItem.noRoleMemberPlaceholder',
+    defaultMessage: 'a member',
+  },
+  contributor: {
+    id: 'EventAdminApp.EventItem.contributor',
+    defaultMessage: 'contributor',
+  },
+  moderator: {
+    id: 'EventAdminApp.EventItem.moderator',
+    defaultMessage: 'moderator',
+  },
+  administrator: {
+    id: 'EventAdminApp.EventItem.administrator',
+    defaultMessage: 'administrator',
+  },
+  unnamedMemberInfo: {
+    id: 'EventAdminApp.EventItem.unnamedMemberInfo',
+    defaultMessage: 'Member has not specified his/her name',
   },
 });
 
@@ -108,9 +120,6 @@ export default function EventItem({
 
     return endOfLastTiming < now;
   }, [event]);
-
-  const hasOfflineLocation = event.attendanceMode === 1 || event.attendanceMode === 3;
-  const hasOnlineLocation = event.attendanceMode === 2 || event.attendanceMode === 3;
 
   const [hovered, setHovered] = useState(false);
 
@@ -183,9 +192,19 @@ export default function EventItem({
     [index, isFirst, isLast, page, query]
   );
 
-  const memberPlaceholderMsg = intl.formatMessage(messages.memberPlaceholder, {
-    decorate: chunks => <i>{chunks}</i>,
-  });
+  const memberPlaceholderMsg = member => event.member?.name ?? (
+  <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
+    {member?.role
+      ? intl.formatMessage(messages.memberPlaceholder, {
+        role: intl.formatMessage(
+          messages[
+            ['contributor', 'administrator', 'moderator'][member.role - 1]
+          ]
+        ),
+      })
+      : intl.formatMessage(messages.noRoleMemberPlaceholder)}
+  </span>
+  );
 
   return (
     <li
@@ -216,7 +235,7 @@ export default function EventItem({
 
       {/* Location */}
 
-      {hasOfflineLocation ? (
+      {event.location ? (
         <div className="margin-top-xs">
           {event.location.name}, {getLocaleValue(event.dateRange, intl.locale)}
         </div>
@@ -231,11 +250,11 @@ export default function EventItem({
 
       {/* Add method */}
 
-      {event.addMethod === 'contribution' && event.member?.name ? (
+      {event.addMethod === 'contribution' && event.member ? (
         <div className="margin-top-xs">
           {intl.formatMessage(messages.createdBy, {
-            name: event.member?.name ?? memberPlaceholderMsg,
-            link: chunks => (event.member?.name ? (
+            name: memberPlaceholderMsg(event.member),
+            link: chunks => (event.member ? (
               <a
                 href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
               >
@@ -250,23 +269,11 @@ export default function EventItem({
 
       {event.addMethod === 'share' ? (
         <div className="margin-top-xs">
-          {intl.formatMessage(
-            event.member?.name ? messages.sharedFromBy : messages.sharedFrom,
-            {
-              agendaTitle: event.originAgenda.title,
-              memberName: event.member?.name ?? memberPlaceholderMsg,
-              agendaLink: chunks => (
-                <a href={`/agendas/${event.originAgenda.uid}`}>{chunks}</a>
-              ),
-              memberLink: chunks => (
-                <a
-                  href={`/${agenda.slug}/admin/members?userUid=${event.member.uid}`}
-                >
-                  {chunks}
-                </a>
-              ),
-            }
-          )}
+          <EventItemShareLine
+            event={event}
+            agenda={agenda}
+            memberPlaceholderMsg={memberPlaceholderMsg}
+          />
         </div>
       ) : null}
 
@@ -333,7 +340,7 @@ export default function EventItem({
 
           {event.member
           && event.originAgenda?.uid === agenda.uid
-          && hasOfflineLocation ? (
+          && event.location ? (
             <li>
               <a
                 className="btn btn-link btn-link-inline"
@@ -344,7 +351,7 @@ export default function EventItem({
             </li>
             ) : null}
 
-          {hasOnlineLocation ? (
+          {event.onlineAccessLink ? (
             <li>
               <a
                 className="btn btn-link btn-link-inline"

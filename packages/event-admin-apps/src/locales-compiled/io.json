@@ -75,12 +75,6 @@
       "value": "crwdne5992:0"
     }
   ],
-  "EventAdminApp.FiltersPortal.filters": [
-    {
-      "type": 0,
-      "value": "crwdns788:0crwdne788:0"
-    }
-  ],
   "EventAdminApp.Dashboard.groupedActions": [
     {
       "type": 0,
@@ -321,6 +315,12 @@
       "value": "crwdne796:0"
     }
   ],
+  "EventAdminApp.EventItem.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
   "EventAdminApp.EventItem.aggregatedFrom": [
     {
       "type": 0,
@@ -339,6 +339,12 @@
     {
       "type": 0,
       "value": "crwdns800:0crwdne800:0"
+    }
+  ],
+  "EventAdminApp.EventItem.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
     }
   ],
   "EventAdminApp.EventItem.createdBy": [
@@ -385,6 +391,18 @@
       "value": "decorate"
     }
   ],
+  "EventAdminApp.EventItem.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "EventAdminApp.EventItem.noRoleMemberPlaceholder": [
+    {
+      "type": 0,
+      "value": "a member"
+    }
+  ],
   "EventAdminApp.EventItem.onlineEvent": [
     {
       "type": 0,
@@ -407,6 +425,22 @@
     {
       "type": 0,
       "value": "Remove from featured"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedBy": [
+    {
+      "type": 0,
+      "value": "Shared by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "memberName"
+        }
+      ],
+      "type": 8,
+      "value": "memberLink"
     }
   ],
   "EventAdminApp.EventItem.sharedFrom": [
@@ -467,16 +501,16 @@
       "value": "crwdns6060:0crwdne6060:0"
     }
   ],
-  "EventAdminApp.FiltersPart.lessFilters": [
+  "EventAdminApp.EventItem.unnamedMemberInfo": [
     {
       "type": 0,
-      "value": "crwdns814:0crwdne814:0"
+      "value": "Member has not specified his/her name"
     }
   ],
-  "EventAdminApp.FiltersPart.moreFilters": [
+  "EventAdminApp.FiltersPortal.filters": [
     {
       "type": 0,
-      "value": "crwdns816:0crwdne816:0"
+      "value": "crwdns788:0crwdne788:0"
     }
   ],
   "EventAdminApp.RemoveModal.confirm": [

@@ -55,5 +55,7 @@
   "category": "Kategorie",
   "location.district": "Kreis",
   "state": "Zustand",
-  "references": "Verknüpfte Veranstaltungen"
+  "references": "Verknüpfte Veranstaltungen",
+  "attendanceMode": "Anwesenheitsmodus",
+  "onlineAccessLink": "Zugangslink"
 }

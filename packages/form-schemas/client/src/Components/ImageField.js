@@ -7,7 +7,7 @@ import flattenLabels from '@openagenda/labels/flatten';
 
 import storePaths from '../lib/storePaths';
 
-module.exports = class ImageField extends Component {
+export default class ImageField extends Component {
 
   constructor( props ) {
 

@@ -40,6 +40,10 @@
         "fields": {
           "eventAdmin": {
             "type": "boolean",
+            "default": true
+          },
+          "status": {
+            "type": "boolean",
             "default": false
           }
         }

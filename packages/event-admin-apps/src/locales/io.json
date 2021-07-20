@@ -34,8 +34,6 @@
   "EventAdminApp.EventItem.remove": "crwdns810:0crwdne810:0",
   "EventAdminApp.EventItem.showLocation": "crwdns812:0crwdne812:0",
   "EventAdminApp.EventItem.showOnlineLocation": "crwdns6060:0crwdne6060:0",
-  "EventAdminApp.FiltersPart.lessFilters": "crwdns814:0crwdne814:0",
-  "EventAdminApp.FiltersPart.moreFilters": "crwdns816:0crwdne816:0",
   "EventAdminApp.RemoveModal.confirm": "crwdns818:0crwdne818:0",
   "EventAdminApp.RemoveModal.deleteDesc": "crwdns820:0crwdne820:0",
   "EventAdminApp.RemoveModal.deleteEvent": "crwdns822:0crwdne822:0",

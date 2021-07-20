@@ -1,102 +1,79 @@
-import extend from 'lodash/extend';
-import isArray from 'lodash/isArray';
-
 /**
  * makes validator process lists
  */
 
-module.exports = ( validator, options ) => {
-
-  const params = extend( {
+export default (validator, options) => {
+  const params = {
     min: null,
     max: null,
-    optional: options.optional === undefined ? true : !!options.optional
-  }, options.list );
+    optional: options.optional === undefined ? true : !!options.optional,
+    ...options.list
+  };
 
-  return extend( validate, {
-    type: validator.type,
-    field: validator.field
-  } );
+  return Object.assign(v => {
+    const clean = [];
+    let errors = [];
 
-  function validate( v ) {
+    let value = [undefined, null].includes(v) ? [] : v;
 
-    let clean = [], errors = [],
-
-    value = [ undefined, null ].includes( v ) ? [] : v;
-
-    if ( params.default !== undefined ) {
-
-      if ( v === params.default ) {
-
+    if (params.default !== undefined) {
+      if (v === params.default) {
         return params.default;
-
-      } else if ( v === undefined ) {
-
-        return params.default;
-
       }
-
+      if (v === undefined) {
+        return params.default;
+      }
     }
 
-    if ( !isArray( value ) ) {
-
-      value = [ value ];
-
+    if (!Array.isArray(value)) {
+      value = [value];
     }
 
-    value.forEach( ( item, i ) => {
-
+    value.forEach((item, i) => {
       try {
-
-        clean.push( validator( item ) );
-
-      } catch( errs ) {
-
-        errors = errors.concat( errs.map( e => extend( e, { index: i } ) ) );
-
+        clean.push(validator(item));
+      } catch (errs) {
+        errors = errors.concat(errs.map(e => ({
+          ...e,
+          index: i
+        })));
       }
+    });
 
-    } );
-
-    if ( !params.optional && value.length === 0 ) {
-
-      errors.push( {
+    if (!params.optional && value.length === 0) {
+      errors.push({
         field: validator.field,
         code: 'list.required',
         message: 'list cannot be empty',
         origin: value
-      } );
-
+      });
     } else if (
-      ( !params.optional || value.length > 0 )
+      (!params.optional || value.length > 0)
       && params.min !== null
       && value.length < params.min
     ) {
-
-      errors.push( {
+      errors.push({
         field: validator.field,
         code: 'list.tooshort',
         message: 'list is too short',
         origin: value
-      } );
-
+      });
     }
 
-    if ( params.max !== null && value.length > params.max ) {
-
-      errors.push( {
+    if (params.max !== null && value.length > params.max) {
+      errors.push({
         field: validator.field,
         code: 'list.toolong',
         message: 'list is too long',
         origin: value
-      } );
-
+      });
     }
 
-    if ( errors.length ) throw errors;
+    if (errors.length) throw errors;
 
     return clean;
-
-  }
-
-}
+  }, {
+    type: validator.type,
+    field: validator.field
+  });
+};

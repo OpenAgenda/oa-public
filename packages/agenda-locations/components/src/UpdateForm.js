@@ -1,20 +1,26 @@
 import debug from 'debug';
 import React from 'react';
 import PropTypes from 'prop-types';
-import formLabels from '@openagenda/labels/agenda-locations/form';
-import updateLabels from '@openagenda/labels/agenda-locations/update';
-import makeLabelGetter from '@openagenda/labels';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import LocationForm from './LocationForm';
 
 const log = debug('UpdateForm');
 
-const labels = {
-  ...formLabels,
-  ...updateLabels
-};
-
-const getLabel = makeLabelGetter(labels);
+const messages = defineMessages({
+  back: {
+    id: 'AgendaLocations.UpdateForm.back',
+    defaultMessage: 'Go back to the list',
+  },
+  title: {
+    id: 'AgendaLocations.UpdateForm.title',
+    defaultMessage: 'Location edit',
+  },
+  info: {
+    id: 'AgendaLocations.UpdateForm.info',
+    defaultMessage: 'All events attached to this location will be updated',
+  },
+});
 
 class UpdateForm extends React.Component {
   static propTypes = {
@@ -27,15 +33,15 @@ class UpdateForm extends React.Component {
   };
 
   renderHeader() {
-    const { actions, lang } = this.props;
+    const { actions } = this.props;
     return (
       <div className="form-head">
         <button type="button" className="btn btn-default" onClick={actions.closeForm}>
           <i className="fa fa-angle-left margin-right-sm" />
-          <span>{getLabel('back', lang)}</span>
+          <span><FormattedMessage {...messages.back} /></span>
         </button>
-        <h2>{getLabel('title', lang)}</h2>
-        <span className="info">{getLabel('info', lang)}</span>
+        <h2><FormattedMessage {...messages.title} /></h2>
+        <span className="info"><FormattedMessage {...messages.info} /></span>
       </div>
     );
   }
@@ -57,7 +63,6 @@ class UpdateForm extends React.Component {
     return (
       <LocationForm
         Header={this.renderHeader()}
-        labels={labels}
         showToggler
         res={res}
         lang={lang}
@@ -72,6 +77,7 @@ class UpdateForm extends React.Component {
           formState.location.uid
         )}
         tiles={tiles}
+        mode="update"
       />
     );
   }

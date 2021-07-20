@@ -7,12 +7,13 @@ const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const cleanOptions = require('./lib/cleanSetOptions');
 const get = require('./get');
 const validate = require('./lib/validate');
-const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const authorize = require('./lib/authorize');
+const preCleanBeforeUpdate = require('./lib/preCleanBeforeUpdate');
+const legacy = require('./lib/legacy');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
-
+  log('data: %j', data);
   await authorize(service, 'update', current.uid, options);
 
   const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
@@ -27,14 +28,10 @@ async function update({ service, isPatch }, current, data, options = {}) {
     log('image is not stream, will be ignored');
   }
 
-  const dataToValidate = geocodeResult
-    ? {
-      ...(isPatch
-        ? _.pick(geocodeResult, ['latitude', 'longitude'])
-        : geocodeResult),
-      ...data,
-    }
-    : data;
+  const dataToValidate = preCleanBeforeUpdate(data, current, {
+    geocodeResult,
+    isPatch
+  });
 
   const clean = {
     ...validate(dataToValidate, { isPatch, ignoreImage }),
@@ -55,12 +52,11 @@ async function update({ service, isPatch }, current, data, options = {}) {
   }
 
   // string image means image is unchanged.
-
-  const entry = fromItemToDbEntry(clean, current);
-
+  const entry = service.fieldUtils.fromItemToEntry(clean, current);
+  log('entry: ', entry, 'clean:', clean, 'current:', current);
   await service.clients
     .knex(service.config.schema)
-    .update(entry)
+    .update(legacy.patch(entry, current, service.fieldUtils.fromItemToEntry(current)))
     .where('uid', current.uid);
 
   log('updated location with uid %s', current.uid);
@@ -77,7 +73,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   if (service.interfaces.onUpdate) {
     await service.interfaces.onUpdate(current, updated);
   }
-
+  log(updated);
   return updated;
 }
 

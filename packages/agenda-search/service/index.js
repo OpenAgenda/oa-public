@@ -6,10 +6,10 @@ const logger = require('@openagenda/logs');
 
 const cleanIndexedAgenda = require('./lib/cleanIndexedAgenda');
 const mw = require('./lib/middleware');
-const formatAgenda = require('./lib/formatAgenda');
 const resyncUpdated = require('./lib/resyncUpdated');
 const rebuild = require('./lib/rebuild');
 const list = require('./lib/list');
+const set = require('./lib/set');
 
 module.exports = (config = {}) => {
   const {
@@ -58,11 +58,7 @@ module.exports = (config = {}) => {
     list: list.bind(null, utilities),
     rebuild: rebuild.bind(null, utilities),
     resyncUpdated: resyncUpdated.bind(null, utilities),
-    set: async agenda => client.index({
-      index: alias,
-      id: agenda.uid,
-      body: await getDetailedAgenda(agenda).then(a => formatAgenda(a))
-    }),
+    set: set.bind(null ,utilities),
     remove: agenda => client.delete({
       index: alias,
       id: agenda.uid

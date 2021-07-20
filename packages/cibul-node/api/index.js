@@ -2,17 +2,21 @@
 
 const VError = require('verror');
 const express = require('express');
+const log = require('@openagenda/logs')('api');
 
 const logRequests = require('../services/logRequests');
-const log = require('@openagenda/logs')('api');
+const errors = require('../services/errors');
+
 const mw = require('./middleware');
+const getSettingsEndpoint = require('./endpoints/settingsGet');
+const getSettingsResyncEndpoint = require('./endpoints/settingsResync');
 
 const settings = {
-  get: require('./endpoints/settingsGet'),
-  resync: require('./endpoints/settingsResync')
+  get: getSettingsEndpoint,
+  resync: getSettingsResyncEndpoint
 };
 
-const handleError = require('../services/errors').bind(null, 'api');
+const handleError = errors.bind(null, 'api');
 
 module.exports = core => {
   log('init');
@@ -69,7 +73,7 @@ module.exports = core => {
     detailed: req.query.detailed
   }).catch(next)));
 
-  app.post('/agendas/:agendaUid/events', 
+  app.post('/agendas/:agendaUid/events',
     mw.moveEventLegacyImageCredits,
     (req, res, next) => core
       .agendas(req.agenda.uid).events
@@ -82,8 +86,7 @@ module.exports = core => {
       }).then(event => res.json({
         success: true,
         event
-      }), next)
-  );
+      }), next));
 
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
@@ -96,8 +99,7 @@ module.exports = core => {
         agendaUid: req.agenda.uid,
         userUid: req.user.uid
       }
-    }).then(event => res.json({ success: true, event }), next)
-  );
+    }).then(event => res.json({ success: true, event }), next));
 
   app.get('/agendas/:agendaUid/events', (req, res, next) => core
     .agendas(req.agenda.uid).events
@@ -116,8 +118,7 @@ module.exports = core => {
       total,
       after,
       events
-    }), next)
-  );
+    }), next));
 
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
@@ -171,10 +172,10 @@ module.exports = core => {
         throwOnNotFound: req.method === 'HEAD',
         includeFields: req.method === 'HEAD' ? ['uid'] : []
       })
-      .then(location => req.method === 'HEAD' ? res.send() : res.json({
+      .then(location => (req.method === 'HEAD' ? res.send() : res.json({
         success: true,
         location
-      }), next)
+      })), next)
   ]);
 
   app.post([
@@ -230,7 +231,43 @@ module.exports = core => {
         after,
         total
       }), next)
-  )
+  );
+
+  app.get(
+    '/agendas/:agendaUid/embeds/:embedUid',
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds(req.params.embedUid)
+      .get().then(embed => res.json(embed), next)
+  );
+
+  app.post(
+    '/agendas/:agendaUid/embeds/:embedUid',
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds(req.params.embedUid)
+      .update(req.parsedData)
+      .then(embed => res.json(embed), next)
+  );
+
+  app.get(
+    '/agendas/:agendaUid/embeds',
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds.list()
+      .then(embeds => res.json(embeds), next)
+  );
+
+  app.post(
+    '/agendas/:agendaUid/embeds',
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .embeds.create(req.parsedData)
+      .then(embed => res.json(embed), next)
+  );
 
   app.post('/agendas/:agendaUid/settings/resync', [
     verifySuperAdmin,

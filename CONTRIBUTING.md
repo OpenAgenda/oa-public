@@ -15,6 +15,8 @@ export OA_PUBLIC_LOCKFILE="yarn.lock"
 
 ## Set up git
 
+Start by installing jq: `sudo apt install jq`
+
 OA contains a git submodule with the public packages.
 The following commands are useful for working with submodules, in OA:
 

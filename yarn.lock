@@ -2768,6 +2768,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discordjs/collection@npm:^0.1.6":
+  version: 0.1.6
+  resolution: "@discordjs/collection@npm:0.1.6"
+  checksum: a0ddf757098fa01a4d9d5812daf3c2ea88c1297618d346705e603642c2f19656188fbfb3d503ee77f2ee69e7a1c1bfe25932aec032692ee3c338335524886e05
+  languageName: node
+  linkType: hard
+
+"@discordjs/form-data@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@discordjs/form-data@npm:3.0.1"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: 2b431b1a14f8ac521e1c13567856cef7e61e05aafe2721e03d9e074bb7e5f45c89fc123b126964943edf301ec612d04515dcf068ea9773a2e30a99a844c00603
+  languageName: node
+  linkType: hard
+
 "@discoveryjs/json-ext@npm:^0.5.0":
   version: 0.5.2
   resolution: "@discoveryjs/json-ext@npm:0.5.2"
@@ -4573,7 +4591,6 @@ __metadata:
     "@openagenda/files": ^3.1.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/geocoder": ^1.2.8
-    "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
@@ -4592,8 +4609,11 @@ __metadata:
     errorhandler: ^1.5.0
     eslint: ^6.8.0
     express: ^4.17.1
+    fast-levenshtein: ^2.0.6
     geolib: ^2.0.24
+    immer: ^9.0.1
     immutability-helper: ^3.0.0
+    jaro-winkler: ^0.2.8
     knex: ^0.19.5
     languages: ^0.1.3
     leaflet: ^0.7.7
@@ -4610,6 +4630,7 @@ __metadata:
     rc-switch: ^1.3.2
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-intl: 5.12.2
     react-select: ^3.0.8
     redis: ^2.8.0
     rimraf: ^3.0.1
@@ -5217,6 +5238,7 @@ __metadata:
     buffer: ^6.0.3
     classnames: ^2.3.1
     clean-webpack-plugin: ^3.0.0
+    copy-to-clipboard: ^3.3.1
     core-js: ^3.10.2
     create-react-class: ^15.5.2
     d3: 3.5.6
@@ -5337,6 +5359,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/discord@workspace:packages/discord":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/discord@workspace:packages/discord"
+  dependencies:
+    "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/logs": ^1.1.9
+    discord.js: ^12.5.3
+    eslint: ^6.8.0
+    jest: ^26.1.0
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/dom-utils@^2.2.12, @openagenda/dom-utils@workspace:packages/dom-utils":
   version: 0.0.0-use.local
   resolution: "@openagenda/dom-utils@workspace:packages/dom-utils"
@@ -5362,9 +5396,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/es-node@npm:^1.2.5":
-  version: 1.2.5
-  resolution: "@openagenda/es-node@npm:1.2.5"
+"@openagenda/es-node@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "@openagenda/es-node@npm:1.2.6"
   dependencies:
     "@openagenda/utils": ^1.2.2
     async: ~0.9
@@ -5374,7 +5408,7 @@ __metadata:
     moment: ^2.27.0
     moment-timezone: ^0.5.31
     should: ~4.0
-  checksum: c5e714386acd0815b1e57e2505e750339cec423aa61ddff5272e50612c4d956c786f588ab52f14bd79ed07efdb5b30e6657b05c932b397cc49ded89505994ff0
+  checksum: f1dcf3aa8b7871b030f53707130e9cb092c90378694f903f93b9a5301c8a8fbc85793eef4e52cc76028ce3323324cba1916bfd8bcaa882ac965183eef1134e5c
   languageName: node
   linkType: hard
 
@@ -5415,6 +5449,8 @@ __metadata:
     "@openagenda/react-filters": ^1.2.0
     "@openagenda/react-shared": ^2.1.1
     "@storybook/react": ^6.2.8
+    axios: ^0.21.1
+    axios-mock-adapter: ^1.19.0
     babel-loader: ^8.2.2
     classnames: ^2.3.1
     core-js: ^3.10.2
@@ -5471,8 +5507,9 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-timingspicker": ^1.2.2
+    "@openagenda/react-timingspicker": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.0.0
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
     clean-webpack-plugin: ^3.0.0
@@ -5495,7 +5532,6 @@ __metadata:
     rimraf: ^3.0.1
     store: ^2.0.12
     superagent: ^3.8.3
-    verror: ^1.10.0
     webpack: ^5.35.0
     webpack-assets-manifest: ^5.0.5
     webpack-cli: ^4.6.0
@@ -5516,6 +5552,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.0.0
     axios: ^0.21.1
     debug: ^4.1.1
     deep-diff: ^1.0.2
@@ -5526,7 +5563,6 @@ __metadata:
     moment-timezone: ^0.5.31
     prompts: ^2.0.1
     should: ^13.2.3
-    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -5541,6 +5577,7 @@ __metadata:
     "@openagenda/files": ^3.1.0
     "@openagenda/form-schemas": ^1.9.1
     "@openagenda/logs": ^1.1.9
+    "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     axios: ^0.21.1
     immutability-helper: ^3.0.0
@@ -5609,11 +5646,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/flat-exports@workspace:packages/flat-exports"
   dependencies:
-    "@openagenda/flattener": ^1.1.0
     "@openagenda/labels": ^2.1.0
     "@openagenda/stream-utils": ^1.1.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
+    "@openagenda/verror": ^3.0.0
     fast-csv: ^2.4.1
     global: ^4.3.2
     jest: ^26.1.0
@@ -5625,15 +5662,6 @@ __metadata:
     xlsx-writestream: ^0.5.1
   languageName: unknown
   linkType: soft
-
-"@openagenda/flattener@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@openagenda/flattener@npm:1.1.0"
-  dependencies:
-    lodash: ^4.17.4
-  checksum: 183d5481cbf0a9cdd8f6cfa6abde352b9bb5ccc9731fc150be207fa1498f9483ff7308c7f33cf1d63f9909fd11d0761cf5574cf925701c856cd0f558397024d8
-  languageName: node
-  linkType: hard
 
 "@openagenda/form-schemas@^1.9.1, @openagenda/form-schemas@^1.9.2, @openagenda/form-schemas@workspace:packages/form-schemas":
   version: 0.0.0-use.local
@@ -5965,21 +5993,51 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/legacy@workspace:packages/legacy"
   dependencies:
+    "@babel/cli": ^7.13.16
+    "@babel/core": ^7.13.16
+    "@babel/runtime-corejs3": ^7.13.17
+    "@loadable/babel-plugin": ^5.13.2
+    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/bs-templates": ^2.5.0
     "@openagenda/logs": ^1.1.9
+    "@openagenda/react-components": ^2.3.10
+    "@openagenda/react-shared": ^2.1.1
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
+    "@storybook/react": ^6.2.8
+    axios: ^0.21.1
+    axios-mock-adapter: ^1.19.0
+    babel-loader: ^8.2.2
+    debug: ^4.1.1
+    deep-diff: ^1.0.2
     immer: ^9.0.1
     immutability-helper: ^3.0.0
     jest: ^26.1.0
     knex: ^0.19.5
+    leaflet: ^1.7.1
     locutus: ^2.0.14
     lodash: ^4.17.15
     moment-timezone: ^0.5.31
     mysql: ^2.16.0
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    react-helmet-async: ^1.0.3
+    react-hot-loader: ^4.12.20
+    react-intl: ^5.12.2
+    react-leaflet: ^3.1.0
+    react-query: ^3.6.0
+    react-redux: ^7.1.3
+    react-router-config: ^5.1.1
+    react-use: ^15.3.4
     redis: ^2.8.0
+    redux: ^4.0.5
     should: ^13.2.3
     verror: ^1.10.0
+  peerDependencies:
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    redux: ^4.0.5
   languageName: unknown
   linkType: soft
 
@@ -6475,6 +6533,7 @@ __metadata:
     "@openagenda/event-admin-apps": ^0.0.0
     "@openagenda/home": ^2.2.1
     "@openagenda/inbox-apps": ^1.2.1
+    "@openagenda/legacy": ^1.11.0
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
@@ -6653,7 +6712,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-timingspicker@^1.2.2, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
+"@openagenda/react-timingspicker@^1.3.0, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-timingspicker@workspace:public/react-timingspicker"
   dependencies:
@@ -9705,6 +9764,15 @@ __metadata:
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
   checksum: a4a97ec07d7ea112c517036882b2ac22f3109b7b19077dc656316d07d308438aac28e4d9746dc4d84bf6b1e75b4a7b0a5f3cb30592419f128ca9a8cee3bcfa17
+  languageName: node
+  linkType: hard
+
+"abort-controller@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "abort-controller@npm:3.0.0"
+  dependencies:
+    event-target-shim: ^5.0.0
+  checksum: 170bdba9b47b7e65906a28c8ce4f38a7a369d78e2271706f020849c1bfe0ee2067d4261df8bbb66eb84f79208fd5b710df759d64191db58cfba7ce8ef9c54b75
   languageName: node
   linkType: hard
 
@@ -13512,14 +13580,13 @@ __metadata:
     "@openagenda/date-range": ^2.3.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/email-strategie": ^0.1.12
-    "@openagenda/es-node": ^1.2.5
+    "@openagenda/es-node": ^1.2.6
     "@openagenda/event-form": ^1.5.1
     "@openagenda/event-search": ^2.8.0
     "@openagenda/events": ^2.0.0
     "@openagenda/facebook": ^0.1.5
     "@openagenda/files": ^3.1.0
     "@openagenda/flat-exports": ^1.4.0
-    "@openagenda/flattener": ^1.1.0
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/geocoder": ^1.2.8
     "@openagenda/home": ^2.2.1
@@ -16319,6 +16386,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"discord.js@npm:^12.5.3":
+  version: 12.5.3
+  resolution: "discord.js@npm:12.5.3"
+  dependencies:
+    "@discordjs/collection": ^0.1.6
+    "@discordjs/form-data": ^3.0.1
+    abort-controller: ^3.0.0
+    node-fetch: ^2.6.1
+    prism-media: ^1.2.9
+    setimmediate: ^1.0.5
+    tweetnacl: ^1.0.3
+    ws: ^7.4.4
+  checksum: 66c95c2fe3e96533117c65410a4229d38cf972794e800b63108047841a4347d489b56e049f42d7bea90e11e7d33b0d2622ad6aa9a63b9595f0b022efc3519fac
+  languageName: node
+  linkType: hard
+
 "distinct-colors@npm:^2.1.0":
   version: 2.1.0
   resolution: "distinct-colors@npm:2.1.0"
@@ -18014,6 +18097,13 @@ __metadata:
     d: 1
     es5-ext: ~0.10.14
   checksum: 27c1399557d9cd7e0aa0b366c37c38a4c17293e3a10258e8b692a847dd5ba9fb90429c3a5a1eeff96f31f6fa03ccbd31d8ad15e00540b22b22f01557be706030
+  languageName: node
+  linkType: hard
+
+"event-target-shim@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "event-target-shim@npm:5.0.1"
+  checksum: 1ffe3bb22a6d51bdeb6bf6f7cf97d2ff4a74b017ad12284cc9e6a279e727dc30a5de6bb613e5596ff4dc3e517841339ad09a7eec44266eccb1aa201a30448166
   languageName: node
   linkType: hard
 
@@ -23166,6 +23256,13 @@ fsevents@~2.3.1:
     es-get-iterator: ^1.0.2
     iterate-iterator: ^1.0.1
   checksum: 446a4181657df1872e5020713206806757157db6ab375dee05eb4565b66e1244d7a99cd36ce06862261ad4bd059e66ba8192f62b5d1ff41d788c3b61953af6c3
+  languageName: node
+  linkType: hard
+
+"jaro-winkler@npm:^0.2.8":
+  version: 0.2.8
+  resolution: "jaro-winkler@npm:0.2.8"
+  checksum: ddf36d364ce645fe88dae8e8214a887cf66645b88f89a729f0352a90b75bb1f9a8d66af3beab323944aca48827c44baf677849c20ac9fb533e016a5e951ef569
   languageName: node
   linkType: hard
 
@@ -31050,6 +31147,27 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"prism-media@npm:^1.2.9":
+  version: 1.2.9
+  resolution: "prism-media@npm:1.2.9"
+  peerDependencies:
+    "@discordjs/opus": ^0.5.0
+    ffmpeg-static: ^4.2.7 || ^3.0.0 || ^2.4.0
+    node-opus: ^0.3.3
+    opusscript: ^0.0.8
+  peerDependenciesMeta:
+    "@discordjs/opus":
+      optional: true
+    ffmpeg-static:
+      optional: true
+    node-opus:
+      optional: true
+    opusscript:
+      optional: true
+  checksum: ee404a0c44d1dc3a2a1224035826355ed02d6b6f69cc958ea92639bdd52a42b483fa4cdd966e486ed8a4d26b235deed6176e0d998887748389d6e09bffa39dcb
+  languageName: node
+  linkType: hard
+
 "prismjs@npm:^1.21.0, prismjs@npm:~1.22.0":
   version: 1.22.0
   resolution: "prismjs@npm:1.22.0"
@@ -32525,7 +32643,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-intl@npm:^5.12.2":
+"react-intl@npm:5.12.2, react-intl@npm:^5.12.2":
   version: 5.12.2
   resolution: "react-intl@npm:5.12.2"
   dependencies:
@@ -38254,6 +38372,13 @@ resolve@^2.0.0-next.3:
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 6061daba1724f59473d99a7bb82e13f211cdf6e31315510ae9656fefd4779851cb927adad90f3b488c8ed77c106adc0421ea8055f6f976ff21b27c5c4e918487
+  languageName: node
+  linkType: hard
+
+"tweetnacl@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tweetnacl@npm:1.0.3"
+  checksum: e4a57cac188f0c53f24c7a33279e223618a2bfb5fea426231991652a13247bea06b081fd745d71291fcae0f4428d29beba1b984b1f1ce6f66b06a6d1ab90645c
   languageName: node
   linkType: hard
 

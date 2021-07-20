@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-module.exports = props => {
+export default props => {
 
   const {
     field: name,

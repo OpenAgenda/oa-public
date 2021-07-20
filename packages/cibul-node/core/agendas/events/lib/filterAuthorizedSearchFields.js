@@ -16,4 +16,4 @@ module.exports = (core, query, access) => {
   }
 
   return query;
-}
+};

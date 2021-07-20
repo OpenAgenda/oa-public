@@ -6,7 +6,7 @@ import SlateField from './SlateField';
 
 import HTMLSerializer from './HTMLSerializer';
 
-module.exports = class HTMLField extends Component {
+export default class HTMLField extends Component {
 
   onChange( value ) {
 

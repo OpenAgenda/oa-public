@@ -12,6 +12,7 @@ const TABS_IN_APP = [
   'inbox',
   'activities',
   'statistics',
+  'embeds',
   'settings_profile',
   'settings_contribution',
   'settings_advanced',

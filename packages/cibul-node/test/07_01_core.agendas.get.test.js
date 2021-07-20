@@ -65,6 +65,23 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
     });
 
+    it('detailed get provides information on network', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true
+      });
+
+      expect(agenda.network.uid).toBe(1234);
+    });
+
+    it('fix: detailed get provides information on network event if access is internal', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'internal'
+      });
+
+      expect(agenda.network?.uid).toBe(1234);
+    });
+
     it('detailed get with internal access includes admin fields in schema', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,

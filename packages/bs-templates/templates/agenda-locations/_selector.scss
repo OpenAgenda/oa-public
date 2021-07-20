@@ -36,8 +36,15 @@
 
   .no-search-result {
 
-    //text-align: center;
+    text-align: center;
     padding: 1em;
+
+  }
+
+  .no-search-button {
+
+    text-align: center;
+    padding-bottom: 1em;
 
   }
 
@@ -75,13 +82,12 @@
 
     width: 100%;
     padding: 0;
-
-    li {
-
+    
+    .search-item {
       padding: 0.5em 1em;
-
     }
-
+  
+    
   }
 
   .address {
@@ -116,6 +122,12 @@
 
     float: right;
 
+  }
+
+  .input-group {
+    .error{
+      border: 1px solid red;
+    }
   }
 
 }

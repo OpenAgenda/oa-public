@@ -6,7 +6,7 @@ module.exports = {
     "fr": "Agenda officiel",
     "de": "Offizieller Kalender",
     "es": "agenda",
-    "it": "agenda ufficiale",
+    "it": "Agenda ufficiale",
     "io": "crwdns12412:0crwdne12412:0"
   },
   "latestUpdated": {
@@ -22,7 +22,7 @@ module.exports = {
     "fr": "Résultats de la recherche \"%search%\"",
     "de": "Suchergebnisse für \"%search%",
     "es": "Resultados de búsqueda para \"Búsqueda%\"",
-    "it": "Risultati della ricerca per \"%search%\".",
+    "it": "Risultati della ricerca per \"%search%\"",
     "io": "crwdns12416:0%search%crwdne12416:0"
   },
   "searchTitle": {
@@ -70,7 +70,7 @@ module.exports = {
     "fr": "%count% événements passés",
     "de": "%count% vergangenen Veranstaltungen",
     "es": " %count% sucesos pasados",
-    "it": "%sconto% eventi passati",
+    "it": "%count% eventi passati",
     "io": "crwdns12428:0%count%crwdne12428:0"
   },
   "upcomingEvent": {
@@ -86,7 +86,7 @@ module.exports = {
     "fr": "%count% événements à venir",
     "de": "%count% bevorstehende Veranstaltungen",
     "es": " %count% próximos eventos",
-    "it": "%sconto% eventi in programma",
+    "it": "%count% eventi in programma",
     "io": "crwdns12432:0%count%crwdne12432:0"
   },
   "loadPrevious": {

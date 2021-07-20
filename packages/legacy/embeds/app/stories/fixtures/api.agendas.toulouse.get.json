@@ -1,0 +1,1121 @@
+{
+    "uid": 50522407,
+    "title": "Toulouse Métropole",
+    "description": "Agenda des événements de Toulouse Métropole",
+    "slug": "toulouse-metropole",
+    "url": "https://www.agenda.toulouse-metropole.fr/",
+    "official": 1,
+    "networkUid": 78678694,
+    "locationSetUid": null,
+    "updatedAt": "2021-04-27T05:56:42.000Z",
+    "createdAt": "2017-12-04T15:44:22.000Z",
+    "image": "https://cibuldev.s3.amazonaws.com/agenda50522407.jpg",
+    "settings": {
+        "tracking": {
+            "googleAnalytics": "UA-111097426-1"
+        },
+        "lab": {
+            "eventAdmin": false
+        },
+        "inbox": {
+            "mailto": {
+                "enabled": true,
+                "email": "webmaster.internet@toulouse-metropole.fr",
+                "subject": "Message en provenance de TAM – www.agenda.toulouse-metropole.fr",
+                "body": null
+            }
+        },
+        "contribution": {
+            "authorizedIPAddresses": []
+        },
+        "translation": {
+            "enabled": false,
+            "source": "fr",
+            "service": "reverso",
+            "options": null
+        }
+    },
+    "network": null,
+    "locationSet": null,
+    "schema": {
+        "custom": {},
+        "fields": [
+            {
+                "field": "entreelibre",
+                "label": {
+                    "fr": "Entrée libre",
+                    "en": "Free entrance"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "true",
+                        "label": {
+                            "fr": "Entrée libre",
+                            "en": "Free entrance"
+                        }
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "thematiques-metropolitaines",
+                "label": {
+                    "fr": "Thématiques Métropolitaines",
+                    "en": "Thématiques Métropolitaines"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": {
+                    "fr": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)",
+                    "en": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": false,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 3,
+                        "value": "culture",
+                        "label": {
+                            "fr": "Culture"
+                        }
+                    },
+                    {
+                        "id": 4,
+                        "value": "economie-innovation",
+                        "label": {
+                            "fr": "Economie - Innovation"
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "value": "education",
+                        "label": {
+                            "fr": "Éducation"
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "value": "emploi",
+                        "label": {
+                            "fr": "Emploi"
+                        }
+                    },
+                    {
+                        "id": 7,
+                        "value": "international",
+                        "label": {
+                            "fr": "International"
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "value": "loisirs",
+                        "label": {
+                            "fr": "Loisirs"
+                        }
+                    },
+                    {
+                        "id": 9,
+                        "value": "nature-environnement",
+                        "label": {
+                            "fr": "Nature - Environnement"
+                        }
+                    },
+                    {
+                        "id": 10,
+                        "value": "patrimoine",
+                        "label": {
+                            "fr": "Patrimoine"
+                        }
+                    },
+                    {
+                        "id": 11,
+                        "value": "social-sante",
+                        "label": {
+                            "fr": "Social - Santé"
+                        }
+                    },
+                    {
+                        "id": 12,
+                        "value": "sports",
+                        "label": {
+                            "fr": "Sports"
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "value": "transports-deplacements",
+                        "label": {
+                            "fr": "Transports - Déplacements"
+                        }
+                    },
+                    {
+                        "id": 14,
+                        "value": "urbanisme",
+                        "label": {
+                            "fr": "Urbanisme"
+                        }
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "types-devenements",
+                "label": {
+                    "fr": "Types d'événements",
+                    "en": "Types d'événements"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "default": [
+                    15
+                ],
+                "info": {
+                    "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)",
+                    "en": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": false,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 15,
+                        "value": "tous",
+                        "label": {
+                            "fr": "Tous"
+                        }
+                    },
+                    {
+                        "id": 16,
+                        "value": "conference",
+                        "label": {
+                            "fr": "Conférence"
+                        }
+                    },
+                    {
+                        "id": 17,
+                        "value": "congres-colloque",
+                        "label": {
+                            "fr": "Congrès - Colloque"
+                        }
+                    },
+                    {
+                        "id": 18,
+                        "value": "conseil-de-metropole",
+                        "label": {
+                            "fr": "Conseil de Métropole"
+                        }
+                    },
+                    {
+                        "id": 19,
+                        "value": "evenement-sportif",
+                        "label": {
+                            "fr": "Événement sportif"
+                        }
+                    },
+                    {
+                        "id": 20,
+                        "value": "exposition",
+                        "label": {
+                            "fr": "Exposition"
+                        }
+                    },
+                    {
+                        "id": 21,
+                        "value": "foire-salon",
+                        "label": {
+                            "fr": "Foire - Salon"
+                        }
+                    },
+                    {
+                        "id": 22,
+                        "value": "fete-festival",
+                        "label": {
+                            "fr": "Fête - Festival"
+                        }
+                    },
+                    {
+                        "id": 23,
+                        "value": "reunion-publique",
+                        "label": {
+                            "fr": "Réunion publique"
+                        }
+                    },
+                    {
+                        "id": 24,
+                        "value": "spectacle",
+                        "label": {
+                            "fr": "Spectacle"
+                        }
+                    },
+                    {
+                        "id": 25,
+                        "value": "stage-atelier",
+                        "label": {
+                            "fr": "Stage - Atelier"
+                        }
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "public",
+                "label": {
+                    "fr": "Public",
+                    "en": "Public"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "default": [
+                    26
+                ],
+                "info": {
+                    "fr": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)",
+                    "en": "*Merci de saisir un champ ci-dessous (il permet d'effectuer une recherche pertinente)"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": false,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 26,
+                        "value": "tout-public",
+                        "label": {
+                            "fr": "Tout Public"
+                        }
+                    },
+                    {
+                        "id": 27,
+                        "value": "adulte",
+                        "label": {
+                            "fr": "Adulte"
+                        }
+                    },
+                    {
+                        "id": 28,
+                        "value": "jeune-public",
+                        "label": {
+                            "fr": "Jeune Public"
+                        }
+                    },
+                    {
+                        "id": 29,
+                        "value": "personne-en-situation-de-handicap",
+                        "label": {
+                            "fr": "Personne en situation de handicap"
+                        }
+                    },
+                    {
+                        "id": 30,
+                        "value": "professionnel",
+                        "label": {
+                            "fr": "Professionnel"
+                        }
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "organisateur",
+                "label": {
+                    "fr": "Organisateur",
+                    "en": "Organisateur"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 31,
+                        "value": "collectivite",
+                        "label": {
+                            "fr": "Collectivité"
+                        }
+                    },
+                    {
+                        "id": 32,
+                        "value": "association",
+                        "label": {
+                            "fr": "Association"
+                        }
+                    },
+                    {
+                        "id": 33,
+                        "value": "partenaire",
+                        "label": {
+                            "fr": "Partenaire"
+                        }
+                    },
+                    {
+                        "id": 34,
+                        "value": "particulier",
+                        "label": {
+                            "fr": "Particulier"
+                        }
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "participation",
+                "label": {
+                    "fr": "Participation",
+                    "en": "Participation"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": {
+                    "fr": "> Merci de préciser si l'événement est gratuit (sera affiché dans la recherche \"entrée libre\")",
+                    "en": "> Merci de préciser si l'événement est gratuit (sera affiché dans la recherche \"entrée libre\")"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "options": [
+                    {
+                        "id": 35,
+                        "value": "entree-libre",
+                        "label": {
+                            "fr": "Entrée Libre"
+                        }
+                    }
+                ],
+                "fieldType": "radio",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "evenement-ponctuel",
+                "label": {
+                    "fr": "Événement ponctuel",
+                    "en": "Événement ponctuel"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": {
+                    "fr": "Cet événement se déroule sur une période inférieure ou égale à 7 jours",
+                    "en": "Cet événement se déroule sur une période inférieure ou égale à 7 jours"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "tags",
+                "enableWith": null,
+                "related": [],
+                "options": [
+                    {
+                        "id": 36,
+                        "value": "evenement-ponctuel",
+                        "label": {
+                            "fr": "Événement ponctuel"
+                        }
+                    }
+                ],
+                "fieldType": "radio",
+                "schemaId": 21,
+                "schemaType": "network"
+            },
+            {
+                "field": "image",
+                "fieldType": "image",
+                "optional": true,
+                "label": {
+                    "fr": "Image de l'événement",
+                    "en": "Image of the event",
+                    "it": "Immagine dell'evento",
+                    "de": "Bild der Veranstaltung",
+                    "es": "imagen del evento",
+                    "br": "Skeudenn an darvoud",
+                    "io": "crwdns14296:0crwdne14296:0"
+                },
+                "info": {
+                    "fr": "Chargez une image d'au moins 300 pixels de large",
+                    "en": "Load an image of at least 300 pixels width",
+                    "it": "Carica un'immagine di almeno 300 pixel di larghezza",
+                    "de": "Laden Sie ein Bild mit einer Breite von mindestens 300 Pixeln.",
+                    "es": "Cargar una imagen de al menos 300 píxeles de ancho",
+                    "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ",
+                    "io": "crwdns14298:0crwdne14298:0"
+                },
+                "allowURL": true,
+                "allowPath": true,
+                "extensions": [
+                    "jpg",
+                    "bmp",
+                    "png",
+                    "jpeg"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "imageCredits",
+                "fieldType": "text",
+                "optional": true,
+                "label": {
+                    "fr": "Crédits de l'image",
+                    "en": "Image credits",
+                    "it": "Crediti d'immagine",
+                    "de": "Bildnachweise",
+                    "es": "créditos del imágen",
+                    "br": "Perc'henn ar skeudenn",
+                    "io": "crwdns14300:0crwdne14300:0"
+                },
+                "enableWith": "image",
+                "max": 255,
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [],
+                "field": "title",
+                "fieldType": "text",
+                "optional": false,
+                "max": 140,
+                "label": {
+                    "fr": "Titre",
+                    "en": "Title",
+                    "it": "Titolo",
+                    "de": "Titel",
+                    "es": "título",
+                    "br": "Titl",
+                    "io": "crwdns14284:0crwdne14284:0"
+                },
+                "placeholder": {
+                    "fr": "Le titre de votre événement",
+                    "en": "Title of your event",
+                    "it": "Il titolo del tuo evento",
+                    "de": "Titel Ihrer Veranstaltung",
+                    "es": "El título de su evento",
+                    "br": "Titl ho tarvoud",
+                    "io": "crwdns14288:0crwdne14288:0"
+                },
+                "purpose": {
+                    "fr": "Titre de l'événement",
+                    "en": "Title of the event",
+                    "es": "Nombre del evento",
+                    "br": "Titl an darvoud",
+                    "io": "crwdns14286:0crwdne14286:0"
+                },
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [],
+                "field": "description",
+                "fieldType": "text",
+                "optional": false,
+                "max": 200,
+                "label": {
+                    "fr": "Description courte",
+                    "en": "Short description",
+                    "it": "Breve descrizione",
+                    "de": "Kurzbeschreibung",
+                    "es": "Descripción corta",
+                    "br": "Deskrivadur berr",
+                    "io": "crwdns14290:0crwdne14290:0"
+                },
+                "purpose": {
+                    "fr": "Description pour les affichages réduits ou liste",
+                    "en": "Description for short or list displays",
+                    "es": "Descripción de las pequeñas pantallas o lista",
+                    "br": "Deskrivadur evit an diskweloù berr pe listenn",
+                    "io": "crwdns14292:0crwdne14292:0"
+                },
+                "placeholder": {
+                    "fr": "Une courte description de votre événement",
+                    "en": "A short description of your event",
+                    "it": "Una breve descrizione del vostro evento",
+                    "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
+                    "es": "Una breve descripción de su evento",
+                    "br": "Un deskrivadur berr eus ho tarvoud",
+                    "io": "crwdns14294:0crwdne14294:0"
+                },
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [],
+                "field": "keywords",
+                "fieldType": "keywords",
+                "optional": true,
+                "max": 255,
+                "label": {
+                    "fr": "Mots clés",
+                    "en": "Keywords",
+                    "it": "Parole Chiave",
+                    "de": "Schlüsselwörter",
+                    "es": "Palabras llave",
+                    "br": "Gerioù-alc'hwez",
+                    "io": "crwdns14306:0crwdne14306:0"
+                },
+                "placeholder": {
+                    "fr": "Séparez les mots clés par des tabulations ou des virgules",
+                    "en": "Separate each keyword with tabs or commas",
+                    "it": "Parole chiave separate con schede o virgole",
+                    "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
+                    "es": "palabras llave separadas por comas o fichas",
+                    "br": "Dispartiit ar gerioù-alc'hwez gant arouezennoù taolennata pe virgulennoù",
+                    "io": "crwdns14308:0crwdne14308:0"
+                },
+                "sub": {
+                    "fr": "Les mots clés sont utiles pour les fonctions de recherche",
+                    "en": "Keywords are useful for search features",
+                    "it": "Le parole chiave sono utili per le funzioni di ricerca",
+                    "de": "Keywords sind nützlich für Suchfunktionen.",
+                    "es": "Las palabras llave son útiles para las funciones de búsqueda",
+                    "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
+                    "io": "crwdns14310:0crwdne14310:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [],
+                "field": "longDescription",
+                "fieldType": "markdown",
+                "label": {
+                    "fr": "Description longue",
+                    "en": "Long description",
+                    "it": "Descrizione lunga",
+                    "de": "Lange Beschreibung",
+                    "es": "Descripción larga",
+                    "br": "Deskrivadur hir",
+                    "io": "crwdns14302:0crwdne14302:0"
+                },
+                "max": 10000,
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "placeholder": {
+                    "fr": "Saisissez une description détaillée de votre événement.",
+                    "en": "Type in a detailed description of your event.",
+                    "it": "Inserisci una descrizione dettagliata del tuo evento.",
+                    "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
+                    "es": "Introduzca una descripción detallada de su evento.",
+                    "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud.",
+                    "io": "crwdns14304:0crwdne14304:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [],
+                "field": "conditions",
+                "fieldType": "text",
+                "label": {
+                    "fr": "Conditions de participation, tarifs",
+                    "en": "Attendence conditions, pricing",
+                    "it": "Condizioni di partecipazione, prezzi",
+                    "de": "Teilnahmebedingungen, Preisgestaltung",
+                    "es": "Condiciones de las tasas de participación",
+                    "br": "Divizoù evit kemer perzh, prizioù",
+                    "io": "crwdns14312:0crwdne14312:0"
+                },
+                "max": 255,
+                "placeholder": {
+                    "fr": "Entrée libre, sur inscription, autre...",
+                    "en": "Free access, registration required, other...",
+                    "it": "Ingresso libero, su registrazione, altro.....",
+                    "de": "Freier Zugang, Registrierung erforderlich, andere.....",
+                    "es": "Entrada gratuita para los suscriptores, otra ...",
+                    "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
+                    "io": "crwdns14314:0crwdne14314:0"
+                },
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "age",
+                "fieldType": "age",
+                "optional": true,
+                "label": {
+                    "fr": "Age du public ciblé",
+                    "en": "Targeted public age",
+                    "it": "Età del pubblico di riferimento",
+                    "de": "Gezieltes öffentliches Alter",
+                    "es": "Edad del objetivo",
+                    "br": "Oad an dud a glasker tizhout",
+                    "io": "crwdns14326:0crwdne14326:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "registration",
+                "fieldType": "registration",
+                "optional": true,
+                "label": {
+                    "fr": "Outils d'inscription",
+                    "en": "Registration",
+                    "it": "Strumenti di registrazione",
+                    "de": "Registrierung",
+                    "es": "Herramientas de registro",
+                    "br": "En em enskrivañ",
+                    "io": "crwdns14316:0crwdne14316:0"
+                },
+                "info": {
+                    "fr": "Liens, emails ou numéros de téléphone",
+                    "en": "Links, emails or phone numbers",
+                    "it": "Link, e-mail o numeri di telefono",
+                    "de": "Links, E-Mails oder Telefonnummern",
+                    "es": "Enlaces, números de teléfono o correo electrónico",
+                    "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
+                    "io": "crwdns14320:0crwdne14320:0"
+                },
+                "sub": {
+                    "fr": "Séparez les items par des tabulations ou des virgules",
+                    "en": "Separate each item with tabs or commas",
+                    "it": "Separare le voci per tabulazione o virgole",
+                    "de": "Trenne jedes Element mit Tabs oder Kommas.",
+                    "es": "artículos por separado con tabulaciones o comas",
+                    "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
+                    "io": "crwdns14318:0crwdne14318:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "accessibility",
+                "fieldType": "accessibility",
+                "optional": true,
+                "label": {
+                    "fr": "Accessibilité particulière",
+                    "en": "Accessibility conditions",
+                    "it": "Accessibilità speciale",
+                    "de": "Bedingungen für die Zugänglichkeit",
+                    "es": "accesibilidad especial",
+                    "br": "Monedusted",
+                    "io": "crwdns14322:0crwdne14322:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "location",
+                "fieldType": "location",
+                "label": {
+                    "fr": "Lieu",
+                    "en": "Location",
+                    "it": "Posizione",
+                    "de": "Ort",
+                    "es": "lugar",
+                    "br": "Lec'h",
+                    "io": "crwdns14274:0crwdne14274:0"
+                },
+                "sub": {
+                    "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+                    "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
+                    "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'.",
+                    "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
+                    "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
+                    "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
+                    "io": "crwdns14278:0crwdne14278:0"
+                },
+                "optionalWith": {
+                    "field": "attendanceMode",
+                    "value": 2
+                },
+                "disableChange": false,
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "timings",
+                "fieldType": "timings",
+                "max": 800,
+                "optional": false,
+                "label": {
+                    "fr": "Horaires",
+                    "en": "Timings",
+                    "it": "Orari",
+                    "de": "Timings",
+                    "es": "horario",
+                    "br": "Eurioù",
+                    "io": "crwdns14328:0crwdne14328:0"
+                },
+                "info": {
+                    "fr": "Définissez les horaires de votre événement",
+                    "en": "Specify timings for your event",
+                    "it": "Definire gli orari del vostro evento",
+                    "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+                    "es": "Ajuste el tiempo de su evento",
+                    "br": "Lakait eurioù ho tarvoud",
+                    "io": "crwdns14330:0crwdne14330:0"
+                },
+                "helpLink": "https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement",
+                "schemaId": null,
+                "schemaType": "event",
+                "component": "@openagenda/react-timingspicker"
+            },
+            {
+                "field": "uid",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "slug",
+                "fieldType": "text",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "private",
+                "fieldType": "boolean",
+                "default": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "timezone",
+                "fieldType": "text",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "draft",
+                "fieldType": "boolean",
+                "default": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "createdAt",
+                "fieldType": "date",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "creatorUid",
+                "fieldType": "integer",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "ownerUid",
+                "fieldType": "integer",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "updatedAt",
+                "fieldType": "date",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "agendaUid",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "locationUid",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "display": false,
+                "field": "attendanceMode",
+                "fieldType": "radio",
+                "label": {
+                    "fr": "Mode de participation",
+                    "en": "Attendance mode",
+                    "it": "Modalità di partecipazione",
+                    "es": "Modo de asistencia",
+                    "de": "Anwesenheitsmodus",
+                    "br": "Doare perzhiañ",
+                    "io": "crwdns14264:0crwdne14264:0"
+                },
+                "optional": false,
+                "default": 1,
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "offline",
+                        "label": {
+                            "fr": "Sur place",
+                            "en": "Offline",
+                            "it": "Disconnesso",
+                            "es": "Desconnectad",
+                            "de": "Offline",
+                            "br": "War al lec’h",
+                            "io": "crwdns14266:0crwdne14266:0"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "value": "online",
+                        "label": {
+                            "fr": "En ligne",
+                            "en": "Online",
+                            "it": "In linea",
+                            "es": "En linea",
+                            "de": "Online",
+                            "br": "Enlinenn",
+                            "io": "crwdns14268:0crwdne14268:0"
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "value": "mixed",
+                        "label": {
+                            "fr": "Mixte",
+                            "en": "Mixed",
+                            "it": "Misto",
+                            "es": "Mezclado",
+                            "de": "Gemischt",
+                            "br": "Kemmesk",
+                            "io": "crwdns14270:0crwdne14270:0"
+                        }
+                    }
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "display": false,
+                "field": "onlineAccessLink",
+                "fieldType": "link",
+                "label": {
+                    "fr": "Lien d'accès",
+                    "en": "Access link",
+                    "de": "Zugangslink",
+                    "es": "Enlace de acceso",
+                    "it": "Collegamento di accesso",
+                    "br": "Liamm moned",
+                    "io": "crwdns14272:0crwdne14272:0"
+                },
+                "optional": false,
+                "enableWith": {
+                    "field": "attendanceMode",
+                    "value": [
+                        2,
+                        3
+                    ]
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "references",
+                "fieldType": "integer",
+                "list": true,
+                "optional": true,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            }
+        ]
+    },
+    "summary": {
+        "keywords": [
+            "Toulouse",
+            "Blagnac",
+            "Balma",
+            "Colomiers",
+            "Cornebarrieu",
+            "Tournefeuille",
+            "Gagnac-sur-Garonne",
+            "Fenouillet",
+            "Pibrac",
+            "L'Union",
+            "Haute-Garonne",
+            "",
+            "Paris",
+            "Allier",
+            "Tarn-et-Garonne",
+            "Métropole de Lyon",
+            "Aveyron",
+            "Essonne",
+            "Fulton County",
+            "Gers",
+            "Occitanie",
+            "",
+            "Île-de-France",
+            "Auvergne-Rhône-Alpes",
+            "Tel Aviv District",
+            "Georgia",
+            "Hauts-de-France",
+            "New York",
+            "Pays de la Loire",
+            "spectacle",
+            "musique",
+            "concert",
+            "blagnac",
+            "animations",
+            "balma",
+            "atelier",
+            "colomiers",
+            "exposition",
+            "Tout public"
+        ],
+        "publishedEvents": {
+            "current": 101,
+            "passed": 7509,
+            "upcoming": 352
+        },
+        "recentlyAddedEvents": {
+            "contribution": 0,
+            "shared": 0,
+            "aggregation": 0
+        },
+        "eventCountsByState": [
+            {
+                "key": 2,
+                "eventCount": 7962
+            },
+            {
+                "key": 1,
+                "eventCount": 1
+            },
+            {
+                "key": 0,
+                "eventCount": 2
+            },
+            {
+                "key": -1,
+                "eventCount": 1
+            }
+        ]
+    }
+}

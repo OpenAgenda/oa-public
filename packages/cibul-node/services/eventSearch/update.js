@@ -5,45 +5,6 @@ const log = require('@openagenda/logs')('services/eventSearch/update');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
 
-module.exports = (services, queue, eventSearch) => {
-  const {
-    agendaEvents,
-    tracker
-  } = services;
-
-  queue.register({
-    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
-    otherUpdate: otherUpdate.bind(null, services, eventSearch)
-  });
-
-  return async ({ agenda, member, formSchema, event }) => {
-    log('update', { agendaUid: agenda.uid, eventUid: event.uid });
-
-    if (tracker) {
-      tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
-    }
-
-    await updateAgendaIndex(eventSearch, {
-      agenda,
-      formSchema,
-      member,
-      event
-    });
-
-    log('update transverse index');
-    if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid) ) {
-      await queue('transverseIndexRemove', event.uid);
-    } else {
-      await queue('transverseIndexUpdate', event);
-    }
-
-    log('update other indices');
-    await queue('loadOtherUpdates', agenda.uid, event.uid);
-
-    log('done');
-  };
-}
-
 async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
   const {
     agendaEvents,
@@ -62,31 +23,13 @@ async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
   }
 }
 
-async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
-  const { core } = services;
-
-  log('otherUpdate', agendaUid, eventUid);
-
-  const {
-    event,
-    member,
-    formSchema,
-    agenda
-  } = await core.agendas(agendaUid).events.get(eventUid, {
-    returnPayload: true,
-    access: 'internal'
-  });
-
-  return updateAgendaIndex(eventSearch, {
-    agenda,
-    formSchema,
-    member,
-    event
-  });
-}
-
-async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, event }) {
-  log('updateAgendaIndex');
+async function updateAgendaIndex(eventSearch, {
+  agenda,
+  formSchema,
+  member,
+  event
+}) {
+  log('  updateAgendaIndex');
 
   const data = {
     ...event,
@@ -95,10 +38,102 @@ async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, even
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-  log('update current agenda index', agenda.uid);
+  log('  update agenda index', agenda.uid);
+
   await searchIndex.update({
     uid: event.uid
-  }, data, { refresh: true, formSchema, agenda });
+  }, data, {
+    refresh: true,
+    operation: 'index',
+    formSchema,
+    agenda
+  });
 
-  log('updated');
+  log('  updated');
 }
+
+async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
+  const {
+    core,
+    tracker
+  } = services;
+
+  log('  otherUpdate', agendaUid, eventUid);
+
+  const {
+    event,
+    member,
+    formSchema,
+    agenda
+  } = await core.agendas(agendaUid).events.get(eventUid, {
+    returnPayload: true,
+    detailed: true,
+    access: 'internal'
+  });
+
+  if (tracker) {
+    tracker(`eventSearch.otherUpdate:${agendaUid}.${eventUid}`);
+  }
+
+  const result = await updateAgendaIndex(eventSearch, {
+    agenda,
+    formSchema,
+    member,
+    event
+  });
+
+  if (tracker) {
+    tracker(`eventSearch.otherUpdate.done:${agendaUid}.${eventUid}`);
+  }
+
+  return result;
+}
+
+module.exports = (services, queue, eventSearch) => {
+  const {
+    agendaEvents,
+    tracker
+  } = services;
+
+  queue.register({
+    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
+    otherUpdate: otherUpdate.bind(null, services, eventSearch)
+  });
+
+  return async ({
+    agenda,
+    member,
+    formSchema,
+    event
+  }, options = {}) => {
+    log('update', { agendaUid: agenda.uid, eventUid: event.uid, member: member?.userUid });
+
+    if (tracker) {
+      tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
+    }
+
+    const {
+      updateOtherIndices = true
+    } = options;
+
+    await updateAgendaIndex(eventSearch, {
+      agenda,
+      formSchema,
+      member,
+      event
+    });
+
+    if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {
+      await queue('transverseIndexRemove', event.uid);
+    } else {
+      await queue('transverseIndexUpdate', event);
+    }
+
+    if (updateOtherIndices) {
+      log('update other indices');
+      await queue('loadOtherUpdates', agenda.uid, event.uid);
+    }
+
+    log('done');
+  };
+};

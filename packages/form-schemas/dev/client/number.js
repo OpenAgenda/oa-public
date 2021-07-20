@@ -16,6 +16,9 @@ class Main extends Component {
         redirect: '/'
       },
       lang: 'fr',
+      values: {
+        afieldwithavalue: 0
+      },
       schema: {
         fields: [ {
           field: 'anumberfield',
@@ -23,6 +26,10 @@ class Main extends Component {
           label: 'Type a number',
           max: 100,
           min: 50
+        }, {
+          field: 'afieldwithavalue',
+          fieldType: 'number',
+          label: 'Should load with a 0'
         } ]
       }
     }

@@ -2,8 +2,52 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
 import { Modal } from '@openagenda/react-components';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 const log = debug('AdminActionModal');
+
+const messages = defineMessages({
+  info: {
+    id: 'AgendaLocations.AdminActionModal.info',
+    defaultMessage: 'Information',
+  },
+  doOn: {
+    id: 'AgendaLocations.AdminActionModal.doOn',
+    defaultMessage: 'This action is to be carried out on the website of',
+  },
+  cantDo: {
+    id: 'AgendaLocations.AdminActionModal.cantDo',
+    defaultMessage: 'You do not have the rights for:',
+  },
+  newTab: {
+    id: 'AgendaLocations.AdminActionModal.newTab',
+    defaultMessage: 'A new tab will open in an instant.',
+  },
+  goTo: {
+    id: 'AgendaLocations.AdminActionModal.goTo',
+    defaultMessage: 'Go to',
+  },
+  closeModal: {
+    id: 'AgendaLocations.AdminActionModal.closeModal',
+    defaultMessage: 'Close',
+  },
+  edit: {
+    id: 'AgendaLocations.AdminActionModal.edit',
+    defaultMessage: 'Edit',
+  },
+  create: {
+    id: 'AgendaLocations.AdminActionModal.create',
+    defaultMessage: 'Add a location',
+  },
+  remove: {
+    id: 'AgendaLocations.AdminActionModal.remove',
+    defaultMessage: 'Delete',
+  },
+  merge: {
+    id: 'AgendaLocations.AdminActionModal.merge',
+    defaultMessage: 'Merge locations',
+  },
+});
 
 const actionMap = {
   edit: 'update',
@@ -23,7 +67,7 @@ class AdminActionModal extends Component {
     data: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,
     close: PropTypes.func.isRequired,
-    getLabel: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -62,19 +106,19 @@ class AdminActionModal extends Component {
   }
 
   renderRedirect() {
-    const { getLabel } = this.props;
+    const { intl } = this.props;
     const { link, hostname } = this.state;
     return (
       <Modal
-        title={getLabel('info')}
+        title={intl.formatMessage(messages.info)}
         onClose={this.onClose}
       >
         <div>
           <p className="text-center">
-            {`${getLabel('doOn')} ${hostname}.`}
+            {`${intl.formatMessage(messages.doOn)} ${hostname}.`}
           </p>
           <p className="text-center">
-            {`${getLabel('newtab')}`}
+            {`${intl.formatMessage(messages.newTab)}`}
           </p>
           <div className="text-center">
             <a
@@ -82,7 +126,7 @@ class AdminActionModal extends Component {
               className="btn btn-primary"
               target="_blanc"
             >
-              {`${getLabel('goTo')} ${hostname}`}
+              {`${intl.formatMessage(messages.goTo)} ${hostname}`}
             </a>
           </div>
         </div>
@@ -91,15 +135,15 @@ class AdminActionModal extends Component {
   }
 
   renderUnauthorized() {
-    const { data, getLabel, close } = this.props;
+    const { data, close, intl } = this.props;
     return (
       <Modal
-        title={getLabel('info')}
+        title={intl.formatMessage(messages.info)}
         onClose={close}
       >
         <div>
           <p className="text-center">
-            {`${getLabel('cantDo')} ${getLabel(data.accessType)}`}
+            {`${intl.formatMessage(messages.cantDo)} ${intl.formatMessage(messages[data.accessType])}`}
           </p>
           <div className="text-center">
             <button
@@ -107,7 +151,7 @@ class AdminActionModal extends Component {
               className="btn btn-primary margin-top-sm"
               onClick={close}
             >
-              {getLabel('closeModal')}
+              <FormattedMessage {...messages.closeModal} />
             </button>
           </div>
         </div>
@@ -124,4 +168,4 @@ class AdminActionModal extends Component {
   }
 }
 
-export default AdminActionModal;
+export default injectIntl(AdminActionModal);

@@ -1,0 +1,7 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//la-gargouille//agenda//fr
+METHOD:PUBLISH
+X-WR-CALNAME:La Gargouille
+X-WR-CALDESC: Evénements à Paris
+X-WR-RELCALID: 123

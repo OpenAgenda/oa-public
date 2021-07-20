@@ -1,0 +1,219 @@
+{
+    "custom": null,
+    "defaultLabelLanguage": null,
+    "nextOptionId": 20,
+    "fields": [
+        {
+            "field": "type-devenement",
+            "label": "Type d'événement",
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": null,
+            "enableWith": null,
+            "related": [],
+            "options": [
+                {
+                    "id": 11,
+                    "value": "atelier-stage",
+                    "label": {
+                        "en": "Atelier - Stage"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 12,
+                    "value": "spectacle-concert",
+                    "label": {
+                        "en": "Spectacle - Concert"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 13,
+                    "value": "salon-foire",
+                    "label": {
+                        "en": "Salon - Foire"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 14,
+                    "value": "rencontre-conferencedebat",
+                    "label": {
+                        "en": "Rencontre - Conférence/débat"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 15,
+                    "value": "marche-brocante",
+                    "label": {
+                        "en": "Marché - Brocante"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 16,
+                    "value": "cinema-projection",
+                    "label": {
+                        "en": "Cinéma - Projection"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 17,
+                    "value": "exposition-visite",
+                    "label": {
+                        "en": "Exposition - Visite"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 18,
+                    "value": "manifestation-sportive",
+                    "label": {
+                        "en": "Manifestation sportive"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 19,
+                    "value": "theatre",
+                    "label": {
+                        "en": "Théâtre"
+                    },
+                    "display": true
+                }
+            ],
+            "fieldType": "radio"
+        },
+        {
+            "field": "type-de-public",
+            "label": "Type de public",
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": null,
+            "enableWith": null,
+            "related": [],
+            "options": [
+                {
+                    "id": 8,
+                    "value": "jeune-public",
+                    "label": {
+                        "en": "Jeune public"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 9,
+                    "value": "famille",
+                    "label": {
+                        "en": "Famille"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 10,
+                    "value": "tout-public",
+                    "label": {
+                        "en": "Tout public"
+                    },
+                    "display": true
+                }
+            ],
+            "fieldType": "radio"
+        },
+        {
+            "field": "categories",
+            "label": "Catégories",
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": null,
+            "enableWith": null,
+            "related": [],
+            "options": [
+                {
+                    "id": 1,
+                    "value": "culture",
+                    "label": {
+                        "en": "Culture"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 2,
+                    "value": "sports",
+                    "label": {
+                        "en": "Sports"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 3,
+                    "value": "education",
+                    "label": {
+                        "en": "Éducation"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 4,
+                    "value": "economie-innovation",
+                    "label": {
+                        "en": "Économie - Innovation"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 5,
+                    "value": "nature-environnement",
+                    "label": {
+                        "en": "Nature - Environnement"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 6,
+                    "value": "patrimoine",
+                    "label": {
+                        "en": "Patrimoine"
+                    },
+                    "display": true
+                },
+                {
+                    "id": 7,
+                    "value": "loisirs",
+                    "label": {
+                        "en": "Loisirs"
+                    },
+                    "display": true
+                }
+            ],
+            "fieldType": "radio"
+        }
+    ]
+}

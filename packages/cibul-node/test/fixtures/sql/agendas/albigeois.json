@@ -1,0 +1,21 @@
+{
+  "id": 25827,
+  "title": "Communauté d'agglomération de l'Albigeois",
+  "owner_id": 1,
+  "slug": "communaute-dagglomeration-de-lalbigeois",
+  "description": "Agenda des événements du Grand Albigeois",
+  "image": "agenda93399464.jpg?__ts=1608212900162",
+  "url": "https://agenda.grand-albigeois.fr/",
+  "created_at": "2020-06-25 09:54:22",
+  "updated_at": "2021-06-25 08:05:56",
+  "uid": 93399464,
+  "official": 1,
+  "credentials": "{\"useContributeApp\":true,\"useAgendaSchema\":true,\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"embedsHead\":true,\"embedsTemplates\":true,\"indesign\":false,\"activatingInvitations\":false,\"emailstrategie\":false,\"aggregator\":true,\"invitationMessage\":false,\"prioritizedAggregator\":true,\"docxExport\":false,\"calendarView\":false,\"eventOwnershipTransfer\":false,\"graphs\":true}",
+  "settings": "{\"tracking\":{\"googleAnalytics\":\"UA-187857400-1\"},\"lab\":{\"eventAdmin\":true,\"status\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":1,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[\"contributor\"],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"translation\":{\"enabled\":false,\"source\":\"fr\",\"sets\":[],\"service\":\"reverso\",\"options\":null}}",
+  "private": 0,
+  "form_schema_id": 23481,
+  "officialized_at": "2020-12-15 15:21:00",
+  "indexed": 1,
+  "network_uid": 86140236,
+  "location_set_uid": 478946547
+}

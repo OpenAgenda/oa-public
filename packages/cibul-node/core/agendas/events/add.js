@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const VError = require('verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/add');
@@ -34,7 +33,6 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     paths,
     sourceAgenda,
     batched,
-    context,
     access,
     returnPayload
   } = {
@@ -106,4 +104,4 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   });
 
   return returnPayload ? response : response.event;
-}
+};

@@ -51,5 +51,11 @@
   "requiredTagError": "Vous devez faire au minimum une sélection",
   "requiredCategoryError": "Vous devez faire une sélection",
   "noSelection": "Aucun choix",
-  "compulsoryNote": "Les champs marqués avec des * sont obligatoires"
+  "compulsoryNote": "Les champs marqués avec des * sont obligatoires",
+  "scheduled": "Programmé",
+  "rescheduled": "Re-programmé",
+  "movedOnline": "Passé en ligne",
+  "cancelled": "Annulé",
+  "postponed": "Reporté",
+  "status": "État"
 }

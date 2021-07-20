@@ -131,6 +131,10 @@ module.exports = [{
     fields: [{
       field: 'eventAdmin',
       type: 'boolean',
+      default: true
+    }, {
+      field: 'status',
+      type: 'boolean',
       default: false
     }]
   }, {

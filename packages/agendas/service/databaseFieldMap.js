@@ -31,7 +31,7 @@ module.exports = [
     db: 'location_set_uid',
     obj: 'locationSetUid',
     protected: true,
-    list: false
+    list: true
   },
   'slug',
   {

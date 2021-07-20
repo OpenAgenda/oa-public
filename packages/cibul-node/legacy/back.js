@@ -17,7 +17,6 @@ const legacyEventSearch = require('../services/elasticsearch');
 const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 
-const eventsSvc = require('../services/events');
 const customSvc = require('@openagenda/custom');
 
 const logger = require('@openagenda/logs');
@@ -153,15 +152,6 @@ module.exports = app => {
       } );
 
     }
-  );
-
-  /**
-   * send mails on behalf of sf
-   */
-  app.post(
-    '/legacy/mail',
-    preMw,
-    mail
   );
 
   app.post(
@@ -530,7 +520,7 @@ async function _transferFromLegacy(services, { legacyEvent, agenda, userUid }) {
     events
   } = services;
 
-  try  {
+  try {
     await events.setFromLegacy({ uid: legacyEvent.uid });
   } catch (e) {
     log('error', e);
@@ -562,83 +552,6 @@ async function _transferFromLegacy(services, { legacyEvent, agenda, userUid }) {
   } catch ( e ) {
     log('error', 'could not update legacy search for event %s', event.slug );
   }
-}
-
-
-/*
-
-  mail things received from symfony.
-
-  sample: {
-    recipient: { 'gaetan@cibul.net': 'Gaetan Latouche' },
-    subject: 'Messagerie OpenAgenda: You have a new message',
-    body: '<p>fdqfdsqfdsq</p>\n<p>Kari Olafsson:</p>\n<p>"fdqfdsqfdq"</p>\n<p><a href="http://d.openagenda.com/frontend_dev.php/messages/1539851231500506" target="_blank">voir le message sur OpenAgenda / répondre</a></p>',
-    type: 'html'
-  }
-
-*/
-function mail( req, res, next ) {
-
-  let data = req.body,
-
-    mail = {};
-
-  if ( !data ) {
-
-    req.log( 'error', 'no body found' );
-
-    return _done( req, res );
-
-  }
-
-  if ( !data.recipient ) {
-
-    req.log( 'error', 'no recipient' );
-
-    return _done( req, res );
-
-  }
-
-  if ( !data.body ) {
-
-    req.log( 'error', 'no body' );
-
-    return _done( req, res );
-
-  }
-
-  mail[ data.type !== 'text' ? 'html' : 'text' ] = data.body;
-
-  mail.recipient = _cleanRecipients( data.recipient );
-
-  if ( !mail.recipient.length ) {
-
-    req.log( 'error', 'no recipients for mail with data: %s', data.body.substr( 0, 200 ) + '...' );
-
-    return _done( req, res );
-
-  }
-
-  mail.subject = data.subject;
-
-  if ( data.unsubscribe ) {
-
-    // unsubscribed.getLinks( data.unsubscribe )
-
-  }
-
-  // mailer( mail, err => {
-
-  _done( req, res );
-
-  // } );
-
-}
-
-function _done( req, res ) {
-
-  cmn.renderJson( req, res, { success: true } );
-
 }
 
 function logController( req, res, next ) {

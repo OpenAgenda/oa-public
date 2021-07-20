@@ -1,4 +1,6 @@
 {
+  "mergeInProgress": "Die Zusammenführung ist im Gange",
+  "defineMergeTarget": "Als Zusammenführungsziel definieren",
   "cantDo": "Sie haben nicht die Rechte dazu:",
   "info": "Information",
   "cancel": "Abbrechen",
@@ -11,9 +13,8 @@
   "search": "Filterliste",
   "merge": "Merge Standorte",
   "cancelmerge": "Abbrechen merge",
-  "mergedescription": "Wähle die Orte zu fusionieren, dann",
+  "mergedescription": "Fusionieren",
   "launchmerge": "Starte merge",
-  "mergenoselection": "Sobald Sie Deine Auswahl abgeschlossen ist, starte die Zusammenführung die Werte zu wählen, in dem fusionierten Ort zu speichern",
   "mergeselection": "Du bist zur Zeit %count% Standorte ausgewählt.",
   "seemergelist": "Sehen",
   "toverify": "Orte ansehen, um zu überprüfen",
@@ -40,7 +41,7 @@
   "cannotRemoveEnd=": " Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
   "cannotRemoveStart": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
   "cannotRemoveLinkUnique": " von denen ein",
-  "cannotRemoveEndUnique": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
+  "cannotRemoveEndUnique": " im Kalender.",
   "cannotRemoveLink": " von denen %agendaEventCount%",
   "cannotRemoveEnd": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht."
 }

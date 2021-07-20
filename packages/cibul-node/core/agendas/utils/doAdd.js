@@ -1,14 +1,11 @@
 'use strict';
 
 const _ = require('lodash');
-const ih = require('immutability-helper');
 const VError = require('verror');
 
+const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
-const merge = require('./merge');
-
-const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 
 module.exports = async (core, payload, clean, options = {}) => {
   const agenda = payload.getAgenda();
@@ -34,7 +31,6 @@ module.exports = async (core, payload, clean, options = {}) => {
   const {
     batched,
     aggregated,
-    paths,
     sourceAgenda,
     draft,
     userUid,
@@ -66,7 +62,7 @@ module.exports = async (core, payload, clean, options = {}) => {
           sourceAgenda,
           userUid
         },
-        decorate: ['member']
+        decorate: ['member', 'sourceAgendas']
       });
 
       payload.setItem('agendaEvent', before, created);
@@ -133,7 +129,6 @@ module.exports = async (core, payload, clean, options = {}) => {
   const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent(); // full access for internal use
   const formSchema = payload.getFormSchema(); // full access for internal use
-  const { member } = response;
 
   try {
     await eventSearch.add(response);
@@ -151,4 +146,4 @@ module.exports = async (core, payload, clean, options = {}) => {
   await refreshAgenda(agenda.uid);
 
   return response;
-}
+};

@@ -3,11 +3,9 @@
 
   // header
   #header {
-
     .row {
       position: relative;
     }
-
   }
 
   //content
@@ -21,11 +19,13 @@
 
   }
 
+  .status {
+    font-size: 18px;
+  }
+
   .event-content {
-
-    background: $oa-white;
+    background: transparent;
     border-radius: 3px;
-
   }
 
 
@@ -41,7 +41,23 @@
 
   }
 
+  .sidebar-content {
+    background-color: $oa-white;
+    margin-top: -15px;
+    padding: 15px;
+  }
+
+  .event-content {
+    background-color: $oa-white;
+  }
+
   .event-item-info {
+
+    br {
+      display: block;
+      content: " ";
+      height: 0.3em;
+    }
 
     dt {
 
@@ -194,6 +210,10 @@
 
     a {
       color: $oa-gray;
+
+      &.disabled {
+        opacity: 0.4;
+      }
 
       &:hover {
         color: $oa-blue;
@@ -356,6 +376,16 @@
   @media (min-width: 768px) {
     #content {
       padding: 50px 0;
+    }
+
+    .sidebar-content {
+      background-color: transparent;
+      margin-top: 0;
+      padding: 0;
+    }
+
+    .event-content {
+      background: $oa-white;
     }
 
     .meta-container {

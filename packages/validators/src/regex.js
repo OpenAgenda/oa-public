@@ -1,10 +1,7 @@
-"use strict";
+import errors from './lib/errors';
 
-var utils = require( '@openagenda/utils' );
-
-module.exports = function( config ) {
-
-  var params = utils.extend( {
+export default (config = {}) => {
+  const params = {
     optional: false,
     field: false, // required
     regex: false, // required
@@ -16,91 +13,62 @@ module.exports = function( config ) {
     trim: true,
     type: false,
     min: null,
-    max: null
-  }, config || {} ),
-
-  validator = function( value ) {
-
-    var clean = value ? ( value + '' ) : value;
-
-    if ( params.optional && ( !clean || !clean.length ) ) {
-
-      return 'default' in params ? params.default : clean;
-
-    }
-
-    if ( !params.optional && !clean ) {
-
-      throw [ {
-        origin: value,
-        field: params.field,
-        code: 'required',
-        message: 'value must not be empty'
-      } ];
-
-    }
-
-    if ( typeof clean == 'string' && params.trim ) {
-
-      clean = clean.trim();
-
-    }
-
-    if ( params.min !== null && clean.length < params.min ) {
-
-      throw [ {
-        origin: value,
-        field: params.field,
-        code: 'toosmall',
-        message: 'value is too short',
-        values: {
-          min: params.min,
-          max: params.max
-        }
-      } ];
-
-    }
-
-    if ( params.max !== null && clean.length > params.max ) {
-
-      throw [ {
-        origin: value,
-        field: params.field,
-        code: 'toolong',
-        message: 'value is too long',
-        values: {
-          min: params.min,
-          max: params.max
-        }
-      }]
-
-    }
-
-    if ( !params.regex.test( clean ) ) {
-
-      throw [ utils.extend( {
-        origin: value,
-        field: params.field
-      }, params.error ) ];
-
-    }
-
-    return params.clean ? clean.match( params.regex )[ 0 ] : clean;
-
+    max: null,
+    ...config
   };
 
-  if ( params.type ) {
+  const validator = value => {
+    let clean = value ? (`${value}`) : value;
 
+    if (params.optional && (!clean || !clean.length)) {
+      return 'default' in params ? params.default : clean;
+    }
+
+    if (!params.optional && !clean) {
+      throw errors(
+        params,
+        value,
+        'required',
+        'value must not be empty'
+      );
+    }
+
+    if (typeof clean === 'string' && params.trim) {
+      clean = clean.trim();
+    }
+
+    if (params.min !== null && clean.length < params.min) {
+      throw errors(
+        params,
+        value,
+        'toosmall',
+        'value is too short'
+      );
+    }
+
+    if (params.max !== null && clean.length > params.max) {
+      throw errors(
+        params,
+        value,
+        'too long',
+        'value is too long'
+      );
+    }
+
+    if (!params.regex.test(clean)) {
+      throw errors(params, value, params.error.code, params.error.message);
+    }
+
+    return params.clean ? clean.match(params.regex)[0] : clean;
+  };
+
+  if (params.type) {
     validator.type = params.type;
-
   }
 
-  if ( params.field ) {
-
+  if (params.field) {
     validator.field = params.field;
-
   }
 
   return validator;
-
-}
+};

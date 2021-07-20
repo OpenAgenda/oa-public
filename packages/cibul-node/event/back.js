@@ -64,14 +64,16 @@ module.exports = app => {
       .events
       .get(req.params.eventUid)
       .then(event => {
+        if (!event?.references?.length) {
+          return res.json({
+            references: null,
+            events: []
+          });
+        }
         req.originAgendaUid = event.agendaUid;
         req.references = event.references;
         next();
       }, next),
-    (req, res, next) => req.references?.length ? next() : res.json({
-      references: null,
-      events: []
-    }),
     (req, res, next) => core
       .agendas(req.originAgendaUid)
       .events

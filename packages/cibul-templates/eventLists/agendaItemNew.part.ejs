@@ -9,16 +9,30 @@
   </aside>
   <section class="col-sm-9">
     <a class="event-card" href="<%= event.link %>">
-      <span class="fav js_fav_item" data-event-uid="<%= event.uid %>"><i class="fa fa-star-o"></i></span>
-      <h3 class="event-title"><%= event.title %></h3>
+      <div class="event-title padding-top-sm padding-h-md margin-bottom-sm">
+        <span class="fav js_fav_item pull-right" data-event-uid="<%= event.uid %>"><i class="fa fa-star-o"></i></span>
+<% if (event.status === 2) { %> 
+  <span class="label label-warning status margin-right-sm"><%= __('statusRescheduled') %></span>
+<% } else if (event.status === 3) { %>
+  <span class="label label-warning status margin-right-sm"><%= __('statusMovedOnline') %></span>
+<% } else if (event.status === 4) { %>
+  <span class="label label-warning status margin-right-sm"><%= __('statusPostponed') %></span>
+<% } else if (event.status === 5) { %>
+  <span class="label label-danger status margin-right-sm"><%= __('statusCancelled') %></span>
+<% } else if (event.status === 6) { %>
+  <span class="label label-danger status margin-right-sm"><%= __('statusFull') %></span>
+<% } %>
+        <h3 class="margin-v-z"><%= event.title %></h3>
+      </div>
+      
 <% if ( event.image ) { %>    
-      <div class="event-img">
+      <div class="event-img margin-v-sm">
         <img class="img-responsive" src="<%= event.image %>" width="568" height="213">
       </div>
 <% } %>
-      <div class="event-text">
+      <div class="event-text padding-h-md margin-v-sm">
         <p><%= event.description %></p>
-        <ul class="metas">
+        <ul class="metas padding-h-z">
           <li><i class="fa fa-clock-o"></i> <%= event.dateRange %></li>
           <li>
 <% if (event.attendanceMode == 2) { %>

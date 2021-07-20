@@ -179,16 +179,22 @@ async function corpo(cache, req, res, next) {
       lang: page.getLang(),
       metas, // used?
       scripts: [{
-        content: `window._slaaskSettings = { key: "6b2ef2b1830ad6e1c43bbc726c8a9f98" };`
-      }, {
-        src: '//cdn.slaask.com/chat_loader.js'
-      }, {
-        src: '//code.jquery.com/jquery-2.2.4.min.js'
-      }, {
-        src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-      }, {
-        src: '/js/landing.js'
-      }]
+        content: `window.$crisp=[];
+          window.CRISP_WEBSITE_ID="ec7a439d-5932-4856-9fb6-4f235c9fba52";
+          (function(){
+            d=document;
+            s=d.createElement("script");
+            s.src="https://client.crisp.chat/l.js";
+            s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
+          })();`
+        }, {
+          src: '//code.jquery.com/jquery-2.2.4.min.js'
+        }, {
+          src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+        }, {
+          src: '/js/landing.js'
+        }
+      ]
     }
   );
 

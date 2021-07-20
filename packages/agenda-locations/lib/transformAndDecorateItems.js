@@ -1,7 +1,7 @@
 'use strict';
 
 const decorateWithCounts = require('./decorateWithCounts');
-const fromDbEntryToItem = require('./fromDbEntryToItem');
+const injectImagePath = require('./injectImagePath');
 
 module.exports = async (service, items, options = {}) => {
   const {
@@ -12,10 +12,10 @@ module.exports = async (service, items, options = {}) => {
     includeImagePath,
   } = options;
 
-  const transformed = items.map(i => fromDbEntryToItem(i, {
-    imagePath: includeImagePath ? service.config.imagePath : null,
+  const transformed = items.map(i => service.fieldUtils.fromEntryToItem(i, {
     access: detailed ? 'public' : 'list',
     includeFields,
+    nullifyUndefined: true
   }));
 
   if (service.interfaces.getEventCounts && includeEventCounts) {
@@ -26,6 +26,10 @@ module.exports = async (service, items, options = {}) => {
         context
       )
     );
+  }
+
+  if (includeImagePath && service.config.imagePath) {
+    injectImagePath(transformed, service.config.imagePath);
   }
 
   return transformed;

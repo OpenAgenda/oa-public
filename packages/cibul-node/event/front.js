@@ -556,51 +556,50 @@ function _appendEventTransferCredential( req, res, next ) {
 
 }
 
+function _appendSettings(req, res, next) {
+  if (!req.agenda) return next();
 
+  const agendaUid = req.agenda?.uid;
+  const originAgendaUid = req.event?.origin?.uid;
 
+  const agendaUids = [agendaUid];
 
+  if (originAgendaUid) agendaUids.push(originAgendaUid);
 
-function _appendSettings( req, res, next ) {
+  agendaSvc.list({ uid: agendaUids }, 0, 2, {
+    private: null,
+    internal: true,
+    includeFields: ['settings', 'indexed', 'private', 'credentials']
+  }, (err, agendas) => {
+    const agenda = agendas.filter(a => a.uid === agendaUid).shift();
 
-  if ( !req.agenda ) return next();
+    if (err) return next(err);
 
-  const agendaUid = _.get( req, 'agenda.uid' );
-  const originAgendaUid = _.get( req, 'event.origin.uid' );
-
-  const agendaUids = [ agendaUid ];
-
-  if ( originAgendaUid ) agendaUids.push( originAgendaUid );
-
-  agendaSvc.list( { uid: agendaUids }, 0, 2, { private: null, internal: true, includeFields: [ 'settings', 'indexed', 'private', 'credentials' ] }, ( err, agendas ) => {
-
-    const agenda = _.first( agendas.filter( a => a.uid === agendaUid ) );
-
-    if ( err ) return next( err );
-
-    req.baseData = ih( req.baseData, {
+    req.baseData = ih(req.baseData, {
       indexed: {
-        $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )
+        $set: _.get(agenda, 'indexed', true) && !_.get(agenda, 'private', false)
       },
       scriptParams: {
         moderatorCanPublish: {
-          $set: _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' )
+          $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes('moderators')
         }
       },
       mailto: {
-        $set: cmn.agendaMailTo( agenda )
+        $set: cmn.agendaMailTo(agenda)
       },
       useContributeApp: {
-        $set: _.get( agenda, 'credentials.useContributeApp', false )
+        $set: _.get(agenda, 'credentials.useContributeApp', false)
+      },
+      useDetailedStatusActions: {
+        $set: !!agenda?.settings?.lab?.status
       },
       bottom: {
         scripts: { $push: [ cmn.extractGoogleAnalytics( agendas ) ] }
       }
-    } );
+    });
 
     next();
-
-  } );
-
+  });
 }
 
 

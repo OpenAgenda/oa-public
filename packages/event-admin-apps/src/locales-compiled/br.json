@@ -87,12 +87,6 @@
       "value": " événements correspondant aux filtres actuels sont sélectionnés."
     }
   ],
-  "EventAdminApp.FiltersPortal.filters": [
-    {
-      "type": 0,
-      "value": "Siloù"
-    }
-  ],
   "EventAdminApp.Dashboard.groupedActions": [
     {
       "type": 0,
@@ -415,6 +409,12 @@
       "value": "link"
     }
   ],
+  "EventAdminApp.EventItem.administrator": [
+    {
+      "type": 0,
+      "value": "administrateur"
+    }
+  ],
   "EventAdminApp.EventItem.aggregatedFrom": [
     {
       "type": 0,
@@ -435,6 +435,12 @@
     {
       "type": 0,
       "value": "Contacter"
+    }
+  ],
+  "EventAdminApp.EventItem.contributor": [
+    {
+      "type": 0,
+      "value": "contributeur"
     }
   ],
   "EventAdminApp.EventItem.createdBy": [
@@ -473,14 +479,24 @@
   ],
   "EventAdminApp.EventItem.memberPlaceholder": [
     {
-      "children": [
-        {
-          "type": 0,
-          "value": "Membre sans nom"
-        }
-      ],
-      "type": 8,
-      "value": "decorate"
+      "type": 0,
+      "value": "un membre "
+    },
+    {
+      "type": 1,
+      "value": "role"
+    }
+  ],
+  "EventAdminApp.EventItem.moderator": [
+    {
+      "type": 0,
+      "value": "modérateur"
+    }
+  ],
+  "EventAdminApp.EventItem.noRoleMemberPlaceholder": [
+    {
+      "type": 0,
+      "value": "un membre"
     }
   ],
   "EventAdminApp.EventItem.onlineEvent": [
@@ -505,6 +521,22 @@
     {
       "type": 0,
       "value": "Retirer de la une"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedBy": [
+    {
+      "type": 0,
+      "value": "Partagé par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "memberName"
+        }
+      ],
+      "type": 8,
+      "value": "memberLink"
     }
   ],
   "EventAdminApp.EventItem.sharedFrom": [
@@ -565,16 +597,16 @@
       "value": "Accéder à l'événement en ligne"
     }
   ],
-  "EventAdminApp.FiltersPart.lessFilters": [
+  "EventAdminApp.EventItem.unnamedMemberInfo": [
     {
       "type": 0,
-      "value": "Diskouez nebeutoc'h a siloù"
+      "value": "Le/la membre n'a pas précisé son nom sur sa fiche"
     }
   ],
-  "EventAdminApp.FiltersPart.moreFilters": [
+  "EventAdminApp.FiltersPortal.filters": [
     {
       "type": 0,
-      "value": "Diskouez muioc'h a siloù"
+      "value": "Siloù"
     }
   ],
   "EventAdminApp.RemoveModal.confirm": [

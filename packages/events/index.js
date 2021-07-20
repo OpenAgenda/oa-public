@@ -12,6 +12,10 @@ const setFromLegacy = require('./lib/legacy/from');
 const imageVariants = require('./lib/imageVariants');
 
 const utils = require('./utils');
+const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
+const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
+const getFieldsByAccess = require('@openagenda/utils/fields/getFieldsByAccess');
+const fields = require('./lib/fields');
 
 module.exports = c => {
   const config = Object.keys(c).reduce((carriedConfig, key) => (
@@ -43,7 +47,12 @@ module.exports = c => {
       key: 'image',
       variants: imageVariants(config.Files)
     }),
-    interfaces: config.interfaces
+    interfaces: config.interfaces,
+    fieldUtils: {
+      fromItemToEntry: fromItemToEntry.bind(null, fields),
+      fromEntryToItem: fromEntryToItem.bind(null, fields),
+      getFieldsByAccess: getFieldsByAccess.bind(null, fields),  
+    }
   };
 
   const endpoints = {

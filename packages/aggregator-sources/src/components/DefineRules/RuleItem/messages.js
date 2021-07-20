@@ -134,4 +134,12 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.actionStatusDetail',
     defaultMessage: '{state} is applied to event',
   },
+  caseSensitive: {
+    id: 'aggregator-sources.DefineRules.caseSensitive',
+    defaultMessage: 'case-sensitive',
+  },
+  caseInsensitive: {
+    id: 'aggregator-sources.DefineRules.caseInsensitive',
+    defaultMessage: 'case-insensitive',
+  },
 });

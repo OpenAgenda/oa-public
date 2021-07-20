@@ -1,23 +1,19 @@
+import cleanParams from './lib/params';
+import errors from './lib/errors';
+
 export default (config = {}) => {
-  const params = {
-    field: false,
+  const params = cleanParams('boolean', config, {
     default: undefined,
     optional: true,
-    allowNull: false,
-    ...config
-  };
+    allowNull: false
+  });
 
   return Object.assign(value => {
     const isUndefined = value === undefined;
     const hasDefault = params.default !== undefined;
 
     if (isUndefined && !params.optional && !hasDefault) {
-      throw [{
-        field: params.field,
-        code: 'required',
-        message: 'a boolean is required',
-        origin: value
-      }];
+      throw errors(params, value, 'required', 'a boolean is required');
     }
 
     if (isUndefined && hasDefault) {
@@ -41,4 +37,4 @@ export default (config = {}) => {
     type: 'boolean',
     field: params.field
   });
-}
+};

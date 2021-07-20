@@ -3,7 +3,6 @@
 const assert = require('assert');
 const Files = require('@openagenda/files');
 
-
 const {
   service: config,
   dependencies: dConfig,
@@ -124,6 +123,15 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
+    });
+
+    it('deleted location as merged_in field', async () => {
+      const mergedInObj = await f
+        .client('location')
+        .first('merged_in')
+        .where('uid', 13470871)
+        .then(r => r);
+      assert.equal(mergedInObj.merged_in, 95301591);
     });
   });
 

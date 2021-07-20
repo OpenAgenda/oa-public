@@ -1,8 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
-const NotFoundError = require('../../utils/NotFoundError');
 const log = require('@openagenda/logs')('core/agendas/events/search');
+const NotFoundError = require('../../utils/NotFoundError');
 
 const loadSearchAccess = require('./lib/loadSearchAccess');
 const filterAuthorizedSearchFields = require('./lib/filterAuthorizedSearchFields');
@@ -10,6 +10,7 @@ const filterAuthorizedSearchFields = require('./lib/filterAuthorizedSearchFields
 module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const agenda = await core.agendas(agendaUid).get({
     includeEvent: true,
+    includeMember: true,
     access: 'internal',
     private: null
   });
@@ -25,15 +26,13 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const {
     returnAgenda = false,
     stream = false,
-    apiNav = false,
     useAfterKey = false,
-    userUid = null,
     ...searchOptions
   } = options;
 
   log('search on %s events with query %s, nav %s and options %s', agendaUid, query, nav, options);
 
-  const search = core.services.eventSearch.agendas(agenda).search;
+  const { search } = core.services.eventSearch.agendas(agenda);
 
   const result = stream
     ? search.stream(authorizedQuery, {
@@ -51,7 +50,7 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   return returnAgenda
     ? { agenda, result }
     : result;
-}
+};
 
 module.exports.rebuild = async (core, agendaUid) => {
   const agenda = await core.agendas(agendaUid).get({
@@ -65,18 +64,19 @@ module.exports.rebuild = async (core, agendaUid) => {
   }
 
   return core.services.eventSearch.agendas(agenda).rebuild();
-}
+};
 
-module.exports.resyncEvent = async (core, agendaUid, eventUid, options = {}) => {
+module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUid, options = {}) {
   const {
     throwOnError
   } = {
     throwOnError: true,
     ...options
-  }
+  };
+
   try {
     const eventPayload = await core.agendas(agendaUid).events.get(eventUid, {
-      internal: true,
+      access: 'internal',
       detailed: true,
       returnPayload: true
     });
@@ -91,11 +91,13 @@ module.exports.resyncEvent = async (core, agendaUid, eventUid, options = {}) => 
 
     log('resyncing event %s on index of agenda %s', eventUid, agendaUid);
 
-    const result = await core.services.eventSearch.update(eventPayload);
+    const result = await core.services.eventSearch.update(eventPayload, {
+      updateOtherIndices: false
+    });
 
     return result;
   } catch (err) {
     if (throwOnError) throw err;
     log('error', err);
   }
-}
+};

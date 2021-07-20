@@ -11,7 +11,7 @@ const defaults = {
 
 let registeredValidators = { schema };
 
-module.exports = _.assign(schema, { register });
+export default Object.assign(schema, { register });
 
 function schema(options) {
 

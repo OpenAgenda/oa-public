@@ -1,53 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import utils from '@openagenda/utils';
-import createLabels from '@openagenda/labels/agenda-locations/create';
-import formLabels from '@openagenda/labels/agenda-locations/form';
-import makeLabelGetter from '@openagenda/labels';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
-const getLabel = makeLabelGetter(utils.extend({}, formLabels, createLabels));
+const messages = defineMessages({
+  back: {
+    id: 'AgendaLocations.createFormHeader.back',
+    defaultMessage: 'Go back to the list',
+  },
+  title: {
+    id: 'AgendaLocations.createFormHeader.title',
+    defaultMessage: 'Create a location',
+  },
+  info: {
+    id: 'AgendaLocations.createFormHeader.info',
+    defaultMessage: 'Define the name, address and exact location of the place',
+  },
+});
 
+const CreateFormHeader = ({ actions }) => (
+  <div className="head">
+    {actions && actions.closeForm ? (
+      <button type="button" className="btn btn-default" onClick={actions.closeForm}>
+        <i className="fa fa-angle-left margin-right-sm" />
+        <span><FormattedMessage {...messages.back} /></span>
+      </button>
+    ) : null}
+    <h2><FormattedMessage {...messages.title} /></h2>
+    <span className="info"><FormattedMessage {...messages.info} /></span>
+  </div>
+);
 
-class CreateFormHeader extends Component {
-  static propTypes = {
-    lang: PropTypes.string.isRequired,
-    actions: PropTypes.object,
-    settings: PropTypes.object,
-  }
-
-  getLabel(name) {
-    let str;
-    const { settings, lang } = this.props;
-
-    if (
-      settings
-      && settings.labels
-      && settings.labels.create
-      && settings.labels.create[name]
-    ) {
-      str = settings.labels.create[name][lang];
-    } else {
-      str = getLabel(name, lang);
-    }
-
-    return str;
-  }
-
-  render() {
-    const { actions, lang } = this.props;
-    return (
-      <div className="head">
-        {actions && actions.closeForm ? (
-          <button type="button" className="btn btn-default" onClick={actions.closeForm}>
-            <i className="fa fa-angle-left margin-right-sm" />
-            <span>{this.getLabel('back')}</span>
-          </button>
-        ) : null}
-        <h2>{this.getLabel('title', lang)}</h2>
-        <span className="info">{this.getLabel('info', lang)}</span>
-      </div>
-    );
-  }
-}
+CreateFormHeader.propTypes = {
+  actions: PropTypes.object,
+};
 
 export default CreateFormHeader;

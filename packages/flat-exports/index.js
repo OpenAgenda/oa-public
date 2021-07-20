@@ -1,9 +1,15 @@
-"use strict";
+'use strict';
+
+const rss = require('./rss');
+const csv = require('./csv');
+const xlsx = require('./xlsx');
+const ICSStream = require('./ICSStream');
+const MarkdownStream = require('./MarkdownStream');
 
 module.exports = {
-  rss: require( './rss' ),
-  csv: require( './csv' ),
-  xlsx: require( './xlsx' ),
-  ICSStream: require( './ICSStream' ),
-  MarkdownStream: require( './MarkdownStream' )
-}
+  rss,
+  csv,
+  xlsx,
+  ICSStream,
+  MarkdownStream
+};

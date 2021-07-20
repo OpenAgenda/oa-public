@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require('verror');
+const VError = require('@openagenda/verror');
 const getIndexName = require('./utils/getIndexName');
 const getDocumentId = require('./utils/getDocumentId');
 const log = require('@openagenda/logs')('remove');

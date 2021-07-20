@@ -6,9 +6,9 @@ const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const cleanOptions = require('./lib/cleanSetOptions');
 const defineUnique = require('./lib/defineUnique');
 const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
-const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
+const legacy = require('./lib/legacy');
 
 async function create(service, data, options = {}) {
   log('received %j payload with options %j', data.name, options);
@@ -58,17 +58,17 @@ async function create(service, data, options = {}) {
     clean.image = result[0].filename;
   }
 
-  const entry = fromItemToDbEntry(clean);
-
-  const [insertedID] = await service.clients
-    .knex(service.config.schema)
-    .insert(entry);
-
-  log('info', 'created with id %s and uid %s', insertedID, entry.uid, clean);
-
   if (includeImagePath && clean.image) {
     clean.image = service.config.imagePath + clean.image;
   }
+
+  const entry = service.fieldUtils.fromItemToEntry(clean);
+
+  const [insertedID] = await service.clients
+    .knex(service.config.schema)
+    .insert(legacy.patch(entry, null, null));
+
+  log('info', 'created with id %s and uid %s', insertedID, entry.uid, clean);
 
   return filterFieldsByAccess(clean);
 }

@@ -1,56 +1,36 @@
-import listify from './listify';
-import extend from 'lodash/extend';
 import isIP from 'validator/lib/isIP';
+import listify from './listify';
+import cleanParams from './lib/params';
+import errors from './lib/errors';
 
 export default config => {
-
-  const params = extend( {
+  const params = cleanParams('ip', config, {
     field: false,
     optional: true,
     default: undefined,
     list: false
-  }, config || {} ),
+  });
 
-    ipValidator = extend( validate, {
-      type: 'ip',
-      field: params.field
-    } );
-
-  return params.list ? listify( ipValidator, params ) : ipValidator;
-
-  function validate( value ) {
-
-    let clean = null,
-
-      error = {
-        origin: value,
-        field: params.field
-      };
-
-    if ( value === undefined && ( params.default !== undefined || params.optional ) ) {
-
+  const validate = value => {
+    if (value === undefined && (params.default !== undefined || params.optional)) {
       return params.default;
-
-    } else if ( value === undefined ) {
-
-      throw [ extend( error, {
-        code: 'ip.required',
-        message: 'an ip address is required'
-      } ) ];
-
     }
 
-    if ( !isIP( value ) ) {
+    if (value === undefined) {
+      throw errors(params, value, 'ip.required', 'an ip address is required');
+    }
 
-      throw [ extend( error, {
-        code: 'ip.invalid',
-        message: 'ip address is invalid'
-      } ) ];
-
+    if (!isIP(value)) {
+      throw errors(params, value, 'ip.invalid', 'ip address is invalid');
     }
 
     return value;
+  };
 
-  }
+  const validator = Object.assign(validate, {
+    type: 'ip',
+    field: params.field
+  });
 
-}
+  return params.list ? listify(validator, params) : validator;
+};

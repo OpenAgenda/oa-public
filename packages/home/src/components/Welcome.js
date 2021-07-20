@@ -64,7 +64,7 @@ export default function Welcome() {
 
   const agendasQuery = useQuery('welcome-agendas', () => apiClient.get('/agendas.json', {
     params: {
-      sort: 'recentlyContributed.desc',
+      sort: 'recentlyAddedEvents.desc',
       contributionType: 1,
       official: 1,
       limit: 5,
@@ -87,7 +87,7 @@ export default function Welcome() {
           <h4 className="margin-v-md">{getLabel('contributeToExisting')}</h4>
 
           <form action="/agendas" method="GET" className="margin-top-sm">
-            <input type="hidden" name="sort" value="recentlyContributed.desc" />
+            <input type="hidden" name="sort" value="recentlyAddedEvents.desc" />
             <input type="hidden" name="official" value="1" />
             <input type="hidden" name="contributionType" value="1" />
 
@@ -125,7 +125,7 @@ export default function Welcome() {
 
                 <div className="margin-top-sm">
                   <a
-                    href={`/agendas?sort=recentlyContributed.desc&official=1&contributionType=1&updatedAt.gte=${
+                    href={`/agendas?sort=recentlyAddedEvents.desc&official=1&contributionType=1&updatedAt.gte=${
                       twoWeekAgo.toISOString().split('T')[0]
                     }`}
                   >

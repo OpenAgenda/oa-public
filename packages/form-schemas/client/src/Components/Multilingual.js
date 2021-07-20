@@ -12,7 +12,7 @@ const FieldComponents = {
   markdown: require( './MarkdownField' )
 }
 
-module.exports = class MultilingualField extends Component {
+export default class MultilingualField extends Component {
 
   onChange( language, value ) {
 
