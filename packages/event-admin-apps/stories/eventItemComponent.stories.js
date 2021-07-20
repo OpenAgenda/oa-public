@@ -172,6 +172,7 @@ export function SharedEventItemByAnonymous() {
 export function MemberlessSharedEventItem() {
   return (
     <div className="list-unstyled">
+      <p>The member is no longer available and is not associated with event</p>
       <EventItem
         key={1}
         agenda={agenda}
