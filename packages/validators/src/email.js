@@ -18,11 +18,11 @@ export default config => {
     }
 
     if (clean.indexOf(' ') !== -1 || !isEmail(clean)) {
-      throw errors(params, value, 'email.invalid', 'not an email');
+      throw errors(params, value, 'email.invalid', 'email is not valid');
     }
 
     if (clean.split('@').length > 2) {
-      throw errors(params, value, 'email.invalid', 'not an email');
+      throw errors(params, value, 'email.invalid', 'email is not valid');
     }
 
     return clean;

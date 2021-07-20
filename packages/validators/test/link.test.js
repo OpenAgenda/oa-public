@@ -1,9 +1,7 @@
-const validators = require('../src');
+import validators from '../src';
 
 describe('link validator', () => {
-
   describe('required (default)', () => {
-
     const validate = validators.link({ field: 'link', optional: false });
 
     it('an email is not a link', () => {
@@ -11,13 +9,12 @@ describe('link validator', () => {
 
       try {
         validate('email@gmail.com');
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
       expect(errors.length).toBe(1);
     });
-
 
     it('an email prefixed with mailto: is a link', () => {
       const clean = validate('mailto:email@gmail.com');
@@ -25,45 +22,44 @@ describe('link validator', () => {
       expect(clean).toBe('mailto:email@gmail.com');
     });
 
-
     it('an empty input is not a link', () => {
       let errors = [];
 
       try {
         validate();
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
       expect(errors.length).toBe(1);
     });
 
-    it('redos! - your processor did not sink', () => {
-      [
+    it('more links', () => {
+      const links = [
         'http://www.scenesetcines.fr/index.php?id=68&no_cache=1&tx_xmloparser_pi1%5Bitem%5D=30002746&tx_xmloparser_pi1%5BbackPid%5D=2&PHPSESSID=11a611c62b026547e8de23e6d6576907, http://www.artefact-lab.com/',
         'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5'
-      ].forEach(l => {
+      ];
+      const cleanLinks = [];
+      const errors = [];
 
-        //console.log('redos-able: %s', l);
-
+      links.forEach(l => {
         try {
-          validate(l);
-        } catch(e) {
+          cleanLinks.push(validate(l));
+        } catch (e) {
+          errors.push(e);
         }
       });
+
+      expect(cleanLinks.length).toBe(1);
+      expect(errors.length).toBe(1);
     });
 
     it('http is added if missing', () => {
-      var clean = validate('lemonde.fr');
-
-      expect(clean).toBe('http://lemonde.fr');
+      expect(validate('lemonde.fr')).toBe('http://lemonde.fr');
     });
 
-
     it('are links', () => {
-      let errors = false,
-
-      links = [
+      const links = [
         'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5',
         'http://jereserve.maplace.fr/reservation.php?menu=evenement&societe=Espace+Simone+Signoret&filtre_lieu=ESPACE+SIMONE+SIGNORET&filtre_date=2018-10-10+15%3A00%3A00&filtre_spectacle=L%E0-Haut',
         '//graph.facebook.com/100002280111541/picture',
@@ -76,13 +72,13 @@ describe('link validator', () => {
         'http://www.tourisme-ouestvar.com/les-journees-europeennes-du-patrimoine-ollioules-exposition-visites-guidees-animations.html?origine_affinage=true&mid=1&action=result&origine_affinage=true',
         'https://static.wixstatic.com/media/852505_4e3b455f81d2432d871076b2e796d8f7.png/v1/fill/w_184,h_68,al_c,usm_0.66_1.00_0.01/852505_4e3b455f81d2432d871076b2e796d8f7.png',
         'https://www.google.fr/maps/place/Camosine/@46.9932127,3.1608449,17z/data=!3m1!4b1!4m5!3m4!1s0x47f04595dc4cf785:0x5db86960965bd73a!8m2!3d46.9932127!4d3.1630336?hl=fr&shorturl=1'
-     ],
+      ];
 
-      notLinks = links.filter(l => {
+      const notLinks = links.filter(l => {
         try {
           validate(l);
           return false;
-        } catch(e) {
+        } catch (e) {
           return true;
         }
       });
@@ -90,23 +86,20 @@ describe('link validator', () => {
       expect(notLinks.length).toBe(0);
     });
 
-
     it('are not links', () => {
-      let errors = false,
-
-      links = [
+      const links = [
         'fdsqfdssfds',
         'openagenda.com.',
         'http://www/:a-url.com',
         'http://www.bourg-en-gironde.fr;www.remut.fr/actualite/4477'
-     ],
+      ];
 
-      areLinks = links.filter(l => {
+      const areLinks = links.filter(l => {
         try {
           validate(l);
 
           return true;
-        } catch(e) {
+        } catch (e) {
           return false;
         }
       });
@@ -114,31 +107,21 @@ describe('link validator', () => {
       expect(areLinks.length).toBe(0);
     });
 
-
     it('not a link', () => {
-      var caught = false;
+      let errors;
 
       try {
-
         validate('fsqfsdq');
-
-      } catch(e) {
-
-        caught = true;
-
-        expect(e[0].code).toBe('link.invalid');
-
+      } catch (e) {
+        errors = e;
       }
-
-      expect(caught).toBe(true);
+      expect(errors[0].code).toBe('link.invalid');
     });
-
   });
 
   describe('as a list of links', () => {
-
     it('validates list of links when list bool is set to true', () => {
-      let validate = validators.link({
+      const validate = validators.link({
         field: 'somelink',
         list: true,
         optional: false
@@ -146,9 +129,8 @@ describe('link validator', () => {
 
       expect(
         validate(['https://openagenda.com', 'http://openagenda.com'])
-     ).toEqual(['https://openagenda.com', 'http://openagenda.com']);
+      ).toEqual(['https://openagenda.com', 'http://openagenda.com']);
     });
-
   });
 
   describe('optional', () => {
@@ -159,23 +141,21 @@ describe('link validator', () => {
     });
 
     it('if default is provided, default is used', () => {
-      const validate = validators.link({ field: 'link', optional: true, default: null });
+      const validateWithDefault = validators.link({ field: 'link', optional: true, default: null });
 
-      expect(validate()).toBeNull();
+      expect(validateWithDefault()).toBeNull();
     });
 
     it('link validator is optional by default', () => {
-      let errors = []
+      let errors = [];
 
       try {
         validators.link()();
-      } catch(e) {
+      } catch (e) {
         errors = e;
       }
 
       expect(errors.length).toBe(0);
     });
-
   });
-
 });
