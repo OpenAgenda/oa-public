@@ -1,6 +1,11 @@
 'use strict';
 
 // const log = require('../lib/Log')('server');
+
+// Set options as a parameter, environment variable, or rc file.
+// eslint-disable-next-line no-global-assign
+require = require('esm')(module /* , options */);
+
 const Portal = require('..');
 
 Portal.utils.loadEnvironment(__dirname);
@@ -34,6 +39,7 @@ Portal({
   defaultFilter: {
     featured: 0,
   },
+  jsonExportVersion: 2,
   // true if portal is to be displayed within iframe
   iframable: process.env.PORTAL_IFRAMABLE,
   iframeParent: process.env.PORTAL_IFRAME_PARENT_URL,

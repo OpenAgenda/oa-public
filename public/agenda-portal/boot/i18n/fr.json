@@ -8,5 +8,14 @@
   "next": "Suivant",
   "contribute": "Proposer un événement",
   "eventsTotal": "{total} {total, plural, =0 {événement} one {événements} other {événements}}",
-  "onlineAccessLink": "Accéder à l'événement en ligne"
+  "onlineAccessLink": "Accéder à l'événement en ligne",
+
+  "searchPlaceholder": "Rechercher",
+
+  "offline":  "Hors ligne",
+  "online": "En ligne",
+  "mixed":  "Mixte",
+  "passed": "Passé",
+  "current": "En cours",
+  "upcoming":  "À venir"
 }

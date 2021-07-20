@@ -64,11 +64,27 @@ a:hover {
 @import "./widgets/relative";
 @import "./widgets/preview";
 
+@import "./filters";
+@import "./react-date-range";
+
 header {
   background-color: $oa-dark-purple;
   color: white;
 
   a {
     color: white;
+  }
+}
+
+.custom-example {
+  input[type="checkbox"][readonly] {
+    pointer-events: none !important;
+  }
+
+  &.active input[type="checkbox"]:not(:checked) {
+    display: none;
+  }
+  &.inactive input[type="checkbox"]:checked {
+    display: none;
   }
 }

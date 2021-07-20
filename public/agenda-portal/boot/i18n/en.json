@@ -8,5 +8,11 @@
   "next": "Next",
   "contribute": "Contribute an event",
   "eventsTotal": "{total} {total, plural, =0 {events} one {event} other {events}}",
-  "onlineAccessLink": "Access online event"
+  "onlineAccessLink": "Access online event",
+
+  "searchPlaceholder": "Search",
+
+  "offline":  "Offline",
+  "online": "Online",
+  "mixed":  "Mixed"
 }
