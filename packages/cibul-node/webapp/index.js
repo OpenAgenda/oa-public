@@ -34,6 +34,11 @@ const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
 
 function outdatedBrowserMw(req, res, next) {
   const userAgent = req.headers['user-agent'];
+
+  if (!userAgent) {
+    return next();
+  }
+
   const outdatedBrowser = !matchesUA(userAgent, {
     ignoreMinor: true,
     ignorePatch: true,
