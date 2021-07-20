@@ -296,16 +296,16 @@ module.exports = core => {
 
   app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)
-      .then(data => res.json({...data, success: true }), next);
+      .then(data => res.json({ ...data, success: true }), next);
   });
 
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {
       includeFields: req.query.fields ? [].concat(req.query.fields) : null
-    }).then(data => res.json({...data, success: true}), next);
+    }).then(data => res.json({ ...data, success: true }), next);
   });
 
-  app.use((err, req, res, next) => {
+  app.use((err, req, res, _next) => {
     if ([
       'BadRequestError',
       'NotFoundError',
@@ -340,4 +340,4 @@ module.exports = core => {
   log('done');
 
   return app;
-}
+};
