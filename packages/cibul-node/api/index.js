@@ -120,6 +120,26 @@ module.exports = core => {
       events
     }), next));
 
+  app.get('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
+    .agendas(req.agenda.uid).events
+    .search({
+      state: null,
+      uid: req.params.eventUid
+    }, {
+      size: 1
+    }, {
+      detailed: true,
+      userUid: req.user?.uid
+    }).then(({
+      events
+    }) => (events.length ? res.json({
+      success: true,
+      event: events[0]
+    }) : res.status(404).json({
+      success: false,
+      message: 'Event not found'
+    })), next));
+
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     settings.get
@@ -276,16 +296,16 @@ module.exports = core => {
 
   app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)
-      .then(data => res.json({...data, success: true }), next);
+      .then(data => res.json({ ...data, success: true }), next);
   });
 
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {
       includeFields: req.query.fields ? [].concat(req.query.fields) : null
-    }).then(data => res.json({...data, success: true}), next);
+    }).then(data => res.json({ ...data, success: true }), next);
   });
 
-  app.use((err, req, res, next) => {
+  app.use((err, req, res, _next) => {
     if ([
       'BadRequestError',
       'NotFoundError',
@@ -320,4 +340,4 @@ module.exports = core => {
   log('done');
 
   return app;
-}
+};
