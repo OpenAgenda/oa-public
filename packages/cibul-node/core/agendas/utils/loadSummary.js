@@ -22,7 +22,7 @@ module.exports = async (core, agenda, options = {}) => {
   } = options;
 
   const { search } = core.services.eventSearch.agendas(agenda);
-  
+
   const publishedResult = await search({}, { size: 0 }, {
     aggregations: ['cities', 'departments', 'regions', 'relative', 'keywords']
   }).then(({ aggregations }) => aggregations);
@@ -46,6 +46,12 @@ module.exports = async (core, agenda, options = {}) => {
       aggregations: ['states']
     }).then(({ aggregations }) => aggregations.states);
   }
+
+  summary.viewport = await search(
+    ['administrator', 'moderator', 'internal'].includes(access) ? { state: null } : {},
+    { size: 0 },
+    { aggregations: 'viewport' }
+  ).then(({ aggregations }) => aggregations.viewport);
 
   return summary;
 }
