@@ -7,6 +7,7 @@ import aggregatedEvent from './fixtures/aggregated.event.json';
 import contributedEvent from './fixtures/contributed.event.json';
 import sharedEvent from './fixtures/shared.event.json';
 import anonymouslyContributedEvent from './fixtures/anonymouslyContributed.event.json';
+import memberlessSharedEvent from './fixtures/memberlessShared.event.json';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
@@ -155,6 +156,26 @@ export function SharedEventItemByAnonymous() {
         key={1}
         agenda={agenda}
         event={{ ...sharedEvent, member: { role: 2, uid: 123 } }}
+        openRemoveModal={() => {}}
+        selected={false}
+        selectEvent={() => {}}
+        query={{}}
+        page={1}
+        index={0}
+        isFirst={false}
+        isLast={false}
+      />
+    </div>
+  );
+}
+
+export function MemberlessSharedEventItem() {
+  return (
+    <div className="list-unstyled">
+      <EventItem
+        key={1}
+        agenda={agenda}
+        event={memberlessSharedEvent}
         openRemoveModal={() => {}}
         selected={false}
         selectEvent={() => {}}

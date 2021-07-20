@@ -427,6 +427,12 @@
       "value": "Remove from featured"
     }
   ],
+  "EventAdminApp.EventItem.shared": [
+    {
+      "type": 0,
+      "value": "Shared by a member which has left the agenda"
+    }
+  ],
   "EventAdminApp.EventItem.sharedBy": [
     {
       "type": 0,
