@@ -21,7 +21,7 @@ module.exports = services => {
     res.json(req.result);
   }, (err, req, res, next) => {
     if (err.name !== 'NotFoundError') {
-      log('error', err);
+      log('error', err?.meta?.body?.error ?? err);
       res.status(500).send();
     } else {
       res.status(404).send(null);
