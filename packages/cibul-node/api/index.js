@@ -120,6 +120,26 @@ module.exports = core => {
       events
     }), next));
 
+  app.get('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
+    .agendas(req.agenda.uid).events
+    .search({
+      state: null,
+      uid: req.params.eventUid
+    }, {
+      size: 1
+    }, {
+      detailed: true,
+      userUid: req.user?.uid
+    }).then(({
+      events
+    }) => (events.length ? res.json({
+      success: true,
+      event: events[0]
+    }) : res.status(404).json({
+      success: false,
+      message: 'Event not found'
+    })), next));
+
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     settings.get

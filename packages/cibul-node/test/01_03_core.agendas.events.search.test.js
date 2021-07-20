@@ -151,6 +151,34 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
     });
 
+    describe('successful get for adminmod user', () => {
+      let response;
+
+      beforeAll(async () => {
+        try {
+          response = await axios({
+            method: 'get',
+            url: 'http://localhost:3000/agendas/2/events/1',
+            headers: {
+              'access-token': accessToken,
+              nonce: 123989,
+              'content-type': 'application/json'
+            },
+          }).then(r => r.data);
+        } catch (e) {
+          // console.log(e);
+        }
+      });
+
+      it('non published events are gettable by adminmods', () => {
+        expect(response.event.uid).toBe(1);
+      });
+
+      it('detailed fields - like member - are in response', () => {
+        expect(response.event.member).toBeDefined();
+      });
+    });
+
     describe('successful list for non adminmod user', () => {
       let response;
 
@@ -176,6 +204,44 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('does not contain unpublished events', () => {
         expect(response.events.length).toBeGreaterThan(0);
         expect(response.events.filter(e => e.state !== 2).length).toBe(0);
+      });
+    });
+
+    describe('successful get for non adminmod user', () => {
+      it('non published events are not gettable by non adminmods', async () => {
+        let error;
+
+        try {
+          await axios({
+            method: 'get',
+            url: 'http://localhost:3000/agendas/2/events/1',
+            headers: {
+              'content-type': 'application/json'
+            },
+            params: {
+              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
+            }
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(404);
+      });
+
+      it('published events are gettable by non adminmods', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/2',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
+          }
+        }).then(r => r.data);
+
+        expect(response.event.uid).toBe(2);
       });
     });
 
