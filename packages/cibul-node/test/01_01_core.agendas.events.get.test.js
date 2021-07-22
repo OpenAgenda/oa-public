@@ -230,6 +230,20 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
   });
 
+  describe('get with longDescriptionFormat option', () => {
+    let event;
+
+    beforeAll(async () => {
+      event = await core.agendas(2).events.get(2, {
+        longDescriptionFormat: 'HTML'
+      });
+    });
+
+    it('get returns longDescription in requested format', () => {
+      expect(event.longDescription.fr).toContain('<p>');
+    });
+  });
+
   describe('other', () => {
     it('get on event includes source paths', async () => {
       const ev = await core.agendas(2).events.get(2);

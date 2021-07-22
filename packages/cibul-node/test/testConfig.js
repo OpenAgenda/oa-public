@@ -57,5 +57,8 @@ module.exports = {
       rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY
     } : null
   },
-  agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test'
+  agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test',
+  oembed: {
+    key: process.env.IFRAMELY_KEY
+  }
 }

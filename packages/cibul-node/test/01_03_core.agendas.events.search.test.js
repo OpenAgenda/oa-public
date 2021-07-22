@@ -31,6 +31,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         'eventSearch',
         'members',
         'networks',
+        'oembed',
         'legacy',
         'users',
         'keys',
@@ -92,6 +93,26 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       expect(result.events[0].uid).toBe(2);
+    });
+
+    it('longDescriptionFormat option set to HTML', async () => {
+      const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
+        longDescriptionFormat: 'HTML',
+        detailed: true,
+        userUid: 63170200
+      });
+
+      expect(events[0].longDescription.fr.substr(0, 38)).toBe('<p><strong>! CHANGEMENT !</strong></p>');
+    });
+
+    it('longDescriptionFormat option set to HTMLWithEmbeds', async () => {
+      const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
+        longDescriptionFormat: 'HTMLWithEmbeds',
+        detailed: true,
+        userUid: 63170200
+      });
+
+      expect(events[0].longDescription.fr).toContain('<iframe');
     });
   });
 

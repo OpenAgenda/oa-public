@@ -6,6 +6,7 @@ const log = require('@openagenda/logs')('core/agendas/events/get');
 
 const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const convertLongDescription = require('./lib/convertLongDescription');
 
 module.exports = async (services, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
@@ -23,7 +24,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     returnPayload,
     detailed,
     useDateHoursMinutesFormat,
-    useLocationObjectFormat
+    useLocationObjectFormat,
+    longDescriptionFormat
   } = {
     lang: null,
     load: {
@@ -37,6 +39,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     detailed: false,
     useDateHoursMinutesFormat: false,
     useLocationObjectFormat: false,
+    longDescriptionFormat: null,
     ...options
   };
 
@@ -59,6 +62,10 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
       useDateHoursMinutesFormat,
       useLocationObjectFormat
     });
+
+    if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
+      event.longDescription = convertLongDescription(event, { services, conversion: longDescriptionFormat });
+    }
 
     payload.setItem('event', event);
   }

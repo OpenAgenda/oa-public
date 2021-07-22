@@ -30,5 +30,8 @@ module.exports = schema({
   },
   access: {
     type: 'text'
+  },
+  parser: {
+    type: 'pass'
   }
 });

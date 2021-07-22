@@ -1,0 +1,40 @@
+{
+    "longDescription": {
+        "fr": "**! CHANGEMENT !**\n\n*   **Le concert d'**_**Onipa**_ **est remplacé par** _**Les Mamans du Congo**_\n\nAprès avoir été organisé six années de suite fin septembre/début octobre, Expériences Urbaines #XU s’avance maintenant pendant la deuxième quinzaine de juin pour plus de chaleur dans les rues qui accueillent animations et fresques.  \nCette Renaissance en forme de retrouvailles s’accompagne d’une grande reconnaissance pour tous les artistes qui ont patienté, attendu longuement, sans pouvoir exprimer leur art comme il se doit.  \nConcernant le street art, Roubaix propose un nouveau **_Dép’art Urbain_**, en créant avec la SEM Ville Renouvelée **une galerie street art avec vingt artistes locaux et internationaux** au sein du parking de la Gare.  \nSi la Renaissance est la thématique principale de cette septième édition, d’autres géographies sont aussi célébrées : **Emmanuel Unaji**, **Africa Break** ou les créations du collectif **Exit Frame** à la Condition publique et le Québec avec la street artiste **Ola Volo**.  \nEnfin, les « femmes urbaines » sont à l’honneur avec nos habituelles **_Ladies in rap_** , des danseuses hip hop puissantes (**Sarah Bidaw, Théodora Guermonprez, Mando**…) ou la street artiste devenue légende : **Miss.Tic**. La femme est l’avenir des cultures urbaines !\n\n**Feuilletez le programme :**  \n[[https://www.calameo.com/read/00005313714cbc9a2fa7f](https://www.calameo.com/read/00005313714cbc9a2fa7f)](https://www.calameo.com/read/00005313714cbc9a2fa7f)\n\n[[https://livemap.getwemap.com/iframely.php?emmid=14234&token=K9UCJCEUJ3ZEJ1E3QXTA94YKO&height=500](https://livemap.getwemap.com/iframely.php?emmid=14234&token=K9UCJCEUJ3ZEJ1E3QXTA94YKO&height=500)](https://livemap.getwemap.com/iframely.php?emmid=14234&token=K9UCJCEUJ3ZEJ1E3QXTA94YKO&height=500)"
+    },
+    "links": [
+        {
+            "link": "https://www.calameo.com/read/00005313714cbc9a2fa7f",
+            "data": {
+                "url": "https://www.calameo.com/read/00005313714cbc9a2fa7f",
+                "type": "rich",
+                "version": "1.0",
+                "title": "Expériences urbaines - #XU2021",
+                "author": "Ville de Roubaix",
+                "author_url": "https://www.calameo.com/accounts/53137",
+                "provider_name": "calameo.com",
+                "description": "Programme du festival de cultures urbaines, Expériences urbaines - #XU2021, qui se déroule du 16 au 27 juin, à Roubaix et dans la Métropole lilloise.",
+                "thumbnail_url": "https://p.calameoassets.com/210521115821-7cf0adb03202e44a4f9572780c0f1aa8/p1.jpg",
+                "thumbnail_width": 833,
+                "thumbnail_height": 1594,
+                "html": "<div style=\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 95.8462%;\"><iframe src=\"https://v.calameo.com/?bkcode=00005313714cbc9a2fa7f\" style=\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\" allowfullscreen scrolling=\"no\" allow=\"encrypted-media\"></iframe></div>",
+                "cache_age": 86400
+            }
+        },
+        {
+            "link": "https://livemap.getwemap.com/iframely.php?emmid=14234&token=K9UCJCEUJ3ZEJ1E3QXTA94YKO&height=500",
+            "data": {
+                "url": "https://livemap.getwemap.com/iframely.php?emmid=14234&token=K9UCJCEUJ3ZEJ1E3QXTA94YKO&height=500",
+                "type": "rich",
+                "version": "1.0",
+                "title": "Livemap - Wemap",
+                "thumbnail_url": "https://livemap.getwemap.com/img/livemap-preview.png",
+                "thumbnail_width": 983,
+                "thumbnail_height": 644,
+                "height": 500,
+                "html": "<iframe src=\"https://livemap.getwemap.com/iframely.php?emmid=14234&amp;token=K9UCJCEUJ3ZEJ1E3QXTA94YKO&amp;height=500&amp;iframely\" style=\"border: 0; width: 100%; height: 500px;\" allowfullscreen></iframe>",
+                "cache_age": 86400
+            }
+        }
+    ]
+}
