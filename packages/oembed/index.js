@@ -19,7 +19,7 @@ module.exports = class OEmbed {
       }
 
       this.params = cleanOptions(options);
-      this.params.filters = this.params.filters.map(f => new RegExp(f));
+      this.params.filters = (this.params.filters ?? []).map(f => new RegExp(f));
     } catch(errors) {
       throw new Error('options are not valid', errors);
     }
