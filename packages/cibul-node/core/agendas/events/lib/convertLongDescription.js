@@ -32,7 +32,7 @@ function shouldConvert(longDescription, conversion) {
 }
 
 function convertField({ links, longDescription }, { services, conversion }) {
-  log('convertField');
+  log('convertField to format %s', conversion);
   if (typeof longDescription === 'string') {
     return convert(services, conversion, links, longDescription);
   }
@@ -49,7 +49,7 @@ module.exports.shouldConvert = shouldConvert;
 
 module.exports.load = ({ services, conversion }) => event => produce(event, draft => {
   if (!shouldConvert(event.longDescription, conversion)) {
-    return false;
+    return;
   }
 
   draft.longDescription = convertField(event, { services, conversion });
