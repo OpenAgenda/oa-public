@@ -33,7 +33,6 @@ module.exports = ({
     if (!formSchemaField && (baseSearchIncludes.includes(fieldName) || detailedSearchIncludes.includes(fieldName))) {
       return true
     }
-
     return !formSchemaField || !formSchemaField.read || formSchemaField.read.includes(access);
   }));
 }

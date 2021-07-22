@@ -46,5 +46,8 @@ module.exports = schema({
     type: 'boolean',
     optional: true,
     default: false
+  },
+  parser: {
+    type: 'pass'
   }
 });

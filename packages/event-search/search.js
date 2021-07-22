@@ -44,7 +44,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     first,
     access,
     includes: requestedIncludes,
-    useAfterKey
+    useAfterKey,
+    parser
   } = validateOptions(options);
 
   try {
@@ -95,7 +96,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     scrollId
   } = await postDSL(_.pick(config, ['client']), index, cleanDSL, cleanNav.scroll ? cleanNav : {});
 
-  const eventParsers = _buildEventParsers({ detailed, monolingual, formSchema, access }, aggregationResults);
+  const eventParsers = _buildEventParsers({ detailed, monolingual, formSchema, access, parser }, aggregationResults);
 
   const parsedEvents = _parseEvents(eventParsers, events);
 
@@ -147,7 +148,7 @@ function _parseEvents(parsers, events) {
   });
 }
 
-function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggregations) {
+function _buildEventParsers({ detailed, monolingual, parser }) {
   const parsers = [
     convertToLocalTimezone,
     appendNextAndLastTiming
@@ -171,6 +172,10 @@ function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggre
       'country',
       'location.description'
     ], monolingual));
+  }
+
+  if (parser) {
+    parsers.push(parser);
   }
 
   return parsers;
