@@ -82,7 +82,9 @@ module.exports = options => {
 
       if (data.authorizations?.canEditEvent) {
         log('can edit event, displaying status change controls');
-        du.removeClass(du.el('.js_status'), 'display-none');
+        for (const el of du.els('.js_status')) {
+          du.removeClass(el, 'display-none');
+        }
       } else {
         log('cannot edit event, displaying disabled status change message');
         du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
