@@ -205,12 +205,16 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
     label: labels.movedOnline
   }, {
     id: 4,
-    value: 'cancelled',
-    label: labels.cancelled
-  }, {
-    id: 5,
     value: 'postponed',
     label: labels.postponed
+  }, {
+    id: 5,
+    value: 'full',
+    label: labels.full
+  }, {
+    id: 6,
+    value: 'cancelled',
+    label: labels.cancelled
   }]
 }, {
   field: 'references',
