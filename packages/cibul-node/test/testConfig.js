@@ -61,4 +61,4 @@ module.exports = {
   oembed: {
     key: process.env.IFRAMELY_KEY
   }
-}
+};

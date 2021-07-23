@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
+const _ = require('lodash');
 const debug = require('debug');
 
 const prod = require('./prod');

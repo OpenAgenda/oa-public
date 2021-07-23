@@ -1,31 +1,24 @@
 'use strict';
 
-const _ = require('lodash');
 const path = require('path');
+const _ = require('lodash');
 const sanitizeHtml = require('sanitize-html');
 
 const createMails = require('@openagenda/mails');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const labels = require('@openagenda/labels/all').mails;
 
+const Queues = require('../queues');
+const walkProtoChain = require('../../lib/walkProtoChain');
+
 const unsubscription = require('./unsubscription');
 const beforeSend = require('./lib/beforeSend');
 const filterBouncingAndUnsubscribed = require('./lib/filterBouncingAndUnsubscribed');
 const incomingEmailsMw = require('./lib/incomingEmailsMw');
-const Queues = require('../queues');
-const walkProtoChain = require('../../lib/walkProtoChain');
 
-let services;
+const stripHtml = html => sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
 
-const stripHtml = html =>
-  sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
-
-module.exports.plugApp = app => {
-  app.post('/incoming-emails', incomingEmailsMw({ services }));
-};
-
-module.exports.init = async (config, _services) => {
-  services = _services;
+module.exports.init = async (config, services) => {
   unsubscription.init(config);
 
   const mails = await createMails({
@@ -71,5 +64,10 @@ module.exports.init = async (config, _services) => {
       : mails[prop];
   }
 
-  return mails;
+  return Object.assign(mails, {
+    unsubscription,
+    plugApp: app => {
+      app.post('/incoming-emails', incomingEmailsMw({ services }));
+    }
+  });
 };

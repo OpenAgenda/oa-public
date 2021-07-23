@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const wn = require( 'when/node' );
 const search = require( '../../elasticsearch' );

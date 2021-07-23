@@ -1,14 +1,16 @@
-"use strict";
+'use strict';
 
-const tfy = require( './lib/taskify' );
+const tfy = require('./lib/taskify');
+const resetApiCounters = require('./general/resetApiCounters.task');
+const legacyAgendaServiceTask = require('./services/agenda/task');
 
 module.exports = (config, core, services) => {
+  tfy(resetApiCounters, { period: 'daily', time: '00:00' });
 
-  tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
-
-  tfy( require( './general/resetApiCounters.task' ), { period: 'daily', time: '00:00' } );
-
-  tfy( require( './services/elasticsearch' ).refresh, { period: 'daily', time: '00:00' } );
+  tfy(services.elasticsearch.refresh, {
+    period: 'daily',
+    time: '00:00'
+  });
 
   tfy(services.agendaSearch.rebuild, {
     period: 'weekly',
@@ -20,68 +22,66 @@ module.exports = (config, core, services) => {
     period: 'hourly'
   });
 
-  tfy( require( './services/activities' ).tasks.activities.cleanOld, {
+  tfy(services.activities.tasks.activities.cleanOld, {
     // bootOffset: 1000,
     period: 'daily',
     time: '01:00'
-  } );
+  });
 
-  tfy( require( './services/activities' ).tasks.notifications.cleanOld, {
+  tfy(services.activities.tasks.notifications.cleanOld, {
     // bootOffset: 1000,
     period: 'daily',
     time: '01:30'
-  } );
+  });
 
-  tfy( require( './services/activities' ).tasks.notifications.prepareSummary, {
+  tfy(services.activities.tasks.notifications.prepareSummary, {
     // bootOffset: 1000,
     period: 'daily',
     time: '05:00'
-  } );
+  });
 
-  tfy( require( './services/activities' ).tasks.notifications.sendSummary.task, {
+  tfy(services.activities.tasks.notifications.sendSummary.task, {
     // bootOffset: 5000,
     period: 'daily',
     time: '08:00'
-  } );
+  });
 
-  tfy( services.inboxes.tasks.sync, {
+  tfy(services.inboxes.tasks.sync, {
     // bootOffset: 5000,
     period: 'weekly',
     day: 'sunday',
     time: '11:00'
-  } );
+  });
 
-  tfy( require( './services/activities/tasks/rebuild' ), {
+  tfy(services.activities.tasks.rebuild, {
     period: 'weekly',
     day: 'monday',
     time: '03:00'
-  } );
+  });
 
-  tfy( require( './services/mails/unsubscription' ).task, {
+  tfy(services.mails.unsubscription.task, {
     period: 'weekly',
     day: 'saturday',
     time: '03:00'
-  } );
+  });
 
-  require( '@openagenda/agenda-docx' ).task();
+  services.agendaDocx.task();
 
-  require( './services/agenda/task' )();
+  legacyAgendaServiceTask();
 
   services.aggregators.task();
 
-  require( '@openagenda/email-strategie' ).task();
+  services.emailStrategie.task();
 
-  require( './services/event/oembed' ).task();
+  services.agendaStatistics.task();
 
-  require( './services/agendaStatistics' ).task(services);
+  services.custom.task();
 
-  require( '@openagenda/custom' ).task();
+  services.activities.tasks.notifications.addActivity.task();
 
-  require( './services/activities' ).tasks.notifications.addActivity.task();
+  services.mails.task();
 
-  require( './services/mails' ).task();
-
-  require( './services/legacy' ).task();
+  services.legacy.task();
 
   core.tasks();
 
@@ -90,49 +90,24 @@ module.exports = (config, core, services) => {
     reset: false
   });
 
-  require( './services/members' ).task();
+  services.members.task();
 
-  if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
-
-    /*require( './services/elasticsearch' ).resync( {
+  if (process.env.NODE_ENV !== 'production') { // COMMENT THIS WITH PRECAUTION
+    /* services.elasticsearch.resync({
       reset: true,
       since: '2019-05-14',
       removeZombies: false,
       logEveryUpdate: true
-    }, ( err, res ) => console.log( 'FINI', err, res ) );*/
-
+    }, (err, res) => console.log('FINI', err, res)); */
   }
-
-  // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 
   // services.inboxes.tasks.sync();
 
-  //require( '@openagenda/events' ).tasks.slowTransfer( { force: true, interval: 500 } );
-
-  /*require( 'agenda-events').tasks.transferUserUids().then( report => {
-
-    console.log( 'done!' );
-    console.log( report );
-
-  } ); */
-
-  /*require( 'async' ).eachSeries( [ 55750, 3204291, 9761904, 9788289,13315500,15029117,15518291,16482835,17540015,19378824,25565771,27373160,29187378,30013147,33431413,35706423,36293687,36938083,40682349,43429663,43734901,44641740,45654961,47747797,47753493,48223923,49523420,49759107,51842062,60511877,60839018,61198287,61769221,62067159,64727419,65197251,66376417,67699870,69863067,70615195,70873206,71616772,72056182,75356940,76268329,78197229,79414561,79642759,79956696,79989652,80522802,81532949,81850636,83103616,83945917,84529570,84691336,86489159,87180696,89095402,89742210,90716457,94265385,95507509,97878981,98082620 ], ( uid, ecb ) => {
-
-    require( './services/events' ).legacy.onUpdate( { uid }, ecb );
-
-  }, err => {
-
-    console.log( err );
-
-  } );*/
-
-  // handle interfaces for grouped operations ( a remove of a 100 refs queues 100 onRemoves executions )
+  // handle interfaces for grouped operations (a remove of a 100 refs queues 100 onRemoves executions)
   services.agendaEvents.tasks.interfaces({ interval: 10 });
-
-  //require('./tasks/createMissingEventsFromLegacy')(config, services);
 
   services.eventSearch.task();
 
-  //services.eventSearch.rebuild();
-  //services.eventSearch.transverse.rebuild();
+  // services.eventSearch.rebuild();
+  // services.eventSearch.transverse.rebuild();
 };

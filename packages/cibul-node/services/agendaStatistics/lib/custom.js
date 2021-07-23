@@ -1,17 +1,14 @@
-"use strict";
+'use strict';
 
-const agendas = require( '@openagenda/agendas' );
-const custom = require( '@openagenda/custom' );
+async function _run( services, { agendaUid } ) {
+  const jobName = 'enqueueLegacyDatasetToCustom';
 
-const { promisify } = require( 'util' );
+  const {
+    agendas,
+    custom
+  } = services;
 
-const agendaGet = promisify( agendas.get );
-
-module.exports = _run.bind( null, 'enqueueLegacyDatasetToCustom' );
-
-async function _run( jobName, { agendaUid } ) {
-
-  const agenda = await agendaGet( { uid: agendaUid }, { private: null, internal: true } );
+  const agenda = await agendas.get( { uid: agendaUid }, { private: null, internal: true } );
 
   if ( !agenda ) {
     return { message: 'Agenda not found', uid: agendaUid };
