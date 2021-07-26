@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('verror');
@@ -10,6 +10,12 @@ const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
 const transferCustomFromLegacy = require('./lib/transferCustomFromLegacy');
 const createActivities = require('./lib/createActivities');
+
+function haveRealDiff(before, after) {
+  return _.uniq([...Object.keys(before), ...Object.keys(after)])
+    .filter(key => ['createdAt', 'updatedAt', 'state'].includes(key) && before[key] !== after[key])
+    .length > 0;
+}
 
 module.exports = async ({ config, services }, before, after, context) => {
   const {
@@ -41,7 +47,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     await transferCustomFromLegacy(agenda, event);
 
     try {
-      await legacyEventSearch.updateEvent(_.pick(event, [ 'uid' ]));
+      await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
     } catch (e) {
       log('error', 'could not update legacy search for event %s', event.slug);
     }
@@ -56,7 +62,9 @@ module.exports = async ({ config, services }, before, after, context) => {
     // eventUpdate
     // myEventUpdate
     try {
-      await sendEventUpdate({ config, services }, { agendaEvent: after, before, context, agenda, event });
+      await sendEventUpdate({ config, services }, {
+        agendaEvent: after, before, context, agenda, event
+      });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event update emails'));
     }
@@ -64,7 +72,9 @@ module.exports = async ({ config, services }, before, after, context) => {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState({ config, services }, { agendaEvent: after, before, context, agenda, event });
+      await sendEventChangeState({ config, services }, {
+        agendaEvent: after, before, context, agenda, event
+      });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event change state emails'));
     }
@@ -77,10 +87,4 @@ module.exports = async ({ config, services }, before, after, context) => {
       log.error(new VError(e, 'Cannot create state change activities'));
     }
   }
-}
-
-function haveRealDiff(before, after) {
-  _.uniq([ ...Object.keys(before), ...Object.keys(after) ])
-    .filter(key => [ 'createdAt', 'updatedAt', 'state' ].includes(key) && before[ key ] !== after[ key ])
-    .length > 0;
-}
+};

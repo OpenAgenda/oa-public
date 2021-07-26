@@ -25,10 +25,10 @@ module.exports = async (services, { agenda, event, user }, before, after) => {
       entityType: 'event',
       entityUid: event.uid
     }).activities.add({
-      actor: 'user:' + user.uid,
-      verb: 'agenda.' + (after.state === 2 ? 'publish' : 'unpublish') + 'Event',
-      object: 'event:' + event.uid,
-      target: 'agenda:' + agenda.uid,
+      actor: `user:${user.uid}`,
+      verb: `agenda.${after.state === 2 ? 'publish' : 'unpublish'}Event`,
+      object: `event:${event.uid}`,
+      target: `agenda:${agenda.uid}`,
       store: {
         labels: {
           actor: user.fullName,
@@ -44,10 +44,10 @@ module.exports = async (services, { agenda, event, user }, before, after) => {
       entityType: 'agenda',
       entityUid: agenda.uid
     }).activities.add({
-      actor: 'user:' + user.uid,
+      actor: `user:${user.uid}`,
       verb: 'agenda.changeEventState',
-      object: 'event:' + event.uid,
-      target: 'agenda:' + agenda.uid,
+      object: `event:${event.uid}`,
+      target: `agenda:${agenda.uid}`,
       store: {
         labels: {
           actor: user.fullName,
@@ -62,4 +62,4 @@ module.exports = async (services, { agenda, event, user }, before, after) => {
 
   log('done');
   return result;
-}
+};

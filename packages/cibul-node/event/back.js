@@ -1,17 +1,65 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const { promisify } = require('util');
+const fs = require('fs');
+const _ = require('lodash');
 
 const contributorLabels = require('@openagenda/labels/event/contributors');
+const agendaTags = require('@openagenda/agenda-tags');
+
+const { getRoleSlug } = require('@openagenda/members').utils;
 
 const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
 const legacyAgendaSvc = require('../services/agenda');
 
-const getAgendaTags = promisify(require('@openagenda/agenda-tags').get);
-const { getRoleSlug } = require('@openagenda/members').utils;
-const renderReferences = _.template(require('fs').readFileSync(__dirname + '/references.tpl'));
+const getAgendaTags = promisify(agendaTags.get);
+const renderReferences = _.template(fs.readFileSync(`${__dirname}/references.tpl`));
+
+function _filterByRole(role, item) {
+  if (item.access === 'administrator') {
+    return ['administrator', 'moderator'].includes(getRoleSlug(role));
+  }
+
+  return true;
+}
+
+async function getPrivateEventData(req, res) {
+  const custom = req.formatted.custom
+    .filter(_filterByRole.bind(null, req.member.role))
+    .filter(c => c.access !== 'public');
+
+  const labels = req.formatted.customLabels;
+
+  const tagSet = await getAgendaTags(req.agenda.id) || null;
+  const tags = tagSet ? await promisify(req.event.getAgendaTags)(req.agenda.id) : null;
+
+  const tagGroups = tagSet ? tagSet.groups.map(g => ({
+    name: g.name,
+    access: g.access || 'public',
+    tags: g.tags.filter(t => tags.map(tg => tg.id).includes(t.id))
+  })).filter(_filterByRole.bind(null, req.member.role)) : [];
+
+  const contributor = _.omit(await promisify(req.event.getContributorInfo)(), ['organizationSlug']);
+
+  cmn.renderJson(req, res, {
+    custom: {
+      custom,
+      labels
+    },
+    authorizations: await req.app.services.core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations(req.event),
+    contributor: {
+      data: contributor,
+      labels: {
+        organization: contributorLabels.organization[req.lang],
+        contactNumber: contributorLabels.contactNumber[req.lang],
+        contactName: contributorLabels.contactName[req.lang],
+        contactPosition: contributorLabels.contactPosition[req.lang]
+      }
+    },
+    tagGroups
+  });
+}
 
 module.exports = app => {
   const {
@@ -25,7 +73,7 @@ module.exports = app => {
     legacyAgendaSvc.mw.load('uid'),
     sessions.mw.loadOrRedirect(),
     members.mw.load,
-    (req, res, next) => {
+    (req, res) => {
       req.app.services.core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
         load: {
           custom: true
@@ -37,7 +85,7 @@ module.exports = app => {
         schema: result.formSchema
       }));
     }
- );
+  );
 
   app.get(
     '/agendas/:uid/events/:eventUid/private',
@@ -54,7 +102,7 @@ module.exports = app => {
     legacyEventSvc.mw.format,
     legacyAgendaSvc.mw.decorateEvent(true),
     getPrivateEventData
- );
+  );
 
   app.get(
     '/agendas/:uid/events/:eventUid/references',
@@ -84,44 +132,45 @@ module.exports = app => {
           events
         });
       }, next)
- );
+  );
 
   app.get([
     '/agendas/:uid/events/suggestions',
     '/agendas/:uid/events/:eventUid/suggestions'
- ], sessions.mw.loadOrRedirect(),
-    (req, res, next) => {
-      req.agenda = { uid: req.params.uid };
-      next();
-    },
-    (req, res, next) => {
-      req.sample = req.query.sample;
-      req.agendaUid = req.params.uid;
-      req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
-      next();
-    },
-    (req, res) => {
-      req.app.services.core.agendas(req.params.uid).events.search({
-        date: {
-          gte: JSON.stringify(new Date()).split('T')[0],
-          timezone: 'Europe/Paris'
-        },
-        mlt: req.sample,
-        boost: req.query.boost
-      }, {}, {
-        userUid: req?.user.uid,
-        monolingual: req.lang
-      }).then(result => {
-        res.json(result);
-      });
+  ],
+  sessions.mw.loadOrRedirect(),
+  (req, res, next) => {
+    req.agenda = { uid: req.params.uid };
+    next();
+  },
+  (req, res, next) => {
+    req.sample = req.query.sample;
+    req.agendaUid = req.params.uid;
+    req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e, 10));
+    next();
+  },
+  (req, res) => {
+    req.app.services.core.agendas(req.params.uid).events.search({
+      date: {
+        gte: JSON.stringify(new Date()).split('T')[0],
+        timezone: 'Europe/Paris'
+      },
+      mlt: req.sample,
+      boost: req.query.boost
+    }, {}, {
+      userUid: req?.user.uid,
+      monolingual: req.lang
+    }).then(result => {
+      res.json(result);
     });
+  });
 
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load('uid'),
     legacyEventSvc.mw.load('eventUid', 'uid'),
     members.mw.loadAndAuthorize('moderator', {
-      or: (req, res) => res.json({ count: 0})
+      or: (req, res) => res.json({ count: 0 })
     }),
     (req, res, next) => {
       const {
@@ -136,17 +185,15 @@ module.exports = app => {
       });
 
       feed.get().then(data => {
-
         if (!data) return res.json({});
 
         feed.activities.list(
-          { object: 'event:' + req.event.uid },
+          { object: `event:${req.event.uid}` },
           req.query.fromId || 0,
           limit
-       )
+        )
 
           .then(activities => {
-
             const lastPage = activities.length < limit;
 
             res.json({
@@ -156,61 +203,9 @@ module.exports = app => {
                 ? null
                 : `/agendas/${req.agenda.uid}/events/${req.event.uid}/activities?fromId=${activities[activities.length - 1].id}`
             });
-
           })
-
           .catch(next);
-
       });
-
     }
- );
-
-}
-
-
-async function getPrivateEventData(req, res, next) {
-  const custom = req.formatted.custom
-    .filter(_filterByRole.bind(null, req.member.role))
-    .filter(c => c.access !== 'public');
-
-  const labels = req.formatted.customLabels;
-
-  const tagSet = await getAgendaTags(req.agenda.id) || null;
-  const tags = tagSet ? await promisify(req.event.getAgendaTags)(req.agenda.id) : null;
-
-  const tagGroups = tagSet ? tagSet.groups.map(g => ({
-    name: g.name,
-    access: g.access || 'public',
-    tags: g.tags.filter(t => tags.map(t => t.id).includes(t.id))
-  })).filter(_filterByRole.bind(null, req.member.role)) : [];
-
-  const contributor = _.omit(await promisify(req.event.getContributorInfo)(), ['organizationSlug']);
-
-  cmn.renderJson(req, res, {
-    custom: {
-      custom,
-      labels
-    },
-    authorizations: await req.app.services.core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations(req.event),
-    contributor: {
-      data: contributor,
-      labels: {
-        organization: contributorLabels.organization[req.lang],
-        contactNumber: contributorLabels.contactNumber[req.lang],
-        contactName: contributorLabels.contactName[req.lang],
-        contactPosition: contributorLabels.contactPosition[req.lang]
-      }
-    },
-    tagGroups
-  });
-
-}
-
-function _filterByRole(role, item) {
-  if (item.access === 'administrator') {
-    return ['administrator', 'moderator'].includes(getRoleSlug(role));
-  }
-
-  return true;
-}
+  );
+};
