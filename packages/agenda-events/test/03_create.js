@@ -119,17 +119,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
       interfaces: {
         onCreate: {
           $set: (created, context) => {
-            context.should.eql({
-              userUid: 111,
-              aggregated: false,
-              agendaUid: null,
-              transferToLegacy: false,
-              agenda: null,
-              sourceAgenda: null,
-              event: null,
-              legacy: true,
-              batched: false
-            });
+            context.userUid.should.equal(111);
           }
         }
       }
@@ -148,17 +138,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
       interfaces: {
         onCreate: {
           $set: (created, context) => {
-            context.should.eql({
-              userUid: null,
-              agendaUid: null,
-              aggregated: false,
-              sourceAgenda: null,
-              transferToLegacy: false,
-              agenda: null,
-              event: null,
-              legacy: true,
-              batched: false
-            });
+            should(context.userUid).equal(null);
           }
         }
       }
