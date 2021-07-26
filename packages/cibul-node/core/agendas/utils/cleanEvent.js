@@ -19,15 +19,17 @@ const invalidLocationUidErrorItem = uid => ({
 });
 
 async function cleanEvent(services, agenda, data, options = {}) {
-  const locationUid =  _.get(data, 'location.uid', _.get(data, 'locationUid'));
+  const locationUid = _.get(data, 'location.uid', _.get(data, 'locationUid'));
   const location = locationUid ? await services.agendaLocations.get({
     uid: locationUid
+  }, {
+    returnMergeTarget: true,
   }).catch(e => {
     if (e.name !== 'BadRequestError') {
       throw e;
     }
   }) : null;
-
+  console.log('location after rec', location);
   log('fetched agenda and location');
 
   const pre = locationUid ? { ...data, locationUid } : data;
