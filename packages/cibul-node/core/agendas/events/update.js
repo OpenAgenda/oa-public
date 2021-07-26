@@ -107,7 +107,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     throw new UnauthorizedError('event', event.uid, 'not authorized to edit event');
   }
 
-  assignState(agenda, event, clean, data, {
+  const {
+    type: stateChangeType
+  } = assignState(agenda, event, clean, data, {
     authorizations,
     draft
   });
@@ -209,6 +211,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           userUid,
           event,
           agenda,
+          stateChangeType,
           batched
         },
         decorate: ['member']

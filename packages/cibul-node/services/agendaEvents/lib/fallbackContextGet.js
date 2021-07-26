@@ -42,6 +42,15 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
     log('agenda %s, %s is in context', agenda.uid, agenda.slug);
   }
 
+  if (user) {
+    log('user is in context');
+  }
+
+  if (!user && context.userUid) {
+    log('user is not in context, but userUid is');
+    user = await users.findOne({ query: { uid: context.userUid } });
+  }
+
   if (!user) {
     try {
       log('warn', 'user is missing in context', ref);
@@ -50,9 +59,6 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
     } catch (e) {
       log('error', 'could not load user');
     }
-
-  } else {
-    log('user is in context');
   }
 
   return { agenda, event, user };

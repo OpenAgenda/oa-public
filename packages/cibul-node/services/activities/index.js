@@ -54,7 +54,8 @@ module.exports.init = async (config, services) => {
           'event.delete',
           'agenda.unpublishEvent',
           'agenda.removeEvent',
-          'agenda.changeEventState'
+          'agenda.changeEventState',
+          'agenda.systemUnpublishEvent'
         ],
         getFeeds: true,
         filter: ( activity, originFeed, targetFeed, follow, cb ) => {
@@ -93,6 +94,7 @@ module.exports.init = async (config, services) => {
           'event.delete',
           'agenda.publishEvent',
           'agenda.unpublishEvent',
+          'agenda.systemUnpublishEvent',
           'agenda.removeEvent',
           'agenda.changeEventState',
           'agenda.addSource',

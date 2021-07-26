@@ -9,7 +9,7 @@ const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
 const transferCustomFromLegacy = require('./lib/transferCustomFromLegacy');
-const createActivities = require('./lib/createActivities');
+const addEventUpdateActivity = require('./lib/addEventUpdateActivity');
 
 function haveRealDiff(before, after) {
   return _.uniq([...Object.keys(before), ...Object.keys(after)])
@@ -25,7 +25,7 @@ module.exports = async ({ config, services }, before, after, context) => {
 
   const controlDataSvc = legacySvc.controlData;
 
-  log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched']));
+  log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched', 'stateChangeType']));
 
   const { agenda, event, user } = await fallbackContextGet({ services }, 'onUpdate', after, context);
 
@@ -53,7 +53,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     }
   }
 
-  if (haveRealDiff(before, after)) {
+  if (!haveRealDiff(before, after)) {
     return;
   }
 
@@ -82,7 +82,7 @@ module.exports = async ({ config, services }, before, after, context) => {
 
   if (user) {
     try {
-      await createActivities(services, { agenda, event, user }, before, after);
+      await addEventUpdateActivity(services, { agenda, event, user }, before, after, context.stateChangeType);
     } catch (e) {
       log.error(new VError(e, 'Cannot create state change activities'));
     }
