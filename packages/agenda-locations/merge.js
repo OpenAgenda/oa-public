@@ -43,7 +43,7 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
 
 module.exports = async ({ internals, endpoints }, mergeInUid, query, data, options) => merge(
   { internals, endpoints },
-  await get(internals, mergeInUid),
+  await get({ internals, endpoints }, mergeInUid),
   await list(internals, query, {}, { ...options, total: null, detailed: true }),
   data
 );
@@ -57,7 +57,7 @@ module.exports.byAgendaUid = async (
   options = {}
 ) => merge(
   { internals, endpoints },
-  await get.byAgendaUid(internals, agendaUid, mergeInUid),
+  await get.byAgendaUid({ internals, endpoints }, agendaUid, mergeInUid),
   await list.byAgendaUid(
     internals,
     agendaUid,
@@ -78,7 +78,7 @@ module.exports.bySetUid = async (
   options = {}
 ) => merge(
   { internals, endpoints },
-  await get.bySetUid(internals, setUid, mergeInUid),
+  await get.bySetUid({ internals, endpoints }, setUid, mergeInUid),
   await list.bySetUid(
     internals,
     setUid,

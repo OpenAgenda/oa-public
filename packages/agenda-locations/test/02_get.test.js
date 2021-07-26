@@ -13,7 +13,6 @@ const Service = require('..');
 const fixtures = require('./fixtures');
 
 describe('agenda-locations - functional - get', () => {
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -223,6 +222,11 @@ describe('agenda-locations - functional - get', () => {
     it('when includeLinkedAgendas is provided', async () => {
       const { linkedAgendas } = await svc.get(87202261, { includeLinkedAgendas: true });
       expect(linkedAgendas).toStrictEqual([{ uid: 100000, title: 'BLABLA' }, { uid: 200000, title: 'BLIBLI' }]);
+    });
+
+    it('when returnMergeTarget is provided', async () => {
+      const location = await svc.get(7630652, { returnMergeTarget: true });
+      expect(location.uid).toBe(51665986);
     });
   });
 });

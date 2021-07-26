@@ -49,4 +49,8 @@ module.exports = schema({
       default: null,
     },
   },
+  returnMergeTarget: {
+    type: 'boolean',
+    default: false,
+  }
 });

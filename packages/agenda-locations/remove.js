@@ -39,7 +39,7 @@ module.exports.byAgendaUid = async (
   options = {},
 ) => {
   const current = await get.byAgendaUid(
-    internals,
+    { internals, endpoints },
     agendaUid,
     identifiers,
     options
@@ -58,7 +58,7 @@ module.exports.bySetUid = async (
   identifiers,
   options = {}
 ) => {
-  const current = await get.bySetUid(internals, setUid, identifiers, options);
+  const current = await get.bySetUid({ internals, endpoints }, setUid, identifiers, options);
 
   if (!current) {
     throw new NotFoundError('location', { identifiers, setUid });

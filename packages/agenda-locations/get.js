@@ -10,10 +10,11 @@ const addSelect = require('./lib/addSelect');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 const legacy = require('./lib/legacy');
+const getMergedLocation = require('./lib/getMergedLocation');
 
-async function get(service, identifiers, options = {}) {
-  log('received %j %j %j', identifiers, options, service);
-  const k = service.clients.knex(service.config.schema);
+async function get({ internals, endpoints }, identifiers, options = {}) {
+  log('received %j %j %j %j', identifiers, options, internals, endpoints);
+  const k = internals.clients.knex(internals.config.schema);
   const {
     eventCounts: includeEventCounts,
     context,
@@ -22,19 +23,23 @@ async function get(service, identifiers, options = {}) {
     throwOnNotFound,
     includeLinkedAgendas,
     deleted,
+    returnMergeTarget,
   } = cleanGetOptions(options);
 
-  await addGetQuery(service, k, deleted, {
+  await addGetQuery(internals, k, deleted, {
     ...cleanGetIdentifiers(identifiers),
     ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });
 
   addSelect(k, 'public', { first: true, includeFields });
   const entry = await k;
-  const location = entry ? service.fieldUtils.fromEntryToItem(entry, {
+  const location = entry ? internals.fieldUtils.fromEntryToItem(entry, {
     includeFields,
     access: 'public',
   }) : null;
+  if (returnMergeTarget) {
+    return getMergedLocation(endpoints, identifiers, location, options);
+  }
   if (!location) {
     if (throwOnNotFound) {
       throw new NotFoundError('location', identifiers);
@@ -42,19 +47,19 @@ async function get(service, identifiers, options = {}) {
     return null;
   }
 
-  if (service.interfaces.getEventCounts && includeEventCounts) {
+  if (internals.interfaces.getEventCounts && includeEventCounts) {
     decorateWithCounts(
       location,
-      await service.interfaces.getEventCounts([location.uid], context)
+      await internals.interfaces.getEventCounts([location.uid], context)
     );
   }
 
-  if (service.interfaces.getLinkedAgendas && includeLinkedAgendas) {
-    location.linkedAgendas = await service.interfaces.getLinkedAgendas(location.uid);
+  if (internals.interfaces.getLinkedAgendas && includeLinkedAgendas) {
+    location.linkedAgendas = await internals.interfaces.getLinkedAgendas(location.uid);
   }
 
-  if (includeImagePath && service.config.imagePath) {
-    location.image = service.config.imagePath + location.image;
+  if (includeImagePath && internals.config.imagePath) {
+    location.image = internals.config.imagePath + location.image;
   }
 
   return legacy.load(location, entry);
@@ -63,7 +68,7 @@ async function get(service, identifiers, options = {}) {
 module.exports = get;
 
 module.exports.byAgendaUid = async (
-  service,
+  { internals, endpoints },
   agendaUid,
   identifiers,
   options = {}
@@ -71,12 +76,12 @@ module.exports.byAgendaUid = async (
   if (!agendaUid) {
     throw new BadRequestError('agenda identifier is missing');
   }
-  return get(service, identifiers, { ...options, context: { agendaUid } });
+  return get({ internals, endpoints }, identifiers, { ...options, context: { agendaUid } });
 };
 
-module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => {
+module.exports.bySetUid = async ({ internals, endpoints }, setUid, identifiers, options = {}) => {
   if (!setUid) {
     throw new BadRequestError('set identifier is missing');
   }
-  return get(service, identifiers, { ...options, context: { setUid } });
+  return get({ internals, endpoints }, identifiers, { ...options, context: { setUid } });
 };
