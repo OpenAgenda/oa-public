@@ -19,7 +19,7 @@ const log = debug('main');
 /* global $ */
 
 const listSelector = '.events';
-const activeFiltersSelector = '[oa-data-active-filters]';
+const activeFiltersSelector = '[data-oa-widget="activeFilters"]';
 
 let nextProgressiveLoadPage = 2;
 let rockBottom;
