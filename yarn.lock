@@ -6657,12 +6657,18 @@ __metadata:
     "@openagenda/react-shared": ^2.1.1
     "@storybook/addon-actions": ^6.2.8
     "@storybook/react": ^6.2.8
+    axios: ^0.21.1
+    axios-mock-adapter: ^1.19.0
     babel-loader: ^8.2.2
+    base-64: ^1.0.0
     eslint: ^6.8.0
+    lodash: ^4.17.15
+    moment-timezone: ^0.5.31
     prop-types: ^15.7.2
     react: ^16.13.1
     react-dom: ^16.13.1
     react-intl: ^5.12.2
+    utf8: ^3.0.0
   peerDependencies:
     react: ^16.13.1
     react-dom: ^16.13.1
@@ -11899,6 +11905,13 @@ __metadata:
   version: 1.0.0
   resolution: "balanced-match@npm:1.0.0"
   checksum: 9b67bfe558772f40cf743a3469b48b286aecec2ea9fe80c48d74845e53aab1cef524fafedf123a63019b49ac397760573ef5f173f539423061f7217cbb5fbd40
+  languageName: node
+  linkType: hard
+
+"base-64@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "base-64@npm:1.0.0"
+  checksum: d10b64a1fc9b2c5a5f39f1ce1e6c9d1c5b249222bbfa3a0604c592d90623caf74419983feadd8a170f27dc0c3389704f72faafa3e645aeb56bfc030c93ff074a
   languageName: node
   linkType: hard
 
@@ -39319,6 +39332,13 @@ typescript@^4.0:
     lru-cache: 4.1.x
     tmp: 0.0.x
   checksum: 966e418122ca87cf54266360f4cb13b61dea36a8dcc7a34bad0eb447ab7b3b3fbbeda64135eb5bfb015e0d97924364bd2196b819f485cfe883a0dd57064573c4
+  languageName: node
+  linkType: hard
+
+"utf8@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "utf8@npm:3.0.0"
+  checksum: cb89a69ad9ab393e3eae9b25305b3ff08bebca9adc839191a34f90777eb2942f86a96369d2839925fea58f8f722f7e27031d697f10f5f39690f8c5047303e62d
   languageName: node
   linkType: hard
 
