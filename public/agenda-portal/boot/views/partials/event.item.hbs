@@ -16,17 +16,17 @@
         <h3>{{title}}</h3>
         <p>{{description}}</p>
         <p>{{range}}</p>
-        
+
         {{#if location}}
           <p>{{locationName}}</p>
         {{else}}
           <p>En ligne</p>
         {{/if}}
-        
+
       </div>
       {{#if image}}
       <div class="text-center">
-        <img class="img-fluid" src="{{image}}" alt="{{description}}" />
+        <img class="img-fluid" src="{{image.base}}{{image.filename}}" alt="{{description}}" />
       </div>
       {{/if}}
       <script type="application/ld+json">

@@ -4,14 +4,58 @@
   </div>
   <div class="sidebar-wrapper">
     <div class="my-4">
-      {{>widgets/map}}
+      {{>filters/map name='geo' searchMessage='rechercher quand je déplace la carte' searchWithMap=true}}
+
+      <b>Horaires</b>
+      {{>filters/dateRange name='timings'}}
+
+      <b>Passé / En cours / À venir</b>
+      {{>filters/multiChoice name='relative'}}
+
+      <b>Mode de participation</b>
+      {{>filters/multiChoice name='attendanceMode' inputType='radio'}}
+
+      <b>Filtres customs</b>
+
+      {{#customFilter
+        query=(object relative=(array 'current') attendanceMode=(array '1' '3'))
+        activeClass='active'
+        inactiveClass='inactive'
+        className="custom-example checkbox"
+      }}
+        <label for="nothing">
+          <input type="checkbox" tabindex="-1" readonly checked />
+          <input type="checkbox" tabindex="-1" readonly />
+          En cours + hors ligne + mixte
+        </label>
+      {{/customFilter}}
+
+      {{#customFilter
+        query=(object timings=(object gte='2021-06-23T22:00:00.000Z' lte='2021-06-24T21:59:59.999Z'))
+        handlerSelector='.checkbox'
+        activeClass='active'
+        inactiveClass='inactive'
+        className="custom-example checkbox"
+      }}
+        <label for="nothing">
+          <input type="checkbox" tabindex="-1" readonly checked />
+          <input type="checkbox" tabindex="-1" readonly />
+          Jeudi 24 juin
+        </label>
+      {{/customFilter}}
+
+<!--      <b>Événement Europe</b>-->
+<!--      { {>filters/multiChoice fieldName='evenement-europe'}}-->
     </div>
     <div class="my-4">
-      {{>widgets/calendar}}
-      {{>widgets/relative}}
+<!--      { {>widgets/map}}-->
     </div>
     <div class="my-4">
-      {{>widgets/tags}}
+<!--      { {>widgets/calendar}}-->
+<!--      { {>widgets/relative}}-->
+    </div>
+    <div class="my-4">
+<!--      { {>widgets/tags}}-->
     </div>
     <span class="js_total mobile-bottom-nav" data-sidebar-toggle data-total="{{total}}" data-label-none="Aucun événement ne correspond à cette recherche" data-label-one="1 événement" data-label-plural="%total% événements"></span>
   </div>

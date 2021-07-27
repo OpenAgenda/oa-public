@@ -16,9 +16,26 @@ module.exports = ({ offset, limit, total }) => {
 
   if (!pages.length) return [];
 
-  pages[0].previous = pages[0].page !== 1;
+  const hasPrevious = current > 1;
+  const hasNext = current < totalPages;
 
-  pages[pages.length - 1].next = _.last(pages).page < totalPages;
+  if (hasPrevious) {
+    pages.unshift({
+      page: current - 1,
+      offset: (current - 2) * limit,
+      current: false,
+      previous: true
+    });
+  }
+
+  if (hasNext) {
+    pages.push({
+      page: current + 1,
+      offset: current * limit,
+      current: false,
+      next: true
+    });
+  }
 
   return pages;
 };
