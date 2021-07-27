@@ -43,6 +43,12 @@
       "value": "Alle"
     }
   ],
+  "calendar-date": [
+    {
+      "type": 0,
+      "value": "Choose a date"
+    }
+  ],
   "cancel": [
     {
       "type": 0,
@@ -55,10 +61,42 @@
       "value": "Schließen"
     }
   ],
+  "connection-btn": [
+    {
+      "type": 0,
+      "value": "Sign In"
+    }
+  ],
   "create-agenda": [
     {
       "type": 0,
       "value": "Create an agenda"
+    }
+  ],
+  "email-placeholder": [
+    {
+      "type": 0,
+      "value": "Type in the email you want to send the event to"
+    }
+  ],
+  "email-success": [
+    {
+      "type": 0,
+      "value": "The event was sent to "
+    },
+    {
+      "type": 1,
+      "value": "emails"
+    },
+    {
+      "type": 0,
+      "value": " email adresses."
+    }
+  ],
+  "import": [
+    {
+      "type": 0,
+      "value": "Import"
     }
   ],
   "input-format": [
@@ -103,6 +141,18 @@
       "value": "Einfügen Sie den Link den Sie in Schritt 1 kopiert haben und folgen Sie den Anweisungen"
     }
   ],
+  "json-doc1": [
+    {
+      "type": 0,
+      "value": "Detailed documentation on the JSON export is"
+    }
+  ],
+  "json-doc2": [
+    {
+      "type": 0,
+      "value": "available here"
+    }
+  ],
   "modal-title": [
     {
       "type": 0,
@@ -123,12 +173,6 @@
       "value": "'s events."
     }
   ],
-  "no-result": [
-    {
-      "type": 0,
-      "value": "Loading"
-    }
-  ],
   "official-agenda": [
     {
       "type": 0,
@@ -145,6 +189,42 @@
     {
       "type": 0,
       "value": "Search"
+    }
+  ],
+  "send": [
+    {
+      "type": 0,
+      "value": "Send"
+    }
+  ],
+  "share-calendar": [
+    {
+      "type": 0,
+      "value": "Import in a personal calendar"
+    }
+  ],
+  "share-email": [
+    {
+      "type": 0,
+      "value": "Send by email"
+    }
+  ],
+  "share-oa": [
+    {
+      "type": 0,
+      "value": "Share on OpenAgenda"
+    }
+  ],
+  "share-title": [
+    {
+      "type": 0,
+      "value": "Share this event"
+    }
+  ],
+  "sign-in": [
+    {
+      "type": 0,
+      "value": "You need to sign in to your account to add this event to your OpenAgendas"
     }
   ]
 }
