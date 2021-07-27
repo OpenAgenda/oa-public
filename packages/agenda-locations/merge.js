@@ -9,10 +9,10 @@ const update = require('./update');
 const remove = require('./remove');
 const authorize = require('./lib/authorize');
 
-async function merge(service, mergeInItem, items, data = null, options = {}) {
+async function merge({ internals, endpoints }, mergeInItem, items, data = null, options = {}) {
   log('received :', mergeInItem, '|||', items);
 
-  await authorize(service, 'merge', mergeInItem.uid, options);
+  await authorize(internals, 'merge', mergeInItem.uid, options);
 
   const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
 
@@ -20,20 +20,20 @@ async function merge(service, mergeInItem, items, data = null, options = {}) {
     throw new BadRequestError('Nothing to merge');
   }
 
-  if (service.interfaces.beforeMerge) {
-    await service.interfaces.beforeMerge(mergeInItem, toBeMerged);
+  if (internals.interfaces.beforeMerge) {
+    await internals.interfaces.beforeMerge(mergeInItem, toBeMerged);
   }
 
   log('updating merged location'); // if data
   const updatedMerged = data ? await update(
-    { service, isPatch: true },
+    { service: internals, isPatch: true },
     mergeInItem.uid,
     data
   ) : mergeInItem;
 
   log('removing other locations'); // why not remove with remove fn?
   for (const location of toBeMerged) {
-    await remove(service, location, { mergedIn: mergeInItem.uid });
+    await remove({ internals, endpoints }, location, { mergedIn: mergeInItem.uid });
   }
 
   log('merge complete');
@@ -41,25 +41,25 @@ async function merge(service, mergeInItem, items, data = null, options = {}) {
   return updatedMerged;
 }
 
-module.exports = async (service, mergeInUid, query, data, options) => merge(
-  service,
-  await get(service, mergeInUid),
-  await list(service, query, {}, { ...options, total: null, detailed: true }),
+module.exports = async ({ internals, endpoints }, mergeInUid, query, data, options) => merge(
+  { internals, endpoints },
+  await get({ internals, endpoints }, mergeInUid),
+  await list(internals, query, {}, { ...options, total: null, detailed: true }),
   data
 );
 
 module.exports.byAgendaUid = async (
-  service,
+  { internals, endpoints },
   agendaUid,
   mergeInUid,
   query,
   data,
   options = {}
 ) => merge(
-  service,
-  await get.byAgendaUid(service, agendaUid, mergeInUid),
+  { internals, endpoints },
+  await get.byAgendaUid({ internals, endpoints }, agendaUid, mergeInUid),
   await list.byAgendaUid(
-    service,
+    internals,
     agendaUid,
     query,
     {},
@@ -70,17 +70,17 @@ module.exports.byAgendaUid = async (
 );
 
 module.exports.bySetUid = async (
-  service,
+  { internals, endpoints },
   setUid,
   mergeInUid,
   query,
   data,
   options = {}
 ) => merge(
-  service,
-  await get.bySetUid(service, setUid, mergeInUid),
+  { internals, endpoints },
+  await get.bySetUid({ internals, endpoints }, setUid, mergeInUid),
   await list.bySetUid(
-    service,
+    internals,
     setUid,
     query,
     {},

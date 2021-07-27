@@ -295,5 +295,12 @@ module.exports = [{
   optional: true,
   read: ['internal', 'public'],
   write: ['internal', 'contributor'],
-}
+}, {
+  field: 'mergedIn',
+  fieldType: 'integer',
+  optional: true,
+  default: null,
+  read: ['internal', 'public'],
+  write: ['internal']
+},
 ];

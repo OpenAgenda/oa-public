@@ -86,7 +86,7 @@ module.exports = (config, core, services) => {
   core.tasks();
 
   services.agendaLocations.task({
-    detectDuplicates: config.detectLocationDuplicates,
+    duplicationDetection: config.locationDuplicationDetection,
     reset: false
   });
 

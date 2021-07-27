@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const _ = require('lodash');
 
 const Files = require('@openagenda/files');
@@ -11,8 +10,8 @@ const {
 } = require('../testconfig.sample');
 
 const fields = require('../lib/fields');
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
 async function getAgendaDetailsByUid(uid, fields = []) {
   return _.pick(
@@ -39,18 +38,16 @@ async function getEventCounts(locationUids, { agendaUid }) {
   ];
 }
 
-describe('agenda-locations - functional - list', function () {
-  this.timeout(10000);
-
+describe('agenda-locations - functional - list', () => {
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
   });
 
-  before(() => {
+  beforeAll(() => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
@@ -65,21 +62,20 @@ describe('agenda-locations - functional - list', function () {
   describe('defaults', () => {
     let items;
 
-    before(async () => {
+    beforeAll(async () => {
       items = await svc(7196947).list();
     });
 
     it('list paginates by 20', async () => {
-      assert.equal(items.length, 20);
+      expect(items.length).toBe(20);
     });
 
     it('id is not provided', async () => {
-      assert.equal(items[0].id, undefined);
+      expect(items[0].id).toBeUndefined();
     });
 
     it('order is by descending id', async () => {
-      assert.deepEqual(
-        items.map(i => i.uid),
+      expect(items.map(i => i.uid)).toStrictEqual(
         [
           60763722,
           60763721,
@@ -105,28 +101,34 @@ describe('agenda-locations - functional - list', function () {
       );
     });
 
-    it('provided fields by default are name, address, latitude and longitude', () => {
-      assert.deepEqual(Object.keys(items[0]), [
-        'uid',
-        'name',
-        'address',
-        'latitude',
-        'longitude',
-        'state',
-      ]);
-    });
+    it(
+      'provided fields by default are name, address, latitude and longitude',
+      () => {
+        expect(Object.keys(items[0])).toStrictEqual([
+          'uid',
+          'name',
+          'address',
+          'latitude',
+          'longitude',
+          'state',
+        ]);
+      }
+    );
 
-    it('fix: provided fields by default do not include image event if includeImagePath option is set', async () => {
-      const items = await svc(7196947).list({}, {}, { includeImagePath: true });
-      assert.deepEqual(Object.keys(items[0]), [
-        'uid',
-        'name',
-        'address',
-        'latitude',
-        'longitude',
-        'state',
-      ]);
-    })
+    it(
+      'fix: provided fields by default do not include image event if includeImagePath option is set',
+      async () => {
+        const items_ = await svc(7196947).list({}, {}, { includeImagePath: true });
+        expect(Object.keys(items_[0])).toStrictEqual([
+          'uid',
+          'name',
+          'address',
+          'latitude',
+          'longitude',
+          'state',
+        ]);
+      }
+    );
   });
 
   describe('nav', () => {
@@ -134,7 +136,7 @@ describe('agenda-locations - functional - list', function () {
       const items = await svc(7196947).list({}, { offset: 1, limit: 1 });
       const more = await svc(7196947).list({}, { offset: 0, limit: 2 });
 
-      assert.equal(items[0].uid, more[1].uid);
+      expect(items[0].uid).toBe(more[1].uid);
     });
 
     it('nav with after means that response includes an after key', async () => {
@@ -143,34 +145,37 @@ describe('agenda-locations - functional - list', function () {
         { limit: 2, useAfter: true }
       );
 
-      assert.equal(after, 976778);
+      expect(after).toBe(976778);
     });
 
-    it('after in previous call can be used to fetch next round of results', async () => {
-      const { after } = await svc(7196947).list(
-        {},
-        { limit: 3, useAfter: true }
-      );
+    it(
+      'after in previous call can be used to fetch next round of results',
+      async () => {
+        const { after } = await svc(7196947).list(
+          {},
+          { limit: 3, useAfter: true }
+        );
 
-      const { items } = await svc(7196947).list({}, { limit: 1, after });
+        const { items } = await svc(7196947).list({}, { limit: 1, after });
 
-      assert.equal(items[0].uid, 7630649);
-    });
+        expect(items[0].uid).toBe(7630649);
+      }
+    );
   });
 
   describe('filters', () => {
     it('"search" queries region field', async () => {
       const items = await svc(7196947).list({ search: 'nom de région' });
 
-      assert.equal(items.length, 1);
-      assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
+      expect(items.length).toBe(1);
+      expect(items[0].name).toBe('Abbatiale Sainte-Marie');
     });
 
     it('"search" queries department field', async () => {
       const items = await svc(7196947).list({ search: 'nom de département' });
 
-      assert.equal(items.length, 1);
-      assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
+      expect(items.length).toBe(1);
+      expect(items[0].name).toBe('Abbatiale Sainte-Marie');
     });
 
     it('"state" filters verified or unverified locations', async () => {
@@ -185,11 +190,8 @@ describe('agenda-locations - functional - list', function () {
         { detailed: true }
       );
 
-      assert.equal(verified.length, verified.filter(l => l.state === 1).length);
-      assert.equal(
-        unverified.length,
-        unverified.filter(l => l.state === 0).length
-      );
+      expect(verified.length).toBe(verified.filter(l => l.state === 1).length);
+      expect(unverified.length).toBe(unverified.filter(l => l.state === 0).length);
     });
 
     it('"uids" filters by provided location uid list', async () => {
@@ -197,42 +199,45 @@ describe('agenda-locations - functional - list', function () {
 
       const selection = await svc(7196947).list({ uids });
 
-      assert.equal(selection.length, 3);
-      assert.deepEqual(
-        selection.map(l => l.uid),
-        uids
-      );
+      expect(selection.length).toBe(3);
+      expect(selection.map(l => l.uid)).toStrictEqual(uids);
     });
 
-    it('"excludeUid" filter exclude provided location uid from list', async () => {
-      const excludeUid = 76248298;
+    it(
+      '"excludeUid" filter exclude provided location uid from list',
+      async () => {
+        const excludeUid = 76248298;
 
-      const selection = await svc(7196947).list({ excludeUid });
+        const selection = await svc(7196947).list({ excludeUid });
 
-      assert.equal(selection.find(e => e.uid === excludeUid), undefined);
-    });
+        expect(selection.find(e => e.uid === excludeUid)).toBeUndefined();
+      }
+    );
 
-    it('"excludeUid" filter exclude provided locations uid from list', async () => {
-      const excludeUid = [76248298, 10175539];
+    it(
+      '"excludeUid" filter exclude provided locations uid from list',
+      async () => {
+        const excludeUid = [76248298, 10175539];
 
-      const selection = await svc(7196947).list({ excludeUid });
-      assert.equal(selection.find(e => e.uid === 10175539), undefined);
-    });
+        const selection = await svc(7196947).list({ excludeUid });
+        expect(selection.find(e => e.uid === 10175539)).toBeUndefined();
+      }
+    );
 
     it('"geo" filter list locations in square', async () => {
       const geo = {
-        northEast : {
+        northEast: {
           lat: 47,
           lng: 4,
         },
-        southWest : {
+        southWest: {
           lat: 44,
           lng: 3,
         }
-      }
+      };
 
       const selection = await svc(7196947).list({ geo });
-      assert.equal(selection.length, 4)
+      expect(selection.length).toBe(4);
     });
 
     it('"updatedAt.gte" filter', async () => {
@@ -242,9 +247,10 @@ describe('agenda-locations - functional - list', function () {
         detailed: true
       });
 
-      assert(agendas.length > 0);
+      expect(agendas.length).toBeGreaterThan(0);
       agendas.forEach(agenda => {
-        assert(agenda.updatedAt >= gte);
+        // expect(agenda.updatedAt).toBeGreaterThanOrEqual(gte);
+        expect(agenda.updatedAt >= gte).toBe(true);
       });
     });
 
@@ -255,20 +261,20 @@ describe('agenda-locations - functional - list', function () {
         detailed: true
       });
 
-      assert(agendas.length > 0);
+      expect(agendas.length).toBeGreaterThan(0);
       agendas.forEach(agenda => {
-        assert(agenda.updatedAt <= lte);
+        // expect(agenda.updatedAt).toBeLessThanOrEqual(lte);
+        expect(agenda.updatedAt <= lte).toBe(true);
       });
     });
 
-    it('fix: undefined uids are filtered out from query', async () => {
-      await svc(7196947).list({ uids: [10175539, undefined] });
+    it('fix: undefined uids are filtered out from query', async () => { // really strange test here
+      const res = await svc(7196947).list({ uids: [10175539, undefined] });
+      expect(res).not.toBeNull();
     });
   });
 
-  describe('stream', function () {
-    this.timeout(10000);
-
+  describe('stream', () => {
     it('stream streams', () => new Promise(done => {
       svc(7196947)
         .list({}, { limit: 0 }, { total: true })
@@ -279,11 +285,11 @@ describe('agenda-locations - functional - list', function () {
               let count = 0;
 
               stream.on('data', location => {
-                count++;
+                count += 1;
               });
 
               stream.on('end', () => {
-                assert.equal(count, total);
+                expect(count).toBe(total);
                 done();
               });
             });
@@ -315,57 +321,57 @@ describe('agenda-locations - functional - list', function () {
               });
 
               stream.on('error', err => {
-                assert.equal(err.message, 'getEventCounts');
+                expect(err.message).toBe('getEventCounts');
                 done();
               });
             });
         });
     }));
 
-    it('detailed option and includeTotal streams with totals and detailed fields', () => new Promise(done => {
-      svc(7196947)
-        .list(
-          {},
-          {},
-          {
-            stream: true,
-            eventCounts: true,
-            detailed: true,
-          }
-        )
-        .then(stream => {
-          stream.on('data', location => {
-            assert.notStrictEqual(location.department, undefined);
-            assert.notStrictEqual(location.eventCount, undefined);
-          });
+    it(
+      'detailed option and includeTotal streams with totals and detailed fields',
+      () => new Promise(done => {
+        svc(7196947)
+          .list(
+            {},
+            {},
+            {
+              stream: true,
+              eventCounts: true,
+              detailed: true,
+            }
+          )
+          .then(stream => {
+            stream.on('data', location => {
+              expect(location.department).not.toBeUndefined();
+              expect(location.eventCount).not.toBeUndefined();
+            });
 
-          stream.on('end', () => {
-            done();
+            stream.on('end', () => {
+              done();
+            });
           });
-        });
-    }));
+      })
+    );
   });
 
   describe('detailed', () => {
     let items;
 
-    before(async () => {
+    beforeAll(async () => {
       items = await svc(7196947).list({}, {}, { detailed: true });
     });
 
     it('if detailed option is provided, all public fields are given', () => {
-      assert.deepEqual(
-        Object.keys(items[0]),
-        fields.filter(f => f.read.includes('public')).map(f => f.field)
-      );
+      expect(Object.keys(items[0])).toStrictEqual(fields.filter(fi => fi.read.includes('public')).map(fi => fi.field));
     });
 
     it('images do not include path by default', () => {
-      assert.equal(items[0].image.split('/').length, 1);
+      expect(items[0].image.split('/').length).toBe(1);
     });
 
     it('images include path is includeImagePath option is true', async () => {
-      const items = await svc(7196947).list(
+      const items_ = await svc(7196947).list(
         {},
         {},
         {
@@ -373,77 +379,78 @@ describe('agenda-locations - functional - list', function () {
           detailed: true,
         }
       );
-      assert.ok(items[0].image.split('/').length > 1);
+      expect(items_[0].image.split('/').length).toBeGreaterThan(1);
     });
 
     it('duplicates candidates are fetch with detailed option', async () => {
-      const items = await svc(7196947).list(
+      const items_ = await svc(7196947).list(
         {},
         {},
         {
           detailed: true,
         }
       );
-      assert.deepStrictEqual(items.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates, [10, 20]);
-      assert.deepEqual(items.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].disqualifiedDuplicates, [5]);
+      expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates).toStrictEqual([51665986, 2]);
+      expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].disqualifiedDuplicates).toStrictEqual([5]);
     });
   });
 
   describe('set', () => {
     let items;
 
-    before(async () => {
+    beforeAll(async () => {
       items = await svc.sets(1903810).locations.list();
     });
 
     it('retrieved locations belong to set', () => {
-      assert(items.length === 4);
+      expect(items.length).toBe(4);
     });
   });
 
   describe('deleted', () => {
-
     it('soft deleted item not listed', async () => {
       const items = await svc(7196947).list();
-      assert.equal(items.filter(i=> i.uid === 7630652).length, 0)
+      expect(items.filter(i => i.uid === 7630652).length).toBe(0);
     });
 
     it('soft deleted item listed with option deleted: null', async () => {
-      const items = await svc(7196947).list({},{}, { deleted: null });
-      assert.equal(items.filter(i=> i.uid === 7630652).length, 1)
-
+      const items = await svc(7196947).list({}, {}, { deleted: null });
+      expect(items.filter(i => i.uid === 7630652).length).toBe(1);
     });
 
     it('only soft deleted item listed with option deleted: true', async () => {
-      const items = await svc(7196947).list({},{}, { deleted: true });
-      assert.equal(items.filter(i=> i.uid === 7630652).length, 1)
-
+      const items = await svc(7196947).list({}, {}, { deleted: true });
+      expect(items.filter(i => i.uid === 7630652).length).toBe(1);
     });
   });
 
   describe('other', () => {
-    it('if fields option is specified, result data only includes fields provided', async () => {
-      const items = await svc(7196947).list(
-        {},
-        { limit: 1 },
-        {
-          includeFields: ['uid', 'name'],
-        }
-      );
+    it(
+      'if fields option is specified, result data only includes fields provided',
+      async () => {
+        const items = await svc(7196947).list(
+          {},
+          { limit: 1 },
+          {
+            includeFields: ['uid', 'name'],
+          }
+        );
 
-      assert.deepEqual(Object.keys(items[0]), ['uid', 'name']);
-    });
+        expect(Object.keys(items[0])).toStrictEqual(['uid', 'name']);
+      }
+    );
 
-    it('if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts', async () => {
-      const items = await svc(7196947).list(
-        {},
-        { limit: 3 },
-        { eventCounts: true }
-      );
+    it(
+      'if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts',
+      async () => {
+        const items = await svc(7196947).list(
+          {},
+          { limit: 3 },
+          { eventCounts: true }
+        );
 
-      assert.deepEqual(
-        items.map(i => _.pick(i, ['uid', 'eventCount', 'agendaEventCount'])),
-        [{
+        expect(items.map(i => _.pick(i, ['uid', 'eventCount', 'agendaEventCount']))).toStrictEqual(
+          [{
             agendaEventCount: 0,
             eventCount: 0,
             uid: 60763722,
@@ -458,14 +465,18 @@ describe('agenda-locations - functional - list', function () {
             eventCount: 0,
             agendaEventCount: 0,
           },
-        ]
-      );
-    });
+          ]
+        );
+      }
+    );
 
-    it('if total option is provided, list returns an { items, total } object', async () => {
-      const { items, total } = await svc(7196947).list({}, {}, { total: true });
-
-      assert.equal(total, 368);
-    });
+    it(
+      'if total option is provided, list returns an { items, total } object',
+      async () => {
+        const { items, total } = await svc(7196947).list({}, {}, { total: true });
+        expect(total).toBe(368);
+        expect(items).not.toBeNull();
+      }
+    );
   });
 });

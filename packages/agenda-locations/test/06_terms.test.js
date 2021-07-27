@@ -1,6 +1,5 @@
 'use strict';
 
-const assert = require('assert');
 const slug = require('slugify');
 
 const Files = require('@openagenda/files');
@@ -10,17 +9,15 @@ const {
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
 const Service = require('..');
+const fixtures = require('./fixtures');
 
-describe('agenda-locations - functional - terms', function () {
-  this.timeout(10000);
-
+describe('agenda-locations - functional - terms', () => {
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -41,7 +38,7 @@ describe('agenda-locations - functional - terms', function () {
     it('result is list of values for requested terms', async () => {
       const terms = await svc(7196947).terms(['region', 'department']);
 
-      assert.deepEqual(terms, [
+      expect(terms).toStrictEqual([
         { region: null, department: null },
         { region: 'Auvergne-Rhône-Alpes', department: 'Ardèche' },
         { region: 'Un nom de région', department: 'Un nom de département' },
@@ -55,7 +52,7 @@ describe('agenda-locations - functional - terms', function () {
         { filterNulls: true }
       );
 
-      assert.deepEqual(terms, [
+      expect(terms).toStrictEqual([
         { region: 'Auvergne-Rhône-Alpes', department: 'Ardèche' },
         { region: 'Un nom de région', department: 'Un nom de département' },
       ]);
@@ -69,10 +66,7 @@ describe('agenda-locations - functional - terms', function () {
       );
 
       for (let i = 1; i < terms.length; i++) {
-        assert.ok(
-          slug(terms[i - 1].city, { lower: true })
-            <= slug(terms[i].city, { lower: true })
-        );
+        expect(slug(terms[i - 1].city, { lower: true }) <= slug(terms[i].city, { lower: true })).toBeTruthy();
       }
     });
   });
@@ -83,11 +77,8 @@ describe('agenda-locations - functional - terms', function () {
         .sets(1903810)
         .locations.terms(['region', 'department']);
 
-      assert.deepEqual(terms, [
-        {
-          region: 'Auvergne-Rhône-Alpes',
-          department: 'Ardèche',
-        },
+      expect(terms).toStrictEqual([
+        { region: 'Auvergne-Rhône-Alpes', department: 'Ardèche' },
       ]);
     });
   });

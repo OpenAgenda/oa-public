@@ -21,6 +21,6 @@ module.exports.init = (config, services) => Service({
     getOriginAgendas: (uids, options) => services.agendas.list({
       uid: uids
     }, options).then(({ agendas }) => agendas),
-    getLocations: getLocations.promise.bind(null, services)
+    getLocations: getLocations.promise.bind(null, services),
   }
 });

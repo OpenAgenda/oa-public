@@ -1,17 +1,15 @@
 'use strict';
 
-const assert = require('assert');
 const Files = require('@openagenda/files');
 
 const {
   service: config,
   dependencies: dConfig,
 } = require('../testconfig.sample');
+const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/mergeData.json');
-const Service = require('..');
-
 const initSettings = require('./fixtures/agendaTestSettings');
 
 const defaultAccess = {
@@ -21,30 +19,34 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsDA = {...initSettings, access: {
-  create: defaultAccess,
-  delete: defaultAccess,
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsDA = {
+  ...initSettings,
+  access: {
+    create: defaultAccess,
+    delete: defaultAccess,
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-const initSettingsCantMerge = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: {...defaultAccess, authorized: false},
-  update: defaultAccess
-}}
+const initSettingsCantMerge = {
+  ...initSettings,
+  access: {
+    create: { ...defaultAccess, authorized: false },
+    delete: { ...defaultAccess, authorized: false },
+    merge: { ...defaultAccess, authorized: false },
+    update: defaultAccess
+  }
+};
 
-describe('agenda-locations - functional - merge', function () {
-  this.timeout(10000);
-
+describe('agenda-locations - functional - merge', () => {
   const f = fixtures(config.mysql);
 
   let svc;
   let location;
   let beforeCount;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -63,7 +65,7 @@ describe('agenda-locations - functional - merge', function () {
   });
 
   describe('basic', () => {
-    before(async () => {
+    beforeAll(async () => {
       beforeCount = await f
         .client('location')
         .count()
@@ -71,7 +73,7 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc(7196947).merge(
         95301591,
         { uids: [40305210, 52758960] },
@@ -80,7 +82,7 @@ describe('agenda-locations - functional - merge', function () {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 95301591);
+      expect(location.uid).toEqual(95301591);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
@@ -90,12 +92,12 @@ describe('agenda-locations - functional - merge', function () {
         .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
-      assert.equal(afterCount, beforeCount - 2);
+      expect(afterCount).toEqual(beforeCount - 2);
     });
   });
 
   describe('no data', () => {
-    before(async () => {
+    beforeAll(async () => {
       beforeCount = await f
         .client('location')
         .count()
@@ -103,7 +105,7 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc(7196947).merge(
         95301591,
         { uids: [13470871, 43404100] },
@@ -112,7 +114,7 @@ describe('agenda-locations - functional - merge', function () {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 95301591);
+      expect(location.uid).toEqual(95301591);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
@@ -122,7 +124,7 @@ describe('agenda-locations - functional - merge', function () {
         .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
-      assert.equal(afterCount, beforeCount - 2);
+      expect(afterCount).toEqual(beforeCount - 2);
     });
 
     it('deleted location as merged_in field', async () => {
@@ -131,12 +133,12 @@ describe('agenda-locations - functional - merge', function () {
         .first('merged_in')
         .where('uid', 13470871)
         .then(r => r);
-      assert.equal(mergedInObj.merged_in, 95301591);
+      expect(mergedInObj.merged_in).toEqual(95301591);
     });
   });
 
   describe('set', () => {
-    before(async () => {
+    beforeAll(async () => {
       beforeCount = await f
         .client('location')
         .count()
@@ -144,7 +146,7 @@ describe('agenda-locations - functional - merge', function () {
         .then(r => r[0]['count(*)']);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc.sets(1903810).locations.merge(
         51665987,
         {
@@ -157,7 +159,7 @@ describe('agenda-locations - functional - merge', function () {
     });
 
     it('result is merged location', () => {
-      assert.equal(location.uid, 51665987);
+      expect(location.uid).toEqual(51665987);
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
@@ -167,19 +169,17 @@ describe('agenda-locations - functional - merge', function () {
         .where('deleted', 0)
         .then(r => r[0]['count(*)']);
 
-      assert.equal(afterCount, beforeCount - 2);
+      expect(afterCount).toEqual(beforeCount - 2);
     });
   });
 });
 
-describe('agenda-locations - functional - merge - no rights', function () {
-  this.timeout(10000);
-
+describe('agenda-locations - functional - merge - no rights', () => {
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -199,26 +199,27 @@ describe('agenda-locations - functional - merge - no rights', function () {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async () => {
       try {
         await svc(7196947).merge(
           95301591,
           { uids: [40305210, 52758960] },
           { name: 'fusionné' }
         );
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
+    });
+
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
+
   describe('test allow bySetUid', () => {
     let thrownError;
 
-    before(async ()=>{
+    beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.merge(
           51665986,
@@ -229,13 +230,13 @@ describe('agenda-locations - functional - merge - no rights', function () {
             name: 'fusionné',
           }
         );
+      } catch (error) {
+        thrownError = error;
       }
-      catch(error){
-        thrownError = error
-      }
-    })
+    });
+
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toEqual('UnauthorizedError');
     });
   });
 });

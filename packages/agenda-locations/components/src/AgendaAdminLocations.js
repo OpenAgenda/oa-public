@@ -20,7 +20,7 @@ import UpdateForm from './UpdateForm';
 import AdminActionModal from './AdminActionModal';
 import LocationDetails from './LocationDetails';
 import RemoveModal from './RemoveModal';
-import MergeMenu from './MergeMenu';
+import MergeStepper from './MergeStepper';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
@@ -41,6 +41,10 @@ const messages = defineMessages({
   merge: {
     id: 'AgendaLocations.AgendaAdminLocation.merge',
     defaultMessage: 'Merge locations',
+  },
+  cancelMerge: {
+    id: 'AgendaLocations.AgendaAdminLocation.cancelMerge',
+    defaultMessage: 'Cancel Merge',
   },
   closeModal: {
     id: 'AgendaLocations.AgendaAdminLocation.closeModal',
@@ -149,7 +153,7 @@ class AgendaAdminLocations extends Component {
     xhr(
       {
         uri: withEvents
-          ? res.remove.replace(':locationUid', location.uid).concat('?removeEvents=true') 
+          ? res.remove.replace(':locationUid', location.uid).concat('?removeEvents=true')
           : res.remove.replace(':locationUid', location.uid),
         method: 'delete',
         headers: {
@@ -181,17 +185,10 @@ class AgendaAdminLocations extends Component {
     const { merge } = this.state;
 
     if (merge) {
+      if (merge?.step !== 1) return;
       this.actions.toggleMergeItem(location);
     } else {
       this.onLocationEdit(location, locationIndex);
-    }
-  }
-
-  onToggleMergeTarget(location) {
-    const { merge } = this.state;
-
-    if (merge) {
-      this.actions.toggleMergeTarget(location);
     }
   }
 
@@ -218,18 +215,36 @@ class AgendaAdminLocations extends Component {
     return 'create';
   }
 
+  goToMergeStep3(location) {
+    const { merge } = this.state;
+
+    if (merge) {
+      this.actions.goToMergeStep3(location);
+    }
+  }
+
+  goToMergeStep1FromDuplicates(location) {
+    const { merge } = this.state;
+
+    if (!merge) {
+      this.actions.goToMergeStep1FromDuplicates(location);
+      log(merge);
+      this.onSearchChange('uids', location?.duplicateCandidates.concat(location.uid));
+    }
+  }
+
   launchMerge() {
     const { res } = this.props;
     const { merge } = this.state;
-    const merged = merge.locationUids.filter(uid => uid !== merge.targetUid);
+    const merged = merge.locationUids.filter(uid => uid !== merge.target.uid);
     const timeOut = 1000;
-    if (!merge.targetUid) {
+    if (!merge.target) {
       log('no target for merge!!');
     }
-    if (!merge || !merge.targetUid || !merge.locationUids.length) return;
+    if (!merge || !merge.target.uid || !merge.locationUids.length) return;
 
     const body = {
-      mergeIn: merge.targetUid,
+      mergeIn: merge.target.uid,
       merged,
     };
 
@@ -289,7 +304,8 @@ class AgendaAdminLocations extends Component {
     const editLocation = this.onLocationEdit.bind(this, item, itemIndex);
     const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
     const onSelect = this.onLocationSelect.bind(this, item, itemIndex);
-    const toggleMergeTarget = this.onToggleMergeTarget.bind(this, item);
+    const goToMergeStep3 = this.goToMergeStep3.bind(this, item);
+    const goToMergeStep1FromDuplicates = this.goToMergeStep1FromDuplicates.bind(this, item);
 
     return (
       <LocationItem
@@ -305,7 +321,8 @@ class AgendaAdminLocations extends Component {
         onEdit={editLocation}
         onRemove={confirmRemove}
         getCountryLabel={this.getCountryLabel}
-        toggleMergeTarget={merge ? toggleMergeTarget : null}
+        goToMergeStep3={merge ? goToMergeStep3 : null}
+        goToMergeStep1FromDuplicates={goToMergeStep1FromDuplicates}
         seeDetails={this.actions.openDetailModal.bind(this, item)}
       />
     );
@@ -404,33 +421,30 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  renderMergeMenu() {
-    const { lang } = this.props;
-    const { merge, locations } = this.state;
-    const closeMerge = this.actions.toggleMerge.bind(null, false);
+  renderMergeStepper() {
+    const { merge } = this.state;
+    const goToMergeStep2 = this.actions.goToMergeStep2.bind(this);
+    const goToMergeStep3 = this.actions.goToMergeStep3.bind(this);
+    const backToMergeStep1 = this.actions.backToMergeStep1.bind(this);
+    const backToMergeStep2 = this.actions.backToMergeStep2.bind(this);
+    const seeDetails = this.actions.openDetailModal.bind(this);
     const launchMerge = this.launchMerge.bind(this);
-    const unselectRef = this.onToggleMergeTarget.bind(this, { uid: null });
-    const seeRef = this.onSearchChange.bind(
-      this,
-      'uids',
-      merge.targetUid
-    );
     const seeSelection = this.onSearchChange.bind(
       this,
       'uids',
       merge.locationUids
     );
-    log('locations', merge.locationUids);
+    log('merge:', merge);
     return (
-      <MergeMenu
+      <MergeStepper
         merge={merge}
-        locations={locations}
-        lang={lang}
-        closeMerge={closeMerge}
-        launchMerge={launchMerge}
-        unselectRef={unselectRef}
-        seeRef={seeRef}
         seeSelection={seeSelection}
+        goToMergeStep2={goToMergeStep2}
+        goToMergeStep3={goToMergeStep3}
+        backToMergeStep1={backToMergeStep1}
+        backToMergeStep2={backToMergeStep2}
+        launchMerge={launchMerge}
+        seeDetails={seeDetails}
       />
     );
   }
@@ -442,10 +456,12 @@ class AgendaAdminLocations extends Component {
       return (
         <button
           type="button"
-          className="btn btn-default disabled"
-          onClick={this.actions.toggleMerge.bind(null, false)}
+          className="btn btn-danger"
+          onClick={() => {
+            this.actions.toggleMerge.bind(null, false)();
+          }}
         >
-          <FormattedMessage {...messages.merge} />
+          <FormattedMessage {...messages.cancelMerge} />
         </button>
       );
     }
@@ -468,7 +484,7 @@ class AgendaAdminLocations extends Component {
 
   render() {
     const {
-      set, lang, res, settings, intl
+      set, res, settings, intl
     } = this.props;
     const {
       merge, locations, page, total, modal
@@ -530,49 +546,52 @@ class AgendaAdminLocations extends Component {
               </div>
             </div>
           </div>
-          {merge ? this.renderMergeMenu() : null}
-          <div className="row list-filters">
-            <div className="col col-sm-12">
-              <div className="form-inline">
-                <div className="form-group">
-                  <SearchField
-                    value={this.actions.getQuery().search}
-                    label={intl.formatMessage(messages.search)}
-                    placeholder={intl.formatMessage(messages.search)}
-                    onChange={this.onSearchChange}
-                  />
-                </div>
-                <div className="checkbox">
-                  <label htmlFor="checkbox">
-                    <input
-                      type="checkbox"
-                      onChange={this.onSearchChange.bind(
-                        this,
-                        'state',
-                        parseInt(this.actions.getQuery().state, 10) === 0
-                          ? undefined
-                          : 0
-                      )}
-                      checked={parseInt(this.actions.getQuery().state, 10) === 0}
-                    />{' '}
-                    <FormattedMessage
-                      {...messages.toVerify}
+          {merge ? this.renderMergeStepper() : null}
+          {merge.step === 2 || merge.step === 3 ? null : (
+            <div className="row list-filters">
+              <div className="col col-sm-12">
+                <div className="form-inline">
+                  <div className="form-group">
+                    <SearchField
+                      value={this.actions.getQuery().search}
+                      label={intl.formatMessage(messages.search)}
+                      placeholder={intl.formatMessage(messages.search)}
+                      onChange={this.onSearchChange}
                     />
-                  </label>
-                  <MoreInfo
-                    className="margin-left-sm"
-                    id="checkbox-help"
-                    content={intl.formatMessage(messages.verifiedInfo)}
-                    placement="top"
-                  />
+                  </div>
+                  <div className="checkbox">
+                    <label htmlFor="checkbox">
+                      <input
+                        type="checkbox"
+                        onChange={this.onSearchChange.bind(
+                          this,
+                          'state',
+                          parseInt(this.actions.getQuery().state, 10) === 0
+                            ? undefined
+                            : 0
+                        )}
+                        checked={parseInt(this.actions.getQuery().state, 10) === 0}
+                      />{' '}
+                      <FormattedMessage
+                        {...messages.toVerify}
+                      />
+                    </label>
+                    <MoreInfo
+                      className="margin-left-sm"
+                      id="checkbox-help"
+                      content={intl.formatMessage(messages.verifiedInfo)}
+                      placement="top"
+                    />
+                  </div>
+                  {this.renderHead()}
                 </div>
-                {this.renderHead()}
               </div>
             </div>
-          </div>
+          ) }
+
           <div className="row list">
             <div className="col col-sm-12">
-              {merge.onGoing ? null : (
+              {merge.onGoing || merge.step === 3 ? null : (
                 <List
                   res={res.index}
                   query={this.actions.getQuery()}

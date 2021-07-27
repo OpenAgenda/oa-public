@@ -67,13 +67,13 @@ module.exports.init = async (config, services) => {
     },
     task: async (options = {}) => {
       const {
-        detectDuplicates = true,
+        duplicationDetection,
         reset = false
       } = options;
       taskRunning = true;
       log('task');
-      if (detectDuplicates) {
-        detectDuplicateCandidates(services);
+      if (duplicationDetection?.enabled) {
+        detectDuplicateCandidates(services, duplicationDetection);
       }
       // clearAllDuplicateCandidates(services);
       if (reset) {

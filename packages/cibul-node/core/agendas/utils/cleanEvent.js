@@ -160,7 +160,8 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 async function cleanEvent(services, agenda, data, options = {}) {
   const locationUid = _.get(data, 'location.uid', _.get(data, 'locationUid'));
   const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid
+    uid: locationUid,
+    returnMergeTarget: true
   }).catch(e => {
     if (e.name !== 'BadRequestError') {
       throw e;

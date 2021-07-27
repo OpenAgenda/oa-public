@@ -468,6 +468,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'state', 'timezone', 'imageCredits',
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
+            'mergedIn'
           ]
         );
       });
@@ -574,7 +575,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     describe('create and update', () => {
-      it('a location creation on an agenda linked to a location set also links that location to the set', async () => {
+      it.only('a location creation on an agenda linked to a location set also links that location to the set', async () => {
         const created = await core.agendas(55268170).locations.create({
           name: 'Muséonum',
           address: '2 rond-point Madame de Mondonville, Toulouse',

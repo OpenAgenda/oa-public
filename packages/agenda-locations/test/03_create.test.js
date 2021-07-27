@@ -1,21 +1,20 @@
 'use strict';
 
-const assert = require('assert');
 const fs = require('fs');
 const _ = require('lodash');
 const redis = require('redis');
 
-const UnauthorizedError = require('../../utils/errors/UnauthorizedError');
+const UnauthorizedError = require('@openagenda/utils/errors/UnauthorizedError');
 const Files = require('@openagenda/files');
 const {
   service: config,
   dependencies: dConfig,
 } = require('../testconfig.sample');
 
+const Service = require('..');
 const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/createData.json');
-const Service = require('..');
 const initSettings = require('./fixtures/agendaTestSettings');
 
 const defaultAccess = {
@@ -25,28 +24,32 @@ const defaultAccess = {
   link: null
 };
 
-const initSettingsDA = {...initSettings, access: {
-  create: defaultAccess,
-  delete: defaultAccess,
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsDA = {
+  ...initSettings,
+  access: {
+    create: defaultAccess,
+    delete: defaultAccess,
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-const initSettingsCantCreate = {...initSettings, access: {
-  create: {...defaultAccess, authorized: false},
-  delete: {...defaultAccess, authorized: false},
-  merge: defaultAccess,
-  update: defaultAccess
-}}
+const initSettingsCantCreate = {
+  ...initSettings,
+  access: {
+    create: { ...defaultAccess, authorized: false },
+    delete: { ...defaultAccess, authorized: false },
+    merge: defaultAccess,
+    update: defaultAccess
+  }
+};
 
-describe('agenda-locations - functional - create', function () {
-  this.timeout(10000);
-
+describe('agenda-locations - functional - create', () => {
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -82,24 +85,24 @@ describe('agenda-locations - functional - create', function () {
   describe('defaults', () => {
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       created = await svc(7196947).create(payload);
     });
 
     it('basic create provides created location as a response', async () => {
-      assert.equal(created.name, payload.name);
+      expect(created.name).toEqual(payload.name);
     });
 
     it('uid is added during create', () => {
-      assert.equal(typeof created.uid, 'number');
+      expect(typeof created.uid).toEqual('number');
     });
 
     it('slug is added during create', () => {
-      assert.equal(typeof created.slug, 'string');
+      expect(typeof created.slug).toEqual('string');
     });
 
     it('by default state value is 0', () => {
-      assert.equal(created.state, 0);
+      expect(created.state).toEqual(0);
     });
 
     it('new entry is in db', async () => {
@@ -108,28 +111,27 @@ describe('agenda-locations - functional - create', function () {
         .first('placename')
         .where('uid', created.uid);
 
-      assert.equal(entry.placename, created.name);
+      expect(entry.placename).toEqual(created.name);
     });
 
     it('result does not provide agendaId', () => {
-      assert(created.agendaId === undefined);
+      expect(created.agendaId).toBeUndefined();
     });
-
 
     it('store after creation', async () => {
       const entry = await f
-      .client('location')
-      .first('store', 'ext_id')
-      .where('uid', created.uid);
+        .client('location')
+        .first('store', 'ext_id')
+        .where('uid', created.uid);
 
-      assert.equal(JSON.parse(entry.store).extId, 123456);
+      expect(JSON.parse(entry.store).extId).toBe('123456');
     });
   });
 
   describe('set', () => {
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       created = await svc.sets(1903810).locations.create(
         {
           name: 'Bruchon',
@@ -141,48 +143,50 @@ describe('agenda-locations - functional - create', function () {
     });
 
     it('created location is associated to set', () => {
-      assert.equal(created.setUid, 1903810);
+      expect(created.setUid).toBe(1903810);
     });
 
     it('entry has set uid', async () => {
-      assert.equal(
-        await f
-          .client('location')
-          .first('set_uid')
-          .where('uid', created.uid)
-          .then(r => r.set_uid),
-        1903810
-      );
+      const entrySetUid = await f
+        .client('location')
+        .first('set_uid')
+        .where('uid', created.uid)
+        .then(r => r.set_uid);
+      expect(entrySetUid).toBe(1903810);
     });
 
-    it('location cannot be created if specified set does not exist', async () => {
-      try {
-        await svc.sets(90389033829).locations.create(
-          {
-            name: 'Bruchon',
-            address: 'Bruchon, Lamastre',
-            countryCode: 'FR',
-          },
-          { geocodeIfUndefined: true }
-        );
-      } catch (e) {
-        assert.equal(e.message, 'Not found');
-        return;
+    it(
+      'location cannot be created if specified set does not exist',
+      async () => {
+        let error;
+        try {
+          await svc.sets(90389033829).locations.create(
+            {
+              name: 'Bruchon',
+              address: 'Bruchon, Lamastre',
+              countryCode: 'FR',
+            },
+            { geocodeIfUndefined: true }
+          );
+        } catch (e) {
+          error = e;
+        }
+        expect(error.message).toBe('Not found');
       }
-      throw new Error('Should not reach here');
-    });
+    );
 
-    it('location created on agendas endpoints and on an agenda associated with set is also associated to set', async () => {
-      const created = await svc(7196947).create(payload);
-      assert.equal(created.setUid, 1903810);
-    });
+    it(
+      'location created on agendas endpoints and on an agenda associated with set is also associated to set',
+      async () => {
+        expect((await svc(7196947).create(payload)).setUid).toBe(1903810);
+      }
+    );
   });
 
-  describe('with image', function () {
-    this.timeout(10000);
+  describe('with image', () => {
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         created = await svc(7196947).create({
           ...payload,
@@ -201,16 +205,14 @@ describe('agenda-locations - functional - create', function () {
         .first('store')
         .where('uid', created.uid);
 
-      assert.equal(JSON.parse(entry.store).image, `location${created.uid}.jpg`);
+      expect(JSON.parse(entry.store).image).toBe(`location${created.uid}.jpg`);
     });
   });
 
-  describe('geocodeIfUndefined', async () => {
-    this.timeout(10000);
-
+  describe('geocodeIfUndefined', () => {
     let location;
 
-    before(async () => {
+    beforeAll(async () => {
       location = await svc(7196947).create(
         {
           name: 'Le Colisée',
@@ -224,43 +226,45 @@ describe('agenda-locations - functional - create', function () {
     });
 
     it('latitude and longitude are defined in created location', () => {
-      assert.equal(location.latitude, 47.6576571);
-      assert.equal(location.longitude, -2.7834928);
+      expect(location.latitude).toBe(47.6576571);
+      expect(location.longitude).toBe(-2.7834928);
     });
 
     it('insee code is defined if provided by interface', () => {
-      assert.equal(location.insee, '56260');
+      expect(location.insee).toBe('56260');
     });
   });
 
-  describe('fixes', async () => {
-    it('long name does not trigger an exception due to slug overflow', async () => {
-      const l = await svc(7196947).create({
-        name:
-          'Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...',
-        address: '41160 Membrolles',
-        latitude: '47.996436',
-        longitude: '1.48131',
-        city: 'Membrolles',
-        department: 'Loir-et-Cher',
-        region: 'Centre-Val de Loire',
-        postalCode: '41160',
-        insee: '41173',
-        countryCode: 'FR',
-      });
-    });
+  describe('fixes', () => {
+    it(
+      'long name does not trigger an exception due to slug overflow',
+      async () => {
+        const l = await svc(7196947).create({
+          name:
+            'Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...',
+          address: '41160 Membrolles',
+          latitude: '47.996436',
+          longitude: '1.48131',
+          city: 'Membrolles',
+          department: 'Loir-et-Cher',
+          region: 'Centre-Val de Loire',
+          postalCode: '41160',
+          insee: '41173',
+          countryCode: 'FR',
+        });
+        expect(l).toBeDefined();
+      }
+    );
   });
 });
 
-
-describe('agenda-locations - functional - create - no rights', function () {
-  this.timeout(10000);
+describe('agenda-locations - functional - create - no rights', () => {
 
   const f = fixtures(config.mysql);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -296,23 +300,22 @@ describe('agenda-locations - functional - create - no rights', function () {
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         await svc(7196947).create(payload);
-      }
-      catch(error) {
-        thrownError = error
+      } catch (error) {
+        thrownError = error;
       }
     });
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toBe('UnauthorizedError');
     });
   });
 
   describe('test allow bySetUid', () => {
     let thrownError;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         await svc.sets(1903811).locations.create(
           {
@@ -322,13 +325,13 @@ describe('agenda-locations - functional - create - no rights', function () {
           },
           { geocodeIfUndefined: true }
         );
-      } catch(error) {
-        thrownError = error
+      } catch (error) {
+        thrownError = error;
       }
     });
 
     it('allow should throw Error', () => {
-      assert.equal(thrownError.name, 'UnauthorizedError');
+      expect(thrownError.name).toBe('UnauthorizedError');
     });
   });
 });

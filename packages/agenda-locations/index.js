@@ -113,18 +113,19 @@ module.exports = Object.assign(
 
     const setEndpoints = Object.assign(setUid => {
       const svc = { ...service, getSettings: settings.get.bySetUid.bind(null, service, setUid) };
-      const endpoints = {
+      const endpoints = {};
+      Object.assign(endpoints, {
         list: list.bySetUid.bind(null, svc, setUid),
-        get: get.bySetUid.bind(null, svc, setUid),
+        get: get.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
         patch: update.bySetUid.bind(null, { service: svc, isPatch: true }, setUid),
-      };
+      });
       return {
         locations: {
           ...endpoints,
           create: create.bySetUid.bind(null, svc, setUid),
-          merge: merge.bySetUid.bind(null, svc, setUid),
+          merge: merge.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
           terms: terms.bySetUid.bind(null, svc, setUid),
-          remove: remove.bySetUid.bind(null, svc, setUid),
+          remove: remove.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
           update: update.bySetUid.bind(
             null,
             { service: svc, isPatch: false },
@@ -145,15 +146,16 @@ module.exports = Object.assign(
 
     const agendaEndpoints = agendaUid => {
       const svc = { ...service, getSettings: settings.get.byAgendaUid.bind(null, service, agendaUid) };
-      const endpoints = {
+      const endpoints = {};
+      Object.assign(endpoints, {
         list: list.byAgendaUid.bind(null, svc, agendaUid),
-        get: get.byAgendaUid.bind(null, svc, agendaUid),
+        get: get.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         patch: update.byAgendaUid.bind(
           null,
           { service: svc, isPatch: true },
           agendaUid
         ),
-      };
+      });
 
       return {
         ...endpoints,
@@ -163,11 +165,9 @@ module.exports = Object.assign(
           { service: svc, isPatch: false },
           agendaUid
         ),
-        remove: remove.byAgendaUid.bind(null, svc, agendaUid),
-        list: list.byAgendaUid.bind(null, svc, agendaUid),
+        remove: remove.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         terms: terms.byAgendaUid.bind(null, svc, agendaUid),
-        merge: merge.byAgendaUid.bind(null, svc, agendaUid),
-        get: get.byAgendaUid.bind(null, svc, agendaUid),
+        merge: merge.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         settings: {
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
         },
@@ -181,7 +181,7 @@ module.exports = Object.assign(
     };
 
     return Object.assign(agendaEndpoints, {
-      get: get.bind(null, service),
+      get: get.bind(null, { internals: service, endpoints: agendaEndpoints }),
       list: list.bind(null, service),
       utils: {
         getINSEECode: service.getINSEECode,
