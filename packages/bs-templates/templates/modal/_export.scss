@@ -8,6 +8,10 @@
     width: 100%;
     color: black;
     position: relative;
+
+    &:last-child {
+      margin-bottom: 20px;
+    }
   }
 
   &__title {
@@ -15,7 +19,7 @@
       font-size: 3rem;
     }
     &--md {
-      font-size: large;
+      font-size: 2rem;
     }
   }
 
@@ -25,8 +29,7 @@
     align-items: center;
   }
 
-  &__close
-  {
+  &__close {
     margin-left: 100%;
     position: sticky;
     display: inline-block;
@@ -101,7 +104,7 @@
   background-color: $oa-white;
 }
 
-/**** Agenda header style overwrite ****/
+/**** style overwrites ****/
 .agenda-header h1.export__title {
   &--big {
     margin-top: 20px;
@@ -115,6 +118,7 @@
 
 .agenda-header .ctas .btn.export__btn {
   margin-bottom: 20px;
+  color: $oa-white;
 }
 
 .aggregator__input.input-icon-right {
@@ -126,4 +130,47 @@
   margin-bottom: 0;
   padding: 0;
   transform: translateY(-20px);
+}
+
+.share-button {
+  display: inline;
+
+  & > button {
+    padding: 0px;
+    color: gray;
+  }
+}
+
+.calendars {
+  &__options {
+    margin-left: 3rem;
+  }
+  &__list {
+    padding: 0;
+  }
+
+  &__date {
+    list-style-type: none;
+
+    & > a {
+      color: $oa-gray;
+
+      &:hover {
+        color: $oa-blue;
+      }
+    }
+  }
+}
+
+.btn.btn-default.btn-calendar {
+  background: $oa-gray-lightest;
+  border-color: transparent;
+  color: $oa-gray;
+  display: inline-block;
+  margin: 3px;
+
+  &:hover {
+    background: $oa-blue;
+    color: $oa-white;
+  }
 }
