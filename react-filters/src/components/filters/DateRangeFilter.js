@@ -52,16 +52,16 @@ function formatValue(value) {
   if (Array.isArray(value)) {
     return value.map(v => ({
       ...v,
-      startDate: parseISO(v.gte),
-      endDate: parseISO(v.lte),
+      startDate: typeof v.gte === 'string' ? parseISO(v.gte) : v.gte,
+      endDate: typeof v.lte === 'string' ? parseISO(v.lte) : v.lte,
     }));
   }
 
   if (typeof value === 'object') {
     return [
       {
-        startDate: parseISO(value.gte),
-        endDate: parseISO(value.lte),
+        startDate: typeof value.gte === 'string' ? parseISO(value.gte) : value.gte,
+        endDate: typeof value.lte === 'string' ? parseISO(value.lte) : value.lte,
         key: 'selection',
       },
     ];
@@ -190,9 +190,12 @@ function Title({
   );
 }
 
-function DateRangeFilter(
+const DateRangeFilter = React.forwardRef(function DateRangeFilter(
   {
-    name, staticRanges, inputRanges
+    name,
+    staticRanges,
+    inputRanges,
+    rangeColor
   },
   ref
 ) {
@@ -211,10 +214,11 @@ function DateRangeFilter(
         inputRanges={inputRanges}
         startDatePlaceholder={intl.formatMessage(messages.startDate)}
         endDatePlaceholder={intl.formatMessage(messages.endDate)}
+        rangeColor={rangeColor}
       />
     </>
   );
-}
+});
 
 const Collapsable = React.forwardRef(function Collapsable(
   {
@@ -258,7 +262,7 @@ const Collapsable = React.forwardRef(function Collapsable(
   );
 });
 
-const exported = React.memo(React.forwardRef(DateRangeFilter));
+const exported = React.memo(DateRangeFilter);
 
 // React.memo lose statics
 exported.Preview = Preview;
