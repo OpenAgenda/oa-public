@@ -91,6 +91,9 @@ async function extractFiltersAndWidgets(app) {
     },
     registerWidget({ hash, data }) {
       data.root.widgets[hash.name] = hash.selector;
+    },
+    widget({ hash, data }) {
+      data.root.widgets[hash.name] = `data-oa-widget="${hash.name}"`;
     }
   });
 }
@@ -201,15 +204,29 @@ module.exports = async options => {
       context.data.root.filters.push(attrs);
 
       return new hbs.SafeString(`
-          <${tagName}
-            class="${cn(className, statusClass)}"
-            data-oa-filter
-            ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
-            data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
-          >
-            ${context.fn(this)}
-          </${tagName}>
-        `);
+        <${tagName}
+          class="${cn(className, statusClass)}"
+          data-oa-filter
+          ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
+          data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
+        >
+          ${context.fn(this)}
+        </${tagName}>
+      `);
+    },
+    widget({ hash }) {
+      const {
+        tagName = 'div',
+        className = '',
+        name
+      } = hash;
+
+      return new hbs.SafeString(`
+        <${tagName}
+          ${className ? `class="${className}"` : ''}
+          data-oa-widget="${name}"
+        ></${tagName}>
+      `);
     }
   });
 
