@@ -25,7 +25,7 @@ module.exports = withAggregations => (req, res, next) => {
 
   const needViewport = res.locals.filters.some(filter => filter.type === 'map');
 
-  if (needViewport) {
+  if (withAggregations && needViewport) {
     aggs.unshift({
       key: 'viewport',
       type: 'viewport'
