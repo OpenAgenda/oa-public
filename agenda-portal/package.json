@@ -12,11 +12,22 @@
     "test": "jest",
     "start": "browser-refresh dev",
     "build": "webpack-cli --config bin/webpack.build.js",
-    "install": "yarn build",
+    "prepack": "yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
+  "files": [
+    "index.js",
+    "assets",
+    "bin",
+    "boot",
+    "client",
+    "lib",
+    "middleware",
+    "tasks",
+    "utils"
+  ],
   "bin": {
     "deploy": "bin/deploy/run.js"
   },
