@@ -24,11 +24,10 @@ import {
   useApiClient,
   useModal,
 } from '@openagenda/react-shared';
-import { FiltersProvider } from '@openagenda/react-filters';
+import { FiltersProvider, getEvents } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPortal from '../components/FiltersPortal';
 import FiltersPreview from '../components/FiltersPreview';
-import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
 import EmptyDashboard from '../components/EmptyDashboard';
 import RemoveModal from '../components/RemoveModal';
@@ -360,7 +359,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           {
             type: 'geohash',
             size: 2000,
-            zoom,
+            zoom: Math.max(zoom, 1),
+            radius: zoom === 0 ? 80 : 40,
           },
         ],
         geo: {
@@ -594,7 +594,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
   const latestQuery = useLatest(query);
 
-  const clearFilters = useCallback(() => filtersFormRef.current.reset({}), []);
+  const clearFilters = useCallback(() => {
+    filtersFormRef.current.reset({});
+    filtersFormRef.current.submit();
+  }, []);
 
   // Update query when location change
   useUpdateEffect(() => {
@@ -612,6 +615,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       const form = filtersFormRef.current;
 
       form.initialize(cleanQuery);
+      form.submit();
     }
   }, [
     agenda,
