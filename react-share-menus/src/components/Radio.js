@@ -1,33 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { defineMessages, useIntl } from 'react-intl';
 
-const Radio = ({ id, content, name, span, setChoice }) => {
+const Radio = ({
+  id, content, name, span, setChoice
+}) => {
   const handleChange = e => {
     setChoice(e.target.value, e.target.id);
   };
 
+  const intl = useIntl();
+
+  const messages = defineMessages({
+    jsonDoc1: {
+      id: 'json-doc1',
+      defaultMessage: 'Detailed documentation on the JSON export is ',
+    },
+    jsonDoc2: {
+      id: 'json-doc2',
+      defaultMessage: 'available here',
+    },
+  });
+
   return (
     <div className="radio" onChange={handleChange}>
       <label htmlFor={id}>
-        <input
-          className="radio__input"
-          type="radio"
-          name={name}
-          id={id}
-          value={content}
-        />
+        <input className="radio__input" type="radio" name={name} id={id} value={content} />
         {content}
       </label>
       {span && (
         <span className="side-note">
-          (une documentation détaillée de l'export JSON est
+          ({intl.formatMessage(messages.jsonDoc1)}
           <a
             href="https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda"
             target="_blank"
             rel="noopener noreferrer"
           >
-            {' '}
-            disponible ici
+            {intl.formatMessage(messages.jsonDoc2)}
           </a>
           )
         </span>

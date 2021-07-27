@@ -26,9 +26,10 @@ export const Export = () => {
   };
 
   const handleExportLanguage = format => {
-    return format === 'csv' || format === 'xl'
-      ? `&cols.lang=${languageQuery}`
-      : '';
+    if (format === 'csv' || format === 'xl') {
+      return `&cols.lang=${languageQuery}`;
+    }
+    return '';
   };
 
   const formatExportLinks = res => {
@@ -49,11 +50,7 @@ export const Export = () => {
 
   return (
     <div className="ctas export__container">
-      <button
-        className="btn btn-default"
-        type="button"
-        onClick={() => setDisplay(true)}
-      >
+      <button className="btn btn-default export__btn" type="button" onClick={() => setDisplay(true)}>
         <i className="fa fa-external-link" />
         <span>&nbsp; Exporter</span>
       </button>

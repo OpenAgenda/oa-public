@@ -22,7 +22,8 @@ const filterResults = searchText => {
     total,
     agendas: apiAgendas.agendas.filter(agenda => {
       if (
-        agenda.description.toLowerCase().includes(searchText.toLowerCase()) || agenda.title.toLowerCase().includes(searchText.toLowerCase())
+        agenda.description.toLowerCase().includes(searchText.toLowerCase()) ||
+        agenda.title.toLowerCase().includes(searchText.toLowerCase())
       ) {
         total += 1;
         return agenda;
@@ -51,7 +52,7 @@ export const Aggregator = () => {
   return (
     <div className="ctas export__container">
       <button
-        className="btn btn-default"
+        className="btn btn-default export__btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
@@ -81,7 +82,7 @@ export const AggregatorSuccess = () => {
   return (
     <div className="ctas export__container">
       <button
-        className="btn btn-default"
+        className="btn btn-default export__btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
@@ -111,7 +112,7 @@ export const NoAgendas = () => {
   return (
     <div className="ctas export__container">
       <button
-        className="btn btn-default"
+        className="btn btn-default export__btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
@@ -125,7 +126,7 @@ export const NoAgendas = () => {
       {display ? (
         <AggregatorModal
           onClose={() => setDisplay(false)}
-          targetAgenda={{ title: 'L\'agenda de la Gargouille', slug: 'notre-agenda' }}
+          targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
           res="/noAgendas"
         />
       ) : null}
