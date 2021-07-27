@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const webpack = require('webpack');
-const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 const jsEntryFiles = fs
   .readdirSync(`${__dirname}/../client`)
@@ -39,8 +38,5 @@ module.exports = {
   },
   resolve: {
     symlinks: false,
-  },
-  resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)],
   },
 };

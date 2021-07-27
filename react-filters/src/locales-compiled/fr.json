@@ -1,0 +1,265 @@
+{
+  "ReactFilters.DateRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "Du "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " au "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "endDate"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "Fin"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "À partir du "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.singleDate": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "Début"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "Jusqu'au "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.MapField.searchWithMap": [
+    {
+      "type": 0,
+      "value": "Rechercher avec la carte"
+    }
+  ],
+  "ReactFilters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Map"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.lessOptions": [
+    {
+      "type": 0,
+      "value": "Moins d'options"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.moreOptions": [
+    {
+      "type": 0,
+      "value": "Plus d'options"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.noResult": [
+    {
+      "type": 0,
+      "value": "Aucun résultat"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "Rechercher"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilter": [
+    {
+      "type": 0,
+      "value": "Supprimer le filtre"
+    }
+  ],
+  "ReactFilters.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "Ce mois-ci"
+    }
+  ],
+  "ReactFilters.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "Cette semaine"
+    }
+  ],
+  "ReactFilters.dateRanges.thisWeekend": [
+    {
+      "type": 0,
+      "value": "Ce week-end"
+    }
+  ],
+  "ReactFilters.dateRanges.today": [
+    {
+      "type": 0,
+      "value": "Aujourd'hui"
+    }
+  ],
+  "ReactFilters.dateRanges.tomorrow": [
+    {
+      "type": 0,
+      "value": "Demain"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.addMethod": [
+    {
+      "type": 0,
+      "value": "Provenance"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Mode de participation"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.city": [
+    {
+      "type": 0,
+      "value": "Ville"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "Date de création"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.department": [
+    {
+      "type": 0,
+      "value": "Département"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.featured": [
+    {
+      "type": 0,
+      "value": "Mis en une"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.geo": [
+    {
+      "type": 0,
+      "value": "Géolocalisation"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.locationUid": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.memberUid": [
+    {
+      "type": 0,
+      "value": "Membre"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.region": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.relative": [
+    {
+      "type": 0,
+      "value": "Passé / en cours / à venir"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": [
+    {
+      "type": 0,
+      "value": "Agenda source"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.state": [
+    {
+      "type": 0,
+      "value": "Statut"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.timings": [
+    {
+      "type": 0,
+      "value": "Horaires"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "Date de mise à jour"
+    }
+  ]
+}
