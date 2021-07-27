@@ -10,7 +10,7 @@ const {
   MapFilter,
   CustomFilter
 } = require('@openagenda/react-filters');
-const { apiClient } = require('@openagenda/react-shared');
+const apiClient = require('@openagenda/react-shared/lib/utils/apiClient');
 const withDefaultFilterConfig = require('../lib/withDefaultFilterConfig');
 const FiltersPreview = require('./FiltersPreview');
 
