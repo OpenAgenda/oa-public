@@ -59,6 +59,10 @@ function DefaultPreviewRenderer({
   disabled,
   className,
 }) {
+  if (!valueOptions?.length) {
+    return null;
+  }
+
   return (
     <span className={className}>
       {valueOptions.map(option => (
@@ -117,7 +121,7 @@ function Preview({
     [input, disabled]
   );
 
-  if (!valueOptions || valueOptions === '') {
+  if (!valueOptions?.length) {
     return null;
   }
 
