@@ -11,7 +11,8 @@
     {
       "files": [
         "src/**/*.js",
-        "test/**/*.js"
+        "test/**/*.js",
+        "stories/**/*.js"
       ],
 
       "parserOptions": {
