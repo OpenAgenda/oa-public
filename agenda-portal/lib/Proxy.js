@@ -26,11 +26,13 @@ const cachedHead = _.memoize(getAgendaSettings);
 module.exports = ({
   key,
   defaultLimit,
+  preFilter,
   defaultFilter,
   defaultTimezone,
   jsonExportVersion,
 }) => {
-  async function _fetch(agendaUid, res, query, forcedLimit = null) {
+  async function _fetch(agendaUid, res, userQuery, forcedLimit = null) {
+    const query = { ...preFilter, ...userQuery };
     const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
 
     const limit = forcedLimit || query.limit || defaultLimit;

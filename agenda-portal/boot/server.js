@@ -35,6 +35,10 @@ Portal({
   i18n: `${__dirname}/i18n`,
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
+  // filters that applies even if other filter is specified, can be overloaded
+  preFilter: {
+    relative: ['current', 'upcoming']
+  },
   // filter that applies when no other filter is specified
   defaultFilter: {
     featured: 0,
