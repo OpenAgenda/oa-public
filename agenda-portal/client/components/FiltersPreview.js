@@ -43,6 +43,10 @@ function MultiChoicePreview({
 }) {
   const title = useFilterTitle(name, filter.fieldSchema);
 
+  if (!valueOptions?.length) {
+    return null;
+  }
+
   return el(
     'span',
     {
