@@ -359,7 +359,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           {
             type: 'geohash',
             size: 2000,
-            zoom,
+            zoom: Math.max(zoom, 1),
+            radius: zoom === 0 ? 80 : 40,
           },
         ],
         geo: {
@@ -593,7 +594,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
   const latestQuery = useLatest(query);
 
-  const clearFilters = useCallback(() => filtersFormRef.current.reset({}), []);
+  const clearFilters = useCallback(() => {
+    filtersFormRef.current.reset({});
+    filtersFormRef.current.submit();
+  }, []);
 
   // Update query when location change
   useUpdateEffect(() => {
@@ -611,6 +615,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       const form = filtersFormRef.current;
 
       form.initialize(cleanQuery);
+      form.submit();
     }
   }, [
     agenda,

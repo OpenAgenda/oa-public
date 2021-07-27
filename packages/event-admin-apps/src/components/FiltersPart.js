@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
+import { css } from '@emotion/react';
 import {
   getEvents,
   DateRangeFilter,
@@ -90,11 +91,18 @@ function FiltersPart({
 
   return (
     <>
-      <div className="oa-collapse">
+      <div
+        className="oa-collapse"
+        css={css`
+          .leaflet-container {
+            height: 300px;
+          }
+        `}
+      >
         <Filters
           filters={filters}
           disabled={isFetching || filtersQuery.isFetching}
-          dateRangeComponent={DateRangeFilter}
+          dateRangeComponent={DateRangeFilter.Collapsable}
           checkboxComponent={MultiChoiceFilter.Collapsable}
           radioComponent={MultiChoiceFilter.Collapsable}
           mapComponent={MapFilter}
