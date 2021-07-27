@@ -119,6 +119,7 @@ module.exports = async options => {
     // sass, // optional path to sass file
     defaultTimezone, // optional: used for converting oaq date filter (YYYY-MM-DD) to v2 format (timezoned)
     eventsPerPage, // optional number of events to load per page
+    preFilter,
     defaultFilter, // optional: filter that applies when no other filter is set
     // cache,
     proxy: injectedProxy,
@@ -228,6 +229,7 @@ module.exports = async options => {
       jsonExportVersion,
       key: apiKey,
       defaultLimit: eventsPerPage,
+      preFilter,
       defaultFilter,
       defaultTimezone,
     });
