@@ -1,4 +1,4 @@
-const { getLocaleValue } = require('@openagenda/react-shared');
+const getLocaleValue = require('@openagenda/react-shared/lib/utils/getLocaleValue');
 const assignIfEmpty = require('./assignIfEmpty');
 
 const AGGREGATION_SIZE = 2000;

@@ -1,7 +1,8 @@
 const React = require('react');
 const { QueryClient, QueryClientProvider } = require('react-query');
 const { IntlProvider, injectIntl } = require('react-intl');
-const { useConstant, mergeLocales } = require('@openagenda/react-shared');
+const useConstant = require('@openagenda/react-shared/lib/hooks/useConstant');
+const mergeLocales = require('@openagenda/react-shared/lib/utils/mergeLocales');
 const { locales: reactFiltersLocales, FiltersProvider } = require('@openagenda/react-filters');
 const appLocales = require('../../boot/i18n');
 
