@@ -6,6 +6,10 @@
   "module": "esm/index.js",
   "sideEffects": false,
   "license": "MIT",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "lib",
     "esm"
