@@ -91,21 +91,19 @@
         <section class="detail-item margin-bottom-xs">
           <h3><i class="fa fa-share-alt"></i></h3>
           <div class="detail-item-content">
-            <a rel="nofollow" class="btn btn-primary event-action" href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=agendas' %>">
-              <img alt="logo" src="//oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png">
-              <%= __('shareOnOA') %>
-            </a>
+            <div class="js_shareOnOa"></div>
+            
           </div>
         </section>
 
 <% if (!private && ( event.currentState === 'published' ) ) { %>
         <section class="detail-item share margin-bottom-md margin-top-xs">
           <%= __('otherShares') %>&nbsp;:
-          <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
-          <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
-          <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
-          <a href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
-          <a href="<%= event.importUri %>"><%= __('allShares') %></a>
+          <a href="<%= event.facebookShare %>" target="_blank" class="fb text-muted" rel="nofollow"><i class="fa fa-facebook"></i></a>
+          <a href="<%= event.twitterShare %>" target="_blank" class="tw text-muted" rel="nofollow"><i class="fa fa-twitter"></i></a>
+          <a href="<%= event.linkedInShare %>" target="_blank" class="li text-muted" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+          <div class="js_shareEmail share-button"></div>
+          <div class="js_shareAll share-button"><%= __('allShares') %></div>
         </section>
 <% } %>
 <% if (event.onlineAccessLink) { %>

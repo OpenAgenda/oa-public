@@ -2,9 +2,11 @@ const React = require('react');
 const { useState, useEffect } = require('react');
 const ReactDom = require('react-dom');
 
+import { mergeLocales } from '@openagenda/react-shared';
+import { modalLocales } from '@openagenda/react-share-menus';
 import { AggregatorModal } from '@openagenda/react-share-menus';
-import { IntlProvider } from 'react-intl';
-import locales from '../../locales-compiled';
+import { IntlProvider, defineMessages, useIntl } from 'react-intl';
+import appLocales from '../../locales-compiled';
 
 const AggregatorModalContainer = ({ options, query }) => {
   const [display, setDisplay] = useState(false);
@@ -14,7 +16,14 @@ const AggregatorModalContainer = ({ options, query }) => {
   const blueLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/openagenda-blue-22.png';
   const [logo, setLogo] = useState(whiteLogo);
 
-  const lang = options.lang;
+  const intl = useIntl();
+
+  const messages = defineMessages({
+    aggregateButton: {
+      id: 'aggregate-button',
+      defaultMessage: 'Aggregate',
+    },
+  });
 
   const handleClose = () => {
     setDisplay(false);
@@ -29,7 +38,7 @@ const AggregatorModalContainer = ({ options, query }) => {
   }, []);
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <>
       <a
         className="btn btn-default margin-bottom-xs"
         onClick={() => setDisplay(true)}
@@ -39,7 +48,7 @@ const AggregatorModalContainer = ({ options, query }) => {
         onBlur={() => setLogo(whiteLogo)}
       >
         <img alt="logo" src={logo} />
-        &nbsp; Agréger
+        &nbsp; {intl.formatMessage(messages.aggregateButton)}
       </a>
       {display ? (
         <AggregatorModal
@@ -49,11 +58,14 @@ const AggregatorModalContainer = ({ options, query }) => {
           success={success}
         />
       ) : null}
-    </IntlProvider>
+    </>
   );
 };
 
 export default function displayAggregateButton(params, options, query) {
   const buttonLocation = document.querySelector(params.selectors.aggregate);
-  return ReactDom.render(<AggregatorModalContainer options={options} query={query} />, buttonLocation);
+  const lang = options.lang;
+  const locales = mergeLocales(appLocales, modalLocales);
+  
+  return ReactDom.render(<IntlProvider messages={locales[lang]} locale={lang} key={lang}><AggregatorModalContainer options={options} query={query} /></IntlProvider>, buttonLocation);
 }

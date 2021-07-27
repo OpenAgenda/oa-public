@@ -1,150 +1,32 @@
 {
-  "aggregator-description": [
+  "aggregate-button": [
     {
       "type": 0,
-      "value": "Events published by "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": " will be automatically added to the selected calendar."
+      "value": "Aggregate"
     }
   ],
-  "aggregator-success": [
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": " was successfully added as a source! "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": "'s events are being aggregated."
-    }
-  ],
-  "aggregator-title": [
-    {
-      "type": 0,
-      "value": "Aggregate to an agenda"
-    }
-  ],
-  "all-languages": [
-    {
-      "type": 0,
-      "value": "All"
-    }
-  ],
-  "cancel": [
-    {
-      "type": 0,
-      "value": "Cancel"
-    }
-  ],
-  "close": [
-    {
-      "type": 0,
-      "value": "Close"
-    }
-  ],
-  "create-agenda": [
-    {
-      "type": 0,
-      "value": "Create an agenda"
-    }
-  ],
-  "input-format": [
-    {
-      "type": 0,
-      "value": "Choose a format"
-    }
-  ],
-  "input-language": [
-    {
-      "type": 0,
-      "value": "Choose a language"
-    }
-  ],
-  "instructions": [
-    {
-      "type": 0,
-      "value": "Instructions"
-    }
-  ],
-  "instructionsStep1": [
-    {
-      "type": 0,
-      "value": "Copy the link in the field above"
-    }
-  ],
-  "instructionsStep2": [
-    {
-      "type": 0,
-      "value": "Open"
-    }
-  ],
-  "instructionsStep3": [
-    {
-      "type": 0,
-      "value": "In the left section, open \"Other Calendars > Add by URL\""
-    }
-  ],
-  "instructionsStep4": [
-    {
-      "type": 0,
-      "value": "Follow the instructions by pasting the link you copied in step 1"
-    }
-  ],
-  "modal-title": [
+  "export-all-button": [
     {
       "type": 0,
       "value": "Export"
     }
   ],
-  "no-agenda": [
+  "export-select-button": [
     {
       "type": 0,
-      "value": "Warning: No agenda is administered by your account. Please create one first if you wish to aggregate "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": "'s events."
+      "value": "Export the selection"
     }
   ],
-  "no-result": [
+  "more-button": [
     {
       "type": 0,
-      "value": "No results"
+      "value": "more"
     }
   ],
-  "official-agenda": [
+  "share-button": [
     {
       "type": 0,
-      "value": "Official agenda"
-    }
-  ],
-  "private-agenda": [
-    {
-      "type": 0,
-      "value": "Private agenda"
-    }
-  ],
-  "search-agenda": [
-    {
-      "type": 0,
-      "value": "Search"
+      "value": "Share on OpenAgenda"
     }
   ]
 }

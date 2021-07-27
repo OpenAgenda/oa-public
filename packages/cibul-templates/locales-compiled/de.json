@@ -1,150 +1,32 @@
 {
-  "aggregator-description": [
+  "aggregate-button": [
     {
       "type": 0,
-      "value": "Events published by "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": " will be automatically added to the selected calendar."
+      "value": "Aggregate"
     }
   ],
-  "aggregator-success": [
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
+  "export-all-button": [
     {
       "type": 0,
-      "value": " was successfully added as a source! "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": "'s events are being aggregated."
+      "value": "Export"
     }
   ],
-  "aggregator-title": [
+  "export-select-button": [
     {
       "type": 0,
-      "value": "Aggregate to an agenda"
+      "value": "Export the selection"
     }
   ],
-  "all-languages": [
+  "more-button": [
     {
       "type": 0,
-      "value": "Alle"
+      "value": "more"
     }
   ],
-  "cancel": [
+  "share-button": [
     {
       "type": 0,
-      "value": "Cancel"
-    }
-  ],
-  "close": [
-    {
-      "type": 0,
-      "value": "Schließen"
-    }
-  ],
-  "create-agenda": [
-    {
-      "type": 0,
-      "value": "Create an agenda"
-    }
-  ],
-  "input-format": [
-    {
-      "type": 0,
-      "value": "Eine Format auswählen"
-    }
-  ],
-  "input-language": [
-    {
-      "type": 0,
-      "value": "Eine Sprache auswählen"
-    }
-  ],
-  "instructions": [
-    {
-      "type": 0,
-      "value": "Anweisungen"
-    }
-  ],
-  "instructionsStep1": [
-    {
-      "type": 0,
-      "value": "Kopieren Sie den obigen Link"
-    }
-  ],
-  "instructionsStep2": [
-    {
-      "type": 0,
-      "value": "Öffnen Sie "
-    }
-  ],
-  "instructionsStep3": [
-    {
-      "type": 0,
-      "value": "Öffnen Sie im linken Bereich, \"Weitere Kalender > Per URL\""
-    }
-  ],
-  "instructionsStep4": [
-    {
-      "type": 0,
-      "value": "Einfügen Sie den Link den Sie in Schritt 1 kopiert haben und folgen Sie den Anweisungen"
-    }
-  ],
-  "modal-title": [
-    {
-      "type": 0,
-      "value": "Exportieren"
-    }
-  ],
-  "no-agenda": [
-    {
-      "type": 0,
-      "value": "Warning: No agenda is administered by your account. Please create one first if you wish to aggregate "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": "'s events."
-    }
-  ],
-  "no-result": [
-    {
-      "type": 0,
-      "value": "No results"
-    }
-  ],
-  "official-agenda": [
-    {
-      "type": 0,
-      "value": "Official agenda"
-    }
-  ],
-  "private-agenda": [
-    {
-      "type": 0,
-      "value": "Private agenda"
-    }
-  ],
-  "search-agenda": [
-    {
-      "type": 0,
-      "value": "Search"
+      "value": "Share on OpenAgenda"
     }
   ]
 }
