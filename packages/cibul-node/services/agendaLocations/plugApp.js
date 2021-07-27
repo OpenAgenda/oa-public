@@ -40,6 +40,6 @@ module.exports = (config, services, instance, app, base) => {
 
   app.use((err, req, res, next) => {
     res.status(500).json();
-    log('error', err);
+    log('error',  err?.meta?.body?.error ?? err);
   });
 }
