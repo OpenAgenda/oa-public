@@ -3774,17 +3774,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/bs-templates@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "@openagenda/bs-templates@npm:2.5.0"
-  dependencies:
-    font-awesome: 4.7.0
-    react-datepicker: ^1.6.0
-    react-day-picker: ^7.3.0
-  checksum: 21415ca829b04cafe586f63ba888d61317abc913460e237a21a5985b56922381f7818c1127c4b8c1c85d6e2495b8664377b738e8f87d26ed8c2fee03ec7b4f3c
-  languageName: node
-  linkType: hard
-
 "@openagenda/cz-conventional-changelog@npm:^3.2.1":
   version: 3.2.1
   resolution: "@openagenda/cz-conventional-changelog@npm:3.2.1"
@@ -3930,7 +3919,6 @@ __metadata:
     "@emotion/react": ^11.1.5
     "@formatjs/cli": ^2.11.3
     "@openagenda/babel-preset": ^1.4.1
-    "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/react-shared": ^2.1.1
     "@raruto/leaflet-gesture-handling": ^1.3.4
@@ -12969,13 +12957,6 @@ __metadata:
   version: 1.13.0
   resolution: "follow-redirects@npm:1.13.0"
   checksum: 684165a78370ae21ccb9495d1e99eb3bd9a63a51f8686f3b5117d92e28435a283b39e07014bc959287314979ecd496027e4baca8854f757439b7ac0b185e5f2d
-  languageName: node
-  linkType: hard
-
-"font-awesome@npm:4.7.0":
-  version: 4.7.0
-  resolution: "font-awesome@npm:4.7.0"
-  checksum: fa223f6e3b27e97d2d09cdbf0c1363e2ad18d2a685fc045f54e86394db59f7c113482a819de3b6489f42a630a8ec5911b8e65718e45f7cace1c0a1b05d7fce08
   languageName: node
   linkType: hard
 

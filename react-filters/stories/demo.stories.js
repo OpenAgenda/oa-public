@@ -6,7 +6,7 @@ import {
   MultiChoiceFilter,
 } from '../src';
 
-require('@openagenda/bs-templates/compiled/main.css');
+require('./scss/main.scss');
 
 const lang = 'fr';
 
@@ -54,6 +54,7 @@ export const CompleteExample = ({ onSubmit }) => (
         dateRangeComponent={DateRangeFilter}
         checkboxComponent={MultiChoiceFilter}
         radioComponent={MultiChoiceFilter}
+        getOptions={filter => filter.options}
       />
     </div>
   </FiltersProvider>
@@ -66,7 +67,7 @@ export const FilterByFilter = ({ onSubmit }) => (
       <DateRangeFilter name="timings" />
       <DateRangeFilter name="createdAt" />
       <DateRangeFilter name="updatedAt" />
-      <MultiChoiceFilter name="state" options={filters[3].options} />
+      <MultiChoiceFilter name="state" getOptions={() => filters[3].options} />
     </div>
   </FiltersProvider>
 );
