@@ -32,21 +32,27 @@ module.exports = app => {
 
   app.get(
     '/:slug/events/:eventSlug/action',
+    (req, res, next) => {
+      return res.redirect(`/${req.params.slug}/events/${req.params.eventSlug}?displayShareModal=1`);
+    },
     cmn.https,
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
-      .then(event => {
+    (req, res, next) =>
+      eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] }).then(event => {
         const uid = event?.uid;
         if (!uid) {
           return next({ code: 404 });
         }
-        return req.app.services.core.agendas(req.agenda.uid).events.get(uid, { detailed: true })
+        return req.app.services.core
+          .agendas(req.agenda.uid)
+          .events.get(uid, { detailed: true })
           .then(event => {
             if (!event) return next({ code: 404 });
             req.event = event;
             next();
-          }).catch(next)
+          })
+          .catch(next);
       }),
     cmn.loadBaseData('oa.css'),
     actionShow
