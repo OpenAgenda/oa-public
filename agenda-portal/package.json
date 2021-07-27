@@ -43,7 +43,7 @@
     "@formatjs/intl": "^1.6.7",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/react-filters": "^1.2.0",
+    "@openagenda/react-filters": "^1.3.0",
     "@openagenda/react-shared": "^2.1.1",
     "@stefanoruth/react-portal-ssr": "^2.0.3",
     "axios": "^0.21.1",
