@@ -27,11 +27,15 @@ function normalizeValue(value) {
   }));
 }
 
-const rangeColors = ['#41acdd'];
-
 function DateRangePicker(
   {
-    input, meta, staticRanges = [], inputRanges = [], disabled, ...otherProps
+    input,
+    meta,
+    staticRanges = [],
+    inputRanges = [],
+    rangeColor = '#41acdd',
+    disabled,
+    ...otherProps
   },
   ref
 ) {
@@ -141,7 +145,7 @@ function DateRangePicker(
     inputRanges,
     focusedRange,
     onRangeFocusChange: setFocusedRange,
-    rangeColors,
+    rangeColors: [rangeColor],
     ...otherProps,
   };
 
