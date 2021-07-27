@@ -37,7 +37,5 @@ module.exports = ({ offset, limit, total }) => {
     });
   }
 
-  console.log(pages);
-
   return pages;
 };
