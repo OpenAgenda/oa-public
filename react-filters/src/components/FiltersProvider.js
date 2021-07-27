@@ -1,6 +1,6 @@
 import React, { useCallback, useImperativeHandle } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import { createForm } from 'final-form';
 import { IntlProvider, RawIntlProvider } from 'react-intl';
 import messages from '../locales-compiled';

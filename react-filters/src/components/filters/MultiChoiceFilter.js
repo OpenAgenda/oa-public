@@ -7,7 +7,7 @@ import Fuse from 'fuse.js';
 import { useIsomorphicLayoutEffect, usePrevious } from 'react-use';
 import { defineMessages, useIntl } from 'react-intl';
 import { css } from '@emotion/react';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import ChoiceField from '../fields/ChoiceField';
 import Panel from '../Panel';

@@ -1,7 +1,7 @@
 import { useUIDSeed } from 'react-uid';
 import React, { useMemo } from 'react';
 import cn from 'classnames';
-import { getLocaleValue } from '@openagenda/react-shared';
+import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 
 export default function ChoiceField({
   input,

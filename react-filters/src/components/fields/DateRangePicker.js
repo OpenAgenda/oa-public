@@ -5,7 +5,7 @@ import * as rdrLocales from 'react-date-range/dist/locale';
 import { useIntl } from 'react-intl';
 import { useIsomorphicLayoutEffect, useLatest, usePrevious } from 'react-use';
 import cn from 'classnames';
-import { useConstant } from '@openagenda/react-shared';
+import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 
 const defaultGetInitialValue = () => [
   {
