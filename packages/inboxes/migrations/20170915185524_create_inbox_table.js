@@ -1,9 +1,13 @@
 'use strict';
 
-exports.up = knex => {
+exports.up = async knex => {
   const { schemas } = knex.client.config;
 
-  return knex.schema.createTableIfNotExists(schemas.inbox, table => {
+  if (await knex.schema.hasTable(schemas.inbox)) {
+    return;
+  }
+
+  return knex.schema.createTable(schemas.inbox, table => {
     table.charset('utf8');
     table.collate('utf8_general_ci');
 
