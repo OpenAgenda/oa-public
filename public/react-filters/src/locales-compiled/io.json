@@ -192,6 +192,12 @@
       "value": "crwdns868:0crwdne868:0"
     }
   ],
+  "ReactFilters.filters.searchFilter.placeholder": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
   "ReactFilters.messages.filterTitles.addMethod": [
     {
       "type": 0,

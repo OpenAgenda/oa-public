@@ -4,8 +4,9 @@ import { useUIDSeed } from 'react-uid';
 import { useIntl, defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  search: {
-    id: 'ReactFilters.filters.searchFilters'
+  placeholder: {
+    id: 'ReactFilters.filters.searchFilter.placeholder',
+    defaultMessage: 'Search'
   }
 });
 
@@ -54,7 +55,7 @@ const SearchFilter = React.forwardRef(function SearchFilter({
         type="text"
         filter={filter}
         disabled={disabled}
-        placeholder={placeholder || intl.formatMessage(messages.search)}
+        placeholder={placeholder || intl.formatMessage(messages.placeholder)}
       />
     </>
   );

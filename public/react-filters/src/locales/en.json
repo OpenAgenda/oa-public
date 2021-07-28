@@ -17,6 +17,7 @@
   "ReactFilters.dateRanges.thisWeekend": "This week-end",
   "ReactFilters.dateRanges.today": "Today",
   "ReactFilters.dateRanges.tomorrow": "Tomorrow",
+  "ReactFilters.filters.searchFilter.placeholder": "Search",
   "ReactFilters.messages.filterTitles.addMethod": "Provenance",
   "ReactFilters.messages.filterTitles.attendanceMode": "Attendance mode",
   "ReactFilters.messages.filterTitles.city": "City",
