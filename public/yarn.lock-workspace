@@ -3673,7 +3673,8 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-filters": ^1.4.0
+    "@openagenda/polyfills": ^1.2.4
+    "@openagenda/react-filters": ^1.4.1
     "@openagenda/react-shared": ^2.2.0
     "@stefanoruth/react-portal-ssr": ^2.0.3
     axios: ^0.21.1
@@ -3877,7 +3878,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/polyfills@workspace:polyfills":
+"@openagenda/polyfills@^1.2.4, @openagenda/polyfills@workspace:polyfills":
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:polyfills"
   dependencies:
@@ -3910,7 +3911,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-filters@^1.4.0, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@^1.4.1, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
