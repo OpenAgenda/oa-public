@@ -47,5 +47,11 @@ module.exports = async (core, agenda, options = {}) => {
     }).then(({ aggregations }) => aggregations.states);
   }
 
+  summary.viewport = await search(
+    ['administrator', 'moderator', 'internal'].includes(access) ? { state: null } : {},
+    { size: 0 },
+    { aggregations: 'viewport' }
+  ).then(({ aggregations }) => aggregations.viewport);
+
   return summary;
 };

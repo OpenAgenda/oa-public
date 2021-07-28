@@ -37,7 +37,7 @@
     "@openagenda/members": "^1.15.13",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.1.1",
+    "@openagenda/react-shared": "^2.2.0",
     "@openagenda/validators": "^2.4.0",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",
