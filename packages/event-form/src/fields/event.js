@@ -174,7 +174,8 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
     value: 2
   },
   disableChange: false,
-  tiles
+  tiles,
+  related: ['attendanceMode']
 }, {
   display: false,
   field: 'onlineAccessLink',

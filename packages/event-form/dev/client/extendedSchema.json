@@ -1,5 +1,16 @@
 {
   "fields": [{
+    "field": "attendanceMode",
+    "fieldType": "abstract",
+    "display": true
+  }, {
+    "field": "location",
+    "fieldType": "abstract"
+  }, {
+    "field": "onlineAccessLink",
+    "fieldType": "abstract",
+    "display": true
+  }, {
     "field" : "timings",
     "fieldType" : "abstract"
   }]

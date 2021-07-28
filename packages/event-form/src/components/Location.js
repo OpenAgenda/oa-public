@@ -96,8 +96,11 @@ class LocationComponent extends Component {
   renderSelector() {
     const {
       lang,
-      value
+      value,
+      relatedValues
     } = this.props;
+
+    const allowRemove = relatedValues?.[0].attendanceMode === 2;
 
     const {
       default: defaultValue,
@@ -105,7 +108,7 @@ class LocationComponent extends Component {
       detailedInfo,
       disableChange,
       allowCreate,
-      confirmRequired
+      confirmRequired,
     } = this.props.field;
 
     return <Provider lang={lang}>
@@ -119,6 +122,8 @@ class LocationComponent extends Component {
         classNames={{
           input: ''
         }}
+        allowRemove={allowRemove}
+        onRemove={() => this.onChange('search', null)}
         location={_.assign({}, defaultValue || {}, value)}
         lang={lang}
         settings={this.getSettings()}
