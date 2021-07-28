@@ -184,9 +184,8 @@ describe('agenda-locations - functional - create', () => {
   });
 
   describe('with image', () => {
-    let created;
-
-    beforeAll(async () => {
+    it('image filename is referenced in db entry', async () => {
+      let created;
       try {
         created = await svc(7196947).create({
           ...payload,
@@ -195,11 +194,32 @@ describe('agenda-locations - functional - create', () => {
           ),
         });
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
+
+      const entry = await f
+        .client('location')
+        .first('store')
+        .where('uid', created.uid);
+
+      expect(JSON.parse(entry.store).image).toBe(`location${created.uid}.jpg`);
     });
 
-    it('image filename is referenced in db entry', async () => {
+    it('fix: image full path is not inserted in db', async () => {
+      let created;
+      try {
+        created = await svc(7196947).create({
+          ...payload,
+          image: fs.createReadStream(
+            `${__dirname}/fixtures/images/vieilles_pierres.jpg`
+          ),
+        }, {
+          includeImagePath: true
+        });
+      } catch (e) {
+        // console.log(e);
+      }
+
       const entry = await f
         .client('location')
         .first('store')
