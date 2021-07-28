@@ -57,7 +57,7 @@ module.exports = withAggregations => (req, res, next) => {
 
       req.data = _.assign(req.data || {}, {
         query: req.query,
-        searchString: qs.stringify(req.query),
+        searchString: qs.stringify(req.query, { addQueryPrefix: true }),
         total,
         events: events.map((e, index) => transform(e, req, res, {
           total,
