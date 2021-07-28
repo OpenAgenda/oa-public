@@ -29,7 +29,7 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
   try {
     await agendaSearch.set(agenda);
   } catch (e) {
-    log('error', 'could not update search index for agenda %s', agenda.uid, e);
+    log('error', 'could not update search index for agenda %s', agenda.uid, e?.meta?.body?.error ?? e);
   }
 
   if (options.updateLegacy) {

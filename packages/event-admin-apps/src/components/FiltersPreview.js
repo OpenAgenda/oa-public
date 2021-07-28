@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import {
+  getEvents,
   Filters,
   DateRangeFilter,
   MultiChoiceFilter,
@@ -10,7 +11,6 @@ import {
   ValueBadge,
   useFilterTitle,
 } from '@openagenda/react-filters';
-import getEvents from '../api/getEvents';
 import useFilterOptions from '../hooks/useFilterOptions';
 
 function BadgePreview({

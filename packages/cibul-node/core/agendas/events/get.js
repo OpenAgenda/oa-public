@@ -1,13 +1,12 @@
 'use strict';
 
 const _ = require('lodash');
-const ih = require('immutability-helper');
 
 const log = require('@openagenda/logs')('core/agendas/events/get');
 
-const getMergedSchema = require('../settings/getMergedSchema');
 const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+const convertLongDescription = require('./lib/convertLongDescription');
 
 module.exports = async (services, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
@@ -25,7 +24,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     returnPayload,
     detailed,
     useDateHoursMinutesFormat,
-    useLocationObjectFormat
+    useLocationObjectFormat,
+    longDescriptionFormat
   } = {
     lang: null,
     load: {
@@ -39,6 +39,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     detailed: false,
     useDateHoursMinutesFormat: false,
     useLocationObjectFormat: false,
+    longDescriptionFormat: null,
     ...options
   };
 
@@ -46,25 +47,33 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
 
   const payload = createPayload(services, agenda);
 
-  payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid, {
+  const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     decorate: ['member'].concat(detailed ? ['sourceAgendas'] : [])
-  }));
+  });
+
+  payload.setItem('agendaEvent', agendaEvent);
 
   if (load.event) {
-    payload.setItem('event', await events.get(eventUid, {
+    const event = await events.get(eventUid, {
       access: access === 'internal' ? 'internal' : 'public',
       detailed,
       lang,
       useFallbackLang: true,
       useDateHoursMinutesFormat,
       useLocationObjectFormat
-    }));
+    });
+
+    if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
+      event.longDescription = convertLongDescription(event, { services, conversion: longDescriptionFormat });
+    }
+
+    payload.setItem('event', event);
   }
 
   if (
-    payload.hasItem('event') &&
-    !payload.hasItem('agendaEvent') &&
-    !payload.getItem('event').draft
+    payload.hasItem('event')
+    && !payload.hasItem('agendaEvent')
+    && !payload.getItem('event').draft
   ) return null;
 
   if (!payload.hasItem('event') && load.event) {
@@ -88,4 +97,4 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   const result = await payload.getResponse('event', { access, load });
 
   return returnPayload ? result : result.event;
-}
+};

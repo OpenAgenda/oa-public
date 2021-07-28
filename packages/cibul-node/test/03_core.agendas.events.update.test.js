@@ -103,6 +103,10 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(event.state).toBe(0);
       });
 
+      it('canEdit is in response', () => {
+        expect(event.canEdit).toBeTruthy();
+      });
+
       it('provides the location in a location key', async () => {
         expect(event.location.name).toBe('La boutique');
       });

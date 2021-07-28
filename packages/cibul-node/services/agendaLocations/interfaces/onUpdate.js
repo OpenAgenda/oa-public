@@ -2,9 +2,10 @@
 
 const _ = require('lodash');
 const { diff } = require('deep-diff');
-const log = require('@openagenda/logs')('agendaLocations/onUpdate');
+const log = require('@openagenda/logs')('services/agendaLocations/onUpdate');
 
 module.exports = queue => async (before, after) => {
+  log('location %s', before.uid);
   try {
     if (diff(
       _.omit(before, ['updatedAt']),
@@ -15,4 +16,4 @@ module.exports = queue => async (before, after) => {
   } catch (e) {
     log('error', 'failed to evaluate distance', e);
   }
-}
+};

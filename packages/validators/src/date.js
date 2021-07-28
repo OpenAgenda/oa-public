@@ -1,124 +1,70 @@
-import utils from '@openagenda/utils'
+import cleanParams from './lib/params';
+import errors from './lib/errors';
 
-const defaults = {
-  field: false, // optional, name of associated field
-  min: undefined, // optional - min allowed date
-  max: undefined, // optional - max allowed date
-  default: undefined, // if set, no input cleans to this
-  optional: true // do I have to spell this out for you?
-}
+export default config => {
+  const params = cleanParams('date', config, {
+    field: false,
+    min: undefined,
+    max: undefined,
+    default: undefined,
+    optional: true
+  });
 
-module.exports = config => {
+  return Object.assign(value => {
+    let clean;
+    const isUndefinedOrNull = [undefined, null].includes(value);
 
-  let params = utils.extend( {}, defaults, config || {} );
-
-  return utils.extend( validate, {
-    type: 'date',
-    field: params.field
-  } );
-
-  function validate( value ) {
-
-    let clean,
-
-    errorDefaults = {
-      origin: value
-    };
-
-    if ( validate.field ) {
-
-      errorDefaults.field = validate.field;
-
+    if (isUndefinedOrNull && params.default === 'now') {
+      return new Date();
     }
 
-    // if its a string, attempt a conversion to date
-    if ( typeof value === 'string' ) {
+    if (isUndefinedOrNull && params.default === null) {
+      return null;
+    }
 
-      clean = new Date( value );
+    if (isUndefinedOrNull && params.default instanceof Date) {
+      return new Date(params.default.getTime());
+    }
 
-      if ( clean.toString() === 'Invalid Date' ) {
+    if (isUndefinedOrNull && !params.optional) {
+      throw errors(params, value, 'date.required', 'a date is required');
+    }
 
-        throw [ utils.extend( {
-          code: 'date.invalid',
-          message: 'not a date'
-        }, errorDefaults ) ];
+    if (isUndefinedOrNull) {
+      return value;
+    }
 
+    if (typeof value === 'string') {
+      clean = new Date(value);
+
+      if (clean.toString() === 'Invalid Date') {
+        throw errors(params, value, 'date.invalid', 'not a date');
       }
-
-    } else if ( typeof value === 'undefined' || value === null ) {
-
-      if ( !params.default && !params.optional ) {
-
-        throw [ utils.extend( {
-          code: 'date.required',
-          message: 'a date is required'
-        }, errorDefaults ) ];
-
-      }
-
-      if ( params.default === 'now' ) {
-
-        clean = new Date();
-
-      } else if ( params.default === null ) {
-
-        clean = null;
-
-      } else if ( params.default ) {
-
-        clean = new Date( params.default.getTime() );
-
-      } else if ( value === null ) {
-
-        clean = null;
-
-      }
-
+    } else if (value instanceof Date) {
+      clean = new Date(value.getTime());
     } else {
-
-      // if it not a string, it must be a date
-      if ( ! ( value instanceof Date ) ) {
-
-        throw [ utils.extend( {
-          code: 'date.invalid',
-          message: 'not a date',
-        }, errorDefaults ) ];
-
-      }
-
-      clean = new Date( value.getTime() );
-
+      throw errors(params, value, 'date.invalid', 'not a date');
     }
 
-
-    // if is bounded, test bounds
-
-    if ( clean && params.min && clean < params.min ) {
-
-      throw [ utils.extend( {
-        code: 'date.toosmall',
-        message: 'date is too small',
+    if (params.min && clean < params.min) {
+      throw errors(params, value, 'date.toosmall', 'date is too small', {
         values: {
           min: params.min
         }
-      }, errorDefaults ) ];
-
+      });
     }
 
-    if ( clean && params.max && clean > params.max ) {
-
-      throw [ utils.extend( {
-        code: 'date.toobig',
-        message: 'date is too big',
+    if (params.max && clean > params.max) {
+      throw errors(params, value, 'date.toobig', 'date is too big', {
         values: {
           max: params.max
         }
-      }, errorDefaults ) ];
-
+      });
     }
 
     return clean;
-
-  }
-
-}
+  }, {
+    type: 'date',
+    field: params.field
+  });
+};

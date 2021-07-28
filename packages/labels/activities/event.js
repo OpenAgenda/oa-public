@@ -22,6 +22,10 @@ module.exports = {
     "it": "{user} ha inedito {event} su {agenda}.",
     "io": "crwdns11158:0{user}crwdnd11158:0{event}crwdnd11158:0{agenda}crwdne11158:0"
   },
+  "agenda.systemUnpublishEvent": {
+    "en": "{event} has been automatically unpublished on {agenda} for moderation",
+    "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle"
+  },
   "agenda.removeEvent": {
     "en": "{user} removed {event} from {agenda}.",
     "fr": "{user} a retiré {event} de {agenda}.",

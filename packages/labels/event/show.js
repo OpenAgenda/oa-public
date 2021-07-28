@@ -21,6 +21,18 @@ module.exports = {
     "br": "Ezporzhiañ",
     "io": "crwdns14428:0crwdne14428:0"
   },
+  "cannotShareInfo": {
+    "en": "This share is not available for private or unpublished events",
+    "fr": "Ce partage n'est pas disponible pour les événements privés ou non-publiés"
+  },
+  "copyInClipboard": {
+    "en": "Click to copy link to clipboard",
+    "fr": "Cliquer pour copier le lien dans le presse-papier"
+  },
+  "printPermalink": {
+    "en": "Online version",
+    "fr": "Version en ligne"
+  },
   "otherShares": {
     "en": "Other shares",
     "fr": "Autres partages",
@@ -247,10 +259,13 @@ module.exports = {
     "br": "Kadarnaat",
     "io": "crwdns14478:0crwdne14478:0"
   },
-  "cannotCancel": {
-    "en": "You do not have edition rights over this event.",
-    "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
-    "io": "crwdns14480:0crwdne14480:0"
+  "cannotChangeStatus": {
+    "en": "Cancel / Full / Postponed...",
+    "fr": "Annuler / Complet / Reporté...",
+  },
+  "cannotChangeStatusInfo": {
+    "en": "You do not have edition rights over this event",
+    "fr": "Vous n'avez pas les droits d'édition sur cet événement"
   },
   "cancel": {
     "en": "Cancel",

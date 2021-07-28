@@ -24,7 +24,7 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
     for (const agenda of agendas) {
       log('%s: queuing rebuild', agenda.slug);
       await rebuildQueue('agenda', agenda);
-      count++;
+      count += 1;
     }
 
     lastId = newLastId;
@@ -33,4 +33,4 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
   log('info', 'completed rebuild queueing for %s agendas', count);
 
   await rebuildQueue('transverse');
-}
+};

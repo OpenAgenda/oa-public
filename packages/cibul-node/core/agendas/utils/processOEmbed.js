@@ -14,4 +14,4 @@ module.exports = (oembed, text, current = []) => {
   ].join('\n'), ''), {
     current
   }).then(links => links.map(link => _.set(link, 'type', 'oembed')));
-}
+};

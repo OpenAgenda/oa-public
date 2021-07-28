@@ -12,7 +12,6 @@ module.exports = async (services, agendaUid) => {
 
   const {
     agendas,
-    formSchemas
   } = services;
 
   const agenda = await agendas.get({ uid: agendaUid }, {
@@ -40,4 +39,4 @@ module.exports = async (services, agendaUid) => {
   if (networkSchema) agenda.network.formSchema = networkSchema;
 
   return agenda;
-}
+};

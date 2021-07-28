@@ -3,10 +3,9 @@
 const _ = require('lodash');
 const VError = require('verror');
 
+const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
-
-const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 
 module.exports = async (core, payload, clean, options = {}) => {
   const agenda = payload.getAgenda();
@@ -63,7 +62,7 @@ module.exports = async (core, payload, clean, options = {}) => {
           sourceAgenda,
           userUid
         },
-        decorate: ['member']
+        decorate: ['member', 'sourceAgendas']
       });
 
       payload.setItem('agendaEvent', before, created);
@@ -147,4 +146,4 @@ module.exports = async (core, payload, clean, options = {}) => {
   await refreshAgenda(agenda.uid);
 
   return response;
-}
+};

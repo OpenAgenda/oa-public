@@ -59,10 +59,10 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/events/:eventSlug/action/dates',
+    '/:slug/events/:eventUid/action/dates',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+    (req, res, next) => eventsSvc.get({ uid: req.params.eventUid }, { includeFields: ['uid'] })
       .then(event => req.app.services.core.agendas(req.agenda.uid)
         .events
         .get(event?.uid, { detailed: true })
@@ -81,10 +81,10 @@ module.exports = app => {
   );
 
   app.post(
-    '/:slug/events/:eventSlug/email',
+    '/:slug/events/:eventUid/email',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+    (req, res, next) => eventsSvc.get({ uid: req.params.eventUid }, { includeFields: ['uid'] })
       .then(event => req.app.services.core.agendas(req.agenda.uid)
         .events
         .get(event?.uid, { detailed: true })
@@ -243,7 +243,7 @@ function actionDatesShow(req, res, next) {
     }));
   }
 
-  return cmn.render(req, res, 'event/actionDates', {
+  return res.send({
     event: {
       url: `/${req.agenda.slug}/events/${req.event.slug}`,
       timezone: req.event.timezone,
@@ -251,9 +251,9 @@ function actionDatesShow(req, res, next) {
       timings: req.event.timings.map(timing => ({
         date: timing.date,
         begin: timing.begin,
-        link: timing.calendarLinks[service]
-      }))
-    }
+        link: timing.calendarLinks[service],
+      })),
+    },
   });
 }
 
@@ -371,9 +371,8 @@ async function eventMailSend(req, res, next) {
 
     gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
 
-    sessions.setFlash(req, res, getActionLabel('eventEmailSend', { count: emails.length }, req.lang));
-
-    res.redirect(302, `${config.root}/${req.agenda.slug}/events/${req.event.slug}`);
+    res.send({ count: emails.length });
+    
     log('ICI ', {
       name: req.event.location.name,
       lat: req.event.location.latitude,

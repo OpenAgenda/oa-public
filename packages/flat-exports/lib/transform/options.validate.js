@@ -1,13 +1,16 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
+const textValidator = require('@openagenda/validators/text');
+const passValidator = require('@openagenda/validators/pass');
 
-module.exports = schema( {
+schema.register({
+  text: textValidator,
+  pass: passValidator
+});
+
+module.exports = schema({
   languages: {
     type: 'text',
     max: 2,
@@ -22,5 +25,9 @@ module.exports = schema( {
   },
   labels: {
     type: 'pass'
+  },
+  separator: {
+    type: 'text',
+    default: ' | '
   }
-} );
+});

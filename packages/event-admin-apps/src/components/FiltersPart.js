@@ -1,26 +1,18 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
+import { css } from '@emotion/react';
 import {
+  getEvents,
   DateRangeFilter,
   Filters,
   MultiChoiceFilter,
   MapFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
-import getEvents from '../api/getEvents';
 import useFilterOptions from '../hooks/useFilterOptions';
 
 // TODO apiKey from config
-
-const MapFilterComponent = React.forwardRef((props, ref) => (
-  <MapFilter
-    ref={ref}
-    tileAttribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-    tileUrl="https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750"
-    {...props}
-  />
-));
 
 function FiltersPart({
   agenda, filters, query, page, loadGeoData
@@ -84,34 +76,40 @@ function FiltersPart({
   );
 
   const getOptions = useFilterOptions(filterAggs);
-  const getAggregation = useCallback(
-    filter => aggregations[filter.name] || [],
-    [aggregations]
-  );
-  const getViewport = useCallback(() => aggregations.viewport, [aggregations]);
+  const [initialViewport] = useState(() => aggregations.viewport);
 
   const mapProps = useMemo(
     () => ({
       query,
+      tileAttribution:
+        '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+      tileUrl:
+        'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
     }),
     [query]
   );
 
   return (
     <>
-      <div className="oa-collapse">
+      <div
+        className="oa-collapse"
+        css={css`
+          .leaflet-container {
+            height: 300px;
+          }
+        `}
+      >
         <Filters
           filters={filters}
           disabled={isFetching || filtersQuery.isFetching}
-          dateRangeComponent={DateRangeFilter}
-          checkboxComponent={MultiChoiceFilter}
-          radioComponent={MultiChoiceFilter}
-          mapComponent={MapFilterComponent}
+          dateRangeComponent={DateRangeFilter.Collapsable}
+          checkboxComponent={MultiChoiceFilter.Collapsable}
+          radioComponent={MultiChoiceFilter.Collapsable}
+          mapComponent={MapFilter}
           mapProps={mapProps}
           getTotal={getTotal}
           getOptions={getOptions}
-          getAggregation={getAggregation}
-          getViewport={getViewport}
+          initialViewport={initialViewport}
           loadGeoData={loadGeoData}
           withRef
         />

@@ -1,100 +1,98 @@
 'use strict';
 
 module.exports = {
-
-  adminTabs: [ {
-    section : 'manage',
-    key : 'events',
-    label : 'Events',
+  adminTabs: [{
+    section: 'manage',
+    key: 'events',
+    label: 'Events',
     access: 'moderator',
-    uri : 'agendaAdminShow'
+    uri: 'agendaAdminShow'
   }, {
-    section : 'manage',
-    key : 'members',
-    label : 'Members',
-    uri : 'agendaAdminMembers',
+    section: 'manage',
+    key: 'members',
+    label: 'Members',
+    uri: 'agendaAdminMembers',
     access: 'moderator'
   }, {
-    section : 'manage',
-    key : 'locations',
-    label : 'Locations',
-    uri : 'agendaAdminLocations',
+    section: 'manage',
+    key: 'locations',
+    label: 'Locations',
+    uri: 'agendaAdminLocations',
     access: 'moderator'
   }, {
-    section : 'manage',
-    key : 'sources',
-    label : 'Sources',
-    res : '/:slug/admin/sources',
+    section: 'manage',
+    key: 'sources',
+    label: 'Sources',
+    res: '/:slug/admin/sources',
     access: 'administrator',
     requiredCred: 'aggregator',
     call: {
       subject: 'aggregator'
     }
   }, {
-    section : 'manage',
-    key : 'inbox',
-    label : 'Inbox',
-    uri : 'agendaAdminInbox',
+    section: 'manage',
+    key: 'inbox',
+    label: 'Inbox',
+    uri: 'agendaAdminInbox',
     access: 'moderator'
   }, {
-    section : 'manage',
-    key : 'activities',
-    label : 'Activities',
-    uri : 'agendaAdminActivityApps',
+    section: 'manage',
+    key: 'activities',
+    label: 'Activities',
+    uri: 'agendaAdminActivityApps',
     access: 'moderator'
   }, {
-    section : 'export',
-    key : 'facebook',
+    section: 'export',
+    key: 'facebook',
     label: 'Facebook',
     access: 'administrator',
     uri: 'facebookShow'
   }, {
-    section : 'export',
-    key : 'web',
-    label : 'Web Integration',
+    section: 'export',
+    key: 'web',
+    label: 'Web Integration',
     access: 'administrator',
-    uri : 'agendaAdminWeb'
+    uri: 'agendaAdminWeb'
   }, {
-    section : 'export',
-    key : 'indesign',
-    label : 'Indesign - Xml',
-    uri : 'agendaAdminIndesign',
+    section: 'export',
+    key: 'indesign',
+    label: 'Indesign - Xml',
+    uri: 'agendaAdminIndesign',
     access: 'administrator',
     requiredCred: 'indesign'
   }, {
-    section : 'export',
+    section: 'export',
     key: 'emailstrategie',
     label: 'EmailStrategie',
     uri: 'agendaAdminEmailStrategie',
     access: 'administrator',
     requiredCred: 'emailstrategie'
   }, {
-    section : 'settings',
-    key : 'settings_profile',
-    label : 'Profile',
+    section: 'settings',
+    key: 'settings_profile',
+    label: 'Profile',
     access: 'administrator',
-    uri : 'agendaSettingsEditApp',
-    suffix : '/profile'
+    uri: 'agendaSettingsEditApp',
+    suffix: '/profile'
   }, {
-    section : 'settings',
-    key : 'settings_contribution',
-    label : 'Contribution',
+    section: 'settings',
+    key: 'settings_contribution',
+    label: 'Contribution',
     access: 'administrator',
-    uri : 'agendaSettingsEditApp',
-    suffix : '/contribution'
+    uri: 'agendaSettingsEditApp',
+    suffix: '/contribution'
   }, {
-    section : 'settings',
-    key : 'customized',
-    label : 'Customized',
+    section: 'settings',
+    key: 'customized',
+    label: 'Customized',
     access: 'administrator',
-    uri : 'customizedShow'
+    uri: 'customizedShow'
   }, {
-    section : 'settings',
+    section: 'settings',
     key: 'settings_advanced',
-    label : 'Advanced',
-    access : 'administrator',
-    uri : 'agendaSettingsEditApp',
-    suffix : '/advanced'
-  } ]
-
-}
+    label: 'Advanced',
+    access: 'administrator',
+    uri: 'agendaSettingsEditApp',
+    suffix: '/advanced'
+  }]
+};

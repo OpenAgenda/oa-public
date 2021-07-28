@@ -14,9 +14,9 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationItem.remove',
     defaultMessage: 'Delete',
   },
-  defineMergeTarget: {
-    id: 'AgendaLocations.LocationItem.defineMergeTarget',
-    defaultMessage: 'Define as merge target',
+  select: {
+    id: 'AgendaLocations.LocationItem.select',
+    defaultMessage: 'Select',
   },
   refLocationMerge: {
     id: 'AgendaLocations.LocationItem.refLocationMerge',
@@ -42,6 +42,14 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationItem.seeEvents',
     defaultMessage: '{count, plural, =0 {nothing} one {1 associated event} other {# associated events}}',
   },
+  verifyDuplicates: {
+    id: 'AgendaLocations.LocationItem.verifyDuplicates',
+    defaultMessage: '{count, plural, =0 {nothing} one {1 duplicate to verify} other {# duplicates to verify}}',
+  },
+  verifyAndMerge: {
+    id: 'AgendaLocations.LocationItem.verifyAndMerge',
+    defaultMessage: 'Verify and Merge',
+  },
 });
 
 class LocationItem extends Component {
@@ -54,8 +62,10 @@ class LocationItem extends Component {
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     seeEventsRes: PropTypes.string,
-    toggleMergeTarget :PropTypes.func,
-    seeRef : PropTypes.func
+    //toggleMergeTarget: PropTypes.func,
+    goToMergeStep3: PropTypes.func,
+    goToMergeStep1FromDuplicates: PropTypes.func,
+    seeRef: PropTypes.func
   };
 
   constructor(props) {
@@ -63,7 +73,8 @@ class LocationItem extends Component {
     // Binding
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
-    this.toggleMergeTarget = this.toggleMergeTarget.bind(this);
+    this.selectMergeTarget = this.selectMergeTarget.bind(this);
+    this.goToMergeStep1FromDP = this.goToMergeStep1FromDP.bind(this);
   }
 
   onRemove(e) {
@@ -85,17 +96,32 @@ class LocationItem extends Component {
     );
   }
 
-  isMergeTarget() {
+  isMergeEntry() {
     const { merge, location } = this.props;
+    if (!merge) return false;
     return (
-      merge.targetUid === location.uid
+      merge?.entryPoint === location.uid
     );
   }
 
-  toggleMergeTarget(e) {
+  isMergeTarget() {
+    const { merge, location } = this.props;
+    if (!merge) return false;
+    return (
+      merge?.target?.uid === location.uid
+    );
+  }
+
+  selectMergeTarget(e) {
     e.stopPropagation();
-    const { toggleMergeTarget } = this.props;
-    toggleMergeTarget();
+    const { goToMergeStep3 } = this.props;
+    goToMergeStep3();
+  }
+
+  goToMergeStep1FromDP(e) {
+    e.stopPropagation();
+    const { goToMergeStep1FromDuplicates } = this.props;
+    goToMergeStep1FromDuplicates();
   }
 
   seeEvents(e) {
@@ -151,32 +177,17 @@ class LocationItem extends Component {
         <FormattedMessage {...messages.remove} />
       </button>
     );
-    const toggleMergeTargetButton = (
+    const selectMergeTargetButton = (
       <button
         type="button"
-        className="btn btn-link action"
-        onClick={this.toggleMergeTarget}
+        className="btn btn-primary"
+        onClick={this.selectMergeTarget}
       >
-        <FormattedMessage {...messages.defineMergeTarget} />
+        <FormattedMessage {...messages.select} />
       </button>
     );
 
-    const mergeTarget = (
-      <span>
-        <strong><FormattedMessage {...messages.refLocationMerge} /></strong>
-        <button
-          type="button"
-          className="btn btn-link text-danger action"
-          onClick={this.toggleMergeTarget}
-        >
-          <FormattedMessage {...messages.unselect} />
-        </button>
-      </span>
-    );
-
-    if (merge) {
-      className.push('merge');
-    }
+    if (merge && this.isMergeEntry()) className.push('merge-entry');
     className.push('padding-v-sm');
 
     return (
@@ -185,7 +196,7 @@ class LocationItem extends Component {
         key={location.uid}
         onClick={onSelect.bind(this)}
       >
-        <div className="col col-xs-10 col-md-11 item-body">
+        <div className="col col-xs-10 col-md-auto item-body">
           <div className="title">{location.name}</div>
           <div>{location.address}</div>
           <div className="text-muted">
@@ -214,7 +225,7 @@ class LocationItem extends Component {
                 className="action btn btn-link"
                 onClick={this.seeEvents}
               >
-                <FormattedMessage values={{ count: location.agendaEventCount}} {...messages.seeEvents} />
+                <FormattedMessage values={{ count: location.agendaEventCount }} {...messages.seeEvents} />
               </button>
             ) : (
               <span className="action text-muted">
@@ -230,11 +241,26 @@ class LocationItem extends Component {
             </button>
             {!merge ? editButton : null}
             {!merge ? removeButton : null}
-            {merge && this.isMergeTarget() ? mergeTarget : null}
-            {merge && !this.isMergeTarget() ? toggleMergeTargetButton : null}
           </div>
+          {location.duplicateCandidates && location.duplicateCandidates.length > 0 ? (
+            <div>
+              <span className="badge badge-warning">
+                <FormattedMessage values={{ count: location.duplicateCandidates.length }} {...messages.verifyDuplicates} />
+              </span>
+              {!merge ? (
+                <button
+                  type="button"
+                  className="btn btn-link  action"
+                  onClick={this.goToMergeStep1FromDP}
+                >
+                  <FormattedMessage {...messages.verifyAndMerge} />
+                </button>
+              ) : null}
+            </div>
+          ) : null}
         </div>
-        <div className="col col-xs-2 col-md-1 text-center">{merge ? this.renderMergeCheckbox() : null}</div>
+        {merge?.step === 1 ? <div className="col col-xs-2 col-md-1 text-center"> {this.renderMergeCheckbox()} </div> : null}
+        {merge?.step === 2 && !this.isMergeTarget() ? <div className="col col-xs-2 col-md-2 padding-v-md text-center"> {selectMergeTargetButton} </div> : null}
       </div>
     );
   }

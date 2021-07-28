@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const _ = require('lodash');
 const axios = require('axios');
 const FormData = require('form-data');
 
@@ -42,6 +43,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(93399464).events.search.rebuild();
+    await core.agendas(48353388).events.search.rebuild();
+
+    core.services.agendaLocations.task({ reset: true, detectDuplicates: false });
+    core.services.eventSearch.task({ reset: true });
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -114,6 +121,33 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     it('location is removed', async () => {
       const location = await testConfig.knex('location').first().where('uid', 9955517);
       expect(location.deleted).toBe(1);
+    });
+  });
+
+  describe('update collaterals', () => {
+    beforeAll(async () => {
+      await core.agendas(48353388).locations.update(2248644, {
+        name: 'Lautrec',
+        address: 'Palais de la Berbie, place Sainte-Cécile, Albi',
+        city: 'Albi',
+        countryCode: 'FR',
+        latitude: 43.92872,
+        longitude: 2.142774,
+        department: 'Tarn',
+        region: 'Occitanie',
+        postalCode: 81000,
+        insee: 81004
+      });
+
+      return new Promise(rs => {
+        core.services.tracker.on('eventSearch.onUpdate.events', rs);
+      });
+    });
+
+    it('related events have their location data updated', async () => {
+      const { events } = await core.agendas(48353388).events.search({}, { size: 1 }, { detailed: true });
+
+      expect(events[0].location.name).toBe('Lautrec');
     });
   });
 
@@ -434,6 +468,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'state', 'timezone', 'imageCredits',
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
+            'mergedIn'
           ]
         );
       });
@@ -540,7 +575,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     describe('create and update', () => {
-      it('a location creation on an agenda linked to a location set also links that location to the set', async () => {
+      it.only('a location creation on an agenda linked to a location set also links that location to the set', async () => {
         const created = await core.agendas(55268170).locations.create({
           name: 'Muséonum',
           address: '2 rond-point Madame de Mondonville, Toulouse',
@@ -565,11 +600,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           name: 'Lille Métropole Musée d\'art moderne'
         });
 
-        expect((await promisedStack).filter(s => [
+        const stack = await promisedStack;
+
+        expect(_.uniq(stack.filter(s => [
           'agendaLocations.syncImpactedEventsAndAgendas',
           'eventSearch.update:17026855.48564567',
           'eventSearch.update:55268170.55268456'
-        ].includes(s)).length).toBe(3);
+        ].includes(s))).length).toBe(3);
       });
     });
 

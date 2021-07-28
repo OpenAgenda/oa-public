@@ -110,19 +110,7 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
       interfaces: {
         onRemove: {
           $set: (removed, context) => {
-
-            context.should.eql({
-              userUid: 111,
-              agendaUid: null,
-              agenda: null,
-              event: null,
-              aggregated: false,
-              sourceAgenda: null,
-              transferToLegacy: false,
-              legacy: true,
-              deletion: false,
-              batched: false
-            });
+            context.userUid.should.equal(111);
 
             done();
 

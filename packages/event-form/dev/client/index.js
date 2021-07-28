@@ -4,6 +4,10 @@ import { render } from 'react-dom';
 import store from 'store';
 import VError from '@openagenda/verror';
 
+import extendedSchema from './extendedSchema.json';
+
+const schemas = [extendedSchema];
+
 if ( module.hot ) module.hot.accept();
 
 import EventForm from './EventForm';
@@ -33,71 +37,6 @@ class Main extends Component {
 
   }
 
-  getValidatErrors( schemas ) {
-
-    try {
-
-      schemas.forEach( schema => {
-
-        // form schema needs better validation
-
-        if ( !_.isArray( schema.fields ) ) throw new Error( 'schema is missing fields list' );
-
-        schema.fields.forEach( field => {
-
-          try {
-
-            //schema needs to be merged before field can be validated.
-            //validateFormField( field )
-
-          } catch ( e ) {
-
-            throw new VError( e, 'field %s failed', field.field || 'nameless ( field missing )' );
-
-          }
-
-        } );
-
-      } );
-
-      return []
-
-    } catch ( e ) {
-
-      return [ e ];
-
-    }
-
-  }
-
-  updateSchemas( update ) {
-
-    const schemas = [].concat( update );
-
-    const errors = this.getValidatErrors( schemas );
-
-    if ( errors.length ) {
-
-      console.error( 'not valid', errors );
-
-      return;
-
-    }
-
-    console.log( 'valid' );
-
-    this.setState( { schemas } );
-
-    store.set( storeKey, { schemas } );
-
-  }
-
-  onJSONChange( { jsObject } ) {
-
-    if ( jsObject ) this.updateSchemas( jsObject );
-
-  }
-
   onValuesChange( changed ) {
 
     console.log( changed );
@@ -110,7 +49,6 @@ class Main extends Component {
 
   render() {
     
-    const schemas = _.get( this, 'state.schemas', null );
     const values = _.get( this, 'state.values', null );
 
     return <div className="container-fluid top-margined">

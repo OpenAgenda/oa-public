@@ -1,0 +1,202 @@
+{
+    "longDescription": {
+        "fr": "Avec une dizaine de manèges et attractions : Break Dance, train du Far West, auto-scooters pour enfants, trampoline, pêche aux canards, tir à la carabine...  \nsans oublier les gourmandises : Palais des glaces, confiseur"
+    },
+    "country": {
+        "de": "Frankreich (Metropolitan)",
+        "code": "FR",
+        "en": "France (Metropolitan)",
+        "it": "Francia (continente)",
+        "fr": "France (Métropole)",
+        "es": "Francia (Metropolitana)"
+    },
+    "interetintercommunal": null,
+    "featured": false,
+    "private": 0,
+    "keywords": {
+        "fr": [
+            "Les manèges et autres attractions investissent la Grand'Place pour 3 semaines de jeux et de rires Avec une dizaine de manèges et attractions :"
+        ]
+    },
+    "accessibility": {
+        "ii": false,
+        "hi": true,
+        "vi": true,
+        "pi": true,
+        "mi": true
+    },
+    "dateRange": {
+        "ar": "١٩ أغسطس - ٣ سبتمبر ٢٠١٧",
+        "de": "19 August - 3 September 2017",
+        "en": "19 August - 3 September 2017",
+        "fr": "19 août - 3 septembre 2017",
+        "es": "19 August - 3 September 2017"
+    },
+    "timezone": "Europe/Paris",
+    "description": {
+        "fr": "Les manèges et autres attractions investissent la Grand'Place pour 3 semaines de jeux et de rires"
+    },
+    "title": {
+        "fr": "Fête Foraine #2017"
+    },
+    "onlineAccessLink": null,
+    "createdAt": "2017-08-07T13:49:33.000Z",
+    "uid": 38772942,
+    "draft": 0,
+    "timings": [
+        {
+            "begin": "2017-08-19T14:00:00+02:00",
+            "end": "2017-08-19T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-20T14:00:00+02:00",
+            "end": "2017-08-20T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-21T14:00:00+02:00",
+            "end": "2017-08-21T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-22T14:00:00+02:00",
+            "end": "2017-08-22T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-23T14:00:00+02:00",
+            "end": "2017-08-23T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-24T14:00:00+02:00",
+            "end": "2017-08-24T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-25T14:00:00+02:00",
+            "end": "2017-08-25T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-26T14:00:00+02:00",
+            "end": "2017-08-26T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-27T14:00:00+02:00",
+            "end": "2017-08-27T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-28T14:00:00+02:00",
+            "end": "2017-08-28T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-29T14:00:00+02:00",
+            "end": "2017-08-29T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-30T14:00:00+02:00",
+            "end": "2017-08-30T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-08-31T14:00:00+02:00",
+            "end": "2017-08-31T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-09-01T14:00:00+02:00",
+            "end": "2017-09-01T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-09-02T14:00:00+02:00",
+            "end": "2017-09-02T20:00:00+02:00"
+        },
+        {
+            "begin": "2017-09-03T14:00:00+02:00",
+            "end": "2017-09-03T20:00:00+02:00"
+        }
+    ],
+    "state": 2,
+    "categories-metropolitaines": null,
+    "slug": "fte-foraine-20171686",
+    "updatedAt": "2020-07-08T13:39:58.000Z",
+    "addMethod": "share",
+    "image": {
+        "filename": "event_fte-foraine-20171686_290506.jpg",
+        "size": {
+            "width": null,
+            "height": null
+        },
+        "variants": [
+            {
+                "filename": "evfevent_fte-foraine-20171686_290506.jpg",
+                "size": {
+                    "width": null,
+                    "height": null
+                },
+                "type": "full"
+            },
+            {
+                "filename": "evtbevent_fte-foraine-20171686_290506.jpg",
+                "size": {
+                    "width": null,
+                    "height": null
+                },
+                "type": "thumbnail"
+            }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+    },
+    "attendanceMode": 1,
+    "sourceAgendas": [],
+    "label": null,
+    "creatorUid": 6788406,
+    "recurringevent": null,
+    "registration": [],
+    "location": {
+        "disqualifiedDuplicates": null,
+        "access": {
+            "fr": "Métro : ligne 2 - arrêt Roubaix Grand'Place"
+        },
+        "city": "Roubaix",
+        "timezone": "Europe/Paris",
+        "postalCode": "59100",
+        "latitude": 50.691985,
+        "imageCredits": null,
+        "description": {
+            "fr": "Desservie par la station de métro « Roubaix Grand’Place » depuis 1999, la Grand’Place de Roubaix est un espace public qui relie l’Hôtel de ville, l’église Saint-Martin, la Grande Rue et l’avenue Lebas, axe qui mène à la gare ferroviaire. Ses pavés accueillent régulièrement de grands évènements qui contribuent à la notoriété de la ville : le festival des cultures urbaines #Xu, le festival à l’accordéon, le NRJ music Tour, la patinoire, etc."
+        },
+        "setUid": 59170,
+        "uid": 21130544,
+        "createdAt": "2019-10-09T09:02:42.000Z",
+        "duplicateCandidates": [],
+        "countryCode": "FR",
+        "links": [
+            "https://www.facebook.com/mairie.roubaix/",
+            "https://twitter.com/roubaix"
+        ],
+        "state": 1,
+        "extId": null,
+        "department": "Nord",
+        "slug": "grand-place-de-roubaix-dans-la-prolongation-de-la-rue-pierre-motte",
+        "email": null,
+        "longitude": 3.174845,
+        "updatedAt": "2021-07-16T03:41:05.000Z",
+        "image": null,
+        "website": "http://www.ville-roubaix.fr",
+        "address": "Grand Place, Roubaix",
+        "_agg": "eyJ1aWQiOjIxMTMwNTQ0LCJuYW1lIjoiR3JhbmQnIFBsYWNlIn0=",
+        "tags": null,
+        "insee": "59512",
+        "phone": "03 20 66 46 98",
+        "district": "Centre",
+        "name": "Grand' Place",
+        "region": "Hauts-de-France"
+    },
+    "conditions": {
+        "fr": "Tarifs en fonction des manèges"
+    },
+    "age": {
+        "min": null,
+        "max": null
+    },
+    "status": 1,
+    "lastTiming": {
+        "begin": "2017-09-03T14:00:00+02:00",
+        "end": "2017-09-03T20:00:00+02:00"
+    },
+    "nextTiming": null
+}

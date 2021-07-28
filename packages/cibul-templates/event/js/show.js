@@ -6,8 +6,6 @@ const  eventMap = require('./map');
 
 const utils = require('@openagenda/utils');
 
-const du = require('@openagenda/dom-utils');
-
 const get = require('@openagenda/utils/get');
 
 const session = require('@openagenda/sessions/client');
@@ -21,6 +19,8 @@ const displayReferences = require('./displayReferences');
 const privateData = require('./privateData');
 
 const hours = require('./hours');
+
+const permalink = require('./permalink');
 
 const debug = require('debug');
 
@@ -82,6 +82,8 @@ window.asap(options => {
   }
 
   displayReferences(params.agendaUid, params.uid);
+
+  permalink();
 
   _defineRoles(params, (err, roles) => {
     log('roles: [%s]', roles.join(','));

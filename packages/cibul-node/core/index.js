@@ -1,9 +1,13 @@
-"use strict";
+'use strict';
 
 const Agendas = require('./agendas');
 const Networks = require('./networks');
 const Users = require('./users');
 const Tasks = require('./tasks');
+
+const {
+  TYPES: stateChangeTypes
+} = require('./agendas/utils/assignState');
 
 module.exports = (services, config) => {
   const core = {
@@ -18,5 +22,9 @@ module.exports = (services, config) => {
 
   services.core = core;
 
+  core.constants = {
+    stateChangeTypes
+  };
+
   return core;
-}
+};

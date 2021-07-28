@@ -162,18 +162,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
         interfaces: {
           onUpdate: {
             $set: (before, after, context) => {
-              context.should.eql({
-                userUid: 111,
-                agendaUid: null,
-                aggregated: false,
-                sourceAgenda: null,
-                transferToLegacy: false,
-                agenda: null,
-                event: null,
-                legacy: true,
-                batched: false
-              });
-
+              context.userUid.should.equal(111);
               done();
             }
           }

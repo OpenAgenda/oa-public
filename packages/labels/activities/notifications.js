@@ -205,6 +205,10 @@ module.exports = {
     "it": "{actorCount, plural, one {{actor} ha inedito} other {{actor} hanno dépublié}} {object} su {target}.",
     "io": "crwdns11244:0{actor}crwdnd11244:0{object}crwdnd11244:0{target}crwdne11244:0"
   },
+  "agenda.systemUnpublishEvent": {
+    "en": "{object} has been automatically unpublished on {target} for moderation",
+    "fr": "{object} a été dépublié automatiquement sur {target} pour nouveau contrôle"
+  },
   "agenda.removeEvent": {
     "en": "{actor} removed {object} from {target}.",
     "fr": "{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} de {target}.",

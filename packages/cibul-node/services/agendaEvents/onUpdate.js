@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('verror');
@@ -9,7 +9,13 @@ const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
 const transferCustomFromLegacy = require('./lib/transferCustomFromLegacy');
-const createActivities = require('./lib/createActivities');
+const addEventUpdateActivity = require('./lib/addEventUpdateActivity');
+
+function haveRealDiff(before, after) {
+  return _.uniq([...Object.keys(before), ...Object.keys(after)])
+    .filter(key => ['createdAt', 'updatedAt', 'state'].includes(key) && before[key] !== after[key])
+    .length > 0;
+}
 
 module.exports = async ({ config, services }, before, after, context) => {
   const {
@@ -19,7 +25,7 @@ module.exports = async ({ config, services }, before, after, context) => {
 
   const controlDataSvc = legacySvc.controlData;
 
-  log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched']));
+  log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched', 'stateChangeType']));
 
   const { agenda, event, user } = await fallbackContextGet({ services }, 'onUpdate', after, context);
 
@@ -41,13 +47,13 @@ module.exports = async ({ config, services }, before, after, context) => {
     await transferCustomFromLegacy(agenda, event);
 
     try {
-      await legacyEventSearch.updateEvent(_.pick(event, [ 'uid' ]));
+      await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
     } catch (e) {
       log('error', 'could not update legacy search for event %s', event.slug);
     }
   }
 
-  if (haveRealDiff(before, after)) {
+  if (!haveRealDiff(before, after)) {
     return;
   }
 
@@ -56,7 +62,9 @@ module.exports = async ({ config, services }, before, after, context) => {
     // eventUpdate
     // myEventUpdate
     try {
-      await sendEventUpdate({ config, services }, { agendaEvent: after, before, context, agenda, event });
+      await sendEventUpdate({ config, services }, {
+        agendaEvent: after, before, context, agenda, event
+      });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event update emails'));
     }
@@ -64,7 +72,9 @@ module.exports = async ({ config, services }, before, after, context) => {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState({ config, services }, { agendaEvent: after, before, context, agenda, event });
+      await sendEventChangeState({ config, services }, {
+        agendaEvent: after, before, context, agenda, event
+      });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event change state emails'));
     }
@@ -72,15 +82,9 @@ module.exports = async ({ config, services }, before, after, context) => {
 
   if (user) {
     try {
-      await createActivities(services, { agenda, event, user }, before, after);
+      await addEventUpdateActivity(services, { agenda, event, user }, before, after, context.stateChangeType);
     } catch (e) {
       log.error(new VError(e, 'Cannot create state change activities'));
     }
   }
-}
-
-function haveRealDiff(before, after) {
-  _.uniq([ ...Object.keys(before), ...Object.keys(after) ])
-    .filter(key => [ 'createdAt', 'updatedAt', 'state' ].includes(key) && before[ key ] !== after[ key ])
-    .length > 0;
-}
+};

@@ -5,6 +5,8 @@ const {
   resetAndCreateTables
 } = require('./sql');
 
+const embeddedContent = require('./embeddedContent.json');
+
 const raw = resetAndCreateTables();
 
 raw.push(knex('review').insert([
@@ -84,9 +86,8 @@ raw.push(knex('event_2').insert([{
   description: JSON.stringify({
     fr: 'Description 2'
   }),
-  long_description: JSON.stringify({
-    fr: 'Description longue 2'
-  }),
+  long_description: JSON.stringify(embeddedContent.longDescription),
+  links: JSON.stringify(embeddedContent.links),
   timings: JSON.stringify([{
     begin: new Date('2019-09-27T10:00:00+0200'),
     end: new Date('2019-09-27T12:00:00+0200')

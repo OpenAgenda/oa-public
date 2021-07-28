@@ -3,6 +3,9 @@
 const _ = require('lodash');
 const fs = require('fs');
 const assert = require('assert');
+const {
+  produce
+} = require('immer');
 
 const config = require('../testconfig');
 
@@ -822,6 +825,19 @@ describe('02 - event search - functional: search', function() {
       assert.deepEqual(more[0].uid, fourth);
     });
 
+    describe('options', () => {
+      it('parser option makes it possible to transform event on a search', async () => {
+        const {
+          events
+        } = await service('simple_search').search({}, { size: 1 }, {
+          parser: produce(e => {
+            e.title = 'Bim!';
+          })
+        });
+  
+        assert.strictEqual(events[0].title, 'Bim!');
+      });
+    });
   });
 
   describe('additional fields', function() {

@@ -136,7 +136,8 @@ async function set( agendaEventId, fields, data ) {
     const q = knex( schemas.agendaEventTag ).insert( {
       review_article_id: agendaEventId,
       review_tag_id: id,
-      updated_at: new Date
+      updated_at: new Date,
+      created_at: new Date
     } );
 
     const insertResult = await q;

@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const VError = require('verror');
 
 module.exports = async (services, networkUid) => {
@@ -17,4 +16,4 @@ module.exports = async (services, networkUid) => {
   }
 
   return network;
-}
+};

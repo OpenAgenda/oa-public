@@ -59,6 +59,7 @@ module.exports = options => {
   }
 
   function load(agendaUid, eventUid, lang) {
+    log('loading private data');
     _fetch(_defineRes(agendaUid, eventUid, lang), (err, data) => {
 
       if (err) {
@@ -66,6 +67,7 @@ module.exports = options => {
 
         return;
       }
+      log('loaded');
 
       if (_.keys(data.custom.custom).length) {
         du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
@@ -79,8 +81,12 @@ module.exports = options => {
       }
 
       if (data.authorizations?.canEditEvent) {
-        du.removeClass(du.el('.js_status'), 'display-none');
+        log('can edit event, displaying status change controls');
+        for (const el of du.els('.js_status')) {
+          du.removeClass(el, 'display-none');
+        }
       } else {
+        log('cannot edit event, displaying disabled status change message');
         du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
         du.removeClass(du.el('.js_disabled_status'), 'display-none');
       }

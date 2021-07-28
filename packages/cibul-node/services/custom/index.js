@@ -7,8 +7,8 @@ module.exports.init = (config, services) => {
     formSchemas
   } = services;
 
-  custom.init( {
-    logger: config.getLogConfig( 'svc', 'custom' ),
+  custom.init({
+    logger: config.getLogConfig('svc', 'custom'),
     knex: config.knex,
     schemas: {
       custom: 'custom'
@@ -35,10 +35,10 @@ module.exports.init = (config, services) => {
       interfaces: {
         getFormSchemaFields: formSchemaId => formSchemas
           .get(formSchemaId)
-          .then(fs => fs ? fs.fields : [])
+          .then(fs => (fs ? fs.fields : []))
       }
     }
-  } );
+  });
 
   return custom;
-}
+};

@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
+const _ = require('lodash');
 const debug = require('debug');
 
 const prod = require('./prod');
@@ -852,9 +852,16 @@ const config = {
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
       bucket: 'cibuldev',
       tmpBucket: 'cibuldevtmp'
-    }
+    },
+    locationDuplicationDetection: {
+      enabled: prod.detectLocationDuplicates ?? (!!process.env.OA_DETECT_LOCATION_DUPLICATES),
+      ignoredUids: {
+        setUids: prod.detectLocationDuplicatesIgnoredSetUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+        agendaUids: prod.detectLocationDuplicatesIgnoredAgendaUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+      },
+      sleep: prod.detectLocationDuplicatesSleep ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP ? parseInt(process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP, 10) : 0),
+    },
   },
-
   test: {
     env: 'test',
     multiCore: false,

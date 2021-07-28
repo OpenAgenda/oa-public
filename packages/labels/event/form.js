@@ -511,6 +511,10 @@ module.exports = {
     "fr": "Annulé",
     "en": "Cancelled"
   },
+  "full": {
+    "fr": "Complet",
+    "en": "Full"
+  },
   "postponed": {
     "fr": "Reporté",
     "en": "Postponed"

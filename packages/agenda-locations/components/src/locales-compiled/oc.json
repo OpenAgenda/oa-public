@@ -59,6 +59,12 @@
       "value": "Delete"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Cancel Merge"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.closeModal": [
     {
       "type": 0,
@@ -635,12 +641,6 @@
       "value": "Website"
     }
   ],
-  "AgendaLocations.LocationItem.defineMergeTarget": [
-    {
-      "type": 0,
-      "value": "Define as merge target"
-    }
-  ],
   "AgendaLocations.LocationItem.detailsButton": [
     {
       "type": 0,
@@ -708,6 +708,12 @@
       "value": "count"
     }
   ],
+  "AgendaLocations.LocationItem.select": [
+    {
+      "type": 0,
+      "value": "Select"
+    }
+  ],
   "AgendaLocations.LocationItem.unselect": [
     {
       "type": 0,
@@ -718,6 +724,49 @@
     {
       "type": 0,
       "value": "To verify"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyAndMerge": [
+    {
+      "type": 0,
+      "value": "Verify and Merge"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyDuplicates": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 duplicate to verify"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " duplicates to verify"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "AgendaLocations.LocationSearch.create": [
@@ -760,101 +809,6 @@
     {
       "type": 0,
       "value": "Select a location"
-    }
-  ],
-  "AgendaLocations.MergeMenu.cancel": [
-    {
-      "type": 0,
-      "value": "Cancel"
-    }
-  ],
-  "AgendaLocations.MergeMenu.launchMerge": [
-    {
-      "type": 0,
-      "value": "Launch merge"
-    }
-  ],
-  "AgendaLocations.MergeMenu.mergeDescription": [
-    {
-      "type": 0,
-      "value": "Locations merge"
-    }
-  ],
-  "AgendaLocations.MergeMenu.mergeSelection": [
-    {
-      "offset": 0,
-      "options": {
-        "=0": {
-          "value": [
-            {
-              "type": 0,
-              "value": "You haven`t selected any location to merge"
-            }
-          ]
-        },
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "You currently selected one location."
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "You currently selected "
-            },
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " locations."
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    }
-  ],
-  "AgendaLocations.MergeMenu.refLocation": [
-    {
-      "type": 0,
-      "value": "Reference location: "
-    }
-  ],
-  "AgendaLocations.MergeMenu.refLocationInfo": [
-    {
-      "type": 0,
-      "value": "choose a location that will be retained at the end of the merge"
-    }
-  ],
-  "AgendaLocations.MergeMenu.retaineRefLocation": [
-    {
-      "type": 0,
-      "value": "This location will be retained at the end of the merge"
-    }
-  ],
-  "AgendaLocations.MergeMenu.seeMergeList": [
-    {
-      "type": 0,
-      "value": "See"
-    }
-  ],
-  "AgendaLocations.MergeMenu.seeSelection": [
-    {
-      "type": 0,
-      "value": "View selection"
-    }
-  ],
-  "AgendaLocations.MergeMenu.unselect": [
-    {
-      "type": 0,
-      "value": "Unselect"
     }
   ],
   "AgendaLocations.RemoveModal.cancel": [
@@ -1338,6 +1292,121 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.Selection": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "no location selected"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 location selected"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " locations selected"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.backToSelection": [
+    {
+      "type": 0,
+      "value": "go back to selection"
+    }
+  ],
+  "AgendaLocations.stepper.backToTargetSelection": [
+    {
+      "type": 0,
+      "value": "go back to target selection"
+    }
+  ],
+  "AgendaLocations.stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "AgendaLocations.stepper.duplicatesSelection": [
+    {
+      "type": 0,
+      "value": "Duplicates Selection"
+    }
+  ],
+  "AgendaLocations.stepper.infoConfirmation": [
+    {
+      "type": 0,
+      "value": "Merged locations will be deleted and there linked events will be link to the target location"
+    }
+  ],
+  "AgendaLocations.stepper.infoRefSelection": [
+    {
+      "type": 0,
+      "value": "Select target from your selection, it will be kept after the merge"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelection": [
+    {
+      "type": 0,
+      "value": "Select locations you want to merge"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelectionFromDP": [
+    {
+      "type": 0,
+      "value": "Check the selection and deselect those who are not duplicates"
+    }
+  ],
+  "AgendaLocations.stepper.launchMerge": [
+    {
+      "type": 0,
+      "value": "Launch merge"
+    }
+  ],
+  "AgendaLocations.stepper.next": [
+    {
+      "type": 0,
+      "value": "Next:"
+    }
+  ],
+  "AgendaLocations.stepper.see": [
+    {
+      "type": 0,
+      "value": "see"
+    }
+  ],
+  "AgendaLocations.stepper.seeDetails": [
+    {
+      "type": 0,
+      "value": "Details"
+    }
+  ],
+  "AgendaLocations.stepper.targetChoice": [
+    {
+      "type": 0,
+      "value": "Target location choice"
     }
   ]
 }

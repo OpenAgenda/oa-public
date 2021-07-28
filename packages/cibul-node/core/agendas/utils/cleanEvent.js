@@ -18,29 +18,24 @@ const invalidLocationUidErrorItem = uid => ({
   step: 'validation'
 });
 
-async function cleanEvent(services, agenda, data, options = {}) {
-  const locationUid =  _.get(data, 'location.uid', _.get(data, 'locationUid'));
-  const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid
-  }).catch(e => {
-    if (e.name !== 'BadRequestError') {
-      throw e;
-    }
-  }) : null;
+function asArray(obj) {
+  return _.keys(obj).map(k => obj[k]).filter(s => !!s);
+}
 
-  log('fetched agenda and location');
+function distributeCleanData(consolidatedClean, schemaExtensions) {
+  const fieldsPerSchema = {
+    agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
+    network: schemaExtensions.network ? schemaExtensions.network.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
+    event: []
+  };
 
-  const pre = locationUid ? { ...data, locationUid } : data;
+  fieldsPerSchema.event = _.keys(consolidatedClean).filter(field => !fieldsPerSchema.agenda.includes(field) && !fieldsPerSchema.network.includes(field));
 
-  if (location) {
-    pre.location = location;
-  }
-
-  return validateEvent(services, {
-    formSchema: agenda.formSchema,
-    networkFormSchema: _.get(agenda, 'network.formSchema'),
-    location
-  }, pre, options);
+  return {
+    custom: _.pick(consolidatedClean, fieldsPerSchema.agenda),
+    networkCustom: _.pick(consolidatedClean, fieldsPerSchema.network),
+    event: _.pick(consolidatedClean, fieldsPerSchema.event)
+  };
 }
 
 function validateEvent(services, { formSchema, networkFormSchema, location }, data, options = {}) {
@@ -90,7 +85,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 
   const consolidatedSchema = eventSchema({
     languages,
-    schemaExtensions: _asArray(schemaExtensions),
+    schemaExtensions: asArray(schemaExtensions),
     access: {
       write: member ? services.members.utils.getRoleSlug(member.role) : access
     },
@@ -125,7 +120,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 
     Object.assign(
       clean,
-      _distributeCleanData(consolidatedClean, schemaExtensions)
+      distributeCleanData(consolidatedClean, schemaExtensions)
     );
   } catch (consolidatedErrors) {
     if (!_.isArray(consolidatedErrors)) {
@@ -145,12 +140,13 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
       sourcePaths: paths || [],
       userUid: member ? member.userUid : (data.userUid || data.ownerUid)
     }, { optionalSecondaryFields, partial });
-
   } catch (agendaEventErrors) {
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
-  if (!draft && clean.event && (clean.event.location || clean.event.locationUid) && !location) {
+  // location uid needs to be evaluated in location object
+  // as default location values set to prepare location creation could be set
+  if (!draft && clean.event && (clean.event.location?.uid || clean.event.locationUid) && !location) {
     errors.push(invalidLocationUidErrorItem(clean.locationUid));
   }
 
@@ -161,31 +157,30 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   return clean;
 }
 
-function _distributeCleanData(consolidatedClean, schemaExtensions) {
-  const fieldsPerSchema = {
-    agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
-    network: schemaExtensions.network ? schemaExtensions.network.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
-    event: []
-  };
+async function cleanEvent(services, agenda, data, options = {}) {
+  const locationUid = _.get(data, 'location.uid', _.get(data, 'locationUid'));
+  const location = locationUid ? await services.agendaLocations.get({
+    uid: locationUid,
+    returnMergeTarget: true
+  }).catch(e => {
+    if (e.name !== 'BadRequestError') {
+      throw e;
+    }
+  }) : null;
 
-  fieldsPerSchema.event = _.keys(consolidatedClean).filter(field => !fieldsPerSchema.agenda.includes(field) && !fieldsPerSchema.network.includes(field));
+  log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
 
-  return {
-    custom: _.pick(consolidatedClean, fieldsPerSchema.agenda),
-    networkCustom: _.pick(consolidatedClean, fieldsPerSchema.network),
-    event: _.pick(consolidatedClean, fieldsPerSchema.event)
+  const pre = locationUid ? { ...data, locationUid } : data;
+
+  if (location) {
+    pre.location = location;
   }
-}
 
-function _consolidatedValidate(schema, data, { draft }) {
-  const fs = new FormSchema(schema);
-  const validate = fs.getValidate({ draft });
-  return validate(data);
-}
-
-
-function _asArray(obj) {
-  return _.keys(obj).map(k => obj[k]).filter(s => !!s)
+  return validateEvent(services, {
+    formSchema: agenda.formSchema,
+    networkFormSchema: _.get(agenda, 'network.formSchema'),
+    location
+  }, pre, options);
 }
 
 module.exports = cleanEvent;

@@ -1,21 +1,16 @@
 'use strict';
 
-const _ = require('lodash');
-const assert = require('assert');
 const axios = require('axios');
 const ih = require('immutability-helper');
 
-const loadFixtures = require('./fixtures/load');
-
 const api = require('../api');
-
 const Core = require('../core');
 const Services = require('../services/init');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
-const { response } = require('@openagenda/agenda-docx/server/app');
 
-describe('01 - core - functional (server): core.agendas().events.search()', function() {
+describe('01 - core - functional (server): core.agendas().events.search()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '001.sql'));
@@ -36,6 +31,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
         'eventSearch',
         'members',
         'networks',
+        'oembed',
         'legacy',
         'users',
         'keys',
@@ -53,32 +49,32 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
   describe('core', () => {
     it('response object contains total, events and sort keys', async () => {
       const response = await core.agendas(2).events.search({});
-      assert.deepEqual(Object.keys(response), ['total', 'events', 'sort']);
+      expect(Object.keys(response)).toEqual(['total', 'events', 'sort']);
     });
-  
+
     it('if neither userUid or access are provided, only published events are returned', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, { detailed: true });
-  
-      assert(events.filter(e => e.state === 2).length > 0);
-      assert(events.filter(e => e.state !== 2).length === 0);
+
+      expect(events.filter(e => e.state === 2).length).toBeGreaterThan(0);
+      expect(events.filter(e => e.state !== 2).length).toBe(0);
     });
-  
+
     it('if access is adminmod, unpublished events are returned when requested', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
         access: 'administrator'
       });
-  
-      assert(events.filter(e => e.state !== 2).length > 0);
+
+      expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
-  
+
     it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
         userUid: 63170200
       });
-  
-      assert(events.filter(e => e.state !== 2).length > 0);
+
+      expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
 
     it('if useAfterKey is set in options, after is to be given to navigation instead of searchAfter and result provides after instead of sort and sort as the effective sort value', async () => {
@@ -87,24 +83,45 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
         useAfterKey: true
       });
 
-      assert.equal(events[0].uid, 1);
-      assert.equal(sort, 'timingsWithFeatured.asc');
-      assert.deepEqual(after, [0, 32503683600000, 1569578400000, 1]);
+      expect(events[0].uid).toBe(1);
+      expect(sort).toBe('timingsWithFeatured.asc');
+      expect(after).toEqual([0, 32503683600000, 1569578400000, 1]);
 
       const result = await core.agendas(2).events.search({ state: null }, { size: 1, after }, {
         userUid: 63170200,
         useAfterKey: true
       });
 
-      assert.equal(result.events[0].uid, 2);
+      expect(result.events[0].uid).toBe(2);
+    });
+
+    it('longDescriptionFormat option set to HTML', async () => {
+      const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
+        longDescriptionFormat: 'HTML',
+        detailed: true,
+        userUid: 63170200
+      });
+
+      expect(events[0].longDescription.fr.substr(0, 38)).toBe('<p><strong>! CHANGEMENT !</strong></p>');
+    });
+
+    it('longDescriptionFormat option set to HTMLWithEmbeds', async () => {
+      const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
+        longDescriptionFormat: 'HTMLWithEmbeds',
+        detailed: true,
+        userUid: 63170200
+      });
+
+      expect(events[0].longDescription.fr).toContain('<iframe');
     });
   });
 
   describe('api', () => {
-    let server, accessToken;
+    let server;
+    let accessToken;
 
-    beforeAll(done => {
-       server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -141,20 +158,45 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
             }
           }).then(r => r.data);
         } catch (e) {
-          console.log(e);
+          // console.log(e);
         }
       });
 
       it('keys provided in response are success, sort, total, after and events', () => {
-        assert.deepEqual(
-          Object.keys(response),
-          ['success', 'sort', 'total', 'after', 'events']
-        );
+        expect(Object.keys(response)).toEqual(['success', 'sort', 'total', 'after', 'events']);
       });
 
       it('if user is adminmod, unpublished events can be provided', () => {
-        assert(response.events.length > 0);
-        assert(response.events.filter(e => e.state !== 2).length > 0);
+        expect(response.events.length).toBeGreaterThan(0);
+        expect(response.events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
+      });
+    });
+
+    describe('successful get for adminmod user', () => {
+      let response;
+
+      beforeAll(async () => {
+        try {
+          response = await axios({
+            method: 'get',
+            url: 'http://localhost:3000/agendas/2/events/1',
+            headers: {
+              'access-token': accessToken,
+              nonce: 123989,
+              'content-type': 'application/json'
+            },
+          }).then(r => r.data);
+        } catch (e) {
+          // console.log(e);
+        }
+      });
+
+      it('non published events are gettable by adminmods', () => {
+        expect(response.event.uid).toBe(1);
+      });
+
+      it('detailed fields - like member - are in response', () => {
+        expect(response.event.member).toBeDefined();
       });
     });
 
@@ -176,12 +218,51 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
             }
           }).then(r => r.data);
         } catch (e) {
+          // console.log(e);
         }
       });
 
       it('does not contain unpublished events', () => {
-        assert(response.events.length > 0);
-        assert(response.events.filter(e => e.state !== 2).length === 0);
+        expect(response.events.length).toBeGreaterThan(0);
+        expect(response.events.filter(e => e.state !== 2).length).toBe(0);
+      });
+    });
+
+    describe('successful get for non adminmod user', () => {
+      it('non published events are not gettable by non adminmods', async () => {
+        let error;
+
+        try {
+          await axios({
+            method: 'get',
+            url: 'http://localhost:3000/agendas/2/events/1',
+            headers: {
+              'content-type': 'application/json'
+            },
+            params: {
+              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
+            }
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(404);
+      });
+
+      it('published events are gettable by non adminmods', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/2',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
+          }
+        }).then(r => r.data);
+
+        expect(response.event.uid).toBe(2);
       });
     });
 
@@ -199,7 +280,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             state: [-1, 0, 1, 2],
             size: 1,
-            sort: 'updatedAt.desc'  
+            sort: 'updatedAt.desc'
           }
         };
 
@@ -214,15 +295,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', func
             }
           })).then(r => r.data));
         } catch (e) {
+          // console.log(e);
         }
       });
 
       it('after key allows getting the next results', () => {
-        assert.equal(responses[0].events[0].uid, 1);
-        assert.equal(responses[1].events[0].uid, 2);
+        expect(responses[0].events[0].uid).toBe(1);
+        expect(responses[1].events[0].uid).toBe(2);
       });
-
     });
   });
-
 });

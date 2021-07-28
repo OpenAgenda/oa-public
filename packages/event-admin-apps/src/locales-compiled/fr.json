@@ -523,6 +523,12 @@
       "value": "Retirer de la une"
     }
   ],
+  "EventAdminApp.EventItem.shared": [
+    {
+      "type": 0,
+      "value": "Partagé par un membre qui a depuis quitté l'agenda"
+    }
+  ],
   "EventAdminApp.EventItem.sharedBy": [
     {
       "type": 0,

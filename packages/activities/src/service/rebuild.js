@@ -55,7 +55,7 @@ async function rebuild( args, options, logger ) {
 
   let service;
 
-  const mysqlConfig = _.pick( options, [ 'database', 'host', 'port', 'user', 'password' ] );
+  const mysqlConfig = _.pick( options, [ 'database', 'host', 'port', 'user', 'password', 'ssl' ] );
 
   knex = knexLib( {
     client: 'mysql',

@@ -25,4 +25,4 @@ module.exports = async (services, schemaIds = []) => {
   }
 
   return schemas;
-}
+};

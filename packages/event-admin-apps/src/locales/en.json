@@ -45,6 +45,7 @@
   "EventAdminApp.EventItem.passed": "Passed",
   "EventAdminApp.EventItem.remove": "Remove from agenda",
   "EventAdminApp.EventItem.removeFeatured": "Remove from featured",
+  "EventAdminApp.EventItem.shared": "Shared by a member which has left the agenda",
   "EventAdminApp.EventItem.sharedBy": "Shared by <memberLink>{memberName}</memberLink>",
   "EventAdminApp.EventItem.sharedFrom": "Shared from <link>{title}</link>",
   "EventAdminApp.EventItem.sharedFromBy": "Shared from <agendaLink>{agendaTitle}</agendaLink> by <memberLink>{memberName}</memberLink>",

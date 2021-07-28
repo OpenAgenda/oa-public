@@ -1,0 +1,23 @@
+'use strict';
+
+module.exports = async (services, eventFeed, { agenda, event }, context) => {
+  const {
+    activities: activitiesSvc
+  } = services;
+
+  const { sourceAgenda } = context;
+
+  await activitiesSvc.feed(eventFeed).activities.add({
+    actor: `agenda:${sourceAgenda.uid}`,
+    verb: 'agenda.aggregateEvent',
+    object: `event:${event.uid}`,
+    target: `agenda:${agenda.uid}`, // aggregator
+    store: {
+      labels: {
+        actor: sourceAgenda.title,
+        object: event.title,
+        target: agenda.title
+      }
+    }
+  });
+};

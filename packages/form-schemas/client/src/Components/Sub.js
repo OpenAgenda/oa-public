@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-module.exports = class Sub extends Component {
-
-  render() {
-
-    const {
-      error,
-      label
-    } = this.props;
-
-    return <div className={classNames({
-      sub : true,
-      error: !!error
-    })}>{error || label }</div>
-
-  }
-
+export default function Sub({ error, label }) {
+  return (
+    <div
+      className={classNames({
+        sub: true,
+        error: !!error
+      })}
+    >
+      {error || label }
+    </div>
+  );
 }

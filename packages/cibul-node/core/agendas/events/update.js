@@ -2,10 +2,9 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
+const log = require('@openagenda/logs')('core/agendas/events/update');
 const ValidationError = require('../../utils/ValidationError');
 const UnauthorizedError = require('../../utils/UnauthorizedError');
-
-const log = require('@openagenda/logs')('core/agendas/events/update');
 
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
@@ -15,15 +14,16 @@ const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
 const extractUserUid = require('../utils/extractUserUid');
 const setCustom = require('../utils/setCustom');
-const merge = require('../utils/merge');
 
 const cleanEvent = require('../utils/cleanEvent');
 
 const getAgenda = require('../utils/getAgenda');
 
 const loadAuthorizations = require('../../utils/authorizations');
-const filterUnauthorized = loadAuthorizations.filterUnauthorized;
+
 const containsEventData = require('../utils/containsEventData');
+
+const { filterUnauthorized } = loadAuthorizations;
 
 const assignState = require('../utils/assignState');
 
@@ -43,7 +43,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   } = core.services;
 
   const userUid = extractUserUid(data, options);
-  
+
   const {
     draft,
     partial,
@@ -64,7 +64,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   };
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
-  
+
   log('  loaded agenda %s', agenda?.slug);
 
   const event = await events.get(eventUid, {
@@ -72,11 +72,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     detailed: true,
     throwOnNotFound: true
   });
-  
+
   log('  loaded event %s', event.slug);
 
   const agendaEvent = shouldHaveAgendaEvent('update', event) ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true }) : null;
-  
+
   const member = userUid ? await members.get({
     agendaUid: agenda.uid,
     userUid
@@ -107,7 +107,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     throw new UnauthorizedError('event', event.uid, 'not authorized to edit event');
   }
 
-  assignState(agenda, event, clean, data, {
+  const {
+    type: stateChangeType
+  } = assignState(agenda, event, clean, data, {
     authorizations,
     draft
   });
@@ -209,16 +211,17 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           userUid,
           event,
           agenda,
+          stateChangeType,
           batched
         },
         decorate: ['member']
       });
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
       payload.setItem('agendaEvent', result.before, result.set);
-    } catch(e) {
+    } catch (e) {
       log('error', 'failed to update agendaEvent ref', e);
       throw e;
-    }    
+    }
   }
 
   if (!draft) {

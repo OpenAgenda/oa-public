@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const AgendaLocations = require('@openagenda/agenda-locations');
 const OpenCage = require('@openagenda/geocoder/Opencage');
 const log = require('@openagenda/logs')('services/agendaLocations');
@@ -20,7 +19,7 @@ const plugApp = require('./plugApp');
 
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
 const detectDuplicateCandidates = require('./tasks/detectDuplicateCandidates');
-const clearAllDuplicateCandidates = require('./tasks/clearAllDuplicateCandidates');
+// const clearAllDuplicateCandidates = require('./tasks/clearAllDuplicateCandidates');
 
 module.exports.init = async (config, services) => {
   const queue = services.queues('locations');
@@ -67,11 +66,17 @@ module.exports.init = async (config, services) => {
       return queue.stop();
     },
     task: async (options = {}) => {
+      const {
+        duplicationDetection,
+        reset = false
+      } = options;
       taskRunning = true;
       log('task');
-      detectDuplicateCandidates(services);
+      if (duplicationDetection?.enabled) {
+        detectDuplicateCandidates(services, duplicationDetection);
+      }
       // clearAllDuplicateCandidates(services);
-      if (options.reset) {
+      if (reset) {
         await queue.clear();
       }
       queue.run();

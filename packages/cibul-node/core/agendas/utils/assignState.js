@@ -4,7 +4,18 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/utils/assignState');
 const UnauthorizedError = require('../../utils/UnauthorizedError');
 
-function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requestedState) {
+const TYPES = {
+  default: 'default',
+  requested: 'requested',
+  system: 'system'
+};
+
+function defineState({
+  agenda,
+  authorizations,
+  isUndrafted,
+  hasEvent
+}, requestedState) {
   const {
     canChangeState,
     canPublish,
@@ -16,37 +27,74 @@ function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requeste
 
   if (isUndrafted && !explicitStateRequested) {
     log('no explicit state requested%s', isUndrafted ? ', event is undrafted' : '');
-    return agendaDefaultState;
-  } else if (isUndrafted) {
+    return {
+      state: agendaDefaultState,
+      type: TYPES.default
+    };
+  }
+
+  if (isUndrafted) {
     log('event is undrafted');
-    return canChangeState ? requestedState : agendaDefaultState;
+    return canChangeState ? {
+      state: requestedState,
+      type: TYPES.requested
+    } : {
+      state: agendaDefaultState,
+      type: TYPES.default
+    };
   }
 
   if (
     explicitStateRequested
-    && (parseInt(requestedState) === 2)
+    && (parseInt(requestedState, 10) === 2)
     && !canPublish
   ) {
-    throw new UnauthorizedError('agenda', agenda.uid, `not authorized to publish events`);
+    throw new UnauthorizedError('agenda', agenda.uid, 'not authorized to publish events');
   }
 
   if (hasEvent && explicitStateRequested && canChangeState) {
-    return requestedState;
+    return {
+      state: requestedState,
+      type: TYPES.requested
+    };
   }
   // event exists, is added to agenda. It is a new addition. It should
   // be moderated.
   if (hasEvent && !canChangeState) {
     log('event %s to be moderated', mustBeModerated ? 'needs' : 'does not need');
-    return mustBeModerated ? 0 : undefined;
-  } else if (hasEvent) {
-    return explicitStateRequested ? requestedState : undefined;
+    return mustBeModerated ? {
+      state: 0,
+      type: TYPES.system
+    } : {
+      state: undefined,
+      type: TYPES.default
+    };
   }
 
-  return explicitStateRequested && canChangeState ? requestedState : agendaDefaultState;
+  if (hasEvent) {
+    return explicitStateRequested ? {
+      state: requestedState,
+      type: TYPES.requested
+    } : {
+      state: undefined,
+      type: TYPES.default
+    };
+  }
+
+  return explicitStateRequested && canChangeState ? {
+    state: requestedState,
+    type: TYPES.requested
+  } : {
+    state: agendaDefaultState,
+    type: TYPES.default
+  };
 }
 
 module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
-  const state = draft ? undefined : defineState({
+  const { state, type } = draft ? {
+    state: undefined,
+    type: null
+  } : defineState({
     agenda,
     hasEvent: !!event,
     authorizations,
@@ -60,4 +108,11 @@ module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
   } else if (!draft) {
     clean.agendaEvent = _.omit(clean.agendaEvent, ['state']);
   }
-}
+
+  return {
+    state,
+    type
+  };
+};
+
+module.exports.TYPES = TYPES;

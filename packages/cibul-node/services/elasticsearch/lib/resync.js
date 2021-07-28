@@ -62,7 +62,7 @@ module.exports = async function(services, ES, options, cb) {
 
   await ES.refreshIndex();
 
-  cb();
+  if (cb) cb();
 
 }
 

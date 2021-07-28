@@ -7,7 +7,8 @@ const schema = require( '@openagenda/validators/schema' );
 schema.register( {
   boolean: require('@openagenda/validators/boolean'),
   pass: require('@openagenda/validators/pass'),
-  choice: require('@openagenda/validators/choice')
+  choice: require('@openagenda/validators/choice'),
+  text: require('@openagenda/validators/text')
 } );
 
 module.exports = ( values, operation = 'default' ) => {
@@ -85,6 +86,10 @@ const base = {
       batched: {
         type: 'boolean',
         default: false
+      },
+      stateChangeType: {
+        type: 'text',
+        default: null
       }
     }
   }

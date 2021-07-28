@@ -35,7 +35,7 @@
   <div class="container">
     <div class="row">
 
-      <section class="col-sm-7 col-sm-offset-1">
+      <section class="col-sm-7 col-sm-offset-1 col-xs-12">
 
 <% if ( event.languages ) { %>
         <div class="langs">
@@ -51,7 +51,8 @@
         </div>
 <% } %>
 
-        <div class="event-content">
+        <div class="event-content margin-print-bottom-lg">
+          <span class="print-permalink display-none padding-bottom-sm"><%= __('printPermalink') %>: <%= event.permalink %></span>
 <% if (typeof event.status !== 'undefined' && event.status > 1) { %>
           <div class="padding-h-md padding-top-md status">
 <% if (event.status === 2) { %> 
@@ -72,13 +73,13 @@
 <% } else if (event.status === 5) { %>
             <span
               class="label label-danger"
-              title="<%= __('statusCancelledInfo') %>"
-            ><%= __('statusCancelled') %></span>
+              title="<%= __('statusFullInfo') %>"
+            ><%= __('statusFull') %></span>
 <% } else if (event.status === 6) { %>
             <span
               class="label label-danger"
-              title="<%= __('statusFullInfo') %>"
-            ><%= __('statusFull') %></span>
+              title="<%= __('statusCancelledInfo') %>"
+            ><%= __('statusCancelled') %></span>
 <% } %>
           </div>
 <% } %> 
@@ -87,138 +88,204 @@
         </div>
       </section>
 
-      <aside class="col-sm-4 col-aside sidebar">
-        <section class="detail-item margin-bottom-xs">
-          <h3><i class="fa fa-share-alt"></i></h3>
-          <div class="detail-item-content">
-            <div class="js_shareOnOa"></div>
-            
-          </div>
-        </section>
-
-<% if (!private && ( event.currentState === 'published' ) ) { %>
-        <section class="detail-item share margin-bottom-md margin-top-xs">
-          <%= __('otherShares') %>&nbsp;:
-          <a href="<%= event.facebookShare %>" target="_blank" class="fb text-muted" rel="nofollow"><i class="fa fa-facebook"></i></a>
-          <a href="<%= event.twitterShare %>" target="_blank" class="tw text-muted" rel="nofollow"><i class="fa fa-twitter"></i></a>
-          <a href="<%= event.linkedInShare %>" target="_blank" class="li text-muted" rel="nofollow"><i class="fa fa-linkedin"></i></a>
-          <div class="js_shareEmail share-button"></div>
-          <div class="js_shareAll share-button"><%= __('allShares') %></div>
-        </section>
-<% } %>
-<% if (event.onlineAccessLink) { %>
-        <section class="detail-item margin-bottom-md">
-          <h3><i class="fa fa-link"></i></h3>
-          <a
-            target="_blank"
-            href="<%= event.onlineAccessLink %>"
-            class="btn btn-default"
-          ><%= __('onlineAccess') %></a>
-        </section>
-<% } %>
-        <section class="detail-item margin-bottom-sm">
-          <h3><% if (event.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
-          <p class="detail-item-content">
-            <span><%= event.dateRange %></span>
-            <% if (!event.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
-          </p>
-        </section>
-        <section class="detail-item display-none js_hours timings margin-bottom-md">
-          <ul class="months"></ul>
-        </section>
-
-<% if ( event.pricingInfo || event.registrationComponent ) { %>
-        <section class="detail-item conditions margin-v-md">
-          <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
-            <% if ( event.pricingInfo ) { %>
-              <div class="detail-item-content">
-                <p><%= event.pricingInfo %></p>
+      <aside class="col-sm-4 col-aside sidebar col-xs-12">
+        <div class="sidebar-content padding-print-h-z">
+          <section class="detail-item margin-bottom-xs shares">
+            <h3><i class="fa fa-share-alt"></i></h3>
+            <div class="detail-item-content">
+              <div class="js_shareOnOa"></div>
+            </div>
+          </section>
+          <section class="detail-item share margin-bottom-md margin-top-xs shares">
+            <%= __('otherShares') %>&nbsp;:
+            <% if (!private && (event.currentState === 'published')) { %>
+              <a
+                href="<%= event.facebookShare %>"
+                target="_blank"
+                class="fb text-muted"
+                rel="nofollow"
+              ><i class="fa fa-facebook"></i></a>
+            <% } else { %>
+              <a
+                disabled
+                class="fb disabled"
+                rel="nofollow"
+                title="<%= __('cannotShareInfo') %>"
+              ><i class="fa fa-facebook"></i></a>
+            <% } %>
+            <% if (!private && (event.currentState === 'published')) { %>
+              <a
+                href="<%= event.twitterShare %>"
+                target="_blank"
+                class="tw text-muted"
+                rel="nofollow"><i class="fa fa-twitter"></i></a>
+            <% } else { %>
+              <a
+               disabled
+               class="tw disabled"
+               rel="nofollow"
+               title="<%= __('cannotShareInfo') %>"
+              ><i class="fa fa-twitter"></i></a>
+            <% } %>
+            <% if (!private && (event.currentState === 'published')) { %>
+              <a
+                href="<%= event.linkedInShare %>"
+                target="_blank"
+                class="li text-muted"
+                rel="nofollow"><i class="fa fa-linkedin"></i></a>
+            <% } else { %>
+              <a
+                disabled
+                class="li disabled"
+                rel="nofollow"
+                title="<%= __('cannotShareInfo') %>"
+              ><i class="fa fa-linkedin"></i></a>
+            <% } %>
+            <% if (!private && (event.currentState === 'published')) { %>
+              <div class="js_shareEmail share-button"></div>
+            <% } else { %>
+              <a
+                disabled
+                class="disabled"
+                rel="nofollow"
+              ><i class="fa fa-envelope-o"></i></a>
+            <% } %>
+            <a href="#" onclick="window.print(); return false;" class="text-muted"><i class="fa fa-print"></i></a>
+            <a title="<%= __('copyInClipboard') %>" href="<%= event.permalink %>" class="js_permalink text-muted"><i class="fa fa-link"></i></a>
+            <% if (!private && (event.currentState === 'published')) { %>
+              <div class="js_shareAll share-button">
+                <%= __('allShares') %>
               </div>
+            <% } else { %>
+              <a
+                disabled
+                class="disabled"
+                rel="nofollow"
+                title="<%= __('cannotShareInfo') %>"
+              ><%= __('allShares') %></a>
             <% } %>
-            <% if (event.registrationComponent) { %>
-              <%- event.registrationComponent %>
-            <% } %>
-        </section>
-<% } %>
-
-<% if ( event.accessibility && event.accessibility.length ) { %>
-<% event.accessibility.forEach( function( i ) { %>
-        <section class="detail-item margin-v-sm">
-          <h3><i class="acc <%= i %>"></i></h3>
-          <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
-        </section>
-<% }) %>
-<% } %>
-<% if ( event.age ) { %>
-        <section class="detail-item margin-v-md">
-          <h3><i class="fa fa-child"></i></h3>
-<% if ( !event.age.max ) { %>
-          <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
-<% } else { %>
-          <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
-<% } %>
-        </section>
-<% } %>
-<% if (hasLocation) { %>
-        <section class="detail-item location-side margin-v-md">
-          <h3><i class="fa fa-map-marker"></i></h3>
-          <div class="detail-item-content">
-            <p>
-              <%- event.location.name %><% /* escaped in model already */ %>
-            </p>
-            <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
-            <ul class="info list-inline location-info-parts">
-<% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
-<% if ( event.location[ part ] && locationPart( part ) ) { %>
-              <li><span><%= locationPart( part ) %></span></li>
-<% } %>
-<% }); %>
-            </ul>
-          </div><!--
-          --><div
-              class="map js_map"
-              data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"
-              data-tiles="<%= tiles %>"
-            ></div>
-        </section>
-<% } %>
-
-
-<% if ( event.agendaReferences.length > 1 ) { %>
-        <div class="sharers">
-          <ul><!--
-<% event.agendaReferences.forEach( function( ref ) { %>
-<% if ( loner || ( ref.slug !== slug ) ) { %>
-            --><li <% if ( !ref.thumbnail ) { %>class="empty"<% } %>>
-              <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
-<% if ( ref.thumbnail ) { %>
-                --><img class="avatar" alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
-<% } else { %>
-                --><div class="avatar"></div><!--
-<% } %>
-                --><span><%= _txt.truncate( ref.title, 26, ' ...' ) %></span>
-              </a>
-            </li><!--
-<% } %>
-<% }); %>
-          --></ul>
+          </section>
+          <div class="row">
+            <div class="col-sm-12 col-print-6 padding-print-h-z">
+              <% if (event.onlineAccessLink) { %>
+              <section class="detail-item margin-bottom-md online-access-link">
+                <h3><i class="fa fa-link"></i></h3>
+                <a
+                  target="_blank"
+                  href="<%= event.onlineAccessLink %>"
+                  class="btn btn-default"
+                ><%= __('onlineAccess') %></a>
+                <span class="display-none"><%= event.onlineAccessLink %></span>
+              </section>
+              <% } %>
+              <section class="detail-item margin-bottom-sm">
+                <h3><% if (event.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
+                <p class="detail-item-content">
+                  <span><%= event.dateRange %></span>
+                  <% if (!event.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
+                </p>
+              </section>
+              <% if ( event.pricingInfo || event.registrationComponent ) { %>
+              <section class="detail-item conditions margin-v-md">
+                <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
+                  <% if ( event.pricingInfo ) { %>
+                    <div class="detail-item-content">
+                      <p><%= event.pricingInfo %></p>
+                    </div>
+                  <% } %>
+                  <% if (event.registrationComponent) { %>
+                    <%- event.registrationComponent %>
+                  <% } %>
+              </section>
+              <% } %>
+            </div>
+            <div class="col-sm-12 col-print-6 padding-print-h-z">
+              <section class="detail-item display-none js_hours timings margin-bottom-md">
+                <ul class="months"></ul>
+              </section>
+              <% if ( event.accessibility && event.accessibility.length ) { %>
+              <% event.accessibility.forEach( function( i ) { %>
+              <section class="detail-item margin-v-sm">
+                <h3><i class="acc <%= i %>"></i></h3>
+                <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
+              </section>
+              <% }) %>
+              <% } %>
+              <% if ( event.age ) { %>
+                <section class="detail-item margin-v-md">
+                  <h3><i class="fa fa-child"></i></h3>
+                  <% if ( !event.age.max ) { %>
+                  <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
+                  <% } else { %>
+                  <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
+                  <% } %>
+                </section>
+              <% } %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 padding-print-h-z">
+              <% if (hasLocation) { %>
+              <section class="detail-item location-side margin-v-md">
+                <h3><i class="fa fa-map-marker"></i></h3>
+                <div class="detail-item-content">
+                  <p>
+                    <%- event.location.name %><% /* escaped in model already */ %>
+                  </p>
+                  <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
+                  <ul class="info list-inline location-info-parts">
+                  <% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
+                  <% if ( event.location[ part ] && locationPart( part ) ) { %>
+                    <li><span><%= locationPart( part ) %></span></li>
+                  <% } %>
+                  <% }); %>
+                  </ul>
+                </div><!--
+                --><div
+                    class="map js_map"
+                    data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"
+                    data-tiles="<%= tiles %>"
+                  ></div>
+              </section>
+              <% } %>
+              <% if ( event.agendaReferences.length > 1 ) { %>
+              <div class="sharers">
+                <ul><!--
+              <% event.agendaReferences.forEach( function( ref ) { %>
+              <% if ( loner || ( ref.slug !== slug ) ) { %>
+                          --><li <% if ( !ref.thumbnail ) { %>class="empty"<% } %>>
+                            <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
+              <% if ( ref.thumbnail ) { %>
+                              --><img class="avatar" alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
+              <% } else { %>
+                              --><div class="avatar"></div><!--
+              <% } %>
+                              --><span><%= _txt.truncate( ref.title, 26, ' ...' ) %></span>
+                            </a>
+                          </li><!--
+              <% } %>
+              <% }); %>
+                --></ul>
+              </div>
+              <% } %>
+            </div>
+          </div>
+          
+          <section class="detail-item timings no-js js_timings_canvas">
+            <h3><i class="fa fa-calendar-o"></i></h3>
+          <% if ( typeof event.timingsComponents !== 'undefined' ) { %>
+            <%- event.timingsComponent %>
+          <% } else { %>
+            <% include _hours.part.ejs %>
+          <% } %>
+          </section>
+          <section class="detail-item">
+            <% include ../bsLayout/footer.part.ejs %>
+          </section>
         </div>
-<% } %>
-
-        <section class="detail-item timings no-js js_timings_canvas">
-          <h3><i class="fa fa-calendar-o"></i></h3>
-<% if ( typeof event.timingsComponents !== 'undefined' ) { %>
-          <%- event.timingsComponent %>
-<% } else { %>
-          <% include _hours.part.ejs %>
-<% } %>
-        </section>
-        
-        <% include ../bsLayout/footer.part.ejs %>
-
       </aside>
 
-      <section class="col-sm-7 col-sm-offset-1">
+      <section class="col-sm-7 col-sm-offset-1 col-xs-12">
         <div class="event-content">
 <% if ( event.category ) { %>
           <div class="category">
@@ -250,12 +317,16 @@
           </div>
 <% } %>
 
-<% if ( event.image ) { %>
-          <img  class="img-responsive" src="<%= event.image %>">
-<% if ( event.credits ) { %>
-          <div class="credits margin-h-xs"><%= event.credits %></div>
-<% } %>
-<% } %>
+          <% if ( event.image ) { %>
+          <div class="row">
+            <div class="col-xs-12 col-print-6">
+              <img  class="img-responsive col-print-6" src="<%= event.image %>">
+              <% if ( event.credits ) { %>
+              <div class="credits margin-h-xs"><%= event.credits %></div>
+              <% } %>
+            </div>
+          </div>
+          <% } %>
           <div class="description event-content-section"><%- event.freeText %></div>
 
           <div class="js_custom event-content-section">
@@ -284,7 +355,7 @@
   || event.location.website
   || event.location.phone
   || event.location.tags )) { %>
-    <div class="location-details">
+    <div class="location-details event-secondary">
       <h3><%= __( 'aboutTheVenue' ) %></h3>
       <div class="event-content">
 
@@ -322,11 +393,13 @@
         </p>
 <% } %>
 <% if ( event.location.image ) { %>
-        <div class="location-image">
-          <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
-<% if ( event.location.imageCredits ) { %>
-          <span class="credits"><%= event.location.imageCredits %></span>
-<% } %>
+        <div class="location-image row">
+          <div class="col-xs-12 col-print-6">
+            <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
+            <% if ( event.location.imageCredits ) { %>
+            <span class="credits"><%= event.location.imageCredits %></span>
+            <% } %>
+          </div>
         </div>
 <% } %>
 
@@ -370,15 +443,14 @@
 
     <div class="js_contributor"></div>
 
-    <div class="js_activities"></div>
-
+    <div class="js_activities activity-section"></div>
 <% if ( mailto ) { %>
     <h3 class="margin-top-lg"><%= __( 'contactEmail' ) %></h3>
     <div class="padding-all-md wsq" style="text-align: center;">
       <a href="<%= mailto %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
     </div>
 <% } else { %>
-    <div class="display-none js_inbox_event_canvas" id="inbox">
+    <div class="display-none js_inbox_event_canvas inbox-section" id="inbox">
       <div class="event-secondary">
         <div class="js_inbox_event inbox"></div>
       </div>

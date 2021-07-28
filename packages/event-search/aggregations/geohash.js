@@ -10,18 +10,24 @@ const validateOptions = schema({
   zoom: {
     type: 'integer',
     default: 1
+  },
+  radius: {
+    type: 'integer',
+    default: 40
   }
 });
 
 module.exports.formatDSL = (query, options = {}) => {
   const {
-    zoom
+    zoom,
+    radius
   } = validateOptions(options);
 
   return {
     geo_point_clustering: {
       field: '_search_location',
-      zoom
+      zoom,
+      radius
     }
   };
 };

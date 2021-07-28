@@ -1,209 +1,42 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
+const agendaEventStats = require('./lib/agendaEventStats');
+const db = require('./lib/db');
+const legacySearch = require('./lib/legacySearch');
+const searchStats = require('./lib/search');
 
-const agendasSvc = require( '@openagenda/agendas' );
-const queue = require( '@openagenda/queue' );
-const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
-const logs = require('@openagenda/logs');
+const Task = require('./task');
 
-const activitiesSvc = require( '../activities' );
-const agendaEventStats = require( './lib/agendaEventStats' );
-const config = require( '../../config' );
-const controlDataSvc = require( '../legacy' ).controlData;
-const db = require( './lib/db' );
-const legacySearch = require( './lib/legacySearch' );
-const custom = require( './lib/custom' );
-const searchStats = require( './lib/search' );
-const legacyTagsAndCustom = require( '../legacy' ).tagsAndCustom;
+module.exports.init = (config, services) => {
+  const task = Task(config, services);
 
-const agendasList = promisify( agendasSvc.list );
-
-const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
-
-let q;
-
-module.exports = async (services, agendaUid) => {
-  const agenda = await config.knex('review')
-    .first(['id', 'uid', 'slug', 'form_schema_id'])
-    .where('uid', agendaUid);
-
-  return {
-    db: await db( agenda.id ),
-    legacySearch: await legacySearch( agenda.id ),
-    agendaEvents: await agendaEventStats(services, agendaUid),
-    search: await searchStats(services.eventSearch, agenda),
-    hasFormSchema: !!agenda.form_schema_id,
-    actions: {
-      resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
-      rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
-      resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
-      resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
-      resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
-      resyncLegacyDatasetToCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
-      resyncCustomDatasetToLegacy: `${config.root}/${agenda.slug}/admin/stats/resync/customToLegacy`,
-      resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
-      legacyToFormSchema: `${config.root}/${agenda.slug}/admin/stats/transfer-form-schema`,
-      formSchemaToTagSet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-tagset`,
-      formSchemaToCategorySet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-categoryset`,
-      formSchemaToCustom: `${config.root}/${agenda.slug}/admin/stats/transfer-to-custom`,
-    }
-  }
-}
-
-module.exports.init = c => {
-
-  q = queue( 'agendaStatistics', { redis: c.redis } );
-
-}
-
-module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaUid, type } );
-
-module.exports.task = services => {
-
-  const { syncAgenda } = services.inboxes.tasks.sync;
-
-  q.setConsumer( ( data, cb ) => {
-
-    if ( data.operation !== 'resync' ) return cb();
-
-    switch ( data.type ) {
-
-      case 'controlData' :
-
-        controlDataSvc.rebuild( data.agendaUid );
-        break;
-
-      case 'custom' :
-
-        custom( data );
-        break;
-
-      case 'customToLegacy' :
-
-        legacyTagsAndCustom.setAll( data.agendaUid );
-        break;
-
-      case 'search':
-
-        _resyncSearch(services.core, services.eventSearch, data.agendaUid);
-        break;
-
-      case 'agendaEvents':
-
-        log( 'resyncing agenda %d - agendaEvents resync', data.agendaUid );
-        services.agendaEvents.tasks.transferLegacyData( { agendaUid: data.agendaUid } );
-        break;
-
-      case 'legacySearch':
-
-        _resyncLegacySearch( data.agendaUid );
-        break;
-
-      case 'inbox':
-
-        agendasSvc.get( { uid: data.agendaUid }, { private: null, internal: true }, ( err, agenda ) => {
-
-          const stats = {};
-
-          syncAgenda( agenda, stats )
-            .then( () => {
-
-              log( 'info', 'Agenda %d inbox synced', agenda.uid, stats );
-
-            } );
-
-        } );
-        break;
-
-      case 'activityFeeds':
-
-        rebuildActivityFeeds(
-          null,
-          {
-            agendaUid: data.agendaUid,
-            ..._.pick( config.db, [ 'database', 'host', 'port', 'user', 'password' ] ),
-            activityTable: config.schemas.activity,
-            feedTable: config.schemas.feed,
-            feedActivityTable: config.schemas.feed_activity,
-            feedFollowTable: config.schemas.feed_follow,
-            feedNotificationTable: config.schemas.feed_notification,
-            userTable: config.schemas.user,
-            reviewTable: config.schemas.agenda,
-            reviewArticleTable: config.schemas.agendaEvent,
-            eventTable: config.schemas.event,
-            reviewerTable: config.schemas.stakeholder,
-            aggregatorTable: config.schemas.aggregator,
-            migrationTable: 'activity_migrations',
-            logger: config.getLogConfig( 'oa', 'agendaStatistics', false ),
-            cli: false,
-            service: activitiesSvc
-          },
-          logs( 'activities/rebuild' )
-        );
-
-        break;
-
-    }
-
-    return cb();
-
-  } );
-
-  q.launch();
-
-}
-
-module.exports.task.resyncLegacySearch = async function() {
-
-  let offset = 0;
-
-  let agendas = [];
-
-  while( ( agendas = await agendasList( offset, 1, { private: null } ) ).length ) {
-
-    const agenda = _.first( agendas );
-
-    await _resyncLegacySearch( agenda.uid );
-
-    offset++;
-
-  }
-
-  log( 'info', 'DONE RESYNCING ALL AGENDAS' );
-
-}
-
-async function _resyncLegacySearch( agendaUid ) {
-
-  log( 'info', 'resyncing agenda %d - legacy search index rebuild', agendaUid );
-
-  const agendaId = await config.knex( 'review' ).first( 'id' )
-    .where( 'uid', agendaUid )
-    .then( result => result.id );
-
-  const result = await legacySearch.resync( agendaId );
-
-  log( 'info', 'agenda %d, resynced legacy search index', agendaId, result );
-
-}
-
-async function _resyncSearch(core, eventSearch, agendaUid ) {
-  const agenda = await core.agendas(agendaUid).get({
-    detailed: true,
-    access: 'internal',
-    private: null
+  return Object.assign(async agendaUid => {
+    const agenda = await services.knex('review')
+      .first(['id', 'uid', 'slug', 'form_schema_id'])
+      .where('uid', agendaUid);
+    return {
+      db: await db(agenda.id),
+      legacySearch: await legacySearch(agenda.id),
+      agendaEvents: await agendaEventStats(services, agendaUid),
+      search: await searchStats(services.eventSearch, agenda),
+      hasFormSchema: !!agenda.form_schema_id,
+      actions: {
+        resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
+        rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
+        resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
+        resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
+        resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
+        resyncLegacyDatasetToCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
+        resyncCustomDatasetToLegacy: `${config.root}/${agenda.slug}/admin/stats/resync/customToLegacy`,
+        resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
+        legacyToFormSchema: `${config.root}/${agenda.slug}/admin/stats/transfer-form-schema`,
+        formSchemaToTagSet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-tagset`,
+        formSchemaToCategorySet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-categoryset`,
+        formSchemaToCustom: `${config.root}/${agenda.slug}/admin/stats/transfer-to-custom`,
+      }
+    };
+  }, {
+    task,
+    resync: task.enqueueResync
   });
-
-  log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
-
-  try {
-    const result = await eventSearch.agendas(agenda).rebuild();
-
-    log('info', 'agenda %d, resynced search index', agendaUid, result);
-  } catch ( e ) {
-    log( 'error', 'agenda %d, resync failed', agendaUid, e );
-  }
-
-}
+};

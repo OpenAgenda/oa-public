@@ -194,7 +194,7 @@ export default function EventItem({
 
   const memberPlaceholderMsg = member => event.member?.name ?? (
   <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
-    {member.role
+    {member?.role
       ? intl.formatMessage(messages.memberPlaceholder, {
         role: intl.formatMessage(
           messages[

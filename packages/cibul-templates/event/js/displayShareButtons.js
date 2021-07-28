@@ -8,9 +8,7 @@ import { ShareModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import appLocales from '../../locales-compiled';
 
-console.log(modalLocales);
 const locales = mergeLocales(appLocales, modalLocales);
-console.log(locales);
 
 const messages = defineMessages({
     shareButton: {

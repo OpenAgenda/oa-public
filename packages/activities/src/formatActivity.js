@@ -80,6 +80,10 @@ module.exports = (urls, labels, defaultLang = 'fr') => {
         agenda: '/agendas/:agenda',
         event: '/agendas/:agenda/events/:event'
       },
+      'agenda.systemUnpublishEvent': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
       'agenda.removeEvent': {
         agenda: '/agendas/:agenda'
       },
@@ -396,6 +400,28 @@ module.exports = (urls, labels, defaultLang = 'fr') => {
         return getLabel('agenda.unpublishEvent', {
           agenda: agendaLink,
           user: renderHighlight(escape(activity.store.labels.actor) + getIcon(activity, 'actor')),
+          event: eventLink
+        });
+      }
+      case 'agenda.systemUnpublishEvent': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid(activity.target) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid(activity.target),
+            event: getUid(activity.object)
+          },
+          getLocaleValue(activity.store.labels.object, lang),
+          'object'
+        );
+
+        return getLabel('agenda.systemUnpublishEvent', {
+          agenda: agendaLink,
           event: eventLink
         });
       }

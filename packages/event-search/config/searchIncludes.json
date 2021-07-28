@@ -39,6 +39,7 @@
     "draft",
     "age",
     "state",
-    "member"
+    "member",
+    "links"
   ]
 }

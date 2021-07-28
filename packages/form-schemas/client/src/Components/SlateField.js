@@ -25,7 +25,7 @@ const DEFAULT_DOC = {
   }
 };
 
-module.exports = class SlateField extends Component {
+export default class SlateField extends Component {
 
   constructor( props ) {
 

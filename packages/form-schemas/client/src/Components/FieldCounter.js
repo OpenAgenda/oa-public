@@ -5,7 +5,7 @@ const _ = {
   isArray: require( 'lodash/isArray' )
 }
 
-module.exports = class FieldCounter extends Component {
+export default class FieldCounter extends Component {
 
   remaining() {
 

@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import labels from '@openagenda/labels/form-schemas';
 import { MoreInfo } from '@openagenda/react-components';
 
-module.exports = function Help({
+export default function Help({
   id,
   lang,
   label,

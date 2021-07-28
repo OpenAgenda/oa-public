@@ -43,4 +43,5 @@ module.exports.init = config => {
     localTmpPath: '/var/tmp'
   } );
 
+  return agendaDocx;
 }

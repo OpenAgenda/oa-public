@@ -26,7 +26,7 @@ const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
 @connect(
   (state, props) => ({
     initialValues: { settings: { contribution: props.agenda.settings.contribution } },
-    registeredFields: getRegisteredFields( state )
+    registeredFields: getRegisteredFields(state)
   }),
   {
     onSubmit: ( values, dispatch, { registeredFields } ) => {
@@ -52,10 +52,10 @@ const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
   enableReinitialize: true,
 } )
 @connect(
-  state => ( {
+  state => ({
     errors: state.form.contributionEdition && state.form.contributionEdition.syncErrors,
     fields: state.form.contributionEdition && state.form.contributionEdition.fields,
-  } ),
+  }),
 )
 export default class ContributionEdition extends Component {
 
@@ -295,7 +295,7 @@ export default class ContributionEdition extends Component {
                       component="input"
                       type="checkbox"
                       format={v => Array.isArray( v ) ? v.includes( 'contributor' ) : false}
-                      parse={value => value ? [ 'contributor' ] : []}
+                      parse={value => value ? [ 'contributor' ] : null}
                     />
                     {getLabel( 'contribModerateOnChangeByUnpublish' )}
                   </label>

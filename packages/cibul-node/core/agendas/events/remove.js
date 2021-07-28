@@ -1,15 +1,14 @@
 'use strict';
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const VError = require('verror');
 
+const log = require('@openagenda/logs')('core/agendas/events/remove');
 const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 
 const merge = require('../utils/merge');
 const refreshAgenda = require('../utils/refreshAgenda');
-
-const log = require('@openagenda/logs')('core/agendas/events/remove');
 
 module.exports = async (services, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
@@ -64,7 +63,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
 
   payload.setItem('event', event);
 
-  const deletion = event.agendaUid === parseInt(agendaUid);
+  const deletion = event.agendaUid === parseInt(agendaUid, 10);
 
   if (!event.draft) {
     const result = await agendaEvents(agendaUid).remove(eventUid, {
@@ -93,7 +92,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
         userUid: contextUserUid,
         legacy: false
       }
-    } );
+    });
 
     if (result.success) {
       payload.setItem('custom.agenda', result.removed);
@@ -103,7 +102,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
   const remaining = await agendaEvents.list.byEventUid(eventUid);
 
   log('  there are %s remaining agenda references', remaining.total);
-  log('  agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid) ? 'is' : 'is not');
+  log('  agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid, 10) ? 'is' : 'is not');
 
   if (!remaining.total || deletion) {
     await events.remove(eventUid, {
@@ -149,4 +148,4 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     ...result,
     deletion
   } : result.removed;
-}
+};

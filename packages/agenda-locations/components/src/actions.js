@@ -1,7 +1,6 @@
 import update from 'immutability-helper';
 import utils from '@openagenda/utils';
 import dl from '@openagenda/dom-utils/documentLocation';
-import { func } from 'prop-types';
 
 // little counter
 function _syncCounter() {
@@ -87,7 +86,8 @@ function addLocation(state, location) {
  */
 
 function toggleMergeItem(state, location) {
-  const locationUids = state.merge.locationUids.concat();
+  const { merge } = state;
+  const locationUids = merge.locationUids.concat();
   const index = locationUids.indexOf(location.uid);
 
   if (index === -1) {
@@ -99,7 +99,10 @@ function toggleMergeItem(state, location) {
   return {
     merge: {
       locationUids,
-      targetUid: state.merge.targetUid
+      target: state.merge.target,
+      step: 1,
+      entryPoint: merge.entryPoint,
+      query: merge.query
     },
   };
 }
@@ -113,14 +116,20 @@ function toggleMergeTarget(state, location) {
     return {
       merge: {
         locationUids: locationUids.filter(i => i !== location.uid),
-        targetUid: null,
+        target: null,
+        step: 2,
+        entryPoint: merge.entryPoint,
+        query: merge.query
       },
     };
   }
   return {
     merge: {
       locationUids: locationUids.filter(i => i !== location.uid),
-      targetUid: location.uid,
+      target: location,
+      step: 2,
+      entryPoint: merge.entryPoint,
+      query: merge.query
     },
   };
 }
@@ -150,8 +159,9 @@ function mergeOnGoing(state) {
     merge: {
       $set: {
         locationUids: state.merge.locationUids,
-        targetUid: state.merge.targetUid,
+        target: state.merge.target,
         onGoing: true,
+        query: state.merge.query
       }
     },
     modal: { $set: { type: 'merge' } },
@@ -163,7 +173,7 @@ function changeMergeModal(state, err) {
     merge: {
       $set: {
         locationUids: state.merge.locationUids,
-        targetUid: state.merge.targetUid,
+        target: state.merge.target,
         onGoing: true,
       }
     },
@@ -172,6 +182,10 @@ function changeMergeModal(state, err) {
 }
 
 function closeMerge(state) {
+  const { merge } = state;
+  if (merge?.query) {
+    dl.setQueryPart(merge.query);
+  }
   return update(state, {
     merge: { $set: false },
     query: { $set: {} },
@@ -186,22 +200,96 @@ function openDetailModal(state, location) {
   });
 }
 
-
 /**
  * toggle merge mode on or off
  * used in AgendaAdminLocations
  */
 function toggleMerge(state, on) {
+  const { merge } = state;
+  const q = dl.getQuery() || {};
   if (on) {
     return {
       merge: {
         locationUids: [],
         target: null,
+        step: 1,
+        query: q
       },
     };
   }
+  dl.setQueryPart(merge.query);
   return {
     merge: false,
+  };
+}
+
+function goToMergeStep2(state) {
+  const { merge } = state;
+  const locationUids = merge.locationUids.concat();
+  return {
+    merge: {
+      locationUids,
+      target: merge.target,
+      step: 2,
+      entryPoint: merge.entryPoint,
+      query: merge.query
+    },
+  };
+}
+
+function goToMergeStep3(state, location) {
+  const { merge } = state;
+  const locationUids = merge.locationUids.concat();
+  return {
+    merge: {
+      locationUids,
+      target: location,
+      step: 3,
+      entryPoint: merge.entryPoint,
+      query: merge.query
+    },
+  };
+}
+
+function backToMergeStep1(state) {
+  const { merge } = state;
+  const locationUids = merge.locationUids.concat();
+  return {
+    merge: {
+      locationUids,
+      target: null,
+      step: 1,
+      entryPoint: merge.entryPoint,
+      query: merge.query
+    },
+  };
+}
+
+function backToMergeStep2(state) {
+  const { merge } = state;
+  const locationUids = merge.locationUids.concat();
+  return {
+    merge: {
+      locationUids,
+      target: null,
+      step: 2,
+      entryPoint: merge.entryPoint,
+      query: merge.query
+    },
+  };
+}
+
+function goToMergeStep1FromDuplicates(state, location) {
+  const locationUids = location.duplicateCandidates.concat(location.uid);
+  const q = dl.getQuery() || {};
+  return {
+    merge: {
+      locationUids,
+      target: null,
+      step: 1,
+      entryPoint: location.uid,
+      query: q
+    },
   };
 }
 
@@ -295,6 +383,12 @@ function actions(options) {
     mergeOnGoing: assign(mergeOnGoing),
     changeMergeModal: assign(changeMergeModal),
 
+    goToMergeStep1FromDuplicates: assign(goToMergeStep1FromDuplicates),
+    goToMergeStep2: assign(goToMergeStep2),
+    goToMergeStep3: assign(goToMergeStep3),
+    backToMergeStep1: assign(backToMergeStep1),
+    backToMergeStep2: assign(backToMergeStep2),
+
     updateLocationList: assign(updateLocationList),
     toggleMergeItem: assign(toggleMergeItem),
     toggleMergeTarget: assign(toggleMergeTarget),
@@ -321,6 +415,11 @@ export default Object.assign(actions, {
     toggleMerge,
     toggleMergeItem,
     toggleMergeTarget,
+    goToMergeStep1FromDuplicates,
+    goToMergeStep2,
+    goToMergeStep3,
+    backToMergeStep1,
+    backToMergeStep2,
     mergeOnGoing,
     openDetailModal,
     updateLocationList,

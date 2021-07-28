@@ -1,8 +1,8 @@
 'use strict';
 
-const getNetwork = require('./getNetwork');
-const getSchemas = require('./getSchemas');
 const NotFoundError = require('../../utils/NotFoundError');
+const getSchemas = require('./getSchemas');
+const getNetwork = require('./getNetwork');
 
 module.exports = async (services, agendaOrUid, options = {}) => {
   const {

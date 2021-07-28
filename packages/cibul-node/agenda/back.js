@@ -1,27 +1,28 @@
-"use strict";
+'use strict';
 
 const fs = require('fs');
 const _ = require('lodash');
-const agendaStatistics = require('../services/agendaStatistics');
 
 const layout = require('../services/lib/layouts').load('agendaAdmin');
-
-const agendaLoad = require('@openagenda/agendas').middleware.load({
-  private: null,
-  internal: true,
-  includeImagePath: true,
-  namespaces: {
-    identifiers: {
-      slug: 'params.agendaSlug',
-      uid: 'params.agendaUid'
-    }
-  }
-});
 
 const statsTemplate = _.template(fs.readFileSync(__dirname + '/stats.tpl', 'utf-8'));
 
 module.exports = app => {
-  const { agendas, members, sessions } = app.services;
+  const {
+    agendas, members, sessions, agendaStatistics
+  } = app.services;
+
+  const agendaLoad = agendas.middleware.load({
+    private: null,
+    internal: true,
+    includeImagePath: true,
+    namespaces: {
+      identifiers: {
+        slug: 'params.agendaSlug',
+        uid: 'params.agendaUid'
+      }
+    }
+  });
 
   /**
    * stats routes are hit by a ping script and need to be accessible
@@ -47,7 +48,7 @@ module.exports = app => {
   app.get(
     '/:agendaSlug/admin/stats',
     async (req, res, next) => res.send(layout(
-      statsTemplate(await agendaStatistics(req.app.services, req.agenda.uid)),
+      statsTemplate(await agendaStatistics(req.agenda.uid)),
       { ...req, role: req.member.role }
     ))
   )
@@ -81,7 +82,7 @@ module.exports = app => {
    * resync what can be
    */
 
-  app.get('/:agendaSlug/admin/stats/resync/:type', (req, res, next) => {
+  app.get('/:agendaSlug/admin/stats/resync/:type', (req, res) => {
     agendaStatistics.resync(req.agenda.uid, req.params.type);
 
     res.json({ operation: 'resyncing ' + req.params.type });
