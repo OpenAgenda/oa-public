@@ -2,10 +2,7 @@ const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
 function getHash() {
-  const href = (window.location.hash || '').replace(/^#\/\?/, '');
-  const urlParams = new URLSearchParams(href);
-
-  return `/?${urlParams}`;
+  return (window.location.hash || '').replace(/^#/, '');
 }
 
 function updateRelativePath(state, relative) {
