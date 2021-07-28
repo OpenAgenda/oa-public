@@ -814,7 +814,7 @@
   "AgendaLocations.LocationSelector.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "remove"
     }
   ],
   "AgendaLocations.RemoveModal.cancel": [
@@ -847,7 +847,7 @@
           "value": [
             {
               "type": 0,
-              "value": " have been contributed on the agenda. By deleting the location, the associated events will also be deleted."
+              "value": " have been contributed on the agenda."
             }
           ]
         }
@@ -1056,7 +1056,7 @@
           "value": [
             {
               "type": 0,
-              "value": " Do not delete the event"
+              "value": "Do not delete the event"
             }
           ]
         },
