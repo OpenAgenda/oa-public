@@ -54,6 +54,6 @@
   "rtp.recurrencerForm.title": "Definire il programma ricorrente",
   "rtp.recurrencerForm.week": "settimana",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {settimana} other {settimane}}",
-  "rtp.reset": "Cancellare tutti i programmi previsionali",
+  "rtp.reset": "Cancellare tutti",
   "rtp.scheduler.openMultiRecurrencerModal": "Definire la ricorrenza"
 }

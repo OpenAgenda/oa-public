@@ -14,7 +14,7 @@ const extractDomain = (url = '') => {
 };
 
 export default (jQuery, iframeHandler) => {
-  jQuery('a').each(function () {
+  jQuery('a').each(function linkHandler() {
     const el = jQuery(this);
 
     if (!el.attr('href')) {

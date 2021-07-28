@@ -3,6 +3,7 @@
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 const unusedFile = 'unused.js';
@@ -29,6 +30,11 @@ module.exports = (mainSASSFilePath, assetsPath) => new Promise((rs, rj) => {
           filename: '[name].css',
           chunkFilename: '[id].css',
         }),
+        new CleanWebpackPlugin({
+          cleanOnceBeforeBuildPatterns: [
+            `${assetsPath}/main.css`
+          ]
+        })
       ],
       optimization: {
         minimizer: [new CssMinimizerPlugin()],

@@ -10,6 +10,7 @@ module.exports = (req, res, next) => {
   if (isStaticFilePath(req)) return next();
 
   setPageProp(req, 'pageType', 'static');
+  setPageProp(req, 'lang', res.locals.lang);
 
   res.render(`pages/${req.params.page}`, req.data, (err, html) => {
     if (_.get(err, 'message', '').indexOf('Failed to lookup view') !== -1) {

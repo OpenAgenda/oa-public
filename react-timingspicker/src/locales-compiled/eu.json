@@ -708,7 +708,7 @@
   "rtp.reset": [
     {
       "type": 0,
-      "value": "Delete all timings"
+      "value": "Clear"
     }
   ],
   "rtp.scheduler.openMultiRecurrencerModal": [

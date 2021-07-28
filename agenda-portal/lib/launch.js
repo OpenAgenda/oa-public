@@ -20,7 +20,7 @@ async function _development(app, port) {
   _ready(port);
 }
 
-async function _production(app /* , port */) {
+async function _production(app, port) {
   if (!app.locals.root) throw new Error('app root is not set');
 
   log('launching in production environment');
@@ -35,7 +35,7 @@ async function _production(app /* , port */) {
 
   await createCSSFile(sass, assets);
 
-  _ready();
+  _ready(port);
 }
 
 module.exports = (app, port = 80) => {

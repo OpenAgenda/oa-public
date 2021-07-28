@@ -10,6 +10,8 @@ const pageGlobals = require('./pageGlobals');
 module.exports = (err, req, res, next) => {
   const message = _.get(err, 'response.data.error', _.get(err, 'message'));
 
+  console.log(err);
+
   log('error', message || err);
 
   pageGlobals(req, res, () => {

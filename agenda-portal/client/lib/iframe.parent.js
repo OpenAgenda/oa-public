@@ -1,16 +1,22 @@
 const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
-const getHash = () => (window.location.hash || '').replace(/^#/, '');
+function getHash() {
+  return (window.location.hash || '').replace(/^#/, '');
+}
 
-const updateRelativePath = (state, relative) => {
+function updateRelativePath(state, relative) {
   state.relative = relative;
   window.location.hash = relative;
-};
+}
 
-const appendAttributeValueToQuery = (iframe, current, key, attrKey) => `${
-  current + (current.indexOf('?') === -1 ? '?' : '&')
-}${key}=${iframe.getAttribute(attrKey)}`;
+function appendAttributeValueToQuery(iframe, current, key, attrKey) {
+  const url = new URL(current, window.location.href);
+
+  url.searchParams.append(key, iframe.getAttribute(attrKey));
+
+  return `${url.pathname}${url.search}`;
+}
 
 function onMessage(state, { message }) {
   if (message.code === 'ready' && !state.iFrameReady) {
@@ -50,13 +56,14 @@ function updateIframeOnHashChange(state) {
     'hashchange',
     () => {
       const hash = getHash();
+
       log('updateIframeOnHashChange - %s vs %s', state.relative, hash);
 
-      if (getHash() === state.relative) {
+      if (hash === state.relative) {
         return;
       }
 
-      state.relative = getHash();
+      state.relative = hash;
 
       updateIFrameSource(state);
     },

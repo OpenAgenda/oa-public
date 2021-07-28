@@ -4,14 +4,11 @@ const _ = require('lodash');
 const axios = require('axios');
 const qs = require('qs');
 const parseSearchQuery = require('./utils/searchQuery');
-const formatAgendaHead = require('./utils/formatAgendaHead');
 const log = require('./Log')('proxy');
 const transformQueryV1ToV2 = require('./utils/transformQueryV1ToV2');
 
 const getAgendaSettings = (agendaUid, key) => axios
-  .get(
-    `https://api.openagenda.com/v2/agendas/${agendaUid}/settings?key=${key}`
-  )
+  .get(`https://openagenda.com/api/agendas/${agendaUid}?key=${key}`)
   .then(({ data }) => data)
   .catch(err => {
     if (err.response.status === 403) {
@@ -21,18 +18,19 @@ const getAgendaSettings = (agendaUid, key) => axios
     }
   });
 
-const cachedHead = _.memoize((key, agendaUid) => axios
-  .get(`https://openagenda.com/agendas/${agendaUid}/settings.json`, { key })
-  .then(async ({ data }) => formatAgendaHead(agendaUid, await getAgendaSettings(agendaUid, key), data)));
+const cachedHead = _.memoize(getAgendaSettings);
 
 module.exports = ({
   key,
   defaultLimit,
+  preFilter,
   defaultFilter,
   defaultTimezone,
   jsonExportVersion,
+  proxyHookBeforeGet
 }) => {
-  async function _fetch(agendaUid, res, query, forcedLimit = null) {
+  async function _fetch(agendaUid, res, userQuery, forcedLimit = null) {
+    const query = { ...preFilter, ...userQuery };
     const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
 
     const limit = forcedLimit || query.limit || defaultLimit;
@@ -49,15 +47,15 @@ module.exports = ({
 
     const params = jsonExportVersion === 2
       ? {
-        ..._.omit(query, ['oaq']),
+        ..._.omit(query, ['oaq', 'lang']),
         ...transformQueryV1ToV2(oaq, {
           timezone: defaultTimezone,
-          slugSchemaOptionIdMap: await cachedHead(key, agendaUid).then(
+          slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
             a => a.slugSchemaOptionIdMap
           ),
         }),
         size: limit,
-        offset,
+        from: offset,
       }
       : {
         key,
@@ -66,18 +64,24 @@ module.exports = ({
         offset,
       };
 
-    log('fetching', params);
-
     if (query && query.detailed) {
       params.detailed = query.detailed;
     }
 
+    const appliedParams = proxyHookBeforeGet ? proxyHookBeforeGet(params) : params;
+
+    log('fetching', appliedParams);
+
     return axios
       .get(`https://openagenda.com/agendas/${agendaUid}/${res}`, {
-        params,
-        paramsSerializer: unserialized => qs.stringify(unserialized, { arrayFormat: 'brackets' }),
+        params: appliedParams,
+        paramsSerializer: qs.stringify,
       })
-      .then(({ data }) => data);
+      .then(({ data }) => (jsonExportVersion === 2 ? {
+        ...data,
+        offset,
+        limit,
+      } : data));
   }
 
   function get(agendaUid, { uid, slug }) {
@@ -117,7 +121,7 @@ module.exports = ({
   }
 
   return {
-    head: cachedHead.bind(null, key),
+    head: agendaUid => cachedHead(agendaUid, key),
     list: (agendaUid, query) => {
       if (jsonExportVersion === 2) {
         query.detailed = 1;

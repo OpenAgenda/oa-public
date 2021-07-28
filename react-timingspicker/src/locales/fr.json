@@ -57,6 +57,6 @@
   "rtp.recurrencerForm.title": "Définir un horaire récurrent",
   "rtp.recurrencerForm.week": "semaine",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {semaine} other {semaines}}",
-  "rtp.reset": "Supprimer tous les horaires",
+  "rtp.reset": "Supprimer",
   "rtp.scheduler.openMultiRecurrencerModal": "Définir une récurrence"
 }
