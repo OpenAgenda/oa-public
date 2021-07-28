@@ -109,7 +109,7 @@
   "ReactFilters.MapFilter.previewLabel": [
     {
       "type": 0,
-      "value": "Map"
+      "value": "Carte"
     }
   ],
   "ReactFilters.MultiChoiceFilter.lessOptions": [
@@ -170,6 +170,12 @@
     {
       "type": 0,
       "value": "Demain"
+    }
+  ],
+  "ReactFilters.filters.searchFilter.placeholder": [
+    {
+      "type": 0,
+      "value": "Rechercher"
     }
   ],
   "ReactFilters.messages.filterTitles.addMethod": [

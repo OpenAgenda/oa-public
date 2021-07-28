@@ -172,6 +172,12 @@
       "value": "Tomorrow"
     }
   ],
+  "ReactFilters.filters.searchFilter.placeholder": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
   "ReactFilters.messages.filterTitles.addMethod": [
     {
       "type": 0,
