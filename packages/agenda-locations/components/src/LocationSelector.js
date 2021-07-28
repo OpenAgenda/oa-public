@@ -18,6 +18,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationSelector.find',
     defaultMessage: 'Find',
   },
+  remove: {
+    id: 'AgendaLocations.LocationSelector.remove',
+    defaultMessage: 'Remove',
+  },
   noLocation: {
     id: 'AgendaLocations.LocationSelector.noLocation',
     defaultMessage: 'Select a location',
@@ -37,6 +41,7 @@ class LocationSelector extends Component {
         detailed: false,
       },
     },
+    allowRemove: false,
   };
 
   constructor(props) {
@@ -88,11 +93,22 @@ class LocationSelector extends Component {
   }
 
   renderSelected() {
-    const { location, disableChange } = this.props;
+    const {
+      location, disableChange, allowRemove, onRemove
+    } = this.props;
     return (
       <div className="selected-location">
         {!disableChange ? (
           <div className="actions">
+            {allowRemove && location ? (
+              <button
+                type="button"
+                onClick={onRemove}
+                className="btn btn-link text-danger action"
+              >
+                <FormattedMessage {...messages.remove} />
+              </button>
+            ) : null}
             <button
               type="button"
               onClick={this.switchToSearch}
