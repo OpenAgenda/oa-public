@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const log = require('@openagenda/logs')('update');
 const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
