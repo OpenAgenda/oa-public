@@ -1,3 +1,8 @@
+import '@openagenda/polyfills/web';
+import '@openagenda/polyfills/dom';
+import '@openagenda/polyfills/intl';
+import '@openagenda/polyfills/intl-locales';
+
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
