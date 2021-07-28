@@ -1,15 +1,26 @@
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import debug from 'debug';
+import qs from 'qs';
+import { prepareClientPortals } from '@stefanoruth/react-portal-ssr';
 import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
 import updateTotal from './lib/updateTotal';
 import updateShare from './lib/updateShare';
+import Provider from './components/Provider';
+import FiltersRoot from './components/FiltersRoot';
+import extractAttrs from './lib/extractAttrs';
+import parseFilterAttrs from './lib/parseFilterAttrs';
 
 const log = debug('main');
 
 /* global $ */
 
 const listSelector = '.events';
+const activeFiltersSelector = '[data-oa-widget="activeFilters"]';
+
 let nextProgressiveLoadPage = 2;
 let rockBottom;
 
@@ -139,6 +150,128 @@ function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
   });
 }
 
+function onFilterController(pageProps, filtersRef, values = {}) {
+  log('onFilterChange from %s, %j', origin, values);
+  nextProgressiveLoadPage = 2;
+  rockBottom = false;
+
+  const filtersRoot = filtersRef.current;
+  const filters = filtersRoot.getFilters();
+  const aggregations = filters
+    .map(filter => {
+      if (filter.aggregation === null) {
+        return false;
+      }
+
+      return {
+        key: filter.name,
+        type: filter.name,
+        ...filter.aggregation,
+      };
+    })
+    .filter(Boolean);
+
+  const needViewport = filters.some(filter => filter.type === 'map');
+
+  if (needViewport) {
+    aggregations.unshift({
+      key: 'viewport',
+      type: 'viewport'
+    });
+  }
+
+  loadListContent('/events', { ...values, aggregations }, (err, result) => {
+    $(listSelector).html(result.html);
+
+    filtersRoot.setAggregations(result.aggregations);
+    filtersRoot.setQuery(values);
+
+    // TODO
+    // if (pageProps.iframable) {
+    //   handleIFrameLinkEvents($, iframeHandler);
+    // }
+
+    result.total = updateTotal(result.total);
+    updateShare(pageProps);
+
+    const queryStr = qs.stringify(values, {
+      addQueryPrefix: true,
+      arrayFormat: 'brackets',
+      skipNulls: true,
+    });
+
+    window.history.pushState(
+      {},
+      null,
+      `${window.location.pathname}${queryStr}`
+    );
+
+    const mapFilter = filters.find(v => v.type === 'map');
+    const mapElem = mapFilter?.elemRef?.current;
+
+    if (mapElem) {
+      mapElem.onQueryChange(result.aggregations.viewport);
+    }
+
+    iframeHandler.sendNavUpdate();
+  });
+}
+
+async function renderFilters(pageProps) {
+  const filtersRef = React.createRef();
+  const container = document.querySelector('[data-oa-filters-root]');
+
+  if (!container) {
+    log('There is no container (.oa-filters-root) to render the filters');
+    return;
+  }
+
+  const filterElems = document.querySelectorAll('[data-oa-filter]');
+  const activeFilterWidget = document.querySelector(activeFiltersSelector);
+
+  const filters = Array.from(
+    filterElems,
+    elem => {
+      const { id, ...dataSet } = parseFilterAttrs(extractAttrs(elem));
+
+      if (dataSet.type === 'custom') {
+        dataSet.elem = elem;
+        dataSet.handlerElem = dataSet.handlerSelector ? elem.querySelector(dataSet.handlerSelector) : null;
+      } else {
+        dataSet.elemRef = React.createRef();
+        dataSet.destSelector = `[data-oa-filter-id="${id}"]`;
+      }
+
+      return dataSet;
+    }
+  );
+
+  const initialQuery = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  });
+
+  prepareClientPortals();
+
+  ReactDOM.render(
+    <Provider
+      lang={pageProps.lang}
+      initialValues={_.omit(initialQuery, 'sort')}
+      onFilterChange={values => onFilterController(pageProps, filtersRef, values)}
+    >
+      <FiltersRoot
+        ref={filtersRef}
+        filters={filters}
+        activeFiltersSelector={activeFilterWidget ? activeFiltersSelector : null}
+        initialAggregations={pageProps.aggregations}
+        initialQuery={initialQuery}
+        defaultViewport={pageProps.defaultViewport}
+        res="/events"
+      />
+    </Provider>,
+    container
+  );
+}
+
 $(() => {
   const pageProps = readPageProps($);
 
@@ -156,6 +289,9 @@ $(() => {
       pageProps,
     }),
   };
+
+  renderFilters(pageProps)
+    .catch(err => console.error('ERROR: Cannot render filters:', err));
 
   log('page ready', pageProps);
 

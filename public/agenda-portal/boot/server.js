@@ -1,6 +1,11 @@
 'use strict';
 
 // const log = require('../lib/Log')('server');
+
+// Set options as a parameter, environment variable, or rc file.
+// eslint-disable-next-line no-global-assign
+require = require('esm')(module /* , options */);
+
 const Portal = require('..');
 
 Portal.utils.loadEnvironment(__dirname);
@@ -30,10 +35,15 @@ Portal({
   i18n: `${__dirname}/i18n`,
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
+  // filters that applies even if other filter is specified, can be overloaded
+  preFilter: {
+    relative: ['current', 'upcoming']
+  },
   // filter that applies when no other filter is specified
   defaultFilter: {
     featured: 0,
   },
+  jsonExportVersion: 2,
   // true if portal is to be displayed within iframe
   iframable: process.env.PORTAL_IFRAMABLE,
   iframeParent: process.env.PORTAL_IFRAME_PARENT_URL,
@@ -56,4 +66,5 @@ Portal({
     zoom: 20,
   },
   eventHook,
+  // proxyHookBeforeGet
 }).then(({ app }) => app.launch(process.env.PORTAL_PORT));

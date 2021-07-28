@@ -41,53 +41,53 @@ export default class Stats extends Component {
 
     return (
       <>
-        <div className={`${classNamePrefix}stats`}>
-          {value && value.length ? (
-            <>
-              {sameDay ? (
-                <FormattedMessage
-                  id="rtp.definedTimings"
-                  defaultMessage="{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} {timingsCount, plural, =0 {} other {at {when, date, short}}}"
-                  values={{
-                    timingsCount: value.length,
-                    when: first,
-                  }}
-                />
-              ) : (
-                <FormattedMessage
-                  id="rtp.definedTimingsInRange"
-                  defaultMessage="{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} from {from, date, short} to {to, date, short}"
-                  values={{
-                    timingsCount: value.length,
-                    from: first,
-                    to: last,
-                  }}
-                />
-              )}
-            </>
-          ) : (
-            <FormattedMessage
-              id="rtp.defineTiming"
-              defaultMessage="Click and drag on the grid to set a timing"
-            />
-          )}
-        </div>
-
-        {value && value.length ? (
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={reset}
-            onKeyPress={reset}
-            className={`${classNamePrefix}reset`}
-          >
-            <FormattedMessage
-              id="rtp.reset"
-              defaultMessage="Delete all timings"
-            />
+        <div className={`${classNamePrefix}summary`}>
+          <div className={`${classNamePrefix}stats`}>
+            {value && value.length ? (
+              <>
+                {sameDay ? (
+                  <FormattedMessage
+                    id="rtp.definedTimings"
+                    defaultMessage="{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} {timingsCount, plural, =0 {} other {at {when, date, short}}}"
+                    values={{
+                      timingsCount: value.length,
+                      when: first,
+                    }}
+                  />
+                ) : (
+                  <FormattedMessage
+                    id="rtp.definedTimingsInRange"
+                    defaultMessage="{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} from {from, date, short} to {to, date, short}"
+                    values={{
+                      timingsCount: value.length,
+                      from: first,
+                      to: last,
+                    }}
+                  />
+                )}
+              </>
+            ) : (
+              <FormattedMessage
+                id="rtp.defineTiming"
+                defaultMessage="Click and drag on the grid to set a timing"
+              />
+            )}
           </div>
-        ) : null}
-
+          {value && value.length ? (
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={reset}
+              onKeyPress={reset}
+              className={`${classNamePrefix}reset`}
+            >
+              <FormattedMessage
+                id="rtp.reset"
+                defaultMessage="Clear"
+              />
+            </div>
+          ) : null}
+        </div>
         <div className={`${classNamePrefix}clearfix`} />
       </>
     );

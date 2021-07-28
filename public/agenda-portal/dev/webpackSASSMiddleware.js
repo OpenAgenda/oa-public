@@ -12,7 +12,11 @@ module.exports = sassFilePath => {
       rules: [
         {
           test: /\.s[ac]ss$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+          use: [
+            MiniCssExtractPlugin.loader,
+            require.resolve('css-loader'),
+            require.resolve('sass-loader')
+          ],
         },
       ],
     },

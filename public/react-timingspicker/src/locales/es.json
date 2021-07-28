@@ -55,6 +55,6 @@
   "rtp.recurrencerForm.title": "Definir un programa recurrente",
   "rtp.recurrencerForm.week": "semana",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {semana} other {semanas}}",
-  "rtp.reset": "Borrar todos los horarios",
+  "rtp.reset": "Borrar",
   "rtp.scheduler.openMultiRecurrencerModal": "Define recurrencia"
 }
