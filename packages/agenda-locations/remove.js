@@ -24,8 +24,8 @@ async function remove({ endpoints, internals }, current, options = {}) {
       merged_in: options?.mergedIn
     });
   if (current?.duplicateCandidates?.length > 0) {
-    removeCandidate(endpoints, current.duplicateCandidates, current.uid)
-      .then(res => res, err => { console.log(err); });
+    await removeCandidate(endpoints, current.duplicateCandidates, current.uid)
+      .then(res => res, err => { log(err); });
   }
   return current;
 }

@@ -240,3 +240,43 @@ describe('agenda-locations - functional - merge - no rights', () => {
     });
   });
 });
+
+describe('agenda-locations - functional - merge - duplicates', () => {
+  const f = fixtures(config.mysql, 'hauteSavoie.sql');
+
+  let svc;
+
+  beforeAll(async () => {
+    await f.load();
+
+    svc = Service({
+      knex: f.client,
+      Files: Files(dConfig.files),
+      interfaces: {
+        getAgendaDetailsByUid: async uid => ({
+          id: {
+            7196947: 30907,
+          }[uid],
+        }),
+        beforeMerge: async (mergeIn, merged) => {},
+        getAgendaLocationSettings: async (uid) => initSettings
+      },
+    });
+  });
+  describe('duplicates handling', () => {
+
+    beforeAll(async () => {
+      await svc(7196947).merge(
+        52174054,
+        { uids: [52174055, 52174056] },
+        { name: 'fusionné' }
+      );
+    });
+
+    it('clean duplicates candidata of merge Target', async () => {
+      const target = await f.client('location').first()
+        .where('uid', 52174054);
+      expect(target.duplicates).toStrictEqual('{"candidates":[],"disqualified":[]}');
+    });
+  });
+});

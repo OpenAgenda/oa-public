@@ -2,37 +2,37 @@
   "AgendaLocations.AdminActionModal.cantDo": [
     {
       "type": 0,
-      "value": "Vous ne possedez pas les droits pour:"
+      "value": "You do not have the rights for:"
     }
   ],
   "AgendaLocations.AdminActionModal.closeModal": [
     {
       "type": 0,
-      "value": "Fermer"
+      "value": "Close"
     }
   ],
   "AgendaLocations.AdminActionModal.create": [
     {
       "type": 0,
-      "value": "Ajouter un lieu"
+      "value": "Add a location"
     }
   ],
   "AgendaLocations.AdminActionModal.doOn": [
     {
       "type": 0,
-      "value": "Cette action est à efféctuer sur le site de"
+      "value": "This action is to be carried out on the website of"
     }
   ],
   "AgendaLocations.AdminActionModal.edit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Edit"
     }
   ],
   "AgendaLocations.AdminActionModal.goTo": [
     {
       "type": 0,
-      "value": "Aller sur"
+      "value": "Go to"
     }
   ],
   "AgendaLocations.AdminActionModal.info": [
@@ -44,79 +44,79 @@
   "AgendaLocations.AdminActionModal.merge": [
     {
       "type": 0,
-      "value": "Fusionner des lieux"
+      "value": "Merge locations"
     }
   ],
   "AgendaLocations.AdminActionModal.newTab": [
     {
       "type": 0,
-      "value": "Un nouvel onglet va s'ouvrir dans un instant."
+      "value": "A new tab will open in an instant."
     }
   ],
   "AgendaLocations.AdminActionModal.remove": [
     {
       "type": 0,
-      "value": "Supprimer"
+      "value": "Delete"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.cancelMerge": [
     {
       "type": 0,
-      "value": "Annuler la fusion"
+      "value": "Cancel Merge"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.closeModal": [
     {
       "type": 0,
-      "value": "Fermer"
+      "value": "Close"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.contactSupport": [
     {
       "type": 0,
-      "value": "Contacter le support"
+      "value": "Contact support"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.create": [
     {
       "type": 0,
-      "value": "Ajouter un lieu"
+      "value": "Add a location"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.merge": [
     {
       "type": 0,
-      "value": "Fusionner des lieux"
+      "value": "Merge locations"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.mergeDescription": [
     {
       "type": 0,
-      "value": "Fusion de lieux"
+      "value": "Locations merge"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.mergeInProgress": [
     {
       "type": 0,
-      "value": "La fusion est en cours"
+      "value": "Merge is in progress"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.search": [
     {
       "type": 0,
-      "value": "Filtrer la liste"
+      "value": "Filter list"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.somethingWentWrong": [
     {
       "type": 0,
-      "value": "Une erreur est survenue, veuillez contacter le support si cela se reproduit"
+      "value": "An error has occurred, please contact support if it happens again"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.toVerify": [
     {
       "type": 0,
-      "value": "Voir les lieux à vérifier"
+      "value": "See locations to verify"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.total": [
@@ -127,7 +127,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun lieu ne correspond à cette recherche"
+              "value": "No location matches this search"
             }
           ]
         },
@@ -135,7 +135,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Total: un lieu"
+              "value": "Total: one location"
             }
           ]
         },
@@ -150,7 +150,7 @@
             },
             {
               "type": 0,
-              "value": " lieux"
+              "value": " locations"
             }
           ]
         }
@@ -163,85 +163,85 @@
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
-      "value": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler"
+      "value": "Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them"
     }
   ],
   "AgendaLocations.CountryField.country": [
     {
       "type": 0,
-      "value": "Pays"
+      "value": "Country"
     }
   ],
   "AgendaLocations.Filters.locationSelection": [
     {
       "type": 0,
-      "value": "Sélection de lieux"
+      "value": "Locations selection"
     }
   ],
   "AgendaLocations.Filters.verify": [
     {
       "type": 0,
-      "value": "À vérifier"
+      "value": "To verify"
     }
   ],
   "AgendaLocations.LocationConfirmation.cancel": [
     {
       "type": 0,
-      "value": "Choisir un autre lieu"
+      "value": "Select another location"
     }
   ],
   "AgendaLocations.LocationConfirmation.confirm": [
     {
       "type": 0,
-      "value": "Confirmer"
+      "value": "Confirm"
     }
   ],
   "AgendaLocations.LocationConfirmation.guide": [
     {
       "type": 0,
-      "value": "Ce lieu est-il correctement décrit ?"
+      "value": "Are the details of this location correct ?"
     }
   ],
   "AgendaLocations.LocationConfirmation.guideDetail": [
     {
       "type": 0,
-      "value": "Si certaines modifications doivent être apportées, détaillez-les via le bouton ci-dessous avant de confirmer votre sélection."
+      "value": "If some changes have to be made, click on the button below to provide details on the change to agenda administrators"
     }
   ],
   "AgendaLocations.LocationConfirmation.suggest": [
     {
       "type": 0,
-      "value": "Suggérer une modification"
+      "value": "Suggest a change"
     }
   ],
   "AgendaLocations.LocationConfirmation.suggestChangeMessage": [
     {
       "type": 0,
-      "value": "Un nouvel onglet s'est ouvert dans votre navigateur. Détaillez-y les modifications que vous désirez apporter avant de sélectionner le lieu."
+      "value": "A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection"
     }
   ],
   "AgendaLocations.LocationDetails.access": [
     {
       "type": 0,
-      "value": "Accès"
+      "value": "Access"
     }
   ],
   "AgendaLocations.LocationDetails.andOn": [
     {
       "type": 0,
-      "value": " et sur "
+      "value": "and on"
     }
   ],
   "AgendaLocations.LocationDetails.city": [
     {
       "type": 0,
-      "value": "Ville"
+      "value": "City"
     }
   ],
   "AgendaLocations.LocationDetails.department": [
     {
       "type": 0,
-      "value": "Département"
+      "value": "Department"
     }
   ],
   "AgendaLocations.LocationDetails.description": [
@@ -253,25 +253,25 @@
   "AgendaLocations.LocationDetails.district": [
     {
       "type": 0,
-      "value": "Quartier"
+      "value": "District"
     }
   ],
   "AgendaLocations.LocationDetails.email": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Contact email"
     }
   ],
   "AgendaLocations.LocationDetails.emptyGeo": [
     {
       "type": 0,
-      "value": "Vide"
+      "value": "Empty"
     }
   ],
   "AgendaLocations.LocationDetails.hoverInfo": [
     {
       "type": 0,
-      "value": "Cette information n'est pas correcte? Cliquez sur le bouton en entête de cette modale pour détailler les modifications à apporter"
+      "value": "This information is not correct? Click on the button on top of this menu to detail the changes to bring"
     }
   ],
   "AgendaLocations.LocationDetails.image": [
@@ -283,19 +283,19 @@
   "AgendaLocations.LocationDetails.insee": [
     {
       "type": 0,
-      "value": "Code INSEE"
+      "value": "INSEE code"
     }
   ],
   "AgendaLocations.LocationDetails.links": [
     {
       "type": 0,
-      "value": "Liens additionnels"
+      "value": "Additional links"
     }
   ],
   "AgendaLocations.LocationDetails.noContent": [
     {
       "type": 0,
-      "value": "Aucun texte "
+      "value": "No content "
     },
     {
       "type": 1,
@@ -303,37 +303,68 @@
     },
     {
       "type": 0,
-      "value": " n'est défini"
+      "value": " is defined"
     }
   ],
   "AgendaLocations.LocationDetails.noImage": [
     {
       "type": 0,
-      "value": "Aucune illustration n'est définie"
+      "value": "No image is defined"
     }
   ],
   "AgendaLocations.LocationDetails.noRefAgendas": [
     {
       "type": 0,
-      "value": "Ce lieu n'est référencé dans aucun autre agenda."
+      "value": "This place is not referenced in any other agenda."
     }
   ],
   "AgendaLocations.LocationDetails.noValue": [
     {
       "type": 0,
-      "value": "Non précisé"
+      "value": "Not specified"
     }
   ],
   "AgendaLocations.LocationDetails.others": [
     {
-      "type": 0,
-      "value": " autres"
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "one other"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " others"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "AgendaLocations.LocationDetails.phone": [
     {
       "type": 0,
-      "value": "Téléphone"
+      "value": "Telephone number"
     }
   ],
   "AgendaLocations.LocationDetails.postalCode": [
@@ -358,7 +389,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Ce lieu est aussi référencé sur l'agenda "
+              "value": "This place is also referenced on the agenda"
             }
           ]
         },
@@ -366,7 +397,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Ce lieu est aussi référencé sur les agendas "
+              "value": "This place is also referenced on the agendas"
             }
           ]
         }
@@ -379,67 +410,67 @@
   "AgendaLocations.LocationDetails.region": [
     {
       "type": 0,
-      "value": "Région"
+      "value": "Region"
     }
   ],
   "AgendaLocations.LocationDetails.website": [
     {
       "type": 0,
-      "value": "Site web"
+      "value": "Website"
     }
   ],
   "AgendaLocations.LocationForm.access": [
     {
       "type": 0,
-      "value": "Conditions d'accès"
+      "value": "Access"
     }
   ],
   "AgendaLocations.LocationForm.addLanguage": [
     {
       "type": 0,
-      "value": "Ajouter une langue"
+      "value": "Add a language"
     }
   ],
   "AgendaLocations.LocationForm.address": [
     {
       "type": 0,
-      "value": "Adresse"
+      "value": "Address"
     }
   ],
   "AgendaLocations.LocationForm.addressPlaceholder": [
     {
       "type": 0,
-      "value": "Numéro Voie, Ville ( exemple : 82 Boulevard de Clichy, Paris )"
+      "value": "Number Street, City ( example : 82 Boulevard de Clichy, Paris )"
     }
   ],
   "AgendaLocations.LocationForm.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Cancel"
     }
   ],
   "AgendaLocations.LocationForm.city": [
     {
       "type": 0,
-      "value": "Ville"
+      "value": "City"
     }
   ],
   "AgendaLocations.LocationForm.createSubmit": [
     {
       "type": 0,
-      "value": "Créer"
+      "value": "Create"
     }
   ],
   "AgendaLocations.LocationForm.createSubmitError": [
     {
       "type": 0,
-      "value": "Le lieu n'a pas pu être créé"
+      "value": "The location could not be created"
     }
   ],
   "AgendaLocations.LocationForm.department": [
     {
       "type": 0,
-      "value": "Département"
+      "value": "Department"
     }
   ],
   "AgendaLocations.LocationForm.description": [
@@ -451,49 +482,49 @@
   "AgendaLocations.LocationForm.descriptionInfo": [
     {
       "type": 0,
-      "value": "Détails sur le lieu"
+      "value": "Details about the location"
     }
   ],
   "AgendaLocations.LocationForm.disabledGeocode": [
     {
       "type": 0,
-      "value": "La fonction de localisation automatique est momentanément indisponible. Localisez votre lieu en glissant le marqueur au bon endroit sur la carte."
+      "value": "The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually."
     }
   ],
   "AgendaLocations.LocationForm.district": [
     {
       "type": 0,
-      "value": "Quartier"
+      "value": "District"
     }
   ],
   "AgendaLocations.LocationForm.email": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Contact email"
     }
   ],
   "AgendaLocations.LocationForm.extId": [
     {
       "type": 0,
-      "value": "Identifiant externe"
+      "value": "External Identifier"
     }
   ],
   "AgendaLocations.LocationForm.extIdInfo": [
     {
       "type": 0,
-      "value": "Optionnellement, précisez un identifiant unique pour ce lieu"
+      "value": "Optionnally, specify a unique identifier for this location"
     }
   ],
   "AgendaLocations.LocationForm.extIdLink": [
     {
       "type": 0,
-      "value": "Définir un identifiant unique pour ce lieu"
+      "value": "Define a unique identifier for this location"
     }
   ],
   "AgendaLocations.LocationForm.geocodeFieldCancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Cancel"
     }
   ],
   "AgendaLocations.LocationForm.geocodeFieldSave": [
@@ -505,7 +536,7 @@
   "AgendaLocations.LocationForm.geocodeNoResults": [
     {
       "type": 0,
-      "value": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse."
+      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
     }
   ],
   "AgendaLocations.LocationForm.image": [
@@ -517,127 +548,127 @@
   "AgendaLocations.LocationForm.imageCredits": [
     {
       "type": 0,
-      "value": "Crédits de l'image"
+      "value": "Image credits"
     }
   ],
   "AgendaLocations.LocationForm.imageInfo": [
     {
       "type": 0,
-      "value": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
+      "value": "Only upload images you have the right to re-use"
     }
   ],
   "AgendaLocations.LocationForm.insee": [
     {
       "type": 0,
-      "value": "Code INSEE"
+      "value": "INSEE code"
     }
   ],
   "AgendaLocations.LocationForm.links": [
     {
       "type": 0,
-      "value": "Liens additionnels"
+      "value": "Additional links"
     }
   ],
   "AgendaLocations.LocationForm.linksInfo": [
     {
       "type": 0,
-      "value": "Ajoutez des liens facebook, twitter ou tout autre lien relatif au lieu"
+      "value": "Add social media references, or any other link related to the location"
     }
   ],
   "AgendaLocations.LocationForm.loadingError": [
     {
       "type": 0,
-      "value": "Un problème est survenu lors du chargement. Veuillez ré-essayer."
+      "value": "A problem occurred during the load. Please retry."
     }
   ],
   "AgendaLocations.LocationForm.name": [
     {
       "type": 0,
-      "value": "Nom du lieu"
+      "value": "Name of the location"
     }
   ],
   "AgendaLocations.LocationForm.namePlaceholder": [
     {
       "type": 0,
-      "value": "Exemple: Le Moulin Rouge"
+      "value": "Example: Moulin Rouge"
     }
   ],
   "AgendaLocations.LocationForm.phone": [
     {
       "type": 0,
-      "value": "Numéro de téléphone"
+      "value": "Telephone number"
     }
   ],
   "AgendaLocations.LocationForm.postalCode": [
     {
       "type": 0,
-      "value": "Code postal"
+      "value": "Postal code"
     }
   ],
   "AgendaLocations.LocationForm.region": [
     {
       "type": 0,
-      "value": "Région"
+      "value": "Region"
     }
   ],
   "AgendaLocations.LocationForm.required": [
     {
       "type": 0,
-      "value": "Requis"
+      "value": "Required"
     }
   ],
   "AgendaLocations.LocationForm.saving": [
     {
       "type": 0,
-      "value": "Sauvegarde"
+      "value": "Saving"
     }
   ],
   "AgendaLocations.LocationForm.updateSubmit": [
     {
       "type": 0,
-      "value": "Mettre à jour"
+      "value": "Update"
     }
   ],
   "AgendaLocations.LocationForm.updateSubmitError": [
     {
       "type": 0,
-      "value": "Le lieu n'a pas pu être mis à jour"
+      "value": "The location could not be updated"
     }
   ],
   "AgendaLocations.LocationForm.website": [
     {
       "type": 0,
-      "value": "Site web"
+      "value": "Website"
     }
   ],
   "AgendaLocations.LocationItem.detailsButton": [
     {
       "type": 0,
-      "value": "Détail"
+      "value": "Details"
     }
   ],
   "AgendaLocations.LocationItem.edit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Edit"
     }
   ],
   "AgendaLocations.LocationItem.noEvent": [
     {
       "type": 0,
-      "value": "Aucun événement associé"
+      "value": "No associated event"
     }
   ],
   "AgendaLocations.LocationItem.refLocationMerge": [
     {
       "type": 0,
-      "value": "Lieu référence de la fusion"
+      "value": "Reference location for merge"
     }
   ],
   "AgendaLocations.LocationItem.remove": [
     {
       "type": 0,
-      "value": "Supprimer"
+      "value": "Delete"
     }
   ],
   "AgendaLocations.LocationItem.seeEvents": [
@@ -656,7 +687,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement associé"
+              "value": "1 associated event"
             }
           ]
         },
@@ -667,7 +698,7 @@
             },
             {
               "type": 0,
-              "value": " événements associés"
+              "value": " associated events"
             }
           ]
         }
@@ -680,25 +711,25 @@
   "AgendaLocations.LocationItem.select": [
     {
       "type": 0,
-      "value": "Sélectionner"
+      "value": "Select"
     }
   ],
   "AgendaLocations.LocationItem.unselect": [
     {
       "type": 0,
-      "value": "Déselectionner"
+      "value": "Unselect"
     }
   ],
   "AgendaLocations.LocationItem.verify": [
     {
       "type": 0,
-      "value": "À vérifier"
+      "value": "To verify"
     }
   ],
   "AgendaLocations.LocationItem.verifyAndMerge": [
     {
       "type": 0,
-      "value": "Vérifier et fusionner"
+      "value": "Verify and Merge"
     }
   ],
   "AgendaLocations.LocationItem.verifyDuplicates": [
@@ -717,7 +748,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 doublon à vérifier"
+              "value": "1 duplicate to verify"
             }
           ]
         },
@@ -728,7 +759,7 @@
             },
             {
               "type": 0,
-              "value": " doublons à vérifier"
+              "value": " duplicates to verify"
             }
           ]
         }
@@ -741,49 +772,55 @@
   "AgendaLocations.LocationSearch.create": [
     {
       "type": 0,
-      "value": "Créer un nouveau lieu"
+      "value": "Create a new location"
     }
   ],
   "AgendaLocations.LocationSearch.namePlaceholder": [
     {
       "type": 0,
-      "value": "Saisissez le nom du lieu de l'événement"
+      "value": "Type the name of the location of the event"
     }
   ],
   "AgendaLocations.LocationSearch.noResult": [
     {
       "type": 0,
-      "value": "Aucun résultat ne correspond à votre saisie"
+      "value": "No result match your entry"
     }
   ],
   "AgendaLocations.LocationSearch.searching": [
     {
       "type": 0,
-      "value": "Recherche en cours..."
+      "value": "Searching..."
     }
   ],
   "AgendaLocations.LocationSelector.change": [
     {
       "type": 0,
-      "value": "changer"
+      "value": "change"
     }
   ],
   "AgendaLocations.LocationSelector.find": [
     {
       "type": 0,
-      "value": "Chercher"
+      "value": "Find"
     }
   ],
   "AgendaLocations.LocationSelector.noLocation": [
     {
       "type": 0,
-      "value": "Sélectionnez un lieu"
+      "value": "Select a location"
+    }
+  ],
+  "AgendaLocations.LocationSelector.remove": [
+    {
+      "type": 0,
+      "value": "Remove"
     }
   ],
   "AgendaLocations.RemoveModal.cancel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Cancel"
     }
   ],
   "AgendaLocations.RemoveModal.cannotRemoveEnd": [
@@ -802,7 +839,7 @@
           "value": [
             {
               "type": 0,
-              "value": " a été contribué sur l'agenda."
+              "value": " has been contributed on the agenda."
             }
           ]
         },
@@ -810,7 +847,7 @@
           "value": [
             {
               "type": 0,
-              "value": " ont été contribués sur l'agenda."
+              "value": " have been contributed on the agenda. By deleting the location, the associated events will also be deleted."
             }
           ]
         }
@@ -836,7 +873,7 @@
           "value": [
             {
               "type": 0,
-              "value": " En supprimant le lieu, l'événement associé sera également supprimé."
+              "value": " By deleting the location, the associated event will also be deleted."
             }
           ]
         },
@@ -844,7 +881,7 @@
           "value": [
             {
               "type": 0,
-              "value": " En supprimant le lieu, les événements associés seront également supprimés."
+              "value": " By deleting the location, the associated events will also be deleted."
             }
           ]
         }
@@ -870,7 +907,7 @@
           "value": [
             {
               "type": 0,
-              "value": " dont un"
+              "value": " one of which"
             }
           ]
         },
@@ -878,10 +915,14 @@
           "value": [
             {
               "type": 0,
-              "value": " dont "
+              "value": " "
             },
             {
               "type": 7
+            },
+            {
+              "type": 0,
+              "value": " of which"
             }
           ]
         }
@@ -907,7 +948,7 @@
           "value": [
             {
               "type": 0,
-              "value": "un événement."
+              "value": "one event."
             }
           ]
         },
@@ -918,7 +959,7 @@
             },
             {
               "type": 0,
-              "value": " événements."
+              "value": " events."
             }
           ]
         }
@@ -944,7 +985,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Ce lieu est associé à un événement,"
+              "value": "The location is associated to one event,"
             }
           ]
         },
@@ -952,14 +993,14 @@
           "value": [
             {
               "type": 0,
-              "value": "Ce lieu est associé à "
+              "value": "The location is associated to "
             },
             {
               "type": 7
             },
             {
               "type": 0,
-              "value": " événements,"
+              "value": " events,"
             }
           ]
         }
@@ -972,31 +1013,31 @@
   "AgendaLocations.RemoveModal.cannotRemoveStartEq": [
     {
       "type": 0,
-      "value": "Ce lieu est associé à "
+      "value": "The location is associated to"
     }
   ],
   "AgendaLocations.RemoveModal.closeModal": [
     {
       "type": 0,
-      "value": "Fermer"
+      "value": "Close"
     }
   ],
   "AgendaLocations.RemoveModal.confirm": [
     {
       "type": 0,
-      "value": "Confirmer"
+      "value": "Confirm"
     }
   ],
   "AgendaLocations.RemoveModal.confirmRemove": [
     {
       "type": 0,
-      "value": "Confirmer la suppression"
+      "value": "Confirm deletion"
     }
   ],
   "AgendaLocations.RemoveModal.confirmRemoveMessage": [
     {
       "type": 0,
-      "value": "Le lieu sera supprimé de la base"
+      "value": "The location will be removed from the database"
     }
   ],
   "AgendaLocations.RemoveModal.notRemove": [
@@ -1015,7 +1056,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Ne pas supprimer l'événement."
+              "value": " Do not delete the event"
             }
           ]
         },
@@ -1023,14 +1064,14 @@
           "value": [
             {
               "type": 0,
-              "value": "Ne pas supprimer les "
+              "value": "Do not delete "
             },
             {
               "type": 7
             },
             {
               "type": 0,
-              "value": " événements."
+              "value": " events"
             }
           ]
         }
@@ -1056,7 +1097,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Celui-ci continuera d'afficher les données du lieu supprimé jusqu'à sa prochaine mise à jour."
+              "value": "This will continue to display the data of the deleted location until it is updated the next time."
             }
           ]
         },
@@ -1064,7 +1105,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Ceux-cis continueront d'afficher les données du lieu supprimé jusqu'à leur prochaine mise à jour."
+              "value": "These will continue to display the data of the deleted location until their next update."
             }
           ]
         }
@@ -1077,7 +1118,7 @@
   "AgendaLocations.RemoveModal.removeComplete": [
     {
       "type": 0,
-      "value": "Le lieu a été supprimé"
+      "value": "The location was removed"
     }
   ],
   "AgendaLocations.RemoveModal.removeEvents": [
@@ -1096,7 +1137,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Supprimer l'événements."
+              "value": "Delete the event."
             }
           ]
         },
@@ -1104,14 +1145,14 @@
           "value": [
             {
               "type": 0,
-              "value": "Supprimer les "
+              "value": "Delete the "
             },
             {
               "type": 7
             },
             {
               "type": 0,
-              "value": " événements."
+              "value": " events."
             }
           ]
         }
@@ -1124,61 +1165,61 @@
   "AgendaLocations.RemoveModal.removeTitle": [
     {
       "type": 0,
-      "value": "Supprimer un lieu"
+      "value": "Delete a location"
     }
   ],
   "AgendaLocations.StateToggler.toverify": [
     {
       "type": 0,
-      "value": "Ce lieu est à vérifier"
+      "value": "This location has to be verified"
     }
   ],
   "AgendaLocations.StateToggler.verified": [
     {
       "type": 0,
-      "value": "Ce lieu est vérifié"
+      "value": "This location is verified"
     }
   ],
   "AgendaLocations.UpdateForm.back": [
     {
       "type": 0,
-      "value": "Revenir à la liste"
+      "value": "Go back to the list"
     }
   ],
   "AgendaLocations.UpdateForm.info": [
     {
       "type": 0,
-      "value": "Tous les événements liés à ce lieu seront mis à jour"
+      "value": "All events attached to this location will be updated"
     }
   ],
   "AgendaLocations.UpdateForm.title": [
     {
       "type": 0,
-      "value": "Edition du lieu"
+      "value": "Location edit"
     }
   ],
   "AgendaLocations.createFormHeader.back": [
     {
       "type": 0,
-      "value": "Revenir à la liste"
+      "value": "Go back to the list"
     }
   ],
   "AgendaLocations.createFormHeader.info": [
     {
       "type": 0,
-      "value": "Définissez précisément le nom, l'adresse et la localisation du lieu"
+      "value": "Define the name, address and exact location of the place"
     }
   ],
   "AgendaLocations.createFormHeader.title": [
     {
       "type": 0,
-      "value": "Création d'un lieu"
+      "value": "Create a location"
     }
   ],
   "AgendaLocations.setHeader.help": [
     {
       "type": 0,
-      "value": "Les administrateurs des agendas liés à ce jeu de lieu ont accès à toutes les opérations d'édition: ajout, suppression, fusion, mise à jour. Les opérations seront répercutées sur tous les agendas liés."
+      "value": "Administrators of agendas using this set have access to all operations on the locations of the set: creation, update, deletion, merging. Operations can therefore impact all agendas of the set."
     }
   ],
   "AgendaLocations.setHeader.setSubtitle": [
@@ -1197,7 +1238,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Jeu de un lieu mutualisés entre "
+              "value": "Set of one location used in "
             }
           ]
         },
@@ -1205,14 +1246,14 @@
           "value": [
             {
               "type": 0,
-              "value": "Jeu de "
+              "value": "Set of "
             },
             {
               "type": 7
             },
             {
               "type": 0,
-              "value": " lieux mutualisés entre "
+              "value": " locations used in "
             }
           ]
         }
@@ -1238,7 +1279,7 @@
           "value": [
             {
               "type": 0,
-              "value": "un agenda"
+              "value": "one agenda"
             }
           ]
         },
@@ -1267,7 +1308,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun doublon identifié"
+              "value": "no location selected"
             }
           ]
         },
@@ -1275,7 +1316,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 doublon sélectionné"
+              "value": "1 location selected"
             }
           ]
         },
@@ -1286,7 +1327,7 @@
             },
             {
               "type": 0,
-              "value": " doublons sélectionnés"
+              "value": " locations selected"
             }
           ]
         }
@@ -1299,13 +1340,19 @@
   "AgendaLocations.stepper.backToSelection": [
     {
       "type": 0,
-      "value": "Retour à la sélection"
+      "value": "go back to selection"
     }
   ],
   "AgendaLocations.stepper.backToTargetSelection": [
     {
       "type": 0,
-      "value": "Retour à la sélection du lieu cible"
+      "value": "go back to target selection"
+    }
+  ],
+  "AgendaLocations.stepper.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Cancel Merge"
     }
   ],
   "AgendaLocations.stepper.confirmation": [
@@ -1317,61 +1364,73 @@
   "AgendaLocations.stepper.duplicatesSelection": [
     {
       "type": 0,
-      "value": "Sélection de doublons"
+      "value": "Duplicates Selection"
     }
   ],
   "AgendaLocations.stepper.infoConfirmation": [
     {
       "type": 0,
-      "value": "Les lieux fusionnés seront supprimés et leurs évenements seront liés au lieu cible :"
+      "value": "Merged locations will be deleted and there linked events will be link to the target location"
     }
   ],
   "AgendaLocations.stepper.infoRefSelection": [
     {
       "type": 0,
-      "value": "Sélectionnez un lieu cible parmi la sélection, celui-ci sera gardé a l'issue de la fusion"
+      "value": "Select target from your selection, it will be kept after the merge"
     }
   ],
   "AgendaLocations.stepper.infoSelection": [
     {
       "type": 0,
-      "value": "Sélectionnez les lieux à fusionner (2 mininum)"
+      "value": "Select locations you want to merge"
     }
   ],
   "AgendaLocations.stepper.infoSelectionFromDP": [
     {
       "type": 0,
-      "value": "Vérifiez la sélection de lieux à fusionner et retirez ceux qui ne sont pas des doublons."
+      "value": "Check the selection and deselect those who are not duplicates"
     }
   ],
   "AgendaLocations.stepper.launchMerge": [
     {
       "type": 0,
-      "value": "Lancer la fusion"
+      "value": "Launch merge"
+    }
+  ],
+  "AgendaLocations.stepper.locationsMerge": [
+    {
+      "type": 0,
+      "value": "Locations Merge"
     }
   ],
   "AgendaLocations.stepper.next": [
     {
       "type": 0,
-      "value": "Suivant: "
+      "value": "Next:"
+    }
+  ],
+  "AgendaLocations.stepper.notDuplicates": [
+    {
+      "type": 0,
+      "value": "Those are not Duplicates"
     }
   ],
   "AgendaLocations.stepper.see": [
     {
       "type": 0,
-      "value": "voir"
+      "value": "see"
     }
   ],
   "AgendaLocations.stepper.seeDetails": [
     {
       "type": 0,
-      "value": "Détails"
+      "value": "Details"
     }
   ],
   "AgendaLocations.stepper.targetChoice": [
     {
       "type": 0,
-      "value": "Choix du lieu cible"
+      "value": "Target location choice"
     }
   ]
 }

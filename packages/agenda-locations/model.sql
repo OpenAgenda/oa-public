@@ -28,6 +28,7 @@ create table if not exists location (
   merged_in bigint(20) default null,
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
+  index lng_idx (longitude),
   index owner_id_idx (owner_id),
   index agenda_id_idx (agenda_id),
   index set_uid_idx (set_uid),

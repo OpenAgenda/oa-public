@@ -35,6 +35,8 @@ class BaseSelectorStory extends Component {
               this.setState({ location, mode });
             }}
             disableChange={false}
+            allowRemove={true}
+            onRemove={()=> this.setState({location: null})}
           />
         </Provider>
       </div>

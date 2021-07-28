@@ -267,6 +267,26 @@ class AgendaAdminLocations extends Component {
     });
   }
 
+  disqualifyMergeCandidates() {
+    const { res } = this.props;
+    const { merge } = this.state;
+    const data = merge.locationUids;
+    log('disqualified', data);
+
+    post(res.disqualifyDuplicates, { uids: data }, (err, result) => {
+      if (err) {
+        log('error', err);
+        return;
+      }
+      if (!result.success) {
+        log('no success');
+      } if (result.success) {
+        this.actions.closeMerge();
+      }
+    });
+    this.actions.closeMerge();
+  }
+
   displayActionModal(accessType, location) {
     this.setState({
       modal: {
@@ -429,6 +449,7 @@ class AgendaAdminLocations extends Component {
     const backToMergeStep2 = this.actions.backToMergeStep2.bind(this);
     const seeDetails = this.actions.openDetailModal.bind(this);
     const launchMerge = this.launchMerge.bind(this);
+    const disqualifyDuplicates = this.disqualifyMergeCandidates.bind(this);
     const seeSelection = this.onSearchChange.bind(
       this,
       'uids',
@@ -445,6 +466,8 @@ class AgendaAdminLocations extends Component {
         backToMergeStep2={backToMergeStep2}
         launchMerge={launchMerge}
         seeDetails={seeDetails}
+        closeMerge={this.actions.toggleMerge.bind(null, false)}
+        disqualifyDuplicates={disqualifyDuplicates}
       />
     );
   }
@@ -512,40 +535,42 @@ class AgendaAdminLocations extends Component {
           {set ? (
             <SetHeader set={set} res={res} />
           ) : null}
-          <div className="row list-actions">
-            <div className="col col-sm-12">
-              <div className="form-inline">
-                <div className="form-group">
-                  <div className="btn-group margin-left-sm">
-                    <a href={res.csv} className="btn btn-default">
-                      <span>csv</span>
-                    </a>
-                    <a href={res.xlsx} className="btn btn-default">
-                      <span>xlsx</span>
-                    </a>
+          {!merge ? (
+            <div className="row list-actions">
+              <div className="col col-sm-12">
+                <div className="form-inline">
+                  <div className="form-group">
+                    <div className="btn-group margin-left-sm">
+                      <a href={res.csv} className="btn btn-default">
+                        <span>csv</span>
+                      </a>
+                      <a href={res.xlsx} className="btn btn-default">
+                        <span>xlsx</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="form-group">
-                  <button
-                    type="button"
-                    className={settings.access.create.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
-                    onClick={() => {
-                      if (!settings.access.create.authorized || settings.access.create.external) {
-                        this.displayActionModal('create');
-                      } else {
-                        this.actions.newLocation.bind(null)();
-                      }
-                    }}
-                  >
-                    <FormattedMessage {...messages.create} />
-                  </button>
-                </div>
-                <div className="form-group">
-                  {this.renderMergeAction()}
+                  <div className="form-group">
+                    <button
+                      type="button"
+                      className={settings.access.create.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                      onClick={() => {
+                        if (!settings.access.create.authorized || settings.access.create.external) {
+                          this.displayActionModal('create');
+                        } else {
+                          this.actions.newLocation.bind(null)();
+                        }
+                      }}
+                    >
+                      <FormattedMessage {...messages.create} />
+                    </button>
+                  </div>
+                  <div className="form-group">
+                    {this.renderMergeAction()}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : null }
           {merge ? this.renderMergeStepper() : null}
           {merge.step === 2 || merge.step === 3 ? null : (
             <div className="row list-filters">
