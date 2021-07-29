@@ -1,5 +1,6 @@
 'use strict';
 
+import React from 'react';
 import { setOptions } from 'marked';
 import displayExportButton from './displayExportButton';
 import displayAggregateButton from './displayAggregateButton';
@@ -70,6 +71,7 @@ if (_.includes(['tpl', 'development'], window.env)) {
 
 window.asap(options => {
   log = debug('agendaPage');
+  const exportRef = React.createRef();
 
   log('initing', options);
 
@@ -106,12 +108,12 @@ window.asap(options => {
       }
 
       if (res?.length && !ctl.prv) {
-        displayExportButton(params, uid, controller, options, { exportAll: true });
+        displayExportButton(exportRef, params, uid, controller, options, { exportAll: true });
         
       }
-
+      
       if (!ctl.prv) {
-        displayExportButton(params, uid, controller, options, { exportAll: false });
+        displayExportButton(exportRef, params, uid, controller, options, { exportAll: false });
         displayAggregateButton(params, options, initialQuery);
       }
 
@@ -154,6 +156,8 @@ window.asap(options => {
       if (documentLocation.getQueryPart('lang')) {
         newQuery.lang = documentLocation.getQueryPart('lang');
       }
+
+      exportRef.current.displayButton(!!Object.keys(newSearchValues).length);
 
       documentLocation.setQueryPart(newQuery);
 

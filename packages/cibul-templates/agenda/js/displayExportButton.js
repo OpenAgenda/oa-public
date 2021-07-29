@@ -1,4 +1,4 @@
-const React = require('react');
+import React, { useImperativeHandle } from 'react';
 const {useState} = require('react');
 const ReactDom = require('react-dom');
 const qs = require('qs');
@@ -9,11 +9,16 @@ import { ExportModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import appLocales from '../../locales-compiled';
 
-const ExportModalContainer = ({ controller, agendaUid, res, options, exportType }) => {
+const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, exportType }, ref) => {
   const [display, setDisplay] = useState(false);
   const [languageQuery, setLanguageQuery] = useState('');
+  const [displayedButton, setDisplayedButton] = useState(() => !!Object.keys(controller.getCurrentQuery()).length);
 
   const intl = useIntl();
+
+  useImperativeHandle(ref, () => ({
+    displayButton: value => setDisplayedButton(value)
+  }));
 
   const messages = defineMessages({
     exportAllButton: {
@@ -68,12 +73,15 @@ const ExportModalContainer = ({ controller, agendaUid, res, options, exportType 
         <a className="btn btn-default margin-bottom-xs" onClick={() => setDisplay(true)}>
           <i className="fa fa-share-alt"></i> {intl.formatMessage(messages.exportAllButton)}
         </a>
-      ) : (
-        <button className="js_export_button btn btn-link export__link" type="button" onClick={() => setDisplay(true)}>
-          <i className="fa fa-external-link" />
-          <span>&nbsp; {intl.formatMessage(messages.exportSelectButton)}</span>
-        </button>
-      )}
+      ) :
+        displayedButton ?
+        (
+          <button className="js_export_button btn btn-link export__link" type="button" onClick={() => setDisplay(true)}>
+            <i className="fa fa-external-link" />
+            <span>&nbsp; {intl.formatMessage(messages.exportSelectButton)}</span>
+          </button>
+        )
+        : null}
       {display ? (
         <ExportModal
           onClose={() => setDisplay(false)}
@@ -84,9 +92,10 @@ const ExportModalContainer = ({ controller, agendaUid, res, options, exportType 
       ) : null}
     </>
   );
-};
+});
 
 export default function displayExportButton(
+  ref,
   params,
   agendaUid,
   controller,
@@ -101,13 +110,16 @@ export default function displayExportButton(
   const locales = mergeLocales(appLocales, modalLocales);
 
   return ReactDom.render(
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ExportModalContainer
-      controller={controller}
-      agendaUid={agendaUid}
-      options={options}
-      res={params.res.export}
-      exportType={exportType}
-    /></IntlProvider>,
+    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      <ExportModalContainer
+        ref={ref}
+        controller={controller}
+        agendaUid={agendaUid}
+        options={options}
+        res={params.res.export}
+        exportType={exportType}
+      />
+    </IntlProvider>,
     buttonLocation
   );
 }
