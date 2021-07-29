@@ -3,7 +3,12 @@
 import React from 'react';
 
 function Html({
-  helmet, content, lang, initialState, extractor
+  helmet,
+  content,
+  lang,
+  initialState,
+  extractor,
+  translateMode,
 }) {
   const htmlAttrs = helmet.htmlAttributes.toComponent();
   const bodyAttrs = helmet.bodyAttributes.toComponent();
@@ -15,6 +20,23 @@ function Html({
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
+
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html:
+              'window._jipt = ['
+              + "['project', 'openagenda'],"
+              + "['escape', function() {"
+              + "  document.cookie = 'translateMode=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';"
+              + '  window.location.reload();'
+              + '}]]',
+          }}
+        />
+        {translateMode ? (
+          <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js" />
+        ) : null}
+
         {helmet.script.toComponent()}
         {helmet.style.toComponent()}
 
