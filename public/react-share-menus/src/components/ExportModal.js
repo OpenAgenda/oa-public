@@ -114,31 +114,16 @@ const ExportModal = ({
   };
 
   return (
-    <Modal
-      onClick={onClose}
-      classNames={{ overlay: 'popup-overlay big' }}
-      disableBodyScroll
-    >
+    <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
       <form className="export__form" onSubmit={handleSubmit}>
         <button className="export__close" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
-        <h1 className="export__title--big">
-          {intl.formatMessage(messages.modalTitle)}
-        </h1>
-        <h2 className="export__title--md">
-          {intl.formatMessage(messages.inputFormat)}
-        </h2>
+        <h1 className="export__title--big">{intl.formatMessage(messages.modalTitle)}</h1>
+        <h2 className="export__title--md">{intl.formatMessage(messages.inputFormat)}</h2>
         <div className="form-group">
           {formats.map(({ type, id }) => (
-            <Radio
-              content={type}
-              name="format"
-              key={id}
-              id={id}
-              setChoice={setChoice}
-              span={id === 'json'}
-            />
+            <Radio content={type} name="format" key={id} id={id} setChoice={setChoice} span={id === 'json'} />
           ))}
           {options && (
             <div className="input-container">
@@ -153,10 +138,20 @@ const ExportModal = ({
         </div>
         {gCal && (
           <div className="mg-bottom-sm">
-            <input className="form-control url-input" value={`https://openagenda.com${res.gcal}`} readOnly onClick={handleClick} />
+            <input
+              className="form-control url-input"
+              value={`https://openagenda.com${res.gcal}`}
+              readOnly
+              onClick={handleClick}
+            />
             <h4>{intl.formatMessage(messages.instructions)}</h4>
             <p>1. {intl.formatMessage(messages.instructionsStep1)}</p>
-            <p>2. {intl.formatMessage(messages.instructionsStep2)}<a target="_blank" href="https://calendar.google.com" rel="noreferrer">Google Calendar</a></p>
+            <p>
+              2. {intl.formatMessage(messages.instructionsStep2)}
+              <a target="_blank" href="https://calendar.google.com" rel="noreferrer">
+                Google Calendar
+              </a>
+            </p>
             <p>3. {intl.formatMessage(messages.instructionsStep3)}</p>
             <p>4. {intl.formatMessage(messages.instructionsStep4)}</p>
           </div>
