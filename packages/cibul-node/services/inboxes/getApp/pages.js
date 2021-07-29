@@ -118,7 +118,7 @@ module.exports = (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
     (req, res, next) => {
-      agendaLocations(req.agenda.uid).get(req.params.locationUid)
+      agendaLocations.get(req.params.locationUid.split('.').pop())
         .then(location => {
           req.location = location;
           next();

@@ -46,7 +46,7 @@ module.exports = async ({ services, config }, req, res, next) => {
         onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
         defaultQuery: {
           type: 'suggest_location_change',
-          typeIdentifier: req.location.uid,
+          typeIdentifier: [req.agenda.uid, req.location.uid].join(','),
           params: {
             agendaTitle: req.agenda.title,
             agendaUid: req.agenda.uid,
