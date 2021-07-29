@@ -7,13 +7,11 @@ import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient } from 'react-query';
-import { Helmet } from 'react-helmet-async';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import { parse } from 'flatted/esm';
 import he from 'he';
-import Cookies from 'js-cookie';
 import { loadableReady } from '@loadable/component';
 import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
@@ -40,6 +38,7 @@ import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
+import RootHelmet from '../RootHelmet';
 import Root from './Root';
 
 if (!module.hot) {
@@ -173,21 +172,6 @@ const apps = [
 //   return null;
 // }
 
-const { translateMode } = layoutStore.getState().main;
-
-if (translateMode) {
-  window._jipt = [
-    ['project', 'openagenda'],
-    [
-      'escape',
-      () => {
-        Cookies.remove('translateMode');
-        window.location.reload();
-      },
-    ],
-  ];
-}
-
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
@@ -210,14 +194,7 @@ loadableReady(async () => {
         triggerHooks={triggerHooks}
         queryClient={queryClient}
       >
-        {translateMode ? (
-          <Helmet>
-            <script
-              type="text/javascript"
-              src="//cdn.crowdin.com/jipt/jipt.js"
-            />
-          </Helmet>
-        ) : null}
+        <RootHelmet />
 
         {/* <QueryWatch /> */}
       </Root>

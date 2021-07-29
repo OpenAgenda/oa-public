@@ -3,7 +3,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { wrapApp } from '@openagenda/react-shared';
 import { LayoutManager } from '@openagenda/react-layouts/src';
-import RootHelmet from '../RootHelmet';
 import NotFoundDisplayer from './NotFoundDisplayer';
 import NotFound from './NotFound';
 import ErrorComponent from './ErrorComponent';
@@ -39,7 +38,7 @@ export default function Root({
     // <React.StrictMode>
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>
-        <RootHelmet />
+        {children}
 
         {wrapApp({
           Content,
@@ -49,8 +48,6 @@ export default function Root({
           staticContext,
           extractor,
         })}
-
-        {children}
       </QueryClientProvider>
     </HelmetProvider>
     // </React.StrictMode>
