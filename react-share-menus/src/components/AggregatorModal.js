@@ -46,7 +46,7 @@ const AggregatorModal = ({
 
   return (
     <div id="event">
-      <Modal onClick={onClose} classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll>
+      <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
         {success ? (
           <div className="export__form">
             <button className="export__close" type="button" onClick={onClose}>
