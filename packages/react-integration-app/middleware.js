@@ -225,7 +225,6 @@ module.exports = function match({ initialState, publicPath }) {
       });
 
       const lang = state.layout?.main?.lang ?? 'fr';
-      const translateMode = state.layout?.main?.translateMode ?? false;
       const outdatedBrowser = state.layout?.main?.outdatedBrowser ?? false;
 
       const outdatedScript = outdatedBrowser
@@ -298,7 +297,6 @@ module.exports = function match({ initialState, publicPath }) {
         initialState: serializedInitialState,
         extractor,
         lang,
-        translateMode,
       });
       res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
     } catch (e) {

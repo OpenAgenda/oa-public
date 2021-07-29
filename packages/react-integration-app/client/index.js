@@ -6,12 +6,14 @@ import '@openagenda/polyfills/intl-locales';
 import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient } from 'react-query';
+import { Helmet } from 'react-helmet-async';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import { parse } from 'flatted/esm';
 import he from 'he';
+import Cookies from 'js-cookie';
 import { loadableReady } from '@loadable/component';
 import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
@@ -171,6 +173,21 @@ const apps = [
 //   return null;
 // }
 
+const { translateMode } = layoutStore.getState().main;
+
+if (translateMode) {
+  window._jipt = [
+    ['project', 'openagenda'],
+    [
+      'escape',
+      () => {
+        Cookies.remove('translateMode');
+        window.location.reload();
+      },
+    ],
+  ];
+}
+
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
@@ -186,16 +203,24 @@ loadableReady(async () => {
 
   const render = (forceRender = false) => {
     const element = (
-      <QueryClientProvider client={queryClient}>
-        <Root
-          apps={apps}
-          layoutStore={layoutStore}
-          history={history}
-          triggerHooks={triggerHooks}
-        />
+      <Root
+        apps={apps}
+        layoutStore={layoutStore}
+        history={history}
+        triggerHooks={triggerHooks}
+        queryClient={queryClient}
+      >
+        {translateMode ? (
+          <Helmet>
+            <script
+              type="text/javascript"
+              src="//cdn.crowdin.com/jipt/jipt.js"
+            />
+          </Helmet>
+        ) : null}
 
         {/* <QueryWatch /> */}
-      </QueryClientProvider>
+      </Root>
     );
     const canvas = document.querySelector('#root');
 
