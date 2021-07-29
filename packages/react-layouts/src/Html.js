@@ -3,12 +3,7 @@
 import React from 'react';
 
 function Html({
-  helmet,
-  content,
-  lang,
-  initialState,
-  extractor,
-  translateMode,
+  helmet, content, lang, initialState, extractor
 }) {
   const htmlAttrs = helmet.htmlAttributes.toComponent();
   const bodyAttrs = helmet.bodyAttributes.toComponent();
@@ -20,17 +15,6 @@ function Html({
         {helmet.title.toComponent()}
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
-
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: "window._jipt = [['project', 'openagenda']];",
-          }}
-        />
-        {translateMode ? (
-          <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js" />
-        ) : null}
-
         {helmet.script.toComponent()}
         {helmet.style.toComponent()}
 
