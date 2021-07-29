@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import * as bodyScroll from './body-scroll';
 
 export default class Modal extends Component {
@@ -8,91 +7,69 @@ export default class Modal extends Component {
     title: PropTypes.node,
     visible: PropTypes.bool,
     onClose: PropTypes.func,
-    disableBodyScroll: PropTypes.bool
+    disableBodyScroll: PropTypes.bool,
+    classNames: PropTypes.shape({ overlay: PropTypes.string }),
+    children: PropTypes.node.isRequired
   };
 
   static defaultProps = {
     title: null,
     visible: true,
     disableBodyScroll: false,
+    onClose: null,
     classNames: {
-      overlay: 'popup-overlay'
-    }
+      overlay: 'popup-overlay',
+    },
   };
 
-  state = {
-    clickOnModal: false
-  };
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
 
   componentDidUpdate = () => {
     if (this.props.visible) {
-      this.addClickEvents();
+      this.addEvents();
 
       if (this.props.disableBodyScroll) {
         bodyScroll.disable();
       }
     } else {
-      this.removeClickEvents();
+      this.removeEvents();
 
       if (this.props.disableBodyScroll) {
         bodyScroll.enable();
       }
     }
-  }
+  };
 
-  addClickEvents = () => {
-    const modalDomNode = ReactDOM.findDOMNode(this.modalRef);
-    const overlayDomNode = ReactDOM.findDOMNode(this.overlayRef);
-
-    if (modalDomNode) modalDomNode.addEventListener('mousedown', this.handleModalClick);
-    if (overlayDomNode) overlayDomNode.addEventListener('click', this.handleOverlayClick);
-
+  addEvents = () => {
     document.addEventListener('keydown', this.handleEsc);
-  }
+    document.addEventListener('click', this.handleOutsideClick);
+  };
 
-  removeClickEvents = () => {
-    const modalDomNode = ReactDOM.findDOMNode(this.modalRef);
-    const overlayDomNode = ReactDOM.findDOMNode(this.overlayRef);
-
-    if (modalDomNode) modalDomNode.removeEventListener('mousedown', this.handleModalClick);
-    if (overlayDomNode) overlayDomNode.removeEventListener('click', this.handleOverlayClick);
-
+  removeEvents = () => {
     document.removeEventListener('keydown', this.handleEsc);
-  }
+    document.removeEventListener('click', this.handleOutsideClick);
+  };
 
   componentDidMount = () => {
     if (this.props.visible) {
-      this.addClickEvents();
+      this.addEvents();
 
       if (this.props.disableBodyScroll) {
         bodyScroll.disable();
       }
     }
-  }
+  };
 
   componentWillUnmount = () => {
-    this.removeClickEvents();
+    this.removeEvents();
 
     if (this.props.disableBodyScroll) {
       bodyScroll.enable();
     }
-  }
-
-  handleModalClick = () => {
-    this.setState({
-      clickOnModal: true
-    });
-  }
-
-  handleOverlayClick = () => {
-    if (this.props.visible && !this.state.clickOnModal) {
-      this.handleClose();
-    }
-
-    this.setState({
-      clickOnModal: false
-    });
-  }
+  };
 
   handleClose = () => {
     const { onClose } = this.props;
@@ -100,45 +77,37 @@ export default class Modal extends Component {
     if (onClose) {
       onClose();
     }
+  };
+
+  handleOutsideClick = e => {
+    if (this.ref.current && !this.ref.current.contains(e.target)) this.handleClose();
   }
 
   handleEsc = event => {
     if (event.key === 'Escape') this.handleClose();
-  }
-
-  setModalRef = ref => {
-    this.modalRef = ref;
-
-    if (this.props.modalRef) {
-      this.props.modalRef(ref);
-    }
-  }
+  };
 
   render() {
-    const { title, children, visible } = this.props;
+    const {
+      title, children, visible, classNames
+    } = this.props;
 
     if (!visible) {
       return null;
     }
 
     return (
-      <div
-        className={this.props.classNames.overlay}
-        onKeyPress={this.onKeyPress}
-        ref={this.overlayRef}
-      >
-        <section ref={this.setModalRef}>
+      <div className={classNames.overlay} ref={this.overlayRef}>
+        <section ref={this.ref}>
           {title ? (
             <header className="popup-title">
               <h2>{title}</h2>
-              <a onClick={this.handleClose} className="close-link">
+              <button type="button" onClick={this.handleClose} className="close-link" onKeyPress={this.onKeyPress}>
                 <i className="fa fa-times fa-lg" />
-              </a>
+              </button>
             </header>
           ) : null}
-          <div className="popup-content">
-            {children}
-          </div>
+          <div className="popup-content">{children}</div>
         </section>
       </div>
     );
