@@ -57,7 +57,7 @@ describe('Conversation', () => {
       const conversation = await new Inbox(1).conversations.create({
         destinationInbox: { type: 'user', identifier: 99999999 },
         type: 'event',
-        typeIdentifier: 456789,
+        typeIdentifier: '456789',
         params: { trucUtile: false },
         creatorInboxUser: { userUid: 23456789 },
         message: "Comment qu'on contribute ?",
@@ -77,7 +77,7 @@ describe('Conversation', () => {
         )
       ).toEqual({
         type: 'event',
-        typeIdentifier: 456789,
+        typeIdentifier: '456789',
         creatorInbox: {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
@@ -346,7 +346,7 @@ describe('Conversation', () => {
         )
       ).toEqual({
         type: 'event',
-        typeIdentifier: 456789,
+        typeIdentifier: '456789',
         creatorInbox: {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
@@ -920,7 +920,7 @@ describe('Conversation', () => {
         {
           id: 4,
           type: 'contact_form',
-          typeIdentifier: 456789,
+          typeIdentifier: '456789',
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
@@ -1268,7 +1268,7 @@ describe('Conversation', () => {
         {
           id: 4,
           type: 'contact_form',
-          typeIdentifier: 456789,
+          typeIdentifier: '456789',
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
@@ -1497,7 +1497,7 @@ describe('Conversation', () => {
         {
           id: 4,
           type: 'contact_form',
-          typeIdentifier: 456789,
+          typeIdentifier: '456789',
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
