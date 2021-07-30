@@ -130,7 +130,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(agenda.summary).toEqual({
         keywords: [],
         publishedEvents: { current: 0, passed: 0, upcoming: 0 },
-        recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 }
+        recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 },
+        viewport: null
       });
     });
   });
