@@ -1,9 +1,9 @@
 'use strict';
 
+const createInstance = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 const getAgendasByUidsAndSearch = require('./fixtures/getAgendasByUidsAndSearch');
-const createInstance = require('..');
 
 describe('11 - list sources', () => {
   const agenda = { id: 218 };
