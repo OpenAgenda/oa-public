@@ -390,7 +390,7 @@ describe('agenda-locations - functional - list', () => {
           detailed: true,
         }
       );
-      expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates).toStrictEqual([51665986, 2]);
+      expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates).toStrictEqual([51665986]);
       expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].disqualifiedDuplicates).toStrictEqual([5]);
     });
   });

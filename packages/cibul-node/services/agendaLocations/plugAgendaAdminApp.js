@@ -70,6 +70,7 @@ module.exports = (config, services, instance, app, base) => {
                 remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
                 merge: `/${req.agenda.slug}/admin/locations/merge`,
                 agendaSearch: `/agendas`,
+                disqualifyDuplicates: `/${req.agenda.slug}/admin/locations/disqualify`,
               }
             })
           }
@@ -187,13 +188,26 @@ module.exports = (config, services, instance, app, base) => {
     }, next);
   });
 
+  app.post(`${base}/disqualify`, (req, res, next) => {
+    req.locations
+      .duplicates.disqualifyCandidate(
+        req.body.uids
+      )
+      .then(location => {
+        res.json({
+          location,
+          success: true,
+        });
+      }, next);
+  });
+
   app.post(`${base}/merge`, (req, res, next) => {
     req.locations.merge(
       req.body.mergeIn,
       { uids: req.body.merged },
       null,
       { agendaUid: req.agenda?.uid }
-   ).then(location => res.json({
+    ).then(location => res.json({
       location,
       success: true
     }), next);

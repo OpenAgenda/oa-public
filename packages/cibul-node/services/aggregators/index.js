@@ -90,16 +90,21 @@ module.exports.init = (config, services) => {
         }),
       loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
         .events.get(eventUid, { detailed: true }),
-      getAgendasByUidsAndSearch: (agendaUids, search = null) => agendasSvc.list({
-        uid: agendaUids,
-        ...(search ? { search } : {})
-      }, 0, 200, {
-        internal: true,
-        includeImagePath: true,
-        useDefaultImage: true
-      }).then(({ agendas }) => agendas.map(a => _.pick(a, [
-        'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'
-      ]))),
+      getAgendasByUids: (agendaUids, options = {}) => {
+        const query = ['search', 'slug']
+          .filter(k => !!options[k])
+          .reduce((q, k) => ({ ...q, [k]: options[k] }), { uid: agendaUids });
+
+        log('getting agendas for %j', query);
+
+        return agendasSvc.list(query, 0, 200, {
+          internal: true,
+          includeImagePath: true,
+          useDefaultImage: true
+        }).then(({ agendas }) => agendas.map(a => _.pick(a, [
+          'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'
+        ])));
+      },
       getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount()
     }
   });

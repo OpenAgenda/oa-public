@@ -10,7 +10,7 @@ const remove = require('./remove');
 const authorize = require('./lib/authorize');
 
 async function merge({ internals, endpoints }, mergeInItem, items, data = null, options = {}) {
-  log('received :', mergeInItem, '|||', items);
+  log('mergin ', items.length, 'location in ', mergeInItem.uid);
 
   await authorize(internals, 'merge', mergeInItem.uid, options);
 

@@ -9,20 +9,12 @@ const { wrapApp } = require('@openagenda/react-shared');
 
 const cmn = require('../../../../lib/commons-app');
 
-const {
-  getMultiLanguageTitle
-} = require('./utils');
-
-module.exports = async ({ services, config }, req, res, next) => {
-  const {
-    sessions
-  } = services;
-
+module.exports = async ({ config }, req, res, next) => {
   const agendaLink = `/${req.agenda.slug}`;
 
   const lang = req.lang || 'fr';
   const staticContext = {};
-  const reactApp = createInboxApp( {
+  const reactApp = createInboxApp({
     req,
     initialState: {
       user: req.user,
@@ -36,17 +28,17 @@ module.exports = async ({ services, config }, req, res, next) => {
         hideEmptyList: true, // redirect on creation if the list is empty
         allowCreateConversation: true, // show creation button
         // maskCreationSubtitle: true,
-        creationSubtitle: getLabel( 'titleSuggestLocationChange', req.lang ),
-        // creationDescriptionLabel: getLabel( 'wantContributeMakeRequest', req.lang ),
-        creationButtonLabel: getLabel( 'createConversation', req.lang ),
+        creationSubtitle: getLabel('titleSuggestLocationChange', req.lang),
+        // creationDescriptionLabel: getLabel('wantContributeMakeRequest', req.lang),
+        creationButtonLabel: getLabel('createConversation', req.lang),
         // topListForm: true, // add a conversation form on top of conversation list
-        creationDesc: getLabel( 'suggestLocationChangeDesc', req.lang ),
-        belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+        creationDesc: getLabel('suggestLocationChangeDesc', req.lang),
+        belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
         onConversationCreateRedirect: agendaLink,
-        onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+        onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
         defaultQuery: {
           type: 'suggest_location_change',
-          typeIdentifier: req.location.uid,
+          typeIdentifier: [req.agenda.uid, req.location.uid].join(','),
           params: {
             agendaTitle: req.agenda.title,
             agendaUid: req.agenda.uid,
@@ -76,30 +68,30 @@ module.exports = async ({ services, config }, req, res, next) => {
       },
       agenda: req.agenda
     }
-  } );
+  });
   const { triggerHooks, store, history } = reactApp;
 
   try {
     await triggerHooks();
 
-    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
+    const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext }));
 
     const state = store.getState();
 
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( staticContext.status === 404 ) {
+    if (staticContext.status === 404) {
       return next();
     }
 
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
+    if (staticContext.url) {
+      return res.redirect(302, staticContext.url);
     }
 
     const { pathname } = history.location;
     if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
+      return res.redirect(302, pathname);
     }
 
     const baseData = {
@@ -110,14 +102,14 @@ module.exports = async ({ services, config }, req, res, next) => {
       title: req.agenda.title
     };
 
-    cmn.render( req, res, 'agenda/inbox', {
+    cmn.render(req, res, 'agenda/inbox', {
       ...baseData,
       scriptParams: { initialState: state },
       lang,
       content,
       preloaded: true
-    } );
-  } catch ( e ) {
-    next( e );
+    });
+  } catch (e) {
+    next(e);
   }
-}
+};

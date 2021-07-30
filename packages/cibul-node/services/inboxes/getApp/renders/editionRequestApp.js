@@ -8,11 +8,10 @@ const ReactDOM = require('react-dom/server');
 const { wrapApp } = require('@openagenda/react-shared');
 const { parsePath } = require('history');
 
-
 const cmn = require('../../../../lib/commons-app');
 const { getMultiLanguageTitle } = require('./utils');
 
-module.exports = async ({ config, services }, req, res, next) => {
+module.exports = async ({ config }, req, res, next) => {
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
   const lang = req.lang || 'fr';
@@ -85,17 +84,17 @@ module.exports = async ({ config, services }, req, res, next) => {
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( staticContext.status === 404 ) {
+    if (staticContext.status === 404) {
       return next();
     }
 
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
+    if (staticContext.url) {
+      return res.redirect(302, staticContext.url);
     }
 
     const { pathname } = history.location;
     if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
+      return res.redirect(302, pathname);
     }
 
     const baseData = {
@@ -117,4 +116,4 @@ module.exports = async ({ config, services }, req, res, next) => {
   } catch (e) {
     next(e);
   }
-}
+};

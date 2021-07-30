@@ -83,7 +83,7 @@ describe('agenda-locations - functional - get', () => {
 
     it('duplicates candidates && disqualified are in result', () => {
       expect({ duplicateCandidates: location.duplicateCandidates, disqualifiedDuplicates: location.disqualifiedDuplicates }).toStrictEqual(
-        { duplicateCandidates: [51665986, 2], disqualifiedDuplicates: [5] }
+        { duplicateCandidates: [51665986], disqualifiedDuplicates: [5] }
       );
     });
   });

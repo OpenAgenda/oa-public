@@ -249,6 +249,19 @@ const Service = require('.');
       }, next);
   });
 
+  app.post('/locations/disqualify', (req, res, next) => {
+    svc(7196947)
+      .duplicates.disqualifyCandidate(
+        req.data.uids
+      )
+      .then(location => {
+        res.json({
+          location,
+          success: true,
+        });
+      }, next);
+  });
+
   app.post('/locations/:locationUid', (req, res, next) => {
     svc(7196947)
       .update(req.params.locationUid, req.data, {

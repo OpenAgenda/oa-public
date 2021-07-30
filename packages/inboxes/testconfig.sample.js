@@ -10,6 +10,7 @@ module.exports = {
     user: 'root',
     charset: 'utf8mb4',
     timezone: 'UTC',
+    ssl: true,
   },
   migrations: {
     tableName: 'inbox_migrations',

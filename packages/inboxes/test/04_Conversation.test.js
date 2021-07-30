@@ -57,7 +57,7 @@ describe('Conversation', () => {
       const conversation = await new Inbox(1).conversations.create({
         destinationInbox: { type: 'user', identifier: 99999999 },
         type: 'event',
-        typeIdentifier: 456789,
+        typeIdentifier: '456789',
         params: { trucUtile: false },
         creatorInboxUser: { userUid: 23456789 },
         message: "Comment qu'on contribute ?",
@@ -77,7 +77,7 @@ describe('Conversation', () => {
         )
       ).toEqual({
         type: 'event',
-        typeIdentifier: 456789,
+        typeIdentifier: '456789',
         creatorInbox: {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
@@ -346,7 +346,7 @@ describe('Conversation', () => {
         )
       ).toEqual({
         type: 'event',
-        typeIdentifier: 456789,
+        typeIdentifier: '456789',
         creatorInbox: {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
@@ -589,6 +589,7 @@ describe('Conversation', () => {
   describe('update', () => {
     test('update a conversation', async () => {
       const conversation = await Inbox.user(99999999).conversations.get(1);
+      const updatedAtBefore = new Date(conversation.toJSON().updatedAt);
 
       const date = new Date(
         parseInt(`${new Date().getTime().toString().slice(0, -3)}000`, 10)
@@ -604,7 +605,8 @@ describe('Conversation', () => {
           conversation.toJSON(),
           'createdAt',
           'latestMessage.createdAt',
-          'fileKey'
+          'fileKey',
+          'updatedAt'
         )
       ).toEqual({
         id: 1,
@@ -619,7 +621,6 @@ describe('Conversation', () => {
           uid: 48959239,
         },
         store: { params: { un: { nouveau: 'truc' } } },
-        updatedAt: date,
         resolvedAt: null,
         closedAt: date,
         inboxContextId: 2,
@@ -679,6 +680,11 @@ describe('Conversation', () => {
         },
         actions: [],
       });
+
+      expect(date.getTime() - updatedAtBefore.getTime()).toBeGreaterThan(1000);
+      expect(
+        new Date(conversation.toJSON().updatedAt).getTime() - date.getTime()
+      ).toBeLessThanOrEqual(1000);
     });
 
     it('update params', async () => {
@@ -914,7 +920,7 @@ describe('Conversation', () => {
         {
           id: 4,
           type: 'contact_form',
-          typeIdentifier: 456789,
+          typeIdentifier: '456789',
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
@@ -1262,7 +1268,7 @@ describe('Conversation', () => {
         {
           id: 4,
           type: 'contact_form',
-          typeIdentifier: 456789,
+          typeIdentifier: '456789',
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
@@ -1491,7 +1497,7 @@ describe('Conversation', () => {
         {
           id: 4,
           type: 'contact_form',
-          typeIdentifier: 456789,
+          typeIdentifier: '456789',
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {

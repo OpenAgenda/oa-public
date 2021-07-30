@@ -18,7 +18,7 @@ export const createSchema = {
       type: 'string',
     },
     typeIdentifier: {
-      type: 'integer',
+      type: ['integer', 'string'],
     },
     params: {
       type: 'object',

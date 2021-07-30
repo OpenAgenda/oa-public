@@ -33,6 +33,10 @@ module.exports = schema( {
     type: 'integer',
     list: { default: null }
   },
+  slug: {
+    type: 'text',
+    list: { default: null }
+  },
   networkUid: {
     type: 'integer'
   },
