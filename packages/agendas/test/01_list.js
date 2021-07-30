@@ -268,6 +268,23 @@ describe( 'agendas - functional (server): list', function () {
 
   } );
 
+  it('list by uids', async () => {
+    const { agendas } = await svc.list({
+      uid: 17582566
+    }, 0, 1);
+
+    assert.strictEqual(agendas.length, 1)
+    assert.strictEqual(agendas[0].uid, 17582566);
+  });
+
+  it('list by slugs', async () => {
+    const { agendas } = await svc.list({
+      slug: 'inaregions'
+    }, 0, 1);
+
+    assert.strictEqual(agendas.length, 1)
+    assert.strictEqual(agendas[0].slug, 'inaregions');
+  });
 
   it( 'DEPRECATE - list with ids, detailed and search gets agendas', done => {
 

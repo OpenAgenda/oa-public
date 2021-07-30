@@ -780,6 +780,12 @@
       "value": "Sélectionnez un lieu"
     }
   ],
+  "AgendaLocations.LocationSelector.remove": [
+    {
+      "type": 0,
+      "value": "Retirer"
+    }
+  ],
   "AgendaLocations.RemoveModal.cancel": [
     {
       "type": 0,
@@ -1308,6 +1314,12 @@
       "value": "Retour à la sélection du lieu cible"
     }
   ],
+  "AgendaLocations.stepper.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Annuler la fusion"
+    }
+  ],
   "AgendaLocations.stepper.confirmation": [
     {
       "type": 0,
@@ -1350,10 +1362,22 @@
       "value": "Lancer la fusion"
     }
   ],
+  "AgendaLocations.stepper.locationsMerge": [
+    {
+      "type": 0,
+      "value": "Fusion de Lieux"
+    }
+  ],
   "AgendaLocations.stepper.next": [
     {
       "type": 0,
       "value": "Suivant: "
+    }
+  ],
+  "AgendaLocations.stepper.notDuplicates": [
+    {
+      "type": 0,
+      "value": "Ce ne se sont pas des doublons"
     }
   ],
   "AgendaLocations.stepper.see": [

@@ -13,7 +13,7 @@ const legacy = require('./lib/legacy');
 const getMergedLocation = require('./lib/getMergedLocation');
 
 async function get({ internals, endpoints }, identifiers, options = {}) {
-  log('received %j %j %j %j', identifiers, options, internals, endpoints);
+  log('received %j %j', identifiers, options);
   const k = internals.clients.knex(internals.config.schema);
   const {
     eventCounts: includeEventCounts,

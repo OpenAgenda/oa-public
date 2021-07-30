@@ -2,27 +2,14 @@
 
 const { parsePath } = require('history');
 
-const cmn = require('../../../../lib/commons-app');
-
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 const ReactDOM = require('react-dom/server');
 const { wrapApp } = require('@openagenda/react-shared');
+const cmn = require('../../../../lib/commons-app');
 
-module.exports = async ({ config, services }, req, res, next) => {
-  const {
-    sessions,
-    users: usersSvc,
-    agendas,
-    members
-  } = services;
-
-  // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
-  //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
-  //   return res.redirect(302, `/${req.agenda.slug}`);
-  // }
-
+module.exports = async ({ config }, req, res, next) => {
   const lang = req.lang || 'fr';
   const staticContext = {};
   const reactApp = createInboxApp({
@@ -124,4 +111,4 @@ module.exports = async ({ config, services }, req, res, next) => {
   } catch (e) {
     next(e);
   }
-}
+};

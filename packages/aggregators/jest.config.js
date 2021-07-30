@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  displayName: '@openagenda/users',
+  displayName: '@openagenda/aggregators',
   transform: {},
 
   testEnvironment: 'node',

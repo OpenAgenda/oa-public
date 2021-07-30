@@ -62,6 +62,18 @@ const messages = defineMessages({
     id: 'AgendaLocations.stepper.seeDetails',
     defaultMessage: 'Details',
   },
+  notDuplicates: {
+    id: 'AgendaLocations.stepper.notDuplicates',
+    defaultMessage: 'Those are not Duplicates',
+  },
+  cancelMerge: {
+    id: 'AgendaLocations.stepper.cancelMerge',
+    defaultMessage: 'Cancel Merge',
+  },
+  locationsMerge: {
+    id: 'AgendaLocations.stepper.locationsMerge',
+    defaultMessage: 'Locations Merge',
+  }
 });
 
 class Stepper extends Component {
@@ -74,6 +86,8 @@ class Stepper extends Component {
     backToMergeStep2: PropTypes.func.isRequired,
     seeDetails: PropTypes.func.isRequired,
     launchMerge: PropTypes.func.isRequired,
+    closeMerge: PropTypes.func.isRequired,
+    disqualifyDuplicates: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -176,7 +190,7 @@ class Stepper extends Component {
   }
 
   render() {
-    const { merge } = this.props;
+    const { merge, closeMerge, disqualifyDuplicates } = this.props;
     const { step } = merge;
     let step2Class = 'step';
     if (step === 2) step2Class = 'step active';
@@ -184,7 +198,7 @@ class Stepper extends Component {
     log(step);
     return (
       <div className="info-block margin-bottom-md">
-        <h1 className="text-center margin-bottom-sm">Fusion de lieux</h1>
+        <h1 className="text-center margin-bottom-sm"><FormattedMessage {...messages.locationsMerge} /></h1>
         <div className="stepper-container margin-bottom-md">
           <div className="stepper gray-bg-lightest">
             <div className={step === 1 ? 'step active ' : 'step passed'}><FormattedMessage {...messages.duplicatesSelection} /></div>
@@ -195,20 +209,35 @@ class Stepper extends Component {
         <div className="text-center margin-top-sm">
           {this.StepInfo()}
         </div>
-        {!(step === 2)
-          ? (
-            <div className="text-center margin-top-sm">
-              <button
-                type="button"
-                className={step === 1 && merge.locationUids.length < 2 ? 'btn btn-primary disabled' : 'btn btn-primary'}
-                onClick={this.updateStep}
-              >
-                {step !== 3 ? <FormattedMessage {...messages.next} /> : null}
-                {step === 1 ? <FormattedMessage {...messages.targetChoice} /> : null}
-                {step === 3 ? <FormattedMessage {...messages.launchMerge} /> : null}
-              </button>
-            </div>
+        <div className="text-center margin-top-sm">
+          <button
+            type="button"
+            className="btn btn-danger margin-right-sm"
+            onClick={() => closeMerge()}
+          >
+            <FormattedMessage {...messages.cancelMerge} />
+          </button>
+          {step === 1 && merge.entryPoint ? (
+            <button
+              type="button"
+              className="btn btn-danger margin-right-sm"
+              onClick={() => disqualifyDuplicates()}
+            >
+              <FormattedMessage {...messages.notDuplicates} />
+            </button>
           ) : null}
+          {!(step === 2) ? (
+            <button
+              type="button"
+              className={step === 1 && merge.locationUids.length < 2 ? 'btn btn-primary disabled' : 'btn btn-primary'}
+              onClick={this.updateStep}
+            >
+              {step !== 3 ? <FormattedMessage {...messages.next} /> : null}
+              {step === 1 ? <FormattedMessage {...messages.targetChoice} /> : null}
+              {step === 3 ? <FormattedMessage {...messages.launchMerge} /> : null}
+            </button>
+          ) : null}
+        </div>
 
       </div>
     );

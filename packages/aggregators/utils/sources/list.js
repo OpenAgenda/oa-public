@@ -1,17 +1,19 @@
 'use strict';
 
 const _ = require('lodash');
+const log = require('@openagenda/logs')('sources/list');
 
 const getAggregator = require('../getAggregator');
 const validateListQuery = require('../validateListQuery');
 const extractRules = require('../rules/extract');
 
 module.exports = async (
-  { knex, getAgendasByUidsAndSearch },
+  { knex, getAgendasByUids },
   aggregatorAgenda,
   query = {},
   options = {}
 ) => {
+  log('received with %j', query);
   const aggregatorId = await getAggregator(knex, aggregatorAgenda, true);
 
   if (!aggregatorId) throw new Error('Aggregator not found');
@@ -39,10 +41,10 @@ module.exports = async (
       rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
     })));
 
-  if ((detailed || cleanQuery.search) && sources.length) {
-    const agendas = await getAgendasByUidsAndSearch(
+  if ((detailed || cleanQuery.search || cleanQuery.slug) && sources.length) {
+    const agendas = await getAgendasByUids(
       sources.map(s => s.agendaUid),
-      cleanQuery.search
+      cleanQuery
     );
 
     sources.forEach(s => {

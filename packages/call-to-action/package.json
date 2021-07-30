@@ -23,7 +23,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.1.1",
+    "@openagenda/react-shared": "^2.2.0",
     "core-js": "^3.10.2",
     "lodash": "^4.17.15",
     "prop-types": "^15.6.0",

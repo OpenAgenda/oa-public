@@ -431,7 +431,7 @@
 
 <% if ( showRequestLocation ) { %>
           <li>
-            <a class="btn btn-default" rel="nofollow" href="<%= `/${slug}/locations/${event.location.uid}/suggest-change` %>">
+            <a class="btn btn-default" rel="nofollow" href="<%= `/${slug}/locations/${uid}.${event.location.uid}/suggest-change` %>">
               <%= __( 'requestChangeLocation' ) %>
             </a>
           </li>

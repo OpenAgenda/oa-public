@@ -92,7 +92,7 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     let entry2;
 
     beforeAll(async () => {
-      await svc(7196947).duplicates.disqualifyCandidate(77164958, 90760072);
+      await svc(7196947).duplicates.disqualifyCandidate([77164958, 90760072]);
       entry1 = await f.client('location').first().where('uid', 90760072);
       entry2 = await f.client('location').first().where('uid', 77164958);
     });

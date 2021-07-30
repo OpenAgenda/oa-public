@@ -14,12 +14,7 @@ const {
   getMultiLanguageTitle
 } = require('./utils');
 
-module.exports = async ({ services, config }, req, res, next) => {
-  const {
-    sessions,
-    members
-  } = services;
-
+module.exports = async ({ config }, req, res, next) => {
   // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
   //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
   //   return res.redirect(302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`);
@@ -46,7 +41,7 @@ module.exports = async ({ services, config }, req, res, next) => {
           'contactAdministratorsOf',
           { title: _.escape(getMultiLanguageTitle(req.agenda, lang)), link: eventShowLink },
           req.lang
-       ),
+        ),
         maskCreationSubtitle: false,
         topListForm: false, // add a conversation form on top of conversation list
         belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
@@ -67,18 +62,18 @@ module.exports = async ({ services, config }, req, res, next) => {
         }
       },
       res: {
-        author: `/home/inbox/author.json`,
+        author: '/home/inbox/author.json',
         conversations: {
-          create: `/home/inbox/conversations.json`,
-          list: `/home/inbox/conversations.json`,
-          action: `/home/inbox/conversations/:conversationId/action/:code.json`,
-          resume: `/home/inbox/conversations/:conversationId/resume.json`
+          create: '/home/inbox/conversations.json',
+          list: '/home/inbox/conversations.json',
+          action: '/home/inbox/conversations/:conversationId/action/:code.json',
+          resume: '/home/inbox/conversations/:conversationId/resume.json'
         },
         messages: {
-          list: `/home/inbox/conversations/:conversationId/messages.json`,
-          create: `/home/inbox/conversations/:conversationId/messages.json`,
-          prepareAttachment: `/home/inbox/conversations/:conversationId/prepare-attachment`,
-          addAttachment: `/home/inbox/conversations/:conversationId/add-attachment`
+          list: '/home/inbox/conversations/:conversationId/messages.json',
+          create: '/home/inbox/conversations/:conversationId/messages.json',
+          prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
         }
       },
       agenda: req.agenda,
@@ -129,4 +124,4 @@ module.exports = async ({ services, config }, req, res, next) => {
   } catch (e) {
     next(e);
   }
-}
+};

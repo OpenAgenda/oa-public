@@ -811,6 +811,12 @@
       "value": "Select a location"
     }
   ],
+  "AgendaLocations.LocationSelector.remove": [
+    {
+      "type": 0,
+      "value": "remove"
+    }
+  ],
   "AgendaLocations.RemoveModal.cancel": [
     {
       "type": 0,
@@ -1343,6 +1349,12 @@
       "value": "go back to target selection"
     }
   ],
+  "AgendaLocations.stepper.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Cancel Merge"
+    }
+  ],
   "AgendaLocations.stepper.confirmation": [
     {
       "type": 0,
@@ -1385,10 +1397,22 @@
       "value": "Launch merge"
     }
   ],
+  "AgendaLocations.stepper.locationsMerge": [
+    {
+      "type": 0,
+      "value": "Locations Merge"
+    }
+  ],
   "AgendaLocations.stepper.next": [
     {
       "type": 0,
       "value": "Next:"
+    }
+  ],
+  "AgendaLocations.stepper.notDuplicates": [
+    {
+      "type": 0,
+      "value": "Those are not Duplicates"
     }
   ],
   "AgendaLocations.stepper.see": [

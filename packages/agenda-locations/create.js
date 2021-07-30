@@ -58,15 +58,15 @@ async function create(service, data, options = {}) {
     clean.image = result[0].filename;
   }
 
-  if (includeImagePath && clean.image) {
-    clean.image = service.config.imagePath + clean.image;
-  }
-
   const entry = service.fieldUtils.fromItemToEntry(clean);
 
   const [insertedID] = await service.clients
     .knex(service.config.schema)
     .insert(legacy.patch(entry, null, null));
+
+  if (includeImagePath && clean.image) {
+    clean.image = service.config.imagePath + clean.image;
+  }
 
   log('info', 'created with id %s and uid %s', insertedID, entry.uid, clean);
 
