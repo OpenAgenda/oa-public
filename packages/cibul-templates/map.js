@@ -45,8 +45,6 @@ module.exports = [
   'emailStrategie/index',
   'emailStrategie/new',
 
-  'customized/index',
-
   'adminRedirect/index',
 
   'locations/index',

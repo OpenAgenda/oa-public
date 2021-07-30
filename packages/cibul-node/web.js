@@ -35,7 +35,6 @@ module.exports = app => {
   require('./auth/reset.front')(app);
   require('./agenda/emailstrategie.back')(app);
   require('./agenda/embeds.back')(app);
-  require('./agenda/customized.back')(app);
   app.services.aggregators.plugApp(app);
   require('./agenda/settings.back')(app);
   require('./services/members')(app);
