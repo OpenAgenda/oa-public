@@ -120,6 +120,9 @@ function _search(k, query, options) {
   if (query.uid) {
     k.whereIn('uid', query.uid.filter(uid => !!uid));
   }
+  if (query.slug) {
+    k.whereIn('slug', query.slug.filter(slug => !!slug));
+  }
   if (query.networkUid) {
     k.where('network_uid', query.networkUid);
   }
