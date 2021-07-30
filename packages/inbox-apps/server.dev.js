@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
 import bodyParser from 'body-parser';
-import inboxesSvc from '@openagenda/inboxes';
+import InboxesSvc from '@openagenda/inboxes';
 import * as inboxMw from '@openagenda/inboxes/dist/middleware';
 import testconfig from './testconfig';
 
@@ -24,8 +24,9 @@ app.server = server;
 
 if ( process.env.NODE_ENV !== 'test' ) {
   (async () => {
-    inboxesSvc.init( testconfig );
-    inboxMw.init( testconfig );
+    const inboxesSvc = await InboxesSvc(testconfig);
+    // await inboxesSvc.config.knex.seed.run();
+    await inboxMw.init( inboxesSvc );
   })();
 }
 

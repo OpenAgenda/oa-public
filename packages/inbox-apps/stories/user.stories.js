@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
-import { wrappApp } from '@openagenda/react-shared';
+import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/apps/inbox';
 
 import '@openagenda/bs-templates/compiled/main.css';
@@ -28,7 +28,10 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       prepareAttachment: '/user/conversations/:conversationId/prepare-attachment',
       addAttachment: '/user/conversations/:conversationId/add-attachment',
     }
-  }
+  },
+  inbox: {},
+  conversation: {},
+  modals: {}
 });
 
 
