@@ -3,11 +3,7 @@
 const _ = require('lodash');
 const extractRules = require('../rules/extract');
 
-module.exports = async (
-  { knex, getAgendasByUidsAndSearch },
-  sourceId,
-  options = {}
-) => {
+module.exports = async ({ knex, getAgendasByUids }, sourceId, options = {}) => {
   const { detailed } = {
     detailed: false,
     ...options,
@@ -32,7 +28,7 @@ module.exports = async (
       : null));
 
   if (detailed && source) {
-    source.agenda = _.first(await getAgendasByUidsAndSearch(source.agendaUid));
+    source.agenda = _.first(await getAgendasByUids(source.agendaUid));
   }
 
   return source;

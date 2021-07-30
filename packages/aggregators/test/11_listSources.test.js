@@ -3,7 +3,7 @@
 const createInstance = require('..');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
-const getAgendasByUidsAndSearch = require('./fixtures/getAgendasByUidsAndSearch');
+const getAgendasByUids = require('./fixtures/getAgendasByUids');
 
 describe('11 - list sources', () => {
   const agenda = { id: 218 };
@@ -28,7 +28,7 @@ describe('11 - list sources', () => {
         on: () => {},
       }),
       interfaces: {
-        getAgendasByUidsAndSearch,
+        getAgendasByUids,
       },
     });
   });
@@ -42,7 +42,13 @@ describe('11 - list sources', () => {
   });
 
   test('filtered list', async () => {
-    const sources = await svc.sources.list(agenda, 'Martinique');
+    const sources = await svc.sources.list(agenda, { search: 'Martinique' });
+
+    expect(sources.map(s => s.agendaUid)).toEqual([333]);
+  });
+
+  test('filtered list by slug', async () => {
+    const sources = await svc.sources.list(agenda, { slug: 'fds-martinique' });
 
     expect(sources.map(s => s.agendaUid)).toEqual([333]);
   });

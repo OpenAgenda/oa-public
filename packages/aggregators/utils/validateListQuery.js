@@ -12,4 +12,8 @@ module.exports = schema({
     type: 'text',
     default: null,
   },
+  slug: {
+    type: 'text',
+    default: null,
+  },
 });
