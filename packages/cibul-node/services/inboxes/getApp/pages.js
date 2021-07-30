@@ -1,8 +1,5 @@
 'use strict';
 
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
-const ReactDOM = require('react-dom/server');
-
 const cmn = require('../../../lib/commons-app');
 
 const renderContactInboxApp = require('./renders/contactInboxApp');
@@ -12,6 +9,34 @@ const renderEventContactApp = require('./renders/eventContactApp');
 const renderAdminEventContactApp = require('./renders/adminEventContactApp');
 const renderRequestContributeApp = require('./renders/requestContributeApp');
 const renderSuggestLocationChangeApp = require('./renders/suggestLocationChangeApp');
+
+function eventLoader(events) {
+  return (req, res, next) => {
+    events.get({
+      slug: req.params.eventSlug
+    }, {
+      access: 'internal',
+      includeImagePath: true,
+      private: null
+    }).then(event => {
+      req.event = event;
+      next();
+    }, next);
+  };
+}
+
+function checkUser(req, res, next) {
+  if (!req.user) {
+    const error = new Error('Unauthorized');
+
+    error.statusCode = 401;
+    res.statusCode = 401;
+
+    return next(error);
+  }
+
+  return next();
+}
 
 module.exports = (app, config, services) => {
   const {
@@ -25,7 +50,8 @@ module.exports = (app, config, services) => {
 
   const loadEvent = eventLoader(events);
 
-  app.get('/home/inbox/refresh-check',
+  app.get(
+    '/home/inbox/refresh-check',
     sessions.mw.load(),
     checkUser,
     (req, res, next) => {
@@ -35,7 +61,8 @@ module.exports = (app, config, services) => {
     }
   );
 
-  app.use('/:slug/contact',
+  app.use(
+    '/:slug/contact',
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
@@ -46,7 +73,8 @@ module.exports = (app, config, services) => {
     renderContactInboxApp.bind(null, { config, services })
   );
 
-  app.use('/:slug/admin/members/:memberId/contact',
+  app.use(
+    '/:slug/admin/members/:memberId/contact',
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
@@ -59,14 +87,15 @@ module.exports = (app, config, services) => {
     renderMemberContactApp.bind(null, { config, services })
   );
 
-  app.use('/:slug/admin/events/:eventSlug/contact',
+  app.use(
+    '/:slug/admin/events/:eventSlug/contact',
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
     }),
     agendas.mw.authorizeByIPAddress(),
-    cmn.loadBaseData( 'oasfmain.css' ),
+    cmn.loadBaseData('oasfmain.css'),
     members.mw.loadAndAuthorize('moderator'),
     loadEvent,
     renderAdminEventContactApp.bind(null, { config, services })
@@ -80,12 +109,13 @@ module.exports = (app, config, services) => {
       field: 'slug'
     }),
     members.mw.load,
-    cmn.loadBaseData( 'oasfmain.css' ),
+    cmn.loadBaseData('oasfmain.css'),
     loadEvent,
     renderEventContactApp.bind(null, { config, services })
   );
 
-  app.use('/:slug/admin/events/:eventSlug/edition-request',
+  app.use(
+    '/:slug/admin/events/:eventSlug/edition-request',
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
@@ -98,7 +128,8 @@ module.exports = (app, config, services) => {
     renderEditionRequestApp.bind(null, { config, services })
   );
 
-  app.use('/:slug/request-contribute',
+  app.use(
+    '/:slug/request-contribute',
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
@@ -109,7 +140,8 @@ module.exports = (app, config, services) => {
     renderRequestContributeApp.bind(null, { config, services })
   );
 
-  app.use('/:slug/locations/:locationUid/suggest-change',
+  app.use(
+    '/:slug/locations/:locationUid/suggest-change',
     sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
@@ -126,34 +158,4 @@ module.exports = (app, config, services) => {
     },
     renderSuggestLocationChangeApp.bind(null, { config, services })
   );
-}
-
-
-function eventLoader(events) {
-  return (req, res, next) => {
-    events.get({
-      slug: req.params.eventSlug
-    }, {
-      access: 'internal',
-      includeImagePath: true,
-      private: null
-    }).then(event => {
-      req.event = event;
-      next();
-    }, next);
-  }
-}
-
-
-function checkUser(req, res, next) {
-  if (!req.user) {
-    const error = new Error('Unauthorized');
-
-    error.statusCode = 401;
-    res.statusCode = 401;
-
-    return next(error);
-  }
-
-  return next();
 };
