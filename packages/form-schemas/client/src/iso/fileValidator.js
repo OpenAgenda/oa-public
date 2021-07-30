@@ -1,14 +1,17 @@
-"use strict";
+const requiredError = (field = null) => [{
+  code: 'required',
+  message: 'A value is required',
+  field
+}];
 
-const _ = {
-  get: require( 'lodash/get' )
-};
+const schema = require('@openagenda/validators/schema');
 
-const schema = require( '@openagenda/validators/schema' );
+const textValidator = require('@openagenda/validators/text');
+const linkValidator = require('@openagenda/validators/link');
 
 schema.register({
-  text: require('@openagenda/validators/text'),
-  link: require('@openagenda/validators/link')
+  text: textValidator,
+  link: linkValidator
 });
 
 const fields = {
@@ -41,18 +44,17 @@ module.exports = (validatorOptions = {}) => v => {
   const optional = validatorOptions?.optional === undefined ? true : validatorOptions?.optional;
 
   if (!optional && !v) {
-    throw [{
-      code: 'required',
-      message: 'A value is required',
-      field: validatorOptions?.field || null
-    }];
+    throw requiredError(validatorOptions?.field);
   }
 
   if (validatorOptions?.allowPath && v?.path) {
     return validateWithPath(v);
-  } else if (validatorOptions?.allowURL && v?.url) {
+  }
+
+  if (validatorOptions?.allowURL && v?.url) {
     return validateWithURL(v);
   }
+
   const clean = validate(v);
 
   if (!Object.keys(clean).filter(k => clean[k] !== null).length) {
@@ -60,4 +62,4 @@ module.exports = (validatorOptions = {}) => v => {
   }
 
   return clean;
-}
+};
