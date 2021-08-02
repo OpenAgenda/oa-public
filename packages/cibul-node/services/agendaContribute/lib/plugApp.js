@@ -1,0 +1,207 @@
+'use strict';
+
+const _ = require('lodash');
+const contribute = require('@openagenda/agenda-contribute');
+
+const cmn = require('../../../lib/commons-app');
+const outdatedBrowserMw = require('../../../lib/outdatedBrowser.mw');
+const loadLegacyRoutes = require('../legacy');
+const middlewares = require('../middlewares');
+const memberSchema = require('./memberSchema');
+const isDraftRequested = require('./isDraftRequested');
+const redirectToSignup = require('./redirectToSignup');
+
+const agendaNotFound = ns => (req, res, next) => (req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 }));
+
+const setInReq = obj => (req, res, next) => {
+  Object.assign(req, obj);
+  next();
+};
+
+module.exports = (config, services) => parentApp => {
+  const {
+    agendas,
+    sessions,
+    members
+  } = services;
+
+  const { bucket } = config.aws;
+
+  parentApp.use(
+    '/dist/contribute',
+    contribute.dist,
+    (req, res) => res.send(404) // if not, unhandled files will be handled by following routes
+  );
+
+  parentApp.all([
+    '/:agendaSlug/contribute',
+    '/:agendaSlug/contribute/:step',
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
+  ], [
+    agendas.mw.load,
+    agendaNotFound('agenda'),
+    agendas.mw.authorizeByIPAddress(),
+    (req, res, next) => {
+      if (!req.agenda.credentials.useContributeApp) {
+        return res.redirect(`/${req.agenda.slug}/addevent`);
+      }
+      next();
+    }
+  ]);
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    agendas.mw.loadBy({
+      path: 'params.fromAgendaUid',
+      field: 'uid',
+      target: 'fromAgenda'
+    }),
+    agendaNotFound('fromAgenda')
+  );
+
+  parentApp.all([
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
+  ], middlewares.event);
+
+  parentApp.all([
+    '/:agendaSlug/contribute',
+    '/:agendaSlug/contribute/:step',
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
+  ], [
+    sessions.mw.ifUnlogged(redirectToSignup),
+    middlewares.member.bind(null, members),
+    middlewares.schemaExtensions,
+    middlewares.duplicateFromEvent
+  ]);
+
+  parentApp.all([
+    '/:agendaSlug/contribute',
+    '/:agendaSlug/contribute/:step'
+  ], middlewares.verifyMemberAuthorization);
+
+  parentApp.all([
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
+  ], middlewares.verifyMemberAuthorization.edit);
+
+  parentApp.get(
+    '/:agendaSlug/contribute/event',
+    setInReq({ mode: 'create' })
+  );
+  parentApp.post(
+    '/:agendaSlug/contribute/event',
+    setInReq({ mode: 'create' }),
+    isDraftRequested({ draft: true })
+  );
+
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid',
+    setInReq({ mode: 'edit' })
+  );
+
+  parentApp.get(
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    setInReq({ mode: 'create', draft: true })
+  );
+
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    setInReq({ mode: 'add' }),
+    middlewares.addAndRedirectIfNothingToEdit
+  );
+
+  parentApp.post(
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    setInReq({ mode: 'edit' }),
+    isDraftRequested({ draft: true })
+  );
+
+  parentApp.get(
+    '/:agendaSlug/contribute/event/:eventUid',
+    middlewares.defineBackRedirect
+  );
+
+  parentApp.all(
+    [
+      '/:agendaSlug/contribute',
+      '/:agendaSlug/contribute/:step',
+      '/:agendaSlug/contribute/event/:eventUid',
+      '/:agendaSlug/contribute/event/:eventUid/draft',
+      '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
+    ],
+    outdatedBrowserMw,
+    (req, res, next) => {
+      req.config = {
+        draft: !!(req.event?.draft || req.draft),
+        lang: req.lang,
+        base: `/${req.agenda.slug}/contribute`,
+        mode: req.mode,
+        authorizations: req.authorizations,
+        locationRes: {
+          get: '/locations/:uid.json',
+          index: `/agendas/${req.agenda.uid}/locations.json?sample=1`,
+          create: `/agendas/${req.agenda.uid}/locations`,
+          geocode: '/locations/geocode',
+          reverse: '/locations/geocode/reverse',
+          insee: '/locations/insee',
+          default: `/agendas/${req.agenda.uid}/locations`,
+        },
+        referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
+        suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
+        fileStore: { type: 's3', bucket },
+        redirects: {
+          back: req.backRedirect,
+          seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
+          createOtherEvent: `/${req.agenda.slug}/contribute`,
+          duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
+          seeAllEvents: '/home/events',
+          contactAdministrators: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/:eventUid/contact` : `/${req.agenda.slug}/contact`,
+          draft: '/home/events'
+        },
+        member: {
+          dataIsRequired: _.get(req, 'agenda.settings.contribution.useFields', false),
+          schema: memberSchema(req.agenda.uid)
+        },
+        event: {
+          message: _.get(req, 'agenda.settings.contribution.messages.instructions')
+        },
+        confirmation: {
+          message: _.get(req, 'agenda.settings.contribution.messages.complete'),
+          state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
+        }
+      };
+
+      req.translateMode = Boolean(req.cookies.translateMode);
+      req.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
+
+      if (!req.scripts) req.scripts = {};
+      if (!req.scripts.top) req.scripts.top = [];
+
+      if (req.outdatedBrowser) {
+        req.scripts.top.push(
+          { body: `window.oaOutdatedOptions = { language: "${req.lang}" };` },
+          { src: contribute.getClientScriptPath('outdated.js') }
+        );
+      }
+
+      if (req.cookies.translateMode) {
+        req.scripts.top.push(
+          { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
+          { src: '//cdn.crowdin.com/jipt/jipt.js' }
+        );
+      }
+
+      next();
+    }
+  );
+
+  parentApp.use('/:agendaSlug/contribute', contribute.app);
+
+  loadLegacyRoutes(parentApp);
+};

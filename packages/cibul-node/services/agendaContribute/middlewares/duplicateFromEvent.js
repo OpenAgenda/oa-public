@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-const log = require('@openagenda/logs')('services/agendaContribute/middlewares/duplicateFromEvent');
+const log = require('@openagenda/logs')('services/agendaContribute/duplicateFromEvent');
 
 module.exports = async (req, res, next) => {
   const {
@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
     access: await members.get({
       agendaUid,
       userUid: req.user.uid
-    }).then(m => m ? members.utils.getRoleSlug(m.role) : 'public')
+    }).then(m => (m ? members.utils.getRoleSlug(m.role) : 'public'))
   });
 
   if (!event) {
@@ -40,7 +40,7 @@ module.exports = async (req, res, next) => {
         .map(f => f.field)
     );
 
-  const location = await core.agendas(req.agenda.uid).locations.get(event.locationUid, { includeFields: ['uid']});
+  const location = await core.agendas(req.agenda.uid).locations.get(event.locationUid, { includeFields: ['uid'] });
 
   if (!location) {
     unduplicatableFields.push('locationUid');
@@ -53,5 +53,7 @@ module.exports = async (req, res, next) => {
   // location cannot be used as is.
   req.event = ih(event, { $unset: unduplicatableFields });
 
+  log('loaded %j for duplication', req.event);
+
   next();
-}
+};
