@@ -198,7 +198,8 @@ const config = {
       'powerencry.com',
       'truthfinderlogin.com',
       'wellsfargocomcardholders.com',
-      'chasefreedomactivate.com'
+      'chasefreedomactivate.com',
+      'eoopy.com'
     ],
     mails: {
       defaults: {
