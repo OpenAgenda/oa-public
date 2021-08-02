@@ -64,6 +64,7 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   info: labels.imageInfo,
   allowURL: true,
   allowPath: true,
+  imageWithSizeAndVariants: true,
   extensions: ['jpg', 'bmp', 'png', 'jpeg'],
   store: fileStore
 }, {
