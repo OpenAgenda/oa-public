@@ -318,6 +318,11 @@ function buildFieldSchema(type, options = {}) {
         type: 'boolean',
         optional: true,
         default: false
+      },
+      imageWithSizeAndVariants: {
+        type: 'boolean',
+        optional: true,
+        default: false
       }
     });
   }

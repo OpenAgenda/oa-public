@@ -14,7 +14,7 @@ schema.register({
   link: linkValidator
 });
 
-const fields = {
+const baseFields = {
   extension: {
     type: 'text'
   },
@@ -26,20 +26,6 @@ const fields = {
   }
 };
 
-const validate = schema(fields);
-const validateWithURL = schema({
-  ...fields,
-  url: {
-    type: 'link'
-  }
-});
-const validateWithPath = schema({
-  ...fields,
-  path: {
-    type: 'text'
-  }
-});
-
 module.exports = (validatorOptions = {}) => v => {
   const optional = validatorOptions?.optional === undefined ? true : validatorOptions?.optional;
 
@@ -47,15 +33,39 @@ module.exports = (validatorOptions = {}) => v => {
     throw requiredError(validatorOptions?.field);
   }
 
+  const fields = {
+    ...baseFields
+  };
+
   if (validatorOptions?.allowPath && v?.path) {
-    return validateWithPath(v);
+    fields.path = { type: 'text' };
+  } else if (validatorOptions?.allowURL && v?.url) {
+    fields.url = { type: 'link' };
   }
 
-  if (validatorOptions?.allowURL && v?.url) {
-    return validateWithURL(v);
+  if (validatorOptions?.imageWithSizeAndVariants) {
+    fields.size = {
+      width: {
+        type: 'integer',
+        default: null
+      },
+      height: {
+        type: 'integer',
+        default: null
+      }
+    };
+
+    fields.variants = {
+      list: true,
+      fields: {
+        type: { type: 'text' },
+        filename: { type: 'text' },
+        size: { ...fields.size }
+      }
+    };
   }
 
-  const clean = validate(v);
+  const clean = schema(fields)(v);
 
   if (!Object.keys(clean).filter(k => clean[k] !== null).length) {
     return null;

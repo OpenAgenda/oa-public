@@ -81,6 +81,7 @@ module.exports = (field, options = {}) => {
     'enableWith',
     'allowNull',
     'allowURL',
+    'imageWithSizeAndVariants',
     'allowPath',
     'allowObject',
     'default'
