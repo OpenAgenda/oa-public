@@ -42,7 +42,7 @@ const AggregatorModal = ({
     return onClose();
   };
 
-  const getTitleLink = agenda => `/${agenda.slug}/admin/sources?addSource=${targetAgenda.slug}&redirect=/${targetAgenda.slug}?aggregateSuccess=1`;
+  const getTitleLink = agenda => `/${agenda.slug}/admin/sources?source=${targetAgenda.slug}&redirect=/${targetAgenda.slug}?aggregateSuccess=1`;
 
   return (
     <div id="event">
