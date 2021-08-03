@@ -81,6 +81,8 @@
   &__input,
   &__textarea {
     border-radius: 5px;
+    resize: vertical;
+    max-width: 95%;
   }
 }
 
