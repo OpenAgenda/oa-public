@@ -116,7 +116,7 @@ const ShareModal = ({
           </button>
           <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
           <p className="margin-bottom-sm">{intl.formatMessage(messages.emailSuccess, { emails: emailQuantity })}</p>
-          <button className="btn btn-primary margin-bottom-sm" type="button" onClick={onClose}>
+          <button className="btn btn-primary export__button" type="button" onClick={onClose}>
             OK
           </button>
         </div>
@@ -125,8 +125,9 @@ const ShareModal = ({
           <button className="export__close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
-          <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
-
+          {segment === 'openagenda, email, calendar' && (
+            <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
+          )}
           {segment.includes('openagenda') && (
             <div>
               <h2 className="export__title--md">{intl.formatMessage(messages.shareOA)}</h2>
@@ -141,7 +142,7 @@ const ShareModal = ({
                 <>
                   <p>{intl.formatMessage(messages.signIn)}</p>
                   <a
-                    className="btn btn-primary"
+                    className="btn btn-primary export__button"
                     href={`https://d.openagenda.com/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
                   >
                     {intl.formatMessage(messages.connectionBtn)}
@@ -150,7 +151,6 @@ const ShareModal = ({
               )}
             </div>
           )}
-
           {userLogged && segment.includes('email') && (
             <form onSubmit={handleSubmit}>
               <h2 className="export__title--md">{intl.formatMessage(messages.shareEmail)}</h2>
@@ -166,15 +166,16 @@ const ShareModal = ({
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary export__button">
                 {intl.formatMessage(messages.send)}
               </button>
             </form>
           )}
-
           {segment.includes('calendar') && (
             <div className="margin-bottom-md">
-              <h2 className="export__title--md">{intl.formatMessage(messages.shareCalendar)}</h2>
+              <h2 className="export__title export__title--md">
+                {intl.formatMessage(messages.shareCalendar)}
+              </h2>
               <form>
                 {calendars.map(calendar => (
                   <Fragment key={calendar.service}>
