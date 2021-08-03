@@ -8,10 +8,6 @@
     width: 100%;
     color: black;
     position: relative;
-
-    &:last-child {
-      margin-bottom: 20px;
-    }
   }
 
   &__title {
@@ -20,6 +16,10 @@
     }
     &--md {
       font-size: 2rem;
+      margin-top: 0;
+    }
+    &.export__title--md {
+      margin-top: 15px;
     }
   }
 
