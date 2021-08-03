@@ -158,7 +158,8 @@ const ShareModal = ({
                 <div className="input-group input-textarea">
                   <textarea
                     className="form-control export__textarea"
-                    cols="30"
+                    cols="60"
+                    rows="4"
                     id="textarea"
                     placeholder={intl.formatMessage(messages.emailPlaceholder)}
                     value={emailValue}
