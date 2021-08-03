@@ -54,9 +54,8 @@ function _timings( v ) {
 
 
 function _registration( v ) {
-
   v.req.formatted.registrationComponent = renderComponent( Registration, {
-    value: v.req.event.ticketLink || v.req.event.getTicketLink( true ) || '',
+    value: v.req.formatted.registration.map(({ value }) => value).join(', '),
     lang: v.req.lang
   } );
 
