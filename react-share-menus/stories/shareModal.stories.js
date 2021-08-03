@@ -93,20 +93,7 @@ export const ShareOpenAgenda = () => {
       <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
         Partager sur OpenAgenda
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} />}
-    </div>
-  );
-};
-
-export const ShareCalendar = () => {
-  const [display, setDisplay] = useState(false);
-  mockApi();
-  return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
-        Partager dans un calendrier personnel
-      </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} segment="calendar" event={event} />}
+      {display && <ShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />}
     </div>
   );
 };
