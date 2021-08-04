@@ -199,6 +199,15 @@ describe('agenda-locations - functional - get', () => {
       }
     );
 
+    it(
+      'fix: when includeImagePath is provided but location has no image, path is not added',
+      async () => {
+        const { image } = await svc(7196947).get(86591143, { includeImagePath: true });
+
+        expect(image).toBe(null);
+      }
+    );
+
     it('if extId is stored in store, it is loaded', async () => {
       const { extId } = await svc.get(87202261);
 

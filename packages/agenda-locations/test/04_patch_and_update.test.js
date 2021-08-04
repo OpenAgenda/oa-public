@@ -253,6 +253,22 @@ describe('agenda-locations - functional - patch & update', () => {
     );
 
     it(
+      'fix: patch should not break unspecified image',
+      async () => {
+        await svc(7196947).patch(86591143, {
+          description: 'Une petite description'
+        }, { includeImagePath: true });
+
+        const image = await f.client('location')
+          .first()
+          .where('uid', 86591143)
+          .then(e => JSON.parse(e.store).image);
+
+        expect(image).toBe(null);
+      }
+    );
+
+    it(
       'if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address',
       async () => {
         const updated = await svc(7196947).update(

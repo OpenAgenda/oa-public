@@ -58,7 +58,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     location.linkedAgendas = await internals.interfaces.getLinkedAgendas(location.uid);
   }
 
-  if (includeImagePath && internals.config.imagePath) {
+  if (includeImagePath && internals.config.imagePath && location.image) {
     location.image = internals.config.imagePath + location.image;
   }
 
