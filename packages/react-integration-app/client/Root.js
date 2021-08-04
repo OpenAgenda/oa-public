@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
+import { QueryClientProvider } from 'react-query';
 import { wrapApp } from '@openagenda/react-shared';
 import { LayoutManager } from '@openagenda/react-layouts/src';
-import RootHelmet from '../RootHelmet';
 import NotFoundDisplayer from './NotFoundDisplayer';
 import NotFound from './NotFound';
 import ErrorComponent from './ErrorComponent';
@@ -16,6 +16,8 @@ export default function Root({
   staticContext,
   extractor,
   helmetContext,
+  queryClient,
+  children,
 }) {
   const Content = useCallback(
     () => (
@@ -35,16 +37,18 @@ export default function Root({
   return (
     // <React.StrictMode>
     <HelmetProvider context={helmetContext}>
-      <RootHelmet />
+      <QueryClientProvider client={queryClient}>
+        {children}
 
-      {wrapApp({
-        Content,
-        history,
-        triggerHooks,
-        req,
-        staticContext,
-        extractor,
-      })}
+        {wrapApp({
+          Content,
+          history,
+          triggerHooks,
+          req,
+          staticContext,
+          extractor,
+        })}
+      </QueryClientProvider>
     </HelmetProvider>
     // </React.StrictMode>
   );

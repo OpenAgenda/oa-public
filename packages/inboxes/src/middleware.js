@@ -322,9 +322,9 @@ export const messages = {
       options
     );
 
-    const limit = getLimit(svc.config.mw.limit, params.limit);
-
     return wrap(async (req, res) => {
+      const limit = getLimit(svc.config.mw.limit, params.limit);
+
       const conversation = await new Conversations(svc, {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: new Inbox(svc, {

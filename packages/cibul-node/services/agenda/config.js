@@ -83,12 +83,6 @@ module.exports = {
     suffix: '/contribution'
   }, {
     section: 'settings',
-    key: 'customized',
-    label: 'Customized',
-    access: 'administrator',
-    uri: 'customizedShow'
-  }, {
-    section: 'settings',
     key: 'settings_advanced',
     label: 'Advanced',
     access: 'administrator',

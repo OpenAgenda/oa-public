@@ -24,7 +24,13 @@ function Html({
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
-            __html: "window._jipt = [['project', 'openagenda']];",
+            __html:
+              'window._jipt = ['
+              + "['project', 'openagenda'],"
+              + "['escape', function() {"
+              + "  document.cookie = 'translateMode=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';"
+              + '  window.location.reload();'
+              + '}]]',
           }}
         />
         {translateMode ? (

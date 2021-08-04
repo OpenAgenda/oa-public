@@ -6,7 +6,7 @@ import '@openagenda/polyfills/intl-locales';
 import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient } from 'react-query';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
@@ -38,6 +38,7 @@ import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
+import RootHelmet from '../RootHelmet';
 import Root from './Root';
 
 if (!module.hot) {
@@ -186,16 +187,17 @@ loadableReady(async () => {
 
   const render = (forceRender = false) => {
     const element = (
-      <QueryClientProvider client={queryClient}>
-        <Root
-          apps={apps}
-          layoutStore={layoutStore}
-          history={history}
-          triggerHooks={triggerHooks}
-        />
+      <Root
+        apps={apps}
+        layoutStore={layoutStore}
+        history={history}
+        triggerHooks={triggerHooks}
+        queryClient={queryClient}
+      >
+        <RootHelmet />
 
         {/* <QueryWatch /> */}
-      </QueryClientProvider>
+      </Root>
     );
     const canvas = document.querySelector('#root');
 

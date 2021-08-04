@@ -9,7 +9,8 @@ module.exports = {
     password: 'grut',
     user: 'root',
     charset: 'utf8mb4',
-    timezone: 'UTC'
+    timezone: 'UTC',
+    ssl: true
   },
   migrations: {
     tableName: 'inbox_migrations',
