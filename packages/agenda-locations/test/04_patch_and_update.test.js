@@ -60,8 +60,8 @@ describe('agenda-locations - functional - patch & update', () => {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async uid => initSettingsDA
+        geocode: async (/* address */) => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async (/* uid */) => initSettingsDA
       },
       Files: Files(dConfig.files),
     });
@@ -238,9 +238,9 @@ describe('agenda-locations - functional - patch & update', () => {
           extId: 'ard_leg_1200',
         });
 
-        const { store, extId } = await f
+        const { store } = await f
           .client('location')
-          .first(['store', 'ext_id'])
+          .first(['store'])
           .where('uid', 60763721)
           .then(r => ({
             store: JSON.parse(r.store),
@@ -284,8 +284,8 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async uid => initSettingsCantUpdate
+        geocode: async (/* address */) => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async (/* uid */) => initSettingsCantUpdate
       },
       Files: Files(dConfig.files),
     });
