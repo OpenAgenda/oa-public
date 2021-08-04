@@ -1,13 +1,82 @@
-"use strict";
+'use strict';
 
 const fs = require('fs');
 const assert = require('assert');
 
 const getValidatorFromField = require('../iso/getValidatorFromField');
+const fileValidator = require('../iso/fileValidator');
 const getSchema = require('../iso/getSchema');
 
-describe('deriving validators', () => {
+describe('file validator', () => {
+  it('file by url', () => {
+    const validate = fileValidator({
+      allowURL: true
+    });
 
+    const clean = validate({
+      url: '//some.path.net/7839789.txt',
+      extension: 'txt',
+      originalName: 'someFile.txt',
+      filename: '7839789.txt',
+    });
+
+    assert.deepEqual(clean, {
+      extension: 'txt',
+      originalName: 'someFile.txt',
+      filename: '7839789.txt',
+      url: '//some.path.net/7839789.txt'
+    }
+    )
+  });
+
+  it('image with size and variants option', () => {
+    const validate = fileValidator({
+      imageWithSizeAndVariants: true
+    });
+
+    const clean = validate({
+      filename: 'image.png',
+      size: { width: 200, height: 200 },
+      variants: [{
+        type: 'thumbnail',
+        filename: 'thumb.png',
+        size: { width: 100, height: 100 }
+      }]
+    });
+
+    assert.deepStrictEqual(clean, {
+      extension: null,
+      originalName: null,
+      filename: 'image.png',
+      size: { width: 200, height: 200 },
+      variants: [{
+        type: 'thumbnail',
+        filename: 'thumb.png',
+        size: { width: 100, height: 100 }
+      }]
+    });
+  });
+
+  it('image with size and variants option but unspecified in value', () => {
+    const validate = fileValidator({
+      imageWithSizeAndVariants: true
+    });
+
+    const clean = validate({
+      filename: 'image.png'
+    });
+
+    assert.deepStrictEqual(clean, {
+      extension: null,
+      originalName: null,
+      filename: 'image.png',
+      size: { width: null, height: null },
+      variants: []
+    });
+  });
+});
+
+describe('deriving validators', () => {
   it('text field to validator', () => {
     assert.deepEqual(
       getValidatorFromField(_get('text.field')),

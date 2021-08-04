@@ -1,17 +1,20 @@
-"use strict";
+const requiredError = (field = null) => [{
+  code: 'required',
+  message: 'A value is required',
+  field
+}];
 
-const _ = {
-  get: require( 'lodash/get' )
-};
+const schema = require('@openagenda/validators/schema');
 
-const schema = require( '@openagenda/validators/schema' );
+const textValidator = require('@openagenda/validators/text');
+const linkValidator = require('@openagenda/validators/link');
 
 schema.register({
-  text: require('@openagenda/validators/text'),
-  link: require('@openagenda/validators/link')
+  text: textValidator,
+  link: linkValidator
 });
 
-const fields = {
+const baseFields = {
   extension: {
     type: 'text'
   },
@@ -23,41 +26,50 @@ const fields = {
   }
 };
 
-const validate = schema(fields);
-const validateWithURL = schema({
-  ...fields,
-  url: {
-    type: 'link'
-  }
-});
-const validateWithPath = schema({
-  ...fields,
-  path: {
-    type: 'text'
-  }
-});
-
 module.exports = (validatorOptions = {}) => v => {
   const optional = validatorOptions?.optional === undefined ? true : validatorOptions?.optional;
 
   if (!optional && !v) {
-    throw [{
-      code: 'required',
-      message: 'A value is required',
-      field: validatorOptions?.field || null
-    }];
+    throw requiredError(validatorOptions?.field);
   }
 
+  const fields = {
+    ...baseFields
+  };
+
   if (validatorOptions?.allowPath && v?.path) {
-    return validateWithPath(v);
+    fields.path = { type: 'text' };
   } else if (validatorOptions?.allowURL && v?.url) {
-    return validateWithURL(v);
+    fields.url = { type: 'link' };
   }
-  const clean = validate(v);
+
+  if (validatorOptions?.imageWithSizeAndVariants) {
+    fields.size = {
+      width: {
+        type: 'integer',
+        default: null
+      },
+      height: {
+        type: 'integer',
+        default: null
+      }
+    };
+
+    fields.variants = {
+      list: true,
+      fields: {
+        type: { type: 'text' },
+        filename: { type: 'text' },
+        size: { ...fields.size }
+      }
+    };
+  }
+
+  const clean = schema(fields)(v);
 
   if (!Object.keys(clean).filter(k => clean[k] !== null).length) {
     return null;
   }
 
   return clean;
-}
+};

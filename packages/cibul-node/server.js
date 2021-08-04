@@ -68,7 +68,7 @@ supervisor(async loadTasks => {
     // run 'web' type modules
     if (WEB) {
       app.use('/api', api);
-      web(app);
+      web(app, config);
     }
 
     if (TASK || WEB) {

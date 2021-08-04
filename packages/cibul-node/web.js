@@ -11,7 +11,7 @@ module.exports = app => {
   app.services.agendaLocations.apps.agendaAdmin(app, '/:agendaSlug/admin/locations');
   require('./agenda/back')(app);
   app.use('/', app.services.inboxes.getApp());
-  require('./services/agendaContribute')(app);
+  app.services.agendaContribute.plugApp(app);
   require('./services/agendaEvents')(app);
   require('./services/agendaSchema')(app);
   require('./services/networkApps')(app);

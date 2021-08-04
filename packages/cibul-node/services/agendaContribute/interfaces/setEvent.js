@@ -1,8 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
-const log = require('@openagenda/logs')('services/agendaContribute/interfaces/setEvent');
+const log = require('@openagenda/logs')('services/agendaContribute/setEvent');
 
 module.exports = async (services, req, data) => {
   const {
@@ -22,7 +20,7 @@ module.exports = async (services, req, data) => {
 
   try {
     if (mode === 'create') {
-      log(draft ? 'creating draft' : 'creating event');
+      log(draft ? 'creating draft with %j' : 'creating event with %j', data);
       return {
         event: await core.agendas(agenda.uid).events.create(data, {
           draft,
@@ -30,7 +28,8 @@ module.exports = async (services, req, data) => {
           filterUnauthorizedData: true
         })
       };
-    } else if (mode === 'edit') {
+    }
+    if (mode === 'edit') {
       const undrafting = current?.draft && !draft;
       // distinction is important as an undrafting
       // needs a complete update to force hidden default values
@@ -44,7 +43,8 @@ module.exports = async (services, req, data) => {
         }),
         success: true
       };
-    } else if (mode === 'add') {
+    }
+    if (mode === 'add') {
       log('adding event %s to agenda %s', current.uid, agenda.uid);
       return {
         event: await core.agendas(agenda.uid).events.add(current.uid, data, {
@@ -64,14 +64,14 @@ module.exports = async (services, req, data) => {
         success: false,
         errors: e.detail,
         event: null
-      }
-    };
+      };
+    }
 
     log('error', e);
 
     return {
       success: false,
       event: null
-    }
+    };
   }
-}
+};

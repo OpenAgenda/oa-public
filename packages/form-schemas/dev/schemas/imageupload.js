@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   fileKey: 'uniquefilekey',
@@ -10,34 +10,34 @@ module.exports = {
     }
   },
   schema: {
-    fields : [ {
-      "field" : "someimage",
-      "fieldType" : "image",
-      "extensions" : [ 'jpg', 'bmp', 'png' ],
-      "store" : {
-        "type" : "s3",
-        "bucket" : "oadev"
+    fields: [{
+      field: 'someimage',
+      fieldType: 'image',
+      extensions: ['jpg', 'bmp', 'png'],
+      store: {
+        type: 's3',
+        bucket: 'oadev'
       },
-      "label" : {
-        "fr" : "C'est un champ qui permet de charger une image"
+      label: {
+        fr: 'C\'est un champ qui permet de charger une image'
       },
-      "info" : {
-        "fr" : "Le texte info"
+      info: {
+        fr: 'Le texte info'
       },
-      "sub" : {
-        "fr" : "Le texte dessous"
+      sub: {
+        fr: 'Le texte dessous'
       }
     }, {
-      "field" : "somerequiredimage",
-      "fieldType" : "image",
-      "extensions" : [ 'jpg' ],
-      "optional" : false,
-      "label" : "A required image"
+      field: 'somerequiredimage',
+      fieldType: 'image',
+      extensions: ['jpg'],
+      optional: false,
+      label: 'A required image'
     }, {
-      "label": "Les crédits",
-      "field": "imageCredits",
-      "fieldType": "text",
-      "enableWith": "somerequiredimage"
+      label: 'Les crédits',
+      field: 'imageCredits',
+      fieldType: 'text',
+      enableWith: 'somerequiredimage'
     }]
   }
-}
+};
