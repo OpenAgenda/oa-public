@@ -6,7 +6,7 @@ import MockAdapter from 'axios-mock-adapter';
 import ShareModal from '../src/components/ShareModal';
 import Canvas from './decorators/Canvas';
 import apiAgendas from './fixtures/api.agendas.get.json';
-import noAgendas from './fixtures/api.noAgendas.get.json';
+import singleDate from './fixtures/api.singleDate.get.json';
 
 export default {
   title: 'Share',
@@ -29,8 +29,7 @@ const filterResults = searchText => {
     total,
     agendas: apiAgendas.agendas.filter(agenda => {
       if (
-        agenda.description.toLowerCase().includes(searchText.toLowerCase()) ||
-        agenda.title.toLowerCase().includes(searchText.toLowerCase())
+        agenda.description.toLowerCase().includes(searchText.toLowerCase()) || agenda.title.toLowerCase().includes(searchText.toLowerCase())
       ) {
         total += 1;
         return agenda;
@@ -40,10 +39,12 @@ const filterResults = searchText => {
   };
 };
 
-const mockApi = () => {
+export const ShareAll = () => {
+  const [display, setDisplay] = useState(true);
+
   const mock = new MockAdapter(axios);
+
   mock.onGet('/agendas').reply(req => [200, req.params.search === '' ? apiAgendas : filterResults(req.params.search)]);
-  mock.onGet('/noAgendas').reply(200, noAgendas);
   mock
     .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=google`)
     .reply(200, apiAgendas);
@@ -56,11 +57,34 @@ const mockApi = () => {
   mock
     .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=ics`)
     .reply(200, apiAgendas);
+
+  return (
+    <div className="ctas export__container">
+      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+        Partager
+      </button>
+      {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
+    </div>
+  );
 };
 
-export const ShareAll = () => {
-  const [display, setDisplay] = useState(false);
-  mockApi();
+export const OneDate = () => {
+  const [display, setDisplay] = useState(true);
+  const mock = new MockAdapter(axios);
+  mock.onGet('/agendas').reply(req => [200, req.params.search === '' ? apiAgendas : filterResults(req.params.search)]);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=google`)
+    .reply(200, singleDate);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=yahoo`)
+    .reply(200, singleDate);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=live`)
+    .reply(200, singleDate);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=ics`)
+    .reply(200, singleDate);
+
   return (
     <div className="ctas export__container">
       <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
@@ -74,7 +98,6 @@ export const ShareAll = () => {
 export const ShareEmail = () => {
   const [display, setDisplay] = useState(false);
 
-  mockApi();
   return (
     <div className="ctas export__container">
       <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
@@ -87,20 +110,40 @@ export const ShareEmail = () => {
 
 export const ShareOpenAgenda = () => {
   const [display, setDisplay] = useState(false);
-  mockApi();
+
+  const mock = new MockAdapter(axios);
+  mock.onGet('/agendas').reply(req => [200, req.params.search === '' ? apiAgendas : filterResults(req.params.search)]);
+
   return (
     <div className="ctas export__container">
       <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
         Partager sur OpenAgenda
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />}
+      {display && (
+        <ShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />
+      )}
     </div>
   );
 };
 
 export const UserNotConnected = () => {
   const [display, setDisplay] = useState(false);
-  mockApi();
+
+  const mock = new MockAdapter(axios);
+
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=google`)
+    .reply(200, apiAgendas);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=yahoo`)
+    .reply(200, apiAgendas);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=live`)
+    .reply(200, apiAgendas);
+  mock
+    .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=ics`)
+    .reply(200, apiAgendas);
+
   return (
     <div className="ctas export__container">
       <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>

@@ -18,6 +18,7 @@ const ShareModal = ({
   const [emailQuantity, setEmailQuantity] = useState(0);
   const [emailSuccess, setEmailSuccess] = useState(false);
   const [options, setOptions] = useState(false);
+  const [datesOptions, setDatesOptions] = useState(false);
   const [dates, setDates] = useState({});
   const [link, setLink] = useState('');
 
@@ -85,18 +86,29 @@ const ShareModal = ({
     setEmailSuccess(true);
   };
 
-  const setChoice = async (name, service) => {
+  const selectDate = date => {
+    if (Object.keys(dates).length === 0 || dates?.days.length === 1) {
+      return setLink(date[0].link);
+    }
+    const calendarLink = dates.days.find(d => d.begin === date.begin).link;
+    return setLink(calendarLink);
+  };
+
+  const selectCalendar = async (name, service) => {
     setCalendarValue(name);
+
     const response = await axios.get(
       `/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=${service}`
     );
     setDates({ timezone: response.data.event.timezone, days: response.data.event.timings });
-    setOptions(true);
-  };
 
-  const setDateChoice = (day, id) => {
-    const calendarLink = dates.days.find(date => date.begin === id).link;
-    setLink(calendarLink);
+    if (response.data.event.timings.length === 1) {
+      selectDate(response.data.event.timings, response.data.event.timings[0].begin);
+      return setOptions(true);
+    }
+
+    setDatesOptions(true);
+    return setOptions(true);
   };
 
   const encodeUrl = () => {
@@ -129,7 +141,7 @@ const ShareModal = ({
             <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
           )}
           {segment.includes('openagenda') && (
-            <div>
+            <div className="margin-bottom-md">
               <h2 className="export__title--md">{intl.formatMessage(messages.shareOA)}</h2>
               {userLogged ? (
                 <AgendaSearchInput
@@ -167,16 +179,14 @@ const ShareModal = ({
                   />
                 </div>
               </div>
-              <button type="submit" className="btn btn-primary export__button">
+              <button type="submit" className="btn btn-primary">
                 {intl.formatMessage(messages.send)}
               </button>
             </form>
           )}
           {segment.includes('calendar') && (
             <div className="margin-bottom-md">
-              <h2 className="export__title export__title--md">
-                {intl.formatMessage(messages.shareCalendar)}
-              </h2>
+              <h2 className="export__title export__title--md">{intl.formatMessage(messages.shareCalendar)}</h2>
               <form>
                 {calendars.map(calendar => (
                   <Fragment key={calendar.service}>
@@ -184,25 +194,33 @@ const ShareModal = ({
                       content={calendar.name}
                       name="calendars"
                       id={calendar.service}
-                      setChoice={(name, service) => setChoice(name, service)}
+                      setChoice={(name, service) => selectCalendar(name, service)}
                     />
                     {options && calendar.name === calendarValue && (
                       <div className="calendars__options">
-                        <p>{intl.formatMessage(messages.calendarDate)}</p>
-                        <ul className="calendars__list">
-                          {dates.days.map(date => {
-                            const day = moment.tz(date.begin, date.timezone).locale(event.lang).format('dddd D MMMM');
-                            return (
-                              <Radio
-                                content={day}
-                                name="dates"
-                                key={day}
-                                id={date.begin}
-                                setChoice={(chosenDay, id) => setDateChoice(chosenDay, id)}
-                              />
-                            );
-                          })}
-                        </ul>
+                        {datesOptions && (
+                          <>
+                            <p>{intl.formatMessage(messages.calendarDate)}</p>
+                            <ul className="calendars__list">
+                              {dates.days.map(date => {
+                                const day = moment
+                                  .tz(date.begin, date.timezone)
+                                  .locale(event.lang)
+                                  .format('dddd D MMMM');
+                                return (
+                                  <Radio
+                                    content={day}
+                                    name="dates"
+                                    key={day}
+                                    id={date.begin}
+                                    setChoice={() => selectDate(date)}
+                                  />
+                                );
+                              })}
+                            </ul>
+                          </>
+                        )}
+
                         <a
                           target="_blank"
                           rel="noopener noreferrer"

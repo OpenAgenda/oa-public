@@ -1,0 +1,12 @@
+{
+  "event": {
+    "url": "/rdvj-2021-ile-de-france/events/visite-du-jardin-des-belles-jardinieres",
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2021-06-04T10:00:00.000+02:00",
+        "link": "https://www.google.com/calendar/event?action=TEMPLATE&text=Visit%20of%20the%20garden%20of%20the%20Belles%20Jardini%C3%A8res&dates=20210604T100000+0200/20210604T190000+0200&sprop=website:https://d.openagenda.com/rdvj-2021-ile-de-france/events/visite-du-jardin-des-belles-jardinieres&details=Visit%20-%20https%3A%2F%2Fd.openagenda.com%2Frdvj-2021-ile-de-france%2Fevents%2Fvisite-du-jardin-des-belles-jardinieres&location=Jardin%20des%20Belles%20Jardini%C3%A8res%20-%2016%20bis%20rue%20de%20l'Enfance%2095490%20Vaur%C3%A9al"
+      }
+    ]
+  }
+}
