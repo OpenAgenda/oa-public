@@ -36,7 +36,7 @@ describe('agenda-locations - functional - get', () => {
           },
           fields
         ),
-        getEventCounts: async (locationUids, { agendaUid }) => [
+        getEventCounts: async (/* locationUids, { agendaUid } */) => [
           {
             uid: 60763721,
             eventCount: 12,
@@ -48,7 +48,7 @@ describe('agenda-locations - functional - get', () => {
             agendaEventCount: 2,
           },
         ],
-        getLinkedAgendas: async (locationUid) => [
+        getLinkedAgendas: async (/* locationUid */) => [
           {
             uid: 100000,
             title: 'BLABLA'
@@ -168,13 +168,13 @@ describe('agenda-locations - functional - get', () => {
     it(
       'if throwOnNotFound option is true, throws NotFoundError when location is not found',
       async () => {
+        let error;
         try {
           await svc.get(67894564878453456, { throwOnNotFound: true });
         } catch (e) {
-          expect(e.statusCode).toBe(404);
-          return;
+          error = e;
         }
-        throw new Error('should not reach here');
+        expect(error.statusCode).toBe(404);
       }
     );
 
