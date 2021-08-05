@@ -76,6 +76,10 @@ const ShareModal = ({
       id: 'connection-btn',
       defaultMessage: 'Sign In',
     },
+    date: {
+      id: 'date',
+      defaultMessage: 'From {begin}, to {end}',
+    }
   });
 
   const handleSubmit = async e => {
@@ -203,15 +207,19 @@ const ShareModal = ({
                             <p>{intl.formatMessage(messages.calendarDate)}</p>
                             <ul className="calendars__list">
                               {dates.days.map(date => {
-                                const day = moment
+                                const begin = moment
                                   .tz(date.begin, date.timezone)
                                   .locale(event.lang)
-                                  .format('dddd D MMMM');
+                                  .format('dddd D MMMM YYYY HH:mm');
+                                const end = moment
+                                  .tz(date.end, date.timezone)
+                                  .locale(event.lang)
+                                  .format('dddd D MMMM YYYY HH:mm');
                                 return (
                                   <Radio
-                                    content={day}
+                                    content={intl.formatMessage(messages.date, { begin, end })}
                                     name="dates"
-                                    key={day}
+                                    key={date.begin}
                                     id={date.begin}
                                     setChoice={() => selectDate(date)}
                                   />

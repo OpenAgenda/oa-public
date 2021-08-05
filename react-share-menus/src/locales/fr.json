@@ -8,6 +8,7 @@
   "close": "Fermer",
   "connection-btn": "Connexion",
   "create-agenda": "Créer un agenda",
+  "date": "Du {begin}, au {end}",
   "email-placeholder": "Veuillez saisir les addresses email auxquelles vous souhaiter envoyer l'événement",
   "email-success": "L'événement a été envoyé à {emails} adresses email.",
   "import": "Importer",
