@@ -60,8 +60,8 @@ describe('agenda-locations - functional - patch & update', () => {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async uid => initSettingsDA
+        geocode: async (/* address */) => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async (/* uid */) => initSettingsDA
       },
       Files: Files(dConfig.files),
     });
@@ -238,9 +238,9 @@ describe('agenda-locations - functional - patch & update', () => {
           extId: 'ard_leg_1200',
         });
 
-        const { store, extId } = await f
+        const { store } = await f
           .client('location')
-          .first(['store', 'ext_id'])
+          .first(['store'])
           .where('uid', 60763721)
           .then(r => ({
             store: JSON.parse(r.store),
@@ -249,6 +249,22 @@ describe('agenda-locations - functional - patch & update', () => {
 
         expect(store.extId).toEqual('ard_leg_1200');
         expect(updated.extId).toEqual('ard_leg_1200');
+      }
+    );
+
+    it(
+      'fix: patch should not break unspecified image',
+      async () => {
+        await svc(7196947).patch(86591143, {
+          description: 'Une petite description'
+        }, { includeImagePath: true });
+
+        const image = await f.client('location')
+          .first()
+          .where('uid', 86591143)
+          .then(e => JSON.parse(e.store).image);
+
+        expect(image).toBe(null);
       }
     );
 
@@ -284,8 +300,8 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async address => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async uid => initSettingsCantUpdate
+        geocode: async (/* address */) => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async (/* uid */) => initSettingsCantUpdate
       },
       Files: Files(dConfig.files),
     });

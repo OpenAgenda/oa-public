@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 async function removeCandidate(endpoints, locationUids, candidate) {
   for (const locationUid of locationUids) {
     const location = await endpoints.get(locationUid, { includeFields: 'duplicateCandidates' });
