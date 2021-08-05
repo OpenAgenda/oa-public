@@ -52,6 +52,69 @@ function outdatedBrowserMw(req, res, next) {
   next();
 }
 
+function getSupportMessage(req, lang) {
+  switch(req.query.subject) {
+    case 'agendaSchema':
+      return getInboxLabel('agendaSchemaDesc', lang);
+    case 'privateAgenda':
+      return getInboxLabel('privateAgendaDesc', lang);
+    case 'publicAgenda':
+      return null;
+    case 'officialAgenda':
+      return getInboxLabel('officialAgendaDesc', lang);
+    case 'limitDates':
+      return getInboxLabel('limitDatesDesc', lang);
+    case 'moderators':
+      return getInboxLabel('moderatorsDesc', lang);
+    case 'writeToAll':
+      return getInboxLabel('writeToAllDesc', lang);
+    default:
+      return getInboxLabel('supportInboxDesc', lang);
+  }
+}
+
+function getSupportCreationSubtitle(req, lang) {
+  switch(req.query.subject) {
+    case 'agendaSchema':
+      return getInboxLabel('agendaSchemaTitle', lang);
+    case 'privateAgenda':
+      return getInboxLabel('privateAgendaTitle', lang);
+    case 'publicAgenda':
+      return getInboxLabel('publicAgendaTitle', lang);
+    case 'officialAgenda':
+      return getInboxLabel('officialAgendaTitle', lang);
+    case 'limitDates':
+      return getInboxLabel('limitDatesTitle', lang);
+    case 'moderators':
+      return getInboxLabel('moderatorsTitle', lang);
+    case 'writeToAll':
+      return getInboxLabel('writeToAllTitle', lang);
+    default:
+      return null;
+  }
+}
+
+function getSupportConversationType(req) {
+  switch(req.query.subject) {
+    case 'agendaSchema':
+      return 'request_agenda_schema';
+    case 'privateAgenda':
+      return 'request_private_agenda';
+    case 'publicAgenda':
+      return 'request_public_agenda';
+    case 'officialAgenda':
+      return 'request_official_agenda';
+    case 'limitDates':
+      return 'request_limit_dates';
+    case 'moderators':
+      return 'request_moderators';
+    case 'writeToAll':
+      return 'request_write_to_all';
+    default:
+      return 'support';
+  }
+}
+
 const initialState = async req => {
   const { services } = req.app;
 
@@ -229,13 +292,14 @@ const initialState = async req => {
         lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
-        creationDesc: getInboxLabel('supportInboxDesc', lang),
+        creationDesc: getSupportMessage(req, lang),
+        creationSubtitle: getSupportCreationSubtitle(req, lang),
         // displayHelp: true,
         hideEmptyList: true, // redirect on creation if the list is empty
         allowCreateConversation: true, // show creation button
         topListForm: true,
         defaultQuery: {
-          type: 'support',
+          type: getSupportConversationType(req),
           destinationInbox: {
             type: 'support',
             identifier: 1

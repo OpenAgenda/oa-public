@@ -203,7 +203,7 @@ class Inbox extends Component {
       creationSubtitle, maskCreationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash,
       displayHelp, allowCreateConversation, focusFistConversation,
-      hideTitle
+      hideTitle, hideEmptyList
     } = settings;
 
     const [unclosedConvs, closedConvs] = _.partition(conversations, o => !o.closedAt);
@@ -310,7 +310,7 @@ class Inbox extends Component {
 
           {/*{conversations && conversations.length ? <ConversationList conversations={conversations} agenda={agenda}/> : null}*/}
 
-          {!conversations || !conversations.length ?
+          {!conversations?.length && !(hideEmptyList && topListForm) ?
             <div className="padding-v-md">
               {nl2br(getLabel(emptyInboxLabel || 'noResult'))}
             </div> :

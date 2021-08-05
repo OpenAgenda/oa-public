@@ -70,7 +70,7 @@ module.exports = (app, config, services) => {
     }),
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
-    renderContactInboxApp.bind(null, { config, services })
+    renderContactInboxApp
   );
 
   app.use(
@@ -84,7 +84,7 @@ module.exports = (app, config, services) => {
     members.mw.loadTarget.options({ detailed: true }),
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oasfmain.css'),
-    renderMemberContactApp.bind(null, { config, services })
+    renderMemberContactApp
   );
 
   app.use(
@@ -98,7 +98,7 @@ module.exports = (app, config, services) => {
     cmn.loadBaseData('oasfmain.css'),
     members.mw.loadAndAuthorize('moderator'),
     loadEvent,
-    renderAdminEventContactApp.bind(null, { config, services })
+    renderAdminEventContactApp
   );
 
   app.use(
@@ -111,7 +111,7 @@ module.exports = (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
     loadEvent,
-    renderEventContactApp.bind(null, { config, services })
+    renderEventContactApp
   );
 
   app.use(
@@ -125,7 +125,7 @@ module.exports = (app, config, services) => {
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oasfmain.css'),
     loadEvent,
-    renderEditionRequestApp.bind(null, { config, services })
+    renderEditionRequestApp
   );
 
   app.use(
@@ -137,7 +137,7 @@ module.exports = (app, config, services) => {
     }),
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
-    renderRequestContributeApp.bind(null, { config, services })
+    renderRequestContributeApp
   );
 
   app.use(
@@ -156,6 +156,6 @@ module.exports = (app, config, services) => {
           next();
         }, next);
     },
-    renderSuggestLocationChangeApp.bind(null, { config, services })
+    renderSuggestLocationChangeApp
   );
 };

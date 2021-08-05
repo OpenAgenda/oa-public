@@ -162,6 +162,16 @@ module.exports.init = async (c, services) => {
           },
           suggest_location_change: {},
           contact_member: {},
+
+          // call to actions
+          request_agenda_schema: {},
+          request_private_agenda: {},
+          request_public_agenda: {},
+          request_official_agenda: {},
+          request_limit_dates: {},
+          request_moderators: {},
+          request_write_to_all: {},
+
           support: {
             actions: [
               {

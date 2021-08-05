@@ -1,28 +1,25 @@
 'use strict';
 
 const _ = require('lodash');
-
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
-const ReactDOM = require('react-dom/server');
-const { wrapApp } = require('@openagenda/react-shared');
-const { parsePath } = require('history');
+const { getLocaleValue } = require('@openagenda/react-shared');
 
-const cmn = require('../../../../lib/commons-app');
-
-const {
-  getMultiLanguageTitle
-} = require('./utils');
-
-module.exports = async ({ services, config }, req, res, next) => {
-
+module.exports = (req, res, next) => {
+  const { config } = req.app;
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createInboxApp({
-    req,
+  render({
+    template: 'event/inbox',
+    baseData: {
+      event: {
+        ...req.event,
+        backLink: `/${req.agenda.slug}`
+      },
+      image: req.agenda.image,
+      title: req.agenda.title
+    },
+    endpoint: `/agendas/${req.agenda.uid}`,
     initialState: {
       user: req.user,
       settings: {
@@ -36,21 +33,21 @@ module.exports = async ({ services, config }, req, res, next) => {
         allowCreateConversation: true, // show creation button
         creationSubtitle: getLabel(
           'contactContributorOf',
-          { title: _.escape(getMultiLanguageTitle(req.event, req.lang)), link: eventShowLink },
+          { title: _.escape(getLocaleValue(req.event.title, req.lang)), link: eventShowLink },
           req.lang
         ),
         maskCreationSubtitle: false,
         topListForm: false, // add a conversation form on top of conversation list
-        belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+        belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
         onConversationCreateRedirect: eventShowLink,
         onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
         defaultQuery: {
           type: 'event',
           typeIdentifier: req.event.uid,
           params: {
-            agendaTitle: _.unescape( req.agenda.title ),
+            agendaTitle: _.unescape(req.agenda.title),
             agendaUid: req.agenda.uid,
-            eventTitle: _.unescape(getMultiLanguageTitle(req.event, req.lang))
+            eventTitle: _.unescape(getLocaleValue(req.event.title, req.lang))
           },
           destinationInbox: {
             type: 'user',
@@ -58,67 +55,8 @@ module.exports = async ({ services, config }, req, res, next) => {
           }
         }
       },
-      res: {
-        author: `/agendas/${req.agenda.uid}/inbox/author.json`,
-        conversations: {
-          create: `/agendas/${req.agenda.uid}/inbox/conversations.json`,
-          list: `/agendas/${req.agenda.uid}/inbox/conversations.json`,
-          action: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/action/:code.json`,
-          resume: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/resume.json`
-        },
-        messages: {
-          list: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
-          create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
-          prepareAttachment: `agendas/${req.agenda.uid}/inbox/conversations/:conversationId/prepare-attachment`,
-          addAttachment: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/add-attachment`
-        }
-      },
       agenda: req.agenda,
       event: req.event
     }
-  } );
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext }));
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
-    }
-
-    const baseData = {
-      event: {
-        ...req.event,
-        backLink: `/${req.agenda.slug}`
-      },
-      image: req.agenda.image,
-      title: req.agenda.title
-    };
-
-    cmn.render(req, res, 'event/inbox', {
-      ...baseData,
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true
-    });
-  } catch (e) {
-    next(e);
-  }
+  })(req, res, next);
 }

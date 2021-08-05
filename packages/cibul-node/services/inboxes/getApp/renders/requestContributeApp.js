@@ -1,32 +1,27 @@
 'use strict';
 
-const { parsePath } = require('history');
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
-const ReactDOM = require('react-dom/server');
-const { wrapApp } = require('@openagenda/react-shared');
 
-const cmn = require('../../../../lib/commons-app');
-
-const {
-  getMultiLanguageTitle
-} = require('./utils');
-
-module.exports = async ({ services, config }, req, res, next) => {
-  const {
-    sessions,
-  } = services;
+module.exports = (req, res, next) => {
+  const { services, config } = req.app;
+  const { sessions } = services;
 
   if (req.member) {
     sessions.setFlash(req, res, getLabel('youreAlreadyContributor', req.lang));
     return res.redirect(302, `/${req.agenda.slug}`);
   }
 
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createInboxApp( {
-    req,
+  render({
+    template: 'agenda/requestContribute',
+    baseData: {
+      event: {
+        backLink: `/${req.agenda.slug}`
+      },
+      image: req.agenda.image,
+      title: req.agenda.title
+    },
+    endpoint: '/home/inbox',
     initialState: {
       user: req.user,
       settings: {
@@ -60,65 +55,7 @@ module.exports = async ({ services, config }, req, res, next) => {
           }
         }
       },
-      res: {
-        author: '/home/inbox/author.json',
-        conversations: {
-          create: '/home/inbox/conversations.json',
-          list: '/home/inbox/conversations.json',
-          action: '/home/inbox/conversations/:conversationId/action/:code.json',
-          resume: '/home/inbox/conversations/:conversationId/resume.json'
-        },
-        messages: {
-          list: '/home/inbox/conversations/:conversationId/messages.json',
-          create: '/home/inbox/conversations/:conversationId/messages.json',
-          prepareAttachment: `/home/inbox/conversations/:conversationId/prepare-attachment`,
-          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
-        }
-      },
       agenda: req.agenda
     }
-  } );
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if (staticContext.status === 404) {
-      return next();
-    }
-
-    if (staticContext.url) {
-      return res.redirect(302, staticContext.url);
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
-    }
-
-    const baseData = {
-      event: {
-        backLink: `/${req.agenda.slug}`
-      },
-      image: req.agenda.image,
-      title: req.agenda.title
-    };
-
-    cmn.render( req, res, 'agenda/requestContribute', {
-      ...baseData,
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true
-    } );
-  } catch ( e ) {
-    next( e );
-  }
+  })(req, res, next);
 }

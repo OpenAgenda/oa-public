@@ -401,7 +401,7 @@ class AgendaAdminLocations extends Component {
             {modal.err ? <FormattedMessage {...messages.somethingWentWrong} /> : <FormattedMessage {...messages.mergeInProgress} />}
           </p>
           {modal.err ? (
-            <a href={`/support?origin=${window.location.pathname}`} className="btn btn-primary">
+            <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}`} className="btn btn-primary">
               <FormattedMessage {...messages.contactSupport} />
             </a>
           ) : null}

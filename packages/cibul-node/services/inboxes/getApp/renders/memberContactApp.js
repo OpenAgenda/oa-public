@@ -1,18 +1,12 @@
 'use strict';
 
-const { parsePath } = require('history');
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
+const _ = require('lodash');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
-const ReactDOM = require('react-dom/server');
-const { wrapApp } = require('@openagenda/react-shared');
 
-const cmn = require('../../../../lib/commons-app');
-
-module.exports = async ({ services, config }, req, res, next) => {
-  const {
-    members
-  } = services;
+module.exports = (req, res, next) => {
+  const { services, config } = req.app;
+  const { members } = services;
 
   const targetIsAdminMod = members.utils.compareRoles.isSuperiorToOrEqual(
     req.targetMember.role,
@@ -23,12 +17,16 @@ module.exports = async ({ services, config }, req, res, next) => {
     req.targetMember.user.fullName
   );
 
-  const resPrefix = targetIsAdminMod ? '/home' : `/agendas/${req.agenda.uid}`;
-
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createInboxApp({
-    req,
+  render({
+    template: 'agenda/inbox',
+    baseData: {
+      event: {
+        backLink: `/${req.agenda.slug}`
+      },
+      image: req.agenda.image,
+      title: req.agenda.title
+    },
+    endpoint: targetIsAdminMod ? '/home' : `/agendas/${req.agenda.uid}`,
     initialState: {
       user: req.user,
       settings: {
@@ -62,66 +60,7 @@ module.exports = async ({ services, config }, req, res, next) => {
           } : []
         }
       },
-      res: {
-        author: `${resPrefix}/inbox/author.json`,
-        conversations: {
-          create: `${resPrefix}/inbox/conversations.json`,
-          list: `${resPrefix}/inbox/conversations.json`,
-          action: `${resPrefix}/inbox/conversations/:conversationId/action/:code.json`,
-          resume: `${resPrefix}/inbox/conversations/:conversationId/resume.json`
-        },
-        messages: {
-          list: `${resPrefix}/inbox/conversations/:conversationId/messages.json`,
-          create: `${resPrefix}/inbox/conversations/:conversationId/messages.json`,
-          prepareAttachment: `${resPrefix}/inbox/conversations/:conversationId/prepare-attachment`,
-          addAttachment: `${resPrefix}/inbox/conversations/:conversationId/add-attachment`
-        }
-      },
       agenda: req.agenda
     }
-  });
-
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext }));
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if (staticContext.status === 404) {
-      return next();
-    }
-
-    if (staticContext.url) {
-      return res.redirect(302, staticContext.url);
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect(302, pathname);
-    }
-
-    const baseData = {
-      event: {
-        backLink: `/${req.agenda.slug}`
-      },
-      image: req.agenda.image,
-      title: req.agenda.title
-    };
-
-    cmn.render(req, res, 'agenda/inbox', {
-      ...baseData,
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true
-    });
-  } catch (e) {
-    next(e);
-  }
+  })(req, res, next);
 }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import openFormRequest from '@openagenda/call-to-action/dist/openRequestForm';
 import { Modal } from '@openagenda/react-components';
 import {
   KeysManager,
@@ -109,7 +108,7 @@ export default class ContributionEdition extends Component {
                     <a
                       className="margin-right-sm"
                       style={{ cursor: 'pointer' }}
-                      onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'officialAgenda' } )}
+                      href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=officialAgenda`}
                     >
                       {getLabel( 'requestOfficialAgenda' )}
                     </a>
@@ -155,7 +154,7 @@ export default class ContributionEdition extends Component {
                     <a
                       className="margin-right-sm"
                       style={{ cursor: 'pointer' }}
-                      onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'publicAgenda' } )}
+                      href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=publicAgenda`}
                     >
                       {getLabel( 'requestPublicAgenda' )}
                     </a>
@@ -170,7 +169,7 @@ export default class ContributionEdition extends Component {
                     <a
                       className="margin-right-sm"
                       style={{ cursor: 'pointer' }}
-                      onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'privateAgenda' } )}
+                      href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=privateAgenda`}
                     >
                       {getLabel( 'requestPrivateAgenda' )}
                     </a>

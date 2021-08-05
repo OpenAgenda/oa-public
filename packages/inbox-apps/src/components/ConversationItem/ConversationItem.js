@@ -182,7 +182,7 @@ export default class ConversationItem extends Component {
             />
             {resolvedIcon}
 
-            {conversation.store && conversation.store.params && conversation.store.params.origin ? (
+            {conversation.store?.params?.origin ? (
               <div className="text-muted">
                 ({getLabel( 'from' )} <em>{decodeURIComponent( conversation.store.params.origin )})</em>
               </div>

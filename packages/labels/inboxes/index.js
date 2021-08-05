@@ -371,6 +371,110 @@ module.exports = {
     "it": "<p>Hai una domanda tecnica sull'uso di OpenAgenda? La risposta è sicuramente nella documentazione.</p><p><a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/fr\">Vedi la documentazione</a></p><p>Se la tua domanda riguarda maggiormente gli amministratori di un calendario, puoi raggiungerli tramite la messaggistica in fondo a ciascuno dei tuoi file di eventi o direttamente sul calendario facendo clic su \"contatta\".</p><p><a href=\"/home\">Vedi i miei calendari</a> o <a href=\"/home/events\">vedi i miei eventi</a></p><p>Per qualsiasi altra domanda, tu puoi unirti direttamente a noi:</p>",
     "io": "crwdns15088:0crwdne15088:0"
   },
+  "agendaSchemaTitle": {
+    "fr": "Demande de champs personnalisés additionnels",
+    "en": "Request for additional custom fields",
+    "de": "Antrag auf zusätzliche benutzerdefinierte Felder",
+    "es": "Solicitud de campos personalizados adicionales",
+    "it": "Richiesta di campi aggiuntivi personalizzati",
+    "io": "crwdns13188:0crwdne13188:0"
+  },
+  "agendaSchemaDesc": {
+    "fr": "Vous voulez ajouter plus de champs à votre formulaire, en adapter l'ordre ou les instructions? Ecrivez nous un rapide message",
+    "en": "You need to add multiple fields to your form,, adapt their order or labels? Send us a short message",
+    "de": "Mehrere Felder zum Formular hinzufügen ? Reihenfolge oder Etiketten ändern? Sende uns eine kurze Nachricht",
+    "es": "Si desea añadir más campos al formulario, o ajustar el orden de las instrucciones? Escríbanos un mensaje rápido",
+    "it": "Volete aggiungere altri campi al vostro modulo, adattare l'ordine o le istruzioni? Scrivici un messaggio veloce",
+    "io": "crwdns13190:0crwdne13190:0"
+  },
+  "privateAgendaTitle": {
+    "fr": "Demande d'activation d'un agenda privé",
+    "en": "Request to activate a private agenda",
+    "de": "Ein private Veranstaltungskalender aktivieren",
+    "es": "solicitud de activación de un agenda íntimo",
+    "it": "Richiesta di attivazione di un agenda privato",
+    "io": "crwdns13192:0crwdne13192:0"
+  },
+  "privateAgendaDesc": {
+    "fr": "Cette fonction est nouvelle, expliquez-nous votre usage:",
+    "en": "This is a new feature, let us know more about your requirement:",
+    "de": "Dies ist eine neue Funktion, lasse uns mehr über Deine Anforderung wissen:",
+    "es": "Esta característica es nueva, nos dice su uso:",
+    "it": "Questa è una nuova funzione, spiegateci il vostro utilizzo:",
+    "io": "crwdns13194:0crwdne13194:0"
+  },
+  "publicAgendaTitle": {
+    "fr": "Demande d'activation d'un agenda public",
+    "en": "Request to activate a public agenda",
+    "de": "Fordern Sie eine öffentlicheVerwaltungskalender zu aktivieren",
+    "es": "solicitud de activación de un agenda público",
+    "it": "Richiesta di attivazione di un agenda pubblico",
+    "io": "crwdns13204:0crwdne13204:0"
+  },
+  "officialAgendaTitle": {
+    "fr": "Demande d'activation d'un agenda officiel",
+    "en": "Request to activate an official agenda",
+    "de": "Fordern Sie eine offizielle Kalender zu aktivieren",
+    "es": "solicitud de activación de una agenda oficial",
+    "it": "Richiesta di attivazione di un agenda ufficiale",
+    "io": "crwdns13184:0crwdne13184:0"
+  },
+  "officialAgendaDesc": {
+    "fr": "Merci de publier au moins un événement sur votre agenda avant votre demande d'officialisation.",
+    "en": "Please post at least one event on your agenda before your request for officialization.",
+    "de": "Bitte sende mindestens eine Veranstaltung auf der Kalender, bevor Sie Deine Anfrage für officialization.",
+    "es": "Gracias a publicar al menos un evento en su agenda antes de que su solicitud de formalización.",
+    "it": "Si prega di pubblicare almeno un evento in agenda prima della richiesta di ufficializzazione.",
+    "io": "crwdns13186:0crwdne13186:0"
+  },
+  "limitDatesTitle": {
+    "fr": "Bornez les dates des événements contribués",
+    "en": "Add limits to the dates of contributed events",
+    "de": "In Grenzen zu den Terminen von beigetragen Veranstaltungen",
+    "es": "Confinar las fechas de los eventos contribuido",
+    "it": "Segnare le date degli eventi contributivi",
+    "io": "crwdns13206:0crwdne13206:0"
+  },
+  "limitDatesDesc": {
+    "fr": "Bornez le sélecteur de dates du formulaire de saisie de votre agenda.\n\nInteressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
+    "en": "Limit contributions to predefined event dates. \n\nInterested by this feature? Give us details on your requirements and we'll get back to you shortly!",
+    "de": "Begrenze Beiträge zu vordefinierten Veranstaltungdaten.\n\nGünstiger dieses Feature? Gebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
+    "es": "Confinar el selector de fecha de su formulario de entrada de agenda.\n\nInteresado (a)? nos deja un mensaje y vamos a procesar su solicitud tan pronto como sea posible!",
+    "it": "Legare il selettore di data del modulo di iscrizione della data dell'ordine del giorno.  Sei interessato? Lasciateci un messaggio e provvederemo ad elaborare la vostra richiesta il prima possibile!",
+    "io": "crwdns13208:0crwdne13208:0"
+  },
+  "moderatorsTitle": {
+    "fr": "Membres modérateurs",
+    "en": "Moderator members",
+    "de": "Moderator Mitglieder",
+    "es": "miembros moderadores",
+    "it": "Moderatori membri",
+    "io": "crwdns13214:0crwdne13214:0"
+  },
+  "moderatorsDesc": {
+    "fr": "Les modérateurs sont des membres pouvant éditer tous les événements d'un agenda, sans pour autant avoir les accès de paramétrages.\n\nDétaillez-nous votre besoin et nous traiterons votre demande dans les plus brefs délais !",
+    "en": "Moderators are members that can edit the events of an agenda and change event states, without having access to agenda settings.\n\nGive us details on your requirements and we'll get back to you shortly!",
+    "de": "Moderatoren sind Mitglieder, die die Veranstaltungen einerVerwaltungskalender bearbeiten und Veranstaltungzustände ändern, ohne Einstellungen Zugriff aufVerwaltungskalender zu haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
+    "es": "Los moderadores son miembros que pueden editar todas agenda de eventos, sin tener la configuración de acceso.\n\nExplicar sus necesidades y vamos a procesar su solicitud tan pronto como sea posible!",
+    "it": "I moderatori sono membri che possono modificare tutti gli eventi di un calendario, senza avere accesso alle impostazioni.  Diteci di cosa avete bisogno e noi elaboreremo la vostra richiesta il prima possibile!",
+    "io": "crwdns13216:0crwdne13216:0"
+  },
+  "writeToAllTitle": {
+    "fr": "Demande d'activation de la fonction \"Leur écrire\"",
+    "en": "Request to activate the \"Write to them\" function",
+    "de": "Anfrage zur Aktivierung des „Schreibe sie“ -Funktion",
+    "es": "Solicitud de activación de la función \"Su escritura\"",
+    "it": "Richiesta di attivazione della funzione \"Scrivi a loro\".",
+    "io": "crwdns13218:0crwdne13218:0"
+  },
+  "writeToAllDesc": {
+    "fr": "Envoyez un message à tous les membres de votre agenda ou envoyez une relance personnalisée à tous les membres n'ayant pas encore contribué.\n\nInterressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
+    "en": "Send a message to all members of your agenda or target the ones that have not yet contributed.\n\nGive us details on your requirements and we'll get back to you shortly!",
+    "de": "Schicke eine Nachricht an alle Mitglieder deinerVerwaltungskalender oder diejenigen zielen, die noch nicht beigetragen haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
+    "es": "Enviar un mensaje a todos los miembros de su agenda o enviar una recuperación personalizada a todos los miembros que aún no han contribuido.\n\nInteresado (a)? nos deja un mensaje y vamos a procesar su solicitud tan pronto como sea posible!",
+    "it": "Invia un messaggio a tutti i membri del tuo agenda o invia un promemoria personalizzato a tutti i membri che non hanno ancora contribuito.  Sei interessato? Lasciateci un messaggio e provvederemo ad elaborare la vostra richiesta il prima possibile!",
+    "io": "crwdns13220:0crwdne13220:0"
+  },
   "contactContributor": {
     "fr": "Contacter le contributeur",
     "en": "Contact the contributor",

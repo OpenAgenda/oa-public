@@ -5,7 +5,6 @@ import { createSelector } from 'reselect';
 import { reduxForm, Field } from 'redux-form';
 import _ from 'lodash';
 import update from 'immutability-helper';
-import openFormRequest from '@openagenda/call-to-action/dist/openRequestForm';
 import * as agendaActions from '../../reducers/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
 
@@ -307,11 +306,7 @@ export default class ContributionEdition extends Component {
                 <a
                   className="margin-right-sm"
                   style={{ cursor: 'pointer' }}
-                  onClick={() => openFormRequest( {
-                    lang,
-                    agenda: agenda.slug,
-                    subject: 'limitDates',
-                  } )}
+                  href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=limitDates`}
                 >
                   {getLabel( 'requestLimitDates' )}
                 </a>

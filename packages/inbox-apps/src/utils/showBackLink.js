@@ -1,24 +1,20 @@
 export default function showBackLink( settings, conversations ) {
   const { focusFistConversation, hideEmptyList } = settings;
 
+  if (!hideEmptyList) {
+    return true;
+  }
+
   if ( focusFistConversation ) {
-    if ( hideEmptyList ) {
-      if (
-        (conversations && conversations.length && conversations[ 0 ].closedAt)
-        || (conversations && conversations.length > 1)
-      ) {
-        return true; // focusFistConversation && hideEmptyList && conversations not empty
-      }
-    } else {
-      return true; // focusFistConversation && !hideEmptyList
+    if (
+      (conversations && conversations.length && conversations[ 0 ].closedAt)
+      || (conversations && conversations.length > 1)
+    ) {
+      return true; // focusFistConversation && conversations not empty
     }
   } else {
-    if ( hideEmptyList ) {
-      if ( conversations && conversations.length ) {
-        return true; // !focusFistConversation && hideEmptyList && conversations not empty
-      }
-    } else {
-      return true; // !focusFistConversation && !hideEmptyList
+    if ( conversations && conversations.length ) {
+      return true; // !focusFistConversation && conversations not empty
     }
   }
 

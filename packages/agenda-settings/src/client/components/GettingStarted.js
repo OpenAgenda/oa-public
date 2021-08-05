@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
-import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-admin/gettingStarted';
 import I18nContext from '../contexts/I18nContext';
@@ -74,13 +73,9 @@ export default function GettingStarted({ agenda }) {
       <div className="margin-v-lg">
         <p><b>{getLabel( 'needPrivate' )}</b></p>
         <div className="margin-v-md">
-          <button className="btn btn-primary" onClick={() => openRequestForm( {
-            lang,
-            subject: 'privateAgenda',
-            agenda: res.agenda.replace(':slug', agenda.slug)
-          } )}>
+          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=privateAgenda`}>
             {getLabel( 'requestPrivate' )}
-          </button>
+          </a>
 
           <a
             className="margin-left-sm"
@@ -94,13 +89,9 @@ export default function GettingStarted({ agenda }) {
       <div className="margin-v-lg">
         <p><b>{getLabel( 'needOfficial' )}</b></p>
         <div className="margin-v-md">
-          <button className="btn btn-primary" onClick={() => openRequestForm( {
-            lang,
-            subject: 'officialAgenda',
-            agenda: res.agenda.replace(':slug', agenda.slug)
-          } )}>
+          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=officialAgenda`}>
             {getLabel( 'requestOfficial' )}
-          </button>
+          </a>
         </div>
       </div>
     </div>

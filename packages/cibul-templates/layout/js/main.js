@@ -53,8 +53,6 @@ var utils = require( '@openagenda/utils' ),
 
   Raven = require( 'raven-js' ),
 
-  callToAction = require( '@openagenda/call-to-action' ),
-
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 
   ran = false, asapRan = false,

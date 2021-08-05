@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
-import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 import labels from '@openagenda/labels/agenda-admin/agendaSchema';
 
 import getSchemaFieldCount from './lib/getSchemaFieldCount';
@@ -72,12 +71,9 @@ class Main extends Component {
       />
 
       {maxFields === 1 ? <div>
-        <a
-          onClick={e => openRequestForm( {
-            lang,
-            subject: 'agendaSchema',
-            agenda
-          } )}>Besoin de plus de champs?</a>
+        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
+          Besoin de plus de champs?
+        </a>
       </div> : null }
 
     </div>

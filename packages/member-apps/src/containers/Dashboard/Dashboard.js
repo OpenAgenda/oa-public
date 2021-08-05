@@ -15,7 +15,6 @@ import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import { Modal, MoreInfo } from '@openagenda/react-components';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
@@ -447,7 +446,7 @@ class Dashboard extends Component {
       query,
       i18n,
     } = this.props;
-    const { getLabel, lang } = i18n;
+    const { getLabel } = i18n;
 
     const {
       administrator: totalAdministrator,
@@ -494,11 +493,9 @@ class Dashboard extends Component {
                 noCaret
               >
                 <MenuItem
-                  onClick={() => openRequestForm({
-                    lang,
-                    subject: 'moderators',
-                    agenda: agenda.slug,
-                  })}
+                  href={`/support?origin=${encodeURIComponent(
+                    window.location.pathname
+                  )}&subject=moderators`}
                 >
                   <i className="golden-icon" /> {getLabel('nameModerators')}
                 </MenuItem>
@@ -610,32 +607,32 @@ class Dashboard extends Component {
               ) : null
           }
           {total > 0 ? (
-            <button
-              type="button"
-              className="btn btn-default btn-medium margin-left-sm"
-              onClick={() => {
-                if (agenda.credentials.invitationMessage) {
-                  return showModal('writeToMembers', {
+            <>
+              {agenda.credentials.invitationMessage ? (
+                <button
+                  type="button"
+                  className="btn btn-default btn-medium margin-left-sm"
+                  onClick={() => showModal('writeToMembers', {
                     query: {
                       search: query.search || undefined,
                       role: credFilters,
                     },
-                  });
-                }
-                return openRequestForm({
-                  lang,
-                  subject: 'writeToAll',
-                  agenda: agenda.slug,
-                });
-              }}
-            >
-              {agenda.credentials.invitationMessage ? null : (
-                <>
+                  })}
+                >
+                  {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+                </button>
+              ) : (
+                <a
+                  className="btn btn-default btn-medium margin-left-sm"
+                  href={`/support?origin=${encodeURIComponent(
+                    window.location.pathname
+                  )}&subject=writeToAll`}
+                >
                   <i className="golden-icon" />{' '}
-                </>
+                  {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+                </a>
               )}
-              {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
-            </button>
+            </>
           ) : null}
         </div>
 

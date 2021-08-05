@@ -15,7 +15,9 @@ export default class ConversationTitle extends Component {
 
   render() {
     const {
-      user, conversation, EntityComponent,
+      user,
+      conversation,
+      EntityComponent,
       settings: { context }
     } = this.props;
     const { getLabel } = this.context;
@@ -462,6 +464,20 @@ export default class ConversationTitle extends Component {
               }
             }
         }
+      case 'request_agenda_schema':
+        return getLabel( 'agendaSchemaTitle' );
+      case 'request_private_agenda':
+        return getLabel( 'privateAgendaTitle' );
+      case 'request_public_agenda':
+        return getLabel( 'publicAgendaTitle' );
+      case 'request_official_agenda':
+        return getLabel( 'officialAgendaTitle' );
+      case 'request_limit_dates':
+        return getLabel( 'limitDatesTitle' );
+      case 'request_moderators':
+        return getLabel( 'moderatorsTitle' );
+      case 'request_write_to_all':
+        return getLabel( 'writeToAllTitle' );
       case 'support':
         if ( isUser( creator, user ) ) {
           // Vous avez contacté le support

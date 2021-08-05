@@ -1,20 +1,12 @@
 'use strict';
 
 const _ = require('lodash');
-const { parsePath } = require('history');
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
-const ReactDOM = require('react-dom/server');
-const { wrapApp } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/react-shared');
 
-const cmn = require('../../../../lib/commons-app');
-
-const {
-  getMultiLanguageTitle
-} = require('./utils');
-
-module.exports = async ({ config }, req, res, next) => {
+module.exports = (req, res, next) => {
+  const { config } = req.app;
   // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
   //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
   //   return res.redirect(302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`);
@@ -22,10 +14,17 @@ module.exports = async ({ config }, req, res, next) => {
 
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createInboxApp({
-    req,
+  render({
+    template: 'event/inbox',
+    baseData: {
+      event: {
+        ...req.event,
+        backLink: `/${req.agenda.slug}`
+      },
+      image: req.agenda.image,
+      title: req.agenda.title
+    },
+    endpoint: '/home/inbox',
     initialState: {
       user: req.user,
       settings: {
@@ -39,7 +38,7 @@ module.exports = async ({ config }, req, res, next) => {
         allowCreateConversation: true, // show creation button
         creationSubtitle: getLabel(
           'contactAdministratorsOf',
-          { title: _.escape(getMultiLanguageTitle(req.agenda, lang)), link: eventShowLink },
+          { title: _.escape(getLocaleValue(req.agenda.title, lang)), link: eventShowLink },
           req.lang
         ),
         maskCreationSubtitle: false,
@@ -53,7 +52,7 @@ module.exports = async ({ config }, req, res, next) => {
           params: {
             agendaTitle: _.unescape(req.agenda.title),
             agendaUid: req.agenda.uid,
-            eventTitle: _.unescape(getMultiLanguageTitle(req.event, req.lang))
+            eventTitle: _.unescape(getLocaleValue(req.event.title, req.lang))
           },
           destinationInbox: {
             type: 'agenda',
@@ -61,67 +60,8 @@ module.exports = async ({ config }, req, res, next) => {
           }
         }
       },
-      res: {
-        author: '/home/inbox/author.json',
-        conversations: {
-          create: '/home/inbox/conversations.json',
-          list: '/home/inbox/conversations.json',
-          action: '/home/inbox/conversations/:conversationId/action/:code.json',
-          resume: '/home/inbox/conversations/:conversationId/resume.json'
-        },
-        messages: {
-          list: '/home/inbox/conversations/:conversationId/messages.json',
-          create: '/home/inbox/conversations/:conversationId/messages.json',
-          prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
-        }
-      },
       agenda: req.agenda,
       event: req.event
     }
-  });
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext }));
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if (staticContext.status === 404) {
-      return next();
-    }
-
-    if (staticContext.url) {
-      return res.redirect(302, staticContext.url);
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect(302, pathname);
-    }
-
-    const baseData = {
-      event: {
-        ...req.event,
-        backLink: `/${req.agenda.slug}`
-      },
-      image: req.agenda.image,
-      title: req.agenda.title
-    };
-
-    cmn.render(req, res, 'event/inbox', {
-      ...baseData,
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true
-    });
-  } catch (e) {
-    next(e);
-  }
+  })(req, res, next);
 };
