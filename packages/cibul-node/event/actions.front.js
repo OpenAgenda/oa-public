@@ -70,7 +70,6 @@ module.exports = app => {
           if (!result) {
             return next({ code: 404 });
           }
-
           req.event = result;
           next();
         })
@@ -251,6 +250,7 @@ function actionDatesShow(req, res, next) {
       timings: req.event.timings.map(timing => ({
         date: timing.date,
         begin: timing.begin,
+        end: timing.end,
         link: timing.calendarLinks[service],
       })),
     },
