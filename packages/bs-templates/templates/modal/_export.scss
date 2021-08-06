@@ -8,6 +8,7 @@
     width: 100%;
     color: black;
     position: relative;
+    margin-bottom: 15px;
   }
 
   &__title {
@@ -88,7 +89,7 @@
 
 .input-icon-right {
   position: relative;
-  max-width: 60%;
+  max-width: 95%;
   & > button {
     position: absolute;
     top: 0;
