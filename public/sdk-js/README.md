@@ -47,7 +47,7 @@ The private key is used for all `create`, `update`, and `delete` methods.
 
 ## API
 
-For more information about data formats please refer to the [API documentation](https://openagenda.zendesk.com/hc/fr/categories/115000324454-API) on our help center.
+For more information about data formats please refer to the [API documentation](https://developers.openagenda.com) on our help center.
 
 ### Events
 
