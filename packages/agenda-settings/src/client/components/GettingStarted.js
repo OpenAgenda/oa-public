@@ -73,13 +73,15 @@ export default function GettingStarted({ agenda }) {
       <div className="margin-v-lg">
         <p><b>{getLabel( 'needPrivate' )}</b></p>
         <div className="margin-v-md">
-          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=privateAgenda`}>
+          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=privateAgenda`} target="_blank" rel="noopener noreferrer">
             {getLabel( 'requestPrivate' )}
           </a>
 
           <a
             className="margin-left-sm"
-            href="https://openagenda.zendesk.com/hc/fr/articles/115001584389-Visibilit%C3%A9-des-OpenAgendas-public-d%C3%A9sindex%C3%A9-priv%C3%A9"
+            href="https://doc.openagenda.com/visibilite-des-agendas/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {getLabel( 'learnMore' )}
           </a>
@@ -89,7 +91,7 @@ export default function GettingStarted({ agenda }) {
       <div className="margin-v-lg">
         <p><b>{getLabel( 'needOfficial' )}</b></p>
         <div className="margin-v-md">
-          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=officialAgenda`}>
+          <a className="btn btn-primary" href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=officialAgenda`} target="_blank" rel="noopener noreferrer">
             {getLabel( 'requestOfficial' )}
           </a>
         </div>

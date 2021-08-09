@@ -14,8 +14,8 @@ import * as  modalsActions from '../../reducers/modals';
 import * as  keysActions from '../../reducers/keys';
 
 const zendeskRes = {
-  official: 'https://openagenda.zendesk.com/hc/articles/115001581185',
-  private: 'https://openagenda.zendesk.com/hc/fr/articles/115001584389'
+  official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',
+  private: 'https://doc.openagenda.com/visibilite-des-agendas'
 };
 
 @connect(
@@ -161,6 +161,7 @@ export default class ContributionEdition extends Component {
                     <a
                       href={zendeskRes.private}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {getLabel( 'learnMore' )}
                     </a>
@@ -176,6 +177,7 @@ export default class ContributionEdition extends Component {
                     <a
                       href={zendeskRes.private}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {getLabel( 'learnMore' )}
                     </a>
