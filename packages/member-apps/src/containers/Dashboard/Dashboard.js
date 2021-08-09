@@ -624,6 +624,8 @@ class Dashboard extends Component {
               ) : (
                 <a
                   className="btn btn-default btn-medium margin-left-sm"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   href={`/support?origin=${encodeURIComponent(
                     window.location.pathname
                   )}&subject=writeToAll`}
