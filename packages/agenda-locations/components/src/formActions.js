@@ -1,6 +1,5 @@
 import utils from '@openagenda/utils';
 import update from 'immutability-helper';
-import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
 import debug from 'debug';
 
 const log = debug('formActions');
@@ -163,15 +162,6 @@ function showExtId() {
   return { showExtIdInput: true };
 }
 
-/**
- * check or uncheck language in translation list
- */
-function checkLanguage(state, check, source, language) {
-  return {
-    translation: onTranslationCheck(state.translation, check, language),
-  };
-}
-
 function sourceLanguageChange(...args) {
   log(args[1]);
   log(args[2]);
@@ -270,8 +260,6 @@ function actions(options) {
 
     loadTagAlternative: assign(loadTagAlternative),
 
-    checkLanguage: assign(checkLanguage),
-
     sourceLanguageChange: assign(sourceLanguageChange),
 
     startPageSpin: assign(startPageSpin),
@@ -295,7 +283,6 @@ export default Object.assign(actions, {
     initialize,
     loadAlternative,
     loadTagAlternative,
-    checkLanguage,
     startPageSpin,
     stopPageSpin,
     showExtId,
