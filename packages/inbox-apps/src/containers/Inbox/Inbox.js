@@ -235,7 +235,7 @@ class Inbox extends Component {
               <a
                 title={getLabel('needHelp')}
                 target="_blank"
-                href="https://openagenda.zendesk.com/hc/fr/articles/360000370713"
+                href="https://doc.openagenda.com/la-messagerie/"
                 className="pull-right"
               >
                 <i className="fa fa-question-circle" />
