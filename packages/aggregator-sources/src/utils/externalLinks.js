@@ -1,10 +1,11 @@
 export default {
-  helpMain: 'https://openagenda.zendesk.com/hc/fr/articles/360013395679',
-  helpRules: 'https://openagenda.zendesk.com/hc/fr/articles/360013395679#rules',
+  helpMain: 'https://doc.openagenda.com/lagregation-dagendas/',
+  helpRules:
+    'https://doc.openagenda.com/lagregation-dagendas/#r-gles-d-agr-gation',
   helpRequiredAdditional:
-    'https://openagenda.zendesk.com/hc/fr/articles/360013395679#required',
+    'https://doc.openagenda.com/lagregation-dagendas/#les-champs-additionnels-obligatoires',
   helpCopyPaste:
-    'https://openagenda.zendesk.com/hc/fr/articles/360013395679#copypaste',
+    'https://doc.openagenda.com/lagregation-dagendas/#copier-coller-des-jeux-de-r-gles-d-agr-gation',
   aggregationPresentationPic: lang => `https://oastatic.s3.eu-central-1.amazonaws.com/aggregation-${
     lang === 'fr' ? 'fr' : 'en'
   }.png`,
