@@ -49,7 +49,7 @@ export default class ApiKeySettings extends Component {
             <p>{getLabel( 'apiKeyInformation' )}</p>
 
             <p>
-              <a href="//openagenda.zendesk.com/hc/fr/sections/201090781-The-API-documentation-in-english-">
+              <a href="https://developers.openagenda.com">
                 {getLabel( 'showDocumentation' )}
               </a>
             </p>
