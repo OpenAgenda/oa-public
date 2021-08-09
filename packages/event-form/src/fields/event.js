@@ -231,7 +231,7 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   optional: false,
   label: labels.timings,
   info: labels.timingsInfo,
-  helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement'
+  helpLink: 'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/'
 }, {
   field: 'links',
   fieldType: 'integer',
