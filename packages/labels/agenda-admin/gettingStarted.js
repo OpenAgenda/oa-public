@@ -82,8 +82,8 @@ module.exports = {
     "io": "crwdns11374:0crwdne11374:0"
   },
   "needPrivate": {
-    "fr": "Vous souhaitez un agenda privé ? Cette fonction est nouvelle, expliquez-nous votre usage.",
-    "en": "You want a private agenda? This is a new feature, let us know more about your requirement.",
+    "fr": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu.",
+    "en": "You want a private agenda? Only the members that you will invite will be able to see its contents.",
     "de": "Sie wollen eine private Verwaltungskalender? Dies ist eine neue Funktion, lasse uns mehr über Deine Anforderung wissen.",
     "es": "¿Quieres una agenda privada? Esta característica es nueva, nos dice su uso.",
     "it": "Volete un diario privato? Questa è una nuova funzione, spiegateci il vostro utilizzo.",

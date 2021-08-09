@@ -9,7 +9,7 @@
   "copyLink": "Copiez le lien",
   "embedYourAgenda": "Intégrez votre agenda dans votre site web",
   "createEmbedded": "Créer une vue intégrée",
-  "needPrivate": "Vous souhaitez un agenda privé ? Cette fonction est nouvelle, expliquez-nous votre usage.",
+  "needPrivate": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu.",
   "requestPrivate": "Demander un agenda privé",
   "needOfficial": "Vous souhaitez un agenda officiel ?",
   "requestOfficial": "Demander un agenda officiel",

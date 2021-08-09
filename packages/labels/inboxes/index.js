@@ -396,8 +396,8 @@ module.exports = {
     "io": "crwdns13192:0crwdne13192:0"
   },
   "privateAgendaDesc": {
-    "fr": "Cette fonction est nouvelle, expliquez-nous votre usage:",
-    "en": "This is a new feature, let us know more about your requirement:",
+    "fr": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu. Donnez-nous quelques détails sur votre besoin et nous vous ferons un retour rapidement.",
+    "en": "Let us know more about your requirement:",
     "de": "Dies ist eine neue Funktion, lasse uns mehr über Deine Anforderung wissen:",
     "es": "Esta característica es nueva, nos dice su uso:",
     "it": "Questa è una nuova funzione, spiegateci il vostro utilizzo:",
