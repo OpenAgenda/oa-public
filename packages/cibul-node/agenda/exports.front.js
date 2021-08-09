@@ -318,7 +318,7 @@ function _cacheContent( req, res, next ) {
   res.data = {
     settings: req.agenda.getSettings(),
     response: {
-      readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
+      readme: 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/',
       total: req.total,
       offset: req.offset,
       limit: req.limit,
