@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf, forceReRender } from '@storybook/react';
 import update from 'immutability-helper';
-import Translation from '../components/Translation';
 import MarkdownComponent from '../components/MarkdownComponent';
 import HTMLComponent from '../components/HTMLComponent';
 import SearchField from '../components/SearchField';
@@ -11,7 +10,6 @@ import MultilingualInputField from '../components/MultilingualInputField';
 import GroupTagSelector from '../components/GroupTagSelector';
 import MultiInputField from '../components/MultiInputField';
 import Spinner from '../components/Spinner';
-import onTranslationCheck from '../lib/onTranslationCheck';
 import makeLabelGetter from '../lib/makeLabelGetter';
 import labels from '../labels';
 import validators from '../validators';
@@ -99,16 +97,6 @@ let state = {
   }
 };
 
-function translationSourceChange( value ) {
-  state.translation.source = value;
-  forceReRender();
-}
-
-function translationCheck( check, sourceCode, langCode ) {
-  state.translation = onTranslationCheck( state.translation, check, langCode );
-  forceReRender();
-}
-
 function removeFirstMarkdownComponent() {
   state = update( state, { multiMd: { $splice: [ [ 0, 1 ] ] } } );
   forceReRender();
@@ -147,27 +135,6 @@ function onMultiMarkdownChange( i, value ) {
   state = update( state, updated );
   forceReRender();
 }
-
-
-storiesOf( 'Translation', module )
-  .addDecorator( PageDecorator )
-  .add( 'simple', opts => (
-    <Translation
-      source={state.translation.source}
-      sets={state.translation.sets}
-      sourceChange={translationSourceChange}
-      labels={{
-        translationTitle: 'Traduction',
-        sourceLanguage: 'Langue source',
-        targetLanguages: 'Traduction automatique',
-        translationHelp: 'En savoir plus',
-        sourceChange: 'Changer',
-        info: 'Un texte informatif'
-      }}
-      check={translationCheck.bind( null, true )}
-      uncheck={translationCheck.bind( null, false )}
-    />
-  ) );
 
 storiesOf( 'Wysiwyg', module )
   .addDecorator( PageDecorator )
