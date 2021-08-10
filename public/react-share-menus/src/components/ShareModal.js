@@ -208,11 +208,11 @@ const ShareModal = ({
                             <ul className="calendars__list">
                               {dates.days.map(date => {
                                 const begin = moment
-                                  .tz(date.begin, date.timezone)
+                                  .tz(date.begin, dates.timezone)
                                   .locale(event.lang)
                                   .format('dddd D MMMM YYYY HH:mm');
                                 const end = moment
-                                  .tz(date.end, date.timezone)
+                                  .tz(date.end, dates.timezone)
                                   .locale(event.lang)
                                   .format('dddd D MMMM YYYY HH:mm');
                                 return (
