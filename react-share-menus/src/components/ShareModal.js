@@ -75,10 +75,6 @@ const ShareModal = ({
     connectionBtn: {
       id: 'connection-btn',
       defaultMessage: 'Sign In',
-    },
-    date: {
-      id: 'date',
-      defaultMessage: 'From {begin}, to {end}',
     }
   });
 
@@ -210,14 +206,14 @@ const ShareModal = ({
                                 const begin = moment
                                   .tz(date.begin, dates.timezone)
                                   .locale(event.lang)
-                                  .format('dddd D MMMM YYYY HH:mm');
+                                  .format('dddd D MMMM YYYY, HH:mm - ');
                                 const end = moment
                                   .tz(date.end, dates.timezone)
                                   .locale(event.lang)
-                                  .format('dddd D MMMM YYYY HH:mm');
+                                  .format('HH:mm');
                                 return (
                                   <Radio
-                                    content={intl.formatMessage(messages.date, { begin, end })}
+                                    content={begin + end}
                                     name="dates"
                                     key={date.begin}
                                     id={date.begin}

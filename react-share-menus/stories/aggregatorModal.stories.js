@@ -4,7 +4,6 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import AggregatorModal from '../src/components/AggregatorModal';
-
 import apiAgendas from './fixtures/api.agendas.get.json';
 import noAgendas from './fixtures/api.noAgendas.get.json';
 import Canvas from './decorators/Canvas';
@@ -22,8 +21,7 @@ const filterResults = searchText => {
     total,
     agendas: apiAgendas.agendas.filter(agenda => {
       if (
-        agenda.description.toLowerCase().includes(searchText.toLowerCase()) ||
-        agenda.title.toLowerCase().includes(searchText.toLowerCase())
+        agenda.description.toLowerCase().includes(searchText.toLowerCase()) || agenda.title.toLowerCase().includes(searchText.toLowerCase())
       ) {
         total += 1;
         return agenda;
@@ -68,6 +66,7 @@ export const Aggregator = () => {
           onClose={() => setDisplay(false)}
           targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
           res="/agendas"
+          userLogged
         />
       ) : null}
     </div>
@@ -99,6 +98,7 @@ export const AggregatorSuccess = () => {
           targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
           res="/agendas"
           success={success}
+          userLogged
         />
       ) : null}
     </div>
@@ -128,6 +128,37 @@ export const NoAgendas = () => {
           onClose={() => setDisplay(false)}
           targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
           res="/noAgendas"
+          userLogged
+        />
+      ) : null}
+    </div>
+  );
+};
+
+export const NotLoggedIn = () => {
+  const [display, setDisplay] = useState(false);
+  const [logo, setLogo] = useState(whiteLogo);
+  mockApi();
+  return (
+    <div className="ctas export__container">
+      <button
+        className="btn btn-default export__btn"
+        type="button"
+        onClick={() => setDisplay(true)}
+        onMouseOver={() => setLogo(blueLogo)}
+        onMouseOut={() => setLogo(whiteLogo)}
+        onFocus={() => setLogo(blueLogo)}
+        onBlur={() => setLogo(whiteLogo)}
+      >
+        <img alt="logo" src={logo} />
+        &nbsp; Agréger
+      </button>
+      {display ? (
+        <AggregatorModal
+          onClose={() => setDisplay(false)}
+          targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
+          res="/agendas"
+          userLogged={false}
         />
       ) : null}
     </div>

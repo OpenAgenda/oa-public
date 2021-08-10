@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
+import base64 from 'base-64';
+import utf8 from 'utf8';
 
 import Modal from '@openagenda/react-shared/src/components/Modal';
 import AgendaSearchInput from './AgendaSearchInput';
 
 const AggregatorModal = ({
-  targetAgenda, onClose, res, success
+  targetAgenda, onClose, res, success, userLogged
 }) => {
   const [noAgendas, setNoAgendas] = useState(false);
 
@@ -35,11 +37,25 @@ const AggregatorModal = ({
       id: 'create-agenda',
       defaultMessage: 'Create an agenda',
     },
+    signIn: {
+      id: 'sign-in-agg',
+      defaultMessage: 'You need to sign in to your account to aggregate this event.',
+    },
+    connectionBtn: {
+      id: 'connection-btn',
+      defaultMessage: 'Sign In',
+    },
   });
 
   const handleSubmit = e => {
     e.preventDefault();
     return onClose();
+  };
+
+  const encodeUrl = () => {
+    const url = `https://d.openagenda.com/${targetAgenda.slug}?displayAggregatorModal=1`;
+    const bytes = utf8.encode(url);
+    return base64.encode(bytes);
   };
 
   const getTitleLink = agenda => `/${agenda.slug}/admin/sources?source=${targetAgenda.slug}&redirect=/${targetAgenda.slug}?aggregateSuccess=1`;
@@ -71,14 +87,26 @@ const AggregatorModal = ({
                 {intl.formatMessage(messages.aggregatorDescription, { targetAgenda: targetAgenda.title })}
               </p>
               <div className="search margin-top-md margin-bottom-sm">
-                {noAgendas ? (
+                {!userLogged && (
+                  <>
+                    <p>{intl.formatMessage(messages.signIn)}</p>
+                    <a
+                      className="btn btn-primary export__button"
+                      href={`https://d.openagenda.com/${targetAgenda.slug}/signin?redirect=${encodeUrl()}`}
+                    >
+                      {intl.formatMessage(messages.connectionBtn)}
+                    </a>
+                  </>
+                )}
+                {userLogged && noAgendas && (
                   <>
                     <p>{intl.formatMessage(messages.noAgenda, { targetAgenda: targetAgenda.title })}</p>
                     <a className="btn btn-primary" href="https://openagenda.com/new">
                       {intl.formatMessage(messages.createAgenda)}
                     </a>
                   </>
-                ) : (
+                )}
+                {userLogged && (
                   <AgendaSearchInput
                     getTitleLink={agenda => getTitleLink(agenda)}
                     res={res}
@@ -105,6 +133,7 @@ AggregatorModal.propTypes = {
     slug: PropTypes.string,
   }).isRequired,
   success: PropTypes.bool,
+  userLogged: PropTypes.bool.isRequired,
 };
 
 AggregatorModal.defaultProps = {

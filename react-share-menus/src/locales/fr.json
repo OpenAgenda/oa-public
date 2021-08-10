@@ -8,7 +8,6 @@
   "close": "Fermer",
   "connection-btn": "Connexion",
   "create-agenda": "Créer un agenda",
-  "date": "Du {begin}, au {end}",
   "email-placeholder": "Veuillez saisir les addresses email auxquelles vous souhaiter envoyer l'événement",
   "email-success": "L'événement a été envoyé à {emails} adresses email.",
   "import": "Importer",
@@ -31,5 +30,6 @@
   "share-email": "Partager par email",
   "share-oa": "Partager sur OpenAgenda",
   "share-title": "Partager l'événement",
-  "sign-in": "Vous devez vous connecter pour partager cet événement"
+  "sign-in": "Vous devez vous connecter pour partager cet événement",
+  "sign-in-agg": "Vous devez vous connecter pour aggréger cet agenda"
 }
