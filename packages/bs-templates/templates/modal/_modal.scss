@@ -1,5 +1,4 @@
 .popup-overlay {
-
   background: rgba(0, 0, 0, 0.62);
   z-index: 3000;
   display: flex;
@@ -38,6 +37,8 @@
       }
 
       > .close-link {
+        background: none;
+        border: none;
         color: $oa-white;
         line-height: 40px;
         padding: 0 10px;
@@ -50,19 +51,15 @@
     }
 
     .popup-content {
-      padding: 1em 2em 0;
+      padding: 1em 2em;
       overflow: auto;
-
-      &>*:last-child {
-        margin-bottom: 2em;
-      }
     }
   }
 
   &.big {
     > section {
       overflow-y: auto;
-      max-height: 90%;
+      max-height: 80%;
       background: $oa-white;
     }
   }

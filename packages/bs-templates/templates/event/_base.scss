@@ -208,8 +208,9 @@
 
     }
 
-    a {
-      color: $oa-gray;
+    .fa {
+      text-align: center;
+      width: 20px;
 
       &.disabled {
         opacity: 0.4;
@@ -235,11 +236,6 @@
         }
       }
 
-    }
-
-    i {
-      text-align: center;
-      width: 20px;
     }
 
     span {

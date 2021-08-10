@@ -33,7 +33,10 @@
       "lang" : "fr",
       "res" : {
         "actions" : "#actions" 
-      }
+      },
+      "title": "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
+      "slug": "chez-nous",
+      "languages": ["fr", "en", "de", "nl"]
     },
     
     "pager" : {

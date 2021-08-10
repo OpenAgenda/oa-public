@@ -5,7 +5,10 @@
         <div class="container">
             <div class="row mobile-content-canvas">
                 <section class="col-sm-6 col-sm-offset-2 main-content">
-                    <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
+                    <div class="export__container">
+                        <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
+                        <div class="js_export"></div>
+                    </div>
                     <div class="total js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
                 </section>
                 <section class="col-sm-8 main-content js_list_content">
