@@ -244,5 +244,11 @@
       "type": 0,
       "value": "You need to sign in to your account to add this event to your OpenAgendas"
     }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "You need to sign in to your account to aggregate this event."
+    }
   ]
 }

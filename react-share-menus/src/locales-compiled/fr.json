@@ -244,5 +244,11 @@
       "type": 0,
       "value": "Vous devez vous connecter pour partager cet événement"
     }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "Vous devez vous connecter pour aggréger cet agenda"
+    }
   ]
 }

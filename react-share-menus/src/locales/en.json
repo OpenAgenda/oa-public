@@ -31,5 +31,6 @@
   "share-email": "Send by email",
   "share-oa": "Share on OpenAgenda",
   "share-title": "Share this event",
-  "sign-in": "You need to sign in to your account to add this event to your OpenAgendas"
+  "sign-in": "You need to sign in to your account to add this event to your OpenAgendas",
+  "sign-in-agg": "You need to sign in to your account to aggregate this event."
 }
