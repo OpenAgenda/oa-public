@@ -1,0 +1,81 @@
+.options-field-form {
+
+  position: relative;
+
+  .order-action {
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+  }
+
+}
+
+.form-item-actions {
+
+  margin-left: -18px;
+
+}
+
+.form-schema-builder {
+
+  .border-v-blue {
+
+    border-top: 2px solid $oa-blue;
+    border-bottom: 2px solid $oa-blue;
+
+  }
+
+  .border-h-blue {
+
+    border-left: 2px solid $oa-blue;
+    border-right: 2px solid $oa-blue;
+
+  }
+
+  .field-preview-canvas {
+
+    &.editing {
+
+      background: #f9f9f9;
+
+    }
+
+    .field-preview {
+
+      &.editing {
+
+        background: $oa-white;
+
+        .field-edit .form-group {
+
+          padding: 0 12px;
+          border-left: 3px solid $oa-blue;
+
+        }
+
+
+      }
+
+      &.disabled {
+
+        background: $oa-gray-lightest;
+
+        label, span {
+          color: $oa-gray;
+        }
+
+      }
+
+      .list-inline {
+
+        margin-bottom: 0;
+
+      }
+
+    }
+
+  }
+
+}

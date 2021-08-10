@@ -1,0 +1,23 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container-fluid agenda-admin agenda-admin-filters-layout">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-7 wsq">
+      <% include ../agenda-admin/_admin-header.ejs %>
+    </div>
+  </div>
+  <div class="row body">
+    <div class="col-md-offset-2 col-md-2 col-sm-12 nav wsq">
+      <%- include( '../agenda-admin/_admin-tabs-list.ejs', { selectedTab: 'events' } ) %>
+    </div>
+    <div class="col-md-3 col-md-push-5 col-sm-12 wsq filters">
+      <div>
+        <label>Les filtres</label>
+        <span>(Sans péter le layout général de tous les onglets)</span>
+      </div>
+    </div>
+    <div class="col-md-5 col-md-pull-3 col-sm-12 wsq">
+      <% include ./_event-items.ejs %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.rich-textarea {
+
+  .toolbar {
+
+    padding-bottom: 0.5em;
+
+    .btn {
+
+      margin-right: 0.4em;
+
+    }
+
+  }
+
+  .textarea-canvas {
+
+    border: 1px solid $oa-gray-light;
+    padding: 1em;
+    overflow: hidden;
+
+    > div {
+      min-height: 120px;
+    }
+
+    .textarea-placeholder {
+      color: $oa-gray-light;
+      display: block;
+      min-height: 0;
+      height: 0;
+    }
+
+    h2, h3 {
+
+      margin: 0 0 10px;
+
+    }
+
+  }
+
+}

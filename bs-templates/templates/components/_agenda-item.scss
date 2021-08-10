@@ -1,0 +1,62 @@
+.agenda-item {
+  & > a,
+  & > button.btn.btn-link-inline {
+    color: inherit;
+  }
+
+  overflow: visible;
+
+  .media-left, .media-body {
+    vertical-align: middle;
+  }
+
+  .title {
+    a,
+    button.btn.btn-link-inline {
+      color: inherit;
+    }
+  }
+
+  .network {
+    a:hover {
+      color: $oa-blue;
+    }
+  }
+
+  .media-body {
+    overflow: visible;
+  }
+
+  padding: 1em 2em;
+
+  a {
+    text-decoration: none;
+  }
+
+  .description {
+    color: $oa-black;
+    margin-bottom: 0.4em;
+  }
+
+  .badge {
+    margin-right: 0.4em;
+  }
+
+  .ill {
+    max-width: 96px;
+
+    &.avatar {
+      width: auto;
+    }
+  }
+
+  &.minimize {
+    .avatar {
+      width: 60px;
+    }
+
+    .media-heading {
+      margin-bottom: 0;
+    }
+  }
+}

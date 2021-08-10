@@ -1,0 +1,161 @@
+.tc-edge {
+
+  padding: 2em 0;
+
+}
+
+.spin-canvas {
+  
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba( 255, 255, 255, 0.5 );
+  
+}
+
+.tc-editor {
+
+  padding: 2em 0;
+
+  .tc-group {
+  
+    padding: 0 0 2em;
+
+  }
+
+  h2 {
+
+    margin: 0;
+
+  }
+
+  .tc-group {
+
+    padding: 2em 0 3em;
+
+    border-bottom: 1px solid $oa-gray-light;
+
+    .checkbox {
+
+      span { 
+        
+        margin-right: 5px;
+        vertical-align: middle;
+
+        &.info {
+
+          color: $oa-gray-light;
+
+        }
+
+      }
+
+      &:hover {
+
+        span.info {
+
+          color: darken( $oa-gray-light, 5 );
+
+        }
+
+      }
+
+    }
+
+    .tc-remove {
+
+      .tc-remove-link {
+
+        float: right;
+        cursor: pointer;
+
+      }
+
+      .tc-remove-confirm {
+
+        padding: 1em 0;
+
+        span {
+
+          display: block;
+          padding-bottom: 1em;
+
+        }
+
+        a {
+
+          margin-right: 1em;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .error {
+
+    color: $oa-red;
+
+    input[type="text"] { color: $oa-red; }
+
+  }
+
+  .menu-bottom {
+
+    padding: 2em 0;
+
+  }
+
+  .add {
+
+    .form-group {
+
+      padding-right: 1em;
+
+    }
+
+  }
+  
+  .tc-list {
+
+    .tc-item {
+
+      padding: 1em 0.5em;
+
+      &:hover {
+
+        background: lighten( $oa-gray-light, 17 );
+
+      }
+
+      .tc-actions {
+
+        float: right;
+        font-size: 1.2em;
+
+        i {
+
+          padding: 0 0.3em;
+          cursor: pointer;
+
+        }
+
+
+        .disabled {
+
+          opacity: 0.5;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

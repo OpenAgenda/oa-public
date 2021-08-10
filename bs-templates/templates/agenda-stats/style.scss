@@ -1,0 +1,33 @@
+@import '../components/react-date-range';
+
+.agenda-stats {
+  .popup-overlay {
+    section {
+      max-width: 614px;
+      width: 614px;
+    }
+  }
+
+  .oa-filter-total {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .oa-filter-value-preview {
+    margin-left: 6px;
+    line-height: 24px;
+
+    .badge {
+      margin-right: 4px;
+    }
+  }
+
+  .rdrDefinedRangesWrapper {
+    border-left: solid 1px #eff2f7;
+    border-right: none;
+  }
+
+  .oa-collapse-item {
+    border-bottom: 1px solid $oa-gray-lightish;
+  }
+}

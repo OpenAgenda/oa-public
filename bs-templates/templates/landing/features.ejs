@@ -1,0 +1,74 @@
+<% include _top.ejs %>
+<div id="presentation" class="secondary">
+  <div class="container">
+    <div class="spaced">
+      <h1 class="hook">Paramétrez</h1>
+      <p>Cette entête reprend le thème du lien cliqué par le visiteur. Les fonctions décrites en dessous sont filtrées pour ne laisser que celles qui concernent ce thème</p>
+    </div>
+  </div>
+</div>
+<div id="functions">
+
+  <% include _basic.ejs %>
+
+  <% include _summary.ejs %>
+
+  <% include _third-party.ejs %>
+
+  <% include _testimonial.ejs %>
+
+  <%- include( '_testimonial.ejs', { backgroundColor: 'gray' } ) %>
+
+  <% include _team.ejs %>
+
+  <% include _embed-previews.ejs %>
+
+  <% include _contact.ejs %>
+
+
+  <div class="background-gray">
+    <div class="container">
+      <div class="spaced">
+        <div class="media">
+          <article class="media-body media-middle">
+            <h2 class="media-heading">Personnalisez vos fiches lieux</h2>
+            <span>#paramétrez</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row spaced text-center">
+      <div class="col-sm-4">
+        <h2>Les offres</h2>
+        <ul class="list-unstyled">
+          <li><a href="#">L'agenda standard</a></li>
+          <li><a href="#">L'agenda custom</a></li>
+          <li><a href="#">L'agenda premium</a></li>
+          <li><a href="#">Portail</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <h2>En savoir plus</h2>
+        <ul class="list-unstyled">
+          <li><a href="#">Article 1</a></li>
+          <li><a href="#">Article 2</a></li>
+          <li><a href="#">Article 3</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <h2>Et encore plus</h2>
+        <ul class="list-unstyled">
+          <li><a href="#">Article 1</a></li>
+          <li><a href="#">Article 2</a></li>
+          <li><a href="#">Article 3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div> 
+</footer>
