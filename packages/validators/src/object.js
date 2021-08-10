@@ -1,105 +1,73 @@
 import utils from '@openagenda/utils';
 import listify from './listify';
 
-const MODES = {
-  KEYED: 'keyed',
-  LIST: 'list'
-}
+module.exports = (...args) => {
+  const options = args.length === 1 ? {} : args[0];
+  const validators = args.length === 1 ? args[0] : args[1];
 
-module.exports = function( options, validators ) {
-
-  if ( arguments.length === 1 ) {
-
-    validators = options;
-    options = {};
-
-  }
-
-  const params = utils.extend( {
+  const params = {
     field: null,
-    list: false
-  }, options ),
+    list: false,
+    ...options
+  };
 
-  validator = utils.extend( validate, {
-    type: 'object',
-    field: params.field,
-  } );
+  const validate = values => {
+    const errors = [];
+    const clean = [];
 
-  return params.list ? listify( validator ) : validator;
+    validators.forEach(validator => {
+      let matchingValue = (values || []).filter(v => v.field === validator.field);
 
-  function validate( values ) {
-
-    var clean = [], errors = [];
-
-    validators.forEach( validator => {
-
-      let matchingValue = ( values || [] ).filter( v => v.field === validator.field );
-
-      matchingValue = matchingValue.length ? matchingValue[ 0 ] : {
+      matchingValue = matchingValue.length ? matchingValue[0] : {
         field: validator.field,
         value: validator.type === 'object' ? [] : undefined
       };
 
-      if ( validator.type !== 'object' ) {
-
+      if (validator.type !== 'object') {
         try {
-
-          clean.push( {
+          clean.push({
             field: matchingValue.field,
-            value: validator( matchingValue.value )
-          } );
-
-        } catch ( e ) {
-
-          errors = errors.concat( e );
-
+            value: validator(matchingValue.value)
+          });
+        } catch (caughtErrors) {
+          [].concat(caughtErrors).forEach(error => errors.push(error));
         }
-
-      } else if ( typeof matchingValue.value !== 'object' ) {
-
-        errors = errors.concat( [ {
+      } else if (typeof matchingValue.value !== 'object') {
+        errors.push([{
           field: matchingValue.field,
           origin: matchingValue.value,
           code: 'object.invalidtype',
           message: 'not an object'
-        } ] );
-
+        }]);
       } else {
-
         try {
-
-          clean = clean.concat(
-
-            validator( matchingValue.value ).map( c => utils.extend( c, {
-              field: matchingValue.field + '.' + c.field
-            } ) )
-
-          );
-
-        } catch ( e ) {
-
-          errors = errors.concat(
-
-            e.map( objErr => utils.extend( objErr, {
-              field: matchingValue.field + '.' + objErr.field
-            } ) )
-
-          );
-
+          validator(matchingValue.value).map(c => utils.extend(c, {
+            field: `${matchingValue.field}.${c.field}`
+          })).forEach(cleanItem => {
+            clean.push(cleanItem);
+          });
+        } catch (caughtErrors) {
+          caughtErrors.forEach(error => {
+            errors.push({
+              ...error,
+              field: `${matchingValue.field}.${error.field}`
+            });
+          });
         }
-
       }
+    });
 
-    } );
-
-    if ( errors.length ) {
-
+    if (errors.length) {
       throw errors;
-
     }
 
     return clean;
+  };
 
-  }
+  const validator = Object.assign(validate, {
+    type: 'object',
+    field: params.field,
+  });
 
-}
+  return params.list ? listify(validator) : validator;
+};
