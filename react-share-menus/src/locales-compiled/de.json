@@ -73,24 +73,6 @@
       "value": "Create an agenda"
     }
   ],
-  "date": [
-    {
-      "type": 0,
-      "value": "From "
-    },
-    {
-      "type": 1,
-      "value": "begin"
-    },
-    {
-      "type": 0,
-      "value": ", to "
-    },
-    {
-      "type": 1,
-      "value": "end"
-    }
-  ],
   "email-placeholder": [
     {
       "type": 0,
