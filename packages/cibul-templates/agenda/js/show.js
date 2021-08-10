@@ -107,12 +107,8 @@ window.asap(options => {
         if (!ctl.prv || res !== 'reader') _displayAddButton();
       }
 
-      if (res?.length && !ctl.prv) {
-        displayExportButton(exportRef, params, uid, controller, options, { exportAll: true });
-        
-      }
-      
       if (!ctl.prv) {
+        displayExportButton(exportRef, params, uid, controller, options, { exportAll: true });
         displayExportButton(exportRef, params, uid, controller, options, { exportAll: false });
         displayAggregateButton(params, options, initialQuery);
       }
@@ -187,10 +183,7 @@ function _isAdmin(ctl) {
 
     if (
       !cn.contains(ctl.adm, parseInt(session.uid, 10)) &&
-      !cn.contains(
-        typeof ctl.mod !== 'undefined' ? ctl.mod : [],
-        parseInt(session.uid, 10)
-      )
+      !cn.contains(typeof ctl.mod !== 'undefined' ? ctl.mod : [], parseInt(session.uid, 10))
     ) {
       return false;
     }
@@ -232,11 +225,7 @@ function _showOptionalWidgets(controller) {
         },
       ],
       function (cfg) {
-        if (
-          typeof data[cfg.key] !== 'undefined' &&
-          data[cfg.key].length &&
-          cn.el(cfg.sel)
-        ) {
+        if (typeof data[cfg.key] !== 'undefined' && data[cfg.key].length && cn.el(cfg.sel)) {
           cn.removeClass(cn.el(cfg.sel), params.classes.displayNone);
         }
       }
@@ -267,10 +256,7 @@ function _displayAddButton() {
 
 function _copyToSearch(values) {
   cn.forEach(cn.els(params.selectors.searchLinks) || [], function (el) {
-    var href =
-      el.getAttribute('href').split('?')[0] +
-      '?' +
-      qs.stringify({ oaq: values });
+    var href = el.getAttribute('href').split('?')[0] + '?' + qs.stringify({ oaq: values });
 
     el.setAttribute('href', href);
   });
