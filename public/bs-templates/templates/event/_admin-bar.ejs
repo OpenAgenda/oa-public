@@ -1,0 +1,78 @@
+<div class="edge-bar js_admin_controls ">
+  <ul class="edge-list"><!--
+
+    --><li class="edge-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
+      <div class="admin-nav">
+        <a class="nav-link prev edge-link inactive">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="edge-link center" rel="nofollow" href="/aev-iledefrance/admin">
+          <i class="fa fa-list"></i>
+          <span>Gérer l'agenda</span>
+        </a>
+        <a class="nav-link next edge-link active">
+          <i class="fa fa-chevron-right"></i>
+        </a>
+      </div>
+    </li><!--
+
+    --><li class="edge-item js_toggle w25">
+      <span class="edge-selected state refused"><!--
+        --><i class="sticker"></i><span>Statut: Refusé</span><!--
+      --></span><!--
+      --><ul class="list-group w380 js_dropdown_menu" <!--style="display:block;!>">
+
+        <li class="list-group-info-item">
+          <span>Ceci n'est pas un choix. C'est un message à caractère informatif</span>
+          <div class="margin-top-sm">
+            <a class="btn btn-primary" href="#">Contacter les administrateurs</a>
+          </div>
+        </li>
+
+        <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator ">
+          <a class="item bullet js_change_state_to_0 active" rel="nofollow" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/state/0">
+            <label>A modérer</label>
+            <span>L'événement doit être modéré par un administrateur de l'agenda avant sa publication.</span>
+          </a>
+        </li>
+
+        <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator ">
+          <a class="item bullet js_change_state_to_1 active" rel="nofollow" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/state/1">
+            <label>Prêt à publier</label>
+            <span>L'événement est prêt a être publié.</span>
+          </a>
+        </li>
+
+        <li class="list-group-item js_admin_item js_role_event_editor js_role_agenda_admin ">
+          <a class="item bullet js_change_state_to_2" rel="nofollow" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/state/2">
+            <label>Publié</label>
+            <span>L'événement est visible sur l'agenda.</span>
+          </a>
+        </li>
+
+      </ul>
+    </li><!--
+    --><li class="edge-item js_admin_item js_role_event_editor w25 ">
+      <a class="edge-link" href="/aev-iledefrance/event/portes-ouvertes-a-la-ferme/edit" rel="nofollow">Modifier</a>
+    </li><!--
+    --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25 ">
+      <span class="edge-selected">Actions</span>
+      <ul class="list-group js_dropdown_menu">
+
+        <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator ">
+
+          <a class="item starify" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/featured/featured" rel="nofollow">Mettre en une<i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i></a>
+      
+        </li>
+
+
+        <li class="list-group-item js_admin_item js_role_event_editor ">
+          <a class="item active" href="/aev-iledefrance/event/portes-ouvertes-a-la-ferme/duplicate" rel="nofollow">Dupliquer</a>
+        </li>
+        <li class="list-group-item js_admin_item js_role_event_editor w25 ">
+          <a class="item active js_message_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cet événement?" data-ok="Confirmer" data-cancel="Annuler" href="/remove/event/portes-ouvertes-a-la-ferme" rel="nofollow">Supprimer</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

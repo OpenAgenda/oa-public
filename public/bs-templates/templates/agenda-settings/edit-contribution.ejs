@@ -1,0 +1,75 @@
+<% include ../layout/_top.ejs %>
+<div class="container agenda-admin">
+	<% include ../agenda-admin/_admin-header.ejs %>
+
+	<div class="row wsq">
+		<% include ../agenda-admin/_admin-tabs.ejs %>
+
+		<div class="col col-sm-9 body">
+			<div class="agenda-settings-edit">
+				<div class="contribution">
+					<h2 class="margin-bottom-md">Contribution</h2>
+					<div class="row">
+						<div class="col-md-7">
+							<form>
+								<div class="form-group margin-bottom-md">
+									<div class="radio">
+										<p class="label"><b>Qui peut ajouter des événements à cet agenda ?</b></p>
+										<label>
+											<input type="radio" name="addEvent" />
+											Seulement des personnes choisies et moi
+										</label><br>
+										<label>
+											<input type="radio" name="addEvent" />
+											Tout le monde
+										</label>
+									</div>
+								</div>
+								<div class="form-group margin-bottom-md">
+									<label for="description">Consigne</label>
+									<p>La consigne s'affiche au début du formulaire de saisie d'événement</p>
+									<div>
+										<textarea name="description" rows="6" class="form-control"></textarea>
+									</div>
+								</div>
+								<div class="form-group margin-bottom-md">
+									<div class="radio">
+										<p class="label">
+											<b>Inviter les contributeurs à compléter une fiche</b>
+										</p>
+										<label>
+											<input type="radio" name="contributorCard" /> Oui
+										</label><br>
+										<label>
+											<input type="radio" name="contributorCard" /> Non
+										</label>
+									</div>
+								</div>
+								<div class="form-group margin-bottom-md">
+									<div class="radio">
+										<p class="label"><b>Statut par défaut des événements</b></p>
+										<label>
+											<input type="radio" name="eventDefaultStatus" />
+											Publiés
+											(<span class="text-muted">vous pouvez modifier les événements ensuite</span>)
+										</label><br>
+										<label>
+											<input type="radio" name="eventDefaultStatus" />
+											Non-publiés
+											(<span class="text-muted">les événements ne deviennent publics qu'après votre validation</span>)
+										</label>
+									</div>
+								</div>
+								<div class="text-right">
+									<button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<% include ../layout/_bottom.ejs %>

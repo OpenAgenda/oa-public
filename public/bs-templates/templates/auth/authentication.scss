@@ -1,0 +1,46 @@
+.signup, .signin {
+
+  .jumbotron {
+
+    p:last-child {
+
+      margin: 0;
+
+    }
+
+  }
+
+  .btn-facebook {
+
+    color: $oa-white;
+    background-color: $facebook-color;
+
+    &:hover {
+      background-color: lighten( $facebook-color, 10 );
+    }
+
+  }
+
+  .btn-twitter {
+
+    color: $oa-white;
+    background-color: $twitter-color;
+
+    &:hover {
+      background-color: lighten( $twitter-color, 10 );
+    }
+
+  }
+
+  .btn-google {
+
+    color: $oa-white;
+    background-color: $google-color;
+
+    &:hover {
+      background-color: lighten( $google-color, 10 );
+    }
+
+  }
+
+}

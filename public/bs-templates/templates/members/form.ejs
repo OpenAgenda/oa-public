@@ -1,0 +1,158 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container agenda-admin">
+    <% include ../agenda-admin/_admin-header.ejs %>
+
+    <div class="row wsq">
+        <% include ../agenda-admin/_admin-tabs.ejs %>
+
+        <div class="col col-xs-9 body">
+            <div class="members-admin">
+                <h2>Membres</h2>
+
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation">
+                        <a href="#">
+                            <strong>2345</strong> Total <i class="fa fa-times invisible" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#">
+                            <strong>3</strong> Administrateurs <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#">
+                            <strong>30</strong> Modérateurs <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#">
+                            <strong>300</strong> Contributeurs <i class="fa fa-times invisible" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#">
+                            <strong>36</strong> Absents <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <form action="#">
+                    <div class="form-group input-icon-right search margin-v-md">
+                        <input type="text" class="form-control" placeholder="Rechercher un membre" />
+                        <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div class="bo-list-item media">
+                        <div class="media-body">
+                            <div class="title media-heading">
+                                <a href="#">
+                                    <strong>Jean-Michel du Bled</strong>
+                                    <span class="text-muted small">Administrateur</span>
+                                </a>
+                            </div>
+                            <div class="actions">
+                                <p class="text-muted">INA</p>
+                                <p class="text-muted">+33 6 12 01 68 42</p>
+                                <p class="text-muted">gaetan.latouche@gmail.com</p>
+                                <a href="#" class="text-muted">4 événements</a>
+                                <a href="#" class="text-muted">Modifier son profil</a>
+                                <a href="#" class="text-muted">Retirer des membres</a>
+                                <a href="#" class="text-muted">Lui écrire</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bo-list-item media">
+                        <div class="media-body">
+                            <div class="title media-heading">
+                                <a href="#">
+                                    <strong>Jacquie & michel</strong>
+                                    <span class="text-muted small">Modérateur</span>
+                                </a>
+                            </div>
+                            <div class="actions">
+                                <p class="text-muted">INA</p>
+                                <p class="text-muted">+33 6 12 01 68 42</p>
+                                <p class="text-muted">gaetan.latouche@gmail.com</p>
+                                <a href="#" class="text-muted">4 événements</a>
+                                <a href="#" class="text-muted">Modifier son profil</a>
+                                <a href="#" class="text-muted">Retirer des membres</a>
+                                <a href="#" class="text-muted">Lui écrire</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bo-list-item media">
+                        <div class="media-body">
+                            <div class="title media-heading">
+                                <a href="#">
+                                    <strong>Marc Dorcel</strong>
+                                </a>
+                            </div>
+                            <div class="actions">
+                                <div class="text-muted">Cette personne n'a pas encore créé de compte</div>
+                                <a href="#" class="text-muted">Modifier son profil</a>
+                                <a href="#" class="text-muted">Retirer des membres</a>
+                                <a href="#" class="text-muted">Lui écrire</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup-overlay big">
+    <section>
+        <div class="popup-content">
+            <form action="" method="post" role="form">
+                <h2 class="margin-bottom-lg">Edit member info</h2>
+
+            	<div class="form-group">
+            		<label for="name">Nom</label>
+            		<input type="text" class="form-control" name="name" value="Jean-Yves Auguste">
+            	</div>
+
+            	<div class="form-group">
+            		<label for="organization">Organisation</label>
+            		<input type="text" class="form-control" name="organization" value="INA">
+            	</div>
+
+            	<div class="form-group">
+            		<label for="position">Fonction</label>
+            		<input type="text" class="form-control" name="position" value="Responsable Communication">
+            	</div>
+
+            	<div class="form-group">
+            		<label for="email">Email</label>
+            		<input type="text" class="form-control" name="email" value="gaetan.latouche@ina.com">
+            	</div>
+
+            	<div class="form-group">
+            		<label for="phone">Téléphone</label>
+            		<input type="text" class="form-control" name="phone" value="+33 6 12 01 68 42">
+            	</div>
+
+            	<div class="form-group margin-bottom-lg">
+                    <label for="role">Rôle</label>
+                    <select name="role" class="form-control">
+                        <option value="1">Contributeur</option>
+                        <option value="3" selected>Modérateur</option>
+                        <option value="2">Administrateur</option>
+                    </select>
+            	</div>
+
+            
+            	<button type="button" class="btn btn-danger">Cancel</button>
+            	<button type="submit" class="btn btn-primary pull-right">Submit</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+<% include ../layout/_bottom.ejs %>

@@ -1,0 +1,82 @@
+@import "assets/stylesheets/bootstrap/badges";
+
+.badge.badge-sm {
+  padding: 2px 5px;
+}
+
+.badge-warning, .label-warning {
+  background-color: $oa-warning;
+  border-color: $oa-warning;
+}
+
+.badge-outline-warning {
+  color: $oa-warning;
+  border: 1px solid $oa-warning;
+  background-color: transparent;
+}
+
+.badge-default, .label-default {
+  color: $oa-gray;
+  background-color: $oa-white;
+  border: 1px solid $oa-gray-light;
+}
+
+.badge-outline-default {
+  color: $oa-gray;
+  border: 1px solid $oa-gray-light;
+  background-color: transparent;
+}
+
+.badge-muted {
+  color: $oa-gray-light;
+  background-color: $oa-white;
+  border: 1px solid $oa-gray-light;
+}
+
+a.badge:hover {
+  color: $oa-blue;
+  border: 1px solid $oa-blue;
+}
+
+.badge-primary {
+  color: $oa-white;
+  background-color: $oa-blue;
+  border: 1px solid $oa-blue;
+}
+
+.badge-outline-primary {
+  border: 1px solid $oa-blue;
+  color: $oa-blue;
+}
+
+.badge-outline-warn {
+  border: 1px solid $oa-warning;
+  color: $oa-warning;
+}
+
+.badge-outline-danger {
+  border: 1px solid $oa-red;
+  color: $oa-red;
+}
+
+.badge-info {
+  color: $oa-blue;
+  background-color: transparent;
+  border: 1px solid $oa-blue;
+}
+
+.badge-success {
+  color: $oa-white;
+  background-color: $brand-success;
+  border: 1px solid $brand-success;
+}
+
+.badge-danger {
+  color: $oa-white;
+  background-color: $oa-red;
+  border: 1px solid $oa-red;
+}
+
+.badge-baseline {
+  vertical-align: baseline;
+}

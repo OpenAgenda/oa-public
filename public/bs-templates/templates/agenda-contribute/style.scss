@@ -1,0 +1,39 @@
+@import "../layout/base";
+@import "../agenda/header";
+@import "../components/stepper/style";
+
+.event-instruction, .error-summary {
+  
+  background-color: $oa-gray-lightest;
+  border-radius: 0;
+
+}
+
+.event-instruction {
+  
+  text-align: left;
+  border-top: $oa-blue 1px solid;
+  border-bottom: $oa-blue 1px solid;
+
+  &.boxed {
+
+    border-left: $oa-blue 1px solid;
+    border-right: $oa-blue 1px solid;
+
+  }
+
+}
+
+.error-summary {
+
+  border-top: $oa-red 1px solid;
+  border-bottom: $oa-red 1px solid;
+
+  &.boxed {
+
+    border-left: $oa-red 1px solid;
+    border-right: $oa-red 1px solid;
+
+  }
+
+}

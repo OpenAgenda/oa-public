@@ -1,0 +1,254 @@
+$oa-blue: #41acdd;
+$oa-black: #413a42;
+$oa-white: #fff;
+$oa-silver: silver;
+$oa-gray: gray;
+$oa-gray-lightish: #bbb;
+$oa-gray-light: #ccc;
+$oa-gray-lighter: #eee;
+$oa-gray-lightest: #fafafa;
+$oa-red: #da4453;
+$oa-green: #5cb85c;
+$oa-yellow: rgba(240, 194, 12, 0.6);
+
+$form-border: #aab2bd;
+
+$brand-primary: $oa-blue;
+$brand-success: $oa-green;
+$navbar-default-bg: $oa-white;
+$text-color: $oa-black;
+$input-color-placeholder: $oa-silver;
+
+$jumbotron-bg: transparent;
+$jumbotron-padding: 15px;
+
+$headings-font-weight: 300;
+
+// Social colors
+$facebook-color: #3B5A9B;
+$twitter-color: #009DEC;
+$google-color: #D44032;
+$linkedin-color: #4875B4;
+$pinterest-color: #CA2128;
+$widget-color: $oa-blue;
+$tumblr-color: #32506d;
+
+// Core variables and mixins
+
+@import "../layout/assets/stylesheets/bootstrap/variables";
+@import "../layout/assets/stylesheets/bootstrap/mixins";
+
+// Reset and dependencies
+@import "../layout/assets/stylesheets/bootstrap/normalize";
+@import "../layout/assets/stylesheets/bootstrap/print";
+//@import "../layout/assets/stylesheets/bootstrap/glyphicons";
+
+// Core CSS
+@import "../layout/assets/stylesheets/bootstrap/scaffolding";
+@import "../layout/assets/stylesheets/bootstrap/type";
+@import "../layout/assets/stylesheets/bootstrap/code";
+@import "../layout/assets/stylesheets/bootstrap/grid";
+@import "../layout/assets/stylesheets/bootstrap/tables";
+@import "../layout/assets/stylesheets/bootstrap/forms";
+@import "../layout/assets/stylesheets/bootstrap/buttons";
+
+// Components
+@import "../layout/assets/stylesheets/bootstrap/component-animations";
+@import "../layout/assets/stylesheets/bootstrap/dropdowns";
+@import "../layout/assets/stylesheets/bootstrap/button-groups";
+@import "../layout/assets/stylesheets/bootstrap/input-groups";
+@import "../layout/assets/stylesheets/bootstrap/navs";
+@import "../layout/assets/stylesheets/bootstrap/navbar";
+@import "../layout/assets/stylesheets/bootstrap/breadcrumbs";
+@import "../layout/assets/stylesheets/bootstrap/pagination";
+@import "../layout/assets/stylesheets/bootstrap/pager";
+@import "../layout/assets/stylesheets/bootstrap/labels";
+@import "../layout/assets/stylesheets/bootstrap/badges";
+@import "../layout/assets/stylesheets/bootstrap/jumbotron";
+@import "../layout/assets/stylesheets/bootstrap/thumbnails";
+@import "../layout/assets/stylesheets/bootstrap/alerts";
+@import "../layout/assets/stylesheets/bootstrap/progress-bars";
+@import "../layout/assets/stylesheets/bootstrap/media";
+@import "../layout/assets/stylesheets/bootstrap/list-group";
+@import "../layout/assets/stylesheets/bootstrap/panels";
+@import "../layout/assets/stylesheets/bootstrap/responsive-embed";
+@import "../layout/assets/stylesheets/bootstrap/wells";
+@import "../layout/assets/stylesheets/bootstrap/close";
+
+// Components w/ JavaScript
+@import "../layout/assets/stylesheets/bootstrap/modals";
+@import "../layout/assets/stylesheets/bootstrap/tooltip";
+@import "../layout/assets/stylesheets/bootstrap/popovers";
+@import "../layout/assets/stylesheets/bootstrap/carousel";
+
+// Utility classes
+@import "../layout/assets/stylesheets/bootstrap/utilities";
+@import "../layout/assets/stylesheets/bootstrap/responsive-utilities";
+
+// Font awesome
+@import "font-awesome/scss/font-awesome.scss";
+
+// Spacing
+@import "../../templates/layout/spacing";
+
+/////////////////////////////
+/////////////////////////////
+/////////////////////////////
+
+@import "../agenda/header";
+@import "../activities/style";
+
+// OA components
+@import '../components/rc-switch';
+@import '../form-components/input-with-icon';
+
+body {
+  background-color: $oa-gray-lightest;
+}
+
+.mobile-only {
+  display: block;
+
+  @media (min-width: $screen-sm-min) {
+    display: none;
+  }
+}
+
+/**
+ * white page
+ */
+.wsq {
+
+  background: $oa-white;
+  vertical-align: top;
+  text-align: left;
+
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+}
+
+/**
+ * content block of a white page
+ */
+.content {
+
+  padding: 20px 30px;
+
+}
+
+/**
+ * use for simple full page dialogs,
+ * to give them some margin from the
+ * top of the page
+ */
+.top-margined {
+
+  margin-top: 60px;
+
+}
+
+.avatar-container {
+
+  margin: 30px;
+
+}
+
+.avatar {
+
+  border: 3px solid $oa-white;
+  border-radius: 100px;
+  display: inline-block;
+  margin: auto;
+  max-width: 140px;
+  width: 100%;
+
+}
+
+.height-100-md {
+  @media (min-width: $screen-md-min) {
+    height: 100%;
+  }
+}
+
+/////////////////////////////
+/////////////////////////////
+/////////////////////////////
+
+.admin {
+
+  .header {
+
+    padding: 1em 1em 0 1em;
+
+  }
+
+  .filters {
+
+    a {
+
+      padding-right: 1em;
+
+    }
+
+  }
+
+  .agenda-item {
+
+    padding: 0 15px;
+
+    a {
+
+      color: inherit;
+      text-decoration: none;
+
+    }
+
+    .ill {
+
+      max-width: 96px;
+
+      &.avatar {
+
+        width: auto;
+
+      }
+
+    }
+
+  }
+
+  .empty {
+
+    padding: 3em 2em;
+    text-align: center;
+
+  }
+
+  .page-nav {
+
+    text-align: center;
+    padding: 1em;
+
+  }
+
+  .v-center {
+
+    display: flex;
+    align-items: center;
+
+  }
+
+  .admin-search {
+
+    border-right: 2px solid #DADADA;
+    overflow: auto;
+
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+}

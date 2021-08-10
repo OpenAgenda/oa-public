@@ -1,0 +1,114 @@
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.62);
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  > section {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    max-height: 92%;
+    background: $oa-gray-lighter;
+    border-radius: 3px;
+
+    .popup-title {
+      background-color: $oa-blue;
+      border-radius: 3px 3px 0 0;
+      color: $oa-white;
+      display: block;
+      padding: 10px 2em;
+      text-align: left;
+      width: 100%;
+      position: relative;
+
+      > h2 {
+        font-size: 16px;
+        line-height: 20px;
+        margin: 0;
+      }
+
+      > .close-link {
+        background: none;
+        border: none;
+        color: $oa-white;
+        line-height: 40px;
+        padding: 0 10px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+    }
+
+    .popup-content {
+      padding: 1em 2em;
+      overflow: auto;
+    }
+  }
+
+  &.big {
+    > section {
+      overflow-y: auto;
+      max-height: 80%;
+      background: $oa-white;
+    }
+  }
+
+  @media (min-width: 768px) {
+    > section {
+      width: 38.2%;
+    }
+  }
+}
+
+.popup-content {
+  .warning-block {
+    padding: 1em 2em;
+    border-bottom: 1px solid $state-warning-border;
+    border-top: 1px solid $state-warning-border;
+    margin: 1em -2em;
+    background-color: $oa-gray-lightest;
+
+    &.top {
+      border-top: 0;
+      margin: -1em -2em 2em -2em;
+    }
+  }
+}
+
+/*
+ if modal appears in erroring form, error should not propagate inside modal
+*/
+/* .has-error .popup-content {
+  .form-control {
+    border-color: $oa-gray-light;
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+
+    &:focus {
+      border-color: inherit;
+      -webkit-box-shadow: inherit;
+      box-shadow: inherit;
+    }
+  }
+
+  .input-group-addon {
+    color: inherit;
+    border-color: inherit;
+    background-color: inherit;
+  }
+
+  .form-control-feedback {
+    color: inherit;
+  }
+} */

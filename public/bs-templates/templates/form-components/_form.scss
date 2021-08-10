@@ -1,0 +1,27 @@
+.oa-form {
+
+  .form-group {
+    margin: 0;
+    padding: 0 0 15px;
+  }
+
+  .sub {
+
+    min-height: 1em;
+    font-size: 0.95em;
+    display: block;
+
+  }
+
+  .error {
+
+    color: $state-danger-text;
+
+  }
+
+  ul {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+}
