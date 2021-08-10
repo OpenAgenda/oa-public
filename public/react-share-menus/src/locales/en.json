@@ -8,7 +8,6 @@
   "close": "Close",
   "connection-btn": "Sign In",
   "create-agenda": "Create an agenda",
-  "date": "From {begin}, to {end}",
   "email-placeholder": "Type in the email you want to send the event to",
   "email-success": "The event was sent to {emails} email adresses.",
   "import": "Import",
@@ -31,5 +30,6 @@
   "share-email": "Send by email",
   "share-oa": "Share on OpenAgenda",
   "share-title": "Share this event",
-  "sign-in": "You need to sign in to your account to add this event to your OpenAgendas"
+  "sign-in": "You need to sign in to your account to add this event to your OpenAgendas",
+  "sign-in-agg": "You need to sign in to your account to aggregate this event."
 }

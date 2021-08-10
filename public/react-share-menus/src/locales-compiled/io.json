@@ -73,24 +73,6 @@
       "value": "Create an agenda"
     }
   ],
-  "date": [
-    {
-      "type": 0,
-      "value": "From "
-    },
-    {
-      "type": 1,
-      "value": "begin"
-    },
-    {
-      "type": 0,
-      "value": ", to "
-    },
-    {
-      "type": 1,
-      "value": "end"
-    }
-  ],
   "email-placeholder": [
     {
       "type": 0,
@@ -243,6 +225,12 @@
     {
       "type": 0,
       "value": "You need to sign in to your account to add this event to your OpenAgendas"
+    }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "You need to sign in to your account to aggregate this event."
     }
   ]
 }
