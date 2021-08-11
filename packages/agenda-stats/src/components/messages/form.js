@@ -47,7 +47,27 @@ const form = defineMessages({
   },
   componentWidth: {
     id: 'AgendaStats.form.componentWidth',
-    defaultMessage: 'Component width:',
+    defaultMessage: 'Component width',
+  },
+  metric: {
+    id: 'AgendaStats.form.metric',
+    defaultMessage: 'Metric',
+  },
+  min: {
+    id: 'AgendaStats.form.min',
+    defaultMessage: 'Minimum',
+  },
+  avg: {
+    id: 'AgendaStats.form.avg',
+    defaultMessage: 'Average',
+  },
+  max: {
+    id: 'AgendaStats.form.max',
+    defaultMessage: 'Maximum',
+  },
+  sum: {
+    id: 'AgendaStats.form.sum',
+    defaultMessage: 'Summary',
   },
 });
 

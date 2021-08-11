@@ -22,7 +22,7 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
   const enableAddChartMode = useCallback(() => setAddChartMode(true), []);
   const onCancel = useCallback(() => setAddChartMode(false), []);
   const addChart = useCallback(
-    values => {
+    async values => {
       if (!values.type) {
         return;
       }
@@ -33,7 +33,15 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
         statConfig = { separator: true };
       } else {
         const isAdditionalField = values.type.additionalField;
-        const aggType = isAdditionalField ? 'additionalFields' : values.type;
+        let aggType = values.type;
+
+        if (isAdditionalField) {
+          if (values.type.fieldSchema.fieldType === 'integer') {
+            aggType = 'additionalFieldMetrics';
+          } else {
+            aggType = 'additionalFields';
+          }
+        }
 
         statConfig = {
           aggregation: {
@@ -49,9 +57,16 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
           statConfig.aggregation.field = values.type.fieldSchema.field;
           statConfig.state.fieldSchema = values.type.fieldSchema;
         }
+
+        if (aggType === 'additionalFieldMetrics') {
+          statConfig.chart.type = 'metrics';
+          statConfig.aggregation.metrics = values.metrics;
+        }
       }
 
-      const { stat } = dispatch(statsActions.addStat(statConfig));
+      // Une promesse ? 🤔
+      const result = await dispatch(statsActions.addStat(statConfig));
+      const { stat } = result;
 
       if (stat.aggregation) {
         dispatch(statsActions.loadStat(agenda, stat.id));

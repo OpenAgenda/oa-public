@@ -112,14 +112,12 @@ function ComposedChart({
     labelKeys.forEach(k => {
       result = result.map(v => {
         const label = _.get(v, k);
-        const item = {
+
+        return {
           ...v,
           color: withDataColors ? dataColors[label] : null,
+          [k]: getLocaleValue(label, intl.locale),
         };
-
-        _.set(item, k, getLocaleValue(label, intl.locale));
-
-        return item;
       });
     });
 
