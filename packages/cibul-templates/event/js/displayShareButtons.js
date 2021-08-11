@@ -1,6 +1,5 @@
-const React = require('react');
-const { useState, useEffect } = require('react');
-const ReactDom = require('react-dom');
+import React, { useState, useEffect } from 'react';
+import ReactDom from 'react-dom';
 
 import { mergeLocales } from '@openagenda/react-shared';
 import { modalLocales } from '@openagenda/react-share-menus';

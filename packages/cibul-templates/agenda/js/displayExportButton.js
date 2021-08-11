@@ -1,7 +1,6 @@
-import React, { useImperativeHandle } from 'react';
-const {useState} = require('react');
-const ReactDom = require('react-dom');
-const qs = require('qs');
+import React, { useImperativeHandle, useEffect, useState } from 'react';
+import qs from 'qs';
+import ReactDom from 'react-dom';
 
 import { mergeLocales } from '@openagenda/react-shared';
 import { modalLocales } from '@openagenda/react-share-menus';
@@ -9,7 +8,7 @@ import { ExportModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import appLocales from '../../locales-compiled';
 
-const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, exportType }, ref) => {
+const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, exportType, query }, ref) => {
   const [display, setDisplay] = useState(false);
   const [languageQuery, setLanguageQuery] = useState('');
   const [displayedButton, setDisplayedButton] = useState(() => !!Object.keys(controller.getCurrentQuery()).length);
@@ -19,6 +18,10 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
   useImperativeHandle(ref, () => ({
     displayButton: value => setDisplayedButton(value)
   }));
+
+  useEffect(() => {
+    if(query.includes('sharemodal')) setDisplay(true);
+  }, [query]);
 
   const messages = defineMessages({
     exportAllButton: {
@@ -108,6 +111,7 @@ export default function displayExportButton(
     : (buttonLocation = document.querySelector(params.selectors.export));
   const lang = options.lang;
   const locales = mergeLocales(appLocales, modalLocales);
+  const query = window.location.href;
 
   return ReactDom.render(
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
@@ -118,6 +122,7 @@ export default function displayExportButton(
         options={options}
         res={params.res.export}
         exportType={exportType}
+        query={query}
       />
     </IntlProvider>,
     buttonLocation
