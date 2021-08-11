@@ -14,7 +14,7 @@ export default {
 export const Simple = () => (
   <>
     <p style={{ flexBasis: '60%' }}>
-      Simple icône d'aide auquel on peut attacher un message.
+      Simple icône d&apos;aide auquel on peut attacher un message.
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo id="first-popover" content="Text" />
@@ -25,8 +25,8 @@ export const Simple = () => (
 export const Content = () => (
   <>
     <p style={{ flexBasis: '60%' }}>
-      Un titre et un message s'affichent lorsqu'on hover sur l'icône d'aide.
-      L'emplacement du message est paramétrable.
+      Un titre et un message s&apos;affichent lorsqu&apos;on hover sur l&apos;icône d&apos;aide.
+      L&apos;emplacement du message est paramétrable.
     </p>
 
     <div style={{ alignSelf: 'center' }}>
@@ -44,15 +44,15 @@ Content.storyName = 'Title and text content';
 export const ContentLink = () => (
   <>
     <p style={{ flexBasis: '60%' }}>
-      L'icône est également utilisable comme lien cliquable, en complément de
-      l'affichage d'un message.
+      L&apos;icône est également utilisable comme lien cliquable, en complément de
+      l&apos;affichage d&apos;un message.
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
         id="third-popover"
         title="Link"
         content="Click on the icon"
-        link="https://openagenda.zendesk.com/"
+        link="https://doc.openagenda.com"
         placement="left"
       />
     </div>
@@ -63,12 +63,12 @@ ContentLink.storyName = 'With a link';
 export const Link = () => (
   <>
     <p style={{ flex: 1 }}>
-      Ici, l'icône n'affiche plus de message, et fait uniquement office de lien.
+      Ici, l&apos;icône n&apos;affiche plus de message, et fait uniquement office de lien.
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
         id="yetanother-popover"
-        link="https://openagenda.zendesk.com/"
+        link="https://doc.openagenda.com"
         placement="left"
       />
     </div>
@@ -93,16 +93,16 @@ Comp.storyName = 'Wrapping a component';
 export const Markdown = () => (
   <>
     <p style={{ flexBasis: '60%' }}>
-      Il est possible d'inclure du markdown dans le message.
+      Il est possible d&apos;inclure du markdown dans le message.
     </p>
     <div style={{ alignSelf: 'center' }}>
       <MoreInfo
         id="fourth-popover"
-        content={
+        content={(
           <ReactMarkdown disallowedElements={['p']} unwrapDisallowed>
             ***Ce badge est un badge !***
           </ReactMarkdown>
-        }
+        )}
       >
         <div className="badge">Un badge !</div>
       </MoreInfo>
