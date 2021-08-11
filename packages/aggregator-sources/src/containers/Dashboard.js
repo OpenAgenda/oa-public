@@ -254,10 +254,16 @@ function Dashboard({
       );
 
       if (queryValue.source && sources.length === 1) {
+        const source = sources[0];
+
+        const schema = await apiClient.get(
+          `/${source.agenda.slug}/settings/schema`
+        );
+
         dispatch(
           modalsActions.showModal('updateSource', {
-            source: sources[0],
-            schema: sources[0].schema,
+            source,
+            schema,
           })
         );
 
@@ -276,7 +282,9 @@ function Dashboard({
 
       if (_agenda?.uid) {
         dispatch(
-          modalsActions.showModal('addSource', { preselectedAgenda: _agenda })
+          modalsActions.showModal('addSource', {
+            preselectedAgenda: _agenda,
+          })
         );
       }
 
