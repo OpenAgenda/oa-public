@@ -8,7 +8,7 @@ import { AggregatorModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import appLocales from '../../locales-compiled';
 
-const AggregatorModalContainer = ({ options, query }) => {
+const AggregatorModalContainer = ({ options, query, userLogged }) => {
   const [display, setDisplay] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -31,16 +31,17 @@ const AggregatorModalContainer = ({ options, query }) => {
   }
 
   useEffect(() => {
+    if (query.includes('displayAggregatorModal=1')) setDisplay(true);
     if (query.includes('aggregateSuccess=1')) {
       setDisplay(true);
-      setSuccess(true);
+      return setSuccess(true);
     }
   }, []);
 
   return (
     <>
       <a
-        className="btn btn-default margin-bottom-xs"
+        className="btn btn-default aggregate-button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
         onMouseOut={() => setLogo(whiteLogo)}
@@ -56,16 +57,17 @@ const AggregatorModalContainer = ({ options, query }) => {
           targetAgenda={{ title: options.title, slug: options.slug }}
           res="/home/agendas"
           success={success}
+          userLogged={userLogged}
         />
       ) : null}
     </>
   );
 };
 
-export default function displayAggregateButton(params, options, query) {
+export default function displayAggregateButton(params, options, query, userLogged) {
   const buttonLocation = document.querySelector(params.selectors.aggregate);
   const lang = options.lang;
   const locales = mergeLocales(appLocales, modalLocales);
   
-  return ReactDom.render(<IntlProvider messages={locales[lang]} locale={lang} key={lang}><AggregatorModalContainer options={options} query={query} /></IntlProvider>, buttonLocation);
+  return ReactDom.render(<IntlProvider messages={locales[lang]} locale={lang} key={lang}><AggregatorModalContainer options={options} query={query} userLogged={userLogged} /></IntlProvider>, buttonLocation);
 }

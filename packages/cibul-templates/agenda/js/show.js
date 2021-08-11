@@ -59,7 +59,8 @@ const controllers = require('../../widgets/controller/main'),
       displayNone: 'display-none',
     },
   },
-  totalLib = require('./total');
+  totalLib = require('./total'),
+  session = require('@openagenda/sessions/client');
 
 let uid, log, total;
 
@@ -110,7 +111,7 @@ window.asap(options => {
       if (!ctl.prv) {
         displayExportButton(exportRef, params, uid, controller, options, { exportAll: true });
         displayExportButton(exportRef, params, uid, controller, options, { exportAll: false });
-        displayAggregateButton(params, options, initialQuery);
+        displayAggregateButton(params, options, initialQuery, !!session.getUser());
       }
 
       if (['administrator', 'moderator'].indexOf(res) !== -1) {

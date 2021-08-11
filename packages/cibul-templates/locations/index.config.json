@@ -2,7 +2,7 @@
   "layout" : "agendaAdmin/bsLayout",
 
   "bsCss" : {
-    "main" : "/../bs-templates/compiled/main.css"
+    "main" : "/../../public/bs-templates/compiled/main.css"
   },
 
   "helpers" : {

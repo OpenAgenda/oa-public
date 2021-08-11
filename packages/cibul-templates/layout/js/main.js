@@ -95,8 +95,6 @@ du.asapReady( function () {
 
   inboxConversationForm();
 
-  callToAction();
-
   translateLink();
 
   du.forEach( asaps, function ( asapHook ) {
