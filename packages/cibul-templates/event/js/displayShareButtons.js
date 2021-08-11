@@ -71,7 +71,7 @@ const ShareAllModalContainer = ({ params, userLogged, query }) => {
   const intl = useIntl();
 
   useEffect(() => {
-    if(query.includes('displayShareModal')) setDisplay(true);
+    if(query.includes('sharemodal')) setDisplay(true);
   }, [query])
  
   return (
