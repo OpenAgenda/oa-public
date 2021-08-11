@@ -33,7 +33,7 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug/action',
     (req, res, next) => {
-      return res.redirect(`/${req.params.slug}/events/${req.params.eventSlug}?displayShareModal=1`);
+      return res.redirect(`/${req.params.slug}/events/${req.params.eventSlug}?sharemodal=1`);
     },
     cmn.https,
     agendaSvc.mw.load('slug'),

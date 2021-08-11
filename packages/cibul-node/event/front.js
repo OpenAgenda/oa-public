@@ -288,7 +288,7 @@ async function agendaEventShow( req, res, next ) {
 
 function redirect( req, res, next ) {
   if ( !req.agenda || !req.event ) return next( { code: 404 } );
-  if (req.query.displayShareModal) return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?displayShareModal`);
+  if (req.query.sharemodal) return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal`);
   res.redirect( 301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}` );
 
 }
