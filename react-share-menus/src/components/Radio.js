@@ -32,7 +32,7 @@ const Radio = ({
         <span className="side-note">
           ({intl.formatMessage(messages.jsonDoc1)}
           <a
-            href="https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda"
+            href="https://developers.openagenda.com/export-json-dun-agenda/"
             target="_blank"
             rel="noopener noreferrer"
           >
