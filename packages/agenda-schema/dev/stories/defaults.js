@@ -207,7 +207,7 @@ module.exports = {
             "fr": "Définissez les horaires de votre événement",
             "en": "Specify timings for your event"
           },
-          "helpLink": "https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement"
+          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/"
         }
       ]
     }

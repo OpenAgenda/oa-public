@@ -1,6 +1,6 @@
 import rgx from './regex';
 
-module.exports = config => rgx({
+export default config => rgx({
   optional: config ? config.optional : false,
   field: config ? config.field : undefined,
   default: config && 'default' in config ? config.default : null,

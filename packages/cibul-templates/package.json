@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --ignore build --ignore node_modules app.js",
+    "extract-messages": "yarn oa:extract-messages '**/js/*.js' --out-dir 'locales' --compiled-dir 'locales-compiled'",
     "build:dev": "bnr build:dev",
     "build:prod": "bnr build:prod"
   },
@@ -98,6 +99,7 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",
+    "react-intl": "^5.12.2",
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",

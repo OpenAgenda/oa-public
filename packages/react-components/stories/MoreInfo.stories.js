@@ -33,7 +33,7 @@ export const ContentLink = () => (
     id="third-popover"
     title="Un petit titre ici"
     content="N'importe quoi par là"
-    link="https://openagenda.zendesk.com/"
+    link="https://doc.openagenda.com/"
     placement="left"
   />
 );
@@ -42,7 +42,7 @@ ContentLink.storyName = 'With a link';
 export const Link = () => (
   <MoreInfo
     id="yetanother-popover"
-    link="https://openagenda.zendesk.com/"
+    link="https://doc.openagenda.com/"
     placement="left"
   />
 );

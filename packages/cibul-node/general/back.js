@@ -4,32 +4,6 @@ const _ = require('lodash');
 const sessions = require('@openagenda/sessions');
 const cmn = require('../lib/commons-app');
 
-function callToActionRequest(req, res) {
-  const { mails } = req.app.services;
-
-  const { subject, url, agenda, message } = _.pick(req.body, 'subject', 'url', 'agenda', 'message');
-
-  mails.send({
-    template: 'callToAction',
-    to: 'commercial@openagenda.com',
-    data: {
-      user: req.user,
-      subject,
-      url,
-      agenda,
-      message
-    }
-  })
-    .then(() => {
-      res.json({ queued: true });
-    })
-    .catch(error => {
-      log('error', 'Error on sending call-to-action:', error);
-      res.json({ queued: false });
-    });
-};
-
-
 function _loadUser(detailed, req, res, next) {
   const { services } = req.app;
 
@@ -70,13 +44,6 @@ function latestInboxMessageTimestamp(req, res, next) {
 }
 
 module.exports = app => {
-  app.post(
-    '/request',
-    cmn.loadLogger('request'),
-    _loadUser.bind(null, false),
-    callToActionRequest
-  );
-
   app.get(
     '/latest-inbox-timestamp',
     cmn.loadLogger('latestInboxMessageTimestamp'),

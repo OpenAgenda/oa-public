@@ -32,19 +32,19 @@
   "service": {
     "title" : "footerService",
     "list" : [ {
-      "link" : "https://openagenda.zendesk.com/hc/fr/articles/202295681-Les-r%C3%A9utilisateurs-de-la-base-OpenAgenda",
+      "link" : "https://doc.openagenda.com/reutilisateurs-diffuseurs/",
       "label" : "footerReuse"
     }, {
       "link" : "#testimonies",
       "label" : "footerTestimonies"
     }, {
-      "link" : "https://openagenda.zendesk.com/hc/fr",
+      "link" : "https://doc.openagenda.com",
       "label" : "footerApi"
     }, {
-      "link" : "https://openagenda.zendesk.com/hc/fr/articles/201753991",
+      "link" : "https://doc.openagenda.com/conditions/",
       "label" : "footerTerms"
     }, {
-      "link" : "https://openagenda.zendesk.com/hc/fr/articles/360003182014",
+      "link" : "https://doc.openagenda.com/confidentialite/",
       "label" : "footerConfidential"
     } ]
   },

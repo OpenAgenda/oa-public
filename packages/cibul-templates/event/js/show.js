@@ -1,5 +1,7 @@
 "use strict";
 
+import displayShareButtons from './displayShareButtons';
+
 const  eventMap = require('./map');
 
 const utils = require('@openagenda/utils');
@@ -31,10 +33,14 @@ const ROLES = {
 };
 
 const defaults = {
-  selectors: {},
-  agendaUid: false,     // uid of the current agenda environment
-  ownerUid: false,      // uid of the owner
-  adminAgendaUids: []  // uids of agendas with admin rights on event
+  selectors: { 
+    shareOa: '.js_shareOnOa',
+    shareAll: '.js_shareAll',
+    shareEmail: '.js_shareEmail'
+  },
+  agendaUid: false, // uid of the current agenda environment
+  ownerUid: false, // uid of the owner
+  adminAgendaUids: [], // uids of agendas with admin rights on event
 };
 
 defaults.selectors[ROLES.EVENTEDITOR] = '.js_role_event_editor';
@@ -54,13 +60,12 @@ window.hook(options => {
       destination: '.js_hours',
       right: '.js_right',
       left: '.js_left',
-      months: '.js_months'
+      months: '.js_months',
     }
   }));
 });
 
 window.asap(options => {
-
   const params = utils.extend({
     agendaUid: null,
     hasCustomFields: false,
@@ -116,6 +121,7 @@ window.asap(options => {
 
   });
 
+  displayShareButtons(params, !!session.getUser());
   eventMap();
 });
 

@@ -53,9 +53,6 @@ const config = {
     logo: prod.logo,
     googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
     embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
-    externalScripts: {
-      zendesk: prod.zendesk && prod.zendesk.widget
-    },
     useCache: false,
     agendaCacheExpire: 30 * 1000,
     shares: {

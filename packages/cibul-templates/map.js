@@ -24,8 +24,6 @@ module.exports = [
   'event/action',
   'event/embedShow',
   'event/action',
-  'eventForm/index',
-  'eventFormTags/index',
   'dialog/index',
   'search/agendas',
   'search/events',

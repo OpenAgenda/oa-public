@@ -119,6 +119,7 @@ function Dashboard({
   const agendaSources = useSelector(state => state.sources.data);
   const nextLoading = useSelector(state => state.sources.nextLoading);
   const modals = useSelector(state => state.modals);
+  const dev = useSelector(state => state.dev);
 
   const fuse = useMemo(() => new Fuse(agendaSources || [], fuseOptions), [
     agendaSources,
@@ -239,36 +240,66 @@ function Dashboard({
     dispatch(sourcesActions.loadAggregator(params.slug));
   }, [dispatch, params.slug]);
 
+  const queryValue = dev?.query ?? query;
+
   useEffect(() => {
-    if (!loaded || !query.addSource) {
+    if (!loaded || !queryValue.source) {
       return;
     }
 
     (async () => {
+      const { sources } = await apiClient.get(
+        res.list.replace(':slug', aggregatorAgenda.slug),
+        { params: { slug: queryValue.source } }
+      );
+
+      if (queryValue.source && sources.length === 1) {
+        const source = sources[0];
+
+        const schema = await apiClient.get(
+          `/${source.agenda.slug}/settings/schema`
+        );
+
+        dispatch(
+          modalsActions.showModal('updateSource', {
+            source,
+            schema,
+          })
+        );
+
+        return history.replace({
+          ...history.location,
+          search: qs.stringify({ ...queryValue, source: undefined }),
+        });
+      }
+
       const [_agenda, schema] = await Promise.all([
-        apiClient.get(res.getAgenda.replace(':slug', query.addSource)),
-        apiClient.get(`/${query.addSource}/settings/schema`),
+        apiClient.get(res.getAgenda.replace(':slug', queryValue.source)),
+        apiClient.get(`/${queryValue.source}/settings/schema`),
       ]).catch(() => []);
 
       _agenda.schema = schema;
 
       if (_agenda?.uid) {
         dispatch(
-          modalsActions.showModal('addSource', { preselectedAgenda: _agenda })
+          modalsActions.showModal('addSource', {
+            preselectedAgenda: _agenda,
+          })
         );
       }
 
       history.replace({
         ...history.location,
-        search: qs.stringify({ ...query, addSource: undefined }),
+        search: qs.stringify({ ...queryValue, source: undefined }),
       });
     })();
   }, [
     dispatch,
-    query.addSource,
+    aggregatorAgenda.slug,
+    res.list,
     res.getAgenda,
     loaded,
-    query,
+    queryValue,
     apiClient,
     history,
   ]);

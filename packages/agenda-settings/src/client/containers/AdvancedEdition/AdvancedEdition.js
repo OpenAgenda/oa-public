@@ -13,9 +13,9 @@ import * as  agendaActions from '../../reducers/agenda';
 import * as  modalsActions from '../../reducers/modals';
 import * as  keysActions from '../../reducers/keys';
 
-const zendeskRes = {
-  official: 'https://openagenda.zendesk.com/hc/articles/115001581185',
-  private: 'https://openagenda.zendesk.com/hc/fr/articles/115001584389'
+const docRes = {
+  official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',
+  private: 'https://doc.openagenda.com/visibilite-des-agendas'
 };
 
 @connect(
@@ -103,7 +103,7 @@ export default class ContributionEdition extends Component {
               <b className="text-muted">{getLabel( agenda.official ? 'officialAgenda' : 'nonOfficialAgenda' )}</b>,
               <div>
                 {agenda.official
-                  ? <a href={zendeskRes.official} target="_blank">{getLabel( 'learnMore' )}</a>
+                  ? <a href={docRes.official} target="_blank">{getLabel( 'learnMore' )}</a>
                   : <div>
                     <a
                       className="margin-right-sm"
@@ -113,7 +113,7 @@ export default class ContributionEdition extends Component {
                       {getLabel( 'requestOfficialAgenda' )}
                     </a>
                     <a
-                      href={zendeskRes.official}
+                      href={docRes.official}
                       target="_blank"
                     >
                       {getLabel( 'learnMore' )}
@@ -159,8 +159,9 @@ export default class ContributionEdition extends Component {
                       {getLabel( 'requestPublicAgenda' )}
                     </a>
                     <a
-                      href={zendeskRes.private}
+                      href={docRes.private}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {getLabel( 'learnMore' )}
                     </a>
@@ -174,8 +175,9 @@ export default class ContributionEdition extends Component {
                       {getLabel( 'requestPrivateAgenda' )}
                     </a>
                     <a
-                      href={zendeskRes.private}
+                      href={docRes.private}
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {getLabel( 'learnMore' )}
                     </a>

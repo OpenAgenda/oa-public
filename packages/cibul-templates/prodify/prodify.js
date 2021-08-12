@@ -86,7 +86,7 @@ var ugly = require( 'uglify-js' ),
 
   _copyBsCss = function ( cb ) {
 
-    var src = fs.createReadStream( __dirname + '/../../bs-templates/compiled/main.css' ),
+    var src = fs.createReadStream( __dirname + '/../../../public/bs-templates/compiled/main.css' ),
 
       dest = fs.createWriteStream( __dirname + '/../../../../cibul-symfony/web/css/oasfmain.css' );
 

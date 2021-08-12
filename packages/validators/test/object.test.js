@@ -1,132 +1,115 @@
-"use strict";
+import validators from '../src';
 
-const validators = require( '../src' ), utils = require( '@openagenda/utils' );
+describe('object validator', () => {
+  describe('basic', () => {
+    it('object validator can take in a list of validators as configuration. clean values are given as a list', () => {
+      const validate = validators.object([
+        validators.text({ field: 'name', min: 3, max: 300 }),
+        validators.text({ field: 'code', min: 3, max: 20 })
+      ]);
 
-describe( 'object validator', () => {
-
-  describe( 'basic', () => {
-
-    it( 'object validator can take in a list of validators as configuration. clean values are given as a list', () => {
-
-      let validate = validators.object( [
-        validators.text( { field: 'name', min: 3, max: 300 } ),
-        validators.text( { field: 'code', min: 3, max: 20 } )
-      ] ),
-
-      cleanValue = validate( [ {
+      const cleanValue = validate([{
         field: 'name',
         value: 'Okay'
       }, {
         field: 'code',
         value: 'José'
-      } ] );
+      }]);
 
-      expect(cleanValue).toEqual([ {
+      expect(cleanValue).toEqual([{
         field: 'name',
         value: 'Okay'
       }, {
         field: 'code',
         value: 'José'
-      } ]);
+      }]);
+    });
 
-    } );
+    it('errors are thrown as a list when validators are given as a list', () => {
+      const validate = validators.object([
+        validators.text({ field: 'name', min: 3, max: 300 }),
+        validators.text({
+          field: 'code',
+          min: 3,
+          max: 20,
+          optional: false
+        })
+      ]);
 
-    it( 'errors are thrown as a list when validators are given as a list', () => {
-
-      let validate = validators.object( [
-        validators.text( { field: 'name', min: 3, max: 300 } ),
-        validators.text( { field: 'code', min: 3, max: 20, optional: false } ) 
-      ] ),
-
-      errors = null;
+      let errors = null;
 
       try {
-
-        validate( [ {
+        validate([{
           field: 'name',
           value: 1
-        } ] );
-
-      } catch( e ) {
-
+        }]);
+      } catch (e) {
         errors = e;
-
       }
 
-      expect(errors).toEqual([ {
+      expect(errors).toEqual([{
         field: 'name',
         code: 'string.tooshort',
         message: 'the string is too short',
         values: { min: 3, max: 300 },
-        origin: 1 
+        origin: 1
       }, {
         field: 'code',
         code: 'required',
         message: 'a string is required',
-        origin: undefined 
-      } ]);
+        origin: undefined
+      }]);
+    });
+  });
 
-    } );
+  describe('inception', () => {
+    const validate = validators.object([
+      validators.text({ field: 'name', min: 3 }),
+      validators.object({ field: 'details' }, [
+        validators.email({ field: 'contact', optional: false })
+      ])
+    ]);
 
-  } );
-
-  describe( 'inception', () => {
-
-    let validate = validators.object( [
-      validators.text( { field: 'name', min: 3 } ),
-      validators.object( { field: 'details' }, [
-        validators.email( { field: 'contact', optional: false } )
-      ] )
-    ] );
-
-    it( 'clean values are always given in a flat array', () => {
-
-      let clean = validate( [ {
+    it('clean values are always given in a flat array', () => {
+      const clean = validate([{
         field: 'name',
         value: 'valid'
       }, {
         field: 'details',
-        value: [ {
+        value: [{
           field: 'contact',
           value: 'contact@email.com'
-        } ]
-      } ] );
+        }]
+      }]);
 
-      expect(clean).toEqual([ {
+      expect(clean).toEqual([{
         field: 'name',
         value: 'valid'
       }, {
         field: 'details.contact',
         value: 'contact@email.com'
-      } ]);
+      }]);
+    });
 
-
-    } );
-
-    it( 'errors are always given in a flat array', () => {
-
+    it('errors are always given in a flat array', () => {
       let errors;
 
       try {
-
-        validate( [ {
+        validate([{
           field: 'name',
           value: 'f'
         }, {
           field: 'details',
-          value: [ {
+          value: [{
             field: 'contact',
             value: 'fdsqfdq'
-          } ]
-        } ] )
-
-      } catch( e ) {
-
+          }]
+        }]);
+      } catch (e) {
         errors = e;
-
       }
 
-      expect(errors).toEqual([ {
+      expect(errors).toEqual([{
         field: 'name',
         code: 'string.tooshort',
         message: 'the string is too short',
@@ -137,10 +120,7 @@ describe( 'object validator', () => {
         code: 'email.invalid',
         message: 'email is not valid',
         origin: 'fdsqfdq'
-      } ]);
-
-    } );
-
-  } );
-
-} );
+      }]);
+    });
+  });
+});

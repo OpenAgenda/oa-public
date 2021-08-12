@@ -1,0 +1,32 @@
+{
+  "aggregate-button": [
+    {
+      "type": 0,
+      "value": "Aggregate"
+    }
+  ],
+  "export-all-button": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "export-select-button": [
+    {
+      "type": 0,
+      "value": "Export the selection"
+    }
+  ],
+  "more-button": [
+    {
+      "type": 0,
+      "value": "more"
+    }
+  ],
+  "share-button": [
+    {
+      "type": 0,
+      "value": "Share on OpenAgenda"
+    }
+  ]
+}

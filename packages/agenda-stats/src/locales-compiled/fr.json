@@ -268,18 +268,6 @@
       "value": "Filtres"
     }
   ],
-  "AgendaStats.Dashboard.lessFilters": [
-    {
-      "type": 0,
-      "value": "Afficher moins de filtres"
-    }
-  ],
-  "AgendaStats.Dashboard.moreFilters": [
-    {
-      "type": 0,
-      "value": "Afficher plus de filtres"
-    }
-  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -745,6 +733,12 @@
       "value": "Ajouter"
     }
   ],
+  "AgendaStats.form.avg": [
+    {
+      "type": 0,
+      "value": "Moyenne"
+    }
+  ],
   "AgendaStats.form.cancel": [
     {
       "type": 0,
@@ -760,7 +754,25 @@
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
-      "value": "Largeur du composant:"
+      "value": "Largeur du composant"
+    }
+  ],
+  "AgendaStats.form.max": [
+    {
+      "type": 0,
+      "value": "Maximum"
+    }
+  ],
+  "AgendaStats.form.metric": [
+    {
+      "type": 0,
+      "value": "Métrique"
+    }
+  ],
+  "AgendaStats.form.min": [
+    {
+      "type": 0,
+      "value": "Minimum"
     }
   ],
   "AgendaStats.form.oneColumn": [
@@ -791,6 +803,12 @@
     {
       "type": 0,
       "value": "Séparateur"
+    }
+  ],
+  "AgendaStats.form.sum": [
+    {
+      "type": 0,
+      "value": "Somme"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [
