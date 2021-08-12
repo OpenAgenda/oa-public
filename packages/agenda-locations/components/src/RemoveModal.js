@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
-import { Modal } from '@openagenda/react-components';
+import Modal from '@openagenda/react-shared/src/components/Modal';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 const log = debug('RemoveModal');
