@@ -67,6 +67,7 @@ describe('agenda-locations - functional - get', () => {
 
     beforeAll(async () => {
       location = await svc.get(51665987);
+      console.log(location);
     });
 
     it('location is the result', () => {
