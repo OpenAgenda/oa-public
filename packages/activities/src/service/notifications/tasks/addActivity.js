@@ -163,13 +163,14 @@ function addActivity( config ) {
 
             const createNewStoreKey = key => {
               const values = Array.from( notif.store[ key + 's' ] );
-              if ( values.includes( activity[ key ] ) ) {
+              const value = activity[ key ];
+              if ( !value || values.includes( value ) ) {
                 return values;
               }
               if ( values.length >= 100 ) {
                 return { 0: values[ 0 ], length: 101 };
               }
-              return values.concat( activity[ key ] );
+              return values.concat( value );
             };
 
             const store = Object.assign( {}, notif.store, {
@@ -185,7 +186,7 @@ function addActivity( config ) {
 
             if (
               [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notif.verb )
-              && store.objects.includes( `${feed.entityType}:${feed.entityUid}` )
+              && store.objects?.includes( `${feed.entityType}:${feed.entityUid}` )
             ) {
 
               return addActivity(
