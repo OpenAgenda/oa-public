@@ -38,6 +38,7 @@
   "AgendaLocations.LocationDetails.district": "District",
   "AgendaLocations.LocationDetails.email": "Contact email",
   "AgendaLocations.LocationDetails.emptyGeo": "Empty",
+  "AgendaLocations.LocationDetails.extId": "External Identifier",
   "AgendaLocations.LocationDetails.hoverInfo": "This information is not correct? Click on the button on top of this menu to detail the changes to bring",
   "AgendaLocations.LocationDetails.image": "Image",
   "AgendaLocations.LocationDetails.insee": "INSEE code",

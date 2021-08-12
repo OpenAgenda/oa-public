@@ -268,6 +268,12 @@
       "value": "Empty"
     }
   ],
+  "AgendaLocations.LocationDetails.extId": [
+    {
+      "type": 0,
+      "value": "External Identifier"
+    }
+  ],
   "AgendaLocations.LocationDetails.hoverInfo": [
     {
       "type": 0,

@@ -419,6 +419,7 @@ class AgendaAdminLocations extends Component {
 
     return (
       <Modal
+        title={modal.location.name}
         classNames={{ overlay: 'popup-overlay big' }}
         onClose={this.actions.closeModal}
       >
@@ -431,13 +432,6 @@ class AgendaAdminLocations extends Component {
           staticTiles={staticTiles}
           agenda={agenda}
         />
-        <button
-          type="button"
-          onClick={this.actions.closeModal}
-          className="btn btn-danger padding-h-xs"
-        >
-          <FormattedMessage {...messages.closeModal} />
-        </button>
       </Modal>
     );
   }
