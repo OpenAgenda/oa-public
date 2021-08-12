@@ -3998,7 +3998,7 @@ __metadata:
     rimraf: ^3.0.1
     use-debounce: ^6.0.1
   peerDependencies:
-    final-form: ^4.18.5
+    final-form: ^4.20.2
     react: ^16.12.0
     react-dom: ^16.12.0
   languageName: unknown
@@ -4157,7 +4157,7 @@ __metadata:
     rrule: ^2.6.8
     text-mask-addons: ^3.8.0
   peerDependencies:
-    final-form: ^4.18.5
+    final-form: ^4.20.2
     react: ^16.12.0
   languageName: unknown
   linkType: soft
@@ -12982,12 +12982,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"final-form@npm:4.20.1":
-  version: 4.20.1
-  resolution: "final-form@npm:4.20.1"
+"final-form@npm:4.20.2":
+  version: 4.20.2
+  resolution: "final-form@npm:4.20.2"
   dependencies:
     "@babel/runtime": ^7.10.0
-  checksum: 250636cd1448829ff80560b50bf6b8e62fe8ef399f07f7370adbdae3812181092133bbae642e4ca0ddaba860779bceabe9500517c90bd1e617584df25c880b8b
+  checksum: 7a006228bd5e284e84e944e8f46f641fd830284d0c1681f73bf8b9c79e52d79e39e666ab3958f4d480015781079de495ad4d0e0dc1811b3dc7dfbd6ef31ab96c
   languageName: node
   linkType: hard
 
