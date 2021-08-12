@@ -1,0 +1,46 @@
+.event-item {
+
+  @extend .agenda-item;
+
+  padding: 0!important;
+
+  .media-body > a {
+
+    color: inherit;
+    display: block!important;
+
+  }
+
+  .avatar {
+
+    border: none;
+
+  }
+
+  &.media {
+    margin-top: 0;
+  }
+
+  &:hover {
+    background: $oa-gray-lightest;
+  }
+
+  .actions {
+
+    padding-top: 0.5em;
+
+  }
+
+  &.draft {
+
+    border-left: 4px solid $oa-gray-lightish;
+
+    background: lighten( $oa-gray-lighter, 4 );
+
+    &:hover {
+      background: lighten( $oa-gray-lighter, 3 );
+    }
+
+  }
+
+}

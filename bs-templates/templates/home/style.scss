@@ -1,0 +1,184 @@
+@import "../layout/base";
+@import "../components/agenda-item";
+@import "event-item";
+@import "../components/nav";
+@import "../form-components/input-with-icon";
+
+.home {
+  .wsq {
+    min-height: 200px;
+    position: relative;
+  }
+
+  .home-nav {
+    margin: 0 0 0 16px;
+
+    li {
+      h2,
+      a {
+        font-weight: normal;
+        font-size: 18px;
+        padding: 10px;
+        margin: 0;
+        color: $oa-gray;
+      }
+
+      &.active h2 {
+        color: $oa-black;
+        border-bottom: 3px solid $oa-blue;
+      }
+
+      a:hover {
+        text-decoration: none;
+        color: $oa-blue;
+      }
+
+      @media (min-width: $screen-xs) {
+        margin: 0 10px;
+
+        h2,
+        a {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  > .row.wsq {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .btn-collapse-nav i {
+    color: #7b8b8c;
+  }
+
+  h2 {
+    margin: 0 0 32px;
+  }
+
+  .search {
+    width: 50%;
+  }
+
+  .agenda-item {
+    padding: 1em 0;
+
+    .media-left img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .media-body {
+      .event-detail-part {
+        font-size: 13px;
+      }
+
+      .actions {
+        font-size: 14px;
+
+        a:hover,
+        a:focus {
+          text-decoration: underline;
+        }
+
+        a + a {
+          margin-left: 12px;
+        }
+      }
+    }
+  }
+
+  .header {
+    padding-top: 20px;
+  }
+
+  .new-user {
+    h2 {
+      display: block;
+    }
+  }
+
+  @media (max-width: $screen-sm) {
+    & > .row.wsq {
+      flex-direction: column;
+    }
+
+    h2 {
+      margin: 0;
+    }
+
+    .search {
+      width: 100%;
+    }
+
+    .header {
+      padding: 20px 30px;
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    .nav {
+      padding: 20px 0;
+    }
+  }
+}
+
+.home.home-events {
+  .event-item {
+    .media-left img {
+      border-radius: 0;
+    }
+
+    .media-body {
+      vertical-align: baseline;
+
+      .media-heading {
+        .agenda {
+          font-size: 13px;
+          font-style: italic;
+          margin-bottom: 4px;
+        }
+
+        .badge {
+          vertical-align: baseline;
+        }
+      }
+    }
+  }
+
+  .popup-overlay {
+    section {
+      height: 90%;
+
+      .popup-content {
+        form .form-group.search {
+          width: 100%;
+        }
+
+        .agenda-item {
+          padding: 0;
+
+          .media-left img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: $screen-sm) {
+    & > .row.wsq {
+      flex-direction: column;
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    .event-item {
+      .media-body {
+        padding-right: 40px;
+      }
+    }
+  }
+}

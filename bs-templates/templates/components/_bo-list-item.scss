@@ -1,0 +1,63 @@
+/* 'bo' such as back-office */
+
+.bo-list-item {
+
+  padding: 1em;
+  overflow: visible;
+
+  .media-left, .media-right {
+
+    vertical-align: middle;
+
+    img {
+
+      width: auto;
+      max-width: 96px;
+
+    }
+
+  }
+
+  .media-body {
+
+    vertical-align: middle;
+    overflow: visible;
+
+    .actions {
+
+      font-size: 13px;
+
+      p {
+
+        margin-bottom: 4px;
+
+      }
+
+      a, button.btn.btn-link {
+        font-size: 13px;
+        text-decoration: none;
+        color: #777777;
+        padding: 0;
+
+        &:hover {
+          color: #41acdd;
+        }
+      }
+
+      button.btn.btn-link {
+        padding-bottom: 1px;
+      }
+
+    }
+
+  }
+
+  a, button.btn.btn-link {
+
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+
+  }
+
+}

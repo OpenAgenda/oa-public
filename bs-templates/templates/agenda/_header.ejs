@@ -1,0 +1,51 @@
+<header class="agenda-header">
+  <div class="container profile notheme">
+    <div class="row">
+      <div class="col-sm-2 avatar-container">
+        <a href="#agendaShow%7B%22slug%22:%22la-gargouille%22%7D">
+          <img class="avatar" src="//cibul.s3.amazonaws.com/review_cheznous_598_00.jpg" alt="L'agenda de la Gargouille">
+        </a>
+      </div><!--
+      --><div class="col-sm-7 title-container">
+        <a href="#agendaShow%7B%22slug%22:%22la-gargouille%22%7D">
+          <div class="agenda-title">
+            <h1>L'agenda de la Gargouille</h1>
+            <div class="agenda-badges">
+              <% include ../components/_official-big %>
+              <div class="tooltip-icon big">
+                <i class="fa fa-unlock-alt"></i>
+                <div class="tooltip right" role="tooltip">
+                  <div class="tooltip-arrow"></div>
+                  <div class="tooltip-inner">Agenda privé</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>Evénements sur Paris</p>
+        </a>
+        <p><a target="_blank" href="http://cibul.net">http://cibul.net</a></p>
+        <% if ( typeof actions !== 'undefined' ) { %><% include _actions.ejs %><% } %>
+      </div><!--
+      --><div class="col-sm-3 action-container">
+        <p class="share">Partager&nbsp;:
+          <a rel="nofollow" href="#agendaShare%7B%22slug%22:%22chez-nous%22,%22service%22:%22twitter%22%7D" class="tw" target="_blank">
+            <i class="fa fa-twitter"></i>
+            <span>twitter</span>
+          </a>
+          <a rel="nofollow" href="#agendaShare%7B%22slug%22:%22chez-nous%22,%22service%22:%22facebook%22%7D" class="fb" target="_blank">
+            <i class="fa fa-facebook"></i>
+            <span>facebook</span>
+          </a>
+          <a rel="nofollow" href="#agendaShare%7B%22slug%22:%22chez-nous%22,%22service%22:%22googlePlus%22%7D" class="gp" target="_blank">
+            <i class="fa fa-google-plus"></i>
+            <span>google plus</span>
+          </a>
+          <a rel="nofollow" href="#agendaShare%7B%22slug%22:%22chez-nous%22,%22service%22:%22linkedIn%22%7D" class="li" target="_blank">
+            <i class="fa fa-linkedin"></i>
+            <span>linkedin</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</header>

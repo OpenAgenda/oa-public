@@ -1,0 +1,157 @@
+.agenda-body {
+
+  position: relative;
+  min-height: 400px;
+
+}
+
+#agenda {
+
+  background-color: $oa-gray-lighter;
+
+  .map-canvas {
+
+    min-height: 300px;
+
+  }
+
+  .total {
+
+    text-align: center;
+    padding-bottom: 1em;
+
+  }
+
+  .filters {
+
+    margin: 0;
+
+  }
+
+  .event-card {
+
+    background: white;
+    border: 1px solid $oa-gray-lighter;
+
+  }
+
+  .fav {
+    font-size: 1.4em;
+
+    i {
+      color: $oa-gray;
+    }
+
+    i.active {
+      color: $oa-blue;
+    }
+  }
+
+  .event-title {
+
+    .status {
+      vertical-align: middle;
+    }
+
+    h3 {
+      vertical-align: middle;
+      display: inline-block;
+      padding: 0;
+      font-size: 22px;
+    }
+
+  }
+
+  .metas {
+
+    li {
+
+      color: $oa-silver;
+
+    }
+
+  }
+
+  .col-aside {
+
+    font-weight: 300;
+
+    @media (min-width: 1200px) {
+      padding-left: 70px;
+      padding-right: 0;
+    }
+
+  }
+
+  .list-group-item {
+    list-style-type: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    .item {
+      color: $oa-gray;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      padding: 10px 45px 10px 30px;
+      text-align: left;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+
+      &.bullet:after {
+        background: white;
+        border-radius: 30px;
+        color: $oa-gray-lighter;
+        content: "";
+        font-family: FontAwesome;
+        height: 20px;
+        position: absolute;
+        right: 15px;
+        text-align: center;
+        width: 20px;
+      }
+
+      &.active:hover {
+        color: $oa-blue;
+
+        &.bullet:after {
+          background: $oa-silver;
+          border: 5px solid $oa-white;
+        }
+      }
+
+      &.selected {
+        color: $oa-blue;
+
+        &:after {
+          background: $oa-blue;
+          border: 5px solid $oa-white;
+        }
+
+        &:hover:after {
+          color: $oa-blue;
+        }
+      }
+
+      &.active {
+        color: $oa-black;
+      }
+    }
+  }
+
+  footer {
+
+    span {
+
+      color: $oa-gray-light;
+
+    }
+
+  }
+
+}

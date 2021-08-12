@@ -1,0 +1,63 @@
+.dropdown-menu {
+
+  ul, li, span, h4, .media-body {
+
+    color: inherit;
+    background-color: transparent;
+
+  }
+
+  li {
+
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+
+      background-color: transparent;
+
+    }
+
+    a:hover,
+    .media:hover {
+
+      color: $oa-white;
+      background-color: $oa-blue;
+
+    }
+
+    .media {
+
+      padding: 0.4em 0.8em;
+      cursor: pointer;
+      margin: 0;
+      width: 10000px;
+      display: table-cell;
+
+      h4 {
+        font-size: 1em;
+        font-weight: bold;
+      }
+
+    }
+
+    &.empty {
+
+      padding: 1em 0;
+      text-align: center;
+      
+      display: table-cell;
+      vertical-align: top;
+      width: 10000px;
+
+      p {
+
+        margin: 0;
+
+      }
+
+    }
+
+  }
+  
+}  

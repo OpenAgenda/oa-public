@@ -1,0 +1,14 @@
+.field-counter {
+  
+  float: right;
+
+  font-size: 0.9em;
+  color: $oa-gray;
+
+  &.error {
+
+    color: $oa-red;
+
+  }
+
+}

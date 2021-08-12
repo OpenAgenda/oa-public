@@ -1,0 +1,273 @@
+.activity-admin {
+
+  .spin-canvas {
+    background-color: transparent;
+  }
+
+}
+
+.activity-user, .activity-admin, .activity-agenda-admin, .js_activities .event-content {
+
+  ul {
+
+    label.small {
+
+      line-height: 20px;
+
+    }
+
+    .activity-item {
+
+      color: $oa-gray;
+
+      .activity-highlight {
+
+        color: $oa-black;
+
+      }
+
+    }
+
+  }
+
+}
+
+.activity-admin {
+
+  ul.filters {
+
+    li.active {
+
+      border: 1px solid $oa-gray-light;
+      border-radius: 4px;
+
+      a {
+
+        background: $oa-white;
+        color: #413a42;
+        padding-right: 30px;
+
+        &:after {
+
+          content: "\f00c";
+          font-family: FontAwesome;
+          height: 20px;
+          line-height: 40px;
+          position: absolute;
+          right: 2px;
+          top: -1px;
+          width: 20px;
+
+        }
+
+        &:hover {
+
+          background: $oa-red;
+          color: $oa-white;
+
+          &:after {
+
+            content: "\f00d";
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .activity-item .activity-highlight {
+
+    position: relative;
+
+    &:hover .fa.fa-filter {
+
+      display: inline-block;
+
+    }
+
+    .fa.fa-filter {
+
+      display: none;
+      position: absolute;
+      right: -6px;
+      top: -4px;
+      vertical-align: super;
+      font-size: smaller;
+      color: $oa-blue;
+      cursor: pointer;
+      padding: 0 0 6px 6px;
+
+    }
+
+  }
+
+}
+
+.notifications-body {
+
+  width: 470px;
+  position: absolute;
+  right: -15px;
+  max-height: 350px;
+  overflow: hidden;
+  margin: 0 15px 15px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-color: lighten($oa-white, 3);
+
+  &.loading {
+
+    height: 100px;
+
+  }
+
+  .list-group {
+
+
+    margin-bottom: 0;
+
+    > .next-item, > .read-all-item {
+
+      padding: 6px 12px !important;
+
+      &:first-child {
+
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+
+      }
+
+      button.btn.btn-link {
+
+        padding: 0 !important;
+        color: $oa-blue;
+
+      }
+
+    }
+
+    .datetime {
+
+      padding-top: 4px !important;
+      font-size: 12px;
+
+    }
+
+    .notif-item {
+
+      color: $oa-gray;
+
+      .notif-highlight {
+
+        color: $oa-black;
+
+      }
+
+    }
+
+    a.list-group-item {
+
+      position: relative;
+
+      /* see #note1 */
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      /* see #note1 */
+
+      &:not(.read) {
+
+        background-color: lighten($oa-blue, 41) !important;
+
+      }
+
+      &:hover {
+
+        background-color: lighten($oa-gray-lighter, 3) !important;
+
+        &.read button.btn.btn-link.mark-read {
+
+          visibility: hidden;
+
+        }
+
+        button.btn.btn-link {
+
+          visibility: visible;
+
+        }
+
+      }
+
+      button.btn.btn-link {
+
+        visibility: hidden;
+        padding: 0 !important;
+        margin: 8px 0 8px 14px !important;
+        color: $oa-blue;
+
+        &:first-child {
+
+          margin-top: 0 !important;
+
+        }
+
+        &:last-child {
+
+          position: absolute;
+          bottom: 0;
+          right: 14px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+.activity-list {
+
+  li {
+
+    padding-bottom: 1em;
+
+    .activity-time {
+
+      display: block;
+      color: $oa-gray;
+
+    }
+
+    .activity-info {
+
+      display: block;
+      padding-bottom: 0.3em;
+
+    }
+
+  }
+
+}
+
+/* #note1 */
+@media screen and (max-width: 768px) {
+
+  .notifications-body {
+
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+}
+
+/* #note1 force style and variable values for compatibility with oaCss styles of cibul-template projects ( see .config files with oaCss keys ) */
