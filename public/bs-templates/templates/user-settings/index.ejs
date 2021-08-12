@@ -1,0 +1,235 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container user-settings">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="top-margined wsq">
+				<div class="content">
+					<div class="header">
+						<h2>Paramètres du compte</h2>
+					</div>
+					<div class="table-responsive" style="padding:15px 0;position:relative;overflow:hidden;">
+						<table class="table table-hover">
+							<tbody>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Profil utilisateur
+								</td>
+								<td style="cursor:pointer;">Modifier</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Image de profil
+								</td>
+								<td style="cursor:pointer;">Modifier</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Email
+								</td>
+								<td>
+                  <div class="form-group margin-bottom-lg">
+                    <label>Appliquer les paramètres suivants pour tous les agendas</label>
+                    <% include ../agenda-settings/_activity-emails %>
+                    <button class="margin-top-xs btn btn-primary">Appliquer</button>
+                  </div>
+                  <div class="form-group margin-bottom-lg">
+                    <label>Envois par agenda</label>
+                    <ul class="list-unstyled">
+                      <li class="padding-v-xs">
+                        <strong class="margin-right-xs">La gargouille</strong>
+                        <span class="mute">Tout recevoir</span>
+                      </li>
+                      <li class="padding-v-xs">
+                        <strong class="margin-right-xs">JEP 2018 - Réunion</strong>
+                        <span class="mute">Nouvelle contribution, mise à jour</span>
+                      </li>
+                      <li class="padding-v-xs">
+                        <strong class="margin-right-xs">Métropole Européenne de Lille</strong>
+                        <span class="mute">Ne rien recevoir</span>
+                      </li>
+
+                      <li class="padding-v-xs">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" value="" checked>
+                            <strong>Semaine contre le racisme</strong>
+                          </label>
+                        </div>
+                        <div class="margin-left-md">
+                          <% include ../agenda-settings/_activity-emails %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="checkbox">                          
+                          <label>
+                            <input type="checkbox" value="">
+                            <strong>Ville de Genève</strong>
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <label>Paramètres généraux</label>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="">
+                        Je ne veux plus recevoir d'emails en provenance d'OpenAgenda
+                      </label>
+                    </div>
+                  </div>
+                </td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Mot de passe
+								</td>
+								<td style="cursor:pointer;">Modifier</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Clés API
+								</td>
+								<td style="cursor:pointer;">
+									Voir vos clés API
+								</td>
+							</tr>
+							</tbody>
+						</table>
+
+						<table class="table table-hover">
+							<tbody>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Profil utilisateur
+								</td>
+								<td>
+									<div style="padding:0 5px;">
+										<form style="padding-bottom:8px;">
+											<div class="form-group">
+												<label for="full_name">Nom complet *</label>
+												<input type="text" class="form-control" name="full_name" value="Gaetan Latouche">
+											</div>
+											<div class="form-group"><label for="culture">Langue *</label>
+												<select name="culture" class="form-control">
+													<option selected="" value="fr">Français</option>
+													<option value="en">Anglais</option>
+												</select></div>
+											<div class="form-inline pull-left">
+												<button type="submit" class="btn btn-primary">Sauvegarder</button>
+											</div>
+											<div class="pull-right"><a href="#" class="text-danger">Supprimer mon compte</a></div>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">
+									Image de profil
+								</td>
+								<td>
+									<div style="padding:0 5px;">
+										<div class="image-upload"><label>Image</label>
+											<form class="" method="post" enctype="multipart/form-data" target="frame23018" action="/uploadProfileImage">
+												<div class="form-inline actions"><a class="btn btn-default"><i class="fa fa-trash"></i></a>
+													<div class="form-group upload-group">
+														<input name="image" type="file" accept=".png, .gif, .jpg, .jpeg, .bmp">
+														<button tabindex="-1" class="btn btn-default">
+															<i class="fa fa-upload"></i>
+														</button>
+													</div>
+												</div>
+												<span></span><input type="hidden" name="callback" value="uploadCallback41775">
+												<img src="//graph.facebook.com/100002280111541/picture?rand=0.5295942706186294">
+											</form>
+											<iframe name="frame23018" style="display:none;"></iframe>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">Email</td>
+								<td>
+									<div style="padding:0 5px;">
+										<form style="padding-bottom:8px;">
+											<div class="form-group">
+												<label for="email">Email *</label>
+												<input type="text" class="form-control" name="email" value="gaetan@cibul.net">
+											</div>
+											<div class="form-group">
+												<label for="password">Mot de passe *</label>
+												<input type="password" class="form-control" name="password" value="">
+											</div>
+											<div class="form-inline pull-left">
+												<button type="submit" class="btn btn-primary">Sauvegarder</button>
+											</div>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">Mot de passe</td>
+								<td>
+									<div style="padding:0 5px;">
+										<form style="padding-bottom:8px;">
+											<div class="form-group">
+												<label for="old_password">Mot de passe actuel *</label>
+												<input type="password" class="form-control" name="old_password" value="">
+											</div>
+											<div class="form-group">
+												<label for="new_password">Nouveau mot de passe *</label>
+												<input type="password" class="form-control" name="new_password" value="">
+											</div>
+											<div class="form-group">
+												<label for="confirmation">Confirmation *</label>
+												<input type="password" class="form-control" name="confirmation" value="">
+											</div>
+											<div class="form-inline pull-left">
+												<button type="submit" class="btn btn-primary">Sauvegarder</button>
+											</div>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="col-md-3" style="cursor:pointer;">Clés API</td>
+								<td>
+									<div style="padding:0 5px;">
+										<p>Les clés API permettent de lire et écrire des données publiées sur OpenAgenda via l'API.</p>
+										<p>
+											<a href="#">Voir la documentation</a>
+										</p>
+										<div class="form-group">
+											<label for="email">Clé publique</label>
+											<input type="text" class="form-control" name="apiKey" readonly="" value="">
+										</div>
+										<span></span>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;" class="popup-overlay">
+	<section>
+		<header class="popup-title">
+			<h2>Ho, non mais attention !</h2>
+			<a class="close-link"><i class="fa fa-times fa-lg"></i></a>
+		</header>
+		<div class="popup-content text-center">
+			<p>Tu vas encore faire di couneries !</p>
+			<button class="btn btn-danger">
+				Supprimer quand même
+			</button>
+		</div>
+	</section>
+</div>
+
+<% include ../layout/_bottom.ejs %>

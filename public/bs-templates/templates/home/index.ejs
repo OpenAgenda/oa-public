@@ -1,0 +1,48 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container top-margined home home-agendas">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <ul class="home-nav list-inline">
+        <li class="active">
+          <h2>Mes agendas</h2>
+        </li>
+        <li>
+          <a href="#">Mes événements</a>            
+        </li>
+      </ul>
+      <div class="wsq content">
+
+        <div class="header hidden-xs">
+          <div class="pull-right">
+            <button class="btn btn-primary create-agenda" type="button">
+              Créer un agenda
+            </button>
+          </div>
+        </div>
+
+        <form>
+          <div class="form-group input-icon-right search">
+            <input type="text" class="form-control" placeholder="Rechercher un agenda" />
+            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </form>
+
+        <div>
+          <%- include('_agenda-item.ejs') %>
+          <%- include('_agenda-item.ejs', { official: true }) %>
+          <%- include('_agenda-item.ejs') %>
+          <%- include('_agenda-item.ejs') %>
+          <%- include('_agenda-item.ejs') %>
+          <%- include('_agenda-item.ejs') %>
+        </div>
+    </div>
+  
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://s3.eu-central-1.amazonaws.com/oastatic/bootstrap/transition.js"></script>
+<script src="https://s3.eu-central-1.amazonaws.com/oastatic/bootstrap/collapse.js"></script>
+
+<% include ../layout/_bottom.ejs %>

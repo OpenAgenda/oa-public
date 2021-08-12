@@ -1,0 +1,728 @@
+<% include ../layout/_top.ejs %>
+  <div class="container agenda-admin">
+    <% include ../agenda-admin/_admin-header.ejs %>
+      <div class="row wsq">
+        <% include ../agenda-admin/_admin-tabs.ejs %>
+          <div class="col col-sm-9 body">
+            <div class="agenda-admin-locations">
+              <div>
+                <% include ./_location-set %>
+                  <div class="row list-actions">
+                    <div class="col col-sm-12">
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <button class="btn btn-primary">Ajouter un lieu</button>
+                        </div>
+                        <div class="form-group">
+                          <button class="btn btn-default">Fusionner des lieux</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% include ./_merge-menu %> 
+                  <div class="row list-filters">
+                    <div class="col col-sm-12">
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <div class="input-group"><label class="sr-only" for="search">Filtrer la liste</label><input
+                              placeholder="Filtrer la liste" type="text" class="form-control" value="">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
+                          </div>
+                        </div>
+                        <div class="checkbox"><label><input type="checkbox">
+                            <span> </span>
+                            <span>voir les lieux à vérifer</span></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list">
+                    <div class="row head">
+                      <div class="col col-sm-12">
+                        <p>Total: 151 lieux</p>
+                      </div>
+                    </div>
+                    
+                    <% include ./_list-item-basic %>
+                    <% include ./_list-item-merge %>
+                    <% include ./_list-item-merge-target %>
+                    <div>____________________________________________________________________</div>
+                    <% include ./_list-item-toverify %>
+                      <% include ./_list-item-suggestion %>
+                        <% include ./_list-item %>
+                          <div class="item">
+                            <div class="actions btn-group">
+                              <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                            </div>
+                            <div class="item-body">
+                              <div class="title">Place Royale, Nantes</div>
+                              <div>Place Royale, Nantes</div>
+                              <div class="text-muted">
+                                <span>Loire-Atlantique</span>
+                                <span>, Pays de la Loire</span>
+                                <span>, France</span>
+                              </div>
+                              <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                                  class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                              </div>
+                            </div>
+                          </div>
+
+                  </div>
+
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place Maginot, nancy
+                      </div>
+                      <div>Place Maginot, nancy
+                      </div>
+                      <div class="text-muted">
+                        <span>Meurthe-et-Moselle</span>
+                        <span>, Lorraine</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place de Jaude, Clermont-Ferrand
+                      </div>
+                      <div>Place de Jaude, Clermont-Ferrand
+                      </div>
+                      <div class="text-muted">
+                        <span>Puy-de-Dôme</span>
+                        <span>, Auvergne</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place Clémenceau, Pau
+                      </div>
+                      <div>Place Clémenceau, Pau
+                      </div>
+                      <div class="text-muted">
+                        <span>Pyrénées-Atlantiques</span>
+                        <span>, Aquitaine</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place Bellecour, Lyon
+                      </div>
+                      <div>Place Bellecour, Lyon
+                      </div>
+                      <div class="text-muted">
+                        <span>Rhône</span>
+                        <span>, Rhône-Alpes</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Esplanade, Montpellier
+                      </div>
+                      <div>Montpellier
+                      </div>
+                      <div class="text-muted">
+                        <span>Hérault</span>
+                        <span>, Languedoc-Roussillon</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place de la République, Lille
+                      </div>
+                      <div>Place de la République, Lille, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Nord</span>
+                        <span>, Nord-Pas-de-Calais</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Maison Carrée, Nîmes
+                      </div>
+                      <div>Maison Carrée, Nîmes
+                      </div>
+                      <div class="text-muted">
+                        <span>Gard</span>
+                        <span>, Languedoc-Roussillon</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Parking des quais, Lannion
+                      </div>
+                      <div>Parking des quais, Lannion
+                      </div>
+                      <div class="text-muted">
+                        <span>Côtes-d'Armor</span>
+                        <span>, Bretagne</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Espace Culturel Pointe De Caux
+                      </div>
+                      <div>avenue Léon Blum
+                      </div>
+                      <div class="text-muted">
+                        <span>Morbihan</span>
+                        <span>, Bretagne</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Cité des sciences et de l'industrie
+                      </div>
+                      <div>30 Avenue Corentin Cariou, 75019 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Auditorium du CAPC Musée d'art contemporain de Bordeaux
+                      </div>
+                      <div>7 Rue Ferrère, 33000 Bordeaux, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Gironde</span>
+                        <span>, Aquitaine</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Paris
+                      </div>
+                      <div>Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place Robert Desnos
+                      </div>
+                      <div>Place Robert Desnos, 75010 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Musée du Louvre
+                      </div>
+                      <div>Musée du Louvre, 75001 Paris
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Le Grand Palais
+                      </div>
+                      <div>1 Avenue du Général Eisenhower, 75008 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">VIPARIS
+                      </div>
+                      <div>Porte de Versailles / Pavillon 1
+                      </div>
+                      <div class="text-muted">
+                        <span>Yvelines</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Montparnasse Bienvenue
+                      </div>
+                      <div>Montparnasse Bienvenue, Paris
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">hotel de ville
+                      </div>
+                      <div>3, rue de bragues, gradignan
+                      </div>
+                      <div class="text-muted">
+                        <span>Gironde</span>
+                        <span>, Aquitaine</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Jardin de Reuilly
+                      </div>
+                      <div>Jardin de Reuilly, Promenade Plantee
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">sexodrome
+                      </div>
+                      <div>12, rue pigalle
+                      </div>
+                      <div class="text-muted">
+                        <span>Gironde</span>
+                        <span>, Aquitaine</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">CBS Solbjerg Plads
+                      </div>
+                      <div>CBS Solbjerg Plads, Frederiksberg
+                      </div>
+                      <div class="text-muted">
+                        <span>Danemark</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Bruxelles
+                      </div>
+                      <div>Bruxelles
+                      </div>
+                      <div class="text-muted">
+                        <span>Belgique</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">La cantine toulouse
+                      </div>
+                      <div>Boulevard Matabiau, 31000 Toulouse, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Haute-Garonne</span>
+                        <span>, Midi-Pyrénées</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Institut Finlandais
+                      </div>
+                      <div>60 rue des Écoles 75005 Paris
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Place de la Mairie, Saint Nazaire
+                      </div>
+                      <div>rue de la mairie, Saint Nazaire
+                      </div>
+                      <div class="text-muted">
+                        <span>Pyrénées-Orientales</span>
+                        <span>, Languedoc-Roussillon</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Salle Jacques Brel
+                      </div>
+                      <div>164 Boulevard Gallieni, 94120 Fontenay-sous-Bois, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Val-de-Marne</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">IUT Arles
+                      </div>
+                      <div>Route de La Crau, Arles, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Bouches-du-Rhône</span>
+                        <span>, Provence-Alpes-Côte d'Azur</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Le Bourget
+                      </div>
+                      <div>Aéroport de Paris - Le Bourget, 93440 Dugny, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Seine-Saint-Denis</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Musée d'Art et Histoire du Judaïsme
+                      </div>
+                      <div>71 Rue du Temple, 75003 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Parc Abel Mézières
+                      </div>
+                      <div>Parc Abel Mézières, 93400 Saint-Ouen, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Seine-Saint-Denis</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Fnac Montparnasse
+                      </div>
+                      <div>136 Rue de Rennes, 75006 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Parc Floral
+                      </div>
+                      <div>Route des Dames, 75012 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">chez moi
+                      </div>
+                      <div>82 Rue Petit, 75019 Paris, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Paris</span>
+                        <span>, Île-de-France</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="actions btn-group">
+                      <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
+                    </div>
+                    <div class="item-body">
+                      <div class="title">Eglise de Montville
+                      </div>
+                      <div>76710 Montville, France
+                      </div>
+                      <div class="text-muted">
+                        <span>Seine-Maritime</span>
+                        <span>, Haute-Normandie</span>
+                        <span>, France</span>
+                      </div>
+                      <div class="indicators"><i class="fa fa-picture-o disabled"></i><i
+                          class="fa fa-file-text-o disabled"></i><a>voir les événements</a>
+                      </div>
+                    </div>
+                  </div>
+                  <span></span>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+  </div>
+
+  </div>
+
+  </div>
+  </div>
+  <% include ../layout/_bottom.ejs %>

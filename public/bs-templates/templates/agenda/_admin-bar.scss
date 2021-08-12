@@ -1,0 +1,425 @@
+.edge-bar {
+
+  background: $oa-blue;
+
+  &.fixed-bottom {
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 3000;
+
+  }
+
+  .edge-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .edge-item {
+
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.38);
+
+    .list-group.in {
+      display: block;
+    }
+
+    .state {
+
+      .sticker {
+
+        border-radius: 100px;
+        width: 1.2em;
+        height: 1.2em;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+        border: 2px solid $oa-white;
+
+      }
+
+      span {
+
+        display: inline-block;
+        vertical-align: middle;
+
+      }
+
+      &.published .sticker {
+
+        background: #5bb75b;
+
+      }
+
+      &.tocontrol .sticker {
+
+        background: $oa-white;
+
+      }
+
+      &.controlled .sticker {
+
+        background: #F7CA18;
+
+      }
+
+      &.refused .sticker {
+
+        background: $oa-red;
+
+      }
+
+    }
+
+    .edge-info, .edge-link, .edge-selected {
+
+      color: $oa-white;
+      display: block;
+      line-height: 50px;
+      padding: 0 20px;
+      width: 100%;
+      overflow: hidden;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+
+    }
+
+    .edge-info a { color: $oa-white; }
+
+    a {
+
+      cursor: pointer;
+
+    }
+
+    .admin-nav {
+
+      .edge-link {
+
+        &.center {
+
+          padding: 0 80px;
+
+          i {
+
+            right: 80px;
+
+          }
+
+        }
+
+        &.nav-link {
+
+          position: absolute;
+          top: 0;
+          width: auto;
+          padding: 0 20px;
+          border-left: 1px solid transparent;
+          border-right: 1px solid transparent;
+
+          i {
+
+            position: relative;
+            right: auto;
+            top: auto;
+            left: auto;
+
+          }
+
+          &.next {
+
+            right: 0;
+            border-left: 1px solid rgba( 255,255,255,0.20 );
+
+          }
+
+          &.prev {
+
+            left: 0;
+            border-right: 1px solid rgba( 255,255,255,0.20 );
+
+          }
+
+          &.inactive, &.inactive:hover {
+
+            color: rgba( 255, 255, 255, 0.40 );
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .list-group {
+
+    background: $oa-white;
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 2001;
+    padding: 0;
+
+    &.w380 {
+
+      min-width: 380px;
+      width: 100%;
+      margin-top: -2px;
+      padding-bottom: 10px;
+
+    }
+
+  }
+
+  .list-group-info-item {
+
+    padding: 24px 24px 12px;
+
+  }
+
+  .list-group-item {
+
+    list-style-type: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    .item {
+
+      color: $oa-gray;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: block;
+      padding: 10px 45px 10px 24px;
+      text-align: left;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+
+      label {
+        display: block;
+        cursor: pointer;
+      }
+
+      span {
+        display: block;
+        white-space: initial;
+        cursor: pointer;
+      }
+
+      &.bullet:after {
+        box-shadow: 0 0 0 1px silver;
+        background: white;
+        border-radius: 30px;
+        color: $oa-gray-lighter;
+        content: "";
+        font-family: FontAwesome;
+        height: 20px;
+        position: absolute;
+        right: 15px;
+        text-align: center;
+        width: 20px;
+        margin: -10px 0;
+        top: 50%;
+      }
+
+      &.active:hover {
+        color: $oa-blue;
+
+        &.bullet:after {
+          background: $oa-silver;
+          border: 5px solid $oa-white;
+        }
+      }
+
+      &.selected {
+        color: $oa-blue;
+
+        &:after {
+          background: $oa-blue;
+          border: 5px solid $oa-white;
+        }
+
+        &:hover:after {
+          color: $oa-blue;
+        }
+      }
+
+      &.active {
+        color: $oa-black;
+      }
+
+      &.starify {
+
+        i {
+          font-size: 20px;
+          line-height: 40px;
+          opacity: 0.62;
+          position: absolute;
+          right: 20px;
+          top: 0;
+        }
+
+        &:hover {
+          i {
+            opacity: 1;
+          }
+        }
+
+        .fa-star {
+          display: none;
+        }
+
+        &:hover {
+          .fa-star-o {
+            display: none;
+          }
+
+          .fa-star {
+            display: block;
+          }
+        }
+
+        &.active {
+
+          .fa-star {
+            display: block;
+          }
+
+          .fa-star-o {
+            display: none;
+          }
+
+          span {
+            display: inline;
+          }
+
+          span.hovered {
+            display: none;
+          }
+
+          &:hover {
+            .fa-star-o {
+              display: block;
+            }
+
+            .fa-star {
+              display: none;
+            }
+
+            span.hovered {
+              display: inline;
+            }
+
+            span {}
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+
+  .edge-link {
+    text-align: left;
+    text-decoration: none;
+
+    i {
+      font-size: 20px;
+      line-height: 50px;
+      opacity: 0.62;
+      position: absolute;
+      right: 20px;
+      top: 0;
+    }
+
+    &:hover {
+      i {
+        opacity: 1;
+      }
+    }
+
+  }
+
+  .edge-selected {
+    &:after {
+      content: "\f0d7";
+      font-family: "FontAwesome";
+      opacity: 0.62;
+      position: absolute;
+      right: 20px;
+      top: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+
+
+  .score {
+    b {
+      font-size: 18px;
+      font-weight: 100;
+      height: 20px;
+      line-height: 20px;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+
+    small {
+      display: block;
+      line-height: 15px;
+      height: 15px;
+      position: absolute;
+      right: 20px;
+      top: 5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+
+    height: 50px;
+
+    .edge-item {
+      border-bottom: none;
+      border-right: 1px solid rgba(255,255,255,0.38);
+      width: 50%;
+    }
+
+    .edge-item.w33 {
+      width: 33%;
+    }
+
+    .edge-item.w25 {
+      width: 25%;
+    }
+
+    .edge-item.w20 {
+      width: 20%;
+    }
+
+    .list-group {
+      position: relative;
+    }
+  }
+
+
+}

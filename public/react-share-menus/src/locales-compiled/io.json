@@ -1,0 +1,236 @@
+{
+  "aggregator-description": [
+    {
+      "type": 0,
+      "value": "Events published by "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " will be automatically added to the selected calendar."
+    }
+  ],
+  "aggregator-success": [
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " was successfully added as a source! "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "'s events are being aggregated."
+    }
+  ],
+  "aggregator-title": [
+    {
+      "type": 0,
+      "value": "Aggregate to an agenda"
+    }
+  ],
+  "all-languages": [
+    {
+      "type": 0,
+      "value": "All"
+    }
+  ],
+  "calendar-date": [
+    {
+      "type": 0,
+      "value": "Choose a date"
+    }
+  ],
+  "cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "connection-btn": [
+    {
+      "type": 0,
+      "value": "Sign In"
+    }
+  ],
+  "create-agenda": [
+    {
+      "type": 0,
+      "value": "Create an agenda"
+    }
+  ],
+  "email-placeholder": [
+    {
+      "type": 0,
+      "value": "Type in the email you want to send the event to"
+    }
+  ],
+  "email-success": [
+    {
+      "type": 0,
+      "value": "The event was sent to "
+    },
+    {
+      "type": 1,
+      "value": "emails"
+    },
+    {
+      "type": 0,
+      "value": " email adresses."
+    }
+  ],
+  "import": [
+    {
+      "type": 0,
+      "value": "Import"
+    }
+  ],
+  "input-format": [
+    {
+      "type": 0,
+      "value": "Choose a format"
+    }
+  ],
+  "input-language": [
+    {
+      "type": 0,
+      "value": "Choose a language"
+    }
+  ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "Instructions"
+    }
+  ],
+  "instructionsStep1": [
+    {
+      "type": 0,
+      "value": "Copy the link in the field above"
+    }
+  ],
+  "instructionsStep2": [
+    {
+      "type": 0,
+      "value": "Open "
+    }
+  ],
+  "instructionsStep3": [
+    {
+      "type": 0,
+      "value": "In the left section, open \"Other Calendars > Add by URL\""
+    }
+  ],
+  "instructionsStep4": [
+    {
+      "type": 0,
+      "value": "Follow the instructions by pasting the link you copied in step 1"
+    }
+  ],
+  "json-doc1": [
+    {
+      "type": 0,
+      "value": "Detailed documentation on the JSON export is"
+    }
+  ],
+  "json-doc2": [
+    {
+      "type": 0,
+      "value": "available here"
+    }
+  ],
+  "modal-title": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "no-agenda": [
+    {
+      "type": 0,
+      "value": "Warning: No agenda is administered by your account. Please create one first if you wish to aggregate "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "'s events."
+    }
+  ],
+  "official-agenda": [
+    {
+      "type": 0,
+      "value": "Official agenda"
+    }
+  ],
+  "private-agenda": [
+    {
+      "type": 0,
+      "value": "Private agenda"
+    }
+  ],
+  "search-agenda": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
+  "send": [
+    {
+      "type": 0,
+      "value": "Send"
+    }
+  ],
+  "share-calendar": [
+    {
+      "type": 0,
+      "value": "Import in a personal calendar"
+    }
+  ],
+  "share-email": [
+    {
+      "type": 0,
+      "value": "Send by email"
+    }
+  ],
+  "share-oa": [
+    {
+      "type": 0,
+      "value": "Share on OpenAgenda"
+    }
+  ],
+  "share-title": [
+    {
+      "type": 0,
+      "value": "Share this event"
+    }
+  ],
+  "sign-in": [
+    {
+      "type": 0,
+      "value": "You need to sign in to your account to add this event to your OpenAgendas"
+    }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "You need to sign in to your account to aggregate this event."
+    }
+  ]
+}

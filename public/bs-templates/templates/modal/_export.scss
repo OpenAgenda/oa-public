@@ -1,0 +1,183 @@
+.export {
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__form {
+    width: 100%;
+    color: black;
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  &__title {
+    &--big {
+      font-size: 3rem;
+    }
+    &--md {
+      font-size: 2rem;
+      margin-top: 0;
+    }
+    &.export__title--md {
+      margin-top: 15px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__close {
+    margin-left: 100%;
+    position: sticky;
+    display: inline-block;
+    background: none;
+    border: none;
+    color: #4f4f4f;
+    transform: translateY(10px);
+    padding: 0;
+    right: 0;
+    top: -0.5rem;
+    vertical-align: middle;
+    cursor: pointer;
+    z-index: 1;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  #event &__close {
+    right: 1rem;
+    top: -0.5rem;
+  }
+
+  &__btn {
+    margin-bottom: 20px;
+  }
+
+  &__link {
+    margin-bottom: 10px;
+  }
+}
+
+.side-note {
+  color: #7a7676;
+  font-size: 12px;
+  margin-left: 5px;
+
+  > a {
+    color: $oa-blue;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.form-group > .input-group > .form-control.export {
+  &__input,
+  &__textarea {
+    border-radius: 5px;
+    resize: vertical;
+    max-width: 95%;
+  }
+}
+
+.input-icon-right {
+  position: relative;
+  max-width: 95%;
+  & > button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: transparent;
+  }
+}
+
+.input-container {
+  max-width: 50%;
+}
+
+.form-control:read-only.url-input {
+  background-color: $oa-white;
+}
+
+/**** style overwrites ****/
+.agenda-header h1.export__title {
+  &--big {
+    margin-top: 20px;
+    font-size: 3rem;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.agenda-header .ctas .btn.export__btn {
+  margin-bottom: 20px;
+  color: $oa-white;
+}
+
+.aggregator__input.input-icon-right {
+  max-width: 100%;
+}
+
+#event h1.export__title--big {
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 0;
+  transform: translateY(-20px);
+}
+
+.share-button {
+  display: inline;
+
+  & > button {
+    padding: 0px;
+    color: gray;
+  }
+}
+
+.aggregate-button {
+  max-height: 34px;
+}
+
+.calendars {
+  &__options {
+    margin-left: 3rem;
+  }
+  &__list {
+    padding: 0;
+  }
+
+  &__date {
+    list-style-type: none;
+
+    & > a {
+      color: $oa-gray;
+
+      &:hover {
+        color: $oa-blue;
+      }
+    }
+  }
+}
+
+.btn.btn-default.btn-calendar {
+  background: $oa-gray-lightest;
+  border-color: transparent;
+  color: $oa-gray;
+  display: inline-block;
+  margin: 3px;
+
+  &:hover {
+    background: $oa-blue;
+    color: $oa-white;
+  }
+}

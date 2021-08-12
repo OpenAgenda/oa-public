@@ -1,0 +1,53 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container agenda-settings-creation new-step1">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="top-margined wsq">
+                <div class="content clearfix">
+                    <div class="stepper-container">
+                        <div class="stepper">
+                            <div class="step active">Description</div>
+                            <div class="step">Paramètres</div>
+                        </div>
+                    </div>
+
+                    <h2>Votre agenda</h2>
+                    <h4 class="text-muted">Un agenda est une liste d'événements</h4>
+                    <form>
+                        <div class="form-group">
+                            <label for="title">Nom *</label>
+                            <input type="text" class="form-control" name="title"
+                                   value="Gaetan Latouche - S'Latouche party"
+                                   placeholder="Mon organisation, mon festival, ma ville, autre">
+                            <div class="pull-right text-muted">140</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="describe">Description *</label>
+                            <div>
+                                <textarea name="describe" rows="6"></textarea>
+                                <div class="pull-right text-muted">255</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="slug">Site web</label>
+                            <input type="text" class="form-control" name="website" placeholder="http://monsite.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="slug">Adresse web personnalisée</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">openagenda.com/</div>
+                                <input type="text" class="form-control" name="slug" placeholder="URL">
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-primary">Suivant</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../layout/_bottom.ejs %>

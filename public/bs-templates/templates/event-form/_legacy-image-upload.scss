@@ -1,0 +1,56 @@
+.legacy-event-form {
+  
+  .event-image {
+
+    position: relative;
+
+    .form-section {
+
+      & > div {
+
+        padding: 1em 0 0;
+
+      }
+
+      .canvas {
+
+        text-align: center;
+
+        div {
+
+          padding: 20px;
+          color: $oa-gray;
+          background-color: rgba( black, 0.03 );
+
+        }
+
+        img {
+
+          max-width: 100%;
+
+        }
+
+      }
+
+      form {
+
+        input { padding: 5px; }
+
+      }
+
+    }
+
+    .loader {
+
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba( 255, 255, 255, 0.5 );
+
+    }
+
+  }
+
+}
