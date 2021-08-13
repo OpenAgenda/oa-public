@@ -101,6 +101,7 @@
 
 .input-container {
   max-width: 50%;
+  margin-bottom: 10px;
 }
 
 .form-control:read-only.url-input {
@@ -167,6 +168,9 @@
       }
     }
   }
+}
+a.calendars-link {
+  color: $oa-blue;
 }
 
 .btn.btn-default.btn-calendar {
