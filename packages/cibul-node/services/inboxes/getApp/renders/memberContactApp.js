@@ -4,8 +4,7 @@ const _ = require('lodash');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 
-module.exports = (req, res, next) => {
-  const { services, config } = req.app;
+module.exports = ({ services, config, render }) => (req, res, next) => {
   const { members } = services;
 
   const targetIsAdminMod = members.utils.compareRoles.isSuperiorToOrEqual(
@@ -13,7 +12,9 @@ module.exports = (req, res, next) => {
     'moderator'
   );
 
-  const userName = _.get(req.targetMember, 'custom.contactName',
+  const userName = _.get(
+    req.targetMember,
+    'custom.contactName',
     req.targetMember.user.fullName
   );
 
@@ -40,11 +41,11 @@ module.exports = (req, res, next) => {
         allowCreateConversation: true, // show creation button
         // maskCreationSubtitle: true,
         // topListForm: true, // add a conversation form on top of conversation list
-        creationSubtitle: getLabel( 'contactName', { name: userName }, req.lang ),
+        creationSubtitle: getLabel('contactName', { name: userName }, req.lang),
         // creationDesc: getLabel( 'sendMessageToName', { name: req.stakeholder.user.fullName }, req.lang ),
-        belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+        belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
         onConversationCreateRedirect: `/agendas/${req.agenda.uid}/admin/members`,
-        onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+        onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
         defaultQuery: {
           type: 'contact_member',
           typeIdentifier: req.targetMember.id,
@@ -63,4 +64,4 @@ module.exports = (req, res, next) => {
       agenda: req.agenda
     }
   })(req, res, next);
-}
+};
