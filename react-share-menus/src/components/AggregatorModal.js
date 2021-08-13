@@ -108,6 +108,7 @@ const AggregatorModal = ({
                 )}
                 {userLogged && (
                   <AgendaSearchInput
+                    filter={{ role: 'administrator' }}
                     getTitleLink={agenda => getTitleLink(agenda)}
                     res={res}
                     targetAgenda={targetAgenda}
