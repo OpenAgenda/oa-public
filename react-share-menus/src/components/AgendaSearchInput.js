@@ -88,14 +88,16 @@ const AgendaSearchInput = ({
   // Fetch initial total of agendas to determine whether to show the search bar
   useEffect(() => {
     async function fetchTotal() {
-      const response = await axios.get(res, { params: { role: 'administrator', search: '' } });
+      const response = await axios.get(res, {
+        params: defineParams({ searchText: '', filter })
+      });
       if (response.data.total === 0) {
         return noAgendas(true);
       }
       return setInitialTotal(response.data.total);
     }
     fetchTotal();
-  }, [res, noAgendas]);
+  }, [res, noAgendas, filter]);
 
   const nextPage = () => {
     if (!agendas || !agendas.length || loading || page * perPageLimit >= total) return;
