@@ -29,7 +29,7 @@ describe('agenda-locations - functional - terms', () => {
             7196947: 25221,
           }[uid],
         }),
-        beforeMerge: async (mergeIn, merged) => {},
+        beforeMerge: async (/* mergeIn, merged */) => {},
       },
     });
   });
@@ -39,9 +39,24 @@ describe('agenda-locations - functional - terms', () => {
       const terms = await svc(7196947).terms(['region', 'department']);
 
       expect(terms).toStrictEqual([
-        { region: null, department: null, adminLevel1: null, adminLevel2: null },
-        { region: 'Auvergne-Rhône-Alpes', department: 'Ardèche', adminLevel1: 'Auvergne-Rhône-Alpes', adminLevel2: 'Ardèche' },
-        { region: 'Un nom de région', department: 'Un nom de département', adminLevel1: 'Un nom de région', adminLevel2: 'Un nom de département' },
+        {
+          region: null,
+          department: null,
+          adminLevel1: null,
+          adminLevel2: null
+        },
+        {
+          region: 'Auvergne-Rhône-Alpes',
+          department: 'Ardèche',
+          adminLevel1: 'Auvergne-Rhône-Alpes',
+          adminLevel2: 'Ardèche'
+        },
+        {
+          region: 'Un nom de région',
+          department: 'Un nom de département',
+          adminLevel1: 'Un nom de région',
+          adminLevel2: 'Un nom de département'
+        },
       ]);
     });
 
@@ -53,8 +68,18 @@ describe('agenda-locations - functional - terms', () => {
       );
 
       expect(terms).toStrictEqual([
-        { region: 'Auvergne-Rhône-Alpes', department: 'Ardèche', adminLevel1: 'Auvergne-Rhône-Alpes', adminLevel2: 'Ardèche' },
-        { region: 'Un nom de région', department: 'Un nom de département', adminLevel1: 'Un nom de région', adminLevel2: 'Un nom de département' },
+        {
+          region: 'Auvergne-Rhône-Alpes',
+          department: 'Ardèche',
+          adminLevel1: 'Auvergne-Rhône-Alpes',
+          adminLevel2: 'Ardèche'
+        },
+        {
+          region: 'Un nom de région',
+          department: 'Un nom de département',
+          adminLevel1: 'Un nom de région',
+          adminLevel2: 'Un nom de département'
+        },
       ]);
     });
 
@@ -78,7 +103,12 @@ describe('agenda-locations - functional - terms', () => {
         .locations.terms(['region', 'department']);
 
       expect(terms).toStrictEqual([
-        { region: 'Auvergne-Rhône-Alpes', department: 'Ardèche', adminLevel1: 'Auvergne-Rhône-Alpes', adminLevel2: 'Ardèche' },
+        {
+          region: 'Auvergne-Rhône-Alpes',
+          department: 'Ardèche',
+          adminLevel1: 'Auvergne-Rhône-Alpes',
+          adminLevel2: 'Ardèche'
+        },
       ]);
     });
   });
