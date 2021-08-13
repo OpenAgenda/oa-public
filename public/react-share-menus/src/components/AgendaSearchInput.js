@@ -7,7 +7,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import AgendasSearch from '@openagenda/react-shared/src/components/AgendasSearch';
 
 const AgendaSearchInput = ({
-  targetAgenda, getTitleLink, segment, res, noAgendas
+  targetAgenda, getTitleLink, segment, res, noAgendas, filter
 }) => {
   const [agendas, setAgendas] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,8 +43,19 @@ const AgendaSearchInput = ({
       setLoading(true);
 
       const defineParams = () => {
-        if (action === 'next-page') return { role: 'administrator', search: searchText, page };
-        return { role: 'administrator', search: searchText };
+        const query = {
+          search: searchText
+        };
+
+        if (filter) {
+          Object.assign(query, filter);
+        }
+
+        if (action === 'next-page') {
+          query.page = page;
+        }
+
+        return query;
       };
 
       const response = await axios.get(res, { params: defineParams(searchText) });
@@ -61,7 +72,7 @@ const AgendaSearchInput = ({
       }
       return setAgendas(prevAgendas => [...prevAgendas, ...results]);
     },
-    [res, page, segment, targetAgenda.slug]
+    [res, page, segment, targetAgenda.slug, filter]
   );
 
   useEffect(() => {
@@ -120,9 +131,11 @@ AgendaSearchInput.propTypes = {
   segment: PropTypes.string,
   res: PropTypes.string.isRequired,
   noAgendas: PropTypes.func,
+  filter: PropTypes.shape({ role: PropTypes.string })
 };
 
 AgendaSearchInput.defaultProps = {
   segment: undefined,
   noAgendas: undefined,
+  filter: undefined
 };
