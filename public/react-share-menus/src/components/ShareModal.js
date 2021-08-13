@@ -54,7 +54,8 @@ const ShareModal = ({
     },
     emailSuccess: {
       id: 'email-success',
-      defaultMessage: 'The event was sent to {emails} email adresses.',
+      defaultMessage:
+        'The event was sent to {count, plural, =0 {no email address} one {# email address} other {# email addresses}}.',
     },
     calendarDate: {
       id: 'calendar-date',
@@ -75,7 +76,7 @@ const ShareModal = ({
     connectionBtn: {
       id: 'connection-btn',
       defaultMessage: 'Sign In',
-    }
+    },
   });
 
   const handleSubmit = async e => {
@@ -127,7 +128,7 @@ const ShareModal = ({
             <i className="fa fa-times fa-lg" />
           </button>
           <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
-          <p className="margin-bottom-sm">{intl.formatMessage(messages.emailSuccess, { emails: emailQuantity })}</p>
+          <p className="margin-bottom-sm">{intl.formatMessage(messages.emailSuccess, { count: emailQuantity })}</p>
           <button className="btn btn-primary export__button" type="button" onClick={onClose}>
             OK
           </button>
