@@ -85,12 +85,46 @@
       "value": "The event was sent to "
     },
     {
-      "type": 1,
-      "value": "emails"
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "no email address"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " email address"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " email addresses"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     },
     {
       "type": 0,
-      "value": " email adresses."
+      "value": "."
     }
   ],
   "import": [
