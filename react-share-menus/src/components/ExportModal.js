@@ -4,7 +4,6 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import Modal from '@openagenda/react-shared/src/components/Modal';
 import ReactSelectInput from '@openagenda/react-shared/src/components/ReactSelectInput';
-import Button from './Button';
 import Radio from './Radio';
 
 const ExportModal = ({
@@ -14,6 +13,7 @@ const ExportModal = ({
   const [options, setOptions] = useState(false);
   const [gCal, setGCal] = useState(false);
   const [newTab, setNewTab] = useState(false);
+  const [displayButton, setDisplayButton] = useState(false);
 
   const intl = useIntl();
 
@@ -36,32 +36,32 @@ const ExportModal = ({
     },
     close: {
       id: 'close',
-      defaultMessage: 'Close'
+      defaultMessage: 'Close',
     },
     cancel: {
       id: 'cancel',
-      defaultMessage: 'Cancel'
+      defaultMessage: 'Cancel',
     },
     instructions: {
       id: 'instructions',
-      defaultMessage: 'Instructions'
+      defaultMessage: 'Instructions',
     },
     instructionsStep1: {
       id: 'instructionsStep1',
-      defaultMessage: 'Copy the link in the field above'
+      defaultMessage: 'Copy the link in the field above',
     },
     instructionsStep2: {
       id: 'instructionsStep2',
-      defaultMessage: 'Open '
+      defaultMessage: 'Open ',
     },
     instructionsStep3: {
       id: 'instructionsStep3',
-      defaultMessage: 'In the left section, open "Other Calendars > Add by URL"'
+      defaultMessage: 'In the left section, open "Other Calendars > Add by URL"',
     },
     instructionsStep4: {
       id: 'instructionsStep4',
-      defaultMessage: 'Follow the instructions by pasting the link you copied in step 1'
-    }
+      defaultMessage: 'Follow the instructions by pasting the link you copied in step 1',
+    },
   });
 
   const formats = [
@@ -76,12 +76,16 @@ const ExportModal = ({
   ];
 
   const setChoice = (value, id) => {
+    setDisplayButton(true);
     setFormatChoice({ value, id });
     setGCal(false);
     setOptions(false);
     if (id === 'csv' || id === 'xl') setOptions(true);
     if (id === 'json' || id === 'rss') setNewTab(true);
-    if (id === 'gagenda') setGCal(true);
+    if (id === 'gagenda') {
+      setDisplayButton(false);
+      return setGCal(true);
+    }
   };
 
   const handleSubmit = e => {
@@ -107,12 +111,6 @@ const ExportModal = ({
 
   const handleClick = e => e.target.select();
 
-  const buttonText = () => {
-    if (formatChoice.id === '') return intl.formatMessage(messages.cancel);
-    if (formatChoice.id === 'gagenda') return intl.formatMessage(messages.close);
-    return intl.formatMessage(messages.modalTitle);
-  };
-
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
       <form className="export__form" onSubmit={handleSubmit}>
@@ -123,40 +121,46 @@ const ExportModal = ({
         <h2 className="export__title--md">{intl.formatMessage(messages.inputFormat)}</h2>
         <div className="form-group">
           {formats.map(({ type, id }) => (
-            <Radio content={type} name="format" key={id} id={id} setChoice={setChoice} span={id === 'json'} />
+            <>
+              <Radio content={type} name="format" key={id} id={id} setChoice={setChoice} span={id === 'json'} />
+              {options && id === formatChoice.id && (
+                <div className="input-container">
+                  <ReactSelectInput
+                    name="langue"
+                    placeholder={intl.formatMessage(messages.inputLanguage)}
+                    options={setLanguages(languages)}
+                    onChange={selectLanguage}
+                  />
+                </div>
+              )}
+              {displayButton && id === formatChoice.id && (
+                <button type="submit" className="btn btn-primary">
+                  {intl.formatMessage(messages.modalTitle)}
+                </button>
+              )}
+              {gCal && id === 'gagenda' && (
+                <div>
+                  <input
+                    className="form-control url-input"
+                    value={`https://openagenda.com${res.gcal}`}
+                    readOnly
+                    onClick={handleClick}
+                  />
+                  <h4>{intl.formatMessage(messages.instructions)}</h4>
+                  <p>1. {intl.formatMessage(messages.instructionsStep1)}</p>
+                  <p>
+                    2. {intl.formatMessage(messages.instructionsStep2)}
+                    <a target="_blank" href="https://calendar.google.com" rel="noreferrer" className="calendars-link">
+                      Google Calendar
+                    </a>
+                  </p>
+                  <p>3. {intl.formatMessage(messages.instructionsStep3)}</p>
+                  <p>4. {intl.formatMessage(messages.instructionsStep4)}.</p>
+                </div>
+              )}
+            </>
           ))}
-          {options && (
-            <div className="input-container">
-              <ReactSelectInput
-                name="langue"
-                placeholder={intl.formatMessage(messages.inputLanguage)}
-                options={setLanguages(languages)}
-                onChange={selectLanguage}
-              />
-            </div>
-          )}
         </div>
-        {gCal && (
-          <div className="mg-bottom-sm">
-            <input
-              className="form-control url-input"
-              value={`https://openagenda.com${res.gcal}`}
-              readOnly
-              onClick={handleClick}
-            />
-            <h4>{intl.formatMessage(messages.instructions)}</h4>
-            <p>1. {intl.formatMessage(messages.instructionsStep1)}</p>
-            <p>
-              2. {intl.formatMessage(messages.instructionsStep2)}
-              <a target="_blank" href="https://calendar.google.com" rel="noreferrer">
-                Google Calendar
-              </a>
-            </p>
-            <p>3. {intl.formatMessage(messages.instructionsStep3)}</p>
-            <p>4. {intl.formatMessage(messages.instructionsStep4)}</p>
-          </div>
-        )}
-        <Button content={buttonText} />
       </form>
     </Modal>
   );
@@ -177,7 +181,7 @@ ExportModal.propTypes = {
   }).isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func.isRequired,
-  exportLanguage: PropTypes.func.isRequired
+  exportLanguage: PropTypes.func.isRequired,
 };
 
 ExportModal.defaultProps = {
