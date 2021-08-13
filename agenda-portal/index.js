@@ -42,8 +42,6 @@ const redirect = require('./middleware/redirectToEvent');
 const showPage = require('./middleware/showPage');
 const { navigationLinks } = require('./middleware/eventNavigation');
 
-const parseFilterAttrs = require('./client/lib/parseFilterAttrs');
-
 const mw = {
   index,
   error,
@@ -69,37 +67,6 @@ let devApp = null; // used for @openagenda/agenda-portal dev only
 
 function getFieldSchema(agendaSchema, fieldName) {
   return agendaSchema.fields.find(v => v.field === fieldName);
-}
-
-async function extractFiltersAndWidgets(app) {
-  app.locals.filters = [];
-  app.locals.widgets = {};
-
-  await promisify(app.render).call(app, 'index', {
-    registerFilter({ hash, data }) {
-      const attrs = {
-        ...hash,
-        destSelector: `[data-oa-filter-id="${hash.id}"]`,
-        name: this.name || this.fieldName,
-      };
-
-      if ('options' in this) {
-        attrs.options = this.options;
-      }
-
-      if ('fieldName' in this) {
-        attrs.fieldSchema = getFieldSchema(this.agenda.schema, this.fieldName);
-      }
-
-      data.root.filters.push(parseFilterAttrs(attrs));
-    },
-    registerWidget({ hash, data }) {
-      data.root.widgets[hash.name] = hash.selector;
-    },
-    widget({ hash, data }) {
-      data.root.widgets[hash.name] = `data-oa-widget="${hash.name}"`;
-    }
-  });
 }
 
 module.exports = async options => {
@@ -180,7 +147,40 @@ module.exports = async options => {
 
       return `${image.base}${variant.filename}`;
     },
-    customFilter(context) {
+    filter({ hash, data }) {
+      const {
+        id,
+        tagName = 'div',
+        className = '',
+        fieldName,
+        name = fieldName,
+        ...restOptions
+      } = hash;
+
+      const attrs = {
+        ...restOptions,
+        destSelector: id ? `[data-oa-filter-id="${id}"]` : `[data-oa-filter="${name}"]`,
+        name: name || fieldName
+      };
+
+      if (fieldName) {
+        attrs.fieldSchema = getFieldSchema(this.agenda.schema, this.fieldName);
+      }
+
+      if (data.root.__extractFiltersAndWidgets) {
+        data.root.filters.push(attrs);
+      }
+
+      return new hbs.SafeString(`
+        <${tagName}
+          class="${className}"
+          data-oa-filter="${name}"
+          ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
+          data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
+        ></${tagName}>
+      `);
+    },
+    customFilter({ fn, hash, data }) {
       const {
         id,
         tagName = 'div',
@@ -189,7 +189,7 @@ module.exports = async options => {
         activeClass = 'active',
         inactiveClass = 'inactive',
         ...restOptions
-      } = context.hash;
+      } = hash;
 
       const attrs = {
         aggregation: null,
@@ -200,11 +200,13 @@ module.exports = async options => {
         ...restOptions
       };
 
-      const statusClass = _.isMatch(_.omitBy(context.data.root.query, _.isEmpty), _.omitBy(query, _.isEmpty))
+      const statusClass = _.isMatch(_.omitBy(data.root.query, _.isEmpty), _.omitBy(query, _.isEmpty))
         ? activeClass
         : inactiveClass;
 
-      context.data.root.filters.push(attrs);
+      if (data.root.__extractFiltersAndWidgets) {
+        data.root.filters.push(attrs);
+      }
 
       return new hbs.SafeString(`
         <${tagName}
@@ -213,16 +215,21 @@ module.exports = async options => {
           ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
           data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
         >
-          ${context.fn(this)}
+          ${fn(this)}
         </${tagName}>
       `);
     },
-    widget({ hash }) {
+    widget({ hash, data }) {
       const {
         tagName = 'div',
         className = '',
         name
       } = hash;
+
+
+      if (data.root.__extractFiltersAndWidgets) {
+        data.root.widgets[name] = `[data-oa-widget="${name}"]`;
+      }
 
       return new hbs.SafeString(`
         <${tagName}
@@ -282,7 +289,12 @@ module.exports = async options => {
     );
   }
 
-  await extractFiltersAndWidgets(app);
+
+  app.locals.filters = [];
+  app.locals.widgets = {};
+
+  // populate filters and widgets
+  await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });
 
   if (process.env.NODE_ENV === 'development') {
     app.use(webpackSASSMiddleware(app.locals.sass));
