@@ -244,7 +244,7 @@ async function renderFilters(pageProps) {
         dataSet.handlerElem = dataSet.handlerSelector ? elem.querySelector(dataSet.handlerSelector) : null;
       } else {
         dataSet.elemRef = React.createRef();
-        dataSet.destSelector = `[data-oa-filter-id="${id}"]`;
+        dataSet.destSelector = id ? `[data-oa-filter-id="${id}"]` : `[data-oa-filter="${dataSet.name}"]`;
       }
 
       return dataSet;
