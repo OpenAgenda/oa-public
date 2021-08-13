@@ -6,6 +6,24 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import AgendasSearch from '@openagenda/react-shared/src/components/AgendasSearch';
 
+const defineParams = ({
+  searchText, filter, action, page
+}) => {
+  const query = {
+    search: searchText
+  };
+
+  if (filter) {
+    Object.assign(query, filter);
+  }
+
+  if (action === 'next-page') {
+    query.page = page;
+  }
+
+  return query;
+};
+
 const AgendaSearchInput = ({
   targetAgenda, getTitleLink, segment, res, noAgendas, filter
 }) => {
@@ -42,23 +60,11 @@ const AgendaSearchInput = ({
     async (searchText = '', action = '') => {
       setLoading(true);
 
-      const defineParams = () => {
-        const query = {
-          search: searchText
-        };
-
-        if (filter) {
-          Object.assign(query, filter);
-        }
-
-        if (action === 'next-page') {
-          query.page = page;
-        }
-
-        return query;
-      };
-
-      const response = await axios.get(res, { params: defineParams(searchText) });
+      const response = await axios.get(res, {
+        params: defineParams({
+          searchText, filter, action, page
+        })
+      });
 
       setLoading(false);
       setTotal(response.data.total);
