@@ -111,7 +111,6 @@ module.exports = async options => {
   const config = {
     eventsPerPage: 20,
     assetsRoot: null,
-    jsonExportVersion: 1,
     ...options,
   };
 
@@ -130,7 +129,6 @@ module.exports = async options => {
     defaultFilter, // optional: filter that applies when no other filter is set
     // cache,
     proxy: injectedProxy,
-    jsonExportVersion,
     assetsRoot,
     proxyHookBeforeGet,
   } = config;
@@ -248,7 +246,6 @@ module.exports = async options => {
 
   const proxy = injectedProxy
     || Proxy({
-      jsonExportVersion,
       key: apiKey,
       defaultLimit: eventsPerPage,
       preFilter,

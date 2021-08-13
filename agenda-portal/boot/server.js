@@ -43,7 +43,6 @@ Portal({
   defaultFilter: {
     featured: 0,
   },
-  jsonExportVersion: 2,
   // true if portal is to be displayed within iframe
   iframable: process.env.PORTAL_IFRAMABLE,
   iframeParent: process.env.PORTAL_IFRAME_PARENT_URL,
