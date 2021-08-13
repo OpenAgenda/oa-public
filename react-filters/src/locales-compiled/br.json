@@ -112,25 +112,25 @@
       "value": "Carte"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.lessOptions": [
+  "ReactFilters.ChoiceFilter.lessOptions": [
     {
       "type": 0,
       "value": "Moins d'options"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.moreOptions": [
+  "ReactFilters.ChoiceFilter.moreOptions": [
     {
       "type": 0,
       "value": "Plus d'options"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.noResult": [
+  "ReactFilters.ChoiceFilter.noResult": [
     {
       "type": 0,
       "value": "Aucun résultat"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.searchPlaceholder": [
+  "ReactFilters.ChoiceFilter.searchPlaceholder": [
     {
       "type": 0,
       "value": "Rechercher"

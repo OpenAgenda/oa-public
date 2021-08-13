@@ -132,25 +132,25 @@
       "value": "Map"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.lessOptions": [
+  "ReactFilters.ChoiceFilter.lessOptions": [
     {
       "type": 0,
       "value": "crwdns848:0crwdne848:0"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.moreOptions": [
+  "ReactFilters.ChoiceFilter.moreOptions": [
     {
       "type": 0,
       "value": "crwdns850:0crwdne850:0"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.noResult": [
+  "ReactFilters.ChoiceFilter.noResult": [
     {
       "type": 0,
       "value": "crwdns852:0crwdne852:0"
     }
   ],
-  "ReactFilters.MultiChoiceFilter.searchPlaceholder": [
+  "ReactFilters.ChoiceFilter.searchPlaceholder": [
     {
       "type": 0,
       "value": "crwdns854:0crwdne854:0"

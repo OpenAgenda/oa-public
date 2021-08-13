@@ -3,7 +3,7 @@ import {
   FiltersProvider,
   Filters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
 } from '../src';
 
 require('./scss/main.scss');
@@ -52,8 +52,8 @@ export const CompleteExample = ({ onSubmit }) => (
       <Filters
         filters={filters}
         dateRangeComponent={DateRangeFilter}
-        checkboxComponent={MultiChoiceFilter}
-        radioComponent={MultiChoiceFilter}
+        checkboxComponent={ChoiceFilter}
+        radioComponent={ChoiceFilter}
         getOptions={filter => filter.options}
       />
     </div>
@@ -67,7 +67,7 @@ export const FilterByFilter = ({ onSubmit }) => (
       <DateRangeFilter name="timings" />
       <DateRangeFilter name="createdAt" />
       <DateRangeFilter name="updatedAt" />
-      <MultiChoiceFilter name="state" getOptions={() => filters[3].options} />
+      <ChoiceFilter name="state" getOptions={() => filters[3].options} />
     </div>
   </FiltersProvider>
 );
