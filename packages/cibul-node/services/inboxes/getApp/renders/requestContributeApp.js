@@ -3,8 +3,7 @@
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 
-module.exports = (req, res, next) => {
-  const { services, config } = req.app;
+module.exports = ({ services, config, render }) => (req, res, next) => {
   const { sessions } = services;
 
   if (req.member) {
@@ -34,14 +33,14 @@ module.exports = (req, res, next) => {
         hideEmptyList: true, // redirect on creation if the list is empty
         allowCreateConversation: true, // show creation button
         // maskCreationSubtitle: true,
-        creationSubtitle: getLabel( 'titleContributionRequest', req.lang ),
-        // creationDescriptionLabel: getLabel( 'wantContributeMakeRequest', req.lang ),
-        creationButtonLabel: getLabel( 'createConversation', req.lang ),
+        creationSubtitle: getLabel('titleContributionRequest', req.lang),
+        // creationDescriptionLabel: getLabel('wantContributeMakeRequest', req.lang),
+        creationButtonLabel: getLabel('createConversation', req.lang),
         // topListForm: true, // add a conversation form on top of conversation list
-        creationDesc: getLabel( 'youWantToContribute', req.lang ),
-        belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+        creationDesc: getLabel('youWantToContribute', req.lang),
+        belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
         onConversationCreateRedirect: `/${req.agenda.slug}`,
-        onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+        onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
         defaultQuery: {
           type: 'request_contribute',
           typeIdentifier: req.agenda.uid,
@@ -58,4 +57,4 @@ module.exports = (req, res, next) => {
       agenda: req.agenda
     }
   })(req, res, next);
-}
+};
