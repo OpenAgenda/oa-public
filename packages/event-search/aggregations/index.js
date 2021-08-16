@@ -2,6 +2,7 @@
 
 const terms = require('./terms');
 const timestamp = require('./timestamp');
+const BadRequest = require('../utils/BadRequest');
 
 const aggregationTypes = {
   additionalFields: require('./additionalFields'),
@@ -28,15 +29,6 @@ const aggregationTypes = {
   createdAt: timestamp('createdAt'),
   updatedAt: timestamp('_exclusiveUpdatedAt'),
   createdOrUpdatedAt: timestamp('updatedAt')
-}
-
-class BadRequest extends Error {
-  constructor(message, detail) {
-    super(message);
-    this.name = 'BadRequest';
-    this.statusCode = 400;
-    this.detail = detail;
-  }
 }
 
 module.exports = {
