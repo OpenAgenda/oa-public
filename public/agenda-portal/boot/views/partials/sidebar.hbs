@@ -7,15 +7,22 @@
       {{filter
         type='map'
         name='geo'
-        aggregation=null
         className='map-container'
         searchMessage='rechercher quand je déplace la carte'
         searchWithMap=true
       }}
+    </div>
 
-      <b>Horaires</b>
+    <div class="my-4">
       {{filter type='dateRange' name='timings'}}
+    </div>
 
+    <div class="my-4">
+      <b>Type de musée</b>
+      {{filter type='choice' fieldName='type-de-musee'}}
+    </div>
+
+    <div class="my-4">
       <b>Passé / En cours / À venir</b>
       {{filter type='choice' name='relative'}}
 
@@ -50,20 +57,8 @@
           Jeudi 24 juin
         </label>
       {{/customFilter}}
+    </div>
 
-<!--      <b>Événement Europe</b>-->
-<!--      { {>filters/multiChoice fieldName='evenement-europe'}}-->
-    </div>
-    <div class="my-4">
-<!--      { {>widgets/map}}-->
-    </div>
-    <div class="my-4">
-<!--      { {>widgets/calendar}}-->
-<!--      { {>widgets/relative}}-->
-    </div>
-    <div class="my-4">
-<!--      { {>widgets/tags}}-->
-    </div>
     <span class="js_total mobile-bottom-nav" data-sidebar-toggle data-total="{{total}}" data-label-none="Aucun événement ne correspond à cette recherche" data-label-one="1 événement" data-label-plural="%total% événements"></span>
   </div>
 </div>

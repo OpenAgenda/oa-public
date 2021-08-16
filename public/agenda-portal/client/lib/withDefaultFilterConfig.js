@@ -15,6 +15,16 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
           'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}.png?apiKey=9f8da49724b645f486f281abbe690750'
       });
       break;
+    case 'timings':
+      assignIfEmpty(filter, {
+        aggregation: null
+      });
+      break;
+    case 'search':
+      assignIfEmpty(filter, {
+        aggregation: null
+      });
+      break;
     case 'locationUid':
       assignIfEmpty(filter, {
         //
