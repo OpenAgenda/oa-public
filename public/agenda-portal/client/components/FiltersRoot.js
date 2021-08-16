@@ -4,7 +4,7 @@ const { useForm } = require('react-final-form');
 const { Portal } = require('@stefanoruth/react-portal-ssr');
 const {
   Filters,
-  MultiChoiceFilter,
+  ChoiceFilter,
   DateRangeFilter,
   SearchFilter,
   MapFilter,
@@ -216,8 +216,7 @@ module.exports = React.forwardRef(function FiltersRoot({
         withRef: true,
         filters,
         dateRangeComponent: DateRangeFilter,
-        checkboxComponent: MultiChoiceFilter,
-        radioComponent: MultiChoiceFilter,
+        choiceComponent: ChoiceFilter,
         mapComponent: MapFilter,
         searchComponent: SearchFilter,
         customComponent: CustomFilter,

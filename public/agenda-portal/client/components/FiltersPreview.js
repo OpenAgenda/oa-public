@@ -2,7 +2,7 @@ const React = require('react');
 const {
   Filters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
   MapFilter,
   CustomFilter,
   ValueBadge,
@@ -33,7 +33,7 @@ function BadgePreview({
   );
 }
 
-function MultiChoicePreview({
+function ChoicePreview({
   name,
   filter,
   valueOptions,
@@ -69,8 +69,8 @@ function DateRangePreviewer(props) {
   return el(DateRangeFilter.Preview, { component: BadgePreview, ...props });
 }
 
-function MultiChoicePreviewer(props) {
-  return el(MultiChoiceFilter.Preview, { component: MultiChoicePreview, ...props });
+function ChoicePreviewer(props) {
+  return el(ChoiceFilter.Preview, { component: ChoicePreview, ...props });
 }
 
 function MapPreviewer(props) {
@@ -93,8 +93,7 @@ module.exports = function FiltersPreview({ filters, getOptions }) {
       filters: filtersWithoutDest,
       // disabled: isFetching || filtersQuery.isFetching,
       dateRangeComponent: DateRangePreviewer,
-      checkboxComponent: MultiChoicePreviewer,
-      radioComponent: MultiChoicePreviewer,
+      choiceComponent: ChoicePreviewer,
       mapComponent: MapPreviewer,
       customComponent: CustomPreviewer,
       // getTotal,
