@@ -61,7 +61,7 @@ const mw = {
 
 const baseAssetsPath = `${__dirname}/assets`;
 
-const { I18N } = utils;
+const { I18N, imageToUrl } = utils;
 
 let devApp = null; // used for @openagenda/agenda-portal dev only
 
@@ -136,17 +136,7 @@ module.exports = async options => {
     array: (...arr) => arr.slice(0, -1),
     concat: (...strings) => strings.slice(0, -1).join(''),
     fieldSchema: (fieldName, { data }) => getFieldSchema(data.root.agenda.schema, fieldName),
-    image: (image, type) => {
-      if (!image) {
-        return '';
-      }
-
-      const variant = typeof type === 'string'
-        ? image.variants?.find(img => img.type === type) ?? image
-        : image;
-
-      return `${image.base}${variant.filename}`;
-    },
+    image: imageToUrl,
     filter({ hash, data }) {
       const {
         id,

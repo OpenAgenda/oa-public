@@ -3,6 +3,7 @@
 const { tz } = require('moment-timezone');
 const getJSONDuration = require('./getJSONDuration');
 const { getValue: getBeginValue } = require('./begin');
+const imageToUrl = require('../../utils/imageToUrl');
 
 module.exports = (event, timing, defaultTimezone) => {
   const { end, permalink } = timing;
@@ -24,23 +25,19 @@ module.exports = (event, timing, defaultTimezone) => {
         permalink
         || event.permalink
         || `https://openagenda.com/events/${event.slug}`,
-      ...(event.image ? { image: [event.image] } : {}),
+      image: event.image ? imageToUrl(event.image) : undefined,
       startDate: tz(begin, timezone).format('YYYY-MM-DDTHH:mm'),
       endDate: tz(end, timezone).format('YYYY-MM-DDTHH:mm'),
       duration: getJSONDuration(begin, end),
-      ...(event.registration.filter(r => r.type === 'link').length
+      ...(event.registration.some(r => r.type === 'link')
         ? {
           offers: {
             '@type': 'Offer',
-            url: event.registration.filter(r => r.type === 'link')[0].value,
+            url: event.registration.find(r => r.type === 'link').value,
           },
         }
         : {}),
-      ...(event.age
-        ? {
-          typicalAgeRange: [event.age.min, event.age.max].join('-'),
-        }
-        : {}),
+      typicalAgeRange: event.age ? [event.age.min, event.age.max].join('-') : undefined,
       location: event.location ? {
         '@type': 'Place',
         name: event.location.name,
