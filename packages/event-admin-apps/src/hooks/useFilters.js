@@ -138,7 +138,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'addMethod',
-        type: 'radio',
+        type: 'choice',
         options: provenanceOptions,
         aggregation: {
           type: 'addMethods',
@@ -146,7 +146,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'memberUid',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         labelKey: 'member.name',
         aggregation: {
@@ -156,7 +156,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'locationUid',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         labelKey: 'location.name',
         aggregation: {
@@ -166,7 +166,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'sourceAgendaUid',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         labelKey: 'agenda.title',
         aggregation: {
@@ -176,13 +176,13 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'featured',
-        type: 'radio',
+        type: 'choice',
         options: featuredOptions,
         aggregation: null,
       },
       {
         name: 'relative',
-        type: 'radio',
+        type: 'choice',
         options: relativeOptions,
         // aggregation: {
         //   type: 'relative',
@@ -211,7 +211,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'state',
-        type: 'radio',
+        type: 'choice',
         options: stateOptions,
         aggregation: {
           type: 'states',
@@ -219,7 +219,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'attendanceMode',
-        type: 'radio',
+        type: 'choice',
         options: attendanceModeOptions,
         aggregation: {
           type: 'attendanceModes',
@@ -227,7 +227,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'region',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         aggregation: {
           type: 'regions',
@@ -236,7 +236,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'department',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         aggregation: {
           type: 'departments',
@@ -245,7 +245,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'city',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         aggregation: {
           type: 'cities',

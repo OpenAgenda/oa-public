@@ -6,7 +6,7 @@ import {
   getEvents,
   DateRangeFilter,
   Filters,
-  MultiChoiceFilter,
+  ChoiceFilter,
   MapFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
@@ -103,8 +103,7 @@ function FiltersPart({
           filters={filters}
           disabled={isFetching || filtersQuery.isFetching}
           dateRangeComponent={DateRangeFilter.Collapsable}
-          checkboxComponent={MultiChoiceFilter.Collapsable}
-          radioComponent={MultiChoiceFilter.Collapsable}
+          choiceComponent={ChoiceFilter.Collapsable}
           mapComponent={MapFilter}
           mapProps={mapProps}
           getTotal={getTotal}
