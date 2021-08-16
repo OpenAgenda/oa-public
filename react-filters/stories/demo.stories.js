@@ -21,7 +21,7 @@ const filters = [
   { name: 'updatedAt', type: 'dateRange' },
   {
     name: 'state',
-    type: 'radio',
+    type: 'choice',
     options: [
       {
         label: 'Refusé',
@@ -52,8 +52,7 @@ export const CompleteExample = ({ onSubmit }) => (
       <Filters
         filters={filters}
         dateRangeComponent={DateRangeFilter}
-        checkboxComponent={ChoiceFilter}
-        radioComponent={ChoiceFilter}
+        choiceComponent={ChoiceFilter}
         getOptions={filter => filter.options}
       />
     </div>
