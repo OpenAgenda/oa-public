@@ -159,12 +159,12 @@ module.exports = async options => {
 
       const attrs = {
         ...restOptions,
-        destSelector: id ? `[data-oa-filter-id="${id}"]` : `[data-oa-filter="${name}"]`,
-        name: name || fieldName
+        name,
+        destSelector: id ? `[data-oa-filter-id="${id}"]` : `[data-oa-filter="${name}"]`
       };
 
       if (fieldName) {
-        attrs.fieldSchema = getFieldSchema(this.agenda.schema, this.fieldName);
+        attrs.fieldSchema = getFieldSchema(data.root.agenda.schema, fieldName);
       }
 
       if (data.root.__extractFiltersAndWidgets) {

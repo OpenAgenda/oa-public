@@ -4,22 +4,24 @@ const _ = require('lodash');
 const qs = require('qs');
 const paginate = require('../lib/paginate');
 
+function filterToAggragation(filter) {
+  if (filter.aggregation === null) {
+    return false;
+  }
+
+  return {
+    key: filter.name,
+    type: filter.name,
+    ...filter.aggregation,
+  };
+}
+
 module.exports = withAggregations => (req, res, next) => {
   const transform = req.app.get('transforms').event.listItem;
 
   const aggs = withAggregations
     ? res.locals.filters
-      .map(filter => {
-        if (filter.aggregation === null) {
-          return false;
-        }
-
-        return {
-          key: filter.name,
-          type: filter.name,
-          ...filter.aggregation,
-        };
-      })
+      .map(filterToAggragation)
       .filter(Boolean)
     : undefined;
 
