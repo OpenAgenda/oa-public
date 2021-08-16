@@ -5,7 +5,7 @@ import { useApiClient } from '@openagenda/react-shared';
 import {
   Filters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
   ValueBadge,
   useFilterTitle,
 } from '@openagenda/react-filters';
@@ -28,7 +28,7 @@ function DateRangePreview({
   );
 }
 
-function MultiChoicePreview({
+function ChoicePreview({
   name,
   filter,
   valueOptions,
@@ -91,8 +91,7 @@ export default function FilterPreview({ agenda, isFetching, filters }) {
   );
 
   const dateRangeProps = useMemo(() => ({ component: DateRangePreview }), []);
-  const checkboxProps = useMemo(() => ({ component: MultiChoicePreview }), []);
-  const radioProps = useMemo(() => ({ component: MultiChoicePreview }), []);
+  const choiceProps = useMemo(() => ({ component: ChoicePreview }), []);
 
   return (
     <Filters
@@ -100,10 +99,8 @@ export default function FilterPreview({ agenda, isFetching, filters }) {
       disabled={isFetching || filtersQuery.isFetching}
       dateRangeComponent={DateRangeFilter.Preview}
       dateRangeProps={dateRangeProps}
-      checkboxComponent={MultiChoiceFilter.Preview}
-      checkboxProps={checkboxProps}
-      radioComponent={MultiChoiceFilter.Preview}
-      radioProps={radioProps}
+      choiceComponent={ChoiceFilter.Preview}
+      choiceProps={choiceProps}
       // getTotal={getTotal}
       getOptions={getOptions}
     />

@@ -57,7 +57,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'state',
-        type: 'radio',
+        type: 'choice',
         options: stateOptions,
         aggregation: {
           type: 'states',
@@ -66,7 +66,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'region',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         aggregation: {
           type: 'regions',
@@ -75,7 +75,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'department',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         aggregation: {
           type: 'departments',
@@ -84,7 +84,7 @@ export default function useFilters(agendaSchema) {
       },
       {
         name: 'city',
-        type: 'radio',
+        type: 'choice',
         options: null, // from the aggregation
         aggregation: {
           type: 'cities',

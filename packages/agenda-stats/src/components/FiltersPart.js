@@ -8,7 +8,7 @@ import qs from 'qs';
 import {
   Filters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
@@ -131,8 +131,7 @@ export default function FiltersPart({
         filters={filters}
         disabled={loading}
         dateRangeComponent={DateRangeFilter.Collapsable}
-        checkboxComponent={MultiChoiceFilter.Collapsable}
-        radioComponent={MultiChoiceFilter.Collapsable}
+        choiceComponent={ChoiceFilter.Collapsable}
         getTotal={getTotal}
         getOptions={getOptions}
       />
