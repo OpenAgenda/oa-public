@@ -13,7 +13,7 @@ describe('agendaEvents - 12 - functional (server): getAggregatedCount', function
   before(async () => {
     const fx = await fixtures(config.mysql, [
       'reset.sql',
-      'agenda_event.create.sql',
+      '../../model.sql',
       'agenda_event_with_aggregated.data.sql'
     ]);
 

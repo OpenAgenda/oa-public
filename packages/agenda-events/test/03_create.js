@@ -17,7 +17,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
   before(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
-      'agenda_event.create.sql',
+      '../../model.sql',
       'agenda_event.data.sql'
     ]);
   });
