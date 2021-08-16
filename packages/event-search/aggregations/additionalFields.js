@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const BadRequest = require('../utils/BadRequest');
 
 module.exports.formatDSL = (query, options = {}) => {
   const aggregationQuery = {
@@ -10,9 +11,11 @@ module.exports.formatDSL = (query, options = {}) => {
   };
 
   if (options.field) {
-    const field = options.formSchema.fields
-      .filter(field => field.field === options.field)
-      .pop();
+    const field = options.formSchema.fields.find(field => field.field === options.field);
+
+    if (!field) {
+      throw new BadRequest('Invalid requested aggregations', [{ message: `Unkown additional field: ${options.field}` }]);
+    }
 
     const fieldValues = field.options.map(o => [field.schemaId, o.id].join('.'));
 
