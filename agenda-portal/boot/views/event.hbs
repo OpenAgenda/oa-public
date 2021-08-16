@@ -3,11 +3,11 @@
 <div class="container">
   <div class="row py-4">
     <div class="col-sm-4 order-sm-12">
-      
+
       {{#if event.location}}
         {{>event/map}}
       {{/if}}
-      
+
       {{#if event.onlineAccessLink}}
         <a class="btn btn-primary btn-block mb-4" href="{{event.onlineAccessLink}}" target="_blank">{{i18n 'onlineAccessLink'}}</a>
       {{/if}}
@@ -24,13 +24,13 @@
           <div class="wbg p-4">
             <h1>{{event.title}}</h1>
             {{#if event.timing}}
-            <p><strong>{{event.timing.labels.start.day}} @ {{event.timing.labels.start.time}} - {{event.timing.labels.end.time}}</strong></p>
+            <p><strong>{{event.timing.labels.begin.day}} @ {{event.timing.labels.begin.time}} - {{event.timing.labels.end.time}}</strong></p>
             {{/if}}
             <p>{{event.description}}</p>
           </div>
           {{#if event.image}}
           <div class="wbg text-center">
-            <img class="img-fluid" src="{{event.image}}" alt="{{event.description}}" />
+            <img class="img-fluid" src="{{image event.image}}" alt="{{event.description}}" />
           </div>
           {{/if}}
           {{#if event.html}}
