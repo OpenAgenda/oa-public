@@ -1,6 +1,7 @@
 const React = require('react');
 const { useIntl } = require('react-intl');
 const { useForm } = require('react-final-form');
+const { useDebouncedCallback } = require('use-debounce');
 const { Portal } = require('@stefanoruth/react-portal-ssr');
 const {
   Filters,
@@ -24,6 +25,18 @@ const {
 
 function Input({ input, placeholder }) {
   const form = useForm();
+  const [tmpValue, setTmpValue] = useState(input.value);
+
+  const debouncedOnChange = useDebouncedCallback(e => {
+    return input.onChange(e);
+  }, 400);
+
+  const onChange = useCallback(e => {
+    e.persist();
+
+    setTmpValue(e.target.value);
+    debouncedOnChange(e);
+  }, [debouncedOnChange]);
 
   return el(
     'div',
@@ -34,7 +47,9 @@ function Input({ input, placeholder }) {
         className: 'form-control',
         autoComplete: 'off',
         placeholder,
-        ...input
+        ...input,
+        onChange,
+        value: tmpValue
       }
     ),
     el(
