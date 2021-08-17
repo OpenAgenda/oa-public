@@ -30,7 +30,7 @@ describe('agendaEvents - 04 - functional (server): update', function() {
       result = await svc(62792452).update(10974548, {
         featured: true,
         state: 2,
-        aggregated: false
+        aggregated: 'fdqfdsq'
       });
     });
 
@@ -48,8 +48,8 @@ describe('agendaEvents - 04 - functional (server): update', function() {
       result.before.state.should.equal(1);
     });
 
-    it('aggregated bool is not updatable', () => {
-      result.updated.aggregated.should.equal(true);
+    it('aggregated value is updatable', () => {
+      result.updated.aggregated.should.equal('fdqfdsq');
     });
   });
 

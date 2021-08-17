@@ -10,7 +10,7 @@ create table if not exists `agenda_event` (
   created_at datetime not null,
   updated_at datetime not null,
   legacy_id varchar(30),
-  aggregated tinyint(1),
+  aggregated varchar(32) default null,
   index user_uid_idx (user_uid),
   index agenda_uid_idx (agenda_uid),
   index event_uid_idx (event_uid),

@@ -45,7 +45,7 @@ module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
 
     log('info', 'validating for %s.%s', agendaUid, eventUid, values);
 
-    clean = _.omit(validate(values), ['aggregated']);
+    clean = validate(values);
   } catch (validationErrors) {
     return {
       success: false,
