@@ -7,12 +7,14 @@ import locationSet from './fixtures/locationSet.json';
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
 import termStore from './term.story';
+import filtersStory from './filters.story';
 
 import '../components/src/verifiedLocationsCounter';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
 import location from './fixtures/location.json';
+import locations from './fixtures/locations.json';
 
 debug.enable('*');
 
@@ -217,5 +219,13 @@ storiesOf('Location form component', module)
 storiesOf('Term selector', module).add('Main', () =>
   termStore({
     apiRoot,
+  }))
+
+  storiesOf('Filters', module).add('Main', () =>
+  filtersStory({
+    locations
   })
 );
+
+
+

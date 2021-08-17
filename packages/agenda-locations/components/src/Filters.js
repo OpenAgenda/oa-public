@@ -39,16 +39,12 @@ class Filters extends Component {
       locations,
       intl
     } = this.props;
-
     if (field === 'state') {
       return intl.formatMessage(messages.verify);
     } if (field === 'uids') {
       const selected = locations
-
-        .filter(l => value.indexOf(l.uid) !== -1)
-
+        .filter(l => Object.values(value).map(v => parseInt(v, 10)).indexOf(l.uid) !== -1)
         .map(l => l.name);
-
       if (selected.length > 4 || !selected.length) {
         return intl.formatMessage(messages.locationSelection);
       }
@@ -84,6 +80,7 @@ class Filters extends Component {
   }
 
   render() {
+    console.log('query', this.props.query);
     return (
       <ul className="list-unstyled">
         {this.getFilterList().map(this.renderItem.bind(this))}
