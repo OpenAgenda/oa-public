@@ -1,4 +1,28 @@
 {
+  "ReactFilters.ChoiceFilter.lessOptions": [
+    {
+      "type": 0,
+      "value": "Less options"
+    }
+  ],
+  "ReactFilters.ChoiceFilter.moreOptions": [
+    {
+      "type": 0,
+      "value": "More options"
+    }
+  ],
+  "ReactFilters.ChoiceFilter.noResult": [
+    {
+      "type": 0,
+      "value": "No result"
+    }
+  ],
+  "ReactFilters.ChoiceFilter.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
   "ReactFilters.DateRangeFilter.dateRange": [
     {
       "type": 0,
@@ -112,30 +136,6 @@
       "value": "Map"
     }
   ],
-  "ReactFilters.ChoiceFilter.lessOptions": [
-    {
-      "type": 0,
-      "value": "Less options"
-    }
-  ],
-  "ReactFilters.ChoiceFilter.moreOptions": [
-    {
-      "type": 0,
-      "value": "More options"
-    }
-  ],
-  "ReactFilters.ChoiceFilter.noResult": [
-    {
-      "type": 0,
-      "value": "No result"
-    }
-  ],
-  "ReactFilters.ChoiceFilter.searchPlaceholder": [
-    {
-      "type": 0,
-      "value": "Search"
-    }
-  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
@@ -230,6 +230,12 @@
     {
       "type": 0,
       "value": "Member"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.originAgendaUid": [
+    {
+      "type": 0,
+      "value": "Origin agenda"
     }
   ],
   "ReactFilters.messages.filterTitles.region": [
