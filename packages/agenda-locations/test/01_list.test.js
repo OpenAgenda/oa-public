@@ -249,7 +249,6 @@ describe('agenda-locations - functional - list', () => {
 
       expect(agendas.length).toBeGreaterThan(0);
       agendas.forEach(agenda => {
-        // expect(agenda.updatedAt).toBeGreaterThanOrEqual(gte);
         expect(agenda.updatedAt >= gte).toBe(true);
       });
     });
@@ -263,7 +262,6 @@ describe('agenda-locations - functional - list', () => {
 
       expect(agendas.length).toBeGreaterThan(0);
       agendas.forEach(agenda => {
-        // expect(agenda.updatedAt).toBeLessThanOrEqual(lte);
         expect(agenda.updatedAt <= lte).toBe(true);
       });
     });
@@ -392,6 +390,18 @@ describe('agenda-locations - functional - list', () => {
       );
       expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].duplicateCandidates).toStrictEqual([51665986]);
       expect(items_.filter(e => e.slug === 'grotte-chauvet-2-ardeche327')[0].disqualifiedDuplicates).toStrictEqual([5]);
+    });
+
+    it('adminLvls are fetch with detailed option', async () => {
+      const items_ = await svc(7196947).list(
+        {},
+        {},
+        {
+          detailed: true,
+        }
+      );
+      expect(items_[0].adminLevel1).toBe('Auvergne-Rhône-Alpes');
+      expect(items_[0].adminLevel2).toBe('Ardèche');
     });
   });
 

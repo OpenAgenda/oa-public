@@ -127,7 +127,7 @@ describe('agenda-locations - functional - create', () => {
       expect(JSON.parse(entry.store).extId).toBe('123456');
     });
 
-    it('if region is not specify but adminLevel1 is', async () => {
+    it('if region is not specified but adminLevel1 is', async () => {
       const newPayload = { ...payload, adminLevel1: payload.region };
       delete newPayload.region;
       await svc(7196947).create(newPayload);
@@ -136,10 +136,9 @@ describe('agenda-locations - functional - create', () => {
         .first()
         .where('uid', created.uid);
 
-      console.log(newPayload, entry);
       expect(entry.region).toEqual(newPayload.adminLevel1);
     });
-    it('if department is not specify but adminLevel2 is', async () => {
+    it('if department is not specified but adminLevel2 is', async () => {
       const newPayload = { ...payload, adminLevel2: payload.department };
       delete newPayload.department;
       await svc(7196947).create(newPayload);
@@ -148,7 +147,6 @@ describe('agenda-locations - functional - create', () => {
         .first()
         .where('uid', created.uid);
 
-      console.log(newPayload, entry);
       expect(entry.department).toEqual(newPayload.adminLevel2);
     });
   });

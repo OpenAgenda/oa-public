@@ -67,7 +67,6 @@ describe('agenda-locations - functional - get', () => {
 
     beforeAll(async () => {
       location = await svc.get(51665987);
-      console.log(location);
     });
 
     it('location is the result', () => {
@@ -86,6 +85,12 @@ describe('agenda-locations - functional - get', () => {
       expect({ duplicateCandidates: location.duplicateCandidates, disqualifiedDuplicates: location.disqualifiedDuplicates }).toStrictEqual(
         { duplicateCandidates: [51665986], disqualifiedDuplicates: [5] }
       );
+    });
+    it('admin lvl1', () => {
+      expect(location.adminLevel1).toBe('Auvergne-Rhône-Alpes');
+    });
+    it('admin lvl2', () => {
+      expect(location.adminLevel2).toBe('Ardèche');
     });
   });
 
