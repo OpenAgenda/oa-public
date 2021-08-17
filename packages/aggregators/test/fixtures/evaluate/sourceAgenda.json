@@ -1,0 +1,16 @@
+{
+  "uid": 50781256,
+  "updatedAt": "2019-09-11T16:33:48.000Z",
+  "createdAt": "2018-03-20T09:15:55.000Z",
+  "formSchemaId": null,
+  "officializedAt": "2018-05-31T08:50:50.000Z",
+  "image": "https://cibuldev.s3.amazonaws.com/agenda50781256.jpg",
+  "private": 0,
+  "indexed": 1,
+  "title": "Launaguet",
+  "description": "Agenda des événements de Toulouse Métropole",
+  "slug": "launaguet",
+  "url": "http://www.toulouse-metropole.fr/",
+  "official": 1,
+  "networkUid": 78678694
+}

@@ -17,6 +17,10 @@ module.exports.updateIsRequired = (
 
   const cleanSourcePaths = clean(sourcePaths);
 
+  if (!cleanSourcePaths.length) {
+    return false;
+  }
+
   if (cleanSourcePaths.length !== pathsFromSource.length) {
     return true;
   }
@@ -51,4 +55,12 @@ module.exports.getAmended = (referencePaths = [], sourcePaths = [], leaf) => {
 module.exports.getFiltered = (referencePaths = [], leaf) => {
   log('getFiltered', { referencePaths, leaf });
   return clean(referencePaths).filter(p => !p.includes(leaf));
+};
+
+module.exports.endsShortestPath = (referencePaths, leaf) => {
+  const shortestPath = referencePaths.reduce((shortest, path) => (shortest && shortest.length < path.length ? shortest : path));
+
+  return !!referencePaths.filter(
+    p => p.length === shortestPath.length && p[p.length - 1] === leaf
+  ).length;
 };

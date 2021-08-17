@@ -1,6 +1,11 @@
 'use strict';
 
-const { updateIsRequired, getAmended, getFiltered } = require('../utils/paths');
+const {
+  updateIsRequired,
+  getAmended,
+  getFiltered,
+  endsShortestPath,
+} = require('../utils/paths');
 
 describe('13 - paths', () => {
   describe('updateIsRequired', () => {
@@ -19,6 +24,10 @@ describe('13 - paths', () => {
           333
         )
       ).toBe(true);
+    });
+
+    test('if source does not have any paths, it is a root', () => {
+      expect(updateIsRequired([[333]], [], 333)).toBe(false);
     });
 
     test('all paths of source are known to reference', () => {
@@ -106,6 +115,12 @@ describe('13 - paths', () => {
       );
 
       expect(filtered).toEqual([[888, 1, 23]]);
+    });
+  });
+
+  describe('endsShortestPath', () => {
+    test('one path, one identifier', () => {
+      expect(endsShortestPath([[70042833]], 70042833)).toBe(true);
     });
   });
 });
