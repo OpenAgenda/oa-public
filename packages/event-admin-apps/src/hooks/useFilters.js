@@ -175,6 +175,16 @@ export default function useFilters(agendaSchema) {
         },
       },
       {
+        name: 'originAgendaUid',
+        type: 'choice',
+        options: null, // from the aggregation
+        labelKey: 'agenda.title',
+        aggregation: {
+          type: 'originAgendas',
+          size: AGGREGATION_SIZE,
+        },
+      },
+      {
         name: 'featured',
         type: 'choice',
         options: featuredOptions,
