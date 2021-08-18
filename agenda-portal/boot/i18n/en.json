@@ -1,4 +1,7 @@
 {
+  "attendanceMode": "Attendance mode",
+  "backToList": "Back to list",
+  "customFilters": "Custom filters",
   "filters": "Filters",
   "noSearchResult": "No events match this search",
   "oneEvent": "1 event",
@@ -11,6 +14,7 @@
   "onlineAccessLink": "Access online event",
 
   "searchPlaceholder": "Search",
+  "searchWhenMoving": "Search when I move the map",
 
   "offline":  "Offline",
   "online": "Online",
