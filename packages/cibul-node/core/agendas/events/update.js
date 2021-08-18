@@ -49,6 +49,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     partial,
     defaultLang,
     batched,
+    aggregated,
     access,
     filterUnauthorizedData,
     returnPayload
@@ -57,6 +58,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     partial: false,
     defaultLang: 'en',
     batched: false,
+    aggregated: null,
     access: 'public',
     returnPayload: false,
     filterUnauthorizedData: false,
@@ -88,7 +90,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     partial,
     access,
     member,
-    defaultLang
+    defaultLang,
+    aggregated
   });
 
   const authorizations = await loadAuthorizations(core, 'update', {
@@ -127,7 +130,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     try {
-      payload.setItem('event', await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
+      payload.setItem('event', event, await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
         context: {
           agendaUid,
           userUid,
@@ -152,7 +155,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       throw e;
     }
   } else {
-    payload.setItem('event', event);
+    payload.setItem('event', event, event);
   }
 
   if (agenda.formSchemaId && clean.custom) {
@@ -205,8 +208,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         }
       }), {
         transferToLegacy: true,
+        aggregated,
         context: {
-          aggregated: false,
+          aggregated,
           legacy: false,
           userUid,
           event,
@@ -255,9 +259,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
   }
 
+  const before = await payload.getCompiledEvent('before');
+
   await aggregators.notify('updateEvent', {
     event: await payload.getCompiledEvent(),
-    before: await payload.getCompiledEvent('before'),
+    before,
     agenda,
     formSchema: payload.getFormSchema(),
     batched

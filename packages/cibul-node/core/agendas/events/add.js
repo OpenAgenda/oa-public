@@ -36,7 +36,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     access,
     returnPayload
   } = {
-    aggregated: false,
+    aggregated: null,
     paths: null,
     sourceAgenda: null,
     batched: false,

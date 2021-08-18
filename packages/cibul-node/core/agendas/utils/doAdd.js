@@ -37,7 +37,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     access
   } = {
     batched: false,
-    aggregated: false,
+    aggregated: null,
     paths: null,
     sourceAgenda: null,
     draft: false,
@@ -53,6 +53,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     try {
       const { created, before } = await agendaEvents(agenda.uid).create(event.uid, clean.agendaEvent, {
         transferToLegacy: true, // directive to replicate to legacy data structure
+        aggregated,
         context: {
           event,
           agenda,
