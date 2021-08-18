@@ -1,4 +1,28 @@
 {
+  "ReactFilters.ChoiceFilter.lessOptions": [
+    {
+      "type": 0,
+      "value": "crwdns848:0crwdne848:0"
+    }
+  ],
+  "ReactFilters.ChoiceFilter.moreOptions": [
+    {
+      "type": 0,
+      "value": "crwdns850:0crwdne850:0"
+    }
+  ],
+  "ReactFilters.ChoiceFilter.noResult": [
+    {
+      "type": 0,
+      "value": "crwdns852:0crwdne852:0"
+    }
+  ],
+  "ReactFilters.ChoiceFilter.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns854:0crwdne854:0"
+    }
+  ],
   "ReactFilters.DateRangeFilter.dateRange": [
     {
       "type": 0,
@@ -132,30 +156,6 @@
       "value": "Map"
     }
   ],
-  "ReactFilters.ChoiceFilter.lessOptions": [
-    {
-      "type": 0,
-      "value": "crwdns848:0crwdne848:0"
-    }
-  ],
-  "ReactFilters.ChoiceFilter.moreOptions": [
-    {
-      "type": 0,
-      "value": "crwdns850:0crwdne850:0"
-    }
-  ],
-  "ReactFilters.ChoiceFilter.noResult": [
-    {
-      "type": 0,
-      "value": "crwdns852:0crwdne852:0"
-    }
-  ],
-  "ReactFilters.ChoiceFilter.searchPlaceholder": [
-    {
-      "type": 0,
-      "value": "crwdns854:0crwdne854:0"
-    }
-  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
@@ -250,6 +250,12 @@
     {
       "type": 0,
       "value": "Member"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.originAgendaUid": [
+    {
+      "type": 0,
+      "value": "Origin agenda"
     }
   ],
   "ReactFilters.messages.filterTitles.region": [

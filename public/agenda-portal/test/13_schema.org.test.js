@@ -18,8 +18,10 @@ describe('13 - schema.org', () => {
         value: 'contact@brigaud.fr',
       },
     ],
-    image:
-      'https://cibul.s3.amazonaws.com/73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
+    image: {
+      base: 'https://cibul.s3.amazonaws.com/',
+      filename: '73a0e0e58db448ffbd6e21dee5151642.base.image.jpg'
+    },
     location: {
       name: 'Château-musée de Gien',
       address: '5 Place du Château, 45500 Gien',
@@ -104,7 +106,7 @@ describe('13 - schema.org', () => {
       });
 
       it('image is a repeated URL', () => {
-        expect(parsedEventJSONLD.image).toEqual([event.image]);
+        expect(parsedEventJSONLD.image).toEqual(`${event.image.base}${event.image.filename}`);
       });
 
       it('location.name is the detailed name of the place or venue where the event is being held.', () => {
