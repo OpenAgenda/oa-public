@@ -38,13 +38,14 @@ function distributeCleanData(consolidatedClean, schemaExtensions) {
   };
 }
 
-function validateEvent(services, { formSchema, networkFormSchema, location }, data, options = {}) {
-  const {
-    agendaEvents: {
-      validate: validateAgendaEvent
-    }
-  } = services;
-
+function validateEvent({
+  getRoleSlug,
+  validateAgendaEvent,
+  formSchema,
+  networkFormSchema,
+  location
+}, data, options = {}) {
+  // log(JSON.stringify(data, null, 2));
   const {
     draft,
     partial,
@@ -85,7 +86,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     languages,
     schemaExtensions: asArray(schemaExtensions),
     access: {
-      write: member ? services.members.utils.getRoleSlug(member.role) : access
+      write: member ? getRoleSlug(member.role) : access
     },
     includeEventFields: !!evaluateEvent
   });
@@ -155,6 +156,11 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 }
 
 async function cleanEvent(services, agenda, data, options = {}) {
+  const {
+    members,
+    agendaEvents
+  } = services;
+
   const locationUid = _.get(data, 'location.uid', _.get(data, 'locationUid'));
   const location = locationUid ? await services.agendaLocations.get({
     uid: locationUid,
@@ -173,10 +179,12 @@ async function cleanEvent(services, agenda, data, options = {}) {
     pre.location = location;
   }
 
-  return validateEvent(services, {
+  return validateEvent({
+    getRoleSlug: members.utils.getRoleSlug,
     formSchema: agenda.formSchema,
     networkFormSchema: _.get(agenda, 'network.formSchema'),
-    location
+    location,
+    validateAgendaEvent: agendaEvents.validate
   }, pre, options);
 }
 
