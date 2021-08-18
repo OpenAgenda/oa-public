@@ -48,8 +48,8 @@ describe('agendaEvents - 04 - functional (server): update', function() {
       result.before.state.should.equal(1);
     });
 
-    it('aggregated value is updatable', () => {
-      result.updated.aggregated.should.equal('fdqfdsq');
+    it('aggregated value is not directly updatable', () => {
+      result.updated.aggregated.should.equal('achecksumvalue');
     });
   });
 
@@ -116,6 +116,15 @@ describe('agendaEvents - 04 - functional (server): update', function() {
       });
 
       result.updated.state.should.equal(-1);
+    });
+
+    it('updated of aggregated key is done through options', async () => {
+      const result = await svc(62792452)
+        .update(10974548, {}, {
+          aggregated: 'updatedchecksum'
+        });
+
+      result.updated.aggregated.should.equal('updatedchecksum');
     });
 
     it('simple update to canEdit set to true', async () => {

@@ -147,7 +147,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
         eventUid: 10974548,
         agendaUid: 62792452,
         userUid: 12312312,
-        aggregated: true,
+        aggregated: 'achecksumvalue',
         sourcePaths: [[6789678], [896785]],
         featured: false,
         canEdit: false,

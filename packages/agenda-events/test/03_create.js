@@ -71,14 +71,13 @@ describe('agendaEvents - 03 - functional (server): create', function() {
         userUid: 5656
       });
 
-      result.aggregated = await svc(1212).create(9893, {
+      result.aggregated = await svc(1212).create(9893, {}, {
         aggregated: '9fae1'
       });
 
       result.aggregatedAndUser = await svc(1212).create(19390, {
-        aggregated: 'afd11',
         userUid: 1929
-      });
+      }, { aggregated: 'afd11' });
     });
 
     it('userUid is provided in created ref', () => {
