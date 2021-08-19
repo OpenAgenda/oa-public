@@ -7,6 +7,7 @@ const {
   Filters,
   ChoiceFilter,
   DateRangeFilter,
+  DefinedRangeFilter,
   SearchFilter,
   MapFilter,
   CustomFilter
@@ -231,6 +232,7 @@ module.exports = React.forwardRef(function FiltersRoot({
         withRef: true,
         filters,
         dateRangeComponent: DateRangeFilter,
+        definedRangeComponent: DefinedRangeFilter,
         choiceComponent: ChoiceFilter,
         mapComponent: MapFilter,
         searchComponent: SearchFilter,

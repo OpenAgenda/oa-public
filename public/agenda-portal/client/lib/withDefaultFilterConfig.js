@@ -1,4 +1,5 @@
 const getLocaleValue = require('@openagenda/react-shared/lib/utils/getLocaleValue');
+const dateRanges = require('@openagenda/react-filters/lib/utils/dateRanges').default;
 const assignIfEmpty = require('./assignIfEmpty');
 
 const AGGREGATION_SIZE = 2000;
@@ -19,6 +20,9 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
       assignIfEmpty(filter, {
         aggregation: null
       });
+      if (filter.type === 'definedRange') {
+        Object.assign(filter, dateRanges(intl, filter));
+      }
       break;
     case 'search':
       assignIfEmpty(filter, {
