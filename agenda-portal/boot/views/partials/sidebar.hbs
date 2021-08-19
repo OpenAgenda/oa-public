@@ -14,7 +14,9 @@
     </div>
 
     <div class="my-4">
-      {{filter type='dateRange' name='timings'}}
+      <!-- id is required because both filters has the same name -->
+      {{filter id='timings' type='dateRange' name='timings'}}
+      {{filter id='defined-range' type='definedRange' name='timings' staticRanges=(array 'today' 'tomorrow')}}
     </div>
 
     <div class="my-4">

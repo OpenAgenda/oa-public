@@ -1,3 +1,5 @@
+// BASE
+
 .rdrCalendarWrapper {
   box-sizing: border-box;
   //background: #ffffff;
@@ -219,17 +221,27 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.rdrStaticRanges:empty {
+  display: none;
 }
 
 .rdrStaticRange {
   font-size: inherit;
+  border: none;
 }
 
 .rdrStaticRangeLabel {
 }
 
 .rdrInputRanges {
+}
+
+.rdrInputRanges:empty {
+  display: none;
 }
 
 .rdrInputRange {
@@ -565,7 +577,6 @@
   font-size: 12px;
   width: 226px;
   border-right: solid 1px #eff2f7;
-  background: #fff;
 }
 
 .rdrDefinedRangesWrapper .rdrStaticRangeSelected {
@@ -583,6 +594,10 @@
   background: #fff;
 }
 
+.rdrStaticRange + .rdrStaticRange {
+  margin-left: 8px;
+}
+
 .rdrStaticRange:hover .rdrStaticRangeLabel,
 .rdrStaticRange:focus .rdrStaticRangeLabel {
   background: #eff2f7;
@@ -592,8 +607,8 @@
   display: block;
   outline: 0;
   line-height: 18px;
-  padding: 10px 20px;
   text-align: left;
+  padding: 5px;
 }
 
 .rdrInputRanges {
