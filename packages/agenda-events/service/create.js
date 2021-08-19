@@ -24,15 +24,19 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
   let created = null;
 
   try {
-    const values = Object.assign({ eventUid, agendaUid }, data || {}, {
+    const values = Object.assign({ eventUid, agendaUid }, _.omit(data, ['aggregated']) || {}, {
       createdAt: new Date(),
       updatedAt: new Date()
     });
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt'].forEach(f => {
+      ['updatedAt', 'createdAt', 'aggregated'].forEach(f => {
         if (data[f]) values[f] = data[f];
       });
+    }
+
+    if (params.aggregated) {
+      values.aggregated = params.aggregated;
     }
 
     clean = validate(values);

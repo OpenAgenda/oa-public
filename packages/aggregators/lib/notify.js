@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const Log = require('../utils/Log')('Aggregators/notify');
+const Log = require('../utils/Log')('notify');
 
 const determineAggregationAction = require('../utils/determineAggregationAction');
 

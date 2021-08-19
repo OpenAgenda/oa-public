@@ -121,14 +121,14 @@ describe('core - functional (server): core.agendas().events add()', function() {
         'image_alt_text': 'Un texte'
       }, {
         paths: [[82910283, 17026855]],
-        aggregated: true,
+        aggregated: 'f9fdqs3',
         returnPayload: true,
         access: 'contributor'
       });
     });
 
     it('agenda event reference is flagged as aggregated', () => {
-      expect(result.event.aggregated).toBe(true)
+      expect(result.event.aggregated).toBe('f9fdqs3');
     });
 
     it('agenda event reference stores agenda source uid', () => {

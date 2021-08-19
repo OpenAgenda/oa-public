@@ -2,7 +2,13 @@
 
 ## Jelastic
 
-Forcer une redirection vers https: https://stackoverflow.com/questions/37370280/jelastic-nginx-http-to-https-redirect
+Forcer une redirection vers https (voir la 2ème réponse): https://stackoverflow.com/questions/37370280/jelastic-nginx-http-to-https-redirect
+
+Dans le fichier nginx-jelastic.conf, sous le listen 80, server_name, mettre:
+
+    if ($http_x_forwarded_proto != "https") {
+        return 301 https://$host$request_uri;
+    }
 
 ## redis
 

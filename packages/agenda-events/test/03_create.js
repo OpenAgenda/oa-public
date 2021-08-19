@@ -17,7 +17,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
   before(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
-      'agenda_event.create.sql',
+      '../../model.sql',
       'agenda_event.data.sql'
     ]);
   });
@@ -53,12 +53,12 @@ describe('agendaEvents - 03 - functional (server): create', function() {
       });
     });
 
-    it('aggregated db field is false by default', () => {
-      rows[0].aggregated.should.equal(0);
+    it('aggregated db field is null by default', () => {
+      should(rows[0].aggregated).equal(null);
     });
 
-    it('created result specifies aggregated to be false', () => {
-      result.created.aggregated.should.equal(false);
+    it('created result specifies aggregated to be null', () => {
+      should(result.created.aggregated).equal(null);
     });
 
   });
@@ -71,22 +71,21 @@ describe('agendaEvents - 03 - functional (server): create', function() {
         userUid: 5656
       });
 
-      result.aggregated = await svc(1212).create(9893, {
-        aggregated: true
+      result.aggregated = await svc(1212).create(9893, {}, {
+        aggregated: '9fae1'
       });
 
       result.aggregatedAndUser = await svc(1212).create(19390, {
-        aggregated: true,
         userUid: 1929
-      });
+      }, { aggregated: 'afd11' });
     });
 
     it('userUid is provided in created ref', () => {
       result.byUser.created.userUid.should.equal(5656);
     });
 
-    it('aggregated is provided in created ref as true when specified', () => {
-      result.aggregated.created.aggregated.should.equal(true);
+    it('aggregated key is provided in created ref when set at creation', () => {
+      result.aggregated.created.aggregated.should.equal('9fae1');
     });
 
     it('cannot create an entry both as aggregated and associated with user', () => {

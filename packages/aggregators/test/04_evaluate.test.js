@@ -7,7 +7,7 @@ describe('04 - evaluate', () => {
   const data = getJSON('/fixtures/evaluate/data');
 
   describe('simple evaluate leading to new reference', () => {
-    let args;
+    let referenceData;
     let result;
 
     beforeAll(async () => {
@@ -15,12 +15,12 @@ describe('04 - evaluate', () => {
         {
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference'),
-          referenceEvent: (a, e, d, o) => {
-            args = [a, e, d, o];
+          referenceEvent: d => {
+            referenceData = d;
             return { success: true };
           },
         },
-        data
+        { ...data, batched: false }
       );
     });
 
@@ -29,16 +29,18 @@ describe('04 - evaluate', () => {
     });
 
     describe('referenceEvent call', () => {
-      test('first argument is the uid of the aggregator on which the event is to be referenced', () => {
-        expect(args[0]).toBe(data.aggregatorAgendaUid);
+      test('aggregatorAgendaUid is provided in the call', () => {
+        expect(referenceData.aggregatorAgendaUid).toBe(
+          data.aggregatorAgendaUid
+        );
       });
 
-      test('second is the uid of the event that is to be aggregated', () => {
-        expect(args[1]).toBe(data.event.uid);
+      test('eventUid is provided in the call', () => {
+        expect(referenceData.eventUid).toBe(data.event.uid);
       });
 
-      test('third is the additional values to be associated to event on aggregating agenda', () => {
-        expect(args[2]).toEqual({
+      test('payload contains the additional values to be associated to event on aggregating agenda', () => {
+        expect(referenceData.payload).toEqual({
           entreelibre: [],
           'thematiques-metropolitaines': [8, 9],
           'types-devenements': [15, 23],
@@ -49,25 +51,39 @@ describe('04 - evaluate', () => {
         });
       });
 
-      test('fourth contains the aggregation paths', () => {
-        expect(args[3].paths).toEqual([
+      test('aggregated key is provided', () => {
+        expect(referenceData.aggregated).toEqual(
+          'fd030fdcfb94622b8e8358dcb1a11d94'
+        );
+      });
+
+      test('aggregation paths are provided in paths key', () => {
+        expect(referenceData.paths).toEqual([
           [120, 19023, data.agenda.uid],
           [92893, 90193, data.agenda.uid],
         ]);
+      });
+
+      test('batched boolean is passed to referenceEvent call', () => {
+        expect(referenceData.batched).toBe(false);
+      });
+
+      test('sourceAgenda is passed to referenceEvent call', () => {
+        expect(referenceData.sourceAgenda.uid).toBe(50781256);
       });
     });
   });
 
   describe('evaluate leading to the paths of a reference being updated', () => {
-    let args;
+    let updatePathsData;
 
     beforeAll(async () => {
       await evaluate(
         {
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-          updateSourcePaths: (a, e, p) => {
-            args = [a, e, p];
+          updateSourcePaths: d => {
+            updatePathsData = d;
             return { success: true };
           },
         },
@@ -76,21 +92,67 @@ describe('04 - evaluate', () => {
     });
 
     describe('updateSourcePaths call', () => {
-      test('first arg is the uid of the aggregating agenda', () => {
-        expect(args[0]).toBe(data.aggregatorAgendaUid);
+      test('uid of the aggregating agenda is provided', () => {
+        expect(updatePathsData.aggregatorAgendaUid).toBe(
+          data.aggregatorAgendaUid
+        );
       });
 
-      test('second is the uid of the event that is to be aggregated', () => {
-        expect(args[1]).toBe(data.event.uid);
+      test('uid of the event that is to be aggregated is provided', () => {
+        expect(updatePathsData.eventUid).toBe(data.event.uid);
       });
 
-      test('third are the updated paths, amended with source paths', () => {
-        expect(args[2]).toEqual([
+      test('updated paths amended with source paths are provided', () => {
+        expect(updatePathsData.paths).toEqual([
           [1293, 7878697],
           [120, 19023, data.agenda.uid],
           [92893, 90193, data.agenda.uid],
         ]);
       });
+    });
+  });
+
+  describe('evaluate leading to a reference being updated', () => {
+    let updateEventData;
+    beforeAll(async () => {
+      await evaluate(
+        {
+          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
+          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.5'),
+          updateEventReference: d => {
+            updateEventData = d;
+          },
+        },
+        {
+          aggregatorAgendaUid: 50522407,
+          sourceRules: getJSON(
+            '/fixtures/evaluate/rulesActingOnAnAdditionalChoiceField'
+          ),
+          agenda: getJSON('/fixtures/evaluate/sourceAgenda'),
+          formSchema: getJSON('/fixtures/evaluate/sourceFormSchema'),
+          event: getJSON('/fixtures/evaluate/eventBeforeAndAfter').after,
+          before: getJSON('/fixtures/evaluate/eventBeforeAndAfter').before,
+          aggregatorLimit: null,
+        }
+      );
+    });
+
+    test('updateEventReference is provided with aggregator uid', () => {
+      expect(updateEventData.aggregatorAgendaUid).toBe(50522407);
+    });
+
+    test('updateEventReference is provided with event uid', () => {
+      expect(updateEventData.eventUid).toBe(28304431);
+    });
+
+    test('updateEventReference is provided with patched values as third argument', () => {
+      expect(updateEventData.payload).toEqual({ 'types-devenements': 19 });
+    });
+
+    test('updateEventReference is provided with new aggregate key', () => {
+      expect(updateEventData.aggregated).toBe(
+        'fc4d4eb0abc54822d23f717dd6e05081'
+      );
     });
   });
 
@@ -126,8 +188,8 @@ describe('04 - evaluate', () => {
         {
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.4'),
-          updateSourcePaths: (a, e, p) => {
-            args = [a, e, p];
+          updateSourcePaths: a => {
+            args = a;
             return { success: true };
           },
         },
@@ -139,7 +201,7 @@ describe('04 - evaluate', () => {
     });
 
     test('updateSourcePaths provides paths without source', () => {
-      expect(args[2]).toEqual([[1, 2, 3]]);
+      expect(args.paths).toEqual([[1, 2, 3]]);
     });
   });
 
@@ -173,7 +235,7 @@ describe('04 - evaluate', () => {
     });
   });
 
-  it('evaluate is skiped if limit is set to null (default)', async () => {
+  it('evaluate is skipped if limit is set to null (default)', async () => {
     const result = await evaluate(
       {
         getAggregatedCount: () => 365,
@@ -190,7 +252,7 @@ describe('04 - evaluate', () => {
     expect(result).toBeUndefined();
   });
 
-  it('evaluate is skiped if limit is set to 1000', async () => {
+  it('evaluate is skipped if limit is set to 1000', async () => {
     const result = await evaluate(
       {
         getAggregatedCount: () => 1000,
@@ -208,7 +270,7 @@ describe('04 - evaluate', () => {
     expect(result).toBeUndefined();
   });
 
-  it('evaluate is not skiped if limit is set to -1', async () => {
+  it('evaluate is not skipped if limit is set to -1', async () => {
     const result = await evaluate(
       {
         getAggregatedCount: () => 42000,

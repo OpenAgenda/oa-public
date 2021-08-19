@@ -24,14 +24,27 @@ module.exports.init = (config, services) => {
       getMergedSchema: agendaUid => services
         .core.agendas(agendaUid)
         .settings.schema.getMerged(),
-      updateSourcePaths: services.agendaEvents.utils.setSourcePaths,
-      referenceEvent: async (aggregatorAgendaUid, eventUid, data, { batched, paths, sourceAgenda }) => {
+      updateSourcePaths: ({
+        aggregatorAgendaUid,
+        eventUid,
+        paths
+      }) => services.agendaEvents.utils.setSourcePaths(aggregatorAgendaUid, eventUid, paths),
+      referenceEvent: async ({
+        aggregatorAgendaUid,
+        eventUid,
+        payload,
+        batched,
+        paths,
+        sourceAgenda,
+        aggregated
+      }) => {
         tracker('aggregators.referenceEvent');
         try {
+          log('referencing event %s in agenda %s', eventUid, aggregatorAgendaUid);
           await services.core
             .agendas(aggregatorAgendaUid)
-            .events.add(eventUid, data, {
-              aggregated: true,
+            .events.add(eventUid, payload, {
+              aggregated,
               paths,
               sourceAgenda,
               batched,
@@ -45,6 +58,36 @@ module.exports.init = (config, services) => {
           log('error', 'could not add event %s from %s to aggregator %s',
             eventUid,
             sourceAgenda.uid,
+            aggregatorAgendaUid,
+            e.name === 'ValidationError' ? e.detail : e);
+          return {
+            success: false,
+            errors: e.name === 'ValidationError' ? e.detail : e
+          };
+        }
+      },
+      updateEventReference: async ({
+        aggregatorAgendaUid,
+        eventUid,
+        payload,
+        batched,
+        aggregated
+      }) => {
+        tracker('aggregators.updateEventReference');
+        try {
+          await services.core.agendas(aggregatorAgendaUid).events.update(eventUid, payload, {
+            aggregated,
+            batched,
+            partial: true,
+            access: 'administrator'
+          });
+          tracker('aggregators.updateEventReference.done');
+          return {
+            success: true
+          };
+        } catch (e) {
+          log('error', 'could not patch event %s on aggregator %s',
+            eventUid,
             aggregatorAgendaUid,
             e.name === 'ValidationError' ? e.detail : e);
           return {
@@ -73,7 +116,7 @@ module.exports.init = (config, services) => {
       getEventReference: (agendaUid, eventUid) => services
         .agendaEvents(agendaUid).get(eventUid)
         .then(ae => (ae ? {
-          sourcePaths: ae.sourceAgendaUid,
+          sourcePaths: ae.sourcePaths,
           aggregated: ae.aggregated
         } : null)),
       listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)

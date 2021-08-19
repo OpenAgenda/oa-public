@@ -1,0 +1,15 @@
+{
+  "id": 222,
+  "uid": 55278973,
+  "title": "Une source",
+  "slug": "une-source",
+  "description": "Une description petite",
+  "owner_id": 50304,
+  "created_at": "2016-01-11 13:07:08",
+  "updated_at": "2016-01-18 16:14:06",
+  "official": 0,
+  "credentials": "{}",
+  "settings": "{\"contribution\":{\"type\":1,\"defaultState\":0}}",
+  "form_schema_id": 7,
+  "location_set_uid": 1
+}
