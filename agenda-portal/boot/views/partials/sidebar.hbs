@@ -1,6 +1,6 @@
 <div class="sidebar">
   <div class="mobile-top-nav text-center" data-sidebar-toggle>
-    <button class="btn btn-link">Retour à la liste</button>
+    <button class="btn btn-link">{{i18n 'backToList'}}</button>
   </div>
   <div class="sidebar-wrapper">
     <div class="my-4">
@@ -8,8 +8,10 @@
         type='map'
         name='geo'
         className='map-container'
-        searchMessage='rechercher quand je déplace la carte'
+        searchMessage=(i18n 'searchWhenMoving')
         searchWithMap=true
+        tileAttribution='Map data © OpenStreetMap contributors'
+        tileUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       }}
     </div>
 
@@ -20,18 +22,13 @@
     </div>
 
     <div class="my-4">
-      <b>Type de musée</b>
-      {{filter type='choice' fieldName='type-de-musee'}}
-    </div>
-
-    <div class="my-4">
-      <b>Passé / En cours / À venir</b>
+      <b>{{i18n 'passed'}} / {{i18n 'current'}} / {{i18n 'upcoming'}}</b>
       {{filter type='choice' name='relative'}}
 
-      <b>Mode de participation</b>
+      <b>{{i18n 'attendanceMode'}}</b>
       {{filter type='choice' name='attendanceMode' inputType='radio'}}
 
-      <b>Filtres customs</b>
+      <b>{{i18n 'customFilters'}}</b>
 
       {{#customFilter
         query=(object relative=(array 'current' 'upcoming') attendanceMode='1')

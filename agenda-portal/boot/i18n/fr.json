@@ -1,4 +1,7 @@
 {
+  "attendanceMode": "Mode de participation",
+  "backToList": "Retour à la liste",
+  "customFilters": "Filtres personnalisés",
   "filters": "Filtres",
   "noSearchResult": "Aucun événement ne correspond à cette recherche",
   "oneEvent": "1 événement",
@@ -11,6 +14,7 @@
   "onlineAccessLink": "Accéder à l'événement en ligne",
 
   "searchPlaceholder": "Rechercher",
+  "searchWhenMoving": "Rechercher quand je déplace la carte",
 
   "offline":  "Hors ligne",
   "online": "En ligne",
