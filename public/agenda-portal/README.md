@@ -251,25 +251,140 @@ When a search is done on the main agenda page and an event is selected, it is lo
 
 The partial illustrating this is `navigation.hbs`
 
-#### Filtering widgets
+#### Filters
 
-Look for the widgets folder in the sample partial templates for an example of implementation. These widgets provide navigation features:
-
- * **Map widget**: Placed next to the main event list, this widget allows filtering the events dynamically by navigating in the map.
- * **Calendar widget**: Placed next to the main event list, this widget provides date and date range filtering.
- * **Tags**: Placed next to the main event list, this widget provides grouped tags filtering. In OpenAgenda terminology, tags are the legacy name for additional field where discrete values can be picked. By default, all possible values are listed. To limit the selection to a specific field, a `data-group` attribute can be added to the widget specifying the index of the desired field. For example, if the field appears first in the form, the value should be `data-group="0"`.
- * **Search**: Placed next to the main event list, this widget provides text search filtering.
- * **Preview**: This widget can be placed on any page. By default, it loads the three first events of the agenda. It is demoed on the provided 404 template page.
-
-*Important note*: OpenAgenda provides the same widgets for iframe integration. The iframe variants of the widgets are not directly compatible with this library. Use the codes as provided in the sample templates, under the `widgets` folder.
+Map, calendar, search, list of choice and other types of filters can be placed on the page listing the events to facilitate content navigation.
 
 ##### Map
 
-Place the partial `widgets/map.hbs` where the map is to appear. Widget options can be set under the `map` key of the Portal call in your `server.js` file:
+Displays a map geolocating events. Place the following code where the map is to be displayed:
 
- * `tiles`: the map tiles to be used.
- * `auto`: boolean. If `true` panning and zooming actions on the map will update the current list filter accordingly.
- * `center`: Preset center at initialization. Object of 3 required keys: `latitude`, `longitude`, `center`
+```hbs
+{{filter
+  type='map'
+  name='geo'
+  className='map-container'
+  searchMessage='rechercher quand je déplace la carte'
+  searchWithMap=true
+  tileAttribution='Map data © OpenStreetMap contributors'
+  tileUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+}}
+```
+
+###### Properties
+
+ * **className**: classes to be assigned to the map container. The container should have a non-zero surface at initialization
+ * **searchMessage**: text associated with search-on-move checkbox
+ * **searchWithMap**: control whether search-on-move checkbox should be checked by default
+ * **tileUrl**: map tiles to be used
+ * **tileAttribution**: tiles attribution displayed on the bottom right of the map
+
+##### Calendar
+
+Displays a date selector in the form of a days-of-the-month calendar. Place the following code where the selector is to be displayed:
+
+```hbs
+{{filter type='dateRange' name='timings'}}
+```
+
+##### Search
+
+Displays a synthaxic search field.
+
+```hbs
+{{filter type="search" name="search"}}
+```
+
+##### Choice
+
+Displays a list of selectable values to filter the events from. This filter works for several event criterias: attendanceMode, relative, or any additional field of discrete choice type
+
+```hbs
+{{filter type='choice' name='attendanceMode'}}
+```
+
+###### Properties
+
+ * **inputType**: 'radio' for single selection or 'checkbox' for multiple selection
+ * **name**: possible values are 'attendanceMode', 'relative' or any additional fields of discrete type (radio, checkbox, select...)
+
+###### Additional fields
+
+Fields specific to the agenda being displayed by the portal can be used to filter the content here.
+
+A list of the available fields is displayed on the /schema static page of the default views.
+
+Example of a choice filter based on an additional field `category`:
+
+```hbs
+{{filter type='choice' name='category' inputType='radio'}}
+```
+
+##### Custom filters
+
+Custom filters can be defined using the `{{#customFilter}}` helper. A filter is specified in a `query` prop and the html structure of the filter is fully customizable. Elements to display or to hide can be targeted through css.
+
+###### Properties
+
+ * **query**: The filter value when activated
+ * **activeClass**: Class associated with the container div of the filter when it is active.
+ * **inactiveClass**: Class associated with the container div of the filter when it is inactive.
+ * **className**: Invariable class associated to the container div of the filter.
+ * **handlerSelector**: selector used to target the element that will be listened for onclick events, toggling the filter between active and inactive states. By default, the container of the whole filter is listened.
+
+###### Example 1: filtering on upcoming offline events
+
+The following custom filter is defined to show ongoing and upcoming events that can be attended to at a physical location only:
+```hbs
+{{#customFilter
+  query=(object relative=(array 'current' 'upcoming') attendanceMode='1')
+  activeClass='active'
+  inactiveClass='inactive'
+  className='custom-example checkbox'
+}}
+  <label for="nothing">
+    <input type="checkbox" tabindex="-1" readonly checked />
+    <input type="checkbox" tabindex="-1" readonly />
+    En cours + à venir + hors ligne
+  </label>
+{{/customFilter}}
+```
+
+CSS rules can target which input to display depending on the active state of the filter. For instance, in the case above, the following sass ensures that only one input is displayed at any given time:
+
+```sass
+.custom-example {
+  input[type="checkbox"][readonly] {
+    pointer-events: none !important;
+  }
+
+  &.active input[type="checkbox"]:not(:checked) {
+    display: none;
+  }
+  &.inactive input[type="checkbox"]:checked {
+    display: none;
+  }
+}
+```
+
+###### Example 2: filtering on events occurring on a specific date
+
+```hbs
+{{#customFilter
+  query=(object timings=(object gte='2021-06-23T22:00:00.000Z' lte='2021-06-24T21:59:59.999Z'))
+  handlerSelector='.checkboxes'
+  activeClass='active'
+  inactiveClass='inactive'
+  className='custom-example checkbox'
+}}
+  <label for="nothing">
+    <input type="checkbox" tabindex="-1" readonly checked />
+    <input type="checkbox" tabindex="-1" readonly />
+    Jeudi 24 juin
+  </label>
+{{/customFilter}}
+```
+
 
 ## IFrames
 
@@ -316,6 +431,8 @@ The specified iframe attributes:
 ### Static pages
 
 Any static page can be added by placing a file in a `pages` subfolder of the `views` folder. The path will be the same as the name of the file.
+
+Static pages have access to general portal configuration data.
 
 ### Custom configuration
 
