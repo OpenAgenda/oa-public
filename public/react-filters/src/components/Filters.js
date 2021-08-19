@@ -11,11 +11,13 @@ function Filters({
   filters,
   withRef = false,
   dateRangeComponent: DateRangeComponent = Noop,
+  definedRangeComponent: DefinedRangeComponent = Noop,
   choiceComponent: ChoiceComponent = Noop,
   mapComponent: MapComponent = Noop,
   searchComponent: SearchComponent = Noop,
   customComponent: CustomComponent = Noop,
   dateRangeProps,
+  definedRangeProps,
   choiceProps,
   mapProps,
   searchProps,
@@ -38,6 +40,18 @@ function Filters({
                 filter={filter}
                 {...filter}
                 {...dateRangeProps}
+                {...additionnalProps}
+              />
+            );
+            break;
+          case 'definedRange':
+            elem = (
+              <DefinedRangeComponent
+                key={seed(filter)}
+                ref={withRef ? filter.elemRef : null}
+                filter={filter}
+                {...filter}
+                {...definedRangeProps}
                 {...additionnalProps}
               />
             );
