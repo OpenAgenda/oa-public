@@ -73,7 +73,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
-    evaluateEvent: false,
+    validateWithStoredData: true,
     event,
     paths,
     aggregated,

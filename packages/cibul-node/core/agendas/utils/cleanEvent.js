@@ -10,6 +10,8 @@ const eventSchema = require('@openagenda/event-form/src/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
 const ValidationError = require('../../utils/ValidationError');
 
+const eventFields = eventSchema.eventFields({}).map(f => f.field);
+
 const invalidLocationUidErrorItem = uid => ({
   field: 'location',
   code: 'invalid',
@@ -20,6 +22,10 @@ const invalidLocationUidErrorItem = uid => ({
 
 function asArray(obj) {
   return _.keys(obj).map(k => obj[k]).filter(s => !!s);
+}
+
+function containsEventData(data) {
+  return !!Object.keys(data ?? {}).filter(f => eventFields.includes(f)).length;
 }
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
@@ -45,12 +51,12 @@ function validateEvent({
   networkFormSchema,
   location
 }, data, options = {}) {
-  // log(JSON.stringify(data, null, 2));
   const {
     draft,
     partial,
     evaluateEvent,
     event,
+    validateWithStoredData,
     defaultLang,
     optionalSecondaryFields,
     paths,
@@ -60,6 +66,7 @@ function validateEvent({
     defaultLang: null,
     evaluateEvent: true,
     event: null,
+    validateWithStoredData: false,
     draft: false,
     partial: false,
     optionalSecondaryFields: false,
@@ -78,7 +85,10 @@ function validateEvent({
   //  * agenda setting (if set) (not yet coded)
   //  * submitted language keys in languages field
   //  * default language
-  const languages = _.get(data, 'languages') || extractLanguages(data, defaultLang);
+  const languages = _.get(data, 'languages') || extractLanguages(event ? {
+    ...event,
+    ...data
+  } : data, defaultLang);
 
   log('processed languages: %j', languages);
 
@@ -108,7 +118,13 @@ function validateEvent({
       draft
     });
 
-    const consolidatedClean = (partial || draft ? validate.part : validate)(event ? {
+    // update:
+    //   event data must be complete and evaluated as such. current data must not be added for validation
+    // patch:
+    //   event data is partial. current data must be added for validation
+    // add:
+    //   event data is partial.
+    const consolidatedClean = (partial || draft ? validate.part : validate)(validateWithStoredData ? {
       ...event,
       ...data
     } : data);
@@ -161,7 +177,13 @@ async function cleanEvent(services, agenda, data, options = {}) {
     agendaEvents
   } = services;
 
-  const locationUid = _.get(data, 'location.uid', _.get(data, 'locationUid'));
+  const completeEventData = options.validateWithStoredData ? {
+    ...options.event,
+    ...data
+  } : data;
+
+  const locationUid = _.get(completeEventData, 'location.uid', _.get(completeEventData, 'locationUid'));
+
   const location = locationUid ? await services.agendaLocations.get({
     uid: locationUid,
     returnMergeTarget: true
@@ -189,3 +211,5 @@ async function cleanEvent(services, agenda, data, options = {}) {
 }
 
 module.exports = cleanEvent;
+module.exports.validateEvent = validateEvent;
+module.exports.containsEventData = containsEventData;
