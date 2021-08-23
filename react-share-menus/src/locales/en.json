@@ -3,7 +3,7 @@
   "aggregator-success": "{targetAgenda} was successfully added as a source! {targetAgenda}'s events are being aggregated.",
   "aggregator-title": "Aggregate to an agenda",
   "all-languages": "All",
-  "calendar-date": "Choose a date",
+  "calendar-date": "This event has no upcoming dates",
   "cancel": "Cancel",
   "close": "Close",
   "connection-btn": "Sign In",
