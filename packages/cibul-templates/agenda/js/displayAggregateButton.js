@@ -48,7 +48,7 @@ const AggregatorModalContainer = ({ options, query, userLogged }) => {
         onFocus={() => setLogo(blueLogo)}
         onBlur={() => setLogo(whiteLogo)}
       >
-        <img alt="logo" src={logo} />
+        <img alt="logo" src={logo} className="aggregate-logo" />
         &nbsp; {intl.formatMessage(messages.aggregateButton)}
       </a>
       {display ? (
