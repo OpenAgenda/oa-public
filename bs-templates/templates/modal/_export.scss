@@ -1,36 +1,36 @@
 .export {
-  &__container {
+  &-container {
     display: flex;
     align-items: center;
   }
 
-  &__form {
+  &-form {
     width: 100%;
     color: black;
     position: relative;
     margin-bottom: 15px;
   }
 
-  &__title {
-    &--big {
+  &-title {
+    &-big {
       font-size: 3rem;
     }
-    &--md {
+    &-md {
       font-size: 2rem;
       margin-top: 0;
     }
-    &.export__title--md {
+    &.export-title-md {
       margin-top: 15px;
     }
   }
 
-  &__header {
+  &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  &__close {
+  &-close {
     margin-left: 100%;
     position: sticky;
     display: inline-block;
@@ -50,16 +50,16 @@
     }
   }
 
-  #event &__close {
+  #event &-close {
     right: 1rem;
     top: -0.5rem;
   }
 
-  &__btn {
+  &-btn {
     margin-bottom: 20px;
   }
 
-  &__link {
+  &-link {
     margin-bottom: 10px;
   }
 }
@@ -79,8 +79,8 @@
 }
 
 .form-group > .input-group > .form-control.export {
-  &__input,
-  &__textarea {
+  &-input,
+  &-textarea {
     border-radius: 5px;
     resize: vertical;
     max-width: 95%;
@@ -90,6 +90,7 @@
 .input-icon-right {
   position: relative;
   max-width: 95%;
+
   & > button {
     position: absolute;
     top: 0;
@@ -109,8 +110,8 @@
 }
 
 /**** style overwrites ****/
-.agenda-header h1.export__title {
-  &--big {
+.agenda-header h1.export-title {
+  &-big {
     margin-top: 20px;
     font-size: 3rem;
     margin-top: 20px;
@@ -120,16 +121,16 @@
   }
 }
 
-.agenda-header .ctas .btn.export__btn {
+.agenda-header .ctas .btn.export-btn {
   margin-bottom: 20px;
   color: $oa-white;
 }
 
-.aggregator__input.input-icon-right {
+.aggregator-input.input-icon-right {
   max-width: 100%;
 }
 
-#event h1.export__title--big {
+#event h1.export-title-big {
   margin-top: 20px;
   margin-bottom: 0;
   padding: 0;
@@ -150,14 +151,14 @@
 }
 
 .calendars {
-  &__options {
+  &-options {
     margin-left: 3rem;
   }
-  &__list {
+  &-list {
     padding: 0;
   }
 
-  &__date {
+  &-date {
     list-style-type: none;
 
     & > a {
@@ -169,6 +170,7 @@
     }
   }
 }
+
 a.calendars-link {
   color: $oa-blue;
 }
