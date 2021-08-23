@@ -11,15 +11,9 @@
     <div class="col-md-8 order-md-1 mb-4">
       <div class="row">
         <div class="col-md-10 offset-md-2">
-          <span
-            class="js_total mr-2"
-            data-total="{{total}}"
-            data-label-none="{{i18n 'noSearchResult'}}"
-            data-label-one="{{i18n 'oneEvent'}}"
-            data-label-plural="{{i18n 'multipleEvents'}}">{{i18n 'eventsTotal' total=total}}
-          </span>
+          {{widget name='total' message='eventsTotal'}}
 
-          {{widget name='activeFilters'}}
+          {{widget name='activeFilters' className='active-filters'}}
 
           <button class="main-show-sidebar float-right btn btn-outline-primary btn-sm wbg" data-sidebar-toggle>
             <i class="fa fa-plus"></i>
