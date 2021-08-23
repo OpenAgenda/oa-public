@@ -601,13 +601,12 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             },
             data: {
               title: {
-                fr: 'Un événement mis à jour via l\'api',
-                en: 'An updated event through the api'
+                fr: 'Un événement mis à jour via l\'api'
               }
             }
           });
         } catch (e) {
-          // console.log(e.response.data);
+          // console.log(e);
         }
       });
 
@@ -639,9 +638,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           }
         });
 
-        expect(patchResponse.data.event.title).toEqual({
-          en: 'Un événement remis à jour'
-        });
+        expect(patchResponse.data.event.title.en).toEqual('Un événement remis à jour');
       });
 
       it('monolingual patch is in language specified in header', async () => {
@@ -659,9 +656,8 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           }
         });
 
-        expect(patchLangInHeaderResponse.data.event.title).toEqual({
-          fr: 'Un événement reremis à jour'
-        });
+        expect(patchLangInHeaderResponse.data.event.title.fr)
+          .toEqual('Un événement reremis à jour');
       });
     });
   });

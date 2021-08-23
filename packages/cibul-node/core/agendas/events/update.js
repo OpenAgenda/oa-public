@@ -21,7 +21,7 @@ const getAgenda = require('../utils/getAgenda');
 
 const loadAuthorizations = require('../../utils/authorizations');
 
-const containsEventData = require('../utils/containsEventData');
+const { containsEventData } = cleanEvent;
 
 const { filterUnauthorized } = loadAuthorizations;
 
@@ -85,6 +85,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }) : null;
 
   const clean = await cleanEvent(core.services, agenda, data, {
+    validateWithStoredData: !!partial,
+    event, // required to validate related fields in case of partial update
     draft,
     optionalSecondaryFields: true,
     partial,
@@ -106,7 +108,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     filterUnauthorized(clean, data, authorizations);
   }
 
-  if (!authorizations.canEditEvent && containsEventData(clean)) {
+  if (!authorizations.canEditEvent && containsEventData(data)) {
     throw new UnauthorizedError('event', event.uid, 'not authorized to edit event');
   }
 
@@ -119,7 +121,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const payload = createPayload(core.services, agenda);
 
-  if (containsEventData(clean)) {
+  if (containsEventData(data)) {
     if (clean.event.longDescription) {
       try {
         clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
