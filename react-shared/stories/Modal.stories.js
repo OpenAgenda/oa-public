@@ -43,12 +43,12 @@ export const NoHeader = () => {
       </button>
       {display ? (
         <Modal onClose={closeModal} classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll>
-          <form className="export__form">
-            <button className="export__close" type="button" onClick={() => setDisplay(false)}>
+          <form className="export-form">
+            <button className="export-close" type="button" onClick={() => setDisplay(false)}>
               <i className="fa fa-times fa-lg" />
             </button>
-            <h1 className="export__title--big">I am a Big Modal</h1>
-            <h2 className="export__title--md">Without a header.</h2>
+            <h1 className="export-title-big">I am a Big Modal</h1>
+            <h2 className="export-title-md">Without a header.</h2>
             <div className="mg-bottom-sm form-group">
               <ul>
                 <li>
