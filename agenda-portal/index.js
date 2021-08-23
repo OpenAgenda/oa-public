@@ -138,10 +138,16 @@ module.exports = async options => {
     fieldSchema: (fieldName, { data }) => getFieldSchema(data.root.agenda.schema, fieldName),
     image: imageToUrl,
     filter({ hash, data }) {
+      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
+        data.root.__filtersAndWidgetsCounter = 0;
+      }
+
+      const i = data.root.__filtersAndWidgetsCounter++;
+
       const {
-        id,
         tagName = 'div',
         className = '',
+        attributes = '',
         name,
         ...restOptions
       } = hash;
@@ -151,7 +157,7 @@ module.exports = async options => {
       const attrs = {
         ...restOptions,
         name,
-        destSelector: id ? `[data-oa-filter-id="${id}"]` : `[data-oa-filter="${name}"]`
+        destSelector: `[data-oa-filter="${i}"]`
       };
 
       if (fieldSchema?.schemaId) {
@@ -164,18 +170,24 @@ module.exports = async options => {
 
       return new hbs.SafeString(`
         <${tagName}
+          ${attributes}
           class="${className}"
-          data-oa-filter="${name}"
-          ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
+          data-oa-filter="${i}"
           data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
         ></${tagName}>
       `);
     },
     customFilter({ fn, hash, data }) {
+      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
+        data.root.__filtersAndWidgetsCounter = 0;
+      }
+
+      const i = data.root.__filtersAndWidgetsCounter++;
+
       const {
-        id,
         tagName = 'div',
         className = '',
+        attributes = '',
         query = {},
         activeClass = 'active',
         inactiveClass = 'inactive',
@@ -188,6 +200,7 @@ module.exports = async options => {
         query,
         activeClass,
         inactiveClass,
+        destSelector: `[data-oa-filter="${i}"]`,
         ...restOptions
       };
 
@@ -201,9 +214,9 @@ module.exports = async options => {
 
       return new hbs.SafeString(`
         <${tagName}
+          ${attributes}
           class="${cn(className, statusClass)}"
-          data-oa-filter
-          ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
+          data-oa-filter="${i}"
           data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
         >
           ${fn(this)}
@@ -211,21 +224,36 @@ module.exports = async options => {
       `);
     },
     widget({ hash, data }) {
+      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
+        data.root.__filtersAndWidgetsCounter = 0;
+      }
+
+      const i = data.root.__filtersAndWidgetsCounter++;
+
       const {
         tagName = 'div',
         className = '',
-        name
+        attributes = '',
+        name,
+        ...restOptions
       } = hash;
 
+      const attrs = {
+        ...restOptions,
+        name,
+        destSelector: `[data-oa-widget="${i}"]`
+      };
 
       if (data.root.__extractFiltersAndWidgets) {
-        data.root.widgets[name] = `[data-oa-widget="${name}"]`;
+        data.root.widgets.push(attrs);
       }
 
       return new hbs.SafeString(`
         <${tagName}
           ${className ? `class="${className}"` : ''}
-          data-oa-widget="${name}"
+          ${attributes}
+          data-oa-widget="${i}"
+          data-oa-widget-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
         ></${tagName}>
       `);
     }
@@ -282,7 +310,7 @@ module.exports = async options => {
 
 
   app.locals.filters = [];
-  app.locals.widgets = {};
+  app.locals.widgets = [];
 
   // populate filters and widgets
   await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });

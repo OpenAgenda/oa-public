@@ -27,14 +27,16 @@ module.exports = async (req, res, next) => {
   setPageProp(req, 'lang', res.locals.lang);
   setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
   setPageProp(req, 'aggregations', req.data.aggregations);
+  setPageProp(req, 'total', req.data.total);
 
   // Render filters
   const portal = new PortalServer(PortalContext);
 
   const elem = React.createElement(FiltersRoot, {
     filters: res.locals.filters,
+    widgets: res.locals.widgets,
     initialAggregations: req.data.aggregations,
-    activeFiltersSelector: res.locals.widgets.activeFilters
+    initialTotal: req.data.total
   });
 
   ReactDOM.renderToString(portal.collectPortals(withProvider(req, res, elem)));

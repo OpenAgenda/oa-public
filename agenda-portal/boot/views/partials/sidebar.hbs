@@ -17,8 +17,8 @@
 
     <div class="my-4">
       <!-- id is required because both filters has the same name -->
-      {{filter id='timings' type='dateRange' name='timings'}}
-      {{filter id='defined-range' type='definedRange' name='timings' staticRanges=(array 'today' 'tomorrow')}}
+      {{filter type='dateRange' name='timings'}}
+      {{filter type='definedRange' name='timings' staticRanges=(array 'today' 'tomorrow')}}
     </div>
 
     <div class="my-4">
@@ -58,6 +58,12 @@
       {{/customFilter}}
     </div>
 
-    <span class="js_total mobile-bottom-nav" data-sidebar-toggle data-total="{{total}}" data-label-none="Aucun événement ne correspond à cette recherche" data-label-one="1 événement" data-label-plural="%total% événements"></span>
+    {{widget
+      name='total'
+      message='eventsTotal'
+      tagName='span'
+      className='mobile-bottom-nav'
+      attributes='data-sidebar-toggle'
+    }}
   </div>
 </div>
