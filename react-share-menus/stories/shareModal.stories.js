@@ -59,8 +59,8 @@ export const ShareAll = () => {
     .reply(200, apiAgendas);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
       {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
@@ -86,8 +86,8 @@ export const OneDate = () => {
     .reply(200, singleDate);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
       {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
@@ -99,8 +99,8 @@ export const ShareEmail = () => {
   const [display, setDisplay] = useState(false);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager par email
       </button>
       {display && <ShareModal onClose={() => setDisplay(false)} segment="email" event={event} userLogged />}
@@ -115,8 +115,8 @@ export const ShareOpenAgenda = () => {
   mock.onGet('/agendas').reply(req => [200, req.params.search === '' ? apiAgendas : filterResults(req.params.search)]);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager sur OpenAgenda
       </button>
       {display && (
@@ -145,8 +145,8 @@ export const UserNotConnected = () => {
     .reply(200, apiAgendas);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
       {display && <ShareModal onClose={() => setDisplay(false)} userLogged={false} event={event} />}

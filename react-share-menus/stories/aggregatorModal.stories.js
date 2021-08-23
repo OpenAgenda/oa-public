@@ -48,9 +48,9 @@ export const Aggregator = () => {
 
   mockApi();
   return (
-    <div className="ctas export__container">
+    <div className="ctas export-container">
       <button
-        className="btn btn-default export__btn"
+        className="btn btn-default export-btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
@@ -79,9 +79,9 @@ export const AggregatorSuccess = () => {
   const [logo, setLogo] = useState(whiteLogo);
   mockApi();
   return (
-    <div className="ctas export__container">
+    <div className="ctas export-container">
       <button
-        className="btn btn-default export__btn"
+        className="btn btn-default export-btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
@@ -110,9 +110,9 @@ export const NoAgendas = () => {
   const [logo, setLogo] = useState(whiteLogo);
   mockApi();
   return (
-    <div className="ctas export__container">
+    <div className="ctas export-container">
       <button
-        className="btn btn-default export__btn"
+        className="btn btn-default export-btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
@@ -140,9 +140,9 @@ export const NotLoggedIn = () => {
   const [logo, setLogo] = useState(whiteLogo);
   mockApi();
   return (
-    <div className="ctas export__container">
+    <div className="ctas export-container">
       <button
-        className="btn btn-default export__btn"
+        className="btn btn-default export-btn"
         type="button"
         onClick={() => setDisplay(true)}
         onMouseOver={() => setLogo(blueLogo)}
