@@ -146,9 +146,17 @@
   }
 }
 
-.aggregate-button {
-  max-height: 34px;
+.aggregate {
+  &-logo {
+    height: 16px;
+    width: 16px;
+  }
+
+  &-button {
+    max-height: 34px;
+  }
 }
+
 
 .calendars {
   &-options {
