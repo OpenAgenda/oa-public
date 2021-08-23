@@ -128,7 +128,7 @@ const ShareModal = ({
             <i className="fa fa-times fa-lg" />
           </button>
           <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
-          <p className="margin-bottom-sm">{intl.formatMessage(messages.emailSuccess, { count: emailQuantity })}</p>
+          <p className="confirmation-message">{intl.formatMessage(messages.emailSuccess, { count: emailQuantity })}</p>
           <button className="btn btn-primary export__button" type="button" onClick={onClose}>
             OK
           </button>
