@@ -131,27 +131,27 @@ const ShareModal = ({
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
       {emailSuccess ? (
-        <div className="export__form">
-          <button className="export__close" type="button" onClick={onClose}>
+        <div className="export-form">
+          <button className="export-close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
-          <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
+          <h1 className="export-title-big">{intl.formatMessage(messages.shareTitle)}</h1>
           <p className="confirmation-message">{intl.formatMessage(messages.emailSuccess, { count: emailQuantity })}</p>
-          <button className="btn btn-primary export__button" type="button" onClick={onClose}>
+          <button className="btn btn-primary export-button" type="button" onClick={onClose}>
             OK
           </button>
         </div>
       ) : (
-        <div className="export__form">
-          <button className="export__close" type="button" onClick={onClose}>
+        <div className="export-form">
+          <button className="export-close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
           {segment === 'openagenda, email, calendar' && (
-            <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
+            <h1 className="export-title-big">{intl.formatMessage(messages.shareTitle)}</h1>
           )}
           {segment.includes('openagenda') && (
             <div className="margin-bottom-md">
-              <h2 className="export__title--md">{intl.formatMessage(messages.shareOA)}</h2>
+              <h2 className="export-title-md">{intl.formatMessage(messages.shareOA)}</h2>
               {userLogged ? (
                 <AgendaSearchInput
                   getTitleLink={getTitleLink}
@@ -163,7 +163,7 @@ const ShareModal = ({
                 <>
                   <p>{intl.formatMessage(messages.signIn)}</p>
                   <a
-                    className="btn btn-primary export__button"
+                    className="btn btn-primary export-button"
                     href={`https://d.openagenda.com/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
                   >
                     {intl.formatMessage(messages.connectionBtn)}
@@ -174,11 +174,11 @@ const ShareModal = ({
           )}
           {userLogged && segment.includes('email') && (
             <form onSubmit={handleSubmit}>
-              <h2 className="export__title--md">{intl.formatMessage(messages.shareEmail)}</h2>
+              <h2 className="export-title-md">{intl.formatMessage(messages.shareEmail)}</h2>
               <div className="form-group">
                 <div className="input-group input-textarea">
                   <textarea
-                    className="form-control export__textarea"
+                    className="form-control export-textarea"
                     cols="60"
                     rows="4"
                     id="textarea"
@@ -195,7 +195,7 @@ const ShareModal = ({
           )}
           {segment.includes('calendar') && (
             <div className="margin-bottom-md">
-              <h2 className="export__title export__title--md">{intl.formatMessage(messages.shareCalendar)}</h2>
+              <h2 className="export-title export-title-md">{intl.formatMessage(messages.shareCalendar)}</h2>
               <form>
                 {calendars.map(calendar => (
                   <Fragment key={calendar.service}>
@@ -206,9 +206,9 @@ const ShareModal = ({
                       setChoice={(name, service) => selectCalendar(name, service)}
                     />
                     {options && calendar.name === calendarValue && (
-                      <div className="calendars__options">
+                      <div className="calendars-options">
                         {datesOptions && (
-                          <ul className="calendars__list">
+                          <ul className="calendars-list">
                             {dates.days.map(date => {
                               const begin = moment
                                 .tz(date.begin, dates.timezone)

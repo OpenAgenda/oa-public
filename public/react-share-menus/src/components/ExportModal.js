@@ -113,12 +113,12 @@ const ExportModal = ({
 
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
-      <form className="export__form" onSubmit={handleSubmit}>
-        <button className="export__close" type="button" onClick={onClose}>
+      <form className="export-form" onSubmit={handleSubmit}>
+        <button className="export-close" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
-        <h1 className="export__title--big">{intl.formatMessage(messages.modalTitle)}</h1>
-        <h2 className="export__title--md">{intl.formatMessage(messages.inputFormat)}</h2>
+        <h1 className="export-title-big">{intl.formatMessage(messages.modalTitle)}</h1>
+        <h2 className="export-title-md">{intl.formatMessage(messages.inputFormat)}</h2>
         <div className="form-group">
           {formats.map(({ type, id }) => (
             <>
