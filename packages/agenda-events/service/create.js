@@ -35,11 +35,11 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
       });
     }
 
-    if (params.aggregated) {
-      values.aggregated = params.aggregated;
-    }
-
     clean = validate(values);
+    
+    if (params.aggregated) {
+      clean.aggregated = params.aggregated;
+    }
   } catch (validationErrors) {
     return {
       success: false,
