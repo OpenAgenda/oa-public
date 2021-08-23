@@ -46,7 +46,7 @@
   "calendar-date": [
     {
       "type": 0,
-      "value": "Choisissez une date"
+      "value": "Cet événement n'a pas de date à venir"
     }
   ],
   "cancel": [

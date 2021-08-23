@@ -19,6 +19,7 @@ const ShareModal = ({
   const [emailSuccess, setEmailSuccess] = useState(false);
   const [options, setOptions] = useState(false);
   const [datesOptions, setDatesOptions] = useState(false);
+  const [noFutureEvents, setNoFutureEvents] = useState(false);
   const [dates, setDates] = useState({});
   const [link, setLink] = useState('');
 
@@ -59,7 +60,7 @@ const ShareModal = ({
     },
     calendarDate: {
       id: 'calendar-date',
-      defaultMessage: 'Choose a date',
+      defaultMessage: 'This event has no upcoming dates',
     },
     import: {
       id: 'import',
@@ -101,9 +102,16 @@ const ShareModal = ({
     const response = await axios.get(
       `/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=${service}`
     );
-    setDates({ timezone: response.data.event.timezone, days: response.data.event.timings });
 
-    if (response.data.event.timings.length === 1) {
+    const today = moment().tz(response.data.event.timezone).format('YYYY-MM-DD');
+
+    const upcomingDates = response.data.event.timings.filter(date => date.begin > today);
+
+    setDates({ timezone: response.data.event.timezone, days: upcomingDates });
+
+    if (upcomingDates.length === 0) setNoFutureEvents(true);
+
+    if (upcomingDates.length === 1) {
       selectDate(response.data.event.timings, response.data.event.timings[0].begin);
       return setOptions(true);
     }
@@ -200,41 +208,38 @@ const ShareModal = ({
                     {options && calendar.name === calendarValue && (
                       <div className="calendars__options">
                         {datesOptions && (
-                          <>
-                            <p>{intl.formatMessage(messages.calendarDate)}</p>
-                            <ul className="calendars__list">
-                              {dates.days.map(date => {
-                                const begin = moment
-                                  .tz(date.begin, dates.timezone)
-                                  .locale(event.lang)
-                                  .format('dddd D MMMM YYYY, HH:mm - ');
-                                const end = moment
-                                  .tz(date.end, dates.timezone)
-                                  .locale(event.lang)
-                                  .format('HH:mm');
-                                return (
-                                  <Radio
-                                    content={begin + end}
-                                    name="dates"
-                                    key={date.begin}
-                                    id={date.begin}
-                                    setChoice={() => selectDate(date)}
-                                  />
-                                );
-                              })}
-                            </ul>
-                          </>
+                          <ul className="calendars__list">
+                            {dates.days.map(date => {
+                              const begin = moment
+                                .tz(date.begin, dates.timezone)
+                                .locale(event.lang)
+                                .format('dddd D MMMM YYYY, HH:mm - ');
+                              const end = moment.tz(date.end, dates.timezone).locale(event.lang).format('HH:mm');
+                              return (
+                                <Radio
+                                  content={begin + end}
+                                  name="dates"
+                                  key={date.begin}
+                                  id={date.begin}
+                                  setChoice={() => selectDate(date)}
+                                />
+                              );
+                            })}
+                          </ul>
                         )}
-
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={link}
-                          className="btn btn-primary btn-calendar"
-                          onClick={onClose}
-                        >
-                          {intl.formatMessage(messages.import)}
-                        </a>
+                        {noFutureEvents ? (
+                          <p>{intl.formatMessage(messages.calendarDate)}</p>
+                        ) : (
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={link}
+                            className="btn btn-primary btn-calendar"
+                            onClick={onClose}
+                          >
+                            {intl.formatMessage(messages.import)}
+                          </a>
+                        )}
                       </div>
                     )}
                   </Fragment>
