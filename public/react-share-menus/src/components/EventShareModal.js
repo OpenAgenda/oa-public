@@ -10,7 +10,7 @@ import Modal from '@openagenda/react-shared/src/components/Modal';
 import AgendaSearchInput from './AgendaSearchInput';
 import Radio from './Radio';
 
-const ShareModal = ({
+const EventShareModal = ({
   onClose, res, segment, event, userLogged
 }) => {
   const [emailValue, setEmailValue] = useState('');
@@ -253,9 +253,9 @@ const ShareModal = ({
   );
 };
 
-export default ShareModal;
+export default EventShareModal;
 
-ShareModal.propTypes = {
+EventShareModal.propTypes = {
   event: PropTypes.shape({
     agendaUid: PropTypes.number,
     uid: PropTypes.number,
@@ -269,7 +269,7 @@ ShareModal.propTypes = {
   userLogged: PropTypes.bool,
 };
 
-ShareModal.defaultProps = {
+EventShareModal.defaultProps = {
   res: '',
   segment: 'openagenda, email, calendar',
   userLogged: false,
