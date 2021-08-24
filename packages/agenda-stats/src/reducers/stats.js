@@ -219,9 +219,13 @@ export default function reducer(state = initialState, action) {
       const actualStat = state.data[statIndex];
       const newStat = {
         ...actualStat,
+        aggregation: {
+          ...actualStat.aggregation,
+          ...action.values.aggregation,
+        },
         chart: {
           ...actualStat.chart,
-          ...action.values,
+          ...action.values.chart,
         },
       };
 
