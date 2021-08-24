@@ -60,13 +60,13 @@ export default function MetricsChart({ stat }) {
       ) : null}
       {metrics.length > 1 ? (
         <>
-          <div className="text-center">
+          <div>
             <table className="table">
               <tbody>
                 {metrics.map(metric => (
                   <tr key={metric}>
                     <td>{intl.formatMessage(form[metric])}</td>
-                    <td>
+                    <td className="text-right">
                       {intl.formatNumber(data[metric], {
                         maximumFractionDigits: 2,
                       })}
