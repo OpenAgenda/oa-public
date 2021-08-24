@@ -10,6 +10,12 @@ Dans le fichier nginx-jelastic.conf, sous le listen 80, server_name, mettre:
         return 301 https://$host$request_uri;
     }
 
+### Ghost
+
+Les sites de documentation utilisent un déploiement avec un équilibreur nginx et une image docker ghost 3.40.2-alpine. Une variable d'environnement doit être ajoutée pour préciser à ghost quelle url utiliser. Son nom: "url" (ex: https://doc.openagenda.com)
+
+Un volume local contient tout le déploiement ghost: /var/lib/ghost. Pour déplacer un site ghost d'un environnement à un autre, il suffit de reprendre le contenu du dossier /var/lib/ghost/content
+
 ## redis
 
 Pour copier une base redis sur un nouveau serveur, on se connecte au nouveau serveur et on lance la commande:
