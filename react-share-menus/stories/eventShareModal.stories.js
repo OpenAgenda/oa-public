@@ -3,14 +3,14 @@ import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import ShareModal from '../src/components/ShareModal';
+import EventShareModal from '../src/components/EventShareModal';
 import Canvas from './decorators/Canvas';
 import apiAgendas from './fixtures/api.agendas.get.json';
 import singleDate from './fixtures/api.singleDate.get.json';
 
 export default {
   title: 'Share',
-  component: 'ShareModal',
+  component: 'EventShareModal',
   decorators: [Canvas],
 };
 
@@ -63,7 +63,7 @@ export const ShareAll = () => {
       <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
     </div>
   );
 };
@@ -90,7 +90,7 @@ export const OneDate = () => {
       <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
     </div>
   );
 };
@@ -103,7 +103,7 @@ export const ShareEmail = () => {
       <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager par email
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} segment="email" event={event} userLogged />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} segment="email" event={event} userLogged />}
     </div>
   );
 };
@@ -120,7 +120,7 @@ export const ShareOpenAgenda = () => {
         Partager sur OpenAgenda
       </button>
       {display && (
-        <ShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />
+        <EventShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />
       )}
     </div>
   );
@@ -149,7 +149,7 @@ export const UserNotConnected = () => {
       <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} userLogged={false} event={event} />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} userLogged={false} event={event} />}
     </div>
   );
 };
