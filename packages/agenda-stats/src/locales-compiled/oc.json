@@ -743,16 +743,16 @@
       "value": "Cancel"
     }
   ],
-  "AgendaStats.form.charts": [
-    {
-      "type": 0,
-      "value": "Charts"
-    }
-  ],
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
       "value": "Component width"
+    }
+  ],
+  "AgendaStats.form.data": [
+    {
+      "type": 0,
+      "value": "Data"
     }
   ],
   "AgendaStats.form.max": [
