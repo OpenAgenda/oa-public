@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 
 import { mergeLocales } from '@openagenda/react-shared';
 import { modalLocales } from '@openagenda/react-share-menus';
-import { ShareModal } from '@openagenda/react-share-menus';
+import { EventShareModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import appLocales from '../../locales-compiled';
 
@@ -31,7 +31,7 @@ const ShareOAModalContainer = ({ params, userLogged }) => {
         &nbsp; {intl.formatMessage(messages.shareButton)}
       </button>
       {display && (
-        <ShareModal
+        <EventShareModal
           onClose={() => setDisplay(false)}
           res="/home/agendas"
           segment="openagenda"
@@ -52,7 +52,7 @@ const ShareEmailModalContainer = ({ params, userLogged }) => {
         <i className="fa fa-envelope-o"></i>
       </button>
       {display && (
-        <ShareModal
+        <EventShareModal
           onClose={() => setDisplay(false)}
           res="/home/agendas"
           segment="email"
@@ -80,7 +80,7 @@ const ShareAllModalContainer = ({ params, userLogged, query }) => {
         {intl.formatMessage(messages.moreButton)}
       </button>
       {display && (
-        <ShareModal onClose={() => setDisplay(false)} res="/home/agendas" event={params} userLogged={userLogged} />
+        <EventShareModal onClose={() => setDisplay(false)} res="/home/agendas" event={params} userLogged={userLogged} />
       )}
     </>
   );
