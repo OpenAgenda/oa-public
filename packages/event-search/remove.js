@@ -1,10 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require('@openagenda/verror');
+const log = require('@openagenda/logs')('remove');
 const getIndexName = require('./utils/getIndexName');
 const getDocumentId = require('./utils/getDocumentId');
-const log = require('@openagenda/logs')('remove');
+const ESToVerror = require('./utils/ESToVerror');
 
 module.exports = async function(config, set, identifiers, options = {} ) {
   const {
@@ -26,7 +26,7 @@ module.exports = async function(config, set, identifiers, options = {} ) {
       refresh
     });
   } catch (err) {
-    throw new VError(err, 'failed to remove event from set %s', set);
+    throw ESToVerror(err, 'failed to remove event');
   }
 
   if (res.body.result === 'deleted') {

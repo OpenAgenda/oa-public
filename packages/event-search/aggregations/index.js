@@ -2,7 +2,9 @@
 
 const terms = require('./terms');
 const timestamp = require('./timestamp');
-const BadRequest = require('../utils/BadRequest');
+const {
+  BadRequest
+} = require('@openagenda/verror');
 
 const aggregationTypes = {
   additionalFields: require('./additionalFields'),
@@ -36,7 +38,10 @@ module.exports = {
     const errors = getValidationErrors(requested);
 
     if (errors.length) {
-      throw new BadRequest('Invalid requested aggregations', errors);
+      throw new BadRequest({
+        message: 'Invalid requested aggregations',
+        info: errors
+      });
     }
 
     return [].concat(requested)
@@ -45,7 +50,10 @@ module.exports = {
         const formatDSL = aggregationTypes[type] && aggregationTypes[type].formatDSL;
 
         if (typeof formatDSL !== 'function') {
-          throw new BadRequest('Invalid requested aggregations', [{ message: `Unkown aggregation type: ${type}` }]);
+          throw new BadRequest({
+            message: 'Invalid requested aggregations: Unkown aggregation type',
+            info: { type }
+          });
         }
 
         return {
