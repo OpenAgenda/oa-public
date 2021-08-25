@@ -1,11 +1,13 @@
 const React = require('react');
 const { useIntl } = require('react-intl');
 const { useForm } = require('react-final-form');
+const { useDebouncedCallback } = require('use-debounce');
 const { Portal } = require('@stefanoruth/react-portal-ssr');
 const {
   Filters,
-  MultiChoiceFilter,
+  ChoiceFilter,
   DateRangeFilter,
+  DefinedRangeFilter,
   SearchFilter,
   MapFilter,
   CustomFilter
@@ -13,6 +15,7 @@ const {
 const apiClient = require('@openagenda/react-shared/lib/utils/apiClient');
 const withDefaultFilterConfig = require('../lib/withDefaultFilterConfig');
 const FiltersPreview = require('./FiltersPreview');
+const Total = require('./Total');
 
 const {
   createElement: el,
@@ -24,6 +27,16 @@ const {
 
 function Input({ input, placeholder }) {
   const form = useForm();
+  const [tmpValue, setTmpValue] = useState(input.value);
+
+  const debouncedOnChange = useDebouncedCallback(e => input.onChange(e), 400);
+
+  const onChange = useCallback(e => {
+    e.persist();
+
+    setTmpValue(e.target.value);
+    debouncedOnChange(e);
+  }, [debouncedOnChange]);
 
   return el(
     'div',
@@ -34,7 +47,9 @@ function Input({ input, placeholder }) {
         className: 'form-control',
         autoComplete: 'off',
         placeholder,
-        ...input
+        ...input,
+        onChange,
+        value: tmpValue
       }
     ),
     el(
@@ -78,11 +93,12 @@ const axios = apiClient();
 
 module.exports = React.forwardRef(function FiltersRoot({
   filters: rawFilters,
-  activeFiltersSelector,
+  widgets,
   initialAggregations = {},
   defaultViewport,
   res,
-  initialQuery = {}
+  initialQuery = {},
+  initialTotal = 0
 }, ref) {
   const intl = useIntl();
   const form = useForm();
@@ -93,6 +109,7 @@ module.exports = React.forwardRef(function FiltersRoot({
   );
 
   const [query, setQuery] = useState(() => initialQuery);
+  const [total, setTotal] = useState(() => initialTotal);
 
   const [aggregations, setAggregations] = useState(() => initialAggregations);
 
@@ -131,7 +148,7 @@ module.exports = React.forwardRef(function FiltersRoot({
     [/* filterAggs */]
   );
 
-  const getTotal = useCallback(
+  const getAggTotal = useCallback(
     (filter, option) => {
       const aggregation = aggregations[filter.name];
 
@@ -188,24 +205,54 @@ module.exports = React.forwardRef(function FiltersRoot({
     getQuery: () => query,
     getForm: () => form,
     setAggregations,
-    setQuery
+    setQuery,
+    setTotal
   }));
 
-  const activeFilters = activeFiltersSelector
-    ? el(
-      Portal,
-      {
-        selector: activeFiltersSelector
-      },
-      el(
-        FiltersPreview,
-        {
-          filters,
-          getOptions
-        }
-      )
-    )
-    : null;
+  const widgetElems = widgets.map((widget, key) => {
+    switch (widget.name) {
+      case 'total':
+        return el(
+          Portal,
+          {
+            key,
+            selector: widget.destSelector
+          },
+          el(
+            'span',
+            null,
+            el(
+              Total,
+              {
+                message: widget.message,
+                total
+              }
+            )
+          )
+        );
+      case 'activeFilters':
+        return el(
+          Portal,
+          {
+            key,
+            selector: widget.destSelector
+          },
+          el(
+            'span',
+            null,
+            el(
+              FiltersPreview,
+              {
+                filters,
+                getOptions
+              }
+            )
+          )
+        );
+      default:
+        return null;
+    }
+  });
 
   return el(
     React.Fragment,
@@ -216,20 +263,20 @@ module.exports = React.forwardRef(function FiltersRoot({
         withRef: true,
         filters,
         dateRangeComponent: DateRangeFilter,
-        checkboxComponent: MultiChoiceFilter,
-        radioComponent: MultiChoiceFilter,
+        definedRangeComponent: DefinedRangeFilter,
+        choiceComponent: ChoiceFilter,
         mapComponent: MapFilter,
         searchComponent: SearchFilter,
         customComponent: CustomFilter,
         searchProps,
         getOptions,
-        getTotal,
+        getTotal: getAggTotal,
         initialViewport: initialAggregations.viewport,
         defaultViewport,
         loadGeoData,
         query
       }
     ),
-    activeFilters,
+    ...widgetElems
   );
 });

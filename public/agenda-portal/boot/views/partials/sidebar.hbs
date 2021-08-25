@@ -1,32 +1,45 @@
 <div class="sidebar">
   <div class="mobile-top-nav text-center" data-sidebar-toggle>
-    <button class="btn btn-link">Retour à la liste</button>
+    <button class="btn btn-link">{{i18n 'backToList'}}</button>
   </div>
   <div class="sidebar-wrapper">
     <div class="my-4">
-      {{>filters/map name='geo' searchMessage='rechercher quand je déplace la carte' searchWithMap=true}}
+      {{filter
+        type='map'
+        name='geo'
+        className='map-container'
+        searchMessage=(i18n 'searchWhenMoving')
+        searchWithMap=true
+        tileAttribution='Map data © OpenStreetMap contributors'
+        tileUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      }}
+    </div>
 
-      <b>Horaires</b>
-      {{>filters/dateRange name='timings'}}
+    <div class="my-4">
+      <!-- id is required because both filters has the same name -->
+      {{filter type='dateRange' name='timings'}}
+      {{filter type='definedRange' name='timings' staticRanges=(array 'today' 'tomorrow')}}
+    </div>
 
-      <b>Passé / En cours / À venir</b>
-      {{>filters/multiChoice name='relative'}}
+    <div class="my-4">
+      <b>{{i18n 'passed'}} / {{i18n 'current'}} / {{i18n 'upcoming'}}</b>
+      {{filter type='choice' name='relative'}}
 
-      <b>Mode de participation</b>
-      {{>filters/multiChoice name='attendanceMode' inputType='radio'}}
+      <b>{{i18n 'attendanceMode'}}</b>
+      {{filter type='choice' name='attendanceMode' inputType='radio'}}
 
-      <b>Filtres customs</b>
+      <b>{{i18n 'customFilters'}}</b>
 
       {{#customFilter
-        query=(object relative=(array 'current') attendanceMode=(array '1' '3'))
+        query=(object relative=(array 'current' 'upcoming') attendanceMode='1')
         activeClass='active'
         inactiveClass='inactive'
-        className="custom-example checkbox"
+        className='custom-example checkbox'
       }}
         <label for="nothing">
           <input type="checkbox" tabindex="-1" readonly checked />
           <input type="checkbox" tabindex="-1" readonly />
-          En cours + hors ligne + mixte
+          En cours + à venir + hors ligne
         </label>
       {{/customFilter}}
 
@@ -35,7 +48,7 @@
         handlerSelector='.checkbox'
         activeClass='active'
         inactiveClass='inactive'
-        className="custom-example checkbox"
+        className='custom-example checkbox'
       }}
         <label for="nothing">
           <input type="checkbox" tabindex="-1" readonly checked />
@@ -43,20 +56,14 @@
           Jeudi 24 juin
         </label>
       {{/customFilter}}
+    </div>
 
-<!--      <b>Événement Europe</b>-->
-<!--      { {>filters/multiChoice fieldName='evenement-europe'}}-->
-    </div>
-    <div class="my-4">
-<!--      { {>widgets/map}}-->
-    </div>
-    <div class="my-4">
-<!--      { {>widgets/calendar}}-->
-<!--      { {>widgets/relative}}-->
-    </div>
-    <div class="my-4">
-<!--      { {>widgets/tags}}-->
-    </div>
-    <span class="js_total mobile-bottom-nav" data-sidebar-toggle data-total="{{total}}" data-label-none="Aucun événement ne correspond à cette recherche" data-label-one="1 événement" data-label-plural="%total% événements"></span>
+    {{widget
+      name='total'
+      message='eventsTotal'
+      tagName='span'
+      className='mobile-bottom-nav'
+      attributes='data-sidebar-toggle'
+    }}
   </div>
 </div>

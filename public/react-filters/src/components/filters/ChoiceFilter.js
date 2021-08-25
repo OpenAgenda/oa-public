@@ -18,19 +18,19 @@ const SEARCH_MIN_SIZE = 2 * OPTIONS_PAGE_SIZE;
 
 const messages = defineMessages({
   noResult: {
-    id: 'ReactFilters.MultiChoiceFilter.noResult',
+    id: 'ReactFilters.ChoiceFilter.noResult',
     defaultMessage: 'No result',
   },
   searchPlaceholder: {
-    id: 'ReactFilters.MultiChoiceFilter.searchPlaceholder',
+    id: 'ReactFilters.ChoiceFilter.searchPlaceholder',
     defaultMessage: 'Search',
   },
   moreOptions: {
-    id: 'ReactFilters.MultiChoiceFilter.moreOptions',
+    id: 'ReactFilters.ChoiceFilter.moreOptions',
     defaultMessage: 'More options',
   },
   lessOptions: {
-    id: 'ReactFilters.MultiChoiceFilter.lessOptions',
+    id: 'ReactFilters.ChoiceFilter.lessOptions',
     defaultMessage: 'Less options',
   },
 });
@@ -163,7 +163,7 @@ function Title({
   );
 }
 
-const MultiChoiceFilter = React.forwardRef(function MultiChoiceFilter({
+const ChoiceFilter = React.forwardRef(function ChoiceFilter({
   name,
   filter,
   getTotal,
@@ -323,7 +323,7 @@ const Collapsable = React.forwardRef(function Collapsable(
       collapsed={collapsed}
       setCollapsed={setCollapsed}
     >
-      <MultiChoiceFilter
+      <ChoiceFilter
         ref={ref}
         name={name}
         filter={filter}
@@ -338,7 +338,7 @@ const Collapsable = React.forwardRef(function Collapsable(
   );
 });
 
-const exported = React.memo(MultiChoiceFilter);
+const exported = React.memo(ChoiceFilter);
 
 // React.memo lose statics
 exported.Preview = Preview;

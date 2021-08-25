@@ -222,6 +222,10 @@
   flex-direction: column;
 }
 
+.rdrStaticRanges:empty {
+  display: none;
+}
+
 .rdrStaticRange {
   font-size: inherit;
 }
@@ -230,6 +234,10 @@
 }
 
 .rdrInputRanges {
+}
+
+.rdrInputRanges:empty {
+  display: none;
 }
 
 .rdrInputRange {

@@ -5,32 +5,33 @@ import { parseISO, endOfDay, isSameDay } from 'date-fns';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import Panel from '../Panel';
 import ValueBadge from '../ValueBadge';
-import DateRangePicker from '../fields/DateRangePicker';
+import DefinedRangePicker from '../fields/DefinedRangeField';
+import dateRanges from '../../utils/dateRanges';
 
 const messages = defineMessages({
   singleDate: {
-    id: 'ReactFilters.DateRangeFilter.singleDate',
+    id: 'ReactFilters.DefinedRangeFilter.singleDate',
     defaultMessage: '{date, time, ::yyyyMMdd}',
   },
-  dateRange: {
-    id: 'ReactFilters.DateRangeFilter.dateRange',
+  DefinedRange: {
+    id: 'ReactFilters.DefinedRangeFilter.DefinedRange',
     defaultMessage:
       'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
   },
   startDate: {
-    id: 'ReactFilters.DateRangeFilter.startDate',
+    id: 'ReactFilters.DefinedRangeFilter.startDate',
     defaultMessage: 'Start',
   },
   endDate: {
-    id: 'ReactFilters.DateRangeFilter.endDate',
+    id: 'ReactFilters.DefinedRangeFilter.endDate',
     defaultMessage: 'End',
   },
   until: {
-    id: 'ReactFilters.DateRangeFilter.until',
+    id: 'ReactFilters.DefinedRangeFilter.until',
     defaultMessage: 'Until {date, time, ::yyyyMMdd}',
   },
   from: {
-    id: 'ReactFilters.DateRangeFilter.from',
+    id: 'ReactFilters.DefinedRangeFilter.from',
     defaultMessage: 'From {date, time, ::yyyyMMdd}',
   },
 });
@@ -38,7 +39,7 @@ const messages = defineMessages({
 const subscription = { value: true };
 
 // For display (store -> form)
-export function formatValue(value) {
+function formatValue(value) {
   if (value === undefined) {
     return [
       {
@@ -190,16 +191,19 @@ function Title({
   );
 }
 
-const DateRangeFilter = React.forwardRef(function DateRangeFilter(
+const DefinedRangeFilter = React.forwardRef(function DefinedRangeFilter(
   {
     name,
-    staticRanges,
-    inputRanges,
-    rangeColor
+    staticRanges: staticRangesProp,
+    inputRanges
   },
   ref
 ) {
   const intl = useIntl();
+  const { staticRanges } = useMemo(() => dateRanges(intl, {
+    staticRanges: staticRangesProp,
+    inputRanges
+  }), [inputRanges, intl, staticRangesProp]);
 
   return (
     <>
@@ -209,12 +213,9 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
         subscription={subscription}
         parse={parseValue}
         format={formatValue}
-        component={DateRangePicker}
+        component={DefinedRangePicker}
         staticRanges={staticRanges}
         inputRanges={inputRanges}
-        startDatePlaceholder={intl.formatMessage(messages.startDate)}
-        endDatePlaceholder={intl.formatMessage(messages.endDate)}
-        rangeColor={rangeColor}
       />
     </>
   );
@@ -247,7 +248,7 @@ const Collapsable = React.forwardRef(function Collapsable(
       collapsed={collapsed}
       setCollapsed={setCollapsed}
     >
-      <DateRangeFilter
+      <DefinedRangeFilter
         ref={ref}
         name={name}
         filter={filter}
@@ -262,7 +263,7 @@ const Collapsable = React.forwardRef(function Collapsable(
   );
 });
 
-const exported = React.memo(DateRangeFilter);
+const exported = React.memo(DefinedRangeFilter);
 
 // React.memo lose statics
 exported.Preview = Preview;

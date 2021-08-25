@@ -11,14 +11,14 @@ function Filters({
   filters,
   withRef = false,
   dateRangeComponent: DateRangeComponent = Noop,
-  checkboxComponent: CheckboxComponent = Noop,
-  radioComponent: RadioComponent = Noop,
+  definedRangeComponent: DefinedRangeComponent = Noop,
+  choiceComponent: ChoiceComponent = Noop,
   mapComponent: MapComponent = Noop,
   searchComponent: SearchComponent = Noop,
   customComponent: CustomComponent = Noop,
   dateRangeProps,
-  checkboxProps,
-  radioProps,
+  definedRangeProps,
+  choiceProps,
   mapProps,
   searchProps,
   customProps,
@@ -44,14 +44,26 @@ function Filters({
               />
             );
             break;
-          case 'checkbox':
+          case 'definedRange':
             elem = (
-              <CheckboxComponent
+              <DefinedRangeComponent
                 key={seed(filter)}
                 ref={withRef ? filter.elemRef : null}
                 filter={filter}
                 {...filter}
-                {...checkboxProps}
+                {...definedRangeProps}
+                {...additionnalProps}
+              />
+            );
+            break;
+          case 'choice':
+            elem = (
+              <ChoiceComponent
+                key={seed(filter)}
+                ref={withRef ? filter.elemRef : null}
+                filter={filter}
+                {...filter}
+                {...choiceProps}
                 {...additionnalProps}
               />
             );
@@ -64,18 +76,6 @@ function Filters({
                 filter={filter}
                 {...filter}
                 {...mapProps}
-                {...additionnalProps}
-              />
-            );
-            break;
-          case 'radio':
-            elem = (
-              <RadioComponent
-                key={seed(filter)}
-                ref={withRef ? filter.elemRef : null}
-                filter={filter}
-                {...filter}
-                {...radioProps}
                 {...additionnalProps}
               />
             );
