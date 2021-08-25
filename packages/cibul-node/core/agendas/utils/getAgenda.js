@@ -1,6 +1,6 @@
 'use strict';
 
-const NotFoundError = require('../../utils/NotFoundError');
+const { NotFound } = require('@openagenda/verror');
 const getSchemas = require('./getSchemas');
 const getNetwork = require('./getNetwork');
 
@@ -19,7 +19,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   });
 
   if (!agenda) {
-    throw new NotFoundError('agenda', agendaOrUid);
+    throw new NotFound({ info: { uid: agendaOrUid } }, 'agenda not found');
   }
 
   if (!detailed) {

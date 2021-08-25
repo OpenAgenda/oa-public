@@ -1,7 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
-const BadRequest = require('../utils/BadRequest');
+const {
+  BadRequest
+} = require('@openagenda/verror');
 
 module.exports.formatDSL = (query, options = {}) => {
   const aggregationQuery = {
@@ -14,7 +16,9 @@ module.exports.formatDSL = (query, options = {}) => {
     const field = options.formSchema.fields.find(field => field.field === options.field);
 
     if (!field) {
-      throw new BadRequest('Invalid requested aggregations', [{ message: `Unkown additional field: ${options.field}` }]);
+      throw new BadRequest({
+        info: { field }
+      }, 'Invalid requested aggregations: unknown additional field');
     }
 
     const fieldValues = field.options.map(o => [field.schemaId, o.id].join('.'));

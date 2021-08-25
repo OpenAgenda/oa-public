@@ -73,10 +73,10 @@ module.exports = (services, service, app, base) => {
     }
   );
 
-  app.use(base, (err, req, res, next) => {
-    if (err.name === 'ValidationError') {
+  app.use(base, (err, req, res, _next) => {
+    if (err.name === 'BadRequest') {
       res.status(400).json({
-        errors: err.detail,
+        errors: err.info,
         success: false
       });
     } else {
@@ -84,4 +84,4 @@ module.exports = (services, service, app, base) => {
       log('error', err);
     }
   });
-}
+};

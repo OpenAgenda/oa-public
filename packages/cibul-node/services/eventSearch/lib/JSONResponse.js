@@ -10,11 +10,14 @@ function JSONResponse(req, res) {
   ).then(
     result => res.json(result),
     err => {
-      if (err.name === 'NotFoundError') {
+      if (err.name === 'NotFound') {
         return res.status(404).send(null);
       }
       if (err.name === 'BadRequest') {
-        return res.status(400).send([].concat(err.detail).map(e => e.message).join(', '));
+        return res.status(400).json({
+          message: err.message,
+          info: err.info
+        });
       }
       log('error', err?.meta?.body?.error ?? err);
       res.status(500).send();

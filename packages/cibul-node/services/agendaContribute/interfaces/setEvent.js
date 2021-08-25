@@ -57,7 +57,7 @@ module.exports = async (services, req, data) => {
       };
     }
   } catch (e) {
-    if (e.name === 'ValidationError') {
+    if (e.name === 'BadRequest') {
       log('error', 'validation errors', e.detail);
 
       return {

@@ -1,13 +1,16 @@
 "use strict";
 
 const _ = require('lodash');
-const VError = require('@openagenda/verror');
 
 const formatEvent = require('./utils/formatEvent');
 const getDocumentId = require('./utils/getDocumentId');
 const getIndexName = require('./utils/getIndexName');
 const log = require('@openagenda/logs')('update');
 const validateOptions = require('./utils/validateUpdateOptions');
+const {
+  BadRequest
+} = require('@openagenda/verror');
+const ESToVerror = require('./utils/ESToVerror');
 
 module.exports = async function(config, set, identifiers, eventPart, options = {}) {
   const {
@@ -23,7 +26,9 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
   } = config;
 
   if (!eventPart) {
-    throw new Error('data is unavailable');
+    throw new BadRequest({
+      info: { set, identifiers }
+    }, 'no data was provided');
   }
 
   let result;
@@ -41,7 +46,7 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
       refresh
     });
   } catch (err) {
-    throw new VError(err, 'failed to update event %s to index of set %s', identifiers.uid, set);
+    throw ESToVerror(err, 'failed to update event');
   }
 
   let success = false;

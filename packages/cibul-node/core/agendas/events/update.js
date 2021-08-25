@@ -3,8 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('core/agendas/events/update');
-const ValidationError = require('../../utils/ValidationError');
-const UnauthorizedError = require('../../utils/UnauthorizedError');
+const { BadRequest, Forbidden } = require('@openagenda/verror');
 
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
@@ -109,7 +108,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   if (!authorizations.canEditEvent && containsEventData(data)) {
-    throw new UnauthorizedError('event', event.uid, 'not authorized to edit event');
+    throw new Forbidden({
+      info: {
+        uid: event.uid
+      }
+    }, 'not authorized to edit event');
   }
 
   const {
@@ -147,7 +150,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     } catch (e) {
       if (e.toString() === 'ValidationError: Invalid data') {
         log('info', 'invalid data', e);
-        throw new ValidationError(e.detail);
+        throw new BadRequest({ info: e.detail }, 'invalid data');
       }
       log('error', 'failed to update event', {
         agendaUid: agenda.uid,

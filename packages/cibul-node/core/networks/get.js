@@ -1,6 +1,6 @@
 'use strict';
 
-const NotFoundError = require('../utils/NotFoundError');
+const { NotFound } = require('@openagenda/verror');
 
 module.exports = async (core, networkUid, options = {}) => {
   const {
@@ -17,8 +17,8 @@ module.exports = async (core, networkUid, options = {}) => {
   const network = await networks.get(networkUid);
 
   if (!network && throwNotFound) {
-    throw new NotFoundError('networks', networkUid);
+    throw new NotFound({ info: { uid: networkUid } }, 'network not found');
   }
 
   return network;
-}
+};
