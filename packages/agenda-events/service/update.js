@@ -31,21 +31,25 @@ module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
   }
 
   try {
-    const values = Object.assign({}, current, data || {}, {
+    const values = Object.assign({}, current, _.omit(data, ['aggregated']) || {}, {
       updatedAt: new Date(),
       createdAt: current.createdAt,
       userUid: current.userUid
     });
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'userUid'].forEach(f => {
+      ['updatedAt', 'createdAt', 'userUid', 'aggregated'].forEach(f => {
         if (data[f]) values[f] = data[f];
       });
     }
 
     log('info', 'validating for %s.%s', agendaUid, eventUid, values);
+    
+    clean = validate(values);
 
-    clean = _.omit(validate(values), ['aggregated']);
+    if (params.aggregated) {
+      clean.aggregated = params.aggregated;
+    }
   } catch (validationErrors) {
     return {
       success: false,

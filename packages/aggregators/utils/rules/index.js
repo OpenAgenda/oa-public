@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('@openagenda/logs')('utils/rules');
+
 const ih = require('immutability-helper');
 const evaluateRule = require('./evaluateRule');
 const cleanRule = require('./clean');
@@ -12,6 +14,8 @@ function evaluateRules(
   data
 ) {
   const actions = [];
+
+  log('evaluating %s rules', rules?.length ?? 0);
 
   for (const rule of [].concat(rules)) {
     const ruleActions = evaluateRule(

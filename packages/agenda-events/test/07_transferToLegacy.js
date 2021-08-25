@@ -21,7 +21,7 @@ describe('agenda-events - 07 - transferToLegacy - transfer to legacy', function(
   before(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
-      'agenda_event.create.sql',
+      '../../model.sql',
       'agenda_event.data.sql',
       'legacy_agenda_event.data.sql',
       'legacy_event_editor.data.sql',

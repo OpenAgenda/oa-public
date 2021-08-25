@@ -1,8 +1,10 @@
+'use strict';
+
 const ReactDOM = require('react-dom/server');
 const { parsePath } = require('history');
 const { wrapApp } = require('@openagenda/react-shared');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
-const cmn = require('../../../../lib/commons-app');
+const cmn = require('../../../lib/commons-app');
 
 function endpointToRes(endpoint) {
   return {
@@ -22,7 +24,12 @@ function endpointToRes(endpoint) {
   };
 }
 
-module.exports = function render({ template, baseData, endpoint, initialState }) {
+module.exports = function render({
+  template,
+  baseData,
+  endpoint,
+  initialState
+}) {
   return async (req, res, next) => {
     const lang = req.lang || 'fr';
     const staticContext = {};
@@ -69,4 +76,4 @@ module.exports = function render({ template, baseData, endpoint, initialState })
       next(e);
     }
   };
-}
+};

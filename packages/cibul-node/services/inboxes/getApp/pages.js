@@ -2,6 +2,8 @@
 
 const cmn = require('../../../lib/commons-app');
 
+const render = require('./render');
+
 const renderContactInboxApp = require('./renders/contactInboxApp');
 const renderMemberContactApp = require('./renders/memberContactApp');
 const renderEditionRequestApp = require('./renders/editionRequestApp');
@@ -70,7 +72,7 @@ module.exports = (app, config, services) => {
     }),
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
-    renderContactInboxApp
+    renderContactInboxApp({ render, config })
   );
 
   app.use(
@@ -84,7 +86,7 @@ module.exports = (app, config, services) => {
     members.mw.loadTarget.options({ detailed: true }),
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oasfmain.css'),
-    renderMemberContactApp
+    renderMemberContactApp({ render, services, config })
   );
 
   app.use(
@@ -98,7 +100,7 @@ module.exports = (app, config, services) => {
     cmn.loadBaseData('oasfmain.css'),
     members.mw.loadAndAuthorize('moderator'),
     loadEvent,
-    renderAdminEventContactApp
+    renderAdminEventContactApp({ render, config })
   );
 
   app.use(
@@ -111,7 +113,7 @@ module.exports = (app, config, services) => {
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
     loadEvent,
-    renderEventContactApp
+    renderEventContactApp({ render, config })
   );
 
   app.use(
@@ -125,7 +127,7 @@ module.exports = (app, config, services) => {
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oasfmain.css'),
     loadEvent,
-    renderEditionRequestApp
+    renderEditionRequestApp({ render, config })
   );
 
   app.use(
@@ -137,7 +139,7 @@ module.exports = (app, config, services) => {
     }),
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
-    renderRequestContributeApp
+    renderRequestContributeApp({ services, config, render })
   );
 
   app.use(
@@ -156,6 +158,6 @@ module.exports = (app, config, services) => {
           next();
         }, next);
     },
-    renderSuggestLocationChangeApp
+    renderSuggestLocationChangeApp({ config, render })
   );
 };

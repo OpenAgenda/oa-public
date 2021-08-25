@@ -39,7 +39,13 @@ function ContentWrapper({ editMode, children }) {
 
 function ChartWrapper(
   {
-    stat, chartConfig, totalEvents, loadStat, editMode, className, children
+    stat,
+    chartConfig = {}, // used for intervalSelector and loadMore
+    totalEvents,
+    loadStat,
+    editMode,
+    className,
+    children,
   },
   ref
 ) {

@@ -235,18 +235,6 @@
       "value": "crwdns330:0crwdne330:0"
     }
   ],
-  "AgendaStats.Dashboard.lessFilters": [
-    {
-      "type": 0,
-      "value": "crwdns332:0crwdne332:0"
-    }
-  ],
-  "AgendaStats.Dashboard.moreFilters": [
-    {
-      "type": 0,
-      "value": "crwdns334:0crwdne334:0"
-    }
-  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -703,6 +691,12 @@
       "value": "crwdns430:0crwdne430:0"
     }
   ],
+  "AgendaStats.form.avg": [
+    {
+      "type": 0,
+      "value": "Average"
+    }
+  ],
   "AgendaStats.form.cancel": [
     {
       "type": 0,
@@ -719,6 +713,24 @@
     {
       "type": 0,
       "value": "crwdns436:0crwdne436:0"
+    }
+  ],
+  "AgendaStats.form.max": [
+    {
+      "type": 0,
+      "value": "Maximum"
+    }
+  ],
+  "AgendaStats.form.metric": [
+    {
+      "type": 0,
+      "value": "Metric"
+    }
+  ],
+  "AgendaStats.form.min": [
+    {
+      "type": 0,
+      "value": "Minimum"
     }
   ],
   "AgendaStats.form.oneColumn": [
@@ -749,6 +761,12 @@
     {
       "type": 0,
       "value": "crwdns446:0crwdne446:0"
+    }
+  ],
+  "AgendaStats.form.sum": [
+    {
+      "type": 0,
+      "value": "Summary"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [

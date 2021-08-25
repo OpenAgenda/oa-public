@@ -60,8 +60,8 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   field: 'image',
   fieldType: 'image',
   optional: true,
-  label: labels.image,
-  info: labels.imageInfo,
+  label: labels?.image,
+  info: labels?.imageInfo,
   allowURL: true,
   allowPath: true,
   imageWithSizeAndVariants: true,
@@ -71,104 +71,104 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   field : 'imageCredits',
   fieldType : 'text',
   optional : true,
-  label : labels.imageCredits,
+  label : labels?.imageCredits,
   enableWith : 'image',
   max: 255
 }, {
   field : 'languages',
   fieldType : 'languages',
-  label : labels.languages
+  label : labels?.languages
 }, {
   languages: [],
   field: 'title',
   fieldType: 'text',
   optional: false,
   max: 140,
-  label: labels.title,
-  placeholder: labels.titlePlaceholder,
-  purpose: labels.titlePurpose,
-  sub: labels.titleSub
+  label: labels?.title,
+  placeholder: labels?.titlePlaceholder,
+  purpose: labels?.titlePurpose,
+  sub: labels?.titleSub
 }, {
   languages: [],
   field: 'description',
   fieldType: 'text',
   optional: false,
   max: 200,
-  label: labels.description,
-  purpose: labels.descriptionPurpose,
-  placeholder: labels.descriptionPlaceholder,
-  sub: labels.descriptionSub
+  label: labels?.description,
+  purpose: labels?.descriptionPurpose,
+  placeholder: labels?.descriptionPlaceholder,
+  sub: labels?.descriptionSub
 }, {
   languages: [],
   field: 'keywords',
   fieldType: 'keywords',
   optional: true,
   max: 255,
-  label: labels.keywords,
-  placeholder: labels.keywordsPlaceholder,
-  sub: labels.keywordsSub
+  label: labels?.keywords,
+  placeholder: labels?.keywordsPlaceholder,
+  sub: labels?.keywordsSub
 }, {
   languages: [],
   field : 'longDescription',
   fieldType : 'markdown',
-  label: labels.longDescription,
+  label: labels?.longDescription,
   max: 10000,
-  sub: labels.longDescriptionSub,
-  placeholder: labels.longDescriptionPlaceholder
+  sub: labels?.longDescriptionSub,
+  placeholder: labels?.longDescriptionPlaceholder
 }, {
   languages: [],
   field : 'conditions',
   fieldType : 'text',
-  label: labels.conditions,
+  label: labels?.conditions,
   max: 255,
-  placeholder: labels.conditionsPlaceholder,
-  sub: labels.conditionsSub
+  placeholder: labels?.conditionsPlaceholder,
+  sub: labels?.conditionsSub
 }, {
   field: 'age',
   fieldType: 'age',
   optional: true,
-  label: labels.age
+  label: labels?.age
 }, {
   field: 'registration',
   fieldType: 'registration',
   optional: true,
-  label: labels.registration,
-  info: labels.registrationInfo,
-  placeholder: labels.registrationPlaceholder,
-  sub: labels.registrationSub
+  label: labels?.registration,
+  info: labels?.registrationInfo,
+  placeholder: labels?.registrationPlaceholder,
+  sub: labels?.registrationSub
 }, {
   field: 'accessibility',
   fieldType: 'accessibility',
   optional: true,
-  label: labels.accessibility
+  label: labels?.accessibility
 }, {
   display: false,
   field: 'attendanceMode',
   fieldType: 'radio',
-  label: labels.attendanceMode,
+  label: labels?.attendanceMode,
   optional: false,
   default: 1,
   options: [{
     id: 1,
     value: 'offline',
-    label: labels.offlineAttendanceMode,
-    info: labels.offlineAttendanceModeInfo
+    label: labels?.offlineAttendanceMode,
+    info: labels?.offlineAttendanceModeInfo
   }, {
     id: 2,
     value: 'online',
-    label: labels.onlineAttendanceMode,
-    info: labels.onlineAttendanceModeInfo
+    label: labels?.onlineAttendanceMode,
+    info: labels?.onlineAttendanceModeInfo
   }, {
     id: 3,
     value: 'mixed',
-    label: labels.mixedAttendanceMode,
-    info: labels.mixedAttendanceModeInfo
+    label: labels?.mixedAttendanceMode,
+    info: labels?.mixedAttendanceModeInfo
   }]
 }, {
   field: 'location',
   fieldType: 'location',
-  label: labels.location,
-  sub: labels.locationSub,
+  label: labels?.location,
+  sub: labels?.locationSub,
   res: locationRes,
   optionalWith: {
     field: 'attendanceMode',
@@ -181,7 +181,7 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   display: false,
   field: 'onlineAccessLink',
   fieldType: 'link',
-  label: labels.onlineAccessLink,
+  label: labels?.onlineAccessLink,
   optional: false,
   enableWith: {
     field: 'attendanceMode',
@@ -192,31 +192,31 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   fieldType: 'select',
   default: 1,
   display: false,
-  label: labels.status,
+  label: labels?.status,
   options: [{
     id: 1,
     value: 'scheduled',
-    label: labels.scheduled
+    label: labels?.scheduled
   }, {
     id: 2,
     value: 'rescheduled',
-    label: labels.rescheduled
+    label: labels?.rescheduled
   }, {
     id: 3,
     value: 'movedOnline',
-    label: labels.movedOnline
+    label: labels?.movedOnline
   }, {
     id: 4,
     value: 'postponed',
-    label: labels.postponed
+    label: labels?.postponed
   }, {
     id: 5,
     value: 'full',
-    label: labels.full
+    label: labels?.full
   }, {
     id: 6,
     value: 'cancelled',
-    label: labels.cancelled
+    label: labels?.cancelled
   }]
 }, {
   field: 'references',
@@ -229,8 +229,8 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   fieldType: 'timings',
   max: 800,
   optional: false,
-  label: labels.timings,
-  info: labels.timingsInfo,
+  label: labels?.timings,
+  info: labels?.timingsInfo,
   helpLink: 'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/'
 }, {
   field: 'links',

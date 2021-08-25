@@ -1,0 +1,152 @@
+{
+  "fields": [
+    {
+      "field": "categories-agenda-metropolitain",
+      "fieldType": "radio",
+      "info": null,
+      "label": {
+        "fr": "Catégories Agenda Métropolitain"
+      },
+      "optional": false,
+      "options": [
+        {
+          "id": 42,
+          "label": {
+            "fr": "Animation - Loto"
+          },
+          "value": "animation-loto"
+        },
+        {
+          "id": 43,
+          "label": {
+            "fr": "Atelier"
+          },
+          "value": "atelier"
+        },
+        {
+          "id": 44,
+          "label": {
+            "fr": "Cérémonie"
+          },
+          "value": "ceremonie"
+        },
+        {
+          "id": 45,
+          "label": {
+            "fr": "Cinéma - Projection"
+          },
+          "value": "cinema-projection"
+        },
+        {
+          "id": 46,
+          "label": {
+            "fr": "Concert"
+          },
+          "value": "concert"
+        },
+        {
+          "id": 47,
+          "label": {
+            "fr": "Conférence - Rencontre"
+          },
+          "value": "conference-rencontre"
+        },
+        {
+          "id": 48,
+          "label": {
+            "fr": "Congrès - Colloque"
+          },
+          "value": "congres-colloque"
+        },
+        {
+          "id": 49,
+          "label": {
+            "fr": "Conseil de métropole"
+          },
+          "value": "conseil-de-metropole"
+        },
+        {
+          "id": 50,
+          "label": {
+            "fr": "Conseil municipal"
+          },
+          "value": "conseil-municipal"
+        },
+        {
+          "id": 51,
+          "label": {
+            "fr": "Événement sportif"
+          },
+          "value": "evenement-sportif"
+        },
+        {
+          "id": 52,
+          "label": {
+            "fr": "Exposition"
+          },
+          "value": "exposition"
+        },
+        {
+          "id": 53,
+          "label": {
+            "fr": "Fête - Festival"
+          },
+          "value": "fete-festival"
+        },
+        {
+          "id": 54,
+          "label": {
+            "fr": "Foire - Salon"
+          },
+          "value": "foire-salon"
+        },
+        {
+          "id": 55,
+          "label": {
+            "fr": "Inauguration"
+          },
+          "value": "inauguration"
+        },
+        {
+          "id": 56,
+          "label": {
+            "fr": "Lecture"
+          },
+          "value": "lecture"
+        },
+        {
+          "id": 57,
+          "label": {
+            "fr": "Marché-Brocante - Vide grenier"
+          },
+          "value": "marche-brocante-vide-grenier"
+        },
+        {
+          "id": 58,
+          "label": {
+            "fr": "Réunion publique"
+          },
+          "value": "reunion-publique"
+        },
+        {
+          "id": 59,
+          "label": {
+            "fr": "Spectacle"
+          },
+          "value": "spectacle"
+        },
+        {
+          "id": 60,
+          "label": {
+            "fr": "Visite - Balade"
+          },
+          "value": "visite-balade"
+        }
+      ],
+      "origin": "categories",
+      "read": null,
+      "write": ["moderator", "contributor", "administrator"]
+    }
+  ],
+  "nextOptionId": 61
+}

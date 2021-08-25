@@ -27,4 +27,17 @@ describe('05 - event search - functional: remove', function() {
 
     result.success.should.equal(true);
   });
+
+  it('not found is thrown', async () => {
+    let error;
+    try {
+      await service('05_remove').remove({
+        uid: 2903
+      }, { refresh: true });
+    } catch (e) {
+      error = e;
+    }
+
+    error.name.should.equal('NotFound');
+  });
 });

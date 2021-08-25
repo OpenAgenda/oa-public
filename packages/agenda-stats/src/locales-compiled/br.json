@@ -277,18 +277,6 @@
       "value": "Siloù"
     }
   ],
-  "AgendaStats.Dashboard.lessFilters": [
-    {
-      "type": 0,
-      "value": "Diskouez nebeutoc'h a siloù"
-    }
-  ],
-  "AgendaStats.Dashboard.moreFilters": [
-    {
-      "type": 0,
-      "value": "Diskouez muioc'h a siloù"
-    }
-  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -762,6 +750,12 @@
       "value": "Ajouter"
     }
   ],
+  "AgendaStats.form.avg": [
+    {
+      "type": 0,
+      "value": "Moyenne"
+    }
+  ],
   "AgendaStats.form.cancel": [
     {
       "type": 0,
@@ -777,7 +771,25 @@
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
-      "value": "Largeur du composant:"
+      "value": "Largeur du composant"
+    }
+  ],
+  "AgendaStats.form.max": [
+    {
+      "type": 0,
+      "value": "Maximum"
+    }
+  ],
+  "AgendaStats.form.metric": [
+    {
+      "type": 0,
+      "value": "Métrique"
+    }
+  ],
+  "AgendaStats.form.min": [
+    {
+      "type": 0,
+      "value": "Minimum"
     }
   ],
   "AgendaStats.form.oneColumn": [
@@ -808,6 +820,12 @@
     {
       "type": 0,
       "value": "Dispartier"
+    }
+  ],
+  "AgendaStats.form.sum": [
+    {
+      "type": 0,
+      "value": "Somme"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [

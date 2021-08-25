@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import {
-  Filters,
+  ActiveFilters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
   ValueBadge,
   useFilterTitle,
 } from '@openagenda/react-filters';
@@ -28,7 +28,7 @@ function DateRangePreview({
   );
 }
 
-function MultiChoicePreview({
+function ChoicePreview({
   name,
   filter,
   valueOptions,
@@ -52,12 +52,7 @@ function MultiChoicePreview({
   );
 }
 
-export default function FilterPreview({
-  agenda,
-  isFetching,
-  standardsFilters,
-  additionalsFilters,
-}) {
+export default function FilterPreview({ agenda, isFetching, filters }) {
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
 
@@ -67,9 +62,7 @@ export default function FilterPreview({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
+      filters.filter(filter => filter.type !== 'dateRange'),
       { size: 0 }
     ),
     {
@@ -78,11 +71,6 @@ export default function FilterPreview({
       enabled: false,
     }
   );
-
-  const filters = useMemo(() => [...standardsFilters, ...additionalsFilters], [
-    additionalsFilters,
-    standardsFilters,
-  ]);
 
   const { aggregations: filterAggs } = filtersQuery.data;
 
@@ -103,19 +91,16 @@ export default function FilterPreview({
   );
 
   const dateRangeProps = useMemo(() => ({ component: DateRangePreview }), []);
-  const checkboxProps = useMemo(() => ({ component: MultiChoicePreview }), []);
-  const radioProps = useMemo(() => ({ component: MultiChoicePreview }), []);
+  const choiceProps = useMemo(() => ({ component: ChoicePreview }), []);
 
   return (
-    <Filters
+    <ActiveFilters
       filters={filters}
       disabled={isFetching || filtersQuery.isFetching}
       dateRangeComponent={DateRangeFilter.Preview}
       dateRangeProps={dateRangeProps}
-      checkboxComponent={MultiChoiceFilter.Preview}
-      checkboxProps={checkboxProps}
-      radioComponent={MultiChoiceFilter.Preview}
-      radioProps={radioProps}
+      choiceComponent={ChoiceFilter.Preview}
+      choiceProps={choiceProps}
       // getTotal={getTotal}
       getOptions={getOptions}
     />

@@ -81,7 +81,7 @@ function addWheres(k, query) {
   }
 
   if (![null, undefined].includes(query.aggregated)) {
-    k.andWhere('aggregated', 1);
+    k.whereNotNull('aggregated');
   }
 
   if (query.canEdit !== undefined) {

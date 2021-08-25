@@ -436,7 +436,7 @@ module.exports = (urls, labels, defaultLang = 'fr') => {
         return getLabel('agenda.removeEvent', {
           agenda: agendaLink,
           user: renderHighlight(escape(activity.store.labels.actor) + getIcon(activity, 'actor')),
-          event: renderHighlight(getLocaleValue(activity.store.labels.object, lang) + getIcon(activity, 'object'))
+          event: renderHighlight(escape(getLocaleValue(activity.store.labels.object, lang)) + getIcon(activity, 'object'))
         });
       }
       case 'agenda.aggregateEvent': {
@@ -591,7 +591,7 @@ module.exports = (urls, labels, defaultLang = 'fr') => {
         return getLabel('event.delete', {
           agenda: agendaLink,
           user: renderHighlight(escape(activity.store.labels.actor) + getIcon(activity, 'actor')),
-          event: renderHighlight(getLocaleValue(activity.store.labels.object, lang) + getIcon(activity, 'object'))
+          event: renderHighlight(escape(getLocaleValue(activity.store.labels.object, lang)) + getIcon(activity, 'object'))
         });
       }
       default: {

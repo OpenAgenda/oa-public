@@ -332,7 +332,7 @@ export default function EventItem({
           <li>
             <a
               className="btn btn-link btn-link-inline"
-              href={`/${agenda.slug}/events/${event.slug}/contact`}
+              href={`/${agenda.slug}/admin/events/${event.slug}/contact`}
             >
               {intl.formatMessage(messages.contact)}
             </a>

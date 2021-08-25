@@ -17,7 +17,7 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
   beforeEach(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
-      'agenda_event.create.sql',
+      '../../model.sql',
       'agenda_event.data.sql'
    ]);
   });

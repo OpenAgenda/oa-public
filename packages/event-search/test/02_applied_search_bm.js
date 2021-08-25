@@ -937,6 +937,26 @@ describe('02 - event search - functional: Applied search', function() {
           });
         });
 
+        it('if field is not known, BadRequest error is thrown', async () => {
+          let error;
+          try {
+            await service('bdx').search({
+            }, { size: 0 }, {
+              detailed: true,
+              formSchema,
+              aggregations: [{
+                key: 'et_paf',
+                type: 'additionalFields',
+                field: 'this-field-does-not-exist'
+              }]
+            })
+          } catch (e) {
+            error = e;
+          }
+          error.code.should.equal(400);
+          error.name.should.equal('BadRequest');
+        });
+
         it('if field is not known or no values correspond, empty array is returned', async () => {
           const result = await service('bdx').search({
             date: {

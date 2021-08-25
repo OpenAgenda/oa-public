@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `legacy_id` varchar(30) DEFAULT NULL,
   `user_uid` bigint(20) DEFAULT NULL,
   `source_agenda_uid` varchar(300),
-  `aggregated` tinyint(1) default 0,
+  `aggregated` varchar(32) default null,
   primary key ( id )
 ) ENGINE=InnoDB AUTO_INCREMENT=954070 DEFAULT CHARSET=utf8;

@@ -1,9 +1,9 @@
 import { useIntl } from 'react-intl';
 import React, { useMemo } from 'react';
-import { css } from '@emotion/react';
 import { ReactSelectField, getLocaleValue } from '@openagenda/react-shared';
 import titleMessages from '../messages/chartTitles';
 import form from './messages/form';
+import MetricsField from './MetricsField';
 
 export default function AddChartForm({
   handleSubmit,
@@ -16,9 +16,7 @@ export default function AddChartForm({
 
   const chartOptions = useMemo(() => {
     const additionalFieldOpts = agendaSchema.fields
-      .filter(
-        fieldSchema => fieldSchema.options && fieldSchema.options.length > 0
-      )
+      .filter(fieldSchema => ['radio', 'checkbox', 'integer'].includes(fieldSchema.fieldType))
       .map(fieldSchema => {
         const isCheckbox = fieldSchema.fieldType === 'checkbox'
           && fieldSchema.options.length === 1;
@@ -120,25 +118,33 @@ export default function AddChartForm({
         placeholder={intl.formatMessage(form.typeSelectPlaceholder)}
         options={chartOptions}
       />
-      {values.type && values.type !== 'separator' ? (
-        <div className="margin-top-sm">
-          {intl.formatMessage(form.componentWidth)}{' '}
-          <span
-            css={css`
-              display: inline-block;
-              width: 50%;
-            `}
-          >
-            <ReactSelectField
-              name="width"
-              placeholder={intl.formatMessage(form.widthSelectPlaceholder)}
-              initialValue={1}
-              options={widthOptions}
-            />
-          </span>
+
+      {/* Metrics */}
+      {values.type?.fieldSchema?.fieldType === 'integer' ? (
+        <div className="margin-top-md">
+          <p>
+            <b>{intl.formatMessage(form.metric)}</b>
+          </p>
+          <MetricsField />
         </div>
       ) : null}
-      <div className="margin-top-sm">
+
+      {/* Width */}
+      {values.type && values.type !== 'separator' ? (
+        <div className="margin-top-md">
+          <p>
+            <b>{intl.formatMessage(form.componentWidth)}</b>
+          </p>
+          <ReactSelectField
+            name="width"
+            placeholder={intl.formatMessage(form.widthSelectPlaceholder)}
+            initialValue={1}
+            options={widthOptions}
+          />
+        </div>
+      ) : null}
+
+      <div className="margin-top-md">
         <button
           type="button"
           className="btn btn-link btn-link-inline text-danger pull-right margin-top-xs"

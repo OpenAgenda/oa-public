@@ -6,6 +6,7 @@ const evaluateRules = require('../utils/rules');
 const paths = require('../utils/paths');
 const pickReferenceValues = require('../utils/pickReferenceValues');
 const limit = require('../utils/limit');
+const generateChecksum = require('../utils/generateChecksum');
 
 module.exports = async (
   {
@@ -14,6 +15,7 @@ module.exports = async (
     getEventReference, // fetch current ref on aggregator
     updateSourcePaths,
     referenceEvent,
+    updateEventReference,
     enqueueRemove,
   },
   data
@@ -63,8 +65,29 @@ module.exports = async (
     aggregatorSchema,
     event
   );
+
+  const payload = evaluateResult
+    ? pickReferenceValues(aggregatorSchema, evaluateResult)
+    : null;
+  const aggregatedKey = generateChecksum(payload);
+
   const reference = await getEventReference(aggregatorAgendaUid, event.uid);
   const shouldAggregate = rules.length ? !!evaluateResult : true;
+
+  const evaluateResultChange = reference && reference?.aggregated !== aggregatedKey;
+  if (evaluateResultChange) {
+    log(
+      'aggregated checksum changed: stored %s vs new %s',
+      reference?.aggregated,
+      aggregatedKey
+    );
+  } else {
+    log('aggregated checksum did not change');
+  }
+
+  const isShortestPath = (reference?.sourcePaths ?? []).length
+    ? paths.endsShortestPath(reference.sourcePaths, sourceAgenda.uid)
+    : true;
 
   let updatedPaths;
 
@@ -76,6 +99,17 @@ module.exports = async (
     log('Is not and should not be referenced. Not processed.');
     return;
   }
+
+  if (shouldAggregate && reference && isShortestPath && evaluateResultChange) {
+    return updateEventReference({
+      aggregatorAgendaUid,
+      eventUid: event.uid,
+      payload,
+      batched,
+      aggregated: aggregatedKey,
+    });
+  }
+
   if (
     shouldAggregate
     && reference
@@ -119,20 +153,22 @@ module.exports = async (
   }
   if (updatedPaths) {
     log('source paths need to be updated. Updating reference');
-    return updateSourcePaths(aggregatorAgendaUid, event.uid, updatedPaths);
+    return updateSourcePaths({
+      aggregatorAgendaUid,
+      eventUid: event.uid,
+      paths: updatedPaths,
+    });
   }
 
-  const refValues = pickReferenceValues(aggregatorSchema, evaluateResult);
-  const { errors, success } = await referenceEvent(
+  const { errors, success } = await referenceEvent({
     aggregatorAgendaUid,
-    event.uid,
-    refValues,
-    {
-      batched,
-      paths: paths.getAmended([], event.sourcePaths, sourceAgenda.uid),
-      sourceAgenda,
-    }
-  );
+    eventUid: event.uid,
+    payload,
+    paths: paths.getAmended([], event.sourcePaths, sourceAgenda.uid),
+    batched,
+    sourceAgenda,
+    aggregated: aggregatedKey,
+  });
 
   if (success) {
     log('done', { step: 'referenced' });

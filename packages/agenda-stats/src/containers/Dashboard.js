@@ -100,8 +100,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     dispatch,
   ]);
 
-  const standardsFilters = useFilters(agendaSchema, { standards: true });
-  const additionalsFilters = useFilters(agendaSchema, { additionals: true });
+  const filters = useFilters(agendaSchema);
 
   const filtersQuery = useQuery(
     ['agenda-stats', 'filtersBase'],
@@ -109,9 +108,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
+      filters.filter(filter => filter.type !== 'dateRange'),
       { size: 0 }
     ),
     {
@@ -122,12 +119,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const onFilterChange = useCallback(
     async values => dispatch(
-      statsActions.load(
-        agenda,
-        latestStats.current,
-        [...standardsFilters, ...additionalsFilters],
-        values
-      )
+      statsActions.load(agenda, latestStats.current, filters, values)
     ).then(() => {
       const search = qs.stringify(values, {
         addQueryPrefix: true,
@@ -141,14 +133,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         });
       }
     }),
-    [
-      additionalsFilters,
-      agenda,
-      dispatch,
-      history,
-      latestStats,
-      standardsFilters,
-    ]
+    [filters, agenda, dispatch, history, latestStats]
   );
 
   // Load timespan & aggregations
@@ -183,22 +168,12 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         setInitialQuery(defaultQuery);
 
         return dispatch(
-          statsActions.load(
-            agenda,
-            configResult.data,
-            [...standardsFilters, ...additionalsFilters],
-            defaultQuery
-          )
+          statsActions.load(agenda, configResult.data, filters, defaultQuery)
         );
       }
 
       return dispatch(
-        statsActions.load(
-          agenda,
-          configResult.data,
-          [...standardsFilters, ...additionalsFilters],
-          initialQuery
-        )
+        statsActions.load(agenda, configResult.data, filters, initialQuery)
       );
     });
   }, [
@@ -206,8 +181,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     agendaSchema,
     apiClient,
     dispatch,
-    standardsFilters,
-    additionalsFilters,
+    filters,
     history.location.search,
     initialQuery,
     loaded,
@@ -305,8 +279,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             <FiltersPreview
               isFetching={loading}
               agenda={agenda}
-              standardsFilters={standardsFilters}
-              additionalsFilters={additionalsFilters}
+              filters={filters}
             />
           </span>
         </div>
@@ -331,8 +304,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           <FiltersPart
             agenda={agenda}
             agendaSchema={agendaSchema}
-            standardsFilters={standardsFilters}
-            additionalsFilters={additionalsFilters}
+            filters={filters}
             filtersFormRef={filtersFormRef}
             initialQuery={initialQuery}
           />

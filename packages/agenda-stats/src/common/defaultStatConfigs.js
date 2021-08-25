@@ -113,6 +113,18 @@ const defaultStatConfigs = {
       dataColors: defaultStateColors,
     },
   },
+  additionalFieldMetrics: ({ fieldSchema }) => ({
+    aggregation: {
+      type: 'additionalFieldMetrics',
+      dataKey: ['avg'],
+    },
+    chart: {
+      type: 'metrics',
+    },
+    state: {
+      fieldSchema,
+    },
+  }),
   additionalFields: ({ fieldSchema }) => {
     const isCheckbox = fieldSchema.fieldType === 'checkbox' && fieldSchema.options.length === 1;
 

@@ -5,6 +5,7 @@ import ComposedChart from './ComposedChart';
 import ChartWrapper from './ChartWrapper';
 import Separator from './Separator';
 import ChartAdder from './ChartAdder';
+import MetricsChart from './basics/MetricsChart';
 
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
@@ -68,23 +69,46 @@ function AggregationCharts({ agenda, agendaSchema }) {
     const chartWidth = stat.chart.width || 1;
     const chartCol = Math.min((12 / LAYOUT_WIDTH) * chartWidth, 12);
 
-    pushChart(
-      <ComposedChart
-        key={stat.id}
-        wrapperComponent={(
-          <ChartWrapper
-            key={stat.id}
-            editMode={editMode}
-            className={`col-md-12 col-lg-${chartCol} margin-top-md`}
+    if (stat.chart.type === 'metrics') {
+      pushChart(
+        <ChartWrapper
+          key={stat.id}
+          editMode={editMode}
+          className={`col-md-12 col-lg-${chartCol} margin-top-md`}
+          stat={stat}
+          // chartConfig={chartConfig}
+          totalEvents={totalEvents}
+          query={query}
+          loadStat={loadStat}
+        >
+          <MetricsChart
+            stat={stat}
+            totalEvents={totalEvents}
+            query={query}
+            loadStat={loadStat}
           />
-        )}
-        stat={stat}
-        totalEvents={totalEvents}
-        query={query}
-        loadStat={loadStat}
-      />,
-      chartWidth
-    );
+        </ChartWrapper>,
+        chartWidth
+      );
+    } else {
+      pushChart(
+        <ComposedChart
+          key={stat.id}
+          wrapperComponent={(
+            <ChartWrapper
+              key={stat.id}
+              editMode={editMode}
+              className={`col-md-12 col-lg-${chartCol} margin-top-md`}
+            />
+          )}
+          stat={stat}
+          totalEvents={totalEvents}
+          query={query}
+          loadStat={loadStat}
+        />,
+        chartWidth
+      );
+    }
   });
 
   if (editMode) {

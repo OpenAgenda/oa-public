@@ -13,8 +13,6 @@
   "AgendaStats.Dashboard.changeOrder": "Kemmañ an urzh",
   "AgendaStats.Dashboard.edit": "Embann an danevell",
   "AgendaStats.Dashboard.filters": "Siloù",
-  "AgendaStats.Dashboard.lessFilters": "Diskouez nebeutoc'h a siloù",
-  "AgendaStats.Dashboard.moreFilters": "Diskouez muioc'h a siloù",
   "AgendaStats.Dashboard.pulseDesc": "Obererezh ar bloaz tremenet",
   "AgendaStats.Dashboard.save": "Enrollañ",
   "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {darvoud} one {darvoud} 2 {zarvoud} other {darvoud}}",

@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import React, { useCallback, useState } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
+import React, { useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -9,32 +8,19 @@ import qs from 'qs';
 import {
   Filters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import getEvents from '../api/getEvents';
 
-const messages = defineMessages({
-  moreFilters: {
-    id: 'AgendaStats.Dashboard.moreFilters',
-    defaultMessage: 'Display more filters',
-  },
-  lessFilters: {
-    id: 'AgendaStats.Dashboard.lessFilters',
-    defaultMessage: 'Display less filters',
-  },
-});
-
 export default function FiltersPart({
   agenda,
   agendaSchema,
-  standardsFilters,
-  additionalsFilters,
+  filters,
   filtersFormRef,
   initialQuery,
 }) {
-  const intl = useIntl();
   const apiClient = useApiClient();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,9 +38,7 @@ export default function FiltersPart({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters].filter(
-        filter => filter.type !== 'dateRange'
-      ),
+      filters.filter(filter => filter.type !== 'dateRange'),
       { size: 0 }
     ),
     {
@@ -64,21 +48,6 @@ export default function FiltersPart({
   );
 
   const { aggregations: filterAggs } = filtersQuery.data;
-
-  const [moreFilters, setMoreFilters] = useState(() => {
-    const names = additionalsFilters.map(v => v.name);
-
-    for (const key in query) {
-      if (
-        Object.prototype.hasOwnProperty.call(query, key)
-        && names.includes(key)
-      ) {
-        return true;
-      }
-    }
-
-    return false;
-  });
 
   const getTotal = useCallback(
     (filter, option) => {
@@ -123,11 +92,6 @@ export default function FiltersPart({
     [filterAggs]
   );
 
-  const toggleMoreFilters = useCallback(
-    () => setMoreFilters(prevState => !prevState),
-    []
-  );
-
   useUpdateEffect(() => {
     const search = qs.stringify(latestQuery.current, {
       addQueryPrefix: true,
@@ -150,7 +114,7 @@ export default function FiltersPart({
       filtersFormRef.current.initialize(cleanQuery);
     }
   }, [
-    additionalsFilters,
+    filters,
     agenda,
     agendaSchema,
     dispatch,
@@ -159,44 +123,18 @@ export default function FiltersPart({
     initialQuery,
     latestQuery,
     latestStats,
-    standardsFilters,
   ]);
 
   return (
     <div className="oa-collapse">
       <Filters
-        filters={standardsFilters}
+        filters={filters}
         disabled={loading}
-        dateRangeComponent={DateRangeFilter}
-        checkboxComponent={MultiChoiceFilter}
-        radioComponent={MultiChoiceFilter}
+        dateRangeComponent={DateRangeFilter.Collapsable}
+        choiceComponent={ChoiceFilter.Collapsable}
         getTotal={getTotal}
         getOptions={getOptions}
       />
-      {moreFilters ? (
-        <Filters
-          filters={additionalsFilters}
-          disabled={loading}
-          dateRangeComponent={DateRangeFilter}
-          checkboxComponent={MultiChoiceFilter}
-          radioComponent={MultiChoiceFilter}
-          getTotal={getTotal}
-          getOptions={getOptions}
-        />
-      ) : null}
-      {additionalsFilters.length ? (
-        <div className="margin-v-xs">
-          <button
-            type="button"
-            className="btn btn-link-inline"
-            onClick={toggleMoreFilters}
-          >
-            {intl.formatMessage(
-              moreFilters ? messages.lessFilters : messages.moreFilters
-            )}
-          </button>
-        </div>
-      ) : null}
     </div>
   );
 }

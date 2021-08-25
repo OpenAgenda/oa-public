@@ -5,8 +5,7 @@ const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 const { getLocaleValue } = require('@openagenda/react-shared');
 
-module.exports = (req, res, next) => {
-  const { config } = req.app;
+module.exports = ({ render, config }) => (req, res, next) => {
   // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
   //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
   //   return res.redirect(302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`);
@@ -38,7 +37,7 @@ module.exports = (req, res, next) => {
         allowCreateConversation: true, // show creation button
         creationSubtitle: getLabel(
           'contactAdministratorsOf',
-          { title: _.escape(getLocaleValue(req.agenda.title, lang)), link: eventShowLink },
+          { title: _.escape(getLocaleValue(req.agenda.title, req.lang)), link: eventShowLink },
           req.lang
         ),
         maskCreationSubtitle: false,

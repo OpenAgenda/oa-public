@@ -54,6 +54,7 @@ module.exports = ({
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,
       updateSourcePaths: interfaces.updateSourcePaths,
+      updateEventReference: interfaces.updateEventReference,
       enqueueRemove: queue.bind(null, 'removeEvent'),
     }),
     removeEvent: removeEvent.bind(

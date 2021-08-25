@@ -1,0 +1,36 @@
+{
+  "custom": null,
+  "fields": [
+    {
+      "field": "categories",
+      "label": {
+        "fr": "Catégories"
+      },
+      "options": [
+        {
+          "id": 1,
+          "value": "cinema",
+          "label": {
+            "fr": "Cinéma"
+          }
+        },
+        {
+          "id": 2,
+          "value": "sport",
+          "label": {
+            "fr": "Sport"
+          }
+        },
+        {
+          "id": 3,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 21546
+    }
+  ]
+}

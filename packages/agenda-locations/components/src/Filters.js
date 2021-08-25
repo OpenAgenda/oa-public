@@ -44,9 +44,7 @@ class Filters extends Component {
       return intl.formatMessage(messages.verify);
     } if (field === 'uids') {
       const selected = locations
-
-        .filter(l => value.indexOf(l.uid) !== -1)
-
+        .filter(l => Object.values(value).map(v => parseInt(v, 10)).indexOf(l.uid) !== -1)
         .map(l => l.name);
 
       if (selected.length > 4 || !selected.length) {

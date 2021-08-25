@@ -26,6 +26,11 @@ const base = {
     type: 'boolean',
     default: true
   },
+  aggregated: {
+    type: 'text',
+    max: 32,
+    default: null,
+  },
   transferToLegacy: {
     type: 'boolean',
     default: false

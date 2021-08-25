@@ -103,3 +103,5 @@ function _fillInTheBlanks(labels, defaultLang = 'en') {
 
   return labels;
 }
+
+module.exports.eventFields = eventFields;
