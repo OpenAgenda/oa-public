@@ -155,7 +155,7 @@ const EventShareModal = ({
               {userLogged ? (
                 <AgendaSearchInput
                   getTitleLink={getTitleLink}
-                  segment={segment}
+                  preFetchAgendas={segment === 'openagenda'}
                   res={res}
                   targetAgenda={{ title: event.agendaTitle, slug: event.agendaSlug }}
                 />
