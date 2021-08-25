@@ -49,25 +49,23 @@ function getClosestDayAfter(dayOfWeek, fromDate = new Date()) {
   return addDays(fromDate, offsetDays);
 }
 
-const staticRangeHandler = {
-  isSelected(range) {
-    const definedRange = this.range();
+function isSelected(range) {
+  const definedRange = this.range();
 
-    return (
-      range
-      && (isSameDay(range.startDate, definedRange.startDate)
-        || range.startDate === definedRange.startDate)
-      && (isSameDay(range.endDate, definedRange.endDate)
-        || range.endDate === definedRange.endDate)
-    );
-  },
-};
-
-export function createStaticRanges(ranges) {
-  return ranges.map(range => ({ ...staticRangeHandler, ...range }));
+  return (
+    range
+    && (isSameDay(range.startDate, definedRange.startDate)
+      || range.startDate === definedRange.startDate)
+    && (isSameDay(range.endDate, definedRange.endDate)
+      || range.endDate === definedRange.endDate)
+  );
 }
 
-export default function dateRanges(intl) {
+export function createStaticRanges(ranges) {
+  return ranges.map(range => ({ isSelected, ...range }));
+}
+
+export default function dateRanges(intl, opts = {}) {
   const locale = dateFnsLocales[intl.locale];
 
   const nextSaturday = getClosestDayAfter('Sat');
@@ -89,9 +87,10 @@ export default function dateRanges(intl) {
     endOfWeekend,
   };
 
-  return {
+  const defaults = {
     staticRanges: createStaticRanges([
       {
+        id: 'today',
         label: intl.formatMessage(messages.today),
         range: () => ({
           startDate: defineds.startOfToday,
@@ -99,6 +98,7 @@ export default function dateRanges(intl) {
         }),
       },
       {
+        id: 'tomorrow',
         label: intl.formatMessage(messages.tomorrow),
         range: () => ({
           startDate: defineds.startOfTomorrow,
@@ -106,6 +106,7 @@ export default function dateRanges(intl) {
         }),
       },
       {
+        id: 'thisWeekend',
         label: intl.formatMessage(messages.thisWeekend),
         range: () => ({
           startDate: defineds.startOfWeekend,
@@ -113,6 +114,7 @@ export default function dateRanges(intl) {
         }),
       },
       {
+        id: 'currentWeek',
         label: intl.formatMessage(messages.currentWeek),
         range: () => ({
           startDate: defineds.startOfWeek,
@@ -120,6 +122,7 @@ export default function dateRanges(intl) {
         }),
       },
       {
+        id: 'currentMonth',
         label: intl.formatMessage(messages.currentMonth),
         range: () => ({
           startDate: defineds.startOfMonth,
@@ -128,5 +131,18 @@ export default function dateRanges(intl) {
       },
     ]),
     inputRanges: [],
+  };
+
+  return {
+    staticRanges: opts.staticRanges ? opts.staticRanges.map(v => {
+      if (typeof v === 'string') {
+        const result = defaults.staticRanges.find(w => w.id === v);
+        if (result) {
+          return result;
+        }
+      }
+      return v;
+    }) : defaults.staticRanges,
+    inputRanges: opts.inputRanges || defaults.inputRanges,
   };
 }

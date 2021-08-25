@@ -42,8 +42,6 @@ const redirect = require('./middleware/redirectToEvent');
 const showPage = require('./middleware/showPage');
 const { navigationLinks } = require('./middleware/eventNavigation');
 
-const parseFilterAttrs = require('./client/lib/parseFilterAttrs');
-
 const mw = {
   index,
   error,
@@ -63,43 +61,12 @@ const mw = {
 
 const baseAssetsPath = `${__dirname}/assets`;
 
-const { I18N } = utils;
+const { I18N, imageToUrl } = utils;
 
 let devApp = null; // used for @openagenda/agenda-portal dev only
 
 function getFieldSchema(agendaSchema, fieldName) {
   return agendaSchema.fields.find(v => v.field === fieldName);
-}
-
-async function extractFiltersAndWidgets(app) {
-  app.locals.filters = [];
-  app.locals.widgets = {};
-
-  await promisify(app.render).call(app, 'index', {
-    registerFilter({ hash, data }) {
-      const attrs = {
-        ...hash,
-        destSelector: `[data-oa-filter-id="${hash.id}"]`,
-        name: this.name || this.fieldName,
-      };
-
-      if ('options' in this) {
-        attrs.options = this.options;
-      }
-
-      if ('fieldName' in this) {
-        attrs.fieldSchema = getFieldSchema(this.agenda.schema, this.fieldName);
-      }
-
-      data.root.filters.push(parseFilterAttrs(attrs));
-    },
-    registerWidget({ hash, data }) {
-      data.root.widgets[hash.name] = hash.selector;
-    },
-    widget({ hash, data }) {
-      data.root.widgets[hash.name] = `data-oa-widget="${hash.name}"`;
-    }
-  });
 }
 
 module.exports = async options => {
@@ -111,7 +78,6 @@ module.exports = async options => {
   const config = {
     eventsPerPage: 20,
     assetsRoot: null,
-    jsonExportVersion: 1,
     ...options,
   };
 
@@ -130,7 +96,6 @@ module.exports = async options => {
     defaultFilter, // optional: filter that applies when no other filter is set
     // cache,
     proxy: injectedProxy,
-    jsonExportVersion,
     assetsRoot,
     proxyHookBeforeGet,
   } = config;
@@ -171,27 +136,63 @@ module.exports = async options => {
     array: (...arr) => arr.slice(0, -1),
     concat: (...strings) => strings.slice(0, -1).join(''),
     fieldSchema: (fieldName, { data }) => getFieldSchema(data.root.agenda.schema, fieldName),
-    image: (image, type) => {
-      if (!image) {
-        return '';
+    image: imageToUrl,
+    filter({ hash, data }) {
+      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
+        data.root.__filtersAndWidgetsCounter = 0;
       }
 
-      const variant = typeof type === 'string'
-        ? image.variants?.find(img => img.type === type) ?? image
-        : image;
+      const i = data.root.__filtersAndWidgetsCounter++;
 
-      return `${image.base}${variant.filename}`;
-    },
-    customFilter(context) {
       const {
-        id,
         tagName = 'div',
         className = '',
+        attributes = '',
+        name,
+        ...restOptions
+      } = hash;
+
+      const fieldSchema = getFieldSchema(data.root.agenda.schema, name);
+
+      const attrs = {
+        ...restOptions,
+        name,
+        destSelector: `[data-oa-filter="${i}"]`
+      };
+
+      if (fieldSchema?.schemaId) {
+        attrs.fieldSchema = fieldSchema;
+      }
+
+      if (data.root.__extractFiltersAndWidgets) {
+        data.root.filters.push(attrs);
+      }
+
+      return new hbs.SafeString(`
+        <${tagName}
+          ${attributes}
+          class="${className}"
+          data-oa-filter="${i}"
+          data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
+        ></${tagName}>
+      `);
+    },
+    customFilter({ fn, hash, data }) {
+      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
+        data.root.__filtersAndWidgetsCounter = 0;
+      }
+
+      const i = data.root.__filtersAndWidgetsCounter++;
+
+      const {
+        tagName = 'div',
+        className = '',
+        attributes = '',
         query = {},
         activeClass = 'active',
         inactiveClass = 'inactive',
         ...restOptions
-      } = context.hash;
+      } = hash;
 
       const attrs = {
         aggregation: null,
@@ -199,37 +200,60 @@ module.exports = async options => {
         query,
         activeClass,
         inactiveClass,
+        destSelector: `[data-oa-filter="${i}"]`,
         ...restOptions
       };
 
-      const statusClass = _.isMatch(_.omitBy(context.data.root.query, _.isEmpty), _.omitBy(query, _.isEmpty))
+      const statusClass = _.isMatch(_.omitBy(data.root.query, _.isEmpty), _.omitBy(query, _.isEmpty))
         ? activeClass
         : inactiveClass;
 
-      context.data.root.filters.push(attrs);
+      if (data.root.__extractFiltersAndWidgets) {
+        data.root.filters.push(attrs);
+      }
 
       return new hbs.SafeString(`
         <${tagName}
+          ${attributes}
           class="${cn(className, statusClass)}"
-          data-oa-filter
-          ${id ? `data-oa-filter-id="${hbs.Utils.escapeExpression(id)}"` : ''}
+          data-oa-filter="${i}"
           data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
         >
-          ${context.fn(this)}
+          ${fn(this)}
         </${tagName}>
       `);
     },
-    widget({ hash }) {
+    widget({ hash, data }) {
+      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
+        data.root.__filtersAndWidgetsCounter = 0;
+      }
+
+      const i = data.root.__filtersAndWidgetsCounter++;
+
       const {
         tagName = 'div',
         className = '',
-        name
+        attributes = '',
+        name,
+        ...restOptions
       } = hash;
+
+      const attrs = {
+        ...restOptions,
+        name,
+        destSelector: `[data-oa-widget="${i}"]`
+      };
+
+      if (data.root.__extractFiltersAndWidgets) {
+        data.root.widgets.push(attrs);
+      }
 
       return new hbs.SafeString(`
         <${tagName}
           ${className ? `class="${className}"` : ''}
-          data-oa-widget="${name}"
+          ${attributes}
+          data-oa-widget="${i}"
+          data-oa-widget-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
         ></${tagName}>
       `);
     }
@@ -248,7 +272,6 @@ module.exports = async options => {
 
   const proxy = injectedProxy
     || Proxy({
-      jsonExportVersion,
       key: apiKey,
       defaultLimit: eventsPerPage,
       preFilter,
@@ -285,7 +308,12 @@ module.exports = async options => {
     );
   }
 
-  await extractFiltersAndWidgets(app);
+
+  app.locals.filters = [];
+  app.locals.widgets = [];
+
+  // populate filters and widgets
+  await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });
 
   if (process.env.NODE_ENV === 'development') {
     app.use(webpackSASSMiddleware(app.locals.sass));

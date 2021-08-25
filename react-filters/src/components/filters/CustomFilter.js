@@ -75,7 +75,7 @@ function Preview({
   return (
     <FormSpy subscription={subscription}>
       {({ values }) => {
-        if (!matchQuery(values, query)) {
+        if (!matchQuery(values, query) || !activeFilterLabel) {
           return null;
         }
 

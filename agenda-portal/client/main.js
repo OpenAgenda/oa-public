@@ -24,7 +24,6 @@ const log = debug('main');
 /* global $ */
 
 const listSelector = '.events';
-const activeFiltersSelector = '[data-oa-widget="activeFilters"]';
 
 let nextProgressiveLoadPage = 2;
 let rockBottom;
@@ -189,6 +188,7 @@ function onFilterController(pageProps, filtersRef, values = {}) {
     $(listSelector).html(result.html);
 
     filtersRoot.setAggregations(result.aggregations);
+    filtersRoot.setTotal(result.total);
     filtersRoot.setQuery(values);
 
     // TODO
@@ -232,7 +232,7 @@ async function renderFilters(pageProps) {
   }
 
   const filterElems = document.querySelectorAll('[data-oa-filter]');
-  const activeFilterWidget = document.querySelector(activeFiltersSelector);
+  const widgetElems = document.querySelectorAll('[data-oa-widget]');
 
   const filters = Array.from(
     filterElems,
@@ -244,12 +244,13 @@ async function renderFilters(pageProps) {
         dataSet.handlerElem = dataSet.handlerSelector ? elem.querySelector(dataSet.handlerSelector) : null;
       } else {
         dataSet.elemRef = React.createRef();
-        dataSet.destSelector = `[data-oa-filter-id="${id}"]`;
       }
 
       return dataSet;
     }
   );
+
+  const widgets = Array.from(widgetElems, elem => parseFilterAttrs(extractAttrs(elem, 'data-oa-widget-')));
 
   const initialQuery = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
@@ -266,8 +267,9 @@ async function renderFilters(pageProps) {
       <FiltersRoot
         ref={filtersRef}
         filters={filters}
-        activeFiltersSelector={activeFilterWidget ? activeFiltersSelector : null}
+        widgets={widgets}
         initialAggregations={pageProps.aggregations}
+        initialTotal={pageProps.total}
         initialQuery={initialQuery}
         defaultViewport={pageProps.defaultViewport}
         res="/events"

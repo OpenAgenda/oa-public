@@ -1,4 +1,5 @@
 const getLocaleValue = require('@openagenda/react-shared/lib/utils/getLocaleValue');
+const dateRanges = require('@openagenda/react-filters/lib/utils/dateRanges').default;
 const assignIfEmpty = require('./assignIfEmpty');
 
 const AGGREGATION_SIZE = 2000;
@@ -13,6 +14,19 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
         tileUrl:
           'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}.png?apiKey=9f8da49724b645f486f281abbe690750'
+      });
+      break;
+    case 'timings':
+      assignIfEmpty(filter, {
+        aggregation: null
+      });
+      if (filter.type === 'definedRange') {
+        Object.assign(filter, dateRanges(intl, filter));
+      }
+      break;
+    case 'search':
+      assignIfEmpty(filter, {
+        aggregation: null
       });
       break;
     case 'locationUid':

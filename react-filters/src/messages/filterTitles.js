@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.sourceAgendaUid',
     defaultMessage: 'Source agenda',
   },
+  originAgendaUid: {
+    id: 'ReactFilters.messages.filterTitles.originAgendaUid',
+    defaultMessage: 'Origin agenda',
+  },
   featured: {
     id: 'ReactFilters.messages.filterTitles.featured',
     defaultMessage: 'Featured',
@@ -56,10 +60,6 @@ export default defineMessages({
   // members: {
   //   id: 'ReactFilters.messages.filterTitles.members',
   //   defaultMessage: 'Members'
-  // },
-  // originAgendas: {
-  //   id: 'ReactFilters.messages.filterTitles.originAgendas',
-  //   defaultMessage: 'Origin agendas'
   // },
   // keywords: {
   //   id: 'ReactFilters.messages.filterTitles.keywords',

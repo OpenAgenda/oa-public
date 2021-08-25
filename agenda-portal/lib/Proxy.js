@@ -26,7 +26,6 @@ module.exports = ({
   preFilter,
   defaultFilter,
   defaultTimezone,
-  jsonExportVersion,
   proxyHookBeforeGet
 }) => {
   async function _fetch(agendaUid, res, userQuery, forcedLimit = null) {
@@ -45,24 +44,17 @@ module.exports = ({
       10
     );
 
-    const params = jsonExportVersion === 2
-      ? {
-        ..._.omit(query, ['oaq', 'lang']),
-        ...transformQueryV1ToV2(oaq, {
-          timezone: defaultTimezone,
-          slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
-            a => a.slugSchemaOptionIdMap
-          ),
-        }),
-        size: limit,
-        from: offset,
-      }
-      : {
-        key,
-        oaq,
-        limit,
-        offset,
-      };
+    const params = {
+      ..._.omit(query, ['oaq', 'lang']),
+      ...transformQueryV1ToV2(oaq, {
+        timezone: defaultTimezone,
+        slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
+          a => a.slugSchemaOptionIdMap
+        ),
+      }),
+      size: limit,
+      from: offset,
+    };
 
     if (query && query.detailed) {
       params.detailed = query.detailed;
@@ -77,30 +69,22 @@ module.exports = ({
         params: appliedParams,
         paramsSerializer: qs.stringify,
       })
-      .then(({ data }) => (jsonExportVersion === 2 ? {
+      .then(({ data }) => ({
         ...data,
         offset,
         limit,
-      } : data));
+      }));
   }
 
   function get(agendaUid, { uid, slug }) {
     return _fetch(
       agendaUid,
-      `events.${jsonExportVersion === 2 ? 'v2.' : ''}json`,
-      jsonExportVersion === 2
-        ? {
-          ...(uid ? { uid } : {}),
-          ...(slug ? { slug } : {}),
-          detailed: 1,
-        }
-        : {
-          oaq: {
-            passed: 1,
-            ...(uid ? { uids: [uid] } : {}),
-            ...(slug ? { slug } : {}),
-          },
-        }
+      'events.v2.json',
+      {
+        ...(uid ? { uid } : {}),
+        ...(slug ? { slug } : {}),
+        detailed: 1,
+      }
     ).then(r => r.events
       .filter(e => {
         if (slug) {
@@ -122,16 +106,11 @@ module.exports = ({
 
   return {
     head: agendaUid => cachedHead(agendaUid, key),
-    list: (agendaUid, query) => {
-      if (jsonExportVersion === 2) {
-        query.detailed = 1;
-      }
-      return cached(
-        agendaUid,
-        `events.${jsonExportVersion === 2 ? 'v2.' : ''}json`,
-        query
-      );
-    },
+    list: (agendaUid, query) => cached(
+      agendaUid,
+      'events.v2.json',
+      { ...query, detailed: 1 }
+    ),
     clearCache,
     get,
     defaultLimit,

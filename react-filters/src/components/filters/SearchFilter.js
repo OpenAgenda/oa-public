@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { Field, useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useIntl, defineMessages } from 'react-intl';
+import { useDebouncedCallback } from 'use-debounce';
 
 const messages = defineMessages({
   placeholder: {
@@ -12,8 +13,20 @@ const messages = defineMessages({
 
 const subscription = { value: true };
 
-function Input({ input, placeholder }) {
+function SearchInput({ input, placeholder }) {
   const form = useForm();
+  const [tmpValue, setTmpValue] = useState(input.value);
+
+  const debouncedOnChange = useDebouncedCallback(e => {
+    return input.onChange(e);
+  }, 400);
+
+  const onChange = useCallback(e => {
+    e.persist();
+
+    setTmpValue(e.target.value);
+    debouncedOnChange(e);
+  }, [debouncedOnChange]);
 
   return (
     <div className="form-group search">
@@ -25,6 +38,8 @@ function Input({ input, placeholder }) {
           autoComplete="off"
           placeholder={placeholder}
           {...input}
+          onChange={onChange}
+          value={tmpValue}
         />
         <button type="submit" className="btn" onClick={form.submit}>
           <i className="fa fa-search" aria-hidden="true" />
@@ -38,7 +53,7 @@ function Input({ input, placeholder }) {
 const SearchFilter = React.forwardRef(function SearchFilter({
   name,
   filter,
-  component = Input,
+  component = SearchInput,
   disabled,
   placeholder
 }, _ref) {
