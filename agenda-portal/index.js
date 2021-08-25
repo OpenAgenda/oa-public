@@ -24,6 +24,7 @@ const launch = require('./lib/launch');
 const loadResLocals = require('./lib/loadResLocals');
 const tasks = require('./tasks');
 const utils = require('./utils');
+const { register: registerHelpers } = require('./lib/helpers');
 
 const EventTransforms = require('./lib/events/Transforms');
 
@@ -129,135 +130,7 @@ module.exports = async options => {
 
   app.locals.defaultLang = config.lang || 'en';
 
-  hbs.registerHelper({
-    mdToHtml: md => marked(md, { breaks: true }),
-    json: JSON.stringify,
-    object: ({ hash = {} } = {}) => hash,
-    array: (...arr) => arr.slice(0, -1),
-    concat: (...strings) => strings.slice(0, -1).join(''),
-    fieldSchema: (fieldName, { data }) => getFieldSchema(data.root.agenda.schema, fieldName),
-    image: imageToUrl,
-    filter({ hash, data }) {
-      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
-        data.root.__filtersAndWidgetsCounter = 0;
-      }
-
-      const i = data.root.__filtersAndWidgetsCounter++;
-
-      const {
-        tagName = 'div',
-        className = '',
-        attributes = '',
-        name,
-        ...restOptions
-      } = hash;
-
-      const fieldSchema = getFieldSchema(data.root.agenda.schema, name);
-
-      const attrs = {
-        ...restOptions,
-        name,
-        destSelector: `[data-oa-filter="${i}"]`
-      };
-
-      if (fieldSchema?.schemaId) {
-        attrs.fieldSchema = fieldSchema;
-      }
-
-      if (data.root.__extractFiltersAndWidgets) {
-        data.root.filters.push(attrs);
-      }
-
-      return new hbs.SafeString(`
-        <${tagName}
-          ${attributes}
-          class="${className}"
-          data-oa-filter="${i}"
-          data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
-        ></${tagName}>
-      `);
-    },
-    customFilter({ fn, hash, data }) {
-      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
-        data.root.__filtersAndWidgetsCounter = 0;
-      }
-
-      const i = data.root.__filtersAndWidgetsCounter++;
-
-      const {
-        tagName = 'div',
-        className = '',
-        attributes = '',
-        query = {},
-        activeClass = 'active',
-        inactiveClass = 'inactive',
-        ...restOptions
-      } = hash;
-
-      const attrs = {
-        aggregation: null,
-        type: 'custom',
-        query,
-        activeClass,
-        inactiveClass,
-        destSelector: `[data-oa-filter="${i}"]`,
-        ...restOptions
-      };
-
-      const statusClass = _.isMatch(_.omitBy(data.root.query, _.isEmpty), _.omitBy(query, _.isEmpty))
-        ? activeClass
-        : inactiveClass;
-
-      if (data.root.__extractFiltersAndWidgets) {
-        data.root.filters.push(attrs);
-      }
-
-      return new hbs.SafeString(`
-        <${tagName}
-          ${attributes}
-          class="${cn(className, statusClass)}"
-          data-oa-filter="${i}"
-          data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
-        >
-          ${fn(this)}
-        </${tagName}>
-      `);
-    },
-    widget({ hash, data }) {
-      if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
-        data.root.__filtersAndWidgetsCounter = 0;
-      }
-
-      const i = data.root.__filtersAndWidgetsCounter++;
-
-      const {
-        tagName = 'div',
-        className = '',
-        attributes = '',
-        name,
-        ...restOptions
-      } = hash;
-
-      const attrs = {
-        ...restOptions,
-        name,
-        destSelector: `[data-oa-widget="${i}"]`
-      };
-
-      if (data.root.__extractFiltersAndWidgets) {
-        data.root.widgets.push(attrs);
-      }
-
-      return new hbs.SafeString(`
-        <${tagName}
-          ${className ? `class="${className}"` : ''}
-          ${attributes}
-          data-oa-widget="${i}"
-          data-oa-widget-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
-        ></${tagName}>
-      `);
-    }
-  });
+  registerHelpers(hbs);
 
   const {
     intlByLocale,
