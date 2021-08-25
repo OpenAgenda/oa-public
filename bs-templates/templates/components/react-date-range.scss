@@ -53,6 +53,7 @@
 .rdrMonthAndYearPickers {
   -webkit-box-flex: 1;
   flex: 1 1 auto;
+  flex-wrap: wrap;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
@@ -74,14 +75,17 @@
 }
 
 .rdrPprevButton {
+  margin: 0 0 0 0.833em;
 }
 
 .rdrNextButton {
+  margin: 0 0.833em 0 0;
 }
 
 .rdrMonths {
   display: -webkit-box;
   display: flex;
+  justify-content: space-around;
 }
 
 .rdrMonthsVertical {
@@ -209,6 +213,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 100%;
 }
 
 .rdrDefinedRangesWrapper {
@@ -308,10 +313,6 @@
   text-align: center;
 }
 
-.rdrMonthAndYearPickers select:hover {
-  background-color: rgba(0, 0, 0, 0.07);
-}
-
 .rdrMonthPicker,
 .rdrYearPicker {
   margin: 0 5px;
@@ -320,8 +321,8 @@
 .rdrNextPrevButton {
   display: block;
   width: 24px;
+  min-width: 24px;
   height: 24px;
-  margin: 0 0.833em;
   padding: 0;
   border: 0;
   border-radius: 5px;
