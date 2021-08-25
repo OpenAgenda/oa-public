@@ -3,7 +3,6 @@
 <div class="container">
   <div class="row py-4">
     <div class="col-sm-4 order-sm-12">
-
       {{#if event.location}}
         {{>event/map}}
       {{/if}}
@@ -33,9 +32,9 @@
             <img class="img-fluid" src="{{image event.image}}" alt="{{event.description}}" />
           </div>
           {{/if}}
-          {{#if event.html}}
+          {{#if event.longDescription}}
           <div class="wbg p-4">
-          {{{event.html}}}
+            {{{mdToHtml event.longDescription}}}
           </div>
           {{/if}}
         </div>

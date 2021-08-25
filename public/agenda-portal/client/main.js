@@ -196,9 +196,6 @@ function onFilterController(pageProps, filtersRef, values = {}) {
     //   handleIFrameLinkEvents($, iframeHandler);
     // }
 
-    result.total = updateTotal(result.total);
-    updateShare(pageProps);
-
     const queryStr = qs.stringify(values, {
       addQueryPrefix: true,
       arrayFormat: 'brackets',
@@ -210,6 +207,9 @@ function onFilterController(pageProps, filtersRef, values = {}) {
       null,
       `${window.location.pathname}${queryStr}`
     );
+
+    updateShare(pageProps);
+    result.total = updateTotal(result.total);
 
     const mapFilter = filters.find(v => v.type === 'map');
     const mapElem = mapFilter?.elemRef?.current;
