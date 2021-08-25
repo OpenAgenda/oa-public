@@ -17,11 +17,8 @@ module.exports.formatDSL = (query, options = {}) => {
 
     if (!field) {
       throw new BadRequest({
-        message: 'Invalid requested aggregations: unknown additional field',
-        info: {
-          field
-        }
-      })
+        info: { field }
+      }, 'Invalid requested aggregations: unknown additional field');
     }
 
     const fieldValues = field.options.map(o => [field.schemaId, o.id].join('.'));

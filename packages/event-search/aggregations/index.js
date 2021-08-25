@@ -39,9 +39,8 @@ module.exports = {
 
     if (errors.length) {
       throw new BadRequest({
-        message: 'Invalid requested aggregations',
         info: errors
-      });
+      }, 'Invalid requested aggregations');
     }
 
     return [].concat(requested)
@@ -51,9 +50,8 @@ module.exports = {
 
         if (typeof formatDSL !== 'function') {
           throw new BadRequest({
-            message: 'Invalid requested aggregations: Unkown aggregation type',
             info: { type }
-          });
+          }, 'Invalid requested aggregations: Unkown aggregation type');
         }
 
         return {

@@ -27,9 +27,8 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
 
   if (!eventPart) {
     throw new BadRequest({
-      message: 'no data was provided',
       info: { set, identifiers }
-    });
+    }, 'no data was provided');
   }
 
   let result;
