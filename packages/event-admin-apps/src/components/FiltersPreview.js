@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import {
   getEvents,
-  Filters,
+  ActiveFilters,
   DateRangeFilter,
   ChoiceFilter,
   MapFilter,
@@ -103,7 +103,7 @@ export default function FiltersPreview({
   const getOptions = useFilterOptions(filterAggs);
 
   return (
-    <Filters
+    <ActiveFilters
       filters={filters}
       disabled={isFetching || filtersQuery.isFetching}
       dateRangeComponent={DateRangePreviewer}

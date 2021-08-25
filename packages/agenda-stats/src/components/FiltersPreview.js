@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import {
-  Filters,
+  ActiveFilters,
   DateRangeFilter,
   ChoiceFilter,
   ValueBadge,
@@ -94,7 +94,7 @@ export default function FilterPreview({ agenda, isFetching, filters }) {
   const choiceProps = useMemo(() => ({ component: ChoicePreview }), []);
 
   return (
-    <Filters
+    <ActiveFilters
       filters={filters}
       disabled={isFetching || filtersQuery.isFetching}
       dateRangeComponent={DateRangeFilter.Preview}
