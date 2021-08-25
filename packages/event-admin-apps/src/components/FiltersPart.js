@@ -12,13 +12,12 @@ import {
 import { useApiClient } from '@openagenda/react-shared';
 import useFilterOptions from '../hooks/useFilterOptions';
 
-// TODO apiKey from config
-
 function FiltersPart({
   agenda, filters, query, page, loadGeoData
 }) {
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
+  const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
@@ -83,8 +82,7 @@ function FiltersPart({
       query,
       tileAttribution:
         '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-      tileUrl:
-        'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+      tileUrl: mapTiles,
     }),
     [query]
   );
