@@ -14,7 +14,10 @@ function JSONResponse(req, res) {
         return res.status(404).send(null);
       }
       if (err.name === 'BadRequest') {
-        return res.status(400).send([].concat(err.info).map(e => e.message).join(', '));
+        return res.status(400).json({
+          message: err.message,
+          info: err.info
+        });
       }
       log('error', err?.meta?.body?.error ?? err);
       res.status(500).send();
