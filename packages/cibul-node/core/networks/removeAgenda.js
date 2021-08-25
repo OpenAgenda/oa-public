@@ -1,10 +1,11 @@
 'use strict';
 
-const log = require('@openagenda/logs')('core/networks/removeAgenda');
-const BadRequestError = require('../utils/BadRequestError');
+const {
+  BadRequest
+} = require('@openagenda/verror');
 
 module.exports = async (core, networkUid, agendaUid) => {
-  const network = await core.networks(networkUid).get({
+  await core.networks(networkUid).get({
     throwNotFound: true
   });
   const agenda = await core.agendas(agendaUid).get({
@@ -13,7 +14,7 @@ module.exports = async (core, networkUid, agendaUid) => {
   });
 
   if (agenda.networkUid !== networkUid) {
-    throw new BadRequestError('agenda is not in network');
+    throw new BadRequest('agenda is not in network');
   }
 
   return core.agendas(agenda).update({
@@ -22,4 +23,4 @@ module.exports = async (core, networkUid, agendaUid) => {
     protected: false,
     updateLegacy: true
   });
-}
+};

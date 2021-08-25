@@ -102,7 +102,7 @@ describe('core - functional (server): core.agendas().events add()', () => {
         error = e;
       }
 
-      expect(error.name).toBe('ValidationError');
+      expect(error.name).toBe('BadRequest');
     });
   });
 

@@ -1,6 +1,5 @@
 'use strict';
 
-const NotFoundError = require('../../utils/NotFoundError');
 const getAgenda = require('../utils/getAgenda');
 
 async function get(services, preloadedOptions, agendaOrUid, userUid) {

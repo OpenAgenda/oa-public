@@ -2,7 +2,7 @@
 
 module.exports = services => (err, req, res, next) => {
   if (err) {
-    if (err.name === 'ValidationError') {
+    if (err.name === 'BadRequest') {
       return res.status(400).json(err);
     }
     if (err.code) {
@@ -12,6 +12,6 @@ module.exports = services => (err, req, res, next) => {
 
     services.errors('middleware', err);
 
-    res.status(res.statusCode === 200 ? 500 : res.statusCode ).json(err);
+    res.status(res.code === 200 ? 500 : res.code).json(err);
   }
-}
+};

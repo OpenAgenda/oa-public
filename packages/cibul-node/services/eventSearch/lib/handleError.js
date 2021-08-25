@@ -6,13 +6,13 @@ const log = require('@openagenda/logs')(
 
 module.exports = (err, req, res, next) => {
   log('error', err);
-  if (err?.name === 'NotFoundError') {
-    return res.status(err.statusCode).send(null);
+  if (err?.name === 'NotFound') {
+    return res.status(err.code).send(null);
   }
 
   if (err?.name === 'BadRequest') {
-    return res.status(err.statusCode).json({
-      error: err.detail,
+    return res.status(err.code).json({
+      error: err.info,
       requested: req.query.aggregations
     });
   }

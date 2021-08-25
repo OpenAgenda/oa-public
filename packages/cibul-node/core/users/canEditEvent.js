@@ -1,8 +1,8 @@
 'use strict';
 
 const log = require('@openagenda/logs')('core/users/canEditEvent');
+const { NotFound } = require('@openagenda/verror');
 
-const NotFoundError = require('../utils/NotFoundError');
 const validateIdentifier = require('./lib/validateIdentifier');
 
 const loadEvent = async (core, obj) => {
@@ -19,20 +19,19 @@ const loadEvent = async (core, obj) => {
   });
 
   if (!event) {
-    throw new NotFoundError('event', eventUid)
+    throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
   return {
     ownerUid: event.ownerUid,
     uid: obj
   };
-}
+};
 
 module.exports = async (core, userIdentifier, eventObj) => {
   const {
     agendaEvents,
     members,
-    events,
     users
   } = core.services;
 
@@ -45,9 +44,11 @@ module.exports = async (core, userIdentifier, eventObj) => {
   });
 
   log('loaded user %s', user.uid);
-  
+
   if (!user) {
-    throw new NotFoundError('user', userIdentifier);
+    throw new NotFound({
+      info: { uid: userIdentifier }
+    }, 'user not found');
   }
 
   const {
@@ -71,7 +72,7 @@ module.exports = async (core, userIdentifier, eventObj) => {
   });
 
   for (const ae of agendaEventItems) {
-    const member = memberItems.filter(m => m.agendaUid === ae.agendaUid).pop()
+    const member = memberItems.filter(m => m.agendaUid === ae.agendaUid).pop();
 
     if (!member) {
       // user is not member of agenda
@@ -93,4 +94,4 @@ module.exports = async (core, userIdentifier, eventObj) => {
   }
 
   return false;
-}
+};

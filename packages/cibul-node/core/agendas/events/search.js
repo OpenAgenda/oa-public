@@ -2,8 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/search');
-const NotFoundError = require('../../utils/NotFoundError');
-
+const { NotFound } = require('@openagenda/verror');
 const convertLongDescription = require('./lib/convertLongDescription');
 const loadSearchAccess = require('./lib/loadSearchAccess');
 const filterAuthorizedSearchFields = require('./lib/filterAuthorizedSearchFields');
@@ -17,7 +16,9 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   });
 
   if (!agenda) {
-    throw new NotFoundError('agenda', agendaUid);
+    throw new NotFound({
+      info: { uid: agendaUid }
+    }, 'agenda not found');
   }
 
   const access = await loadSearchAccess(core, agendaUid, options);
@@ -69,7 +70,10 @@ module.exports.rebuild = async (core, agendaUid) => {
   });
 
   if (!agenda) {
-    throw new Error('Not found');
+    throw new NotFound({
+      message: 'agenda not found',
+      info: { uid: agendaUid }
+    });
   }
 
   return core.services.eventSearch.agendas(agenda).rebuild();
@@ -91,7 +95,10 @@ module.exports.resyncEvent = async function resyncEvent(core, agendaUid, eventUi
     });
 
     if (!eventPayload && throwOnError) {
-      throw new NotFoundError('event', eventUid);
+      throw new NotFound({
+        message: 'event not found',
+        info: { uid: eventUid }
+      });
     }
 
     if (!eventPayload) {

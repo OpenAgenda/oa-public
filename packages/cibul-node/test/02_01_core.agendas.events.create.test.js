@@ -315,7 +315,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       expect(event.state).toBe(0);
     });
 
-    it('create with "contributor" access can not force state', async () => {
+    it('create with contributor access can not force state', async () => {
       let error;
       try {
         await core.agendas(55268170).events.create({
@@ -330,7 +330,6 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       } catch (e) {
         error = e;
       }
-
       expect(error.message).toBe('not authorized to publish events');
     });
 
@@ -557,7 +556,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       } catch (e) {
         error = e;
       }
-      expect(error.detail[0]).toEqual({
+      expect(error.info.errors[0]).toEqual({
         lang: 'fr',
         field: 'title',
         code: 'required',
@@ -578,7 +577,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       } catch (e) {
         error = e;
       }
-      expect(error.detail).toEqual([{
+
+      expect(error.info.errors).toEqual([{
         field: 'location',
         code: 'invalid',
         message: 'provided location uid is invalid',
@@ -596,7 +596,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       } catch (e) {
         error = e;
       }
-      expect(error.detail).toEqual([{
+      expect(error.info.errors).toEqual([{
         code: 'location.required',
         message: 'a integer is required',
         origin: undefined,
@@ -637,7 +637,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       } catch (e) {
         error = e;
       }
-      expect(error.name).toBe('ValidationError');
+      expect(error.name).toBe('BadRequest');
     });
   });
 
@@ -755,7 +755,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           error = e;
         }
 
-        expect(error.response.statusCode).toBe(401);
+        expect(error.response.statusCode).toBe(403);
         expect(error.response.body.message).toBe('not authorized to publish events');
       });
     });
@@ -870,7 +870,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       });
 
       it('list of validation errors is provided in body', () => {
-        expect(errorResponse.data.errors).toEqual([{
+        expect(errorResponse.data.info.errors).toEqual([{
           lang: 'fr',
           field: 'description',
           code: 'required',

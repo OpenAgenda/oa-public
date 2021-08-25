@@ -8,7 +8,7 @@ const log = require('@openagenda/logs')('core/agendas/utils/cleanEvent');
 
 const eventSchema = require('@openagenda/event-form/src/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
-const ValidationError = require('../../utils/ValidationError');
+const { BadRequest } = require('@openagenda/verror');
 
 const eventFields = eventSchema.eventFields({}).map(f => f.field);
 
@@ -165,7 +165,9 @@ function validateEvent({
   }
 
   if (errors.length) {
-    throw new ValidationError(errors);
+    throw new BadRequest({
+      info: { errors }
+    }, 'data is invalid');
   }
 
   return clean;
@@ -188,7 +190,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
     uid: locationUid,
     returnMergeTarget: true
   }).catch(e => {
-    if (e.name !== 'BadRequestError') {
+    if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
       throw e;
     }
   }) : null;

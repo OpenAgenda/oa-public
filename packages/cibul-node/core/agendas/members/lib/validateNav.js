@@ -1,13 +1,15 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const { BadRequest } = require('@openagenda/verror');
+
+const integerValidator = require('@openagenda/validators/integer');
+const textValidator = require('@openagenda/validators/text');
 
 schema.register({
-  integer: require('@openagenda/validators/integer'),
-  text: require('@openagenda/validators/text')
+  integer: integerValidator,
+  text: textValidator
 });
-
-const ValidationError = require('../../../utils/ValidationError');
 
 const validate = schema({
   after: {
@@ -20,12 +22,10 @@ const validate = schema({
   }
 });
 
-
 module.exports = data => {
   try {
     return validate(data);
-  } catch (e) {
-    throw new ValidationError(e);
+  } catch (errors) {
+    throw new BadRequest({ info: { errors } }, 'invalid navigation parameters');
   }
-}
-
+};

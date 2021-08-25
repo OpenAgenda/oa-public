@@ -1,7 +1,9 @@
 'use strict';
 
 const log = require('@openagenda/logs')('core/agendas/get');
-const NotFoundError = require('../utils/NotFoundError');
+const {
+  NotFound
+} = require('@openagenda/verror');
 const getMergedSchema = require('./settings/getMergedSchema');
 const loadSummary = require('./utils/loadSummary');
 
@@ -32,7 +34,7 @@ module.exports = async (core, agendaUid, options = {}) => {
   });
 
   if (!agenda && throwNotFound) {
-    throw new NotFoundError('agendas', agendaUid);
+    throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
   } else if (!agenda) {
     return null;
   }

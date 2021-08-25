@@ -324,6 +324,17 @@ module.exports = core => {
       });
     }
 
+    if ([
+      'BadRequest',
+      'Forbidden',
+      'NotFound'
+    ].includes(err.name)) {
+      return res.status(err.code).json({
+        message: err.message,
+        info: err.info
+      });
+    }
+
     handleError(new VError({
       cause: err,
       info: {

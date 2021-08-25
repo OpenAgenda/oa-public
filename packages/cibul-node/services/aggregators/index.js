@@ -59,10 +59,10 @@ module.exports.init = (config, services) => {
             eventUid,
             sourceAgenda.uid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.detail : e);
+            e.name === 'BadRequest' ? e.info : e);
           return {
             success: false,
-            errors: e.name === 'ValidationError' ? e.detail : e
+            errors: e.name === 'BadRequest' ? e.info : e
           };
         }
       },
@@ -89,10 +89,10 @@ module.exports.init = (config, services) => {
           log('error', 'could not patch event %s on aggregator %s',
             eventUid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.detail : e);
+            e.name === 'BadRequest' ? e.info : e);
           return {
             success: false,
-            errors: e.name === 'ValidationError' ? e.detail : e
+            errors: e.name === 'BadRequest' ? e.info : e
           };
         }
       },
@@ -106,10 +106,10 @@ module.exports.init = (config, services) => {
           log('error', 'could not remove event %s from aggregator %s',
             eventUid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.detail : e);
+            e.name === 'BadRequest' ? e.info : e);
           return {
             success: false,
-            errors: e.name === 'ValidationError' ? e.detail : e
+            errors: e.name === 'BadRequest' ? e.info : e
           };
         }
       },
