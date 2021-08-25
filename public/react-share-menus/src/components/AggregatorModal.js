@@ -112,6 +112,7 @@ const AggregatorModal = ({
                     getTitleLink={agenda => getTitleLink(agenda)}
                     res={res}
                     targetAgenda={targetAgenda}
+                    preFetchAgendas
                     noAgendas={bool => setNoAgendas(bool)}
                   />
                 )}
