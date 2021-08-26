@@ -49,8 +49,8 @@ export const Export = () => {
   };
 
   return (
-    <div className="ctas export__container">
-      <button className="btn btn-default export__btn" type="button" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button className="btn btn-default export-btn" type="button" onClick={() => setDisplay(true)}>
         <i className="fa fa-external-link" />
         <span>&nbsp; Exporter</span>
       </button>
