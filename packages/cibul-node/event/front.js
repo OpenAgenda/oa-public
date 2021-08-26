@@ -263,6 +263,7 @@ async function agendaEventShow( req, res, next ) {
   cmn.render( req, res, 'event/show', {
     tiles: config.tiles,
     scriptParams: {
+      root: config.root,
       contributor: member ? { uid: member.userUid } : null,
       agendaSlug: req.agenda.slug,
       agendaImage: req.agenda.image
