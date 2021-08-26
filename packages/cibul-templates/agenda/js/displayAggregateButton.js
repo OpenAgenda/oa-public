@@ -58,6 +58,7 @@ const AggregatorModalContainer = ({ options, query, userLogged }) => {
           res="/home/agendas"
           success={success}
           userLogged={userLogged}
+          root={options.root}
         />
       ) : null}
     </>

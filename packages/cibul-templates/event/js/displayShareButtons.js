@@ -86,7 +86,7 @@ const ShareAllModalContainer = ({ params, userLogged, query }) => {
   );
 };
 
-export default function displayShareButtons({agendaUid , uid, agendaSlug, agendaTitle, lang, selectors}, userLogged) {
+export default function displayShareButtons({agendaUid , uid, agendaSlug, agendaTitle, lang, selectors, root}, userLogged) {
   const query = window.location.href;
 
   const eventParams = {
@@ -94,7 +94,8 @@ export default function displayShareButtons({agendaUid , uid, agendaSlug, agenda
     uid,
     agendaSlug,
     agendaTitle,
-    lang
+    lang,
+    root
   };
   
   ReactDom.render(
