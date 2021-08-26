@@ -780,6 +780,7 @@ function _layoutData( req, res ) {
     },
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
+      root: config.root,
       total: req.total,
       perPage,
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
