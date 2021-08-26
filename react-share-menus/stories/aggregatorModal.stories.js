@@ -159,6 +159,7 @@ export const NotLoggedIn = () => {
           targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
           res="/agendas"
           userLogged={false}
+          root="localhost:9001"
         />
       ) : null}
     </div>

@@ -121,7 +121,7 @@ const EventShareModal = ({
   };
 
   const encodeUrl = () => {
-    const url = `https://d.openagenda.com/agendas/${event.agendaUid}/events/${event.uid}?displayShareModal=1`;
+    const url = `${event.root}/agendas/${event.agendaUid}/events/${event.uid}?displayShareModal=1`;
     const bytes = utf8.encode(url);
     return base64.encode(bytes);
   };
@@ -164,7 +164,7 @@ const EventShareModal = ({
                   <p>{intl.formatMessage(messages.signIn)}</p>
                   <a
                     className="btn btn-primary export-button"
-                    href={`https://d.openagenda.com/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
+                    href={`${event.root}/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
                   >
                     {intl.formatMessage(messages.connectionBtn)}
                   </a>
@@ -262,6 +262,7 @@ EventShareModal.propTypes = {
     agendaTitle: PropTypes.string,
     agendaSlug: PropTypes.string,
     lang: PropTypes.string,
+    root: PropTypes.string
   }).isRequired,
   onClose: PropTypes.func.isRequired,
   res: PropTypes.string,

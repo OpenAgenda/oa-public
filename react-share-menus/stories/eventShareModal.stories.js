@@ -20,6 +20,7 @@ const event = {
   agendaTitle: 'Mon Agenda',
   agendaSlug: 'slug-de-mon-agenda',
   lang: 'fr',
+  root: 'localhost:9001'
 };
 
 const filterResults = searchText => {
