@@ -16,15 +16,43 @@ const FieldComponents = {
   markdown: MarkdownField
 };
 
+function extractLanguageValue(value, l) {
+  if (!value) return;
+
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  return value?.[l];
+}
+
+function multilingualizeValue(value, languages) {
+  if (!value) return {};
+
+  if (typeof value === 'string') {
+    return languages.reduce((multilingualValue, language) => ({
+      ...multilingualValue,
+      [language]: value
+    }), {});
+  }
+
+  return value;
+}
+
 export default class MultilingualField extends Component {
   onChange(language, singleLanguageValue) {
     const {
       onChange,
-      value
+      value,
+      field
     } = this.props;
-    onChange(ih(value || {}, _.set({}, language, {
-      $set: singleLanguageValue
-    })));
+
+    const multilingualizedValue = multilingualizeValue(value, field.languages);
+
+    onChange({
+      ...multilingualizedValue,
+      [language]: singleLanguageValue
+    });
   }
 
   renderField(l) {
@@ -54,7 +82,7 @@ export default class MultilingualField extends Component {
           lang={lang}
           field={languageField}
           enabled={enabled}
-          value={_.get(value, l)}
+          value={extractLanguageValue(value, l)}
           onChange={v => this.onChange(l, v)}
         />
         {field.max ? <FieldCounter value={_.get(value, l)} max={field.max} /> : null}

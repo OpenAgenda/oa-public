@@ -9,7 +9,8 @@ function Main() {
   const props = {
     lang: 'fr',
     values: {
-      amultilingualfield: { fr: 'Quelque chose' }
+      amultilingualfield: { fr: 'Quelque chose' },
+      amultilingualfieldwithatextininput: 'Un texte pas multilingue'
     },
     schema: {
       fields: [{
@@ -35,6 +36,12 @@ function Main() {
           fr: 'Guillaume'
         },
         label: 'Une valeur par défaut par langue'
+      }, {
+        field: 'amultilingualfieldwithatextininput',
+        fieldType: 'text',
+        optional: true,
+        languages: ['fr', 'en'],
+        label: 'La valeur n\'est toujours pas multilingue'
       }]
     }
   };
