@@ -101,7 +101,7 @@ const AggregatorModal = ({
                 {userLogged && noAgendas && (
                   <>
                     <p>{intl.formatMessage(messages.noAgenda, { targetAgenda: targetAgenda.title })}</p>
-                    <a className="btn btn-primary" href="https://openagenda.com/new">
+                    <a className="btn btn-primary" href="/new">
                       {intl.formatMessage(messages.createAgenda)}
                     </a>
                   </>
