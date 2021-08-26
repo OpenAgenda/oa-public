@@ -2,11 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import ContentLoader from 'react-content-loader';
 import { css } from '@emotion/react';
-import form from '../messages/form';
-
-function fixedFloat(x, precision = 2) {
-  return Number.parseFloat(x).toFixed(precision);
-}
+import form from './messages/form';
 
 function ChartLoading() {
   return (
@@ -55,7 +51,7 @@ export default function MetricsChart({ stat }) {
               line-height: 1.2;
             `}
           >
-            {fixedFloat(data[metrics[0]])}
+            {intl.formatNumber(data[metrics[0]], { maximumFractionDigits: 2 })}
           </div>
           <div className="text-center">
             {intl.formatMessage(form[metrics[0]])}
@@ -64,13 +60,17 @@ export default function MetricsChart({ stat }) {
       ) : null}
       {metrics.length > 1 ? (
         <>
-          <div className="text-center">
+          <div>
             <table className="table">
               <tbody>
                 {metrics.map(metric => (
                   <tr key={metric}>
                     <td>{intl.formatMessage(form[metric])}</td>
-                    <td>{fixedFloat(data[metric])}</td>
+                    <td className="text-right">
+                      {intl.formatNumber(data[metric], {
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
                   </tr>
                 ))}
               </tbody>

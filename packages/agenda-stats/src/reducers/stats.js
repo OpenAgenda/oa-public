@@ -219,9 +219,13 @@ export default function reducer(state = initialState, action) {
       const actualStat = state.data[statIndex];
       const newStat = {
         ...actualStat,
+        aggregation: {
+          ...actualStat.aggregation,
+          ...action.values.aggregation,
+        },
         chart: {
           ...actualStat.chart,
-          ...action.values,
+          ...action.values.chart,
         },
       };
 
@@ -350,12 +354,14 @@ export function save(agenda) {
 
         return client.put(
           url,
-          data.map(v => ({
-            id: v.id,
-            aggregation: v.aggregation,
-            chart: v.chart,
-            separator: v.separator,
-          }))
+          data
+            .filter(v => v.chart || v.separator)
+            .map(v => ({
+              id: v.id,
+              aggregation: v.aggregation,
+              chart: v.chart,
+              separator: v.separator,
+            }))
         );
       },
     });

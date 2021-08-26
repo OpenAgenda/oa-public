@@ -64,7 +64,7 @@ export default function OrderModal({ onSubmit, onClose }) {
 
   const initialStats = useSelector(state => state.stats.data);
 
-  const [stats, setStats] = useState(() => [...initialStats]);
+  const [stats, setStats] = useState(() => initialStats.filter(v => v.chart || v.separator));
   const latestStats = useLatest(stats);
 
   const onDragEnd = useCallback(

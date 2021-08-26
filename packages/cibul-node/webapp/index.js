@@ -410,7 +410,8 @@ const initialState = async req => {
         prefix: '/:slug/admin/events',
         lang,
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
+        mapTiles: config.tiles
       },
       res: {
         jsonExport: '/agendas/:uid/admin/events.v2.json'

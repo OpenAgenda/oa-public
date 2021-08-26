@@ -33,7 +33,7 @@ export default function AddChartForm({
 
     return [
       {
-        label: intl.formatMessage(form.charts),
+        label: intl.formatMessage(form.data),
         options: [
           {
             label: intl.formatMessage(titleMessages.regions),
