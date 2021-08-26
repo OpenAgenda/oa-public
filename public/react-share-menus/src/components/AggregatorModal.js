@@ -8,7 +8,7 @@ import Modal from '@openagenda/react-shared/src/components/Modal';
 import AgendaSearchInput from './AgendaSearchInput';
 
 const AggregatorModal = ({
-  targetAgenda, onClose, res, success, userLogged
+  targetAgenda, onClose, res, success, userLogged, root
 }) => {
   const [noAgendas, setNoAgendas] = useState(false);
 
@@ -53,7 +53,7 @@ const AggregatorModal = ({
   };
 
   const encodeUrl = () => {
-    const url = `https://d.openagenda.com/${targetAgenda.slug}?displayAggregatorModal=1`;
+    const url = `${root}/${targetAgenda.slug}?displayAggregatorModal=1`;
     const bytes = utf8.encode(url);
     return base64.encode(bytes);
   };
@@ -92,7 +92,7 @@ const AggregatorModal = ({
                     <p>{intl.formatMessage(messages.signIn)}</p>
                     <a
                       className="btn btn-primary export-button"
-                      href={`https://d.openagenda.com/${targetAgenda.slug}/signin?redirect=${encodeUrl()}`}
+                      href={`${root}/${targetAgenda.slug}/signin?redirect=${encodeUrl()}`}
                     >
                       {intl.formatMessage(messages.connectionBtn)}
                     </a>
@@ -136,6 +136,7 @@ AggregatorModal.propTypes = {
   }).isRequired,
   success: PropTypes.bool,
   userLogged: PropTypes.bool.isRequired,
+  root: PropTypes.string.isRequired
 };
 
 AggregatorModal.defaultProps = {
