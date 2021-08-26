@@ -1,73 +1,46 @@
-import utils from '@openagenda/utils';
+function _isLeaf(node) {
+  let is = false;
 
-module.exports = clean;
+  if (node && node.type && typeof node.type !== 'object' && node.type !== 'schema') {
+    is = true;
+  } else {
+    is = !Object.keys(node || {}).filter(k => (
+      (typeof node[k] === 'object' && node[k] !== null)
+    )).length;
+  }
+  return is;
+}
 
-function clean( schema ) {
+function _isNormalized(schema) {
+  if (schema.fields) return true;
 
-  if ( _isLeaf( schema ) ) {
+  return false;
+}
 
-    return utils.extend( {}, schema );
-
+export default function clean(schema) {
+  if (_isLeaf(schema)) {
+    return { ...schema };
   }
 
-  let cleanSchema = {
+  const cleanSchema = {
     fields: {},
     list: false,
     type: 'schema'
-  },
+  };
 
-  schemaFields;
+  let schemaFields;
 
-  if ( _isNormalized( schema ) ) {
-
-    utils.extend( cleanSchema, schema );
+  if (_isNormalized(schema)) {
+    Object.assign(cleanSchema, schema);
 
     schemaFields = schema.fields;
-
   } else {
-
     schemaFields = schema;
-
   }
 
-  Object.keys( schemaFields ).forEach( branchKey => {
-
-    cleanSchema.fields[ branchKey ] = clean( schemaFields[ branchKey ] );
-
-  } );
+  Object.keys(schemaFields).forEach(branchKey => {
+    cleanSchema.fields[branchKey] = clean(schemaFields[branchKey]);
+  });
 
   return cleanSchema;
-
-}
-
-
-function _isNormalized( schema ) {
-
-  if ( schema.fields ) return true;
-
-  return false;
-
-}
-
-
-function _isLeaf( node ) {
-
-  let is = false;
-
-  if ( node && node.type && typeof node.type !== 'object' && node.type !== 'schema' ) {
-
-    is = true;
-
-  } else {
-
-    is = !Object.keys( node || {} ).filter( k => {
-
-      return ( typeof node[ k ] === 'object' && node[ k ] !== null );
-
-    } ).length;
-
-  }
-
-  return is;
-
 }
