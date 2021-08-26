@@ -50,7 +50,7 @@ module.exports.edit = async (req, res, next) => {
     .agendas(req.agenda.uid)
     .getAuthorizations(req.event)
     .then(authorizations => {
-      if (!['canChangeState', 'canPublish', 'canEditEvent'].filter(a => authorizations[a]).length) {
+      if (!['canChangeState', 'canPublish', 'canEditEvent', 'canContribute'].filter(a => authorizations[a]).length) {
         return next({
           code: 403,
           message: getLabel('noAccessToEdit', req.lang)
