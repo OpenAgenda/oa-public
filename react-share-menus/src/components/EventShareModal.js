@@ -10,7 +10,7 @@ import Modal from '@openagenda/react-shared/src/components/Modal';
 import AgendaSearchInput from './AgendaSearchInput';
 import Radio from './Radio';
 
-const ShareModal = ({
+const EventShareModal = ({
   onClose, res, segment, event, userLogged
 }) => {
   const [emailValue, setEmailValue] = useState('');
@@ -19,6 +19,7 @@ const ShareModal = ({
   const [emailSuccess, setEmailSuccess] = useState(false);
   const [options, setOptions] = useState(false);
   const [datesOptions, setDatesOptions] = useState(false);
+  const [noFutureEvents, setNoFutureEvents] = useState(false);
   const [dates, setDates] = useState({});
   const [link, setLink] = useState('');
 
@@ -54,11 +55,12 @@ const ShareModal = ({
     },
     emailSuccess: {
       id: 'email-success',
-      defaultMessage: 'The event was sent to {emails} email adresses.',
+      defaultMessage:
+        'The event was sent to {count, plural, =0 {no email address} one {# email address} other {# email addresses}}.',
     },
     calendarDate: {
       id: 'calendar-date',
-      defaultMessage: 'Choose a date',
+      defaultMessage: 'This event has no upcoming dates',
     },
     import: {
       id: 'import',
@@ -75,7 +77,7 @@ const ShareModal = ({
     connectionBtn: {
       id: 'connection-btn',
       defaultMessage: 'Sign In',
-    }
+    },
   });
 
   const handleSubmit = async e => {
@@ -100,9 +102,16 @@ const ShareModal = ({
     const response = await axios.get(
       `/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=${service}`
     );
-    setDates({ timezone: response.data.event.timezone, days: response.data.event.timings });
 
-    if (response.data.event.timings.length === 1) {
+    const today = moment().tz(response.data.event.timezone).format('YYYY-MM-DD');
+
+    const upcomingDates = response.data.event.timings.filter(date => date.begin > today);
+
+    setDates({ timezone: response.data.event.timezone, days: upcomingDates });
+
+    if (upcomingDates.length === 0) setNoFutureEvents(true);
+
+    if (upcomingDates.length === 1) {
       selectDate(response.data.event.timings, response.data.event.timings[0].begin);
       return setOptions(true);
     }
@@ -112,7 +121,7 @@ const ShareModal = ({
   };
 
   const encodeUrl = () => {
-    const url = `https://d.openagenda.com/agendas/${event.agendaUid}/events/${event.uid}?displayShareModal=1`;
+    const url = `${event.root}/agendas/${event.agendaUid}/events/${event.uid}?displayShareModal=1`;
     const bytes = utf8.encode(url);
     return base64.encode(bytes);
   };
@@ -122,31 +131,31 @@ const ShareModal = ({
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
       {emailSuccess ? (
-        <div className="export__form">
-          <button className="export__close" type="button" onClick={onClose}>
+        <div className="export-form">
+          <button className="export-close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
-          <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
-          <p className="margin-bottom-sm">{intl.formatMessage(messages.emailSuccess, { emails: emailQuantity })}</p>
-          <button className="btn btn-primary export__button" type="button" onClick={onClose}>
+          <h1 className="export-title-big">{intl.formatMessage(messages.shareTitle)}</h1>
+          <p className="confirmation-message">{intl.formatMessage(messages.emailSuccess, { count: emailQuantity })}</p>
+          <button className="btn btn-primary export-button" type="button" onClick={onClose}>
             OK
           </button>
         </div>
       ) : (
-        <div className="export__form">
-          <button className="export__close" type="button" onClick={onClose}>
+        <div className="export-form">
+          <button className="export-close" type="button" onClick={onClose}>
             <i className="fa fa-times fa-lg" />
           </button>
           {segment === 'openagenda, email, calendar' && (
-            <h1 className="export__title--big">{intl.formatMessage(messages.shareTitle)}</h1>
+            <h1 className="export-title-big">{intl.formatMessage(messages.shareTitle)}</h1>
           )}
           {segment.includes('openagenda') && (
             <div className="margin-bottom-md">
-              <h2 className="export__title--md">{intl.formatMessage(messages.shareOA)}</h2>
+              <h2 className="export-title-md">{intl.formatMessage(messages.shareOA)}</h2>
               {userLogged ? (
                 <AgendaSearchInput
                   getTitleLink={getTitleLink}
-                  segment={segment}
+                  preFetchAgendas={segment === 'openagenda'}
                   res={res}
                   targetAgenda={{ title: event.agendaTitle, slug: event.agendaSlug }}
                 />
@@ -154,8 +163,8 @@ const ShareModal = ({
                 <>
                   <p>{intl.formatMessage(messages.signIn)}</p>
                   <a
-                    className="btn btn-primary export__button"
-                    href={`https://d.openagenda.com/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
+                    className="btn btn-primary export-button"
+                    href={`${event.root}/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
                   >
                     {intl.formatMessage(messages.connectionBtn)}
                   </a>
@@ -165,11 +174,11 @@ const ShareModal = ({
           )}
           {userLogged && segment.includes('email') && (
             <form onSubmit={handleSubmit}>
-              <h2 className="export__title--md">{intl.formatMessage(messages.shareEmail)}</h2>
+              <h2 className="export-title-md">{intl.formatMessage(messages.shareEmail)}</h2>
               <div className="form-group">
                 <div className="input-group input-textarea">
                   <textarea
-                    className="form-control export__textarea"
+                    className="form-control export-textarea"
                     cols="60"
                     rows="4"
                     id="textarea"
@@ -186,7 +195,7 @@ const ShareModal = ({
           )}
           {segment.includes('calendar') && (
             <div className="margin-bottom-md">
-              <h2 className="export__title export__title--md">{intl.formatMessage(messages.shareCalendar)}</h2>
+              <h2 className="export-title export-title-md">{intl.formatMessage(messages.shareCalendar)}</h2>
               <form>
                 {calendars.map(calendar => (
                   <Fragment key={calendar.service}>
@@ -197,43 +206,40 @@ const ShareModal = ({
                       setChoice={(name, service) => selectCalendar(name, service)}
                     />
                     {options && calendar.name === calendarValue && (
-                      <div className="calendars__options">
+                      <div className="calendars-options">
                         {datesOptions && (
-                          <>
-                            <p>{intl.formatMessage(messages.calendarDate)}</p>
-                            <ul className="calendars__list">
-                              {dates.days.map(date => {
-                                const begin = moment
-                                  .tz(date.begin, dates.timezone)
-                                  .locale(event.lang)
-                                  .format('dddd D MMMM YYYY, HH:mm - ');
-                                const end = moment
-                                  .tz(date.end, dates.timezone)
-                                  .locale(event.lang)
-                                  .format('HH:mm');
-                                return (
-                                  <Radio
-                                    content={begin + end}
-                                    name="dates"
-                                    key={date.begin}
-                                    id={date.begin}
-                                    setChoice={() => selectDate(date)}
-                                  />
-                                );
-                              })}
-                            </ul>
-                          </>
+                          <ul className="calendars-list">
+                            {dates.days.map(date => {
+                              const begin = moment
+                                .tz(date.begin, dates.timezone)
+                                .locale(event.lang)
+                                .format('dddd D MMMM YYYY, HH:mm - ');
+                              const end = moment.tz(date.end, dates.timezone).locale(event.lang).format('HH:mm');
+                              return (
+                                <Radio
+                                  content={begin + end}
+                                  name="dates"
+                                  key={date.begin}
+                                  id={date.begin}
+                                  setChoice={() => selectDate(date)}
+                                />
+                              );
+                            })}
+                          </ul>
                         )}
-
-                        <a
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href={link}
-                          className="btn btn-primary btn-calendar"
-                          onClick={onClose}
-                        >
-                          {intl.formatMessage(messages.import)}
-                        </a>
+                        {noFutureEvents ? (
+                          <p>{intl.formatMessage(messages.calendarDate)}</p>
+                        ) : (
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={link}
+                            className="btn btn-primary btn-calendar"
+                            onClick={onClose}
+                          >
+                            {intl.formatMessage(messages.import)}
+                          </a>
+                        )}
                       </div>
                     )}
                   </Fragment>
@@ -247,15 +253,16 @@ const ShareModal = ({
   );
 };
 
-export default ShareModal;
+export default EventShareModal;
 
-ShareModal.propTypes = {
+EventShareModal.propTypes = {
   event: PropTypes.shape({
     agendaUid: PropTypes.number,
     uid: PropTypes.number,
     agendaTitle: PropTypes.string,
     agendaSlug: PropTypes.string,
     lang: PropTypes.string,
+    root: PropTypes.string
   }).isRequired,
   onClose: PropTypes.func.isRequired,
   res: PropTypes.string,
@@ -263,7 +270,7 @@ ShareModal.propTypes = {
   userLogged: PropTypes.bool,
 };
 
-ShareModal.defaultProps = {
+EventShareModal.defaultProps = {
   res: '',
   segment: 'openagenda, email, calendar',
   userLogged: false,

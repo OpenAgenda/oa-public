@@ -8,7 +8,7 @@ import Modal from '@openagenda/react-shared/src/components/Modal';
 import AgendaSearchInput from './AgendaSearchInput';
 
 const AggregatorModal = ({
-  targetAgenda, onClose, res, success, userLogged
+  targetAgenda, onClose, res, success, userLogged, root
 }) => {
   const [noAgendas, setNoAgendas] = useState(false);
 
@@ -53,7 +53,7 @@ const AggregatorModal = ({
   };
 
   const encodeUrl = () => {
-    const url = `https://d.openagenda.com/${targetAgenda.slug}?displayAggregatorModal=1`;
+    const url = `${root}/${targetAgenda.slug}?displayAggregatorModal=1`;
     const bytes = utf8.encode(url);
     return base64.encode(bytes);
   };
@@ -64,11 +64,11 @@ const AggregatorModal = ({
     <div id="event">
       <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
         {success ? (
-          <div className="export__form">
-            <button className="export__close" type="button" onClick={onClose}>
+          <div className="export-form">
+            <button className="export-close" type="button" onClick={onClose}>
               <i className="fa fa-times fa-lg" />
             </button>
-            <h1 className="export__title--big">{intl.formatMessage(messages.aggregatorTitle)}</h1>
+            <h1 className="export-title-big">{intl.formatMessage(messages.aggregatorTitle)}</h1>
             <p className="margin-bottom-sm">
               {intl.formatMessage(messages.aggregatorSuccess, { targetAgenda: targetAgenda.title })}
             </p>
@@ -77,11 +77,11 @@ const AggregatorModal = ({
             </button>
           </div>
         ) : (
-          <div className="export__form" onSubmit={handleSubmit}>
-            <button className="export__close" type="button" onClick={onClose}>
+          <div className="export-form" onSubmit={handleSubmit}>
+            <button className="export-close" type="button" onClick={onClose}>
               <i className="fa fa-times fa-lg" />
             </button>
-            <h1 className="export__title--big">{intl.formatMessage(messages.aggregatorTitle)}</h1>
+            <h1 className="export-title-big">{intl.formatMessage(messages.aggregatorTitle)}</h1>
             <div className="padding-right-sm">
               <p className="text-muted">
                 {intl.formatMessage(messages.aggregatorDescription, { targetAgenda: targetAgenda.title })}
@@ -91,8 +91,8 @@ const AggregatorModal = ({
                   <>
                     <p>{intl.formatMessage(messages.signIn)}</p>
                     <a
-                      className="btn btn-primary export__button"
-                      href={`https://d.openagenda.com/${targetAgenda.slug}/signin?redirect=${encodeUrl()}`}
+                      className="btn btn-primary export-button"
+                      href={`${root}/${targetAgenda.slug}/signin?redirect=${encodeUrl()}`}
                     >
                       {intl.formatMessage(messages.connectionBtn)}
                     </a>
@@ -112,6 +112,7 @@ const AggregatorModal = ({
                     getTitleLink={agenda => getTitleLink(agenda)}
                     res={res}
                     targetAgenda={targetAgenda}
+                    preFetchAgendas
                     noAgendas={bool => setNoAgendas(bool)}
                   />
                 )}
@@ -135,6 +136,7 @@ AggregatorModal.propTypes = {
   }).isRequired,
   success: PropTypes.bool,
   userLogged: PropTypes.bool.isRequired,
+  root: PropTypes.string.isRequired
 };
 
 AggregatorModal.defaultProps = {
