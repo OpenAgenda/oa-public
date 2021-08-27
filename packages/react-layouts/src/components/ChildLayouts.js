@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ReactIs from 'react-is';
+import { LayoutDataContext } from '@openagenda/react-shared';
 
 function getChild(children, props) {
   return ReactIs.isValidElementType(children)
@@ -21,14 +22,21 @@ export default function ChildLayouts({
     FallbackComponent,
   };
 
-  return layouts?.[0] && ReactIs.isValidElementType(layouts[0])
-    ? React.createElement(
+  // has child layout
+  if (layouts?.[0] && ReactIs.isValidElementType(layouts[0])) {
+    return React.createElement(
       layouts[0],
       {
         ...props,
         childLayouts: layouts.slice(1),
       },
       children
-    )
-    : getChild(children, props);
+    );
+  }
+
+  return (
+    <LayoutDataContext.Provider value={props.extraProps}>
+      {getChild(children, props)}
+    </LayoutDataContext.Provider>
+  );
 }
