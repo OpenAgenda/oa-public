@@ -12,7 +12,6 @@ import { prepareClientPortals } from '@stefanoruth/react-portal-ssr';
 import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
-import updateTotal from './lib/updateTotal';
 import updateShare from './lib/updateShare';
 import Provider from './components/Provider';
 import FiltersRoot from './components/FiltersRoot';
@@ -137,7 +136,6 @@ function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
       handleIFrameLinkEvents($, iframeHandler);
     }
 
-    result.total = updateTotal(result.total);
     updateShare(pageProps);
 
     const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
@@ -209,7 +207,6 @@ function onFilterController(pageProps, filtersRef, values = {}) {
     );
 
     updateShare(pageProps);
-    result.total = updateTotal(result.total);
 
     const mapFilter = filters.find(v => v.type === 'map');
     const mapElem = mapFilter?.elemRef?.current;
@@ -258,11 +255,17 @@ async function renderFilters(pageProps) {
 
   prepareClientPortals();
 
+  // add user message for total
+  const messages = widgets.reduce((accu, widget) => (widget.name === 'total' && widget.message
+    ? Object.assign(accu, { [widget.message.id]: widget.message.defaultMessage })
+    : accu), {});
+
   ReactDOM.render(
     <Provider
       lang={pageProps.lang}
       initialValues={_.omit(initialQuery, 'sort')}
       onFilterChange={values => onFilterController(pageProps, filtersRef, values)}
+      messages={messages}
     >
       <FiltersRoot
         ref={filtersRef}
@@ -313,6 +316,4 @@ $(() => {
   if (pageProps.iframable) {
     handleIFrameLinkEvents($, iframeHandler);
   }
-
-  updateTotal();
 });

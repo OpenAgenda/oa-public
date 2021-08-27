@@ -11,10 +11,15 @@ const Provider = require('../client/components/Provider');
 const setPageProp = require('../lib/utils/setPageProp');
 
 function withProvider(req, res, children) {
+  const messages = res.locals.widgets.reduce((accu, widget) => (widget.name === 'total' && widget.message
+    ? Object.assign(accu, { [widget.message.id]: widget.message.defaultMessage })
+    : accu), {});
+
   return React.createElement(Provider, {
     lang: res.locals.lang,
     initialValues: _.omit(req.query, 'sort'),
-    onFilterChange: () => {}
+    onFilterChange: () => {},
+    messages
   }, children);
 }
 

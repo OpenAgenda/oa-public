@@ -6,7 +6,7 @@ const mergeLocales = require('@openagenda/react-shared/lib/utils/mergeLocales');
 const { locales: reactFiltersLocales, FiltersProvider } = require('@openagenda/react-filters');
 const appLocales = require('../../boot/i18n');
 
-const { createElement: el } = React;
+const { createElement: el, useMemo } = React;
 
 const locales = mergeLocales(appLocales, reactFiltersLocales);
 
@@ -14,6 +14,7 @@ module.exports = function Provider({
   lang,
   initialValues,
   onFilterChange,
+  messages: userMessages,
   children
 }) {
   const queryClient = useConstant(() => new QueryClient({
@@ -24,10 +25,12 @@ module.exports = function Provider({
     },
   }));
 
+  const messages = useMemo(() => ({ ...locales[lang], ...userMessages }), [userMessages]);
+
   return el(
     IntlProvider,
     {
-      messages: locales[lang],
+      messages,
       locale: lang,
       key: lang
     },

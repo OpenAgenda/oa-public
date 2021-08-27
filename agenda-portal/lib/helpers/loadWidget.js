@@ -22,6 +22,14 @@ module.exports = hbs => ({ hash, data }) => {
     destSelector: `[data-oa-widget="${i}"]`
   };
 
+  if (name === 'total' && attrs.message) {
+    const { i18n } = hbs.handlebars.helpers;
+    attrs.message = {
+      id: attrs.message,
+      defaultMessage: i18n(attrs.message, { data, hash: true })
+    };
+  }
+
   if (data.root.__extractFiltersAndWidgets) {
     data.root.widgets.push(attrs);
   }
