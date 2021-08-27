@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, StaticRouter } from 'react-router-dom';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED as LoadableSecret } from '@loadable/component';
+import { LayoutDataContext } from '../contexts';
 import RouterTrigger from './lib/RouterTrigger';
 import ScrollToTop from './lib/ScrollToTop';
 
@@ -18,7 +19,9 @@ export default function wrapApp(app, options = {}) {
 
   let baseElement = (
     <RouterTrigger trigger={triggerHooks}>
-      <Content extraProps={extraProps} />
+      <LayoutDataContext.Provider value={extraProps}>
+        <Content extraProps={extraProps} />
+      </LayoutDataContext.Provider>
     </RouterTrigger>
   );
 
