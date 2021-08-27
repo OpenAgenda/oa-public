@@ -245,7 +245,7 @@ const initialState = async req => {
       res: {
         agenda: '/:slug',
         addEvent: '/:slug/contribute',
-        createEmbed: '/:slug/admin/webembed',
+        createEmbed: '/:slug/admin/embeds',
         slugAvailable: '/agendas/slugs/available',
         set: '/:slug/admin/settings/edit',
         remove: '/:slug/admin/settings/remove',
