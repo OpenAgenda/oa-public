@@ -144,6 +144,107 @@
       "value": "crwdne846:0"
     }
   ],
+  "ReactFilters.DefinedRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "From "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "endDate"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "End"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "From "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.singleDate": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "Start"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "Until "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
   "ReactFilters.MapField.searchWithMap": [
     {
       "type": 0,
