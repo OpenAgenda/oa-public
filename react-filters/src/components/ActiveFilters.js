@@ -36,9 +36,9 @@ export default function ActiveFilters({
 }) {
   const { values } = useFormState({ subscription: { values: true } });
 
-  const sortedFilters = filters
+  const sortedFilters = useMemo(() => ([...filters]
     .sort(staticRangesFirst)
-    .sort(customFirst);
+    .sort(customFirst)), [filters]);
 
   const activeFilters = useMemo(() => Object.entries(values)
     .reduce((accu, [key, value]) => {
