@@ -13,8 +13,8 @@ const messages = defineMessages({
     id: 'ReactFilters.DefinedRangeFilter.singleDate',
     defaultMessage: '{date, time, ::yyyyMMdd}',
   },
-  DefinedRange: {
-    id: 'ReactFilters.DefinedRangeFilter.DefinedRange',
+  dateRange: {
+    id: 'ReactFilters.DefinedRangeFilter.dateRange',
     defaultMessage:
       'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
   },
