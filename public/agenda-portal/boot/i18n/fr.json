@@ -7,7 +7,7 @@
   "previous": "Précédent",
   "next": "Suivant",
   "contribute": "Proposer un événement",
-  "eventsTotal": "{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événements} other {{total} événements}}",
+  "eventsTotal": "{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}",
   "onlineAccessLink": "Accéder à l'événement en ligne",
 
   "searchPlaceholder": "Rechercher",

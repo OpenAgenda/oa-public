@@ -2,5 +2,6 @@
   "previous": "Previous",
   "next": "Next",
   "backToList": "Back to list",
-  "filters": "Filters"
+  "filters": "Filters",
+  "total": "{total} events"
 }

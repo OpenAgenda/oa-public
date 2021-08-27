@@ -18,17 +18,21 @@ function createIntlByLocale(path) {
     }, {});
 }
 
-const handlebarsHelper = (intlByLocale, code, { hash: values, data }) => {
-  const intl = intlByLocale[data.root.lang] || intlByLocale[Object.keys(intlByLocale).shift()];
+function handlebarsHelper(intlByLocale) {
+  return function formatMessageHelper(code, { data, hash: values }) {
+    const intl = intlByLocale[data.root.lang] || intlByLocale[Object.keys(intlByLocale).shift()];
 
-  return intl.formatMessage({ id: code }, values);
-};
+    return values === true
+      ? intl.messages[code]
+      : intl.formatMessage({ id: code }, values);
+  };
+}
 
 module.exports = path => {
   const intlByLocale = createIntlByLocale(path);
 
   return {
     intlByLocale,
-    handlebarsHelper: handlebarsHelper.bind(null, intlByLocale),
+    handlebarsHelper: handlebarsHelper(intlByLocale)
   };
 };
