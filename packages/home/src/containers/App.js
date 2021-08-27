@@ -8,7 +8,7 @@ import { useIsomorphicLayoutEffect } from 'react-use';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
-import { useConstant } from '@openagenda/react-shared';
+import { useLayoutData, useConstant } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/home';
 import I18nContext from '../contexts/I18nContext';
 import MenuItem from '../components/MenuItem';
@@ -17,7 +17,7 @@ import agendasReducer from '../reducers/agendas';
 import eventsReducer from '../reducers/events';
 import modalsReducer from '../reducers/modals';
 
-function App({ route, user, lang }) {
+function App({ route }) {
   const queryClient = useConstant(
     () => new QueryClient({
       defaultOptions: {
@@ -27,6 +27,8 @@ function App({ route, user, lang }) {
       },
     })
   );
+
+  const { user, lang } = useLayoutData();
 
   const prefix = useSelector(state => state.settings.prefix);
   const tab = useSelector(state => state.menu.tab);
