@@ -3,14 +3,14 @@ import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import ShareModal from '../src/components/ShareModal';
+import EventShareModal from '../src/components/EventShareModal';
 import Canvas from './decorators/Canvas';
 import apiAgendas from './fixtures/api.agendas.get.json';
 import singleDate from './fixtures/api.singleDate.get.json';
 
 export default {
   title: 'Share',
-  component: 'ShareModal',
+  component: 'EventShareModal',
   decorators: [Canvas],
 };
 
@@ -20,6 +20,7 @@ const event = {
   agendaTitle: 'Mon Agenda',
   agendaSlug: 'slug-de-mon-agenda',
   lang: 'fr',
+  root: 'localhost:9001'
 };
 
 const filterResults = searchText => {
@@ -59,11 +60,11 @@ export const ShareAll = () => {
     .reply(200, apiAgendas);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
     </div>
   );
 };
@@ -86,11 +87,11 @@ export const OneDate = () => {
     .reply(200, singleDate);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} res="/agendas" event={event} userLogged />}
     </div>
   );
 };
@@ -99,11 +100,11 @@ export const ShareEmail = () => {
   const [display, setDisplay] = useState(false);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager par email
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} segment="email" event={event} userLogged />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} segment="email" event={event} userLogged />}
     </div>
   );
 };
@@ -115,12 +116,12 @@ export const ShareOpenAgenda = () => {
   mock.onGet('/agendas').reply(req => [200, req.params.search === '' ? apiAgendas : filterResults(req.params.search)]);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager sur OpenAgenda
       </button>
       {display && (
-        <ShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />
+        <EventShareModal onClose={() => setDisplay(false)} segment="openagenda" res="/agendas" event={event} userLogged />
       )}
     </div>
   );
@@ -145,11 +146,11 @@ export const UserNotConnected = () => {
     .reply(200, apiAgendas);
 
   return (
-    <div className="ctas export__container">
-      <button type="button" className="btn btn-default export__btn" onClick={() => setDisplay(true)}>
+    <div className="ctas export-container">
+      <button type="button" className="btn btn-default export-btn" onClick={() => setDisplay(true)}>
         Partager
       </button>
-      {display && <ShareModal onClose={() => setDisplay(false)} userLogged={false} event={event} />}
+      {display && <EventShareModal onClose={() => setDisplay(false)} userLogged={false} event={event} />}
     </div>
   );
 };
