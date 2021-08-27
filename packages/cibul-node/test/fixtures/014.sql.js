@@ -27,8 +27,9 @@ raw.push(knex('access_token').insert([
 ]));
 
 raw.push(knex('review').insert([
-  require('./sql/agendas/218.json'),
-  require('./sql/agendas/219.json'),
+  require('./sql/agendas/218.json'), // 17026855
+  require('./sql/agendas/219.json'), // 55268170
+  require('./sql/agendas/222.json'), // 55278973
   require('./sql/agendas/arles.json'),
   require('./sql/agendas/albi.json'),
   require('./sql/agendas/albigeois.json')

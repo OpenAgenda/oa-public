@@ -43,7 +43,7 @@
 <% if ( agenda.url ) { %>
         <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>
 <% } %>
-            <% if ( includeActionLinks ) { %><div class="ctas export__container">
+            <% if ( includeActionLinks ) { %><div class="ctas export-container">
                 <a
                   <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default js_create_conversation_contact margin-bottom-xs"

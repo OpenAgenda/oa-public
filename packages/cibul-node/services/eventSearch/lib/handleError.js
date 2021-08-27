@@ -6,6 +6,11 @@ const log = require('@openagenda/logs')(
 
 module.exports = (err, req, res, next) => {
   log('error', err);
+  if (err?.name === 'NotAuthenticated') {
+    return res.status(err.code).json({
+      message: err.message
+    });
+  }
   if (err?.name === 'NotFound') {
     return res.status(err.code).send(null);
   }

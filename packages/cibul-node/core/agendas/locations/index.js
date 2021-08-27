@@ -1,6 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
+const list = require('./list');
+const get = require('./get');
 
 module.exports = (core, agendaOrUid) => {
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
@@ -27,18 +29,8 @@ module.exports = (core, agendaOrUid) => {
       agendaUid,
       removeEvents: !!options.removeEvents,
     }),
-    get: (identifiers, options = {}) => locations.get(identifiers, {
-      ...options,
-      includeImagePath: true
-    }),
-    list: (query, nav) => locations.list(query, {
-      ...nav,
-      useAfter: true
-    }, {
-      total: true,
-      includeImagePath: true,
-      detailed: !!query?.detailed
-    }),
+    get: get(core, agendaOrUid),
+    list: list(core, agendaOrUid),
     merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data)
   };
 };

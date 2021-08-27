@@ -94,6 +94,30 @@ raw.push(knex('event_2').insert([{
   }]),
   location_uid: 1,
   timezone: 'Europe/Paris',
+  image: JSON.stringify({
+    filename: '6fc4cb9253e54f50a61a7cf81a2eb1c1.base.image.jpg',
+    size: {
+      width: 700,
+      height: 717
+    },
+    variants: [{
+      filename: '6fc4cb9253e54f50a61a7cf81a2eb1c1.full.image.jpg',
+      size: {
+        width: 125,
+        height: 128
+      },
+      type: 'full'
+    }, {
+      filename: '6fc4cb9253e54f50a61a7cf81a2eb1c1.thumb.image.jpg',
+      size: {
+        width: 200,
+        height: 200
+      },
+      type: 'thumbnail'
+    }],
+    base: 'https://cibuldev.s3.amazonaws.com/',
+    credits: 'Gaetan Latouche'
+  }),
   created_at: new Date(),
   updated_at: new Date()
 }]));

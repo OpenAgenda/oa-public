@@ -79,7 +79,7 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
       ) :
         displayedButton ?
         (
-          <button className="js_export_button btn btn-link export__link" type="button" onClick={() => setDisplay(true)}>
+          <button className="js_export_button btn btn-link export-link" type="button" onClick={() => setDisplay(true)}>
             <i className="fa fa-external-link" />
             <span>&nbsp; {intl.formatMessage(messages.exportSelectButton)}</span>
           </button>

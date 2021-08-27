@@ -75,6 +75,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
   });
 
+  describe('list from a set', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas(55278973).locations.list();
+    });
+
+    it('locations of set are listed', () => {
+      expect(result.items.length).toEqual(2);
+    });
+  });
+
   describe('get', () => {
     let result;
 
@@ -89,6 +101,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     it('get location with option includeLinkedAgendas', () => {
       expect(result.linkedAgendas).toEqual([{ uid: 17026855, title: 'La Gargouille' }]);
+    });
+  });
+
+  describe('get from a set', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas(55278973).locations.get(76464022);
+    });
+
+    it('location from set is given', () => {
+      expect(result.uid).toEqual(76464022);
     });
   });
 
@@ -575,7 +599,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     describe('create and update', () => {
-      it.only('a location creation on an agenda linked to a location set also links that location to the set', async () => {
+      it('a location creation on an agenda linked to a location set also links that location to the set', async () => {
         const created = await core.agendas(55268170).locations.create({
           name: 'Muséonum',
           address: '2 rond-point Madame de Mondonville, Toulouse',
