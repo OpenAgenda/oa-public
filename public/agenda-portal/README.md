@@ -19,8 +19,10 @@ Table of contents:
  * [Options](#options)
  * [Templates and styling](#templates-and-styling)
    * [Available data](#available-data)
-   * [Customizing data](#customizing-data)
    * [I18n](#i18n)
+   * [Helpers](#helpers)
+   * [Customizing data](#customizing-data)
+   * [Navigation and Filters](#navigation)
  * [IFrames](#iframes)
  * [Preview](#preview)
  * [Miscellaneous](#miscellaneous)
@@ -134,6 +136,26 @@ Labels set in the json locale files must follow the [ICU Message syntax](https:/
 
 By default, the folder containing multilingual label files is called `i18`.
 
+### Helpers
+
+Here are a few helpers that are available for use in the templates
+
+#### mdToHtml
+
+Convert markdown content to HTML.
+
+```
+{{{mdToHtml '**This is bold**'}}}
+```
+
+#### json
+
+Display data as JSON directly on the page. Useful to keep an eye on available data in a template.
+
+```
+<pre>{{json event.location null 2}}</pre>
+```
+
 ### Customizing data
 
 A function can be passed to the main portal configuration in your `server.js` file under the `eventHook` key together with all the options of your portal instance. This function is evaluated on every event before it is passed on to event templates, list or full page. To illustrate:
@@ -224,32 +246,9 @@ event.anotherImage = cloudimage(BASECILINK, { width: 400, grey: 1 } /* cloudimag
 
 For details on possible options, refer to the cloudimage documentation [here](https://docs.cloudimage.io/go/cloudimage-documentation-v7/en/introduction). Options passed to the utility are integrated into the image link.
 
-### Displaying a total
-
-When the list is filtered, a javascript can update the displayed total dynamically. A hook class must be used on the element in which the total should go: `js_total`.
-
-The default index template provides an example:
-
-    <span
-      class="js_total mr-2"
-      data-total="{{total}}"
-      data-label-none="Aucun événement ne correspond à cette recherche"
-      data-label-one="1 événement" data-label-plural="%total% événements"></span>
 
 
 ### Navigation
-
-#### Progressive load
-
-progressive load is deactivated by default. It can be enabled by setting a specific class on dom element containing the event list: `js_progressive_load`.
-
-Instead of reloading a page when a navigation occurs, a script will perform an xhr query to retrieve the content of the next page, extract the items found in the `js_progressive_load` element and append it to the bottom of the list when it is reached.
-
-#### Sideways event navigation
-
-When a search is done on the main agenda page and an event is selected, it is loaded with a navigation context query parameter in its url. Sideway navigation links then allow the user to navigate from event to event within a same search without the need to go back to search result list.
-
-The partial illustrating this is `navigation.hbs`
 
 #### Filters
 
@@ -384,6 +383,39 @@ CSS rules can target which input to display depending on the active state of the
   </label>
 {{/customFilter}}
 ```
+
+#### Widgets
+
+Widgets display information relative to the current state of the search.
+
+##### Active filters
+
+Displays a list of currently activated filters (excluding any pre-filter defined in the server)
+
+```
+{{widget name='activeFilters' className='active-filters'}}
+```
+
+##### Total results
+
+Displays the total of events matching the current selection
+
+```
+{{widget name='total' message='eventsTotal'}}
+```
+
+
+#### Progressive load
+
+progressive load is deactivated by default. It can be enabled by setting a specific class on dom element containing the event list: `js_progressive_load`.
+
+Instead of reloading a page when a navigation occurs, a script will perform an xhr query to retrieve the content of the next page, extract the items found in the `js_progressive_load` element and append it to the bottom of the list when it is reached.
+
+#### Sideways event navigation
+
+When a search is done on the main agenda page and an event is selected, it is loaded with a navigation context query parameter in its url. Sideway navigation links then allow the user to navigate from event to event within a same search without the need to go back to search result list.
+
+The partial illustrating this is `navigation.hbs`
 
 
 ## IFrames
