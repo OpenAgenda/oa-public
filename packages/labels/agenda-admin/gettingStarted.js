@@ -74,7 +74,7 @@ module.exports = {
     "io": "crwdns11372:0crwdne11372:0"
   },
   "createEmbedded": {
-    "fr": "Créer une vue intégrée",
+    "fr": "Créez une vue intégrée",
     "en": "Create an embedded view",
     "de": "Eine eingebettete Ansicht erstellen",
     "es": "Crear una visión integrada",
@@ -112,6 +112,14 @@ module.exports = {
     "es": "Solicitar agenda oficial",
     "it": "Richiedi un agenda ufficiale",
     "io": "crwdns11382:0crwdne11382:0"
+  },
+  "or": {
+    "fr": "ou",
+    "en": "or"
+  },
+  "useAPlugin": {
+    "fr": "Utilisez un plugin",
+    "en": "Use a plugin"
   },
   "learnMore": {
     "fr": "En savoir plus",
