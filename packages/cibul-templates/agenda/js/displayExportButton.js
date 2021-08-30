@@ -107,6 +107,10 @@ export default function displayExportButton(
 ) {
   const buttonElem = document.querySelector(params.selectors[exportType.exportAll ? 'exportAll' : 'export']);
 
+  if (!buttonElem) {
+    return;
+  }
+
   const lang = options.lang;
   const locales = mergeLocales(appLocales, modalLocales);
   const query = window.location.href;
