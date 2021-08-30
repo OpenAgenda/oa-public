@@ -21,7 +21,7 @@ module.exports = async ({ alias, client, cleanIndexedAgenda }, query, nav, optio
     cleanNav,
     validateOptions(options)
   );
-    
+
   const result = await client.search({
     index: alias,
     body: DSL
