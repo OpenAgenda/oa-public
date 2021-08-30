@@ -579,7 +579,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       });
 
       it('response body provides validation errors', () => {
-        expect(response.data.info.errors).toEqual([{
+        expect(response.data.errors).toEqual([{
           code: 'timings.invalid',
           message: 'Invalid timings',
           field: 'timings',
