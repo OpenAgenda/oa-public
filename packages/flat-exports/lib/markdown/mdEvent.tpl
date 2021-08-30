@@ -12,9 +12,11 @@
 <% if ( longDescription.length ) { %><%= longDescription %>
 
 <% } %><% if ( location.access ) { %><%= location.access %><% } %>
-<% if ( registration.length ) { %>**<%= labels.register %>**: <%= registration.join( ' - ' ) %><% } %>
+<% if ( registration.length ) { %>**<%= labels.register %>**: <%= registration.map(el => el.value).join( ' - ' ) %><% } %>
 
 <% if ( accessibility.length ) { %>**<%= labels.accessibility %>**: <%= accessibility.join( ', ' ) %>
 <% } %>
+**Image**: <%= image %>
+
 ---
 

@@ -1,41 +1,34 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' );
-const moment = require( 'moment-timezone' );
-const md = require( '../lib/markdown' );
-const event = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/acces-libre.json', 'utf-8' ) );
+const event = JSON.parse(require('fs').readFileSync(`${__dirname}/fixtures/acces-libre.json`, 'utf-8'));
+const md = require('../lib/markdown');
 
-describe( 'flat-exports - unit - markdown and text', () => {
-
-  describe( 'helpers - text', () => {
-
-    test( 'text head', () => {
-
-      const head = md.head( 'txt', {
+describe('flat-exports - unit - markdown and text', () => {
+  describe('helpers - text', () => {
+    test('text head', () => {
+      const head = md.head('txt', {
         slug: 'la-gargouille',
         identifier: 123,
         type: 'agenda',
         lang: 'fr',
         title: 'La Gargouille',
         description: 'Evénements à Paris'
-      } );
+      });
 
-      expect( head ).toBe(
-`La Gargouille
+      expect(head).toBe(
+        `La Gargouille
 Evénements à Paris
 https://openagenda.com/la-gargouille
 =============================
 
-`     );
+`
+      );
+    });
 
-    } );
-
-    test( 'text event', () => {
-
-      const markdownEventItem = md.parseEvent( 'txt', { lang: 'fr', genUrl: e => '#' + e.uid }, event, { previous: event } );
-
-      expect( markdownEventItem ).toBe(
-`Accès libre
+    test('text event', () => {
+      const markdownEventItem = md.parseEvent('txt', { lang: 'fr', genUrl: e => `#${e.uid}` }, event, { previous: event });
+      expect(markdownEventItem).toBe(
+        `Accès libre
 #48919824
 
 Accès libre accompagné
@@ -47,28 +40,27 @@ Itinéraire: https://www.google.com/maps/dir//48.824478,2.365424/@48.824478,2.36
 l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
 
 
-Réservation: 0145707532
+Réservation: 0145707532 - reservation@email.com
 
 Accessibilité: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
+
+Image: https://cibul.s3.amazonaws.com/
 -----------------------------
-`    )
+`
+      );
+    });
+  });
 
-    } );
-
-  } );
-
-  describe( 'helpers - markdown', () => {
-
-    test( 'markdown event', () => {
-
-      const markdownEventItem = md.parseEvent( 'md', {
+  describe('helpers - markdown', () => {
+    test('markdown event', () => {
+      const markdownEventItem = md.parseEvent('md', {
         lang: 'fr',
-        genUrl: e => '#' + e.uid,
+        genUrl: e => `#${e.uid}`,
         section: null
-      }, event, { previous: event } );
+      }, event, { previous: event });
 
-      expect( markdownEventItem ).toBe(
-`### [Accès libre](#48919824)
+      expect(markdownEventItem).toBe(
+        `### [Accès libre](#48919824)
 
 Accès libre accompagné
 
@@ -78,16 +70,16 @@ Accès libre accompagné
 l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
 
 
-**Réservation**: 0145707532
+**Réservation**: 0145707532 - reservation@email.com
 
 **Accessibilité**: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
+**Image**: https://cibul.s3.amazonaws.com/
+
 ---
 
-` );
-
-    })
-
-  } );
-
-} );
+`
+      );
+    });
+  });
+});

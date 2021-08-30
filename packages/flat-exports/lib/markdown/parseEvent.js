@@ -40,6 +40,7 @@ module.exports = (format, { genUrl, lang, section }, data, { previous }) => {
     },
     accessibility: _.keys(data.accessibility).filter(k => data.accessibility[k]).map(k => flatAccessibilityLabels[k]),
     longDescription: get(data.longDescription, lang),
-    sectionValue: _.get(previous, section) !== _.get(data, section) ? _.get(data, section) : null
+    sectionValue: _.get(previous, section) !== _.get(data, section) ? _.get(data, section) : null,
+    image: data.image.base,
   });
 };
