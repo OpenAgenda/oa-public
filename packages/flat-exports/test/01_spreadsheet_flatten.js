@@ -35,10 +35,9 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     test('dateRange is part of result', () => {
       expect(
         Object.keys(flat)
-          .filter(item => {
-            return ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item);
-          })
-          .length
+          .filter(item => (
+            ['Résumé horaires - FR', 'Résumé horaires - EN'].includes(item)
+          )).length
       ).toEqual(2);
     });
 
@@ -74,9 +73,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
 
       expect(
         Object.keys(flat)
-          .filter(item => {
-            return ['Résumé horaires'].includes(item);
-          })
+          .filter(item => ['Résumé horaires'].includes(item))
           .length
       ).toEqual(1);
     });

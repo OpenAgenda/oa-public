@@ -1,7 +1,10 @@
-"use strict";
+'use strict';
+
+const head = require('./head');
+const parseEvent = require('./parseEvent');
 
 module.exports = {
-  head: require( './head' ),
-  parseEvent: require( './parseEvent' ),
+  head,
+  parseEvent,
   tail: () => ''
-}
+};
