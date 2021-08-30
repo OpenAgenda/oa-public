@@ -82,6 +82,14 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(agenda.network?.uid).toBe(1234);
     });
 
+    it('detailed get provides information on locationSet', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+      });
+
+      expect(agenda.locationSet.uid).toBe(4321);
+    });
+
     it('detailed get with internal access includes admin fields in schema', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,

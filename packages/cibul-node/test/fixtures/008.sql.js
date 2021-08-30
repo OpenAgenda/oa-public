@@ -56,6 +56,7 @@ raw.push(knex('review').insert([{
   credentials: '{}',
   form_schema_id: 6,
   network_uid: 1234,
+  location_set_uid: 4321,
   settings: JSON.stringify({})
 }]));
 
@@ -80,6 +81,13 @@ raw.push(knex('network').insert([{
   form_schema_id: 5,
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06'
+}]));
+
+raw.push(knex('location_set').insert([{
+  uid: 4321,
+  title: 'Un jeu de lieux de test',
+  created_at: new Date(),
+  updated_at: new Date()
 }]));
 
 raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({
