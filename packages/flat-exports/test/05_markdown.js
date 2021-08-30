@@ -44,7 +44,7 @@ Réservation: 0145707532 - reservation@email.com
 
 Accessibilité: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
-Image: https://cibul.s3.amazonaws.com/
+Image: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
 -----------------------------
 `
       );
@@ -74,7 +74,7 @@ l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
 
 **Accessibilité**: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
-**Image**: https://cibul.s3.amazonaws.com/
+**Image**: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
 
 ---
 
