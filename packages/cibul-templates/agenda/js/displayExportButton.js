@@ -105,10 +105,8 @@ export default function displayExportButton(
   options,
   exportType
 ) {
-  let buttonLocation;
-  exportType.exportAll
-    ? (buttonLocation = document.querySelector(params.selectors.exportAll))
-    : (buttonLocation = document.querySelector(params.selectors.export));
+  const buttonElem = document.querySelector(params.selectors[exportType.exportAll ? 'exportAll' : 'export']);
+
   const lang = options.lang;
   const locales = mergeLocales(appLocales, modalLocales);
   const query = window.location.href;
@@ -125,6 +123,6 @@ export default function displayExportButton(
         query={query}
       />
     </IntlProvider>,
-    buttonLocation
+    buttonElem
   );
 }
