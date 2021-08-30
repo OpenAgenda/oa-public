@@ -81,7 +81,7 @@
       "uid": {
         "type": "integer"
       },
-      "name": {
+      "title": {
         "type": "text"
       }
     }
@@ -91,7 +91,7 @@
       "uid": {
         "type": "integer"
       },
-      "name": {
+      "title": {
         "type": "text"
       }
     }

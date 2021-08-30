@@ -47,7 +47,7 @@ async function update(service, req, res, next) {
 
 function list(service, req, res, next) {
   service.list(req.query, req.query, {
-    includeFields: ['summary', 'network'],
+    includeFields: ['summary', 'network', 'locationSet'],
     useDefaultImage: true
   }).then(result => {
     if (req.params.format === 'json') {
