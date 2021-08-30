@@ -52,7 +52,6 @@ module.exports = [
   'error/show',
 
   'eventLists/searchList',
-  'eventLists/agendaList',
 
   {
     js: 'inboxes/js/event.js',
