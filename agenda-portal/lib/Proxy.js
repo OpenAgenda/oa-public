@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const axios = require('axios');
 const qs = require('qs');
-const parseSearchQuery = require('./utils/searchQuery');
 const log = require('./Log')('proxy');
 const transformQueryV1ToV2 = require('./utils/transformQueryV1ToV2');
 
@@ -30,7 +29,10 @@ module.exports = ({
 }) => {
   async function _fetch(agendaUid, res, userQuery, forcedLimit = null) {
     const query = { ...preFilter, ...userQuery };
-    const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
+
+    if (!Object.keys(_.omit(userQuery, ['aggregations', 'size', 'page', 'detailed'])).length && defaultFilter) {
+      Object.assign(query, defaultFilter);
+    }
 
     const limit = forcedLimit || query.limit || defaultLimit;
 
@@ -46,7 +48,7 @@ module.exports = ({
 
     const params = {
       ..._.omit(query, ['oaq', 'lang']),
-      ...transformQueryV1ToV2(oaq, {
+      ...transformQueryV1ToV2(_.get(query, 'oaq', null), {
         timezone: defaultTimezone,
         slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
           a => a.slugSchemaOptionIdMap

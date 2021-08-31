@@ -30,6 +30,10 @@ module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
     };
   }
 
+  if (v1.featured !== undefined) {
+    v2.featured = v1.featured;
+  }
+
   if (v1.tags && slugSchemaOptionIdMap) {
     Object.assign(
       v2,
