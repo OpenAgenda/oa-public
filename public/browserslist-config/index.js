@@ -8,5 +8,6 @@ module.exports = [
 
   'firefox >= 43',
   'chrome >= 42',
+  'not IE 11',
   'unreleased versions'
 ];
