@@ -14,8 +14,6 @@ const _ = require('lodash');
 const express = require('express');
 const Hbs = require('hbs');
 const qs = require('qs');
-const cn = require('classnames');
-const marked = require('marked');
 
 const log = require('./lib/Log')('index');
 

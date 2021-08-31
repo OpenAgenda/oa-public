@@ -41,7 +41,7 @@ Portal({
   },
   // filter that applies when no other filter is specified
   defaultFilter: {
-    featured: 0,
+    // featured: 1,
   },
   // true if portal is to be displayed within iframe
   iframable: process.env.PORTAL_IFRAMABLE,
