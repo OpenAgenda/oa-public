@@ -1,15 +1,17 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
+const agendaEventStates = require('@openagenda/agenda-events/iso/states');
+const log = require('@openagenda/logs')('services/agendaEvents/sendEventUpdate');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods')
+const listAdminMods = require('./utils/listAdminMods');
 
-module.exports = async ({ config, services }, { agendaEvent, context, agenda, event }) => {
+module.exports = async ({ config, services }, {
+  agendaEvent, context, agenda, event
+}) => {
   const {
     root
   } = config;
@@ -35,7 +37,7 @@ module.exports = async ({ config, services }, { agendaEvent, context, agenda, ev
 
   const link = eventLink(root, agenda, event);
 
-  switch ( agendaEvent.state ) {
+  switch (agendaEvent.state) {
     case agendaEventStates.TOCONTROL:
       stateLabel = 'tocontrol';
       break;
@@ -45,6 +47,8 @@ module.exports = async ({ config, services }, { agendaEvent, context, agenda, ev
     case agendaEventStates.PUBLISHED:
       stateLabel = 'published';
       break;
+    default:
+      stateLabel = null;
   }
 
   const logo = agendaLogo(agenda);
@@ -54,6 +58,7 @@ module.exports = async ({ config, services }, { agendaEvent, context, agenda, ev
   const creatorUser = await usersSvc.findOne({
     query: { uid: event.creatorUid }
   });
+
   const creator = await membersSvc.get({
     agendaUid: agenda.uid,
     userUid: creatorUser.uid
@@ -61,10 +66,9 @@ module.exports = async ({ config, services }, { agendaEvent, context, agenda, ev
   const creatorLang = creatorUser.culture || 'fr';
 
   if (!creator) {
-    log( 'creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug );
+    log('creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug);
   } else if (agendaEvent.agendaUid === event.agendaUid) {
-
-     await mails.send( {
+    await mails.send({
       template: 'myEventUpdate',
       to: {
         address: creatorUser.email,
@@ -78,25 +82,24 @@ module.exports = async ({ config, services }, { agendaEvent, context, agenda, ev
         }]
       },
       data: {
-        event: event.title[creatorLang] || _.find( event.title ),
+        event: event.title[creatorLang] || _.find(event.title),
         agenda: agenda.title,
         state: stateLabel,
         logo,
         link
       },
       lang: creatorLang
-    } );
-
+    });
   }
 
-  await mails.send( {
+  await mails.send({
     template: 'eventUpdate',
     to: members
-      .filter( member => !!member.user )
-      .filter( member => !creator || ( member.id !== creator.id ) )
-      .map( member => {
+      .filter(member => !!member.user)
+      .filter(member => !creator || (member.id !== creator.id))
+      .map(member => {
         const lang = member.user.culture || 'fr';
-        const eventTitle = event.title[lang] || _.find( event.title );
+        const eventTitle = event.title[lang] || _.find(event.title);
 
         return {
           address: member.user.email,
@@ -113,13 +116,13 @@ module.exports = async ({ config, services }, { agendaEvent, context, agenda, ev
             event: eventTitle
           }
         };
-      } ),
+      }),
     data: {
       agenda: agenda.title,
       state: stateLabel,
       logo,
       link
     }
-  } );
+  });
   log('done');
 };

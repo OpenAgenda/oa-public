@@ -870,7 +870,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       });
 
       it('list of validation errors is provided in body', () => {
-        expect(errorResponse.data.info.errors).toEqual([{
+        expect(errorResponse.data.errors).toEqual([{
           lang: 'fr',
           field: 'description',
           code: 'required',

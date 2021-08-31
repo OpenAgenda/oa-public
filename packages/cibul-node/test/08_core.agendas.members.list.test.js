@@ -111,7 +111,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       });
 
       it('validation errors are provided in body', () => {
-        expect(response.data.info.errors).toEqual([
+        expect(response.data.errors).toEqual([
           {
             code: 'integer.toobig',
             message: 'the integer is too big',
