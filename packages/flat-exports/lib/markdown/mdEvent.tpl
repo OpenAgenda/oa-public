@@ -16,7 +16,7 @@
 
 <% if ( accessibility.length ) { %>**<%= labels.accessibility %>**: <%= accessibility.join( ', ' ) %>
 <% } %>
-<% if ( image.length ) { %>**Image**: <%= image %><% } %>
+<% if ( image ) { %>**Image**: <%= image %><% } %>
 
 ---
 
