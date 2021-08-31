@@ -1,31 +1,27 @@
-"use strict";
+'use strict';
 
-const axios = require( 'axios' );
-const inside = require( 'point-in-polygon' );
+const axios = require('axios');
+const inside = require('point-in-polygon');
 
+async function getPolygonsSet(field, location) {
+  const countryCode = (location.countryCode || '').toUpperCase();
 
-module.exports = async ( field, location ) => {
+  return axios.get(`https://s3.eu-west-1.amazonaws.com/oasvc/geocoder/${field}/${countryCode}.${location.city}.json`)
+    .then(({ data }) => data);
+}
 
-  const set = await getPolygonsSet( field, location ).catch( () => null );
+module.exports = async (field, location) => {
+  const set = await getPolygonsSet(field, location).catch(() => null);
 
-  if ( !set ) {
+  if (!set) {
     return null;
   }
 
-  const matching = set.filter( val =>
-    inside( [ location.longitude, location.latitude ], val.polygon )
-  );
+  const matching = set.filter(val => inside([location.longitude, location.latitude], val.polygon));
 
-  if ( matching.length ) {
-    return matching[ 0 ][ field ];
+  if (matching.length) {
+    return matching[0][field];
   }
 
   return null;
 };
-
-async function getPolygonsSet( field, location ) {
-  const countryCode = (location.countryCode || '').toUpperCase();
-
-  return axios.get( `https://s3.eu-west-1.amazonaws.com/oasvc/geocoder/${field}/${countryCode}.${location.city}.json` )
-    .then( ({ data }) => data );
-}

@@ -86,6 +86,12 @@ describe('agenda-locations - functional - get', () => {
         { duplicateCandidates: [51665986], disqualifiedDuplicates: [5] }
       );
     });
+    it('admin lvl1', () => {
+      expect(location.adminLevel1).toBe('Auvergne-Rhône-Alpes');
+    });
+    it('admin lvl2', () => {
+      expect(location.adminLevel2).toBe('Ardèche');
+    });
   });
 
   describe('deleted', () => {

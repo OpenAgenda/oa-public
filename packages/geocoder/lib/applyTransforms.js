@@ -1,29 +1,23 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const transforms = require( './transforms.json' );
+const transforms = require('./transforms.json');
 
 // easier to troubleshoot if separated
-const _test = ( rgx, value ) => ( new RegExp( rgx ) ).test( value );
+const _test = (rgx, value) => (new RegExp(rgx)).test(value);
 
 module.exports = location => {
-
-  const updated = Object.assign( {}, location );
+  const updated = { ...location }/*  Object.assign({}, location) */;
 
   // location is updated as it goes along transforms
-  transforms.forEach( transform => {
-
-    if( !Object.keys( transform.matchAny )
-      .every( field => [].concat( transform.matchAny[ field ] ).some(
-        fieldValue => _test( fieldValue, updated[ field ] )
-      ) )
+  transforms.forEach(transform => {
+    if (!Object.keys(transform.matchAny)
+      .every(field => [].concat(transform.matchAny[field]).some(
+        fieldValue => _test(fieldValue, updated[field])
+      ))
     ) return;
-
-    Object.assign( updated, transform.update );
-
-  } );
-
+    Object.assign(updated, transform.update);
+  });
   return updated;
-
-}
+};

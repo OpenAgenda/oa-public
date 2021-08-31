@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MoreInfo } from '@openagenda/react-components';
+import MoreInfo from '@openagenda/react-shared/src/components/MoreInfo';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 const messages = defineMessages({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debug from 'debug';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
-import { Spinner } from '@openagenda/react-components';
+import Spinner from '@openagenda/react-shared/src/components/Spinner';
 import get from '@openagenda/utils/get';
 
 import extraGeoFields from './extraGeoFields';
@@ -100,6 +100,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationDetails.noContent',
     defaultMessage: 'No content {lang} is defined',
   },
+  extId: {
+    id: 'AgendaLocations.LocationDetails.extId',
+    defaultMessage: 'External Identifier',
+  },
 });
 
 const mapValues = location => ({
@@ -191,7 +195,7 @@ class LocationDetails extends Component {
           ))}
           <a href={`${res.agendaSearch}/${filteredLAgendas[nbAgendasRendered - 1].uid}`}>{filteredLAgendas[nbAgendasRendered - 1].title}</a>
           {nbAgendasUnrendered !== 0 ? <span><FormattedMessage {...messages.andOn} /></span> : null}
-          <a href={link}><FormattedMessage values={{ count: nbAgendasUnrendered }} {...messages.others} /> </a>
+          {nbAgendasUnrendered !== 0 ? <a href={link}><FormattedMessage values={{ count: nbAgendasUnrendered }} {...messages.others} /> </a> : null}
         </p>
       </div>
     );
@@ -210,7 +214,6 @@ class LocationDetails extends Component {
     return (
       <div>
         <div className="margin-bottom-md">
-          <label htmlFor="location-name">{location.name}</label>
           {!linkedAgendas ? (
             <i style={{ padding: '0.2em 0.65em' }}>
               <Spinner
@@ -290,6 +293,12 @@ class LocationDetails extends Component {
           )
           : null}
         <ul className="list-unstyled" title={hoverInfo}>
+          {location.extId ? (
+            <li>
+              <label htmlFor="extId">{intl.formatMessage(messages.extId)} </label>:{' '}
+              <span>{location.extId}</span>
+            </li>
+          ) : null}
           <li>
             <label htmlFor="phone">{intl.formatMessage(messages.phone)} </label>:{' '}
             <span>{location.phone || <i>{intl.formatMessage(messages.noValue)}</i>}</span>

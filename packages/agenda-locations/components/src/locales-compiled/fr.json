@@ -268,6 +268,12 @@
       "value": "Vide"
     }
   ],
+  "AgendaLocations.LocationDetails.extId": [
+    {
+      "type": 0,
+      "value": "External Identifier"
+    }
+  ],
   "AgendaLocations.LocationDetails.hoverInfo": [
     {
       "type": 0,
@@ -326,8 +332,39 @@
   ],
   "AgendaLocations.LocationDetails.others": [
     {
-      "type": 0,
-      "value": " autres"
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "un autre"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " autres"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "AgendaLocations.LocationDetails.phone": [
