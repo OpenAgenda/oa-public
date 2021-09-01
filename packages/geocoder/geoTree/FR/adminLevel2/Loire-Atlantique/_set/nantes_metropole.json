@@ -1,0 +1,31 @@
+{
+  "$set": {
+    "adminLevel3": "Nantes Métropole"
+  },
+  "adminLevel4": [
+    "Nantes",
+    "Basse-Goulaine",
+    "Bouaye",
+    "Bouguenais",
+    "Brains",
+    "Carquefou",
+    "La Chapelle-sur-Erdre",
+    "Couëron",
+    "Indre",
+    "Mauves-sur-Loire",
+    "La Montagne",
+    "Orvault",
+    "Le Pellerin",
+    "Rezé",
+    "Saint-Aignan-Grandlieu",
+    "Saint-Herblain",
+    "Saint-Jean-de-Boiseau",
+    "Saint-Léger-les-Vignes",
+    "Saint-Sébastien-sur-Loire",
+    "Sainte-Luce-sur-Loire",
+    "Sautron",
+    "Les Sorinières",
+    "Thouaré-sur-Loire",
+    "Vertou"
+  ]
+}

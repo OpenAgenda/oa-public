@@ -1,0 +1,30 @@
+{
+  "$set": {
+    "adminLevel3": "Dijon métropole"
+  },
+  "adminLevel4": [
+    "Dijon",
+    "Ahuy",
+    "Bressey-sur-Tille",
+    "Bretenière",
+    "Chenôve",
+    "Chevigny-Saint-Sauveur",
+    "Corcelles-les-Monts",
+    "Daix",
+    "Fénay",
+    "Flavignerot",
+    "Fontaine-lès-Dijon",
+    "Hauteville-lès-Dijon",
+    "Longvic",
+    "Magny-sur-Tille",
+    "Marsannay-la-Côte",
+    "Neuilly-Crimolois",
+    "Ouges",
+    "Perrigny-lès-Dijon",
+    "Plombières-lès-Dijon",
+    "Quetigny",
+    "Saint-Apollinaire",
+    "Sennecey-lès-Dijon",
+    "Talant"
+  ]
+}

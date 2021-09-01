@@ -1,7 +1,7 @@
 [
   {
     "matchAny": {
-      "city": [
+      "adminLevel4": [
         "Albigny-sur-Saône",
         "Bron",
         "Cailloux-sur-Fontaines",
@@ -64,42 +64,42 @@
       ]
     },
     "update": {
-      "department": "Métropole de Lyon"
+      "adminLevel2": "Métropole de Lyon"
     }
   },
   {
     "matchAny": {
-      "city": "^Lyon(\\s.+|)$"
+      "adminLevel4": "^Lyon(\\s.+|)$"
     },
     "update": {
-      "city": "Lyon"
+      "adminLevel4": "Lyon"
     }
   },
   {
     "matchAny": {
-      "department": "Circonscription départementale du Rhône"
+      "adminLevel2": "Circonscription départementale du Rhône"
     },
     "update": {
-      "department": "Rhône"
+      "adminLevel2": "Rhône"
     }
   },
   {
     "matchAny" : {
-      "city" : "Saint-Aubin-de-Médoc"
+      "adminLevel4" : "Saint-Aubin-de-Médoc"
     },
     "update" : {
-      "city" : "Saint-Aubin de Médoc"
+      "adminLevel4" : "Saint-Aubin de Médoc"
     }
   },
   {
     "matchAny" : {
-      "city" : [
+      "adminLevel4" : [
         "Villeneuve-d’Ascq",
         "VILLENEUVE D ASCQ"
       ]
     },
     "update" : {
-      "city" : "Villeneuve-d'Ascq"
+      "adminLevel4" : "Villeneuve-d'Ascq"
     }
   }
 ]

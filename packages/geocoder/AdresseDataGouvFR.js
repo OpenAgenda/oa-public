@@ -9,7 +9,8 @@ const forwardURL = query => [
 
 const detailedURL = (latitude, longitude) => `https://geo.api.gouv.fr/communes?lat=${latitude}&lon=${longitude}&fields=region,departement`;
 
-async function reverse( latitude, longitude ) {
+async function reverse(latitude, longitude) {
+  return { latitude, longitude };
 }
 
 function parseResponseItem({ raw }, item) {

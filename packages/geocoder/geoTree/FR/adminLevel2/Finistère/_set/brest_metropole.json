@@ -1,0 +1,15 @@
+{
+  "$set": {
+    "adminLevel3": "Brest Métropole"
+  },
+  "adminLevel4": [
+    "Brest",
+    "Bohars",
+    "Gouesnou",
+    "Guilers",
+    "Guipavas",
+    "Plougastel-Daoulas",
+    "Plouzané",
+    "Le Relecq-Kerhuon"
+  ]
+}

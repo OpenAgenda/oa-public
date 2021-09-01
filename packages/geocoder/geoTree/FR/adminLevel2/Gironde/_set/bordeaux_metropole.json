@@ -1,0 +1,35 @@
+{
+  "$set": {
+    "adminLevel3": "Bordeaux Métropole"
+  },
+  "adminLevel4": [
+    "Bordeaux",
+    "Ambarès-et-Lagrave",
+    "Ambès",
+    "Artigues-près-Bordeaux",
+    "Bassens",
+    "Bègles",
+    "Blanquefort",
+    "Bouliac",
+    "Bruges",
+    "Carbon-Blanc",
+    "Cenon",
+    "Eysines",
+    "Floirac",
+    "Gradignan",
+    "Le Bouscat",
+    "Le Haillan",
+    "Le Taillan-Médoc",
+    "Lormont",
+    "Martignas-sur-Jalle",
+    "Mérignac",
+    "Parempuyre",
+    "Pessac",
+    "Saint-Aubin de Médoc",
+    "Saint-Louis-de-Montferrand",
+    "Saint-Médard-en-Jalles",
+    "Saint-Vincent-de-Paul",
+    "Talence",
+    "Villenave-d'Ornon"
+  ]
+}
