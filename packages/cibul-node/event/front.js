@@ -35,7 +35,6 @@ const middlewares = {
     cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oasfmain.css' ),
     _appendEventTransferCredential,
     _appendSettings,
-    cmn.addTrackingScripts,
     _decorateLocation,
     wrap( agendaEventShow )
   ],

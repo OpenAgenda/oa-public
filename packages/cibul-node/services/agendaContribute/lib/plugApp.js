@@ -5,6 +5,7 @@ const contribute = require('@openagenda/agenda-contribute');
 
 const cmn = require('../../../lib/commons-app');
 const outdatedBrowserMw = require('../../../lib/outdatedBrowser.mw');
+const trackingScripts = require('../../../lib/trackingScripts');
 const loadLegacyRoutes = require('../legacy');
 const middlewares = require('../middlewares');
 const memberSchema = require('./memberSchema');
@@ -182,6 +183,7 @@ module.exports = (config, services) => parentApp => {
 
       if (!req.scripts) req.scripts = {};
       if (!req.scripts.top) req.scripts.top = [];
+      if (!req.scripts.bottom) req.scripts.bottom = [];
 
       if (req.outdatedBrowser) {
         req.scripts.top.push(
@@ -196,6 +198,12 @@ module.exports = (config, services) => parentApp => {
           { src: '//cdn.crowdin.com/jipt/jipt.js' }
         );
       }
+
+      trackingScripts({
+        matomoCloudCode: config.matomoCloudCode,
+        googleAnalyticsID: config.googleAnalyticsId,
+        agenda: req.agenda
+      }).forEach(body => req.scripts.bottom.push({ body }));
 
       next();
     }

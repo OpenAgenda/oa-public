@@ -4,6 +4,7 @@ const _ = require('lodash');
 const csv = require('fast-csv');
 const XlsxStream = require('xlsx-writestream');
 const expressUtils = require('@openagenda/utils/express');
+const trackingScripts = require('../../lib/trackingScripts');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
@@ -30,12 +31,11 @@ module.exports = (config, services, instance, app, base) => {
     }),
     agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
-    loadLocationEndpoints(instance)
- );
+    loadLocationEndpoints(instance));
 
   app.get(base,
     getLocationSet(instance),
-    (req, res, next) => {
+    (req, res, _next) => {
       const layoutData = {
         role: req.member.role,
         lang: req.lang,
@@ -76,7 +76,15 @@ module.exports = (config, services, instance, app, base) => {
           }
         ],
         scripts: {
-          bottom: [{ src: '/js/locationsIndex.js' }]
+          bottom: [{
+            src: '/js/locationsIndex.js'
+          }].concat(
+            trackingScripts({
+              matomoCloudCode: config.matomoCloudCode,
+              googleAnalyticsID: config.googleAnalyticsId,
+              agenda: req.agenda
+            }).map(body => ({ body }))
+          )
         }
       };
 
@@ -99,7 +107,7 @@ module.exports = (config, services, instance, app, base) => {
       req.query,
       _.pick(req.query, ['offset', 'limit']),
       { total: true, eventCounts: true, detailed: true, includeImagePath: true }
-   ).then(({ items, total }) => res.json({ items, total }), next);
+    ).then(({ items, total }) => res.json({ items, total }), next);
   });
 
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
