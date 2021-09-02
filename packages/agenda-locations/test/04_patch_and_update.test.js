@@ -60,8 +60,8 @@ describe('agenda-locations - functional - patch & update', () => {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async (/* address */) => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async (/* uid */) => initSettingsDA
+        geocode: async _address => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async _uid => initSettingsDA
       },
       Files: Files(dConfig.files),
     });
@@ -300,8 +300,8 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
             7196947: 25221,
           }[uid],
         }),
-        geocode: async (/* address */) => [{ latitude: 10, longitude: 11 }],
-        getAgendaLocationSettings: async (/* uid */) => initSettingsCantUpdate
+        geocode: async _address => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async _uid => initSettingsCantUpdate
       },
       Files: Files(dConfig.files),
     });

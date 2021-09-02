@@ -9,7 +9,7 @@ const {
 const Service = require('..');
 const fixtures = require('./fixtures');
 
-const payload = require('./fixtures/mergeData.json');
+// const payload = require('./fixtures/mergeData.json');
 const initSettings = require('./fixtures/agendaTestSettings');
 
 const defaultAccess = {
@@ -58,8 +58,8 @@ describe('agenda-locations - functional - merge', () => {
             7196947: 25221,
           }[uid],
         }),
-        beforeMerge: async (mergeIn, merged) => {},
-        getAgendaLocationSettings: async (uid) => initSettingsDA
+        beforeMerge: async (_mergeIn, _merged) => {},
+        getAgendaLocationSettings: async _uid => initSettingsDA
       },
     });
   });
@@ -191,8 +191,8 @@ describe('agenda-locations - functional - merge - no rights', () => {
             7196947: 25221,
           }[uid],
         }),
-        beforeMerge: async (mergeIn, merged) => {},
-        getAgendaLocationSettings: async (uid) => initSettingsCantMerge
+        beforeMerge: async (_mergeIn, _merged) => {},
+        getAgendaLocationSettings: async _uid => initSettingsCantMerge
       },
     });
   });
@@ -258,13 +258,12 @@ describe('agenda-locations - functional - merge - duplicates', () => {
             7196947: 30907,
           }[uid],
         }),
-        beforeMerge: async (mergeIn, merged) => {},
-        getAgendaLocationSettings: async (uid) => initSettings
+        beforeMerge: async (_mergeIn, _merged) => {},
+        getAgendaLocationSettings: async _uid => initSettings
       },
     });
   });
   describe('duplicates handling', () => {
-
     beforeAll(async () => {
       await svc(7196947).merge(
         52174054,

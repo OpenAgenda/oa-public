@@ -14,6 +14,7 @@ function eventsList(core, agenda) {
     detailed: true,
     access: 'internal',
   }).then(({ events, lastId: nextLastId }) => {
+    log(events);
     log('listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)', events.length, agenda.slug, nextLastId, count += events.length);
     return { lastId: nextLastId, events };
   });

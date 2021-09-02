@@ -46,7 +46,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     await core.agendas(93399464).events.search.rebuild();
     await core.agendas(48353388).events.search.rebuild();
-
     core.services.agendaLocations.task({ reset: true, detectDuplicates: false });
     core.services.eventSearch.task({ reset: true });
   });
@@ -72,18 +71,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     it('an after key is provided', () => {
       expect(result.after).toBe(1);
-    });
-  });
-
-  describe('list from a set', () => {
-    let result;
-
-    beforeAll(async () => {
-      result = await core.agendas(55278973).locations.list();
-    });
-
-    it('locations of set are listed', () => {
-      expect(result.items.length).toEqual(2);
     });
   });
 
@@ -310,7 +297,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             data: {
               name: 'Tournon-sur-Rhône',
               address: 'Place St Julien, 07300 Tournon-sur-Rhône',
-              city: 'Tournon-sur-Rhône',
+              adminLevel4: 'Tournon-sur-Rhône',
               region: 'Auvergne-Rhône-Alpes',
               department: 'Ardèche',
               postalCode: '07300',
@@ -484,7 +471,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'uid', 'setUid', 'slug',
             'name', 'address',
             'countryCode', 'adminLevel1', 'adminLevel2',
-            'adminLevel3', 'city', 'adminLevel5', 'district',
+            'adminLevel3', 'adminLevel4', 'city', 'adminLevel5', 'adminLevel6', 'district',
             'postalCode', 'insee',
             'latitude', 'longitude', 'region', 'department', 'timezone',
             'updatedAt', 'createdAt', 'image', 'description',

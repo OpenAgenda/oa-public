@@ -54,7 +54,7 @@ const Service = require('.');
           25221: 7196947,
         }[uid],
       }),
-      getEventCounts: async (/* locationUids, { agendaUid } */) => [
+      getEventCounts: async (_locationUids, { _agendaUid }) => [
         {
           uid: 60763721,
           eventCount: 12,

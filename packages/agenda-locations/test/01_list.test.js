@@ -13,7 +13,7 @@ const fields = require('../lib/fields');
 const Service = require('..');
 const fixtures = require('./fixtures');
 
-async function getAgendaDetailsByUid(uid, fields = []) {
+async function getAgendaDetailsByUid(uid, _fields = []) {
   return _.pick(
     {
       id: { 7196947: 25221 }[uid],
@@ -23,7 +23,7 @@ async function getAgendaDetailsByUid(uid, fields = []) {
   );
 }
 
-async function getEventCounts(locationUids, { agendaUid }) {
+async function getEventCounts(_locationUids, { _agendaUid }) {
   return [
     {
       uid: 60763721,
@@ -282,7 +282,7 @@ describe('agenda-locations - functional - list', () => {
             .then(stream => {
               let count = 0;
 
-              stream.on('data', location => {
+              stream.on('data', _location => {
                 count += 1;
               });
 
@@ -309,13 +309,13 @@ describe('agenda-locations - functional - list', () => {
 
       throwingErrorSvc(7196947)
         .list({}, { limit: 0 }, { total: true })
-        .then(({ total }) => {
+        .then(({ _total }) => {
           throwingErrorSvc(7196947)
             .list({}, {}, { stream: true, eventCounts: true })
             .then(stream => {
               let count = 0;
-              stream.on('data', location => {
-                count++;
+              stream.on('data', _location => {
+                count += 1;
               });
 
               stream.on('error', err => {
