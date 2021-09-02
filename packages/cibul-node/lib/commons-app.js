@@ -79,10 +79,9 @@ module.exports = {
 
   lang,
 
-  extractGoogleAnalytics
+  addTrackingScripts
 
-}
-
+};
 
 function extractGoogleAnalytics( agendas ) {
 
@@ -94,10 +93,53 @@ function extractGoogleAnalytics( agendas ) {
 
     return `ga( 'create', '${gaCode}', 'auto', 'clientTracker${i}' ); ga('clientTracker${i}.send', 'pageview');`;
 
-  } ).filter( g => !!g ).join( '\n' );
+  } ).filter( g => !!g );
 
 }
 
+function gaScripts(req, agendas) {
+  const scripts = extractGoogleAnalytics(agendas) || [];
+
+  const googleAnalyticsId = _.get(req, 'googleAnalyticsId', config.googleAnalyticsId);
+
+  if (googleAnalyticsId) {
+    scripts.push(`
+    ga('create', '${googleAnalyticsId}', 'auto');
+    ga('send', 'pageview');`);
+  }
+
+  if (scripts.length) {
+    scripts.splice(0, 0, `
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    `);
+  }
+
+  return scripts;
+}
+
+function addTrackingScripts(req, agendas) {
+  const scripts = gaScripts(req, agendas);
+
+  if (config.matomoCloudCode) {
+    scripts.push(config.matomoCloudCode);
+  }
+
+  _.set(
+    req.baseData,
+    'bottom.scripts',
+    (req.baseData?.scripts?.bottom ?? []).concat(scripts)
+  );
+
+  return scripts.join('\n');
+}
+
+addTrackingScripts.mw = (req, res, next) => {
+  addTrackingScripts(req);
+  next();
+};
 
 function agendaMailTo( agenda ) {
 
@@ -471,24 +513,6 @@ function loadBaseData( func, cssFile ) {
       // Note: bottom is before head
       req.baseData.bottom.scripts.push(`window._jipt = [['project', 'openagenda']];`);
       req.baseData.head.js.crowdin = '//cdn.crowdin.com/jipt/jipt.js';
-    }
-
-    req.baseData.bottom.scripts.push(`
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    `);
-
-    if ( config.env == 'production' ) {
-
-      const googleAnalyticsId = _.get( req, 'googleAnalyticsId', config.googleAnalyticsId );
-
-      if ( googleAnalyticsId ) req.baseData.bottom.scripts.push( `
-          ga('create', '${googleAnalyticsId}', 'auto');
-          ga('send', 'pageview');
-      ` );
-
     }
 
     if (typeof next === 'function') {

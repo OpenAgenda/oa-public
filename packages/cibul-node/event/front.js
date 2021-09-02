@@ -35,6 +35,7 @@ const middlewares = {
     cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oasfmain.css' ),
     _appendEventTransferCredential,
     _appendSettings,
+    cmn.addTrackingScripts,
     _decorateLocation,
     wrap( agendaEventShow )
   ],
@@ -592,11 +593,10 @@ function _appendSettings(req, res, next) {
       },
       useDetailedStatusActions: {
         $set: !!agenda?.settings?.lab?.status
-      },
-      bottom: {
-        scripts: { $push: [ cmn.extractGoogleAnalytics( agendas ) ] }
       }
     });
+
+    cmn.addTrackingScripts(req, agendas);
 
     next();
   });

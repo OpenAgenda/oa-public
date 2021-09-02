@@ -33,8 +33,11 @@ const useOptions = {
   passReqToCallback: true,
 };
 
-const preMw = [cmn.https, cmn.loadBaseData(auth.layoutData, 'oasfmain.css')];
-
+const preMw = [
+  cmn.https,
+  cmn.loadBaseData(auth.layoutData, 'oasfmain.css'),
+  cmn.addTrackingScripts.mw
+];
 
 const renderManualPage = (
   (labels, lang) => manualTemplate(flattenLabels(labels, lang))
