@@ -33,19 +33,22 @@ https://openagenda.com/la-gargouille
 
 Accès libre accompagné
 
-MMN13, 47 rue du javelot 75013
-Itinéraire: https://www.google.com/maps/dir//48.824478,2.365424/@48.824478,2.365424,17z
 2 octobre - 29 décembre
 
-l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
+MMN13, 47 rue du javelot 75013
+Itinéraire: https://www.google.com/maps/dir//48.824478,2.365424/@48.824478,2.365424,17z
 
+Mode de participation: Mixte
+Lien d'accès: https: //www.evenement-en-ligne.fr
 
 Réservation: 0145707532 - reservation@email.com
 
 Accessibilité: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
 Image: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
+
 -----------------------------
+
 `
       );
     });
@@ -64,11 +67,12 @@ Image: https://cibul.s3.amazonaws.com/event_acces-libre_337_329719.jpg
 
 Accès libre accompagné
 
-**MMN13**, 47 rue du javelot 75013 [Itinéraire](https://www.google.com/maps/dir//48.824478,2.365424/@48.824478,2.365424,17z)
 **2 octobre - 29 décembre**
 
-l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
+**MMN13**, 47 rue du javelot 75013 [Itinéraire](https://www.google.com/maps/dir//48.824478,2.365424/@48.824478,2.365424,17z)
 
+**Mode de participation**: Mixte
+**Lien d'accès**: https: //www.evenement-en-ligne.fr
 
 **Réservation**: 0145707532 - reservation@email.com
 

@@ -55,6 +55,8 @@
   "description": {
     "fr": "Accès libre accompagné"
   },
+  "attendanceMode": 3,
+  "onlineAccessLink": "https: //www.evenement-en-ligne.fr",
   "title": {
     "fr": "Accès libre"
   },
