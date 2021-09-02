@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/utils/assignState');
-const UnauthorizedError = require('../../utils/UnauthorizedError');
+const { Forbidden } = require('@openagenda/verror');
 
 const TYPES = {
   default: 'default',
@@ -49,7 +49,9 @@ function defineState({
     && (parseInt(requestedState, 10) === 2)
     && !canPublish
   ) {
-    throw new UnauthorizedError('agenda', agenda.uid, 'not authorized to publish events');
+    throw new Forbidden({
+      info: { uid: agenda.uid }
+    }, 'not authorized to publish events');
   }
 
   if (hasEvent && explicitStateRequested && canChangeState) {

@@ -66,7 +66,7 @@ export default function GettingStarted({ agenda }) {
         <div className="margin-v-md">
           <a className="btn btn-primary" href={res.createEmbed}>
             {getLabel( 'createEmbedded' )}
-          </a>
+          </a><span className="margin-left-md">{getLabel('or')}</span><a target="_blank" href="https://developers.openagenda.com/tag/60-plugins" className="btn btn-link">{getLabel('useAPlugin')}</a>
         </div>
       </div>
 

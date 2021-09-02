@@ -53,6 +53,7 @@ const config = {
     logo: prod.logo,
     googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
     embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
+    matomoCloudId: process.env.MATOMO_CLOUD_ID || prod.matomoCloudId,
     useCache: false,
     agendaCacheExpire: 30 * 1000,
     shares: {
@@ -933,6 +934,21 @@ currentConfig = _loadEnv(process.env.NODE_ENV || 'development');
 
 currentConfig.loadEnv = _loadEnv;
 
+if (currentConfig.matomoCloudId) {
+  currentConfig.matomoCloudCode = `
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://${currentConfig.matomoCloudId}/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src='//cdn.matomo.cloud/${currentConfig.matomoCloudId}/matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  `;
+}
 
 /**
  * emailstrategie database configuration

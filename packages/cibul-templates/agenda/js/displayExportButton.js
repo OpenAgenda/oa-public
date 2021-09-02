@@ -79,7 +79,7 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
       ) :
         displayedButton ?
         (
-          <button className="js_export_button btn btn-link export__link" type="button" onClick={() => setDisplay(true)}>
+          <button className="js_export_button btn btn-link export-link" type="button" onClick={() => setDisplay(true)}>
             <i className="fa fa-external-link" />
             <span>&nbsp; {intl.formatMessage(messages.exportSelectButton)}</span>
           </button>
@@ -105,10 +105,12 @@ export default function displayExportButton(
   options,
   exportType
 ) {
-  let buttonLocation;
-  exportType.exportAll
-    ? (buttonLocation = document.querySelector(params.selectors.exportAll))
-    : (buttonLocation = document.querySelector(params.selectors.export));
+  const buttonElem = document.querySelector(params.selectors[exportType.exportAll ? 'exportAll' : 'export']);
+
+  if (!buttonElem) {
+    return;
+  }
+
   const lang = options.lang;
   const locales = mergeLocales(appLocales, modalLocales);
   const query = window.location.href;
@@ -125,6 +127,6 @@ export default function displayExportButton(
         query={query}
       />
     </IntlProvider>,
-    buttonLocation
+    buttonElem
   );
 }

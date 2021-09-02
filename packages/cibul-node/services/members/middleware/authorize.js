@@ -1,6 +1,8 @@
 "use strict";
 
 const _ = require('lodash');
+const { NotAuthenticated } = require('@openagenda/verror');
+
 const {
   isSuperiorTo
 } = require('@openagenda/members').utils.compareRoles;
@@ -69,11 +71,10 @@ function adminModOrKey({ agendaUidPath } = {}) {
       users.mw.loadBySessionOrKey(),
       members.mw.loadAndAuthorize('moderator', {
         or: (req, res, next) => {
-          res.status(403);
-          next(new Error('Not authorized'));
+          next(new NotAuthenticated('Authentication is required'));
         },
         agendaUidPath
       })
-   ], { agendaUidPath })(req, res, next);
+    ], { agendaUidPath })(req, res, next);
   }
 }

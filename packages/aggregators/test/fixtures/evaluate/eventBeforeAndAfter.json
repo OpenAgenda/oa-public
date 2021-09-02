@@ -1,0 +1,180 @@
+{
+  "before": {
+    "uid": 28304431,
+    "slug": "evenement-test-2_872915",
+    "ownerUid": 75052324,
+    "creatorUid": 75052324,
+    "agendaUid": 50781256,
+    "locationUid": 85757426,
+    "title": {
+      "fr": "Evénement test 2"
+    },
+    "description": {
+      "fr": "test"
+    },
+    "longDescription": {},
+    "keywords": {},
+    "registration": [],
+    "references": [],
+    "conditions": {},
+    "image": {
+      "filename": null,
+      "credits": null,
+      "size": {
+        "height": null,
+        "width": null
+      },
+      "variants": [],
+      "base": "https://cibuldev.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "accessibility": {
+      "mi": false,
+      "hi": false,
+      "pi": false,
+      "vi": false,
+      "sl": false
+    },
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2019-09-21T07:00:00.000Z",
+        "end": "2019-09-21T11:00:00.000Z"
+      }
+    ],
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "links": [],
+    "updatedAt": "2019-09-19T09:15:08.000Z",
+    "createdAt": "2019-09-19T09:15:08.000Z",
+    "deletedAt": null,
+    "fileKey": null,
+    "location": {
+      "uid": 85757426,
+      "eveId": null,
+      "agendaId": 14237,
+      "slug": "paris440",
+      "name": "Paris",
+      "address": "Launaguet",
+      "city": "Launaguet",
+      "region": "Occitanie",
+      "department": "Haute-Garonne",
+      "postalCode": "31140",
+      "insee": "31282",
+      "countryCode": "FR",
+      "district": null,
+      "latitude": 43.675714,
+      "longitude": 1.454461,
+      "updatedAt": "2019-09-19T08:19:44.000Z",
+      "store": "{\"image\":null,\"description\":{},\"email\":null,\"phone\":null,\"links\":[],\"access\":{},\"state\":0,\"timezone\":\"Europe/Paris\",\"imageCredits\":null,\"extId\":null}",
+      "image": null,
+      "description": {},
+      "email": null,
+      "phone": null,
+      "links": [],
+      "access": {},
+      "state": 0,
+      "timezone": "Europe/Paris",
+      "imageCredits": null,
+      "extId": null
+    },
+    "state": 2,
+    "featured": false,
+    "sourcePaths": [[120, 19023], [92893, 90193]],
+    "categories": [
+      1
+    ]
+  },
+  "after": {
+    "uid": 28304431,
+    "slug": "evenement-test-2_872915",
+    "ownerUid": 75052324,
+    "creatorUid": 75052324,
+    "agendaUid": 50781256,
+    "locationUid": 85757426,
+    "title": {
+      "fr": "Evénement test 2"
+    },
+    "description": {
+      "fr": "test"
+    },
+    "longDescription": {},
+    "keywords": {},
+    "registration": [],
+    "references": [],
+    "conditions": {},
+    "image": {
+      "filename": null,
+      "credits": null,
+      "size": {
+        "height": null,
+        "width": null
+      },
+      "variants": [],
+      "base": "https://cibuldev.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "accessibility": {
+      "mi": false,
+      "hi": false,
+      "pi": false,
+      "vi": false,
+      "sl": false
+    },
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2019-09-21T07:00:00.000Z",
+        "end": "2019-09-21T11:00:00.000Z"
+      }
+    ],
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "links": [],
+    "updatedAt": "2019-09-19T09:15:08.000Z",
+    "createdAt": "2019-09-19T09:15:08.000Z",
+    "deletedAt": null,
+    "fileKey": null,
+    "location": {
+      "uid": 85757426,
+      "eveId": null,
+      "agendaId": 14237,
+      "slug": "paris440",
+      "name": "Paris",
+      "address": "Launaguet",
+      "city": "Launaguet",
+      "region": "Occitanie",
+      "department": "Haute-Garonne",
+      "postalCode": "31140",
+      "insee": "31282",
+      "countryCode": "FR",
+      "district": null,
+      "latitude": 43.675714,
+      "longitude": 1.454461,
+      "updatedAt": "2019-09-19T08:19:44.000Z",
+      "store": "{\"image\":null,\"description\":{},\"email\":null,\"phone\":null,\"links\":[],\"access\":{},\"state\":0,\"timezone\":\"Europe/Paris\",\"imageCredits\":null,\"extId\":null}",
+      "image": null,
+      "description": {},
+      "email": null,
+      "phone": null,
+      "links": [],
+      "access": {},
+      "state": 0,
+      "timezone": "Europe/Paris",
+      "imageCredits": null,
+      "extId": null
+    },
+    "state": 2,
+    "featured": false,
+    "sourcePaths": [[120, 19023], [92893, 90193]],
+    "categories": [
+      2
+    ]
+  }
+}

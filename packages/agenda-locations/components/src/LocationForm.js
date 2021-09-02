@@ -11,7 +11,7 @@ import { ImageInput } from '@openagenda/react-shared';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
 import MultilingualInputField from '@openagenda/react-form-components/build/MultilingualInputField';
-import Spinner from '@openagenda/react-shared/src/components/Spinner';
+import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import utils from '@openagenda/utils';
 import debug from 'debug';
 

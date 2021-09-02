@@ -5,7 +5,7 @@ import ComposedChart from './ComposedChart';
 import ChartWrapper from './ChartWrapper';
 import Separator from './Separator';
 import ChartAdder from './ChartAdder';
-import MetricsChart from './basics/MetricsChart';
+import MetricsChart from './MetricsChart';
 
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 

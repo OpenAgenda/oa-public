@@ -13,7 +13,6 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     events: eventsSvc,
     custom,
     agendas,
-    agendaLocations,
     members
   } = services;
 
@@ -96,13 +95,6 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     })).agendas.map(a => _.omit(a, ['id', 'indexed']));
   }
 
-  if (detailed && load.event && fetched.events.length) {
-    const locationUids = fetched.events.map(e => e.locationUid);
-    fetched.locations = await agendaLocations.list({
-      uids: locationUids
-    }, { offset: 0, limit: locationUids.length }, { detailed: true, deleted: null });
-  }
-
   if (detailed && load.member && agendaEvents.length) {
     fetched.members = await members.list({
       agendaUid: agenda.uid,
@@ -120,9 +112,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       uid,
       ...merge.eventFromObject({
         agendaEvent: fetched.agendaEvents[index],
-        event: load.event ? Object.assign(event, detailed ? {
-          location: _.find(fetched.locations, { uid: event.locationUid }, null)
-        } : {}) : null,
+        event: load.event ? event : null,
         custom: load.custom ? {
           agenda: (_.find(fetched.custom, { identifier: uid }) || {}).custom,
           network: (_.find(fetched.networkCustom, { identifier: uid }) || {}).custom

@@ -90,7 +90,111 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.unnamedMemberInfo',
     defaultMessage: 'Member has not specified his/her name',
   },
+  statusRescheduledInfo: {
+    id: 'EventAdminApp.EventItem.statusRescheduledInfo',
+    defaultMessage: 'The timings and dates of the event have been modified',
+  },
+  statusRescheduled: {
+    id: 'EventAdminApp.EventItem.statusRescheduled',
+    defaultMessage: 'Rescheduled',
+  },
+  statusMovedOnlineInfo: {
+    id: 'EventAdminApp.EventItem.statusMovedOnlineInfo',
+    defaultMessage:
+      'The event will no longer be attended to at a physical location',
+  },
+  statusMovedOnline: {
+    id: 'EventAdminApp.EventItem.statusMovedOnline',
+    defaultMessage: 'Moved online',
+  },
+  statusPostponedInfo: {
+    id: 'EventAdminApp.EventItem.statusPostponedInfo',
+    defaultMessage:
+      'The event dates are no longer valid. New dates are not yet known',
+  },
+  statusPostponed: {
+    id: 'EventAdminApp.EventItem.statusPostponed',
+    defaultMessage: 'Postponed',
+  },
+  statusFullInfo: {
+    id: 'EventAdminApp.EventItem.statusFullInfo',
+    defaultMessage: 'New participants are no longer accepted to the event',
+  },
+  statusFull: {
+    id: 'EventAdminApp.EventItem.statusFull',
+    defaultMessage: 'Fully booked',
+  },
+  statusCancelledInfo: {
+    id: 'EventAdminApp.EventItem.statusCancelledInfo',
+    defaultMessage: 'The event has been permanently cancelled',
+  },
+  statusCancelled: {
+    id: 'EventAdminApp.EventItem.statusCancelled',
+    defaultMessage: 'Cancelled',
+  },
 });
+
+function StatusBadge({ status }) {
+  const intl = useIntl();
+  let elem;
+
+  switch (status) {
+    case 2:
+      elem = (
+        <span
+          title={intl.formatMessage(messages.statusRescheduledInfo)}
+          className="label label-warning"
+        >
+          {intl.formatMessage(messages.statusRescheduled)}
+        </span>
+      );
+      break;
+    case 3:
+      elem = (
+        <span
+          title={intl.formatMessage(messages.statusMovedOnlineInfo)}
+          className="label label-warning"
+        >
+          {intl.formatMessage(messages.statusMovedOnline)}
+        </span>
+      );
+      break;
+    case 4:
+      elem = (
+        <span
+          title={intl.formatMessage(messages.statusPostponedInfo)}
+          className="label label-warning"
+        >
+          {intl.formatMessage(messages.statusPostponed)}
+        </span>
+      );
+      break;
+    case 5:
+      elem = (
+        <span
+          title={intl.formatMessage(messages.statusFullInfo)}
+          className="label label-danger"
+        >
+          {intl.formatMessage(messages.statusFull)}
+        </span>
+      );
+      break;
+    case 6:
+      elem = (
+        <span
+          title={intl.formatMessage(messages.statusCancelledInfo)}
+          className="label label-danger"
+        >
+          {intl.formatMessage(messages.statusCancelled)}
+        </span>
+      );
+      break;
+    default:
+      return null;
+  }
+
+  return <span className="padding-right-sm status">{elem}</span>;
+}
 
 export default function EventItem({
   agenda,
@@ -223,6 +327,8 @@ export default function EventItem({
             color: inherit;
           `}
         >
+          <StatusBadge status={event.status} />
+
           <b>{getLocaleValue(event.title, intl.locale)}</b>
 
           {isPassed ? (
@@ -332,7 +438,7 @@ export default function EventItem({
           <li>
             <a
               className="btn btn-link btn-link-inline"
-              href={`/${agenda.slug}/events/${event.slug}/contact`}
+              href={`/${agenda.slug}/admin/events/${event.slug}/contact`}
             >
               {intl.formatMessage(messages.contact)}
             </a>

@@ -606,6 +606,17 @@ describe('02 - event search - functional: search', function() {
         assert.equal(aggregations.eventsByDateRanges[0].eventCount, 1);
         assert.equal(aggregations.eventsByDateRanges[0].sampleEvents[0].uid, 14);
       });
+
+      it('unknown requested aggregation throws not found error', async () => {
+        let error;
+        try {
+          await service('simple_search').search({}, { size: 0 }, { aggregations: 'unknownagg' });
+        } catch (e) {
+          error = e;
+        }
+        assert.strictEqual(error.name, 'BadRequest');
+        assert.strictEqual(error.code, 400);
+      });
     });
 
     describe('stream', () => {

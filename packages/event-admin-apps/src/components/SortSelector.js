@@ -63,7 +63,7 @@ export default function SortSelector({ query, setQuery }) {
     [setQuery, query]
   );
 
-  const value = orderOptions.find(option => option.value === query.sort) || orderOptions[1];
+  const value = orderOptions.find(option => option.value === query.sort) || orderOptions[2];
 
   return (
     <ReactSelectInput

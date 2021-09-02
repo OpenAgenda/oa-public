@@ -5,7 +5,7 @@ import form from './messages/form';
 
 const initialMetricsValue = ['avg'];
 
-export default function MetricsField() {
+export default function MetricsField({ name = 'metrics' }) {
   const intl = useIntl();
 
   return (
@@ -14,7 +14,7 @@ export default function MetricsField() {
         <label htmlFor="min">
           <Field
             id="min"
-            name="metrics"
+            name={name}
             component="input"
             type="checkbox"
             value="min"
@@ -27,7 +27,7 @@ export default function MetricsField() {
         <label htmlFor="avg">
           <Field
             id="avg"
-            name="metrics"
+            name={name}
             component="input"
             type="checkbox"
             value="avg"
@@ -41,7 +41,7 @@ export default function MetricsField() {
         <label htmlFor="max">
           <Field
             id="max"
-            name="metrics"
+            name={name}
             component="input"
             type="checkbox"
             value="max"
@@ -54,7 +54,7 @@ export default function MetricsField() {
         <label htmlFor="sum">
           <Field
             id="sum"
-            name="metrics"
+            name={name}
             component="input"
             type="checkbox"
             value="sum"

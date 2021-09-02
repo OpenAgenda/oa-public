@@ -762,16 +762,16 @@
       "value": "Nullañ"
     }
   ],
-  "AgendaStats.form.charts": [
-    {
-      "type": 0,
-      "value": "Graphiques"
-    }
-  ],
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
       "value": "Largeur du composant"
+    }
+  ],
+  "AgendaStats.form.data": [
+    {
+      "type": 0,
+      "value": "Données"
     }
   ],
   "AgendaStats.form.max": [

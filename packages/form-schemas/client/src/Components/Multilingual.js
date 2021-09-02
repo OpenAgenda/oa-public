@@ -5,69 +5,110 @@ import React, { Component } from 'react';
 import FieldCounter from './FieldCounter';
 import Sub from './Sub';
 
+import TextField from './TextField';
+import HTMLField from './HTMLField';
+import MarkdownField from './MarkdownField';
+
 const FieldComponents = {
-  text: require( './TextField' ),
-  textarea: require( './TextField' ),
-  html: require( './HTMLField' ),
-  markdown: require( './MarkdownField' )
+  text: TextField,
+  textarea: TextField,
+  html: HTMLField,
+  markdown: MarkdownField
+};
+
+function extractLanguageValue(value, l) {
+  if (!value) return;
+
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  return value?.[l];
+}
+
+function multilingualizeValue(value, languages) {
+  if (!value) return {};
+
+  if (typeof value === 'string') {
+    return languages.reduce((multilingualValue, language) => ({
+      ...multilingualValue,
+      [language]: value
+    }), {});
+  }
+
+  return value;
 }
 
 export default class MultilingualField extends Component {
+  onChange(language, singleLanguageValue) {
+    const {
+      onChange,
+      value,
+      field
+    } = this.props;
 
-  onChange( language, value ) {
+    const multilingualizedValue = multilingualizeValue(value, field.languages);
 
-    this.props.onChange( ih( this.props.value || {}, _.set( {}, language, {
-      $set: value
-    } ) ) );
-
+    onChange({
+      ...multilingualizedValue,
+      [language]: singleLanguageValue
+    });
   }
 
-  renderField( l ) {
+  renderField(l) {
+    const {
+      field,
+      error,
+      enabled,
+      lang,
+      value
+    } = this.props;
 
-    const { field, error, enabled } = this.props;
+    const FieldComponent = _.get(this.props, 'component', FieldComponents[field.fieldType]);
 
-    const Component = _.get( this.props, 'component', FieldComponents[ field.fieldType ] );
+    const languageField = ih(field, {
+      default: {
+        $set: _.get(
+          field,
+          ['default', l],
+          _.isObject(field.default) ? null : field.default
+        )
+      }
+    });
 
-    const languageField = ih( field, {
-      default: { $set: _.get( field, [ 'default', l ],
-        _.isObject( field.default ) ? null : field.default
-      ) }
-    } );
-
-    return <div>
-      <Component
-        lang={this.props.lang}
-        field={languageField}
-        enabled={enabled}
-        value={_.get( this.props.value, l )}
-        onChange={this.onChange.bind( this, l )} />
-      {field.max?<FieldCounter value={_.get( this.props.value, l )} max={field.max}/>:null}
-      <Sub label={field.sub} error={_.get( error, l )}/>
-    </div>
-
+    return (
+      <div>
+        <FieldComponent
+          lang={lang}
+          field={languageField}
+          enabled={enabled}
+          value={extractLanguageValue(value, l)}
+          onChange={v => this.onChange(l, v)}
+        />
+        {field.max ? <FieldCounter value={_.get(value, l)} max={field.max} /> : null}
+        <Sub label={field.sub} error={_.get(error, l)} />
+      </div>
+    );
   }
 
   render() {
+    const { field } = this.props;
 
-    const { field, error } = this.props;
-
-    if ( field.languages.length === 1 ) {
-
-      return this.renderField( field.languages[ 0 ] );
-
+    if (field.languages.length === 1) {
+      return this.renderField(field.languages[0]);
     }
 
-    return <ul className="list-unstyled">
-      {field.languages.map( l => (
-        <li key={field.field + '_' + l}>
-          <div className="lang-input">
-            <label>{l}</label>
-            {this.renderField( l )}
-          </div>
-        </li>
-      ) )}
-    </ul>
-
+    return (
+      <ul className="list-unstyled">
+        {field.languages.map(l => (
+          <li key={`${field.field}_${l}`}>
+            <div className="lang-input">
+              <label htmlFor={`${field.field}.${l}`}>{l}</label>
+              {this.renderField(l)}
+            </div>
+          </li>
+        ))}
+      </ul>
+    );
   }
-
 }

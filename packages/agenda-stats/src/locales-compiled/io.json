@@ -703,16 +703,16 @@
       "value": "crwdns432:0crwdne432:0"
     }
   ],
-  "AgendaStats.form.charts": [
-    {
-      "type": 0,
-      "value": "crwdns434:0crwdne434:0"
-    }
-  ],
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
       "value": "crwdns436:0crwdne436:0"
+    }
+  ],
+  "AgendaStats.form.data": [
+    {
+      "type": 0,
+      "value": "Data"
     }
   ],
   "AgendaStats.form.max": [

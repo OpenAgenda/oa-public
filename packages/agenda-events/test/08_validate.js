@@ -22,7 +22,7 @@ describe('agendaEvents - functional (server): validation', function() {
       featured: true,
       userUid: null,
       sourcePaths: [],
-      aggregated: false
+      aggregated: null
     });
   });
 
@@ -44,7 +44,7 @@ describe('agendaEvents - functional (server): validation', function() {
       featured: true,
       userUid: null,
       sourcePaths: [],
-      aggregated: false
+      aggregated: null
     });
   });
 

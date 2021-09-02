@@ -3,8 +3,7 @@
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 
-module.exports = (req, res, next) => {
-  const { config } = req.app;
+module.exports = ({ config, render }) => (req, res, next) => {
   const agendaLink = `/${req.agenda.slug}`;
 
   render({

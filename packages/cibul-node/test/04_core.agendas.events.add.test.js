@@ -1,13 +1,11 @@
 'use strict';
 
-const loadFixtures = require('./fixtures/load');
-
 const Services = require('../services/init');
 const Core = require('../core');
-
+const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events add()', function() {
+describe('core - functional (server): core.agendas().events add()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '005.sql'));
@@ -41,18 +39,18 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     await core.agendas(17026800).events.search.rebuild();
   });
-  
+
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
       });
-    } catch (e) {}
+    } catch (e) { /**/ }
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('simple add', function() {
+  describe('simple add', () => {
     let event;
 
     beforeAll(async () => {
@@ -88,11 +86,9 @@ describe('core - functional (server): core.agendas().events add()', function() {
       expect(total).toBe(1);
       expect(events[0].uid).toBe(19201989);
     });
-
   });
 
   describe('schema validation', () => {
-
     it('Attempt to add without specifying required value returns a validation error', async () => {
       let error;
 
@@ -102,33 +98,32 @@ describe('core - functional (server): core.agendas().events add()', function() {
             userUid: 63170203
           }
         });
-      } catch(e) {
+      } catch (e) {
         error = e;
       }
 
-      expect(error.name).toBe('ValidationError');
+      expect(error.name).toBe('BadRequest');
     });
-
   });
 
-  describe('aggregated add', function() {
+  describe('aggregated add', () => {
     let result;
 
     beforeAll(async () => {
       result = await core.agendas(17026800).events.add(18992812, {
         state: 1,
         'thematiques-metropolitaines': 3,
-        'image_alt_text': 'Un texte'
+        image_alt_text: 'Un texte'
       }, {
         paths: [[82910283, 17026855]],
-        aggregated: true,
+        aggregated: 'f9fdqs3',
         returnPayload: true,
         access: 'contributor'
       });
     });
 
     it('agenda event reference is flagged as aggregated', () => {
-      expect(result.event.aggregated).toBe(true)
+      expect(result.event.aggregated).toBe('f9fdqs3');
     });
 
     it('agenda event reference stores agenda source uid', () => {
@@ -155,7 +150,5 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
       expect(success).toEqual(true);
     });
-
   });
-
 });

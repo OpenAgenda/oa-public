@@ -57,15 +57,15 @@ describe('06 - event search - functional: update', function() {
   });
 
   it('if operation option is update (default) and document is not already indexed, error is thrown', async () => {
+    let error;
     try {
       await service('test_index').update({ uid: 12000 }, {
         title: 'I am a new document that is not yet in the index'
       });
     } catch (e) {
-      e.message.should.equal('failed to update event 12000 to index of set test_index: document_missing_exception');
-      return;
+      error = e;
     }
-    throw new Error('should have thrown an error');
+    error.name.should.equal('NotFound');
   });
 
   it('if operation option is indexand document is not already indexed, it is added', async () => {
@@ -74,5 +74,15 @@ describe('06 - event search - functional: update', function() {
     }, { operation: 'index' });
     
     success.should.equal(true);
+  });
+
+  it('if no data is provided, BadRequest is thrown', async () => {
+    let error;
+    try {
+      await service('test_index').update({ uid: 12001}, null);
+    } catch (e) {
+      error = e;
+    }
+    error.name.should.equal('BadRequest');
   });
 });

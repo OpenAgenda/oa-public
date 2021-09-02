@@ -75,6 +75,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
   });
 
+  describe('list from a set', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas(55278973).locations.list();
+    });
+
+    it('locations of set are listed', () => {
+      expect(result.items.length).toEqual(2);
+    });
+  });
+
   describe('get', () => {
     let result;
 
@@ -89,6 +101,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     it('get location with option includeLinkedAgendas', () => {
       expect(result.linkedAgendas).toEqual([{ uid: 17026855, title: 'La Gargouille' }]);
+    });
+  });
+
+  describe('get from a set', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas(55278973).locations.get(76464022);
+    });
+
+    it('location from set is given', () => {
+      expect(result.uid).toEqual(76464022);
     });
   });
 
@@ -458,14 +482,15 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(Object.keys(detailedResults.locations[0])).toEqual(
           [
             'uid', 'setUid', 'slug',
-            'name', 'address', 'city',
-            'region', 'department', 'postalCode',
-            'insee', 'countryCode', 'district',
-            'latitude', 'longitude', 'updatedAt',
-            'createdAt', 'image', 'description',
+            'name', 'address',
+            'countryCode', 'adminLevel1', 'adminLevel2',
+            'adminLevel3', 'city', 'adminLevel5', 'district',
+            'postalCode', 'insee',
+            'latitude', 'longitude', 'region', 'department', 'timezone',
+            'updatedAt', 'createdAt', 'image', 'description',
             'tags', 'website', 'email',
             'phone', 'links', 'access',
-            'state', 'timezone', 'imageCredits',
+            'state', 'imageCredits',
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
             'mergedIn'
@@ -575,7 +600,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     describe('create and update', () => {
-      it.only('a location creation on an agenda linked to a location set also links that location to the set', async () => {
+      it('a location creation on an agenda linked to a location set also links that location to the set', async () => {
         const created = await core.agendas(55268170).locations.create({
           name: 'Muséonum',
           address: '2 rond-point Madame de Mondonville, Toulouse',

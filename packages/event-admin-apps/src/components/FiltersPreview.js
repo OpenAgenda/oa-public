@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import {
   getEvents,
-  Filters,
+  ActiveFilters,
   DateRangeFilter,
-  MultiChoiceFilter,
+  ChoiceFilter,
   MapFilter,
   ValueBadge,
   useFilterTitle,
@@ -25,7 +25,7 @@ function BadgePreview({
   );
 }
 
-function MultiChoicePreview({
+function ChoicePreview({
   name,
   filter,
   valueOptions,
@@ -53,10 +53,8 @@ function DateRangePreviewer(props) {
   return <DateRangeFilter.Preview component={BadgePreview} {...props} />;
 }
 
-function MultiChoicePreviewer(props) {
-  return (
-    <MultiChoiceFilter.Preview component={MultiChoicePreview} {...props} />
-  );
+function ChoicePreviewer(props) {
+  return <ChoiceFilter.Preview component={ChoicePreview} {...props} />;
 }
 
 function MapPreviewer(props) {
@@ -105,12 +103,11 @@ export default function FiltersPreview({
   const getOptions = useFilterOptions(filterAggs);
 
   return (
-    <Filters
+    <ActiveFilters
       filters={filters}
       disabled={isFetching || filtersQuery.isFetching}
       dateRangeComponent={DateRangePreviewer}
-      checkboxComponent={MultiChoicePreviewer}
-      radioComponent={MultiChoicePreviewer}
+      choiceComponent={ChoicePreviewer}
       mapComponent={MapPreviewer}
       // getTotal={getTotal}
       getOptions={getOptions}

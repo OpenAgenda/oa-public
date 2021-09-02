@@ -5,8 +5,7 @@ const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 const { getLocaleValue } = require('@openagenda/react-shared');
 
-module.exports = (req, res, next) => {
-  const { config } = req.app;
+module.exports = ({ config, render }) => (req, res, next) => {
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
   render({
@@ -19,7 +18,7 @@ module.exports = (req, res, next) => {
       image: req.agenda.image,
       title: req.agenda.title
     },
-    endpoint: `/agendas/${req.agenda.uid}`,
+    endpoint: `/agendas/${req.agenda.uid}/inbox`,
     initialState: {
       user: req.user,
       settings: {
@@ -59,4 +58,4 @@ module.exports = (req, res, next) => {
       event: req.event
     }
   })(req, res, next);
-}
+};

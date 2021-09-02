@@ -1,13 +1,17 @@
 'use strict';
 
 const express = require('express');
-
 const pages = require('./pages');
+
+const userEndpoints = require('./endpointRouters/user');
+const agendaEndpoints = require('./endpointRouters/agenda');
+const supportEndpoints = require('./endpointRouters/support');
+
 const endpointRouters = {
-  user: require('./endpointRouters/user'),
-  agenda: require('./endpointRouters/agenda'),
-  support: require('./endpointRouters/support')
-}
+  user: userEndpoints,
+  agenda: agendaEndpoints,
+  support: supportEndpoints
+};
 
 module.exports = (config, services) => {
   const app = express();
@@ -18,4 +22,4 @@ module.exports = (config, services) => {
     .use('/agendas/:agendaUid/inbox', endpointRouters.agenda(config, services))
     .use('/home/inbox', endpointRouters.user(config, services))
     .use('/admin/support', endpointRouters.support(config, services));
-}
+};

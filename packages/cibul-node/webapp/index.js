@@ -53,7 +53,7 @@ function outdatedBrowserMw(req, res, next) {
 }
 
 function getSupportMessage(req, lang) {
-  switch(req.query.subject) {
+  switch (req.query.subject) {
     case 'agendaSchema':
       return getInboxLabel('agendaSchemaDesc', lang);
     case 'privateAgenda':
@@ -74,7 +74,7 @@ function getSupportMessage(req, lang) {
 }
 
 function getSupportCreationSubtitle(req, lang) {
-  switch(req.query.subject) {
+  switch (req.query.subject) {
     case 'agendaSchema':
       return getInboxLabel('agendaSchemaTitle', lang);
     case 'privateAgenda':
@@ -95,7 +95,7 @@ function getSupportCreationSubtitle(req, lang) {
 }
 
 function getSupportConversationType(req) {
-  switch(req.query.subject) {
+  switch (req.query.subject) {
     case 'agendaSchema':
       return 'request_agenda_schema';
     case 'privateAgenda':
@@ -245,7 +245,7 @@ const initialState = async req => {
       res: {
         agenda: '/:slug',
         addEvent: '/:slug/contribute',
-        createEmbed: '/:slug/admin/webembed',
+        createEmbed: '/:slug/admin/embeds',
         slugAvailable: '/agendas/slugs/available',
         set: '/:slug/admin/settings/edit',
         remove: '/:slug/admin/settings/remove',
@@ -410,7 +410,8 @@ const initialState = async req => {
         prefix: '/:slug/admin/events',
         lang,
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
+        mapTiles: config.tiles
       },
       res: {
         jsonExport: '/agendas/:uid/admin/events.v2.json'

@@ -92,6 +92,18 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(nextAgendas[0].uid).toBe(allAgendas[1].uid);
     });
 
+    it('locationSet is indexed and can be used as filter', async () => {
+      const { agendas: withLocationSet } = await core.agendas.search({
+        locationSet: 4321
+      }, {}, {
+        detailed: true,
+        includeFields: 'locationSet'
+      });
+
+      expect(withLocationSet.length).toBe(1);
+      expect(withLocationSet[0].locationSet.uid).toBe(4321);
+    });
+
     it('use includeFields option to fetch summary of agendas', async () => {
       const { agendas } = await core.agendas.search({}, { size: 1 }, { includeFields: ['summary'] });
 

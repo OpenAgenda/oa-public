@@ -4,7 +4,8 @@ const oaModulesToBuild = [
   'activity-apps',
   'agenda-settings',
   'home',
-  'user-apps'
+  'user-apps',
+  'react-share-menus'
 ];
 const modulesToInclude = [
   '@feathersjs',

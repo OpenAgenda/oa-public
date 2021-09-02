@@ -27,7 +27,8 @@ async function fromMember(core, agenda, event, member) {
     canChangeState: compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', { throwIfUnknown: false }),
     canPublish: canPublish(agenda, memberRole),
     canEditEvent: !agendaIsClosed && event && await core.users(member.userUid).canEditEvent(event),
-    canCreateEvent: !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')
+    canCreateEvent: !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor'),
+    canContribute: !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')
   };
 }
 

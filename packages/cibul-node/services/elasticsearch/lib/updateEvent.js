@@ -48,5 +48,6 @@ module.exports = ({
   }
 
   log('updating event');
+
   return update(formatted);
 };

@@ -2,7 +2,9 @@
 
 const _ = require('lodash');
 const { produce } = require('immer');
-const VError = require('@openagenda/verror');
+const {
+  BadRequest
+} = require('@openagenda/verror');
 
 const aggregations = require('./aggregations');
 
@@ -51,7 +53,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   try {
     cleanNav = validateNav(nav, { useAfterKey });
   } catch(e) {
-    throw new VError(e, 'nav is not valid');
+    throw new BadRequest('nav is not valid');
   }
 
   const index = getIndexName(set, defaultIndex);

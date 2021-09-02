@@ -44,6 +44,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     services.aggregators.task();
 
     await core.agendas(55268170).events.search.rebuild();
+    await core.agendas(17026800).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -86,6 +87,17 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
       expect(events[0].sourceAgendas.length).toBe(1);
     });
+
+    it('update does not clear aggregated reference', async () => {
+      const updated = await core.agendas(55268170).events.update(event.uid, {
+        featured: 1
+      }, {
+        partial: true,
+        detailed: true,
+        userUid: 1
+      });
+      expect(updated.aggregated).toHaveLength(32);
+    });
   });
 
   describe('aggregation after add', () => {
@@ -115,6 +127,41 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     it('event is aggregated and source path starts at agenda where it was added', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
       expect(ref.sourcePaths).toEqual([[17026855]]);
+    });
+  });
+
+  describe('aggregation values update through rules', () => {
+    let event;
+    const context = {
+      userUid: memberUserUid
+    };
+
+    beforeAll(async () => {
+      event = await core.agendas(17026800).events.create(eventFixtures[2], {
+        context,
+        access: 'contributor'
+      });
+
+      await (new Promise(rs => {
+        core.services.tracker.on('aggregators.referenceEvent.done', rs);
+      }));
+
+      // first aggregation happened
+      await core.agendas(17026800).events.update(event.uid, {
+        'categories-agenda-metropolitain': 43
+      }, {
+        partial: true,
+        context
+      });
+
+      return new Promise(rs => {
+        core.services.tracker.on('aggregators.updateEventReference.done', rs, true);
+      });
+    });
+
+    it('update of event at source triggered update of impacted value in aggregator', async () => {
+      const ref = await core.agendas(55278973).events.get(event.uid);
+      expect(ref['categories-agenda-metropolitain']).toBe(43);
     });
   });
 });

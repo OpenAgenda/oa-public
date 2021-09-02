@@ -11,7 +11,8 @@ module.exports.formatDSL = (query, options = {}) => {
     aggregations: {
       sourceAgendas: {
         terms: {
-          field: 'sourceAgendas._agg'
+          field: 'sourceAgendas._agg',
+          size: options.size
         }
       }
     }

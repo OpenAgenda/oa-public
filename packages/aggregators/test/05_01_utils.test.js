@@ -65,14 +65,14 @@ describe('05 - utils', () => {
       expect(determineAggregationAction('removeEvent')).toBe('removeEvent');
     });
 
-    test('if type is update but no change is observed, action is null', () => {
+    test('if type is update and event is published action is evaluateEvent', () => {
       expect(
         determineAggregationAction(
           'updateEvent',
           fixtures.eventNowPublish,
           fixtures.eventNowPublish
         )
-      ).toBeNull();
+      ).toBe('evaluateEvent');
     });
 
     test('if type is update, state was not published and now is published, action is evaluate', () => {

@@ -38,7 +38,7 @@ function StatEditForm({ handleSubmit, onCancel, stat }) {
           <p>
             <b>{intl.formatMessage(form.metric)}</b>
           </p>
-          <MetricsField />
+          <MetricsField name="aggregation.metrics" />
         </>
       ) : null}
 
@@ -49,7 +49,7 @@ function StatEditForm({ handleSubmit, onCancel, stat }) {
             <b>{intl.formatMessage(form.componentWidth)}</b>
           </p>
           <ReactSelectField
-            name="width"
+            name="chart.width"
             placeholder={intl.formatMessage(form.widthSelectPlaceholder)}
             initialValue={1}
             options={widthOptions}
@@ -79,7 +79,12 @@ export default function StatEditModal({ stat, onSubmit, onClose }) {
   const chartTitle = useChartTitle(stat);
   const initialValues = useMemo(
     () => ({
-      width: stat.chart.width || 1,
+      aggregation: {
+        metrics: stat.aggregation.metrics,
+      },
+      chart: {
+        width: stat.chart.width || 1,
+      },
     }),
     [stat.chart.width]
   );

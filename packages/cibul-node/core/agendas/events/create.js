@@ -3,14 +3,13 @@
 const ih = require('immutability-helper');
 
 const log = require('@openagenda/logs')('core/agendas/events/create');
+const { BadRequest, Forbidden } = require('@openagenda/verror');
 
 const createPayload = require('../utils/createPayload');
 const doAdd = require('../utils/doAdd');
 const extractUserUid = require('../utils/extractUserUid');
 const loadAuthorizations = require('../../utils/authorizations');
 const processOEmbed = require('../utils/processOEmbed');
-const ValidationError = require('../../utils/ValidationError');
-const UnauthorizedError = require('../../utils/UnauthorizedError');
 
 const cleanEvent = require('../utils/cleanEvent');
 
@@ -72,7 +71,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   });
 
   if (!authorizations.canCreateEvent) {
-    throw new UnauthorizedError('event', null, 'not authorized to create event');
+    throw new Forbidden('not authorized to create event');
   }
 
   assignState(agenda, null, clean, data, {
@@ -109,7 +108,9 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   } catch (e) {
     if (e.toString() === 'ValidationError: Invalid data') {
       log('info', 'invalid data', e);
-      throw new ValidationError(e.detail);
+      throw new BadRequest({
+        info: e.detail
+      }, 'invalid data');
     }
     log('error', 'failed to create event', {
       agendaUid: agenda.uid,

@@ -3,8 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('core/agendas/events/update');
-const ValidationError = require('../../utils/ValidationError');
-const UnauthorizedError = require('../../utils/UnauthorizedError');
+const { BadRequest, Forbidden } = require('@openagenda/verror');
 
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
@@ -21,7 +20,7 @@ const getAgenda = require('../utils/getAgenda');
 
 const loadAuthorizations = require('../../utils/authorizations');
 
-const containsEventData = require('../utils/containsEventData');
+const { containsEventData } = cleanEvent;
 
 const { filterUnauthorized } = loadAuthorizations;
 
@@ -49,6 +48,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     partial,
     defaultLang,
     batched,
+    aggregated,
     access,
     filterUnauthorizedData,
     returnPayload
@@ -57,6 +57,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     partial: false,
     defaultLang: 'en',
     batched: false,
+    aggregated: null,
     access: 'public',
     returnPayload: false,
     filterUnauthorizedData: false,
@@ -83,12 +84,15 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }) : null;
 
   const clean = await cleanEvent(core.services, agenda, data, {
+    validateWithStoredData: !!partial,
+    event, // required to validate related fields in case of partial update
     draft,
     optionalSecondaryFields: true,
     partial,
     access,
     member,
-    defaultLang
+    defaultLang,
+    aggregated
   });
 
   const authorizations = await loadAuthorizations(core, 'update', {
@@ -103,8 +107,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     filterUnauthorized(clean, data, authorizations);
   }
 
-  if (!authorizations.canEditEvent && containsEventData(clean)) {
-    throw new UnauthorizedError('event', event.uid, 'not authorized to edit event');
+  if (!authorizations.canEditEvent && containsEventData(data)) {
+    throw new Forbidden({
+      info: {
+        uid: event.uid
+      }
+    }, 'not authorized to edit event');
   }
 
   const {
@@ -116,7 +124,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const payload = createPayload(core.services, agenda);
 
-  if (containsEventData(clean)) {
+  if (containsEventData(data)) {
     if (clean.event.longDescription) {
       try {
         clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
@@ -127,7 +135,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     try {
-      payload.setItem('event', await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
+      payload.setItem('event', event, await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
         context: {
           agendaUid,
           userUid,
@@ -142,7 +150,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     } catch (e) {
       if (e.toString() === 'ValidationError: Invalid data') {
         log('info', 'invalid data', e);
-        throw new ValidationError(e.detail);
+        throw new BadRequest({ info: e.detail }, 'invalid data');
       }
       log('error', 'failed to update event', {
         agendaUid: agenda.uid,
@@ -152,7 +160,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       throw e;
     }
   } else {
-    payload.setItem('event', event);
+    payload.setItem('event', event, event);
   }
 
   if (agenda.formSchemaId && clean.custom) {
@@ -205,8 +213,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         }
       }), {
         transferToLegacy: true,
+        aggregated,
         context: {
-          aggregated: false,
+          aggregated,
           legacy: false,
           userUid,
           event,
@@ -255,9 +264,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
   }
 
+  const before = await payload.getCompiledEvent('before');
+
   await aggregators.notify('updateEvent', {
     event: await payload.getCompiledEvent(),
-    before: await payload.getCompiledEvent('before'),
+    before,
     agenda,
     formSchema: payload.getFormSchema(),
     batched

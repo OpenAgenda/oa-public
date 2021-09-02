@@ -165,7 +165,8 @@ raw.push(knex('event_2').insert([{
   slug: 'un-event',
   draft: 0,
   title: JSON.stringify({
-    fr: 'Un événement'
+    fr: 'Un événement',
+    en: 'An event'
   }),
   owner_uid: 63170203,
   creator_uid: 63170203,
@@ -173,7 +174,7 @@ raw.push(knex('event_2').insert([{
     begin: new Date('2019-05-06T10:00:00'),
     end: new Date('2019-05-06T11:00:00')
   }]),
-  description: JSON.stringify({ fr: 'Une desc.'}),
+  description: JSON.stringify({ fr: 'Une desc.', en: 'A desc.' }),
   timezone: 'Europe/Paris',
   location_uid: 123,
   created_at: new Date('2019-05-06T10:00:00'),

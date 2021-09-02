@@ -23,9 +23,9 @@ module.exports.init = config => {
     if (!config.track) {
       return;
     }
-    log(message);
+    log('received %s', message);
     stack.push(message);
-    if (on && (on[0]===message)) {
+    if (on && (on[0] === message)) {
       on[1](stack.concat([]));
       if (on[2]) flush();
       on = null;
@@ -33,12 +33,13 @@ module.exports.init = config => {
   }, {
     flush,
     getStack: () => stack,
-    on: (message, fn, flush = false) => {
-      log('setting on');
-      on = [message, fn, flush];
+    on: (message, fn, flushStack = false) => {
+      log('listening to %s', message);
+      on = [message, fn, flushStack];
     },
     shutdown: async () => {
+      log('shutting down');
       flush();
     }
   });
-}
+};

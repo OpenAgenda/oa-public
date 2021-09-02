@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const VError = require('verror');
 const express = require('express');
 const log = require('@openagenda/logs')('api');
@@ -321,6 +322,24 @@ module.exports = core => {
     ].includes(err.name)) {
       return res.status(err.statusCode).json({
         message: err.message
+      });
+    }
+
+    if (err.name === 'BadRequest') {
+      return res.status(err.code).json({
+        message: err.message,
+        errors: err.info.errors,
+        info: _.omit(err.info, ['errors'])
+      });
+    }
+
+    if ([
+      'Forbidden',
+      'NotFound'
+    ].includes(err.name)) {
+      return res.status(err.code).json({
+        message: err.message,
+        info: err.info
       });
     }
 

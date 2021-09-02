@@ -6,19 +6,18 @@ import {
   getEvents,
   DateRangeFilter,
   Filters,
-  MultiChoiceFilter,
+  ChoiceFilter,
   MapFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
 import useFilterOptions from '../hooks/useFilterOptions';
-
-// TODO apiKey from config
 
 function FiltersPart({
   agenda, filters, query, page, loadGeoData
 }) {
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
+  const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
@@ -83,8 +82,7 @@ function FiltersPart({
       query,
       tileAttribution:
         '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-      tileUrl:
-        'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+      tileUrl: mapTiles,
     }),
     [query]
   );
@@ -103,8 +101,7 @@ function FiltersPart({
           filters={filters}
           disabled={isFetching || filtersQuery.isFetching}
           dateRangeComponent={DateRangeFilter.Collapsable}
-          checkboxComponent={MultiChoiceFilter.Collapsable}
-          radioComponent={MultiChoiceFilter.Collapsable}
+          choiceComponent={ChoiceFilter.Collapsable}
           mapComponent={MapFilter}
           mapProps={mapProps}
           getTotal={getTotal}

@@ -171,30 +171,35 @@ async function corpo(cache, req, res, next) {
     agendas: await _getStat( 'review' ),
     contributors: await _getStat( 'reviewer' ),
     events: await _getStat( 'event' )
+  };
+
+  const pageScripts = [{
+    content: `window.$crisp=[];
+      window.CRISP_WEBSITE_ID="ec7a439d-5932-4856-9fb6-4f235c9fba52";
+      (function(){
+        d=document;
+        s=d.createElement("script");
+        s.src="https://client.crisp.chat/l.js";
+        s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
+      })();`
+  }];
+
+  if (config.matomoCloudCode) {
+    pageScripts.push({ content: config.matomoCloudCode });
   }
 
+  [
+    '//code.jquery.com/jquery-2.2.4.min.js',
+    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+    '/js/landing.js'
+  ].forEach(src => pageScripts.push({ src }));
+
   const content = layout(
-    page.render( stats ),
+    page.render(stats),
     {
       lang: page.getLang(),
       metas, // used?
-      scripts: [{
-        content: `window.$crisp=[];
-          window.CRISP_WEBSITE_ID="ec7a439d-5932-4856-9fb6-4f235c9fba52";
-          (function(){
-            d=document;
-            s=d.createElement("script");
-            s.src="https://client.crisp.chat/l.js";
-            s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
-          })();`
-        }, {
-          src: '//code.jquery.com/jquery-2.2.4.min.js'
-        }, {
-          src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-        }, {
-          src: '/js/landing.js'
-        }
-      ]
+      scripts: pageScripts
     }
   );
 

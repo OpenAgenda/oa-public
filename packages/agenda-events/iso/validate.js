@@ -38,8 +38,9 @@ const fields = {
     default: null
   },
   aggregated: {
-    type: 'boolean',
-    default: false
+    type: 'text',
+    default: null,
+    max: 32
   },
   sourcePaths: {
     type: 'pass',

@@ -3,16 +3,13 @@
 const _ = require('lodash');
 const axios = require('axios');
 
-const loadFixtures = require('./fixtures/load');
-
 const api = require('../api');
-
 const Services = require('../services/init');
 const Core = require('../core');
-
+const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
-describe('08 - core - functional (server): core.agendas().members.list', function() {
+describe('08 - core - functional (server): core.agendas().members.list', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
@@ -46,7 +43,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('results contents', function() {
+  describe('results contents', () => {
     let result;
 
     beforeAll(async () => {
@@ -66,21 +63,20 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
 
       expect(nextResult.items.length).toBe(3);
     });
-
   });
 
-  describe('api', function() {
+  describe('api', () => {
     const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
-    let server, response;
+    let server;
+    let response;
 
-    beforeAll(done => {
-       server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
     });
 
     afterAll(() => server.close());
 
     describe('successful call', () => {
-
       beforeAll(async () => {
         response = await axios({
           method: 'get',
@@ -96,7 +92,6 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
           'success'
         ]);
       });
-
     });
 
     describe('invalid call', () => {
@@ -105,7 +100,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
           await axios({
             method: 'get',
             url: `http://localhost:3000/agendas/2/members?key=${key}&limit=1111`
-          })
+          });
         } catch (e) {
           response = e.response;
         }
@@ -126,8 +121,6 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
           }
         ]);
       });
-
     });
   });
-
 });

@@ -75,7 +75,7 @@ module.exports = [{
   field: 'adminLevel3',
   optional: true,
   fieldType: 'text',
-  db: 'admin3',
+  db: 'admin_level_3',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
@@ -90,7 +90,7 @@ module.exports = [{
   field: 'adminLevel5',
   optional: true,
   fieldType: 'text',
-  db: 'admin5',
+  db: 'admin_level_5',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255

@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const NotFoundError = require('../utils/NotFoundError');
+const { NotFound } = require('@openagenda/verror');
 const formatMember = require('../agendas/members/lib/format');
 const validateIdentifier = require('./lib/validateIdentifier');
 const validateNav = require('./lib/validateNav');
@@ -23,7 +23,9 @@ module.exports = (core, identifier) => async (nav = {}, options = {}) => {
   });
 
   if (!user) {
-    throw new NotFoundError('user', identifier);
+    throw new NotFound({
+      info: { uid: identifier }
+    }, 'user not found');
   }
 
   const result = await membersSvc.list({

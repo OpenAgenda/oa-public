@@ -17,9 +17,9 @@ const form = defineMessages({
     id: 'AgendaStats.form.remove',
     defaultMessage: 'Remove',
   },
-  charts: {
-    id: 'AgendaStats.form.charts',
-    defaultMessage: 'Charts',
+  data: {
+    id: 'AgendaStats.form.data',
+    defaultMessage: 'Data',
   },
   others: {
     id: 'AgendaStats.form.others',

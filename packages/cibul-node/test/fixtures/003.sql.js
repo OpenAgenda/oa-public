@@ -10,19 +10,22 @@ const {
 const raw = resetAndCreateTables();
 
 raw.push(knex('review').insert([
-  require('./sql/agendas/218.json'),
-  { ...require('./sql/agendas/219.json'), 
+  require('./sql/agendas/218.json'), // 17026855
+  { ...require('./sql/agendas/219.json'), // 55268170
     settings: JSON.stringify({
       contribution: {
         type: 1,
-        defaultState: 2 
+        defaultState: 2
       }
     })
   },
-  require('./sql/agendas/220.json')
+  require('./sql/agendas/220.json'), // 58025176
+  require('./sql/agendas/221.json'), // 17026800
+  require('./sql/agendas/222.json')  // 55278973
 ]));
 
 raw.push(knex('user').insert([
+  require('./sql/users/janine.json'),
   require('./sql/users/50304.json'),
   require('./sql/users/50300.json')
 ]));
@@ -40,19 +43,26 @@ raw.push(knex('form_schema').insert([{
     fields: [],
     nextOptionId: 1
   })
+}, {
+  id: 7,
+  store: fs.readFileSync(`${__dirname}/form-schemas/7.json`)
 }]));
 
 raw.push(knex('reviewer').insert([
   require('./sql/members/71385.json'),
-  require('./sql/members/71386.json')
+  require('./sql/members/71386.json'),
+  require('./sql/members/71388.json'),
+  require('./sql/members/71389.json')
 ]));
 
 raw.push(knex('aggregator').insert([
-  require('./sql/aggregators/1.json')
+  require('./sql/aggregators/1.json'),
+  require('./sql/aggregators/2.json')
 ]));
 
 raw.push(knex('aggregator_source').insert([
-  require('./sql/aggregatorSources/1.json')
+  require('./sql/aggregatorSources/1.json'),
+  require('./sql/aggregatorSources/2.json') // 17026800 -> 55278973
 ]));
 
 raw.push(knex('location').insert([

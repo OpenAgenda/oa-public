@@ -81,7 +81,14 @@
     }
   ],
   "registration": [
-    "0145707532"
+    {
+      "type": "phone",
+      "value": "0145707532"
+    },
+    {
+      "type": "email",
+      "value": "reservation@email.com"
+    }
   ],
   "location": {
     "uid": 33709480,

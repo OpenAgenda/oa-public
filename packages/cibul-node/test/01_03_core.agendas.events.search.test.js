@@ -77,6 +77,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
 
+    it('fix: image credits are provided', async () => {
+      const { events } = await core.agendas(2).events.search();
+      expect(events.filter(e => e.uid === 2)[0].imageCredits).toEqual('Gaetan Latouche');
+    });
+
     it('if useAfterKey is set in options, after is to be given to navigation instead of searchAfter and result provides after instead of sort and sort as the effective sort value', async () => {
       const { sort, after, events } = await core.agendas(2).events.search({ state: null }, { size: 1 }, {
         userUid: 63170200,
