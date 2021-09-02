@@ -17,6 +17,8 @@ create table if not exists `location` (
   insee VARCHAR(255),
   department VARCHAR(255),
   city_district VARCHAR(255),
+  admin_level_3 varchar(255) default null,
+  admin_level_5 varchar(255) default null,
   postal_code VARCHAR(20),
   eve_id VARCHAR(100),
   ext_id VARCHAR(100),

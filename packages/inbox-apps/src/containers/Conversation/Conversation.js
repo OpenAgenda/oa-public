@@ -201,7 +201,7 @@ class Conversation extends Component {
         if (context === 'agenda') {
           return (
             <Link
-              to={`/agendas/${agendaUid}/admin/locations?uids[]=${locationUid.split('.').pop()}`}
+              to={`/agendas/${agendaUid}/admin/locations?uids[]=${locationUid.split(/\.|,/).pop()}`}
               className="conversation-title-entity"
               agenda={agenda}
               external

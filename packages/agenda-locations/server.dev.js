@@ -54,7 +54,7 @@ const Service = require('.');
           25221: 7196947,
         }[uid],
       }),
-      getEventCounts: async (locationUids, { agendaUid }) => [
+      getEventCounts: async (/* locationUids, { agendaUid } */) => [
         {
           uid: 60763721,
           eventCount: 12,
@@ -109,7 +109,7 @@ const Service = require('.');
     next();
   });
 
-  app.get('/locations/', (req, res, next) => svc(7196947)
+  app.get('/locations/', (req, res, _next) => svc(7196947)
     .list(req.query, _.pick(req.query, ['offset', 'limit']), {
       total: true,
       eventCounts: true,
@@ -126,7 +126,7 @@ const Service = require('.');
     next
   ));
 
-  app.get('/locations/geocode', (req, res, next) => res.json({
+  app.get('/locations/geocode', (req, res, _next) => res.json({
     results: [
       {
         address: 'Rue Alice, 92400 Courbevoie, France',
@@ -155,7 +155,7 @@ const Service = require('.');
     )
     .then(code => res.json({ code }), next));
 
-  app.get('/locations/geocode/reverse', (req, res, next) => res.json({
+  app.get('/locations/geocode/reverse', (req, res, _next) => res.json({
     results: [
       {
         address:
@@ -174,7 +174,7 @@ const Service = require('.');
     ],
   }));
 
-  app.get('/locations/terms', (req, res, next) => {
+  app.get('/locations/terms', (req, res, _next) => {
     svc(7196947)
       .terms(req.query.field.split(','), {}, { filterNulls: true })
       .then(terms => res.json({ terms }));
@@ -275,7 +275,7 @@ const Service = require('.');
       }, next);
   });
 
-  app.delete('/:locationUid', (req, res, next) => {
+  app.delete('/locations/:locationUid', (req, res, next) => {
     log('delete with removeEvents:', !!req.query.removeEvents);
     svc(7196947)
       .remove(req.params.locationUid, {
@@ -290,7 +290,7 @@ const Service = require('.');
       }, next);
   });
 
-  app.use('', (err, req, res, next) => {
+  app.use('', (err, req, res, _next) => {
     if (err.name === 'ValidationError') {
       res.status(400).json({
         errors: err.detail,

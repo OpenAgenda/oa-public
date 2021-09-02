@@ -25,6 +25,12 @@ module.exports = config => (req, res, next) => {
     ];
   }
 
+  if (config.matomoCloudCode) {
+    scripts.bottom.push({
+      body: config.matomoCloudCode
+    });
+  }
+
   if (config.googleAnalyticsId) {
     scripts.bottom.push({
       body: `(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

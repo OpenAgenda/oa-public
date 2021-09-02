@@ -482,14 +482,15 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(Object.keys(detailedResults.locations[0])).toEqual(
           [
             'uid', 'setUid', 'slug',
-            'name', 'address', 'city',
-            'region', 'department', 'postalCode',
-            'insee', 'countryCode', 'district',
-            'latitude', 'longitude', 'updatedAt',
-            'createdAt', 'image', 'description',
+            'name', 'address',
+            'countryCode', 'adminLevel1', 'adminLevel2',
+            'adminLevel3', 'city', 'adminLevel5', 'district',
+            'postalCode', 'insee',
+            'latitude', 'longitude', 'region', 'department', 'timezone',
+            'updatedAt', 'createdAt', 'image', 'description',
             'tags', 'website', 'email',
             'phone', 'links', 'access',
-            'state', 'timezone', 'imageCredits',
+            'state', 'imageCredits',
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
             'mergedIn'

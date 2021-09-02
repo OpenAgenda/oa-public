@@ -6,7 +6,8 @@ import xhr from 'xhr';
 
 import countries from '@openagenda/countries';
 import get from '@openagenda/utils/get';
-import { Modal, MoreInfo } from '@openagenda/react-components';
+import Modal from '@openagenda/react-shared/src/components/Modal';
+import MoreInfo from '@openagenda/react-shared/src/components/MoreInfo';
 import SearchField from '@openagenda/react-form-components/build/SearchField';
 import debug from 'debug';
 
@@ -418,6 +419,7 @@ class AgendaAdminLocations extends Component {
 
     return (
       <Modal
+        title={modal.location.name}
         classNames={{ overlay: 'popup-overlay big' }}
         onClose={this.actions.closeModal}
       >
@@ -430,13 +432,6 @@ class AgendaAdminLocations extends Component {
           staticTiles={staticTiles}
           agenda={agenda}
         />
-        <button
-          type="button"
-          onClick={this.actions.closeModal}
-          className="btn btn-danger padding-h-xs"
-        >
-          <FormattedMessage {...messages.closeModal} />
-        </button>
       </Modal>
     );
   }

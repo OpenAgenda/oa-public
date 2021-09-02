@@ -48,6 +48,38 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
+  field: 'countryCode',
+  db: 'country',
+  optional: false,
+  fieldType: 'text',
+  max: 2,
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'adminLevel1',
+  optional: true,
+  fieldType: 'text',
+  db: 'region',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'adminLevel2',
+  optional: true,
+  fieldType: 'text',
+  db: 'department',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'adminLevel3',
+  optional: true,
+  fieldType: 'text',
+  db: 'admin_level_3',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
   field: 'city',
   optional: true,
   fieldType: 'text',
@@ -55,17 +87,19 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 100
 }, {
-  field: 'region',
+  field: 'adminLevel5',
   optional: true,
   fieldType: 'text',
+  db: 'admin_level_5',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
-  field: 'department',
+  field: 'district',
   optional: true,
   fieldType: 'text',
-  read: ['internal', 'public', 'terms'],
+  db: 'city_district',
+  read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
@@ -83,22 +117,6 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 10
 }, {
-  field: 'countryCode',
-  db: 'country',
-  optional: false,
-  fieldType: 'text',
-  max: 2,
-  read: ['internal', 'public', 'terms'],
-  write: ['internal', 'administrator', 'moderator', 'contributor']
-}, {
-  field: 'district',
-  optional: true,
-  fieldType: 'text',
-  db: 'city_district',
-  read: ['internal', 'public'],
-  write: ['internal', 'administrator', 'moderator', 'contributor'],
-  max: 255
-}, {
   field: 'latitude',
   optional: false,
   fieldType: 'latitude',
@@ -109,6 +127,31 @@ module.exports = [{
   optional: false,
   fieldType: 'longitude',
   read: ['internal', 'public', 'list'],
+  write: ['internal', 'administrator', 'moderator', 'contributor']
+}, {
+  field: 'region',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'department',
+  optional: true,
+  fieldType: 'text',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'timezone',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.timezone',
+    assign: true
+  },
+  fieldType: 'text',
+  read: ['internal', 'public'],
   write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'updatedAt',
@@ -230,17 +273,6 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   default: 0,
   options: [0, 1]
-}, {
-  field: 'timezone',
-  optional: true,
-  db: {
-    type: 'json',
-    field: 'store.timezone',
-    assign: true
-  },
-  fieldType: 'text',
-  read: ['internal', 'public'],
-  write: ['internal', 'administrator', 'moderator', 'contributor']
 }, {
   field: 'imageCredits',
   optional: true,

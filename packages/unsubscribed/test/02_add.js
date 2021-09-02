@@ -122,8 +122,6 @@ describe( 'unsubscribed - functional: .add', function() {
       identifier: 'bertho@cibul.net'
     }, ( err, result ) => {
 
-      console.log( result );
-
       const con = mysql.createConnection( config.mysql );
 
       con.query( 'select * from unsubscribed where subject = ? and type = ?', [ 'email', 'eventEmail' ], ( err, rows ) => {
