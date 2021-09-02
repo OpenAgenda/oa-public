@@ -53,6 +53,7 @@ const config = {
     logo: prod.logo,
     googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
     embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
+    matomoCloudId: process.env.MATOMO_CLOUD_ID || prod.matomoCloudId,
     useCache: false,
     agendaCacheExpire: 30 * 1000,
     shares: {
