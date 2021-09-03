@@ -15,7 +15,7 @@ import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import utils from '@openagenda/utils';
 import debug from 'debug';
 
-import InputField from './InputField'; // '@openagenda/react-form-components/build/InputField';
+import InputField from './InputField';
 import post from './post';
 import actions from './formActions';
 import CountryField from './CountryField';
@@ -25,27 +25,12 @@ import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers';
 import validate from './validate';
 import extraGeoFields from './extraGeoFields';
+import GeoBadges from './GeoBadges';
 
 const alternativeMaxLength = 50;
 const log = debug('LocationForm');
 
 const messages = defineMessages({
-  district: {
-    id: 'AgendaLocations.LocationForm.district',
-    defaultMessage: 'District',
-  },
-  city: {
-    id: 'AgendaLocations.LocationForm.city',
-    defaultMessage: 'City',
-  },
-  region: {
-    id: 'AgendaLocations.LocationForm.region',
-    defaultMessage: 'Region',
-  },
-  department: {
-    id: 'AgendaLocations.LocationForm.department',
-    defaultMessage: 'Department',
-  },
   postalCode: {
     id: 'AgendaLocations.LocationForm.postalCode',
     defaultMessage: 'Postal code',
@@ -207,7 +192,6 @@ class LocationForm extends Component {
     enableGeocode: true,
     detailedInfo: false,
     settings: {},
-    // labels: {},
     alternatives: [],
     disableNoAlternatives: false,
     displayLanguageTabs: true,
@@ -249,7 +233,6 @@ class LocationForm extends Component {
   }
 
   componentDidMount() {
-    log(this.props.settings);
     this.setState(
       {
         originScrollPosition:
@@ -407,12 +390,12 @@ class LocationForm extends Component {
           str = str.replace(`%${k}%`, values[k]);
         }
       }
-      log('labels from settings', name);
+      // log('labels from settings', name);
       return str;
     }
     // use intl to format standard labels
     if (messages[name]) {
-      log('labels from messages', name);
+      // log('labels from messages', name);
       if (!values) {
         str = intl.formatMessage(messages[name]);
         return str;
@@ -467,7 +450,7 @@ class LocationForm extends Component {
     };
   }
 
-  set(field, value) { //, ...args
+  set(_field, _value) { // , ...args
     log('set');
     let clean;
     const { settings, intl } = this.props;
@@ -601,6 +584,7 @@ class LocationForm extends Component {
     let value = paramValue;
     const { res } = this.props;
     const { location: stateLocation } = this.state;
+    log('updateLocationGeocode');
     if (setLoading) {
       this.setState({
         geocodeLoading: true,
@@ -672,11 +656,14 @@ class LocationForm extends Component {
   fetchINSEE(location) {
     log('getting insee data for location %j', location);
     const { res } = this.props;
-    // const { location: stateLocation } = this.state;
 
     get(
       res.insee,
-      _.pick(location, ['latitude', 'longitude', 'city', 'department']),
+      _.pick({
+        ...location,
+        city: location.adminLevel4,
+        department: location.adminLevel2
+      }, ['latitude', 'longitude', 'city', 'department']),
       (err, result) => {
         if (err) {
           return log('error', err);
@@ -698,11 +685,13 @@ class LocationForm extends Component {
     const item = gfResult.results[0];
 
     const decoration = [
-      'city',
-      'district',
-      'department',
+      'adminLevel1',
+      'adminLevel2',
+      'adminLevel3',
+      'adminLevel4',
+      'adminLevel5',
+      'adminLevel6',
       'postalCode',
-      'region',
       'timezone',
       'insee',
     ].reduce((d, field) => {
@@ -732,7 +721,7 @@ class LocationForm extends Component {
 
   renderAlternative(fieldName, pasteNames) {
     const { alternatives } = this.props;
-    log('renderAlternative - field %s', fieldName);
+    // log('renderAlternative - field %s', fieldName);
 
     if (!alternatives || !alternatives.length) {
       return null;
@@ -1125,21 +1114,21 @@ class LocationForm extends Component {
     );
   }
 
-  renderGeoData() {
+/*   renderGeoData() {
     const {
-      enableGeocode, geocodeEdit, geocodeEditValue, geocodeNoResults
+      enableGeocode, geocodeEdit, geocodeEditValue, geocodeNoResults, location
     } = this.state;
 
-    const geo = {}; // _.pick(this.state.location, );
+    const geo = {};
+    log('geo', geo, {}, location);
     log('RenderGeoDada enableGeocode:', enableGeocode);
-
-    ['region', 'department', 'city', 'postalCode', 'insee'].forEach(field => {
+    ['adminLevel1', 'adminLevel2', 'adminLevel4', 'postalCode', 'insee'].forEach(field => {
       if (enableGeocode && !_.get(this.state, ['location', field])) {
         return;
       }
       geo[field] = _.get(this.state, ['location', field]);
     });
-
+    log('geo', geo);
     if (
       _.upperCase(_.get(this.state, 'location.countryCode')) === 'FR'
       && _.get(this.state, 'location.latitude')
@@ -1180,7 +1169,7 @@ class LocationForm extends Component {
           </div>
         </div>
       );
-    }
+    } 
 
     return (
       <div>
@@ -1218,14 +1207,14 @@ class LocationForm extends Component {
         </ul>
       </div>
     );
-  }
+  }*/
 
   render() {
     const {
       Header, showToggler, lang, detailedInfo, cancel, enableGeocode: propsEnableGeocode, tiles, mode
     } = this.props;
     const {
-      location, enableGeocode, pageSpin, geocodeError, autoGeocode, showExtIdInput, loadingError, errors
+      location, enableGeocode, pageSpin, geocodeError, autoGeocode, showExtIdInput, loadingError, errors, geocodeNoResults, geocodeEdit, geocodeEditValue
     } = this.state;
     log('rendering form with data %j', location);
     return (
@@ -1296,7 +1285,16 @@ class LocationForm extends Component {
           autoFocus={!!location.name}
         />
 
-        {this.renderGeoData()}
+        <GeoBadges
+          location={location}
+          enableGeocode={enableGeocode}
+          geocodeNoResults={geocodeNoResults}
+          geocodeEdit={geocodeEdit}
+          geocodeEditValue={geocodeEditValue}
+          setGeocodeFieldValue={this.setGeocodeFieldValue.bind(this)}
+          cancelEditGeocode={this.cancelEditGeocode.bind(this)}
+          editGeocode={this.editGeocode.bind(this)}
+        />
 
         {!enableGeocode ? (
           <div className="alert alert-warning" role="alert">

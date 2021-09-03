@@ -130,11 +130,11 @@ const Service = require('.');
     results: [
       {
         address: 'Rue Alice, 92400 Courbevoie, France',
-        district: 'Quartier de Bécon',
-        city: 'Courbevoie',
+        adminLevel1: 'Île-de-France',
+        adminLevel2: 'Hauts-de-Seine',
+        adminLevel4: 'Courbevoie',
+        adminLevel6: 'Quartier de Bécon',
         postalCode: '92400',
-        department: 'Hauts-de-Seine',
-        region: 'Île-de-France',
         timezone: 'Europe/Paris',
         latitude: 48.9025825,
         longitude: 2.279693,
@@ -160,11 +160,11 @@ const Service = require('.');
       {
         address:
             'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
-        district: 'Quartier de Bécon',
-        city: 'Courbevoie',
+        adminLevel1: 'Île-de-France',
+        adminLevel2: 'Hauts-de-Seine',
+        adminLevel4: 'Courbevoie',
+        adminLevel6: 'Quartier de Bécon',
         postalCode: '92400',
-        department: 'Hauts-de-Seine',
-        region: 'Île-de-France',
         timezone: 'Europe/Paris',
         latitude: 48.9019071,
         longitude: 2.2789371,

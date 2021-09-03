@@ -8,103 +8,91 @@ import get from '@openagenda/utils/get';
 
 import extraGeoFields from './extraGeoFields';
 import flattenTagSetLabels from './flattenTagSetLabels';
+import adminLevels from './adminLevels';
 
 const log = debug('locationDetails');
 
-const messages = defineMessages({
-  district: {
-    id: 'AgendaLocations.LocationDetails.district',
-    defaultMessage: 'District',
-  },
-  city: {
-    id: 'AgendaLocations.LocationDetails.city',
-    defaultMessage: 'City',
-  },
-  region: {
-    id: 'AgendaLocations.LocationDetails.region',
-    defaultMessage: 'Region',
-  },
-  department: {
-    id: 'AgendaLocations.LocationDetails.department',
-    defaultMessage: 'Department',
-  },
-  postalCode: {
-    id: 'AgendaLocations.LocationDetails.postalCode',
-    defaultMessage: 'Postal code',
-  },
-  insee: {
-    id: 'AgendaLocations.LocationDetails.insee',
-    defaultMessage: 'INSEE code',
-  },
-  description: {
-    id: 'AgendaLocations.LocationDetails.description',
-    defaultMessage: 'Description',
-  },
-  access: {
-    id: 'AgendaLocations.LocationDetails.access',
-    defaultMessage: 'Access',
-  },
-  noRefAgendas: {
-    id: 'AgendaLocations.LocationDetails.noRefAgendas',
-    defaultMessage: 'This place is not referenced in any other agenda.',
-  },
-  hoverInfo: {
-    id: 'AgendaLocations.LocationDetails.hoverInfo',
-    defaultMessage: 'This information is not correct? Click on the button on top of this menu to detail the changes to bring',
-  },
-  emptyGeo: {
-    id: 'AgendaLocations.LocationDetails.emptyGeo',
-    defaultMessage: 'Empty',
-  },
-  phone: {
-    id: 'AgendaLocations.LocationDetails.phone',
-    defaultMessage: 'Telephone number',
-  },
-  email: {
-    id: 'AgendaLocations.LocationDetails.email',
-    defaultMessage: 'Contact email',
-  },
-  website: {
-    id: 'AgendaLocations.LocationDetails.website',
-    defaultMessage: 'Website',
-  },
-  links: {
-    id: 'AgendaLocations.LocationDetails.links',
-    defaultMessage: 'Additional links',
-  },
-  image: {
-    id: 'AgendaLocations.LocationDetails.image',
-    defaultMessage: 'Image',
-  },
-  noImage: {
-    id: 'AgendaLocations.LocationDetails.noImage',
-    defaultMessage: 'No image is defined',
-  },
-  noValue: {
-    id: 'AgendaLocations.LocationDetails.noValue',
-    defaultMessage: 'Not specified',
-  },
-  andOn: {
-    id: 'AgendaLocations.LocationDetails.andOn',
-    defaultMessage: ' and on',
-  },
-  refAgendas: {
-    id: 'AgendaLocations.LocationDetails.refAgendas',
-    defaultMessage: '{count, plural, =0 {nothing} one {This place is also referenced on the agenda} other {This place is also referenced on the agendas}}',
-  },
-  others: {
-    id: 'AgendaLocations.LocationDetails.others',
-    defaultMessage: '{count, plural, =0 {nothing} one {one other} other {#  others}}',
-  },
-  noContent: {
-    id: 'AgendaLocations.LocationDetails.noContent',
-    defaultMessage: 'No content {lang} is defined',
-  },
-  extId: {
-    id: 'AgendaLocations.LocationDetails.extId',
-    defaultMessage: 'External Identifier',
-  },
-});
+const messages = {
+  ...adminLevels,
+  ...defineMessages({
+    postalCode: {
+      id: 'AgendaLocations.LocationDetails.postalCode',
+      defaultMessage: 'Postal code',
+    },
+    insee: {
+      id: 'AgendaLocations.LocationDetails.insee',
+      defaultMessage: 'INSEE code',
+    },
+    description: {
+      id: 'AgendaLocations.LocationDetails.description',
+      defaultMessage: 'Description',
+    },
+    access: {
+      id: 'AgendaLocations.LocationDetails.access',
+      defaultMessage: 'Access',
+    },
+    noRefAgendas: {
+      id: 'AgendaLocations.LocationDetails.noRefAgendas',
+      defaultMessage: 'This place is not referenced in any other agenda.',
+    },
+    hoverInfo: {
+      id: 'AgendaLocations.LocationDetails.hoverInfo',
+      defaultMessage: 'This information is not correct? Click on the button on top of this menu to detail the changes to bring',
+    },
+    emptyGeo: {
+      id: 'AgendaLocations.LocationDetails.emptyGeo',
+      defaultMessage: 'Empty',
+    },
+    phone: {
+      id: 'AgendaLocations.LocationDetails.phone',
+      defaultMessage: 'Telephone number',
+    },
+    email: {
+      id: 'AgendaLocations.LocationDetails.email',
+      defaultMessage: 'Contact email',
+    },
+    website: {
+      id: 'AgendaLocations.LocationDetails.website',
+      defaultMessage: 'Website',
+    },
+    links: {
+      id: 'AgendaLocations.LocationDetails.links',
+      defaultMessage: 'Additional links',
+    },
+    image: {
+      id: 'AgendaLocations.LocationDetails.image',
+      defaultMessage: 'Image',
+    },
+    noImage: {
+      id: 'AgendaLocations.LocationDetails.noImage',
+      defaultMessage: 'No image is defined',
+    },
+    noValue: {
+      id: 'AgendaLocations.LocationDetails.noValue',
+      defaultMessage: 'Not specified',
+    },
+    andOn: {
+      id: 'AgendaLocations.LocationDetails.andOn',
+      defaultMessage: ' and on',
+    },
+    refAgendas: {
+      id: 'AgendaLocations.LocationDetails.refAgendas',
+      defaultMessage: '{count, plural, =0 {nothing} one {This place is also referenced on the agenda} other {This place is also referenced on the agendas}}',
+    },
+    others: {
+      id: 'AgendaLocations.LocationDetails.others',
+      defaultMessage: '{count, plural, =0 {nothing} one {one other} other {#  others}}',
+    },
+    noContent: {
+      id: 'AgendaLocations.LocationDetails.noContent',
+      defaultMessage: 'No content {lang} is defined',
+    },
+    extId: {
+      id: 'AgendaLocations.LocationDetails.extId',
+      defaultMessage: 'External Identifier',
+    },
+  })
+};
 
 const mapValues = location => ({
   '{w}': 500,
@@ -145,7 +133,6 @@ class LocationDetails extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       contentLang: getPreferredLang(
         props.location.description,
@@ -164,6 +151,15 @@ class LocationDetails extends Component {
         });
         return resp.linkedAgendas;
       });
+  }
+
+  getAdminLabel(field) {
+    const { location, intl } = this.props;
+    const { countryCode } = location;
+    if (messages[`${field}_${countryCode}`]) {
+      return intl.formatMessage(messages[`${field}_${countryCode}`]);
+    }
+    return (intl.formatMessage(messages[field]));
   }
 
   toggleCurrentLang(contentLang, e) {
@@ -210,7 +206,7 @@ class LocationDetails extends Component {
     const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
     const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
     const existingLangs = getExistingLangs(location);
-    log('lang:', lang, ' settings:', settings, 'static:', staticMap);
+
     return (
       <div>
         <div className="margin-bottom-md">
@@ -245,7 +241,7 @@ class LocationDetails extends Component {
         </div>
         <div className="margin-bottom-md">
           <ul className="list-inline">
-            {extraGeoFields.map(f => (
+            {extraGeoFields(location.countryCode).map(f => (
               <li key={`geo-${f}`}>
                 <div
                   className={
@@ -256,7 +252,7 @@ class LocationDetails extends Component {
                   }
                 >
                   <span>
-                    <FormattedMessage {...messages[f]} />:
+                    {this.getAdminLabel(f)}:
                     {location[f] || intl.formatMessage(messages.emptyGeo)}
                   </span>
                 </div>
