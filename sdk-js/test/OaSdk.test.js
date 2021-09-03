@@ -52,7 +52,7 @@ describe('refresh expired token', () => {
   });
 });
 
-describe.skip('locations', () => {
+describe('locations', () => {
   it('create a location', async () => {
     const oa = new OaSdk({ secretKey: testconfig.secretKey });
     await oa.connect();
@@ -192,29 +192,28 @@ describe('events', () => {
     ).rejects.toMatchObject({
       response: {
         body: {
-          info: {
-            errors: [
-              {
-                code: 'required',
-                field: 'title',
-                lang: 'fr',
-                message: 'a string is required',
-                origin: '',
-                step: 'validation',
-              },
-              {
-                code: 'required',
-                field: 'title',
-                lang: 'en',
-                message: 'a string is required',
-                origin: '',
-                step: 'validation',
-              },
-            ]
-          },
+          info: {},
+          errors: [
+            {
+              code: 'required',
+              field: 'title',
+              lang: 'fr',
+              message: 'a string is required',
+              origin: '',
+              step: 'validation',
+            },
+            {
+              code: 'required',
+              field: 'title',
+              lang: 'en',
+              message: 'a string is required',
+              origin: '',
+              step: 'validation',
+            },
+          ],
           message: 'data is invalid',
-        },
-      },
+        }
+      }
     });
   });
 
