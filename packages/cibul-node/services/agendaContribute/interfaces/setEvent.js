@@ -58,11 +58,11 @@ module.exports = async (services, req, data) => {
     }
   } catch (e) {
     if (e.name === 'BadRequest') {
-      log('error', 'validation errors', e.detail);
+      log('error', 'validation errors', e.info);
 
       return {
         success: false,
-        errors: e.detail,
+        errors: e.info,
         event: null
       };
     }
