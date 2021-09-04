@@ -1315,9 +1315,9 @@ describe('schema validator', () => {
           }
         });
 
-        validate({
+        expect(validate({
           eventAttendanceMode: 2
-        });
+        })).toBeTruthy();
       });
 
     });
