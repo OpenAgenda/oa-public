@@ -2,6 +2,7 @@
 
 const express = require('express');
 const inboxMw = require('@openagenda/inboxes/dist/middleware');
+const VError = require('@openagenda/verror');
 const makeErrorHandler = require('./makeErrorHandler');
 
 module.exports = (config, services) => {
@@ -31,9 +32,9 @@ module.exports = (config, services) => {
     }
   ];
 
-  const router = express.Router({ mergeParams: true } );
+  const router = express.Router({ mergeParams: true });
 
-  router.get( '/conversations/:conversationId/action/:code.json',
+  router.get('/conversations/:conversationId/action/:code.json',
     preMw,
     inboxMw.conversations.action({
       namespaces: {
@@ -43,11 +44,9 @@ module.exports = (config, services) => {
         userUid: 'user.uid',
         code: 'params.code'
       }
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/conversations/:conversationId/resume.json',
+  router.get('/conversations/:conversationId/resume.json',
     preMw,
     inboxMw.conversations.resume({
       namespaces: {
@@ -56,11 +55,9 @@ module.exports = (config, services) => {
         identifier: 'agenda.uid',
         userUid: 'user.uid'
       }
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/conversations/:conversationId/messages.json',
+  router.get('/conversations/:conversationId/messages.json',
     preMw,
     inboxMw.messages.list({
       namespaces: {
@@ -70,11 +67,9 @@ module.exports = (config, services) => {
         userUid: 'user.uid'
       },
       limit: 20
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.post( '/conversations/:conversationId/messages.json',
+  router.post('/conversations/:conversationId/messages.json',
     preMw,
     (req, res, next) => {
       req.options = {
@@ -90,27 +85,23 @@ module.exports = (config, services) => {
         body: 'body.body',
         userUid: 'user.uid'
       }
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/conversations.json',
+  router.get('/conversations.json',
     preMw,
-    ( req, res, next ) => {
+    (req, res, next) => {
       inboxMw.conversations.list({
         namespaces: {
           type: 'type',
           identifier: 'agenda.uid'
         },
         limit: req.query.limit || 20
-      } )( req, res, next );
-    },
-    errorHandler
-  );
+      })(req, res, next);
+    }, errorHandler);
 
-  router.post( '/conversations.json',
+  router.post('/conversations.json',
     preMw,
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.options = {
         // createInboxUserOnNull: true
       };
@@ -127,11 +118,9 @@ module.exports = (config, services) => {
         message: 'body.message',
         creatorInboxUser: 'creatorInboxUser'
       }
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.use( '/conversations/:conversationId/prepare-attachment',
+  router.use('/conversations/:conversationId/prepare-attachment',
     preMw,
     inboxMw.messages.prepareAttachment({
       namespaces: {
@@ -157,11 +146,9 @@ module.exports = (config, services) => {
         secret: config.uppy.secret,
         debug: false
       }
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.use( '/conversations/:conversationId/add-attachment',
+  router.use('/conversations/:conversationId/add-attachment',
     preMw,
     inboxMw.messages.addAttachment({
       namespaces: {
@@ -173,13 +160,11 @@ module.exports = (config, services) => {
         filename: 'query.filename',
         originalName: 'query.originalName'
       }
-    }),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/author.json',
+  router.get('/author.json',
     preMw,
-    ( req, res, next ) => {
+    (req, res, next) => {
       inboxMw.inboxUser.get({
         namespaces: {
           type: 'type',
@@ -189,10 +174,8 @@ module.exports = (config, services) => {
           name: req.user.name,
           avatar: req.user.thumbnail || config.aws.defaultImagePath
         })
-      } )( req, res, next );
-    },
-    errorHandler
-  );
+      })(req, res, next);
+    }, errorHandler);
 
   return router;
 };
