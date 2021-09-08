@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
       .events.add(req.event.uid, {}, {
         userUid: req.user.uid,
         sourceAgenda: req.fromAgenda
-      }).then(result => {
+      }).then(_result => {
         const redirect = req.query.redirect ? base64.decode(req.query.redirect) : null;
 
         req.app.services.sessions.setFlash(req, res, getLabel(req.event.state === 2 ? 'agendaSharePublished' : 'agendaShareToControl', { agenda: req.agenda.title }, req.lang));
@@ -33,4 +33,4 @@ module.exports = (req, res, next) => {
   }
 
   next();
-}
+};

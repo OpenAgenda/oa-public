@@ -111,6 +111,11 @@ module.exports = (config, services) => parentApp => {
     setInReq({ mode: 'create', draft: true })
   );
 
+  parentApp.get(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    middlewares.validateNonEditableEventStandardFields
+  );
+
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
     setInReq({ mode: 'add' }),
@@ -155,9 +160,10 @@ module.exports = (config, services) => parentApp => {
         },
         referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
         suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
+        suggestChangeRes: `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`,
         fileStore: { type: 's3', bucket },
         redirects: {
-          back: req.backRedirect,
+          back: req.backRedirect || (req.params.fromAgendaUid ? `/agendas/${req.params.fromAgendaUid}/events/${req.event.uid}` : null),
           seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
           createOtherEvent: `/${req.agenda.slug}/contribute`,
           duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
@@ -175,7 +181,8 @@ module.exports = (config, services) => parentApp => {
         confirmation: {
           message: _.get(req, 'agenda.settings.contribution.messages.complete'),
           state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
-        }
+        },
+        standardFieldsErrors: req.standardFieldsErrors ?? []
       };
 
       req.translateMode = Boolean(req.cookies.translateMode);
