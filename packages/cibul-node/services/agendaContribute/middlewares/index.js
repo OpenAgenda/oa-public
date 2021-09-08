@@ -8,5 +8,6 @@ module.exports = {
   defineBackRedirect: require('./defineBackRedirect'),
   verifyMemberAuthorization: require('./verifyMemberAuthorization'),
   addAndRedirectIfNothingToEdit: require('./addAndRedirectIfNothingToEdit'),
-  validateNonEditableEventStandardFields: require('./validateNonEditableEventStandardFields')
-}
+  validateNonEditableEventStandardFields: require('./validateNonEditableEventStandardFields'),
+  isReferenced: require('./isReferenced')
+};

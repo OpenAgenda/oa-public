@@ -58,6 +58,10 @@ module.exports = (config, services) => parentApp => {
       field: 'uid',
       target: 'fromAgenda'
     }),
+    mw.isReferenced({
+      andPublished: mw.isReferenced.redirectToSharedEventWithMessage,
+      andNotPublished: mw.isReferenced.redirectBackWithMessage
+    }),
     agendaNotFound('fromAgenda')
   );
 
