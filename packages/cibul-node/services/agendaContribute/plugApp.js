@@ -3,14 +3,14 @@
 const _ = require('lodash');
 const contribute = require('@openagenda/agenda-contribute');
 
-const cmn = require('../../../lib/commons-app');
-const outdatedBrowserMw = require('../../../lib/outdatedBrowser.mw');
-const trackingScripts = require('../../../lib/trackingScripts');
-const loadLegacyRoutes = require('../legacy');
-const middlewares = require('../middlewares');
-const memberSchema = require('./memberSchema');
-const isDraftRequested = require('./isDraftRequested');
-const redirectToSignup = require('./redirectToSignup');
+const cmn = require('../../lib/commons-app');
+const outdatedBrowserMw = require('../../lib/outdatedBrowser.mw');
+const trackingScripts = require('../../lib/trackingScripts');
+const loadLegacyRoutes = require('./legacy');
+const mw = require('./middlewares');
+const memberSchema = require('./lib/memberSchema');
+const isDraftRequested = require('./lib/isDraftRequested');
+const redirectToSignup = require('./lib/redirectToSignup');
 
 const agendaNotFound = ns => (req, res, next) => (req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 }));
 
@@ -65,7 +65,7 @@ module.exports = (config, services) => parentApp => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
-  ], middlewares.event);
+  ], mw.event);
 
   parentApp.all([
     '/:agendaSlug/contribute',
@@ -75,21 +75,21 @@ module.exports = (config, services) => parentApp => {
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], [
     sessions.mw.ifUnlogged(redirectToSignup),
-    middlewares.member.bind(null, members),
-    middlewares.schemaExtensions,
-    middlewares.duplicateFromEvent
+    mw.member.bind(null, members),
+    mw.schemaExtensions,
+    mw.duplicateFromEvent
   ]);
 
   parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step'
-  ], middlewares.verifyMemberAuthorization);
+  ], mw.verifyMemberAuthorization);
 
   parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
-  ], middlewares.verifyMemberAuthorization.edit);
+  ], mw.verifyMemberAuthorization.edit);
 
   parentApp.get(
     '/:agendaSlug/contribute/event',
@@ -113,13 +113,13 @@ module.exports = (config, services) => parentApp => {
 
   parentApp.get(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
-    middlewares.validateNonEditableEventStandardFields
+    mw.validateNonEditableEventStandardFields
   );
 
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
     setInReq({ mode: 'add' }),
-    middlewares.addAndRedirectIfNothingToEdit
+    mw.addAndRedirectIfNothingToEdit
   );
 
   parentApp.post(
@@ -130,7 +130,7 @@ module.exports = (config, services) => parentApp => {
 
   parentApp.get(
     '/:agendaSlug/contribute/event/:eventUid',
-    middlewares.defineBackRedirect
+    mw.defineBackRedirect
   );
 
   parentApp.all(
