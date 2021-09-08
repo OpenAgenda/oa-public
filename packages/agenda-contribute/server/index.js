@@ -63,6 +63,7 @@ function init(c) {
         staticTiles: config.staticTiles,
         maxFileSize: config.maxFileSize,
         schemaExtensions: _.get(req, 'schemaExtensions', []),
+        standardFieldsErrors: req.config.standardFieldsErrors
       },
       state: {
         member: req.member,

@@ -7,6 +7,7 @@ const defaultConfig = {
   lang: 'fr',
   locationRes: '/locations',
   referencesRes: '/refs',
+  suggestChangeRes: '/?suggest.change.res',
   mode: 'create',
   redirects: {
     back: '/?redirect.back=:eventUid',
@@ -405,6 +406,34 @@ module.exports = [{
       title: 'Métropole Européenne de Lille',
       uid: 90190212
     }
+  },
+  event: anExistingEvent
+}, {
+  link: `/an-event-to-add-but-cannot/contribute/event/123/from/456`,
+  agenda: {
+    title: 'Adding an event on a constrained agenda',
+    description: 'Agenda has additional constraints not met by event',
+    slug: 'an-event-to-add-but-cannot',
+    uid: 897894564,
+    id: 77374
+  },
+  config: {
+    ...defaultConfig,
+    base: '/an-event-to-add-but-cannot/contribute',
+    mode: 'add',
+    event: {
+      message: '*Instructions should not appear*'
+    },
+    fromAgenda: {
+      title: 'Le merveilleux agenda d\'Oz',
+      uid: 789454566
+    },
+    standardFieldsErrors: [{
+      code: 'required',
+      codeLabel: 'Requis.',
+      field: 'imageCredits',
+      fieldLabel: 'Crédits de l\'image'
+    }]
   },
   event: anExistingEvent
 }];
