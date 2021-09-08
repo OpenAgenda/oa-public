@@ -160,6 +160,18 @@ module.exports = {
     "io": "crwdns11546:0crwdne11546:0",
     "de": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
   },
+  "shareRestrictionInfo": {
+    "fr": "Les points suivants doivent être résolus afin de rendre l'événement \"%event%\" partageable sur l'agenda \"%agenda%\"",
+    "en": "The following issues must be addressed to allow make the event \"%event%\" shareable on the agenda \"%agenda%\""
+  },
+  "suggestChange": {
+    "fr": "Suggérer une modification",
+    "en": "Suggest a change"
+  },
+  "cancelShare": {
+    "fr": "Annuler le partage",
+    "en": "Cancel the share"
+  },
   "close": {
     "fr": "Fermer",
     "en": "Close",
