@@ -2,6 +2,8 @@
 
 const log = require('@openagenda/logs')('services/agendaContribute/setEvent');
 
+const filterByAuth = require('../lib/filterByAuthorizations');
+
 module.exports = async (services, req, data) => {
   const {
     core
@@ -36,7 +38,7 @@ module.exports = async (services, req, data) => {
       log('%s event %s', undrafting ? 'undrafting' : 'updating', current.uid);
 
       return {
-        event: await core.agendas(agenda.uid).events[undrafting ? 'update' : 'patch'](current.uid, data, {
+        event: await core.agendas(agenda.uid).events[undrafting ? 'update' : 'patch'](current.uid, filterByAuth(core, req.agenda.uid, req.authorizations, data), {
           draft,
           userUid: user.uid,
           filterUnauthorizedData: true
@@ -47,7 +49,7 @@ module.exports = async (services, req, data) => {
     if (mode === 'add') {
       log('adding event %s to agenda %s', current.uid, agenda.uid);
       return {
-        event: await core.agendas(agenda.uid).events.add(current.uid, data, {
+        event: await core.agendas(agenda.uid).events.add(current.uid, filterByAuth(core, req.agenda.uid, req.authorizations, data), {
           draft,
           userUid: user.uid,
           filterUnauthorizedData: true,

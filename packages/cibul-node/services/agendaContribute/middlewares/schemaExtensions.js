@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const log = require('@openagenda/logs')('services/agendaContribute/middlewares/schemas');
+require('@openagenda/logs')('services/agendaContribute/middlewares/schemas');
 
 module.exports = async (req, res, next) => {
   const {
@@ -25,4 +25,4 @@ module.exports = async (req, res, next) => {
   }
 
   next();
-}
+};
