@@ -164,7 +164,7 @@ module.exports = (config, services) => parentApp => {
         },
         referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
         suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
-        suggestChangeRes: `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`,
+        suggestChangeRes: req.params.eventUid ? `/${req.agenda.slug}/admin/events/${req.event.slug}/contact` : null,
         fileStore: { type: 's3', bucket },
         redirects: {
           back: req.backRedirect || (req.params.fromAgendaUid ? `/agendas/${req.params.fromAgendaUid}/events/${req.event.uid}` : null),
