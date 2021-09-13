@@ -1,5 +1,6 @@
 'use strict';
 
+const marked = require('marked');
 const makeLabelGetter = require('@openagenda/labels');
 const labels = require('@openagenda/labels/agenda-contribute/share');
 
@@ -31,9 +32,11 @@ function redirectToSharedEventWithMessage(req, res, _next) {
     sessions
   } = req.app.services;
 
-  sessions.setFlash(req, res, getLabel('alreadyReferencedAndPublished', {
-    agenda: req.agenda.title
-  }, req.lang));
+  sessions.setFlash(req, res, marked(getLabel('alreadyReferencedAndPublished', {
+    agendaTitle: req.agenda.title,
+    agendaLink: `/agendas/${req.agenda.uid}`,
+    eventLink: `/agendas/${req.agenda.uid}/events/${req.params.eventUid}`
+  }, req.lang)));
   res.redirect(302, `/agendas/${req.agenda.uid}/events/${req.params.eventUid}`);
 }
 
@@ -42,9 +45,10 @@ function redirectBackWithMessage(req, res, _next) {
     sessions
   } = req.app.services;
 
-  sessions.setFlash(req, res, getLabel('alreadyReferencedAndUnpublished', {
-    agenda: req.agenda.title
-  }, req.lang));
+  sessions.setFlash(req, res, marked(getLabel('alreadyReferencedAndUnpublished', {
+    agendaTitle: req.agenda.title,
+    agendaLink: `/agendas/${req.agenda.uid}`
+  }, req.lang)));
   res.redirect(302, req.backRedirect ?? `/agendas/${req.params.fromAgendaUid}/events/${req.params.eventUid}`);
 }
 
