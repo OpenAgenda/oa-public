@@ -122,7 +122,7 @@ function init(c) {
 
     log('info', 'setting event on agenda %s', req?.agenda?.slug);
 
-    config.interfaces.setEvent(req, postedWithFiles).then(result => {
+    config.interfaces.setEvent(req, res, postedWithFiles).then(result => {
       res.json(_.pick(result, [
         'event',
         'success',
