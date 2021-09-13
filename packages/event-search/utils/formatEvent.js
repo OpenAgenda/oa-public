@@ -182,7 +182,7 @@ function _dateRange(timings = [], timezone, languages = []) {
 }
 
 function _searchFullAddressText(location, country) {
-  return ['address', 'city', 'region', 'department']
+  return ['address', 'city', 'region', 'department', 'name']
     .map(f => location[f])
     .filter(f => !!f)
     .concat(Object.values(country))
