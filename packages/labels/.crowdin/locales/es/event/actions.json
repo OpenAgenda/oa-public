@@ -1,9 +1,0 @@
-{
-  "agendaShareError": "El evento no se podría añadir a la agenda \"%agenda%\". Por favor vuelva a intentar la operación en un momento.",
-  "agendaShareToControl": "El evento ha sido añadido a la agenda \"%agenda%\". En este momento está en la moderación",
-  "agendaSharePublished": "El evento fue lanzado con éxito en el programa \"%agenda%\"",
-  "agendaShareRemoveUnauthorized": "Usted no tiene las credenciales de seguridad correctas para eliminar este evento del agenda \"%agenda%\"",
-  "agendaShareRemoveError": "El evento no podía ser quitado de la agenda \"%agenda%\". Por favor vuelva a intentar la operación en un momento.",
-  "agendaShareRemoved": "El evento ha sido quitado de la agenda \"%agenda%\".",
-  "eventEmailSend": "El evento se envía a direcciones de correo electrónico% count%"
-}
