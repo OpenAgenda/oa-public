@@ -136,5 +136,27 @@ describe('utils - fromEntryToItem', () => {
       expect(item).toEqual({ duplicateCandidates: [20, 30], disqualifiedDuplicates: [ 10 ] });
     })
 
+    it('adminLevel', () => {
+      const item = fromEntryToItem([, {
+        field: 'city',
+        optional: true,
+        fieldType: 'text',
+        read: ['internal', 'public', 'terms'],
+        write: ['internal', 'administrator', 'moderator', 'contributor'],
+        max: 100
+      }, {
+      field: 'adminLevel4',
+      optional: true,
+      fieldType: 'text',
+      db: 'city',
+      read: ['internal', 'public', 'terms'],
+      write: ['internal', 'administrator', 'moderator', 'contributor'],
+      max: 100
+    },], {
+        city: 'test',
+      });
+      expect(item.adminLevel4).toBe('test');
+      expect(item.city).toBe('test');
+    });
   })
 });

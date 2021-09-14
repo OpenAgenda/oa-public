@@ -212,5 +212,47 @@ describe('utils - fromItemToEntry', () => {
       ], { duplicateCandidates: [1,2] }, { duplicateCandidates: [3,4], disqualifiedDuplicates: [5,6] });
       assert.deepStrictEqual(entry.duplicates, "{\"candidates\":[1,2],\"disqualified\":[5,6]}")
     })
-  })
+
+    it('adminLevel defined', () => {
+      const entry = fromItemToEntry([
+        {
+          field: 'city',
+          optional: true,
+          fieldType: 'text',
+          read: ['internal', 'public', 'terms'],
+          write: ['internal', 'administrator', 'moderator', 'contributor'],
+          max: 100
+        }, {
+          field: 'adminLevel4',
+          optional: true,
+          fieldType: 'text',
+          db: 'city',
+          read: ['internal', 'public', 'terms'],
+          write: ['internal', 'administrator', 'moderator', 'contributor'],
+          max: 100
+        }], { adminLevel4: 'Admin4 Name', city: null });
+      expect(entry.city).toBe('Admin4 Name');
+    });
+
+    it('adminLevel undefined', () => {
+      const fct = fromItemToEntry.loadWithLinkedFields([{
+        field: 'city',
+        optional: true,
+        fieldType: 'text',
+        read: ['internal', 'public', 'terms'],
+        write: ['internal', 'administrator', 'moderator', 'contributor'],
+        max: 100
+      }, {
+        field: 'adminLevel4',
+        optional: true,
+        fieldType: 'text',
+        db: 'city',
+        read: ['internal', 'public', 'terms'],
+        write: ['internal', 'administrator', 'moderator', 'contributor'],
+        max: 100
+      }]);
+      const entry = fct({ adminLevel4: null, city: 'City Name' });
+      expect(entry.city).toBe('City Name');
+    });
+  });
 });
