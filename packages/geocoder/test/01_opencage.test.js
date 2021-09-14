@@ -8,6 +8,21 @@ describe('opencage', () => {
   const geocode = Opencage(config.opencage);
 
   describe('forward', () => {
+    it('Toulon', async () => {
+      const res = await geocode('Toulon', {
+        countryCode: 'FR',
+        first: true
+      });
+      expect(res.adminLevel3).toBe('Métropole Toulon Provence Méditerranée');
+    });
+    it('Tours', async () => {
+      const res = await geocode('Tours', {
+        countryCode: 'FR',
+        first: true
+      });
+      expect(res.adminLevel3).toBe('Tours Métropole Val de Loire');
+    });
+
     it('Timezone is provided', async () => {
       expect((await geocode('Masdar, Abu Dhabi', {
         countryCode: 'AE',

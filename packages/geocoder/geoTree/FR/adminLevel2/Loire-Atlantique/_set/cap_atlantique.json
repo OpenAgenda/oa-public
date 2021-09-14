@@ -1,0 +1,23 @@
+{
+  "$set": {
+    "adminLevel3": "Cap Atlantique"
+  },
+  "adminLevel4": [
+    "Assérac",
+    "Batz-sur-Mer",
+    "Camoël",
+    "Férel",
+    "Guérande",
+    "Herbignac",
+    "La Baule-Escoublac",
+    "La Turballe",
+    "Le Croisic",
+    "Le Pouliguen",
+    "Mesquer-Quimiac",
+    "Pénestin",
+    "Piriac-sur-Mer",
+    "Saint-Lyphard",
+    "Saint-Molf"
+
+  ]
+}
