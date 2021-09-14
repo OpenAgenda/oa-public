@@ -21,7 +21,7 @@
   "AgendaLocations.AgendaAdminLocation.toVerify": "Voir les lieux à vérifier",
   "AgendaLocations.AgendaAdminLocation.total": "{itemCount, plural, =0 {Aucun lieu ne correspond à cette recherche} one {Total: un lieu} other {Total: # lieux}}",
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler",
-  "AgendaLocations.CH.adminLevel1": "region Suisse",
+  "AgendaLocations.CH.adminLevel1": "Région",
   "AgendaLocations.CountryField.country": "Pays",
   "AgendaLocations.FR.adminLevel1": "Région",
   "AgendaLocations.FR.adminLevel2": "Département",

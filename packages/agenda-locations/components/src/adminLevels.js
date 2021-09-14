@@ -51,8 +51,52 @@ const messages = defineMessages({
   },
   adminLevel1_CH: {
     id: 'AgendaLocations.CH.adminLevel1',
-    defaultMessage: 'Region Suisse',
+    defaultMessage: 'Region',
   },
+  adminLevel2_CH: {
+    id: 'AgendaLocations.CH.adminLevel2',
+    defaultMessage: 'Canton',
+  },
+  adminLevel3_CH: {
+    id: 'AgendaLocations.CH.adminLevel3',
+    defaultMessage: 'District',
+  },
+  adminLevel4_CH: {
+    id: 'AgendaLocations.CH.adminLevel4',
+    defaultMessage: 'City',
+  },
+  adminLevel5_CH: {
+    id: 'AgendaLocations.CH.adminLevel5',
+    defaultMessage: 'adminLevel5',
+  },
+  adminLevel6_CH: {
+    id: 'AgendaLocations.CH.adminLevel6',
+    defaultMessage: 'City District'
+  },
+  adminLevel1_IT: {
+    id: 'AgendaLocations.IT.adminLevel1',
+    defaultMessage: 'Region',
+  },
+  adminLevel2_IT: {
+    id: 'AgendaLocations.IT.adminLevel2',
+    defaultMessage: 'Province',
+  },
+  adminLevel3_IT: {
+    id: 'AgendaLocations.IT.adminLevel3',
+    defaultMessage: 'Admin Level 3',
+  },
+  adminLevel4_IT: {
+    id: 'AgendaLocations.IT.adminLevel4',
+    defaultMessage: 'City',
+  },
+  adminLevel5_IT: {
+    id: 'AgendaLocations.IT.adminLevel5',
+    defaultMessage: 'adminLevel5',
+  },
+  adminLevel6_IT: {
+    id: 'AgendaLocations.IT.adminLevel6',
+    defaultMessage: 'City District'
+  }
 });
 
 export default messages;
