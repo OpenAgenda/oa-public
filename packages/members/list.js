@@ -56,6 +56,7 @@ module.exports = async (
     total: includeTotal,
     legacy,
     userOptions,
+    customDataAtRoot,
   } = cleanListOptions(options);
 
   const k = knex(schema);
@@ -75,6 +76,7 @@ module.exports = async (
     fromDB.bind(null, {
       includeLegacyFields: legacy,
       orderField,
+      customDataAtRoot,
     })
   ));
 

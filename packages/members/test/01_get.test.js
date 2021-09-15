@@ -118,5 +118,30 @@ describe('members - functional - get', () => {
 
       expect(otherMember.id).toBe(4);
     });
+
+    test('customDataAtRoot option puts member data at root of result', async () => {
+      const sameMember = await svc.get(
+        {
+          agendaUid: 1,
+          userUid: 2,
+        },
+        { customDataAtRoot: true }
+      );
+
+      expect(sameMember).toEqual({
+        id: 2,
+        deletedUser: false,
+        invited: false,
+        agendaUid: 1,
+        role: 1,
+        userUid: 2,
+        organization: 'Idpt',
+        contactNumber: '013072171',
+        contactName: 'JC Ponceau',
+        contactPosition: 'Responsable des pains',
+        email: 'jc@ponceau.fr',
+        actionsCounter: 5,
+      });
+    });
   });
 });

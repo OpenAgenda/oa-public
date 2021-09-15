@@ -15,7 +15,7 @@ async function _decorateWithDetailed({ interfaces }, member) {
 }
 
 function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
-  const { legacy, detailed } = cleanGetOptions(options);
+  const { legacy, detailed, customDataAtRoot } = cleanGetOptions(options);
 
   const where = _.isObject(identifier)
     ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) => _.snakeCase(k))
@@ -36,6 +36,7 @@ function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
       )
       .where(where),
     options: {
+      customDataAtRoot,
       detailed,
       legacy,
     },
@@ -50,7 +51,10 @@ async function get(config, identifier, options = {}) {
   );
 
   const member = await fromDB(
-    { includeLegacyFields: cleanOptions.legacy },
+    {
+      customDataAtRoot: cleanOptions.customDataAtRoot,
+      includeLegacyFields: cleanOptions.legacy,
+    },
     await query
   );
 

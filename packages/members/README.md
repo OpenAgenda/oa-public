@@ -8,6 +8,10 @@ Handle OpenAgenda members
 
 Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at list a list of ids in an id key.
 
+### Options
+
+ * **customDataAsRoot**: Defaults at false. If true, custom data is placed at the root of the result. If not, is placed under a custom key.
+
 ## List
 
     const members = await membersSvc.list( filter, nav );
@@ -32,6 +36,7 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at
 ### Options
 
  * **detailed**: Optional, defaults at false. If true, includes user data in a user key for each member associated with a user
+ * **customDataAsRoot**: Defaults at false. If true, custom data is placed at the root of each item of the result. If not, is placed under a custom key.
 
 ## Create
 
