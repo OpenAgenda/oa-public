@@ -1,0 +1,125 @@
+'use strict';
+
+const axios = require('axios');
+
+const api = require('../api');
+const Services = require('../services/init');
+const Core = require('../core');
+const loadFixtures = require('./fixtures/load');
+const testConfig = require('./testConfig');
+
+describe('08 - core - functional (server): core.agendas().members.patch', () => {
+  let core;
+
+  beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
+
+  beforeAll(async () => {
+    const services = await Services(testConfig, {
+      enabled: [
+        'knex',
+        'redis',
+        'accessTokens',
+        'files',
+        'queues',
+        'events',
+        'agendas',
+        'agendaEvents',
+        'agendaLocations',
+        'formSchemas',
+        'custom',
+        'eventSearch',
+        'members',
+        'networks',
+        'legacy',
+        'users',
+        'keys',
+        'trackers'
+      ]
+    });
+
+    core = Core(services, testConfig);
+  });
+
+  afterAll(() => core.services.shutdown({ clear: true }));
+
+  describe('results contents', () => {
+    it('basic patch', async () => {
+      await core.agendas({ uid: 2 }).members.patch(1, {
+        name: 'Janine',
+        phone: '01',
+        position: 'Gardienne',
+        email: 'jan@ee.ne',
+        organization: 'Ponceau Corp'
+      });
+
+      const result = await core.services.knex('reviewer').first()
+        .where({
+          agenda_uid: 2,
+          user_uid: 1
+        }).then(r => JSON.parse(r.store).custom_fields);
+
+      expect(result).toEqual({
+        organization: 'Ponceau Corp',
+        contact_name: 'Janine',
+        contact_number: '01',
+        contact_position: 'Gardienne',
+        email: 'jan@ee.ne'
+      });
+    });
+  });
+
+  describe('api', () => {
+    let server;
+    let accessToken;
+
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
+    });
+
+    afterAll(() => server.close());
+
+    beforeAll(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL'
+        }
+      }).then(r => r.data.access_token);
+    });
+
+    describe('successfull call', () => {
+      beforeAll(async () => {
+        await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/agendas/2/members/1',
+          headers: {
+            'access-token': accessToken,
+            nonce: 12389708,
+            'content-type': 'application/json'
+          },
+          data: {
+            name: 'Hélène',
+            position: 'Responsable de communication',
+            phone: '04',
+            role: 'administrator',
+            email: 'el@h.en',
+            organization: 'Très'
+          }
+        }).then(r => r.data);
+      });
+
+      it('member data is patched', async () => {
+        const entry = await core.services.knex('reviewer')
+          .first()
+          .where({ user_uid: 1, agenda_uid: 2 });
+
+        expect(entry.credential).toBe(2);
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');
+      });
+    });
+  });
+});

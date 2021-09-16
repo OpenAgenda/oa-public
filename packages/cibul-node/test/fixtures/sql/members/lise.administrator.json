@@ -1,0 +1,13 @@
+{
+  "id": 555555,
+  "user_id": 125884,
+  "review_id": 2,
+  "user_uid": 50073466,
+  "agenda_uid": 2,
+  "credential": 2,
+  "created_at": "2017-10-30 14:21:07",
+  "updated_at": "2017-10-30 14:21:07",
+  "deleted_user": 0,
+  "actions_counter": 1,
+  "store": "{\"custom_fields\": {\"contact_name\": \"Lise\"}}"
+}

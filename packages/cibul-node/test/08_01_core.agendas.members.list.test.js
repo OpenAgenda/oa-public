@@ -51,7 +51,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     });
 
     it('total, items and after keys are part of results', () => {
-      expect(result.total).toBe(5);
+      expect(result.total).toBe(6);
 
       expect(_.isArray(result.items)).toBe(true);
       expect(_.isInteger(result.after)).toBe(true);
@@ -61,12 +61,26 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       const nextResult = await core.agendas({ uid: 2 })
         .members.list({ after: result.after });
 
-      expect(nextResult.items.length).toBe(3);
+      expect(nextResult.items.length).toBe(4);
+    });
+
+    it('customAtRoot option', async () => {
+      const { items } = await core.agendas({ uid: 2 })
+        .members.list({}, { customAtRoot: true });
+
+      expect(items[0]).toEqual({
+        name: 'Jan',
+        phone: null,
+        email: null,
+        position: null,
+        organization: null,
+        role: 'contributor'
+      });
     });
   });
 
   describe('api', () => {
-    const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
+    const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL';
     let server;
     let response;
 

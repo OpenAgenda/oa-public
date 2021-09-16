@@ -1,41 +1,37 @@
 'use strict';
 
-const defaultRoles = ['contributor', 'moderator', 'administrator'];
+const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
 async function verify(roles, req, res, next) {
   const {
     members
   } = req.app.services;
 
-  const { isSuperiorTo } = members.utils.compareRoles;
-
-  const member = await members.get({
+  req.member = await members.get({
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
   });
 
-  if (!member) {
+  if (!req.member) {
     return res.status(403).json({
       error: 'user is not a member of agenda',
       agendaUid: req.params.agendaUid
     });
   }
 
-  if (!isSuperiorTo(member.role, 'reader')) {
+  req.access = members.utils.getRoleSlug(req.member.role);
+
+  if (!roles.includes(req.access)) {
     return res.status(403).json({
       error: 'user is not authorized to contribute to agenda',
       agendaUid: req.params.agendaUid
     });
   }
 
-  req.member = member;
-
-  req.access = members.utils.getRoleSlug(req.member.role);
-
   next();
 }
 
-module.exports.load = async (req, _res, next) => {
+async function load(req, _res, next) {
   const {
     members
   } = req.app.services;
@@ -52,8 +48,48 @@ module.exports.load = async (req, _res, next) => {
   req.access = members.utils.getRoleSlug(req.member.role);
 
   next();
+}
+
+async function verifyAccess(memberUserUidParam, req, res, next) {
+  const {
+    members
+  } = req.app.services;
+
+  const { isSuperiorToOrEqual } = members.utils.compareRoles;
+
+  const memberUserUid = parseInt(req.params[memberUserUidParam], 10);
+
+  const selfEdit = memberUserUid && (memberUserUid === req.user.uid);
+
+  if (!isSuperiorToOrEqual(req.member.role, 'moderator') && !selfEdit) {
+    return res.status(403).json({
+      error: 'not authorized'
+    });
+  }
+
+  next();
+}
+
+function verifyRoleEdit(req, res, next) {
+  const {
+    members
+  } = req.app.services;
+
+  const { isSuperiorToOrEqual } = members.utils.compareRoles;
+
+  if (!isSuperiorToOrEqual(req.member.role, req.body.role)) {
+    return res.status(403).json({
+      error: 'not authorized'
+    });
+  }
+
+  next();
+}
+
+module.exports = {
+  load,
+  verify: verify.bind(null, defaultRoles),
+  allow: roles => verify.bind(null, roles),
+  verifyAccess: param => verifyAccess.bind(null, param),
+  verifyRoleEdit
 };
-
-module.exports.verify = verify.bind(null, defaultRoles);
-
-module.exports.allow = roles => verify.bind(null, roles);

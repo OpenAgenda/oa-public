@@ -15,8 +15,10 @@ const {
 module.exports = async ({ services, config, activityQueue }, before, member, context) => {
   log('patched', member);
 
-  const usersSvc = services.users;
-  const { Inbox } = services.inboxes;
+  const {
+    inboxes,
+    users: usersSvc
+  } = services;
 
   try {
     const agenda = await agendas.get({ uid: member.agendaUid }, {
@@ -38,10 +40,10 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       removed: null
     });
 
-    const agendaInbox = new Inbox({
+    const agendaInbox = inboxes ? new inboxes.Inbox({
       type: 'agenda',
       identifier: agenda.uid
-    });
+    }) : null;
 
     const isNewMember = member.userUid && !before.userUid;
     const hasChangedRole = member.userUid && (before.role !== member.role);
@@ -52,7 +54,6 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       && isSuperiorToOrEqual(before.role, 'moderator')
       && !isSuperiorToOrEqual(member.role, 'moderator');
     const isDeleted = member.deletedUser && !before.deletedUser;
-    const isInvited = !isDeleted && !member.userUid;
     const emailChanged = before.custom.email !== member.custom.email;
 
     if (isNewMember) {
@@ -72,7 +73,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       }
     }
 
-    if (isDemotedToContributor || isDeleted) {
+    if (agendaInbox && (isDemotedToContributor || isDeleted)) {
       log('demotion or deletion');
       try {
         await agendaInbox.users.remove({
@@ -81,7 +82,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       } catch (e) {
         log('error', 'failed to remove user from agenda inbox', { member, exception: e });
       }
-    } else if (isPromotedToAdminMod) {
+    } else if (agendaInbox && isPromotedToAdminMod) {
       log('promotion');
       try {
         await agendaInbox.users.add({
