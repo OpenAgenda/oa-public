@@ -58,7 +58,9 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
   });
 
   describe('api', () => {
-    const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
+    const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
+    const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL';
+
     let server;
 
     beforeAll(async () => {
@@ -73,7 +75,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       beforeAll(async () => {
         member = await axios({
           method: 'get',
-          url: `http://localhost:3000/agendas/2/members/1?key=${key}`
+          url: `http://localhost:3000/agendas/2/members/1?key=${contributorKey}`
         }).then(r => r.data);
       });
 
@@ -89,10 +91,34 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       });
     });
 
-    /* describe('unsuccessful calls', async () => {
-      it('contributor does not have access to other members data', async () => {
+    describe('unsuccessful calls', () => {
+      it('404', async () => {
+        let error;
+        try {
+          await axios({
+            method: 'get',
+            url: `http://localhost:3000/agendas/2/members/8978?key=${administratorKey}`
+          });
+        } catch (e) {
+          error = e;
+        }
 
+        expect(error.response.status).toBe(404);
       });
-    }); */
+
+      it('contributor does not have access to other members data', async () => {
+        let error;
+        try {
+          await axios({
+            method: 'get',
+            url: `http://localhost:3000/agendas/2/members/5?key=${contributorKey}`
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.status).toBe(403);
+      });
+    });
   });
 });

@@ -1,5 +1,7 @@
 'use strict';
 
+const { Forbidden } = require('@openagenda/verror');
+
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
 async function verify(roles, req, res, next) {
@@ -62,9 +64,7 @@ async function verifyAccess(memberUserUidParam, req, res, next) {
   const selfEdit = memberUserUid && (memberUserUid === req.user.uid);
 
   if (!isSuperiorToOrEqual(req.member.role, 'moderator') && !selfEdit) {
-    return res.status(403).json({
-      error: 'not authorized'
-    });
+    return next(new Forbidden('not authorized to access requested member data'));
   }
 
   next();

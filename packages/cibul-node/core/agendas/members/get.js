@@ -16,12 +16,11 @@ async function get(services, preloadedOptions, agendaOrUid, userUid) {
   }, preloadedOptions).then(m => (m ? format(services.members, m) : null));
 }
 
-module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
+module.exports = Object.assign((services, agendaOrUid, userUid) => get(
   services,
-  {},
+  { throwOnNotFound: true },
   agendaOrUid,
-  userUid,
-  options
+  userUid
 ), {
   is: (services, agendaOrUid, userUid) => get(
     services,
