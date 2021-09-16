@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const { NotFound } = require('@openagenda/verror');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const { fromDB } = require('./lib/transformDBEntry');
 
@@ -15,7 +16,7 @@ async function _decorateWithDetailed({ interfaces }, member) {
 }
 
 function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
-  const { legacy, detailed, customDataAtRoot } = cleanGetOptions(options);
+  const cleanOptions = cleanGetOptions(options);
 
   const where = _.isObject(identifier)
     ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) => _.snakeCase(k))
@@ -32,14 +33,10 @@ function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
           'store',
           'deleted_user',
           'actions_counter',
-        ].concat(legacy ? ['user_id', 'review_id'] : [])
+        ].concat(cleanOptions.legacy ? ['user_id', 'review_id'] : [])
       )
       .where(where),
-    options: {
-      customDataAtRoot,
-      detailed,
-      legacy,
-    },
+    options: cleanOptions,
   };
 }
 
@@ -57,6 +54,10 @@ async function get(config, identifier, options = {}) {
     },
     await query
   );
+
+  if (!member && cleanOptions.throwOnNotFound) {
+    throw new NotFound('member not found');
+  }
 
   if (member && cleanOptions.detailed) {
     await _decorateWithDetailed(config, member);

@@ -62,6 +62,19 @@ describe('members - functional - get', () => {
       expect(otherMember).toBeNull();
     });
 
+    test('if throwOnNotFound is specified, throws if no member is found', async () => {
+      let error;
+      try {
+        await svc.get(
+          { agendaUid: 18839, userUid: 3 },
+          { throwOnNotFound: true }
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('NotFound');
+    });
+
     test('custom data is provided in custom key', () => {
       expect(member.custom).toEqual({
         organization: 'Idpt',
