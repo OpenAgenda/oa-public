@@ -15,10 +15,7 @@ async function verify(roles, req, res, next) {
   });
 
   if (!req.member) {
-    return res.status(403).json({
-      error: 'user is not a member of agenda',
-      agendaUid: req.params.agendaUid
-    });
+    return next(new Forbidden('not authorized to create members'));
   }
 
   req.access = members.utils.getRoleSlug(req.member.role);
@@ -59,11 +56,11 @@ async function verifyAccess(memberUserUidParam, req, res, next) {
 
   const { isSuperiorToOrEqual } = members.utils.compareRoles;
 
-  const memberUserUid = parseInt(req.params[memberUserUidParam], 10);
+  const memberUserUid = memberUserUidParam ? parseInt(req.params[memberUserUidParam], 10) : req.user.uid;
 
   const selfEdit = memberUserUid && (memberUserUid === req.user.uid);
 
-  if (!isSuperiorToOrEqual(req.member.role, 'moderator') && !selfEdit) {
+  if (!req.member || (!isSuperiorToOrEqual(req.member.role, 'moderator') && !selfEdit)) {
     return next(new Forbidden('not authorized to access requested member data'));
   }
 

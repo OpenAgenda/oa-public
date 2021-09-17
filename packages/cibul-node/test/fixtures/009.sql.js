@@ -10,12 +10,14 @@ const raw = resetAndCreateTables();
 raw.push(knex('user').insert([
   require('./sql/users/01.json'), // user id 1, uid 1
   require('./sql/users/thibaud.json'),
-  require('./sql/users/lise.json')
+  require('./sql/users/lise.json'),
+  require('./sql/users/chrissie.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
   require('./sql/apiKeySets/01.json'), // user id 1
-  require('./sql/apiKeySets/lise.keys.json')
+  require('./sql/apiKeySets/lise.keys.json'),
+  require('./sql/apiKeySets/chrissie.keys.json')
 ]));
 
 raw.push(knex('review').insert([

@@ -60,6 +60,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
   describe('api', () => {
     const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL';
+    const nonMemberKey = 'oI8hAhFOm1if8auC1Vg1NLegP36aMb0t';
 
     let server;
 
@@ -106,7 +107,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         expect(error.response.status).toBe(404);
       });
 
-      it('contributor does not have access to other members data', async () => {
+      it('403 - contributor does not have access to other members data', async () => {
         let error;
         try {
           await axios({
@@ -118,6 +119,20 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         }
 
         expect(error.response.status).toBe(403);
+      });
+
+      it('Non-member does not have access to get', async () => {
+        let response;
+        try {
+          await axios({
+            method: 'get',
+            url: `http://localhost:3000/agendas/2/members/8978?key=${nonMemberKey}`
+          });
+        } catch (e) {
+          response = e.response;
+        }
+
+        expect(response.status).toBe(403);
       });
     });
   });

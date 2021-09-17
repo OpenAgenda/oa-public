@@ -111,5 +111,80 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');
       });
     });
+
+    describe('unsuccessful calls', () => {
+      it('non-member cannot create member', async () => {
+        let response;
+
+        const nonMemberAccessToken = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/requestAccessToken',
+          headers: {
+            'content-type': 'application/json'
+          },
+          data: {
+            code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U'
+          }
+        }).then(r => r.data.access_token);
+
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/2/members',
+            headers: {
+              'access-token': nonMemberAccessToken,
+              nonce: 89189389,
+              'content-type': 'application/json'
+            },
+            data: {
+              name: 'Hélène',
+              position: 'Responsable de communication',
+              role: 'administrator',
+              userUid: 10866730
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+
+        expect(response.status).toBe(403);
+      });
+
+      it('contributor cannot create member', async () => {
+        let response;
+        const contributorAccessToken = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/requestAccessToken',
+          headers: {
+            'content-type': 'application/json'
+          },
+          data: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+          }
+        }).then(r => r.data.access_token);
+
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/2/members',
+            headers: {
+              'access-token': contributorAccessToken,
+              nonce: 89189389,
+              'content-type': 'application/json'
+            },
+            data: {
+              name: 'Hélène',
+              position: 'Responsable de communication',
+              role: 'administrator',
+              userUid: 10866730
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+
+        expect(response.status).toBe(403);
+      });
+    });
   });
 });

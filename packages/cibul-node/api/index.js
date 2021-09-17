@@ -339,6 +339,15 @@ module.exports = core => {
       .then(data => res.json({ ...data, success: true }), next);
   });
 
+  app.get('/me/agendas/:agendaUid', [
+    mw.member.load,
+    mw.member.verifyAccess(),
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .get(req.user.uid)
+      .then(member => res.json(member), next)
+  ]);
+
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {
       includeFields: req.query.fields ? [].concat(req.query.fields) : null
