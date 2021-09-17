@@ -2,6 +2,7 @@
 
 const decorateWithCounts = require('./decorateWithCounts');
 const injectImagePath = require('./injectImagePath');
+const legacy = require('./legacy');
 
 module.exports = async (service, items, options = {}) => {
   const {
@@ -12,11 +13,15 @@ module.exports = async (service, items, options = {}) => {
     includeImagePath,
   } = options;
 
-  const transformed = items.map(i => service.fieldUtils.fromEntryToItem(i, {
-    access: detailed ? 'public' : 'list',
-    includeFields,
-    nullifyUndefined: true
-  }));
+  const transformed = items.map(entry => {
+    const location = service.fieldUtils.fromEntryToItem(entry, {
+      access: detailed ? 'public' : 'list',
+      includeFields,
+      nullifyUndefined: true
+    });
+
+    return legacy.load(location, entry);
+  });
 
   if (service.interfaces.getEventCounts && includeEventCounts) {
     decorateWithCounts(
