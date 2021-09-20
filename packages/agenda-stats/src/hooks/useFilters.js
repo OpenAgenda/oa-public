@@ -99,7 +99,7 @@ export default function useFilters(agendaSchema) {
       )
       .map(fieldSchema => ({
         name: fieldSchema.field,
-        type: fieldSchema.fieldType,
+        type: 'choice',
         fieldSchema,
         options: fieldSchema.options.map(option => ({
           ...option,
