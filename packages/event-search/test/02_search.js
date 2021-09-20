@@ -332,6 +332,18 @@ describe('02 - event search - functional: search', function() {
           ['quimper_event']
         );
       });
+
+      it('open search on a location name', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Cathédrale'
+        });
+
+        assert.equal(total, 1);
+        assert.equal(events[0].slug, 'quimper_event');
+      });
   
       it('open search on country name in french', async () => {
         const {

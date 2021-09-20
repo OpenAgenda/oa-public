@@ -4,25 +4,9 @@ import React, { Component } from 'react';
 import labels from '@openagenda/labels/agenda-contribute/event';
 import makeLabelGetter from '@openagenda/labels';
 
+import getEventTitle from '../lib/getEventTitle';
+
 const getLabel = makeLabelGetter(labels);
-
-const renderTitle = (event, lang) => {
-  const titleLanguages = Object.keys(event.title || {});
-
-  const eventLanguage = titleLanguages.includes(lang) ? lang : titleLanguages.shift();
-
-  const title = [];
-
-  if (event.draft) {
-    title.push(labels.editDraftTitle[lang]);
-  }
-
-  if (eventLanguage) {
-    title.push(event.title[eventLanguage]);
-  }
-
-  return title.join(': ');
-}
 
 export default class Canvas extends Component {
   componentDidMount() {
@@ -31,9 +15,9 @@ export default class Canvas extends Component {
   renderAddHeader() {
     const { event, lang, fromAgenda, agenda } = this.props;
     return <div className="margin-v-lg">
-      <h3 class="margin-bottom-md">{getLabel('shareEvent', lang)}</h3>
+      <h3 className="margin-bottom-md">{getLabel('shareEvent', lang)}</h3>
       <div className="margin-v-md">
-        <p>{getLabel('takeEvent', lang)} <strong>{renderTitle(event, lang)}</strong></p>
+        <p>{getLabel('takeEvent', lang)} <strong>{getEventTitle(event, lang)}</strong></p>
         <p>{getLabel('fromAgenda', lang)} <a target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
         <p>{getLabel('toAgenda', lang)} <a target="_blank" href={`/agendas/${agenda.uid}`}><span>{agenda.title}</span></a></p>
       </div>
@@ -42,7 +26,7 @@ export default class Canvas extends Component {
   renderEditHeader() {
     const { event, lang } = this.props;
     return <div className="margin-v-lg">
-      <h3>{renderTitle(event, lang)}</h3>
+      <h3>{getEventTitle(event, lang)}</h3>
     </div>
   }
   render() {

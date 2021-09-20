@@ -50,3 +50,9 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 ## structure d'un projet
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
+
+## openssl
+
+Si une clé fournie commence par `-----BEGIN ENCRYPTED PRIVATE KEY-----`, elle est encryptée et doit être décryptée par mot de passe avant son utilisation dans nginx. Une fois le mot de passe en main, la commande pour la décrypter est la suivante:
+
+    openssl rsa -in /path/to/encrypted/key -out /path/to/decrypted/key

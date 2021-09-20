@@ -37,10 +37,19 @@ function deleteDraft() {
   }
 }
 
-function close(values, response) {
-  return (dispatch, getState) => doRedirect(
-    getState().config.redirects
-  );
+function close() {
+  return (dispatch, getState) => {
+    const {
+      config: {
+        redirects
+      },
+      event
+    } = getState();
+    doRedirect(
+      redirects,
+      event
+    );
+  }
 }
 
 function redirect(values, response) {

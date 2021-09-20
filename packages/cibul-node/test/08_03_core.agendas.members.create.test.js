@@ -1,0 +1,190 @@
+'use strict';
+
+const axios = require('axios');
+
+const api = require('../api');
+const Services = require('../services/init');
+const Core = require('../core');
+const loadFixtures = require('./fixtures/load');
+const testConfig = require('./testConfig');
+
+describe('08 - core - functional (server): core.agendas().members.create', () => {
+  let core;
+
+  beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
+
+  beforeAll(async () => {
+    const services = await Services(testConfig, {
+      enabled: [
+        'knex',
+        'redis',
+        'accessTokens',
+        'files',
+        'queues',
+        'events',
+        'agendas',
+        'agendaEvents',
+        'agendaLocations',
+        'formSchemas',
+        'custom',
+        'eventSearch',
+        'members',
+        'networks',
+        'legacy',
+        'users',
+        'keys',
+        'trackers'
+      ]
+    });
+
+    core = Core(services, testConfig);
+  });
+
+  afterAll(() => core.services.shutdown({ clear: true }));
+
+  describe('results contents', () => {
+    it('basic create', async () => {
+      const member = await core.agendas({ uid: 2 }).members.create(82253124, 'administrator', {
+        name: 'Fred',
+        phone: '06'
+      });
+
+      expect(member).toEqual({
+        name: 'Fred',
+        phone: '06',
+        email: null,
+        position: null,
+        organization: null,
+        role: 'administrator'
+      });
+    });
+  });
+
+  describe('api', () => {
+    let server;
+    let accessToken;
+
+    beforeAll(async () => {
+      server = await api(core).listen(3000);
+    });
+
+    afterAll(() => server.close());
+
+    beforeAll(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL'
+        }
+      }).then(r => r.data.access_token);
+    });
+
+    describe('successfull call', () => {
+      beforeAll(async () => {
+        await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/2/members',
+          headers: {
+            'access-token': accessToken,
+            nonce: 1238978,
+            'content-type': 'application/json'
+          },
+          data: {
+            name: 'Hélène',
+            position: 'Responsable de communication',
+            role: 'administrator',
+            userUid: 10866730
+          }
+        }).then(r => r.data);
+      });
+
+      it('member data is saved', async () => {
+        const entry = await core.services.knex('reviewer')
+          .first()
+          .where({ user_uid: 10866730, agenda_uid: 2 });
+
+        expect(entry.credential).toBe(2);
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');
+      });
+    });
+
+    describe('unsuccessful calls', () => {
+      it('non-member cannot create member', async () => {
+        let response;
+
+        const nonMemberAccessToken = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/requestAccessToken',
+          headers: {
+            'content-type': 'application/json'
+          },
+          data: {
+            code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U'
+          }
+        }).then(r => r.data.access_token);
+
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/2/members',
+            headers: {
+              'access-token': nonMemberAccessToken,
+              nonce: 89189389,
+              'content-type': 'application/json'
+            },
+            data: {
+              name: 'Hélène',
+              position: 'Responsable de communication',
+              role: 'administrator',
+              userUid: 10866730
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+
+        expect(response.status).toBe(403);
+      });
+
+      it('contributor cannot create member', async () => {
+        let response;
+        const contributorAccessToken = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/requestAccessToken',
+          headers: {
+            'content-type': 'application/json'
+          },
+          data: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+          }
+        }).then(r => r.data.access_token);
+
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/2/members',
+            headers: {
+              'access-token': contributorAccessToken,
+              nonce: 89189389,
+              'content-type': 'application/json'
+            },
+            data: {
+              name: 'Hélène',
+              position: 'Responsable de communication',
+              role: 'administrator',
+              userUid: 10866730
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+
+        expect(response.status).toBe(403);
+      });
+    });
+  });
+});

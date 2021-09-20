@@ -33,14 +33,12 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     access,
     draft,
     defaultLang,
-    formSchemaDataFormat,
     filterUnauthorizedData,
     returnPayload,
   } = {
     access: 'public', // read or write?
     draft: false,
     defaultLang: 'en',
-    formSchemaDataFormat: false,
     filterUnauthorizedData: false,
     returnPayload: false,
     ...options
@@ -57,7 +55,6 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     draft,
     defaultLang,
     filterUnauthorizedData,
-    formSchemaDataFormat,
     member,
     access
   });

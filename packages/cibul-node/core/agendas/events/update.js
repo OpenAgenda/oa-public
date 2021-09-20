@@ -30,7 +30,6 @@ const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && 
 
 async function update(core, agendaUid, eventUid, data, options = {}) {
   log('info', 'updating event %s on agenda %s', eventUid, agendaUid);
-
   const {
     events,
     agendaEvents,

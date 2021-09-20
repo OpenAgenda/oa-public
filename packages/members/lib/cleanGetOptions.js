@@ -16,4 +16,12 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
+  customDataAtRoot: {
+    type: 'boolean',
+    default: false,
+  },
+  throwOnNotFound: {
+    type: 'boolean',
+    default: false,
+  },
 });

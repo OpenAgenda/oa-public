@@ -161,8 +161,8 @@ describe('agenda-locations - functional - get', () => {
     });
 
     it('location can be fetched by its extId', async () => {
-      const location = await svc.get({ extId: 'ard_03' });
-      expect(location.uid).toBe(7630649);
+      const location = await svc.get({ extId: 'ard_01' });
+      expect(location.uid).toBe(30433085);
     });
 
     it('uid can be provided as a string', async () => {

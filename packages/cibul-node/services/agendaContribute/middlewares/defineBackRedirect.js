@@ -7,6 +7,6 @@ module.exports = (req, res, next) => {
   try {
     log('decoding redirect %s', req.query.redirect);
     req.backRedirect = Buffer.from(req.query.redirect, 'base64').toString();
-  } catch (e) {}
+  } catch (e) { /* */ }
   next();
-}
+};

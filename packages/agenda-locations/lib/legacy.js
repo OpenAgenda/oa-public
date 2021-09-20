@@ -15,11 +15,12 @@ module.exports.patch = produce((entry, currentItem, currentEntry) => {
   entry.store = JSON.stringify(store);
 });
 
-module.exports.load = produce((location, entry) => {
+module.exports.load = (location, entry) => {
   const store = entry?.store ? JSON.parse(entry.store) : {};
   const fields = Object.keys(location);
 
-  if (fields.includes('extId') && store.extId) {
+  if (fields.includes('extId') && !location.extId && store.extId) {
     location.extId = store.extId;
   }
-});
+  return location;
+};

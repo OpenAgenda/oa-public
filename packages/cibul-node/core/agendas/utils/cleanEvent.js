@@ -10,7 +10,13 @@ const eventSchema = require('@openagenda/event-form/src/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
 const { BadRequest } = require('@openagenda/verror');
 
-const eventFields = eventSchema.eventFields({}).map(f => f.field);
+const labels = require('@openagenda/labels/event/form');
+
+const eventFields = eventSchema.eventFields({
+  labels
+});
+
+const eventFieldNames = eventFields.map(f => f.field);
 
 const invalidLocationUidErrorItem = uid => ({
   field: 'location',
@@ -25,7 +31,7 @@ function asArray(obj) {
 }
 
 function containsEventData(data) {
-  return !!Object.keys(data ?? {}).filter(f => eventFields.includes(f)).length;
+  return !!Object.keys(data ?? {}).filter(f => eventFieldNames.includes(f)).length;
 }
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
@@ -215,3 +221,4 @@ async function cleanEvent(services, agenda, data, options = {}) {
 module.exports = cleanEvent;
 module.exports.validateEvent = validateEvent;
 module.exports.containsEventData = containsEventData;
+module.exports.eventFields = eventFields;

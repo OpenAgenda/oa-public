@@ -3,14 +3,14 @@
 const _ = require('lodash');
 const contribute = require('@openagenda/agenda-contribute');
 
-const cmn = require('../../../lib/commons-app');
-const outdatedBrowserMw = require('../../../lib/outdatedBrowser.mw');
-const trackingScripts = require('../../../lib/trackingScripts');
-const loadLegacyRoutes = require('../legacy');
-const middlewares = require('../middlewares');
-const memberSchema = require('./memberSchema');
-const isDraftRequested = require('./isDraftRequested');
-const redirectToSignup = require('./redirectToSignup');
+const cmn = require('../../lib/commons-app');
+const outdatedBrowserMw = require('../../lib/outdatedBrowser.mw');
+const trackingScripts = require('../../lib/trackingScripts');
+const loadLegacyRoutes = require('./legacy');
+const mw = require('./middlewares');
+const memberSchema = require('./lib/memberSchema');
+const isDraftRequested = require('./lib/isDraftRequested');
+const redirectToSignup = require('./lib/redirectToSignup');
 
 const agendaNotFound = ns => (req, res, next) => (req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 }));
 
@@ -58,6 +58,10 @@ module.exports = (config, services) => parentApp => {
       field: 'uid',
       target: 'fromAgenda'
     }),
+    mw.isReferenced({
+      andPublished: mw.isReferenced.redirectToSharedEventWithMessage,
+      andNotPublished: mw.isReferenced.redirectBackWithMessage
+    }),
     agendaNotFound('fromAgenda')
   );
 
@@ -65,7 +69,7 @@ module.exports = (config, services) => parentApp => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
-  ], middlewares.event);
+  ], mw.event);
 
   parentApp.all([
     '/:agendaSlug/contribute',
@@ -75,21 +79,21 @@ module.exports = (config, services) => parentApp => {
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], [
     sessions.mw.ifUnlogged(redirectToSignup),
-    middlewares.member.bind(null, members),
-    middlewares.schemaExtensions,
-    middlewares.duplicateFromEvent
+    mw.member.bind(null, members),
+    mw.schemaExtensions,
+    mw.duplicateFromEvent
   ]);
 
   parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step'
-  ], middlewares.verifyMemberAuthorization);
+  ], mw.verifyMemberAuthorization);
 
   parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
-  ], middlewares.verifyMemberAuthorization.edit);
+  ], mw.verifyMemberAuthorization.edit);
 
   parentApp.get(
     '/:agendaSlug/contribute/event',
@@ -111,10 +115,15 @@ module.exports = (config, services) => parentApp => {
     setInReq({ mode: 'create', draft: true })
   );
 
+  parentApp.get(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    mw.validateNonEditableEventStandardFields
+  );
+
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
     setInReq({ mode: 'add' }),
-    middlewares.addAndRedirectIfNothingToEdit
+    mw.addAndRedirectIfNothingToEdit
   );
 
   parentApp.post(
@@ -125,7 +134,7 @@ module.exports = (config, services) => parentApp => {
 
   parentApp.get(
     '/:agendaSlug/contribute/event/:eventUid',
-    middlewares.defineBackRedirect
+    mw.defineBackRedirect
   );
 
   parentApp.all(
@@ -155,9 +164,10 @@ module.exports = (config, services) => parentApp => {
         },
         referencesRes: `/api/agendas/${req.event ? req.event.agendaUid : req.agenda.uid}/events`,
         suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
+        suggestChangeRes: req.params.eventUid ? `/${req.agenda.slug}/admin/events/${req.event.slug}/contact` : null,
         fileStore: { type: 's3', bucket },
         redirects: {
-          back: req.backRedirect,
+          back: req.backRedirect || (req.params.fromAgendaUid ? `/agendas/${req.params.fromAgendaUid}/events/${req.event.uid}` : null),
           seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
           createOtherEvent: `/${req.agenda.slug}/contribute`,
           duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
@@ -175,7 +185,8 @@ module.exports = (config, services) => parentApp => {
         confirmation: {
           message: _.get(req, 'agenda.settings.contribution.messages.complete'),
           state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
-        }
+        },
+        standardFieldsErrors: req.standardFieldsErrors ?? []
       };
 
       req.translateMode = Boolean(req.cookies.translateMode);

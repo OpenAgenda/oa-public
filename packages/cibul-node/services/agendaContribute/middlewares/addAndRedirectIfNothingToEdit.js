@@ -1,10 +1,23 @@
 'use strict';
 
+const marked = require('marked');
 const log = require('@openagenda/logs')('services/agendaContribute/middleware/addAndRedirectIfNothingToEdit');
 const base64 = require('@openagenda/utils/base64');
-const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/actions'));
+const makeLabelGetter = require('@openagenda/labels');
+const labels = require('@openagenda/labels/agenda-contribute/share');
+
+const getLabel = makeLabelGetter(labels);
 
 module.exports = (req, res, next) => {
+  const {
+    agendaEvents,
+    sessions
+  } = req.app.services;
+
+  const {
+    PUBLISHED
+  } = agendaEvents.states;
+
   const additionalFieldCount = req.schemaExtensions
     .reduce((fields, schema) => fields.concat(schema.fields), [])
     .filter(f => f.fieldType !== 'abstract')
@@ -19,7 +32,18 @@ module.exports = (req, res, next) => {
       }).then(result => {
         const redirect = req.query.redirect ? base64.decode(req.query.redirect) : null;
 
-        req.app.services.sessions.setFlash(req, res, getLabel(req.event.state === 2 ? 'agendaSharePublished' : 'agendaShareToControl', { agenda: req.agenda.title }, req.lang));
+        const {
+          state
+        } = result;
+
+        sessions.setFlash(req, res, marked(
+          getLabel(state === PUBLISHED ? 'sharedAndPublished' : 'sharedAndUnpublished', {
+            agendaTitle: req.agenda.title,
+            agendaLink: `/agendas/${req.agenda.uid}`,
+            eventLink: `/agendas/${req.agenda.uid}/events/${req.event.uid}`
+          }, req.lang),
+          { breaks: true }
+        ));
 
         if (redirect) {
           log('redirecting to %s', redirect);
@@ -33,4 +57,4 @@ module.exports = (req, res, next) => {
   }
 
   next();
-}
+};
