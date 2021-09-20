@@ -102,7 +102,7 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
   if (fieldSchema) {
     assignIfEmpty(filter, {
       name: fieldSchema.field,
-      type: fieldSchema.fieldType,
+      type: 'choice',
       fieldSchema,
       options: fieldSchema.options.map(option => ({
         ...option,
