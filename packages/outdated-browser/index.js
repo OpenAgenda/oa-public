@@ -128,20 +128,18 @@ function main(options = {}) {
   startStylesAndEvents();
 }
 
-const options = typeof window !== 'undefined' && window.oaOutdatedOptions;
+const options = typeof window !== 'undefined' && window.outdatedBrowserOptions;
 
-if (options) {
-  // Load main when DOM ready.
-  if (typeof window.onload !== 'function') {
-    window.onload = () => main(options);
-  } else {
-    const oldOnload = window.onload;
+// Load main when DOM ready.
+if (typeof window.onload !== 'function') {
+  window.onload = () => main(options);
+} else {
+  const oldOnload = window.onload;
 
-    window.onload = function onload() {
-      if (oldOnload) {
-        oldOnload(undefined);
-      }
-      main(options);
-    };
-  }
+  window.onload = function onload() {
+    if (oldOnload) {
+      oldOnload();
+    }
+    main(options);
+  };
 }

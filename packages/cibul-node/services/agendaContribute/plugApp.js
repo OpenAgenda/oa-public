@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 const contribute = require('@openagenda/agenda-contribute');
+const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
 const cmn = require('../../lib/commons-app');
-const outdatedBrowserMw = require('../../lib/outdatedBrowser.mw');
 const trackingScripts = require('../../lib/trackingScripts');
 const loadLegacyRoutes = require('./legacy');
 const mw = require('./middlewares');
@@ -198,7 +198,7 @@ module.exports = (config, services) => parentApp => {
 
       if (req.outdatedBrowser) {
         req.scripts.top.push(
-          { body: `window.oaOutdatedOptions = { language: "${req.lang}" };` },
+          { body: `window.outdatedBrowserOptions = { language: "${req.lang}" };` },
           { src: contribute.getClientScriptPath('outdated.js') }
         );
       }

@@ -14,5 +14,7 @@ module.exports = function outdatedBrowserMw(req, res, next) {
     req.outdatedBrowser = true;
   }
 
-  next();
+  if (typeof next === 'function') {
+    next();
+  }
 }
