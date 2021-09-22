@@ -16,7 +16,7 @@ function _preEventTransform(options, event, req, res) {
   return [
     flatten.bind(
       null,
-      ['dateRange', 'range', 'title', 'description', 'longDescription', 'html', 'conditions'],
+      ['dateRange', 'range', 'title', 'description', 'longDescription', 'html', 'conditions', 'location.access', 'location.description'],
       res.locals.lang
     ),
     defineEventTimezone.bind(null, options),
