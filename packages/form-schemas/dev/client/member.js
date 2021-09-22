@@ -39,6 +39,9 @@ const props = {
       fieldType: 'email',
       optional: false
     }]
+  },
+  onCancel: () => {
+    console.log('cancelled');
   }
 };
 

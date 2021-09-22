@@ -403,6 +403,9 @@ export default class FormSchemaComponent extends Component {
   }
 
   renderBottomActions() {
+    const {
+      onCancel
+    } = this.props;
     const matching = _.first(_.get(this.props, 'actionComponents', []).filter(a => a.position === 'bottom'));
 
     const loading = this.get('loading');
@@ -419,8 +422,11 @@ export default class FormSchemaComponent extends Component {
 
     return (
       <div style={{ position: 'relative' }} className={_.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'}>
-        <button className={loading ? 'btn btn-default' : 'btn btn-primary'} type="submit" disabled={loading} onClick={this.onSubmit}>{labels.main.submit}</button>
-        {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
+        {onCancel ? <button type="button" className="btn btn-default" onClick={() => onCancel()}>{labels.main.cancel}</button> : null}
+        <div className={onCancel ? 'pull-right' : null}>
+          {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
+          <button className={loading ? 'btn btn-default' : 'btn btn-primary'} type="submit" disabled={loading} onClick={this.onSubmit}>{labels.main.submit}</button>
+        </div>
       </div>
     );
   }
