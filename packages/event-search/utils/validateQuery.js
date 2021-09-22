@@ -48,6 +48,14 @@ const validate = schema({
     type: 'text',
     list: true
   },
+  adminLevel3: {
+    type: 'text',
+    list: true
+  },
+  adminLevel5: {
+    type: 'text',
+    list: true
+  },
   department: {
     type: 'text',
     list: true

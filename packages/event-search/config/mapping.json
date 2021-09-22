@@ -45,6 +45,12 @@
       "region": {
         "type": "keyword"
       },
+      "adminLevel3": {
+        "type": "keyword"
+      },
+      "adminLevel5": {
+        "type": "keyword"
+      },
       "countryCode": {
         "type": "keyword"
       },
