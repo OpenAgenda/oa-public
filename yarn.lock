@@ -5303,6 +5303,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/leaflet.markercluster": ^0.4.0
     "@openagenda/member-apps": ^2.1.1
+    "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
@@ -5345,7 +5346,6 @@ __metadata:
     moment-timezone: ^0.5.31
     node-sass: ^4.5.2
     nodemon: ^2.0.6
-    outdated-browser-rework: ^1.0.2
     path-browserify: ^1.0.1
     point-in-polygon: ^1.0.1
     prop-types: ^15.5.8
@@ -30247,15 +30247,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"outdated-browser-rework@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "outdated-browser-rework@npm:1.0.2"
-  dependencies:
-    ua-parser-js: ^0.7.0
-  checksum: 44997497b00711f43ab020f2b54ad52973344bf216877cb37f263b919ee1a2d813a53da04c84a544be4148d4ff472baaaa2ab23d368b374b97f7603a90f94ecc
-  languageName: node
-  linkType: hard
-
 "outlayer@npm:^2.1.0":
   version: 2.1.1
   resolution: "outlayer@npm:2.1.1"
@@ -39515,7 +39506,7 @@ typescript@^4.0:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^0.7.0, ua-parser-js@npm:^0.7.18":
+"ua-parser-js@npm:^0.7.18":
   version: 0.7.21
   resolution: "ua-parser-js@npm:0.7.21"
   checksum: 5c1f523e784442ee03d859981fccd642c3825c50365148c3803e151ba19419cef0ec1c47af9ebde1cb7be211ed194d255f7e5ba659a9f1f77d3c674da7b454da
