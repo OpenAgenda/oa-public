@@ -3,7 +3,6 @@
 const path = require('path');
 const express = require('express');
 const httpProxy = require('http-proxy');
-const { matchesUA } = require('browserslist-useragent');
 const matchMw = require('@openagenda/react-integration-app/middleware');
 const inboxLabels = require('@openagenda/labels/inboxes');
 const makeLabelGetter = require('@openagenda/labels');
@@ -31,26 +30,6 @@ const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
     };
     res.end(JSON.stringify(json));
   }) : null;
-
-function outdatedBrowserMw(req, res, next) {
-  const userAgent = req.headers['user-agent'];
-
-  if (!userAgent) {
-    return next();
-  }
-
-  const outdatedBrowser = !matchesUA(userAgent, {
-    ignoreMinor: true,
-    ignorePatch: true,
-    allowHigherVersions: true
-  });
-
-  if (outdatedBrowser) {
-    req.outdatedBrowser = true;
-  }
-
-  next();
-}
 
 function getSupportMessage(req, lang) {
   switch (req.query.subject) {
@@ -494,7 +473,7 @@ module.exports = app => {
     ],
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oasfmain.css'),
-    outdatedBrowserMw,
+    // outdatedBrowserMw, // Already added with loadBaseData
     (req, res, next) => matchMw({
       initialState,
       // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined

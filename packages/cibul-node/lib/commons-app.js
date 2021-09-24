@@ -15,6 +15,7 @@ const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
 const expressUtils = require( '@openagenda/utils/express' );
+const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedPrivate' ) );
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
@@ -87,7 +88,7 @@ function addTrackingScripts(req, agenda) {
   _.set(
     req.baseData,
     'bottom.scripts',
-    (req.baseData?.scripts?.bottom ?? []).concat(trackingScripts({
+    (req.baseData?.bottom?.scripts ?? []).concat(trackingScripts({
       googleAnalyticsID: _.get(req, 'googleAnalyticsId', config.googleAnalyticsId),
       matomoCloudCode: config.matomoCloudCode,
       agenda
@@ -434,14 +435,17 @@ function loadBaseData( func, cssFile ) {
 
   return ( req, res, next ) => {
 
+    outdatedBrowserMw(req, res);
+
     const baseData = {
       head: {
         css: {
           main: '/css/' + cssFile
         },
-        js: {
-          outdated: '/js/outdated.js'
-        }
+        js: {}
+      },
+      bottom: {
+        scripts: []
       },
       scriptsBase: '/js',
       domain: config.domain
@@ -461,8 +465,10 @@ function loadBaseData( func, cssFile ) {
 
     req.baseData = _.merge( req.baseData || {}, baseData );
 
-    if ( !_.get( req, 'baseData.bottom.scripts' ) ) {
-      _.set( req, 'baseData.bottom.scripts', [] );
+    if (req.outdatedBrowser) {
+      // Note: bottom is before head
+      req.baseData.bottom.scripts.push(`window.outdatedBrowserOptions = { language: "${req.lang}" };`);
+      req.baseData.head.js.outdated = '/js/outdated.js';
     }
 
     req.baseData.translateMode = Boolean(req.cookies.translateMode);

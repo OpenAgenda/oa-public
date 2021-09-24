@@ -606,61 +606,61 @@
   "EventAdminApp.EventItem.statusCancelled": [
     {
       "type": 0,
-      "value": "Cancelled"
+      "value": "Annulé"
     }
   ],
   "EventAdminApp.EventItem.statusCancelledInfo": [
     {
       "type": 0,
-      "value": "The event has been permanently cancelled"
+      "value": "L'événement a été annulé de manière permanente"
     }
   ],
   "EventAdminApp.EventItem.statusFull": [
     {
       "type": 0,
-      "value": "Fully booked"
+      "value": "Complet"
     }
   ],
   "EventAdminApp.EventItem.statusFullInfo": [
     {
       "type": 0,
-      "value": "New participants are no longer accepted to the event"
+      "value": "L'événement n'accepte plus de nouveaux participants"
     }
   ],
   "EventAdminApp.EventItem.statusMovedOnline": [
     {
       "type": 0,
-      "value": "Moved online"
+      "value": "Déplacé en ligne"
     }
   ],
   "EventAdminApp.EventItem.statusMovedOnlineInfo": [
     {
       "type": 0,
-      "value": "The event will no longer be attended to at a physical location"
+      "value": "La participation de l'événement n'est désormais plus possible en présentiel"
     }
   ],
   "EventAdminApp.EventItem.statusPostponed": [
     {
       "type": 0,
-      "value": "Postponed"
+      "value": "Reporté"
     }
   ],
   "EventAdminApp.EventItem.statusPostponedInfo": [
     {
       "type": 0,
-      "value": "The event dates are no longer valid. New dates are not yet known"
+      "value": "L'événement a été reporté à des dates encore non connues"
     }
   ],
   "EventAdminApp.EventItem.statusRescheduled": [
     {
       "type": 0,
-      "value": "Rescheduled"
+      "value": "Reprogrammé"
     }
   ],
   "EventAdminApp.EventItem.statusRescheduledInfo": [
     {
       "type": 0,
-      "value": "The timings and dates of the event have been modified"
+      "value": "Les dates et/ou horaires de l'événement ont été modifiées"
     }
   ],
   "EventAdminApp.EventItem.unnamedMemberInfo": [

@@ -76,7 +76,8 @@ export default config => {
     });
 
     if (!isURL(clean, {
-      allow_protocol_relative_urls: true
+      allow_protocol_relative_urls: true,
+      allow_underscores: true
     })) {
       throw error;
     }

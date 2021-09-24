@@ -71,7 +71,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "rimraf": "^3.0.1",
-    "webpack": "^5.35.0"
+    "webpack": "^5.53.0"
   },
   "peerDependencies": {
     "final-form": "^4.20.2",
