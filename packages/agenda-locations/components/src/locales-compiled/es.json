@@ -160,6 +160,18 @@
       "value": "itemCount"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "See uncompleted Locations"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo": [
+    {
+      "type": 0,
+      "value": "Locations that are lacking important information"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
@@ -170,6 +182,36 @@
     {
       "type": 0,
       "value": "Region Suisse"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel3": [
+    {
+      "type": 0,
+      "value": "District"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.CountryField.country": [
@@ -220,6 +262,12 @@
       "value": "Locations selection"
     }
   ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Uncompleted locations"
+    }
+  ],
   "AgendaLocations.Filters.verify": [
     {
       "type": 0,
@@ -254,6 +302,42 @@
     {
       "type": 0,
       "value": "Postal code"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Admin Level 3"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.LocationConfirmation.cancel": [

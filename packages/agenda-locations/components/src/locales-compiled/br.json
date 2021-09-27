@@ -160,6 +160,18 @@
       "value": "itemCount"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "See uncompleted Locations"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo": [
+    {
+      "type": 0,
+      "value": "Locations that are lacking important information"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
@@ -169,7 +181,37 @@
   "AgendaLocations.CH.adminLevel1": [
     {
       "type": 0,
-      "value": "Region Suisse"
+      "value": "Région"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel3": [
+    {
+      "type": 0,
+      "value": "District"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.CountryField.country": [
@@ -181,43 +223,49 @@
   "AgendaLocations.FR.adminLevel1": [
     {
       "type": 0,
-      "value": "Region"
+      "value": "Région"
     }
   ],
   "AgendaLocations.FR.adminLevel2": [
     {
       "type": 0,
-      "value": "Department"
+      "value": "Département"
     }
   ],
   "AgendaLocations.FR.adminLevel3": [
     {
       "type": 0,
-      "value": "Intercommunality"
+      "value": "Intercommunalité"
     }
   ],
   "AgendaLocations.FR.adminLevel4": [
     {
       "type": 0,
-      "value": "City"
+      "value": "Ville"
     }
   ],
   "AgendaLocations.FR.adminLevel5": [
     {
       "type": 0,
-      "value": "adminLevel5"
+      "value": "Arrondissement"
     }
   ],
   "AgendaLocations.FR.adminLevel6": [
     {
       "type": 0,
-      "value": "District"
+      "value": "Quartier"
     }
   ],
   "AgendaLocations.Filters.locationSelection": [
     {
       "type": 0,
       "value": "Sélection de lieux"
+    }
+  ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Uncompleted locations"
     }
   ],
   "AgendaLocations.Filters.verify": [
@@ -229,7 +277,7 @@
   "AgendaLocations.GeoBadges.geocodeFieldCancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annuler"
     }
   ],
   "AgendaLocations.GeoBadges.geocodeFieldSave": [
@@ -241,19 +289,55 @@
   "AgendaLocations.GeoBadges.geocodeNoResults": [
     {
       "type": 0,
-      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+      "value": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse."
     }
   ],
   "AgendaLocations.GeoBadges.insee": [
     {
       "type": 0,
-      "value": "INSEE code"
+      "value": "Code INSEE"
     }
   ],
   "AgendaLocations.GeoBadges.postalCode": [
     {
       "type": 0,
-      "value": "Postal code"
+      "value": "Code postal"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Admin Level 3"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.LocationConfirmation.cancel": [
@@ -295,13 +379,13 @@
   "AgendaLocations.LocationDetails.access": [
     {
       "type": 0,
-      "value": "Access"
+      "value": "Accès"
     }
   ],
   "AgendaLocations.LocationDetails.andOn": [
     {
       "type": 0,
-      "value": "and on"
+      "value": " et sur "
     }
   ],
   "AgendaLocations.LocationDetails.description": [
@@ -313,25 +397,25 @@
   "AgendaLocations.LocationDetails.email": [
     {
       "type": 0,
-      "value": "Contact email"
+      "value": "Email"
     }
   ],
   "AgendaLocations.LocationDetails.emptyGeo": [
     {
       "type": 0,
-      "value": "Empty"
+      "value": "Vide"
     }
   ],
   "AgendaLocations.LocationDetails.extId": [
     {
       "type": 0,
-      "value": "External Identifier"
+      "value": "Identifiant externe"
     }
   ],
   "AgendaLocations.LocationDetails.hoverInfo": [
     {
       "type": 0,
-      "value": "This information is not correct? Click on the button on top of this menu to detail the changes to bring"
+      "value": "Cette information n'est pas correcte? Cliquez sur le bouton en entête de cette modale pour détailler les modifications à apporter"
     }
   ],
   "AgendaLocations.LocationDetails.image": [
@@ -343,19 +427,19 @@
   "AgendaLocations.LocationDetails.insee": [
     {
       "type": 0,
-      "value": "INSEE code"
+      "value": "Code INSEE"
     }
   ],
   "AgendaLocations.LocationDetails.links": [
     {
       "type": 0,
-      "value": "Additional links"
+      "value": "Liens additionnels"
     }
   ],
   "AgendaLocations.LocationDetails.noContent": [
     {
       "type": 0,
-      "value": "No content "
+      "value": "Aucun texte "
     },
     {
       "type": 1,
@@ -363,25 +447,25 @@
     },
     {
       "type": 0,
-      "value": " is defined"
+      "value": " n'est défini"
     }
   ],
   "AgendaLocations.LocationDetails.noImage": [
     {
       "type": 0,
-      "value": "No image is defined"
+      "value": "Aucune illustration n'est définie"
     }
   ],
   "AgendaLocations.LocationDetails.noRefAgendas": [
     {
       "type": 0,
-      "value": "This place is not referenced in any other agenda."
+      "value": "Ce lieu n'est référencé dans aucun autre agenda."
     }
   ],
   "AgendaLocations.LocationDetails.noValue": [
     {
       "type": 0,
-      "value": "Not specified"
+      "value": "Non précisé"
     }
   ],
   "AgendaLocations.LocationDetails.others": [
@@ -400,7 +484,7 @@
           "value": [
             {
               "type": 0,
-              "value": "one other"
+              "value": "un autre"
             }
           ]
         },
@@ -411,7 +495,7 @@
             },
             {
               "type": 0,
-              "value": " others"
+              "value": " autres"
             }
           ]
         }
@@ -424,13 +508,13 @@
   "AgendaLocations.LocationDetails.phone": [
     {
       "type": 0,
-      "value": "Telephone number"
+      "value": "Téléphone"
     }
   ],
   "AgendaLocations.LocationDetails.postalCode": [
     {
       "type": 0,
-      "value": "Postal code"
+      "value": "Code postal"
     }
   ],
   "AgendaLocations.LocationDetails.refAgendas": [
@@ -449,7 +533,7 @@
           "value": [
             {
               "type": 0,
-              "value": "This place is also referenced on the agenda"
+              "value": "Ce lieu est aussi référencé sur l'agenda "
             }
           ]
         },
@@ -457,7 +541,7 @@
           "value": [
             {
               "type": 0,
-              "value": "This place is also referenced on the agendas"
+              "value": "Ce lieu est aussi référencé sur les agendas "
             }
           ]
         }
@@ -470,7 +554,7 @@
   "AgendaLocations.LocationDetails.website": [
     {
       "type": 0,
-      "value": "Website"
+      "value": "Site web"
     }
   ],
   "AgendaLocations.LocationForm.access": [
@@ -1227,37 +1311,37 @@
   "AgendaLocations.adminLevel1": [
     {
       "type": 0,
-      "value": "adminLevel1"
+      "value": "niveau administratif 1"
     }
   ],
   "AgendaLocations.adminLevel2": [
     {
       "type": 0,
-      "value": "adminLevel2"
+      "value": "niveau administratif 2"
     }
   ],
   "AgendaLocations.adminLevel3": [
     {
       "type": 0,
-      "value": "adminLevel3"
+      "value": "niveau administratif 3"
     }
   ],
   "AgendaLocations.adminLevel4": [
     {
       "type": 0,
-      "value": "adminLevel4"
+      "value": "niveau administratif 4"
     }
   ],
   "AgendaLocations.adminLevel5": [
     {
       "type": 0,
-      "value": "adminLevel5"
+      "value": "niveau administratif 5"
     }
   ],
   "AgendaLocations.adminLevel6": [
     {
       "type": 0,
-      "value": "adminLevel6"
+      "value": "niveau administratif 6"
     }
   ],
   "AgendaLocations.createFormHeader.back": [
