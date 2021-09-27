@@ -519,7 +519,7 @@ describe('02 - event search - functional: search', function() {
         const query = {
           // subset of fixtures for local time tests
           keyword: 'date_event',
-          date: {
+          timings: {
             gte: '2000-01-01T00:00:00.000Z'
           }
         }
@@ -534,7 +534,7 @@ describe('02 - event search - functional: search', function() {
         const query = {
           // subset of fixtures for local time tests
           keyword: 'date_event',
-          date: {
+          timings: {
             lte: '2000-01-01T00:00:00.000Z'
           }
         }
