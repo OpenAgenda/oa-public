@@ -1,9 +1,8 @@
-import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
+import '@openagenda/bs-templates/compiled/main.css';
+import { createMemoryHistory } from 'history';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
-
-import '@openagenda/bs-templates/compiled/main.css';
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 

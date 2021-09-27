@@ -9,9 +9,9 @@ export default class EditMemberForm extends Component {
 
   constructor(props) {
     super(props);
-    this.renderField = this::renderField;
-    this.renderInput = this::renderInput;
-    this.renderSelect = this::renderSelect;
+    this.renderField = renderField.bind(this);
+    this.renderInput = renderInput.bind(this);
+    this.renderSelect = renderSelect.bind(this);
   }
 
   render() {

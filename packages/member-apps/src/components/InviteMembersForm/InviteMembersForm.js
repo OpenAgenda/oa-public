@@ -20,10 +20,10 @@ export default class InviteMembersForm extends Component {
 
   constructor(props) {
     super(props);
-    this.renderField = this::renderField;
-    this.renderTextarea = this::renderTextarea;
-    this.renderSelect = this::renderSelect;
-    this.renderMarkdownInput = this::renderMarkdownInput;
+    this.renderField = renderField.bind(this);
+    this.renderTextarea = renderTextarea.bind(this);
+    this.renderSelect = renderSelect.bind(this);
+    this.renderMarkdownInput = renderMarkdownInput.bind(this);
   }
 
   render() {
