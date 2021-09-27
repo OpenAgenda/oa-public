@@ -7,9 +7,17 @@ import createApp from '../src/app';
 import agendasJson from './mocks/agendas.json';
 import eventsJson from './mocks/events.json';
 
+import ProvidersDecorator from './decorators/Providers';
+
 import '@openagenda/bs-templates/compiled/main.css';
 
 const mock = new MockAdapter(axios);
+
+function route(path = '') {
+  return typeof path === 'string'
+    ? new RegExp(path.replace(/:\w+/g, '[^/]+'))
+    : path;
+}
 
 const mockApi = ({ isNew } = {}) => {
   mock.onGet('/agendas.json').reply(
@@ -23,6 +31,22 @@ const mockApi = ({ isNew } = {}) => {
       : agendasJson
   );
   mock.onGet('/events.json').reply(200, eventsJson);
+
+  mock.onGet(route('/agendas/:agendaUid/members/:userUid')).reply(req => {
+    const [, , agendaUid] = req.url.split('/');
+
+    const custom = agendasJson.agendas
+      .filter(a => a.uid === parseInt(agendaUid, 10))
+      .pop().member?.custom;
+
+    const member = {
+      name: custom?.contactName,
+      email: custom?.email,
+      // ...
+    };
+
+    return [200, member];
+  });
 };
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
@@ -51,6 +75,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
       showPrivate: '/:slug/events/:eventSlug.prv',
       showWithoutAgenda: '/events/:eventSlug',
     },
+    members: '/agendas/:agendaUid/members',
     messages: '/home/messages',
     notifs: '/home/notifications',
     search: '/agendas',
@@ -62,6 +87,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
 
 export default {
   title: 'Main',
+  decorators: [ProvidersDecorator],
 };
 
 export const Welcome = () => {

@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { useIsomorphicLayoutEffect } from 'react-use';
 import qs from 'qs';
-import { Spinner } from '@openagenda/react-shared';
+import { Spinner, useModal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import { setTab } from '../reducers/menu';
+import { updatedMember } from '../reducers/agendas';
 import Welcome from '../components/Welcome';
 import AgendasSearch from '../components/AgendasSearch';
 import AgendaItem from '../components/AgendaItem';
+import MemberEditModal from '../components/MemberEditModal';
 import Wrapper from './Wrapper';
 
 function Agendas() {
-  const { getLabel } = useContext(I18nContext);
+  const { getLabel, lang } = useContext(I18nContext);
 
   const history = useHistory();
   const query = useMemo(
@@ -62,6 +64,8 @@ function Agendas() {
     [getLabel]
   );
 
+  const memberEditModal = useModal();
+
   return (
     <AgendasSearch
       res={res.agendas.list}
@@ -88,6 +92,15 @@ function Agendas() {
         return (
           <Wrapper tab="agendas" className="home-agendas">
             <div className="content">
+              {memberEditModal.isOpen ? (
+                <MemberEditModal
+                  lang={lang}
+                  closeModal={() => memberEditModal.close()}
+                  onSuccess={(member, updatedData) => dispatch(updatedMember(state.agendas, member, updatedData))}
+                  {...memberEditModal.data}
+                  res={res}
+                />
+              ) : null}
               <div className="header">
                 <div className="hidden-xs pull-right">
                   <Link
@@ -110,6 +123,7 @@ function Agendas() {
                       agenda={agenda}
                       res={res}
                       getLabel={getLabel}
+                      onDisplayMemberForm={item => memberEditModal.open(item)}
                     />
                   ))
                   : null}

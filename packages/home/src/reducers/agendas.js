@@ -1,6 +1,9 @@
+import _ from 'lodash';
+
 const LOAD = 'home/agendas/LOAD';
 const LOAD_SUCCESS = 'home/agendas/LOAD_SUCCESS';
 const LOAD_FAIL = 'home/agendas/LOAD_FAIL';
+const MEMBER_UPDATE_SUCCESS = 'home/agendas/MEMBER_UPDATE_SUCCESS';
 const LIST = 'home/agendas/LIST';
 const LIST_SUCCESS = 'home/agendas/LIST_SUCCESS';
 const LIST_FAIL = 'home/agendas/LIST_FAIL';
@@ -8,7 +11,31 @@ const NEXT_PAGE = 'home/agendas/NEXT_PAGE';
 const NEXT_PAGE_SUCCESS = 'home/agendas/NEXT_PAGE_SUCCESS';
 const NEXT_PAGE_FAIL = 'home/agendas/NEXT_PAGE_FAIL';
 
+const memberLegacyFields = {
+  name: 'contactName',
+  position: 'contactPosition',
+  email: 'email',
+  organization: 'organization',
+  number: 'contactNumber',
+};
+
 const initialState = {};
+
+function patchAgendas(agendas, member, update) {
+  const index = _.findIndex(agendas, a => a.uid === member.agendaUid);
+
+  if (index === -1) {
+    return agendas;
+  }
+
+  Object.keys(update).forEach(field => {
+    if (memberLegacyFields[field]) {
+      agendas[index].member.custom[memberLegacyFields[field]] = update[field];
+    }
+  });
+
+  return agendas;
+}
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -32,6 +59,11 @@ export default function reducer(state = initialState, action) {
           error: null,
           loading: false,
         },
+      };
+    case MEMBER_UPDATE_SUCCESS:
+      return {
+        ...state,
+        agendas: patchAgendas(action.agendas, action.member, action.update),
       };
     case LOAD_FAIL:
       return {
@@ -109,6 +141,15 @@ export default function reducer(state = initialState, action) {
     default:
       return state;
   }
+}
+
+export function updatedMember(agendas, member, update) {
+  return {
+    type: MEMBER_UPDATE_SUCCESS,
+    agendas,
+    member,
+    update,
+  };
 }
 
 export function isLoaded(key, globalState) {

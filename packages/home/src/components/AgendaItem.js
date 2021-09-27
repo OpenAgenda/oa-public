@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
 
-function AgendaItem({ agenda, res, getLabel }) {
+function AgendaItem({
+  agenda, res, getLabel, onDisplayMemberForm
+}) {
   return (
     <div className="agenda-item media" key={agenda.uid}>
       <div className="media-left">
@@ -92,6 +94,15 @@ function AgendaItem({ agenda, res, getLabel }) {
               {getLabel('contact')}
             </a>
           )}
+          {agenda.settings.contribution.useFields ? (
+            <button
+              type="button"
+              className="btn btn-link"
+              onClick={() => onDisplayMemberForm(agenda)}
+            >
+              {getLabel('editMember')}
+            </button>
+          ) : null}
         </div>
       </div>
     </div>
