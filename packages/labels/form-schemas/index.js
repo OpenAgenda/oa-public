@@ -52,5 +52,14 @@ module.exports = {
     "fr": "Sélectionner...",
     "en": "Select...",
     "io": "crwdns14894:0crwdne14894:0"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "fr": "Annuler",
+    "it": "Annullare",
+    "de": "annulieren",
+    "pl": "Anuluj",
+    "es": "anular",
+    "br": "Nullañ"
   }
 }
