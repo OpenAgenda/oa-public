@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 module.exports = (membersSvc, item) => ({
+  userUid: item?.userUid,
   name: _.get(item, 'custom.contactName', null),
   phone: _.get(item, 'custom.contactNumber', null),
   email: _.get(item, 'custom.email', null),
