@@ -78,6 +78,7 @@ export default class FormSchemaComponent extends Component {
 
     const {
       res,
+      method,
       onSubmit,
       unloadWarning: enableUnloadWarning,
       onSubmitSuccess
@@ -122,7 +123,8 @@ export default class FormSchemaComponent extends Component {
     });
 
     submit({
-      res: _.get(res, 'post', ''),
+      method,
+      res: _.get(res, method, ''),
       formSchema: this._getFormSchema(),
       values, // values can be clean anew once received by server
       files: this.get('files'),
@@ -497,7 +499,9 @@ FormSchemaComponent.defaultPropTypes = {
   stateless: false, // component handles its own state by default
   onSubmit: null,
   onSubmitSuccess: null,
+  method: 'post',
   res: {
+    patch: '',
     post: '',
     redirect: null
   },

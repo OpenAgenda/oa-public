@@ -2,12 +2,12 @@ import _ from 'lodash';
 import sa from 'superagent';
 
 export default ({
-  res, values, files, query
+  res, values, files, query, method
 }) => {
   const hasFiles = _.keys(files).length;
 
   // IE11 does not like empty strings;
-  const req = sa.post(res || _.get(window, 'location.href'));
+  const req = sa[method || 'post'](res || _.get(window, 'location.href'));
 
   req.ok(response => response.status < 500);
 
