@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { ApiClientContext } from '../contexts';
 import apiClient from './apiClient';
-import createStore from './lib/createStore';
-import clientMiddleware from './lib/clientMiddleware';
-import makeTriggerHooks from './lib/makeTriggerHooks';
+import createStore from './createStore';
+import clientMiddleware from './clientMiddleware';
+import makeTriggerHooks from './makeTriggerHooks';
 
 function getDefaultHistory(req) {
   return req
