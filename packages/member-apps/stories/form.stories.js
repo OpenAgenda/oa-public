@@ -88,6 +88,35 @@ export const UpdateFormModalWithConfirm = () => {
   );
 };
 
+export const FormWithCustomTitleAndDescription = () => (
+  <Form
+    lang="fr"
+    operation="update"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    title="Un titre passé en prop"
+    description="Une description passée en prop"
+    onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FormWithOptionalFields = () => (
+  <Form
+    lang="fr"
+    operation="update"
+    optionalFields
+    res="http://localhost:3000/api/agendas/123/members/456"
+    title="Les champs sont optionnels"
+    description={null}
+    onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
 export const FixTwoLinksOneForm = () => {
   const [display, setDisplay] = useState(false);
   const [res, setRes] = useState(false);

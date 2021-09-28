@@ -51,6 +51,13 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
 
+## Erreurs
+
+Si une donnée passée à un service à un mauvais formattage, le service doit lancer une erreur BadRequest:
+
+    const { BadRequest } = require('@openagenda/verror');
+    throw new BadRequest({ info: { errors } }, 'invalid something something');
+
 ## openssl
 
 Si une clé fournie commence par `-----BEGIN ENCRYPTED PRIVATE KEY-----`, elle est encryptée et doit être décryptée par mot de passe avant son utilisation dans nginx. Une fois le mot de passe en main, la commande pour la décrypter est la suivante:
