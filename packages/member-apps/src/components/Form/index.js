@@ -44,6 +44,8 @@ const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
 ));
 
 export default ({
+  title,
+  description,
   mode,
   operation,
   res,
@@ -93,8 +95,8 @@ export default ({
       {isLoading ? <Spinner /> : null}
       {operation === 'update' ? (
         <div>
-          <h3>{m(messages.updateTitle)}</h3>
-          <p>{m(messages.description)}</p>
+          <h3>{title ?? m(messages.updateTitle)}</h3>
+          <p>{description ?? m(messages.description)}</p>
         </div>
       ) : null}
       {isLoading ? (
