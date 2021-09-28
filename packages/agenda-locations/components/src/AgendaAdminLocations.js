@@ -233,12 +233,14 @@ class AgendaAdminLocations extends Component {
   }
 
   goToMergeStep1FromDuplicates(location) {
+    const { settings } = this.props;
     const { merge } = this.state;
-
-    if (!merge) {
+    if (merge) return;
+    if (settings.access.merge.authorized) {
       this.actions.goToMergeStep1FromDuplicates(location);
-      log(merge);
       this.onSearchChange('uids', location?.duplicateCandidates.concat(location.uid));
+    } else {
+      this.displayActionModal('merge');
     }
   }
 
