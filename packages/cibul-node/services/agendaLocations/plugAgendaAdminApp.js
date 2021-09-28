@@ -224,6 +224,7 @@ module.exports = (config, services, instance, app, base) => {
   app.post(`${base}/:locationUid`, (req, res, next) => {
     req.locations.update(req.params.locationUid, req.body, {
       includeImagePath: true,
+      eventCounts: true,
       agendaUid: req.agenda?.uid
     }).then(location => {
       res.json({
