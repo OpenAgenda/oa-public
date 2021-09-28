@@ -2,9 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
-import apiClient from '@openagenda/react-shared/lib/utils/apiClient';
-import createStore from '@openagenda/react-shared/lib/utils/lib/createStore';
-import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
+import { apiClient, createStore, clientMiddleware } from '@openagenda/react-shared';
 import agendasReducer from './redux/modules/agendas';
 import * as modalsActions from './redux/modules/modals';
 import App from './containers/App'
@@ -14,7 +12,6 @@ const defaults = {
     eventUid: null,
     agendaUid: null,
     settings: {
-      lang: 'fr',
       perPageLimit: 20
     },
     res: {

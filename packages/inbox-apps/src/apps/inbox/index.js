@@ -6,7 +6,6 @@ import getRoutes from '../../getRoutes.lazy';
 const defaults = {
   initialState: {
     settings: {
-      lang: 'fr',
       prefix: '/inboxes/user',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
       perPageLimit: 20

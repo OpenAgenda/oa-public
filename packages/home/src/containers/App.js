@@ -67,7 +67,7 @@ function App({ route }) {
     <QueryClientProvider client={queryClient}>
       <I18nContext.Provider value={i18nContextValue}>
         {!total ? (
-          renderRoutes(route.routes, { user, lang })
+          renderRoutes(route.routes)
         ) : (
           <div
             className={classNames('container top-margined home', {
@@ -87,9 +87,7 @@ function App({ route }) {
                     {getLabel('myEvents')}
                   </MenuItem>
                 </ul>
-                <div className="wsq">
-                  {renderRoutes(route.routes, { user, lang })}
-                </div>
+                <div className="wsq">{renderRoutes(route.routes)}</div>
               </div>
             </div>
           </div>

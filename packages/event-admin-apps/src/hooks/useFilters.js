@@ -126,16 +126,16 @@ export default function useFilters(agendaSchema) {
         name: 'viewport',
         type: 'none',
       },
-      {
-        name: 'geo',
-        type: 'map',
-        aggregation: null,
-        // props for MapFilter
-        tileAttribution:
-          '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-        tileUrl:
-          'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
-      },
+      // {
+      //   name: 'geo',
+      //   type: 'map',
+      //   aggregation: null,
+      //   // props for MapFilter
+      //   tileAttribution:
+      //     '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+      //   tileUrl:
+      //     'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+      // },
       {
         name: 'addMethod',
         type: 'choice',

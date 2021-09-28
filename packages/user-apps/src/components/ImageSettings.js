@@ -60,10 +60,7 @@ export default class ImageSettings extends Component {
     activeTab: PropTypes.bool
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  };
+  static contextType = I18nContext;
 
   render() {
     const { getLabel } = this.context;

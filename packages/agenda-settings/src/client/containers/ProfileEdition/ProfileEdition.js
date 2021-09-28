@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field, updateSyncErrors } from 'redux-form';
 import { Modal } from '@openagenda/react-components';
-import { ImageInput } from '@openagenda/react-shared';
+import { ImageInput, withLayoutData } from '@openagenda/react-shared';
 import * as agendaActions from '../../reducers/agenda';
 import * as modalsActions from '../../reducers/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
+import I18nContext from '../../contexts/I18nContext';
 
 const MAX_SIZE = 1024 * 1024 * 20; // 20MB
 
+@withLayoutData('agenda')
 @connect(
   (state, props) => {
     const { title, description, url, slug, image } = props.agenda;
@@ -36,10 +37,7 @@ const MAX_SIZE = 1024 * 1024 * 20; // 20MB
 )
 export default class ProfileEdition extends Component {
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  };
+  static contextType = I18nContext;
 
   constructor( props ) {
     super( props );

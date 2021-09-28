@@ -10,7 +10,7 @@ import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Base64 } from 'js-base64';
 import qs from 'qs';
 
-import { withContext } from '@openagenda/react-shared';
+import { withContext, withLayoutData } from '@openagenda/react-shared';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import { Modal, MoreInfo } from '@openagenda/react-components';
@@ -76,6 +76,7 @@ function OrderField({ action, input, title }) {
   );
 }
 
+@withLayoutData('agenda', 'member', 'role')
 @connect(
   (state, props) => {
     const query = qs.parse(props.history.location.search, {

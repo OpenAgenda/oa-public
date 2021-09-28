@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Modal } from '@openagenda/react-components';
+import { withLayoutData } from '@openagenda/react-shared';
 import {
   KeysManager,
   InboxSettingsForm,
@@ -12,12 +12,14 @@ import {
 import * as  agendaActions from '../../reducers/agenda';
 import * as  modalsActions from '../../reducers/modals';
 import * as  keysActions from '../../reducers/keys';
+import I18nContext from '../../contexts/I18nContext';
 
 const docRes = {
   official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',
   private: 'https://doc.openagenda.com/visibilite-des-agendas'
 };
 
+@withLayoutData('agenda')
 @connect(
   state => ({
     modals: state.modals
@@ -26,10 +28,7 @@ const docRes = {
 )
 export default class ContributionEdition extends Component {
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  };
+  static contextType = I18nContext;
 
   state = {
     activeTab: null,
@@ -80,7 +79,7 @@ export default class ContributionEdition extends Component {
 
   render() {
     const { agenda, modals, closeModal, removeKey, editAgenda } = this.props;
-    const { getLabel, lang } = this.context;
+    const { getLabel } = this.context;
 
     const removeModal = modals[ 'removeKey' ] || {};
 

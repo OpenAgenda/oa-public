@@ -1,16 +1,16 @@
 import _ from 'lodash';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider, connect } from 'react-redux';
-import { compose, withContext } from 'recompose';
+import { compose } from 'recompose';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
 import fixturesData from './01_ConversationTitle.data';
 
 import { ConversationTitle } from '../src/components';
+import I18nContext from '../src/contexts/I18nContext';
 
 const mockStore = configureStore();
 let store;
@@ -19,22 +19,17 @@ function wrapWithApp( element ) {
   const WrappedComponent = compose(
     connect( state => ({
       settings: state.settings
-    }) ),
-    withContext(
-      {
-        lang: PropTypes.string,
-        getLabel: PropTypes.func
-      },
-      ( { settings } ) => ({
-        lang: settings.lang,
-        getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, settings.lang )
-      })
-    )
+    }) )
   )( () => element );
 
   return (
     <Provider store={store}>
-      <WrappedComponent/>
+      <I18nContext.Provider value={{
+        lang: 'fr',
+        getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, 'fr' )
+      }}>
+        <WrappedComponent />
+      </I18nContext.Provider>
     </Provider>
   );
 }
@@ -64,7 +59,6 @@ describe( 'conversation of type event', () => {
   describe( 'context event', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'event'
       }
     };
@@ -128,7 +122,6 @@ describe( 'conversation of type event', () => {
   describe( 'context agenda', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'agenda'
       }
     };
@@ -192,7 +185,6 @@ describe( 'conversation of type event', () => {
   describe( 'context user', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'user'
       }
     };
@@ -258,7 +250,6 @@ describe( 'conversation of type contact_form', () => {
   describe( 'context agenda', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'agenda'
       }
     };
@@ -287,7 +278,6 @@ describe( 'conversation of type contact_form', () => {
   describe( 'context user', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'user'
       }
     };
@@ -318,7 +308,6 @@ describe( 'conversation of type request_contribute', () => {
   describe( 'context agenda', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'agenda'
       }
     };
@@ -347,7 +336,6 @@ describe( 'conversation of type request_contribute', () => {
   describe( 'context user', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'user'
       }
     };
@@ -378,7 +366,6 @@ describe( 'conversation of type edition_request', () => {
   describe( 'context event', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'event'
       }
     };
@@ -407,7 +394,6 @@ describe( 'conversation of type edition_request', () => {
   describe( 'context agenda', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'agenda'
       }
     };
@@ -436,7 +422,6 @@ describe( 'conversation of type edition_request', () => {
   describe( 'context user', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'user'
       }
     };
@@ -467,7 +452,6 @@ describe( 'conversation of type suggest_location_change', () => {
   describe( 'context agenda', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'agenda'
       }
     };
@@ -496,7 +480,6 @@ describe( 'conversation of type suggest_location_change', () => {
   describe( 'context user', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'user'
       }
     };
@@ -527,7 +510,6 @@ describe( 'conversation of type contact_member', () => {
   describe( 'context agenda', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'agenda'
       }
     };
@@ -568,7 +550,6 @@ describe( 'conversation of type contact_member', () => {
   describe( 'context user', () => {
     const initialState = {
       settings: {
-        lang: 'fr',
         context: 'user'
       }
     };
@@ -610,7 +591,6 @@ describe( 'conversation of type contact_member', () => {
 describe( 'conversation of type support', () => {
   const initialState = {
     settings: {
-      lang: 'fr',
       context: 'user'
     }
   };

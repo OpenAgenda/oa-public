@@ -2,21 +2,22 @@ import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
-import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { mergeLocales, useConstant } from '@openagenda/react-shared';
+import {
+  mergeLocales,
+  useConstant,
+  useLayoutData,
+} from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import statsReducer from '../reducers/stats';
 import appLocales from '../locales-compiled';
 
 const locales = mergeLocales(appLocales, reactFiltersLocales);
 
-function App({
-  route, user, agenda, agendaSchema, role, filtersContainerRef
-}) {
-  const lang = useSelector(state => state.settings.lang);
+function App({ route }) {
+  const { lang } = useLayoutData();
   const queryClient = useConstant(
     () => new QueryClient({
       defaultOptions: {
@@ -30,16 +31,7 @@ function App({
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
       <QueryClientProvider client={queryClient}>
-        <div className="agenda-stats">
-          {renderRoutes(route.routes, {
-            user,
-            lang,
-            agenda,
-            agendaSchema,
-            role,
-            filtersContainerRef,
-          })}
-        </div>
+        <div className="agenda-stats">{renderRoutes(route.routes)}</div>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </IntlProvider>

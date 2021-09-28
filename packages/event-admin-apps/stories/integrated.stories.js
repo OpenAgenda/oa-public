@@ -11,12 +11,12 @@ import ProvidersDecorator from './decorators/Providers';
 import '@openagenda/bs-templates/compiled/main.css';
 import mainData from './fixtures/main.json';
 
-const getDefaultState = ({ lang = 'fr', apiRoot = '' } = {}) => ({
+const getDefaultState = ({ apiRoot = '' } = {}) => ({
   settings: {
-    lang,
     apiRoot,
     prefix: '',
     perPageLimit: 20,
+    mapTiles: '',
   },
   res: {
     jsonExport: '/:slug/events.json',
@@ -49,6 +49,7 @@ export const Presentation = function Presentation() {
             initialState: getDefaultState({}),
           }),
           {
+            disableScrollToTop: true,
             extraProps: {
               agendaSchema: {
                 fields: [],

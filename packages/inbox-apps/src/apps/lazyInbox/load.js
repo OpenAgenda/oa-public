@@ -11,7 +11,6 @@ export default function loadApp( options, cb ) {
     initialState: {
       settings: {
         prefix: '',
-        lang: 'fr',
         perPageLimit: 20
       },
       res: {}

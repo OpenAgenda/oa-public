@@ -1,40 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
 import { renderRoutes } from 'react-router-config';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/activities/admin';
+import { useLayoutData } from '@openagenda/react-shared';
+import I18nContext from '../../contexts/I18nContext';
 
-@connect(
-  state => ({
-    res: state.res,
-    lang: state.settings.lang
-  })
-)
-export default class AdminApp extends Component {
-  static childContextTypes = {
-    lang: PropTypes.string,
-    labels: PropTypes.object,
-    getLabel: PropTypes.func
-  };
+function AdminApp({ route }) {
+  const { lang } = useLayoutData();
 
-  getChildContext() {
-    const { lang } = this.props;
+  const i18nContextValue = useMemo(() => ({
+    lang,
+    labels,
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, lang)
+  }), [lang]);
 
-    return {
-      lang,
-      labels,
-      getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang )
-    };
-  }
-
-  render() {
-    const { route } = this.props;
-
-    return (
+  return (
+    <I18nContext.Provider value={i18nContextValue}>
       <div className="activity-admin">
-        {renderRoutes( route.routes )}
+        {renderRoutes(route.routes)}
       </div>
-    );
-  }
+    </I18nContext.Provider>
+  );
 }
+
+export default AdminApp;
+

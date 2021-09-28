@@ -100,7 +100,7 @@ module.exports = options => {
       if (data.authorizations?.canPublish) {
         du.removeClass(du.el('.js_can_publish_event'), 'display-none');
       }
-      
+
       const tagGroups = _.get(data, 'tagGroups', []).filter(g => g.access !== 'public');
 
       displayPrivateTags(tagGroups);
@@ -212,7 +212,6 @@ module.exports = options => {
             }
           },
           ContentWrapper: ({ children }) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
-          lang: params.lang,
         },
         res: {
           author: resBasePath + '/inbox/author.json',

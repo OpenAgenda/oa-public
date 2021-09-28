@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import { Spinner } from '@openagenda/react-components';
-import { withContext, nl2br } from '@openagenda/react-shared';
+import { withContext, nl2br, withLayoutData } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
 import * as inboxActions from '../../reducers/inbox';
@@ -81,6 +81,7 @@ function asyncLoad({ store: { getState, dispatch }, location, history, agenda })
   //   });
 }
 
+@withLayoutData('user', 'agenda')
 // @provideHooks({
 //   defer: ({ store, location, history, ...others }) => {
 //     console.log(others);

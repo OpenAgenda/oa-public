@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CreationFirstStep, CreationSecondStep } from '../../components';
 import * as agendaActions from '../../reducers/agenda';
+import I18nContext from '../../contexts/I18nContext';
 
 @connect(
   state => ({
@@ -16,9 +17,7 @@ export default class AgendaCreation extends Component {
     create: PropTypes.func
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   constructor( props ) {
     super( props );
