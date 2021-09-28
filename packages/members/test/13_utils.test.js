@@ -19,6 +19,10 @@ describe('members - functional - utils', () => {
 
       expect(error.message).toBe('Unknown role');
     });
+
+    test('if role slug is provided, role slug is given back as result', () => {
+      expect(getRoleSlug('administrator')).toBe('administrator');
+    });
   });
 
   describe('getRoleCode', () => {

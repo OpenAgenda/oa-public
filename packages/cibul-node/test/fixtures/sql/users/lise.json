@@ -1,15 +1,15 @@
 {
   "id": 125884,
-  "full_name": "Lise Parrot Grand-albigeois",
-  "email": "lise.parrot@grand-albigeois.fr",
+  "uid": 50073466,
+  "full_name": "Lise P",
+  "email": "lise.p@grois.fr",
   "culture": "fr",
   "is_activated": 1,
-  "password": "8a2d6a6345d3ff29c593db23cab7e557d71d6a71",
-  "salt": "qMmLZOTTyINuZxrNim6nehKOxOt3tizR",
+  "password": "8a2d6a6d3ff29c593db23cab7e557d71d6a71",
+  "salt": "qMmLZOTTyINrNim6nehKOxOt3tizR",
   "created_at": "2021-01-08 08:42:31",
   "updated_at": "2021-01-08 08:42:31",
   "is_removed": 0,
-  "uid": 50073466,
   "last_signin": "2021-01-08 08:42:31",
   "is_new": 0
 }

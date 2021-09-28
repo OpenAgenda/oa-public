@@ -19,6 +19,10 @@ module.exports = {
     "it": "Creare un'agenda",
     "io": "crwdns14902:0crwdne14902:0"
   },
+  "editMember": {
+    "fr": "Voir mes informations de contact",
+    "en": "See my contact info"
+  },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
     "en": "Search an agenda",

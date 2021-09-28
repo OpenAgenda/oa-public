@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const inboxes = require('@openagenda/inboxes');
 const inboxMw = require('@openagenda/inboxes/dist/middleware');
 const log = require('@openagenda/logs')('services/inboxes');
 const inboxesLabels = require('@openagenda/labels/inboxes');
+const config = require('../../config');
 const filterAction = require('./filterAction');
 const getInboxesDetails = require('./getInboxesDetails');
 const getUsersDetails = require('./getUsersDetails');
 const onAction = require('./onAction');
 const onInboxCreate = require('./onInboxCreate');
 const onMessageCreate = require('./onMessageCreate');
-const config = require('../../config');
 
 const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 

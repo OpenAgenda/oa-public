@@ -35,8 +35,6 @@ export default ({
     tags: null
   });
 
-  console.log(renderCode(embedCodeTemplate, widgetConfig));
-
   return (
     <div>
       <div className="row margin-bottom-xs">

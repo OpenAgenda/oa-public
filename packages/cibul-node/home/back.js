@@ -1,13 +1,11 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const React = require('react');
 const sessions = require('@openagenda/sessions');
 const range = require('@openagenda/date-range');
 const agendaSvc = require('@openagenda/agendas');
-const eventsSvc = require('@openagenda/events');
-const membersSvc = require('../services/members');
 const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
+const membersSvc = require('../services/members');
 const cmn = require('../lib/commons-app');
 
 const LIST_LIMIT = 20;
@@ -87,7 +85,7 @@ function eventsList(req, res, next) {
           ...event,
           timings,
           timerange: range(timings, req.lang || 'fr', event.timezone || 'Europe/Paris')
-        }
+        };
       })
     });
   }, next);

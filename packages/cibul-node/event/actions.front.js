@@ -9,9 +9,6 @@ const base64 = require('@openagenda/utils/base64');
 const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
 const range = require('@openagenda/date-range');
 
-const getActionLabel = require('@openagenda/labels')(
-  require('@openagenda/labels/event/actions')
-);
 const log = require('@openagenda/logs')('event/actions');
 
 const { getLocaleValue } = require('@openagenda/react-shared');

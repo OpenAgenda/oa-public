@@ -1,0 +1,26 @@
+{
+  "MemberApps.Form.confirmSuccess": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "MemberApps.Form.description": [
+    {
+      "type": 0,
+      "value": "Ces informations permettent aux administrateurs de l'agenda de vous contacter en cas de besoin"
+    }
+  ],
+  "MemberApps.Form.success": [
+    {
+      "type": 0,
+      "value": "La mise à jour a été effectuée"
+    }
+  ],
+  "MemberApps.Form.updateTitle": [
+    {
+      "type": 0,
+      "value": "Mise à jour de vos coordonnées"
+    }
+  ]
+}

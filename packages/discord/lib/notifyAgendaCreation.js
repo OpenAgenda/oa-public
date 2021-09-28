@@ -8,7 +8,6 @@ module.exports = channel => (agenda, user) => {
   const embed = new Discord.MessageEmbed()
     .setColor('#3f97fc')
     .setTitle(title)
-    .setDescription('Nouvel agenda')
     .addFields(
       {
         name: `Créé par ${fullName}`,
@@ -19,5 +18,5 @@ module.exports = channel => (agenda, user) => {
       { name: 'Admin', value: `[Admin agenda](https://openagenda.com/admin/agendas?agendaUid=${uid})` }
     )
     .setURL(`https://openagenda.com/agendas/${uid}`);
-  return channel.send(embed);
+  return channel.send(`@everyone Nouvel agenda: ${title}`, { embed });
 };

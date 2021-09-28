@@ -417,6 +417,20 @@ describe('members - functional - list', () => {
       expect(members.map(m => m.id)).toEqual([3, 5]);
     });
 
+    test('customDataAtRoot puts member data at root of listed items', async () => {
+      const members = await svc.list(
+        {
+          agendaUid: 1,
+        },
+        { limit: 1 },
+        { customDataAtRoot: true }
+      );
+
+      expect(_.pick(members[0], ['organization'])).toEqual({
+        organization: 'Mairie de Saint-Germain-en-Laye',
+      });
+    });
+
     test('fix: limit can be set as zero to fetch totals only', async () => {
       const { members, total } = await svc.list(
         { agendaUid: 1 },

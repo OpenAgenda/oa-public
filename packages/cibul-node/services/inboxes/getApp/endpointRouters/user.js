@@ -26,9 +26,9 @@ module.exports = (config, services) => {
 
   const router = express.Router({ mergeParams: true });
 
-  router.get( '/conversations/:conversationId/action/:code.json',
+  router.get('/conversations/:conversationId/action/:code.json',
     preMw,
-    inboxMw.conversations.action( {
+    inboxMw.conversations.action({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -36,26 +36,22 @@ module.exports = (config, services) => {
         userUid: 'user.uid',
         code: 'params.code'
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/conversations/:conversationId/resume.json',
+  router.get('/conversations/:conversationId/resume.json',
     preMw,
-    inboxMw.conversations.resume( {
+    inboxMw.conversations.resume({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
         identifier: 'user.uid',
         userUid: 'user.uid'
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/conversations/:conversationId/messages.json',
+  router.get('/conversations/:conversationId/messages.json',
     preMw,
-    inboxMw.messages.list( {
+    inboxMw.messages.list({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -63,13 +59,11 @@ module.exports = (config, services) => {
         userUid: 'user.uid'
       },
       limit: 20
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.post( '/conversations/:conversationId/messages.json',
+  router.post('/conversations/:conversationId/messages.json',
     preMw,
-    inboxMw.messages.create( {
+    inboxMw.messages.create({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -77,34 +71,30 @@ module.exports = (config, services) => {
         userUid: 'user.uid',
         body: 'body.body'
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/conversations.json',
+  router.get('/conversations.json',
     preMw,
-    inboxMw.user( 'user.uid' ).conversations.list( { limit: 20 } ),
-    ( req, res, next ) => {
-      inboxMw.user( 'user.uid' ).conversations.list( {
+    inboxMw.user('user.uid').conversations.list({ limit: 20 }),
+    (req, res, next) => {
+      inboxMw.user('user.uid').conversations.list({
         namespaces: {
           type: 'type',
           identifier: 'user.uid'
         },
         limit: req.query.limit || 20
-      } )( req, res, next );
-    },
-    errorHandler
-  );
+      })(req, res, next);
+    }, errorHandler);
 
-  router.post( '/conversations.json',
+  router.post('/conversations.json',
     preMw,
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.options = {
         // createInboxUserOnNull: true
       };
       next();
     },
-    inboxMw.conversations.create( {
+    inboxMw.conversations.create({
       namespaces: {
         type: 'type',
         identifier: 'user.uid',
@@ -115,13 +105,11 @@ module.exports = (config, services) => {
         message: 'body.message',
         creatorInboxUser: 'creatorInboxUser'
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.use( '/conversations/:conversationId/prepare-attachment',
+  router.use('/conversations/:conversationId/prepare-attachment',
     preMw,
-    inboxMw.messages.prepareAttachment( {
+    inboxMw.messages.prepareAttachment({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -145,13 +133,11 @@ module.exports = (config, services) => {
         secret: config.uppy.secret,
         debug: false
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.use( '/conversations/:conversationId/add-attachment',
+  router.use('/conversations/:conversationId/add-attachment',
     preMw,
-    inboxMw.messages.addAttachment( {
+    inboxMw.messages.addAttachment({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -161,37 +147,31 @@ module.exports = (config, services) => {
         filename: 'query.filename',
         originalName: 'query.originalName'
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/download-attachment',
-    inboxMw.messages.downloadAttachment( {
+  router.get('/download-attachment',
+    inboxMw.messages.downloadAttachment({
       namespaces: {
         id: 'query.id',
         filename: 'query.filename'
       }
-    } ),
-    errorHandler
-  );
+    }), errorHandler);
 
-  router.get( '/author.json',
+  router.get('/author.json',
     preMw,
-    ( req, res ) => {
+    (req, res) => {
       // get inbox <-> conversation ==> inboxUser
-      if ( req.query.conversationId ) {
+      if (req.query.conversationId) {
         //
       }
 
-      res.json( {
+      res.json({
         inboxUser: {
           name: req.user.name,
           avatar: req.user.thumbnail || config.aws.defaultImagePath
         }
-      } );
-    },
-    errorHandler
-  );
+      });
+    }, errorHandler);
 
   return router;
-}
+};

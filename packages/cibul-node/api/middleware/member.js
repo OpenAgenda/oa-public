@@ -1,9 +1,39 @@
 'use strict';
 
-const defaultRoles = ['contributor', 'moderator', 'administrator'];
+const { Forbidden } = require('@openagenda/verror');
 
-module.exports.load = async (req, res, next) => {
-  const members = req.app.services.members;
+const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
+
+async function verify(roles, req, res, next) {
+  const {
+    members
+  } = req.app.services;
+
+  req.member = await members.get({
+    agendaUid: req.agenda.uid,
+    userUid: req.user.uid
+  });
+
+  if (!req.member) {
+    return next(new Forbidden('not authorized to create members'));
+  }
+
+  req.access = members.utils.getRoleSlug(req.member.role);
+
+  if (!roles.includes(req.access)) {
+    return res.status(403).json({
+      error: 'user is not authorized to contribute to agenda',
+      agendaUid: req.params.agendaUid
+    });
+  }
+
+  next();
+}
+
+async function load(req, _res, next) {
+  const {
+    members
+  } = req.app.services;
 
   req.member = await members.get({
     agendaUid: req.agenda.uid,
@@ -19,36 +49,44 @@ module.exports.load = async (req, res, next) => {
   next();
 }
 
-module.exports.verify = verify.bind(null, defaultRoles);
+async function verifyAccess(memberUserUidParam, req, res, next) {
+  const {
+    members
+  } = req.app.services;
 
-module.exports.allow = roles => verify.bind(null, roles);
+  const { isSuperiorToOrEqual } = members.utils.compareRoles;
 
-async function verify(roles, req, res, next) {
-  const members = req.app.services.members;
-  const { isSuperiorTo } = members.utils.compareRoles;
+  const memberUserUid = memberUserUidParam ? parseInt(req.params[memberUserUidParam], 10) : req.user.uid;
 
-  const member = await members.get({
-    agendaUid: req.agenda.uid,
-    userUid: req.user.uid
-  });
+  const selfEdit = memberUserUid && (memberUserUid === req.user.uid);
 
-  if (!member) {
-    return res.status(403).json({
-      error: 'user is not a member of agenda',
-      agendaUid: req.params.agendaUid
-    });
+  if (!req.member || (!isSuperiorToOrEqual(req.member.role, 'moderator') && !selfEdit)) {
+    return next(new Forbidden('not authorized to access requested member data'));
   }
-
-  if (!isSuperiorTo(member.role, 'reader')) {
-    return res.status(403).json({
-      error: 'user is not authorized to contribute to agenda',
-      agendaUid: req.params.agendaUid
-    });
-  }
-
-  req.member = member;
-
-  req.access = members.utils.getRoleSlug(req.member.role);
 
   next();
 }
+
+function verifyRoleEdit(req, res, next) {
+  const {
+    members
+  } = req.app.services;
+
+  const { isSuperiorToOrEqual } = members.utils.compareRoles;
+
+  if (!isSuperiorToOrEqual(req.member.role, req.body.role)) {
+    return res.status(403).json({
+      error: 'not authorized'
+    });
+  }
+
+  next();
+}
+
+module.exports = {
+  load,
+  verify: verify.bind(null, defaultRoles),
+  allow: roles => verify.bind(null, roles),
+  verifyAccess: param => verifyAccess.bind(null, param),
+  verifyRoleEdit
+};

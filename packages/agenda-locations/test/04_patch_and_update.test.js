@@ -220,7 +220,7 @@ describe('agenda-locations - functional - patch & update', () => {
       expect(updated.uid).toEqual(95301591);
     });
 
-    it('if extId is not part of patch, it is synced from legacy', async () => {
+    it('if extId is not part of patch and is not set in main extId field, it is synced from legacy', async () => {
       await svc.sets(1903810).locations.patch(7630649, {});
 
       const entry = await f

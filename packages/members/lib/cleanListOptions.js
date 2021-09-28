@@ -25,4 +25,8 @@ module.exports = schema({
   userOptions: {
     type: 'pass',
   },
+  customDataAtRoot: {
+    type: 'boolean',
+    default: false,
+  },
 });

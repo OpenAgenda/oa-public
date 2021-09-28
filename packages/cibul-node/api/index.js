@@ -147,11 +147,50 @@ module.exports = core => {
   ]);
 
   app.get('/agendas/:agendaUid/members', [
-    mw.member.allow(['administrator']),
+    mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).members.list(req.query)
       .then(data => res.json({
         ...data,
+        success: true
+      }), next)
+  ]);
+
+  app.post('/agendas/:agendaUid/members', [
+    mw.member.allow(['administrator', 'moderator']),
+    mw.member.verifyRoleEdit,
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .create(req.body.userUid, req.body.role, req.parsedData)
+      .then(member => res.json(member), next)
+  ]);
+
+  app.get('/agendas/:agendaUid/members/:userUid', [
+    mw.member.load,
+    mw.member.verifyAccess('userUid'),
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .get(req.params.userUid)
+      .then(member => res.json(member), next)
+  ]);
+
+  app.patch('/agendas/:agendaUid/members/:userUid', [
+    mw.member.load,
+    mw.member.verifyAccess('userUid'),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .members.patch(req.params.userUid, req.parsedData)
+      .then(member => res.json(member), next)
+  ]);
+
+  app.delete('/agendas/:agendaUid/members/:userUid', [
+    mw.member.load,
+    mw.member.verifyAccess('userUid'),
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .remove(req.params.userUid, {
+        user: req.user
+      }).then(() => res.json({
         success: true
       }), next)
   ]);
@@ -299,6 +338,15 @@ module.exports = core => {
     core.users(req.user).agendas.list(req.query)
       .then(data => res.json({ ...data, success: true }), next);
   });
+
+  app.get('/me/agendas/:agendaUid', [
+    mw.member.load,
+    mw.member.verifyAccess(),
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .get(req.user.uid)
+      .then(member => res.json(member), next)
+  ]);
 
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {

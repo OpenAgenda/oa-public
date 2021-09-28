@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const format = require('./lib/format');
 
 module.exports = async (services, agendaOrUid, userUid, role, data, options = {}) => {
   const {
@@ -22,6 +23,6 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
     agendaUid,
     userUid,
     role: members.utils.getRoleCode(role),
-    custom: memberData
-  }, { requireCustom: false });
-}
+    custom: format.custom(memberData)
+  }, { requireCustom: false }).then(result => format(members, result.member));
+};

@@ -18,7 +18,10 @@ module.exports = (core, agendaUid) => ({
   remove: remove.bind(null, core.services, agendaUid),
   update: update.bind(null, core, agendaUid),
   patch: update.patch.bind(null, core, agendaUid),
-  validate: validate.bind(null, core.services, agendaUid),
+  validate: Object.assign(
+    validate.bind(null, core, agendaUid),
+    { eventFields: validate.eventFields }
+  ),
   batch: batch(core).bind(null, agendaUid),
   search: Object.assign(search.bind(null, core, agendaUid), {
     rebuild: search.rebuild.bind(null, core, agendaUid),

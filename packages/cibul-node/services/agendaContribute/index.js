@@ -3,7 +3,7 @@
 const contribute = require('@openagenda/agenda-contribute');
 
 const layout = require('../lib/layouts').agenda;
-const plugApp = require('./lib/plugApp');
+const plugApp = require('./plugApp');
 
 const middlewares = require('./middlewares');
 const interfaces = require('./interfaces');

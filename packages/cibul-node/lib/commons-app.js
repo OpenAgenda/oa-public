@@ -15,11 +15,13 @@ const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
 const expressUtils = require( '@openagenda/utils/express' );
+const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedPrivate' ) );
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
+const trackingScripts = require('../lib/trackingScripts');
 const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/errors' );
 const i18n = require( '../i18n/i18n.js' );
@@ -79,25 +81,25 @@ module.exports = {
 
   lang,
 
-  extractGoogleAnalytics
+  addTrackingScripts
 
+};
+function addTrackingScripts(req, agenda) {
+  _.set(
+    req.baseData,
+    'bottom.scripts',
+    (req.baseData?.bottom?.scripts ?? []).concat(trackingScripts({
+      googleAnalyticsID: _.get(req, 'googleAnalyticsId', config.googleAnalyticsId),
+      matomoCloudCode: config.matomoCloudCode,
+      agenda
+    }))
+  );
 }
 
-
-function extractGoogleAnalytics( agendas ) {
-
-  return [].concat( agendas ).map( ( a, i ) => {
-
-    const gaCode = _.get( a, 'settings.tracking.googleAnalytics' );
-
-    if ( !gaCode ) return;
-
-    return `ga( 'create', '${gaCode}', 'auto', 'clientTracker${i}' ); ga('clientTracker${i}.send', 'pageview');`;
-
-  } ).filter( g => !!g ).join( '\n' );
-
-}
-
+addTrackingScripts.mw = (req, res, next) => {
+  addTrackingScripts(req);
+  next();
+};
 
 function agendaMailTo( agenda ) {
 
@@ -433,14 +435,17 @@ function loadBaseData( func, cssFile ) {
 
   return ( req, res, next ) => {
 
+    outdatedBrowserMw(req, res);
+
     const baseData = {
       head: {
         css: {
           main: '/css/' + cssFile
         },
-        js: {
-          outdated: '/js/outdated.js'
-        }
+        js: {}
+      },
+      bottom: {
+        scripts: []
       },
       scriptsBase: '/js',
       domain: config.domain
@@ -460,8 +465,10 @@ function loadBaseData( func, cssFile ) {
 
     req.baseData = _.merge( req.baseData || {}, baseData );
 
-    if ( !_.get( req, 'baseData.bottom.scripts' ) ) {
-      _.set( req, 'baseData.bottom.scripts', [] );
+    if (req.outdatedBrowser) {
+      // Note: bottom is before head
+      req.baseData.bottom.scripts.push(`window.outdatedBrowserOptions = { language: "${req.lang}" };`);
+      req.baseData.head.js.outdated = '/js/outdated.js';
     }
 
     req.baseData.translateMode = Boolean(req.cookies.translateMode);
@@ -471,24 +478,6 @@ function loadBaseData( func, cssFile ) {
       // Note: bottom is before head
       req.baseData.bottom.scripts.push(`window._jipt = [['project', 'openagenda']];`);
       req.baseData.head.js.crowdin = '//cdn.crowdin.com/jipt/jipt.js';
-    }
-
-    req.baseData.bottom.scripts.push(`
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    `);
-
-    if ( config.env == 'production' ) {
-
-      const googleAnalyticsId = _.get( req, 'googleAnalyticsId', config.googleAnalyticsId );
-
-      if ( googleAnalyticsId ) req.baseData.bottom.scripts.push( `
-          ga('create', '${googleAnalyticsId}', 'auto');
-          ga('send', 'pageview');
-      ` );
-
     }
 
     if (typeof next === 'function') {

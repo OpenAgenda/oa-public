@@ -293,6 +293,11 @@ describe('agenda-locations - functional - list', () => {
       const res = await svc(7196947).list({ uids: [10175539, undefined] });
       expect(res).not.toBeNull();
     });
+
+    it('fix: if extId is stored in store, it is loaded', async () => {
+      const res = await svc(7196947).list({ uids: [87202261] }, {}, { detailed: true });
+      expect(res[0].extId).toBe('ard_leg_01');
+    });
   });
 
   describe('stream', () => {

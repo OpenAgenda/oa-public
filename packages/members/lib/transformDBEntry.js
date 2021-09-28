@@ -61,13 +61,18 @@ function _legacyCustomFromDB(store) {
   return _.mapKeys(data, (v, k) => _.camelCase(k));
 }
 
-module.exports.fromDB = ({ includeLegacyFields, orderField }, entry) => {
+module.exports.fromDB = (
+  { includeLegacyFields, orderField, customDataAtRoot },
+  entry
+) => {
   if (!entry) return null;
 
   return Object.keys(entry)
     .filter(field => dbFields.concat(includeLegacyFields ? legacyDbFields : []).includes(field))
     .reduce((mapped, field) => {
-      if (field === 'store') {
+      if (field === 'store' && customDataAtRoot) {
+        Object.assign(mapped, _legacyCustomFromDB(entry.store));
+      } else if (field === 'store') {
         mapped.custom = _legacyCustomFromDB(entry.store);
       } else if (dbFields.includes(field)) {
         _.set(mapped, map[field], entry[field]);

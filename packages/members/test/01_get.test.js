@@ -62,6 +62,19 @@ describe('members - functional - get', () => {
       expect(otherMember).toBeNull();
     });
 
+    test('if throwOnNotFound is specified, throws if no member is found', async () => {
+      let error;
+      try {
+        await svc.get(
+          { agendaUid: 18839, userUid: 3 },
+          { throwOnNotFound: true }
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('NotFound');
+    });
+
     test('custom data is provided in custom key', () => {
       expect(member.custom).toEqual({
         organization: 'Idpt',
@@ -117,6 +130,31 @@ describe('members - functional - get', () => {
       });
 
       expect(otherMember.id).toBe(4);
+    });
+
+    test('customDataAtRoot option puts member data at root of result', async () => {
+      const sameMember = await svc.get(
+        {
+          agendaUid: 1,
+          userUid: 2,
+        },
+        { customDataAtRoot: true }
+      );
+
+      expect(sameMember).toEqual({
+        id: 2,
+        deletedUser: false,
+        invited: false,
+        agendaUid: 1,
+        role: 1,
+        userUid: 2,
+        organization: 'Idpt',
+        contactNumber: '013072171',
+        contactName: 'JC Ponceau',
+        contactPosition: 'Responsable des pains',
+        email: 'jc@ponceau.fr',
+        actionsCounter: 5,
+      });
     });
   });
 });

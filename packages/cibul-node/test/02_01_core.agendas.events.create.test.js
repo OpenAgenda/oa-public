@@ -507,7 +507,6 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         context: {
           userUid: 63170200
         },
-        formSchemaDataFormat: true,
         access: 'contributor'
       });
     });

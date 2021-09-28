@@ -348,11 +348,10 @@ function show( req, res ) {
     } );
 
     req.baseData = ih( req.baseData, {
-      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  },
-      bottom: {
-        scripts: { $push: [ cmn.extractGoogleAnalytics( agenda ) ] }
-      }
+      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  }
     } );
+
+    cmn.addTrackingScripts(req, agendas);
 
     cmn.render( req, res, 'agenda/show', req.templateData );
 

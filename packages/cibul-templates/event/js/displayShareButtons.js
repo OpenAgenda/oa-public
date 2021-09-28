@@ -98,17 +98,23 @@ export default function displayShareButtons({agendaUid , uid, agendaSlug, agenda
     root
   };
   
-  ReactDom.render(
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareOAModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,
-    document.querySelector(selectors.shareOa)
-  );
-  ReactDom.render(
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareEmailModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,
-    document.querySelector(selectors.shareEmail)
-  );
-  ReactDom.render(
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareAllModalContainer params={eventParams} userLogged={userLogged} query={query} /></IntlProvider>,
-    document.querySelector(selectors.shareAll)
-  );
+  if (document.querySelector(selectors.shareOa)) {
+    ReactDom.render(
+      <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareOAModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,
+      document.querySelector(selectors.shareOa)
+    );
+  }
+  if (document.querySelector(selectors.shareEmail)) {
+    ReactDom.render(
+      <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareEmailModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,
+      document.querySelector(selectors.shareEmail)
+    );
+  }
+  if (document.querySelector(selectors.shareAll)) {
+    ReactDom.render(
+      <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareAllModalContainer params={eventParams} userLogged={userLogged} query={query} /></IntlProvider>,
+      document.querySelector(selectors.shareAll)
+    );
+  }
 }
 

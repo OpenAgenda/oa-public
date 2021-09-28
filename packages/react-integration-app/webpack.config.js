@@ -101,12 +101,12 @@ module.exports = (env = {}, argv = {}) => {
           : undefined,
       },
       static: path.resolve(__dirname, 'dist'),
-      firewall: false,
+      allowedHosts: ['.openagenda.com'],
       headers: { 'Access-Control-Allow-Origin': '*' },
       compress: true,
       hot: true,
       liveReload: false,
-      dev: {
+      devMiddleware: {
         publicPath: `/dist/${serviceName}/`,
         writeToDisk: filePath => /loadable-stats\.json$/.test(filePath),
       },

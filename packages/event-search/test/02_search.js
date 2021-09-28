@@ -332,6 +332,18 @@ describe('02 - event search - functional: search', function() {
           ['quimper_event']
         );
       });
+
+      it('open search on a location name', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Cathédrale'
+        });
+
+        assert.equal(total, 1);
+        assert.equal(events[0].slug, 'quimper_event');
+      });
   
       it('open search on country name in french', async () => {
         const {
@@ -507,7 +519,7 @@ describe('02 - event search - functional: search', function() {
         const query = {
           // subset of fixtures for local time tests
           keyword: 'date_event',
-          date: {
+          timings: {
             gte: '2000-01-01T00:00:00.000Z'
           }
         }
@@ -522,7 +534,7 @@ describe('02 - event search - functional: search', function() {
         const query = {
           // subset of fixtures for local time tests
           keyword: 'date_event',
-          date: {
+          timings: {
             lte: '2000-01-01T00:00:00.000Z'
           }
         }

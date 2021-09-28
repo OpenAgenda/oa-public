@@ -175,7 +175,7 @@ async function corpo(cache, req, res, next) {
 
   const pageScripts = [{
     content: `window.$crisp=[];
-      window.CRISP_WEBSITE_ID="ec7a439d-5932-4856-9fb6-4f235c9fba52";
+      window.CRISP_WEBSITE_ID=${config.crisp};
       (function(){
         d=document;
         s=d.createElement("script");

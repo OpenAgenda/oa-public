@@ -7,7 +7,7 @@ session = require( '@openagenda/sessions/client' ),
 params = {
   classes: {
     canvas: 'lightbox-canvas',
-    frame: 'wsq lightbox-frame',
+    frame: 'wsq lightbox-frame text-center-important',
     buttonBox: 'lightbox-buttons',
     button: 'btn btn-primary',
     body: 'noscroll'
