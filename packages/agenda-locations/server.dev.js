@@ -266,6 +266,7 @@ const Service = require('.');
     svc(7196947)
       .update(req.params.locationUid, req.data, {
         includeImagePath: true,
+        eventCounts: true,
       })
       .then(location => {
         res.json({
