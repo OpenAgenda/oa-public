@@ -99,6 +99,7 @@ function AgendaItem({
               type="button"
               className="btn btn-link"
               onClick={() => onDisplayMemberForm(agenda)}
+              title={getLabel('editMemberInformation')}
             >
               {getLabel('editMember')}
             </button>

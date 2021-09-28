@@ -98,6 +98,7 @@ function Agendas() {
                   closeModal={() => memberEditModal.close()}
                   onSuccess={(member, updatedData) => dispatch(updatedMember(state.agendas, member, updatedData))}
                   {...memberEditModal.data}
+                  description={getLabel('editMemberInformation')}
                   res={res}
                 />
               ) : null}
