@@ -20,6 +20,9 @@ module.exports = async (services, agendaOrUid, userUid, data) => {
 
   return members.patch({
     agendaUid,
-    userUid,
-  }, patchData).then(result => format(members, result.member));
+    userUid
+  }, patchData, {
+    throwOnError: true,
+    requireCustom: false
+  }).then(result => format(members, result.member));
 };

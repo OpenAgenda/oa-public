@@ -74,7 +74,8 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         email: null,
         position: null,
         organization: null,
-        role: 'contributor'
+        role: 'contributor',
+        userUid: 1
       });
     });
   });

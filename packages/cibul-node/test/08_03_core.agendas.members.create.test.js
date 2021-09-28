@@ -55,7 +55,8 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         email: null,
         position: null,
         organization: null,
-        role: 'administrator'
+        role: 'administrator',
+        userUid: 82253124
       });
     });
   });
