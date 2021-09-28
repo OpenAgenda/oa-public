@@ -262,6 +262,15 @@ export default function useFilters(agendaSchema) {
           size: AGGREGATION_SIZE,
         },
       },
+      {
+        name: 'adminLevel3',
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'adminLevels3',
+          size: AGGREGATION_SIZE,
+        },
+      },
     ];
 
     const additionalFilters = agendaSchema.fields
