@@ -91,6 +91,45 @@ describe('members - functional - patch', () => {
     });
   });
 
+  describe('errors', () => {
+    test('by default service does not throw if provided data is invalid', async () => {
+      const result = await svc.patch(
+        { userUid: 1, agendaUid: 2 },
+        { custom: { contactName: null } }
+      );
+
+      expect(Array.isArray(result.errors)).toBeTruthy();
+    });
+
+    test('throwOnError at true throws if provided data is invalid', async () => {
+      let error;
+      try {
+        await svc.patch(
+          { userUid: 1, agendaUid: 2 },
+          { custom: { contactName: null } },
+          { throwOnError: true }
+        );
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('BadRequest');
+      expect(Array.isArray(error.info.errors)).toBeTruthy();
+    });
+  });
+
+  describe('options', () => {
+    test('requireCustom at true means not all member default custom data is required', async () => {
+      const result = await svc.patch(
+        { userUid: 1, agendaUid: 2 },
+        { custom: { contactName: null } },
+        { requireCustom: false }
+      );
+
+      expect(result.success).toBe(true);
+    });
+  });
+
   describe('legacy', () => {
     test('if user identifier is specified in patch, legacy is updated', async () => {
       const { member } = await svc.patch(
