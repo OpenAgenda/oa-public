@@ -44,15 +44,16 @@ const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
 ));
 
 export default ({
-  title,
-  description,
-  mode,
-  operation,
-  res,
-  onSuccess,
-  onCloseModalRequest,
+  title, // optional. specify form title
+  description, // optional. specify subtitle
+  mode, // modal or not
+  operation, // update or create
+  res, // where to save
+  onSuccess, // when saved is done
+  onCloseModalRequest, // if modal and user clicks to close
   lang,
-  showSuccessMessage,
+  showSuccessMessage, // boolean: shows success message after save
+  optionalFields, // optional: whether form info should be optional
 }) => {
   const query = operation === 'update'
     ? useQuery('getMember', () => axios.get(res), {
@@ -95,8 +96,10 @@ export default ({
       {isLoading ? <Spinner /> : null}
       {operation === 'update' ? (
         <div>
-          <h3>{title ?? m(messages.updateTitle)}</h3>
-          <p>{description ?? m(messages.description)}</p>
+          <h3>{title !== undefined ? title : m(messages.updateTitle)}</h3>
+          <p>
+            {description !== undefined ? description : m(messages.description)}
+          </p>
         </div>
       ) : null}
       {isLoading ? (
@@ -108,7 +111,7 @@ export default ({
             patch: res,
           }}
           values={query.data}
-          schema={schema}
+          schema={schema({ optionalFields })}
           onSubmitSuccess={onSubmitSuccess}
           onCancel={() => (mode === 'modal' ? onCloseModalRequest() : setStep('success'))}
           lang={lang}
