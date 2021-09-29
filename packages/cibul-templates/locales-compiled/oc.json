@@ -5,6 +5,60 @@
       "value": "Aggregate"
     }
   ],
+  "event/contributor-section": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "event/contributor/edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "event/contributor/email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "event/contributor/name": [
+    {
+      "type": 0,
+      "value": "Name"
+    }
+  ],
+  "event/contributor/organization": [
+    {
+      "type": 0,
+      "value": "Organization"
+    }
+  ],
+  "event/contributor/phone": [
+    {
+      "type": 0,
+      "value": "Phone"
+    }
+  ],
+  "event/contributor/position": [
+    {
+      "type": 0,
+      "value": "Position"
+    }
+  ],
+  "event/contributor/role": [
+    {
+      "type": 0,
+      "value": "Role"
+    }
+  ],
+  "event/private-section": [
+    {
+      "type": 0,
+      "value": "Private information"
+    }
+  ],
   "export-all-button": [
     {
       "type": 0,
