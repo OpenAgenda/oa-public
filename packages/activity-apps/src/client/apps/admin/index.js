@@ -19,7 +19,7 @@ import getReducers from '../../redux/reducer';
 import getRoutes from './getRoutes';
 
 const defaults = {
-  state: {
+  initialState: {
     settings: {
       prefix: '/admin/activities',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
@@ -28,7 +28,8 @@ const defaults = {
     res: {
       list: '/list'
     }
-  }
+  },
+  extraProps: {}
 };
 
 function getDefaultHistory( req ) {
@@ -42,7 +43,8 @@ export default function ( options ) {
     initialState,
     layout,
     req,
-    notFoundKey = _.uniqueId( 'activityAppsAdmin' )
+    notFoundKey = _.uniqueId( 'activityAppsAdmin' ),
+    extraProps
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
@@ -76,7 +78,7 @@ export default function ( options ) {
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          <LayoutDataContext.Provider value={{ lang: 'fr' }}>
+          <LayoutDataContext.Provider value={extraProps}>
             {renderRoutes( routes )}
           </LayoutDataContext.Provider>
         </Provider>

@@ -1,5 +1,6 @@
 'use strict';
 
+const React = require('react');
 const ReactDOM = require('react-dom/server');
 const { parsePath } = require('history');
 const { wrapApp } = require('@openagenda/react-shared');
@@ -45,7 +46,7 @@ module.exports = function render({
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext }));
+      const content = ReactDOM.renderToString(wrapApp(reactApp, { req, staticContext, extraProps: { lang } }));
 
       const state = store.getState();
 
@@ -67,7 +68,12 @@ module.exports = function render({
 
       cmn.render(req, res, template, {
         ...baseData,
-        scriptParams: { initialState: state },
+        scriptParams: {
+          initialState: state,
+          extraProps: {
+            lang
+          }
+        },
         lang,
         content,
         preloaded: true

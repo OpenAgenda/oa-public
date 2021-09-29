@@ -12,7 +12,8 @@ import {
   clientMiddleware,
   makeTriggerHooks,
   RouterTrigger,
-  NotFound
+  NotFound,
+  LayoutDataContext
 } from '@openagenda/react-shared';
 import getRoutes from '../../getRoutes';
 import inboxReducer from '../../reducers/inbox';
@@ -93,7 +94,9 @@ export default function app(options = {}) {
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          {renderRoutes(routes, extraProps)}
+          <LayoutDataContext.Provider value={extraProps}>
+            {renderRoutes(routes)}
+          </LayoutDataContext.Provider>
         </Provider>
       </RouterTrigger>
     </NotFound.Capture>

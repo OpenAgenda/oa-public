@@ -234,6 +234,7 @@ module.exports = options => {
       },
       extraProps: {
         user,
+        lang: params.lang,
         agenda: {
           uid: params.agendaUid,
           slug: params.agendaSlug

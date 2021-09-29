@@ -176,23 +176,6 @@ window.asap(options => {
   }
 });
 
-function _isAdmin(ctl) {
-  return function (session) {
-    if (!session.logged) {
-      return false;
-    }
-
-    if (
-      !cn.contains(ctl.adm, parseInt(session.uid, 10)) &&
-      !cn.contains(typeof ctl.mod !== 'undefined' ? ctl.mod : [], parseInt(session.uid, 10))
-    ) {
-      return false;
-    }
-
-    return true;
-  };
-}
-
 function _removeAddButtonAsPrimary() {
   let addButton = cn.el(params.selectors.add);
 
