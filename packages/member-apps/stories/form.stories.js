@@ -1,0 +1,171 @@
+import React, { useState } from 'react';
+import '@openagenda/bs-templates/compiled/main.css';
+import Form from '../src/components/Form';
+import ComponentCanvas from './decorators/ComponentCanvas';
+import Providers from './decorators/Providers';
+
+export default {
+  title: 'Components',
+  decorators: [Providers, ComponentCanvas],
+};
+
+export const createForm = () => (
+  <div>
+    <Form
+      lang="fr"
+      operation="create"
+      res="http://localhost:3000/api/agendas/123/members"
+      onSuccess={() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }}
+    />
+  </div>
+);
+
+export const updateForm = () => (
+  <div>
+    <Form
+      lang="fr"
+      operation="update"
+      res="http://localhost:3000/api/agendas/123/members/456"
+      onSuccess={() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }}
+    />
+  </div>
+);
+
+export const UpdateFormModal = () => {
+  const [display, setDisplay] = useState(true);
+  const closeModal = () => {
+    setDisplay(false);
+  };
+
+  if (!display) {
+    return <div>Closed</div>;
+  }
+
+  return (
+    <Form
+      lang="fr"
+      operation="update"
+      mode="modal"
+      res="http://localhost:3000/api/agendas/123/members/456"
+      onSuccess={() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }}
+      onCloseModalRequest={() => closeModal()}
+    />
+  );
+};
+
+export const UpdateFormModalWithConfirm = () => {
+  const [display, setDisplay] = useState(true);
+  const closeModal = () => {
+    setDisplay(false);
+  };
+
+  if (!display) {
+    return <div>Closed</div>;
+  }
+
+  return (
+    <Form
+      lang="fr"
+      operation="update"
+      mode="modal"
+      showSuccessMessage
+      res="http://localhost:3000/api/agendas/123/members/456"
+      onSuccess={() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }}
+      onCloseModalRequest={() => closeModal()}
+    />
+  );
+};
+
+export const FormWithCustomTitleAndDescription = () => (
+  <Form
+    lang="fr"
+    operation="update"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    title="Un titre passé en prop"
+    description="Une description passée en prop"
+    onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FormWithOptionalFields = () => (
+  <Form
+    lang="fr"
+    operation="update"
+    optionalFields
+    res="http://localhost:3000/api/agendas/123/members/456"
+    title="Les champs sont optionnels"
+    description={null}
+    onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FixTwoLinksOneForm = () => {
+  const [display, setDisplay] = useState(false);
+  const [res, setRes] = useState(false);
+  const closeModal = () => {
+    setDisplay(false);
+  };
+
+  if (!display) {
+    return (
+      <div>
+        <button
+          className="btn btn-default margin-all-sm"
+          type="button"
+          onClick={() => setRes(789)}
+        >
+          Kevin
+        </button>
+        <button
+          className="btn btn-default margin-all-sm"
+          type="button"
+          onClick={() => setRes(456)}
+        >
+          Kaoré
+        </button>
+        <button
+          className="btn btn-default margin-all-sm"
+          type="button"
+          onClick={() => {
+            setDisplay(true);
+          }}
+        >
+          Display
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <Form
+      lang="fr"
+      operation="update"
+      mode="modal"
+      showSuccessMessage
+      res={`http://localhost:3000/api/agendas/123/members/${res}`}
+      onSuccess={() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }}
+      onCloseModalRequest={() => closeModal()}
+    />
+  );
+};

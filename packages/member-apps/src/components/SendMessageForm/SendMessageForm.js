@@ -16,11 +16,11 @@ export default class SendMessageForm extends Component {
 
   constructor(props) {
     super(props);
-    this.renderField = this::renderField;
-    this.renderInput = this::renderInput;
-    this.renderTextarea = this::renderTextarea;
-    this.renderMarkdownInput = this::renderMarkdownInput;
-    this.renderCheckbox = this::renderCheckbox;
+    this.renderField = renderField.bind(this);
+    this.renderInput = renderInput.bind(this);
+    this.renderTextarea = renderTextarea.bind(this);
+    this.renderMarkdownInput = renderMarkdownInput.bind(this);
+    this.renderCheckbox = renderCheckbox.bind(this);
   }
 
   render() {

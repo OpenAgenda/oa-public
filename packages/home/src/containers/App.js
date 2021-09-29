@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
+import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
@@ -9,6 +10,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData, useConstant } from '@openagenda/react-shared';
+import { locales as memberAppsLocals } from '@openagenda/member-apps';
 import labels from '@openagenda/labels/home';
 import I18nContext from '../contexts/I18nContext';
 import MenuItem from '../components/MenuItem';
@@ -64,36 +66,38 @@ function App({ route }) {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <I18nContext.Provider value={i18nContextValue}>
-        {!total ? (
-          renderRoutes(route.routes)
-        ) : (
-          <div
-            className={classNames('container top-margined home', {
-              [`home-${tab}`]: tab,
-            })}
-          >
-            <div className="row">
-              <div className="col-sm-8 col-sm-offset-2">
-                <ul className="home-nav list-inline">
-                  <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
-                    {getLabel('myAgendas')}
-                  </MenuItem>
-                  <MenuItem
-                    linkTo={`${prefix}/events`}
-                    active={tab === 'events'}
-                  >
-                    {getLabel('myEvents')}
-                  </MenuItem>
-                </ul>
-                <div className="wsq">{renderRoutes(route.routes)}</div>
+    <IntlProvider messages={memberAppsLocals[lang]} locale={lang} key={lang}>
+      <QueryClientProvider client={queryClient}>
+        <I18nContext.Provider value={i18nContextValue}>
+          {!total ? (
+            renderRoutes(route.routes)
+          ) : (
+            <div
+              className={classNames('container top-margined home', {
+                [`home-${tab}`]: tab,
+              })}
+            >
+              <div className="row">
+                <div className="col-sm-8 col-sm-offset-2">
+                  <ul className="home-nav list-inline">
+                    <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
+                      {getLabel('myAgendas')}
+                    </MenuItem>
+                    <MenuItem
+                      linkTo={`${prefix}/events`}
+                      active={tab === 'events'}
+                    >
+                      {getLabel('myEvents')}
+                    </MenuItem>
+                  </ul>
+                  <div className="wsq">{renderRoutes(route.routes)}</div>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </I18nContext.Provider>
-    </QueryClientProvider>
+          )}
+        </I18nContext.Provider>
+      </QueryClientProvider>
+    </IntlProvider>
   );
 }
 

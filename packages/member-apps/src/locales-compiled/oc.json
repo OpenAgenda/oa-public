@@ -1,0 +1,26 @@
+{
+  "MemberApps.Form.confirmSuccess": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "MemberApps.Form.description": [
+    {
+      "type": 0,
+      "value": "This information will allow the agenda administrators to get in touch with you if needed."
+    }
+  ],
+  "MemberApps.Form.success": [
+    {
+      "type": 0,
+      "value": "The update was successful"
+    }
+  ],
+  "MemberApps.Form.updateTitle": [
+    {
+      "type": 0,
+      "value": "Contact form"
+    }
+  ]
+}

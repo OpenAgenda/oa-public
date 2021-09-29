@@ -16,6 +16,10 @@ module.exports = schema({
     type: 'boolean',
     default: true,
   },
+  throwOnError: {
+    type: 'boolean',
+    default: false,
+  },
   context: {
     lang: {
       type: 'text',

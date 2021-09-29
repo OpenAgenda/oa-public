@@ -80,7 +80,7 @@ export function renderInput({
 
   const content = <input {...props.input} {...inputAttrs} />;
 
-  return this::renderField({ content, ...props });
+  return renderField.bind(this)({ content, ...props });
 }
 
 export function renderCheckbox({
@@ -107,7 +107,7 @@ export function renderCheckbox({
     </div>
   );
 
-  return this::renderField({ content, ...props });
+  return renderField.bind(this)({ content, ...props });
 }
 
 export function renderTextarea({
@@ -132,7 +132,7 @@ export function renderTextarea({
     </div>
   );
 
-  return this::renderField({ content, ...props });
+  return renderField.bind(this)({ content, ...props });
 }
 
 export function renderSelect({ className, children, ...props }) {
@@ -144,7 +144,7 @@ export function renderSelect({ className, children, ...props }) {
     </select>
   );
 
-  return this::renderField({ content, ...props });
+  return renderField.bind(this)({ content, ...props });
 }
 
 export function renderSearchInput({
@@ -180,7 +180,7 @@ export function renderSearchInput({
     </div>
   );
 
-  return this::renderField({ content, ...props });
+  return renderField.bind(this)({ content, ...props });
 }
 
 export function renderMarkdownInput({
@@ -201,5 +201,5 @@ export function renderMarkdownInput({
 
   const content = <MarkdownComponent {...props.input} {...inputAttrs} />;
 
-  return this::renderField({ content, ...props });
+  return renderField.bind(this)({ content, ...props });
 }

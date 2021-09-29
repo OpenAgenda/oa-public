@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('patch');
+const { BadRequest } = require('@openagenda/verror');
 
 const get = require('./get');
 const validate = require('./iso/validate');
@@ -13,7 +14,7 @@ async function patch(config, identifiers, data, options = {}) {
 
   const { knex, schema, interfaces } = config;
 
-  const { requireCustom, context } = cleanPatchOptions(options);
+  const { requireCustom, context, throwOnError } = cleanPatchOptions(options);
 
   const clean = {};
 
@@ -28,6 +29,9 @@ async function patch(config, identifiers, data, options = {}) {
       { updatedAt: new Date() }
     );
   } catch (errors) {
+    if (throwOnError) {
+      throw new BadRequest({ info: { errors } }, 'submitted data is invalid');
+    }
     return {
       success: false,
       errors,

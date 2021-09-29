@@ -1,15 +1,23 @@
+import React from 'react';
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import agendasJson from './mocks/agendas.json';
 import eventsJson from './mocks/events.json';
 
+import ProvidersDecorator from './decorators/Providers';
+
 import '@openagenda/bs-templates/compiled/main.css';
 
 const mock = new MockAdapter(axios);
+
+function route(path = '') {
+  return typeof path === 'string'
+    ? new RegExp(path.replace(/:\w+/g, '[^/]+'))
+    : path;
+}
 
 const mockApi = ({ isNew } = {}) => {
   mock.onGet('/agendas.json').reply(
@@ -18,10 +26,27 @@ const mockApi = ({ isNew } = {}) => {
       ? {
         total: 0,
         agendas: [],
+        isMember: false,
       }
       : agendasJson
   );
   mock.onGet('/events.json').reply(200, eventsJson);
+
+  mock.onGet(route('/agendas/:agendaUid/members/:userUid')).reply(req => {
+    const [, , agendaUid] = req.url.split('/');
+
+    const custom = agendasJson.agendas
+      .filter(a => a.uid === parseInt(agendaUid, 10))
+      .pop().member?.custom;
+
+    const member = {
+      name: custom?.contactName,
+      email: custom?.email,
+      // ...
+    };
+
+    return [200, member];
+  });
 };
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
@@ -41,6 +66,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
       show: '/:slug',
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
+      contact: '/:slug/contact',
     },
     events: {
       list: '/events.json',
@@ -49,6 +75,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
       showPrivate: '/:slug/events/:eventSlug.prv',
       showWithoutAgenda: '/events/:eventSlug',
     },
+    members: '/agendas/:agendaUid/members',
     messages: '/home/messages',
     notifs: '/home/notifications',
     search: '/agendas',
@@ -58,70 +85,82 @@ const getDefaultState = ({ apiRoot } = {}) => ({
   },
 });
 
-storiesOf('App', module)
-  .add('welcome', () => {
-    mockApi({ isNew: true });
+export default {
+  title: 'Main',
+  decorators: [ProvidersDecorator],
+};
 
-    return wrapApp(
-      createApp({
-        history: createMemoryHistory(),
-        initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        }),
-      }),
-      {
-        extraProps: {
-          user: {
-            id: 2,
-            uid: 99999999,
-            isNew: true,
-          },
-          lang: 'fr',
-        },
-      }
-    );
-  })
-  .add('home agendas', () => {
-    mockApi();
-
-    return wrapApp(
-      createApp({
-        history: createMemoryHistory(),
-        initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        }),
-      }),
-      {
-        extraProps: {
-          user: {
-            id: 2,
-            uid: 99999999,
-            isNew: false,
-          },
-          lang: 'fr',
-        },
-      }
-    );
-  })
-  .add('home agendas with search query', () => {
-    mockApi();
-
-    return wrapApp(
-      createApp({
-        history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
-        initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        }),
-      }),
-      {
-        extraProps: {
-          user: {
-            id: 2,
-            uid: 99999999,
-            isNew: false,
-          },
-          lang: 'fr',
-        },
-      }
-    );
+export const Welcome = () => {
+  mockApi({
+    isNew: true,
   });
+
+  return (
+    <div>
+      {wrapApp(
+        createApp({
+          history: createMemoryHistory(),
+          initialState: getDefaultState({
+            apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+          }),
+        }),
+        {
+          extraProps: {
+            user: {
+              id: 2,
+              uid: 99999999,
+              isNew: true,
+            },
+            lang: 'fr',
+          },
+        }
+      )}
+    </div>
+  );
+};
+
+export const HomeAgendas = () => {
+  mockApi();
+
+  return wrapApp(
+    createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState({
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+      }),
+    }),
+    {
+      extraProps: {
+        user: {
+          id: 2,
+          uid: 99999999,
+          isNew: false,
+        },
+        lang: 'fr',
+      },
+    }
+  );
+};
+
+export const HomeAgendasWithSearchQuery = () => {
+  mockApi();
+
+  return wrapApp(
+    createApp({
+      history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
+      initialState: getDefaultState({
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+      }),
+    }),
+    {
+      extraProps: {
+        user: {
+          id: 2,
+          uid: 99999999,
+          isNew: false,
+        },
+        lang: 'fr',
+      },
+    }
+  );
+};

@@ -161,7 +161,7 @@ module.exports = core => {
     mw.member.verifyRoleEdit,
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .create(req.body.userUid, req.body.role, req.body)
+      .create(req.body.userUid, req.body.role, req.parsedData)
       .then(member => res.json(member), next)
   ]);
 
@@ -178,8 +178,8 @@ module.exports = core => {
     mw.member.load,
     mw.member.verifyAccess('userUid'),
     (req, res, next) => core
-      .agendas(req.agenda.uid).members
-      .patch(req.params.userUid, req.body)
+      .agendas(req.agenda.uid)
+      .members.patch(req.params.userUid, req.parsedData)
       .then(member => res.json(member), next)
   ]);
 

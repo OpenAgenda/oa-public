@@ -78,6 +78,7 @@ export default class FormSchemaComponent extends Component {
 
     const {
       res,
+      method,
       onSubmit,
       unloadWarning: enableUnloadWarning,
       onSubmitSuccess
@@ -122,7 +123,8 @@ export default class FormSchemaComponent extends Component {
     });
 
     submit({
-      res: _.get(res, 'post', ''),
+      method,
+      res: _.get(res, method, ''),
       formSchema: this._getFormSchema(),
       values, // values can be clean anew once received by server
       files: this.get('files'),
@@ -403,6 +405,9 @@ export default class FormSchemaComponent extends Component {
   }
 
   renderBottomActions() {
+    const {
+      onCancel
+    } = this.props;
     const matching = _.first(_.get(this.props, 'actionComponents', []).filter(a => a.position === 'bottom'));
 
     const loading = this.get('loading');
@@ -419,8 +424,11 @@ export default class FormSchemaComponent extends Component {
 
     return (
       <div style={{ position: 'relative' }} className={_.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'}>
-        <button className={loading ? 'btn btn-default' : 'btn btn-primary'} type="submit" disabled={loading} onClick={this.onSubmit}>{labels.main.submit}</button>
-        {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
+        {onCancel ? <button type="button" className="btn btn-default" onClick={() => onCancel()}>{labels.main.cancel}</button> : null}
+        <div className={onCancel ? 'pull-right' : null}>
+          {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
+          <button className={loading ? 'btn btn-default' : 'btn btn-primary'} type="submit" disabled={loading} onClick={this.onSubmit}>{labels.main.submit}</button>
+        </div>
       </div>
     );
   }
@@ -491,7 +499,9 @@ FormSchemaComponent.defaultPropTypes = {
   stateless: false, // component handles its own state by default
   onSubmit: null,
   onSubmitSuccess: null,
+  method: 'post',
   res: {
+    patch: '',
     post: '',
     redirect: null
   },

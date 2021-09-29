@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { useCallback, useContext, useMemo } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Link, useHistory } from 'react-router-dom';
@@ -6,110 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { useIsomorphicLayoutEffect } from 'react-use';
 import qs from 'qs';
-import { Image, Spinner } from '@openagenda/react-components';
+import { Spinner, useModal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import { setTab } from '../reducers/menu';
+import { updatedMember } from '../reducers/agendas';
 import Welcome from '../components/Welcome';
 import AgendasSearch from '../components/AgendasSearch';
+import AgendaItem from '../components/AgendaItem';
+import MemberEditModal from '../components/MemberEditModal';
 import Wrapper from './Wrapper';
 
-const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
-
-function AgendaItem({ agenda, res, getLabel }) {
-  return (
-    <div className="agenda-item media" key={agenda.uid}>
-      <div className="media-left">
-        <a href={`/${agenda.slug}${agenda.private ? '.prv' : ''}`}>
-          <Image
-            src={agenda.image}
-            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
-            className="media-object ill avatar"
-            alt={agenda.title}
-          />
-        </a>
-      </div>
-      <div className="media-body">
-        <div className="title media-heading">
-          <a href={`/${agenda.slug}${agenda.private ? '.prv' : ''}`}>
-            <strong>{agenda.title}</strong>
-
-            {!!agenda.official && (
-              <span className="official">
-                <i />
-                <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow" />
-                  <div className="tooltip-inner">
-                    {getLabel('officialAgenda')}
-                  </div>
-                </div>
-              </span>
-            )}
-          </a>
-
-          {!!agenda.private && (
-            <div className="tooltip-icon">
-              <i className="fa fa-unlock-alt" />
-              <div className="tooltip right" role="tooltip">
-                <div className="tooltip-arrow" />
-                <div className="tooltip-inner">{getLabel('privateAgenda')}</div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="actions">
-          {[4].includes(agenda.member.role) && (
-            <a
-              href={res.agendas[
-                agenda.private ? 'showPrivate' : 'show'
-              ].replace(':slug', agenda.slug)}
-            >
-              {getLabel('see')}
-            </a>
-          )}
-          {[2, 3].includes(agenda.member.role) && (
-            <>
-              {agenda?.settings?.lab?.eventAdmin ? (
-                <Link to={`/${agenda.slug}/admin/events`}>
-                  {agenda.member.role === 2
-                    ? getLabel('manage')
-                    : getLabel('moderate')}
-                </Link>
-              ) : (
-                <a href={`${phpPrefix}${agenda.slug}/admin`}>
-                  {agenda.member.role === 2
-                    ? getLabel('manage')
-                    : getLabel('moderate')}
-                </a>
-              )}
-            </>
-          )}
-          {[1, 2, 3].includes(agenda.member.role) && (
-            <a
-              href={(agenda.useContributeApp
-                ? res.agendas.contribute
-                : res.agendas.addEvent
-              ).replace(':slug', agenda.slug)}
-            >
-              {getLabel('addAnEvent')}
-            </a>
-          )}
-          {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && (
-            <a href={_.get(agenda, 'mailto')}>{getLabel('contact')}</a>
-          )}
-          {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && (
-            <a href={res.agendas.contact.replace(':slug', agenda.slug)}>
-              {getLabel('contact')}
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Agendas() {
-  const { getLabel } = useContext(I18nContext);
+  const { getLabel, lang } = useContext(I18nContext);
 
   const history = useHistory();
   const query = useMemo(
@@ -157,6 +64,8 @@ function Agendas() {
     [getLabel]
   );
 
+  const memberEditModal = useModal();
+
   return (
     <AgendasSearch
       res={res.agendas.list}
@@ -183,6 +92,16 @@ function Agendas() {
         return (
           <Wrapper tab="agendas" className="home-agendas">
             <div className="content">
+              {memberEditModal.isOpen ? (
+                <MemberEditModal
+                  lang={lang}
+                  closeModal={() => memberEditModal.close()}
+                  onSuccess={(member, updatedData) => dispatch(updatedMember(state.agendas, member, updatedData))}
+                  {...memberEditModal.data}
+                  description={getLabel('editMemberInformation')}
+                  res={res}
+                />
+              ) : null}
               <div className="header">
                 <div className="hidden-xs pull-right">
                   <Link
@@ -205,6 +124,7 @@ function Agendas() {
                       agenda={agenda}
                       res={res}
                       getLabel={getLabel}
+                      onDisplayMemberForm={item => memberEditModal.open(item)}
                     />
                   ))
                   : null}

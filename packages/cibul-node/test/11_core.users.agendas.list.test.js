@@ -71,7 +71,8 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
         organization: null,
         phone: null,
         position: null,
-        role: 'contributor'
+        role: 'contributor',
+        userUid: 1
       });
     });
 

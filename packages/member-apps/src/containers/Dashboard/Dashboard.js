@@ -107,8 +107,8 @@ function OrderField({ action, input, title }) {
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.renderField = this::renderField;
-    this.renderSearchInput = this::renderSearchInput;
+    this.renderField = renderField.bind(this);
+    this.renderSearchInput = renderSearchInput.bind(this);
 
     this.debouncedSearch = debounce(this.search, 400);
   }

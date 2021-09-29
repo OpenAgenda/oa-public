@@ -6,6 +6,8 @@ import cors from 'cors';
 import errorHandler from 'errorhandler';
 
 import memberListResult from './fixtures/members.json';
+import member from './fixtures/member.json';
+import otherMember from './fixtures/otherMember.json';
 
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
@@ -38,8 +40,6 @@ app.use((req, res, next) => {
   req.agenda = { id: 4608 };
   next();
 });
-
-/** ***** */
 
 app.use((req, res, next) => {
   req.agenda = {
@@ -141,7 +141,25 @@ app.post('/send-a-message/:id', (req, res) => {
   res.json({ success: true });
 });
 
-/** ***** */
+app.get('/api/agendas/123/members/456', (req, res) => {
+  res.json(member);
+});
+
+app.get('/api/agendas/123/members/789', (req, res) => {
+  res.json(otherMember);
+});
+
+app.post('/api/agendas/123/members', (req, res) => {
+  // eslint-disable-next-line no-console
+  console.log('received %j', req.body);
+  res.status(200).send();
+});
+
+app.patch('/api/agendas/123/members/456', (req, res) => {
+  // eslint-disable-next-line no-console
+  console.log('received %j', req.body);
+  res.status(200).send();
+});
 
 app.use(errorHandler({ log: true }));
 

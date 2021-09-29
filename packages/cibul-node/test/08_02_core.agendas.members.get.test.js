@@ -52,7 +52,8 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         email: null,
         position: null,
         organization: null,
-        role: 'contributor'
+        role: 'contributor',
+        userUid: 1
       });
     });
   });
@@ -87,7 +88,8 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
           email: null,
           position: null,
           organization: null,
-          role: 'contributor'
+          role: 'contributor',
+          userUid: 1
         });
       });
     });
