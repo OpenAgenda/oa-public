@@ -575,6 +575,12 @@
       "value": "crwdne622:0"
     }
   ],
+  "aggregator-sources.DefineRules.name": [
+    {
+      "type": 0,
+      "value": "Location name"
+    }
+  ],
   "aggregator-sources.DefineRules.newRule": [
     {
       "type": 0,
@@ -987,6 +993,12 @@
     {
       "type": 0,
       "value": "crwdns724:0crwdne724:0"
+    }
+  ],
+  "aggregator-sources.RuleForm.name": [
+    {
+      "type": 0,
+      "value": "Name"
     }
   ],
   "aggregator-sources.RuleForm.noOption": [

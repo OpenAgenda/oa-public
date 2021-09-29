@@ -46,6 +46,10 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.region',
     defaultMessage: 'Region',
   },
+  name: {
+    id: 'aggregator-sources.DefineRules.name',
+    defaultMessage: 'Location name',
+  },
   published: {
     id: 'aggregator-sources.DefineRules.published',
     defaultMessage: 'Published',

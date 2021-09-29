@@ -37,6 +37,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.region',
     defaultMessage: 'Region',
   },
+  name: {
+    id: 'aggregator-sources.RuleForm.name',
+    defaultMessage: 'Name',
+  },
   value: {
     id: 'aggregator-sources.RuleForm.value',
     defaultMessage: 'Value:',

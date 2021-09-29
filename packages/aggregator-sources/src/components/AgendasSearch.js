@@ -31,12 +31,12 @@ function AgendasSearch({ res, render, fieldProps }) {
 
   const onSearch = useCallback(values => list(values.search), [list]);
 
-  // useEffect(
-  //   () => {
-  //     list().catch(_.noop);
-  //   },
-  //   [list]
-  // );
+  /*    useEffect(
+     () => {
+       list().catch(_.noop);
+     },
+     [list]
+   ); */
 
   const renderForm = useCallback(
     ({ handleSubmit }) => (
