@@ -3,7 +3,7 @@
 const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
 
-async function get(services, preloadedOptions, agendaOrUid, userUid) {
+async function get(services, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const {
     members,
   } = services;
@@ -13,14 +13,15 @@ async function get(services, preloadedOptions, agendaOrUid, userUid) {
   return members.get({
     agendaUid: agenda.uid,
     userUid
-  }, preloadedOptions).then(m => (m ? format(services.members, m) : null));
+  }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m) : null));
 }
 
-module.exports = Object.assign((services, agendaOrUid, userUid) => get(
+module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
   services,
   { throwOnNotFound: true },
   agendaOrUid,
-  userUid
+  userUid,
+  options
 ), {
   is: (services, agendaOrUid, userUid) => get(
     services,

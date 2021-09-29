@@ -5,7 +5,6 @@ import du from '@openagenda/dom-utils';
 import loadInbox from '@openagenda/inbox-apps/dist/apps/lazyInbox/load';
 import sessions from '@openagenda/sessions/client';
 import activities from './activities';
-import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
 import textHelpers from '../../helpers/text.js';
 import makeLabelGetter from '@openagenda/labels';
@@ -24,7 +23,6 @@ const defaults = {
     tpl: '/server/testdata/privateeventdata.json'
   },
   activitiesSelector: '.js_activities',
-  contributorsSelector: '.js_contributor',
   activitiesUrl: {
     production: '/agendas/{agendaUid}/events/{eventUid}/activities',
     development: '/agendas/{agendaUid}/events/{eventUid}/activities',
@@ -71,13 +69,6 @@ module.exports = options => {
 
       if (_.keys(data.custom.custom).length) {
         du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
-      }
-
-      if (data.contributor && _.keys(data.contributor).length) {
-        displayContributor({
-          contributor: data.contributor,
-          canvas: du.el(params.contributorsSelector)
-        });
       }
 
       if (data.authorizations?.canEditEvent) {

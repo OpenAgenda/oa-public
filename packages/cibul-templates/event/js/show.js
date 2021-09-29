@@ -1,6 +1,7 @@
 "use strict";
 
 import displayShareButtons from './displayShareButtons';
+import displayContributorSection from './displayContributorSection';
 
 const  eventMap = require('./map');
 
@@ -84,6 +85,19 @@ window.asap(options => {
   displayReferences(params.agendaUid, params.uid);
 
   permalink();
+
+  get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}/context`, (err, res) => {
+    if (!res) return;
+
+    const { me, member } = res;
+
+    displayContributorSection({
+      me,
+      member,
+      lang: params.lang,
+      agendaUid: params.agendaUid
+    });
+  });
 
   _defineRoles(params, (err, roles) => {
     log('roles: [%s]', roles.join(','));

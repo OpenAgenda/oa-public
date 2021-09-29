@@ -35,14 +35,14 @@ class UserApp extends Component {
 
   constructor(props) {
     super( props );
-    this.get = ::this.get;
-    this.handleChangePassword = ::this.handleChangePassword;
-    this.handlePageSelect = ::this.handlePageSelect;
-    this.handleSearchSubmit = ::this.handleSearchSubmit;
-    this.handleUserActivation = ::this.handleUserActivation;
-    this.handleUserIsBlacklistedToggle = ::this.handleUserIsBlacklistedToggle;
-    this.handleUserUpdate = ::this.handleUserUpdate;
-    this.handleUserSignin = ::this.handleUserSignin;
+    this.get = this.get.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handlePageSelect = this.handlePageSelect.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleUserActivation = this.handleUserActivation.bind(this);
+    this.handleUserIsBlacklistedToggle = this.handleUserIsBlacklistedToggle.bind(this);
+    this.handleUserUpdate = this.handleUserUpdate.bind(this);
+    this.handleUserSignin = this.handleUserSignin.bind(this);
   }
 
   state = {
@@ -229,7 +229,7 @@ class UserApp extends Component {
           <div className="col-md-12">
             <h2>Users</h2>
             <div class="margin-bottom-sm">
-              <label>Account activation mode</label>: <span>{this.props.accountActivationMode === 'manual' ? 'Manual' : 'Automatic'}</span> -> 
+              <label>Account activation mode</label>: <span>{this.props.accountActivationMode === 'manual' ? 'Manual' : 'Automatic'}</span> -&rarr; 
               <span>{this.props.accountActivationMode === 'manual' ? 'Accounts must be checked on Slack' : 'Users can activate their own accounts'}</span>
               <a
                 href={'/admin/users/activationMode?mode=' + (this.props.accountActivationMode === 'manual' ? 'automatic' : 'manual')}
