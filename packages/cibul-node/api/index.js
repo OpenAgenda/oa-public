@@ -348,6 +348,17 @@ module.exports = core => {
       .then(member => res.json(member), next)
   ]);
 
+  app.get('/me/agendas/:agendaUid/events/:eventUid/context', [
+    mw.member.load,
+    mw.member.verifyAccess(),
+    (req, res, next) => core
+      .users(req.user.uid)
+      .agendas(req.params.agendaUid)
+      .events(req.params.eventUid)
+      .getContext()
+      .then(context => res.json(context), next)
+  ]);
+
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {
       includeFields: req.query.fields ? [].concat(req.query.fields) : null
