@@ -250,7 +250,7 @@ class LocationItem extends Component {
               {!merge ? (
                 <button
                   type="button"
-                  className="btn btn-link  action"
+                  className={settings.access.merge.authorized ? 'btn btn-link  action' : 'btn btn-link  action disabled'}
                   onClick={this.goToMergeStep1FromDP}
                 >
                   <FormattedMessage {...messages.verifyAndMerge} />
