@@ -29,7 +29,6 @@ module.exports = ({ render, config }) => (req, res, next) => {
       settings: {
         context: 'agenda',
         prefix: req.baseUrl,
-        lang: req.lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         focusFistConversation: true, // force to display the first conversation if exists

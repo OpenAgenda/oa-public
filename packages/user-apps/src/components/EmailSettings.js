@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import I18nContext from '../contexts/I18nContext';
 
 
 @reduxForm( {
@@ -19,10 +20,7 @@ export default class EmailSettings extends Component {
     activeTab: PropTypes.bool
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  };
+  static contextType = I18nContext;
 
   renderNewEmailInput = field => (
     <div className="form-group">

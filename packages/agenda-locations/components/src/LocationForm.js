@@ -6,12 +6,11 @@ import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 import get from '@openagenda/utils/get';
 import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSelector';
-import { ImageInput } from '@openagenda/react-shared';
+import { Spinner, ImageInput } from '@openagenda/react-shared';
 
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
 import MultilingualInputField from '@openagenda/react-form-components/build/MultilingualInputField';
-import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import utils from '@openagenda/utils';
 import debug from 'debug';
 

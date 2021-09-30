@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { nl2br } from '@openagenda/react-shared';
+import I18nContext from '../contexts/I18nContext';
 
 
 @reduxForm( {
@@ -20,10 +21,7 @@ export default class ProfileSettings extends Component {
     activeTab: PropTypes.bool
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  };
+  static contextType = I18nContext;
 
   renderFullNameInput = field => (
     <div className="form-group">

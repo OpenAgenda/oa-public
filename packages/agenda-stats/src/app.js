@@ -5,7 +5,6 @@ import getRoutes from './getRoutes';
 const defaults = {
   initialState: {
     settings: {
-      lang: 'fr',
       prefix: '/agendaStats',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
     },

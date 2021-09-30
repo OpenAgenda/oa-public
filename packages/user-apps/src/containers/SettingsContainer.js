@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { provideHooks } from 'redial';
+import { withLayoutData } from '@openagenda/react-shared';
 import { Spinner, Modal } from '@openagenda/react-components';
 import * as userSettingsActions from '../reducers/userSettings';
 import {
@@ -17,6 +18,7 @@ import {
 @provideHooks( {
   fetch: async ( { store: { dispatch } } ) => __CLIENT__ ? dispatch(userSettingsActions.load()) : Promise.resolve()
 } )
+@withLayoutData('lang')
 @connect(
   state => ({
     res: state.res,
@@ -33,7 +35,6 @@ export default class SettingsContainer extends Component {
     const {
       history,
       route,
-      res,
       loading,
       user,
       lang,

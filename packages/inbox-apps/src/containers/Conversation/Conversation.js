@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
-import { withContext } from '@openagenda/react-shared';
+import { withContext, withLayoutData } from '@openagenda/react-shared';
 import { Spinner } from '@openagenda/react-components';
 import I18nContext from '../../contexts/I18nContext';
 import {
@@ -41,6 +41,7 @@ function asyncLoad({ store: { getState, dispatch }, history, conversationId, age
   return Promise.all(promises);
 }
 
+@withLayoutData('user', 'agenda')
 @connect(
   state => ({
     settings: state.settings,

@@ -36,7 +36,6 @@ async function matchApp( req, res, next ) {
     initialState: {
       settings: {
         prefix,
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
@@ -73,7 +72,7 @@ async function matchApp( req, res, next ) {
       req,
       res,
       'admin/activities',
-      { scriptParams: { initialState: state }, lang, content, preloaded: true, key: 'activities' }
+      { scriptParams: { initialState: state, lang }, lang, content, preloaded: true, key: 'activities' }
     );
   } catch ( e ) {
     next( e );

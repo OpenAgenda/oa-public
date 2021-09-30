@@ -17,9 +17,8 @@ const agenda = {
   credentials: {}
 };
 
-const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
+const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
-    lang,
     apiRoot,
     prefix: `/:slug/admin`
   },

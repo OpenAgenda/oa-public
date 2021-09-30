@@ -5,49 +5,53 @@ import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
+import { withLayoutData } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/agenda-settings/agendaCreation';
 import * as agendaActions from '../../reducers/agenda';
+import I18nContext from '../../contexts/I18nContext';
 
-@provideHooks( {
-  inject: ( { store } ) => store.inject( {
-    form: formReducer.plugin( {
+@withLayoutData('lang')
+@provideHooks({
+  inject: ({ store }) => store.inject({
+    form: formReducer.plugin({
       agendaCreation: agendaActions.formPlugin
-    } ),
+    }),
     agenda: agendaActions.default
-  } )
-} )
+  })
+})
 @connect(
   state => ({
-    lang: state.settings.lang
+    loading: state.agenda.loading
   })
 )
-export default class App extends Component {
-
+export default class CreationApp extends Component {
   static childContextTypes = {
     lang: PropTypes.string,
     getLabel: PropTypes.func
   };
 
-  getChildContext() {
-    const { lang } = this.props;
+  i18nContextValue = {
+    lang: this.props.lang,
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang)
+  };
 
-    return {
-      lang,
-      getLabel: label => makeGetterLabel( labels )( label, lang )
-    };
+  getChildContext() {
+    return this.i18nContextValue;
   }
 
   render() {
     const { route } = this.props;
-    // const { getLabel } = this.context;
 
     return (
-      <div className="page">
-        <div className="container agenda-settings-creation">
-          {renderRoutes( route.routes )}
+      <I18nContext.Provider value={this.i18nContextValue}>
+        <div className="page">
+          <div className="container agenda-settings-creation">
+            {renderRoutes(route.routes)}
+          </div>
         </div>
-      </div>
+      </I18nContext.Provider>
     );
   }
 
 }
+

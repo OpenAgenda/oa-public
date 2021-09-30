@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import I18nContext from '../contexts/I18nContext';
 
 
 @reduxForm( {
@@ -19,10 +20,7 @@ export default class PasswordSettings extends Component {
     activeTab: PropTypes.bool
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  }
+  static contextType = I18nContext;
 
   renderOldPasswordInput = field => (
     <div className="form-group">

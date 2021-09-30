@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debug from 'debug';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
-
-import Spinner from '@openagenda/react-shared/lib/components/Spinner';
+import { Spinner } from '@openagenda/react-shared';
 import get from '@openagenda/utils/get';
 
 import extraGeoFields from './extraGeoFields';

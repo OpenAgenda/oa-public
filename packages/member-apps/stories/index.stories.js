@@ -6,9 +6,8 @@ import PageDecorator from './decorators/PageDecorator';
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
+const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
-    lang,
     apiRoot,
     prefix: '',
     perPageLimit: 20,

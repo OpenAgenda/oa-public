@@ -1,12 +1,11 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { IntlProvider } from 'react-intl';
-import { useSelector } from 'react-redux';
 import {
   Switch, Route, Link, useRouteMatch
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { loadable, useConstant } from '@openagenda/react-shared';
+import { loadable, useConstant, useLayoutData } from '@openagenda/react-shared';
 import locales from '../locales-compiled';
 
 const AnnouncementManager = loadable(
@@ -26,6 +25,7 @@ const Elasticsearch = loadable(
 );
 
 function App({ user }) {
+  const { lang } = useLayoutData();
   const queryClient = useConstant(
     () => new QueryClient({
       defaultOptions: {
@@ -37,7 +37,6 @@ function App({ user }) {
   );
 
   const { path, url } = useRouteMatch();
-  const lang = useSelector(state => state.settings.lang);
 
   const normalizedPath = url.endsWith('/') ? url.slice(0, -1) : url;
 

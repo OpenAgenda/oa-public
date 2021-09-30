@@ -23,6 +23,7 @@ import {
   a11yButtonActionHandler,
   useApiClient,
   useModal,
+  useLayoutData,
 } from '@openagenda/react-shared';
 import { FiltersProvider, getEvents } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
@@ -309,11 +310,13 @@ function GroupedActions({
   );
 }
 
-function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
+function Dashboard() {
   const intl = useIntl();
   const apiClient = useApiClient();
   const history = useHistory();
   const queryClient = useQueryClient();
+
+  const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
   const res = useSelector(state => state.res);
 
@@ -460,7 +463,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         }
 
         // Update map markers
-        const mapElem = mapFilter.elemRef.current;
+        const mapElem = mapFilter?.elemRef.current;
 
         if (mapElem) {
           mapElem.onQueryChange(newData.aggregations.viewport);

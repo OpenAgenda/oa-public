@@ -5,20 +5,22 @@ import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Router, StaticRouter } from 'react-router-dom';
-import apiClient from '@openagenda/react-shared/lib/utils/apiClient';
-import createStore from '@openagenda/react-shared/lib/utils/lib/createStore';
-import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
-import makeTriggerHooks from '@openagenda/react-shared/lib/utils/lib/makeTriggerHooks';
-import RouterTrigger from '@openagenda/react-shared/lib/utils/lib/RouterTrigger';
-import ScrollToTop from '@openagenda/react-shared/lib/utils/lib/ScrollToTop';
-import { NotFound } from '@openagenda/react-shared';
+import {
+  apiClient,
+  createStore,
+  clientMiddleware,
+  makeTriggerHooks,
+  RouterTrigger,
+  ScrollToTop,
+  NotFound,
+  LayoutDataContext
+} from '@openagenda/react-shared';
 import getReducers from '../../redux/reducer';
 import getRoutes from './getRoutes';
 
 const defaults = {
-  state: {
+  initialState: {
     settings: {
-      lang: 'fr',
       prefix: '/admin/activities',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
       perPageLimit: 20
@@ -26,7 +28,8 @@ const defaults = {
     res: {
       list: '/list'
     }
-  }
+  },
+  extraProps: {}
 };
 
 function getDefaultHistory( req ) {
@@ -40,7 +43,8 @@ export default function ( options ) {
     initialState,
     layout,
     req,
-    notFoundKey = _.uniqueId( 'activityAppsAdmin' )
+    notFoundKey = _.uniqueId( 'activityAppsAdmin' ),
+    extraProps
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
@@ -74,7 +78,9 @@ export default function ( options ) {
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          {renderRoutes( routes )}
+          <LayoutDataContext.Provider value={extraProps}>
+            {renderRoutes( routes )}
+          </LayoutDataContext.Provider>
         </Provider>
       </RouterTrigger>
     </NotFound.Capture>

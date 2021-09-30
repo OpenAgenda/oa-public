@@ -6,16 +6,18 @@ import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Helmet } from 'react-helmet-async';
-import { useConstant, mergeLocales } from '@openagenda/react-shared';
+import {
+  useConstant,
+  mergeLocales,
+  useLayoutData,
+} from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import eventsReducer from '../reducers/events';
 import appLocales from '../locales-compiled';
 
 const locales = mergeLocales(appLocales, reactFiltersLocales);
 
-function App({
-  route, agenda, agendaSchema, role, lang, filtersContainerRef
-}) {
+function App({ route }) {
   const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
     () => parentQueryClient
@@ -27,6 +29,8 @@ function App({
         },
       })
   );
+
+  const { lang } = useLayoutData();
 
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
@@ -44,14 +48,7 @@ function App({
             crossOrigin=""
           />
         </Helmet>
-        <div className="event-admin">
-          {renderRoutes(route.routes, {
-            agenda,
-            agendaSchema,
-            role,
-            filtersContainerRef,
-          })}
-        </div>
+        <div className="event-admin">{renderRoutes(route.routes)}</div>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </IntlProvider>

@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { reduxForm, Field } from 'redux-form';
 import _ from 'lodash';
 import update from 'immutability-helper';
+import { withLayoutData } from '@openagenda/react-shared';
 import * as agendaActions from '../../reducers/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
+import I18nContext from '../../contexts/I18nContext';
 
 const FORM_NAME = 'contributionEdition';
 
@@ -22,6 +23,7 @@ const registeredFieldsSelector = formName => createSelector(
 );
 const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
 
+@withLayoutData('agenda')
 @connect(
   (state, props) => ({
     initialValues: { settings: { contribution: props.agenda.settings.contribution } },
@@ -58,10 +60,7 @@ const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
 )
 export default class ContributionEdition extends Component {
 
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string,
-  };
+  static contextType = I18nContext;
 
   constructor( props ) {
     super( props );
@@ -102,7 +101,7 @@ export default class ContributionEdition extends Component {
 
   render() {
     const { handleSubmit, onSubmit, fields, errors, agenda } = this.props;
-    const { getLabel, lang } = this.context;
+    const { getLabel } = this.context;
 
     const getError = fieldname => {
       return _.get( fields, fieldname ) && _.get( fields, fieldname, {} ).touched && errors && errors[ fieldname ];

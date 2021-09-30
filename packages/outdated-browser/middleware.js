@@ -4,6 +4,11 @@ const { matchesUA } = require('browserslist-useragent');
 
 module.exports = function outdatedBrowserMw(req, res, next) {
   const userAgent = req.headers['user-agent'];
+
+  if (!userAgent) {
+    next();
+  }
+
   const outdatedBrowser = !matchesUA(userAgent, {
     ignoreMinor: true,
     ignorePatch: true,

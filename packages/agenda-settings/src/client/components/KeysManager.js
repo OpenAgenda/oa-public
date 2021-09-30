@@ -17,8 +17,8 @@ import * as modalsActions from '../reducers/modals';
 )
 export default class KeysManager extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.renderKey = ::this.renderKey;
     this.handleCopy = ::this.handleCopy;
     this.closeEdition = ::this.closeEdition;

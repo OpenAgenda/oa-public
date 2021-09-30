@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData, useConstant } from '@openagenda/react-shared';
-import { locales as memberAppsLocals } from '@openagenda/member-apps/dist';
+import { locales as memberAppsLocals } from '@openagenda/member-apps';
 import labels from '@openagenda/labels/home';
 import I18nContext from '../contexts/I18nContext';
 import MenuItem from '../components/MenuItem';
@@ -70,7 +70,7 @@ function App({ route }) {
       <QueryClientProvider client={queryClient}>
         <I18nContext.Provider value={i18nContextValue}>
           {!total ? (
-            renderRoutes(route.routes, { user, lang })
+            renderRoutes(route.routes)
           ) : (
             <div
               className={classNames('container top-margined home', {
@@ -90,9 +90,7 @@ function App({ route }) {
                       {getLabel('myEvents')}
                     </MenuItem>
                   </ul>
-                  <div className="wsq">
-                    {renderRoutes(route.routes, { user, lang })}
-                  </div>
+                  <div className="wsq">{renderRoutes(route.routes)}</div>
                 </div>
               </div>
             </div>

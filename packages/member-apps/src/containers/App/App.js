@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import makeGetterLabel from '@openagenda/labels';
+import { withLayoutData } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/members';
 import I18nContext from '../../contexts/I18nContext';
 import membersReducer from '../../reducers/members';
 import modalsReducer from '../../reducers/modals';
 
+@withLayoutData('lang')
 @provideHooks({
   inject: ({ store }) => store.inject({
     members: membersReducer,
@@ -16,7 +18,6 @@ import modalsReducer from '../../reducers/modals';
 })
 @connect(state => ({
   res: state.res,
-  lang: state.settings.lang,
 }))
 export default class App extends Component {
   i18nContextValue = {
@@ -25,15 +26,11 @@ export default class App extends Component {
   };
 
   render() {
-    const {
-      route, agenda, member, role
-    } = this.props;
+    const { route } = this.props;
 
     return (
       <I18nContext.Provider value={this.i18nContextValue}>
-        <div className="members-admin">
-          {renderRoutes(route.routes, { agenda, member, role })}
-        </div>
+        <div className="members-admin">{renderRoutes(route.routes)}</div>
       </I18nContext.Provider>
     );
   }

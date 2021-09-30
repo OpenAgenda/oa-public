@@ -6,12 +6,15 @@ import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Router, StaticRouter } from 'react-router-dom';
-import apiClient from '@openagenda/react-shared/lib/utils/apiClient';
-import createStore from '@openagenda/react-shared/lib/utils/lib/createStore';
-import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
-import makeTriggerHooks from '@openagenda/react-shared/lib/utils/lib/makeTriggerHooks';
-import RouterTrigger from '@openagenda/react-shared/lib/utils/lib/RouterTrigger';
-import { NotFound } from '@openagenda/react-shared';
+import {
+  apiClient,
+  createStore,
+  clientMiddleware,
+  makeTriggerHooks,
+  RouterTrigger,
+  NotFound,
+  LayoutDataContext
+} from '@openagenda/react-shared';
 import getRoutes from '../../getRoutes';
 import inboxReducer from '../../reducers/inbox';
 import conversationReducer from '../../reducers/conversation';
@@ -23,7 +26,6 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '/',
-      lang: 'fr',
       perPageLimit: 20
     },
     res: {
@@ -92,7 +94,9 @@ export default function app(options = {}) {
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          {renderRoutes(routes, extraProps)}
+          <LayoutDataContext.Provider value={extraProps}>
+            {renderRoutes(routes)}
+          </LayoutDataContext.Provider>
         </Provider>
       </RouterTrigger>
     </NotFound.Capture>

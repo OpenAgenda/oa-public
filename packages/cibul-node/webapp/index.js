@@ -178,8 +178,7 @@ const initialState = async req => {
     agendaSettingsNew: {
       settings: {
         prefix: '/new',
-        apiRoot,
-        lang
+        apiRoot
       },
       res: {
         create: '/new',
@@ -191,7 +190,6 @@ const initialState = async req => {
       settings: {
         prefix: '/home/activities',
         apiRoot,
-        lang,
         perPageLimit: 20
       },
       res: {
@@ -219,7 +217,6 @@ const initialState = async req => {
     agendaSettingsEdit: {
       settings: {
         prefix: '/:slug/admin',
-        lang,
         apiRoot: `http://localhost:${config.port}`
       },
       res: {
@@ -241,7 +238,6 @@ const initialState = async req => {
       settings: {
         context: 'user',
         prefix: '/home/inbox',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         emptyInboxLabel: 'homeInboxDesc',
@@ -269,7 +265,6 @@ const initialState = async req => {
       settings: {
         context: 'user',
         prefix: '/support',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         creationDesc: getSupportMessage(req, lang),
@@ -306,7 +301,6 @@ const initialState = async req => {
       settings: {
         context: 'agenda',
         prefix: '/:slug/admin/inbox',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         emptyInboxLabel: 'agendaInboxDesc',
@@ -332,7 +326,6 @@ const initialState = async req => {
     members: {
       settings: {
         prefix: '/:slug/admin/members',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
@@ -366,7 +359,6 @@ const initialState = async req => {
     agendaActivities: {
       settings: {
         prefix: '/:slug/admin/activities',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
@@ -377,7 +369,6 @@ const initialState = async req => {
     agendaStats: {
       settings: {
         prefix: '/:slug/admin/statistics',
-        lang,
         apiRoot: `http://localhost:${config.port}`
       },
       res: {
@@ -388,7 +379,6 @@ const initialState = async req => {
     eventAdmin: {
       settings: {
         prefix: '/:slug/admin/events',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         mapTiles: config.tiles
@@ -402,7 +392,6 @@ const initialState = async req => {
       settings: {
         context: 'user',
         prefix: '/admin/support',
-        lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         autoFocus: true
@@ -426,7 +415,6 @@ const initialState = async req => {
     supervisor: {
       settings: {
         prefix: '/supervisor',
-        lang,
         apiRoot: `http://localhost:${config.port}`
       }
     }
