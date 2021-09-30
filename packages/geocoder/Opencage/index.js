@@ -2,8 +2,10 @@
 
 const _ = require('lodash');
 const axios = require('axios');
-const getPolygonField = require('./lib/getPolygonField');
-const applyTransforms = require('./lib/applyTransforms');
+const ParseAndTransform = require('./lib/parseAndTransform');
+const buildGeoTree = require('./lib/buildGeoTree');
+
+const geoTreePath = `${__dirname}/../geoTree`;
 
 const forwardURL = (query, {
   key, pretty, countryCode, language
@@ -50,60 +52,16 @@ function cleanGeocodeQuery(query, countryCode) {
   };
 }
 
-function parseResponseItem({ raw }, item) {
-  const parsed = {
-    address: _.get(item, 'formatted'),
-    district: _.get(item, 'components.city_district', _.get(item, 'components.suburb', null)),
-    city: _.get(item, 'components.village', _.get(item, 'components.town', _.get(item, 'components.city', null))),
-    postalCode: _.get(item, 'components.postcode', null),
-    department: _.get(item, 'components.state_district',
-      _.get(item, 'components.county', null)),
-    region: _.get(item, 'components.state', null),
-    timezone: _.get(item, 'annotations.timezone.name', null),
-    latitude: _.get(item, 'geometry.lat', null),
-    longitude: _.get(item, 'geometry.lng', null),
-    country: _.get(item, 'components.country', null),
-    countryCode: _.get(item, 'components.country_code', null)
-  };
-
-  if (raw) {
-    parsed.raw = item;
-  }
-
-  return parsed;
-}
-
-async function _applyTransformsOnGeocodeItem(geocodeResult) {
-  const updated = applyTransforms(geocodeResult);
-
-  const district = await getPolygonField('district', updated);
-
-  if (district) {
-    updated.district = district;
-  }
-
-  return updated;
-}
-
-async function _applyTransforms(geocodeResults) {
-  if (!geocodeResults.length) return geocodeResults;
-
-  return Promise.all(
-    geocodeResults.map(_applyTransformsOnGeocodeItem)
-  );
-}
-
-async function reverse(key, latitude, longitude, { first, language, raw }) {
+async function reverse(key, parseAndTransform, latitude, longitude, { first, language, raw }) {
   const results = await axios.request({
     url: reverseURL(latitude, longitude, { key, language }),
-  }).then(r => _.get(r, 'data.results').map(parseResponseItem.bind(null, { raw })));
+  }).then(r => _.get(r, 'data.results'));
 
-  const transformed = await _applyTransforms(results);
-
+  const transformed = await parseAndTransform(results, { raw });
   return first ? _.first(transformed) : transformed;
 }
 
-async function geocode(key, query, {
+async function geocode(key, parseAndTransform, query, {
   countryCode,
   language,
   raw,
@@ -124,13 +82,20 @@ async function geocode(key, query, {
       countryCode: cleanCountryCode,
       language
     })
-  }).then(r => _.get(r, 'data.results').map(parseResponseItem.bind(null, { raw })));
+  }).then(r => _.get(r, 'data.results'));
 
-  const transformed = await _applyTransforms(results);
-
+  const transformed = await parseAndTransform(results, { raw });
   return first ? _.first(transformed) : transformed;
 }
 
 module.exports = ({ key }) => _.assign(geocode.bind(null, key), {
   reverse: reverse.bind(null, key)
 });
+
+module.exports = ({ key }) => {
+  const geoTree = buildGeoTree(geoTreePath);
+  const parseAndTransform = ParseAndTransform(geoTree);
+  return Object.assign(geocode.bind(null, key, parseAndTransform), {
+    reverse: reverse.bind(null, key, parseAndTransform)
+  });
+};

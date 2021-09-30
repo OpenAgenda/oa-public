@@ -14,7 +14,7 @@ const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 async function list(service, query = {}, nav = {}, options = {}) {
-  log('received %j %j', query, nav);
+  log('received %j %j %j', query, nav, options);
   const k = service.clients.knex(service.config.schema);
   const cleanListOptions = validateListOptions(options);
   const {

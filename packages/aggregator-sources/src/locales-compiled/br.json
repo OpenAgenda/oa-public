@@ -467,13 +467,13 @@
   "aggregator-sources.DefineRules.caseInsensitive": [
     {
       "type": 0,
-      "value": "case-insensitive"
+      "value": "Insensilbe à la casse"
     }
   ],
   "aggregator-sources.DefineRules.caseSensitive": [
     {
       "type": 0,
-      "value": "case-sensitive"
+      "value": "Sensible à la casse"
     }
   ],
   "aggregator-sources.DefineRules.choice": [
@@ -658,6 +658,12 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "aggregator-sources.DefineRules.name": [
+    {
+      "type": 0,
+      "value": "Nom du lieu"
     }
   ],
   "aggregator-sources.DefineRules.newRule": [
@@ -1099,6 +1105,12 @@
     {
       "type": 0,
       "value": "Mode simple"
+    }
+  ],
+  "aggregator-sources.RuleForm.name": [
+    {
+      "type": 0,
+      "value": "Nom"
     }
   ],
   "aggregator-sources.RuleForm.noOption": [

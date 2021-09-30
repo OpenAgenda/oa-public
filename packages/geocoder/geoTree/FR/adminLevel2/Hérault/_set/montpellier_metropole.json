@@ -1,0 +1,38 @@
+{
+  "$set": {
+    "adminLevel3": "Montpellier Méditerranée Métropole"
+  },
+  "adminLevel4": [
+    "Montpellier",
+    "Baillargues",
+    "Beaulieu",
+    "Castelnau-le-Lez",
+    "Castries",
+    "Clapiers",
+    "Cournonsec",
+    "Cournonterral",
+    "Le Crès",
+    "Fabrègues",
+    "Grabels",
+    "Jacou",
+    "Juvignac",
+    "Lattes",
+    "Lavérune",
+    "Montaud",
+    "Montferrier-sur-Lez",
+    "Murviel-lès-Montpellier",
+    "Pérols",
+    "Pignan",
+    "Prades-le-Lez",
+    "Restinclières",
+    "Saint-Brès",
+    "Saint-Drézéry",
+    "Saint-Geniès-des-Mourgues",
+    "Saint-Georges-d'Orques",
+    "Saint-Jean-de-Védas",
+    "Saussan",
+    "Sussargues",
+    "Vendargues",
+    "Villeneuve-lès-Maguelone"
+  ]
+}

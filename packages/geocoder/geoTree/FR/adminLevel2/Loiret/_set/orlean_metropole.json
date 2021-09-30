@@ -1,0 +1,29 @@
+{
+  "$set": {
+    "adminLevel3": "Orléans Métropole"
+  },
+  "adminLevel4": [
+    "Orléans",
+    "Boigny-sur-Bionne",
+    "Bou",
+    "Chanteau",
+    "Chécy",
+    "Combleux",
+    "Fleury-les-Aubrais",
+    "Ingré",
+    "La Chapelle-Saint-Mesmin",
+    "Mardié",
+    "Marigny-les-Usages",
+    "Olivet",
+    "Ormes",
+    "Saint-Cyr-en-Val",
+    "Saint-Denis-en-Val",
+    "Saint-Hilaire-Saint-Mesmin",
+    "Saint-Jean-de-Braye",
+    "Saint-Jean-de-la-Ruelle",
+    "Saint-Jean-le-Blanc",
+    "Saint-Pryvé-Saint-Mesmin",
+    "Saran",
+    "Semoy"
+  ]
+}

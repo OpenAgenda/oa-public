@@ -1,0 +1,28 @@
+{
+  "$set": {
+    "adminLevel3": "Clermont Auvergne Métropole"
+  },
+  "adminLevel4": [
+    "Clermont-Ferrand",
+    "Aubière",
+    "Aulnat",
+    "Beaumont",
+    "Blanzat",
+    "Cébazat",
+    "Le Cendre",
+    "Ceyrat",
+    "Chamalières",
+    "Châteaugay",
+    "Cournon-d'Auvergne",
+    "Durtol",
+    "Gerzat",
+    "Lempdes",
+    "Nohanent",
+    "Orcines",
+    "Pérignat-lès-Sarliève",
+    "Pont-du-Château",
+    "Romagnat",
+    "Royat",
+    "Saint-Genès-Champanelle"
+  ]
+}

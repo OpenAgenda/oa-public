@@ -9,7 +9,7 @@ import AdminPageDecorator from './decorators/AdminPage';
 import ProvidersDecorator from './decorators/Providers';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import mainData from './fixtures/main.json';
+import mainData from './fixtures/new.json';
 
 const getDefaultState = ({ lang = 'fr', apiRoot = '' } = {}) => ({
   settings: {
@@ -17,6 +17,8 @@ const getDefaultState = ({ lang = 'fr', apiRoot = '' } = {}) => ({
     apiRoot,
     prefix: '',
     perPageLimit: 20,
+    mapTiles:
+      'https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
   },
   res: {
     jsonExport: '/:slug/events.json',
@@ -49,6 +51,7 @@ export const Presentation = function Presentation() {
             initialState: getDefaultState({}),
           }),
           {
+            disableScrollToTop: true,
             extraProps: {
               agendaSchema: {
                 fields: [],

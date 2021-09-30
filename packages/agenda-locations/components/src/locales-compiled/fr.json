@@ -160,10 +160,58 @@
       "value": "itemCount"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "See uncompleted Locations"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo": [
+    {
+      "type": 0,
+      "value": "Locations that are lacking important information"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
       "value": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel3": [
+    {
+      "type": 0,
+      "value": "District"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.CountryField.country": [
@@ -172,16 +220,124 @@
       "value": "Pays"
     }
   ],
+  "AgendaLocations.FR.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Département"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunalité"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Ville"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel5": [
+    {
+      "type": 0,
+      "value": "Arrondissement"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel6": [
+    {
+      "type": 0,
+      "value": "Quartier"
+    }
+  ],
   "AgendaLocations.Filters.locationSelection": [
     {
       "type": 0,
       "value": "Sélection de lieux"
     }
   ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Uncompleted locations"
+    }
+  ],
   "AgendaLocations.Filters.verify": [
     {
       "type": 0,
       "value": "À vérifier"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldCancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldSave": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeNoResults": [
+    {
+      "type": 0,
+      "value": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse."
+    }
+  ],
+  "AgendaLocations.GeoBadges.insee": [
+    {
+      "type": 0,
+      "value": "Code INSEE"
+    }
+  ],
+  "AgendaLocations.GeoBadges.postalCode": [
+    {
+      "type": 0,
+      "value": "Code postal"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Admin Level 3"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.LocationConfirmation.cancel": [
@@ -232,28 +388,10 @@
       "value": " et sur "
     }
   ],
-  "AgendaLocations.LocationDetails.city": [
-    {
-      "type": 0,
-      "value": "Ville"
-    }
-  ],
-  "AgendaLocations.LocationDetails.department": [
-    {
-      "type": 0,
-      "value": "Département"
-    }
-  ],
   "AgendaLocations.LocationDetails.description": [
     {
       "type": 0,
       "value": "Description"
-    }
-  ],
-  "AgendaLocations.LocationDetails.district": [
-    {
-      "type": 0,
-      "value": "Quartier"
     }
   ],
   "AgendaLocations.LocationDetails.email": [
@@ -271,7 +409,7 @@
   "AgendaLocations.LocationDetails.extId": [
     {
       "type": 0,
-      "value": "External Identifier"
+      "value": "Identifiant externe"
     }
   ],
   "AgendaLocations.LocationDetails.hoverInfo": [
@@ -376,7 +514,7 @@
   "AgendaLocations.LocationDetails.postalCode": [
     {
       "type": 0,
-      "value": "Postal code"
+      "value": "Code postal"
     }
   ],
   "AgendaLocations.LocationDetails.refAgendas": [
@@ -411,12 +549,6 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
-    }
-  ],
-  "AgendaLocations.LocationDetails.region": [
-    {
-      "type": 0,
-      "value": "Région"
     }
   ],
   "AgendaLocations.LocationDetails.website": [
@@ -455,12 +587,6 @@
       "value": "Annuler"
     }
   ],
-  "AgendaLocations.LocationForm.city": [
-    {
-      "type": 0,
-      "value": "Ville"
-    }
-  ],
   "AgendaLocations.LocationForm.createSubmit": [
     {
       "type": 0,
@@ -471,12 +597,6 @@
     {
       "type": 0,
       "value": "Le lieu n'a pas pu être créé"
-    }
-  ],
-  "AgendaLocations.LocationForm.department": [
-    {
-      "type": 0,
-      "value": "Département"
     }
   ],
   "AgendaLocations.LocationForm.description": [
@@ -495,12 +615,6 @@
     {
       "type": 0,
       "value": "La fonction de localisation automatique est momentanément indisponible. Localisez votre lieu en glissant le marqueur au bon endroit sur la carte."
-    }
-  ],
-  "AgendaLocations.LocationForm.district": [
-    {
-      "type": 0,
-      "value": "Quartier"
     }
   ],
   "AgendaLocations.LocationForm.email": [
@@ -609,12 +723,6 @@
     {
       "type": 0,
       "value": "Code postal"
-    }
-  ],
-  "AgendaLocations.LocationForm.region": [
-    {
-      "type": 0,
-      "value": "Région"
     }
   ],
   "AgendaLocations.LocationForm.required": [
@@ -1198,6 +1306,42 @@
     {
       "type": 0,
       "value": "Edition du lieu"
+    }
+  ],
+  "AgendaLocations.adminLevel1": [
+    {
+      "type": 0,
+      "value": "niveau administratif 1"
+    }
+  ],
+  "AgendaLocations.adminLevel2": [
+    {
+      "type": 0,
+      "value": "niveau administratif 2"
+    }
+  ],
+  "AgendaLocations.adminLevel3": [
+    {
+      "type": 0,
+      "value": "niveau administratif 3"
+    }
+  ],
+  "AgendaLocations.adminLevel4": [
+    {
+      "type": 0,
+      "value": "niveau administratif 4"
+    }
+  ],
+  "AgendaLocations.adminLevel5": [
+    {
+      "type": 0,
+      "value": "niveau administratif 5"
+    }
+  ],
+  "AgendaLocations.adminLevel6": [
+    {
+      "type": 0,
+      "value": "niveau administratif 6"
     }
   ],
   "AgendaLocations.createFormHeader.back": [

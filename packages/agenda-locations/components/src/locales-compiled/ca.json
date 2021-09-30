@@ -160,10 +160,58 @@
       "value": "itemCount"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "See uncompleted Locations"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo": [
+    {
+      "type": 0,
+      "value": "Locations that are lacking important information"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
       "value": "Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region Suisse"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel3": [
+    {
+      "type": 0,
+      "value": "District"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.CountryField.country": [
@@ -172,16 +220,124 @@
       "value": "Country"
     }
   ],
+  "AgendaLocations.FR.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Department"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunality"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel6": [
+    {
+      "type": 0,
+      "value": "District"
+    }
+  ],
   "AgendaLocations.Filters.locationSelection": [
     {
       "type": 0,
       "value": "Locations selection"
     }
   ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Uncompleted locations"
+    }
+  ],
   "AgendaLocations.Filters.verify": [
     {
       "type": 0,
       "value": "To verify"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldCancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldSave": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeNoResults": [
+    {
+      "type": 0,
+      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+    }
+  ],
+  "AgendaLocations.GeoBadges.insee": [
+    {
+      "type": 0,
+      "value": "INSEE code"
+    }
+  ],
+  "AgendaLocations.GeoBadges.postalCode": [
+    {
+      "type": 0,
+      "value": "Postal code"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Admin Level 3"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
     }
   ],
   "AgendaLocations.LocationConfirmation.cancel": [
@@ -232,28 +388,10 @@
       "value": "and on"
     }
   ],
-  "AgendaLocations.LocationDetails.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "AgendaLocations.LocationDetails.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
   "AgendaLocations.LocationDetails.description": [
     {
       "type": 0,
       "value": "Description"
-    }
-  ],
-  "AgendaLocations.LocationDetails.district": [
-    {
-      "type": 0,
-      "value": "District"
     }
   ],
   "AgendaLocations.LocationDetails.email": [
@@ -413,12 +551,6 @@
       "value": "count"
     }
   ],
-  "AgendaLocations.LocationDetails.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "AgendaLocations.LocationDetails.website": [
     {
       "type": 0,
@@ -455,12 +587,6 @@
       "value": "Cancel"
     }
   ],
-  "AgendaLocations.LocationForm.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
   "AgendaLocations.LocationForm.createSubmit": [
     {
       "type": 0,
@@ -471,12 +597,6 @@
     {
       "type": 0,
       "value": "The location could not be created"
-    }
-  ],
-  "AgendaLocations.LocationForm.department": [
-    {
-      "type": 0,
-      "value": "Department"
     }
   ],
   "AgendaLocations.LocationForm.description": [
@@ -495,12 +615,6 @@
     {
       "type": 0,
       "value": "The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually."
-    }
-  ],
-  "AgendaLocations.LocationForm.district": [
-    {
-      "type": 0,
-      "value": "District"
     }
   ],
   "AgendaLocations.LocationForm.email": [
@@ -609,12 +723,6 @@
     {
       "type": 0,
       "value": "Postal code"
-    }
-  ],
-  "AgendaLocations.LocationForm.region": [
-    {
-      "type": 0,
-      "value": "Region"
     }
   ],
   "AgendaLocations.LocationForm.required": [
@@ -1202,6 +1310,42 @@
     {
       "type": 0,
       "value": "Location edit"
+    }
+  ],
+  "AgendaLocations.adminLevel1": [
+    {
+      "type": 0,
+      "value": "adminLevel1"
+    }
+  ],
+  "AgendaLocations.adminLevel2": [
+    {
+      "type": 0,
+      "value": "adminLevel2"
+    }
+  ],
+  "AgendaLocations.adminLevel3": [
+    {
+      "type": 0,
+      "value": "adminLevel3"
+    }
+  ],
+  "AgendaLocations.adminLevel4": [
+    {
+      "type": 0,
+      "value": "adminLevel4"
+    }
+  ],
+  "AgendaLocations.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.adminLevel6": [
+    {
+      "type": 0,
+      "value": "adminLevel6"
     }
   ],
   "AgendaLocations.createFormHeader.back": [

@@ -37,7 +37,6 @@ describe('agenda-locations - functional - terms', () => {
   describe('basic', () => {
     it('result is list of values for requested terms', async () => {
       const terms = await svc(7196947).terms(['region', 'department']);
-
       expect(terms).toStrictEqual([
         {
           region: null,
@@ -50,6 +49,12 @@ describe('agenda-locations - functional - terms', () => {
           department: 'Ardèche',
           adminLevel1: 'Auvergne-Rhône-Alpes',
           adminLevel2: 'Ardèche'
+        },
+        {
+          adminLevel1: null,
+          adminLevel2: 'Ardèche',
+          department: 'Ardèche',
+          region: null,
         },
         {
           region: 'Un nom de région',

@@ -47,8 +47,22 @@ const baseValidators = [
   validators.text({ field: 'imageCredits', max: 255, optional: true }),
   validators.text({ field: 'address', min: 3, max: 255 }),
   validators.text({
+    field: 'adminLevel1', min: 0, max: 300, optional: true
+  }),
+  validators.text({
+    field: 'adminLevel2', min: 3, max: 300, optional: true
+  }),
+  validators.text({
+    field: 'adminLevel3', min: 3, max: 300, optional: true
+  }),
+  validators.text({
+    field: 'adminLevel4', min: 2, max: 300, optional: true
+  }),
+  validators.text({
     field: 'city', min: 2, max: 300, optional: true
   }),
+  validators.text({ field: 'adminLevel5', optional: true }),
+  validators.text({ field: 'adminLevel6', optional: true }),
   validators.text({ field: 'district', optional: true }),
   validators.text({
     field: 'department', min: 3, max: 300, optional: true

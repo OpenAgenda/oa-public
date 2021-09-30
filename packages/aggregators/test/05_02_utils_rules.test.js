@@ -772,6 +772,31 @@ describe('05_02 - utils - rules', () => {
         )
       ).toEqual({});
     });
+
+    test('rule on location name', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                location: [
+                  {
+                    name: 'Palais tokyo',
+                  },
+                ],
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            location: {
+              name: 'Palais tokyo',
+            },
+          }
+        )
+      ).toEqual({});
+    });
   });
 
   describe('legacy', () => {

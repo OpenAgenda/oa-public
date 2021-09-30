@@ -54,7 +54,7 @@ const Service = require('.');
           25221: 7196947,
         }[uid],
       }),
-      getEventCounts: async (/* locationUids, { agendaUid } */) => [
+      getEventCounts: async (_locationUids, { _agendaUid }) => [
         {
           uid: 60763721,
           eventCount: 12,
@@ -130,11 +130,11 @@ const Service = require('.');
     results: [
       {
         address: 'Rue Alice, 92400 Courbevoie, France',
-        district: 'Quartier de Bécon',
-        city: 'Courbevoie',
+        adminLevel1: 'Île-de-France',
+        adminLevel2: 'Hauts-de-Seine',
+        adminLevel4: 'Courbevoie',
+        adminLevel6: 'Quartier de Bécon',
         postalCode: '92400',
-        department: 'Hauts-de-Seine',
-        region: 'Île-de-France',
         timezone: 'Europe/Paris',
         latitude: 48.9025825,
         longitude: 2.279693,
@@ -160,11 +160,11 @@ const Service = require('.');
       {
         address:
             'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
-        district: 'Quartier de Bécon',
-        city: 'Courbevoie',
+        adminLevel1: 'Île-de-France',
+        adminLevel2: 'Hauts-de-Seine',
+        adminLevel4: 'Courbevoie',
+        adminLevel6: 'Quartier de Bécon',
         postalCode: '92400',
-        department: 'Hauts-de-Seine',
-        region: 'Île-de-France',
         timezone: 'Europe/Paris',
         latitude: 48.9019071,
         longitude: 2.2789371,
@@ -266,6 +266,7 @@ const Service = require('.');
     svc(7196947)
       .update(req.params.locationUid, req.data, {
         includeImagePath: true,
+        eventCounts: true,
       })
       .then(location => {
         res.json({

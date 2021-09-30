@@ -1,0 +1,15 @@
+{
+  "$set": {
+    "adminLevel3": "Grand Paris Seine Ouest"
+  },
+  "adminLevel4": [
+    "Boulogne-Billancourt",
+    "Chaville",
+    "Issy-les-Moulineaux",
+    "Marnes-la-Coquette",
+    "Meudon",
+    "Sèvres",
+    "Vanves",
+    "Ville-d'Avray"
+  ]
+}

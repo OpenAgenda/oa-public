@@ -44,24 +44,28 @@ module.exports = async (core, agendaUid, options = {}) => {
   }
 
   log('getting detailed info with access %s', access);
+  const related = {};
+  try {
+    related.summary = await loadSummary(core, agenda, { access });
+  } catch (error) {
+    log('error', error);
+  }
 
-  const summary = await loadSummary(core, agenda, { access });
+  related.network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
+  related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
 
-  const network = detailed && agenda.networkUid ? await services.networks.get(agenda.networkUid) : null;
-  const locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
-
-  const schema = await getMergedSchema(services, agenda, {
+  related.schema = await getMergedSchema(services, agenda, {
     includeEvent,
     includeMember,
     access: typeof access === 'string' ? { read: access } : access
   });
 
-  const related = {
+/*  const related = {
     schema,
     summary,
     network,
     locationSet
-  };
+  }; */
 
   if (access === 'internal') {
     return {

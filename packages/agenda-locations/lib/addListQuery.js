@@ -64,11 +64,17 @@ const validate = schema({
       }
     }
   },
+  hasNull: {
+    type: 'text',
+    list: {
+      default: null,
+    },
+  },
 });
 
 module.exports = async (service, k, deleted, query) => {
   const {
-    agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo
+    agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo, hasNull
   } = validate(query);
 
   const agendaId = agendaUid
@@ -121,5 +127,16 @@ module.exports = async (service, k, deleted, query) => {
   }
   if (deleted === false) {
     k.where('deleted', '<>', 1);
+  }
+  if (hasNull) {
+    const mapped = hasNull.map(e => ({
+      adminLevel1: 'region',
+      adminLevel2: 'department',
+      adminLevel4: 'city',
+      adminLevel6: 'discrict'
+    })[e] ?? e);
+    k.where(function or() {
+      mapped.forEach(e => this.orWhere(e, null));
+    });
   }
 };

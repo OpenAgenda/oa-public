@@ -69,7 +69,6 @@ async function create(service, data, options = {}) {
   }
 
   log('info', 'created with id %s and uid %s', insertedID, entry.uid, clean);
-
   return filterFieldsByAccess(clean);
 }
 

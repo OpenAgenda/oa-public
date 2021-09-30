@@ -3,7 +3,7 @@
 const log = require('@openagenda/logs')('lib/decorateWithGeocodeData');
 const deduceLanguageFromCountry = require('./deduceLanguageFromCountry');
 
-const hasCityAndDept = (g = {}) => !!g.city && !!g.department;
+const hasCityAndDept = (g = {}) => (!!g.city && !!g.department) || (!!g.adminLevel4 && !!g.adminLevel2);
 
 async function geocode(interfaces, data) {
   try {
@@ -43,7 +43,12 @@ module.exports = service => async data => {
   const geocodeResult = await geocode(service.interfaces, data);
   const inseeResult = service.getINSEECode && hasCityAndDept(geocodeResult)
     ? {
-      insee: await service.getINSEECode(geocodeResult),
+      insee: await service.getINSEECode({
+        ...geocodeResult,
+        region: geocodeResult.region || geocodeResult.adminLevel1,
+        department: geocodeResult.department || geocodeResult.adminLevel2,
+        city: geocodeResult.city || geocodeResult.adminLevel4,
+      }),
     }
     : {};
 

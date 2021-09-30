@@ -80,6 +80,14 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255
 }, {
+  field: 'adminLevel4',
+  optional: true,
+  fieldType: 'text',
+  db: 'city',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 100
+}, {
   field: 'city',
   optional: true,
   fieldType: 'text',
@@ -91,6 +99,14 @@ module.exports = [{
   optional: true,
   fieldType: 'text',
   db: 'admin_level_5',
+  read: ['internal', 'public', 'terms'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  max: 255
+}, {
+  field: 'adminLevel6',
+  optional: true,
+  fieldType: 'text',
+  db: 'city_district',
   read: ['internal', 'public', 'terms'],
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   max: 255

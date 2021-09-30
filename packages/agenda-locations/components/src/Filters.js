@@ -11,6 +11,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.Filters.locationSelection',
     defaultMessage: 'Locations selection',
   },
+  uncompletedLocations: {
+    id: 'AgendaLocations.Filters.uncompletedLocations',
+    defaultMessage: 'Uncompleted locations',
+  },
 });
 
 class Filters extends Component {
@@ -39,7 +43,9 @@ class Filters extends Component {
       locations,
       intl
     } = this.props;
-    if (field === 'state') {
+    if (field === 'hasNull') {
+      return intl.formatMessage(messages.uncompletedLocations);
+    } if (field === 'state') {
       return intl.formatMessage(messages.verify);
     } if (field === 'uids') {
       const selected = locations

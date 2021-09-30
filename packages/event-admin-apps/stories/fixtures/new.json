@@ -1,0 +1,2109 @@
+{
+	"total": 14,
+	"events": [
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "الأحد ٢ مايو, 08:30",
+				"de": "Sonntag 2 Mai, 08:30",
+				"en": "Sunday 2 May, 08:30",
+				"fr": "Dimanche 2 mai, 08h30",
+				"es": "Sunday 2 May, 08:30"
+			},
+			"timezone": "Europe/Paris",
+			"originAgenda": {
+				"uid": 79882300,
+				"image": "https://cibuldev.s3.amazonaws.com/agenda79882300.jpg?__ts=1607621475885",
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "test event on target"
+			},
+			"title": {
+				"fr": "test event on target"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2021-04-28T15:54:59.000Z",
+			"vacances-scolaires-concernees": [],
+			"uid": 41332850,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2021-05-02T08:30:00+02:00",
+					"end": "2021-05-02T16:30:00+02:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "test-event-on-target",
+			"updatedAt": "2021-04-28T15:54:59.000Z",
+			"addMethod": "contribution",
+			"image": null,
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": null,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": [],
+				"access": {},
+				"city": "Paris",
+				"timezone": "Europe/Paris",
+				"postalCode": "75011",
+				"latitude": 48.858718,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 93875007,
+				"createdAt": "2021-03-17T12:56:53.000Z",
+				"duplicateCandidates": [],
+				"countryCode": "FR",
+				"adminLevel5": "Quartier de la Roquette",
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Paris",
+				"slug": "target_6629935",
+				"email": null,
+				"longitude": 2.37896,
+				"updatedAt": "2021-09-28T08:40:27.000Z",
+				"image": null,
+				"website": null,
+				"address": "paris 11eme",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Paris",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjkzODc1MDA3LCJuYW1lIjoidGFyZ2V0In0=",
+				"tags": null,
+				"insee": "75056",
+				"phone": null,
+				"district": "Paris 11e Arrondissement",
+				"name": "target",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2021-05-02T08:30:00+02:00",
+				"end": "2021-05-02T16:30:00+02:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "السبت ١٣ مارس, 10:00",
+				"de": "Samstag 13 März, 10:00",
+				"en": "Saturday 13 March, 10:00",
+				"fr": "Samedi 13 mars, 10h00",
+				"es": "Saturday 13 March, 10:00"
+			},
+			"timezone": "Europe/Paris",
+			"originAgenda": {
+				"image": null,
+				"uid": 96334583,
+				"title": "Source pour Morbihan test"
+			},
+			"description": {
+				"fr": "test orga"
+			},
+			"title": {
+				"fr": "test orga"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2021-03-09T15:53:20.000Z",
+			"vacances-scolaires-concernees": [],
+			"uid": 67936826,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2021-03-13T10:00:00+01:00",
+					"end": "2021-03-13T20:00:00+01:00"
+				}
+			],
+			"links": [],
+			"state": 2,
+			"slug": "test-orga",
+			"updatedAt": "2021-03-09T15:53:20.000Z",
+			"addMethod": "aggregation",
+			"image": null,
+			"attendanceMode": 1,
+			"sourceAgendas": [
+				{
+					"image": null,
+					"private": 0,
+					"indexed": 1,
+					"locationSetUid": null,
+					"official": 0,
+					"description": "Source",
+					"title": "Source pour Morbihan test",
+					"url": null,
+					"_agg": "eyJ1aWQiOjk2MzM0NTgzLCJ0aXRsZSI6IlNvdXJjZSBwb3VyIE1vcmJpaGFuIHRlc3QiLCJpbWFnZSI6bnVsbH0=",
+					"uid": 96334583,
+					"createdAt": "2021-02-24T13:09:33.000Z",
+					"officializedAt": null,
+					"slug": "source-pour-morbihan-test",
+					"updatedAt": "2021-06-07T14:32:10.000Z"
+				}
+			],
+			"nombre-de-places-ouvertes": null,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Lille",
+				"timezone": "Europe/Paris",
+				"postalCode": null,
+				"latitude": 50.636565,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 53217402,
+				"createdAt": "2021-03-09T15:27:10.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Nord",
+				"slug": "lille_9631842",
+				"email": null,
+				"longitude": 3.063528,
+				"updatedAt": "2021-03-09T15:27:10.000Z",
+				"image": null,
+				"website": null,
+				"address": "lille",
+				"adminLevel3": "Métropole Européenne de Lille",
+				"adminLevel1": "Hauts-de-France",
+				"adminLevel2": "Nord",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjUzMjE3NDAyLCJuYW1lIjoibGlsbGUifQ==",
+				"tags": null,
+				"insee": "59350",
+				"phone": null,
+				"district": "Lille-Centre",
+				"name": "lille",
+				"region": "Hauts-de-France"
+			},
+			"conditions": {},
+			"age": {},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2021-03-13T10:00:00+01:00",
+				"end": "2021-03-13T20:00:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {
+				"fr": "test"
+			},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "٣٠ و ٢٩ يناير ",
+				"de": "30 und 29 Januar",
+				"en": "30 and 29 January",
+				"fr": "30 et 29 janvier",
+				"es": "30 and 29 January"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "test"
+			},
+			"title": {
+				"fr": "testtest"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2021-01-27T12:27:26.000Z",
+			"vacances-scolaires-concernees": null,
+			"uid": 3601316,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2021-01-30T10:00:00+01:00",
+					"end": "2021-01-30T14:00:00+01:00"
+				},
+				{
+					"begin": "2021-01-29T12:00:00+01:00",
+					"end": "2021-01-29T14:30:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 75052324,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": null,
+				"_agg": "eyJ1aWQiOjc1MDUyMzI0LCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "testtest",
+			"updatedAt": "2021-01-27T12:27:26.000Z",
+			"addMethod": "contribution",
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": null,
+			"creatorUid": 75052324,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Châtenay-Malabry",
+				"timezone": "Europe/Paris",
+				"postalCode": "92290",
+				"latitude": 48.771752,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 35140848,
+				"createdAt": "2021-01-25T17:06:08.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 1,
+				"extId": null,
+				"department": "Hauts-de-Seine",
+				"slug": "lieu-test-avec-image_2053394",
+				"email": null,
+				"longitude": 2.275479,
+				"updatedAt": "2021-01-25T17:06:08.000Z",
+				"image": "location35140848.jpg",
+				"website": null,
+				"address": "55 rue marc sangnier, chatenay malabry",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Hauts-de-Seine",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjM1MTQwODQ4LCJuYW1lIjoibGlldSB0ZXN0IGF2ZWMgaW1hZ2UifQ==",
+				"tags": null,
+				"insee": "92019",
+				"phone": null,
+				"district": null,
+				"name": "lieu test avec image",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2021-01-29T12:00:00+01:00",
+				"end": "2021-01-29T14:30:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {
+				"fr": [
+					"fdsq",
+					"fdq"
+				]
+			},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "السبت ٣٠ يناير, 11:30",
+				"de": "Samstag 30 Januar, 11:30",
+				"en": "Saturday 30 January, 11:30",
+				"fr": "Samedi 30 janvier, 11h30",
+				"es": "Saturday 30 January, 11:30"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": "test",
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "test"
+			},
+			"title": {
+				"fr": "duplicat ev test avec image"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2021-01-26T12:13:07.000Z",
+			"vacances-scolaires-concernees": 6,
+			"uid": 71992816,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2021-01-30T11:30:00+01:00",
+					"end": "2021-01-30T15:00:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 75052324,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": null,
+				"_agg": "eyJ1aWQiOjc1MDUyMzI0LCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "duplicat-ev-test-avec-image",
+			"updatedAt": "2021-01-26T12:13:07.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"originalName": null,
+				"extension": null,
+				"filename": "f5d2778709a243f38224b4b28244aabc.base.image.jpg",
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": null,
+			"creatorUid": 75052324,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {
+				"fr": "fdsqfdqfdsq"
+			},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2021-01-30T11:30:00+01:00",
+				"end": "2021-01-30T15:00:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {
+				"fr": [
+					"fdsq",
+					"fdq"
+				]
+			},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "٢٢ و ٢٤ يناير ",
+				"de": "22 und 24 Januar",
+				"en": "22 and 24 January",
+				"fr": "22 et 24 janvier",
+				"es": "22 and 24 January"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": "test",
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "test"
+			},
+			"title": {
+				"fr": "ev test avec image"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2021-01-18T14:39:04.000Z",
+			"vacances-scolaires-concernees": 6,
+			"uid": 82129606,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2021-01-22T10:30:00+01:00",
+					"end": "2021-01-22T14:30:00+01:00"
+				},
+				{
+					"begin": "2021-01-24T08:30:00+01:00",
+					"end": "2021-01-24T11:30:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 75052324,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": null,
+				"_agg": "eyJ1aWQiOjc1MDUyMzI0LCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "ev-test-avec-image",
+			"updatedAt": "2021-01-19T11:35:37.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": "f5d2778709a243f38224b4b28244aabc.base.image.jpg",
+				"size": {
+					"width": 700,
+					"height": 716
+				},
+				"variants": [
+					{
+						"filename": "f5d2778709a243f38224b4b28244aabc.full.image.jpg",
+						"size": {
+							"width": 840,
+							"height": 859
+						},
+						"type": "full"
+					},
+					{
+						"filename": "f5d2778709a243f38224b4b28244aabc.thumb.image.jpg",
+						"size": {
+							"width": 200,
+							"height": 200
+						},
+						"type": "thumbnail"
+					}
+				],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": null,
+			"creatorUid": 75052324,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {
+				"fr": "fdsqfdqfdsq"
+			},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2021-01-24T08:30:00+01:00",
+				"end": "2021-01-24T11:30:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "الخميس ٢٤ ديسمبر ٢٠٢٠, 18:00",
+				"de": "Donnerstag 24 Dezember 2020, 18:00",
+				"en": "Thursday 24 December 2020, 18:00",
+				"fr": "Jeudi 24 décembre 2020, 18h00",
+				"es": "Thursday 24 December 2020, 18:00"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 2 Noel"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-11-24T13:46:50.000Z",
+			"vacances-scolaires-concernees": 8,
+			"uid": 10973845,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-12-24T18:00:00+01:00",
+					"end": "2020-12-24T20:30:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-2-noel",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 15,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-12-24T18:00:00+01:00",
+				"end": "2020-12-24T20:30:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "الخميس ٢٤ ديسمبر ٢٠٢٠, 18:30",
+				"de": "Donnerstag 24 Dezember 2020, 18:30",
+				"en": "Thursday 24 December 2020, 18:30",
+				"fr": "Jeudi 24 décembre 2020, 18h30",
+				"es": "Thursday 24 December 2020, 18:30"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 1 Noel"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-11-24T13:43:19.000Z",
+			"vacances-scolaires-concernees": 8,
+			"uid": 11132279,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-12-24T18:30:00+01:00",
+					"end": "2020-12-24T23:00:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-1-noel",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 20,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-12-24T18:30:00+01:00",
+				"end": "2020-12-24T23:00:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "١٩ - ٢١ أكتوبر ٢٠٢٠",
+				"de": "19 - 21 Oktober 2020",
+				"en": "19 - 21 October 2020",
+				"fr": "19 - 21 octobre 2020",
+				"es": "19 - 21 October 2020"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 3 Toussaint"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-12-01T08:38:39.000Z",
+			"vacances-scolaires-concernees": 7,
+			"uid": 13660582,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-10-19T06:00:00+02:00",
+					"end": "2020-10-19T11:00:00+02:00"
+				},
+				{
+					"begin": "2020-10-20T05:30:00+02:00",
+					"end": "2020-10-20T11:00:00+02:00"
+				},
+				{
+					"begin": "2020-10-21T05:30:00+02:00",
+					"end": "2020-10-21T11:00:00+02:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-3-toussaint",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 15,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-10-21T05:30:00+02:00",
+				"end": "2020-10-21T11:00:00+02:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "الجمعة ٢٥ ديسمبر ٢٠٢٠, 10:00",
+				"de": "Freitag 25 Dezember 2020, 10:00",
+				"en": "Friday 25 December 2020, 10:00",
+				"fr": "Vendredi 25 décembre 2020, 10h00",
+				"es": "Friday 25 December 2020, 10:00"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 3 Noel"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-11-25T14:12:47.000Z",
+			"vacances-scolaires-concernees": 8,
+			"uid": 22291993,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-12-25T10:00:00+01:00",
+					"end": "2020-12-25T15:00:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 0,
+			"slug": "evenement-3-noel",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 40,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-12-25T10:00:00+01:00",
+				"end": "2020-12-25T15:00:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {
+				"fr": [
+					"gdfsgfds",
+					"gfdsgfds"
+				]
+			},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "٢٢ و ٢٠ يناير ",
+				"de": "22 und 20 Januar",
+				"en": "22 and 20 January",
+				"fr": "22 et 20 janvier",
+				"es": "22 and 20 January"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "test"
+			},
+			"title": {
+				"fr": "Evénement Test 1801"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2021-01-18T14:37:53.000Z",
+			"vacances-scolaires-concernees": 7,
+			"uid": 29172899,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2021-01-22T15:00:00+01:00",
+					"end": "2021-01-23T11:30:00+01:00"
+				},
+				{
+					"begin": "2021-01-20T11:30:00+01:00",
+					"end": "2021-01-20T14:00:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 75052324,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": null,
+				"_agg": "eyJ1aWQiOjc1MDUyMzI0LCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-test-1801",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": null,
+			"creatorUid": 75052324,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": null,
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2021-01-20T11:30:00+01:00",
+				"end": "2021-01-20T14:00:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "١٩ و ٢٠ أكتوبر ٢٠٢٠ ",
+				"de": "19 und 20 Oktober 2020",
+				"en": "19 and 20 October 2020",
+				"fr": "19 et 20 octobre 2020",
+				"es": "19 and 20 October 2020"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 2 Toussaint"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-11-24T15:31:29.000Z",
+			"vacances-scolaires-concernees": 7,
+			"uid": 36141174,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-10-19T10:00:00+02:00",
+					"end": "2020-10-19T14:30:00+02:00"
+				},
+				{
+					"begin": "2020-10-20T10:00:00+02:00",
+					"end": "2020-10-20T14:30:00+02:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-2-toussaint",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 15,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-10-20T10:00:00+02:00",
+				"end": "2020-10-20T14:30:00+02:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "الأربعاء ٢ ديسمبر ٢٠٢٠, 09:00",
+				"de": "Mittwoch 2 Dezember 2020, 09:00",
+				"en": "Wednesday 2 December 2020, 09:00",
+				"fr": "Mercredi 2 décembre 2020, 09h00",
+				"es": "Wednesday 2 December 2020, 09:00"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 1 Hors-Vac"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-12-01T16:57:51.000Z",
+			"vacances-scolaires-concernees": 5,
+			"uid": 65984656,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-12-02T09:00:00+01:00",
+					"end": "2020-12-02T13:00:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 0,
+			"slug": "evenement-1-hors-vac",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 20,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-12-02T09:00:00+01:00",
+				"end": "2020-12-02T13:00:00+01:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "١٩ و ٢٠ أكتوبر ٢٠٢٠ ",
+				"de": "19 und 20 Oktober 2020",
+				"en": "19 and 20 October 2020",
+				"fr": "19 et 20 octobre 2020",
+				"es": "19 and 20 October 2020"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 1 Toussaint"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-11-24T15:30:27.000Z",
+			"vacances-scolaires-concernees": 7,
+			"uid": 66719956,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-10-19T12:00:00+02:00",
+					"end": "2020-10-19T15:30:00+02:00"
+				},
+				{
+					"begin": "2020-10-20T11:30:00+02:00",
+					"end": "2020-10-20T15:00:00+02:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-1-toussaint",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 20,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-10-20T11:30:00+02:00",
+				"end": "2020-10-20T15:00:00+02:00"
+			},
+			"nextTiming": null
+		},
+		{
+			"longDescription": {},
+			"country": {
+				"de": "Frankreich (Metropolitan)",
+				"code": "FR",
+				"en": "France (Metropolitan)",
+				"it": "Francia (continente)",
+				"fr": "France (Métropole)",
+				"es": "Francia (Metropolitana)"
+			},
+			"featured": false,
+			"private": 0,
+			"keywords": {},
+			"accessibility": {
+				"ii": false,
+				"hi": false,
+				"vi": false,
+				"pi": false,
+				"mi": false
+			},
+			"dateRange": {
+				"ar": "٣٠ أكتوبر - ٢٥ ديسمبر ٢٠٢٠",
+				"de": "30 Oktober - 25 Dezember 2020",
+				"en": "30 October - 25 December 2020",
+				"fr": "30 octobre - 25 décembre 2020",
+				"es": "30 October - 25 December 2020"
+			},
+			"timezone": "Europe/Paris",
+			"imageCredits": null,
+			"originAgenda": {
+				"image": "agenda79882300.jpg?__ts=1607621475885",
+				"uid": 79882300,
+				"title": "Morbihan test"
+			},
+			"description": {
+				"fr": "événement test"
+			},
+			"title": {
+				"fr": "Evénement 1 Noel-Toussain"
+			},
+			"onlineAccessLink": null,
+			"createdAt": "2020-11-30T14:26:56.000Z",
+			"vacances-scolaires-concernees": 7,
+			"uid": 86282773,
+			"draft": 0,
+			"timings": [
+				{
+					"begin": "2020-10-30T12:00:00+01:00",
+					"end": "2020-10-30T15:30:00+01:00"
+				},
+				{
+					"begin": "2020-10-31T12:00:00+01:00",
+					"end": "2020-10-31T15:30:00+01:00"
+				},
+				{
+					"begin": "2020-12-24T12:00:00+01:00",
+					"end": "2020-12-24T15:00:00+01:00"
+				},
+				{
+					"begin": "2020-12-25T11:30:00+01:00",
+					"end": "2020-12-25T15:30:00+01:00"
+				}
+			],
+			"member": {
+				"uid": 55507091,
+				"role": 2,
+				"phone": null,
+				"organization": null,
+				"name": null,
+				"position": null,
+				"email": "clement.lecroart@openagenda.com",
+				"_agg": "eyJ1aWQiOjU1NTA3MDkxLCJuYW1lIjpudWxsfQ=="
+			},
+			"links": [],
+			"state": 2,
+			"slug": "evenement-1-noel-toussain",
+			"updatedAt": "2021-01-19T10:22:39.000Z",
+			"addMethod": "contribution",
+			"image": {
+				"filename": null,
+				"size": {
+					"width": null,
+					"height": null
+				},
+				"variants": [],
+				"base": "https://cibuldev.s3.amazonaws.com/"
+			},
+			"attendanceMode": 1,
+			"sourceAgendas": [],
+			"nombre-de-places-ouvertes": 40,
+			"creatorUid": 55507091,
+			"registration": [],
+			"location": {
+				"disqualifiedDuplicates": null,
+				"access": {},
+				"city": "Igny",
+				"timezone": "Europe/Paris",
+				"postalCode": "91430",
+				"latitude": 48.736002,
+				"imageCredits": null,
+				"description": {},
+				"setUid": null,
+				"uid": 13705317,
+				"createdAt": "2021-01-13T08:09:52.000Z",
+				"duplicateCandidates": null,
+				"countryCode": "FR",
+				"adminLevel5": null,
+				"links": [],
+				"state": 0,
+				"extId": null,
+				"department": "Essonne",
+				"slug": "lieu-test-2_3341579",
+				"email": null,
+				"longitude": 2.229034,
+				"updatedAt": "2021-01-20T17:43:55.000Z",
+				"image": null,
+				"website": null,
+				"address": "40 av de la republique Igny",
+				"adminLevel3": null,
+				"adminLevel1": "Île-de-France",
+				"adminLevel2": "Essonne",
+				"mergedIn": null,
+				"_agg": "eyJ1aWQiOjEzNzA1MzE3LCJuYW1lIjoibGlldSB0ZXN0IDIifQ==",
+				"tags": null,
+				"insee": "91312",
+				"phone": null,
+				"district": null,
+				"name": "lieu test 2",
+				"region": "Île-de-France"
+			},
+			"conditions": {},
+			"age": {
+				"min": null,
+				"max": null
+			},
+			"status": 1,
+			"lastTiming": {
+				"begin": "2020-12-25T11:30:00+01:00",
+				"end": "2020-12-25T15:30:00+01:00"
+			},
+			"nextTiming": null
+		}
+	],
+	"sort": [
+		1611051759000,
+		86282773
+	],
+	"aggregations": {
+		"viewport": {
+			"topLeft": {
+				"latitude": 50.63656497281045,
+				"longitude": 2.229033960029483
+			},
+			"bottomRight": {
+				"latitude": 48.73600199818611,
+				"longitude": 3.0635279417037964
+			}
+		},
+		"addMethod": [
+			{
+				"key": "contribution",
+				"eventCount": 13
+			},
+			{
+				"key": "aggregation",
+				"eventCount": 1
+			}
+		],
+		"memberUid": [
+			{
+				"key": 55507091,
+				"member": {
+					"uid": 55507091,
+					"name": null
+				},
+				"eventCount": 9
+			},
+			{
+				"key": 75052324,
+				"member": {
+					"uid": 75052324,
+					"name": null
+				},
+				"eventCount": 4
+			}
+		],
+		"locationUid": [
+			{
+				"key": 13705317,
+				"location": {
+					"uid": 13705317,
+					"name": "lieu test 2"
+				},
+				"eventCount": 11
+			},
+			{
+				"key": 35140848,
+				"location": {
+					"uid": 35140848,
+					"name": "lieu test avec image"
+				},
+				"eventCount": 1
+			},
+			{
+				"key": 53217402,
+				"location": {
+					"uid": 53217402,
+					"name": "lille"
+				},
+				"eventCount": 1
+			},
+			{
+				"key": 93875007,
+				"location": {
+					"uid": 93875007,
+					"name": "target"
+				},
+				"eventCount": 1
+			}
+		],
+		"sourceAgendaUid": [
+			{
+				"key": 96334583,
+				"agenda": {
+					"uid": 96334583,
+					"title": "Source pour Morbihan test",
+					"image": null
+				},
+				"eventCount": 1
+			}
+		],
+		"originAgendaUid": [
+			{
+				"key": 79882300,
+				"agenda": {
+					"uid": 79882300,
+					"title": "Morbihan test",
+					"image": "agenda79882300.jpg?__ts=1607621475885"
+				},
+				"eventCount": 12
+			},
+			{
+				"key": 79882300,
+				"agenda": {
+					"uid": 79882300,
+					"title": "Morbihan test",
+					"image": "https://cibuldev.s3.amazonaws.com/agenda79882300.jpg?__ts=1607621475885"
+				},
+				"eventCount": 1
+			},
+			{
+				"key": 96334583,
+				"agenda": {
+					"uid": 96334583,
+					"title": "Source pour Morbihan test",
+					"image": null
+				},
+				"eventCount": 1
+			}
+		],
+		"relative": [
+			{
+				"key": "current",
+				"eventCount": 0
+			},
+			{
+				"key": "passed",
+				"eventCount": 14
+			},
+			{
+				"key": "upcoming",
+				"eventCount": 0
+			}
+		],
+		"state": [
+			{
+				"key": 2,
+				"eventCount": 12
+			},
+			{
+				"key": 0,
+				"eventCount": 2
+			}
+		],
+		"attendanceMode": [
+			{
+				"key": 1,
+				"eventCount": 14
+			}
+		],
+		"region": [
+			{
+				"key": "Île-de-France",
+				"eventCount": 13
+			},
+			{
+				"key": "Hauts-de-France",
+				"eventCount": 1
+			}
+		],
+		"department": [
+			{
+				"key": "Essonne",
+				"eventCount": 11
+			},
+			{
+				"key": "Hauts-de-Seine",
+				"eventCount": 1
+			},
+			{
+				"key": "Nord",
+				"eventCount": 1
+			},
+			{
+				"key": "Paris",
+				"eventCount": 1
+			}
+		],
+		"city": [
+			{
+				"key": "Igny",
+				"eventCount": 11
+			},
+			{
+				"key": "Châtenay-Malabry",
+				"eventCount": 1
+			},
+			{
+				"key": "Lille",
+				"eventCount": 1
+			},
+			{
+				"key": "Paris",
+				"eventCount": 1
+			}
+		],
+		"adminLevel3": [
+			{
+				"key": "Métropole Européenne de Lille",
+				"eventCount": 1
+			}
+		],
+		"adminLevel5": [
+			{
+				"key": "Quartier de la Roquette",
+				"eventCount": 1
+			}
+		],
+		"vacances-scolaires-concernees": [
+			{
+				"id": 7,
+				"value": "vacances-de-la-toussaint-2020",
+				"label": {
+					"en": "Vacances de la Toussaint 2020"
+				},
+				"display": true,
+				"eventCount": 5
+			},
+			{
+				"id": 8,
+				"value": "vacances-de-noel-2020",
+				"label": {
+					"en": "Vacances de Noël 2020"
+				},
+				"display": true,
+				"eventCount": 3
+			},
+			{
+				"id": 6,
+				"value": "vacances-dete-2020",
+				"label": {
+					"en": "Vacances d'été 2020"
+				},
+				"display": true,
+				"eventCount": 2
+			},
+			{
+				"id": 5,
+				"value": "hors-vacances",
+				"label": {
+					"en": "Hors-vacances"
+				},
+				"display": true,
+				"eventCount": 1
+			}
+		]
+	}
+}

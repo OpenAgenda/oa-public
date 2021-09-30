@@ -626,6 +626,12 @@
       "value": "."
     }
   ],
+  "aggregator-sources.DefineRules.name": [
+    {
+      "type": 0,
+      "value": "Location name"
+    }
+  ],
   "aggregator-sources.DefineRules.newRule": [
     {
       "type": 0,
@@ -1087,6 +1093,12 @@
     {
       "type": 0,
       "value": "Simple mode"
+    }
+  ],
+  "aggregator-sources.RuleForm.name": [
+    {
+      "type": 0,
+      "value": "Name"
     }
   ],
   "aggregator-sources.RuleForm.noOption": [

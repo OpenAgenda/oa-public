@@ -35,6 +35,14 @@ const messages = defineMessages({
     id: 'AgendaLocations.AgendaAdminLocation.verifiedInfo',
     defaultMessage: 'Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them'
   },
+  uncompletedLocations: {
+    id: 'AgendaLocations.AgendaAdminLocation.uncompletedLocations',
+    defaultMessage: 'See uncompleted Locations',
+  },
+  uncompletedLocationsInfo: {
+    id: 'AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo',
+    defaultMessage: 'Locations that are lacking important information'
+  },
   create: {
     id: 'AgendaLocations.AgendaAdminLocation.create',
     defaultMessage: 'Add a location',
@@ -225,12 +233,14 @@ class AgendaAdminLocations extends Component {
   }
 
   goToMergeStep1FromDuplicates(location) {
+    const { settings } = this.props;
     const { merge } = this.state;
-
-    if (!merge) {
+    if (merge) return;
+    if (settings.access.merge.authorized) {
       this.actions.goToMergeStep1FromDuplicates(location);
-      log(merge);
       this.onSearchChange('uids', location?.duplicateCandidates.concat(location.uid));
+    } else {
+      this.displayActionModal('merge');
     }
   }
 
@@ -597,9 +607,31 @@ class AgendaAdminLocations extends Component {
                       />
                     </label>
                     <MoreInfo
-                      className="margin-left-sm"
+                      className="margin-h-sm"
                       id="checkbox-help"
                       content={intl.formatMessage(messages.verifiedInfo)}
+                      placement="top"
+                    />
+                  </div>
+                  <div className="checkbox">
+                    <label htmlFor="checkbox">
+                      <input
+                        type="checkbox"
+                        onChange={this.onSearchChange.bind(
+                          this,
+                          'hasNull',
+                          ['adminLevel1', 'adminLevel2', 'adminLevel4']
+                        )}
+                        checked={this.actions.getQuery()?.hasNull?.length > 0}
+                      />{' '}
+                      <FormattedMessage
+                        {...messages.uncompletedLocations}
+                      />
+                    </label>
+                    <MoreInfo
+                      className="margin-left-sm"
+                      id="checkbox-help"
+                      content={intl.formatMessage(messages.uncompletedLocationsInfo)}
                       placement="top"
                     />
                   </div>

@@ -98,7 +98,7 @@ module.exports = Object.assign(
       }),
       getINSEECode: c.redis ? getINSEECode(c.redis) : null,
       fieldUtils: {
-        fromItemToEntry: fromItemToEntry.bind(null, fields),
+        fromItemToEntry: fromItemToEntry.loadWithLinkedFields(fields),
         fromEntryToItem: fromEntryToItem.bind(null, fields)
       }
     };

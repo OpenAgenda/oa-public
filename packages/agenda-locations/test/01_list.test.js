@@ -13,7 +13,7 @@ const fields = require('../lib/fields');
 const Service = require('..');
 const fixtures = require('./fixtures');
 
-async function getAgendaDetailsByUid(uid, fields = []) {
+async function getAgendaDetailsByUid(uid, _fields = []) {
   return _.pick(
     {
       id: { 7196947: 25221 }[uid],
@@ -23,7 +23,7 @@ async function getAgendaDetailsByUid(uid, fields = []) {
   );
 }
 
-async function getEventCounts(locationUids, { agendaUid }) {
+async function getEventCounts(_locationUids, { _agendaUid }) {
   return [
     {
       uid: 60763721,
@@ -266,6 +266,29 @@ describe('agenda-locations - functional - list', () => {
       });
     });
 
+    it('hasNull on adminLevel1 filter', async () => {
+      const res = await svc(7196947).list({ hasNull: ['region'] }, {}, { detailed: true });
+      res.forEach(e => {
+        expect(e.region).toBe(null);
+        expect(e.adminLevel1).toBe(null);
+      });
+    });
+
+    it('hasNull on adminLevel2 filter', async () => {
+      const res = await svc(7196947).list({ hasNull: ['adminLevel2'] }, {}, { detailed: true });
+      res.forEach(e => {
+        expect(e.department).toBe(null);
+        expect(e.adminLevel2).toBe(null);
+      });
+    });
+
+    it('hasNull on adminLevel1&2 filter', async () => {
+      const resAdmLvl1 = await svc(7196947).list({ hasNull: ['region'] }, {}, { detailed: true });
+      const resAdmLvl2 = await svc(7196947).list({ hasNull: ['adminLevel2'] }, {}, { detailed: true });
+      const res = await svc(7196947).list({ hasNull: ['region', 'department'] }, {}, { detailed: true });
+      expect(res.length).toBe(Math.max(resAdmLvl1.length, resAdmLvl2.length));
+    });
+
     it('fix: undefined uids are filtered out from query', async () => { // really strange test here
       const res = await svc(7196947).list({ uids: [10175539, undefined] });
       expect(res).not.toBeNull();
@@ -287,7 +310,7 @@ describe('agenda-locations - functional - list', () => {
             .then(stream => {
               let count = 0;
 
-              stream.on('data', location => {
+              stream.on('data', _location => {
                 count += 1;
               });
 
@@ -314,13 +337,13 @@ describe('agenda-locations - functional - list', () => {
 
       throwingErrorSvc(7196947)
         .list({}, { limit: 0 }, { total: true })
-        .then(({ total }) => {
+        .then(({ _total }) => {
           throwingErrorSvc(7196947)
             .list({}, {}, { stream: true, eventCounts: true })
             .then(stream => {
               let count = 0;
-              stream.on('data', location => {
-                count++;
+              stream.on('data', _location => {
+                count += 1;
               });
 
               stream.on('error', err => {

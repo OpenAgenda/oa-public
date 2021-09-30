@@ -125,7 +125,7 @@ describe('agenda-locations - functional - settings get', () => {
             10: initSettings,
             11: null
           })[uid],
-          getAgendaDetailsByUid: async (uid, fields) => ({
+          getAgendaDetailsByUid: async (_uid, _fields) => ({
             locationSetUid: 1903810
           }),
         },
@@ -202,7 +202,7 @@ describe('agenda-locations - functional - settings get', () => {
         knex: f.client,
         Files: Files(dConfig.files),
         interfaces: {
-          getAgendaLocationSettings: async (uid) => ({
+          getAgendaLocationSettings: async _uid => ({
             ...initSettings,
             access: {
               create: false,
@@ -211,7 +211,7 @@ describe('agenda-locations - functional - settings get', () => {
               update: false
             }
           }),
-          getAgendaDetailsByUid: async (uid, fields) => ({
+          getAgendaDetailsByUid: async (_uid, _fields) => ({
             locationSetUid: 1903810
           }),
         },
