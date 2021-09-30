@@ -23,6 +23,12 @@
       "value": "Email"
     }
   ],
+  "event/contributor/emptyContactInfo": [
+    {
+      "type": 0,
+      "value": "No contact information available"
+    }
+  ],
   "event/contributor/name": [
     {
       "type": 0,

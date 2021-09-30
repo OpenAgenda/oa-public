@@ -46,6 +46,10 @@ const messages = defineMessages({
   updateContributorInfo: {
     id: 'event/contributor/edit',
     defaultMessage: 'Edit'
+  },
+  emptyContactInfo: {
+    id: 'event/contributor/emptyContactInfo',
+    defaultMessage: 'No contact information available'
   }
 });
 
@@ -107,12 +111,11 @@ function ContributorSection({ me, member, agendaUid, lang }) {
                   onClick={() => setDisplayEditModal(true)}
                 >{m(messages.updateContributorInfo)}</button>
             </dd> : null}
-            {memberInfo.map(({ label, value, key }) => (
+            {memberInfo.length ? memberInfo.map(({ label, value, key }) => (
               <div className="margin-top-sm" key={`member-info-${key}`}>
                 <dt>{label}</dt>
                 <dd>{value}</dd>
-              </div>
-            ))}
+              </div>)) : <dd className="margin-v-xs">{m(messages.emptyContactInfo)}</dd>}
           </dl>
         </div>
       </div>
