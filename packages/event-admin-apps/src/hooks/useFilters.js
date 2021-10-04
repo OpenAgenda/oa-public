@@ -1,6 +1,7 @@
 import { createRef, useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
+import { useSelector } from 'react-redux';
 import { dateRanges } from '@openagenda/react-filters';
 import { getLocaleValue } from '@openagenda/react-shared';
 import stateMessages from '../messages/states';
@@ -31,6 +32,8 @@ const messages = defineMessages({
 export default function useFilters(agendaSchema) {
   const intl = useIntl();
   const seed = useUIDSeed();
+
+  const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const relativeOptions = useMemo(
     () => [
@@ -133,8 +136,7 @@ export default function useFilters(agendaSchema) {
         // props for MapFilter
         tileAttribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-        tileUrl:
-          'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+        tileUrl: mapTiles,
       },
       {
         name: 'addMethod',
