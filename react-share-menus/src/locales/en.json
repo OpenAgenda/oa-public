@@ -1,6 +1,6 @@
 {
   "aggregator-description": "Events published by {targetAgenda} will be automatically added to the selected calendar.",
-  "aggregator-success": "{targetAgenda} was successfully added as a source! {targetAgenda}'s events are being aggregated.",
+  "aggregator-success": "{targetAgenda} was successfully added as a source! The events are being aggregated.",
   "aggregator-title": "Aggregate to an agenda",
   "all-languages": "All",
   "calendar-date": "This event has no upcoming dates",
