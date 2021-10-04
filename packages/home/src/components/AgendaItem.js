@@ -94,7 +94,7 @@ function AgendaItem({
               {getLabel('contact')}
             </a>
           )}
-          {agenda.settings.contribution.useFields ? (
+          {agenda.settings?.contribution.useFields ? (
             <button
               type="button"
               className="btn btn-link"
