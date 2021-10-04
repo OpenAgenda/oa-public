@@ -28,7 +28,7 @@
     },
     {
       "type": 0,
-      "value": " sont en cours d'aggrégation."
+      "value": " sont en cours d'agrégation."
     }
   ],
   "aggregator-title": [
@@ -264,7 +264,7 @@
   "sign-in-agg": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour aggréger cet agenda"
+      "value": "Vous devez vous connecter pour agréger cet agenda"
     }
   ]
 }
