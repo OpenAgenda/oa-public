@@ -620,7 +620,7 @@ class AgendaAdminLocations extends Component {
                         onChange={this.onSearchChange.bind(
                           this,
                           'hasNull',
-                          ['adminLevel1', 'adminLevel2', 'adminLevel4']
+                          this.actions.getQuery()?.hasNull?.length > 0 ? undefined : ['adminLevel1', 'adminLevel2', 'adminLevel4']
                         )}
                         checked={this.actions.getQuery()?.hasNull?.length > 0}
                       />{' '}
