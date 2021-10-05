@@ -197,6 +197,7 @@ function StatusBadge({ status }) {
 }
 
 export default function EventItem({
+  redirectURL,
   agenda,
   event,
   openRemoveModal,
@@ -429,7 +430,7 @@ export default function EventItem({
           <li>
             <a
               className="btn btn-link btn-link-inline"
-              href={`/${agenda.slug}/contribute/event/${event.uid}`}
+              href={`/${agenda.slug}/contribute/event/${event.uid}?redirect=${redirectURL}`}
             >
               {intl.formatMessage(messages.edit)}
             </a>

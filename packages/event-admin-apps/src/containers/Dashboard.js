@@ -50,6 +50,8 @@ const searchSpinner = {
   radius: 4,
 };
 
+const getRedirectURL = location => Buffer.from(location.pathname + location.search).toString('base64');
+
 const messages = defineMessages({
   totalEvents: {
     id: 'EventAdminApp.Dashboard.totalEvents',
@@ -344,6 +346,10 @@ function Dashboard() {
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
+
+  const redirectURL = useMemo(() => getRedirectURL(history.location), [
+    history.location,
+  ]);
 
   const loadGeoData = useCallback(
     async (filter, bounds, zoom) => {
@@ -865,6 +871,7 @@ function Dashboard() {
             query={query}
             page={page}
             index={index}
+            redirectURL={redirectURL}
             isFirst={(page - 1) * PAGE_SIZE + index === 0}
             isLast={(page - 1) * PAGE_SIZE + index === data.total - 1}
           />
