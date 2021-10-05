@@ -241,7 +241,7 @@ function _labelizeOptionedCustomValues(mapItem) {
   const _labelOf = value => _.get(_.find(mapItem.field.options, { id: value }), 'value');
 
   if (_.isArray(mapItem.value)) {
-    return Object.assign(mapItem, { value: mapItem.value.map(_labelOf) });
+    return Object.assign(mapItem, { value: _.uniq(mapItem.value.map(_labelOf)) })
   }
 
   return Object.assign(mapItem, { value: _labelOf(mapItem.value) });
