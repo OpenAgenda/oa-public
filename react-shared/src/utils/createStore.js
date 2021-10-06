@@ -1,53 +1,57 @@
 import { combineReducers, createStore } from 'redux';
 
-const noopReducer = asyncReducers => asyncReducers;
+const noopReducer = injectedReducers => injectedReducers;
 
-function inject( store, getReducers, newReducers ) {
-  for ( const name in newReducers ) {
-    const reducer = newReducers[ name ];
-
-    if ( store.asyncReducers[ name ] ) {
+function inject(store, getReducers, newReducers) {
+  for (const name in newReducers) {
+    if (!Object.hasOwnProperty.call(newReducers, name)) {
       continue;
     }
 
-    store.asyncReducers[ name ] = reducer.__esModule ? reducer.default : reducer;
+    const reducer = newReducers[name];
+
+    if (store.injectedReducers[name]) {
+      continue;
+    }
+
+    store.injectedReducers[name] = reducer.__esModule ? reducer.default : reducer;
   }
 
-  store.replaceReducer( combineReducers( getReducers( store.asyncReducers ) ) );
+  store.replaceReducer(combineReducers(getReducers(store.injectedReducers)));
 }
 
-function getNoopReducers( reducers, data ) {
-  if ( !data ) {
+function getNoopReducers(reducers, data) {
+  if (!data) {
     return {};
   }
 
-  return Object.keys( data )
-    .reduce( ( accu, key ) => {
-      if ( reducers[ key ] ) {
+  return Object.keys(data)
+    .reduce((accu, key) => {
+      if (reducers[key]) {
         return accu;
       }
 
       return {
         ...accu,
-        [ key ]: ( state = data[ key ] ) => state
+        [key]: (state = data[key]) => state
       };
-    }, {} );
+    }, {});
 }
 
 
-export default function ( getReducers, initialState, enhancer ) {
+export default function (getReducers, initialState, enhancer) {
   const getter = getReducers || noopReducer;
   const reducers = getter() || {};
-  const noopReducers = getNoopReducers( reducers, initialState );
-  const rootReducer = combineReducers( { ...noopReducers, ...reducers } );
+  const noopReducers = getNoopReducers(reducers, initialState);
+  const rootReducer = combineReducers({ ...noopReducers, ...reducers });
 
-  const store = createStore( rootReducer, initialState, enhancer );
+  const store = createStore(rootReducer, initialState, enhancer);
 
-  store.asyncReducers = {};
-  store.inject = inject.bind( null, store, asyncReducers => ({
+  store.injectedReducers = {};
+  store.inject = inject.bind(null, store, injectedReducers => ({
     ...noopReducers,
-    ...getter( asyncReducers )
-  }) );
+    ...getter(injectedReducers)
+  }));
 
   return store;
 };
