@@ -87,6 +87,27 @@
         }
       }
     }
+
+    .dropdown {
+      .dropdown-menu {
+        margin: -5px 0 0 8px;
+        & > li {
+          & > a {
+            &:hover {
+              background: transparent;
+            }
+            padding: 0;
+          }
+        }
+      }
+      &.open {
+        & > .btn-link.dropdown-toggle {
+          color: $oa-blue;
+          background-color: transparent;
+          border-color: transparent;
+        }
+      }
+    }
   }
 
   .header {
