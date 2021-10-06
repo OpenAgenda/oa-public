@@ -6883,6 +6883,7 @@ __metadata:
     prop-types: ^15.5.8
     qs: ^6.9.1
     react: ^16.13.1
+    react-bootstrap: 0.33.1
     react-dom: ^16.13.1
     react-final-form: ^6.5.3
     react-helmet-async: ^1.0.3
@@ -34512,7 +34513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-bootstrap@npm:^0.33.1":
+"react-bootstrap@npm:0.33.1, react-bootstrap@npm:^0.33.1":
   version: 0.33.1
   resolution: "react-bootstrap@npm:0.33.1"
   dependencies:
