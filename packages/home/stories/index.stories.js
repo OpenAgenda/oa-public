@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
@@ -7,9 +8,13 @@ import createApp from '../src/app';
 import agendasJson from './mocks/agendas.json';
 import eventsJson from './mocks/events.json';
 
+import '@openagenda/bs-templates/compiled/main.css';
 import ProvidersDecorator from './decorators/Providers';
 
-import '@openagenda/bs-templates/compiled/main.css';
+const editedAgendasResponse = {
+  ...agendasJson,
+  agendas: agendasJson.agendas.concat([]),
+};
 
 const mock = new MockAdapter(axios);
 
@@ -28,14 +33,14 @@ const mockApi = ({ isNew } = {}) => {
         agendas: [],
         isMember: false,
       }
-      : agendasJson
+      : editedAgendasResponse
   );
   mock.onGet('/events.json').reply(200, eventsJson);
 
   mock.onGet(route('/agendas/:agendaUid/members/:userUid')).reply(req => {
     const [, , agendaUid] = req.url.split('/');
 
-    const custom = agendasJson.agendas
+    const custom = editedAgendasResponse.agendas
       .filter(a => a.uid === parseInt(agendaUid, 10))
       .pop().member?.custom;
 
@@ -46,6 +51,19 @@ const mockApi = ({ isNew } = {}) => {
     };
 
     return [200, member];
+  });
+
+  mock.onDelete(route('/agendas/:agendaUid/members/:userUid')).reply(req => {
+    const [, , agendaUid] = req.url.split('/');
+
+    const index = _.findIndex(
+      editedAgendasResponse.agendas,
+      agenda => agenda.uid === parseInt(agendaUid, 10)
+    );
+
+    editedAgendasResponse.agendas.splice(index, 1);
+
+    return [204];
   });
 };
 

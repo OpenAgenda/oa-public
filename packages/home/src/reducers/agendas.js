@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import patchAgendas from './lib/patchAgendas';
 
 const LOAD = 'home/agendas/LOAD';
 const LOAD_SUCCESS = 'home/agendas/LOAD_SUCCESS';
@@ -11,31 +11,7 @@ const NEXT_PAGE = 'home/agendas/NEXT_PAGE';
 const NEXT_PAGE_SUCCESS = 'home/agendas/NEXT_PAGE_SUCCESS';
 const NEXT_PAGE_FAIL = 'home/agendas/NEXT_PAGE_FAIL';
 
-const memberLegacyFields = {
-  name: 'contactName',
-  position: 'contactPosition',
-  email: 'email',
-  organization: 'organization',
-  number: 'contactNumber',
-};
-
 const initialState = {};
-
-function patchAgendas(agendas, member, update) {
-  const index = _.findIndex(agendas, a => a.uid === member.agendaUid);
-
-  if (index === -1) {
-    return agendas;
-  }
-
-  Object.keys(update).forEach(field => {
-    if (memberLegacyFields[field]) {
-      agendas[index].member.custom[memberLegacyFields[field]] = update[field];
-    }
-  });
-
-  return agendas;
-}
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
