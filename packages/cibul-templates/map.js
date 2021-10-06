@@ -54,11 +54,6 @@ module.exports = [
   'eventLists/searchList',
 
   {
-    js: 'inboxes/js/event.js',
-    prod: 'inboxesEvent.js',
-  },
-
-  {
     js: 'layout/js/outdated.js',
     prod: 'outdated.js',
   },
