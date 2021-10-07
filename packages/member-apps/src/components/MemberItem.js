@@ -14,6 +14,7 @@ const roleLabel = (i18n, role) => {
 };
 
 function MemberItem({
+  user,
   member,
   agenda,
   showModal,
@@ -27,7 +28,7 @@ function MemberItem({
     deletedUser,
     eventCount,
     custom,
-    user,
+    user: memberUser,
     owner,
     role,
   } = member;
@@ -54,7 +55,7 @@ function MemberItem({
         <div className="title media-heading">
           <strong>
             {custom.contactName
-              || (user && user.fullName)
+              || (memberUser && memberUser.fullName)
               || (invited
                 ? custom.email || getLabel('invited')
                 : getLabel('noName'))}
@@ -138,7 +139,7 @@ function MemberItem({
               {getLabel('removeMember')}
             </button>
           )}
-          {user && id !== member.id ? (
+          {user?.uid !== member.userUid ? (
             <a
               className="text-muted margin-left-sm"
               href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}

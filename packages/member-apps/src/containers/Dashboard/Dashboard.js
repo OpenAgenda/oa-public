@@ -74,7 +74,7 @@ function OrderField({ action, input, title }) {
   );
 }
 
-@withLayoutData('agenda', 'member', 'role')
+@withLayoutData('agenda', 'member', 'role', 'user')
 @connect(
   (state, props) => {
     const query = qs.parse(props.history.location.search, {
@@ -276,6 +276,7 @@ class Dashboard extends Component {
       member,
       query,
       i18n,
+      user,
     } = this.props;
     const { getLabel } = i18n;
 
@@ -473,6 +474,7 @@ class Dashboard extends Component {
           {members
             && members.map(m => (
               <MemberItem
+                user={user}
                 key={`member-${m.id}`}
                 member={m}
                 showModal={showModal}
