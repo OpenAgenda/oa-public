@@ -1,10 +1,9 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('agendaEvents/fallbackContextGet');
 
 module.exports = async ({ services }, interfaceName, ref, context) => {
-
   const {
     users,
     events: eventsSvc,
@@ -62,6 +61,4 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
   }
 
   return { agenda, event, user };
-}
-
-
+};
