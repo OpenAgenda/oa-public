@@ -22,6 +22,8 @@ const aggregationTypes = {
   originAgendas: require('./originAgendas'),
   relative: require('./relative'),
   regions: terms('location.region'),
+  adminLevels3: terms('location.adminLevel3'),
+  adminLevels5: terms('location.adminLevel5'),
   sourceAgendas: require('./sourceAgendas'),
   states: terms('state', { order: { _key: 'desc' } }),
   status: terms('status', { order: { _key: 'asc' } }),

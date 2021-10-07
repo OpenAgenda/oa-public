@@ -77,9 +77,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
   });
 
   describe('detectDuplicateCandidates with uid && save option', () => {
-
     it('save candidates in both location`s field', async () => {
-      await svc(7196947).duplicates.detect(77635822,{ saveCandidates: true });
+      await svc(7196947).duplicates.detect(77635822, { saveCandidates: true });
       const entry1 = await f.client('location').first().where('uid', 77635822);
       const entry2 = await f.client('location').first().where('uid', 77635823);
       expect(JSON.parse(entry1.duplicates).candidates).toStrictEqual([77635823]);

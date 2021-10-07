@@ -20,7 +20,7 @@ describe('agenda-locations - functional - sets get', () => {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getSetAgendasCount: async setUid => 14,
+        getSetAgendasCount: async _setUid => 14,
       },
       Files: Files(dConfig.files),
     });

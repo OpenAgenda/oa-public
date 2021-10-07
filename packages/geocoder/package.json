@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha"
+    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -12,7 +12,10 @@
     "point-in-polygon": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^7.0.1",
-    "should": "^13.2.3"
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-jest": "^27.0.6",
+    "expect": "^27.0.6",
+    "jest": "^26.1.0"
   }
 }

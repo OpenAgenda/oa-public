@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
@@ -21,9 +21,35 @@ const messages = defineMessages({
     id: 'MemberApps.Form.success',
     defaultMessage: 'The update was successful',
   },
-  confirmSuccess: {
-    id: 'MemberApps.Form.confirmSuccess',
+  confirm: {
+    id: 'MemberApps.Form.confirm',
     defaultMessage: 'Ok',
+  },
+  remove: {
+    id: 'MemberApps.Form.remove',
+    defaultMessage: 'I wish to be removed from the agenda',
+  },
+  confirmRemove: {
+    id: 'MemberApps.Form.confirmRemove',
+    defaultMessage: 'Remove me from the agenda',
+  },
+  removeSuccess: {
+    id: 'MemberApps.Form.removeSuccess',
+    defaultMessage: 'You are no longer member of the agenda',
+  },
+  removeFail: {
+    id: 'MemberApps.Form.removeFail',
+    defaultMessage:
+      'The request failed. Try again shortly. If this problem persists, send us a short message at support@openagenda.com',
+  },
+  confirmRemoveInfo: {
+    id: 'MemberApps.Form.confirmRemoveInfo',
+    defaultMessage:
+      'If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen.',
+  },
+  cancel: {
+    id: 'MemberApps.Form.cancel',
+    defaultMessage: 'Cancel',
   },
 });
 
@@ -49,11 +75,13 @@ export default ({
   mode, // modal or not
   operation, // update or create
   res, // where to save
-  onSuccess, // when saved is done
+  onSuccess, // when save is done
+  onRemoveSuccess,
   onCloseModalRequest, // if modal and user clicks to close
   lang,
   showSuccessMessage, // boolean: shows success message after save
   optionalFields, // optional: whether form info should be optional
+  displayRemoveAction,
 }) => {
   const query = operation === 'update'
     ? useQuery('getMember', () => axios.get(res), {
@@ -68,6 +96,13 @@ export default ({
 
   const isLoading = operation === 'update' && !query.data;
 
+  useEffect(() => {
+    if (operation !== 'remove') {
+      return;
+    }
+    setStep('confirmRemove');
+  }, []);
+
   const onSubmitSuccess = data => {
     onSuccess(data);
     if (showSuccessMessage) {
@@ -75,17 +110,52 @@ export default ({
     }
   };
 
-  if (mode === 'modal' && step === 'success') {
+  const onRemove = () => {
+    onRemoveSuccess();
+    setStep('removeSuccess');
+  };
+
+  if (['success', 'removeSuccess', 'removeFail'].includes(step)) {
     return Canvas(
       <div className="text-center">
-        <p>{m(messages.success)}</p>
+        <p>{m(messages[step])}</p>
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => (onCloseModalRequest ? onCloseModalRequest() : null)}
+          onClick={() => (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
         >
-          {m(messages.confirmSuccess)}
+          {m(messages.confirm)}
         </button>
+      </div>,
+      { mode }
+    );
+  }
+
+  if (operation === 'remove' || step === 'confirmRemove') {
+    return Canvas(
+      <div className="text-center padding-v-sm">
+        <p>{m(messages.confirmRemoveInfo)}</p>
+        <div>
+          <button
+            type="button"
+            className="btn btn-danger margin-top-sm"
+            onClick={() => axios
+              .delete(res)
+              .then(onRemove)
+              .catch(() => setStep('removeFail'))}
+          >
+            {m(messages.confirmRemove)}
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            className="btn btn-default margin-top-sm"
+            onClick={() => (onCloseModalRequest ? onCloseModalRequest() : setStep('form'))}
+          >
+            {m(messages.cancel)}
+          </button>
+        </div>
       </div>,
       { mode }
     );
@@ -105,17 +175,28 @@ export default ({
       {isLoading ? (
         <BlankComponent />
       ) : (
-        <FormSchemaComponent
-          method="patch"
-          res={{
-            patch: res,
-          }}
-          values={query.data}
-          schema={schema({ optionalFields })}
-          onSubmitSuccess={onSubmitSuccess}
-          onCancel={() => (mode === 'modal' ? onCloseModalRequest() : setStep('success'))}
-          lang={lang}
-        />
+        <>
+          <FormSchemaComponent
+            method="patch"
+            res={{
+              patch: res,
+            }}
+            values={query.data}
+            schema={schema({ optionalFields })}
+            onSubmitSuccess={onSubmitSuccess}
+            onCancel={() => (mode === 'modal' ? onCloseModalRequest() : setStep('success'))}
+            lang={lang}
+          />
+          {displayRemoveAction ? (
+            <button
+              type="button"
+              className="btn btn-link text-danger padding-left-z"
+              onClick={() => setStep('confirmRemove')}
+            >
+              {m(messages.remove)}
+            </button>
+          ) : null}
+        </>
       )}
     </>,
     {

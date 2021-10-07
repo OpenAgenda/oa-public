@@ -1,8 +1,13 @@
-export default [
-  'district',
-  'city',
-  'region',
-  'department',
+const extraGeoFields = [
+  'adminLevel1',
+  'adminLevel2',
+  'adminLevel3',
+  'adminLevel4',
+  'adminLevel6',
   'postalCode',
-  'insee',
 ];
+
+export default countryCode => {
+  if (countryCode.toUpperCase() === 'FR') return extraGeoFields.concat(['insee']);
+  return extraGeoFields;
+};

@@ -161,6 +161,12 @@ app.patch('/api/agendas/123/members/456', (req, res) => {
   res.status(200).send();
 });
 
+app.delete('/api/agendas/123/members/456', (req, res) => {
+  // eslint-disable-next-line no-console
+  console.log('received delete request');
+  res.status(204).send();
+});
+
 app.use(errorHandler({ log: true }));
 
 if (process.env.NODE_ENV !== 'test') {

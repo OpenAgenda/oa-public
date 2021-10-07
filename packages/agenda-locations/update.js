@@ -12,7 +12,6 @@ const legacy = require('./lib/legacy');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
-  log('data: %j', data);
   await authorize(service, 'update', current.uid, options);
 
   const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
@@ -52,7 +51,6 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   // string image means image is unchanged.
   const entry = service.fieldUtils.fromItemToEntry(clean, current);
-  log('entry: ', entry, 'clean:', clean, 'current:', current);
   await service.clients
     .knex(service.config.schema)
     .update(legacy.patch(entry, current, service.fieldUtils.fromItemToEntry(current)))

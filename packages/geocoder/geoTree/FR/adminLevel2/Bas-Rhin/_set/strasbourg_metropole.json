@@ -1,0 +1,40 @@
+{
+  "$set": {
+    "adminLevel3": "Eurométropole de Strasbourg"
+  },
+  "adminLevel4": [
+    "Strasbourg",
+    "Achenheim",
+    "Bischheim",
+    "Blaesheim",
+    "Breuschwickersheim",
+    "Eckbolsheim",
+    "Eckwersheim",
+    "Entzheim",
+    "Eschau",
+    "Fegersheim",
+    "Geispolsheim",
+    "Hangenbieten",
+    "Hœnheim",
+    "Holtzheim",
+    "Illkirch-Graffenstaden",
+    "Kolbsheim",
+    "Lampertheim",
+    "Lingolsheim",
+    "Lipsheim",
+    "Mittelhausbergen",
+    "Mundolsheim",
+    "Niederhausbergen",
+    "Oberhausbergen",
+    "Oberschaeffolsheim",
+    "Osthoffen",
+    "Ostwald",
+    "Plobsheim",
+    "Reichstett",
+    "Schiltigheim",
+    "Souffelweyersheim",
+    "Vendenheim",
+    "La Wantzenau",
+    "Wolfisheim"
+  ]
+}

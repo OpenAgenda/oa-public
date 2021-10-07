@@ -1,0 +1,19 @@
+{
+  "$set": {
+    "adminLevel3": "Métropole Toulon Provence Méditerranée"
+  },
+  "adminLevel4": [
+    "Toulon",
+    "Carqueiranne",
+    "La Crau",
+    "La Garde",
+    "Hyères",
+    "Ollioules",
+    "Le Pradet",
+    "Le Revest-les-Eaux",
+    "Saint-Mandrier-sur-Mer",
+    "La Seyne-sur-Mer",
+    "Six-Fours-les-Plages",
+    "La Valette-du-Var"
+  ]
+}

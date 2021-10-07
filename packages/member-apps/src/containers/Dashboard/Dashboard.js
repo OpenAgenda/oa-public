@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect, ReactReduxContext } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import upperFirst from 'lodash/upperFirst';
 import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
-import { Base64 } from 'js-base64';
 import qs from 'qs';
 
 import { withContext, withLayoutData } from '@openagenda/react-shared';
-import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import { Modal, MoreInfo } from '@openagenda/react-components';
+import { Modal } from '@openagenda/react-components';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 
+import MemberItem from '../../components/MemberItem';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
@@ -76,7 +74,7 @@ function OrderField({ action, input, title }) {
   );
 }
 
-@withLayoutData('agenda', 'member', 'role')
+@withLayoutData('agenda', 'member', 'role', 'user')
 @connect(
   (state, props) => {
     const query = qs.parse(props.history.location.search, {
@@ -86,16 +84,16 @@ function OrderField({ action, input, title }) {
     return {
       query,
       res: state.res,
-      members: state.members.data,
-      page: state.members.page,
-      total: state.members.total,
+      members: state.members.data ?? [],
+      page: state.members.page ?? 1,
+      total: state.members.total ?? 0,
       loadLoading: state.members.loadLoading,
       listLoading: state.members.listLoading,
       nextLoading: state.members.nextLoading,
       credFilters: state.members.credFilters,
       showInviteResult: state.members.showInviteResult,
       inviteError: state.members.inviteError,
-      stats: state.members.stats || {},
+      stats: state.members.stats ?? {},
       perPageLimit: state.settings.perPageLimit,
       modals: state.modals,
     };
@@ -154,14 +152,6 @@ class Dashboard extends Component {
   //   cleanCredFilters();
   //   this.forceUpdate(() => this.search({ search }));
   // }
-
-  roleLabel = role => {
-    const {
-      i18n: { getLabel },
-    } = this.props;
-
-    return getLabel(getRoleSlug(role));
-  };
 
   nextPage = () => {
     const {
@@ -229,156 +219,6 @@ class Dashboard extends Component {
     }));
   };
 
-  renderMember(member) {
-    const {
-      id,
-      role,
-      invited,
-      custom,
-      eventCount,
-      user,
-      deletedUser,
-      owner,
-    } = member;
-    const {
-      showModal,
-      resendInvitation,
-      history,
-      agenda,
-      role: userCredential,
-      i18n,
-    } = this.props;
-    const { getLabel } = i18n;
-
-    const memberType = (() => {
-      if (invited && !deletedUser) return 'invited';
-      if (role === 1 && eventCount === 0) return 'noContrib';
-      if (deletedUser && !invited) return 'deleted';
-    })();
-
-    const base64url = Base64.encode(
-      history.location.pathname + history.location.search
-    );
-
-    const resendInvitationHandler = () => resendInvitation(agenda, id)
-      .then(() => showModal('memberReinvited', { member, success: true }))
-      .catch(() => showModal('memberReinvited', { member, success: false }));
-
-    return (
-      <div key={id} className="bo-list-item media">
-        <div className="media-body">
-          <div className="title media-heading">
-            <strong>
-              {custom.contactName
-                || (user && user.fullName)
-                || (invited
-                  ? custom.email || getLabel('invited')
-                  : getLabel('noName'))}
-            </strong>{' '}
-            <span className="text-muted small">{this.roleLabel(role)}</span>{' '}
-            <MoreInfo
-              id={`moreinfo-${id}`}
-              content={getLabel(`moreinfo${upperFirst(memberType)}`)}
-            >
-              <span
-                className={classNames('badge', 'badge-sm', {
-                  'badge-info': memberType === 'invited',
-                  'badge-default': memberType === 'inactive',
-                  'badge-success': memberType === 'active',
-                  'badge-warning': ['deleted', 'noContrib'].includes(
-                    memberType
-                  ),
-                })}
-              >
-                {/* {stakeholderType === 'active' && getLabel( 'active' )} */}
-                {memberType === 'noContrib' && getLabel('noContrib')}
-                {memberType === 'invited' && getLabel('invited')}
-                {memberType === 'deleted' && getLabel('deleted')}
-              </span>
-            </MoreInfo>
-          </div>
-          <div className="actions">
-            {(custom.organization || custom.contactPosition) && (
-              <p>
-                {
-                  <span className="text-muted">
-                    {custom.organization || null}
-                  </span>
-                }
-                {custom.organization && custom.contactPosition && ' - '}
-                {
-                  <span className="text-muted">
-                    {custom.contactPosition || null}
-                  </span>
-                }
-              </p>
-            )}
-            {!invited && (custom.email || custom.contactNumber) && (
-              <p>
-                {<span className="text-muted">{custom.email || null}</span>}
-                {custom.email && custom.contactNumber && ' - '}
-                {
-                  <span className="text-muted">
-                    {custom.contactNumber || null}
-                  </span>
-                }
-              </p>
-            )}
-
-            <Link
-              to={`/${agenda.slug}/admin/events?${qs.stringify({
-                contributorId: id,
-                'q.memberUid': [member.userUid],
-              })}`}
-              className="text-muted"
-            >
-              {/* <span className="badge badge-info"> */}
-              {eventCount}{' '}
-              {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
-              {/* </span> */}
-            </Link>
-
-            {(userCredential !== 3 || ![2, 3].includes(role)) && (
-              <button
-                type="button"
-                className="btn btn-link text-muted margin-left-sm"
-                onClick={() => showModal('editMember', { member })}
-              >
-                {getLabel('editProfile')}
-              </button>
-            )}
-            {!owner && (userCredential !== 3 || ![2, 3].includes(role)) && (
-              <button
-                type="button"
-                className="btn btn-link text-muted margin-left-sm"
-                onClick={() => showModal('removeMember', { member })}
-              >
-                {getLabel('removeMember')}
-              </button>
-            )}
-            {user && id !== member.id ? (
-              <a
-                className="text-muted margin-left-sm"
-                href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
-              >
-                {getLabel('sendAMessage')}
-              </a>
-            ) : null}
-            {invited && (
-              <button
-                type="button"
-                onClick={resendInvitationHandler}
-                className="btn btn-link text-muted margin-left-sm"
-              >
-                {getLabel('resendInvitation')}
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   renderFilter(nbr, key) {
     const { i18n, credFilters /* , credentials, agenda */ } = this.props;
     const { getLabel } = i18n;
@@ -387,22 +227,9 @@ class Dashboard extends Component {
 
     const toggleFilter = e => (credFilters.includes(key) ? this.removeFilter : this.addFilter)(e, key);
 
-    /* if ( key === 'moderator' && !credentials.moderators ) {
-
-      return (
-        <li role="presentation" className="locked">
-          <a href="#" onClick={() => openRequestForm( { lang, subject: 'moderators', agenda: agenda.slug } )}>
-            {nbr && <strong>{nbr || 0}</strong>}{' '}{getLabel( label )}{' '}
-            <i className="fa fa-unlock-alt" aria-hidden="true"></i>
-          </a>
-        </li>
-      );
-
-    } */
-
     if (!nbr) return null;
 
-    const active = credFilters.includes(key);
+    const active = credFilters?.includes(key);
 
     return (
       <li role="presentation" className={classNames({ active })}>
@@ -441,11 +268,15 @@ class Dashboard extends Component {
       credFilters,
       showInviteResult,
       cleanInviteResult,
+      resendInvitation,
+      history,
       inviteError,
       agenda,
+      role,
       member,
       query,
       i18n,
+      user,
     } = this.props;
     const { getLabel } = i18n;
 
@@ -640,7 +471,20 @@ class Dashboard extends Component {
         </div>
 
         <div>
-          {members && members.map(s => this.renderMember(s))}
+          {members
+            && members.map(m => (
+              <MemberItem
+                user={user}
+                key={`member-${m.id}`}
+                member={m}
+                showModal={showModal}
+                resendInvitation={resendInvitation}
+                history={history}
+                agenda={agenda}
+                role={role}
+                i18n={i18n}
+              />
+            ))}
 
           {!members || !members.length ? (
             <div className="text-center text-muted margin-v-md">

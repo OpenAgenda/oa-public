@@ -10,6 +10,8 @@ const termsFiltersMap = {
   city: 'location.city',
   department: 'location.department',
   region: 'location.region',
+  adminLevel3: 'location.adminLevel3',
+  adminLevel5: 'location.adminLevel5',
   countryCode: 'location.countryCode',
   locationUid: 'location.uid',
   uid: 'uid',

@@ -3,6 +3,7 @@
   "event/contributor-section": "Contributor",
   "event/contributor/edit": "Edit",
   "event/contributor/email": "Email",
+  "event/contributor/emptyContactInfo": "No contact information available",
   "event/contributor/name": "Name",
   "event/contributor/organization": "Organization",
   "event/contributor/phone": "Phone",

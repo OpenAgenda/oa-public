@@ -1,0 +1,79 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "adminLevel3": "test",
+        "adminLevel5": "2eme",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "state": 2
+    },
+    {
+      "uid": 2,
+      "location": {
+        "uid": 1,
+        "name": "L'appart",
+        "address": "44 Rue de la Digue, 59800 Lille",
+        "latitude": 50.635068164405894,
+        "longitude": 3.0471875075703028,
+        "district": "",
+        "city": "Lille",
+        "department": "Nord",
+        "region": "Hauts-de-France",
+        "adminLevel3": "mel",
+        "adminLevel5": "1er",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "state": 2
+    },
+    {
+      "uid": 3,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "adminLevel3": "test",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "state": 2
+    },
+    {
+      "uid": 4,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "adminLevel3": "test",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "state": 2
+    }
+  ]
+}

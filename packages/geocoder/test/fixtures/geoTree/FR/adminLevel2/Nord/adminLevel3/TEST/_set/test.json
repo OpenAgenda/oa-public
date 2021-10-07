@@ -1,0 +1,4 @@
+{
+  "$set": { "adminLevel6": "test AdminLevel 6" },
+  "adminLevel5": ["adminLevel51", "adminLevel52"]
+}

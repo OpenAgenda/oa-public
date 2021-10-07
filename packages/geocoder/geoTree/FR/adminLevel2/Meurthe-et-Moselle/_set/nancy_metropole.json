@@ -1,0 +1,27 @@
+{
+  "$set": {
+    "adminLevel3": "Métropole du Grand Nancy"
+  },
+  "adminLevel4": [
+    "Nancy",
+    "Art-sur-Meurthe",
+    "Dommartemont",
+    "Essey-lès-Nancy",
+    "Fléville-devant-Nancy",
+    "Heillecourt",
+    "Houdemont",
+    "Jarville-la-Malgrange",
+    "Laneuveville-devant-Nancy",
+    "Laxou",
+    "Ludres",
+    "Malzéville",
+    "Maxéville",
+    "Pulnoy",
+    "Saint-Max",
+    "Saulxures-lès-Nancy",
+    "Seichamps",
+    "Tomblaine",
+    "Vandœuvre-lès-Nancy",
+    "Villers-lès-Nancy"
+  ]
+}

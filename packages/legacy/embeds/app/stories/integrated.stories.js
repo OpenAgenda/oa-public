@@ -51,6 +51,7 @@ export function Integrated() {
               }
             }),
             {
+              disableScrollToTop: true,
               extraProps: {
                 lang: 'fr',
                 agenda: {

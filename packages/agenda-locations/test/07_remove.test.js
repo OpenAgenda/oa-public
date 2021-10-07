@@ -42,7 +42,6 @@ const initSettingsCantRemove = {
 };
 
 describe('agenda-locations - functional - remove', () => {
-
   const f = fixtures(config.mysql);
 
   let svc;
@@ -64,7 +63,7 @@ describe('agenda-locations - functional - remove', () => {
         beforeRemove: async l => {
           passedToInterface = l;
         },
-        getAgendaLocationSettings: async (uid) => initSettingsDA
+        getAgendaLocationSettings: async _uid => initSettingsDA
       },
     });
   });
@@ -152,7 +151,7 @@ describe('agenda-locations - functional - remove - no rights', () => {
           const passedToInterface = l;
           return passedToInterface;
         },
-        getAgendaLocationSettings: async (uid) => initSettingsCantRemove
+        getAgendaLocationSettings: async _uid => initSettingsCantRemove
       },
     });
   });

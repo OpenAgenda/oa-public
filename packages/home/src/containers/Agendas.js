@@ -1,4 +1,6 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, {
+  useCallback, useContext, useMemo, useRef
+} from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,13 +14,14 @@ import { updatedMember } from '../reducers/agendas';
 import Welcome from '../components/Welcome';
 import AgendasSearch from '../components/AgendasSearch';
 import AgendaItem from '../components/AgendaItem';
-import MemberEditModal from '../components/MemberEditModal';
+import { MemberEditModal, MemberRemoveModal } from '../components/MemberModals';
 import Wrapper from './Wrapper';
 
 function Agendas() {
   const { getLabel, lang } = useContext(I18nContext);
 
   const history = useHistory();
+  const searchRef = useRef();
   const query = useMemo(
     () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
     [history.location.search]
@@ -65,9 +68,11 @@ function Agendas() {
   );
 
   const memberEditModal = useModal();
+  const memberRemoveModal = useModal();
 
   return (
     <AgendasSearch
+      ref={searchRef}
       res={res.agendas.list}
       initialState={initialState}
       onSearch={onAgendaSearch}
@@ -97,8 +102,20 @@ function Agendas() {
                   lang={lang}
                   closeModal={() => memberEditModal.close()}
                   onSuccess={(member, updatedData) => dispatch(updatedMember(state.agendas, member, updatedData))}
+                  onRemoveSuccess={() => searchRef.current.refresh()}
                   {...memberEditModal.data}
                   description={getLabel('editMemberInformation')}
+                  res={res}
+                />
+              ) : null}
+              {memberRemoveModal.isOpen ? (
+                <MemberRemoveModal
+                  lang={lang}
+                  closeModal={() => memberRemoveModal.close()}
+                  onSuccess={() => {
+                    searchRef.current.refresh();
+                  }}
+                  {...memberRemoveModal.data}
                   res={res}
                 />
               ) : null}
@@ -125,6 +142,7 @@ function Agendas() {
                       res={res}
                       getLabel={getLabel}
                       onDisplayMemberForm={item => memberEditModal.open(item)}
+                      onDisplayRemoveMember={item => memberRemoveModal.open(item)}
                     />
                   ))
                   : null}

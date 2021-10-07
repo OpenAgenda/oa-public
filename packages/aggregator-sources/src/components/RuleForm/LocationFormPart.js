@@ -25,6 +25,7 @@ export default () => {
           {intl.formatMessage(messages.department)}
         </option>
         <option value="region">{intl.formatMessage(messages.region)}</option>
+        <option value="name">{intl.formatMessage(messages.name)}</option>
       </Field>
 
       <div className="row">

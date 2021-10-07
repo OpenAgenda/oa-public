@@ -9,7 +9,7 @@ import AdminPageDecorator from './decorators/AdminPage';
 import ProvidersDecorator from './decorators/Providers';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import mainData from './fixtures/main.json';
+import mainData from './fixtures/new.json';
 
 const getDefaultState = ({ apiRoot = '' } = {}) => ({
   settings: {

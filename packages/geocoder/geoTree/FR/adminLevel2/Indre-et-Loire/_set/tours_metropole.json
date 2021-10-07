@@ -1,0 +1,29 @@
+{
+  "$set": {
+    "adminLevel3": "Tours Métropole Val de Loire"
+  },
+  "adminLevel4": [
+    "Tours",
+    "Ballan-Miré",
+    "Berthenay",
+    "Chambray-lès-Tours",
+    "Chanceaux-sur-Choisille",
+    "Druye",
+    "Fondettes",
+    "Joué-lès-Tours",
+    "Luynes",
+    "La Membrolle-sur-Choisille",
+    "Mettray",
+    "Notre-Dame-d'Oé",
+    "La Riche",
+    "Parçay-Meslay",
+    "Rochecorbon",
+    "Saint-Avertin",
+    "Saint-Cyr-sur-Loire",
+    "Saint-Étienne-de-Chigny",
+    "Saint-Genouph",
+    "Saint-Pierre-des-Corps",
+    "Savonnières",
+    "Villandry"
+  ]
+}

@@ -1,0 +1,20 @@
+'use strict';
+
+const transforms = require('./transforms.json');
+
+// easier to troubleshoot if separated
+const _test = (rgx, value) => (new RegExp(rgx)).test(value);
+
+module.exports = location => {
+  const updated = { ...location };
+  // location is updated as it goes along transforms
+  transforms.forEach(transform => {
+    if (!Object.keys(transform.matchAny)
+      .every(field => [].concat(transform.matchAny[field]).some(
+        fieldValue => _test(fieldValue, updated[field])
+      ))
+    ) return;
+    Object.assign(updated, transform.update);
+  });
+  return updated;
+};

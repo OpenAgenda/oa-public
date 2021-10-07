@@ -117,6 +117,34 @@ export const FormWithOptionalFields = () => (
   />
 );
 
+export const FormWithRemoveMeLink = () => (
+  <Form
+    lang="fr"
+    operation="update"
+    optionalFields
+    res="http://localhost:3000/api/agendas/123/members/456"
+    title="Un lien pour se retirer est présent"
+    description={null}
+    displayRemoveAction
+    onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FormForRemove = () => (
+  <Form
+    lang="fr"
+    operation="remove"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    onRemoveSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
 export const FixTwoLinksOneForm = () => {
   const [display, setDisplay] = useState(false);
   const [res, setRes] = useState(false);

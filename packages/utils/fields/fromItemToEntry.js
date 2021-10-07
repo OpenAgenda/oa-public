@@ -7,7 +7,6 @@ const {
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-
 const extractDbRules = field => {
   return {
     ...(typeof field.db === 'object' ? field.db : {}),
@@ -45,10 +44,20 @@ const loadJSONValue = (JSONValue, path, value, assign = false) => {
   });
 };
 
-function fromItemToDbEntry(fields, data, current) {
-  // console.log('item', { data, current });
-  const currentEntry = current && fromItemToDbEntry(fields, current);
+function getItemValue(field, data, currentValue) {
+  const itemValue = [field].concat(field.linkedFields ?? []).reduce((acc, value) => {
+    if (data[value.field]) {
+      return data[value.field];
+    }
+    return acc;
+  }, undefined);
 
+  if (itemValue === undefined) return currentValue;
+  return itemValue;
+}
+
+function fromItemToDbEntry(fields, data, current) {
+  const currentEntry = current && fromItemToDbEntry(fields, current);
 
   const dbEntry = fields.reduce((entry, field) => {
     if (data[field.field] === undefined) {
@@ -64,10 +73,9 @@ function fromItemToDbEntry(fields, data, current) {
     } = extractDbRules(field);
 
     if (entryType === 'json') {
-      const preformatted = formatFunction ? formatFunction(data) : data[field.field]
-      //console.log(preformatted, entryField)
+      const preformatted = formatFunction ? formatFunction(data) : data[field.field];
       const value = loadJSONValue(
-        entry[entryField] !== undefined ? entry[entryField]: currentEntry?.[entryField],
+        entry[entryField] !== undefined ? entry[entryField] : currentEntry?.[entryField],
         entryPath,
         preformatted,
         entryAssign
@@ -79,17 +87,21 @@ function fromItemToDbEntry(fields, data, current) {
     }
 
     const currentValue = currentEntry?.[entryField] !== undefined ? currentEntry[entryField] : undefined;
-    const value = data[field.field] !== undefined ? data[field.field] : currentValue;
+    const value = getItemValue(field, data, currentValue);
     return {
       ...entry,
       [entryField]: value
     };
-
   }, {});
-
-   //console.log('entry', dbEntry);
 
   return dbEntry;
 }
 
 module.exports = fromItemToDbEntry;
+
+module.exports.loadWithLinkedFields = fields => {
+  fields.forEach(field => {
+    field.linkedFields = fields.filter(f => (f !== field) && (getDatabaseFieldName(f) === getDatabaseFieldName(field)));
+  });
+  return fromItemToDbEntry.bind(null, fields);
+};
