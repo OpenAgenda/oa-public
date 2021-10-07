@@ -20,7 +20,7 @@ module.exports = async ({ services }, interfaceName, ref, context) => {
     event = await eventsSvc.get({ uid: ref.eventUid }, {
       private: null,
       deleted: null,
-      internal: true,
+      access: 'internal',
       detailed: true
     });
 
