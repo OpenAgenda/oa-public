@@ -2,9 +2,11 @@ import React, { useState, useCallback, useContext } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import makeGetterLabel from '@openagenda/labels';
+import { withLayoutData } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/agenda-admin/gettingStarted';
 import I18nContext from '../contexts/I18nContext';
 
+@withLayoutData('agenda')
 export default function GettingStarted({ agenda }) {
   const { lang } = useContext(I18nContext);
 
