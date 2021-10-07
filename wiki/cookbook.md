@@ -1,5 +1,11 @@
 # Recettes
 
+
+## GIT
+
+Supprimer une branche locale: `git branch -d nomdelabranche`
+Supprimer une branche remote: `git push origin --delete nomdelabranche`
+
 ## Jelastic
 
 Forcer une redirection vers https (voir la 2ème réponse): https://stackoverflow.com/questions/37370280/jelastic-nginx-http-to-https-redirect
@@ -10,11 +16,18 @@ Dans le fichier nginx-jelastic.conf, sous le listen 80, server_name, mettre:
         return 301 https://$host$request_uri;
     }
 
-### Ghost
+## Ghost
 
 Les sites de documentation utilisent un déploiement avec un équilibreur nginx et une image docker ghost 3.40.2-alpine. Une variable d'environnement doit être ajoutée pour préciser à ghost quelle url utiliser. Son nom: "url" (ex: https://doc.openagenda.com)
 
 Un volume local contient tout le déploiement ghost: /var/lib/ghost. Pour déplacer un site ghost d'un environnement à un autre, il suffit de reprendre le contenu du dossier /var/lib/ghost/content
+
+
+## React
+
+Quand on est dans un container, on peut récupérer les données de contexte (agenda, user) avec un décorateur (fonction qui prend le truc suivant) provenant de react-shared: withLayoutData. ex de member-apps `Dashboard.js`: `@withLayoutData('agenda', 'member', 'role', 'user')`. Ca charge les données demandées dans les props.
+
+Quand on est dans une fonction-composant React, les infos de contexte (user, agenda...) sont accessible depuis un hook `useLayoutData` provenant de react-shared. Exemple: `const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();`
 
 ## redis
 
