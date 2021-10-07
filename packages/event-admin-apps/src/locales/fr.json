@@ -5,6 +5,7 @@
   "EventAdminApp.BatchedStateSelector.ok": "Fermer",
   "EventAdminApp.BatchedStateSelector.title": "Confirmation",
   "EventAdminApp.Dashboard.allSelected": "Les <b>{size}</b> événements de cette page sont sélectionnés.",
+  "EventAdminApp.Dashboard.backToLegacy": "Revenir à l'ancienne version de cette page",
   "EventAdminApp.Dashboard.cancelSelection": "Annuler la sélection",
   "EventAdminApp.Dashboard.changeState": "Modifier le statut",
   "EventAdminApp.Dashboard.clearFilters": "Effacer les filtres",
