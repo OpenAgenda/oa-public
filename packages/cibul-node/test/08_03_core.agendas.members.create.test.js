@@ -47,6 +47,8 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       const member = await core.agendas({ uid: 2 }).members.create(82253124, 'administrator', {
         name: 'Fred',
         phone: '06'
+      }, {
+        userUid: 50073466
       });
 
       expect(member).toEqual({
@@ -58,6 +60,50 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         role: 'administrator',
         userUid: 82253124
       });
+    });
+
+    it('user can add himself on open agenda', async () => {
+      const member = await core.agendas({ uid: 93399464 }).members.create(99999967, 'contributor', {
+        name: 'Jean-Benoit'
+      }, {
+        userUid: 99999967
+      });
+
+      expect(member.role).toBe('contributor');
+    });
+  });
+
+  describe('unsuccessful creates', () => {
+    it('contributor cannot add a member', async () => {
+      let error;
+
+      try {
+        await core.agendas({ uid: 2 }).members.create(10866730, 'contributor', {
+          name: 'Hélène'
+        }, {
+          userUid: 5
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
+    });
+
+    it('user cannot add himself on members only agenda', async () => {
+      let error;
+
+      try {
+        await core.agendas({ uid: 2 }).members.create(99999967, 'contributor', {
+          name: 'JayBee'
+        }, {
+          userUid: 99999967
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
     });
   });
 

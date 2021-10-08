@@ -161,7 +161,7 @@ module.exports = core => {
     mw.member.verifyRoleEdit,
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .create(req.body.userUid, req.body.role, req.parsedData)
+      .create(req.body.userUid, req.body.role, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
   ]);
 
