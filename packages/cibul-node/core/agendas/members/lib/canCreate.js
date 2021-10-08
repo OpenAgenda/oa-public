@@ -7,7 +7,8 @@ module.exports = ({ members, agendas }, {
   acting,
   actingUserUid,
   userUid,
-  role
+  role,
+  access
 }) => {
   const {
     utils: {
@@ -18,6 +19,10 @@ module.exports = ({ members, agendas }, {
       }
     }
   } = members;
+
+  if (access === 'internal') {
+    return true;
+  }
 
   const actingRoleSlug = acting ? getRoleSlug(acting.role) : null;
 

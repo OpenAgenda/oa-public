@@ -179,7 +179,7 @@ module.exports = core => {
     mw.member.verifyAccess('userUid'),
     (req, res, next) => core
       .agendas(req.agenda.uid)
-      .members.patch(req.params.userUid, req.parsedData)
+      .members.patch(req.params.userUid, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
   ]);
 

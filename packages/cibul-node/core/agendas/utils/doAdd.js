@@ -118,7 +118,10 @@ module.exports = async (core, payload, clean, options = {}) => {
 
   if (userUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(userUid)) {
     log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
-    await core.agendas(agenda).members.create(userUid, 'contributor', { useAccountEmail: true });
+    await core.agendas(agenda).members.create(userUid, 'contributor', {}, {
+      access: 'internal',
+      useAccountEmail: true
+    });
   }
 
   try {

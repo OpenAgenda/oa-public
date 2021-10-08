@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const { Forbidden } = require('@openagenda/verror');
+const { Forbidden, BadRequest } = require('@openagenda/verror');
 const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
 const canCreate = require('./lib/canCreate');
@@ -13,8 +13,13 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
   } = services;
 
   const {
-    userUid: actingUserUid
+    userUid: actingUserUid,
+    access = null
   } = options;
+
+  if (!actingUserUid && access !== 'internal') {
+    throw new BadRequest('userUid option is required');
+  }
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
@@ -28,19 +33,20 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
     memberData.email = await users.get(userUid).then(u => u.email);
   }
 
-  const actingMember = await members.get({
+  const actingMember = actingUserUid ? await members.get({
     agendaUid,
     userUid: actingUserUid
-  });
+  }) : null;
 
   if (!canCreate(services, {
     agenda,
     acting: actingMember,
     actingUserUid,
     userUid,
-    role
+    role,
+    access
   })) {
-    throw new Forbidden('Not authorize to edit requested role');
+    throw new Forbidden('Not authorized to add a member');
   }
 
   return members.create({
