@@ -4,10 +4,16 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
+import { utils } from '@openagenda/members';
 
-import memberListResult from './fixtures/members.json';
+import membersFixtures from './fixtures/members.json';
 import member from './fixtures/member.json';
 import otherMember from './fixtures/otherMember.json';
+
+const memberListResult = {
+  ...membersFixtures,
+  members: membersFixtures.members.concat([]),
+};
 
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
@@ -155,10 +161,59 @@ app.post('/api/agendas/123/members', (req, res) => {
   res.status(200).send();
 });
 
-app.patch('/api/agendas/123/members/456', (req, res) => {
+app.patch('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
   // eslint-disable-next-line no-console
   console.log('received %j', req.body);
-  res.status(200).send();
+
+  const memberIndex = memberListResult.members.findIndex(
+    m => m.userUid === parseInt(req.params.userUid, 10)
+  );
+  const data = JSON.parse(req.body.data);
+
+  const map = {
+    name: 'contactName',
+    phone: 'contactNumber',
+    position: 'contactPosition',
+    organization: 'organization',
+    email: 'email',
+  };
+
+  memberListResult.members[memberIndex].custom = Object.keys(map).reduce(
+    (carry, key) => ({
+      ...carry,
+      [map[key]]: data[key],
+    }),
+    {}
+  );
+
+  res.status(200).json(data);
+});
+
+app.get('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
+  const legacyFormatMember = memberListResult.members.find(
+    m => m.userUid === parseInt(req.params.userUid, 10)
+  );
+
+  const map = {
+    contactName: 'name',
+    contactNumber: 'phone',
+    contactPosition: 'position',
+    organization: 'organization',
+    email: 'email',
+  };
+
+  res.status(200).json(
+    Object.keys(map).reduce(
+      (carry, key) => ({
+        ...carry,
+        [map[key]]: legacyFormatMember.custom[key],
+      }),
+      {
+        userUid: legacyFormatMember.user.uid,
+        role: utils.getRoleSlug(legacyFormatMember.role),
+      }
+    )
+  );
 });
 
 app.delete('/api/agendas/123/members/456', (req, res) => {

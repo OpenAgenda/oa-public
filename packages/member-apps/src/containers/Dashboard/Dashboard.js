@@ -14,8 +14,8 @@ import { Modal } from '@openagenda/react-components';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 
 import MemberItem from '../../components/MemberItem';
+import MemberForm from '../../components/Form';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
-import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
 import * as membersActions from '../../reducers/members';
 import * as modalsActions from '../../reducers/modals';
@@ -261,7 +261,6 @@ class Dashboard extends Component {
       closeModal,
       setModal,
       modals,
-      update,
       invite,
       remove,
       sendMessage,
@@ -269,16 +268,16 @@ class Dashboard extends Component {
       showInviteResult,
       cleanInviteResult,
       resendInvitation,
+      reactReduxContext,
       history,
       inviteError,
       agenda,
-      role,
       member,
       query,
       i18n,
       user,
     } = this.props;
-    const { getLabel } = i18n;
+    const { getLabel, lang } = i18n;
 
     const {
       administrator: totalAdministrator,
@@ -286,6 +285,10 @@ class Dashboard extends Component {
       contributor: totalContributor,
       reader: totalReader,
     } = stats.totalPerRole || {};
+
+    const {
+      store: { dispatch },
+    } = reactReduxContext;
 
     const editModal = modals.editMember || {};
     const removeModal = modals.removeMember || {};
@@ -475,13 +478,13 @@ class Dashboard extends Component {
             && members.map(m => (
               <MemberItem
                 user={user}
+                userRole={member.role}
                 key={`member-${m.id}`}
                 member={m}
                 showModal={showModal}
                 resendInvitation={resendInvitation}
                 history={history}
                 agenda={agenda}
-                role={role}
                 i18n={i18n}
               />
             ))}
@@ -499,27 +502,25 @@ class Dashboard extends Component {
           )}
         </div>
 
-        {editModal.visible && (
-          <Modal
-            title={getLabel('editProfile')}
-            onClose={() => closeModal('editMember')}
-          >
-            <EditMemberForm
-              agenda={agenda}
-              userCredential={member.role}
-              member={editModal.member}
-              onSubmit={(...params) => update(agenda, editModal.member.id, ...params).then(
-                async result => {
-                  closeModal('editMember');
+        {editModal.visible ? (
+          <MemberForm
+            lang={lang}
+            operation="update"
+            mode="modal"
+            description={null}
+            optionalFields
+            showSuccessMessage
+            res={`${res.update
+              .replace(':agendaUid', agenda.uid)
+              .replace(':userUid', editModal.member.userUid)}`}
+            onSuccess={update => {
+              dispatch(membersActions.updateListItem(update));
 
-                  await getStats(agenda);
-
-                  return result;
-                }
-              )}
-            />
-          </Modal>
-        )}
+              getStats(agenda);
+            }}
+            onCloseModalRequest={() => closeModal('editMember')}
+          />
+        ) : null}
 
         {removeModal.visible && (
           <Modal

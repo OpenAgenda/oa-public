@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { Base64 } from 'js-base64';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
+import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles';
 
 const roleLabel = (i18n, role) => {
   const { getLabel } = i18n;
@@ -21,6 +22,7 @@ function MemberItem({
   resendInvitation,
   history,
   i18n,
+  userRole,
 }) {
   const {
     id,
@@ -34,6 +36,8 @@ function MemberItem({
   } = member;
 
   const { getLabel } = i18n;
+
+  const canEditMember = isSuperiorToOrEqual(userRole, role);
 
   const memberType = (() => {
     if (invited && !deletedUser) return 'invited';
@@ -121,7 +125,7 @@ function MemberItem({
             {/* </span> */}
           </Link>
 
-          {(role !== 3 || ![2, 3].includes(role)) && (
+          {canEditMember && (
             <button
               type="button"
               className="btn btn-link text-muted margin-left-sm"

@@ -16,6 +16,7 @@ const NEXT_PAGE_FAIL = 'member-apps/members/NEXT_PAGE_FAIL';
 const UPDATE = 'member-apps/members/UPDATE';
 const UPDATE_SUCCESS = 'member-apps/members/UPDATE_SUCCESS';
 const UPDATE_FAIL = 'member-apps/members/UPDATE_FAIL';
+const UPDATE_LIST_ITEM = 'member-apps/members/UPDATE_LIST_ITEM';
 const INVITE = 'member-apps/members/INVITE';
 const INVITE_SUCCESS = 'member-apps/members/INVITE_SUCCESS';
 const INVITE_FAIL = 'member-apps/members/INVITE_FAIL';
@@ -139,6 +140,20 @@ export default function reducer(state = initialState, action) {
         updateError: action.error,
         updateLoading: false,
       };
+    case UPDATE_LIST_ITEM: {
+      const index = _.findIndex(
+        state.data,
+        m => m.user?.uid === action.userUid
+      );
+
+      if (index === -1) return state;
+
+      Object.assign(state.data[index], {
+        custom: action.custom,
+      });
+
+      return state;
+    }
     case INVITE:
       return {
         ...state,
@@ -276,6 +291,29 @@ export function update(agenda, id, values) {
         }
       );
     },
+  };
+}
+
+export function updateListItem(data) {
+  const map = {
+    name: 'contactName',
+    phone: 'contactNumber',
+    position: 'contactPosition',
+    organization: 'organization',
+    email: 'email',
+  };
+
+  return {
+    type: UPDATE_LIST_ITEM,
+    custom: Object.keys(map).reduce(
+      (carry, key) => ({
+        ...carry,
+        [map[key]]: data[key],
+      }),
+      {}
+    ),
+    role: data.role,
+    userUid: data.userUid,
   };
 }
 
