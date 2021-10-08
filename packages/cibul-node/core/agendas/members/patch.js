@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const { Forbidden, BadRequest } = require('@openagenda/verror');
 const format = require('./lib/format');
-const canPatch = require('./lib/canPatch');
+const canEdit = require('./lib/canEdit');
 
 module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
   const {
@@ -33,7 +33,7 @@ module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
     userUid: actingUserUid
   });
 
-  if (!canPatch(services, {
+  if (!canEdit(services, {
     acting: actingMember,
     actingUserUid,
     userUid,

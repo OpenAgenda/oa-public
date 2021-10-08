@@ -43,7 +43,9 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
   afterAll(() => core.services.shutdown({ clear: true }));
 
   beforeAll(async () => {
-    context = await core.users(63170203).agendas(17026855).events(19390293).getContext();
+    context = await core.users(63170203).agendas(17026855).events(19390293).getContext({
+      userUid: 1
+    });
   });
 
   it('context provides authorizations', () => {

@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('core/agendas/members/canPatch');
+const log = require('@openagenda/logs')('core/agendas/members/canEdit');
 
 module.exports = ({ members }, {
   acting,
@@ -17,7 +17,7 @@ module.exports = ({ members }, {
   const actingRoleSlug = acting ? getRoleSlug(acting.role) : null;
 
   if (actingRoleSlug === 'administrator') {
-    log('acting user is administrator, can patch');
+    log('acting user is administrator, can edit');
     return true;
   }
 

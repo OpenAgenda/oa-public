@@ -116,7 +116,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, event.uid, e);
   }
 
-  if (userUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(userUid)) {
+  if (userUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(userUid, { access: 'internal' })) {
     log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
     await core.agendas(agenda).members.create(userUid, 'contributor', {}, {
       access: 'internal',

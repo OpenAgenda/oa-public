@@ -12,7 +12,7 @@ module.exports = core => Object.assign(identifier => ({
   agendas: Object.assign(agendaUid => ({
     getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid),
     events: eventUid => ({
-      getContext: () => getEventUserContext(core, identifier, agendaUid, eventUid)
+      getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventUid, options)
     })
   }), {
     list: listUserAgendas(core, identifier)
