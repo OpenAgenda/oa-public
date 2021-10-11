@@ -59,6 +59,7 @@ export default async function makeConfig(c) {
       'domain',
       'aws',
       'mw',
+      'uppy',
     ])
   );
 
