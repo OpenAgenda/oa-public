@@ -178,18 +178,6 @@
       "value": "Region"
     }
   ],
-  "AgendaLocations.CH.adminLevel2": [
-    {
-      "type": 0,
-      "value": "Canton"
-    }
-  ],
-  "AgendaLocations.CH.adminLevel3": [
-    {
-      "type": 0,
-      "value": "District"
-    }
-  ],
   "AgendaLocations.CH.adminLevel4": [
     {
       "type": 0,
@@ -218,12 +206,6 @@
     {
       "type": 0,
       "value": "See uncompleted Locations"
-    }
-  ],
-  "AgendaLocations.DropdownUncompleteLocation.uncompletedLocationsInfo": [
-    {
-      "type": 0,
-      "value": "Locations that are lacking important information"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [

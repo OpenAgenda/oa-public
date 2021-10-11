@@ -45,11 +45,19 @@ const geoFields = [{
 }, {
   countryCode: 'CH',
   fields: [{
-    field: 'adminLevel2',
-    label: 'adminLevel2_CH'
+    field: 'adminLevel1',
+    label: 'adminLevel1_CH'
   }, {
     field: 'adminLevel4',
     label: 'adminLevel4_CH'
+  }, {
+    field: 'adminLevel5',
+    label: 'adminLevel5_CH'
+  }, {
+    field: 'adminLevel6',
+    label: 'adminLevel6_CH'
+  }, {
+    field: 'postalCode',
   }]
 }].map(e => ({
   countryCode: e.countryCode,

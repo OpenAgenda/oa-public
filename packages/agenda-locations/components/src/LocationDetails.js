@@ -189,7 +189,7 @@ class LocationDetails extends Component {
       location, lang, settings, hover, staticTiles, intl
     } = this.props;
     const { contentLang, linkedAgendas } = this.state;
-
+    log(location);
     const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
     const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
     const existingLangs = getExistingLangs(location);

@@ -104,7 +104,7 @@
   "AgendaLocations.AgendaAdminLocation.postalCode": [
     {
       "type": 0,
-      "value": "postalCode"
+      "value": "Code postal"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.search": [
@@ -175,19 +175,7 @@
   "AgendaLocations.CH.adminLevel1": [
     {
       "type": 0,
-      "value": "Région"
-    }
-  ],
-  "AgendaLocations.CH.adminLevel2": [
-    {
-      "type": 0,
       "value": "Canton"
-    }
-  ],
-  "AgendaLocations.CH.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Intercommunalité"
     }
   ],
   "AgendaLocations.CH.adminLevel4": [
@@ -217,13 +205,7 @@
   "AgendaLocations.DropdownUncompleteLocation.uncompletedLocations": [
     {
       "type": 0,
-      "value": "See uncompleted Locations"
-    }
-  ],
-  "AgendaLocations.DropdownUncompleteLocation.uncompletedLocationsInfo": [
-    {
-      "type": 0,
-      "value": "Locations that are lacking important information"
+      "value": "Voir les lieux incomplets"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [
@@ -1305,37 +1287,37 @@
   "AgendaLocations.adminLevel1": [
     {
       "type": 0,
-      "value": "niveau administratif 1"
+      "value": "Niveau administratif 1"
     }
   ],
   "AgendaLocations.adminLevel2": [
     {
       "type": 0,
-      "value": "niveau administratif 2"
+      "value": "Niveau administratif 2"
     }
   ],
   "AgendaLocations.adminLevel3": [
     {
       "type": 0,
-      "value": "niveau administratif 3"
+      "value": "Niveau administratif 3"
     }
   ],
   "AgendaLocations.adminLevel4": [
     {
       "type": 0,
-      "value": "niveau administratif 4"
+      "value": "Niveau administratif 4"
     }
   ],
   "AgendaLocations.adminLevel5": [
     {
       "type": 0,
-      "value": "niveau administratif 5"
+      "value": "Niveau administratif 5"
     }
   ],
   "AgendaLocations.adminLevel6": [
     {
       "type": 0,
-      "value": "niveau administratif 6"
+      "value": "Niveau administratif 6"
     }
   ],
   "AgendaLocations.createFormHeader.back": [
@@ -1359,7 +1341,7 @@
   "AgendaLocations.postalCode": [
     {
       "type": 0,
-      "value": "Postal code"
+      "value": "Code postal"
     }
   ],
   "AgendaLocations.setHeader.help": [

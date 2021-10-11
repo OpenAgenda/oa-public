@@ -39,8 +39,8 @@ class GeoBadges extends PureComponent {
     setGeocodeFieldValue: PropTypes.func.isRequired,
     cancelEditGeocode: PropTypes.func.isRequired,
     editGeocode: PropTypes.func.isRequired,
-    location: PropTypes.object,
-    intl: PropTypes.object.isRequired,
+    location: PropTypes.object, // eslint-disable-line
+    intl: PropTypes.object.isRequired, // eslint-disable-line
   };
 
   static defaultProps = {
@@ -53,8 +53,9 @@ class GeoBadges extends PureComponent {
 
   render() {
     const {
-      location, enableGeocode, geocodeNoResults, editGeocode, geocodeEdit, geocodeEditValue, setGeocodeFieldValue, cancelEditGeocode, intl
+      location, geocodeNoResults, editGeocode, geocodeEdit, geocodeEditValue, setGeocodeFieldValue, cancelEditGeocode, intl
     } = this.props;
+    log(location);
     const geo = geoFields(location.countryCode).fields.map(e => ({ ...e, value: location?.[e.field] }));
 
     if (geocodeEdit) {

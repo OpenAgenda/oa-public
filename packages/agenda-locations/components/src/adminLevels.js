@@ -55,15 +55,7 @@ const messages = defineMessages({
   },
   adminLevel1_CH: {
     id: 'AgendaLocations.CH.adminLevel1',
-    defaultMessage: 'Region',
-  },
-  adminLevel2_CH: {
-    id: 'AgendaLocations.CH.adminLevel2',
     defaultMessage: 'Canton',
-  },
-  adminLevel3_CH: {
-    id: 'AgendaLocations.CH.adminLevel3',
-    defaultMessage: 'District',
   },
   adminLevel4_CH: {
     id: 'AgendaLocations.CH.adminLevel4',
