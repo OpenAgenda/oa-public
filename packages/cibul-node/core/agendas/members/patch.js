@@ -20,9 +20,13 @@ module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  const patchData = {
-    custom: format.custom(data)
-  };
+  const patchData = {};
+
+  const custom = format.custom(data);
+
+  if (Object.keys(custom).length) {
+    patchData.custom = custom;
+  }
 
   if (data.role !== undefined) {
     patchData.role = members.utils.getRoleCode(data.role);

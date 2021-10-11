@@ -332,8 +332,7 @@ const initialState = async req => {
       res: {
         app: '/:slug/admin/members',
         list: '/:slug/admin/members.json',
-        update: '/:slug/admin/members/:id',
-        remove: '/:slug/admin/members/:id',
+        update: '/api/agendas/:agendaUid/members/:userUid',
         invite: '/:slug/admin/members/invite',
         resend: '/:slug/admin/members/:id/invite/resend',
         stats: '/:slug/admin/members/stats',
