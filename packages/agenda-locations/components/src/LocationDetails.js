@@ -330,7 +330,7 @@ class LocationDetails extends Component {
                 role="presentation"
                 className={fieldLang === contentLang ? 'active' : ''}
               >
-                <a href="#">{fieldLang.toUpperCase()}</a>
+                <button type="button" className="btn btn-link"> {fieldLang.toUpperCase()} </button>
               </li>
             ))}
           </ul>

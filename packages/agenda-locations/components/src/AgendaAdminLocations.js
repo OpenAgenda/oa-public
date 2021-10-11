@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
@@ -328,16 +327,11 @@ class AgendaAdminLocations extends Component {
   renderItem(item, itemActions, itemIndex) {
     const { res, agenda, settings } = this.props;
     const { merge } = this.state;
-
-    const editLocation = this.onLocationEdit.bind(this, item, itemIndex);
-    const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
-    const onSelect = this.onLocationSelect.bind(this, item, itemIndex);
     const goToMergeStep3 = this.goToMergeStep3.bind(this, item);
-    const goToMergeStep1FromDuplicates = this.goToMergeStep1FromDuplicates.bind(this, item);
 
     return (
       <LocationItem
-        merge={merge ? merge : undefined}
+        merge={merge || undefined}
         key={item.uid}
         location={item}
         settings={settings}
@@ -345,13 +339,13 @@ class AgendaAdminLocations extends Component {
           ':agendaSlug',
           agenda.slug
         )}
-        onSelect={onSelect}
-        onEdit={editLocation}
-        onRemove={confirmRemove}
+        onSelect={data => this.onLocationSelect(item, itemIndex, data)}
+        onEdit={data => this.onLocationEdit(item, itemIndex, data)}
+        onRemove={data => this.confirmRemove(item, itemIndex, data)}
         getCountryLabel={this.getCountryLabel}
         goToMergeStep3={merge ? goToMergeStep3 : null}
-        goToMergeStep1FromDuplicates={goToMergeStep1FromDuplicates}
-        seeDetails={this.actions.openDetailModal.bind(this, item)}
+        goToMergeStep1FromDuplicates={data => this.goToMergeStep1FromDuplicates(item, data)}
+        seeDetails={data => this.actions.openDetailModal(item, data)}
       />
     );
   }
@@ -445,31 +439,19 @@ class AgendaAdminLocations extends Component {
 
   renderMergeStepper() {
     const { merge } = this.state;
-    const goToMergeStep2 = this.actions.goToMergeStep2.bind(this);
-    const goToMergeStep3 = this.actions.goToMergeStep3.bind(this);
-    const backToMergeStep1 = this.actions.backToMergeStep1.bind(this);
-    const backToMergeStep2 = this.actions.backToMergeStep2.bind(this);
-    const seeDetails = this.actions.openDetailModal.bind(this);
-    const launchMerge = this.launchMerge.bind(this);
-    const disqualifyDuplicates = this.disqualifyMergeCandidates.bind(this);
-    const seeSelection = this.onSearchChange.bind(
-      this,
-      'uids',
-      merge.locationUids
-    );
     log('merge:', merge);
     return (
       <MergeStepper
         merge={merge}
-        seeSelection={seeSelection}
-        goToMergeStep2={goToMergeStep2}
-        goToMergeStep3={goToMergeStep3}
-        backToMergeStep1={backToMergeStep1}
-        backToMergeStep2={backToMergeStep2}
-        launchMerge={launchMerge}
-        seeDetails={seeDetails}
-        closeMerge={this.actions.toggleMerge.bind(null, false)}
-        disqualifyDuplicates={disqualifyDuplicates}
+        seeSelection={data => this.onSearchChange('uids', merge.locationUids, data)}
+        goToMergeStep2={data => this.actions.goToMergeStep2(data)}
+        goToMergeStep3={data => this.actions.goToMergeStep3(data)}
+        backToMergeStep1={data => this.actions.backToMergeStep1(data)}
+        backToMergeStep2={data => this.actions.backToMergeStep2(data)}
+        launchMerge={data => this.launchMerge(data)}
+        seeDetails={data => this.openDetailModal(data)}
+        closeMerge={data => this.actions.toggleMerge(null, false, data)}
+        disqualifyDuplicates={data => this.disqualifyMergeCandidates(data)}
       />
     );
   }
