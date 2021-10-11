@@ -22,26 +22,23 @@ import AdminActionModal from './AdminActionModal';
 import LocationDetails from './LocationDetails';
 import RemoveModal from './RemoveModal';
 import MergeStepper from './MergeStepper';
+import DropdownUncompleteLocation from './DropdownUncompleteLocation';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
 
 const messages = defineMessages({
+  postalCode: {
+    id: 'AgendaLocations.AgendaAdminLocation.postalCode',
+    defaultMessage: 'postalCode',
+  },
   toVerify: {
     id: 'AgendaLocations.AgendaAdminLocation.toVerify',
     defaultMessage: 'See locations to verify',
   },
   verifiedInfo: {
     id: 'AgendaLocations.AgendaAdminLocation.verifiedInfo',
-    defaultMessage: 'Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them'
-  },
-  uncompletedLocations: {
-    id: 'AgendaLocations.AgendaAdminLocation.uncompletedLocations',
-    defaultMessage: 'See uncompleted Locations',
-  },
-  uncompletedLocationsInfo: {
-    id: 'AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo',
-    defaultMessage: 'Locations that are lacking important information'
+    defaultMessage: 'Locations that were created on the fly on the event form get a "to be verified" status to allow agenda administrators to control them'
   },
   create: {
     id: 'AgendaLocations.AgendaAdminLocation.create',
@@ -106,16 +103,16 @@ class AgendaAdminLocations extends Component {
     lang: PropTypes.string,
     enableGeocode: PropTypes.bool,
     // set details
-    set: PropTypes.object,
+    set: PropTypes.object, // eslint-disable-line
     // optional settings of agenda (such as tags requirements)
-    settings: PropTypes.object,
+    settings: PropTypes.object, // eslint-disable-line
     // server endpoints
-    res: PropTypes.object.isRequired,
+    res: PropTypes.object.isRequired, // eslint-disable-line
     // general agenda info (title, slug,)
-    agenda: PropTypes.object.isRequired,
+    agenda: PropTypes.object.isRequired, // eslint-disable-line
     tiles: PropTypes.string.isRequired,
     staticTiles: PropTypes.string.isRequired,
-    intl: PropTypes.object.isRequired
+    intl: PropTypes.object.isRequired // eslint-disable-line
   };
 
   constructor(props) {
@@ -510,6 +507,18 @@ class AgendaAdminLocations extends Component {
     );
   }
 
+  renderDropdownUncomplete() {
+    const { locations } = this.state;
+    return (
+      <DropdownUncompleteLocation
+        getQuery={this.actions.getQuery}
+        onSearchChange={this.onSearchChange}
+        query={this.actions.getQuery()}
+        country={locations?.[0]?.countryCode || 'FR'}
+      />
+    );
+  }
+
   render() {
     const {
       set, res, settings, intl
@@ -575,7 +584,7 @@ class AgendaAdminLocations extends Component {
                 </div>
               </div>
             </div>
-          ) : null }
+          ) : null}
           {merge ? this.renderMergeStepper() : null}
           {merge.step === 2 || merge.step === 3 ? null : (
             <div className="row list-filters">
@@ -613,33 +622,12 @@ class AgendaAdminLocations extends Component {
                       placement="top"
                     />
                   </div>
-                  <div className="checkbox">
-                    <label htmlFor="checkbox">
-                      <input
-                        type="checkbox"
-                        onChange={this.onSearchChange.bind(
-                          this,
-                          'hasNull',
-                          this.actions.getQuery()?.hasNull?.length > 0 ? undefined : ['adminLevel1', 'adminLevel2', 'adminLevel4']
-                        )}
-                        checked={this.actions.getQuery()?.hasNull?.length > 0}
-                      />{' '}
-                      <FormattedMessage
-                        {...messages.uncompletedLocations}
-                      />
-                    </label>
-                    <MoreInfo
-                      className="margin-left-sm"
-                      id="checkbox-help"
-                      content={intl.formatMessage(messages.uncompletedLocationsInfo)}
-                      placement="top"
-                    />
-                  </div>
+                  {this.renderDropdownUncomplete()}
                   {this.renderHead()}
                 </div>
               </div>
             </div>
-          ) }
+          )}
 
           <div className="row list">
             <div className="col col-sm-12">

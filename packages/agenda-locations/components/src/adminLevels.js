@@ -25,6 +25,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.adminLevel6',
     defaultMessage: 'adminLevel6',
   },
+  postalCode: {
+    id: 'AgendaLocations.postalCode',
+    defaultMessage: 'Postal code',
+  },
   adminLevel1_FR: {
     id: 'AgendaLocations.FR.adminLevel1',
     defaultMessage: 'Region',

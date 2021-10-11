@@ -132,8 +132,11 @@ module.exports = async (service, k, deleted, query) => {
     const mapped = hasNull.map(e => ({
       adminLevel1: 'region',
       adminLevel2: 'department',
+      adminLevel3: 'admin_level_3',
       adminLevel4: 'city',
-      adminLevel6: 'discrict'
+      adminLevel5: 'admin_level_5',
+      adminLevel6: 'city_district',
+      postalCode: 'postal_code',
     })[e] ?? e);
     k.where(function or() {
       mapped.forEach(e => this.orWhere(e, null));
