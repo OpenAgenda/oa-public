@@ -85,6 +85,7 @@ function OrderField({ action, input, title }) {
       query,
       res: state.res,
       members: state.members.data ?? [],
+      patchSuccessModal: state.members.patchSuccessModal,
       page: state.members.page ?? 1,
       total: state.members.total ?? 0,
       loadLoading: state.members.loadLoading,
@@ -261,6 +262,8 @@ class Dashboard extends Component {
       closeModal,
       setModal,
       modals,
+      patchSuccessModal,
+      patch,
       invite,
       remove,
       sendMessage,
@@ -482,6 +485,7 @@ class Dashboard extends Component {
                 key={`member-${m.id}`}
                 member={m}
                 showModal={showModal}
+                patchRole={role => patch(agenda, m.userUid, { role })}
                 resendInvitation={resendInvitation}
                 history={history}
                 agenda={agenda}
@@ -501,6 +505,16 @@ class Dashboard extends Component {
             </div>
           )}
         </div>
+
+        {patchSuccessModal && (
+          <Modal
+            title={getLabel('operationSuccessful')}
+            visible
+            onClose={() => dispatch(membersActions.patchSuccessConfirm())}
+          >
+            {getLabel('patchSuccessConfirm')}
+          </Modal>
+        )}
 
         {editModal.visible ? (
           <MemberForm

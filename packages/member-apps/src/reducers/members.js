@@ -13,9 +13,10 @@ const LIST_FAIL = 'member-apps/members/LIST_FAIL';
 const NEXT_PAGE = 'member-apps/members/NEXT_PAGE';
 const NEXT_PAGE_SUCCESS = 'member-apps/members/NEXT_PAGE_SUCCESS';
 const NEXT_PAGE_FAIL = 'member-apps/members/NEXT_PAGE_FAIL';
-const UPDATE = 'member-apps/members/UPDATE';
-const UPDATE_SUCCESS = 'member-apps/members/UPDATE_SUCCESS';
-const UPDATE_FAIL = 'member-apps/members/UPDATE_FAIL';
+const PATCH = 'member-apps/members/PATCH';
+const PATCH_SUCCESS = 'member-apps/members/PATCH_SUCCESS';
+const PATCH_SUCCESS_CONFIRM = 'member-apps/members/PATCH_SUCCESS_CONFIRM';
+const PATCH_FAIL = 'member-apps/members/PATCH_FAIL';
 const UPDATE_LIST_ITEM = 'member-apps/members/UPDATE_LIST_ITEM';
 const INVITE = 'member-apps/members/INVITE';
 const INVITE_SUCCESS = 'member-apps/members/INVITE_SUCCESS';
@@ -114,31 +115,37 @@ export default function reducer(state = initialState, action) {
         error: action.error,
         nextLoading: false,
       };
-    case UPDATE:
+    case PATCH:
       return {
         ...state,
-        updateLoading: true,
+        patching: true,
       };
-    case UPDATE_SUCCESS: {
-      const data = state.data.map(sh => (sh.id === action.id
+    case PATCH_SUCCESS: {
+      const data = state.data.map(m => (m.userUid === action.userUid
         ? {
-          ...sh,
-          role: action.result.role || sh.role,
-          custom: { ...sh.custom, ...action.result.custom },
+          ...m,
+          role: action.result.role || m.role,
         }
-        : sh));
+        : m));
       return {
         ...state,
         data,
-        updateError: null,
-        updateLoading: false,
+        patchError: null,
+        patchSuccessModal: true,
+        patching: false,
       };
     }
-    case UPDATE_FAIL:
+    case PATCH_SUCCESS_CONFIRM: {
       return {
         ...state,
-        updateError: action.error,
-        updateLoading: false,
+        patchSuccessModal: false,
+      };
+    }
+    case PATCH_FAIL:
+      return {
+        ...state,
+        patchError: action.error,
+        patching: false,
       };
     case UPDATE_LIST_ITEM: {
       const index = _.findIndex(
@@ -276,18 +283,19 @@ export function nextPage(agenda, query, page) {
   };
 }
 
-export function update(agenda, id, values) {
+export function patch(agenda, userUid, { role }) {
   return {
-    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
-    id,
+    types: [PATCH, PATCH_SUCCESS, PATCH_FAIL],
+    userUid,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
       return client.patch(
-        res.update.replace(':slug', agenda.slug).replace(':id', id),
+        res.update
+          .replace(':agendaUid', agenda.uid)
+          .replace(':userUid', userUid),
         {
-          custom: _.omit(values, 'role'),
-          role: values.role,
+          role,
         }
       );
     },
@@ -314,6 +322,12 @@ export function updateListItem(data) {
     ),
     role: data.role,
     userUid: data.userUid,
+  };
+}
+
+export function patchSuccessConfirm() {
+  return {
+    type: PATCH_SUCCESS_CONFIRM,
   };
 }
 

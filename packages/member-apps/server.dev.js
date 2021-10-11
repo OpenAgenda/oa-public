@@ -168,7 +168,13 @@ app.patch('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
   const memberIndex = memberListResult.members.findIndex(
     m => m.userUid === parseInt(req.params.userUid, 10)
   );
-  const data = JSON.parse(req.body.data);
+
+  let data;
+  if (typeof req.body.data === 'string') {
+    data = JSON.parse(req.body.data);
+  } else {
+    data = req.body;
+  }
 
   const map = {
     name: 'contactName',
@@ -178,13 +184,21 @@ app.patch('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
     email: 'email',
   };
 
-  memberListResult.members[memberIndex].custom = Object.keys(map).reduce(
+  const customData = Object.keys(map).reduce(
     (carry, key) => ({
       ...carry,
       [map[key]]: data[key],
     }),
     {}
   );
+
+  if (Object.keys(customData).length) {
+    memberListResult.members[memberIndex].custom = customData;
+  }
+
+  if (data.role) {
+    memberListResult.members[memberIndex].role = utils.getRoleCode(data.role);
+  }
 
   res.status(200).json(data);
 });

@@ -7,6 +7,7 @@ import upperFirst from 'lodash/upperFirst';
 import { Base64 } from 'js-base64';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles';
+import { Dropdown, MenuItem } from 'react-bootstrap';
 
 const roleLabel = (i18n, role) => {
   const { getLabel } = i18n;
@@ -23,6 +24,7 @@ function MemberItem({
   history,
   i18n,
   userRole,
+  patchRole,
 }) {
   const {
     id,
@@ -31,7 +33,6 @@ function MemberItem({
     eventCount,
     custom,
     user: memberUser,
-    owner,
     role,
   } = member;
 
@@ -134,15 +135,6 @@ function MemberItem({
               {getLabel('editProfile')}
             </button>
           )}
-          {!owner && (role !== 3 || ![2, 3].includes(role)) && (
-            <button
-              type="button"
-              className="btn btn-link text-muted margin-left-sm"
-              onClick={() => showModal('removeMember', { member })}
-            >
-              {getLabel('removeMember')}
-            </button>
-          )}
           {user?.uid !== member.userUid ? (
             <a
               className="text-muted margin-left-sm"
@@ -150,6 +142,56 @@ function MemberItem({
             >
               {getLabel('sendAMessage')}
             </a>
+          ) : null}
+          {userRole === 2 || (userRole === 3 && role === 1) ? (
+            <>
+              <button
+                type="button"
+                className="btn btn-link text-muted margin-left-sm"
+                onClick={() => showModal('removeMember', { member })}
+              >
+                {getLabel('removeMember')}
+              </button>
+              {userRole !== 3 ? (
+                <Dropdown
+                  id={`member-${member.userUid}-change-role`}
+                  className="btn-link-dropdown margin-left-sm"
+                >
+                  <Dropdown.Toggle className="btn-link" bsRole="toggle">
+                    {getLabel('changeRole')}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu bsRole="menu">
+                    <MenuItem
+                      eventKey="administator"
+                      disabled={role === 2}
+                      onClick={() => patchRole('administrator')}
+                    >
+                      <div className="margin-h-sm margin-v-xs">
+                        {getLabel('administrator')}
+                      </div>
+                    </MenuItem>
+                    <MenuItem
+                      eventKey="moderator"
+                      disabled={userRole !== 2 || role === 3}
+                      onClick={() => patchRole('moderator')}
+                    >
+                      <div className="margin-h-sm margin-v-xs">
+                        {getLabel('moderator')}
+                      </div>
+                    </MenuItem>
+                    <MenuItem
+                      eventKey="contributor"
+                      disabled={role === 1}
+                      onClick={() => patchRole('contributor')}
+                    >
+                      <div className="margin-h-sm margin-v-xs">
+                        {getLabel('contributor')}
+                      </div>
+                    </MenuItem>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : null}
+            </>
           ) : null}
           {invited && (
             <button
