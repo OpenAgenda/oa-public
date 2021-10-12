@@ -27,7 +27,7 @@
   "AgendaLocations.CH.adminLevel5": "Arrondissement",
   "AgendaLocations.CH.adminLevel6": "Quartier",
   "AgendaLocations.CountryField.country": "Pays",
-  "AgendaLocations.DropdownUncompleteLocation.uncompletedLocations": "Voir les lieux incomplets",
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": "Voir les lieux incomplets",
   "AgendaLocations.FR.adminLevel1": "Région",
   "AgendaLocations.FR.adminLevel2": "Département",
   "AgendaLocations.FR.adminLevel3": "Intercommunalité",

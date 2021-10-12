@@ -21,7 +21,7 @@ import AdminActionModal from './AdminActionModal';
 import LocationDetails from './LocationDetails';
 import RemoveModal from './RemoveModal';
 import MergeStepper from './MergeStepper';
-import DropdownUncompleteLocation from './DropdownUncompleteLocation';
+import IncompleteLocationsFilterDropdown from './IncompleteLocationsFilterDropdown';
 import post from './post';
 
 const log = debug('AgendaAdminLocations');
@@ -489,10 +489,10 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  renderDropdownUncomplete() {
+  renderIncompleteLocationsDropdown() {
     const { locations } = this.state;
     return (
-      <DropdownUncompleteLocation
+      <IncompleteLocationsFilterDropdown
         getQuery={this.actions.getQuery}
         onSearchChange={this.onSearchChange}
         query={this.actions.getQuery()}
@@ -604,7 +604,7 @@ class AgendaAdminLocations extends Component {
                       placement="top"
                     />
                   </div>
-                  {this.renderDropdownUncomplete()}
+                  {this.renderIncompleteLocationsDropdown()}
                   {this.renderHead()}
                 </div>
               </div>

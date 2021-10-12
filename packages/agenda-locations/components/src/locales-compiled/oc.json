@@ -202,10 +202,10 @@
       "value": "Country"
     }
   ],
-  "AgendaLocations.DropdownUncompleteLocation.uncompletedLocations": [
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": [
     {
       "type": 0,
-      "value": "See uncompleted Locations"
+      "value": "See incomplete Locations"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [

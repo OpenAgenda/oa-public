@@ -202,7 +202,7 @@
       "value": "Pays"
     }
   ],
-  "AgendaLocations.DropdownUncompleteLocation.uncompletedLocations": [
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": [
     {
       "type": 0,
       "value": "Voir les lieux incomplets"

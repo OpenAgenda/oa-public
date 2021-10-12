@@ -27,7 +27,7 @@
   "AgendaLocations.CH.adminLevel5": "Borough",
   "AgendaLocations.CH.adminLevel6": "City District",
   "AgendaLocations.CountryField.country": "Country",
-  "AgendaLocations.DropdownUncompleteLocation.uncompletedLocations": "See uncompleted Locations",
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": "See incomplete Locations",
   "AgendaLocations.FR.adminLevel1": "Region",
   "AgendaLocations.FR.adminLevel2": "Department",
   "AgendaLocations.FR.adminLevel3": "Intercommunality",
