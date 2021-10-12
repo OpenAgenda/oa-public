@@ -285,6 +285,12 @@
       "value": "Provenance"
     }
   ],
+  "ReactFilters.messages.filterTitles.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Administrative level 3"
+    }
+  ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
     {
       "type": 0,
