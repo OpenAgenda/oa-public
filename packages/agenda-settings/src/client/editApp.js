@@ -6,7 +6,6 @@ import getRoutes from './editRoutes';
 const defaults = {
   initialState: {
     settings: {
-      lang: 'fr',
       prefix: '/agendaSettings/edit',
       apiRoot: `localhost:${process.env.PORT || 3000}`
     },

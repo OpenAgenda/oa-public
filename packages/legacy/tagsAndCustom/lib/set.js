@@ -210,14 +210,13 @@ async function _setTags(knex, agendaId, reviewArticleId, fieldValueMap) {
     .insert(matchingTags.map(t => ({
       review_article_id: reviewArticleId,
       review_tag_id: t.id,
-      created_at: new Date,
-      updated_at: new Date
+      created_at: new Date(),
+      updated_at: new Date()
     })));
 
 }
 
 function _mapFileCustomValues(mapItem) {
-
   if (mapItem.field.fieldType === 'file') {
     return Object.assign(mapItem, {
       value: mapItem.value ? {
@@ -225,25 +224,25 @@ function _mapFileCustomValues(mapItem) {
         uploaded: mapItem.value.filename
       } : null
     });
-  } else if (mapItem.field.fieldType === 'image') {
+  }
+
+  if (mapItem.field.fieldType === 'image') {
     return Object.assign(mapItem, {
       value: mapItem?.value?.filename
     });
   }
 
   return mapItem;
-
 }
 
 function _labelizeOptionedCustomValues(mapItem) {
-
   if (!mapItem.field.options) return mapItem;
 
   const _labelOf = value => _.get(_.find(mapItem.field.options, { id: value }), 'value');
 
   if (_.isArray(mapItem.value)) {
-    return Object.assign(mapItem, { value: mapItem.value.map(_labelOf) })
+    return Object.assign(mapItem, { value: _.uniq(mapItem.value.map(_labelOf)) })
   }
 
-  return Object.assign(mapItem, { value: _labelOf(mapItem.value) })
+  return Object.assign(mapItem, { value: _labelOf(mapItem.value) });
 }

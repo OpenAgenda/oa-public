@@ -6,7 +6,6 @@ import getRoutes from './createRoutes';
 const defaults = {
   initialState: {
     settings: {
-      lang: 'fr',
       prefix: '/new'
     },
     res: {

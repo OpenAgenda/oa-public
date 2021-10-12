@@ -1,11 +1,12 @@
 import React from 'react';
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
 
-function MemberEditModal({
+export function MemberEditModal({
   member,
   res,
   uid,
   onSuccess,
+  onRemoveSuccess,
   closeModal,
   lang,
   description,
@@ -21,9 +22,28 @@ function MemberEditModal({
       showSuccessMessage
       res={`${res.members.replace(':agendaUid', uid)}/${member.userUid}`}
       onSuccess={update => onSuccess(member, update)}
+      onRemoveSuccess={() => onRemoveSuccess()}
       onCloseModalRequest={() => closeModal()}
     />
   );
 }
 
-export default MemberEditModal;
+export function MemberRemoveModal({
+  member,
+  res,
+  uid,
+  onSuccess,
+  closeModal,
+  lang,
+}) {
+  return (
+    <MemberForm
+      lang={lang}
+      operation="remove"
+      mode="modal"
+      res={`${res.members.replace(':agendaUid', uid)}/${member.userUid}`}
+      onRemoveSuccess={() => onSuccess(member)}
+      onCloseModalRequest={() => closeModal()}
+    />
+  );
+}

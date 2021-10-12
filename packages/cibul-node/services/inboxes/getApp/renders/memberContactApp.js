@@ -27,13 +27,12 @@ module.exports = ({ services, config, render }) => (req, res, next) => {
       image: req.agenda.image,
       title: req.agenda.title
     },
-    endpoint: targetIsAdminMod ? '/home' : `/agendas/${req.agenda.uid}`,
+    endpoint: targetIsAdminMod ? '/home/inbox' : `/agendas/${req.agenda.uid}/inbox`,
     initialState: {
       user: req.user,
       settings: {
         context: 'agenda',
         prefix: req.baseUrl,
-        lang: req.lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         focusFistConversation: true, // force to display the first conversation if exists

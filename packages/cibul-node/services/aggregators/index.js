@@ -98,7 +98,10 @@ module.exports.init = (config, services) => {
       },
       unreferenceEvent: async (aggregatorAgendaUid, eventUid, { batched }) => {
         try {
-          await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, { batched });
+          await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, {
+            batched,
+            protectFromOriginRemove: true
+          });
           return {
             success: true
           };

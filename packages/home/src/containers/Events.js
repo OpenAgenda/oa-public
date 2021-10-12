@@ -14,6 +14,7 @@ import {
   Image,
   SearchInput,
 } from '@openagenda/react-components';
+import { withLayoutData } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';
@@ -74,6 +75,7 @@ function AgendaItem({ agenda, res, getLabel }) {
 }
 
 @hot
+@withLayoutData('lang')
 @provideHooks({
   fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
   defer: async ({ store: { dispatch }, location }) => {

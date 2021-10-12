@@ -1,6 +1,12 @@
 {
-  "MemberApps.Form.confirmSuccess": "Ok",
+  "MemberApps.Form.cancel": "Annuler",
+  "MemberApps.Form.confirm": "Ok",
+  "MemberApps.Form.confirmRemove": "Je souhaite me retirer de l'agenda",
+  "MemberApps.Form.confirmRemoveInfo": "Si vous vous retirez de l'agenda, vous cesserez d'être notifié de son activité et ne pourrez plus en éditer les événements ni d'en ajouter de nouveaux. L'agenda n'apparaitra plus dans votre page d'accueil.",
   "MemberApps.Form.description": "Ces informations permettent aux administrateurs de l'agenda de vous contacter en cas de besoin",
+  "MemberApps.Form.remove": "Je souhaite me retirer de l'agenda",
+  "MemberApps.Form.removeFail": "L'opération a échoué. Ré-essayez dans un instant. Si ce problème persiste, envoyez-nous un message à support@openagenda.com",
+  "MemberApps.Form.removeSuccess": "Vous ne faites désormais plus parti des membres de l'agenda",
   "MemberApps.Form.success": "La mise à jour a été effectuée",
   "MemberApps.Form.updateTitle": "Fiche contact"
 }

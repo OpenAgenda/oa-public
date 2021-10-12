@@ -2,14 +2,19 @@ import _ from 'lodash';
 import React from 'react';
 import { Image } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
+import { Dropdown, MenuItem } from 'react-bootstrap';
 
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
 
 function AgendaItem({
-  agenda, res, getLabel, onDisplayMemberForm
+  agenda,
+  res,
+  getLabel,
+  onDisplayMemberForm,
+  onDisplayRemoveMember,
 }) {
   return (
-    <div className="agenda-item media" key={agenda.uid}>
+    <div className="agenda-item media hoverable" key={agenda.uid}>
       <div className="media-left">
         <a href={`/${agenda.slug}${agenda.private ? '.prv' : ''}`}>
           <Image
@@ -94,16 +99,38 @@ function AgendaItem({
               {getLabel('contact')}
             </a>
           )}
-          {agenda.settings.contribution.useFields ? (
-            <button
-              type="button"
-              className="btn btn-link"
-              onClick={() => onDisplayMemberForm(agenda)}
-              title={getLabel('editMemberInformation')}
-            >
-              {getLabel('editMember')}
-            </button>
-          ) : null}
+          <Dropdown
+            id={`agenda-${agenda.slug}-more-actions`}
+            className="btn-link-dropdown"
+          >
+            <Dropdown.Toggle className="btn-link" bsRole="toggle">
+              {getLabel('otherActions')}
+            </Dropdown.Toggle>
+            <Dropdown.Menu bsRole="menu">
+              {agenda.settings?.contribution.useFields ? (
+                <MenuItem>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={() => onDisplayMemberForm(agenda)}
+                    title={getLabel('other')}
+                  >
+                    {getLabel('editMember')}
+                  </button>
+                </MenuItem>
+              ) : null}
+              <MenuItem>
+                <button
+                  type="button"
+                  className="btn btn-link text-danger visible-on-hover"
+                  onClick={() => onDisplayRemoveMember(agenda)}
+                  title={getLabel('removeMemberInformation')}
+                >
+                  {getLabel('removeMember')}
+                </button>
+              </MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
     </div>

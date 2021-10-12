@@ -50,6 +50,8 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         position: 'Gardienne',
         email: 'jan@ee.ne',
         organization: 'Ponceau Corp'
+      }, {
+        userUid: 1
       });
 
       const result = await core.services.knex('reviewer').first()
@@ -65,6 +67,56 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         contact_position: 'Gardienne',
         email: 'jan@ee.ne'
       });
+    });
+  });
+
+  describe('unsuccessful calls', () => {
+    it('non-member cannot patch', async () => {
+      let error;
+
+      try {
+        await core.agendas({ uid: 2 }).members.patch(1, {
+          name: 'Jayneen'
+        }, {
+          userUid: 99999967
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
+    });
+
+    it('contributor cannot patch another member', async () => {
+      let error;
+
+      try {
+        await core.agendas({ uid: 2 }).members.patch(1, {
+          name: 'Jayneen'
+        }, {
+          userUid: 5
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
+    });
+
+    it('contributor cannot change own role', async () => {
+      let error;
+
+      try {
+        await core.agendas({ uid: 2 }).members.patch(1, {
+          role: 'moderator'
+        }, {
+          userUid: 1
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
     });
   });
 
@@ -115,7 +167,10 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       it('member data is patched', async () => {
         const entry = await core.services.knex('reviewer')
           .first()
-          .where({ user_uid: 1, agenda_uid: 2 });
+          .where({
+            user_uid: 1,
+            agenda_uid: 2
+          });
 
         expect(entry.credential).toBe(2);
         expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');

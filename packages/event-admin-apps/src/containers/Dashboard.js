@@ -23,6 +23,7 @@ import {
   a11yButtonActionHandler,
   useApiClient,
   useModal,
+  useLayoutData,
 } from '@openagenda/react-shared';
 import { FiltersProvider, getEvents } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
@@ -40,6 +41,7 @@ import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
+import switchToLegacyAdminPage from '../utils/switchToLegacyAdminPage';
 
 const PAGE_SIZE = 20;
 
@@ -48,6 +50,8 @@ const searchSpinner = {
   length: 3,
   radius: 4,
 };
+
+const getRedirectURL = location => Buffer.from(location.pathname + location.search).toString('base64');
 
 const messages = defineMessages({
   totalEvents: {
@@ -126,6 +130,10 @@ const messages = defineMessages({
   clearFilters: {
     id: 'EventAdminApp.Dashboard.clearFilters',
     defaultMessage: 'Clear filters',
+  },
+  backToLegacy: {
+    id: 'EventAdminApp.Dashboard.backToLegacy',
+    defaultMessage: 'Revert to previous version of this page',
   },
 });
 
@@ -309,11 +317,13 @@ function GroupedActions({
   );
 }
 
-function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
+function Dashboard() {
   const intl = useIntl();
   const apiClient = useApiClient();
   const history = useHistory();
   const queryClient = useQueryClient();
+
+  const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
   const res = useSelector(state => state.res);
 
@@ -341,6 +351,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
+
+  const redirectURL = useMemo(() => getRedirectURL(history.location), [
+    history.location,
+  ]);
 
   const loadGeoData = useCallback(
     async (filter, bounds, zoom) => {
@@ -460,7 +474,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         }
 
         // Update map markers
-        const mapElem = mapFilter.elemRef.current;
+        const mapElem = mapFilter?.elemRef.current;
 
         if (mapElem) {
           mapElem.onQueryChange(newData.aggregations.viewport);
@@ -655,6 +669,15 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       ref={filtersFormRef}
     >
       <header>
+        <div className="pull-right">
+          <button
+            className="btn btn-link text-muted padding-h-z"
+            type="button"
+            onClick={switchToLegacyAdminPage.bind(null, agenda.slug)}
+          >
+            {intl.formatMessage(messages.backToLegacy)}
+          </button>
+        </div>
         <Actions
           agenda={agenda}
           query={query}
@@ -862,6 +885,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             query={query}
             page={page}
             index={index}
+            redirectURL={redirectURL}
             isFirst={(page - 1) * PAGE_SIZE + index === 0}
             isLast={(page - 1) * PAGE_SIZE + index === data.total - 1}
           />

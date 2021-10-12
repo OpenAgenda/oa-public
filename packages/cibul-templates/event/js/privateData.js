@@ -5,7 +5,6 @@ import du from '@openagenda/dom-utils';
 import loadInbox from '@openagenda/inbox-apps/dist/apps/lazyInbox/load';
 import sessions from '@openagenda/sessions/client';
 import activities from './activities';
-import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
 import textHelpers from '../../helpers/text.js';
 import makeLabelGetter from '@openagenda/labels';
@@ -24,7 +23,6 @@ const defaults = {
     tpl: '/server/testdata/privateeventdata.json'
   },
   activitiesSelector: '.js_activities',
-  contributorsSelector: '.js_contributor',
   activitiesUrl: {
     production: '/agendas/{agendaUid}/events/{eventUid}/activities',
     development: '/agendas/{agendaUid}/events/{eventUid}/activities',
@@ -73,13 +71,6 @@ module.exports = options => {
         du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
       }
 
-      if (data.contributor && _.keys(data.contributor).length) {
-        displayContributor({
-          contributor: data.contributor,
-          canvas: du.el(params.contributorsSelector)
-        });
-      }
-
       if (data.authorizations?.canEditEvent) {
         log('can edit event, displaying status change controls');
         for (const el of du.els('.js_status')) {
@@ -100,7 +91,7 @@ module.exports = options => {
       if (data.authorizations?.canPublish) {
         du.removeClass(du.el('.js_can_publish_event'), 'display-none');
       }
-      
+
       const tagGroups = _.get(data, 'tagGroups', []).filter(g => g.access !== 'public');
 
       displayPrivateTags(tagGroups);
@@ -212,7 +203,6 @@ module.exports = options => {
             }
           },
           ContentWrapper: ({ children }) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
-          lang: params.lang,
         },
         res: {
           author: resBasePath + '/inbox/author.json',
@@ -235,6 +225,7 @@ module.exports = options => {
       },
       extraProps: {
         user,
+        lang: params.lang,
         agenda: {
           uid: params.agendaUid,
           slug: params.agendaSlug

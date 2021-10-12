@@ -16,7 +16,7 @@ import qs from 'qs';
 import Fuse from 'fuse.js';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
-import { useApiClient } from '@openagenda/react-shared';
+import { useApiClient, useLayoutData } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';
 import SearchInput from '../components/SearchInput';
@@ -89,10 +89,7 @@ const messages = defineMessages({
   },
 });
 
-function Dashboard({
-  agenda: aggregatorAgenda,
-  agendaSchema: aggregatorAgendaSchema,
-}) {
+function Dashboard() {
   const history = useHistory();
   const params = useParams();
   const query = useMemo(
@@ -110,6 +107,11 @@ function Dashboard({
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
+
+  const {
+    agenda: aggregatorAgenda,
+    agendaSchema: aggregatorAgendaSchema,
+  } = useLayoutData();
 
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'sources.loading', true));

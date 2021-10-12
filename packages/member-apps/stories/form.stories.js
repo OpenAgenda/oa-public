@@ -5,7 +5,7 @@ import ComponentCanvas from './decorators/ComponentCanvas';
 import Providers from './decorators/Providers';
 
 export default {
-  title: 'Components',
+  title: 'Form',
   decorators: [Providers, ComponentCanvas],
 };
 
@@ -111,6 +111,34 @@ export const FormWithOptionalFields = () => (
     title="Les champs sont optionnels"
     description={null}
     onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FormWithRemoveMeLink = () => (
+  <Form
+    lang="fr"
+    operation="update"
+    optionalFields
+    res="http://localhost:3000/api/agendas/123/members/456"
+    title="Un lien pour se retirer est présent"
+    description={null}
+    displayRemoveAction
+    onSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FormForRemove = () => (
+  <Form
+    lang="fr"
+    operation="remove"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    onRemoveSuccess={() => {
       // eslint-disable-next-line no-console
       console.log('success');
     }}

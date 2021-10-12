@@ -49,44 +49,8 @@ async function load(req, _res, next) {
   next();
 }
 
-async function verifyAccess(memberUserUidParam, req, res, next) {
-  const {
-    members
-  } = req.app.services;
-
-  const { isSuperiorToOrEqual } = members.utils.compareRoles;
-
-  const memberUserUid = memberUserUidParam ? parseInt(req.params[memberUserUidParam], 10) : req.user.uid;
-
-  const selfEdit = memberUserUid && (memberUserUid === req.user.uid);
-
-  if (!req.member || (!isSuperiorToOrEqual(req.member.role, 'moderator') && !selfEdit)) {
-    return next(new Forbidden('not authorized to access requested member data'));
-  }
-
-  next();
-}
-
-function verifyRoleEdit(req, res, next) {
-  const {
-    members
-  } = req.app.services;
-
-  const { isSuperiorToOrEqual } = members.utils.compareRoles;
-
-  if (!isSuperiorToOrEqual(req.member.role, req.body.role)) {
-    return res.status(403).json({
-      error: 'not authorized'
-    });
-  }
-
-  next();
-}
-
 module.exports = {
   load,
   verify: verify.bind(null, defaultRoles),
-  allow: roles => verify.bind(null, roles),
-  verifyAccess: param => verifyAccess.bind(null, param),
-  verifyRoleEdit
+  allow: roles => verify.bind(null, roles)
 };

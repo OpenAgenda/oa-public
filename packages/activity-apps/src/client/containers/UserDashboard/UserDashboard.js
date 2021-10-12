@@ -10,28 +10,29 @@ import Spinner from '@openagenda/react-form-components/build/Spinner';
 import activitiesReducer, * as activitiesActions from '../../redux/modules/activities';
 import modalsReducer from '../../redux/modules/modals';
 import { ActivityItem } from '../../components';
+import I18nContext from '../../contexts/I18nContext';
 
-@provideHooks( {
-  inject: ( { store } ) => store.inject( {
+@provideHooks({
+  inject: ({ store }) => store.inject({
     form: formReducer,
     modals: modalsReducer,
     activities: activitiesReducer
-  } ),
-  fetch: async ( { store: { dispatch, getState }, location } ) => {
+  }),
+  fetch: async ({ store: { dispatch, getState }, location }) => {
     const state = getState();
-    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
+    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
     const promises = [];
 
-    if ( !activitiesActions.isLoaded( state ) ) {
-      promises.push( dispatch( activitiesActions.load( query ) ) );
+    if (!activitiesActions.isLoaded(state)) {
+      promises.push(dispatch(activitiesActions.load(query)));
     }
 
-    return Promise.all( __CLIENT__ ? [] : promises );
+    return Promise.all(__CLIENT__ ? [] : promises);
   }
-} )
+})
 @connect(
-  ( state, props ) => {
-    const locationQuery = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+  (state, props) => {
+    const locationQuery = qs.parse(props.location.search, { ignoreQueryPrefix: true });
 
     return {
       res: state.res,
@@ -40,7 +41,7 @@ import { ActivityItem } from '../../components';
       loading: state.activities.loading,
       nextLoading: state.activities.nextLoading,
       lastPage: state.activities.lastPage,
-      query: _.pick( locationQuery, [ 'actor', 'verb', 'object', 'target' ] )
+      query: _.pick(locationQuery, ['actor', 'verb', 'object', 'target'])
     };
   },
   { ...activitiesActions }
@@ -58,19 +59,15 @@ export default class UserDashboard extends Component {
     lastPage: PropTypes.bool
   };
 
-  static contextTypes = {
-    lang: PropTypes.string,
-    labels: PropTypes.object,
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   nextPage = () => {
     const { loading, nextLoading, activities, query, nextPage, lastPage } = this.props;
-    if ( !activities || !activities.length || loading || nextLoading || lastPage ) return;
-    nextPage( query, activities[ activities.length - 1 ].id );
+    if (!activities || !activities.length || loading || nextLoading || lastPage) return;
+    nextPage(query, activities[activities.length - 1].id);
   };
 
-  throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
+  throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
 
   render() {
     const { activities, nextLoading } = this.props;
@@ -78,14 +75,14 @@ export default class UserDashboard extends Component {
 
     return (
       <div className="content">
-        <h2 className="margin-bottom-md">{getLabel( 'activities' )}</h2>
+        <h2 className="margin-bottom-md">{getLabel('activities')}</h2>
 
         {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-          {activities.map( a => <ActivityItem key={'activity.'+a.id} activity={a} labels={labels} lang={lang} /> )}
+          {activities.map(a => <ActivityItem key={'activity.' + a.id} activity={a} labels={labels} lang={lang} />)}
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
-          {getLabel( 'noActivity' )}
+          {getLabel('noActivity')}
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>

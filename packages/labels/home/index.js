@@ -27,6 +27,18 @@ module.exports = {
     "fr": "Les administrateurs de l'agenda requierent certaines informations additionnelles pour leur permettre de vous contacter en cas de besoin.",
     "en": "Administrators of this agenda require some additional information to allow them to contact you in case of need"
   },
+  "otherActions": {
+    "fr": "Autres actions",
+    "en": "Other actions"
+  },
+  "removeMember": {
+    "fr": "Me retirer de l'agenda",
+    "en": "Unlist myself from the agenda"
+  },
+  "removeMemberInformation": {
+    "fr": "Si vous vous retirez de l'agenda, vous cesserez d'être notifié de son activité et ne pourrez plus en éditer les événements ni d'en ajouter de nouveaux. L'agenda n'apparaitra plus dans votre page d'accueil.",
+    "en": "If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen."
+  },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
     "en": "Search an agenda",

@@ -14,7 +14,6 @@ if (!module.hot) {
 const defaults = {
   initialState: {
     settings: {
-      lang: 'fr',
       prefix: '/agenda/contact',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
       perPageLimit: 20,

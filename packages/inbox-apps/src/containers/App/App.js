@@ -6,7 +6,7 @@ import { renderRoutes } from 'react-router-config';
 import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
-import { useApiClient } from '@openagenda/react-shared';
+import { useApiClient, useLayoutData } from '@openagenda/react-shared';
 import { Modal, Spinner } from '@openagenda/react-components';
 import I18nContext from '../../contexts/I18nContext';
 import inboxReducer from '../../reducers/inbox';
@@ -16,10 +16,12 @@ import modalsReducer, * as modalsActions from '../../reducers/modals';
 
 const overlayStyle = { overlay: 'popup-overlay big' };
 
-function App({ route, user, agenda, role }) {
+function App({ route }) {
   const store = useStore();
 
-  const { lang, Wrapper } = useSelector(state => state.settings);
+  const { lang } = useLayoutData();
+
+  const { Wrapper } = useSelector(state => state.settings);
   const res = useSelector(state => state.res);
   const modals = useSelector(state => state.modals);
   const actionLoading = useSelector(state => state.conversation.actionLoading);
@@ -74,7 +76,7 @@ function App({ route, user, agenda, role }) {
 
   const content = (
     <I18nContext.Provider value={i18nContextValue}>
-      {renderRoutes(route.routes, { user, agenda, role })}
+      {renderRoutes(route.routes)}
 
       {modals.messageSent && modals.messageSent.visible ? (
         <Modal

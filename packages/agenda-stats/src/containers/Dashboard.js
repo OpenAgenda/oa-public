@@ -12,7 +12,11 @@ import { useQuery } from 'react-query';
 import qs from 'qs';
 import { FiltersProvider } from '@openagenda/react-filters';
 import { MoreInfo, Spinner } from '@openagenda/react-components';
-import { useApiClient, useModal } from '@openagenda/react-shared';
+import {
+  useApiClient,
+  useLayoutData,
+  useModal,
+} from '@openagenda/react-shared';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import * as statsActions from '../reducers/stats';
 import FiltersPart from '../components/FiltersPart';
@@ -51,13 +55,15 @@ const messages = defineMessages({
   },
 });
 
-function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
+function Dashboard() {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
   const history = useHistory();
 
   const filtersFormRef = useRef();
+
+  const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading'));

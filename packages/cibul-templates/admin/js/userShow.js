@@ -6,10 +6,10 @@ export default class UserShow extends Component {
 
   constructor( props ) {
     super( props );
-    this.handleChangePassword = ::this.handleChangePassword;
-    this.handleSubmitChangePassword = ::this.handleSubmitChangePassword;
-    this.renderMember = ::this.renderMember;
-    this.toggleApiSecret = ::this.toggleApiSecret;
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleSubmitChangePassword = this.handleSubmitChangePassword.bind(this);
+    this.renderMember = this.renderMember.bind(this);
+    this.toggleApiSecret = this.toggleApiSecret.bind(this);
   }
 
   state = {

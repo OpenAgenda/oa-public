@@ -60,13 +60,6 @@ module.exports = async (core, agendaUid, options = {}) => {
     access: typeof access === 'string' ? { read: access } : access
   });
 
-/*  const related = {
-    schema,
-    summary,
-    network,
-    locationSet
-  }; */
-
   if (access === 'internal') {
     return {
       ...agenda,

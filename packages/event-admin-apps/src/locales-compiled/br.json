@@ -49,6 +49,12 @@
       "value": " événements de cette page sont sélectionnés."
     }
   ],
+  "EventAdminApp.Dashboard.backToLegacy": [
+    {
+      "type": 0,
+      "value": "Revenir à l'ancienne version de cette page"
+    }
+  ],
   "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,

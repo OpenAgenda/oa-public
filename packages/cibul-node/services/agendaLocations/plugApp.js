@@ -38,7 +38,7 @@ module.exports = (config, services, instance, app, base) => {
     _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
   ).then(code => res.json({ code }), next));
 
-  app.use((err, req, res, next) => {
+  app.use(base, (err, req, res, next) => {
     res.status(500).json();
     log('error',  err?.meta?.body?.error ?? err);
   });

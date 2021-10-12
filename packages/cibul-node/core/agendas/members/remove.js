@@ -1,13 +1,36 @@
 'use strict';
 
 const _ = require('lodash');
+const { Forbidden, BadRequest } = require('@openagenda/verror');
+const canEdit = require('./lib/canEdit');
 
-module.exports = async (services, agendaOrUid, userUid) => {
+module.exports = async (services, agendaOrUid, userUid, options = {}) => {
   const {
     members,
   } = services;
 
+  const {
+    userUid: actingUserUid
+  } = options;
+
+  if (!actingUserUid) {
+    throw new BadRequest('userUid option is required');
+  }
+
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
+
+  const actingMember = await members.get({
+    agendaUid,
+    userUid: actingUserUid
+  });
+
+  if (!canEdit(services, {
+    acting: actingMember,
+    actingUserUid,
+    userUid
+  })) {
+    throw new Forbidden('Not authorized to patch member');
+  }
 
   return members.remove({
     agendaUid,

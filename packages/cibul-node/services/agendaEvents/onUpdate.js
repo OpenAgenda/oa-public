@@ -8,7 +8,6 @@ const log = require('@openagenda/logs')('agendaEvents/onUpdate');
 const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
-const transferCustomFromLegacy = require('./lib/transferCustomFromLegacy');
 const addEventUpdateActivity = require('./lib/addEventUpdateActivity');
 
 function haveRealDiff(before, after) {
@@ -44,8 +43,6 @@ module.exports = async ({ config, services }, before, after, context) => {
   }
 
   if (context.aggregated) {
-    await transferCustomFromLegacy(agenda, event);
-
     try {
       await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
     } catch (e) {

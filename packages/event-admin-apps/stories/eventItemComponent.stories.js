@@ -36,6 +36,7 @@ export function AnonymouslyContributedEvent() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -64,6 +65,7 @@ export function AnonymouslyContributedEventWithNoRole() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -84,6 +86,7 @@ export function SharedEventItem() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -104,6 +107,7 @@ export function ContributedEventItem() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -124,6 +128,7 @@ export function AggregatedEventItem() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -144,6 +149,7 @@ export function SharedEventItemWithoutOrigin() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -164,6 +170,7 @@ export function SharedEventItemByAnonymous() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );
@@ -185,6 +192,7 @@ export function MemberlessSharedEventItem() {
         index={0}
         isFirst={false}
         isLast={false}
+        redirectURL="redirectURL"
       />
     </div>
   );

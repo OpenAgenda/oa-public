@@ -5,6 +5,66 @@
       "value": "Agréger"
     }
   ],
+  "event/contributor-section": [
+    {
+      "type": 0,
+      "value": "Contributeur"
+    }
+  ],
+  "event/contributor/edit": [
+    {
+      "type": 0,
+      "value": "Editer la fiche"
+    }
+  ],
+  "event/contributor/email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "event/contributor/emptyContactInfo": [
+    {
+      "type": 0,
+      "value": "Aucune information de contact n'a été saisie"
+    }
+  ],
+  "event/contributor/name": [
+    {
+      "type": 0,
+      "value": "Nom"
+    }
+  ],
+  "event/contributor/organization": [
+    {
+      "type": 0,
+      "value": "Organisation"
+    }
+  ],
+  "event/contributor/phone": [
+    {
+      "type": 0,
+      "value": "Téléphone"
+    }
+  ],
+  "event/contributor/position": [
+    {
+      "type": 0,
+      "value": "Position"
+    }
+  ],
+  "event/contributor/role": [
+    {
+      "type": 0,
+      "value": "Role"
+    }
+  ],
+  "event/private-section": [
+    {
+      "type": 0,
+      "value": "Information privée"
+    }
+  ],
   "export-all-button": [
     {
       "type": 0,

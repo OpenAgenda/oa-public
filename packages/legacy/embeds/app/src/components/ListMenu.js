@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useQuery } from 'react-query';
 import { ReactSelectInput } from '@openagenda/react-shared';
@@ -55,20 +55,29 @@ export default ({
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [editedEmbed, setEditedEmbed] = useState(embed);
 
-  const [previews, setPreviews] = useState([{
-    value: preview,
-    label: m(messages.listPreview)
-  }]);
   const [previewIndex, setPreviewIndex] = useState(0);
 
-  useQuery('previewEvents', () => axios.get(eventsRes), {
-    select: ({ data }) => {
-      setPreviews(previews.concat(data.events.map(e => ({
-        value: `${res.preview}/${e.uid}`,
-        label: `${m(messages.eventPreview)} (${flatten(e.title, lang)})`
-      }))));
+  const defaultPreviews = useMemo(() => ([
+    {
+      value: preview,
+      label: m(messages.listPreview)
     }
-  });
+  ]), [m, preview]);
+
+  const { data: previews } = useQuery(
+    'previewEvents',
+    async () => (await axios.get(eventsRes)).data.events,
+    {
+      initialData: defaultPreviews,
+      select: receivedData => [
+        ...defaultPreviews,
+        ...receivedData.map(e => ({
+          value: `${res.preview}/${e.uid}`,
+          label: `${m(messages.eventPreview)} (${flatten(e.title, lang)})`
+        }))
+      ]
+    }
+  );
 
   useEffect(() => {
     onChange(editedEmbed);

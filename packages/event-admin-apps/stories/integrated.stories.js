@@ -11,14 +11,12 @@ import ProvidersDecorator from './decorators/Providers';
 import '@openagenda/bs-templates/compiled/main.css';
 import mainData from './fixtures/new.json';
 
-const getDefaultState = ({ lang = 'fr', apiRoot = '' } = {}) => ({
+const getDefaultState = ({ apiRoot = '' } = {}) => ({
   settings: {
-    lang,
     apiRoot,
     prefix: '',
     perPageLimit: 20,
-    mapTiles:
-      'https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750',
+    mapTiles: '',
   },
   res: {
     jsonExport: '/:slug/events.json',

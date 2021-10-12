@@ -5,6 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
 import { Spinner } from '@openagenda/react-components';
+import { withLayoutData } from '@openagenda/react-shared';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition';
 import * as agendaActions from '../../reducers/agenda';
@@ -12,7 +13,7 @@ import * as keysActions from '../../reducers/keys';
 import * as modalsActions from '../../reducers/modals';
 import I18nContext from '../../contexts/I18nContext';
 
-
+@withLayoutData('lang')
 @provideHooks({
   inject: ({ store }) => store.inject({
     form: formReducer.plugin({
@@ -38,12 +39,10 @@ import I18nContext from '../../contexts/I18nContext';
 })
 @connect(
   state => ({
-    lang: state.settings.lang,
     loading: state.agenda.loading
   })
 )
-export default class App extends Component {
-
+export default class EditionApp extends Component {
   static childContextTypes = {
     lang: PropTypes.string,
     getLabel: PropTypes.func
@@ -59,7 +58,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { route, loading, agenda, role } = this.props;
+    const { route, loading } = this.props;
 
     return (
       <I18nContext.Provider value={this.i18nContextValue}>
@@ -69,7 +68,7 @@ export default class App extends Component {
               <div style={{ margin: '150px 0' }}>
                 <Spinner />
               </div>
-            ) : renderRoutes(route.routes, { agenda, role })}
+            ) : renderRoutes(route.routes)}
         </div>
       </I18nContext.Provider>
     );

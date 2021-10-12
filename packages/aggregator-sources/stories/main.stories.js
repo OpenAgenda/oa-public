@@ -13,9 +13,8 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ({ lang = 'fr', apiRoot, dev } = {}) => ({
+const getDefaultState = ({ apiRoot, dev } = {}) => ({
   settings: {
-    lang,
     apiRoot,
     prefix: '',
     perPageLimit: 20,

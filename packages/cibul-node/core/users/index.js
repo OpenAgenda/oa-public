@@ -6,10 +6,14 @@ const {
 
 const listUserAgendas = require('./listUserAgendas');
 const canEditEvent = require('./canEditEvent');
+const getEventUserContext = require('./getEventUserContext');
 
 module.exports = core => Object.assign(identifier => ({
   agendas: Object.assign(agendaUid => ({
-    getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid)
+    getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid),
+    events: eventUid => ({
+      getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventUid, options)
+    })
   }), {
     list: listUserAgendas(core, identifier)
   }),

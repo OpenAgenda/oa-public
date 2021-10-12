@@ -1,17 +1,15 @@
-const webpack = require('webpack');
-
 const oaModulesToBuild = [
   'activity-apps',
   'agenda-settings',
   'home',
-  'user-apps'
+  'user-apps',
 ];
 const modulesToInclude = [
   '@feathersjs',
   `@openagenda/(?:${oaModulesToBuild.join('|')})`,
   'react-intl',
   'intl-messageformat',
-  'intl-messageformat-parser'
+  'intl-messageformat-parser',
 ];
 
 const BABEL_EXCLUDE_REGEX = new RegExp(
@@ -19,14 +17,6 @@ const BABEL_EXCLUDE_REGEX = new RegExp(
 );
 
 module.exports = ({ config }) => {
-  config.plugins.push(
-    new webpack.DefinePlugin({
-      __CLIENT__: true,
-      __SERVER__: false,
-      __DEVELOPMENT__: true
-    })
-  );
-
   config.module.rules[0].include = undefined;
   config.module.rules[0].exclude = BABEL_EXCLUDE_REGEX;
 
