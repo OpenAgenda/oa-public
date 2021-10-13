@@ -118,18 +118,16 @@ function MemberItem({
               contributorId: id,
               'q.memberUid': [member.userUid],
             })}`}
-            className="text-muted"
+            className="btn btn-link padding-left-z padding-top-z"
           >
-            {/* <span className="badge badge-info"> */}
             {eventCount}{' '}
             {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
-            {/* </span> */}
           </Link>
 
           {canEditMember && (
             <button
               type="button"
-              className="btn btn-link text-muted margin-left-sm"
+              className="btn btn-link padding-left-z padding-top-z"
               onClick={() => showModal('editMember', { member })}
             >
               {getLabel('editProfile')}
@@ -137,7 +135,7 @@ function MemberItem({
           )}
           {user?.uid !== member.userUid ? (
             <a
-              className="text-muted margin-left-sm"
+              className="btn btn-link padding-left-z padding-top-z"
               href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
             >
               {getLabel('sendAMessage')}
@@ -147,7 +145,7 @@ function MemberItem({
             <>
               <button
                 type="button"
-                className="btn btn-link text-muted margin-left-sm"
+                className="btn btn-link padding-left-z padding-top-z"
                 onClick={() => showModal('removeMember', { member })}
               >
                 {getLabel('removeMember')}
@@ -155,9 +153,12 @@ function MemberItem({
               {userRole !== 3 ? (
                 <Dropdown
                   id={`member-${member.userUid}-change-role`}
-                  className="btn-link-dropdown margin-left-sm"
+                  className="btn-link-dropdown"
                 >
-                  <Dropdown.Toggle className="btn-link" bsRole="toggle">
+                  <Dropdown.Toggle
+                    className="btn-link padding-left-z padding-top-z"
+                    bsRole="toggle"
+                  >
                     {getLabel('changeRole')}
                   </Dropdown.Toggle>
                   <Dropdown.Menu bsRole="menu">
