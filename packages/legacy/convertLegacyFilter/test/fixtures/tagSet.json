@@ -1,0 +1,250 @@
+{
+  "groups": [
+    {
+      "name": "Service Contributeur",
+      "required": true,
+      "unique": true,
+      "access": "public",
+      "tags": [
+        {
+          "id": 62173,
+          "label": "VH",
+          "slug": "vh",
+          "schemaOptionId": "54.54"
+        }
+      ]
+    },
+    {
+      "name": "Type d'événement",
+      "required": true,
+      "unique": true,
+      "access": "public",
+      "tags": [
+        {
+          "id": 57546,
+          "label": "Concert",
+          "slug": "concert",
+          "schemaOptionId": "54.38"
+        },
+        {
+          "id": 57548,
+          "label": "Conférence-Rencontre",
+          "slug": "conference-rencontre",
+          "schemaOptionId": "54.39"
+        },
+        {
+          "id": 57547,
+          "label": "Visite commentée",
+          "slug": "visite-commentee",
+          "schemaOptionId": "54.48"
+        }
+      ]
+    },
+    {
+      "name": "Public(s) cible(s)",
+      "required": true,
+      "unique": false,
+      "access": "public",
+      "tags": [
+        {
+          "id": 83865,
+          "label": "Associations",
+          "slug": "associations",
+          "schemaOptionId": "54.77"
+        },
+        {
+          "id": 88489,
+          "label": "Écoles",
+          "slug": "ecoles",
+          "schemaOptionId": "54.82"
+        },
+        {
+          "id": 57539,
+          "label": "Enfants et famille",
+          "slug": "enfants-et-famille",
+          "schemaOptionId": "54.27"
+        },
+        {
+          "id": 57538,
+          "label": "Jeunes",
+          "slug": "jeunes",
+          "schemaOptionId": "54.26"
+        },
+        {
+          "id": 57540,
+          "label": "Personnes en situation de handicap",
+          "slug": "personnes-en-situation-de-handicap",
+          "schemaOptionId": "54.28"
+        },
+        {
+          "id": 57541,
+          "label": "Seniors et retraité-e-s",
+          "slug": "seniors-et-retraite-e-s",
+          "schemaOptionId": "54.29"
+        },
+        {
+          "id": 57542,
+          "label": "Tous publics",
+          "slug": "tous-publics",
+          "schemaOptionId": "54.30"
+        }
+      ]
+    },
+    {
+      "name": "Organisation de l'événement",
+      "required": true,
+      "unique": true,
+      "access": "public",
+      "tags": [
+        {
+          "id": 57543,
+          "label": "Evénement VDG",
+          "slug": "evenement-vdg",
+          "schemaOptionId": "54.31"
+        },
+        {
+          "id": 57544,
+          "label": "Evénement soutenu par VDG",
+          "slug": "evenement-soutenu-par-vdg",
+          "schemaOptionId": "54.32"
+        },
+        {
+          "id": 57545,
+          "label": "Evénement organisé par un externe",
+          "slug": "evenement-organise-par-un-externe",
+          "schemaOptionId": "54.33"
+        }
+      ]
+    },
+    {
+      "name": "Thématiques internes",
+      "required": false,
+      "unique": false,
+      "access": "public",
+      "tags": [
+        {
+          "id": 84958,
+          "label": "Arbres",
+          "slug": "arbres",
+          "schemaOptionId": "54.80"
+        },
+        {
+          "id": 67778,
+          "label": "Climate",
+          "slug": "climat",
+          "schemaOptionId": "54.57"
+        },
+        {
+          "id": 81221,
+          "label": "Cours de sport en plein air",
+          "slug": "cours-de-sport-en-plein-air",
+          "schemaOptionId": "54.71"
+        },
+        {
+          "id": 57550,
+          "label": "Culture VDG",
+          "slug": "culture-vdg",
+          "schemaOptionId": "54.49"
+        },
+        {
+          "id": 67779,
+          "label": "Diversity",
+          "slug": "diversite",
+          "schemaOptionId": "54.58"
+        },
+        {
+          "id": 57552,
+          "label": "Espaces de quartier",
+          "slug": "espaces-de-quartier",
+          "schemaOptionId": "54.51"
+        },
+        {
+          "id": 83866,
+          "label": "Food-Trucks",
+          "slug": "food-trucks",
+          "schemaOptionId": "54.74"
+        },
+        {
+          "id": 67781,
+          "label": "Genre et sports",
+          "slug": "genre-et-sports",
+          "schemaOptionId": "54.62"
+        },
+        {
+          "id": 81221,
+          "label": "Marchés",
+          "slug": "marches",
+          "schemaOptionId": "54.75"
+        },
+        {
+          "id": 67778,
+          "label": "Feed the city",
+          "slug": "nourrir-la-ville",
+          "schemaOptionId": "54.59"
+        },
+        {
+          "id": 83866,
+          "label": "Spectacles en ligne et en direct",
+          "slug": "spectacles-en-ligne-et-en-direct",
+          "schemaOptionId": "54.78"
+        },
+        {
+          "id": 57551,
+          "label": "Sport",
+          "slug": "sport",
+          "schemaOptionId": "54.50"
+        },
+        {
+          "id": 81220,
+          "label": "Bicycles",
+          "slug": "velos",
+          "schemaOptionId": "54.76"
+        },
+        {
+          "id": 67779,
+          "label": "Zero Sexism",
+          "slug": "zero-sexisme",
+          "schemaOptionId": "54.60"
+        }
+      ]
+    },
+    {
+      "name": "Labels",
+      "required": false,
+      "unique": false,
+      "access": "public",
+      "tags": [
+        {
+          "id": 57555,
+          "label": "100% gratuit",
+          "slug": "100-gratuit",
+          "schemaOptionId": "54.24"
+        },
+        {
+          "id": 57556,
+          "label": "En plein air",
+          "slug": "en-plein-air",
+          "schemaOptionId": "54.25"
+        },
+        {
+          "id": 85195,
+          "label": "Genève, ville du goût",
+          "slug": "geneve-ville-du-gout",
+          "schemaOptionId": "54.81"
+        },
+        {
+          "id": 96390,
+          "label": "Musique en été 2021",
+          "slug": "musique-en-ete-2021",
+          "schemaOptionId": "54.83"
+        },
+        {
+          "id": 83867,
+          "label": "Online",
+          "slug": "online",
+          "schemaOptionId": "54.79"
+        }
+      ]
+    }
+  ]
+}
