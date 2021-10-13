@@ -1,8 +1,19 @@
 'use strict';
 
 const decorateWithCounts = require('../lib/decorateWithCounts');
+const geoFields = require('../lib/geoFields');
 
 describe('utils', () => {
+  describe('geoFields', () => {
+    it('has specific labels for Switzerland', () => {
+      expect(geoFields('CH', 'adminLevel1')).toBe('adminLevel1_CH');
+    });
+
+    it('does not have specific labels for the UAE', () => {
+      expect(geoFields('AE', 'adminLevel1')).toBe('adminLevel1');
+    });
+  });
+
   describe('decorateWithCounts', () => {
     it('adds given counts to matching location', () => {
       const locations = [

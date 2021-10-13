@@ -73,7 +73,10 @@ function AgendaItem({
                     : getLabel('moderate')}
                 </Link>
               ) : (
-                <a href={`${phpPrefix}${agenda.slug}/admin`}>
+                <a
+                  className="btn btn-link padding-left-z padding-top-z"
+                  href={`${phpPrefix}${agenda.slug}/admin`}
+                >
                   {agenda.member.role === 2
                     ? getLabel('manage')
                     : getLabel('moderate')}
@@ -83,6 +86,7 @@ function AgendaItem({
           )}
           {[1, 2, 3].includes(agenda.member.role) && (
             <a
+              className="btn btn-link padding-left-z padding-top-z"
               href={(agenda.useContributeApp
                 ? res.agendas.contribute
                 : res.agendas.addEvent
@@ -92,10 +96,18 @@ function AgendaItem({
             </a>
           )}
           {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && (
-            <a href={_.get(agenda, 'mailto')}>{getLabel('contact')}</a>
+            <a
+              className="btn btn-link padding-left-z padding-top-z"
+              href={_.get(agenda, 'mailto')}
+            >
+              {getLabel('contact')}
+            </a>
           )}
           {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && (
-            <a href={res.agendas.contact.replace(':slug', agenda.slug)}>
+            <a
+              className="btn btn-link padding-left-z padding-top-z"
+              href={res.agendas.contact.replace(':slug', agenda.slug)}
+            >
               {getLabel('contact')}
             </a>
           )}
@@ -103,7 +115,10 @@ function AgendaItem({
             id={`agenda-${agenda.slug}-more-actions`}
             className="btn-link-dropdown"
           >
-            <Dropdown.Toggle className="btn-link" bsRole="toggle">
+            <Dropdown.Toggle
+              className="btn-link padding-left-z padding-top-z"
+              bsRole="toggle"
+            >
               {getLabel('otherActions')}
             </Dropdown.Toggle>
             <Dropdown.Menu bsRole="menu">
