@@ -424,7 +424,7 @@
   "EventAdminApp.EventItem.aggregatedFrom": [
     {
       "type": 0,
-      "value": "Aggrégé depuis "
+      "value": "Agrégé depuis "
     },
     {
       "children": [

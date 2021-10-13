@@ -32,7 +32,7 @@
   "EventAdminApp.EventItem.addFeatured": "Mettre en une",
   "EventAdminApp.EventItem.addedBy": "Ajouté par <link>{name}</link>",
   "EventAdminApp.EventItem.administrator": "administrateur",
-  "EventAdminApp.EventItem.aggregatedFrom": "Aggrégé depuis <link>{title}</link>",
+  "EventAdminApp.EventItem.aggregatedFrom": "Agrégé depuis <link>{title}</link>",
   "EventAdminApp.EventItem.contact": "Contacter",
   "EventAdminApp.EventItem.contributor": "contributeur",
   "EventAdminApp.EventItem.createdBy": "Créé par <link>{name}</link>",
