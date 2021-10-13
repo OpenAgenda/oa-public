@@ -71,5 +71,7 @@ module.exports = (country, field) => {
   if (!field) {
     return (geoFields.find(e => e.countryCode === country) || geoFields.find(e => e.countryCode === null));
   }
-  return geoFields.find(e => e.countryCode === country).fields.find(e => e.field === field)?.label || geoFields.find(e => e.countryCode === null).fields.find(e => e.field === field).label;
+  return ((
+    geoFields.find(e => e.countryCode === country) ?? {}
+  ).fields ?? []).find(e => e.field === field)?.label || geoFields.find(e => e.countryCode === null).fields.find(e => e.field === field).label;
 };
