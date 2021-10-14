@@ -159,7 +159,7 @@ describe('events - functional - update', () => {
       assert.equal(updatedDraftEvent.title.en, 'Un titre modifié');
     });
 
-    it('undrafting', async () => {
+    it('undrafting through patch', async () => {
       const draftEvent = await svc.create({
         title: 'Un autre titre'
       }, { draft: true });
@@ -170,7 +170,13 @@ describe('events - functional - update', () => {
         draft: false
       });
 
-      assert.equal(undraftedEvent.draft, false);
+      expect(undraftedEvent.draft).toBe(false);
+
+      const entry = await f.client('event_2')
+        .first('draft')
+        .where('uid', draftEvent.uid);
+
+      expect(entry.draft).toBe(0);
     });
 
     it('fix: patch from DHM format', async () => {
