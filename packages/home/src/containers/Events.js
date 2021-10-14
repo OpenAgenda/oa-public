@@ -21,6 +21,7 @@ import * as eventsActions from '../reducers/events';
 import * as modalsActions from '../reducers/modals';
 import { setTab } from '../reducers/menu';
 import AgendasSearch from '../components/AgendasSearch';
+import EventItem from '../components/EventItem';
 import Wrapper from './Wrapper';
 
 function AgendaItem({ agenda, res, getLabel }) {
@@ -171,59 +172,6 @@ export default class Events extends Component {
     this.props.nextPage({ search }, (page || 1) + 1);
   };
 
-  getMultilangLabel = (field, defaultValue = '') => {
-    if (field === null || typeof field !== 'object') return field || defaultValue;
-    return (
-      field[this.props.lang] || field[Object.keys(field)[0]] || defaultValue
-    );
-  };
-
-  getEventShowLink = event => {
-    const { res } = this.props;
-
-    if (event.draft) {
-      return this.getEventEditLink(event);
-    }
-
-    if (!event.agenda) {
-      return '#';
-    }
-
-    return res.events[event.private ? 'showPrivate' : 'show']
-      .replace(':slug', event.agenda.slug)
-      .replace(':eventSlug', event.slug);
-  };
-
-  getEventEditLink = event => {
-    const { res } = this.props;
-
-    return res.events.edit
-      .replace(':slug', event.agenda && event.agenda.slug)
-      .replace(':eventSlug', event.slug);
-  };
-
-  getImagePath = image => {
-    const thumbnail = Array.isArray(image.variants)
-      ? image.variants.find(v => v.type === 'thumbnail')
-      : null;
-
-    const { filename } = thumbnail || image;
-    const { base } = image;
-
-    const trailingBaseSlash = base.slice(-1) === '/';
-    const leadingFilenameSlash = filename.slice(1) === '/';
-
-    if (trailingBaseSlash && leadingFilenameSlash) {
-      return base.slice(0, -1) + filename;
-    }
-
-    if (trailingBaseSlash || leadingFilenameSlash) {
-      return base + filename;
-    }
-
-    return `${base}/${filename}`;
-  };
-
   fieldIsVisible = () => {
     const { total, perPageLimit } = this.props;
     const { value, previousValue } = this.state;
@@ -248,6 +196,7 @@ export default class Events extends Component {
       closeModal,
       modals,
       agendasLoad,
+      lang,
     } = this.props;
     const { getLabel } = this.context;
 
@@ -299,84 +248,13 @@ export default class Events extends Component {
               <ul className="list-unstyled padding-top-sm">
                 {events
                   && events.map(event => (
-                    <li
-                      key={event.uid}
-                      className={`event-item media${
-                        event.draft ? ' draft' : ''
-                      }`}
-                    >
-                      <div className="padding-all-md" title={getLabel('show')}>
-                        <div className="media-left">
-                          <a href={this.getEventShowLink(event)}>
-                            <Image
-                              src={this.getImagePath(event.image)}
-                              fallbackSrc={this.getImagePath(
-                                event.image
-                              ).replace('cibuldev', 'cibul')}
-                              className="media-object ill avatar"
-                              alt={this.getMultilangLabel(
-                                event.title,
-                                getLabel('noTitle')
-                              )}
-                            />
-                          </a>
-                        </div>
-                        <div className="media-body">
-                          <a href={this.getEventShowLink(event)}>
-                            <div className="title media-heading">
-                              {event.agenda ? (
-                                <div className="agenda">
-                                  {event.agenda.title}
-                                </div>
-                              ) : null}
-                              <strong>
-                                {this.getMultilangLabel(
-                                  event.title,
-                                  getLabel('noTitle')
-                                )}
-                              </strong>
-                              {event.private ? (
-                                <div className="tooltip-icon">
-                                  <i className="fa fa-unlock-alt" />
-                                  <div className="tooltip right" role="tooltip">
-                                    <div className="tooltip-arrow" />
-                                    <div className="tooltip-inner">
-                                      {getLabel('privateEvent')}
-                                    </div>
-                                  </div>
-                                </div>
-                              ) : null}
-                              {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
-                            </div>
-                            <div className="event-detail-part">
-                              {event.location && event.location.name
-                                ? event.location.name
-                                : getLabel('noLocation')}
-                            </div>
-                            <div className="event-detail-part">
-                              {event.timerange}
-                            </div>
-                          </a>
-
-                          {event.agenda ? (
-                            <div className="actions">
-                              {event.draft ? (
-                                <span className="badge badge-sm badge-default">
-                                  {getLabel('draft')}
-                                </span>
-                              ) : (
-                                <a href={this.getEventShowLink(event)}>
-                                  {getLabel('show')}
-                                </a>
-                              )}
-                              <a href={this.getEventEditLink(event)}>
-                                {getLabel('modify')}
-                              </a>
-                            </div>
-                          ) : null}
-                        </div>
-                      </div>
-                    </li>
+                    <EventItem
+                      key={`event-${event.uid}`}
+                      event={event}
+                      res={res.events}
+                      getLabel={getLabel}
+                      lang={lang}
+                    />
                   ))}
 
                 {!events
