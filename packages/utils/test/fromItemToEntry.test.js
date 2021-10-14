@@ -6,7 +6,6 @@ const eventsFields = require('./fixtures/db/eventsFields');
 const locationsFields = require('./fixtures/db/locationsFields');
 const fixtures = require('./fixtures/db');
 
-
 describe('utils - fromItemToEntry', () => {
   describe('db key', () => {
     it('when defined, format function is used to transform data', () => {
@@ -29,7 +28,6 @@ describe('utils - fromItemToEntry', () => {
       }], {extId: 10})
       expect(entry.ext_id).toEqual(10);
     })
-    
   });
 
 
@@ -84,6 +82,23 @@ describe('utils - fromItemToEntry', () => {
       });
   
       assert.equal(entry.image, null);
+    });
+
+    it('draft can be undrafted', () => {
+      const entry = fromItemToEntry(
+        [{
+          field: 'draft',
+          fieldTYpe: 'boolean'
+        }],
+        {
+          draft: false
+        },
+        {
+          draft: true
+        }
+      );
+
+      expect(entry.draft).toBe(false);
     });
   
     it('new timings replace previous timings', () => {
