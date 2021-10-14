@@ -6696,10 +6696,10 @@ __metadata:
     "@openagenda/validators": ^2.4.0
     axios: ^0.21.1
     immutability-helper: ^3.0.0
+    jest: ^26.1.0
     knex: ^0.19.5
     lodash: ^4.17.15
     marked: ^1.1.0
-    mocha: ^7.0.1
     moment-timezone: 0.5.31
     mysql: ^2.11.1
     rimraf: ^3.0.1
