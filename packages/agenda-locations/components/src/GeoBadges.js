@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 import debug from 'debug';
-import geoFields from '../../lib/geoFields';
+import geoFields from './geoFields';
 import adminLevels from './adminLevels';
 
 const log = debug('GeoBadges');

@@ -5,7 +5,7 @@ import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 import get from '@openagenda/utils/get';
 
-import geoFields from '../../lib/geoFields';
+import geoFields from './geoFields';
 import flattenTagSetLabels from './flattenTagSetLabels';
 import adminLevels from './adminLevels';
 

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Dropdown } from 'react-bootstrap';
-import geoFields from '../../lib/geoFields';
+import geoFields from './geoFields';
 import adminLevels from './adminLevels';
 
 const messages = {
