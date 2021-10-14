@@ -258,6 +258,16 @@ describe('events - functional - create', function() {
   });
 
   describe('other', () => {
+    it('create with private option results in private event', async () => {
+      const event = await svc.create(data, { private: true });
+
+      const isPrivate = await f.client('event_2')
+        .first(['private'])
+        .where('uid', event.uid)
+        .then(r => r.private);
+
+      assert.equal(isPrivate, true);
+    });
 
     it('draft create does not require all fields to be specified', async () => {
       try {
