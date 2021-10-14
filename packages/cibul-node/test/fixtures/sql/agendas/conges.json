@@ -1,0 +1,13 @@
+{
+  "id": 92012,
+  "uid": 81989389,
+  "title": "Congés",
+  "slug": "conges",
+  "description": "Nos vacances",
+  "owner_id": 50304,
+  "created_at": "2016-01-11 13:07:08",
+  "updated_at": "2016-01-18 16:14:06",
+  "official": 0,
+  "credentials": "{}",
+  "private": true
+}

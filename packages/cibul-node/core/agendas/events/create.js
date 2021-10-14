@@ -96,6 +96,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       },
       detailed: true,
       access: 'internal',
+      private: !!agenda.private,
       draft
     });
 

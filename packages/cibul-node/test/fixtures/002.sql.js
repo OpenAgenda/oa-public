@@ -12,13 +12,15 @@ const raw = resetAndCreateTables();
 raw.push(knex('review').insert([
   require('./sql/agendas/218.json'),
   require('./sql/agendas/219.json'),
-  require('./sql/agendas/220.json')
+  require('./sql/agendas/220.json'),
+  require('./sql/agendas/conges.json')
 ]));
 
 raw.push(knex('user').insert([
   require('./sql/users/50304.json'),
   require('./sql/users/50300.json'),
-  require('./sql/users/01.json')
+  require('./sql/users/01.json'),
+  require('./sql/users/kevin.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
@@ -39,7 +41,8 @@ raw.push(knex('form_schema').insert([{
 
 raw.push(knex('reviewer').insert([
   require('./sql/members/71385.json'),
-  require('./sql/members/71386.json')
+  require('./sql/members/71386.json'),
+  require('./sql/members/kev.admin.json')
 ]));
 
 raw.push(knex('location').insert([
