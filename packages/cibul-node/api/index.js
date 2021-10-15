@@ -130,7 +130,8 @@ module.exports = core => {
       size: 1
     }, {
       detailed: true,
-      userUid: req.user?.uid
+      userUid: req.user?.uid,
+      longDescriptionFormat: req.query.longDescriptionFormat
     }).then(({
       events
     }) => (events.length ? res.json({
