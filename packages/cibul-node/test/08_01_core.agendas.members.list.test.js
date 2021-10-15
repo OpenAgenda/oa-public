@@ -75,7 +75,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
           userUid: 50073466
         });
 
-      expect(items[0]).toEqual({
+      expect(_.omit(items[0], 'updatedAt')).toEqual({
         name: 'Jan',
         phone: null,
         email: null,

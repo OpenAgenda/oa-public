@@ -38,7 +38,7 @@ module.exports = (core, identifier) => async (nav = {}, options = {}) => {
     after: _.get(_.last(members), 'order', null),
     items: members.map(item => ({
       ..._.pick(item.agenda, ['uid', 'slug', 'title']),
-      member: formatMember(membersSvc, item)
+      member: _.omit(formatMember(membersSvc, item), 'updatedAt')
     }))
   }));
 
