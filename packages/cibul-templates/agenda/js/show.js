@@ -154,7 +154,9 @@ window.asap(options => {
         newQuery.lang = documentLocation.getQueryPart('lang');
       }
 
-      exportRef.current.displayButton(!!Object.keys(newSearchValues).length);
+      if (exportRef.current) {
+        exportRef.current.displayButton(!!Object.keys(newSearchValues).length);
+      }
 
       documentLocation.setQueryPart(newQuery);
 
