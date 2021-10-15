@@ -61,6 +61,7 @@ describe('members - functional - remove', () => {
         agendaUid: 1,
         role: 1,
         userUid: 2,
+        updatedAt: new Date('2019-05-14T16:00:00.000Z'),
         custom: {
           organization: 'Idpt',
           contactNumber: '013072171',
