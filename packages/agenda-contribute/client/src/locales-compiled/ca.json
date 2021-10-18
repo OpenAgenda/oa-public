@@ -1,0 +1,80 @@
+{
+  "AgendaContribute.ClosedMessage.forAdminModerators": [
+    {
+      "type": 0,
+      "value": "This agenda is currently not open to contributors."
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forContributors": [
+    {
+      "type": 0,
+      "value": "This agenda is not or no longer open for new contributions."
+    }
+  ],
+  "AgendaContribute.EventEdit.update": [
+    {
+      "type": 0,
+      "value": "Update"
+    }
+  ],
+  "AgendaContribute.EventNew.create": [
+    {
+      "type": 0,
+      "value": "Create the event"
+    }
+  ],
+  "AgendaContribute.EventNew.deleteDraft": [
+    {
+      "type": 0,
+      "value": "Delete the draft"
+    }
+  ],
+  "AgendaContribute.EventNew.draft": [
+    {
+      "type": 0,
+      "value": "Save as draft"
+    }
+  ],
+  "AgendaContribute.EventNew.updateDraft": [
+    {
+      "type": 0,
+      "value": "Update draft"
+    }
+  ],
+  "AgendaContribute.Member.description": [
+    {
+      "type": 0,
+      "value": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed."
+    }
+  ],
+  "AgendaContribute.Member.subtitle": [
+    {
+      "type": 0,
+      "value": "Present yourself to the agenda administrators before starting typing your events"
+    }
+  ],
+  "AgendaContribute.Member.title": [
+    {
+      "type": 0,
+      "value": "Welcome !"
+    }
+  ],
+  "AgendaContribute.Stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "AgendaContribute.Stepper.event": [
+    {
+      "type": 0,
+      "value": "My event"
+    }
+  ],
+  "AgendaContribute.Stepper.member": [
+    {
+      "type": 0,
+      "value": "Member form"
+    }
+  ]
+}

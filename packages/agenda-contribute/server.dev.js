@@ -63,6 +63,19 @@ dev.get('/', (req, res) => {
 
 });
 
+dev.get('/members/:userUid', (req, res, next) => {
+  res.json({
+    "userUid": parseInt(req.params.userUid, 10),
+    "name": "Taquane Morget",
+    "phone": "15 05 99 88 56",
+    "email": "ta@bmx.fr",
+    "position": "communication numérique chargée",
+    "organization": "BorMet",
+    "role": "administrator",
+    "updatedAt": "2021-07-26T09:14:21.000Z"
+    });
+});
+
 
 dev.use('/locations', locationApp);
 

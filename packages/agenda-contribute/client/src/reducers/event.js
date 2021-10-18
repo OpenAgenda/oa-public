@@ -7,16 +7,6 @@ const actionTypes = {
   UPDATE: 'agenda-contribute/event/UPDATE'
 };
 
-module.exports = Object.assign(reducer, {
-  created,
-  updated: redirect,
-  added: redirect,
-  close,
-  deleteDraft,
-  actionTypes
-});
-
-
 function reducer(state = {}, action = {}) {
   switch (action.type) {
     case actionTypes.CREATE:
@@ -93,3 +83,12 @@ function created(values, response) {
     return history.push(base + '/confirmation');
   }
 }
+
+export default Object.assign(reducer, {
+  created,
+  updated: redirect,
+  added: redirect,
+  close,
+  deleteDraft,
+  actionTypes
+});

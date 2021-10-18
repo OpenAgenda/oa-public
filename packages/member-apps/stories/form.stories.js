@@ -145,6 +145,32 @@ export const FormForRemove = () => (
   />
 );
 
+export const FullWidthButtons = () => (
+  <Form
+    lang="fr"
+    operation="create"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    blockButtons
+    onRemoveSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const noCancelButton = () => (
+  <Form
+    lang="fr"
+    operation="create"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    hideCancel
+    onRemoveSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
 export const FixTwoLinksOneForm = () => {
   const [display, setDisplay] = useState(false);
   const [res, setRes] = useState(false);

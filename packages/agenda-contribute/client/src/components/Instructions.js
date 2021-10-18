@@ -1,8 +1,21 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export default ( { message, className, boxed } ) => message ? <div className={ className || 'wsq' }>
-  <div className="event-instruction padding-all-md padding-bottom-sm boxed">
-    <ReactMarkdown>{message}</ReactMarkdown>
-  </div>
-</div> : null;
+function Instructions({
+  message,
+  className
+}) {
+  if (!message) {
+    return null;
+  }
+
+  return (
+    <div className={className ?? 'wsq'}>
+      <div className="event-instruction padding-all-md padding-bottom-sm boxed">
+        <ReactMarkdown>{message}</ReactMarkdown>
+      </div>
+    </div>
+  );
+}
+
+export default Instructions;

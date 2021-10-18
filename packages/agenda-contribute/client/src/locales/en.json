@@ -1,0 +1,15 @@
+{
+  "AgendaContribute.ClosedMessage.forAdminModerators": "This agenda is currently not open to contributors.",
+  "AgendaContribute.ClosedMessage.forContributors": "This agenda is not or no longer open for new contributions.",
+  "AgendaContribute.EventEdit.update": "Update",
+  "AgendaContribute.EventNew.create": "Create the event",
+  "AgendaContribute.EventNew.deleteDraft": "Delete the draft",
+  "AgendaContribute.EventNew.draft": "Save as draft",
+  "AgendaContribute.EventNew.updateDraft": "Update draft",
+  "AgendaContribute.Member.description": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
+  "AgendaContribute.Member.subtitle": "Present yourself to the agenda administrators before starting typing your events",
+  "AgendaContribute.Member.title": "Welcome !",
+  "AgendaContribute.Stepper.confirmation": "Confirmation",
+  "AgendaContribute.Stepper.event": "My event",
+  "AgendaContribute.Stepper.member": "Member form"
+}

@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import EventForm from '@openagenda/event-form/build';
-
 import labels from '@openagenda/labels/agenda-contribute/event';
 import makeLabelGetter from '@openagenda/labels';
 
 import Instructions from '../components/Instructions';
-import ButtonSpinner from '../components/ButtonSpinner';
+import EventEditForm from '../components/EventEditForm';
 import Canvas from '../components/Canvas';
 import ErrorMessage from '../components/ErrorMessage';
 
 import reducers from '../reducers';
-
-import eventFormProps from '../lib/eventFormProps';
 
 const getLabel = makeLabelGetter(labels);
 
@@ -31,9 +27,10 @@ export default connect(
   onCancel,
   onDidMount,
   member
-}) => (<Canvas
-    mode="add" 
-    onDidMount={onDidMount} 
+}) => (
+  <Canvas
+    mode="add"
+    onDidMount={onDidMount}
     lang={config.lang}
     event={event}
     fromAgenda={config.fromAgenda}
@@ -48,32 +45,21 @@ export default connect(
         onCancel={onCancel}
         errors={config.standardFieldsErrors}
       />
-    ) : (<div>
-      <Instructions
-        message={config?.event?.message}
-      />
-      <div className="wsq">
-        <EventForm
-          includeEventFields={config.authorizations.canEditEvent}
-          {...eventFormProps({ member, config })}
-          values={event}
-          onSubmitSuccess={onUpdateSuccess}
-          actionComponents={[{
-            position: 'bottom',
-            Component: ({ onSubmit, loading }) => <div 
-              className="wsq padding-all-md"
-            >
-              <button
-                className="btn btn-primary btn-block"
-                disabled={loading}
-                onClick={onSubmit}
-              >{getLabel('confirmAdd', config.lang)}</button>
-              {loading && <ButtonSpinner />}
-            </div>
-          }]}
+    ) : (
+      <div>
+        <Instructions
+          message={config?.event?.message}
         />
+        <div className="wsq">
+          <EventEditForm
+            config={config}
+            memberRole={member.role}
+            event={event}
+            onSuccess={onUpdateSuccess}
+            saveButtonLabel={getLabel('confirmAdd', config.lang)}
+          />
+        </div>
       </div>
-    </div>
-  )}
+    )}
   </Canvas>
 ));

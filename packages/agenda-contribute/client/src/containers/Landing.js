@@ -1,47 +1,40 @@
-import ih from 'immutability-helper';
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-
-import Canvas from '../components/Canvas';
+import { withRouter } from 'react-router';
+import { Spinner } from '@openagenda/react-shared';
 import reducers from '../reducers';
 
-import { Spinner } from '@openagenda/react-components';
-
-
 class Landing extends Component {
-
   componentDidMount() {
+    const {
+      onDisplay,
+      history
+    } = this.props;
 
-    this.props.onDisplay();
-
+    onDisplay(history);
   }
 
   render() {
-
-    const { lang } = this.props.config;
-
-    return <div className="text-center margin-top-lg" style={{
-      minHeight: 300,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
-      <Spinner mode="inline" options={{
-        scale: 1,
-        width: 1
-      }}></Spinner>
-    </div>
-
+    return (
+      <div
+        className="text-center margin-top-lg"
+        style={{
+          minHeight: 300,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <Spinner mode="inline" options={{ scale: 1, width: 1 }} />
+      </div>
+    );
   }
-
 }
-
 
 // container bit
 export default connect(
-  state => state,
-  dispatch => ( {
-    onDisplay: () => dispatch( reducers.landing.evaluate() )
-  } )
-)( Landing );
+  () => ({}),
+  dispatch => ({
+    onDisplay: history => dispatch(reducers.landing.evaluate(history))
+  })
+)(withRouter(Landing));

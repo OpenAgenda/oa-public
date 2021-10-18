@@ -7,6 +7,7 @@
   "MemberApps.Form.remove": "I wish to be removed from the agenda",
   "MemberApps.Form.removeFail": "The request failed. Try again shortly. If this problem persists, send us a short message at support@openagenda.com",
   "MemberApps.Form.removeSuccess": "You are no longer member of the agenda",
+  "MemberApps.Form.save": "Save",
   "MemberApps.Form.success": "The update was successful",
   "MemberApps.Form.updateTitle": "Contact form"
 }

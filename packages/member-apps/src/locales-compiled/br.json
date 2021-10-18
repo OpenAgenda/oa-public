@@ -47,6 +47,12 @@
       "value": "Vous ne faites désormais plus parti des membres de l'agenda"
     }
   ],
+  "MemberApps.Form.save": [
+    {
+      "type": 0,
+      "value": "Enregistrer"
+    }
+  ],
   "MemberApps.Form.success": [
     {
       "type": 0,

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-module.exports = Object.assign(reducer, {
+export default Object.assign(reducer, {
   redirect
 });
 

@@ -1,18 +1,28 @@
-import Confirmation from './containers/Confirmation';
-import EventAdd from './containers/EventAdd';
-import EventNew from './containers/EventNew';
-import EventEdit from './containers/EventEdit';
-import Landing from './containers/Landing';
-import Member from './containers/Member';
+import {
+  loadable
+} from '@openagenda/react-shared';
 
-export default function (prefix = '') {
-  return [
-    { path: `${prefix}`, exact: true, component: Landing },
-    { path: `${prefix}/member`, component: Member },
-    { path: `${prefix}/event`, exact: true, component: EventNew },
-    { path: `${prefix}/event/:eventUid/draft`, exact: true, component: EventNew },
-    { path: `${prefix}/event/:eventUid/from/:fromAgendaUid`, component: EventAdd },
-    { path: `${prefix}/event/:eventUid`, component: EventEdit },
-    { path: `${prefix}/confirmation`, component: Confirmation }
-  ];
-};
+const App = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-App" */
+  './containers/App'
+));
+
+const Landing = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-Landing" */
+  './containers/Landing'
+));
+
+export default (prefix = '') => ([
+  {
+    path: prefix,
+    component: App,
+    routes: [{
+      path: `${prefix}`,
+      exact: true,
+      component: Landing
+    }, {
+      path: `${prefix}/event/:eventUid`,
+      component: Landing
+    }]
+  }
+]);

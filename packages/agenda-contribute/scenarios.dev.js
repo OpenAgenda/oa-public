@@ -8,6 +8,7 @@ const defaultConfig = {
   locationRes: '/locations',
   referencesRes: '/refs',
   suggestChangeRes: '/?suggest.change.res',
+  memberRes: '/members/:userUid', // the member point should provide last update
   mode: 'create',
   redirects: {
     back: '/?redirect.back=:eventUid',

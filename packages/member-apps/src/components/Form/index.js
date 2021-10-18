@@ -51,6 +51,10 @@ const messages = defineMessages({
     id: 'MemberApps.Form.cancel',
     defaultMessage: 'Cancel',
   },
+  save: {
+    id: 'MemberApps.Form.save',
+    defaultMessage: 'Save',
+  },
 });
 
 const BlankComponent = () => <FormSchemaComponent schema={schema} />;
@@ -82,6 +86,8 @@ export default ({
   showSuccessMessage, // boolean: shows success message after save
   optionalFields, // optional: whether form info should be optional
   displayRemoveAction,
+  blockButtons,
+  hideCancel,
 }) => {
   const query = operation === 'update'
     ? useQuery('getMember', () => axios.get(res), {
@@ -184,8 +190,44 @@ export default ({
             values={query.data}
             schema={schema({ optionalFields })}
             onSubmitSuccess={onSubmitSuccess}
-            onCancel={() => (mode === 'modal' ? onCloseModalRequest() : setStep('success'))}
             lang={lang}
+            actionComponents={[
+              {
+                position: 'bottom',
+                Component: ({ onSubmit, loading }) => (
+                  <div>
+                    <button
+                      type="button"
+                      disabled={loading}
+                      className={
+                        blockButtons
+                          ? 'btn btn-primary btn-block margin-bottom-sm'
+                          : 'btn btn-primary pull-right'
+                      }
+                      onClick={() => onSubmit()}
+                    >
+                      {m(messages.save)}
+                    </button>
+                    {hideCancel ? null : (
+                      <button
+                        type="button"
+                        disabled={loading}
+                        className={
+                          blockButtons
+                            ? 'btn btn-default btn-block margin-top-sm'
+                            : 'btn btn-default'
+                        }
+                        onClick={() => (mode === 'modal'
+                          ? onCloseModalRequest()
+                          : setStep('success'))}
+                      >
+                        {m(messages.cancel)}
+                      </button>
+                    )}
+                  </div>
+                ),
+              },
+            ]}
           />
           {displayRemoveAction ? (
             <button

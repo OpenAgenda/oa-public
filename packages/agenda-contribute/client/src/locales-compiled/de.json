@@ -1,0 +1,80 @@
+{
+  "AgendaContribute.ClosedMessage.forAdminModerators": [
+    {
+      "type": 0,
+      "value": "This agenda is currently not open to contributors."
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forContributors": [
+    {
+      "type": 0,
+      "value": "This agenda is not or no longer open for new contributions."
+    }
+  ],
+  "AgendaContribute.EventEdit.update": [
+    {
+      "type": 0,
+      "value": "Update"
+    }
+  ],
+  "AgendaContribute.EventNew.create": [
+    {
+      "type": 0,
+      "value": "Create the event"
+    }
+  ],
+  "AgendaContribute.EventNew.deleteDraft": [
+    {
+      "type": 0,
+      "value": "Delete the draft"
+    }
+  ],
+  "AgendaContribute.EventNew.draft": [
+    {
+      "type": 0,
+      "value": "Save as draft"
+    }
+  ],
+  "AgendaContribute.EventNew.updateDraft": [
+    {
+      "type": 0,
+      "value": "Update draft"
+    }
+  ],
+  "AgendaContribute.Member.description": [
+    {
+      "type": 0,
+      "value": "Schön, dass du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein."
+    }
+  ],
+  "AgendaContribute.Member.subtitle": [
+    {
+      "type": 0,
+      "value": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst."
+    }
+  ],
+  "AgendaContribute.Member.title": [
+    {
+      "type": 0,
+      "value": "Willkommen!"
+    }
+  ],
+  "AgendaContribute.Stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Bestätigung"
+    }
+  ],
+  "AgendaContribute.Stepper.event": [
+    {
+      "type": 0,
+      "value": "Meine Veranstaltung"
+    }
+  ],
+  "AgendaContribute.Stepper.member": [
+    {
+      "type": 0,
+      "value": "Kontaktdaten"
+    }
+  ]
+}

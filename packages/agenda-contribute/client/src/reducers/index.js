@@ -1,8 +1,11 @@
-"use strict";
+import member from './member';
+import event from './event';
+import confirmation from './confirmation';
+import landing from './landing';
 
-module.exports = {
-  member: require('./member'),
-  event: require('./event'),
-  confirmation: require('./confirmation'),
-  landing: require('./landing')
-}
+export default {
+  member,
+  event,
+  confirmation,
+  landing
+};

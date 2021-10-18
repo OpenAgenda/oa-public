@@ -1,10 +1,9 @@
-import _ from 'lodash';
 import debug from 'debug';
 import qs from 'qs';
 
 const log = debug('URLDefaults');
 
-const eventWithDefaults = (event, defaults) => {
+export function eventWithDefaults(event, defaults) {
   log('eventWithDefaults', event, defaults);
   if (!defaults?.event) {
     return event;
@@ -14,9 +13,9 @@ const eventWithDefaults = (event, defaults) => {
     ...defaults.event,
     ...event
   };
-};
+}
 
-const get = () => {
+export function get() {
   const parts = (window?.location?.href || '').split('?');
 
   if (parts.length < 2) {
@@ -28,9 +27,4 @@ const get = () => {
   const query = qs.parse(parts.join('?'));
 
   return query?.defaults || {};
-};
-
-export default {
-  get,
-  eventWithDefaults 
-};
+}

@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import { Spinner } from '@openagenda/react-components';
+import React from 'react';
+import { Spinner } from '@openagenda/react-shared';
 
-export default () => <div className="text-center margin-top-sm">
-  <Spinner mode="inline" />
-</div>
+export default () => (
+  <div className="text-center margin-top-sm">
+    <Spinner mode="inline" />
+  </div>
+);
