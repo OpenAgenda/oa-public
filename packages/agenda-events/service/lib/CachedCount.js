@@ -12,7 +12,7 @@ module.exports = (redisClient, namespace, fn, lifetime) => {
   const incrby = promisify(redisClient.incrby.bind(redisClient));
   const get = promisify(redisClient.get.bind(redisClient));
   const set = promisify(redisClient.set.bind(redisClient));
-  const getKey = args => `${PREFIX}:${namespace}:${args.join(':')}`;
+  const getKey = args => `${PREFIX}:${namespace}:${args.filter(e => !!e).join(':')}`;
 
   const getCurrentCount = async (args, forceReset = false) => {
     const key = getKey(args);
