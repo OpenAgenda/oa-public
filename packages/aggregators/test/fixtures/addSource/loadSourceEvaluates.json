@@ -1,4 +1,5 @@
 {
+  "query": {"relative": "current"},
   "sourceAgenda": {
     "slug": "fetedelascience2019_bretagne",
     "id": 18261,

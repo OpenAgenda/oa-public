@@ -36,7 +36,7 @@ describe('06 - addSource', () => {
         { uid: 123, slug: 'ndm2020' },
         { uid: 456, slug: 'ndm2020-idf' },
         [],
-        { evaluate: true }
+        { query: { relative: 'current' } }
       );
     });
 
@@ -55,6 +55,7 @@ describe('06 - addSource', () => {
 
   describe('loadSourceEvaluates', () => {
     const enqueuedForEvaluate = [];
+    const enqueuedListEventReferencesQuery = [];
 
     beforeAll(async () => {
       let looped = false;
@@ -62,8 +63,13 @@ describe('06 - addSource', () => {
       await loadSourceEvaluates(
         {
           loadEvent: _async('fixtures/addSource/loadForEvaluate.event'),
-          listEventReferences: async () => {
-            if (looped) return { events: [] };
+          listEventReferences: async (data, after, query) => {
+            enqueuedListEventReferencesQuery.push(query);
+            if (looped) {
+              return _async(
+                'fixtures/addSource/listEventReferencesAfterNull'
+              )();
+            }
             looped = true;
             return _async('fixtures/addSource/listEventReferences')();
           },
@@ -89,7 +95,15 @@ describe('06 - addSource', () => {
     });
 
     test('enqueueLoadForEvaluate is called as many times as list interface provided references', () => {
-      expect(enqueuedForEvaluate.length).toBe(20);
+      expect(enqueuedForEvaluate.length).toBe(14);
+    });
+    test('event is given to evaluate', () => {
+      expect(enqueuedForEvaluate[0].event.uid).toEqual(85780923);
+    });
+    test('query is given to interface', () => {
+      expect(enqueuedListEventReferencesQuery[0]).toStrictEqual({
+        relative: 'current',
+      });
     });
   });
 });

@@ -67,7 +67,6 @@ module.exports = ({
     ),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
       listEventReferences: interfaces.listEventReferences,
-      loadEvent: interfaces.loadEvent,
       enqueueEvaluate: queue.bind(null, 'evaluateEvent'),
     }),
     loadSourceRemoves: loadSourceRemoves.bind(null, {
