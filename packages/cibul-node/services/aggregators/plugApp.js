@@ -24,7 +24,8 @@ module.exports = (config, parentApp) => {
 
   parentApp.get('/:agendaSlug/admin/sources', async (req, res, next) => {
     const aggregator = await aggregators.get(req.agenda.uid);
-    if(aggregator !== null) {
+
+    if (aggregator !== null || !req.query.source) {
       return next();
     }
     try {
