@@ -9,6 +9,7 @@
   "aggregator-sources.AddSourceModal.evaluateMessage": "The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rule} one {with 1 rule} other {with {ruleCount} rules}}.",
   "aggregator-sources.AddSourceModal.evaluateOption0": "Evaluate only events added to the agenda from now on",
   "aggregator-sources.AddSourceModal.evaluateOption1": "Evaluate all events",
+  "aggregator-sources.AddSourceModal.evaluateOption2": "Aggregate current and future events already entered on the source calendar",
   "aggregator-sources.AddSourceModal.makeASearch": "Make a search",
   "aggregator-sources.AddSourceModal.modalTitle": "Add a source{agenda, select, undefined {} other {: {agenda}}}",
   "aggregator-sources.AddSourceModal.noAgendas": "No agenda corresponds to your search",

@@ -119,6 +119,12 @@
       "value": "Aggregare tutti i eventi, anche i passati"
     }
   ],
+  "aggregator-sources.AddSourceModal.evaluateOption2": [
+    {
+      "type": 0,
+      "value": "Aggregate current and future events already entered on the source calendar"
+    }
+  ],
   "aggregator-sources.AddSourceModal.makeASearch": [
     {
       "type": 0,

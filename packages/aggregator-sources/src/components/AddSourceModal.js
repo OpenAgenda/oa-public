@@ -96,6 +96,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.evaluateOption1',
     defaultMessage: 'Aggregate all events',
   },
+  evaluateOption2: {
+    id: 'aggregator-sources.AddSourceModal.evaluateOption2',
+    defaultMessage: 'Aggregate current and future events',
+  },
   cancel: {
     id: 'aggregator-sources.AddSourceModal.cancel',
     defaultMessage: 'Cancel',
@@ -559,12 +563,12 @@ export default function AddSourceModal({
                   <Field
                     name="evaluate"
                     type="radio"
-                    value="0"
+                    value="currentAndUpcomming"
                     component={Radio}
-                    initialValue="0"
+                    initialValue="currentAndUpcomming"
                   >
                     {' '}
-                    {intl.formatMessage(messages.evaluateOption0)}
+                    {intl.formatMessage(messages.evaluateOption2)}
                   </Field>
 
                   <br />
@@ -572,11 +576,23 @@ export default function AddSourceModal({
                   <Field
                     name="evaluate"
                     type="radio"
-                    value="1"
+                    value="all"
                     component={Radio}
                   >
                     {' '}
                     {intl.formatMessage(messages.evaluateOption1)}
+                  </Field>
+
+                  <br />
+
+                  <Field
+                    name="evaluate"
+                    type="radio"
+                    value="null"
+                    component={Radio}
+                  >
+                    {' '}
+                    {intl.formatMessage(messages.evaluateOption0)}
                   </Field>
                 </div>
 

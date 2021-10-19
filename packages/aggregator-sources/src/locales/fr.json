@@ -9,6 +9,7 @@
   "aggregator-sources.AddSourceModal.evaluateMessage": "L'agenda {source} est sur le point d'être ajouté aux sources de {aggregator} {ruleCount, plural, =0 {sans règle} one {avec 1 règle} other {avec {ruleCount} règles}}.",
   "aggregator-sources.AddSourceModal.evaluateOption0": "N'évaluer que les événements ajoutés à l'agenda à partir de maintenant",
   "aggregator-sources.AddSourceModal.evaluateOption1": "Évaluer tous les événements",
+  "aggregator-sources.AddSourceModal.evaluateOption2": "Évaluer les événements en cours et à venir",
   "aggregator-sources.AddSourceModal.makeASearch": "Faire une recherche",
   "aggregator-sources.AddSourceModal.modalTitle": "Ajouter une source{agenda, select, undefined {} other {: {agenda}}}",
   "aggregator-sources.AddSourceModal.noAgendas": "Aucun agenda ne correspond a votre recherche",

@@ -119,6 +119,12 @@
       "value": "Évaluer tous les événements"
     }
   ],
+  "aggregator-sources.AddSourceModal.evaluateOption2": [
+    {
+      "type": 0,
+      "value": "Évaluer les événements en cours et à venir"
+    }
+  ],
   "aggregator-sources.AddSourceModal.makeASearch": [
     {
       "type": 0,
