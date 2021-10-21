@@ -37,16 +37,17 @@ module.exports = async ({ services, members, activityQueue }, member, context) =
   const { Inbox } = inboxes;
 
   try {
-    const { user } = context;
+    const { user } = context; // user removing
     const agenda = await agendas.get({ uid: member.agendaUid }, { private: null });
 
     if (!agenda) throw new Error('Agenda not found');
 
-    if (!member.userUid) {
+    if (!member.userUid) { // member removed
       log('removed member is not linked to a user account', member);
       return;
     }
 
+    // removed user
     const memberUser = await usersSvc.findOne({
       query: { uid: member.userUid }
     });
@@ -55,6 +56,7 @@ module.exports = async ({ services, members, activityQueue }, member, context) =
       throw new Error('User not found');
     }
 
+    // loading member removing
     const userMember = await members.get({
       agendaUid: agenda.uid,
       userUid: user.uid
@@ -62,7 +64,11 @@ module.exports = async ({ services, members, activityQueue }, member, context) =
 
     try {
       await activityQueue('addMemberRemove', {
-        user, member, agenda, userMember, memberUser
+        user, // user removing
+        member, // member removed
+        agenda,
+        userMember, // member removing
+        memberUser // user removed
       });
     } catch (e) {
       log('error', 'failed adding activity of type agenda.removeMember', { member, exception: e });

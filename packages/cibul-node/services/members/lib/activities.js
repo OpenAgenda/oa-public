@@ -55,14 +55,14 @@ function addMemberRemove( { user, member, agenda, userMember, memberUser } ) {
     entityType: 'agenda',
     entityUid: agenda.uid
   } ).activities.add( {
-    actor: 'user:' + user.uid,
+    actor: 'user:' + user.uid, // user removing
     verb: 'agenda.removeMember',
-    object: 'user:' + memberUser.uid,
+    object: 'user:' + memberUser.uid, // user being removed
     target: 'agenda:' + agenda.uid,
     store: {
       labels: {
-        actor: userMember.custom.contactName || user.fullName,
-        object: member.custom.contactName || memberUser.fullName,
+        actor: userMember.custom.contactName || user.fullName, // member removing
+        object: member.custom.contactName || memberUser.fullName, // member that was removed
         target: agenda.title
       },
       credential: member.role
