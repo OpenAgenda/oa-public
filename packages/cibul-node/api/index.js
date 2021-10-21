@@ -335,6 +335,10 @@ module.exports = core => {
     settings.resync
   ]);
 
+  app.get('/me', (req, res, next) => core.users
+    .get(req.user.uid, { detailed: true })
+    .then(user => res.json(_.pick(user, ['apiKey'])), next));
+
   app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)
       .then(data => res.json({ ...data, success: true }), next);
