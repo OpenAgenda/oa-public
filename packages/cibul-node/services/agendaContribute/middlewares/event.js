@@ -6,6 +6,7 @@ module.exports = (req, res, next) => req.app.services.core
   .agendas((req.fromAgenda || req.agenda).uid)
   .events.get(req.params.eventUid, {
     access: 'internal',
+    private: null,
     useDateHoursMinutesFormat: true,
     useLocationObjectFormat: true
   }).then(event => {
