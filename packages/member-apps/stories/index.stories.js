@@ -17,7 +17,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
     app: '#',
     list: '/members.json',
     update: `${apiRoot}/api/agendas/:agendaUid/members/:userUid`,
-    remove: '/remove/:id',
+    remove: `${apiRoot}/api/agendas/:agendaUid/members/:userUid`,
     invite: '/invite',
     stats: '/stats',
     showContributor: '#',
