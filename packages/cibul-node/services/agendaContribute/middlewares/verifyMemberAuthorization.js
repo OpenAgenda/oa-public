@@ -21,7 +21,9 @@ module.exports = async (req, res, next) => {
   }
 
   if (!req.member) {
-    req.member = await core.agendas(req.agenda).members.create(req.user.uid, 'contributor');
+    req.member = await core.agendas(req.agenda).members.create(req.user.uid, 'contributor', {}, {
+      userUid: req.user.uid
+    });
   }
 
   req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();

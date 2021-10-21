@@ -28,7 +28,12 @@ module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
     patchData.custom = custom;
   }
 
-  if (data.role !== undefined) {
+  const member = await members.get({
+    agendaUid,
+    userUid
+  });
+
+  if (data.role !== undefined && (members.utils.getRoleCode(data.role) !== member.role)) {
     patchData.role = members.utils.getRoleCode(data.role);
   }
 
@@ -41,7 +46,7 @@ module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
     acting: actingMember,
     actingUserUid,
     userUid,
-    role: data.role
+    role: patchData.role
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
