@@ -26,7 +26,8 @@ module.exports = (membersSvc, item) => ({
   email: _.get(item, 'custom.email', null),
   position: _.get(item, 'custom.contactPosition', null),
   organization: _.get(item, 'custom.organization', null),
-  role: membersSvc.utils.getRoleSlug(_.get(item, 'role'))
+  role: membersSvc.utils.getRoleSlug(_.get(item, 'role')),
+  updatedAt: item.updatedAt ?? null
 });
 
 module.exports.custom = item => map

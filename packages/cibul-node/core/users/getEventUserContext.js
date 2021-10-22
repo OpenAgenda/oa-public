@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/verror')('core/users/getEventUserContext');
+const log = require('@openagenda/logs')('core/users/getEventUserContext');
 
 const {
   NotFound

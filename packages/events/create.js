@@ -39,7 +39,8 @@ module.exports = async (service, data, o = {}) => {
     updatedAt: new Date(),
     createdAt: new Date(),
     fileKey: generateFileKey(),
-    draft: options.draft
+    draft: options.draft,
+    private: !!privateOption
   });
 
   if (options.useProvidedIdentifiers) {

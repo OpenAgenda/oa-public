@@ -55,6 +55,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         position: null,
         organization: null,
         role: 'contributor',
+        updatedAt: new Date('2017-10-30T13:21:07.000Z'),
         userUid: 1
       });
     });
@@ -127,6 +128,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
           position: null,
           organization: null,
           role: 'contributor',
+          updatedAt: '2017-10-30T13:21:07.000Z',
           userUid: 1
         });
       });

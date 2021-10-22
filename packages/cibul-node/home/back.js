@@ -70,7 +70,8 @@ function eventsList(req, res, next) {
     total: true,
     detailed: true,
     useDefaultImage: true,
-    draft: null
+    draft: null,
+    private: null
   }).then(({ total, items }) => {
     req.log('fetched %s of %s events owned by user %s', items.length, total, req.user.uid);
 

@@ -1,22 +1,23 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const sessions = require( '@openagenda/sessions' );
-const agendasSvc = require( '@openagenda/agendas' );
-const mw = require( '@openagenda/admin-agendas' ).mw;
-const cmn = require( '../lib/commons-app' );
+const sessions = require('@openagenda/sessions');
+const agendasSvc = require('@openagenda/agendas');
+const { mw } = require('@openagenda/admin-agendas');
+const cmn = require('../lib/commons-app');
 
 const preMw = [
-  cmn.loadBaseData( 'compiledAdmin.css' ),
-  sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  cmn.loadBaseData('compiledAdmin.css'),
+  sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
   cmn.requireSuperAdmin
 ];
 
+function index(req, res) {
+  cmn.render(req, res, 'admin/agendas', req.templateData);
+}
 
 module.exports = app => {
   const {
-    agendas,
-    events,
     aggregators
   } = app.services;
 
@@ -27,11 +28,11 @@ module.exports = app => {
   app.post(
     '/admin/agendas/:uid',
     preMw,
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.context = { user: req.user };
       next();
     },
-    agendasSvc.middleware.load( {
+    agendasSvc.middleware.load({
       private: null,
       internal: true,
       namespaces: {
@@ -39,24 +40,24 @@ module.exports = app => {
           uid: 'params.uid'
         }
       }
-    } ),
-    async ( req, res, next ) => {
+    }),
+    async (req, res, next) => {
       try {
-        if ( _.get( req, 'body.credentials.aggregator' ) ) {
+        if (_.get(req, 'body.credentials.aggregator')) {
           await aggregators.set(req.agenda.uid, {
             limit: -1
           }, { patch: true, protected: false });
         }
 
-        if ( _.get( req, 'body.credentials.aggregator' ) === false ) {
+        if (_.get(req, 'body.credentials.aggregator') === false) {
           await aggregators.set(req.agenda.uid, {
             limit: null
           }, { patch: true, protected: false });
         }
 
         next();
-      } catch ( e ) {
-        next( e );
+      } catch (e) {
+        next(e);
       }
     },
     mw.agendas.set
@@ -65,18 +66,11 @@ module.exports = app => {
   app.get(
     '/admin/agendas/members/search',
     preMw,
-    ( req, res, next ) => {
-      req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
+    (req, res, next) => {
+      req.query.agendaId = req.query.agendaId ? parseInt(req.query.agendaId, 10) : null;
       req.query.order = 'role.desc';
       next();
     },
     mw.members.list
   );
-
 };
-
-
-function index( req, res ) {
-  cmn.render( req, res, 'admin/agendas', req.templateData );
-}
-

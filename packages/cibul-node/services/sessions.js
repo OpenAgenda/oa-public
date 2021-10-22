@@ -119,10 +119,10 @@ function _requireSuperAdmin(config) {
 
       const id = session.id;
 
-      if (config.superAdminIds.indexOf(parseInt(id)) !== -1) {
+      if (config.superAdminIds.indexOf(parseInt(id, 10)) !== -1) {
         next();
       } else {
-        sessions.setFlash(req, res, 'Eerrh nooo, no esta, nooo, bye bye.');
+        sessions.setFlash(req, res, 'Ah Nononon. Nononon. Non.');
 
         res.redirect(302, '/');
       }

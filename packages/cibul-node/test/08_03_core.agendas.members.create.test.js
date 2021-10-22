@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const axios = require('axios');
 
 const api = require('../api');
@@ -51,7 +52,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         userUid: 50073466
       });
 
-      expect(member).toEqual({
+      expect(_.omit(member, 'updatedAt')).toEqual({
         name: 'Fred',
         phone: '06',
         email: null,

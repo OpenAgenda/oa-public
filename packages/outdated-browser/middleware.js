@@ -6,7 +6,7 @@ module.exports = function outdatedBrowserMw(req, res, next) {
   const userAgent = req.headers['user-agent'];
 
   if (!userAgent) {
-    next();
+    return typeof next === 'function' ? next() : null;
   }
 
   const outdatedBrowser = !matchesUA(userAgent, {

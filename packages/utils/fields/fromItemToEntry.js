@@ -7,13 +7,11 @@ const {
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-const extractDbRules = field => {
-  return {
-    ...(typeof field.db === 'object' ? field.db : {}),
-    field: getDatabaseFieldName(field),
-    path: getDatabaseFieldPath(field)
-  };
-};
+const extractDbRules = field => ({
+  ...(typeof field.db === 'object' ? field.db : {}),
+  field: getDatabaseFieldName(field),
+  path: getDatabaseFieldPath(field)
+});
 
 const loadJSONValue = (JSONValue, path, value, assign = false) => {
   if (path.length) {
@@ -46,7 +44,7 @@ const loadJSONValue = (JSONValue, path, value, assign = false) => {
 
 function getItemValue(field, data, currentValue) {
   const itemValue = [field].concat(field.linkedFields ?? []).reduce((acc, value) => {
-    if (data[value.field]) {
+    if (data[value.field] !== undefined) {
       return data[value.field];
     }
     return acc;

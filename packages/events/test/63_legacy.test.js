@@ -14,7 +14,7 @@ const {
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 const { createECDH } = require('crypto');
 
 const events = {
@@ -34,7 +34,7 @@ describe('legacy', () => {
 
     const eventUid = 27434489;
 
-    before(async () => {
+    beforeAll(async () => {
       await f.load();
 
       svc = Service({
@@ -43,7 +43,7 @@ describe('legacy', () => {
       });
     });
 
-    before(async () => {
+    beforeAll(async () => {
       result = await svc.setFromLegacy({ uid: eventUid });
     });
 
@@ -64,13 +64,13 @@ describe('legacy', () => {
   describe('legacySet', () => {
   
     describe('create', () => {
-      before(async () => {
+      beforeAll(async () => {
         await f.load();
       });
   
       describe('simple case', () => {
         let result, legacyEventId;
-        before(async () => {
+        beforeAll(async () => {
           result = await legacySet(f.client, events['petites-boites-a-musique']);
           legacyEventId = result.eventId;
         });
@@ -98,11 +98,11 @@ describe('legacy', () => {
     describe('remove', () => {
       let result;
   
-      before(async () => {
+      beforeAll(async () => {
         await f.load();
       });
   
-      before(async () => {
+      beforeAll(async () => {
         result = await legacyRemove(f.client, events['ventes-de-velos-d-occasion-a-lambersart']);
       });
   
@@ -123,11 +123,11 @@ describe('legacy', () => {
     describe('update', () => {
       let result;
   
-      before(async () => {
+      beforeAll(async () => {
         await f.load();
       });
       
-      before(async () => {
+      beforeAll(async () => {
         result = await legacySet(f.client, events['ventes-de-velos-d-occasion-a-lambersart']);
       });
   
@@ -180,16 +180,19 @@ describe('legacy', () => {
         ]
       };
 
-      it('title is placed in event_translation entry, one entry per language', () => {
-        const et = baseTransform({
-          title: {
-            fr: 'Un événement'
-          }
-        }).event_translation;
-    
-        assert.equal(et[0].title, 'Un événement');
-        assert.equal(et[0].lang, 'fr');
-      });
+      it(
+        'title is placed in event_translation entry, one entry per language',
+        () => {
+          const et = baseTransform({
+            title: {
+              fr: 'Un événement'
+            }
+          }).event_translation;
+      
+          assert.equal(et[0].title, 'Un événement');
+          assert.equal(et[0].lang, 'fr');
+        }
+      );
     
       it('uid is placed in event entry', () => {
         const entry = baseTransform({
@@ -302,11 +305,14 @@ describe('legacy', () => {
         assert.equal(entry.event.store, '{"attendanceMode":2,"onlineAccessLink":"https://online.access.link.com","links":[]}');
       });
 
-      it('event_location location_id ref is null for strictly online event', () => {
-        const entry = baseTransform(events['en-ligne']);
+      it(
+        'event_location location_id ref is null for strictly online event',
+        () => {
+          const entry = baseTransform(events['en-ligne']);
 
-        assert.equal(entry.event_location.location_id, null);
-      });
+          assert.equal(entry.event_location.location_id, null);
+        }
+      );
     });
   
   });

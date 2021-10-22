@@ -57,6 +57,7 @@ function AgendaItem({
         <div className="actions">
           {[4].includes(agenda.member.role) && (
             <a
+              className="btn btn-link padding-left-z padding-top-z"
               href={res.agendas[
                 agenda.private ? 'showPrivate' : 'show'
               ].replace(':slug', agenda.slug)}
@@ -67,7 +68,10 @@ function AgendaItem({
           {[2, 3].includes(agenda.member.role) && (
             <>
               {agenda?.settings?.lab?.eventAdmin ? (
-                <Link to={`/${agenda.slug}/admin/events`}>
+                <Link
+                  to={`/${agenda.slug}/admin/events`}
+                  className="btn btn-link padding-left-z padding-top-z"
+                >
                   {agenda.member.role === 2
                     ? getLabel('manage')
                     : getLabel('moderate')}

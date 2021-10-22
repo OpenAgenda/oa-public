@@ -145,6 +145,14 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         expect(entry.uid).toEqual(event.uid);
       });
 
+      it('event is not marked as private', async () => async () => {
+        const entry = await core.services.knex('event_2')
+          .first(['private'])
+          .where('uid', event.uid);
+
+        expect(!!entry.private).toBe(false);
+      });
+
       it('accessibility is saved in event and legacy event', async () => {
         const entry = await core.services.knex('event').first().where('uid', event.uid);
         const legacyAccessibility = entry.accessibility;
@@ -407,6 +415,33 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       expect(result.formSchema
         .fields
         .filter(f => f.field === 'custom_description').length).toBe(1);
+    });
+  });
+
+  describe('create in private agenda', () => {
+    let event;
+
+    const agendaUid = 81989389;
+    const memberUserUid = 37892739;
+
+    beforeAll(async () => {
+      event = await core.agendas(agendaUid).events.create({
+        title: {
+          fr: 'Un événement privé'
+        },
+        description: { fr: 'D' },
+        timings: [{
+          begin: new Date('2021-05-28T12:00:00+0100'),
+          end: new Date('2021-05-28T14:00:00+0100')
+        }],
+        location: { uid: 123 },
+      }, {
+        userUid: memberUserUid
+      });
+    });
+
+    it('event is marked as private', () => {
+      expect(event.private).toBe(true);
     });
   });
 

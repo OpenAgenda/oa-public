@@ -13,7 +13,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit",
+    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false",
     "build": "rimraf iso/build && babel iso/src -d iso/build -s",
     "prepack": "yarn build"
   },
@@ -39,7 +39,7 @@
     "@openagenda/eslint-config": "workspace:public/eslint-config",
     "@openagenda/files": "^3.1.0",
     "axios": "^0.21.1",
-    "mocha": "^7.0.1",
+    "jest": "^26.1.0",
     "rimraf": "^3.0.1"
   }
 }

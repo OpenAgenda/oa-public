@@ -21,7 +21,7 @@ module.exports = ({ members }, {
     return true;
   }
 
-  if (role !== undefined) {
+  if (role !== undefined) { // if role is unchanged, there is no issue.
     log('non admin user cannot assign role');
     return false;
   }
@@ -30,7 +30,7 @@ module.exports = ({ members }, {
     return true;
   }
 
-  if (actingUserUid === userUid) {
+  if (parseInt(actingUserUid, 10) === parseInt(userUid, 10)) {
     return true;
   }
 
