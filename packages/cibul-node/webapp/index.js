@@ -153,7 +153,7 @@ const initialState = async req => {
           show: '/:slug/events/:eventSlug',
           showPrivate: '/:slug.prv/events/:eventSlug',
           showWithoutAgenda: '/events/:eventSlug',
-          edit: '/:slug/event/:eventSlug/edit'
+          edit: '/:slug/contribute/event/:eventUid'
         },
         messages: '/home/messages',
         notifs: '/home/notifications',
