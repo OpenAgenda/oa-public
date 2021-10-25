@@ -20,15 +20,7 @@
     },
     {
       "type": 0,
-      "value": " was successfully added as a source! "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": "'s events are being aggregated."
+      "value": " was successfully added as a source! The events are being aggregated."
     }
   ],
   "aggregator-title": [
@@ -71,6 +63,18 @@
     {
       "type": 0,
       "value": "Create an agenda"
+    }
+  ],
+  "detailed-format": [
+    {
+      "type": 0,
+      "value": "Use the detailed format"
+    }
+  ],
+  "documentation": [
+    {
+      "type": 0,
+      "value": "See the documentation"
     }
   ],
   "email-placeholder": [
@@ -127,6 +131,12 @@
       "value": "."
     }
   ],
+  "exportJson": [
+    {
+      "type": 0,
+      "value": "Use the previous JSON export version"
+    }
+  ],
   "import": [
     {
       "type": 0,
@@ -175,16 +185,22 @@
       "value": "Follow the instructions by pasting the link you copied in step 1"
     }
   ],
-  "json-doc1": [
+  "jsonDoc1": [
     {
       "type": 0,
-      "value": "Detailed documentation on the JSON export is"
+      "value": "Documentation"
     }
   ],
-  "json-doc2": [
+  "jsonDoc2": [
     {
       "type": 0,
-      "value": "available here"
+      "value": "here"
+    }
+  ],
+  "login": [
+    {
+      "type": 0,
+      "value": "Please log in to access the export link directly from this menu"
     }
   ],
   "modal-title": [
