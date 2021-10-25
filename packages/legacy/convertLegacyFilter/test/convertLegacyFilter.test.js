@@ -1,8 +1,11 @@
 'use strict';
 
 const convertLegacyFilter = require('../index');
-const tagSet = require('./fixtures/tagSet.json');
-const schema = require('./fixtures/formSchema.json');
+const lilleTagSet = require('./fixtures/lilleTagSet.json');
+const lilleFormSchema = require('./fixtures/lilleFormSchema.json');
+const bordeauxTagSet = require('./fixtures/bordeauxTagSet.json');
+const bordeauxFormSchema = require('./fixtures/bordeauxFormSchema.json');
+const bordeauxCategorySet = require('./fixtures/bordeauxCategorySet.json');
 
 describe('convert legacy filters', () => {
   test('convert date', () => {
@@ -19,15 +22,15 @@ describe('convert legacy filters', () => {
       what: 'concert'
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ search: 'concert' });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({ search: 'concert', relative: ['current', 'upcoming'] });
   });
 
   test('convert passed', () => {
     const oaq = {
-      passed: 1
+      passed: '1'
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({});
+    expect(convertLegacyFilter(oaq)).toStrictEqual({ });
   });
 
   test('convert location', () => {
@@ -35,27 +38,61 @@ describe('convert legacy filters', () => {
       location: 65918542
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ locationUid: 65918542 });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({ locationUid: 65918542, relative: ['current', 'upcoming'] });
   });
 
-  test('convert tags', () => {
+  test('convert lille tags', () => {
     const oaq = {
-      tags: 'concert'
+      tags: 'spectacle'
     };
 
-    expect(convertLegacyFilter(oaq, schema, tagSet)).toStrictEqual({ 'type-devenement': 38 });
+    expect(convertLegacyFilter(oaq, {
+      formSchema: lilleFormSchema,
+      tagSet: lilleTagSet
+    })).toStrictEqual({ 'categories-metropolitaines': 20, relative: ['current', 'upcoming'] });
+  });
+
+  test('convert lille tag filter', () => {
+    const oaq = {
+      tags: ['spectacle']
+    };
+
+    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': 20, relative: ['current', 'upcoming'] });
+  });
+
+  test('convert bordeaux tags', () => {
+    const oaq = {
+      tags: 'administration'
+    };
+
+    expect(convertLegacyFilter(oaq, {
+      formSchema: bordeauxFormSchema,
+      tagSet: bordeauxTagSet
+    })).toStrictEqual({ 'thematiques-bordeaux-metropole': 3, relative: ['current', 'upcoming'] });
+  });
+
+  test('convert category', () => {
+    const oaq = {
+      category: 'concert'
+    };
+
+    expect(convertLegacyFilter(oaq, {
+      formSchema: bordeauxFormSchema,
+      categorySet: bordeauxCategorySet
+    })).toStrictEqual({ 'categories-agenda-metropolitain': 46, relative: ['current', 'upcoming'] });
   });
 
   test('convert multiple filters', () => {
     const oaq = {
-      tags: 'concert',
+      tags: 'spectacle',
       location: 65918542,
+      passed: '1',
       from: '2021-09-20',
       to: '2021-09-28'
     };
 
-    expect(convertLegacyFilter(oaq, schema, tagSet)).toStrictEqual({
-      'type-devenement': 38,
+    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({
+      'categories-metropolitaines': 20,
       locationUid: 65918542,
       timings: { gte: '2021-09-20T00:00:00.0000Z', lte: '2021-09-28T00:00:00.0000Z' }
     });

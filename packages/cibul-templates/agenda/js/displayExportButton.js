@@ -8,7 +8,7 @@ import { ExportModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import appLocales from '../../locales-compiled';
 
-const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, exportType, query }, ref) => {
+const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, exportType, query, userLogged }, ref) => {
   const [display, setDisplay] = useState(false);
   const [languageQuery, setLanguageQuery] = useState('');
   const [displayedButton, setDisplayedButton] = useState(() => !!Object.keys(controller.getCurrentQuery()).length);
@@ -88,9 +88,11 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
       {display ? (
         <ExportModal
           onClose={() => setDisplay(false)}
-          res={formatExportLinks(res, agendaUid, controller)}
+          res={{ export: formatExportLinks(res.export, agendaUid, controller), me: res.me}}
           languages={options.languages}
           exportLanguage={lang => handleQueryLanguage(lang)}
+          userLogged={userLogged}
+          root={options.root}
         />
       ) : null}
     </>
@@ -100,10 +102,12 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
 export default function displayExportButton(
   ref,
   params,
+  routes,
   agendaUid,
   controller,
   options,
-  exportType
+  exportType,
+  userLogged
 ) {
   const buttonElem = document.querySelector(params.selectors[exportType.exportAll ? 'exportAll' : 'export']);
 
@@ -122,9 +126,10 @@ export default function displayExportButton(
         controller={controller}
         agendaUid={agendaUid}
         options={options}
-        res={params.res.export}
+        res={routes}
         exportType={exportType}
         query={query}
+        userLogged={userLogged}
       />
     </IntlProvider>,
     buttonElem

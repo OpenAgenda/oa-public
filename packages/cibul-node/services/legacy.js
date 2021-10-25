@@ -17,6 +17,15 @@ module.exports.init = (config, services) => {
     agendas
   } = services;
 
+  const interfaces = {
+    getAgendaId: agendaUid => agendas.get({
+      uid: agendaUid
+    }, {
+      internal: true,
+      private: null
+    }).then(a => a?.id)
+  };
+
   ControlData.updateLoggerConfig(config.getLogConfig('svc', 'controlData'));
   TagsAndCustom.updateLoggerConfig(config.getLogConfig('svc', 'legacyTagsAndCustom'));
 
@@ -29,19 +38,13 @@ module.exports.init = (config, services) => {
 
   Object.assign(module.exports.tagsAndCustom, TagsAndCustom({
     knex,
-    queue: Queues('legacyTagsAndCustom')
+    queue: Queues('legacyTagsAndCustom'),
+    interfaces
   }));
 
   module.exports.embeds = Embeds({
     knex,
-    interfaces: {
-      getAgendaId: agendaUid => agendas.get({
-        uid: agendaUid
-      }, {
-        internal: true,
-        private: null
-      }).then(a => a?.id)
-    }
+    interfaces
   });
 
   return module.exports;

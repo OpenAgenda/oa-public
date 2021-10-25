@@ -48,8 +48,10 @@ const config = {
       }
     },
     name: 'cibul-node',
-    domain: prod.domains ? prod.domains.main : null,
-    root: prod.root,
+    domain: prod.domains ? prod.domains.main : process.env.OA_DOMAIN,
+    root: prod.root || process.env.OA_ROOT,
+    rootApi: process.env.API_ROOT,
+    domainApi: process.env.API_DOMAIN,
     logo: prod.logo,
     googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
     embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
@@ -720,8 +722,10 @@ const config = {
   },
 
   development: {
-    domain: process.env.OA_DEV_DOMAIN || 'd.openagenda.com',
-    root: process.env.OA_DEV_ROOT || 'https://d.openagenda.com',
+    domain: process.env.OA_DOMAIN || 'd.openagenda.com',
+    root: process.env.OA_ROOT || 'https://d.openagenda.com',
+    apiRoot: process.env.API_ROOT,
+    apiDomain: process.env.API_DOMAIN,
     env: 'development',
     multiCore: false,
     mainChannel: 'maindev',

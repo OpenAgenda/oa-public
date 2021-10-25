@@ -10,5 +10,6 @@ module.exports = {
   loadEvent: require('./loadEvent'),
   moveEventLegacyImageCredits: require('./moveEventLegacyImageCredits'),
   parseBodyData: require('./parseBodyData'),
-  requestAccessToken: require('./requestAccessToken')
-}
+  requestAccessToken: require('./requestAccessToken'),
+  convertLegacyFilter: require('./convertLegacyFilter')
+};
