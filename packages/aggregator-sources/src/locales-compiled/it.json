@@ -1,4 +1,16 @@
 {
+  "aggregator-sources.AddSourceModal.InfoMessage": [
+    {
+      "type": 0,
+      "value": "The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes."
+    }
+  ],
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
+    {
+      "type": 0,
+      "value": "The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar."
+    }
+  ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
     {
       "type": 0,
@@ -15,12 +27,6 @@
     {
       "type": 0,
       "value": "Scegli un'altra agenda fonte"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.confirmationStep": [
-    {
-      "type": 0,
-      "value": "Conferma"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRules": [
@@ -123,6 +129,12 @@
     {
       "type": 0,
       "value": "Aggregate current and future events already entered on the source calendar"
+    }
+  ],
+  "aggregator-sources.AddSourceModal.evaluationStep": [
+    {
+      "type": 0,
+      "value": "Evaluation"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [

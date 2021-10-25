@@ -1,4 +1,16 @@
 {
+  "aggregator-sources.AddSourceModal.InfoMessage": [
+    {
+      "type": 0,
+      "value": "L'agenda a été ajouté à vos sources. Les événements sont en cours d'évaluation, ceux qui correspondent aux règles que vous avez défini remonteront dans votre agenda d'ici quelques minutes."
+    }
+  ],
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
+    {
+      "type": 0,
+      "value": "L'agenda a bien été ajouté à vos sources. Les prochains événements qui y seront publiés et qui correspondent aux règles que vous avez défini remonteront dans votre agenda"
+    }
+  ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
     {
       "type": 0,
@@ -15,12 +27,6 @@
     {
       "type": 0,
       "value": "Choisir un autre agenda source"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.confirmationStep": [
-    {
-      "type": 0,
-      "value": "Confirmation"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRules": [
@@ -123,6 +129,12 @@
     {
       "type": 0,
       "value": "Évaluer les événements en cours et à venir"
+    }
+  ],
+  "aggregator-sources.AddSourceModal.evaluationStep": [
+    {
+      "type": 0,
+      "value": "Évaluation"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [

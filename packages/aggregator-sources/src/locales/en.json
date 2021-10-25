@@ -1,8 +1,9 @@
 {
+  "aggregator-sources.AddSourceModal.InfoMessage": "The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.",
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": "The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar.",
   "aggregator-sources.AddSourceModal.alreadyInSources": "Already in sources",
   "aggregator-sources.AddSourceModal.cancel": "Cancel",
   "aggregator-sources.AddSourceModal.chooseAnotherSource": "Choose another source agenda",
-  "aggregator-sources.AddSourceModal.confirmationStep": "Confirmation",
   "aggregator-sources.AddSourceModal.defineRules": "Define rules",
   "aggregator-sources.AddSourceModal.defineRulesStep": "Rules",
   "aggregator-sources.AddSourceModal.enterALink": "Enter an agenda link",
@@ -10,6 +11,7 @@
   "aggregator-sources.AddSourceModal.evaluateOption0": "Evaluate only events added to the agenda from now on",
   "aggregator-sources.AddSourceModal.evaluateOption1": "Evaluate all events",
   "aggregator-sources.AddSourceModal.evaluateOption2": "Aggregate current and future events already entered on the source calendar",
+  "aggregator-sources.AddSourceModal.evaluationStep": "Evaluation",
   "aggregator-sources.AddSourceModal.makeASearch": "Make a search",
   "aggregator-sources.AddSourceModal.modalTitle": "Add a source{agenda, select, undefined {} other {: {agenda}}}",
   "aggregator-sources.AddSourceModal.noAgendas": "No agenda corresponds to your search",
