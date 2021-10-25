@@ -72,7 +72,7 @@ module.exports = (config, parentApp) => {
       req.agenda,
       req.sourceAgenda,
       req.body.rules,
-      { evaluate: [true, 1, 'true', '1'].includes(req.query.evaluate) }
+      { query: req.body.query }
     ).then(res.json.bind(res), next)
   );
 

@@ -158,23 +158,19 @@ export function list(query) {
 }
 
 export function add(agendaUid, { rules, evaluate }) {
+  let query = null;
+  if (evaluate === 'all') query = {};
+  if (evaluate === 'currentAndUpcomming') query = { relative: ['current', 'upcoming'] };
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.post(
-        res.add.replace(':slug', params.slug),
-        {
-          agendaUid,
-          rules,
-        },
-        {
-          params: {
-            evaluate,
-          },
-        }
-      );
+      return client.post(res.add.replace(':slug', params.slug), {
+        agendaUid,
+        rules,
+        query,
+      });
     },
   };
 }

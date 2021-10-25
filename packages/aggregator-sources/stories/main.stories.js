@@ -150,6 +150,10 @@ export const AddSourceModal = () => {
     .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
     .reply(200, { agenda: agendasJson.agendas[0] });
   mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
+  mock.onPost('/add').reply(req => {
+    console.log(req);
+    return [200];
+  });
 
   return wrapApp(
     createApp({

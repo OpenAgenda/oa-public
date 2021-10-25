@@ -2,7 +2,6 @@
   "aggregator-sources.AddSourceModal.alreadyInSources": "Già un agenda-fonte",
   "aggregator-sources.AddSourceModal.cancel": "Annulla",
   "aggregator-sources.AddSourceModal.chooseAnotherSource": "Scegli un'altra agenda fonte",
-  "aggregator-sources.AddSourceModal.confirmationStep": "Conferma",
   "aggregator-sources.AddSourceModal.defineRules": "Definisci regole",
   "aggregator-sources.AddSourceModal.defineRulesStep": "Regole",
   "aggregator-sources.AddSourceModal.enterALink": "Inserisci il collegamento di un agenda",

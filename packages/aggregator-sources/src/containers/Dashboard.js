@@ -201,8 +201,6 @@ function Dashboard() {
   const addSource = useCallback(
     (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
       () => {
-        closeModalAddSource();
-
         if (query.redirect) {
           window.location.href = query.redirect;
           return;
@@ -211,7 +209,7 @@ function Dashboard() {
         return refresh();
       }
     ),
-    [dispatch, closeModalAddSource, query.redirect, refresh]
+    [dispatch, query.redirect, refresh]
   );
   const updateSource = useCallback(
     (source, rules) => dispatch(sourcesActions.update(source.id, { rules })).then(() => {
