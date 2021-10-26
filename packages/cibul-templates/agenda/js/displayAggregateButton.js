@@ -10,7 +10,6 @@ import appLocales from '../../locales-compiled';
 
 const AggregatorModalContainer = ({ options, query, userLogged }) => {
   const [display, setDisplay] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const whiteLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png';
   const blueLogo = 'https://oastatic.s3.eu-central-1.amazonaws.com/openagenda-blue-22.png';
@@ -27,15 +26,10 @@ const AggregatorModalContainer = ({ options, query, userLogged }) => {
 
   const handleClose = () => {
     setDisplay(false);
-    setSuccess(false);
   }
 
   useEffect(() => {
     if (query.includes('displayAggregatorModal=1')) setDisplay(true);
-    if (query.includes('aggregateSuccess=1')) {
-      setDisplay(true);
-      return setSuccess(true);
-    }
   }, []);
 
   return (
@@ -56,7 +50,6 @@ const AggregatorModalContainer = ({ options, query, userLogged }) => {
           onClose={handleClose}
           targetAgenda={{ title: options.title, slug: options.slug }}
           res="/home/agendas"
-          success={success}
           userLogged={userLogged}
           root={options.root}
         />
