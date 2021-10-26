@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
+import axios from 'axios';
 
 import Modal from '@openagenda/react-shared/src/components/Modal';
 import ReactSelectInput from '@openagenda/react-shared/src/components/ReactSelectInput';
 import Radio from './Radio';
 
 const ExportModal = ({
-  res, languages, onClose, exportLanguage
+  res, languages, onClose, exportLanguage, userLogged
 }) => {
   const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
-  const [options, setOptions] = useState(false);
+  const [csvOptions, setCsvOptions] = useState(false);
+  const [jsonOptions, setJsonOptions] = useState(false);
+  const [jsonDetailed, setJsonDetailed] = useState(false);
+  const [publicKey, setPublicKey] = useState('');
   const [gCal, setGCal] = useState(false);
   const [newTab, setNewTab] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
@@ -62,11 +66,35 @@ const ExportModal = ({
       id: 'instructionsStep4',
       defaultMessage: 'Follow the instructions by pasting the link you copied in step 1',
     },
+    logIn: {
+      id: 'login',
+      defaultMessage: 'Please log in to access the export link directly from this menu'
+    },
+    exportJson: {
+      id: 'exportJson',
+      defaultMessage: 'Use the previous JSON export version'
+    },
+    jsonDoc1: {
+      id: 'jsonDoc1',
+      defaultMessage: 'Documentation'
+    },
+    jsonDoc2: {
+      id: 'jsonDoc2',
+      defaultMessage: 'here'
+    },
+    documentation: {
+      id: 'documentation',
+      defaultMessage: 'See the documentation'
+    },
+    detailedFormat: {
+      id: 'detailed-format',
+      defaultMessage: 'Use the detailed format'
+    }
   });
 
   const formats = [
     { type: 'PDF', id: 'pdf' },
-    { type: 'JSON', id: 'json' },
+    { type: 'JSON / API', id: 'jsonV2' },
     { type: 'Microsoft Excel (xlsx)', id: 'xl' },
     { type: 'Google Agenda', id: 'gagenda' },
     { type: 'iCal', id: 'ical' },
@@ -75,26 +103,51 @@ const ExportModal = ({
     { type: 'CSV', id: 'csv' },
   ];
 
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get(res.me);
+      setPublicKey(response.data.apiKey);
+    }
+    fetchData();
+  }, [res.me]);
+
   const setChoice = (value, id) => {
-    setDisplayButton(true);
+    setDisplayButton(false);
     setFormatChoice({ value, id });
     setGCal(false);
-    setOptions(false);
-    if (id === 'csv' || id === 'xl') setOptions(true);
-    if (id === 'json' || id === 'rss') setNewTab(true);
+    setCsvOptions(false);
+    setJsonOptions(false);
+    if (id === 'csv' || id === 'xl') setCsvOptions(true);
+    if (id === 'jsonV2' || id === 'rss') setNewTab(true);
     if (id === 'gagenda') {
-      setDisplayButton(false);
       return setGCal(true);
     }
+    if (id === 'jsonV2') {
+      return setJsonOptions(true);
+    }
+    setDisplayButton(true);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (newTab) {
-      window.open(res[formatChoice.id]);
+    if (userLogged && formatChoice.id === 'jsonV2') {
+      const jsonUrl = new URL(res.export.jsonV2);
+      if (jsonDetailed) {
+        jsonUrl.searchParams.append('detailed', 1);
+      } else {
+        jsonUrl.searchParams.delete('detailed');
+      }
+      jsonUrl.searchParams.append('key', publicKey);
+      window.open(jsonUrl);
       return onClose();
     }
-    window.open(res[formatChoice.id], '_self');
+
+    if (newTab) {
+      window.open(res.export[formatChoice.id]);
+      return onClose();
+    }
+
+    window.open(res.export[formatChoice.id], '_self');
     return onClose();
   };
 
@@ -113,7 +166,7 @@ const ExportModal = ({
 
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
-      <form className="export-form" onSubmit={handleSubmit}>
+      <form className="export export-form" onSubmit={handleSubmit}>
         <button className="export-close" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
@@ -121,9 +174,9 @@ const ExportModal = ({
         <h2 className="export-title-md">{intl.formatMessage(messages.inputFormat)}</h2>
         <div className="form-group">
           {formats.map(({ type, id }) => (
-            <>
-              <Radio content={type} name="format" key={id} id={id} setChoice={setChoice} span={id === 'json'} />
-              {options && id === formatChoice.id && (
+            <React.Fragment key={id}>
+              <Radio content={type} name="format" id={id} setChoice={setChoice} json={id === 'json'} />
+              {csvOptions && id === formatChoice.id && (
                 <div className="input-container">
                   <ReactSelectInput
                     name="langue"
@@ -132,6 +185,23 @@ const ExportModal = ({
                     onChange={selectLanguage}
                   />
                 </div>
+              )}
+              {jsonOptions && id === formatChoice.id && (
+                <>
+                  {!userLogged && <p>{intl.formatMessage(messages.logIn)}</p>}
+                  <div className="flex-container margin-bottom-xs">
+                    <button type="submit" className="btn btn-primary" disabled={!userLogged}>
+                      {intl.formatMessage(messages.modalTitle)}
+                    </button>
+                    <div className="checkbox margin-left-sm">
+                      <label htmlFor="detailed" className={userLogged ? '' : 'text-muted'}>
+                        <input id="detailed" type="checkbox" name="detailed" disabled={!userLogged} onChange={() => setJsonDetailed(!jsonDetailed)} /> {intl.formatMessage(messages.detailedFormat)}
+                      </label><br />
+                      <a href="https://developers.openagenda.com/10-lecture/" target="_blank" rel="noreferrer">{intl.formatMessage(messages.documentation)}</a>
+                    </div>
+                  </div>
+                  <a href={res.export.jsonV1} target="_blank" rel="noreferrer">{intl.formatMessage(messages.exportJson)}</a> ({intl.formatMessage(messages.jsonDoc1)}<a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> {intl.formatMessage(messages.jsonDoc2)}</a>)
+                </>
               )}
               {displayButton && id === formatChoice.id && (
                 <button type="submit" className="btn btn-primary">
@@ -142,7 +212,7 @@ const ExportModal = ({
                 <div>
                   <input
                     className="form-control url-input"
-                    value={`https://openagenda.com${res.gcal}`}
+                    value={`https://openagenda.com${res.export.gcal}`}
                     readOnly
                     onClick={handleClick}
                   />
@@ -158,7 +228,7 @@ const ExportModal = ({
                   <p>4. {intl.formatMessage(messages.instructionsStep4)}.</p>
                 </div>
               )}
-            </>
+            </React.Fragment>
           ))}
         </div>
       </form>
@@ -170,18 +240,23 @@ export default ExportModal;
 
 ExportModal.propTypes = {
   res: PropTypes.shape({
-    json: PropTypes.string,
-    pdf: PropTypes.string,
-    xl: PropTypes.string,
-    gcal: PropTypes.string,
-    ical: PropTypes.string,
-    csv: PropTypes.string,
-    ics: PropTypes.string,
-    rss: PropTypes.string,
+    export: PropTypes.shape({
+      jsonV1: PropTypes.string,
+      jsonV2: PropTypes.string,
+      pdf: PropTypes.string,
+      xl: PropTypes.string,
+      gcal: PropTypes.string,
+      ical: PropTypes.string,
+      csv: PropTypes.string,
+      ics: PropTypes.string,
+      rss: PropTypes.string,
+    }),
+    me: PropTypes.string
   }).isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func.isRequired,
   exportLanguage: PropTypes.func.isRequired,
+  userLogged: PropTypes.bool.isRequired
 };
 
 ExportModal.defaultProps = {

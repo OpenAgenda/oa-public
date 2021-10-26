@@ -62,21 +62,32 @@
   &-link {
     margin-bottom: 10px;
   }
-}
 
-.side-note {
-  color: #7a7676;
-  font-size: 12px;
-  margin-left: 5px;
+  .flex-container {
+    display: flex;
+    align-items: center;
 
-  > a {
+    .checkbox {
+      margin: 0 15px;
+    }
+
+    .btn {
+      height: 34px;
+    }
+  }
+
+  a {
     color: $oa-blue;
 
     &:hover {
       cursor: pointer;
+      text-decoration: underline;
+      color: darken($oa-blue, 10%);
     }
   }
 }
+
+
 
 .form-group > .input-group > .form-control.export {
   &-input,
@@ -112,9 +123,8 @@
 /**** style overwrites ****/
 .agenda-header h1.export-title {
   &-big {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 3rem;
-    margin-top: 20px;
     margin-bottom: 0;
     padding: 0;
     transform: translateY(-20px);

@@ -25,6 +25,7 @@
   "ReactFilters.dateRanges.tomorrow": "Demain",
   "ReactFilters.filters.searchFilter.placeholder": "Rechercher",
   "ReactFilters.messages.filterTitles.addMethod": "Provenance",
+  "ReactFilters.messages.filterTitles.adminLevel3": "Niveau administratif 3",
   "ReactFilters.messages.filterTitles.attendanceMode": "Mode de participation",
   "ReactFilters.messages.filterTitles.city": "Ville",
   "ReactFilters.messages.filterTitles.createdAt": "Date de création",

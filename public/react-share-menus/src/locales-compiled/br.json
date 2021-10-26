@@ -20,15 +20,7 @@
     },
     {
       "type": 0,
-      "value": " a été ajouté aux sources! Les événements de "
-    },
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": " sont en cours d'aggrégation."
+      "value": " a été ajouté aux sources! Les événements sont en cours d'agrégation."
     }
   ],
   "aggregator-title": [
@@ -71,6 +63,18 @@
     {
       "type": 0,
       "value": "Créer un agenda"
+    }
+  ],
+  "detailed-format": [
+    {
+      "type": 0,
+      "value": "Utiliser le format détaillé"
+    }
+  ],
+  "documentation": [
+    {
+      "type": 0,
+      "value": "Voir la documentation"
     }
   ],
   "email-placeholder": [
@@ -127,6 +131,12 @@
       "value": "."
     }
   ],
+  "exportJson": [
+    {
+      "type": 0,
+      "value": "Utiliser la précédente version de l'export JSON"
+    }
+  ],
   "import": [
     {
       "type": 0,
@@ -175,16 +185,22 @@
       "value": "Suivez les instructions en collant le lien que vous avez copié à l'étape 1"
     }
   ],
-  "json-doc1": [
+  "jsonDoc1": [
     {
       "type": 0,
-      "value": "Une documentation détaillée de l'export JSON est "
+      "value": "Documentation"
     }
   ],
-  "json-doc2": [
+  "jsonDoc2": [
     {
       "type": 0,
-      "value": "disponible ici"
+      "value": "ici"
+    }
+  ],
+  "login": [
+    {
+      "type": 0,
+      "value": "Connectez-vous pour accéder au lien d'export directement depuis ce menu"
     }
   ],
   "modal-title": [
@@ -264,7 +280,7 @@
   "sign-in-agg": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour aggréger cet agenda"
+      "value": "Vous devez vous connecter pour agréger cet agenda"
     }
   ]
 }
