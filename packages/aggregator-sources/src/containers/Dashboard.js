@@ -159,10 +159,12 @@ function Dashboard() {
     [dispatch]
   );
 
-  const closeModalAddSource = useCallback(
-    () => dispatch(modalsActions.closeModal('addSource')),
-    [dispatch]
-  );
+  const closeModalAddSource = useCallback(() => {
+    dispatch(modalsActions.closeModal('addSource'));
+    if (query.redirect) {
+      window.location.href = query.redirect;
+    }
+  }, [dispatch, query.redirect]);
   const closeModalUpdateSource = useCallback(
     () => dispatch(modalsActions.closeModal('updateSource')),
     [dispatch]
@@ -199,17 +201,10 @@ function Dashboard() {
     [closeModalSetAggregatorRules, dispatch, params.slug]
   );
   const addSource = useCallback(
-    (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
-      () => {
-        if (query.redirect) {
-          window.location.href = query.redirect;
-          return;
-        }
-
-        return refresh();
-      }
-    ),
-    [dispatch, query.redirect, refresh]
+    (sourceAgenda, rules, evaluate) => dispatch(
+      sourcesActions.add(sourceAgenda.uid, { rules, evaluate })
+    ).then(() => refresh()),
+    [dispatch, refresh]
   );
   const updateSource = useCallback(
     (source, rules) => dispatch(sourcesActions.update(source.id, { rules })).then(() => {

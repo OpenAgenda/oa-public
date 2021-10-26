@@ -158,9 +158,11 @@ export function list(query) {
 }
 
 export function add(agendaUid, { rules, evaluate }) {
-  let query = null;
-  if (evaluate === 'all') query = {};
-  if (evaluate === 'currentAndUpcomming') query = { relative: ['current', 'upcoming'] };
+  const query = {
+    all: {},
+    currentAndUpcoming: { relative: ['current', 'upcoming'] },
+  }[evaluate] ?? {};
+
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: ({ client, params }, { getState }) => {

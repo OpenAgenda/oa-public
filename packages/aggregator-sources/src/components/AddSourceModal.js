@@ -122,6 +122,10 @@ const messages = defineMessages({
     defaultMessage:
       'The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.',
   },
+  ok: {
+    id: 'aggregator-sources.AddSourceModal.ok',
+    defaultMessage: 'OK',
+  },
 });
 
 const modalClassnames = {
@@ -388,7 +392,7 @@ export default function AddSourceModal({
   );
 
   const handleFinalSubmit = useCallback(
-    evaluate => {
+    ({ evaluate }) => {
       onSubmit(selectedAgenda, rules, evaluate).then(() => {
         setSelectedEvaluate(evaluate);
         selectStep('info');
@@ -588,9 +592,9 @@ export default function AddSourceModal({
                   <Field
                     name="evaluate"
                     type="radio"
-                    value="currentAndUpcomming"
+                    value="currentAndUpcoming"
                     component={Radio}
-                    initialValue="currentAndUpcomming"
+                    initialValue="currentAndUpcoming"
                   >
                     {' '}
                     {intl.formatMessage(messages.evaluateOption2)}
@@ -641,9 +645,20 @@ export default function AddSourceModal({
         ) : null}
         {selectedStep === 'info' ? (
           <div>
-            {selectedEvaluate.evaluate === 'all'
-              ? intl.formatMessage(messages.infoMessageImmediat)
-              : intl.formatMessage(messages.infoMessage)}
+            <div>
+              {selectedEvaluate.evaluate === 'all'
+                ? intl.formatMessage(messages.infoMessageImmediat)
+                : intl.formatMessage(messages.infoMessage)}
+            </div>
+            <div className="text-center padding-top-sm">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={onClose}
+              >
+                {intl.formatMessage(messages.ok)}
+              </button>
+            </div>
           </div>
         ) : null}
       </div>
