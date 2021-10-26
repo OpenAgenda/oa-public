@@ -111,6 +111,15 @@ module.exports = function getDefaultFieldMap(options) {
   }, {
     source: 'member.phone',
     target: getTarget('member.phone')
+  }, {
+    source: 'state',
+    target: getTarget('state'),
+    transform: {
+      '-1': _.get(cleanOptions.labels, `refused.${cleanOptions.lang}`, 'refused'),
+      0: _.get(cleanOptions.labels, `tocontrol.${cleanOptions.lang}`, 'in moderation'),
+      1: _.get(cleanOptions.labels, `controlled.${cleanOptions.lang}`, 'ready to publish'),
+      2: _.get(cleanOptions.labels, `published.${cleanOptions.lang}`, 'published'),
+    }
   }].map(c => _.get({
     timings: timings.bind(null, cleanOptions),
     accessibility: accessibility.bind(null, cleanOptions),
