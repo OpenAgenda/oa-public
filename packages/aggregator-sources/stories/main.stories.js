@@ -1,6 +1,6 @@
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import MockAdapter from '@openagenda/axios-mock-adapter';
 
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
@@ -21,8 +21,8 @@ const getDefaultState = ({ apiRoot, dev } = {}) => ({
   },
   res: {
     list: '/sources.json',
-    add: '/add',
-    update: '#',
+    add: '/:slug/admin/sources',
+    update: '/:slug/admin/sources/:sourceId',
     show: '#',
     remove: '/remove',
     search: '#',
@@ -150,10 +150,11 @@ export const AddSourceModal = () => {
     .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
     .reply(200, { agenda: agendasJson.agendas[0] });
   mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
-  mock.onPost('/add').reply(req => {
+  mock.onPost('/:slug/admin/sources').reply(req => {
     console.log(req);
     return [200];
   });
+  // mock.onPut('/:slug/admin/sources/:sourceId').reply(200);
 
   return wrapApp(
     createApp({

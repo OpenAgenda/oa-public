@@ -1,13 +1,10 @@
 {
   "aggregator-sources.AddSourceModal.alreadyInSources": "crwdns492:0crwdne492:0",
-  "aggregator-sources.AddSourceModal.cancel": "crwdns494:0crwdne494:0",
   "aggregator-sources.AddSourceModal.chooseAnotherSource": "crwdns496:0crwdne496:0",
   "aggregator-sources.AddSourceModal.defineRules": "crwdns500:0crwdne500:0",
   "aggregator-sources.AddSourceModal.defineRulesStep": "crwdns502:0crwdne502:0",
   "aggregator-sources.AddSourceModal.enterALink": "crwdns504:0crwdne504:0",
   "aggregator-sources.AddSourceModal.evaluateMessage": "crwdns506:0source={source}crwdnd506:0aggregator={aggregator}crwdnd506:0ruleCount={ruleCount}crwdnd506:0ruleCount={ruleCount}crwdne506:0",
-  "aggregator-sources.AddSourceModal.evaluateOption0": "crwdns508:0crwdne508:0",
-  "aggregator-sources.AddSourceModal.evaluateOption1": "crwdns510:0crwdne510:0",
   "aggregator-sources.AddSourceModal.makeASearch": "crwdns512:0crwdne512:0",
   "aggregator-sources.AddSourceModal.modalTitle": "crwdns514:0agenda={agenda}crwdnd514:0agenda={agenda}crwdne514:0",
   "aggregator-sources.AddSourceModal.noAgendas": "crwdns516:0crwdne516:0",

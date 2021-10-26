@@ -165,9 +165,11 @@ export function add(agendaUid, { rules, evaluate }) {
 
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
-    promise: ({ client, params }, { getState }) => {
+    promise: (arg, { getState }) => {
+      console.log(arg);
+      const { client, params } = arg;
       const { res } = getState();
-
+      console.log('params:', params);
       return client.post(res.add.replace(':slug', params.slug), {
         agendaUid,
         rules,
@@ -177,7 +179,12 @@ export function add(agendaUid, { rules, evaluate }) {
   };
 }
 
-export function update(id, { rules }) {
+export function update(id, { rules, evaluate }) {
+  const query = {
+    all: {},
+    currentAndUpcoming: { relative: ['current', 'upcoming'] },
+  }[evaluate] ?? {};
+
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     promise: ({ client, params }, { getState }) => {
@@ -187,7 +194,7 @@ export function update(id, { rules }) {
         .replace(':slug', params.slug)
         .replace(':sourceId', id);
 
-      return client.put(url, { rules });
+      return client.put(url, { rules, query });
     },
   };
 }
