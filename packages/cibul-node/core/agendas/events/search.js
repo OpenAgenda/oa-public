@@ -11,6 +11,7 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const agenda = await core.agendas(agendaUid).get({
     includeEvent: true,
     includeMember: true,
+    includeAgendaEvent: true,
     access: 'internal',
     private: null
   });

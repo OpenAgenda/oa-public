@@ -20,6 +20,7 @@ module.exports = async (core, agendaUid, options = {}) => {
     access = 'public',
     detailed = false,
     includeEvent = false,
+    includeAgendaEvent = false,
     includeMember = false,
     throwNotFound = false
   } = options;
@@ -57,6 +58,7 @@ module.exports = async (core, agendaUid, options = {}) => {
   related.schema = await getMergedSchema(services, agenda, {
     includeEvent,
     includeMember,
+    includeAgendaEvent,
     access: typeof access === 'string' ? { read: access } : access
   });
 

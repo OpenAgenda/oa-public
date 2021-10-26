@@ -17,11 +17,13 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     preloadedNetwork,
     includeEvent,
     includeMember,
+    includeAgendaEvent,
     access
   } = {
     preloadedNetwork: null,
     includeEvent: false,
     includeMember: false,
+    includeAgendaEvent: false,
     access: 'public',
     ...options
   };
@@ -54,6 +56,19 @@ module.exports = async (services, agendaOrUid, options = {}) => {
       fields: [{
         field: 'member',
         read: ['administrator', 'moderator'],
+        fieldType: 'abstract'
+      }]
+    });
+  }
+
+  if (includeAgendaEvent) {
+    mergeArgs.push({
+      fields: [{
+        field: 'state',
+        read: ['administrator', 'moderator'],
+        fieldType: 'abstract'
+      }, {
+        field: 'featured',
         fieldType: 'abstract'
       }]
     });
