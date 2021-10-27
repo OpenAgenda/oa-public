@@ -19,10 +19,6 @@ const messages = defineMessages({
     id: 'aggregator-sources.EvaluateOptions.cancel',
     defaultMessage: 'Cancel',
   },
-  submitButton: {
-    id: 'aggregator-sources.AddSourceModal.submitButton',
-    defaultMessage: 'Add source',
-  },
 });
 
 const Radio = ({ id, input, children }) => (
@@ -36,6 +32,7 @@ export default function EvaluateOptions({
   handleFinalSubmit,
   onClose,
   message,
+  submitMessage,
 }) {
   const intl = useIntl();
 
@@ -83,7 +80,7 @@ export default function EvaluateOptions({
           </div>
           <div className="text-right">
             <button type="submit" className="btn btn-primary">
-              {intl.formatMessage(messages.submitButton)}
+              {submitMessage}
             </button>
           </div>
         </form>

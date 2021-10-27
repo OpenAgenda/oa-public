@@ -106,6 +106,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.ok',
     defaultMessage: 'OK',
   },
+  submitButton: {
+    id: 'aggregator-sources.AddSourceModal.submitButton',
+    defaultMessage: 'Add source',
+  },
 });
 
 const modalClassnames = {
@@ -558,6 +562,7 @@ export default function AddSourceModal({
               source: <b>{selectedAgenda.title}</b>,
               ruleCount: rules.length,
             })}
+            submitMessage={intl.formatMessage(messages.submitButton)}
           />
         ) : null}
 

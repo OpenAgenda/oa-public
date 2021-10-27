@@ -166,10 +166,8 @@ export function add(agendaUid, { rules, evaluate }) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: (arg, { getState }) => {
-      console.log(arg);
       const { client, params } = arg;
       const { res } = getState();
-      console.log('params:', params);
       return client.post(res.add.replace(':slug', params.slug), {
         agendaUid,
         rules,

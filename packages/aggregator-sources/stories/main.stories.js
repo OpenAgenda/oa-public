@@ -16,7 +16,7 @@ const getHostname = () => (typeof window !== 'undefined' ? window.location.hostn
 const getDefaultState = ({ apiRoot, dev } = {}) => ({
   settings: {
     apiRoot,
-    prefix: '',
+    prefix: '/:slug/admin/sources',
     perPageLimit: 20,
   },
   res: {
@@ -154,11 +154,12 @@ export const AddSourceModal = () => {
     console.log(req);
     return [200];
   });
-  // mock.onPut('/:slug/admin/sources/:sourceId').reply(200);
 
   return wrapApp(
     createApp({
-      history: createMemoryHistory(),
+      history: createMemoryHistory({
+        initialEntries: ['/la-gargouille/admin/sources'],
+      }),
       initialState: getDefaultState({
         apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
         dev: { query: { source: 'nouvelle-source' } },
@@ -201,10 +202,16 @@ export const EditSourceModal = () => {
     .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
     .reply(200, { agenda: agendasJson.agendas[0] });
   mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
+  mock.onPut('/:slug/admin/sources/:sourceId').reply(req => {
+    console.log(req);
+    return [200];
+  });
 
   return wrapApp(
     createApp({
-      history: createMemoryHistory(),
+      history: createMemoryHistory({
+        initialEntries: ['/la-gargouille/admin/sources'],
+      }),
       initialState: getDefaultState({
         apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
         dev: { query: { source: 'amc-promotion' } },
