@@ -50,7 +50,7 @@ module.exports = (legacyFilter, sets = {}) => {
         if (!tag) return;
 
         const schemaFields = formSchema.fields.reduce((carry, field) => {
-          if (!field.options && field.schemaId !== tag.schemaId) return carry;
+          if (!field.options || field.schemaId !== tag.schemaId) return carry;
           return carry.concat(field.options.map(option => ({
             id: option.id,
             fieldName: field.field
