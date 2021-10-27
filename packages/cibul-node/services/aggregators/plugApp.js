@@ -104,7 +104,8 @@ module.exports = (config, parentApp) => {
     (req, res, next) => aggregators.sources.update(
       req.agenda,
       req.params.sourceId,
-      req.body.rules
+      req.body.rules,
+      { query: req.body.query }
     ).then(res.json.bind(res), next)
   );
 
