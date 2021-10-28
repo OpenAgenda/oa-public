@@ -1,64 +1,86 @@
-import React, { Component } from 'react';
-import labels from '@openagenda/labels/agenda-contribute/event';
+import React from 'react';
+import { defineMessages, useIntl } from 'react-intl';
 import Stepper from './Stepper';
 
-export default class CanvasWithStepper extends Component {
-  componentDidMount() {
-    const {
-      onDidMount,
-      steps
-    } = this.props;
+const messages = defineMessages({
+  editDraftTitle: {
+    id: 'AgendaContribute.CanvasWithStepper.editDraftTitle',
+    defaultMessage: 'Draft'
+  },
+  addEvent: {
+    id: 'AgendaContribute.CanvasWithStepper.addEvent',
+    defaultMessage: 'Ajouter un événement'
+  }
+});
 
-    onDidMount(steps.filter(s => s.active).shift());
+const getTitle = ({
+  event,
+  locale,
+  title,
+  labels
+}) => {
+  if (title) return title;
+
+  const draft = event?.draft === undefined ? false : event.draft;
+
+  if (!draft) {
+    return labels.addEvent;
   }
 
-  renderTitle() {
-    const { event, lang, title } = this.props;
+  const titleLanguages = Object.keys(event.title || {});
 
-    if (title) return title;
+  const eventLanguage = titleLanguages.includes(locale) ? locale : titleLanguages.shift();
 
-    const draft = event?.draft === undefined ? false : event.draft;
+  const titleParts = [];
 
-    if (!draft) {
-      return labels.addEvent[lang];
-    }
-
-    const titleLanguages = Object.keys(event.title || {});
-
-    const eventLanguage = titleLanguages.includes(lang) ? lang : titleLanguages.shift();
-
-    const titleParts = [];
-
-    if (event.draft) {
-      titleParts.push(labels.editDraftTitle[lang]);
-    }
-
-    if (eventLanguage) {
-      titleParts.push(event.title[eventLanguage]);
-    }
-
-    return titleParts.join(': ');
+  if (event.draft) {
+    titleParts.push(labels.editDraftTitle);
   }
 
-  render() {
-    const {
-      lang, children, steps, onSelectStep
-    } = this.props;
+  if (eventLanguage) {
+    titleParts.push(event.title[eventLanguage]);
+  }
 
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
-            <div className="text-center padding-top-lg">
-              <h2 className="margin-top-md">{this.renderTitle()}</h2>
-              <div className="padding-h-md stepper-gray-background padding-v-md">
-                <Stepper steps={steps} lang={lang} onSelectStep={onSelectStep} />
-              </div>
+  return titleParts.join(': ');
+};
+
+export default function CanvasWithStepper({
+  steps,
+  event,
+  children,
+  onSelectStep
+}) {
+  const intl = useIntl();
+
+  const {
+    formatMessage: m,
+    locale
+  } = intl;
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
+          <div className="text-center padding-top-lg">
+            <h2 className="margin-top-md">{getTitle({
+              event,
+              locale,
+              labels: {
+                editDraftTitle: m(messages.editDraftTitle),
+                addEvent: m(messages.addEvent)
+              }
+            })}
+            </h2>
+            <div className="padding-h-md stepper-gray-background padding-v-md">
+              <Stepper
+                steps={steps}
+                onSelectStep={onSelectStep}
+              />
             </div>
-            {children}
           </div>
+          {children}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

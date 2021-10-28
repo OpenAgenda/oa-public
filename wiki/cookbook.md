@@ -163,6 +163,42 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
 
+## Tests
+
+Pour executer les tests intégrés il est nécessaire d'avoir elasticsearch d'accessible de l'exterieur du container.
+
+Dans le .env, les variables d'environnement suivantes doivent êtres définies:
+
+```
+
+CLIENT_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/certs/ca.crt
+
+.....
+
+DEPLOY_ES_NGINX_PROXY=1
+ES1_HOST=es1
+ES1_DOMAIN=es1.local
+ES1_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es1.local.crt
+ES1_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es1.local.key
+ES7_HOST=es7
+ES7_DOMAIN=es7.local
+ES7_SSL_CERT=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.crt
+ES7_SSL_KEY=/fullpathto/oa/docker/devinstaller/ssl/domains/es7.local.key
+```
+
+Le script `oa/docker/devinstaller/ssl/create_domain_certificates.sh /chemin/complet/vers/devinstaller/ssl es.local7`  peut être utilisé pour générer les certificats.
+
+Si nginx était déjà lancé, il faut l'arrêter `docker-compose stop nginx` puis le relancer `docker-compose up nginx` pour relancer la commmande générant le fichier es.conf dans le container.
+
+Avant de lancer les tests, il faut supprimer un éventuel index 'test' déjà existant `curl -X DELETE http://es7.local:9200/test`
+
+es7.local & es1.local doivent être définits parmi les loopback dans /etc/hosts:
+
+```
+127.0.0.1 es7.local
+127.0.0.1 es1.local
+```
+
 ## Erreurs
 
 Si une donnée passée à un service à un mauvais formattage, le service doit lancer une erreur BadRequest:

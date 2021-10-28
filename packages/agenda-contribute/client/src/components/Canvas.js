@@ -1,84 +1,88 @@
-import React, { Component } from 'react';
-
-import labels from '@openagenda/labels/agenda-contribute/event';
-import makeLabelGetter from '@openagenda/labels';
+import React from 'react';
+import { defineMessages, useIntl } from 'react-intl';
 
 import getEventTitle from '../lib/getEventTitle';
 
-const getLabel = makeLabelGetter(labels);
-
-export default class Canvas extends Component {
-  componentDidMount() {
-    const {
-      onDidMount,
-      mode
-    } = this.props;
-
-    if (onDidMount) {
-      onDidMount(mode);
-    }
+const messages = defineMessages({
+  shareEvent: {
+    id: 'AgendaContribute.Canvas.shareEvent',
+    defaultMessage: 'Share an event'
+  },
+  takeEvent: {
+    id: 'AgendaContribute.Canvas.takeEvent',
+    defaultMessage: 'Take'
+  },
+  fromAgenda: {
+    id: 'AgendaContribute.Canvas.fromAgenda',
+    defaultMessage: 'from the agenda'
+  },
+  toAgenda: {
+    id: 'AgendaContribute.Canvas.toAgenda',
+    defaultMessage: 'to the agenda'
   }
+});
 
-  renderAddHeader() {
-    const {
-      event, lang, fromAgenda, agenda
-    } = this.props;
-    return (
-      <div className="margin-v-lg">
-        <h3 className="margin-bottom-md">{getLabel('shareEvent', lang)}</h3>
-        <div className="margin-v-md">
-          <p>{getLabel('takeEvent', lang)} <strong>{getEventTitle(event, lang)}</strong></p>
-          <p>{getLabel('fromAgenda', lang)} <a rel="noreferrer" target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
-          <p>{getLabel('toAgenda', lang)} <a rel="noreferrer" target="_blank" href={`/agendas/${agenda.uid}`}><span>{agenda.title}</span></a></p>
-        </div>
+function AddHeader({ event, fromAgenda, agenda }) {
+  const intl = useIntl();
+
+  const {
+    formatMessage: m,
+    locale
+  } = intl;
+
+  return (
+    <div className="margin-v-lg">
+      <h3 className="margin-bottom-md">{m(messages.shareEvent)}</h3>
+      <div className="margin-v-md">
+        <p>{m(messages.takeEvent)} <strong>{getEventTitle(event, locale)}</strong></p>
+        <p>{m(messages.fromAenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
+        <p>{m(messages.toAgenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${agenda.uid}`}><span>{agenda.title}</span></a></p>
       </div>
-    );
+    </div>
+  );
+}
+
+function EditHeader({ event }) {
+  const { locale } = useIntl();
+
+  return (
+    <div className="margin-v-lg">
+      <h3>{getEventTitle(event, locale)}</h3>
+    </div>
+  );
+}
+
+function Header(props) {
+  const {
+    mode
+  } = props;
+
+  if (mode === 'add') {
+    return <AddHeader {...props} />;
   }
 
-  renderEditHeader() {
-    const {
-      event,
-      lang
-    } = this.props;
-
-    return (
-      <div className="margin-v-lg">
-        <h3>{getEventTitle(event, lang)}</h3>
-      </div>
-    );
+  if (mode === 'edit') {
+    return <EditHeader {...props} />;
   }
 
-  renderHeader() {
-    const {
-      mode
-    } = this.props;
+  return null;
+}
 
-    if (mode === 'add') {
-      return this.renderAddHeader();
-    }
-    if (mode === 'edit') {
-      return this.renderEditHeader();
-    }
+export default function Canvas(props) {
+  const {
+    children
+  } = props;
 
-    return null;
-  }
-
-  render() {
-    const {
-      children
-    } = this.props;
-
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
-            <div className="text-center">
-              {this.renderHeader()}
-              {children}
-            </div>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
+          <div className="text-center">
+            {<Header {...props} />}
+            {children}
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

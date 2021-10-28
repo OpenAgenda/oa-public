@@ -4,7 +4,7 @@ import { Image } from '@openagenda/react-components';
 
 const getEventEditLink = (res, event) => res.edit
   .replace(':slug', event.agenda && event.agenda.slug)
-  .replace(':eventSlug', event.slug);
+  .replace(':eventUid', event.uid);
 
 const getEventShowLink = (res, event) => {
   if (event.draft) {

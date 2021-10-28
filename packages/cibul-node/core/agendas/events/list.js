@@ -72,6 +72,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       uid: eventUids
     }, { limit: eventUids.length }, {
       detailed,
+      private: null, // needed to reindex private agendas
       access: access === 'internal' ? 'internal' : 'public'
     });
   }

@@ -88,8 +88,9 @@ export default ({
   displayRemoveAction,
   blockButtons,
   hideCancel,
+  member, // optional preloaded member
 }) => {
-  const query = operation === 'update'
+  const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(res), {
       select: ({ data }) => data,
       cacheTime: 0,
@@ -100,14 +101,16 @@ export default ({
 
   const m = useIntl().formatMessage;
 
-  const isLoading = operation === 'update' && !query.data;
+  const isLoading = operation === 'update' && !query.data && !member;
+
+  const loadedMember = member || query.data;
 
   useEffect(() => {
     if (operation !== 'remove') {
       return;
     }
     setStep('confirmRemove');
-  }, []);
+  }, [operation]);
 
   const onSubmitSuccess = data => {
     onSuccess(data);
@@ -187,7 +190,7 @@ export default ({
             res={{
               patch: res,
             }}
-            values={query.data}
+            values={loadedMember}
             schema={schema({ optionalFields })}
             onSubmitSuccess={onSubmitSuccess}
             lang={lang}

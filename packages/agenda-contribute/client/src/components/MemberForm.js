@@ -18,13 +18,17 @@ const messages = defineMessages({
 });
 
 export default ({
-  lang,
-  memberUserUid,
+  member,
   res,
   role,
   onSuccess
 }) => {
-  const m = useIntl().formatMessage;
+  const intl = useIntl();
+
+  const {
+    formatMessage: m,
+    locale
+  } = intl;
 
   return (
     <div>
@@ -36,12 +40,13 @@ export default ({
         <p>{m(messages.description)}</p>
       </div>
       <MemberFormComponent
+        member={member}
         title={null}
         description={null}
-        lang={lang}
+        lang={locale}
         optionalFields={['administrator', 'moderator'].includes(role)}
-        operation={memberUserUid ? 'update' : 'create'}
-        res={memberUserUid ? res.replace(':userUid', memberUserUid) : res}
+        operation={member ? 'update' : 'create'}
+        res={res}
         blockButtons
         hideCancel
         onSuccess={onSuccess}

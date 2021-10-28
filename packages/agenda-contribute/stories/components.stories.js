@@ -17,8 +17,7 @@ export default {
 export const MemberForm = () => (
   <div className="padding-h-sm">
     <MemberFormComponent
-      lang="fr"
-      memberUserUid={456}
+      member={null}
       res="http://localhost:3000/members/:userUid"
       onSuccess={member => {
         // eslint-disable-next-line no-console

@@ -779,6 +779,7 @@ function _layoutData( req, res ) {
     },
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
+      apiRoot: config.apiRoot,
       root: config.root,
       total: req.total,
       perPage,

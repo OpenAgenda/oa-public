@@ -12,6 +12,21 @@ const Landing = loadable(() => import(
   './containers/Landing'
 ));
 
+// const Temporary = loadable(() => import(
+//   /* webpackChunkName: "agendaContribute-Temporary" */
+//   './containers/Temporary'
+// ));
+
+const Member = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-Member" */
+  './containers/Member'
+));
+
+const EventNew = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-Member" */
+  './containers/EventNew'
+));
+
 export default (prefix = '') => ([
   {
     path: prefix,
@@ -21,8 +36,12 @@ export default (prefix = '') => ([
       exact: true,
       component: Landing
     }, {
-      path: `${prefix}/event/:eventUid`,
-      component: Landing
+      path: `${prefix}/member`,
+      component: Member
+    }, {
+      path: `${prefix}/event`,
+      component: EventNew,
+      exact: true
     }]
   }
 ]);

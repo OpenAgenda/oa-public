@@ -50,7 +50,8 @@ module.exports = async (services, req, res, data) => {
       const event = await core.agendas(agenda.uid).events[undrafting ? 'update' : 'patch'](current.uid, filterByAuth(core, req.agenda.uid, req.authorizations, data), {
         draft,
         userUid: user.uid,
-        filterUnauthorizedData: true
+        filterUnauthorizedData: true,
+        private: null
       });
       return {
         event,

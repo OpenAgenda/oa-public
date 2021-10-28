@@ -15,7 +15,7 @@ export default function EventStateSelector({ agenda, event }) {
       onSuccess: (result, value) => {
         const query = queryClient
           .getQueryCache()
-          .find(['event-admin-apps', 'events', agenda.slug]);
+          .findAll(['event-admin-apps', 'events', agenda.slug])[0];
 
         const queryData = query.state.data;
         const eventIndex = queryData.events.findIndex(

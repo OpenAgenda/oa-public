@@ -1,0 +1,160 @@
+{
+    "schemaExtensions": [
+        {
+            "custom": null,
+            "defaultLabelLanguage": null,
+            "nextOptionId": 13,
+            "fields": [
+                {
+                    "field": "categorie",
+                    "label": "Catégorie",
+                    "help": null,
+                    "helpLink": null,
+                    "helpContent": null,
+                    "info": null,
+                    "sub": null,
+                    "placeholder": null,
+                    "write": null,
+                    "read": null,
+                    "optional": true,
+                    "display": true,
+                    "origin": "tags",
+                    "enableWith": null,
+                    "optionalWith": null,
+                    "related": {
+                        "enable": [],
+                        "optional": []
+                    },
+                    "options": [
+                        {
+                            "id": 6,
+                            "value": "marquage",
+                            "label": {
+                                "en": "Marquage"
+                            },
+                            "info": null,
+                            "display": true
+                        },
+                        {
+                            "id": 7,
+                            "value": "balade",
+                            "label": {
+                                "en": "Balade"
+                            },
+                            "info": null,
+                            "display": true
+                        },
+                        {
+                            "id": 8,
+                            "value": "atelier",
+                            "label": {
+                                "en": "Atelier"
+                            },
+                            "info": null,
+                            "display": true
+                        },
+                        {
+                            "id": 9,
+                            "value": "projection",
+                            "label": {
+                                "en": "Projection"
+                            },
+                            "info": null,
+                            "display": true
+                        },
+                        {
+                            "id": 10,
+                            "value": "reunion-associative",
+                            "label": {
+                                "en": "Réunion associative"
+                            },
+                            "info": null,
+                            "display": true
+                        },
+                        {
+                            "id": 11,
+                            "value": "bourse-aux-velos",
+                            "label": {
+                                "en": "Bourse aux vélos"
+                            },
+                            "info": null,
+                            "display": true
+                        },
+                        {
+                            "id": 12,
+                            "value": "action-militante",
+                            "label": {
+                                "en": "Action militante"
+                            },
+                            "info": null,
+                            "display": true
+                        }
+                    ],
+                    "fieldType": "radio"
+                },
+                {
+                    "field": "title",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "image",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "imageCredits",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "timings",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "attendanceMode",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "location",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "onlineAccessLink",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "description",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "keywords",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "longDescription",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "conditions",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "age",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "registration",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "accessibility",
+                    "fieldType": "abstract"
+                },
+                {
+                    "field": "languages",
+                    "display": false,
+                    "fieldType": "abstract"
+                }
+            ],
+            "id": 1853
+        }
+    ]
+}

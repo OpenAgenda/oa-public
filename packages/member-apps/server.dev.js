@@ -112,15 +112,6 @@ app.get('/stats', (req, res) => res.json({
   },
 }));
 
-app.delete(
-  '/remove/:id',
-  (req, res, next) => {
-    req.result = { success: true };
-    next();
-  },
-  ({ result }, res) => res.status(!result.success ? 400 : 200).json(result)
-);
-
 app.patch(
   '/update/:id',
   (req, res, next) => {
@@ -230,7 +221,7 @@ app.get('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
   );
 });
 
-app.delete('/api/agendas/123/members/456', (req, res) => {
+app.delete('/api/agendas/:agendaUid/members/:userUid', (req, res) => {
   // eslint-disable-next-line no-console
   console.log('received delete request');
   res.status(204).send();

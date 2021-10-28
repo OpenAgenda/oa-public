@@ -102,10 +102,10 @@ module.exports = core => {
       }
     }).then(event => res.json({ success: true, event }), next));
 
-  app.get('/agendas/:agendaUid/events', (req, res, next) => core
+  app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
     .agendas(req.agenda.uid).events
-    .search(req.query, req.query, {
-      ...req.query,
+    .search(req.convertedQuery, req.convertedQuery, {
+      ...req.convertedQuery,
       useAfterKey: true,
       userUid: req.user?.uid
     }).then(({
@@ -334,6 +334,10 @@ module.exports = core => {
     verifySuperAdmin,
     settings.resync
   ]);
+
+  app.get('/me', (req, res, next) => core.users
+    .get(req.user.uid, { detailed: true })
+    .then(user => res.json(_.pick(user, ['apiKey'])), next));
 
   app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)

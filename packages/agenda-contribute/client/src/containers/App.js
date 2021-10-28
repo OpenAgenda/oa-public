@@ -1,20 +1,22 @@
-import axios from 'axios';
-import { useQuery } from 'react-query';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
+import { matchPath } from 'react-router';
+
 import Loading from '../components/Loading';
 import ClosedMessage from '../components/ClosedMessage';
 import Canvas from '../components/Canvas';
 import locales from '../locales-compiled';
-import isMemberDataComplete from '../lib/isMemberDataComplete';
+import utils from '../lib/utils';
+import useMember from '../lib/useMember';
 
-const contributionTypes = {
-  CLOSED: 0,
-  OPEN: 1,
-  MEMBERS_ONLY: 2
-};
+const {
+  isMemberDataComplete,
+  isMemberDataRequired,
+  isContributionType,
+  isMemberRole
+} = utils;
 
 export default function App(props) {
   const {
@@ -24,27 +26,46 @@ export default function App(props) {
     match,
     history
   } = props;
-
   const res = useSelector(state => state.res);
+  const prefix = useSelector(state => state.prefix);
+  const memberFreshness = useSelector(state => state.memberFreshness);
 
   const {
-    isLoading: memberIsLoading,
-    data: member
-  } = useQuery('member', () => axios.get(res.member).then(response => (response.data)));
+    memberIsLoading,
+    member
+  } = useMember(res);
 
   if (memberIsLoading) {
     return <Loading />;
   }
 
-  // member === null means user is not member
+  const memberIsFresh = new Date(member?.updatedAt) > new Date(memberFreshness);
 
-  if (match.isExact && agenda.settings.contribution.type === 1 /* OPEN */) {
-    history.replace('/event');
+  if (
+    isContributionType(agenda, 'OPEN')
+    && isMemberRole(member, 'contributor')
+    && isMemberDataRequired(agenda)
+    && (!isMemberDataComplete(member) || !memberIsFresh)
+    && !matchPath(history.location.pathname, { path: `${prefix}/member` })
+  ) {
+    history.replace(`${prefix}/member`);
+    return <Loading />;
   }
 
-  const isAdminMod = ['administrator', 'moderator'].includes(member?.role);
+  if (
+    isContributionType(agenda, 'OPEN')
+    && isMemberRole(member, 'contributor')
+    && (!isMemberDataRequired(agenda) || (isMemberDataComplete(member) && memberIsFresh))
+    && !matchPath(history.location.pathname, { path: `${prefix}/event` })
+  ) {
+    history.replace(`${prefix}/event`);
+    return <Loading />;
+  }
 
-  if (!isAdminMod && (agenda.settings.contribution.type === contributionTypes.CLOSED)) {
+  if (
+    !isMemberRole(member, ['administrator', 'moderator'])
+    && isContributionType(agenda, 'CLOSED')
+  ) {
     return (
       <Canvas>
         <ClosedMessage memberRole="contributor" />
@@ -52,16 +73,12 @@ export default function App(props) {
     );
   }
 
-  if (!member && (agenda.settings.contribution.type === contributionTypes.MEMBERS_ONLY)) {
+  if (!member && isContributionType(agenda, 'MEMBERS_ONLY')) {
     window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
     return <Loading />;
   }
 
-  if (!isAdminMod && !isMemberDataComplete(member)) {
-
-  }
-
-  // if the member is a contributor and has an incomplete form for a 
+  // if the member is a contributor and has an incomplete form for a
 
   // I need to integrate a component informing the user the app is closed to contributions
   //

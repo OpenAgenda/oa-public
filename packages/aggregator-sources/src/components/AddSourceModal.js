@@ -79,9 +79,9 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.defineRulesStep',
     defaultMessage: 'Rules',
   },
-  confirmationStep: {
-    id: 'aggregator-sources.AddSourceModal.confirmationStep',
-    defaultMessage: 'Confirmation',
+  evaluationStep: {
+    id: 'aggregator-sources.AddSourceModal.evaluationStep',
+    defaultMessage: 'Evaluation',
   },
   evaluateMessage: {
     id: 'aggregator-sources.AddSourceModal.evaluateMessage',
@@ -96,6 +96,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.evaluateOption1',
     defaultMessage: 'Aggregate all events',
   },
+  evaluateOption2: {
+    id: 'aggregator-sources.AddSourceModal.evaluateOption2',
+    defaultMessage: 'Aggregate current and future events',
+  },
   cancel: {
     id: 'aggregator-sources.AddSourceModal.cancel',
     defaultMessage: 'Cancel',
@@ -107,6 +111,20 @@ const messages = defineMessages({
   chooseAnotherSource: {
     id: 'aggregator-sources.AddSourceModal.chooseAnotherSource',
     defaultMessage: 'Choose another source',
+  },
+  infoMessageImmediat: {
+    id: 'aggregator-sources.AddSourceModal.InfoMessageImmediat',
+    defaultMessage:
+      'The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar.',
+  },
+  infoMessage: {
+    id: 'aggregator-sources.AddSourceModal.InfoMessage',
+    defaultMessage:
+      'The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.',
+  },
+  ok: {
+    id: 'aggregator-sources.AddSourceModal.ok',
+    defaultMessage: 'OK',
   },
 });
 
@@ -258,6 +276,7 @@ export default function AddSourceModal({
   const [selectedStep, setSelectedStep] = useState(
     preselectedAgenda ? 'defineRules' : 'selectAgenda'
   );
+  const [selectedEvaluate, setSelectedEvaluate] = useState();
   const [selectedAgenda, setSelectedAgenda] = useState(preselectedAgenda);
   const [rules, setRules] = useState();
 
@@ -344,12 +363,21 @@ export default function AddSourceModal({
         passed: isPassed,
       },
       {
-        key: 'confirmation',
-        label: intl.formatMessage(messages.confirmationStep),
+        key: 'evaluation',
+        label: intl.formatMessage(messages.evaluationStep),
         display: true,
         active: isActive,
         activable: isActivable,
         passed: isPassed,
+      },
+      {
+        key: 'info',
+        label: null,
+        display: true,
+        active: isActive,
+        activable: isActivable,
+        passed: isPassed,
+        confirmation: true,
       },
     ],
     [intl, isActivable, isActive, isPassed]
@@ -358,14 +386,19 @@ export default function AddSourceModal({
   const handleRulesSubmit = useCallback(
     value => {
       setRules(value);
-      selectStep('confirmation');
+      selectStep('evaluation');
     },
     [setRules, selectStep]
   );
 
   const handleFinalSubmit = useCallback(
-    ({ evaluate }) => onSubmit(selectedAgenda, rules, evaluate),
-    [onSubmit, selectedAgenda, rules]
+    ({ evaluate }) => {
+      onSubmit(selectedAgenda, rules, evaluate).then(() => {
+        setSelectedEvaluate(evaluate);
+        selectStep('info');
+      });
+    },
+    [onSubmit, selectedAgenda, rules, selectStep, setSelectedEvaluate]
   );
 
   const fieldProps = useMemo(
@@ -543,7 +576,7 @@ export default function AddSourceModal({
           />
         ) : null}
 
-        {selectedStep === 'confirmation' ? (
+        {selectedStep === 'evaluation' ? (
           <Form onSubmit={handleFinalSubmit}>
             {({ handleSubmit }) => (
               <form onSubmit={handleSubmit}>
@@ -559,12 +592,12 @@ export default function AddSourceModal({
                   <Field
                     name="evaluate"
                     type="radio"
-                    value="0"
+                    value="currentAndUpcoming"
                     component={Radio}
-                    initialValue="0"
+                    initialValue="currentAndUpcoming"
                   >
                     {' '}
-                    {intl.formatMessage(messages.evaluateOption0)}
+                    {intl.formatMessage(messages.evaluateOption2)}
                   </Field>
 
                   <br />
@@ -572,11 +605,23 @@ export default function AddSourceModal({
                   <Field
                     name="evaluate"
                     type="radio"
-                    value="1"
+                    value="all"
                     component={Radio}
                   >
                     {' '}
                     {intl.formatMessage(messages.evaluateOption1)}
+                  </Field>
+
+                  <br />
+
+                  <Field
+                    name="evaluate"
+                    type="radio"
+                    value="null"
+                    component={Radio}
+                  >
+                    {' '}
+                    {intl.formatMessage(messages.evaluateOption0)}
                   </Field>
                 </div>
 
@@ -597,6 +642,24 @@ export default function AddSourceModal({
               </form>
             )}
           </Form>
+        ) : null}
+        {selectedStep === 'info' ? (
+          <div>
+            <div>
+              {selectedEvaluate.evaluate === 'all'
+                ? intl.formatMessage(messages.infoMessageImmediat)
+                : intl.formatMessage(messages.infoMessage)}
+            </div>
+            <div className="text-center padding-top-sm">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={onClose}
+              >
+                {intl.formatMessage(messages.ok)}
+              </button>
+            </div>
+          </div>
         ) : null}
       </div>
     </Modal>

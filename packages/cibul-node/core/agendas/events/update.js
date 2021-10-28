@@ -50,7 +50,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     aggregated = null,
     access = 'public',
     filterUnauthorizedData = false,
-    returnPayload = false
+    returnPayload = false,
+    private: privateOption = false
   } = options;
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
@@ -60,7 +61,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const event = await events.get(eventUid, {
     access: 'internal',
     detailed: true,
-    throwOnNotFound: true
+    throwOnNotFound: true,
+    private: privateOption
   });
 
   log('  loaded event %s', event.slug);
@@ -132,7 +134,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         },
         detailed: true,
         access: 'internal',
-        draft
+        draft,
+        private: privateOption
       }));
 
       log('updated event %s', event.uid);

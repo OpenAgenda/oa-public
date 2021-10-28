@@ -36,7 +36,9 @@
       },
       "title": "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
       "slug": "chez-nous",
-      "languages": ["fr", "en", "de", "nl"]
+      "languages": ["fr", "en", "de", "nl"],
+      "apiRoot": "https://dapi.openagenda.com",
+      "root": "https://localhost:3000"
     },
     
     "pager" : {

@@ -122,18 +122,10 @@ module.exports.init = (config, services) => {
           sourcePaths: ae.sourcePaths,
           aggregated: ae.aggregated
         } : null)),
-      listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
-        .events.list({
-          state: 2,
-          aggregated
-        }, { lastId }, {
-          load: {
-            events: false,
-            custom: false,
-            agendaEvent: true
-          },
-          returnPayload: true
-        }),
+      listEventReferences: (agendaUid, after, query = {}) => services.core.agendas(agendaUid).events.search({
+        ...query,
+        state: 2,
+      }, { after }, { useAfterKey: true, detailed: true }),
       loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
         .events.get(eventUid, { detailed: true }),
       getAgendasByUids: (agendaUids, options = {}) => {

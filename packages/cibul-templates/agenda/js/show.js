@@ -44,16 +44,6 @@ const controllers = require('../../widgets/controller/main'),
     },
     res: {
       role: '/session/agendas/:agendaUid/role',
-      export: {
-        json: '/agendas/:agendaUid/events.json',
-        pdf: '/agendas/:agendaUid/events.pdf',
-        xl: '/agendas/:agendaUid/events.xlsx',
-        gcal: '/agendas/:agendaUid/events.ics',
-        ical: '/agendas/:agendaUid/events.ics',
-        csv: '/agendas/:agendaUid/events.csv',
-        ics: '/agendas/:agendaUid/events.ics',
-        rss: '/agendas/:agendaUid/events.rss',
-      },
     },
     classes: {
       displayNone: 'display-none',
@@ -109,9 +99,24 @@ window.asap(options => {
       }
 
       if (!ctl.prv) {
-        displayExportButton(exportRef, params, uid, controller, options, { exportAll: true });
-        displayExportButton(exportRef, params, uid, controller, options, { exportAll: false });
-        displayAggregateButton(params, options, initialQuery, !!session.getUser());
+        const sessionUser = session.getUser();
+        const routes =  {
+          me: '/api/me',
+          export: {
+            jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
+            jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
+            pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
+            xl: `${options.root}/agendas/:agendaUid/events.xlsx`,
+            gcal: `${options.root}/agendas/:agendaUid/events.ics`,
+            ical: `${options.root}/agendas/:agendaUid/events.ics`,
+            csv: `${options.root}/agendas/:agendaUid/events.csv`,
+            ics: `${options.root}/agendas/:agendaUid/events.ics`,
+            rss: `${options.root}/agendas/:agendaUid/events.rss`,
+          }
+        }
+        displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: true }, !!sessionUser);
+        displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: false }, !!sessionUser);
+        displayAggregateButton(params, options, initialQuery, !!sessionUser);
       }
 
       if (['administrator', 'moderator'].indexOf(res) !== -1) {

@@ -30,7 +30,6 @@ export const Canvas = () => (
 export const CanvasWithStepper = () => (
   <CanvasComponentWithStepper
     mode="create"
-    lang="fr"
     steps={[{
       display: true,
       activable: true,
@@ -45,10 +44,6 @@ export const CanvasWithStepper = () => (
       activable: false,
       step: 'confirmation'
     }]}
-    onDidMount={mode => {
-      // eslint-disable-next-line no-console
-      console.log('onDidMount', mode);
-    }}
   >
     <div className="wsq padding-all-md">Body</div>
   </CanvasComponentWithStepper>

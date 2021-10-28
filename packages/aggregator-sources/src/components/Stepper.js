@@ -25,6 +25,7 @@ function Step({
   index,
   steps,
   additionals,
+  confirmation,
 }) {
   const activable = useMemoOne(
     () => getStepPropertyValue(step, 'activable', index, steps, ...additionals),
@@ -62,8 +63,9 @@ function Step({
       active,
       activable,
       passed,
+      confirmation,
     }),
-    [_className, activable, active, passed]
+    [_className, activable, active, passed, confirmation]
   );
 
   if (active || !activable) {
@@ -129,6 +131,7 @@ export default function Stepper({ steps = [], onSelect, additionals }) {
             index={index}
             steps={steps}
             additionals={additionals}
+            confirmation={s.confirmation}
           />
         ) : null))}
       </div>

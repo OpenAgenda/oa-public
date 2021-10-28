@@ -181,7 +181,13 @@ export default function reducer(state = initialState, action) {
         showInviteResult: true,
       };
     case REMOVE_SUCCESS: {
-      const index = state.data.findIndex(sh => sh.id === action.id);
+      const index = _.findIndex(
+        state.data,
+        m => m.user?.uid === action.userUid
+      );
+
+      if (index === -1) return state;
+
       const member = state.data[index];
       const role = getRoleSlug(member.role);
       return {
@@ -376,15 +382,17 @@ export function cleanInviteResult() {
   };
 }
 
-export function remove(agenda, id) {
+export function remove(agenda, userUid) {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
-    id,
+    userUid,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
       return client.delete(
-        res.remove.replace(':slug', agenda.slug).replace(':id', id)
+        res.remove
+          .replace(':agendaUid', agenda.uid)
+          .replace(':userUid', userUid)
       );
     },
   };

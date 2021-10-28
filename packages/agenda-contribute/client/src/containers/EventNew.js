@@ -1,14 +1,44 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import EventNewForm from '../components/EventNewForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
+import EventNewForm from '../components/EventNewForm';
 import Instructions from '../components/Instructions';
-import reducers from '../reducers';
 
-import deduceSteps from '../lib/deduceSteps';
+import steps from '../lib/steps';
 
-export default connect(
+export default function EventNew(props) {
+  const {
+    agenda
+  } = props;
+
+  const eventFormProps = useSelector(state => _.pick(state, [
+    'files',
+    'res'
+  ]));
+
+
+  return (
+    <CanvasWithStepper
+      mode="create"
+      steps={steps('event')}
+    >
+      <Instructions
+        message={agenda?.settings?.contribution?.messages?.instructions}
+        className="margin-bottom-lg"
+      />
+      <EventNewForm
+        {...eventFormProps}
+        config={config}
+        onSuccess={onCreateSuccess}
+        memberRole={member.role}
+        defaults={defaults}
+        onDraftDelete={onDraftDelete}
+      />
+    </CanvasWithStepper>
+  );
+}
+
+/* export default connect(
   state => deduceSteps('event', state),
   dispatch => ({
     onCreateSuccess: (values, response) => dispatch(reducers.event.created(values, response)),
@@ -27,24 +57,4 @@ export default connect(
   steps,
   member
 }) => (
-  <CanvasWithStepper
-    {...config}
-    onDidMount={onDidMount}
-    onSelectStep={onSelectStep}
-    steps={steps}
-    event={event}
-  >
-    <Instructions
-      message={config?.event?.message}
-      className="margin-bottom-lg"
-    />
-    <EventNewForm
-      config={config}
-      event={event}
-      onSuccess={onCreateSuccess}
-      memberRole={member.role}
-      defaults={defaults}
-      onDraftDelete={onDraftDelete}
-    />
-  </CanvasWithStepper>
-));
+)); */

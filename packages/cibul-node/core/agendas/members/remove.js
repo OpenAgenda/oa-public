@@ -7,6 +7,7 @@ const canEdit = require('./lib/canEdit');
 module.exports = async (services, agendaOrUid, userUid, options = {}) => {
   const {
     members,
+    users
   } = services;
 
   const {
@@ -24,6 +25,8 @@ module.exports = async (services, agendaOrUid, userUid, options = {}) => {
     userUid: actingUserUid
   });
 
+  const actingUser = await users.findOne({ query: { uid: actingUserUid } });
+
   if (!canEdit(services, {
     acting: actingMember,
     actingUserUid,
@@ -35,5 +38,9 @@ module.exports = async (services, agendaOrUid, userUid, options = {}) => {
   return members.remove({
     agendaUid,
     userUid,
+  }, {
+    context: {
+      user: actingUser
+    }
   });
 };
