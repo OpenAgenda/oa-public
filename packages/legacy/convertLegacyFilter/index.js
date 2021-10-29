@@ -21,13 +21,20 @@ module.exports = (legacyFilter, sets = {}) => {
 
   keys.map(key => {
     switch (key) {
-      case 'from':
+      case 'from': {
         delete convertedQuery.relative;
-        convertedQuery.timings = { ...convertedQuery.timings, gte: moment(legacyFilter.from).tz('Europe/paris').format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]') };
+        const date = moment(legacyFilter.from).subtract(1, 'days').tz('Europe/paris').format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]');
+        convertedQuery.timings = { ...convertedQuery.timings, gte: date };
         break;
-      case 'to':
-        convertedQuery.timings = { ...convertedQuery.timings, lte: moment(legacyFilter.to).tz('Europe/paris').format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]') };
+      }
+      case 'to': {
+        const date = moment(legacyFilter.to).hour(23).minute(59).second(59)
+          .millisecond(999)
+          .tz('Europe/paris')
+          .format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]');
+        convertedQuery.timings = { ...convertedQuery.timings, lte: date };
         break;
+      }
       case 'what':
         convertedQuery.search = legacyFilter.what;
         break;
