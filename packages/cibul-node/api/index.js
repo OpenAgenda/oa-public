@@ -105,6 +105,7 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
     .agendas(req.agenda.uid).events
     .search(req.convertedQuery, req.convertedQuery, {
+      ...req.query,
       ...req.convertedQuery,
       useAfterKey: true,
       userUid: req.user?.uid
