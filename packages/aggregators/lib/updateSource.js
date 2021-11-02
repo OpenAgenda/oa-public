@@ -17,7 +17,6 @@ module.exports = async (
   const log = Log(`updating source ${sourceId} of ${aggregatorAgenda.slug}`);
 
   const { query = null } = options;
-  log(JSON.stringify(query));
   const source = await getSourceEntry(sourceId, { detailed: true });
 
   if (!source) {
