@@ -161,8 +161,7 @@ export function add(agendaUid, { rules, evaluate }) {
   const query = {
     all: {},
     currentAndUpcoming: { relative: ['current', 'upcoming'] },
-  }[evaluate] ?? {};
-
+  }[evaluate] ?? null;
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: (arg, { getState }) => {
@@ -181,7 +180,7 @@ export function update(id, { rules, evaluate }) {
   const query = {
     all: {},
     currentAndUpcoming: { relative: ['current', 'upcoming'] },
-  }[evaluate] ?? {};
+  }[evaluate] ?? null;
 
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
