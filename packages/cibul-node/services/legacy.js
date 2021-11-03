@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const ControlData = require('@openagenda/legacy/controlData');
 const Embeds = require('@openagenda/legacy/embeds');
 const TagsAndCustom = require('@openagenda/legacy/tagsAndCustom');
@@ -28,6 +29,7 @@ module.exports.init = (config, services) => {
 
   ControlData.updateLoggerConfig(config.getLogConfig('svc', 'controlData'));
   TagsAndCustom.updateLoggerConfig(config.getLogConfig('svc', 'legacyTagsAndCustom'));
+  Embeds.updateLoggerConfig(config.getLogConfig('svc', 'embeds'));
 
   Object.assign(module.exports.controlData, ControlData({
     knex,
@@ -44,7 +46,12 @@ module.exports.init = (config, services) => {
 
   module.exports.embeds = Embeds({
     knex,
-    interfaces
+    interfaces,
+    defaultTemplates: {
+      eventitem: fs.readFileSync(`${__dirname}/embed/templates/eventItem.tblr`, 'utf-8'),
+      event: fs.readFileSync(`${__dirname}/embed/templates/event.tblr`, 'utf-8'),
+      header: fs.readFileSync(`${__dirname}/embed/templates/header.tblr`, 'utf-8')
+    }
   });
 
   return module.exports;
