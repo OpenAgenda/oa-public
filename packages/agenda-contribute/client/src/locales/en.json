@@ -1,5 +1,11 @@
 {
-  "AgendaContribute.ClosedMessage.forAdminModerators": "This agenda is currently not open to contributors.",
+  "AgendaContribute.Canvas.fromAgenda": "from the agenda",
+  "AgendaContribute.Canvas.shareEvent": "Share an event",
+  "AgendaContribute.Canvas.takeEvent": "Take",
+  "AgendaContribute.Canvas.toAgenda": "to the agenda",
+  "AgendaContribute.CanvasWithStepper.addEvent": "Ajouter un événement",
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": "Draft",
+  "AgendaContribute.ClosedMessage.forAdminModerators": "This agenda is currently not open to contributors. Only administrators or moderators can add events.",
   "AgendaContribute.ClosedMessage.forContributors": "This agenda is not or no longer open for new contributions.",
   "AgendaContribute.EventEdit.update": "Update",
   "AgendaContribute.EventNew.create": "Create the event",

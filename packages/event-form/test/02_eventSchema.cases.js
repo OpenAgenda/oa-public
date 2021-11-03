@@ -10,61 +10,11 @@ describe('event schema formatting', () => {
         schemaExtensions: mdbLegacyFixtures.schemaExtensions
       });
 
-      const es = eventScheam({
-        languages: [],
-        schema: 
-      });
-
-      // I get an agenda configuration without the language field...
-      // I need it.
-
-      // console.log(es.fields.map(f => f.field));
-
-      [
-        'categorie',       'title',
-        'image',           'imageCredits',
-        'timings',         'attendanceMode',
-        'location',        'onlineAccessLink',
-        'description',     'keywords',
-        'longDescription', 'conditions',
-        'age',             'registration',
-        'accessibility',   'languages',
-        'status'
-      ]
-
-      [
-        'categorie',       'title',
-        'image',           'imageCredits',
-        'timings',         'attendanceMode',
-        'location',        'onlineAccessLink',
-        'description',     'keywords',
-        'longDescription', 'conditions',
-        'age',             'registration',
-        'accessibility',   'status'
-      ]
-
-      // console.log(mdbFixtures.schema.fields.filter(f => !(f.write ?? []).includes('internal')).map(f => f.field));
-
-      [
-        'categorie',       'title',
-        'image',           'imageCredits',
-        'timings',         'attendanceMode',
-        'location',        'onlineAccessLink',
-        'description',     'keywords',
-        'longDescription', 'conditions',
-        'age',             'registration',
-        'accessibility',   'uid',
-        'slug',            'private',
-        'timezone',        'draft',
-        'createdAt',       'creatorUid',
-        'ownerUid',        'updatedAt',
-        'agendaUid',       'locationUid',
-        'status',          'references',
-        'links'
-      ]
-  
-
-      //expect(es.fields).toEqual(mdbFixtures.schema.fields);
+      expect(
+        es.fields.map(f => f.field)
+      ).toEqual(
+        mdbFixtures.schema.fields.filter(f => !(f.write ?? []).includes('internal')).map(f => f.field)
+      );
     });
   });
 });

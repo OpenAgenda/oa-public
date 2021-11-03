@@ -1,5 +1,11 @@
 {
-  "AgendaContribute.ClosedMessage.forAdminModerators": "Cet agenda n'est pas ouvert aux contributions",
+  "AgendaContribute.Canvas.fromAgenda": "",
+  "AgendaContribute.Canvas.shareEvent": "",
+  "AgendaContribute.Canvas.takeEvent": "",
+  "AgendaContribute.Canvas.toAgenda": "",
+  "AgendaContribute.CanvasWithStepper.addEvent": "",
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": "",
+  "AgendaContribute.ClosedMessage.forAdminModerators": "Cet agenda n'est pas ouvert aux contributions. Seuls les administrateurs ou modérateurs peuvent ajouter de nouveaux événements",
   "AgendaContribute.ClosedMessage.forContributors": "Cet agenda n'est pas ou n'est plus ouvert aux contributions",
   "AgendaContribute.EventEdit.update": "",
   "AgendaContribute.EventNew.create": "",

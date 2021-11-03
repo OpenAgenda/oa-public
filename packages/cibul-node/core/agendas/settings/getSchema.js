@@ -12,8 +12,11 @@ module.exports = async (services, agendaOrUid) => {
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
-  return agenda.formSchemaId ? Object.assign({ id: agenda.formSchemaId }, await formSchemas.get(agenda.formSchemaId)) : null;
-}
+  return agenda.formSchemaId ? {
+    id: agenda.formSchemaId,
+    ...(await formSchemas.get(agenda.formSchemaId))
+  } : null;
+};
 
 module.exports.network = async (services, agendaOrUid) => {
   const {
@@ -26,7 +29,8 @@ module.exports.network = async (services, agendaOrUid) => {
   }
   const network = await getNetwork(services, agenda.networkUid);
 
-  return network.formSchemaId ? Object.assign({
-    id: network.formSchemaId
-  }, await formSchemas.get(network.formSchemaId)) : null;
-}
+  return network.formSchemaId ? {
+    id: network.formSchemaId,
+    ...(await formSchemas.get(network.formSchemaId))
+  } : null;
+};

@@ -1,60 +1,59 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import CanvasWithStepper from '../components/CanvasWithStepper';
+import ClosedMessage from '../components/ClosedMessage';
 import EventNewForm from '../components/EventNewForm';
+import Loading from '../components/Loading';
 import Instructions from '../components/Instructions';
 
 import steps from '../lib/steps';
+import useEventFormConfig from '../lib/useEventFormConfig';
+import useMember from '../lib/useMember';
+
+import utils from '../lib/utils';
+
+const {
+  isContributionType
+} = utils;
 
 export default function EventNew(props) {
   const {
-    agenda
+    agenda,
+    history
   } = props;
 
-  const eventFormProps = useSelector(state => _.pick(state, [
-    'files',
-    'res'
-  ]));
+  const {
+    memberIsLoading,
+    member
+  } = useMember();
 
+  const prefix = useSelector(state => state.prefix);
+
+  const { config, configIsLoading } = useEventFormConfig(agenda);
+
+  if (configIsLoading || memberIsLoading) {
+    return <Loading />;
+  }
 
   return (
     <CanvasWithStepper
       mode="create"
       steps={steps('event')}
+      onSelectStep={step => history.push(`${prefix}/${step}`)}
     >
+      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={member.role} /> : null}
       <Instructions
         message={agenda?.settings?.contribution?.messages?.instructions}
         className="margin-bottom-lg"
       />
       <EventNewForm
-        {...eventFormProps}
         config={config}
-        onSuccess={onCreateSuccess}
+        onSuccess={() => {}}
         memberRole={member.role}
-        defaults={defaults}
-        onDraftDelete={onDraftDelete}
+        onDraftDelete={() => {}}
       />
     </CanvasWithStepper>
   );
 }
-
-/* export default connect(
-  state => deduceSteps('event', state),
-  dispatch => ({
-    onCreateSuccess: (values, response) => dispatch(reducers.event.created(values, response)),
-    onDidMount: () => dispatch(reducers.landing.evaluate('event')),
-    onSelectStep: step => dispatch(reducers.landing.evaluate(step, true)),
-    onDraftDelete: () => dispatch(reducers.event.deleteDraft())
-  })
-)(({
-  config,
-  event,
-  defaults,
-  onCreateSuccess,
-  onDidMount,
-  onDraftDelete,
-  onSelectStep,
-  steps,
-  member
-}) => (
-)); */

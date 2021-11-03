@@ -2,10 +2,14 @@ import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import EventForm from '@openagenda/event-form/build';
+import URLDefaults from '../lib/URLDefaults';
 
-import { eventWithDefaults } from '../lib/URLDefaults';
-import eventFormProps from '../lib/eventFormProps';
 import ButtonSpinner from './ButtonSpinner';
+
+const {
+  eventWithDefaults,
+  get: getURLDefaults
+} = URLDefaults;
 
 const messages = defineMessages({
   create: {
@@ -31,16 +35,16 @@ function EventNewForm({
   event,
   onSuccess,
   onDraftDelete,
-  memberRole,
-  defaults
+  memberRole
 }) {
   const m = useIntl().formatMessage;
 
   return (
     <EventForm
-      {...eventFormProps({ memberRole, config })}
+      {...config}
+      role={memberRole}
       includeEventFields
-      values={eventWithDefaults(event, defaults)}
+      values={eventWithDefaults(event, getURLDefaults())}
       onSubmitSuccess={onSuccess}
       actionComponents={[{
         position: 'bottom',

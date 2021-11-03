@@ -11,10 +11,10 @@ describe('convert legacy filters', () => {
   test('convert date', () => {
     const oaq = {
       from: '2021-09-20',
-      to: '2021-09-28'
+      to: '2021-09-20'
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ timings: { gte: '2021-09-20T00:00:00.0000Z', lte: '2021-09-28T00:00:00.0000Z' } });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({ timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' } });
   });
 
   test('convert search', () => {
@@ -88,13 +88,13 @@ describe('convert legacy filters', () => {
       location: 65918542,
       passed: '1',
       from: '2021-09-20',
-      to: '2021-09-28'
+      to: '2021-09-20'
     };
 
     expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({
       'categories-metropolitaines': 20,
       locationUid: 65918542,
-      timings: { gte: '2021-09-20T00:00:00.0000Z', lte: '2021-09-28T00:00:00.0000Z' }
+      timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' }
     });
   });
 });

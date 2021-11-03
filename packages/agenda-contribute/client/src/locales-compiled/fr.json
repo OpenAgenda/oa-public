@@ -1,8 +1,44 @@
 {
+  "AgendaContribute.Canvas.fromAgenda": [
+    {
+      "type": 0,
+      "value": "from the agenda"
+    }
+  ],
+  "AgendaContribute.Canvas.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share an event"
+    }
+  ],
+  "AgendaContribute.Canvas.takeEvent": [
+    {
+      "type": 0,
+      "value": "Take"
+    }
+  ],
+  "AgendaContribute.Canvas.toAgenda": [
+    {
+      "type": 0,
+      "value": "to the agenda"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": [
+    {
+      "type": 0,
+      "value": "Draft"
+    }
+  ],
   "AgendaContribute.ClosedMessage.forAdminModerators": [
     {
       "type": 0,
-      "value": "Cet agenda n'est pas ouvert aux contributions"
+      "value": "Cet agenda n'est pas ouvert aux contributions. Seuls les administrateurs ou modérateurs peuvent ajouter de nouveaux événements"
     }
   ],
   "AgendaContribute.ClosedMessage.forContributors": [

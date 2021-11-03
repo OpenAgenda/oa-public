@@ -18,4 +18,4 @@ module.exports = async (services, agendaUid) => {
   }
 
   return formSchemas.legacy.transfer(agenda.id);
-}
+};

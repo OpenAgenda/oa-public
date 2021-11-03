@@ -71,7 +71,8 @@ module.exports = core => {
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access,
     includeEvent: true,
-    detailed: req.query.detailed
+    detailed: req.query.detailed,
+    includeNonDataFields: req.query.includeNonDataFields === '1'
   }).catch(next)));
 
   app.post('/agendas/:agendaUid/events',
@@ -105,6 +106,7 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
     .agendas(req.agenda.uid).events
     .search(req.convertedQuery, req.convertedQuery, {
+      ...req.query,
       ...req.convertedQuery,
       useAfterKey: true,
       userUid: req.user?.uid

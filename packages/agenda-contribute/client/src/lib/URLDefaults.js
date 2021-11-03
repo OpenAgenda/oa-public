@@ -28,3 +28,8 @@ export function get() {
 
   return query?.defaults || {};
 }
+
+export default {
+  get,
+  eventWithDefaults
+};

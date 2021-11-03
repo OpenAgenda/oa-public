@@ -14,7 +14,7 @@ import getHasAdditionalFields from '../lib/hasAdditionalFields';
 
 import reducers from '../reducers';
 
-import eventFormProps from '../lib/eventFormProps';
+// import eventFormProps from '../lib/eventFormProps';
 
 const getLabel = makeLabelGetter(labels);
 

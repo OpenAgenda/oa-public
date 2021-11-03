@@ -6,8 +6,11 @@ import StepperComponent from '../client/src/components/Stepper';
 import EventNewFormComponent from '../client/src/components/EventNewForm';
 import EventEditFormComponent from '../client/src/components/EventEditForm';
 import ClosedMessageComponent from '../client/src/components/ClosedMessage';
+import cleanupSchemaForForm from '../client/src/lib/cleanupSchemaForForm';
 import ComponentsCanvasDecorator from './decorators/ComponentsCanvas';
 import ProvidersDecorator from './decorators/Providers';
+
+import mdbDetailed from './fixtures/mdb.detailed.agenda.json';
 
 export default {
   title: 'Components',
@@ -72,16 +75,26 @@ const eventFormConfig = {
 };
 
 export const EventNewForm = () => (
-  <EventNewFormComponent
-    memberRole="contributor"
-    config={eventFormConfig}
-    defaults={{}}
-    event={{}}
-    onSuccess={e => {
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }}
-  />
+  <div className="padding-all-sm">
+    <EventNewFormComponent
+      memberRole="contributor"
+      config={{
+        withErrors: false,
+        lang: 'fr',
+        schema: cleanupSchemaForForm(mdbDetailed.schema, { locale: 'fr' }),
+        locationRes: {},
+        referencesRes: {},
+        suggestionsRes: {},
+        maxFileSize: 0,
+        fileStore: {},
+        tiles: 'til.es'
+      }}
+      onSuccess={e => {
+        // eslint-disable-next-line no-console
+        console.log(e);
+      }}
+    />
+  </div>
 );
 
 export const EventEditForm = () => (

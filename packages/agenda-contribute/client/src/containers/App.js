@@ -1,8 +1,8 @@
+import debug from 'debug';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
-import { matchPath } from 'react-router';
 
 import Loading from '../components/Loading';
 import ClosedMessage from '../components/ClosedMessage';
@@ -15,8 +15,11 @@ const {
   isMemberDataComplete,
   isMemberDataRequired,
   isContributionType,
-  isMemberRole
+  isMemberRole,
+  matchStepPath
 } = utils;
+
+const log = debug('App');
 
 export default function App(props) {
   const {
@@ -26,6 +29,9 @@ export default function App(props) {
     match,
     history
   } = props;
+
+  log(history.location.pathname);
+
   const res = useSelector(state => state.res);
   const prefix = useSelector(state => state.prefix);
   const memberFreshness = useSelector(state => state.memberFreshness);
@@ -42,24 +48,34 @@ export default function App(props) {
   const memberIsFresh = new Date(member?.updatedAt) > new Date(memberFreshness);
 
   if (
-    isContributionType(agenda, 'OPEN')
+    isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberRole(member, 'contributor')
     && isMemberDataRequired(agenda)
     && (!isMemberDataComplete(member) || !memberIsFresh)
-    && !matchPath(history.location.pathname, { path: `${prefix}/member` })
+    && !matchStepPath(history, prefix, 'member')
   ) {
+    log('  Contributor is %s on an agenda requiring data. Redirecting to member form', memberIsFresh ? 'not fresh' : 'incomplete');
     history.replace(`${prefix}/member`);
     return <Loading />;
   }
 
   if (
-    isContributionType(agenda, 'OPEN')
+    isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberRole(member, 'contributor')
     && (!isMemberDataRequired(agenda) || (isMemberDataComplete(member) && memberIsFresh))
-    && !matchPath(history.location.pathname, { path: `${prefix}/event` })
+    && !matchStepPath(history, prefix, ['event', 'member'])
   ) {
+    log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
     history.replace(`${prefix}/event`);
     return <Loading />;
+  }
+
+  if (
+    isMemberRole(member, ['administrator', 'moderator'])
+    && !matchStepPath(history, prefix, ['event', 'member', 'confirmation'])
+  ) {
+    log('  AdminMod is not explicitely requesting a specific step. Redirecting to event form');
+    history.replace(`${prefix}/event`);
   }
 
   if (
@@ -77,19 +93,6 @@ export default function App(props) {
     window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
     return <Loading />;
   }
-
-  // if the member is a contributor and has an incomplete form for a
-
-  // I need to integrate a component informing the user the app is closed to contributions
-  //
-  // A blocking message for contributors
-  //
-  // A notification square for adminmods
-  //
-  // if the contribution type is open, the app can go to event
-  // when user hits /contribute with nothing else, he needs to be rerouted to
-  // either the member form or the event form depending on 1. the contribution type
-  // of the agenda and 2. whether he is a contributor and his data is incomplete.
 
   if (match.isExact) {
     return <Loading />;

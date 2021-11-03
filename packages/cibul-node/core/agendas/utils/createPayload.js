@@ -14,9 +14,11 @@ const cleanAccess = dirty => {
 function getFormSchema(agenda, dirtyAccess = null) {
   const access = cleanAccess(dirtyAccess);
   return merge.schemasWithEvent(
-    _.get(agenda, 'network.formSchema'),
-    _.get(agenda, 'formSchema'),
-    access !== null ? { read: access } : null
+    agenda?.network?.formSchema,
+    agenda?.formSchema,
+    {
+      access: access !== null ? { read: access } : null
+    }
   );
 }
 

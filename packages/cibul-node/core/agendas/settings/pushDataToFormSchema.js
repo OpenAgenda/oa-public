@@ -22,4 +22,4 @@ module.exports = async (services, agendaUid) => {
   }
 
   return custom.enqueueLegacyDatasetToCustom(agenda.id);
-}
+};

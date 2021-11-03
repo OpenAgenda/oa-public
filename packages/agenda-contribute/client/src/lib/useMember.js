@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
-export default function useMember(res) {
+export default function useMember() {
+  const res = useSelector(state => state.res);
+
   const {
     isLoading: memberIsLoading,
     data: member
