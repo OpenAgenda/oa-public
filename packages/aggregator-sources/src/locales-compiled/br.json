@@ -1365,6 +1365,12 @@
       "value": "Nullañ"
     }
   ],
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
+    {
+      "type": 0,
+      "value": "Souhaitez-vous que les événements publiés dans l'agenda source soient ré-évalués à la suite de cette mise à jour?"
+    }
+  ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
     {
       "type": 0,

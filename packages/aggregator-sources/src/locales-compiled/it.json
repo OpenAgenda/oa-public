@@ -1363,6 +1363,12 @@
       "value": "Annulla"
     }
   ],
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
+    {
+      "type": 0,
+      "value": "Would you like events published in the source calendar to be re-evaluated as a result of this update?"
+    }
+  ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
     {
       "type": 0,

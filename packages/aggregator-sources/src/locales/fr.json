@@ -153,6 +153,7 @@
   "aggregator-sources.SourcesList.seeAgenda": "Voir l'agenda",
   "aggregator-sources.SourcesList.update": "{rulesCount, plural, =0 {Ajouter des règles d'agrégation} =1 {Voir la règle d'agrégation} other {Voir les # règles d'agrégation}}",
   "aggregator-sources.UpdateSourceModal.cancel": "Annuler",
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Souhaitez-vous que les événements publiés dans l'agenda source soient ré-évalués à la suite de cette mise à jour?",
   "aggregator-sources.UpdateSourceModal.updateASource": "Règles d'agrégation",
   "aggregator-sources.UpdateSourceModal.updateSource": "Mettre à jour",
   "aggregator-sources.add": "Ajouter",
@@ -160,5 +161,5 @@
   "aggregator-sources.utils.stateMessages.state": "Statut",
   "aggregator-sources.utils.stateMessages.stateControlled": "Pret à publier",
   "aggregator-sources.utils.stateMessages.statePublished": "Publié",
-  "aggregator-sources.utils.stateMessages.stateToControl": "À contrôler"
+  "aggregator-sources.utils.stateMessages.stateToControl": "À modérer"
 }

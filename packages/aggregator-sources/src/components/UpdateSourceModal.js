@@ -32,6 +32,11 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.ok',
     defaultMessage: 'OK',
   },
+  evaluateOptionsMessages: {
+    id: 'aggregator-sources.UpdateSourceModal.evaluateOptionsMessages',
+    defaultMessage:
+      'Would you like events published in the source calendar to be re-evaluated as a result of this update?',
+  },
 });
 
 const modalClassnames = {
@@ -98,7 +103,7 @@ export default function UpdateSourceModal({
         <EvaluateOptions
           handleFinalSubmit={handleFinalSubmit}
           onClose={onClose}
-          message="Ecrire un message cohérent"
+          message={intl.formatMessage(messages.evaluateOptionsMessages)}
           submitMessage={intl.formatMessage(messages.updateSource)}
         />
       ) : null}

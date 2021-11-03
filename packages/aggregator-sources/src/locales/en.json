@@ -153,6 +153,7 @@
   "aggregator-sources.SourcesList.seeAgenda": "See agenda",
   "aggregator-sources.SourcesList.update": "{rulesCount, plural, =1 {See the aggregation rule} other {See the # aggregation rules}}",
   "aggregator-sources.UpdateSourceModal.cancel": "Cancel",
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Would you like events published in the source calendar to be re-evaluated as a result of this update?",
   "aggregator-sources.UpdateSourceModal.updateASource": "Aggregation rules",
   "aggregator-sources.UpdateSourceModal.updateSource": "Update",
   "aggregator-sources.add": "Add",
@@ -160,5 +161,5 @@
   "aggregator-sources.utils.stateMessages.state": "State",
   "aggregator-sources.utils.stateMessages.stateControlled": "Controlled",
   "aggregator-sources.utils.stateMessages.statePublished": "Published",
-  "aggregator-sources.utils.stateMessages.stateToControl": "To control"
+  "aggregator-sources.utils.stateMessages.stateToControl": "To moderate"
 }
