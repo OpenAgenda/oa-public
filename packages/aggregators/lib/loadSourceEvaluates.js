@@ -18,7 +18,7 @@ module.exports = async (
   const log = Log(
     `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`
   );
-  log(JSON.stringify(query));
+
   let count = 0;
   let after;
   while (after !== null) {
