@@ -24,17 +24,12 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   } = services;
 
   const {
-    preloadedNetwork,
-    includeEvent,
-    includeMember,
-    access
-  } = {
-    preloadedNetwork: null,
-    includeEvent: false,
-    includeMember: false,
-    access: 'public',
-    ...options
-  };
+    preloadedNetwork = null,
+    includeEvent = false,
+    includeMember = false,
+    includeNonDataFields = false,
+    access = 'public'
+  } = options;
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
@@ -70,7 +65,11 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   }
 
   if (includeEvent) {
-    mergeArgs.push(access);
+    mergeArgs.push({
+      access,
+      includeNonDataFields
+    });
+
     log('returning schema with event for access %s', access);
     return merge.schemasWithEvent.apply(null, mergeArgs);
   }
