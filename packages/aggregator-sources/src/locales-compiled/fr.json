@@ -17,12 +17,6 @@
       "value": "Déjà dans les sources"
     }
   ],
-  "aggregator-sources.AddSourceModal.cancel": [
-    {
-      "type": 0,
-      "value": "Annuler"
-    }
-  ],
   "aggregator-sources.AddSourceModal.chooseAnotherSource": [
     {
       "type": 0,
@@ -113,24 +107,6 @@
       "value": "."
     }
   ],
-  "aggregator-sources.AddSourceModal.evaluateOption0": [
-    {
-      "type": 0,
-      "value": "N'évaluer que les événements ajoutés à l'agenda à partir de maintenant"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.evaluateOption1": [
-    {
-      "type": 0,
-      "value": "Évaluer tous les événements"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.evaluateOption2": [
-    {
-      "type": 0,
-      "value": "Évaluer les événements en cours et à venir"
-    }
-  ],
   "aggregator-sources.AddSourceModal.evaluationStep": [
     {
       "type": 0,
@@ -180,6 +156,12 @@
     {
       "type": 0,
       "value": "Officiel"
+    }
+  ],
+  "aggregator-sources.AddSourceModal.ok": [
+    {
+      "type": 0,
+      "value": "OK"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
@@ -957,6 +939,30 @@
       "value": "actionCount"
     }
   ],
+  "aggregator-sources.EvaluateOptions.cancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption0": [
+    {
+      "type": 0,
+      "value": "N'évaluer que les événements ajoutés à l'agenda à partir de maintenant"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption1": [
+    {
+      "type": 0,
+      "value": "Évaluer tous les événements"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption2": [
+    {
+      "type": 0,
+      "value": "Évaluer les événements en cours et à venir"
+    }
+  ],
   "aggregator-sources.RemoveSourceModal.cancel": [
     {
       "type": 0,
@@ -1359,6 +1365,12 @@
       "value": "Annuler"
     }
   ],
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
+    {
+      "type": 0,
+      "value": "Souhaitez-vous que les événements publiés dans l'agenda source soient ré-évalués à la suite de cette mise à jour?"
+    }
+  ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
     {
       "type": 0,
@@ -1404,7 +1416,7 @@
   "aggregator-sources.utils.stateMessages.stateToControl": [
     {
       "type": 0,
-      "value": "À contrôler"
+      "value": "À modérer"
     }
   ]
 }

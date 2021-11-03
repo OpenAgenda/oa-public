@@ -207,12 +207,8 @@ function Dashboard() {
     [dispatch, refresh]
   );
   const updateSource = useCallback(
-    (source, rules) => dispatch(sourcesActions.update(source.id, { rules })).then(() => {
-      closeModalUpdateSource();
-
-      return refresh();
-    }),
-    [dispatch, closeModalUpdateSource, refresh]
+    (source, rules, evaluate) => dispatch(sourcesActions.update(source.id, { rules, evaluate })).then(() => refresh()),
+    [dispatch, refresh]
   );
   const removeSource = useCallback(
     (source, evaluate) => dispatch(sourcesActions.remove(source.id, { evaluate })).then(() => {

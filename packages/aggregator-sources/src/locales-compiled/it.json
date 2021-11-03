@@ -17,12 +17,6 @@
       "value": "Già un agenda-fonte"
     }
   ],
-  "aggregator-sources.AddSourceModal.cancel": [
-    {
-      "type": 0,
-      "value": "Annulla"
-    }
-  ],
   "aggregator-sources.AddSourceModal.chooseAnotherSource": [
     {
       "type": 0,
@@ -113,24 +107,6 @@
       "value": "."
     }
   ],
-  "aggregator-sources.AddSourceModal.evaluateOption0": [
-    {
-      "type": 0,
-      "value": "Aggregare solo i nuovi eventi"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.evaluateOption1": [
-    {
-      "type": 0,
-      "value": "Aggregare tutti i eventi, anche i passati"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.evaluateOption2": [
-    {
-      "type": 0,
-      "value": "Aggregate current and future events already entered on the source calendar"
-    }
-  ],
   "aggregator-sources.AddSourceModal.evaluationStep": [
     {
       "type": 0,
@@ -180,6 +156,12 @@
     {
       "type": 0,
       "value": "Official"
+    }
+  ],
+  "aggregator-sources.AddSourceModal.ok": [
+    {
+      "type": 0,
+      "value": "OK"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
@@ -923,6 +905,30 @@
       "value": "actionCount"
     }
   ],
+  "aggregator-sources.EvaluateOptions.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption0": [
+    {
+      "type": 0,
+      "value": "Aggregate only upcoming events"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption1": [
+    {
+      "type": 0,
+      "value": "Aggregate all events"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption2": [
+    {
+      "type": 0,
+      "value": "Aggregate current and future events"
+    }
+  ],
   "aggregator-sources.RemoveSourceModal.cancel": [
     {
       "type": 0,
@@ -1355,6 +1361,12 @@
     {
       "type": 0,
       "value": "Annulla"
+    }
+  ],
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
+    {
+      "type": 0,
+      "value": "Would you like events published in the source calendar to be re-evaluated as a result of this update?"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
