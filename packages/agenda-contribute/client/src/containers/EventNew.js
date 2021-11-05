@@ -38,7 +38,7 @@ export default function EventNew({ agenda, history }) {
       steps={steps('event')}
       onSelectStep={step => history.push(`${prefix}/${step}`)}
     >
-      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={member.role} /> : null}
+      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={member.role} className="margin-bottom-md" /> : null}
       <Instructions
         message={agenda?.settings?.contribution?.messages?.instructions}
         className="margin-bottom-lg"

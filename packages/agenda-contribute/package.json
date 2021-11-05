@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
-    "@openagenda/axios-mock-adapter": "^1.21.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/event-form": "^1.5.1",
     "@openagenda/form-schemas": "^1.9.2",
@@ -32,6 +31,7 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "history": "^4.10.1",
+    "immer": "^9.0.1",
     "immutability-helper": "^3.0.1",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",

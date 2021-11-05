@@ -12,19 +12,19 @@ const messages = defineMessages({
   }
 });
 
-export default ({ memberRole }) => {
+export default ({ memberRole, className }) => {
   const m = useIntl().formatMessage;
 
   if (['administrator', 'moderator'].includes(memberRole)) {
     return (
-      <div className="event-instruction boxed warning padding-all-md">
+      <div className={`event-instruction boxed warning padding-all-md ${className ?? ''}`}>
         <p className="text-center padding-all-z margin-all-z">{m(messages.forAdminModerators)}</p>
       </div>
     );
   }
 
   return (
-    <div className="event-instruction boxed padding-all-md">
+    <div className={`event-instruction boxed padding-all-md ${className ?? ''}`}>
       <p className="text-center padding-all-z margin-all-z">{m(messages.forContributors)}</p>
     </div>
   );

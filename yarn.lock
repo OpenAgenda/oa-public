@@ -5610,6 +5610,7 @@ __metadata:
     debug: ^4.1.1
     express: ^4.17.1
     history: ^4.10.1
+    immer: ^9.0.1
     immutability-helper: ^3.0.1
     jest: ^26.1.0
     lodash: ^4.17.15
