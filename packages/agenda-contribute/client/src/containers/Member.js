@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import Loading from '../components/Loading';
 
@@ -8,13 +9,18 @@ import CanvasWithStepper from '../components/CanvasWithStepper';
 import useMember from '../lib/useMember';
 import steps from '../lib/steps';
 
-export default function Member() {
-  const res = useSelector(state => state.res);
+export default function Member({
+  agenda,
+  history
+}) {
+  const queryClient = useQueryClient();
+  const res = useSelector(state => state.apiRoot + state.res.member);
+  const prefix = useSelector(state => state.prefix);
 
   const {
     memberIsLoading,
     member
-  } = useMember(res);
+  } = useMember(agenda);
 
   if (memberIsLoading) {
     return <Loading />;
@@ -29,9 +35,10 @@ export default function Member() {
         <div className="wsq padding-all-md">
           <MemberForm
             member={member}
-            res={res.member}
-            onSuccess={(/* member */) => {
-
+            res={res.replace(':agendaUid', agenda.uid)}
+            onSuccess={() => {
+              queryClient.removeQueries('member');
+              history.push(`${prefix}/event`);
             }}
           />
         </div>

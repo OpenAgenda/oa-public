@@ -13,6 +13,8 @@ import completeContributorData from './fixtures/complete.contributor.json';
 import mdb from './fixtures/mdb.agenda.json';
 import mdbDetailed from './fixtures/mdb.detailed.agenda.json';
 
+import fixtures from './fixtures';
+
 const res = {
   member: '/api/me/agendas/:agendaUid',
   requestContribute: '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
@@ -37,6 +39,40 @@ memberFreshness.setMonth(memberFreshness.getMonth() - 6);
 export default {
   title: 'App - Member evaluation',
   decorators: [ProvidersDecorator]
+};
+
+export const ContributorGoesToEventStepAfterMemberFormSubmit = () => {
+  const {
+    ContributorGoesToEventStepAfterMemberFormSubmit: {
+      extraProps
+    }
+  } = fixtures;
+  return (
+    <>
+      <p className="text-center"><strong>Contributor is shown event form upon successful submission of member form data. Press the save button.</strong></p>
+      {wrapApp(
+        createApp({
+          initialState: {
+            apiRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+            prefix: '/:agendaSlug/contribute',
+            res,
+            memberFreshness,
+            files: {
+              maxSize: 200000000,
+              store: { type: 's3', bucket: 'oadev' }
+            },
+            tiles: 'https://map.tiles'
+          },
+          history: createMemoryHistory({
+            initialEntries: ['/some-agenda/contribute']
+          })
+        }),
+        {
+          extraProps
+        }
+      )}
+    </>
+  );
 };
 
 export const MemberIsAdminModAndDataIsIncomplete = () => {

@@ -39,7 +39,7 @@ export default function App(props) {
   const {
     memberIsLoading,
     member
-  } = useMember(res);
+  } = useMember(agenda);
 
   if (memberIsLoading) {
     return <Loading />;

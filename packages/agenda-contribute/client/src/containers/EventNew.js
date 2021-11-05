@@ -18,16 +18,11 @@ const {
   isContributionType
 } = utils;
 
-export default function EventNew(props) {
-  const {
-    agenda,
-    history
-  } = props;
-
+export default function EventNew({ agenda, history }) {
   const {
     memberIsLoading,
     member
-  } = useMember();
+  } = useMember(agenda);
 
   const prefix = useSelector(state => state.prefix);
 
