@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
-import ValueBadge from '../ValueBadge';
+import FilterPreviewer from '../FilterPreviewer';
 
 const subscription = { values: true };
 
@@ -37,19 +37,9 @@ function updateFilter(filter, active) {
   }
 }
 
-function DefaultPreviewRenderer({
-  label, onRemove, disabled, className
-}) {
-  return (
-    <span className={className}>
-      <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
-    </span>
-  );
-}
-
 function Preview({
   name,
-  component = DefaultPreviewRenderer,
+  component = FilterPreviewer,
   disabled,
   activeFilterLabel,
   filter,

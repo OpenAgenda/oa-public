@@ -231,12 +231,6 @@
       "value": "Rechercher avec la carte"
     }
   ],
-  "ReactFilters.MapFilter.previewLabel": [
-    {
-      "type": 0,
-      "value": "Carte"
-    }
-  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
@@ -273,10 +267,40 @@
       "value": "Demain"
     }
   ],
+  "ReactFilters.filters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Carte"
+    }
+  ],
   "ReactFilters.filters.searchFilter.placeholder": [
     {
       "type": 0,
       "value": "Rechercher"
+    }
+  ],
+  "ReactFilters.filters.searchFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Recherche"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.mixed": [
+    {
+      "type": 0,
+      "value": "Mixte"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.offline": [
+    {
+      "type": 0,
+      "value": "Hors ligne"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.online": [
+    {
+      "type": 0,
+      "value": "En ligne"
     }
   ],
   "ReactFilters.messages.filterTitles.addMethod": [
@@ -379,6 +403,24 @@
     {
       "type": 0,
       "value": "Date de mise à jour"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.current": [
+    {
+      "type": 0,
+      "value": "En cours"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.passed": [
+    {
+      "type": 0,
+      "value": "Passé"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.upcoming": [
+    {
+      "type": 0,
+      "value": "À venir"
     }
   ]
 }

@@ -5,7 +5,6 @@
   <div class="sidebar-wrapper">
     <div class="my-4">
       {{filter
-        type='map'
         name='geo'
         className='map-container'
         searchMessage=(i18n 'searchWhenMoving')
@@ -16,17 +15,19 @@
     </div>
 
     <div class="my-4">
-      <!-- id is required because both filters has the same name -->
-      {{filter type='dateRange' name='timings'}}
-      {{filter type='definedRange' name='timings' staticRanges=(array 'today' 'tomorrow')}}
+      {{filter name='timings'}}
+      {{filter name='timings' type='definedRange' staticRanges=(array 'today' 'tomorrow')}}
     </div>
 
     <div class="my-4">
       <b>{{i18n 'passed'}} / {{i18n 'current'}} / {{i18n 'upcoming'}}</b>
-      {{filter type='choice' name='relative'}}
+      {{filter name='relative'}}
 
       <b>{{i18n 'attendanceMode'}}</b>
-      {{filter type='choice' name='attendanceMode' inputType='radio'}}
+      {{filter name='attendanceMode' inputType='radio'}}
+
+      <b>{{i18n 'city'}}</b>
+      {{filter name='city'}}
 
       <b>{{i18n 'customFilters'}}</b>
 

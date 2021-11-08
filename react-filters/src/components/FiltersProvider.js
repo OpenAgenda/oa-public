@@ -1,24 +1,34 @@
-import React, { useCallback, useImperativeHandle } from 'react';
+import React, { useCallback, useImperativeHandle, useMemo } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
+import {
+  apiClient,
+  mergeLocales,
+  useConstant,
+  ApiClientContext
+} from '@openagenda/react-shared';
 import { createForm } from 'final-form';
 import { IntlProvider, RawIntlProvider } from 'react-intl';
-import messages from '../locales-compiled';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import appLocales from '../locales';
+import filtersToAggregations from '../utils/filtersToAggregations';
+
+const defaultSubscription = {};
+const spySubscription = { dirty: true, values: true };
 
 function FiltersForm({ children }) {
   return children;
 }
 
-const defaultSubscription = {};
-const spySubscription = { dirty: true, values: true };
-
 function FiltersProvider(
   {
     children,
-    staticContext,
     subscription = defaultSubscription,
     intl,
     locale = 'en',
+    locales: userLocales,
+    filters,
+    // for test
+    apiClient: customApiClient,
     // form config
     debug,
     destroyOnUnregister,
@@ -31,26 +41,39 @@ function FiltersProvider(
   },
   ref
 ) {
-  const form = useConstant(() => {
-    const finalForm = createForm({
-      debug,
-      destroyOnUnregister,
-      initialValues,
-      keepDirtyOnReinitialize,
-      mutators,
-      onSubmit,
-      validate,
-      validateOnBlur,
-    });
+  const apiClientInstance = useConstant(() => customApiClient || apiClient());
 
-    if (staticContext) {
-      staticContext.form = finalForm;
-    }
+  const queryClient = useConstant(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
 
-    return finalForm;
-  });
+  const handleSubmit = useCallback((values, form) => {
+    const aggregations = filtersToAggregations(filters);
+
+    return onSubmit(values, aggregations, form);
+  }, [filters, onSubmit]);
+
+  const form = useConstant(() => createForm({
+    debug,
+    destroyOnUnregister,
+    initialValues,
+    keepDirtyOnReinitialize,
+    mutators,
+    onSubmit: handleSubmit,
+    validate,
+    validateOnBlur,
+  }));
 
   useImperativeHandle(ref, () => form);
+
+  const locales = useMemo(
+    () => mergeLocales(appLocales, userLocales || {}),
+    [userLocales]
+  );
 
   const onValueChange = useCallback(({ dirty, values }) => {
     if (dirty) {
@@ -60,14 +83,22 @@ function FiltersProvider(
   }, [form]);
 
   const child = (
-    <Form form={form} component={FiltersForm} subscription={subscription}>
-      {children}
+    <ApiClientContext.Provider value={apiClientInstance}>
+      <QueryClientProvider client={queryClient}>
+        <Form
+          form={form}
+          component={FiltersForm}
+          subscription={subscription}
+        >
+          {children}
 
-      <FormSpy
-        subscription={spySubscription}
-        onChange={onValueChange}
-      />
-    </Form>
+          <FormSpy
+            subscription={spySubscription}
+            onChange={onValueChange}
+          />
+        </Form>
+      </QueryClientProvider>
+    </ApiClientContext.Provider>
   );
 
   if (intl) {
@@ -75,7 +106,7 @@ function FiltersProvider(
   }
 
   return (
-    <IntlProvider messages={messages[locale]} locale={locale} key={locale}>
+    <IntlProvider messages={locales[locale]} locale={locale} key={locale}>
       {child}
     </IntlProvider>
   );

@@ -18,8 +18,7 @@ module.exports = hbs => ({ hash, data }) => {
 
   const attrs = {
     ...restOptions,
-    name,
-    destSelector: `[data-oa-widget="${i}"]`
+    name
   };
 
   if (name === 'total' && attrs.message) {
@@ -31,7 +30,10 @@ module.exports = hbs => ({ hash, data }) => {
   }
 
   if (data.root.__extractFiltersAndWidgets) {
-    data.root.widgets.push(attrs);
+    data.root.widgets.push({
+      ...attrs,
+      destSelector: `[data-oa-widget="${i}"]`
+    });
   }
 
   return new hbs.SafeString(`

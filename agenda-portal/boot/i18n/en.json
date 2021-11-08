@@ -9,6 +9,7 @@
   "contribute": "Contribute an event",
   "eventsTotal": "{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}",
   "onlineAccessLink": "Access online event",
+  "city": "City",
 
   "searchPlaceholder": "Search",
   "searchWhenMoving": "Search when I move the map",

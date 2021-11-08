@@ -1,6 +1,8 @@
+// BASE
+
 .rdrCalendarWrapper {
   box-sizing: border-box;
-  background: #ffffff;
+  //background: #ffffff;
   display: -webkit-inline-box;
   display: inline-flex;
   -webkit-box-orient: vertical;
@@ -219,7 +221,8 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .rdrStaticRanges:empty {
@@ -228,6 +231,7 @@
 
 .rdrStaticRange {
   font-size: inherit;
+  border: none;
 }
 
 .rdrStaticRangeLabel {
@@ -255,9 +259,9 @@
   font-size: 12px;
 }
 
-.rdrDateDisplayWrapper {
-  background-color: rgb(239, 242, 247);
-}
+//.rdrDateDisplayWrapper {
+//  background-color: rgb(239, 242, 247);
+//}
 
 .rdrDateDisplay {
   margin: 0.833em;
@@ -280,7 +284,8 @@
   color: #849095;
 }
 
-.rdrDateDisplayItemActive {
+.rdrDateDisplayItemActive,
+.rdrDateDisplayItem:hover {
   border-color: currentColor;
 }
 
@@ -292,7 +297,7 @@
   -webkit-box-align: center;
   align-items: center;
   height: 60px;
-  padding-top: 10px;
+  // padding-top: 10px;
 }
 
 .rdrMonthAndYearPickers {
@@ -331,13 +336,13 @@
   height: 24px;
   margin: 0 0.833em;
   padding: 0;
-  border: 0;
+  border: 1px solid #fff;
   border-radius: 5px;
-  background: #eff2f7;
+  background: #fff;
 }
 
 .rdrNextPrevButton:hover {
-  background: #e1e7f0;
+  border: 1px solid $oa-blue;
 }
 
 .rdrNextPrevButton i {
@@ -572,7 +577,6 @@
   font-size: 12px;
   width: 226px;
   border-right: solid 1px #eff2f7;
-  background: #fff;
 }
 
 .rdrDefinedRangesWrapper .rdrStaticRangeSelected {
@@ -590,6 +594,10 @@
   background: #fff;
 }
 
+.rdrStaticRange + .rdrStaticRange {
+  margin-left: 8px;
+}
+
 .rdrStaticRange:hover .rdrStaticRangeLabel,
 .rdrStaticRange:focus .rdrStaticRangeLabel {
   background: #eff2f7;
@@ -599,8 +607,8 @@
   display: block;
   outline: 0;
   line-height: 18px;
-  padding: 10px 20px;
   text-align: left;
+  padding: 5px;
 }
 
 .rdrInputRanges {
@@ -626,7 +634,7 @@
 
 .rdrInputRangeInput:focus,
 .rdrInputRangeInput:hover {
-  border-color: rgb(180, 191, 196);
+  border-color: $oa-blue;
   outline: 0;
   color: #333;
 }
@@ -695,6 +703,18 @@
   display: none;
 }
 
+.rdrDayStartOfMonth .rdrDayNumber {
+  border-top-left-radius: 1.042em;
+  border-bottom-left-radius: 1.042em;
+  left: 2px;
+}
+
+.rdrDayEndOfMonth .rdrDayNumber {
+  border-top-right-radius: 1.042em;
+  border-bottom-right-radius: 1.042em;
+  right: 2px;
+}
+
 .rdrNoSelection {
   .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge {
     background: #fff;
@@ -708,6 +728,16 @@
 
     &:after {
       background: $oa-blue;
+    }
+  }
+}
+
+:not(.rdrNoSelection) {
+  .rdrDay:not(.rdrDayPassive) {
+    .rdrDayNumber:nth-child(1),
+    :not(.rdrInRange):not(.rdrStartEdge):not(.rdrEndEdge) ~ .rdrDayNumber:nth-child(2),
+    :not(.rdrInRange):not(.rdrStartEdge):not(.rdrEndEdge) + span + .rdrDayNumber {
+      background: #fff;
     }
   }
 }

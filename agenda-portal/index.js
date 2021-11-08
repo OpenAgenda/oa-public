@@ -60,13 +60,9 @@ const mw = {
 
 const baseAssetsPath = `${__dirname}/assets`;
 
-const { I18N, imageToUrl } = utils;
+const { I18N } = utils;
 
 let devApp = null; // used for @openagenda/agenda-portal dev only
-
-function getFieldSchema(agendaSchema, fieldName) {
-  return agendaSchema.fields.find(v => v.field === fieldName);
-}
 
 module.exports = async options => {
   log('booting');
@@ -162,15 +158,15 @@ module.exports = async options => {
   if (uid) {
     app.locals.assetsRoot = app.locals.root;
     try {
+      // TODO catch error in head
       app.locals.agenda = await app.get('proxy').head(uid);
     } catch (e) {
       if (e.message === 'Unauthorized') {
         log(
           '\n\nEXITING: account linked to key must be a member of the agenda\n\n'
         );
-        return process.exit();
       }
-      throw e;
+      return process.exit();
     }
     app.use(express.static(baseAssetsPath));
   } else if (!assetsRoot) {
@@ -256,7 +252,7 @@ module.exports = async options => {
 
   app.launch = launch.bind(null, app);
 
-  tasks({ config, proxy });
+  tasks({ config, app });
 
   return {
     app,
