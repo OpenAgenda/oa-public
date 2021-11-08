@@ -205,6 +205,26 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
     });
 
+    describe('get with options', () => {
+      let event;
+
+      beforeAll(async () => {
+        event = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
+          headers: {
+            'access-token': accessToken,
+            nonce: 1239789,
+            'content-type': 'application/json'
+          },
+        }).then(r => r.data.event);
+      });
+
+      it('useDateHoursMinutesFormat', async () => {
+        expect(event.timings[0].begin).toEqual({ date: '2019-09-27', hours: '10', minutes: '00' });
+      });
+    });
+
     describe('successful list for non adminmod user', () => {
       let response;
 

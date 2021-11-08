@@ -133,7 +133,9 @@ module.exports = core => {
     }, {
       detailed: true,
       userUid: req.user?.uid,
-      longDescriptionFormat: req.query.longDescriptionFormat
+      longDescriptionFormat: req.query.longDescriptionFormat,
+      useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
+      useLocationObjectFormat: req.query.useLocationObjectFormat
     }).then(({
       events
     }) => (events.length ? res.json({
