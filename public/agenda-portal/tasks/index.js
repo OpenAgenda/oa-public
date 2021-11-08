@@ -2,6 +2,6 @@
 
 const cacheTask = require('./cache');
 
-module.exports = ({ config, proxy }) => {
-  cacheTask(proxy, config.cache);
+module.exports = ({ config, app }) => {
+  cacheTask(app, config.cache);
 };

@@ -1,6 +1,4 @@
-// IMPORTANT: this file is used on server side also, should be in ES5.
-
-const _ = require('lodash');
+import _ from 'lodash';
 
 function parseAttrValue(value) {
   switch (value) {
@@ -15,7 +13,7 @@ function parseAttrValue(value) {
   }
 }
 
-module.exports = function parseFilterAttrs(attrs) {
+export default function parseFilterAttrs(attrs) {
   const dataset = {};
 
   for (const [name, value] of Object.entries(attrs)) {
@@ -32,4 +30,4 @@ module.exports = function parseFilterAttrs(attrs) {
   }
 
   return dataset;
-};
+}

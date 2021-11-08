@@ -11,7 +11,7 @@ require('./scss/main.scss');
 const lang = 'fr';
 
 export default {
-  title: 'OpenAgenda/Demo',
+  title: 'React filters/React',
   argTypes: { onSubmit: { action: 'submit' } },
 };
 

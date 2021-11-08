@@ -1,0 +1,16 @@
+.active-filters {
+  .badge {
+    background: $oa-gray-lightest;
+    color: $oa-black;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    padding: 4px 8px;
+    margin-right: 10px;
+
+    button {
+      line-height: 1;
+      padding: 0 0 0 0.5rem;
+    }
+  }
+}

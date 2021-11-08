@@ -1,0 +1,53 @@
+.tags {
+
+  list-style-type: none;
+  padding: 0;
+
+  li {
+
+    cursor: pointer;
+    display: inline-block;
+    background: white;
+    border-radius: 10px;
+    padding: 0 0 0 10px;
+    margin: 0 5px 10px 0;
+
+    a {
+      display: inline-block;
+    }
+
+    &.oa-group-first-tag {
+
+      margin-top: 30px;
+
+    }
+
+    .count {
+
+      margin-left: 10px;
+      color: $oa-blue;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      background: $oa-gray-lightest;
+      font-size: 0.8em;
+      display: inline-block;
+      padding: 4px 10px 4px 8px;
+
+    }
+
+    &.selected {
+
+      background: $oa-blue;
+      color: white;
+
+      .count {
+        background: $oa-blue;
+        color: $oa-white;
+      }
+
+    }
+
+  }
+
+
+}

@@ -1,23 +1,31 @@
-const getLocaleValue = require('@openagenda/react-shared/lib/utils/getLocaleValue');
-const dateRanges = require('@openagenda/react-filters/lib/utils/dateRanges').default;
-const assignIfEmpty = require('./assignIfEmpty');
+import _ from 'lodash';
+import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
+import relativeOptions from '../messages/relativeOptions';
+import attendanceModeOptions from '../messages/attendanceModeOptions';
+import dateRanges from './dateRanges';
 
 const AGGREGATION_SIZE = 2000;
 
-module.exports = function withDefaultFilterConfig(filter, intl) {
+const defaults = _.partialRight(
+  _.assignWith,
+  (objValue, srcValue) => (_.isUndefined(objValue) ? srcValue : objValue)
+);
+
+export default function withDefaultFilterConfig(filter, intl) {
   switch (filter.name) {
     case 'geo':
-      assignIfEmpty(filter, {
+      defaults(filter, {
+        type: 'map',
         aggregation: null,
         // props for MapFilter
         tileAttribution:
           '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-        tileUrl:
-          'https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}.png?apiKey=9f8da49724b645f486f281abbe690750'
+        tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       });
       break;
     case 'timings':
-      assignIfEmpty(filter, {
+      defaults(filter, {
+        type: 'dateRange',
         aggregation: null
       });
       if (filter.type === 'definedRange') {
@@ -25,72 +33,80 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
       }
       break;
     case 'search':
-      assignIfEmpty(filter, {
+      defaults(filter, {
+        type: 'search',
         aggregation: null
       });
       break;
     case 'locationUid':
-      assignIfEmpty(filter, {
+      defaults(filter, {
         //
       });
       break;
     case 'featured':
-      assignIfEmpty(filter, {
+      defaults(filter, {
         //
       });
       break;
     case 'relative':
-      assignIfEmpty(filter, {
+      defaults(filter, {
+        type: 'choice',
         options: [
           {
-            label: intl.formatMessage({ id: 'passed' }),
+            label: intl.formatMessage(relativeOptions.passed),
             value: 'passed',
           },
           {
-            label: intl.formatMessage({ id: 'current' }),
+            label: intl.formatMessage(relativeOptions.current),
             value: 'current',
           },
           {
-            label: intl.formatMessage({ id: 'upcoming' }),
+            label: intl.formatMessage(relativeOptions.upcoming),
             value: 'upcoming',
           },
         ]
       });
       break;
     case 'attendanceMode':
-      assignIfEmpty(filter, {
+      defaults(filter, {
+        type: 'choice',
         aggregation: {
           type: 'attendanceModes'
         },
         options: [
           {
-            label: intl.formatMessage({ id: 'offline' }),
+            label: intl.formatMessage(attendanceModeOptions.offline),
             value: '1',
           },
           {
-            label: intl.formatMessage({ id: 'online' }),
+            label: intl.formatMessage(attendanceModeOptions.online),
             value: '2',
           },
           {
-            label: intl.formatMessage({ id: 'mixed' }),
+            label: intl.formatMessage(attendanceModeOptions.mixed),
             value: '3',
           },
         ]
       });
       break;
     case 'region':
-      assignIfEmpty(filter, {
+      defaults(filter, {
         //
       });
       break;
     case 'department':
-      assignIfEmpty(filter, {
+      defaults(filter, {
         //
       });
       break;
     case 'city':
-      assignIfEmpty(filter, {
-        //
+      defaults(filter, {
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'cities',
+          size: AGGREGATION_SIZE,
+        }
       });
       break;
     default:
@@ -100,7 +116,7 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
   const { fieldSchema } = filter;
 
   if (fieldSchema) {
-    assignIfEmpty(filter, {
+    defaults(filter, {
       name: fieldSchema.field,
       type: 'choice',
       fieldSchema,
@@ -118,4 +134,4 @@ module.exports = function withDefaultFilterConfig(filter, intl) {
   }
 
   return filter;
-};
+}

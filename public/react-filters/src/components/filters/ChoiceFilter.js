@@ -11,7 +11,7 @@ import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import ChoiceField from '../fields/ChoiceField';
 import Panel from '../Panel';
-import ValueBadge from '../ValueBadge';
+import FilterPreviewer from '../FilterPreviewer';
 
 const OPTIONS_PAGE_SIZE = 10;
 const SEARCH_MIN_SIZE = 2 * OPTIONS_PAGE_SIZE;
@@ -53,35 +53,11 @@ function formatValue(value) {
   return value;
 }
 
-function DefaultPreviewRenderer({
-  valueOptions,
-  onRemove,
-  disabled,
-  className,
-}) {
-  if (!valueOptions?.length) {
-    return null;
-  }
-
-  return (
-    <span className={className}>
-      {valueOptions.map(option => (
-        <ValueBadge
-          key={option.value}
-          label={option.label}
-          onRemove={onRemove(option)}
-          disabled={disabled}
-        />
-      ))}
-    </span>
-  );
-}
-
 function Preview({
   name,
   filter,
   getOptions,
-  component = DefaultPreviewRenderer,
+  component = FilterPreviewer,
   disabled,
   ...rest
 }) {

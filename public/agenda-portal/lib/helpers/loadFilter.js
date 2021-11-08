@@ -24,8 +24,7 @@ module.exports = hbs => ({ hash, data }) => {
 
   const attrs = {
     ...restOptions,
-    name,
-    destSelector: `[data-oa-filter="${i}"]`
+    name
   };
 
   if (fieldSchema?.schemaId) {
@@ -33,13 +32,16 @@ module.exports = hbs => ({ hash, data }) => {
   }
 
   if (data.root.__extractFiltersAndWidgets) {
-    data.root.filters.push(attrs);
+    data.root.filters.push({
+      ...attrs,
+      destSelector: `[data-oa-filter="${i}"]`
+    });
   }
 
   return new hbs.SafeString(`
     <${tagName}
       ${attributes}
-      class="${className}"
+      ${className ? `class="${className}"` : ''}
       data-oa-filter="${i}"
       data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
     ></${tagName}>

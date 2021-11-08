@@ -15,17 +15,19 @@
     "esm"
   ],
   "scripts": {
-    "prepack": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build && yarn dist",
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "babel --copy-files src -d esm -s --env-name esm",
     "build:cjs": "babel --copy-files src -d lib -s",
+    "dist": "webpack-cli --config webpack.config.js",
     "extract-messages": "yarn oa:extract-messages",
     "clean": "rimraf esm lib",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged",
-    "start": "start-storybook -p 6006 --no-dll",
-    "build-storybook": "build-storybook --no-dll"
+    "start": "concurrently -r -k -i -n dist,sb \"yarn dist -w\" \"yarn storybook\"",
+    "storybook": "start-storybook -p 6006 -s dist",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "**/*.js": [
@@ -40,6 +42,7 @@
     "@openagenda/react-shared": "^2.2.0",
     "@raruto/leaflet-gesture-handling": "^1.3.4",
     "@stefanoruth/react-portal-ssr": "^2.0.3",
+    "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",
     "date-fns": "^2.11.1",
@@ -52,6 +55,7 @@
     "react-final-form": "^6.5.3",
     "react-intl": "^5.12.2",
     "react-leaflet": "^3.1.0",
+    "react-query": "^3.31.0",
     "react-uid": "^2.3.0",
     "react-use": "^15.3.4",
     "use-debounce": "^6.0.1"
@@ -60,18 +64,28 @@
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
     "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@openagenda/axios-mock-adapter": "^1.21.0",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/eslint-config": "^1.3.1",
-    "@storybook/addon-essentials": "^6.2.8",
-    "@storybook/react": "^6.2.8",
+    "@storybook/addon-essentials": "^6.4.0-beta.11",
+    "@storybook/html": "^6.4.0-beta.11",
+    "@storybook/react": "^6.4.0-beta.11",
     "babel-loader": "^8.2.2",
+    "bootstrap": "4.3.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^6.3.0",
     "eslint": "^6.8.0",
     "final-form": "^4.20.2",
     "lint-staged": "^10.2.11",
+    "mkdirp": "^1.0.4",
     "prettier-eslint-cli": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "rimraf": "^3.0.1"
+    "rimraf": "^3.0.1",
+    "terser-webpack-plugin": "^2.3.3",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpackbar": "^5.0.0-3"
   },
   "peerDependencies": {
     "final-form": "^4.20.2",

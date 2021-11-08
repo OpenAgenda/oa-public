@@ -5,21 +5,18 @@ const ReactDOM = require('react-dom/server');
 const _ = require('lodash');
 const { PortalContext } = require('@stefanoruth/react-portal-ssr');
 const { PortalServer } = require('@stefanoruth/react-portal-ssr/server');
-const FiltersRoot = require('../client/components/FiltersRoot');
-const Provider = require('../client/components/Provider');
+const { FiltersProvider, FiltersManager } = require('@openagenda/react-filters');
 
 const setPageProp = require('../lib/utils/setPageProp');
+const Input = require('../client/components/Input');
 
 function withProvider(req, res, children) {
-  const messages = res.locals.widgets.reduce((accu, widget) => (widget.name === 'total' && widget.message
-    ? Object.assign(accu, { [widget.message.id]: widget.message.defaultMessage })
-    : accu), {});
+  const { intl } = res.locals;
 
-  return React.createElement(Provider, {
-    lang: res.locals.lang,
+  return React.createElement(FiltersProvider, {
+    intl,
     initialValues: _.omit(req.query, 'sort'),
-    onFilterChange: () => {},
-    messages
+    onSubmit: () => {}
   }, children);
 }
 
@@ -31,17 +28,22 @@ module.exports = async (req, res, next) => {
   setPageProp(req, 'pageType', 'list');
   setPageProp(req, 'lang', res.locals.lang);
   setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
-  setPageProp(req, 'aggregations', req.data.aggregations);
+  setPageProp(req, 'initialAggregations', req.data.aggregations);
   setPageProp(req, 'total', req.data.total);
+  setPageProp(req, 'filtersBase', req.data.filtersBase);
 
   // Render filters
   const portal = new PortalServer(PortalContext);
 
-  const elem = React.createElement(FiltersRoot, {
+  const elem = React.createElement(FiltersManager, {
     filters: res.locals.filters,
     widgets: res.locals.widgets,
     initialAggregations: req.data.aggregations,
-    initialTotal: req.data.total
+    initialTotal: req.data.total,
+    filtersBase: req.data.filtersBase,
+    searchProps: {
+      inputComponent: Input
+    }
   });
 
   ReactDOM.renderToString(portal.collectPortals(withProvider(req, res, elem)));
