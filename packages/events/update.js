@@ -9,7 +9,7 @@ const validate = require('./lib/validate');
 const setLegacy = require('./lib/legacy/set');
 const processImage = require('./lib/processImage');
 const handleInterface = require('./lib/handleInterface');
-const convertDateHoursMinutesTimings = require('./lib/convertDateHoursMinutesTimings');
+const convertDateHoursMinutesTimings = require('./utils/convertDateHoursMinutesTimings');
 const lastClean = require('./lib/lastEventClean');
 
 async function update({ service, isPatch }, current, data, o = {}) {
