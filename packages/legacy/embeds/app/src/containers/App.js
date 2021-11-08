@@ -23,7 +23,7 @@ function App({ route }) {
       locale={lang}
       key={lang}
     >
-      <QueryClientProvider client={queryClient} contextSharing>
+      <QueryClientProvider client={queryClient}>
         {renderRoutes(route.routes)}
       </QueryClientProvider>
     </IntlProvider>

@@ -108,17 +108,9 @@ module.exports = core => {
       ...req.query,
       useAfterKey: true,
       userUid: req.user?.uid
-    }).then(({
-      events,
-      sort,
-      total,
-      after
-    }) => res.json({
+    }).then(result => res.json({
       success: true,
-      sort,
-      total,
-      after,
-      events
+      ...result
     }), next));
 
   app.get('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core

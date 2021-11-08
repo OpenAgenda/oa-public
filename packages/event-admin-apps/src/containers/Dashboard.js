@@ -347,9 +347,10 @@ function Dashboard() {
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
 
-  const redirectURL = useMemo(() => getRedirectURL(history.location), [
-    history.location,
-  ]);
+  const redirectURL = useMemo(
+    () => getRedirectURL(history.location),
+    [history.location]
+  );
 
   const loadGeoData = useCallback(
     async (filter, bounds, zoom) => {
@@ -386,9 +387,10 @@ function Dashboard() {
   );
 
   const filters = useFilters(agendaSchema);
-  const mapFilter = useMemo(() => filters.find(v => v.name === 'geo'), [
-    filters,
-  ]);
+  const mapFilter = useMemo(
+    () => filters.find(v => v.name === 'geo'),
+    [filters]
+  );
 
   const removeModal = useModal();
 
@@ -492,9 +494,10 @@ function Dashboard() {
   );
 
   // Selection
-  const isSelectedEvent = useCallback(uid => selectedEvents.has(uid), [
-    selectedEvents,
-  ]);
+  const isSelectedEvent = useCallback(
+    uid => selectedEvents.has(uid),
+    [selectedEvents]
+  );
   const selectEvent = useCallback(uid => {
     setSelectedEvents(old => {
       const result = new Set(old);
@@ -662,6 +665,7 @@ function Dashboard() {
       validate={validate}
       intl={intl}
       ref={filtersFormRef}
+      filters={filters}
     >
       <header>
         <Actions
