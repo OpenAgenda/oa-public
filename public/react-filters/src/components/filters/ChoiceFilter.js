@@ -97,7 +97,7 @@ function Preview({
       return [options.find(option => option.value === input.value)];
     }
 
-    return input.value.map(v => options.find(option => option.value === v));
+    return input.value.map(v => options.find(option => String(option.value) === String(v)));
   }, [input.value, options]);
 
   const onRemove = useCallback(
