@@ -22,6 +22,10 @@
 
   }
 
+  &.warning {
+    border-color: $oa-warning;
+  }
+
 }
 
 .error-summary {
