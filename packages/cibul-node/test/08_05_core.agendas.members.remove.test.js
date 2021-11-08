@@ -44,7 +44,9 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
 
   describe('results contents', () => {
     it('basic remove', async () => {
-      await core.agendas({ uid: 2 }).members.remove(1);
+      await core.agendas({ uid: 2 }).members.remove(1, {
+        userUid: 1
+      });
 
       const rows = await core.services.knex('reviewer').select()
         .where({

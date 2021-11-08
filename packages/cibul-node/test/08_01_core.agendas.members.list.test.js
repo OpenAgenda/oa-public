@@ -47,7 +47,9 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas({ uid: 2 }).members.list({ limit: 2 });
+      result = await core.agendas({ uid: 2 }).members.list({ limit: 2 }, {
+        userUid: 50073466
+      });
     });
 
     it('total, items and after keys are part of results', () => {
@@ -59,16 +61,21 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
     it('next result set can be fetched using "after" value', async () => {
       const nextResult = await core.agendas({ uid: 2 })
-        .members.list({ after: result.after });
+        .members.list({ after: result.after }, {
+          userUid: 50073466
+        });
 
       expect(nextResult.items.length).toBe(4);
     });
 
     it('customAtRoot option', async () => {
       const { items } = await core.agendas({ uid: 2 })
-        .members.list({}, { customAtRoot: true });
+        .members.list({}, {
+          customAtRoot: true,
+          userUid: 50073466
+        });
 
-      expect(items[0]).toEqual({
+      expect(_.omit(items[0], 'updatedAt')).toEqual({
         name: 'Jan',
         phone: null,
         email: null,
@@ -77,6 +84,32 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         role: 'contributor',
         userUid: 1
       });
+    });
+  });
+
+  describe('unauthorized', () => {
+    it('non-member user does not have access to list', async () => {
+      let error;
+      try {
+        await core.agendas({ uid: 2 }).members.list({ limit: 2 }, {
+          userUid: 99999967
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('Forbidden');
+    });
+
+    it('contributor user does not have access to list', async () => {
+      let error;
+      try {
+        await core.agendas({ uid: 2 }).members.list({ limit: 2 }, {
+          userUid: 1
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('Forbidden');
     });
   });
 

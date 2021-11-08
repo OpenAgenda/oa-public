@@ -85,10 +85,10 @@ module.exports = async (
   }
 
   if (detailed && _.get(interfaces, 'getUsersByUid')) {
-    const users = await interfaces.getUsersByUid(
-      _.uniq(members.map(m => m.userUid).filter(m => !!m)),
-      userOptions
-    );
+    const userUids = _.uniq(members.map(m => m.userUid).filter(m => !!m));
+    const users = userUids.length
+      ? await interfaces.getUsersByUid(userUids, userOptions)
+      : [];
     members.forEach(m => {
       m.user = _.find(users, { uid: m.userUid });
     });

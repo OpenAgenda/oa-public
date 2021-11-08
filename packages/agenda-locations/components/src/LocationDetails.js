@@ -5,7 +5,7 @@ import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 import get from '@openagenda/utils/get';
 
-import extraGeoFields from './extraGeoFields';
+import geoFields from './geoFields';
 import flattenTagSetLabels from './flattenTagSetLabels';
 import adminLevels from './adminLevels';
 
@@ -14,10 +14,6 @@ const log = debug('locationDetails');
 const messages = {
   ...adminLevels,
   ...defineMessages({
-    postalCode: {
-      id: 'AgendaLocations.LocationDetails.postalCode',
-      defaultMessage: 'Postal code',
-    },
     insee: {
       id: 'AgendaLocations.LocationDetails.insee',
       defaultMessage: 'INSEE code',
@@ -120,14 +116,14 @@ const getExistingLangs = location => (
 
 class LocationDetails extends Component {
   static propTypes = {
-    location: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired, // eslint-disable-line
     staticTiles: PropTypes.string.isRequired,
     lang: PropTypes.string.isRequired,
-    settings: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired, // eslint-disable-line
     hover: PropTypes.bool.isRequired,
-    agenda: PropTypes.object.isRequired,
-    res: PropTypes.object.isRequired,
-    intl: PropTypes.object.isRequired
+    agenda: PropTypes.object.isRequired, // eslint-disable-line
+    res: PropTypes.object.isRequired, // eslint-disable-line
+    intl: PropTypes.object.isRequired // eslint-disable-line
   };
 
   constructor(props) {
@@ -150,15 +146,6 @@ class LocationDetails extends Component {
         });
         return resp.linkedAgendas;
       });
-  }
-
-  getAdminLabel(field) {
-    const { location, intl } = this.props;
-    const { countryCode } = location;
-    if (messages[`${field}_${countryCode}`]) {
-      return intl.formatMessage(messages[`${field}_${countryCode}`]);
-    }
-    return (intl.formatMessage(messages[field]));
   }
 
   toggleCurrentLang(contentLang, e) {
@@ -201,7 +188,7 @@ class LocationDetails extends Component {
       location, lang, settings, hover, staticTiles, intl
     } = this.props;
     const { contentLang, linkedAgendas } = this.state;
-
+    log(location);
     const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
     const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
     const existingLangs = getExistingLangs(location);
@@ -240,19 +227,19 @@ class LocationDetails extends Component {
         </div>
         <div className="margin-bottom-md">
           <ul className="list-inline">
-            {extraGeoFields(location.countryCode).map(f => (
-              <li key={`geo-${f}`}>
+            {geoFields(location.countryCode).fields.map(f => (
+              <li key={`geo-${f.field}`}>
                 <div
                   className={
                     `badge badge-default margin-bottom-xs
-                    ${(location[f]
+                    ${(location[f.field]
                       ? 'badge-outline-primary'
                       : 'badge-outline-default')}`
                   }
                 >
                   <span>
-                    {this.getAdminLabel(f)}:
-                    {location[f] || intl.formatMessage(messages.emptyGeo)}
+                    {intl.formatMessage(messages[f.label])}:
+                    {location[f.field] || intl.formatMessage(messages.emptyGeo)}
                   </span>
                 </div>
               </li>
@@ -261,8 +248,8 @@ class LocationDetails extends Component {
         </div>
         {settings?.tagSet
           ? flattenTagSetLabels(settings.tagSet, lang).groups.map(
-            (group, i) => (
-              <div key={`tag-group-${i}`} className="margin-top-sm">
+            group => (
+              <div key={`tag-group-${group}`} className="margin-top-sm">
                 <label htmlFor="group-name">{group.name}</label>
                 <ul
                   className="list-unstyled"
@@ -311,8 +298,8 @@ class LocationDetails extends Component {
           <li>
             <label htmlFor="links">{intl.formatMessage(messages.links)} </label>:
             {(location.links || []).length ? (
-              location.links.map((l, i) => (
-                <div className="margin-bottom-xs" key={`l-link-${i}`}>
+              location.links.map(l => (
+                <div className="margin-bottom-xs" key={`l-link-${l}`}>
                   <a target="_blank" rel="noopener noreferrer" href={l}>
                     {l}
                   </a>
@@ -342,7 +329,7 @@ class LocationDetails extends Component {
                 role="presentation"
                 className={fieldLang === contentLang ? 'active' : ''}
               >
-                <a href="#">{fieldLang.toUpperCase()}</a>
+                <button type="button" className="btn btn-link"> {fieldLang.toUpperCase()} </button>
               </li>
             ))}
           </ul>

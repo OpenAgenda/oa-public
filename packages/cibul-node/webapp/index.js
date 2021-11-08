@@ -153,7 +153,7 @@ const initialState = async req => {
           show: '/:slug/events/:eventSlug',
           showPrivate: '/:slug.prv/events/:eventSlug',
           showWithoutAgenda: '/events/:eventSlug',
-          edit: '/:slug/event/:eventSlug/edit'
+          edit: '/:slug/contribute/event/:eventUid'
         },
         messages: '/home/messages',
         notifs: '/home/notifications',
@@ -332,8 +332,8 @@ const initialState = async req => {
       res: {
         app: '/:slug/admin/members',
         list: '/:slug/admin/members.json',
-        update: '/:slug/admin/members/:id',
-        remove: '/:slug/admin/members/:id',
+        update: '/api/agendas/:agendaUid/members/:userUid',
+        remove: '/api/agendas/:agendaUid/members/:userUid',
         invite: '/:slug/admin/members/invite',
         resend: '/:slug/admin/members/:id/invite/resend',
         stats: '/:slug/admin/members/stats',

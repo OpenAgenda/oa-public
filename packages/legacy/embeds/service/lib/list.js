@@ -5,8 +5,9 @@ const {
 } = require('@openagenda/verror');
 
 const fromEntryToItem = require('./fromEntryToItem');
+const appendDefaultTemplates = require('./appendDefaultTemplates');
 
-module.exports = async ({ interfaces, knex }, agendaUid, options = {}) => {
+module.exports = async ({ interfaces, knex, defaultTemplates }, agendaUid, options = {}) => {
   const agendaId = await interfaces.getAgendaId(agendaUid);
   if (!agendaId && options.throwIfNotFound) {
     throw new NotFound('agenda id not found for uid %d', agendaUid);
@@ -22,5 +23,5 @@ module.exports = async ({ interfaces, knex }, agendaUid, options = {}) => {
     .then(entries => entries.map(fromEntryToItem.bind(null, {
       ...options,
       agendaUid
-    })));
+    })).map(entry => appendDefaultTemplates(entry, defaultTemplates)));
 };

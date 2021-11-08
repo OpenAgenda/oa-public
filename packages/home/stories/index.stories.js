@@ -89,7 +89,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
     events: {
       list: '/events.json',
       show: '/:slug/events/:eventSlug',
-      edit: '/:slug/events/:eventSlug/edit',
+      edit: '/:slug/contribute/event/:eventUid',
       showPrivate: '/:slug/events/:eventSlug.prv',
       showWithoutAgenda: '/events/:eventSlug',
     },

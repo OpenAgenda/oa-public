@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 
 import debug from 'debug';
-import extraGeoFields from './extraGeoFields';
+import geoFields from './geoFields';
 import adminLevels from './adminLevels';
 
 const log = debug('GeoBadges');
 
 const messages = {
   ...defineMessages({
-    postalCode: {
-      id: 'AgendaLocations.GeoBadges.postalCode',
-      defaultMessage: 'Postal code',
-    },
     insee: {
       id: 'AgendaLocations.GeoBadges.insee',
       defaultMessage: 'INSEE code',
@@ -34,7 +30,7 @@ const messages = {
   ...adminLevels
 };
 
-class GeoBadges extends Component {
+class GeoBadges extends PureComponent {
   static propTypes = {
     enableGeocode: PropTypes.bool,
     geocodeNoResults: PropTypes.bool,
@@ -43,8 +39,8 @@ class GeoBadges extends Component {
     setGeocodeFieldValue: PropTypes.func.isRequired,
     cancelEditGeocode: PropTypes.func.isRequired,
     editGeocode: PropTypes.func.isRequired,
-    location: PropTypes.object,
-    intl: PropTypes.object.isRequired,
+    location: PropTypes.object, // eslint-disable-line
+    intl: PropTypes.object.isRequired, // eslint-disable-line
   };
 
   static defaultProps = {
@@ -55,30 +51,12 @@ class GeoBadges extends Component {
     location: null
   };
 
-  getAdminLabel(field) {
-    const { location, intl } = this.props;
-    const countryCode = location.countryCode.toUpperCase();
-    if (messages[`${field}_${countryCode}`]) {
-      return intl.formatMessage(messages[`${field}_${countryCode}`]);
-    }
-    return (intl.formatMessage(messages[field]));
-  }
-
   render() {
     const {
-      location, enableGeocode, geocodeNoResults, editGeocode, geocodeEdit, geocodeEditValue, setGeocodeFieldValue, cancelEditGeocode
+      location, geocodeNoResults, editGeocode, geocodeEdit, geocodeEditValue, setGeocodeFieldValue, cancelEditGeocode, intl
     } = this.props;
-    log(messages);
-    const geo = {};
-    ['adminLevel1', 'adminLevel2', 'adminLevel4', 'adminLevel6', 'postalCode', 'insee'].forEach(field => {
-      if (enableGeocode && !location?.[field]) {
-        return;
-      }
-      geo[field] = location?.[field];
-    });
-    extraGeoFields(location.countryCode).forEach(field => {
-      geo[field] = location?.[field];
-    });
+    log(location);
+    const geo = geoFields(location.countryCode).fields.map(e => ({ ...e, value: location?.[e.field] }));
 
     if (geocodeEdit) {
       return (
@@ -86,7 +64,7 @@ class GeoBadges extends Component {
           <div className="form-group">
             <input
               className="form-control margin-right-xs"
-              placeholder={this.getAdminLabel(geocodeEdit)}
+              placeholder={intl.formatMessage(messages[geo.find(e => e.field === geocodeEdit).label])}
               type="text"
               onChange={e => editGeocode(geocodeEdit, e.target.value)}
               value={geocodeEditValue}
@@ -122,24 +100,24 @@ class GeoBadges extends Component {
           </div>
         ) : null}
         <ul className="list-inline">
-          {Object.keys(geo).map(field => (
-            <li key={`geo-${field}`}>
+          {geo.map(field => (
+            <li key={`geo-${field.field}`}>
               <button
                 type="button"
                 className={
                   `badge badge-default margin-bottom-xs ${
-                    (geo[field] && geo[field].length
+                    (field.value
                       ? 'badge-outline-primary'
                       : 'badge-outline-warn')
                   }`
                 }
                 onClick={() => editGeocode(
-                  field,
-                  location[field]
+                  field.field,
+                  location[field.field]
                 )}
               >
                 <span>
-                  {this.getAdminLabel(field)}: {geo[field]}&nbsp;
+                  <FormattedMessage {...messages?.[field.label]} />: {field.value}&nbsp;
                 </span>
                 <i className="fa fa-pencil" />
               </button>

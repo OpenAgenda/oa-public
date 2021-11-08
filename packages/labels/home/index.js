@@ -27,6 +27,10 @@ module.exports = {
     "fr": "Les administrateurs de l'agenda requierent certaines informations additionnelles pour leur permettre de vous contacter en cas de besoin.",
     "en": "Administrators of this agenda require some additional information to allow them to contact you in case of need"
   },
+  "otherActions": {
+    "fr": "Autres actions",
+    "en": "Other actions"
+  },
   "removeMember": {
     "fr": "Me retirer de l'agenda",
     "en": "Unlist myself from the agenda"

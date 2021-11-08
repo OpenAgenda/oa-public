@@ -8,16 +8,14 @@ const {
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 
-describe('events - functional - remove', function () {
-  this.timeout(10000);
-
+describe('events - functional - remove', () => {
   const f = fixtures(config.mysql, config.schema);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -28,7 +26,7 @@ describe('events - functional - remove', function () {
   describe('simple remove', () => {
     let removed;
 
-    before(async () => {
+    beforeAll(async () => {
       removed = await svc.remove(16687899);
     });
 
@@ -50,7 +48,7 @@ describe('events - functional - remove', function () {
   describe('interfaces', () => {
     const calls = [];
 
-    before(async () => {
+    beforeAll(async () => {
       await f.load();
 
       svc = Service({
@@ -73,9 +71,12 @@ describe('events - functional - remove', function () {
       await svc.remove(93469090, { context: 'Remove context'});
     });
 
-    it('beforeRemove was called, when cb is provided in interface function it is called', () => {
-      assert.equal(calls[0][0], 'beforeRemove');
-    });
+    it(
+      'beforeRemove was called, when cb is provided in interface function it is called',
+      () => {
+        assert.equal(calls[0][0], 'beforeRemove');
+      }
+    );
 
     it('onRemove was called', () => {
       assert.equal(calls[1][0], 'onRemove');

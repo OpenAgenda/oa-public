@@ -35,6 +35,7 @@
     "@babel/runtime-corejs3": "^7.13.17",
     "@emotion/react": "^11.1.5",
     "@openagenda/agenda-docx": "^1.2.1",
+    "@openagenda/axios-mock-adapter": "^1.21.2",
     "@openagenda/event-search": "^2.8.0",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-filters": "^2.1.2",

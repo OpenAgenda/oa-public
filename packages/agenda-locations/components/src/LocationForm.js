@@ -23,7 +23,6 @@ import LocationMap from './LocationMap';
 import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers';
 import validate from './validate';
-import extraGeoFields from './extraGeoFields';
 import GeoBadges from './GeoBadges';
 
 const alternativeMaxLength = 50;
@@ -208,8 +207,6 @@ class LocationForm extends Component {
 
     const initState = this.actions.initialize(props);
 
-    // log('initializing form state: %j', initState);
-
     this.state = initState;
 
     // Binding
@@ -389,12 +386,10 @@ class LocationForm extends Component {
           str = str.replace(`%${k}%`, values[k]);
         }
       }
-      // log('labels from settings', name);
       return str;
     }
     // use intl to format standard labels
     if (messages[name]) {
-      // log('labels from messages', name);
       if (!values) {
         str = intl.formatMessage(messages[name]);
         return str;
@@ -720,7 +715,6 @@ class LocationForm extends Component {
 
   renderAlternative(fieldName, pasteNames) {
     const { alternatives } = this.props;
-    // log('renderAlternative - field %s', fieldName);
 
     if (!alternatives || !alternatives.length) {
       return null;

@@ -1,6 +1,6 @@
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import MockAdapter from '@openagenda/axios-mock-adapter';
 
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
@@ -16,13 +16,13 @@ const getHostname = () => (typeof window !== 'undefined' ? window.location.hostn
 const getDefaultState = ({ apiRoot, dev } = {}) => ({
   settings: {
     apiRoot,
-    prefix: '',
+    prefix: '/:slug/admin/sources',
     perPageLimit: 20,
   },
   res: {
     list: '/sources.json',
-    add: '/add',
-    update: '#',
+    add: '/:slug/admin/sources',
+    update: '/:slug/admin/sources/:sourceId',
     show: '#',
     remove: '/remove',
     search: '#',
@@ -150,10 +150,16 @@ export const AddSourceModal = () => {
     .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
     .reply(200, { agenda: agendasJson.agendas[0] });
   mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
+  mock.onPost('/:slug/admin/sources').reply(req => {
+    console.log(req);
+    return [200];
+  });
 
   return wrapApp(
     createApp({
-      history: createMemoryHistory(),
+      history: createMemoryHistory({
+        initialEntries: ['/la-gargouille/admin/sources'],
+      }),
       initialState: getDefaultState({
         apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
         dev: { query: { source: 'nouvelle-source' } },
@@ -196,10 +202,16 @@ export const EditSourceModal = () => {
     .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
     .reply(200, { agenda: agendasJson.agendas[0] });
   mock.onGet(/^\/([^/]+?)\/?$/).reply(200, { agenda: agendasJson.agendas[0] }); // /:slug
+  mock.onPut('/:slug/admin/sources/:sourceId').reply(req => {
+    console.log(req);
+    return [200];
+  });
 
   return wrapApp(
     createApp({
-      history: createMemoryHistory(),
+      history: createMemoryHistory({
+        initialEntries: ['/la-gargouille/admin/sources'],
+      }),
       initialState: getDefaultState({
         apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
         dev: { query: { source: 'amc-promotion' } },

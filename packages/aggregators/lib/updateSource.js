@@ -16,11 +16,7 @@ module.exports = async (
 ) => {
   const log = Log(`updating source ${sourceId} of ${aggregatorAgenda.slug}`);
 
-  const { evaluate } = {
-    evaluate: false,
-    ...options,
-  };
-
+  const { query = null } = options;
   const source = await getSourceEntry(sourceId, { detailed: true });
 
   if (!source) {
@@ -34,7 +30,7 @@ module.exports = async (
     sourceRules
   );
 
-  if (evaluate) {
+  if (query !== null) {
     log('evaluating and done');
     return enqueueLoadSourceEvaluates({
       aggregatorAgendaUid: aggregatorAgenda.uid,
@@ -42,6 +38,7 @@ module.exports = async (
       sourceAgenda: source.agenda,
       sourceRules,
       formSchema: await getMergedSchema(source.agenda.uid),
+      query,
     });
   }
 

@@ -14,7 +14,7 @@ const {
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 const create = require('../create');
 
 const data = {
@@ -30,14 +30,12 @@ const data = {
   keywords: ['One', 'Two', 'Three']
 };
 
-describe('events - functional - create', function() {
-  this.timeout(10000);
-
+describe('events - functional - create', () => {
   const f = fixtures(config.mysql, config.schema);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -49,7 +47,7 @@ describe('events - functional - create', function() {
   describe('simple create', () => {
     let created;
 
-    before(async () => {
+    beforeAll(async () => {
       try {
         created = await svc.create(data);
       } catch (e) {
@@ -86,15 +84,15 @@ describe('events - functional - create', function() {
   describe('create with image', () => {
     let svc;
 
-    before(done => fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
+    beforeAll(done => fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
       .pipe(fs.createWriteStream('/tmp/dog.png'))
       .on('close', done));
     
-    before(done => fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
+    beforeAll(done => fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
       .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
       .on('close', done));
 
-    before(() => {
+    beforeAll(() => {
       svc = Service({
         knex: f.client,
         Files: Files(dConfig.files),
@@ -118,26 +116,29 @@ describe('events - functional - create', function() {
       await axios.head('https:' + config.imagePath + created.image.filename);
     });
 
-    it('validation error is thrown when unknown image format is provided', async () => {
-      try {
-        await svc.create({
-          title: 'Event create given a text stream instead of image',
-          description: 'Nope',
-          attendanceMode: 2,
-          onlineAccessLink: 'https://openagenda.com',
-          timings: [{
-            begin: '2020-12-22T11:35:00.000+0200',
-            end: '2020-12-22T13:30:00.000+0200'
-          }],
-          image: fs.createReadStream('/tmp/notanimage.txt')
-        });
-      } catch (e) {
-        assert(e instanceof ValidationError);
-        return;
-      }
+    it(
+      'validation error is thrown when unknown image format is provided',
+      async () => {
+        try {
+          await svc.create({
+            title: 'Event create given a text stream instead of image',
+            description: 'Nope',
+            attendanceMode: 2,
+            onlineAccessLink: 'https://openagenda.com',
+            timings: [{
+              begin: '2020-12-22T11:35:00.000+0200',
+              end: '2020-12-22T13:30:00.000+0200'
+            }],
+            image: fs.createReadStream('/tmp/notanimage.txt')
+          });
+        } catch (e) {
+          assert(e instanceof ValidationError);
+          return;
+        }
 
-      throw new Error('Should have failed.');
-    });
+        throw new Error('Should have failed.');
+      }
+    );
 
     it('image at null is no image at all', async () => {
       await svc.create({
@@ -165,22 +166,25 @@ describe('events - functional - create', function() {
       assert.equal(response.status, 200);
     });
 
-    it('image can be passed through a local file path, deleted after upload', done => {
-      fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async err => {
-        const event = await svc.create({
-          ...data,
-          image: {
-            path: TMP_IMG_PATH
-          }
+    it(
+      'image can be passed through a local file path, deleted after upload',
+      done => {
+        fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async err => {
+          const event = await svc.create({
+            ...data,
+            image: {
+              path: TMP_IMG_PATH
+            }
+          });
+
+          assert.equal(typeof event.image.filename, 'string');
+
+          assert.equal(fs.existsSync(TMP_IMG_PATH), false);
+
+          done();
         });
-
-        assert.equal(typeof event.image.filename, 'string');
-
-        assert.equal(fs.existsSync(TMP_IMG_PATH), false);
-
-        done();
-      });
-    });
+      }
+    );
 
   });
 
@@ -230,34 +234,50 @@ describe('events - functional - create', function() {
       });
     });
 
-    it('if timezone is unspecified but location object with timezone is provided, location timezone is used', async () => {
-      const created = await svc.create({
-        ...data,
-        location: {
-          ...data.location,
-          timezone: 'America/Vancouver'
-        }
-      });
+    it(
+      'if timezone is unspecified but location object with timezone is provided, location timezone is used',
+      async () => {
+        const created = await svc.create({
+          ...data,
+          location: {
+            ...data.location,
+            timezone: 'America/Vancouver'
+          }
+        });
 
-      assert.equal(created.timezone, 'America/Vancouver');
-    });
+        assert.equal(created.timezone, 'America/Vancouver');
+      }
+    );
 
-    it('if timezone is specified, it is preferred over timezone present in location object', async () => {
-      const created = await svc.create({
-        ...data,
-        timezone: 'Asia/Tokyo',
-        location: {
-          ...data.location,
-          timezone: 'America/Vancouver'
-        }
-      });
+    it(
+      'if timezone is specified, it is preferred over timezone present in location object',
+      async () => {
+        const created = await svc.create({
+          ...data,
+          timezone: 'Asia/Tokyo',
+          location: {
+            ...data.location,
+            timezone: 'America/Vancouver'
+          }
+        });
 
-      assert.equal(created.timezone, 'Asia/Tokyo');
-    });
+        assert.equal(created.timezone, 'Asia/Tokyo');
+      }
+    );
 
   });
 
   describe('other', () => {
+    it('create with private option results in private event', async () => {
+      const event = await svc.create(data, { private: true });
+
+      const isPrivate = await f.client('event_2')
+        .first(['private'])
+        .where('uid', event.uid)
+        .then(r => r.private);
+
+      assert.equal(isPrivate, true);
+    });
 
     it('draft create does not require all fields to be specified', async () => {
       try {
@@ -291,15 +311,18 @@ describe('events - functional - create', function() {
       });
     });
 
-    it('agendaUid is associated to created event when passed in context', async () => {
-      const event = await svc.create(data, {
-        context: {
-          agendaUid: 123
-        }
-      });
+    it(
+      'agendaUid is associated to created event when passed in context',
+      async () => {
+        const event = await svc.create(data, {
+          context: {
+            agendaUid: 123
+          }
+        });
 
-      assert.equal(event.agendaUid, 123);
-    });
+        assert.equal(event.agendaUid, 123);
+      }
+    );
 
     it('location can be provided as object', async () => {
       const event = await svc.create({
@@ -313,17 +336,20 @@ describe('events - functional - create', function() {
       assert.equal(event.locationUid, 123);
     });
 
-    it('if userUid is provided in context, it is added as creatorUid and ownerUid of event', async () => {
-      const event = await svc.create(data, {
-        context: {
-          userUid: 123
-        },
-        access: 'internal'
-      });
+    it(
+      'if userUid is provided in context, it is added as creatorUid and ownerUid of event',
+      async () => {
+        const event = await svc.create(data, {
+          context: {
+            userUid: 123
+          },
+          access: 'internal'
+        });
 
-      assert.equal(event.creatorUid, 123);
-      assert.equal(event.ownerUid, 123);
-    });
+        assert.equal(event.creatorUid, 123);
+        assert.equal(event.ownerUid, 123);
+      }
+    );
 
     it('if an interface returns a promise, it will be waited upon', async () => {
       let calledOnCreate = false;

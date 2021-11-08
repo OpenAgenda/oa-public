@@ -3,6 +3,7 @@ import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
+import Providers from './decorators/Providers';
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
@@ -15,8 +16,8 @@ const getDefaultState = ({ apiRoot } = {}) => ({
   res: {
     app: '#',
     list: '/members.json',
-    update: '/update/:id',
-    remove: '/remove/:id',
+    update: `${apiRoot}/api/agendas/:agendaUid/members/:userUid`,
+    remove: `${apiRoot}/api/agendas/:agendaUid/members/:userUid`,
     invite: '/invite',
     stats: '/stats',
     showContributor: '#',
@@ -32,7 +33,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
 
 export default {
   title: 'Members admin',
-  decorators: [PageDecorator],
+  decorators: [Providers, PageDecorator],
 };
 
 export const App = () => wrapApp(

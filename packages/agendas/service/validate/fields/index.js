@@ -166,7 +166,7 @@ module.exports = [{
   }, {
     field: 'contribution',
     type: 'schema',
-    read: ['public', 'legacy', 'legacyPublic'],
+    read: ['administrator', 'internal', 'public', 'legacy', 'legacyPublic'],
     fields: [{
       field: 'type',
       default: c.MEMBERS_ONLY,

@@ -101,6 +101,12 @@
       "value": "Merge is in progress"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.postalCode": [
+    {
+      "type": 0,
+      "value": "postalCode"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.search": [
     {
       "type": 0,
@@ -160,18 +166,6 @@
       "value": "itemCount"
     }
   ],
-  "AgendaLocations.AgendaAdminLocation.uncompletedLocations": [
-    {
-      "type": 0,
-      "value": "See uncompleted Locations"
-    }
-  ],
-  "AgendaLocations.AgendaAdminLocation.uncompletedLocationsInfo": [
-    {
-      "type": 0,
-      "value": "Locations that are lacking important information"
-    }
-  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
@@ -181,19 +175,7 @@
   "AgendaLocations.CH.adminLevel1": [
     {
       "type": 0,
-      "value": "Region Suisse"
-    }
-  ],
-  "AgendaLocations.CH.adminLevel2": [
-    {
-      "type": 0,
-      "value": "Canton"
-    }
-  ],
-  "AgendaLocations.CH.adminLevel3": [
-    {
-      "type": 0,
-      "value": "District"
+      "value": "Region"
     }
   ],
   "AgendaLocations.CH.adminLevel4": [
@@ -205,7 +187,7 @@
   "AgendaLocations.CH.adminLevel5": [
     {
       "type": 0,
-      "value": "adminLevel5"
+      "value": "Borough"
     }
   ],
   "AgendaLocations.CH.adminLevel6": [
@@ -218,6 +200,12 @@
     {
       "type": 0,
       "value": "Country"
+    }
+  ],
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": [
+    {
+      "type": 0,
+      "value": "See incomplete Locations"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [
@@ -247,7 +235,7 @@
   "AgendaLocations.FR.adminLevel5": [
     {
       "type": 0,
-      "value": "adminLevel5"
+      "value": "Borough"
     }
   ],
   "AgendaLocations.FR.adminLevel6": [
@@ -296,12 +284,6 @@
     {
       "type": 0,
       "value": "INSEE code"
-    }
-  ],
-  "AgendaLocations.GeoBadges.postalCode": [
-    {
-      "type": 0,
-      "value": "Postal code"
     }
   ],
   "AgendaLocations.IT.adminLevel1": [
@@ -509,12 +491,6 @@
     {
       "type": 0,
       "value": "Telephone number"
-    }
-  ],
-  "AgendaLocations.LocationDetails.postalCode": [
-    {
-      "type": 0,
-      "value": "Postal code"
     }
   ],
   "AgendaLocations.LocationDetails.refAgendas": [
@@ -1364,6 +1340,12 @@
     {
       "type": 0,
       "value": "Create a location"
+    }
+  ],
+  "AgendaLocations.postalCode": [
+    {
+      "type": 0,
+      "value": "Postal code"
     }
   ],
   "AgendaLocations.setHeader.help": [

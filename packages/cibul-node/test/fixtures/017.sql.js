@@ -68,11 +68,12 @@ raw.push(knex('form_schema').insert([2, 5, 6, 41].map(id => ({
 }))));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/lechat.json'),
-  require('./sql/members/ln-adm-rbx.json'),
+  require('./sql/members/lechat.json'), // user 63170203 contributor of 17026855
+  require('./sql/members/ln-adm-rbx.json'), // user 10866730 admin of 64260763
   require('./sql/members/chr-ctb-rbx.json'),
-  require('./sql/members/tb-adm-mel.json'),
-  require('./sql/members/ln-ctb-mel.json')
+  require('./sql/members/tb-adm-mel.json'), // user 82253124 admin of 89904399
+  require('./sql/members/ln-ctb-mel.json'),
+  require('./sql/members/71387.json') // user 1 admin of agenda 17026855
 ]));
 
 raw.push(knex('location').insert([

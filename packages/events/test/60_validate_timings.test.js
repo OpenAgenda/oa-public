@@ -178,27 +178,30 @@ describe('timings', () => {
       throw new Error('Should have thrown error');
     });
 
-    it('fix: timezone must be accounted for to avoid offset between begin and end on DST days', () => {
-      let error;
-      try {
-        dateHoursMinutesTiming({
-          begin: {
-            date: '2021-03-28',
-            hours: '00',
-            minutes: '00'
-          },
-          end: {
-            date: '2021-03-29',
-            hours: '00',
-            minutes: '59'
-          },
-          timezone: 'GMT'
-        });
-      } catch (e) {
-        error = e.pop();
+    it(
+      'fix: timezone must be accounted for to avoid offset between begin and end on DST days',
+      () => {
+        let error;
+        try {
+          dateHoursMinutesTiming({
+            begin: {
+              date: '2021-03-28',
+              hours: '00',
+              minutes: '00'
+            },
+            end: {
+              date: '2021-03-29',
+              hours: '00',
+              minutes: '59'
+            },
+            timezone: 'GMT'
+          });
+        } catch (e) {
+          error = e.pop();
+        }
+        assert.deepEqual(error.code, 'diffExceeded');
       }
-      assert.deepEqual(error.code, 'diffExceeded');
-    });
+    );
   });
 
   describe('timings', () => {

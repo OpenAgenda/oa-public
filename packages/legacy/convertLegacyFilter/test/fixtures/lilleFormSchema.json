@@ -1,0 +1,442 @@
+{
+  "custom": {},
+  "fields": [
+    {
+      "field": "interetintercommunal",
+      "label": {
+        "fr": "Événement d'intérêt intercommunal",
+        "en": "Événement d'intérêt intercommunal"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "true",
+          "label": {
+            "fr": "Événement d'intérêt intercommunal",
+            "en": "Événement d'intérêt intercommunal"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 41,
+      "schemaType": "network"
+    },
+    {
+      "field": "recurringevent",
+      "label": {
+        "fr": "Événement récurrent",
+        "en": "Événement récurrent"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 2,
+          "value": "true",
+          "label": {
+            "fr": "Événement récurrent",
+            "en": "Événement récurrent"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 41,
+      "schemaType": "network"
+    },
+    {
+      "field": "categories-metropolitaines",
+      "label": {
+        "fr": "Catégories Métropolitaines",
+        "en": "Catégories Métropolitaines"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 3,
+          "value": "atelier",
+          "label": {
+            "fr": "Atelier"
+          },
+          "display": true
+        },
+        {
+          "id": 4,
+          "value": "braderie-brocante",
+          "label": {
+            "fr": "Braderie - Brocante"
+          },
+          "display": true
+        },
+        {
+          "id": 5,
+          "value": "ceremonie",
+          "label": {
+            "fr": "Cérémonie"
+          },
+          "display": true
+        },
+        {
+          "id": 6,
+          "value": "cinema",
+          "label": {
+            "fr": "Cinéma"
+          },
+          "display": true
+        },
+        {
+          "id": 7,
+          "value": "conference-rencontre",
+          "label": {
+            "fr": "Conférence - Rencontre"
+          },
+          "display": true
+        },
+        {
+          "id": 8,
+          "value": "conseil-municipal",
+          "label": {
+            "fr": "Conseil Municipal"
+          },
+          "display": true
+        },
+        {
+          "id": 9,
+          "value": "danse",
+          "label": {
+            "fr": "Danse"
+          },
+          "display": true
+        },
+        {
+          "id": 10,
+          "value": "developpement-durable",
+          "label": {
+            "fr": "Développement durable"
+          },
+          "display": true
+        },
+        {
+          "id": 11,
+          "value": "emploi",
+          "label": {
+            "fr": "Emploi"
+          },
+          "display": true
+        },
+        {
+          "id": 12,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          },
+          "display": true
+        },
+        {
+          "id": 13,
+          "value": "fete-festival",
+          "label": {
+            "fr": "Fête - Festival"
+          },
+          "display": true
+        },
+        {
+          "id": 14,
+          "value": "formation",
+          "label": {
+            "fr": "Formation"
+          },
+          "display": true
+        },
+        {
+          "id": 15,
+          "value": "lecture",
+          "label": {
+            "fr": "Lecture"
+          },
+          "display": true
+        },
+        {
+          "id": 16,
+          "value": "mode",
+          "label": {
+            "fr": "Mode"
+          },
+          "display": true
+        },
+        {
+          "id": 17,
+          "value": "musique",
+          "label": {
+            "fr": "Musique"
+          },
+          "display": true
+        },
+        {
+          "id": 18,
+          "value": "reunion-publique",
+          "label": {
+            "fr": "Réunion publique"
+          },
+          "display": true
+        },
+        {
+          "id": 19,
+          "value": "sante",
+          "label": {
+            "fr": "Santé"
+          },
+          "display": true
+        },
+        {
+          "id": 20,
+          "value": "spectacle",
+          "label": {
+            "fr": "Spectacle"
+          },
+          "display": true
+        },
+        {
+          "id": 21,
+          "value": "sport",
+          "label": {
+            "fr": "Sport"
+          },
+          "display": true
+        },
+        {
+          "id": 22,
+          "value": "theatre",
+          "label": {
+            "fr": "Théâtre"
+          },
+          "display": true
+        },
+        {
+          "id": 23,
+          "value": "visite-balade",
+          "label": {
+            "fr": "Visite - Balade"
+          },
+          "display": true
+        },
+        {
+          "id": 28,
+          "value": "aucune",
+          "label": {
+            "fr": "Aucune catégorie"
+          },
+          "display": false
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 41,
+      "schemaType": "network"
+    },
+    {
+      "field": "label",
+      "label": {
+        "fr": "Label",
+        "en": "Label"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 24,
+          "value": "50-ans-de-la-mel",
+          "label": {
+            "fr": "50 ans de la MEL"
+          },
+          "display": true
+        },
+        {
+          "id": 25,
+          "value": "design",
+          "label": {
+            "fr": "Design"
+          },
+          "display": true
+        },
+        {
+          "id": 26,
+          "value": "grand-barouf",
+          "label": {
+            "fr": "Grand Barouf"
+          },
+          "display": true
+        },
+        {
+          "id": 27,
+          "value": "journees-europeennes-du-patrimoine",
+          "label": {
+            "fr": "Journées Européennes du Patrimoine"
+          },
+          "display": true
+        },
+        {
+          "id": 29,
+          "value": "nuit-des-bibliotheques-2020",
+          "label": {
+            "fr": "Nuit des bibliothèques 2020",
+            "en": "Nuit des bibliothèques 2020"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 41,
+      "schemaType": "network"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "keywords",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "attendanceMode",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "onlineAccessLink",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract",
+      "schemaId": null,
+      "schemaType": null
+    }
+  ]
+}

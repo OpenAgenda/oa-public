@@ -14,8 +14,8 @@ import { Modal } from '@openagenda/react-components';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 
 import MemberItem from '../../components/MemberItem';
+import MemberForm from '../../components/Form';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
-import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
 import * as membersActions from '../../reducers/members';
 import * as modalsActions from '../../reducers/modals';
@@ -85,6 +85,7 @@ function OrderField({ action, input, title }) {
       query,
       res: state.res,
       members: state.members.data ?? [],
+      patchSuccessModal: state.members.patchSuccessModal,
       page: state.members.page ?? 1,
       total: state.members.total ?? 0,
       loadLoading: state.members.loadLoading,
@@ -261,7 +262,8 @@ class Dashboard extends Component {
       closeModal,
       setModal,
       modals,
-      update,
+      patchSuccessModal,
+      patch,
       invite,
       remove,
       sendMessage,
@@ -269,16 +271,16 @@ class Dashboard extends Component {
       showInviteResult,
       cleanInviteResult,
       resendInvitation,
+      reactReduxContext,
       history,
       inviteError,
       agenda,
-      role,
       member,
       query,
       i18n,
       user,
     } = this.props;
-    const { getLabel } = i18n;
+    const { getLabel, lang } = i18n;
 
     const {
       administrator: totalAdministrator,
@@ -286,6 +288,10 @@ class Dashboard extends Component {
       contributor: totalContributor,
       reader: totalReader,
     } = stats.totalPerRole || {};
+
+    const {
+      store: { dispatch },
+    } = reactReduxContext;
 
     const editModal = modals.editMember || {};
     const removeModal = modals.removeMember || {};
@@ -475,13 +481,14 @@ class Dashboard extends Component {
             && members.map(m => (
               <MemberItem
                 user={user}
+                userRole={member.role}
                 key={`member-${m.id}`}
                 member={m}
                 showModal={showModal}
+                patchRole={role => patch(agenda, m.userUid, { role })}
                 resendInvitation={resendInvitation}
                 history={history}
                 agenda={agenda}
-                role={role}
                 i18n={i18n}
               />
             ))}
@@ -499,27 +506,35 @@ class Dashboard extends Component {
           )}
         </div>
 
-        {editModal.visible && (
+        {patchSuccessModal && (
           <Modal
-            title={getLabel('editProfile')}
-            onClose={() => closeModal('editMember')}
+            title={getLabel('operationSuccessful')}
+            visible
+            onClose={() => dispatch(membersActions.patchSuccessConfirm())}
           >
-            <EditMemberForm
-              agenda={agenda}
-              userCredential={member.role}
-              member={editModal.member}
-              onSubmit={(...params) => update(agenda, editModal.member.id, ...params).then(
-                async result => {
-                  closeModal('editMember');
-
-                  await getStats(agenda);
-
-                  return result;
-                }
-              )}
-            />
+            {getLabel('patchSuccessConfirm')}
           </Modal>
         )}
+
+        {editModal.visible ? (
+          <MemberForm
+            lang={lang}
+            operation="update"
+            mode="modal"
+            description={null}
+            optionalFields
+            showSuccessMessage
+            res={`${res.update
+              .replace(':agendaUid', agenda.uid)
+              .replace(':userUid', editModal.member.userUid)}`}
+            onSuccess={update => {
+              dispatch(membersActions.updateListItem(update));
+
+              getStats(agenda);
+            }}
+            onCloseModalRequest={() => closeModal('editMember')}
+          />
+        ) : null}
 
         {removeModal.visible && (
           <Modal
@@ -550,7 +565,7 @@ class Dashboard extends Component {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => remove(agenda, removeModal.member.id)
+                    onClick={() => remove(agenda, removeModal.member.userUid)
                       .then(() => closeModal('removeMember'))
                       .catch(() => setModal('removeMember', { error: true }))}
                   >
@@ -632,11 +647,9 @@ class Dashboard extends Component {
           >
             {!writeToMembersModal.confirmation ? (
               <SendMessageForm
-                onSubmit={data => sendMessage(
-                  agenda,
-                  data,
-                  writeToMembersModal.query
-                ).then(() => setModal('writeToMembers', { confirmation: true }))}
+                onSubmit={data => sendMessage(agenda, data, writeToMembersModal.query).then(
+                  () => setModal('writeToMembers', { confirmation: true })
+                )}
               />
             ) : (
               <div className="text-center">

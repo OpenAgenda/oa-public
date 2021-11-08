@@ -21,7 +21,8 @@ module.exports = async (core, agendaUid, options = {}) => {
     detailed = false,
     includeEvent = false,
     includeMember = false,
-    throwNotFound = false
+    throwNotFound = false,
+    includeNonDataFields = false
   } = options;
 
   log('getting agenda %s, info with access %s', agendaUid, access);
@@ -55,17 +56,11 @@ module.exports = async (core, agendaUid, options = {}) => {
   related.locationSet = await services.agendaLocations.sets.get(agenda.locationSetUid);
 
   related.schema = await getMergedSchema(services, agenda, {
+    includeNonDataFields,
     includeEvent,
     includeMember,
     access: typeof access === 'string' ? { read: access } : access
   });
-
-/*  const related = {
-    schema,
-    summary,
-    network,
-    locationSet
-  }; */
 
   if (access === 'internal') {
     return {

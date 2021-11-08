@@ -105,6 +105,17 @@ module.exports = (data = {}) => {
         clean.config.layout.mapCorner[corner] = false;
       });
     }
+    ['customcss', 'mapTiles'].forEach(field => {
+      if (clean.config.layout[field] === 'false') {
+        clean.config.layout[field] = false;
+      }
+    });
+
+    Object.keys(clean.template).forEach(type => {
+      if (clean.template[type] === 'false') {
+        clean.template[type] = false;
+      }
+    });
     return clean;
   } catch (errors) {
     throw new BadRequest({

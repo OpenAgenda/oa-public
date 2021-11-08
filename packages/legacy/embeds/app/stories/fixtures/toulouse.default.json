@@ -1,0 +1,45 @@
+[
+    {
+        "uid": 75841532,
+        "agendaUid": 16387603,
+        "template": null,
+        "config": {
+            "facebookappid": false,
+            "head": "",
+            "siteurl": "",
+            "layout": {
+                "lang": "en",
+                "mapTiles": false,
+                "mapPositionMode": "all",
+                "mapCorners": {
+                    "neLat": null,
+                    "neLng": null,
+                    "swLat": null,
+                    "swLng": null
+                },
+                "mapAuto": false,
+                "layoutmode": "standard",
+                "autoscroll": false,
+                "use_event_slug": false,
+                "synchref": true,
+                "customcss": false,
+                "linkcss": false,
+                "use_default_css": {
+                    "list": true,
+                    "map": true,
+                    "search": true,
+                    "categories": true,
+                    "tags": true,
+                    "calendar": true
+                },
+                "shares": {
+                    "fb": false,
+                    "tw": false,
+                    "li": false,
+                    "pi": false,
+                    "em": false
+                }
+            }
+        }
+    }
+]

@@ -55,6 +55,11 @@ module.exports = async ({ config, services }, {
 
   const members = await listAdminMods(membersSvc, agenda.uid);
 
+  if (!event.creatorUid) {
+    log('warn', 'creatorUid is missing, cannot send emails');
+    return;
+  }
+
   const creatorUser = await usersSvc.findOne({
     query: { uid: event.creatorUid }
   });
@@ -63,6 +68,7 @@ module.exports = async ({ config, services }, {
     agendaUid: agenda.uid,
     userUid: creatorUser.uid
   });
+
   const creatorLang = creatorUser.culture || 'fr';
 
   if (!creator) {

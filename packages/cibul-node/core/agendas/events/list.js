@@ -48,9 +48,11 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
 
   const formSchema = merge.schemasWithEvent(
-    agenda.network ? agenda.network.formSchema : null,
+    agenda?.network?.formSchema ?? null,
     agenda.formSchema,
-    access !== null ? { read: access } : null
+    {
+      access: access !== null ? { read: access } : null
+    }
   );
 
   const {
@@ -72,6 +74,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       uid: eventUids
     }, { limit: eventUids.length }, {
       detailed,
+      private: null, // needed to reindex private agendas
       access: access === 'internal' ? 'internal' : 'public'
     });
   }

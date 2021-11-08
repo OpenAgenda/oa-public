@@ -41,5 +41,9 @@ module.exports = schema({
   useProvidedIdentifiers: {
     type: 'boolean',
     default: false
+  },
+  private: {
+    type: 'boolean',
+    default: false
   }
 });

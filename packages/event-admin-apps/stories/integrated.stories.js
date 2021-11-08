@@ -2,7 +2,7 @@ import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import React, { useRef } from 'react';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import MockAdapter from '@openagenda/axios-mock-adapter';
 
 import createApp from '../src/app';
 import AdminPageDecorator from './decorators/AdminPage';
@@ -33,6 +33,19 @@ export const Presentation = function Presentation() {
   });
 
   mock.onGet('/la-gargouille/events.json').reply(200, mainData);
+
+  mock
+    .onPost('/:agendaSlug/events/:eventSlug/state')
+    .reply(({ data, routeParams }) => {
+      const parsed = JSON.parse(data);
+      const event = JSON.parse(
+        JSON.stringify(
+          mainData.events.find(e => e.slug === routeParams.eventSlug)
+        )
+      );
+
+      return [200, { ...event, ...parsed }];
+    });
 
   const filtersContainerRef = useRef();
 

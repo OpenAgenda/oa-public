@@ -41,6 +41,7 @@ import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
+import switchToLegacyAdminPage from '../utils/switchToLegacyAdminPage';
 
 const PAGE_SIZE = 20;
 
@@ -129,6 +130,10 @@ const messages = defineMessages({
   clearFilters: {
     id: 'EventAdminApp.Dashboard.clearFilters',
     defaultMessage: 'Clear filters',
+  },
+  backToLegacy: {
+    id: 'EventAdminApp.Dashboard.backToLegacy',
+    defaultMessage: 'Revert to previous version of this page',
   },
 });
 
@@ -668,6 +673,15 @@ function Dashboard() {
       filters={filters}
     >
       <header>
+        <div className="pull-right">
+          <button
+            className="btn btn-link text-muted padding-h-z"
+            type="button"
+            onClick={switchToLegacyAdminPage.bind(null, agenda.slug)}
+          >
+            {intl.formatMessage(messages.backToLegacy)}
+          </button>
+        </div>
         <Actions
           agenda={agenda}
           query={query}

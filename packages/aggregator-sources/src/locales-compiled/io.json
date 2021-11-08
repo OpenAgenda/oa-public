@@ -1,26 +1,26 @@
 {
+  "aggregator-sources.AddSourceModal.InfoMessage": [
+    {
+      "type": 0,
+      "value": "The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes."
+    }
+  ],
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
+    {
+      "type": 0,
+      "value": "The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar."
+    }
+  ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
     {
       "type": 0,
       "value": "crwdns492:0crwdne492:0"
     }
   ],
-  "aggregator-sources.AddSourceModal.cancel": [
-    {
-      "type": 0,
-      "value": "crwdns494:0crwdne494:0"
-    }
-  ],
   "aggregator-sources.AddSourceModal.chooseAnotherSource": [
     {
       "type": 0,
       "value": "crwdns496:0crwdne496:0"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.confirmationStep": [
-    {
-      "type": 0,
-      "value": "crwdns498:0crwdne498:0"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRules": [
@@ -79,16 +79,10 @@
       "value": "crwdne506:0"
     }
   ],
-  "aggregator-sources.AddSourceModal.evaluateOption0": [
+  "aggregator-sources.AddSourceModal.evaluationStep": [
     {
       "type": 0,
-      "value": "crwdns508:0crwdne508:0"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.evaluateOption1": [
-    {
-      "type": 0,
-      "value": "crwdns510:0crwdne510:0"
+      "value": "Evaluation"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [
@@ -129,6 +123,12 @@
     {
       "type": 0,
       "value": "crwdns518:0crwdne518:0"
+    }
+  ],
+  "aggregator-sources.AddSourceModal.ok": [
+    {
+      "type": 0,
+      "value": "OK"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
@@ -819,6 +819,30 @@
       "value": "crwdne678:0"
     }
   ],
+  "aggregator-sources.EvaluateOptions.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption0": [
+    {
+      "type": 0,
+      "value": "Aggregate only upcoming events"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption1": [
+    {
+      "type": 0,
+      "value": "Aggregate all events"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption2": [
+    {
+      "type": 0,
+      "value": "Aggregate current and future events"
+    }
+  ],
   "aggregator-sources.RemoveSourceModal.cancel": [
     {
       "type": 0,
@@ -1185,6 +1209,12 @@
     {
       "type": 0,
       "value": "crwdns770:0crwdne770:0"
+    }
+  ],
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
+    {
+      "type": 0,
+      "value": "Would you like events published in the source calendar to be re-evaluated as a result of this update?"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateASource": [

@@ -54,6 +54,18 @@ describe('agendas - utils', () => {
       });
     });
 
+    it('contribution types can be read accessed by an administrator', () => {
+      const filtered = utils.filterByAccess({
+        settings: {
+          contribution: {
+            type: 1
+          }
+        }
+      }, 'read', 'administrator');
+
+      filtered.settings.contribution.type.should.equal(1);
+    });
+
   });
 
   describe('internal unit - do not use outside of service', () => {
