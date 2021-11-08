@@ -1,26 +1,26 @@
 {
+  "aggregator-sources.AddSourceModal.InfoMessage": [
+    {
+      "type": 0,
+      "value": "L'agenda a été ajouté à vos sources. Les événements sont en cours d'évaluation, ceux qui correspondent aux règles que vous avez défini remonteront dans votre agenda d'ici quelques minutes."
+    }
+  ],
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
+    {
+      "type": 0,
+      "value": "L'agenda a bien été ajouté à vos sources. Les prochains événements qui y seront publiés et qui correspondent aux règles que vous avez défini remonteront dans votre agenda"
+    }
+  ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
     {
       "type": 0,
       "value": "Déjà dans les sources"
     }
   ],
-  "aggregator-sources.AddSourceModal.cancel": [
-    {
-      "type": 0,
-      "value": "Annuler"
-    }
-  ],
   "aggregator-sources.AddSourceModal.chooseAnotherSource": [
     {
       "type": 0,
       "value": "Choisir un autre agenda source"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.confirmationStep": [
-    {
-      "type": 0,
-      "value": "Confirmation"
     }
   ],
   "aggregator-sources.AddSourceModal.defineRules": [
@@ -107,16 +107,10 @@
       "value": "."
     }
   ],
-  "aggregator-sources.AddSourceModal.evaluateOption0": [
+  "aggregator-sources.AddSourceModal.evaluationStep": [
     {
       "type": 0,
-      "value": "N'évaluer que les événements ajoutés à l'agenda à partir de maintenant"
-    }
-  ],
-  "aggregator-sources.AddSourceModal.evaluateOption1": [
-    {
-      "type": 0,
-      "value": "Évaluer tous les événements"
+      "value": "Évaluation"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [
@@ -162,6 +156,12 @@
     {
       "type": 0,
       "value": "Officiel"
+    }
+  ],
+  "aggregator-sources.AddSourceModal.ok": [
+    {
+      "type": 0,
+      "value": "OK"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
@@ -939,6 +939,30 @@
       "value": "actionCount"
     }
   ],
+  "aggregator-sources.EvaluateOptions.cancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption0": [
+    {
+      "type": 0,
+      "value": "N'évaluer que les événements ajoutés à l'agenda à partir de maintenant"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption1": [
+    {
+      "type": 0,
+      "value": "Évaluer tous les événements"
+    }
+  ],
+  "aggregator-sources.EvaluateOptions.evaluateOption2": [
+    {
+      "type": 0,
+      "value": "Évaluer les événements en cours et à venir"
+    }
+  ],
   "aggregator-sources.RemoveSourceModal.cancel": [
     {
       "type": 0,
@@ -1341,6 +1365,12 @@
       "value": "Annuler"
     }
   ],
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
+    {
+      "type": 0,
+      "value": "Souhaitez-vous que les événements publiés dans l'agenda source soient ré-évalués à la suite de cette mise à jour?"
+    }
+  ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
     {
       "type": 0,
@@ -1386,7 +1416,7 @@
   "aggregator-sources.utils.stateMessages.stateToControl": [
     {
       "type": 0,
-      "value": "À contrôler"
+      "value": "À modérer"
     }
   ]
 }

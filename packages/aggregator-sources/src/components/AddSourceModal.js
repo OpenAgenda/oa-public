@@ -2,13 +2,13 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { Form, Field } from 'react-final-form';
 import { Modal, Image, Spinner } from '@openagenda/react-components';
 import { useMemoOne, useApiClient } from '@openagenda/react-shared';
 import Stepper from './Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
 import DefineRules from './DefineRules';
+import EvaluateOptions from './EvaluateOptions';
 
 const DEFAULT_IMAGE = 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png';
 
@@ -17,10 +17,6 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.modalTitle',
     defaultMessage:
       'Add a source{agenda, select, undefined {} other {: {agenda}}}',
-  },
-  submitButton: {
-    id: 'aggregator-sources.AddSourceModal.submitButton',
-    defaultMessage: 'Add source',
   },
   removeConfirmMessage: {
     id: 'aggregator-sources.AddSourceModal.removeConfirmMessage',
@@ -79,26 +75,14 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.defineRulesStep',
     defaultMessage: 'Rules',
   },
-  confirmationStep: {
-    id: 'aggregator-sources.AddSourceModal.confirmationStep',
-    defaultMessage: 'Confirmation',
+  evaluationStep: {
+    id: 'aggregator-sources.AddSourceModal.evaluationStep',
+    defaultMessage: 'Evaluation',
   },
   evaluateMessage: {
     id: 'aggregator-sources.AddSourceModal.evaluateMessage',
     defaultMessage:
       'The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rules} one {with 1 rule} other {with {ruleCount} rules}}.',
-  },
-  evaluateOption0: {
-    id: 'aggregator-sources.AddSourceModal.evaluateOption0',
-    defaultMessage: 'Aggregate only upcoming events',
-  },
-  evaluateOption1: {
-    id: 'aggregator-sources.AddSourceModal.evaluateOption1',
-    defaultMessage: 'Aggregate all events',
-  },
-  cancel: {
-    id: 'aggregator-sources.AddSourceModal.cancel',
-    defaultMessage: 'Cancel',
   },
   noAgendas: {
     id: 'aggregator-sources.AddSourceModal.noAgendas',
@@ -108,18 +92,29 @@ const messages = defineMessages({
     id: 'aggregator-sources.AddSourceModal.chooseAnotherSource',
     defaultMessage: 'Choose another source',
   },
+  infoMessageImmediat: {
+    id: 'aggregator-sources.AddSourceModal.InfoMessageImmediat',
+    defaultMessage:
+      'The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar.',
+  },
+  infoMessage: {
+    id: 'aggregator-sources.AddSourceModal.InfoMessage',
+    defaultMessage:
+      'The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.',
+  },
+  ok: {
+    id: 'aggregator-sources.AddSourceModal.ok',
+    defaultMessage: 'OK',
+  },
+  submitButton: {
+    id: 'aggregator-sources.AddSourceModal.submitButton',
+    defaultMessage: 'Add source',
+  },
 });
 
 const modalClassnames = {
   overlay: 'popup-overlay big',
 };
-
-const Radio = ({ id, input, children }) => (
-  <label htmlFor={id}>
-    <input type="radio" id={id} {...input} />
-    {children}
-  </label>
-);
 
 function AgendaItem({
   agenda, sources, onSelect, firstAction
@@ -258,6 +253,7 @@ export default function AddSourceModal({
   const [selectedStep, setSelectedStep] = useState(
     preselectedAgenda ? 'defineRules' : 'selectAgenda'
   );
+  const [selectedEvaluate, setSelectedEvaluate] = useState();
   const [selectedAgenda, setSelectedAgenda] = useState(preselectedAgenda);
   const [rules, setRules] = useState();
 
@@ -344,12 +340,21 @@ export default function AddSourceModal({
         passed: isPassed,
       },
       {
-        key: 'confirmation',
-        label: intl.formatMessage(messages.confirmationStep),
+        key: 'evaluation',
+        label: intl.formatMessage(messages.evaluationStep),
         display: true,
         active: isActive,
         activable: isActivable,
         passed: isPassed,
+      },
+      {
+        key: 'info',
+        label: null,
+        display: true,
+        active: isActive,
+        activable: isActivable,
+        passed: isPassed,
+        confirmation: true,
       },
     ],
     [intl, isActivable, isActive, isPassed]
@@ -358,14 +363,19 @@ export default function AddSourceModal({
   const handleRulesSubmit = useCallback(
     value => {
       setRules(value);
-      selectStep('confirmation');
+      selectStep('evaluation');
     },
     [setRules, selectStep]
   );
 
   const handleFinalSubmit = useCallback(
-    ({ evaluate }) => onSubmit(selectedAgenda, rules, evaluate),
-    [onSubmit, selectedAgenda, rules]
+    ({ evaluate }) => {
+      onSubmit(selectedAgenda, rules, evaluate).then(() => {
+        setSelectedEvaluate(evaluate);
+        selectStep('info');
+      });
+    },
+    [onSubmit, selectedAgenda, rules, selectStep, setSelectedEvaluate]
   );
 
   const fieldProps = useMemo(
@@ -543,60 +553,36 @@ export default function AddSourceModal({
           />
         ) : null}
 
-        {selectedStep === 'confirmation' ? (
-          <Form onSubmit={handleFinalSubmit}>
-            {({ handleSubmit }) => (
-              <form onSubmit={handleSubmit}>
-                <div className="margin-v-sm">
-                  <p>
-                    {intl.formatMessage(messages.evaluateMessage, {
-                      aggregator: <b>{aggregatorAgenda.title}</b>,
-                      source: <b>{selectedAgenda.title}</b>,
-                      ruleCount: rules.length,
-                    })}
-                  </p>
+        {selectedStep === 'evaluation' ? (
+          <EvaluateOptions
+            handleFinalSubmit={handleFinalSubmit}
+            onClose={onClose}
+            message={intl.formatMessage(messages.evaluateMessage, {
+              aggregator: <b>{aggregatorAgenda.title}</b>,
+              source: <b>{selectedAgenda.title}</b>,
+              ruleCount: rules.length,
+            })}
+            submitMessage={intl.formatMessage(messages.submitButton)}
+          />
+        ) : null}
 
-                  <Field
-                    name="evaluate"
-                    type="radio"
-                    value="0"
-                    component={Radio}
-                    initialValue="0"
-                  >
-                    {' '}
-                    {intl.formatMessage(messages.evaluateOption0)}
-                  </Field>
-
-                  <br />
-
-                  <Field
-                    name="evaluate"
-                    type="radio"
-                    value="1"
-                    component={Radio}
-                  >
-                    {' '}
-                    {intl.formatMessage(messages.evaluateOption1)}
-                  </Field>
-                </div>
-
-                <div className="pull-left">
-                  <button
-                    type="button"
-                    className="btn btn-link text-danger cancel-button-left"
-                    onClick={onClose}
-                  >
-                    {intl.formatMessage(messages.cancel)}
-                  </button>
-                </div>
-                <div className="text-right">
-                  <button type="submit" className="btn btn-primary">
-                    {intl.formatMessage(messages.submitButton)}
-                  </button>
-                </div>
-              </form>
-            )}
-          </Form>
+        {selectedStep === 'info' ? (
+          <div>
+            <div>
+              {selectedEvaluate.evaluate === 'all'
+                ? intl.formatMessage(messages.infoMessageImmediat)
+                : intl.formatMessage(messages.infoMessage)}
+            </div>
+            <div className="text-center padding-top-sm">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={onClose}
+              >
+                {intl.formatMessage(messages.ok)}
+              </button>
+            </div>
+          </div>
         ) : null}
       </div>
     </Modal>

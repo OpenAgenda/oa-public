@@ -41,6 +41,7 @@ import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
+import switchToLegacyAdminPage from '../utils/switchToLegacyAdminPage';
 
 const PAGE_SIZE = 20;
 
@@ -129,6 +130,10 @@ const messages = defineMessages({
   clearFilters: {
     id: 'EventAdminApp.Dashboard.clearFilters',
     defaultMessage: 'Clear filters',
+  },
+  backToLegacy: {
+    id: 'EventAdminApp.Dashboard.backToLegacy',
+    defaultMessage: 'Revert to previous version of this page',
   },
 });
 
@@ -347,9 +352,10 @@ function Dashboard() {
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
 
-  const redirectURL = useMemo(() => getRedirectURL(history.location), [
-    history.location,
-  ]);
+  const redirectURL = useMemo(
+    () => getRedirectURL(history.location),
+    [history.location]
+  );
 
   const loadGeoData = useCallback(
     async (filter, bounds, zoom) => {
@@ -386,9 +392,10 @@ function Dashboard() {
   );
 
   const filters = useFilters(agendaSchema);
-  const mapFilter = useMemo(() => filters.find(v => v.name === 'geo'), [
-    filters,
-  ]);
+  const mapFilter = useMemo(
+    () => filters.find(v => v.name === 'geo'),
+    [filters]
+  );
 
   const removeModal = useModal();
 
@@ -492,9 +499,10 @@ function Dashboard() {
   );
 
   // Selection
-  const isSelectedEvent = useCallback(uid => selectedEvents.has(uid), [
-    selectedEvents,
-  ]);
+  const isSelectedEvent = useCallback(
+    uid => selectedEvents.has(uid),
+    [selectedEvents]
+  );
   const selectEvent = useCallback(uid => {
     setSelectedEvents(old => {
       const result = new Set(old);
@@ -664,6 +672,15 @@ function Dashboard() {
       ref={filtersFormRef}
     >
       <header>
+        <div className="pull-right">
+          <button
+            className="btn btn-link text-muted padding-h-z"
+            type="button"
+            onClick={switchToLegacyAdminPage.bind(null, agenda.slug)}
+          >
+            {intl.formatMessage(messages.backToLegacy)}
+          </button>
+        </div>
         <Actions
           agenda={agenda}
           query={query}

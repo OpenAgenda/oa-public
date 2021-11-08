@@ -1,16 +1,22 @@
 'use strict';
 
 const _ = require('lodash');
-const { NotFound } = require('@openagenda/verror');
+const { Forbidden, NotFound } = require('@openagenda/verror');
 
 const validateNav = require('./lib/validateNav');
 const format = require('./lib/format');
+const canRead = require('./lib/canRead');
 
-module.exports = async (services, agendaOrUid, nav) => {
+module.exports = async (services, agendaOrUid, nav, options = {}) => {
   const {
     members: membersSvc,
     agendas
   } = services;
+
+  const {
+    userUid: actingUserUid,
+    access = null
+  } = options;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
@@ -21,6 +27,19 @@ module.exports = async (services, agendaOrUid, nav) => {
 
   if (!agenda) {
     throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
+  }
+
+  const actingMember = actingUserUid ? await membersSvc.get({
+    agendaUid: agenda.uid,
+    userUid: actingUserUid
+  }) : null;
+
+  if (!canRead(services, {
+    access,
+    actingMember,
+    list: true
+  })) {
+    throw new Forbidden('Not authorized to access member');
   }
 
   return membersSvc.list({

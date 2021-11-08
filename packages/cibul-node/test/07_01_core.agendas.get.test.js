@@ -119,6 +119,22 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       ).toBe(1);
     });
 
+    it('detailed get with includeNonDataFields fields and includeEvent includes languages field in schema', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        access: 'internal',
+        includeEvent: true,
+        includeNonDataFields: true
+      });
+
+      expect(
+        agenda.schema.fields
+          .map(f => f.field)
+          .filter(f => f === 'languages')
+          .length
+      ).toBe(1);
+    });
+
     it('schema fields each include a schemaType', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,

@@ -5,7 +5,7 @@ import ComponentCanvas from './decorators/ComponentCanvas';
 import Providers from './decorators/Providers';
 
 export default {
-  title: 'Components',
+  title: 'Form',
   decorators: [Providers, ComponentCanvas],
 };
 

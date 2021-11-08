@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { Base64 } from 'js-base64';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
+import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles';
+import { Dropdown, MenuItem } from 'react-bootstrap';
 
 const roleLabel = (i18n, role) => {
   const { getLabel } = i18n;
@@ -21,6 +23,8 @@ function MemberItem({
   resendInvitation,
   history,
   i18n,
+  userRole,
+  patchRole,
 }) {
   const {
     id,
@@ -29,11 +33,12 @@ function MemberItem({
     eventCount,
     custom,
     user: memberUser,
-    owner,
     role,
   } = member;
 
   const { getLabel } = i18n;
+
+  const canEditMember = isSuperiorToOrEqual(userRole, role);
 
   const memberType = (() => {
     if (invited && !deletedUser) return 'invited';
@@ -113,39 +118,81 @@ function MemberItem({
               contributorId: id,
               'q.memberUid': [member.userUid],
             })}`}
-            className="text-muted"
+            className="btn btn-link padding-left-z padding-top-z"
           >
-            {/* <span className="badge badge-info"> */}
             {eventCount}{' '}
             {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
-            {/* </span> */}
           </Link>
 
-          {(role !== 3 || ![2, 3].includes(role)) && (
+          {canEditMember && (
             <button
               type="button"
-              className="btn btn-link text-muted margin-left-sm"
+              className="btn btn-link padding-left-z padding-top-z"
               onClick={() => showModal('editMember', { member })}
             >
               {getLabel('editProfile')}
             </button>
           )}
-          {!owner && (role !== 3 || ![2, 3].includes(role)) && (
-            <button
-              type="button"
-              className="btn btn-link text-muted margin-left-sm"
-              onClick={() => showModal('removeMember', { member })}
-            >
-              {getLabel('removeMember')}
-            </button>
-          )}
           {user?.uid !== member.userUid ? (
             <a
-              className="text-muted margin-left-sm"
+              className="btn btn-link padding-left-z padding-top-z"
               href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
             >
               {getLabel('sendAMessage')}
             </a>
+          ) : null}
+          {userRole === 2 || (userRole === 3 && role === 1) ? (
+            <>
+              <button
+                type="button"
+                className="btn btn-link padding-left-z padding-top-z"
+                onClick={() => showModal('removeMember', { member })}
+              >
+                {getLabel('removeMember')}
+              </button>
+              {userRole !== 3 ? (
+                <Dropdown
+                  id={`member-${member.userUid}-change-role`}
+                  className="btn-link-dropdown"
+                >
+                  <Dropdown.Toggle
+                    className="btn-link padding-left-z padding-top-z"
+                    bsRole="toggle"
+                  >
+                    {getLabel('changeRole')}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu bsRole="menu">
+                    <MenuItem
+                      eventKey="administator"
+                      disabled={role === 2}
+                      onClick={() => patchRole('administrator')}
+                    >
+                      <div className="margin-h-sm margin-v-xs">
+                        {getLabel('administrator')}
+                      </div>
+                    </MenuItem>
+                    <MenuItem
+                      eventKey="moderator"
+                      disabled={userRole !== 2 || role === 3}
+                      onClick={() => patchRole('moderator')}
+                    >
+                      <div className="margin-h-sm margin-v-xs">
+                        {getLabel('moderator')}
+                      </div>
+                    </MenuItem>
+                    <MenuItem
+                      eventKey="contributor"
+                      disabled={role === 1}
+                      onClick={() => patchRole('contributor')}
+                    >
+                      <div className="margin-h-sm margin-v-xs">
+                        {getLabel('contributor')}
+                      </div>
+                    </MenuItem>
+                  </Dropdown.Menu>
+                </Dropdown>
+              ) : null}
+            </>
           ) : null}
           {invited && (
             <button

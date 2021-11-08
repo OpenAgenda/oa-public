@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+
 const {
   knex,
   resetAndCreateTables
@@ -11,7 +13,9 @@ raw.push(knex('user').insert([
   require('./sql/users/01.json'), // user id 1, uid 1
   require('./sql/users/thibaud.json'),
   require('./sql/users/lise.json'),
-  require('./sql/users/chrissie.json')
+  require('./sql/users/chrissie.json'),
+  require('./sql/users/helene.json'),
+  require('./sql/users/jean-benoit.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
@@ -22,19 +26,36 @@ raw.push(knex('api_key_set').insert([
 
 raw.push(knex('review').insert([
   require('./sql/agendas/01.json'), // uid 1
-  require('./sql/agendas/02.json') // uid 2
+  require('./sql/agendas/02.json'), // uid 2
+  require('./sql/agendas/albigeois.json') // uid 93399464
 ]));
+
+raw.push(knex('network').insert([
+  require('./sql/networks/01.json'),
+  require('./sql/networks/albigeois.json')
+]));
+
+raw.push(knex('form_schema').insert([{
+  id: 1,
+  store: JSON.stringify({ fields: [] })
+}, {
+  id: 23483,
+  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.network.json`)
+}, {
+  id: 23481,
+  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.agenda.json`)
+}]));
 
 raw.push(knex('reviewer').insert([
   require('./sql/members/01.json'), // user id 1, user 1, agenda uid 2, contributor
   require('./sql/members/02.json'), // user uid 1, agenda uid 3, moderator
   require('./sql/members/03.json'), // uid 1, id 1, agenda uid 9, administrator
   require('./sql/members/04.json'), // contributor agenda uid 11
-  require('./sql/members/05.json'), // uid 5, agenda uid 2
-  require('./sql/members/06.json'),
+  require('./sql/members/05.json'), // uid 5, agenda uid 2, contributor
+  require('./sql/members/06.json'), // uid 67, agenda uid 2, contributor
   require('./sql/members/07.json'),
   require('./sql/members/08.json'),
-  require('./sql/members/lise.administrator.json')
+  require('./sql/members/lise.administrator.json') // uid 50073466, agenda 2, admin
 ]));
 
 module.exports = raw.join(';\n') + ';';

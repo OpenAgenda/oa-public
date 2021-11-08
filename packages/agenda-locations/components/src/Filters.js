@@ -19,10 +19,10 @@ const messages = defineMessages({
 
 class Filters extends Component {
   static propTypes = {
-    locations: PropTypes.array.isRequired,
+    locations: PropTypes.array.isRequired, // eslint-disable-line
     onQueryChange: PropTypes.func.isRequired,
-    query: PropTypes.object.isRequired,
-    intl: PropTypes.object.isRequired
+    query: PropTypes.object.isRequired, // eslint-disable-line
+    intl: PropTypes.object.isRequired // eslint-disable-line
   };
 
   getFilterList() {
@@ -86,7 +86,6 @@ class Filters extends Component {
   }
 
   render() {
-    console.log('query', this.props.query);
     return (
       <ul className="list-unstyled">
         {this.getFilterList().map(this.renderItem.bind(this))}

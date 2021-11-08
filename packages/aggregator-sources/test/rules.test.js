@@ -113,6 +113,7 @@ describe('utils - rules', () => {
         withActions: false,
         required: true,
         actions: [],
+        caseSensitive: false,
         type: 'text',
         textField: 'organisateur',
         textValue: '92ORG',

@@ -1,14 +1,35 @@
 'use strict';
 
+const { Forbidden } = require('@openagenda/verror');
 const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
+const canRead = require('./lib/canRead');
 
 async function get(services, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const {
     members,
   } = services;
 
+  const {
+    userUid: actingUserUid,
+    access = null
+  } = options;
+
   const agenda = await getAgenda(services, agendaOrUid);
+
+  const actingMember = actingUserUid ? await members.get({
+    agendaUid: agenda.uid,
+    userUid: actingUserUid
+  }) : null;
+
+  if (!canRead(services, {
+    access,
+    actingMember,
+    actingUserUid,
+    userUid
+  })) {
+    throw new Forbidden('Not authorized to access member');
+  }
 
   return members.get({
     agendaUid: agenda.uid,
@@ -23,10 +44,11 @@ module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
   userUid,
   options
 ), {
-  is: (services, agendaOrUid, userUid) => get(
+  is: (services, agendaOrUid, userUid, options = {}) => get(
     services,
     { includeFields: ['id'] },
     agendaOrUid,
-    userUid
+    userUid,
+    options
   ).then(m => !!m)
 });

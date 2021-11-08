@@ -72,12 +72,15 @@ module.exports.schemas = merge;
 
 module.exports.schemasWithEvent = function schemasWithEvent(...args) {
   const schemas = args.concat([]);
-  const access = schemas.pop();
+  const {
+    access,
+    includeNonDataFields
+  } = schemas.pop();
   return eventFormSchema({
     languages: true,
     schemaExtensions: schemas,
     access: access?.read === 'internal' ? null : access,
-    excludeNonDataFields: true
+    excludeNonDataFields: !includeNonDataFields
   });
 };
 

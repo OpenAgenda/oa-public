@@ -42,9 +42,11 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('results contents', () => {
+  describe('successful gets', () => {
     it('basic get', async () => {
-      const member = await core.agendas({ uid: 2 }).members.get(1);
+      const member = await core.agendas({ uid: 2 }).members.get(1, {
+        userUid: 50073466
+      });
 
       expect(member).toEqual({
         name: 'Jan',
@@ -53,8 +55,45 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         position: null,
         organization: null,
         role: 'contributor',
+        updatedAt: new Date('2017-10-30T13:21:07.000Z'),
         userUid: 1
       });
+    });
+
+    it('contributor can access his data', async () => {
+      const member = await core.agendas({ uid: 2 }).members.get(1, {
+        userUid: 1
+      });
+
+      expect(member.name).toEqual('Jan');
+    });
+  });
+
+  describe('unauthorized', () => {
+    it('non member does not have access to get', async () => {
+      let error;
+      try {
+        await core.agendas({ uid: 2 }).members.get(1, {
+          userUid: 99999967
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
+    });
+
+    it('contributor does not have access to other member data', async () => {
+      let error;
+      try {
+        await core.agendas({ uid: 2 }).members.get(1, {
+          userUid: 5
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('Forbidden');
     });
   });
 
@@ -89,6 +128,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
           position: null,
           organization: null,
           role: 'contributor',
+          updatedAt: '2017-10-30T13:21:07.000Z',
           userUid: 1
         });
       });

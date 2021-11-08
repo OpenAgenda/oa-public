@@ -158,28 +158,30 @@ export function list(query) {
 }
 
 export function add(agendaUid, { rules, evaluate }) {
+  const query = {
+    all: {},
+    currentAndUpcoming: { relative: ['current', 'upcoming'] },
+  }[evaluate] ?? null;
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
-    promise: ({ client, params }, { getState }) => {
+    promise: (arg, { getState }) => {
+      const { client, params } = arg;
       const { res } = getState();
-
-      return client.post(
-        res.add.replace(':slug', params.slug),
-        {
-          agendaUid,
-          rules,
-        },
-        {
-          params: {
-            evaluate,
-          },
-        }
-      );
+      return client.post(res.add.replace(':slug', params.slug), {
+        agendaUid,
+        rules,
+        query,
+      });
     },
   };
 }
 
-export function update(id, { rules }) {
+export function update(id, { rules, evaluate }) {
+  const query = {
+    all: {},
+    currentAndUpcoming: { relative: ['current', 'upcoming'] },
+  }[evaluate] ?? null;
+
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     promise: ({ client, params }, { getState }) => {
@@ -189,7 +191,7 @@ export function update(id, { rules }) {
         .replace(':slug', params.slug)
         .replace(':sourceId', id);
 
-      return client.put(url, { rules });
+      return client.put(url, { rules, query });
     },
   };
 }

@@ -102,10 +102,10 @@ module.exports = core => {
       }
     }).then(event => res.json({ success: true, event }), next));
 
-  app.get('/agendas/:agendaUid/events', (req, res, next) => core
+  app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
     .agendas(req.agenda.uid).events
-    .search(req.query, req.query, {
-      ...req.query,
+    .search(req.convertedQuery, req.convertedQuery, {
+      ...req.convertedQuery,
       useAfterKey: true,
       userUid: req.user?.uid
     }).then(({
@@ -130,7 +130,8 @@ module.exports = core => {
       size: 1
     }, {
       detailed: true,
-      userUid: req.user?.uid
+      userUid: req.user?.uid,
+      longDescriptionFormat: req.query.longDescriptionFormat
     }).then(({
       events
     }) => (events.length ? res.json({
@@ -149,7 +150,9 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
-      .agendas(req.agenda.uid).members.list(req.query)
+      .agendas(req.agenda.uid).members.list(req.query, {
+        userUid: req.user.uid
+      })
       .then(data => res.json({
         ...data,
         success: true
@@ -158,38 +161,36 @@ module.exports = core => {
 
   app.post('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
-    mw.member.verifyRoleEdit,
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .create(req.body.userUid, req.body.role, req.parsedData)
+      .create(req.body.userUid, req.body.role, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
   ]);
 
   app.get('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
-    mw.member.verifyAccess('userUid'),
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .get(req.params.userUid)
+      .get(req.params.userUid, {
+        userUid: req.user.uid
+      })
       .then(member => res.json(member), next)
   ]);
 
   app.patch('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
-    mw.member.verifyAccess('userUid'),
     (req, res, next) => core
       .agendas(req.agenda.uid)
-      .members.patch(req.params.userUid, req.parsedData)
+      .members.patch(req.params.userUid, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
   ]);
 
   app.delete('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
-    mw.member.verifyAccess('userUid'),
     (req, res, next) => core
       .agendas(req.agenda.uid).members
       .remove(req.params.userUid, {
-        user: req.user
+        userUid: req.user.uid
       }).then(() => res.json({
         success: true
       }), next)
@@ -334,6 +335,10 @@ module.exports = core => {
     settings.resync
   ]);
 
+  app.get('/me', (req, res, next) => core.users
+    .get(req.user.uid, { detailed: true })
+    .then(user => res.json(_.pick(user, ['apiKey'])), next));
+
   app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)
       .then(data => res.json({ ...data, success: true }), next);
@@ -341,21 +346,19 @@ module.exports = core => {
 
   app.get('/me/agendas/:agendaUid', [
     mw.member.load,
-    mw.member.verifyAccess(),
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .get(req.user.uid)
+      .get(req.user.uid, { userUid: req.user.uid })
       .then(member => res.json(member), next)
   ]);
 
   app.get('/me/agendas/:agendaUid/events/:eventUid/context', [
     mw.member.load,
-    mw.member.verifyAccess(),
     (req, res, next) => core
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
       .events(req.params.eventUid)
-      .getContext()
+      .getContext({ userUid: req.user.uid })
       .then(context => res.json(context), next)
   ]);
 

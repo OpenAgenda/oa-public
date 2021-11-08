@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
+const { Forbidden, NotFound } = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 const createPayload = require('../utils/createPayload');
@@ -29,11 +29,13 @@ module.exports = async (services, agendaUid, eventUid, options) => {
   const {
     access,
     batched,
-    returnPayload
+    returnPayload,
+    protectFromOriginRemove
   } = {
     batched: false,
     access: 'public',
     returnPayload: false,
+    protectFromOriginRemove: false,
     ...(options || {})
   };
 
@@ -54,16 +56,24 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     access: 'internal'
   });
 
+  const isOriginAgenda = event.agendaUid === parseInt(agendaUid, 10);
+
+  if (isOriginAgenda && protectFromOriginRemove) {
+    throw new Forbidden('Cannot remove event from origin in protected mode');
+  }
+
   if (!event) {
     log('error', '  event not found');
-    throw new VError('event of uid %s not found', eventUid);
+    throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
   log('  loaded event to remove');
 
   payload.setItem('event', event);
 
-  const deletion = event.agendaUid === parseInt(agendaUid, 10);
+  if (isOriginAgenda) {
+    log('remove request comes from agenda %s, origin is %s, proceeding with delete', agendaUid, event.agendaUid);
+  }
 
   if (!event.draft) {
     const result = await agendaEvents(agendaUid).remove(eventUid, {
@@ -74,7 +84,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
         agendaUid,
         userUid: contextUserUid,
         legacy: false,
-        deletion,
+        deletion: isOriginAgenda,
         batched
       }
     });
@@ -102,9 +112,9 @@ module.exports = async (services, agendaUid, eventUid, options) => {
   const remaining = await agendaEvents.list.byEventUid(eventUid);
 
   log('  there are %s remaining agenda references', remaining.total);
-  log('  agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid, 10) ? 'is' : 'is not');
+  log('  agenda %s event origin agenda', isOriginAgenda ? 'is' : 'is not');
 
-  if (!remaining.total || deletion) {
+  if (!remaining.total || isOriginAgenda) {
     await events.remove(eventUid, {
       context: {
         agendaUid,
@@ -132,7 +142,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     await eventSearch.remove({
       event,
       agenda,
-      deletion,
+      deletion: isOriginAgenda,
       otherAgendaReferences: remaining.items
     });
     log('  removed from search');
@@ -146,6 +156,6 @@ module.exports = async (services, agendaUid, eventUid, options) => {
 
   return returnPayload ? {
     ...result,
-    deletion
+    deletion: isOriginAgenda
   } : result.removed;
 };

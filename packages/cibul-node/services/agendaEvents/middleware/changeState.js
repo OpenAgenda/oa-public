@@ -39,6 +39,7 @@ module.exports = (req, res, next) => {
   }, {
     partial: true,
     access: req.access,
+    private: null,
     context: {
       userUid: req.user.uid
     }

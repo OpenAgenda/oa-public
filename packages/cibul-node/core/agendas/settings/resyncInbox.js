@@ -16,4 +16,4 @@ module.exports = async (services, agendaUid) => {
   await syncAgendaInbox(agenda, stats);
 
   return stats;
-}
+};

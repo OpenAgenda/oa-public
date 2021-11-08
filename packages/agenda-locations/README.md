@@ -44,3 +44,24 @@ A location set can also target specific settings for an agenda through its own a
 For example: The city of Geneva uses a location set for all its agendas and wants that set to be administered only through a single agenda.
 
 All agendas are linked to the set so no settings needs to be stored in an agenda. The location set defines that no operations are permitted and lists specific settings for one agenda only, where all authorizations are provided.
+
+
+
+```
+[{
+    countryCode: 'FR',
+    adminLevels: [{
+        level: 1,
+        label: 'adminLevel1_FR'
+    }]
+}, {
+    countryCode: 'AF',
+    adminLevels: [{
+        level: 1 -> `adminLevel${country.adminLevels[i].level}_${countryCode}`
+    }, {
+        level: 4
+    }]
+}]
+```
+
+Grande région (pas clair), canton, district, commune

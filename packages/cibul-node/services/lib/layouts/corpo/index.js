@@ -16,7 +16,7 @@ function parser( data ) {
 
   return ih( data, {
     labels: { $set: flattenLabels( labels, data.lang ) },
-    tel: { $set: '+33142330509' },
+    tel: { $set: '+33972178337' },
     languages: {
       $set: data.languages.map( ( l, i ) => ( {
         className: l === data.lang ? 'selected' : '',

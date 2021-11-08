@@ -62,6 +62,10 @@ describe('members - functional - get', () => {
       expect(otherMember).toBeNull();
     });
 
+    test('updatedAt information is in response', async () => {
+      expect(member.updatedAt instanceof Date).toBe(true);
+    });
+
     test('if throwOnNotFound is specified, throws if no member is found', async () => {
       let error;
       try {
@@ -141,7 +145,7 @@ describe('members - functional - get', () => {
         { customDataAtRoot: true }
       );
 
-      expect(sameMember).toEqual({
+      expect(_.omit(sameMember, ['updatedAt'])).toEqual({
         id: 2,
         deletedUser: false,
         invited: false,

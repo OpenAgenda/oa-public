@@ -12,7 +12,7 @@ const {
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 
 const data = {
   title: { fr: 'Spectacle de contes sur le thème de l\'Afrique' },
@@ -26,14 +26,12 @@ const data = {
   }]
 };
 
-describe('events - functional - update', function() {
-  this.timeout(10000);
-
+describe('events - functional - update', () => {
   const f = fixtures(config.mysql, config.schema);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -45,7 +43,7 @@ describe('events - functional - update', function() {
     let updated;
     let entry;
 
-    before(async () => {
+    beforeAll(async () => {
       updated = await svc.update(41414062, data);
       entry = await f.client('event_2')
         .first()
@@ -65,7 +63,7 @@ describe('events - functional - update', function() {
     let event;
     let patched;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await svc.get({ slug: 'exposition-legypte-ancienne' });
       patched = await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
         title: {
@@ -89,13 +87,13 @@ describe('events - functional - update', function() {
   describe('update with image', () => {
     let svc;
 
-    before(done => {
+    beforeAll(done => {
       fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
         .pipe(fs.createWriteStream('/tmp/dog.png'))
         .on('close', done)
     });
 
-    before(() => {
+    beforeAll(() => {
       svc = Service({
         knex: f.client,
         Files: Files(dConfig.files)
@@ -122,7 +120,7 @@ describe('events - functional - update', function() {
   describe('interfaces', () => {
     const calls = [];
 
-    before(async () => {
+    beforeAll(async () => {
       svc = Service({
         knex: f.client,
         interfaces: {
@@ -161,7 +159,7 @@ describe('events - functional - update', function() {
       assert.equal(updatedDraftEvent.title.en, 'Un titre modifié');
     });
 
-    it('undrafting', async () => {
+    it('undrafting through patch', async () => {
       const draftEvent = await svc.create({
         title: 'Un autre titre'
       }, { draft: true });
@@ -172,7 +170,13 @@ describe('events - functional - update', function() {
         draft: false
       });
 
-      assert.equal(undraftedEvent.draft, false);
+      expect(undraftedEvent.draft).toBe(false);
+
+      const entry = await f.client('event_2')
+        .first('draft')
+        .where('uid', draftEvent.uid);
+
+      expect(entry.draft).toBe(0);
     });
 
     it('fix: patch from DHM format', async () => {

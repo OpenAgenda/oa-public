@@ -1,6 +1,7 @@
 'use strict';
 
 const CachedCount = require('./lib/CachedCount');
+const log = require('@openagenda/logs')('getAggregatedCount');
 
 module.exports = service => {
   const {
@@ -25,10 +26,11 @@ module.exports = service => {
 
 async function getAggregatedCount(service, agendaUid, since = null) {
   const { client } = service;
+  log('get aggregated count for agendaUid: %s, since: %s',agendaUid, since);
 
   return client('agenda_event').count('id', { as: 'count' })
+    .whereNotNull('aggregated')
     .where({
-      aggregated: true,
       agenda_uid: agendaUid
     })
     .where('created_at', '>', _cleanSince(since))

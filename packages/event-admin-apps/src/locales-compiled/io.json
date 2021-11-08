@@ -43,6 +43,12 @@
       "value": "crwdne5986:0"
     }
   ],
+  "EventAdminApp.Dashboard.backToLegacy": [
+    {
+      "type": 0,
+      "value": "Revert to previous version of this page"
+    }
+  ],
   "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,

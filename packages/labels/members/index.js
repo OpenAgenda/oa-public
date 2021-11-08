@@ -165,12 +165,24 @@ module.exports = {
     "io": "crwdns15638:0crwdne15638:0"
   },
   "editProfile": {
-    "fr": "Modifier le profil",
-    "en": "Edit profile",
+    "fr": "Voir la fiche contact",
+    "en": "Edit contact data",
     "de": "Profil bearbeiten",
     "es": "Editar Perfil",
     "it": "Modifica profilo",
     "io": "crwdns15640:0crwdne15640:0"
+  },
+  "changeRole": {
+    "fr": "Changer le rôle",
+    "en": "Edit the role"
+  },
+  "operationSuccessful": {
+    "fr": "Operation effectuée",
+    "en": "Operation done"
+  },
+  "patchSuccessConfirm": {
+    "fr": "Le membre a été mis à jour",
+    "en": "The member was updated"
   },
   "inviteMembers": {
     "fr": "Inviter des membres",

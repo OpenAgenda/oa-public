@@ -25,7 +25,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     detailed,
     useDateHoursMinutesFormat,
     useLocationObjectFormat,
-    longDescriptionFormat
+    longDescriptionFormat,
+    private: loadPrivate
   } = {
     lang: null,
     load: {
@@ -40,6 +41,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat: false,
     useLocationObjectFormat: false,
     longDescriptionFormat: null,
+    private: false,
     ...options
   };
 
@@ -60,7 +62,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
       lang,
       useFallbackLang: true,
       useDateHoursMinutesFormat,
-      useLocationObjectFormat
+      useLocationObjectFormat,
+      private: loadPrivate
     });
 
     if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {

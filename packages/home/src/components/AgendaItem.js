@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Image } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { Dropdown, MenuItem } from 'react-bootstrap';
 
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
 
@@ -57,6 +57,7 @@ function AgendaItem({
         <div className="actions">
           {[4].includes(agenda.member.role) && (
             <a
+              className="btn btn-link padding-left-z padding-top-z"
               href={res.agendas[
                 agenda.private ? 'showPrivate' : 'show'
               ].replace(':slug', agenda.slug)}
@@ -67,13 +68,19 @@ function AgendaItem({
           {[2, 3].includes(agenda.member.role) && (
             <>
               {agenda?.settings?.lab?.eventAdmin ? (
-                <Link to={`/${agenda.slug}/admin/events`}>
+                <Link
+                  to={`/${agenda.slug}/admin/events`}
+                  className="btn btn-link padding-left-z padding-top-z"
+                >
                   {agenda.member.role === 2
                     ? getLabel('manage')
                     : getLabel('moderate')}
                 </Link>
               ) : (
-                <a href={`${phpPrefix}${agenda.slug}/admin`}>
+                <a
+                  className="btn btn-link padding-left-z padding-top-z"
+                  href={`${phpPrefix}${agenda.slug}/admin`}
+                >
                   {agenda.member.role === 2
                     ? getLabel('manage')
                     : getLabel('moderate')}
@@ -83,6 +90,7 @@ function AgendaItem({
           )}
           {[1, 2, 3].includes(agenda.member.role) && (
             <a
+              className="btn btn-link padding-left-z padding-top-z"
               href={(agenda.useContributeApp
                 ? res.agendas.contribute
                 : res.agendas.addEvent
@@ -92,37 +100,56 @@ function AgendaItem({
             </a>
           )}
           {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && (
-            <a href={_.get(agenda, 'mailto')}>{getLabel('contact')}</a>
-          )}
-          {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && (
-            <a href={res.agendas.contact.replace(':slug', agenda.slug)}>
+            <a
+              className="btn btn-link padding-left-z padding-top-z"
+              href={_.get(agenda, 'mailto')}
+            >
               {getLabel('contact')}
             </a>
           )}
-          <DropdownButton title="Autres actions" className="btn-link">
-            {agenda.settings?.contribution.useFields ? (
+          {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && (
+            <a
+              className="btn btn-link padding-left-z padding-top-z"
+              href={res.agendas.contact.replace(':slug', agenda.slug)}
+            >
+              {getLabel('contact')}
+            </a>
+          )}
+          <Dropdown
+            id={`agenda-${agenda.slug}-more-actions`}
+            className="btn-link-dropdown"
+          >
+            <Dropdown.Toggle
+              className="btn-link padding-left-z padding-top-z"
+              bsRole="toggle"
+            >
+              {getLabel('otherActions')}
+            </Dropdown.Toggle>
+            <Dropdown.Menu bsRole="menu">
+              {agenda.settings?.contribution.useFields ? (
+                <MenuItem>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={() => onDisplayMemberForm(agenda)}
+                    title={getLabel('other')}
+                  >
+                    {getLabel('editMember')}
+                  </button>
+                </MenuItem>
+              ) : null}
               <MenuItem>
                 <button
                   type="button"
-                  className="btn btn-link padding-right-z"
-                  onClick={() => onDisplayMemberForm(agenda)}
-                  title={getLabel('editMemberInformation')}
+                  className="btn btn-link text-danger visible-on-hover"
+                  onClick={() => onDisplayRemoveMember(agenda)}
+                  title={getLabel('removeMemberInformation')}
                 >
-                  {getLabel('editMember')}
+                  {getLabel('removeMember')}
                 </button>
               </MenuItem>
-            ) : null}
-            <MenuItem>
-              <button
-                type="button"
-                className="btn btn-link text-danger visible-on-hover"
-                onClick={() => onDisplayRemoveMember(agenda)}
-                title={getLabel('removeMemberInformation')}
-              >
-                {getLabel('removeMember')}
-              </button>
-            </MenuItem>
-          </DropdownButton>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
     </div>

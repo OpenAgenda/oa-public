@@ -8,17 +8,15 @@ const {
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 const fields = require('../lib/fields');
 
-describe('events - functional - get', function() {
-  this.timeout(10000);
-
+describe('events - functional - get', () => {
   const f = fixtures(config.mysql, config.schema);
 
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
@@ -31,7 +29,7 @@ describe('events - functional - get', function() {
   describe('simple get', () => {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await svc.get(80107389);
     });
 
@@ -43,9 +41,12 @@ describe('events - functional - get', function() {
       assert.equal(event.imageCredits, 'MEL');
     });
 
-    it('image filename is placed in the image field under the key "filename"', () => {
-      assert.equal(event.image.filename, '950de3a396df447dbb66364d036e0067.base.image.jpg');
-    });
+    it(
+      'image filename is placed in the image field under the key "filename"',
+      () => {
+        assert.equal(event.image.filename, '950de3a396df447dbb66364d036e0067.base.image.jpg');
+      }
+    );
 
     it('get by slug', async () => {
       assert.equal(
@@ -91,16 +92,19 @@ describe('events - functional - get', function() {
       );
     });
 
-    it('identifier matching no event with throwOnNotFound option set throws NotFoundError', async () => {
-      try {
-        await svc.get(6789679673, { throwOnNotFound: true })
-      } catch (error) {
-        assert.equal(error.message, 'Not found');
-        return;
-      }
+    it(
+      'identifier matching no event with throwOnNotFound option set throws NotFoundError',
+      async () => {
+        try {
+          await svc.get(6789679673, { throwOnNotFound: true })
+        } catch (error) {
+          assert.equal(error.message, 'Not found');
+          return;
+        }
 
-      throw new Error('should not reach here');
-    });
+        throw new Error('should not reach here');
+      }
+    );
 
     it('image path is placed in base key of image field', async () => {
       const event = await svc.get(80107389, { limit: 1 });
@@ -210,7 +214,7 @@ describe('events - functional - get', function() {
   describe('lang option', () => {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await svc.get({ slug: 'festival-du-cinema-europeen' }, { lang: 'en', html: true });
     });
 
@@ -232,16 +236,19 @@ describe('events - functional - get', function() {
       assert.equal(event.title, undefined);
     });
 
-    it('if useFallbackLang option is true, first available language is used', async () => {
-      const event = await svc.get({
-        slug: 'les-contes-de-lhyper-climat'
-      }, {
-        lang: 'en',
-        useFallbackLang: true
-      });
+    it(
+      'if useFallbackLang option is true, first available language is used',
+      async () => {
+        const event = await svc.get({
+          slug: 'les-contes-de-lhyper-climat'
+        }, {
+          lang: 'en',
+          useFallbackLang: true
+        });
 
-      assert.equal(event.title, '« Les contes de l’hyper climat »');
-    });
+        assert.equal(event.title, '« Les contes de l’hyper climat »');
+      }
+    );
   });
 
   describe('defaults', () => {
