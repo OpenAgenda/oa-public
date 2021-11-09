@@ -85,6 +85,7 @@ const defaultStyles = {
     }
     return {
       ...provided,
+      pointer: 'cursor',
       color: state.isSelected ? WHITE : BLACK,
       backgroundColor,
     };
