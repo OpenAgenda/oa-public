@@ -2,31 +2,31 @@
   "ReactFilters.ChoiceFilter.lessOptions": [
     {
       "type": 0,
-      "value": "Moins d'options"
+      "value": "Less options"
     }
   ],
   "ReactFilters.ChoiceFilter.moreOptions": [
     {
       "type": 0,
-      "value": "Plus d'options"
+      "value": "More options"
     }
   ],
   "ReactFilters.ChoiceFilter.noResult": [
     {
       "type": 0,
-      "value": "Aucun résultat"
+      "value": "No result"
     }
   ],
   "ReactFilters.ChoiceFilter.searchPlaceholder": [
     {
       "type": 0,
-      "value": "Rechercher"
+      "value": "Search"
     }
   ],
   "ReactFilters.DateRangeFilter.dateRange": [
     {
       "type": 0,
-      "value": "Du "
+      "value": "From "
     },
     {
       "style": {
@@ -43,7 +43,7 @@
     },
     {
       "type": 0,
-      "value": " au "
+      "value": " to "
     },
     {
       "style": {
@@ -62,13 +62,13 @@
   "ReactFilters.DateRangeFilter.endDate": [
     {
       "type": 0,
-      "value": "Fin"
+      "value": "End"
     }
   ],
   "ReactFilters.DateRangeFilter.from": [
     {
       "type": 0,
-      "value": "À partir du "
+      "value": "From "
     },
     {
       "style": {
@@ -102,13 +102,13 @@
   "ReactFilters.DateRangeFilter.startDate": [
     {
       "type": 0,
-      "value": "Début"
+      "value": "Start"
     }
   ],
   "ReactFilters.DateRangeFilter.until": [
     {
       "type": 0,
-      "value": "Jusqu'au "
+      "value": "Until "
     },
     {
       "style": {
@@ -228,79 +228,79 @@
   "ReactFilters.MapField.searchWithMap": [
     {
       "type": 0,
-      "value": "Rechercher avec la carte"
+      "value": "Search with map"
     }
   ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Supprimer le filtre"
+      "value": "Remove filter"
     }
   ],
   "ReactFilters.dateRanges.currentMonth": [
     {
       "type": 0,
-      "value": "Ce mois-ci"
+      "value": "Current month"
     }
   ],
   "ReactFilters.dateRanges.currentWeek": [
     {
       "type": 0,
-      "value": "Cette semaine"
+      "value": "Current week"
     }
   ],
   "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
-      "value": "Ce week-end"
+      "value": "This week-end"
     }
   ],
   "ReactFilters.dateRanges.today": [
     {
       "type": 0,
-      "value": "Aujourd'hui"
+      "value": "Today"
     }
   ],
   "ReactFilters.dateRanges.tomorrow": [
     {
       "type": 0,
-      "value": "Demain"
+      "value": "Tomorrow"
     }
   ],
   "ReactFilters.filters.MapFilter.previewLabel": [
     {
       "type": 0,
-      "value": "Carte"
+      "value": "Map"
     }
   ],
   "ReactFilters.filters.searchFilter.placeholder": [
     {
       "type": 0,
-      "value": "Rechercher"
+      "value": "Search"
     }
   ],
   "ReactFilters.filters.searchFilter.previewLabel": [
     {
       "type": 0,
-      "value": "Recherche"
+      "value": "Search"
     }
   ],
   "ReactFilters.messages.attendanceModeOptions.mixed": [
     {
       "type": 0,
-      "value": "Mixte"
+      "value": "Mixed"
     }
   ],
   "ReactFilters.messages.attendanceModeOptions.offline": [
     {
       "type": 0,
-      "value": "Hors ligne"
+      "value": "Offline"
     }
   ],
   "ReactFilters.messages.attendanceModeOptions.online": [
     {
       "type": 0,
-      "value": "En ligne"
+      "value": "Online"
     }
   ],
   "ReactFilters.messages.filterTitles.addMethod": [
@@ -312,115 +312,115 @@
   "ReactFilters.messages.filterTitles.adminLevel3": [
     {
       "type": 0,
-      "value": "Niveau administratif 3"
+      "value": "Administrative level 3"
     }
   ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
     {
       "type": 0,
-      "value": "Mode de participation"
+      "value": "Attendance mode"
     }
   ],
   "ReactFilters.messages.filterTitles.city": [
     {
       "type": 0,
-      "value": "Ville"
+      "value": "City"
     }
   ],
   "ReactFilters.messages.filterTitles.createdAt": [
     {
       "type": 0,
-      "value": "Date de création"
+      "value": "Creation date"
     }
   ],
   "ReactFilters.messages.filterTitles.department": [
     {
       "type": 0,
-      "value": "Département"
+      "value": "Department"
     }
   ],
   "ReactFilters.messages.filterTitles.featured": [
     {
       "type": 0,
-      "value": "Mis en une"
+      "value": "Featured"
     }
   ],
   "ReactFilters.messages.filterTitles.geo": [
     {
       "type": 0,
-      "value": "Géolocalisation"
+      "value": "Geolocation"
     }
   ],
   "ReactFilters.messages.filterTitles.locationUid": [
     {
       "type": 0,
-      "value": "Lieu"
+      "value": "Location"
     }
   ],
   "ReactFilters.messages.filterTitles.memberUid": [
     {
       "type": 0,
-      "value": "Membre"
+      "value": "Member"
     }
   ],
   "ReactFilters.messages.filterTitles.originAgendaUid": [
     {
       "type": 0,
-      "value": "Agenda d'origine"
+      "value": "Origin agenda"
     }
   ],
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,
-      "value": "Région"
+      "value": "Region"
     }
   ],
   "ReactFilters.messages.filterTitles.relative": [
     {
       "type": 0,
-      "value": "Passé / en cours / à venir"
+      "value": "Passed / current / upcoming"
     }
   ],
   "ReactFilters.messages.filterTitles.sourceAgendaUid": [
     {
       "type": 0,
-      "value": "Agenda source"
+      "value": "Source agenda"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [
     {
       "type": 0,
-      "value": "Statut"
+      "value": "State"
     }
   ],
   "ReactFilters.messages.filterTitles.timings": [
     {
       "type": 0,
-      "value": "Horaires"
+      "value": "Date"
     }
   ],
   "ReactFilters.messages.filterTitles.updatedAt": [
     {
       "type": 0,
-      "value": "Date de mise à jour"
+      "value": "Date of update"
     }
   ],
   "ReactFilters.messages.relativeOptions.current": [
     {
       "type": 0,
-      "value": "En cours"
+      "value": "Current"
     }
   ],
   "ReactFilters.messages.relativeOptions.passed": [
     {
       "type": 0,
-      "value": "Passé"
+      "value": "Passed"
     }
   ],
   "ReactFilters.messages.relativeOptions.upcoming": [
     {
       "type": 0,
-      "value": "À venir"
+      "value": "Upcoming"
     }
   ]
 }
