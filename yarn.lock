@@ -6614,6 +6614,7 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     qs: ^6.9.4
     react: ^16.13.1
+    react-bootstrap: ^0.33.1
     react-dom: ^16.13.1
     react-final-form: ^6.5.3
     react-helmet-async: ^1.0.3
