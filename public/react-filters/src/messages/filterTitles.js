@@ -51,7 +51,7 @@ export default defineMessages({
   },
   timings: {
     id: 'ReactFilters.messages.filterTitles.timings',
-    defaultMessage: 'Timings',
+    defaultMessage: 'Date',
   },
   createdAt: {
     id: 'ReactFilters.messages.filterTitles.createdAt',
