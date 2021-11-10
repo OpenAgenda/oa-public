@@ -201,7 +201,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
             uid: event.uid
           });
         } catch (e) {
-          /* console.log(e); */
+          // console.log(e);
         }
       });
 

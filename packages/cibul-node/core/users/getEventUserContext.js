@@ -10,10 +10,19 @@ const {
   getForUserOnAgenda: getUserAuthorizationsOnAgenda
 } = require('../utils/authorizations');
 
-module.exports = async (core, identifier, agendaUid, eventUid, options = {}) => {
+const validateOptions = require('./lib/validateContextOptions');
+
+module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) => {
   const {
-    agendaEvents
+    agendaEvents,
+    events,
   } = core.services;
+
+  const eventUid = eventOrUid?.constructor.name === 'Object' ? eventOrUid.uid : eventOrUid;
+
+  const {
+    includes
+  } = validateOptions(options);
 
   const ae = await agendaEvents(agendaUid).get(eventUid);
 
@@ -21,24 +30,32 @@ module.exports = async (core, identifier, agendaUid, eventUid, options = {}) => 
     throw new NotFound('event reference not found');
   }
 
-  const authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid, eventUid);
+  const response = { me: {} };
 
-  const member = await core.agendas(agendaUid).members.get(identifier, {
-    ...options,
-    throwOnNotFound: false
-  });
+  if (includes.includes('me.authorizations')) {
+    const event = await eventOrUid?.constructor.name === 'Object' ? eventOrUid : await events.get(eventOrUid, {
+      private: null,
+      access: 'internal',
+      includeFields: ['uid', 'private', 'ownerUid', 'draft']
+    });
+    response.me.authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid, event, {
+      agendaEvent: ae
+    });
+  }
 
-  const response = {
-    me: {
-      authorizations,
-      member
+  if (includes.includes('me.member')) {
+    response.me.member = await core.agendas(agendaUid).members.get(identifier, {
+      ...options,
+      throwOnNotFound: false
+    });
+  }
+
+  if (includes.includes('member')) {
+    try {
+      response.member = ae.userUid ? await core.agendas(agendaUid).members.get(ae.userUid, options) : null;
+    } catch (e) {
+      log('warn', e);
     }
-  };
-
-  try {
-    response.member = ae.userUid ? await core.agendas(agendaUid).members.get(ae.userUid, options) : null;
-  } catch (e) {
-    log('warn', e);
   }
 
   return response;

@@ -12,8 +12,8 @@ const get = require('./get');
 module.exports = core => Object.assign(identifier => ({
   agendas: Object.assign(agendaUid => ({
     getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid),
-    events: eventUid => ({
-      getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventUid, options)
+    events: eventOrUid => ({
+      getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventOrUid, options)
     })
   }), {
     list: listUserAgendas(core, identifier)

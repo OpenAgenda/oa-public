@@ -123,28 +123,27 @@ module.exports = core => {
       events
     }), next));
 
-  app.get('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
-    .agendas(req.agenda.uid).events
-    .search({
-      state: null,
-      uid: req.params.eventUid
-    }, {
-      size: 1
-    }, {
-      detailed: true,
-      userUid: req.user?.uid,
-      longDescriptionFormat: req.query.longDescriptionFormat,
-      useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
-      useLocationObjectFormat: req.query.useLocationObjectFormat
-    }).then(({
-      events
-    }) => (events.length ? res.json({
-      success: true,
-      event: events[0]
-    }) : res.status(404).json({
-      success: false,
-      message: 'Event not found'
-    })), next));
+  app.get('/agendas/:agendaUid/events/:eventUid', [
+    (req, res, next) => core
+      .agendas(req.agenda.uid).events
+      .search({ state: null, uid: req.params.eventUid }, { size: 1 }, {
+        detailed: true,
+        access: 'internal',
+        longDescriptionFormat: req.query.longDescriptionFormat,
+        useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
+      }).then(async ({ events }) => {
+        if (!events.length) {
+          return res.status(404).json({
+            success: false,
+            message: 'Event not found'
+          });
+        }
+        req.event = (events ?? []).pop();
+        next();
+      }),
+    mw.evaluateUserAccessToEvent,
+    (req, res) => res.json({ success: true, event: req.event })
+  ]);
 
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
