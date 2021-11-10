@@ -5,6 +5,9 @@ const incompleteAdminMemberData = require('./administrator.incomplete.json');
 const incompleteContributorMemberData = require('./contributor.json');
 const detailedAgenda = require('./mdb.detailed.agenda.json');
 const agenda = require('./mdb.agenda.json');
+const basicAgenda = require('./basic.agenda.json');
+const basicDetailedAgenda = require('./basic.detailed.agenda.json');
+const eventContributorContext = require('./contributor.context.json');
 
 const ContributorGoesToEventStepAfterMemberFormSubmit = {
   member: contributorMemberData,
@@ -108,6 +111,31 @@ const ClosedAgendaForContributor = {
   }
 };
 
+const NewEventForm = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 100
+    }
+  }
+};
+
+const EditEventForm = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 101
+    }
+  },
+  eventContext: eventContributorContext
+};
+
 const sets = {
   ContributorGoesToEventStepAfterMemberFormSubmit,
   MemberIsAdminModAndDataIsIncomplete,
@@ -116,7 +144,9 @@ const sets = {
   MemberDataRequiredAndContributorIsIncomplete,
   NonMemberOnMembersOnly,
   ClosedAgendaForAdminMods,
-  ClosedAgendaForContributor
+  ClosedAgendaForContributor,
+  NewEventForm,
+  EditEventForm
 };
 
 module.exports = Object.assign(function getFixtures(agendaUid) {

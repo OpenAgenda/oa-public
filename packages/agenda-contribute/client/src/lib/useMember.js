@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
 export default function useMember(agenda) {
-  const res = useSelector(state => state.apiRoot + state.res.member.replace(':agendaUid', agenda.uid));
+  const res = useSelector(state => state.APIRoot + state.res.member.replace(':agendaUid', agenda.uid));
 
   const {
     isLoading: memberIsLoading,

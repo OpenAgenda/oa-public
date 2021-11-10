@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 
 import useDetailedSchema from './useDetailedSchema';
 import cleanupSchemaForForm from './cleanupSchemaForForm';
+import injectAgendaUID from './injectAgendaUID';
 
 export default function useEventFormConfig(agenda) {
   const {
@@ -10,6 +11,7 @@ export default function useEventFormConfig(agenda) {
   } = useIntl();
 
   const res = useSelector(state => state.res);
+  const APIRoot = useSelector(state => state.APIRoot);
   const files = useSelector(state => state.files);
   const tiles = useSelector(state => state.tiles);
 
@@ -32,7 +34,7 @@ export default function useEventFormConfig(agenda) {
       withErrors: false,
       lang: locale,
       schema,
-      locationRes: res.locations,
+      locationRes: injectAgendaUID(res.locations, APIRoot, agenda.uid),
       referencesRes: res.references,
       suggestionsRes: res.suggestions,
       maxFileSize: files.maxSize,

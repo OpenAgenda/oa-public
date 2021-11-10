@@ -6,64 +6,13 @@ import createApp from '../client/src';
 import ProvidersDecorator from './decorators/Providers';
 
 import fixtures from './fixtures';
-
-const memberFreshness = new Date();
-memberFreshness.setMonth(memberFreshness.getMonth() - 6);
-
-const initialState = {
-  apiRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
-  prefix: '/:agendaSlug/contribute',
-  res: {
-    member: '/api/me/agendas/:agendaUid',
-    requestContribute: '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
-    detailedSchema: '/api/agendas/:agendaUid', // ?detailed=1&includeNonDataFields=1',
-    locations: {
-      get: '/locations/:uid.json',
-      index: '/agendas/:agendaUid/locations.json?sample=1',
-      create: '/agendas/:agendaUid/locations',
-      geocode: '/locations/geocode',
-      reverse: '/locations/geocode/reverse',
-      insee: '/locations/insee',
-      default: '/agendas/:agendaUid/locations',
-    },
-    references: '/api/agendas/:agendaUid/events',
-    suggestions: '/agendas/:agendaUid/events/suggestions',
-    suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact'
-  },
-  memberFreshness,
-  files: {
-    maxSize: 200000000,
-    store: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  },
-  tiles: 'https://map.tiles'
-};
+import loadInitialState from './utils/loadInitialState';
+import componentFromFixtures from './utils/componentFromFixtures';
 
 export default {
   title: 'App - Member evaluation',
   decorators: [ProvidersDecorator]
 };
-
-function componentFromFixtures(message, agendaUid) {
-  return () => (
-    <>
-      <p className="text-center"><strong>{message}</strong></p>
-      {wrapApp(
-        createApp({
-          initialState,
-          history: createMemoryHistory({
-            initialEntries: ['/some-agenda/contribute']
-          })
-        }),
-        {
-          extraProps: fixtures(agendaUid).extraProps
-        }
-      )}
-    </>
-  );
-}
 
 export const ContributorGoesToEventStepAfterMemberFormSubmit = componentFromFixtures(
   'Contributor is shown event form upon successful submission of member form data. Press the save button.', 1
@@ -104,7 +53,7 @@ export const NonMemberOnMembersOnly = () => {
       </div>
       {isLoaded ? wrapApp(
         createApp({
-          initialState,
+          initialState: loadInitialState(),
           history: createMemoryHistory({
             initialEntries: ['/some-agenda/contribute']
           })

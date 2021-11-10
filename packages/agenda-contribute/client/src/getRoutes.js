@@ -23,8 +23,13 @@ const Member = loadable(() => import(
 ));
 
 const EventNew = loadable(() => import(
-  /* webpackChunkName: "agendaContribute-Member" */
+  /* webpackChunkName: "agendaContribute-EventNew" */
   './containers/EventNew'
+));
+
+const EventEdit = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-EventEdit" */
+  './containers/EventEdit'
 ));
 
 export default (prefix = '') => ([
@@ -41,6 +46,10 @@ export default (prefix = '') => ([
     }, {
       path: `${prefix}/event`,
       component: EventNew,
+      exact: true
+    }, {
+      path: `${prefix}/event/:eventUid`,
+      component: EventEdit,
       exact: true
     }]
   }
