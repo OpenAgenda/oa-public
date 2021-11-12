@@ -45,7 +45,6 @@ describe('isFieldEnabled', () => {
         field: 'radios',
         value: [1, 3]
       },
-      related: ['radios'],
       min: null,
       max: null,
       fieldType: 'text'
@@ -54,5 +53,16 @@ describe('isFieldEnabled', () => {
     }, false);
 
     expect(enabled).toBe(true);
+  });
+
+  it('enableWith with field of file type must also evaluate filename', () => {
+    const enabled = isFieldEnabled({
+      field: 'imageCredits',
+      enableWith: 'image'
+    }, {
+      image: { filename: null }
+    });
+
+    expect(enabled).toBe(false);
   });
 });

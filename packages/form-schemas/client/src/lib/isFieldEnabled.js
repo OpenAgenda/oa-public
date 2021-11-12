@@ -1,6 +1,7 @@
 const _ = require('lodash');
 
 const getWithFieldName = require('../iso/getWithFieldName');
+const isObject = require('../iso/isObject');
 
 module.exports = (field, values, disabledForm = false) => {
   if (disabledForm) return false;
@@ -15,5 +16,13 @@ module.exports = (field, values, disabledForm = false) => {
     return !![].concat(field.enableWith.value).filter(v => relatedFieldValues.includes(v)).length;
   }
 
-  return !!(relatedFieldValue instanceof Array ? relatedFieldValue.length : relatedFieldValue);
+  if (Array.isArray(relatedFieldValue)) {
+    return !!relatedFieldValue.length;
+  }
+
+  if (isObject(relatedFieldValue) && ('filename' in relatedFieldValue)) {
+    return !!relatedFieldValue.filename;
+  }
+
+  return !!relatedFieldValue;
 };
