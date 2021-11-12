@@ -1,8 +1,4 @@
-'use strict';
-
 const _ = require('lodash');
-const debug = require('debug');
-const log = debug('isFieldEnabled');
 
 const getWithFieldName = require('../iso/getWithFieldName');
 
@@ -20,4 +16,4 @@ module.exports = (field, values, disabledForm = false) => {
   }
 
   return !!(relatedFieldValue instanceof Array ? relatedFieldValue.length : relatedFieldValue);
-}
+};
