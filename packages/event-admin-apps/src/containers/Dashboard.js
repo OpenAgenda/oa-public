@@ -35,13 +35,13 @@ import RemoveModal from '../components/RemoveModal';
 import EventItem from '../components/EventItem';
 import SortSelector from '../components/SortSelector';
 import Actions from '../components/Actions';
-import DownloadLink from '../components/DownloadLink';
 import exportsMessages from '../messages/exports';
 import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
 import switchToLegacyAdminPage from '../utils/switchToLegacyAdminPage';
+import ExportsDropdown from '../components/ExportsDropdown';
 
 const PAGE_SIZE = 20;
 
@@ -242,70 +242,15 @@ function GroupedActions({
 
   return (
     <>
-      <span className="dropdown margin-right-md">
-        <button
-          className="btn btn-link btn-link-inline dropdown-toggle"
-          type="button"
-          id="grouped-actions-export"
-          data-toggle="dropdown"
-          disabled={!selectedCount}
-        >
-          {intl.formatMessage(exportsMessages.exportSelection)}
-          &nbsp;
-          <i className="fa fa-lg fa-angle-down" />
-        </button>
-        <ul className="dropdown-menu" aria-labelledby="grouped-actions-export">
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.json${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toJSON)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.csv${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toCSV)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.xlsx${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toXLSX)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.ics${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toICS)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.md${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toMD)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.txt${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toTXT)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.rss${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toRSS)}
-            </DownloadLink>
-          </li>
-        </ul>
-      </span>
+      <ExportsDropdown
+        id="grouped-actions-export"
+        agenda={agenda}
+        queryString={queryString}
+        disabled={!selectedCount}
+        className="margin-right-sm"
+      >
+        {intl.formatMessage(exportsMessages.exportSelection)}
+      </ExportsDropdown>
 
       <BatchedStateSelector
         agenda={agenda}
@@ -452,12 +397,19 @@ function Dashboard() {
           {}
         );
 
+        // Reset pagination if query has changed
+        const queryChanged = !_.isEqual(query, urlQuery);
+
+        if (queryChanged && page === parseInt(queryRest.page, 10)) {
+          setPage(1);
+        }
+
         // Update location
-        if (!_.isEqual(query, urlQuery) || page !== queryRest.page) {
+        if (queryChanged || page !== parseInt(queryRest.page, 10)) {
           const search = qs.stringify(
             {
               ...queryRest,
-              page: page > 1 ? page : null,
+              page: queryChanged || page === 1 ? null : page,
               ...addQueryPrefix(query),
             },
             {

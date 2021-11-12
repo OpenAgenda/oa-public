@@ -154,7 +154,8 @@ module.exports = (config, services) => {
         userUid: 'user.uid',
         messageId: 'query.messageId',
         filename: 'query.filename',
-        originalName: 'query.originalName'
+        originalName: 'query.originalName',
+        index: 'query.index'
       }
     }),
     errorHandler

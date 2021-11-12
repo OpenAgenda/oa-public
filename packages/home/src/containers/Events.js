@@ -25,9 +25,8 @@ import EventItem from '../components/EventItem';
 import Wrapper from './Wrapper';
 
 function AgendaItem({ agenda, res, getLabel }) {
-  const itemLink = (agenda.useContributeApp
-    ? res.agendas.contribute
-    : res.agendas.addEvent
+  const itemLink = (
+    agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent
   ).replace(':slug', agenda.slug);
 
   return (

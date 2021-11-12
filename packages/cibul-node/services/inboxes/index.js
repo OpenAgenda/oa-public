@@ -42,7 +42,8 @@ module.exports.init = async (c, services) => {
         'schemas.message',
         'schemas.messageAttachment',
         'queues.inboxesSync',
-        'aws'
+        'aws',
+        'uppy'
       ]),
       {
         logger: loggerConfig,

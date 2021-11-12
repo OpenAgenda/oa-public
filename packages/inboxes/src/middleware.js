@@ -387,6 +387,7 @@ export const messages = {
           conversationId: 'conversation.id',
           messageId: 'message.id',
           userUid: 'user.uid',
+          index: 'query.index',
         },
         uppyOptions: {
           providerOptions: {
@@ -403,7 +404,7 @@ export const messages = {
             protocol: 'https',
           },
           sendSelfEndpoint: svc.config.domain,
-          secret: '***SECRET***',
+          secret: svc.config.uppy.secret,
           debug: false,
         },
       },
@@ -412,6 +413,7 @@ export const messages = {
 
     return wrap(async (req, res) => {
       const messageId = parseInt(_.get(req, namespaces.messageId), 10);
+      const index = parseInt(_.get(req, namespaces.index, 0), 10);
 
       const conversation = await new Conversations(svc, {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
@@ -432,7 +434,7 @@ export const messages = {
       const conversationFileKey = conversation.data.fileKey;
       const extension = originalName.split('.').pop();
 
-      const foreignFilename = `conv.${conversationFileKey}.msg.${messageId}${
+      const foreignFilename = `conv.${conversationFileKey}.msg.${messageId}-${index}${
         extension ? `.${extension}` : ''
       }`;
 

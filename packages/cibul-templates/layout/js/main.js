@@ -45,9 +45,7 @@ var utils = require( '@openagenda/utils' ),
 
   notifications = require( '@openagenda/activity-apps/dist/client/notifications' ),
 
-  inbox = require( '@openagenda/inbox-apps/dist/apps/header' ),
-
-  inboxConversationForm = require( '@openagenda/inbox-apps/dist/apps/conversationForm' ),
+  headerInbox = require( './headerInbox' ),
 
   LE = require( './le' ),
 
@@ -91,9 +89,7 @@ du.asapReady( function () {
 
   notifications();
 
-  inbox();
-
-  inboxConversationForm();
+  headerInbox();
 
   translateLink();
 

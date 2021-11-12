@@ -46,12 +46,9 @@
             <% if ( includeActionLinks ) { %><div class="ctas export-container">
                 <a
                   <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
-                  class="btn btn-default js_create_conversation_contact margin-bottom-xs"
+                  class="btn btn-default margin-bottom-xs"
                   href="<% if ( typeof mailto !== 'undefined' && mailto ) { %>mailto:<%= mailto %><% } else { %>/<%= agenda.slug %>/contact"<% } %>"
                   rel="nofollow"
-                  data-type="contact_form"
-                  data-destination-inbox="<%= `{"type": "agenda", "identifier": ${agenda.uid}` %>"
-                  data-lang="fr"
                 >
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>

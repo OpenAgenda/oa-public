@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal';
 import exportsMessages from '../messages/exports';
-import DownloadLink from './DownloadLink';
+import ExportsDropdown from './ExportsDropdown';
 
 const messages = defineMessages({
   createAnEvent: {
@@ -53,81 +53,14 @@ export default function Actions({
         line-height: 16px;
       `}
     >
-      <span className="dropdown margin-right-sm">
-        <button
-          className="btn btn-link btn-link-inline dropdown-toggle"
-          type="button"
-          id="actions-export"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="true"
-        >
-          {intl.formatMessage(exportsMessages.export)}
-          &nbsp;
-          <i className="fa fa-lg fa-angle-down" />
-        </button>
-        <ul className="dropdown-menu" aria-labelledby="actions-export">
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.json${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toJSON)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.csv${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toCSV)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.xlsx${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toXLSX)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.ics${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toICS)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.md${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toMD)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.txt${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toTXT)}
-            </DownloadLink>
-          </li>
-          <li>
-            <DownloadLink
-              href={`/agendas/${agenda.uid}/admin/events.v2.rss${queryString}`}
-            >
-              {intl.formatMessage(exportsMessages.toRSS)}
-            </DownloadLink>
-          </li>
-          <li>
-            <a
-              href="#docx"
-              role="button"
-              onClick={toggleDocxModal}
-              onKeyPress={toggleDocxModal}
-            >
-              {intl.formatMessage(exportsMessages.toDOCX)}
-            </a>
-          </li>
-        </ul>
-      </span>
+      <ExportsDropdown
+        agenda={agenda}
+        queryString={queryString}
+        toggleDocxModal={toggleDocxModal}
+        className="margin-right-sm"
+      >
+        {intl.formatMessage(exportsMessages.export)}
+      </ExportsDropdown>
 
       <a href={`/${agenda.slug}/contribute`}>
         {intl.formatMessage(messages.createAnEvent)}

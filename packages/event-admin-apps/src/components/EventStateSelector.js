@@ -39,9 +39,10 @@ export default function EventStateSelector({ agenda, event }) {
     }
   );
 
-  const onChange = useCallback(option => mutation.mutate(option.value), [
-    mutation,
-  ]);
+  const onChange = useCallback(
+    option => mutation.mutate(option.value),
+    [mutation]
+  );
 
   return (
     <StateSelector

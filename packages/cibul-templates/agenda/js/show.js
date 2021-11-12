@@ -172,15 +172,6 @@ window.asap(options => {
 
     _showOptionalWidgets(controller);
   }
-
-  if (window.location.href.search('[?&]newContact') != -1) {
-    du.els('.js_create_conversation_contact').forEach(elem => {
-      du.addEvent(elem, 'click', e => {
-        du.preventDefault(e);
-        window.openConversationForm(e);
-      });
-    });
-  }
 });
 
 function _removeAddButtonAsPrimary() {
@@ -270,16 +261,4 @@ function _onControllerChange(controller, cb) {
       cb(newValues);
     },
   });
-}
-
-function _getQueryValues(href, key) {
-  var v = href.split('?');
-
-  if (v.length == 1) return {};
-
-  v = qs.parse(v[1].split('#').shift());
-
-  if (!key) return v;
-
-  return v[key] ? v[key] : {};
 }

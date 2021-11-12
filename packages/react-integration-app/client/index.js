@@ -32,7 +32,7 @@ import createUserActivitiesApp from '@openagenda/activity-apps/src/client/apps/u
 import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps/agenda';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
-import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
+import createInboxApp from '@openagenda/inbox-apps/src/app';
 import createMembersApp from '@openagenda/member-apps/src/app';
 import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
