@@ -89,18 +89,21 @@ describe('form-schemas -05- FormSchema', () => {
       s.getFieldCount().should.equal(3);
     });
 
-    it('preset fields defining labels do not need to be given with language keys', () => {
-      const s = new FormSchema({
-        fields: [{
-          field: 'asinglefield',
-          label: 'Un champ texte',
-          fieldType: 'text'
-        }],
-        defaultLabelLanguage: 'fr'
-      })
+    it(
+      'preset fields defining labels do not need to be given with language keys',
+      () => {
+        const s = new FormSchema({
+          fields: [{
+            field: 'asinglefield',
+            label: 'Un champ texte',
+            fieldType: 'text'
+          }],
+          defaultLabelLanguage: 'fr'
+        })
 
-      s.getFields()[0].label.should.eql({ fr: 'Un champ texte' });
-    });
+        s.getFields()[0].label.should.eql({ fr: 'Un champ texte' });
+      }
+    );
 
   });
 
@@ -149,7 +152,7 @@ describe('form-schemas -05- FormSchema', () => {
   describe('updating all fields', () => {
     let s;
 
-    before(() => {
+    beforeAll(() => {
       s =new FormSchema({
         nextOptionId: 1000,
         fields: [{
@@ -451,13 +454,16 @@ describe('form-schemas -05- FormSchema', () => {
 
     const validate = fs.getValidate();
 
-    it('.getValidate() returns the validator defined by the FormSchema fields', () => {
-      validate.default.should.eql({
-        atextfield: undefined,
-        anotherfield: undefined,
-        andanotherfield: undefined
-      });
-    });
+    it(
+      '.getValidate() returns the validator defined by the FormSchema fields',
+      () => {
+        validate.default.should.eql({
+          atextfield: undefined,
+          anotherfield: undefined,
+          andanotherfield: undefined
+        });
+      }
+    );
 
     // this fails when languages is a possibility
     it('.getValidate() validates choice fields correctly', () => {
@@ -470,33 +476,39 @@ describe('form-schemas -05- FormSchema', () => {
       });
     });
 
-    it('.getValidate by default returns a validator that processes the full schema', () => {
-      try {
-        validate();
-      } catch(errors) {
-        // because andanotherfield is required
-        errors.length.should.equal(1);
-        return;
+    it(
+      '.getValidate by default returns a validator that processes the full schema',
+      () => {
+        try {
+          validate();
+        } catch(errors) {
+          // because andanotherfield is required
+          errors.length.should.equal(1);
+          return;
+        }
+
+        // should never reach here
+        should().ok();
       }
+    );
 
-      // should never reach here
-      should().ok();
-    });
+    it(
+      '.getValidate with draft option validates fields independently of their optional state',
+      () => {
+        const draftValidate = fs.getValidate({
+          draft: true
+        });
 
-    it('.getValidate with draft option validates fields independently of their optional state', () => {
-      const draftValidate = fs.getValidate({
-        draft: true
-      });
+        const clean = draftValidate();
 
-      const clean = draftValidate();
-
-      clean.should.eql({
-        atextfield: undefined,
-        anotherfield: undefined,
-        andanotherfield: undefined
-      });
-      
-    });
+        clean.should.eql({
+          atextfield: undefined,
+          anotherfield: undefined,
+          andanotherfield: undefined
+        });
+        
+      }
+    );
   });
 
   describe('extending FormSchema with custom types', () => {
@@ -517,34 +529,40 @@ describe('form-schemas -05- FormSchema', () => {
 
     const validate = fs.getValidate();
 
-    it('validate data with a schema that includes a custom field - throws an error', () => {
-      try {
-        validate({
-          atextfield: 'Un petit text',
-          acustomfield: 'Not wigglypoof'
+    it(
+      'validate data with a schema that includes a custom field - throws an error',
+      () => {
+        try {
+          validate({
+            atextfield: 'Un petit text',
+            acustomfield: 'Not wigglypoof'
+          });
+
+        } catch (errors) {
+          errors.should.eql([{
+            code: 'invalid',
+            message: 'Not Wigglypoof',
+            origin: 'Not wigglypoof',
+            field: 'acustomfield'
+          }]);
+        }
+      }
+    );
+
+    it(
+      'validate data with a schema that includes a custom field - valid',
+      () => {
+        const clean = validate({
+          atextfield: 'un petit texte',
+          acustomfield: 'Wigglypoof'
         });
 
-      } catch (errors) {
-        errors.should.eql([{
-          code: 'invalid',
-          message: 'Not Wigglypoof',
-          origin: 'Not wigglypoof',
-          field: 'acustomfield'
-        }]);
+        clean.should.eql({
+          atextfield: 'un petit texte',
+          acustomfield: 'Wigglypoof'
+        });
       }
-    });
-
-    it('validate data with a schema that includes a custom field - valid', () => {
-      const clean = validate({
-        atextfield: 'un petit texte',
-        acustomfield: 'Wigglypoof'
-      });
-
-      clean.should.eql({
-        atextfield: 'un petit texte',
-        acustomfield: 'Wigglypoof'
-      });
-    });
+    );
 
   });
 

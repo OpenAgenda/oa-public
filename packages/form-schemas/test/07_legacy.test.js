@@ -7,12 +7,10 @@ const Service = require('../server');
 const config = require('../testconfig');
 const fixtures = require('./service/fixtures');
 
-describe('form-schemas -07- functional (server): legacy', function() {
+describe('form-schemas -07- functional (server): legacy', () => {
   let svc;
 
-  this.timeout(5000);
-
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       'form_schema.data.sql',
@@ -23,25 +21,28 @@ describe('form-schemas -07- functional (server): legacy', function() {
     ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     config.mysql.database = 'oatest_fs';
     svc = Service(config);
   });
 
-  after(() => {
+  afterAll(() => {
     svc.internals.client.destroy();
   });
 
   describe('get', () => {
     let formData;
 
-    before(async () => {
+    beforeAll(async () => {
       formData = await svc.legacy.get(3868);
     });
 
-    it('fetches and parses categorySet, tagSet and customSet of given agenda to produce a valid FormSchema', async () => {
-      formData.fields.length.should.equal(8);
-    });
+    it(
+      'fetches and parses categorySet, tagSet and customSet of given agenda to produce a valid FormSchema',
+      async () => {
+        formData.fields.length.should.equal(8);
+      }
+    );
 
     it('specifies field origin in origin key', async () => {
       const origins = formData.fields.map(f => f.origin);
@@ -69,7 +70,7 @@ describe('form-schemas -07- functional (server): legacy', function() {
 
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await svc.legacy.transfer(3868);
     });
 
@@ -83,11 +84,14 @@ describe('form-schemas -07- functional (server): legacy', function() {
       should(_.find(result.formSchema.fields, { field: 'quisuisje' })).equal(undefined);
     });
 
-    it('performs an update when form_schema_id is already set in agenda', async () => {
-      const result = await svc.legacy.transfer(3868);
+    it(
+      'performs an update when form_schema_id is already set in agenda',
+      async () => {
+        const result = await svc.legacy.transfer(3868);
 
-      result.operation.should.equal('update');
-    });
+        result.operation.should.equal('update');
+      }
+    );
 
   });
 

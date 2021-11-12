@@ -11,7 +11,7 @@ const fx = {
   select: require('./parse/select.schema')
 };
 
-describe('form-schemas -08- unit (server): legacy custom fields', function() {
+describe('form-schemas -08- unit (server): legacy custom fields', () => {
   it('text custom field to schema', () => {
     parseCustomFields( { fields: [] }, _get('text.custom') )
       .should.eql( _get('text.schema') );

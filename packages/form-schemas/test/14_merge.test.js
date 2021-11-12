@@ -10,7 +10,7 @@ describe('unit - assigning schema properties to another schema', () => {
   describe('simple merge', () => {
     let merged;
 
-    before(() => {
+    beforeAll(() => {
       const networkSchema = {
         id: 1,
         type: 'network',
@@ -50,15 +50,18 @@ describe('unit - assigning schema properties to another schema', () => {
       merged = merge(networkSchema, agendaSchema);
     });
 
-    it('in each field, type of schema where field is defined is provided in schemaType key', () => {
-      assert.deepEqual(
-        merged.fields.map(f => _.pick(f, ['field', 'schemaType'])),
-        [
-          { field: 'someagendafield', schemaType: 'agenda' },
-          { field: 'somenetworkfield', schemaType: 'network' }
-        ]
-     );
-    });
+    it(
+      'in each field, type of schema where field is defined is provided in schemaType key',
+      () => {
+        assert.deepEqual(
+          merged.fields.map(f => _.pick(f, ['field', 'schemaType'])),
+          [
+            { field: 'someagendafield', schemaType: 'agenda' },
+            { field: 'somenetworkfield', schemaType: 'network' }
+          ]
+       );
+      }
+    );
 
     it('ids of options of merged schemas are no longer unique', () => {
       assert.deepEqual(
@@ -133,32 +136,41 @@ describe('unit - assigning schema properties to another schema', () => {
      );
     });
 
-    it('if access option is provided and field does not include provided value, field is excluded', () => {
-      assert.deepEqual(
-        merge(networkSchema, agendaSchema, { access: { read: 'contributor' } }).fields
-          .map(f => f.field),
-        ['somenetworkfield']
-     );
-    });
+    it(
+      'if access option is provided and field does not include provided value, field is excluded',
+      () => {
+        assert.deepEqual(
+          merge(networkSchema, agendaSchema, { access: { read: 'contributor' } }).fields
+            .map(f => f.field),
+          ['somenetworkfield']
+       );
+      }
+    );
 
-    it('if access option is provided and field includes provided value, field is included', () => {
-      assert.deepEqual(
-        merge(networkSchema, agendaSchema, { access: { read: 'administrator' } }).fields
-          .map(f => f.field),
-        ['someagendafield', 'somenetworkfield']
-     );
-    });
+    it(
+      'if access option is provided and field includes provided value, field is included',
+      () => {
+        assert.deepEqual(
+          merge(networkSchema, agendaSchema, { access: { read: 'administrator' } }).fields
+            .map(f => f.field),
+          ['someagendafield', 'somenetworkfield']
+       );
+      }
+    );
 
-    it('if both read and write access options are provided and field does not match for one, field is excluded', () => {
-      assert.deepEqual(
-        merge(networkSchema, agendaSchema, { access: {
-          read: 'moderator',
-          write: 'moderator'
-        } }).fields
-        .map(f => f.field),
-        ['somenetworkfield']
-     );
-    });
+    it(
+      'if both read and write access options are provided and field does not match for one, field is excluded',
+      () => {
+        assert.deepEqual(
+          merge(networkSchema, agendaSchema, { access: {
+            read: 'moderator',
+            write: 'moderator'
+          } }).fields
+          .map(f => f.field),
+          ['somenetworkfield']
+       );
+      }
+    );
 
   });
 
@@ -389,45 +401,48 @@ describe('unit - assigning schema properties to another schema', () => {
     });
 
 
-    it('an abstract field is maintained as abstract as long as no field with the same name is added to the merge', () => {
-      const schema = {
-        id: 1,
-        fields: [{
-          "field": "title",
-          "fieldType": "text",
-          "label": "Titre"
-        }]
-      };
+    it(
+      'an abstract field is maintained as abstract as long as no field with the same name is added to the merge',
+      () => {
+        const schema = {
+          id: 1,
+          fields: [{
+            "field": "title",
+            "fieldType": "text",
+            "label": "Titre"
+          }]
+        };
 
-      const abstract = {
-        id: 2,
-        fields: [{
-          field: 'references',
-          fieldType: 'abstract',
-          label: 'Références'
-        }]
-      };
-
-      assert.deepEqual(
-        merge(schema, abstract),
-        {
-          custom: {},
+        const abstract = {
+          id: 2,
           fields: [{
             field: 'references',
             fieldType: 'abstract',
-            label: 'Références',
-            schemaId: null,
-            schemaType: null
-          }, {
-            field: 'title',
-            fieldType: 'text',
-            label: 'Titre',
-            schemaId: 1,
-            schemaType: null
+            label: 'Références'
           }]
-        }
-      );
-    });
+        };
+
+        assert.deepEqual(
+          merge(schema, abstract),
+          {
+            custom: {},
+            fields: [{
+              field: 'references',
+              fieldType: 'abstract',
+              label: 'Références',
+              schemaId: null,
+              schemaType: null
+            }, {
+              field: 'title',
+              fieldType: 'text',
+              label: 'Titre',
+              schemaId: 1,
+              schemaType: null
+            }]
+          }
+        );
+      }
+    );
 
 
     it('all values of an abstract field trickle down to merge', () => {

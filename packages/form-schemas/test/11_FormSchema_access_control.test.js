@@ -8,7 +8,7 @@ describe( 'FormSchema - access control', () => {
 
   let s;
 
-  before( () => {
+  beforeAll(() => {
 
     s = new FormSchema( {
       fields: [ {
@@ -29,25 +29,28 @@ describe( 'FormSchema - access control', () => {
       custom: null
     } );
 
-  } );
+  });
 
 
-  it( 'validator with access type specified but no level returns open fields only', () => {
+  it(
+    'validator with access type specified but no level returns open fields only',
+    () => {
 
-    let v = s.getValidate( 'read' );
+      let v = s.getValidate( 'read' );
 
-    v( {
-      anopenfield: 'Absolom',
-      alimitedfield: 2022,
-      anotherlimitedfield: 8.5
-    } ).should.eql( {
-      anopenfield: 'Absolom'
-    } );
+      v( {
+        anopenfield: 'Absolom',
+        alimitedfield: 2022,
+        anotherlimitedfield: 8.5
+      } ).should.eql( {
+        anopenfield: 'Absolom'
+      } );
 
-  } );
+    }
+  );
 
 
-  it( 'validator is used to clean data to specified read access', () => {
+  it('validator is used to clean data to specified read access', () => {
 
     let v = s.getValidate( 'read', 'administrator' );
 
@@ -60,24 +63,27 @@ describe( 'FormSchema - access control', () => {
       alimitedfield: 2022
     } );
 
-  } );
+  });
 
 
-  it( 'validator is used to keep data strictly matching specified level', () => {
+  it(
+    'validator is used to keep data strictly matching specified level',
+    () => {
 
-    let v = s.getValidate( 'read', 'administrator', { includeUnspecified: false } );
+      let v = s.getValidate( 'read', 'administrator', { includeUnspecified: false } );
 
-    v( {
-      anopenfield: 'Plastic bag',
-      alimitedfield: 123,
-      anotherlimitedfield: 12.3
-    } ).should.eql( {
-      alimitedfield: 123
-    } );
+      v( {
+        anopenfield: 'Plastic bag',
+        alimitedfield: 123,
+        anotherlimitedfield: 12.3
+      } ).should.eql( {
+        alimitedfield: 123
+      } );
 
-  } );
+    }
+  );
 
-  it( 'validator can return data matching multiple levels', () => {
+  it('validator can return data matching multiple levels', () => {
 
     let v = s.getValidate( 'read', [ 'administrator', 'moderator' ], { includeUnspecified: false } );
 
@@ -90,6 +96,6 @@ describe( 'FormSchema - access control', () => {
       anotherlimitedfield: 4.5
     } );
 
-  } );
+  });
 
 } );

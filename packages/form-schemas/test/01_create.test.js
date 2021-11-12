@@ -9,19 +9,19 @@ const fixtures = require('./service/fixtures');
 describe('form-schemas -01- functional (server): create', () => {
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       'form_schema.data.sql'
     ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     config.mysql.database = 'oatest_fs';
     svc = Service(config);
   });
 
-  after(() => {
+  afterAll(() => {
     svc.internals.client.destroy();
   });
 
