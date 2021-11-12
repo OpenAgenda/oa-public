@@ -61,5 +61,5 @@ describe('isFieldEnabled', () => {
     }, false);
 
     assert.equal(enabled, true);
-  })
+  });
 });
