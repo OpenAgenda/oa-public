@@ -3,6 +3,11 @@ const _ = require('lodash');
 const getWithFieldName = require('../iso/getWithFieldName');
 const isObject = require('../iso/isObject');
 
+const fileValueIsDefined = value => (
+  ('originalName' in value)
+  || ('filename' in value)
+);
+
 module.exports = (field, values, disabledForm = false) => {
   if (disabledForm) return false;
 
@@ -20,8 +25,8 @@ module.exports = (field, values, disabledForm = false) => {
     return !!relatedFieldValue.length;
   }
 
-  if (isObject(relatedFieldValue) && ('filename' in relatedFieldValue)) {
-    return !!relatedFieldValue.filename;
+  if (isObject(relatedFieldValue) && fileValueIsDefined(relatedFieldValue)) {
+    return !!(relatedFieldValue.filename || relatedFieldValue.originalName);
   }
 
   return !!relatedFieldValue;
