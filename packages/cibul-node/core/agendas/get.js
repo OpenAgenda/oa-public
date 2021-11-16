@@ -20,6 +20,7 @@ module.exports = async (core, agendaUid, options = {}) => {
     access = 'public',
     detailed = false,
     includeEvent = false,
+    includeAgendaEvent = false,
     includeMember = false,
     throwNotFound = false,
     includeNonDataFields = false
@@ -59,6 +60,7 @@ module.exports = async (core, agendaUid, options = {}) => {
     includeNonDataFields,
     includeEvent,
     includeMember,
+    includeAgendaEvent,
     access: typeof access === 'string' ? { read: access } : access
   });
 
