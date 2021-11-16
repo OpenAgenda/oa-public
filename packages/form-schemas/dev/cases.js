@@ -120,6 +120,11 @@ module.exports = {
     link: '/email',
     group: 'types'
   }, {
+    name: 'A date field',
+    description: 'A field to define a date',
+    link: '/date',
+    group: 'types'
+  }, {
     name: 'A radio field',
     description: 'A set of single choice options',
     link: '/radio',

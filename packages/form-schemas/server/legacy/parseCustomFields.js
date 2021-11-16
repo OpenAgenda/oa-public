@@ -21,6 +21,7 @@ module.exports = ( formSchema, customFields ) => {
       email: parseBasic,
       image: parseBasic,
       file: parseBasic,
+      date: parseBasic,
       multichoice: parseChoice,
       select: parseChoice,
       radio: parseChoice,
