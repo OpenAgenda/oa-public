@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  groups: [ {
+  groups: [{
     label: 'Getting Started',
     slug: 'getting-started'
   }, {
@@ -13,8 +13,8 @@ module.exports = {
   }, {
     label: 'Form builder',
     slug: 'builder'
-  } ],
-  cases: [ {
+  }],
+  cases: [{
     name: 'The simplest empty form',
     description: 'To get started',
     link: '/simplest',
@@ -125,11 +125,6 @@ module.exports = {
     link: '/radio',
     group: 'types'
   }, {
-    name: 'A select field',
-    description: 'A set of single choice options in a select',
-    link: '/select',
-    group: 'types'
-  }, {
     name: 'Checkboxes',
     description: 'Sometimes more than one choice is allowed',
     link: '/checkbox',
@@ -223,5 +218,5 @@ module.exports = {
     name: 'A form builder with a custom field type',
     description: 'When a field type does not have a defined field schema, only labels can be edited',
     link: '/formbuilderwithunhandledtypes'
-  } ]
-}
+  }]
+};
