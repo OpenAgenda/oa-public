@@ -69,7 +69,6 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     mergeArgs.push({
       fields: [{
         field: 'state',
-        read: ['administrator', 'moderator'],
         fieldType: 'abstract'
       }, {
         field: 'featured',
