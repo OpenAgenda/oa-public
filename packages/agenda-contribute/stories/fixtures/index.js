@@ -8,6 +8,11 @@ const agenda = require('./mdb.agenda.json');
 const basicAgenda = require('./basic.agenda.json');
 const basicDetailedAgenda = require('./basic.detailed.agenda.json');
 const eventContributorContext = require('./contributor.context.json');
+const basicEventResponse = require('./event.json');
+
+function getLocation(uid) {
+  return [basicEventResponse.event.location].filter(l => l.uid === parseInt(uid, 10)).pop();
+}
 
 const ContributorGoesToEventStepAfterMemberFormSubmit = {
   member: contributorMemberData,
@@ -126,6 +131,7 @@ const NewEventForm = {
 const EditEventForm = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,
+  event: basicEventResponse,
   extraProps: {
     lang: 'fr',
     agenda: {
@@ -151,4 +157,4 @@ const sets = {
 
 module.exports = Object.assign(function getFixtures(agendaUid) {
   return Object.keys(sets).map(key => sets[key]).find(set => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
-}, sets);
+}, sets, { getLocation });

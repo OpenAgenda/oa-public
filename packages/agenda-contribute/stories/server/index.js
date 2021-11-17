@@ -6,6 +6,7 @@ const express = require('express');
 const getFixtures = require('../fixtures');
 const locationsAPIResponse = require('../fixtures/locations.json');
 
+const { getLocation } = getFixtures;
 const dev = express();
 dev.use(express.json());
 
@@ -37,7 +38,15 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
 });
 
 dev.get('/api/me/agendas/:agendaUid/events/:eventUid/context', (req, res) => {
-  return res.json(getFixtures(req.params.agendaUid).eventContext);
+  res.json(getFixtures(req.params.agendaUid).eventContext);
+});
+
+dev.get('/api/me/agendas/:agendaUid/events/:eventUid', (req, res) => {
+  res.json(getFixtures(req.params.agendaUid).event);
+});
+
+dev.get('/locations/:uid.json', (req, res) => {
+  res.json(getLocation(req.params.uid));
 });
 
 dev.listen(process.env.EXPRESS_API_PORT);

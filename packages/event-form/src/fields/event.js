@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ({ labels, fileStore }) => [{
+module.exports = ({ labels }) => [{
   field: 'id',
   fieldType: 'integer',
   optional: false,

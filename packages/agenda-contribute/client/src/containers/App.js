@@ -9,7 +9,7 @@ import ClosedMessage from '../components/ClosedMessage';
 import Canvas from '../components/Canvas';
 import locales from '../locales-compiled';
 import utils from '../lib/utils';
-import useMember from '../lib/useMember';
+import useMember from '../hooks/useMember';
 
 const {
   isMemberDataComplete,

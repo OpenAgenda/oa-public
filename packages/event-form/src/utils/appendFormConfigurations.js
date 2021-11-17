@@ -11,7 +11,7 @@ export default function appendFormFieldConfigurations(schema, {
       field.tiles = tiles; 
     }
     if (field.field === 'image' && fileStore) {
-      field.fileStore = fileStore;
+      field.store = fileStore;
     }
   });
 }

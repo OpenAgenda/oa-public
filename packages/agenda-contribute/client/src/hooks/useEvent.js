@@ -8,7 +8,7 @@ export default function useEvent(agendaUid, eventUid) {
   const {
     isLoading: eventIsLoading,
     data: event
-  } = useQuery('event', () => axios.get(res).then(response => (response.data)));
+  } = useQuery('event', () => axios.get(res).then(response => (response.data.event)));
 
   return {
     eventIsLoading,

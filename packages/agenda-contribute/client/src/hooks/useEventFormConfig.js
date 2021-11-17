@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
-import useDetailedSchema from './useDetailedSchema';
-import cleanupSchemaForForm from './cleanupSchemaForForm';
-import injectAgendaUID from './injectAgendaUID';
+import useDetailedSchema from '../lib/useDetailedSchema';
+import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
+import injectAgendaUID from '../lib/injectAgendaUID';
 
 export default function useEventFormConfig(agenda) {
   const {

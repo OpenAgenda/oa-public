@@ -18,12 +18,9 @@ module.exports = (options = {}) => {
   const {
     includeEventFields,
     interfaceLanguage,
-    locationRes,
-    tiles,
     referencesRes,
     suggestionsRes,
     languages,
-    fileStore,
     schemaExtensions,
     excludeNonDataFields,
     access
@@ -44,10 +41,7 @@ module.exports = (options = {}) => {
   injectValidators(eventSchema);
 
   eventSchema.fields = eventFields({
-    labels,
-    tiles,
-    locationRes,
-    fileStore
+    labels
   });
 
   const hasExtensions = Array.isArray(schemaExtensions);

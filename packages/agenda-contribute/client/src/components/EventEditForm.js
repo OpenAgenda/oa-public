@@ -17,14 +17,16 @@ function EventEditForm({
   event,
   onSuccess,
   memberRole,
-  saveButtonLabel
+  saveButtonLabel,
+  canEditEvent
 }) {
   const m = useIntl().formatMessage;
 
   return (
     <EventForm
-      includeEventFields={config.authorizations.canEditEvent}
-      {...eventFormProps({ config, memberRole })}
+      {...config}
+      role={memberRole}
+      includeEventFields={canEditEvent}
       values={event}
       onSubmitSuccess={onSuccess}
       actionComponents={[{

@@ -6,7 +6,7 @@ import Loading from '../components/Loading';
 
 import MemberForm from '../components/MemberForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
-import useMember from '../lib/useMember';
+import useMember from '../hooks/useMember';
 import steps from '../lib/steps';
 
 export default function Member({

@@ -8,7 +8,7 @@ export default function loadInitialState() {
     prefix: '/:agendaSlug/contribute',
     res: {
       member: '/api/me/agendas/:agendaUid',
-      event: '/api/me/agendas/:agendaUid/events/:eventUid',
+      event: '/api/me/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
       eventContext: '/api/me/agendas/:agendaUid/events/:eventUid/context',
       requestContribute: '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
       detailedSchema: '/api/agendas/:agendaUid', // ?detailed=1&includeNonDataFields=1',
@@ -30,7 +30,7 @@ export default function loadInitialState() {
       maxSize: 200000000,
       store: {
         type: 's3',
-        bucket: 'oadev'
+        bucket: 'cibul' // 'oadev'
       }
     },
     tiles: 'https://map.tiles'

@@ -12,7 +12,6 @@ export default {
 export const Canvas = () => (
   <CanvasComponent
     mode="edit"
-    lang="fr"
     event={{
       title: {
         fr: 'Samedi du cinéma allemand'

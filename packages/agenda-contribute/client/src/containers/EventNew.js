@@ -9,8 +9,8 @@ import Loading from '../components/Loading';
 import Instructions from '../components/Instructions';
 
 import steps from '../lib/steps';
-import useEventFormConfig from '../lib/useEventFormConfig';
-import useMember from '../lib/useMember';
+import useEventFormConfig from '../hooks/useEventFormConfig';
+import useMember from '../hooks/useMember';
 
 import utils from '../lib/utils';
 
