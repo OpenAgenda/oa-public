@@ -462,6 +462,7 @@
 }
 
 .rdrSelected {
+  background: $oa-blue;
   left: 2px;
   right: 2px;
 }
@@ -533,7 +534,7 @@
   right: 0px;
   bottom: 3px;
   pointer-events: none;
-  border: 0px solid currentColor;
+  border: 0px solid $oa-blue;
   z-index: 1;
 }
 
