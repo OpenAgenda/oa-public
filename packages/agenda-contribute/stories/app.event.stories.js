@@ -4,7 +4,7 @@ import componentFromFixtures from './utils/componentFromFixtures';
 import ProvidersDecorator from './decorators/Providers';
 
 export default {
-  title: 'App - Event step',
+  title: 'App - Step 2: Event',
   decorators: [ProvidersDecorator]
 };
 

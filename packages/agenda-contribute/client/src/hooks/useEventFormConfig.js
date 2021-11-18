@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
-import useDetailedSchema from '../lib/useDetailedSchema';
+import useDetailedSchema from './useDetailedSchema';
 import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
 import injectAgendaUID from '../lib/injectAgendaUID';
 

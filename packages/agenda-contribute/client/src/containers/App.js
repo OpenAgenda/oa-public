@@ -63,7 +63,7 @@ export default function App(props) {
     isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberRole(member, 'contributor')
     && (!isMemberDataRequired(agenda) || (isMemberDataComplete(member) && memberIsFresh))
-    && !matchStepPath(history, prefix, ['event', 'member'])
+    && !matchStepPath(history, prefix, ['event', 'member', 'confirmation'])
   ) {
     log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
     history.replace(`${prefix}/event`);
@@ -97,6 +97,8 @@ export default function App(props) {
   if (match.isExact) {
     return <Loading />;
   }
+
+  log('looking for route matching %s', history.location.pathname);
 
   return (
     <IntlProvider

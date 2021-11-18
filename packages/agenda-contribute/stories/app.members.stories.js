@@ -10,7 +10,7 @@ import loadInitialState from './utils/loadInitialState';
 import componentFromFixtures from './utils/componentFromFixtures';
 
 export default {
-  title: 'App - Member evaluation',
+  title: 'App - Step 1: Member',
   decorators: [ProvidersDecorator]
 };
 

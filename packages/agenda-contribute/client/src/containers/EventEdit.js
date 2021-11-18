@@ -54,5 +54,3 @@ export default function EventEdit({
     </Canvas>
   );
 }
-
-// ?detailed=1&useDateHoursMinutesFormat=1

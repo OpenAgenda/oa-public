@@ -32,6 +32,11 @@ const EventEdit = loadable(() => import(
   './containers/EventEdit'
 ));
 
+const Confirmation = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-Confirmation" */
+  './containers/Confirmation'
+));
+
 export default (prefix = '') => ([
   {
     path: prefix,
@@ -50,6 +55,10 @@ export default (prefix = '') => ([
     }, {
       path: `${prefix}/event/:eventUid`,
       component: EventEdit,
+      exact: true
+    }, {
+      path: `${prefix}/confirmation`,
+      component: Confirmation,
       exact: true
     }]
   }

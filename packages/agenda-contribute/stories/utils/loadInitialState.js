@@ -23,7 +23,10 @@ export default function loadInitialState() {
       },
       references: '/api/agendas/:agendaUid/events',
       suggestions: '/agendas/:agendaUid/events/suggestions',
-      suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact'
+      suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact',
+      showEvent: '#/agendas/:agendaUid/events/:eventUid',
+      showMyEvents: '/home/events',
+      contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
     },
     memberFreshness,
     files: {

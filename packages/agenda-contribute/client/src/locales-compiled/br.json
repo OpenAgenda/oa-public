@@ -2,25 +2,25 @@
   "AgendaContribute.Canvas.fromAgenda": [
     {
       "type": 0,
-      "value": "from the agenda"
+      "value": "de l'agenda"
     }
   ],
   "AgendaContribute.Canvas.shareEvent": [
     {
       "type": 0,
-      "value": "Share an event"
+      "value": "Partager un événement"
     }
   ],
   "AgendaContribute.Canvas.takeEvent": [
     {
       "type": 0,
-      "value": "Take"
+      "value": "Reprendre"
     }
   ],
   "AgendaContribute.Canvas.toAgenda": [
     {
       "type": 0,
-      "value": "to the agenda"
+      "value": "sur l'agenda"
     }
   ],
   "AgendaContribute.CanvasWithStepper.addEvent": [
@@ -32,7 +32,7 @@
   "AgendaContribute.CanvasWithStepper.editDraftTitle": [
     {
       "type": 0,
-      "value": "Draft"
+      "value": "Brouillon"
     }
   ],
   "AgendaContribute.ClosedMessage.forAdminModerators": [
@@ -47,34 +47,82 @@
       "value": "Cet agenda n'est pas ou n'est plus ouvert aux contributions"
     }
   ],
+  "AgendaContribute.Confirmation.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contacter les administrateurs de l'agenda"
+    }
+  ],
+  "AgendaContribute.Confirmation.createOtherEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un autre événement"
+    }
+  ],
+  "AgendaContribute.Confirmation.duplicateEvent": [
+    {
+      "type": 0,
+      "value": "Dupliquer l'événement"
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState0": [
+    {
+      "type": 0,
+      "value": "Votre événement est bien enregistré, il est en cours de modération. Vous serez notifié par email dès qu'il sera publié."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState1": [
+    {
+      "type": 0,
+      "value": "Votre événement est bien enregistré et est prêt à être publié. Vous serez notifié de sa publication."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState2": [
+    {
+      "type": 0,
+      "value": "Votre événement est bien enregistré et a été publié sur l'agenda."
+    }
+  ],
+  "AgendaContribute.Confirmation.seeEventAction": [
+    {
+      "type": 0,
+      "value": "Voir mon événement"
+    }
+  ],
+  "AgendaContribute.Confirmation.showMyEvents": [
+    {
+      "type": 0,
+      "value": "Voir tous mes événements"
+    }
+  ],
   "AgendaContribute.EventEdit.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Mettre à jour"
     }
   ],
   "AgendaContribute.EventNew.create": [
     {
       "type": 0,
-      "value": "Create the event"
+      "value": "Créer l'événement"
     }
   ],
   "AgendaContribute.EventNew.deleteDraft": [
     {
       "type": 0,
-      "value": "Delete the draft"
+      "value": "Supprimer le brouillon"
     }
   ],
   "AgendaContribute.EventNew.draft": [
     {
       "type": 0,
-      "value": "Save as draft"
+      "value": "Enregistrer un brouillon"
     }
   ],
   "AgendaContribute.EventNew.updateDraft": [
     {
       "type": 0,
-      "value": "Update draft"
+      "value": "Mettre à jour le brouillon"
     }
   ],
   "AgendaContribute.Member.description": [

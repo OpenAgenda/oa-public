@@ -14,7 +14,9 @@ function getLocation(uid) {
   return [basicEventResponse.event.location].filter(l => l.uid === parseInt(uid, 10)).pop();
 }
 
-const ContributorGoesToEventStepAfterMemberFormSubmit = {
+const storySets = {};
+
+storySets.ContributorGoesToEventStepAfterMemberFormSubmit = {
   member: contributorMemberData,
   agenda: detailedAgenda,
   extraProps: {
@@ -26,7 +28,7 @@ const ContributorGoesToEventStepAfterMemberFormSubmit = {
   }
 };
 
-const MemberIsAdminModAndDataIsIncomplete = {
+storySets.MemberIsAdminModAndDataIsIncomplete = {
   member: incompleteAdminMemberData,
   agenda: detailedAgenda,
   extraProps: {
@@ -38,7 +40,7 @@ const MemberIsAdminModAndDataIsIncomplete = {
   }
 };
 
-const MemberIsContributorAndDataIsCompleteAndFresh = {
+storySets.MemberIsContributorAndDataIsCompleteAndFresh = {
   member: {
     ...contributorMemberData,
     updatedAt: new Date()
@@ -53,7 +55,7 @@ const MemberIsContributorAndDataIsCompleteAndFresh = {
   }
 };
 
-const MemberIsContributorAndDataIsCompleteButIsOld = {
+storySets.MemberIsContributorAndDataIsCompleteButIsOld = {
   member: contributorMemberData,
   agenda: detailedAgenda,
   extraProps: {
@@ -65,7 +67,7 @@ const MemberIsContributorAndDataIsCompleteButIsOld = {
   }
 };
 
-const MemberDataRequiredAndContributorIsIncomplete = {
+storySets.MemberDataRequiredAndContributorIsIncomplete = {
   member: {
     ...incompleteContributorMemberData,
     updatedAt: new Date()
@@ -80,7 +82,7 @@ const MemberDataRequiredAndContributorIsIncomplete = {
   }
 };
 
-const NonMemberOnMembersOnly = {
+storySets.NonMemberOnMembersOnly = {
   member: null,
   agenda: detailedAgenda,
   extraProps: {
@@ -92,7 +94,7 @@ const NonMemberOnMembersOnly = {
   }
 };
 
-const ClosedAgendaForAdminMods = {
+storySets.ClosedAgendaForAdminMods = {
   member: incompleteAdminMemberData,
   agenda: detailedAgenda,
   extraProps: {
@@ -104,7 +106,7 @@ const ClosedAgendaForAdminMods = {
   }
 };
 
-const ClosedAgendaForContributor = {
+storySets.ClosedAgendaForContributor = {
   member: contributorMemberData,
   agenda: detailedAgenda,
   extraProps: {
@@ -116,7 +118,7 @@ const ClosedAgendaForContributor = {
   }
 };
 
-const NewEventForm = {
+storySets.NewEventForm = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,
   extraProps: {
@@ -128,7 +130,7 @@ const NewEventForm = {
   }
 };
 
-const EditEventForm = {
+storySets.EditEventForm = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,
   event: basicEventResponse,
@@ -142,19 +144,36 @@ const EditEventForm = {
   eventContext: eventContributorContext
 };
 
-const sets = {
-  ContributorGoesToEventStepAfterMemberFormSubmit,
-  MemberIsAdminModAndDataIsIncomplete,
-  MemberIsContributorAndDataIsCompleteAndFresh,
-  MemberIsContributorAndDataIsCompleteButIsOld,
-  MemberDataRequiredAndContributorIsIncomplete,
-  NonMemberOnMembersOnly,
-  ClosedAgendaForAdminMods,
-  ClosedAgendaForContributor,
-  NewEventForm,
-  EditEventForm
+storySets.BasicConfirmation = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 200
+    }
+  },
+  extraDevInitialState: {
+    createdEvent: basicEventResponse.event
+  }
+};
+
+storySets.CustomMessageConfirmation = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: produce(basicAgenda, draft => {
+      draft.settings.contribution.messages.complete = 'Un message personnalisé';
+      draft.uid = 201;
+    })
+  },
+  extraDevInitialState: {
+    createdEvent: basicEventResponse.event
+  }
 };
 
 module.exports = Object.assign(function getFixtures(agendaUid) {
-  return Object.keys(sets).map(key => sets[key]).find(set => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
-}, sets, { getLocation });
+  return Object.keys(storySets).map(key => storySets[key]).find(set => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
+}, storySets, { getLocation });

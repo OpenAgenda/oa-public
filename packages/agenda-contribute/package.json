@@ -9,7 +9,7 @@
     "dev-server": "NODE_ENV=development EXPRESS_API_PORT=3000 nodemon -w stories/server -w client/src stories/server/index.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
     "dist": "webpack-cli --config webpack.dist.js",
-    "extract-messages": "yarn oa:extract-messages 'client/src/components/**/*.js' --out-dir 'client/src/locales' --compiled-dir 'client/src/locales-compiled'",
+    "extract-messages": "yarn oa:extract-messages 'client/src/**/*.js' --out-dir 'client/src/locales' --compiled-dir 'client/src/locales-compiled'",
     "test": "jest"
   },
   "dependencies": {
