@@ -30,10 +30,8 @@ export default function App(props) {
     history
   } = props;
 
-  log(history.location.pathname);
-
   const res = useSelector(state => state.res);
-  const prefix = useSelector(state => state.prefix);
+  const prefix = useSelector(state => state.prefix).replace(':agendaSlug', agenda.slug);
   const memberFreshness = useSelector(state => state.memberFreshness);
 
   const {
@@ -55,7 +53,10 @@ export default function App(props) {
     && !matchStepPath(history, prefix, 'member')
   ) {
     log('  Contributor is %s on an agenda requiring data. Redirecting to member form', memberIsFresh ? 'not fresh' : 'incomplete');
-    history.replace(`${prefix}/member`);
+    history.replace({
+      ...history.location,
+      pathname: `${prefix}/member`
+    });
     return <Loading />;
   }
 
@@ -66,7 +67,10 @@ export default function App(props) {
     && !matchStepPath(history, prefix, ['event', 'member', 'confirmation'])
   ) {
     log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
-    history.replace(`${prefix}/event`);
+    history.replace({
+      ...history.location,
+      pathname: `${prefix}/event`
+    });
     return <Loading />;
   }
 
@@ -75,7 +79,10 @@ export default function App(props) {
     && !matchStepPath(history, prefix, ['event', 'member', 'confirmation'])
   ) {
     log('  AdminMod is not explicitely requesting a specific step. Redirecting to event form');
-    history.replace(`${prefix}/event`);
+    history.replace({
+      ...history.location,
+      pathname: `${prefix}/event`
+    });
   }
 
   if (

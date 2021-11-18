@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
-import useDetailedSchema from './useDetailedSchema';
 import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
 import injectAgendaUID from '../lib/injectAgendaUID';
+import useDetailedSchema from './useDetailedSchema';
 
 export default function useEventFormConfig(agenda) {
   const {
@@ -14,6 +14,7 @@ export default function useEventFormConfig(agenda) {
   const APIRoot = useSelector(state => state.APIRoot);
   const files = useSelector(state => state.files);
   const tiles = useSelector(state => state.tiles);
+  const prefix = useSelector(state => state.prefix);
 
   const {
     detailedSchemaIsLoading,
@@ -31,6 +32,7 @@ export default function useEventFormConfig(agenda) {
   return {
     configIsLoading: false,
     config: {
+      res: prefix,
       withErrors: false,
       lang: locale,
       schema,

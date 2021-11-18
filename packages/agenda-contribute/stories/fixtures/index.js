@@ -144,6 +144,18 @@ storySets.EditEventForm = {
   eventContext: eventContributorContext
 };
 
+storySets.NewEventFormWithDefaults = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 102
+    }
+  }
+};
+
 storySets.BasicConfirmation = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,

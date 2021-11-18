@@ -44,6 +44,7 @@ export default function EventNew({ agenda, history }) {
         className="margin-bottom-lg"
       />
       <EventNewForm
+        history={history}
         config={config}
         onSuccess={() => {}}
         memberRole={member.role}

@@ -35,7 +35,8 @@ function EventNewForm({
   event,
   onSuccess,
   onDraftDelete,
-  memberRole
+  memberRole,
+  history
 }) {
   const m = useIntl().formatMessage;
 
@@ -44,7 +45,7 @@ function EventNewForm({
       {...config}
       role={memberRole}
       includeEventFields
-      values={eventWithDefaults(event, getURLDefaults())}
+      values={eventWithDefaults(event, getURLDefaults(history))}
       onSubmitSuccess={onSuccess}
       actionComponents={[{
         position: 'bottom',

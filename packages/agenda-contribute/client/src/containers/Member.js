@@ -38,7 +38,10 @@ export default function Member({
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
               queryClient.removeQueries('member');
-              history.push(`${prefix}/event`);
+              history.push({
+                ...history.location,
+                pathname: `${prefix}/event`
+              });
             }}
           />
         </div>

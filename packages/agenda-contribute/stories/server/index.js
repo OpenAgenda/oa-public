@@ -49,4 +49,9 @@ dev.get('/locations/:uid.json', (req, res) => {
   res.json(getLocation(req.params.uid));
 });
 
+dev.post('/:agendaSlug/contribute', data => {
+  console.log(data);
+  res.json({ event: 'bim' });
+});
+
 dev.listen(process.env.EXPRESS_API_PORT);

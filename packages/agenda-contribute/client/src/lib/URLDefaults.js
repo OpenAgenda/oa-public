@@ -15,18 +15,12 @@ export function eventWithDefaults(event, defaults) {
   };
 }
 
-export function get() {
-  const parts = (window?.location?.href || '').split('?');
-
-  if (parts.length < 2) {
+export function get(history) {
+  if (!history.location.search) {
     return {};
   }
 
-  parts.shift();
-
-  const query = qs.parse(parts.join('?'));
-
-  return query?.defaults || {};
+  return qs.parse(history.location.search, { ignoreQueryPrefix: true })?.defaults ?? {};
 }
 
 export default {
