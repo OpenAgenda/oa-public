@@ -6,6 +6,7 @@ import steps from '../lib/steps';
 import redirectTo from '../lib/redirectTo';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import Instructions from '../components/Instructions';
+import usePrefix from '../hooks/usePrefix';
 
 const messages = defineMessages({
   recapDetailState0: {
@@ -44,7 +45,7 @@ const messages = defineMessages({
 
 export default function Confirmation({ history, agenda }) {
   const createdEvent = useSelector(state => state.contribute.createdEvent);
-  const prefix = useSelector(state => state.prefix);
+  const prefix = usePrefix(agenda);
   const res = useSelector(state => state.res);
 
   const confirmationCustomMessage = agenda.settings?.contribution?.messages?.complete;
@@ -85,7 +86,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => redirectTo(prefix.replace(':agendaSlug', agenda.slug))}
+              onClick={() => redirectTo(prefix)}
             >
               {m(messages.createOtherEvent)}
             </button>
@@ -94,7 +95,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => redirectTo(`${prefix.replace(':agendaSlug', agenda.slug)}?eventUid=${createdEvent.uid}`)}
+              onClick={() => redirectTo(`${prefix}?eventUid=${createdEvent.uid}`)}
             >
               {m(messages.duplicateEvent)}
             </button>

@@ -1,7 +1,6 @@
 import React from 'react';
-
+import debug from 'debug';
 import {
-  useSelector,
   useDispatch
 } from 'react-redux';
 
@@ -14,28 +13,47 @@ import Instructions from '../components/Instructions';
 import steps from '../lib/steps';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 import useMember from '../hooks/useMember';
+import usePrefix from '../hooks/usePrefix';
 
 import contributeReducer from '../reducers/contribute';
 
 import utils from '../lib/utils';
 
 const {
-  isContributionType
+  isMemberDataComplete,
+  isMemberDataRequired,
+  isContributionType,
+  isMemberRole
 } = utils;
+
+const log = debug('EventNew');
 
 export default function EventNew({ agenda, history }) {
   const {
     memberIsLoading,
+    memberIsFresh,
     member
   } = useMember(agenda);
 
   const dispatch = useDispatch();
-
-  const prefix = useSelector(state => state.prefix);
-
+  const prefix = usePrefix(agenda);
   const { config, configIsLoading } = useEventFormConfig(agenda);
 
   if (configIsLoading || memberIsLoading) {
+    return <Loading />;
+  }
+
+  if (
+    isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
+    && isMemberRole(member, 'contributor')
+    && isMemberDataRequired(agenda)
+    && (!isMemberDataComplete(member) || !memberIsFresh)
+  ) {
+    log('  Contributor is %s on an agenda requiring data. Redirecting to member form', memberIsFresh ? 'not fresh' : 'incomplete');
+    history.replace({
+      ...history.location,
+      pathname: `${prefix}/member`
+    });
     return <Loading />;
   }
 

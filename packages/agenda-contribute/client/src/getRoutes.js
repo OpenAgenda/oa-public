@@ -7,16 +7,6 @@ const App = loadable(() => import(
   './containers/App'
 ));
 
-const Landing = loadable(() => import(
-  /* webpackChunkName: "agendaContribute-Landing" */
-  './containers/Landing'
-));
-
-// const Temporary = loadable(() => import(
-//   /* webpackChunkName: "agendaContribute-Temporary" */
-//   './containers/Temporary'
-// ));
-
 const Member = loadable(() => import(
   /* webpackChunkName: "agendaContribute-Member" */
   './containers/Member'
@@ -42,12 +32,9 @@ export default (prefix = '') => ([
     path: prefix,
     component: App,
     routes: [{
-      path: `${prefix}`,
-      exact: true,
-      component: Landing
-    }, {
       path: `${prefix}/member`,
-      component: Member
+      component: Member,
+      exact: true
     }, {
       path: `${prefix}/event`,
       component: EventNew,

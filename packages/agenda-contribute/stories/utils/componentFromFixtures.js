@@ -10,8 +10,17 @@ const initialState = loadInitialState();
 export default function componentFromFixtures(message, agendaUid, entryRoute = '') {
   const {
     extraProps,
-    extraDevInitialState = {}
+    extraDevInitialState = {},
+    agenda
   } = fixtures(agendaUid);
+
+  const history = createMemoryHistory({
+    initialEntries: [`/${agenda.slug}/contribute${entryRoute}`]
+  });
+
+  history.listen((location, action) => {
+    console.log(action, location);
+  });
 
   return () => (
     <>
@@ -19,9 +28,7 @@ export default function componentFromFixtures(message, agendaUid, entryRoute = '
       {wrapApp(
         createApp({
           initialState: { ...initialState, ...extraDevInitialState },
-          history: createMemoryHistory({
-            initialEntries: [`/some-agenda/contribute${entryRoute}`]
-          })
+          history
         }),
         {
           extraProps

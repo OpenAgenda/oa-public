@@ -3,16 +3,19 @@ import React from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
+import { matchPath } from 'react-router';
 import { useSelector } from 'react-redux';
 
+import locales from '../locales-compiled';
+import usePrefix from '../hooks/usePrefix';
+import useMember from '../hooks/useMember';
 import Loading from '../components/Loading';
 import ClosedMessage from '../components/ClosedMessage';
 import Canvas from '../components/Canvas';
-import locales from '../locales-compiled';
-import utils from '../lib/utils';
-import useMember from '../hooks/useMember';
 
 import contributeReducer from '../reducers/contribute';
+
+import utils from '../lib/utils';
 
 const {
   isMemberDataComplete,
@@ -29,63 +32,93 @@ function App(props) {
     route,
     agenda,
     lang,
-    match,
     history
   } = props;
-
-  const res = useSelector(state => state.res);
-  const prefix = useSelector(state => state.prefix).replace(':agendaSlug', agenda.slug);
-  const memberFreshness = useSelector(state => state.memberFreshness);
+  log('Requested %s', history.location.pathname);
 
   const {
     memberIsLoading,
+    memberIsFresh,
     member
   } = useMember(agenda);
+
+  const res = useSelector(state => state.res);
+
+  const createdEvent = useSelector(state => state.contribute?.createdEvent);
+
+  const prefix = usePrefix(agenda);
+
+  const replaceWithStep = step => {
+    history.replace({
+      ...history.location,
+      pathname: `${prefix}/${step}`
+    });
+    return null;
+  };
+
+  const isBasePathRequested = matchPath(history.location.pathname, { path: prefix, exact: true });
 
   if (memberIsLoading) {
     return <Loading />;
   }
 
-  const memberIsFresh = new Date(member?.updatedAt) > new Date(memberFreshness);
-
   if (
-    isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
-    && isMemberRole(member, 'contributor')
-    && isMemberDataRequired(agenda)
-    && (!isMemberDataComplete(member) || !memberIsFresh)
-    && !matchStepPath(history, prefix, 'member')
+    isBasePathRequested
+    && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
+    && !isMemberDataRequired(agenda)
   ) {
-    log('  Contributor is %s on an agenda requiring data. Redirecting to member form', memberIsFresh ? 'not fresh' : 'incomplete');
-    history.replace({
-      ...history.location,
-      pathname: `${prefix.replace(':agendaSlug', agenda.slug)}/member`
-    });
-    return <Loading />;
+    log('  Base path is requested, contributor data is not required by agenda. Redirecting to event step');
+    return replaceWithStep('event');
   }
 
   if (
-    isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
+    isBasePathRequested
+    && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberRole(member, 'contributor')
-    && (!isMemberDataRequired(agenda) || (isMemberDataComplete(member) && memberIsFresh))
-    && !matchStepPath(history, prefix, ['event', 'member', 'confirmation'])
+    && (
+      !isMemberDataRequired(agenda)
+      || (isMemberDataComplete(member) && memberIsFresh)
+    )
   ) {
     log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
-    history.replace({
-      ...history.location,
-      pathname: `${prefix.replace(':agendaSlug', agenda.slug)}/event`
-    });
-    return <Loading />;
+    return replaceWithStep('event');
   }
 
   if (
-    isMemberRole(member, ['administrator', 'moderator'])
-    && !matchStepPath(history, prefix, ['event', 'member', 'confirmation'])
+    isBasePathRequested
+    && isMemberRole(member, ['administrator', 'moderator'])
   ) {
-    log('  AdminMod is not explicitely requesting a specific step. Redirecting to event form');
-    history.replace({
-      ...history.location,
-      pathname: `${prefix}/event`
-    });
+    log('  Member is adminmod. Redirecting to event step');
+    return replaceWithStep('event');
+  }
+
+  if (isBasePathRequested) {
+    log('  Base path is requested and non of the conditions above match, going to event step');
+    return replaceWithStep('member');
+  }
+
+  if (
+    !matchStepPath(history, prefix, 'member')
+    && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
+    && isMemberDataRequired(agenda)
+    && !isMemberRole(member, ['administrator', 'moderator'])
+    && (!member || !isMemberDataComplete(member))
+  ) {
+    log('  Base path is requested, user is not a member. Redirecting to member step');
+    return replaceWithStep('member');
+  }
+
+  if (
+    matchStepPath(history, prefix, 'confirmation')
+    && !createdEvent
+  ) {
+    log('  Attempting to reach confirmation screen without a created event. Redirecting to event step');
+    return replaceWithStep('event');
+  }
+
+  if (!member && isContributionType(agenda, 'MEMBERS_ONLY')) {
+    window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
+    return <Loading />;
   }
 
   if (
@@ -97,15 +130,6 @@ function App(props) {
         <ClosedMessage memberRole="contributor" />
       </Canvas>
     );
-  }
-
-  if (!member && isContributionType(agenda, 'MEMBERS_ONLY')) {
-    window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
-    return <Loading />;
-  }
-
-  if (match.isExact) {
-    return <Loading />;
   }
 
   log('looking for route matching %s', history.location.pathname);

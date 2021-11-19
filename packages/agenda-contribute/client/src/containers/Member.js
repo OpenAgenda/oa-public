@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import MemberForm from '../components/MemberForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import useMember from '../hooks/useMember';
+import usePrefix from '../hooks/usePrefix';
 import steps from '../lib/steps';
 
 export default function Member({
@@ -15,7 +16,7 @@ export default function Member({
 }) {
   const queryClient = useQueryClient();
   const res = useSelector(state => state.apiRoot + state.res.member);
-  const prefix = useSelector(state => state.prefix);
+  const prefix = usePrefix(agenda);
 
   const {
     memberIsLoading,

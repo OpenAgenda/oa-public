@@ -15,7 +15,9 @@ export default {
 };
 
 export const ContributorGoesToEventStepAfterMemberFormSubmit = componentFromFixtures(
-  'Contributor is shown event form upon successful submission of member form data. Press the save button.', 1
+  `Contributor is shown event form upon successful submission of member form data.
+  Press the save button.`,
+  1, '/member'
 );
 
 export const MemberIsAdminModAndDataIsIncomplete = componentFromFixtures(
@@ -67,7 +69,9 @@ export const NonMemberOnMembersOnly = () => {
 };
 
 export const ClosedAgendaForAdminMods = componentFromFixtures(
-  'Agenda is closed to contributions. AdminMod can access form but is notified of the closed state', 7
+  `Agenda is closed to contributions.
+  AdminMod can access form but is notified of the closed state`,
+  7
 );
 
 export const ClosedAgendaForContributor = componentFromFixtures(

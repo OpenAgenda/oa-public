@@ -179,7 +179,9 @@ storySets.BasicConfirmation = {
     }
   },
   extraDevInitialState: {
-    createdEvent: basicEventResponse.event
+    contribute: {
+      createdEvent: basicEventResponse.event
+    }
   }
 };
 
@@ -194,7 +196,9 @@ storySets.CustomMessageConfirmation = {
     })
   },
   extraDevInitialState: {
-    createdEvent: basicEventResponse.event
+    contribute: {
+      createdEvent: basicEventResponse.event
+    }
   }
 };
 
