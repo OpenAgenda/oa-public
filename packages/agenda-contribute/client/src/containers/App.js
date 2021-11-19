@@ -1,5 +1,6 @@
 import debug from 'debug';
 import React from 'react';
+import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
@@ -11,6 +12,8 @@ import locales from '../locales-compiled';
 import utils from '../lib/utils';
 import useMember from '../hooks/useMember';
 
+import contributeReducer from '../reducers/contribute';
+
 const {
   isMemberDataComplete,
   isMemberDataRequired,
@@ -21,7 +24,7 @@ const {
 
 const log = debug('App');
 
-export default function App(props) {
+function App(props) {
   const {
     route,
     agenda,
@@ -55,7 +58,7 @@ export default function App(props) {
     log('  Contributor is %s on an agenda requiring data. Redirecting to member form', memberIsFresh ? 'not fresh' : 'incomplete');
     history.replace({
       ...history.location,
-      pathname: `${prefix}/member`
+      pathname: `${prefix.replace(':agendaSlug', agenda.slug)}/member`
     });
     return <Loading />;
   }
@@ -69,7 +72,7 @@ export default function App(props) {
     log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
     history.replace({
       ...history.location,
-      pathname: `${prefix}/event`
+      pathname: `${prefix.replace(':agendaSlug', agenda.slug)}/event`
     });
     return <Loading />;
   }
@@ -119,3 +122,9 @@ export default function App(props) {
     </IntlProvider>
   );
 }
+
+export default provideHooks({
+  inject: ({ store }) => store.inject({
+    contribute: contributeReducer
+  })
+})(App);

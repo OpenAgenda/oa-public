@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
 
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import ClosedMessage from '../components/ClosedMessage';
@@ -11,6 +14,8 @@ import Instructions from '../components/Instructions';
 import steps from '../lib/steps';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 import useMember from '../hooks/useMember';
+
+import contributeReducer from '../reducers/contribute';
 
 import utils from '../lib/utils';
 
@@ -23,6 +28,8 @@ export default function EventNew({ agenda, history }) {
     memberIsLoading,
     member
   } = useMember(agenda);
+
+  const dispatch = useDispatch();
 
   const prefix = useSelector(state => state.prefix);
 
@@ -46,7 +53,12 @@ export default function EventNew({ agenda, history }) {
       <EventNewForm
         history={history}
         config={config}
-        onSuccess={() => {}}
+        onSuccess={(event, response) => {
+          dispatch(contributeReducer.eventCreateSuccess({
+            agenda,
+            response
+          }));
+        }}
         memberRole={member.role}
         onDraftDelete={() => {}}
       />

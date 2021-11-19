@@ -156,6 +156,18 @@ storySets.NewEventFormWithDefaults = {
   }
 };
 
+storySets.EventCreateLeadsToCompletionStep = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 103
+    }
+  }
+};
+
 storySets.BasicConfirmation = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,

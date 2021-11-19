@@ -149,7 +149,8 @@ export default class EventForm extends Component {
       onSubmitSuccess,
       classNames,
       role,
-      maxFileSize
+      maxFileSize,
+      res
     } = this.props;
 
     const {
@@ -159,6 +160,8 @@ export default class EventForm extends Component {
     } = this.state;
 
     return <FormSchemaComponent
+      res={res ? { post: res } : undefined}
+      method="post"
       unloadWarning={true}
       role={role}
       stateless={true}

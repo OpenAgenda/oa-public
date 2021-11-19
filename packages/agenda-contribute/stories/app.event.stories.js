@@ -36,3 +36,34 @@ export const NewEventFormWithDefaults = componentFromFixtures(
     }
   }, { addQueryPrefix: true })
 );
+
+export const EventCreateLeadsToCompletionStep = componentFromFixtures(
+  'When event is created, contributor goes to completing step',
+  103, qs.stringify({
+    defaults: {
+      event: {
+        title: {
+          fr: 'Un titre par défaut'
+        },
+        description: {
+          fr: 'Une description par défaut'
+        },
+        location: {
+          uid: 28723185
+        },
+        timings: [{
+          begin: {
+            date: '2022-06-17',
+            hours: 13,
+            minutes: 30
+          },
+          end: {
+            date: '2022-06-17',
+            hours: 17,
+            minutes: 30
+          }
+        }]
+      }
+    }
+  }, { addQueryPrefix: true })
+);

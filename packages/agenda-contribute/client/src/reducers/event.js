@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import sa from 'superagent';
 
 const actionTypes = {
@@ -10,14 +9,18 @@ const actionTypes = {
 function reducer(state = {}, action = {}) {
   switch (action.type) {
     case actionTypes.CREATE:
+      console.log('reducer.create');
+      return {
+        ...state,
+        createdEvent: action.event
+      };
     case actionTypes.UPDATE:
     case actionTypes.ADD:
       return action.event;
+    default:
+      return state;
   }
-
-  return state;
 }
-
 
 function deleteDraft() {
   return (dispatch, getState) => {
@@ -58,37 +61,10 @@ function doRedirect(redirects, event) {
 }
 
 
-/**
- * member data save was confirmed by server
- */
-
-function created(values, response) {
-  return (dispatch, getState, history) => {
-    const state = getState();
-
-    const { base } = state.config;
-
-    const event = response?.body?.event;
-
-    if (event?.draft) {
-      window.location.href = state.config.redirects.draft;
-      return;
-    }
-
-    dispatch({
-      type: actionTypes.CREATE,
-      event
-    });
-
-    return history.push(base + '/confirmation');
-  }
-}
-
 export default Object.assign(reducer, {
-  created,
   updated: redirect,
   added: redirect,
   close,
   deleteDraft,
-  actionTypes
+  types: actionTypes
 });

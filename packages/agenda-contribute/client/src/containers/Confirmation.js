@@ -43,7 +43,7 @@ const messages = defineMessages({
 });
 
 export default function Confirmation({ history, agenda }) {
-  const createdEvent = useSelector(state => state.createdEvent);
+  const createdEvent = useSelector(state => state.contribute.createdEvent);
   const prefix = useSelector(state => state.prefix);
   const res = useSelector(state => state.res);
 

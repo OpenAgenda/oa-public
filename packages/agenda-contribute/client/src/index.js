@@ -4,8 +4,6 @@ import {
 import { createLogger } from 'redux-logger';
 
 import getRoutes from './getRoutes';
-import scrollToTopMiddleware from './lib/scrollToTopMiddleware';
-import reducers from './reducers';
 
 const loggerMiddleware = createLogger();
 
@@ -22,15 +20,7 @@ export default function contribute(options) {
     prefix,
     getRoutes,
     reduxMiddleware: [
-      loggerMiddleware,
-      scrollToTopMiddleware({
-        scrollableTypes: [
-          reducers.event.actionTypes.UPDATE,
-          reducers.event.actionTypes.CREATE,
-          reducers.member.actionTypes.ADD
-        ],
-        scrollToAnchor: 'stepper'
-      })
+      loggerMiddleware
     ]
   });
 }
