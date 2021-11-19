@@ -5583,7 +5583,6 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/axios-mock-adapter": ^1.21.2
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/event-form": ^1.5.1
