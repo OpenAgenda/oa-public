@@ -1,22 +1,22 @@
 import React from 'react';
 
 import { useQueryClient } from 'react-query';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loading from '../components/Loading';
 
 import MemberForm from '../components/MemberForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import useMember from '../hooks/useMember';
-import usePrefix from '../hooks/usePrefix';
 import steps from '../lib/steps';
+import contributeReducer from '../reducers/contribute';
 
 export default function Member({
-  agenda,
-  history
+  agenda
 }) {
   const queryClient = useQueryClient();
-  const res = useSelector(state => state.apiRoot + state.res.member);
-  const prefix = usePrefix(agenda);
+  const res = useSelector(state => state.APIRoot + state.res.member);
+
+  const dispatch = useDispatch();
 
   const {
     memberIsLoading,
@@ -38,11 +38,10 @@ export default function Member({
             member={member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
-              queryClient.removeQueries('member');
-              history.push({
-                ...history.location,
-                pathname: `${prefix}/event`
-              });
+              dispatch(contributeReducer.memberSetSuccess({
+                agenda,
+                queryClient
+              }));
             }}
           />
         </div>

@@ -168,6 +168,22 @@ storySets.EventCreateLeadsToCompletionStep = {
   }
 };
 
+storySets.EditDraftEventForm = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: basicDetailedAgenda,
+  event: produce(basicEventResponse, draft => {
+    draft.event.draft = true;
+  }),
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 104
+    }
+  },
+  eventContext: eventContributorContext
+};
+
 storySets.BasicConfirmation = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,

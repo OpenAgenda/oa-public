@@ -1,4 +1,8 @@
+import debug from 'debug';
+import { Base64 } from 'js-base64';
 import { matchPath } from 'react-router';
+
+const log = debug('utils');
 
 const contributionTypes = {
   CLOSED: 0,
@@ -29,10 +33,30 @@ function matchStepPath(history, prefix, matchedSteps) {
     .length;
 }
 
+function doRedirect(history, redirectTo) {
+  const {
+    search
+  } = history.location;
+
+  if (!window) {
+    return;
+  }
+
+  if (search.redirect) {
+    const redirectURL = Base64.decode(search.redirect);
+    log('redirecting to %s', redirectURL);
+    window.location.href = redirectURL;
+    return;
+  }
+
+  window.location.href = redirectTo;
+}
+
 export default {
   isMemberDataComplete,
   isMemberDataRequired,
   isContributionType,
   isMemberRole,
-  matchStepPath
+  matchStepPath,
+  doRedirect
 };

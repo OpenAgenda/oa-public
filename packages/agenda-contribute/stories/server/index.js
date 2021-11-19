@@ -53,10 +53,24 @@ dev.post('/:agendaSlug/contribute', (req, res) => {
   const createdEvent = {
     ...JSON.parse(req.body.data),
     uid: Math.floor(Math.random() * 10000000),
-    state: 0
+    state: 0,
+    draft: req.query.draft === 'true'
   };
 
   res.json({ event: createdEvent });
+});
+
+dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
+  const {
+    eventUid
+  } = req.params;
+
+  const updatedEvent = {
+    ...JSON.parse(req.body.data),
+    uid: parseInt(eventUid, 10)
+  };
+
+  res.json({ event: updatedEvent });
 });
 
 dev.listen(process.env.EXPRESS_API_PORT);

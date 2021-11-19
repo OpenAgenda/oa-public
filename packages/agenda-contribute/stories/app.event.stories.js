@@ -67,3 +67,13 @@ export const EventCreateLeadsToCompletionStep = componentFromFixtures(
     }
   }, { addQueryPrefix: true })
 );
+
+export const EditDraftEventForm = componentFromFixtures(
+  'Edited draft event is shown in steppered layout',
+  104, '/event/02/draft'
+);
+
+/* export const EditDraftEventFormFromEditRoute = componentFromFixtures(
+  'Draft event loaded from non draft route is redirected to draft route',
+  105, '/event/03'
+); */

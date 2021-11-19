@@ -18,13 +18,15 @@ function EventEditForm({
   onSuccess,
   memberRole,
   saveButtonLabel,
-  canEditEvent
+  canEditEvent,
+  res
 }) {
   const m = useIntl().formatMessage;
 
   return (
     <EventForm
       {...config}
+      res={res}
       role={memberRole}
       includeEventFields={canEditEvent}
       values={event}

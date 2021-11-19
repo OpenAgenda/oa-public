@@ -1,10 +1,12 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import ClosedMessage from '../components/ClosedMessage';
 import EventNewForm from '../components/EventNewForm';
 import Loading from '../components/Loading';
+import useEvent from '../hooks/useEvent';
 import Instructions from '../components/Instructions';
 
 import steps from '../lib/steps';
@@ -19,18 +21,27 @@ const {
   isContributionType
 } = utils;
 
-export default function EventNew({ agenda, history }) {
+export default function EventDraft({ agenda, history }) {
+  const {
+    eventUid // as a string
+  } = useParams();
+
   const {
     memberIsLoading,
     member
   } = useMember(agenda);
+
+  const {
+    eventIsLoading,
+    event
+  } = useEvent(agenda.uid, eventUid);
 
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
   const { config, configIsLoading } = useEventFormConfig(agenda);
   const APIRoot = useSelector(state => state.APIRoot);
 
-  if (configIsLoading || memberIsLoading) {
+  if (configIsLoading || memberIsLoading || eventIsLoading) {
     return <Loading />;
   }
 
@@ -48,8 +59,9 @@ export default function EventNew({ agenda, history }) {
       <EventNewForm
         res={`${APIRoot}${prefix}`}
         history={history}
+        event={event}
         config={config}
-        onSuccess={(event, response) => {
+        onSuccess={(_event, response) => {
           dispatch(contributeReducer.eventCreateSuccess({
             agenda,
             response

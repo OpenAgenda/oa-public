@@ -32,7 +32,6 @@ export default function useEventFormConfig(agenda) {
   return {
     configIsLoading: false,
     config: {
-      res: `${APIRoot}${prefix.replace(':agendaSlug', agenda.slug)}`,
       withErrors: false,
       lang: locale,
       schema,

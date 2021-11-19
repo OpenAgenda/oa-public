@@ -36,13 +36,15 @@ function EventNewForm({
   onSuccess,
   onDraftDelete,
   memberRole,
-  history
+  history,
+  res
 }) {
   const m = useIntl().formatMessage;
 
   return (
     <EventForm
       {...config}
+      res={res}
       role={memberRole}
       includeEventFields
       values={eventWithDefaults(event, getURLDefaults(history))}

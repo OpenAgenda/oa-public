@@ -60,7 +60,6 @@ function doRedirect(redirects, event) {
   }
 }
 
-
 export default Object.assign(reducer, {
   updated: redirect,
   added: redirect,

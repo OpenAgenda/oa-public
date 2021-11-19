@@ -3,7 +3,6 @@ export default function loadInitialState() {
   memberFreshness.setMonth(memberFreshness.getMonth() - 6);
 
   return {
-    apiRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
     APIRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
     prefix: '/:agendaSlug/contribute',
     res: {
@@ -24,7 +23,7 @@ export default function loadInitialState() {
       references: '/api/agendas/:agendaUid/events',
       suggestions: '/agendas/:agendaUid/events/suggestions',
       suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact',
-      showEvent: '#/agendas/:agendaUid/events/:eventUid',
+      showEvent: '/agendas/:agendaUid/events/:eventUid',
       showMyEvents: '/home/events',
       contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
     },
