@@ -18,7 +18,8 @@ const flatten = (value, lang, defaultValue) => {
 module.exports = function fieldToFlattenerMapItem(field, options = {}) {
   const {
     lang,
-    languages = []
+    languages = [],
+    includeLanguages
   } = options;
 
   const targetBaseName = flatten(field.label, lang, field.field);
@@ -27,7 +28,8 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
   if (field.languages) {
     return {
       source: field.field,
-      target: languages.map(l => `${targetBaseName} - ${l.toUpperCase()}`),
+      target: includeLanguages ? includeLanguages.map(l => `${targetBaseName} - ${l.toUpperCase()}`)
+        : languages.map(l => `${targetBaseName} - ${l.toUpperCase()}`),
       languages
     };
   }
