@@ -120,6 +120,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(events[0].longDescription.fr).toContain('<iframe');
     });
+
+    it('aggregations can requested through options', async () => {
+      const { aggregations } = await core.agendas(2).events.search({}, { size: 0 }, {
+        aggregations: ['states']
+      });
+      expect(aggregations.states).toBeDefined();
+    });
   });
 
   describe('api', () => {
@@ -321,6 +328,26 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('from can be used via api', async () => {
         expect(responses[2].events[0].uid).toEqual(responses[1].events[0].uid);
+      });
+    });
+
+    describe('options', () => {
+      it('aggregations can be requested through query params', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
+            state: [-1, 0, 1, 2],
+            detailed: 1,
+            aggregations: 'states'
+          }
+        }).then(r => r.data);
+
+        expect(response.aggregations).toBeDefined();
       });
     });
   });
