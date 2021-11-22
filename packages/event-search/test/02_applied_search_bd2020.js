@@ -63,7 +63,7 @@ describe('02 - event search - functional: bd2020', function() {
     const uid = 96490567;
     let eventForPublic, eventForAdmin;
 
-    const includes = [
+    const includeFields = [
       'uid',
       'type-devenement',
       'particularites'
@@ -74,7 +74,8 @@ describe('02 - event search - functional: bd2020', function() {
         uid: 96490567
       }, {}, {
         formSchema,
-        includes
+        includeFields,
+        maintainedFields: ['dateRange', 'country']
       }).then(r => r.events[0]);
 
       eventForAdmin = await service('bd2020').search({
@@ -82,7 +83,8 @@ describe('02 - event search - functional: bd2020', function() {
       }, {}, {
         formSchema,
         access: 'administrator',
-        includes
+        includeFields,
+        maintainedFields: ['dateRange', 'country']
       }).then(r => r.events[0]);
     });
 
