@@ -16,6 +16,13 @@ renderSchemaFromProps({
         en: 'A disabled date'
       },
       enableWith: 'adatefield'
+    }, {
+      field: 'afieldwithavalue',
+      fieldType: 'date',
+      label: 'Une date avec une valeur'
     }]
+  },
+  values: {
+    afieldwithavalue: '2021-11-04T23:00:00.000Z'
   }
 });

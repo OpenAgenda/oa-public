@@ -17,6 +17,12 @@ const getContent = (value, placeholder, lang) => {
   return format(value, 'yyyy-MM-dd');
 };
 
+const getValueAsDate = v => {
+  if (!v) return v;
+
+  return typeof v === 'string' ? new Date(v) : v;
+};
+
 function DateField({
   field,
   value,
@@ -29,6 +35,8 @@ function DateField({
     placeholder
   } = field;
 
+  const cleanValue = getValueAsDate(value);
+
   return (
     <div>{enabled ? (
       <Dropdown
@@ -38,11 +46,11 @@ function DateField({
           bsRole="toggle"
           className="form-control"
         >
-          {getContent(value, placeholder, lang)}
+          {getContent(cleanValue, placeholder, lang)}
         </Dropdown.Toggle>
         <Dropdown.Menu bsRole="menu">
           <Calendar
-            date={value || null}
+            date={cleanValue || null}
             onChange={onChange}
             locale={rdrLocales[lang]}
           />
@@ -52,7 +60,7 @@ function DateField({
       <input
         disabled
         className="form-control inline"
-        value={getContent(value, placeholder, lang)}
+        value={getContent(cleanValue, placeholder, lang)}
         style={{ width: 'auto' }}
       />
     )}
