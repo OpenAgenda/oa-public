@@ -72,6 +72,19 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     it('an after key is provided', () => {
       expect(result.after).toBe(1);
     });
+
+    it('filter to limit results to unverified locations', async () => {
+      const {
+        items: unverifiedLocations
+      } = await core.agendas(99501607).locations.list({ state: 0 }, { size: 1 });
+
+      const {
+        items: verifiedLocations
+      } = await core.agendas(99501607).locations.list({ state: 1 }, { size: 1 });
+
+      expect(unverifiedLocations.length).toEqual(1);
+      expect(verifiedLocations.length).toEqual(0);
+    });
   });
 
   describe('get', () => {
@@ -483,6 +496,23 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'mergedIn'
           ]
         );
+      });
+
+      it('state filter limits result set to requested state', async () => {
+        const { locations: verifiedLocations } = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/99501607/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            limit: 1,
+            state: 1,
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        expect(verifiedLocations.length).toBe(0);
       });
 
       it('value provided in after key can be used to fetch next location values', async () => {
