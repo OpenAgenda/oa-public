@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const ih = require('immutability-helper');
+const { produce } = require('immer');
 
 const api = require('../api');
 const Core = require('../core');
@@ -302,11 +303,24 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         } catch (e) {
           // console.log(e);
         }
+
+        try {
+          responses.push(await axios(produce(axiosParams, draft => {
+            draft.params.size = 2;
+            draft.params.from = 1;
+          })).then(r => r.data));
+        } catch (e) {
+          // console.log(e);
+        }
       });
 
       it('after key allows getting the next results', () => {
         expect(responses[0].events[0].uid).toBe(1);
         expect(responses[1].events[0].uid).toBe(2);
+      });
+
+      it('from can be used via api', async () => {
+        expect(responses[2].events[0].uid).toEqual(responses[1].events[0].uid);
       });
     });
   });

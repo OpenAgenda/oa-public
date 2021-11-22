@@ -106,7 +106,7 @@ module.exports = core => {
     .agendas(req.agenda.uid).events
     .search(req.convertedQuery, req.convertedQuery, {
       ...req.convertedQuery,
-      useAfterKey: true,
+      useAfterKey: !req.query.from || req.query.after,
       userUid: req.user?.uid
     }).then(({
       events,
@@ -285,7 +285,9 @@ module.exports = core => {
     '/agendas/:agendaUid/locations',
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .list(req.query, req.query)
+      .list(req.query, req.query, {
+        useAfter: !req.query.from || !!req.query.after
+      })
       .then(({ items, total, after }) => res.json({
         success: true,
         locations: items,

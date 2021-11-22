@@ -2,10 +2,14 @@
 
 const getAgenda = require('../utils/getAgenda');
 
-module.exports = (core, agendaOrUid) => async (query, nav) => {
+module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
   const {
     agendaLocations,
   } = core.services;
+
+  const {
+    useAfter = true
+  } = options;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
 
@@ -13,7 +17,9 @@ module.exports = (core, agendaOrUid) => async (query, nav) => {
 
   return endpoints.list(query, {
     ...nav,
-    useAfter: true
+    limit: nav?.size !== undefined ? nav.size : nav?.limit,
+    offset: nav?.from !== undefined ? nav.from : nav?.offset,
+    useAfter
   }, {
     total: true,
     includeImagePath: true,

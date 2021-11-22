@@ -373,7 +373,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
-    describe('sucessful get', () => {
+    describe('successful get', () => {
       it('location is given using account key', async () => {
         const getResponse = await axios({
           method: 'get',
@@ -491,7 +491,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1,
+            limit: 1, // legacy
             after: result.after
           },
           headers: {
@@ -503,6 +503,26 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         const nextLocationName = locationNames[locationNames.indexOf(result.locations[0].name) + 1];
 
         expect(nextResults.locations[0].name).toBe(nextLocationName);
+      });
+
+      it('from and size can also be used for navigation', async () => {
+        const nextResults = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            size: 1,
+            from: 2
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        const locationNames = allResults.locations.map(l => l.name);
+
+        expect(nextResults.locations[0].name).toBe(locationNames[2]);
+        expect(nextResults.locations.length).toBe(1);
       });
     });
 
