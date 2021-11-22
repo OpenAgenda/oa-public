@@ -341,11 +341,6 @@ describe('agenda-locations - functional - list', () => {
           throwingErrorSvc(7196947)
             .list({}, {}, { stream: true, eventCounts: true })
             .then(stream => {
-              let count = 0;
-              stream.on('data', _location => {
-                count += 1;
-              });
-
               stream.on('error', err => {
                 expect(err.message).toBe('getEventCounts');
                 done();
