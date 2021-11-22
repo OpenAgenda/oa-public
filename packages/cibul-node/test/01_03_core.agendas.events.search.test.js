@@ -53,6 +53,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(Object.keys(response)).toEqual(['total', 'events', 'sort']);
     });
 
+    it('event item contains description field by default', async () => {
+      const { events } = await core.agendas(2).events.search({});
+
+      expect(Object.keys(events[0]).includes('description')).toBeTruthy();
+    });
+
     it('if neither userUid or access are provided, only published events are returned', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, { detailed: true });
 
