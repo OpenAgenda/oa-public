@@ -8,7 +8,8 @@ module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
   } = core.services;
 
   const {
-    useAfter = true
+    useAfter = true,
+    eventCounts = false
   } = options;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
@@ -23,6 +24,7 @@ module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
   }, {
     total: true,
     includeImagePath: true,
-    detailed: !!query?.detailed
+    detailed: !!query?.detailed,
+    eventCounts
   });
 };

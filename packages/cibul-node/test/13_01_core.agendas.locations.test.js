@@ -85,6 +85,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       expect(unverifiedLocations.length).toEqual(1);
       expect(verifiedLocations.length).toEqual(0);
     });
+
+    it('include event counts in result with option', async () => {
+      const {
+        items
+      } = await core.agendas(17026855).locations.list({}, {}, {
+        eventCounts: true
+      });
+
+      expect(items[0].eventCount).toBe(1);
+    });
   });
 
   describe('get', () => {
@@ -513,6 +523,23 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         }).then(r => r?.data);
 
         expect(verifiedLocations.length).toBe(0);
+      });
+
+      it('eventCounts option is accessible', async () => {
+        const { locations } = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/99501607/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            limit: 1,
+            eventCounts: 1
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        expect(locations[0].eventCount).toBe(1);
       });
 
       it('value provided in after key can be used to fetch next location values', async () => {
