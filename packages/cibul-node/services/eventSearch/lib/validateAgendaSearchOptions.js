@@ -33,5 +33,13 @@ module.exports = schema({
   },
   parser: {
     type: 'pass'
+  },
+  includeFields: {
+    type: 'text',
+    list: { default: null }
+  },
+  includeLanguages: {
+    type: 'text',
+    list: { default: null }
   }
 });

@@ -15,7 +15,9 @@ module.exports = (req, res) => {
       ...memberLabels
     },
     maintainedFields: ['dateRange', 'country'],
-    formSchema: req.formSchema
+    formSchema: req.formSchema,
+    includeFields: req.query.includeFields,
+    includeLanguages: req.query.includeLanguages
   }).pipe(res);
 
   return res.writeHead(200, {
