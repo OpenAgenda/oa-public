@@ -29,5 +29,13 @@ module.exports = schema({
   separator: {
     type: 'text',
     default: ' | '
+  },
+  includeFields: {
+    type: 'text',
+    list: { default: null }
+  },
+  includeLanguages: {
+    type: 'text',
+    list: { default: null }
   }
 });

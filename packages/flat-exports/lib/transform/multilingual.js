@@ -1,26 +1,28 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-module.exports = function ( { languages }, { source, target, postParse, possibleLanguages } ) {
+module.exports = ({ languages, includeLanguages }, {
+  source, target, postParse, possibleLanguages
+}) => {
+  let targetLanguages = languages;
+  if (possibleLanguages) {
+    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l)));
+  }
 
-  const targetLanguages = languages.filter( l => possibleLanguages ? possibleLanguages.includes( l ) : true );
+  if (includeLanguages) {
+    targetLanguages = targetLanguages.filter(l => (includeLanguages.includes(l)));
+  }
 
   return {
     source,
-    target: targetLanguages.map( l => ( target || source ) + ( languages.length > 1 ? ' - ' + l.toUpperCase() : '' ) ),
+    target: targetLanguages.map(l => (target || source) + (languages.length > 1 ? ` - ${l.toUpperCase()}` : '')),
     transform: v => targetLanguages
-      .map( l => {
-
-        if ( postParse ) {
-
-          return postParse( _.get( v, l ) );
-
+      .map(l => {
+        if (postParse) {
+          return postParse(_.get(v, l));
         }
-       
-        return _.get( v, l, '' );
-
-      } )
-  }
-
-}
+        return _.get(v, l, '');
+      })
+  };
+};

@@ -45,7 +45,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     monolingual,
     first,
     access,
-    includes: requestedIncludes,
+    includeFields: requestedIncludes,
     useAfterKey,
     parser
   } = validateOptions(options);
