@@ -65,7 +65,7 @@ a:hover {
 @import "./widgets/preview";
 
 @import "./filters";
-@import "./react-date-range";
+@import "@openagenda/react-shared/scss/react-date-range";
 
 header {
   background-color: $oa-dark-purple;

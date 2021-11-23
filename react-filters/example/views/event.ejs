@@ -1,0 +1,10 @@
+<div style="clear: both">
+  <% if (typeof image !== 'undefined') { %>
+    <img class="rounded float-left mb-3 mr-2" style="max-height: 200px" src="<%= image.base + image.filename %>" alt="<%= image.description %>" />
+  <% } %>
+
+  <div>
+    <h3><%= title.fr || title.en %></h3>
+    <p><%= description.fr || description.en %></p>
+  </div>
+</div>

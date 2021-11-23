@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import qs from 'qs';
 import { prepareClientPortals } from '@stefanoruth/react-portal-ssr';
 import Provider from './components/FiltersProvider';
 import FiltersManager from './components/FiltersManager';
@@ -54,11 +55,13 @@ export default function renderFiltersAndWidgets({
   res = '/events',
   locale = 'en',
   locales: userLocales,
-  initialAggregations,
+  aggregations,
   total,
+  query,
   defaultViewport,
-  initialQuery,
   onFilterChange = defaultFilterChange,
+  onLoad,
+  filtersBase,
   apiClient,
   ...rest
 } = {}) {
@@ -71,13 +74,33 @@ export default function renderFiltersAndWidgets({
   // Empty divs when there is a server-side rendering
   prepareClientPortals();
 
+  const initialValues = typeof query === 'string'
+    ? qs.parse(query, { ignoreQueryPrefix: true })
+    : query;
+
+  function bindRef() {
+    return Object.keys(ref.current)
+      .reduce((accu, key) => ({
+        ...accu,
+        [key]: (...args) => ref.current[key](...args)
+      }), {});
+  }
+
+  function wrapCallback(fn) {
+    if (typeof fn !== 'function') {
+      return fn;
+    }
+
+    return (values, aggs, form) => fn(values, aggs, bindRef(), form);
+  }
+
   ReactDOM.render(
     <Provider
       locale={locale}
       locales={userLocales}
       filters={filters}
-      onSubmit={(values, aggregations, form) => onFilterChange(values, aggregations, ref, form)}
-      initialValues={_.omit(initialQuery, 'sort')}
+      onSubmit={wrapCallback(onFilterChange)}
+      initialValues={_.omit(initialValues, 'sort')}
       apiClient={apiClient}
     >
       <FiltersManager
@@ -85,10 +108,12 @@ export default function renderFiltersAndWidgets({
         res={res}
         filters={filters}
         widgets={widgets}
-        initialAggregations={initialAggregations}
-        initialTotal={total}
-        initialQuery={initialQuery}
+        aggregations={aggregations}
+        total={total}
+        query={query}
         defaultViewport={defaultViewport}
+        filtersBase={filtersBase}
+        onLoad={wrapCallback(onLoad)}
         {...rest}
       />
     </Provider>,
