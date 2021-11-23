@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import qs from 'qs';
 import React, {
-  useCallback,
+  useCallback, useEffect,
   useImperativeHandle,
   useMemo,
   useState
@@ -12,7 +13,7 @@ import { useQuery } from 'react-query';
 import { Portal } from '@stefanoruth/react-portal-ssr';
 import { useApiClient } from '@openagenda/react-shared';
 import { getEvents } from '../api';
-import { withDefaultFilterConfig } from '../utils';
+import { withDefaultFilterConfig, filtersToAggregations } from '../utils';
 import Filters from './Filters';
 import ActiveFilters from './ActiveFilters';
 import Total from './Total';
@@ -26,13 +27,14 @@ import CustomFilter from './filters/CustomFilter';
 export default React.forwardRef(function FiltersManager({
   filters: rawFilters,
   widgets,
-  initialAggregations = {},
-  initialQuery = {},
-  initialTotal = 0,
+  aggregations: initialAggregations = {},
+  query: initialQuery = {},
+  total: initialTotal = 0,
   defaultViewport,
   res,
   filtersBase: initialFiltersBase,
   agendaUid,
+  onLoad,
 
   choiceComponent = ChoiceFilter,
   dateRangeComponent = DateRangeFilter,
@@ -60,13 +62,21 @@ export default React.forwardRef(function FiltersManager({
 
   const filtersBaseQuery = useQuery(
     ['react-filters', 'filtersBase', agendaUid],
-    async () => (await getEvents(
-      axios,
-      res,
-      { uid: agendaUid },
-      filters.filter(filter => filter.type === 'choice' && !filter.options),
-      { size: 0 }
-    )).aggregations,
+    async () => {
+      const filtersToLoad = filters.filter(filter => filter.type === 'choice' && !filter.options);
+
+      if (!filtersToLoad.length) {
+        return {};
+      }
+
+      return (await getEvents(
+        axios,
+        res,
+        { uid: agendaUid },
+        filters.filter(filter => filter.type === 'choice' && !filter.options),
+        { size: 0 }
+      )).aggregations;
+    },
     {
       initialData: initialFiltersBase,
       staleTime: 1000,
@@ -77,6 +87,8 @@ export default React.forwardRef(function FiltersManager({
   const getOptions = useCallback(
     filter => {
       if (filter.options) return filter.options;
+
+      if (!filtersBaseQuery.data?.[filter.name]) return [];
 
       const baseAgg = [...filtersBaseQuery.data[filter.name]];
 
@@ -158,19 +170,40 @@ export default React.forwardRef(function FiltersManager({
     setQuery,
     setTotal,
     updateFiltersAndWidgets: (values, result) => {
-      setAggregations(result.aggregations);
+      setAggregations(result.aggregations || []);
       setTotal(result.total);
       setQuery(values);
 
       const mapFilter = filters.find(v => v.type === 'map');
       const mapElem = mapFilter?.elemRef?.current;
-      const { viewport } = result.aggregations;
+      const viewport = result.aggregations?.viewport;
 
       if (mapElem && viewport) {
         mapElem.onQueryChange(viewport);
       }
+    },
+    updateLocation: values => {
+      const queryStr = qs.stringify(values, {
+        addQueryPrefix: true,
+        arrayFormat: 'brackets',
+        skipNulls: true,
+      });
+
+      window.history.pushState(
+        {},
+        null,
+        `${window.location.pathname}${queryStr}`
+      );
     }
   }));
+
+  useEffect(() => {
+    if (typeof onLoad === 'function') {
+      const aggs = filtersToAggregations(filters);
+
+      onLoad(query, aggs, form);
+    };
+  }, []);
 
   const widgetElems = widgets.map(widget => {
     switch (widget.name) {

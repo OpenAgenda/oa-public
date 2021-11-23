@@ -1,5 +1,9 @@
 import _ from 'lodash';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import MockAdapter from '@openagenda/axios-mock-adapter';
 import { apiClient } from '@openagenda/react-shared';
 import example from './templates/example.ejs';
@@ -41,34 +45,11 @@ function Link(props) {
   return null;
 }
 
-// TODO input par defaut
-function Input({ input, placeholder, onButtonClick }) {
-  return (
-    <div className="input-group mb-3">
-      <input
-        className="form-control"
-        autoComplete="off"
-        placeholder={placeholder}
-        {...input}
-      />
-      <div className="input-group-append">
-        <button
-          type="submit"
-          className="btn btn-outline-secondary"
-          onClick={onButtonClick}
-        >
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
 function mockApi() {
   mock.reset();
   mock.onGet('/events').reply(200, {
     events: [],
-    aggregations: []
+    aggregations: {}
   });
 }
 
@@ -123,7 +104,7 @@ export const SimpleExample = () => {
     <Html
       html={example}
       options={{
-        apiClient: axios,
+        apiClient: axios, // only for mock
         locale: 'fr',
         locales: {
           en: {
@@ -132,9 +113,6 @@ export const SimpleExample = () => {
           fr: {
             eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
           }
-        },
-        searchProps: {
-          inputComponent: Input
         },
         defaultViewport: {
           topLeft: {
@@ -189,9 +167,6 @@ export const Playground = () => {
               eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
             }
           },
-          searchProps: {
-            inputComponent: Input
-          },
           defaultViewport: {
             topLeft: {
               latitude: 64.14049196988344,
@@ -210,12 +185,7 @@ export const Playground = () => {
 
 export const Search = () => (
   <Html
-    options={{
-      locale: 'fr',
-      searchProps: {
-        inputComponent: Input
-      },
-    }}
+    options={{ locale: 'fr' }}
     html={_.template(`
       <div
         data-oa-filter="an-id"
@@ -308,7 +278,27 @@ Relative.storyName = 'Relative filter';
 
 export const City = () => (
   <Html
-    options={{ locale: 'fr' }}
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        city: [
+          { key: 'Paris', eventCount: 127 },
+          { key: 'Toulouse', eventCount: 40 },
+          { key: 'Le Port', eventCount: 33 },
+          { key: 'Montpellier', eventCount: 33 },
+          { key: 'Nantes', eventCount: 29 },
+          { key: 'Colmar', eventCount: 24 }
+        ]
+      },
+      aggregations: {
+        city: [
+          { key: 'Paris', eventCount: 34 },
+          { key: 'Le Port', eventCount: 25 },
+          { key: 'Montpellier', eventCount: 16 },
+          { key: 'Colmar', eventCount: 7 }
+        ]
+      }
+    }}
     html={_.template(`
       <div
         data-oa-filter="an-id"
@@ -330,7 +320,8 @@ export const Total = () => (
         fr: {
           eventsTotal: '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}'
         }
-      }
+      },
+      total: 42
     }}
     html={_.template(`
       <div
@@ -353,7 +344,7 @@ export const ActiveFilters = () => (
   <Html
     options={{
       locale: 'fr',
-      initialQuery: {
+      query: {
         relative: ['current']
       }
     }}

@@ -70,7 +70,7 @@ function Preview({
     }
 
     if (!Array.isArray(input.value)) {
-      return [options.find(option => option.value === input.value)];
+      return [options.find(option => String(option.value) === String(input.value))];
     }
 
     return input.value.map(v => options.find(option => String(option.value) === String(v)));
@@ -90,7 +90,7 @@ function Preview({
         return;
       }
 
-      const newValue = input.value.filter(v => v !== option.value);
+      const newValue = input.value.filter(v => String(v) !== String(option.value));
 
       input.onChange(newValue.length ? newValue : undefined);
     },

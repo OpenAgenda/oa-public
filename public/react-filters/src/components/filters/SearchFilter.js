@@ -55,7 +55,7 @@ function Preview({
   });
 }
 
-function Input({ input, placeholder, onButtonClick /* , disabled */ }) {
+/* function Input({ input, placeholder, onButtonClick /!* , disabled *!/ }) {
   return (
     <div className="form-group search">
       <div className="input-icon-right">
@@ -68,6 +68,28 @@ function Input({ input, placeholder, onButtonClick /* , disabled */ }) {
           {...input}
         />
         <button type="submit" className="btn" onClick={onButtonClick}>
+          <i className="fa fa-search" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  );
+} */
+
+function Input({ input, placeholder, onButtonClick }) {
+  return (
+    <div className="input-group mb-3">
+      <input
+        className="form-control"
+        autoComplete="off"
+        placeholder={placeholder}
+        {...input}
+      />
+      <div className="input-group-append">
+        <button
+          type="submit"
+          className="btn btn-outline-secondary"
+          onClick={onButtonClick}
+        >
           <i className="fa fa-search" aria-hidden="true" />
         </button>
       </div>
