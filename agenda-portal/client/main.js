@@ -4,14 +4,11 @@ import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
 import debug from 'debug';
-import qs from 'qs';
 import renderFilters from '@openagenda/react-filters/lib/render';
-import locales from '../boot/i18n';
 import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
 import updateShare from './lib/updateShare';
-import Input from './components/Input';
 
 const log = debug('main');
 
@@ -124,24 +121,11 @@ function onFilterController(pageProps, filtersRef, values = {}, aggregations) {
     return;
   }
 
-  const filtersRoot = filtersRef.current;
-
   loadListContent('/events', { ...values, aggregations }, (err, result) => {
     $(listSelector).html(result.html);
 
-    const queryStr = qs.stringify(values, {
-      addQueryPrefix: true,
-      arrayFormat: 'brackets',
-      skipNulls: true,
-    });
-
-    window.history.pushState(
-      {},
-      null,
-      `${window.location.pathname}${queryStr}`
-    );
-
-    filtersRoot.updateFiltersAndWidgets(values, result);
+    filtersRef.updateLocation(values);
+    filtersRef.updateFiltersAndWidgets(values, result);
 
     if (pageProps.iframable) {
       handleIFrameLinkEvents($, iframeHandler);
@@ -168,21 +152,16 @@ $(() => {
 
   log('page ready', pageProps);
 
-  const initialQuery = qs.parse(window.location.search, { ignoreQueryPrefix: true });
-
   try {
     renderFilters({
       locale: pageProps.lang,
-      locales,
-      initialAggregations: pageProps.initialAggregations,
+      locales: pageProps.locales,
+      aggregations: pageProps.aggregations,
       total: pageProps.total,
       defaultViewport: pageProps.defaultViewport,
-      initialQuery,
+      query: window.location.search,
       onFilterChange(values, aggregations, ref, _form) {
         return onFilterController(pageProps, ref, values, aggregations);
-      },
-      searchProps: {
-        inputComponent: Input
       },
       filtersBase: pageProps.filtersBase
     });

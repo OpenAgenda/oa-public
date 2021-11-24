@@ -8,7 +8,6 @@ const { PortalServer } = require('@stefanoruth/react-portal-ssr/server');
 const { FiltersProvider, FiltersManager } = require('@openagenda/react-filters');
 
 const setPageProp = require('../lib/utils/setPageProp');
-const Input = require('../client/components/Input');
 
 function withProvider(req, res, children) {
   const { intl } = res.locals;
@@ -25,10 +24,13 @@ module.exports = async (req, res, next) => {
     return res.json(_.assign(req.data, req.app.locals));
   }
 
+  const { intl } = res.locals;
+
   setPageProp(req, 'pageType', 'list');
   setPageProp(req, 'lang', res.locals.lang);
+  setPageProp(req, 'locales', { [res.locals.lang]: intl.messages });
   setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
-  setPageProp(req, 'initialAggregations', req.data.aggregations);
+  setPageProp(req, 'aggregations', req.data.aggregations);
   setPageProp(req, 'total', req.data.total);
   setPageProp(req, 'filtersBase', req.data.filtersBase);
 
@@ -38,12 +40,11 @@ module.exports = async (req, res, next) => {
   const elem = React.createElement(FiltersManager, {
     filters: res.locals.filters,
     widgets: res.locals.widgets,
-    initialAggregations: req.data.aggregations,
-    initialTotal: req.data.total,
+    defaultViewport: res.locals.agenda.summary.viewport,
+    aggregations: req.data.aggregations,
+    total: req.data.total,
     filtersBase: req.data.filtersBase,
-    searchProps: {
-      inputComponent: Input
-    }
+    query: req.query
   });
 
   ReactDOM.renderToString(portal.collectPortals(withProvider(req, res, elem)));

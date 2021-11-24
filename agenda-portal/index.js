@@ -158,7 +158,6 @@ module.exports = async options => {
   if (uid) {
     app.locals.assetsRoot = app.locals.root;
     try {
-      // TODO catch error in head
       app.locals.agenda = await app.get('proxy').head(uid);
     } catch (e) {
       if (e.message === 'Unauthorized') {
@@ -203,7 +202,7 @@ module.exports = async options => {
   app.get(
     '/p/:page',
     mw.pageGlobals,
-    mw.list(),
+    mw.list(true),
     middlewareHooks.list.preRender,
     mw.index
   );
