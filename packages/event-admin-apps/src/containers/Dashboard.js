@@ -297,9 +297,10 @@ function Dashboard() {
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
 
-  const redirectURL = useMemo(() => getRedirectURL(history.location), [
-    history.location,
-  ]);
+  const redirectURL = useMemo(
+    () => getRedirectURL(history.location),
+    [history.location]
+  );
 
   const loadGeoData = useCallback(
     async (filter, bounds, zoom) => {
@@ -328,7 +329,12 @@ function Dashboard() {
         },
       };
 
-      const result = (await apiClient.get(url, { params })).data;
+      const result = (
+        await apiClient.get(url, {
+          params,
+          paramsSerializer: p => qs.stringify(p, { skipNulls: true }),
+        })
+      ).data;
 
       return result.aggregations.geohash;
     },
@@ -336,9 +342,10 @@ function Dashboard() {
   );
 
   const filters = useFilters(agendaSchema);
-  const mapFilter = useMemo(() => filters.find(v => v.name === 'geo'), [
-    filters,
-  ]);
+  const mapFilter = useMemo(
+    () => filters.find(v => v.name === 'geo'),
+    [filters]
+  );
 
   const removeModal = useModal();
 
@@ -357,7 +364,15 @@ function Dashboard() {
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
-    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
+    () => getEvents(
+      apiClient,
+      res.jsonExport,
+      agenda,
+      filters,
+      { size: 0 },
+      null,
+      true
+    ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
@@ -449,9 +464,10 @@ function Dashboard() {
   );
 
   // Selection
-  const isSelectedEvent = useCallback(uid => selectedEvents.has(uid), [
-    selectedEvents,
-  ]);
+  const isSelectedEvent = useCallback(
+    uid => selectedEvents.has(uid),
+    [selectedEvents]
+  );
   const selectEvent = useCallback(uid => {
     setSelectedEvents(old => {
       const result = new Set(old);
@@ -619,6 +635,7 @@ function Dashboard() {
       validate={validate}
       intl={intl}
       ref={filtersFormRef}
+      filters={filters}
     >
       <header>
         <div className="pull-right">

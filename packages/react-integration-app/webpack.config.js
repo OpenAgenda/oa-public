@@ -53,7 +53,7 @@ const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || 8905;
 
 function getCacheDir(name) {
   const homeCacheDir = path.join(os.homedir(), '.cache');
-  const persistentPath = path.join(homeCacheDir, 'react-integration-app', name);
+  const persistentPath = path.join(homeCacheDir, serviceName, name);
 
   if (fs.existsSync(homeCacheDir)) {
     mkdirp.sync(persistentPath);

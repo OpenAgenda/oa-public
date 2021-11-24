@@ -106,29 +106,12 @@ module.exports = core => {
     .agendas(req.agenda.uid).events
     .search(req.convertedQuery, req.convertedQuery, {
       ...req.convertedQuery,
-      useAfterKey: !req.query.from || req.query.after,
-      userUid: req.user?.uid,
-      aggregations: req.query.aggregations
-    }).then(({
-      events,
-      sort,
-      total,
-      after,
-      aggregations
-    }) => {
-      const response = {
-        success: true,
-        sort,
-        total,
-        after,
-        events
-      };
-
-      if (aggregations) {
-        response.aggregations = aggregations;
-      }
-      res.json(response);
-    }, next));
+      useAfterKey: true,
+      userUid: req.user?.uid
+    }).then(result => res.json({
+      success: true,
+      ...result
+    }), next));
 
   app.get('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
     .agendas(req.agenda.uid).events
