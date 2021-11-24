@@ -12,6 +12,7 @@ import transferMultilingualValues from './utils/transferMultilingualValues';
 import removeMultilingualValues from './utils/removeMultilingualValues';
 import schemaLanguages from './utils/schemaLanguages';
 import injectValidators from './utils/injectValidators';
+import validators from './validators';
 
 import errorLabels from '@openagenda/labels/event/errors';
 
@@ -28,7 +29,7 @@ const eventFormComponents = {
 
 const eventSchema = require('./schema');
 
-export default class EventForm extends Component {
+class EventForm extends Component {
   constructor(props) {
     super(props);
 
@@ -190,3 +191,6 @@ export default class EventForm extends Component {
 
 }
 
+export default Object.assign(EventForm, {
+  validators
+});
