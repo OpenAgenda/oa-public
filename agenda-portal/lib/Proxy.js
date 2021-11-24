@@ -34,7 +34,15 @@ module.exports = ({
       Object.assign(query, defaultFilter);
     }
 
-    const limit = forcedLimit || query.limit || defaultLimit;
+    let limit;
+
+    if (Number.isInteger(forcedLimit)) {
+      limit = forcedLimit;
+    } else if (Number.isInteger(query.limit)) {
+      limit = query.limit;
+    } else {
+      limit = defaultLimit;
+    }
 
     const offset = parseInt(
       _.get(

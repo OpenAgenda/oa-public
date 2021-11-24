@@ -72,7 +72,7 @@
 
       }
 
-      &.passed:before, &.validated:before, &.activable:before {
+      &.passed:before, &.validated:before, &.activable:before, &.confirmation:before {
       }
 
       &.passed:before, &.validated:before {
@@ -94,6 +94,13 @@
           font-family: FontAwesome;
           content: '\f040';
         }
+      }
+      &.confirmation {
+        &:before {
+          content: '\f00c';
+          font-family: FontAwesome;
+        }
+
       }
     }
   }

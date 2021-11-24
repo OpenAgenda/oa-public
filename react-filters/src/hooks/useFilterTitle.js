@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import getFilterTitle from '../utils/getFilterTitle';
+import { getFilterTitle } from '../utils';
 import defaultTitleMessages from '../messages/filterTitles';
 
 export default function useFilterTitle(

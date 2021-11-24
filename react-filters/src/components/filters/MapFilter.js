@@ -4,31 +4,21 @@ import { defineMessages, useIntl } from 'react-intl';
 import LoadableMapField from '../fields/LoadableMapField';
 import Panel from '../Panel';
 import useFilterTitle from '../../hooks/useFilterTitle';
-import ValueBadge from '../ValueBadge';
+import FilterPreviewer from '../FilterPreviewer';
 
 const subscription = { value: true };
 
 const messages = defineMessages({
   previewLabel: {
-    id: 'ReactFilters.MapFilter.previewLabel',
+    id: 'ReactFilters.filters.MapFilter.previewLabel',
     defaultMessage: 'Map',
   },
 });
 
-function DefaultPreviewRenderer({
-  label, onRemove, disabled, className
-}) {
-  return (
-    <span className={className}>
-      <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
-    </span>
-  );
-}
-
 function Preview({
   name,
   filter,
-  component = DefaultPreviewRenderer,
+  component = FilterPreviewer,
   disabled,
   ...rest
 }) {

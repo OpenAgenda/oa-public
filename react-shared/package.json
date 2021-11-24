@@ -16,7 +16,9 @@
   },
   "files": [
     "lib",
-    "esm"
+    "esm",
+    "css",
+    "scss"
   ],
   "bin": {
     "oa:extract-messages": "./scripts/extract-messages.js"
@@ -24,11 +26,12 @@
   "scripts": {
     "start": "start-storybook -c .storybook -p 9001 --ci",
     "prepack": "yarn clean && yarn build",
-    "build": "yarn build:esm && yarn build:cjs",
+    "build": "yarn build:esm && yarn build:cjs && yarn build:scss",
     "build:esm": "babel --copy-files src -d esm -s --env-name esm",
     "build:cjs": "babel --copy-files src -d lib -s",
+    "build:scss": "sass scss:css",
     "extract-messages": "yarn oa:extract-messages",
-    "clean": "rimraf esm lib",
+    "clean": "rimraf esm lib css",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged",
@@ -93,7 +96,8 @@
     "react-router-dom": "^5.1.2",
     "react-select": "^3.1.0",
     "redux": "^4.0.5",
-    "rimraf": "^3.0.1"
+    "rimraf": "^3.0.1",
+    "sass": "^1.43.4"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

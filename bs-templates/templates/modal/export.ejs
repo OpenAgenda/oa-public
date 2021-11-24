@@ -14,48 +14,60 @@
         <h2 class="export-title-md">Sélectionner le format</h2>
         <div class="form-group">
             <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt1"> PDF
+                <label for="pdf">
+                  <input id="pdf" class="radio-input" type="radio" name="format"> PDF
                 </label>
             </div>
             <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> JSON 
-                </label>
-                <span class="side-note">(une documentation détaillée de l'export JSON est <a>disponible ici</a>)</span>
-            </div>
-            <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> Microsoft Excel (xlsx)
+                <label for="json">
+                  <input id="json" class="radio-input selected" type="radio" name="format"> JSON 
                 </label>
             </div>
-            <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> Google Calendar
-                </label>
+            <div class="checkbox flex-container">
+              <button type="submit" class="btn btn-primary">Exporter</button>
+              <div class="margin-left-sm">
+                <label for="detailed">
+                  <input id="detailed" class="" type="checkbox" name="detailed"> Utiliser le format détaillé
+                </label><br />
+                <a href="#">Voir la documentation</a>
+              </div>
             </div>
+
+              <a href="#">Utiliser la précédente version de l'export JSON</a>
+              <p>( Documentation <a href="#">ici</a> )</p>
+
+
             <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> iCal
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> ICS
+                <label for="xlsx">
+                  <input id="xlsx" class="radio-input" type="radio" name="format"> Microsoft Excel (xlsx)
                 </label>
             </div>
             <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> RSS
+                <label for="gcal">
+                  <input id="gcal" class="radio-input" type="radio" name="format"> Google Calendar
                 </label>
             </div>
             <div class="radio">
-                <label>
-                  <input class="radio-input" type="radio" name="format" value="opt2"> CSV
+                <label for="ical">
+                  <input id="ical" class="radio-input" type="radio" name="format"> iCal
+                </label>
+            </div>
+            <div class="radio">
+                <label for="ics">
+                  <input id="ics" class="radio-input" type="radio" name="format"> ICS
+                </label>
+            </div>
+            <div class="radio">
+                <label for="ics">
+                  <input id="ics" class="radio-input" type="radio" name="format"> RSS
+                </label>
+            </div>
+            <div class="radio">
+                <label for="csv">
+                  <input id="csv" class="radio-input" type="radio" name="format"> CSV
                 </label>
             </div>
         </div>
-          <button type="submit" class="btn btn-default export-btn">Exporter</button>
     </form>
     </div>
   </section>

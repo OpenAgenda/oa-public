@@ -45,9 +45,13 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.city',
     defaultMessage: 'City',
   },
+  adminLevel3: {
+    id: 'ReactFilters.messages.filterTitles.adminLevel3',
+    defaultMessage: 'Administrative level 3',
+  },
   timings: {
     id: 'ReactFilters.messages.filterTitles.timings',
-    defaultMessage: 'Timings',
+    defaultMessage: 'Date',
   },
   createdAt: {
     id: 'ReactFilters.messages.filterTitles.createdAt',

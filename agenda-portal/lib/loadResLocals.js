@@ -1,6 +1,6 @@
 'use strict';
 
-const withDefaultFilterConfig = require('../client/lib/withDefaultFilterConfig');
+const { withDefaultFilterConfig } = require('@openagenda/react-filters');
 
 module.exports = async (req, res, next) => {
   const {
@@ -18,6 +18,7 @@ module.exports = async (req, res, next) => {
   const filters = rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl));
 
   Object.assign(res.locals, {
+    intl,
     agendaUid: uid || res.locals.agendaUid || req.params.agendaUid,
     agenda:
       req.app.locals.agenda

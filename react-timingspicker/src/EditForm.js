@@ -78,15 +78,14 @@ function MaskedTimeInput({
 }
 
 class EditForm extends Component {
-  subscription = { submitError: true };
+  subscription = { submitError: true, values: true };
 
-  handleSubmit = (values, ...rest) => {
-    const { valueToEdit, onSubmit } = this.props;
-    const { begin, end } = values;
+  parseValue = ({ begin, end, ...rest }) => {
+    const { valueToEdit } = this.props;
     const [beginHours, beginMinutes] = begin.split(':');
     const [endHours, endMinutes] = end.split(':');
 
-    const newValue = {
+    return {
       begin: dateFns.setHours(
         dateFns.setMinutes(valueToEdit.begin, parseInt(beginMinutes, 10)),
         parseInt(beginHours, 10)
@@ -95,7 +94,13 @@ class EditForm extends Component {
         dateFns.setMinutes(valueToEdit.end, parseInt(endMinutes, 10)),
         parseInt(endHours, 10)
       ),
+      ...rest
     };
+  };
+
+  handleSubmit = (values, ...rest) => {
+    const { onSubmit } = this.props;
+    const newValue = this.parseValue(values);
 
     if (!dateFns.isAfter(newValue.end, newValue.begin)) {
       return {
@@ -113,68 +118,79 @@ class EditForm extends Component {
     submitError,
     classNamePrefix,
     intl,
-    openRecurrencerModal,
     closeModal,
-  }) => (
-    <form onSubmit={handleSubmit}>
-      <h3>{intl.formatMessage(messages.title)}</h3>
+    form
+  }) => {
+    const openRecurrencer = e => {
+      if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+        e.preventDefault();
+        return;
+      }
 
-      {typeof closeModal === 'function' ? (
-        <div className={`${classNamePrefix}close-modal`}>
-          <FaRegTimesCircle onClick={closeModal} />
+      form.change('openRecurrencer', true);
+      handleSubmit();
+    };
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <h3>{intl.formatMessage(messages.title)}</h3>
+
+        {typeof closeModal === 'function' ? (
+          <div className={`${classNamePrefix}close-modal`}>
+            <FaRegTimesCircle onClick={closeModal} />
+          </div>
+        ) : null}
+
+        <Field
+          name="begin"
+          placeholder="09:00"
+          // type="time" /* is not supported in Safari or Internet Explorer 12 and earlier versions */
+          label={intl.formatMessage(messages.startTime)}
+          component={MaskedTimeInput}
+          validate={validateTime}
+          autoComplete="off"
+          classNamePrefix={classNamePrefix}
+          intl={intl}
+        />
+
+        <Field
+          name="end"
+          placeholder="18:00"
+          // type="time" /* is not supported in Safari or Internet Explorer 12 and earlier versions */
+          label={intl.formatMessage(messages.endTime)}
+          component={MaskedTimeInput}
+          validate={validateTime}
+          autoComplete="off"
+          classNamePrefix={classNamePrefix}
+          intl={intl}
+        />
+
+        <button type="submit">{intl.formatMessage(messages.adjust)}</button>
+
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={openRecurrencer}
+          onKeyPress={openRecurrencer}
+          className={`${classNamePrefix}recurrencer-button`}
+        >
+          {intl.formatMessage(messages.openRecurrencerModal)}
         </div>
-      ) : null}
 
-      <Field
-        name="begin"
-        placeholder="09:00"
-        // type="time" /* is not supported in Safari or Internet Explorer 12 and earlier versions */
-        label={intl.formatMessage(messages.startTime)}
-        component={MaskedTimeInput}
-        validate={validateTime}
-        autoComplete="off"
-        classNamePrefix={classNamePrefix}
-        intl={intl}
-      />
-
-      <Field
-        name="end"
-        placeholder="18:00"
-        // type="time" /* is not supported in Safari or Internet Explorer 12 and earlier versions */
-        label={intl.formatMessage(messages.endTime)}
-        component={MaskedTimeInput}
-        validate={validateTime}
-        autoComplete="off"
-        classNamePrefix={classNamePrefix}
-        intl={intl}
-      />
-
-      <button type="submit">{intl.formatMessage(messages.adjust)}</button>
-
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={openRecurrencerModal}
-        onKeyPress={openRecurrencerModal}
-        className={`${classNamePrefix}recurrencer-button`}
-      >
-        {intl.formatMessage(messages.openRecurrencerModal)}
-      </div>
-
-      {submitError && (
-        <div className={`${classNamePrefix}error`}>
-          {intl.formatMessage(messages[submitError.message])}
-        </div>
-      )}
-    </form>
-  );
+        {submitError && (
+          <div className={`${classNamePrefix}error`}>
+            {intl.formatMessage(messages[submitError.message])}
+          </div>
+        )}
+      </form>
+    );
+  };
 
   render() {
     const {
       initialValues,
       classNamePrefix,
       intl,
-      openRecurrencerModal,
       closeModal,
     } = this.props;
 
@@ -186,7 +202,6 @@ class EditForm extends Component {
         render={this.renderForm}
         classNamePrefix={classNamePrefix}
         intl={intl}
-        openRecurrencerModal={openRecurrencerModal}
         closeModal={closeModal}
       />
     );

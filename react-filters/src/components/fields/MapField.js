@@ -8,7 +8,11 @@ import React, {
 } from 'react';
 import cn from 'classnames';
 import {
-  MapContainer, Marker, TileLayer, useMapEvents
+  MapContainer,
+  Marker,
+  TileLayer,
+  useMapEvents,
+  useMap
 } from 'react-leaflet';
 import L from 'leaflet';
 import { css } from '@emotion/react';
@@ -157,6 +161,7 @@ function isEmptyValue(value) {
 }
 
 function MarkerClusterIcon({ latitude, longitude, eventCount }) {
+  const map = useMap();
   const position = useMemo(() => [latitude, longitude], [latitude, longitude]);
   const icon = useMemo(
     () => new L.DivIcon({
@@ -171,7 +176,17 @@ function MarkerClusterIcon({ latitude, longitude, eventCount }) {
     [eventCount]
   );
 
-  return <Marker position={position} icon={icon} />;
+  return (
+    <Marker
+      position={position}
+      icon={icon}
+      eventHandlers={{
+        click: () => {
+          map.setView(position, Math.min(map.getZoom() + 1, map.getMaxZoom()));
+        },
+      }}
+    />
+  );
 }
 
 function OnMapMove({ onChange, programmaticMoveRef }) {
@@ -309,6 +324,7 @@ const Map = React.forwardRef(
           // scrollWheelZoom={false}
           gestureHandling
           gestureHandlingOptions={gestureHandlingOptions}
+          doubleClickZoom
           worldCopyJump
           // minZoom={1}
           noWrap

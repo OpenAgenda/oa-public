@@ -231,12 +231,6 @@
       "value": "Search with map"
     }
   ],
-  "ReactFilters.MapFilter.previewLabel": [
-    {
-      "type": 0,
-      "value": "Map"
-    }
-  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
@@ -273,16 +267,52 @@
       "value": "Tomorrow"
     }
   ],
+  "ReactFilters.filters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Map"
+    }
+  ],
   "ReactFilters.filters.searchFilter.placeholder": [
     {
       "type": 0,
       "value": "Search"
     }
   ],
+  "ReactFilters.filters.searchFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.mixed": [
+    {
+      "type": 0,
+      "value": "Mixed"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.offline": [
+    {
+      "type": 0,
+      "value": "Offline"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
   "ReactFilters.messages.filterTitles.addMethod": [
     {
       "type": 0,
       "value": "Provenance"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Administrative level 3"
     }
   ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
@@ -366,13 +396,31 @@
   "ReactFilters.messages.filterTitles.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Date"
     }
   ],
   "ReactFilters.messages.filterTitles.updatedAt": [
     {
       "type": 0,
       "value": "Date of update"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.current": [
+    {
+      "type": 0,
+      "value": "Current"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.passed": [
+    {
+      "type": 0,
+      "value": "Passed"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
     }
   ]
 }

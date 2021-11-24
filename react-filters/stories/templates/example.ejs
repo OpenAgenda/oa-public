@@ -1,0 +1,386 @@
+<div class="container">
+  <div class="row pt-4">
+    <div class="col-md-4 mb-4 order-md-12">
+      <div
+        data-oa-filter="0"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'search', name:'search' }) %>"
+      ></div>
+    </div>
+    <div class="col-md-8 order-md-1 mb-4">
+      <div class="row">
+        <div class="col-md-10 offset-md-2">
+          <div
+            data-oa-widget="1"
+            data-oa-widget-params="<%- JSON.stringify({
+              message: {
+                id: 'eventsTotal',
+                defaultMessage:
+                  '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+              },
+              name: 'total',
+            }) %>"
+          ></div>
+          <div
+            class="active-filters"
+            data-oa-widget="2"
+            data-oa-widget-params="<%- JSON.stringify({ name: 'activeFilters' }) %>"
+          ></div>
+          <button class="main-show-sidebar float-right btn btn-outline-primary btn-sm wbg" data-sidebar-toggle>
+            <i class="fa fa-plus"></i>
+            Filtres
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="events">
+        <div class="row">
+          <div class="offset-md-2 col-6 col-md-6 mb-4">
+            <ul class="pagination">
+              <li class="page-item   active">
+                <a class="page-link" href="/p/1">
+                  1
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-4 mb-4 text-right">
+            <div class="btn-group wbg exports">
+              <!--<a
+                 role="button"
+                 href="https://openagenda.com/agendas/82328216/events.csv"
+                 class="btn btn-outline-primary btn-sm">csv</a>-->
+              <a role="button" href="https://openagenda.com/agendas/82328216/events.xlsx" class="btn btn-outline-primary btn-sm">xls</a>
+              <a role="button" href="https://openagenda.com/agendas/82328216/events.json" class="btn btn-outline-primary btn-sm">json</a>
+              <a role="button" href="https://openagenda.com/agendas/82328216/events.rss" class="btn btn-outline-primary btn-sm">rss</a>
+              <a role="button" href="https://openagenda.com/agendas/82328216/events.pdf" class="btn btn-outline-primary btn-sm">pdf</a>
+              <a href="#" role="button" data-toggle="modal" data-target="#share" class="js_share_code btn btn-outline-primary btn-sm">&lt;&gt;</a>
+            </div>
+            <div class="modal fade" id="share" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Intégrer cette sélection dans votre site</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&#xD7;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="input-group">
+                      <input class="js_share form-control" type="text" value disabled>
+                      <button data-copy-share data-copy-label="Copier" data-copied-label="Copié!" data-copied-class="btn btn-success" data-copy-class="btn btn-outline-secondary" type="button"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-unstyled js_progressive_load_disabled">
+          <li>
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <span class="text-muted">
+                  Dans 4 heures
+                </span>
+              </div>
+              <div class="col-md-10">
+                <a href="http://localhost:3000/events/national-museum-of-the-marine-corps-reopening?nc=eyJpbmRleCI6MCwidG90YWwiOjR9" class="event-item">
+                  <div class="wbg px-4 py-3">
+                    <h3>National Museum of the Marine Corps Reopening</h3>
+                    <p>National Museum of the Marine Corps Reopening</p>
+                    <p></p>
+                    <p></p>
+                  </div>
+                  <div class="text-center">
+                    <img class="img-fluid" src="https://cibul.s3.amazonaws.com/0684074adf954c6db6fbb2d6d6db253d.base.image.jpg" alt="National Museum of the Marine Corps Reopening">
+                  </div>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <span class="text-muted">
+                  Il y a 2 heures
+                </span>
+              </div>
+              <div class="col-md-10">
+                <a href="http://localhost:3000/events/from-memling-to-rubens-the-golden-age-of-flanders?nc=eyJpbmRleCI6MSwidG90YWwiOjR9" class="event-item">
+                  <div class="wbg px-4 py-3">
+                    <h3>From Memling to Rubens: The Golden Age of Flanders</h3>
+                    <p>The magnificent exhibition introduces the abundant 15th&#x2012;17th-century Flemish art collection of The Phoebus Foundation.</p>
+                    <p></p>
+                    <p></p>
+                  </div>
+                  <div class="text-center">
+                    <img class="img-fluid" src="https://cibul.s3.amazonaws.com/716171e7d5ac4790bd474ee0fdd3068a.base.image.jpg" alt="The magnificent exhibition introduces the abundant 15th&#x2012;17th-century Flemish art collection of The Phoebus Foundation.">
+                  </div>
+                  <script type="application/ld+json">
+                    {
+                      "@id": "http://localhost:3000/permalinks/events/12396810",
+                      "@context": "http://schema.org",
+                      "@type": "Event",
+                      "name": "From Memling to Rubens: The Golden Age of Flanders",
+                      "description": "The magnificent exhibition introduces the abundant 15th‒17th-century Flemish art collection of The Phoebus Foundation.",
+                      "url": "http://localhost:3000/permalinks/events/12396810",
+                      "image": "https://cibul.s3.amazonaws.com/716171e7d5ac4790bd474ee0fdd3068a.base.image.jpg",
+                      "startDate": "2021-04-23T10:00",
+                      "endDate": "2021-10-31T18:00",
+                      "duration": "PT4593H",
+                      "typicalAgeRange": "-",
+                      "location": {
+                        "@type": "Place",
+                        "name": "Kadriorg Art Museum",
+                        "address": {
+                          "@type": "PostalAddress",
+                          "streetAddress": "Weizenbergi 37, 10127, Tallinn, Estonia",
+                          "addressLocality": "Tallinn",
+                          "addressRegion": null,
+                          "postalCode": "10127",
+                          "addressCountry": "EE"
+                        },
+                        "geo": {
+                          "@type": "GeoCoordinates",
+                          "latitude": 59.438596,
+                          "longitude": 24.791087
+                        }
+                      }
+                    }
+                  </script>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <span class="text-muted">
+                  Dans 4 jours
+                </span>
+              </div>
+              <div class="col-md-10">
+                <a href="http://localhost:3000/events/reimagining-museums-for-climate-action-5687388?nc=eyJpbmRleCI6MiwidG90YWwiOjR9" class="event-item">
+                  <div class="wbg px-4 py-3">
+                    <h3>Reimagining Museums for Climate Action</h3>
+                    <p>Reimagining Museums for Climate Action website launch</p>
+                    <p></p>
+                    <p></p>
+                  </div>
+                  <div class="text-center">
+                    <img class="img-fluid" src="https://cibul.s3.amazonaws.com/03d4aa96f2e140bca3a54b52fd81ed67.base.image.jpg" alt="Reimagining Museums for Climate Action website launch">
+                  </div>
+                  <script type="application/ld+json">
+                    {
+                      "@id": "http://localhost:3000/permalinks/events/20921305",
+                      "@context": "http://schema.org",
+                      "@type": "Event",
+                      "name": "Reimagining Museums for Climate Action",
+                      "description": "Reimagining Museums for Climate Action website launch",
+                      "url": "http://localhost:3000/permalinks/events/20921305",
+                      "image": "https://cibul.s3.amazonaws.com/03d4aa96f2e140bca3a54b52fd81ed67.base.image.jpg",
+                      "startDate": "2021-05-18T08:00",
+                      "endDate": "2021-11-30T20:00",
+                      "duration": "PT4717H",
+                      "typicalAgeRange": "12-121",
+                      "location": {
+                        "@type": "Place",
+                        "name": "Online via www.museumsforclimateaction.org",
+                        "address": {
+                          "@type": "PostalAddress",
+                          "streetAddress": "UCL Institute of Archaeology",
+                          "addressLocality": "London",
+                          "addressRegion": "England",
+                          "postalCode": "WC1H 0PY",
+                          "addressCountry": "GB"
+                        },
+                        "geo": {
+                          "@type": "GeoCoordinates",
+                          "latitude": 51.524921,
+                          "longitude": -0.131624
+                        }
+                      }
+                    }
+                  </script>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div class="col-md-2 text-center">
+                <span class="text-muted">
+                  Dans 20 jours
+                </span>
+              </div>
+              <div class="col-md-10">
+                <a href="http://localhost:3000/events/wander?nc=eyJpbmRleCI6MywidG90YWwiOjR9" class="event-item">
+                  <div class="wbg px-4 py-3">
+                    <h3>Wander &#x6F2B;</h3>
+                    <p>A psychogeography and city-criticism contemporary art showcase</p>
+                    <p></p>
+                    <p></p>
+                  </div>
+                  <div class="text-center">
+                    <img class="img-fluid" src="https://cibul.s3.amazonaws.com/af4c174b73df492d85c545f949a0856c.base.image.jpg" alt="A psychogeography and city-criticism contemporary art showcase">
+                  </div>
+                  <script type="application/ld+json">
+                    {
+                      "@id": "http://localhost:3000/permalinks/events/18585755",
+                      "@context": "http://schema.org",
+                      "@type": "Event",
+                      "name": "Wander 漫",
+                      "description": "A psychogeography and city-criticism contemporary art showcase",
+                      "url": "http://localhost:3000/permalinks/events/18585755",
+                      "image": "https://cibul.s3.amazonaws.com/af4c174b73df492d85c545f949a0856c.base.image.jpg",
+                      "startDate": "2021-03-01T00:00",
+                      "endDate": "2021-11-14T23:59",
+                      "duration": "PT6215H59M",
+                      "typicalAgeRange": "15-85",
+                      "location": {
+                        "@type": "Place",
+                        "name": "Online via https://www.psychogeographywander.net/",
+                        "address": {
+                          "@type": "PostalAddress",
+                          "streetAddress": "Taipei City",
+                          "addressLocality": "古亭",
+                          "addressRegion": null,
+                          "postalCode": "106",
+                          "addressCountry": "TW"
+                        },
+                        "geo": {
+                          "@type": "GeoCoordinates",
+                          "latitude": 25.024951,
+                          "longitude": 121.529217
+                        }
+                      }
+                    }
+                  </script>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="row my-4">
+          <div class="offset-md-2 col-md-8">
+            <ul class="pagination">
+              <li class="page-item   active">
+                <a class="page-link" href="/p/1">
+                  1
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="sidebar">
+        <div class="mobile-top-nav text-center" data-sidebar-toggle>
+          <button class="btn btn-link">Retour à la liste</button>
+        </div>
+        <div class="sidebar-wrapper">
+          <div class="my-4">
+            <div
+              class="map-container"
+              data-oa-filter="3"
+              data-oa-filter-params="<%- JSON.stringify({
+                tileUrl: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                tileAttribution: 'Map data © OpenStreetMap contributors',
+                searchWithMap: true,
+                searchMessage: 'Rechercher quand je déplace la carte',
+                type: 'map',
+                name: 'geo',
+              }) %>"
+            ></div>
+          </div>
+          <div class="my-4">
+            <div
+              data-oa-filter="4"
+              data-oa-filter-params="<%- JSON.stringify({ type: 'dateRange', name: 'timings' }) %>"
+            ></div>
+            <div
+              data-oa-filter="5"
+              data-oa-filter-params="<%- JSON.stringify({
+                staticRanges: ['today', 'tomorrow'],
+                type: 'definedRange',
+                name: 'timings',
+              }) %>"
+            ></div>
+          </div>
+          <div class="my-4">
+            <b>Passé / En cours / À venir</b>
+            <div
+              data-oa-filter="6"
+              data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'relative' }) %>"
+            ></div>
+            <b>Mode de participation</b>
+            <div
+              data-oa-filter="7"
+              data-oa-filter-params="<%- JSON.stringify({ inputType: 'radio', type: 'choice', name: 'attendanceMode' }) %>"
+            ></div>
+            <b>Filtres personnalisés</b>
+            <div
+              class="custom-example checkbox inactive"
+              data-oa-filter="8"
+              data-oa-filter-params="<%- JSON.stringify({
+                aggregation: null,
+                type: 'custom',
+                query: { attendanceMode: '1', relative: ['current', 'upcoming'] },
+                activeClass: 'active',
+                inactiveClass: 'inactive',
+              }) %>"
+            >
+              <label for="nothing">
+                <input type="checkbox" tabindex="-1" readonly checked>
+                <input type="checkbox" tabindex="-1" readonly>
+                En cours + à venir + hors ligne
+              </label>
+            </div>
+            <div
+              class="custom-example checkbox inactive"
+              data-oa-filter="9"
+              data-oa-filter-params="<%- JSON.stringify({
+                aggregation: null,
+                type: 'custom',
+                query: {
+                  timings: {
+                    lte: '2021-06-24T21:59:59.999Z',
+                    gte: '2021-06-23T22:00:00.000Z',
+                  },
+                },
+                activeClass: 'active',
+                inactiveClass: 'inactive',
+                handlerSelector: '.checkbox',
+              }) %>"
+            >
+              <label for="nothing">
+                <input type="checkbox" tabindex="-1" readonly checked>
+                <input type="checkbox" tabindex="-1" readonly>
+                Jeudi 24 juin
+              </label>
+            </div>
+          </div>
+          <span
+            class="mobile-bottom-nav"
+            data-sidebar-toggle
+            data-oa-widget="10"
+            data-oa-widget-params="<%- JSON.stringify({
+              message: {
+                id: 'eventsTotal',
+                defaultMessage:
+                  '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+              },
+              name: 'total',
+            }) %>"
+          ></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -119,7 +119,8 @@
     float: left;
 
     // Links rendered as pills
-    > a {
+    > a,
+    > button {
       border-radius: $nav-pills-border-radius;
     }
     + li {
@@ -127,7 +128,8 @@
     }
 
     // Active state
-    &.active > a {
+    &.active > a,
+    &.active > button {
       &,
       &:hover,
       &:focus {

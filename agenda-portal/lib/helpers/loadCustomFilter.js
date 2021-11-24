@@ -27,7 +27,6 @@ module.exports = hbs => ({ fn, hash, data }) => {
     query,
     activeClass,
     inactiveClass,
-    destSelector: `[data-oa-filter="${i}"]`,
     ...restOptions
   };
 
