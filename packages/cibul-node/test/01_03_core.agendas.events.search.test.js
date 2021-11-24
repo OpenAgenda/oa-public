@@ -2,6 +2,7 @@
 
 const axios = require('axios');
 const ih = require('immutability-helper');
+const { produce } = require('immer');
 
 const api = require('../api');
 const Core = require('../core');
@@ -50,6 +51,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     it('response object contains total, events and sort keys', async () => {
       const response = await core.agendas(2).events.search({});
       expect(Object.keys(response)).toEqual(['total', 'events', 'sort']);
+    });
+
+    it('event item contains description field by default', async () => {
+      const { events } = await core.agendas(2).events.search({});
+
+      expect(Object.keys(events[0]).includes('description')).toBeTruthy();
     });
 
     it('if neither userUid or access are provided, only published events are returned', async () => {
@@ -118,6 +125,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       expect(events[0].longDescription.fr).toContain('<iframe');
+    });
+
+    it('aggregations can requested through options', async () => {
+      const { aggregations } = await core.agendas(2).events.search({}, { size: 0 }, {
+        aggregations: ['states']
+      });
+      expect(aggregations.states).toBeDefined();
     });
   });
 
@@ -302,11 +316,44 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         } catch (e) {
           // console.log(e);
         }
+
+        try {
+          responses.push(await axios(produce(axiosParams, draft => {
+            draft.params.size = 2;
+            draft.params.from = 1;
+          })).then(r => r.data));
+        } catch (e) {
+          // console.log(e);
+        }
       });
 
       it('after key allows getting the next results', () => {
         expect(responses[0].events[0].uid).toBe(1);
         expect(responses[1].events[0].uid).toBe(2);
+      });
+
+      it('from can be used via api', async () => {
+        expect(responses[2].events[0].uid).toEqual(responses[1].events[0].uid);
+      });
+    });
+
+    describe('options', () => {
+      it('aggregations can be requested through query params', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
+            state: [-1, 0, 1, 2],
+            detailed: 1,
+            aggregations: 'states'
+          }
+        }).then(r => r.data);
+
+        expect(response.aggregations).toBeDefined();
       });
     });
   });

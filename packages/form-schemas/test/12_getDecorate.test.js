@@ -8,7 +8,7 @@ describe( 'extended events - functional (iso): getDecorate', () => {
 
   let decorate;
 
-  before( () => {
+  beforeAll(() => {
 
     decorate = getDecorate( [ {
       field: 'atextfield',
@@ -72,9 +72,9 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       label: 'An image'
     } ] );
 
-  } );
+  });
 
-  it( 'returns a decorated object', () => {
+  it('returns a decorated object', () => {
 
     const decorated = decorate( {
       anotherfield: 12,
@@ -120,9 +120,9 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       }
     } );
 
-  } );
+  });
 
-  it( 'returns a decorated object with flattened labels', () => {
+  it('returns a decorated object with flattened labels', () => {
 
     const decorated = decorate( {
       anotherfield: 12,
@@ -151,9 +151,9 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       ]
     } );
 
-  } );
+  });
 
-  it( 'returns a decorated object with labels as keys', () => {
+  it('returns a decorated object with labels as keys', () => {
 
     const decorated = decorate( {
       anotherfield: 12,
@@ -182,9 +182,9 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       ]
     } );
 
-  } );
+  });
 
-  it( 'returns a decorated object with labels as values', () => {
+  it('returns a decorated object with labels as values', () => {
 
     const decorated = decorate( {
       anotherfield: 12,
@@ -211,9 +211,9 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       }
     } );
 
-  } );
+  });
 
-  it( 'excludes object values from decorated object', () => {
+  it('excludes object values from decorated object', () => {
 
     const decorated = decorate( {
       anotherfield: 12,
@@ -236,6 +236,6 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       'A multiple choice': [ 'La checkbox 1', 'Checkbox 3' ]
     } );
 
-  } );
+  });
 
 } );

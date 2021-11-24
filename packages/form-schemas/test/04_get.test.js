@@ -2,7 +2,7 @@
 
 const should = require('should');
 
-const Service = require( '../');
+const Service = require( '../server');
 const fixtures = require('./service/fixtures');
 const config = require('../testconfig');
 
@@ -18,24 +18,24 @@ describe('form-schemas -04- functional (server): get', () => {
   let id;
   let secondId;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       'form_schema.data.sql'
     ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     config.mysql.database = 'oatest_fs';
     svc = Service(config);
   });
 
-  before(async () => {
+  beforeAll(async () => {
     id = (await svc.create(fx.schemas.integer)).id;
     secondId = (await svc.create(fx.schemas.number)).id;
   });
 
-  after(() => {
+  afterAll(() => {
     svc.internals.client.destroy();
   });
 

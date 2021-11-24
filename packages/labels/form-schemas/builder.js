@@ -327,6 +327,14 @@ module.exports = {
     "en": "Yes/no choice",
     "io": "crwdns14768:0crwdne14768:0"
   },
+  "dateFieldType": {
+    "fr": "Sélecteur de date",
+    "en": "Date selection"
+  },
+  "dateFieldTypeInfo": {
+    "fr": "Un calendrier permet la sélection d'une date",
+    "en": "A calendar to select a date"
+  },
   "imageFieldType": {
     "fr": "Image",
     "en": "Image",

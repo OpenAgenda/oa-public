@@ -277,7 +277,10 @@ module.exports = core => {
     '/agendas/:agendaUid/locations',
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .list(req.query, req.query)
+      .list(req.query, req.query, {
+        useAfter: !req.query.from || !!req.query.after,
+        eventCounts: !!req.query.eventCounts
+      })
       .then(({ items, total, after }) => res.json({
         success: true,
         locations: items,

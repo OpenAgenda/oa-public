@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  groups: [ {
+  groups: [{
     label: 'Getting Started',
     slug: 'getting-started'
   }, {
@@ -13,8 +13,8 @@ module.exports = {
   }, {
     label: 'Form builder',
     slug: 'builder'
-  } ],
-  cases: [ {
+  }],
+  cases: [{
     name: 'The simplest empty form',
     description: 'To get started',
     link: '/simplest',
@@ -120,14 +120,14 @@ module.exports = {
     link: '/email',
     group: 'types'
   }, {
+    name: 'A date field',
+    description: 'A field to define a date',
+    link: '/date',
+    group: 'types'
+  }, {
     name: 'A radio field',
     description: 'A set of single choice options',
     link: '/radio',
-    group: 'types'
-  }, {
-    name: 'A select field',
-    description: 'A set of single choice options in a select',
-    link: '/select',
     group: 'types'
   }, {
     name: 'Checkboxes',
@@ -223,5 +223,5 @@ module.exports = {
     name: 'A form builder with a custom field type',
     description: 'When a field type does not have a defined field schema, only labels can be edited',
     link: '/formbuilderwithunhandledtypes'
-  } ]
-}
+  }]
+};
