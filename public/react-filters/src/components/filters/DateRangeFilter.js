@@ -3,9 +3,9 @@ import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { parseISO, endOfDay, isSameDay } from 'date-fns';
 import useFilterTitle from '../../hooks/useFilterTitle';
-import Panel from '../Panel';
-import ValueBadge from '../ValueBadge';
 import DateRangePicker from '../fields/DateRangePicker';
+import Panel from '../Panel';
+import FilterPreviewer from '../FilterPreviewer';
 
 const messages = defineMessages({
   singleDate: {
@@ -88,20 +88,10 @@ function parseValue(value) {
   };
 }
 
-function DefaultPreviewRenderer({
-  label, onRemove, disabled, className
-}) {
-  return (
-    <span className={className}>
-      <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
-    </span>
-  );
-}
-
 function Preview({
   name,
   staticRanges = [],
-  component = DefaultPreviewRenderer,
+  component = FilterPreviewer,
   disabled,
   ...rest
 }) {

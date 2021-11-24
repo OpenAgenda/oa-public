@@ -24,5 +24,7 @@ export default (href, query = {}) => {
   updatedHrefParts.pop(); // goes the event
   updatedHrefParts.pop(); // goes the /events/
 
+  console.log('setListPagehrefFromContext');
+
   return `${updatedHrefParts.join('/')}?${qs.stringify({ oaq: current })}`;
 };

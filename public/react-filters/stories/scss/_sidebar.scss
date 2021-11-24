@@ -1,0 +1,54 @@
+.sidebar {
+  .mobile-top-nav {
+    display: none;
+  }
+
+  .mobile-bottom-nav {
+    display: none;
+    position: absolute;
+    background: $oa-blue;
+    padding: 15px 10px;
+    width: 100%;
+    left: 0;
+    color: white;
+    text-align: center;
+    bottom: 0;
+  }
+
+  h5 {
+    color: $oa-blue;
+    margin-bottom: 20px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    position: fixed;
+    top: 0;
+    left: 100vw;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    z-index: 1000;
+    transition: left 0.8s;
+
+    .mobile-top-nav,
+    .mobile-bottom-nav {
+      display: block;
+    }
+
+    .sidebar-wrapper {
+      overflow: scroll;
+      padding: 0 30px 70px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  body.sidebar-open {
+    overflow: hidden;
+    .sidebar {
+      left: 0;
+    }
+  }
+}

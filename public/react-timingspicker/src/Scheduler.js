@@ -278,24 +278,14 @@ class Scheduler extends Component {
     );
   };
 
-  openRecurrencerModal = e => {
-    if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
-      e.preventDefault();
-      return;
-    }
+  openRecurrencerModal = editedValue => {
+    document.addEventListener('click', this.handleOutsideClick, true);
 
-    // execute this after close the current modal
-    setTimeout(() => {
-      document.addEventListener('click', this.handleOutsideClick, true);
-
-      const { valueToEdit } = this.state;
-
-      this.setState({
-        showEditModal: false,
-        valueToEdit: null,
-        showRecurrencerModal: true,
-        valueToDuplicate: valueToEdit,
-      });
+    this.setState({
+      showEditModal: false,
+      valueToEdit: null,
+      showRecurrencerModal: true,
+      valueToDuplicate: editedValue,
     });
   };
 
@@ -352,13 +342,17 @@ class Scheduler extends Component {
     });
   };
 
-  handleEditSubmit = value => {
+  handleEditSubmit = ({ openRecurrencer, ...value }) => {
     const { valueToEdit } = this.state;
     const selectorEl = this.selectorRef.current;
 
     selectorEl.updateValue(valueToEdit, value);
 
     this.handleCloseEditModal();
+
+    if (openRecurrencer) {
+      this.openRecurrencerModal(value);
+    }
   };
 
   extractTimings = frequence => {
@@ -555,7 +549,6 @@ class Scheduler extends Component {
               initialValues={editInitialValues}
               onSubmit={this.handleEditSubmit}
               classNamePrefix={classNamePrefix}
-              openRecurrencerModal={this.openRecurrencerModal}
               valueToEdit={valueToEdit}
               closeModal={this.handleCloseEditModal}
             />

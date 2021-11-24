@@ -9,6 +9,10 @@ module.exports = (fields, preferredlang, obj) => ih(
     (update, field) => {
       const fieldValue = _.get(obj, field);
 
+      if (!fieldValue) {
+        return update;
+      }
+
       return _.set(update, field, {
         $set: _.get(
           fieldValue,

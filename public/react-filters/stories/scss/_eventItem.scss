@@ -1,0 +1,18 @@
+.event-item {
+
+  border: 1px transparent solid;
+  border-radius: 3px;
+
+  &:hover {
+    border: 1px $oa-blue solid;
+  }
+
+  color: $oa-dark;
+  display: block;
+  margin-bottom: 40px;
+
+  h3 {
+    font-size: 1.3em;
+  }
+
+}

@@ -1,0 +1,29 @@
+.preview {
+
+  text-align: center;
+
+  .row {
+
+    text-align: left;
+    justify-content: center;
+
+    .card-link {
+
+      color: inherit;
+
+      .card {
+
+        border: 1px solit transparent;
+
+        &:hover {
+          border: 1px solid $oa-blue;
+        }
+
+      }
+
+
+    }
+
+  }
+
+}

@@ -1,0 +1,36 @@
+.pagination {
+  display: inline-block;
+  margin-bottom: 0;
+
+  .page-item {
+    display: inline-block;
+
+    .page-link {
+      padding: 4px 10px;
+    }
+
+    .page-link,
+    &:last-child .page-link,
+    &:first-child .page-link {
+      border-radius: 100px;
+    }
+
+    &.next,
+    &.previous {
+      position: relative;
+      height: 1em;
+
+      .page-link {
+        position: absolute;
+        top: -4px;
+        background: none;
+        color: $oa-gray;
+        border: none;
+      }
+
+      &.previous .page-link {
+        right: 0;
+      }
+    }
+  }
+}

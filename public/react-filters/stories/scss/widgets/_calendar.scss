@@ -1,0 +1,105 @@
+.ccal {
+
+  * {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+
+  ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul.calweekdays,
+  .calbody ul {
+    li {
+
+      border: 2px solid $oa-gray-lighter;
+      cursor: pointer;
+      color: $oa-gray;
+      display: inline-block;
+      line-height: 25px;
+      text-align: center;
+      transition: color 0.1s;
+      width: 1 / 7 * 100%;
+
+      &:hover {
+        color: $oa-blue;
+      }
+
+      &.today {
+        font-weight: bold;
+        color: $oa-blue;
+      }
+
+    }
+  }
+
+  .calbody,
+  .calhead {
+    box-sizing: border-box;
+  }
+
+  .calbody {
+    li:hover {
+      box-shadow: 0 0 0 1px $oa-blue inset;
+    }
+  }
+
+  .calprev, .calnext {
+    opacity: 0.2;
+  }
+
+  .calweekdays {
+    li {
+      cursor: auto;
+
+      &:hover {
+        color: $oa-gray;
+      }
+    }
+  }
+
+  .calmonthnav {
+    background: $oa-gray-lighter;
+    border-bottom: 1px solid $oa-silver;
+    line-height: 46px;
+  }
+
+  .hasdates {
+    background: $oa-white;
+  }
+
+  .selected {
+    background: $oa-blue;
+    border-radius: 0;
+
+    span {
+      color: $oa-white;
+    }
+
+    &:hover {
+      color: $oa-white;
+      opacity: 0.9;
+    }
+  }
+
+  .preselected {
+
+    background: $oa-blue;
+    opacity: 0.8;
+
+    span {
+      color: $oa-white;
+    }
+
+  }
+
+}

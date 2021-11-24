@@ -2,74 +2,65 @@
 
 const _ = require('lodash');
 const qs = require('qs');
+const { filtersToAggregations } = require('@openagenda/react-filters');
 const paginate = require('../lib/paginate');
 
-function filterToAggragation(filter) {
-  if (filter.aggregation === null) {
-    return false;
-  }
-
-  return {
-    key: filter.name,
-    type: filter.name,
-    ...filter.aggregation,
-  };
-}
-
-module.exports = withAggregations => (req, res, next) => {
+module.exports = withAggs => async (req, res, next) => {
+  const proxy = req.app.get('proxy');
   const transform = req.app.get('transforms').event.listItem;
+  const { filters, agendaUid } = res.locals;
 
-  const aggs = withAggregations
-    ? res.locals.filters
-      .map(filterToAggragation)
-      .filter(Boolean)
-    : undefined;
+  try {
+    let filtersBase;
 
-  const needViewport = res.locals.filters.some(filter => filter.type === 'map');
+    if (withAggs) {
+      filtersBase = (await proxy.list(
+        agendaUid,
+        {
+          aggregations: filtersToAggregations(filters, true),
+          limit: 0
+        }
+      )).aggregations;
+    }
 
-  if (withAggregations && needViewport) {
-    aggs.unshift({
-      key: 'viewport',
-      type: 'viewport'
-    });
-  }
-
-  req.app
-    .get('proxy')
-    .list(
-      res.locals.agendaUid,
-      _.assign({
-        aggregations: aggs
-      }, req.query, {
-        page: parseInt(_.get(req, 'params.page', 1), 10),
-      })
-    )
-    .then(({
+    const {
       total,
       offset,
       limit,
       events,
       aggregations
-    }) => {
-      const pages = paginate({
-        offset,
-        limit,
-        total,
-      });
+    } = await proxy
+      .list(
+        agendaUid,
+        {
+          aggregations: withAggs ? filtersToAggregations(filters) : undefined,
+          ...req.query,
+          page: parseInt(_.get(req, 'params.page', 1), 10)
+        }
+      );
 
-      req.data = _.assign(req.data || {}, {
-        query: req.query,
-        searchString: qs.stringify(req.query, { addQueryPrefix: true }),
-        total,
-        events: events.map((e, index) => transform(e, req, res, {
-          total,
-          index: offset + index,
-        })),
-        aggregations,
-        pages,
-        hasPages: pages.length > 1,
-      });
+    const pages = paginate({
+      offset,
+      limit,
+      total,
+    });
 
-      next();
-    }, next);
+    req.data = _.assign(req.data || {}, {
+      query: req.query,
+      searchString: qs.stringify(req.query, { addQueryPrefix: true }),
+      total,
+      events: events.map((e, index) => transform(e, req, res, {
+        total,
+        index: offset + index,
+      })),
+      aggregations,
+      pages,
+      hasPages: pages.length > 1,
+      filtersBase
+    });
+
+    next();
+  } catch (err) {
+    next(err);
+  }
 };

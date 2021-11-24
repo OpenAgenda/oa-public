@@ -9,6 +9,7 @@
   "contribute": "Proposer un événement",
   "eventsTotal": "{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}",
   "onlineAccessLink": "Accéder à l'événement en ligne",
+  "city": "Ville",
 
   "searchPlaceholder": "Rechercher",
   "searchWhenMoving": "Rechercher quand je déplace la carte",

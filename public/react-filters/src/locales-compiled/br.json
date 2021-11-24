@@ -127,7 +127,7 @@
   "ReactFilters.DefinedRangeFilter.dateRange": [
     {
       "type": 0,
-      "value": "From "
+      "value": "Du "
     },
     {
       "style": {
@@ -144,7 +144,7 @@
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " au "
     },
     {
       "style": {
@@ -163,13 +163,13 @@
   "ReactFilters.DefinedRangeFilter.endDate": [
     {
       "type": 0,
-      "value": "End"
+      "value": "Fin"
     }
   ],
   "ReactFilters.DefinedRangeFilter.from": [
     {
       "type": 0,
-      "value": "From "
+      "value": "À partir du "
     },
     {
       "style": {
@@ -203,13 +203,13 @@
   "ReactFilters.DefinedRangeFilter.startDate": [
     {
       "type": 0,
-      "value": "Start"
+      "value": "Début"
     }
   ],
   "ReactFilters.DefinedRangeFilter.until": [
     {
       "type": 0,
-      "value": "Until "
+      "value": "Jusqu'au "
     },
     {
       "style": {
@@ -229,12 +229,6 @@
     {
       "type": 0,
       "value": "Rechercher avec la carte"
-    }
-  ],
-  "ReactFilters.MapFilter.previewLabel": [
-    {
-      "type": 0,
-      "value": "Carte"
     }
   ],
   "ReactFilters.ValueBadge.removeFilter": [
@@ -273,16 +267,52 @@
       "value": "Demain"
     }
   ],
+  "ReactFilters.filters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Carte"
+    }
+  ],
   "ReactFilters.filters.searchFilter.placeholder": [
     {
       "type": 0,
       "value": "Rechercher"
     }
   ],
+  "ReactFilters.filters.searchFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Recherche"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.mixed": [
+    {
+      "type": 0,
+      "value": "Mixte"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.offline": [
+    {
+      "type": 0,
+      "value": "Hors ligne"
+    }
+  ],
+  "ReactFilters.messages.attendanceModeOptions.online": [
+    {
+      "type": 0,
+      "value": "En ligne"
+    }
+  ],
   "ReactFilters.messages.filterTitles.addMethod": [
     {
       "type": 0,
       "value": "Provenance"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 3"
     }
   ],
   "ReactFilters.messages.filterTitles.attendanceMode": [
@@ -373,6 +403,24 @@
     {
       "type": 0,
       "value": "Date de mise à jour"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.current": [
+    {
+      "type": 0,
+      "value": "En cours"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.passed": [
+    {
+      "type": 0,
+      "value": "Passé"
+    }
+  ],
+  "ReactFilters.messages.relativeOptions.upcoming": [
+    {
+      "type": 0,
+      "value": "À venir"
     }
   ]
 }

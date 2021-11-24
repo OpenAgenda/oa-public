@@ -13,7 +13,8 @@
       {
         "devDependencies": [
           ".storybook/**/*.js",
-          "stories/**/*.js"
+          "stories/**/*.js",
+          "example/**/*.js"
         ]
       }
     ]

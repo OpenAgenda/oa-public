@@ -1,18 +1,23 @@
 'use strict';
 
 const { createIntl, createIntlCache } = require('@formatjs/intl');
+const { mergeLocales } = require('@openagenda/react-shared');
+const filtersLocales = require('@openagenda/react-filters/lib/locales');
 
 function createIntlByLocale(path) {
   const cache = createIntlCache();
 
   // eslint-disable-next-line global-require,import/no-dynamic-require
-  const messages = require(path);
+  const userLocales = require(path);
+  const locales = mergeLocales(filtersLocales, userLocales);
 
-  return Object.entries(messages)
+  return Object.entries(locales)
     .reduce((byLocale, [locale, localeMessages]) => {
-      const intl = createIntl({ messages: localeMessages, locale }, cache);
+      if (locale === 'io' || locale === 'oc') {
+        return byLocale;
+      }
 
-      byLocale[locale] = intl;
+      byLocale[locale] = createIntl({ messages: localeMessages, locale }, cache);
 
       return byLocale;
     }, {});

@@ -73,38 +73,6 @@ export const Aggregator = () => {
   );
 };
 
-export const AggregatorSuccess = () => {
-  const [display, setDisplay] = useState(true);
-  const [success] = useState(true);
-  const [logo, setLogo] = useState(whiteLogo);
-  mockApi();
-  return (
-    <div className="ctas export-container">
-      <button
-        className="btn btn-default export-btn"
-        type="button"
-        onClick={() => setDisplay(true)}
-        onMouseOver={() => setLogo(blueLogo)}
-        onMouseOut={() => setLogo(whiteLogo)}
-        onFocus={() => setLogo(blueLogo)}
-        onBlur={() => setLogo(whiteLogo)}
-      >
-        <img alt="logo" src={logo} />
-        &nbsp; Agréger
-      </button>
-      {display ? (
-        <AggregatorModal
-          onClose={() => setDisplay(false)}
-          targetAgenda={{ title: "L'agenda de la Gargouille", slug: 'notre-agenda' }}
-          res="/agendas"
-          success={success}
-          userLogged
-        />
-      ) : null}
-    </div>
-  );
-};
-
 export const NoAgendas = () => {
   const [display, setDisplay] = useState(false);
   const [logo, setLogo] = useState(whiteLogo);
