@@ -3,14 +3,14 @@
 const { transform: makeTransform } = require('@openagenda/stream-utils');
 const decorateFieldMap = require('./decorateFieldMap');
 const Flattener = require('./Flattener');
+const validateOptions = require('./options.validate');
 
 const getDefaultFieldMap = require('./getDefaultFieldMap');
 
-function getFlattener(options = {}) {
-  const {
-    formSchema = null,
-    maintainedFields = []
-  } = options;
+function getFlattener(o = {}) {
+  const options = validateOptions(o);
+
+  const { formSchema, maintainedFields } = options;
 
   const defaultFieldMap = getDefaultFieldMap(options);
 

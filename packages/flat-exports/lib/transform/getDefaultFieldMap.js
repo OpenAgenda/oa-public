@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const getTargetField = require('./getTargetField');
-const validateOptions = require('./options.validate.js');
 
 const multilingual = require('./multilingual');
 const accessibility = require('./accessibility');
@@ -16,8 +15,7 @@ const defaultMap = c => ({
 
 module.exports = function getDefaultFieldMap(options) {
   const labelLanguages = ['fr', 'en'];
-  const cleanOptions = validateOptions(options);
-  const getTarget = getTargetField.bind(null, cleanOptions.labels, cleanOptions.lang);
+  const getTarget = getTargetField.bind(null, options.labels, options.lang);
 
   let fields = [{
     source: 'uid',
@@ -38,7 +36,7 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'keywords',
     target: getTarget('keywords'),
     type: 'multilingual',
-    postParse: data => (data ? data.join(cleanOptions.separator) : '')
+    postParse: data => (data ? data.join(options.separator) : '')
   }, {
     source: 'dateRange',
     target: getTarget('range'),
@@ -95,9 +93,9 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'member.role',
     target: getTarget('member.role'),
     transform: {
-      1: _.get(cleanOptions.labels, `contributor.${cleanOptions.lang}`, 'contributor'),
-      2: _.get(cleanOptions.labels, `administrator.${cleanOptions.lang}`, 'administrator'),
-      3: _.get(cleanOptions.labels, `moderator.${cleanOptions.lang}`, 'moderator')
+      1: _.get(options.labels, `contributor.${options.lang}`, 'contributor'),
+      2: _.get(options.labels, `administrator.${options.lang}`, 'administrator'),
+      3: _.get(options.labels, `moderator.${options.lang}`, 'moderator')
     }
   }, {
     source: 'member.organization',
@@ -113,14 +111,14 @@ module.exports = function getDefaultFieldMap(options) {
     target: getTarget('member.phone')
   }];
 
-  if (cleanOptions.includeFields) {
+  if (options.includeFields) {
     fields = fields.filter(field => options.includeFields.includes(field.source));
   }
 
   // make a flat map.
   return fields.map(c => _.get({
-    timings: timings.bind(null, cleanOptions),
-    accessibility: accessibility.bind(null, cleanOptions),
-    multilingual: multilingual.bind(null, cleanOptions),
+    timings: timings.bind(null, options),
+    accessibility: accessibility.bind(null, options),
+    multilingual: multilingual.bind(null, options),
   }, c.type, defaultMap)(c));
 };
