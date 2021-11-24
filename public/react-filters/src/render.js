@@ -110,7 +110,7 @@ export default function renderFiltersAndWidgets({
         widgets={widgets}
         aggregations={aggregations}
         total={total}
-        query={query}
+        query={initialValues}
         defaultViewport={defaultViewport}
         filtersBase={filtersBase}
         onLoad={wrapCallback(onLoad)}
