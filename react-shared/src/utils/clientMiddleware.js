@@ -1,7 +1,7 @@
 export default function clientMiddleware(helpers) {
   return store => next => action => {
     if (typeof action === 'function') {
-      return action(store);
+      return action.length === 2 ? action(helpers, store) : action(store);
     }
 
     const { promise, types, ...rest } = action;
