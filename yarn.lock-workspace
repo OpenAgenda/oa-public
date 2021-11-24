@@ -4163,6 +4163,7 @@ __metadata:
     react-uid: ^2.3.0
     react-use: ^15.3.4
     rimraf: ^3.0.1
+    sass: ^1.43.4
     terser-webpack-plugin: ^2.3.3
     use-debounce: ^6.0.1
     webpack: ^5.53.0
