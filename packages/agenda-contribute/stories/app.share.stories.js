@@ -14,3 +14,11 @@ export const ShareEventForm = componentFromFixtures(
   are not displayed`,
   300, '/event/01/from/1234'
 );
+
+export const ShareEventFormToConstrainedAgenda = componentFromFixtures(
+  `Constributor shares event published in other agenda
+  and does not have edition rights over event. Agenda where
+  the event is to be shared on has its standard fields more 
+  constrained than in the ones of the default event schema`,
+  301, '/event/01/from/5678'
+);

@@ -89,9 +89,23 @@ function eventShareSuccess({ agenda, response }) {
   };
 }
 
+function goBackOrToEvent({ agenda, event }) {
+  return ({ history }, { getState }) => {
+    const { res } = getState();
+
+    return doRedirect(
+      history,
+      res.showEvent
+        .replace(':agendaUid', agenda.uid)
+        .replace(':eventUid', event.uid)
+    );
+  };
+}
+
 export default Object.assign(reducer, {
   eventCreateSuccess,
   memberSetSuccess,
   eventUpdateSuccess,
-  eventShareSuccess
+  eventShareSuccess,
+  goBackOrToEvent
 });

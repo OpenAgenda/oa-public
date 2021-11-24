@@ -2,7 +2,6 @@ import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import EventForm from '@openagenda/event-form/build';
-// import eventFormProps from '../lib/eventFormProps';
 import ButtonSpinner from './ButtonSpinner';
 
 const messages = defineMessages({

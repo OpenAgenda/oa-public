@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Canvas from '../components/Canvas';
 import EventEditForm from '../components/EventEditForm';
 import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
 import useEvent from '../hooks/useEvent';
 import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 import useEventContext from '../hooks/useEventContext';
 import useMember from '../hooks/useMember';
 import utils from '../lib/utils';
+import getUneditableStandardFieldErrors from '../lib/getUneditableStandardFieldErrors';
 
 import contributeReducer from '../reducers/contribute';
 
@@ -34,6 +36,8 @@ export default function EventAdd({
   const APIRoot = useSelector(state => state.APIRoot);
   const dispatch = useDispatch();
 
+  const res = useSelector(state => state.res);
+
   const {
     eventUid,
     fromAgendaUid
@@ -50,9 +54,14 @@ export default function EventAdd({
   } = useMember(agenda);
 
   const {
-    detailedAgendaIsLoading,
+    detailedAgendaIsLoading: fromAgendaIsLoading,
     detailedAgenda: fromAgenda
   } = useDetailedAgenda(fromAgendaUid);
+
+  const {
+    detailedAgendaIsLoading,
+    detailedAgenda
+  } = useDetailedAgenda(agenda.uid);
 
   const {
     eventContextIsLoading,
@@ -65,9 +74,11 @@ export default function EventAdd({
     schema
   } = useEventFormConfig(agenda);
 
-  if (eventIsLoading || detailedAgendaIsLoading || configIsLoading || memberIsLoading || eventContextIsLoading) {
+  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || memberIsLoading || eventContextIsLoading || detailedAgendaIsLoading) {
     return <Loading />;
   }
+
+  const errors = getUneditableStandardFieldErrors(detailedAgenda, event, eventContext);
 
   return (
     <Canvas
@@ -76,23 +87,39 @@ export default function EventAdd({
       fromAgenda={fromAgenda}
       agenda={agenda}
     >
-      <EventEditForm
-        res={`${APIRoot}${history.location.pathname}`}
-        config={{
-          ...config,
-          schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)
-        }}
-        memberRole={member.role}
-        event={event}
-        onSuccess={(_event, response) => {
-          dispatch(contributeReducer.eventShareSuccess({
-            fromAgenda,
-            agenda,
-            response
-          }));
-        }}
-        saveButtonLabel={m(messages.confirmShare)}
-      />
+      {errors.length ? (
+        <ErrorMessage
+          event={event}
+          agenda={detailedAgenda}
+          onCancel={() => {
+            dispatch(contributeReducer.goBackOrToEvent({ agenda: fromAgenda, event }));
+          }}
+          errors={errors}
+          suggestChangeRes={
+            res.suggestChangeRes
+              .replace(':agendaSlug', fromAgenda.slug)
+              .replace(':eventSlug', event.slug)
+          }
+        />
+      ) : (
+        <EventEditForm
+          res={`${APIRoot}${history.location.pathname}`}
+          config={{
+            ...config,
+            schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)
+          }}
+          memberRole={member.role}
+          event={event}
+          onSuccess={(_event, response) => {
+            dispatch(contributeReducer.eventShareSuccess({
+              fromAgenda,
+              agenda,
+              response
+            }));
+          }}
+          saveButtonLabel={m(messages.confirmShare)}
+        />
+      )}
     </Canvas>
   );
 }

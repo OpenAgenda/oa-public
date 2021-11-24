@@ -1,32 +1,79 @@
 import React from 'react';
-import makeLabelGetter from '@openagenda/labels';
-import labels from '@openagenda/labels/agenda-contribute/event';
+import { defineMessages, useIntl } from 'react-intl';
 import getEventTitle from '../lib/getEventTitle';
 
-const getLabel = makeLabelGetter(labels);
+const messages = defineMessages({
+  shareRestrictionInfo: {
+    id: 'AgendaContribute.EventShare.shareRestrictionInfo',
+    defaultMessage: 'The following issues must be addressed to allow make the event "{event}" shareable on the agenda "{agenda}"'
+  },
+  suggestChange: {
+    id: 'AgendaContribute.EventShare.suggestChange',
+    defaultMessage: 'Suggest a change'
+  },
+  cancelChange: {
+    id: 'AgendaContribute.EventShare.cancelChange',
+    defaultMessage: 'Cancel the share'
+  },
+  longDescription: {
+    id: 'AgendaContribute.EventShare.longDescription',
+    defaultMessage: 'Long description'
+  },
+  imageCredits: {
+    id: 'AgendaContribute.EventShare.imageCredits',
+    defaultMessage: 'Image credits'
+  },
+  required: {
+    id: 'AgendaContribute.EventShare.required',
+    defaultMessage: 'Required'
+  },
+  conditions: {
+    id: 'AgendaContribute.EventShare.conditions',
+    defaultMessage: 'Conditions'
+  },
+  registration: {
+    id: 'AgendaContribute.EventShare.registration',
+    defaultMessage: 'Registration'
+  }
+});
 
-export default ({
+export default function ErrorMessage({
   errors,
-  lang,
   event,
   agenda,
   suggestChangeRes,
   onCancel
-}) => <div className="error-summary boxed padding-v-md padding-h-md text-left">
-  <strong>{getLabel('shareRestrictionInfo', {
-    event: getEventTitle(event, lang),
-    agenda: agenda.title
-  }, lang)}</strong>:
-  <ul className="padding-v-md padding-h-md">
-    {errors.map(err => <li>
-      <strong>{err.fieldLabel}</strong>: {err.codeLabel || err.code}
-    </li>)}
-  </ul>
-  <div className="text-center">
-    <a href={suggestChangeRes} className="btn btn-primary margin-h-sm">{getLabel('suggestChange', lang)}</a>
-    <button 
-      className="btn btn-default margin-h-sm"
-      onClick={onCancel}
-    >{getLabel('cancelShare', lang)}</button>
-  </div>
-</div>
+}) {
+  const {
+    locale,
+    formatMessage: m
+  } = useIntl();
+
+  return (
+    <div className="error-summary boxed padding-v-md padding-h-md text-left">
+      <strong>
+        {m(messages.shareRestrictionInfo, {
+          event: getEventTitle(event, locale),
+          agenda: agenda.title
+        })}
+      </strong>
+      <ul className="padding-v-md padding-h-md">
+        {errors.map(err => (
+          <li>
+            <strong>{m(messages[err.field])}</strong>: {m(messages[err.code])}
+          </li>
+        ))}
+      </ul>
+      <div className="text-center">
+        <a href={suggestChangeRes} className="btn btn-primary margin-h-sm">{m(messages.suggestChange)}</a>
+        <button
+          type="button"
+          className="btn btn-default margin-h-sm"
+          onClick={onCancel}
+        >
+          {m(messages.cancelChange)}
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,100 @@
+{
+    "success": true,
+    "event": {
+        "description": {
+            "fr": "Basée sur des documents d’archives et objets originaux, l’exposition retrace l’histoire musicale tourquennoise du XIXème au XXIème siècle : les sociétés musicales et les harmonies, les compositeurs..."
+        },
+        "title": {
+            "fr": "Exposition \"Musica Viva\""
+        },
+        "uid": 39747647,
+        "draft": 0,
+        "timings": [
+            {
+                "begin": {
+                    "date": "2022-06-18",
+                    "hours": "09",
+                    "minutes": "00"
+                },
+                "end": {
+                    "date": "2022-06-18",
+                    "hours": "12",
+                    "minutes": "00"
+                }
+            }
+        ],
+        "links": [],
+        "state": 2,
+        "slug": "exposition-musica-viva-9235758",
+        "updatedAt": "2021-09-24T13:40:42.000Z",
+        "image": {
+            "filename": "b472ed2aa4784b6fb675d24e89667d10.base.image.jpg",
+            "size": {
+                "width": 700,
+                "height": 700
+            },
+            "variants": [
+                {
+                    "filename": "b472ed2aa4784b6fb675d24e89667d10.full.image.jpg",
+                    "size": {
+                        "width": 4500,
+                        "height": 4500
+                    },
+                    "type": "full"
+                },
+                {
+                    "filename": "b472ed2aa4784b6fb675d24e89667d10.thumb.image.jpg",
+                    "size": {
+                        "width": 200,
+                        "height": 200
+                    },
+                    "type": "thumbnail"
+                }
+            ],
+            "base": "https://cibul.s3.amazonaws.com/"
+        },
+        "attendanceMode": 1,
+        "creatorUid": 59156495,
+        "location": {
+            "disqualifiedDuplicates": [],
+            "access": {
+                "fr": "Métro : ligne 2 arrêt Gare de Tourcoing / Tramway : arrêt Victoire / Bus : 30, 78, Citadine 3 – arrêt : Victoire ; Liane 4 – arrêt : Sébastopol / V'Lille – Sébastopol ou Victoire"
+            },
+            "city": "Tourcoing",
+            "timezone": "Europe/Paris",
+            "postalCode": "59200",
+            "latitude": 50.716396,
+            "imageCredits": null,
+            "description": {},
+            "setUid": null,
+            "uid": 28723185,
+            "createdAt": "2020-02-11T14:07:10.000Z",
+            "duplicateCandidates": [],
+            "countryCode": "FR",
+            "adminLevel5": null,
+            "links": [],
+            "state": 1,
+            "extId": null,
+            "department": "Nord",
+            "slug": "archives-municipales719",
+            "email": "archives@ville-tourcoing.fr",
+            "longitude": 3.160449,
+            "updatedAt": "2021-09-25T09:10:13.000Z",
+            "image": "location28723185.jpg?_ts=1632561014785",
+            "website": "http://www.tourcoing.fr/mediatheque",
+            "address": "28 rue Pierre de Guethem 59200 Tourcoing",
+            "adminLevel3": "Métropole Européenne de Lille",
+            "adminLevel1": "Hauts-de-France",
+            "adminLevel2": "Nord",
+            "mergedIn": null,
+            "_agg": "eyJ1aWQiOjI4NzIzMTg1LCJuYW1lIjoiQXJjaGl2ZXMgbXVuaWNpcGFsZXMifQ==",
+            "tags": null,
+            "insee": "59599",
+            "phone": "0359634285",
+            "district": "Centre-Ville",
+            "name": "Archives municipales",
+            "region": "Hauts-de-France"
+        },
+        "status": 1
+    }
+}

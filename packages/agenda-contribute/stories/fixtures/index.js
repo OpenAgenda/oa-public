@@ -7,9 +7,11 @@ const detailedAgenda = require('./mdb.detailed.agenda.json');
 const agenda = require('./mdb.agenda.json');
 const basicAgenda = require('./basic.agenda.json');
 const basicDetailedAgenda = require('./basic.detailed.agenda.json');
-const detailedAgendaWithAdditionalFields = require('./detailed.with.additionalFields.json');
+const detailedAgendaWithAdditionalFields = require('./detailed.withAdditionalFields.json');
+const detailedAgendaWithMoreConstraints = require('./detailed.withMoreConstraints.json');
 const eventContributorContext = require('./contributor.context.json');
 const basicEventResponse = require('./event.json');
+const bareboneEventResponse = require('./barebone.event.json');
 
 function getLocation(uid) {
   return [basicEventResponse.event.location].filter(l => l.uid === parseInt(uid, 10)).pop();
@@ -233,13 +235,36 @@ storySets.ShareEventForm = {
     draft.me.authorizations.canEditEvent = false;
   })
 };
-
 storySets.ShareEventFormFromAgenda = {
   agenda: basicDetailedAgenda,
   event: basicEventResponse,
   extraProps: {
     agenda: {
       uid: 1234
+    }
+  }
+};
+
+storySets.ShareEventFormToConstrainedAgenda = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: detailedAgendaWithMoreConstraints,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithMoreConstraints,
+      uid: 301
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = false;
+  })
+};
+storySets.ShareEventFormToConstrainedAgendaFromAgenda = {
+  agenda: basicDetailedAgenda,
+  event: bareboneEventResponse,
+  extraProps: {
+    agenda: {
+      uid: 5678
     }
   }
 };
