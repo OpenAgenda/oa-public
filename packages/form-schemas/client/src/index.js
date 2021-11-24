@@ -37,8 +37,6 @@ export default class FormSchemaComponent extends Component {
     this.sanitize = this.sanitize.bind(this);
     this.onChange = this.onChange.bind(this);
 
-    log('values at init: %j', values);
-
     const init = {
       labels: {
         errors: flattenLabels(_.assign({}, errorLabels, _.get(labels, 'errors', {})), lang, true),
@@ -73,7 +71,6 @@ export default class FormSchemaComponent extends Component {
   }
 
   onSubmit(e, options = {}) {
-    log('onSubmit');
     if (e) e.preventDefault();
 
     const {
@@ -98,6 +95,7 @@ export default class FormSchemaComponent extends Component {
     } = this.sanitize(values, { draft });
 
     if (_.keys(errors).length) {
+      log('%s errors at submission attempt', Object.keys(errors).length);
       return this.set({ errors });
     }
 
@@ -330,7 +328,6 @@ export default class FormSchemaComponent extends Component {
       // options may contain draft bool at true.
       const validate = formSchema.getValidate(options);
       const clean = validate(values);
-
       return { clean, errors: [] };
     } catch (errors) {
       if (!Array.isArray(errors)) {
