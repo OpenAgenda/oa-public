@@ -100,7 +100,7 @@ class LocationComponent extends Component {
       relatedValues
     } = this.props;
 
-    const allowRemove = relatedValues?.[0].attendanceMode === 2;
+    const allowRemove = relatedValues.optional.attendanceMode === 2;
 
     const {
       default: defaultValue,
