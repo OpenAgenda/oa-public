@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'assets')));
 app.get('/', async (req, res, next) => {
   try {
     // load events
-    const { data } = await axios.get(`https://openagenda.com/agendas/${AGENDA_UID}/events.v2.json`, {
+    const { data } = await axios.get(`https://api.openagenda.com/v2/agendas/${AGENDA_UID}/events`, {
       params: {
         ...req.query,
         detailed: true,
@@ -59,7 +59,7 @@ app.get('/', async (req, res, next) => {
 app.get('/events', async (req, res, next) => {
   try {
     // load events
-    const { data } = await axios.get(`https://openagenda.com/agendas/${AGENDA_UID}/events.v2.json`, {
+    const { data } = await axios.get(`https://api.openagenda.com/v2/agendas/${AGENDA_UID}/events`, {
       params: {
         ...req.query,
         detailed: true,
