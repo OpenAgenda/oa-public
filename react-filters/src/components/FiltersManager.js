@@ -155,7 +155,10 @@ export default React.forwardRef(function FiltersManager({
         },
       };
 
-      const result = (await axios.get(res, { params })).data;
+      const result = (await axios.get(res, {
+        params,
+        paramsSerializer: p => qs.stringify(p, { skipNulls: true })
+      })).data;
 
       return result.aggregations.geohash;
     },
