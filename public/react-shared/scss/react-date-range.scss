@@ -398,13 +398,14 @@ $oa-blue: #41acdd !default;
 }
 
 .rdrDay {
-  background: transparent;
+  background: #fff;
+  background-clip: content-box;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   border: 0;
-  padding: 0;
+  padding: 5px 0;
   line-height: 3em;
   height: 3em;
   text-align: center;
@@ -706,15 +707,15 @@ $oa-blue: #41acdd !default;
   display: none;
 }
 
-.rdrDayStartOfMonth .rdrDayNumber {
-  border-top-left-radius: 1.042em;
-  border-bottom-left-radius: 1.042em;
+.rdrDayStartOfWeek {
+  border-top-left-radius: 1.333em;
+  border-bottom-left-radius: 1.333em;
   left: 2px;
 }
 
-.rdrDayEndOfMonth .rdrDayNumber {
-  border-top-right-radius: 1.042em;
-  border-bottom-right-radius: 1.042em;
+.rdrDayEndOfWeek {
+  border-top-right-radius: 1.333em;
+  border-bottom-right-radius: 1.333em;
   right: 2px;
 }
 
@@ -731,16 +732,6 @@ $oa-blue: #41acdd !default;
 
     &:after {
       background: $oa-blue;
-    }
-  }
-}
-
-:not(.rdrNoSelection) {
-  .rdrDay:not(.rdrDayPassive) {
-    .rdrDayNumber:nth-child(1),
-    :not(.rdrInRange):not(.rdrStartEdge):not(.rdrEndEdge) ~ .rdrDayNumber:nth-child(2),
-    :not(.rdrInRange):not(.rdrStartEdge):not(.rdrEndEdge) + span + .rdrDayNumber {
-      background: #fff;
     }
   }
 }
