@@ -475,6 +475,7 @@ $oa-blue: #41acdd !default;
 }
 
 .rdrSelected {
+  background: $oa-blue;
   left: 2px;
   right: 2px;
 }
@@ -546,7 +547,7 @@ $oa-blue: #41acdd !default;
   right: 0px;
   bottom: 3px;
   pointer-events: none;
-  border: 0px solid currentColor;
+  border: 0px solid $oa-blue;
   z-index: 1;
 }
 
