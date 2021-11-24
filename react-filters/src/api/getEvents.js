@@ -1,4 +1,5 @@
 import qs from 'qs';
+import filtersToAggregations from '../utils/filtersToAggregations';
 
 const PAGE_SIZE = 20;
 
@@ -8,22 +9,10 @@ export default async function getEvents(
   agenda,
   filters,
   query,
-  pageParam
+  pageParam,
+  filtersBase
 ) {
-  const aggregations = filters
-    .map(filter => {
-      if (filter.aggregation === null) {
-        return false;
-      }
-
-      return {
-        key: filter.name,
-        type: filter.name,
-        ...filter.aggregation,
-      };
-    })
-    .filter(Boolean)
-    .flat();
+  const aggregations = filtersToAggregations(filters, filtersBase);
 
   const params = {
     // oaq: { passed: 1 },
