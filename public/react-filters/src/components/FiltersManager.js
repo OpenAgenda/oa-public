@@ -205,7 +205,7 @@ export default React.forwardRef(function FiltersManager({
       const aggs = filtersToAggregations(filters);
 
       onLoad(query, aggs, form);
-    };
+    }
   }, []);
 
   const widgetElems = widgets.map(widget => {
