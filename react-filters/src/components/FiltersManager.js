@@ -92,11 +92,15 @@ export default React.forwardRef(function FiltersManager({
 
       const baseAgg = [...filtersBaseQuery.data[filter.name]];
 
-      aggregations[filter.name].forEach(entry => {
-        const dataKey = 'id' in entry ? 'id' : 'key';
-        const found = baseAgg.find(v => v[dataKey] === entry[dataKey]);
-        if (!found) baseAgg.push(entry);
-      });
+      const aggregation = aggregations[filter.name];
+
+      if (aggregation) {
+        aggregation.forEach(entry => {
+          const dataKey = 'id' in entry ? 'id' : 'key';
+          const found = baseAgg.find(v => v[dataKey] === entry[dataKey]);
+          if (!found) baseAgg.push(entry);
+        });
+      }
 
       if (!baseAgg) return [];
 
