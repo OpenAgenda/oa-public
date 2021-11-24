@@ -7,6 +7,7 @@ const detailedAgenda = require('./mdb.detailed.agenda.json');
 const agenda = require('./mdb.agenda.json');
 const basicAgenda = require('./basic.agenda.json');
 const basicDetailedAgenda = require('./basic.detailed.agenda.json');
+const detailedAgendaWithAdditionalFields = require('./detailed.with.additionalFields.json');
 const eventContributorContext = require('./contributor.context.json');
 const basicEventResponse = require('./event.json');
 
@@ -214,6 +215,31 @@ storySets.CustomMessageConfirmation = {
   extraDevInitialState: {
     contribute: {
       createdEvent: basicEventResponse.event
+    }
+  }
+};
+
+storySets.ShareEventForm = {
+  member: { ...contributorMemberData, updatedAt: new Date() },
+  agenda: detailedAgendaWithAdditionalFields,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithAdditionalFields,
+      uid: 300
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = false;
+  })
+};
+
+storySets.ShareEventFormFromAgenda = {
+  agenda: basicDetailedAgenda,
+  event: basicEventResponse,
+  extraProps: {
+    agenda: {
+      uid: 1234
     }
   }
 };

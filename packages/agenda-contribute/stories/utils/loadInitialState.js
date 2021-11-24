@@ -10,7 +10,7 @@ export default function loadInitialState() {
       event: '/api/me/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
       eventContext: '/api/me/agendas/:agendaUid/events/:eventUid/context',
       requestContribute: '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
-      detailedSchema: '/api/agendas/:agendaUid', // ?detailed=1&includeNonDataFields=1',
+      detailedAgenda: '/api/agendas/:agendaUid', // ?detailed=1&includeNonDataFields=1',
       locations: {
         get: '/locations/:uid.json',
         index: '/api/agendas/:agendaUid/locations?itemsKey=items',

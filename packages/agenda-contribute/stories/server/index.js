@@ -73,4 +73,13 @@ dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
   res.json({ event: updatedEvent });
 });
 
+dev.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', (req, res) => {
+  const sharedEvent = {
+    ...getFixtures(req.params.fromAgendaUid).event,
+    ...JSON.parse(req.body.data),
+  };
+
+  res.json({ event: sharedEvent });
+});
+
 dev.listen(process.env.EXPRESS_API_PORT);

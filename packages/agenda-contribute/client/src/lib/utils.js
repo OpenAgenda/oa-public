@@ -52,11 +52,19 @@ function doRedirect(history, redirectTo) {
   window.location.href = redirectTo;
 }
 
+function removeEventFieldsFromSchema(schema) {
+  return {
+    ...schema,
+    fields: schema.fields.filter(field => field.schemaType !== 'event')
+  };
+}
+
 export default {
   isMemberDataComplete,
   isMemberDataRequired,
   isContributionType,
   isMemberRole,
   matchStepPath,
-  doRedirect
+  doRedirect,
+  removeEventFieldsFromSchema
 };

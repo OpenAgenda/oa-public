@@ -35,7 +35,7 @@ function AddHeader({ event, fromAgenda, agenda }) {
       <h3 className="margin-bottom-md">{m(messages.shareEvent)}</h3>
       <div className="margin-v-md">
         <p>{m(messages.takeEvent)} <strong>{getEventTitle(event, locale)}</strong></p>
-        <p>{m(messages.fromAenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
+        <p>{m(messages.fromAgenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
         <p>{m(messages.toAgenda)} <a rel="noreferrer" target="_blank" href={`/agendas/${agenda.uid}`}><span>{agenda.title}</span></a></p>
       </div>
     </div>
@@ -57,7 +57,7 @@ function Header(props) {
     mode
   } = props;
 
-  if (mode === 'add') {
+  if (mode === 'share') {
     return <AddHeader {...props} />;
   }
 

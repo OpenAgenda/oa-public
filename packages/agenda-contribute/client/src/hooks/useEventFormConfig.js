@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
 import injectAgendaUID from '../lib/injectAgendaUID';
-import useDetailedSchema from './useDetailedSchema';
+import useDetailedAgenda from './useDetailedAgenda';
 
 export default function useEventFormConfig(agenda) {
   const {
@@ -14,27 +14,27 @@ export default function useEventFormConfig(agenda) {
   const APIRoot = useSelector(state => state.APIRoot);
   const files = useSelector(state => state.files);
   const tiles = useSelector(state => state.tiles);
-  const prefix = useSelector(state => state.prefix);
 
   const {
-    detailedSchemaIsLoading,
-    detailedSchema: schema
-  } = useDetailedSchema(agenda);
+    detailedAgendaIsLoading,
+    detailedAgenda
+  } = useDetailedAgenda(agenda.uid);
 
-  if (detailedSchemaIsLoading) {
+  if (detailedAgendaIsLoading) {
     return {
       configIsLoading: true
     };
   }
 
-  cleanupSchemaForForm(schema, { locale });
+  cleanupSchemaForForm(detailedAgenda.schema, { locale });
 
   return {
     configIsLoading: false,
+    schema: detailedAgenda.schema,
     config: {
       withErrors: false,
       lang: locale,
-      schema,
+      schema: detailedAgenda.schema,
       locationRes: injectAgendaUID(res.locations, APIRoot, agenda.uid),
       referencesRes: res.references,
       suggestionsRes: res.suggestions,

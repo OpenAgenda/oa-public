@@ -72,8 +72,26 @@ function memberSetSuccess({ agenda, queryClient }) {
   };
 }
 
+function eventShareSuccess({ agenda, response }) {
+  return ({ history }, { getState }) => {
+    const { res } = getState();
+
+    const {
+      event
+    } = response.body;
+
+    return doRedirect(
+      history,
+      res.showEvent
+        .replace(':agendaUid', agenda.uid)
+        .replace(':eventUid', event.uid)
+    );
+  };
+}
+
 export default Object.assign(reducer, {
   eventCreateSuccess,
   memberSetSuccess,
-  eventUpdateSuccess
+  eventUpdateSuccess,
+  eventShareSuccess
 });

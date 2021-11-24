@@ -27,6 +27,11 @@ const EventEdit = loadable(() => import(
   './containers/EventEdit'
 ));
 
+const EventShare = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-EventShare" */
+  './containers/EventShare'
+));
+
 const Confirmation = loadable(() => import(
   /* webpackChunkName: "agendaContribute-Confirmation" */
   './containers/Confirmation'
@@ -55,6 +60,9 @@ export default (prefix = '') => ([
       path: `${prefix}/confirmation`,
       component: Confirmation,
       exact: true
+    }, {
+      path: `${prefix}/event/:eventUid/from/:fromAgendaUid`,
+      component: EventShare
     }]
   }
 ]);
