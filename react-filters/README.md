@@ -8,7 +8,12 @@
   <body>
     <script>
       // les paramètres qui seront utilisés par le script
-      window.oa = {};
+      window.oa = {
+        // ref,
+        res: '/events',
+        locale: 'fr',
+
+      };
     </script>
     <script src="https://unpkg.com/@openagenda/react-filters@2.1.2/lib/main.js"></script>
   </body>
@@ -17,17 +22,21 @@
 
 ## Paramètres
 
-### `ref`
-
-De type référence React, elle permet d'utiliser le gestionnaire de filtres (`FiltersManager`) pour récupérer ou modifier des données.
-
-Voir `React.createRef()` ou `React.useRef()`
+Le gestionnaire de filtre est configuré à partir des valeurs défines sur window.oa
 
 ### `res`
 
-De type chaine de caractères, c'est le chemin de l'api utilisé pour faire un `GET` des agrégations.
+De type chaine de caractères, c'est le chemin de l'api utilisé pour faire un `GET` des agrégations (totaux et valeurs affichées par les filtres).
 
-ex: `/events`
+Exemple:
+
+```
+window.oa = {
+  // ...
+  res: '/events'
+  // ...
+}
+```
 
 ### `locale`
 
@@ -44,11 +53,11 @@ const locales = {
 };
 ```
 
-Les locales en français de la dernière version se trouvent [ici](src/locales/fr.json).
+Les locales en français de la dernière version se trouvent [ici](https://github.com/OpenAgenda/oa-public/blob/main/react-filters/src/locales/fr.json).
 
 ### `aggregations`
 
-L'objet des aggrégations utiles aux filtres.
+L'objet des agrégations utiles aux filtres.
 
 ### `total`
 
@@ -84,3 +93,9 @@ La fonction qui est appelée à chaque changement de filtre, c'est ici qu'il fau
 Une instance d'axios, surtout utile pour les tests.
 
 Voir [`@openagenda/axios-mock-adapter`](https://www.npmjs.com/package/@openagenda/axios-mock-adapter).
+
+### `ref`
+
+De type référence React, elle permet d'utiliser le gestionnaire de filtres (`FiltersManager`) pour récupérer ou modifier des données.
+
+Voir `React.createRef()` ou `React.useRef()`
