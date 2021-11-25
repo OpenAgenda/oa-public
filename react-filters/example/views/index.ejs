@@ -12,7 +12,13 @@
     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous"
-  >
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="anonymous"
+  />
   <link rel="stylesheet" href="/main.css">
   <script src="https://kit.fontawesome.com/1b02ef4c20.js" crossorigin="anonymous"></script>
   <title>Filters example</title>
@@ -22,6 +28,19 @@
 <div class="container">
   <div class="row">
     <div class="col-3">
+      <div
+        class="map-container"
+        data-oa-filter="map"
+        data-oa-filter-params="<%= JSON.stringify({
+          tileUrl: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          tileAttribution: 'Map data © OpenStreetMap contributors',
+          searchWithMap: true,
+          searchMessage: 'Rechercher quand je déplace la carte',
+          type: 'map',
+          name: 'geo',
+        }) %>"
+      ></div>
+
       <div
         data-oa-filter="search"
         data-oa-filter-params="<%= JSON.stringify({ type: 'search', name: 'search' }); %>"
@@ -82,6 +101,9 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!-- Qs, to parse query string -->
 <script src="https://unpkg.com/qs@6.10.1/dist/qs.js" ></script>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="anonymous"></script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
