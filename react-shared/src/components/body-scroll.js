@@ -1,11 +1,7 @@
-"use strict";
-
-import * as du from '@openagenda/dom-utils';
-
 // remove overflow:hidden from body
 export function enable() {
 
-  let bodyElem = du.el('body');
+  let bodyElem = document.querySelector('body');
 
   if (!bodyElem) return;
 
@@ -26,7 +22,7 @@ export function enable() {
 // add overflow:hidden to body
 export function disable() {
 
-  let bodyElem = du.el('body');
+  let bodyElem = document.querySelector('body');
 
   if (!bodyElem) return;
 
