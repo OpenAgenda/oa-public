@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar } from 'react-date-range';
-import { Dropdown } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/lib/Dropdown';
 import { format } from 'date-fns';
 import * as rdrLocales from 'react-date-range/dist/locale';
 
