@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 import { Waypoint } from 'react-waypoint';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import Spinner from './Spinner';
 import AgendasList from './AgendasList';
 import SearchInput from './SearchInput';
 
-const componentPropTypes = PropTypes.oneOfType( [
+const componentPropTypes = PropTypes.oneOfType([
   PropTypes.element,
   PropTypes.func,
   PropTypes.string
-] );
+]);
 
 
 export default class AgendasSearch extends Component {
@@ -37,9 +37,9 @@ export default class AgendasSearch extends Component {
     fieldIsVisible: () => true
   };
 
-  submit = values => this.props.search( values.search );
+  submit = values => this.props.search(values.search);
 
-  renderForm = ( { handleSubmit } ) => {
+  renderForm = ({ handleSubmit }) => {
     const { search, getLabel, listLoading, fieldIsVisible } = this.props;
 
     return (
@@ -50,10 +50,10 @@ export default class AgendasSearch extends Component {
           type="text"
           classNameGroup="search"
           className="form-control"
-          placeholder={getLabel( 'searchAgenda' )}
+          placeholder={getLabel('searchAgenda')}
           loading={listLoading}
           visible={fieldIsVisible()}
-          action={value => search( value === '' ? undefined : value )}
+          action={value => search(value === '' ? undefined : value)}
           parse={value => value === '' ? undefined : value}
           format={value => value == null ? '' : value}
           getLabel={getLabel}
@@ -70,7 +70,7 @@ export default class AgendasSearch extends Component {
 
     return (
       <div>
-        {Header ? React.createElement( Header ) : null}
+        {Header ? React.createElement(Header) : null}
         <Form
           subscription={{}}
           initialValues={initialValues}
@@ -85,11 +85,11 @@ export default class AgendasSearch extends Component {
         />
 
         {!agendas || !agendas.length && <div className="text-center text-muted margin-top-md">
-          {getLabel( 'noResult' )}
+          {getLabel('noResult')}
         </div>}
 
         {(!agendas || !agendas.length) && createButtonIfEmpty && <div className="text-center text-muted margin-top-md">
-          <a className="btn btn-primary" href={agendaCreateRes}>{getLabel( 'createAgenda' )}</a>
+          <a className="btn btn-primary" href={agendaCreateRes}>{getLabel('createAgenda')}</a>
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
