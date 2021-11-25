@@ -4162,6 +4162,7 @@ __metadata:
     react-query: ^3.31.0
     react-uid: ^2.3.0
     react-use: ^15.3.4
+    react-waypoint: ^9.0.2
     rimraf: ^3.0.1
     sass: ^1.43.4
     source-map-loader: ^2.0.1
@@ -11126,6 +11127,13 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
+  languageName: node
+  linkType: hard
+
+"consolidated-events@npm:^1.1.0 || ^2.0.0":
+  version: 2.0.2
+  resolution: "consolidated-events@npm:2.0.2"
+  checksum: 3ffb9fa2647ffbc07845f7ddb22c2e7be88a51aabf2256da860b5e88d9fbbddea60af51d849330d6159fd698881ecd51f168aa07a4f5d238056db75b2e96ff9a
   languageName: node
   linkType: hard
 
@@ -24212,7 +24220,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
+"react-is@npm:^16.12.0, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
@@ -24679,6 +24687,19 @@ __metadata:
     react: ^16.8.0
     react-dom: ^16.8.0
   checksum: eaa2916f7951bf6d472ed3079022c39c35ea35422186aa23787bf1630a6ef63395d45f9a91e474397a45ea1b880d21fe189f1bb467f55c225a34610cb6ab9362
+  languageName: node
+  linkType: hard
+
+"react-waypoint@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "react-waypoint@npm:9.0.2"
+  dependencies:
+    consolidated-events: ^1.1.0 || ^2.0.0
+    prop-types: ^15.0.0
+    react-is: ^16.6.3
+  peerDependencies:
+    react: ^15.3.0 || ^16.0.0
+  checksum: 70e65498bf003d027dbeaabaffd58edd2fd44edc93be6bf5fd4e41dbb911493b368f57901123f537fb771ba3f7f0cd2fe6967e8787b36428214e6f65e0eb36ce
   languageName: node
   linkType: hard
 
