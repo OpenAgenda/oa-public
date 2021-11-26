@@ -12,6 +12,8 @@
       "error",
       {
         "devDependencies": [
+          ".storybook/**/*.js",
+          "stories/**/*.js",
           "scripts/**/*.js"
         ]
       }
@@ -21,7 +23,9 @@
   "overrides": [
     {
       "files": [
-        "src/**/*.js"
+        "src/**/*.js",
+        "stories/**/*.js",
+        ".storybook/*.js"
       ],
 
       "parserOptions": {
