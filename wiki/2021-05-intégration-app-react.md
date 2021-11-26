@@ -15,7 +15,8 @@ packages/legacy
 
 Je veux marquer un premier palier en ayant une app qui s'affiche dans un storybook. J'ai donc besoin de storybook.
 
-Je créé le dossier .storybook pour y ajouter un fichier main.js `packages/legacy/embeds/.storybook/main.js`. Il contient notamment les stories qui seront détaillées dans un dossier `stories` (le créer aussi, avec un premier fichier `sandbox.story.js` pour pouvoir lancer quelque chose une fois que storybook sera installé.
+Je créé le dossier .storybook pour y ajouter un fichier main.js `packages/legacy/embeds/.st
+orybook/main.js`. Il contient notamment les stories qui seront détaillées dans un dossier `stories` (le créer aussi, avec un premier fichier `sandbox.story.js` pour pouvoir lancer quelque chose une fois que storybook sera installé.
 
 ```js
 // packages/legacy/embeds/app/stories/sandbox.stories.js
