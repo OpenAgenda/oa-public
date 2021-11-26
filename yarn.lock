@@ -7656,6 +7656,7 @@ __metadata:
     react-use: ^15.3.4
     rimraf: ^3.0.1
     sass: ^1.43.4
+    source-map-loader: ^2.0.1
     terser-webpack-plugin: ^2.3.3
     use-debounce: ^6.0.1
     webpack: ^5.53.0
@@ -7901,6 +7902,7 @@ __metadata:
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
     react-select: ^3.1.0
+    react-waypoint: ^9.0.2
     redial: ^0.5.0
     redux: ^4.0.5
     rimraf: ^3.0.1
