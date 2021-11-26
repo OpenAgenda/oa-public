@@ -18,10 +18,6 @@ export default function componentFromFixtures(message, agendaUid, entryRoute = '
     initialEntries: [`/${agenda.slug}/contribute${entryRoute}`]
   });
 
-  history.listen((location, action) => {
-    console.log(action, location);
-  });
-
   return () => (
     <>
       <p className="text-center"><strong>{message}</strong></p>
