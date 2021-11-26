@@ -11,7 +11,7 @@ import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useQuery } from 'react-query';
 import { Portal } from '@stefanoruth/react-portal-ssr';
-import { useApiClient } from '@openagenda/react-shared';
+import { getLocaleValue, useApiClient } from '@openagenda/react-shared';
 import { getEvents } from '../api';
 import { withDefaultFilterConfig, filtersToAggregations } from '../utils';
 import Filters from './Filters';
@@ -102,14 +102,17 @@ export default React.forwardRef(function FiltersManager({
         });
       }
 
-      if (!baseAgg) return [];
-
       const labelKey = filter.labelKey || 'key';
 
-      return baseAgg.map(v => ({
-        label: _.get(v, labelKey),
-        value: v.key,
-      }));
+      return baseAgg.map(entry => {
+        const dataKey = 'id' in entry ? 'id' : 'key';
+
+        return {
+          ...entry,
+          label: getLocaleValue(_.get(entry, labelKey)),
+          value: entry[dataKey]
+        };
+      });
     },
     [aggregations, filtersBaseQuery.data]
   );
@@ -123,9 +126,7 @@ export default React.forwardRef(function FiltersManager({
       const dataKey = 'id' in option ? 'id' : 'key';
       const optionKey = 'id' in option ? 'id' : 'value';
 
-      const optionValue = aggregation.find(
-        v => String(v[dataKey]) === String(option[optionKey])
-      );
+      const optionValue = aggregation.find(v => String(v[dataKey]) === String(option[optionKey]));
 
       if (optionValue) {
         return optionValue.eventCount || 0;

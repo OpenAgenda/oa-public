@@ -69,6 +69,10 @@ function Preview({
       return [];
     }
 
+    if (!options.length) {
+      return [];
+    }
+
     if (!Array.isArray(input.value)) {
       return [options.find(option => String(option.value) === String(input.value))];
     }
@@ -191,8 +195,14 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
   useIsomorphicLayoutEffect(() => {
     if (options !== fuse._docs) {
       fuse.setCollection(options);
+
+      const newOptions = optionSearch === ''
+        ? options
+        : fuse.search(optionSearch).map(v => v.item);
+
+      setFoundOptions(newOptions);
     }
-  }, [fuse, options]);
+  }, [fuse, optionSearch, options]);
 
   // Update search results if search change
   useIsomorphicLayoutEffect(() => {
