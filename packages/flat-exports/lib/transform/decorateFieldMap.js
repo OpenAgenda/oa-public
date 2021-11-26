@@ -11,7 +11,8 @@ const handledTypes = ['text'];
 
 module.exports = (fieldMap, options = {}) => {
   const {
-    formSchema = null
+    formSchema = null,
+    includeFields
   } = options;
 
   if (!formSchema?.fields?.length) {
@@ -19,7 +20,13 @@ module.exports = (fieldMap, options = {}) => {
   }
 
   const decorateWith = formSchema.fields
-    .filter(f => (handledTypes.includes(f.fieldType) || f.options) && f.label)
+    .filter(f => {
+      if (includeFields && !includeFields.includes(f.field)) {
+        return false;
+      }
+
+      return (handledTypes.includes(f.fieldType) || f.options) && f.label;
+    })
     .map(f => {
       try {
         return fieldToFlattenerMapItem(f, options);

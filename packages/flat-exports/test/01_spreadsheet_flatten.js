@@ -50,6 +50,24 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     });
   });
 
+  describe('flatten specific fields', () => {
+    let flat;
+    beforeAll(() => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr', 'en'],
+        labels,
+        includeFields: ['title', 'uid'],
+        includeLanguages: ['fr']
+      });
+      flat = flatten(event);
+    });
+
+    test('filtered fields', () => {
+      expect(Object.keys(flat)).toEqual(['Identifiant', 'Titre - FR']);
+    });
+  });
+
   describe('flattener with formSchema', () => {
     test('if a standard field is decorated with specific labels, those are used in export', () => {
       const flatten = getFlattener({

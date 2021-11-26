@@ -37,7 +37,7 @@ module.exports = schema({
     default: 'public',
     optional: true
   },
-  includes: {
+  includeFields: {
     type: 'text',
     optional: true,
     list: { default: null }

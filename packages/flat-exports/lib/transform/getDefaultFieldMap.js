@@ -18,8 +18,8 @@ module.exports = function getDefaultFieldMap(options) {
   const labelLanguages = ['fr', 'en'];
   const cleanOptions = validateOptions(options);
   const getTarget = getTargetField.bind(null, cleanOptions.labels, cleanOptions.lang);
-  // make a flat map.
-  return [{
+
+  let fields = [{
     source: 'uid',
     target: getTarget('uid')
   }, {
@@ -120,7 +120,14 @@ module.exports = function getDefaultFieldMap(options) {
       1: _.capitalize(_.get(cleanOptions.labels, `controlled.${cleanOptions.lang}`, 'ready to publish')),
       2: _.capitalize(_.get(cleanOptions.labels, `published.${cleanOptions.lang}`, 'published')),
     }
-  }].map(c => _.get({
+  }];
+
+  if (cleanOptions.includeFields) {
+    fields = fields.filter(field => options.includeFields.includes(field.source));
+  }
+
+  // make a flat map.
+  return fields.map(c => _.get({
     timings: timings.bind(null, cleanOptions),
     accessibility: accessibility.bind(null, cleanOptions),
     multilingual: multilingual.bind(null, cleanOptions),
