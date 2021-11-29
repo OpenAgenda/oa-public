@@ -149,6 +149,9 @@ module.exports = (env = {}, argv = {}) => {
         Buffer: ['buffer', 'Buffer'],
       }),
       new CleanWebpackPlugin(),
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+      })
     ]
   };
 };
