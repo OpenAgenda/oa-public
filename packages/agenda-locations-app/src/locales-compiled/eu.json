@@ -1,0 +1,405 @@
+{
+  "AgendaLocations.AgendaAdminLocation.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Cancel Merge"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.closeModal": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contact support"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.create": [
+    {
+      "type": 0,
+      "value": "Add a location"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.merge": [
+    {
+      "type": 0,
+      "value": "Merge locations"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeDescription": [
+    {
+      "type": 0,
+      "value": "Locations merge"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeInProgress": [
+    {
+      "type": 0,
+      "value": "Merge is in progress"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.postalCode": [
+    {
+      "type": 0,
+      "value": "postalCode"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.search": [
+    {
+      "type": 0,
+      "value": "Filter list"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.somethingWentWrong": [
+    {
+      "type": 0,
+      "value": "An error has occurred, please contact support if it happens again"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.toVerify": [
+    {
+      "type": 0,
+      "value": "See locations to verify"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.total": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No location matches this search"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Total: one location"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Total: "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " locations"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "itemCount"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
+    {
+      "type": 0,
+      "value": "Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
+    }
+  ],
+  "AgendaLocations.CountryField.country": [
+    {
+      "type": 0,
+      "value": "Country"
+    }
+  ],
+  "AgendaLocations.DropdownUncompleteLocation.incompleteLocations": [
+    {
+      "type": 0,
+      "value": "See incomplete Locations"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Department"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunality"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel6": [
+    {
+      "type": 0,
+      "value": "District"
+    }
+  ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Uncomplete locations"
+    }
+  ],
+  "AgendaLocations.Filters.verify": [
+    {
+      "type": 0,
+      "value": "To verify"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Admin Level 3"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
+    }
+  ],
+  "AgendaLocations.LocationItem.detailsButton": [
+    {
+      "type": 0,
+      "value": "Details"
+    }
+  ],
+  "AgendaLocations.LocationItem.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "AgendaLocations.LocationItem.noEvent": [
+    {
+      "type": 0,
+      "value": "No associated event"
+    }
+  ],
+  "AgendaLocations.LocationItem.refLocationMerge": [
+    {
+      "type": 0,
+      "value": "Reference location for merge"
+    }
+  ],
+  "AgendaLocations.LocationItem.remove": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "AgendaLocations.LocationItem.seeEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 associated event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " associated events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationItem.select": [
+    {
+      "type": 0,
+      "value": "Select"
+    }
+  ],
+  "AgendaLocations.LocationItem.unselect": [
+    {
+      "type": 0,
+      "value": "Unselect"
+    }
+  ],
+  "AgendaLocations.LocationItem.verify": [
+    {
+      "type": 0,
+      "value": "To verify"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyAndMerge": [
+    {
+      "type": 0,
+      "value": "Verify and Merge"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyDuplicates": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 duplicate to verify"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " duplicates to verify"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.adminLevel1": [
+    {
+      "type": 0,
+      "value": "adminLevel1"
+    }
+  ],
+  "AgendaLocations.adminLevel2": [
+    {
+      "type": 0,
+      "value": "adminLevel2"
+    }
+  ],
+  "AgendaLocations.adminLevel3": [
+    {
+      "type": 0,
+      "value": "adminLevel3"
+    }
+  ],
+  "AgendaLocations.adminLevel4": [
+    {
+      "type": 0,
+      "value": "adminLevel4"
+    }
+  ],
+  "AgendaLocations.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.adminLevel6": [
+    {
+      "type": 0,
+      "value": "adminLevel6"
+    }
+  ],
+  "AgendaLocations.postalCode": [
+    {
+      "type": 0,
+      "value": "Postal code"
+    }
+  ]
+}

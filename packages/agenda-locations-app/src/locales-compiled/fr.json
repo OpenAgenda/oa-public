@@ -1,0 +1,405 @@
+{
+  "AgendaLocations.AgendaAdminLocation.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Annuler la fusion"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.closeModal": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contacter le support"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.create": [
+    {
+      "type": 0,
+      "value": "Ajouter un lieu"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.merge": [
+    {
+      "type": 0,
+      "value": "Fusionner des lieux"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeDescription": [
+    {
+      "type": 0,
+      "value": "Fusion de lieux"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeInProgress": [
+    {
+      "type": 0,
+      "value": "La fusion est en cours"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.postalCode": [
+    {
+      "type": 0,
+      "value": "Code postal"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.search": [
+    {
+      "type": 0,
+      "value": "Filtrer la liste"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.somethingWentWrong": [
+    {
+      "type": 0,
+      "value": "Une erreur est survenue, veuillez contacter le support si cela se reproduit"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.toVerify": [
+    {
+      "type": 0,
+      "value": "Voir les lieux à vérifier"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.total": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun lieu ne correspond à cette recherche"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Total: un lieu"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Total: "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " lieux"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "itemCount"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
+    {
+      "type": 0,
+      "value": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Commune"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "Arrondissement"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "Quartier"
+    }
+  ],
+  "AgendaLocations.CountryField.country": [
+    {
+      "type": 0,
+      "value": "Pays"
+    }
+  ],
+  "AgendaLocations.DropdownUncompleteLocation.incompleteLocations": [
+    {
+      "type": 0,
+      "value": "See incomplete Locations"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Département"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunalité"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Ville"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel5": [
+    {
+      "type": 0,
+      "value": "Arrondissement"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel6": [
+    {
+      "type": 0,
+      "value": "Quartier"
+    }
+  ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Lieux incomplets"
+    }
+  ],
+  "AgendaLocations.Filters.verify": [
+    {
+      "type": 0,
+      "value": "À vérifier"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunalité"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Commune"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "Arrondissement"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "Quartier"
+    }
+  ],
+  "AgendaLocations.LocationItem.detailsButton": [
+    {
+      "type": 0,
+      "value": "Détail"
+    }
+  ],
+  "AgendaLocations.LocationItem.edit": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "AgendaLocations.LocationItem.noEvent": [
+    {
+      "type": 0,
+      "value": "Aucun événement associé"
+    }
+  ],
+  "AgendaLocations.LocationItem.refLocationMerge": [
+    {
+      "type": 0,
+      "value": "Lieu référence de la fusion"
+    }
+  ],
+  "AgendaLocations.LocationItem.remove": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "AgendaLocations.LocationItem.seeEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 événement associé"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements associés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationItem.select": [
+    {
+      "type": 0,
+      "value": "Sélectionner"
+    }
+  ],
+  "AgendaLocations.LocationItem.unselect": [
+    {
+      "type": 0,
+      "value": "Déselectionner"
+    }
+  ],
+  "AgendaLocations.LocationItem.verify": [
+    {
+      "type": 0,
+      "value": "À vérifier"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyAndMerge": [
+    {
+      "type": 0,
+      "value": "Vérifier et fusionner"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyDuplicates": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 doublon à vérifier"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " doublons à vérifier"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 1"
+    }
+  ],
+  "AgendaLocations.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 2"
+    }
+  ],
+  "AgendaLocations.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 3"
+    }
+  ],
+  "AgendaLocations.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 4"
+    }
+  ],
+  "AgendaLocations.adminLevel5": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 5"
+    }
+  ],
+  "AgendaLocations.adminLevel6": [
+    {
+      "type": 0,
+      "value": "Niveau administratif 6"
+    }
+  ],
+  "AgendaLocations.postalCode": [
+    {
+      "type": 0,
+      "value": "Code postal"
+    }
+  ]
+}
