@@ -6,6 +6,12 @@
 Supprimer une branche locale: `git branch -d nomdelabranche`
 Supprimer une branche remote: `git push origin --delete nomdelabranche`
 
+Si un commit est perdu (sur une branche détachée qui n'a pas été fusionné avant qu'un nouveau checkout de la branche principale ait été faite), la commande suivante permet de le retrouver:
+
+    git fsck --lost-found
+
+https://stackoverflow.com/questions/16368605/is-there-a-tool-to-have-git-show-detached-heads-in-a-graph/16368880
+
 ## Jelastic
 
 Forcer une redirection vers https (voir la 2ème réponse): https://stackoverflow.com/questions/37370280/jelastic-nginx-http-to-https-redirect
