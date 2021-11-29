@@ -160,4 +160,32 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(flat['Catégories']).toEqual('Fourchette 😊 Orteil');
     });
   });
+
+  describe('Get headers', () => {
+    let headers;
+    beforeAll(() => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr', 'en'],
+        labels,
+        includeFields: ['title', 'uid', 'timings'],
+        includeLanguages: ['fr']
+      });
+      headers = flatten.getHeaders(event);
+    });
+
+    test('return only headers', () => {
+      expect(headers).toEqual([
+        { source: 'uid', target: 'Identifiant' },
+        { source: 'title', target: ['Titre - FR'] },
+        {
+          source: 'timings',
+          target: [
+            'Horaires ISO',
+            'Horaires détaillés - FR',
+          ],
+        }
+      ]);
+    });
+  });
 });

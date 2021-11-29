@@ -15,7 +15,15 @@ function getFlattener(o = {}) {
   const defaultFieldMap = getDefaultFieldMap(options);
 
   if (!formSchema?.fields) {
-    return Flattener(defaultFieldMap);
+    const getHeaders = () => defaultFieldMap.reduce((acc, curr) => {
+      acc.push({ source: curr.source, target: curr.target });
+      return acc;
+    }, []);
+
+    return Object.assign(
+      Flattener(defaultFieldMap),
+      { getHeaders }
+    );
   }
 
   const filteredDefaultFieldMap = formSchema?.fields ? defaultFieldMap.filter(mapItem => {
@@ -26,7 +34,17 @@ function getFlattener(o = {}) {
     return isInFormSchema || isInMaintainedFields;
   }) : defaultFieldMap;
 
-  return Flattener(decorateFieldMap(filteredDefaultFieldMap, options), options);
+  const decoratedFieldMap = decorateFieldMap(filteredDefaultFieldMap, options);
+
+  const getHeaders = () => decoratedFieldMap.reduce((acc, curr) => {
+    acc.push({ source: curr.source, target: curr.target });
+    return acc;
+  }, []);
+
+  return Object.assign(
+    Flattener(decoratedFieldMap, options),
+    { getHeaders }
+  );
 }
 
 module.exports = Object.assign(
