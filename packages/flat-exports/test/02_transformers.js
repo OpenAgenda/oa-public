@@ -4,6 +4,8 @@ const Flattener = require('../lib/transform/Flattener');
 const timings = require('../lib/transform/timings');
 const multilingual = require('../lib/transform/multilingual');
 const accessibility = require('../lib/transform/accessibility');
+const formatTime = require('../lib/transform/formatTime');
+const image = require('../lib/transform/image');
 const fieldToFlattenerMapItem = require('../lib/transform/fieldToFlattenerMapItem');
 const decorateFieldMap = require('../lib/transform/decorateFieldMap');
 
@@ -375,6 +377,42 @@ describe('flat-exports - unit - transforms', () => {
         'title - FR': 'Vente A Emporter',
         'title - EN': 'Takeaway',
         'title - IT': null
+      });
+    });
+  });
+
+  describe('formatTime', () => {
+    test('transformer returns formatted time in each language given', () => {
+      const map = [formatTime({ languages: ['en', 'it', 'fr', 'es'], includeLanguages: ['en', 'fr'] }, { source: 'updatedAt', target: 'Dernière mise à jour' })];
+
+      const flatten = Flattener(map);
+
+      const flat = flatten({
+        updatedAt: '2020-09-29T01:05:11.000Z'
+      });
+
+      expect(flat).toEqual({
+        'Dernière mise à jour - EN': 'Tuesday 29 September 2020',
+        'Dernière mise à jour - FR': 'mardi 29 septembre 2020'
+      });
+    });
+  });
+
+  describe('image transformer', () => {
+    test('transformer returns the full image url', () => {
+      const map = [image({ target: 'image', source: 'image', type: 'image' })];
+
+      const flatten = Flattener(map);
+
+      const flat = flatten({
+        image: {
+          filename: 'ceci-est-une-image.jpg',
+          base: 'https://cibuldev.s3.amazonaws.com/'
+        }
+      });
+
+      expect(flat).toEqual({
+        image: 'https://cibuldev.s3.amazonaws.com/ceci-est-une-image.jpg'
       });
     });
   });

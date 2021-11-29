@@ -1,11 +1,13 @@
 'use strict';
 
 const _ = require('lodash');
-const getTargetField = require('./getTargetField');
 
+const getTargetField = require('./getTargetField');
 const multilingual = require('./multilingual');
 const accessibility = require('./accessibility');
 const timings = require('./timings');
+const formatTime = require('./formatTime');
+const image = require('./image');
 
 const defaultMap = c => ({
   source: c.source,
@@ -84,6 +86,20 @@ module.exports = function getDefaultFieldMap(options) {
     target: getTarget('location.countryCode'),
     possibleLanguages: labelLanguages
   }, {
+    source: 'location.image',
+    target: getTarget('location.image')
+  }, {
+    source: 'location.imageCredits',
+    target: getTarget('location.imageCredits')
+  }, {
+    source: 'location.description',
+    target: getTarget('location.description'),
+    type: 'multilingual'
+  }, {
+    source: 'location.access',
+    target: getTarget('location.access'),
+    type: 'multilingual'
+  }, {
     source: 'member.uid',
     target: getTarget('member.uid')
   }, {
@@ -109,10 +125,49 @@ module.exports = function getDefaultFieldMap(options) {
   }, {
     source: 'member.phone',
     target: getTarget('member.phone')
+  }, {
+    source: 'createdAt',
+    target: getTarget('createdAt'),
+    type: 'time'
+  }, {
+    source: 'updatedAt',
+    target: getTarget('updatedAt'),
+    type: 'time'
+  }, {
+    source: 'image',
+    target: getTarget('image'),
+    type: 'image'
+  }, {
+    source: 'thumbnail',
+    target: getTarget('thumbnail')
+  }, {
+    source: 'onlineAccessLink',
+    target: getTarget('onlineAccessLink')
+  }, {
+    source: 'registrationUrl',
+    target: getTarget('registrationUrl')
+  }, {
+    source: 'featured',
+    target: getTarget('featured')
+  }, {
+    source: 'age.min',
+    target: getTarget('age.min')
+  }, {
+    source: 'age.max',
+    target: getTarget('age.max')
+  }, {
+    source: 'originAgenda.title',
+    target: getTarget('origin.title')
+  }, {
+    source: 'originAgenda.uid',
+    target: getTarget('origin.uid')
+  }, {
+    source: 'link',
+    target: getTarget('link')
   }];
 
   if (options.includeFields) {
-    fields = fields.filter(field => options.includeFields.includes(field.source));
+    fields = fields.filter(field => options.includeFields.includes(field.source) || options.includeFields.includes(field.field));
   }
 
   // make a flat map.
@@ -120,5 +175,7 @@ module.exports = function getDefaultFieldMap(options) {
     timings: timings.bind(null, options),
     accessibility: accessibility.bind(null, options),
     multilingual: multilingual.bind(null, options),
+    time: formatTime.bind(null, options),
+    image: image.bind(null)
   }, c.type, defaultMap)(c));
 };

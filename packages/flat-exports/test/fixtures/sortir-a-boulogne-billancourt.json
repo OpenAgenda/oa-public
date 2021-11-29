@@ -35,7 +35,10 @@
   },
   "private": 0,
   "keywords": {
-    "fr": ["Expo", "Jeu"]
+    "fr": [
+      "Expo",
+      "Jeu"
+    ]
   },
   "accessibility": {
     "hi": true,
@@ -1443,5 +1446,6 @@
   "nextTiming": {
     "begin": "2017-10-27T09:30:00+02:00",
     "end": "2017-10-27T12:00:00+02:00"
-  }
+  },
+  "onlineAccessLink": null
 }
