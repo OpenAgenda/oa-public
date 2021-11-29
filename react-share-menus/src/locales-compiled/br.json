@@ -13,26 +13,22 @@
       "value": " seront automatiquement ajoutés à l'agenda sélectionné."
     }
   ],
-  "aggregator-success": [
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": " a été ajouté aux sources! Les événements sont en cours d'agrégation."
-    }
-  ],
   "aggregator-title": [
     {
       "type": 0,
       "value": "Agréger à un agenda"
     }
   ],
+  "all-fields": [
+    {
+      "type": 0,
+      "value": "Exporter toutes les colonnes"
+    }
+  ],
   "all-languages": [
     {
       "type": 0,
-      "value": "Toutes"
+      "value": "Exporter dans toutes les langues"
     }
   ],
   "calendar-date": [
@@ -143,16 +139,16 @@
       "value": "Importer"
     }
   ],
+  "input-field": [
+    {
+      "type": 0,
+      "value": "Sélectionner des champs"
+    }
+  ],
   "input-format": [
     {
       "type": 0,
       "value": "Sélectionner un format"
-    }
-  ],
-  "input-language": [
-    {
-      "type": 0,
-      "value": "Choisir une langue"
     }
   ],
   "instructions": [
@@ -239,6 +235,12 @@
     {
       "type": 0,
       "value": "Recherche"
+    }
+  ],
+  "select-all": [
+    {
+      "type": 0,
+      "value": "Tout sélectionner"
     }
   ],
   "send": [

@@ -4,20 +4,26 @@ import { defineMessages, useIntl } from 'react-intl';
 import axios from 'axios';
 
 import Modal from '@openagenda/react-shared/src/components/Modal';
-import ReactSelectInput from '@openagenda/react-shared/src/components/ReactSelectInput';
-import Radio from './Radio';
+import Radio from '../Radio';
+import SpreadsheetOptions from './SpreadsheetOptions';
 
 const ExportModal = ({
-  res, languages, onClose, exportLanguage, userLogged
+  res, languages, onClose, userLogged
 }) => {
   const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
-  const [csvOptions, setCsvOptions] = useState(false);
+  const [spreadsheetForm, setSpreadsheetForm] = useState(false);
   const [jsonOptions, setJsonOptions] = useState(false);
   const [jsonDetailed, setJsonDetailed] = useState(false);
   const [publicKey, setPublicKey] = useState('');
   const [gCal, setGCal] = useState(false);
   const [newTab, setNewTab] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
+  const [fields, setFields] = useState([]);
+  const [spreadsheetOptions, setSpreadsheetOptions] = useState({
+    format: 'xlsx',
+    fields: [],
+    languages: []
+  });
 
   const intl = useIntl();
 
@@ -29,14 +35,6 @@ const ExportModal = ({
     inputFormat: {
       id: 'input-format',
       defaultMessage: 'Choose a format',
-    },
-    inputLanguage: {
-      id: 'input-language',
-      defaultMessage: 'Choose a language',
-    },
-    allLanguages: {
-      id: 'all-languages',
-      defaultMessage: 'All',
     },
     close: {
       id: 'close',
@@ -95,36 +93,35 @@ const ExportModal = ({
   const formats = [
     { type: 'PDF', id: 'pdf' },
     { type: 'JSON / API', id: 'jsonV2' },
-    { type: 'Microsoft Excel (xlsx)', id: 'xl' },
-    { type: 'Google Agenda', id: 'gagenda' },
+    { type: 'Google Agenda', id: 'gcal' },
     { type: 'iCal', id: 'ical' },
     { type: 'ICS', id: 'ics' },
     { type: 'RSS', id: 'rss' },
-    { type: 'CSV', id: 'csv' },
+    { type: 'Tableur (Excel / CSV)', id: 'spreadsheet' },
   ];
 
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(res.me);
       setPublicKey(response.data.apiKey);
+
+      const columns = await axios.get(res.agendaExportSettings);
+
+      setFields(columns.data.spreadsheetColumns);
     }
     fetchData();
-  }, [res.me]);
+  }, [res]);
 
   const setChoice = (value, id) => {
     setDisplayButton(false);
-    setFormatChoice({ value, id });
     setGCal(false);
-    setCsvOptions(false);
+    setSpreadsheetForm(false);
     setJsonOptions(false);
-    if (id === 'csv' || id === 'xl') setCsvOptions(true);
+    setFormatChoice({ value, id });
+    if (id === 'spreadsheet') setSpreadsheetForm(true);
     if (id === 'jsonV2' || id === 'rss') setNewTab(true);
-    if (id === 'gagenda') {
-      return setGCal(true);
-    }
-    if (id === 'jsonV2') {
-      return setJsonOptions(true);
-    }
+    if (id === 'gcal') return setGCal(true);
+    if (id === 'jsonV2') return setJsonOptions(true);
     setDisplayButton(true);
   };
 
@@ -147,20 +144,28 @@ const ExportModal = ({
       return onClose();
     }
 
+    if (formatChoice.id === 'spreadsheet') {
+      const formatUrl = spreadsheetOptions.format === 'xlsx' ? new URL(res.export.xlsx) : new URL(res.export.csv);
+
+      if (spreadsheetOptions.languages.length) {
+        spreadsheetOptions.languages.map(l => formatUrl.searchParams.append('includeLanguages[]', l));
+      }
+
+      if (spreadsheetOptions.fields.length) {
+        spreadsheetOptions.fields.map(f => formatUrl.searchParams.append('includeFields[]', f));
+      }
+
+      window.open(formatUrl, '_self');
+      return onClose();
+    }
+
     window.open(res.export[formatChoice.id], '_self');
     return onClose();
   };
 
-  const setLanguages = (lang = []) => {
-    const languageList = lang.map(language => ({
-      label: language.toUpperCase(),
-      value: language,
-    }));
-    languageList.unshift({ label: intl.formatMessage(messages.allLanguages), value: 'all' });
-    return languageList;
+  const handleSpreadsheetOptions = options => {
+    setSpreadsheetOptions(options);
   };
-
-  const selectLanguage = lang => (lang ? exportLanguage(lang.value) : null);
 
   const handleClick = e => e.target.select();
 
@@ -175,16 +180,14 @@ const ExportModal = ({
         <div className="form-group">
           {formats.map(({ type, id }) => (
             <React.Fragment key={id}>
-              <Radio content={type} name="format" id={id} setChoice={setChoice} json={id === 'json'} />
-              {csvOptions && id === formatChoice.id && (
-                <div className="input-container">
-                  <ReactSelectInput
-                    name="langue"
-                    placeholder={intl.formatMessage(messages.inputLanguage)}
-                    options={setLanguages(languages)}
-                    onChange={selectLanguage}
-                  />
-                </div>
+              <Radio content={type} name="format" id={id} setChoice={setChoice} />
+              {spreadsheetForm && id === formatChoice.id && (
+              <SpreadsheetOptions
+                languages={languages}
+                setChoice={handleSpreadsheetOptions}
+                fields={fields}
+                options={spreadsheetOptions}
+              />
               )}
               {jsonOptions && id === formatChoice.id && (
                 <>
@@ -208,7 +211,7 @@ const ExportModal = ({
                   {intl.formatMessage(messages.modalTitle)}
                 </button>
               )}
-              {gCal && id === 'gagenda' && (
+              {gCal && id === 'gcal' && (
                 <div>
                   <input
                     className="form-control url-input"
@@ -244,18 +247,18 @@ ExportModal.propTypes = {
       jsonV1: PropTypes.string,
       jsonV2: PropTypes.string,
       pdf: PropTypes.string,
-      xl: PropTypes.string,
+      xlsx: PropTypes.string,
       gcal: PropTypes.string,
       ical: PropTypes.string,
       csv: PropTypes.string,
       ics: PropTypes.string,
       rss: PropTypes.string,
     }),
-    me: PropTypes.string
+    me: PropTypes.string,
+    agendaExportSettings: PropTypes.string
   }).isRequired,
   languages: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func.isRequired,
-  exportLanguage: PropTypes.func.isRequired,
   userLogged: PropTypes.bool.isRequired
 };
 
