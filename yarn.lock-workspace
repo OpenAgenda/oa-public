@@ -3274,6 +3274,7 @@ __metadata:
     react-use: ^15.3.4
     rimraf: ^3.0.1
     sass: ^1.43.4
+    source-map-loader: ^2.0.1
     terser-webpack-plugin: ^2.3.3
     use-debounce: ^6.0.1
     webpack: ^5.53.0
@@ -3367,6 +3368,7 @@ __metadata:
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
     react-select: ^3.1.0
+    react-waypoint: ^9.0.2
     redial: ^0.5.0
     redux: ^4.0.5
     rimraf: ^3.0.1
@@ -10032,6 +10034,13 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
+  languageName: node
+  linkType: hard
+
+"consolidated-events@npm:^1.1.0 || ^2.0.0":
+  version: 2.0.2
+  resolution: "consolidated-events@npm:2.0.2"
+  checksum: 3ffb9fa2647ffbc07845f7ddb22c2e7be88a51aabf2256da860b5e88d9fbbddea60af51d849330d6159fd698881ecd51f168aa07a4f5d238056db75b2e96ff9a
   languageName: node
   linkType: hard
 
@@ -22175,7 +22184,7 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6":
+"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
@@ -22637,6 +22646,19 @@ fsevents@~2.1.1:
     react: ^16.8.0  || ^17.0.0
     react-dom: ^16.8.0  || ^17.0.0
   checksum: 732a21f7c2295556d9cd501188644b9191f85370b5dc6347277e06c52dfe2ecf376c869056084ee7c7d4e57b8c5f723a3f00ee818f6cf59409b93cf704dbef33
+  languageName: node
+  linkType: hard
+
+"react-waypoint@npm:^9.0.2":
+  version: 9.0.3
+  resolution: "react-waypoint@npm:9.0.3"
+  dependencies:
+    consolidated-events: ^1.1.0 || ^2.0.0
+    prop-types: ^15.0.0
+    react-is: ^16.6.3
+  peerDependencies:
+    react: ^15.3.0 || ^16.0.0
+  checksum: b80273e62fea5d455a1f5bcbce31316515e0022428513a0702bf5a8ab606b94b0ba8f6de2f1477f73d82b7e50b318a73dd8ffbb2ec821e3466a1b5b666d01847
   languageName: node
   linkType: hard
 

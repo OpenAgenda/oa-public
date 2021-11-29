@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import Spinner from './Spinner';
 import FieldInput from './FieldInput';
 
 const searchSpinner = {
@@ -8,19 +8,19 @@ const searchSpinner = {
   radius: 4
 };
 
-const SearchInput = ( { getLabel, type, placeholder, className, spellCheck, action, loading, ...props } ) => {
+const SearchInput = ({ getLabel, type, placeholder, className, spellCheck, action, loading, ...props }) => {
   const inputAttrs = { type, placeholder, className, spellCheck };
   const onChange = e => {
-    props.input.onChange( e.target.value );
-    if ( typeof action === 'function' ) {
-      action( e.target.value );
+    props.input.onChange(e.target.value);
+    if (typeof action === 'function') {
+      action(e.target.value);
     }
   };
 
   const content = <div className="input-icon-right">
     <input {...props.input} {...inputAttrs} onChange={onChange} />
     <button type="submit" className="btn">
-      {loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
+      {loading ? <Spinner options={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
     </button>
   </div>;
 

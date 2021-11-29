@@ -26,8 +26,9 @@ app.use('/main.css', (req, res) => {
   const result = sass.renderSync({
     file: path.join(__dirname, 'scss/main.scss'),
     includePaths: [
-      path.join(__dirname, '../node_modules'),
-      path.join(__dirname, '../../../node_modules')
+      path.join(__dirname, '../node_modules'), // react-filters
+      path.join(__dirname, '../../node_modules'), // public
+      path.join(__dirname, '../../../node_modules') // oa
     ]
   });
 
