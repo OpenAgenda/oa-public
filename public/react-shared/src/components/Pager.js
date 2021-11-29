@@ -21,7 +21,6 @@ export default function Pager({
   const nextDisabled = page === lastPage;
   const calculedRangeSize = page === lastPage ? total - ((lastPage - 1) * pageSize) : pageSize;
   const rangeSize = propsRangeSize !== undefined ? propsRangeSize : calculedRangeSize;
-  console.log('page:', page, 'lastPage:', lastPage, nextDisabled);
 
   return (
     <nav>
