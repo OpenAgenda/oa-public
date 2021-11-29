@@ -85,9 +85,26 @@
       color: darken($oa-blue, 10%);
     }
   }
+
+  label, input[type="checkbox"] {
+    font-weight: normal;
+    
+  }
+
+  input[type="checkbox"] {
+    margin: 4px 2px;
+  }
+
+  .checkbox-list {
+    column-count: 2;
+  }
+  
+  .checkbox-list label {
+    margin-bottom: 5px;
+    display: block;
+  }
+  
 }
-
-
 
 .form-group > .input-group > .form-control.export {
   &-input,
