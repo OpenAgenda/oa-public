@@ -51,6 +51,7 @@ export default function AdminSections({ sections, agenda, role }) {
               path: link,
               exact: name === 'events',
             });
+            console.log(location.pathname, selected, link);
             const tabInApp = TABS_IN_APP.includes(name);
 
             const authorizedTab = compareRoles.isSuperiorToOrEqual(
