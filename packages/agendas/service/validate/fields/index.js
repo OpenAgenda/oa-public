@@ -25,7 +25,7 @@ module.exports = [{
 }, {
   field: 'description',
   type: 'text',
-  max: 160,
+  max: 255,
   optional: false,
   read: ['internal', 'private', 'legacy', 'legacyPublic', 'administrator']
 }, {
