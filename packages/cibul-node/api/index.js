@@ -113,11 +113,18 @@ module.exports = core => {
       ...result
     }), next));
 
-  app.get('/agendas/:agendaUid/events/:eventUid', (req, res, next) => core
+  app.get([
+    '/agendas/:agendaUid/events/slug/:eventSlug',
+    '/agendas/:agendaUid/events/:eventUid'
+  ], (req, res, next) => core
     .agendas(req.agenda.uid).events
     .search({
       state: null,
-      uid: req.params.eventUid
+      ...(req.params.eventUid ? {
+        uid: req.params.eventUid
+      } : {
+        slug: req.params.eventSlug
+      })
     }, {
       size: 1
     }, {
