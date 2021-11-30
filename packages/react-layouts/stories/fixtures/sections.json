@@ -6,14 +6,14 @@
                 "name": "events",
                 "section": "manage",
                 "label": "Evénements",
-                "link": "/metronum/admin/events",
+                "link": "/{agendaSlug}/admin/events",
                 "selected": false
             },
             {
                 "name": "members",
                 "section": "manage",
                 "label": "Membres",
-                "link": "/metronum/admin/members",
+                "link": "/{agendaSlug}/admin/members",
                 "selected": false
             },
             {
@@ -21,7 +21,7 @@
                 "section": "manage",
                 "scriptAnchor": "<span class=\"js_locations_counter\" data-res=\"/agendas/:agendaUid/admin/locations/unverified\"></span>",
                 "label": "Lieux",
-                "link": "/metronum/admin/locations",
+                "link": "/{agendaSlug}/admin/locations",
                 "selected": false
             },
             {
@@ -31,28 +31,28 @@
                     "administrator"
                 ],
                 "label": "Sources",
-                "link": "/metronum/admin/sources",
+                "link": "/{agendaSlug}/admin/sources",
                 "selected": false
             },
             {
                 "name": "inbox",
                 "section": "manage",
                 "label": "Messagerie",
-                "link": "/metronum/admin/inbox",
+                "link": "/{agendaSlug}/admin/inbox",
                 "selected": false
             },
             {
                 "name": "statistics",
                 "section": "manage",
                 "label": "Statistiques",
-                "link": "/metronum/admin/statistics",
+                "link": "/{agendaSlug}/admin/statistics",
                 "selected": false
             },
             {
                 "name": "activities",
                 "section": "manage",
                 "label": "Activités",
-                "link": "/metronum/admin/activities",
+                "link": "/{agendaSlug}/admin/activities",
                 "selected": false
             }
         ]
@@ -68,7 +68,7 @@
                     "administrator"
                 ],
                 "label": "Intégration Web",
-                "link": "/metronum/admin/embeds",
+                "link": "/{agendaSlug}/admin/embeds",
                 "selected": false
             }
         ]
@@ -84,7 +84,7 @@
                     "administrator"
                 ],
                 "label": "Profil",
-                "link": "/metronum/admin/settings/profile",
+                "link": "/{agendaSlug}/admin/settings/profile",
                 "selected": false
             },
             {
@@ -95,7 +95,7 @@
                     "administrator"
                 ],
                 "label": "Formulaire",
-                "link": "/metronum/admin/schema",
+                "link": "/{agendaSlug}/admin/schema",
                 "selected": false
             },
             {
@@ -106,7 +106,7 @@
                     "administrator"
                 ],
                 "label": "Contribution",
-                "link": "/metronum/admin/settings/contribution",
+                "link": "/{agendaSlug}/admin/settings/contribution",
                 "selected": false
             },
             {
@@ -117,7 +117,7 @@
                     "administrator"
                 ],
                 "label": "Avancé",
-                "link": "/metronum/admin/settings/advanced",
+                "link": "/{agendaSlug}/admin/settings/advanced",
                 "selected": false
             }
         ]
