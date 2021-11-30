@@ -91,13 +91,13 @@ const ExportModal = ({
   });
 
   const formats = [
+    { type: 'Tableur (Excel / CSV)', id: 'spreadsheet' },
     { type: 'PDF', id: 'pdf' },
     { type: 'JSON / API', id: 'jsonV2' },
     { type: 'Google Agenda', id: 'gcal' },
     { type: 'iCal', id: 'ical' },
     { type: 'ICS', id: 'ics' },
     { type: 'RSS', id: 'rss' },
-    { type: 'Tableur (Excel / CSV)', id: 'spreadsheet' },
   ];
 
   useEffect(() => {
@@ -192,7 +192,7 @@ const ExportModal = ({
               {jsonOptions && id === formatChoice.id && (
                 <>
                   {!userLogged && <p>{intl.formatMessage(messages.logIn)}</p>}
-                  <div className="flex-container margin-bottom-xs">
+                  <div className="flex-container margin-bottom-xs margin-left-md">
                     <button type="submit" className="btn btn-primary" disabled={!userLogged}>
                       {intl.formatMessage(messages.modalTitle)}
                     </button>
@@ -203,16 +203,18 @@ const ExportModal = ({
                       <a href="https://developers.openagenda.com/10-lecture/" target="_blank" rel="noreferrer">{intl.formatMessage(messages.documentation)}</a>
                     </div>
                   </div>
-                  <a href={res.export.jsonV1} target="_blank" rel="noreferrer">{intl.formatMessage(messages.exportJson)}</a> ({intl.formatMessage(messages.jsonDoc1)}<a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> {intl.formatMessage(messages.jsonDoc2)}</a>)
+                  <a href={res.export.jsonV1} target="_blank" rel="noreferrer" className="margin-left-md">{intl.formatMessage(messages.exportJson)}</a> ({intl.formatMessage(messages.jsonDoc1)}<a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> {intl.formatMessage(messages.jsonDoc2)}</a>)
                 </>
               )}
               {displayButton && id === formatChoice.id && (
-                <button type="submit" className="btn btn-primary">
-                  {intl.formatMessage(messages.modalTitle)}
-                </button>
+                <div className="margin-left-md">
+                  <button type="submit" className="btn btn-primary">
+                    {intl.formatMessage(messages.modalTitle)}
+                  </button>
+                </div>
               )}
               {gCal && id === 'gcal' && (
-                <div>
+                <div className="margin-left-md">
                   <input
                     className="form-control url-input"
                     value={`https://openagenda.com${res.export.gcal}`}

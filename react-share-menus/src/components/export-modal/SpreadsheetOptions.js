@@ -92,7 +92,7 @@ const SpreadsheetOptions = ({
   };
 
   return (
-    <div className="margin-left-md">
+    <div className="spreadsheet-options">
       <Radio content="XLSX (MS Excel)" name="spreadsheet-format" id="xlsx" setChoice={handleFormat} defaultChecked />
       <Radio content="CSV" name="spreadsheet-format" id="csv" setChoice={handleFormat} />
       <div>
@@ -118,7 +118,6 @@ const SpreadsheetOptions = ({
         {intl.formatMessage(messages.allFields)}
       </label>
       {displayFields && (
-
       <div className="margin-left-md checkbox-list">
         <label htmlFor="allFields">
           <input name="fields" id="allFields" type="checkbox" onChange={handleCheckAll} value="allFields" className="margin-right-sm" />
