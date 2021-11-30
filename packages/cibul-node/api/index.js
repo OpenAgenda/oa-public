@@ -57,6 +57,7 @@ module.exports = core => {
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
   app.param('eventUid', mw.loadEvent);
+  app.param('agendaSlug', mw.loadAgenda);
 
   // control all the things
   app.post('/agendas/:agendaUid/events*', mw.member.verify);
@@ -64,8 +65,13 @@ module.exports = core => {
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
   app.get('/agendas/:agendaUid', mw.member.load);
 
-  app.get('/agendas/:agendaUid', mw.redirectIfPrivate);
   app.get([
+    '/agendas/slug/:agendaSlug',
+    '/agendas/:agendaUid'
+  ], mw.redirectIfPrivate);
+
+  app.get([
+    '/agendas/slug/:agendaSlug',
     '/agendas/:agendaUid',
     '/agendas/:agendaUid.prv'
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
