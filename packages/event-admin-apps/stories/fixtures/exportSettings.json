@@ -1,0 +1,159 @@
+{
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "spreadsheetColumns": [
+    {
+      "source": "uid",
+      "target": "Identifiant"
+    },
+    {
+      "source": "title",
+      "target": [
+        "Titre - FR"
+      ]
+    },
+    {
+      "source": "description",
+      "target": [
+        "Description courte - FR"
+      ]
+    },
+    {
+      "source": "longDescription",
+      "target": [
+        "Description longue"
+      ]
+    },
+    {
+      "source": "keywords",
+      "target": [
+        "Mots clés"
+      ]
+    },
+    {
+      "source": "dateRange",
+      "target": [
+        "Résumé horaires"
+      ]
+    },
+    {
+      "source": "timings",
+      "target": [
+        "Horaires ISO",
+        "Horaires détaillés"
+      ]
+    },
+    {
+      "source": "conditions",
+      "target": [
+        "Conditions de participation, tarifs - FR"
+      ]
+    },
+    {
+      "source": "accessibility",
+      "target": [
+        "Accessibilité"
+      ]
+    },
+    {
+      "source": "location.uid",
+      "target": "Identifiant du lieu"
+    },
+    {
+      "source": "location.name",
+      "target": "Nom du lieu"
+    },
+    {
+      "source": "location.address",
+      "target": "Adresse"
+    },
+    {
+      "source": "location.city",
+      "target": "Ville"
+    },
+    {
+      "source": "location.department",
+      "target": "Département"
+    },
+    {
+      "source": "location.region",
+      "target": "Région"
+    },
+    {
+      "source": "location.latitude",
+      "target": "Latitude"
+    },
+    {
+      "source": "location.longitude",
+      "target": "Longitude"
+    },
+    {
+      "source": "country",
+      "target": [
+        "Pays"
+      ]
+    },
+    {
+      "source": "location.image",
+      "target": "Image du lieu"
+    },
+    {
+      "source": "location.imageCredits",
+      "target": "Crédits de l'image du lieu"
+    },
+    {
+      "source": "location.description",
+      "target": [
+        "Description du lieu"
+      ]
+    },
+    {
+      "source": "location.access",
+      "target": [
+        "Accès / Itinéraire"
+      ]
+    },
+    {
+      "source": "createdAt",
+      "target": [
+        "Création de la fiche"
+      ]
+    },
+    {
+      "source": "updatedAt",
+      "target": [
+        "Dernière mise à jour"
+      ]
+    },
+    {
+      "source": "image",
+      "target": "Image"
+    },
+    {
+      "source": "onlineAccessLink",
+      "target": "Lien d'accès"
+    },
+    {
+      "source": "age.min",
+      "target": "Age minimum"
+    },
+    {
+      "source": "age.max",
+      "target": "Age maximum"
+    },
+    {
+      "source": "imageCredits",
+      "target": "Crédits de l'image"
+    },
+    {
+      "source": "attendanceMode",
+      "target": "Mode de participation"
+    },
+    {
+      "source": "status",
+      "target": "État"
+    }
+  ]
+}

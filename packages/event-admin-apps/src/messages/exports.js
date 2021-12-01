@@ -18,13 +18,9 @@ export default defineMessages({
     id: 'EventAdminApp.messages.exports.toJSON',
     defaultMessage: 'to JSON',
   },
-  toCSV: {
-    id: 'EventAdminApp.messages.exports.toCSV',
-    defaultMessage: 'to CSV',
-  },
-  toXLSX: {
-    id: 'EventAdminApp.messages.exports.toXLSX',
-    defaultMessage: 'to XLSX',
+  toSpreadsheet: {
+    id: 'EventAdminApp.messages.exports.toSpreadsheet',
+    defaultMessage: 'to spreadsheet (csv / xlsx)',
   },
   toICS: {
     id: 'EventAdminApp.messages.exports.toICS',
