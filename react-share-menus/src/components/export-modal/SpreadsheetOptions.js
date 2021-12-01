@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
@@ -10,7 +10,7 @@ const SpreadsheetOptions = ({
   const [displayLanguages, setDisplayLanguages] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
   const [checkedState, setCheckedState] = useState(
-    new Array(fields.length).fill(false)
+    []
   );
 
   const intl = useIntl();
@@ -32,6 +32,12 @@ const SpreadsheetOptions = ({
       defaultMessage: 'Select all'
     }
   });
+
+  useEffect(() => {
+    if (fields.length > 0) {
+      setCheckedState(Array.from(fields, () => false));
+    }
+  }, [fields]);
 
   const handleLanguage = e => {
     if (e.target.checked) {
