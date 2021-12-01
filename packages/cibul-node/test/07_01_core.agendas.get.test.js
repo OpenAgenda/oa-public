@@ -146,6 +146,20 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       ).toEqual(['agenda', 'event']);
     });
 
+    it('schema fields include state', async () => {
+      const agenda = await core.agendas(92983929).get({
+        detailed: true,
+        includeEvent: true,
+        includeAgendaEvent: true,
+        includeMember: true,
+        access: 'administrator'
+      });
+
+      expect(
+        !!agenda.schema.fields.find(el => el.field === 'state')
+      ).toBe(true);
+    });
+
     it('detailed gets returns a summary object', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true

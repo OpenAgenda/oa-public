@@ -1,14 +1,17 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import debug from 'debug';
+import { createMemoryHistory } from 'history';
 import du from '@openagenda/dom-utils';
-import loadInbox from '@openagenda/inbox-apps/dist/apps/lazyInbox/load';
+import { wrapApp } from '@openagenda/react-shared';
+import createInboxApp from '@openagenda/inbox-apps/dist/app';
 import sessions from '@openagenda/sessions/client';
-import activities from './activities';
-import remote from '../../js/lib/remote/remote.mod.js';
-import textHelpers from '../../helpers/text.js';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
+import remote from '../../js/lib/remote/remote.mod.js';
+import textHelpers from '../../helpers/text.js';
+import activities from './activities';
 
 const getInboxesLabel = makeLabelGetter(inboxesLabels);
 
@@ -67,7 +70,7 @@ module.exports = options => {
       }
       log('loaded');
 
-      if (_.keys(data.custom.custom).length) {
+      if (_.keys(data.custom?.custom).length) {
         du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
       }
 
@@ -117,6 +120,16 @@ module.exports = options => {
         </ul>
       </div>`);
     });
+  }
+
+  function renderInboxApp({ initialState, extraProps, selector }) {
+    ReactDOM.render(wrapApp(createInboxApp({
+      initialState,
+      history: createMemoryHistory({ initialEntries: [ '/conversation/create' ] })
+    }), {
+      extraProps,
+      disableScrollToTop: true
+    }), du.el(selector));
   }
 
   function inbox(params, { roles, ROLES }) {
@@ -170,9 +183,8 @@ module.exports = options => {
       }
     })();
 
-    loadInbox({
-      jsFilePath: '/js/inboxesEvent.js',
-      functionName: 'renderInboxEvent',
+    renderInboxApp({
+      selector: params.selectors.inbox,
       initialState: {
         settings: {
           context: 'event',
@@ -186,11 +198,11 @@ module.exports = options => {
           creationSubtitle: getInboxesLabel(
             userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
             params.lang
-         ),
+          ),
           creationButtonLabel: getInboxesLabel(
             userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
             params.lang
-         ),
+          ),
           creationDescriptionLabel,
           defaultQuery: {
             type: 'event',
@@ -219,6 +231,7 @@ module.exports = options => {
             addAttachment: resBasePath + '/inbox/conversations/:conversationId/add-attachment'
           }
         },
+        agenda: {},
         event: {
           uid: params.uid
         }
@@ -231,14 +244,11 @@ module.exports = options => {
           slug: params.agendaSlug
         }
       }
-    }, () => {
-
-      const canvasElem = document.querySelector('.js_inbox_event_canvas');
-
-      canvasElem.classList.remove('display-none');
-
     });
 
+    const canvasElem = document.querySelector('.js_inbox_event_canvas');
+
+    canvasElem.classList.remove('display-none');
   }
 
   function _fetch(res, cb) {

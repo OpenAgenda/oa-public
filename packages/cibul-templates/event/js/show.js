@@ -34,19 +34,19 @@ const ROLES = {
 };
 
 const defaults = {
-  selectors: { 
+  selectors: {
     shareOa: '.js_shareOnOa',
     shareAll: '.js_shareAll',
-    shareEmail: '.js_shareEmail'
+    shareEmail: '.js_shareEmail',
+    [ROLES.EVENTEDITOR]: '.js_role_event_editor',
+    [ROLES.AGENDAMODERATOR]: '.js_role_agenda_moderator',
+    [ROLES.AGENDAADMIN]: '.js_role_agenda_admin',
+    inbox: '.js_inbox_event'
   },
   agendaUid: false, // uid of the current agenda environment
   ownerUid: false, // uid of the owner
   adminAgendaUids: [], // uids of agendas with admin rights on event
 };
-
-defaults.selectors[ROLES.EVENTEDITOR] = '.js_role_event_editor';
-defaults.selectors[ROLES.AGENDAMODERATOR] = '.js_role_agenda_moderator';
-defaults.selectors[ROLES.AGENDAADMIN] = '.js_role_agenda_admin';
 
 if (['tpl', 'development'].indexOf(window.env) !== -1) {
   debug.enable('*');

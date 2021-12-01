@@ -22,6 +22,11 @@ describe('02 - embeds - get', () => {
       knex: fx.client,
       interfaces: {
         getAgendaId: async () => 13115
+      },
+      defaultTemplates: {
+        eventitem: 'eventItem default template',
+        event: 'event default template',
+        header: 'header default template'
       }
     });
   });
@@ -59,6 +64,12 @@ describe('02 - embeds - get', () => {
         'event'
       ]);
     });
+
+    it('if false is set as templates, default value is provided', async () => {
+      const embedWithNoTemplates = await svc(789456).get(96007995);
+
+      expect(embedWithNoTemplates.template.event).toEqual('event default template');
+    });
   });
 
   describe('simple list', () => {
@@ -79,6 +90,14 @@ describe('02 - embeds - get', () => {
         'template',
         'config'
       ]);
+    });
+
+    it('if null or false are set as templates, default values are provided', () => {
+      const embedsWithEmptyTemplates = embeds.filter(embed => [96007995, 50063784].includes(embed.uid));
+
+      expect(
+        embedsWithEmptyTemplates.map(e => e.template.event)
+      ).toEqual(['event default template', 'event default template']);
     });
   });
 });

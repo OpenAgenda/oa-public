@@ -44,6 +44,28 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     test('keywords are "|" separated', () => {
       expect(flat['Mots clés - FR']).toEqual('Expo | Jeu');
     });
+
+    test('state is part of result', () => {
+      expect(flat.Statut).toEqual('published');
+    });
+  });
+
+  describe('flatten specific fields', () => {
+    let flat;
+    beforeAll(() => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr', 'en'],
+        labels,
+        includeFields: ['title', 'uid'],
+        includeLanguages: ['fr']
+      });
+      flat = flatten(event);
+    });
+
+    test('filtered fields', () => {
+      expect(Object.keys(flat)).toEqual(['Identifiant', 'Titre - FR']);
+    });
   });
 
   describe('flattener with formSchema', () => {

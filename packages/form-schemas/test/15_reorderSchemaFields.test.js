@@ -18,12 +18,12 @@ describe( 'unit - reordering schema fields', () => {
     } ]
   };
 
-  it( 'reorders', () => {
+  it('reorders', () => {
 
     reorderSchemaFields( schema, 3, 1 ).fields.map( f => f.field ).should.eql( [
       'one', 'two', 'three', 'four', 'five'
     ] );
 
-  } );
+  });
 
 } );

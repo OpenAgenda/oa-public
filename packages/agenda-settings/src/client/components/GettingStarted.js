@@ -8,7 +8,7 @@ import I18nContext from '../contexts/I18nContext';
 
 export default function GettingStarted() {
   const { agenda } = useLayoutData();
-  
+
   const { lang } = useContext(I18nContext);
 
   const getLabel = useCallback(

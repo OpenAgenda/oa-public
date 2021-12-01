@@ -54,15 +54,14 @@ export default ({
 
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [editedEmbed, setEditedEmbed] = useState(embed);
-
   const [previewIndex, setPreviewIndex] = useState(0);
 
-  const defaultPreviews = useMemo(() => ([
+  const defaultPreviews = useMemo(() => [
     {
       value: preview,
       label: m(messages.listPreview)
     }
-  ]), [m, preview]);
+  ], [m, preview]);
 
   const { data: previews } = useQuery(
     'previewEvents',

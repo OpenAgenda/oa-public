@@ -1,40 +1,40 @@
 'use strict';
 
-const _ = require('lodash');
-const contribute = require('@openagenda/agenda-contribute');
-const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
+// const _ = require('lodash');
+// const contribute = require('@openagenda/agenda-contribute');
+// const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
-const cmn = require('../../lib/commons-app');
-const trackingScripts = require('../../lib/trackingScripts');
-const loadLegacyRoutes = require('./legacy');
-const mw = require('./middlewares');
-const memberSchema = require('./lib/memberSchema');
+// const cmn = require('../../lib/commons-app');
+// const trackingScripts = require('../../lib/trackingScripts');
+// const loadLegacyRoutes = require('./legacy');
+// const mw = require('./middlewares');
+// const memberSchema = require('./lib/memberSchema');
 const isDraftRequested = require('./lib/isDraftRequested');
-const redirectToSignup = require('./lib/redirectToSignup');
+// const redirectToSignup = require('./lib/redirectToSignup');
 
-const agendaNotFound = ns => (req, res, next) => (req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 }));
+// const agendaNotFound = ns => (req, res, next) => (req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 }));
 
 const setInReq = obj => (req, res, next) => {
   Object.assign(req, obj);
   next();
 };
 
-module.exports = (config, services) => parentApp => {
-  const {
+module.exports = (/* config, services */) => parentApp => {
+  /* const {
     agendas,
     sessions,
     members
-  } = services;
+  } = services; */
 
-  const { bucket } = config.aws;
+  // const { bucket } = config.aws;
 
-  parentApp.use(
+  /* parentApp.use(
     '/dist/contribute',
     contribute.dist,
     (req, res) => res.send(404) // if not, unhandled files will be handled by following routes
-  );
+  ); */
 
-  parentApp.all([
+  /* parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
@@ -98,14 +98,15 @@ module.exports = (config, services) => parentApp => {
   parentApp.get(
     '/:agendaSlug/contribute/event',
     setInReq({ mode: 'create' })
-  );
+  ); */
+
   parentApp.post(
     '/:agendaSlug/contribute/event',
     setInReq({ mode: 'create' }),
     isDraftRequested({ draft: true })
   );
 
-  parentApp.all(
+  /* parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid',
     setInReq({ mode: 'edit' })
   );
@@ -124,7 +125,7 @@ module.exports = (config, services) => parentApp => {
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
     setInReq({ mode: 'add' }),
     mw.addAndRedirectIfNothingToEdit
-  );
+  ); */
 
   parentApp.post(
     '/:agendaSlug/contribute/event/:eventUid/draft',
@@ -132,7 +133,7 @@ module.exports = (config, services) => parentApp => {
     isDraftRequested({ draft: true })
   );
 
-  parentApp.get(
+  /* parentApp.get(
     '/:agendaSlug/contribute/event/:eventUid',
     mw.defineBackRedirect
   );
@@ -220,7 +221,7 @@ module.exports = (config, services) => parentApp => {
     }
   );
 
-  parentApp.use('/:agendaSlug/contribute', contribute.app);
+  parentApp.use('/:agendaSlug/contribute', contribute.app); */
 
-  loadLegacyRoutes(parentApp);
+  // loadLegacyRoutes(parentApp);
 };

@@ -1,5 +1,7 @@
 'use strict';
 
+const logger = require('@openagenda/logs');
+
 const Create = require('./lib/create');
 const get = require('./lib/get');
 const list = require('./lib/list');
@@ -10,7 +12,8 @@ module.exports = (config = {}) => {
     knex: config.knex,
     interfaces: {
       getAgendaId: config.interfaces?.getAgendaId
-    }
+    },
+    defaultTemplates: config.defaultTemplates
   };
 
   return agendaUid => ({
@@ -19,4 +22,8 @@ module.exports = (config = {}) => {
     list: (...args) => list(internals, agendaUid, ...args),
     get: (...args) => get(internals, agendaUid, ...args)
   });
+};
+
+module.exports.updateLoggerConfig = config => {
+  logger.setModuleConfig(config);
 };

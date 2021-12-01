@@ -4,7 +4,7 @@ const React = require('react');
 const ReactDOM = require('react-dom/server');
 const { parsePath } = require('history');
 const { wrapApp } = require('@openagenda/react-shared');
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
+const createInboxApp = require('@openagenda/inbox-apps/dist/app');
 const cmn = require('../../../lib/commons-app');
 
 function endpointToRes(endpoint) {

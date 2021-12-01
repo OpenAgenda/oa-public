@@ -22,11 +22,11 @@ module.exports = async (
   let count = 0;
   let after;
   while (after !== null) {
-    const { events, after: nextAfter, total } = await listEventReferences(
-      sourceAgenda.uid,
-      after,
-      query
-    );
+    const {
+      events,
+      after: nextAfter,
+      total,
+    } = await listEventReferences(sourceAgenda.uid, after, query);
     after = nextAfter;
     count += events.length;
     log('enqueuing %s evaluates on %s', count, total);

@@ -54,12 +54,15 @@ export default class MessageForm extends Component {
     uppy.use(AwsS3, {
       // host: uploadEndpoint,
       getUploadParameters(file) {
+        const index = Object.keys(uppy.getState().files).findIndex(fileId => fileId === file.id)
+
         return superagent
           .get(uploadEndpoint + '/s3/params')
           .query({
             filename: file.name,
             type: file.type,
-            meta: uppy.getState().meta
+            meta: uppy.getState().meta,
+            index
           })
           .then(response => response.body);
       }

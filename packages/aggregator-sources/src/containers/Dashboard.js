@@ -96,9 +96,10 @@ function Dashboard() {
     () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
     [history.location.search]
   );
-  const initialValues = useMemo(() => ({ search: query.search || '' }), [
-    query,
-  ]);
+  const initialValues = useMemo(
+    () => ({ search: query.search || '' }),
+    [query]
+  );
   const [value, setValue] = useState(
     query.search !== '' ? query.search : undefined
   );
@@ -108,10 +109,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const apiClient = useApiClient();
 
-  const {
-    agenda: aggregatorAgenda,
-    agendaSchema: aggregatorAgendaSchema,
-  } = useLayoutData();
+  const { agenda: aggregatorAgenda, agendaSchema: aggregatorAgendaSchema } = useLayoutData();
 
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'sources.loading', true));
@@ -123,9 +121,10 @@ function Dashboard() {
   const modals = useSelector(state => state.modals);
   const dev = useSelector(state => state.dev);
 
-  const fuse = useMemo(() => new Fuse(agendaSources || [], fuseOptions), [
-    agendaSources,
-  ]);
+  const fuse = useMemo(
+    () => new Fuse(agendaSources || [], fuseOptions),
+    [agendaSources]
+  );
 
   const filteredSources = useMemo(() => {
     if (value && value !== '') {
@@ -201,9 +200,9 @@ function Dashboard() {
     [closeModalSetAggregatorRules, dispatch, params.slug]
   );
   const addSource = useCallback(
-    (sourceAgenda, rules, evaluate) => dispatch(
-      sourcesActions.add(sourceAgenda.uid, { rules, evaluate })
-    ).then(() => refresh()),
+    (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
+      () => refresh()
+    ),
     [dispatch, refresh]
   );
   const updateSource = useCallback(

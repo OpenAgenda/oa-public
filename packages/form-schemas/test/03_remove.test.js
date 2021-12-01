@@ -4,26 +4,26 @@ process.env.NODE_ENV = 'test';
 
 const should = require('should');
 
-const Service = require( '../');
+const Service = require( '../server');
 const fixtures = require('./service/fixtures');
 const config = require( '../testconfig' );
 
 describe('form-schemas -03- functional (server): remove', () => {
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       'form_schema.data.sql'
     ]);
   });
 
-  before(() => {
+  beforeAll(() => {
     config.mysql.database = 'oatest_fs';
     svc = Service(config);
   });
 
-  after(() => {
+  afterAll(() => {
     svc.internals.client.destroy();
   });
 

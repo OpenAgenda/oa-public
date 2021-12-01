@@ -3,7 +3,7 @@ import restrictLabelLanguages from '../client/src/FormSchemaBuilder/lib/restrict
 
 describe( '16 - unit - restrictLabelLanguages', () => {
 
-  it( 'restricts labels of field to given set of languages', () => {
+  it('restricts labels of field to given set of languages', () => {
 
     restrictLabelLanguages( {
       label: {
@@ -27,9 +27,9 @@ describe( '16 - unit - restrictLabelLanguages', () => {
       fieldType: 'text'
     } );
 
-  } );
+  });
 
-  it( 'turns multilingual to monolingual', () => {
+  it('turns multilingual to monolingual', () => {
 
     restrictLabelLanguages( {
       label: {
@@ -47,9 +47,9 @@ describe( '16 - unit - restrictLabelLanguages', () => {
       fieldType: 'text'
     } );
 
-  } );
+  });
 
-  it( 'turns monolingual to multilingual', () => {
+  it('turns monolingual to multilingual', () => {
 
     restrictLabelLanguages( {
       label: 'Titre',
@@ -67,9 +67,9 @@ describe( '16 - unit - restrictLabelLanguages', () => {
       fieldType: 'text'
     } );
 
-  } );
+  });
 
-  it( 'apply restrict languages to schema', () => {
+  it('apply restrict languages to schema', () => {
 
     restrictLabelLanguages.applyToSchema( {
       fields: [ {
@@ -97,6 +97,6 @@ describe( '16 - unit - restrictLabelLanguages', () => {
       } ]
     } );
 
-  } );
+  });
 
 } );

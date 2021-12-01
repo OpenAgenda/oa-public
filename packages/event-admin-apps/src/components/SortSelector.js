@@ -34,6 +34,10 @@ const stateSelectStyles = {
     ...defaultReactSelectStyles.valueContainer(provided, state),
     padding: '0 4px',
   }),
+  option: provided => ({
+    ...provided,
+    cursor: 'pointer',
+  }),
 };
 
 export default function SortSelector({ query, setQuery }) {

@@ -3,6 +3,7 @@
 const flatExports = require('@openagenda/flat-exports');
 const fieldNameLabels = require('@openagenda/labels/event/exportFieldNames');
 const memberLabels = require('@openagenda/labels/members');
+const stateLabels = require('@openagenda/labels/event/states');
 
 const csv = flatExports.csv();
 
@@ -12,10 +13,13 @@ module.exports = (req, res) => {
     languages: req.languages,
     labels: {
       ...fieldNameLabels,
-      ...memberLabels
+      ...memberLabels,
+      ...stateLabels
     },
     maintainedFields: ['dateRange', 'country'],
-    formSchema: req.formSchema
+    formSchema: req.formSchema,
+    includeFields: req.query.includeFields,
+    includeLanguages: req.query.includeLanguages
   }).pipe(res);
 
   return res.writeHead(200, {

@@ -1,10 +1,12 @@
-'use strict';
-
 const _ = require('lodash');
-const debug = require('debug');
-const log = debug('isFieldEnabled');
 
 const getWithFieldName = require('../iso/getWithFieldName');
+const isObject = require('../iso/isObject');
+
+const fileValueIsDefined = value => (
+  ('originalName' in value)
+  || ('filename' in value)
+);
 
 module.exports = (field, values, disabledForm = false) => {
   if (disabledForm) return false;
@@ -19,5 +21,13 @@ module.exports = (field, values, disabledForm = false) => {
     return !![].concat(field.enableWith.value).filter(v => relatedFieldValues.includes(v)).length;
   }
 
-  return !!(relatedFieldValue instanceof Array ? relatedFieldValue.length : relatedFieldValue);
-}
+  if (Array.isArray(relatedFieldValue)) {
+    return !!relatedFieldValue.length;
+  }
+
+  if (isObject(relatedFieldValue) && fileValueIsDefined(relatedFieldValue)) {
+    return !!(relatedFieldValue.filename || relatedFieldValue.originalName);
+  }
+
+  return !!relatedFieldValue;
+};

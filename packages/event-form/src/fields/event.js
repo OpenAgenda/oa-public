@@ -173,7 +173,7 @@ module.exports = ({ labels }) => [{
     value: 2
   },
   disableChange: false,
-  related: ['attendanceMode']
+  tiles
 }, {
   display: false,
   field: 'onlineAccessLink',

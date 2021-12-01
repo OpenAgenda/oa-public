@@ -26,6 +26,7 @@ const intervalSelectStyles = {
   }),
   option: provided => ({
     ...provided,
+    cursor: 'pointer',
     textAlign: 'left',
   }),
 };

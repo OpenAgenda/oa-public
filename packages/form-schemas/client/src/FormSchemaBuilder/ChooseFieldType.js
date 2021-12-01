@@ -59,6 +59,11 @@ const fieldTypeChoices = [ {
   value: 'select',
   label: labels.selectFieldType,
   info: labels.selectFieldTypeInfo
+}, {
+  id: 13,
+  value: 'date',
+  label: labels.dateFieldType,
+  info: labels.dateFieldTypeInfo
 }];
 
 export default class ChooseFieldType extends Component {

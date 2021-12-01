@@ -8,7 +8,8 @@ function applyTransform(transformFunction, data, keys, defaultValue = null) {
 
 function flatten(map, src, options = {}) {
   const {
-    separator = ' | '
+    separator = ' | ',
+    includeLanguages
   } = options;
 
   return map.reduce((flattened, mapItem) => {
@@ -27,14 +28,16 @@ function flatten(map, src, options = {}) {
       flattenedValue = [].concat(
         _.get(src, source)
       ).map(s => _.get(transform, s, defaultItem || null)).join(separator);
-    } else if (languages) {
+    } else if (!includeLanguages && languages && src[source]) {
       flattenedValue = languages.map(l => src[source][l]);
+    } else if (includeLanguages && languages && src[source]) {
+      flattenedValue = includeLanguages.map(l => src[source][l]);
     } else {
       flattenedValue = _.get(src, source, defaultItem || null);
     }
 
     if (_.isArray(target)) {
-      Object.assign(flattened, target.reduce((carry, targetField, index) => ({
+      Object.assign(flattened, target.reduce((carry, targetField, index) => (flattenedValue && {
         ...carry,
         [targetField]: flattenedValue[index] || null
       }), {}));

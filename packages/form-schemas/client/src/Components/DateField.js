@@ -1,63 +1,71 @@
-import ih from 'immutability-helper';
+import React from 'react';
+import { Calendar } from 'react-date-range';
+import Dropdown from 'react-bootstrap/lib/Dropdown';
+import { format } from 'date-fns';
+import * as rdrLocales from 'react-date-range/dist/locale';
 
-import React, { Component } from 'react';
+import dateLabels from '@openagenda/labels/form-schemas/date';
+import makeLabelGetter from '@openagenda/labels';
 
-import TextField from './TextField';
+const getLabel = makeLabelGetter(dateLabels);
 
-export default class DateField extends Component {
+if (module.hot) module.hot.accept();
 
-  parse( value ) {
+const getContent = (value, placeholder, lang) => {
+  if (!value) return placeholder || getLabel('pickADate', lang);
 
-    if ( !value ) return '';
+  return format(value, 'yyyy-MM-dd');
+};
 
-    const clean = value instanceof Date ? value : new Date( value );
+const getValueAsDate = v => {
+  if (!v) return v;
 
-    return [ fZ( clean.getDate() ), fZ( clean.getMonth() + 1 ), clean.getFullYear() ].join( '/' );
+  return typeof v === 'string' ? new Date(v) : v;
+};
 
-  }
+function DateField({
+  field,
+  value,
+  enabled,
+  onChange,
+  lang
+}) {
+  const {
+    field: fieldName,
+    placeholder
+  } = field;
 
-  onChange( value ) {
+  const cleanValue = getValueAsDate(value);
 
-    this.props.onChange( value && value.length ? new Date( value ) : null );
-
-  }
-
-  render() {
-
-    const props = ih( this.props, {
-      value: {
-        $set: this.parse( this.props.value )
-      },
-      onChange: {
-        $set: this.onChange.bind( this )
-      }
-    } );
-
-    return <div>
-      <TextField {...props} />
-      <p style={{color: 'red'}} className="pull-right">date field stub, do not use in production</p>
+  return (
+    <div>{enabled ? (
+      <Dropdown
+        id={`${fieldName}-input`}
+      >
+        <Dropdown.Toggle
+          bsRole="toggle"
+          className="form-control"
+        >
+          {getContent(cleanValue, placeholder, lang)}
+        </Dropdown.Toggle>
+        <Dropdown.Menu bsRole="menu">
+          <Calendar
+            date={cleanValue || null}
+            onChange={onChange}
+            locale={rdrLocales[lang]}
+          />
+        </Dropdown.Menu>
+      </Dropdown>
+    ) : (
+      <input
+        disabled
+        className="form-control inline"
+        value={getContent(cleanValue, placeholder, lang)}
+        style={{ width: 'auto' }}
+      />
+    )}
     </div>
-
-  }
-
+  );
 }
 
-
-function fZ( n, size ) {
-
-  if ( !size ) size = 2;
-
-  var s = n + '',
-
-  sign = s.substr( 0, 1 ) == '-' ? '-' : '';
-
-  if ( sign.length ) {
-
-    s = s.substr( 1 );
-
-  }
-
-  while ( s.length < size ) s = '0' + s;
-
-  return sign + s;
-}
+export default DateField;

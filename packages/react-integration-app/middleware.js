@@ -20,8 +20,10 @@ const {
 } = require('@openagenda/react-layouts');
 const {
   AgendaAdminDataLayout,
+  // AgendaDataLayout,
   AgendaAdminFiltersLayout,
   AgendaAdminLayout,
+  // AgendaLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
   MainLayout,
@@ -36,9 +38,10 @@ const createUserActivitiesApp = require('@openagenda/activity-apps/dist/client/a
 const createAgendaActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/agenda');
 const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
 const createAgendaStatsApp = require('@openagenda/agenda-stats/dist/app');
-const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
+const createInboxApp = require('@openagenda/inbox-apps/dist/app');
 const createMembersApp = require('@openagenda/member-apps/dist/app');
 const createLegacyEmbedsApp = require('@openagenda/legacy/embeds/app/dist');
+// const createAgendaContributeApp = require('@openagenda/agenda-contribute/client/src');
 const createEventAdminApp = require('@openagenda/event-admin-apps/dist/app');
 const createSupervisorApp = require('@openagenda/supervisor/lib/app');
 const RootHelmet = require('./RootHelmet');
@@ -145,6 +148,11 @@ module.exports = function match({ initialState, publicPath }) {
             AgendaAdminFiltersLayout,
           ],
         ],
+        /* [
+          'agendaContribute',
+          createAgendaContributeApp,
+          [MainLayout, RequiredUser, AgendaDataLayout, AgendaLayout]
+        ], */
         [
           'eventAdmin',
           createEventAdminApp,

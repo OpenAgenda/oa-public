@@ -647,11 +647,9 @@ class Dashboard extends Component {
           >
             {!writeToMembersModal.confirmation ? (
               <SendMessageForm
-                onSubmit={data => sendMessage(
-                  agenda,
-                  data,
-                  writeToMembersModal.query
-                ).then(() => setModal('writeToMembers', { confirmation: true }))}
+                onSubmit={data => sendMessage(agenda, data, writeToMembersModal.query).then(
+                  () => setModal('writeToMembers', { confirmation: true })
+                )}
               />
             ) : (
               <div className="text-center">

@@ -22,9 +22,9 @@ describe('17 - unit - flatten labels', () => {
       info: 'Un peu plus sur le champ'
     } );
 
-  } );
+  });
 
-  it( 'flattens option values of field', () => {
+  it('flattens option values of field', () => {
 
     const flattened = flattenLabels( {
       label: {
@@ -51,9 +51,9 @@ describe('17 - unit - flatten labels', () => {
       } ]
     } );
 
-  } );
+  });
 
-  it( 'does not flatten option values if already flat', () => {
+  it('does not flatten option values if already flat', () => {
 
     const flattened = flattenLabels( {
       options: [ {
@@ -71,6 +71,6 @@ describe('17 - unit - flatten labels', () => {
       } ]
     } );
 
-  } );
+  });
 
 });

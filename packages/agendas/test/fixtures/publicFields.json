@@ -7,7 +7,7 @@
   },
   "description": {
     "type": "text",
-    "max": 160,
+    "max": 255,
     "optional": false
   },
   "slug": {

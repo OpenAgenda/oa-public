@@ -112,21 +112,12 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
     .agendas(req.agenda.uid).events
     .search(req.convertedQuery, req.convertedQuery, {
-      ...req.query,
       ...req.convertedQuery,
       useAfterKey: true,
       userUid: req.user?.uid
-    }).then(({
-      events,
-      sort,
-      total,
-      after
-    }) => res.json({
+    }).then(result => res.json({
       success: true,
-      sort,
-      total,
-      after,
-      events
+      ...result
     }), next));
 
   app.get('/agendas/:agendaUid/events/:eventUid', [
@@ -294,7 +285,10 @@ module.exports = core => {
     '/agendas/:agendaUid/locations',
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
-      .list(req.query, req.query)
+      .list(req.query, req.query, {
+        useAfter: !req.query.from || !!req.query.after,
+        eventCounts: !!req.query.eventCounts
+      })
       .then(({ items, total, after }) => res.json({
         success: true,
         locations: items,
