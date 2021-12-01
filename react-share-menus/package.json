@@ -8,9 +8,12 @@
   },
   "author": "",
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
   "scripts": {
     "start": "start-storybook -c .storybook -p 9001 --ci",
+    "prepack": "yarn clean && yarn build",
+    "build": "babel --copy-files src -d lib -s",
     "extract-messages": "yarn oa:extract-messages 'src/components/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'"
   },
   "dependencies": {
