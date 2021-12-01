@@ -148,7 +148,11 @@ module.exports = function getDefaultFieldMap(options) {
     target: getTarget('registrationUrl')
   }, {
     source: 'featured',
-    target: getTarget('featured')
+    target: _.capitalize(getTarget('featured')),
+    transform: {
+      true: _.capitalize(getTarget('featured')),
+      false: null
+    }
   }, {
     source: 'age.min',
     target: getTarget('age.min')
