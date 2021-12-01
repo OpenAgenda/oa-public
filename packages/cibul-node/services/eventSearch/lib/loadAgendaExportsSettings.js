@@ -19,6 +19,7 @@ module.exports = () => (req, res) => {
   const spreadsheetColumns = flatExports.csv().getHeaders(options);
 
   res.json({
+    languages: req.languages,
     spreadsheetColumns
   });
 };
