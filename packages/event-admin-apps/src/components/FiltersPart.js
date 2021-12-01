@@ -17,7 +17,6 @@ function FiltersPart({
 }) {
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
-  const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
@@ -77,15 +76,7 @@ function FiltersPart({
   const getOptions = useFilterOptions(filterAggs);
   const [initialViewport] = useState(() => aggregations.viewport);
 
-  const mapProps = useMemo(
-    () => ({
-      query,
-      tileAttribution:
-        '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-      tileUrl: mapTiles,
-    }),
-    [query]
-  );
+  const mapProps = useMemo(() => ({ query }), [query]);
 
   return (
     <>

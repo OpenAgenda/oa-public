@@ -164,6 +164,15 @@ module.exports = function getDefaultFieldMap(options) {
   }, {
     source: 'link',
     target: getTarget('link')
+  }, {
+    source: 'state',
+    target: _.capitalize(getTarget('state')),
+    transform: {
+      '-1': _.capitalize(_.get(options.labels, `refused.${options.lang}`, 'refused')),
+      0: _.capitalize(_.get(options.labels, `tocontrol.${options.lang}`, 'in moderation')),
+      1: _.capitalize(_.get(options.labels, `controlled.${options.lang}`, 'ready to publish')),
+      2: _.capitalize(_.get(options.labels, `published.${options.lang}`, 'published')),
+    }
   }];
 
   if (options.includeFields) {

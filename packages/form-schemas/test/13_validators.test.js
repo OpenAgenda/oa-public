@@ -177,47 +177,50 @@ describe('deriving validators', () => {
     });
   });
 
-  it('FormSchema builds a schema based on list of field configurations', () => {
-    const fields = [{
-      field: 'atextfield',
-      label: { fr: 'Un champ texte' },
-      fieldType: 'text'
-    }, {
-      field: 'anotherfield',
-      label: { fr: 'Un nombre' },
-      fieldType: 'number',
-      default: 13,
-      min: 2
-    }, {
-      field: 'andanotherfield',
-      label: {
-        fr: 'Un choix'
-      },
-      fieldType: 'radio',
-      options: [{
-        id: 1,
-        value: 'option-1',
-        label: { fr: 'Option 1' }
+  it(
+    'FormSchema builds a schema based on list of field configurations',
+    () => {
+      const fields = [{
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text'
       }, {
-        id: 2,
-        value: 'option-2',
-        label: { fr: 'Option 2' }
-      }]
-    }];
+        field: 'anotherfield',
+        label: { fr: 'Un nombre' },
+        fieldType: 'number',
+        default: 13,
+        min: 2
+      }, {
+        field: 'andanotherfield',
+        label: {
+          fr: 'Un choix'
+        },
+        fieldType: 'radio',
+        options: [{
+          id: 1,
+          value: 'option-1',
+          label: { fr: 'Option 1' }
+        }, {
+          id: 2,
+          value: 'option-2',
+          label: { fr: 'Option 2' }
+        }]
+      }];
 
-    const s = getSchema(fields);
+      const s = getSchema(fields);
 
-    const clean = s({
-      atextfield: 'Some text',
-      andanotherfield: 1
-    });
+      const clean = s({
+        atextfield: 'Some text',
+        andanotherfield: 1
+      });
 
-    assert.deepEqual(clean, {
-      atextfield: 'Some text',
-      anotherfield: 13,
-      andanotherfield: 1
-    });
-  });
+      assert.deepEqual(clean, {
+        atextfield: 'Some text',
+        anotherfield: 13,
+        andanotherfield: 1
+      });
+    }
+  );
 
 });
 

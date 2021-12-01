@@ -262,14 +262,17 @@ describe('form-schemas -06- validateField', () => {
     });
 
 
-    it('a field with an enableWith value set will have the value added to the related fields list', () => {
-      assert.deepEqual(iso.validateField({
-        field: 'afield',
-        fieldType: 'text',
-        label: 'A label',
-        enableWith: 'anotherfield'
-      }).related, { enable: ['anotherfield'], optional: [] });
-    });
+    it(
+      'a field with an enableWith value set will have the value added to the related fields list',
+      () => {
+        assert.deepEqual(iso.validateField({
+          field: 'afield',
+          fieldType: 'text',
+          label: 'A label',
+          enableWith: 'anotherfield'
+        }).related, { enable: ['anotherfield'], optional: [] });
+      }
+    );
 
     it('enableWith can be an object', () => {
       const field = iso.validateField({

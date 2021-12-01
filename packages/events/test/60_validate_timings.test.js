@@ -323,6 +323,24 @@ describe('timings', () => {
       assert.deepEqual(validate(), defaultValue);
     });
 
+    /**
+     * when nothing is stored in the db for timings it is defined as null in the entry.
+     * An event draft is saved without timings, then reloaded, the value read is null rather than undefined
+     * and if a default value exists, it should replace null.
+     */
+    it('if default is provided, default is used if null value is given', () => {
+      const defaultValue = [{
+        begin: { date: '2019-10-12', hours: 10, minutes: 11 },
+        end: { date: '2019-10-12', hours: 12, minutes: 20 }
+      }];
+
+      const validate = validateTimings({
+        default: defaultValue
+      });
+
+      expect(validate(null)).toEqual(defaultValue);
+    });
+
     it('throws error if provided items count exceeds specified max', () => {
       const values = [];
       const cursor = new Date();

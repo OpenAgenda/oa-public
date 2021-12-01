@@ -1430,9 +1430,7 @@
     "longitude": 2.237134,
     "updatedAt": "2016-04-02T05:30:10.000Z"
   },
-  "state": {
-    "code": 2
-  },
+  "state":  2,
   "slug": "a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu",
   "age": {
     "min": null,

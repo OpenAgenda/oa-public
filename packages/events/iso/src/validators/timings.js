@@ -14,7 +14,7 @@ module.exports = (options = {}) => dirty => {
     field: 'timings'
   };
 
-  const timings = options.default && dirty === undefined ? options.default : dirty;
+  const timings = options.default && [undefined, null].includes(dirty) ? options.default : dirty;
 
   if (options.optional && !timings) {
     return timings;

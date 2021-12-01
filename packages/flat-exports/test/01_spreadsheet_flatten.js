@@ -44,6 +44,10 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     test('keywords are "|" separated', () => {
       expect(flat['Mots clés - FR']).toEqual('Expo | Jeu');
     });
+
+    test('state is part of result', () => {
+      expect(flat.Statut).toEqual('published');
+    });
   });
 
   describe('flatten specific fields', () => {

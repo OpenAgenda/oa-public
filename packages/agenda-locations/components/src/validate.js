@@ -45,7 +45,9 @@ const baseValidators = [
   }),
   validators.pass({ field: 'image' }),
   validators.text({ field: 'imageCredits', max: 255, optional: true }),
-  validators.text({ field: 'address', min: 3, max: 255 }),
+  validators.text({
+    field: 'address', min: 3, max: 255, optional: false
+  }),
   validators.text({
     field: 'adminLevel1', min: 0, max: 300, optional: true
   }),

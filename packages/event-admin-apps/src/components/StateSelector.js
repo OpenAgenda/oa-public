@@ -42,6 +42,7 @@ const stateSelectStyles = {
   }),
   option: provided => ({
     ...provided,
+    cursor: 'pointer',
     display: 'flex',
   }),
   dropdownIndicator: provided => ({

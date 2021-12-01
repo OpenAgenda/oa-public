@@ -2,6 +2,7 @@
   "base" : [
     "uid",
     "title",
+    "description",
     "status",
     "dateRange",
     "featured",
@@ -22,7 +23,6 @@
     "onlineAccessLink"
   ],
   "detailed" : [
-    "description",
     "longDescription",
     "conditions",
     "html",
