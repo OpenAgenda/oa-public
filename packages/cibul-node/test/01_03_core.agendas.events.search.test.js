@@ -182,7 +182,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       it('keys provided in response are success, sort, total, after and events', () => {
-        expect(Object.keys(response)).toEqual(['success', 'sort', 'total', 'after', 'events']);
+        expect(
+          Object.keys(response)
+            .filter(
+              key => ['success', 'sort', 'total', 'after', 'events'].includes(key)
+            ).length
+        ).toEqual(5);
       });
 
       it('if user is adminmod, unpublished events can be provided', () => {
@@ -248,6 +253,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     });
 
     describe('successful get for non adminmod user', () => {
+      const nonAdminModKey = '1hFOmegP30toI8hA1if8auC6aMbVg1N9';
+
       it('non published events are not gettable by non adminmods', async () => {
         let error;
 
@@ -259,7 +266,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
               'content-type': 'application/json'
             },
             params: {
-              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
+              key: nonAdminModKey
             }
           });
         } catch (e) {
@@ -277,7 +284,22 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             'content-type': 'application/json'
           },
           params: {
-            key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
+            key: nonAdminModKey
+          }
+        }).then(r => r.data);
+
+        expect(response.event.uid).toBe(2);
+      });
+
+      it('get by slug', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/slug/event-2',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: nonAdminModKey
           }
         }).then(r => r.data);
 
