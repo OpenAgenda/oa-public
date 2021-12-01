@@ -1,5 +1,0 @@
-releases:
-  "@openagenda/react-filters": minor
-
-undecided:
-  - "@openagenda/browserslist-config"
