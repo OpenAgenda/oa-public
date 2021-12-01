@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import axios from 'axios';
 
-import Modal from '@openagenda/react-shared/src/components/Modal';
+import Modal from '@openagenda/react-shared';
 import Radio from '../Radio';
 import SpreadsheetOptions from './SpreadsheetOptions';
 
