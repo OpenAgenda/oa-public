@@ -2,7 +2,7 @@
   "aggregator-description": "Events published by {targetAgenda} will be automatically added to the selected calendar.",
   "aggregator-title": "Aggregate to an agenda",
   "all-fields": "Export every field",
-  "all-languages": "All",
+  "all-languages": "Export in all languages",
   "calendar-date": "This event has no upcoming dates",
   "cancel": "Cancel",
   "close": "Close",
