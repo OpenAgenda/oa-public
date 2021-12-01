@@ -15,7 +15,7 @@
 
       };
     </script>
-    <script src="https://unpkg.com/@openagenda/react-filters@2.2.3/dist/main.js"></script>
+    <script src="https://unpkg.com/@openagenda/react-filters@2.3.1/dist/main.js"></script>
   </body>
 </html>
 ```
@@ -80,7 +80,7 @@ const defaultViewport = {
 };
 ```
 
-### `initialQuery`
+### `query`
 
 L'objet des valeurs des filtres, qui vient généralement de l'url mais peut aussi être utilisé à des fins de test.
 
