@@ -5348,7 +5348,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/users": ^3.1.0
     "@storybook/addon-knobs": ^6.2.8
     "@storybook/react": ^6.2.8
@@ -5403,7 +5403,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/queue": ^1.0.1
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.4.0
     async: ^2.3.0
@@ -5442,7 +5442,7 @@ __metadata:
     "@openagenda/members": ^1.15.13
     "@openagenda/react-bootstrap-datetimerangepicker": ^2.0.5
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/sessions": ^4.1.0
     "@openagenda/utils": ^1.3.0
     "@storybook/react": ^6.2.8
@@ -5598,7 +5598,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/validators": ^2.4.0
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
@@ -5737,7 +5737,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.2.8
@@ -5801,8 +5801,8 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/react-filters": ^2.4.0
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-filters": ^2.4.1
+    "@openagenda/react-shared": ^2.3.0
     "@stefanoruth/react-portal-ssr": ^2.0.3
     axios: ^0.21.1
     babel-loader: ^8.2.2
@@ -5970,7 +5970,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.2.8
@@ -6034,8 +6034,8 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-filters": ^2.4.0
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-filters": ^2.4.1
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/react": ^6.2.8
     babel-loader: ^8.2.2
     classnames: ^2.3.1
@@ -6150,7 +6150,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     babel-loader: ^8.2.2
@@ -6375,7 +6375,7 @@ __metadata:
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-layouts": ^2.2.1
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/registration": ^1.1.4
     "@openagenda/sessions": ^4.1.0
     "@openagenda/translators": ^2.0.12
@@ -6597,8 +6597,8 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-filters": ^2.4.0
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-filters": ^2.4.1
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     axios-mock-adapter: ^1.19.0
@@ -6828,7 +6828,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/validators": ^2.4.0
     aws-sdk: ^2.544.0
     babel-loader: ^8.2.2
@@ -6908,7 +6908,7 @@ __metadata:
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     axios-mock-adapter: ^1.19.0
@@ -6969,7 +6969,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/sessions": ^4.1.0
     "@openagenda/validators": ^2.4.0
     "@storybook/builder-webpack5": ^6.4.0-alpha.22
@@ -7163,7 +7163,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
@@ -7279,7 +7279,7 @@ __metadata:
     "@openagenda/members": ^1.15.13
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -7603,7 +7603,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-filters@^2.4.0, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@^2.4.1, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -7616,7 +7616,7 @@ __metadata:
     "@openagenda/axios-mock-adapter": ^1.21.0
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@raruto/leaflet-gesture-handling": ^1.3.4
     "@stefanoruth/react-portal-ssr": ^2.0.3
     "@storybook/addon-essentials": ^6.4.0-beta.11
@@ -7727,7 +7727,7 @@ __metadata:
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-layouts": ^2.2.1
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/supervisor": ^1.3.1
     "@openagenda/user-apps": ^1.2.1
     "@welldone-software/why-did-you-render": ^6.0.0-rc.1
@@ -7789,7 +7789,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/members": ^1.15.13
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/sessions": ^4.1.0
     classnames: ^2.3.1
     core-js: ^3.10.2
@@ -7832,7 +7832,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/react-shared": ^2.1.1
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/addon-actions": ^6.2.8
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -7853,7 +7853,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-shared@^2.1.1, @openagenda/react-shared@^2.2.0, @openagenda/react-shared@workspace:public/react-shared":
+"@openagenda/react-shared@^2.3.0, @openagenda/react-shared@workspace:public/react-shared":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-shared@workspace:public/react-shared"
   dependencies:
@@ -7948,7 +7948,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/addon-viewport": ^6.2.8
     "@storybook/addons": ^6.2.8
     "@storybook/react": ^6.2.8
@@ -8118,7 +8118,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@storybook/addon-essentials": ^6.2.8
     "@storybook/addon-links": ^6.2.8
     "@storybook/react": ^6.2.8
@@ -8234,7 +8234,7 @@ __metadata:
     "@openagenda/keys": ^2.2.10
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/unsubscribed": ^2.1.9
     "@openagenda/users": ^3.1.0
     "@openagenda/utils": ^1.3.0
@@ -16851,7 +16851,7 @@ __metadata:
     "@openagenda/queues": ^1.2.7
     "@openagenda/react-integration-app": ^1.6.1
     "@openagenda/react-layouts": ^2.2.1
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.3.0
     "@openagenda/registration": ^1.1.4
     "@openagenda/sessions": ^4.1.0
     "@openagenda/shares": ^0.1.1

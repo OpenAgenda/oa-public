@@ -28,7 +28,7 @@
     "@openagenda/members": "^1.15.13",
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.2.0",
+    "@openagenda/react-shared": "^2.3.0",
     "@openagenda/sessions": "^4.1.0",
     "@openagenda/utils": "^1.3.0",
     "async": "^2.1.4",

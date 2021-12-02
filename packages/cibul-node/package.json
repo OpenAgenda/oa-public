@@ -73,7 +73,7 @@
     "@openagenda/queues": "^1.2.7",
     "@openagenda/react-integration-app": "^1.6.1",
     "@openagenda/react-layouts": "^2.2.1",
-    "@openagenda/react-shared": "^2.2.0",
+    "@openagenda/react-shared": "^2.3.0",
     "@openagenda/registration": "^1.1.4",
     "@openagenda/sessions": "^4.1.0",
     "@openagenda/shares": "^0.1.1",

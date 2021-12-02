@@ -1,6 +1,0 @@
-releases:
-  "@openagenda/react-filters": patch
-  "@openagenda/react-shared": minor
-
-undecided:
-  - oa

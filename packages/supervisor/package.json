@@ -31,7 +31,7 @@
     "@emotion/react": "^11.1.5",
     "@openagenda/form-schemas": "^1.9.2",
     "@openagenda/react-components": "^2.3.10",
-    "@openagenda/react-shared": "^2.2.0",
+    "@openagenda/react-shared": "^2.3.0",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",
     "final-form-arrays": "^3.0.2",
