@@ -15,7 +15,7 @@
 
       };
     </script>
-    <script src="https://unpkg.com/@openagenda/react-filters@2.3.1/dist/main.js"></script>
+    <script src="https://unpkg.com/@openagenda/react-filters@2.4.1/dist/main.js"></script>
   </body>
 </html>
 ```
