@@ -14,7 +14,8 @@
         "devDependencies": [
           ".storybook/**/*.js",
           "stories/**/*.js",
-          "example/**/*.js"
+          "example/**/*.js",
+          "webpack.config.js"
         ]
       }
     ]
