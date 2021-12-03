@@ -4,7 +4,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import base64 from 'base-64';
 import utf8 from 'utf8';
 
-import Modal from '@openagenda/react-shared';
+import { Modal } from '@openagenda/react-shared';
 import AgendaSearchInput from './AgendaSearchInput';
 
 const AggregatorModal = ({
