@@ -1,40 +1,63 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { Spinner } from '@openagenda/react-shared';
-import reducers from '../reducers';
+import debug from 'debug';
+import React, { useEffect } from 'react';
 
-class Landing extends Component {
-  componentDidMount() {
-    const {
-      onDisplay,
-      history
-    } = this.props;
+import Loading from '../components/Loading';
 
-    onDisplay(history);
-  }
+import utils from '../lib/utils';
+import usePrefix from '../hooks/usePrefix';
+import useMember from '../hooks/useMember';
 
-  render() {
-    return (
-      <div
-        className="text-center margin-top-lg"
-        style={{
-          minHeight: 300,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <Spinner mode="inline" options={{ scale: 1, width: 1 }} />
-      </div>
-    );
-  }
+const {
+  isMemberDataComplete,
+  replaceWithStep,
+  isContributionType,
+  isMemberDataRequired,
+  isMemberRole
+} = utils;
+
+export default function Landing({
+  agenda,
+  history
+}) {
+  const log = debug('Landing');
+  const prefix = usePrefix(agenda);
+
+  const {
+    memberIsLoading,
+    memberIsFresh,
+    member
+  } = useMember(agenda);
+
+  useEffect(() => {
+    if (
+      isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
+      && !isMemberDataRequired(agenda)
+    ) {
+      log('  Base path is requested, contributor data is not required by agenda. Redirecting to event step');
+      return replaceWithStep(history, prefix, 'event');
+    }
+
+    if (
+      isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
+      && isMemberRole(member, 'contributor')
+      && (
+        !isMemberDataRequired(agenda)
+        || (isMemberDataComplete(member) && memberIsFresh)
+      )
+    ) {
+      log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
+      return replaceWithStep(history, prefix, 'event');
+    }
+
+    if (isMemberRole(member, ['administrator', 'moderator'])) {
+      log('  Member is adminmod. Redirecting to event step');
+      return replaceWithStep(history, prefix, 'event');
+    }
+
+    if (!memberIsLoading) {
+      replaceWithStep(history, prefix, 'member');
+    }
+  }, [agenda, history, prefix, memberIsFresh, memberIsLoading, log, member]);
+
+  return <Loading />;
 }
-
-// container bit
-export default connect(
-  () => ({}),
-  dispatch => ({
-    onDisplay: history => dispatch(reducers.landing.evaluate(history))
-  })
-)(withRouter(Landing));

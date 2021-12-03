@@ -10,6 +10,13 @@ const contributionTypes = {
   MEMBERS_ONLY: 2
 };
 
+function replaceWithStep(history, prefix, step) {
+  history.replace({
+    ...history.location,
+    pathname: `${prefix}/${step}`
+  });
+}
+
 function isMemberDataComplete(data) {
   const fields = Object.keys(data ?? {});
   return fields.filter(field => !!data[field]).length === fields.length;
@@ -66,5 +73,6 @@ export default {
   isMemberRole,
   matchStepPath,
   doRedirect,
-  removeEventFieldsFromSchema
+  removeEventFieldsFromSchema,
+  replaceWithStep
 };

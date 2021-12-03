@@ -37,14 +37,22 @@ const Confirmation = loadable(() => import(
   './containers/Confirmation'
 ));
 
+const Landing = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-Landing" */
+  './containers/Landing'
+));
+
 export default (prefix = '') => ([
   {
     path: prefix,
     component: App,
     routes: [{
-      path: `${prefix}/member`,
-      component: Member,
+      path: `${prefix}/`,
+      component: Landing,
       exact: true
+    }, {
+      path: `${prefix}/member`,
+      component: Member
     }, {
       path: `${prefix}/event`,
       component: EventNew,
@@ -58,8 +66,7 @@ export default (prefix = '') => ([
       component: EventDraft
     }, {
       path: `${prefix}/confirmation`,
-      component: Confirmation,
-      exact: true
+      component: Confirmation
     }, {
       path: `${prefix}/event/:eventUid/from/:fromAgendaUid`,
       component: EventShare

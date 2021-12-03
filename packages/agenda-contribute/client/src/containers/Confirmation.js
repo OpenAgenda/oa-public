@@ -1,4 +1,5 @@
-import React from 'react';
+import debug from 'debug';
+import React, { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
@@ -7,6 +8,7 @@ import redirectTo from '../lib/redirectTo';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import Instructions from '../components/Instructions';
 import usePrefix from '../hooks/usePrefix';
+import utils from '../lib/utils';
 
 const messages = defineMessages({
   recapDetailState0: {
@@ -43,6 +45,12 @@ const messages = defineMessages({
   }
 });
 
+const {
+  replaceWithStep
+} = utils;
+
+const log = debug('Confirmation');
+
 export default function Confirmation({ history, agenda }) {
   const createdEvent = useSelector(state => state.contribute.createdEvent);
   const prefix = usePrefix(agenda);
@@ -53,6 +61,14 @@ export default function Confirmation({ history, agenda }) {
   const {
     formatMessage: m,
   } = useIntl();
+
+  useEffect(() => {
+    if (createdEvent) {
+      return;
+    }
+    log('  Attempting to reach confirmation screen without a created event. Redirecting to event step');
+    replaceWithStep(history, prefix, 'event');
+  }, [history, prefix, createdEvent]);
 
   return (
     <CanvasWithStepper

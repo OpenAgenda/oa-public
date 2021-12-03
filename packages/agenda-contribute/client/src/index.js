@@ -13,8 +13,8 @@ export default function contribute(options) {
   const { APIRoot, prefix } = initialState;
 
   return createApp({
+    name: 'agendaContribute',
     ...options,
-    name: 'contribute',
     initialState,
     apiRoot: APIRoot,
     prefix,
