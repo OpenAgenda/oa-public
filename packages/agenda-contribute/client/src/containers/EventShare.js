@@ -33,7 +33,7 @@ export default function EventAdd({
   history
 }) {
   const m = useIntl().formatMessage;
-  const APIRoot = useSelector(state => state.APIRoot);
+  const apiRoot = useSelector(state => state.settings.apiRoot);
   const dispatch = useDispatch();
 
   const res = useSelector(state => state.res);
@@ -103,7 +103,7 @@ export default function EventAdd({
         />
       ) : (
         <EventEditForm
-          res={`${APIRoot}${history.location.pathname}`}
+          res={`${apiRoot}${history.location.pathname}`}
           config={{
             ...config,
             schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)

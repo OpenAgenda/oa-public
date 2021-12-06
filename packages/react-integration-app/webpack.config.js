@@ -128,6 +128,7 @@ module.exports = (env = {}, argv = {}) => {
           resolve: {
             fullySpecified: false,
           },
+          exclude: [/\/node_modules\/rrule\//], // https://github.com/jakubroztocil/rrule/issues/303
         },
         {
           test: /\.(js|mjs|jsx)$/,

@@ -21,7 +21,6 @@ function AgendaDataLayout({
     () => matchPath(location.pathname, '/:slug'),
     [location.pathname]
   );
-  // ici j'ai besoin d'un point api par slug.
 
   const { data, isLoading, error } = useQuery(
     ['react-layouts', 'AgendaData', { slug: params.slug }],

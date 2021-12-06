@@ -1,3 +1,4 @@
+import debug from 'debug';
 import React from 'react';
 
 import { useQueryClient } from 'react-query';
@@ -10,11 +11,14 @@ import useMember from '../hooks/useMember';
 import steps from '../lib/steps';
 import contributeReducer from '../reducers/contribute';
 
+const log = debug('Member');
+
 export default function Member({
   agenda
 }) {
+  log('loading');
   const queryClient = useQueryClient();
-  const res = useSelector(state => state.APIRoot + state.res.member);
+  const res = useSelector(state => state.settings.apiRoot + state.res.member);
 
   const dispatch = useDispatch();
 

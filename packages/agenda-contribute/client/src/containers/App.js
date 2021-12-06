@@ -1,5 +1,5 @@
 import debug from 'debug';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
@@ -46,19 +46,26 @@ function App(props) {
 
   const prefix = usePrefix(agenda);
 
-  if (memberIsLoading) {
-    return <Loading />;
-  }
-
-  if (
-    !matchStepPath(history, prefix, 'member')
+  const shouldGoToFirstStep = !memberIsLoading
+    && !matchStepPath(history, prefix, 'member')
     && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberDataRequired(agenda)
     && !isMemberRole(member, ['administrator', 'moderator'])
-    && (!member || !isMemberDataComplete(member))
-  ) {
+    && (!member || !isMemberDataComplete(member));
+
+  useEffect(() => {
+    log('useEffecting');
+    if (!shouldGoToFirstStep) {
+      return;
+    }
+
     log('  Base path is requested, user is not a member. Redirecting to member step');
-    return replaceWithStep(history, prefix, 'member');
+    replaceWithStep(history, prefix, 'member');
+  }, []);
+
+  if (memberIsLoading || shouldGoToFirstStep) {
+    log('là');
+    return <Loading />;
   }
 
   if (!member && isContributionType(agenda, 'MEMBERS_ONLY')) {

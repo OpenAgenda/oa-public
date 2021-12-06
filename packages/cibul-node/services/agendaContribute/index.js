@@ -1,15 +1,15 @@
 'use strict';
 
-const contribute = require('@openagenda/agenda-contribute');
+// const contribute = require('@openagenda/agenda-contribute');
 
-const layout = require('../lib/layouts').agenda;
+// const layout = require('../lib/layouts').agenda;
 const plugApp = require('./plugApp');
 
 const middlewares = require('./middlewares');
-const interfaces = require('./interfaces');
+// const interfaces = require('./interfaces');
 
 module.exports.init = (config, services) => {
-  contribute.init({
+  /* contribute.init({
     logger: config.getLogConfig('svc', 'agendaContribute'),
     CDNPath: config.aws.servicesBucketPath,
     tiles: config.tiles,
@@ -19,7 +19,7 @@ module.exports.init = (config, services) => {
     layout,
     middlewares,
     interfaces: interfaces(services)
-  });
+  }); */
 
   return {
     mw: middlewares,

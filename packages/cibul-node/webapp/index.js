@@ -357,9 +357,11 @@ const initialState = async req => {
       }
     },
     agendaContribute: {
-      prefix: '/:slug/contribute',
-      lang,
-      APIRoot: `https://localhost:${config.port}`,
+      settings: {
+        prefix: '/:slug/contribute',
+        lang,
+        apiRoot: `https://localhost:${config.port}`,
+      },
       res: {
         member: '/api/me/agendas/:agendaUid',
         event: '/api/me/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
@@ -388,9 +390,9 @@ const initialState = async req => {
         store: {
           type: 's3',
           bucket: config.aws.bucket
-        },
-        tiles: config.tiles
-      }
+        }
+      },
+      tiles: config.tiles
     },
     agendaActivities: {
       settings: {
@@ -492,6 +494,7 @@ module.exports = app => {
       '/:slug/admin/statistics(/*?)?',
       '/:slug/admin/getting-started(/*?)?',
       '/:slug/admin/settings(/*?)?',
+      '/:slug/contribute(/*?)?',
       // Admin
       '/admin/support(/*?)?',
       '/supervisor(/*?)?'

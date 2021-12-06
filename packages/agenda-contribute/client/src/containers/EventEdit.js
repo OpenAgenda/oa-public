@@ -19,7 +19,7 @@ export default function EventEdit({
   const {
     eventUid // as a string
   } = useParams();
-  const APIRoot = useSelector(state => state.APIRoot);
+  const apiRoot = useSelector(state => state.settings.apiRoot);
 
   const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ export default function EventEdit({
       event={event}
     >
       <EventEditForm
-        res={`${APIRoot}${history.location.pathname}`}
+        res={`${apiRoot}${history.location.pathname}`}
         config={config}
         event={event}
         memberRole={member.role}

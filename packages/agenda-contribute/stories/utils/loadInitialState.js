@@ -3,8 +3,10 @@ export default function loadInitialState() {
   memberFreshness.setMonth(memberFreshness.getMonth() - 6);
 
   return {
-    APIRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
-    prefix: '/:agendaSlug/contribute',
+    settings: {
+      apiRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+      prefix: '/:slug/contribute',
+    },
     res: {
       member: '/api/me/agendas/:agendaUid',
       event: '/api/me/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',

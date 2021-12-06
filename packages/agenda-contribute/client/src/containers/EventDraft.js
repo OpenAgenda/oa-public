@@ -39,7 +39,7 @@ export default function EventDraft({ agenda, history }) {
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
   const { config, configIsLoading } = useEventFormConfig(agenda);
-  const APIRoot = useSelector(state => state.APIRoot);
+  const apiRoot = useSelector(state => state.settings.apiRoot);
 
   if (configIsLoading || memberIsLoading || eventIsLoading) {
     return <Loading />;
@@ -57,7 +57,7 @@ export default function EventDraft({ agenda, history }) {
         className="margin-bottom-lg"
       />
       <EventNewForm
-        res={`${APIRoot}${prefix}`}
+        res={`${apiRoot}${prefix}`}
         history={history}
         event={event}
         config={config}

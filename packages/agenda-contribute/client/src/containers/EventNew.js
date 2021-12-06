@@ -1,3 +1,4 @@
+import debug from 'debug';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,7 +20,10 @@ const {
   isContributionType
 } = utils;
 
+const log = debug('EventNew');
+
 export default function EventNew({ agenda, history }) {
+  log('loading');
   const {
     memberIsLoading,
     member
@@ -28,7 +32,7 @@ export default function EventNew({ agenda, history }) {
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
   const { config, configIsLoading } = useEventFormConfig(agenda);
-  const APIRoot = useSelector(state => state.APIRoot);
+  const apiRoot = useSelector(state => state.settings.apiRoot);
 
   if (configIsLoading || memberIsLoading) {
     return <Loading />;
@@ -46,7 +50,7 @@ export default function EventNew({ agenda, history }) {
         className="margin-bottom-lg"
       />
       <EventNewForm
-        res={`${APIRoot}${prefix}`}
+        res={`${apiRoot}${prefix}`}
         history={history}
         config={config}
         onSuccess={(event, response) => {

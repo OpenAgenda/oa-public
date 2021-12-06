@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
 export default function useEventContext(agendaUid, eventUid) {
-  const res = useSelector(state => state.APIRoot + state.res.eventContext.replace(':agendaUid', agendaUid).replace(':eventUid', eventUid));
+  const res = useSelector(state => state.settings.apiRoot + state.res.eventContext.replace(':agendaUid', agendaUid).replace(':eventUid', eventUid));
 
   const {
     isLoading: eventContextIsLoading,

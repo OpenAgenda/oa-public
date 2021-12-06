@@ -10,13 +10,13 @@ const loggerMiddleware = createLogger();
 export default function contribute(options) {
   const { initialState } = options;
 
-  const { APIRoot, prefix } = initialState;
+  const { apiRoot, prefix } = initialState.settings;
 
   return createApp({
     name: 'agendaContribute',
     ...options,
     initialState,
-    apiRoot: APIRoot,
+    apiRoot,
     prefix,
     getRoutes,
     reduxMiddleware: [

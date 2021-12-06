@@ -10,21 +10,26 @@
 // const mw = require('./middlewares');
 // const memberSchema = require('./lib/memberSchema');
 const isDraftRequested = require('./lib/isDraftRequested');
+const defineFileKey = require('./lib/defineFileKey');
+const createEvent = require('./middlewares/createEvent');
+const mergeDataWithFiles = require('./middlewares/mergeDataWithFiles');
 // const redirectToSignup = require('./lib/redirectToSignup');
-
-// const agendaNotFound = ns => (req, res, next) => (req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 }));
 
 const setInReq = obj => (req, res, next) => {
   Object.assign(req, obj);
   next();
 };
 
-module.exports = (/* config, services */) => parentApp => {
-  /* const {
+module.exports = (_config, services) => parentApp => {
+  const {
+    core,
     agendas,
-    sessions,
-    members
-  } = services; */
+    formSchemas: {
+      middleware: {
+        files: formSchemaFilesMw
+      }
+    }
+  } = services;
 
   // const { bucket } = config.aws;
 
@@ -101,9 +106,24 @@ module.exports = (/* config, services */) => parentApp => {
   ); */
 
   parentApp.post(
-    '/:agendaSlug/contribute/event',
+    '/:agendaSlug/contribute',
     setInReq({ mode: 'create' }),
-    isDraftRequested({ draft: true })
+    isDraftRequested({ draft: true }),
+    defineFileKey,
+    agendas.mw.load,
+    (req, res, next) => {
+      core.agendas(req.agenda.uid).get({
+        detailed: true,
+        access: 'internal'
+      }).then(({ schema }) => {
+        req.schema = schema;
+        next();
+      });
+    },
+    formSchemaFilesMw.cleanFileValues.bind(null, {}),
+    formSchemaFilesMw.putInTemporary.bind(null, {}),
+    mergeDataWithFiles,
+    createEvent
   );
 
   /* parentApp.all(

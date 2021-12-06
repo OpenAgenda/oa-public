@@ -33,7 +33,7 @@ export default function Landing({
       isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
       && !isMemberDataRequired(agenda)
     ) {
-      log('  Base path is requested, contributor data is not required by agenda. Redirecting to event step');
+      log('  Contributor data is not required by agenda. Redirecting to event step');
       return replaceWithStep(history, prefix, 'event');
     }
 
@@ -45,7 +45,7 @@ export default function Landing({
         || (isMemberDataComplete(member) && memberIsFresh)
       )
     ) {
-      log('  Contributor is not required to fill member form or his data is complete. Redirecting to event form');
+      log('  Contributor is not required to fill member form or his data is complete. Redirecting to event step');
       return replaceWithStep(history, prefix, 'event');
     }
 
@@ -57,7 +57,7 @@ export default function Landing({
     if (!memberIsLoading) {
       replaceWithStep(history, prefix, 'member');
     }
-  }, [agenda, history, prefix, memberIsFresh, memberIsLoading, log, member]);
+  }, [memberIsLoading, member, agenda]);
 
-  return <Loading />;
+  return memberIsLoading ? <Loading /> : <div>loaded</div>;
 }

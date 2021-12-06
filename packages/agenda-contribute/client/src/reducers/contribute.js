@@ -22,7 +22,12 @@ function reducer(state = {}, action = {}) {
 
 function eventCreateSuccess({ agenda, response }) {
   return ({ history }, { dispatch, getState }) => {
-    const { prefix, res } = getState();
+    const {
+      res,
+      settings: {
+        prefix
+      }
+    } = getState();
 
     const {
       event
@@ -39,7 +44,7 @@ function eventCreateSuccess({ agenda, response }) {
 
     history.push({
       ...history.location,
-      pathname: `${prefix.replace(':agendaSlug', agenda.slug)}/confirmation`
+      pathname: `${prefix.replace(':slug', agenda.slug)}/confirmation`
     });
   };
 }
@@ -66,7 +71,7 @@ function memberSetSuccess({ agenda, queryClient }) {
     const { prefix } = getState();
     history.push({
       ...history.location,
-      pathname: `${prefix.replace(':agendaSlug', agenda.slug)}/event`
+      pathname: `${prefix.replace(':slug', agenda.slug)}/event`
     });
     queryClient.removeQueries('member');
   };

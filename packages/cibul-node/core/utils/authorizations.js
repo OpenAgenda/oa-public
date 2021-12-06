@@ -96,7 +96,7 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
     private: null,
     includeImagePath: true
   });
-  const agendaEvent = preloadedAgendaEvent || (event.uid && await agendaEvents(agendaUid).get(event.uid));
+  const agendaEvent = preloadedAgendaEvent || (event?.uid && await agendaEvents(agendaUid).get(event.uid));
 
   if (promisedAccess) {
     return fromAccess(
