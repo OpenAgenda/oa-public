@@ -49,16 +49,18 @@ dev.get('/locations/:uid.json', (req, res) => {
   res.json(getLocation(req.params.uid));
 });
 
-dev.post('/:agendaSlug/contribute', (req, res) => {
-  const createdEvent = {
-    ...JSON.parse(req.body.data),
-    uid: Math.floor(Math.random() * 10000000),
-    state: 0,
-    draft: req.query.draft === 'true'
-  };
+dev.post('/:agendaSlug/contribute', [
+  (req, res) => {
+    const createdEvent = {
+      ...JSON.parse(req.body.data),
+      uid: Math.floor(Math.random() * 10000000),
+      state: 0,
+      draft: req.query.draft === 'true'
+    };
 
-  res.json({ event: createdEvent });
-});
+    res.json({ event: createdEvent });
+  }
+]);
 
 dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
   const {

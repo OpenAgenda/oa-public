@@ -12,7 +12,13 @@
 const isDraftRequested = require('./lib/isDraftRequested');
 const defineFileKey = require('./lib/defineFileKey');
 const createEvent = require('./middlewares/createEvent');
+const loadEvent = require('./middlewares/loadEvent');
+const updateEvent = require('./middlewares/updateEvent');
 const mergeDataWithFiles = require('./middlewares/mergeDataWithFiles');
+const getAgendaSchema = require('./middlewares/getAgendaSchema');
+const loadMember = require('./middlewares/loadMember');
+const parseBody = require('./middlewares/parseBody');
+const verifyMemberAuthorization = require('./middlewares/verifyMemberAuthorization');
 // const redirectToSignup = require('./lib/redirectToSignup');
 
 const setInReq = obj => (req, res, next) => {
@@ -22,7 +28,6 @@ const setInReq = obj => (req, res, next) => {
 
 module.exports = (_config, services) => parentApp => {
   const {
-    core,
     agendas,
     formSchemas: {
       middleware: {
@@ -107,23 +112,38 @@ module.exports = (_config, services) => parentApp => {
 
   parentApp.post(
     '/:agendaSlug/contribute',
-    setInReq({ mode: 'create' }),
     isDraftRequested({ draft: true }),
     defineFileKey,
     agendas.mw.load,
-    (req, res, next) => {
-      core.agendas(req.agenda.uid).get({
-        detailed: true,
-        access: 'internal'
-      }).then(({ schema }) => {
-        req.schema = schema;
-        next();
-      });
-    },
+    loadMember,
+    verifyMemberAuthorization,
+    getAgendaSchema,
     formSchemaFilesMw.cleanFileValues.bind(null, {}),
     formSchemaFilesMw.putInTemporary.bind(null, {}),
+    formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
     mergeDataWithFiles,
     createEvent
+  );
+
+  parentApp.post(
+    '/:agendaSlug/contribute/event/:eventUid',
+    agendas.mw.load,
+    getAgendaSchema,
+    loadEvent,
+    loadMember,
+    verifyMemberAuthorization.edit,
+    isDraftRequested({ draft: true }),
+    formSchemaFilesMw.cleanFileValues.bind(null, {}),
+    formSchemaFilesMw.putInTemporary.bind(null, {}),
+    formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
+    mergeDataWithFiles,
+    updateEvent
+  );
+
+  parentApp.post(
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    setInReq({ mode: 'edit' }),
+    isDraftRequested({ draft: true })
   );
 
   /* parentApp.all(
@@ -146,12 +166,6 @@ module.exports = (_config, services) => parentApp => {
     setInReq({ mode: 'add' }),
     mw.addAndRedirectIfNothingToEdit
   ); */
-
-  parentApp.post(
-    '/:agendaSlug/contribute/event/:eventUid/draft',
-    setInReq({ mode: 'edit' }),
-    isDraftRequested({ draft: true })
-  );
 
   /* parentApp.get(
     '/:agendaSlug/contribute/event/:eventUid',

@@ -5,7 +5,7 @@
 // const layout = require('../lib/layouts').agenda;
 const plugApp = require('./plugApp');
 
-const middlewares = require('./middlewares');
+const verifyMemberAuthorization = require('./middlewares/verifyMemberAuthorization');
 // const interfaces = require('./interfaces');
 
 module.exports.init = (config, services) => {
@@ -22,7 +22,9 @@ module.exports.init = (config, services) => {
   }); */
 
   return {
-    mw: middlewares,
+    mw: {
+      verifyMemberAuthorization
+    },
     plugApp: plugApp(config, services)
   };
 };
