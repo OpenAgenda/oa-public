@@ -221,6 +221,20 @@ storySets.CustomMessageConfirmation = {
   }
 };
 
+storySets.ConfirmationRedirect = {
+  member: {
+    ...contributorMemberData, updatedAt: new Date()
+  },
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 202
+    }
+  }
+};
+
 storySets.ShareEventForm = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: detailedAgendaWithAdditionalFields,

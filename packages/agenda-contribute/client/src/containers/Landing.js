@@ -59,5 +59,5 @@ export default function Landing({
     }
   }, [memberIsLoading, member, agenda]);
 
-  return memberIsLoading ? <Loading /> : <div>loaded</div>;
+  return <Loading />;
 }

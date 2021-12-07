@@ -7,6 +7,7 @@ import steps from '../lib/steps';
 import redirectTo from '../lib/redirectTo';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import Instructions from '../components/Instructions';
+import Loading from '../components/Loading';
 import usePrefix from '../hooks/usePrefix';
 import utils from '../lib/utils';
 
@@ -69,6 +70,10 @@ export default function Confirmation({ history, agenda }) {
     log('  Attempting to reach confirmation screen without a created event. Redirecting to event step');
     replaceWithStep(history, prefix, 'event');
   }, [history, prefix, createdEvent]);
+
+  if (!createdEvent) {
+    return <Loading />;
+  }
 
   return (
     <CanvasWithStepper
