@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = async (services, agenda, fields) => {
+module.exports = async (services, agendaUid, fields) => {
   const {
     core
   } = services;
 
-  return core.agendas(agenda.uid).settings.schema.updateFields(fields);
+  return core.agendas(agendaUid).settings.schema.updateFields(fields);
 };
