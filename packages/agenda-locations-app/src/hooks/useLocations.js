@@ -11,10 +11,9 @@ export default (agenda, params) => {
   } = useParams();
   const size = useSelector(state => state.settings.pageSize);
   const from = size * (page - 1);
-  console.log('page, from and size:', page, from, size);
 
   const { isLoading, error, data } = useQuery(`locations-${JSON.stringify(params)}-${from}`, () => (
-    axios.get(res.get, { params: { ...params, from, size } }).then(response => response.data)
+    axios.get(res.index, { params: { ...params, from, size } }).then(response => response.data)
   ));
   return {
     isLoading,

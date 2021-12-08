@@ -29,4 +29,44 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   });
 });
 
+dev.get('/api/agendas/:agendaUid/locations/geocode/reverse', (req, res) => {
+  res.json({
+    results: [
+      {
+        address:
+          'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
+        adminLevel1: 'Île-de-France reversed',
+        adminLevel2: 'Hauts-de-Seine',
+        adminLevel4: 'Courbevoie',
+        adminLevel6: 'Quartier de Bécon',
+        postalCode: '92400',
+        timezone: 'Europe/Paris',
+        latitude: parseFloat(req.query.latitude),
+        longitude: parseFloat(req.query.longitude),
+        country: 'France',
+        countryCode: 'fr',
+      }
+    ]
+  });
+});
+
+dev.get('/api/agendas/:agendaUid/locations/geocode', (req, res) => res.json({
+  results: [
+    {
+      address:
+        'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
+      adminLevel1: 'Île-de-France',
+      adminLevel2: 'Hauts-de-Seine',
+      adminLevel4: 'Courbevoie',
+      adminLevel6: 'Quartier de Bécon',
+      postalCode: '92400',
+      timezone: 'Europe/Paris',
+      latitude: 48.9019071,
+      longitude: 2.2789371,
+      country: 'France',
+      countryCode: 'fr',
+    }
+  ]
+}));
+
 dev.listen(process.env.EXPRESS_API_PORT);

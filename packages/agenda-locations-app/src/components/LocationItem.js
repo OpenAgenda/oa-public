@@ -111,7 +111,7 @@ const LocationItem = ({
     seeDetails();
   };
 
-  const renderMergeCheckbox = () => (
+/*   const renderMergeCheckbox = () => (
     <div className="checkbox margin-v-md">
       <label htmlFor="merge-checkbox">
         <input
@@ -121,7 +121,7 @@ const LocationItem = ({
         />
       </label>
     </div>
-  );
+  ); */
 
   const className = ['row item'];
   const country = getCountryLabel(location.countryCode);

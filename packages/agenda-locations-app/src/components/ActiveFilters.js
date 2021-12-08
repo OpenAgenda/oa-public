@@ -13,25 +13,15 @@ const messages = defineMessages({
 });
 
 const ActiveFilters = ({
-  search,
+  searchObj,
   removeFilter
 }) => {
-  console.log('search:', search, Object.keys(search));
   const intl = useIntl();
 
-  const getFilterList = () => {
-    const res = [];
-    for (const key in search) {
-      if (key.substr(0, 7) === 'hasNull') {
-        // console.log('this;', res.find(e => Object.keys(e)[0] === 'hasNull'));
-        res.find(e => Object.keys(e)[0] === 'hasNull')
-          ? res.find(e => Object.keys(e)[0] === 'hasNull').hasNull.push(search[key])
-          : res.push({ hasNull: [search[key]] });
-      } else res.push({ [key]: search[key] });
-    }
-    return res;
-  };
-  console.log('active filters:', getFilterList());
+  const getFilterList = () => Object.keys(searchObj).reduce((acc, key) => {
+    acc.push({ [key]: searchObj[key] });
+    return acc;
+  }, []);
 
   const getLabel = f => {
     const key = Object.keys(f)[0];

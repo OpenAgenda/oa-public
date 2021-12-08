@@ -30,12 +30,11 @@ const IncompleteLocationsFilterDropdown = ({
     return res;
   };
   const hasNullSearch = queryObj();
-  console.log('drop search', search, search.hasNull, hasNullSearch);
+  //console.log('drop search', search, search.hasNull, hasNullSearch);
   const intl = useIntl();
   const { fields } = geoFields();
   const hasHasNull = ad => !!(hasNullSearch.hasNull || []).find(e => e === ad);
-  console.log('hashasNull', hasHasNull('adminLevel1'));
-  const pushHasNull = ad => (getQuery().hasNull || []).concat([ad]);
+  // console.log('hashasNull', hasHasNull('adminLevel1'));
   const completedLabel = (ad, countryCode) => {
     if (ad.label === geoFields(countryCode, ad.field)) return intl.formatMessage(messages[ad.label]);
     return `${intl.formatMessage(messages[ad.label])} (${intl.formatMessage(messages[geoFields(countryCode, ad.field)])})`;
@@ -48,7 +47,7 @@ const IncompleteLocationsFilterDropdown = ({
             type="checkbox"
             id={ad.field}
             onChange={() => {
-              console.log('change', ad.field);
+              // console.log('change', ad.field);
               if (hasHasNull(ad.field)) removeHasNull(ad.field);
               else addHasNull(ad.field);
             }}

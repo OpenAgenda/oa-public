@@ -17,6 +17,11 @@ const Dashboard = loadable(() => import(
   './containers/Dashboard'
 ));
 
+const CreateForm = loadable(() => import(
+  /* webpackChunkName: "legacyEmbeds-CreateForm" */
+  './containers/CreateForm'
+));
+
 export default (prefix = '') => ([
   {
     path: prefix,
@@ -31,6 +36,21 @@ export default (prefix = '') => ([
       exact: true,
       component: Dashboard
     },
+    {
+      path: `${prefix}/:locationUid`,
+      exact: true,
+      component: Dashboard // with detailed modal open
+    },
+    {
+      path: `${prefix}/create`,
+      exact: true,
+      component: CreateForm
+    },
+/*   {
+      path: `${prefix}/:locationUid/edit`,
+      exact: true,
+      component: UpdateForm
+    }, */
     {
       path: `${prefix}/tmp`,
       exact: true,

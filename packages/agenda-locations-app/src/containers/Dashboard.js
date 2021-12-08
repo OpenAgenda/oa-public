@@ -80,11 +80,33 @@ function Dashboard({
     locations,
     total,
     size,
-    page,
+    page
   } = useLocations(agenda, qs.parse(search));
   console.log(history.location, pathname, search);
   console.log('locations:', locations);
   console.log('state', qs.parse(search).state === '0');
+
+  const betterQsParseSearch = () => {
+    const searchObj = qs.parse(search);
+    const res = Object.keys(searchObj).reduce((acc, key) => {
+      if (key.substr(0, 7) === 'hasNull') {
+        if (acc.hasNull) acc.hasNull.push(searchObj[key]);
+        else acc.hasNull = [searchObj[key]];
+      } else acc[key] = searchObj[key];
+      return acc;
+    }, {});
+    return res;
+  };
+
+  const betterQsStringifySearch = searchObj => {
+    const res = Object.keys(searchObj).reduce((acc, key) => {
+      if (key.substr(0, 7) === 'hasNull') {
+        searchObj[key].forEach((e, index) => { acc[`hasNull[${index}]`] = e; });
+      } else acc[key] = searchObj[key];
+      return acc;
+    }, {});
+    return qs.stringify(res);
+  };
 
   const nextPage = () => {
     history.push({
@@ -104,34 +126,26 @@ function Dashboard({
 
   const removeFilter = key => {
     const searchObj = qs.parse(search);
-    console.log('1-searchObj:', searchObj);
     delete searchObj[key];
     if (key === 'hasNull') {
       for (const objKey in searchObj) {
         if (objKey.substr(0, 7) === 'hasNull') delete searchObj[objKey];
       }
     }
-    console.log('2-searchObj:', searchObj);
     history.push({ pathname: `${prefix}/p/1`, search: qs.stringify(searchObj) });
   };
 
   const removeHasNull = field => {
-    const searchObj = qs.parse(search);
-    delete searchObj[Object.keys(searchObj).find(key => searchObj[key] === field)];
-    // console.log('this', Object.keys(searchObj).filter(key => key.substr(0, 7) === 'hasNull'));
-    if (Object.keys(searchObj).find(key => key.substr(0, 7) === 'hasNull')) {
-      Object.keys(searchObj).filter(key => key.substr(0, 7) === 'hasNull').forEach((elem, index) => {
-        console.log(elem, index);
-        searchObj[`hasNull[${index}]`] = searchObj[elem];
-        // does not work as expected §!!§
-      });
-    }
-    history.push({ pathname: `${prefix}/p/1`, search: qs.stringify(searchObj) });
+    const searchObj = betterQsParseSearch();
+    searchObj.hasNull = searchObj.hasNull.filter(e => e !== field);
+    history.push({ pathname: `${prefix}/p/1`, search: betterQsStringifySearch(searchObj) });
   };
 
   const addHasNull = field => {
-    const searchObj = qs.parse(search);
-    console.log('add', searchObj);
+    const searchObj = betterQsParseSearch();
+    if (searchObj.hasNull) searchObj.hasNull.push(field);
+    else searchObj.hasNull = [field];
+    history.push({ pathname: `${prefix}/p/1`, search: betterQsStringifySearch(searchObj) });
   };
 
   return (
@@ -184,8 +198,8 @@ function Dashboard({
                 addHasNull={addHasNull}
               />
               <ActiveFilters
-                search={qs.parse(search)}
                 removeFilter={removeFilter}
+                searchObj={betterQsParseSearch()}
               />
             </div>
           </div>

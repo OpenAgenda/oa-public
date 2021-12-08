@@ -196,6 +196,30 @@
       "value": "To verify"
     }
   ],
+  "AgendaLocations.GeoBadges.geocodeFieldCancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldSave": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeNoResults": [
+    {
+      "type": 0,
+      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+    }
+  ],
+  "AgendaLocations.GeoBadges.insee": [
+    {
+      "type": 0,
+      "value": "INSEE code"
+    }
+  ],
   "AgendaLocations.IT.adminLevel1": [
     {
       "type": 0,
@@ -230,6 +254,204 @@
     {
       "type": 0,
       "value": "City District"
+    }
+  ],
+  "AgendaLocations.LocationForm.access": [
+    {
+      "type": 0,
+      "value": "Access"
+    }
+  ],
+  "AgendaLocations.LocationForm.addLanguage": [
+    {
+      "type": 0,
+      "value": "Add a language"
+    }
+  ],
+  "AgendaLocations.LocationForm.address": [
+    {
+      "type": 0,
+      "value": "Address"
+    }
+  ],
+  "AgendaLocations.LocationForm.addressPlaceholder": [
+    {
+      "type": 0,
+      "value": "Number Street, City ( example : 82 Boulevard de Clichy, Paris )"
+    }
+  ],
+  "AgendaLocations.LocationForm.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "AgendaLocations.LocationForm.createSubmit": [
+    {
+      "type": 0,
+      "value": "Create"
+    }
+  ],
+  "AgendaLocations.LocationForm.createSubmitError": [
+    {
+      "type": 0,
+      "value": "The location could not be created"
+    }
+  ],
+  "AgendaLocations.LocationForm.description": [
+    {
+      "type": 0,
+      "value": "Description"
+    }
+  ],
+  "AgendaLocations.LocationForm.descriptionInfo": [
+    {
+      "type": 0,
+      "value": "Details about the location"
+    }
+  ],
+  "AgendaLocations.LocationForm.disabledGeocode": [
+    {
+      "type": 0,
+      "value": "The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually."
+    }
+  ],
+  "AgendaLocations.LocationForm.email": [
+    {
+      "type": 0,
+      "value": "Contact email"
+    }
+  ],
+  "AgendaLocations.LocationForm.extId": [
+    {
+      "type": 0,
+      "value": "External Identifier"
+    }
+  ],
+  "AgendaLocations.LocationForm.extIdInfo": [
+    {
+      "type": 0,
+      "value": "Optionnally, specify a unique identifier for this location"
+    }
+  ],
+  "AgendaLocations.LocationForm.extIdLink": [
+    {
+      "type": 0,
+      "value": "Define a unique identifier for this location"
+    }
+  ],
+  "AgendaLocations.LocationForm.geocodeFieldCancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "AgendaLocations.LocationForm.geocodeFieldSave": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "AgendaLocations.LocationForm.geocodeNoResults": [
+    {
+      "type": 0,
+      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+    }
+  ],
+  "AgendaLocations.LocationForm.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "AgendaLocations.LocationForm.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "AgendaLocations.LocationForm.imageInfo": [
+    {
+      "type": 0,
+      "value": "Only upload images you have the right to re-use"
+    }
+  ],
+  "AgendaLocations.LocationForm.insee": [
+    {
+      "type": 0,
+      "value": "INSEE code"
+    }
+  ],
+  "AgendaLocations.LocationForm.links": [
+    {
+      "type": 0,
+      "value": "Additional links"
+    }
+  ],
+  "AgendaLocations.LocationForm.linksInfo": [
+    {
+      "type": 0,
+      "value": "Add social media references, or any other link related to the location"
+    }
+  ],
+  "AgendaLocations.LocationForm.loadingError": [
+    {
+      "type": 0,
+      "value": "A problem occurred during the load. Please retry."
+    }
+  ],
+  "AgendaLocations.LocationForm.name": [
+    {
+      "type": 0,
+      "value": "Name of the location"
+    }
+  ],
+  "AgendaLocations.LocationForm.namePlaceholder": [
+    {
+      "type": 0,
+      "value": "Example: Moulin Rouge"
+    }
+  ],
+  "AgendaLocations.LocationForm.phone": [
+    {
+      "type": 0,
+      "value": "Telephone number"
+    }
+  ],
+  "AgendaLocations.LocationForm.postalCode": [
+    {
+      "type": 0,
+      "value": "Postal code"
+    }
+  ],
+  "AgendaLocations.LocationForm.required": [
+    {
+      "type": 0,
+      "value": "Required"
+    }
+  ],
+  "AgendaLocations.LocationForm.saving": [
+    {
+      "type": 0,
+      "value": "Saving"
+    }
+  ],
+  "AgendaLocations.LocationForm.updateSubmit": [
+    {
+      "type": 0,
+      "value": "Update"
+    }
+  ],
+  "AgendaLocations.LocationForm.updateSubmitError": [
+    {
+      "type": 0,
+      "value": "The location could not be updated"
+    }
+  ],
+  "AgendaLocations.LocationForm.website": [
+    {
+      "type": 0,
+      "value": "Website"
     }
   ],
   "AgendaLocations.LocationItem.detailsButton": [
@@ -358,6 +580,18 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "AgendaLocations.StateToggler.toverify": [
+    {
+      "type": 0,
+      "value": "This location has to be verified"
+    }
+  ],
+  "AgendaLocations.StateToggler.verified": [
+    {
+      "type": 0,
+      "value": "This location is verified"
     }
   ],
   "AgendaLocations.adminLevel1": [

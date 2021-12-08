@@ -1,0 +1,941 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 47,
+  "fields": [
+      {
+          "field": "languages",
+          "display": false,
+          "fieldType": "abstract"
+      },
+      {
+          "field": "title",
+          "label": "Nom de l'événement",
+          "info": "Précisez le type et le nom de l'événement",
+          "placeholder": "ex: Atelier d’écriture « les mots qui (ne) manquent pas d'air ! »",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "type-devenement",
+          "label": "Type d'événement",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "default": null,
+          "info": "Quel type d'événement organisez-vous?",
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "origin": "tags",
+          "enableWith": null,
+          "related": [],
+          "options": [
+              {
+                  "id": 1,
+                  "value": "animation",
+                  "label": {
+                      "fr": "Animation jeune public"
+                  }
+              },
+              {
+                  "id": 2,
+                  "value": "atelier",
+                  "label": {
+                      "fr": "Atelier"
+                  }
+              },
+              {
+                  "id": 3,
+                  "value": "colloque-conference",
+                  "label": {
+                      "fr": "Colloque / Conférence / Débat"
+                  }
+              },
+              {
+                  "id": 5,
+                  "value": "dictee",
+                  "label": {
+                      "fr": "Dictée"
+                  }
+              },
+              {
+                  "id": 6,
+                  "value": "exposition",
+                  "label": {
+                      "fr": "Exposition"
+                  }
+              },
+              {
+                  "id": 7,
+                  "value": "festival",
+                  "label": {
+                      "fr": "Festival"
+                  }
+              },
+              {
+                  "id": 8,
+                  "value": "jeu",
+                  "label": {
+                      "fr": "Jeu / Quiz / Enquête"
+                  }
+              },
+              {
+                  "id": 9,
+                  "value": "lecture-conte",
+                  "label": {
+                      "fr": "Lecture / Conte"
+                  }
+              },
+              {
+                  "id": 10,
+                  "value": "projection",
+                  "label": {
+                      "fr": "Projection de film"
+                  }
+              },
+              {
+                  "id": 11,
+                  "value": "rencontre",
+                  "label": {
+                      "fr": "Rencontre littéraire"
+                  }
+              },
+              {
+                  "id": 12,
+                  "value": "spectacle-performance-theatre-danse-concert-etc",
+                  "label": {
+                      "fr": "Spectacle (performance, théâtre, danse, concert, etc.)"
+                  }
+              }
+          ],
+          "fieldType": "radio"
+      },
+      {
+          "field": "autre-type-devenement",
+          "label": "Autre type",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": "Précisez quel « autre » type d’événement",
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": false,
+          "origin": null,
+          "enableWith": {
+              "field": "type-devenement",
+              "value": 13
+          },
+          "related": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text"
+      },
+      {
+          "field": "theme",
+          "label": {
+              "fr": "Thème 2022"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "default": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "origin": "tags",
+          "enableWith": null,
+          "related": [],
+          "min": null,
+          "max": null,
+          "options": [
+              {
+                  "id": 45,
+                  "value": "cadetonne",
+                  "label": {
+                      "fr": "« Ça (d)étonne ! »"
+                  }
+              }
+          ],
+          "fieldType": "checkbox"
+      },
+      {
+          "field": "image",
+          "label": "Image de l'événement",
+          "info": "Les événements disposant d'une image ont un taux de clic deux fois plus élevé. L'image doit présenter 500 pixels de largeur minimum.",
+          "fieldType": "abstract",
+          "optional": false
+      },
+      {
+          "field": "imageCredits",
+          "label": "Crédits de l'image",
+          "info": "Indiquez impérativement le propriétaire de l'image. Si l'image est sous licence libre, merci de le préciser.",
+          "placeholder": "© Ministère de la Culture",
+          "optional": false,
+          "default": "©",
+          "min": 2,
+          "fieldType": "abstract"
+      },
+      {
+          "field": "description",
+          "info": "Proposez un résumé de l'événement. Ce texte sera utilisé pour l'édition des programmes papier s'il y en a.",
+          "placeholder": "ex : Contes et récits francophones font voyager petits et grands le temps d’une soirée.",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "longDescription",
+          "info": "Décrivez l'événement en détail et de manière factuelle. Donnez des précisions sur son déroulé, ce que les participants vont vivre, les éventuels supports de médiation proposés.\nCommencez par une accroche pour donner envie de participer.",
+          "placeholder": "Ne mentionnez pas les outils d’inscription et conditions de participation qui seront renseignés dans des champs spécifiques.\nVous pouvez ajouter des liens vers des images ou intégrer des médias (audio, vidéo) en collant une URL Youtube, Dailymotion, Viméo ou Soundcloud.",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "attendanceMode",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "onlineAccessLink",
+          "fieldType": "abstract",
+          "info": "Indiquez l’adresse de votre événement en ligne (inclure le http:// ou https://)"
+      },
+      {
+          "field": "diffusion-sur-le-pass-culture",
+          "label": "Diffusion sur le pass culture",
+          "help": "Contacter l'équipe du pass",
+          "helpLink": "mailto:support.passculture@beta.gouv.fr",
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "read": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "optional": true,
+          "display": true,
+          "origin": "tags",
+          "enableWith": null,
+          "related": [],
+          "min": null,
+          "max": null,
+          "options": [
+              {
+                  "id": 46,
+                  "value": "pass-culture",
+                  "label": {
+                      "en": "Offre pass Culture : cet évènement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app"
+                  },
+                  "legacyId": null
+              }
+          ],
+          "fieldType": "checkbox"
+      },
+      {
+          "field": "siret",
+          "label": "Numéro SIRET de mon établissement (ou à défaut, numéro de SIREN)",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "read": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "optional": false,
+          "display": true,
+          "origin": "custom",
+          "enableWith": "diffusion-sur-le-pass-culture",
+          "related": [
+              "diffusion-sur-le-pass-culture"
+          ],
+          "min": null,
+          "max": 20,
+          "fieldType": "text"
+      },
+      {
+          "field": "prix-pass-culture",
+          "label": "Prix de l'événement tel qu'affiché sur le pass Culture",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": "Merci d'indiquer un nombre entier, saisissez « 0 » si l'événement est gratuit.",
+          "sub": null,
+          "placeholder": null,
+          "write": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "read": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "optional": false,
+          "display": true,
+          "origin": "custom",
+          "enableWith": "diffusion-sur-le-pass-culture",
+          "related": [
+              "diffusion-sur-le-pass-culture"
+          ],
+          "min": null,
+          "max": 100,
+          "fieldType": "number"
+      },
+      {
+          "field": "url-pass-culture",
+          "label": "URL pass culture",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
+          "sub": null,
+          "placeholder": null,
+          "write": [
+              "administrator",
+              "moderator"
+          ],
+          "read": [
+              "administrator",
+              "moderator",
+              "contributor"
+          ],
+          "optional": true,
+          "display": true,
+          "origin": "custom",
+          "enableWith": "diffusion-sur-le-pass-culture",
+          "related": [
+              "diffusion-sur-le-pass-culture"
+          ],
+          "min": null,
+          "max": null,
+          "fieldType": "text"
+      },
+      {
+          "field": "location",
+          "label": "Lieu",
+          "info": "Recherchez un lien dans notre base de donnée ou créez une nouvelle fiche.\nAttention : vous ne pourrez plus modifier la fiche une fois créée mais simplement suggérer une modification. Votre demande sera traitée par les modérateurs de l'agenda.",
+          "placeholder": "Saisissez le nom du lieu de l’événement.",
+          "fieldType": "abstract",
+          "optional": false,
+          "legacy": {
+              "eventForm": {
+                  "detailed": true
+              },
+              "labels": {
+                  "name": {
+                      "en": "Location of the event (Required field)",
+                      "fr": "Nom du lieu (Champ obligatoire)"
+                  },
+                  "nameInfo": {
+                      "en": "Type in the name of the venue where the event takes place",
+                      "fr": "Saisissez le nom du lieu où se déroule l’événement. Si l’événement est itinérant, indiquez le nom et l’adresse du lieu de départ et précisez le déroulé du parcours dans la description de l’événement."
+                  },
+                  "namePlaceholder": {
+                      "fr": "Ex : Ministère de la Culture",
+                      "en": "Ex : Ministry of culture"
+                  },
+                  "address": {
+                      "en": "Address (Required field)",
+                      "fr": "Adresse (Champ obligatoire)"
+                  },
+                  "addressInfo": {
+                      "en": "Indicate the number, name of the street, the name and postal code of the city",
+                      "fr": "Indiquez le numéro, le nom de la voie, le code postal et le nom de la commune.\nAttention : N’utilisez pas de codes postaux sous forme de cedex.\nUne fois le champ « Adresse » complété, vérifiez sur la carte que le pointeur est correctement situé. Vous pouvez le déplacer manuellement si nécessaire.\nÀ noter : L'adresse sera automatiquement complétée avec les correspondances Département, Région, Pays, extraites de la géolocalisation."
+                  },
+                  "addressPlaceholder": {
+                      "en": "Ex : 03 rue de Valois 75001 Paris",
+                      "fr": "Ex : 03 rue de Valois 75001 Paris"
+                  },
+                  "imageInfo": {
+                      "en": "Only upload images you have the right to re-use. The image must have a minimum width of 500 pixels.",
+                      "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
+                  },
+                  "imageCredits": {
+                      "en": "Image credits (Required field)",
+                      "fr": "Crédits de l’image (Champ obligatoire)"
+                  },
+                  "imageCreditsInfo": {
+                      "en": "Indicate the owner of the image. If the image is under an open license, please specify which.",
+                      "fr": "Indiquez impérativement le crédit de l'image. Si l'image est sous licence libre, merci de le préciser."
+                  },
+                  "imageCreditsPlaceholder": {
+                      "en": "ex : © Ministère de la Culture",
+                      "fr": "ex : © Ministère de la Culture"
+                  },
+                  "descriptionInfo": {
+                      "en": "Describe your location (its history, particularities, the type of offered activities, etc).",
+                      "fr": "Présentez votre lieu (son histoire, ses particularités, le type d’activité proposée, etc)."
+                  },
+                  "accessInfo": {
+                      "en": "Indicate the access conditions to your location",
+                      "fr": "Indiquez les conditions d’accès à votre lieu (transports à proximité, présence de parkings, aménagements spécifiques, etc)."
+                  },
+                  "phoneInfo": {
+                      "en": "Indicate a contact phone number for the public",
+                      "fr": "Indiquez un numéro de téléphone pour les demandes du public (standard, tél. fixe)."
+                  },
+                  "phonePlaceholder": {
+                      "en": "Ex : +33 (0)1 40 15 80 00",
+                      "fr": "Ex : +33 (0)1 40 15 80 00"
+                  },
+                  "website": {
+                      "fr": "Site internet",
+                      "en": "Site internet"
+                  },
+                  "websiteInfo": {
+                      "fr": "Indiquez l’adresse de votre site Internet, si existant (inclure le http:// ou https://)",
+                      "en": "Indicate the website of the location if any  (don’t forget http:// or https://)."
+                  },
+                  "websitePlaceholder": {
+                      "fr": "Ex : https://semainelanguefrancaise.fr",
+                      "en": "Ex : https://semainelanguefrancaise.fr"
+                  },
+                  "linksInfo": {
+                      "fr": "Ajoutez le lien de vos pages Facebook, Twitter ou tout autre lien relatif au lieu.",
+                      "en": "Add facebook, twitter and other links"
+                  },
+                  "email": {
+                      "fr": "Courriel",
+                      "en": "Email"
+                  },
+                  "emailInfo": {
+                      "fr": "Indiquez une adresse courriel contact, à laquelle les visiteurs peuvent écrire si besoin.",
+                      "en": "Indiquez une adresse courriel contact, à laquelle les visiteurs peuvent écrire si besoin."
+                  },
+                  "emailPlaceholder": {
+                      "fr": "contact.slff@culture.gouv.fr",
+                      "en": "contact.slff@culture.gouv.fr"
+                  }
+              },
+              "tagSet": {
+                  "groups": [
+                      {
+                          "name": {
+                              "fr": "Spécificité",
+                              "en": "Specificity"
+                          },
+                          "info": null,
+                          "tags": [
+                              {
+                                  "id": 33,
+                                  "label": {
+                                      "fr": "Première participation",
+                                      "en": "First participation"
+                                  }
+                              },
+                              {
+                                  "id": 32,
+                                  "label": {
+                                      "fr": "Ouverture exceptionnelle",
+                                      "en": "Exceptional opening"
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "name": {
+                              "fr": "Types de lieu",
+                              "en": "Types of place"
+                          },
+                          "info": null,
+                          "tags": [
+                              {
+                                  "id": 15,
+                                  "label": {
+                                      "en": "Archéologie",
+                                      "fr": "Archéologie"
+                                  }
+                              },
+                              {
+                                  "id": 1,
+                                  "label": {
+                                      "en": "Archives",
+                                      "fr": "Archives"
+                                  }
+                              },
+                              {
+                                  "id": 9,
+                                  "label": {
+                                      "en": "Art urbain",
+                                      "fr": "Art urbain"
+                                  }
+                              },
+                              {
+                                  "id": 5,
+                                  "label": {
+                                      "en": "Arts de la rue",
+                                      "fr": "Arts de la rue"
+                                  }
+                              },
+                              {
+                                  "id": 6,
+                                  "label": {
+                                      "en": "Arts du cirque",
+                                      "fr": "Arts du cirque"
+                                  }
+                              },
+                              {
+                                  "id": 14,
+                                  "label": {
+                                      "en": "Bibliothèque et médiathèque",
+                                      "fr": "Bibliothèque et médiathèque"
+                                  }
+                              },
+                              {
+                                  "id": 19,
+                                  "label": {
+                                      "en": "Centre culturel",
+                                      "fr": "Centre culturel"
+                                  }
+                              },
+                              {
+                                  "id": 8,
+                                  "label": {
+                                      "en": "Centre d’art",
+                                      "fr": "Centre d’art"
+                                  }
+                              },
+                              {
+                                  "id": 10,
+                                  "label": {
+                                      "en": "Cinéma et audiovisuel",
+                                      "fr": "Cinéma et audiovisuel"
+                                  }
+                              },
+                              {
+                                  "id": 11,
+                                  "label": {
+                                      "en": "Conservatoire",
+                                      "fr": "Conservatoire"
+                                  }
+                              },
+                              {
+                                  "id": 4,
+                                  "label": {
+                                      "en": "Danse",
+                                      "fr": "Danse"
+                                  }
+                              },
+                              {
+                                  "id": 21,
+                                  "label": {
+                                      "en": "Espace protégé",
+                                      "fr": "Espace protégé"
+                                  }
+                              },
+                              {
+                                  "id": 12,
+                                  "label": {
+                                      "en": "Établissement d’enseignement supérieur",
+                                      "fr": "Établissement d’enseignement supérieur"
+                                  }
+                              },
+                              {
+                                  "id": 13,
+                                  "label": {
+                                      "en": "Librairie",
+                                      "fr": "Librairie"
+                                  }
+                              },
+                              {
+                                  "id": 17,
+                                  "label": {
+                                      "en": "Lieu de mémoire",
+                                      "fr": "Lieu de mémoire"
+                                  }
+                              },
+                              {
+                                  "id": 16,
+                                  "label": {
+                                      "en": "Monument et architecture",
+                                      "fr": "Monument et architecture"
+                                  }
+                              },
+                              {
+                                  "id": 18,
+                                  "label": {
+                                      "en": "Musée",
+                                      "fr": "Musée"
+                                  }
+                              },
+                              {
+                                  "id": 2,
+                                  "label": {
+                                      "en": "Musique",
+                                      "fr": "Musique"
+                                  }
+                              },
+                              {
+                                  "id": 20,
+                                  "label": {
+                                      "en": "Parcs et jardins",
+                                      "fr": "Parcs et jardins"
+                                  }
+                              },
+                              {
+                                  "id": 3,
+                                  "label": {
+                                      "en": "Théâtre",
+                                      "fr": "Théâtre"
+                                  }
+                              }
+                          ],
+                          "required": true
+                      }
+                  ]
+              }
+          }
+      },
+      {
+          "field": "timings",
+          "label": "Dates et horaires",
+          "info": "Les dates sont limitées du 1e au 31 mars 2022. Indiquez les dates et horaires de votre événement en sélectionnant une ou plusieurs plages horaires sur le calendrier ci-dessous.",
+          "fieldType": "abstract",
+          "enabledRanges": [
+              {
+                  "begin": "2022-03-01",
+                  "end": "2022-03-31"
+              }
+          ]
+      },
+      {
+          "field": "conditions-de-participation",
+          "label": {
+              "fr": "Conditions de participation"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "default": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "origin": "tags",
+          "enableWith": null,
+          "related": [],
+          "min": null,
+          "max": null,
+          "options": [
+              {
+                  "id": 14,
+                  "value": "gratuit",
+                  "label": {
+                      "fr": "Gratuit"
+                  }
+              },
+              {
+                  "id": 15,
+                  "value": "tarif-preferentiel",
+                  "label": {
+                      "fr": "Tarif préférentiel"
+                  }
+              },
+              {
+                  "id": 40,
+                  "value": "tarif-habituel",
+                  "label": {
+                      "fr": "Tarif habituel"
+                  }
+              },
+              {
+                  "id": 16,
+                  "value": "sur-inscription",
+                  "label": {
+                      "fr": "Sur inscription"
+                  }
+              }
+          ],
+          "fieldType": "checkbox"
+      },
+      {
+          "field": "conditions",
+          "label": "Détail des conditions de participation",
+          "info": "Indiquez les tarifs, les conditions de gratuité, le nombre limite de places disponibles, le matériel à prévoir, etc.",
+          "placeholder": "ex : Entrée libre, sur inscription, autre…",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "registration",
+          "label": "Outils d'inscription",
+          "info": "Si votre événement n’est accessible que sur inscription, indiquez un numéro de téléphone, une adresse mail ou un lien de réservation.",
+          "placeholder": "Séparez chaque valeur par une virgule ou une tabulation",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "type-de-public",
+          "label": "Type de public",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "default": null,
+          "info": "À quel type de public votre événement s’adresse-t-il en particulier ?",
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "origin": "tags",
+          "enableWith": null,
+          "related": [],
+          "options": [
+              {
+                  "id": 36,
+                  "value": "jeune-public",
+                  "label": {
+                      "fr": "Jeune public (moins de 18 ans)"
+                  }
+              },
+              {
+                  "id": 17,
+                  "value": "public-scolaire",
+                  "label": {
+                      "fr": "Public scolaire"
+                  }
+              },
+              {
+                  "id": 18,
+                  "value": "public-adulte",
+                  "label": {
+                      "fr": "Public adulte"
+                  }
+              },
+              {
+                  "id": 20,
+                  "value": "tout-public",
+                  "label": {
+                      "fr": "Tout public"
+                  }
+              }
+          ],
+          "fieldType": "radio"
+      },
+      {
+          "field": "age",
+          "label": "Age du public ciblé",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "accessibility",
+          "label": "Accessibilité particulière",
+          "info": "Précisez à quel(s) type(s) de handicap(s) cet événement est accessible.",
+          "fieldType": "abstract"
+      },
+      {
+          "field": "type-d-organisateur",
+          "label": "Type d'organisateur",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "default": null,
+          "info": "Quelle type de structure êtes-vous ?",
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "origin": "tags",
+          "enableWith": null,
+          "related": [],
+          "options": [
+              {
+                  "id": 21,
+                  "value": "alliance-francaise",
+                  "label": {
+                      "fr": "Alliance française"
+                  }
+              },
+              {
+                  "id": 41,
+                  "value": "artiste-collectif-dartistes",
+                  "label": {
+                      "fr": "Artiste / Collectif d'artistes"
+                  }
+              },
+              {
+                  "id": 22,
+                  "value": "association",
+                  "label": {
+                      "fr": "Association"
+                  }
+              },
+              {
+                  "id": 23,
+                  "value": "bibliotheque-mediatheque",
+                  "label": {
+                      "fr": "Bibliothèque / médiathèque"
+                  }
+              },
+              {
+                  "id": 24,
+                  "value": "centre-penitentiaire",
+                  "label": {
+                      "fr": "Centre pénitentiaire"
+                  }
+              },
+              {
+                  "id": 25,
+                  "value": "centre-social",
+                  "label": {
+                      "fr": "Centre social"
+                  }
+              },
+              {
+                  "id": 42,
+                  "value": "centre-culturel-centre-dart",
+                  "label": {
+                      "fr": "Centre culturel / centre d'art"
+                  }
+              },
+              {
+                  "id": 43,
+                  "value": "collectivite",
+                  "label": {
+                      "fr": "Collectivité (communauté de communes, mairie, préfecture...)"
+                  }
+              },
+              {
+                  "id": 26,
+                  "value": "ecole-ou-etablissement-scolaire",
+                  "label": {
+                      "fr": "École ou établissement scolaire"
+                  }
+              },
+              {
+                  "id": 44,
+                  "value": "eesr",
+                  "label": {
+                      "fr": "Établissement d'enseignement supérieur et de recherche"
+                  }
+              },
+              {
+                  "id": 27,
+                  "value": "entreprise",
+                  "label": {
+                      "fr": "Entreprise"
+                  }
+              },
+              {
+                  "id": 28,
+                  "value": "hopital",
+                  "label": {
+                      "fr": "Hôpital"
+                  }
+              },
+              {
+                  "id": 29,
+                  "value": "institut-francais",
+                  "label": {
+                      "fr": "Institut français"
+                  }
+              },
+              {
+                  "id": 30,
+                  "value": "institution",
+                  "label": {
+                      "fr": "Institution"
+                  }
+              },
+              {
+                  "id": 31,
+                  "value": "librairie",
+                  "label": {
+                      "fr": "Librairie"
+                  }
+              },
+              {
+                  "id": 32,
+                  "value": "musee-monument",
+                  "label": {
+                      "fr": "Musée / monument"
+                  }
+              },
+              {
+                  "id": 33,
+                  "value": "particulier",
+                  "label": {
+                      "fr": "Particulier"
+                  }
+              },
+              {
+                  "id": 37,
+                  "value": "structure-medico-sociale",
+                  "label": {
+                      "fr": "Structure médico-sociale"
+                  }
+              },
+              {
+                  "id": 34,
+                  "value": "theatre",
+                  "label": {
+                      "fr": "Théâtre / salle de spectacle"
+                  }
+              },
+              {
+                  "id": 35,
+                  "value": "autre-precisez-le-type-de-structure-ci-dessous",
+                  "label": {
+                      "fr": "Autre (précisez le type de structure ci-dessous)"
+                  }
+              }
+          ],
+          "fieldType": "radio"
+      },
+      {
+          "field": "autre-type-d-organisateur",
+          "label": "Autre type",
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": "Précisez quel « autre » type d'organisateur",
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "origin": null,
+          "enableWith": {
+              "field": "type-d-organisateur",
+              "value": 35
+          },
+          "related": [],
+          "min": null,
+          "max": null,
+          "fieldType": "text"
+      },
+      {
+          "field": "keywords",
+          "display": false,
+          "fieldType": "abstract"
+      }
+  ]
+}

@@ -20,14 +20,5 @@ export default function agendaLocationsApp(options) {
 
   const app = getApp();
 
-/*   if (module.hot) {
-    module.hot.accept('./getRoutes', () => {
-      const newApp = getApp();
-
-      app.Content = newApp.Content;
-      app.triggerHooks = newApp.triggerHooks;
-    });
-  } */
-
   return app;
 }

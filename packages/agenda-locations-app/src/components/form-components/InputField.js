@@ -9,15 +9,15 @@ const InputField = ({
   placeholder,
   type,
   renderButton,
-  autoFocus,
   enabled,
   groupClassName,
-  ClassName,
+  className,
   value,
   info,
-  bottom
 }) => {
   const [userHasTyped, setUserHasTyped] = useState(false);
+  let classNameBis = enabled ? 'form-group' : 'form-group disabled';
+  if (groupClassName) classNameBis += ` ${groupClassName}`;
 
   const myOnChange = e => {
     if (!enabled) return;
@@ -47,7 +47,7 @@ const InputField = ({
             key={error.code}
             className="error"
           >
-            {getLabel(error.code, error.values, lang)}
+            {myGetLabel(error.code, error.values, lang) || 'error'}
           </span>
         )) }
         </p>
@@ -57,17 +57,17 @@ const InputField = ({
   };
 
   return (
-    <div className={ClassName}>
+    <div className={classNameBis}>
       <label htmlFor="label">{myGetLabel(name)}</label>
       {info && myGetLabel(info)
         ? <div>{myGetLabel(info)}</div>
         : null}
-      <div className={ClassName || ''}>
+      <div className={className || ''}>
         {type !== 'textarea' ? (
           <input
             className="form-control"
             type="text"
-            placeholder={myGetLabel(placeholder)}
+            placeholdcr={myGetLabel(placeholder)}
             value={value}
             onChange={myOnChange}
             disabled={!enabled}
@@ -84,7 +84,6 @@ const InputField = ({
         {renderButton ? renderButton() : ''}
       </div>
       {renderErrors()}
-      {bottom || null}
     </div>
   );
 };

@@ -17,7 +17,8 @@ const SearchInput = ({ onChange, placeholder }) => {
   };
 
   return (
-    <div className="search-field input-icon-right">
+    <div className="search-field input-group input-icon-right">
+    <label className="sr-only" htmlFor="label">Label</label>
       <input
         name="search"
         type="text"
@@ -28,9 +29,11 @@ const SearchInput = ({ onChange, placeholder }) => {
         value={tmpValue}
         onKeyPress={handleKeyPress}
       />
-      <button type="submit" className="btn" onClick={() => onChange(tmpValue)}>
-        <i className="fa fa-search" aria-hidden="true" />
-      </button>
+      <span className="input-group-btn">
+        <button type="button" className="btn btn-default" onClick={() => onChange(tmpValue)}>
+          <i className="fa fa-search" aria-hidden="true" />
+        </button>
+      </span>
     </div>
 
   );

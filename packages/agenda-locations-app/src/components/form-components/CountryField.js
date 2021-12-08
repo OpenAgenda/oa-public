@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 
 import countries from '@openagenda/countries/labels';
 
@@ -17,9 +17,7 @@ const CountryField = ({
   onChange,
   pValue
 }) => {
-  const myOnChange = code => {
-    onChange('countryCode', code);
-  };
+  const intl = useIntl();
 
   const extractCountryNames = () => countries.map(c => ({
     value: c.code,
@@ -44,13 +42,15 @@ const CountryField = ({
           : 'form-group country disabled'
       }
     >
-      <label htmlFor="Country"><FormattedMessage {...messages.country} /></label>
+      <label htmlFor="Country">
+        {intl.formatMessage(messages.country)}
+      </label>
       <Select
         styles={selectStyles}
         disabled={!enabled}
         options={options}
         value={value}
-        onChange={val => myOnChange(val ? val.value : val)}
+        onChange={val => onChange(val ? val.value : val)}
         clearable={false}
       />
     </div>
