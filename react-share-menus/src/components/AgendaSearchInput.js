@@ -4,7 +4,7 @@ import { debounce, throttle } from 'lodash';
 import axios from 'axios';
 import { defineMessages, useIntl } from 'react-intl';
 
-import AgendasSearch from '@openagenda/react-shared/src/components/AgendasSearch';
+import { AgendasSearch } from '@openagenda/react-shared';
 
 const defineParams = ({
   searchText, filter, page
