@@ -3,8 +3,9 @@ import '@openagenda/bs-templates/compiled/main.css';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import ExportModal from '../src/components/ExportModal';
+import ExportModal from '../src/components/export-modal/ExportModal';
 import Canvas from './decorators/Canvas';
+import columns from './fixtures/columns.json';
 
 export default {
   title: 'Export',
@@ -12,16 +13,14 @@ export default {
   decorators: [Canvas],
 };
 
-const me = '/api/me';
-
 const urls = {
   jsonV2: 'https://localhost:9001/v2/agendas/1234/events',
   jsonV1: '/events.json',
   pdf: '/',
-  xl: '/',
+  xlsx: 'https://localhost:9001/agendas/1234/events.v2.xlsx',
   gcal: '/',
   ical: '/',
-  csv: '/',
+  csv: 'https://localhost:9001/agendas/1234/events.v2.csv',
   ics: '/',
   rss: '/',
 };
@@ -31,35 +30,12 @@ const mockApi = () => {
     delayResponse: 1000,
   });
   mock.onGet('/api/me').reply(200, { apiKey: 123456 });
+  mock.onGet('/columns').reply(200, columns);
 };
 
 export const ExportLoggedIn = () => {
   mockApi();
-  const [display, setDisplay] = useState(false);
-  const [languageQuery, setLanguageQuery] = useState('');
-
-  const handleExportLanguage = format => {
-    if (format === 'csv' || format === 'xl') {
-      return `&cols.lang=${languageQuery}`;
-    }
-    return '';
-  };
-
-  const formatExportLinks = res => {
-    const newUrls = Object.keys(res).reduce(
-      (url, key) => ({
-        ...url,
-        [key]: urls[key] + handleExportLanguage(key),
-      }),
-      {}
-    );
-    return newUrls;
-  };
-
-  const handleQuery = lang => {
-    setLanguageQuery(lang);
-    return languageQuery;
-  };
+  const [display, setDisplay] = useState(true);
 
   return (
     <div className="ctas export-container">
@@ -69,9 +45,8 @@ export const ExportLoggedIn = () => {
       </button>
       {display ? (
         <ExportModal
-          exportLanguage={(lang, format) => handleQuery(lang, format)}
           onClose={() => setDisplay(false)}
-          res={{ export: formatExportLinks(urls), me }}
+          res={{ export: urls, me: '/api/me', agendaExportSettings: '/columns' }}
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
           userLogged
         />
@@ -82,30 +57,6 @@ export const ExportLoggedIn = () => {
 
 export const ExportLoggedOut = () => {
   const [display, setDisplay] = useState(false);
-  const [languageQuery, setLanguageQuery] = useState('');
-
-  const handleExportLanguage = format => {
-    if (format === 'csv' || format === 'xl') {
-      return `&cols.lang=${languageQuery}`;
-    }
-    return '';
-  };
-
-  const formatExportLinks = res => {
-    const newUrls = Object.keys(res).reduce(
-      (url, key) => ({
-        ...url,
-        [key]: urls[key] + handleExportLanguage(key),
-      }),
-      {}
-    );
-    return newUrls;
-  };
-
-  const handleQuery = lang => {
-    setLanguageQuery(lang);
-    return languageQuery;
-  };
 
   return (
     <div className="ctas export-container">
@@ -115,9 +66,8 @@ export const ExportLoggedOut = () => {
       </button>
       {display ? (
         <ExportModal
-          exportLanguage={(lang, format) => handleQuery(lang, format)}
           onClose={() => setDisplay(false)}
-          res={{ export: formatExportLinks(urls), me }}
+          res={{ export: urls, me: '/api/me', agendaExportSettings: '/columns' }}
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
           userLogged={false}
           root="http://localhost:9001"

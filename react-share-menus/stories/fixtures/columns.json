@@ -1,0 +1,108 @@
+{
+  "spreadsheetColumns": [
+    {
+      "source": "uid",
+      "target": "Identifiant"
+    },
+    {
+      "source": "title",
+      "target": [
+        "Titre - FR"
+      ]
+    },
+    {
+      "source": "description",
+      "target": [
+        "Description courte - FR"
+      ]
+    },
+    {
+      "source": "longDescription",
+      "target": [
+        "Description longue"
+      ]
+    },
+    {
+      "source": "keywords",
+      "target": [
+        "Mots clés"
+      ]
+    },
+    {
+      "source": "dateRange",
+      "target": [
+        "Résumé horaires"
+      ]
+    },
+    {
+      "source": "timings",
+      "target": [
+        "Horaires ISO",
+        "Horaires détaillés - FR"
+      ]
+    },
+    {
+      "source": "conditions",
+      "target": [
+        "Conditions de participation, tarifs - FR",
+        "Conditions de participation, tarifs - EN"
+      ]
+    },
+    {
+      "source": "accessibility",
+      "target": [
+        "Accessibilité"
+      ]
+    },
+    {
+      "source": "location.uid",
+      "target": "Identifiant du lieu"
+    },
+    {
+      "source": "location.name",
+      "target": "Nom du lieu"
+    },
+    {
+      "source": "location.address",
+      "target": "Adresse"
+    },
+    {
+      "source": "location.city",
+      "target": "Ville"
+    },
+    {
+      "source": "location.department",
+      "target": "Département"
+    },
+    {
+      "source": "location.region",
+      "target": "Région"
+    },
+    {
+      "source": "location.latitude",
+      "target": "Latitude"
+    },
+    {
+      "source": "location.longitude",
+      "target": "Longitude"
+    },
+    {
+      "source": "country",
+      "target": [
+        "Pays"
+      ]
+    },
+    {
+      "source": "imageCredits",
+      "target": "Crédits de l'image"
+    },
+    {
+      "source": "attendanceMode",
+      "target": "Mode de participation"
+    },
+    {
+      "source": "status",
+      "target": "État"
+    }
+  ]
+}
