@@ -82,6 +82,8 @@ function ImageInput({
   width = '100%',
   height = '100%',
   rounded,
+  info,
+  label
 }) {
   const intl = useIntl();
   const [rejections, setRejections] = useState(null);
@@ -128,6 +130,9 @@ function ImageInput({
           position: relative;
         `}
       >
+        {label ? <label htmlFor="image">{label}</label> : null}
+
+        {info ? (<div>{info}</div>) : null}
         <div
           css={css`
             text-align: center;
