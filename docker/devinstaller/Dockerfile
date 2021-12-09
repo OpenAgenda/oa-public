@@ -3,7 +3,7 @@ FROM php:5.5.30-fpm
 RUN apt-get update -y \
     && apt-get install -y apt-utils apt-transport-https curl ssh git gcc g++ make
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y --force-yes nodejs \
     && node -v
 
