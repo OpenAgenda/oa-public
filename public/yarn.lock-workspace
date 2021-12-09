@@ -4202,6 +4202,7 @@ __metadata:
     react: ^16.13.1
     react-dom: ^16.13.1
     react-intl: ^5.12.2
+    rimraf: ^3.0.1
     utf8: ^3.0.0
   peerDependencies:
     react: ^16.13.1

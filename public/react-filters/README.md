@@ -99,3 +99,11 @@ Voir [`@openagenda/axios-mock-adapter`](https://www.npmjs.com/package/@openagend
 De type référence React, elle permet d'utiliser le gestionnaire de filtres (`FiltersManager`) pour récupérer ou modifier des données.
 
 Voir `React.createRef()` ou `React.useRef()`
+
+## Paramètres par type de filtres
+
+### definedRange
+
+Affiche des liens cliquables pour filtrer sur des périodes relatives au présent (aujourd'hui, demaine...)
+
+ * **staticRanges**: pour préciser la liste à afficher. Valeurs possibles: `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`

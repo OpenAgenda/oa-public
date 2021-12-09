@@ -13,26 +13,22 @@
       "value": " will be automatically added to the selected calendar."
     }
   ],
-  "aggregator-success": [
-    {
-      "type": 1,
-      "value": "targetAgenda"
-    },
-    {
-      "type": 0,
-      "value": " was successfully added as a source! The events are being aggregated."
-    }
-  ],
   "aggregator-title": [
     {
       "type": 0,
       "value": "Aggregate to an agenda"
     }
   ],
+  "all-fields": [
+    {
+      "type": 0,
+      "value": "Export every field"
+    }
+  ],
   "all-languages": [
     {
       "type": 0,
-      "value": "All"
+      "value": "Export in all languages"
     }
   ],
   "calendar-date": [
@@ -143,16 +139,16 @@
       "value": "Import"
     }
   ],
+  "input-field": [
+    {
+      "type": 0,
+      "value": "Select the fields to export"
+    }
+  ],
   "input-format": [
     {
       "type": 0,
       "value": "Choose a format"
-    }
-  ],
-  "input-language": [
-    {
-      "type": 0,
-      "value": "Choose a language"
     }
   ],
   "instructions": [
@@ -239,6 +235,12 @@
     {
       "type": 0,
       "value": "Search"
+    }
+  ],
+  "select-all": [
+    {
+      "type": 0,
+      "value": "Select all"
     }
   ],
   "send": [
