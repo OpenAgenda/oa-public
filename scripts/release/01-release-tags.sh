@@ -23,10 +23,8 @@ YARN_CHANGESET_BASE_REFS=$YARN_CHANGESET_BASE_REFS yarn version check -i
 echo
 
 # Bump the packages, and store which ones have been bumped (and thus need to be re-released)
-echo 'Apply versions...'
+echo 'Applying versions...'
 RELEASE_DETAILS=$(YARN_CHANGESET_BASE_REFS=$YARN_CHANGESET_BASE_REFS yarn version apply --all --json)
-
-echo
 
 RELEASE_SIZE=$(wc -l <<<"$RELEASE_DETAILS")
 PUBLIC_RELEASE_SIZE=0
@@ -58,13 +56,13 @@ while read -r line; do
   fi
 
   UPDATE_ARGUMENTS+=(--include "$IDENT")
-
-  echo "Prepacking $IDENT (Bumped to $VERSION)"
-
-  yarn workspace "$IDENT" pack --dry-run >&/dev/null || (
-    echo "Couldn't run prepack on $IDENT"
-  )
 done <<<"$RELEASE_DETAILS"
+
+echo "Prepacking packages..."
+
+NODE_ENV=production yarn workspaces foreach \
+  --topological-dev --interlaced --verbose "${UPDATE_ARGUMENTS[@]}" \
+  pack --dry-run
 
 # Commit public if needed
 if [[ -n $(git -C "$PUBLIC_DIR" status --porcelain) ]]; then
