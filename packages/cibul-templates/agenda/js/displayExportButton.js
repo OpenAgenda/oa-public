@@ -10,7 +10,6 @@ import appLocales from '../../locales-compiled';
 
 const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, exportType, query, userLogged }, ref) => {
   const [display, setDisplay] = useState(false);
-  const [languageQuery, setLanguageQuery] = useState('');
   const [displayedButton, setDisplayedButton] = useState(() => !!Object.keys(controller.getCurrentQuery()).length);
 
   const intl = useIntl();
@@ -34,10 +33,6 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
     },
   });
 
-  const handleExportLanguage = (format) => {
-    return (format === 'csv' || format === 'xl') && languageQuery !== 'all' ? `&cols.lang=${languageQuery}` : '';
-  }
-
   const handleQuery = (controller) => {
     let query = '';
     if (exportType.exportAll) {
@@ -56,19 +51,13 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
         ...urls,
         [key]:
           res[key].replace(':agendaUid', agendaUid) +
-          handleQuery(controller) +
-          handleExportLanguage(key),
+          handleQuery(controller)
       }),
       {}
     );
 
     return url;
   } 
-
-  const handleQueryLanguage = (lang) => {
-    setLanguageQuery(lang);
-    return languageQuery;
-  };
 
   return (
     <>
@@ -88,11 +77,15 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
       {display ? (
         <ExportModal
           onClose={() => setDisplay(false)}
-          res={{ export: formatExportLinks(res.export, agendaUid, controller), me: res.me}}
+          res={{
+            export: formatExportLinks(res.export, agendaUid, controller),
+            me: res.me,
+            agendaExportSettings: res.agendaExportSettings.replace(':agendaUid', agendaUid)
+          }}
           languages={options.languages}
-          exportLanguage={lang => handleQueryLanguage(lang)}
           userLogged={userLogged}
           root={options.root}
+          lang={options.lang}
         />
       ) : null}
     </>

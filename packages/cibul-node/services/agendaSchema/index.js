@@ -1,18 +1,17 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
+const log = require('@openagenda/logs')('services/agendaSchema');
 
 const AgendaSchema = require('@openagenda/agenda-schema');
 
 const agendaSchemaRouter = AgendaSchema.router;
 
-const cmn = require('../../lib/commons-app');
+const layouts = require('../lib/layouts');
+const config = require('../../config');
 const getSchema = require('./interfaces/getSchema');
 const getSchemaExtensions = require('./interfaces/getSchemaExtensions');
 const setSchemaFields = require('./interfaces/setSchemaFields');
-
-const layouts = require( '../lib/layouts' );
-const config = require( '../../config' );
 
 function layoutData(req, res, next) {
   req.layoutData = req.cookies.translateMode ? {
@@ -37,10 +36,10 @@ module.exports = parentApp => {
     sessions
   } = parentApp.services;
 
-  parentApp.use('/dist/agendaSchema',
+  parentApp.use('/dist/agendaSchema', [
     agendaSchemaRouter.dist,
-    (req, res, next) => res.send(404)
-  );
+    (req, res) => res.send(404)
+  ]);
 
   parentApp.use(
     '/:agendaSlug/admin/schema',
@@ -53,10 +52,19 @@ module.exports = parentApp => {
   );
 };
 
-module.exports.init = (config, services) => {
+module.exports.init = (_config, services) => {
   const {
-    agendas
+    agendas,
+    queues
   } = services;
+
+  const queue = queues('agendaSchema');
+
+  queue.register({
+    setSchemaFields: setSchemaFields.bind(null, services)
+  });
+
+  queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
 
   agendaSchemaRouter.setLayout(layouts.load('agendaAdmin', {
     selectedTab: 'schema',
@@ -70,12 +78,26 @@ module.exports.init = (config, services) => {
     interfaces: {
       getAgenda: _.partialRight(agendas.get, {
         includeImagePath: true,
-        internal: true ,
+        internal: true,
         private: null
       }),
       getSchemaExtensions: getSchemaExtensions.bind(null, services),
       getSchema: getSchema.bind(null, services),
-      setSchemaFields: setSchemaFields.bind(null, services)
+      setSchemaFields: (agenda, fields) => queue('setSchemaFields', agenda.uid, fields)
     }
   }));
-}
+
+  return {
+    task: async (options = {}) => {
+      const {
+        reset = false
+      } = options;
+
+      if (reset) {
+        await queue.clear();
+      }
+
+      queue.run();
+    }
+  };
+};

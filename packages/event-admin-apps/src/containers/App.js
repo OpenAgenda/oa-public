@@ -12,10 +12,11 @@ import {
   useLayoutData,
 } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
+import { modalLocales } from '@openagenda/react-share-menus';
 import eventsReducer from '../reducers/events';
 import appLocales from '../locales-compiled';
 
-const locales = mergeLocales(appLocales, reactFiltersLocales);
+const locales = mergeLocales(appLocales, reactFiltersLocales, modalLocales);
 
 function App({ route }) {
   const parentQueryClient = useQueryClient();

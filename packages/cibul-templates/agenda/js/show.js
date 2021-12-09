@@ -101,15 +101,16 @@ window.asap(options => {
       if (!ctl.prv) {
         const sessionUser = session.getUser();
         const routes =  {
+          agendaExportSettings: `${options.root}/agendas/:agendaUid/settings/exports`,
           me: '/api/me',
           export: {
             jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
             jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
             pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
-            xl: `${options.root}/agendas/:agendaUid/events.xlsx`,
+            xlsx: `${options.root}/agendas/:agendaUid/events.v2.xlsx`,
             gcal: `${options.root}/agendas/:agendaUid/events.ics`,
             ical: `${options.root}/agendas/:agendaUid/events.ics`,
-            csv: `${options.root}/agendas/:agendaUid/events.csv`,
+            csv: `${options.root}/agendas/:agendaUid/events.v2.csv`,
             ics: `${options.root}/agendas/:agendaUid/events.ics`,
             rss: `${options.root}/agendas/:agendaUid/events.rss`,
           }
