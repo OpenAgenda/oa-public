@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 import base64 from 'base-64';
 import utf8 from 'utf8';
 
-import Modal from '@openagenda/react-shared/src/components/Modal';
+import { Modal } from '@openagenda/react-shared';
 import AgendaSearchInput from './AgendaSearchInput';
 import Radio from './Radio';
 
