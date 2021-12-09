@@ -6598,6 +6598,7 @@ __metadata:
     "@openagenda/event-search": ^2.8.0
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-filters": ^2.4.2
+    "@openagenda/react-share-menus": ^1.0.0
     "@openagenda/react-shared": ^2.3.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -7821,7 +7822,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-share-menus@workspace:public/react-share-menus":
+"@openagenda/react-share-menus@^1.0.0, @openagenda/react-share-menus@workspace:public/react-share-menus":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-share-menus@workspace:public/react-share-menus"
   dependencies:
@@ -7846,6 +7847,7 @@ __metadata:
     react: ^16.13.1
     react-dom: ^16.13.1
     react-intl: ^5.12.2
+    rimraf: ^3.0.1
     utf8: ^3.0.0
   peerDependencies:
     react: ^16.13.1

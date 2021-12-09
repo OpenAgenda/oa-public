@@ -1,6 +1,11 @@
 'use strict';
 
 const Flattener = require('../lib/transform/Flattener');
+const accessibility = require('../lib/transform/accessibility');
+
+const {
+  flattenSourceValues
+} = Flattener;
 
 describe('Flattener', () => {
   describe('standard operations', () => {
@@ -106,19 +111,55 @@ describe('Flattener', () => {
     });
   });
 
-  it('tranform also applies to deep paths', () => {
-    const flatten = Flattener([{
-      source: 'member.role',
-      target: 'Role',
-      transform: {
-        1: 'Contributor'
-      }
-    }]);
+  describe('unit - flattenSourceValues', () => {
+    const options = {
+      languages: ['fr', 'en', 'es', 'de'],
+      includeLanguages: ['fr', 'en']
+    };
 
-    expect(
-      flatten({ member: { role: 1 } })
-    ).toEqual({
-      Role: 'Contributor'
+    it('if an includeLanguages option is specified, only the specified languages are returned', () => {
+      const flattenedValue = flattenSourceValues(
+        {
+          source: 'title',
+          target: ['Titre - FR'],
+          languages: ['fr', 'en']
+        },
+        { title: { fr: 'Un titre', en: 'A title', de: 'Ein Titel' } },
+        options
+      );
+
+      expect(flattenedValue).toEqual(['Un titre', 'A title']);
+    });
+
+    it('fix: accessibility map item does not break language selection', () => {
+      const flattenedValueSet = flattenSourceValues(
+        accessibility(options, { target: 'Accessibility' }),
+        { accessibility: { hi: true, pi: true } },
+        options
+      );
+
+      expect(flattenedValueSet).toEqual([
+        'Handicap auditif | Handicap psychique',
+        'Hearing impairment | Psychic impairment'
+      ]);
+    });
+  });
+
+  describe('other', () => {
+    it('tranform also applies to deep paths', () => {
+      const flatten = Flattener([{
+        source: 'member.role',
+        target: 'Role',
+        transform: {
+          1: 'Contributor'
+        }
+      }]);
+
+      expect(
+        flatten({ member: { role: 1 } })
+      ).toEqual({
+        Role: 'Contributor'
+      });
     });
   });
 
