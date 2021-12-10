@@ -1,11 +1,9 @@
 import React, { useCallback, useImperativeHandle, useMemo } from 'react';
 import { Form, FormSpy } from 'react-final-form';
-import {
-  apiClient,
-  mergeLocales,
-  useConstant,
-  ApiClientContext
-} from '@openagenda/react-shared';
+import apiClient from '@openagenda/react-shared/lib/utils/apiClient';
+import mergeLocales from '@openagenda/react-shared/lib/utils/mergeLocales';
+import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
+import ApiClientContext from '@openagenda/react-shared/lib/contexts/ApiClientContext';
 import { createForm } from 'final-form';
 import { IntlProvider, RawIntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
