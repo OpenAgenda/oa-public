@@ -26,5 +26,5 @@ if [[ ${#RELEASE_ARGUMENTS[@]} -eq 0 ]]; then
 fi
 
 yarn workspaces foreach \
-  --verbose --topological-dev --no-private "${RELEASE_ARGUMENTS[@]}" \
+  --topological-dev --interlaced --verbose --no-private "${RELEASE_ARGUMENTS[@]}" \
   npm publish --tolerate-republish
