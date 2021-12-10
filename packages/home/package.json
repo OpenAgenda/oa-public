@@ -32,7 +32,7 @@
     "@openagenda/member-apps": "^2.1.1",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.3.1",
+    "@openagenda/react-shared": "^2.3.2",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
     "classnames": "^2.3.1",
