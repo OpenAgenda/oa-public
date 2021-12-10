@@ -47,7 +47,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/polyfills": "^1.2.4",
     "@openagenda/react-filters": "^2.4.2",
-    "@openagenda/react-shared": "^2.3.0",
+    "@openagenda/react-shared": "^2.3.1",
     "@stefanoruth/react-portal-ssr": "^2.0.3",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
