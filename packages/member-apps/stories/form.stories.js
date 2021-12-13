@@ -14,7 +14,7 @@ export const createForm = () => (
     <Form
       lang="fr"
       operation="create"
-      res="http://localhost:3000/api/agendas/123/members"
+      res="/api/agendas/123/members"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -28,7 +28,7 @@ export const updateForm = () => (
     <Form
       lang="fr"
       operation="update"
-      res="http://localhost:3000/api/agendas/123/members/456"
+      res="/api/agendas/123/members/456"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -52,7 +52,7 @@ export const UpdateFormModal = () => {
       lang="fr"
       operation="update"
       mode="modal"
-      res="http://localhost:3000/api/agendas/123/members/456"
+      res="/api/agendas/123/members/456"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -78,7 +78,7 @@ export const UpdateFormModalWithConfirm = () => {
       operation="update"
       mode="modal"
       showSuccessMessage
-      res="http://localhost:3000/api/agendas/123/members/456"
+      res="/api/agendas/123/members/456"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -92,7 +92,7 @@ export const FormWithCustomTitleAndDescription = () => (
   <Form
     lang="fr"
     operation="update"
-    res="http://localhost:3000/api/agendas/123/members/456"
+    res="/api/agendas/123/members/456"
     title="Un titre passé en prop"
     description="Une description passée en prop"
     onSuccess={() => {
@@ -107,7 +107,7 @@ export const FormWithOptionalFields = () => (
     lang="fr"
     operation="update"
     optionalFields
-    res="http://localhost:3000/api/agendas/123/members/456"
+    res="/api/agendas/123/members/456"
     title="Les champs sont optionnels"
     description={null}
     onSuccess={() => {
@@ -122,7 +122,7 @@ export const FormWithRemoveMeLink = () => (
     lang="fr"
     operation="update"
     optionalFields
-    res="http://localhost:3000/api/agendas/123/members/456"
+    res="/api/agendas/123/members/456"
     title="Un lien pour se retirer est présent"
     description={null}
     displayRemoveAction
@@ -137,7 +137,7 @@ export const FormForRemove = () => (
   <Form
     lang="fr"
     operation="remove"
-    res="http://localhost:3000/api/agendas/123/members/456"
+    res="/api/agendas/123/members/456"
     onRemoveSuccess={() => {
       // eslint-disable-next-line no-console
       console.log('success');
@@ -188,7 +188,7 @@ export const FixTwoLinksOneForm = () => {
       operation="update"
       mode="modal"
       showSuccessMessage
-      res={`http://localhost:3000/api/agendas/123/members/${res}`}
+      res={`/api/agendas/123/members/${res}`}
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
