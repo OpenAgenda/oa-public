@@ -5,19 +5,16 @@ import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
 import Providers from './decorators/Providers';
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
-
-const getDefaultState = ({ apiRoot } = {}) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot,
     prefix: '',
     perPageLimit: 20,
   },
   res: {
     app: '#',
     list: '/members.json',
-    update: `${apiRoot}/api/agendas/:agendaUid/members/:userUid`,
-    remove: `${apiRoot}/api/agendas/:agendaUid/members/:userUid`,
+    update: '/api/agendas/:agendaUid/members/:userUid',
+    remove: '/api/agendas/:agendaUid/members/:userUid',
     invite: '/invite',
     stats: '/stats',
     showContributor: '#',
@@ -39,9 +36,7 @@ export default {
 export const App = () => wrapApp(
   createApp({
     history: createMemoryHistory(),
-    initialState: getDefaultState({
-      apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`,
-    }),
+    initialState: getDefaultState(),
   }),
   {
     extraProps: {

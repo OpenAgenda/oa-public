@@ -7,7 +7,6 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '',
-      apiRoot: 'http://localhost:3000'
     },
     userSettings: {
       loading: true,
@@ -19,13 +18,11 @@ const defaults = {
 
 export default function ( options ) {
   const { initialState } = _.merge( {}, defaults, options );
-
-  const { apiRoot, prefix } = initialState.settings;
+  const { prefix } = initialState.settings;
 
   const getApp = () => createApp({
     ...options,
     initialState,
-    apiRoot,
     prefix,
     getRoutes,
     legacyApiClient: true

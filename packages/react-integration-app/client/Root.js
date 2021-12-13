@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from 'react-query';
 import { wrapApp } from '@openagenda/react-shared';
-import { LayoutManager } from '@openagenda/react-layouts/src';
+import { LayoutManager } from '@openagenda/react-layouts';
 import NotFoundDisplayer from './NotFoundDisplayer';
 import NotFound from './NotFound';
 import ErrorComponent from './ErrorComponent';

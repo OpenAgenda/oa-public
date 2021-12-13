@@ -60,6 +60,12 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      retry: (failureCount, error) => {
+        if (error?.response?.status > 400 && error.response.status < 500) {
+          return false;
+        }
+        return 3;
+      },
     },
   },
 });

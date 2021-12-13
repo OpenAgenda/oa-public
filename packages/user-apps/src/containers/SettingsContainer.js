@@ -16,7 +16,9 @@ import {
 } from '../components';
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch } } ) => __CLIENT__ ? dispatch(userSettingsActions.load()) : Promise.resolve()
+  fetch: async ( { store: { dispatch } } ) => typeof window !== 'undefined'
+    ? dispatch(userSettingsActions.load())
+    : Promise.resolve()
 } )
 @withLayoutData('lang')
 @connect(
