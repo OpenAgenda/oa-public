@@ -4,11 +4,8 @@ import createApp from '../src/app';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
-
-const getDefaultState = ({ apiRoot } = {}) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot: apiRoot || `//${getHostname()}:${process.env.STORYBOOK_PORT}`,
     prefix: '/',
   },
 });

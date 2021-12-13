@@ -12,9 +12,8 @@ import '@openagenda/bs-templates/compiled/main.css';
 import mainData from './fixtures/new.json';
 import exportSettings from './fixtures/exportSettings.json';
 
-const getDefaultState = ({ apiRoot = '' } = {}) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot,
     prefix: '',
     perPageLimit: 20,
     mapTiles: '',

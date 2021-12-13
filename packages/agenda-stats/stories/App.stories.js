@@ -7,13 +7,12 @@ import PageDecorator from './decorators/PageDecorator';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getDefaultState = ({ apiRoot = '' } = {}) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot,
     prefix: '',
   },
   res: {
-    jsonExport: `${apiRoot}/events`,
+    jsonExport: '/events',
   },
   stats: {},
 });
