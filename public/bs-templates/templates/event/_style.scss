@@ -61,35 +61,28 @@
   }
 
   .category {
-
-    color: $oa-gray;
-    padding: 0 0 0 20px;
-
-    label {
-
-      font-weight: normal;
-
-    }
-
-  }
-
-  .tags {
-
-    color: $oa-gray;
+    color: $oa-black;
     padding: 0 20px 10px 20px;
 
     label {
+      display: block;
+      font-weight: bold;
+    }
+  }
 
-      font-weight: normal;
+  .tags {
+    color: $oa-black;
+    padding: 0 20px 10px 20px;
 
+    label {
+      display: block;
+      font-weight: bold;
     }
 
     ul, li {
-
       display: inline;
       margin: 0;
       padding: 0;
-
     }
 
   }
