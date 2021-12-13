@@ -4,7 +4,7 @@ import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { ApiClientContext } from '../contexts';
-import apiClient from './apiClient';
+import createApiClient from './apiClient';
 import createStore from './createStore';
 import clientMiddleware from './clientMiddleware';
 import makeTriggerHooks from './makeTriggerHooks';
@@ -21,15 +21,16 @@ export default function createApp(options) {
     initialState,
     layout,
     req,
+    apiClient,
     apiRoot,
+    legacyApiClient,
     prefix,
     getReducers,
     getRoutes,
-    legacyApiClient,
     reduxMiddleware = [],
   } = options;
 
-  const client = apiClient(apiRoot, req, { legacy: legacyApiClient });
+  const client = apiClient || createApiClient(apiRoot, req, { legacy: legacyApiClient });
   const history = options.history || getDefaultHistory(req);
   const helpers = {};
   const store = createStore(
