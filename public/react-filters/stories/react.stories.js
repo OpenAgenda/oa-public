@@ -48,13 +48,17 @@ const filters = [
 
 export const CompleteExample = ({ onSubmit }) => (
   <FiltersProvider onSubmit={onSubmit} locale={lang}>
-    <div className="oa-collapse">
-      <Filters
-        filters={filters}
-        dateRangeComponent={DateRangeFilter}
-        choiceComponent={ChoiceFilter}
-        getOptions={filter => filter.options}
-      />
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-4">
+          <Filters
+            filters={filters}
+            dateRangeComponent={DateRangeFilter}
+            choiceComponent={ChoiceFilter}
+            getOptions={filter => filter.options}
+          />
+        </div>
+      </div>
     </div>
   </FiltersProvider>
 );
@@ -62,11 +66,15 @@ CompleteExample.storyName = 'Filters';
 
 export const FilterByFilter = ({ onSubmit }) => (
   <FiltersProvider onSubmit={onSubmit} locale={lang}>
-    <div className="oa-collapse">
-      <DateRangeFilter name="timings" />
-      <DateRangeFilter name="createdAt" />
-      <DateRangeFilter name="updatedAt" />
-      <ChoiceFilter name="state" getOptions={() => filters[3].options} />
+    <div className="container">
+      <div className="row">
+        <div className="col-sm-4">
+          <DateRangeFilter name="timings" />
+          <DateRangeFilter name="createdAt" />
+          <DateRangeFilter name="updatedAt" />
+          <ChoiceFilter name="state" getOptions={() => filters[3].options} />
+        </div>
+      </div>
     </div>
   </FiltersProvider>
 );
