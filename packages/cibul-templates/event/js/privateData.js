@@ -114,7 +114,7 @@ module.exports = options => {
   function displayPrivateTags(tagGroups) {
     tagGroups.forEach(g => {
       du.el('.js_tag_groups').insertAdjacentHTML('beforeend', `<div class="tags">
-        <label><i class="fa fa-unlock-alt margin-right-xs"></i><span>${g.name}</span></label>:
+        <label><i class="fa fa-unlock-alt margin-right-xs"></i><span>${g.name}</span></label>
         <ul>
           ${g.tags.map(t => '<li>' + t.label + '</li>')}
         </ul>
