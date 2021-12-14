@@ -17,7 +17,6 @@ const updateEvent = require('./middlewares/updateEvent');
 const mergeDataWithFiles = require('./middlewares/mergeDataWithFiles');
 const getAgendaSchema = require('./middlewares/getAgendaSchema');
 const loadMember = require('./middlewares/loadMember');
-const parseBody = require('./middlewares/parseBody');
 const verifyMemberAuthorization = require('./middlewares/verifyMemberAuthorization');
 // const redirectToSignup = require('./lib/redirectToSignup');
 

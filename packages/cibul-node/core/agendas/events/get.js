@@ -69,7 +69,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
       event.longDescription = convertLongDescription(event, { services, conversion: longDescriptionFormat });
     }
-
+    log('event fetched');
     payload.setItem('event', event);
   }
 
@@ -77,6 +77,12 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     payload.hasItem('event')
     && !payload.hasItem('agendaEvent')
     && !payload.getItem('event').draft
+  ) return null;
+
+  if (
+    payload.hasItem('event')
+    && payload.getItem('event').draft
+    && payload.getItem('event.agendaUid') !== agenda.uid
   ) return null;
 
   if (!payload.hasItem('event') && load.event) {

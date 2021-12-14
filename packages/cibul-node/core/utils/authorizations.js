@@ -30,12 +30,14 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
 
   log('fromMember with %s role %s', memberRole, agendaIsClosed ? ' on closed agenda' : '');
 
+  const canEditEvent = (member && !agendaIsClosed && event && member && await core.users(member.userUid).canEditEvent(event)) ?? false;
+
   return {
-    canRead: agendaEvent ? canRead(compareRoles, agendaEvent, event, member) : null,
+    canRead: agendaEvent ? canRead(compareRoles, agendaEvent, event, member) : canEditEvent,
     mustBeModerated: (member && ((agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(memberRole))) ?? false,
     canChangeState: (member && compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', { throwIfUnknown: false })) ?? false,
     canPublish: (member && canPublish(agenda, memberRole)) ?? false,
-    canEditEvent: (member && !agendaIsClosed && event && member && await core.users(member.userUid).canEditEvent(event)) ?? false,
+    canEditEvent,
     canCreateEvent: (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false,
     canContribute: (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false
   };
@@ -91,6 +93,7 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, opti
   } = services;
 
   const member = await members.get({ agendaUid, userUid });
+
   const agenda = await agendas.get({ uid: agendaUid }, {
     internal: true,
     private: null,

@@ -194,7 +194,8 @@ raw.push(knex('event_2').insert([{
   description: JSON.stringify({}),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
-  updated_at: new Date('2019-05-06T10:00:00')
+  updated_at: new Date('2019-05-06T10:00:00'),
+  agenda_uid: 17026855
 }, {
   id: 14,
   uid: 19390293,

@@ -127,6 +127,19 @@ raw.push(knex('event_2').insert([{
   }),
   created_at: new Date(),
   updated_at: new Date()
+}, {
+  id: 3,
+  uid: 3,
+  owner_uid: 1,
+  creator_uid: 1,
+  agenda_uid: 2,
+  slug: 'draft-event',
+  draft: 1,
+  title: JSON.stringify({
+    fr: 'Evénement brouillon'
+  }),
+  created_at: new Date(),
+  updated_at: new Date()
 }]));
 
 raw.push(knex('agenda_event').insert([{

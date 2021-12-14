@@ -12,6 +12,7 @@ const parseBodyData = require('./parseBodyData');
 const requestAccessToken = require('./requestAccessToken');
 const convertLegacyFilter = require('./convertLegacyFilter');
 const evaluateUserAccessToEvent = require('./evaluateUserAccessToEvent');
+const getEventFromSearchOrAsDraft = require('./getEventFromSearchOrAsDraft');
 
 module.exports = {
   verifyAndLoadAccessTokenUser,
@@ -25,5 +26,6 @@ module.exports = {
   parseBodyData,
   requestAccessToken,
   convertLegacyFilter,
-  evaluateUserAccessToEvent
+  evaluateUserAccessToEvent,
+  getEventFromSearchOrAsDraft
 };

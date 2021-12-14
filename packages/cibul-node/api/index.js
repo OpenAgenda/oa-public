@@ -121,23 +121,7 @@ module.exports = core => {
     }), next));
 
   app.get('/agendas/:agendaUid/events/:eventUid', [
-    (req, res, next) => core
-      .agendas(req.agenda.uid).events
-      .search({ state: null, uid: req.params.eventUid }, { size: 1 }, {
-        detailed: true,
-        access: 'internal',
-        longDescriptionFormat: req.query.longDescriptionFormat,
-        useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
-      }).then(async ({ events }) => {
-        if (!events.length) {
-          return res.status(404).json({
-            success: false,
-            message: 'Event not found'
-          });
-        }
-        req.event = (events ?? []).pop();
-        next();
-      }),
+    mw.getEventFromSearchOrAsDraft,
     mw.evaluateUserAccessToEvent,
     (req, res) => res.json({ success: true, event: req.event })
   ]);

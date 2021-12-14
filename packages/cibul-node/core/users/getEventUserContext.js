@@ -26,18 +26,19 @@ module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) =
 
   const ae = await agendaEvents(agendaUid).get(eventUid);
 
-  if (!ae) {
+  const event = await eventOrUid?.constructor.name === 'Object' ? eventOrUid : await events.get(eventOrUid, {
+    private: null,
+    access: 'internal',
+    includeFields: ['uid', 'private', 'ownerUid', 'draft']
+  });
+
+  if (!ae && !event.draft) {
     throw new NotFound('event reference not found');
   }
 
   const response = { me: {} };
 
   if (includes.includes('me.authorizations')) {
-    const event = await eventOrUid?.constructor.name === 'Object' ? eventOrUid : await events.get(eventOrUid, {
-      private: null,
-      access: 'internal',
-      includeFields: ['uid', 'private', 'ownerUid', 'draft']
-    });
     response.me.authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid, event, {
       agendaEvent: ae
     });
