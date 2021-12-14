@@ -39,7 +39,7 @@ function putInTemporary(o, req, res, next) {
 
   if (!temporaryFolder) return next(new Error('form-schemas middleware are not initialized'));
 
-  const fileFields = (new FormSchema(req[options.schema])).getFileFields();
+  const fileFields = (new FormSchema(req[options.schema], { requireLabels: false })).getFileFields();
 
   req[options.fileFieldValues] = {};
 
