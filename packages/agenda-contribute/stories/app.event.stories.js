@@ -73,7 +73,7 @@ export const EditDraftEventForm = componentFromFixtures(
   104, '/event/02/draft'
 );
 
-/* export const EditDraftEventFormFromEditRoute = componentFromFixtures(
+export const EditDraftEventFormFromEditRoute = componentFromFixtures(
   'Draft event loaded from non draft route is redirected to draft route',
   105, '/event/03'
-); */
+);

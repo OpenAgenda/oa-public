@@ -64,7 +64,6 @@ function App(props) {
   }, []);
 
   if (memberIsLoading || shouldGoToFirstStep) {
-    log('là');
     return <Loading />;
   }
 

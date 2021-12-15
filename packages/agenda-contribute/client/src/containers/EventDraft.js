@@ -57,7 +57,7 @@ export default function EventDraft({ agenda, history }) {
         className="margin-bottom-lg"
       />
       <EventNewForm
-        res={`${apiRoot}${prefix}`}
+        res={`${apiRoot}${history.location.pathname}`}
         history={history}
         event={event}
         config={config}

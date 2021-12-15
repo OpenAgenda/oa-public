@@ -187,6 +187,10 @@ storySets.EditDraftEventForm = {
   eventContext: eventContributorContext
 };
 
+storySets.EditDraftEventFormFromEditRoute = produce(storySets.EditDraftEventForm, draft => {
+  draft.extraProps.agenda.uid = 105;
+});
+
 storySets.BasicConfirmation = {
   member: { ...contributorMemberData, updatedAt: new Date() },
   agenda: basicDetailedAgenda,

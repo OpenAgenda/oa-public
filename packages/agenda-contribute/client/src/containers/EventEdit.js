@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,6 +11,12 @@ import useMember from '../hooks/useMember';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 
 import contributeReducer from '../reducers/contribute';
+import utils from '../lib/utils';
+import usePrefix from '../hooks/usePrefix';
+
+const {
+  replaceWithStep
+} = utils;
 
 export default function EventEdit({
   agenda,
@@ -19,6 +25,8 @@ export default function EventEdit({
   const {
     eventUid // as a string
   } = useParams();
+
+  const prefix = usePrefix(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
   const dispatch = useDispatch();
@@ -42,6 +50,12 @@ export default function EventEdit({
     config,
     configIsLoading
   } = useEventFormConfig(agenda);
+
+  useEffect(() => {
+    if (!eventIsLoading && event.draft) {
+      replaceWithStep(history, prefix, `event/${event.uid}/draft`);
+    }
+  }, [eventIsLoading, event, history, prefix]);
 
   if (eventContextIsLoading || eventIsLoading || memberIsLoading || configIsLoading) {
     return <Loading />;
