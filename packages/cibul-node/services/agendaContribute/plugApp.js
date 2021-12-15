@@ -20,11 +20,6 @@ const loadMember = require('./middlewares/loadMember');
 const verifyMemberAuthorization = require('./middlewares/verifyMemberAuthorization');
 // const redirectToSignup = require('./lib/redirectToSignup');
 
-const setInReq = obj => (req, res, next) => {
-  Object.assign(req, obj);
-  next();
-};
-
 module.exports = (_config, services) => parentApp => {
   const {
     agendas,
@@ -124,8 +119,10 @@ module.exports = (_config, services) => parentApp => {
     createEvent
   );
 
-  parentApp.post(
+  parentApp.post([
     '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
+  ], [
     agendas.mw.load,
     getAgendaSchema,
     loadEvent,
@@ -137,13 +134,7 @@ module.exports = (_config, services) => parentApp => {
     formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
     mergeDataWithFiles,
     updateEvent
-  );
-
-  parentApp.post(
-    '/:agendaSlug/contribute/event/:eventUid/draft',
-    setInReq({ mode: 'edit' }),
-    isDraftRequested({ draft: true })
-  );
+  ]);
 
   /* parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid',

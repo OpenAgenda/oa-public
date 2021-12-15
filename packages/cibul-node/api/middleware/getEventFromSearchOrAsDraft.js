@@ -22,7 +22,9 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
       }
 
       core.agendas(req.agenda.uid).events
-        .get(req.params.eventUid)
+        .get(req.params.eventUid, {
+          useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat
+        })
         .then(event => {
           if (event?.draft) {
             req.event = event;
