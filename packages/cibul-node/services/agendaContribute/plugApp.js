@@ -14,6 +14,7 @@ const defineFileKey = require('./lib/defineFileKey');
 const createEvent = require('./middlewares/createEvent');
 const loadEvent = require('./middlewares/loadEvent');
 const updateEvent = require('./middlewares/updateEvent');
+const addEvent = require('./middlewares/addEvent');
 const mergeDataWithFiles = require('./middlewares/mergeDataWithFiles');
 const getAgendaSchema = require('./middlewares/getAgendaSchema');
 const loadMember = require('./middlewares/loadMember');
@@ -134,6 +135,24 @@ module.exports = (_config, services) => parentApp => {
     formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
     mergeDataWithFiles,
     updateEvent
+  ]);
+
+  parentApp.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', [
+    agendas.mw.load,
+    getAgendaSchema,
+    agendas.mw.loadBy({
+      path: 'params.fromAgendaUid',
+      field: 'uid',
+      target: 'fromAgenda'
+    }),
+    loadEvent,
+    loadMember,
+    verifyMemberAuthorization.edit,
+    formSchemaFilesMw.cleanFileValues.bind(null, {}),
+    formSchemaFilesMw.putInTemporary.bind(null, {}),
+    formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
+    mergeDataWithFiles,
+    addEvent
   ]);
 
   /* parentApp.all(
