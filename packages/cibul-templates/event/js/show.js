@@ -86,7 +86,7 @@ window.asap(options => {
 
   permalink();
 
-  get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}/context`, (err, res) => {
+  get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}`, (err, res) => {
     if (!res) return;
 
     const { me, member } = res;
