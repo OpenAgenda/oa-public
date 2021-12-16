@@ -335,12 +335,13 @@ module.exports = core => {
   app.get('/me/agendas/:agendaUid', [
     mw.member.load,
     (req, res, next) => core
-      .agendas(req.agenda.uid).members
-      .get(req.user.uid, { userUid: req.user.uid })
-      .then(member => res.json(member), next)
+      .users(req.user.uid)
+      .agendas(req.params.agendaUid)
+      .getContext({ userUid: req.user.uid })
+      .then(context => res.json(context), next)
   ]);
 
-  app.get('/me/agendas/:agendaUid/events/:eventUid/context', [
+  app.get('/me/agendas/:agendaUid/events/:eventUid', [
     mw.member.load,
     (req, res, next) => core
       .users(req.user.uid)
