@@ -197,7 +197,7 @@ const validate = schema({
 });
 
 function cleanAdditionalField(fieldSchema, dirty) {
-  if (['radio', 'checkbox'].includes(fieldSchema.fieldType)) {
+  if (['radio', 'select', 'checkbox', 'multiselect'].includes(fieldSchema.fieldType)) {
     if (Array.isArray(dirty)) {
       return dirty.map(v => parseInt(v, 10));
     } else {
