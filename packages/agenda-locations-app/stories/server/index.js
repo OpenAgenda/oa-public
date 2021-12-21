@@ -1,0 +1,88 @@
+'use strict';
+
+const _ = require('lodash');
+const cors = require('cors');
+const express = require('express');
+const getFixtures = require('../fixtures');
+
+const dev = express();
+dev.use(express.json());
+
+dev.use(cors());
+
+dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
+  const response = getFixtures(req.params.agendaUid).locations;
+
+  const allLocations = response.locations.map(l => (req.query.detailed ? l : _.pick(l, ['uid', 'name', 'address', 'latitude', 'longitude', 'state'])))
+    .filter(l => {
+      if (req.query.search && !l.name.includes(req.query.search)) return false;
+      return true;
+    });
+  const locations = allLocations.slice(req.query.from, req.query.from + req.query.size);
+  console.log(req.query, locations.length);
+  res.json({
+    ...response,
+    locations,
+    size: locations.length,
+    from: req.query.from,
+    total: allLocations.length
+  });
+});
+
+dev.get('/api/agendas/:agendaUid/locations/settings/', (req, res) => {
+  const set = getFixtures(req.params.agendaUid).settings;
+  console.log('Get Settings', set);
+  res.json({
+    ...set
+  });
+});
+
+dev.get('/api/agendas/:agendaUid/locations/geocode/reverse', (req, res) => {
+  res.json({
+    results: [
+      {
+        address:
+          'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
+        adminLevel1: 'Île-de-France reversed',
+        adminLevel2: 'Hauts-de-Seine',
+        adminLevel4: 'Courbevoie',
+        adminLevel6: 'Quartier de Bécon',
+        postalCode: '92400',
+        timezone: 'Europe/Paris',
+        latitude: parseFloat(req.query.latitude),
+        longitude: parseFloat(req.query.longitude),
+        country: 'France',
+        countryCode: 'fr',
+      }
+    ]
+  });
+});
+
+dev.get('/api/agendas/:agendaUid/locations/geocode', (req, res) => res.json({
+  results: [
+    {
+      address:
+        'École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France',
+      adminLevel1: 'Île-de-France',
+      adminLevel2: 'Hauts-de-Seine',
+      adminLevel4: 'Courbevoie',
+      adminLevel6: 'Quartier de Bécon',
+      postalCode: '92400',
+      timezone: 'Europe/Paris',
+      latitude: 48.9019071,
+      longitude: 2.2789371,
+      country: 'France',
+      countryCode: 'fr',
+    }
+  ]
+}));
+
+dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
+  console.log('Get Location', req.params.locationUid);
+  const allLocations = getFixtures(req.params.agendaUid).locations;
+  res.json({
+    ...allLocations.locations[0]
+  });
+});
+
+dev.listen(process.env.EXPRESS_API_PORT);

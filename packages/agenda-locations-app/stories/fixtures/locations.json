@@ -1,0 +1,167 @@
+{
+  "success": true,
+  "locations": [
+    {
+      "uid": 58417438,
+      "name": "Marre",
+      "address": "Marre",
+      "latitude": 49.210528,
+      "longitude": 5.302078,
+      "state": 0
+    },
+    {
+      "uid": 68090732,
+      "name": "Stomatologue",
+      "address": "13 place kossuth, paris",
+      "latitude": 48.875935,
+      "longitude": 2.339978,
+      "state": 0
+    },
+    {
+      "uid": 73746965,
+      "name": "ADDMS",
+      "address": "46 rue de Crimée, Paris",
+      "latitude": 48.879858,
+      "longitude": 2.389255,
+      "state": 0
+    },
+    {
+      "uid": 17544665,
+      "name": "Saint-Herblain",
+      "address": "Saint-Herblain",
+      "latitude": 47.223301,
+      "longitude": -1.634696,
+      "state": 0
+    },
+    {
+      "uid": 7512395,
+      "name": "La Grange de Bosc-Grimont",
+      "address": "357 route du Bosc-Grimont, LE BOCASSE",
+      "latitude": 49.61396,
+      "longitude": 1.054284,
+      "state": 0
+    },
+    {
+      "uid": 30191933,
+      "name": "les sables d'olonne",
+      "address": "les sables d'olonne",
+      "latitude": 46.500203,
+      "longitude": -1.792458,
+      "state": 0
+    },
+    {
+      "uid": 14226851,
+      "name": "Brest",
+      "address": "Brest",
+      "latitude": 48.390528,
+      "longitude": -4.486009,
+      "state": 0
+    },
+    {
+      "uid": 41983314,
+      "name": "Tourinnes-la-Grosse",
+      "address": "Tourinnes-la-Grosse",
+      "latitude": 50.777765,
+      "longitude": 4.74721,
+      "state": 0
+    },
+    {
+      "uid": 98501498,
+      "name": "Biscarrosse",
+      "address": "Biscarrosse",
+      "latitude": 44.390707,
+      "longitude": -1.160936,
+      "state": 0
+    },
+    {
+      "uid": 8505408,
+      "name": "Nantes",
+      "address": "Nantes",
+      "latitude": 47.218637,
+      "longitude": -1.554136,
+      "state": 0
+    },
+    {
+      "uid": 85469536,
+      "name": "île de Ré",
+      "address": "île de Ré",
+      "latitude": 46.200559,
+      "longitude": -1.400329,
+      "state": 0
+    },
+    {
+      "uid": 340132,
+      "name": "Arbousse",
+      "address": "Saint jean du gard",
+      "latitude": 44.105305,
+      "longitude": 3.88468,
+      "state": 0
+    },
+    {
+      "uid": 65206482,
+      "name": "Centre Paris Anim' Solidarité-Angèle Mercier",
+      "address": "135 Boulevard Sérurier, 75019 Paris",
+      "latitude": 48.888561,
+      "longitude": 2.395958,
+      "state": 0
+    },
+    {
+      "uid": 3519605,
+      "name": "Grenoble",
+      "address": "grenoble",
+      "latitude": 45.18756,
+      "longitude": 5.735782,
+      "state": 0
+    },
+    {
+      "uid": 64362584,
+      "name": "Champneuville",
+      "address": "Champneuville",
+      "latitude": 49.23663,
+      "longitude": 5.32603,
+      "state": 0
+    },
+    {
+      "uid": 32033201,
+      "name": "isneauville",
+      "address": "isneauville",
+      "latitude": 49.498839,
+      "longitude": 1.141638,
+      "state": 0
+    },
+    {
+      "uid": 14411880,
+      "name": "Parc des Buttes Chaumont",
+      "address": "rue Botzaris, paris",
+      "latitude": 48.87932,
+      "longitude": 2.384464,
+      "state": 0
+    },
+    {
+      "uid": 50363997,
+      "name": "Chez Clément",
+      "address": "55 rue Marc Sangnier chatenay",
+      "latitude": 48.771752,
+      "longitude": 2.275479,
+      "state": 0
+    },
+    {
+      "uid": 54815816,
+      "name": "Chez sandra",
+      "address": "rue de la prévoyance, paris",
+      "latitude": 48.882883,
+      "longitude": 2.392858,
+      "state": 0
+    },
+    {
+      "uid": 97551346,
+      "name": "Bois & Caux",
+      "address": "Angerville-la-Martel",
+      "latitude": 49.761403,
+      "longitude": 0.501356,
+      "state": 0
+    }
+  ],
+  "after": 993776,
+  "total": 66
+}
