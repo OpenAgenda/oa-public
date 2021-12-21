@@ -32,7 +32,8 @@ export const SelectInput = () => {
 SelectInput.decorators = [AdminCanvas];
 
 export const InModal = () => {
-  const onChange = value => console.log('onChange:', value);
+  const onChange = (value, ...rest) => console.log('onChange:', value, rest);
+  const onClick = (value, ...rest) => console.log('onClick:', value, rest);
   const [display, setDisplay] = useState(true);
 
   return (
@@ -59,6 +60,7 @@ export const InModal = () => {
               { label: 'third option', value: 'third option' },
             ]}
             onChange={onChange}
+            onClick={onClick}
             menuPosition="fixed"
           />
         </Modal>

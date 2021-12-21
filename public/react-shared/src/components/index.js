@@ -8,5 +8,6 @@ export { default as NotFound } from './NotFound';
 export { default as Pager } from './Pager';
 export { default as ReactSelectField } from './ReactSelectField';
 export { default as ReactSelectInput } from './ReactSelectInput';
+export { default as SearchInput } from './SearchInput';
 export { default as Spinner } from './Spinner';
 export { default as Switch } from './Switch';
