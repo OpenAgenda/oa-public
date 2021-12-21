@@ -21,6 +21,7 @@ const CreateForm = loadable(() => import(
   /* webpackChunkName: "legacyEmbeds-CreateForm" */
   './containers/CreateForm'
 ));
+// import CreateForm from './containers/CreateForm';
 
 const UpdateForm = loadable(() => import(
   /* webpackChunkName: "legacyEmbeds-CreateForm" */

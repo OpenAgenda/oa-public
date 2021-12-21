@@ -1,6 +1,6 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import qs from 'query-string';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 import axios from 'axios';
@@ -73,7 +73,7 @@ const messages = defineMessages({
 });
 
 function Dashboard({
-  agenda,
+  agenda
 }) {
   const intl = useIntl();
   const res = useRes(agenda);
@@ -82,7 +82,7 @@ function Dashboard({
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
 
   const history = useHistory();
-  const pathname = useMemo(() => history.location.pathname, [history.location.pathname]);
+  const { pathname } = history.location;
 
   const betterQsParse = search => {
     const searchObj = qs.parse(search);
@@ -108,6 +108,7 @@ function Dashboard({
 
   const { search, page } = useMemo(() => {
     const searchObj = betterQsParse(history.location.search);
+
     const { page: retrivedPage } = searchObj;
     delete searchObj.page;
     return {
@@ -115,8 +116,6 @@ function Dashboard({
       page: parseInt(retrivedPage || '1', 10)
     };
   }, [history.location.search]);
-
-  console.log(history, pathname, search, page);
 
   const {
     isLoading,
@@ -140,21 +139,21 @@ function Dashboard({
     }
   };
 
-  const removeFilter = key => {
+  const removeFilter = useCallback(key => {
     delete search[key];
     history.push({ search: betterQsStringify({ ...search, page }) });
-  };
+  }, [history, page, search]);
 
-  const removeHasNull = field => {
+  const removeHasNull = useCallback(field => {
     search.hasNull = search.hasNull.filter(e => e !== field);
     history.push({ search: betterQsStringify({ ...search, page }) });
-  };
+  }, [history, page, search]);
 
-  const addHasNull = field => {
+  const addHasNull = useCallback(field => {
     if (search.hasNull) search.hasNull.push(field);
     else search.hasNull = [field];
     history.push({ search: betterQsStringify({ ...search, page }) });
-  };
+  }, [history, page, search]);
 
   const onLocationItemEdit = location => {
     if (settings.access.update.authorized && !settings.access.update.external) {

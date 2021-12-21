@@ -9,6 +9,9 @@ import AdminCanvas from './decorators/AdminCanvas';
 import Providers from './decorators/Providers';
 import fixtures from './fixtures';
 
+const whyDidYouRender = require('@welldone-software/why-did-you-render');
+whyDidYouRender(React);
+
 export default {
   title: 'Integrated',
   decorators: [AdminCanvas, Providers]
