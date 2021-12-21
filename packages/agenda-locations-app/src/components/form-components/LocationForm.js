@@ -161,12 +161,13 @@ const LocationForm = ({
   cancel,
   onCancel,
   res,
+  agenda
 }) => {
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);
 
-  console.log(location);
+  console.log('locationFrom location', location, locationProp);
 
   // -- globals fcts
   const onChange = (name, value) => {
@@ -176,7 +177,7 @@ const LocationForm = ({
   const getLabel = (name, values) => {
     let str;
     let k;
-
+    // console.log(name, values)
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
@@ -343,7 +344,7 @@ const LocationForm = ({
       <InputField
         name="phone"
         enabled
-        value={location?.phone}
+        value={location?.phone || ''}
         getLabel={getLabel}
         lang={lang}
         onChange={onChange}
@@ -435,6 +436,7 @@ const LocationForm = ({
         validate={validate}
         enableGeocode={enableGeocode}
         res={res}
+        agenda={agenda}
       />
 
       {detailedInfo ? renderDetailsInfo() : null}

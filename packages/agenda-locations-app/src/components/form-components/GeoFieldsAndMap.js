@@ -27,7 +27,7 @@ const GeoFieldsAndMap = ({
   agenda,
   res
 }) => {
-  console.log(location);
+  console.log(location?.address);
   const intl = useIntl();
   const [geocodeNoResults, setGeocodeNoResults] = useState(false);
   const [geocodeEdit, setGeocodeEdit] = useState(undefined);
@@ -37,10 +37,12 @@ const GeoFieldsAndMap = ({
   const [manualMode, setManualMode] = useState(false);
 
   const updateLocationGeocode = value => {
+    console.log('updateGeocode');
     setGeocodeEdit(false);
     if (value === undefined) return;
     axios.get(res.geocode.replace(':agendaUid', agenda.uid), { params: { address: value, countryCode: location?.countryCode } })
       .then(response => {
+        console.log(response);
         if (!response.data.results[0]) setGeocodeNoResults(true);
         const obj = response.data.results[0];
         onChange({
@@ -68,6 +70,7 @@ const GeoFieldsAndMap = ({
   };
 
   const updateLocationReverseGeocode = (lat, long) => {
+    console.log('updateGeocodeReverse');
     setGeocodeEdit(false);
     axios.get(res.reverseGeocode.replace(':agendaUid', agenda.uid), { params: { latitude: lat, longitude: long } })
       .then(response => {
@@ -91,9 +94,7 @@ const GeoFieldsAndMap = ({
           longitude: obj.longitude,
           timezone: obj.timezone,
         });
-        console.log('updated');
         setGeocodeLoading(false);
-        setManualMode(true);
       })
       .catch(err => {
         console.log('error', err);
@@ -109,11 +110,10 @@ const GeoFieldsAndMap = ({
 
   const onAddressChange = useCallback((n, v) => {
     onChange({ ...location, address: v });
-    debouncedOnChange(v);
-  }, [debouncedOnChange, onChange, location]);
+    if (!manualMode) debouncedOnChange(v);
+  }, [debouncedOnChange, onChange, location, manualMode]);
 
   const onMarkerDragged = pos => {
-    console.log('onMarkerDragged', pos);
     if (!enableGeocode) onChange({ ...location, longitude: pos.lng, latitude: pos.lat });
     else updateLocationReverseGeocode(pos.lat, pos.lng);
   };
@@ -133,7 +133,7 @@ const GeoFieldsAndMap = ({
       <button
         className="btn btn-default"
         type="button"
-        onClick={(n, v) => console.log(n, v)}
+        onClick={() => { setManualMode(false); onAddressChange('adress', location.address); }}
       >
         {geocodeLoading ? (
           <i style={{ padding: '0.2em 0.65em' }}>
@@ -208,6 +208,7 @@ const GeoFieldsAndMap = ({
           onMarkerDragged={onMarkerDragged}
           location={location}
           manualMode={manualMode}
+          setManualMode={setManualMode}
         />
       </div>
     </>

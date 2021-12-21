@@ -1,5 +1,7 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import { useLocation } from 'react-router-dom';
+import qs from 'query-string';
 
 const messages = defineMessages({
   state: {
@@ -13,16 +15,20 @@ const messages = defineMessages({
 });
 
 const ActiveFilters = ({
-  searchObj,
-  removeFilter
+  // betterQsParse,
+  search,
+  removeFilter,
 }) => {
+/*   const location = useLocation();
+  const search = betterQsParse(location.search);
+  if (search.page) delete search.page; */
   const intl = useIntl();
-
-  const getFilterList = () => Object.keys(searchObj).reduce((acc, key) => {
-    acc.push({ [key]: searchObj[key] });
+  const getFilterList = () => Object.keys(search).reduce((acc, key) => {
+    acc.push({ [key]: search[key] });
     return acc;
   }, []);
-
+  console.log(' activeFilters search', search);
+  console.log('filter list for activeFitlers', getFilterList());
   const getLabel = f => {
     const key = Object.keys(f)[0];
     if (key === 'search') return f[key];

@@ -11,14 +11,18 @@ import {
   Marker,
   useMap
 } from 'react-leaflet';
+import L from 'leaflet';
 import { Helmet } from 'react-helmet-async';
 
 const defaults = {
   tiles:
     '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
-  markerIcon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
+  markerIcon: 'https://oastatic.s3.eu-central-1.amazonaws.com/oa-blue-marker.png',
+  markerShadow: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconAnchor: [12, 41],
   pos: [40, 0],
   focusedZoom: 13,
+  iconSize: [25, 41]
 };
 
 const MapContent = ({
@@ -27,13 +31,22 @@ const MapContent = ({
   onMarkerDragged,
   isGeolocated,
   defaultZoom,
-  manualMode
+  manualMode,
+  setManualMode
 }) => {
   const map = useMap();
   const markerRef = useRef(null);
+  const icon = L.icon({
+    iconUrl: defaults.markerIcon,
+    shadowUrl: defaults.markerShadow,
+    iconAnchor: defaults.iconAnchor,
+    iconSize: defaults.iconSize,
+  });
+  console.log(pos);
   const eventHandlers = useMemo(
     () => ({
       dragend() {
+        setManualMode(true);
         setTimeout(() => {
           const marker = markerRef.current;
           if (marker != null) {
@@ -43,7 +56,7 @@ const MapContent = ({
         }, 500);
       },
     }),
-    [onMarkerDragged],
+    [onMarkerDragged, setManualMode],
   );
 
   if (!manualMode && map.getCenter() !== { lat: pos[0], lng: pos[1] }) map.setView({ lat: pos[0], lng: pos[1] }, defaultZoom);
@@ -54,6 +67,7 @@ const MapContent = ({
         eventHandlers={eventHandlers}
         position={pos}
         ref={markerRef}
+        icon={icon}
       />
     );
   }
@@ -69,6 +83,7 @@ const LocationMap = ({
   tiles,
   onMarkerDragged,
   manualMode,
+  setManualMode,
 }) => {
   const getLocationPos = useCallback(() => [location?.latitude, location?.longitude], [location]);
   const isGeolocated = useCallback(() => location?.latitude !== undefined, [location]);
@@ -82,7 +97,6 @@ const LocationMap = ({
     }
   }, [location, isGeolocated, getLocationPos]);
 
-  console.log('locationMap', isGeolocated(), pos, getLocationPos(), defaultZoom);
   return (
     <>
       <Helmet>
@@ -115,6 +129,7 @@ const LocationMap = ({
           onMarkerDragged={onMarkerDragged}
           defaultZoom={defaultZoom}
           manualMode={manualMode}
+          setManualMode={setManualMode}
         />
       </MapContainer>
     </>

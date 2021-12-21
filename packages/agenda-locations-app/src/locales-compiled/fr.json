@@ -142,6 +142,24 @@
       "value": "Pays"
     }
   ],
+  "AgendaLocations.CreateForm.back": [
+    {
+      "type": 0,
+      "value": "Revenir à la liste"
+    }
+  ],
+  "AgendaLocations.CreateForm.info": [
+    {
+      "type": 0,
+      "value": "Définissez précisément le nom, l'adresse et la localisation du lieu"
+    }
+  ],
+  "AgendaLocations.CreateForm.title": [
+    {
+      "type": 0,
+      "value": "Création d'un lieu"
+    }
+  ],
   "AgendaLocations.DropdownUncompleteLocation.incompleteLocations": [
     {
       "type": 0,
@@ -254,6 +272,181 @@
     {
       "type": 0,
       "value": "Quartier"
+    }
+  ],
+  "AgendaLocations.LocationDetails.access": [
+    {
+      "type": 0,
+      "value": "Accès"
+    }
+  ],
+  "AgendaLocations.LocationDetails.andOn": [
+    {
+      "type": 0,
+      "value": " et sur "
+    }
+  ],
+  "AgendaLocations.LocationDetails.description": [
+    {
+      "type": 0,
+      "value": "Description"
+    }
+  ],
+  "AgendaLocations.LocationDetails.email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "AgendaLocations.LocationDetails.emptyGeo": [
+    {
+      "type": 0,
+      "value": "Vide"
+    }
+  ],
+  "AgendaLocations.LocationDetails.extId": [
+    {
+      "type": 0,
+      "value": "Identifiant externe"
+    }
+  ],
+  "AgendaLocations.LocationDetails.hoverInfo": [
+    {
+      "type": 0,
+      "value": "Cette information n'est pas correcte? Cliquez sur le bouton en entête de cette modale pour détailler les modifications à apporter"
+    }
+  ],
+  "AgendaLocations.LocationDetails.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "AgendaLocations.LocationDetails.insee": [
+    {
+      "type": 0,
+      "value": "Code INSEE"
+    }
+  ],
+  "AgendaLocations.LocationDetails.links": [
+    {
+      "type": 0,
+      "value": "Liens additionnels"
+    }
+  ],
+  "AgendaLocations.LocationDetails.noContent": [
+    {
+      "type": 0,
+      "value": "Aucun texte "
+    },
+    {
+      "type": 1,
+      "value": "lang"
+    },
+    {
+      "type": 0,
+      "value": " n'est défini"
+    }
+  ],
+  "AgendaLocations.LocationDetails.noImage": [
+    {
+      "type": 0,
+      "value": "Aucune illustration n'est définie"
+    }
+  ],
+  "AgendaLocations.LocationDetails.noRefAgendas": [
+    {
+      "type": 0,
+      "value": "Ce lieu n'est référencé dans aucun autre agenda."
+    }
+  ],
+  "AgendaLocations.LocationDetails.noValue": [
+    {
+      "type": 0,
+      "value": "Non précisé"
+    }
+  ],
+  "AgendaLocations.LocationDetails.others": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "un autre"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " autres"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationDetails.phone": [
+    {
+      "type": 0,
+      "value": "Téléphone"
+    }
+  ],
+  "AgendaLocations.LocationDetails.refAgendas": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ce lieu est aussi référencé sur l'agenda "
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ce lieu est aussi référencé sur les agendas "
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationDetails.website": [
+    {
+      "type": 0,
+      "value": "Site web"
     }
   ],
   "AgendaLocations.LocationForm.access": [
@@ -592,6 +785,24 @@
     {
       "type": 0,
       "value": "Ce lieu est vérifié"
+    }
+  ],
+  "AgendaLocations.UpdateForm.back": [
+    {
+      "type": 0,
+      "value": "Revenir à la liste"
+    }
+  ],
+  "AgendaLocations.UpdateForm.info": [
+    {
+      "type": 0,
+      "value": "Tous les événements liés à ce lieu seront mis à jour"
+    }
+  ],
+  "AgendaLocations.UpdateForm.title": [
+    {
+      "type": 0,
+      "value": "Edition du lieu"
     }
   ],
   "AgendaLocations.adminLevel1": [

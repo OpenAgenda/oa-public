@@ -2,15 +2,32 @@
 
 const detailedLocations = require('./mel-locations.json');
 const agenda = require('./mel.json');
+const settings = require('./slslf-2022.json');
+
+const defaultAccess = {
+  authorized: true,
+  external: false,
+  serviceLabel: null,
+  link: null
+};
 
 const DetailedLocations = {
   locations: detailedLocations,
+  settings: {
+    settings,
+    access: {
+      create: defaultAccess,
+      update: defaultAccess,
+      merge: defaultAccess,
+      delete: defaultAccess
+    }
+  },
   extraProps: {
     lang: 'fr',
     agenda: {
       ...agenda,
       uid: 1,
-    }
+    },
   }
 };
 

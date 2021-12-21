@@ -22,39 +22,45 @@ const CreateForm = loadable(() => import(
   './containers/CreateForm'
 ));
 
+const UpdateForm = loadable(() => import(
+  /* webpackChunkName: "legacyEmbeds-CreateForm" */
+  './containers/UpdateForm'
+));
+
 export default (prefix = '') => ([
   {
     path: prefix,
     component: App,
-    routes: [{
-      path: `${prefix}`,
-      exact: true,
-      component: Dashboard
-    },
-    {
-      path: `${prefix}/p/:page`,
-      exact: true,
-      component: Dashboard
-    },
-    {
-      path: `${prefix}/:locationUid`,
-      exact: true,
-      component: Dashboard // with detailed modal open
-    },
-    {
-      path: `${prefix}/create`,
-      exact: true,
-      component: CreateForm
-    },
-/*   {
-      path: `${prefix}/:locationUid/edit`,
-      exact: true,
-      component: UpdateForm
-    }, */
-    {
-      path: `${prefix}/tmp`,
-      exact: true,
-      component: Temporary
-    }]
+    routes: [
+      {
+        path: `${prefix}/create`,
+        exact: true,
+        component: CreateForm
+      },
+      {
+        path: `${prefix}`,
+        exact: true,
+        component: Dashboard
+      },
+/*       {
+        path: `${prefix}/p/:page`,
+        exact: true,
+        component: Dashboard
+      }, */
+      {
+        path: `${prefix}/tmp`,
+        exact: true,
+        component: Temporary
+      },
+      {
+        path: `${prefix}/:locationUid`,
+        exact: true,
+        component: Dashboard // with detailed modal open
+      },
+      {
+        path: `${prefix}/:locationUid/edit`,
+        exact: true,
+        component: UpdateForm
+      }]
   }
 ]);

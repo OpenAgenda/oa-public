@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
 import qs from 'query-string';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
+import axios from 'axios';
 
-import { Spinner, Pager, MoreInfo } from '@openagenda/react-shared';
+import { Spinner, Pager, MoreInfo, Modal } from '@openagenda/react-shared';
 import LocationItem from '../components/LocationItem';
+import LocationDetailModal from '../components/LocationDetailModal';
 import useLocations from '../hooks/useLocations';
+import useRes from '../hooks/useRes';
+import useSettings from '../hooks/useSettings';
 import SearchInput from '../components/SearchInput';
 import ActiveFilters from '../components/ActiveFilters';
 import IncompleteLocationsFilterDropdown from '../components/IncompleteLocationsFilterDropdown';
@@ -69,87 +74,149 @@ const messages = defineMessages({
 
 function Dashboard({
   agenda,
-  history
 }) {
   const intl = useIntl();
-  const { pathname, search } = history.location;
+  const res = useRes(agenda);
+  const { locationUid: detailLocationUid } = useParams();
+  const { settings } = useSettings(agenda);
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
+
+  const history = useHistory();
+  const pathname = useMemo(() => history.location.pathname, [history.location.pathname]);
+
+  const betterQsParse = search => {
+    const searchObj = qs.parse(search);
+    const resp = Object.keys(searchObj).reduce((acc, key) => {
+      if (key.substring(0, 7) === 'hasNull') {
+        if (acc.hasNull) acc.hasNull.push(searchObj[key]);
+        else acc.hasNull = [searchObj[key]];
+      } else acc[key] = searchObj[key];
+      return acc;
+    }, {});
+    return resp;
+  };
+
+  const betterQsStringify = searchObj => {
+    const resp = Object.keys(searchObj).reduce((acc, key) => {
+      if (key.substring(0, 7) === 'hasNull') {
+        searchObj[key].forEach((e, index) => { acc[`hasNull[${index}]`] = e; });
+      } else acc[key] = searchObj[key];
+      return acc;
+    }, {});
+    return qs.stringify(resp);
+  };
+
+  const { search, page } = useMemo(() => {
+    const searchObj = betterQsParse(history.location.search);
+    const { page: retrivedPage } = searchObj;
+    delete searchObj.page;
+    return {
+      search: searchObj,
+      page: parseInt(retrivedPage || '1', 10)
+    };
+  }, [history.location.search]);
+
+  console.log(history, pathname, search, page);
+
   const {
     isLoading,
     error,
     locations,
     total,
     size,
-    page
-  } = useLocations(agenda, qs.parse(search));
-  console.log(history.location, pathname, search);
-  console.log('locations:', locations);
-  console.log('state', qs.parse(search).state === '0');
-
-  const betterQsParseSearch = () => {
-    const searchObj = qs.parse(search);
-    const res = Object.keys(searchObj).reduce((acc, key) => {
-      if (key.substr(0, 7) === 'hasNull') {
-        if (acc.hasNull) acc.hasNull.push(searchObj[key]);
-        else acc.hasNull = [searchObj[key]];
-      } else acc[key] = searchObj[key];
-      return acc;
-    }, {});
-    return res;
-  };
-
-  const betterQsStringifySearch = searchObj => {
-    const res = Object.keys(searchObj).reduce((acc, key) => {
-      if (key.substr(0, 7) === 'hasNull') {
-        searchObj[key].forEach((e, index) => { acc[`hasNull[${index}]`] = e; });
-      } else acc[key] = searchObj[key];
-      return acc;
-    }, {});
-    return qs.stringify(res);
-  };
+  } = useLocations(agenda, page);
 
   const nextPage = () => {
     history.push({
-      pathname: `${prefix}/p/${page + 1}`,
-      search
+      search: betterQsStringify({ ...search, page: page + 1 })
     });
   };
 
   const previousPage = () => {
     if (page >= 2) {
       history.push({
-        pathname: `${prefix}/p/${page - 1}`,
-        search
+        search: betterQsStringify({ ...search, page: page - 1 })
       });
     }
   };
 
   const removeFilter = key => {
-    const searchObj = qs.parse(search);
-    delete searchObj[key];
-    if (key === 'hasNull') {
-      for (const objKey in searchObj) {
-        if (objKey.substr(0, 7) === 'hasNull') delete searchObj[objKey];
-      }
-    }
-    history.push({ pathname: `${prefix}/p/1`, search: qs.stringify(searchObj) });
+    delete search[key];
+    history.push({ search: betterQsStringify({ ...search, page }) });
   };
 
   const removeHasNull = field => {
-    const searchObj = betterQsParseSearch();
-    searchObj.hasNull = searchObj.hasNull.filter(e => e !== field);
-    history.push({ pathname: `${prefix}/p/1`, search: betterQsStringifySearch(searchObj) });
+    search.hasNull = search.hasNull.filter(e => e !== field);
+    history.push({ search: betterQsStringify({ ...search, page }) });
   };
 
   const addHasNull = field => {
-    const searchObj = betterQsParseSearch();
-    if (searchObj.hasNull) searchObj.hasNull.push(field);
-    else searchObj.hasNull = [field];
-    history.push({ pathname: `${prefix}/p/1`, search: betterQsStringifySearch(searchObj) });
+    if (search.hasNull) search.hasNull.push(field);
+    else search.hasNull = [field];
+    history.push({ search: betterQsStringify({ ...search, page }) });
+  };
+
+  const onLocationItemEdit = location => {
+    if (settings.access.update.authorized && !settings.access.update.external) {
+      const nq = `${pathname}?${betterQsStringify({ ...search, page })}`;
+      history.push({
+        pathname: `${prefix}/${location.uid}/edit`,
+        state: nq
+      });
+    } else {
+      // display action Modal
+      return false;
+    }
+  };
+
+  const onLocationItemSelect = location => {
+    // handle merge behavior
+    // basic beahavior
+    onLocationItemEdit(location);
   };
 
   return (
     <div className="agenda-admin-locations">
+      {/* setHeader */}
+      <div className="row list-actions">
+        <div className="col col-sm-12">
+          <div className="form-inline">
+            <div className="form-group">
+              <div className="btn-group margin-left-sm">
+                <a href={res.csv} className="btn btn-default">
+                  <span>csv</span>
+                </a>
+                <a href={res.xlsx} className="btn btn-default">
+                  <span>xlsx</span>
+                </a>
+              </div>
+            </div>
+            <div className="form-group">
+              <button
+                type="button"
+                className={settings?.access?.create?.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                onClick={() => {
+                  if (!settings?.access.create.authorized || settings?.access.create.external) {
+                    // this.displayActionModal('create');
+                    console.log('click');
+                  } else {
+                    const nq = `${pathname}?${betterQsStringify({ ...search, page })}`;
+                    history.push({
+                      pathname: `${prefix}/create`,
+                      state: nq
+                    });
+                  }
+                }}
+              >
+                <FormattedMessage {...messages.create} />
+              </button>
+            </div>
+            <div className="form-group">
+              {/* this.renderMergeAction() */}
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="row list-filters">
         <div className="col col-sm-12">
           <div className="form-inline">
@@ -158,8 +225,7 @@ function Dashboard({
                 onChange={value => {
                   if (value !== '') {
                     return history.push({
-                      pathname: `${prefix}/p/1`,
-                      search: qs.stringify({ ...qs.parse(search), search: value })
+                      search: betterQsStringify({ ...search, page, search: value })
                     });
                   }
                 }}
@@ -170,15 +236,14 @@ function Dashboard({
                   <input
                     type="checkbox"
                     onChange={() => {
-                      if (qs.parse(search).state) removeFilter('state');
+                      if (search.state) removeFilter('state');
                       else {
                         history.push({
-                          pathname: `${prefix}/p/1`,
-                          search: qs.stringify({ ...qs.parse(search), state: 0 })
+                          search: betterQsStringify({ ...search, page, state: 0 })
                         });
                       }
                     }}
-                    checked={!!qs.parse(search).state}
+                    checked={!!search.state}
                   />{' '}
                   <FormattedMessage
                     {...messages.toVerify}
@@ -193,13 +258,14 @@ function Dashboard({
               </div>
               <IncompleteLocationsFilterDropdown
                 country={locations?.[0]?.countryCode || 'FR'}
-                search={qs.parse(search)}
+                search={search}
                 removeHasNull={removeHasNull}
                 addHasNull={addHasNull}
               />
               <ActiveFilters
                 removeFilter={removeFilter}
-                searchObj={betterQsParseSearch()}
+                search={search}
+              // betterQsParse={betterQsParse}
               />
             </div>
           </div>
@@ -237,8 +303,12 @@ function Dashboard({
             <LocationItem
               getCountryLabel={() => 'test'}
               location={location}
-              onSelect={() => null}
+              onSelect={onLocationItemSelect}
+              onEdit={onLocationItemEdit}
               settings={agenda.settings}
+              seeDetails={() => {
+                history.push({ pathname: `${prefix}/${location.uid}`, search: betterQsStringify({ ...search, page }) });
+              }}
             />
           </li>
         )) : null}
@@ -252,6 +322,16 @@ function Dashboard({
           nextPage={nextPage}
           previousMessage="Previous"
           nextMessage="Next"
+        />
+      ) : null}
+      {detailLocationUid ? (
+        <LocationDetailModal
+          locationUid={detailLocationUid}
+          res={res}
+          settings={settings}
+          agenda={agenda}
+          search={betterQsStringify({ ...search, page })}
+          prefix={prefix}
         />
       ) : null}
     </div>

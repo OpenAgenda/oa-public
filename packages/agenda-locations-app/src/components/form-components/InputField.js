@@ -41,13 +41,14 @@ const InputField = ({
     try {
       validator(value);
     } catch (errors) {
+      console.log(errors);
       return (
         <p>{ errors.map(error => (
           <span
             key={error.code}
             className="error"
           >
-            {myGetLabel(error.code, error.values, lang) || 'error'}
+            {myGetLabel(error.code, error.values) || 'error'}
           </span>
         )) }
         </p>

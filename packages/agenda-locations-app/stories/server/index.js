@@ -29,6 +29,14 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   });
 });
 
+dev.get('/api/agendas/:agendaUid/locations/settings/', (req, res) => {
+  const set = getFixtures(req.params.agendaUid).settings;
+  console.log('Get Settings', set);
+  res.json({
+    ...set
+  });
+});
+
 dev.get('/api/agendas/:agendaUid/locations/geocode/reverse', (req, res) => {
   res.json({
     results: [
@@ -68,5 +76,13 @@ dev.get('/api/agendas/:agendaUid/locations/geocode', (req, res) => res.json({
     }
   ]
 }));
+
+dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
+  console.log('Get Location', req.params.locationUid);
+  const allLocations = getFixtures(req.params.agendaUid).locations;
+  res.json({
+    ...allLocations.locations[0]
+  });
+});
 
 dev.listen(process.env.EXPRESS_API_PORT);

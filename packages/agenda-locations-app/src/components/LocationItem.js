@@ -69,7 +69,7 @@ const LocationItem = ({
 
   const myEdit = e => {
     e.stopPropagation();
-    onEdit();
+    onEdit(location);
   };
 
   const isInMergeSelection = () => merge.locationUids.indexOf(location.uid) !== -1;
