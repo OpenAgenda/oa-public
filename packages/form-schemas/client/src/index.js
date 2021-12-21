@@ -7,10 +7,7 @@ import formSchemaLabels from '@openagenda/labels/form-schemas';
 
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
-import { Spinner } from '@openagenda/react-components';
-import {
-  unloadWarning
-} from '@openagenda/react-shared';
+import { Spinner, unloadWarning } from '@openagenda/react-shared';
 
 import FormSchema from './iso/FormSchema';
 import getErrorLabel from './iso/getErrorLabel';

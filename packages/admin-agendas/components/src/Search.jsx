@@ -6,11 +6,7 @@ var React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  SearchField = require( '@openagenda/react-form-components/build/SearchField' ),
-
-  { List } = require( '@openagenda/react-components' ),
-
-  Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
+  { Spinner } = require( '@openagenda/react-shared' ),
 
   AgendaItem = require( './AgendaItem' );
 
@@ -41,17 +37,6 @@ export default createReactClass( {
     return <div className="col-md-3 admin-search" ref="search">
       <div className="row">
         <div className="header">
-          {/*<div className="form-group">
-            <label className="sr-only" htmlFor="agenda_search">Agenda search</label>
-            <SearchField
-              name="oas[search]"
-              label="Search"
-              placeholder="Search"
-              value={ this.props.query ? this.props.query.search : '' }
-              onChange={this.props.onSearchChange}
-            />
-          </div>*/}
-
           <div className="form-group">
             <label className="sr-only" htmlFor="agenda_search">Agenda search</label>
             <div className="input-icon-right">
@@ -62,7 +47,7 @@ export default createReactClass( {
                 onChange={e => this.props.onSearchChange( 'oas[search]', e.target.value )}
               />
               <button type="submit" className="btn">
-                {this.props.loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
+                {this.props.loading ? <Spinner options={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
               </button>
             </div>
           </div>
@@ -70,14 +55,9 @@ export default createReactClass( {
       </div>
       <div className="row">
         <div className="body media-list">
-          <List
-            items={this.props.agendas} // a 'get' can maybe be given in props differently here from server?
-            total={this.props.total}
-            pageRange={this.props.pageRange}
-            getPage={this.props.getSearchPage}
-            renderItem={ i => <AgendaItem agenda={i} key={i.uid} onSelect={this.props.onSelectAgenda} /> }
-            renderEmpty={() => <div className="empty"><p>Sorry, no agendas match this search</p></div>}
-          />
+          {this.props.agendas?.length
+            ? this.props.agendas.map(agenda => <AgendaItem agenda={agenda} key={agenda.uid} onSelect={this.props.onSelectAgenda} />)
+            : <div className="empty"><p>Sorry, no agendas match this search</p></div>}
         </div>
       </div>
     </div>;

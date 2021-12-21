@@ -5,7 +5,7 @@ import { shouldUpdate, shallowEqual } from 'recompose';
 import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 import locales from '../locales-compiled';
 import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';

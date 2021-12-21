@@ -18,12 +18,12 @@ import { useField } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import produce from 'immer';
 import { css } from '@emotion/react';
-import { Spinner } from '@openagenda/react-components';
 import {
   a11yButtonActionHandler,
   useApiClient,
   useModal,
   useLayoutData,
+  Spinner,
 } from '@openagenda/react-shared';
 import { FiltersProvider, getEvents } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';

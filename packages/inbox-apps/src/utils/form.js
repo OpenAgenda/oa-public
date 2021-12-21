@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 
 const searchSpinner = {

@@ -4,7 +4,7 @@ const du = require( '@openagenda/dom-utils' );
 const React = require( 'react' );
 const ReactDom = require( 'react-dom' );
 const createReactClass = require( 'create-react-class' );
-const { Modal } = require( '@openagenda/react-components' );
+const { Modal } = require( '@openagenda/react-shared' );
 const labels = require( '@openagenda/labels/event/remove' );
 
 let warningThis, lang = 'en';

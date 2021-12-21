@@ -1,13 +1,10 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import EditDecorator from './decorators/EditDecorator';
 import createApp from '../src/client/editApp';
 
 import '@openagenda/bs-templates/compiled/main.css';
-
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
 const agenda = {
   uid: 17026855,
@@ -17,9 +14,8 @@ const agenda = {
   credentials: {}
 };
 
-const getDefaultState = ({ apiRoot } = {}) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot,
     prefix: `/:slug/admin`
   },
   res: {
@@ -48,21 +44,27 @@ const wrapAppOptions = {
   }
 };
 
-storiesOf('Edit', module)
-  .addDecorator(EditDecorator)
-  .add('getting started', () => wrapApp(createApp({
-    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/getting-started`] }),
-    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
-  }), wrapAppOptions))
-  .add('profile', () => wrapApp(createApp({
-    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/profile`] }),
-    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
-  }), wrapAppOptions))
-  .add('contribution', () => wrapApp(createApp({
-    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/contribution`] }),
-    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
-  }), wrapAppOptions))
-  .add('advanced', () => wrapApp(createApp({
-    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/advanced`] }),
-    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
-  }), wrapAppOptions));
+export default {
+  title: 'Edit',
+  decorators: [EditDecorator]
+};
+
+export const GettingStarted = () => wrapApp(createApp({
+  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/getting-started`] }),
+  initialState: getDefaultState()
+}), wrapAppOptions);
+
+export const Profile = () => wrapApp(createApp({
+  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/profile`] }),
+  initialState: getDefaultState()
+}), wrapAppOptions);
+
+export const Contribution = () => wrapApp(createApp({
+  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/profile`] }),
+  initialState: getDefaultState()
+}), wrapAppOptions);
+
+export const Advanced = () => wrapApp(createApp({
+  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/advanced`] }),
+  initialState: getDefaultState()
+}), wrapAppOptions);

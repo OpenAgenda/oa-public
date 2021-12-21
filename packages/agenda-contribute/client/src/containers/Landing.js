@@ -1,12 +1,7 @@
-import ih from 'immutability-helper';
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-
-import Canvas from '../components/Canvas';
+import { Spinner } from '@openagenda/react-shared';
 import reducers from '../reducers';
-
-import { Spinner } from '@openagenda/react-components';
 
 
 class Landing extends Component {

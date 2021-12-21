@@ -4,8 +4,7 @@ import _ from 'lodash';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
-import { withContext, withLayoutData } from '@openagenda/react-shared';
-import { Spinner } from '@openagenda/react-components';
+import { withContext, withLayoutData, Spinner } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import {
   MessageList, MessageForm, AuthorAvatar, ActionsList,

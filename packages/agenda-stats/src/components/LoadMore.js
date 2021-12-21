@@ -3,7 +3,7 @@ import React, {
   useState, useMemo, useCallback, useLayoutEffect
 } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   loadMore: {

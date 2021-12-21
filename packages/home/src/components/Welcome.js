@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
-import { useApiClient } from '@openagenda/react-shared';
-import { Spinner } from '@openagenda/react-components';
+import { useApiClient, Spinner } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 
 function AgendaItem({ agenda }) {

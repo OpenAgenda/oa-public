@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { provideHooks } from 'redial';
-import { withLayoutData } from '@openagenda/react-shared';
-import { Spinner, Modal } from '@openagenda/react-components';
+import { withLayoutData, Spinner, Modal } from '@openagenda/react-shared';
 import * as userSettingsActions from '../reducers/userSettings';
 import {
   ProfileSettings,

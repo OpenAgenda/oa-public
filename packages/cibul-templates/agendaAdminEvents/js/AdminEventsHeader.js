@@ -9,7 +9,7 @@ import du from '@openagenda/dom-utils';
 import labels from '@openagenda/labels/agenda-admin-events/filters';
 import stateLabels from '@openagenda/labels/event/states';
 import makeGetterLabel from '@openagenda/labels';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 import utils from '@openagenda/utils';
 import UidTextField from './UidTextField.jsx';
 import MemberTextField from './MemberTextField.jsx';

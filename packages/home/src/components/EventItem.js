@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Image } from '@openagenda/react-components';
+import { Image } from '@openagenda/react-shared';
 
 const getEventEditLink = (res, event) => res.edit
   .replace(':slug', event.agenda && event.agenda.slug)

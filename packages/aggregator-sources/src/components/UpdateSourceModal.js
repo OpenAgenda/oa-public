@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { Modal } from '@openagenda/react-components';
+import { Modal } from '@openagenda/react-shared';
 import DefineRules from './DefineRules';
 import EvaluateOptions from './EvaluateOptions';
 

@@ -48,8 +48,6 @@
     "@openagenda/member-apps": "^2.1.1",
     "@openagenda/outdated-browser": "^0.0.0",
     "@openagenda/polyfills": "^1.2.4",
-    "@openagenda/react-components": "^2.3.10",
-    "@openagenda/react-form-components": "^2.1.14",
     "@openagenda/react-layouts": "^2.2.1",
     "@openagenda/react-shared": "^2.3.2",
     "@openagenda/registration": "^1.1.4",

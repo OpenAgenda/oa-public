@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
-import { Modal } from '@openagenda/react-components';
+import { Modal } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   removeEvent: {

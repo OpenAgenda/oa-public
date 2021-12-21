@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { Spinner } from '@openagenda/react-components';
 import { useIntl, defineMessages } from 'react-intl';
-
+import { Spinner } from '@openagenda/react-shared';
 import EmbedSelection from '../components/EmbedSelection';
-
 import TagMenu from '../components/TagMenu';
 import MapMenu from '../components/MapMenu';
 import SearchMenu from '../components/SearchMenu';

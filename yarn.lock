@@ -3369,7 +3369,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.13.8":
+"@babel/runtime@npm:^7.12.1":
   version: 7.13.17
   resolution: "@babel/runtime@npm:7.13.17"
   dependencies:
@@ -5347,11 +5347,9 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/users": ^3.1.0
-    "@storybook/addon-knobs": ^6.2.8
-    "@storybook/react": ^6.2.8
+    "@storybook/react": ^6.4.9
     axios: ^0.21.1
     babel-jest: ^26.6.3
     babel-loader: ^8.2.2
@@ -5507,8 +5505,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/members": ^1.15.13
-    "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-form-components": ^2.1.14
+    "@openagenda/react-shared": ^2.3.2
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.2.8
@@ -5597,7 +5594,6 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/outdated-browser": ^0.0.0
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/validators": ^2.4.0
     babel-jest: ^26.6.3
@@ -5735,7 +5731,6 @@ __metadata:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/geocoder": ^1.2.8
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/utils": ^1.3.0
@@ -5914,8 +5909,6 @@ __metadata:
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-form-components": ^2.1.14
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.2.8
@@ -5968,18 +5961,15 @@ __metadata:
     "@openagenda/keys": ^2.2.10
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
-    "@storybook/react": ^6.2.8
+    "@storybook/react": ^6.4.9
     babel-loader: ^8.2.2
     body-parser: ^1.15.2
     classnames: ^2.3.1
-    concurrently: ^6.0.2
     core-js: ^3.10.2
-    cors: ^2.8.5
     errorhandler: ^1.5.0
     express: ^4.17.1
     final-form: ^4.20.2
@@ -5990,7 +5980,6 @@ __metadata:
     mocha: ^7.0.1
     morgan: ^1.9.1
     mysql: ^2.11.1
-    nodemon: ^2.0.4
     prop-types: ^15.5.8
     react: ^16.13.1
     react-copy-to-clipboard: ^5.0.2
@@ -6033,7 +6022,6 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-filters": ^2.4.3
     "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
@@ -6149,7 +6137,6 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/labels": ^2.3.0
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -6372,8 +6359,6 @@ __metadata:
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-layouts": ^2.2.1
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/registration": ^1.1.4
@@ -6596,7 +6581,6 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-filters": ^2.4.3
     "@openagenda/react-share-menus": ^1.0.0
     "@openagenda/react-shared": ^2.3.2
@@ -6658,7 +6642,6 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-timingspicker": ^1.3.0
     "@openagenda/validators": ^2.4.0
@@ -6828,7 +6811,6 @@ __metadata:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/validators": ^2.4.0
     aws-sdk: ^2.544.0
@@ -6907,8 +6889,6 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/labels": ^2.3.0
     "@openagenda/member-apps": ^2.1.1
-    "@openagenda/react-components": ^2.3.10
-    "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -6968,7 +6948,6 @@ __metadata:
     "@openagenda/inboxes": ^1.1.14
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/sessions": ^4.1.0
@@ -7163,7 +7142,6 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
@@ -7277,7 +7255,6 @@ __metadata:
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/members": ^1.15.13
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/validators": ^2.4.0
@@ -7387,7 +7364,7 @@ __metadata:
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-components": ^2.3.10
+    "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     axios-mock-adapter: ^1.19.0
@@ -7564,41 +7541,6 @@ __metadata:
   checksum: 9ff9de34427ede3a3bec789a96296eb65308d4b17a4c23b3b14ff89031a9d3a7997d666d6e8685145a247aab2d0b7abbc1cfbb3b57b4b9caf5b2a57ea9dd40ab
   languageName: node
   linkType: hard
-
-"@openagenda/react-components@^2.3.10, @openagenda/react-components@workspace:packages/react-components":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/react-components@workspace:packages/react-components"
-  dependencies:
-    "@babel/cli": ^7.13.16
-    "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
-    "@openagenda/bs-templates": ^2.5.0
-    "@openagenda/dom-utils": ^2.2.12
-    "@openagenda/react-form-components": ^2.1.14
-    "@storybook/addon-actions": ^6.2.8
-    "@storybook/react": ^6.2.8
-    babel-loader: ^8.2.2
-    core-js: ^3.10.2
-    create-react-class: ^15.5.3
-    final-form: ^4.20.2
-    prop-types: ^15.7.2
-    react: ^16.13.1
-    react-bootstrap: ^1.5.2
-    react-dom: ^16.13.1
-    react-final-form: ^6.5.3
-    react-markdown: ^6.0.0
-    react-waypoint: ^9.0.2
-    rimraf: ^3.0.1
-    webpack: ^5.53.0
-  peerDependencies:
-    final-form: ^4.20.2
-    react: ^16.12.0
-  peerDependenciesMeta:
-    final-form:
-      optional: true
-  languageName: unknown
-  linkType: soft
 
 "@openagenda/react-filters@^2.4.3, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
@@ -7785,7 +7727,6 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/members": ^1.15.13
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/sessions": ^4.1.0
     classnames: ^2.3.1
@@ -7870,6 +7811,7 @@ __metadata:
     axios: ^0.21.1
     babel-jest: ^26.6.3
     bytes: ^3.1.0
+    classnames: ^2.3.1
     core-js: ^3.10.2
     dedent: ^0.7.0
     enzyme: ^3.11.0
@@ -8115,7 +8057,6 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/form-schemas": ^1.9.2
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@storybook/addon-essentials": ^6.2.8
     "@storybook/addon-links": ^6.2.8
@@ -8229,7 +8170,6 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/labels": ^2.3.0
-    "@openagenda/react-components": ^2.3.10
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/users": ^3.1.0
     "@openagenda/utils": ^1.3.0
@@ -8449,17 +8389,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@popperjs/core@npm:^2.5.3, @popperjs/core@npm:^2.6.0":
-  version: 2.9.2
-  resolution: "@popperjs/core@npm:2.9.2"
-  checksum: a5916302e706b7dfbbbcd8728bafc1682b450d5ec70dd10da84a07c89a419fa72f83cbf990798589e6e69e1b520d6768176ea4bd360d7450d08a2fbc25a14e1c
-  languageName: node
-  linkType: hard
-
 "@popperjs/core@npm:^2.5.4":
   version: 2.5.4
   resolution: "@popperjs/core@npm:2.5.4"
   checksum: 609d2d5a0ff4aa2810656783b22740cc5a859ccb0c2a1a2274c7073edae17701270d71c7688291a7ec0441706e458ec00d98912fdc81082f24e8853a295e60ac
+  languageName: node
+  linkType: hard
+
+"@popperjs/core@npm:^2.6.0":
+  version: 2.9.2
+  resolution: "@popperjs/core@npm:2.9.2"
+  checksum: a5916302e706b7dfbbbcd8728bafc1682b450d5ec70dd10da84a07c89a419fa72f83cbf990798589e6e69e1b520d6768176ea4bd360d7450d08a2fbc25a14e1c
   languageName: node
   linkType: hard
 
@@ -8529,27 +8469,6 @@ __metadata:
   version: 0.1.0
   resolution: "@request/interface@npm:0.1.0"
   checksum: a167275a54bafb3f228dba63cd3bbbb31871e2868d53838881248f21c42a41bd88fb6aca26855edee5ab3bb1eccb4e13799eb2365917e491aa0a54146c5c3d60
-  languageName: node
-  linkType: hard
-
-"@restart/context@npm:^2.1.4":
-  version: 2.1.4
-  resolution: "@restart/context@npm:2.1.4"
-  peerDependencies:
-    react: ">=16.3.2"
-  checksum: 90a85fcccf6b4e642fd971ec72dcf740d40508930b9b4c6cc5fa2553cfea07abee94911626b8d30093188187d2b87e593e5618e479401a48f8a1937af29cb92e
-  languageName: node
-  linkType: hard
-
-"@restart/hooks@npm:^0.3.25, @restart/hooks@npm:^0.3.26":
-  version: 0.3.26
-  resolution: "@restart/hooks@npm:0.3.26"
-  dependencies:
-    lodash: ^4.17.20
-    lodash-es: ^4.17.20
-  peerDependencies:
-    react: ">=16.8.0"
-  checksum: 8dba9a00e4de7bd371321d30aa1496c1d85b9d314576e6ca133d7178758364b72dd9f96b18e32a72aecbadc74cfdad297a39a174a3a9c73486c806cf7c09095f
   languageName: node
   linkType: hard
 
@@ -9113,41 +9032,6 @@ __metadata:
     webpack:
       optional: true
   checksum: e3909a80773c552ebc0e910a39696a4ab142a002bff0fd1b3ee38c7d66ef495246bfa18c087c737fae13bf74fd0a85f81bb0720e4a3c20d0f4d8b41694f0eea1
-  languageName: node
-  linkType: hard
-
-"@storybook/addon-knobs@npm:^6.2.8":
-  version: 6.2.8
-  resolution: "@storybook/addon-knobs@npm:6.2.8"
-  dependencies:
-    "@storybook/addons": 6.2.8
-    "@storybook/api": 6.2.8
-    "@storybook/channels": 6.2.8
-    "@storybook/client-api": 6.2.8
-    "@storybook/components": 6.2.8
-    "@storybook/core-events": 6.2.8
-    "@storybook/theming": 6.2.8
-    copy-to-clipboard: ^3.3.1
-    core-js: ^3.8.2
-    escape-html: ^1.0.3
-    fast-deep-equal: ^3.1.3
-    global: ^4.4.0
-    lodash: ^4.17.20
-    prop-types: ^15.7.2
-    qs: ^6.10.0
-    react-colorful: ^5.0.1
-    react-lifecycles-compat: ^3.0.4
-    react-select: ^3.2.0
-    regenerator-runtime: ^0.13.7
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-    react-dom: ^16.8.0 || ^17.0.0
-  peerDependenciesMeta:
-    react:
-      optional: true
-    react-dom:
-      optional: true
-  checksum: f3cc3836346d6284f5e71207fca6ee0ba7d6793353b6e448705ecb93119342e9efa1bed4fdf1e8bd10f756e1fab22914f6168d2034e2a5a8c1a9b996a4daefee
   languageName: node
   linkType: hard
 
@@ -12303,15 +12187,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/classnames@npm:^2.2.10":
-  version: 2.3.0
-  resolution: "@types/classnames@npm:2.3.0"
-  dependencies:
-    classnames: "*"
-  checksum: e1bd6de60fc5e4ead601838078b10f378d6a66ad21112922856de59a1f450b1361f597aa3ca34f2cc33bc030f950112872fddfde43c5189bec89737a8b237f24
-  languageName: node
-  linkType: hard
-
 "@types/color-convert@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/color-convert@npm:2.0.0"
@@ -12503,13 +12378,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 4f783924249457202d3b21c12467c438b9fcb17e6247df7c1f7d2f9436f00a402e27643a5c68d7faf62bfafb00b449f6317255652f321623cca2183b97541d06
-  languageName: node
-  linkType: hard
-
-"@types/invariant@npm:^2.2.33":
-  version: 2.2.34
-  resolution: "@types/invariant@npm:2.2.34"
-  checksum: 2dedddf5dcf70b484220b29ee0eb76b31d1501c54e0bdd787415e37be817b0358bdd66a7dd9e959af80262f8374e02c427459db8a407061406b412fd24cb32e5
   languageName: node
   linkType: hard
 
@@ -12771,7 +12639,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15.7.3":
+"@types/prop-types@npm:*":
   version: 15.7.3
   resolution: "@types/prop-types@npm:15.7.3"
   checksum: 41831d53c44c9eeafdaf9762bcb4553c13a3bbf990745ed9065a1cc3581b80633113b53fd49b202bf51731b258da5d0a9aa09c9035d5af7f78b0f6bc273f1325
@@ -12817,15 +12685,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-transition-group@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "@types/react-transition-group@npm:4.4.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: feb4baddd598b27a9a267028c22484a89edb99a5bb3fd0112a92e402bf15d5371924fc3572d9567f5d8aa6fc1757ef48a52b2545345415f8bd41eadfd18b80b9
-  languageName: node
-  linkType: hard
-
 "@types/react@npm:*, @types/react@npm:^16.9.11, @types/react@npm:^16.9.41":
   version: 16.9.41
   resolution: "@types/react@npm:16.9.41"
@@ -12833,17 +12692,6 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^2.2.0
   checksum: 45acf38791fe4020634dea1b085508f8af016a9a88561d3aaba5c1df8afd3c49636cccd4a628f3080f9ba3cd0e8e6c3416f56baaaabe2c86c765343a2cab16de
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:>=16.9.11, @types/react@npm:>=16.9.35":
-  version: 17.0.3
-  resolution: "@types/react@npm:17.0.3"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: d29f2a33ed69fae9d9f42f8b39b40352e3209eb821f827d566330adfdffb48d2dc730982356cd50a7fda6171e6bc7deca793f7b105c95fce615a45ab313ecf41
   languageName: node
   linkType: hard
 
@@ -12860,13 +12708,6 @@ __metadata:
   version: 0.12.0
   resolution: "@types/retry@npm:0.12.0"
   checksum: 61a072c7639f6e8126588bf1eb1ce8835f2cb9c2aba795c4491cf6310e013267b0c8488039857c261c387e9728c1b43205099223f160bb6a76b4374f741b5603
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.16.1
-  resolution: "@types/scheduler@npm:0.16.1"
-  checksum: 2ff8034df029a6cbb3623b05fa895cac4fc504806a8e948ebe29675a1edfa5ac04faac7611016076b3ffefc2037bbe344ad1978304059b2d4c78e513ec43c7bf
   languageName: node
   linkType: hard
 
@@ -12937,13 +12778,6 @@ __metadata:
   version: 2.0.3
   resolution: "@types/unist@npm:2.0.3"
   checksum: 4427306b094561da28164e7e5250c4e6b382cb8eac40bf7e6bb0ff1e6e00c13e47aaf32e4a08fc8ba54602d07f79a39fb9ba304cc9dc886b1e3caf824649edbd
-  languageName: node
-  linkType: hard
-
-"@types/warning@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@types/warning@npm:3.0.0"
-  checksum: 120dcf90600d583c68a60872200061eab9318ae15ea898581f8e9a6dc71b7941095dd81d8324e36d2a6006e5e12b6fc1cf8eda00cc514ee12bb39a912cc4e040
   languageName: node
   linkType: hard
 
@@ -17698,17 +17532,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:*, classnames@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "classnames@npm:2.3.1"
-  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
-  languageName: node
-  linkType: hard
-
 "classnames@npm:2.x, classnames@npm:^2.1.3, classnames@npm:^2.2.1, classnames@npm:^2.2.3, classnames@npm:^2.2.4, classnames@npm:^2.2.5, classnames@npm:^2.2.6":
   version: 2.2.6
   resolution: "classnames@npm:2.2.6"
   checksum: 09a4fda780158aa8399079898eabeeca0c48c28641d9e4de140db7412e5e346843039ded1af0152f755afc2cc246ff8c3d6f227bf0dcb004e070b7fa14ec54cc
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
   languageName: node
   linkType: hard
 
@@ -20628,16 +20462,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dom-helpers@npm:^5.1.2, dom-helpers@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "dom-helpers@npm:5.2.0"
-  dependencies:
-    "@babel/runtime": ^7.8.7
-    csstype: ^3.0.2
-  checksum: bea3e7217c2adac5f89285b7786dbcc3a356226f6ff12934c9626689829b00e7fa7630a8f77973028d039db1aba6b882b1494854aa910422d1644486136b1e55
-  languageName: node
-  linkType: hard
-
 "dom-serializer@npm:0, dom-serializer@npm:^0.2.1":
   version: 0.2.2
   resolution: "dom-serializer@npm:0.2.2"
@@ -21722,7 +21546,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escape-html@npm:^1.0.3, escape-html@npm:~1.0.3":
+"escape-html@npm:~1.0.3":
   version: 1.0.3
   resolution: "escape-html@npm:1.0.3"
   checksum: 6213ca9ae00d0ab8bccb6d8d4e0a98e76237b2410302cf7df70aaa6591d509a2a37ce8998008cbecae8fc8ffaadf3fb0229535e6a145f3ce0b211d060decbb24
@@ -30149,13 +29973,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.20":
-  version: 4.17.21
-  resolution: "lodash-es@npm:4.17.21"
-  checksum: 05cbffad6e2adbb331a4e16fbd826e7faee403a1a04873b82b42c0f22090f280839f85b95393f487c1303c8a3d2a010048bf06151a6cbe03eee4d388fb0a12d2
-  languageName: node
-  linkType: hard
-
 "lodash-webpack-plugin@npm:^0.11.6":
   version: 0.11.6
   resolution: "lodash-webpack-plugin@npm:0.11.6"
@@ -36036,7 +35853,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types-extra@npm:^1.0.1, prop-types-extra@npm:^1.1.0":
+"prop-types-extra@npm:^1.0.1":
   version: 1.1.1
   resolution: "prop-types-extra@npm:1.1.1"
   dependencies:
@@ -36845,35 +36662,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-bootstrap@npm:^1.5.2":
-  version: 1.5.2
-  resolution: "react-bootstrap@npm:1.5.2"
-  dependencies:
-    "@babel/runtime": ^7.13.8
-    "@restart/context": ^2.1.4
-    "@restart/hooks": ^0.3.26
-    "@types/classnames": ^2.2.10
-    "@types/invariant": ^2.2.33
-    "@types/prop-types": ^15.7.3
-    "@types/react": ">=16.9.35"
-    "@types/react-transition-group": ^4.4.1
-    "@types/warning": ^3.0.0
-    classnames: ^2.2.6
-    dom-helpers: ^5.1.2
-    invariant: ^2.2.4
-    prop-types: ^15.7.2
-    prop-types-extra: ^1.1.0
-    react-overlays: ^5.0.0
-    react-transition-group: ^4.4.1
-    uncontrollable: ^7.2.1
-    warning: ^4.0.3
-  peerDependencies:
-    react: ">=16.8.0"
-    react-dom: ">=16.8.0"
-  checksum: 7c83ec342f4074f3d46094b47aefd00a87b4453fe331bff1f0638abef344f49c23984c3a55880d4d017d66a46d5540ffed2314ba0074c711449df52eaa129d3a
-  languageName: node
-  linkType: hard
-
 "react-colorful@npm:^5.0.1":
   version: 5.1.2
   resolution: "react-colorful@npm:5.1.2"
@@ -37272,17 +37060,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-input-autosize@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "react-input-autosize@npm:3.0.0"
-  dependencies:
-    prop-types: ^15.5.8
-  peerDependencies:
-    react: ^16.3.0 || ^17.0.0
-  checksum: cc3309ddc87446ade742c7d0e88ef089dd8b6981f21506a2bb27daf01a8803ac697f64157c4ffc7e81dfcf3892b54a4072dbc3652fd9addcf6d22dd0b87ab723
-  languageName: node
-  linkType: hard
-
 "react-inspector@npm:^5.1.0":
   version: 5.1.1
   resolution: "react-inspector@npm:5.1.1"
@@ -37482,25 +37259,6 @@ __metadata:
     react: ">=16.3.0"
     react-dom: ">=16.3.0"
   checksum: 8182631a52237de5f41ee989ec31fb84452f3c1e6b116a9658cfe77b71d1e09c07a647ff534d62302230e537ca80498c28f7907420f7dbbdd0358d95dded39c4
-  languageName: node
-  linkType: hard
-
-"react-overlays@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "react-overlays@npm:5.0.0"
-  dependencies:
-    "@babel/runtime": ^7.12.1
-    "@popperjs/core": ^2.5.3
-    "@restart/hooks": ^0.3.25
-    "@types/warning": ^3.0.0
-    dom-helpers: ^5.2.0
-    prop-types: ^15.7.2
-    uncontrollable: ^7.0.0
-    warning: ^4.0.3
-  peerDependencies:
-    react: ">=16.3.0"
-    react-dom: ">=16.3.0"
-  checksum: 6240f6b8024f73c3c22e2610363e39433a2e745d349951f1db39158becad6e33bed9b0f44418744f191241959468bcb9c939fdc236851eeed89d3ab9391ae122
   languageName: node
   linkType: hard
 
@@ -37800,25 +37558,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-select@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "react-select@npm:3.2.0"
-  dependencies:
-    "@babel/runtime": ^7.4.4
-    "@emotion/cache": ^10.0.9
-    "@emotion/core": ^10.0.9
-    "@emotion/css": ^10.0.9
-    memoize-one: ^5.0.0
-    prop-types: ^15.6.0
-    react-input-autosize: ^3.0.0
-    react-transition-group: ^4.3.0
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-    react-dom: ^16.8.0 || ^17.0.0
-  checksum: 082c818369fb8c7ce50bbd51260b21794f58dd41e9df5e0798c10e10478fb44b9fd88247f24720d5b443d77a6ec8afa733ecdd15a7722fde85c27bb87c379962
-  languageName: node
-  linkType: hard
-
 "react-side-effect@npm:^1.1.0":
   version: 1.2.0
   resolution: "react-side-effect@npm:1.2.0"
@@ -37987,21 +37726,6 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: a47f2d16e695adfc6ba1830b25ac9eeb1a2890f90949472bc8516b74dfc134591a2a0cabe0e83b5c2ba3c63aac6f4c87d49d24e2b340a12bc3d8de9d064f930a
-  languageName: node
-  linkType: hard
-
-"react-transition-group@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "react-transition-group@npm:4.4.1"
-  dependencies:
-    "@babel/runtime": ^7.5.5
-    dom-helpers: ^5.0.1
-    loose-envify: ^1.4.0
-    prop-types: ^15.6.2
-  peerDependencies:
-    react: ">=16.6.0"
-    react-dom: ">=16.6.0"
-  checksum: 0bcd8af483709832e318dcef84c26ebddeb866bf4f58010286367ef0c1e7c5106e00cfc65688b9102414cb3d572c63909c2eb7ea972b4420fc70a78c10b6e8ad
   languageName: node
   linkType: hard
 
@@ -43518,20 +43242,6 @@ typescript@^4.0:
   peerDependencies:
     react: ">=0.11.0"
   checksum: ea347892935c21fca5427e93b238514d9e009e9cedfddcc557c21f8fa831eb1b348b382255d179032a57aa543e99802545158613782ee1e9f634162085097e4e
-  languageName: node
-  linkType: hard
-
-"uncontrollable@npm:^7.0.0, uncontrollable@npm:^7.2.1":
-  version: 7.2.1
-  resolution: "uncontrollable@npm:7.2.1"
-  dependencies:
-    "@babel/runtime": ^7.6.3
-    "@types/react": ">=16.9.11"
-    invariant: ^2.2.4
-    react-lifecycles-compat: ^3.0.4
-  peerDependencies:
-    react: ">=15.0.0"
-  checksum: 3345c0c1916193ddb9cc6f2b78711dc9f22b919d780485e15b95690722e9d1797fc702c4ebb30c0acaae6a772b865d0a9ddc83fa1da44958f089aee78f2f5eab
   languageName: node
   linkType: hard
 

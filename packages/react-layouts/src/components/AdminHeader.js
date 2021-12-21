@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Image } from '@openagenda/react-components';
+import { Image } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   administration: {

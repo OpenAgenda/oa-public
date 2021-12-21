@@ -1,6 +1,5 @@
 import React from 'react';
-import { MoreInfo } from '@openagenda/react-components';
-
+import { MoreInfo } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/agenda-contribute/event';
 import makeLabelGetter from '@openagenda/labels';
 

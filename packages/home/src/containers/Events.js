@@ -9,12 +9,12 @@ import throttle from 'lodash/throttle';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import {
+  withLayoutData,
   Spinner,
   Modal,
   Image,
   SearchInput,
-} from '@openagenda/react-components';
-import { withLayoutData } from '@openagenda/react-shared';
+} from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';

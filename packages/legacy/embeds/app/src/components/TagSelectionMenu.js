@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useQuery } from 'react-query';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 
 const extractTagGroupsFromSchema = schema => schema.fields.filter(f => !!f.options);
 

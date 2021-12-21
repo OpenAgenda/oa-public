@@ -153,6 +153,7 @@ module.exports = {
     database: 'oa_test_abilities',
     password: 'grut',
     user: 'root',
+    ssl: true,
   },
   schemas: {
     rule: 'rule',

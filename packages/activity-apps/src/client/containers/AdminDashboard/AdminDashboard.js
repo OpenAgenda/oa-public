@@ -8,7 +8,7 @@ import { reduxForm, Field, initialize, getFormValues } from 'redux-form';
 import update from 'immutability-helper';
 import moment from 'moment';
 import qs from 'qs';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import { Spinner } from '@openagenda/react-shared';
 import * as activitiesActions from '../../redux/modules/activities';
 import { renderField, renderSelect, renderInput } from '../../utils/form';
 import { DateTimePicker, ActivityItem } from '../../components';

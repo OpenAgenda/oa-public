@@ -1,8 +1,7 @@
 import { defineMessages, useIntl } from 'react-intl';
 import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
-import { Modal } from '@openagenda/react-components';
-import { ReactSelectField } from '@openagenda/react-shared';
+import { ReactSelectField, Modal } from '@openagenda/react-shared';
 import useChartTitle from '../hooks/useChartTitle';
 import form from './messages/form';
 import MetricsField from './MetricsField';

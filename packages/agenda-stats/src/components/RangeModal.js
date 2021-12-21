@@ -3,7 +3,7 @@ import { useLatest } from 'react-use';
 import { useIntl, defineMessages } from 'react-intl';
 import { DateRangePicker } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale';
-import { Modal, Spinner } from '@openagenda/react-components';
+import { Modal, Spinner } from '@openagenda/react-shared';
 import dateRanges from '../dateRanges';
 
 const messages = defineMessages({

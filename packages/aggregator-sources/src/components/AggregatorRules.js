@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { MoreInfo } from '@openagenda/react-components';
+import { MoreInfo } from '@openagenda/react-shared';
 import externalLinks from '../utils/externalLinks';
 
 const messages = defineMessages({

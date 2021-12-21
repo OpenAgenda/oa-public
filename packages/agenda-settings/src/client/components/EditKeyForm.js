@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import { MoreInfo } from '@openagenda/react-components';
+import { MoreInfo } from '@openagenda/react-shared';
 import { renderField, renderInput, renderTextarea, renderInputGroup } from '../utils/inputs';
 
 @reduxForm( {} )

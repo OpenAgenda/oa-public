@@ -1,16 +1,12 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { storiesOf } from '@storybook/react';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/client/createApp';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
-
-const getDefaultState = ( { apiRoot } = {} ) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot,
     prefix: ''
   },
   res: {
@@ -20,9 +16,11 @@ const getDefaultState = ( { apiRoot } = {} ) => ({
   }
 });
 
+export default {
+  title: 'Create'
+};
 
-storiesOf( 'Create', module )
-  .add( 'app', () => wrapApp( createApp( {
-    history: createMemoryHistory(),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ) ) );
+export const App = () => wrapApp(createApp({
+  history: createMemoryHistory(),
+  initialState: getDefaultState()
+}));

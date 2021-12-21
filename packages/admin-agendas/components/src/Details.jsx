@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import Switch from 'rc-switch';
 
-import { List } from '@openagenda/react-components';
-
 
 export default createReactClass( {
 
@@ -109,17 +107,14 @@ export default createReactClass( {
           <th>Actions</th>
         </tr>
         </thead>
-        <List
-          items={this.props.members || []}
-          renderItem={this.renderMemberItem}
-          renderEmpty={() => <tr>
-            <td colSpan="7" className="text-center">Y'a personne !</td>
-          </tr>}
-          renderPrev={this.renderPrev}
-          renderNext={this.renderNext}
-          getPage={() => null}
-          wrapTag="tbody"
-        />
+
+        <tbody>
+          {this.renderPrev()}
+          {this.props.members?.length
+            ? this.props.members.map(member => this.renderMemberItem(member))
+            : <tr><td colSpan="7" className="text-center">Y'a personne !</td></tr>}
+          {this.renderNext()}
+        </tbody>
       </table>
     );
 

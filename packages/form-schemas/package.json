@@ -18,7 +18,6 @@
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-shared": "^2.3.2",
     "@openagenda/validators": "^2.4.0",
     "aws-sdk": "^2.544.0",
