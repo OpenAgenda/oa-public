@@ -6,7 +6,7 @@
  * values are added to a mapped ES field.
  */
 module.exports = additionalField => {
-  if (['email', 'radio', 'checkbox'].includes(additionalField.fieldType)) {
+  if (['email', 'radio', 'select', 'checkbox', 'multiselect'].includes(additionalField.fieldType)) {
     return {
       name: '_search_additional_keywords',
       type: 'keyword'

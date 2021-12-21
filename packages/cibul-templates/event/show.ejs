@@ -289,7 +289,7 @@
         <div class="event-content">
 <% if ( event.category ) { %>
           <div class="category">
-            <label><%= __( 'category' ) %>:</label>
+            <label><%= __( 'category' ) %></label>
             <span><%= event.category %></span>
           </div>
 <% } %>
@@ -297,7 +297,7 @@
           <div class="tag-groups js_tag_groups">
 <% event.tagGroups.forEach( g => { %>
           <div class="tags">
-            <label><%= g.name || __( 'tags' ) %>: </label>
+            <label><%= g.name || __( 'tags' ) %></label>
             <ul>
 <%- g.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
@@ -308,7 +308,7 @@
           </div>
 <% } else if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
           <div class="tags">
-            <label><%= __( 'tags' ) %>:</label>
+            <label><%= __( 'tags' ) %></label>
             <ul>
 <%- event.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
