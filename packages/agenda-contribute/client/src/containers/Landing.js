@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 
 import utils from '../lib/utils';
 import usePrefix from '../hooks/usePrefix';
-import useMember from '../hooks/useMember';
+import useAgendaContext from '../hooks/useAgendaContext';
 
 const {
   isMemberDataComplete,
@@ -15,20 +15,26 @@ const {
   isMemberRole
 } = utils;
 
+const log = debug('Landing');
+
 export default function Landing({
   agenda,
-  history
+  history,
+  location
 }) {
-  const log = debug('Landing');
   const prefix = usePrefix(agenda);
 
   const {
-    memberIsLoading,
+    agendaContextIsLoading,
     memberIsFresh,
-    member
-  } = useMember(agenda);
+    agendaContext
+  } = useAgendaContext(agenda.uid);
 
   useEffect(() => {
+    const {
+      member
+    } = agendaContext.me;
+
     if (
       isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
       && !isMemberDataRequired(agenda)
@@ -54,10 +60,10 @@ export default function Landing({
       return replaceWithStep(history, prefix, 'event');
     }
 
-    if (!memberIsLoading) {
+    if (!agendaContextIsLoading) {
       replaceWithStep(history, prefix, 'member');
     }
-  }, [memberIsLoading, member, agenda]);
+  }, [agendaContextIsLoading, agendaContext, agenda, history, memberIsFresh, prefix, location]);
 
   return <Loading />;
 }

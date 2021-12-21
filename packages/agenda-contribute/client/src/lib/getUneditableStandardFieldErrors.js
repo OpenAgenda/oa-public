@@ -12,6 +12,7 @@ export default function getUneditableStandardFieldConstraints({ schema }, event,
   const standardValidationErrors = [];
 
   if (canEditEvent) {
+    log('user has edit rights on event');
     return [];
   }
 

@@ -11,7 +11,7 @@ import Instructions from '../components/Instructions';
 import steps from '../lib/steps';
 import utils from '../lib/utils';
 import useEventFormConfig from '../hooks/useEventFormConfig';
-import useMember from '../hooks/useMember';
+import useAgendaContext from '../hooks/useAgendaContext';
 import usePrefix from '../hooks/usePrefix';
 
 import contributeReducer from '../reducers/contribute';
@@ -24,17 +24,18 @@ const log = debug('EventNew');
 
 export default function EventNew({ agenda, history }) {
   log('loading');
+
   const {
-    memberIsLoading,
-    member
-  } = useMember(agenda);
+    agendaContextIsLoading,
+    agendaContext
+  } = useAgendaContext(agenda.uid);
 
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
   const { config, configIsLoading } = useEventFormConfig(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
-  if (configIsLoading || memberIsLoading) {
+  if (configIsLoading || agendaContextIsLoading) {
     return <Loading />;
   }
 
@@ -44,7 +45,7 @@ export default function EventNew({ agenda, history }) {
       steps={steps('event')}
       onSelectStep={step => history.push(`${prefix}/${step}`)}
     >
-      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={member.role} className="margin-bottom-md" /> : null}
+      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={agendaContext.me.member.role} className="margin-bottom-md" /> : null}
       <Instructions
         message={agenda?.settings?.contribution?.messages?.instructions}
         className="margin-bottom-lg"
@@ -59,7 +60,7 @@ export default function EventNew({ agenda, history }) {
             response
           }));
         }}
-        memberRole={member.role}
+        memberRole={agendaContext.me.member.role}
         onDraftDelete={() => {}}
       />
     </CanvasWithStepper>

@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 
 import MemberForm from '../components/MemberForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
-import useMember from '../hooks/useMember';
+import useAgendaContext from '../hooks/useAgendaContext';
 import steps from '../lib/steps';
 import contributeReducer from '../reducers/contribute';
 
@@ -18,16 +18,16 @@ export default function Member({
 }) {
   log('loading');
   const queryClient = useQueryClient();
-  const res = useSelector(state => state.settings.apiRoot + state.res.member);
+  const res = useSelector(state => state.settings.apiRoot + state.res.members);
 
   const dispatch = useDispatch();
 
   const {
-    memberIsLoading,
-    member
-  } = useMember(agenda);
+    agendaContextIsLoading,
+    agendaContext
+  } = useAgendaContext(agenda.uid, 'Member');
 
-  if (memberIsLoading) {
+  if (agendaContextIsLoading) {
     return <Loading />;
   }
 
@@ -39,7 +39,7 @@ export default function Member({
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
-            member={member}
+            member={agendaContext.me.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
               dispatch(contributeReducer.memberSetSuccess({

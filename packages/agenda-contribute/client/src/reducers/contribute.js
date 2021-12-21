@@ -1,4 +1,7 @@
+import debug from 'debug';
 import utils from '../lib/utils';
+
+const log = debug('contribute');
 
 const {
   doRedirect
@@ -68,12 +71,17 @@ function eventUpdateSuccess({ agenda, response }) {
 
 function memberSetSuccess({ agenda, queryClient }) {
   return ({ history }, { getState }) => {
-    const { prefix } = getState();
+    const {
+      settings: {
+        prefix
+      }
+    } = getState();
+    queryClient.removeQueries('agendaContext');
+    log('member set was successful, moving on to event step');
     history.push({
       ...history.location,
       pathname: `${prefix.replace(':slug', agenda.slug)}/event`
     });
-    queryClient.removeQueries('member');
   };
 }
 

@@ -11,9 +11,11 @@ const contributionTypes = {
 };
 
 function replaceWithStep(history, prefix, step) {
+  const pathname = `${prefix}/${step}`;
+  log('going from %s to %s', history.location.pathname, pathname);
   history.replace({
     ...history.location,
-    pathname: `${prefix}/${step}`
+    pathname
   });
 }
 
@@ -34,9 +36,9 @@ function isMemberRole(member, role) {
   return [].concat(role).includes(member?.role);
 }
 
-function matchStepPath(history, prefix, matchedSteps) {
+function matchStepPath(location, prefix, matchedSteps) {
   return !![].concat(matchedSteps).map(s => `${prefix}/${s}`)
-    .filter(path => matchPath(history.location.pathname, { path }))
+    .filter(path => matchPath(location.pathname, { path }))
     .length;
 }
 

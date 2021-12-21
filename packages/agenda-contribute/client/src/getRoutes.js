@@ -18,7 +18,7 @@ const EventNew = loadable(() => import(
 ));
 
 const EventDraft = loadable(() => import(
-  /* webpackChunkName: "agendaContribute-EventNew" */
+  /* webpackChunkName: "agendaContribute-EventDraft" */
   './containers/EventDraft'
 ));
 

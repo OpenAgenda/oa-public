@@ -4,10 +4,12 @@ import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import locales from '../locales-compiled';
 import usePrefix from '../hooks/usePrefix';
-import useMember from '../hooks/useMember';
+import useAgendaContext from '../hooks/useAgendaContext';
+
 import Loading from '../components/Loading';
 import ClosedMessage from '../components/ClosedMessage';
 import Canvas from '../components/Canvas';
@@ -35,45 +37,45 @@ function App(props) {
     history
   } = props;
 
-  log('Requested %s', history.location.pathname);
+  const location = useLocation();
+  log('Requested %s', location.pathname);
 
   const {
-    memberIsLoading,
-    member
-  } = useMember(agenda);
+    agendaContextIsLoading,
+    agendaContext
+  } = useAgendaContext(agenda.uid, 'App');
 
   const res = useSelector(state => state.res);
 
   const prefix = usePrefix(agenda);
 
-  const shouldGoToFirstStep = !memberIsLoading
-    && !matchStepPath(history, prefix, 'member')
+  const shouldGoToFirstStep = !agendaContextIsLoading
+    && !matchStepPath(location, prefix, 'member')
     && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberDataRequired(agenda)
-    && !isMemberRole(member, ['administrator', 'moderator'])
-    && (!member || !isMemberDataComplete(member));
+    && !isMemberRole(agendaContext.me.member, ['administrator', 'moderator'])
+    && (!agendaContext.me.member || !isMemberDataComplete(agendaContext.me.member));
 
   useEffect(() => {
-    log('useEffecting');
     if (!shouldGoToFirstStep) {
       return;
     }
 
     log('  Base path is requested, user is not a member. Redirecting to member step');
     replaceWithStep(history, prefix, 'member');
-  }, []);
+  }, [shouldGoToFirstStep, history, prefix]);
 
-  if (memberIsLoading || shouldGoToFirstStep) {
+  if (agendaContextIsLoading || shouldGoToFirstStep) {
     return <Loading />;
   }
 
-  if (!member && isContributionType(agenda, 'MEMBERS_ONLY')) {
+  if (!agendaContext.me.member && isContributionType(agenda, 'MEMBERS_ONLY')) {
     window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
     return <Loading />;
   }
 
   if (
-    !isMemberRole(member, ['administrator', 'moderator'])
+    !isMemberRole(agendaContext.me.member, ['administrator', 'moderator'])
     && isContributionType(agenda, 'CLOSED')
   ) {
     return (
@@ -83,7 +85,7 @@ function App(props) {
     );
   }
 
-  log('looking for route matching %s', history.location.pathname);
+  log('looking for route matching %s', location.pathname);
 
   return (
     <IntlProvider

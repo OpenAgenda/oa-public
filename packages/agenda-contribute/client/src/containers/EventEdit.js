@@ -7,7 +7,7 @@ import Canvas from '../components/Canvas';
 import Loading from '../components/Loading';
 import useEventContext from '../hooks/useEventContext';
 import useEvent from '../hooks/useEvent';
-import useMember from '../hooks/useMember';
+import useAgendaContext from '../hooks/useAgendaContext';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 
 import contributeReducer from '../reducers/contribute';
@@ -42,9 +42,9 @@ export default function EventEdit({
   } = useEvent(agenda.uid, eventUid);
 
   const {
-    memberIsLoading,
-    member
-  } = useMember(agenda);
+    agendaContextIsLoading,
+    agendaContext
+  } = useAgendaContext(agenda.uid);
 
   const {
     config,
@@ -57,7 +57,7 @@ export default function EventEdit({
     }
   }, [eventIsLoading, event, history, prefix]);
 
-  if (eventContextIsLoading || eventIsLoading || memberIsLoading || configIsLoading) {
+  if (eventContextIsLoading || eventIsLoading || agendaContextIsLoading || configIsLoading) {
     return <Loading />;
   }
 
@@ -70,7 +70,7 @@ export default function EventEdit({
         res={`${apiRoot}${history.location.pathname}`}
         config={config}
         event={event}
-        memberRole={member.role}
+        memberRole={agendaContext.me.member.role}
         canEditEvent={eventContext.me?.authorizations?.canEditEvent}
         onSuccess={(_event, response) => {
           dispatch(contributeReducer.eventUpdateSuccess({

@@ -12,7 +12,9 @@ module.exports = async (core, identifier, agendaUid, options = {}) => {
   const authorizations = await getUserAuthorizationsOnAgenda(core, identifier, agendaUid);
 
   return {
-    authorizations,
-    member
+    me: {
+      authorizations,
+      member
+    }
   };
 };

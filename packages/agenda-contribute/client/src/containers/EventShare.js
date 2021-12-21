@@ -10,8 +10,8 @@ import ErrorMessage from '../components/ErrorMessage';
 import useEvent from '../hooks/useEvent';
 import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import useEventFormConfig from '../hooks/useEventFormConfig';
+import useAgendaContext from '../hooks/useAgendaContext';
 import useEventContext from '../hooks/useEventContext';
-import useMember from '../hooks/useMember';
 import utils from '../lib/utils';
 import getUneditableStandardFieldErrors from '../lib/getUneditableStandardFieldErrors';
 
@@ -49,11 +49,6 @@ export default function EventAdd({
   } = useEvent(fromAgendaUid, eventUid);
 
   const {
-    memberIsLoading,
-    member
-  } = useMember(agenda);
-
-  const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
     detailedAgenda: fromAgenda
   } = useDetailedAgenda(fromAgendaUid);
@@ -66,7 +61,12 @@ export default function EventAdd({
   const {
     eventContextIsLoading,
     eventContext
-  } = useEventContext(agenda.uid, eventUid);
+  } = useEventContext(fromAgendaUid, eventUid);
+
+  const {
+    agendaContextIsLoading,
+    agendaContext,
+  } = useAgendaContext(agenda.uid);
 
   const {
     config,
@@ -74,7 +74,7 @@ export default function EventAdd({
     schema
   } = useEventFormConfig(agenda);
 
-  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || memberIsLoading || eventContextIsLoading || detailedAgendaIsLoading) {
+  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading || eventContextIsLoading) {
     return <Loading />;
   }
 
@@ -108,7 +108,7 @@ export default function EventAdd({
             ...config,
             schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)
           }}
-          memberRole={member.role}
+          memberRole={agendaContext.me.member.role}
           event={event}
           onSuccess={(_event, response) => {
             dispatch(contributeReducer.eventShareSuccess({

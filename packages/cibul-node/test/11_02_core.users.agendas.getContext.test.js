@@ -107,7 +107,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
     });
 
     it('context provides authorizations', () => {
-      expect(context.authorizations).toEqual({
+      expect(context.me.authorizations).toEqual({
         canRead: false,
         mustBeModerated: false,
         canChangeState: false,
@@ -120,7 +120,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
     it('context provides member information', () => {
       expect(
-        Object.keys(context.member).sort()
+        Object.keys(context.me.member).sort()
       ).toEqual([
         'email',
         'name',

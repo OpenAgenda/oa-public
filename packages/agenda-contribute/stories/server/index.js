@@ -1,7 +1,9 @@
 const _ = require('lodash');
 const cors = require('cors');
-
+const logs = require('@openagenda/logs');
 const express = require('express');
+
+const log = logs('stories/server/index');
 
 const getFixtures = require('../fixtures');
 const locationsAPIResponse = require('../fixtures/locations.json');
@@ -16,17 +18,6 @@ dev.get('/api/agendas/:agendaUid', (req, res) => {
   res.json(getFixtures(req.params.agendaUid).agenda);
 });
 
-dev.get('/api/me/agendas/:agendaUid', (req, res) => {
-  res.json(getFixtures(req.params.agendaUid).member);
-});
-
-dev.patch('/api/me/agendas/:agendaUid', (req, res) => {
-  const member = JSON.parse(req.body.data);
-  getFixtures(req.params.agendaUid).member = member;
-  member.updatedAt = new Date();
-  res.json(member);
-});
-
 dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   if (req.query.itemsKey === 'items') {
     return res.json({
@@ -37,17 +28,32 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   res.json(locationsAPIResponse);
 });
 
-dev.get('/api/me/agendas/:agendaUid/events/:eventUid/context', (req, res) => {
-  res.json(getFixtures(req.params.agendaUid).eventContext);
+dev.get('/api/me/agendas/:agendaUid', (req, res) => {
+  res.json(getFixtures(req.params.agendaUid).agendaContext);
 });
 
 dev.get('/api/me/agendas/:agendaUid/events/:eventUid', (req, res) => {
+  res.json(getFixtures(req.params.agendaUid).eventContext);
+});
+
+dev.get('/api/agendas/:agendaUid/events/:eventUid', (req, res) => {
   res.json(getFixtures(req.params.agendaUid).event);
 });
 
 dev.get('/locations/:uid.json', (req, res) => {
   res.json(getLocation(req.params.uid));
 });
+
+function setMember(req, res) {
+  const member = JSON.parse(req.body.data);
+  getFixtures(req.params.agendaUid).agendaContext.me.member = member;
+  member.updatedAt = new Date();
+  log('member is set');
+  res.json(member);
+}
+
+dev.post('/api/agendas/:agendaUid/members', setMember);
+dev.patch('/api/agendas/:agendaUid/members/:userUid', setMember);
 
 dev.post('/:agendaSlug/contribute', [
   (req, res) => {

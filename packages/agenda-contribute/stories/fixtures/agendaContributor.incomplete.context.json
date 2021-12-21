@@ -1,0 +1,22 @@
+{
+  "me": {
+    "authorizations": {
+      "mustBeModerated": false,
+      "canChangeState": false,
+      "canPublish": false,
+      "canEditEvent": true,
+      "canCreateEvent": true,
+      "canContribute": true
+    },
+    "member": {
+      "userUid": 80422046,
+      "name": "Antoine Maestr",
+      "phone": "06957370",
+      "email": "",
+      "position": "",
+      "organization": "Exposition Peinture",
+      "role": "contributor",
+      "updatedAt": "2021-10-27T21:23:43.000Z"
+    }
+  }
+}
