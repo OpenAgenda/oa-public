@@ -21,8 +21,6 @@ module.exports = function addEvent(req, res) {
     PUBLISHED
   } = agendaEvents.states;
 
-  log('adding event %s to agenda %s', req.event.uid, req.agenda.uid);
-
   core.agendas(req.agenda.uid).events.add(
     req.event.uid,
     filterByAuth(core, req.agenda.uid, req.authorizations, req.dataWithFiles),
