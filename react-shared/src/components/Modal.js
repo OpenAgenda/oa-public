@@ -80,7 +80,7 @@ export default class Modal extends Component {
   };
 
   handleOutsideClick = e => {
-    if (this.ref.current && !this.ref.current.contains(e.target) && !e.target.id.includes('react-select')) this.handleClose();
+    if (this.ref.current && !this.ref.current.contains(e.target)) this.handleClose();
   }
 
   handleEsc = event => {

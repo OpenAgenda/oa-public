@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
+import ReactSelect, { components } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import ReactSelect from 'react-select';
 
 const BLUE = '#41acdd';
 const WHITE = '#fff';
@@ -96,7 +96,21 @@ const defaultStyles = {
   }),
 };
 
-function ReactSelectField({
+function Option({ innerProps, ...props }) {
+  const onClick = e => {
+    e.nativeEvent.stopImmediatePropagation();
+    innerProps.onClick(e);
+  };
+
+  props.innerProps = { ...innerProps, onClick };
+  return <components.Option {...props} />;
+}
+
+const defaultComponents = {
+  Option
+};
+
+function ReactSelectInput({
   innerRef,
   isCreatable,
   input,
@@ -121,6 +135,7 @@ function ReactSelectField({
         isCreatable={isCreatable}
         isClearable={!isCreatable}
         styles={styles}
+        components={defaultComponents}
         {...rest}
       />
 
@@ -133,6 +148,6 @@ function ReactSelectField({
   );
 }
 
-ReactSelectField.defaultStyles = defaultStyles;
+ReactSelectInput.defaultStyles = defaultStyles;
 
-export default ReactSelectField;
+export default ReactSelectInput;
