@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import EventEditForm from '../components/EventEditForm';
 import Canvas from '../components/Canvas';
 import Loading from '../components/Loading';
-import useEventContext from '../hooks/useEventContext';
 import useEvent from '../hooks/useEvent';
-import useAgendaContext from '../hooks/useAgendaContext';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 
 import contributeReducer from '../reducers/contribute';
@@ -32,23 +30,15 @@ export default function EventEdit({
   const dispatch = useDispatch();
 
   const {
-    eventContextIsLoading,
-    eventContext
-  } = useEventContext(agenda.uid, eventUid);
-
-  const {
     eventIsLoading,
-    event
+    event,
+    eventContext
   } = useEvent(agenda.uid, eventUid);
 
   const {
-    agendaContextIsLoading,
-    agendaContext
-  } = useAgendaContext(agenda.uid);
-
-  const {
     config,
-    configIsLoading
+    isLoading,
+    agendaContext
   } = useEventFormConfig(agenda);
 
   useEffect(() => {
@@ -57,7 +47,7 @@ export default function EventEdit({
     }
   }, [eventIsLoading, event, history, prefix]);
 
-  if (eventContextIsLoading || eventIsLoading || agendaContextIsLoading || configIsLoading) {
+  if (eventIsLoading || isLoading) {
     return <Loading />;
   }
 

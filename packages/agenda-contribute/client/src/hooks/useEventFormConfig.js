@@ -2,8 +2,10 @@ import { useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
 
 import cleanupSchemaForForm from '../lib/cleanupSchemaForForm';
+import addStateField from '../lib/addStateField';
 import injectAgendaUID from '../lib/injectAgendaUID';
 import useDetailedAgenda from './useDetailedAgenda';
+import useAgendaContext from './useAgendaContext';
 
 export default function useEventFormConfig(agenda) {
   const {
@@ -20,17 +22,27 @@ export default function useEventFormConfig(agenda) {
     detailedAgenda
   } = useDetailedAgenda(agenda.uid);
 
-  if (detailedAgendaIsLoading) {
+  const {
+    agendaContextIsLoading,
+    agendaContext
+  } = useAgendaContext(agenda.uid);
+
+  if (detailedAgendaIsLoading || agendaContextIsLoading) {
     return {
-      configIsLoading: true
+      isLoading: true
     };
   }
 
   cleanupSchemaForForm(detailedAgenda.schema, { locale });
 
+  if (agendaContext.me.authorizations.canChangeState) {
+    addStateField(detailedAgenda.schema, locale);
+  }
+
   return {
-    configIsLoading: false,
+    isLoading: false,
     schema: detailedAgenda.schema,
+    agendaContext,
     config: {
       withErrors: false,
       lang: locale,

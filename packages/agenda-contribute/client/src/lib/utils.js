@@ -1,6 +1,7 @@
 import debug from 'debug';
 import { Base64 } from 'js-base64';
 import { matchPath } from 'react-router';
+import qs from 'qs';
 
 const log = debug('utils');
 
@@ -47,12 +48,14 @@ function doRedirect(history, redirectTo) {
     search
   } = history.location;
 
+  const { redirect } = qs.parse(search, { ignoreQueryPrefix: true });
+
   if (!window) {
     return;
   }
 
-  if (search.redirect) {
-    const redirectURL = Base64.decode(search.redirect);
+  if (redirect) {
+    const redirectURL = Base64.decode(redirect);
     log('redirecting to %s', redirectURL);
     window.location.href = redirectURL;
     return;

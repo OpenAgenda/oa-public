@@ -11,7 +11,6 @@ import useEvent from '../hooks/useEvent';
 import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 import useAgendaContext from '../hooks/useAgendaContext';
-import useEventContext from '../hooks/useEventContext';
 import utils from '../lib/utils';
 import getUneditableStandardFieldErrors from '../lib/getUneditableStandardFieldErrors';
 
@@ -45,7 +44,8 @@ export default function EventAdd({
 
   const {
     eventIsLoading,
-    event
+    event,
+    eventContext
   } = useEvent(fromAgendaUid, eventUid);
 
   const {
@@ -59,11 +59,6 @@ export default function EventAdd({
   } = useDetailedAgenda(agenda.uid);
 
   const {
-    eventContextIsLoading,
-    eventContext
-  } = useEventContext(fromAgendaUid, eventUid);
-
-  const {
     agendaContextIsLoading,
     agendaContext,
   } = useAgendaContext(agenda.uid);
@@ -74,7 +69,7 @@ export default function EventAdd({
     schema
   } = useEventFormConfig(agenda);
 
-  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading || eventContextIsLoading) {
+  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading) {
     return <Loading />;
   }
 

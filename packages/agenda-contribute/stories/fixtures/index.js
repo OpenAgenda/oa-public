@@ -204,6 +204,25 @@ storySets.EditDraftEventFormFromEditRoute = produce(storySets.EditDraftEventForm
   draft.extraProps.agenda.uid = 105;
 });
 
+storySets.AdminEditEventForm = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.role = 'administrator';
+    draft.me.authorizations.canChangeState = true;
+  }),
+  agenda: basicDetailedAgenda,
+  event: basicEventResponse,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 106
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canChangeState = true;
+  })
+};
+
 storySets.BasicConfirmation = {
   agendaContext: produce(agendaContributorContext, draft => {
     draft.me.member.updatedAt = new Date();

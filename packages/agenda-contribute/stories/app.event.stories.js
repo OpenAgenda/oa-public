@@ -20,7 +20,7 @@ export const NewEventForm = componentFromFixtures(
 );
 
 export const EditEventForm = componentFromFixtures(
-  'Contributor is shown standard event form for editing an event.',
+  'Contributor is shown standard event form for editing an event. State change select is not available.',
   101, '/event/01'
 );
 
@@ -76,4 +76,9 @@ export const EditDraftEventForm = componentFromFixtures(
 export const EditDraftEventFormFromEditRoute = componentFromFixtures(
   'Draft event loaded from non draft route is redirected to draft route',
   105, '/event/03'
+);
+
+export const AdminEditEventForm = componentFromFixtures(
+  'Administrator is shown standard event form for editing an event. State change select is available.',
+  106, '/event/01'
 );

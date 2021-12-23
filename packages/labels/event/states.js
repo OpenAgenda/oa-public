@@ -99,5 +99,9 @@ module.exports = {
     "br": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ",
     "it": "L'evento non è più in uno",
     "io": "crwdns14622:0crwdne14622:0"
+  },
+  "stateFieldInfo": {
+    "fr": "Ce champ n'est pas accessible aux contributeurs",
+    "en": "This field is not available to contributors"
   }
 }
