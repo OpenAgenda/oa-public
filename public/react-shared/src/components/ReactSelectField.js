@@ -4,14 +4,14 @@ import ReactSelectInput from './ReactSelectInput';
 
 const getValue = arg => arg?.value ?? arg;
 
-export default ({
+export default function ReactSelectField({
   name,
   initialValue,
   options,
   isCreatable,
   onBlur,
   ...props
-}) => {
+}) {
   const selectRef = useRef(null);
 
   const findOption = useCallback(
