@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 import axios from 'axios';
 import moment from 'moment-timezone';
-import base64 from 'base-64';
-import utf8 from 'utf8';
-
 import { Modal } from '@openagenda/react-shared';
 import AgendaSearchInput from './AgendaSearchInput';
 import Radio from './Radio';
+import encodeURL from './lib/encodeURL';
 
 const EventShareModal = ({
   onClose, res, segment, event, userLogged
@@ -120,13 +118,7 @@ const EventShareModal = ({
     return setOptions(true);
   };
 
-  const encodeUrl = () => {
-    const url = `${event.root}/agendas/${event.agendaUid}/events/${event.uid}?displayShareModal=1`;
-    const bytes = utf8.encode(url);
-    return base64.encode(bytes);
-  };
-
-  const getTitleLink = agenda => `/${agenda.slug}/contribute/event/${event.uid}/from/${event.agendaUid}`;
+  const getTitleLink = agenda => `/${agenda.slug}/contribute/event/${event.uid}/from/${event.agendaUid}?redirect=${encodeURL(`${event.root}/agendas/${event.agendaUid}/events/${event.uid}`)}`;
 
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
@@ -164,7 +156,7 @@ const EventShareModal = ({
                   <p>{intl.formatMessage(messages.signIn)}</p>
                   <a
                     className="btn btn-primary export-button"
-                    href={`${event.root}/${event.agendaSlug}/signin?redirect=${encodeUrl()}`}
+                    href={`${event.root}/${event.agendaSlug}/signin?redirect=${encodeURL(`${event.root}/agendas/${event.agendaUid}/events/${event.uid}?displayShareModal=1`)}`}
                   >
                     {intl.formatMessage(messages.connectionBtn)}
                   </a>
