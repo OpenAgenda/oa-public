@@ -1,7 +1,5 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { useLocation } from 'react-router-dom';
-import qs from 'query-string';
 
 const messages = defineMessages({
   state: {

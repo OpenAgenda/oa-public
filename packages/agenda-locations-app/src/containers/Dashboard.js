@@ -1,11 +1,10 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import qs from 'query-string';
+import { useHistory, useLocation, useParams } from 'react-router';
+import qs from 'qs';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
-import axios from 'axios';
 
-import { Spinner, Pager, MoreInfo, Modal } from '@openagenda/react-shared';
+import { Spinner, Pager, MoreInfo } from '@openagenda/react-shared';
 import LocationItem from '../components/LocationItem';
 import LocationDetailModal from '../components/LocationDetailModal';
 import useLocations from '../hooks/useLocations';
@@ -16,6 +15,14 @@ import ActiveFilters from '../components/ActiveFilters';
 import IncompleteLocationsFilterDropdown from '../components/IncompleteLocationsFilterDropdown';
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
+
+const betterQsParse = search => qs.parse(search, { ignoreQueryPrefix: true });
+
+const betterQsStringify = searchObj => qs.stringify(searchObj, {
+  addQueryPrefix: true,
+  arrayFormat: 'brackets',
+  skipNulls: true,
+});
 
 const messages = defineMessages({
   postalCode: {
@@ -82,40 +89,18 @@ function Dashboard({
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
 
   const history = useHistory();
-  const { pathname } = history.location;
-
-  const betterQsParse = search => {
-    const searchObj = qs.parse(search);
-    const resp = Object.keys(searchObj).reduce((acc, key) => {
-      if (key.substring(0, 7) === 'hasNull') {
-        if (acc.hasNull) acc.hasNull.push(searchObj[key]);
-        else acc.hasNull = [searchObj[key]];
-      } else acc[key] = searchObj[key];
-      return acc;
-    }, {});
-    return resp;
-  };
-
-  const betterQsStringify = searchObj => {
-    const resp = Object.keys(searchObj).reduce((acc, key) => {
-      if (key.substring(0, 7) === 'hasNull') {
-        searchObj[key].forEach((e, index) => { acc[`hasNull[${index}]`] = e; });
-      } else acc[key] = searchObj[key];
-      return acc;
-    }, {});
-    return qs.stringify(resp);
-  };
+  const historyLocation = useLocation();
+  const { pathname } = historyLocation;
 
   const { search, page } = useMemo(() => {
-    const searchObj = betterQsParse(history.location.search);
+    const parsed = betterQsParse(historyLocation.search);
+    const { page: retrivedPage, ...searchObj } = parsed;
 
-    const { page: retrivedPage } = searchObj;
-    delete searchObj.page;
     return {
       search: searchObj,
       page: parseInt(retrivedPage || '1', 10)
     };
-  }, [history.location.search]);
+  }, [historyLocation.search]);
 
   const {
     isLoading,
@@ -125,39 +110,47 @@ function Dashboard({
     size,
   } = useLocations(agenda, page);
 
-  const nextPage = () => {
+  const nextPage = useCallback(() => {
     history.push({
       search: betterQsStringify({ ...search, page: page + 1 })
     });
-  };
+  }, [history, page, search]);
 
-  const previousPage = () => {
-    if (page >= 2) {
+  const previousPage = useCallback(() => {
+    if (page > 1) {
       history.push({
         search: betterQsStringify({ ...search, page: page - 1 })
       });
     }
-  };
+  }, [history, page, search]);
 
   const removeFilter = useCallback(key => {
-    delete search[key];
-    history.push({ search: betterQsStringify({ ...search, page }) });
+    history.push({ search: betterQsStringify({ ...search, page: 1, [key]: undefined }) });
   }, [history, page, search]);
 
   const removeHasNull = useCallback(field => {
-    search.hasNull = search.hasNull.filter(e => e !== field);
-    history.push({ search: betterQsStringify({ ...search, page }) });
+    history.push({
+      search: betterQsStringify({
+        ...search,
+        page: 1,
+        hasNull: search.hasNull.filter(e => e !== field)
+      })
+    });
   }, [history, page, search]);
 
   const addHasNull = useCallback(field => {
-    if (search.hasNull) search.hasNull.push(field);
-    else search.hasNull = [field];
-    history.push({ search: betterQsStringify({ ...search, page }) });
+    history.push({
+      search: betterQsStringify({
+        ...search,
+        page: 1,
+        hasNull: [...search.hasNull || [], field]
+      })
+    });
   }, [history, page, search]);
 
-  const onLocationItemEdit = location => {
-    if (settings.access.update.authorized && !settings.access.update.external) {
-      const nq = `${pathname}?${betterQsStringify({ ...search, page })}`;
+  const onLocationItemEdit = useCallback(location => {
+    if (settings?.access?.update?.authorized && !settings.access.update.external) {
+      const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
       history.push({
         pathname: `${prefix}/${location.uid}/edit`,
         state: nq
@@ -166,13 +159,13 @@ function Dashboard({
       // display action Modal
       return false;
     }
-  };
+  }, [history, page, pathname, prefix, search, settings]);
 
-  const onLocationItemSelect = location => {
+  const onLocationItemSelect = useCallback(location => {
     // handle merge behavior
     // basic beahavior
     onLocationItemEdit(location);
-  };
+  }, [onLocationItemEdit]);
 
   return (
     <div className="agenda-admin-locations">
@@ -199,7 +192,7 @@ function Dashboard({
                     // this.displayActionModal('create');
                     console.log('click');
                   } else {
-                    const nq = `${pathname}?${betterQsStringify({ ...search, page })}`;
+                    const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
                     history.push({
                       pathname: `${prefix}/create`,
                       state: nq

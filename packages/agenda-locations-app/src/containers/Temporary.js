@@ -2,13 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
-function Temporary({ agenda, route }) {
-  console.log(route);
+function Temporary({ agenda }) {
   const history = useHistory();
   const message = useSelector(state => state.settings.message ?? 'Bif bof');
   const prefix = useSelector(state => state.settings.prefix);
   const params = useParams();
-  console.log(params, history.location, prefix);
+  console.log(params, prefix);
   return (
     <>
       <div>{message} {agenda.title}</div>
