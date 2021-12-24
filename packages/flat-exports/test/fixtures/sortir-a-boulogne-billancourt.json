@@ -1412,7 +1412,18 @@
     "fr": "<p>Du 4 mars au 22 décembre 2017, le CNJ vous propose un regard ludique sur le monde de la piraterie grâce à sa nouvelle exposition : A l&#39;abordage !</p>\n<p>Nous vous proposons de découvrir un sélection de jeux associés au monde de la piraterie et des corsaires, dont le plus ancien, <em>Pirate and Traveler</em> de Milton Bradley (USA) date de 1911.</p>\n"
   },
   "registration": [
-    "http://www.cnjeu.fr/"
+    {
+      "type": "link",
+      "value": "http://www.cnjeu.fr/"
+    },
+    {
+      "type": "phone",
+      "value": "0145707532"
+    },
+    {
+      "type": "email",
+      "value": "reservation@email.com"
+    }
   ],
   "location": {
     "address": "17, allée Robert Doisneau, 92100 Boulogne-Billancourt",
@@ -1428,7 +1439,8 @@
     "department": "Hauts-de-Seine",
     "slug": "centre-national-du-jeu501",
     "longitude": 2.237134,
-    "updatedAt": "2016-04-02T05:30:10.000Z"
+    "updatedAt": "2016-04-02T05:30:10.000Z",
+    "phone": "014654123"
   },
   "state":  2,
   "slug": "a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu",
