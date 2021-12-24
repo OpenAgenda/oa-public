@@ -4,18 +4,11 @@ import { withRouter, Route } from 'react-router-dom';
 @withRouter
 class RouterTrigger extends Component {
   static defaultProps = {
-    trigger: () => {
-    }
-  };
-
-  state = {
-    needTrigger: false,
-    location: null,
-    previousLocation: null
+    trigger: () => {}
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { location } = state;
+    const { location, match } = state;
 
     const {
       location: { pathname }
@@ -27,11 +20,27 @@ class RouterTrigger extends Component {
       return {
         needTrigger: true,
         location: props.location,
-        previousLocation: location || props.location
+        match: props.match,
+        previousLocation: location,
+        previousMatch: match,
       };
     }
 
-    return null;
+    return {
+      location: props.location,
+      match: props.match
+    };
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      needTrigger: false,
+      location: null,
+      previousLocation: null,
+      previousMatch: null,
+    };
   }
 
   componentDidMount() {
@@ -40,22 +49,19 @@ class RouterTrigger extends Component {
     this.trigger();
   }
 
-  componentWillUnmount() {
-    this.mounted = false;
+  shouldComponentUpdate(nextProps, nextState) {
+    const { previousLocation } = this.state;
+    const { location } = this.props;
+
+    return nextState.previousLocation !== previousLocation || nextProps.location !== location;
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps, _prevState) {
     this.trigger();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextState.previousLocation !== this.state.previousLocation;
-  }
-
-  safeSetState(nextState, callback) {
-    if (this.mounted) {
-      this.setState(nextState, callback)
-    }
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   trigger = () => {
@@ -68,19 +74,31 @@ class RouterTrigger extends Component {
           .catch(err => console.log('Failure in RouterTrigger:', err))
           .then(() => {
             // clear previousLocation so the next screen renders
-            this.safeSetState({ previousLocation: null });
+            this.safeSetState({ previousLocation: null, previousMatch: null });
           });
       });
     }
   }
 
+  safeSetState = (nextState, callback) => {
+    if (this.mounted) this.setState(nextState, callback);
+  }
+
+  renderer = () => this.props.children;
+
   render() {
-    const { children, location } = this.props;
-    const { previousLocation } = this.state;
+    const { location, match } = this.props;
+    const { previousLocation, previousMatch } = this.state;
 
     // use a controlled <Route> to trick all descendants into
     // rendering the old location
-    return <Route location={previousLocation || location} render={() => children} />;
+    return (
+      <Route
+        location={previousLocation || location}
+        computedMatch={previousMatch || match}
+        render={this.renderer}
+      />
+    );
   }
 }
 
