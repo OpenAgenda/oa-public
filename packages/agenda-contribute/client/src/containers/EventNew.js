@@ -11,7 +11,6 @@ import Instructions from '../components/Instructions';
 import steps from '../lib/steps';
 import utils from '../lib/utils';
 import useEventFormConfig from '../hooks/useEventFormConfig';
-import useAgendaContext from '../hooks/useAgendaContext';
 import usePrefix from '../hooks/usePrefix';
 
 import contributeReducer from '../reducers/contribute';
@@ -25,17 +24,16 @@ const log = debug('EventNew');
 export default function EventNew({ agenda, history }) {
   log('loading');
 
-  const {
-    agendaContextIsLoading,
-    agendaContext
-  } = useAgendaContext(agenda.uid);
-
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
-  const { config, configIsLoading } = useEventFormConfig(agenda);
+  const {
+    config,
+    isLoading,
+    agendaContext
+  } = useEventFormConfig(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
-  if (configIsLoading || agendaContextIsLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
