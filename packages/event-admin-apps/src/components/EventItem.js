@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useMutation, useQueryClient } from 'react-query';
 import qs from 'qs';
@@ -228,10 +229,10 @@ export default function EventItem({
 
   const [hovered, setHovered] = useState(false);
 
-  const onSelect = useCallback(() => selectEvent(event.uid), [
-    event.uid,
-    selectEvent,
-  ]);
+  const onSelect = useCallback(
+    () => selectEvent(event.uid),
+    [event.uid, selectEvent]
+  );
 
   const mutation = useMutation(
     value => apiClient.patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
@@ -428,12 +429,12 @@ export default function EventItem({
           </li>
 
           <li>
-            <a
+            <Link
+              to={`/${agenda.slug}/contribute/event/${event.uid}?redirect=${redirectURL}`}
               className="btn btn-link btn-link-inline"
-              href={`/${agenda.slug}/contribute/event/${event.uid}?redirect=${redirectURL}`}
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </li>
 
           <li>
