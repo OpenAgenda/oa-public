@@ -12,6 +12,7 @@ import transferMultilingualValues from './utils/transferMultilingualValues';
 import removeMultilingualValues from './utils/removeMultilingualValues';
 import schemaLanguages from './utils/schemaLanguages';
 import injectValidators from './utils/injectValidators';
+import updateLanguages from './utils/updateLanguages';
 import validators from './validators';
 
 import errorLabels from '@openagenda/labels/event/errors';
@@ -33,7 +34,9 @@ class EventForm extends Component {
   constructor(props) {
     super(props);
 
-    const languages = extractLanguages(this.props.values);
+    const languages = extractLanguages(props.schema, this.props.values, {
+      defaultLanguage: props.lang
+    });
 
     const {
       schema,
@@ -42,7 +45,7 @@ class EventForm extends Component {
 
     const values = ih(props.values ?? {}, {
       languages: {
-        $set: schemaLanguages.getFromSchemaAndValues(schema, props.lang, languages)
+        $set: languages //schemaLanguages.getFromSchemaAndValues(schema, props.lang, languages)
       }
     });
 
@@ -136,6 +139,8 @@ class EventForm extends Component {
     });
 
     injectValidators(schema);
+
+    updateLanguages(schema, languages);
 
     return {
       schema,

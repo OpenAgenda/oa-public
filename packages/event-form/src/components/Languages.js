@@ -1,80 +1,60 @@
 import _ from 'lodash';
-
-import languages from 'languages';
 import React, { Component } from 'react';
 import Select from 'react-select';
+import languages from 'languages';
 
 import flattenLabels from '@openagenda/labels/flatten';
 import languageLabels from '@openagenda/labels/event/form';
 
-const languageCodesAndLabels = languages.getAllLanguageCode()
-  .map( c => ( { value: c, label: languages.getLanguageInfo( c ).nativeName } ) )
-  .sort( ( a, b ) => a.label < b.label ? -1 : 1 );
-
-
-
+import languageCodesAndLabels from '../utils/languageCodesAndLabels';
+import showRemoveAction from '../utils/showRemoveAction';
 
 module.exports = class Languages extends Component {
+  constructor(props) {
+    super(props);
 
-  constructor( props ) {
-
-    super( props );
-
-    this.state = { adding: false, changing: false }
-
+    this.state = {
+      adding: false,
+      changing: false
+    };
   }
 
   onAddSelectStart() {
-
-    this.setState( { adding: true } );
-
+    this.setState({ adding: true });
   }
 
   onChangeStart() {
-
     if ( this.props.value.length !== 1 ) return;
 
-    this.setState( { changing: true } );
-
+    this.setState({ changing: true });
   }
 
-  onChange( l ) {
+  onChange(l) {
+    this.props.onChange([l.value]);
 
-    this.props.onChange( [ l.value ] );
-
-    this.setState( { changing: false } );
-
+    this.setState({ changing: false });
   }
 
   onCancelChange() {
-
-    this.setState( { changing: false } );
-
+    this.setState({ changing: false });
   }
 
-  onRemove( l ) {
-
+  onRemove(l) {
     this.props.onChange( this.props.value.filter( current => current !== l ) );
-
   }
 
-  onAdd( l ) {
-
+  onAdd(l) {
     this.props.onChange( this.props.value.concat( l.value ) );
 
-    this.setState( { adding: false } );
-
+    this.setState({ adding: false });
   }
 
   getRemainingLanguages() {
-
     return languageCodesAndLabels
       .filter( l => !this.props.value.includes( l.value ) );
-
   }
 
   render() {
-
     const pickedLanguages = this.props.value;
 
     const labels = flattenLabels( languageLabels, this.props.lang );
@@ -85,8 +65,8 @@ module.exports = class Languages extends Component {
       { !this.state.changing ? <ul>
         {pickedLanguages.map( l => <li key={'language-' + l} onClick={this.onChangeStart.bind( this )}>
           <div className="language-item">
-            <span>{languages.getLanguageInfo( l ).nativeName}</span>
-            {!strict && pickedLanguages.length > 1 && <span className="remove" onClick={this.onRemove.bind( this, l )}>&#10005;</span>}
+            <span>{languages.getLanguageInfo(l).nativeName}</span>
+            {showRemoveAction({ strict, pickedLanguages, required }, l) ? <span className="remove" onClick={this.onRemove.bind(this, l)}>&#10005;</span> : null}
             {!strict && pickedLanguages.length === 1 && <span className="margin-right-xs"><i className="fa fa-angle-down"></i></span>}
           </div>
         </li>)}
@@ -118,7 +98,5 @@ module.exports = class Languages extends Component {
         <a onClick={this.onCancelChange.bind( this )}>{labels.cancelLanguageChange}</a>
       </span> }
     </div>
-
   }
-
 }

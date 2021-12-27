@@ -91,10 +91,10 @@ function validateEvent({
   //  * agenda setting (if set) (not yet coded)
   //  * submitted language keys in languages field
   //  * default language
-  const languages = _.get(data, 'languages') || extractLanguages(event ? {
+  const languages = _.get(data, 'languages') || extractLanguages(null, event ? {
     ...event,
     ...data
-  } : data, defaultLang);
+  } : data, { defaultLanguage: defaultLang });
 
   log('processed languages: %j', languages);
 

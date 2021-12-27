@@ -1,4 +1,5 @@
 import ih from 'immutability-helper';
+import reedFixtures from './fixtures/reed.json';
 
 import getMultilingualFieldNames from '../src/utils/getMultilingualFieldNames';
 import transferMultilingualValues from '../src/utils/transferMultilingualValues';
@@ -12,17 +13,37 @@ import extractLanguages from '../src/utils/extractLanguages';
 describe('event-form utils unit tests', () => {
 
   describe('extractLanguages', () => {
+    test('required languages are included', () => {
+      const languages = extractLanguages(reedFixtures.schema, {
+        title: { fr: 'Un titre' }
+      }, { defaultLanguage: 'en' });
 
-    test('fix - should not return numbers', () => {
-      const languages = extractLanguages({
-        title: 'Un autre événement créé par API',
-        description: 'Un tout petit événement',
-        keywords: ['un', 'deux', 'trois']
-      }, 'en');
+      expect(languages).toEqual(['fr', 'en']);
+    });
+
+    test('other languages provided in values are added to required languages', () => {
+      const languages = extractLanguages(reedFixtures.schema, {
+        title: { es: 'Un titulo' }
+      }, { defaultLanguage: 'it' })
+      
+      expect(languages).toEqual(['fr', 'en', 'es']);
+    });
+
+    test('if schema is not provided, standard multilingual fields are used to detect defined languages', () => {
+      const languages = extractLanguages(null, {
+        title: { es: 'Un titulo' }
+      }, { defaultLanguage: 'it' });
+
+      expect(languages).toEqual(['es']);
+    });
+
+    test('if multilingual fields are presented as strings, they cannot be used to derive language. Default is used', () => {
+      const languages = extractLanguages(null, {
+        title: 'A title'
+      }, { defaultLanguage: 'en' });
 
       expect(languages).toEqual(['en']);
     });
-
   });
 
   describe('schemaLanguages', () => {
