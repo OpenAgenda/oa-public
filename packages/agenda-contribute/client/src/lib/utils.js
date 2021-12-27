@@ -57,7 +57,12 @@ function doRedirect(history, redirectTo) {
   if (redirect) {
     const redirectURL = Base64.decode(redirect);
     log('redirecting to %s', redirectURL);
-    window.location.href = redirectURL;
+    const isInAppRedirect = /\/home|\/.+\/admin\/events/.test(redirectURL);
+    if (isInAppRedirect) {
+      history.push(redirectURL);
+    } else {
+      window.location.href = redirectURL;
+    }
     return;
   }
 
