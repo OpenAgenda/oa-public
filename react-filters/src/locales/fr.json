@@ -36,6 +36,7 @@
   "ReactFilters.messages.filterTitles.department": "Département",
   "ReactFilters.messages.filterTitles.featured": "Mis en une",
   "ReactFilters.messages.filterTitles.geo": "Géolocalisation",
+  "ReactFilters.messages.filterTitles.keywords": "Mots clés",
   "ReactFilters.messages.filterTitles.locationUid": "Lieu",
   "ReactFilters.messages.filterTitles.memberUid": "Membre",
   "ReactFilters.messages.filterTitles.originAgendaUid": "Agenda d'origine",

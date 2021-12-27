@@ -65,10 +65,10 @@ export default defineMessages({
   //   id: 'ReactFilters.messages.filterTitles.members',
   //   defaultMessage: 'Members'
   // },
-  // keywords: {
-  //   id: 'ReactFilters.messages.filterTitles.keywords',
-  //   defaultMessage: 'Keywords'
-  // },
+  keywords: {
+    id: 'ReactFilters.messages.filterTitles.keywords',
+    defaultMessage: 'Keywords'
+  },
   state: {
     id: 'ReactFilters.messages.filterTitles.state',
     defaultMessage: 'State',

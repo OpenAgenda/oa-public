@@ -371,6 +371,12 @@
       "value": "Geolocation"
     }
   ],
+  "ReactFilters.messages.filterTitles.keywords": [
+    {
+      "type": 0,
+      "value": "Keywords"
+    }
+  ],
   "ReactFilters.messages.filterTitles.locationUid": [
     {
       "type": 0,
