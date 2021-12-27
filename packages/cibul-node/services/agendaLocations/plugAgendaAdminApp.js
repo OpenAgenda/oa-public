@@ -2,14 +2,14 @@
 
 const _ = require('lodash');
 const csv = require('fast-csv');
-const XlsxStream = require('xlsx-writestream');
+const ExcelJS = require('exceljs');
 const expressUtils = require('@openagenda/utils/express');
 const trackingScripts = require('../../lib/trackingScripts');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
 
-const layout = require( '../lib/layouts' ).load(
+const layout = require('../lib/layouts').load(
   'agendaAdmin', { selectedTab: 'locations' }
 );
 
@@ -60,16 +60,16 @@ module.exports = (config, services, instance, app, base) => {
                 csv: `/${req.agenda.slug}/admin/locations.csv`,
                 xlsx: `/${req.agenda.slug}/admin/locations.xlsx`,
                 index: `/${req.agenda.slug}/admin/locations.json`,
-                geocode: `/locations/geocode`,
-                insee: `/locations/insee`,
-                reverseGeocode: `/locations/geocode/reverse`,
+                geocode: '/locations/geocode',
+                insee: '/locations/insee',
+                reverseGeocode: '/locations/geocode/reverse',
                 seeEvents: `/${req.agenda.slug}/admin/events?locationUid=:locationUid&q.locationUid=:locationUid`,
                 create: `/${req.agenda.slug}/admin/locations`,
                 update: `/${req.agenda.slug}/admin/locations/:locationUid`,
                 get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
                 remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
                 merge: `/${req.agenda.slug}/admin/locations/merge`,
-                agendaSearch: `/agendas`,
+                agendaSearch: '/agendas',
                 disqualifyDuplicates: `/${req.agenda.slug}/admin/locations/disqualify`,
               }
             })
@@ -99,14 +99,15 @@ module.exports = (config, services, instance, app, base) => {
       }
 
       res.send(layout('<div class="js_canvas"></div>', layoutData));
-    }
-  );
+    });
 
   app.get(`${base}.json`, (req, res, next) => {
     req.locations.list(
       req.query,
       _.pick(req.query, ['offset', 'limit']),
-      { total: true, eventCounts: true, detailed: true, includeImagePath: true }
+      {
+        total: true, eventCounts: true, detailed: true, includeImagePath: true
+      }
     ).then(({ items, total }) => res.json({ items, total }), next);
   });
 
@@ -138,10 +139,24 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.get(`${base}.xlsx`, (req, res, next) => {
-    const xlsx = new XlsxStream();
-    xlsx.getReadStream().pipe(res);
-    req.stream.on('data', data => xlsx.addRow(data));
-    req.stream.on('end', () => xlsx.finalize());
+    const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
+    const worksheet = workbook.addWorksheet('Locations');
+    const locations = [];
+    req.stream.on('data', data => {
+      locations.push(data);
+    });
+
+    req.stream.on('end', () => {
+      worksheet.columns = [...new Set(locations.reduce((carry, data) => Object.keys(data).map(key => ({ header: key, key, width: 10 }))))];
+
+      for (const location of locations) {
+        worksheet.addRow(location).commit();
+      }
+
+      workbook.commit();
+    });
+
+    workbook.stream.pipe(res);
 
     res.writeHead(200, {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -157,8 +172,7 @@ module.exports = (config, services, instance, app, base) => {
         eventCounts: true,
         includeLinkedAgendas: true,
       }).then(location => res.json(location), next);
-    }
- );
+    });
 
   app.get(`${base}/unverified`, (req, res, next) => {
     req.locations.list({ state: 0 }, { limit: 0 }, { total: true })

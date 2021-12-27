@@ -8,6 +8,8 @@ const accessibility = require('./accessibility');
 const timings = require('./timings');
 const formatTime = require('./formatTime');
 const image = require('./image');
+const registration = require('./registration');
+const firstLastDate = require('./firstLastDate');
 
 const defaultMap = c => ({
   source: c.source,
@@ -45,11 +47,24 @@ module.exports = function getDefaultFieldMap(options) {
     type: 'multilingual',
     possibleLanguages: labelLanguages
   }, {
+    source: 'timings',
     field: 'timings',
     type: 'timings',
     target: getTarget('timings'),
     isoTarget: getTarget('isoTimings')
   }, {
+    source: 'timings',
+    target: getTarget('firstDate'),
+    type: 'firstLastDate',
+    field: 'firstDate'
+  },
+  {
+    source: 'timings',
+    target: getTarget('lastDate'),
+    type: 'firstLastDate',
+    field: 'lastDate'
+  },
+  {
     source: 'conditions',
     target: getTarget('conditions'),
     type: 'multilingual'
@@ -99,7 +114,12 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'location.access',
     target: getTarget('location.access'),
     type: 'multilingual'
-  }, {
+  },
+  {
+    source: 'location.phone',
+    target: getTarget('location.phone')
+  },
+  {
     source: 'member.uid',
     target: getTarget('member.uid')
   }, {
@@ -144,8 +164,9 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'onlineAccessLink',
     target: getTarget('onlineAccessLink')
   }, {
-    source: 'registrationUrl',
-    target: getTarget('registrationUrl')
+    source: 'registration',
+    target: getTarget('registration'),
+    type: 'registration'
   }, {
     source: 'featured',
     target: _.capitalize(getTarget('featured')),
@@ -180,7 +201,12 @@ module.exports = function getDefaultFieldMap(options) {
   }];
 
   if (options.includeFields) {
-    fields = fields.filter(field => options.includeFields.includes(field.source) || options.includeFields.includes(field.field));
+    fields = fields.filter(field => {
+      if (field.field) {
+        return options.includeFields.includes(field.field) && options.includeFields.includes(field.source);
+      }
+      return options.includeFields.includes(field.source);
+    });
   }
 
   // make a flat map.
@@ -189,6 +215,8 @@ module.exports = function getDefaultFieldMap(options) {
     accessibility: accessibility.bind(null, options),
     multilingual: multilingual.bind(null, options),
     time: formatTime.bind(null, options),
-    image: image.bind(null)
+    firstLastDate: firstLastDate.bind(null, options),
+    image: image.bind(null),
+    registration: registration.bind(null, { source: c.source, target: c.target })
   }, c.type, defaultMap)(c));
 };
