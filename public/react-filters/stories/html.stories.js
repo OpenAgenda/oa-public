@@ -309,6 +309,43 @@ export const City = () => (
 );
 City.storyName = 'City filter';
 
+export const Keywords = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        keywords: [
+          { key: 'CLAVIM', eventCount: 73 },
+          { key: 'Espace Andrée Chedid', eventCount: 21 },
+          { key: 'La Halle des Épinettes', eventCount: 21 },
+          { key: 'Les Maisons d\'Issy', eventCount: 17 },
+          { key: 'Atelier Janusz Korczak', eventCount: 15 },
+          { key: 'philo', eventCount: 13 },
+          { key: 'Espace Jeunes Anne Frank', eventCount: 11 }
+        ]
+      },
+      aggregations: {
+        keywords: [
+          { key: 'CLAVIM', eventCount: 73 },
+          { key: 'Espace Andrée Chedid', eventCount: 21 },
+          { key: 'La Halle des Épinettes', eventCount: 21 },
+          { key: 'Les Maisons d\'Issy', eventCount: 17 },
+          { key: 'Atelier Janusz Korczak', eventCount: 15 },
+          { key: 'philo', eventCount: 13 },
+          { key: 'Espace Jeunes Anne Frank', eventCount: 11 }
+        ]
+      }
+    }}
+    html={_.template(`
+      <div
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'keywords' }) %>"
+      ></div>
+    `)()}
+  />
+);
+Keywords.storyName = 'Keywords filter';
+
 export const Total = () => (
   <Html
     options={{

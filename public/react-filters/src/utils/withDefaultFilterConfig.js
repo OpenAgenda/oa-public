@@ -109,6 +109,16 @@ export default function withDefaultFilterConfig(filter, intl) {
         }
       });
       break;
+    case 'keyword':
+      defaults(filter, {
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'keywords',
+          size: AGGREGATION_SIZE,
+        }
+      });
+      break;
     default:
       break;
   }
