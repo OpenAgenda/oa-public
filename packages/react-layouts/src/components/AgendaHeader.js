@@ -8,7 +8,7 @@ function AgendaHeader(props) {
         <div className="row">
           {agenda.image ? (
             <div className="col-sm-2 avatar-container">
-              <a href="/{agenda.slug}">
+              <a href={`/${agenda.slug}`}>
                 <img className="avatar" src={agenda.image} alt={agenda.title} />
               </a>
             </div>
@@ -18,7 +18,7 @@ function AgendaHeader(props) {
               agenda.image ? 'col-sm-7' : 'col-sm-9'
             } title-container`}
           >
-            <a href="/{agenda.slug}">
+            <a href={`/${agenda.slug}`}>
               <div className="agenda-title">
                 <h1>{agenda.title}</h1>
               </div>
