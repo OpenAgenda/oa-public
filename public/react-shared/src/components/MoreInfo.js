@@ -25,12 +25,7 @@ export default class MoreInfo extends Component {
     style: null,
   };
 
-  constructor(props) {
-    super(props);
-    this.renderIcon = ::this.renderIcon;
-  }
-
-  renderIcon() {
+  renderIcon = () => {
     const { className, link, style } = this.props;
 
     const iconStyle = {
