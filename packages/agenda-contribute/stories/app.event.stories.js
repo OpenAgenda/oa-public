@@ -82,3 +82,8 @@ export const AdminEditEventForm = componentFromFixtures(
   'Administrator is shown standard event form for editing an event. State change select is available.',
   106, '/event/01'
 );
+
+export const EditEventFormByAdminWithoutEditRights = componentFromFixtures(
+  'Component informing member that event edition is not permitted is shown above form',
+  107, '/event/01'
+);

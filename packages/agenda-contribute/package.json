@@ -4,12 +4,11 @@
   "main": "server/index",
   "scripts": {
     "prepack": "yarn build",
-    "start": "nodemon server.dev",
-    "build": "babel --copy-files client/src -d client/dist -s",
-    "stories": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
-    "dev-server": "NODE_ENV=development EXPRESS_API_PORT=3000 nodemon -w stories/server -w client/src stories/server/index.js",
+    "build": "babel --copy-files src -d dist -s",
+    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
+    "dev-server": "NODE_ENV=development EXPRESS_API_PORT=3000 nodemon -w stories/server -w src stories/server/index.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
-    "extract-messages": "yarn oa:extract-messages 'client/src/**/*.js' --out-dir 'client/src/locales' --compiled-dir 'client/src/locales-compiled'",
+    "extract-messages": "yarn oa:extract-messages 'src/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'",
     "test": "jest"
   },
   "dependencies": {

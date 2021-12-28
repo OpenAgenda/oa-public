@@ -1,0 +1,264 @@
+{
+  "AgendaContribute.Canvas.fromAgenda": [
+    {
+      "type": 0,
+      "value": "de l'agenda"
+    }
+  ],
+  "AgendaContribute.Canvas.shareEvent": [
+    {
+      "type": 0,
+      "value": "Partager un événement"
+    }
+  ],
+  "AgendaContribute.Canvas.takeEvent": [
+    {
+      "type": 0,
+      "value": "Reprendre"
+    }
+  ],
+  "AgendaContribute.Canvas.toAgenda": [
+    {
+      "type": 0,
+      "value": "sur l'agenda"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": [
+    {
+      "type": 0,
+      "value": "Brouillon"
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forAdminModerators": [
+    {
+      "type": 0,
+      "value": "Cet agenda n'est pas ouvert aux contributions. Seuls les administrateurs ou modérateurs peuvent ajouter de nouveaux événements"
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forContributors": [
+    {
+      "type": 0,
+      "value": "Cet agenda n'est pas ou n'est plus ouvert aux contributions"
+    }
+  ],
+  "AgendaContribute.Confirmation.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contacter les administrateurs de l'agenda"
+    }
+  ],
+  "AgendaContribute.Confirmation.createOtherEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un autre événement"
+    }
+  ],
+  "AgendaContribute.Confirmation.duplicateEvent": [
+    {
+      "type": 0,
+      "value": "Dupliquer l'événement"
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState0": [
+    {
+      "type": 0,
+      "value": "Votre événement est bien enregistré, il est en cours de modération. Vous serez notifié par email dès qu'il sera publié."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState1": [
+    {
+      "type": 0,
+      "value": "Votre événement est bien enregistré et est prêt à être publié. Vous serez notifié de sa publication."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState2": [
+    {
+      "type": 0,
+      "value": "Votre événement est bien enregistré et a été publié sur l'agenda."
+    }
+  ],
+  "AgendaContribute.Confirmation.seeEventAction": [
+    {
+      "type": 0,
+      "value": "Voir mon événement"
+    }
+  ],
+  "AgendaContribute.Confirmation.showMyEvents": [
+    {
+      "type": 0,
+      "value": "Voir tous mes événements"
+    }
+  ],
+  "AgendaContribute.EventEdit.update": [
+    {
+      "type": 0,
+      "value": "Mettre à jour"
+    }
+  ],
+  "AgendaContribute.EventNew.create": [
+    {
+      "type": 0,
+      "value": "Créer l'événement"
+    }
+  ],
+  "AgendaContribute.EventNew.deleteDraft": [
+    {
+      "type": 0,
+      "value": "Supprimer le brouillon"
+    }
+  ],
+  "AgendaContribute.EventNew.draft": [
+    {
+      "type": 0,
+      "value": "Enregistrer un brouillon"
+    }
+  ],
+  "AgendaContribute.EventNew.updateDraft": [
+    {
+      "type": 0,
+      "value": "Mettre à jour le brouillon"
+    }
+  ],
+  "AgendaContribute.EventShare.cancelChange": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "AgendaContribute.EventShare.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "AgendaContribute.EventShare.imageCredits": [
+    {
+      "type": 0,
+      "value": "Crédits image"
+    }
+  ],
+  "AgendaContribute.EventShare.longDescription": [
+    {
+      "type": 0,
+      "value": "Description longue"
+    }
+  ],
+  "AgendaContribute.EventShare.registration": [
+    {
+      "type": 0,
+      "value": "Outils d'inscription"
+    }
+  ],
+  "AgendaContribute.EventShare.required": [
+    {
+      "type": 0,
+      "value": "Requis"
+    }
+  ],
+  "AgendaContribute.EventShare.share": [
+    {
+      "type": 0,
+      "value": "Partage"
+    }
+  ],
+  "AgendaContribute.EventShare.shareRestrictionInfo": [
+    {
+      "type": 0,
+      "value": "Les points suivants doivent être résolus afin de rendre l'événement \""
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "\" partageable sur l'agenda \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.EventShare.suggestChange": [
+    {
+      "type": 0,
+      "value": "Suggérer une modification"
+    }
+  ],
+  "AgendaContribute.Member.description": [
+    {
+      "type": 0,
+      "value": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public."
+    }
+  ],
+  "AgendaContribute.Member.subtitle": [
+    {
+      "type": 0,
+      "value": "Présentez-vous avant de saisir vos événements"
+    }
+  ],
+  "AgendaContribute.Member.title": [
+    {
+      "type": 0,
+      "value": "Bienvenue !"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.noEditionRights": [
+    {
+      "type": 0,
+      "value": "Vous n'avez pas les droits d'édition sur cet événement."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
+    {
+      "type": 0,
+      "value": "Seuls les champs additionnels de l'agenda peuvent être édités ici."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
+    {
+      "type": 0,
+      "value": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Demander les droits d'édition"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)"
+    }
+  ],
+  "AgendaContribute.Stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "AgendaContribute.Stepper.event": [
+    {
+      "type": 0,
+      "value": "Mon événement"
+    }
+  ],
+  "AgendaContribute.Stepper.member": [
+    {
+      "type": 0,
+      "value": "Fiche membre"
+    }
+  ]
+}

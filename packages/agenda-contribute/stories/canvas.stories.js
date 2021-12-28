@@ -1,7 +1,7 @@
 import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
-import CanvasComponent from '../client/src/components/Canvas';
-import CanvasComponentWithStepper from '../client/src/components/CanvasWithStepper';
+import CanvasComponent from '../src/components/Canvas';
+import CanvasComponentWithStepper from '../src/components/CanvasWithStepper';
 import ProvidersDecorator from './decorators/Providers';
 
 export default {

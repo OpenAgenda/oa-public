@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { wrapApp } from '@openagenda/react-shared';
 import { createMemoryHistory } from 'history';
 import '@openagenda/bs-templates/compiled/main.css';
-import createApp from '../client/src';
+import createApp from '../src';
 import ProvidersDecorator from './decorators/Providers';
 
 import fixtures from './fixtures';

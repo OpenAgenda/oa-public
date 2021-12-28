@@ -21,7 +21,7 @@
     {
       "files": [
         "stories/**/*.js",
-        "client/src/**/*.js"
+        "src/**/*.js"
       ],
       "parserOptions": {
         "sourceType": "module"

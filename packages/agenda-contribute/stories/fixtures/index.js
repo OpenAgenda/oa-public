@@ -223,6 +223,27 @@ storySets.AdminEditEventForm = {
   })
 };
 
+storySets.EditEventFormByAdminWithoutEditRights = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.role = 'administrator';
+    draft.me.authorizations.canEditEvent = false;
+    draft.me.authorizations.canChangeState = true;
+  }),
+  agenda: basicDetailedAgenda,
+  event: basicEventResponse,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 107
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canChangeState = true;
+    draft.me.authorizations.canEditEvent = false;
+  })
+};
+
 storySets.BasicConfirmation = {
   agendaContext: produce(agendaContributorContext, draft => {
     draft.me.member.updatedAt = new Date();

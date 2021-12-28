@@ -1,0 +1,264 @@
+{
+  "AgendaContribute.Canvas.fromAgenda": [
+    {
+      "type": 0,
+      "value": "from the agenda"
+    }
+  ],
+  "AgendaContribute.Canvas.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share an event"
+    }
+  ],
+  "AgendaContribute.Canvas.takeEvent": [
+    {
+      "type": 0,
+      "value": "Take"
+    }
+  ],
+  "AgendaContribute.Canvas.toAgenda": [
+    {
+      "type": 0,
+      "value": "to the agenda"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": [
+    {
+      "type": 0,
+      "value": "Draft"
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forAdminModerators": [
+    {
+      "type": 0,
+      "value": "This agenda is currently not open to contributors. Only administrators or moderators can add events."
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forContributors": [
+    {
+      "type": 0,
+      "value": "This agenda is not or no longer open for new contributions."
+    }
+  ],
+  "AgendaContribute.Confirmation.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact the agenda administrators"
+    }
+  ],
+  "AgendaContribute.Confirmation.createOtherEvent": [
+    {
+      "type": 0,
+      "value": "Add another event"
+    }
+  ],
+  "AgendaContribute.Confirmation.duplicateEvent": [
+    {
+      "type": 0,
+      "value": "Duplicate event"
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState0": [
+    {
+      "type": 0,
+      "value": "Your event has been submitted and is being moderated. You will be notified by email when it will be published."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState1": [
+    {
+      "type": 0,
+      "value": "Your event has been submitted and is ready to be published. You will be notified as soon as it is."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState2": [
+    {
+      "type": 0,
+      "value": "Your event has been published and is visible on the agenda."
+    }
+  ],
+  "AgendaContribute.Confirmation.seeEventAction": [
+    {
+      "type": 0,
+      "value": "View my event"
+    }
+  ],
+  "AgendaContribute.Confirmation.showMyEvents": [
+    {
+      "type": 0,
+      "value": "List all my events"
+    }
+  ],
+  "AgendaContribute.EventEdit.update": [
+    {
+      "type": 0,
+      "value": "Update"
+    }
+  ],
+  "AgendaContribute.EventNew.create": [
+    {
+      "type": 0,
+      "value": "Create the event"
+    }
+  ],
+  "AgendaContribute.EventNew.deleteDraft": [
+    {
+      "type": 0,
+      "value": "Delete the draft"
+    }
+  ],
+  "AgendaContribute.EventNew.draft": [
+    {
+      "type": 0,
+      "value": "Save as draft"
+    }
+  ],
+  "AgendaContribute.EventNew.updateDraft": [
+    {
+      "type": 0,
+      "value": "Update draft"
+    }
+  ],
+  "AgendaContribute.EventShare.cancelChange": [
+    {
+      "type": 0,
+      "value": "Cancel the share"
+    }
+  ],
+  "AgendaContribute.EventShare.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "AgendaContribute.EventShare.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "AgendaContribute.EventShare.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "AgendaContribute.EventShare.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "AgendaContribute.EventShare.required": [
+    {
+      "type": 0,
+      "value": "Required"
+    }
+  ],
+  "AgendaContribute.EventShare.share": [
+    {
+      "type": 0,
+      "value": "Add the event"
+    }
+  ],
+  "AgendaContribute.EventShare.shareRestrictionInfo": [
+    {
+      "type": 0,
+      "value": "The following issues must be addressed to allow make the event \""
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "\" shareable on the agenda \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.EventShare.suggestChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change"
+    }
+  ],
+  "AgendaContribute.Member.description": [
+    {
+      "type": 0,
+      "value": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed."
+    }
+  ],
+  "AgendaContribute.Member.subtitle": [
+    {
+      "type": 0,
+      "value": "Present yourself to the agenda administrators before starting typing your events"
+    }
+  ],
+  "AgendaContribute.Member.title": [
+    {
+      "type": 0,
+      "value": "Welcome !"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.noEditionRights": [
+    {
+      "type": 0,
+      "value": "You do not have edition rights on this event."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
+    {
+      "type": 0,
+      "value": "Only additional fields of the agenda can be edited here."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
+    {
+      "type": 0,
+      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Request edition rights"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+    }
+  ],
+  "AgendaContribute.Stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "AgendaContribute.Stepper.event": [
+    {
+      "type": 0,
+      "value": "My event"
+    }
+  ],
+  "AgendaContribute.Stepper.member": [
+    {
+      "type": 0,
+      "value": "Member form"
+    }
+  ]
+}

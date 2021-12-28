@@ -8,7 +8,7 @@ import {
 } from '@openagenda/react-shared';
 
 import { locales as memberLocales } from '@openagenda/member-apps';
-import appLocales from '../../client/src/locales-compiled';
+import appLocales from '../../src/locales-compiled';
 
 const locales = mergeLocales(appLocales, memberLocales);
 

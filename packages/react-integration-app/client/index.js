@@ -37,7 +37,7 @@ import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/app';
 import createMembersApp from '@openagenda/member-apps/src/app';
 import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
-import createAgendaContributeApp from '@openagenda/agenda-contribute/client/src';
+import createAgendaContributeApp from '@openagenda/agenda-contribute/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { wrapApp } from '@openagenda/react-shared';
 import { createMemoryHistory } from 'history';
-import createApp from '../../client/src';
+import createApp from '../../src';
 import fixtures from '../fixtures';
 import loadInitialState from './loadInitialState';
 

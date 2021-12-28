@@ -1,12 +1,12 @@
 import React from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
-import MemberFormComponent from '../client/src/components/MemberForm';
-import InstructionsComponent from '../client/src/components/Instructions';
-import StepperComponent from '../client/src/components/Stepper';
-import EventNewFormComponent from '../client/src/components/EventNewForm';
-import EventEditFormComponent from '../client/src/components/EventEditForm';
-import ClosedMessageComponent from '../client/src/components/ClosedMessage';
-import cleanupSchemaForForm from '../client/src/lib/cleanupSchemaForForm';
+import MemberFormComponent from '../src/components/MemberForm';
+import InstructionsComponent from '../src/components/Instructions';
+import StepperComponent from '../src/components/Stepper';
+import EventNewFormComponent from '../src/components/EventNewForm';
+import EventEditFormComponent from '../src/components/EventEditForm';
+import ClosedMessageComponent from '../src/components/ClosedMessage';
+import cleanupSchemaForForm from '../src/lib/cleanupSchemaForForm';
 import ComponentsCanvasDecorator from './decorators/ComponentsCanvas';
 import ProvidersDecorator from './decorators/Providers';
 
