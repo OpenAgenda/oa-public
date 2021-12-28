@@ -203,7 +203,7 @@ module.exports = function getDefaultFieldMap(options) {
   if (options.includeFields) {
     fields = fields.filter(field => {
       if (field.field) {
-        return options.includeFields.includes(field.field) && options.includeFields.includes(field.source);
+        return options.includeFields.includes(field.field);
       }
       return options.includeFields.includes(field.source);
     });
