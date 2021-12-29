@@ -2,7 +2,8 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const ih = require( 'immutability-helper' );
+const ih = require('immutability-helper');
+const { produce } = require('immer');
 const qs = require( 'qs' );
 const base64 = require('@openagenda/utils/base64');
 
@@ -317,46 +318,35 @@ function _showJSONIfRequested(req, res, next) {
   next();
 }
 
+function show(req, res) {
+  agendas.get({
+    uid: req.agenda.uid
+  }, { private: null, internal: true }, (err, agenda) => {
+    req.templateData = produce(req.templateData, draft => {
+      draft.tiles = config.tiles;
 
-function show( req, res ) {
+      draft.agenda = {
+        uid: req.agenda.uid,
+        slug: req.agenda.slug,
+        title: req.agenda.title,
+        description: req.agenda.description,
+        url: req.agenda.url,
+        private: req.agenda.private,
+        image: req.agenda.getImage(false),
+        official: req.agenda.official,
+        isEmpty: req.agenda.isEmpty,
+        importUri: req.genUrl('agendaActionShow', { slug: req.agenda.slug }),
+      };
 
-  agendas.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
+      draft.mailto = cmn.agendaMailTo(agenda);
+    });
 
-    req.templateData = ih( req.templateData, {
-      tiles: {
-        $set: config.tiles
-      },
-      agenda: {
-        $set: {
-          uid: req.agenda.uid,
-          slug: req.agenda.slug,
-          title: req.agenda.title,
-          description: req.agenda.description,
-          url: req.agenda.url,
-          private: req.agenda.private,
-          image: req.agenda.getImage( false ),
-          official: req.agenda.official,
-          isEmpty: req.agenda.isEmpty,
-          importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-          showCalendar: _.get( agenda, 'credentials.calendarView', false ),
-          useContributeApp: _.get( agenda, 'credentials.useContributeApp', false ),
-        }
-      },
-      mailto: {
-        $set: cmn.agendaMailTo( agenda )
-      }
-    } );
+    req.baseData.indexed = (agenda?.indexed ?? true) && !(agenda?.private ?? false);
 
-    req.baseData = ih( req.baseData, {
-      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  }
-    } );
+    req.baseData.scriptParams.googleAnalyticsID = agenda?.settings?.tracking?.googleAnalytics;
 
-    cmn.addTrackingScripts(req, agendas);
-
-    cmn.render( req, res, 'agenda/show', req.templateData );
-
-  } );
-
+    cmn.render(req, res, 'agenda/show', req.templateData);
+  });
 }
 
 

@@ -6426,6 +6426,7 @@ __metadata:
     raw-loader: ^4.0.0
     rc-switch: ^1.4.3
     react: ^16.13.1
+    react-cookie-consent: ^7.2.1
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
     react-intl: ^5.12.2
@@ -35597,6 +35598,18 @@ __metadata:
   peerDependencies:
     react: ^16.0.0
   checksum: 98957039c43b66ec84cfe485040c70283ffd11e4bdce800722a324abacc99ec71c39f84efad8ed8f7e67d82e1e28e24635ffce94fa216d3f27c461d32cf011f9
+  languageName: node
+  linkType: hard
+
+"react-cookie-consent@npm:^7.2.1":
+  version: 7.2.1
+  resolution: "react-cookie-consent@npm:7.2.1"
+  dependencies:
+    js-cookie: ^2.2.1
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0
+  checksum: 9676e9611998f58e43ae76721f33b80eb95be37ad3937de0fd4f623ac5e7c72573d45cc36ca5e0c6b9d494a09a8aea1aea7ba8ae5ad0ebb2b692837ef78a561e
   languageName: node
   linkType: hard
 
