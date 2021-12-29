@@ -5,6 +5,7 @@ import { Image } from '@openagenda/react-shared';
 export default class AuthorAvatar extends Component {
   render() {
     const { author: { inboxUser, inbox }, inline } = this.props;
+    const isDev = process.env.NODE_ENV === 'development';
 
     const imgClasses = cn( 'img-circle', 'author-avatar', {
       'author-avatar-inline': inline,
@@ -15,7 +16,7 @@ export default class AuthorAvatar extends Component {
       return <Fragment>
         <Image
           src={inboxUser.avatar}
-          fallbackSrc={__DEVELOPMENT__ ? inboxUser.avatar.replace( 'cibuldev', 'cibul' ) : null}
+          fallbackSrc={isDev ? inboxUser.avatar.replace( 'cibuldev', 'cibul' ) : null}
           className={imgClasses}
           title={inboxUser.name}
         />
@@ -23,7 +24,7 @@ export default class AuthorAvatar extends Component {
         {!inline && inbox && inbox.avatar && inbox.type !== 'user'
           ? <Image
             src={inbox.avatar}
-            fallbackSrc={__DEVELOPMENT__ ? inbox.avatar.replace( 'cibuldev', 'cibul' ) : null}
+            fallbackSrc={isDev ? inbox.avatar.replace( 'cibuldev', 'cibul' ) : null}
             className={cn( imgClasses, 'belongs' )}
             title={inbox.name}
           />
@@ -34,7 +35,7 @@ export default class AuthorAvatar extends Component {
     return (
       <Image
         src={inbox.avatar}
-        fallbackSrc={__DEVELOPMENT__ ? inbox.avatar.replace( 'cibuldev', 'cibul' ) : null}
+        fallbackSrc={isDev ? inbox.avatar.replace( 'cibuldev', 'cibul' ) : null}
         className={imgClasses}
         title={inbox.name}
       />
