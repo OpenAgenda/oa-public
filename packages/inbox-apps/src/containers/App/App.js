@@ -1,5 +1,4 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { useStore, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
@@ -162,11 +161,11 @@ function App({ route }) {
   return content;
 }
 
-export default hot(provideHooks({
+export default provideHooks({
   inject: ({ store }) => store.inject({
     inbox: inboxReducer,
     conversation: conversationReducer,
     conversationForm: conversationFormReducer,
     modals: modalsReducer
   })
-})(App));
+})(App);

@@ -3,7 +3,6 @@ import React, {
   useCallback, useEffect, useRef, useState
 } from 'react';
 import ReactDOM from 'react-dom';
-import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLatest } from 'react-use';
@@ -322,4 +321,4 @@ function Dashboard() {
   );
 }
 
-export default hot(Dashboard);
+export default Dashboard;

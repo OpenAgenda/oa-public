@@ -3,7 +3,7 @@ import '@openagenda/polyfills/dom';
 import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
-import * as RHL from 'react-hot-loader';
+import 'react-refresh/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient } from 'react-query';
@@ -40,13 +40,6 @@ import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import RootHelmet from '../RootHelmet';
 import Root from './Root';
-
-if (!module.hot) {
-  RHL.AppContainer.warnAboutHMRDisabled = false;
-  RHL.hot.shouldWrapWithAppContainer = false;
-}
-
-RHL.setConfig({ trackTailUpdates: false });
 
 // if (process.env.NODE_ENV === 'development') {
 //   // eslint-disable-next-line global-require

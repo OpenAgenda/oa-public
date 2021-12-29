@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
@@ -74,7 +73,6 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
-@hot
 @withLayoutData('lang')
 @provideHooks({
   fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
