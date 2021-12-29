@@ -9,7 +9,7 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/users",
   "main": "service/index.js",
   "scripts": {
-    "knex": "babel-node ./node_modules/.bin/knex",
+    "knex": "babel-node $(yarn bin knex)",
     "test": "jest --detectOpenHandles --forceExit",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
