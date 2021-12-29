@@ -13,4 +13,12 @@ function addLoadEvent(func) {
   }
 }
 
-addLoadEvent(() => render(window.oa));
+function main() {
+  render(window.oa);
+}
+
+if (document.readyState === 'complete') {
+  main();
+} else {
+  addLoadEvent(main);
+}
