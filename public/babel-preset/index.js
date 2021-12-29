@@ -4,8 +4,10 @@ const { declare } = require('@babel/helper-plugin-utils');
 
 // caller: {
 //   name: 'babel-loader',
+//   target: 'web',
 //   supportsStaticESM: true,
-//   supportsDynamicImport: true
+//   supportsDynamicImport: true,
+//   supportsHotReload: true
 // }
 
 function isBabelLoader(caller) {
@@ -16,12 +18,17 @@ function hasSupportDynamicImport(caller) {
   return !!(caller && caller.supportsDynamicImport);
 }
 
+function hasSupportHotReload(caller) {
+  return !!(caller && caller.supportsHotReload);
+}
+
 module.exports = declare((api, options) => {
   api.assertVersion(7);
 
   const env = api.env();
   const isWebpack = api.caller(isBabelLoader);
   const supportDynamicImport = api.caller(hasSupportDynamicImport);
+  const supportHotReload = api.caller(hasSupportHotReload);
 
   const envOpts = {
     debug: false,
@@ -158,7 +165,7 @@ module.exports = declare((api, options) => {
     ],
     require('@babel/plugin-proposal-json-strings'),
 
-    isWebpack && development ? require('react-hot-loader/babel') : null,
+    isWebpack && supportHotReload ? require('react-refresh/babel') : null,
     !isWebpack && reactIntlOpts ? [
       require('babel-plugin-react-intl'),
       reactIntlOpts
