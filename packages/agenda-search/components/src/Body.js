@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AgendaItem from './AgendaItem';
 import { Spinner } from '@openagenda/react-shared';
+import List from './List';
 import get from '@openagenda/utils/get';
 import labels from '@openagenda/labels/agenda-search';
 import makeLabelGetter from '@openagenda/labels';
