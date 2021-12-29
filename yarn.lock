@@ -6280,7 +6280,7 @@ __metadata:
     babel-plugin-react-intl: ^8.2.25
     react: ^16.13.1
     react-dom: ^16.13.1
-    react-refresh: ^0.11.0
+    react-hot-loader: ^4.12.20
   peerDependencies:
     "@babel/core": ^7.8.4
   languageName: unknown
@@ -24526,7 +24526,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"global@npm:^4.3.2, global@npm:^4.4.0":
+"global@npm:^4.3.0, global@npm:^4.3.2, global@npm:^4.4.0":
   version: 4.4.0
   resolution: "global@npm:4.4.0"
   dependencies:
@@ -37329,6 +37329,29 @@ __metadata:
   peerDependencies:
     react: ">=15.0.0"
   checksum: dcdf69c31ab555501d3965684470b7bdcf077f1d7e4ff0cab616870821cc7238817b44fb5a451e4119182fa71ff463d50dbc7cbb661d927dcc3f542e7832c84b
+  languageName: node
+  linkType: hard
+
+"react-hot-loader@npm:^4.12.20":
+  version: 4.13.0
+  resolution: "react-hot-loader@npm:4.13.0"
+  dependencies:
+    fast-levenshtein: ^2.0.6
+    global: ^4.3.0
+    hoist-non-react-statics: ^3.3.0
+    loader-utils: ^1.1.0
+    prop-types: ^15.6.1
+    react-lifecycles-compat: ^3.0.4
+    shallowequal: ^1.1.0
+    source-map: ^0.7.3
+  peerDependencies:
+    "@types/react": "^15.0.0 || ^16.0.0 || ^17.0.0 "
+    react: "^15.0.0 || ^16.0.0 || ^17.0.0 "
+    react-dom: "^15.0.0 || ^16.0.0 || ^17.0.0 "
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: effdbf4644ce912ae20ad94be62083970c74b26a59fe24ed0024cf73190a5b3edf59650cb693bdd7b70791df8ab8530de273d73b895c4831a91da8a76683e3a3
   languageName: node
   linkType: hard
 
