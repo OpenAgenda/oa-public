@@ -44,7 +44,7 @@ const middlewares = {
     _formatFavoriteLink,
     _addInterfaceLanguage,
     _formatEmbedHeadLinks,
-    cmn.useEmbedGoogleAnalytics,
+    // cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oae.css' ),
     embedSvc.mw.loadCustomLayoutData,
@@ -153,7 +153,7 @@ module.exports = app => {
     legacyAgendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     _formatEmbedHeadLinks,
-    cmn.useEmbedGoogleAnalytics,
+    // cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oae.css' ),
     _appendFacebookParams,
@@ -268,7 +268,7 @@ async function agendaEventShow( req, res, next ) {
       agendaSlug: req.agenda.slug,
       agendaImage: req.agenda.image
         ? `${config.aws.imageBucketPath}${req.agenda.image}`
-        : config.aws.defaultImagePath
+        : config.aws.defaultImagePath,
     },
     oaRoot: config.root,
     agendaId: req.agenda.id,
@@ -582,6 +582,9 @@ function _appendSettings(req, res, next) {
       scriptParams: {
         moderatorCanPublish: {
           $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes('moderators')
+        },
+        googleAnalyticsID: {
+          $set: agenda?.settings?.tracking?.googleAnalytics
         }
       },
       mailto: {
@@ -594,8 +597,6 @@ function _appendSettings(req, res, next) {
         $set: !!agenda?.settings?.lab?.status
       }
     });
-
-    cmn.addTrackingScripts(req, agendas);
 
     next();
   });

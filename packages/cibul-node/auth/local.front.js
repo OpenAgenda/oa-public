@@ -35,8 +35,7 @@ const useOptions = {
 
 const preMw = [
   cmn.https,
-  cmn.loadBaseData(auth.layoutData, 'oasfmain.css'),
-  cmn.addTrackingScripts.mw
+  cmn.loadBaseData(auth.layoutData, 'oasfmain.css')
 ];
 
 const renderManualPage = (
