@@ -3,7 +3,6 @@ import { IntlProvider } from 'react-intl';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { renderRoutes } from 'react-router-config';
-import { hot } from 'react-hot-loader/root';
 import locales from '../locales-compiled';
 
 function App({ route }) {
@@ -30,4 +29,4 @@ function App({ route }) {
   );
 }
 
-export default hot(App);
+export default App;

@@ -3,4 +3,8 @@ module.exports = {
     '../stories/**/*.stories.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
+  reactOptions: {
+    fastRefresh: true,
+    strictMode: true,
+  },
 };

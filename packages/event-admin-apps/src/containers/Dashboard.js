@@ -8,7 +8,6 @@ import React, {
   useLayoutEffect,
   useEffect,
 } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
@@ -895,4 +894,4 @@ function Dashboard() {
   );
 }
 
-export default hot(Dashboard);
+export default Dashboard;

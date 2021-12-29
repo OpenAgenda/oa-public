@@ -1,7 +1,6 @@
 import React, {
   useCallback, useContext, useMemo, useRef
 } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
@@ -175,4 +174,4 @@ function Agendas() {
   );
 }
 
-export default hot(Agendas);
+export default Agendas;

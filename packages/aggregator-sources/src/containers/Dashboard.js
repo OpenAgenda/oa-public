@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { useHistory, useParams } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -484,4 +483,4 @@ function Dashboard() {
   );
 }
 
-export default hot(Dashboard);
+export default Dashboard;

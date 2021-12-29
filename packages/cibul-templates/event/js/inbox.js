@@ -4,12 +4,6 @@ import ReactDOM from 'react-dom';
 import createApp from '@openagenda/inbox-apps/dist/app';
 import { wrapApp } from '@openagenda/react-shared';
 import du from '@openagenda/dom-utils';
-import * as RHL from 'react-hot-loader';
-
-if (!module.hot) {
-  RHL.AppContainer.warnAboutHMRDisabled = false;
-  RHL.hot.shouldWrapWithAppContainer = false;
-}
 
 const defaults = {
   initialState: {
