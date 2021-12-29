@@ -94,6 +94,7 @@
     "raw-loader": "^4.0.0",
     "rc-switch": "^1.4.3",
     "react": "^16.13.1",
+    "react-cookie-consent": "^7.2.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.20",

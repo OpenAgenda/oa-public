@@ -38,7 +38,8 @@
       "slug": "chez-nous",
       "languages": ["fr", "en", "de", "nl"],
       "apiRoot": "https://dapi.openagenda.com",
-      "root": "https://localhost:3000"
+      "root": "https://localhost:3000",
+      "googleAnalyticsID": "UA-10998083-13"
     },
     
     "pager" : {

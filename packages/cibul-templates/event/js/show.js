@@ -2,6 +2,10 @@
 
 import displayShareButtons from './displayShareButtons';
 import displayContributorSection from './displayContributorSection';
+import trackConsent from '../../agenda/js/trackConsent';
+import addGoogleAnalyticsTracker from '../../agenda/js/addGoogleAnalyticsTracker';
+
+const debug = require('debug');
 
 const  eventMap = require('./map');
 
@@ -23,7 +27,6 @@ const hours = require('./hours');
 
 const permalink = require('./permalink');
 
-const debug = require('debug');
 
 let log;
 
@@ -85,6 +88,13 @@ window.asap(options => {
   displayReferences(params.agendaUid, params.uid);
 
   permalink();
+
+  trackConsent(options, {
+    onConsentConfirmed: () => addGoogleAnalyticsTracker({
+      agendaUID: params.agendaUid,
+      googleAnalyticsID: params.googleAnalyticsID
+    })
+  });
 
   get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}/context`, (err, res) => {
     if (!res) return;
