@@ -3,7 +3,6 @@ import '@openagenda/polyfills/dom';
 import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
-import 'react-refresh/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient } from 'react-query';
