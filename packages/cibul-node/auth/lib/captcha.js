@@ -16,14 +16,19 @@ const renderSignup = render('auth/signup', {
 });
 
 function load(req, res, next) {
-  if (config.reCaptcha.enabled) {
+  if (config.mtCaptcha.enabled) {
     if (!req.baseData) req.baseData = {};
 
     _.merge(req.baseData, {
       head: {
         js: {
-          captcha: {
-            src: `https://www.google.com/recaptcha/api.js?onload=onloadCaptchaCallback&render=${config.reCaptcha.v3.key}&hl=${req.lang}`,
+          mtCaptcha: {
+            src: `https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js`,
+            async: true,
+            defer: true,
+          },
+          mtCaptcha2: {
+            src: `https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js`,
             async: true,
             defer: true,
           },
@@ -32,7 +37,14 @@ function load(req, res, next) {
       bottom: {
         scripts: [
           ...(_.get(req.baseData, 'bottom.scripts') || []),
-          `var onSuccessRecaptcha = function(response) {
+          `var mtcaptchaConfig = {
+            "sitekey": "${config.mtCaptcha.siteKey}",
+            "renderQueue": ["mtcaptcha-local", "mtcaptcha-fb", "mtcaptcha-twitter", "mtcaptcha-google"],
+            "autoFormValidate": true,
+            "lang": "${req.lang}"
+          };
+          
+          var onSuccessRecaptcha = function(response) {
             var errorDivs = document.getElementsByClassName('recaptcha-error');
             if (errorDivs.length) {
               errorDivs[0].className = '';
@@ -43,19 +55,19 @@ function load(req, res, next) {
             }
             document.getElementById('signup-form').submit();
           }
-          
+
           var onFacebookSubmit = function(token) {
             document.getElementById('signup-facebook').submit();
           }
-          
+
           var onTwitterSubmit = function(token) {
             document.getElementById('signup-twitter').submit();
           }
-          
+
           var onGoogleSubmit = function(token) {
             document.getElementById('signup-google').submit();
           }
-          
+
           var onloadCaptchaCallback = function() {
             grecaptcha.render('signup-recaptcha', {
               'sitekey': '${config.reCaptcha.v2.key}'
@@ -75,6 +87,8 @@ function load(req, res, next) {
           }`,
         ],
       },
+      mtCaptchaEnabled: config.mtCaptcha.enabled,
+      // TODO remove
       reCaptchaEnabled: config.reCaptcha.enabled,
       reCaptchaV3Key: config.reCaptcha.v3.key,
       reCaptchaV2Key: config.reCaptcha.v2.key,

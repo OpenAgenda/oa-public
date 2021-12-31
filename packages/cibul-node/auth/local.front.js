@@ -264,10 +264,6 @@ function signupSubmit(req, res) {
         if (user) {
           log('created user');
           values.user = user;
-
-          saveRecaptchaScore(users, user.uid, values.reCaptchaScore).catch(error => {
-            log.error('Error while saving reCaptcha score:', error);
-          });
         }
       } catch (err) {
         log('error', err);
@@ -566,54 +562,37 @@ function _passwordMatchCheck(values) {
 async function _captchaCheck(values) {
   if (!config.reCaptcha.enabled) return values;
 
+  const captchaToken = values.req.body['mtcaptcha-verifiedtoken'];
+
+  if (!captchaToken) {
+    throw new Error('MissingCaptcha');
+  }
+
+  const { verifyUrl, privateKey } = config.mtCaptcha;
+  const remoteIp = values.req.header('x-forwarded-for');
+  let result;
+
   try {
-    if (!values.req.body['g-recaptcha-response']) {
-      throw new Error('MissingCaptcha');
-    }
-
-    const [
-      responseV2,
-      responseV3
-    ] = values.req.body['g-recaptcha-response'];
-    const remoteIp = values.req.header('x-forwarded-for');
-    const verifyBaseUrl = config.reCaptcha.verify;
-    const secretV2 = config.reCaptcha.v2.secret;
-    const secretV3 = config.reCaptcha.v3.secret;
-
-    const verifyV2Url = `${verifyBaseUrl}?secret=${secretV2}&response=${responseV2}&remoteip=${remoteIp}`;
-    const verifyV3Url = `${verifyBaseUrl}?secret=${secretV3}&response=${responseV3}&remoteip=${remoteIp}`;
-
-    const [
-      resultV2,
-      resultV3
-    ] = await Promise.all([
-      axios.get(verifyV2Url),
-      axios.get(verifyV3Url)
-    ]);
-
-    if (!resultV2.data.success || !resultV3.data.success) {
-      throw new Error('BadCaptcha');
-    }
-
-    values.reCaptchaScore = resultV3.data.score;
-
-    if (resultV3.data.score < 0.5) {
-      throw new Error('BadCaptchaScore');
-    }
-  } catch (err) {
+    result = await axios.get(`${verifyUrl}?privatekey=${privateKey}&token=${captchaToken}`);
+  } catch (e) {
+    log.error('Error with the mtCaptcha service', e);
     values.data.errors = {
+      ...values.data.errors,
       captcha: 'captchaTryAgain',
     };
+    return values;
+  }
+
+  if (!result.data.success) {
+    throw new Error('BadCaptcha');
+  }
+
+  const { tokenInfo } = result.data;
+
+  // Don't check ip on a local server
+  if (!tokenInfo.isDevHost && tokenInfo.ip !== remoteIp) {
+    throw new Error('BadIP');
   }
 
   return values;
-}
-
-async function saveRecaptchaScore(usersSvc, uid, score) {
-  const rawUser = await usersSvc._get(uid, { query: { $select: ['store'] } });
-
-  const store = rawUser.store ? JSON.parse(rawUser.store) : {};
-  store.registrationCaptchaScore = score;
-
-  await usersSvc._patch(uid, { store: JSON.stringify(store) }, { query: { $select: ['store'] } });
 }

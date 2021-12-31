@@ -140,6 +140,12 @@ const config = {
         secret: prod.reCaptcha.v2Invisible.secret
       } : null
     },
+    mtCaptcha: {
+      enabled: !!prod.mtCaptcha,
+      verifyUrl: prod.mtCaptcha?.verifyUrl,
+      siteKey: prod.mtCaptcha?.siteKey,
+      privateKey: prod.mtCaptcha?.privateKey,
+    },
     auth: {
       facebook: prod.facebook && {
         id: prod.facebook.appId,
