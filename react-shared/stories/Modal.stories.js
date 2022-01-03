@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from '../src/components/Modal';
 import AdminCanvas from './decorators/AdminCanvas';
 
+// eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';
 
 export default {
