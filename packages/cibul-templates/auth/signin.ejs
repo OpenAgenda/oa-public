@@ -5,20 +5,22 @@
   <div class="top-margined bottom-margined">
     <% include _headMessage.ejs %>
     <div class="row">
-      <section class="col-sm-6 col-sm-offset-3 wsq padding-all-md">
+      <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md">
         <div class="row">
           <div class="col-sm-12">
-            <h2><%= __( 'connection' ) %></h2>
-            <% if ( typeof message !== 'undefined' || typeof errors.email !== 'undefined' || typeof errors.password !== 'undefined' ) { %>
-            <p class="bg-danger padding-all-sm"><%- __( 'incorrectPassword' ) %> - <a href="<%- genUrl( 'lostPassword' ) %>"><%= __( 'resetPassword' ) %></a></p>
-            </p>
-            <% } %>
+            <div class="margin-h-sm">
+              <h2><%= __( 'connection' ) %></h2>
+              <% if ( typeof message !== 'undefined' || typeof errors.email !== 'undefined' || typeof errors.password !== 'undefined' ) { %>
+                <p class="bg-danger padding-all-sm"><%- __( 'incorrectPassword' ) %> - <a href="<%- genUrl( 'lostPassword' ) %>"><%= __( 'resetPassword' ) %></a></p>
+                </p>
+              <% } %>
+            </div>
           </div>
         </div>
 
         <div class="row margin-top-md">
-          <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
-            <form class="margin-h-sm" method="post">
+          <div class="col-sm-<%= enabledServices.length ? 6 : 12 %>">
+            <form class="margin-h-md" method="post">
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
                 <label for="email" class="control-label"><%= __('email') %></label>
                 <input name="email" class="form-control" type="email" value="<%= email %>"/>
@@ -39,42 +41,44 @@
             </form>
           </div>
           <% if ( enabledServices.length ) { %>
-          <div class="col-md-6">
-            <% if ( enabledServices.includes( 'facebook' ) ) { %>
-            <div class="margin-bottom-md">
-              <a
-                href="<%= genUrl( agenda ? 'agendaFacebookSignin' : 'facebookSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
-                class="btn btn-facebook btn-block">
-                <i class="fa fa-facebook"></i>
-                Facebook
-              </a>
+          <div class="col-sm-6">
+            <div class="margin-all-md">
+              <% if ( enabledServices.includes( 'facebook' ) ) { %>
+                <div class="margin-bottom-md">
+                  <a
+                    href="<%= genUrl( agenda ? 'agendaFacebookSignin' : 'facebookSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
+                    class="btn btn-facebook btn-block">
+                    <i class="fa fa-facebook"></i>
+                    Facebook
+                  </a>
+                </div>
+              <% } %>
+              <% if ( enabledServices.includes( 'google' ) ) { %>
+                <div class="margin-bottom-md">
+                  <a
+                    href="<%= genUrl( agenda ? 'agendaGoogleSignin' : 'googleSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
+                    class="btn btn-google btn-block">
+                    <i class="fa fa-google"></i>
+                    Google
+                  </a>
+                </div>
+              <% } %>
+              <% if ( enabledServices.includes( 'twitter' ) ) { %>
+                <div>
+                  <a
+                    href="<%= genUrl( agenda ? 'agendaTwitterSignin' : 'twitterSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
+                    class="btn btn-twitter btn-block">
+                    <i class="fa fa-twitter"></i>
+                    Twitter
+                  </a>
+                </div>
+              <% } %>
             </div>
-            <% } %>
-            <% if ( enabledServices.includes( 'google' ) ) { %>
-            <div class="margin-bottom-md">
-              <a
-                href="<%= genUrl( agenda ? 'agendaGoogleSignin' : 'googleSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
-                class="btn btn-google btn-block">
-                <i class="fa fa-google"></i>
-                Google
-              </a>
-            </div>
-            <% } %>
-            <% if ( enabledServices.includes( 'twitter' ) ) { %>
-            <div>
-              <a
-                href="<%= genUrl( agenda ? 'agendaTwitterSignin' : 'twitterSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
-                class="btn btn-twitter btn-block">
-                <i class="fa fa-twitter"></i>
-                Twitter
-              </a>
-            </div>
-            <% } %>
           </div>
           <% } %>
         </div>
         <div class="row">
-          <div class="col-sm-12 margin-v-md">
+          <div class="col-sm-12 margin-all-md">
             <p><%= __( 'noAccount' ) %> <a href="<%= signup %>"><%= __('createAccount') %></a></p>
             <p><a href="<%= genUrl( 'lostPassword' ) %>"><%= __( 'lostPassword' ) %></a></p>
           </div>

@@ -560,7 +560,7 @@ function _passwordMatchCheck(values) {
 }
 
 async function _captchaCheck(values) {
-  if (!config.reCaptcha.enabled) return values;
+  if (!config.mtCaptcha.enabled) return values;
 
   const captchaToken = values.req.body['mtcaptcha-verifiedtoken'];
 
@@ -584,14 +584,22 @@ async function _captchaCheck(values) {
   }
 
   if (!result.data.success) {
-    throw new Error('BadCaptcha');
+    values.data.errors = {
+      ...values.data.errors,
+      captcha: 'captchaTryAgain',
+    };
+    return values;
   }
 
   const { tokenInfo } = result.data;
 
   // Don't check ip on a local server
   if (!tokenInfo.isDevHost && tokenInfo.ip !== remoteIp) {
-    throw new Error('BadIP');
+    values.data.errors = {
+      ...values.data.errors,
+      captcha: 'captchaTryAgain',
+    };
+    return values;
   }
 
   return values;
