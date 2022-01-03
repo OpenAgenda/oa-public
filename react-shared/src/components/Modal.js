@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as bodyScroll from './body-scroll';
+import ClickListener from './lib/ClickListener';
 
 export default class Modal extends Component {
   static propTypes = {
@@ -29,42 +30,33 @@ export default class Modal extends Component {
 
   componentDidUpdate = () => {
     if (this.props.visible) {
-      this.addEvents();
-
       if (this.props.disableBodyScroll) {
         bodyScroll.disable();
       }
-    } else {
-      this.removeEvents();
+      return;
+    }
 
-      if (this.props.disableBodyScroll) {
-        bodyScroll.enable();
-      }
+    if (this.props.disableBodyScroll) {
+      bodyScroll.enable();
     }
   };
 
-  addEvents = () => {
-    document.addEventListener('keydown', this.handleEsc);
-    document.addEventListener('click', this.handleOutsideClick);
-  };
-
-  removeEvents = () => {
-    document.removeEventListener('keydown', this.handleEsc);
-    document.removeEventListener('click', this.handleOutsideClick);
-  };
-
   componentDidMount = () => {
-    if (this.props.visible) {
-      this.addEvents();
+    if (!this.props.visible) {
+      return;
+    }
 
-      if (this.props.disableBodyScroll) {
-        bodyScroll.disable();
-      }
+    this.clickListener = ClickListener(this.ref.current, {
+      onOutsideClick: () => this.handleClose()
+    });
+
+    if (this.props.disableBodyScroll) {
+      bodyScroll.disable();
     }
   };
 
   componentWillUnmount = () => {
-    this.removeEvents();
+    this.clickListener.shutdown();
 
     if (this.props.disableBodyScroll) {
       bodyScroll.enable();
@@ -72,16 +64,12 @@ export default class Modal extends Component {
   };
 
   handleClose = () => {
-    const { onClose } = this.props;
+    const { onClose, visible } = this.props;
 
-    if (onClose) {
+    if (onClose && visible) {
       onClose();
     }
   };
-
-  handleOutsideClick = e => {
-    if (this.ref.current && !this.ref.current.contains(e.target)) this.handleClose();
-  }
 
   handleEsc = event => {
     if (event.key === 'Escape') this.handleClose();
