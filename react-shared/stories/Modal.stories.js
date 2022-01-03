@@ -78,3 +78,41 @@ export const NoHeader = () => {
     </>
   );
 };
+
+export const WithComponentsWithButtons = () => {
+  const [componentIndex, setComponentIndex] = useState(0);
+  const [display, setDisplay] = useState(true);
+  const closeModal = () => {
+    setDisplay(false);
+    setComponentIndex(0);
+  };
+
+  const FirstComponent = () => (
+    <div>
+      <p>This is the first component</p>
+      <button type="button" className="btn btn-primary" onClick={() => setComponentIndex(1)}>Go to the second component</button>
+    </div>
+  );
+
+  const SecondComponent = () => (
+    <div>
+      <p>This is the second component</p>
+      <p>Modal should not have closed when user clicked on first component button</p>
+      <button type="button" className="btn btn-primary" onClick={() => { closeModal(); }}>Close modal</button>
+    </div>
+  );
+
+  return (
+    <>
+      <p>Unsollicited modal close should not happend in the middle of content lifecycle</p>
+      <button className="btn btn-primary" type="button" onClick={() => setDisplay(true)}>
+        <span>&nbsp; Open</span>
+      </button>
+      {display ? (
+        <Modal title="Modal" onClose={closeModal} classNames={{ overlay: 'popup-overlay' }} disableBodyScroll>
+          {componentIndex === 0 ? <FirstComponent /> : <SecondComponent />}
+        </Modal>
+      ) : null}
+    </>
+  );
+};
