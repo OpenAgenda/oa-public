@@ -591,7 +591,7 @@ async function _captchaCheck(values) {
     return values;
   }
 
-  const { tokenInfo } = result.data;
+  const { tokeninfo: tokenInfo } = result.data;
 
   // Don't check ip on a local server
   if (!tokenInfo.isDevHost && tokenInfo.ip !== remoteIp) {
