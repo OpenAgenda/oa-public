@@ -775,7 +775,9 @@ describe('02 - event search - functional: Applied search', function() {
             agenda: {
               uid: 94573624,
               title: 'Rocher de Palmer',
-              image: 'agenda94573624.jpg'
+              image: 'agenda94573624.jpg',
+              slug: "rocher-de-palmer",
+              url: 'https://lerocherdepalmer.fr/'
             }
           });
         });

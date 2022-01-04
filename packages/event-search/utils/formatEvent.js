@@ -88,7 +88,7 @@ module.exports = produce((event, options = {}) => {
   }
 
   if (event.originAgenda) {
-    event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image'])
+    event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image', 'url', 'slug']);
   }
   if (event.sourceAgendas) {
     event.sourceAgendas.forEach(sourceAgenda => {
