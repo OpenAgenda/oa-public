@@ -1,0 +1,219 @@
+{
+  "title": "Métropole Européenne de Lille",
+  "description": "Agenda de la Métropole Européenne de Lille",
+  "slug": "metropole-europeenne-de-lille",
+  "url": "https://www.lillemetropole.fr/",
+  "tagSet": {
+    "groups": [
+      {
+        "name": "Catégories Métropolitaines",
+        "tags": [
+          {
+            "id": 15797,
+            "label": "Atelier",
+            "slug": "atelier",
+            "schemaOptionId": "41.3"
+          },
+          {
+            "id": 15798,
+            "label": "Braderie - Brocante",
+            "slug": "braderie-brocante",
+            "schemaOptionId": "41.4"
+          },
+          {
+            "id": 15799,
+            "label": "Cérémonie",
+            "slug": "ceremonie",
+            "schemaOptionId": "41.5"
+          },
+          {
+            "id": 15800,
+            "label": "Cinéma",
+            "slug": "cinema",
+            "schemaOptionId": "41.6"
+          },
+          {
+            "id": 15801,
+            "label": "Conférence - Rencontre",
+            "slug": "conference-rencontre",
+            "schemaOptionId": "41.7"
+          },
+          {
+            "id": 63974,
+            "label": "Conseil Municipal",
+            "slug": "conseil-municipal",
+            "schemaOptionId": "41.8"
+          },
+          {
+            "id": 15803,
+            "label": "Danse",
+            "slug": "danse",
+            "schemaOptionId": "41.9"
+          },
+          {
+            "id": 15805,
+            "label": "Développement durable",
+            "slug": "developpement-durable",
+            "schemaOptionId": "41.10"
+          },
+          {
+            "id": 15806,
+            "label": "Emploi",
+            "slug": "emploi",
+            "schemaOptionId": "41.11"
+          },
+          {
+            "id": 15807,
+            "label": "Exposition",
+            "slug": "exposition",
+            "schemaOptionId": "41.12"
+          },
+          {
+            "id": 15808,
+            "label": "Fête - Festival",
+            "slug": "fete-festival",
+            "schemaOptionId": "41.13"
+          },
+          {
+            "id": 15809,
+            "label": "Formation",
+            "slug": "formation",
+            "schemaOptionId": "41.14"
+          },
+          {
+            "id": 15810,
+            "label": "Lecture",
+            "slug": "lecture",
+            "schemaOptionId": "41.15"
+          },
+          {
+            "id": 15811,
+            "label": "Mode",
+            "slug": "mode",
+            "schemaOptionId": "41.16"
+          },
+          {
+            "id": 15812,
+            "label": "Musique",
+            "slug": "musique",
+            "schemaOptionId": "41.17"
+          },
+          {
+            "id": 15813,
+            "label": "Réunion publique",
+            "slug": "reunion-publique",
+            "schemaOptionId": "41.18"
+          },
+          {
+            "id": 15814,
+            "label": "Santé",
+            "slug": "sante",
+            "schemaOptionId": "41.19"
+          },
+          {
+            "id": 15815,
+            "label": "Spectacle",
+            "slug": "spectacle",
+            "schemaOptionId": "41.20"
+          },
+          {
+            "id": 15816,
+            "label": "Sport",
+            "slug": "sport",
+            "schemaOptionId": "41.21"
+          },
+          {
+            "id": 15817,
+            "label": "Théâtre",
+            "slug": "theatre",
+            "schemaOptionId": "41.22"
+          },
+          {
+            "id": 15818,
+            "label": "Visite - Balade",
+            "slug": "visite-balade",
+            "schemaOptionId": "41.23"
+          },
+          {
+            "id": 75989,
+            "label": "Aucune catégorie",
+            "slug": "aucune",
+            "schemaOptionId": "41.28"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": false
+      },
+      {
+        "name": "Label",
+        "tags": [
+          {
+            "id": 23971,
+            "label": "50 ans de la MEL",
+            "slug": "50-ans-de-la-mel",
+            "schemaOptionId": "41.24"
+          },
+          {
+            "id": 23972,
+            "label": "Design",
+            "slug": "design",
+            "schemaOptionId": "41.25"
+          },
+          {
+            "id": 23973,
+            "label": "Grand Barouf",
+            "slug": "grand-barouf",
+            "schemaOptionId": "41.26"
+          },
+          {
+            "id": 75990,
+            "label": "Journées Européennes du Patrimoine",
+            "slug": "journees-europeennes-du-patrimoine",
+            "schemaOptionId": "41.27"
+          },
+          {
+            "id": 80529,
+            "label": "Nuit des bibliothèques 2020",
+            "slug": "nuit-des-bibliotheques-2020",
+            "schemaOptionId": "41.29"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      }
+    ]
+  },
+  "categorySet": {
+    "name": null,
+    "info": null,
+    "categories": [],
+    "required": false
+  },
+  "customSet": [
+    {
+      "name": "interetintercommunal",
+      "fieldType": "checkbox",
+      "type": "public",
+      "optional": true,
+      "label": {
+        "fr": "Événement d'intérêt intercommunal",
+        "en": "Événement d'intérêt intercommunal"
+      }
+    },
+    {
+      "name": "recurringevent",
+      "fieldType": "checkbox",
+      "type": "public",
+      "optional": true,
+      "label": {
+        "fr": "Événement récurrent",
+        "en": "Événement récurrent"
+      }
+    }
+  ],
+  "embeds": [
+    87998200
+  ]
+}
