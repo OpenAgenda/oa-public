@@ -593,7 +593,7 @@ async function _captchaCheck(values) {
 
   const { tokeninfo: tokenInfo } = result.data;
 
-  log.info('mtCaptcha check ip:', tokenInfo.ip, remoteIp);
+  log.info('mtCaptcha check ip:', tokenInfo.ip, values.req.ip);
 
   // Don't check ip on a local server
   // if (!tokenInfo.isDevHost && tokenInfo.ip !== remoteIp) {
