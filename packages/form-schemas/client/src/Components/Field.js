@@ -25,6 +25,7 @@ import ImageField from './ImageField';
 const flattenFieldLabels = require('../lib/flatten');
 const isFieldEnabled = require('../lib/isFieldEnabled');
 const isFieldOptional = require('../lib/isFieldOptional');
+const hasHelp = require('../lib/hasHelp');
 
 const FieldComponents = {
   multilingual: MultilingualField,
@@ -50,9 +51,6 @@ const FieldComponents = {
 
 const log = debug('Field');
 
-function hasHelp(field) {
-  return field.help || field.helpLink || field.helpContent;
-}
 export default class Field extends Component {
   getFieldComponent(isMultilingual) {
     const {
@@ -102,7 +100,7 @@ export default class Field extends Component {
       && !['integer', 'number'].includes(field.fieldType);
 
     // field is decorated with labels
-    const decorated = !['boolean'].includes(field.fieldType);
+    const decoratedByFieldComponent = ['boolean'].includes(field.fieldType);
 
     const FieldComponent = this.getFieldComponent(isMultilingual);
 
@@ -125,7 +123,7 @@ export default class Field extends Component {
         })}
         key={field.field}
       >
-        {decorated && field.label ? (
+        {!decoratedByFieldComponent && field.label ? (
           <label
             htmlFor={field.field}
             className={classNames({
@@ -136,7 +134,7 @@ export default class Field extends Component {
             {field.label}
           </label>
         ) : null}
-        {!decorated || isOptional ? '' : (
+        {!decoratedByFieldComponent && !isOptional ? (
           <span
             className={classNames({
               'margin-right-xs': hasHelp(field),
@@ -145,8 +143,8 @@ export default class Field extends Component {
           >
             {`(${labels.required})`}
           </span>
-        )}
-        {hasHelp(field) ? (
+        ) : ''}
+        {!decoratedByFieldComponent && hasHelp(field) ? (
           <Help
             id={`help-${field.field}`}
             label={field.help}
@@ -155,7 +153,7 @@ export default class Field extends Component {
             content={field.helpContent}
           />
         ) : null}
-        {decorated ? <Info value={field.info} /> : null}
+        {!decoratedByFieldComponent ? <Info value={field.info} /> : null }
         <FieldComponent
           enabled={isEnabled}
           lang={lang}
@@ -164,9 +162,10 @@ export default class Field extends Component {
           error={error}
           onChange={onChange}
           relatedValues={relatedValues}
+          labels={labels}
         />
         {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null }
-        {!isMultilingual ? <Sub label={field.sub} error={error} /> : null}
+        {!isMultilingual && !decoratedByFieldComponent ? <Sub label={field.sub} error={error} /> : null}
       </div>
     );
   }
