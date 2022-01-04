@@ -33,8 +33,18 @@ export default class Modal extends Component {
       if (this.props.disableBodyScroll) {
         bodyScroll.disable();
       }
+
+      if (!this.clickListener) {
+        this.clickListener = ClickListener(this.ref.current, {
+          onOutsideClick: () => this.handleClose()
+        });
+      }
+
       return;
     }
+
+    this.clickListener.shutdown();
+    this.clickListener = null;
 
     if (this.props.disableBodyScroll) {
       bodyScroll.enable();
@@ -56,7 +66,9 @@ export default class Modal extends Component {
   };
 
   componentWillUnmount = () => {
-    this.clickListener.shutdown();
+    if (this.clickListener) {
+      this.clickListener.shutdown();
+    }
 
     if (this.props.disableBodyScroll) {
       bodyScroll.enable();
