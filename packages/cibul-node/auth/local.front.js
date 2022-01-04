@@ -593,14 +593,16 @@ async function _captchaCheck(values) {
 
   const { tokeninfo: tokenInfo } = result.data;
 
+  log.info('mtCaptcha check ip:', tokenInfo.ip, remoteIp);
+
   // Don't check ip on a local server
-  if (!tokenInfo.isDevHost && tokenInfo.ip !== remoteIp) {
-    values.data.errors = {
-      ...values.data.errors,
-      captcha: 'captchaTryAgain',
-    };
-    return values;
-  }
+  // if (!tokenInfo.isDevHost && tokenInfo.ip !== remoteIp) {
+  //   values.data.errors = {
+  //     ...values.data.errors,
+  //     captcha: 'captchaTryAgain',
+  //   };
+  //   return values;
+  // }
 
   return values;
 }
