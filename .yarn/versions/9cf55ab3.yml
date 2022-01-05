@@ -1,6 +1,0 @@
-releases:
-  "@openagenda/agenda-portal": minor
-  "@openagenda/react-filters": minor
-
-undecided:
-  - oa
