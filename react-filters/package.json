@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-filters",
-  "version": "2.4.3",
+  "version": "2.5.0",
   "main": "lib/index.js",
   "jsnext:main": "esm/index.js",
   "module": "esm/index.js",
