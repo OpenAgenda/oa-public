@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useQuery } from 'react-query';
-import { Portal } from '@stefanoruth/react-portal-ssr';
+import { Portal } from '@openagenda/react-portal-ssr';
 import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
 import { getEvents } from '../api';

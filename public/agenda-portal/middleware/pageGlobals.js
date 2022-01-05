@@ -31,6 +31,7 @@ function middleware(options, req, res, next) {
   }
 
   if (process.env.NODE_ENV === 'development') {
+    bottomScripts.push(`${req.app.locals.assetsRoot}/dev.js`);
     bottomScripts.push(process.env.BROWSER_REFRESH_URL);
   }
 

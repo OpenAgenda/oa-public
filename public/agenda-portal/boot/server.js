@@ -3,8 +3,6 @@
 // const log = require('../lib/Log')('server');
 
 // Set options as a parameter, environment variable, or rc file.
-// eslint-disable-next-line no-global-assign
-require = require('esm')(module /* , options */);
 
 const Portal = require('..');
 
@@ -15,8 +13,8 @@ function eventHook(event /* { lang, agenda, root } */) {
 }
 
 Portal({
-  root:
-    process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
+  root: process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
+  devServerPort: process.env.PORTAL_DEV_SERVER_PORT || 3001,
   // agenda uid
   uid: process.env.PORTAL_AGENDA_UID,
   // site language
@@ -27,7 +25,7 @@ Portal({
   key: process.env.PORTAL_KEY,
   // views folder
   views: `${__dirname}/views`,
-  // sass folder
+  // main sass file
   sass: `${__dirname}/sass/main.scss`,
   // assets folder
   assets: `${__dirname}/assets`,
