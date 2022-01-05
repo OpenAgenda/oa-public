@@ -1,5 +1,6 @@
 'use strict';
 
+const sass = require('sass');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const mode = process.env.NODE_ENV || 'production';
@@ -30,7 +31,12 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           require.resolve('css-loader'),
-          require.resolve('sass-loader')
+          {
+            loader: require.resolve('sass-loader'),
+            options: {
+              implementation: sass
+            }
+          }
         ]
       }
     ]

@@ -51,6 +51,11 @@ module.exports = async (preloaded = {}) => {
     env.PORTAL_IFRAME_PARENT_URL = preloaded.PORTAL_IFRAME_PARENT_URL || 'http://dev.local';
   }
 
+  env.PORTAL_VIEWS_FOLDER = preloaded.PORTAL_VIEWS_FOLDER || './views';
+  env.PORTAL_SASS_PATH = preloaded.PORTAL_SASS_PATH || './sass/main.scss';
+  env.PORTAL_ASSETS_FOLDER = preloaded.PORTAL_ASSETS_FOLDER || './assets';
+  env.PORTAL_I18N_FOLDER = preloaded.PORTAL_I18N_FOLDER || './i18n';
+
   await ncp(`${__dirname}/../../boot`, cwd);
 
   fs.writeFileSync(
