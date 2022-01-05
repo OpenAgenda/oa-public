@@ -569,7 +569,6 @@ async function _captchaCheck(values) {
   }
 
   const { verifyUrl, privateKey } = config.mtCaptcha;
-  const remoteIp = values.req.header('x-forwarded-for');
   let result;
 
   try {
