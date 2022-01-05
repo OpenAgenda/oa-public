@@ -94,7 +94,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **lang**: Optional. Main portal language
  * **map**: map filter widget settings ( tiles, default center ... )
  * **root**: Required. website root. Used in production
- * **sass**: path to the sass folder
+ * **sass**: main sass file path
  * **uid**: Required. UID of the agenda
  * **views**: Required. Path to the handlebar views folder
  * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
