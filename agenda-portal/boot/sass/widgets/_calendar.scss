@@ -28,7 +28,7 @@
       line-height: 25px;
       text-align: center;
       transition: color 0.1s;
-      width: 1 / 7 * 100%;
+      width: calc(1 / 7) * 100%;
 
       &:hover {
         color: $oa-blue;
