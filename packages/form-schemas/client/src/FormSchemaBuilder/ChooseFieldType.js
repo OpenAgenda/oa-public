@@ -6,9 +6,9 @@ import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import FormSchemaComponent from '..';
 import labels from './lib/labels';
 
-const getLabel = makeLabelGetter( labels );
+const getLabel = makeLabelGetter(labels);
 
-const fieldTypeChoices = [ {
+const fieldTypeChoices = [{
   id: 1,
   value: 'text',
   label: labels.textFieldType
@@ -66,49 +66,63 @@ const fieldTypeChoices = [ {
 }];
 
 export default class ChooseFieldType extends Component {
-
-  onFieldTypeChange( { values } ) {
-
-    this.setState( values );
-
+  onFieldTypeChange({ values }) {
+    this.setState(values);
   }
 
   onFieldTypeSelect() {
+    const {
+      onChooseType
+    } = this.props;
 
-    const fieldType = _.get( this, 'state.fieldType', 1 );
+    const fieldType = _.get(this, 'state.fieldType', 1);
 
-    this.props.onChooseType( _.get( _.find(
+    onChooseType(_.get(_.find(
       fieldTypeChoices,
       choice => choice.id === fieldType
-    ), 'value', null ) );
-
+    ), 'value', null));
   }
 
   render() {
+    const { lang, onCancel } = this.props;
 
-    const { lang } = this.props;
-
-    return <FormSchemaComponent
-        stateless={true}
-        values={{ fieldType: _.get( this, 'state.fieldType', 1 ) }}
-        onChange={this.onFieldTypeChange.bind( this )}
-        schema={{ fields:[ {
-          field: 'fieldType',
-          fieldType: 'radio',
-          label: getLabel( 'chooseFieldType', lang ),
-          default: 1,
-          optional: false,
-          options: fieldTypeChoices
-        } ]}}
-        actionComponents={[ {
+    return (
+      <FormSchemaComponent
+        stateless
+        values={{ fieldType: _.get(this, 'state.fieldType', 1) }}
+        onChange={({ values }) => this.onFieldTypeChange({ values })}
+        schema={{
+          fields: [{
+            field: 'fieldType',
+            fieldType: 'radio',
+            label: getLabel('chooseFieldType', lang),
+            default: 1,
+            optional: false,
+            options: fieldTypeChoices
+          }]
+        }}
+        actionComponents={[{
           position: 'bottom',
-          Component: ( { onSubmit } ) => <div>
-            <button onClick={this.props.onCancel} className="btn btn-default">{getLabel( 'cancelFieldEdit', lang )}</button>
-            <button onClick={this.onFieldTypeSelect.bind( this )} className="btn btn-primary pull-right">{getLabel( 'confirmFieldType', lang )}</button>
-          </div>
-        } ]}
+          Component: () => (
+            <div>
+              <button
+                type="button"
+                onClick={onCancel}
+                className="btn btn-default"
+              >
+                {getLabel('cancelFieldEdit', lang)}
+              </button>
+              <button
+                type="button"
+                onClick={() => this.onFieldTypeSelect()}
+                className="btn btn-primary pull-right"
+              >
+                {getLabel('confirmFieldType', lang)}
+              </button>
+            </div>
+          )
+        }]}
       />
-
+    );
   }
-
 }

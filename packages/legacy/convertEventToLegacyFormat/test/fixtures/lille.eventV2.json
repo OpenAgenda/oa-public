@@ -1,0 +1,202 @@
+{
+  "longDescription": {
+    "fr": "**Viens découvrir plusieurs dessins animés, avant de prendre un petit goûter à la médiathèque ! Gratuit sur réservation.**  \n**Mercredi 29 septembre (2 à 5 ans)**\n\n*   Mon tout petit ciné à 14h et à 15h30 - Durée : 45 minutes\n\n**Mercredi 27 octobre (dès 4 ans)**\n\n*   Une vie de chien à 14h30 - Durée : 1h20\n\n**Mercredi 15 décembre (dès 6 ans)**\n\n*   Suivez les aventures d’un ourson ! à 14h30 - Durée 1h30\n\n_Réservation conseillée au 03 20 61 73 00_"
+  },
+  "country": {
+    "de": "Frankreich (Metropolitan)",
+    "code": "FR",
+    "en": "France (Metropolitan)",
+    "it": "Francia (continente)",
+    "fr": "France (Métropole)",
+    "es": "Francia (Metropolitana)"
+  },
+  "interetintercommunal": [
+    1,
+    1
+  ],
+  "featured": false,
+  "private": 0,
+  "keywords": {},
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "٢٩ سبتمبر - ١٥ ديسمبر, في الأربعاء",
+    "de": "29 September - 15 Dezember, am mittwoch",
+    "en": "29 September - 15 December, on wednesdays",
+    "fr": "29 septembre - 15 décembre, les mercredis",
+    "es": "29 September - 15 December, on wednesdays"
+  },
+  "timezone": "Europe/Paris",
+  "originAgenda": {
+    "uid": 85102262,
+    "image": "agenda85102262.jpg",
+    "title": "Médiathèque de Villeneuve d'Ascq"
+  },
+  "description": {
+    "fr": "Viens découvrir plusieurs dessins animés, avant de prendre un petit goûter à la   médiathèque ! Gratuit sur réservation"
+  },
+  "title": {
+    "fr": "Ciné-goûter à la médiathèque"
+  },
+  "onlineAccessLink": null,
+  "createdAt": "2021-09-07T13:28:37.000Z",
+  "uid": 55395061,
+  "draft": 0,
+  "timings": [
+    {
+      "begin": "2021-09-29T14:00:00+02:00",
+      "end": "2021-09-29T15:00:00+02:00"
+    },
+    {
+      "begin": "2021-09-29T15:30:00+02:00",
+      "end": "2021-09-29T16:30:00+02:00"
+    },
+    {
+      "begin": "2021-10-27T14:30:00+02:00",
+      "end": "2021-10-27T16:00:00+02:00"
+    },
+    {
+      "begin": "2021-12-15T14:30:00+01:00",
+      "end": "2021-12-15T16:00:00+01:00"
+    }
+  ],
+  "links": [],
+  "state": 2,
+  "categories-metropolitaines": [
+    6,
+    13
+  ],
+  "slug": "cine-gouter-a-la-mediatheque-8023940",
+  "updatedAt": "2021-09-07T13:28:37.000Z",
+  "addMethod": "aggregation",
+  "image": {
+    "filename": "75fe2e3b82b047fba7e05281f09912b2.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 996
+    },
+    "variants": [
+      {
+        "filename": "75fe2e3b82b047fba7e05281f09912b2.full.image.jpg",
+        "size": {
+          "width": 1640,
+          "height": 2333
+        },
+        "type": "full"
+      },
+      {
+        "filename": "75fe2e3b82b047fba7e05281f09912b2.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "sourceAgendas": [
+    {
+      "image": "agenda36207583.jpg",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Agenda des événements publics de la ville de Villeneuve d'Ascq.",
+      "title": "Ville de Villeneuve d'Ascq",
+      "url": "https://www.villeneuvedascq.fr/",
+      "_agg": "eyJ1aWQiOjM2MjA3NTgzLCJ0aXRsZSI6IlZpbGxlIGRlIFZpbGxlbmV1dmUgZCdBc2NxIiwiaW1hZ2UiOiJhZ2VuZGEzNjIwNzU4My5qcGcifQ==",
+      "uid": 36207583,
+      "createdAt": "2018-03-20T09:50:22.000Z",
+      "officializedAt": "2018-03-20T09:50:44.000Z",
+      "slug": "ville-de-villeneuve-dascq",
+      "updatedAt": "2021-10-26T12:10:24.000Z"
+    },
+    {
+      "image": "agenda52693950.jpg?__ts=1606985382981",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Retrouvez ici tous les événements organisés par les bibliothèques et médiathèques de la Métropole Européenne de Lille",
+      "title": "Le réseau des bibliothèques et médiathèques de la MEL",
+      "url": "https://asuivre.lillemetropole.fr/",
+      "_agg": "eyJ1aWQiOjUyNjkzOTUwLCJ0aXRsZSI6IkxlIHLDqXNlYXUgZGVzIGJpYmxpb3Row6hxdWVzIGV0IG3DqWRpYXRow6hxdWVzIGRlIGxhIE1FTCIsImltYWdlIjoiYWdlbmRhNTI2OTM5NTAuanBnP19fdHM9MTYwNjk4NTM4Mjk4MSJ9",
+      "uid": 52693950,
+      "createdAt": "2020-12-03T08:45:43.000Z",
+      "officializedAt": "2021-01-08T14:59:54.000Z",
+      "slug": "reseau-des-bibliotheques-et-mediatheques-de-la-mel",
+      "updatedAt": "2021-10-26T08:37:27.000Z"
+    }
+  ],
+  "label": [
+    null
+  ],
+  "creatorUid": 95921958,
+  "recurringevent": [
+    null
+  ],
+  "registration": [
+    {
+      "type": "phone",
+      "value": "03 20 61 73 00"
+    }
+  ],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Villeneuve-d'Ascq",
+    "timezone": "Europe/Paris",
+    "postalCode": "59650",
+    "latitude": 50.620833,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 78001004,
+    "createdAt": "2018-09-03T11:24:35.000Z",
+    "duplicateCandidates": [],
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "Nord",
+    "slug": "mediatheque-till-lespiegle",
+    "email": null,
+    "longitude": 3.130556,
+    "updatedAt": "2021-07-16T17:41:01.000Z",
+    "image": null,
+    "website": null,
+    "address": "96 chaussée de l’Hôtel de Ville 59650 Villeneuve d'Ascq",
+    "adminLevel3": "Métropole Européenne de Lille",
+    "adminLevel1": "Hauts-de-France",
+    "adminLevel2": "Nord",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjc4MDAxMDA0LCJuYW1lIjoiTcOpZGlhdGjDqHF1ZSBUaWxsIGwnRXNwacOoZ2xlIn0=",
+    "tags": null,
+    "insee": "59009",
+    "phone": null,
+    "district": null,
+    "name": "Médiathèque Till l'Espiègle",
+    "region": "Hauts-de-France"
+  },
+  "conditions": {
+    "fr": "Entrée libre avec pass obligatoire"
+  },
+  "age": {},
+  "status": 1,
+  "lastTiming": {
+    "begin": "2021-12-15T14:30:00+01:00",
+    "end": "2021-12-15T16:00:00+01:00"
+  },
+  "nextTiming": {
+    "begin": "2021-12-15T14:30:00+01:00",
+    "end": "2021-12-15T16:00:00+01:00"
+  }
+}
