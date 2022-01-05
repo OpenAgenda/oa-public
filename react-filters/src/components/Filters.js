@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useUIDSeed } from 'react-uid';
-import { Portal } from '@stefanoruth/react-portal-ssr';
+import { Portal } from '@openagenda/react-portal-ssr';
 
 function Noop() {
   return null;

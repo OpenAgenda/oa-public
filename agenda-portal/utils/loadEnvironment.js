@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
 module.exports = dir => {
   const envFile = `${dir}/.env`;
@@ -20,7 +21,9 @@ module.exports = dir => {
     const value = parts.join('=');
 
     if (process.env[name] === undefined) {
-      process.env[name] = value;
+      process.env[name] = value.startsWith('./')
+        ? path.join(dir, value)
+        : value;
     }
   }
 };

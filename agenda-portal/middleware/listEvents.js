@@ -49,10 +49,10 @@ module.exports = withAggs => async (req, res, next) => {
       query: req.query,
       searchString: qs.stringify(req.query, { addQueryPrefix: true }),
       total,
-      events: events.map((e, index) => transform(e, req, res, {
+      events: events?.map((e, index) => transform(e, req, res, {
         total,
         index: offset + index,
-      })),
+      })) ?? events,
       aggregations,
       pages,
       hasPages: pages.length > 1,

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import qs from 'qs';
-import { prepareClientPortals } from '@stefanoruth/react-portal-ssr';
+import { prepareClientPortals } from '@openagenda/react-portal-ssr';
 import Provider from './components/FiltersProvider';
 import FiltersManager from './components/FiltersManager';
 import { parseFilterAttrs, extractAttrs } from './utils';

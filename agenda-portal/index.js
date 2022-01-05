@@ -1,7 +1,5 @@
 /* eslint-disable */
 
-require = require('esm')(module /* , options */);
-
 'use strict';
 
 if (process.env.NODE_ENV === 'development') {
@@ -34,7 +32,6 @@ const list = require('./middleware/listEvents');
 const randomFromSet = require('./middleware/randomFromSet');
 const pageGlobals = require('./middleware/pageGlobals');
 const renderSelection = require('./middleware/renderSelection');
-const webpackSASSMiddleware = require('./dev/webpackSASSMiddleware');
 const redirectLegacyEventQuery = require('./middleware/redirectLegacyEventQuery');
 const renderList = require('./middleware/renderList');
 const redirect = require('./middleware/redirectToEvent');
@@ -73,6 +70,7 @@ module.exports = async options => {
   const config = {
     eventsPerPage: 20,
     assetsRoot: null,
+    devServerPort: 3001,
     ...options,
   };
 
@@ -93,6 +91,7 @@ module.exports = async options => {
     proxy: injectedProxy,
     assetsRoot,
     proxyHookBeforeGet,
+    devServerPort
   } = config;
 
   const middlewareHooks = {
@@ -121,6 +120,10 @@ module.exports = async options => {
   app.set('views', views);
   app.engine('hbs', hbs.__express);
   await promisify(hbs.registerPartials).call(hbs, `${views}/partials`);
+
+  if (process.env.NODE_ENV === 'development') {
+    require('./dev/watchViews')(hbs);
+  }
 
   app.locals.defaultLang = config.lang || 'en';
 
@@ -174,7 +177,6 @@ module.exports = async options => {
     );
   }
 
-
   app.locals.filters = [];
   app.locals.widgets = [];
 
@@ -182,7 +184,7 @@ module.exports = async options => {
   await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });
 
   if (process.env.NODE_ENV === 'development') {
-    app.use(webpackSASSMiddleware(app.locals.sass));
+    require('./dev/webpackProxy')(app, devServerPort);
   }
 
   if (assets) {
