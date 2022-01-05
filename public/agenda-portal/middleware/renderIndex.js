@@ -3,8 +3,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom/server');
 const _ = require('lodash');
-const { PortalContext } = require('@stefanoruth/react-portal-ssr');
-const { PortalServer } = require('@stefanoruth/react-portal-ssr/server');
+const { PortalServer, PortalContext } = require('@openagenda/react-portal-ssr/server');
 const { FiltersProvider, FiltersManager } = require('@openagenda/react-filters');
 
 const setPageProp = require('../lib/utils/setPageProp');

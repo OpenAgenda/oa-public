@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "browser-refresh dev",
+    "start": "PORTAL_DEV=1 start-portal",
     "build": "webpack-cli --config bin/webpack.build.js",
     "prepack": "yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
@@ -30,7 +30,8 @@
     "utils"
   ],
   "bin": {
-    "deploy": "bin/deploy/run.js"
+    "deploy": "bin/deploy/run.js",
+    "start-portal": "bin/start-portal.js"
   },
   "lint-staged": {
     "**/*.js": [
@@ -38,30 +39,35 @@
       "eslint -c .eslintrc"
     ]
   },
+  "browserslist": [
+    "extends @openagenda/browserslist-config"
+  ],
   "dependencies": {
     "@babel/core": "^7.13.16",
     "@babel/runtime-corejs3": "^7.13.17",
     "@formatjs/intl": "^1.6.7",
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/browserslist-config": "^1.0.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/polyfills": "^1.2.4",
     "@openagenda/react-filters": "^2.4.3",
+    "@openagenda/react-portal-ssr": "^1.0.0",
     "@openagenda/react-shared": "^2.3.2",
-    "@stefanoruth/react-portal-ssr": "^2.0.3",
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "bootstrap": "^4.3.1",
     "browser-refresh": "^1.7.3",
+    "browser-refresh-client": "^1.1.4",
     "classnames": "^2.3.1",
     "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^7.0.0",
     "copy-to-clipboard": "^3.3.1",
     "core-js": "^3.10.2",
     "cors": "^2.8.5",
     "css-loader": "^3.4.2",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "debug": "^3.2.6",
-    "esm": "^3.2.25",
     "express": "^4.17.1",
     "final-form": "^4.20.2",
     "hbs": "^4.1.0",
@@ -93,6 +99,7 @@
     "webpack": "^5.53.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-middleware": "^4.3.0",
+    "webpack-dev-server": "^4.7.2",
     "webpack-hot-middleware": "^2.25.1"
   },
   "devDependencies": {
