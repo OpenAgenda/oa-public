@@ -43,8 +43,10 @@ export default class Modal extends Component {
       return;
     }
 
-    this.clickListener.shutdown();
-    this.clickListener = null;
+    if (this.clickListener) {
+      this.clickListener.shutdown();
+      this.clickListener = null;
+    }
 
     if (this.props.disableBodyScroll) {
       bodyScroll.enable();
