@@ -11,7 +11,7 @@ module.exports = cwd => {
     packageStr.replace(
       '"dependencies": {',
       `"scripts" : {
-    "start": "NODE_ENV=development browser-refresh server"
+    "start": "start-portal"
   },
   "dependencies": {`
     )

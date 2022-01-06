@@ -122,7 +122,7 @@ module.exports = async options => {
   await promisify(hbs.registerPartials).call(hbs, `${views}/partials`);
 
   if (process.env.NODE_ENV === 'development') {
-    require('./dev/watchViews')(hbs);
+    require('./dev/watchViews')(hbs, `${views}/partials`);
   }
 
   app.locals.defaultLang = config.lang || 'en';
