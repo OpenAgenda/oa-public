@@ -1,5 +1,12 @@
 {
   "aggregate-button": "Agréger",
+  "displayAdditionalFields.additionalFieldsInfo": "Retrouvez les valeurs de l'événement spécifiques à cet agenda dans la section suivante de cette page",
+  "displayAdditionalFields.emptyValue": "Aucune saisie",
+  "displayAdditionalFields.goToAdditionalFields": "voir",
+  "displayAdditionalFields.noFile": "Fichier non chargé",
+  "displayAdditionalFields.noImage": "Image non chargée",
+  "displayAdditionalFields.noSelectionValue": "Aucune sélection",
+  "displayAdditionalFields.privateField": "Information privée",
   "event/contributor-section": "Contributeur",
   "event/contributor/edit": "Editer la fiche",
   "event/contributor/email": "Email",

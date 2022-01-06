@@ -21,6 +21,8 @@ const ownershipTransfer = require('./ownershipTransfer');
 
 const displayReferences = require('./displayReferences');
 
+const displayAdditionalFields = require('./displayAdditionalFields');
+
 const privateData = require('./privateData');
 
 const hours = require('./hours');
@@ -106,6 +108,12 @@ window.asap(options => {
       member,
       lang: params.lang,
       agendaUid: params.agendaUid
+    });
+
+    displayAdditionalFields({
+      lang: params.lang,
+      agendaUid: params.agendaUid,
+      eventUid: params.uid
     });
   });
 

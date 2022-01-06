@@ -5,6 +5,48 @@
       "value": "Agréger"
     }
   ],
+  "displayAdditionalFields.additionalFieldsInfo": [
+    {
+      "type": 0,
+      "value": "Retrouvez les valeurs de l'événement spécifiques à cet agenda dans la section suivante de cette page"
+    }
+  ],
+  "displayAdditionalFields.emptyValue": [
+    {
+      "type": 0,
+      "value": "Aucune saisie"
+    }
+  ],
+  "displayAdditionalFields.goToAdditionalFields": [
+    {
+      "type": 0,
+      "value": "voir"
+    }
+  ],
+  "displayAdditionalFields.noFile": [
+    {
+      "type": 0,
+      "value": "Fichier non chargé"
+    }
+  ],
+  "displayAdditionalFields.noImage": [
+    {
+      "type": 0,
+      "value": "Image non chargée"
+    }
+  ],
+  "displayAdditionalFields.noSelectionValue": [
+    {
+      "type": 0,
+      "value": "Aucune sélection"
+    }
+  ],
+  "displayAdditionalFields.privateField": [
+    {
+      "type": 0,
+      "value": "Information privée"
+    }
+  ],
   "event/contributor-section": [
     {
       "type": 0,
