@@ -13,7 +13,7 @@ module.exports = [{
   field: 'uid',
   type: 'integer',
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'title',
@@ -21,45 +21,45 @@ module.exports = [{
   min: 2,
   max: 255,
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator']
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator']
 }, {
   field: 'description',
   type: 'text',
   max: 255,
   optional: false,
-  read: ['internal', 'private', 'legacy', 'legacyPublic', 'administrator']
+  read: ['internal', 'private', 'legacy', 'legacyPublic', 'administrator', 'moderator']
 }, {
   field: 'slug',
   type: 'slug',
   min: 2,
   max: 255,
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'url',
   type: 'link',
-  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator'],
   max: 255
 }, {
   field: 'official',
   type: 'boolean',
   default: false,
-  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'networkUid',
   type: 'integer',
   optional: true,
   default: null,
-  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'locationSetUid',
   type: 'integer',
   optional: true,
   default: null,
-  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPublic', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'ownerId',
@@ -71,13 +71,13 @@ module.exports = [{
   field: 'updatedAt',
   type: 'date',
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'createdAt',
   type: 'date',
   optional: false,
-  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator'],
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   write: ['internal']
 }, {
   field: 'formSchemaId',
@@ -94,7 +94,7 @@ module.exports = [{
   write: ['internal']
 }, {
   field: 'image',
-  read: ['public', 'legacy', 'legacyPrivate', 'administrator'],
+  read: ['public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
   type: 'pass',
   default: null
 }, {
@@ -232,7 +232,7 @@ module.exports = [{
       default: false
     }, {
       field: 'authorizedIPAddresses',
-      read: ['internal', 'administrator', 'legacy', 'legacyPublic'],
+      read: ['internal', 'administrator', 'moderator', 'legacy', 'legacyPublic'],
       type: 'ip',
       list: true,
       default: []
@@ -241,8 +241,8 @@ module.exports = [{
     field: 'translation',
     optional: true,
     type: 'schema',
-    read: ['internal', 'administrator', 'legacy', 'legacyPublic'],
-    write: ['internal', 'administrator'],
+    read: ['internal', 'administrator', 'moderator', 'legacy', 'legacyPublic'],
+    write: ['internal', 'administrator', 'moderator'],
     fields: [{
       field: 'enabled',
       type: 'boolean',
