@@ -1419,6 +1419,12 @@
           "fieldType": "textarea",
           "schemaId": 981,
           "schemaType": "agenda"
+        },
+        {
+          "field": "somedate",
+          "fieldType": "date",
+          "schemaType": "agenda",
+          "label": "Un champ avec une date"
         }
     ]
   }
