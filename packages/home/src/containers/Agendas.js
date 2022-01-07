@@ -4,7 +4,7 @@ import React, {
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { useIsomorphicLayoutEffect } from 'react-use';
+import { useIsomorphicLayoutEffect, useLatest } from 'react-use';
 import qs from 'qs';
 import { Spinner, useModal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
@@ -44,16 +44,18 @@ function Agendas() {
     [query.search]
   );
 
+  const latestQuery = useLatest(query);
+
   const onAgendaSearch = useCallback(
     value => {
       history.push({
         search: qs.stringify({
-          ...query,
+          ...latestQuery.current,
           search: value !== '' ? value : undefined,
         }),
       });
     },
-    [history, query]
+    [history, latestQuery]
   );
 
   const fieldProps = useMemo(
