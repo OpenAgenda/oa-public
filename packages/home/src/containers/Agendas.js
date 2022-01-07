@@ -1,7 +1,7 @@
 import React, {
   useCallback, useContext, useMemo, useRef
 } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { useIsomorphicLayoutEffect } from 'react-use';
@@ -20,10 +20,11 @@ function Agendas() {
   const { getLabel, lang } = useContext(I18nContext);
 
   const history = useHistory();
+  const location = useLocation();
   const searchRef = useRef();
   const query = useMemo(
-    () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
-    [history.location.search]
+    () => qs.parse(location.search, { ignoreQueryPrefix: true }),
+    [location.search]
   );
 
   const dispatch = useDispatch();
@@ -46,7 +47,6 @@ function Agendas() {
   const onAgendaSearch = useCallback(
     value => {
       history.push({
-        ...history.location,
         search: qs.stringify({
           ...query,
           search: value !== '' ? value : undefined,
