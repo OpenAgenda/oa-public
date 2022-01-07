@@ -238,4 +238,9 @@
 
   }
 
+  .additional-fields {
+    .date {
+      text-transform: capitalize;
+    }
+  }
 }
