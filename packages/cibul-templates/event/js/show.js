@@ -98,23 +98,27 @@ window.asap(options => {
     })
   });
 
-  get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}/context`, (err, res) => {
-    if (!res) return;
+  const user = session.getUser();
 
-    const { me, member } = res;
-
-    displayContributorSection({
-      me,
-      member,
-      lang: params.lang,
-      agendaUid: params.agendaUid
+  if (user) {
+    get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}/context`, (err, res) => {
+      if (!res) return;
+  
+      const { me, member } = res;
+  
+      displayContributorSection({
+        me,
+        member,
+        lang: params.lang,
+        agendaUid: params.agendaUid
+      });
     });
+  }
 
-    displayAdditionalFields({
-      lang: params.lang,
-      agendaUid: params.agendaUid,
-      eventUid: params.uid
-    });
+  displayAdditionalFields({
+    lang: params.lang,
+    agendaUid: params.agendaUid,
+    eventUid: params.uid
   });
 
   _defineRoles(params, (err, roles) => {
@@ -145,15 +149,13 @@ window.asap(options => {
       prv.activities(params.agendaUid, params.uid, params.lang);
     }
 
-    const user = session.getUser();
-
     if (user) {
       prv.inbox(params, { roles, ROLES });
     }
 
   });
 
-  displayShareButtons(params, !!session.getUser());
+  displayShareButtons(params, !!user);
   eventMap();
 });
 
