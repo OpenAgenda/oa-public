@@ -35,10 +35,10 @@ async function load(req, _res, next) {
     members
   } = req.app.services;
 
-  req.member = await members.get({
+  req.member = req.user ? await members.get({
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
-  });
+  }) : null;
 
   if (!req.member) {
     return next();
