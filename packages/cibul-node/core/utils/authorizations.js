@@ -15,6 +15,29 @@ const canRead = (compareRoles, agendaEvent, event, member) => (
   || (agendaEvent.userUid === member?.userUid)
 );
 
+const canCreateEvent = (services, member, agendaIsClosed) => {
+  const {
+    members: {
+      utils: {
+        compareRoles: {
+          isSuperiorTo,
+          isSuperiorToOrEqual
+        }
+      }
+    }
+  } = services;
+
+  if (isSuperiorTo(member?.role, 'contributor')) {
+    return true;
+  }
+
+  if (agendaIsClosed) {
+    return false;
+  }
+
+  return isSuperiorToOrEqual(member?.role, 'contributor');
+};
+
 async function fromMember(core, agenda, agendaEvent, event, member) {
   const {
     members
@@ -38,7 +61,7 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
     canChangeState: (member && compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', { throwIfUnknown: false })) ?? false,
     canPublish: (member && canPublish(agenda, memberRole)) ?? false,
     canEditEvent,
-    canCreateEvent: (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false,
+    canCreateEvent: canCreateEvent(core.services, member, agendaIsClosed),
     canContribute: (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false
   };
 }
