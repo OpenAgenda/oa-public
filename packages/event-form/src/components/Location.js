@@ -4,7 +4,7 @@ import sa from 'superagent';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Modal, Spinner } from '@openagenda/react-components';
+import { Modal, Spinner } from '@openagenda/react-shared';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 import Provider from '@openagenda/agenda-locations/components/build/Provider';
 

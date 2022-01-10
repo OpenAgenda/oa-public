@@ -218,3 +218,9 @@ Si une donnée passée à un service à un mauvais formattage, le service doit l
 Si une clé fournie commence par `-----BEGIN ENCRYPTED PRIVATE KEY-----`, elle est encryptée et doit être décryptée par mot de passe avant son utilisation dans nginx. Une fois le mot de passe en main, la commande pour la décrypter est la suivante:
 
     openssl rsa -in /path/to/encrypted/key -out /path/to/decrypted/key
+
+## crontab
+
+Utiliser la bonne version de `node` avec `nvm` et `crontab` sans coder en dur la version de node:
+
+https://gist.github.com/simov/cdbebe2d65644279db1323042fcf7624

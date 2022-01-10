@@ -701,12 +701,6 @@
       "value": "crwdns6006:0crwdne6006:0"
     }
   ],
-  "EventAdminApp.messages.exports.toCSV": [
-    {
-      "type": 0,
-      "value": "crwdns6008:0crwdne6008:0"
-    }
-  ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
@@ -737,16 +731,16 @@
       "value": "crwdns6018:0crwdne6018:0"
     }
   ],
+  "EventAdminApp.messages.exports.toSpreadsheet": [
+    {
+      "type": 0,
+      "value": "to spreadsheet (csv / xlsx)"
+    }
+  ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
       "value": "crwdns6020:0crwdne6020:0"
-    }
-  ],
-  "EventAdminApp.messages.exports.toXLSX": [
-    {
-      "type": 0,
-      "value": "crwdns6022:0crwdne6022:0"
     }
   ],
   "EventAdminApp.messages.relative.current": [

@@ -8,9 +8,8 @@ import throttle from 'lodash/throttle';
 import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import qs from 'qs';
 
-import { withContext, withLayoutData } from '@openagenda/react-shared';
+import { withContext, withLayoutData, Modal } from '@openagenda/react-shared';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import { Modal } from '@openagenda/react-components';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 
 import MemberItem from '../../components/MemberItem';

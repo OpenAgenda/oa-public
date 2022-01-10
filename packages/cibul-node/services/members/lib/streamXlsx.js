@@ -1,20 +1,29 @@
-"use strict";
+'use strict';
 
-const XlsxStream = require( 'xlsx-writestream' );
+const ExcelJS = require('exceljs');
 
-module.exports = ( req, res, next ) => {
+module.exports = (req, res, next) => {
+  const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
+  const worksheet = workbook.addWorksheet('Members');
+  const members = [];
+  req.stream.on('data', data => {
+    members.push(data);
+  });
 
-  const stream = new XlsxStream();
+  req.stream.on('end', () => {
+    worksheet.columns = [...new Set(members.reduce((carry, data) => Object.keys(data).map(key => ({ header: key, key, width: 10 }))))];
 
-  stream.getReadStream().pipe( res );
+    for (const member of members) {
+      worksheet.addRow(member).commit();
+    }
 
-  req.stream.on( 'data', data => stream.addRow( data ) );
+    workbook.commit();
+  });
 
-  req.stream.on( 'end', () => stream.finalize() );
+  workbook.stream.pipe(res);
 
-  res.writeHead( 200, {
+  res.writeHead(200, {
     'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'content-disposition' : `attachment; filename="contributors.${req.agenda.title}.xlsx"`
-  } );
-
-}
+    'content-disposition': `attachment; filename="contributors.${req.agenda.title}.xlsx"`
+  });
+};

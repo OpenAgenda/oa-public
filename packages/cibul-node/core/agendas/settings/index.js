@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('core/agendas/settings');
 
-const getMergedSchema = require( './getMergedSchema' );
+const getMergedSchema = require('./getMergedSchema');
 const getSchema = require('./getSchema');
 const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
@@ -33,7 +33,7 @@ module.exports = core => {
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
     pushDataToFormSchema: agendaUid => pushDataToFormSchema(services, agendaUid)
-  }
+  };
 
   tasks.register(resyncFn);
 
@@ -60,10 +60,14 @@ module.exports = core => {
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {
       log('processing resyncs for agenda %s', agendaUid, resyncs);
+      if (!Array.isArray(resyncs)) {
+        log('no resync explicitely requested');
+        return [];
+      }
       const enqueued = [];
       for (const resyncOperation of resyncs) {
         if (!Object.keys(resyncFn).includes(resyncOperation)) {
-          log('warn', 'unknown resync operation, ignoring')
+          log('warn', 'unknown resync operation, ignoring');
         } else {
           await tasks.enqueue(resyncOperation, agendaUid);
           enqueued.push(resyncOperation);
@@ -73,6 +77,5 @@ module.exports = core => {
         enqueued
       };
     }
-  })
-
-}
+  });
+};

@@ -64,6 +64,7 @@ export default function ExportsDropdown({
   id = `agenda-${agenda.slug}-exports`,
   queryString,
   toggleDocxModal,
+  toggleSpreadsheetModal,
   className,
   disabled,
   children,
@@ -89,18 +90,20 @@ export default function ExportsDropdown({
         >
           {intl.formatMessage(exportsMessages.toJSON)}
         </DownloadItem>
-        <DownloadItem
-          download="events.v2.csv"
-          href={`/agendas/${agenda.uid}/admin/events.v2.csv${queryString}`}
-        >
-          {intl.formatMessage(exportsMessages.toCSV)}
-        </DownloadItem>
-        <DownloadItem
-          download="events.v2.xlsx"
-          href={`/agendas/${agenda.uid}/admin/events.v2.xlsx${queryString}`}
-        >
-          {intl.formatMessage(exportsMessages.toXLSX)}
-        </DownloadItem>
+        <li>
+          <button
+            type="button"
+            className="btn btn-link"
+            css={css`
+              width: 100%;
+              text-align: left;
+            `}
+            onClick={toggleSpreadsheetModal}
+            onKeyPress={toggleSpreadsheetModal}
+          >
+            {intl.formatMessage(exportsMessages.toSpreadsheet)}
+          </button>
+        </li>
         <DownloadItem
           download="events.v2.ics"
           href={`/agendas/${agenda.uid}/admin/events.v2.ics${queryString}`}

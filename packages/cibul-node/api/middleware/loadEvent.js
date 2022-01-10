@@ -9,4 +9,4 @@ module.exports = async (req, res, next) => {
     req.event = event;
     next();
   }, next);
-}
+};

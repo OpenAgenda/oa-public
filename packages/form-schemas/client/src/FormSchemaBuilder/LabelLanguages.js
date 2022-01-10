@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-import { Modal } from '@openagenda/react-components';
+import { Modal } from '@openagenda/react-shared';
 
 import labels from './lib/labels';
 

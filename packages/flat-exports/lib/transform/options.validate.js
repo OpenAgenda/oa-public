@@ -28,7 +28,8 @@ module.exports = schema({
   },
   separator: {
     type: 'text',
-    default: ' | '
+    default: ' | ',
+    trim: false
   },
   includeFields: {
     type: 'text',
@@ -37,5 +38,12 @@ module.exports = schema({
   includeLanguages: {
     type: 'text',
     list: { default: null }
+  },
+  formSchema: {
+    type: 'pass'
+  },
+  maintainedFields: {
+    type: 'text',
+    list: { default: [] }
   }
 });

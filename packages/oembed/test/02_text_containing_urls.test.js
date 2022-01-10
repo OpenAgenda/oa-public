@@ -1,10 +1,9 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
+const _ = require('lodash');
 
-const options = require('../testconfig');
-const OEmbed = require('../');
+const OEmbed = require('..');
 
 const IFRAMELY_OBJECT_KEYS = [
   'url',
@@ -22,20 +21,43 @@ const IFRAMELY_OBJECT_KEYS = [
   'cache_age'
 ];
 
+const options = {
+  iframely: {
+    key: process.env.IFRAMELY_KEY
+  },
+  filters: [
+    'youtube',
+    'dailymotion',
+    '/day\.ly/',
+    'vimeo',
+    'soundcloud',
+    'twitter\.com\/.+\/status\/[0-9]+$',
+    'flickr',
+    'instagram',
+    'tumblr',
+    'prezi',
+    'google',
+    'ted',
+    'ina\.fr',
+    'youtu',
+    'calameo',
+    'allocine',
+  ]
+};
+
 const texts = {
-  raffut: fs.readFileSync(__dirname + '/fixtures/forroraffut.md', 'utf-8'),
-  contrebrassens: fs.readFileSync(__dirname + '/fixtures/contrebrassens.txt', 'utf-8')
-}
+  raffut: fs.readFileSync(`${__dirname}/fixtures/forroraffut.md`, 'utf-8'),
+  contrebrassens: fs.readFileSync(`${__dirname}/fixtures/contrebrassens.txt`, 'utf-8')
+};
 
 describe('parsing links from markdown', () => {
-
   const oe = new OEmbed(options);
 
   test('finds links in markdown and returns list of links with oembeds', async () => {
     const result = await oe.fromMarkdown(texts.raffut);
 
     expect(_.get(result, '0.data.provider_name')).toEqual('YouTube');
-
+    expect(result.length).toBe(1);
     expect(_.keys(result[0].data)).toEqual(IFRAMELY_OBJECT_KEYS);
   });
 
@@ -62,4 +84,10 @@ describe('parsing links from markdown', () => {
     ]);
   });
 
+  test('finds links in markdown and returns list of links with and without oembeds', async () => {
+    const result = await oe.fromMarkdown(texts.raffut, { includeEmbedlessLinks: true });
+
+    expect(_.get(result, '0.data.provider_name')).toEqual('YouTube');
+    expect(result[1].link).toEqual('https://www.facebook.com/forroraffut/');
+  });
 });

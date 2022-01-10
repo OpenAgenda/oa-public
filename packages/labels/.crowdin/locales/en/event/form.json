@@ -1,9 +1,9 @@
 {
   "descriptionSection": "Description fields",
   "attendanceMode": "Attendance mode",
-  "offlineAttendanceMode": "Offline",
+  "offlineAttendanceMode": "On-premise",
   "onlineAttendanceMode": "Online",
-  "mixedAttendanceMode": "Mixed",
+  "mixedAttendanceMode": "Both",
   "onlineAccessLink": "Access link",
   "location": "Location",
   "locationInfo": "Type in the name of the location where the event takes place",

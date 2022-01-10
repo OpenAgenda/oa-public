@@ -34,6 +34,7 @@
       "en": "03 rue de Valois 75001 Paris",
       "fr": "03 rue de Valois 75001 Paris"
     },
+
     "imageInfo": {
       "en": "Only upload images you have the right to re-use. The image must have a minimum width of 500 pixels.",
       "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
@@ -74,6 +75,9 @@
       "fr": "Ajoutez le lien de vos pages Facebook, Twitter ou tout autre lien relatif au lieu.",
       "en": "Add facebook, twitter and other links"
     }
+  },
+  "defaultValues": {
+    "imageCredits": "©"
   },
   "tagSet": {
     "groups": [

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import { Spinner } from '@openagenda/react-shared';
 import activitiesReducer, * as activitiesActions from '../../redux/modules/activities';
 import modalsReducer from '../../redux/modules/modals';
 import { ActivityItem } from '../../components';

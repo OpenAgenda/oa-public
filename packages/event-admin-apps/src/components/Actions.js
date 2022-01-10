@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal';
 import exportsMessages from '../messages/exports';
+import SpreadsheetModal from './SpreadsheetModal';
 import ExportsDropdown from './ExportsDropdown';
 
 const messages = defineMessages({
@@ -26,6 +27,7 @@ export default function Actions({
 }) {
   const intl = useIntl();
   const [displayDocxModal, setDisplayDocxModal] = useState(false);
+  const [displaySpreadsheetModal, setDisplaySpreadsheetModal] = useState(false);
 
   const toggleDocxModal = useMemo(
     () => a11yButtonActionHandler(e => {
@@ -34,6 +36,17 @@ export default function Actions({
       }
 
       setDisplayDocxModal(previous => !previous);
+    }),
+    []
+  );
+
+  const toggleSpreadsheetModal = useMemo(
+    () => a11yButtonActionHandler(e => {
+      if (e) {
+        e.preventDefault();
+      }
+
+      setDisplaySpreadsheetModal(previous => !previous);
     }),
     []
   );
@@ -57,6 +70,7 @@ export default function Actions({
         agenda={agenda}
         queryString={queryString}
         toggleDocxModal={toggleDocxModal}
+        toggleSpreadsheetModal={toggleSpreadsheetModal}
         className="margin-right-sm"
       >
         {intl.formatMessage(exportsMessages.export)}
@@ -91,6 +105,14 @@ export default function Actions({
           locale={intl.locale}
           agendaUid={agenda.uid}
           res="/docx"
+        />
+      ) : null}
+
+      {displaySpreadsheetModal ? (
+        <SpreadsheetModal
+          onClose={toggleSpreadsheetModal}
+          agendaUid={agenda.uid}
+          queryString={queryString}
         />
       ) : null}
     </div>

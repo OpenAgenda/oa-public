@@ -506,6 +506,7 @@ module.exports = app => {
     // outdatedBrowserMw, // Already added with loadBaseData
     (req, res, next) => matchMw({
       initialState,
+      apiRoot
       // publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
     })(req, res, next)
   );

@@ -949,6 +949,8 @@ class LocationForm extends Component {
       lang, displayLanguageTabs, disableNoAlternatives, alternatives, settings, location: propsLocation
     } = this.props;
     const { location } = this.state;
+    const imageCreditsDefault = settings?.defaultValues?.imageCredits || undefined;
+    console.log('imageCreditsDefault', imageCreditsDefault, this.getLabel('imageInfo'));
     return (
       <div className="form-group">
         <div
@@ -958,6 +960,8 @@ class LocationForm extends Component {
         >
           <ImageInput
             locale={lang}
+            info={this.getLabel('imageInfo')}
+            label={this.getLabel('image') !== 'Image' ? this.getLabel('image') : null}
             input={{
               onChange: file => this.onChange('image', file),
               value: this.state?.location.image,
@@ -968,7 +972,7 @@ class LocationForm extends Component {
         <InputField
           name="imageCredits"
           enabled={this.isFieldEnabled('imageCredits')}
-          value={location.imageCredits ? location.imageCredits : undefined}
+          value={location.imageCredits ? location.imageCredits : imageCreditsDefault}
           getLabel={this.getLabel}
           lang={lang}
           info="imageCreditsInfo"

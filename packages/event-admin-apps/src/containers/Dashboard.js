@@ -8,7 +8,6 @@ import React, {
   useLayoutEffect,
   useEffect,
 } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
@@ -18,12 +17,12 @@ import { useField } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 import produce from 'immer';
 import { css } from '@emotion/react';
-import { Spinner } from '@openagenda/react-components';
 import {
   a11yButtonActionHandler,
   useApiClient,
   useModal,
   useLayoutData,
+  Spinner,
 } from '@openagenda/react-shared';
 import { FiltersProvider, getEvents } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
@@ -895,4 +894,4 @@ function Dashboard() {
   );
 }
 
-export default hot(Dashboard);
+export default Dashboard;

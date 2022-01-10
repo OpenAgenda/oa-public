@@ -5,7 +5,7 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import { Spinner } from '@openagenda/react-shared';
 import * as activitiesActions from '../../redux/modules/activities';
 import { ActivityItem } from '../../components';
 import I18nContext from '../../contexts/I18nContext';

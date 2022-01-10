@@ -12,7 +12,8 @@ const defaults = {
       create: '/new',
       slugAvailable: '/agendas/slugs/available',
       onCreated: '/:slug/admin/settings/gettingStarted'
-    }
+    },
+    agenda: {}
   }
 };
 

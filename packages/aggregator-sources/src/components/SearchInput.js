@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 import BsField from './BsField';
 
 const searchSpinner = {

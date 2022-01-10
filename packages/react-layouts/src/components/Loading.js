@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 
 const style = {
   minHeight: 300,

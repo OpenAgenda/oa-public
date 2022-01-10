@@ -148,7 +148,7 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
         '_search_additional_keywords',
         cleanQuery[field.field]
      ));
-    } else if (['radio', 'checkbox'].includes(field.fieldType)) {
+    } else if (['radio', 'select', 'checkbox', 'multiselect'].includes(field.fieldType)) {
       parts.push(_mustPart(
         Array.isArray(cleanQuery[field.field]) ? 'terms' : 'term',
         '_search_additional_keywords',

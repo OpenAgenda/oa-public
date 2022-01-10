@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field, updateSyncErrors } from 'redux-form';
-import { Modal } from '@openagenda/react-components';
-import { ImageInput, withLayoutData } from '@openagenda/react-shared';
+import { ImageInput, Modal, withLayoutData } from '@openagenda/react-shared';
 import * as agendaActions from '../../reducers/agenda';
 import * as modalsActions from '../../reducers/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';

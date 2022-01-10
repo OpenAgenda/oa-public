@@ -32,6 +32,14 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(flat['Titre - FR']).toEqual(event.title.fr);
     });
 
+    test('flatten registration info', () => {
+      expect(flat.Inscription).toEqual('http://www.cnjeu.fr/, 0145707532, reservation@email.com');
+    });
+
+    test('Location phone is part of result', () => {
+      expect(flat['Téléphone du lieu']).toEqual(event.location.phone);
+    });
+
     test('dateRange is part of result', () => {
       expect(
         Object.keys(flat)
@@ -41,12 +49,17 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       ).toEqual(2);
     });
 
+    test('firstDate and lastDate are part of result', () => {
+      expect(flat['Première date - FR']).toEqual('mercredi 8 mars 2017');
+      expect(flat['Dernière date - FR']).toEqual('jeudi 21 décembre 2017');
+    });
+
     test('keywords are "|" separated', () => {
       expect(flat['Mots clés - FR']).toEqual('Expo | Jeu');
     });
 
     test('state is part of result', () => {
-      expect(flat.Statut).toEqual('published');
+      expect(flat.Statut).toEqual('Published');
     });
   });
 
@@ -162,6 +175,34 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       });
 
       expect(flat['Catégories']).toEqual('Fourchette 😊 Orteil');
+    });
+  });
+
+  describe('Get headers', () => {
+    let headers;
+    beforeAll(() => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr', 'en'],
+        labels,
+        includeFields: ['title', 'uid', 'timings'],
+        includeLanguages: ['fr']
+      });
+      headers = flatten.getHeaders(event);
+    });
+
+    test('return only headers', () => {
+      expect(headers).toEqual([
+        { source: 'uid', target: 'Identifiant' },
+        { source: 'title', target: ['Titre - FR'] },
+        {
+          source: 'timings',
+          target: [
+            'Horaires ISO',
+            'Horaires détaillés - FR',
+          ],
+        }
+      ]);
     });
   });
 });

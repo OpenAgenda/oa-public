@@ -1,7 +1,6 @@
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from '@openagenda/axios-mock-adapter';
-
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
@@ -9,13 +8,11 @@ import IntlDecorator from './decorators/IntlDecorator';
 import sourcesJson from './mocks/sources.json';
 import agendasJson from './mocks/agendas.json';
 import agendaJson from './mocks/agenda.json';
+
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
-
-const getDefaultState = ({ apiRoot, dev } = {}) => ({
+const getDefaultState = ({ dev = {} } = {}) => ({
   settings: {
-    apiRoot,
     prefix: '/:slug/admin/sources',
     perPageLimit: 20,
   },
@@ -45,10 +42,7 @@ export default {
 export const Presentation = () => wrapApp(
   createApp({
     history: createMemoryHistory(),
-    initialState: getDefaultState({
-      apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-      dev: {},
-    }),
+    initialState: getDefaultState(),
   }),
   {
     extraProps: {
@@ -82,10 +76,7 @@ export const EmptyList = () => {
   return wrapApp(
     createApp({
       history: createMemoryHistory(),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        dev: {},
-      }),
+      initialState: getDefaultState(),
     }),
     {
       extraProps: {
@@ -116,10 +107,7 @@ export const List = () => {
   return wrapApp(
     createApp({
       history: createMemoryHistory(),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        dev: {},
-      }),
+      initialState: getDefaultState(),
     }),
     {
       extraProps: {
@@ -160,10 +148,7 @@ export const AddSourceModal = () => {
       history: createMemoryHistory({
         initialEntries: ['/la-gargouille/admin/sources'],
       }),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        dev: { query: { source: 'nouvelle-source' } },
-      }),
+      initialState: getDefaultState(),
     }),
     {
       extraProps: {
@@ -212,10 +197,7 @@ export const EditSourceModal = () => {
       history: createMemoryHistory({
         initialEntries: ['/la-gargouille/admin/sources'],
       }),
-      initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
-        dev: { query: { source: 'amc-promotion' } },
-      }),
+      initialState: getDefaultState(),
     }),
     {
       extraProps: {

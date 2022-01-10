@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest } from 'react-use';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Modal } from '@openagenda/react-components';
+import { Modal } from '@openagenda/react-shared';
 import { useSelector } from 'react-redux';
 import useChartTitle from '../hooks/useChartTitle';
 

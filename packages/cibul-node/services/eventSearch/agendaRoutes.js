@@ -5,6 +5,8 @@ const { Router } = require('express');
 const expressUtils = require('@openagenda/utils/express');
 const loadSearchEndpoint = require('./lib/loadSearchEndpoint');
 const loadSearchStream = require('./lib/loadSearchStream');
+const loadAgendaLanguagesAndFormSchemas = require('./lib/loadAgendaLanguagesAndFormSchemas');
+const loadAgendaExportsSettings = require('./lib/loadAgendaExportsSettings');
 const streamCSV = require('./lib/streamCSV');
 const streamICS = require('./lib/streamICS');
 const RSSResponse = require('./lib/RSSResponse');
@@ -21,7 +23,8 @@ module.exports = services => ({
   }).get(
     '',
     loadSearchEndpoint(services.core),
-    ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream(services)),
+    loadAgendaLanguagesAndFormSchemas(services),
+    ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
     ifFormat('csv', streamCSV),
     ifFormat('xlsx', streamXLSX),
     ifFormat('ics', streamICS),
@@ -38,8 +41,9 @@ module.exports = services => ({
       agendaUidPath: 'params.agendaUid'
     }),
     loadSearchEndpoint(services.core),
-    ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream(services)),
-    ifJSONStreamRequested(loadSearchStream(services)),
+    loadAgendaLanguagesAndFormSchemas(services),
+    ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
+    ifJSONStreamRequested(loadSearchStream()),
     ifFormat('csv', streamCSV),
     ifFormat('xlsx', streamXLSX),
     ifFormat('ics', streamICS),
@@ -48,5 +52,13 @@ module.exports = services => ({
     ifFormat('rss', RSSResponse(services.core)),
     ifFormat('json', JSONResponse),
     handleError,
-    (req, res) => res.status(400).send('Unknown format'))
+    (req, res) => res.status(400).send('Unknown format')),
+  getAgendaExportsSettings: ({ admin } = false) => [
+    admin ? services.members.mw.authorizeAdminModOrKey({
+      agendaUidPath: 'params.agendaUid'
+    }) : (req, res, next) => { next(); },
+    loadSearchEndpoint(services.core),
+    loadAgendaLanguagesAndFormSchemas(services),
+    loadAgendaExportsSettings(services)
+  ]
 });

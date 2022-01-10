@@ -5,6 +5,48 @@
       "value": "Aggregate"
     }
   ],
+  "displayAdditionalFields.additionalFieldsInfo": [
+    {
+      "type": 0,
+      "value": "Event values specific to this agenda are displayed in the next section below"
+    }
+  ],
+  "displayAdditionalFields.emptyValue": [
+    {
+      "type": 0,
+      "value": "No input"
+    }
+  ],
+  "displayAdditionalFields.goToAdditionalFields": [
+    {
+      "type": 0,
+      "value": "see"
+    }
+  ],
+  "displayAdditionalFields.noFile": [
+    {
+      "type": 0,
+      "value": "No file is loaded"
+    }
+  ],
+  "displayAdditionalFields.noImage": [
+    {
+      "type": 0,
+      "value": "No image is loaded"
+    }
+  ],
+  "displayAdditionalFields.noSelectionValue": [
+    {
+      "type": 0,
+      "value": "No selection"
+    }
+  ],
+  "displayAdditionalFields.privateField": [
+    {
+      "type": 0,
+      "value": "Restricted information"
+    }
+  ],
   "event/contributor-section": [
     {
       "type": 0,
@@ -87,6 +129,30 @@
     {
       "type": 0,
       "value": "Share on OpenAgenda"
+    }
+  ],
+  "trackConsent.accept": [
+    {
+      "type": 0,
+      "value": "Accept"
+    }
+  ],
+  "trackConsent.decline": [
+    {
+      "type": 0,
+      "value": "Decline"
+    }
+  ],
+  "trackConsent.informationText": [
+    {
+      "type": 0,
+      "value": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
+    }
+  ],
+  "trackConsent.moreInfoLink": [
+    {
+      "type": 0,
+      "value": "Click here for more information"
     }
   ]
 }

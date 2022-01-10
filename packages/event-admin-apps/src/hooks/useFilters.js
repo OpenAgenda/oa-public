@@ -273,6 +273,15 @@ export default function useFilters(agendaSchema) {
           size: AGGREGATION_SIZE,
         },
       },
+      {
+        name: 'keyword',
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'keywords',
+          size: AGGREGATION_SIZE,
+        },
+      },
     ];
 
     const additionalFilters = agendaSchema.fields

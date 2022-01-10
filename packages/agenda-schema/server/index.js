@@ -40,7 +40,7 @@ async function loadAppResources( load, agendaIdentifiers ) {
   return {
     agenda,
     schema,
-    maxFields: _.get( agenda, 'credentials.premiumCustomFields' ) ? 50 : 1,
+    maxFields: _.get( agenda, 'credentials.premiumCustomFields' ) ? 100 : 1,
     extensions,
     editableExtensions: !!_.get( agenda, 'credentials.premiumCustomFields' )
   }

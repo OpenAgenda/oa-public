@@ -1,11 +1,12 @@
-"use strict";
+'use strict';
 
 const schema = require('@openagenda/validators/schema');
 
 schema.register({
   text: require('@openagenda/validators/text'),
   link: require('@openagenda/validators/link'),
-  pass: require('@openagenda/validators/pass')
+  pass: require('@openagenda/validators/pass'),
+  bool: require('@openagenda/validators/boolean')
 });
 
 module.exports = schema({
@@ -21,5 +22,9 @@ module.exports = schema({
         optional: false
       }
     }
+  },
+  includeEmbedlessLinks: {
+    type: 'bool',
+    default: false
   }
 });

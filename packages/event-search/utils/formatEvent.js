@@ -88,7 +88,7 @@ module.exports = produce((event, options = {}) => {
   }
 
   if (event.originAgenda) {
-    event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image'])
+    event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image', 'url', 'slug']);
   }
   if (event.sourceAgendas) {
     event.sourceAgendas.forEach(sourceAgenda => {
@@ -128,7 +128,7 @@ module.exports = produce((event, options = {}) => {
 
   schemaAdditionalFields.forEach(additionalField => {
     if (event[additionalField.field] === undefined) {
-      event[additionalField.field] = additionalField.fieldType === 'radio' ? [] : null
+      event[additionalField.field] = ['radio', 'select'].includes(additionalField.fieldType) ? [] : null
     }
   });
 
@@ -140,10 +140,10 @@ module.exports = produce((event, options = {}) => {
     .filter(({ value, field }) => (
       ![undefined, null].includes(value) // there is a value
     ) && (
-      ['email', 'radio', 'checkbox'].includes(field.fieldType)
+      ['email', 'radio', 'select', 'checkbox', 'multiselect'].includes(field.fieldType)
     ))
     .reduce((keywords, { field, value }) => {
-      return keywords.concat(['radio', 'checkbox'].includes(field.fieldType)
+      return keywords.concat(['radio', 'checkbox', 'select', 'multiselect'].includes(field.fieldType)
         ? [].concat(value).map(v => [field.schemaId, v].join('.')) : value)
     }, []);
 

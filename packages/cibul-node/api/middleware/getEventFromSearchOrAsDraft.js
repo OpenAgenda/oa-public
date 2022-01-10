@@ -7,9 +7,18 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
     core
   } = req.app.services;
 
+  const query = {
+    state: null,
+    ...(req.params.eventUid ? {
+      uid: req.params.eventUid
+    } : {
+      slug: req.params.eventSlug
+    })
+  };
+
   core
     .agendas(req.agenda.uid).events
-    .search({ state: null, uid: req.params.eventUid }, { size: 1 }, {
+    .search(query, { size: 1 }, {
       detailed: true,
       access: 'internal',
       longDescriptionFormat: req.query.longDescriptionFormat,

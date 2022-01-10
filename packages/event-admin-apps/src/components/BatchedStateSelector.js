@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import { useMutation } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
-import { useApiClient, useModal } from '@openagenda/react-shared';
-import { Modal } from '@openagenda/react-components';
+import { useApiClient, useModal, Modal } from '@openagenda/react-shared';
 import StateSelector from './StateSelector';
 
 const messages = defineMessages({

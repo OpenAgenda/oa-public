@@ -1,7 +1,7 @@
 import React from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
-import { Modal, Spinner } from '@openagenda/react-components';
+import { Modal, Spinner } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   modalTitle: {

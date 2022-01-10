@@ -25,5 +25,5 @@ exports.seed = async knex => {
     }
   } );
 
-  await keysSvc.init( { ...testconfig, migrations: true } );
+  await keysSvc.init( { ...testconfig, knex, migrations: true } );
 };

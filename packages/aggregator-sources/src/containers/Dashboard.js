@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { useHistory, useParams } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,8 +14,7 @@ import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
 import Fuse from 'fuse.js';
 import { css } from '@emotion/react';
-import { Spinner } from '@openagenda/react-components';
-import { useApiClient, useLayoutData } from '@openagenda/react-shared';
+import { useApiClient, useLayoutData, Spinner } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';
 import SearchInput from '../components/SearchInput';
@@ -485,4 +483,4 @@ function Dashboard() {
   );
 }
 
-export default hot(Dashboard);
+export default Dashboard;

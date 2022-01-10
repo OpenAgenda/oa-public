@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
-import { Spinner } from '@openagenda/react-components';
-import { withLayoutData } from '@openagenda/react-shared';
+import { withLayoutData, Spinner } from '@openagenda/react-shared';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition';
 import * as agendaActions from '../../reducers/agenda';
@@ -34,7 +33,7 @@ import I18nContext from '../../contexts/I18nContext';
       promises.push(dispatch(keysActions.load()));
     }
 
-    return Promise.all(__CLIENT__ ? [] : promises);
+    return Promise.all(typeof window !== 'undefined' ? [] : promises);
   }
 })
 @connect(

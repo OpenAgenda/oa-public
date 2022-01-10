@@ -2,6 +2,10 @@
 
 import displayShareButtons from './displayShareButtons';
 import displayContributorSection from './displayContributorSection';
+import trackConsent from '../../agenda/js/trackConsent';
+import addGoogleAnalyticsTracker from '../../agenda/js/addGoogleAnalyticsTracker';
+
+const debug = require('debug');
 
 const  eventMap = require('./map');
 
@@ -17,13 +21,14 @@ const ownershipTransfer = require('./ownershipTransfer');
 
 const displayReferences = require('./displayReferences');
 
+const displayAdditionalFields = require('./displayAdditionalFields');
+
 const privateData = require('./privateData');
 
 const hours = require('./hours');
 
 const permalink = require('./permalink');
 
-const debug = require('debug');
 
 let log;
 
@@ -86,17 +91,34 @@ window.asap(options => {
 
   permalink();
 
-  get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}`, (err, res) => {
-    if (!res) return;
+  trackConsent(options, {
+    onConsentConfirmed: () => addGoogleAnalyticsTracker({
+      agendaUID: params.agendaUid,
+      googleAnalyticsID: params.googleAnalyticsID
+    })
+  });
 
-    const { me, member } = res;
+  const user = session.getUser();
 
-    displayContributorSection({
-      me,
-      member,
-      lang: params.lang,
-      agendaUid: params.agendaUid
+  if (user) {
+    get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}/context`, (err, res) => {
+      if (!res) return;
+  
+      const { me, member } = res;
+  
+      displayContributorSection({
+        me,
+        member,
+        lang: params.lang,
+        agendaUid: params.agendaUid
+      });
     });
+  }
+
+  displayAdditionalFields({
+    lang: params.lang,
+    agendaUid: params.agendaUid,
+    eventUid: params.uid
   });
 
   _defineRoles(params, (err, roles) => {
@@ -127,15 +149,13 @@ window.asap(options => {
       prv.activities(params.agendaUid, params.uid, params.lang);
     }
 
-    const user = session.getUser();
-
     if (user) {
       prv.inbox(params, { roles, ROLES });
     }
 
   });
 
-  displayShareButtons(params, !!session.getUser());
+  displayShareButtons(params, !!user);
   eventMap();
 });
 

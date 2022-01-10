@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Modal } from '@openagenda/react-components';
+import React from 'react';
+import { Modal } from '@openagenda/react-shared';
 
 export default ({ onClose, onRemove }) => <Modal onClose={onClose}>
   <div className="text-center">

@@ -830,12 +830,6 @@
       "value": "Exporter"
     }
   ],
-  "EventAdminApp.messages.exports.toCSV": [
-    {
-      "type": 0,
-      "value": "csv"
-    }
-  ],
   "EventAdminApp.messages.exports.toDOCX": [
     {
       "type": 0,
@@ -866,16 +860,16 @@
       "value": "rss"
     }
   ],
+  "EventAdminApp.messages.exports.toSpreadsheet": [
+    {
+      "type": 0,
+      "value": "tableur (xlsx / csv)"
+    }
+  ],
   "EventAdminApp.messages.exports.toTXT": [
     {
       "type": 0,
       "value": "txt"
-    }
-  ],
-  "EventAdminApp.messages.exports.toXLSX": [
-    {
-      "type": 0,
-      "value": "xlsx"
     }
   ],
   "EventAdminApp.messages.relative.current": [

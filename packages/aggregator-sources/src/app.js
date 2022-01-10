@@ -6,7 +6,6 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '/aggregatorSources',
-      apiRoot: `localhost:${process.env.PORT || 3000}`,
       perPageLimit: 20,
     },
     res: {
@@ -23,13 +22,11 @@ const defaults = {
 
 export default function (options) {
   const { initialState } = _.merge({}, defaults, options);
-
-  const { apiRoot, prefix } = initialState.settings;
+  const { prefix } = initialState.settings;
 
   const getApp = () => createApp({
     ...options,
     initialState,
-    apiRoot,
     prefix,
     getRoutes,
     legacyApiClient: true,

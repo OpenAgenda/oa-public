@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { hot } from 'react-hot-loader/root';
 import _ from 'lodash';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
-import { Spinner } from '@openagenda/react-components';
-import { withContext, nl2br, withLayoutData } from '@openagenda/react-shared';
+import { withContext, nl2br, withLayoutData, Spinner } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
 import * as inboxActions from '../../reducers/inbox';
@@ -341,4 +339,4 @@ function getAuthorName(obj) {
   return obj.inbox.name;
 }
 
-export default hot(Inbox);
+export default Inbox;

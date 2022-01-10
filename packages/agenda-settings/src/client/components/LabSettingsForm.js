@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Form, Field } from 'react-final-form';
 import I18nContext from '../contexts/I18nContext';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
 
 export default function LabSettingsForm({ agenda, onSubmit }) {
   const { getLabel } = useContext(I18nContext);

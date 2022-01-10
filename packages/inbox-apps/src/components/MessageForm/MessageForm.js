@@ -6,7 +6,7 @@ import superagent from 'superagent';
 import Uppy from 'uppy/lib/core';
 import { Dashboard, StatusBar } from 'uppy/lib/react';
 import AwsS3 from 'uppy/lib/plugins/AwsS3';
-import { Modal } from '@openagenda/react-components';
+import { Modal } from '@openagenda/react-shared';
 import validate from './validate';
 import { renderTextarea } from '../../utils/form';
 import * as uppyLocales from '../../locales/uppyLocales';

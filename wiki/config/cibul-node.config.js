@@ -51,10 +51,10 @@ module.exports = {
     // for embedded views
     embedId: 'ga-id-string-2'
   },
-  googleCaptcha: {
-    key: 'google-captcha-key',
-    secret: 'google-captcha-secret',
-    verify: 'https://www.google.com/recaptcha/api/siteverify'
+  mtCaptcha: {
+    verifyUrl: 'https://service.mtcaptcha.com/mtcv1/api/checktoken',
+    siteKey: 'MTPublic-key',
+    privateKey: 'MTPrivat-key'
   },
   googleApps: {
     id: '{your-google-apps-id}.apps.googleusercontent.com',

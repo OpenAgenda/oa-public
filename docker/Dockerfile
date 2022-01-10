@@ -7,7 +7,7 @@ RUN apt-get update -y \
 
 RUN apt-get install -y imagemagick libmagick++-dev libmagic-dev webp
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs \
     && node -v
 

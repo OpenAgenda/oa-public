@@ -3,7 +3,6 @@ import '@openagenda/polyfills/dom';
 import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
-import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient } from 'react-query';
@@ -44,13 +43,6 @@ import createReduxMiddleware from '../reduxMiddleware';
 import RootHelmet from '../RootHelmet';
 import Root from './Root';
 
-if (!module.hot) {
-  RHL.AppContainer.warnAboutHMRDisabled = false;
-  RHL.hot.shouldWrapWithAppContainer = false;
-}
-
-RHL.setConfig({ trackTailUpdates: false });
-
 // if (process.env.NODE_ENV === 'development') {
 //   // eslint-disable-next-line global-require
 //   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -63,6 +55,12 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      retry: (failureCount, error) => {
+        if (error?.response?.status > 400 && error.response.status < 500) {
+          return false;
+        }
+        return 3;
+      },
     },
   },
 });

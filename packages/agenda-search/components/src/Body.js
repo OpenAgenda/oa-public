@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AgendaItem from './AgendaItem';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
-import { List } from '@openagenda/react-components';
+import { Spinner } from '@openagenda/react-shared';
+import List from './List';
 import get from '@openagenda/utils/get';
-import actions from './actions';
 import labels from '@openagenda/labels/agenda-search';
 import makeLabelGetter from '@openagenda/labels';
 import documentLocation from '@openagenda/dom-utils/documentLocation';
+import actions from './actions';
 import monitorField from './monitorField';
 import validateQuery from '../../validators/query';
 

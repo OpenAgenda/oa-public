@@ -3,19 +3,27 @@
 const { transform: makeTransform } = require('@openagenda/stream-utils');
 const decorateFieldMap = require('./decorateFieldMap');
 const Flattener = require('./Flattener');
+const validateOptions = require('./options.validate');
 
 const getDefaultFieldMap = require('./getDefaultFieldMap');
 
-function getFlattener(options = {}) {
-  const {
-    formSchema = null,
-    maintainedFields = []
-  } = options;
+function getFlattener(o = {}) {
+  const options = validateOptions(o);
+
+  const { formSchema, maintainedFields } = options;
 
   const defaultFieldMap = getDefaultFieldMap(options);
 
   if (!formSchema?.fields) {
-    return Flattener(defaultFieldMap);
+    const getHeaders = () => defaultFieldMap.reduce((acc, curr) => {
+      acc.push({ source: curr.field || curr.source, target: curr.target });
+      return acc;
+    }, []);
+
+    return Object.assign(
+      Flattener(defaultFieldMap),
+      { getHeaders }
+    );
   }
 
   const filteredDefaultFieldMap = formSchema?.fields ? defaultFieldMap.filter(mapItem => {
@@ -26,7 +34,17 @@ function getFlattener(options = {}) {
     return isInFormSchema || isInMaintainedFields;
   }) : defaultFieldMap;
 
-  return Flattener(decorateFieldMap(filteredDefaultFieldMap, options), options);
+  const decoratedFieldMap = decorateFieldMap(filteredDefaultFieldMap, options);
+
+  const getHeaders = () => decoratedFieldMap.reduce((acc, curr) => {
+    acc.push({ source: curr.field || curr.source, target: curr.target });
+    return acc;
+  }, []);
+
+  return Object.assign(
+    Flattener(decoratedFieldMap, options),
+    { getHeaders }
+  );
 }
 
 module.exports = Object.assign(

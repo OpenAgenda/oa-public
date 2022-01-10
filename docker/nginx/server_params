@@ -15,6 +15,7 @@ gzip_types text/plain text/css application/json application/x-javascript text/xm
 
 server_tokens off;
 client_max_body_size 20m;
+large_client_header_buffers 4 16k;
 
 ##########################################################
 #             STATIC FILES

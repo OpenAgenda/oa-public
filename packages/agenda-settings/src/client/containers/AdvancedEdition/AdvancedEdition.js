@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { Modal } from '@openagenda/react-components';
-import { withLayoutData } from '@openagenda/react-shared';
+import { withLayoutData, Modal } from '@openagenda/react-shared';
 import {
   KeysManager,
   InboxSettingsForm,

@@ -3,7 +3,6 @@ import React, {
   useCallback, useEffect, useRef, useState
 } from 'react';
 import ReactDOM from 'react-dom';
-import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLatest } from 'react-use';
@@ -11,11 +10,12 @@ import { useHistory } from 'react-router';
 import { useQuery } from 'react-query';
 import qs from 'qs';
 import { FiltersProvider } from '@openagenda/react-filters';
-import { MoreInfo, Spinner } from '@openagenda/react-components';
 import {
   useApiClient,
   useLayoutData,
   useModal,
+  MoreInfo,
+  Spinner,
 } from '@openagenda/react-shared';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import * as statsActions from '../reducers/stats';
@@ -101,10 +101,10 @@ function Dashboard() {
     () => dispatch(statsActions.setEditMode(false)),
     [dispatch]
   );
-  const save = useCallback(() => dispatch(statsActions.save(agenda)), [
-    agenda,
-    dispatch,
-  ]);
+  const save = useCallback(
+    () => dispatch(statsActions.save(agenda)),
+    [agenda, dispatch]
+  );
 
   const filters = useFilters(agendaSchema);
 
@@ -321,4 +321,4 @@ function Dashboard() {
   );
 }
 
-export default hot(Dashboard);
+export default Dashboard;

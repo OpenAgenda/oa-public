@@ -11,7 +11,7 @@
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
-    "knex": "babel-node ./node_modules/.bin/knex",
+    "knex": "babel-node $(yarn bin knex)",
     "clean": "rimraf components/lib",
     "prepack": "yarn clean && yarn build"
   },
@@ -27,8 +27,7 @@
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/react-components": "^2.3.10",
-    "@openagenda/react-form-components": "^2.1.14",
+    "@openagenda/react-shared": "^2.3.2",
     "@openagenda/utils": "^1.3.0",
     "@openagenda/validators": "^2.4.0",
     "async": "^2.1.4",

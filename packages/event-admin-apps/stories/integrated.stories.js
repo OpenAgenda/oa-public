@@ -10,10 +10,10 @@ import ProvidersDecorator from './decorators/Providers';
 
 import '@openagenda/bs-templates/compiled/main.css';
 import mainData from './fixtures/new.json';
+import exportSettings from './fixtures/exportSettings.json';
 
-const getDefaultState = ({ apiRoot = '' } = {}) => ({
+const getDefaultState = () => ({
   settings: {
-    apiRoot,
     prefix: '',
     perPageLimit: 20,
     mapTiles: '',
@@ -33,6 +33,8 @@ export const Presentation = function Presentation() {
   });
 
   mock.onGet('/la-gargouille/events.json').reply(200, mainData);
+
+  mock.onGet('/agendas/48959239/settings/exports').reply(200, exportSettings);
 
   mock
     .onPost('/:agendaSlug/events/:eventSlug/state')

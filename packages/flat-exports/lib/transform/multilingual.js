@@ -6,11 +6,12 @@ module.exports = ({ languages, includeLanguages }, {
   source, target, postParse, possibleLanguages
 }) => {
   let targetLanguages = languages;
-  if (possibleLanguages) {
-    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l)));
-  }
 
-  if (includeLanguages) {
+  if (possibleLanguages && includeLanguages) {
+    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l) && includeLanguages.includes(l)));
+  } else if (possibleLanguages) {
+    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l)));
+  } else if (includeLanguages) {
     targetLanguages = targetLanguages.filter(l => (includeLanguages.includes(l)));
   }
 

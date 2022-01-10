@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
@@ -9,12 +8,12 @@ import throttle from 'lodash/throttle';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import {
+  withLayoutData,
   Spinner,
   Modal,
   Image,
   SearchInput,
-} from '@openagenda/react-components';
-import { withLayoutData } from '@openagenda/react-shared';
+} from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';
@@ -76,7 +75,6 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
-@hot
 @withLayoutData('lang')
 @provideHooks({
   fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),

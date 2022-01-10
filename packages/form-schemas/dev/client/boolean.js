@@ -1,45 +1,29 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import renderSchemaFromProps from './renderSchemaFromProps';
 
-import FormSchemaComponent from '../../client/src/index';
+if (module.hot) module.hot.accept();
 
-if ( module.hot ) module.hot.accept();
-
-class Main extends Component {
-
-  render() {
-
-    const props = {
-      res: {
-        post: '',
-        redirect: '/'
-      },
-      lang: 'fr',
-      schema: {
-        fields: [ {
-          field: 'ayesorno',
-          fieldType: 'boolean',
-          label: 'Well ok',
-          optional: false
-        } ]
-      },
-      onChange: ( { values } ) => {
-
-        console.log( values);
-
-      }
-    }
-
-    return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-      <div className="row margin-v-md margin-h-sm">
-        <p>A boolean field</p>
-        <FormSchemaComponent { ...props } />
-      </div>
-    </div>
-
+renderSchemaFromProps({
+  res: {
+    post: '',
+    redirect: '/'
+  },
+  lang: 'fr',
+  schema: {
+    fields: [{
+      field: 'ayesorno',
+      fieldType: 'boolean',
+      label: 'Well ok',
+      optional: false
+    }, {
+      field: 'longlabelwithinfoandhelp',
+      fieldType: 'boolean',
+      label: 'This is an extremely long label that will take up more than one line in the form. The first line of the label should still appear on the line of the checkbox itself',
+      info: 'An info text displayed under the label',
+      help: 'Click here for more info',
+      helpLink: 'https://openagenda.com'
+    }]
+  },
+  onChange: ({ values }) => {
+    console.log(values);
   }
-
-}
-
-render( <Main />, document.getElementById( 'app' ) );
+});

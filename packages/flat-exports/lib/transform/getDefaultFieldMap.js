@@ -1,12 +1,15 @@
 'use strict';
 
 const _ = require('lodash');
-const getTargetField = require('./getTargetField');
-const validateOptions = require('./options.validate.js');
 
+const getTargetField = require('./getTargetField');
 const multilingual = require('./multilingual');
 const accessibility = require('./accessibility');
 const timings = require('./timings');
+const formatTime = require('./formatTime');
+const image = require('./image');
+const registration = require('./registration');
+const firstLastDate = require('./firstLastDate');
 
 const defaultMap = c => ({
   source: c.source,
@@ -16,8 +19,7 @@ const defaultMap = c => ({
 
 module.exports = function getDefaultFieldMap(options) {
   const labelLanguages = ['fr', 'en'];
-  const cleanOptions = validateOptions(options);
-  const getTarget = getTargetField.bind(null, cleanOptions.labels, cleanOptions.lang);
+  const getTarget = getTargetField.bind(null, options.labels, options.lang);
 
   let fields = [{
     source: 'uid',
@@ -38,18 +40,31 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'keywords',
     target: getTarget('keywords'),
     type: 'multilingual',
-    postParse: data => (data ? data.join(cleanOptions.separator) : '')
+    postParse: data => (data ? data.join(options.separator) : '')
   }, {
     source: 'dateRange',
     target: getTarget('range'),
     type: 'multilingual',
     possibleLanguages: labelLanguages
   }, {
+    source: 'timings',
     field: 'timings',
     type: 'timings',
     target: getTarget('timings'),
     isoTarget: getTarget('isoTimings')
   }, {
+    source: 'timings',
+    target: getTarget('firstDate'),
+    type: 'firstLastDate',
+    field: 'firstDate'
+  },
+  {
+    source: 'timings',
+    target: getTarget('lastDate'),
+    type: 'firstLastDate',
+    field: 'lastDate'
+  },
+  {
     source: 'conditions',
     target: getTarget('conditions'),
     type: 'multilingual'
@@ -86,6 +101,25 @@ module.exports = function getDefaultFieldMap(options) {
     target: getTarget('location.countryCode'),
     possibleLanguages: labelLanguages
   }, {
+    source: 'location.image',
+    target: getTarget('location.image')
+  }, {
+    source: 'location.imageCredits',
+    target: getTarget('location.imageCredits')
+  }, {
+    source: 'location.description',
+    target: getTarget('location.description'),
+    type: 'multilingual'
+  }, {
+    source: 'location.access',
+    target: getTarget('location.access'),
+    type: 'multilingual'
+  },
+  {
+    source: 'location.phone',
+    target: getTarget('location.phone')
+  },
+  {
     source: 'member.uid',
     target: getTarget('member.uid')
   }, {
@@ -95,9 +129,9 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'member.role',
     target: getTarget('member.role'),
     transform: {
-      1: _.get(cleanOptions.labels, `contributor.${cleanOptions.lang}`, 'contributor'),
-      2: _.get(cleanOptions.labels, `administrator.${cleanOptions.lang}`, 'administrator'),
-      3: _.get(cleanOptions.labels, `moderator.${cleanOptions.lang}`, 'moderator')
+      1: _.get(options.labels, `contributor.${options.lang}`, 'contributor'),
+      2: _.get(options.labels, `administrator.${options.lang}`, 'administrator'),
+      3: _.get(options.labels, `moderator.${options.lang}`, 'moderator')
     }
   }, {
     source: 'member.organization',
@@ -112,24 +146,77 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'member.phone',
     target: getTarget('member.phone')
   }, {
+    source: 'createdAt',
+    target: getTarget('createdAt'),
+    type: 'time'
+  }, {
+    source: 'updatedAt',
+    target: getTarget('updatedAt'),
+    type: 'time'
+  }, {
+    source: 'image',
+    target: getTarget('image'),
+    type: 'image'
+  }, {
+    source: 'thumbnail',
+    target: getTarget('thumbnail')
+  }, {
+    source: 'onlineAccessLink',
+    target: getTarget('onlineAccessLink')
+  }, {
+    source: 'registration',
+    target: getTarget('registration'),
+    type: 'registration'
+  }, {
+    source: 'featured',
+    target: _.capitalize(getTarget('featured')),
+    transform: {
+      true: _.capitalize(getTarget('featured')),
+      false: null
+    }
+  }, {
+    source: 'age.min',
+    target: getTarget('age.min')
+  }, {
+    source: 'age.max',
+    target: getTarget('age.max')
+  }, {
+    source: 'originAgenda.title',
+    target: getTarget('origin.title')
+  }, {
+    source: 'originAgenda.uid',
+    target: getTarget('origin.uid')
+  }, {
+    source: 'link',
+    target: getTarget('link')
+  }, {
     source: 'state',
     target: _.capitalize(getTarget('state')),
     transform: {
-      '-1': _.capitalize(_.get(cleanOptions.labels, `refused.${cleanOptions.lang}`, 'refused')),
-      0: _.capitalize(_.get(cleanOptions.labels, `tocontrol.${cleanOptions.lang}`, 'in moderation')),
-      1: _.capitalize(_.get(cleanOptions.labels, `controlled.${cleanOptions.lang}`, 'ready to publish')),
-      2: _.capitalize(_.get(cleanOptions.labels, `published.${cleanOptions.lang}`, 'published')),
+      '-1': _.capitalize(_.get(options.labels, `refused.${options.lang}`, 'refused')),
+      0: _.capitalize(_.get(options.labels, `tocontrol.${options.lang}`, 'in moderation')),
+      1: _.capitalize(_.get(options.labels, `controlled.${options.lang}`, 'ready to publish')),
+      2: _.capitalize(_.get(options.labels, `published.${options.lang}`, 'published')),
     }
   }];
 
-  if (cleanOptions.includeFields) {
-    fields = fields.filter(field => options.includeFields.includes(field.source));
+  if (options.includeFields) {
+    fields = fields.filter(field => {
+      if (field.field) {
+        return options.includeFields.includes(field.field);
+      }
+      return options.includeFields.includes(field.source);
+    });
   }
 
   // make a flat map.
   return fields.map(c => _.get({
-    timings: timings.bind(null, cleanOptions),
-    accessibility: accessibility.bind(null, cleanOptions),
-    multilingual: multilingual.bind(null, cleanOptions),
+    timings: timings.bind(null, options),
+    accessibility: accessibility.bind(null, options),
+    multilingual: multilingual.bind(null, options),
+    time: formatTime.bind(null, options),
+    firstLastDate: firstLastDate.bind(null, options),
+    image: image.bind(null),
+    registration: registration.bind(null, { source: c.source, target: c.target })
   }, c.type, defaultMap)(c));
 };

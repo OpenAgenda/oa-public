@@ -1,5 +1,12 @@
 {
   "aggregate-button": "Agréger",
+  "displayAdditionalFields.additionalFieldsInfo": "Retrouvez les valeurs de l'événement spécifiques à cet agenda dans la section suivante de cette page",
+  "displayAdditionalFields.emptyValue": "Aucune saisie",
+  "displayAdditionalFields.goToAdditionalFields": "voir",
+  "displayAdditionalFields.noFile": "Fichier non chargé",
+  "displayAdditionalFields.noImage": "Image non chargée",
+  "displayAdditionalFields.noSelectionValue": "Aucune sélection",
+  "displayAdditionalFields.privateField": "Information privée",
   "event/contributor-section": "Contributeur",
   "event/contributor/edit": "Editer la fiche",
   "event/contributor/email": "Email",
@@ -13,5 +20,9 @@
   "export-all-button": "Exporter",
   "export-select-button": "Exporter la sélection",
   "more-button": "plus",
-  "share-button": "Partager sur OpenAgenda"
+  "share-button": "Partager sur OpenAgenda",
+  "trackConsent.accept": "Accepter",
+  "trackConsent.decline": "Refuser",
+  "trackConsent.informationText": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateur de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous?",
+  "trackConsent.moreInfoLink": "Cliquez ici pour en savoir plus"
 }

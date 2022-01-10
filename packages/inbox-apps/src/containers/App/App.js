@@ -1,13 +1,11 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { useStore, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
-import { useApiClient, useLayoutData } from '@openagenda/react-shared';
-import { Modal, Spinner } from '@openagenda/react-components';
+import { useApiClient, useLayoutData, Modal, Spinner } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import inboxReducer from '../../reducers/inbox';
 import conversationReducer from '../../reducers/conversation';
@@ -163,11 +161,11 @@ function App({ route }) {
   return content;
 }
 
-export default hot(provideHooks({
+export default provideHooks({
   inject: ({ store }) => store.inject({
     inbox: inboxReducer,
     conversation: conversationReducer,
     conversationForm: conversationFormReducer,
     modals: modalsReducer
   })
-})(App));
+})(App);

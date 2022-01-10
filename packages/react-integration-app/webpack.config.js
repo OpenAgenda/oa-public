@@ -13,6 +13,7 @@ const WebpackDashboardPlugin = require('webpack-dashboard/plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const modulesToInclude = [
   '@feathersjs',
@@ -76,6 +77,9 @@ module.exports = (env = {}, argv = {}) => {
     entry: {
       webapp: path.join(__dirname, 'client/index.js'),
       outdated: '@openagenda/outdated-browser',
+      vendors: ['react', 'react-dom'].concat(
+        envName === 'development' && argv.hot ? ['react-refresh/runtime'] : []
+      ),
     },
     output: {
       path: path.join(__dirname, 'dist'),
@@ -104,7 +108,7 @@ module.exports = (env = {}, argv = {}) => {
       allowedHosts: ['.openagenda.com'],
       headers: { 'Access-Control-Allow-Origin': '*' },
       compress: true,
-      hot: true,
+      hot: argv.hot ?? true,
       liveReload: false,
       devMiddleware: {
         publicPath: `/dist/${serviceName}/`,
@@ -140,6 +144,9 @@ module.exports = (env = {}, argv = {}) => {
               : getCacheDir('babel-loader-dev'),
             envName: babelEnvName,
             rootMode: 'upward',
+            caller: {
+              supportsHotReload: argv.hot,
+            },
           },
         },
         {
@@ -169,7 +176,7 @@ module.exports = (env = {}, argv = {}) => {
               loader: MiniCssExtractPlugin.loader,
               options: {
                 // only enable hot in development
-                hmr: envName === 'development',
+                hmr: envName === 'development' && argv.hot,
                 // if hmr does not work, this is a forceful method.
                 // reloadAll: true,
               },
@@ -189,8 +196,6 @@ module.exports = (env = {}, argv = {}) => {
       extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
       alias: {
         react: require.resolve('react'),
-        'react-dom/server': require.resolve('@hot-loader/react-dom/server'),
-        'react-dom': require.resolve('@hot-loader/react-dom'),
       },
       fallback: {
         buffer: require.resolve('buffer'),
@@ -257,6 +262,11 @@ module.exports = (env = {}, argv = {}) => {
       new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
       new CleanWebpackPlugin(),
     ]
+      .concat(
+        envName === 'development' && argv.hot
+          ? [new ReactRefreshWebpackPlugin()]
+          : []
+      )
       .concat(
         pushToCDN
           ? [

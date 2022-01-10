@@ -87,7 +87,7 @@ class Stats {
 
     if (stats) {
       return JSON.parse(stats)
-        .map(addFieldSchema(agendaSchema));
+        .reduce(addFieldSchema(agendaSchema), []);
     }
 
     return [
@@ -118,7 +118,7 @@ class Stats {
     ]
       .concat({ separator: true })
       .concat(getAdditionalFieldStats(agendaSchema))
-      .map(addFieldSchema(agendaSchema));
+      .reduce(addFieldSchema(agendaSchema), []);
   }
 
   // async remove() {

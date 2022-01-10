@@ -1,13 +1,13 @@
 import qs from 'qs';
 import React from 'react';
-import { MoreInfo } from '@openagenda/react-components';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { Base64 } from 'js-base64';
+import { Dropdown, MenuItem } from 'react-bootstrap';
+import { MoreInfo } from '@openagenda/react-shared';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles';
-import { Dropdown, MenuItem } from 'react-bootstrap';
 
 const roleLabel = (i18n, role) => {
   const { getLabel } = i18n;

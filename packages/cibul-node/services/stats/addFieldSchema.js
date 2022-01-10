@@ -1,16 +1,28 @@
 'use strict';
 
-module.exports = agendaSchema => stat => {
-  if (stat.aggregation?.type && ['additionalFields', 'additionalFieldMetrics'].includes(stat.aggregation.type)) {
-    return {
+module.exports = agendaSchema => (result, stat) => {
+  if (!['additionalFields', 'additionalFieldMetrics'].includes(stat.aggregation?.type)) {
+    return [
+      ...result,
+      stat
+    ];
+  }
+
+  const fieldSchema = agendaSchema.fields?.find(fieldSchema => fieldSchema.field === stat.aggregation.field);
+
+  // field no longer exists in schema
+  if (!fieldSchema) {
+    return result;
+  }
+
+  return [
+    ...result,
+    {
       ...stat,
       state: {
         ...stat.state,
-        fieldSchema: agendaSchema.fields && agendaSchema.fields
-          .find(fieldSchema => fieldSchema.field ===  stat.aggregation.field)
+        fieldSchema
       }
-    };
-  }
-
-  return stat;
+    }
+  ];
 };

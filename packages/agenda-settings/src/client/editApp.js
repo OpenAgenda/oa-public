@@ -7,7 +7,7 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '/agendaSettings/edit',
-      apiRoot: `localhost:${process.env.PORT || 3000}`
+      apiRoot: ''
     },
     res: {
       get: '/agendas/:uid/admin/settings.json',

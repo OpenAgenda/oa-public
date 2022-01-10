@@ -2,8 +2,13 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { Modal, Image, Spinner } from '@openagenda/react-components';
-import { useMemoOne, useApiClient } from '@openagenda/react-shared';
+import {
+  useMemoOne,
+  useApiClient,
+  Modal,
+  Image,
+  Spinner,
+} from '@openagenda/react-shared';
 import Stepper from './Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';

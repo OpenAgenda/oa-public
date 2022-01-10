@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from '@openagenda/react-form-components/build/Spinner';
+import { Spinner } from '@openagenda/react-shared';
 import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 
 const searchSpinner = {

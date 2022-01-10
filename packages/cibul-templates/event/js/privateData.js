@@ -19,7 +19,6 @@ const defaults = {
   uid: false,
   agendaUid: false,
   env: 'production',
-  selector: '.js_custom',
   url: {
     production: '/agendas/{agendaUid}/events/{eventUid}/private',
     development: '/agendas/{agendaUid}/events/{eventUid}/private',
@@ -70,10 +69,6 @@ module.exports = options => {
       }
       log('loaded');
 
-      if (_.keys(data.custom?.custom).length) {
-        du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
-      }
-
       if (data.authorizations?.canEditEvent) {
         log('can edit event, displaying status change controls');
         for (const el of du.els('.js_status')) {
@@ -94,10 +89,6 @@ module.exports = options => {
       if (data.authorizations?.canPublish) {
         du.removeClass(du.el('.js_can_publish_event'), 'display-none');
       }
-
-      const tagGroups = _.get(data, 'tagGroups', []).filter(g => g.access !== 'public');
-
-      displayPrivateTags(tagGroups);
     });
 
   }
@@ -108,17 +99,6 @@ module.exports = options => {
       res: params.activitiesUrl[params.env].replace('{agendaUid}', agendaUid).replace('{eventUid}', eventUid),
       fetch: _fetch,
       lang
-    });
-  }
-
-  function displayPrivateTags(tagGroups) {
-    tagGroups.forEach(g => {
-      du.el('.js_tag_groups').insertAdjacentHTML('beforeend', `<div class="tags">
-        <label><i class="fa fa-unlock-alt margin-right-xs"></i><span>${g.name}</span></label>:
-        <ul>
-          ${g.tags.map(t => '<li>' + t.label + '</li>')}
-        </ul>
-      </div>`);
     });
   }
 

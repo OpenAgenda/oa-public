@@ -1,6 +1,5 @@
 'use strict';
 
-const options = require('../testconfig');
 const OEmbed = require('../');
 
 const urls = {
@@ -8,6 +7,30 @@ const urls = {
     'http://fr.calameo.com/read/00096250654676c5c42f2'
   ]
 };
+
+const options = {
+  iframely: {
+    key: process.env.IFRAMELY_KEY
+  },
+  filters: [
+    "youtube",
+    "dailymotion",
+    "/day\.ly/",
+    "vimeo",
+    "soundcloud",
+    "twitter\.com\/.+\/status\/[0-9]+$",
+    "flickr",
+    "instagram",
+    "tumblr",
+    "prezi",
+    "google",
+    "ted",
+    "ina\.fr",
+    "youtu",
+    "calameo",
+    "allocine",
+  ]
+}
 
 describe('parsing urls', () => {
   const oe = new OEmbed(options);

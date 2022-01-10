@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import labels from '@openagenda/labels/form-schemas';
-import { MoreInfo } from '@openagenda/react-components';
+import { MoreInfo } from '@openagenda/react-shared';
 
 export default function Help({
   id,

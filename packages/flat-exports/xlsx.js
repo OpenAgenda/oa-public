@@ -1,29 +1,32 @@
-"use strict";
+'use strict';
 
-const XlsxStream = require( 'xlsx-writestream' );
-const transform = require( './lib/transform' );
-const clean = require( './lib/xlsx/clean' );
+const ExcelJS = require('exceljs');
+const transform = require('./lib/transform');
+const clean = require('./lib/xlsx/clean');
 
-module.exports = ( xlsxOptions = {} ) => {
+function xlsx(_xlsxOptions = {}, inStream, options = {}) {
+  const transformed = inStream.pipe(transform(options));
 
-  return xlsx.bind( null, xlsxOptions );  
+  const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
+  const worksheet = workbook.addWorksheet('Events');
 
+  const events = [];
+
+  transformed.on('data', data => {
+    events.push(clean(data));
+  });
+
+  transformed.on('end', () => {
+    worksheet.columns = [...new Set(events.reduce((carry, data) => Object.keys(data).map(key => ({ header: key, key, width: 10 }))))];
+
+    for (const event of events) {
+      worksheet.addRow(event).commit();
+    }
+
+    workbook.commit();
+  });
+
+  return workbook.stream;
 }
 
-function xlsx( xlsxOptions = {}, inStream, options = {} ) {
-
-  const stream = new XlsxStream();
-
-  const transformed = inStream.pipe( transform( options ) );
-
-  transformed.on( 'data', data => {
-
-    stream.addRow( clean( data ) );
-
-  } );
-
-  transformed.on( 'end', () => stream.finalize() );
-
-  return stream.getReadStream(); 
-
-}
+module.exports = (xlsxOptions = {}) => xlsx.bind(null, xlsxOptions);

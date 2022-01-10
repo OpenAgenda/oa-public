@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Switch from 'rc-switch';
-import { List } from '@openagenda/react-components';
 
 export default class UserShow extends Component {
 
@@ -166,15 +165,16 @@ export default class UserShow extends Component {
               <th>Custom</th>
             </tr>
             </thead>
-            <List
-              items={this.props.members}
-              renderItem={this.renderMember}
-              renderEmpty={() => <tr>
-                <td colSpan="5" className="text-center">N'est pas contributeur !</td>
-              </tr>}
-              getPage={() => null}
-              wrapTag="tbody"
-            />
+
+            <tbody>
+            {this.props.members?.length
+              ? this.props.members.map(member => this.renderMember(member))
+              : (
+                <tr>
+                  <td colSpan="5" className="text-center">N'est pas contributeur !</td>
+                </tr>
+              )}
+            </tbody>
           </table>
         </div>
       </div>

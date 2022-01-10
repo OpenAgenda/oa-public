@@ -12,7 +12,9 @@ const { createMemoryHistory } = require('history');
 const { stringify } = require('flatted/cjs');
 const he = require('he');
 const { ChunkExtractor } = require('@loadable/server');
-const { wrapApp } = require('@openagenda/react-shared');
+const {
+  wrapApp /* , apiClient: createApiClient */,
+} = require('@openagenda/react-shared');
 const {
   Html,
   LayoutManager,
@@ -60,7 +62,7 @@ function redirectIfNeeded(req, res, history) {
   }
 }
 
-module.exports = function match({ initialState, publicPath }) {
+module.exports = function match({ initialState, publicPath, apiRoot }) {
   return async (req, res, next) => {
     try {
       const state = typeof initialState === 'function'
@@ -86,6 +88,8 @@ module.exports = function match({ initialState, publicPath }) {
       const layoutStore = createLayoutStore(state.layout, history);
 
       const reduxMiddleware = createReduxMiddleware(layoutStore);
+
+      // const apiClient = createApiClient(apiRoot, req);
 
       const apps = [
         ['home', createHomeApp, MainLayout],
@@ -193,6 +197,7 @@ module.exports = function match({ initialState, publicPath }) {
             initialState: state[key],
             layout,
             reduxMiddleware,
+            apiRoot,
           }),
         }),
         {}

@@ -90,6 +90,8 @@ module.exports = (config, core, services) => {
     reset: false
   });
 
+  services.agendaSchema.task();
+
   services.members.task();
 
   if (process.env.NODE_ENV !== 'production') { // COMMENT THIS WITH PRECAUTION

@@ -4,8 +4,7 @@ import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Image, MoreInfo } from '@openagenda/react-components';
-import { useApiClient } from '@openagenda/react-shared';
+import { useApiClient, MoreInfo, Image } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';
 
 const messages = defineMessages({
@@ -38,9 +37,10 @@ function SourceItem({ source }) {
 
   const res = useSelector(state => state.res);
 
-  const rulesJSON = useMemo(() => JSON.stringify(source.rules, null, 2), [
-    source.rules,
-  ]);
+  const rulesJSON = useMemo(
+    () => JSON.stringify(source.rules, null, 2),
+    [source.rules]
+  );
 
   const showModalRemove = useCallback(
     () => dispatch(modalsActions.showModal('removeSource', { source })),

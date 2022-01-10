@@ -120,10 +120,16 @@ module.exports = core => {
       ...result
     }), next));
 
-  app.get('/agendas/:agendaUid/events/:eventUid', [
+  app.get([
+    '/agendas/:agendaUid/events/:eventUid',
+    '/agendas/:agendaUid/events/slug/:eventSlug'
+  ], [
     mw.getEventFromSearchOrAsDraft,
     mw.evaluateUserAccessToEvent,
-    (req, res) => res.json({ success: true, event: req.event })
+    (req, res) => res.json({
+      success: true,
+      event: req.event
+    })
   ]);
 
   app.get('/agendas/:agendaUid/settings', [
