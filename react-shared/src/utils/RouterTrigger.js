@@ -8,11 +8,18 @@ class RouterTrigger extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { location, match } = state;
-
     const {
-      location: { pathname }
-    } = props;
+      location,
+      match,
+      needTrigger,
+      triggering
+    } = state;
+
+    if (needTrigger || triggering) {
+      return null;
+    }
+
+    const { location: { pathname } } = props;
 
     const navigated = !location || pathname !== location.pathname;
 
@@ -37,6 +44,7 @@ class RouterTrigger extends Component {
 
     this.state = {
       needTrigger: false,
+      triggering: false,
       location: null,
       previousLocation: null,
       previousMatch: null,
@@ -69,12 +77,12 @@ class RouterTrigger extends Component {
     const { needTrigger } = this.state;
 
     if (needTrigger) {
-      this.safeSetState({ needTrigger: false }, () => {
+      this.safeSetState({ needTrigger: false, triggering: true }, () => {
         trigger({ pathname: location.pathname })
           .catch(err => console.log('Failure in RouterTrigger:', err))
           .then(() => {
             // clear previousLocation so the next screen renders
-            this.safeSetState({ previousLocation: null, previousMatch: null });
+            this.safeSetState({ triggering: false, previousLocation: null, previousMatch: null });
           });
       });
     }
