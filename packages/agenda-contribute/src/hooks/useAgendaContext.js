@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 export default function useAgendaContext(agendaUid) {
   const res = useSelector(state => state.settings.apiRoot + state.res.agendaContext.replace(':agendaUid', agendaUid));
@@ -15,9 +16,9 @@ export default function useAgendaContext(agendaUid) {
 
   const memberIsFresh = new Date(agendaContext?.me.member?.updatedAt) > new Date(memberFreshness);
 
-  return {
+  return useMemo(() => ({
     agendaContextIsLoading,
     agendaContext,
     memberIsFresh
-  };
+  }), [agendaContextIsLoading, agendaContext, memberIsFresh]);
 }

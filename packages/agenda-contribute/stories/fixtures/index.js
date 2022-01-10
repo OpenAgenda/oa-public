@@ -244,6 +244,28 @@ storySets.EditEventFormByAdminWithoutEditRights = {
   })
 };
 
+storySets.EventCreateByDuplication = {
+  agendaContext: agendaContributorContext,
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 108
+    }
+  }
+};
+storySets.EventCreateByDuplicationOrigin = {
+  extraProps: {
+    agenda: {
+      ...basicAgenda,
+      uid: 109
+    }
+  },
+  event: basicEventResponse,
+  agenda: basicDetailedAgenda
+};
+
 storySets.BasicConfirmation = {
   agendaContext: produce(agendaContributorContext, draft => {
     draft.me.member.updatedAt = new Date();

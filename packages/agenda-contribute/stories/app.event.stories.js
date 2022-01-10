@@ -87,3 +87,8 @@ export const EditEventFormByAdminWithoutEditRights = componentFromFixtures(
   'Component informing member that event edition is not permitted is shown above form',
   107, '/event/01'
 );
+
+export const EventCreateByDuplication = componentFromFixtures(
+  'Event is create using data taken from another event',
+  108, '?agendaUid=109&eventUid=21832558'
+);

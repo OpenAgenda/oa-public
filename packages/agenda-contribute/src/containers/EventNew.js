@@ -12,6 +12,7 @@ import steps from '../lib/steps';
 import utils from '../lib/utils';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 import usePrefix from '../hooks/usePrefix';
+import useEventDataForDuplicate from '../hooks/useEventDataForDuplicate';
 
 import contributeReducer from '../reducers/contribute';
 
@@ -33,7 +34,13 @@ export default function EventNew({ agenda, history }) {
   } = useEventFormConfig(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
-  if (isLoading) {
+  const {
+    hasReferenceForDuplicate,
+    isReferenceLoading,
+    referenceData
+  } = useEventDataForDuplicate();
+
+  if (isLoading || isReferenceLoading) {
     return <Loading />;
   }
 
@@ -50,6 +57,7 @@ export default function EventNew({ agenda, history }) {
       />
       <EventNewForm
         res={`${apiRoot}${prefix}`}
+        event={hasReferenceForDuplicate ? referenceData : null}
         history={history}
         config={config}
         onSuccess={(event, response) => {

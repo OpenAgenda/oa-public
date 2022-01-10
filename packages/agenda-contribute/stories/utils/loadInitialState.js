@@ -8,6 +8,7 @@ export default function loadInitialState() {
       prefix: '/:slug/contribute',
     },
     res: {
+      agenda: '/api/agendas/:agendaUid',
       agendaContext: '/api/me/agendas/:agendaUid',
       event: '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
       eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
