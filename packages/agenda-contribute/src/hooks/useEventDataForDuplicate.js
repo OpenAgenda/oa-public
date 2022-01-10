@@ -56,7 +56,7 @@ export default function useEventDataForDuplicate() {
   } = useQuery(
     `duplicateFrom.${agendaUid ?? 'none'}.events.${eventUid ?? 'none'}`,
     () => axios.get(res).then(response => (response.data.event)),
-    { enable: hasReferenceForDuplicate }
+    { enabled: !!hasReferenceForDuplicate }
   );
 
   const {
@@ -65,7 +65,7 @@ export default function useEventDataForDuplicate() {
   } = useQuery(
     `duplicateFrom.${agendaUid ?? 'none'}`,
     () => axios.get(agendaRes).then(response => (response.data)),
-    { enable: hasReferenceForDuplicate }
+    { enabled: !!hasReferenceForDuplicate }
   );
 
   return useMemo(() => ({
