@@ -51,30 +51,35 @@ function matchStepPath(location, prefix, matchedSteps) {
     .length;
 }
 
-function doRedirect(history, redirectTo) {
+const evaluateAndRedirect = (history, redirectURL) => {
+  if (/\/home|\/.+\/admin\/events/.test(redirectURL)) {
+    history.push(redirectURL);
+  } else {
+    if (!window) {
+      return;
+    }
+    window.location.href = redirectURL;
+  }
+};
+
+function doRedirect(history, redirectTo, options = {}) {
   const {
     search
   } = history.location;
 
+  const {
+    ignoreURLRedirect = false
+  } = options;
+
   const { redirect } = qs.parse(search, { ignoreQueryPrefix: true });
 
-  if (!window) {
-    return;
-  }
-
-  if (redirect) {
+  if (redirect && !ignoreURLRedirect) {
     const redirectURL = Base64.decode(redirect);
     log('redirecting to %s', redirectURL);
-    const isInAppRedirect = /\/home|\/.+\/admin\/events/.test(redirectURL);
-    if (isInAppRedirect) {
-      history.push(redirectURL);
-    } else {
-      window.location.href = redirectURL;
-    }
-    return;
+    return evaluateAndRedirect(history, redirectURL);
   }
 
-  window.location.href = redirectTo;
+  evaluateAndRedirect(history, redirectTo);
 }
 
 function removeEventFieldsFromSchema(schema) {

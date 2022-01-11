@@ -22,3 +22,16 @@ export const ShareEventFormToConstrainedAgenda = componentFromFixtures(
   constrained than in the ones of the default event schema`,
   301, '/event/01/from/5678'
 );
+
+export const ShareEventFormWithoutEditionRightsAndNoAdditionalFields = componentFromFixtures(
+  `Contributor shares event published in other agenda
+  and does not have edition rights. Target agenda does not have additional fields.
+  Share is made, completion screen appears allowing to go back or to load shared event in
+  destination agenda`,
+  302, '/event/01/from/5679'
+);
+
+export const EventWasShared = componentFromFixtures(
+  'Contributor shared the event. Confirmation screen is displayed',
+  303, '/event/01/from/5679'
+);

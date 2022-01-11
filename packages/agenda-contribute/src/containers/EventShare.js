@@ -7,6 +7,7 @@ import Canvas from '../components/Canvas';
 import EventEditForm from '../components/EventEditForm';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
+import EventWasSuccessfullyShared from '../components/EventWasSuccessfullyShared';
 import useEvent from '../hooks/useEvent';
 import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import useEventFormConfig from '../hooks/useEventFormConfig';
@@ -17,7 +18,8 @@ import getUneditableStandardFieldErrors from '../lib/getUneditableStandardFieldE
 import contributeReducer from '../reducers/contribute';
 
 const {
-  removeEventFieldsFromSchema
+  removeEventFieldsFromSchema,
+  hasAdditionalFields
 } = utils;
 
 const messages = defineMessages({
@@ -33,6 +35,8 @@ export default function EventAdd({
 }) {
   const m = useIntl().formatMessage;
   const apiRoot = useSelector(state => state.settings.apiRoot);
+  const sharedEvent = useSelector(state => state.contribute.sharedEvent);
+
   const dispatch = useDispatch();
 
   const res = useSelector(state => state.res);
@@ -73,7 +77,25 @@ export default function EventAdd({
     return <Loading />;
   }
 
+  if (sharedEvent) {
+    return (
+      <EventWasSuccessfullyShared
+        event={sharedEvent}
+        fromAgenda={fromAgenda}
+        agenda={agenda}
+      />
+    );
+  }
+
   const errors = getUneditableStandardFieldErrors(detailedAgenda, event, eventContext);
+
+  const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
+  const shareRes = `${apiRoot}${history.location.pathname}`;
+
+  if (!hasAdditionalFields(schema) && !canEditEvent) {
+    dispatch(contributeReducer.launchImmediateEventShare(shareRes));
+    return <Loading />;
+  }
 
   return (
     <Canvas
@@ -98,10 +120,10 @@ export default function EventAdd({
         />
       ) : (
         <EventEditForm
-          res={`${apiRoot}${history.location.pathname}`}
+          res={shareRes}
           config={{
             ...config,
-            schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)
+            schema: canEditEvent ? schema : removeEventFieldsFromSchema(schema)
           }}
           memberRole={agendaContext.me.member.role}
           event={event}

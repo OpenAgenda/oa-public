@@ -1,3 +1,4 @@
+import axios from 'axios';
 import debug from 'debug';
 import utils from '../lib/utils';
 
@@ -18,9 +19,25 @@ function reducer(state = {}, action = {}) {
         ...state,
         createdEvent: action.event
       };
+    case actionTypes.EVENT_SHARE_SUCCESS:
+      return {
+        ...state,
+        sharedEvent: action.event
+      };
     default:
       return state;
   }
+}
+
+function launchImmediateEventShare(shareRes) {
+  return ({}, { dispatch }) => {
+    axios.post(shareRes).then(response => {
+      dispatch({
+        type: actionTypes.EVENT_SHARE_SUCCESS,
+        sharedEvent: response.event
+      });
+    });
+  };
 }
 
 function eventCreateSuccess({ agenda, response }) {
@@ -120,5 +137,6 @@ export default Object.assign(reducer, {
   memberSetSuccess,
   eventUpdateSuccess,
   eventShareSuccess,
-  goBackOrToEvent
+  goBackOrToEvent,
+  launchImmediateEventShare
 });

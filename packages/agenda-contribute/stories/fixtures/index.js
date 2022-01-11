@@ -339,7 +339,8 @@ storySets.ShareEventFormFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 1234
+      uid: 1234,
+      title: 'Où on va'
     }
   },
   eventContext: produce(eventContributorContext, draft => {
@@ -369,6 +370,72 @@ storySets.ShareEventFormToConstrainedAgendaFromAgenda = {
   extraProps: {
     agenda: {
       uid: 5678
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = false;
+  })
+};
+
+storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFields = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithMoreConstraints,
+      uid: 302
+    }
+  }
+};
+storySets.ShareEventFormWithoutEditionRightsAndNoAdditionalFieldsFromAgenda = {
+  agenda: basicDetailedAgenda,
+  event: bareboneEventResponse,
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  extraProps: {
+    agenda: {
+      uid: 5679
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = false;
+  })
+};
+
+storySets.EventWasShared = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithMoreConstraints,
+      uid: 303
+    }
+  },
+  extraDevInitialState: {
+    contribute: {
+      sharedEvent: {
+        title: { fr: 'Alaska by night' },
+        state: 2
+      }
+    }
+  }
+};
+storySets.EventWasSharedFromAgenda = {
+  agenda: basicDetailedAgenda,
+  event: bareboneEventResponse,
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  extraProps: {
+    agenda: {
+      uid: 5679
     }
   },
   eventContext: produce(eventContributorContext, draft => {

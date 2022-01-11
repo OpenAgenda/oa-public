@@ -5,9 +5,9 @@ import createApp from '../../src';
 import fixtures from '../fixtures';
 import loadInitialState from './loadInitialState';
 
-const initialState = loadInitialState();
-
 export default function componentFromFixtures(message, agendaUid, entryRoute = '') {
+  const initialState = loadInitialState();
+
   const {
     extraProps,
     extraDevInitialState = {},

@@ -8,7 +8,7 @@
   "AgendaContribute.Canvas.shareEvent": [
     {
       "type": 0,
-      "value": "Partager un événement"
+      "value": "Partage d'événement"
     }
   ],
   "AgendaContribute.Canvas.takeEvent": [
@@ -193,6 +193,34 @@
     {
       "type": 0,
       "value": "Suggérer une modification"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goBack": [
+    {
+      "type": 0,
+      "value": "Retour"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": [
+    {
+      "type": 0,
+      "value": "Voir l'événement"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": [
+    {
+      "type": 0,
+      "value": "L'événement a été publié dans "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": [
+    {
+      "type": 0,
+      "value": "L'événement a été partage dans {agenda}. Il doit être vu par un administrateur avant sa publication."
     }
   ],
   "AgendaContribute.Member.description": [

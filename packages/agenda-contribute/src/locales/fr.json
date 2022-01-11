@@ -1,6 +1,6 @@
 {
   "AgendaContribute.Canvas.fromAgenda": "de l'agenda",
-  "AgendaContribute.Canvas.shareEvent": "Partager un événement",
+  "AgendaContribute.Canvas.shareEvent": "Partage d'événement",
   "AgendaContribute.Canvas.takeEvent": "Reprendre",
   "AgendaContribute.Canvas.toAgenda": "sur l'agenda",
   "AgendaContribute.CanvasWithStepper.addEvent": "Ajouter un événement",
@@ -29,6 +29,10 @@
   "AgendaContribute.EventShare.share": "Partage",
   "AgendaContribute.EventShare.shareRestrictionInfo": "Les points suivants doivent être résolus afin de rendre l'événement \"{event}\" partageable sur l'agenda \"{agenda}\"",
   "AgendaContribute.EventShare.suggestChange": "Suggérer une modification",
+  "AgendaContribute.EventWasSuccessfullyShared.goBack": "Retour",
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": "Voir l'événement",
+  "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": "L'événement a été publié dans {agenda}",
+  "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": "L'événement a été partage dans '{agenda}'. Il doit être vu par un administrateur avant sa publication.",
   "AgendaContribute.Member.description": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
   "AgendaContribute.Member.subtitle": "Présentez-vous avant de saisir vos événements",
   "AgendaContribute.Member.title": "Bienvenue !",

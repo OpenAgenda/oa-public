@@ -195,6 +195,54 @@
       "value": "Suggest a change"
     }
   ],
+  "AgendaContribute.EventWasSuccessfullyShared.goBack": [
+    {
+      "type": 0,
+      "value": "Go back to the event page in "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": [
+    {
+      "type": 0,
+      "value": "See the event in "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": [
+    {
+      "type": 0,
+      "value": "The event is now published on \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": [
+    {
+      "type": 0,
+      "value": "The event has been added to \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\". It will be reviewed before being published"
+    }
+  ],
   "AgendaContribute.Member.description": [
     {
       "type": 0,
