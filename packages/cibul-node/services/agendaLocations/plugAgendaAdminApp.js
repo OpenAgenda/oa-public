@@ -4,7 +4,6 @@ const _ = require('lodash');
 const csv = require('fast-csv');
 const ExcelJS = require('exceljs');
 const expressUtils = require('@openagenda/utils/express');
-const trackingScripts = require('../../lib/trackingScripts');
 const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
@@ -78,13 +77,9 @@ module.exports = (config, services, instance, app, base) => {
         scripts: {
           bottom: [{
             src: '/js/locationsIndex.js'
-          }].concat(
-            trackingScripts({
-              matomoCloudCode: config.matomoCloudCode,
-              googleAnalyticsID: config.googleAnalyticsId,
-              agenda: req.agenda
-            }).map(body => ({ body }))
-          )
+          }].concat(config.matomoCloudCode ? {
+            body: config.matomoCloudCode
+          } : [])
         }
       };
 
