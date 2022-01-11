@@ -19,6 +19,18 @@ function hasAdditionalFields(schema) {
   ).length;
 }
 
+function hasAdditionalFieldsWithoutDependencies(schema) {
+  if (!hasAdditionalFields(schema)) {
+    return false;
+  }
+
+  const withs = schema.fields
+    .filter(field => ['network', 'agenda'].includes(field.schemaType))
+    .filter(field => field.enableWith || field.optionalWith);
+
+  return !withs.length;
+}
+
 function replaceWithStep(history, prefix, step) {
   const pathname = `${prefix}/${step}`;
   log('going from %s to %s', history.location.pathname, pathname);
@@ -98,5 +110,6 @@ export default {
   doRedirect,
   removeEventFieldsFromSchema,
   replaceWithStep,
-  hasAdditionalFields
+  hasAdditionalFields,
+  hasAdditionalFieldsWithoutDependencies
 };

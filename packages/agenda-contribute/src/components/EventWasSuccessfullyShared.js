@@ -45,27 +45,25 @@ export default function EventWasSuccessfullyShared({
       agenda={agenda}
     >
       <div className="padding-all-md wsq text-center">
-        <div className="text-center margin-v-md">
+        <div className="text-center margin-bottom-sm">
           {m(event.state === 2 ? messages.publishedEvent : messages.addedEvent, {
             agenda: agenda.title
           })}
-          <div className="margin-top-sm">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => doRedirect(toEventRes)}
-            >
-              {m(messages.goTo, { agenda: agenda.title })}
-            </button>
-          </div>
         </div>
         <div className="text-center">
           <button
             type="button"
-            className="btn btn-default"
+            className="btn btn-default margin-h-sm"
             onClick={() => doRedirect(fromEventRes)}
           >
             {m(messages.goBack)}
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary margin-h-sm"
+            onClick={() => doRedirect(toEventRes)}
+          >
+            {m(messages.goTo, { agenda: agenda.title })}
           </button>
         </div>
       </div>

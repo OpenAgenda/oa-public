@@ -41,6 +41,9 @@
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.",
   "AgendaContribute.RequestEditionRights.requestEditionRights": "Request edition rights",
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
+  "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": "Only additional fields of the agenda are currently shown",
+  "AgendaContribute.ShowFullEventForm.showEventFields": "Edit event fields",
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published.",
   "AgendaContribute.Stepper.confirmation": "Confirmation",
   "AgendaContribute.Stepper.event": "My event",
   "AgendaContribute.Stepper.member": "Member form"

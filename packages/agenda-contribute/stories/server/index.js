@@ -83,7 +83,7 @@ dev.post('/:agendaSlug/contribute/event/:eventUid', (req, res) => {
 
 dev.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', (req, res) => {
   const sharedEvent = {
-    ...getFixtures(req.params.fromAgendaUid).event,
+    ...getFixtures(req.params.fromAgendaUid).event.event,
     ...(req.body.data ? JSON.parse(req.body.data) : {}),
   };
 

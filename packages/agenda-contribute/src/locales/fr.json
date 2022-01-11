@@ -26,7 +26,7 @@
   "AgendaContribute.EventShare.longDescription": "Description longue",
   "AgendaContribute.EventShare.registration": "Outils d'inscription",
   "AgendaContribute.EventShare.required": "Requis",
-  "AgendaContribute.EventShare.share": "Partage",
+  "AgendaContribute.EventShare.share": "Partager",
   "AgendaContribute.EventShare.shareRestrictionInfo": "Les points suivants doivent être résolus afin de rendre l'événement \"{event}\" partageable sur l'agenda \"{agenda}\"",
   "AgendaContribute.EventShare.suggestChange": "Suggérer une modification",
   "AgendaContribute.EventWasSuccessfullyShared.goBack": "Retour",
@@ -41,6 +41,9 @@
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu.",
   "AgendaContribute.RequestEditionRights.requestEditionRights": "Demander les droits d'édition",
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
+  "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": "Seuls les champs spécifiques l'agenda sont présentés.",
+  "AgendaContribute.ShowFullEventForm.showEventFields": "Editer également les champs de l'événement",
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": "Vous disposez des droits d'édition sur l'événement. Toute édition faite lors de ce partage sur ses champs standards (titre, description, horaires...) sera répercutée sur les agendas où il est réferencé.",
   "AgendaContribute.Stepper.confirmation": "Confirmation",
   "AgendaContribute.Stepper.event": "Mon événement",
   "AgendaContribute.Stepper.member": "Fiche membre"

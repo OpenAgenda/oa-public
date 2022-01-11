@@ -33,5 +33,12 @@ export const ShareEventFormWithoutEditionRightsAndNoAdditionalFields = component
 
 export const EventWasShared = componentFromFixtures(
   'Contributor shared the event. Confirmation screen is displayed',
-  303, '/event/01/from/5679'
+  303, '/event/01/from/5680'
+);
+
+export const ShareEventWithEditionRightsAndAdditionalFields = componentFromFixtures(
+  `Contributor shares event published in other agenda and has edition rights.
+  Target agenda has additional fields without dependencies. Only additional fields are
+  shown at load`,
+  304, '/event/01/from/5681'
 );

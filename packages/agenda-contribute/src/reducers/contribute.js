@@ -8,21 +8,26 @@ const {
   doRedirect
 } = utils;
 
-const actionTypes = {
-  EVENT_CREATE_SUCCESS: 'agenda-contribute/EVENT_CREATE_SUCCESS'
-};
+const EVENT_CREATE_SUCCESS = 'agenda-contribute/EVENT_CREATE_SUCCESS';
+const EVENT_SHARE_SUCCESS = 'agenda-contribute/EVENT_SHARE_SUCCESS';
+const EVENT_SHARE_DISPLAY_EVENT_FIELDS = 'agenda-contribute/EVENT_SHARE_DISPLAY_EVENT_FIELDS';
 
 function reducer(state = {}, action = {}) {
   switch (action.type) {
-    case actionTypes.EVENT_CREATE_SUCCESS:
+    case EVENT_CREATE_SUCCESS:
       return {
         ...state,
         createdEvent: action.event
       };
-    case actionTypes.EVENT_SHARE_SUCCESS:
+    case EVENT_SHARE_SUCCESS:
       return {
         ...state,
-        sharedEvent: action.event
+        sharedEvent: action.sharedEvent
+      };
+    case EVENT_SHARE_DISPLAY_EVENT_FIELDS:
+      return {
+        ...state,
+        displayEventFieldsInShare: true
       };
     default:
       return state;
@@ -30,13 +35,19 @@ function reducer(state = {}, action = {}) {
 }
 
 function launchImmediateEventShare(shareRes) {
-  return ({}, { dispatch }) => {
+  return (_, { dispatch }) => {
     axios.post(shareRes).then(response => {
       dispatch({
-        type: actionTypes.EVENT_SHARE_SUCCESS,
-        sharedEvent: response.event
+        type: EVENT_SHARE_SUCCESS,
+        sharedEvent: response.data.event
       });
     });
+  };
+}
+
+function displayEventFieldsInShare() {
+  return {
+    type: EVENT_SHARE_DISPLAY_EVENT_FIELDS
   };
 }
 
@@ -58,7 +69,7 @@ function eventCreateSuccess({ agenda, response }) {
     }
 
     dispatch({
-      type: actionTypes.EVENT_CREATE_SUCCESS,
+      type: EVENT_CREATE_SUCCESS,
       event
     });
 
@@ -138,5 +149,6 @@ export default Object.assign(reducer, {
   eventUpdateSuccess,
   eventShareSuccess,
   goBackOrToEvent,
-  launchImmediateEventShare
+  launchImmediateEventShare,
+  displayEventFieldsInShare
 });

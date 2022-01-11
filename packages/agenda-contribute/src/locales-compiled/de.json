@@ -291,6 +291,24 @@
       "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
     }
   ],
+  "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
+    {
+      "type": 0,
+      "value": "Only additional fields of the agenda are currently shown"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFields": [
+    {
+      "type": 0,
+      "value": "Edit event fields"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
+    {
+      "type": 0,
+      "value": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published."
+    }
+  ],
   "AgendaContribute.Stepper.confirmation": [
     {
       "type": 0,

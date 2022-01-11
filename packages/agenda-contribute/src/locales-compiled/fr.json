@@ -271,6 +271,24 @@
       "value": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)"
     }
   ],
+  "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
+    {
+      "type": 0,
+      "value": "Seuls les champs additionnels de l'agenda sont présentés."
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFields": [
+    {
+      "type": 0,
+      "value": "Editer également les champs de l'événement"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
+    {
+      "type": 0,
+      "value": "Vous disposez des droits d'édition sur l'événement. Tout édition faite lors de ce partage sur l'événement sera répercuté sur tous les agendas où il est réferencé."
+    }
+  ],
   "AgendaContribute.Stepper.confirmation": [
     {
       "type": 0,

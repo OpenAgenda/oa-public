@@ -435,11 +435,43 @@ storySets.EventWasSharedFromAgenda = {
   }),
   extraProps: {
     agenda: {
-      uid: 5679
+      uid: 5680
     }
   },
   eventContext: produce(eventContributorContext, draft => {
     draft.me.authorizations.canEditEvent = false;
+  })
+};
+
+storySets.ShareEventWithEditionRightsAndAdditionalFields = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  agenda: detailedAgendaWithAdditionalFields,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithAdditionalFields,
+      uid: 304
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = true;
+  })
+};
+storySets.ShareEventWithEditionRightsAndAdditionalFieldsFromAgenda = {
+  agenda: basicDetailedAgenda,
+  event: bareboneEventResponse,
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  extraProps: {
+    agenda: {
+      uid: 5681
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = true;
   })
 };
 
