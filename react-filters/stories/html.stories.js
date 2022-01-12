@@ -399,3 +399,42 @@ export const ActiveFilters = () => (
   />
 );
 ActiveFilters.storyName = 'Active filters widget';
+
+export const PageSize = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        city: [
+          { key: 'Paris', eventCount: 127 },
+          { key: 'Toulouse', eventCount: 40 },
+          { key: 'Le Port', eventCount: 33 },
+          { key: 'Montpellier', eventCount: 33 },
+          { key: 'Nantes', eventCount: 29 },
+          { key: 'Colmar', eventCount: 24 },
+          { key: 'a', eventCount: 23 },
+          { key: 'b', eventCount: 22 },
+          { key: 'c', eventCount: 21 },
+          { key: 'd', eventCount: 20 },
+          { key: 'e', eventCount: 19 },
+          { key: 'f', eventCount: 18 }
+        ]
+      },
+      aggregations: {
+        city: [
+          { key: 'Paris', eventCount: 34 },
+          { key: 'Le Port', eventCount: 25 },
+          { key: 'Montpellier', eventCount: 16 },
+          { key: 'Colmar', eventCount: 7 }
+        ]
+      }
+    }}
+    html={_.template(`
+      <div
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'city', pageSize: 12 }) %>"
+      ></div>
+    `)()}
+  />
+);
+PageSize.storyName = 'Options page size';
