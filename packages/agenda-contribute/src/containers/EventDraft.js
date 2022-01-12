@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CanvasWithStepper from '../components/CanvasWithStepper';
@@ -22,6 +22,8 @@ const {
 } = utils;
 
 export default function EventDraft({ agenda, history }) {
+  const location = useLocation();
+
   const {
     eventUid // as a string
   } = useParams();
@@ -57,7 +59,7 @@ export default function EventDraft({ agenda, history }) {
         className="margin-bottom-lg"
       />
       <EventNewForm
-        res={`${apiRoot}${history.location.pathname}`}
+        res={`${apiRoot}${location.pathname}`}
         history={history}
         event={event}
         config={config}

@@ -2,6 +2,7 @@ import debug from 'debug';
 import React, { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import steps from '../lib/steps';
 import CanvasWithStepper from '../components/CanvasWithStepper';
@@ -56,6 +57,7 @@ export default function Confirmation({ history, agenda }) {
   const createdEvent = useSelector(state => state.contribute.createdEvent);
   const prefix = usePrefix(agenda);
   const res = useSelector(state => state.res);
+  const location = useLocation();
 
   const confirmationCustomMessage = agenda.settings?.contribution?.messages?.complete;
 
@@ -68,8 +70,8 @@ export default function Confirmation({ history, agenda }) {
       return;
     }
     log('  Attempting to reach confirmation screen without a created event. Redirecting to event step');
-    replaceWithStep(history, prefix, 'event');
-  }, [history, prefix, createdEvent]);
+    replaceWithStep(history, location, prefix, 'event');
+  }, [history, location, prefix, createdEvent]);
 
   if (!createdEvent) {
     return <Loading />;

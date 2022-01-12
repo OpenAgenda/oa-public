@@ -62,8 +62,8 @@ function App(props) {
     }
 
     log('  Base path is requested, user is not a member. Redirecting to member step');
-    replaceWithStep(history, prefix, 'member');
-  }, [shouldGoToFirstStep, history, prefix]);
+    replaceWithStep(history, location, prefix, 'member');
+  }, [shouldGoToFirstStep, history, prefix, location]);
 
   if (agendaContextIsLoading || shouldGoToFirstStep) {
     return <Loading />;

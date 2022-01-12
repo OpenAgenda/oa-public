@@ -40,7 +40,7 @@ export default function Landing({
       && !isMemberDataRequired(agenda)
     ) {
       log('  Contributor data is not required by agenda. Redirecting to event step');
-      return replaceWithStep(history, prefix, 'event');
+      return replaceWithStep(history, location, prefix, 'event');
     }
 
     if (
@@ -52,16 +52,16 @@ export default function Landing({
       )
     ) {
       log('  Contributor is not required to fill member form or his data is complete. Redirecting to event step');
-      return replaceWithStep(history, prefix, 'event');
+      return replaceWithStep(history, location, prefix, 'event');
     }
 
     if (isMemberRole(member, ['administrator', 'moderator'])) {
       log('  Member is adminmod. Redirecting to event step');
-      return replaceWithStep(history, prefix, 'event');
+      return replaceWithStep(history, location, prefix, 'event');
     }
 
     if (!agendaContextIsLoading) {
-      replaceWithStep(history, prefix, 'member');
+      replaceWithStep(history, location, prefix, 'member');
     }
   }, [agendaContextIsLoading, agendaContext, agenda, history, memberIsFresh, prefix, location]);
 

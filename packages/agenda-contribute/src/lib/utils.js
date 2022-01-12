@@ -31,11 +31,11 @@ function hasAdditionalFieldsWithoutDependencies(schema) {
   return !withs.length;
 }
 
-function replaceWithStep(history, prefix, step) {
+function replaceWithStep(history, location, prefix, step) {
   const pathname = `${prefix}/${step}`;
-  log('going from %s to %s', history.location.pathname, pathname);
+  log('going from %s to %s', location.pathname, pathname);
   history.replace({
-    ...history.location,
+    ...location,
     pathname
   });
 }

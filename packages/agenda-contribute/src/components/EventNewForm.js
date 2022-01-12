@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 
 import EventForm from '@openagenda/event-form/build';
@@ -36,10 +37,11 @@ function EventNewForm({
   onSuccess,
   onDraftDelete,
   memberRole,
-  history,
   res
 }) {
   const m = useIntl().formatMessage;
+
+  const location = useLocation();
 
   return (
     <EventForm
@@ -47,7 +49,7 @@ function EventNewForm({
       res={res}
       role={memberRole}
       includeEventFields
-      values={eventWithDefaults(event, getURLDefaults(history))}
+      values={eventWithDefaults(event, getURLDefaults(location))}
       onSubmitSuccess={onSuccess}
       actionComponents={[{
         position: 'bottom',

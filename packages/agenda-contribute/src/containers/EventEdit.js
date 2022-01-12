@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import EventEditForm from '../components/EventEditForm';
@@ -26,6 +26,8 @@ export default function EventEdit({
     eventUid // as a string
   } = useParams();
 
+  const location = useLocation();
+
   const prefix = usePrefix(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
@@ -46,9 +48,9 @@ export default function EventEdit({
 
   useEffect(() => {
     if (!eventIsLoading && event.draft) {
-      replaceWithStep(history, prefix, `event/${event.uid}/draft`);
+      replaceWithStep(history, location, prefix, `event/${event.uid}/draft`);
     }
-  }, [eventIsLoading, event, history, prefix]);
+  }, [eventIsLoading, event, history, location, prefix]);
 
   if (eventIsLoading || isLoading) {
     return <Loading />;
@@ -69,7 +71,7 @@ export default function EventEdit({
         </div>
       ) : null}
       <EventEditForm
-        res={`${apiRoot}${history.location.pathname}`}
+        res={`${apiRoot}${location.pathname}`}
         config={{
           ...config,
           schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)

@@ -15,12 +15,12 @@ export function eventWithDefaults(event, defaults) {
   };
 }
 
-export function get(history) {
-  if (!history.location.search) {
+export function get(location) {
+  if (!location.search) {
     return {};
   }
 
-  return qs.parse(history.location.search, { ignoreQueryPrefix: true })?.defaults ?? {};
+  return qs.parse(location.search, { ignoreQueryPrefix: true })?.defaults ?? {};
 }
 
 export default {

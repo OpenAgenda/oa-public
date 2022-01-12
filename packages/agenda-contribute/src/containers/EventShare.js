@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Canvas from '../components/Canvas';
@@ -36,6 +36,7 @@ export default function EventAdd({
   history
 }) {
   const m = useIntl().formatMessage;
+  const location = useLocation();
   const apiRoot = useSelector(state => state.settings.apiRoot);
   const sharedEvent = useSelector(state => state.contribute.sharedEvent);
   const displayEventFields = useSelector(state => state.contribute.displayEventFieldsInShare);
@@ -104,7 +105,7 @@ export default function EventAdd({
   const errors = getUneditableStandardFieldErrors(detailedAgenda, event, eventContext);
 
   const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
-  const shareRes = `${apiRoot}${history.location.pathname}`;
+  const shareRes = `${apiRoot}${location.pathname}`;
 
   if (!hasAdditionalFields(schema) && !canEditEvent) {
     dispatch(contributeReducer.launchImmediateEventShare(shareRes));
