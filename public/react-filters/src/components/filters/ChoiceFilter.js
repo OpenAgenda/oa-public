@@ -13,9 +13,6 @@ import ChoiceField from '../fields/ChoiceField';
 import Panel from '../Panel';
 import FilterPreviewer from '../FilterPreviewer';
 
-const OPTIONS_PAGE_SIZE = 10;
-const SEARCH_MIN_SIZE = 2 * OPTIONS_PAGE_SIZE;
-
 const messages = defineMessages({
   noResult: {
     id: 'ReactFilters.ChoiceFilter.noResult',
@@ -150,11 +147,13 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
   getOptions,
   disabled,
   collapsed,
-  inputType = 'checkbox'
+  inputType = 'checkbox',
+  pageSize = 10,
+  searchMinSize = 2 * pageSize,
 }, _ref) {
   const intl = useIntl();
   const seed = useUIDSeed();
-  const [maxOptions, setMaxOptions] = useState(OPTIONS_PAGE_SIZE);
+  const [maxOptions, setMaxOptions] = useState(pageSize);
 
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
@@ -163,10 +162,10 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
   const [foundOptions, setFoundOptions] = useState(options);
 
   const moreOptions = useCallback(
-    () => setMaxOptions(v => v + OPTIONS_PAGE_SIZE),
-    []
+    () => setMaxOptions(v => v + pageSize),
+    [pageSize]
   );
-  const lessOptions = useCallback(() => setMaxOptions(OPTIONS_PAGE_SIZE), []);
+  const lessOptions = useCallback(() => setMaxOptions(pageSize), [pageSize]);
 
   const previousCollpased = usePrevious(collapsed);
 
@@ -214,7 +213,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
         ? options
         : fuse.search(optionSearch).map(v => v.item);
 
-      // if (newOptions.length <= OPTIONS_PAGE_SIZE || optionSearch === '') {
+      // if (newOptions.length <= pageSize || optionSearch === '') {
       //   lessOptions();
       // }
 
@@ -224,7 +223,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
 
   return (
     <>
-      {options.length > SEARCH_MIN_SIZE ? (
+      {options.length > searchMinSize ? (
         <input
           className="form-control input-sm margin-top-xs"
           value={optionSearch}
@@ -269,7 +268,7 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
         </button>
       ) : null}
 
-      {!hasMoreOptions && maxOptions > OPTIONS_PAGE_SIZE ? (
+      {!hasMoreOptions && maxOptions > pageSize ? (
         <button
           type="button"
           className="btn btn-link btn-link-inline"
