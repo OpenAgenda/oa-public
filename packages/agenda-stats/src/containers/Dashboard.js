@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLatest } from 'react-use';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useQuery } from 'react-query';
 import qs from 'qs';
 import { FiltersProvider } from '@openagenda/react-filters';
@@ -60,6 +60,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const apiClient = useApiClient();
   const history = useHistory();
+  const location = useLocation();
 
   const filtersFormRef = useRef();
 
@@ -76,7 +77,7 @@ function Dashboard() {
   const latestStats = useLatest(stats);
 
   const [initialQuery, setInitialQuery] = useState(() => {
-    const baseQuery = qs.parse(history.location.search, {
+    const baseQuery = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
 
@@ -123,6 +124,9 @@ function Dashboard() {
     }
   );
 
+  // A ref to conserve the same onFilterChange callback
+  const latestLocation = useLatest(location);
+
   const onFilterChange = useCallback(
     async values => dispatch(
       statsActions.load(agenda, latestStats.current, filters, values)
@@ -132,14 +136,11 @@ function Dashboard() {
         arrayFormat: 'brackets',
       });
 
-      if (history.location.search !== search) {
-        history.push({
-          ...history.location,
-          search,
-        });
+      if (latestLocation.current.search !== search) {
+        history.push({ search });
       }
     }),
-    [filters, agenda, dispatch, history, latestStats]
+    [filters, agenda, dispatch, history, latestLocation, latestStats]
   );
 
   // Load timespan & aggregations
@@ -188,7 +189,7 @@ function Dashboard() {
     apiClient,
     dispatch,
     filters,
-    history.location.search,
+    location.search,
     initialQuery,
     loaded,
     error,

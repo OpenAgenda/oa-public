@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -89,10 +89,11 @@ const messages = defineMessages({
 
 function Dashboard() {
   const history = useHistory();
+  const location = useLocation();
   const params = useParams();
   const query = useMemo(
-    () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
-    [history.location.search]
+    () => qs.parse(location.search, { ignoreQueryPrefix: true }),
+    [location.search]
   );
   const initialValues = useMemo(
     () => ({ search: query.search || '' }),
@@ -139,7 +140,6 @@ function Dashboard() {
 
       // dispatch(sourcesActions.list({ search: v })).finally(() => {
       history.push({
-        ...history.location,
         search: qs.stringify({ ...query, search: v || undefined }),
       });
       // });
@@ -256,7 +256,6 @@ function Dashboard() {
         );
 
         return history.replace({
-          ...history.location,
           search: qs.stringify({ ...queryValue, source: undefined }),
         });
       }
@@ -277,7 +276,6 @@ function Dashboard() {
       }
 
       history.replace({
-        ...history.location,
         search: qs.stringify({ ...queryValue, source: undefined }),
       });
     })();
@@ -308,7 +306,6 @@ function Dashboard() {
       }
 
       history.replace({
-        ...history.location,
         search: qs.stringify({ ...query, removeSource: undefined }),
       });
     })();
@@ -352,7 +349,7 @@ function Dashboard() {
               <a
                 className="btn btn-primary"
                 href={`/support?origin=${encodeURIComponent(
-                  history.location.pathname
+                  location.pathname
                 )}`}
               >
                 {chunks}

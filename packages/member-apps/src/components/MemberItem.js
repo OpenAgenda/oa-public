@@ -1,6 +1,6 @@
 import qs from 'qs';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { Base64 } from 'js-base64';
@@ -21,7 +21,6 @@ function MemberItem({
   agenda,
   showModal,
   resendInvitation,
-  history,
   i18n,
   userRole,
   patchRole,
@@ -36,6 +35,7 @@ function MemberItem({
     role,
   } = member;
 
+  const location = useLocation();
   const { getLabel } = i18n;
 
   const canEditMember = isSuperiorToOrEqual(userRole, role);
@@ -46,9 +46,7 @@ function MemberItem({
     if (deletedUser && !invited) return 'deleted';
   })();
 
-  const base64url = Base64.encode(
-    history.location.pathname + history.location.search
-  );
+  const base64url = Base64.encode(location.pathname + location.search);
 
   const resendInvitationHandler = () => resendInvitation(agenda, id)
     .then(() => showModal('memberReinvited', { member, success: true }))

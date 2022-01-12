@@ -8,7 +8,7 @@ import React, {
   useLayoutEffect,
   useEffect,
 } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
@@ -24,7 +24,11 @@ import {
   useLayoutData,
   Spinner,
 } from '@openagenda/react-shared';
-import { FiltersProvider, getEvents } from '@openagenda/react-filters';
+import {
+  FiltersProvider,
+  SearchInput,
+  getEvents,
+} from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPortal from '../components/FiltersPortal';
 import FiltersPreview from '../components/FiltersPreview';
@@ -136,7 +140,7 @@ const messages = defineMessages({
   },
 });
 
-function SearchField({ input, disabled, isLoading }) {
+function SearchInputBs3({ input, disabled, isLoading }) {
   const intl = useIntl();
 
   return (
@@ -217,7 +221,12 @@ function SearchFilter({
   }, [fieldProps.input.value, onChange]);
 
   return (
-    <SearchField {...fieldProps} isLoading={isLoading} disabled={disabled} />
+    <SearchInput
+      {...fieldProps}
+      isLoading={isLoading}
+      disabled={disabled}
+      inputComponent={SearchInputBs3}
+    />
   );
 }
 
@@ -265,6 +274,7 @@ function Dashboard() {
   const intl = useIntl();
   const apiClient = useApiClient();
   const history = useHistory();
+  const location = useLocation();
   const queryClient = useQueryClient();
 
   const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
@@ -272,10 +282,10 @@ function Dashboard() {
   const res = useSelector(state => state.res);
 
   const parsedLocationSearch = useMemo(
-    () => qs.parse(history.location.search, {
+    () => qs.parse(location.search, {
       ignoreQueryPrefix: true,
     }),
-    [history.location.search]
+    [location.search]
   );
 
   const [query, setQuery] = useState(() => {
@@ -283,6 +293,8 @@ function Dashboard() {
 
     return _.pick(validateQuery(urlQuery, agendaSchema), Object.keys(urlQuery));
   });
+
+  console.log('Dashboard render', query);
 
   const hasFilter = useMemo(
     () => Object.keys(query).length
@@ -296,10 +308,7 @@ function Dashboard() {
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
 
-  const redirectURL = useMemo(
-    () => getRedirectURL(history.location),
-    [history.location]
-  );
+  const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
   const loadGeoData = useCallback(
     async (filter, bounds, zoom) => {
@@ -433,10 +442,7 @@ function Dashboard() {
             }
           );
 
-          history.push({
-            ...history.location,
-            search,
-          });
+          history.push({ search });
         }
 
         // Update map markers
@@ -598,14 +604,7 @@ function Dashboard() {
       form.initialize(cleanQuery);
       form.submit();
     }
-  }, [
-    agenda,
-    agendaSchema,
-    filters,
-    history.location,
-    latestQuery,
-    parsedLocationSearch,
-  ]);
+  }, [agenda, agendaSchema, filters, latestQuery, parsedLocationSearch]);
 
   if (isLoading || filtersQuery.isLoading) {
     return (
