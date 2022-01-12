@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { Field, useField, useForm } from 'react-final-form';
+import React, { useCallback } from 'react';
+import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
-import { useIntl, defineMessages } from 'react-intl';
-import { useDebouncedCallback } from 'use-debounce';
+import { defineMessages, useIntl } from 'react-intl';
 import FilterPreviewer from '../FilterPreviewer';
+import SearchInput from '../SearchInput';
 
 const subscription = { value: true };
 
@@ -25,7 +25,6 @@ function Preview({
   disabled,
   ...rest
 }) {
-  const intl = useIntl();
   const { input } = useField(name, { subscription });
 
   const onRemove = useCallback(
@@ -51,82 +50,6 @@ function Preview({
     label: input.value,
     onRemove,
     disabled,
-    ...rest,
-  });
-}
-
-/* function Input({ input, placeholder, onButtonClick /!* , disabled *!/ }) {
-  return (
-    <div className="form-group search">
-      <div className="input-icon-right">
-        <input
-          type="text"
-          className="form-control"
-          autoComplete="off"
-          placeholder={placeholder}
-          // disabled={disabled}
-          {...input}
-        />
-        <button type="submit" className="btn" onClick={onButtonClick}>
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
-    </div>
-  );
-} */
-
-function Input({ input, placeholder, onButtonClick }) {
-  return (
-    <div className="input-group mb-3">
-      <input
-        className="form-control"
-        autoComplete="off"
-        placeholder={placeholder}
-        {...input}
-      />
-      <div className="input-group-append">
-        <button
-          type="submit"
-          className="btn btn-outline-secondary"
-          onClick={onButtonClick}
-        >
-          <i className="fa fa-search" aria-hidden="true" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function SearchInput({
-  inputComponent = Input,
-  input,
-  placeholder,
-  disabled,
-  ...rest
-}) {
-  const form = useForm();
-  const [tmpValue, setTmpValue] = useState(input.value);
-
-  const debouncedOnChange = useDebouncedCallback(e => input.onChange(e), 400);
-
-  const onChange = useCallback(e => {
-    e.persist();
-
-    setTmpValue(e.target.value);
-    debouncedOnChange(e);
-  }, [debouncedOnChange]);
-
-  const wrappedInput = useMemo(() => ({
-    ...input,
-    value: tmpValue,
-    onChange
-  }), [input, onChange, tmpValue]);
-
-  return React.createElement(inputComponent, {
-    input: wrappedInput,
-    placeholder,
-    disabled,
-    onButtonClick: form.submit,
     ...rest,
   });
 }

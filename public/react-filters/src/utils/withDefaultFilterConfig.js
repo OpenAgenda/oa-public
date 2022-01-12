@@ -91,12 +91,22 @@ export default function withDefaultFilterConfig(filter, intl) {
       break;
     case 'region':
       defaults(filter, {
-        //
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'regions',
+          size: AGGREGATION_SIZE,
+        }
       });
       break;
     case 'department':
       defaults(filter, {
-        //
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'departments',
+          size: AGGREGATION_SIZE,
+        }
       });
       break;
     case 'city':
@@ -105,6 +115,16 @@ export default function withDefaultFilterConfig(filter, intl) {
         options: null, // from the aggregation
         aggregation: {
           type: 'cities',
+          size: AGGREGATION_SIZE,
+        }
+      });
+      break;
+    case 'adminLevel3':
+      defaults(filter, {
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'adminLevels3',
           size: AGGREGATION_SIZE,
         }
       });
