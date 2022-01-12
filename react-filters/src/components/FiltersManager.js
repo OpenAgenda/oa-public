@@ -192,11 +192,7 @@ export default React.forwardRef(function FiltersManager({
       }
     },
     updateLocation: values => {
-      const queryStr = qs.stringify(values, {
-        addQueryPrefix: true,
-        arrayFormat: 'brackets',
-        skipNulls: true,
-      });
+      const queryStr = qs.stringify(values, { addQueryPrefix: true, skipNulls: true });
 
       window.history.pushState(
         {},

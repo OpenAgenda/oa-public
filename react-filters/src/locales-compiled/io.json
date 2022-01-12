@@ -371,7 +371,7 @@
       "value": "Geolocation"
     }
   ],
-  "ReactFilters.messages.filterTitles.keywords": [
+  "ReactFilters.messages.filterTitles.keyword": [
     {
       "type": 0,
       "value": "Keywords"
