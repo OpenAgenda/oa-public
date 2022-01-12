@@ -4,7 +4,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 
 import steps from '../lib/steps';
-import redirectTo from '../lib/redirectTo';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import Instructions from '../components/Instructions';
 import Loading from '../components/Loading';
@@ -47,7 +46,8 @@ const messages = defineMessages({
 });
 
 const {
-  replaceWithStep
+  replaceWithStep,
+  doRedirect
 } = utils;
 
 const log = debug('Confirmation');
@@ -94,7 +94,8 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-primary btn-block"
-              onClick={() => redirectTo(
+              onClick={() => doRedirect(
+                history,
                 res.showEvent
                   .replace(':agendaUid', agenda.uid)
                   .replace(':eventUid', createdEvent.uid)
@@ -107,7 +108,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => redirectTo(prefix)}
+              onClick={() => doRedirect(history, prefix, { ignoreURLRedirect: true })}
             >
               {m(messages.createOtherEvent)}
             </button>
@@ -116,7 +117,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => redirectTo(`${prefix}?eventUid=${createdEvent.uid}`)}
+              onClick={() => doRedirect(history, `${prefix}?eventUid=${createdEvent.uid}`, { ignoreURLRedirect: true })}
             >
               {m(messages.duplicateEvent)}
             </button>
@@ -125,7 +126,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => redirectTo(res.showMyEvents)}
+              onClick={() => doRedirect(history, res.showMyEvents, { ignoreURLRedirect: true })}
             >
               {m(messages.showMyEvents)}
             </button>
@@ -134,10 +135,12 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => redirectTo(
+              onClick={() => doRedirect(
+                history,
                 res.contactAdministrators
                   .replace(':agendaUid', agenda.uid)
-                  .replace(':eventUid', createdEvent.uid)
+                  .replace(':eventUid', createdEvent.uid),
+                { ignoreURLRedirect: true }
               )}
             >
               {m(messages.contactAdministrators)}
