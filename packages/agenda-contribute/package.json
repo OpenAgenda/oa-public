@@ -5,9 +5,7 @@
   "scripts": {
     "prepack": "yarn build",
     "build": "babel --copy-files src -d dist -s",
-    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
-    "dev-server": "NODE_ENV=development EXPRESS_API_PORT=3000 nodemon -w stories/server -w src stories/server/index.js",
-    "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
+    "start": "start-storybook -p 9001",
     "extract-messages": "yarn oa:extract-messages 'src/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'",
     "test": "jest"
   },
@@ -64,7 +62,6 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^3.0.0",
-    "concurrently": "^6.0.2",
     "css-loader": "^3.4.2",
     "jest": "^26.1.0",
     "lodash-webpack-plugin": "^0.11.6",

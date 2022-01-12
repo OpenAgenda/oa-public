@@ -4,7 +4,7 @@ export default function loadInitialState() {
 
   return {
     settings: {
-      apiRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+      apiRoot: '',
       prefix: '/:slug/contribute',
     },
     res: {

@@ -3,10 +3,10 @@ const cors = require('cors');
 const logs = require('@openagenda/logs');
 const express = require('express');
 
-const log = logs('stories/server/index');
+const log = logs('stories/server');
 
-const getFixtures = require('../fixtures');
-const locationsAPIResponse = require('../fixtures/locations.json');
+const getFixtures = require('./fixtures');
+const locationsAPIResponse = require('./fixtures/locations.json');
 
 const { getLocation } = getFixtures;
 const dev = express();
@@ -90,4 +90,4 @@ dev.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', (req, re
   res.json({ event: sharedEvent });
 });
 
-dev.listen(process.env.EXPRESS_API_PORT);
+module.exports = dev;
