@@ -7,8 +7,6 @@ REPO_DIR="$THIS_DIR/../.."
 
 "$THIS_DIR"/clean-repo.sh
 
-RELEASE_ARGUMENTS=()
-
 maybe_release_package() {
   IDENT=$(jq -r .Ident <<<"$1")
   PACKAGE_CWD=$(jq -r .Cwd <<<"$1")
@@ -22,10 +20,4 @@ while read -r package; do
   maybe_release_package "$package"
 done <<<$(yarn constraints query --json "workspace_ident(Cwd, Ident), \+ workspace_field(Cwd, 'private', 'true')")
 
-if [[ ${#RELEASE_ARGUMENTS[@]} -eq 0 ]]; then
-  exit 0
-fi
-
-yarn workspaces foreach \
-  --topological-dev --interlaced --verbose --no-private "${RELEASE_ARGUMENTS[@]}" \
-  npm publish --tolerate-republish
+rm -rf "$REPO_DIR/artifacts"
