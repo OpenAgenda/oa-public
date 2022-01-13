@@ -3,6 +3,7 @@
 set -e
 
 THIS_DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+REPO_DIR="$THIS_DIR/../.."
 
 "$THIS_DIR"/clean-repo.sh
 
@@ -13,7 +14,7 @@ maybe_release_package() {
   PACKAGE_CWD=$(jq -r .Cwd <<<"$1")
 
   if [[ -n $(git -C "$PACKAGE_CWD" --no-pager tag --list "$IDENT@*" --points-at HEAD) ]]; then
-    RELEASE_ARGUMENTS+=(--include "$IDENT")
+    npm publish --tolerate-republish "$REPO_DIR/artifacts/$(echo "$IDENT" | tr / -).tgz"
   fi
 }
 
