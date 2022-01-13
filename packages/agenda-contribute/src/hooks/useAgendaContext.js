@@ -3,6 +3,8 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
+const validateStatus = status => ([200, 404].includes(status));
+
 export default function useAgendaContext(agendaUid) {
   const res = useSelector(state => state.settings.apiRoot + state.res.agendaContext.replace(':agendaUid', agendaUid));
   const memberFreshness = useSelector(state => state.memberFreshness);
@@ -10,7 +12,7 @@ export default function useAgendaContext(agendaUid) {
   const {
     isLoading: agendaContextIsLoading,
     data: agendaContext
-  } = useQuery(`agendaContext.${agendaUid}`, () => axios.get(res).then(response => (response.data)), {
+  } = useQuery(`agendaContext.${agendaUid}`, () => axios.get(res, { validateStatus }).then(response => (response.data.length ? response.data : null)), {
     staleTime: 1000,
   });
 

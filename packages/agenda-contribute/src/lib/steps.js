@@ -1,9 +1,12 @@
-export default function steps(current) {
-  return [
+export default function steps(current, { agenda }) {
+  return (agenda.settings.contribution.useFields ? [
     'member',
     'event',
     'confirmation'
-  ].reduce((carry, stepSlug) => {
+  ] : [
+    'event',
+    'confirmation'
+  ]).reduce((carry, stepSlug) => {
     const isCurrent = stepSlug === current;
     return {
       steps: carry.steps.concat({

@@ -47,10 +47,10 @@ export default function EventNew({ agenda, history }) {
   return (
     <CanvasWithStepper
       mode="create"
-      steps={steps('event')}
+      steps={steps('event', { agenda })}
       onSelectStep={step => history.push(`${prefix}/${step}`)}
     >
-      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={agendaContext.me.member.role} className="margin-bottom-md" /> : null}
+      {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={agendaContext?.me?.member?.role} className="margin-bottom-md" /> : null}
       <Instructions
         message={agenda?.settings?.contribution?.messages?.instructions}
         className="margin-bottom-lg"
@@ -66,7 +66,7 @@ export default function EventNew({ agenda, history }) {
             response
           }));
         }}
-        memberRole={agendaContext.me.member.role}
+        memberRole={agendaContext?.me?.member?.role}
         onDraftDelete={() => {}}
       />
     </CanvasWithStepper>

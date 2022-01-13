@@ -26,7 +26,8 @@ const {
   isContributionType,
   isMemberRole,
   matchStepPath,
-  replaceWithStep
+  replaceWithStep,
+  doRedirect
 } = utils;
 
 const log = debug('App');
@@ -74,7 +75,7 @@ function App(props) {
   }
 
   if (!agendaContext?.me.member && isContributionType(agenda, 'MEMBERS_ONLY')) {
-    window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
+    doRedirect(history, location, res.requestContribute.replace(':agendaSlug', agenda.slug), { ignoreURLRedirect: true });
     return <Loading />;
   }
 

@@ -77,3 +77,11 @@ export const ClosedAgendaForAdminMods = componentFromFixtures(
 export const ClosedAgendaForContributor = componentFromFixtures(
   'Agenda is closed to contributions. Contributor is faced with a message indicating he cannot contribute', 8
 );
+
+export const NonMemberIsShownMemberFormOnContributiveAgenda = componentFromFixtures(
+  'Agenda is open to anyone and requires new members to type in their member information', 9
+);
+
+export const NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = componentFromFixtures(
+  'Non member goes to event form on agenda not requiring member information', 10
+);

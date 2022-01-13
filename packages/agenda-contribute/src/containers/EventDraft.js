@@ -50,7 +50,7 @@ export default function EventDraft({ agenda, history }) {
   return (
     <CanvasWithStepper
       mode="create"
-      steps={steps('event')}
+      steps={steps('event', { agenda })}
       onSelectStep={step => history.push(`${prefix}/${step}`)}
     >
       {isContributionType(agenda, 'CLOSED') ? <ClosedMessage memberRole={agendaContext.me.member.role} className="margin-bottom-md" /> : null}

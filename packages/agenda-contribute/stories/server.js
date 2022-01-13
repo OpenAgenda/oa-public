@@ -29,7 +29,15 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
 });
 
 dev.get('/api/me/agendas/:agendaUid', (req, res) => {
-  res.json(getFixtures(req.params.agendaUid).agendaContext);
+  const {
+    agendaContext
+  } = getFixtures(req.params.agendaUid);
+
+  if (!agendaContext) {
+    res.status(404).send();
+  } else {
+    res.json(agendaContext);
+  }
 });
 
 dev.get('/api/me/agendas/:agendaUid/events/:eventUid', (req, res) => {

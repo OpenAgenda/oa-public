@@ -124,6 +124,32 @@ storySets.ClosedAgendaForContributor = {
   }
 };
 
+storySets.NonMemberIsShownMemberFormOnContributiveAgenda = {
+  agendaContext: null,
+  agenda: detailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...basicAgenda,
+      uid: 9
+    }
+  }
+};
+
+storySets.NonMemberIsShownEventFormOnAgendaNotRequestingMemberInfo = {
+  agendaContext: null,
+  agenda: produce(basicAgenda, draft => {
+    draft.settings.contribution.useFields = false;
+  }),
+  extraProps: {
+    lang: 'fr',
+    agenda: produce(basicAgenda, draft => {
+      draft.uid = 10;
+      draft.settings.contribution.useFields = false;
+    })
+  }
+};
+
 storySets.NewEventForm = {
   agendaContext: produce(agendaContributorContext, draft => {
     draft.me.member.updatedAt = new Date();

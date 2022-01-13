@@ -31,9 +31,7 @@ export default function Landing({
   } = useAgendaContext(agenda.uid);
 
   useEffect(() => {
-    const {
-      member
-    } = agendaContext.me;
+    const member = agendaContext?.me?.member;
 
     if (
       isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])

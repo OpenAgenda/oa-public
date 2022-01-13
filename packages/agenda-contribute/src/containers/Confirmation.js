@@ -80,7 +80,7 @@ export default function Confirmation({ history, agenda }) {
   return (
     <CanvasWithStepper
       mode="create"
-      steps={steps('confirmation')}
+      steps={steps('confirmation', { agenda })}
       onSelectStep={step => history.push(`${prefix}/${step}`)}
     >
       {confirmationCustomMessage ? (
