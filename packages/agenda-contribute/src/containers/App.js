@@ -57,8 +57,8 @@ function App(props) {
     && !matchStepPath(location, prefix, 'member')
     && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberDataRequired(agenda)
-    && !isMemberRole(agendaContext.me.member, ['administrator', 'moderator'])
-    && (!agendaContext.me.member || !isMemberDataComplete(agendaContext.me.member));
+    && !isMemberRole(agendaContext?.me.member, ['administrator', 'moderator'])
+    && (!agendaContext?.me.member || !isMemberDataComplete(agendaContext?.me.member));
 
   useEffect(() => {
     if (!shouldGoToFirstStep) {
@@ -73,13 +73,13 @@ function App(props) {
     return <Loading />;
   }
 
-  if (!agendaContext.me.member && isContributionType(agenda, 'MEMBERS_ONLY')) {
+  if (!agendaContext?.me.member && isContributionType(agenda, 'MEMBERS_ONLY')) {
     window.location.href = res.requestContribute.replace(':agendaSlug', agenda.slug);
     return <Loading />;
   }
 
   if (
-    !isMemberRole(agendaContext.me.member, ['administrator', 'moderator'])
+    !isMemberRole(agendaContext?.me.member, ['administrator', 'moderator'])
     && isContributionType(agenda, 'CLOSED')
   ) {
     return (

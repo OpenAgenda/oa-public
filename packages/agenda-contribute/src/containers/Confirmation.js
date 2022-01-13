@@ -98,6 +98,7 @@ export default function Confirmation({ history, agenda }) {
               className="btn btn-primary btn-block"
               onClick={() => doRedirect(
                 history,
+                location,
                 res.showEvent
                   .replace(':agendaUid', agenda.uid)
                   .replace(':eventUid', createdEvent.uid)
@@ -110,7 +111,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, prefix, { ignoreURLRedirect: true })}
+              onClick={() => doRedirect(history, location, prefix, { ignoreURLRedirect: true })}
             >
               {m(messages.createOtherEvent)}
             </button>
@@ -119,7 +120,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, `${prefix}?eventUid=${createdEvent.uid}`, { ignoreURLRedirect: true })}
+              onClick={() => doRedirect(history, location, `${prefix}?eventUid=${createdEvent.uid}`, { ignoreURLRedirect: true })}
             >
               {m(messages.duplicateEvent)}
             </button>
@@ -128,7 +129,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, res.showMyEvents, { ignoreURLRedirect: true })}
+              onClick={() => doRedirect(history, location, res.showMyEvents, { ignoreURLRedirect: true })}
             >
               {m(messages.showMyEvents)}
             </button>
@@ -139,6 +140,7 @@ export default function Confirmation({ history, agenda }) {
               className="btn btn-default btn-block"
               onClick={() => doRedirect(
                 history,
+                location,
                 res.contactAdministrators
                   .replace(':agendaUid', agenda.uid)
                   .replace(':eventUid', createdEvent.uid),

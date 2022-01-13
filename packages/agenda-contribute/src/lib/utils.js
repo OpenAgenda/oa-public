@@ -74,10 +74,10 @@ const evaluateAndRedirect = (history, redirectURL) => {
   }
 };
 
-function doRedirect(history, redirectTo, options = {}) {
+function doRedirect(history, location, redirectTo, options = {}) {
   const {
     search
-  } = history.location;
+  } = location;
 
   const {
     ignoreURLRedirect = false

@@ -35,7 +35,7 @@ const messages = defineMessages({
 
 const log = debug('EventShare');
 
-export default function EventShare({ agenda }) {
+export default function EventShare({ agenda, history }) {
   const m = useIntl().formatMessage;
   const location = useLocation();
   const apiRoot = useSelector(state => state.settings.apiRoot);
@@ -97,6 +97,8 @@ export default function EventShare({ agenda }) {
     log('share successful');
     return (
       <EventWasSuccessfullyShared
+        history={history}
+        location={location}
         event={sharedEvent}
         fromAgenda={fromAgenda}
         agenda={agenda}
@@ -156,11 +158,7 @@ export default function EventShare({ agenda }) {
           memberRole={agendaContext.me.member.role}
           event={event}
           onSuccess={(_event, response) => {
-            dispatch(contributeReducer.eventShareSuccess({
-              fromAgenda,
-              agenda,
-              response
-            }));
+            dispatch(contributeReducer.displayShareSuccess(response.body.event));
           }}
           saveButtonLabel={m(messages.share)}
         />

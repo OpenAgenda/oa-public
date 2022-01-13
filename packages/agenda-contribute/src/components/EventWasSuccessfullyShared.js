@@ -31,7 +31,9 @@ const {
 export default function EventWasSuccessfullyShared({
   event,
   fromAgenda,
-  agenda
+  agenda,
+  history,
+  location
 }) {
   const fromEventRes = useEventRes(fromAgenda, event);
   const toEventRes = useEventRes(agenda, event);
@@ -54,14 +56,14 @@ export default function EventWasSuccessfullyShared({
           <button
             type="button"
             className="btn btn-default margin-h-sm"
-            onClick={() => doRedirect(fromEventRes)}
+            onClick={() => doRedirect(history, location, fromEventRes, { ignoreURLRedirect: true })}
           >
             {m(messages.goBack)}
           </button>
           <button
             type="button"
             className="btn btn-primary margin-h-sm"
-            onClick={() => doRedirect(toEventRes)}
+            onClick={() => doRedirect(history, location, toEventRes, { ignoreURLRedirect: true })}
           >
             {m(messages.goTo, { agenda: agenda.title })}
           </button>

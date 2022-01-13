@@ -421,6 +421,7 @@ storySets.EventWasShared = {
   extraDevInitialState: {
     contribute: {
       sharedEvent: {
+        uid: 3902019,
         title: { fr: 'Alaska by night' },
         state: 2
       }

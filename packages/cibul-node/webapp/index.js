@@ -364,7 +364,7 @@ const initialState = async req => {
       },
       res: {
         agenda: '/api/agendas/:agendaUid',
-        member: '/api/me/agendas/:agendaUid',
+        members: '/api/agendas/:agendaUid/members',
         event: '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
         eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
         agendaContext: '/api/me/agendas/:agendaUid',

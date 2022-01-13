@@ -164,7 +164,7 @@
   "AgendaContribute.EventShare.share": [
     {
       "type": 0,
-      "value": "Partage"
+      "value": "Partager"
     }
   ],
   "AgendaContribute.EventShare.shareRestrictionInfo": [
@@ -210,17 +210,29 @@
   "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": [
     {
       "type": 0,
-      "value": "L'événement a été publié dans "
+      "value": "L'événement a été publié dans '"
     },
     {
       "type": 1,
       "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "'"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": [
     {
       "type": 0,
-      "value": "L'événement a été partage dans {agenda}. Il doit être vu par un administrateur avant sa publication."
+      "value": "L'événement a été partagé dans '"
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "'. Il doit être vu par un administrateur avant sa publication."
     }
   ],
   "AgendaContribute.Member.description": [
@@ -274,7 +286,7 @@
   "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
     {
       "type": 0,
-      "value": "Seuls les champs additionnels de l'agenda sont présentés."
+      "value": "Seuls les champs spécifiques l'agenda sont présentés."
     }
   ],
   "AgendaContribute.ShowFullEventForm.showEventFields": [
@@ -286,7 +298,7 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
     {
       "type": 0,
-      "value": "Vous disposez des droits d'édition sur l'événement. Tout édition faite lors de ce partage sur l'événement sera répercuté sur tous les agendas où il est réferencé."
+      "value": "Vous disposez des droits d'édition sur l'événement. Toute édition faite lors de ce partage sur ses champs standards (titre, description, horaires...) sera répercutée sur les agendas où il est réferencé."
     }
   ],
   "AgendaContribute.Stepper.confirmation": [

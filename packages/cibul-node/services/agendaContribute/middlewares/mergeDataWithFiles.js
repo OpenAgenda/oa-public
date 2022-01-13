@@ -2,7 +2,7 @@
 
 module.exports = function mergeDataWithFiles(req, res, next) {
   req.dataWithFiles = {
-    ...JSON.parse(req.body.data),
+    ...(req.body.data ? JSON.parse(req.body.data) : {}),
     ...(req.fileFieldValues ?? {})
   };
 

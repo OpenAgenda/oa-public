@@ -34,13 +34,17 @@ function reducer(state = {}, action = {}) {
   }
 }
 
+function displayShareSuccess(sharedEvent) {
+  return {
+    type: EVENT_SHARE_SUCCESS,
+    sharedEvent
+  };
+}
+
 function launchImmediateEventShare(shareRes) {
   return (_, { dispatch }) => {
     axios.post(shareRes).then(response => {
-      dispatch({
-        type: EVENT_SHARE_SUCCESS,
-        sharedEvent: response.data.event
-      });
+      dispatch(displayShareSuccess(response.data.event));
     });
   };
 }
@@ -52,7 +56,7 @@ function displayEventFieldsInShare() {
 }
 
 function eventCreateSuccess({ agenda, response }) {
-  return ({ history }, { dispatch, getState }) => {
+  return ({ history, location }, { dispatch, getState }) => {
     const {
       res,
       settings: {
@@ -65,7 +69,7 @@ function eventCreateSuccess({ agenda, response }) {
     } = response.body;
 
     if (event.draft) {
-      return doRedirect(history, res.showMyEvents);
+      return doRedirect(history, location, res.showMyEvents);
     }
 
     dispatch({
@@ -81,7 +85,7 @@ function eventCreateSuccess({ agenda, response }) {
 }
 
 function eventUpdateSuccess({ agenda, response }) {
-  return ({ history }, { getState }) => {
+  return ({ history, location }, { getState }) => {
     const { res } = getState();
 
     const {
@@ -90,6 +94,7 @@ function eventUpdateSuccess({ agenda, response }) {
 
     return doRedirect(
       history,
+      location,
       res.showEvent
         .replace(':agendaUid', agenda.uid)
         .replace(':eventUid', event.uid)
@@ -113,29 +118,13 @@ function memberSetSuccess({ agenda, queryClient }) {
   };
 }
 
-function eventShareSuccess({ agenda, response }) {
-  return ({ history }, { getState }) => {
-    const { res } = getState();
-
-    const {
-      event
-    } = response.body;
-
-    return doRedirect(
-      history,
-      res.showEvent
-        .replace(':agendaUid', agenda.uid)
-        .replace(':eventUid', event.uid)
-    );
-  };
-}
-
 function goBackOrToEvent({ agenda, event }) {
-  return ({ history }, { getState }) => {
+  return ({ history, location }, { getState }) => {
     const { res } = getState();
 
     return doRedirect(
       history,
+      location,
       res.showEvent
         .replace(':agendaUid', agenda.uid)
         .replace(':eventUid', event.uid)
@@ -147,8 +136,8 @@ export default Object.assign(reducer, {
   eventCreateSuccess,
   memberSetSuccess,
   eventUpdateSuccess,
-  eventShareSuccess,
   goBackOrToEvent,
   launchImmediateEventShare,
-  displayEventFieldsInShare
+  displayEventFieldsInShare,
+  displayShareSuccess
 });
