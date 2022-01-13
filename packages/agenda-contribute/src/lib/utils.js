@@ -19,7 +19,7 @@ function hasAdditionalFields(schema) {
   ).length;
 }
 
-function hasAdditionalFieldsWithoutDependencies(schema) {
+function hasAdditionalFieldsWithDependencies(schema) {
   if (!hasAdditionalFields(schema)) {
     return false;
   }
@@ -28,7 +28,7 @@ function hasAdditionalFieldsWithoutDependencies(schema) {
     .filter(field => ['network', 'agenda'].includes(field.schemaType))
     .filter(field => field.enableWith || field.optionalWith);
 
-  return !withs.length;
+  return !!withs.length;
 }
 
 function replaceWithStep(history, location, prefix, step) {
@@ -94,11 +94,48 @@ function doRedirect(history, redirectTo, options = {}) {
   evaluateAndRedirect(history, redirectTo);
 }
 
-function removeEventFieldsFromSchema(schema) {
+function schemaWithoutEventFields(schema) {
   return {
     ...schema,
     fields: schema.fields.filter(field => field.schemaType !== 'event')
   };
+}
+
+function shouldTriggerImmediateShare({ schema, agendaContext }) {
+  const role = agendaContext.me?.member?.role;
+
+  if (!hasAdditionalFields(schema) && (role === 'contributor')) {
+    log('should trigger immediate share');
+    return true;
+  }
+
+  log('should not trigger immediate share');
+  return false;
+}
+
+function shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields }) {
+  const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
+
+  if (!canEditEvent) {
+    return false;
+  }
+
+  if (requestedDisplayEventFields) {
+    return false;
+  }
+
+  if (hasAdditionalFieldsWithDependencies(schema)) {
+    return false;
+  }
+
+  return true;
+}
+
+function shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields }) {
+  if (shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields })) {
+    return false;
+  }
+  return !!requestedDisplayEventFields;
 }
 
 export default {
@@ -108,8 +145,10 @@ export default {
   isMemberRole,
   matchStepPath,
   doRedirect,
-  removeEventFieldsFromSchema,
+  schemaWithoutEventFields,
   replaceWithStep,
   hasAdditionalFields,
-  hasAdditionalFieldsWithoutDependencies
+  shouldTriggerImmediateShare,
+  shouldShowFullEventFormLink,
+  shouldDisplayEventFields
 };

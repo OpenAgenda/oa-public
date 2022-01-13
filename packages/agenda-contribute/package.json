@@ -5,7 +5,7 @@
   "scripts": {
     "prepack": "yarn build",
     "build": "babel --copy-files src -d dist -s",
-    "start": "start-storybook -p 9001",
+    "start": "start-storybook -p 9001 --ci",
     "extract-messages": "yarn oa:extract-messages 'src/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'",
     "test": "jest"
   },

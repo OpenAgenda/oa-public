@@ -42,3 +42,15 @@ export const ShareEventWithEditionRightsAndAdditionalFields = componentFromFixtu
   shown at load`,
   304, '/event/01/from/5681'
 );
+
+export const ShareEventWithEditionRightsAndNoAdditionalFields = componentFromFixtures(
+  `Contributor shares event published in other agenda and has edition rights.
+  Target agenda has no additional fields. Share should be triggered`,
+  305, '/event/01/from/5682'
+);
+
+export const AdminShareEventWithEditionRightsAndNoAdditionalFields = componentFromFixtures(
+  `Administrator shares event published in other agenda and has edition rights.
+  Target agenda has no additional fields. State selection input should be displayed`,
+  306, '/event/01/from/5683'
+);

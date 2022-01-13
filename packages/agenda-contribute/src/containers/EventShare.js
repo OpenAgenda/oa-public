@@ -1,3 +1,4 @@
+import debug from 'debug';
 import React, { useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useParams, useLocation } from 'react-router-dom';
@@ -19,9 +20,10 @@ import getUneditableStandardFieldErrors from '../lib/getUneditableStandardFieldE
 import contributeReducer from '../reducers/contribute';
 
 const {
-  removeEventFieldsFromSchema,
-  hasAdditionalFields,
-  hasAdditionalFieldsWithoutDependencies
+  schemaWithoutEventFields,
+  shouldTriggerImmediateShare,
+  shouldShowFullEventFormLink,
+  shouldDisplayEventFields
 } = utils;
 
 const messages = defineMessages({
@@ -31,15 +33,14 @@ const messages = defineMessages({
   }
 });
 
-export default function EventAdd({
-  agenda,
-  history
-}) {
+const log = debug('EventShare');
+
+export default function EventShare({ agenda }) {
   const m = useIntl().formatMessage;
   const location = useLocation();
   const apiRoot = useSelector(state => state.settings.apiRoot);
   const sharedEvent = useSelector(state => state.contribute.sharedEvent);
-  const displayEventFields = useSelector(state => state.contribute.displayEventFieldsInShare);
+  const requestedDisplayEventFields = useSelector(state => state.contribute.requestedDisplayEventFieldsInShare);
 
   const [reloadedForm, setReloadedForm] = useState(false);
 
@@ -80,19 +81,20 @@ export default function EventAdd({
   } = useEventFormConfig(agenda);
 
   useEffect(() => {
-    if (reloadedForm || !displayEventFields) {
+    if (reloadedForm || !requestedDisplayEventFields) {
       return;
     }
-    if (displayEventFields) {
+    if (requestedDisplayEventFields) {
       setReloadedForm(true);
     }
-  }, [displayEventFields, reloadedForm, setReloadedForm]);
+  }, [requestedDisplayEventFields, reloadedForm, setReloadedForm]);
 
   if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading) {
     return <Loading />;
   }
 
   if (sharedEvent) {
+    log('share successful');
     return (
       <EventWasSuccessfullyShared
         event={sharedEvent}
@@ -104,17 +106,14 @@ export default function EventAdd({
 
   const errors = getUneditableStandardFieldErrors(detailedAgenda, event, eventContext);
 
-  const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
   const shareRes = `${apiRoot}${location.pathname}`;
 
-  if (!hasAdditionalFields(schema) && !canEditEvent) {
+  if (shouldTriggerImmediateShare({ schema, agendaContext })) {
     dispatch(contributeReducer.launchImmediateEventShare(shareRes));
     return <Loading />;
   }
 
-  const showFullEventFormAction = hasAdditionalFieldsWithoutDependencies(schema) && canEditEvent && !displayEventFields;
-
-  if (displayEventFields && !reloadedForm) {
+  if (requestedDisplayEventFields && !reloadedForm) {
     // force form reload when decision to display event fields is made
     return <Loading />;
   }
@@ -126,7 +125,7 @@ export default function EventAdd({
       fromAgenda={fromAgenda}
       agenda={agenda}
     >
-      {showFullEventFormAction ? (
+      {shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields }) ? (
         <ShowFullEventForm
           onShowFullEvent={() => {
             dispatch(contributeReducer.displayEventFieldsInShare());
@@ -152,7 +151,7 @@ export default function EventAdd({
           res={shareRes}
           config={{
             ...config,
-            schema: displayEventFields ? schema : removeEventFieldsFromSchema(schema)
+            schema: shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields }) ? schema : schemaWithoutEventFields(schema)
           }}
           memberRole={agendaContext.me.member.role}
           event={event}

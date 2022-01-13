@@ -12,6 +12,8 @@ export default function contribute(options) {
 
   const { apiRoot, prefix } = initialState.settings;
 
+  initialState.contribute = initialState.contribute ?? {};
+
   return createApp({
     name: 'agendaContribute',
     ...options,

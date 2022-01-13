@@ -27,7 +27,7 @@ function reducer(state = {}, action = {}) {
     case EVENT_SHARE_DISPLAY_EVENT_FIELDS:
       return {
         ...state,
-        displayEventFieldsInShare: true
+        requestedDisplayEventFieldsInShare: true
       };
     default:
       return state;
