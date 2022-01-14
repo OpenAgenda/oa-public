@@ -186,9 +186,10 @@ export default ({
       ) : (
         <>
           <FormSchemaComponent
-            method="patch"
+            method={operation === 'update' ? 'patch' : 'post'}
             res={{
               patch: res,
+              post: res,
             }}
             values={loadedMember}
             schema={schema({ optionalFields })}
