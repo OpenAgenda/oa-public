@@ -103,17 +103,18 @@ function eventUpdateSuccess({ agenda, response }) {
 }
 
 function memberSetSuccess({ agenda, queryClient }) {
-  return ({ history }, { getState }) => {
+  return ({ history, location }, { getState }) => {
     const {
       settings: {
         prefix
       }
     } = getState();
-    queryClient.removeQueries('agendaContext');
-    log('member set was successful, moving on to event step');
+    queryClient.removeQueries(`agendaContext.${agenda.uid}`);
+    const newPathname = `${prefix.replace(':slug', agenda.slug)}/event`;
+    log('member set was successful, moving on to event step: %s', newPathname);
     history.push({
-      ...history.location,
-      pathname: `${prefix.replace(':slug', agenda.slug)}/event`
+      ...location,
+      pathname: newPathname
     });
   };
 }

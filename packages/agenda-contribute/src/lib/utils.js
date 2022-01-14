@@ -42,7 +42,9 @@ function replaceWithStep(history, location, prefix, step) {
 
 function isMemberDataComplete(data) {
   const fields = Object.keys(data ?? {});
-  return fields.filter(field => !!data[field]).length === fields.length;
+  const isComplete = fields.filter(field => !!data[field]).length === fields.length;
+  log('member data is %scomplete', isComplete ? '' : 'not ');
+  return isComplete;
 }
 
 function isMemberDataRequired(agenda) {

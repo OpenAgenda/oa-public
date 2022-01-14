@@ -12,11 +12,14 @@ export default function useAgendaContext(agendaUid) {
   const {
     isLoading: agendaContextIsLoading,
     data: agendaContext
-  } = useQuery(`agendaContext.${agendaUid}`, () => axios.get(res, { validateStatus }).then(response => (response.data.length ? response.data : null)), {
+  } = useQuery(`agendaContext.${agendaUid}`, () => axios
+    .get(res, { validateStatus })
+    .then(response => (response.data instanceof Object ? response.data : null)),
+  {
     staleTime: 1000,
   });
 
-  const memberIsFresh = new Date(agendaContext?.me.member?.updatedAt) > new Date(memberFreshness);
+  const memberIsFresh = new Date(agendaContext?.me?.member?.updatedAt) > new Date(memberFreshness);
 
   return useMemo(() => ({
     agendaContextIsLoading,

@@ -54,7 +54,12 @@ dev.get('/locations/:uid.json', (req, res) => {
 
 function setMember(req, res) {
   const member = JSON.parse(req.body.data);
-  getFixtures(req.params.agendaUid).agendaContext.me.member = member;
+  const fx = getFixtures(req.params.agendaUid);
+
+  fx.agendaContext = {
+    me: { member, authorizations: { canCreateEvent: true } }
+  };
+
   member.updatedAt = new Date();
   log('member is set');
   res.json(member);

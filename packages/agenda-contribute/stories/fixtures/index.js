@@ -20,13 +20,15 @@ const storySets = {};
 
 storySets.ContributorGoesToEventStepAfterMemberFormSubmit = {
   agendaContext: agendaContributorContext,
-  agenda: detailedAgenda,
+  agenda: produce(detailedAgenda, draft => {
+    draft.settings.contribution.type = 1;
+  }),
   extraProps: {
     lang: 'fr',
-    agenda: {
-      ...agenda,
-      uid: 1,
-    }
+    agenda: produce(detailedAgenda, draft => {
+      draft.uid = 1;
+      draft.settings.contribution.type = 1;
+    })
   }
 };
 

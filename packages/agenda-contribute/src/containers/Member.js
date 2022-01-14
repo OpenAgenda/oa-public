@@ -54,7 +54,7 @@ export default function Member({
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
-            member={agendaContext?.me.member}
+            member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
               dispatch(contributeReducer.memberSetSuccess({
