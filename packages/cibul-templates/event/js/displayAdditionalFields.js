@@ -60,7 +60,7 @@ const renderLabel = (field, m) => (
 
 const renderDefaultField = (field, m) => (<>
   {renderLabel(field, m)}
-  <div>
+  <div className={field.fieldType === 'date' ? 'date' : ''}>
     {field.value ? field.value : (
       <em className="text-muted">{m(messages.noInput)}</em>
     )}
@@ -148,7 +148,7 @@ function AdditionalFieldsSection({ additionalFields }) {
     <div id="additional-fields" className="padding-top-xl">
       <div className="event-content">
         <div className="event-content-section">
-          <ul className="list-unstyled">
+          <ul className="list-unstyled additional-fields">
             {additionalFields.map(field => (
               <li key={field.key} className="margin-bottom-sm padding-bottom-xs">
                 {renderField(field, m)}

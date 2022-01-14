@@ -21,7 +21,7 @@ module.exports = {
   },
   "offlineAttendanceMode": {
     "fr": "Sur place",
-    "en": "On-premise",
+    "en": "In situ",
     "it": "Disconnesso",
     "es": "Desconnectad",
     "de": "Offline",

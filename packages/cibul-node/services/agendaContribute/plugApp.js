@@ -5,7 +5,6 @@ const contribute = require('@openagenda/agenda-contribute');
 const outdatedBrowserMw = require('@openagenda/outdated-browser/middleware');
 
 const cmn = require('../../lib/commons-app');
-const trackingScripts = require('../../lib/trackingScripts');
 const loadLegacyRoutes = require('./legacy');
 const mw = require('./middlewares');
 const memberSchema = require('./lib/memberSchema');
@@ -210,11 +209,11 @@ module.exports = (config, services) => parentApp => {
         );
       }
 
-      trackingScripts({
-        matomoCloudCode: config.matomoCloudCode,
-        googleAnalyticsID: config.googleAnalyticsId,
-        agenda: req.agenda
-      }).forEach(body => req.scripts.bottom.push({ body }));
+      if (config.matomoCloudCode) {
+        req.scripts.bottom.push({
+          body: config.matomoCloudCode
+        });
+      }
 
       next();
     }
