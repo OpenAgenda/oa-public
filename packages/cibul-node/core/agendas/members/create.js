@@ -52,7 +52,7 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
   return members.create({
     agendaUid,
     userUid,
-    role: members.utils.getRoleCode(role),
+    role: members.utils.getRoleCode(role ?? 'contributor'),
     custom: format.custom(memberData)
   }, { requireCustom: false }).then(result => format(members, result.member));
 };

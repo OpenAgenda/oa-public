@@ -149,13 +149,13 @@ module.exports = core => {
       }), next)
   ]);
 
-  app.post('/agendas/:agendaUid/members', [
-    mw.member.allow(['administrator', 'moderator']),
+  app.post(
+    '/agendas/:agendaUid/members',
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .create(req.body.userUid, req.body.role, req.parsedData, { userUid: req.user.uid })
+      .create(req.body.userUid ?? req.user.uid, req.body.role, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
-  ]);
+  );
 
   app.get('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
