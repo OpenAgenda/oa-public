@@ -80,16 +80,10 @@ function App(props) {
     return <Loading />;
   }
 
-  if (
+  const showClosedMessage = (
     !isMemberRole(agendaContext?.me?.member, ['administrator', 'moderator'])
     && isContributionType(agenda, 'CLOSED')
-  ) {
-    return (
-      <Canvas>
-        <ClosedMessage memberRole="contributor" />
-      </Canvas>
-    );
-  }
+  );
 
   log('looking for route matching %s', location.pathname);
 
@@ -98,10 +92,17 @@ function App(props) {
       messages={mergedLocales[lang]}
       locale={lang}
       key={lang}
-    >
-      {renderRoutes(route.routes, {
-        agenda
-      })}
+    >{
+      showClosedMessage ? (
+        <Canvas>
+          <ClosedMessage memberRole="contributor" />
+        </Canvas>
+      ) : (
+        renderRoutes(route.routes, {
+          agenda
+        })
+      )
+    }
     </IntlProvider>
   );
 }

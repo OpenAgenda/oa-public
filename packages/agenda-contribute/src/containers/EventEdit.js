@@ -15,7 +15,7 @@ import RequestEditionRights from '../components/RequestEditionRights';
 
 const {
   replaceWithStep,
-  removeEventFieldsFromSchema
+  schemaWithoutEventFields
 } = utils;
 
 export default function EventEdit({
@@ -74,10 +74,10 @@ export default function EventEdit({
         res={`${apiRoot}${location.pathname}`}
         config={{
           ...config,
-          schema: eventContext.me?.authorizations?.canEditEvent ? schema : removeEventFieldsFromSchema(schema)
+          schema: eventContext.me?.authorizations?.canEditEvent ? schema : schemaWithoutEventFields(schema)
         }}
         event={event}
-        memberRole={agendaContext.me.member.role}
+        memberRole={agendaContext?.me?.member?.role}
         canEditEvent={eventContext.me?.authorizations?.canEditEvent}
         onSuccess={(_event, response) => {
           dispatch(contributeReducer.eventUpdateSuccess({
