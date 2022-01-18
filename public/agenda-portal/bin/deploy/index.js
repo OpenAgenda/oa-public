@@ -55,6 +55,7 @@ module.exports = async (preloaded = {}) => {
   env.PORTAL_SASS_PATH = preloaded.PORTAL_SASS_PATH || './sass/main.scss';
   env.PORTAL_ASSETS_FOLDER = preloaded.PORTAL_ASSETS_FOLDER || './assets';
   env.PORTAL_I18N_FOLDER = preloaded.PORTAL_I18N_FOLDER || './i18n';
+  env.PORTAL_USE_AGENDA_GA_ID = preloaded.PORTAL_USE_AGENDA_GA_ID || (await confirm('If you have a tracker set in your agenda, do you wish to enable tracking on the portal?'), { default: false }) ? '1' : '';
 
   await ncp(`${__dirname}/../../boot`, cwd);
 
