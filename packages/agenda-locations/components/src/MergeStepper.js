@@ -101,7 +101,7 @@ class Stepper extends Component {
     const {
       goToMergeStep2, seeSelection, launchMerge
     } = this.props;
-    if (step === 1) {
+    if (step === 1 && merge.locationUids.length >= 2) {
       seeSelection();
       setTimeout(() => { goToMergeStep2(); }, 600);
     }
