@@ -38,6 +38,7 @@ describe('22 - deploy script', () => {
       PORTAL_KEY: 'myoaaccountkey',
       PORTAL_PORT: '3000',
       PORTAL_IFRAMABLE: '1',
+      PORTAL_USE_AGENDA_GA_ID: '1'
     });
   });
 
@@ -69,6 +70,7 @@ PORTAL_IFRAME_PARENT_URL=http://dev.local
 PORTAL_VIEWS_FOLDER=./views
 PORTAL_SASS_PATH=./sass/main.scss
 PORTAL_ASSETS_FOLDER=./assets
-PORTAL_I18N_FOLDER=./i18n`);
+PORTAL_I18N_FOLDER=./i18n
+PORTAL_USE_AGENDA_GA_ID=1`);
   });
 });

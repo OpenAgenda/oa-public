@@ -9,6 +9,8 @@ import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
 import updateShare from './lib/updateShare';
+import trackConsent from './lib/trackConsent';
+import addGoogleAnalyticsTracker from './lib/addGoogleAnalyticsTracker';
 
 const log = debug('main');
 
@@ -179,5 +181,11 @@ $(() => {
 
   if (pageProps.iframable) {
     handleIFrameLinkEvents($, iframeHandler);
+  }
+
+  if (pageProps.gaId) {
+    trackConsent(pageProps, {
+      onConsentConfirmed: () => addGoogleAnalyticsTracker({ googleAnalyticsID: pageProps.gaId })
+    });
   }
 });

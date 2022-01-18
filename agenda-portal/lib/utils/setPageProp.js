@@ -10,6 +10,8 @@ module.exports = (req, path, value) => {
       'lang',
       'uid',
       'root',
+      'gaId',
+      'cookieBannerLink'
     ]);
   }
 
