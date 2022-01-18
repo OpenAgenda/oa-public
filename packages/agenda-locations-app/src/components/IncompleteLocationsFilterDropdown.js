@@ -8,7 +8,7 @@ import geoFields from '../geoFields';
 const messages = {
   ...defineMessages({
     incompleteLocations: {
-      id: 'AgendaLocations.DropdownUncompleteLocation.incompleteLocations',
+      id: 'AgendaLocations.DropdownIncompleteLocation.incompleteLocations',
       defaultMessage: 'See incomplete Locations',
     }
   }),
@@ -25,8 +25,6 @@ const IncompleteLocationsFilterDropdown = ({
   const intl = useIntl();
   const { fields } = geoFields();
   const hasHasNull = ad => !!(hasNullSearch || []).find(e => e === ad);
-
-  // console.log('IncompleteLocation', hasNullSearch, hasHasNull('adminLevel1'));
 
   const completedLabel = (ad, countryCode) => {
     if (ad.label === geoFields(countryCode, ad.field)) return intl.formatMessage(messages[ad.label]);

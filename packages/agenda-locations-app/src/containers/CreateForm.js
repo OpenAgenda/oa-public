@@ -1,11 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import axios from 'axios';
 
 import useRes from '../hooks/useRes';
 
+import AccessModal from '../components/AccessModal';
 import LocationForm from '../components/form-components/LocationForm';
+import useSettings from '../hooks/useSettings';
+import validate from '../validate';
+import * as onGoinActions from '../reducers/onGoinModal';
 
 const messages = defineMessages({
   back: {
@@ -28,16 +33,19 @@ const CreateForm = ({
   agenda,
   lang,
   enableGeocode,
-  settings,
+  // settings,
   tiles,
   detailedInfo
 }) => {
+  const [errors, setErrors] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
+  const { settings } = useSettings(agenda);
   const historyLocation = useLocation();
   const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
-  console.log('createForm', history, historyLocation, nq);
+  const dispatch = useDispatch();
+  console.log(errors);
 
   const CreateFormHeader = () => (
     <div className="head padding-bottom-md">
@@ -52,6 +60,30 @@ const CreateForm = ({
     </div>
   );
 
+  const onSubmit = location => {
+    let clean;
+    console.log('onSubmit', location);
+    try {
+      clean = validate(location);
+    } catch (err) {
+      setErrors(err);
+      return;
+    }
+    axios.post(res.create, clean, (result, err) => (console.log(result, err)));
+    dispatch(onGoinActions.initiate('create'));
+    if (nq) history.push(nq); else history.push(prefix);
+    setErrors(false);
+  };
+
+  if (settings && (!settings?.access.create.authorized || settings?.access.create.external)) {
+    return (
+      <AccessModal
+        action="create"
+        close={() => history.push(prefix)}
+      />
+    );
+  }
+
   return (
     <LocationForm
       Header={CreateFormHeader()}
@@ -62,12 +94,12 @@ const CreateForm = ({
       detailedInfo={detailedInfo}
       settings={settings}
       onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
-      onSuccess={false}
+      onSubmit={onSubmit}
       enableGeocode={enableGeocode}
-      postRes={res.create}
       tiles={tiles}
       mode="create"
       agenda={agenda}
+      errors={errors}
     />
   );
 };

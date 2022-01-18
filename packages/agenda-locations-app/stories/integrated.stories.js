@@ -14,36 +14,79 @@ export default {
   decorators: [AdminCanvas, Providers]
 };
 
+const res = {
+  index: '/api/agendas/:agendaUid/locations?detailed=1',
+  getSettings: '/api/agendas/:agendaUid/locations/settings',
+  get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
+  create: '/api/agendas/:agendaUid/locations',
+  update: '/api/agendas/:agendaUid/locations/:locationUid',
+  merge: '/api/agendas/:agendaUid/locations/merge',
+  remove: '/api/agendas/:agendaUid/locations/:locationUid',
+  geocode: '/api/agendas/:agendaUid/locations/geocode',
+  reverseGeocode: '/api/agendas/:agendaUid/locations/geocode/reverse',
+  insee: '/api/agendas/:agendaUid/locations/insee',
+  csv: '#csv',
+  xlsx: '#xlsx',
+  disqualifyDuplicates: '/api/agendas/:agendaUid/locations/disqualify',
+  agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
+  seeEvents: '/api/agendas/:agendaUid/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
+  suggestChange: 'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create'
+};
+
 export function Admin() {
   return (
     <>
       <div
         className="col-md-3 col-md-push-5 col-sm-12"
       />
-      <div className="col-md-6 col-md-pull-3 col-sm-12 wsq">
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
             initialState: {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+                APIRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
-              res: {
-                index: '/api/agendas/:agendaUid/locations?detailed=1',
-                getSettings: '/api/agendas/:agendaUid/locations/settings',
-                get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
-                create: '/api/agendas/:agendaUid/locations',
-                geocode: '/api/agendas/:agendaUid/locations/geocode',
-                reverseGeocode: '/api/agendas/:agendaUid/locations/geocode/reverse',
-                csv: '#csv',
-                xlsx: '#xlsx',
-              }
+              res,
             },
             history: createMemoryHistory({
               initialEntries: ['/metropole-europeenne-de-lille/admin/locations?page=2&state=0&hasNull[0]=adminLevel1&hasNull[1]=adminLevel2']
+            }),
+          }),
+          {
+            extraProps: fixtures(1).extraProps,
+            disableScrollToTop: true
+          }
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminUidFilter() {
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+      />
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                pageSize: 20,
+                message: 'Ca marche',
+                APIRoot: '',
+                prefix: '/:agendaSlug/admin/locations',
+                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+              },
+              res
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations?uids[]=29605170']
             }),
           }),
           {
@@ -62,30 +105,54 @@ export function DetailModal() {
       <div
         className="col-md-3 col-md-push-5 col-sm-12"
       />
-      <div className="col-md-6 col-md-pull-3 col-sm-12 wsq">
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
             initialState: {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+                APIRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
-              res: {
-                index: '/api/agendas/:agendaUid/locations?detailed=1',
-                getSettings: '/api/agendas/:agendaUid/locations/settings',
-                get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
-                create: '/api/agendas/:agendaUid/locations',
-                geocode: '/api/agendas/:agendaUid/locations/geocode',
-                reverseGeocode: '/api/agendas/:agendaUid/locations/geocode/reverse',
-                csv: '#csv',
-                xlsx: '#xlsx',
-              }
+              res
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/2']
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/29605170']
+            }),
+          }),
+          {
+            extraProps: fixtures(1).extraProps,
+            disableScrollToTop: true
+          }
+        )}
+      </div>
+    </>
+  );
+}
+
+export function Merge() {
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+      />
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                pageSize: 20,
+                message: 'Ca marche',
+                APIRoot: '',
+                prefix: '/:agendaSlug/admin/locations',
+                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+              },
+              res
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/merge']
             }),
           }),
           {
@@ -104,23 +171,17 @@ export function CreateForm() {
       <div
         className="col-md-3 col-md-push-5 col-sm-12"
       />
-      <div className="col-md-6 col-md-pull-3 col-sm-12 wsq">
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
             initialState: {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+                APIRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
               },
-              res: {
-                index: '/api/agendas/:agendaUid/locations?detailed=1',
-                get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
-                create: '/api/agendas/:agendaUid/locations',
-                geocode: '/api/agendas/:agendaUid/locations/geocode',
-                reverseGeocode: '/api/agendas/:agendaUid/locations/geocode/reverse'
-              }
+              res
             },
             history: createMemoryHistory({
               initialEntries: ['/metropole-europeenne-de-lille/admin/locations/create']
@@ -142,26 +203,20 @@ export function UpdateForm() {
       <div
         className="col-md-3 col-md-push-5 col-sm-12"
       />
-      <div className="col-md-6 col-md-pull-3 col-sm-12 wsq">
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
         {wrapApp(
           createApp({
             initialState: {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: `http://localhost:${process.env.STORYBOOK_API_PORT}`,
+                APIRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
               },
-              res: {
-                index: '/api/agendas/:agendaUid/locations?detailed=1',
-                get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
-                create: '/api/agendas/:agendaUid/locations',
-                geocode: '/api/agendas/:agendaUid/locations/geocode',
-                reverseGeocode: '/api/agendas/:agendaUid/locations/geocode/reverse'
-              }
+              res
             },
             history: createMemoryHistory({
-              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/40/edit']
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations/29605170/edit']
             }),
           }),
           {

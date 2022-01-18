@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import countries from '@openagenda/countries';
 
 const messages = defineMessages({
   edit: {
@@ -52,19 +53,18 @@ const LocationItem = ({
   merge,
   location,
   settings,
-  getCountryLabel,
+  lang,
   onSelect,
   onEdit,
   onRemove,
   seeEventsRes,
   goToMergeStep3,
   goToMergeStep1FromDuplicates,
-  seeRef,
   seeDetails
 }) => {
   const myRemove = e => {
     e.stopPropagation();
-    onRemove();
+    onRemove(location);
   };
 
   const myEdit = e => {
@@ -72,7 +72,10 @@ const LocationItem = ({
     onEdit(location);
   };
 
-  const isInMergeSelection = () => merge.locationUids.indexOf(location.uid) !== -1;
+  const isInMergeSelection = () => {
+    if (!merge?.locationUids) return false;
+    return merge.locationUids.indexOf(location.uid) !== -1;
+  };
 
   const isMergeEntry = () => {
     if (!merge) return false;
@@ -101,7 +104,7 @@ const LocationItem = ({
   const seeEvents = e => {
     e.stopPropagation();
     window.location.href = seeEventsRes.replace(
-      /\:locationUid/g,
+      /:locationUid/g,
       location.uid
     );
   };
@@ -111,20 +114,20 @@ const LocationItem = ({
     seeDetails();
   };
 
-/*   const renderMergeCheckbox = () => (
+  const renderMergeCheckbox = () => (
     <div className="checkbox margin-v-md">
       <label htmlFor="merge-checkbox">
         <input
-          ref={r => (this.checkbox = r)}
+          /* ref={r => (checkbox = r)} */
           type="checkbox"
           checked={isInMergeSelection()}
         />
       </label>
     </div>
-  ); */
+  );
 
   const className = ['row item'];
-  const country = getCountryLabel(location.countryCode);
+  const country = countries.getLabel(location.countryCode)[lang];
   const editButton = (
     <button
       type="button"
@@ -159,7 +162,7 @@ const LocationItem = ({
     <div
       className={className.join(' ')}
       key={location.uid}
-      onClick={onSelect.bind(this)}
+      onClick={() => onSelect(location)}
     >
       <div className="col col-xs-10 col-md-auto item-body">
         <div className="title">{location.name}</div>

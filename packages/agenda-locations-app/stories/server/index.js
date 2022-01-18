@@ -12,28 +12,36 @@ dev.use(cors());
 
 dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   const response = getFixtures(req.params.agendaUid).locations;
-
   const allLocations = response.locations.map(l => (req.query.detailed ? l : _.pick(l, ['uid', 'name', 'address', 'latitude', 'longitude', 'state'])))
     .filter(l => {
       if (req.query.search && !l.name.includes(req.query.search)) return false;
       return true;
     });
   const locations = allLocations.slice(req.query.from, req.query.from + req.query.size);
-  console.log(req.query, locations.length);
+  const resLocations = req.query.uids ? allLocations.filter(l => req.query.uids.find(e => parseInt(e, 10) === l.uid)) : locations;
+  console.log('Get Locations', req.query, resLocations.length);
+  const total = req.query.uids ? resLocations.length : allLocations.length;
   res.json({
     ...response,
-    locations,
-    size: locations.length,
+    locations: resLocations,
+    size: resLocations.length,
     from: req.query.from,
-    total: allLocations.length
+    total
   });
 });
 
-dev.get('/api/agendas/:agendaUid/locations/settings/', (req, res) => {
+dev.get('/api/agendas/:agendaUid/locations/settings', (req, res) => {
   const set = getFixtures(req.params.agendaUid).settings;
-  console.log('Get Settings', set);
+  console.log('Get Settings');
   res.json({
     ...set
+  });
+});
+
+dev.post('/api/agendas/:agendaUid/locations/merge', (req, res) => {
+  console.log('Merge');
+  res.json({
+    result: { success: true }
   });
 });
 
@@ -80,9 +88,25 @@ dev.get('/api/agendas/:agendaUid/locations/geocode', (req, res) => res.json({
 dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
   console.log('Get Location', req.params.locationUid);
   const allLocations = getFixtures(req.params.agendaUid).locations;
+  const location = allLocations.locations.filter(e => e.uid === parseInt(req.params.locationUid, 10))[0];
   res.json({
-    ...allLocations.locations[0]
+    ...location
   });
 });
 
-dev.listen(process.env.EXPRESS_API_PORT);
+dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
+  console.log('create', req.body);
+  res.json({
+    ...req.location
+  });
+});
+
+dev.delete('/api/agendas/:agendaUid/locations/:locationUid', (req, res) => {
+  console.log('delete', req.body);
+  res.json({
+    ...req.location
+  });
+});
+
+// dev.listen(process.env.EXPRESS_API_PORT);
+module.exports = dev;

@@ -118,6 +118,7 @@ const LocationDetails = ({
   hover,
   staticTiles
 }) => {
+  console.log(location);
   const intl = useIntl();
   const [contentLang, setContentLang] = useState(getPreferredLang(location.description, lang));
   const linkedAgendas = location?.linkedAgendas || [];
@@ -248,23 +249,58 @@ const LocationDetails = ({
         ) : null}
         <li>
           <label htmlFor="phone">{intl.formatMessage(messages.phone)} </label>:{' '}
-          <span>{location.phone || <i>{intl.formatMessage(messages.noValue)}</i>}</span>
+          {location.phone
+            ? (
+              <span><a href={`tel:${location.phone}`}>{location.phone}</a></span>
+            )
+            : (
+              <span><i>{intl.formatMessage(messages.noValue)}</i></span>
+            )}
         </li>
         <li>
           <label htmlFor="email">{intl.formatMessage(messages.email)} </label>:{' '}
-          <span>{location.email || <i>{intl.formatMessage(messages.noValue)}</i>}</span>
+          {location.email
+            ? (
+              <span><a href={`mailto:${location.email}`}>{location.email}</a></span>
+            )
+            : (
+              <span><i>{intl.formatMessage(messages.noValue)}</i></span>
+            )}
         </li>
-        <li>
+        <li style={{
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          width: '400px',
+          whiteSpace: 'nowrap',
+          display: 'block'
+        }}
+        >
           <label htmlFor="website">{intl.formatMessage(messages.website)} </label>:{' '}
-          <span>
-            {location.website || <i>{intl.formatMessage(messages.noValue)}</i>}
-          </span>
+          {location.website
+            ? (
+              <span>
+                <a href={location.website}>{location.website}</a>
+              </span>
+            )
+            : (
+              <span><i>{intl.formatMessage(messages.noValue)}</i></span>
+            )}
         </li>
         <li>
           <label htmlFor="links">{intl.formatMessage(messages.links)} </label>:
           {(location.links || []).length ? (
             location.links.map(l => (
-              <div className="margin-bottom-xs" key={`l-link-${l}`}>
+              <div
+                className="margin-bottom-xs"
+                key={`l-link-${l}`}
+                style={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  width: '400px',
+                  whiteSpace: 'nowrap',
+                  display: 'block'
+                }}
+              >
                 <a target="_blank" rel="noopener noreferrer" href={l}>
                   {l}
                 </a>

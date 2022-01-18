@@ -43,11 +43,11 @@ export default (prefix = '') => ([
         exact: true,
         component: Dashboard
       },
-/*       {
-        path: `${prefix}/p/:page`,
+      {
+        path: `${prefix}/merge`,
         exact: true,
         component: Dashboard
-      }, */
+      },
       {
         path: `${prefix}/tmp`,
         exact: true,

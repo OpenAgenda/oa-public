@@ -1,6 +1,6 @@
 { 
   "eventForm": {
-    "detailed": true,
+    "detailed": false,
     "confirm": false
   },
   "labels": {

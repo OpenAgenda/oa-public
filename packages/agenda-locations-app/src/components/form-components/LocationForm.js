@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
+import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 
 import { Spinner, ImageInput } from '@openagenda/react-shared';
@@ -35,6 +35,10 @@ const messages = defineMessages({
   required: {
     id: 'AgendaLocations.LocationForm.required',
     defaultMessage: 'Required',
+  },
+  'string.tooshort': {
+    id: 'AgendaLocations.LocationForm.string.tooshort',
+    defaultMessage: 'String is too short',
   },
   name: {
     id: 'AgendaLocations.LocationForm.name',
@@ -152,22 +156,23 @@ const LocationForm = ({
   settings = {},
   Header = null,
   enableGeocode = true,
-  showToggler = true, // false
+  showToggler = false,
   displayLanguageTabs = true,
   detailedInfo = true,
   showExtIdInput,
-  pageSpin = false, //think this should be state
+  pageSpin = false,
   mode,
   cancel,
   onCancel,
   res,
-  agenda
+  agenda,
+  onSubmit,
+  errors,
 }) => {
+  console.log('errors', errors);
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);
-
-  console.log('locationFrom location', location, locationProp);
 
   // -- globals fcts
   const onChange = (name, value) => {
@@ -177,7 +182,6 @@ const LocationForm = ({
   const getLabel = (name, values) => {
     let str;
     let k;
-    // console.log(name, values)
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
@@ -281,7 +285,37 @@ const LocationForm = ({
     setLocation({ ...location, description });
   };
 
-  const set = () => null;
+  const set = () => onSubmit(location);
+
+  const renderErrors = () => (
+    <div className="errors">
+      <label htmlFor="err-submit"><FormattedMessage {...messages[`${mode}SubmitError`]} />:</label>
+      {errors.map(err => {
+        const values = {};
+
+        for (const k in err.values) {
+          if (Object.prototype.hasOwnProperty.call(err.values, k)) {
+            values[`${k}`] = err.values[k];
+          }
+        }
+
+        if (err.group) {
+          return (
+            <div key={`err-${err.field}`}>
+              <label htmlFor="required">{err.group[lang]}</label>:{' '}
+              <span><FormattedMessage {...messages.required} /></span>
+            </div>
+          );
+        }
+        return (
+          <div key={`err-${err.field}`}>
+            <label htmlFor="err-field">{getLabel(err.field) || err.field}</label>:{' '}
+            <span>{getLabel(err.code, values)}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   const renderDetailsInfo = () => (
     <div className="form-group">
@@ -466,6 +500,8 @@ const LocationForm = ({
           </button>
         </div>
       )}
+
+      {errors ? renderErrors() : ''}
 
       <div className="form-group bottom">
         {cancel || (

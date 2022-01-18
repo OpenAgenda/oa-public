@@ -5,7 +5,7 @@ import useRes from './useRes';
 
 export default agenda => {
   const res = useRes(agenda);
-
+  // console.log('useSettings hook', res);
   const { isLoading, error, data } = useQuery('locations-settings', () => (
     axios.get(res.getSettings, {}).then(response => response.data)
   ));

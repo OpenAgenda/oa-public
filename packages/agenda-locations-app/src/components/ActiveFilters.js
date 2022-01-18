@@ -10,21 +10,24 @@ const messages = defineMessages({
     id: 'AgendaLocations.Filters.uncompletedLocations',
     defaultMessage: 'Uncomplete locations',
   },
+  uids: {
+    id: 'AgendaLocations.Filters.uids',
+    defaultMessage: 'Locations selection',
+  },
 });
 
 const ActiveFilters = ({
-  // betterQsParse,
   search,
   removeFilter,
 }) => {
-/*   const location = useLocation();
-  const search = betterQsParse(location.search);
-  if (search.page) delete search.page; */
   const intl = useIntl();
-  const getFilterList = () => Object.keys(search).reduce((acc, key) => {
-    acc.push({ [key]: search[key] });
-    return acc;
-  }, []);
+  const getFilterList = () => {
+    const res = Object.keys(search).reduce((acc, key) => {
+      acc.push({ [key]: search[key] });
+      return acc;
+    }, []);
+    return res;
+  };
   console.log(' activeFilters search', search);
   console.log('filter list for activeFitlers', getFilterList());
   const getLabel = f => {

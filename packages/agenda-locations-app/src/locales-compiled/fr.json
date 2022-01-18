@@ -1,4 +1,46 @@
 {
+  "AgendaLocations.AccessModal.cantDo": [
+    {
+      "type": 0,
+      "value": "Vous ne possedez pas les droits pour:"
+    }
+  ],
+  "AgendaLocations.AccessModal.closeModal": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "AgendaLocations.AccessModal.create": [
+    {
+      "type": 0,
+      "value": "Ajouter un lieu"
+    }
+  ],
+  "AgendaLocations.AccessModal.edit": [
+    {
+      "type": 0,
+      "value": "Modifier un lieu"
+    }
+  ],
+  "AgendaLocations.AccessModal.info": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
+  "AgendaLocations.AccessModal.merge": [
+    {
+      "type": 0,
+      "value": "Fusionner des lieux"
+    }
+  ],
+  "AgendaLocations.AccessModal.remove": [
+    {
+      "type": 0,
+      "value": "Supprimer un lieu"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.cancelMerge": [
     {
       "type": 0,
@@ -160,10 +202,10 @@
       "value": "Création d'un lieu"
     }
   ],
-  "AgendaLocations.DropdownUncompleteLocation.incompleteLocations": [
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": [
     {
       "type": 0,
-      "value": "See incomplete Locations"
+      "value": "Voir les lieux incomplets"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [
@@ -200,6 +242,12 @@
     {
       "type": 0,
       "value": "Quartier"
+    }
+  ],
+  "AgendaLocations.Filters.uids": [
+    {
+      "type": 0,
+      "value": "Locations selection"
     }
   ],
   "AgendaLocations.Filters.uncompletedLocations": [
@@ -272,6 +320,42 @@
     {
       "type": 0,
       "value": "Quartier"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.cancel": [
+    {
+      "type": 0,
+      "value": "Select another location"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.guide": [
+    {
+      "type": 0,
+      "value": "Are the details of this location correct ?"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.guideDetail": [
+    {
+      "type": 0,
+      "value": "If some changes have to be made, click on the button below to provide details on the change to agenda administrators"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.suggest": [
+    {
+      "type": 0,
+      "value": "Suggest a change"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.suggestChangeMessage": [
+    {
+      "type": 0,
+      "value": "A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection"
     }
   ],
   "AgendaLocations.LocationDetails.access": [
@@ -629,6 +713,12 @@
       "value": "Sauvegarde"
     }
   ],
+  "AgendaLocations.LocationForm.string.tooshort": [
+    {
+      "type": 0,
+      "value": "String is too short"
+    }
+  ],
   "AgendaLocations.LocationForm.updateSubmit": [
     {
       "type": 0,
@@ -775,6 +865,401 @@
       "value": "count"
     }
   ],
+  "AgendaLocations.LocationSearch.create": [
+    {
+      "type": 0,
+      "value": "Créer un nouveau lieu"
+    }
+  ],
+  "AgendaLocations.LocationSearch.namePlaceholder": [
+    {
+      "type": 0,
+      "value": "Saisissez le nom du lieu de l'événement"
+    }
+  ],
+  "AgendaLocations.LocationSearch.noResult": [
+    {
+      "type": 0,
+      "value": "Aucun résultat ne correspond à votre saisie"
+    }
+  ],
+  "AgendaLocations.LocationSearch.searching": [
+    {
+      "type": 0,
+      "value": "Recherche en cours..."
+    }
+  ],
+  "AgendaLocations.LocationSelector.change": [
+    {
+      "type": 0,
+      "value": "changer"
+    }
+  ],
+  "AgendaLocations.LocationSelector.find": [
+    {
+      "type": 0,
+      "value": "Chercher"
+    }
+  ],
+  "AgendaLocations.LocationSelector.noLocation": [
+    {
+      "type": 0,
+      "value": "Sélectionnez un lieu"
+    }
+  ],
+  "AgendaLocations.LocationSelector.remove": [
+    {
+      "type": 0,
+      "value": "Retirer"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveEnd": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " a été contribué sur l'agenda."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": " ont été contribués sur l'agenda."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveEndEq": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " En supprimant le lieu, l'événement associé sera également supprimé."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": " En supprimant le lieu, les événements associés seront également supprimés."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveLink": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " dont un"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": " dont "
+            },
+            {
+              "type": 7
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveLinkEq": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "un événement."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveStart": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ce lieu est associé à un événement,"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ce lieu est associé à "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements,"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveStartEq": [
+    {
+      "type": 0,
+      "value": "Ce lieu est associé à "
+    }
+  ],
+  "AgendaLocations.RemoveModal.closeModal": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "AgendaLocations.RemoveModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirmer"
+    }
+  ],
+  "AgendaLocations.RemoveModal.confirmRemove": [
+    {
+      "type": 0,
+      "value": "Confirmer la suppression"
+    }
+  ],
+  "AgendaLocations.RemoveModal.confirmRemoveMessage": [
+    {
+      "type": 0,
+      "value": "Le lieu sera supprimé de la base"
+    }
+  ],
+  "AgendaLocations.RemoveModal.notRemove": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ne pas supprimer l'événement."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ne pas supprimer les "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.notRemoveInfo": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Celui-ci continuera d'afficher les données du lieu supprimé jusqu'à sa prochaine mise à jour."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ceux-cis continueront d'afficher les données du lieu supprimé jusqu'à leur prochaine mise à jour."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.removeComplete": [
+    {
+      "type": 0,
+      "value": "Le lieu a été supprimé"
+    }
+  ],
+  "AgendaLocations.RemoveModal.removeEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Supprimer l'événements."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Supprimer les "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " événements."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.removeTitle": [
+    {
+      "type": 0,
+      "value": "Supprimer un lieu"
+    }
+  ],
   "AgendaLocations.StateToggler.toverify": [
     {
       "type": 0,
@@ -845,6 +1330,139 @@
     {
       "type": 0,
       "value": "Code postal"
+    }
+  ],
+  "AgendaLocations.stepper.Selection": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Aucun doublon identifié"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 doublon sélectionné"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " doublons sélectionnés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.backToSelection": [
+    {
+      "type": 0,
+      "value": "Retour à la sélection"
+    }
+  ],
+  "AgendaLocations.stepper.backToTargetSelection": [
+    {
+      "type": 0,
+      "value": "Retour à la sélection du lieu cible"
+    }
+  ],
+  "AgendaLocations.stepper.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Annuler la fusion"
+    }
+  ],
+  "AgendaLocations.stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "AgendaLocations.stepper.duplicatesSelection": [
+    {
+      "type": 0,
+      "value": "Sélection de doublons"
+    }
+  ],
+  "AgendaLocations.stepper.infoConfirmation": [
+    {
+      "type": 0,
+      "value": "Les lieux fusionnés seront supprimés et leurs évenements seront liés au lieu cible :"
+    }
+  ],
+  "AgendaLocations.stepper.infoRefSelection": [
+    {
+      "type": 0,
+      "value": "Sélectionnez un lieu cible parmi la sélection, celui-ci sera gardé a l'issue de la fusion"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelection": [
+    {
+      "type": 0,
+      "value": "Sélectionnez les lieux à fusionner (2 mininum)"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelectionFromDP": [
+    {
+      "type": 0,
+      "value": "Vérifiez la sélection de lieux à fusionner et retirez ceux qui ne sont pas des doublons."
+    }
+  ],
+  "AgendaLocations.stepper.launchMerge": [
+    {
+      "type": 0,
+      "value": "Lancer la fusion"
+    }
+  ],
+  "AgendaLocations.stepper.locationsMerge": [
+    {
+      "type": 0,
+      "value": "Fusion de Lieux"
+    }
+  ],
+  "AgendaLocations.stepper.next": [
+    {
+      "type": 0,
+      "value": "Suivant: "
+    }
+  ],
+  "AgendaLocations.stepper.notDuplicates": [
+    {
+      "type": 0,
+      "value": "Ce ne se sont pas des doublons"
+    }
+  ],
+  "AgendaLocations.stepper.see": [
+    {
+      "type": 0,
+      "value": "voir"
+    }
+  ],
+  "AgendaLocations.stepper.seeDetails": [
+    {
+      "type": 0,
+      "value": "Détails"
+    }
+  ],
+  "AgendaLocations.stepper.targetChoice": [
+    {
+      "type": 0,
+      "value": "Choix du lieu cible"
     }
   ]
 }

@@ -1,11 +1,9 @@
-'use strict';
-
 const detailedLocations = require('./mel-locations.json');
 const agenda = require('./mel.json');
 const settings = require('./slslf-2022.json');
 
 const defaultAccess = {
-  authorized: true,
+  authorized: true, // true
   external: false,
   serviceLabel: null,
   link: null

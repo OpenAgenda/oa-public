@@ -3,10 +3,15 @@ module.exports = {
     '../stories/**/*.stories.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  core: {
+  webpackFinal(config) {
+    config.optimization.splitChunks.chunks = 'initial';
+    return config;
+  }
+/*   core: {
     builder: 'webpack5',
   },
   webpackFinal(config) {
+    config.optimization.splitChunks.chunks = 'initial';
     config.module.rules.push({
       test: /\.(js|mjs|jsx)$/,
       enforce: 'pre',
@@ -17,5 +22,5 @@ module.exports = {
     });
 
     return config;
-  }
+  }*/
 };

@@ -1,9 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 
-const SearchInput = ({ onChange, placeholder }) => {
-  const [tmpValue, setTmpValue] = useState('');
-
+const SearchInput = ({
+  onChange,
+  placeholder,
+  initValue,
+  onFocus
+}) => {
+  const [tmpValue, setTmpValue] = useState(initValue || '');
   const debouncedOnChange = useDebouncedCallback(value => onChange(value), 1000);
 
   const myOnChange = useCallback(e => {
@@ -12,13 +16,18 @@ const SearchInput = ({ onChange, placeholder }) => {
     debouncedOnChange(e.target.value);
   }, [debouncedOnChange]);
 
+  const myOnFocus = useCallback(e => {
+    e.persist();
+    onFocus(e.target.value);
+  }, [onFocus]);
+
   const handleKeyPress = event => {
     if (event.key === 'Enter') onChange(tmpValue);
   };
 
   return (
     <div className="search-field input-group input-icon-right">
-    <label className="sr-only" htmlFor="label">Label</label>
+      <label className="sr-only" htmlFor="label">Label</label>
       <input
         name="search"
         type="text"
@@ -28,6 +37,7 @@ const SearchInput = ({ onChange, placeholder }) => {
         onChange={myOnChange}
         value={tmpValue}
         onKeyPress={handleKeyPress}
+        onFocus={myOnFocus}
       />
       <span className="input-group-btn">
         <button type="button" className="btn btn-default" onClick={() => onChange(tmpValue)}>
