@@ -10,7 +10,9 @@ import cleanupSchemaForForm from '../src/lib/cleanupSchemaForForm';
 import ComponentsCanvasDecorator from './decorators/ComponentsCanvas';
 import ProvidersDecorator from './decorators/Providers';
 
-import mdbDetailed from './fixtures/mdb.detailed.agenda.json';
+import immutableMdbDetailed from './fixtures/mdb.detailed.agenda.json';
+
+const mdbDetailed = JSON.parse(JSON.stringify(immutableMdbDetailed));
 
 export default {
   title: 'Components',
@@ -59,7 +61,6 @@ export const Stepper = () => (
 
 const eventFormConfig = {
   tiles: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  schemaExtensions: [],
   fileStore: {
     type: 's3',
     bucket: 'oadev'
@@ -71,13 +72,15 @@ const eventFormConfig = {
   maxFileSize: 200000000,
   authorizations: {
     canEditEvent: true
-  }
+  },
+  schema: cleanupSchemaForForm(mdbDetailed.schema, { locale: 'fr' }),
 };
 
 export const EventNewForm = () => (
   <div className="padding-all-sm">
     <EventNewFormComponent
       memberRole="contributor"
+      location={{ search: '' }}
       config={{
         withErrors: false,
         lang: 'fr',
@@ -98,13 +101,15 @@ export const EventNewForm = () => (
 );
 
 export const EventEditForm = () => (
-  <EventEditFormComponent
-    config={eventFormConfig}
-    event={{
-      title: { fr: 'Un titre' },
-      description: { fr: 'Une description courte' }
-    }}
-  />
+  <div className="padding-all-sm">
+    <EventEditFormComponent
+      config={eventFormConfig}
+      event={{
+        title: { fr: 'Un titre' },
+        description: { fr: 'Une description courte' }
+      }}
+    />
+  </div>
 );
 
 export const ClosedMessageForContributors = () => (

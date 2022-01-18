@@ -1,5 +1,6 @@
 import debug from 'debug';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CanvasWithStepper from '../components/CanvasWithStepper';
@@ -25,6 +26,7 @@ const log = debug('EventNew');
 export default function EventNew({ agenda, history }) {
   log('loading');
 
+  const location = useLocation();
   const dispatch = useDispatch();
   const prefix = usePrefix(agenda);
   const {
@@ -56,6 +58,7 @@ export default function EventNew({ agenda, history }) {
         className="margin-bottom-lg"
       />
       <EventNewForm
+        location={location}
         res={`${apiRoot}${prefix}`}
         event={hasReferenceForDuplicate ? referenceData : null}
         history={history}

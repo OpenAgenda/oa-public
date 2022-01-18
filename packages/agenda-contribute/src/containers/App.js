@@ -95,7 +95,9 @@ function App(props) {
     >{
       showClosedMessage ? (
         <Canvas>
-          <ClosedMessage memberRole="contributor" />
+          <div className="margin-top-lg">
+            <ClosedMessage memberRole="contributor" />
+          </div>
         </Canvas>
       ) : (
         renderRoutes(route.routes, {

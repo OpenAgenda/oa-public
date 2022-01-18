@@ -24,7 +24,7 @@ export default ({ memberRole, className }) => {
   }
 
   return (
-    <div className={`event-instruction boxed margin-top-lg padding-all-md ${className ?? ''}`}>
+    <div className={`event-instruction boxed padding-all-md ${className ?? ''}`}>
       <p className="text-center padding-all-z margin-all-z">{m(messages.forContributors)}</p>
     </div>
   );
