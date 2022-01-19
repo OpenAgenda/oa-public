@@ -11,6 +11,22 @@ const contributionTypes = {
   MEMBERS_ONLY: 2
 };
 
+function filterState(agendaContext, event) {
+  const canChangeState = agendaContext?.me?.authorizations?.canChangeState;
+
+  if (event?.state === undefined) {
+    return event;
+  }
+
+  if (canChangeState) {
+    return event;
+  }
+
+  delete event.state;
+
+  return event;
+}
+
 function hasAdditionalFields(schema) {
   return (
     schema?.fields ?? []
@@ -119,14 +135,17 @@ function shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEve
   const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
 
   if (!canEditEvent) {
+    log('cannot edit event, show full event link not displayed');
     return false;
   }
 
   if (requestedDisplayEventFields) {
+    log('requested to display event fields, show event fields is no longer needed');
     return false;
   }
 
   if (hasAdditionalFieldsWithDependencies(schema)) {
+    log('has additional fields with dependencies, event fields should be shown. link not needed');
     return false;
   }
 
@@ -134,8 +153,13 @@ function shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEve
 }
 
 function shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields }) {
+  const canEditEvent = eventContext.me?.authorizations?.canEditEvent;
+
   if (shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields })) {
     return false;
+  }
+  if (hasAdditionalFieldsWithDependencies(schema) && canEditEvent) {
+    return true;
   }
   return !!requestedDisplayEventFields;
 }
@@ -152,5 +176,6 @@ export default {
   hasAdditionalFields,
   shouldTriggerImmediateShare,
   shouldShowFullEventFormLink,
-  shouldDisplayEventFields
+  shouldDisplayEventFields,
+  filterState
 };

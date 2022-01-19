@@ -18,7 +18,8 @@ import useEventDataForDuplicate from '../hooks/useEventDataForDuplicate';
 import contributeReducer from '../reducers/contribute';
 
 const {
-  isContributionType
+  isContributionType,
+  filterState
 } = utils;
 
 const log = debug('EventNew');
@@ -60,7 +61,7 @@ export default function EventNew({ agenda, history }) {
       <EventNewForm
         location={location}
         res={`${apiRoot}${prefix}`}
-        event={hasReferenceForDuplicate ? referenceData : null}
+        event={filterState(agendaContext, hasReferenceForDuplicate ? referenceData : null)}
         history={history}
         config={config}
         onSuccess={(event, response) => {

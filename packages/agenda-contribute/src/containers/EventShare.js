@@ -23,7 +23,8 @@ const {
   schemaWithoutEventFields,
   shouldTriggerImmediateShare,
   shouldShowFullEventFormLink,
-  shouldDisplayEventFields
+  shouldDisplayEventFields,
+  filterState
 } = utils;
 
 const messages = defineMessages({
@@ -156,7 +157,7 @@ export default function EventShare({ agenda, history }) {
             schema: shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields }) ? schema : schemaWithoutEventFields(schema)
           }}
           memberRole={agendaContext.me.member.role}
-          event={event}
+          event={filterState(agendaContext, event)}
           onSuccess={(_event, response) => {
             dispatch(contributeReducer.displayShareSuccess(response.body.event));
           }}
