@@ -214,13 +214,6 @@ function validate(data, pSettings, pPartial, options = {}) {
   }
 
   return clean;
-
-  /* return validators.set(locationValidators, { compact: true })(
-    Object.keys(data).map(k => ({
-      field: k,
-      value: data[k],
-    }))
-  ); */
 }
 
 /**
