@@ -34,6 +34,7 @@ class CreateForm extends Component {
       settings,
       tiles
     } = this.props;
+
     return (
       <LocationForm
         Header={this.renderHeader()}
