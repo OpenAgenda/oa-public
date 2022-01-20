@@ -3,6 +3,8 @@
 const _ = require('lodash');
 const list = require('./list');
 const get = require('./get');
+const patch = require('./patch');
+const remove = require('./remove');
 
 module.exports = (core, agendaOrUid) => {
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
@@ -20,15 +22,8 @@ module.exports = (core, agendaOrUid) => {
       includeImagePath: true,
       agendaUid
     }),
-    patch: (uid, data) => locations.patch(uid, data, {
-      geocodeIfUndefined: true,
-      includeImagePath: true,
-      agendaUid
-    }),
-    remove: (uid, options = {}) => locations.remove(uid, {
-      agendaUid,
-      removeEvents: !!options.removeEvents,
-    }),
+    patch: patch(core, agendaOrUid),
+    remove: remove(core, agendaOrUid),
     get: get(core, agendaOrUid),
     list: list(core, agendaOrUid),
     merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data)

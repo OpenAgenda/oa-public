@@ -500,7 +500,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'updatedAt', 'createdAt', 'image', 'description',
             'tags', 'website', 'email',
             'phone', 'links', 'access',
-            'state', 'imageCredits',
+            'state', 'imageCredits', 'imageRightsAreHeld',
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
             'mergedIn'
@@ -696,6 +696,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           'eventSearch.update:17026855.48564567',
           'eventSearch.update:55268170.55268456'
         ].includes(s))).length).toBe(3);
+      });
+
+      it('a location update on a location set can be done from another agenda than the one it originates from', async () => {
+        await core.agendas(55278973).locations.patch(97506318, {
+          address: '40 rue Richard Lenoir, Paris'
+        });
+
+        const location = await core.agendas(55268170).locations.get(97506318);
+
+        expect(location.address).toBe('40 rue Richard Lenoir, Paris');
       });
     });
 
