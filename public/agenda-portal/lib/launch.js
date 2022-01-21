@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-const createCSSFile = require('./createCSSFile');
 const log = require('./Log')('launch');
 
 function _ready(port) {
@@ -14,33 +12,14 @@ function _ready(port) {
   if (process.send) process.send(process.env.NODE_ENV === 'development' ? 'online' : 'ready');
 }
 
-async function _development(app, port) {
-  log('launching in development environment');
-
-  _ready(port);
-}
-
-async function _production(app, port) {
-  if (!app.locals.root) throw new Error('app root is not set');
-
-  log('launching in production environment');
-
-  const { sass, assets } = _.assign(
-    {
-      sass: `${__dirname}/../sass/main.scss`,
-      assets: `${__dirname}/../assets`,
-    },
-    app.locals
-  );
-
-  await createCSSFile(sass, assets);
-
-  _ready(port);
-}
-
 module.exports = (app, port = 80) => {
-  app.listen(port, () => (process.env.NODE_ENV === 'development' ? _development : _production)(
-    app,
-    port
-  ));
+  app.listen(port, () => {
+    if (process.env.NODE_ENV === 'production' && !app.locals.root) {
+      throw new Error('app root is not set');
+    }
+
+    log(`launching in ${process.env.NODE_ENV === 'development' ? 'development' : 'production'} environment`);
+
+    _ready(port);
+  });
 };

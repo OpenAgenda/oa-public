@@ -7,7 +7,7 @@ const ncp = promisify(require('ncp').ncp);
 const readme = fs.readFileSync(`${__dirname}/README.md`);
 
 const { term, confirm } = require('./prompt');
-const insertStartScript = require('./insertStartScript');
+const insertScripts = require('./insertScripts');
 const editServerFile = require('./editServerFile');
 
 module.exports = async (preloaded = {}) => {
@@ -53,6 +53,7 @@ module.exports = async (preloaded = {}) => {
 
   env.PORTAL_VIEWS_FOLDER = preloaded.PORTAL_VIEWS_FOLDER || './views';
   env.PORTAL_SASS_PATH = preloaded.PORTAL_SASS_PATH || './sass/main.scss';
+  env.PORTAL_JS_PATH = preloaded.PORTAL_JS_PATH || './js/main.js';
   env.PORTAL_ASSETS_FOLDER = preloaded.PORTAL_ASSETS_FOLDER || './assets';
   env.PORTAL_I18N_FOLDER = preloaded.PORTAL_I18N_FOLDER || './i18n';
 
@@ -65,7 +66,7 @@ module.exports = async (preloaded = {}) => {
       .join('\n')
   );
 
-  await insertStartScript(cwd);
+  insertScripts(cwd);
 
   editServerFile(cwd);
 

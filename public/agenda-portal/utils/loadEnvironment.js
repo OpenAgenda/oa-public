@@ -1,10 +1,13 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 
 module.exports = dir => {
   const envFile = `${dir}/.env`;
+
+  if (process.env.PORTAL_DIR === undefined) {
+    process.env.PORTAL_DIR = dir;
+  }
 
   if (!fs.existsSync(envFile)) {
     return;
@@ -12,8 +15,7 @@ module.exports = dir => {
 
   const lines = (fs.readFileSync(envFile, 'utf-8') || '')
     .split('\n')
-    .filter(line => line.length)
-    .filter(line => line.substr(0, 1) !== '#');
+    .filter(line => (line.length && line.substr(0, 1) !== '#'));
 
   for (const line of lines) {
     const parts = line.split('=');
@@ -21,9 +23,7 @@ module.exports = dir => {
     const value = parts.join('=');
 
     if (process.env[name] === undefined) {
-      process.env[name] = value.startsWith('./')
-        ? path.join(dir, value)
-        : value;
+      process.env[name] = value;
     }
   }
 };

@@ -32,10 +32,8 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: new RegExp('node_modules/(?!(@openagenda/agenda-portal))'),
-        use: {
-          loader: require.resolve('babel-loader'),
-        },
+        exclude: new RegExp('node_modules/(?!(@openagenda/agenda-portal|@openagenda/react-filters))'),
+        loader: require.resolve('babel-loader'),
       },
     ],
   },

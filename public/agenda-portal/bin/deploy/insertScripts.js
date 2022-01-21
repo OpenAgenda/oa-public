@@ -11,7 +11,8 @@ module.exports = cwd => {
     packageStr.replace(
       '"dependencies": {',
       `"scripts" : {
-    "start": "start-portal"
+    "start": "start-portal",
+    "prepack": "build-portal"
   },
   "dependencies": {`
     )

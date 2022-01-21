@@ -13,6 +13,7 @@ function eventHook(event /* { lang, agenda, root } */) {
 }
 
 Portal({
+  dir: __dirname,
   root: process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
   devServerPort: process.env.PORTAL_DEV_SERVER_PORT || 3001,
   // agenda uid
@@ -24,13 +25,15 @@ Portal({
   // associated OA account key
   key: process.env.PORTAL_KEY,
   // views folder
-  views: `${__dirname}/views`,
+  views: process.env.PORTAL_VIEWS_FOLDER,
   // main sass file
-  sass: `${__dirname}/sass/main.scss`,
+  sass: process.env.PORTAL_SASS_PATH,
+  // main js file
+  js: process.env.PORTAL_JS_PATH,
   // assets folder
-  assets: `${__dirname}/assets`,
+  assets: process.env.PORTAL_ASSETS_FOLDER,
   // multilingual labels folder
-  i18n: `${__dirname}/i18n`,
+  i18n: process.env.PORTAL_I18N_FOLDER,
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
   // filters that applies even if other filter is specified, can be overloaded
