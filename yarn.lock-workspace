@@ -3874,6 +3874,7 @@ __metadata:
     prompt-input: ^3.0.0
     qs: ^6.9.1
     react: ^16.13.1
+    react-cookie-consent: ^7.2.1
     react-dom: ^16.13.1
     react-final-form: ^6.5.3
     react-intl: ^5.12.2
@@ -4281,6 +4282,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.13.1
     react-bootstrap: ^0.33.1
+    react-cookie-consent: ^7.2.1
     react-dom: ^16.13.1
     react-dropzone: ^11.2.0
     react-final-form: ^6.5.3
@@ -24884,6 +24886,18 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: 9f332621da02b37bb85c619861b92d954768514cb357d09f7f5c53e58f39e8799ed055dd503b4a2b48668f802c0b25c700fa30eae12281bdfddd62c1acc51b2f
+  languageName: node
+  linkType: hard
+
+"react-cookie-consent@npm:^7.2.1":
+  version: 7.2.1
+  resolution: "react-cookie-consent@npm:7.2.1"
+  dependencies:
+    js-cookie: ^2.2.1
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0
+  checksum: 9676e9611998f58e43ae76721f33b80eb95be37ad3937de0fd4f623ac5e7c72573d45cc36ca5e0c6b9d494a09a8aea1aea7ba8ae5ad0ebb2b692837ef78a561e
   languageName: node
   linkType: hard
 
