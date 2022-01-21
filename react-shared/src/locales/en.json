@@ -6,5 +6,9 @@
   "ReactShared.ImageInput.remove": "Remove",
   "ReactShared.ImageInput.tooManyFiles": "Too many files, only accepts a single file",
   "ReactShared.ImageInput.update": "Update the image",
-  "ReactShared.ImageInput.upload": "Upload an image"
+  "ReactShared.ImageInput.upload": "Upload an image",
+  "trackConsent.accept": "Accept",
+  "trackConsent.decline": "Decline",
+  "trackConsent.informationText": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?",
+  "trackConsent.moreInfoLink": "Click here for more information"
 }

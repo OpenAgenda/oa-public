@@ -65,6 +65,11 @@ Portal({
     }, */
     zoom: 20,
   },
+  tracking: {
+    useAgendaGoogleAnalytics: process.env.PORTAL_USE_AGENDA_GA_ID ?? false,
+    // url of the link displayed in the cookie consent banner
+    cookieBannerLink: 'https://support.google.com/analytics/answer/6004245?hl=fr'
+  },
   eventHook,
   // proxyHookBeforeGet
 }).then(({ app }) => app.launch(process.env.PORTAL_PORT));

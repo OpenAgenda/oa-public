@@ -20,5 +20,10 @@
   "mixed":  "Mixte",
   "passed": "Passé",
   "current": "En cours",
-  "upcoming":  "À venir"
+  "upcoming":  "À venir",
+
+  "trackConsent.informationText": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateur de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous?",
+  "trackConsent.moreInfoLink": "Cliquez ici pour en savoir plus",
+  "trackConsent.decline": "Refuser",
+  "trackConsent.accept": "Accepter"
 }

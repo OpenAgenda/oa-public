@@ -85,6 +85,7 @@
     "prompt-input": "^3.0.0",
     "qs": "^6.9.1",
     "react": "^16.13.1",
+    "react-cookie-consent": "^7.2.1",
     "react-dom": "^16.13.1",
     "react-final-form": "^6.5.3",
     "react-intl": "^5.12.2",

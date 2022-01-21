@@ -99,6 +99,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **views**: Required. Path to the handlebar views folder
  * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
  * **iframable**: false by default. True if the portal is to be displayed within an iframe.
+ * **tracking**: enable or disable Google Analytics tracking. Set useAgendaGoogleAnalytics to true to activate Google Analytics tracking. CookieBannerLink is the URL of the link displayed in the cookie consent banner and defaults to the Google Analytics help URL.
 
 ### Cache options
 
@@ -106,7 +107,7 @@ These define general portal settings. Default options set in your `server.js` fi
 
 ## Templates and styling
 
-Templates are written in handlebars. See [official documentation](https://handlebarsjs.com/guide) for synthax details. 
+Templates are written in handlebars. See [official documentation](https://handlebarsjs.com/guide) for syntax details. 
 
 When working on your portal, you should only really need to edit files that are either:
 
