@@ -1,0 +1,6 @@
+releases:
+  "@openagenda/agenda-portal": major
+  "@openagenda/react-filters": patch
+
+undecided:
+  - oa
