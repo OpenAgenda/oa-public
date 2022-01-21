@@ -137,6 +137,18 @@ describe('event-search - unit: utils - defineIncludes', function() {
     included.should.eql(['uid']);
   });
 
+  it('if requested includes list sub-fields of location while detailed include is requested, result should include location key', () => {
+    const included = defineIncludes({
+      baseSearchIncludes: ['location.name'],
+      detailedSearchIncludes: ['location']
+    }, {
+      detailed: true,
+      requested: ['location.uid', 'location.name']
+    });
+
+    included.should.eql(['location']);
+  });
+
   it('formSchema fields can be included', () => {
     const included = defineIncludes({
       baseSearchIncludes,
