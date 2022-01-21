@@ -235,6 +235,7 @@ function Dashboard() {
       // validate={validate}
       intl={intl}
       ref={filtersFormRef}
+      filters={filters}
     >
       <div className="row margin-top-sm">
         <div className="col-sm-6">
