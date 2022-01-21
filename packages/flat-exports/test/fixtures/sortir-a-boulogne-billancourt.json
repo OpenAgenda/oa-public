@@ -1440,7 +1440,13 @@
     "slug": "centre-national-du-jeu501",
     "longitude": 2.237134,
     "updatedAt": "2016-04-02T05:30:10.000Z",
-    "phone": "014654123"
+    "phone": "014654123",
+    "tags": [
+      {
+        "id": 14,
+        "label": "Lieu de spectacles, sports et loisirs"
+      }
+    ]
   },
   "state":  2,
   "slug": "a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu",

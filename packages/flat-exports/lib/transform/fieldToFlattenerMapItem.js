@@ -1,5 +1,7 @@
 'use strict';
 
+const getTargetField = require('./getTargetField');
+
 const flatten = (value, lang, defaultValue) => {
   if (value === undefined) {
     return defaultValue;
@@ -43,6 +45,16 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
         ...transform,
         [option.id]: flatten(option.label, lang, option.value)
       }), {})
+    };
+  }
+
+  // location tags subfield
+  if (field.legacy) {
+    const getTarget = getTargetField.bind(null, options.labels, options.lang);
+    return {
+      source: 'location.tags',
+      target: getTarget('location.tags'),
+      transform: tags => (tags ? tags.map(tag => tag.label).join(' | ') : '')
     };
   }
 
