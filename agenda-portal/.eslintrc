@@ -22,7 +22,8 @@
   "overrides": [
     {
       "files": [
-        "client/**/*.js"
+        "client/**/*.js",
+        "boot/js/**/*.js"
       ],
 
       "parserOptions": {

@@ -9,7 +9,7 @@ function middleware(options, req, res, next) {
     ...(options || {}),
   };
 
-  const stylesheets = [`${req.app.locals.assetsRoot}/main.css`].map(s => ({
+  const stylesheets = [`${req.app.locals.assetsRoot}/dist/main.css`].map(s => ({
     href: s,
   }));
 
@@ -22,6 +22,7 @@ function middleware(options, req, res, next) {
     `${req.app.locals.assetsRoot}/js/${mainScript}`,
     'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
     `${req.app.locals.assetsRoot}/jquery.spin.js`,
+    `${req.app.locals.assetsRoot}/dist/main.js`
   ];
 
   if (iframable) {
@@ -31,7 +32,7 @@ function middleware(options, req, res, next) {
   }
 
   if (process.env.NODE_ENV === 'development') {
-    bottomScripts.push(`${req.app.locals.assetsRoot}/dev.js`);
+    // bottomScripts.push(`${req.app.locals.assetsRoot}/dev.js`);
     bottomScripts.push(process.env.BROWSER_REFRESH_URL);
   }
 

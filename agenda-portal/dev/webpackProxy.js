@@ -22,9 +22,12 @@ module.exports = function webpackProxy(app, devServerPort) {
   app.get(
     [
       '/ws',
-      '/dev.js',
-      '/main.css',
+      '/dist/main.js',
+      '/dist/main.css',
     ],
-    (req, res) => httpProxy.web(req, res, { target: `http://localhost:${devServerPort}`, ws: true })
+    (req, res) => httpProxy.web(req, res, {
+      target: `http://localhost:${devServerPort}`,
+      ws: true,
+    })
   );
 };

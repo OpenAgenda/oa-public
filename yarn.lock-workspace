@@ -3857,6 +3857,7 @@ __metadata:
     express: ^4.17.1
     final-form: ^4.20.2
     hbs: ^4.1.0
+    http-proxy: ^1.18.1
     iframe-resizer: ^4.2.10
     immutability-helper: ^3.0.0
     jest: ^26.1.0
@@ -3892,6 +3893,7 @@ __metadata:
     webpack-dev-server: ^4.7.2
     webpack-hot-middleware: ^2.25.1
   bin:
+    build-portal: bin/build-portal.js
     deploy: bin/deploy/run.js
     start-portal: bin/start-portal.js
   languageName: unknown

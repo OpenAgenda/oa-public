@@ -306,6 +306,7 @@ Displays a list of selectable values to filter the events from. This filter work
 
  * **inputType**: 'radio' for single selection or 'checkbox' for multiple selection
  * **name**: possible values are 'attendanceMode', 'relative' or any additional fields of discrete type (radio, checkbox, select...)
+ * **pageSize**: 10 by default. Number of values to display by default and per subsequent load. If more than `pageSize` values exist, a "Load more options" is displayed to load following values
 
 ###### Additional fields
 
@@ -330,6 +331,7 @@ Custom filters can be defined using the `{{#customFilter}}` helper. A filter is 
  * **inactiveClass**: Class associated with the container div of the filter when it is inactive.
  * **className**: Invariable class associated to the container div of the filter.
  * **handlerSelector**: selector used to target the element that will be listened for onclick events, toggling the filter between active and inactive states. By default, the container of the whole filter is listened.
+ * **activeFilterLabel**: Label to display in the active filters widget when the custom filter is active.
 
 ###### Example 1: filtering on upcoming offline events
 

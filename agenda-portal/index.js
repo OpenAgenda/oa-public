@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const { promisify } = require('util');
+const path = require('path');
 const _ = require('lodash');
 const express = require('express');
 const Hbs = require('hbs');
@@ -75,6 +76,7 @@ module.exports = async options => {
   };
 
   const {
+    dir,
     // eventHook,
     // lang, // main language of portal
     uid, // uid of agenda
@@ -117,12 +119,15 @@ module.exports = async options => {
 
   app.set('query parser', str => qs.parse(str, { allowPrototypes: true, arrayLimit: Infinity }));
   app.set('view engine', 'hbs');
-  app.set('views', views);
+  app.set('views', path.join(dir, views));
   app.engine('hbs', hbs.__express);
-  await promisify(hbs.registerPartials).call(hbs, `${views}/partials`);
+
+  const partialsDir = path.join(dir, views, 'partials');
+
+  await promisify(hbs.registerPartials).call(hbs, partialsDir);
 
   if (process.env.NODE_ENV === 'development') {
-    require('./dev/watchViews')(hbs, `${views}/partials`);
+    require('./dev/watchViews')(hbs, partialsDir);
   }
 
   app.locals.defaultLang = config.lang || 'en';
@@ -132,7 +137,7 @@ module.exports = async options => {
   const {
     intlByLocale,
     handlebarsHelper: i18nHelper
-  } = I18N(i18n);
+  } = I18N(path.join(dir, i18n));
 
   app.intlByLocale = intlByLocale;
 
@@ -188,7 +193,7 @@ module.exports = async options => {
   }
 
   if (assets) {
-    app.use(express.static(assets));
+    app.use(express.static(path.join(dir, assets)));
   }
 
   app.use(loadResLocals);
