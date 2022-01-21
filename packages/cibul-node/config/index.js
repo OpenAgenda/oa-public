@@ -800,7 +800,6 @@ const config = {
       token: process.env.OA_DISCORD_TOKEN,
       channel: process.env.OA_DISCORD_CHANNEL
     },
-    crisp: process.env.CRISP_WEBSITE_ID,
     es: {
       host: process.env.OA_ELASTICSEARCH_134_DEV_HOST || 'localhost',
       port: process.env.OA_ELASTICSEARCH_134_DEV_PORT || 9200,
