@@ -101,6 +101,18 @@
       "value": "Update"
     }
   ],
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": [
+    {
+      "type": 0,
+      "value": "Go back"
+    }
+  ],
+  "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
+    {
+      "type": 0,
+      "value": "The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven't published it yet."
+    }
+  ],
   "AgendaContribute.EventNew.create": [
     {
       "type": 0,

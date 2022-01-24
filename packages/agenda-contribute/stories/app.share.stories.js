@@ -54,3 +54,9 @@ export const AdminShareEventWithEditionRightsAndNoAdditionalFields = componentFr
   Target agenda has no additional fields. State selection input should be displayed`,
   306, '/event/01/from/5683'
 );
+
+export const AdminShareAlreadySharedEvent = componentFromFixtures(
+  `Contributor attempts to share event which was already shared on target agenda. 
+  A message informs him and navigation actions allow him to go back to where the share originated from`,
+  307, '/event/01/from/5684'
+);

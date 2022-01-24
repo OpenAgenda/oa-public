@@ -560,6 +560,36 @@ storySets.AdminShareEventWithEditionRightsAndNoAdditionalFieldsFromAgenda = {
   })
 };
 
+storySets.AdminShareAlreadySharedEvent = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+    draft.me.member.role = 'administrator';
+    draft.me.authorizations.canChangeState = true;
+  }),
+  event: bareboneEventResponse,
+  agenda: basicDetailedAgenda,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithMoreConstraints,
+      uid: 307
+    }
+  }
+};
+storySets.AdminShareAlreadySharedEventFromAgenda = {
+  agenda: basicDetailedAgenda,
+  event: bareboneEventResponse,
+  agendaContext: agendaContributorContext,
+  extraProps: {
+    agenda: {
+      uid: 5684
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = true;
+  })
+};
+
 module.exports = Object.assign(function getFixtures(agendaUid) {
   return Object.keys(storySets).map(key => storySets[key]).find(set => set.extraProps.agenda.uid === parseInt(agendaUid, 10));
 }, storySets, { getLocation });

@@ -9,6 +9,7 @@ import EventEditForm from '../components/EventEditForm';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import EventWasSuccessfullyShared from '../components/EventWasSuccessfullyShared';
+import EventIsAlreadyInTarget from '../components/EventIsAlreadyInTarget';
 import ShowFullEventForm from '../components/ShowFullEventForm';
 import useEvent from '../hooks/useEvent';
 import useDetailedAgenda from '../hooks/useDetailedAgenda';
@@ -24,7 +25,7 @@ const {
   shouldTriggerImmediateShare,
   shouldShowFullEventFormLink,
   shouldDisplayEventFields,
-  filterState
+  filterEventData
 } = utils;
 
 const messages = defineMessages({
@@ -61,6 +62,11 @@ export default function EventShare({ agenda, history }) {
   } = useEvent(fromAgendaUid, eventUid);
 
   const {
+    eventIsLoading: eventInTargetIsLoading,
+    event: eventInTarget,
+  } = useEvent(agenda.uid, eventUid);
+
+  const {
     detailedAgendaIsLoading: fromAgendaIsLoading,
     detailedAgenda: fromAgenda
   } = useDetailedAgenda(fromAgendaUid);
@@ -90,8 +96,20 @@ export default function EventShare({ agenda, history }) {
     }
   }, [requestedDisplayEventFields, reloadedForm, setReloadedForm]);
 
-  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading) {
+  if (eventIsLoading || fromAgendaIsLoading || configIsLoading || agendaContextIsLoading || detailedAgendaIsLoading || eventInTargetIsLoading) {
     return <Loading />;
+  }
+
+  if (eventInTarget) {
+    return (
+      <EventIsAlreadyInTarget
+        history={history}
+        location={location}
+        event={event}
+        agenda={agenda}
+        fromAgenda={fromAgenda}
+      />
+    );
   }
 
   if (sharedEvent) {
@@ -118,8 +136,11 @@ export default function EventShare({ agenda, history }) {
 
   if (requestedDisplayEventFields && !reloadedForm) {
     // force form reload when decision to display event fields is made
+    log('reloading form to display all event data');
     return <Loading />;
   }
+
+  const displayEventFields = shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields });
 
   return (
     <Canvas
@@ -154,10 +175,16 @@ export default function EventShare({ agenda, history }) {
           res={shareRes}
           config={{
             ...config,
-            schema: shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields }) ? schema : schemaWithoutEventFields(schema)
+            schema: displayEventFields ? schema : schemaWithoutEventFields(schema)
           }}
           memberRole={agendaContext.me.member.role}
-          event={filterState(agendaContext, event)}
+          event={filterEventData({
+            event,
+            canChangeState: agendaContext?.me?.authorizations?.canChangeState,
+            canEditEvent: eventContext?.me?.authorizations?.canEditEvent,
+            schema,
+            displayEventFields
+          })}
           onSuccess={(_event, response) => {
             dispatch(contributeReducer.displayShareSuccess(response.body.event));
           }}

@@ -1,6 +1,7 @@
 import debug from 'debug';
 import { Base64 } from 'js-base64';
 import { matchPath } from 'react-router';
+import { produce } from 'immer';
 import qs from 'qs';
 
 const log = debug('utils');
@@ -25,6 +26,32 @@ function filterState(agendaContext, event) {
   delete event.state;
 
   return event;
+}
+
+function filterEventData({
+  event,
+  canEditEvent,
+  canChangeState,
+  schema,
+  displayEventFields
+}) {
+  return produce(event, draft => {
+    if (!canChangeState) {
+      delete draft.state;
+    }
+
+    if (!canEditEvent || !displayEventFields) {
+      Object.keys(event).filter(field => {
+        const schemaField = schema.fields.find(f => f.field === field);
+
+        if (!schemaField) return true;
+
+        return schemaField.schemaType === 'event';
+      }).forEach(field => {
+        delete draft[field];
+      });
+    }
+  });
 }
 
 function hasAdditionalFields(schema) {
@@ -177,5 +204,6 @@ export default {
   shouldTriggerImmediateShare,
   shouldShowFullEventFormLink,
   shouldDisplayEventFields,
-  filterState
+  filterState,
+  filterEventData
 };

@@ -16,6 +16,8 @@
   "AgendaContribute.Confirmation.seeEventAction": "Voir mon événement",
   "AgendaContribute.Confirmation.showMyEvents": "Voir tous mes événements",
   "AgendaContribute.EventEdit.update": "Mettre à jour",
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": "Retour",
+  "AgendaContribute.EventIsAlreadyInTarget.isInTarget": "L'événement est déjà référencé dans l'agenda dans lequel vous souhaitez le partager. Il y est soit déjà publié, soit en modération auquel cas il ne peut y être vu que par les modérateurs de l'agenda.",
   "AgendaContribute.EventNew.create": "Créer l'événement",
   "AgendaContribute.EventNew.deleteDraft": "Supprimer le brouillon",
   "AgendaContribute.EventNew.draft": "Enregistrer un brouillon",

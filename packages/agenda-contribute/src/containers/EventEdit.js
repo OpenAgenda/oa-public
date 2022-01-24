@@ -16,7 +16,7 @@ import RequestEditionRights from '../components/RequestEditionRights';
 const {
   replaceWithStep,
   schemaWithoutEventFields,
-  filterState
+  filterEventData
 } = utils;
 
 export default function EventEdit({
@@ -77,7 +77,13 @@ export default function EventEdit({
           ...config,
           schema: eventContext.me?.authorizations?.canEditEvent ? schema : schemaWithoutEventFields(schema)
         }}
-        event={filterState(agendaContext, event)}
+        event={filterEventData({
+          event,
+          schema,
+          canEditEvent: eventContext.me?.authorizations?.canEditEvent,
+          canChangeState: agendaContext?.me?.authorizations?.canChangeState,
+          displayEventFields: eventContext?.me?.authorizations?.canEditEvent
+        })}
         memberRole={agendaContext?.me?.member?.role}
         canEditEvent={eventContext.me?.authorizations?.canEditEvent}
         onSuccess={(_event, response) => {

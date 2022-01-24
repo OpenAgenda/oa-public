@@ -20,6 +20,7 @@
   "overrides": [
     {
       "files": [
+        "test/*.test.js",
         "stories/**/*.js",
         "src/**/*.js"
       ],

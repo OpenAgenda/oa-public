@@ -101,6 +101,18 @@
       "value": "Mettre à jour"
     }
   ],
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": [
+    {
+      "type": 0,
+      "value": "Retour"
+    }
+  ],
+  "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
+    {
+      "type": 0,
+      "value": "L'événement est déjà référencé dans l'agenda dans lequel vous souhaitez le partager. Il y est soit déjà publié, soit en modération auquel cas il n'y est accessible que par les modérateurs de l'agenda."
+    }
+  ],
   "AgendaContribute.EventNew.create": [
     {
       "type": 0,

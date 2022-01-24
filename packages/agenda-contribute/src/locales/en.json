@@ -16,6 +16,8 @@
   "AgendaContribute.Confirmation.seeEventAction": "View my event",
   "AgendaContribute.Confirmation.showMyEvents": "List all my events",
   "AgendaContribute.EventEdit.update": "Update",
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": "Go back",
+  "AgendaContribute.EventIsAlreadyInTarget.isInTarget": "The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven't published it yet.",
   "AgendaContribute.EventNew.create": "Create the event",
   "AgendaContribute.EventNew.deleteDraft": "Delete the draft",
   "AgendaContribute.EventNew.draft": "Save as draft",

@@ -1,9 +1,10 @@
-import _ from 'lodash';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 
 import useEventContext from './useEventContext';
+
+const validateStatus = status => ([200, 404].includes(status));
 
 export default function useEvent(agendaUid, eventUid) {
   const res = useSelector(state => state.settings.apiRoot + state.res.event.replace(':agendaUid', agendaUid).replace(':eventUid', eventUid));
@@ -11,7 +12,12 @@ export default function useEvent(agendaUid, eventUid) {
   const {
     isLoading: eventIsLoading,
     data: event
-  } = useQuery('event', () => axios.get(res).then(response => (response.data.event)));
+  } = useQuery(`agenda.${agendaUid}.event.${eventUid}`, () => axios
+    .get(res, { validateStatus })
+    .then(response => (response.data instanceof Object ? response.data.event : null)),
+  {
+    staleTime: 1000
+  });
 
   const {
     eventContextIsLoading,
@@ -24,13 +30,16 @@ export default function useEvent(agendaUid, eventUid) {
     };
   }
 
-  const {
-    canChangeState
-  } = eventContext.me.authorizations;
+  if (!event) {
+    return {
+      eventIsLoading: false,
+      event: null
+    };
+  }
 
   return {
     eventIsLoading: false,
-    event: canChangeState ? event : _.omit(event, ['state']),
+    event,
     eventContext
   };
 }
