@@ -47,6 +47,10 @@ module.exports = (legacyFilter, sets = {}) => {
         convertedQuery.uid = legacyFilter.uids;
         delete convertedQuery.relative;
         break;
+      case 'slug':
+        convertedQuery.slug = legacyFilter.slug;
+        delete convertedQuery.relative;
+        break;
       case 'tags': {
         if (!tagSet && !formSchema) return;
 
