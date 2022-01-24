@@ -5627,7 +5627,6 @@ __metadata:
     classnames: ^2.3.1
     clean-webpack-plugin: ^3.0.0
     compression-webpack-plugin: ^3.0.0
-    concurrently: ^6.0.2
     core-js: ^3.10.2
     cors: ^2.8.5
     css-loader: ^3.4.2
@@ -5834,7 +5833,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/react-filters": ^2.5.0
+    "@openagenda/react-filters": ^2.5.3
     "@openagenda/react-portal-ssr": ^1.0.0
     "@openagenda/react-shared": ^2.3.2
     axios: ^0.21.1
@@ -5872,6 +5871,7 @@ __metadata:
     prompt-input: ^3.0.0
     qs: ^6.9.1
     react: ^16.13.1
+    react-cookie-consent: ^7.2.1
     react-dom: ^16.13.1
     react-final-form: ^6.5.3
     react-intl: ^5.12.2
@@ -7563,7 +7563,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@^2.5.0, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@^2.5.0, @openagenda/react-filters@^2.5.3, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -7886,6 +7886,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.13.1
     react-bootstrap: ^0.33.1
+    react-cookie-consent: ^7.2.1
     react-dom: ^16.13.1
     react-dropzone: ^11.2.0
     react-final-form: ^6.5.3
