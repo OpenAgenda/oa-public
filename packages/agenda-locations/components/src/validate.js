@@ -12,6 +12,7 @@ import longitude from '@openagenda/validators/longitude';
 import pass from '@openagenda/validators/pass';
 import multilingual from '@openagenda/validators/multilingual';
 import regex from '@openagenda/validators/regex';
+import choice from '@openagenda/validators/choice';
 
 const validators = {
   groupTags,
@@ -28,6 +29,7 @@ const validators = {
   pass,
   multilingual,
   regex,
+  choice
 };
 
 const STATES = {
@@ -37,6 +39,29 @@ const STATES = {
 
 const utils = require('@openagenda/utils');
 
+function validateImageRights(value, otherValues = {}, options = {}) {
+  const {
+    optional = true,
+    isEnabled = false
+  } = options;
+  if (!isEnabled) return;
+
+  const hasImage = !!otherValues?.image;
+
+  if (!hasImage) {
+    return;
+  }
+  const validateBoolean = validators.choice({
+    options: [true],
+    field: 'imageRightsAreHeld',
+    optional,
+    unique: true
+  });
+  return validateBoolean(value);
+}
+
+validateImageRights.field = 'imageRightsAreHeld';
+
 // validators applying for all locations of all agendas
 const baseValidators = [
   validators.number({ field: 'agendaId', optional: true }),
@@ -45,6 +70,7 @@ const baseValidators = [
   }),
   validators.pass({ field: 'image' }),
   validators.text({ field: 'imageCredits', max: 255, optional: true }),
+  validateImageRights,
   validators.text({
     field: 'address', min: 3, max: 255, optional: false
   }),
@@ -130,19 +156,17 @@ function _getValidators(settings) {
   if (settings.forceTags) {
     locationValidators.push(validators.pass({ field: 'tags' }));
   } else if (settings.tagSet) {
-    locationValidators.push(
-      validators.groupTags(utils.extend({ field: 'tags' }, settings.tagSet))
-    );
+    const groupTagValidator = validators.groupTags(utils.extend({ field: 'tags' }, settings.tagSet));
+    locationValidators.push(v => groupTagValidator(v));
   }
 
   return locationValidators;
 }
 
-function validate(data, pSettings, pPartial) {
+function validate(data, pSettings, pPartial, options = {}) {
   let locationValidators = [];
   let settings = pSettings;
   let partial = pPartial;
-
   // clean arguments
 
   if (arguments.length === 2 && typeof settings === 'boolean') {
@@ -162,12 +186,34 @@ function validate(data, pSettings, pPartial) {
     locationValidators = _getValidators(settings);
   }
 
-  return validators.set(locationValidators, { compact: true })(
-    Object.keys(data).map(k => ({
-      field: k,
-      value: data[k],
-    }))
-  );
+  const {
+    clean,
+    errors
+  } = locationValidators.reduce((carry, validator) => {
+    const {
+      field: fieldName
+    } = validator;
+    try {
+      return {
+        ...carry,
+        clean: {
+          ...carry.clean,
+          [fieldName]: validator(data?.[fieldName], data, options)
+        }
+      };
+    } catch (fieldErrors) {
+      return {
+        ...carry,
+        errors: carry.errors.concat(fieldErrors),
+      };
+    }
+  }, { clean: {}, errors: [] });
+
+  if (errors.length) {
+    throw errors;
+  }
+
+  return clean;
 }
 
 /**

@@ -4,19 +4,19 @@ const _ = require('lodash');
 const config = require('../../config');
 
 function load(req, res, next) {
-  if (config.mtCaptcha.enabled) {
-    if (!req.baseData) req.baseData = {};
+  if (!req.baseData) req.baseData = {};
 
+  if (config.mtCaptcha.enabled) {
     _.merge(req.baseData, {
       head: {
         js: {
           mtCaptcha: {
-            src: `https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js`,
+            src: 'https://service.mtcaptcha.com/mtcv1/client/mtcaptcha.min.js',
             async: true,
             defer: true,
           },
           mtCaptcha2: {
-            src: `https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js`,
+            src: 'https://service2.mtcaptcha.com/mtcv1/client/mtcaptcha2.min.js',
             async: true,
             defer: true,
           },
@@ -33,8 +33,10 @@ function load(req, res, next) {
           };`,
         ],
       },
-      mtCaptchaEnabled: config.mtCaptcha.enabled,
+      mtCaptchaEnabled: config.mtCaptcha.enabled
     });
+  } else {
+    req.baseData.mtCaptchaEnabled = false;
   }
 
   if (typeof next === 'function') {

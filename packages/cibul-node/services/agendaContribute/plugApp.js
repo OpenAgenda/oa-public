@@ -254,11 +254,11 @@ module.exports = (_config, services) => parentApp => {
         );
       }
 
-      trackingScripts({
-        matomoCloudCode: config.matomoCloudCode,
-        googleAnalyticsID: config.googleAnalyticsId,
-        agenda: req.agenda
-      }).forEach(body => req.scripts.bottom.push({ body }));
+      if (config.matomoCloudCode) {
+        req.scripts.bottom.push({
+          body: config.matomoCloudCode
+        });
+      }
 
       next();
     }

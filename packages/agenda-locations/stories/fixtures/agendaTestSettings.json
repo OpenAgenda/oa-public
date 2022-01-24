@@ -79,6 +79,7 @@
   "defaultValues": {
     "imageCredits": "©"
   },
+  "displayImageRightsConfirmCheckbox": true,
   "tagSet": {
     "groups": [
       {

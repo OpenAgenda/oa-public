@@ -13,7 +13,7 @@ module.exports = ({
 }) => {
   const additionalFields = formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : [];
   const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields);
-  
+
   const includes = [].concat(
     !requested ? baseSearchIncludes : []
   ).concat(
@@ -21,7 +21,22 @@ module.exports = ({
   ).concat(
     requested ? requested : []
   ).concat(requested ? [] : additionalFields)
-    .filter(field => knownFields.includes(field));
+    .map(field => ({
+      field: field,
+      higherOrderField: field.split('.').shift(),
+      keep: knownFields.includes(field) ? field : null
+    }))
+    .map(({ higherOrderField, keep }) => {
+      if (!requested || keep) {
+        return keep;
+      }
+
+      if (knownFields.includes(higherOrderField)) {
+        return higherOrderField;
+      }
+
+      return null;
+    }).filter(field => !!field);
 
   if (!access || !formSchema) {
     return _keepHigherOrderIncludes(includes);

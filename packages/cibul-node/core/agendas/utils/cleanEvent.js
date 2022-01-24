@@ -194,8 +194,10 @@ async function cleanEvent(services, agenda, data, options = {}) {
   const locationUid = _.get(completeEventData, 'location.uid', _.get(completeEventData, 'locationUid'));
 
   const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid,
-    returnMergeTarget: true
+    uid: locationUid
+  }, {
+    returnMergeTarget: true,
+    deleted: null
   }).catch(e => {
     if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
       throw e;

@@ -47,7 +47,7 @@
                 <a
                   <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default margin-bottom-xs"
-                  href="<% if ( typeof mailto !== 'undefined' && mailto ) { %>mailto:<%= mailto %><% } else { %>/<%= agenda.slug %>/contact"<% } %>"
+                  href="<% if ( typeof mailto !== 'undefined' && mailto ) { %><%= mailto %><% } else { %>/<%= agenda.slug %>/contact"<% } %>"
                   rel="nofollow"
                 >
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
