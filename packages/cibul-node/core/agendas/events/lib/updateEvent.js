@@ -22,7 +22,10 @@ module.exports = async function updateEvent(services, {
 
   if (clean.event.longDescription) {
     try {
-      clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
+      clean.event.links = await processOEmbed(oembed, clean.event.longDescription, {
+        current: clean.event.links,
+        includeEmbedlessLinks: true
+      });
       log('retrieved %s links', clean.event.links.length);
     } catch (e) {
       log('error', 'could not retrieve oembeds', e);

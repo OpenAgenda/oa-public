@@ -53,7 +53,7 @@ module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) =
 
   if (includes.includes('member')) {
     try {
-      response.member = ae.userUid ? await core.agendas(agendaUid).members.get(ae.userUid, options) : null;
+      response.member = ae?.userUid ? await core.agendas(agendaUid).members.get(ae.userUid, options) : null;
     } catch (e) {
       log('warn', e);
     }

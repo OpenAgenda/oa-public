@@ -31,7 +31,8 @@ function asArray(obj) {
 }
 
 function containsEventData(data) {
-  return !!Object.keys(data ?? {}).filter(f => eventFieldNames.includes(f)).length;
+  const fields = eventFieldNames.filter(f => f !== 'languages');
+  return !!Object.keys(data ?? {}).filter(f => fields.includes(f)).length;
 }
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
