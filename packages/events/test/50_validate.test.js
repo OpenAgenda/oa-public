@@ -157,6 +157,17 @@ describe('validate', () => {
     }
   );
 
+  it('if type is given in registration, it is removed', async () => {
+    const clean = await validate({
+      registration: [{
+        type: 'email',
+        value: 'an@email.com'
+      }]
+    }, { isDraft: true });
+
+    assert.strictEqual(clean.registration[0], 'an@email.com');
+  });
+
   it('unspecified age is a null min and null max', async () => {
     const clean = await validate({
       title: 'Un événement',
