@@ -58,6 +58,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       title: 'L\'agenda d\'origine je crois',
       image: 'https://fdqfdq.jpg'
     },
+    registration: ['an@email.com', 'https://a.link.com', '08392878923'],
     sourceAgendas: [{
       uid: 7891011,
       title: 'Un agenda source',
@@ -130,6 +131,14 @@ describe('11 - event-search - unit: formatEvent', function() {
     formatted['_search_last_timing'].getTime().should.equal(event.timings[1].end.getTime());
   });
 
+  it('registration should be indexed with a type', () => {
+    formatted.registration.should.eql([
+      { value: 'an@email.com', type: 'email' },
+      { value: 'https://a.link.com', type: 'link' },
+      { value: '08392878923', type: 'phone' }
+    ]);
+  });
+
   it('dateRange is multilingual', () => {
     formatted.dateRange.should.eql({
       fr: '18 et 19 janvier 2020',
@@ -189,6 +198,22 @@ describe('11 - event-search - unit: formatEvent', function() {
     });
     
     should(formatEvent(newEvent, { formSchema })._exclusiveUpdatedAt).equal(undefined);
+  });
+
+  it('fix: registration already with type is handled', () => {
+    const newEvent = produce(event, draft => {
+      draft.registration = [
+        { value: 'an@email.com', type: 'email' },
+        { value: 'https://a.link.com', type: 'link' },
+        { value: '08392878923', type: 'phone' }
+      ];
+    });
+
+    formatEvent(newEvent).registration.should.eql([
+      { value: 'an@email.com', type: 'email' },
+      { value: 'https://a.link.com', type: 'link' },
+      { value: '08392878923', type: 'phone' }
+    ]);
   });
 
   it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
