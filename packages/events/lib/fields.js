@@ -124,6 +124,7 @@ module.exports = [{
   fieldType: 'text',
   max: 255,
   enableWith: 'image',
+  default: null,
   optional: true,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
