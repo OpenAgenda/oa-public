@@ -169,6 +169,14 @@ describe('02 - event search - functional: Applied search', function() {
         total.should.equal(129);
       });
 
+      it('filter by district', async () => {
+        const { total } = await service('bdx').search({
+          district: 'Bordeaux Maritime'
+        }, {});
+
+        total.should.equal(26);
+      });
+
       it('filter by department', async () => {
         const { total } = await service('bdx').search({
           department: 'Gironde'
