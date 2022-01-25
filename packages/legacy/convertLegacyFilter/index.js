@@ -30,6 +30,7 @@ module.exports = (legacyFilter, sets = {}) => {
         break;
       }
       case 'what':
+        if (legacyFilter.scope) break;
         convertedQuery.search = legacyFilter.what;
         break;
       case 'passed':
@@ -42,6 +43,9 @@ module.exports = (legacyFilter, sets = {}) => {
         break;
       case 'location':
         convertedQuery.locationUid = legacyFilter.location;
+        break;
+      case 'scope':
+        convertedQuery[legacyFilter.scope] = legacyFilter.what;
         break;
       case 'uids':
         convertedQuery.uid = legacyFilter.uids;
