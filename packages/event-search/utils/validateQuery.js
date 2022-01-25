@@ -72,6 +72,10 @@ const validate = schema({
     type: 'text',
     list: true
   },
+  district: {
+    type: 'text',
+    list: true
+  },
   countryCode: {
     type: 'text',
     min: 0,
