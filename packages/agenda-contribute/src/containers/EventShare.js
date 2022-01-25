@@ -16,7 +16,7 @@ import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import useEventFormConfig from '../hooks/useEventFormConfig';
 import useAgendaContext from '../hooks/useAgendaContext';
 import utils from '../lib/utils';
-import getUneditableStandardFieldErrors from '../lib/getUneditableStandardFieldErrors';
+import getStandardFieldErrors from '../lib/getStandardFieldErrors';
 
 import contributeReducer from '../reducers/contribute';
 
@@ -125,7 +125,7 @@ export default function EventShare({ agenda, history }) {
     );
   }
 
-  const errors = getUneditableStandardFieldErrors(detailedAgenda, event, eventContext);
+  const errors = getStandardFieldErrors(detailedAgenda, event, eventContext);
 
   const shareRes = `${apiRoot}${location.pathname}`;
 
@@ -142,6 +142,8 @@ export default function EventShare({ agenda, history }) {
 
   const displayEventFields = shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventFields });
 
+  const canEditEvent = eventContext?.me?.authorizations?.canEditEvent;
+
   return (
     <Canvas
       mode="share"
@@ -149,15 +151,9 @@ export default function EventShare({ agenda, history }) {
       fromAgenda={fromAgenda}
       agenda={agenda}
     >
-      {shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields }) ? (
-        <ShowFullEventForm
-          onShowFullEvent={() => {
-            dispatch(contributeReducer.displayEventFieldsInShare());
-          }}
-        />
-      ) : null}
       {errors.length ? (
         <ErrorMessage
+          canEditEvent={canEditEvent}
           event={event}
           agenda={detailedAgenda}
           onCancel={() => {
@@ -170,7 +166,15 @@ export default function EventShare({ agenda, history }) {
               .replace(':eventSlug', event.slug)
           }
         />
-      ) : (
+      ) : null}
+      {shouldShowFullEventFormLink({ schema, eventContext, requestedDisplayEventFields }) ? (
+        <ShowFullEventForm
+          onShowFullEvent={() => {
+            dispatch(contributeReducer.displayEventFieldsInShare());
+          }}
+        />
+      ) : null}
+      {canEditEvent || !errors.length ? (
         <EventEditForm
           res={shareRes}
           config={{
@@ -190,7 +194,7 @@ export default function EventShare({ agenda, history }) {
           }}
           saveButtonLabel={m(messages.share)}
         />
-      )}
+      ) : null}
     </Canvas>
   );
 }

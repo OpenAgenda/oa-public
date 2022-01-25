@@ -60,3 +60,9 @@ export const AdminShareAlreadySharedEvent = componentFromFixtures(
   A message informs him and navigation actions allow him to go back to where the share originated from`,
   307, '/event/01/from/5684'
 );
+
+export const ShareIncompleteEventWithEditRights = componentFromFixtures(
+  `Contributor shares event which is incomplete according to schema of target agenda.
+  All fields are shown. Story similar to 301 except here event can be completed.`,
+  308, '/event/01/from/5685'
+);

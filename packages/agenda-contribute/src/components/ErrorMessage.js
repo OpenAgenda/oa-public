@@ -42,7 +42,8 @@ export default function ErrorMessage({
   event,
   agenda,
   suggestChangeRes,
-  onCancel
+  onCancel,
+  canEditEvent
 }) {
   const {
     locale,
@@ -50,30 +51,32 @@ export default function ErrorMessage({
   } = useIntl();
 
   return (
-    <div className="error-summary boxed padding-v-md padding-h-md text-left">
+    <div className="error-summary boxed padding-v-md padding-h-md text-left margin-bottom-md">
       <strong>
         {m(messages.shareRestrictionInfo, {
           event: getEventTitle(event, locale),
           agenda: agenda.title
         })}
       </strong>
-      <ul className="padding-v-md padding-h-md">
+      <ul className={canEditEvent ? 'padding-top-md padding-h-md' : 'padding-v-md padding-h-md'}>
         {errors.map(err => (
           <li>
             <strong>{m(messages[err.field])}</strong>: {m(messages[err.code])}
           </li>
         ))}
       </ul>
-      <div className="text-center">
-        <a href={suggestChangeRes} className="btn btn-primary margin-h-sm">{m(messages.suggestChange)}</a>
-        <button
-          type="button"
-          className="btn btn-default margin-h-sm"
-          onClick={onCancel}
-        >
-          {m(messages.cancelChange)}
-        </button>
-      </div>
+      {canEditEvent ? null : (
+        <div className="text-center">
+          <a href={suggestChangeRes} className="btn btn-primary margin-h-sm">{m(messages.suggestChange)}</a>
+          <button
+            type="button"
+            className="btn btn-default margin-h-sm"
+            onClick={onCancel}
+          >
+            {m(messages.cancelChange)}
+          </button>
+        </div>
+      )}
     </div>
   );
 }
