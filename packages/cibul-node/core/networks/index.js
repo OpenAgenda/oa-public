@@ -25,4 +25,4 @@ module.exports = core => {
     list: () => core.services.networks.list(),
     create: data => core.services.networks.create(data)
   });
-}
+};

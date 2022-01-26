@@ -54,7 +54,7 @@ const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
   return !!(
     member && event && await core.users(member.userUid).canEditEvent(event)
   );
-}
+};
 
 async function fromMember(core, agenda, agendaEvent, event, member) {
   const {
