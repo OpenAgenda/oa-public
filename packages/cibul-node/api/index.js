@@ -78,6 +78,7 @@ module.exports = core => {
     access: req.access,
     includeEvent: true,
     detailed: req.query.detailed,
+    private: req.member ? null : false,
     includeNonDataFields: req.query.includeNonDataFields === '1'
   }).catch(next)));
 
