@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('core/agendas/utils/loadAuthorizations');
+const log = require('@openagenda/logs')('core/agendas/utils/authorizations');
 
 const canPublish = (agenda, access) => (
   agenda?.settings?.contribution?.canPublish
@@ -38,6 +38,24 @@ const canCreateEvent = (services, member, agendaIsClosed) => {
   return isSuperiorToOrEqual(member?.role, 'contributor');
 };
 
+const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
+  const {
+    members
+  } = core.services;
+
+  const {
+    compareRoles,
+  } = members.utils;
+
+  if (agendaIsClosed && compareRoles.isInferiorTo(member?.role, 'moderator')) {
+    return false;
+  }
+
+  return !!(
+    member && event && await core.users(member.userUid).canEditEvent(event)
+  );
+}
+
 async function fromMember(core, agenda, agendaEvent, event, member) {
   const {
     members
@@ -53,7 +71,7 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
 
   log('fromMember with %s role %s', memberRole, agendaIsClosed ? ' on closed agenda' : '');
 
-  const canEditEvent = (member && !agendaIsClosed && event && member && await core.users(member.userUid).canEditEvent(event)) ?? false;
+  const canEditEvent = await getCanEditEventOnAgenda(core, member, event, agendaIsClosed);
 
   return {
     canRead: agendaEvent ? canRead(compareRoles, agendaEvent, event, member) : canEditEvent,
