@@ -4,36 +4,44 @@ import getEventTitle from '../lib/getEventTitle';
 
 const messages = defineMessages({
   shareRestrictionInfo: {
-    id: 'AgendaContribute.EventShare.shareRestrictionInfo',
+    id: 'AgendaContribute.ErrorMessage.shareRestrictionInfo',
     defaultMessage: 'The following issues must be addressed to allow make the event "{event}" shareable on the agenda "{agenda}"'
   },
   suggestChange: {
-    id: 'AgendaContribute.EventShare.suggestChange',
+    id: 'AgendaContribute.ErrorMessage.suggestChange',
     defaultMessage: 'Suggest a change'
   },
   cancelChange: {
-    id: 'AgendaContribute.EventShare.cancelChange',
+    id: 'AgendaContribute.ErrorMessage.cancelChange',
     defaultMessage: 'Cancel the share'
   },
   longDescription: {
-    id: 'AgendaContribute.EventShare.longDescription',
+    id: 'AgendaContribute.ErrorMessage.longDescription',
     defaultMessage: 'Long description'
   },
   imageCredits: {
-    id: 'AgendaContribute.EventShare.imageCredits',
+    id: 'AgendaContribute.ErrorMessage.imageCredits',
     defaultMessage: 'Image credits'
   },
   required: {
-    id: 'AgendaContribute.EventShare.required',
+    id: 'AgendaContribute.ErrorMessage.required',
     defaultMessage: 'Required'
   },
   conditions: {
-    id: 'AgendaContribute.EventShare.conditions',
+    id: 'AgendaContribute.ErrorMessage.conditions',
     defaultMessage: 'Conditions'
   },
   registration: {
-    id: 'AgendaContribute.EventShare.registration',
+    id: 'AgendaContribute.ErrorMessage.registration',
     defaultMessage: 'Registration'
+  },
+  timings: {
+    id: 'AgendaContribute.ErrorMessage.timings',
+    defaultMessage: 'Timings'
+  },
+  endLessThanBegin: {
+    id: 'AgendaContribute.ErrorMessage.endLessThanBegin',
+    defaultMessage: 'At least one timing is invalid with an begin time occuring after the end time'
   }
 });
 
@@ -61,7 +69,7 @@ export default function ErrorMessage({
       <ul className={canEditEvent ? 'padding-top-md padding-h-md' : 'padding-v-md padding-h-md'}>
         {errors.map(err => (
           <li>
-            <strong>{m(messages[err.field])}</strong>: {m(messages[err.code])}
+            <strong>{messages?.[err.field] ? m(messages[err.field]) : err.field}</strong>: {messages?.[err.code] ? m(messages[err.code]) : err.code}
           </li>
         ))}
       </ul>

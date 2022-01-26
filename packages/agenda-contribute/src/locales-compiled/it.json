@@ -95,6 +95,82 @@
       "value": "List all my events"
     }
   ],
+  "AgendaContribute.ErrorMessage.cancelChange": [
+    {
+      "type": 0,
+      "value": "Cancel the share"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.endLessThanBegin": [
+    {
+      "type": 0,
+      "value": "At least one timing is invalid with an begin time occuring after the ending time"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.required": [
+    {
+      "type": 0,
+      "value": "Required"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
+    {
+      "type": 0,
+      "value": "The following issues must be addressed to allow make the event \""
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "\" shareable on the agenda \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.ErrorMessage.suggestChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
   "AgendaContribute.EventEdit.update": [
     {
       "type": 0,
@@ -137,74 +213,10 @@
       "value": "Update draft"
     }
   ],
-  "AgendaContribute.EventShare.cancelChange": [
-    {
-      "type": 0,
-      "value": "Cancel the share"
-    }
-  ],
-  "AgendaContribute.EventShare.conditions": [
-    {
-      "type": 0,
-      "value": "Conditions"
-    }
-  ],
-  "AgendaContribute.EventShare.imageCredits": [
-    {
-      "type": 0,
-      "value": "Image credits"
-    }
-  ],
-  "AgendaContribute.EventShare.longDescription": [
-    {
-      "type": 0,
-      "value": "Long description"
-    }
-  ],
-  "AgendaContribute.EventShare.registration": [
-    {
-      "type": 0,
-      "value": "Registration"
-    }
-  ],
-  "AgendaContribute.EventShare.required": [
-    {
-      "type": 0,
-      "value": "Required"
-    }
-  ],
   "AgendaContribute.EventShare.share": [
     {
       "type": 0,
       "value": "Add the event"
-    }
-  ],
-  "AgendaContribute.EventShare.shareRestrictionInfo": [
-    {
-      "type": 0,
-      "value": "The following issues must be addressed to allow make the event \""
-    },
-    {
-      "type": 1,
-      "value": "event"
-    },
-    {
-      "type": 0,
-      "value": "\" shareable on the agenda \""
-    },
-    {
-      "type": 1,
-      "value": "agenda"
-    },
-    {
-      "type": 0,
-      "value": "\""
-    }
-  ],
-  "AgendaContribute.EventShare.suggestChange": [
-    {
-      "type": 0,
-      "value": "Suggest a change"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.goBack": [

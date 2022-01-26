@@ -95,6 +95,82 @@
       "value": "Voir tous mes événements"
     }
   ],
+  "AgendaContribute.ErrorMessage.cancelChange": [
+    {
+      "type": 0,
+      "value": "Annuler le partage"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.endLessThanBegin": [
+    {
+      "type": 0,
+      "value": "Au moins un horaire est invalide avec une heure de fin antérieure à l'heure de début"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.imageCredits": [
+    {
+      "type": 0,
+      "value": "Crédits image"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.longDescription": [
+    {
+      "type": 0,
+      "value": "Description longue"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.registration": [
+    {
+      "type": 0,
+      "value": "Inscription"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.required": [
+    {
+      "type": 0,
+      "value": "Requis"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
+    {
+      "type": 0,
+      "value": "Les points suivants doivent être résoluts afin de rendre l'événement '"
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "' partageable sur l'agenda '"
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "'"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.suggestChange": [
+    {
+      "type": 0,
+      "value": "Suggérer une modification"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.timings": [
+    {
+      "type": 0,
+      "value": "Horaires"
+    }
+  ],
   "AgendaContribute.EventEdit.update": [
     {
       "type": 0,
@@ -110,7 +186,7 @@
   "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
     {
       "type": 0,
-      "value": "L'événement est déjà référencé dans l'agenda dans lequel vous souhaitez le partager. Il y est soit déjà publié, soit en modération auquel cas il n'y est accessible que par les modérateurs de l'agenda."
+      "value": "L'événement est déjà référencé dans l'agenda dans lequel vous souhaitez le partager. Il y est soit déjà publié, soit en modération auquel cas il ne peut y être vu que par les modérateurs de l'agenda."
     }
   ],
   "AgendaContribute.EventNew.create": [
@@ -137,74 +213,10 @@
       "value": "Mettre à jour le brouillon"
     }
   ],
-  "AgendaContribute.EventShare.cancelChange": [
-    {
-      "type": 0,
-      "value": "Annuler"
-    }
-  ],
-  "AgendaContribute.EventShare.conditions": [
-    {
-      "type": 0,
-      "value": "Conditions"
-    }
-  ],
-  "AgendaContribute.EventShare.imageCredits": [
-    {
-      "type": 0,
-      "value": "Crédits image"
-    }
-  ],
-  "AgendaContribute.EventShare.longDescription": [
-    {
-      "type": 0,
-      "value": "Description longue"
-    }
-  ],
-  "AgendaContribute.EventShare.registration": [
-    {
-      "type": 0,
-      "value": "Outils d'inscription"
-    }
-  ],
-  "AgendaContribute.EventShare.required": [
-    {
-      "type": 0,
-      "value": "Requis"
-    }
-  ],
   "AgendaContribute.EventShare.share": [
     {
       "type": 0,
       "value": "Partager"
-    }
-  ],
-  "AgendaContribute.EventShare.shareRestrictionInfo": [
-    {
-      "type": 0,
-      "value": "Les points suivants doivent être résolus afin de rendre l'événement \""
-    },
-    {
-      "type": 1,
-      "value": "event"
-    },
-    {
-      "type": 0,
-      "value": "\" partageable sur l'agenda \""
-    },
-    {
-      "type": 1,
-      "value": "agenda"
-    },
-    {
-      "type": 0,
-      "value": "\""
-    }
-  ],
-  "AgendaContribute.EventShare.suggestChange": [
-    {
-      "type": 0,
-      "value": "Suggérer une modification"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.goBack": [
