@@ -1,4 +1,28 @@
 {
+  "ReactShared.ConsentBanner.accept": [
+    {
+      "type": 0,
+      "value": "Accept"
+    }
+  ],
+  "ReactShared.ConsentBanner.decline": [
+    {
+      "type": 0,
+      "value": "Decline"
+    }
+  ],
+  "ReactShared.ConsentBanner.informationText": [
+    {
+      "type": 0,
+      "value": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
+    }
+  ],
+  "ReactShared.ConsentBanner.moreInfoLink": [
+    {
+      "type": 0,
+      "value": "Click here for more information"
+    }
+  ],
   "ReactShared.ImageInput.acceptedFiles": [
     {
       "type": 0,
@@ -93,30 +117,6 @@
     {
       "type": 0,
       "value": "Cargar imagen"
-    }
-  ],
-  "trackConsent.accept": [
-    {
-      "type": 0,
-      "value": "Accept"
-    }
-  ],
-  "trackConsent.decline": [
-    {
-      "type": 0,
-      "value": "Decline"
-    }
-  ],
-  "trackConsent.informationText": [
-    {
-      "type": 0,
-      "value": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
-    }
-  ],
-  "trackConsent.moreInfoLink": [
-    {
-      "type": 0,
-      "value": "Click here for more information"
     }
   ]
 }

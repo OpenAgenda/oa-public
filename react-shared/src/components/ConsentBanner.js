@@ -3,20 +3,20 @@ import CookieConsent from 'react-cookie-consent';
 import { defineMessages, useIntl } from 'react-intl';
 
 const messages = defineMessages({
-  'trackConsent.informationText': {
-    id: 'trackConsent.informationText',
+  informationText: {
+    id: 'ReactShared.ConsentBanner.informationText',
     defaultMessage: 'This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?'
   },
-  'trackConsent.moreInfoLink': {
-    id: 'trackConsent.moreInfoLink',
+  moreInfoLink: {
+    id: 'ReactShared.ConsentBanner.moreInfoLink',
     defaultMessage: 'Click here for more information'
   },
-  'trackConsent.decline': {
-    id: 'trackConsent.decline',
+  decline: {
+    id: 'ReactShared.ConsentBanner.decline',
     defaultMessage: 'Decline'
   },
-  'trackConsent.accept': {
-    id: 'trackConsent.accept',
+  accept: {
+    id: 'ReactShared.ConsentBanner.accept',
     defaultMessage: 'Accept'
   }
 });
@@ -33,15 +33,10 @@ export default ({
 }) => {
   const intl = useIntl();
 
-  const defineMessage = msg => {
-    if (customMessages && customMessages[msg]) {
-      return customMessages[msg];
-    }
-    return intl.formatMessage(messages[msg]);
-  };
+  const defineMessage = msg => customMessages?.[`trackConsent.${msg}`] ?? intl.formatMessage(messages[msg]);
 
   const defineStyle = style => {
-    if (customStyle && customStyle[style]) return customStyle[style];
+    if (customStyle?.[style]) return customStyle[style];
     return defaultStyle[style] || '';
   };
 
@@ -53,8 +48,8 @@ export default ({
       enableDeclineButton
       disableButtonStyles
       disableDeclineButtonStyles
-      buttonText={defineMessage('trackConsent.accept')}
-      declineButtonText={defineMessage('trackConsent.decline')}
+      buttonText={defineMessage('accept')}
+      declineButtonText={defineMessage('decline')}
       buttonClasses={defineStyle('buttonClasses')}
       declineButtonClasses={defineStyle('declineButtonClasses')}
       buttonWrapperClasses={defineStyle('buttonWrapperClasses')}
@@ -64,14 +59,14 @@ export default ({
       onAccept={onScroll => (onScroll ? null : onAccept())}
       expires={100}
     >
-      {defineMessage('trackConsent.informationText')}
+      {defineMessage('informationText')}
       <div className="margin-top-xs">
         <a
           href={link}
           target="_blank"
           rel="noreferrer"
         >
-          {defineMessage('trackConsent.moreInfoLink')}
+          {defineMessage('moreInfoLink')}
         </a>
       </div>
     </CookieConsent>
