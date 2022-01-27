@@ -1,4 +1,28 @@
 {
+  "ReactShared.ConsentBanner.accept": [
+    {
+      "type": 0,
+      "value": "Accepter"
+    }
+  ],
+  "ReactShared.ConsentBanner.decline": [
+    {
+      "type": 0,
+      "value": "Refuser"
+    }
+  ],
+  "ReactShared.ConsentBanner.informationText": [
+    {
+      "type": 0,
+      "value": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateur de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous?"
+    }
+  ],
+  "ReactShared.ConsentBanner.moreInfoLink": [
+    {
+      "type": 0,
+      "value": "Cliquez ici pour en savoir plus"
+    }
+  ],
   "ReactShared.ImageInput.acceptedFiles": [
     {
       "type": 0,
@@ -101,30 +125,6 @@
     {
       "type": 0,
       "value": "Charger une image"
-    }
-  ],
-  "trackConsent.accept": [
-    {
-      "type": 0,
-      "value": "Accepter"
-    }
-  ],
-  "trackConsent.decline": [
-    {
-      "type": 0,
-      "value": "Refuser"
-    }
-  ],
-  "trackConsent.informationText": [
-    {
-      "type": 0,
-      "value": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateur de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous?"
-    }
-  ],
-  "trackConsent.moreInfoLink": [
-    {
-      "type": 0,
-      "value": "Cliquez ici pour en savoir plus"
     }
   ]
 }
