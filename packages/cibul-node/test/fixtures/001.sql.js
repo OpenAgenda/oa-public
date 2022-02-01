@@ -21,17 +21,24 @@ raw.push(knex('network').insert([
 raw.push(knex('user').insert([
   require('./sql/users/01.json'),
   require('./sql/users/50300.json'),
-  require('./sql/users/jean-benoit.json')
+  require('./sql/users/jean-benoit.json'),
+  require('./sql/users/lise.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...require('./sql/apiKeySets/01.json'), user_id: 50300 },
-  require('./sql/apiKeySets/jean-benoit.keys.json')
+  require('./sql/apiKeySets/50300.json'),
+  require('./sql/apiKeySets/0101.json'),
+  require('./sql/apiKeySets/jean-benoit.keys.json'),
+  require('./sql/apiKeySets/lise.keys.json')
 ]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/01.json'),
-  require('./sql/members/50300.admin.02.json')
+  require('./sql/members/01.json'), // contributor
+  require('./sql/members/50300.admin.02.json'),
+  {
+    ...require('./sql/members/lise.contributor.albi.json'),
+    agenda_uid: 2
+  }
 ]));
 
 raw.push(knex('location').insert([{
@@ -117,6 +124,19 @@ raw.push(knex('event_2').insert([{
     }],
     base: 'https://cibuldev.s3.amazonaws.com/',
     credits: 'Gaetan Latouche'
+  }),
+  created_at: new Date(),
+  updated_at: new Date()
+}, {
+  id: 3,
+  uid: 3,
+  owner_uid: 1,
+  creator_uid: 1,
+  agenda_uid: 2,
+  slug: 'draft-event',
+  draft: 1,
+  title: JSON.stringify({
+    fr: 'Evénement brouillon'
   }),
   created_at: new Date(),
   updated_at: new Date()

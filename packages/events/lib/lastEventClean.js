@@ -2,11 +2,11 @@
 
 const _ = require('lodash');
 
+const convertDateHoursMinutesTimings = require('../utils/convertDateHoursMinutesTimings');
 const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess');
 const toHTML = require('./toHTML');
 const flatten = require('./flatten');
 const clean = require('@openagenda/validators/schema/clean');
-const convertDateHoursMinutesTimings = require('./convertDateHoursMinutesTimings');
 
 const getPathAndFilename = file => {
   if (!file) {

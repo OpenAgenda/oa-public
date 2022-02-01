@@ -1,0 +1,167 @@
+{
+    "success": true,
+    "locations": [
+        {
+            "uid": 27156847,
+            "name": "maison de la petite enfance",
+            "address": "304 rue de la libération 45200 amilly",
+            "latitude": 47.977036,
+            "longitude": 2.769179,
+            "state": 0
+        },
+        {
+            "uid": 89097923,
+            "name": "CHAM",
+            "address": "658 RUE DES BOURGOINS 45200 AMILLY",
+            "latitude": 47.997651,
+            "longitude": 2.773868,
+            "state": 0
+        },
+        {
+            "uid": 21442189,
+            "name": "Salle des Fêtes de Montargis",
+            "address": "45200 Montargis",
+            "latitude": 48.001535,
+            "longitude": 2.732919,
+            "state": 0
+        },
+        {
+            "uid": 81145529,
+            "name": "Salle des Fêtes de Montargis",
+            "address": "45200 montargis",
+            "latitude": 47.997863,
+            "longitude": 2.731007,
+            "state": 0
+        },
+        {
+            "uid": 16311359,
+            "name": "Dojo municipal",
+            "address": "210 rue de couleuvreux 45200 amilly",
+            "latitude": 47.984946,
+            "longitude": 2.769382,
+            "state": 0
+        },
+        {
+            "uid": 72472059,
+            "name": "salle des terres-blanches",
+            "address": "391 rue des terres blanches 45200 amilly",
+            "latitude": 47.976758,
+            "longitude": 2.766396,
+            "state": 0
+        },
+        {
+            "uid": 11098263,
+            "name": "Ludothèque",
+            "address": "304 rue de la libération 45200 amilly",
+            "latitude": 47.977036,
+            "longitude": 2.769179,
+            "state": 0
+        },
+        {
+            "uid": 46354580,
+            "name": "atelier d'étoffe en beauté",
+            "address": "11 bis rue de l'armoire 45200 Amilly",
+            "latitude": 47.970028,
+            "longitude": 2.798505,
+            "state": 0
+        },
+        {
+            "uid": 79031214,
+            "name": "PLACE DU PATIS",
+            "address": "PLACE DU PATIS MONTARGIS 45200",
+            "latitude": 48.00079,
+            "longitude": 2.731365,
+            "state": 0
+        },
+        {
+            "uid": 18657110,
+            "name": "place de l'église",
+            "address": "rue de la mairie 45200 amilly",
+            "latitude": 47.974984,
+            "longitude": 2.766441,
+            "state": 0
+        },
+        {
+            "uid": 36078406,
+            "name": "DÉCATHLON AMILLY",
+            "address": "AMILLY 45200",
+            "latitude": 47.973117,
+            "longitude": 2.733042,
+            "state": 0
+        },
+        {
+            "uid": 53332570,
+            "name": "D'étoffe en beauté",
+            "address": "11 bis rue de l'armoire 45200 amilly",
+            "latitude": 47.970028,
+            "longitude": 2.798505,
+            "state": 0
+        },
+        {
+            "uid": 15349508,
+            "name": "Centre d'Art contemporain - Les Tanneries",
+            "address": "234 RUE DES PONTS 45200 AMILLY",
+            "latitude": 47.967524,
+            "longitude": 2.771832,
+            "state": 0
+        },
+        {
+            "uid": 17500788,
+            "name": "Moulin Bardin",
+            "address": "RUE DU Moulin Bardin",
+            "latitude": 47.977512,
+            "longitude": 2.744629,
+            "state": 0
+        },
+        {
+            "uid": 31420198,
+            "name": "Parc des Terres-Blanches",
+            "address": "AMILLY 45200 TERRES BLANCHES",
+            "latitude": 47.978776,
+            "longitude": 2.765572,
+            "state": 0
+        },
+        {
+            "uid": 4868011,
+            "name": "Espace Naturel des Savoies et Népruns",
+            "address": "AMILLY 45200 Moulin Bardin",
+            "latitude": 47.976392,
+            "longitude": 2.749071,
+            "state": 0
+        },
+        {
+            "uid": 99386202,
+            "name": "Place de Nordwalde",
+            "address": "Amilly 45200",
+            "latitude": 47.97451,
+            "longitude": 2.76628,
+            "state": 0
+        },
+        {
+            "uid": 69927546,
+            "name": "Espace jean-vilar",
+            "address": "264 Rue de la Mère Dieu 45200 Amilly",
+            "latitude": 47.979295,
+            "longitude": 2.757471,
+            "state": 0
+        },
+        {
+            "uid": 72403175,
+            "name": "Maison Saint-Loup",
+            "address": "Amilly 45200",
+            "latitude": 47.974399,
+            "longitude": 2.766141,
+            "state": 0
+        },
+        {
+            "uid": 55070671,
+            "name": "domaine de la Pailleterie",
+            "address": "45200 Amilly",
+            "latitude": 47.972772,
+            "longitude": 2.729856,
+            "state": 0
+        }
+    ],
+    "after": 1178826,
+    "total": 22
+}

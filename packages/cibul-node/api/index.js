@@ -57,6 +57,7 @@ module.exports = core => {
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
   app.param('eventUid', mw.loadEvent);
+  app.param('agendaSlug', mw.loadAgenda);
 
   // control all the things
   app.post('/agendas/:agendaUid/events*', mw.member.verify);
@@ -64,14 +65,21 @@ module.exports = core => {
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
   app.get('/agendas/:agendaUid', mw.member.load);
 
-  app.get('/agendas/:agendaUid', mw.redirectIfPrivate);
   app.get([
+    '/agendas/slug/:agendaSlug',
+    '/agendas/:agendaUid'
+  ], mw.redirectIfPrivate);
+
+  app.get([
+    '/agendas/slug/:agendaSlug',
     '/agendas/:agendaUid',
     '/agendas/:agendaUid.prv'
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access,
     includeEvent: true,
-    detailed: req.query.detailed
+    detailed: req.query.detailed,
+    private: req.member ? null : false,
+    includeNonDataFields: req.query.includeNonDataFields === '1'
   }).catch(next)));
 
   app.post('/agendas/:agendaUid/events',
@@ -114,32 +122,16 @@ module.exports = core => {
     }), next));
 
   app.get([
-    '/agendas/:agendaUid/events/slug/:eventSlug',
-    '/agendas/:agendaUid/events/:eventUid'
-  ], (req, res, next) => core
-    .agendas(req.agenda.uid).events
-    .search({
-      state: null,
-      ...(req.params.eventUid ? {
-        uid: req.params.eventUid
-      } : {
-        slug: req.params.eventSlug
-      })
-    }, {
-      size: 1
-    }, {
-      detailed: true,
-      userUid: req.user?.uid,
-      longDescriptionFormat: req.query.longDescriptionFormat
-    }).then(({
-      events
-    }) => (events.length ? res.json({
+    '/agendas/:agendaUid/events/:eventUid',
+    '/agendas/:agendaUid/events/slug/:eventSlug'
+  ], [
+    mw.getEventFromSearchOrAsDraft,
+    mw.evaluateUserAccessToEvent,
+    (req, res) => res.json({
       success: true,
-      event: events[0]
-    }) : res.status(404).json({
-      success: false,
-      message: 'Event not found'
-    })), next));
+      event: req.event
+    })
+  ]);
 
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
@@ -158,13 +150,13 @@ module.exports = core => {
       }), next)
   ]);
 
-  app.post('/agendas/:agendaUid/members', [
-    mw.member.allow(['administrator', 'moderator']),
+  app.post(
+    '/agendas/:agendaUid/members',
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .create(req.body.userUid, req.body.role, req.parsedData, { userUid: req.user.uid })
+      .create(req.body.userUid ?? req.user.uid, req.body.role, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
-  ]);
+  );
 
   app.get('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
@@ -286,13 +278,14 @@ module.exports = core => {
       .agendas(req.agenda.uid).locations
       .list(req.query, req.query, {
         useAfter: !req.query.from || !!req.query.after,
-        eventCounts: !!req.query.eventCounts
+        eventCounts: !!req.query.eventCounts,
+        itemsKey: req.query.itemsKey ?? 'locations'
       })
       .then(({ items, total, after }) => res.json({
         success: true,
-        locations: items,
         after,
-        total
+        total,
+        [req.query.itemsKey ?? 'locations']: items
       }), next)
   );
 
@@ -349,12 +342,13 @@ module.exports = core => {
   app.get('/me/agendas/:agendaUid', [
     mw.member.load,
     (req, res, next) => core
-      .agendas(req.agenda.uid).members
-      .get(req.user.uid, { userUid: req.user.uid })
-      .then(member => res.json(member), next)
+      .users(req.user.uid)
+      .agendas(req.params.agendaUid)
+      .getContext({ userUid: req.user.uid })
+      .then(context => res.json(context), next)
   ]);
 
-  app.get('/me/agendas/:agendaUid/events/:eventUid/context', [
+  app.get('/me/agendas/:agendaUid/events/:eventUid', [
     mw.member.load,
     (req, res, next) => core
       .users(req.user.uid)

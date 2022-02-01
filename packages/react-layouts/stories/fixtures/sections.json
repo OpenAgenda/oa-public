@@ -1,0 +1,125 @@
+[
+    {
+        "label": "Gérer",
+        "tabs": [
+            {
+                "name": "events",
+                "section": "manage",
+                "label": "Evénements",
+                "link": "/{agendaSlug}/admin/events",
+                "selected": false
+            },
+            {
+                "name": "members",
+                "section": "manage",
+                "label": "Membres",
+                "link": "/{agendaSlug}/admin/members",
+                "selected": false
+            },
+            {
+                "name": "locations",
+                "section": "manage",
+                "scriptAnchor": "<span class=\"js_locations_counter\" data-res=\"/agendas/:agendaUid/admin/locations/unverified\"></span>",
+                "label": "Lieux",
+                "link": "/{agendaSlug}/admin/locations",
+                "selected": false
+            },
+            {
+                "name": "sources",
+                "section": "manage",
+                "roles": [
+                    "administrator"
+                ],
+                "label": "Sources",
+                "link": "/{agendaSlug}/admin/sources",
+                "selected": false
+            },
+            {
+                "name": "inbox",
+                "section": "manage",
+                "label": "Messagerie",
+                "link": "/{agendaSlug}/admin/inbox",
+                "selected": false
+            },
+            {
+                "name": "statistics",
+                "section": "manage",
+                "label": "Statistiques",
+                "link": "/{agendaSlug}/admin/statistics",
+                "selected": false
+            },
+            {
+                "name": "activities",
+                "section": "manage",
+                "label": "Activités",
+                "link": "/{agendaSlug}/admin/activities",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "label": "Exporter",
+        "tabs": [
+            {
+                "name": "embeds",
+                "section": "export",
+                "route": "/embeds",
+                "roles": [
+                    "administrator"
+                ],
+                "label": "Intégration Web",
+                "link": "/{agendaSlug}/admin/embeds",
+                "selected": false
+            }
+        ]
+    },
+    {
+        "label": "Paramétrer",
+        "tabs": [
+            {
+                "name": "settings_profile",
+                "section": "settings",
+                "route": "/settings/profile",
+                "roles": [
+                    "administrator"
+                ],
+                "label": "Profil",
+                "link": "/{agendaSlug}/admin/settings/profile",
+                "selected": false
+            },
+            {
+                "name": "schema",
+                "section": "settings",
+                "credential": "useAgendaSchema",
+                "roles": [
+                    "administrator"
+                ],
+                "label": "Formulaire",
+                "link": "/{agendaSlug}/admin/schema",
+                "selected": false
+            },
+            {
+                "name": "settings_contribution",
+                "section": "settings",
+                "route": "/settings/contribution",
+                "roles": [
+                    "administrator"
+                ],
+                "label": "Contribution",
+                "link": "/{agendaSlug}/admin/settings/contribution",
+                "selected": false
+            },
+            {
+                "name": "settings_advanced",
+                "section": "settings",
+                "route": "/settings/advanced",
+                "roles": [
+                    "administrator"
+                ],
+                "label": "Avancé",
+                "link": "/{agendaSlug}/admin/settings/advanced",
+                "selected": false
+            }
+        ]
+    }
+]

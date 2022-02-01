@@ -356,6 +356,46 @@ const initialState = async req => {
         agendaSettings: '/api/agendas/:agendaUid'
       }
     },
+    agendaContribute: {
+      settings: {
+        prefix: '/:slug/contribute',
+        lang,
+        apiRoot: `https://localhost:${config.port}`,
+      },
+      res: {
+        agenda: '/api/agendas/:agendaUid',
+        members: '/api/agendas/:agendaUid/members',
+        event: '/api/agendas/:agendaUid/events/:eventUid?detailed=1&useDateHoursMinutesFormat=1',
+        eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
+        agendaContext: '/api/me/agendas/:agendaUid',
+        requestContribute: '/:agendaSlug/request-contribute/conversation/create',
+        detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1',
+        locations: {
+          get: '/locations/:uid.json',
+          index: '/api/agendas/:agendaUid/locations?itemsKey=items',
+          create: '/agendas/:agendaUid/locations',
+          geocode: '/locations/geocode',
+          reverse: '/locations/geocode/reverse',
+          insee: '/locations/insee',
+          default: '/agendas/:agendaUid/locations',
+        },
+        references: '/api/agendas/:agendaUid/events',
+        suggestions: '/agendas/:agendaUid/events/suggestions',
+        suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact',
+        showEvent: '/agendas/:agendaUid/events/:eventUid',
+        showMyEvents: '/home/events',
+        contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
+      },
+      memberFreshness: new Date(60 * 60 * 24 * 30 * 120 * 1000),
+      files: {
+        maxSize: config.maxFileSize,
+        store: {
+          type: 's3',
+          bucket: config.aws.bucket
+        }
+      },
+      tiles: config.tiles
+    },
     agendaActivities: {
       settings: {
         prefix: '/:slug/admin/activities',
@@ -456,6 +496,7 @@ module.exports = app => {
       '/:slug/admin/statistics(/*?)?',
       '/:slug/admin/getting-started(/*?)?',
       '/:slug/admin/settings(/*?)?',
+      '/:slug/contribute(/*?)?',
       // Admin
       '/admin/support(/*?)?',
       '/supervisor(/*?)?'

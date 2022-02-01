@@ -1,0 +1,225 @@
+{
+  "success": true,
+  "event": {
+      "longDescription": {
+          "fr": "Basée sur des documents d’archives et objets originaux, l’exposition retrace l’histoire musicale tourquennoise du XIXème au XXIème siècle : les sociétés musicales et les harmonies, les compositeurs tourquennois, les lieux emblématiques,…  \nL’exposition est enrichie par des playlists mises à disposition via des tablettes et écouteurs et des œuvres de l’artiste Marc Nave.  \nExposition accessible librement du mardi au vendredi de 13h30 à 17h30 et le samedi de 9h à 12h.  \nPossibilité de prise de rendez-vous : du mardi au vendredi de 9h à 12h30 et de 13h30 à 17h30 et le samedi de 9h à 12h.\n\nPlus d'informations sur Musica Viva [ici](https://www.tourcoing.fr/Actualites/Musica-Viva-Nouvel-evenement-musical)"
+      },
+      "country": {
+          "de": "Frankreich (Metropolitan)",
+          "code": "FR",
+          "en": "France (Metropolitan)",
+          "it": "Francia (continente)",
+          "fr": "France (Métropole)",
+          "es": "Francia (Metropolitana)"
+      },
+      "featured": false,
+      "private": 0,
+      "keywords": {},
+      "accessibility": {
+          "ii": false,
+          "hi": false,
+          "vi": false,
+          "pi": false,
+          "mi": false
+      },
+      "dateRange": {
+          "ar": "١٨ سبتمبر ٢٠٢١ - ٢١ يونيو ٢٠٢٢",
+          "de": "18 September 2021 - 21 Juni 2022",
+          "en": "18 September 2021 - 21 June 2022",
+          "fr": "18 septembre 2021 - 21 juin 2022",
+          "es": "18 September 2021 - 21 June 2022"
+      },
+      "timezone": "Europe/Paris",
+      "imageCredits": "Droits réservés",
+      "originAgenda": {
+          "image": "agenda96869629.jpg",
+          "uid": 96869629,
+          "title": "Des images et des mots : la programmation culturelle du Réseau des idées - Médiathèques de Tourcoing"
+      },
+      "description": {
+          "fr": "Basée sur des documents d’archives et objets originaux, l’exposition retrace l’histoire musicale tourquennoise du XIXème au XXIème siècle : les sociétés musicales et les harmonies, les compositeurs..."
+      },
+      "title": {
+          "fr": "Exposition \"Musica Viva\""
+      },
+      "onlineAccessLink": null,
+      "createdAt": "2021-09-24T13:23:32.000Z",
+      "uid": 39747647,
+      "draft": 0,
+      "timings": [
+          {
+              "begin": {
+                  "date": "2022-06-18",
+                  "hours": "09",
+                  "minutes": "00"
+              },
+              "end": {
+                  "date": "2022-06-18",
+                  "hours": "12",
+                  "minutes": "00"
+              }
+          },
+          {
+              "begin": {
+                  "date": "2022-06-21",
+                  "hours": "13",
+                  "minutes": "30"
+              },
+              "end": {
+                  "date": "2022-06-21",
+                  "hours": "17",
+                  "minutes": "30"
+              }
+          }
+      ],
+      "links": [],
+      "state": 2,
+      "slug": "exposition-musica-viva-9235758",
+      "updatedAt": "2021-09-24T13:40:42.000Z",
+      "addMethod": "aggregation",
+      "image": {
+          "filename": "b472ed2aa4784b6fb675d24e89667d10.base.image.jpg",
+          "size": {
+              "width": 700,
+              "height": 700
+          },
+          "variants": [
+              {
+                  "filename": "b472ed2aa4784b6fb675d24e89667d10.full.image.jpg",
+                  "size": {
+                      "width": 4500,
+                      "height": 4500
+                  },
+                  "type": "full"
+              },
+              {
+                  "filename": "b472ed2aa4784b6fb675d24e89667d10.thumb.image.jpg",
+                  "size": {
+                      "width": 200,
+                      "height": 200
+                  },
+                  "type": "thumbnail"
+              }
+          ],
+          "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "attendanceMode": 1,
+      "sourceAgendas": [
+          {
+              "image": "agenda96869629.jpg",
+              "private": 0,
+              "indexed": 1,
+              "locationSetUid": null,
+              "official": 1,
+              "description": "Le Réseau des idées est constitué des médiathèques André Malraux, Aimé Césaire, Andrée Chedid, de la ludomédiathèque Colette et des Archives municipales.",
+              "title": "Des images et des mots : la programmation culturelle du Réseau des idées - Médiathèques de Tourcoing",
+              "url": "http://mediatheque.tourcoing.fr",
+              "_agg": "eyJ1aWQiOjk2ODY5NjI5LCJ0aXRsZSI6IkRlcyBpbWFnZXMgZXQgZGVzIG1vdHMgOiBsYSBwcm9ncmFtbWF0aW9uIGN1bHR1cmVsbGUgZHUgUsOpc2VhdSBkZXMgaWTDqWVzIC0gTcOpZGlhdGjDqHF1ZXMgZGUgVG91cmNvaW5nIiwiaW1hZ2UiOiJhZ2VuZGE5Njg2OTYyOS5qcGcifQ==",
+              "uid": 96869629,
+              "createdAt": "2019-07-25T14:50:52.000Z",
+              "officializedAt": "2020-02-11T15:24:59.000Z",
+              "slug": "reseau-des-idees-mediatheques-de-tourcoing",
+              "updatedAt": "2021-10-22T12:53:28.000Z"
+          },
+          {
+              "image": "agenda32344838.jpg",
+              "private": 0,
+              "indexed": 1,
+              "locationSetUid": null,
+              "official": 1,
+              "description": "L'agenda culturel de la Ville de Tourcoing",
+              "title": "Agenda culturel tourquennois",
+              "url": null,
+              "_agg": "eyJ1aWQiOjMyMzQ0ODM4LCJ0aXRsZSI6IkFnZW5kYSBjdWx0dXJlbCB0b3VycXVlbm5vaXMiLCJpbWFnZSI6ImFnZW5kYTMyMzQ0ODM4LmpwZyJ9",
+              "uid": 32344838,
+              "createdAt": "2020-02-11T15:39:53.000Z",
+              "officializedAt": "2020-02-11T16:00:58.000Z",
+              "slug": "agenda-culturel-tourquennois",
+              "updatedAt": "2021-10-27T09:24:26.000Z"
+          },
+          {
+              "image": "agenda52693950.jpg?__ts=1606985382981",
+              "private": 0,
+              "indexed": 1,
+              "locationSetUid": null,
+              "official": 1,
+              "description": "Retrouvez ici tous les événements organisés par les bibliothèques et médiathèques de la Métropole Européenne de Lille",
+              "title": "Le réseau des bibliothèques et médiathèques de la MEL",
+              "url": "https://asuivre.lillemetropole.fr/",
+              "_agg": "eyJ1aWQiOjUyNjkzOTUwLCJ0aXRsZSI6IkxlIHLDqXNlYXUgZGVzIGJpYmxpb3Row6hxdWVzIGV0IG3DqWRpYXRow6hxdWVzIGRlIGxhIE1FTCIsImltYWdlIjoiYWdlbmRhNTI2OTM5NTAuanBnP19fdHM9MTYwNjk4NTM4Mjk4MSJ9",
+              "uid": 52693950,
+              "createdAt": "2020-12-03T08:45:43.000Z",
+              "officializedAt": "2021-01-08T14:59:54.000Z",
+              "slug": "reseau-des-bibliotheques-et-mediatheques-de-la-mel",
+              "updatedAt": "2021-10-27T14:35:49.000Z"
+          }
+      ],
+      "label": [
+          null
+      ],
+      "creatorUid": 59156495,
+      "registration": [
+          {
+              "type": "email",
+              "value": "mediatheque@ville-tourcoing.fr"
+          },
+          {
+              "type": "phone",
+              "value": "0359634285"
+          }
+      ],
+      "location": {
+          "disqualifiedDuplicates": [],
+          "access": {
+              "fr": "Métro : ligne 2 arrêt Gare de Tourcoing / Tramway : arrêt Victoire / Bus : 30, 78, Citadine 3 – arrêt : Victoire ; Liane 4 – arrêt : Sébastopol / V'Lille – Sébastopol ou Victoire"
+          },
+          "city": "Tourcoing",
+          "timezone": "Europe/Paris",
+          "postalCode": "59200",
+          "latitude": 50.716396,
+          "imageCredits": null,
+          "description": {},
+          "setUid": null,
+          "uid": 28723185,
+          "createdAt": "2020-02-11T14:07:10.000Z",
+          "duplicateCandidates": [],
+          "countryCode": "FR",
+          "adminLevel5": null,
+          "links": [],
+          "state": 1,
+          "extId": null,
+          "department": "Nord",
+          "slug": "archives-municipales719",
+          "email": "archives@ville-tourcoing.fr",
+          "longitude": 3.160449,
+          "updatedAt": "2021-09-25T09:10:13.000Z",
+          "image": "location28723185.jpg?_ts=1632561014785",
+          "website": "http://www.tourcoing.fr/mediatheque",
+          "address": "28 rue Pierre de Guethem 59200 Tourcoing",
+          "adminLevel3": "Métropole Européenne de Lille",
+          "adminLevel1": "Hauts-de-France",
+          "adminLevel2": "Nord",
+          "mergedIn": null,
+          "_agg": "eyJ1aWQiOjI4NzIzMTg1LCJuYW1lIjoiQXJjaGl2ZXMgbXVuaWNpcGFsZXMifQ==",
+          "tags": null,
+          "insee": "59599",
+          "phone": "0359634285",
+          "district": "Centre-Ville",
+          "name": "Archives municipales",
+          "region": "Hauts-de-France"
+      },
+      "conditions": {
+          "fr": "Entrée libre."
+      },
+      "age": {},
+      "status": 1,
+      "lastTiming": {
+          "begin": "2022-06-21T13:30:00+02:00",
+          "end": "2022-06-21T17:30:00+02:00"
+      },
+      "nextTiming": {
+          "begin": "2021-11-16T13:30:00+01:00",
+          "end": "2021-11-16T17:30:00+01:00"
+      }
+  }
+}

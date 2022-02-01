@@ -2,13 +2,13 @@
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
-const log = require( '@openagenda/logs' )('core/networks/updateSchemaFields');
+const log = require('@openagenda/logs')('core/networks/updateSchemaFields');
 
 const patchNetwork = require('./patch');
 const getAgendas = require('./getAgendas');
 
 module.exports = core => {
-  const  {
+  const {
     services,
     tasks
   } = core;
@@ -58,5 +58,5 @@ module.exports = core => {
     for (const agenda of agendas) {
       tasks.enqueue('agendaLegacySettingsUpdate', agenda.uid, true);
     }
-  }
-}
+  };
+};

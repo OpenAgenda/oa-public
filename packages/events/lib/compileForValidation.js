@@ -14,6 +14,9 @@ const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f 
 
 const isDHM = require('../iso/src/validators/dateHoursMinutesTiming').is;
 
+const removeRegistrationTypes = (registration = []) => registration
+  .map(rItem => rItem?.type ? rItem.value : rItem);
+
 module.exports = async (current, data, options = {}) => {
   const {
     maxImageSize
@@ -82,6 +85,11 @@ module.exports = async (current, data, options = {}) => {
       .find(f => f.field === 'status')
       .options
       .find(o => o.value === data.status).id;
+  }
+
+  if (data?.registration) {
+    compiled.registration = removeRegistrationTypes(data.registration);
+    editedFields.push('registration');
   }
 
   return {

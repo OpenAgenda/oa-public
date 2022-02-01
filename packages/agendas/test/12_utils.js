@@ -31,6 +31,16 @@ describe('agendas - utils', () => {
       });
     });
 
+    it('if access is given unlisted value defaults to public', () => {
+      const filtered = utils.filterByAccess({
+        title: 'Un agenda'
+      }, 'read', 'hobgoblin');
+
+      filtered.should.eql({
+        title: 'Un agenda'
+      });
+    });
+
     it('a field with internal read access is filtered out if requested access is public', () => {
       const filtered = utils.filterByAccess({
         id: 218,

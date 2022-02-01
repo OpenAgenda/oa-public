@@ -130,10 +130,10 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
     [intl]
   );
 
-  const selectValue = useMemo(() => stateOptions.find(o => o.value === value), [
-    value,
-    stateOptions,
-  ]);
+  const selectValue = useMemo(
+    () => stateOptions.find(o => o.value === value),
+    [value, stateOptions]
+  );
 
   return (
     <ReactSelectInput

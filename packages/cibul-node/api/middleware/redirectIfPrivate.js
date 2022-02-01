@@ -1,8 +1,19 @@
 'use strict';
 
 module.exports = (req, res, next) => {
-  if (req.agenda.private) {
-    return res.redirect(302, `/v2/agendas/${req.agenda.uid}.prv`);
+  const isUIAPI = req.baseUrl === '/api';
+
+  if (!req.agenda.private) {
+    return next();
   }
-  next();
-}
+
+  if (req.path.split('.').pop() === 'prv') {
+    return next();
+  }
+
+  if (isUIAPI) {
+    return res.redirect(302, `/api/agendas/${req.agenda.uid}.prv`);
+  }
+
+  return res.redirect(302, `/v2/agendas/${req.agenda.uid}.prv`);
+};

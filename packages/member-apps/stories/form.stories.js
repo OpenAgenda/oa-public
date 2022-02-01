@@ -37,6 +37,25 @@ export const updateForm = () => (
   </div>
 );
 
+export const updateFormWithPreloadedMember = () => (
+  <div>
+    <Form
+      lang="fr"
+      operation="update"
+      res="http://localhost:3000/api/agendas/123/members/456"
+      member={{
+        userUid: 456,
+        name: 'Préchargé',
+        phone: '0651781026',
+        email: 'email@openagenda.com',
+        position: 'suppert',
+        organization: 'OA',
+        role: 'administrator',
+      }}
+    />
+  </div>
+);
+
 export const UpdateFormModal = () => {
   const [display, setDisplay] = useState(true);
   const closeModal = () => {
@@ -138,6 +157,32 @@ export const FormForRemove = () => (
     lang="fr"
     operation="remove"
     res="/api/agendas/123/members/456"
+    onRemoveSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const FullWidthButtons = () => (
+  <Form
+    lang="fr"
+    operation="create"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    blockButtons
+    onRemoveSuccess={() => {
+      // eslint-disable-next-line no-console
+      console.log('success');
+    }}
+  />
+);
+
+export const noCancelButton = () => (
+  <Form
+    lang="fr"
+    operation="create"
+    res="http://localhost:3000/api/agendas/123/members/456"
+    hideCancel
     onRemoveSuccess={() => {
       // eslint-disable-next-line no-console
       console.log('success');

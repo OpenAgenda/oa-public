@@ -1,15 +1,31 @@
 'use strict';
 
+const verifyAndLoadAccessTokenUser = require('./verifyAndLoadAccessTokenUser');
+const verifyAndLoadKeyUser = require('./verifyAndLoadKeyUser');
+const member = require('./member');
+const loadAgenda = require('./loadAgenda');
+const eventUpdate = require('./eventUpdate');
+const redirectIfPrivate = require('./redirectIfPrivate');
+const loadEvent = require('./loadEvent');
+const moveEventLegacyImageCredits = require('./moveEventLegacyImageCredits');
+const parseBodyData = require('./parseBodyData');
+const requestAccessToken = require('./requestAccessToken');
+const convertLegacyFilter = require('./convertLegacyFilter');
+const evaluateUserAccessToEvent = require('./evaluateUserAccessToEvent');
+const getEventFromSearchOrAsDraft = require('./getEventFromSearchOrAsDraft');
+
 module.exports = {
-  verifyAndLoadAccessTokenUser: require('./verifyAndLoadAccessTokenUser'),
-  verifyAndLoadKeyUser: require('./verifyAndLoadKeyUser'),
-  member: require('./member'),
-  loadAgenda: require('./loadAgenda'),
-  eventUpdate: require('./eventUpdate'),
-  redirectIfPrivate: require('./redirectIfPrivate'),
-  loadEvent: require('./loadEvent'),
-  moveEventLegacyImageCredits: require('./moveEventLegacyImageCredits'),
-  parseBodyData: require('./parseBodyData'),
-  requestAccessToken: require('./requestAccessToken'),
-  convertLegacyFilter: require('./convertLegacyFilter')
+  verifyAndLoadAccessTokenUser,
+  verifyAndLoadKeyUser,
+  member,
+  loadAgenda,
+  eventUpdate,
+  redirectIfPrivate,
+  loadEvent,
+  moveEventLegacyImageCredits,
+  parseBodyData,
+  requestAccessToken,
+  convertLegacyFilter,
+  evaluateUserAccessToEvent,
+  getEventFromSearchOrAsDraft
 };

@@ -51,6 +51,10 @@ const messages = defineMessages({
     id: 'MemberApps.Form.cancel',
     defaultMessage: 'Cancel',
   },
+  save: {
+    id: 'MemberApps.Form.save',
+    defaultMessage: 'Save',
+  },
 });
 
 const BlankComponent = () => <FormSchemaComponent schema={schema} />;
@@ -82,8 +86,11 @@ export default ({
   showSuccessMessage, // boolean: shows success message after save
   optionalFields, // optional: whether form info should be optional
   displayRemoveAction,
+  blockButtons,
+  hideCancel,
+  member, // optional preloaded member
 }) => {
-  const query = operation === 'update'
+  const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(res), {
       select: ({ data }) => data,
       cacheTime: 0,
@@ -94,14 +101,16 @@ export default ({
 
   const m = useIntl().formatMessage;
 
-  const isLoading = operation === 'update' && !query.data;
+  const isLoading = operation === 'update' && !query.data && !member;
+
+  const loadedMember = member || query.data;
 
   useEffect(() => {
     if (operation !== 'remove') {
       return;
     }
     setStep('confirmRemove');
-  }, []);
+  }, [operation]);
 
   const onSubmitSuccess = data => {
     onSuccess(data);
@@ -177,15 +186,52 @@ export default ({
       ) : (
         <>
           <FormSchemaComponent
-            method="patch"
+            method={operation === 'update' ? 'patch' : 'post'}
             res={{
               patch: res,
+              post: res,
             }}
-            values={query.data}
+            values={loadedMember}
             schema={schema({ optionalFields })}
             onSubmitSuccess={onSubmitSuccess}
-            onCancel={() => (mode === 'modal' ? onCloseModalRequest() : setStep('success'))}
             lang={lang}
+            actionComponents={[
+              {
+                position: 'bottom',
+                Component: ({ onSubmit, loading }) => (
+                  <div>
+                    <button
+                      type="button"
+                      disabled={loading}
+                      className={
+                        blockButtons
+                          ? 'btn btn-primary btn-block margin-bottom-sm'
+                          : 'btn btn-primary pull-right'
+                      }
+                      onClick={() => onSubmit()}
+                    >
+                      {m(messages.save)}
+                    </button>
+                    {hideCancel ? null : (
+                      <button
+                        type="button"
+                        disabled={loading}
+                        className={
+                          blockButtons
+                            ? 'btn btn-default btn-block margin-top-sm'
+                            : 'btn btn-default'
+                        }
+                        onClick={() => (mode === 'modal'
+                          ? onCloseModalRequest()
+                          : setStep('success'))}
+                      >
+                        {m(messages.cancel)}
+                      </button>
+                    )}
+                  </div>
+                ),
+              },
+            ]}
           />
           {displayRemoveAction ? (
             <button

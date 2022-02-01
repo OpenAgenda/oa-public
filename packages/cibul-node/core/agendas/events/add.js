@@ -3,6 +3,7 @@
 const VError = require('verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/add');
+const { Forbidden } = require('@openagenda/verror');
 
 const doAdd = require('../utils/doAdd');
 const createPayload = require('../utils/createPayload');
@@ -11,9 +12,12 @@ const loadAuthorizations = require('../../utils/authorizations');
 const cleanEvent = require('../utils/cleanEvent');
 
 const getAgenda = require('../utils/getAgenda');
-
 const assignState = require('../utils/assignState');
 const extractUserUid = require('../utils/extractUserUid');
+
+const updateEvent = require('./lib/updateEvent');
+
+const { containsEventData } = cleanEvent;
 
 module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   const {
@@ -89,11 +93,30 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     access
   });
 
+  if (!authorizations.canEditEvent && containsEventData(data)) {
+    throw new Forbidden({
+      info: {
+        uid: event.uid
+      }
+    }, 'not authorized to edit event');
+  }
+
   assignState(agenda, null, clean, data, { authorizations });
 
   const payload = createPayload(services, agenda);
 
-  payload.setItem('event', null, event);
+  if (containsEventData(data)) {
+    await updateEvent(core.services, {
+      clean,
+      payload,
+      agendaUid,
+      userUid,
+      eventUid,
+      event
+    });
+  } else {
+    payload.setItem('event', null, event);
+  }
 
   const response = await doAdd(core, payload, clean, {
     batched,

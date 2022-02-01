@@ -4,6 +4,7 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/search');
 const { NotFound } = require('@openagenda/verror');
 const convertLongDescription = require('./lib/convertLongDescription');
+const convertToDateHoursMinutesTimings = require('./lib/convertToDateHoursMinutesFormat');
 const loadSearchAccess = require('./lib/loadSearchAccess');
 const filterAuthorizedSearchFields = require('./lib/filterAuthorizedSearchFields');
 
@@ -31,19 +32,30 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
     stream = false,
     useAfterKey = false,
     longDescriptionFormat = null,
+    useDateHoursMinutesFormat = false,
     ...searchOptions
   } = options;
+
+  const parsers = [];
 
   log('search on %s events with query %s, nav %s and options %s', agendaUid, query, nav, options);
 
   if (longDescriptionFormat && convertLongDescription.conversions.includes(longDescriptionFormat)) {
-    searchOptions.parser = convertLongDescription.load({
+    parsers.push(convertLongDescription.load({
       services: core.services,
       conversion: longDescriptionFormat
-    });
+    }));
+  }
+
+  if (useDateHoursMinutesFormat) {
+    parsers.push(convertToDateHoursMinutesTimings(core.services.events));
   }
 
   const { search } = core.services.eventSearch.agendas(agenda);
+
+  if (parsers.length) {
+    searchOptions.parser = e => parsers.reduce((event, parser) => parser(event), e);
+  }
 
   const result = stream
     ? search.stream(authorizedQuery, {

@@ -176,6 +176,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
   describe('api', () => {
     let server;
+    const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
     beforeAll(async () => {
       server = await api(core).listen(3000);
@@ -187,7 +188,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let agenda;
 
       beforeAll(async () => {
-        const result = await axios.get('http://localhost:3000/agendas/92983929?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9');
+        const result = await axios.get(`http://localhost:3000/agendas/92983929?key=${contributorKey}`);
         agenda = result.data;
       });
 
@@ -212,6 +213,21 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from administrator provides administrator-access field', () => {
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
+      });
+    });
+
+    describe('get by slug from non-admin', () => {
+      let agenda;
+
+      beforeAll(async () => {
+        const result = await axios.get(
+          `http://localhost:3000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`
+        );
+        agenda = result.data;
+      });
+
+      it('simple get provides uid, title and slug', async () => {
+        expect(agenda.uid).toBe(92983929);
       });
     });
   });
