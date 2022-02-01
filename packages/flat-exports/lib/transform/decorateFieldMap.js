@@ -22,7 +22,8 @@ module.exports = (fieldMap, options = {}) => {
   const decorateWith = formSchema.fields
     .filter(f => {
       if (includeFields) {
-        return includeFields.some(includeField => (includeField === 'location.tags' && !!f.legacy) || includeField === f.field);
+        return includeFields.some(includeField => (includeField === 'location.tags' && !!f.legacy) || (includeField === f.field
+          && !fieldMap.some(field => field.source === f.field)));
       }
 
       return ((handledTypes.includes(f.fieldType) || f.options) && f.label) || (f.field === 'location' && !!f.legacy);
