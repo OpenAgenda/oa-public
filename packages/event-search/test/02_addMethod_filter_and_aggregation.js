@@ -40,7 +40,7 @@ describe('02 - event search - functional: addMethod', () => {
   });
 
   it('addMethod filter on "share" and "aggregation"', async () => {
-    const { events } = await service('addMethod').search({
+    const { events } = await service('addMethod').search({
       addMethod: ['share', 'aggregation']
     }, {}, { detailed: true });
 
