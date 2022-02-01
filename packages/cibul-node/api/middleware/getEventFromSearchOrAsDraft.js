@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('@openagenda/logs')('api/middleware/getEventFromSearchOrAsDraft');
+
 const { NotFound } = require('@openagenda/verror');
 
 module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
@@ -16,19 +18,28 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
     })
   };
 
+  log('getting event matching query %j', query);
+
   core
     .agendas(req.agenda.uid).events
     .search(query, { size: 1 }, {
       detailed: true,
-      access: 'internal',
+      access: 'internal', // access is evaluated in other middleware.
       longDescriptionFormat: req.query.longDescriptionFormat,
       useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
-    }).then(async ({ events }) => {
+      returnAgenda: true
+    }).then(async ({ agenda, result }) => {
+      const { events } = result;
+
+      req.schema = agenda.schema;
       req.event = (events ?? []).pop();
 
       if (req.event) {
+        log('found event in index');
         return next();
       }
+
+      log('event not found in index, getting draft');
 
       core.agendas(req.agenda.uid).events
         .get(req.params.eventUid, {

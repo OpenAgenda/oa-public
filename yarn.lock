@@ -16402,6 +16402,7 @@ __metadata:
     deep-diff: ^1.0.2
     exceljs: ^4.3.0
     express: ^4.17.1
+    express-rate-limit: ^6.2.0
     fast-csv: ^3.4.0
     fast-levenshtein: ^2.0.6
     feathers-authentication-hooks: ^0.3.0
@@ -16439,6 +16440,7 @@ __metadata:
     passport-twitter: ^1.0.4
     planer: ^1.1.1
     qs: ^6.9.1
+    rate-limit-redis: ^3.0.0
     react: ^16.13.1
     react-dom: ^16.13.1
     react-router: ^5.1.2
@@ -21379,6 +21381,15 @@ __metadata:
     prom-client: ~10.2.2
     url-value-parser: ^1.0.0
   checksum: c6a020ab993c102eefadbd1d1e5c306018e44903aa3f3cb0cd795bd39c74079d94ad1959341d6ff2e8fcef1138f3332a7f859f34abd306f66e99e52dc22bdddd
+  languageName: node
+  linkType: hard
+
+"express-rate-limit@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "express-rate-limit@npm:6.2.0"
+  peerDependencies:
+    express: ^4
+  checksum: 642f148e6b19e1b33f237a06dcd2f5a1b3fd00f72d6ed7f41320fc07b8ef5376f4f51a0753c8396f0f66c6a6f2b82ca6751f54906ec4265b3043837ff6a52d30
   languageName: node
   linkType: hard
 
@@ -35600,6 +35611,15 @@ __metadata:
   version: 1.1.2
   resolution: "raptor-util@npm:1.1.2"
   checksum: 4b7786c27f74c332dbf1ea1ace99fa38c6528c84c0d4fca026adcf2890d2295a843aa635017ca7b2b99d9c098be1ba1cec3e6e9432f7848b545253152448a516
+  languageName: node
+  linkType: hard
+
+"rate-limit-redis@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "rate-limit-redis@npm:3.0.0"
+  peerDependencies:
+    express-rate-limit: ^6
+  checksum: 0033ac4442d879aecabbe56eb6c82e7ccd32e689df2bc50af007069f194886a11afad67f5bcd256fa1671e9bde7a64d8c5eff878be4fadc03f93ef0199b5ae45
   languageName: node
   linkType: hard
 

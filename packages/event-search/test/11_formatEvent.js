@@ -88,7 +88,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       delete draft.someAdditionalValue;
     });
 
-    const formatted = formatEvent(eventWithNoAdditionalValue, { formSchema });
+    const formatted = formatEvent(eventWithNoAdditionalValue, { formSchema });
 
     should(formatted.someAdditionalValue).equal(null);
   });

@@ -38,7 +38,7 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
 
   const parsers = [];
 
-  log('search on %s events with query %s, nav %s and options %s', agendaUid, query, nav, options);
+  log('search on %s events with query %s, nav %s and options %s', agendaUid, authorizedQuery, nav, options);
 
   if (longDescriptionFormat && convertLongDescription.conversions.includes(longDescriptionFormat)) {
     parsers.push(convertLongDescription.load({
@@ -60,12 +60,10 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const result = stream
     ? search.stream(authorizedQuery, {
       ...searchOptions,
-      formSchema: agenda.schema,
       access
     })
     : await search(authorizedQuery, nav, {
       ...searchOptions,
-      formSchema: agenda.schema,
       useAfterKey,
       access
     }).then(r => _.omit(r, ['scrollId']));

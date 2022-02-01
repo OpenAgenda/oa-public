@@ -223,9 +223,13 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   const response = await payload.getResponse('event', access);
+  const compiledEvent = await payload.getCompiledEvent();
 
   try {
-    await eventSearch.update(response);
+    await eventSearch.update({
+      ...response,
+      event: compiledEvent
+    });
     log('updated search for event %s', eventUid);
   } catch (e) {
     log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
@@ -234,7 +238,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const before = await payload.getCompiledEvent('before');
 
   await aggregators.notify('updateEvent', {
-    event: await payload.getCompiledEvent(),
+    event: compiledEvent,
     before,
     agenda,
     formSchema: payload.getFormSchema(),

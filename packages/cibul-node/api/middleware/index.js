@@ -13,6 +13,7 @@ const requestAccessToken = require('./requestAccessToken');
 const convertLegacyFilter = require('./convertLegacyFilter');
 const evaluateUserAccessToEvent = require('./evaluateUserAccessToEvent');
 const getEventFromSearchOrAsDraft = require('./getEventFromSearchOrAsDraft');
+const filterEventContentByRole = require('./filterEventContentByRole');
 
 module.exports = {
   verifyAndLoadAccessTokenUser,
@@ -27,5 +28,6 @@ module.exports = {
   requestAccessToken,
   convertLegacyFilter,
   evaluateUserAccessToEvent,
-  getEventFromSearchOrAsDraft
+  getEventFromSearchOrAsDraft,
+  filterEventContentByRole
 };

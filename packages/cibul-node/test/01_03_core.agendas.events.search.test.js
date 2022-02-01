@@ -224,6 +224,24 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
     });
 
+    describe('restricted for administrators', () => {
+      // Je dois rajouter un test avec un contributeur qui va chercher
+      // ce même événement et qui ne voit pas le champ admin
+      it('administrators have access to restricted admin field', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/1',
+          headers: {
+            'content-type': 'application/json',
+            'access-token': accessToken,
+            nonce: 789789,
+          },
+        }).then(r => r.data);
+
+        expect(response.event.note).toBe('Une note interne pour les administrateurs');
+      });
+    });
+
     describe('get with options', () => {
       let event;
 
@@ -309,6 +327,21 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         }).then(r => r.data);
 
         expect(response.event.uid).toBe(2);
+      });
+
+      it('administrator field is not visible to non adminmod', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/1',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
+          }
+        }).then(r => r.data);
+
+        expect(response.event.note).toBeUndefined();
       });
 
       it('get by slug', async () => {
