@@ -22,6 +22,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     let flat;
     beforeAll(() => {
       const flatten = getFlattener({
+        agendaUid: 49692513,
         lang: 'fr',
         languages: ['fr', 'en', 'it'],
         labels
@@ -62,6 +63,10 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     test('state is part of result', () => {
       expect(flat.Statut).toEqual('Published');
     });
+
+    test('permalink is part of result', () => {
+      expect(flat.Permalien).toEqual('https://openagenda.com/agendas/49692513/events/67651180');
+    });
   });
 
   describe('Include only specified fields', () => {
@@ -92,6 +97,23 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         'Identifiant du lieu': 43979991,
         'Tags du lieu': 'Lieu de spectacles, sports et loisirs',
         'Téléphone du lieu': '014654123'
+      });
+    });
+
+    test('permaLink is correctly handled', () => {
+      const flatten = getFlattener({
+        agendaUid: 49692513,
+        lang: 'fr',
+        languages: ['fr'],
+        labels,
+        formSchema,
+        includeFields: ['permalink'],
+      });
+
+      const flat = flatten(event);
+
+      expect(flat).toEqual({
+        Permalien: 'https://openagenda.com/agendas/49692513/events/67651180'
       });
     });
   });

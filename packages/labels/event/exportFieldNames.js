@@ -218,6 +218,10 @@ module.exports = {
     it: 'Link',
     io: 'crwdns14196:0crwdne14196:0'
   },
+  permalink: {
+    en: 'Permalink',
+    fr: 'Permalien',
+  },
   'location.uid': {
     en: 'Location identifier',
     fr: 'Identifiant du lieu',

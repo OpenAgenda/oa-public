@@ -9,6 +9,7 @@ const xlsx = flatExports.xlsx();
 
 module.exports = (req, res) => {
   xlsx(req.stream, {
+    agendaUid: req.agenda.uid,
     lang: req.lang,
     languages: req.languages,
     labels: {

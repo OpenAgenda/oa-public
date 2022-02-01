@@ -2,6 +2,15 @@
 
 const convert = require('@openagenda/legacy/convertLegacyFilter');
 
+const mapIncludeFields = includeFields => {
+  if (includeFields && includeFields.includes('permalink')) {
+    const requestedFields = [...includeFields];
+    requestedFields[includeFields.indexOf('permalink')] = 'uid';
+    return requestedFields;
+  }
+  return includeFields;
+};
+
 module.exports = core => async (req, res, next) => {
   req.search = core
     .agendas(req.params.agendaUid)
@@ -9,6 +18,7 @@ module.exports = core => async (req, res, next) => {
 
   req.searchOptions = {
     ...req.query,
+    includeFields: mapIncludeFields(req.query.includeFields),
     stream: false,
     detailed: true,
     access: req.access ?? 'public'
