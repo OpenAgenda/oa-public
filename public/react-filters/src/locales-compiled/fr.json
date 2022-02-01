@@ -339,6 +339,12 @@
       "value": "Département"
     }
   ],
+  "ReactFilters.messages.filterTitles.district": [
+    {
+      "type": 0,
+      "value": "Quartier"
+    }
+  ],
   "ReactFilters.messages.filterTitles.featured": [
     {
       "type": 0,
@@ -397,6 +403,12 @@
     {
       "type": 0,
       "value": "Statut"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.status": [
+    {
+      "type": 0,
+      "value": "Etat"
     }
   ],
   "ReactFilters.messages.filterTitles.timings": [
