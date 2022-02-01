@@ -63,7 +63,7 @@ module.exports = core => {
   app.post('/agendas/:agendaUid/events*', mw.member.verify);
   app.patch('/agendas/:agendaUid/events*', mw.member.verify);
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
-  app.get('/agendas/:agendaUid', mw.member.load);
+  app.get(['/agendas/:agendaUid', '/agendas/:agendaUid/events/:eventUid'], mw.member.load);
 
   app.get([
     '/agendas/slug/:agendaSlug',
@@ -127,6 +127,7 @@ module.exports = core => {
   ], [
     mw.getEventFromSearchOrAsDraft,
     mw.evaluateUserAccessToEvent,
+    mw.filterEventContentByRole,
     (req, res) => res.json({
       success: true,
       event: req.event

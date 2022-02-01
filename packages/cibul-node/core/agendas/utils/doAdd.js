@@ -135,7 +135,10 @@ module.exports = async (core, payload, clean, options = {}) => {
   const formSchema = payload.getFormSchema(); // full access for internal use
 
   try {
-    await eventSearch.add(response);
+    await eventSearch.add({
+      ...response,
+      event: compiledEvent
+    });
   } catch (e) {
     log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, e);
   }

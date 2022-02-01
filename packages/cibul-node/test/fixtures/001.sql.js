@@ -195,7 +195,7 @@ raw.push(knex('form_schema').insert([{
   })
 }]));
 
-raw.push(knex('custom').insert({
+raw.push(knex('custom').insert([{
   id: 1,
   form_schema_id: 1,
   identifier: 1,
@@ -205,6 +205,6 @@ raw.push(knex('custom').insert({
   }),
   created_at: new Date(),
   updated_at: new Date()
-}));
+}]));
 
 module.exports = raw.join(';\n') + ';';
