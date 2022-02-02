@@ -7,6 +7,7 @@
   "ReactShared.ImageInput.tooManyFiles": "Trop de fichiers, un seul fichier accepté.",
   "ReactShared.ImageInput.update": "Mettre à jour l'image",
   "ReactShared.ImageInput.upload": "Charger une image",
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Êtes-vous sûr de vouloir quitter cette page? Les modifications que vous avez apportées ne seront peut-être pas enregistrées.",
   "trackConsent.accept": "Accepter",
   "trackConsent.decline": "Refuser",
   "trackConsent.informationText": "Cet agenda utilise des cookies du service de suivi d'audience Google Analytics. Ils aident les administrateur de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous?",

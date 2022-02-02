@@ -103,6 +103,12 @@
       "value": "Charger une image"
     }
   ],
+  "ReactShared.LeaveWarningPrompt.areYouSure": [
+    {
+      "type": 0,
+      "value": "Êtes-vous sûr de vouloir quitter cette page? Les modifications que vous avez apportées ne seront peut-être pas enregistrées."
+    }
+  ],
   "trackConsent.accept": [
     {
       "type": 0,
