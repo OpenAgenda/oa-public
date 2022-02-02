@@ -7,7 +7,7 @@ import formSchemaLabels from '@openagenda/labels/form-schemas';
 
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
-import { Spinner, unloadWarning } from '@openagenda/react-shared';
+import { Spinner, LeaveWarningPrompt } from '@openagenda/react-shared';
 
 import FormSchema from './iso/FormSchema';
 import getErrorLabel from './iso/getErrorLabel';
@@ -103,12 +103,12 @@ export default class FormSchemaComponent extends Component {
         files: this.get('files')
       });
 
-      if ((p instanceof Promise) && (enableUnloadWarning)) {
+      if ((p instanceof Promise) && enableUnloadWarning) {
         p.then(() => {
-          unloadWarning.unset();
+          this.setState({ unloadWarningEnabled: false });
         });
       } else if (enableUnloadWarning) {
-        unloadWarning.unset();
+        this.setState({ unloadWarningEnabled: false });
       }
       return;
     }
@@ -131,7 +131,7 @@ export default class FormSchemaComponent extends Component {
       }
 
       if (enableUnloadWarning) {
-        unloadWarning.unset();
+        this.setState({ unloadWarningEnabled: false });
       }
 
       if (onSubmitSuccess) {
@@ -229,7 +229,9 @@ export default class FormSchemaComponent extends Component {
     }
 
     if (enableUnloadWarning) {
-      unloadWarning.set();
+      this.setState({
+        unloadWarningEnabled: true
+      });
     }
 
     this.set({
@@ -427,12 +429,37 @@ export default class FormSchemaComponent extends Component {
     );
   }
 
+  renderUnloadWarning() {
+    const {
+      unloadWarning,
+    } = this.props;
+
+    if (!unloadWarning) {
+      return null;
+    }
+
+    const warnBeforePageUnload = typeof unloadWarning === 'object' ? unloadWarning.page : true;
+    const warnBeforeRouteTransition = typeof unloadWarning === 'object' ? unloadWarning.router : false;
+
+    const {
+      unloadWarningEnabled: enabled
+    } = this.state;
+
+    return (
+      <LeaveWarningPrompt
+        enabled={enabled}
+        warnBeforePageUnload={warnBeforePageUnload}
+        warnBeforeRouteTransition={warnBeforeRouteTransition}
+      />
+    );
+  }
+
   render() {
     const {
       lang,
       classNames,
       components,
-      role
+      role,
     } = this.props;
 
     const {
@@ -457,6 +484,7 @@ export default class FormSchemaComponent extends Component {
             <span>{labels.main.confirmation}</span>
           </div>
           <button type="submit" className="btn btn-primary" onClick={this.onSubmitConfirm}>{labels.main.done}</button>
+          {this.renderUnloadWarning()}
         </div>
       );
     }
@@ -483,6 +511,7 @@ export default class FormSchemaComponent extends Component {
         </div>
         {this.renderGroupedErrors()}
         {this.renderBottomActions()}
+        {this.renderUnloadWarning()}
       </div>
     );
   }
