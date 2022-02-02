@@ -2,12 +2,32 @@ import debug from 'debug';
 
 const log = debug('addGoogleAnalyticsTracker');
 
-export default function addGoogleAnalyticsTracker({ googleAnalyticsID, agendaUID }) {
+function addV4Tracker(googleAnalyticsID) {
+  const previousScript = document.getElementsByTagName('script')[0];
+  const el = document.createElement('script');
+  el.async = 1;
+  el.src = `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsID}`;
+
+  previousScript.parentNode.insertBefore(el, previousScript);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+  gtag('config', googleAnalyticsID);
+}
+
+export default function addGoogleAnalyticsTracker({ googleAnalyticsID }) {
   if (!googleAnalyticsID) {
     return;
   }
 
   log('adding google analytics tracker %s', googleAnalyticsID);
+
+  if (googleAnalyticsID.substr(0, 1) === 'G') {
+    return addV4Tracker(googleAnalyticsID);
+  }
 
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
