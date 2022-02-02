@@ -26,7 +26,7 @@
   "ReactFilters.filters.searchFilter.placeholder": "Rechercher",
   "ReactFilters.filters.searchFilter.previewLabel": "Recherche",
   "ReactFilters.messages.attendanceModeOptions.mixed": "Mixte",
-  "ReactFilters.messages.attendanceModeOptions.offline": "Hors ligne",
+  "ReactFilters.messages.attendanceModeOptions.offline": "Sur place",
   "ReactFilters.messages.attendanceModeOptions.online": "En ligne",
   "ReactFilters.messages.filterTitles.addMethod": "Provenance",
   "ReactFilters.messages.filterTitles.adminLevel3": "Niveau administratif 3",
