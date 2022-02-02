@@ -95,5 +95,11 @@
   "EventAdminApp.messages.states.controlled": "Controlled",
   "EventAdminApp.messages.states.published": "Published",
   "EventAdminApp.messages.states.refused": "Refused",
-  "EventAdminApp.messages.states.toModerate": "To moderate"
+  "EventAdminApp.messages.states.toModerate": "To moderate",
+  "EventAdminApp.messages.status.cancelled": "Cancelled",
+  "EventAdminApp.messages.status.full": "Fully booked",
+  "EventAdminApp.messages.status.movedOnline": "Moved online",
+  "EventAdminApp.messages.status.postponed": "Postponed",
+  "EventAdminApp.messages.status.programmed": "Programmed",
+  "EventAdminApp.messages.status.rescheduled": "Rescheduled"
 }
