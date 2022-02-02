@@ -12,6 +12,7 @@ const SpreadsheetOptions = ({
   const [checkedState, setCheckedState] = useState(
     []
   );
+  const [checkAll, setCheckAll] = useState(false);
 
   const intl = useIntl();
   const messages = defineMessages({
@@ -54,7 +55,7 @@ const SpreadsheetOptions = ({
   const handleCheckAll = e => {
     if (e.target.checked) {
       const updatedCheckedState = checkedState.map(() => true);
-
+      setCheckAll(true);
       setCheckedState(updatedCheckedState);
 
       const allFields = fields.reduce((acc, field) => {
@@ -76,6 +77,7 @@ const SpreadsheetOptions = ({
     if (event.target.checked) {
       return setChoice({ ...options, fields: [...options.fields, event.target.value] });
     }
+    setCheckAll(false);
 
     const updatedOptions = options.fields.filter(field => field !== event.target.value);
     return setChoice({ ...options, fields: updatedOptions });
@@ -126,7 +128,7 @@ const SpreadsheetOptions = ({
       {displayFields && (
       <div className="margin-left-md checkbox-list">
         <label htmlFor="allFields">
-          <input name="fields" id="allFields" type="checkbox" onChange={handleCheckAll} value="allFields" className="margin-right-sm" />
+          <input name="fields" id="allFields" type="checkbox" onChange={handleCheckAll} value="allFields" className="margin-right-sm" checked={checkAll} />
           {intl.formatMessage(messages.selectAll)}
         </label>
         {fields.map((field, index) => (

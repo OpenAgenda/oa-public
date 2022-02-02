@@ -61,10 +61,6 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.updatedAt',
     defaultMessage: 'Date of update',
   },
-  // members: {
-  //   id: 'ReactFilters.messages.filterTitles.members',
-  //   defaultMessage: 'Members'
-  // },
   keyword: {
     id: 'ReactFilters.messages.filterTitles.keyword',
     defaultMessage: 'Keywords'
@@ -76,5 +72,13 @@ export default defineMessages({
   attendanceMode: {
     id: 'ReactFilters.messages.filterTitles.attendanceMode',
     defaultMessage: 'Attendance mode',
+  },
+  status: {
+    id: 'ReactFilters.messages.filterTitles.status',
+    defaultMessage: 'Status',
+  },
+  district: {
+    id: 'ReactFilters.messages.filterTitles.district',
+    defaultMessage: 'District',
   },
 });
