@@ -168,7 +168,7 @@ class EventForm extends Component {
     return <FormSchemaComponent
       res={res ? { post: res } : undefined}
       method="post"
-      unloadWarning={true}
+      unloadWarning={{ router: true, page: true }}
       role={role}
       stateless={true}
       maxFileSize={maxFileSize}
