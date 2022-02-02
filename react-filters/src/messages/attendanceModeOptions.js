@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   offline: {
     id: 'ReactFilters.messages.attendanceModeOptions.offline',
-    defaultMessage: 'Offline',
+    defaultMessage: 'In situ',
   },
   online: {
     id: 'ReactFilters.messages.attendanceModeOptions.online',
