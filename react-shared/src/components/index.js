@@ -12,3 +12,4 @@ export { default as ReactSelectInput } from './ReactSelectInput';
 export { default as SearchInput } from './SearchInput';
 export { default as Spinner } from './Spinner';
 export { default as Switch } from './Switch';
+export { default as LeaveWarningPrompt } from './LeaveWarningPrompt';

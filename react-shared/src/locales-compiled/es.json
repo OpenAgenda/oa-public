@@ -95,6 +95,12 @@
       "value": "Cargar imagen"
     }
   ],
+  "ReactShared.LeaveWarningPrompt.areYouSure": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to leave this page? All unsaved data will be lost."
+    }
+  ],
   "trackConsent.accept": [
     {
       "type": 0,
