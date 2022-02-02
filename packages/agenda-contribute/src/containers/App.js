@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { mergeLocales } from '@openagenda/react-shared';
+import { mergeLocales, locales as sharedLocales } from '@openagenda/react-shared';
 import { locales as memberLocales } from '@openagenda/member-apps';
 
 import locales from '../locales-compiled';
@@ -32,7 +32,7 @@ const {
 
 const log = debug('App');
 
-const mergedLocales = mergeLocales(locales, memberLocales);
+const mergedLocales = mergeLocales(locales, memberLocales, sharedLocales);
 
 function App(props) {
   const {
