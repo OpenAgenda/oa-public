@@ -33,7 +33,7 @@ module.exports = async (req, res, next) => {
   setPageProp(req, 'total', req.data.total);
   setPageProp(req, 'filtersBase', req.data.filtersBase);
 
-  if (req.app.locals.tracking.useAgendaGoogleAnalytics) {
+  if (req.app.locals.tracking?.useAgendaGoogleAnalytics) {
     const gaId = res.locals.agenda.settings.tracking?.googleAnalytics || null;
     if (!gaId) console.log('Warning: no Google Analytics ID found. Set one in your agenda settings or disable tracking.');
     const { cookieBannerLink } = req.app.locals.tracking;
