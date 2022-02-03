@@ -60,6 +60,20 @@
           Jeudi 24 juin
         </label>
       {{/customFilter}}
+
+      {{#customFilter
+        type='favorites'
+        activeClass='active'
+        inactiveClass='inactive'
+        className='custom-example checkbox'
+        activeFilterLabel='Favoris'
+      }}
+        <label for="nothing">
+          <input type="checkbox" tabindex="-1" readonly checked />
+          <input type="checkbox" tabindex="-1" readonly />
+          Favoris
+        </label>
+      {{/customFilter}}
     </div>
 
     {{widget

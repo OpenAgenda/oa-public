@@ -29,6 +29,7 @@ module.exports = async (req, res, next) => {
   setPageProp(req, 'lang', res.locals.lang);
   setPageProp(req, 'locales', { [res.locals.lang]: intl.messages });
   setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
+  setPageProp(req, 'agendaUid', res.locals.agenda.uid);
   setPageProp(req, 'aggregations', req.data.aggregations);
   setPageProp(req, 'total', req.data.total);
   setPageProp(req, 'filtersBase', req.data.filtersBase);
@@ -48,6 +49,7 @@ module.exports = async (req, res, next) => {
     filters: res.locals.filters,
     widgets: res.locals.widgets,
     defaultViewport: res.locals.agenda.summary.viewport,
+    agendaUid: res.locals.agenda.uid,
     aggregations: req.data.aggregations,
     total: req.data.total,
     filtersBase: req.data.filtersBase,

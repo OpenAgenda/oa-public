@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const cn = require('classnames');
 
-module.exports = hbs => ({ fn, hash, data }) => {
+module.exports = (hbs, filterOrWidget) => ({ fn, hash, data }) => {
   if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
     data.root.__filtersAndWidgetsCounter = 0;
   }
@@ -15,7 +15,6 @@ module.exports = hbs => ({ fn, hash, data }) => {
     tagName = 'div',
     className = '',
     attributes = '',
-    query = {},
     activeClass = 'active',
     inactiveClass = 'inactive',
     ...restOptions
@@ -23,27 +22,26 @@ module.exports = hbs => ({ fn, hash, data }) => {
 
   const attrs = {
     aggregation: null,
-    type: 'custom',
-    query,
+    type: filterOrWidget === 'filter' ? 'custom' : undefined,
     activeClass,
     inactiveClass,
     ...restOptions
   };
 
-  const statusClass = _.isMatch(_.omitBy(data.root.query, _.isEmpty), _.omitBy(query, _.isEmpty))
+  const statusClass = attrs.query && _.isMatch(_.omitBy(data.root.query, _.isEmpty), _.omitBy(attrs.query, _.isEmpty))
     ? activeClass
     : inactiveClass;
 
   if (data.root.__extractFiltersAndWidgets) {
-    data.root.filters.push(attrs);
+    data.root[`${filterOrWidget}s`].push(attrs);
   }
 
   return new hbs.SafeString(`
     <${tagName}
       ${attributes}
-      class="${cn(className, statusClass)}"
-      data-oa-filter="${i}"
-      data-oa-filter-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
+      class="${cn(className, !attrs.activeTargetSelector ? statusClass : '')}"
+      data-oa-${filterOrWidget}="${i}"
+      data-oa-${filterOrWidget}-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
     >
       ${fn(this)}
     </${tagName}>
