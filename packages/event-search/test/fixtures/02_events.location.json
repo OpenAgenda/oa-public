@@ -74,6 +74,10 @@
         "timezone": "Europe/Paris"
       },
       "state": 2
+    },
+    {
+      "uid": 5,
+      "state": 2
     }
   ]
 }
