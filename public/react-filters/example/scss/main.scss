@@ -7,3 +7,16 @@
 .map-container .leaflet-container {
   height: 180px;
 }
+
+.favorite-example {
+  input[type="checkbox"][readonly] {
+    pointer-events: none !important;
+  }
+
+  &.active input[type="checkbox"]:not(:checked) {
+    display: none;
+  }
+  &.inactive input[type="checkbox"]:checked {
+    display: none;
+  }
+}

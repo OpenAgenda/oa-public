@@ -4,7 +4,25 @@
   <% } %>
 
   <div>
+    <!-- widget: add/remove to localStorage -->
+
+    <span
+      class="pull-left"
+      data-oa-widget="8"
+      data-oa-widget-params="<%= JSON.stringify({
+        name: 'favorite',
+        eventUid: uid,
+        activeClass: 'fa-star',
+        inactiveClass: 'fa-star-o',
+        activeTargetSelector: '.fa',
+        handlerSelector: '.fa',
+      }) %>"
+    >
+      <i class="fa fa-star-o"></i>
+    </span>
+
     <h3><%= title.fr || title.en %></h3>
+
     <p><%= description.fr || description.en %></p>
   </div>
 </div>

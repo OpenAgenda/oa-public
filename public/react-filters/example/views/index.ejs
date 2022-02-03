@@ -85,6 +85,24 @@
       ></div> -->
 
       <div
+        class="favorite-example checkbox inactive"
+        data-oa-filter="8"
+        data-oa-filter-params="<%= JSON.stringify({
+          type: 'favorites',
+          activeClass: 'active',
+          inactiveClass: 'inactive',
+          activeFilterLabel: 'Favoris',
+          exclusive: true
+        }) %>"
+      >
+        <label for="nothing">
+          <input type="checkbox" tabindex="-1" readonly checked>
+          <input type="checkbox" tabindex="-1" readonly>
+          Favoris
+        </label>
+      </div>
+
+      <div
         data-oa-widget="active-filters"
         data-oa-widget-params="<%= JSON.stringify({ name: 'activeFilters' }) %>"
       ></div>
