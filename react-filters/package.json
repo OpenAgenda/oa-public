@@ -60,7 +60,8 @@
     "react-query": "^3.31.0",
     "react-uid": "^2.3.0",
     "react-use": "^15.3.4",
-    "use-debounce": "^6.0.1"
+    "use-debounce": "^6.0.1",
+    "use-local-storage-state": "^13.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",

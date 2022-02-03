@@ -53,6 +53,7 @@ app.get('/', async (req, res, next) => {
     // render
     res.render('index', { events: data.events });
   } catch (e) {
+    console.log(e);
     next(e);
   }
 });

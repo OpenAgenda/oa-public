@@ -16,12 +16,14 @@ function Filters({
   mapComponent: MapComponent = Noop,
   searchComponent: SearchComponent = Noop,
   customComponent: CustomComponent = Noop,
+  favoritesComponent: FavoritesComponent = Noop,
   choiceProps,
   dateRangeProps,
   definedRangeProps,
   mapProps,
   searchProps,
   customProps,
+  favoritesProps,
   ...additionnalProps
 }) {
   const seed = useUIDSeed();
@@ -100,6 +102,18 @@ function Filters({
                 filter={filter}
                 {...filter}
                 {...customProps}
+                {...additionnalProps}
+              />
+            );
+            break;
+          case 'favorites':
+            elem = (
+              <FavoritesComponent
+                key={seed(filter)}
+                ref={withRef ? filter.elemRef : null}
+                filter={filter}
+                {...filter}
+                {...favoritesProps}
                 {...additionnalProps}
               />
             );

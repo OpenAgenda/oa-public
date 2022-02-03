@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import React, { useMemo } from 'react';
 import { useFormState } from 'react-final-form';
+import matchQuery from '../utils/matchQuery';
 import Filters from './Filters';
 import DateRangeFilter, { formatValue as formatDateRangeValue } from './filters/DateRangeFilter';
 import ChoiceFilter from './filters/ChoiceFilter';
@@ -8,10 +8,7 @@ import DefinedRangeFilter from './filters/DefinedRangeFilter';
 import SearchFilter from './filters/SearchFilter';
 import MapFilter from './filters/MapFilter';
 import CustomFilter from './filters/CustomFilter';
-
-function matchQuery(a, b) {
-  return _.isMatch(_.omitBy(a, _.isEmpty), _.omitBy(b, _.isEmpty));
-}
+import FavoritesFilter from './filters/FavoritesFilter';
 
 function staticRangesFirst(a, b) {
   if (a.staticRanges && !b.staticRanges) {
@@ -41,6 +38,11 @@ function matchFilter(filter, values, entry) {
   // Matching custom
   if (filter.type === 'custom' && filter.activeFilterLabel) {
     return key in filter.query && matchQuery(values, filter.query);
+  }
+
+  // Matching favorites
+  if (filter.type === 'favorites' && filter.activeFilterLabel) {
+    return !!values.favorites;
   }
 
   // Matching staticRanges
@@ -84,6 +86,7 @@ export default function ActiveFilters({
       searchComponent={SearchFilter.Preview}
       mapComponent={MapFilter.Preview}
       customComponent={CustomFilter.Preview}
+      favoritesComponent={FavoritesFilter.Preview}
       {...rest}
     />
   );

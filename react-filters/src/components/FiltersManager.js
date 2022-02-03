@@ -14,9 +14,10 @@ import { Portal } from '@openagenda/react-portal-ssr';
 import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
 import { getEvents } from '../api';
-import { withDefaultFilterConfig, filtersToAggregations } from '../utils';
+import { withDefaultFilterConfig, filtersToAggregations, getWidgets } from '../utils';
 import Filters from './Filters';
 import ActiveFilters from './ActiveFilters';
+import FavoriteToggle from './FavoriteToggle';
 import Total from './Total';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DateRangeFilter from './filters/DateRangeFilter';
@@ -24,10 +25,11 @@ import DefinedRangeFilter from './filters/DefinedRangeFilter';
 import SearchFilter from './filters/SearchFilter';
 import MapFilter from './filters/MapFilter';
 import CustomFilter from './filters/CustomFilter';
+import FavoritesFilter from './filters/FavoritesFilter';
 
 export default React.forwardRef(function FiltersManager({
   filters: rawFilters,
-  widgets,
+  widgets: initialWidgets,
   aggregations: initialAggregations = {},
   query: initialQuery = {},
   total: initialTotal = 0,
@@ -43,6 +45,7 @@ export default React.forwardRef(function FiltersManager({
   searchComponent = SearchFilter,
   mapComponent = MapFilter,
   customComponent = CustomFilter,
+  favoritesComponent = FavoritesFilter,
 
   ...rest
 }, ref) {
@@ -55,6 +58,7 @@ export default React.forwardRef(function FiltersManager({
     () => rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl)),
     [rawFilters, intl]
   );
+  const [widgets, setWidgets] = useState(() => initialWidgets);
 
   const [query, setQuery] = useState(() => initialQuery);
   const [total, setTotal] = useState(() => initialTotal);
@@ -179,8 +183,24 @@ export default React.forwardRef(function FiltersManager({
     setQuery,
     setTotal,
     updateFiltersAndWidgets: (values, result) => {
+      const widgetsOnPage = getWidgets();
+
+      setWidgets(widgetsOnPage.reduce((accu, next) => {
+        const found = _.find(widgets, next);
+
+        // Conserve if found & elem has not changed
+        if (found && (!found.elem || document.body.contains(found.elem))) {
+          accu.push(found);
+          return accu;
+        }
+
+        accu.push(next);
+
+        return accu;
+      }, []));
+
       setAggregations(result.aggregations || []);
-      setTotal(result.total);
+      setTotal(result.total || 0);
       setQuery(values);
 
       const mapFilter = filters.find(v => v.type === 'map');
@@ -208,7 +228,7 @@ export default React.forwardRef(function FiltersManager({
 
       onLoad(query, aggs, form);
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const widgetElems = widgets.map(widget => {
     switch (widget.name) {
@@ -224,7 +244,15 @@ export default React.forwardRef(function FiltersManager({
         return (
           <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
             <span>
-              <ActiveFilters filters={filters} getOptions={getOptions} />
+              <ActiveFilters agendaUid={agendaUid} filters={filters} getOptions={getOptions} />
+            </span>
+          </Portal>
+        );
+      case 'favorite':
+        return (
+          <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
+            <span>
+              <FavoriteToggle agendaUid={agendaUid} widget={widget} {...widget} />
             </span>
           </Portal>
         );
@@ -244,6 +272,7 @@ export default React.forwardRef(function FiltersManager({
         defaultViewport={defaultViewport}
         loadGeoData={loadGeoData}
         query={query}
+        agendaUid={agendaUid}
         // filters
         choiceComponent={choiceComponent}
         dateRangeComponent={dateRangeComponent}
@@ -251,6 +280,7 @@ export default React.forwardRef(function FiltersManager({
         searchComponent={searchComponent}
         mapComponent={mapComponent}
         customComponent={customComponent}
+        favoritesComponent={favoritesComponent}
         {...rest}
       />
       {widgetElems}

@@ -139,6 +139,12 @@ export default function withDefaultFilterConfig(filter, intl) {
         }
       });
       break;
+    case 'favorites':
+      defaults(filter, {
+        type: 'favorites',
+        aggregation: null
+      });
+      break;
     default:
       break;
   }

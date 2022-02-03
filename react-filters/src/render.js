@@ -5,7 +5,7 @@ import qs from 'qs';
 import { prepareClientPortals } from '@openagenda/react-portal-ssr';
 import Provider from './components/FiltersProvider';
 import FiltersManager from './components/FiltersManager';
-import { parseFilterAttrs, extractAttrs } from './utils';
+import { parseFilterAttrs, extractAttrs, getWidgets } from './utils';
 
 function createContainer() {
   const container = document.createElement('div');
@@ -23,7 +23,7 @@ function getFilters() {
 
       dataSet.destSelector = `[data-oa-filter="${elem.getAttribute('data-oa-filter')}"]`;
 
-      if (dataSet.type === 'custom') {
+      if (dataSet.type === 'custom' || dataSet.type === 'favorites') {
         dataSet.elem = elem;
         dataSet.handlerElem = dataSet.handlerSelector ? elem.querySelector(dataSet.handlerSelector) : null;
       } else {
@@ -33,16 +33,6 @@ function getFilters() {
       return dataSet;
     }
   );
-}
-
-function getWidgets() {
-  const widgetElems = document.querySelectorAll('[data-oa-widget]');
-
-  return Array.from(widgetElems, elem => {
-    const dataSet = parseFilterAttrs(extractAttrs(elem, 'data-oa-widget-'));
-    dataSet.destSelector = `[data-oa-widget="${elem.getAttribute('data-oa-widget')}"]`;
-    return dataSet;
-  });
 }
 
 function defaultFilterChange(values, aggregations, ref, form) {

@@ -7,6 +7,7 @@ export { default as ChoiceFilter } from './filters/ChoiceFilter';
 export { default as SearchFilter } from './filters/SearchFilter';
 
 export { default as ActiveFilters } from './ActiveFilters';
+export { default as FavoriteToggle } from './FavoriteToggle';
 export { default as Filters } from './Filters';
 export { default as FiltersManager } from './FiltersManager';
 export { default as FiltersProvider } from './FiltersProvider';
