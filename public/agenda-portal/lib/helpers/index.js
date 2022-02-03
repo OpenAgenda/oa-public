@@ -3,7 +3,7 @@
 const marked = require('marked');
 const imageToUrl = require('../../utils/imageToUrl');
 const loadFilter = require('./loadFilter');
-const loadCustomFilter = require('./loadCustomFilter');
+const loadCustom = require('./loadCustom');
 const loadWidget = require('./loadWidget');
 
 const mdToHtml = md => marked(md, { breaks: true });
@@ -21,8 +21,9 @@ function loadHelpers(hbs) {
     fieldSchema,
     image: imageToUrl,
     filter: loadFilter(hbs),
-    customFilter: loadCustomFilter(hbs),
-    widget: loadWidget(hbs)
+    customFilter: loadCustom(hbs, 'filter'),
+    widget: loadWidget(hbs),
+    customWidget: loadCustom(hbs, 'widget')
   };
 }
 

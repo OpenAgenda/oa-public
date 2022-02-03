@@ -161,6 +161,7 @@ $(() => {
       aggregations: pageProps.aggregations,
       total: pageProps.total,
       defaultViewport: pageProps.defaultViewport,
+      agendaUid: pageProps.agendaUid,
       query: window.location.search,
       onFilterChange(values, aggregations, ref, _form) {
         return onFilterController(pageProps, ref, values, aggregations);

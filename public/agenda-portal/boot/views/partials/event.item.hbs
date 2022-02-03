@@ -13,7 +13,21 @@
   <div class="col-md-10">
     <a href="{{link}}" class="event-item">
       <div class="wbg px-4 py-3">
-        <h3>{{title}}</h3>
+        <h3>
+          {{title}}
+          {{#customWidget
+            name='favorite'
+            tagName='span'
+            className='float-right'
+            eventUid=uid
+            activeClass='fas'
+            inactiveClass='far'
+            activeTargetSelector='i'
+            handlerSelector='i'
+          }}
+            <i class="far fa-star"></i>
+          {{/customWidget}}
+        </h3>
         <p>{{description}}</p>
         <p>{{range}}</p>
 
