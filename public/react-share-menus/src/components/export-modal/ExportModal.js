@@ -217,7 +217,7 @@ const ExportModal = ({
                 <div className="margin-left-md">
                   <input
                     className="form-control url-input"
-                    value={`https://openagenda.com${res.export.gcal}`}
+                    value={res.export.gcal}
                     readOnly
                     onClick={handleClick}
                   />
