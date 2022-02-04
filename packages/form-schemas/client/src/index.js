@@ -383,8 +383,8 @@ export default class FormSchemaComponent extends Component {
             <div className="padding-bottom-sm">{labels.main.groupErrorHeader}:</div>
             <ul className="list-unstyled margin-left-xs">
               {errors.map(e => (
-                <li key={`error-${e.code}`}>
-                  <label htmlFor={e.code}>{e.fieldLabel}</label>:&nbsp;
+                <li key={`error-${e.field}-${e.lang ?? ''}-${e.code}`}>
+                  <label htmlFor={e.code}>{e.fieldLabel}{e.lang ? ` (${e.lang.toUpperCase()})` : ''}</label>:&nbsp;
                   <span>{e.label}</span>
                 </li>
               ))}
