@@ -1,11 +1,8 @@
-'use strict';
-
 const _ = require('lodash');
 const marked = require('marked');
 const sanitizeHtml = require('sanitize-html');
 const turndown = require('turndown');
 const markdownLinkExtractor = require('markdown-link-extractor');
-const log = require('debug')('markdown');
 
 const TurndownService = turndown.default || turndown;
 
@@ -13,15 +10,13 @@ const ts = new TurndownService();
 
 ts.addRule('line', {
   filter: ['p'],
-  replacement: function (content) {
-    return content + '\n';
-  }
+  replacement: content => [content, '\n'].join('')
 });
 
-function convertTextLinks(md) {
-  return markdownLinkExtractor(md).reduce(({ md, cursor }, link) => {
+function convertTextLinks(markdownInput) {
+  return markdownLinkExtractor(markdownInput).reduce(({ md, cursor }, link) => {
     const unescapedLink = _.unescape(link);
-    const linkAsInInput = unescapedLink.replace(/^mailto\:/, '');
+    const linkAsInInput = unescapedLink.replace(/^mailto:/, '');
 
     const index = md.indexOf(linkAsInInput, cursor);
     const isMarkdownLink = (index > 2)
@@ -43,16 +38,13 @@ function convertTextLinks(md) {
       md: before + markdownedLink + after,
       cursor: index + markdownedLink.length
     };
-
-  }, { md, cursor: 0 }).md;
+  }, { md: markdownInput, cursor: 0 }).md;
 }
 
 module.exports = {
-  to: html => {
-    return convertTextLinks(ts.turndown(html || ''));
-  },
+  to: html => convertTextLinks(ts.turndown(html || '')),
   from: md => {
-    const html = (md || '').split('\n\n').map(md => marked(md, { breaks: true })).join('<p></p>\n');
+    const html = (md || '').split('\n\n').map(markdown => marked(markdown, { breaks: true })).join('<p></p>\n');
 
     return sanitizeHtml(html, {
       allowedTags: false,
@@ -62,4 +54,4 @@ module.exports = {
       }
     });
   }
-}
+};
