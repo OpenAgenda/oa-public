@@ -49,6 +49,10 @@ export default function useEventFormConfig(agenda) {
     detailedAgenda,
     config: {
       withErrors: false,
+      unloadWarning: {
+        router: true,
+        page: true
+      },
       lang: locale,
       schema: detailedAgenda.schema,
       locationRes: injectAgendaUID(res.locations, apiRoot, agenda.uid),
