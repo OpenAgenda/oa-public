@@ -84,6 +84,10 @@ describe('unit - markdown', () => {
         '_[kaore@openagenda.com](mailto:kaore@openagenda.com) voilà mon email_'
       );
     });
+
+    it('fix: unexpected conversion when handling protocol-less links', () => {
+      expect(markdown.to('<p>Chez</p><p>www.openagenda.com</p>')).toBeTruthy();
+    });
   });
 
   describe('markdown.from', () => {

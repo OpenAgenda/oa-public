@@ -8,6 +8,28 @@ const TurndownService = turndown.default || turndown;
 
 const ts = new TurndownService();
 
+function wasProtocolAdded(link, context) {
+  if (link.indexOf('http') !== 0) {
+    return false;
+  }
+
+  if (context.indexOf(link) !== -1) {
+    return false;
+  }
+
+  return context.indexOf(link.replace(/^http:\/\//, '')) !== -1;
+}
+
+function extractLinkAsInInput(link, context) {
+  const linkAsInInput = link.replace(/^mailto:/, '');
+
+  if (!wasProtocolAdded(link, context)) {
+    return linkAsInInput;
+  }
+
+  return linkAsInInput.replace(/^http:\/\//, '');
+}
+
 ts.addRule('line', {
   filter: ['p'],
   replacement: content => [content, '\n'].join('')
@@ -16,7 +38,8 @@ ts.addRule('line', {
 function convertTextLinks(markdownInput) {
   return markdownLinkExtractor(markdownInput).reduce(({ md, cursor }, link) => {
     const unescapedLink = _.unescape(link);
-    const linkAsInInput = unescapedLink.replace(/^mailto:/, '');
+
+    const linkAsInInput = extractLinkAsInInput(unescapedLink, md);
 
     const index = md.indexOf(linkAsInInput, cursor);
     const isMarkdownLink = (index > 2)
