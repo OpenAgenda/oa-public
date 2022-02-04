@@ -19,7 +19,7 @@ import post from './post';
 import actions from './formActions';
 import CountryField from './CountryField';
 import flattenTagSetLabels from './flattenTagSetLabels';
-import LocationMap from './LocationMap';
+import LocationMap from './LoadableLocationMap';
 import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers';
 import validate from './validate';

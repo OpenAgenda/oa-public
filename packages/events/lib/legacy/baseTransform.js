@@ -30,7 +30,7 @@ module.exports = (event, options = {}) => {
       uid: event.uid,
       slug: event.slug,
       image: event.image?.filename || null,
-      image_credits: event.imageCredits,
+      image_credits: event.imageCredits ?? null,
       origin_uid: event.agendaUid,
       age_min: event.age?.min || null,
       age_max: event.age?.max || null,

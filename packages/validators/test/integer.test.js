@@ -132,4 +132,10 @@ describe('integer validator', () => {
       origin: ''
     }]);
   });
+
+  it('an empty string converts to undefined', () => {
+    const validate = validators.integer();
+
+    expect(validate('')).toBeUndefined();
+  });
 });

@@ -41,6 +41,23 @@ describe('convert legacy filters', () => {
     expect(convertLegacyFilter(oaq)).toStrictEqual({ locationUid: 65918542, relative: ['current', 'upcoming'] });
   });
 
+  test('convert slug', () => {
+    const oaq = {
+      slug: 'mon-événement'
+    };
+
+    expect(convertLegacyFilter(oaq)).toStrictEqual({ slug: 'mon-événement' });
+  });
+
+  test('convert district', () => {
+    const oaq = {
+      scope: 'district',
+      what: 'centre'
+    };
+
+    expect(convertLegacyFilter(oaq)).toStrictEqual({ district: 'centre', relative: ['current', 'upcoming'] });
+  });
+
   test('convert lille tags', () => {
     const oaq = {
       tags: 'spectacle'

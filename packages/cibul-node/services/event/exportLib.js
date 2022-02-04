@@ -198,10 +198,10 @@ function cleanEvent(services, eInst, options, cb ) {
           start: toUTC(t.start),
           end: toUTC(t.end)
         })),
-        firstDate: _stringifyDate( tFirst.start ),
+        firstDate: moment.tz(tFirst.start, timezone).format('YYYY-MM-DD'),
         firstTimeStart: moment.tz( tFirst.start, timezone ).format( 'HH:mm' ),
         firstTimeEnd: moment.tz( tFirst.end, timezone ).format( 'HH:mm' ),
-        lastDate: _stringifyDate( tLast.start ),
+        lastDate: moment.tz(tLast.start, timezone).format('YYYY-MM-DD'),
         lastTimeStart: moment.tz( tLast.start, timezone ).format( 'HH:mm' ),
         lastTimeEnd: moment.tz( tLast.end, timezone ).format( 'HH:mm' )
       });
@@ -250,13 +250,6 @@ function cleanEvents( services, events, options, cb ) {
 }
 
 
-function _stringifyDate( d ) {
-
-  if ( typeof d == 'string' ) d = new Date( d );
-
-  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
-
-}
 
 function _fZ( n ) {
 

@@ -68,4 +68,5 @@ module.exports = {
   isSuperiorToOrEqual,
   isEqualTo,
   isLessThan,
+  isInferiorTo: isLessThan,
 };

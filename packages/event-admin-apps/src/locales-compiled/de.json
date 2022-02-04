@@ -929,5 +929,41 @@
       "type": 0,
       "value": "To moderate"
     }
+  ],
+  "EventAdminApp.messages.status.cancelled": [
+    {
+      "type": 0,
+      "value": "Cancelled"
+    }
+  ],
+  "EventAdminApp.messages.status.full": [
+    {
+      "type": 0,
+      "value": "Fully booked"
+    }
+  ],
+  "EventAdminApp.messages.status.movedOnline": [
+    {
+      "type": 0,
+      "value": "Moved online"
+    }
+  ],
+  "EventAdminApp.messages.status.postponed": [
+    {
+      "type": 0,
+      "value": "Postponed"
+    }
+  ],
+  "EventAdminApp.messages.status.programmed": [
+    {
+      "type": 0,
+      "value": "Programmed"
+    }
+  ],
+  "EventAdminApp.messages.status.rescheduled": [
+    {
+      "type": 0,
+      "value": "Rescheduled"
+    }
   ]
 }

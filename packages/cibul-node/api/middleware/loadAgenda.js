@@ -1,7 +1,18 @@
 'use strict';
 
 module.exports = async (req, res, next) => {
-  req.app.services.agendas.get({ uid: req.params.agendaUid }, {
+  const {
+    agendaSlug,
+    agendaUid
+  } = req.params;
+
+  const identifier = agendaUid ? {
+    uid: agendaUid
+  } : {
+    slug: agendaSlug
+  };
+
+  req.app.services.agendas.get(identifier, {
     private: null,
     internal: true
   }, (err, agenda) => {
@@ -20,4 +31,4 @@ module.exports = async (req, res, next) => {
 
     next();
   });
-}
+};

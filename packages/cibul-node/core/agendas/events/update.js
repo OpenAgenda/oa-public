@@ -3,11 +3,10 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('core/agendas/events/update');
-const { BadRequest, Forbidden } = require('@openagenda/verror');
+const { Forbidden } = require('@openagenda/verror');
 
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
-const processOEmbed = require('../utils/processOEmbed');
 
 const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
@@ -25,6 +24,7 @@ const { containsEventData } = cleanEvent;
 const { filterUnauthorized } = loadAuthorizations;
 
 const assignState = require('../utils/assignState');
+const updateEvent = require('./lib/updateEvent');
 
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
@@ -34,7 +34,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     events,
     agendaEvents,
     eventSearch,
-    oembed,
     members,
     aggregators,
     custom
@@ -116,41 +115,17 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const payload = createPayload(core.services, agenda);
 
   if (containsEventData(data)) {
-    if (clean.event.longDescription) {
-      try {
-        clean.event.links = await processOEmbed(oembed, clean.event.longDescription, { current: clean.event.links, includeEmbedlessLinks: true });
-        log('retrieved %s links', clean.event.links.length);
-      } catch (e) {
-        log('error', 'could not retrieve oembeds', e);
-      }
-    }
-
-    try {
-      payload.setItem('event', event, await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
-        context: {
-          agendaUid,
-          userUid,
-          updateSearchIndex: false
-        },
-        detailed: true,
-        access: 'internal',
-        draft,
-        private: privateOption
-      }));
-
-      log('updated event %s', event.uid);
-    } catch (e) {
-      if (e.toString() === 'ValidationError: Invalid data') {
-        log('info', 'invalid data', e);
-        throw new BadRequest({ info: e.detail }, 'invalid data');
-      }
-      log('error', 'failed to update event', {
-        agendaUid: agenda.uid,
-        eventUid,
-        error: e
-      });
-      throw e;
-    }
+    await updateEvent(core.services, {
+      clean,
+      payload,
+      draft,
+      agendaUid,
+      userUid,
+      eventUid,
+      privateOption,
+      event,
+      partial
+    });
   } else {
     payload.setItem('event', event, event);
   }
@@ -248,9 +223,13 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   const response = await payload.getResponse('event', access);
+  const compiledEvent = await payload.getCompiledEvent();
 
   try {
-    await eventSearch.update(response);
+    await eventSearch.update({
+      ...response,
+      event: compiledEvent
+    });
     log('updated search for event %s', eventUid);
   } catch (e) {
     log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
@@ -259,7 +238,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   const before = await payload.getCompiledEvent('before');
 
   await aggregators.notify('updateEvent', {
-    event: await payload.getCompiledEvent(),
+    event: compiledEvent,
     before,
     agenda,
     formSchema: payload.getFormSchema(),

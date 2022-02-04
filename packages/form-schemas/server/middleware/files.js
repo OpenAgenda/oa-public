@@ -34,12 +34,12 @@ function putInTemporary(o, req, res, next) {
     ignore: [],
     ...o
   };
-  
+
   const temporaryFolder = tmpFolder || process.env.TMP_FOLDER;
 
   if (!temporaryFolder) return next(new Error('form-schemas middleware are not initialized'));
 
-  const fileFields = (new FormSchema(req[options.schema])).getFileFields();
+  const fileFields = (new FormSchema(req[options.schema], { requireLabels: false })).getFileFields();
 
   req[options.fileFieldValues] = {};
 
@@ -54,7 +54,6 @@ function putInTemporary(o, req, res, next) {
     storage: multer.diskStorage({
       destination: temporaryFolder,
       filename: (req, file, cb) => {
-
         const field = _.first(fileFields.filter(f => f.field === file.fieldname));
 
         // should use multer file filter here
@@ -73,7 +72,7 @@ function putInTemporary(o, req, res, next) {
           path: [temporaryFolder, filename].join('/')
         };
 
-        log('stored field file in temporary folder',  field.field, fieldValue);
+        log('stored field file in temporary folder', field.field, fieldValue);
 
         req[options.fileFieldValues][field.field] = fieldValue;
 
@@ -95,8 +94,6 @@ function cleanFileValues(o, req, res, next) {
   };
 
   const fileFieldValues = req[options.fileFieldValues];
-
-  console.log(fileFieldValues);
 
   if (!_.keys(fileFieldValues).length) {
     return next();

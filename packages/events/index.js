@@ -51,7 +51,7 @@ module.exports = c => {
     fieldUtils: {
       fromItemToEntry: fromItemToEntry.bind(null, fields),
       fromEntryToItem: fromEntryToItem.bind(null, fields),
-      getFieldsByAccess: getFieldsByAccess.bind(null, fields),  
+      getFieldsByAccess: getFieldsByAccess.bind(null, fields),
     }
   };
 

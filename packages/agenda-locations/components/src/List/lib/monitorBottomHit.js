@@ -3,9 +3,14 @@
 let onHit = false;
 let monitoredElem;
 
-_addEvent(document, 'scroll', _monitor);
+if (typeof document !== 'undefined') {
+  _addEvent(document, 'scroll', _monitor);
+}
 
 module.exports = function (cb) {
+  if (typeof document === 'undefined') {
+    return;
+  }
   monitoredElem = document.getElementsByTagName('body')[0];
 
   onHit = cb;
@@ -20,7 +25,7 @@ module.exports.unregister = function () {
 };
 
 function _monitor() {
-  if (!monitoredElem || !onHit) return;
+  if (!monitoredElem || !onHit || (typeof document === 'undefined')) return;
 
   const diff = monitoredElem.offsetTop + monitoredElem.offsetHeight
     > Math.ceil(_getScrollOffsets().y + _windowInnerHeight() + 1);

@@ -157,7 +157,7 @@ function _getValidators(settings) {
     locationValidators.push(validators.pass({ field: 'tags' }));
   } else if (settings.tagSet) {
     const groupTagValidator = validators.groupTags(utils.extend({ field: 'tags' }, settings.tagSet));
-    locationValidators.push(v => groupTagValidator(v));
+    locationValidators.push(Object.assign(v => groupTagValidator(v), { field: 'tags' }));
   }
 
   return locationValidators;

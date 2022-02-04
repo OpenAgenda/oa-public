@@ -4,12 +4,16 @@ import React, { Component } from 'react';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
+import appendFormConfigurations from './utils/appendFormConfigurations';
 import extractLanguages from './utils/extractLanguages';
 import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
 import identifyLanguageChanges from './utils/identifyLanguageChanges';
 import transferMultilingualValues from './utils/transferMultilingualValues';
 import removeMultilingualValues from './utils/removeMultilingualValues';
 import schemaLanguages from './utils/schemaLanguages';
+import injectValidators from './utils/injectValidators';
+import updateLanguages from './utils/updateLanguages';
+import validators from './validators';
 
 import errorLabels from '@openagenda/labels/event/errors';
 
@@ -26,20 +30,22 @@ const eventFormComponents = {
 
 const eventSchema = require('./schema');
 
-export default class EventForm extends Component {
+class EventForm extends Component {
   constructor(props) {
     super(props);
 
-    const languages = extractLanguages(this.props.values);
+    const languages = extractLanguages(props.schema, this.props.values, {
+      defaultLanguage: props.lang
+    });
 
     const {
       schema,
       hash
     } = this.buildEventSchema(languages, props);
 
-    const values = ih(props.values, {
+    const values = ih(props.values ?? {}, {
       languages: {
-        $set: schemaLanguages.getFromSchemaAndValues(schema, props.lang, languages)
+        $set: languages //schemaLanguages.getFromSchemaAndValues(schema, props.lang, languages)
       }
     });
 
@@ -114,22 +120,30 @@ export default class EventForm extends Component {
   buildEventSchema(languages, props = null) {
     const p = props || this.props;
 
+    const schema = this.props.schema || eventSchema({
+      includeEventFields: p.includeEventFields,
+      interfaceLanguage: p.lang,
+      suggestionsRes: p.suggestionsRes,
+      referencesRes: p.referencesRes,
+      languages,
+      schemaExtensions: p.schemaExtensions,
+      access: {
+        write: p.role
+      }
+    });
+
+    appendFormConfigurations(schema, {
+      locationRes: p.locationRes,
+      tiles: p.tiles,
+      fileStore: p.fileStore
+    });
+
+    injectValidators(schema);
+
+    updateLanguages(schema, languages);
+
     return {
-      schema: eventSchema({
-        mode: p.mode,
-        includeEventFields: p.includeEventFields,
-        interfaceLanguage: p.lang,
-        suggestionsRes: p.suggestionsRes,
-        referencesRes: p.referencesRes,
-        locationRes: p.locationRes,
-        tiles: p.tiles,
-        languages,
-        fileStore: p.fileStore,
-        schemaExtensions: p.schemaExtensions,
-        access: {
-          write: p.role
-        }
-      }),
+      schema,
       hash: JSON.stringify(languages) // only language changes may trigger schema changes
     }
   }
@@ -141,7 +155,8 @@ export default class EventForm extends Component {
       onSubmitSuccess,
       classNames,
       role,
-      maxFileSize
+      maxFileSize,
+      res
     } = this.props;
 
     const {
@@ -151,7 +166,9 @@ export default class EventForm extends Component {
     } = this.state;
 
     return <FormSchemaComponent
-      unloadWarning={true}
+      res={res ? { post: res } : undefined}
+      method="post"
+      unloadWarning={{ router: true, page: true }}
       role={role}
       stateless={true}
       maxFileSize={maxFileSize}
@@ -165,7 +182,7 @@ export default class EventForm extends Component {
       onChange={this.onChange.bind(this)}
       schema={schema}
       hash={hash}
-      classNames={ih(classNames, {
+      classNames={ih(classNames ?? {}, {
         field: { $set: 'padding-v-sm form-group' }
       })}
       actionComponents={actionComponents}
@@ -179,3 +196,6 @@ export default class EventForm extends Component {
 
 }
 
+export default Object.assign(EventForm, {
+  validators
+});

@@ -256,7 +256,6 @@ describe('event-search - unit: utils', function() {
 
       assert.equal(query.date.gte instanceof Date, true);
     });
-
   });
 
 });

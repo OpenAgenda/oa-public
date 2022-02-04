@@ -21,11 +21,12 @@ module.exports = (fieldMap, options = {}) => {
 
   const decorateWith = formSchema.fields
     .filter(f => {
-      if (includeFields && !includeFields.includes(f.field)) {
-        return false;
+      if (includeFields) {
+        return includeFields.some(includeField => (includeField === 'location.tags' && !!f.legacy) || (includeField === f.field
+          && !fieldMap.some(field => field.source === f.field)));
       }
 
-      return (handledTypes.includes(f.fieldType) || f.options) && f.label;
+      return ((handledTypes.includes(f.fieldType) || f.options) && f.label) || (f.field === 'location' && !!f.legacy);
     })
     .map(f => {
       try {

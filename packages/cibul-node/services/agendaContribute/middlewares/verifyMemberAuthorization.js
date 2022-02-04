@@ -6,10 +6,17 @@ const getLabel = require('@openagenda/labels/makeLabelGetter')(
 
 module.exports = async (req, res, next) => {
   const {
-    core
+    core,
+    members: {
+      utils: {
+        compareRoles: {
+          isInferiorTo
+        }
+      }
+    }
   } = req.app.services;
 
-  if (await core.agendas(req.agenda).settings.isClosed()) {
+  if (await core.agendas(req.agenda).settings.isClosed() && isInferiorTo(req.member.role, 'moderator')) {
     return next({
       code: 403,
       message: getLabel('noAccessToClosedAgenda', req.lang)

@@ -9,6 +9,7 @@ const csv = flatExports.csv();
 
 module.exports = (req, res) => {
   csv(req.stream, {
+    agendaUid: req.agenda.uid,
     lang: req.lang,
     languages: req.languages,
     labels: {

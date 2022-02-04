@@ -2,24 +2,15 @@
 
 const _ = require('lodash');
 
-const eventValidators = {
-  registration: require( './validators/registration' ),
-  age: require( './validators/age' ),
-  accessibility: require( './validators/accessibility' ),
-  keywords: require( './validators/keywords' ),
-  timings: require('@openagenda/events/iso/build/validators/timings'),
-  location: require( './validators/location' ),
-  languages: require( './validators/languages' ),
-  references: require( './validators/references' )
-}
-
 const labels = _fillInTheBlanks(require('@openagenda/labels/event/form'));
 
-const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
+const merge = require('@openagenda/form-schemas/client/build/iso/merge');
 
-const eventReferencesField = require( './fields/references' );
+const eventReferencesField = require('./fields/references');
 
-const schemaLanguages = require( './utils/schemaLanguages' );
+const schemaLanguages = require('./utils/schemaLanguages');
+
+const injectValidators = require('./utils/injectValidators');
 
 const eventFields = require('./fields/event');
 
@@ -27,12 +18,9 @@ module.exports = (options = {}) => {
   const {
     includeEventFields,
     interfaceLanguage,
-    locationRes,
-    tiles,
     referencesRes,
     suggestionsRes,
     languages,
-    fileStore,
     schemaExtensions,
     excludeNonDataFields,
     access
@@ -46,16 +34,14 @@ module.exports = (options = {}) => {
   };
 
   const eventSchema = {
-    custom: eventValidators,
     fields: [],
     type: 'event'
   };
 
+  injectValidators(eventSchema);
+
   eventSchema.fields = eventFields({
-    labels,
-    tiles,
-    locationRes,
-    fileStore
+    labels
   });
 
   const hasExtensions = Array.isArray(schemaExtensions);

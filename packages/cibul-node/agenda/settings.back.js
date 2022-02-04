@@ -7,6 +7,7 @@ const getLabel = require( '@openagenda/labels' )( labels );
 const cmn = require( '../lib/commons-app' );
 const sessions = require( '../services/sessions' );
 const members = require( '../services/members' );
+const { produce } = require('immer');
 
 
 module.exports = app => {
@@ -44,6 +45,28 @@ module.exports = app => {
     }]),
     (req, res, next) => {
       core.agendas(req.agenda).update(req.body, {
+        includeImagePath: true,
+        private: null,
+        context: { user: req.user },
+        internal: true
+      }).then(agenda => res.json({
+        success: true,
+        agenda
+      }), next);
+    }
+  );
+
+  app.post(
+    '/:slug/admin/settings/adminevents/:version',
+    sessions.mw.loadOrRedirect(),
+    cmn.loadAgenda,
+    members.mw.loadAndAuthorize('moderator'),
+    (req, res, next) => {
+      core.agendas(req.agenda).update({
+        settings: produce(req.agenda.settings, draft => {
+          draft.lab.eventAdmin = req.params.version === 'new';
+        })
+      }, {
         includeImagePath: true,
         private: null,
         context: { user: req.user },

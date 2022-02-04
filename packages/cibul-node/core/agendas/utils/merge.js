@@ -77,7 +77,7 @@ module.exports.schemasWithEvent = function schemasWithEvent(...args) {
     includeNonDataFields
   } = schemas.pop();
   return eventFormSchema({
-    languages: true,
+    // languages: true,
     schemaExtensions: schemas,
     access: access?.read === 'internal' ? null : access,
     excludeNonDataFields: !includeNonDataFields

@@ -115,6 +115,27 @@ describe('events - functional - update', () => {
 
       assert.equal(updated.imageCredits, 'Crédits à jour');
     });
+
+    it('image credits are removed from image data when patch clears them from main field', async () => {
+      const event = await svc.create(fixtures.creditsEventCreate);
+
+      await svc.update(event.uid, {
+        imageCredits: 'updated credits'
+      }, {
+        isPatch: true
+      });
+
+      await svc.update(event.uid, {
+        imageCredits: ''
+      }, {
+        isPatch: true
+      });
+
+      assert.strictEqual(
+        await f.client('event_2').first('image').where('uid', event.uid).then(r => JSON.parse(r.image).credits),
+        null
+      );
+    });
   });
 
   describe('interfaces', () => {

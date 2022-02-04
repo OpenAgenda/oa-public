@@ -6,6 +6,12 @@
 Supprimer une branche locale: `git branch -d nomdelabranche`
 Supprimer une branche remote: `git push origin --delete nomdelabranche`
 
+Si un commit est perdu (sur une branche détachée qui n'a pas été fusionné avant qu'un nouveau checkout de la branche principale ait été faite), la commande suivante permet de le retrouver:
+
+    git fsck --lost-found
+
+https://stackoverflow.com/questions/16368605/is-there-a-tool-to-have-git-show-detached-heads-in-a-graph/16368880
+
 ## Jelastic
 
 Forcer une redirection vers https (voir la 2ème réponse): https://stackoverflow.com/questions/37370280/jelastic-nginx-http-to-https-redirect
@@ -26,9 +32,108 @@ Pour changer de version de ghost (mineur ou patch), il suffit de changer d'image
 
 ## React
 
+### Contexte
+
 Quand on est dans un container, on peut récupérer les données de contexte (agenda, user) avec un décorateur (fonction qui prend le truc suivant) provenant de react-shared: withLayoutData. ex de member-apps `Dashboard.js`: `@withLayoutData('agenda', 'member', 'role', 'user')`. Ca charge les données demandées dans les props.
 
 Quand on est dans une fonction-composant React, les infos de contexte (user, agenda...) sont accessible depuis un hook `useLayoutData` provenant de react-shared. Exemple: `const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();`
+
+### Intl
+
+Lorsque un composant d'un package est utilisé dans un autre et que dans les 2 cas les labels sont gérés par react-intl, il est nécessaire de fusionné les labels du package intégré dans ceux du package intégrant pour que les labels multilingues du package intégré soient utilisés.
+
+Ce merge doit être fait soit dans le container principale de l'app intégrante, soit dans un décorateur du storybook exploitant le composant
+
+Dans l'app:
+
+```js
+import React from 'react';
+import {
+  mergeLocales,
+  useLayoutData
+} from '@openagenda/react-shared';
+
+// locales du package intégré
+import { locales as reactFiltersLocales } from '@openagenda/react-filters';
+
+// locales du package intégrant
+import appLocales from '../locales-compiled';
+
+const locales = mergeLocales(appLocales, reactFiltersLocales);
+
+export default function MyComponent() {
+  const { lang } = useLayoutData();
+
+  return (
+    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      {/* ... */}
+    </IntlProvider>
+  );
+}
+```
+
+Si les props permettent d'ajouter ou modifier des labels il est préférable d'utiliser un hook:
+
+```js
+import React, { useMemo } from 'react';
+import {
+  mergeLocales,
+  useLayoutData
+} from '@openagenda/react-shared';
+
+// locales du package intégré
+import { locales as reactFiltersLocales } from '@openagenda/react-filters';
+
+// locales du package intégrant
+import appLocales from '../locales-compiled';
+
+export default function MyComponent({ locales: userLocales }) {
+  const { lang } = useLayoutData();
+
+  const locales = useMemo(
+    () => mergeLocales(
+      appLocales,
+      reactFiltersLocales,
+      userLocales || {}
+    ),
+    [userLocales]
+  );
+
+  return (
+    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      {/* ... */}
+    </IntlProvider>
+  );
+}
+```
+
+Exemple de decorateur de story:
+
+```js
+import React from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { useConstant } from '@openagenda/react-shared';
+import { IntlProvider } from 'react-intl';
+
+import { locales as reactFiltersLocales } from '@openagenda/react-filters';
+import appLocales from '../../src/locales-compiled';
+
+const locales = mergeLocales(appLocales, reactFiltersLocales);
+
+const lang = 'fr';
+
+import {
+  mergeLocales,
+  useLayoutData
+} from '@openagenda/react-shared';
+
+export default Story => (
+  <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <Story />
+  </IntlProvider>
+);
+```
 
 ## redis
 

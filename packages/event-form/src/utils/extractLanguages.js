@@ -1,26 +1,27 @@
 import _ from 'lodash';
 
-/**
- * derive defined languages from current form data
- */
+export default function extractLanguages(formSchema = null, values, options = {}) {
+  const {
+    defaultLanguage = 'en'
+  } = options;
 
-export default (values, defaultLang = null) => {
-  if (!_.isObject(values)) {
-    return defaultLang ? [defaultLang] : [];
-  }
+  const fields = formSchema ? formSchema.fields : null;
 
-  const languages = _.uniq([
-    'title',
-    'description',
-    'keywords',
-    'conditions'
- ].reduce((languages, field) => {
-    return _.isObject(values[field]) && !_.isArray(values[field])
-      ? languages.concat(_.keys(values[field]))
-      : languages;
-  } , []));
+  const requiredLanguages = (fields ?? []).find(f => f.field === 'languages')?.required ?? [];
 
-  if (languages.length) return languages;
+  const multilingualFields = fields ? fields.filter(f => !!f.languages).map(f => f.field) : ['title', 'description', 'longDescription', 'keywords', 'conditions'];
 
-  return defaultLang ? [defaultLang] : [];
+  const languages = multilingualFields.reduce((languages, fieldName) => {
+    const fieldValue = values?.[fieldName];
+
+    if (!fieldValue || !(fieldValue instanceof Object) || Array.isArray(fieldValue)) {
+      return languages;
+    }
+
+    return languages.concat(
+      Object.keys(fieldValue).filter(l => !languages.includes(l))
+    );
+  }, requiredLanguages);
+
+  return languages.length ? languages : [defaultLanguage];
 }

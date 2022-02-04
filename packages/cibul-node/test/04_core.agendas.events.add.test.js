@@ -55,6 +55,9 @@ describe('core - functional (server): core.agendas().events add()', () => {
 
     beforeAll(async () => {
       event = await core.agendas(17026800).events.add(19201989, {
+        title: {
+          fr: 'Nouveau titre'
+        },
         'thematiques-metropolitaines': 3,
         image_alt_text: 'Un texte obligatoire si l\'image est présente'
       }, {
@@ -62,6 +65,10 @@ describe('core - functional (server): core.agendas().events add()', () => {
           userUid: 63170203
         }
       });
+    });
+
+    it('title is edited', () => {
+      expect(event.title).toEqual({ fr: 'Nouveau titre' });
     });
 
     it('provides the added event as a response', () => {

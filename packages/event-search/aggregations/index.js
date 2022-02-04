@@ -10,6 +10,7 @@ const aggregationTypes = {
   additionalFields: require('./additionalFields'),
   additionalFieldMetrics: require('./additionalFieldMetrics'),
   cities: terms('location.city'),
+  districts: terms('location.district'),
   geohash: require('./geohash'),
   viewport: require('./viewport'),
   eventsByDateRanges: require('./eventsByDateRanges'),
