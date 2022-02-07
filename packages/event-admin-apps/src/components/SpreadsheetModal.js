@@ -24,7 +24,7 @@ export default function SpreadsheetModal({
   useEffect(() => {
     async function fetchData() {
       const { data } = await axios.get(
-        `/agendas/${agendaUid}/settings/exports`
+        `/agendas/${agendaUid}/admin/settings/exports`
       );
       setLanguages(data.languages);
       setFields(data.spreadsheetColumns);

@@ -156,7 +156,8 @@ class EventForm extends Component {
       classNames,
       role,
       maxFileSize,
-      res
+      res,
+      unloadWarning // { router, page }
     } = this.props;
 
     const {
@@ -168,7 +169,7 @@ class EventForm extends Component {
     return <FormSchemaComponent
       res={res ? { post: res } : undefined}
       method="post"
-      unloadWarning={{ router: true, page: true }}
+      unloadWarning={unloadWarning ?? true}
       role={role}
       stateless={true}
       maxFileSize={maxFileSize}

@@ -23,7 +23,7 @@ const mock = new MockAdapter(axios, {
   delayResponse: 1000,
 });
 
-mock.onGet('/agendas/123456/settings/exports').reply(200, exportSettings);
+mock.onGet('/agendas/123456/admin/settings/exports').reply(200, exportSettings);
 
 export const OpenModal = () => {
   const [, setDisplay] = useState(true);
