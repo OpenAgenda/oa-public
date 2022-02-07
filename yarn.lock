@@ -5833,7 +5833,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/react-filters": ^2.5.4
+    "@openagenda/react-filters": ^2.6.0
     "@openagenda/react-portal-ssr": ^1.0.0
     "@openagenda/react-shared": ^2.3.2
     axios: ^0.21.1
@@ -6065,7 +6065,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
-    "@openagenda/react-filters": ^2.5.4
+    "@openagenda/react-filters": ^2.6.0
     "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
     babel-loader: ^8.2.2
@@ -6608,7 +6608,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
-    "@openagenda/react-filters": ^2.5.4
+    "@openagenda/react-filters": ^2.6.0
     "@openagenda/react-share-menus": ^1.0.0
     "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
@@ -7569,7 +7569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@^2.5.4, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@^2.6.0, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -7627,6 +7627,7 @@ __metadata:
     source-map-loader: ^2.0.1
     terser-webpack-plugin: ^2.3.3
     use-debounce: ^6.0.1
+    use-local-storage-state: ^13.0.0
     webpack: ^5.53.0
     webpack-cli: ^4.8.0
     webpackbar: ^5.0.0-3
@@ -43144,6 +43145,16 @@ typescript@^4.0:
     "@types/react":
       optional: true
   checksum: f0cb3a49119e14ed46db8a946b1aa17b838b8834c8a652bde314877ede6057c55b50654a97ee802597a5839c070180195e58ea3a756b7c33db7f540642f0ddea
+  languageName: node
+  linkType: hard
+
+"use-local-storage-state@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "use-local-storage-state@npm:13.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 7ee6f98a420fd939750865b371fc2a647a08e03e696c7d0e523e8ad2dfd6242a2f87208d1eb89b24ce58090c304a09f9dae1fe025adc42e05e724e3829a94587
   languageName: node
   linkType: hard
 
