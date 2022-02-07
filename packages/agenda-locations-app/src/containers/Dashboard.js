@@ -9,7 +9,7 @@ import { useHistory, useLocation, useParams } from 'react-router';
 import qs from 'qs';
 import { defineMessages, useIntl, FormattedMessage } from 'react-intl';
 import axios from 'axios';
-import { useQueryClient } from 'react-query'
+import { useQueryClient } from 'react-query';
 
 import {
   Spinner,
@@ -28,6 +28,7 @@ import ActiveFilters from '../components/ActiveFilters';
 import IncompleteLocationsFilterDropdown from '../components/IncompleteLocationsFilterDropdown';
 import AccessModal from '../components/AccessModal';
 import RemoveModal from '../components/RemoveModal';
+import SetHeader from '../components/SetHeader';
 import * as mergeActions from '../reducers/merge';
 import * as onGoinActions from '../reducers/onGoinModal';
 
@@ -94,12 +95,22 @@ const messages = defineMessages({
     id: 'AgendaLocations.AgendaAdminLocation.search',
     defaultMessage: 'Filter list',
   },
+  information: {
+    id: 'AgendaLocations.AgendaAdminLocation.information',
+    defaultMessage: 'Information',
+  },
+  onGoing: {
+    id: 'AgendaLocations.AgendaAdminLocation.onGoing',
+    defaultMessage: 'is ongoing',
+  },
 });
 
 function Dashboard({
   agenda,
   lang = 'fr',
 }) {
+  console.log('agendaUID', agenda.uid);
+  const set = useSelector(state => state.set);
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const merge = useSelector(state => state.merge);
@@ -183,9 +194,14 @@ function Dashboard({
     });
   }, [history, search]);
 
-  const onRemoveLocation = (location, withEvents) => {
-    console.log('onRemoveLocation', location, withEvents);
-    axios.delete(res.remove, { data: { withEvents } }, (result, err) => console.log(result, err));
+  const onRemoveLocation = async (location, withEvents) => {
+    console.log('onRemoveLocation', location, withEvents, res.remove);
+    try {
+      await axios.delete(res.remove.replace(':locationUid', location.uid), { data: { withEvents } });
+    } catch (err) {
+      console.log(err);
+      return;
+    }
     setRemoveModal(false);
     dispatch(onGoinActions.initiate('delete'));
     queryClient.resetQueries('locations');
@@ -205,7 +221,7 @@ function Dashboard({
         state: nq
       });
     } else {
-      setAccessModal({ action: 'edit' });
+      setAccessModal({ action: 'edit', location });
       return false;
     }
   }, [history, page, pathname, prefix, search, settings]);
@@ -267,7 +283,9 @@ function Dashboard({
 
   return (
     <div className="agenda-admin-locations">
-      {/* setHeader #toDo*/}
+      {set ? (
+        <SetHeader set={set} res={res} />
+      ) : null}
       <div className="row list-actions">
         <div className="col col-sm-12">
           <div className="form-inline">
@@ -465,6 +483,8 @@ function Dashboard({
       {accessModal ? (
         <AccessModal
           action={accessModal.action}
+          location={accessModal.location || null}
+          settings={settings}
           close={() => setAccessModal(false)}
         />
       ) : null}
@@ -479,10 +499,10 @@ function Dashboard({
       ) : null}
       {onGoin ? (
         <Modal
-          title="INFORMATION"
+          title={intl.formatMessage(messages.information)}
           onClose={() => dispatch(onGoinActions.close())}
         >
-          {`${onGoin.name} is ongoin` /* #toDo labels */}
+          {`${onGoin.name} ${intl.formatMessage(messages.onGoing)}`}
         </Modal>
       ) : null}
     </div>

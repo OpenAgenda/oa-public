@@ -11,6 +11,10 @@ dev.use(express.json());
 dev.use(cors());
 
 dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
+  if (req.params.agendaUid === 4) {
+    res.status(500).send('Something broke!');
+    return;
+  }
   const response = getFixtures(req.params.agendaUid).locations;
   const allLocations = response.locations.map(l => (req.query.detailed ? l : _.pick(l, ['uid', 'name', 'address', 'latitude', 'longitude', 'state'])))
     .filter(l => {
@@ -39,6 +43,10 @@ dev.get('/api/agendas/:agendaUid/locations/settings', (req, res) => {
 });
 
 dev.post('/api/agendas/:agendaUid/locations/merge', (req, res) => {
+  if (req.params.agendaUid === 4) {
+    res.status(500).send('Something broke!');
+    return;
+  }
   console.log('Merge');
   res.json({
     result: { success: true }
@@ -95,6 +103,10 @@ dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
 });
 
 dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
+  if (req.params.agendaUid === 4) {
+    res.status(500).send('Something broke!');
+    return;
+  }
   console.log('create', req.body);
   res.json({
     ...req.location
@@ -102,11 +114,15 @@ dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
 });
 
 dev.delete('/api/agendas/:agendaUid/locations/:locationUid', (req, res) => {
+  console.log('this', req.params.agendaUid, parseInt(req.params.agendaUid, 10) === 4);
+  if (parseInt(req.params.agendaUid, 10) === 4) {
+    res.status(500).send('Something broke!');
+    return;
+  }
   console.log('delete', req.body);
   res.json({
     ...req.location
   });
 });
 
-// dev.listen(process.env.EXPRESS_API_PORT);
 module.exports = dev;

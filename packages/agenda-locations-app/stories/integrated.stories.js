@@ -14,6 +14,13 @@ export default {
   decorators: [AdminCanvas, Providers]
 };
 
+const set = {
+  title: 'Les lieux en Ardèche',
+  uid: 1903810,
+  agendasCount: 3,
+  locationsCount: 5
+};
+
 const res = {
   index: '/api/agendas/:agendaUid/locations?detailed=1',
   getSettings: '/api/agendas/:agendaUid/locations/settings',
@@ -221,6 +228,106 @@ export function UpdateForm() {
           }),
           {
             extraProps: fixtures(1).extraProps,
+            disableScrollToTop: true
+          }
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminLocationSet() {
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+      />
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                pageSize: 20,
+                message: 'Ca marche',
+                APIRoot: '',
+                prefix: '/:agendaSlug/admin/locations',
+                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+              },
+              res,
+              set,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations']
+            }),
+          }),
+          {
+            extraProps: fixtures(2).extraProps,
+            disableScrollToTop: true
+          }
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminExternal() {
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+      />
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                pageSize: 20,
+                message: 'Ca marche',
+                APIRoot: '',
+                prefix: '/:agendaSlug/admin/locations',
+                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+              },
+              res,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations']
+            }),
+          }),
+          {
+            extraProps: fixtures(3).extraProps,
+            disableScrollToTop: true
+          }
+        )}
+      </div>
+    </>
+  );
+}
+
+export function AdminErrors() {
+  return (
+    <>
+      <div
+        className="col-md-3 col-md-push-5 col-sm-12"
+      />
+      <div className="col-md-9 col-md-pull-3 col-sm-12 wsq">
+        {wrapApp(
+          createApp({
+            initialState: {
+              settings: {
+                pageSize: 20,
+                message: 'Ca marche',
+                APIRoot: '',
+                prefix: '/:agendaSlug/admin/locations',
+                staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+              },
+              res,
+            },
+            history: createMemoryHistory({
+              initialEntries: ['/metropole-europeenne-de-lille/admin/locations']
+            }),
+          }),
+          {
+            extraProps: fixtures(4).extraProps,
             disableScrollToTop: true
           }
         )}

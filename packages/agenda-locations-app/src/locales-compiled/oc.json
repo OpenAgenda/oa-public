@@ -17,10 +17,22 @@
       "value": "Add a location"
     }
   ],
+  "AgendaLocations.AccessModal.doOn": [
+    {
+      "type": 0,
+      "value": "This action is to be carried out on the website of"
+    }
+  ],
   "AgendaLocations.AccessModal.edit": [
     {
       "type": 0,
       "value": "Edit"
+    }
+  ],
+  "AgendaLocations.AccessModal.goTo": [
+    {
+      "type": 0,
+      "value": "Go to"
     }
   ],
   "AgendaLocations.AccessModal.info": [
@@ -33,6 +45,12 @@
     {
       "type": 0,
       "value": "Merge locations"
+    }
+  ],
+  "AgendaLocations.AccessModal.newTab": [
+    {
+      "type": 0,
+      "value": "A new tab will open in an instant."
     }
   ],
   "AgendaLocations.AccessModal.remove": [
@@ -65,6 +83,12 @@
       "value": "Add a location"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.information": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.merge": [
     {
       "type": 0,
@@ -81,6 +105,12 @@
     {
       "type": 0,
       "value": "Merge is in progress"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.onGoing": [
+    {
+      "type": 0,
+      "value": "is ongoing"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.postalCode": [
@@ -901,6 +931,12 @@
       "value": "Find"
     }
   ],
+  "AgendaLocations.LocationSelector.info": [
+    {
+      "type": 0,
+      "value": "Define the name, address and exact location of the place"
+    }
+  ],
   "AgendaLocations.LocationSelector.noLocation": [
     {
       "type": 0,
@@ -911,6 +947,12 @@
     {
       "type": 0,
       "value": "Remove"
+    }
+  ],
+  "AgendaLocations.LocationSelector.title": [
+    {
+      "type": 0,
+      "value": "Create a location"
     }
   ],
   "AgendaLocations.RemoveModal.cancel": [
@@ -1334,6 +1376,90 @@
     {
       "type": 0,
       "value": "Postal code"
+    }
+  ],
+  "AgendaLocations.setHeader.help": [
+    {
+      "type": 0,
+      "value": "Administrators of agendas using this set have access to all operations on the locations of the set: creation, update, deletion, merging. Operations can therefore impact all agendas of the set."
+    }
+  ],
+  "AgendaLocations.setHeader.setSubtitle": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Set of one location used in "
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Set of "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " locations used in "
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.setHeader.setSubtitleLink": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "one agenda"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " agendas"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "AgendaLocations.stepper.Selection": [

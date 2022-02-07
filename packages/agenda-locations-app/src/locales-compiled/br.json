@@ -17,10 +17,22 @@
       "value": "Ajouter un lieu"
     }
   ],
+  "AgendaLocations.AccessModal.doOn": [
+    {
+      "type": 0,
+      "value": "Cette action est à efféctuer sur le site de"
+    }
+  ],
   "AgendaLocations.AccessModal.edit": [
     {
       "type": 0,
       "value": "Modifier un lieu"
+    }
+  ],
+  "AgendaLocations.AccessModal.goTo": [
+    {
+      "type": 0,
+      "value": "Aller sur"
     }
   ],
   "AgendaLocations.AccessModal.info": [
@@ -33,6 +45,12 @@
     {
       "type": 0,
       "value": "Fusionner des lieux"
+    }
+  ],
+  "AgendaLocations.AccessModal.newTab": [
+    {
+      "type": 0,
+      "value": "Un nouvel onglet va s'ouvrir dans un instant."
     }
   ],
   "AgendaLocations.AccessModal.remove": [
@@ -65,6 +83,12 @@
       "value": "Ajouter un lieu"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.information": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.merge": [
     {
       "type": 0,
@@ -81,6 +105,12 @@
     {
       "type": 0,
       "value": "La fusion est en cours"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.onGoing": [
+    {
+      "type": 0,
+      "value": "is ongoing"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.postalCode": [
@@ -247,7 +277,7 @@
   "AgendaLocations.Filters.uids": [
     {
       "type": 0,
-      "value": "Locations selection"
+      "value": "Sélection de lieux"
     }
   ],
   "AgendaLocations.Filters.uncompletedLocations": [
@@ -901,6 +931,12 @@
       "value": "Chercher"
     }
   ],
+  "AgendaLocations.LocationSelector.info": [
+    {
+      "type": 0,
+      "value": "Define the name, address and exact location of the place"
+    }
+  ],
   "AgendaLocations.LocationSelector.noLocation": [
     {
       "type": 0,
@@ -911,6 +947,12 @@
     {
       "type": 0,
       "value": "Retirer"
+    }
+  ],
+  "AgendaLocations.LocationSelector.title": [
+    {
+      "type": 0,
+      "value": "Create a location"
     }
   ],
   "AgendaLocations.RemoveModal.cancel": [
@@ -1330,6 +1372,90 @@
     {
       "type": 0,
       "value": "Code postal"
+    }
+  ],
+  "AgendaLocations.setHeader.help": [
+    {
+      "type": 0,
+      "value": "Les administrateurs des agendas liés à ce jeu de lieu ont accès à toutes les opérations d'édition: ajout, suppression, fusion, mise à jour. Les opérations seront répercutées sur tous les agendas liés."
+    }
+  ],
+  "AgendaLocations.setHeader.setSubtitle": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Jeu de un lieu mutualisés entre "
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Jeu de "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " lieux mutualisés entre "
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.setHeader.setSubtitleLink": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "un agenda"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " agendas"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "AgendaLocations.stepper.Selection": [

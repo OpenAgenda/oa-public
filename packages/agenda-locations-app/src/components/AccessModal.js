@@ -8,9 +8,21 @@ const messages = defineMessages({
     id: 'AgendaLocations.AccessModal.info',
     defaultMessage: 'Information',
   },
+  doOn: {
+    id: 'AgendaLocations.AccessModal.doOn',
+    defaultMessage: 'This action is to be carried out on the website of',
+  },
   cantDo: {
     id: 'AgendaLocations.AccessModal.cantDo',
     defaultMessage: 'You do not have the rights for:',
+  },
+  newTab: {
+    id: 'AgendaLocations.AccessModal.newTab',
+    defaultMessage: 'A new tab will open in an instant.',
+  },
+  goTo: {
+    id: 'AgendaLocations.AccessModal.goTo',
+    defaultMessage: 'Go to',
   },
   closeModal: {
     id: 'AgendaLocations.AccessModal.closeModal',
@@ -34,11 +46,67 @@ const messages = defineMessages({
   },
 });
 
+const actionMap = {
+  edit: 'update',
+  create: 'create',
+  remove: 'delete',
+  merge: 'merge'
+};
+
+const isExternal = (data, settings) => settings.access[actionMap[data]].external;
+const replacer = (tpl, d) => (tpl.replace(/\{([^)]+)?\}/g, ($1, $2) => d[$2]));
+const buildActionLink = (settings, data, location) => replacer(settings.access[actionMap[data]].link, location);
+
 const AccessModal = ({
   action,
-  close
+  close,
+  settings,
+  location = null
 }) => {
   const intl = useIntl();
+  const modalType = isExternal(action, settings) ? 'external' : 'unauthorized';
+  console.log('accessModal', action, settings, modalType);
+
+  if (modalType === 'external') {
+    const hostname = settings.access[actionMap[action]].serviceLabel;
+    const link = buildActionLink(settings, action, location);
+    const timeOut = setTimeout(() => {
+      const win = window.open(link, '_blank');
+      win.focus();
+    }, 2500);
+
+    const onClose = () => {
+      if (timeOut) {
+        clearTimeout(timeOut);
+      }
+      close();
+    };
+
+    return (
+      <Modal
+        title={intl.formatMessage(messages.info)}
+        onClose={onClose}
+      >
+        <div>
+          <p className="text-center">
+            {`${intl.formatMessage(messages.doOn)} ${hostname}.`}
+          </p>
+          <p className="text-center">
+            {`${intl.formatMessage(messages.newTab)}`}
+          </p>
+          <div className="text-center">
+            <a
+              href={link}
+              className="btn btn-primary"
+              target="_blanc"
+            >
+              {`${intl.formatMessage(messages.goTo)} ${hostname}`}
+            </a>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
 
   return (
     <Modal
