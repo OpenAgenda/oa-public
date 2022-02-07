@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Prompt } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ export default function WarningPrompt(props = {}) {
     warnBeforeRouteTransition = false
   } = props;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!window || !warnBeforePageUnload) return;
     if (enabled) {
       window.addEventListener('beforeunload', preventUnload);
