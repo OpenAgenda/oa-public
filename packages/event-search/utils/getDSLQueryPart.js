@@ -204,7 +204,8 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
           '_search_description',
           '_search_keywords_text',
           '_search_full_address_text',
-       ]
+       ],
+       fuzziness: 'AUTO'
       }
     });
   }
