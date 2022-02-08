@@ -31,7 +31,8 @@ function asArray(obj) {
 }
 
 function containsEventData(data) {
-  return !!Object.keys(data ?? {}).filter(f => eventFieldNames.includes(f)).length;
+  const fields = eventFieldNames.filter(f => f !== 'languages');
+  return !!Object.keys(data ?? {}).filter(f => fields.includes(f)).length;
 }
 
 function distributeCleanData(consolidatedClean, schemaExtensions) {
@@ -91,10 +92,10 @@ function validateEvent({
   //  * agenda setting (if set) (not yet coded)
   //  * submitted language keys in languages field
   //  * default language
-  const languages = _.get(data, 'languages') || extractLanguages(event ? {
+  const languages = _.get(data, 'languages') || extractLanguages(null, event ? {
     ...event,
     ...data
-  } : data, defaultLang);
+  } : data, { defaultLanguage: defaultLang });
 
   log('processed languages: %j', languages);
 
@@ -193,8 +194,10 @@ async function cleanEvent(services, agenda, data, options = {}) {
   const locationUid = _.get(completeEventData, 'location.uid', _.get(completeEventData, 'locationUid'));
 
   const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid,
-    returnMergeTarget: true
+    uid: locationUid
+  }, {
+    returnMergeTarget: true,
+    deleted: null
   }).catch(e => {
     if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
       throw e;

@@ -1,0 +1,256 @@
+{
+  "success": true,
+  "event": {
+    "longDescription": {
+      "fr": "Nadia et Delphine racontent des histoires... Tous les mercredis hors vacances scolaires."
+    },
+    "country": {
+      "de": "Frankreich (Metropolitan)",
+      "code": "FR",
+      "en": "France (Metropolitan)",
+      "it": "Francia (continente)",
+      "fr": "France (Métropole)",
+      "es": "Francia (Metropolitana)"
+    },
+    "interetintercommunal": [
+      1
+    ],
+    "featured": false,
+    "private": 0,
+    "keywords": {
+      "fr": [
+        "lecture",
+        "enfants"
+      ]
+    },
+    "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": true
+    },
+    "dateRange": {
+      "ar": "٢٢ سبتمبر ٢٠٢١ - ٩ فبراير ٢٠٢٢, في الأربعاء",
+      "de": "22 September 2021 - 9 Februar 2022, am mittwoch",
+      "en": "22 September 2021 - 9 February 2022, on wednesdays",
+      "fr": "22 septembre 2021 - 9 février 2022, les mercredis",
+      "es": "22 September 2021 - 9 February 2022, on wednesdays"
+    },
+    "timezone": "Europe/Paris",
+    "imageCredits": "Droit réservé",
+    "originAgenda": {
+      "image": "agenda31182441.jpg?__ts=1630508782118",
+      "uid": 31182441,
+      "title": "Wattrelos Tourisme"
+    },
+    "description": {
+      "fr": "Pour les enfants de 0 à 5 ans."
+    },
+    "title": {
+      "fr": "Cric crac, voilà des histoires"
+    },
+    "onlineAccessLink": null,
+    "createdAt": "2021-09-23T08:28:28.000Z",
+    "uid": 55259940,
+    "draft": 0,
+    "timings": [
+      {
+        "begin": "2021-09-22T10:30:00+02:00",
+        "end": "2021-09-22T11:00:00+02:00"
+      },
+      {
+        "begin": "2021-09-29T10:30:00+02:00",
+        "end": "2021-09-29T11:00:00+02:00"
+      },
+      {
+        "begin": "2021-10-06T10:30:00+02:00",
+        "end": "2021-10-06T11:00:00+02:00"
+      },
+      {
+        "begin": "2021-10-13T10:30:00+02:00",
+        "end": "2021-10-13T11:00:00+02:00"
+      },
+      {
+        "begin": "2021-10-20T10:30:00+02:00",
+        "end": "2021-10-20T11:00:00+02:00"
+      },
+      {
+        "begin": "2021-10-27T10:30:00+02:00",
+        "end": "2021-10-27T11:00:00+02:00"
+      },
+      {
+        "begin": "2021-11-03T10:30:00+01:00",
+        "end": "2021-11-03T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-11-10T10:30:00+01:00",
+        "end": "2021-11-10T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-11-17T10:30:00+01:00",
+        "end": "2021-11-17T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-11-24T10:30:00+01:00",
+        "end": "2021-11-24T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-12-01T10:30:00+01:00",
+        "end": "2021-12-01T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-12-08T10:30:00+01:00",
+        "end": "2021-12-08T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-12-15T10:30:00+01:00",
+        "end": "2021-12-15T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-12-22T10:30:00+01:00",
+        "end": "2021-12-22T11:00:00+01:00"
+      },
+      {
+        "begin": "2021-12-29T10:30:00+01:00",
+        "end": "2021-12-29T11:00:00+01:00"
+      },
+      {
+        "begin": "2022-02-09T10:30:00+01:00",
+        "end": "2022-02-09T11:00:00+01:00"
+      }
+    ],
+    "links": [],
+    "state": 2,
+    "categories-metropolitaines": [
+      15
+    ],
+    "slug": "cric-crac-voila-des-histoires-5301312",
+    "updatedAt": "2021-09-23T08:28:28.000Z",
+    "addMethod": "aggregation",
+    "protocole-sanitaire-piece-jointe": {
+      "originalName": "Protocole Sanitaire covid- Matrassière logement en dur.pdf",
+      "extension": "pdf",
+      "filename": "09bdac001d1545128213dcd9f507cb63.protocole-sanitaire-piece-jointe.pdf"
+    },
+    "image": {
+      "filename": "88d82bc8439a4ae5a41e622617c9ace7.base.image.jpg",
+      "size": {
+        "width": 700,
+        "height": 996
+      },
+      "variants": [
+        {
+          "filename": "88d82bc8439a4ae5a41e622617c9ace7.full.image.jpg",
+          "size": {
+            "width": 428,
+            "height": 609
+          },
+          "type": "full"
+        },
+        {
+          "filename": "88d82bc8439a4ae5a41e622617c9ace7.thumb.image.jpg",
+          "size": {
+            "width": 200,
+            "height": 200
+          },
+          "type": "thumbnail"
+        }
+      ],
+      "base": "https://cibuldev.s3.amazonaws.com/"
+    },
+    "attendanceMode": 1,
+    "sourceAgendas": [
+      {
+        "image": "agenda52693950.jpg?__ts=1606985382981",
+        "private": 0,
+        "indexed": 1,
+        "locationSetUid": null,
+        "official": 1,
+        "description": "Retrouvez ici tous les événements organisés par les bibliothèques et médiathèques de la Métropole Européenne de Lille",
+        "title": "Le réseau des bibliothèques et médiathèques de la MEL",
+        "url": "https://asuivre.lillemetropole.fr/",
+        "_agg": "eyJ1aWQiOjUyNjkzOTUwLCJ0aXRsZSI6IkxlIHLDqXNlYXUgZGVzIGJpYmxpb3Row6hxdWVzIGV0IG3DqWRpYXRow6hxdWVzIGRlIGxhIE1FTCIsImltYWdlIjoiYWdlbmRhNTI2OTM5NTAuanBnP19fdHM9MTYwNjk4NTM4Mjk4MSJ9",
+        "uid": 52693950,
+        "createdAt": "2020-12-03T08:45:43.000Z",
+        "officializedAt": "2021-01-08T14:59:54.000Z",
+        "slug": "reseau-des-bibliotheques-et-mediatheques-de-la-mel",
+        "updatedAt": "2021-10-27T14:35:49.000Z"
+      }
+    ],
+    "label": [
+      null
+    ],
+    "creatorUid": 75058956,
+    "recurringevent": [
+      null
+    ],
+    "registration": [
+      {
+        "type": "phone",
+        "value": "03.20.81.66.38"
+      }
+    ],
+    "location": {
+      "disqualifiedDuplicates": null,
+      "access": {},
+      "city": "Wattrelos",
+      "timezone": "Europe/Paris",
+      "postalCode": "59150",
+      "latitude": 50.702307,
+      "imageCredits": null,
+      "description": {},
+      "setUid": null,
+      "uid": 97522857,
+      "createdAt": "2021-05-29T07:37:32.000Z",
+      "duplicateCandidates": [],
+      "countryCode": "FR",
+      "adminLevel5": null,
+      "links": [],
+      "state": 0,
+      "extId": null,
+      "department": "Nord",
+      "slug": "bibliotheque-municipale-centrale_6831610",
+      "email": null,
+      "longitude": 3.216032,
+      "updatedAt": "2021-07-16T22:52:46.000Z",
+      "image": null,
+      "website": null,
+      "address": "2 rue Emile Basly 59150 Wattrelos",
+      "adminLevel3": "Métropole Européenne de Lille",
+      "adminLevel1": "Hauts-de-France",
+      "adminLevel2": "Nord",
+      "mergedIn": null,
+      "_agg": "eyJ1aWQiOjk3NTIyODU3LCJuYW1lIjoiQmlibGlvdGjDqHF1ZSBNdW5pY2lwYWxlIChDZW50cmFsZSkifQ==",
+      "tags": null,
+      "insee": "59650",
+      "phone": null,
+      "district": null,
+      "name": "Bibliothèque Municipale (Centrale)",
+      "region": "Hauts-de-France"
+    },
+    "conditions": {
+      "fr": "Entrée gratuite"
+    },
+    "age": {
+      "min": 0,
+      "max": 5
+    },
+    "status": 1,
+    "lastTiming": {
+      "begin": "2022-02-09T10:30:00+01:00",
+      "end": "2022-02-09T11:00:00+01:00"
+    },
+    "nextTiming": {
+      "begin": "2022-02-09T10:30:00+01:00",
+      "end": "2022-02-09T11:00:00+01:00"
+    },
+    "illustrationurl": {
+      "filename": "402d97baf08249459eda40c1b9a57cf3.illustration.png"
+    },
+    "roubaixfr": [],
+    "category-group": 15,
+    "testimony": {},
+    "somedate": "2021-12-09T23:00:00.000Z"
+  }
+}

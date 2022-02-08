@@ -21,7 +21,7 @@ module.exports = {
   },
   "offlineAttendanceMode": {
     "fr": "Sur place",
-    "en": "Offline",
+    "en": "In situ",
     "it": "Disconnesso",
     "es": "Desconnectad",
     "de": "Offline",
@@ -39,7 +39,7 @@ module.exports = {
   },
   "mixedAttendanceMode": {
     "fr": "Mixte",
-    "en": "Mixed",
+    "en": "Both",
     "it": "Misto",
     "es": "Mezclado",
     "de": "Gemischt",

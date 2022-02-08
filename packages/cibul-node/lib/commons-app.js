@@ -21,7 +21,6 @@ const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/l
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
-const trackingScripts = require('../lib/trackingScripts');
 const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/errors' );
 const i18n = require( '../i18n/i18n.js' );
@@ -79,26 +78,8 @@ module.exports = {
   ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? fn( req, res, next ) : next(),
   ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
 
-  lang,
+  lang
 
-  addTrackingScripts
-
-};
-function addTrackingScripts(req, agenda) {
-  _.set(
-    req.baseData,
-    'bottom.scripts',
-    (req.baseData?.bottom?.scripts ?? []).concat(trackingScripts({
-      googleAnalyticsID: _.get(req, 'googleAnalyticsId', config.googleAnalyticsId),
-      matomoCloudCode: config.matomoCloudCode,
-      agenda
-    }))
-  );
-}
-
-addTrackingScripts.mw = (req, res, next) => {
-  addTrackingScripts(req);
-  next();
 };
 
 function agendaMailTo( agenda ) {
@@ -469,6 +450,10 @@ function loadBaseData( func, cssFile ) {
       // Note: bottom is before head
       req.baseData.bottom.scripts.push(`window.outdatedBrowserOptions = { language: "${req.lang}" };`);
       req.baseData.head.js.outdated = '/js/outdated.js';
+    }
+
+    if (config.matomoCloudCode) {
+      req.baseData.bottom.scripts.push(config.matomoCloudCode);
     }
 
     req.baseData.translateMode = Boolean(req.cookies.translateMode);

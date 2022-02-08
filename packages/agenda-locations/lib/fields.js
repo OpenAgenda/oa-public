@@ -302,6 +302,18 @@ module.exports = [{
   write: ['internal', 'administrator', 'moderator', 'contributor'],
   enableWith: 'image'
 }, {
+  field: 'imageRightsAreHeld',
+  optional: true,
+  db: {
+    type: 'json',
+    field: 'store.imageRightsAreHeld',
+    assign: true
+  },
+  fieldType: 'text',
+  read: ['internal', 'public'],
+  write: ['internal', 'administrator', 'moderator', 'contributor'],
+  enableWith: 'image'
+}, {
   field: 'extId',
   optional: true,
   fieldType: 'text',

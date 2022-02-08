@@ -4,10 +4,12 @@ const schema = require('@openagenda/validators/schema');
 
 const textValidator = require('@openagenda/validators/text');
 const passValidator = require('@openagenda/validators/pass');
+const numberValidator = require('@openagenda/validators/number');
 
 schema.register({
   text: textValidator,
-  pass: passValidator
+  pass: passValidator,
+  num: numberValidator
 });
 
 module.exports = schema({
@@ -45,5 +47,8 @@ module.exports = schema({
   maintainedFields: {
     type: 'text',
     list: { default: [] }
+  },
+  agendaUid: {
+    type: 'num'
   }
 });

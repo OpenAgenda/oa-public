@@ -17,6 +17,7 @@ const sessions = require( '../services/sessions' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
+const convertFormat = require('./convertFormat');
 
 const perPage = 20;
 
@@ -33,6 +34,7 @@ module.exports = app => {
     '/agendas/:uid/events.json',
     preMw,
     _checkKey( ( req, res, next ) => res.status( 400 ).json( { error: 'Provided key is invalid' } ) ),
+    convertFormat,
     cacheMw('agendas', 'params.uid', 30, [
       agendaSvc.mw.load( 'uid' ),
       cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),

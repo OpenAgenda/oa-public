@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
+module.exports = ({ labels }) => [{
   field: 'id',
   fieldType: 'integer',
   optional: false,
@@ -65,8 +65,7 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   allowURL: true,
   allowPath: true,
   imageWithSizeAndVariants: true,
-  extensions: ['jpg', 'bmp', 'png', 'jpeg'],
-  store: fileStore
+  extensions: ['jpg', 'bmp', 'png', 'jpeg']
 }, {
   field : 'imageCredits',
   fieldType : 'text',
@@ -169,13 +168,11 @@ module.exports = ({ labels, tiles, locationRes, fileStore }) => [{
   fieldType: 'location',
   label: labels?.location,
   sub: labels?.locationSub,
-  res: locationRes,
   optionalWith: {
     field: 'attendanceMode',
     value: 2
   },
-  disableChange: false,
-  tiles
+  disableChange: false
 }, {
   display: false,
   field: 'onlineAccessLink',

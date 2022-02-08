@@ -5,7 +5,6 @@ const w = require( 'when' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'google' );
-const captcha = require( './lib/captcha' );
 const genUrl = require( '../services/genUrl' );
 const config = require( '../config' );
 
@@ -62,7 +61,6 @@ module.exports = app => {
   app.post(
     '/google/signup',
     preMw,
-    captcha.socialCheck('google'),
     signup
   );
 
@@ -70,7 +68,6 @@ module.exports = app => {
     '/:agendaSlug/google/signup',
     agendas.mw.load,
     preMw,
-    captcha.socialCheck('google'),
     signup
   );
 

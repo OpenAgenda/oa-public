@@ -15,7 +15,8 @@ raw.push(knex('user').insert([
   require('./sql/users/lise.json'),
   require('./sql/users/chrissie.json'),
   require('./sql/users/helene.json'),
-  require('./sql/users/jean-benoit.json')
+  require('./sql/users/jean-benoit.json'),
+  require('./sql/users/steevie.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
@@ -24,15 +25,22 @@ raw.push(knex('api_key_set').insert([
   require('./sql/apiKeySets/chrissie.keys.json')
 ]));
 
+const albiAgenda = require('./sql/agendas/albi.json'); // uid 48353388
+
 raw.push(knex('review').insert([
   require('./sql/agendas/01.json'), // uid 1
   require('./sql/agendas/02.json'), // uid 2
-  require('./sql/agendas/albigeois.json') // uid 93399464
+  require('./sql/agendas/albigeois.json'), // uid 93399464
+  ({
+    ...albiAgenda,
+    settings: '{"tracking":{"googleAnalytics":null},"lab":{"eventAdmin":true,"status":false},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
+  })
 ]));
 
 raw.push(knex('network').insert([
   require('./sql/networks/01.json'),
-  require('./sql/networks/albigeois.json')
+  require('./sql/networks/albigeois.json'),
+  require('./sql/networks/albi.json')
 ]));
 
 raw.push(knex('form_schema').insert([{
@@ -44,6 +52,12 @@ raw.push(knex('form_schema').insert([{
 }, {
   id: 23481,
   store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.agenda.json`)
+}, {
+  id: 73,
+  store: fs.readFileSync(`${__dirname}/form-schemas/albi.network.json`)
+}, {
+  id: 10522,
+  store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`)
 }]));
 
 raw.push(knex('reviewer').insert([

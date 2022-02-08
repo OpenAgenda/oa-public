@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'facebook' );
-const captcha = require( './lib/captcha' );
 const genUrl = require( '../services/genUrl' );
 const config = require( '../config' );
 
@@ -62,7 +61,6 @@ module.exports = app => {
   app.post(
     '/facebook/signup',
     preMw,
-    captcha.socialCheck('facebook'),
     signup
   );
 
@@ -70,7 +68,6 @@ module.exports = app => {
     '/:agendaSlug/facebook/signup',
     agendas.mw.load,
     preMw,
-    captcha.socialCheck('facebook'),
     signup
   );
 

@@ -60,9 +60,11 @@ done <<<"$RELEASE_DETAILS"
 
 echo "Prepacking packages..."
 
+mkdir -p "$REPO_DIR/artifacts"
+
 NODE_ENV=production yarn workspaces foreach \
   --topological-dev --interlaced --verbose "${UPDATE_ARGUMENTS[@]}" \
-  pack --dry-run
+  pack --out "$REPO_DIR/artifacts/%s.tgz"
 
 # Commit public if needed
 if [[ -n $(git -C "$PUBLIC_DIR" status --porcelain) ]]; then

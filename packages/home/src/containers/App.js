@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -101,13 +100,11 @@ function App({ route }) {
   );
 }
 
-export default hot(
-  provideHooks({
-    inject: ({ store }) => store.inject({
-      menu: menuReducer,
-      events: eventsReducer,
-      agendas: agendasReducer,
-      modals: modalsReducer,
-    }),
-  })(App)
-);
+export default provideHooks({
+  inject: ({ store }) => store.inject({
+    menu: menuReducer,
+    events: eventsReducer,
+    agendas: agendasReducer,
+    modals: modalsReducer,
+  }),
+})(App);

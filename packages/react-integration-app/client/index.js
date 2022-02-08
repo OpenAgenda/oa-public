@@ -3,7 +3,6 @@ import '@openagenda/polyfills/dom';
 import '@openagenda/polyfills/intl';
 import '@openagenda/polyfills/intl-locales';
 
-import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient } from 'react-query';
@@ -16,8 +15,10 @@ import { loadableReady } from '@loadable/component';
 import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
   AgendaAdminDataLayout,
+  AgendaDataLayout,
   AgendaAdminFiltersLayout,
   AgendaAdminLayout,
+  AgendaLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
   MainLayout,
@@ -35,18 +36,12 @@ import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/app';
 import createMembersApp from '@openagenda/member-apps/src/app';
 import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
+import createAgendaContributeApp from '@openagenda/agenda-contribute/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import RootHelmet from '../RootHelmet';
 import Root from './Root';
-
-if (!module.hot) {
-  RHL.AppContainer.warnAboutHMRDisabled = false;
-  RHL.hot.shouldWrapWithAppContainer = false;
-}
-
-RHL.setConfig({ trackTailUpdates: false });
 
 // if (process.env.NODE_ENV === 'development') {
 //   // eslint-disable-next-line global-require
@@ -134,6 +129,11 @@ const apps = [
     'legacyEmbeds',
     createLegacyEmbedsApp,
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'agendaContribute',
+    createAgendaContributeApp,
+    [MainLayout, RequiredUser, AgendaDataLayout, AgendaLayout],
   ],
   [
     'eventAdmin',

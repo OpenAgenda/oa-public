@@ -173,16 +173,20 @@ async function corpo(cache, req, res, next) {
     events: await _getStat( 'event' )
   };
 
-  const pageScripts = [{
-    content: `window.$crisp=[];
-      window.CRISP_WEBSITE_ID=${config.crisp};
-      (function(){
-        d=document;
-        s=d.createElement("script");
-        s.src="https://client.crisp.chat/l.js";
-        s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
-      })();`
-  }];
+  const pageScripts = [];
+
+  if ((config.crisp || '').length) {
+    pageScripts.push({
+      content: `window.$crisp=[];
+        window.CRISP_WEBSITE_ID='${config.crisp}';
+        (function(){
+          d=document;
+          s=d.createElement("script");
+          s.src="https://client.crisp.chat/l.js";
+          s.async=1;d.getElementsByTagName("head")[0].appendChild(s);
+        })();`
+    });
+  }
 
   if (config.matomoCloudCode) {
     pageScripts.push({ content: config.matomoCloudCode });

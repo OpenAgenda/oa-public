@@ -1,5 +1,4 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
@@ -18,11 +17,9 @@ function App({ route }) {
   );
 }
 
-export default hot(
-  provideHooks({
-    inject: ({ store }) => store.inject({
-      modals: modalsReducer,
-      sources: sourcesReducer,
-    }),
-  })(App)
-);
+export default provideHooks({
+  inject: ({ store }) => store.inject({
+    modals: modalsReducer,
+    sources: sourcesReducer,
+  }),
+})(App);

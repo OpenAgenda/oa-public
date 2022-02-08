@@ -913,5 +913,41 @@
       "type": 0,
       "value": "À modérer"
     }
+  ],
+  "EventAdminApp.messages.status.cancelled": [
+    {
+      "type": 0,
+      "value": "Annulé"
+    }
+  ],
+  "EventAdminApp.messages.status.full": [
+    {
+      "type": 0,
+      "value": "Complet"
+    }
+  ],
+  "EventAdminApp.messages.status.movedOnline": [
+    {
+      "type": 0,
+      "value": "Déplacé en ligne"
+    }
+  ],
+  "EventAdminApp.messages.status.postponed": [
+    {
+      "type": 0,
+      "value": "Reporté"
+    }
+  ],
+  "EventAdminApp.messages.status.programmed": [
+    {
+      "type": 0,
+      "value": "Programmé"
+    }
+  ],
+  "EventAdminApp.messages.status.rescheduled": [
+    {
+      "type": 0,
+      "value": "Reprogrammé"
+    }
   ]
 }

@@ -15,7 +15,8 @@ packages/legacy
 
 Je veux marquer un premier palier en ayant une app qui s'affiche dans un storybook. J'ai donc besoin de storybook.
 
-Je créé le dossier .storybook pour y ajouter un fichier main.js `packages/legacy/embeds/.storybook/main.js`. Il contient notamment les stories qui seront détaillées dans un dossier `stories` (le créer aussi, avec un premier fichier `sandbox.story.js` pour pouvoir lancer quelque chose une fois que storybook sera installé.
+Je créé le dossier .storybook pour y ajouter un fichier main.js `packages/legacy/embeds/.st
+orybook/main.js`. Il contient notamment les stories qui seront détaillées dans un dossier `stories` (le créer aussi, avec un premier fichier `sandbox.story.js` pour pouvoir lancer quelque chose une fois que storybook sera installé.
 
 ```js
 // packages/legacy/embeds/app/stories/sandbox.stories.js
@@ -447,10 +448,6 @@ A ce stade, mon storybook affiche déjà le container temporaire. Je créé 5 fi
 
 Quelques ajouts permettent la gestion du rechargement automatique en mode développement
 
-Dans les dépendences:
-
- * react-hot-loader
-
 Dans `embeds/app/src/index.js`, l'app doit être rechargeable par une clause hot reload avant d'être rendue par la fonction.
 
 ```
@@ -480,16 +477,6 @@ if (module.hot) {
 }
 ```
 
-Dans les containers, un 'hot loader' encapsule les composant rendus. Si l'app est une app redux, les reducers doivent être également injectés (voir la référence: commit minimaliste). Ce n'est pas le cas ici:
-
-Donc dans `embeds/app/src/containers/App.js`, plutôt que d'exposer l'app, on exposer:
-
-```
-export default hot(App);
-```
-
-Idem pour tous les containers.
-
 #### build
 
 Les dépendences pour babel doivent être présentes dans le `package.json`:
@@ -504,7 +491,6 @@ Les dépendences dev:
  * @babel/core
  * @loadable/babel-plugin
  * @openagenda/babel-preset
- * babel-loader
 
 Le `.babelrc.js` doit être présent dans le package
 ```

@@ -10,6 +10,7 @@ const formatTime = require('./formatTime');
 const image = require('./image');
 const registration = require('./registration');
 const firstLastDate = require('./firstLastDate');
+const permalink = require('./permalink');
 
 const defaultMap = c => ({
   source: c.source,
@@ -36,6 +37,11 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'longDescription',
     target: getTarget('longDescription'),
     type: 'multilingual'
+  }, {
+    source: 'uid',
+    target: getTarget('permalink'),
+    type: 'permalink',
+    field: 'permalink'
   }, {
     source: 'keywords',
     target: getTarget('keywords'),
@@ -203,7 +209,7 @@ module.exports = function getDefaultFieldMap(options) {
   if (options.includeFields) {
     fields = fields.filter(field => {
       if (field.field) {
-        return options.includeFields.includes(field.field) && options.includeFields.includes(field.source);
+        return options.includeFields.includes(field.field);
       }
       return options.includeFields.includes(field.source);
     });
@@ -217,6 +223,7 @@ module.exports = function getDefaultFieldMap(options) {
     time: formatTime.bind(null, options),
     firstLastDate: firstLastDate.bind(null, options),
     image: image.bind(null),
-    registration: registration.bind(null, { source: c.source, target: c.target })
+    registration: registration.bind(null, { source: c.source, target: c.target }),
+    permalink: permalink.bind(null, options, { source: c.source, target: c.target })
   }, c.type, defaultMap)(c));
 };

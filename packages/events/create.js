@@ -10,7 +10,7 @@ const setLegacy = require('./lib/legacy/set');
 const generateFileKey = require('./lib/generateFileKey');
 const processImage = require('./lib/processImage');
 const handleInterface = require('./lib/handleInterface');
-const convertDateHoursMinutesTimings = require('./lib/convertDateHoursMinutesTimings');
+const convertDateHoursMinutesTimings = require('./utils/convertDateHoursMinutesTimings');
 const lastClean = require('./lib/lastEventClean');
 
 module.exports = async (service, data, o = {}) => {

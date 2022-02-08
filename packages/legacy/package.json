@@ -33,7 +33,6 @@
     "moment-timezone": "^0.5.31",
     "mysql": "^2.16.0",
     "react-helmet-async": "^1.0.3",
-    "react-hot-loader": "^4.12.20",
     "react-intl": "^5.12.2",
     "react-leaflet": "^3.1.0",
     "react-query": "^3.6.0",

@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { hot } from 'react-hot-loader/root';
 import _ from 'lodash';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -353,4 +352,4 @@ function getAuthorName(author) {
   return author.inbox.name;
 }
 
-export default hot(Conversation);
+export default Conversation;

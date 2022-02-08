@@ -11,6 +11,8 @@ const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields')
 const aggObjects = require('./aggregatorObjects');
 const { produce } = require('immer');
 
+const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r.type);
+
 module.exports = produce((event, options = {}) => {
   const {
     formSchema = null
@@ -88,7 +90,7 @@ module.exports = produce((event, options = {}) => {
   }
 
   if (event.originAgenda) {
-    event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image'])
+    event.originAgenda._agg = aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image', 'url', 'slug']);
   }
   if (event.sourceAgendas) {
     event.sourceAgendas.forEach(sourceAgenda => {
@@ -110,7 +112,7 @@ module.exports = produce((event, options = {}) => {
     event.member._agg = aggObjects.flatten(event.member, ['uid', 'name']);
   }
 
-  if (event.registration) {
+  if (event.registration && !registrationHasType(event.registration)) {
     event.registration = addRegistrationType(event.registration, {
       filterUnknown: true
     });

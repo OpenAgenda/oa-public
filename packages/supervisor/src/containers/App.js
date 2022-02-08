@@ -1,5 +1,4 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { IntlProvider } from 'react-intl';
 import {
   Switch, Route, Link, useRouteMatch
@@ -82,4 +81,4 @@ function App({ user }) {
   );
 }
 
-export default hot(App);
+export default App;

@@ -8,7 +8,7 @@ const validateIdentifier = require('./lib/validateIdentifier');
 const loadEvent = async (core, obj) => {
   const eventUid = obj instanceof Object ? obj.uid : obj;
 
-  if (obj instanceof Object) {
+  if ((obj instanceof Object) && obj.ownerUid && (obj.draft !== undefined)) {
     return obj;
   }
 
@@ -23,8 +23,9 @@ const loadEvent = async (core, obj) => {
   }
 
   return {
+    draft: event.draft,
     ownerUid: event.ownerUid,
-    uid: obj
+    uid: obj instanceof Object ? obj.uid : obj
   };
 };
 

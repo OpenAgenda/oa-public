@@ -33,7 +33,7 @@ describe('02 - event search - functional: location', () => {
     const { events } = await service('location').search({
     }, {}, { detailed: true });
     assert.deepEqual(
-      _.uniq(events.map(e => e.location.city)),
+      _.uniq(events.filter(e => e.location).map(e => e.location.city)),
       ['Paris', 'Lille']
     )
   });
@@ -54,10 +54,10 @@ describe('02 - event search - functional: location', () => {
       adminLevel3: 'mel'
     }, {}, {detailed: true});
 
-  assert.deepEqual(
-    _.uniq(events.map(e => e.location.adminLevel3)),
-    ['mel']
-  )
+    assert.deepEqual(
+      _.uniq(events.map(e => e.location.adminLevel3)),
+      ['mel']
+    );
   });
 
   it('adminLevel3 search on "mel"', async () => {
@@ -65,10 +65,10 @@ describe('02 - event search - functional: location', () => {
       search: 'mel'
     }, {}, {detailed: true});
 
-  assert.deepEqual(
-    _.uniq(events.map(e => e.location.adminLevel3)),
-    ['mel']
-  )
+    assert.deepEqual(
+      _.uniq(events.map(e => e.location.adminLevel3)),
+      ['mel']
+    );
   });
 
   it('adminLevel3 is a possible aggregation', async () => {
@@ -85,23 +85,23 @@ describe('02 - event search - functional: location', () => {
   it('adminLevel5 filter on "2eme"', async () => {
     const { events } = await service('location').search({
       adminLevel5: '2eme'
-    }, {}, {detailed: true});
+    }, {}, { detailed: true });
 
-  assert.deepEqual(
-    _.uniq(events.map(e => e.location.adminLevel5)),
-    ['2eme']
-  )
+    assert.deepEqual(
+      _.uniq(events.map(e => e.location.adminLevel5)),
+      ['2eme']
+    );
   });
 
   it('adminLevel5 search on "2eme"', async () => {
     const { events } = await service('location').search({
       search: '2eme'
     }, {}, {detailed: true});
-    console.events
-  assert.deepEqual(
-    _.uniq(events.map(e => e.location.adminLevel5)),
-    ["2eme"]
-  )
+    
+    assert.deepEqual(
+      _.uniq(events.map(e => e.location.adminLevel5)),
+      ['2eme']
+    );
   });
 
   it('adminLevel5 is a possible aggregation', async () => {
@@ -113,5 +113,24 @@ describe('02 - event search - functional: location', () => {
       { key: '1er', eventCount: 1 },
       { key: '2eme', eventCount: 1 }
     ]);
+  });
+
+  it('missing option to count events without cities', async () => {
+    const { aggregations } = await service('location').search({}, {}, {
+      detailed: true,
+      aggregations: [{
+        key: 'littleFurryBunny',
+        type: 'cities',
+        missing: 'N/A'
+      }]
+    });
+
+    assert.deepEqual(aggregations, {
+      littleFurryBunny: [
+        { key: 'Paris', eventCount: 3 },
+        { key: 'Lille', eventCount: 1 },
+        { key: 'N/A', eventCount: 1 }
+      ]
+    });
   });
 });

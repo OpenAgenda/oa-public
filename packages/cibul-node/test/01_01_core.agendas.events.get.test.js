@@ -250,6 +250,26 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
   });
 
+  describe('other options', () => {
+    it('useDateHoursMinutesFormat', async () => {
+      const event = await core.agendas(2).events.get(1, {
+        useDateHoursMinutesFormat: true
+      });
+
+      expect(
+        Object.keys(event.timings[0].begin)
+      ).toEqual(['date', 'hours', 'minutes']);
+    });
+
+    it('useLocationObjectFormat', async () => {
+      const event = await core.agendas(2).events.get(1, {
+        useLocationObjectFormat: true
+      });
+
+      expect(event.location).toEqual({ uid: 1 });
+    });
+  });
+
   describe('other', () => {
     it('get on event includes source paths', async () => {
       const ev = await core.agendas(2).events.get(2);

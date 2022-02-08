@@ -89,15 +89,12 @@ function AgendaItem({
             </>
           )}
           {[1, 2, 3].includes(agenda.member.role) && (
-            <a
+            <Link
+              to={`/${agenda.slug}/contribute`}
               className="btn btn-link padding-left-z padding-top-z"
-              href={(agenda.useContributeApp
-                ? res.agendas.contribute
-                : res.agendas.addEvent
-              ).replace(':slug', agenda.slug)}
             >
               {getLabel('addAnEvent')}
-            </a>
+            </Link>
           )}
           {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && (
             <a

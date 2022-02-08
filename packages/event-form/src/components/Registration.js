@@ -25,6 +25,8 @@ const iconClasses = {
   error: 'fa fa-exclamation-circle'
 };
 
+const getValue = tag => tag instanceof Object ? tag.value : tag;
+
 
 module.exports = class RegistrationComponent extends Component {
 
@@ -39,10 +41,10 @@ module.exports = class RegistrationComponent extends Component {
   }
 
   renderTag( t ) {
+    const { key, tag, onRemove, className } = t;
 
-    const { key, tag: value, onRemove, className } = t;
-
-    const type = this.getType( value );
+    const type = this.getType( tag );
+    const value = getValue( tag );
 
     return <span key={key} className={className + ( type === 'error' ? ' error' : '')}>
       <i className={iconClasses[ type ]}></i>
@@ -117,6 +119,8 @@ module.exports = class RegistrationComponent extends Component {
     const values = this.props.value || [];
 
     const errors = this.props.errors;
+
+    console.log(values);
 
     return (
       <div className="registration">

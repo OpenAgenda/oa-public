@@ -8,6 +8,7 @@ const termsFiltersMap = {
   memberUid: 'member.uid',
   originAgendaUid: 'originAgenda.uid',
   city: 'location.city',
+  district: 'location.district',
   department: 'location.department',
   region: 'location.region',
   adminLevel3: 'location.adminLevel3',

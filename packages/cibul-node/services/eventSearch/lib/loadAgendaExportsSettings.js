@@ -7,7 +7,7 @@ const memberLabels = require('@openagenda/labels/members');
 module.exports = () => (req, res) => {
   const options = {
     lang: req.lang,
-    languages: req.languages,
+    languages: req.languages?.length ? req.languages : [req.lang],
     labels: {
       ...fieldNameLabels,
       ...memberLabels

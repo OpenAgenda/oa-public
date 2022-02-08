@@ -287,36 +287,7 @@
 
       <section class="col-sm-7 col-sm-offset-1 col-xs-12">
         <div class="event-content">
-<% if ( event.category ) { %>
-          <div class="category">
-            <label><%= __( 'category' ) %></label>
-            <span><%= event.category %></span>
-          </div>
-<% } %>
-<% if ( typeof event.tagGroups !== 'undefined' ) { %>
-          <div class="tag-groups js_tag_groups">
-<% event.tagGroups.forEach( g => { %>
-          <div class="tags">
-            <label><%= g.name || __( 'tags' ) %></label>
-            <ul>
-<%- g.tags.map( t => {
-      return '<li>' + _txt.escape( t.label ) + '</li>';
-}).join( ', ' ) %>
-            </ul>
-          </div>
-<% }); %>
-          </div>
-<% } else if ( [ 'undefined', 'string' ].indexOf( typeof event.tags ) == -1 && event.tags.length ) { %>
-          <div class="tags">
-            <label><%= __( 'tags' ) %></label>
-            <ul>
-<%- event.tags.map( t => {
-      return '<li>' + _txt.escape( t.label ) + '</li>';
-}).join( ', ' ) %>
-            </ul>
-          </div>
-<% } %>
-
+          <div class="js_additional_fields_info"></div>
           <% if ( event.image ) { %>
           <div class="row">
             <div class="col-xs-12 col-print-6">
@@ -329,13 +300,6 @@
           <% } %>
           <div class="description event-content-section"><%- event.freeText %></div>
 
-          <div class="js_custom event-content-section">
-<% if ( event.custom ) { %>
-<% var custom = event.custom, labels = event.customLabels; %>
-            <% include custom.part.ejs %>
-<% } %>
-          </div>
-
 <% if ( typeof event.keywords !== 'undefined' && event.keywords.length ) { %>
           <div class="keywords">
             <span><%= event.keywords %></span>
@@ -344,8 +308,9 @@
 
         </div>
 
-
         <div class="js_references"></div>
+
+        <div class="js_additional_fields"></div>
 
 <% if (
   hasLocation &&

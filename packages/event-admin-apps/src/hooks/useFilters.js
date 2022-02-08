@@ -7,6 +7,7 @@ import { getLocaleValue } from '@openagenda/react-shared';
 import stateMessages from '../messages/states';
 import attendanceModeMessages from '../messages/attendanceModes';
 import relativeMessages from '../messages/relative';
+import statusMessages from '../messages/status';
 
 const AGGREGATION_SIZE = 2000;
 
@@ -116,6 +117,36 @@ export default function useFilters(agendaSchema) {
       {
         label: intl.formatMessage(attendanceModeMessages.mixed),
         value: 3,
+      },
+    ],
+    [intl]
+  );
+
+  const statusOptions = useMemo(
+    () => [
+      {
+        label: intl.formatMessage(statusMessages.programmed),
+        value: 1,
+      },
+      {
+        label: intl.formatMessage(statusMessages.rescheduled),
+        value: 2,
+      },
+      {
+        label: intl.formatMessage(statusMessages.movedOnline),
+        value: 3,
+      },
+      {
+        label: intl.formatMessage(statusMessages.postponed),
+        value: 4,
+      },
+      {
+        label: intl.formatMessage(statusMessages.full),
+        value: 5,
+      },
+      {
+        label: intl.formatMessage(statusMessages.cancelled),
+        value: 6,
       },
     ],
     [intl]
@@ -273,6 +304,32 @@ export default function useFilters(agendaSchema) {
           size: AGGREGATION_SIZE,
         },
       },
+      {
+        name: 'keyword',
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'keywords',
+          size: AGGREGATION_SIZE,
+        },
+      },
+      {
+        name: 'status',
+        type: 'choice',
+        options: statusOptions,
+        aggregation: {
+          type: 'status',
+        },
+      },
+      {
+        name: 'district',
+        type: 'choice',
+        options: null, // from the aggregation
+        aggregation: {
+          type: 'districts',
+          size: AGGREGATION_SIZE,
+        },
+      },
     ];
 
     const additionalFilters = agendaSchema.fields
@@ -308,6 +365,7 @@ export default function useFilters(agendaSchema) {
     relativeOptions,
     stateOptions,
     attendanceModeOptions,
+    statusOptions,
     agendaSchema.fields,
     seed,
   ]);

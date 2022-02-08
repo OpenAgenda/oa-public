@@ -2,6 +2,8 @@
 
 const moment = require('moment-timezone');
 
+const flattenTagSet = require('../utils/flattenTagSet');
+
 module.exports = (legacyFilter, sets = {}) => {
   const keys = Object.keys(legacyFilter);
 
@@ -9,15 +11,7 @@ module.exports = (legacyFilter, sets = {}) => {
 
   const convertedQuery = { relative: ['current', 'upcoming'] };
 
-  const tags = (tagSet?.groups ?? []).reduce((carry, tagGroup) => (carry.concat(tagGroup.tags.map(tag => {
-    const schemaIds = tag.schemaOptionId.split('.');
-    return {
-      ...tag,
-      schemaId: parseInt(schemaIds[0], 10),
-      optionId: parseInt(schemaIds[1], 10),
-      field: tagGroup.name
-    };
-  }))), []);
+  const tags = flattenTagSet(tagSet, formSchema);
 
   keys.map(key => {
     switch (key) {
@@ -36,6 +30,7 @@ module.exports = (legacyFilter, sets = {}) => {
         break;
       }
       case 'what':
+        if (legacyFilter.scope) break;
         convertedQuery.search = legacyFilter.what;
         break;
       case 'passed':
@@ -48,6 +43,17 @@ module.exports = (legacyFilter, sets = {}) => {
         break;
       case 'location':
         convertedQuery.locationUid = legacyFilter.location;
+        break;
+      case 'scope':
+        convertedQuery[legacyFilter.scope] = legacyFilter.what;
+        break;
+      case 'uids':
+        convertedQuery.uid = legacyFilter.uids;
+        delete convertedQuery.relative;
+        break;
+      case 'slug':
+        convertedQuery.slug = legacyFilter.slug;
+        delete convertedQuery.relative;
         break;
       case 'tags': {
         if (!tagSet && !formSchema) return;

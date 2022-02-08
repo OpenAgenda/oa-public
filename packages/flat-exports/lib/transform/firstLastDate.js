@@ -11,6 +11,7 @@ module.exports = ({ languages, includeLanguages }, { target, source, field }) =>
   return {
     source,
     target: targetLanguages.map(l => (target || source) + (languages.length > 1 ? ` - ${l.toUpperCase()}` : '')),
+    field: field === 'firstDate' ? 'firstDate' : 'lastDate',
     transform: time => {
       const firstDate = time[0];
       const lastDate = time[time.length - 1];

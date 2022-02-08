@@ -124,21 +124,11 @@ const config = {
       rule: 'rule',
       unsubscriptionLink: 'unsubscription_link'
     },
-    reCaptcha: {
-      enabled: !!prod.reCaptcha,
-      verify: prod.reCaptcha && prod.reCaptcha.verify,
-      v3: prod.reCaptcha ? {
-        key: prod.reCaptcha.v3.key,
-        secret: prod.reCaptcha.v3.secret
-      } : null,
-      v2: prod.reCaptcha ? {
-        key: prod.reCaptcha.v2.key,
-        secret: prod.reCaptcha.v2.secret
-      } : null,
-      v2Invisible: prod.reCaptcha ? {
-        key: prod.reCaptcha.v2Invisible.key,
-        secret: prod.reCaptcha.v2Invisible.secret
-      } : null
+    mtCaptcha: {
+      enabled: !!prod.mtCaptcha,
+      verifyUrl: prod.mtCaptcha?.verifyUrl,
+      siteKey: prod.mtCaptcha?.siteKey,
+      privateKey: prod.mtCaptcha?.privateKey,
     },
     auth: {
       facebook: prod.facebook && {
@@ -810,7 +800,6 @@ const config = {
       token: process.env.OA_DISCORD_TOKEN,
       channel: process.env.OA_DISCORD_CHANNEL
     },
-    crisp: process.env.CRISP_WEBSITE_ID,
     es: {
       host: process.env.OA_ELASTICSEARCH_134_DEV_HOST || 'localhost',
       port: process.env.OA_ELASTICSEARCH_134_DEV_PORT || 9200,

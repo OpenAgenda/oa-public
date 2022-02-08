@@ -169,6 +169,14 @@ describe('02 - event search - functional: Applied search', function() {
         total.should.equal(129);
       });
 
+      it('filter by district', async () => {
+        const { total } = await service('bdx').search({
+          district: 'Bordeaux Maritime'
+        }, {});
+
+        total.should.equal(26);
+      });
+
       it('filter by department', async () => {
         const { total } = await service('bdx').search({
           department: 'Gironde'
@@ -775,7 +783,9 @@ describe('02 - event search - functional: Applied search', function() {
             agenda: {
               uid: 94573624,
               title: 'Rocher de Palmer',
-              image: 'agenda94573624.jpg'
+              image: 'agenda94573624.jpg',
+              slug: "rocher-de-palmer",
+              url: 'https://lerocherdepalmer.fr/'
             }
           });
         });

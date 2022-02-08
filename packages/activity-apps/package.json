@@ -11,7 +11,7 @@
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
-    "knex": "babel-node ./node_modules/.bin/knex",
+    "knex": "babel-node $(yarn bin knex)",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build"

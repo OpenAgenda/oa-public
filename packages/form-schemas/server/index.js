@@ -48,7 +48,10 @@ module.exports = Object.assign(config => {
     internals: {
       client: c.client
     },
-    utils
+    utils,
+    middleware: {
+      files: filesMw
+    }
   };
 
   return {

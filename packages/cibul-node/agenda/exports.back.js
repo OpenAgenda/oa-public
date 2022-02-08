@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 const gaTrack = require('../lib/gaTrack.mw');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
-
+const convertFormat = require('./convertFormat');
 
 const perPage = 20;
 
@@ -45,6 +45,7 @@ module.exports = app => {
     '/agendas/:uid/admin/events.json',
     preMw,
     members.mw.authorizeAdminModOrKey(),
+    convertFormat,
     agendaSvc.mw.search(perPage, true),
     legacyEventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(true),
@@ -52,7 +53,7 @@ module.exports = app => {
     gaTrack('events', 'admin/export', 'json'),
     json
   );
-}
+};
 
 function json(req, res) {
   cmn.renderJson(req, res, {

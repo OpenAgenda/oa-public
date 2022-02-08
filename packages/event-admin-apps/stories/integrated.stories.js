@@ -34,7 +34,9 @@ export const Presentation = function Presentation() {
 
   mock.onGet('/la-gargouille/events.json').reply(200, mainData);
 
-  mock.onGet('/agendas/48959239/settings/exports').reply(200, exportSettings);
+  mock
+    .onGet('/agendas/48959239/admin/settings/exports')
+    .reply(200, exportSettings);
 
   mock
     .onPost('/:agendaSlug/events/:eventSlug/state')

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useLocation } from 'react-router';
 import { useLatest, useUpdateEffect } from 'react-use';
 import qs from 'qs';
 import {
@@ -23,7 +23,7 @@ export default function FiltersPart({
 }) {
   const apiClient = useApiClient();
   const dispatch = useDispatch();
-  const history = useHistory();
+  const location = useLocation();
 
   const stats = useSelector(state => state.stats.data);
   const loading = useSelector(state => state.stats.loading);
@@ -98,8 +98,8 @@ export default function FiltersPart({
       arrayFormat: 'brackets',
     });
 
-    if (history.location.search !== search) {
-      const baseQuery = qs.parse(history.location.search, {
+    if (location.search !== search) {
+      const baseQuery = qs.parse(location.search, {
         ignoreQueryPrefix: true,
       });
       const cleanQuery = _.pick(
@@ -119,7 +119,7 @@ export default function FiltersPart({
     agendaSchema,
     dispatch,
     filtersFormRef,
-    history.location,
+    location,
     initialQuery,
     latestQuery,
     latestStats,

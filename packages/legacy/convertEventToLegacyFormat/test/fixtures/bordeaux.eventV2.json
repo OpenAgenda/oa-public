@@ -1,0 +1,370 @@
+{
+  "longDescription": {
+    "en": "This nocturnal stroll through the park by lantern light can be summed up in a few figures: 500 luminous sculptures, made up of 8 kilometers of silk of all colors, 26 tons of metal and 25,000 LED bulbs. The whole thing, made by 40 craftsmen, is proposed by Legendary Lights in 30 thematic tableaux from November 12 to January 2, 2022.\n\nThis stroll pays tribute to the wonderful world halfway between Alice in Wonderland and the Wizard of Oz, very sweet, sparkling, with a very strange fauna and flora!\n\nAcrobatics and fire juggling according to 4 schedules/evening\n6:30 pm - 7:30 pm - 8:30 pm - 9:30 pm",
+    "fr": "Cette balade en nocturne à la lumière des lampions à travers le parc peut se résumer en quelques chiffres : **500 sculptures lumineuses**, constituées de 8 kilomètres de soie de toutes les couleurs, 26 tonnes de métal et 25 000 ampoules led. Le tout confectionné par **40 artisans**, est proposé par **Lumières légendaires** en **30 tableaux thémathiques** du 12 novembre au 2 janvier 2022.\n\nCette balade rend hommage au monde merveilleux à mi-chemiin entre celui d'Alice au Pays des Merveilles et celui du magicien d'Oz, très sucré, pétillant, avec une faune et une flore bien étranges !\n\n**Acrobaties et jongleries de feu selon 4 horaires/soir**  \n18h30 - 19h30 - 20h30 - 21h30\n\n[[https://youtu.be/p3irLdzdP4w](https://youtu.be/p3irLdzdP4w)](https://youtu.be/p3irLdzdP4w)"
+  },
+  "country": {
+    "de": "Frankreich (Metropolitan)",
+    "code": "FR",
+    "en": "France (Metropolitan)",
+    "it": "Francia (continente)",
+    "fr": "France (Métropole)",
+    "es": "Francia (Metropolitana)"
+  },
+  "featured": false,
+  "private": 0,
+  "keywords": {},
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "١٢ نوفمبر ٢٠٢١ - ٢ يناير ٢٠٢٢",
+    "de": "12 November 2021 - 2 Januar 2022",
+    "en": "12 November 2021 - 2 January 2022",
+    "fr": "12 novembre 2021 - 2 janvier 2022",
+    "es": "12 November 2021 - 2 January 2022"
+  },
+  "timezone": "Europe/Paris",
+  "originAgenda": {
+    "uid": 1108324,
+    "image": "agenda1108324.jpg",
+    "title": "Un air de Bordeaux",
+    "url": "http://www.unairdebordeaux.fr",
+    "slug": "un-air-de-bordeaux"
+  },
+  "description": {
+    "en": "500 light sculptures made by 40 craftsmen",
+    "fr": "500 sculptures lumineuses confectionnées par 40 artisans"
+  },
+  "title": {
+    "en": "The Wonderful World of Color",
+    "fr": "Le Monde merveilleux des couleurs"
+  },
+  "onlineAccessLink": null,
+  "createdAt": "2021-10-01T10:33:07.000Z",
+  "uid": 69105662,
+  "draft": 0,
+  "timings": [
+    {
+      "begin": "2021-11-12T18:00:00+01:00",
+      "end": "2021-11-12T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-13T18:00:00+01:00",
+      "end": "2021-11-13T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-14T18:00:00+01:00",
+      "end": "2021-11-14T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-16T18:00:00+01:00",
+      "end": "2021-11-16T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-17T18:00:00+01:00",
+      "end": "2021-11-17T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-18T18:00:00+01:00",
+      "end": "2021-11-18T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-19T18:00:00+01:00",
+      "end": "2021-11-19T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-20T18:00:00+01:00",
+      "end": "2021-11-20T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-21T18:00:00+01:00",
+      "end": "2021-11-21T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-23T18:00:00+01:00",
+      "end": "2021-11-23T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-24T18:00:00+01:00",
+      "end": "2021-11-24T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-25T18:00:00+01:00",
+      "end": "2021-11-25T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-26T18:00:00+01:00",
+      "end": "2021-11-26T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-27T18:00:00+01:00",
+      "end": "2021-11-27T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-28T18:00:00+01:00",
+      "end": "2021-11-28T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-11-30T18:00:00+01:00",
+      "end": "2021-11-30T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-01T18:00:00+01:00",
+      "end": "2021-12-01T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-02T18:00:00+01:00",
+      "end": "2021-12-02T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-03T18:00:00+01:00",
+      "end": "2021-12-03T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-04T18:00:00+01:00",
+      "end": "2021-12-04T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-05T18:00:00+01:00",
+      "end": "2021-12-05T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-07T18:00:00+01:00",
+      "end": "2021-12-07T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-08T18:00:00+01:00",
+      "end": "2021-12-08T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-09T18:00:00+01:00",
+      "end": "2021-12-09T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-10T18:00:00+01:00",
+      "end": "2021-12-10T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-11T18:00:00+01:00",
+      "end": "2021-12-11T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-12T18:00:00+01:00",
+      "end": "2021-12-12T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-14T18:00:00+01:00",
+      "end": "2021-12-14T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-15T18:00:00+01:00",
+      "end": "2021-12-15T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-16T18:00:00+01:00",
+      "end": "2021-12-16T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-17T18:00:00+01:00",
+      "end": "2021-12-17T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-18T18:00:00+01:00",
+      "end": "2021-12-18T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-19T18:00:00+01:00",
+      "end": "2021-12-19T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-21T18:00:00+01:00",
+      "end": "2021-12-21T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-22T18:00:00+01:00",
+      "end": "2021-12-22T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-23T18:00:00+01:00",
+      "end": "2021-12-23T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-24T18:00:00+01:00",
+      "end": "2021-12-24T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-25T18:00:00+01:00",
+      "end": "2021-12-25T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-26T18:00:00+01:00",
+      "end": "2021-12-26T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-28T18:00:00+01:00",
+      "end": "2021-12-28T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-29T18:00:00+01:00",
+      "end": "2021-12-29T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-30T18:00:00+01:00",
+      "end": "2021-12-30T22:00:00+01:00"
+    },
+    {
+      "begin": "2021-12-31T18:00:00+01:00",
+      "end": "2021-12-31T22:00:00+01:00"
+    },
+    {
+      "begin": "2022-01-01T18:00:00+01:00",
+      "end": "2022-01-01T22:00:00+01:00"
+    },
+    {
+      "begin": "2022-01-02T18:00:00+01:00",
+      "end": "2022-01-02T22:00:00+01:00"
+    }
+  ],
+  "links": [
+    {
+      "data": {
+        "author": "Lumières Légendaires",
+        "cache_age": 86400,
+        "description": "Les Lumières Légendaires sont fières de vous présenter leur toute nouvelle aventure 2021 intitulée “Le Monde Merveilleux des Couleurs” qui aura lieu à Bordeaux du 12 novembre au 2 janvier 2022.\n\nPlongez dès la tombée de la nuit dans les plus beaux parcs de France, dans un monde acidulé et pétillant, à mi-chemin entre « Alice au pays des merveilles » et le « Magicien d’Oz », entièrement illuminé. \n\nÀ travers ces lanternes géantes, comptant plus de 500 sculptures de métal monumentales habillées de soies de toutes couleurs et illuminées par des ampoules LED, vous croiserez des bonbons et confiseries géantes, des animaux hors-normes et admirerez une nature merveilleuse et fascinante. \n\nTout au long de cette promenade immersive, entre amis, en couple ou en famille, entrez par la bouche de la chenille gigantesque, prenez des photos au pied des sucettes et donuts géants, admirez les spectacles de jonglerie de feu et d’acrobaties, profitez d’un espace de restauration ludique et rapide et repartez avec un souvenir. Voyagez dans un monde hors du temps et de l’espace, dans un univers féerique et enchanteur pour vous échapper du quotidien, retrouver l’enfance et ses rêves les plus fous.\n\nAchetez vos billets dès à présent sur https://www.lumiereslegendaires.com et points de vente habituels.",
+        "type": "video",
+        "title": "Les Lumières Légendaires présentent \"Le Monde Merveilleux des Couleurs\" - Bordeaux 2021",
+        "thumbnail_url": "https://i.ytimg.com/vi/p3irLdzdP4w/maxresdefault.jpg",
+        "version": "1.0",
+        "url": "https://www.youtube.com/watch?v=p3irLdzdP4w",
+        "thumbnail_height": 720,
+        "author_url": "https://www.youtube.com/channel/UCJ8wPGPaFxUDf-zoIZ0pk8w",
+        "thumbnail_width": 1280,
+        "html": "<div style=\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;\"><iframe src=\"https://www.youtube.com/embed/p3irLdzdP4w?rel=0\" style=\"top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;\" allowfullscreen scrolling=\"no\" allow=\"accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;\"></iframe></div>",
+        "provider_name": "YouTube"
+      },
+      "link": "https://youtu.be/p3irLdzdP4w"
+    }
+  ],
+  "state": 2,
+  "categories-agenda-metropolitain": 59,
+  "slug": "le-monde-merveilleux-des-couleurs",
+  "updatedAt": "2021-10-15T08:34:37.000Z",
+  "addMethod": "aggregation",
+  "image": {
+    "filename": "c94d28410acf4cc2923d16899a4fda7b.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 1050
+    },
+    "variants": [
+      {
+        "filename": "c94d28410acf4cc2923d16899a4fda7b.full.image.jpg",
+        "size": {
+          "width": 350,
+          "height": 525
+        },
+        "type": "full"
+      },
+      {
+        "filename": "c94d28410acf4cc2923d16899a4fda7b.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "recurring": [],
+  "thematiques-bordeaux-metropole": [
+    9
+  ],
+  "creatorUid": 31335398,
+  "intermunicipal_interest": [
+    1
+  ],
+  "registration": [
+    {
+      "type": "email",
+      "value": "asso@yahoo.fr"
+    },
+    {
+      "type": "phone",
+      "value": "123456789"
+    },
+    {
+      "type": "link",
+      "value": "https://billetterie.auchan.fr/fr/manifestation/les-lumieres-legendaires-billet/idmanif/509709"
+    }
+  ],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Bordeaux",
+    "timezone": "Europe/Paris",
+    "postalCode": "33200",
+    "latitude": 44.854804,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 50251122,
+    "createdAt": "2019-02-14T17:27:28.000Z",
+    "duplicateCandidates": [
+      95334746
+    ],
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "Gironde",
+    "slug": "parc-bordelais246",
+    "email": null,
+    "longitude": -0.602403,
+    "updatedAt": "2021-07-23T04:30:17.000Z",
+    "image": null,
+    "website": null,
+    "address": "Rue du Bocage,  Bordeaux, 33000",
+    "adminLevel3": "Bordeaux Métropole",
+    "adminLevel1": "Nouvelle-Aquitaine",
+    "adminLevel2": "Gironde",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjUwMjUxMTIyLCJuYW1lIjoiUGFyYyBCb3JkZWxhaXMifQ==",
+    "tags": null,
+    "insee": "33063",
+    "phone": null,
+    "district": null,
+    "name": "Parc Bordelais",
+    "region": "Nouvelle-Aquitaine"
+  },
+  "custom_description": null,
+  "conditions": {
+    "en": "Full price 13€ / reduced 11€",
+    "fr": "Tarif plein : 13€ | Tarif réduit :11€"
+  },
+  "age": {},
+  "status": 1,
+  "lastTiming": {
+    "begin": "2022-01-02T18:00:00+01:00",
+    "end": "2022-01-02T22:00:00+01:00"
+  },
+  "nextTiming": {
+    "begin": "2021-12-09T18:00:00+01:00",
+    "end": "2021-12-09T22:00:00+01:00"
+  },
+  "member": {
+    "organizationSlug": "mediatheque",
+    "contactName": "Jean Dupont",
+    "organization": "Médiathèque",
+    "contactPosition": "Directeur",
+    "contactNumber": "0123456",
+    "email": "email@gmail.com"
+  }
+}

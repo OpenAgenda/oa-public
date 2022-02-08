@@ -1,11 +1,10 @@
 import React, {
   useCallback, useContext, useMemo, useRef
 } from 'react';
-import { hot } from 'react-hot-loader/root';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { useIsomorphicLayoutEffect } from 'react-use';
+import { useIsomorphicLayoutEffect, useLatest } from 'react-use';
 import qs from 'qs';
 import { Spinner, useModal } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
@@ -21,10 +20,11 @@ function Agendas() {
   const { getLabel, lang } = useContext(I18nContext);
 
   const history = useHistory();
+  const location = useLocation();
   const searchRef = useRef();
   const query = useMemo(
-    () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
-    [history.location.search]
+    () => qs.parse(location.search, { ignoreQueryPrefix: true }),
+    [location.search]
   );
 
   const dispatch = useDispatch();
@@ -44,17 +44,18 @@ function Agendas() {
     [query.search]
   );
 
+  const latestQuery = useLatest(query);
+
   const onAgendaSearch = useCallback(
     value => {
       history.push({
-        ...history.location,
         search: qs.stringify({
-          ...query,
+          ...latestQuery.current,
           search: value !== '' ? value : undefined,
         }),
       });
     },
-    [history, query]
+    [history, latestQuery]
   );
 
   const fieldProps = useMemo(
@@ -175,4 +176,4 @@ function Agendas() {
   );
 }
 
-export default hot(Agendas);
+export default Agendas;

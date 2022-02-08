@@ -4,6 +4,7 @@ const labels = require('@openagenda/labels/event/exportFieldNames');
 const { getFlattener } = require('../lib/transform');
 
 const event = require('./fixtures/sortir-a-boulogne-billancourt.json');
+const formSchema = require('./fixtures/formSchema.json');
 
 const simpleFormSchema = {
   fields: [{
@@ -21,6 +22,7 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     let flat;
     beforeAll(() => {
       const flatten = getFlattener({
+        agendaUid: 49692513,
         lang: 'fr',
         languages: ['fr', 'en', 'it'],
         labels
@@ -61,11 +63,14 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
     test('state is part of result', () => {
       expect(flat.Statut).toEqual('Published');
     });
+
+    test('permalink is part of result', () => {
+      expect(flat.Permalien).toEqual('https://openagenda.com/agendas/49692513/events/67651180');
+    });
   });
 
-  describe('flatten specific fields', () => {
-    let flat;
-    beforeAll(() => {
+  describe('Include only specified fields', () => {
+    test('filtered fields', () => {
       const flatten = getFlattener({
         lang: 'fr',
         languages: ['fr', 'en'],
@@ -73,11 +78,43 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         includeFields: ['title', 'uid'],
         includeLanguages: ['fr']
       });
-      flat = flatten(event);
+      const flat = flatten(event);
+      expect(Object.keys(flat)).toEqual(['Identifiant', 'Titre - FR']);
     });
 
-    test('filtered fields', () => {
-      expect(Object.keys(flat)).toEqual(['Identifiant', 'Titre - FR']);
+    test('Location sub-fields are part of the result: uid, tags, image, imageCredits, description, access, telephone', () => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr'],
+        labels,
+        formSchema,
+        includeFields: ['location.uid', 'location.tags', 'location.phone'],
+      });
+
+      const flat = flatten(event);
+
+      expect(flat).toEqual({
+        'Identifiant du lieu': 43979991,
+        'Tags du lieu': 'Lieu de spectacles, sports et loisirs',
+        'Téléphone du lieu': '014654123'
+      });
+    });
+
+    test('permaLink is correctly handled', () => {
+      const flatten = getFlattener({
+        agendaUid: 49692513,
+        lang: 'fr',
+        languages: ['fr'],
+        labels,
+        formSchema,
+        includeFields: ['permalink'],
+      });
+
+      const flat = flatten(event);
+
+      expect(flat).toEqual({
+        Permalien: 'https://openagenda.com/agendas/49692513/events/67651180'
+      });
     });
   });
 
@@ -111,6 +148,18 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
           .filter(item => ['Résumé horaires'].includes(item))
           .length
       ).toEqual(1);
+    });
+
+    test('Location tags are part of the result', () => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr'],
+        labels,
+        formSchema,
+      });
+
+      const flat = flatten(event);
+      expect(flat['Tags du lieu']).toEqual('Lieu de spectacles, sports et loisirs');
     });
 
     test('optioned additional field provides values in requested language', () => {

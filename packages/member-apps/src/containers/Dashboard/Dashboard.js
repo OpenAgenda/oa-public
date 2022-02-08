@@ -76,7 +76,7 @@ function OrderField({ action, input, title }) {
 @withLayoutData('agenda', 'member', 'role', 'user')
 @connect(
   (state, props) => {
-    const query = qs.parse(props.history.location.search, {
+    const query = qs.parse(props.location.search, {
       ignoreQueryPrefix: true,
     });
 
@@ -198,7 +198,6 @@ class Dashboard extends Component {
     };
 
     return list(agenda, newQuery).then(() => history.push({
-      ...history.location,
       search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
     }));
   };
@@ -214,7 +213,6 @@ class Dashboard extends Component {
     };
 
     return list(agenda, newQuery).then(() => history.push({
-      ...history.location,
       search: qs.stringify(newQuery, { arrayFormat: 'brackets' }),
     }));
   };
@@ -271,7 +269,6 @@ class Dashboard extends Component {
       cleanInviteResult,
       resendInvitation,
       reactReduxContext,
-      history,
       inviteError,
       agenda,
       member,
@@ -486,7 +483,6 @@ class Dashboard extends Component {
                 showModal={showModal}
                 patchRole={role => patch(agenda, m.userUid, { role })}
                 resendInvitation={resendInvitation}
-                history={history}
                 agenda={agenda}
                 i18n={i18n}
               />

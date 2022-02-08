@@ -2,16 +2,18 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import store from 'store';
-import VError from '@openagenda/verror';
+import { IntlProvider } from 'react-intl';
 
-import extendedSchema from './extendedSchema.json';
+import { locales } from '@openagenda/react-shared';
 
-const schemas = [extendedSchema];
+import { schema } from '../../test/fixtures/reed.json';
+
+console.log(schema);
+
+import EventForm from '../../src';
 
 if ( module.hot ) module.hot.accept();
 
-import EventForm from './EventForm';
-import validateFormField from '@openagenda/form-schemas/iso/validateField';
 import {
   tiles
 } from '../../testconfig';
@@ -48,22 +50,62 @@ class Main extends Component {
   }
 
   render() {
+    const values = _.get(this, 'state.values', null);
     
-    const values = _.get( this, 'state.values', null );
+    const schemaWithoutInternals = {
+      ...schema,
+      fields: schema.fields
+        .filter(field => ![].concat(field.write).includes('internal'))
+    };
 
-    return <div className="container-fluid top-margined">
-      <div className="row">
-        <div className="col-sm-4">
-          <EventForm tiles={tiles} schemaExtensions={schemas} devOnChange={this.onValuesChange.bind( this )} /> 
+    return (
+      <IntlProvider messages={locales['fr']} locale={'fr'} key={'fr'}>
+        <div className="container-fluid top-margined">
+          <div className="row">
+            <div className="col-sm-4">
+              <EventForm
+                mode="edit"
+                includeEventFields
+                role="administrator"
+                devOnChange={this.onValuesChange.bind(this)}
+                schema={schemaWithoutInternals}
+                locationRes="/locations"
+                tiles={tiles}
+                referencesRes="/references"
+                suggestionsRes="/references"
+                lang="fr"
+                classNames={{
+                  fieldsCanvas: 'padding-all-md wsq',
+                  bottomErrorsCanvas: 'error-summary padding-all-md',
+                  bottomActionsCanvas: 'padding-all-md wsq'
+                }}
+                values={{
+                  accessibility: { hi: true, sl: true },
+                  references: [45527593],
+                  /* timings: [{
+                    begin: {
+                      date: '2018-11-27',
+                      hours: 10,
+                      minutes: 10
+                    },
+                    end: {
+                      date: '2018-11-27',
+                      hours: 16,
+                      minutes: 16
+                    }
+                  }] */
+                }}
+              />
+            </div>
+            <div className="col-sm-4">
+              <pre>
+                <code>{JSON.stringify( values, null, 2 ) }</code>
+              </pre>
+            </div>
+          </div>
         </div>
-        <div className="col-sm-4">
-          <pre>
-            <code>{JSON.stringify( values, null, 2 ) }</code>
-          </pre>
-        </div>
-      </div>
-    </div>
-
+      </IntlProvider>
+    );
   }
 
 }

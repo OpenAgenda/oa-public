@@ -1,0 +1,1793 @@
+{
+    "uid": 47863189,
+    "title": "Reed Expositions France",
+    "description": "Des contacts, des contenus, des réseaux pour accélérer votre développement",
+    "slug": "reedexpo",
+    "url": "http://www.reedexpo.fr/salons/",
+    "official": 1,
+    "networkUid": null,
+    "locationSetUid": null,
+    "updatedAt": "2021-10-15T15:54:06.000Z",
+    "createdAt": "2014-08-25T08:05:43.000Z",
+    "image": "https://cibuldev.s3.amazonaws.com/agenda47863189.jpg",
+    "settings": {
+        "tracking": {
+            "googleAnalytics": null
+        },
+        "lab": {
+            "eventAdmin": false,
+            "status": false
+        },
+        "inbox": {
+            "mailto": {
+                "enabled": false,
+                "email": null,
+                "subject": null,
+                "body": null
+            }
+        },
+        "contribution": {
+            "type": 2,
+            "defaultState": 0,
+            "canPublish": [
+                "administrators",
+                "moderators"
+            ],
+            "moderateOnChangeBy": [],
+            "defaultLang": null,
+            "allowLocationCreate": true,
+            "messages": {
+                "instructions": "Lors de la saisie, attention à l'orthographe, à la cohérence du contenu, à la gestion des espaces... Utiliser au minimum les capitales.\n\nNe pas surcharger les champs même si ceux-ci ne sont pas limités en nombre de signes.\n\nLe \"nombre de visiteurs\" et la \"fréquentation\" sont deux notions distinctes que vous pouvez maintenant renseigner, pour être en conformité avec l'OJS.\n\nPenser à revenir sur votre session dès que vous avez les liens de PE...\n\nDans le champ \"lieu\" : bien vérifier avant de valider (les lieux sont présentés par défaut mais parfois avec des bugs...).\n\nN'hésitez pas à contacter le service communication (poste 50 35) pour toute question.",
+                "complete": "Pour info, il y a un temps d'attente entre la mise à jour et l'affichage sur le site. Si au bout de 24 h, vos modifications ne s'affichent toujours pas, n'hésitez pas à prendre contact avec un des membres du service communication Reed.\n\nMerci pour votre contribution !",
+                "publication": null
+            },
+            "useFields": false,
+            "authorizedIPAddresses": []
+        },
+        "translation": {
+            "enabled": false,
+            "source": "fr",
+            "service": "reverso",
+            "options": null
+        }
+    },
+    "summary": {
+        "keywords": [
+            "Paris",
+            "Villepinte",
+            "Casablanca",
+            "Chassieu",
+            "Le Bourget",
+            "Roissy Charles De Gaulle",
+            "Alger",
+            "Bonn",
+            "Cannes",
+            "Marne La Vallee",
+            "Paris",
+            "Seine-Saint-Denis",
+            "Anfa",
+            "Métropole de Lyon",
+            "Alpes-Maritimes",
+            "Bouches-du-Rhône",
+            "Hauts-de-Seine",
+            "Köln",
+            "Rhône",
+            "Seine-et-Marne",
+            "Île-de-France",
+            "Auvergne-Rhône-Alpes",
+            "Grand Casablanca",
+            "Provence-Alpes-Côte d'Azur",
+            "Alger",
+            "Nordrhein-Westfalen",
+            "industrie",
+            "transport",
+            "construction",
+            "environnement",
+            "bâtiment",
+            "sécurité",
+            "energy",
+            "security",
+            "sûreté",
+            "Logistics"
+        ],
+        "publishedEvents": {
+            "current": 0,
+            "passed": 81,
+            "upcoming": 4
+        },
+        "recentlyAddedEvents": {
+            "contribution": 0,
+            "shared": 0,
+            "aggregation": 0
+        },
+        "eventCountsByState": [
+            {
+                "key": 2,
+                "eventCount": 85
+            },
+            {
+                "key": 0,
+                "eventCount": 18
+            }
+        ],
+        "viewport": {
+            "topLeft": {
+                "latitude": 50.717957988381386,
+                "longitude": -73.9967470150441
+            },
+            "bottomRight": {
+                "latitude": 33.60536598600447,
+                "longitude": 7.280811946839094
+            }
+        }
+    },
+    "network": null,
+    "locationSet": null,
+    "schema": {
+        "custom": {},
+        "fields": [
+            {
+                "field": "periodicity",
+                "label": {
+                    "fr": "Périodicité",
+                    "en": "Periodicity"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "annual",
+                        "label": {
+                            "fr": "Annuel (une fois par an)",
+                            "en": "Annual (once a year)"
+                        },
+                        "legacyId": null
+                    },
+                    {
+                        "id": 2,
+                        "value": "biannual",
+                        "label": {
+                            "en": "Biannual (twice a year)",
+                            "fr": "Bi-Annuel (deux fois par an)"
+                        },
+                        "legacyId": null
+                    },
+                    {
+                        "id": 3,
+                        "value": "biennal",
+                        "label": {
+                            "en": "Biennal (once every two years)",
+                            "fr": "Biennal (une fois tous les 2 ans)"
+                        },
+                        "legacyId": null
+                    },
+                    {
+                        "id": 4,
+                        "value": "triennal",
+                        "label": {
+                            "en": "Triennal (once every three years)",
+                            "fr": "Triennal (une fois tous les 3 ans)"
+                        },
+                        "legacyId": null
+                    },
+                    {
+                        "id": 5,
+                        "value": "quinquennal",
+                        "label": {
+                            "en": "Quinquennal (once every five years)",
+                            "fr": "Quinquennal (une fois tous les 5 ans)"
+                        },
+                        "legacyId": null
+                    }
+                ],
+                "fieldType": "radio",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "visitortypes",
+                "label": {
+                    "fr": "Type de visiteurs",
+                    "en": "Type of visitors"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "options": [
+                    {
+                        "id": 6,
+                        "value": "opentopublic",
+                        "label": {
+                            "fr": "Ouvert au public",
+                            "en": "Open to the public"
+                        },
+                        "legacyId": null
+                    },
+                    {
+                        "id": 7,
+                        "value": "professionalsonly",
+                        "label": {
+                            "fr": "Réservé aux professionnels",
+                            "en": "Professionals only"
+                        },
+                        "legacyId": null
+                    },
+                    {
+                        "id": 8,
+                        "value": "mixed",
+                        "label": {
+                            "fr": "Mixte",
+                            "en": "Mixed"
+                        },
+                        "legacyId": null
+                    }
+                ],
+                "fieldType": "radio",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "year",
+                "label": {
+                    "fr": "Edition",
+                    "en": "Edition"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "integer",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "siteurl",
+                "label": {
+                    "fr": "Url du site web",
+                    "en": "Website url"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "organizeremail",
+                "label": {
+                    "fr": "Email de l’organisateur (info@ du salon)",
+                    "en": "Email of the organizer (info@ of the exhibition)"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "salesemail",
+                "label": {
+                    "fr": "Email contact commercial",
+                    "en": "Email of the Sales Service"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "nomenclature",
+                "label": {
+                    "fr": "Produits et services",
+                    "en": "Products and services"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 3000,
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "fieldType": "textarea",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "visitorprofiles",
+                "label": {
+                    "fr": "Profils des visiteurs",
+                    "en": "Visitor profiles"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 1000,
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "fieldType": "textarea",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "ojs",
+                "label": {
+                    "fr": "Chiffres certifiés OJS",
+                    "en": "OJS-certified numbers"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 9,
+                        "value": "true",
+                        "label": {
+                            "fr": "Case à cocher si chiffres certifiés OJS",
+                            "en": "OJS-certified numbers"
+                        },
+                        "legacyId": null
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "totalnumberofvisitors",
+                "label": {
+                    "fr": "N-1 - Nombre total de visiteurs",
+                    "en": "N-1 - Total number of visitors"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "integer",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "brandcount",
+                "label": {
+                    "fr": "Nombre de marques (Session N-1)",
+                    "en": "Brand count (Session N-1)"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "integer",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "attendance",
+                "label": {
+                    "fr": "Fréquentation  (Session N-1)",
+                    "en": "Attendance  (Session N-1)"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "integer",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "totalnumberexhibitors",
+                "label": {
+                    "fr": "N-1 - Nombre total d'exposants",
+                    "en": "N-1 - Total number of exhibitors"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "integer",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "partner",
+                "label": {
+                    "fr": "Syndicat/Fédération propriétaire du salon",
+                    "en": "Syndicate/Federation exhibition owner"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "partnerurl",
+                "label": {
+                    "fr": "Site web du Syndicat/Fédération propriétaire du salon",
+                    "en": "Website of the Syndicate/Federation exhibition owner"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "organizername",
+                "label": {
+                    "fr": "Nom de la société organisatrice",
+                    "en": "Name of the organizing company"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 200,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "organizerurl",
+                "label": {
+                    "fr": "Url de l'organisateur",
+                    "en": "Url of the organizer"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "facebookurl",
+                "label": {
+                    "fr": "Lien page Facebook",
+                    "en": "Facebook page link"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "twitterurl",
+                "label": {
+                    "fr": "Lien compte Twitter",
+                    "en": "Twitter account link"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "flickrurl",
+                "label": {
+                    "fr": "Galerie Flickr",
+                    "en": "Flickr Gallery"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "instagramurl",
+                "label": {
+                    "fr": "Instagram",
+                    "en": "Instagram"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "pinteresturl",
+                "label": {
+                    "fr": "Pinterest",
+                    "en": "Pinterest"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "youtubeurl",
+                "label": {
+                    "fr": "Youtube",
+                    "en": "Youtube"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "linkedinurl",
+                "label": {
+                    "fr": "LinkedIn",
+                    "en": "LinkedIn"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": 300,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "testimony",
+                "label": {
+                    "fr": "Témoignage",
+                    "en": "Testimony"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": {
+                    "fr": "Merci d'ajouter du texte et non des liens!",
+                    "en": "Thank you for adding text rather than links!"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "fieldType": "textarea",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "imagetestimony",
+                "label": {
+                    "fr": "Url image témoignages",
+                    "en": "Url of image of testimonies"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "authortestimony",
+                "label": {
+                    "fr": "Auteur du témoignage",
+                    "en": "Author of the testimony"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "illustrationurl",
+                "label": {
+                    "fr": "Photo d'illustration",
+                    "en": "Illustration photo"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": {
+                    "fr": "Collez un lien pointant vers l'illustration",
+                    "en": "Paste an url pointing to the illustration"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "fieldType": "text",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "illustration",
+                "label": {
+                    "fr": "Photo d'illustration",
+                    "en": "Partner illustration"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": {
+                    "fr": "Chargez l'illustration utilisée sur le champ précédent",
+                    "en": "Load the image used in the previous field"
+                },
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "extensions": [
+                    "jpg",
+                    "bmp",
+                    "png"
+                ],
+                "store": {
+                    "type": "s3",
+                    "bucket": "cibul"
+                },
+                "fieldType": "image",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "category-group",
+                "label": {
+                    "fr": "Tags"
+                },
+                "help": null,
+                "helpLink": null,
+                "default": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "categories",
+                "enableWith": null,
+                "related": [],
+                "options": [
+                    {
+                        "id": 10,
+                        "value": "art",
+                        "label": {
+                            "fr": "Art"
+                        }
+                    },
+                    {
+                        "id": 11,
+                        "value": "audiovisueldivertissement",
+                        "label": {
+                            "fr": "Audiovisuel/Divertissement"
+                        }
+                    },
+                    {
+                        "id": 12,
+                        "value": "batimentconstruction",
+                        "label": {
+                            "fr": "Bâtiment/Construction"
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "value": "bijouterie",
+                        "label": {
+                            "fr": "Bijouterie"
+                        }
+                    },
+                    {
+                        "id": 14,
+                        "value": "edition",
+                        "label": {
+                            "fr": "Edition"
+                        }
+                    },
+                    {
+                        "id": 15,
+                        "value": "energies",
+                        "label": {
+                            "fr": "Energies"
+                        }
+                    },
+                    {
+                        "id": 16,
+                        "value": "environnement",
+                        "label": {
+                            "fr": "Environnement"
+                        }
+                    },
+                    {
+                        "id": 17,
+                        "value": "franchise",
+                        "label": {
+                            "fr": "Franchise"
+                        }
+                    },
+                    {
+                        "id": 18,
+                        "value": "hotellerierestauration",
+                        "label": {
+                            "fr": "Hôtellerie/Restauration"
+                        }
+                    },
+                    {
+                        "id": 19,
+                        "value": "impressioncommunication-visuelle",
+                        "label": {
+                            "fr": "Impression/Communication visuelle"
+                        }
+                    },
+                    {
+                        "id": 20,
+                        "value": "ingenierieproductiontransformation",
+                        "label": {
+                            "fr": "Ingénierie/Production/Transformation"
+                        }
+                    },
+                    {
+                        "id": 21,
+                        "value": "maisondecoration",
+                        "label": {
+                            "fr": "Maison/Décoration"
+                        }
+                    },
+                    {
+                        "id": 22,
+                        "value": "marketingservices",
+                        "label": {
+                            "fr": "Marketing/Services"
+                        }
+                    },
+                    {
+                        "id": 23,
+                        "value": "nouvelles-technologies",
+                        "label": {
+                            "fr": "Nouvelles technologies"
+                        }
+                    },
+                    {
+                        "id": 24,
+                        "value": "services",
+                        "label": {
+                            "fr": "Services"
+                        }
+                    },
+                    {
+                        "id": 25,
+                        "value": "sportloisirs",
+                        "label": {
+                            "fr": "Sport/Loisirs"
+                        }
+                    },
+                    {
+                        "id": 26,
+                        "value": "sante",
+                        "label": {
+                            "fr": "Santé"
+                        }
+                    },
+                    {
+                        "id": 27,
+                        "value": "securitesurete",
+                        "label": {
+                            "fr": "Sécurité/Sûreté"
+                        }
+                    },
+                    {
+                        "id": 28,
+                        "value": "transportdistribution",
+                        "label": {
+                            "fr": "Transport/Distribution"
+                        }
+                    },
+                    {
+                        "id": 29,
+                        "value": "tourisme",
+                        "label": {
+                            "fr": "Tourisme"
+                        }
+                    },
+                    {
+                        "id": 30,
+                        "value": "divers",
+                        "label": {
+                            "fr": "Divers"
+                        }
+                    }
+                ],
+                "fieldType": "radio",
+                "schemaId": 981,
+                "schemaType": "agenda"
+            },
+            {
+                "field": "languages",
+                "fieldType": "languages",
+                "label": {
+                    "fr": "Langues de saisie",
+                    "en": "Input languages",
+                    "it": "Scegli una lingua",
+                    "de": "Wählen Sie eine Sprache",
+                    "es": "idiomas de entrada",
+                    "br": "Choazit ur yezh",
+                    "io": "crwdns14336:0crwdne14336:0"
+                },
+                "schemaId": null,
+                "schemaType": "event",
+                "required": [
+                    "fr",
+                    "en"
+                ]
+            },
+            {
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "field": "title",
+                "fieldType": "text",
+                "optional": false,
+                "max": 140,
+                "label": {
+                    "fr": "Titre",
+                    "en": "Title",
+                    "it": "Titolo",
+                    "de": "Titel",
+                    "es": "título",
+                    "br": "Titl",
+                    "io": "crwdns14284:0crwdne14284:0"
+                },
+                "placeholder": {
+                    "fr": "Le titre de votre événement",
+                    "en": "Title of your event",
+                    "it": "Il titolo del tuo evento",
+                    "de": "Titel Ihrer Veranstaltung",
+                    "es": "El título de su evento",
+                    "br": "Titl ho tarvoud",
+                    "io": "crwdns14288:0crwdne14288:0"
+                },
+                "purpose": {
+                    "fr": "Titre de l'événement",
+                    "en": "Title of the event",
+                    "es": "Nombre del evento",
+                    "br": "Titl an darvoud",
+                    "io": "crwdns14286:0crwdne14286:0"
+                },
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "field": "description",
+                "fieldType": "text",
+                "optional": false,
+                "max": 200,
+                "label": {
+                    "fr": "Description courte",
+                    "en": "Short description",
+                    "it": "Breve descrizione",
+                    "de": "Kurzbeschreibung",
+                    "es": "Descripción corta",
+                    "br": "Deskrivadur berr",
+                    "io": "crwdns14290:0crwdne14290:0"
+                },
+                "purpose": {
+                    "fr": "Description pour les affichages réduits ou liste",
+                    "en": "Description for short or list displays",
+                    "es": "Descripción de las pequeñas pantallas o lista",
+                    "br": "Deskrivadur evit an diskweloù berr pe listenn",
+                    "io": "crwdns14292:0crwdne14292:0"
+                },
+                "placeholder": {
+                    "fr": "Une courte description de votre événement",
+                    "en": "A short description of your event",
+                    "it": "Una breve descrizione del vostro evento",
+                    "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
+                    "es": "Una breve descripción de su evento",
+                    "br": "Un deskrivadur berr eus ho tarvoud",
+                    "io": "crwdns14294:0crwdne14294:0"
+                },
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "field": "keywords",
+                "fieldType": "keywords",
+                "optional": true,
+                "max": 255,
+                "label": {
+                    "fr": "Mots clés",
+                    "en": "Keywords",
+                    "it": "Parole Chiave",
+                    "de": "Schlüsselwörter",
+                    "es": "Palabras llave",
+                    "br": "Gerioù-alc'hwez",
+                    "io": "crwdns14306:0crwdne14306:0"
+                },
+                "placeholder": {
+                    "fr": "Séparez les mots clés par des tabulations ou des virgules",
+                    "en": "Separate each keyword with tabs or commas",
+                    "it": "Parole chiave separate con schede o virgole",
+                    "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
+                    "es": "palabras llave separadas por comas o fichas",
+                    "br": "Dispartiit ar gerioù-alc'hwez gant arouezennoù taolennata pe virgulennoù",
+                    "io": "crwdns14308:0crwdne14308:0"
+                },
+                "sub": {
+                    "fr": "Les mots clés sont utiles pour les fonctions de recherche",
+                    "en": "Keywords are useful for search features",
+                    "it": "Le parole chiave sono utili per le funzioni di ricerca",
+                    "de": "Keywords sind nützlich für Suchfunktionen.",
+                    "es": "Las palabras llave son útiles para las funciones de búsqueda",
+                    "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
+                    "io": "crwdns14310:0crwdne14310:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "field": "longDescription",
+                "fieldType": "markdown",
+                "label": {
+                    "fr": "Description longue",
+                    "en": "Long description",
+                    "it": "Descrizione lunga",
+                    "de": "Lange Beschreibung",
+                    "es": "Descripción larga",
+                    "br": "Deskrivadur hir",
+                    "io": "crwdns14302:0crwdne14302:0"
+                },
+                "max": 10000,
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "placeholder": {
+                    "fr": "Saisissez une description détaillée de votre événement.",
+                    "en": "Type in a detailed description of your event.",
+                    "it": "Inserisci una descrizione dettagliata del tuo evento.",
+                    "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
+                    "es": "Introduzca una descripción detallada de su evento.",
+                    "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud.",
+                    "io": "crwdns14304:0crwdne14304:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "languages": [
+                    "fr",
+                    "en"
+                ],
+                "field": "conditions",
+                "fieldType": "text",
+                "label": {
+                    "fr": "Conditions de participation, tarifs",
+                    "en": "Attendence conditions, pricing",
+                    "it": "Condizioni di partecipazione, prezzi",
+                    "de": "Teilnahmebedingungen, Preisgestaltung",
+                    "es": "Condiciones de las tasas de participación",
+                    "br": "Divizoù evit kemer perzh, prizioù",
+                    "io": "crwdns14312:0crwdne14312:0"
+                },
+                "max": 255,
+                "placeholder": {
+                    "fr": "Entrée libre, sur inscription, autre...",
+                    "en": "Free access, registration required, other...",
+                    "it": "Ingresso libero, su registrazione, altro.....",
+                    "de": "Freier Zugang, Registrierung erforderlich, andere.....",
+                    "es": "Entrada gratuita para los suscriptores, otra ...",
+                    "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
+                    "io": "crwdns14314:0crwdne14314:0"
+                },
+                "sub": {
+                    "fr": "",
+                    "en": "",
+                    "de": "",
+                    "br": ""
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "registration",
+                "fieldType": "registration",
+                "optional": true,
+                "label": {
+                    "fr": "Outils d’inscription (Pré-enregistrement)",
+                    "en": "Registration tools"
+                },
+                "info": {
+                    "fr": "Liens, emails ou numéros de téléphone",
+                    "en": "Links, emails or phone numbers",
+                    "it": "Link, e-mail o numeri di telefono",
+                    "de": "Links, E-Mails oder Telefonnummern",
+                    "es": "Enlaces, números de teléfono o correo electrónico",
+                    "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
+                    "io": "crwdns14320:0crwdne14320:0"
+                },
+                "sub": {
+                    "fr": "Séparez les items par des tabulations ou des virgules",
+                    "en": "Separate each item with tabs or commas",
+                    "it": "Separare le voci per tabulazione o virgole",
+                    "de": "Trenne jedes Element mit Tabs oder Kommas.",
+                    "es": "artículos por separado con tabulaciones o comas",
+                    "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
+                    "io": "crwdns14318:0crwdne14318:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "accessibility",
+                "fieldType": "accessibility",
+                "optional": true,
+                "label": {
+                    "fr": "Accessibilité particulière",
+                    "en": "Accessibility conditions",
+                    "it": "Accessibilità speciale",
+                    "de": "Bedingungen für die Zugänglichkeit",
+                    "es": "accesibilidad especial",
+                    "br": "Monedusted",
+                    "io": "crwdns14322:0crwdne14322:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "age",
+                "fieldType": "age",
+                "optional": true,
+                "label": {
+                    "fr": "Age du public ciblé",
+                    "en": "Targeted public age",
+                    "it": "Età del pubblico di riferimento",
+                    "de": "Gezieltes öffentliches Alter",
+                    "es": "Edad del objetivo",
+                    "br": "Oad an dud a glasker tizhout",
+                    "io": "crwdns14326:0crwdne14326:0"
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "display": false,
+                "field": "attendanceMode",
+                "fieldType": "radio",
+                "label": {
+                    "fr": "Mode de participation",
+                    "en": "Attendance mode",
+                    "it": "Modalità di partecipazione",
+                    "es": "Modo de asistencia",
+                    "de": "Anwesenheitsmodus",
+                    "br": "Doare perzhiañ",
+                    "io": "crwdns14264:0crwdne14264:0"
+                },
+                "optional": false,
+                "default": 1,
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "offline",
+                        "label": {
+                            "fr": "Sur place",
+                            "en": "Offline",
+                            "it": "Disconnesso",
+                            "es": "Desconnectad",
+                            "de": "Offline",
+                            "br": "War al lec’h",
+                            "io": "crwdns14266:0crwdne14266:0"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "value": "online",
+                        "label": {
+                            "fr": "En ligne",
+                            "en": "Online",
+                            "it": "In linea",
+                            "es": "En linea",
+                            "de": "Online",
+                            "br": "Enlinenn",
+                            "io": "crwdns14268:0crwdne14268:0"
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "value": "mixed",
+                        "label": {
+                            "fr": "Mixte",
+                            "en": "Mixed",
+                            "it": "Misto",
+                            "es": "Mezclado",
+                            "de": "Gemischt",
+                            "br": "Kemmesk",
+                            "io": "crwdns14270:0crwdne14270:0"
+                        }
+                    }
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "location",
+                "fieldType": "location",
+                "label": {
+                    "fr": "Lieu",
+                    "en": "Location",
+                    "it": "Posizione",
+                    "de": "Ort",
+                    "es": "lugar",
+                    "br": "Lec'h",
+                    "io": "crwdns14274:0crwdne14274:0"
+                },
+                "sub": {
+                    "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+                    "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
+                    "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'.",
+                    "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
+                    "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
+                    "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
+                    "io": "crwdns14278:0crwdne14278:0"
+                },
+                "optionalWith": {
+                    "field": "attendanceMode",
+                    "value": 2
+                },
+                "disableChange": false,
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "display": false,
+                "field": "onlineAccessLink",
+                "fieldType": "link",
+                "label": {
+                    "fr": "Lien d'accès",
+                    "en": "Access link",
+                    "de": "Zugangslink",
+                    "es": "Enlace de acceso",
+                    "it": "Collegamento di accesso",
+                    "br": "Liamm moned",
+                    "io": "crwdns14272:0crwdne14272:0"
+                },
+                "optional": false,
+                "enableWith": {
+                    "field": "attendanceMode",
+                    "value": [
+                        2,
+                        3
+                    ]
+                },
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "timings",
+                "fieldType": "timings",
+                "max": 800,
+                "optional": false,
+                "label": {
+                    "fr": "Horaires",
+                    "en": "Timings",
+                    "it": "Orari",
+                    "de": "Timings",
+                    "es": "horario",
+                    "br": "Eurioù",
+                    "io": "crwdns14328:0crwdne14328:0"
+                },
+                "info": {
+                    "fr": "Définissez les horaires de votre événement",
+                    "en": "Specify timings for your event",
+                    "it": "Definire gli orari del vostro evento",
+                    "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+                    "es": "Ajuste el tiempo de su evento",
+                    "br": "Lakait eurioù ho tarvoud",
+                    "io": "crwdns14330:0crwdne14330:0"
+                },
+                "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+                "schemaId": null,
+                "schemaType": "event",
+                "component": "@openagenda/react-timingspicker"
+            },
+            {
+                "field": "uid",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "slug",
+                "fieldType": "text",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "private",
+                "fieldType": "boolean",
+                "default": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "timezone",
+                "fieldType": "text",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "draft",
+                "fieldType": "boolean",
+                "default": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "createdAt",
+                "fieldType": "date",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "creatorUid",
+                "fieldType": "integer",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "ownerUid",
+                "fieldType": "integer",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "updatedAt",
+                "fieldType": "date",
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "agendaUid",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "locationUid",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "image",
+                "fieldType": "image",
+                "optional": true,
+                "label": {
+                    "fr": "Image de l'événement",
+                    "en": "Image of the event",
+                    "it": "Immagine dell'evento",
+                    "de": "Bild der Veranstaltung",
+                    "es": "imagen del evento",
+                    "br": "Skeudenn an darvoud",
+                    "io": "crwdns14296:0crwdne14296:0"
+                },
+                "info": {
+                    "fr": "Chargez une image d'au moins 300 pixels de large",
+                    "en": "Load an image of at least 300 pixels width",
+                    "it": "Carica un'immagine di almeno 300 pixel di larghezza",
+                    "de": "Laden Sie ein Bild mit einer Breite von mindestens 300 Pixeln.",
+                    "es": "Cargar una imagen de al menos 300 píxeles de ancho",
+                    "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ",
+                    "io": "crwdns14298:0crwdne14298:0"
+                },
+                "allowURL": true,
+                "allowPath": true,
+                "imageWithSizeAndVariants": true,
+                "extensions": [
+                    "jpg",
+                    "bmp",
+                    "png",
+                    "jpeg"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "imageCredits",
+                "fieldType": "text",
+                "optional": true,
+                "label": {
+                    "fr": "Crédits de l'image",
+                    "en": "Image credits",
+                    "it": "Crediti d'immagine",
+                    "de": "Bildnachweise",
+                    "es": "créditos del imágen",
+                    "br": "Perc'henn ar skeudenn",
+                    "io": "crwdns14300:0crwdne14300:0"
+                },
+                "enableWith": "image",
+                "max": 255,
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "status",
+                "fieldType": "select",
+                "default": 1,
+                "display": false,
+                "label": {
+                    "fr": "État",
+                    "en": "Status"
+                },
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "scheduled",
+                        "label": {
+                            "fr": "Programmé",
+                            "en": "Scheduled"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "value": "rescheduled",
+                        "label": {
+                            "fr": "Re-programmé",
+                            "en": "Re-scheduled"
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "value": "movedOnline",
+                        "label": {
+                            "fr": "Passé en ligne",
+                            "en": "Moved online"
+                        }
+                    },
+                    {
+                        "id": 4,
+                        "value": "postponed",
+                        "label": {
+                            "fr": "Reporté",
+                            "en": "Postponed"
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "value": "full",
+                        "label": {
+                            "fr": "Complet",
+                            "en": "Full"
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "value": "cancelled",
+                        "label": {
+                            "fr": "Annulé",
+                            "en": "Cancelled"
+                        }
+                    }
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "references",
+                "fieldType": "integer",
+                "list": true,
+                "optional": true,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            },
+            {
+                "field": "links",
+                "fieldType": "integer",
+                "optional": false,
+                "write": [
+                    "internal"
+                ],
+                "schemaId": null,
+                "schemaType": "event"
+            }
+        ]
+    }
+}

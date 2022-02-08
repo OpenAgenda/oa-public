@@ -1,6 +1,7 @@
 'use strict';
 
 const { Forbidden } = require('@openagenda/verror');
+const log = require('@openagenda/logs')('api/middleware/getEventFromSearchOrAsDraft');
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
@@ -35,16 +36,18 @@ async function load(req, _res, next) {
     members
   } = req.app.services;
 
-  req.member = await members.get({
+  req.member = req.user ? await members.get({
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
-  });
+  }) : null;
 
   if (!req.member) {
+    log('not a member');
     return next();
   }
 
   req.access = members.utils.getRoleSlug(req.member.role);
+  log('loaded member %s with access %s', req.member.userUid, req.access);
 
   next();
 }

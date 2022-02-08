@@ -13,16 +13,22 @@ module.exports = async (req, res, next) => {
     return verifyAndLoadAccessTokenUser(req, res, next);
   }
 
+  const isUIAPI = req.baseUrl === '/api';
+
+  if (isUIAPI && !req.query.key) {
+    return next();
+  }
+
   try {
     req.user = await accessTokens.getUserFromKey(req.query.key);
     if (!req.user) {
       throw new Error('could not find user matching token');
     }
-  } catch(e) {
+  } catch (e) {
     return res.status(403).json({
       error: e.message
     });
   }
 
   next();
-}
+};

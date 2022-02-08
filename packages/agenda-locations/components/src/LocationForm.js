@@ -19,7 +19,7 @@ import post from './post';
 import actions from './formActions';
 import CountryField from './CountryField';
 import flattenTagSetLabels from './flattenTagSetLabels';
-import LocationMap from './LocationMap';
+import LocationMap from './LoadableLocationMap';
 import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers';
 import validate from './validate';
@@ -46,6 +46,10 @@ const messages = defineMessages({
     defaultMessage: 'Saving',
   },
   required: {
+    id: 'AgendaLocations.LocationForm.required',
+    defaultMessage: 'Required',
+  },
+  'choice.required': {
     id: 'AgendaLocations.LocationForm.required',
     defaultMessage: 'Required',
   },
@@ -161,6 +165,22 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.addLanguage',
     defaultMessage: 'Add a language',
   },
+  imageRights: {
+    id: 'AgendaLocations.LocationForm.imageRights',
+    defaultMessage: 'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
+  },
+  requiredField: {
+    id: 'AgendaLocations.LocationForm.requiredField',
+    defaultMessage: '(Required field)',
+  },
+  findOutMore: {
+    id: 'AgendaLocations.LocationForm.findOutMore',
+    defaultMessage: 'Learn more about the license',
+  },
+  imageRightsAreHeld: {
+    id: 'AgendaLocations.LocationForm.imageRightsAreHeld',
+    defaultMessage: 'Image rights are held'
+  }
 });
 
 class LocationForm extends Component {
@@ -447,15 +467,19 @@ class LocationForm extends Component {
   set(_field, _value) { // , ...args
     log('set');
     let clean;
-    const { settings, intl } = this.props;
+    const { settings, intl, mode } = this.props;
     const { location } = this.state;
 
     // if stuff is given in args, we need to do a partial update only
     // const { data, partial } = this.getSetType([field, value].concat(args));
     const { data, partial } = this.getSetType(arguments);
+    const options = {
+      optional: mode !== 'create',
+      isEnabled: settings?.displayImageRightsConfirmCheckbox
+    };
 
     try {
-      clean = validate(data, settings, partial);
+      clean = validate(data, settings, partial, options);
     } catch (errors) {
       log('validation errors', errors);
       return this.actions.setError(errors);
@@ -946,11 +970,10 @@ class LocationForm extends Component {
 
   renderDetailedInfo() {
     const {
-      lang, displayLanguageTabs, disableNoAlternatives, alternatives, settings, location: propsLocation
+      lang, displayLanguageTabs, disableNoAlternatives, alternatives, settings, location: propsLocation, intl
     } = this.props;
     const { location } = this.state;
     const imageCreditsDefault = settings?.defaultValues?.imageCredits || undefined;
-    console.log('imageCreditsDefault', imageCreditsDefault, this.getLabel('imageInfo'));
     return (
       <div className="form-group">
         <div
@@ -981,6 +1004,25 @@ class LocationForm extends Component {
           bottom={this.renderAlternative('imageCredits')}
           validator={validate.field('imageCredits')}
         />
+
+        { settings?.displayImageRightsConfirmCheckbox ? (
+          <div className="checkbox">
+            <label htmlFor="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition">
+              <input
+                id="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
+                type="checkbox"
+                name="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
+                onChange={() => this.onChange('imageRightsAreHeld', !location.imageRightsAreHeld)}
+                checked={!!location.imageRightsAreHeld}
+              />
+              <span className="margin-right-xs">
+                {intl.formatMessage(messages.imageRights)}
+              </span>
+              <span className="margin-right-xs">{intl.formatMessage(messages.requiredField)}</span>
+              <a className="margin-right-xs" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">{intl.formatMessage(messages.findOutMore)}</a>
+            </label>
+          </div>
+        ) : null}
 
         <div className="multilingual-group">
           {displayLanguageTabs ? (
@@ -1085,7 +1127,7 @@ class LocationForm extends Component {
         />
 
         {Object.keys(settings).length
-        && settings.tagSet ? (
+          && settings.tagSet ? (
           <GroupTagSelector
             lang={lang}
             name="tags"
@@ -1106,7 +1148,7 @@ class LocationForm extends Component {
             }
             value={location.tags || []}
           />
-          ) : null}
+        ) : null}
       </div>
     );
   }
@@ -1226,32 +1268,32 @@ class LocationForm extends Component {
         {detailedInfo ? this.renderDetailedInfo() : ''}
 
         {detailedInfo
-        && (location.extId || showExtIdInput ? (
-          <InputField
-            name="extId"
-            enabled={this.isFieldEnabled('extId')}
-            value={location.extId}
-            getLabel={this.getLabel}
-            lang={lang}
-            info="extIdInfo"
-            placeholder="extIdplaceholder"
-            onChange={this.onChange}
-            validator={validate.field('extId')}
-          />
-        ) : (
-          <div className="form-group">
-            <button
-              type="button"
-              className="btn btn-link"
-              onClick={e => {
-                e.preventDefault();
-                this.actions.showExtId();
-              }}
-            >
-              <FormattedMessage {...messages.extIdLink} />
-            </button>
-          </div>
-        ))}
+          && (location.extId || showExtIdInput ? (
+            <InputField
+              name="extId"
+              enabled={this.isFieldEnabled('extId')}
+              value={location.extId}
+              getLabel={this.getLabel}
+              lang={lang}
+              info="extIdInfo"
+              placeholder="extIdplaceholder"
+              onChange={this.onChange}
+              validator={validate.field('extId')}
+            />
+          ) : (
+            <div className="form-group">
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={e => {
+                  e.preventDefault();
+                  this.actions.showExtId();
+                }}
+              >
+                <FormattedMessage {...messages.extIdLink} />
+              </button>
+            </div>
+          ))}
         {loadingError ? (
           <div className="error">{loadingError}</div>
         ) : (
@@ -1262,13 +1304,13 @@ class LocationForm extends Component {
 
         <div className="form-group bottom">
           {cancel || (
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={this.onCancel}
-          >
-            <span className="text-danger"><FormattedMessage {...messages.cancel} /></span>
-          </button>
+            <button
+              type="button"
+              className="btn btn-link"
+              onClick={this.onCancel}
+            >
+              <span className="text-danger"><FormattedMessage {...messages.cancel} /></span>
+            </button>
           )}
           <button
             type="button"

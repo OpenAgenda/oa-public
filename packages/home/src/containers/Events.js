@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
@@ -25,27 +24,30 @@ import EventItem from '../components/EventItem';
 import Wrapper from './Wrapper';
 
 function AgendaItem({ agenda, res, getLabel }) {
-  const itemLink = (
-    agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent
-  ).replace(':slug', agenda.slug);
+  const itemLink = res.agendas.contribute.replace(':slug', agenda.slug);
 
   return (
     <div className="agenda-item media" key={agenda.uid}>
       <div className="media-left">
-        <a href={itemLink}>
+        <Link
+          to={itemLink}
+          className="btn btn-link padding-left-z padding-top-z"
+        >
           <Image
             src={agenda.image}
             fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
             className="media-object ill avatar"
             alt={agenda.title}
           />
-        </a>
+        </Link>
       </div>
       <div className="media-body">
         <div className="title media-heading">
-          <a href={itemLink}>
+          <Link
+            to={itemLink}
+            className="btn btn-link padding-left-z padding-top-z"
+          >
             <strong>{agenda.title}</strong>
-
             {!!agenda.official && (
               <span className="official">
                 <i />
@@ -57,8 +59,7 @@ function AgendaItem({ agenda, res, getLabel }) {
                 </div>
               </span>
             )}
-          </a>
-
+          </Link>
           {!!agenda.private && (
             <div className="tooltip-icon">
               <i className="fa fa-unlock-alt" />
@@ -74,7 +75,6 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
-@hot
 @withLayoutData('lang')
 @provideHooks({
   fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),

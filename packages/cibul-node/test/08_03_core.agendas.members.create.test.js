@@ -110,7 +110,8 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
   describe('api', () => {
     let server;
-    let accessToken;
+    let adminAccessToken;
+    let nonMemberAccessToken;
 
     beforeAll(async () => {
       server = await api(core).listen(3000);
@@ -119,7 +120,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
+      adminAccessToken = await axios({
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
@@ -127,6 +128,17 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         },
         data: {
           code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL'
+        }
+      }).then(r => r.data.access_token);
+
+      nonMemberAccessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U'
         }
       }).then(r => r.data.access_token);
     });
@@ -137,7 +149,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           method: 'post',
           url: 'http://localhost:3000/agendas/2/members',
           headers: {
-            'access-token': accessToken,
+            'access-token': adminAccessToken,
             nonce: 1238978,
             'content-type': 'application/json'
           },
@@ -160,20 +172,39 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       });
     });
 
-    describe('unsuccessful calls', () => {
-      it('non-member cannot create member', async () => {
-        let response;
-
-        const nonMemberAccessToken = await axios({
+    describe('non member call', () => {
+      it('user can add himself on open agenda through api', async () => {
+        await axios({
           method: 'post',
-          url: 'http://localhost:3000/requestAccessToken',
+          url: 'http://localhost:3000/agendas/48353388/members',
           headers: {
+            'access-token': nonMemberAccessToken,
+            nonce: 1238979,
             'content-type': 'application/json'
           },
           data: {
-            code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U'
+            name: 'Chris sie',
+            position: 'Petite main',
+            role: 'contributor',
+            userUid: 24372732
           }
-        }).then(r => r.data.access_token);
+        }).then(r => r.data);
+
+        const entry = await core.services.knex('reviewer')
+          .first()
+          .where({
+            user_uid: 24372732,
+            agenda_uid: 48353388
+          });
+
+        expect(entry.credential).toBe(1);
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Chris sie');
+      });
+    });
+
+    describe('unsuccessful calls', () => {
+      it('non-member cannot create member other than himself', async () => {
+        let response;
 
         try {
           await axios({
