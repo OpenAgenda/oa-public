@@ -190,7 +190,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           stateChangeType,
           batched
         },
-        decorate: ['member']
+        decorate: ['member', 'sourceAgendas']
       });
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
       payload.setItem('agendaEvent', result.before, result.set);

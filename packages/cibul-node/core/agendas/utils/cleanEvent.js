@@ -158,7 +158,7 @@ function validateEvent({
 
     clean.agendaEvent = validateAgendaEvent({
       ...data,
-      sourcePaths: paths || [],
+      ...(paths ? { sourcePaths: paths } : {}),
       userUid: member ? member.userUid : (data.userUid || data.ownerUid)
     }, { optionalSecondaryFields, partial });
   } catch (agendaEventErrors) {
