@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 
-export default props => {
+export default function CheckboxField(props) {
   const {
     field: {
       options,
       field: name,
       default: defaultValue
-    }
+    },
+    value,
+    onChange
   } = props;
-
-  const { value, onChange } = props;
 
   const defaultChecked = [].concat(defaultValue || []);
 
@@ -35,4 +35,4 @@ export default props => {
       ))}
     </>
   );
-};
+}
