@@ -46,6 +46,7 @@ describe('02 - event search - functional: location', () => {
 
   it('filters on absence of value set for specific additional field', async () => {
     const { events } = await service('additional').search({
+      state: 2,
       'categories-agenda-metropolitain': 'null'
     }, {}, {
       formSchema: fixtures.formSchema,
@@ -54,5 +55,17 @@ describe('02 - event search - functional: location', () => {
 
     assert.strictEqual(events.length, 1);
     assert.deepEqual(events[0]['categories-agenda-metropolitain'], []);
+  });
+
+  it('filter on empty location data', async () => {
+    const { events } = await service('additional').search({
+      'city': 'null'
+    }, {}, {
+      formSchema: fixtures.formSchema,
+      detailed: true
+    });
+
+    assert.strictEqual(events.length, 1);
+    assert.strictEqual(events[0]?.location?.city, undefined);
   });
 });

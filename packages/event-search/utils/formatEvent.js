@@ -146,7 +146,6 @@ module.exports = produce((event, options = {}) => {
     event['_search_empty_fields'].push('registration');
   }
   
-
   if (!_lessThanOneMinuteApart(event.updatedAt, event.createdAt)) {
     event['_exclusiveUpdatedAt'] = event.updatedAt;
   }

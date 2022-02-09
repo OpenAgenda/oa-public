@@ -5,7 +5,12 @@
       {
         "uid": 1,
         "state": 2,
-        "categories-agenda-metropolitain": 46
+        "categories-agenda-metropolitain": 46,
+        "location": {
+          "city": "Tombouctou",
+          "latitude": 0,
+          "longitude": 0
+        }
       },
       {
         "uid": 2,
@@ -14,7 +19,12 @@
       },
       {
         "uid": 3,
-        "state": 2
+        "state": 2,
+        "location": {
+          "city": "Rue",
+          "latitude": 0,
+          "longitude": 0
+        }
       }
     ]
   },

@@ -19,6 +19,12 @@ const termsFiltersMap = {
   slug: 'slug',
 }
 
+function isExplicitEmptyValue(queryValue, emptyValue) {
+  if (!queryValue) return false;
+
+  return [].concat(queryValue).includes(emptyValue);
+}
+
 module.exports = (cleanQuery, options = {}) => {
   const {
     formSchema,
@@ -128,6 +134,7 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
 
   Object.keys(termsFiltersMap)
     .filter(key => cleanQuery[key] && cleanQuery[key].length)
+    .filter(key => !isExplicitEmptyValue(cleanQuery[key], emptyValue))
     .forEach(key => {
       parts.push(_terms(termsFiltersMap[key], cleanQuery[key]));
     });
@@ -145,7 +152,9 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
   }
 
   additionalFields.forEach(field => {
-    if (!cleanQuery[field.field] || (cleanQuery[field.field] === emptyValue)) return;
+    if (!cleanQuery[field.field] || isExplicitEmptyValue(cleanQuery[field.field], emptyValue)) {
+      return;
+    }
 
     if (['email'].includes(field.fieldType)) {
       parts.push(_mustPart(
@@ -162,8 +171,8 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
     }
   });
 
-  Object.keys(cleanQuery).filter(field => cleanQuery[field] === emptyValue).forEach(field => {
-    parts.push(_mustPart('term', '_search_empty_fields', field));
+  Object.keys(cleanQuery).filter(field => [].concat(cleanQuery[field]).includes(emptyValue)).forEach(field => {
+    parts.push(_mustPart('term', '_search_empty_fields', termsFiltersMap[field] ?? field));
   });
 
   return parts;
