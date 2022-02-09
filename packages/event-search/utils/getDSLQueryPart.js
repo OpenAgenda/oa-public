@@ -19,13 +19,18 @@ const termsFiltersMap = {
   slug: 'slug',
 }
 
-module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
+module.exports = (cleanQuery, options = {}) => {
+  const {
+    formSchema,
+    emptyValue
+  } = options;
+
   const query = {};
   const additionalFields = getFormSchemaAdditionalFields(formSchema);
 
-  const mustParts = _getQueryMustParts(cleanQuery, additionalFields).concat(additionalMustParts);
+  const mustParts = _getQueryMustParts(cleanQuery, additionalFields);
 
-  const filterParts = _getQueryFilterParts(cleanQuery, additionalFields);
+  const filterParts = _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue });
 
   if (mustParts.length === 1 && !filterParts.length) {
     _.extend(query, mustParts[0]);
@@ -42,7 +47,7 @@ module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
       bool: {
         filter: [{
           range: {
-            _search_first_timing: { lte: 'now' }
+            _search_first_timing: { lte: 'now' }
           }
         }, {
           range: {
@@ -65,8 +70,7 @@ function _terms(fieldName, value) {
   };
 }
 
-function _getQueryFilterParts(cleanQuery, additionalFields) {
-
+function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
   const parts = [];
   const {
     relative,
@@ -141,7 +145,7 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
   }
 
   additionalFields.forEach(field => {
-    if (!cleanQuery[field.field]) return;
+    if (!cleanQuery[field.field] || (cleanQuery[field.field] === emptyValue)) return;
 
     if (['email'].includes(field.fieldType)) {
       parts.push(_mustPart(
@@ -158,6 +162,10 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     }
   });
 
+  Object.keys(cleanQuery).filter(field => cleanQuery[field] === emptyValue).forEach(field => {
+    parts.push(_mustPart('term', '_search_empty_fields', field));
+  });
+
   return parts;
 }
 
@@ -166,7 +174,6 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
   const parts = [];
 
   // term constraints
-
   [
     ['keyword', '_search_keywords', true],
     ['lang', '_search_languages', true],
