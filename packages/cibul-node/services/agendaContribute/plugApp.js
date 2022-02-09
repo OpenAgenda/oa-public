@@ -41,9 +41,9 @@ module.exports = (_config, services) => parentApp => {
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
     agendas.mw.load,
+    loadMember,
     getAgendaSchema,
     loadEvent,
-    loadMember,
     verifyMemberAuthorization.edit,
     isDraftRequested({ draft: true }),
     formSchemaFilesMw.cleanFileValues.bind(null, {}),
@@ -55,6 +55,7 @@ module.exports = (_config, services) => parentApp => {
 
   parentApp.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', [
     agendas.mw.load,
+    loadMember,
     getAgendaSchema,
     agendas.mw.loadBy({
       path: 'params.fromAgendaUid',
@@ -62,7 +63,6 @@ module.exports = (_config, services) => parentApp => {
       target: 'fromAgenda'
     }),
     loadEvent,
-    loadMember,
     verifyMemberAuthorization.edit,
     formSchemaFilesMw.cleanFileValues.bind(null, {}),
     formSchemaFilesMw.putInTemporary.bind(null, {}),
