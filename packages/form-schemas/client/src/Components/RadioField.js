@@ -10,9 +10,10 @@ export default function RadioField(props) {
     onChange,
     field,
     value,
-    lang,
-    optional
+    lang
   } = props;
+
+  const optional = field.optional ?? true;
 
   const [hasClicked, setHasClicked] = useState(false);
 
