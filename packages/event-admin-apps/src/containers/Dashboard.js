@@ -291,7 +291,10 @@ function Dashboard() {
   const [query, setQuery] = useState(() => {
     const urlQuery = removeQueryPrefix(parsedLocationSearch);
 
-    return _.pick(validateQuery(urlQuery, agendaSchema), Object.keys(urlQuery));
+    return _.pick(
+      validateQuery(urlQuery, { formSchema: agendaSchema, emptyValue: 'null' }),
+      Object.keys(urlQuery)
+    );
   });
 
   console.log('Dashboard render', query);
