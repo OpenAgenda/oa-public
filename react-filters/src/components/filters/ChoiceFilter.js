@@ -30,6 +30,10 @@ const messages = defineMessages({
     id: 'ReactFilters.ChoiceFilter.lessOptions',
     defaultMessage: 'Less options',
   },
+  unrecognizedOption: {
+    id: 'ReactFilters.ChoiceFilter.unrecognizedOption',
+    defaultMessage: 'Unknown filter value ({value})'
+  }
 });
 
 const subscription = { value: true };
@@ -58,6 +62,7 @@ function Preview({
   disabled,
   ...rest
 }) {
+  const intl = useIntl();
   const { input } = useField(name, { subscription });
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
@@ -70,12 +75,12 @@ function Preview({
       return [];
     }
 
-    if (!Array.isArray(input.value)) {
-      return [options.find(option => String(option.value) === String(input.value))];
-    }
-
-    return input.value.map(v => options.find(option => String(option.value) === String(v)));
-  }, [input.value, options]);
+    return [].concat(input.value)
+      .map(v => (options.find(option => String(option.value) === String(v)) ?? {
+        value: v,
+        label: intl.formatMessage(messages.unrecognizedOption, { value: v })
+      }));
+  }, [input.value, options, intl]);
 
   const onRemove = useCallback(
     option => e => {
