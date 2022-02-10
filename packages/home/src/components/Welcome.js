@@ -41,7 +41,9 @@ function AgendaItem({ agenda }) {
           ) : null}
         </div>
         <div className="actions">
-          <a href={`/agendas/${agenda.uid}`}>{getLabel('see')}</a>
+          <a className="margin-right-xs" href={`/agendas/${agenda.uid}`}>
+            {getLabel('see')}
+          </a>
           <a href={`/agendas/${agenda.uid}/contribute`}>
             {getLabel('addAnEvent')}
           </a>
