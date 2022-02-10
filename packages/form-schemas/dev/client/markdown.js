@@ -62,7 +62,10 @@ class Main extends Component {
           field: 'monolingualmarkdown',
           optional: false,
           fieldType: 'markdown',
-          label: 'Monolingual markdown field'
+          info: 'With some ',
+          placeholder: 'Type in stuff\n on multiple lines\nAs placeholder',
+          label: 'Monolingual markdown field',
+          default: '**Some default text**'
         }]
       }
     };
