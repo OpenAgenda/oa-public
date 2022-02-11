@@ -20,6 +20,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-shared": "^2.3.2",
     "@openagenda/validators": "^2.4.0",
+    "autosize": "^5.0.1",
     "aws-sdk": "^2.544.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.3.1",

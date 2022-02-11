@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import autosize from 'autosize';
+
+const style = {
+  resize: 'none'
+};
 
 export default function TextField(props) {
   const {
@@ -15,12 +20,27 @@ export default function TextField(props) {
     default: defaultValue
   } = field;
 
+  const ref = useRef();
+
+  useEffect(() => {
+    autosize(ref.current);
+  }, [ref]);
+
   return (
     <textarea
+      ref={ref}
       name={name}
       rows={fieldType === 'textarea' ? 3 : 1}
       value={value ?? (defaultValue ?? '')}
       placeholder={placeholder}
+      className="form-control"
+      style={style}
+      onKeyPress={e => {
+        if (fieldType !== 'text' || e.key !== 'Enter') {
+          return;
+        }
+        e.preventDefault();
+      }}
       onChange={e => {
         e.preventDefault();
         onChange(e.target.value);
