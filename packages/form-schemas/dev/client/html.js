@@ -44,6 +44,13 @@ class Main extends Component {
             fr: 'Le texte dessous'
           },
           max: 10000
+        }, {
+          field: 'withdefault',
+          fieldType: 'html',
+          label: {
+            fr: 'Un champ avec une valeur par défaut'
+          },
+          default: '<p>Valeur par défaut</p>'
         }]
       }
     };

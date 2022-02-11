@@ -75,7 +75,7 @@ class Main extends Component {
         <div className="row">
           <div className="wsq col-lg-5 col-lg-offset-1">
             <div className="margin-v-md margin-h-sm">
-              <p>An HTML field.</p>
+              <p>Some markdown fields.</p>
               <FormSchemaComponent {...props} onChange={state => this.setState(state)} />
             </div>
           </div>

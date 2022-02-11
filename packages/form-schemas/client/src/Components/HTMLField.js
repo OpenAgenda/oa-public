@@ -20,13 +20,18 @@ export default class HTMLField extends Component {
 
   render() {
     const {
-      value
+      value,
+      field: {
+        default: defaultValue
+      }
     } = this.props;
+
+    const appliedValue = (value === null) && defaultValue ? defaultValue : value;
 
     return (
       <SlateField {...ih(this.props, {
         value: {
-          $set: HTMLSerializer.deserialize(value)
+          $set: HTMLSerializer.deserialize(appliedValue)
         },
         onChange: {
           $set: v => this.onChange(v)
