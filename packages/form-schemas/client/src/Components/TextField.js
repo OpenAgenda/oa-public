@@ -1,46 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class TextField extends Component {
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
+export default function TextField(props) {
+  const {
+    field,
+    value,
+    enabled,
+    onChange
+  } = props;
 
-  onChange(e) {
-    e.preventDefault();
+  const {
+    field: name,
+    placeholder,
+    fieldType,
+    default: defaultValue
+  } = field;
 
-    const {
-      onChange
-    } = this.props;
-
-    // text field should be able to change to empty string
-    onChange(e.target.value);
-  }
-
-  render() {
-    const {
-      field,
-      value,
-      enabled
-    } = this.props;
-
-    const {
-      field: name,
-      placeholder,
-      fieldType,
-      default: defaultValue
-    } = field;
-
-    const fieldProps = {
-      name,
-      rows: 3,
-      className: 'form-control',
-      value: value ?? (defaultValue ?? ''),
-      placeholder,
-      onChange: this.onChange,
-      disabled: !enabled
-    };
-
-    return fieldType === 'textarea' ? <textarea {...fieldProps} /> : <input {...fieldProps} />;
-  }
+  return (
+    <textarea
+      name={name}
+      rows={fieldType === 'textarea' ? 3 : 1}
+      value={value ?? (defaultValue ?? '')}
+      placeholder={placeholder}
+      onChange={e => {
+        e.preventDefault();
+        onChange(e.target.value);
+      }}
+      disabled={!enabled}
+    />
+  );
 }
