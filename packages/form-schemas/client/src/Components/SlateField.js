@@ -105,6 +105,7 @@ export default class SlateField extends Component {
       onChange,
       raw
     } = this.props;
+
     const {
       changed: stateChangedValue,
       value: stateValue
@@ -321,12 +322,12 @@ export default class SlateField extends Component {
     return (
       <div className="rich-textarea margin-top-xs">
         <div className="toolbar">
-          {this.renderBlockButton('heading-two', labels.heading, { tab: 0 })}
-          {this.renderBlockButton('heading-three', labels.subHeading, { tab: 1 })}
-          {this.renderMarkButton('bold', { tab: 2 })}
-          {this.renderMarkButton('italic', { tab: 3 })}
-          {this.renderBlockButton('bulleted-list', <i className="fa fa-list" />, { tab: 4 })}
-          {this.renderBlockButton('link', <i className="fa fa-link" />, { tab: 5 })}
+          {this.renderBlockButton('heading-two', labels.heading)}
+          {this.renderBlockButton('heading-three', labels.subHeading)}
+          {this.renderMarkButton('bold')}
+          {this.renderMarkButton('italic')}
+          {this.renderBlockButton('bulleted-list', <i className="fa fa-list" />)}
+          {this.renderBlockButton('link', <i className="fa fa-link" />)}
         </div>
         <div className="textarea-canvas">
           { this.isEmpty() && placeholder ? (
