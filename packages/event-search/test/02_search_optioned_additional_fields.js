@@ -12,7 +12,7 @@ const fixtures = JSON.parse(
   fs.readFileSync(`${__dirname}/fixtures/02_events.optioned_additional.json`)
 );
 
-describe('02 - event search - functional: location', () => {
+describe('02 - event search - functional: search in optioned additional fields', () => {
   let service;
 
   before(async () => {
@@ -44,6 +44,18 @@ describe('02 - event search - functional: location', () => {
     assert.strictEqual(events[0]['categories-agenda-metropolitain'], 43);
   });
 
+  it('filters on multiple additional field values', async () => {
+    const { events } = await service('additional').search({
+      'categories-agenda-metropolitain': [43, 46]
+    }, {}, {
+      formSchema: fixtures.formSchema,
+      detailed: true
+    });
+
+    assert.strictEqual(events.length, 2);
+    assert.deepEqual(events.map(e => e.uid), [1, 2]);
+  });
+
   it('filters on absence of value set for specific additional field', async () => {
     const { events } = await service('additional').search({
       state: 2,
@@ -57,15 +69,16 @@ describe('02 - event search - functional: location', () => {
     assert.deepEqual(events[0]['categories-agenda-metropolitain'], []);
   });
 
-  it('filter on empty location data', async () => {
+  it('filters on absence of value AND existing value set for specific additional field', async () => {
     const { events } = await service('additional').search({
-      'city': 'null'
+      state: 2,
+      'categories-agenda-metropolitain': ['null', 43]
     }, {}, {
       formSchema: fixtures.formSchema,
       detailed: true
     });
 
-    assert.strictEqual(events.length, 1);
-    assert.strictEqual(events[0]?.location?.city, undefined);
+    assert.strictEqual(events.length, 2);
+    assert.deepEqual(events.map(e => e.uid), [2, 3]);
   });
 });

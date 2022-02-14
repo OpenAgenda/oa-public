@@ -201,14 +201,11 @@ const validate = schema({
 });
 
 function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
-  if (dirty === emptyValue) {
-    return emptyValue;
-  }
   if (['radio', 'select', 'checkbox', 'multiselect'].includes(fieldSchema.fieldType)) {
     if (Array.isArray(dirty)) {
-      return dirty.map(v => parseInt(v, 10));
+      return dirty.map(v => v === emptyValue ? emptyValue : parseInt(v, 10));
     } else {
-      return parseInt(dirty, 10);
+      return dirty === emptyValue ? emptyValue : parseInt(dirty, 10);
     }
   }
 

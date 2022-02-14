@@ -19,7 +19,7 @@ const termsFiltersMap = {
   slug: 'slug',
 }
 
-function isExplicitEmptyValue(queryValue, emptyValue) {
+function hasExplicitEmptyValue(queryValue, emptyValue) {
   if (!queryValue) return false;
 
   return [].concat(queryValue).includes(emptyValue);
@@ -134,10 +134,11 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
 
   Object.keys(termsFiltersMap)
     .filter(key => cleanQuery[key] && cleanQuery[key].length)
-    .filter(key => !isExplicitEmptyValue(cleanQuery[key], emptyValue))
     .forEach(key => {
-      parts.push(_terms(termsFiltersMap[key], cleanQuery[key]));
-    });
+      parts.push(
+        _filterPart(key, cleanQuery[key], termsFiltersMap[key], { emptyValue })
+      )
+    })
 
   if (_.get(cleanQuery, 'state', []).filter(s => s !== null).length) {
     parts.push(_mustPart('terms', 'state', cleanQuery.state));
@@ -152,7 +153,7 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
   }
 
   additionalFields.forEach(field => {
-    if (!cleanQuery[field.field] || isExplicitEmptyValue(cleanQuery[field.field], emptyValue)) {
+    if (!cleanQuery[field.field]/* || hasExplicitEmptyValue(cleanQuery[field.field], emptyValue)*/) {
       return;
     }
 
@@ -163,19 +164,64 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
         cleanQuery[field.field]
      ));
     } else if (['radio', 'select', 'checkbox', 'multiselect'].includes(field.fieldType)) {
-      parts.push(_mustPart(
-        Array.isArray(cleanQuery[field.field]) ? 'terms' : 'term',
+      parts.push(_filterPart(
+        field.field,
+        _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue }),
         '_search_additional_keywords',
-        Array.isArray(cleanQuery[field.field]) ? cleanQuery[field.field].map(v => [field.schemaId, v].join('.')) : [field.schemaId, cleanQuery[field.field]].join('.')
-     ));
+        { emptyValue }
+      ));
     }
   });
 
-  Object.keys(cleanQuery).filter(field => [].concat(cleanQuery[field]).includes(emptyValue)).forEach(field => {
-    parts.push(_mustPart('term', '_search_empty_fields', termsFiltersMap[field] ?? field));
-  });
-
   return parts;
+}
+
+function _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue }) {
+  return [].concat(
+    cleanQuery[field.field]
+  ).map(
+    v => v === emptyValue ? v : `${field.schemaId}.${v}`
+  );
+}
+
+function _filterPart(fieldName, fieldValue, dslField, { emptyValue }) {
+  const hasMultipleValues = Array.isArray(fieldValue) && fieldValue.length > 1;
+  const hasEmptyValues = hasExplicitEmptyValue(fieldValue, emptyValue);
+  
+  const value = hasMultipleValues ? fieldValue : [].concat(fieldValue).pop();
+
+  if (hasMultipleValues && hasEmptyValues) {
+    const nonEmptyValues = value.filter(v => v !== emptyValue);
+    return {
+      bool: {
+        should: [
+          _mustPart(
+            nonEmptyValues.length > 1 ? 'terms' : 'term',
+            dslField,
+            nonEmptyValues.length > 1 ? nonEmptyValues : nonEmptyValues[0]
+          ),
+          _mustPart(
+            'term',
+            '_search_empty_fields',
+            termsFiltersMap[fieldName] ?? fieldName
+          )
+        ]
+      }
+    }
+  }
+
+  if (hasMultipleValues) {
+    // multiple values are requested and none of them are empty
+    return _mustPart('terms', dslField, value);
+  }
+
+  if (hasEmptyValues) {
+    // has an empty value and only one value is requested
+    return _mustPart('term', '_search_empty_fields', termsFiltersMap[fieldName] ?? fieldName);
+  }
+
+  // one value is requested and is not empty
+  return _mustPart('term', dslField, value);
 }
 
 
