@@ -1,67 +1,176 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
-const qs = require( 'qs' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const qs = require('qs');
 const base64 = require('@openagenda/utils/base64');
 const determineEventCancellationFromTitle = require('@openagenda/utils/cancellation/determineFromTitle');
 
-const agendaSvc = require( '@openagenda/agendas' );
+const agendaSvc = require('@openagenda/agendas');
 
-const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
-const errorLabels = require( '@openagenda/labels/errors' );
-const sessions = require( '@openagenda/sessions' );
-const members = require( '../services/members' );
+const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/show'));
+const errorLabels = require('@openagenda/labels/errors');
+const sessions = require('@openagenda/sessions');
+const log = require('@openagenda/logs')('event/front');
 
-const cacheMw = require( '../lib/cache.mw' );
-const cmn = require( '../lib/commons-app' );
-const config = require( '../config' );
-const embedSvc = require( '../services/embed' );
-const legacyEventSvc = require( '../services/event' );
-const legacyAgendaSvc = require( '../services/agenda' );
-const redirectMiddelware = require( './redirect.middleware' )( config );
+const members = require('../services/members');
 
-const log = require( '@openagenda/logs' )( 'event/front' );
+const cacheMw = require('../lib/cache.mw');
+const cmn = require('../lib/commons-app');
+const config = require('../config');
+const embedSvc = require('../services/embed');
+const legacyEventSvc = require('../services/event');
+const legacyAgendaSvc = require('../services/agenda');
+const redirectMiddelware = require('./redirect.middleware')(config);
+
+function getRouteValues(req, keys) {
+  const routeValues = [];
+
+  [].concat(keys).forEach(k => {
+    routeValues[k] = req.params[k];
+  });
+
+  return routeValues;
+}
+
+const googleItineraryLink = (lat, lng) => `https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},17z`;
+const OSMItineraryLink = (lat, lng) => `https://www.openstreetmap.org/directions?to=${lat}%2C${lng}`;
+
+function redirect(req, res, next) {
+  if (!req.agenda || !req.event) {
+    return next({ code: 404 });
+  }
+  if (req.query.sharemodal) {
+    return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal`);
+  }
+  res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}`);
+}
+
+function formatSocialLinks(req, res, next) {
+  let siteUrl = false;
+  let eventUrl;
+
+  if (req.agenda) {
+    eventUrl = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
+
+    siteUrl = `${config.root}/${req.agenda.slug}`;
+  } else {
+    eventUrl = `${config.root}/events/${req.event.slug}`;
+  }
+
+  if (req.embed) {
+    if (req.embed.getSiteUrl()) {
+      siteUrl = req.embed.getSiteUrl();
+
+      eventUrl = `${siteUrl}?oaq[uid]=${req.event.uid}`;
+    }
+  }
+
+  _.merge(req.formatted, legacyEventSvc.getSocialLinks(req.event, eventUrl, siteUrl));
+
+  if (req.embed) {
+    req.formatted.facebookShare = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(`${config.root}/agendas/${req.agenda.uid}/events/${req.event.uid}/share`)}`;
+  }
+
+  next();
+}
+
+function formatAgendaLinks(uri, keys) {
+  return (req, res, next) => {
+    const routeValues = getRouteValues(req, keys);
+
+    const baseSearchQuery = {};
+
+    if (req.query.fb) routeValues.fb = 1;
+
+    if (req.query.oaq && req.query.oaq.passed !== undefined) {
+      baseSearchQuery.passed = req.query.oaq.passed;
+    }
+
+    // link to go back to the agenda
+    req.formatted.backLink = req.genUrl(uri, [
+      routeValues,
+      req.query.oaq ? { oaq: req.query.oaq } : {},
+      { lang: req.lang }
+    ]);
+
+    req.formatted.backLabel = getLabel('back', req.lang);
+
+    // link to results for event location in agenda
+    req.formatted.locationLink = req.genUrl(uri, [
+      routeValues,
+      { oaq: _.extend({ location: req.event.getLocationUid() }, baseSearchQuery) },
+      { lang: req.lang }
+    ]);
+
+    req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
+    req.formatted.osmItineraryLink = OSMItineraryLink(req.event.getLatitude(), req.event.getLongitude());
+
+    // link to results for same category in agenda
+    req.formatted.categoryLink = false;
+
+    if (req.formatted.categorySlug) {
+      req.formatted.categoryLink = req.genUrl(uri, [
+        routeValues,
+        { oaq: _.extend({ category: req.formatted.categorySlug }, baseSearchQuery) },
+        { lang: req.lang }
+      ]);
+    }
+
+    next();
+  };
+}
+
+function loadAgendaCoreSettings(req, res, next) {
+  req.app.services.core.agendas(req.agenda.uid).settings.get({ access: 'internal' }).then(settings => {
+    req.agendaSettings = settings;
+
+    next();
+  }, err => {
+    if (err) {
+      log('error', 'failed to load core settings for %s', req.originalUrl);
+    }
+
+    next();
+  });
+}
 
 const middlewares = {
   agendaEventShow: [
-    legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
+    legacyEventSvc.mw.load('eventSlug', 'slug'),
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
-    _loadAgendaCoreSettings,
-    _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
-    legacyAgendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
-    cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oasfmain.css' ),
+    loadAgendaCoreSettings,
+    formatAgendaLinks('agendaShow', ['slug']),
+    legacyAgendaSvc.mw.decorateEvent(false),
+    formatSocialLinks,
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oasfmain.css'),
     _appendEventTransferCredential,
     _appendSettings,
     _decorateLocation,
-    wrap( agendaEventShow )
+    wrap(agendaEventShow)
   ],
   customEmbedEventShow: [
-    legacyAgendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
+    legacyAgendaSvc.mw.decorateEvent(false),
+    formatSocialLinks,
     _formatFavoriteLink,
     _addInterfaceLanguage,
     _formatEmbedHeadLinks,
     // cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
-    cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oae.css' ),
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     embedSvc.mw.loadCustomLayoutData,
     _appendSettings,
     renderAgendaEmbedEvent
-  ]
+ ]
 };
 
-
 const preMw = [
-  cmn.loadLogger( 'event front' ),
+  cmn.loadLogger('event front'),
   cmn.redirectLegacySearch
 ];
 
-
 module.exports = app => {
-
   app.get(
     '/agendas/:agendaUid/events/:eventUid/share',
     preMw,
@@ -75,164 +184,163 @@ module.exports = app => {
     '/:slug.prv/events/:eventSlug',
     preMw,
     cmn.https,
-    legacyAgendaSvc.mw.load( 'slug' ),
+    legacyAgendaSvc.mw.load('slug'),
     cmn.ifIsNot(
       'agenda.private',
-      ( req, res ) => {
-        const query = qs.stringify( req.query, { addQueryPrefix: true } );
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-        res.redirect( 302, `/${req.params.slug}/events/${req.params.eventSlug}${query}` );
+        res.redirect(302, `/${req.params.slug}/events/${req.params.eventSlug}${query}`);
       }
     ),
     sessions.mw.ifUnlogged(
-      ( req, res ) => {
-        const query = qs.stringify( req.query, { addQueryPrefix: true } );
-        const redirect = Buffer.from( `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8' )
-          .toString( 'base64' );
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
+        const redirect = Buffer.from(`/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8')
+          .toString('base64');
 
-        res.redirect( 302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
+        res.redirect(302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}`);
       }
-    ),
+   ),
     members.mw.load,
-    ( req, res, next ) => {
-      if ( !req.member ) return cmn.renderUnauthorized( req, res, next );
+    (req, res, next) => {
+      if (!req.member) return cmn.renderUnauthorized(req, res, next);
       next();
     },
     middlewares.agendaEventShow
-  );
+ );
 
   app.get(
     '/:slug/events/:eventSlug',
     preMw,
     cmn.https,
-    legacyAgendaSvc.mw.load( 'slug' ),
+    legacyAgendaSvc.mw.load('slug'),
     cmn.ifIs(
       'agenda.private',
-      ( req, res ) => {
-        const query = qs.stringify( req.query, { addQueryPrefix: true } );
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-        res.redirect( 302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}` );
+        res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
       }
-    ),
+   ),
     middlewares.agendaEventShow
-  );
+ );
 
   app.get(
     '/:slug/events/:eventSlug',
     preMw,
     cmn.https,
-    legacyAgendaSvc.mw.load( 'slug' ),
+    legacyAgendaSvc.mw.load('slug'),
     cmn.ifIs(
       'agenda.private',
-      ( req, res ) => {
-        const query = qs.stringify( req.query, { addQueryPrefix: true } );
+      (req, res) => {
+        const query = qs.stringify(req.query, { addQueryPrefix: true });
 
-        res.redirect( 302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}` );
+        res.redirect(302, `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`);
       }
-    ),
+   ),
     middlewares.agendaEventShow
-  );
+ );
 
   app.get(
     '/agendas/:uid/events/:eventUid',
     preMw,
-    legacyAgendaSvc.mw.load( 'uid' ),
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
     redirect
   );
 
   app.get(
     '/agendas/:uid/embed/events/:eventUid',
     preMw,
-    legacyAgendaSvc.mw.load( 'uid' ),
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
     _switchEmbedLang,
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
-    _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
-    legacyAgendaSvc.mw.decorateEvent( false ),
-    _formatSocialLinks,
+    formatAgendaLinks('agendaEmbedShow', ['uid']),
+    legacyAgendaSvc.mw.decorateEvent(false),
+    formatSocialLinks,
     _formatEmbedHeadLinks,
     // cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
-    cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oae.css' ),
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oae.css'),
     _appendFacebookParams,
     renderAgendaEmbedEvent,
-    ( req, res ) => res.send( req.render )
-  );
+    (req, res) => res.send(req.render)
+ );
 
   app.get(
     '/agendas/:uid/embeds/:embedUid/events/:eventUid',
-    cacheMw( 'customEmbedShow', 'params.embedUid', 30, [
+    cacheMw('customEmbedShow', 'params.embedUid', 30, [
       preMw,
-      legacyAgendaSvc.mw.load( 'uid' ),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
-      legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+      legacyAgendaSvc.mw.load('uid'),
+      embedSvc.mw.load('embedUid', 'uid'),
+      legacyEventSvc.mw.load('eventUid', 'uid'),
       _switchEmbedLang,
       legacyEventSvc.mw.format,
       legacyEventSvc.mw.components,
-      _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
+      formatAgendaLinks('customEmbedShow', ['uid', 'embedUid']),
       middlewares.customEmbedEventShow
-    ] ),
+    ]),
   );
 
   app.get(
     '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid',
     preMw,
-    legacyAgendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
     members.mw.loadAndAuthorize('administrator'),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    embedSvc.mw.load('embedUid', 'uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
     _switchEmbedLang,
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
-    _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] ),
+    formatAgendaLinks('customEmbedShowPreview', ['uid', 'embedUid']),
     middlewares.customEmbedEventShow,
-    ( req, res ) => res.send( req.render )
+    (req, res) => res.send(req.render)
   );
 
   app.get(
     '/events/:eventSlug',
     preMw,
     cmn.https,
-    ( req, res, next ) => {
+    (req, res, next) => {
 
-      const integer = parseInt( req.params.eventSlug );
+      const integer = parseInt(req.params.eventSlug);
 
-      if ( Number.isInteger( integer ) && ((integer + '').length === req.params.eventSlug.length) ) {
+      if (Number.isInteger(integer) && ((integer + '').length === req.params.eventSlug.length)) {
 
-        return next( 'route' );
+        return next('route');
 
       }
 
       next();
     },
-    legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
-    ( req, res, next ) => {
-
-      if ( req.event.origin ) {
+    legacyEventSvc.mw.load('eventSlug', 'slug'),
+    (req, res, next) => {
+      if (req.event.origin) {
         req.agenda = req.event.origin;
-        return redirect( req, res, next );
+        return redirect(req, res, next);
       }
 
-      next( {
+      next({
         code: 403,
-        message: _.get( errorLabels, [ 'noOrigin', req.lang ], 'noOrigin.en' )
-      } );
+        message: _.get(errorLabels, ['noOrigin', req.lang], 'noOrigin.en')
+      });
     }
-  );
+ );
 
   app.get(
     '/events/:eventUid',
     preMw,
     cmn.https,
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
-    ( req, res, next ) => {
+    legacyEventSvc.mw.load('eventUid', 'uid'),
+    (req, res, next) => {
       req.agenda = req.event.origin;
       next();
     },
     redirect
-  );
+ );
 
 };
 
@@ -241,11 +349,11 @@ module.exports = app => {
  * controllers
  */
 
-async function agendaEventShow( req, res, next ) {
+async function agendaEventShow(req, res, next) {
 
   const reqParams = {};
 
-  if ( req.query.admin_nav ) {
+  if (req.query.admin_nav) {
 
     reqParams.admin_nav = req.query.admin_nav;
 
@@ -253,14 +361,14 @@ async function agendaEventShow( req, res, next ) {
 
   const eventUrl = `/${req.agenda.slug}/events/${req.event.slug}`;
 
-  _addLanguageLinks( req, eventUrl, reqParams );
+  _addLanguageLinks(req, eventUrl, reqParams);
 
-  const member = req.user ? await members.get( {
+  const member = req.user ? await members.get({
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
-  } ) : null;
+  }) : null;
 
-  cmn.render( req, res, 'event/show', {
+  cmn.render(req, res, 'event/show', {
     tiles: config.tiles,
     scriptParams: {
       root: config.root,
@@ -276,66 +384,58 @@ async function agendaEventShow( req, res, next ) {
     adminNav: req.query.admin_nav,
     isOriginAgenda: _.get(req, 'event.origin.uid') === req.agenda.uid,
     removeRedirect: req.query.admin_nav ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.admin_nav)}`) : null,
-    redirect: cmn.makeRedirect( req ),
+    redirect: cmn.makeRedirect(req),
     isCancelled: determineEventCancellationFromTitle(req.event.title),
     event: req.formatted,
     hasLocation: !!req.formatted.location?.uid,
     components: req.components,
-    showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),
+    showRequestLocation: ![2, 3].includes(_.get(member, 'role', 0)),
     user: req.user,
     footerUid: req.formatted.uid
-  } );
+  });
 }
 
-function redirect( req, res, next ) {
-  if ( !req.agenda || !req.event ) return next( { code: 404 } );
-  if (req.query.sharemodal) return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal`);
-  res.redirect( 301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}` );
+function renderAgendaEmbedEvent(req, res, next) {
 
-}
-
-
-function renderAgendaEmbedEvent( req, res, next ) {
-
-  cmn.renderTemplate( req, 'event/embedShow', {
+  cmn.renderTemplate(req, 'event/embedShow', {
     eventRender: req.render,
     scriptParams: {
       res: {
-        actions: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+        actions: req.genUrl('agendaActionShow', { slug: req.agenda.slug })
       }
     }
-  }, false, ( err, render ) => {
+  }, false, (err, render) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
     req.render = render;
     res.data = render;
 
     next();
 
-  } );
+  });
 
 }
 
 
-function agendaCustomEmbedEventShow( req, res ) {
+function agendaCustomEmbedEventShow(req, res) {
 
-  _addLanguageLinks( req, `/agendas/${req.params.uid}/embeds/${req.params.embedUid}/events/${req.params.eventUid}` );
+  _addLanguageLinks(req, `/agendas/${req.params.uid}/embeds/${req.params.embedUid}/events/${req.params.eventUid}`);
 
   // back link needs to
 
-  cmn.render( req, res, 'event/embedShow', {
+  cmn.render(req, res, 'event/embedShow', {
     event: req.formatted,
     backUri: 'customEmbedShow',
     backQuery: { uid: req.params.uid, embedUid: req.params.embedUid }
-  } );
+  });
 
 }
 
 
-function _appendFacebookParams( req, res, next ) {
+function _appendFacebookParams(req, res, next) {
 
-  if ( !req.query.fb ) return next();
+  if (!req.query.fb) return next();
 
   // to add 'fb' class to layout html
   req.baseData.facebook = true;
@@ -349,102 +449,29 @@ function _appendFacebookParams( req, res, next ) {
 }
 
 
-function _addLanguageLinks( req, url, urlParams ) {
+function _addLanguageLinks(req, url, urlParams) {
 
   var linkedLanguages = [];
 
-  if ( !req.formatted.languages ) return;
+  if (!req.formatted.languages) return;
 
-  req.formatted.languages.selection.forEach( lang => {
+  req.formatted.languages.selection.forEach(lang => {
 
-    linkedLanguages.push( {
+    linkedLanguages.push({
       label: lang,
-      link: url + qs.stringify( { ...urlParams, lang }, { addQueryPrefix: true } )
-    } );
+      link: url + qs.stringify({ ...urlParams, lang }, { addQueryPrefix: true })
+    });
 
-  } );
+  });
 
   req.formatted.languages.selection = linkedLanguages;
 
 }
 
-function _switchEmbedLang( req, res, next ) {
-
-  req.event.switchLanguage( req.lang );
+function _switchEmbedLang(req, res, next) {
+  req.event.switchLanguage(req.lang);
 
   next();
-
-}
-
-
-function _formatAgendaLinks( uri, keys ) {
-
-  return function ( req, res, next ) {
-
-    const routeValues = _getRouteValues( req, keys );
-
-    const baseSearchQuery = {};
-
-    if ( req.query.fb ) routeValues.fb = 1;
-
-    if ( req.query.oaq && req.query.oaq.passed !== undefined ) {
-
-      baseSearchQuery.passed = req.query.oaq.passed;
-
-    }
-
-    // link to go back to the agenda
-    req.formatted.backLink = req.genUrl( uri, [
-      routeValues,
-      req.query.oaq ? { oaq: req.query.oaq } : {},
-      { lang: req.lang }
-    ] );
-
-    req.formatted.backLabel = getLabel( 'back', req.lang );
-
-    // link to results for event location in agenda
-    req.formatted.locationLink = req.genUrl( uri, [
-      routeValues,
-      { oaq: _.extend( { location: req.event.getLocationUid() }, baseSearchQuery ) },
-      { lang: req.lang }
-    ] );
-
-    req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
-    req.formatted.osmItineraryLink = _osmItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
-
-    // link to results for same category in agenda
-    req.formatted.categoryLink = false;
-
-    if ( req.formatted.categorySlug ) {
-
-      req.formatted.categoryLink = req.genUrl( uri, [
-        routeValues,
-        { oaq: _.extend( { category: req.formatted.categorySlug }, baseSearchQuery ) },
-        { lang: req.lang }
-      ] );
-
-    }
-
-    next();
-
-  }
-
-}
-
-function _getRouteValues( req, keys ) {
-
-  const routeValues = [];
-
-  if ( typeof keys == 'string' ) keys = [ keys ];
-
-  keys.forEach( function ( k ) {
-
-    routeValues[ k ] = req.params[ k ];
-
-  } );
-
-  return routeValues;
-
 }
 
 
@@ -452,40 +479,40 @@ function _getRouteValues( req, keys ) {
  * append 'back to agenda' link and event social share links to event data
  */
 
-function _formatEmbedLinks( req, res, next ) {
+function _formatEmbedLinks(req, res, next) {
 
-  req.formatted.backLink = req.genUrl( 'agendaEmbedShow', {
+  req.formatted.backLink = req.genUrl('agendaEmbedShow', {
     uid: req.params.uid,
     lang: req.lang
-  } );
+  });
 
 
-  req.formatted.locationLink = req.genUrl( 'agendaEmbedShow', {
+  req.formatted.locationLink = req.genUrl('agendaEmbedShow', {
     uid: req.params.uid,
     oaq: {
       location: req.event.getLocationUid()
     },
     lang: req.lang
-  } );
+  });
 
-  req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
-  req.formatted.osmItineraryLink = _osmItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
+  req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
+  req.formatted.osmItineraryLink = OSMItineraryLink(req.event.getLatitude(), req.event.getLongitude());
 
 
   req.formatted.categoryLink = false;
 
-  if ( req.formatted.categorySlug ) {
+  if (req.formatted.categorySlug) {
 
-    req.formatted.categoryLink = req.genUrl( 'agendaEmbedShow', {
+    req.formatted.categoryLink = req.genUrl('agendaEmbedShow', {
       uid: req.params.uid,
       oaq: {
         category: req.formatted.categorySlug
       }
-    } );
+    });
 
   }
 
-  req.formatted.backLabel = getLabel( 'back', req.lang );
+  req.formatted.backLabel = getLabel('back', req.lang);
 
   next();
 
@@ -496,55 +523,55 @@ function _formatEmbedLinks( req, res, next ) {
  * append 'back to agenda' link and event social share links to event data
  */
 
-function _formatCustomEmbedLinks( req, res, next ) {
+function _formatCustomEmbedLinks(req, res, next) {
 
-  req.formatted.backLink = req.genUrl( 'customEmbedShow', {
+  req.formatted.backLink = req.genUrl('customEmbedShow', {
     uid: req.params.uid,
     embedUid: req.params.embedUid,
     lang: req.lang
-  } );
+  });
 
-  req.formatted.locationLink = req.genUrl( 'customEmbedShow', {
+  req.formatted.locationLink = req.genUrl('customEmbedShow', {
     uid: req.params.uid,
     embedUid: req.params.embedUid,
     oaq: {
       location: req.event.getLocationUid()
     },
     lang: req.lang
-  } );
+  });
 
-  req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
-  req.formatted.osmItineraryLink = _osmItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
+  req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
+  req.formatted.osmItineraryLink = OSMItineraryLink(req.event.getLatitude(), req.event.getLongitude());
 
   req.formatted.categoryLink = false;
 
-  if ( req.formatted.categorySlug ) {
+  if (req.formatted.categorySlug) {
 
-    req.formatted.categoryLink = req.genUrl( 'customEmbedShow', {
+    req.formatted.categoryLink = req.genUrl('customEmbedShow', {
       uid: req.params.uid,
       embedUid: req.params.embedUid,
       oaq: {
         category: req.formatted.categorySlug
       },
       lang: req.lang
-    } );
+    });
 
   }
 
-  req.formatted.backLabel = getLabel( 'back', req.lang );
+  req.formatted.backLabel = getLabel('back', req.lang);
 
   next();
 
 }
 
 
-function _appendEventTransferCredential( req, res, next ) {
+function _appendEventTransferCredential(req, res, next) {
 
   req.baseData.hasOwnershipTransfer = false;
 
   req.baseData.scriptParams.hasOwnershipTransfer = false;
 
-  req.agenda.hasCredential( 'eventTransfer', ( err, has ) => {
+  req.agenda.hasCredential('eventTransfer', (err, has) => {
 
     req.baseData.hasOwnershipTransfer = has;
 
@@ -552,7 +579,7 @@ function _appendEventTransferCredential( req, res, next ) {
 
     next();
 
-  } );
+  });
 
 }
 
@@ -602,161 +629,64 @@ function _appendSettings(req, res, next) {
   });
 }
 
-
-function _formatFavoriteLink( req, res, next ) {
-
-  req.formatted.favorite = cmn.favoriteLinkHTML( req.event.uid );
+function _formatFavoriteLink(req, res, next) {
+  req.formatted.favorite = cmn.favoriteLinkHTML(req.event.uid);
 
   next();
-
 }
 
-function _addInterfaceLanguage( req, res, next ) {
-
+function _addInterfaceLanguage(req, res, next) {
   req.formatted.interfaceLang = req.lang;
 
   next();
-
 }
 
-
-function _formatSocialLinks( req, res, next ) {
-
-  let siteUrl = false,
-
-    eventUrl,
-
-    externalSite = false;
-
-  if ( req.agenda ) {
-
-    eventUrl = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
-
-    siteUrl = `${config.root}/${req.agenda.slug}`;
-
-  } else {
-
-    eventUrl = `${config.root}/events/${req.event.slug}`;
-
-  }
-
-  if ( req.embed ) {
-
-    if ( req.embed.getSiteUrl() ) {
-
-      externalSite = true;
-
-      siteUrl = req.embed.getSiteUrl();
-
-      eventUrl = siteUrl + '?oaq[uid]=' + req.event.uid;
-
-    }
-
-  }
-
-  _.merge( req.formatted, legacyEventSvc.getSocialLinks( req.event, eventUrl, siteUrl ) );
-
-  if ( req.embed ) {
-
-    req.formatted.facebookShare = 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent( `${config.root}/agendas/${req.agenda.uid}/events/${req.event.uid}/share` );
-
-  }
-
-  next();
-
-}
-
-
-function _formatEmbedHeadLinks( req, res, next ) {
-
-  req.formatted.actionLink = req.genUrl( 'agendaEventActionShow', {
+function _formatEmbedHeadLinks(req, res, next) {
+  req.formatted.actionLink = req.genUrl('agendaEventActionShow', {
     slug: req.agenda.slug,
     eventSlug: req.event.slug
-  }, { protocol: 'https://' } );
-  req.formatted.actionLabel = getLabel( 'export', req.lang );
+  }, { protocol: 'https://' });
+  req.formatted.actionLabel = getLabel('export', req.lang);
 
   next();
-
 }
 
-function _googleItineraryLink( lat, lng ) {
-
-  return `https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},17z`;
-
+function wrap(fn) {
+  return (req, res, next) => fn(req, res, next).catch(next);
 }
 
-function _osmItineraryLink( lat, lng ) {
+function _decorateLocation(req, res, next) {
 
-  return `https://www.openstreetmap.org/directions?to=${lat}%2C${lng}`;
+  const locationTags = _.get(req, 'formatted.location.tags', []);
 
-}
-
-function _googleMapsLink( lat, lng ) {
-
-  return `https://maps.google.com/maps?q=${lat},${lng}&z=15`
-
-}
-
-function wrap( fn ) {
-
-  return ( req, res, next ) => fn( req, res, next ).catch( next );
-
-}
-
-function _loadAgendaCoreSettings( req, res, next ) {
-
-  req.app.services.core.agendas( req.agenda.uid ).settings.get({ access: 'internal' }).then( settings => {
-
-    req.agendaSettings = settings;
-
-    next();
-
-  }, err => {
-
-    if ( err ) {
-
-      log( 'error', 'failed to load core settings for %s', req.originalUrl );
-
-    }
-
-    next();
-
-  } );
-
-}
-
-function _decorateLocation( req, res, next ) {
-
-  const locationTags = _.get( req, 'formatted.location.tags', [] );
-
-  if ( !locationTags.length ) return next();
+  if (!locationTags.length) return next();
 
   const locationField = _.first(
-    _.get( req, 'agendaSettings.fields', [] )
-      .filter( f => f.field === 'location' )
-  );
+    _.get(req, 'agendaSettings.fields', [])
+      .filter(f => f.field === 'location')
+ );
 
-  if ( !locationField ) return next();
+  if (!locationField) return next();
 
   try {
 
-    const tags = _.get( locationField, 'legacy.tagSet.groups', [] )
-      .reduce( ( tags, g ) => tags.concat( g.tags ), [] );
+    const tags = _.get(locationField, 'legacy.tagSet.groups', [])
+      .reduce((tags, g) => tags.concat(g.tags), []);
 
     req.formatted.location.tags = locationTags
-      .map( t => {
+      .map(t => {
 
-        const matching = _.first( tags.filter( tag => tag.id === t.id ) );
+        const matching = _.first(tags.filter(tag => tag.id === t.id));
 
-        t.label = _.get( matching, [ 'label', req.lang ] ) || t.label;
+        t.label = _.get(matching, ['label', req.lang]) || t.label;
 
         return t;
 
-      } );
+      });
 
-  } catch ( e ) {
+  } catch (e) {
 
-    log( 'error', 'failed to use schema tags for location of event %s', _.get( req, 'formatted.event.uid' ), e );
+    log('error', 'failed to use schema tags for location of event %s', _.get(req, 'formatted.event.uid'), e);
 
   }
 
