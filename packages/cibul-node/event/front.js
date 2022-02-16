@@ -41,9 +41,9 @@ function redirect(req, res, next) {
     return next({ code: 404 });
   }
   if (req.query.sharemodal) {
-    return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal`);
+    return res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal${req.query.lang ? `&lang=${req.query.lang}` : ''}`);
   }
-  res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}`);
+  res.redirect(301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}${req.query.lang ? `?lang=${req.query.lang}` : ''}`);
 }
 
 function formatSocialLinks(req, res, next) {
