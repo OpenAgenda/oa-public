@@ -5,6 +5,7 @@ const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
 const convertFormat = require('./convertFormat');
+const loadCredentials = require('./loadCredentials');
 
 const perPage = 20;
 
@@ -45,8 +46,9 @@ module.exports = app => {
     '/agendas/:uid/admin/events.json',
     preMw,
     members.mw.authorizeAdminModOrKey(),
-    convertFormat,
     agendaSvc.mw.search(perPage, true),
+    loadCredentials,
+    convertFormat,
     legacyEventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(true),
     agendaSvc.mw.cleanJson,

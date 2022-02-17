@@ -5,7 +5,7 @@ const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const renderHTMLFromMarkdown = require('@openagenda/legacy/utils/renderHTMLFromMarkdown');
 
 module.exports = async (req, res, next) => {
-  if (!req.query.fromV2) return next();
+  if (!req.credentials.useJSONBridge && !req.query.fromV2) return next();
 
   const {
     legacy: {
