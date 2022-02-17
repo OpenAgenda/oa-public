@@ -39,13 +39,13 @@ export default function RadioField(props) {
       }] : []).map(o => (
         <div
           className="radio"
-          key={[field.name, o.value].join('.')}
+          key={[field.field, o.value].join('.')}
         >
-          <label htmlFor={`${field.name}.${o.value}`}>
+          <label htmlFor={`${field.field}.${o.value}`}>
             <input
-              id={`${field.name}.${o.value}`}
+              id={`${field.field}.${o.value}`}
               type="radio"
-              name={field.name}
+              name={field.field}
               onChange={onSelect.bind(null, o)}
               checked={isChecked(o)}
             />
