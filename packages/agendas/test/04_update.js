@@ -291,7 +291,8 @@ describe('agendas - functional (server): set (update)', function() {
             calendarView: false,
             docxExport: false,
             eventOwnershipTransfer: false,
-            graphs: false
+            graphs: false,
+            useJSONBridge: true
           },
           legacyStore: {
             moderated: false,
