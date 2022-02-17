@@ -3,9 +3,5 @@
   "close": "Schließen",
   "input-format": "Eine Format auswählen",
   "modal-title": "Exportieren",
-  "instructions": "Anweisungen",
-  "instructionsStep1": "Kopieren Sie den obigen Link",
-  "instructionsStep2": "Öffnen Sie ",
-  "instructionsStep3": "Öffnen Sie im linken Bereich, \"Weitere Kalender > Per URL\"",
-  "instructionsStep4": "Einfügen Sie den Link den Sie in Schritt 1 kopiert haben und folgen Sie den Anweisungen"
+  "instructions": "Anweisungen"
 }
