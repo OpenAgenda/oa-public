@@ -239,6 +239,14 @@ describe('11 - event-search - unit: formatEvent', function() {
     ]);
   });
 
+  it('fix: formatEvent is tolerant of null registration', () => {
+    const newEvent = produce(event, draft => {
+      draft.registration = [null];
+    });
+
+    formatEvent(newEvent).registration.should.eql([]);
+  });
+
   it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
     const eventWithUpdate = produce(event, draft => {
       draft.createdAt = new Date('2020-05-11T15:25:30+0200');

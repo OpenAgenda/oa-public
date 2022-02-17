@@ -13,7 +13,7 @@ const { produce } = require('immer');
 
 const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5'];
 
-const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r.type);
+const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
 
 const multilingualFieldHasValue = v => {
   if (!v) {
