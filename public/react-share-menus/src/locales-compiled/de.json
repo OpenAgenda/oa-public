@@ -133,6 +133,18 @@
       "value": "Use the previous JSON export version"
     }
   ],
+  "gcalStep2": [
+    {
+      "type": 0,
+      "value": "2. In the left section, open \"Other Calendars > Add by URL\"."
+    }
+  ],
+  "gcalStep3": [
+    {
+      "type": 0,
+      "value": "3. Follow the instructions by pasting the link you copied in step 1"
+    }
+  ],
   "import": [
     {
       "type": 0,
@@ -157,28 +169,10 @@
       "value": "Anweisungen"
     }
   ],
-  "instructionsStep1": [
+  "instructionsCopyLink": [
     {
       "type": 0,
-      "value": "Kopieren Sie den obigen Link"
-    }
-  ],
-  "instructionsStep2": [
-    {
-      "type": 0,
-      "value": "Öffnen Sie "
-    }
-  ],
-  "instructionsStep3": [
-    {
-      "type": 0,
-      "value": "Öffnen Sie im linken Bereich, \"Weitere Kalender > Per URL\""
-    }
-  ],
-  "instructionsStep4": [
-    {
-      "type": 0,
-      "value": "Einfügen Sie den Link den Sie in Schritt 1 kopiert haben und folgen Sie den Anweisungen"
+      "value": "1. Copy the link in the field above and open "
     }
   ],
   "jsonDoc1": [
@@ -223,6 +217,30 @@
     {
       "type": 0,
       "value": "Official agenda"
+    }
+  ],
+  "outlookStep2": [
+    {
+      "type": 0,
+      "value": "2. At the bottom of the page, select the calendar icon"
+    }
+  ],
+  "outlookStep3": [
+    {
+      "type": 0,
+      "value": "3. In the navigation pane, select \"Add calendar\""
+    }
+  ],
+  "outlookStep4": [
+    {
+      "type": 0,
+      "value": "4. Select \"Subscribe from web\""
+    }
+  ],
+  "outlookStep5": [
+    {
+      "type": 0,
+      "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
     }
   ],
   "private-agenda": [
