@@ -28,16 +28,15 @@ describe('11 - validators - query', () => {
     });
   });
 
-  it('BadRequestError is thrown when query contains invalid values', () => {
+  it('BadRequest is thrown when query contains invalid values', () => {
+    let error;
     try {
       queryValidator({
         network: 'Truc'
       });
-    } catch (error) {
-      assert.equal(error.name, 'BadRequestError');
-      return;
+    } catch (e) {
+      error = e;
     }
-    throw new Error('should not reach here');
+    assert.equal(error.name, 'BadRequest');
   });
-
 });
