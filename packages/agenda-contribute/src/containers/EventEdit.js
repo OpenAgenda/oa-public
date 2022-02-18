@@ -53,7 +53,7 @@ export default function EventEdit({
     }
   }, [eventIsLoading, event, history, location, prefix]);
 
-  if (eventIsLoading || isLoading) {
+  if (eventIsLoading || isLoading || event?.draft) {
     return <Loading />;
   }
 
