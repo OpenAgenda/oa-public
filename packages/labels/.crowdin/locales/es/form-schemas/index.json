@@ -3,5 +3,6 @@
   "groupErrorHeader": "Algunas entradas deben ser corregidos",
   "submit": "Guardar",
   "help": "Ayuda",
-  "noChoice": "otra opción"
+  "noChoice": "otra opción",
+  "cancel": "anular"
 }

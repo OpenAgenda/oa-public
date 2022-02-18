@@ -20,5 +20,8 @@
   "requestEditionRights": "Demander les droits d'édition",
   "onlyAdditionalFieldsCanBeEditedInfo": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu.",
   "requestEditionRightsInfo": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
+  "shareRestrictionInfo": "Les points suivants doivent être résolus afin de rendre l'événement \"%event%\" partageable sur l'agenda \"%agenda%\"",
+  "suggestChange": "Suggérer une modification",
+  "cancelShare": "Annuler le partage",
   "close": "Fermer"
 }

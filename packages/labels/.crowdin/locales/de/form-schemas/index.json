@@ -3,5 +3,6 @@
   "groupErrorHeader": "Einige Werte müssen korrigiert werden",
   "submit": "Rekord",
   "help": "Hilfe",
-  "noChoice": "Keine Wahl"
+  "noChoice": "Keine Wahl",
+  "cancel": "annulieren"
 }

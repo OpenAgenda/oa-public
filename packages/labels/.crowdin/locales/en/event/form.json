@@ -56,6 +56,7 @@
   "rescheduled": "Re-scheduled",
   "movedOnline": "Moved online",
   "cancelled": "Cancelled",
+  "full": "Full",
   "postponed": "Postponed",
   "status": "Status"
 }

@@ -1,5 +1,7 @@
 {
   "timings.empty": "Au moins un horaire doit être renseigné",
   "location.required": "Le lieu doit être spécifié",
-  "timings.toolong": "Il ne peut y avoir plus de 800 plages horaires pour un même événement"
+  "timings.toolong": "Il ne peut y avoir plus de 800 plages horaires pour un même événement",
+  "timings.min.1": "Au moins un horaire doit être défini",
+  "timings.invalid": "Au moins un horaire doit être défini"
 }

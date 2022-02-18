@@ -22,9 +22,11 @@
   "timings": "Horaires détaillés",
   "isoTimings": "Horaires ISO",
   "registrationUrl": "Lien d'inscription",
+  "registration": "Inscription",
   "accessibility": "Accessibilité",
   "featured": "En Une",
   "link": "Lien",
+  "permalink": "Permalien",
   "location.uid": "Identifiant du lieu",
   "location.latitude": "Latitude",
   "location.longitude": "Longitude",
@@ -59,5 +61,12 @@
   "references": "Evénements liés",
   "attendanceMode": "Mode de participation",
   "onlineAccessLink": "Lien d'accès",
-  "status": "État"
+  "status": "État",
+  "member.uid": "Membre: identifiant",
+  "member.role": "Membre: rôle",
+  "member.phone": "Membre: téléphone",
+  "member.email": "Membre: email",
+  "member.organization": "Membre: organisme",
+  "member.name": "Membre: nom",
+  "member.position": "Membre: fonction"
 }

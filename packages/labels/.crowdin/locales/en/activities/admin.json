@@ -15,6 +15,7 @@
   "agenda.changeEventState": "{user} passed {event} from \"{before}\" to \"{after}\".",
   "agenda.publishEvent": "{user} published {event} on {agenda}.",
   "agenda.unpublishEvent": "{user} unpublished {event} on {agenda}.",
+  "agenda.systemUnpublishEvent": "{event} has been automatically unpublished on {agenda} for moderation",
   "agenda.removeEvent": "{user} removed {event} from {agenda}.",
   "agenda.aggregateEvent": "{agenda} aggregated {event} from {sourceAgenda}.",
   "agenda.addEvent": "{user} added {event} on {agenda} from {sourceAgenda}.",

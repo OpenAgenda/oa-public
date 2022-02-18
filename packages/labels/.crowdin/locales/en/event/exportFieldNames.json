@@ -22,9 +22,11 @@
   "timings": "Detailed timings",
   "isoTimings": "ISO timings",
   "registrationUrl": "Registration link",
+  "registration": "Registration",
   "accessibility": "Accessibility",
   "featured": "Featured",
   "link": "Link",
+  "permalink": "Permalink",
   "location.uid": "Location identifier",
   "location.latitude": "Latitude",
   "location.longitude": "Longitude",
@@ -59,5 +61,12 @@
   "references": "Linked events",
   "attendanceMode": "Attendance mode",
   "onlineAccessLink": "Access link",
-  "status": "Status"
+  "status": "Status",
+  "member.uid": "Member: Identifier",
+  "member.role": "Member: role",
+  "member.phone": "Member: phone",
+  "member.email": "Member: email",
+  "member.organization": "Member: organization",
+  "member.name": "Member: name",
+  "member.position": "Member: title"
 }

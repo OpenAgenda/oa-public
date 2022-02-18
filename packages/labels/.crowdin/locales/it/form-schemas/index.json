@@ -3,5 +3,6 @@
   "groupErrorHeader": "Alcune voci devono essere corrette",
   "submit": "Registrati",
   "help": "Aiuto",
-  "noChoice": "Nessuna scelta"
+  "noChoice": "Nessuna scelta",
+  "cancel": "Annullare"
 }

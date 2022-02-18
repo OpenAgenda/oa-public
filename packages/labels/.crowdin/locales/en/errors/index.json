@@ -20,5 +20,6 @@
   "noOrigin": "This event is unavailable as it is not associated to any agenda.",
   "defaultBack": "Back to the home page",
   "defaultAgendaBack": "Back to the agenda page",
-  "pageDoesNotExist": "The page you requested does not exist"
+  "pageDoesNotExist": "The page you requested does not exist",
+  "invalidOrIncompleteEvent": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again"
 }

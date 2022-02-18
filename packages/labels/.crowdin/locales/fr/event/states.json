@@ -9,5 +9,6 @@
   "state": "statut",
   "stateChanged": "Le statut de l'événement a été modifié",
   "featuredChange": "L'événement est désormais en une",
-  "unfeaturedChange": "L'événement n'est plus en une"
+  "unfeaturedChange": "L'événement n'est plus en une",
+  "stateFieldInfo": "Ce champ n'est pas accessible aux contributeurs"
 }

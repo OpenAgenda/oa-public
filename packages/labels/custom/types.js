@@ -10,9 +10,9 @@ module.exports = {
     "io": "crwdns14014:0crwdne14014:0"
   },
   "checkbox": {
-    "en": "Liste à choix multiples",
-    "fr": "Multiple choice list",
-    "de": "Liste à choix Multiples",
+    "en": "Multiple choice list",
+    "fr": "Liste à choix multiples",
+    "de": "Multiple choice list",
     "es": "Lista de opción múltiple",
     "it": "Elenco a scelta multipla",
     "io": "crwdns14016:0crwdne14016:0"
