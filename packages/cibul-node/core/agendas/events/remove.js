@@ -56,15 +56,15 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     access: 'internal'
   });
 
+  if (!event) {
+    log('error', '  event not found');
+    throw new NotFound({ info: { uid: eventUid } }, 'event not found');
+  }
+
   const isOriginAgenda = event.agendaUid === parseInt(agendaUid, 10);
 
   if (isOriginAgenda && protectFromOriginRemove) {
     throw new Forbidden('Cannot remove event from origin in protected mode');
-  }
-
-  if (!event) {
-    log('error', '  event not found');
-    throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
   log('  loaded event to remove');

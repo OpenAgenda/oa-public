@@ -114,6 +114,18 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     });
   });
 
+  describe('errors', () => {
+    it('remove non-existing event throws NotFound exception', async () => {
+      let error;
+      try {
+        await core.agendas(17026855).events.remove(99999999);
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('NotFound');
+    });
+  });
+
   describe('api', () => {
     let server;
     let accessToken;
@@ -156,6 +168,20 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
     it('response provides the deleted event', () => {
       expect(response.event.uid).toBe(90298390);
+    });
+
+    it('deleting non-existant event returns 404', async () => {
+      const errorResponse = await axios({
+        method: 'delete',
+        url: 'http://localhost:3000/agendas/17026855/events/90298390',
+        headers: {
+          'content-type': 'application/json',
+          'access-token': accessToken,
+          nonce: 12987897
+        }
+      }).then(() => {}, err => err.response);
+
+      expect(errorResponse.status).toBe(404);
     });
   });
 });
