@@ -2,6 +2,13 @@
  * makes validator process lists
  */
 
+function isNothing(validator, v) {
+  if (['integer', 'number'].includes(validator.type) && v === '') {
+    return true;
+  }
+  return [undefined, null].includes(v);
+}
+
 export default (validator, options) => {
   const params = {
     min: null,
@@ -14,7 +21,7 @@ export default (validator, options) => {
     const clean = [];
     let errors = [];
 
-    let value = [undefined, null].includes(v) ? [] : v;
+    let value = isNothing(validator, v) ? [] : v;
 
     if (params.default !== undefined) {
       if (v === params.default) {
