@@ -1,11 +1,13 @@
 'use strict';
 
-const UnauthorizedError = require('@openagenda/utils/errors/UnauthorizedError');
+const {
+  Forbidden
+} = require('@openagenda/verror');
 
 module.exports = async (service, action, identifier = null, options = {}) => {
   const settings = await service.getSettings(options);
   if (settings.access[action].authorized) {
     return;
   }
-  throw new UnauthorizedError('location', identifier, `Unauthorized ${action}`);
+  throw new Forbidden({ info: { identifier } }, `Unauthorized ${action}`);
 };

@@ -6,7 +6,7 @@ const text = require('@openagenda/validators/text');
 
 schema.register({ integer, text });
 
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 
 const validate = schema({
   uid: {
@@ -34,6 +34,6 @@ module.exports = identifiers => {
       [getFieldName]: clean[getFieldName],
     };
   } catch (e) {
-    throw new BadRequestError('Invalid identifiers');
+    throw new BadRequest('Invalid identifiers');
   }
 };

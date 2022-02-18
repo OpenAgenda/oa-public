@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-const ValidationError = require('@openagenda/utils/errors/ValidationError');
+const { BadRequest } = require('@openagenda/verror');
 const schema = require('@openagenda/validators/schema');
 const stream = require('@openagenda/validators/stream');
 const email = require('@openagenda/validators/email');
@@ -62,7 +62,7 @@ module.exports = (values, options = {}) => {
   try {
     return (isPatch ? fn.part.bind(null, Object.keys(values)) : fn)(ignoreImage ? _.omit(values, ['image']) : values);
   } catch (errors) {
-    throw new ValidationError(errors);
+    throw new BadRequest({ info: { errors } }, 'data is invalid');
   }
 };
 

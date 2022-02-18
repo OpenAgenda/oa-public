@@ -5,7 +5,7 @@ const integer = require('@openagenda/validators/integer');
 
 schema.register({ integer });
 
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 
 const validate = schema({
   agendaUid: {
@@ -23,7 +23,6 @@ const validate = schema({
 });
 
 module.exports = async (service, k, deleted, query) => {
-  //console.log(deleted);
   const cleanQuery = {};
 
   try {
@@ -32,7 +31,7 @@ module.exports = async (service, k, deleted, query) => {
       throw new Error('identifier is missing');
     }
   } catch (e) {
-    throw new BadRequestError('Invalid location identifier', e);
+    throw new BadRequest('Invalid location identifier', e);
   }
 
   const {

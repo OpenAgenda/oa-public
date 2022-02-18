@@ -1,7 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('remove');
-const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
+const { NotFound } = require('@openagenda/verror');
 const removeCandidate = require('./duplicates/removeCandidate');
 
 const get = require('./get');
@@ -46,7 +46,7 @@ module.exports.byAgendaUid = async (
   );
 
   if (!current) {
-    throw new NotFoundError('location', { identifiers, agendaUid });
+    throw new NotFound({ info: { identifiers, agendaUid } }, 'location not found');
   }
 
   return remove({ endpoints, internals }, current, options);
@@ -61,7 +61,7 @@ module.exports.bySetUid = async (
   const current = await get.bySetUid({ internals, endpoints }, setUid, identifiers, options);
 
   if (!current) {
-    throw new NotFoundError('location', { identifiers, setUid });
+    throw new NotFound({ info: { identifiers, setUid } }, 'location not found');
   }
 
   return remove({ endpoints, internals }, current, options);

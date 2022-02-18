@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const flattenLocationTagSet = require('./flattenLocationTagSet');
 
 const defaultAccess = {
@@ -27,7 +26,7 @@ function clean(entrySettings, options) {
   }
 
   if (Array.isArray(entrySettings.agendas)) {
-    settings.agendas = entrySettings.agendas.map(s => clean(s, { 
+    settings.agendas = entrySettings.agendas.map(s => clean(s, {
       ..._.omit(options, ['agendaUid']),
       defaultSettings: settings
     }));
