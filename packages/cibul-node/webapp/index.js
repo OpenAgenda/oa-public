@@ -429,10 +429,30 @@ const initialState = async req => {
     },
     agendaLocationAdmin: {
       settings: {
-        prefix: '/:slug/admin/locations',
-        apiRoot: `http://localhost:${config.port}`
+        prefix: '/:agendaSlug/admin/locations',
+        apiRoot: `http://localhost:${config.port}`,
+        pageSize: 20,
+        staticTiles: config.staticTiles,
+        mapTiles: config.tiles
       },
-      res: {}
+      res: {
+        index: '/api/agendas/:agendaUid/locations?detailed=1&eventCounts=1',
+        getSettings: '/api/agendas/:agendaUid/locations/settings',
+        get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
+        create: '/api/agendas/:agendaUid/locations',
+        update: '/api/agendas/:agendaUid/locations/:locationUid',
+        merge: '/api/agendas/:agendaUid/locations/merge',
+        remove: '/api/agendas/:agendaUid/locations/:locationUid',
+        geocode: '/api/locations/geocode',
+        reverseGeocode: '/api/locations/geocode/reverse',
+        insee: '/api/locations/insee',
+        csv: '/:agendaSlug/admin/locations.csv',
+        xlsx: '/:agendaSlug/admin/locations.xlsx',
+        disqualifyDuplicates: '/:agendaSlug/admin/locations/disqualify',
+        agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
+        seeEvents: '/:agendaSlug/admin/events?q.locationUid=:locationUid',
+        suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create'
+      }
     },
     // Admin
     adminSupport: {
