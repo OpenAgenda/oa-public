@@ -12,7 +12,7 @@ const config = {
   all: {
     env: 'production',
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-    superAdminIds: [1, 2, 11258, 15453, 124500, 128348],
+    superAdminIds: [1, 2, 11258, 15453, 124500, 128348, 149412],
     jsVersion: 42,
     cssVersion: 2,
     interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
