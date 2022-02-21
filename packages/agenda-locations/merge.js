@@ -31,7 +31,7 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
     data
   ) : mergeInItem;
 
-  log('removing other locations'); // why not remove with remove fn?
+  log('removing other locations');
   for (const location of toBeMerged) {
     await remove({ internals, endpoints }, location, { mergedIn: mergeInItem.uid });
   }

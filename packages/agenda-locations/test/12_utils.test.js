@@ -12,6 +12,10 @@ describe('utils', () => {
     it('does not have specific labels for the UAE', () => {
       expect(geoFields('AE', 'adminLevel1')).toBe('adminLevel1');
     });
+
+    it('does not have specific labels for the JA', () => {
+      expect(geoFields('JA', 'adminLevel1')).toBe('adminLevel1');
+    });
   });
 
   describe('decorateWithCounts', () => {

@@ -3,10 +3,13 @@
 const cleanGetOptions = require('./lib/cleanGetOptions');
 
 module.exports = async (service, uid, options = {}) => {
-  const { detailed } = cleanGetOptions(options);
-
+  const { detailed, includeSettings } = cleanGetOptions(options);
+  const selectFields = ['uid', 'title'];
+  if (includeSettings) {
+    selectFields.push('settings');
+  }
   const entry = await service.clients.knex
-    .first(['uid', 'title'])
+    .first(selectFields)
     .from(service.config.setSchema)
     .where('uid', uid);
 
@@ -16,6 +19,9 @@ module.exports = async (service, uid, options = {}) => {
     uid: entry.uid,
     title: entry.title,
   };
+  if (includeSettings) {
+    set.settings = entry.settings ? JSON.parse(entry.settings) : {};
+  }
 
   if (detailed) {
     set.agendasCount = await service.interfaces.getSetAgendasCount(uid);
