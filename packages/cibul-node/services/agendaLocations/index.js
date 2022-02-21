@@ -1,7 +1,6 @@
 'use strict';
 
 const AgendaLocations = require('@openagenda/agenda-locations');
-// const OpenCage = require('@openagenda/geocoder/Opencage');
 const log = require('@openagenda/logs')('services/agendaLocations');
 
 const getEventCounts = require('./interfaces/getEventCounts');
@@ -32,8 +31,6 @@ module.exports.init = async (config, services) => {
   });
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
-
-  // const geocoder = OpenCage(config.opencage);
 
   const instance = AgendaLocations({
     knex: config.knex,
