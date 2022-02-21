@@ -224,3 +224,18 @@ Si une clé fournie commence par `-----BEGIN ENCRYPTED PRIVATE KEY-----`, elle e
 Utiliser la bonne version de `node` avec `nvm` et `crontab` sans coder en dur la version de node:
 
 https://gist.github.com/simov/cdbebe2d65644279db1323042fcf7624
+
+## @openagenda/files
+
+Les post avec fichier nécessitent l'utilisation d'une lib comme multer coté serveur pour traiter les fichiers. Le package `files` peut encapsuler multer pour traiter les fichiers directement. Le middleware parse avec multer et fusionne les fichiers avec le reste des données postées.
+
+```
+const multer = require('multer')
+const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
+
+const filesMw = makeFilesMw(multer());
+
+app.use(filesMw('any'));
+```
+
+C'est utilisé dans le middleware du storybook du package `agenda-settings`.

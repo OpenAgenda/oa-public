@@ -14,348 +14,342 @@ const DEFAULT_NODE = 'paragraph';
 
 const DEFAULT_DOC = {
   document: {
-    nodes: [ {
+    nodes: [{
       object: 'block',
       type: 'paragraph',
-      nodes: [ {
+      nodes: [{
         object: 'text',
-        leaves: [ { text: '' } ]
-      } ]
-    } ]
+        leaves: [{ text: '' }]
+      }]
+    }]
   }
 };
 
+function renderMark(props) {
+  const {
+    children,
+    mark,
+    attributes
+  } = props;
+
+  if (mark.type === 'bold') {
+    return <strong {...attributes}>{children}</strong>;
+  }
+
+  if (mark.type === 'italic') {
+    return <em {...attributes}>{children}</em>;
+  }
+}
+
+function renderNode(props) {
+  const {
+    attributes,
+    children,
+    node
+  } = props;
+
+  if (node.type === 'bulleted-list') {
+    return <ul {...attributes}>{children}</ul>;
+  }
+
+  if (node.type === 'heading-two') {
+    return <h2 {...attributes}>{children}</h2>;
+  }
+
+  if (node.type === 'heading-three') {
+    return <h3 {...attributes}>{children}</h3>;
+  }
+
+  if (node.type === 'list-item') {
+    return <li {...attributes}>{children}</li>;
+  }
+
+  if (node.type === 'link') {
+    return (
+      <a {...attributes} href={node.data.get('href')}>
+        {children}
+      </a>
+    );
+  }
+}
+
 export default class SlateField extends Component {
+  constructor(props) {
+    super(props);
 
-  constructor( props ) {
+    let update;
+    const {
+      value
+    } = this.props;
 
-    super( props );
-
-    let value;
-
-    if ( this.props.value instanceof Value ) {
-
-      value = this.props.value;
-
-    } else if ( !this.props.value ) {
-
-      value = Value.fromJSON( DEFAULT_DOC );
-
-    } else if ( _.isString( this.props.value ) ) {
-
-      value = Value.fromJSON( JSON.parse( this.props.value ) );
-
+    if (value instanceof Value) {
+      update = value;
+    } else if (!value) {
+      update = Value.fromJSON(DEFAULT_DOC);
+    } else if (_.isString(value)) {
+      update = Value.fromJSON(JSON.parse(value));
     } else {
-
-      value = Value.fromJSON( this.props.value );
-
+      update = Value.fromJSON(value);
     }
 
     this.state = {
-      value,
+      value: update,
       changed: false
     };
-
   }
 
   // slate triggers an onChange on load.
   // The first can be ignored
-  onChange( { value } ) {
+  onChange({ value }) {
+    const {
+      onChange,
+      raw
+    } = this.props;
 
-    const changed = this.state.changed || (
-      JSON.stringify( value.toJSON() ) !== JSON.stringify( this.state.value.toJSON() )
+    const {
+      changed: stateChangedValue,
+      value: stateValue
+    } = this.state;
+
+    const changed = stateChangedValue || (
+      JSON.stringify(value.toJSON()) !== JSON.stringify(stateValue.toJSON())
     );
 
-    this.setState( { value, changed } );
+    this.setState({ value, changed });
 
-    if ( !changed ) return;
+    if (!changed) return;
 
-    this.props.onChange( this.props.raw ? value : value.toJSON() );
-
+    onChange(raw ? value : value.toJSON());
   }
 
-  toggleMark( type, e ) {
+  toggleMark(type, e) {
+    if (e) e.preventDefault();
 
-    if ( e ) e.preventDefault();
+    const {
+      value
+    } = this.state;
 
-    this.onChange( this.state.value.change().toggleMark( type ) );
-
+    this.onChange(value.change().toggleMark(type));
   }
 
-  toggleLink( { value, change } ) {
+  toggleLink({ value, change }) {
+    if (this.hasLinks()) {
+      change.unwrapInline('link');
+    } else if (value.isExpanded) {
+      /* eslint-disable */
+      const href = window.prompt('Enter the URL of the link:');
+      /* eslint-enable */
 
-    if ( this.hasLinks() ) {
-
-      change.unwrapInline( 'link' );
-
-    } else if ( value.isExpanded ) {
-
-      const href = window.prompt( 'Enter the URL of the link:' );
-
-      change.wrapInline( {
+      change.wrapInline({
         type: 'link',
         data: { href }
-      } );
-
+      });
     } else {
+      /* eslint-disable */
+      const href = window.prompt('Enter the URL of the link:');
+      const text = window.prompt('Enter the text for the link:');
+      /* eslint-enable */
 
-      const href = window.prompt( 'Enter the URL of the link:' );
-      const text = window.prompt( 'Enter the text for the link:' );
-
-      if ( text && text.length ) {
-
+      if (text && text.length) {
         change
-          .insertText( text )
-          .extend( 0 - text.length );
+          .insertText(text)
+          .extend(0 - text.length);
 
-        change.wrapInline( { type: 'link', data: { href } } );
-
+        change.wrapInline({ type: 'link', data: { href } });
       }
-
     }
-
   }
 
-  toggleList( { value, change, document, type } ) {
-
+  toggleList({
+    value, change, document, type
+  }) {
     // Handle the extra wrapping required for list buttons.
-    const isList = this.hasBlock( 'list-item' );
+    const isList = this.hasBlock('list-item');
 
-    const isType = value.blocks.some( block => {
+    const isType = value.blocks.some(block => (
+      !!document.getClosest(block.key, parent => parent.type === type)
+    ));
 
-      return !!document.getClosest( block.key, parent => parent.type == type );
-
-    } );
-
-    if ( isList && isType ) {
-
+    if (isList && isType) {
       change
-        .setBlocks( DEFAULT_NODE )
-        .unwrapBlock( 'bulleted-list' )
-        .unwrapBlock( 'numbered-list' );
-
+        .setBlocks(DEFAULT_NODE)
+        .unwrapBlock('bulleted-list')
+        .unwrapBlock('numbered-list');
     } else if (isList) {
-
       change
         .unwrapBlock(
-          type == 'bulleted-list' ? 'numbered-list' : 'bulleted-list'
+          type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list'
         )
-        .wrapBlock( type );
-
+        .wrapBlock(type);
     } else {
-
-      change.setBlocks( 'list-item' ).wrapBlock( type );
-
+      change.setBlocks('list-item').wrapBlock(type);
     }
-
   }
 
-  toggleBlock( type, e ) {
-
+  toggleBlock(type, e) {
     const { value } = this.state;
     const change = value.change();
     const { document } = value;
 
-    if ( e ) e.preventDefault();
+    if (e) e.preventDefault();
 
-    if ( type === 'link' ) {
-
-      this.toggleLink( { value, change } );
-
-    } else if ( [ 'bulleted-list', 'numbered-list' ].includes( type ) ) {
-
-      this.toggleList( { value, change, document, type } );
-
+    if (type === 'link') {
+      this.toggleLink({ value, change });
+    } else if (['bulleted-list', 'numbered-list'].includes(type)) {
+      this.toggleList({
+        value, change, document, type
+      });
     } else {
+      const isActive = this.hasBlock(type);
 
-      const isActive = this.hasBlock( type );
+      const isList = this.hasBlock('list-item');
 
-      const isList = this.hasBlock( 'list-item' );
-
-      if ( isList ) {
-
+      if (isList) {
         change
-          .setBlocks( isActive ? DEFAULT_NODE : type )
-          .unwrapBlock( 'bulleted-list' )
-          .unwrapBlock( 'numbered-list' );
-
+          .setBlocks(isActive ? DEFAULT_NODE : type)
+          .unwrapBlock('bulleted-list')
+          .unwrapBlock('numbered-list');
       } else {
-
-        change.setBlocks( isActive ? DEFAULT_NODE : type );
-
+        change.setBlocks(isActive ? DEFAULT_NODE : type);
       }
-
     }
 
-    this.onChange( change );
-
+    this.onChange(change);
   }
 
   hasLinks() {
+    const {
+      value
+    } = this.state;
 
-    return this.state.value.inlines.some( inline => inline.type === 'link' );
-
+    return value.inlines.some(inline => inline.type === 'link');
   }
 
-  hasBlock( type ) {
+  hasBlock(type) {
+    const {
+      value
+    } = this.state;
 
-    return this.state.value.blocks.some( node => node.type === type );
-
-  }
-
-  renderBlockButton( type, label ) {
-
-    let isActive = this.hasBlock( type );
-
-    if ( type === 'bulleted-list' ) {
-
-      const { value } = this.state;
-
-      const parent = value.blocks.size && value.document.getParent( value.blocks.first().key );
-
-      isActive = this.hasBlock( 'list-item' ) && parent && parent.type === type;
-
-    }
-
-    return <a
-      className={classNames( {
-        btn: true,
-        'btn-default' : !isActive,
-        'btn-primary' : isActive
-      } )}
-      onMouseDown={this.toggleBlock.bind( this, type)}
-      >
-      {label}
-    </a>
-
-  }
-
-  renderMarkButton( type ) {
-
-    const isActive = this.state.value.activeMarks.some( mark => mark.type === type );
-
-    return <a
-      className={classNames( {
-        btn: true,
-        'btn-default' : !isActive,
-        'btn-primary' : isActive
-      } )}
-      onMouseDown={this.toggleMark.bind( this, type )}
-    >
-      <i className={'fa fa-' + type}></i>
-    </a>
-
-  }
-
-
-
-  renderMark( props ) {
-
-    const { children, mark, attributes } = props;
-
-    if ( mark.type === 'bold' ) {
-
-      return <strong {...attributes}>{children}</strong>;
-
-    } else if ( mark.type === 'italic' ) {
-
-      return <em {...attributes}>{children}</em>
-
-    }
-
-  }
-
-  renderNode( props ) {
-
-    const { attributes, children, node } = props;
-
-    if ( node.type === 'bulleted-list' ) {
-
-      return <ul {...attributes}>{children}</ul>;
-
-    } else if ( node.type === 'heading-two' ) {
-
-      return <h2 {...attributes}>{children}</h2>;
-
-    } else if ( node.type === 'heading-three' ) {
-
-      return <h3 {...attributes}>{children}</h3>;
-
-    } else if ( node.type === 'list-item' ) {
-
-      return <li {...attributes}>{children}</li>
-
-    } else if ( node.type === 'link' ) {
-
-      return <a {...attributes} href={node.data.get( 'href' )}>
-        {children}
-      </a>
-
-    }
-
+    return value.blocks.some(node => node.type === type);
   }
 
   isEmpty() {
-
     let empty = false;
 
+    const {
+      value
+    } = this.state;
+
     try {
+      const nodes = value?.document?.nodes;
 
-      const nodes = _.get( this.state.value, 'document.nodes' );
-
-      if ( !nodes.size ) {
-
+      if (!nodes.size) {
         empty = true;
-
-      } else if ( nodes.size === 1 && !nodes.get( 0 ).text.length ) {
-
+      } else if (nodes.size === 1 && !nodes.get(0).text.length) {
         empty = true;
-
       }
-
-    } catch ( e ) {
-
-      console.error( e );
-
+    } catch (e) {
+      console.error(e);
     }
 
     return empty;
-
   }
 
-  triggerFocus() {
+  renderBlockButton(type, label) {
+    let isActive = this.hasBlock(type);
 
-    this.editor.focus();
+    if (type === 'bulleted-list') {
+      const { value } = this.state;
 
+      const parent = value.blocks.size && value.document.getParent(value.blocks.first().key);
+
+      isActive = this.hasBlock('list-item') && parent && parent.type === type;
+    }
+
+    return (
+      <button
+        type="button"
+        className={classNames({
+          btn: true,
+          'btn-default': !isActive,
+          'btn-primary': isActive
+        })}
+        onMouseDown={this.toggleBlock.bind(this, type)}
+      >
+        {label}
+      </button>
+    );
+  }
+
+  renderMarkButton(type) {
+    const {
+      value
+    } = this.state;
+
+    const isActive = value.activeMarks.some(mark => mark.type === type);
+
+    return (
+      <button
+        type="button"
+        className={classNames({
+          btn: true,
+          'btn-default': !isActive,
+          'btn-primary': isActive
+        })}
+        onMouseDown={this.toggleMark.bind(this, type)}
+      >
+        <i className={`fa fa-${type}`} />
+      </button>
+    );
   }
 
   render() {
+    const {
+      value
+    } = this.state;
 
-    const labels = flatten( richTextLabels, this.props.lang, true );
+    const {
+      lang,
+      field
+    } = this.props;
 
-    return <div className="rich-textarea margin-top-xs">
-      <div className="toolbar">
-        {this.renderBlockButton( 'heading-two', labels.heading )}
-        {this.renderBlockButton( 'heading-three', labels.subHeading )}
-        {this.renderMarkButton( 'bold' )}
-        {this.renderMarkButton( 'italic' )}
-        {this.renderBlockButton( 'bulleted-list', <i className="fa fa-list"></i> )}
-        {this.renderBlockButton( 'link', <i className="fa fa-link"></i> )}
+    const {
+      placeholder
+    } = field;
+
+    const labels = flatten(richTextLabels, lang, true);
+
+    return (
+      <div className="rich-textarea margin-top-xs">
+        <div className="toolbar">
+          {this.renderBlockButton('heading-two', labels.heading)}
+          {this.renderBlockButton('heading-three', labels.subHeading)}
+          {this.renderMarkButton('bold')}
+          {this.renderMarkButton('italic')}
+          {this.renderBlockButton('bulleted-list', <i className="fa fa-list" />)}
+          {this.renderBlockButton('link', <i className="fa fa-link" />)}
+        </div>
+        <div className="textarea-canvas">
+          { this.isEmpty() && placeholder ? (
+            <button
+              type="button"
+              onKeyDown={() => this.editor.focus()}
+              onClick={() => this.editor.focus()}
+              className="textarea-placeholder"
+            >
+              {nl2br(placeholder)}
+            </button>
+          ) : null }
+          <Editor
+            ref={el => { this.editor = el; }}
+            spellCheck={false}
+            value={value}
+            renderMark={renderMark}
+            renderNode={renderNode}
+            onChange={params => this.onChange(params)}
+          />
+        </div>
       </div>
-      <div className="textarea-canvas">
-        { this.isEmpty() && this.props.field.placeholder ? <div onClick={this.triggerFocus.bind( this )} className="textarea-placeholder">
-          {nl2br( this.props.field.placeholder )}
-        </div> : null }
-        <Editor
-          ref={el => (this.editor = el)}
-          spellCheck={false}
-          value={this.state.value}
-          renderMark={this.renderMark}
-          renderNode={this.renderNode}
-          onChange={this.onChange.bind( this )} />
-      </div>
-    </div>
-
+    );
   }
-
 }

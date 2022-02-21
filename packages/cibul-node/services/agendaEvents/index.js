@@ -3,11 +3,12 @@
 const express = require('express');
 const AgendaEvents = require('@openagenda/agenda-events');
 const eventStates = require('@openagenda/agendas/service/validate/eventStates');
-const log = require('@openagenda/logs')('services/agendaEvents');
 const beforeRemove = require('./beforeRemove');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const onRemove = require('./onRemove');
+
+const changeStateMw = require('./middleware/changeState');
 
 const mw = {
   loadAgenda: require('../members/middleware/loadAgenda'),
@@ -15,7 +16,6 @@ const mw = {
   load: require('./middleware/load'),
   remove: require('./middleware/remove'),
   requireCanEdit: require('./middleware/requireCanEdit'),
-  changeState: require('./middleware/changeState'),
   changeFeatured: require('./middleware/changeFeatured'),
   updateStatus: require('./middleware/updateStatus'),
   batch: require('./middleware/batch'),
@@ -82,19 +82,19 @@ function plugApp(parentApp) {
       mw.load
     );
 
-  parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
+  parentApp.get('/:agendaSlug/events/:eventSlug/state/:state', [
     requireLoggedMw,
     loadMw,
     members.mw.loadAndAuthorize('moderator'),
-    mw.changeState
-  );
+    changeStateMw
+  ]);
 
-  parentApp.post('/:agendaSlug/events/:eventSlug/state',
+  parentApp.post('/:agendaSlug/events/:eventSlug/state', [
     requireLoggedMw,
     loadMw,
     members.mw.loadAndAuthorize('moderator'),
-    mw.changeState
-  );
+    changeStateMw
+  ]);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/status',
     requireLoggedMw,
@@ -125,13 +125,13 @@ function plugApp(parentApp) {
     mw.changeFeatured
   );
 
-  parentApp.post('/:agendaSlug/admin/events/states',
+  parentApp.post('/:agendaSlug/admin/events/states', [
     sessions.mw.loadOrRedirect(),
     mw.loadAgenda,
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
-    mw.changeState.batched
-  );
+    changeStateMw.batched
+  ]);
 
   parentApp.all('/:agendaSlug/admin/events/batch',
     sessions.mw.loadOrRedirect(),

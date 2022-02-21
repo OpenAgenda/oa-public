@@ -207,11 +207,15 @@ function errorResponse( req, res, error, jsonResponse ) {
     const data = {
       code: error.code,
       message: error.message,
-      back: _.get( error, 'back', {
-        label: getErrorLabel( 'defaultBack', req.lang ),
+      back: _.get(error, 'back', {
+        label: getErrorLabel('defaultBack', req.lang),
         link: '/'
-      } )
+      })
     };
+
+    if (Array.isArray(error?.info?.errors) && req.event) {
+      data.message = getErrorLabel('invalidOrIncompleteEvent', req.lang);
+    }
 
     const layoutData = {
       lang: req.lang,

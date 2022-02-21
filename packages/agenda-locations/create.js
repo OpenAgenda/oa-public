@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('create');
 const slug = require('slugify');
-const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
+const { NotFound } = require('@openagenda/verror');
 const cleanOptions = require('./lib/cleanSetOptions');
 const defineUnique = require('./lib/defineUnique');
 const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
@@ -79,7 +79,7 @@ module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) => c
 
 module.exports.bySetUid = async (service, setUid, data, options = {}) => {
   if (!(await service.sets.get(setUid))) {
-    throw new NotFoundError('location set', { setUid });
+    throw new NotFound({ info: { setUid } }, 'set not found');
   }
   return create(service, data, {
     ...options,

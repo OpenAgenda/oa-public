@@ -24,14 +24,19 @@ export default class MarkdownField extends Component {
 
   render() {
     const {
-      value
+      value,
+      field: {
+        default: defaultValue
+      }
     } = this.props;
+
+    const appliedValue = (value === null) && defaultValue ? defaultValue : value;
 
     return (
       <SlateField {
         ...ih(this.props, {
           value: {
-            $set: HTMLSerializer.deserialize(markdown.from(value))
+            $set: HTMLSerializer.deserialize(markdown.from(appliedValue))
           },
           onChange: {
             $set: this.onChange.bind(this)

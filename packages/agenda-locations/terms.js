@@ -1,7 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('terms');
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 const addListQuery = require('./lib/addListQuery');
 const termFields = require('./lib/fields').filter(f => f.read.includes('terms'));
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
@@ -26,7 +26,7 @@ async function terms(service, requestedTerms, query = {}, options = {}) {
   const requestedTermFieldNames = termFields.map(f => f.field);
 
   if (!requestedTermFields.length) {
-    throw new BadRequestError('No valid term was requested');
+    throw new BadRequest('No valid term was requested');
   }
 
   await addListQuery(service, k, null, {

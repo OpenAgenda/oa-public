@@ -1,6 +1,11 @@
 {
   "myAgendas": "My agendas",
   "createAgenda": "Create an agenda",
+  "editMember": "See my contact info",
+  "editMemberInformation": "Administrators of this agenda require some additional information to allow them to contact you in case of need",
+  "otherActions": "Other actions",
+  "removeMember": "Unlist myself from the agenda",
+  "removeMemberInformation": "If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen.",
   "searchAgenda": "Search an agenda",
   "myEvents": "My events",
   "messages": "Messages",

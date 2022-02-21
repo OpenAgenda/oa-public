@@ -291,6 +291,14 @@ describe('events - functional - create', () => {
       }
     });
 
+    it('draft create does not required title to be specified', async () => {
+      const event = await svc.create({
+        description: 'Une description'
+      }, { draft: true });
+
+      assert.equal(event.title, undefined);
+    });
+
     it('provided context is passed to interface call', done => {
       const onCreate = (createdEvent, context) => {
         assert.equal(context.agendaUid, 123);

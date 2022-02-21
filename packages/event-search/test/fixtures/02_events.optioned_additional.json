@@ -1,0 +1,183 @@
+{
+  "data": {
+    "lastId": -1,
+    "events": [
+      {
+        "uid": 1,
+        "state": 2,
+        "categories-agenda-metropolitain": 46,
+        "location": {
+          "city": "Tombouctou",
+          "latitude": 0,
+          "longitude": 0
+        }
+      },
+      {
+        "uid": 2,
+        "state": 2,
+        "categories-agenda-metropolitain": 43
+      },
+      {
+        "uid": 3,
+        "state": 2,
+        "location": {
+          "city": "Rue",
+          "latitude": 0,
+          "longitude": 0
+        }
+      }
+    ]
+  },
+  "formSchema": {
+    "fields": [
+      {
+        "field": "categories-agenda-metropolitain",
+        "label": {
+          "fr": "Catégories Agenda Métropolitain"
+        },
+        "info": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "origin": "categories",
+        "options": [
+          {
+            "id": 42,
+            "value": "animation-loto",
+            "label": {
+              "fr": "Animation - Loto"
+            }
+          },
+          {
+            "id": 43,
+            "value": "atelier",
+            "label": {
+              "fr": "Atelier"
+            }
+          },
+          {
+            "id": 44,
+            "value": "ceremonie",
+            "label": {
+              "fr": "Cérémonie"
+            }
+          },
+          {
+            "id": 45,
+            "value": "cinema-projection",
+            "label": {
+              "fr": "Cinéma - Projection"
+            }
+          },
+          {
+            "id": 46,
+            "value": "concert",
+            "label": {
+              "fr": "Concert"
+            }
+          },
+          {
+            "id": 47,
+            "value": "conference-rencontre",
+            "label": {
+              "fr": "Conférence - Rencontre"
+            }
+          },
+          {
+            "id": 48,
+            "value": "congres-colloque",
+            "label": {
+              "fr": "Congrès - Colloque"
+            }
+          },
+          {
+            "id": 49,
+            "value": "conseil-de-metropole",
+            "label": {
+              "fr": "Conseil de métropole"
+            }
+          },
+          {
+            "id": 50,
+            "value": "conseil-municipal",
+            "label": {
+              "fr": "Conseil municipal"
+            }
+          },
+          {
+            "id": 51,
+            "value": "evenement-sportif",
+            "label": {
+              "fr": "Événement sportif"
+            }
+          },
+          {
+            "id": 52,
+            "value": "exposition",
+            "label": {
+              "fr": "Exposition"
+            }
+          },
+          {
+            "id": 53,
+            "value": "fete-festival",
+            "label": {
+              "fr": "Fête - Festival"
+            }
+          },
+          {
+            "id": 54,
+            "value": "foire-salon",
+            "label": {
+              "fr": "Foire - Salon"
+            }
+          },
+          {
+            "id": 55,
+            "value": "inauguration",
+            "label": {
+              "fr": "Inauguration"
+            }
+          },
+          {
+            "id": 56,
+            "value": "lecture",
+            "label": {
+              "fr": "Lecture"
+            }
+          },
+          {
+            "id": 57,
+            "value": "marche-brocante-vide-grenier",
+            "label": {
+              "fr": "Marché-Brocante - Vide grenier"
+            }
+          },
+          {
+            "id": 58,
+            "value": "reunion-publique",
+            "label": {
+              "fr": "Réunion publique"
+            }
+          },
+          {
+            "id": 59,
+            "value": "spectacle",
+            "label": {
+              "fr": "Spectacle"
+            }
+          },
+          {
+            "id": 60,
+            "value": "visite-balade",
+            "label": {
+              "fr": "Visite - Balade"
+            }
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3
+      }
+    ]
+  }
+}

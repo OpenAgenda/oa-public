@@ -11,7 +11,18 @@ const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields')
 const aggObjects = require('./aggregatorObjects');
 const { produce } = require('immer');
 
-const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r.type);
+const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5'];
+
+const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
+
+const multilingualFieldHasValue = v => {
+  if (!v) {
+    return false;
+  }
+  return Object.keys(v).filter(k => (v[k] ?? '').length);
+}
+
+const isEmpty = v => Array.isArray(v) ? !v.length : v === undefined;
 
 module.exports = produce((event, options = {}) => {
   const {
@@ -22,6 +33,7 @@ module.exports = produce((event, options = {}) => {
     attendanceMode: event.attendanceMode || 1,
     onlineAccessLink: event.onlineAccessLink || null,
     featured: !!event.featured,
+    '_search_empty_fields': [],
     '_search_languages': ['title', 'description','longDescription']
       .filter(f => !!event[f])
       .reduce((languages, field) => {
@@ -52,6 +64,10 @@ module.exports = produce((event, options = {}) => {
     event.location._agg = aggObjects.flatten(event.location, ['uid', 'name']);
   }
 
+  locationFields.filter(lField => !event.location?.[lField]?.length).forEach(lField => {
+    event['_search_empty_fields'].push(`location.${lField}`);
+  });
+
   if (event.timings) {
     const timezone = event.timezone || (event.location ? event.location.timezone : null);
     Object.assign(event, {
@@ -78,15 +94,23 @@ module.exports = produce((event, options = {}) => {
     });
   }
 
-  if (event.title) {
+  if (multilingualFieldHasValue(event.title)) {
     event['_search_title'] = Object.values(event.title);
+  } else {
+    event['_search_empty_fields'].push('title');
   }
-  if (event.description) {
+  
+  if (multilingualFieldHasValue(event.description)) {
     event['_search_description'] = Object.values(event.description);
+  } else {
+    event['_search_empty_fields'].push('description');
   }
-  if (event.keywords) {
+
+  if (multilingualFieldHasValue(event.keywords)) {
     event['_search_keywords'] = Object.values(event.keywords);
     event['_search_keywords_text'] = Object.values(event.keywords);
+  } else {
+    event['_search_empty_fields'].push('keywords');
   }
 
   if (event.originAgenda) {
@@ -110,14 +134,18 @@ module.exports = produce((event, options = {}) => {
     };
 
     event.member._agg = aggObjects.flatten(event.member, ['uid', 'name']);
+  } else {
+    event['_search_empty_fields'].push('member');
   }
 
   if (event.registration && !registrationHasType(event.registration)) {
     event.registration = addRegistrationType(event.registration, {
       filterUnknown: true
     });
+  } else {
+    event['_search_empty_fields'].push('registration');
   }
-
+  
   if (!_lessThanOneMinuteApart(event.updatedAt, event.createdAt)) {
     event['_exclusiveUpdatedAt'] = event.updatedAt;
   }
@@ -130,7 +158,11 @@ module.exports = produce((event, options = {}) => {
 
   schemaAdditionalFields.forEach(additionalField => {
     if (event[additionalField.field] === undefined) {
-      event[additionalField.field] = ['radio', 'select'].includes(additionalField.fieldType) ? [] : null
+      event[additionalField.field] = ['radio', 'select'].includes(additionalField.fieldType) ? [] : null;
+    }
+
+    if (isEmpty(event[additionalField.field])) {
+      event['_search_empty_fields'].push(additionalField.field);
     }
   });
 
@@ -184,7 +216,7 @@ function _dateRange(timings = [], timezone, languages = []) {
 }
 
 function _searchFullAddressText(location, country) {
-  return ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5']
+  return locationFields
     .map(f => location[f])
     .filter(f => !!f)
     .concat(Object.values(country))

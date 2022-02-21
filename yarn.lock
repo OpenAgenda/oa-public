@@ -6900,6 +6900,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/validators": ^2.4.0
+    autosize: ^5.0.1
     aws-sdk: ^2.544.0
     babel-loader: ^8.2.2
     body-parser: ^1.18.3
@@ -14295,6 +14296,13 @@ __metadata:
   bin:
     autoprefixer: bin/autoprefixer
   checksum: 46987bc3de6612f0276c3643061901e33cc5721d07aaeb6f0daf237554448884a59c0b17087bf0f00a07d940abcb5a6eaf2203b962c24fe33d52f76aa845cb70
+  languageName: node
+  linkType: hard
+
+"autosize@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "autosize@npm:5.0.1"
+  checksum: 18e8aec2ab5f628c70a38019512357004c59dd03f7dd86616d628326f5ef7aab532dce13939d5b6640e5793db3b27c9630d1d07c8ca4a545d189ab23f1b5b8f0
   languageName: node
   linkType: hard
 

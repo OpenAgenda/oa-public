@@ -200,19 +200,19 @@ const validate = schema({
   }
 });
 
-function cleanAdditionalField(fieldSchema, dirty) {
+function cleanAdditionalField(fieldSchema, dirty, { emptyValue }) {
   if (['radio', 'select', 'checkbox', 'multiselect'].includes(fieldSchema.fieldType)) {
     if (Array.isArray(dirty)) {
-      return dirty.map(v => parseInt(v, 10));
+      return dirty.map(v => v === emptyValue ? emptyValue : parseInt(v, 10));
     } else {
-      return parseInt(dirty, 10);
+      return dirty === emptyValue ? emptyValue : parseInt(dirty, 10);
     }
   }
 
   return dirty;
 }
 
-function validateQuery(dirty, formSchema) {
+function validateQuery(dirty, { formSchema, emptyValue }) {
   const preCleaned = preCleanRawQuery(dirty);
 
   const clean = validate(preCleaned);
@@ -236,7 +236,7 @@ function validateQuery(dirty, formSchema) {
           : undefined;
 
       if (value !== undefined) {
-        const cleanValue = cleanAdditionalField(fieldSchema, value);
+        const cleanValue = cleanAdditionalField(fieldSchema, value, { emptyValue });
 
         return {
           ...additionalValues,
@@ -254,7 +254,8 @@ module.exports = validateQuery;
 module.exports.inflateAndClean = (query, options = {}) => {
   const {
     set = null,
-    formSchema = null
+    formSchema = null,
+    emptyValue
   } = options;
 
   const inflated = Object.keys(query).reduce((inflated, key) => _.set(
@@ -267,5 +268,5 @@ module.exports.inflateAndClean = (query, options = {}) => {
 
   const derelativized = derelativize(inflated);
 
-  return validateQuery(derelativized, formSchema);
+  return validateQuery(derelativized, { formSchema, emptyValue });
 }

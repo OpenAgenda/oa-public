@@ -1,0 +1,19 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "state": 2,
+      "title": {
+        "fr": "Une expo"
+      }
+    },
+    {
+      "uid": 2,
+      "state": 2,
+      "title": {
+        "fr": "Une exposition"
+      }
+    }
+  ]
+}

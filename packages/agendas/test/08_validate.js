@@ -231,7 +231,8 @@ describe('agendas - unit (server): validate', () => {
           aggregator: false,
           docxExport: false,
           eventOwnershipTransfer: false,
-          graphs: false
+          graphs: false,
+          useJSONBridge: true
         }
       });
     });

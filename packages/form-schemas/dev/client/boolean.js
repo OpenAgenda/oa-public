@@ -21,6 +21,11 @@ renderSchemaFromProps({
       info: 'An info text displayed under the label',
       help: 'Click here for more info',
       helpLink: 'https://openagenda.com'
+    }, {
+      field: 'checkedbydefault',
+      fieldType: 'boolean',
+      label: 'This should be checked by default',
+      default: true
     }]
   },
   onChange: ({ values }) => {

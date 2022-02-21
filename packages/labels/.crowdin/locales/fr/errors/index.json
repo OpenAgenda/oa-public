@@ -20,5 +20,6 @@
   "noOrigin": "Cet événement est indisponible car il n'est associé a aucun agenda",
   "defaultBack": "Revenir à l'accueil",
   "defaultAgendaBack": "Revenir à l'agenda",
-  "pageDoesNotExist": "La page que vous avez demandé n'existe pas"
+  "pageDoesNotExist": "La page que vous avez demandé n'existe pas",
+  "invalidOrIncompleteEvent": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération."
 }

@@ -7,6 +7,17 @@ function evaluateUserAccessToEvent(req, res, next) {
     core
   } = req.app;
 
+  const isUIAPICall = req.baseUrl === '/api';
+
+  if (
+    isUIAPICall
+    && !req.agenda.private
+    && req.event.state === 2
+    && !req.user
+  ) {
+    return next();
+  }
+
   core
     .users(req.user.uid)
     .agendas(req.agenda.uid)

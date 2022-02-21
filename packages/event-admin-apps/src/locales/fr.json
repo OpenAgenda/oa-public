@@ -72,7 +72,7 @@
   "EventAdminApp.SortSelector.chronological": "Ordre chronologique",
   "EventAdminApp.SortSelector.recentlyUpdated": "Date de mise à jour",
   "EventAdminApp.SortSelector.relevance": "Pertinence",
-  "EventAdminApp.hooks.useFilters.aggregation": "Aggrégation",
+  "EventAdminApp.hooks.useFilters.aggregation": "Agrégation",
   "EventAdminApp.hooks.useFilters.contribution": "Contribution",
   "EventAdminApp.hooks.useFilters.featured": "En une",
   "EventAdminApp.hooks.useFilters.share": "Partage",

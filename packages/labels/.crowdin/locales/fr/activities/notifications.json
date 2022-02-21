@@ -26,6 +26,7 @@
   "agenda.changeEventState": "{actorCount, plural, one {{actor} a passé} other {{actor} ont passé}} {object} en \"{newState}\" sur {target}.",
   "agenda.publishEvent": "{actorCount, plural, one {{actor} a publié} other {{actor} ont publié}} {object} sur {target}.",
   "agenda.unpublishEvent": "{actorCount, plural, one {{actor} a dépublié} other {{actor} ont dépublié}} {object} sur {target}.",
+  "agenda.systemUnpublishEvent": "{object} a été dépublié automatiquement sur {target} pour nouveau contrôle",
   "agenda.removeEvent": "{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} de {target}.",
   "agenda.aggregateEvent": "{target} a agrégé {object} à partir de {actor}.",
   "agenda.addEvent": "{actor} a ajouté {object} sur {target} à partir de {sourceAgenda}.",

@@ -21,11 +21,16 @@ export default props => {
   } = props;
 
   const {
-    field
+    field,
   } = props;
+
+  const {
+    default: defaultValue
+  } = field;
 
   const isOptional = isFieldOptional(field, relatedValues.optional);
   const falsyValue = isOptional ? false : undefined;
+  const checked = !!([null, undefined].includes(value) && (defaultValue !== undefined) ? defaultValue : value);
 
   return (
     <div className="checkbox">
@@ -34,8 +39,8 @@ export default props => {
           id={name}
           type="checkbox"
           name={name}
-          onChange={() => onChange(value ? falsyValue : true)}
-          checked={!!value}
+          onChange={() => onChange(checked ? falsyValue : true)}
+          checked={checked}
         />
         <span className={classNames({ 'margin-right-xs': hasHelp(field) || !isOptional })}>{label}</span>
         {isOptional ? null : (

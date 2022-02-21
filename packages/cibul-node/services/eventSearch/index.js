@@ -57,7 +57,8 @@ module.exports.init = async (config, services) => {
       onUpdate: ({ set }) => {
         tracker(`eventSearch.onUpdate.${set}`);
       }
-    }
+    },
+    emptyValue: 'null'
   });
 
   const queue = queues('eventSearch');

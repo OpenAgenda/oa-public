@@ -138,4 +138,9 @@ describe('integer validator', () => {
 
     expect(validate('')).toBeUndefined();
   });
+
+  it('if empty string is given to list integer validator, empty list is returned', () => {
+    const listValidator = validators.integer({ list: true });
+    expect(listValidator('')).toEqual([]);
+  });
 });

@@ -8,7 +8,7 @@ CREATE TABLE `${schema}` (
   online_access_link VARCHAR(255),
   location_uid bigint(20),
   slug VARCHAR(255) NOT NULL UNIQUE,
-  title VARCHAR(2000) NOT NULL,
+  title VARCHAR(2000),
   description VARCHAR(2000),
   long_description TEXT,
   keywords VARCHAR(2000),

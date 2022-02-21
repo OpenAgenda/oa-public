@@ -291,7 +291,10 @@ function Dashboard() {
   const [query, setQuery] = useState(() => {
     const urlQuery = removeQueryPrefix(parsedLocationSearch);
 
-    return _.pick(validateQuery(urlQuery, agendaSchema), Object.keys(urlQuery));
+    return _.pick(
+      validateQuery(urlQuery, { formSchema: agendaSchema, emptyValue: 'null' }),
+      Object.keys(urlQuery)
+    );
   });
 
   console.log('Dashboard render', query);
@@ -572,7 +575,7 @@ function Dashboard() {
   const validate = useCallback(
     values => {
       try {
-        validateQuery(values, agendaSchema);
+        validateQuery(values, { formSchema: agendaSchema, emptyValue: 'null' });
       } catch (e) {
         console.log('Filters validation error:', e);
       }
@@ -590,7 +593,7 @@ function Dashboard() {
   useUpdateEffect(() => {
     const urlQuery = removeQueryPrefix(parsedLocationSearch);
     const cleanQuery = _.pick(
-      validateQuery(urlQuery, agendaSchema),
+      validateQuery(urlQuery, { formSchema: agendaSchema, emptyValue: 'null' }),
       Object.keys(urlQuery)
     );
 

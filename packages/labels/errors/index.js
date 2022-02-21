@@ -182,5 +182,9 @@ module.exports = {
     "es": "La página solicitada no existe",
     "it": "La pagina richiesta non esiste.",
     "io": "crwdns14072:0crwdne14072:0"
+  },
+  "invalidOrIncompleteEvent": {
+    "fr": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération.",
+    "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again"
   }
 }

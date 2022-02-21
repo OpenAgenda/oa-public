@@ -1,5 +1,7 @@
 {
   "timings.empty": "At least one timing must be defined",
   "location.required": "The location must be specified",
-  "timings.toolong": "There cannot be more than 800 timings for a single event"
+  "timings.toolong": "There cannot be more than 800 timings for a single event",
+  "timings.min.1": "At least one timing must be defined",
+  "timings.invalid": "At least one timing must be defined"
 }

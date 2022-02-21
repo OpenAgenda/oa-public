@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('merge');
 
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 const list = require('./list');
 const get = require('./get');
 const update = require('./update');
@@ -17,7 +17,7 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
   const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
 
   if (!toBeMerged.length) {
-    throw new BadRequestError('Nothing to merge');
+    throw new BadRequest('Nothing to merge');
   }
 
   if (internals.interfaces.beforeMerge) {

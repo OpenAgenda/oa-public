@@ -133,4 +133,25 @@ describe('02 - event search - functional: location', () => {
       ]
     });
   });
+
+  it('filter on empty location data', async () => {
+    const { events } = await service('location').search({
+      city: 'null'
+    }, {}, {
+      detailed: true
+    });
+
+    assert.strictEqual(events.length, 1);
+    assert.strictEqual(events[0]?.location?.city, undefined);
+  });
+
+  it('filters on empty and non-empty location data', async () => {
+    const { events } = await service('location').search({
+      city: ['null', 'Paris']
+    }, {}, {
+      detailed: true
+    });
+
+    assert.deepEqual(_.uniq(events.map(e => e?.location?.city)), ['Paris', undefined]);
+  });
 });

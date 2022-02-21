@@ -222,7 +222,8 @@ describe( 'agendas - functional (server): get', function() {
         calendarView: false,
         docxExport: false,
         eventOwnershipTransfer: false,
-        graphs: false
+        graphs: false,
+        useJSONBridge: true
       } );
 
       done();

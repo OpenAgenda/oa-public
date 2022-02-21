@@ -1,4 +1,7 @@
 {
+  "timings.empty": "A lo menos un horario debe ser definido",
   "location.required": "El lugar debe especificarse",
-  "timings.toolong": "No puede haber más de 800 segmentos de tiempo para el mismo evento"
+  "timings.toolong": "No puede haber más de 800 segmentos de tiempo para el mismo evento",
+  "timings.min.1": "A lo menos un horario debe ser definido",
+  "timings.invalid": "A lo menos un horario debe ser definido"
 }

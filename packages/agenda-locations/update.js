@@ -1,7 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('update');
-const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
+const { NotFound } = require('@openagenda/verror');
 
 const cleanOptions = require('./lib/cleanSetOptions');
 const get = require('./get');
@@ -82,7 +82,7 @@ module.exports = async (
 ) => {
   const current = await get({ internals: service, endpoints: {} }, identifiers, options);
   if (!current) {
-    throw NotFoundError('location', identifiers);
+    throw NotFound({ info: identifiers }, 'location not found');
   }
   return update({ service, isPatch }, current, data, options);
 };
@@ -102,7 +102,7 @@ module.exports.byAgendaUid = async (
   );
 
   if (!current) {
-    throw new NotFoundError('location', { identifiers, agendaUid });
+    throw new NotFound({ info: { identifiers, agendaUid } }, 'location not found');
   }
 
   return update({ service, isPatch }, current, data, options);
@@ -118,7 +118,7 @@ module.exports.bySetUid = async (
   const current = await get.bySetUid({ internals: service, endpoints: {} }, setUid, identifiers, options);
 
   if (!current) {
-    throw new NotFoundError('location', { identifiers, setUid });
+    throw new NotFound({ info: { identifiers, setUid } }, 'location not found');
   }
 
   return update({ service, isPatch }, current, data, options);

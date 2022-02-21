@@ -1,6 +1,6 @@
 'use strict';
 
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 
 const buildDistancesAndEvaluate = require('./buildDistancesAndEvaluate');
 const cleanDetectCandidatesOptions = require('./cleanDetectCandidatesOptions');
@@ -20,7 +20,7 @@ async function detectDuplicatesCandidates({ internals, endpoints }, locationOrUi
   const location = await getLocation(endpoints, locationOrUid);
 
   if (saveCandidates && !location.uid) {
-    throw new BadRequestError('cannot save a non existing location');
+    throw new BadRequest('cannot save a non existing location');
   }
 
   const geoFilter = {

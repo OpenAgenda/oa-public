@@ -732,7 +732,7 @@
   "EventAdminApp.hooks.useFilters.aggregation": [
     {
       "type": 0,
-      "value": "Aggrégation"
+      "value": "Agrégation"
     }
   ],
   "EventAdminApp.hooks.useFilters.contribution": [

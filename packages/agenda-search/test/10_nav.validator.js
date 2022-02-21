@@ -55,7 +55,7 @@ describe('10 - validators - nav', () => {
         sort: 'fqfdsqdf'
       });
     } catch (error) {
-      assert.equal(error.name, 'BadRequestError');
+      assert.equal(error.name, 'BadRequest');
       return;
     }
 
@@ -68,16 +68,15 @@ describe('10 - validators - nav', () => {
     }).sort, 'createdAt.desc');
   });
 
-  it('BadRequestError is thrown when nav contains invalid values', () => {
+  it('BadRequest is thrown when nav contains invalid values', () => {
     try {
       navValidator({
         from: 'Truc'
       });
     } catch (error) {
-      assert.equal(error.name, 'BadRequestError');
+      assert.equal(error.name, 'BadRequest');
       return;
     }
     throw new Error('should not reach here');
   });
-
-})
+});

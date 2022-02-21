@@ -8,10 +8,12 @@
   "copyLinkAndSend": "Copiez-collez ce lien et envoyez-le par email ou via vos réseaux sociaux.",
   "copyLink": "Copiez le lien",
   "embedYourAgenda": "Intégrez votre agenda dans votre site web",
-  "createEmbedded": "Créer une vue intégrée",
+  "createEmbedded": "Créez une vue intégrée",
   "needPrivate": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu.",
   "requestPrivate": "Demander un agenda privé",
   "needOfficial": "Vous souhaitez un agenda officiel ?",
   "requestOfficial": "Demander un agenda officiel",
+  "or": "ou",
+  "useAPlugin": "Utilisez un plugin",
   "learnMore": "En savoir plus"
 }

@@ -186,5 +186,8 @@
   },
   "_search_additional_keywords": {
     "type": "keyword"
+  },
+  "_search_empty_fields": {
+    "type": "keyword"
   }
 }

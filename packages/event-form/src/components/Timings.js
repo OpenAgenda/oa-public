@@ -92,5 +92,5 @@ function _fZ(n) {
 function _timezone({ date, hours, minutes }) {
   const tzh = (new Date(date + 'T' + hours + ':' + minutes)).getTimezoneOffset() / 60;
 
-  return (tzh >= 0 ? '' : '+') + _fZ(-tzh) + ':00';
+  return (tzh > 0 ? '' : '+') + _fZ(-tzh) + ':00';
 }
