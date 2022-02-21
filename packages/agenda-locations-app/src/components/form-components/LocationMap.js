@@ -42,7 +42,7 @@ const MapContent = ({
     iconAnchor: defaults.iconAnchor,
     iconSize: defaults.iconSize,
   });
-  console.log(pos);
+
   const eventHandlers = useMemo(
     () => ({
       dragend() {

@@ -65,7 +65,6 @@ const AccessModal = ({
 }) => {
   const intl = useIntl();
   const modalType = isExternal(action, settings) ? 'external' : 'unauthorized';
-  console.log('accessModal', action, settings, modalType);
 
   if (modalType === 'external') {
     const hostname = settings.access[actionMap[action]].serviceLabel;

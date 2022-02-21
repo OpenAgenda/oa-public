@@ -15,7 +15,8 @@ import {
   Spinner,
   Pager,
   MoreInfo,
-  Modal
+  Modal,
+  useLayoutData,
 } from '@openagenda/react-shared';
 import MergeStepper from '../components/MergeStepper';
 import LocationItem from '../components/LocationItem';
@@ -28,6 +29,7 @@ import ActiveFilters from '../components/ActiveFilters';
 import IncompleteLocationsFilterDropdown from '../components/IncompleteLocationsFilterDropdown';
 import AccessModal from '../components/AccessModal';
 import RemoveModal from '../components/RemoveModal';
+import ErrorModal from '../components/ErrorModal';
 import SetHeader from '../components/SetHeader';
 import * as mergeActions from '../reducers/merge';
 import * as onGoinActions from '../reducers/onGoinModal';
@@ -99,18 +101,34 @@ const messages = defineMessages({
     id: 'AgendaLocations.AgendaAdminLocation.information',
     defaultMessage: 'Information',
   },
-  onGoing: {
-    id: 'AgendaLocations.AgendaAdminLocation.onGoing',
-    defaultMessage: 'is ongoing',
+  wentWell: {
+    id: 'AgendaLocations.AgendaAdminLocation.wentWell',
+    defaultMessage: ' was succesfull',
+  },
+  createAction: {
+    id: 'AgendaLocations.AgendaAdminLocation.createAction',
+    defaultMessage: ' Location creation',
+  },
+  deleteAction: {
+    id: 'AgendaLocations.AgendaAdminLocation.deleteAction',
+    defaultMessage: ' Location deletion',
+  },
+  mergeAction: {
+    id: 'AgendaLocations.AgendaAdminLocation.mergeAction',
+    defaultMessage: ' Locations merge',
+  },
+  updateAction: {
+    id: 'AgendaLocations.AgendaAdminLocation.updateAction',
+    defaultMessage: ' Location update',
+  },
+  filterList: {
+    id: 'AgendaLocations.AgendaAdminLocation.filterList',
+    defaultMessage: 'Filter List',
   },
 });
 
-function Dashboard({
-  agenda,
-  lang = 'fr',
-}) {
-  console.log('agendaUID', agenda.uid);
-  const set = useSelector(state => state.set);
+function Dashboard() {
+  const { lang, agenda } = useLayoutData();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const merge = useSelector(state => state.merge);
@@ -118,12 +136,12 @@ function Dashboard({
   const [accessModal, setAccessModal] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
   const intl = useIntl();
   const res = useRes(agenda);
   const { locationUid: detailLocationUid } = useParams();
   const { settings } = useSettings(agenda);
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
-
   const history = useHistory();
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
@@ -155,6 +173,7 @@ function Dashboard({
     total,
     size,
   } = useLocations(agenda, page, search);
+  if (error) setErrorModal(error);
 
   const nextPage = useCallback(() => {
     history.push({
@@ -195,11 +214,10 @@ function Dashboard({
   }, [history, search]);
 
   const onRemoveLocation = async (location, withEvents) => {
-    console.log('onRemoveLocation', location, withEvents, res.remove);
     try {
       await axios.delete(res.remove.replace(':locationUid', location.uid), { data: { withEvents } });
     } catch (err) {
-      console.log(err);
+      setErrorModal(err);
       return;
     }
     setRemoveModal(false);
@@ -208,7 +226,6 @@ function Dashboard({
   };
 
   const confirmRemove = useCallback(l => {
-    console.log('confirmRemove', l);
     if (!settings.access.delete.authorized && settings.access.delete.external) setAccessModal({ action: 'remove' });
     else setRemoveModal({ data: { location: l } });
   }, [settings]);
@@ -231,8 +248,12 @@ function Dashboard({
     if (mergeMode) {
       if (merge?.step !== 1) return;
       const newLocationsUids = merge?.locationUids || [];
-      if (!newLocationsUids.find(e => e === location.uid)) newLocationsUids.push(location.uid);
-      dispatch(mergeActions.selectLocations(newLocationsUids));
+      if (!newLocationsUids.find(e => e === location.uid)) {
+        newLocationsUids.push(location.uid);
+        dispatch(mergeActions.selectLocations(newLocationsUids));
+        return;
+      }
+      dispatch(mergeActions.selectLocations(newLocationsUids.filter(e => e !== location.uid)));
       return;
     }
     // basic beahavior
@@ -271,30 +292,28 @@ function Dashboard({
   }, [mergeMode, settings, search, page, prefix, history]);
 
   const launchMerge = () => {
-    dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }));
-    //QueryClient.resetQueries('locations');
+    dispatch(mergeActions.launchMerge(merge, res, { pathname: prefix, search: betterQsStringify({ ...search, page, uids: null }) }, setErrorModal));
   };
 
   const disqualifyMergeCandidates = () => {
     const data = merge.locationUids;
-    console.log('disqualified', data);
-    dispatch(mergeActions.disqualifyDuplicates(data, res, { pathname: prefix, search: betterQsStringify({ ...search, page }) }));
+    dispatch(mergeActions.disqualifyDuplicates(data, res, agenda.slug, { pathname: prefix, search: betterQsStringify({ ...search, page }) }, setErroModal));
   };
 
   return (
     <div className="agenda-admin-locations">
-      {set ? (
-        <SetHeader set={set} res={res} />
+      {settings?.set ? (
+        <SetHeader set={settings.set} res={res} />
       ) : null}
       <div className="row list-actions">
         <div className="col col-sm-12">
           <div className="form-inline">
             <div className="form-group">
               <div className="btn-group margin-left-sm">
-                <a href={res.csv} className="btn btn-default">
+                <a href={res.csv.replace(':agendaSlug', agenda.slug)} className="btn btn-default">
                   <span>csv</span>
                 </a>
-                <a href={res.xlsx} className="btn btn-default">
+                <a href={res.xlsx.replace(':agendaSlug', agenda.slug)} className="btn btn-default">
                   <span>xlsx</span>
                 </a>
               </div>
@@ -355,7 +374,7 @@ function Dashboard({
                         search: betterQsStringify({ ...search, page: 1, search: null })
                       });
                     }}
-                    placeholder="Search..."
+                    placeholder={intl.formatMessage(messages.filterList)}
                   />
                 </div>
                 <div className="checkbox">
@@ -396,7 +415,7 @@ function Dashboard({
               </div>
             </div>
           </div>
-          <p><FormattedMessage values={{ itemCount: total }} {...messages.total} /></p>
+          {!isLoading ? <p><FormattedMessage values={{ itemCount: total }} {...messages.total} /></p> : null}
         </>
       )}
 
@@ -426,7 +445,7 @@ function Dashboard({
         </i>
       ) : null}
       <ul className="list-unstyled">
-        {locations && merge?.step !== 3 ? locations.map(location => (
+        {settings && locations && merge?.step !== 3 ? locations.map(location => (
           <li key={location.uid}>
             <LocationItem
               merge={merge}
@@ -499,11 +518,19 @@ function Dashboard({
       ) : null}
       {onGoin ? (
         <Modal
-          title={intl.formatMessage(messages.information)}
           onClose={() => dispatch(onGoinActions.close())}
         >
-          {`${onGoin.name} ${intl.formatMessage(messages.onGoing)}`}
+          <div className="text-center">
+            <p>{`${intl.formatMessage(messages[`${onGoin.name}Action`])} ${intl.formatMessage(messages.wentWell)}`}</p>
+            <button className="btn btn-primary" type="button" onClick={() => dispatch(onGoinActions.close())}>Ok</button>
+          </div>
         </Modal>
+      ) : null}
+      {errorModal ? (
+        <ErrorModal
+          close={() => setErrorModal(false)}
+          error={errorModal}
+        />
       ) : null}
     </div>
   );

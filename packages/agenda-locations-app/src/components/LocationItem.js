@@ -1,6 +1,9 @@
 import React from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
-import countries from '@openagenda/countries';
+import makeLabelGetter from '@openagenda/labels';
+import countries from '@openagenda/labels/agenda-locations/countries';
+
+const getLabels = makeLabelGetter(countries);
 
 const messages = defineMessages({
   edit: {
@@ -127,7 +130,7 @@ const LocationItem = ({
   );
 
   const className = ['row item'];
-  const country = countries.getLabel(location.countryCode)[lang];
+  const country = getLabels(location.countryCode, lang) || location.coutryCode;
   const editButton = (
     <button
       type="button"

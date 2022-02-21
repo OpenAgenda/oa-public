@@ -83,6 +83,24 @@
       "value": "Ajouter un lieu"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.createAction": [
+    {
+      "type": 0,
+      "value": "La creation du lieu"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.deleteAction": [
+    {
+      "type": 0,
+      "value": "La suppression du lieu"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.filterList": [
+    {
+      "type": 0,
+      "value": "Filtrer la liste"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.information": [
     {
       "type": 0,
@@ -95,6 +113,12 @@
       "value": "Fusionner des lieux"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.mergeAction": [
+    {
+      "type": 0,
+      "value": "La fusion de lieux"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.mergeDescription": [
     {
       "type": 0,
@@ -105,12 +129,6 @@
     {
       "type": 0,
       "value": "La fusion est en cours"
-    }
-  ],
-  "AgendaLocations.AgendaAdminLocation.onGoing": [
-    {
-      "type": 0,
-      "value": "is ongoing"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.postalCode": [
@@ -178,10 +196,22 @@
       "value": "itemCount"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.updateAction": [
+    {
+      "type": 0,
+      "value": "La mise à jour du lieu"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
       "value": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.wentWell": [
+    {
+      "type": 0,
+      "value": "s'est bien déroulé"
     }
   ],
   "AgendaLocations.CH.adminLevel1": [
@@ -236,6 +266,24 @@
     {
       "type": 0,
       "value": "Voir les lieux incomplets"
+    }
+  ],
+  "AgendaLocations.ErrorModal.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contacter le support"
+    }
+  ],
+  "AgendaLocations.ErrorModal.contactSupportMessage": [
+    {
+      "type": 0,
+      "value": "Veuillez contacter le support si cela se reproduit"
+    }
+  ],
+  "AgendaLocations.ErrorModal.somethingWentWrong": [
+    {
+      "type": 0,
+      "value": "Oups une erreur est survenue. Veuillez réessayer plus tard"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [
@@ -355,37 +403,37 @@
   "AgendaLocations.LocationConfirmation.cancel": [
     {
       "type": 0,
-      "value": "Select another location"
+      "value": "Choisir un autre lieu"
     }
   ],
   "AgendaLocations.LocationConfirmation.confirm": [
     {
       "type": 0,
-      "value": "Confirm"
+      "value": "Confirmer"
     }
   ],
   "AgendaLocations.LocationConfirmation.guide": [
     {
       "type": 0,
-      "value": "Are the details of this location correct ?"
+      "value": "Ce lieu est-il correctement décrit ?"
     }
   ],
   "AgendaLocations.LocationConfirmation.guideDetail": [
     {
       "type": 0,
-      "value": "If some changes have to be made, click on the button below to provide details on the change to agenda administrators"
+      "value": "Si certaines modifications doivent être apportées, détaillez-les via le bouton ci-dessous avant de confirmer votre sélection."
     }
   ],
   "AgendaLocations.LocationConfirmation.suggest": [
     {
       "type": 0,
-      "value": "Suggest a change"
+      "value": "Suggérer une modification"
     }
   ],
   "AgendaLocations.LocationConfirmation.suggestChangeMessage": [
     {
       "type": 0,
-      "value": "A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection"
+      "value": "Un nouvel onglet s'est ouvert dans votre navigateur. Détaillez-y les modifications que vous désirez apporter avant de sélectionner le lieu."
     }
   ],
   "AgendaLocations.LocationDetails.access": [
@@ -746,7 +794,7 @@
   "AgendaLocations.LocationForm.string.tooshort": [
     {
       "type": 0,
-      "value": "String is too short"
+      "value": "trop court"
     }
   ],
   "AgendaLocations.LocationForm.updateSubmit": [
@@ -934,7 +982,7 @@
   "AgendaLocations.LocationSelector.info": [
     {
       "type": 0,
-      "value": "Define the name, address and exact location of the place"
+      "value": "Définir le nom, l'adresse et l'emplacement exact du lieu"
     }
   ],
   "AgendaLocations.LocationSelector.noLocation": [
@@ -952,7 +1000,7 @@
   "AgendaLocations.LocationSelector.title": [
     {
       "type": 0,
-      "value": "Create a location"
+      "value": "Créer un lieu"
     }
   ],
   "AgendaLocations.RemoveModal.cancel": [

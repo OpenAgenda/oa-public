@@ -3,7 +3,6 @@ const CLOSE = 'ageanda-locations/onGoin/CLOSE';
 const initialState = false;
 
 export default function reducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case INITIATE:
       return {

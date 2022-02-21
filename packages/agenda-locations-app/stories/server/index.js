@@ -35,22 +35,31 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
 });
 
 dev.get('/api/agendas/:agendaUid/locations/settings', (req, res) => {
-  const set = getFixtures(req.params.agendaUid).settings;
+  const { settings } = getFixtures(req.params.agendaUid);
   console.log('Get Settings');
+  if (parseInt(req.params.agendaUid, 10) === 2) {
+    settings.set = {
+      title: 'Les lieux en Ardèche',
+      uid: 1903810,
+      agendasCount: 3,
+      locationsCount: 5
+    };
+  }
   res.json({
-    ...set
+    ...settings
   });
 });
 
 dev.post('/api/agendas/:agendaUid/locations/merge', (req, res) => {
-  if (req.params.agendaUid === 4) {
+  if (parseInt(req.params.agendaUid, 10) === 4) {
+    console.log('sent 5OO');
     res.status(500).send('Something broke!');
-    return;
+  } else {
+    console.log('Merge');
+    res.json({
+      result: { success: true }
+    });
   }
-  console.log('Merge');
-  res.json({
-    result: { success: true }
-  });
 });
 
 dev.get('/api/agendas/:agendaUid/locations/geocode/reverse', (req, res) => {
@@ -98,12 +107,13 @@ dev.get('/api/agendas/:agendaUid/locations/:locationUid/', (req, res) => {
   const allLocations = getFixtures(req.params.agendaUid).locations;
   const location = allLocations.locations.filter(e => e.uid === parseInt(req.params.locationUid, 10))[0];
   res.json({
-    ...location
+    location,
+    success: true
   });
 });
 
 dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
-  if (req.params.agendaUid === 4) {
+  if (parseInt(req.params.agendaUid, 10) === 4) {
     res.status(500).send('Something broke!');
     return;
   }
@@ -114,7 +124,6 @@ dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
 });
 
 dev.delete('/api/agendas/:agendaUid/locations/:locationUid', (req, res) => {
-  console.log('this', req.params.agendaUid, parseInt(req.params.agendaUid, 10) === 4);
   if (parseInt(req.params.agendaUid, 10) === 4) {
     res.status(500).send('Something broke!');
     return;

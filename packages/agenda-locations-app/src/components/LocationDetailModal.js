@@ -17,7 +17,7 @@ const LocationDetailModal = ({
   useEffect(() => {
     axios.get(res.get.replace(':locationUid', locationUid), { includeLinkedAgendas: true }).then(response => {
       const { data } = response;
-      setDetailedLocation(data);
+      setDetailedLocation(data.location);
     });
   }, [res.get, locationUid]);
 

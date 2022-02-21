@@ -10,7 +10,6 @@ const CLOSE_MERGE = 'agenda-location/merge/CLOSE_MERGE';
 const initialState = false;
 
 export default function reducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case INITIATE:
       return {
@@ -41,7 +40,6 @@ export default function reducer(state = initialState, action) {
         target: action.target
       };
     case CLOSE_MERGE:
-      console.log('closing Merge');
       return false;
     default:
       return state;
@@ -62,11 +60,17 @@ export function initiateFromDuplicates(locationUids, entryPoint) {
   };
 }
 
-export function disqualifyDuplicates(locationUids, res, nextLocation) {
+export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation, setErrorModal) {
   return ({ history }, { dispatch }) => {
-    axios.post(res.disqualifyDuplicates, { uids: locationUids }, (err, result) => {});
-    dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
-    history.push(nextLocation);
+    axios.post(res.disqualifyDuplicates.replace(':agendaSlug', agendaSlug), { uids: locationUids })
+      .then(result => {
+        dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
+        history.push(nextLocation);
+      })
+      .catch(err => {
+        console.log(err);
+        setErrorModal(err);
+      });
   };
 }
 
@@ -90,9 +94,8 @@ export function selectTarget(target) {
   };
 }
 
-export function launchMerge(merge, res, nextLocation) {
+export function launchMerge(merge, res, nextLocation, setErrorModal) {
   return ({ history }, { dispatch }) => {
-    console.log('launchMerge');
     const merged = merge.locationUids.filter(uid => uid !== merge.target.uid);
     if (!merge.target) console.log('no target for merge!!');
     if (!merge || !merge.target || !merge.locationUids.length) return;
@@ -100,10 +103,16 @@ export function launchMerge(merge, res, nextLocation) {
       mergeIn: merge.target.uid,
       merged,
     };
-    axios.post(res.merge, body, (err, results) => {});
-    history.push(nextLocation);
-    dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
-    dispatch(onGoinActions.initiate('merge'));
+    axios.post(res.merge, body)
+      .then(result => {
+        history.push(nextLocation);
+        dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
+        dispatch(onGoinActions.initiate('merge'));
+      })
+      .catch(err => {
+        console.log('error', err);
+        setErrorModal(err);
+      });
   };
 }
 

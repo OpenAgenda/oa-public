@@ -7,7 +7,6 @@ function Temporary({ agenda }) {
   const message = useSelector(state => state.settings.message ?? 'Bif bof');
   const prefix = useSelector(state => state.settings.prefix);
   const params = useParams();
-  console.log(params, prefix);
   return (
     <>
       <div>{message} {agenda.title}</div>

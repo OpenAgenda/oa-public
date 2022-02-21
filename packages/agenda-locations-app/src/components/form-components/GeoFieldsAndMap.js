@@ -6,7 +6,7 @@ import axios from 'axios';
 import { Spinner } from '@openagenda/react-shared';
 
 import GeoBadges from '../GeoBadges';
-import LocationMap from './LocationMap';
+import LocationMap from './LoadableLocationMap';
 import CountryField from './CountryField';
 import InputField from './InputField';
 
@@ -27,7 +27,6 @@ const GeoFieldsAndMap = ({
   agenda,
   res
 }) => {
-  console.log(location?.address);
   const intl = useIntl();
   const [geocodeNoResults, setGeocodeNoResults] = useState(false);
   const [geocodeEdit, setGeocodeEdit] = useState(undefined);
@@ -36,41 +35,71 @@ const GeoFieldsAndMap = ({
   const [geocodeError, setGeocodeError] = useState(false);
   const [manualMode, setManualMode] = useState(false);
 
+  const fetchINSEE = useCallback(loc => {
+    axios.get(res.insee, {
+      params: {
+        latitude: loc.latitude || '',
+        longitude: loc.longitude || '',
+        city: loc.adminLevel4 || '',
+        department: loc.adminLevel2 || '',
+      }
+    }).then(response => {
+      onChange({
+        ...location,
+        adminLevel1: loc.adminLevel1,
+        adminLevel2: loc.adminLevel2,
+        adminLevel3: loc.adminLevel3,
+        adminLevel4: loc.adminLevel4,
+        adminLevel5: loc.adminLevel5,
+        adminLevel6: loc.adminLevel6,
+        country: loc.country,
+        countryCode: loc.countryCode.toUpperCase(),
+        postalCode: loc.postalCode,
+        latitude: loc.latitude,
+        longitude: loc.longitude,
+        timezone: loc.timezone,
+        insee: response.data.code,
+      });
+      return response.data.code;
+    });
+  }, [location, res.insee, onChange]);
+
   const updateLocationGeocode = value => {
-    console.log('updateGeocode');
     setGeocodeEdit(false);
     if (value === undefined) return;
     axios.get(res.geocode.replace(':agendaUid', agenda.uid), { params: { address: value, countryCode: location?.countryCode } })
       .then(response => {
-        console.log(response);
         if (!response.data.results[0]) setGeocodeNoResults(true);
         const obj = response.data.results[0];
-        onChange({
-          ...location,
-          adminLevel1: obj.adminLevel1,
-          adminLevel2: obj.adminLevel2,
-          adminLevel3: obj.adminLevel3,
-          adminLevel4: obj.adminLevel4,
-          adminLevel5: obj.adminLevel5,
-          adminLevel6: obj.adminLevel6,
-          country: obj.country,
-          countryCode: obj.countryCode.toUpperCase(),
-          postalCode: obj.postalCode,
-          latitude: obj.latitude,
-          longitude: obj.longitude,
-          timezone: obj.timezone,
-        });
+        if (obj.countryCode === 'fr') {
+          fetchINSEE(obj);
+        } else {
+          onChange({
+            ...location,
+            adminLevel1: obj.adminLevel1,
+            adminLevel2: obj.adminLevel2,
+            adminLevel3: obj.adminLevel3,
+            adminLevel4: obj.adminLevel4,
+            adminLevel5: obj.adminLevel5,
+            adminLevel6: obj.adminLevel6,
+            country: obj.country,
+            countryCode: obj.countryCode.toUpperCase(),
+            postalCode: obj.postalCode,
+            latitude: obj.latitude,
+            longitude: obj.longitude,
+            timezone: obj.timezone,
+          });
+        }
+        setGeocodeNoResults(false);
         setGeocodeLoading(false);
         setManualMode(false);
       })
       .catch(err => {
-        console.log('error', err);
         setGeocodeError(err);
       });
   };
 
   const updateLocationReverseGeocode = (lat, long) => {
-    console.log('updateGeocodeReverse');
     setGeocodeEdit(false);
     axios.get(res.reverseGeocode.replace(':agendaUid', agenda.uid), { params: { latitude: lat, longitude: long } })
       .then(response => {
@@ -79,25 +108,29 @@ const GeoFieldsAndMap = ({
           return;
         }
         const obj = response.data.results[0];
-        onChange({
-          ...location,
-          adminLevel1: obj.adminLevel1,
-          adminLevel2: obj.adminLevel2,
-          adminLevel3: obj.adminLevel3,
-          adminLevel4: obj.adminLevel4,
-          adminLevel5: obj.adminLevel5,
-          adminLevel6: obj.adminLevel6,
-          country: obj.country,
-          countryCode: obj.countryCode.toUpperCase(),
-          postalCode: obj.postalCode,
-          latitude: obj.latitude,
-          longitude: obj.longitude,
-          timezone: obj.timezone,
-        });
+        if (obj.countryCode === 'fr') {
+          fetchINSEE(obj);
+        } else {
+          onChange({
+            ...location,
+            adminLevel1: obj.adminLevel1,
+            adminLevel2: obj.adminLevel2,
+            adminLevel3: obj.adminLevel3,
+            adminLevel4: obj.adminLevel4,
+            adminLevel5: obj.adminLevel5,
+            adminLevel6: obj.adminLevel6,
+            country: obj.country,
+            countryCode: obj.countryCode.toUpperCase(),
+            postalCode: obj.postalCode,
+            latitude: obj.latitude,
+            longitude: obj.longitude,
+            timezone: obj.timezone,
+          });
+        }
+        setGeocodeNoResults(false);
         setGeocodeLoading(false);
       })
       .catch(err => {
-        console.log('error', err);
         setGeocodeError(err);
       });
   };

@@ -83,6 +83,24 @@
       "value": "Add a location"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.createAction": [
+    {
+      "type": 0,
+      "value": "Location creation"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.deleteAction": [
+    {
+      "type": 0,
+      "value": "Location deletion"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.filterList": [
+    {
+      "type": 0,
+      "value": "Filter List"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.information": [
     {
       "type": 0,
@@ -95,6 +113,12 @@
       "value": "Merge locations"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.mergeAction": [
+    {
+      "type": 0,
+      "value": "Locations merge"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.mergeDescription": [
     {
       "type": 0,
@@ -105,12 +129,6 @@
     {
       "type": 0,
       "value": "Merge is in progress"
-    }
-  ],
-  "AgendaLocations.AgendaAdminLocation.onGoing": [
-    {
-      "type": 0,
-      "value": "is ongoing"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.postalCode": [
@@ -178,10 +196,22 @@
       "value": "itemCount"
     }
   ],
+  "AgendaLocations.AgendaAdminLocation.updateAction": [
+    {
+      "type": 0,
+      "value": "Location update"
+    }
+  ],
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
     {
       "type": 0,
       "value": "Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.wentWell": [
+    {
+      "type": 0,
+      "value": "went well"
     }
   ],
   "AgendaLocations.CH.adminLevel1": [
@@ -236,6 +266,24 @@
     {
       "type": 0,
       "value": "See incomplete Locations"
+    }
+  ],
+  "AgendaLocations.ErrorModal.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contact support"
+    }
+  ],
+  "AgendaLocations.ErrorModal.contactSupportMessage": [
+    {
+      "type": 0,
+      "value": "Please contact support if it happens again"
+    }
+  ],
+  "AgendaLocations.ErrorModal.somethingWentWrong": [
+    {
+      "type": 0,
+      "value": "Oops, Something went wrong. Please try again later"
     }
   ],
   "AgendaLocations.FR.adminLevel1": [

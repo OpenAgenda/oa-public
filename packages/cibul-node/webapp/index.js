@@ -427,6 +427,13 @@ const initialState = async req => {
         jsonExport: '/agendas/:uid/admin/events.v2.json'
       }
     },
+    agendaLocationAdmin: {
+      settings: {
+        prefix: '/:slug/admin/locations',
+        apiRoot: `http://localhost:${config.port}`
+      },
+      res: {}
+    },
     // Admin
     adminSupport: {
       settings: {
@@ -497,6 +504,7 @@ module.exports = app => {
       '/:slug/admin/getting-started(/*?)?',
       '/:slug/admin/settings(/*?)?',
       '/:slug/contribute(/*?)?',
+      '/:slug/admin/locations(/*?)?',
       // Admin
       '/admin/support(/*?)?',
       '/supervisor(/*?)?'

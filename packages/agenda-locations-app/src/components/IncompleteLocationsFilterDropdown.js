@@ -1,9 +1,9 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
+import geoFields from '@openagenda/agenda-locations/utils/geoFields';
 import { Dropdown } from 'react-bootstrap';
 import adminLevels from '../adminLevels';
-import geoFields from '../geoFields';
 
 const messages = {
   ...defineMessages({

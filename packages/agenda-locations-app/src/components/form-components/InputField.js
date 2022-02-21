@@ -41,7 +41,6 @@ const InputField = ({
     try {
       validator(value);
     } catch (errors) {
-      console.log(errors);
       return (
         <p>{ errors.map(error => (
           <span

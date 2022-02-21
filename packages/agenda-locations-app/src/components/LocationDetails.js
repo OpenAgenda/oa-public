@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 
-import geoFields from '../geoFields';
+import geoFields from '@openagenda/agenda-locations/utils/geoFields';
 import flattenTagSetLabels from '../flattenTagSetLabels';
 import adminLevels from '../adminLevels';
 
@@ -118,14 +118,12 @@ const LocationDetails = ({
   hover,
   staticTiles
 }) => {
-  console.log(location);
   const intl = useIntl();
   const [contentLang, setContentLang] = useState(getPreferredLang(location.description, lang));
   const linkedAgendas = location?.linkedAgendas || [];
   const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
   const existingLangs = getExistingLangs(location);
   const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
-  console.log('staticMap:', staticMap, staticTiles);
 
   const toggleCurrentLang = (newContentLang, e) => {
     e.preventDefault();

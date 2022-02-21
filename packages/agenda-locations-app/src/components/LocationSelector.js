@@ -52,7 +52,6 @@ const LocationSelector = ({
   },
   allowRemove = false,
 }) => {
-  console.log(location);
   const onSelect = l => {
     onChange(confirmRequired ? 'confirm' : 'show', l);
   };

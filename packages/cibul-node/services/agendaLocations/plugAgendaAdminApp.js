@@ -32,7 +32,7 @@ module.exports = (config, services, instance, app, base) => {
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
     loadLocationEndpoints(instance));
 
-  app.get(base,
+  /* app.get(base,
     getLocationSet(instance),
     (req, res, _next) => {
       const layoutData = {
@@ -95,7 +95,7 @@ module.exports = (config, services, instance, app, base) => {
 
       res.send(layout('<div class="js_canvas"></div>', layoutData));
     });
-
+ */
   app.get(`${base}.json`, (req, res, next) => {
     req.locations.list(
       req.query,

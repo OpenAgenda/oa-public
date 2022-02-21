@@ -87,7 +87,6 @@ const LocationSearch = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState(init));
   const intl = useIntl();
-  console.log('state', state);
 
   const ref = createRef();
 
@@ -121,8 +120,6 @@ const LocationSearch = ({
       });
     });
   }, [state.query, state.from, state.page, res.index, agenda]);
-
-  console.log('query', state.query);
 
   const onFocus = value => {
     dispatch({ type: 'setQuery', query: { search: value } });

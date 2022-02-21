@@ -21,6 +21,10 @@ export const BasicForm = () => (
     locationProp={location}
     settings={agendaSettings}
     mode="update"
+    res={{
+      geocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode',
+      reverseGeocode: 'http://localhost:3000/api/agendas/:agendaUid/locations/geocode/reverse'
+    }}
   />
 );
 

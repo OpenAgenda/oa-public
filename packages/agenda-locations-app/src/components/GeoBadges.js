@@ -1,7 +1,7 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import geoFields from '../geoFields';
+import geoFields from '@openagenda/agenda-locations/utils/geoFields';
 import adminLevels from '../adminLevels';
 
 const messages = {
@@ -37,7 +37,6 @@ const GeoBadges = ({
 }) => {
   const intl = useIntl();
   const geo = geoFields(location?.countryCode).fields.map(e => ({ ...e, value: location?.[e.field] }));
-  // console.log(geocodeEdit, geocodeEditValue);
 
   if (geocodeEdit) {
     return (

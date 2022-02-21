@@ -28,8 +28,7 @@ const ActiveFilters = ({
     }, []);
     return res;
   };
-  console.log(' activeFilters search', search);
-  console.log('filter list for activeFitlers', getFilterList());
+
   const getLabel = f => {
     const key = Object.keys(f)[0];
     if (key === 'search') return f[key];

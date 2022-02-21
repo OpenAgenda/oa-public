@@ -169,7 +169,6 @@ const LocationForm = ({
   onSubmit,
   errors,
 }) => {
-  console.log('errors', errors);
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);

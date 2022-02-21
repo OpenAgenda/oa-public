@@ -5,8 +5,9 @@ import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import { Spinner } from '@openagenda/react-shared';
-import AccessModal from '../components/AccessModal'; 
+import { Spinner, useLayoutData } from '@openagenda/react-shared';
+import AccessModal from '../components/AccessModal';
+import ErrorModal from '../components/ErrorModal';
 import LocationForm from '../components/form-components/LocationForm';
 import useRes from '../hooks/useRes';
 import useSettings from '../hooks/useSettings';
@@ -31,13 +32,13 @@ const messages = defineMessages({
 });
 
 const UpdateForm = ({
-  agenda,
-  lang,
   enableGeocode,
   tiles,
   detailedInfo
 }) => {
+  const { lang, agenda } = useLayoutData();
   const [errors, setErrors] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
   const { settings } = useSettings(agenda);
@@ -46,10 +47,11 @@ const UpdateForm = ({
   const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
   const { isLoading, error, data: location } = useQuery(`location-${locationUid}`, () => (
-    axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => response.data)
+    axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => {
+      return response.data.location;
+    })
   ));
   const dispatch = useDispatch();
-  console.log(location, error);
 
   const UpdateFormHeader = () => (
     <div className="form-head">
@@ -66,18 +68,20 @@ const UpdateForm = ({
 
   const onSubmit = updatedLocation => {
     let clean;
-    console.log('onSubmit', updatedLocation);
     try {
       clean = validate(updatedLocation);
     } catch (err) {
-      console.log(err);
       setErrors(err);
       return;
     }
-    axios.patch(res.update, clean, (result, err) => (console.log(result, err)));
-    if (nq) history.push(nq); else history.push(prefix);
-    dispatch(onGoinActions.initiate('update'));
-    setErrors(false);
+    axios.post(res.update.replace(':locationUid', locationUid), clean)
+      .then(result => {
+        if (nq) history.push(nq); else history.push(prefix);
+        dispatch(onGoinActions.initiate('update'));
+        setErrors(false);
+      }).catch(err => {
+        setErrorModal(err);
+      });
   };
 
   if (settings && (!settings?.access.update.authorized || settings?.access.update.external)) {
@@ -105,22 +109,31 @@ const UpdateForm = ({
     );
   }
   return (
-    <LocationForm
-      Header={UpdateFormHeader()}
-      showToggler={false}
-      res={res}
-      lang={lang}
-      locationProp={location}
-      detailedInfo={detailedInfo}
-      settings={settings}
-      onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
-      enableGeocode={enableGeocode}
-      postRes={res.update}
-      tiles={tiles}
-      mode="update"
-      onSubmit={onSubmit}
-      errors={errors}
-    />
+    <>
+      {errorModal ? (
+        <ErrorModal
+          close={() => setErrorModal(false)}
+          error={errorModal}
+        />
+      ) : null}
+      <LocationForm
+        Header={UpdateFormHeader()}
+        showToggler={false}
+        res={res}
+        lang={lang}
+        locationProp={location}
+        detailedInfo={detailedInfo}
+        settings={settings}
+        onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
+        enableGeocode={enableGeocode}
+        postRes={res.update}
+        tiles={tiles}
+        mode="update"
+        onSubmit={onSubmit}
+        errors={errors}
+        agenda={agenda}
+      />
+    </>
   );
 };
 

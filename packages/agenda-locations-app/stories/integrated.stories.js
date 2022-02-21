@@ -3,7 +3,7 @@ import { wrapApp } from '@openagenda/react-shared';
 import '@openagenda/bs-templates/compiled/main.css';
 import { createMemoryHistory } from 'history';
 
-import createApp from '../src';
+import createApp from '../src/app';
 
 import AdminCanvas from './decorators/AdminCanvas';
 import Providers from './decorators/Providers';
@@ -37,7 +37,7 @@ const res = {
   disqualifyDuplicates: '/api/agendas/:agendaUid/locations/disqualify',
   agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
   seeEvents: '/api/agendas/:agendaUid/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
-  suggestChange: 'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create'
+  suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create'
 };
 
 export function Admin() {
@@ -53,7 +53,7 @@ export function Admin() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
@@ -86,7 +86,7 @@ export function AdminUidFilter() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
@@ -119,7 +119,7 @@ export function DetailModal() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
@@ -152,7 +152,7 @@ export function Merge() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
@@ -185,7 +185,7 @@ export function CreateForm() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
               },
               res
@@ -217,7 +217,7 @@ export function UpdateForm() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
               },
               res
@@ -249,7 +249,7 @@ export function AdminLocationSet() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
@@ -283,7 +283,7 @@ export function AdminExternal() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },
@@ -316,7 +316,7 @@ export function AdminErrors() {
               settings: {
                 pageSize: 20,
                 message: 'Ca marche',
-                APIRoot: '',
+                apiRoot: '',
                 prefix: '/:agendaSlug/admin/locations',
                 staticTiles: 'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
               },

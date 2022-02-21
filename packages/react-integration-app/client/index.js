@@ -39,6 +39,7 @@ import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src';
 import createAgendaContributeApp from '@openagenda/agenda-contribute/src';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
+import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import RootHelmet from '../RootHelmet';
 import Root from './Root';
@@ -139,6 +140,11 @@ const apps = [
     'eventAdmin',
     createEventAdminApp,
     [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminFiltersLayout],
+  ],
+  [
+    'agendaLocationAdmin',
+    createAgendaLocationAdminApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   [
     'agendaSettingsEdit',
