@@ -52,6 +52,10 @@ module.exports = ({ labels }) => [{
   optional: false,
   write: ['internal']
 }, {
+  field: 'fileKey',
+  fieldType: 'text',
+  write: ['internal']
+}, {
   field: 'locationUid',
   fieldType: 'integer',
   optional: false,
