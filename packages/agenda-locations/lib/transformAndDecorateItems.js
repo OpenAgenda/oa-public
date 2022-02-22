@@ -1,6 +1,7 @@
 'use strict';
 
 const decorateWithCounts = require('./decorateWithCounts');
+const decorateWithAgendaUids = require('./decorateWithAgendaUids');
 const injectImagePath = require('./injectImagePath');
 const legacy = require('./legacy');
 
@@ -29,6 +30,16 @@ module.exports = async (service, items, options = {}) => {
       await service.interfaces.getEventCounts(
         transformed.map(i => i.uid),
         context
+      )
+    );
+  }
+
+  if (service.interfaces.getAgendaUidsByIds && (includeFields ?? []).includes('agendaUid')) {
+    decorateWithAgendaUids(
+      items,
+      transformed,
+      await service.interfaces.getAgendaUidsByIds(
+        items.map(i => i.agenda_id).filter(id => !!id)
       )
     );
   }

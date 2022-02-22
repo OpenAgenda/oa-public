@@ -58,7 +58,7 @@ describe('agenda-locations - functional - get', () => {
             title: 'BLIBLI'
           }
         ],
-        getAgendaUidById: async _agendaId => 789327189
+        getAgendaUidsByIds: async _agendaId => 789327189
       },
     });
   });
@@ -207,9 +207,9 @@ describe('agenda-locations - functional - get', () => {
     );
 
     it(
-      'when includeOriginAgendaUid option is true, agendaUid key is in result',
+      'when includeFields is set and includes "agendaUid", agendaUid key is in result',
       async () => {
-        const l = await svc.get(51665987, { includeOriginAgendaUid: true });
+        const l = await svc.get(51665987, { includeFields: ['agendaUid'] });
         expect(l.agendaUid).toBe(789327189);
       }
     );

@@ -55,6 +55,10 @@ describe('agenda-locations - functional - list', () => {
       interfaces: {
         getAgendaDetailsByUid,
         getEventCounts,
+        getAgendaUidsByIds: async _ids => (_ids.map(id => ({
+          id,
+          uid: Math.ceil(Math.random() * 99999999)
+        })))
       },
     });
   });
@@ -470,6 +474,21 @@ describe('agenda-locations - functional - list', () => {
         );
 
         expect(Object.keys(items[0])).toStrictEqual(['uid', 'name']);
+      }
+    );
+
+    it(
+      'if includeFields option includes agendaUid, origin agenda uid is provided in result',
+      async () => {
+        const items = await svc(7196947).list(
+          {},
+          { limit: 1 },
+          {
+            includeFields: ['agendaUid']
+          }
+        );
+
+        expect(typeof items[0].agendaUid).toBe('number');
       }
     );
 

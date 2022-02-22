@@ -47,6 +47,10 @@ async function list(service, query = {}, nav = {}, options = {}) {
     includeFields,
   });
 
+  if ((includeFields ?? []).includes('agendaUid')) {
+    k.select('agenda_id');
+  }
+
   if (!streamOptions) {
     addPagination(k, cleanNav);
   }
