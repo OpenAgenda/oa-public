@@ -57,7 +57,8 @@ describe('agenda-locations - functional - get', () => {
             uid: 200000,
             title: 'BLIBLI'
           }
-        ]
+        ],
+        getAgendaUidById: async _agendaId => 789327189
       },
     });
   });
@@ -202,6 +203,14 @@ describe('agenda-locations - functional - get', () => {
         const { image } = await svc.get(51665987, { includeImagePath: true });
 
         expect(image.split('/').length).toBeGreaterThan(1);
+      }
+    );
+
+    it(
+      'when includeOriginAgendaUid option is true, agendaUid key is in result',
+      async () => {
+        const l = await svc.get(51665987, { includeOriginAgendaUid: true });
+        expect(l.agendaUid).toBe(789327189);
       }
     );
 

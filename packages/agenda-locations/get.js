@@ -18,6 +18,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     eventCounts: includeEventCounts,
     context,
     includeImagePath,
+    includeOriginAgendaUid,
     includeFields,
     throwOnNotFound,
     includeLinkedAgendas,
@@ -31,7 +32,11 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   });
 
   addSelect(k, 'public', { first: true, includeFields });
+  if (includeOriginAgendaUid) {
+    k.select('agenda_id');
+  }
   const entry = await k;
+
   const location = entry ? internals.fieldUtils.fromEntryToItem(entry, {
     includeFields,
     access: 'public',
@@ -51,6 +56,10 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
       location,
       await internals.interfaces.getEventCounts([location.uid], context)
     );
+  }
+
+  if (internals.interfaces.getAgendaUidById && includeOriginAgendaUid) {
+    location.agendaUid = await internals.interfaces.getAgendaUidById(entry.agenda_id);
   }
 
   if (internals.interfaces.getLinkedAgendas && includeLinkedAgendas) {

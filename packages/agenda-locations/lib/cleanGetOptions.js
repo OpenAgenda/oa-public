@@ -34,6 +34,10 @@ module.exports = schema({
     type: 'boolean',
     default: false
   },
+  includeOriginAgendaUid: {
+    type: 'boolean',
+    default: false,
+  },
   deleted: {
     type: 'boolean',
     default: false,
