@@ -15,6 +15,18 @@ module.exports = (config, services, instance, app, base) => {
     (req, res, next) => {
       instance.get(req.params.locationUid, {
         includeImagePath: true,
+        includeFields: [
+          'uid', 'setUid', 'slug', 'name', 'address',
+          'countryCode', 'adminLevel1', 'adminLevel2',
+          'adminLevel3', 'city', 'adminLevel5',
+          'district', 'postalCode', 'insee', 'latitude', 'longitude',
+          'region', 'department', 'timezone',
+          'updatedAt', 'createdAt', 'image', 'description', 'tags',
+          'website', 'email', 'phone', 'links', 'access',
+          'state', 'imageCredits', 'extId',
+          'duplicateCandidates', 'disqualifiedDuplicates',
+          'mergedIn', 'agendaUid'
+        ]
       }).then(location => res.json(location), next);
     },
     (err, req, res) => {

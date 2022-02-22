@@ -51,7 +51,8 @@ raw.push(knex('location').insert([{
   uid: 1,
   created_at: new Date(),
   updated_at: new Date(),
-  deleted: 1
+  deleted: 1,
+  agenda_id: 1
 }]));
 
 raw.push(knex('event_2').insert([{
