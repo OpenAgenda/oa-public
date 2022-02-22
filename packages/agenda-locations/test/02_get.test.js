@@ -58,7 +58,7 @@ describe('agenda-locations - functional - get', () => {
             title: 'BLIBLI'
           }
         ],
-        getAgendaUidsByIds: async _agendaId => 789327189
+        getAgendaUidsByIds: async agendaId => ({ uid: 789327189, id: agendaId })
       },
     });
   });

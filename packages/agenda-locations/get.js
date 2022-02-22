@@ -58,7 +58,9 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   }
 
   if (internals.interfaces.getAgendaUidsByIds && (includeFields ?? []).includes('agendaUid')) {
-    location.agendaUid = await internals.interfaces.getAgendaUidsByIds(entry.agenda_id);
+    location.agendaUid = (
+      await internals.interfaces.getAgendaUidsByIds(entry.agenda_id)
+    )?.uid;
   }
 
   if (internals.interfaces.getLinkedAgendas && includeLinkedAgendas) {
