@@ -15,6 +15,7 @@ module.exports = (config, services, instance, app, base) => {
     (req, res, next) => {
       instance.get(req.params.locationUid, {
         includeImagePath: true,
+        includeOriginAgendaUid: true
       }).then(location => res.json(location), next);
     },
     (err, req, res) => {
