@@ -1,7 +1,7 @@
 'use strict';
 
 const isDraftRequested = require('./lib/isDraftRequested');
-const defineFileKey = require('./lib/defineFileKey');
+const loadOrDefineFileKey = require('./lib/loadOrDefineFileKey');
 const createEvent = require('./middlewares/createEvent');
 const loadEvent = require('./middlewares/loadEvent');
 const updateEvent = require('./middlewares/updateEvent');
@@ -24,7 +24,7 @@ module.exports = (_config, services) => parentApp => {
   parentApp.post(
     '/:agendaSlug/contribute',
     isDraftRequested({ draft: true }),
-    defineFileKey,
+    loadOrDefineFileKey,
     agendas.mw.load,
     loadMember,
     verifyMemberAuthorization,
@@ -44,6 +44,7 @@ module.exports = (_config, services) => parentApp => {
     loadMember,
     getAgendaSchema,
     loadEvent,
+    loadOrDefineFileKey,
     verifyMemberAuthorization.edit,
     isDraftRequested({ draft: true }),
     formSchemaFilesMw.cleanFileValues.bind(null, {}),
@@ -63,6 +64,7 @@ module.exports = (_config, services) => parentApp => {
       target: 'fromAgenda'
     }),
     loadEvent,
+    loadOrDefineFileKey,
     verifyMemberAuthorization.edit,
     formSchemaFilesMw.cleanFileValues.bind(null, {}),
     formSchemaFilesMw.putInTemporary.bind(null, {}),

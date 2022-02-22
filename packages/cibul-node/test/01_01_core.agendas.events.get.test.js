@@ -130,6 +130,10 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         expect(event.thematique).toBe(2);
         expect(event.note).toBe('Une note interne pour les administrateurs');
       });
+
+      it('fix: fileKey is provided', async () => {
+        expect(event.fileKey).toBe('31a7df7098744844b6c6ce0d2cdba0f4');
+      });
     });
 
     describe('access: public', () => {
