@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
@@ -8,6 +9,7 @@ import labels from '@openagenda/labels/members';
 import I18nContext from '../../contexts/I18nContext';
 import membersReducer from '../../reducers/members';
 import modalsReducer from '../../reducers/modals';
+import locales from '../../locales-compiled';
 
 @withLayoutData('lang')
 @provideHooks({
@@ -26,12 +28,14 @@ export default class App extends Component {
   };
 
   render() {
-    const { route } = this.props;
+    const { route, lang } = this.props;
 
     return (
-      <I18nContext.Provider value={this.i18nContextValue}>
-        <div className="members-admin">{renderRoutes(route.routes)}</div>
-      </I18nContext.Provider>
+      <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+        <I18nContext.Provider value={this.i18nContextValue}>
+          <div className="members-admin">{renderRoutes(route.routes)}</div>
+        </I18nContext.Provider>
+      </IntlProvider>
     );
   }
 }
