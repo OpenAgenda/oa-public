@@ -28,7 +28,7 @@
   "AgendaLocations.AgendaAdminLocation.total": "{itemCount, plural, =0 {Aucun lieu ne correspond à cette recherche} one {Total: un lieu} other {Total: # lieux}}",
   "AgendaLocations.AgendaAdminLocation.updateAction": "La mise à jour du lieu",
   "AgendaLocations.AgendaAdminLocation.verifiedInfo": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler",
-  "AgendaLocations.AgendaAdminLocation.wentWell": "s'est bien déroulé",
+  "AgendaLocations.AgendaAdminLocation.wentWell": "s'est bien déroulée",
   "AgendaLocations.CH.adminLevel1": "Canton",
   "AgendaLocations.CH.adminLevel4": "Commune",
   "AgendaLocations.CH.adminLevel5": "Arrondissement",

@@ -181,7 +181,7 @@ const LocationItem = ({
           />
           <i
             className={'indicator'.concat(' ',
-              location.description
+              !(location.description === null || Object.keys(location.description).length === 0)
                 ? 'fa fa-file-text-o margin-right-xs'
                 : 'fa fa-file-text-o disabled margin-right-xs')}
           />

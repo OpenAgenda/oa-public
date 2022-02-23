@@ -24,7 +24,6 @@ const ErrorModal = ({
   close,
 }) => {
   const intl = useIntl();
-  console.log(error);
   return (
     <Modal
       onClose={close}

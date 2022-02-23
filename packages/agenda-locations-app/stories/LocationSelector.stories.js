@@ -44,6 +44,7 @@ export const SelectMode = () => {
       res={res}
       location={location}
       onChange={(t, l) => { setMode(t); setLocation(l); }}
+      disableChange={false}
     />
   );
 };
