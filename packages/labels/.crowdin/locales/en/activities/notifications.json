@@ -26,6 +26,7 @@
   "agenda.changeEventState": "{actor} passed {object} as \"{newState}\" on {target}.",
   "agenda.publishEvent": "{actor} published {object} on {target}.",
   "agenda.unpublishEvent": "{actor} unpublished {object} on {target}.",
+  "agenda.systemUnpublishEvent": "{object} has been automatically unpublished on {target} for moderation",
   "agenda.removeEvent": "{actor} removed {object} from {target}.",
   "agenda.aggregateEvent": "{target} aggregated {object} from {actor}.",
   "agenda.addEvent": "{actor} added {object} on {target} from {sourceAgenda}.",

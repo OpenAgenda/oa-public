@@ -9,7 +9,9 @@ import { useMemo } from 'react';
 
 const log = debug('useEventDataForDuplicate');
 
-function removeUnduplicatable(agenda, data) {
+function removeUnduplicatable(destinationAgenda, agenda, data) {
+  log('filtering unduplicatable event data');
+
   if (!agenda) {
     return null;
   }
@@ -22,6 +24,13 @@ function removeUnduplicatable(agenda, data) {
       .map(f => f.field)
   );
 
+  const locationOriginIsDestinationAgenda = data?.location?.agendaUid === destinationAgenda.uid;
+  const sameLocationSet = !!destinationAgenda?.locationSetUid && (data?.location?.setUid === destinationAgenda?.locationSetUid);
+
+  if (!locationOriginIsDestinationAgenda && !sameLocationSet) {
+    unduplicatableFields.push('location');
+  }
+
   return Object.keys(data)
     .filter(field => !unduplicatableFields.includes(field))
     .reduce((filtered, field) => Object.assign(filtered, {
@@ -29,7 +38,7 @@ function removeUnduplicatable(agenda, data) {
     }), {});
 }
 
-export default function useEventDataForDuplicate() {
+export default function useEventDataForDuplicate(destinationAgenda) {
   const location = useLocation();
 
   const {
@@ -71,6 +80,6 @@ export default function useEventDataForDuplicate() {
   return useMemo(() => ({
     hasReferenceForDuplicate,
     isReferenceLoading: isReferenceLoading || isReferenceAgendaLoading,
-    referenceData: referenceAgenda && referenceData ? removeUnduplicatable(referenceAgenda, referenceData) : null,
-  }), [hasReferenceForDuplicate, isReferenceLoading, referenceData, isReferenceAgendaLoading, referenceAgenda]);
+    referenceData: referenceAgenda && referenceData ? removeUnduplicatable(destinationAgenda, referenceAgenda, referenceData) : null,
+  }), [hasReferenceForDuplicate, isReferenceLoading, referenceData, isReferenceAgendaLoading, referenceAgenda, destinationAgenda]);
 }

@@ -1,8 +1,7 @@
 'use strict';
 
 const schemas = require('@openagenda/validators/schema');
-
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 
 schemas.register({
   number: require('@openagenda/validators/number'),
@@ -51,8 +50,8 @@ module.exports = navQuery => {
 
   try {
     clean = schema(navQuery);
-  } catch(e) {
-    throw new BadRequestError('nav', e);
+  } catch(errors) {
+    throw new BadRequest({ info: { errors } }, 'invalid navigation parameters');
   }
 
   if (clean.page !== null) {

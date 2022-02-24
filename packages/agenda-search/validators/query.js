@@ -9,7 +9,7 @@ schemas.register({
   date: require('@openagenda/validators/date')
 });
 
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 
 const validate = schemas({
   search: {
@@ -73,7 +73,7 @@ module.exports = (values = {}) => {
 
   try {
     return validate(preClean);
-  } catch (e) {
-    throw new BadRequestError('query', e);
+  } catch (errors) {
+    throw new BadRequest({ info: { errors } }, 'invalid query parameters');
   }
 }

@@ -8,7 +8,7 @@ CREATE TABLE `event_2` (
   attendance_mode tinyint(1) default 1,
   online_access_link varchar(255),
   slug VARCHAR(255) NOT NULL UNIQUE,
-  title VARCHAR(2000) NOT NULL,
+  title VARCHAR(2000),
   description VARCHAR(2000),
   `references` VARCHAR(2000),
   links VARCHAR(2000),

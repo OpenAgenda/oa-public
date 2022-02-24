@@ -1,5 +1,5 @@
 "use strict";
-
+import du from '@openagenda/dom-utils';
 import displayShareButtons from './displayShareButtons';
 import displayContributorSection from './displayContributorSection';
 import trackConsent from '../../agenda/js/trackConsent';
@@ -112,6 +112,10 @@ window.asap(options => {
         lang: params.lang,
         agendaUid: params.agendaUid
       });
+
+      if (['administrator', 'moderator'].includes(me?.member?.role)) {
+        du.removeClass(du.el('.js_edit_location'), 'display-none');
+      }
     });
   }
 

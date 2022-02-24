@@ -319,7 +319,7 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
     });
 
     it('allow should throw Error', () => {
-      expect(thrownError.name).toEqual('UnauthorizedError');
+      expect(thrownError.name).toEqual('Forbidden');
     });
   });
 
@@ -337,7 +337,7 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
     });
 
     it('allow should throw Error', () => {
-      expect(thrownError.name).toEqual('UnauthorizedError');
+      expect(thrownError.name).toEqual('Forbidden');
     });
   });
 });

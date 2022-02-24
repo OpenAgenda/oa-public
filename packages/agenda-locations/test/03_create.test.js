@@ -193,7 +193,7 @@ describe('agenda-locations - functional - create', () => {
         } catch (e) {
           error = e;
         }
-        expect(error.message).toBe('Not found');
+        expect(error.message).toBe('set not found');
       }
     );
 
@@ -349,7 +349,7 @@ describe('agenda-locations - functional - create - no rights', () => {
       }
     });
     it('allow should throw Error', () => {
-      expect(thrownError.name).toBe('UnauthorizedError');
+      expect(thrownError.name).toBe('Forbidden');
     });
   });
 
@@ -372,7 +372,7 @@ describe('agenda-locations - functional - create - no rights', () => {
     });
 
     it('allow should throw Error', () => {
-      expect(thrownError.name).toBe('UnauthorizedError');
+      expect(thrownError.name).toBe('Forbidden');
     });
   });
 });

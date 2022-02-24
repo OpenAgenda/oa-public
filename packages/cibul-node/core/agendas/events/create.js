@@ -35,6 +35,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     defaultLang,
     filterUnauthorizedData,
     returnPayload,
+    fileKey
   } = {
     access: 'public', // read or write?
     draft: false,
@@ -97,7 +98,8 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       detailed: true,
       access: 'internal',
       private: !!agenda.private,
-      draft
+      draft,
+      fileKey
     });
 
     payload.setItem('event', event);

@@ -80,7 +80,7 @@
   "event/contributor/organization": [
     {
       "type": 0,
-      "value": "Organisation"
+      "value": "Organisme"
     }
   ],
   "event/contributor/phone": [
@@ -92,7 +92,7 @@
   "event/contributor/position": [
     {
       "type": 0,
-      "value": "Position"
+      "value": "Fonction"
     }
   ],
   "event/contributor/role": [

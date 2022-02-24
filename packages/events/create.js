@@ -19,7 +19,8 @@ module.exports = async (service, data, o = {}) => {
 
   const {
     context,
-    private: privateOption
+    private: privateOption,
+    fileKey
   } = options;
 
   const {
@@ -38,7 +39,7 @@ module.exports = async (service, data, o = {}) => {
     agendaUid,
     updatedAt: new Date(),
     createdAt: new Date(),
-    fileKey: generateFileKey(),
+    fileKey: fileKey || generateFileKey(),
     draft: options.draft,
     private: !!privateOption
   });

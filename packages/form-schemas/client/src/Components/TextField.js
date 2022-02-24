@@ -1,46 +1,51 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
+import autosize from 'autosize';
 
-export default class TextField extends Component {
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
+const style = {
+  resize: 'none'
+};
 
-  onChange(e) {
-    e.preventDefault();
+export default function TextField(props) {
+  const {
+    field,
+    value,
+    enabled,
+    onChange
+  } = props;
 
-    const {
-      onChange
-    } = this.props;
+  const {
+    field: name,
+    placeholder,
+    fieldType,
+    default: defaultValue
+  } = field;
 
-    // text field should be able to change to empty string
-    onChange(e.target.value);
-  }
+  const ref = useRef();
 
-  render() {
-    const {
-      field,
-      value,
-      enabled
-    } = this.props;
+  useEffect(() => {
+    autosize(ref.current);
+  }, [ref]);
 
-    const {
-      field: name,
-      placeholder,
-      fieldType,
-      default: defaultValue
-    } = field;
-
-    const fieldProps = {
-      name,
-      rows: 3,
-      className: 'form-control',
-      value: value ?? (defaultValue ?? ''),
-      placeholder,
-      onChange: this.onChange,
-      disabled: !enabled
-    };
-
-    return fieldType === 'textarea' ? <textarea {...fieldProps} /> : <input {...fieldProps} />;
-  }
+  return (
+    <textarea
+      ref={ref}
+      name={name}
+      rows={fieldType === 'textarea' ? 3 : 1}
+      value={value ?? (defaultValue ?? '')}
+      placeholder={placeholder}
+      className="form-control"
+      style={style}
+      onKeyPress={e => {
+        if (fieldType !== 'text' || e.key !== 'Enter') {
+          return;
+        }
+        e.preventDefault();
+      }}
+      onChange={e => {
+        e.preventDefault();
+        onChange(e.target.value);
+      }}
+      disabled={!enabled}
+    />
+  );
 }

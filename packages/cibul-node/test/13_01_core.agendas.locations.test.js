@@ -482,7 +482,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
-            detailed: true,
+            detailed: true
           },
           headers: {
             'content-type': 'application/json'

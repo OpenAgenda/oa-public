@@ -380,5 +380,10 @@ module.exports = [{
     description: 'Display graph tab on agenda admin',
     type: 'boolean',
     default: false
+  }, {
+    field: 'useJSONBridge',
+    description: 'JSON export V1 is generated from the V2 format',
+    type: 'boolean',
+    default: true
   }]
 }];

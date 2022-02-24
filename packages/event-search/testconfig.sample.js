@@ -14,4 +14,5 @@ module.exports = {
   },
   defaultIndex: 'test',
   interfaces: {},
+  emptyValue: 'null'
 }

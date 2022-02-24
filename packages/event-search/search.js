@@ -35,7 +35,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
 
   const {
     defaultIndex,
-    predefinedAggregations
+    predefinedAggregations,
+    emptyValue
   } = config;
 
   const {
@@ -64,15 +65,18 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     requested: requestedIncludes
   });
 
-  const cleanQuery = inflateAndCleanQuery(query, { set, formSchema });
+  const cleanQuery = inflateAndCleanQuery(query, { set, formSchema, emptyValue });
 
   log('searching with query %j and nav %j', cleanQuery, cleanNav);
 
   cleanDSL = queryToDSL(
     cleanQuery,
     cleanNav.size !== undefined ? cleanNav : {},
-    formSchema,
-    includes
+    {
+      formSchema,
+      includes,
+      emptyValue
+    }
   );
 
   if (query.mlt && query.boost) {

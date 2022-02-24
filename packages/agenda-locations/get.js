@@ -1,8 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('get');
-const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest, NotFound } = require('@openagenda/verror');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
@@ -32,7 +31,11 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   });
 
   addSelect(k, 'public', { first: true, includeFields });
+  if ((includeFields ?? []).includes('agendaUid')) {
+    k.select('agenda_id');
+  }
   const entry = await k;
+
   const location = entry ? internals.fieldUtils.fromEntryToItem(entry, {
     includeFields,
     access: 'public',
@@ -42,7 +45,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   }
   if (!location) {
     if (throwOnNotFound) {
-      throw new NotFoundError('location', identifiers);
+      throw new NotFound({ info: identifiers }, 'location not found');
     }
     return null;
   }
@@ -52,6 +55,12 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
       location,
       await internals.interfaces.getEventCounts([location.uid], context)
     );
+  }
+
+  if (internals.interfaces.getAgendaUidsByIds && (includeFields ?? []).includes('agendaUid')) {
+    location.agendaUid = (
+      await internals.interfaces.getAgendaUidsByIds(entry.agenda_id)
+    )?.uid;
   }
 
   if (internals.interfaces.getLinkedAgendas && includeLinkedAgendas) {
@@ -74,14 +83,14 @@ module.exports.byAgendaUid = async (
   options = {}
 ) => {
   if (!agendaUid) {
-    throw new BadRequestError('agenda identifier is missing');
+    throw new BadRequest('agenda identifier is missing');
   }
   return get({ internals, endpoints }, identifiers, { ...options, context: { agendaUid } });
 };
 
 module.exports.bySetUid = async ({ internals, endpoints }, setUid, identifiers, options = {}) => {
   if (!setUid) {
-    throw new BadRequestError('set identifier is missing');
+    throw new BadRequest('set identifier is missing');
   }
   return get({ internals, endpoints }, identifiers, { ...options, context: { setUid } });
 };

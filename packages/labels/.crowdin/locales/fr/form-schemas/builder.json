@@ -47,6 +47,8 @@
   "selectFieldTypeInfo": "Adapté à une longue liste de choix. Cela affiche un champ de saisie avec menu déroulant et auto-completion pour trouver et sélectionner rapidement une valeur",
   "booleanFieldType": "Case à cocher unique",
   "booleanFieldTypeInfo": "Adapté aux choix de type oui/non",
+  "dateFieldType": "Sélecteur de date",
+  "dateFieldTypeInfo": "Un calendrier permet la sélection d'une date",
   "imageFieldType": "Image",
   "unknownFieldType": "Type inconnu",
   "languagesFieldType": "Langues de saisie",

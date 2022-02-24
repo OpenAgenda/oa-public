@@ -116,10 +116,10 @@ window.asap(options => {
             jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
             pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
             xlsx: `${options.root}/agendas/:agendaUid/events.v2.xlsx`,
-            gcal: `${options.root}/agendas/:agendaUid/events.ics`,
-            ical: `${options.root}/agendas/:agendaUid/events.ics`,
+            gcal: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+            ical: `${options.root}/agendas/:agendaUid/events.v2.ics`,
             csv: `${options.root}/agendas/:agendaUid/events.v2.csv`,
-            ics: `${options.root}/agendas/:agendaUid/events.ics`,
+            ics: `${options.root}/agendas/:agendaUid/events.v2.ics`,
             rss: `${options.root}/agendas/:agendaUid/events.rss`,
           }
         }

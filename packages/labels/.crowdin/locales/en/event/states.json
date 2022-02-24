@@ -9,5 +9,6 @@
   "state": "state",
   "stateChanged": "The event state has changed",
   "featuredChange": "The event is now featured",
-  "unfeaturedChange": "The event is no longer featured"
+  "unfeaturedChange": "The event is no longer featured",
+  "stateFieldInfo": "This field is not available to contributors"
 }

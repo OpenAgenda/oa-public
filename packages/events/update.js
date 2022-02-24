@@ -26,9 +26,15 @@ async function update({ service, isPatch }, current, data, o = {}) {
     updatedAt: new Date()
   };
 
-  if (clean.image) {
+  if (!current.fileKey && clean.image) {
     clean.fileKey = generateFileKey();
-    clean.image = await processImage(service, clean);
+  }
+
+  if (clean.image) {
+    clean.image = await processImage(service, {
+      image: clean.image,
+      fileKey: current.fileKey ?? clean.fileKey
+    });
   }
 
   if (!options.draft && current.draft) {
@@ -78,4 +84,4 @@ async function update({ service, isPatch }, current, data, o = {}) {
 module.exports = async ({ service, isPatch }, identifier, data, options = {}) => update({
   service,
   isPatch
-}, await get(service, identifier, { ...options, throwOnError: true }), data, options);
+}, await get(service, identifier, { ...options, throwOnError: true, internal: true }), data, options);

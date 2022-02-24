@@ -20,6 +20,17 @@ describe('11 - event-search - unit: formatEvent', function() {
       schemaId: 13,
       field: 'someAdditionalPrice',
       fieldType: 'number'
+    }, {
+      schemaId: 13,
+      field: 'someAdditionalOptions',
+      fieldType: 'radio',
+      options: [{
+        id: 1,
+        label: 'One'
+      }, {
+        id: 2,
+        label: 'Two'
+      }]
     }]
   };
 
@@ -77,6 +88,18 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('_search_languages contains list of languages used for event', () => {
     formatted['_search_languages'].should.eql(['fr', 'en']);
+  });
+
+  it('_search_empty_fields contains list of fields that are empty', () => {
+    formatted['_search_empty_fields'].should.eql([
+      'location.name',
+      'location.adminLevel3',
+      'location.adminLevel5',
+      'description',
+      'keywords',
+      'member',
+      'someAdditionalOptions'
+    ]);
   });
 
   it('additional value is in formatted data', () => {
@@ -214,6 +237,14 @@ describe('11 - event-search - unit: formatEvent', function() {
       { value: 'https://a.link.com', type: 'link' },
       { value: '08392878923', type: 'phone' }
     ]);
+  });
+
+  it('fix: formatEvent is tolerant of null registration', () => {
+    const newEvent = produce(event, draft => {
+      draft.registration = [null];
+    });
+
+    formatEvent(newEvent).registration.should.eql([]);
   });
 
   it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {

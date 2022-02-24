@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 const Files = require('@openagenda/files');
 
 const {
@@ -166,7 +164,7 @@ describe('agenda-locations - functional - remove - no rights', () => {
       }
     });
     it('allow should throw Error', async () => {
-      expect(thrownError.name).toEqual('UnauthorizedError');
+      expect(thrownError.name).toEqual('Forbidden');
     });
   });
   describe('test allow bySetUid', () => {
@@ -180,7 +178,7 @@ describe('agenda-locations - functional - remove - no rights', () => {
       }
     });
     it('allow should throw Error', async () => {
-      expect(thrownError.name).toEqual('UnauthorizedError');
+      expect(thrownError.name).toEqual('Forbidden');
     });
   });
 });

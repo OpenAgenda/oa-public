@@ -57,7 +57,8 @@ describe('agenda-locations - functional - get', () => {
             uid: 200000,
             title: 'BLIBLI'
           }
-        ]
+        ],
+        getAgendaUidsByIds: async agendaId => ({ uid: 789327189, id: agendaId })
       },
     });
   });
@@ -172,7 +173,7 @@ describe('agenda-locations - functional - get', () => {
     });
 
     it(
-      'if throwOnNotFound option is true, throws NotFoundError when location is not found',
+      'if throwOnNotFound option is true, throws NotFound when location is not found',
       async () => {
         let error;
         try {
@@ -180,7 +181,7 @@ describe('agenda-locations - functional - get', () => {
         } catch (e) {
           error = e;
         }
-        expect(error.statusCode).toBe(404);
+        expect(error.code).toBe(404);
       }
     );
 
@@ -202,6 +203,14 @@ describe('agenda-locations - functional - get', () => {
         const { image } = await svc.get(51665987, { includeImagePath: true });
 
         expect(image.split('/').length).toBeGreaterThan(1);
+      }
+    );
+
+    it(
+      'when includeFields is set and includes "agendaUid", agendaUid key is in result',
+      async () => {
+        const l = await svc.get(51665987, { includeFields: ['agendaUid'] });
+        expect(l.agendaUid).toBe(789327189);
       }
     );
 
@@ -229,7 +238,7 @@ describe('agenda-locations - functional - get', () => {
         } catch (e) {
           error = e;
         }
-        expect(error.name).toBe('BadRequestError');
+        expect(error.name).toBe('BadRequest');
         expect(error.message).toBe('agenda identifier is missing');
       }
     );

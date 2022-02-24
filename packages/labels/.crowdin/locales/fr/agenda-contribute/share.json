@@ -1,0 +1,6 @@
+{
+  "alreadyReferencedAndPublished": "L'événement [est déjà référencé](%eventLink%) sur l'agenda [%agendaTitle%](%agendaLink%)",
+  "alreadyReferencedAndUnpublished": "L'événement est déjà référencé sur l'agenda [%agendaTitle%](%agendaLink%) mais n'y a pas encore été publié",
+  "sharedAndPublished": "[L'événement a bien été publié](%eventLink%) sur l'agenda [%agendaTitle%](%agendaLink%)",
+  "sharedAndUnpublished": "L'événement est désormais en cours de modération sur l'agenda [%agendaTitle%](%agendaLink%).\n Vous serez notifé au moment de sa publication."
+}

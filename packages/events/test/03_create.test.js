@@ -279,6 +279,28 @@ describe('events - functional - create', () => {
       assert.equal(isPrivate, true);
     });
 
+    it('fileKey is defined at create', async () => {
+      const event = await svc.create(data)
+
+      const fileKey = await f.client('event_2')
+        .first(['file_key'])
+        .where('uid', event.uid)
+        .then(r => r.file_key);
+
+      assert.equal(fileKey.length, 32);
+    });
+
+    it('fileKey can be passed through options at create', async () => {
+      const event = await svc.create(data, { fileKey: 'blaireau' });
+
+      const fileKey = await f.client('event_2')
+        .first(['file_key'])
+        .where('uid', event.uid)
+        .then(r => r.file_key);
+
+      assert.equal(fileKey, 'blaireau');
+    });
+
     it('draft create does not require all fields to be specified', async () => {
       try {
         const event = await svc.create({
@@ -289,6 +311,14 @@ describe('events - functional - create', () => {
       } catch (e) {
         console.log(e);
       }
+    });
+
+    it('draft create does not required title to be specified', async () => {
+      const event = await svc.create({
+        description: 'Une description'
+      }, { draft: true });
+
+      assert.equal(event.title, undefined);
     });
 
     it('provided context is passed to interface call', done => {

@@ -88,15 +88,29 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
       expect(events[0].sourceAgendas.length).toBe(1);
     });
 
-    it('update does not clear aggregated reference', async () => {
-      const updated = await core.agendas(55268170).events.update(event.uid, {
-        featured: 1
-      }, {
-        partial: true,
-        detailed: true,
-        userUid: 1
+    describe('update of aggregated event', () => {
+      let updated;
+      beforeAll(async () => {
+        updated = await core.agendas(55268170).events.update(event.uid, {
+          featured: 1
+        }, {
+          partial: true,
+          detailed: true,
+          userUid: 1
+        });
       });
-      expect(updated.aggregated).toHaveLength(32);
+
+      it('update does not remove source information in indexed document', async () => {
+        const {
+          events
+        } = await core.agendas(55268170).events.search({ uid: event.uid }, {}, { detailed: true });
+
+        expect(events[0].sourceAgendas.length).toBe(1);
+      });
+
+      it('update does not clear aggregated reference', async () => {
+        expect(updated.aggregated).toHaveLength(32);
+      });
     });
   });
 

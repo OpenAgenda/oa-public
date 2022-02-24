@@ -45,5 +45,8 @@ module.exports = schema({
   private: {
     type: 'boolean',
     default: false
+  },
+  fileKey: {
+    type: 'text'
   }
 });

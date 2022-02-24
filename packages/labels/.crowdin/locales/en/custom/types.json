@@ -1,6 +1,6 @@
 {
   "radio": "Unique choice list",
-  "checkbox": "Liste à choix multiples",
+  "checkbox": "Multiple choice list",
   "select": "Select input",
   "integer": "Integer",
   "number": "Number",

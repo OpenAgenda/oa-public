@@ -13,5 +13,7 @@
   "requestPrivate": "Request a private agenda",
   "needOfficial": "You want an official agenda?",
   "requestOfficial": "Request an official agenda",
+  "or": "or",
+  "useAPlugin": "Use a plugin",
   "learnMore": "Learn more"
 }

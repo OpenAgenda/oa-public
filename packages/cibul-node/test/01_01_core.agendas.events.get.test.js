@@ -96,7 +96,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'website', 'email', 'phone', 'links', 'access',
         'state', 'imageCredits', 'extId',
         'duplicateCandidates', 'disqualifiedDuplicates',
-        'mergedIn'
+        'mergedIn', 'agendaUid'
       ]);
     });
   });
@@ -129,6 +129,10 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       it('all additional fields are provided', async () => {
         expect(event.thematique).toBe(2);
         expect(event.note).toBe('Une note interne pour les administrateurs');
+      });
+
+      it('fix: fileKey is provided', async () => {
+        expect(event.fileKey).toBe('31a7df7098744844b6c6ce0d2cdba0f4');
       });
     });
 

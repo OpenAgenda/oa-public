@@ -24,7 +24,7 @@ module.exports = schema({
   },
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field),
+    options: fields.map(f => f.field).concat('agendaUid'),
   },
   throwOnNotFound: {
     type: 'boolean',
@@ -33,6 +33,10 @@ module.exports = schema({
   includeLinkedAgendas: {
     type: 'boolean',
     default: false
+  },
+  includeOriginAgendaUid: {
+    type: 'boolean',
+    default: false,
   },
   deleted: {
     type: 'boolean',

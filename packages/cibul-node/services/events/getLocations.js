@@ -10,7 +10,7 @@ const includeFields = [
   'website', 'email', 'phone', 'links', 'access',
   'state', 'imageCredits', 'extId',
   'duplicateCandidates', 'disqualifiedDuplicates',
-  'mergedIn'
+  'mergedIn', 'agendaUid'
 ];
 
 const getLocations = (services, uids) => {

@@ -51,7 +51,8 @@ raw.push(knex('location').insert([{
   uid: 1,
   created_at: new Date(),
   updated_at: new Date(),
-  deleted: 1
+  deleted: 1,
+  agenda_id: 1
 }]));
 
 raw.push(knex('event_2').insert([{
@@ -78,7 +79,8 @@ raw.push(knex('event_2').insert([{
   location_uid: 1,
   timezone: 'Europe/Paris',
   created_at: new Date(),
-  updated_at: new Date()
+  updated_at: new Date(),
+  file_key: '31a7df7098744844b6c6ce0d2cdba0f4'
 }, {
   id: 2,
   owner_uid: 1,

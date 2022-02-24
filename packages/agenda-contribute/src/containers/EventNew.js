@@ -41,7 +41,7 @@ export default function EventNew({ agenda, history }) {
     hasReferenceForDuplicate,
     isReferenceLoading,
     referenceData
-  } = useEventDataForDuplicate();
+  } = useEventDataForDuplicate(agenda);
 
   if (isLoading || isReferenceLoading) {
     return <Loading />;

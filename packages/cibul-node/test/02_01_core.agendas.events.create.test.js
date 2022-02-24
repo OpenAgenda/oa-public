@@ -506,6 +506,21 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         custom_description: ":')"
       });
     });
+
+    it('draft event without title can be created', async () => {
+      const noTitleDraft = await core.agendas(agendaUid).events.create({
+        description: {
+          fr: 'Un brouillon sans titre'
+        }
+      }, {
+        context: {
+          userUid: memberUserUid
+        },
+        draft: true
+      });
+
+      expect(noTitleDraft.title).toBeUndefined();
+    });
   });
 
   describe('data format variations', () => {

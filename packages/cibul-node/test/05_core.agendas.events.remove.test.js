@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const axios = require('axios');
 
 const api = require('../api');
@@ -11,7 +10,7 @@ const Core = require('../core');
 const testConfig = require('./testConfig');
 const loadFixtures = require('./fixtures/load');
 
-describe('core - functional (server): core agendas() events.remove()', function() {
+describe('core - functional (server): core agendas() events.remove()', () => {
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '006.sql'));
@@ -45,19 +44,20 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
     await core.agendas(17026800).events.search.rebuild();
   });
-  
+
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
       });
-    } catch (e) {}
+    } catch (e) { /* */ }
   });
-  
+
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('remove from other agenda', () => {
-    let event, searchResultBefore;
+    let event;
+    let searchResultBefore;
 
     beforeAll(async () => {
       searchResultBefore = await core.agendas(17026800).events.search({ uid: 19201989 });
@@ -73,8 +73,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
     it('event is removed from agenda search', async () => {
       const {
-        total,
-        events
+        total
       } = await core.agendas(17026800).events.search({ uid: 19201989 });
       expect(searchResultBefore.total).toBe(1);
       expect(total).toBe(0);
@@ -94,8 +93,8 @@ describe('core - functional (server): core agendas() events.remove()', function(
   });
 
   describe('remove draft event', () => {
-
-    let eventBefore, eventAfter;
+    let eventBefore;
+    let eventAfter;
 
     beforeAll(async () => {
       eventBefore = await core.agendas(17026855).events.get(89378913);
@@ -113,14 +112,27 @@ describe('core - functional (server): core agendas() events.remove()', function(
       expect(eventBefore.uid).toBe(89378913);
       expect(eventAfter).toBeNull();
     });
+  });
 
+  describe('errors', () => {
+    it('remove non-existing event throws NotFound exception', async () => {
+      let error;
+      try {
+        await core.agendas(17026855).events.remove(99999999);
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('NotFound');
+    });
   });
 
   describe('api', () => {
-    let server, accessToken, response;
+    let server;
+    let accessToken;
+    let response;
 
-    beforeAll(done => {
-       server = api(core).listen(3000, done);
+    beforeAll(async () => {
+      server = api(core).listen(3000);
     });
 
     afterAll(() => server.close());
@@ -158,6 +170,18 @@ describe('core - functional (server): core agendas() events.remove()', function(
       expect(response.event.uid).toBe(90298390);
     });
 
-  });
+    it('deleting non-existant event returns 404', async () => {
+      const errorResponse = await axios({
+        method: 'delete',
+        url: 'http://localhost:3000/agendas/17026855/events/90298390',
+        headers: {
+          'content-type': 'application/json',
+          'access-token': accessToken,
+          nonce: 12987897
+        }
+      }).then(() => {}, err => err.response);
 
+      expect(errorResponse.status).toBe(404);
+    });
+  });
 });

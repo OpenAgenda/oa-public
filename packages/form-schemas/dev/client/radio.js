@@ -57,6 +57,30 @@ const props = {
         label: 'Fork',
         info: { en: 'Why is this even here?', fr: 'Pourquoi?' }
       }]
+    }, {
+      field: 'animplicitelyoptionalradiofield',
+      fieldType: 'radio',
+      label: 'Unspecified optional means optional',
+      options: [{
+        id: 8,
+        value: 'tbag',
+        label: 'Tea bag'
+      }]
+    }, {
+      field: 'requiredwithoutvalueatloadisrequired',
+      fieldType: 'radio',
+      label: 'Required without value at load is required',
+      info: 'Do not select anything and submit to see error message',
+      optional: false,
+      options: [{
+        id: 9,
+        value: 'scorbut',
+        label: 'Scorbut'
+      }, {
+        id: 10,
+        value: 'wall',
+        label: 'Wall'
+      }]
     }]
   }
 };

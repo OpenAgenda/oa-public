@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('list');
-const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
+const { BadRequest } = require('@openagenda/verror');
 
 const addListQuery = require('./lib/addListQuery');
 const addPagination = require('./lib/addPagination');
@@ -46,6 +46,10 @@ async function list(service, query = {}, nav = {}, options = {}) {
     include: cleanNav.useAfter ? ['id'] : [],
     includeFields,
   });
+
+  if ((includeFields ?? []).includes('agendaUid')) {
+    k.select('agenda_id');
+  }
 
   if (!streamOptions) {
     addPagination(k, cleanNav);
@@ -92,7 +96,7 @@ module.exports.byAgendaUid = async (
   options = {}
 ) => {
   if (!agendaUid) {
-    throw new BadRequestError('agendaUid is not specified');
+    throw new BadRequest('agendaUid is not specified');
   }
 
   return list(service, query, nav, {
@@ -109,7 +113,7 @@ module.exports.bySetUid = async (
   options = {}
 ) => {
   if (!setUid) {
-    throw new BadRequestError('set uid is not specified');
+    throw new BadRequest('set uid is not specified');
   }
 
   return list(service, query, nav, {

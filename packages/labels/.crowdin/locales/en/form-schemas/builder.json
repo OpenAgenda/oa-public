@@ -47,6 +47,8 @@
   "selectFieldTypeInfo": "Input field with dropdown and autocomplete allowing the selection of single value from a list",
   "booleanFieldType": "Single checkbox",
   "booleanFieldTypeInfo": "Yes/no choice",
+  "dateFieldType": "Date selection",
+  "dateFieldTypeInfo": "A calendar to select a date",
   "imageFieldType": "Image",
   "unknownFieldType": "Unknown type",
   "languagesFieldType": "Input languages",

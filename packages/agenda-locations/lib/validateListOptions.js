@@ -30,7 +30,7 @@ const validate = schema({
   },
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field),
+    options: fields.map(f => f.field).concat('agendaUid'),
   },
   includeImagePath: {
     type: 'boolean',
