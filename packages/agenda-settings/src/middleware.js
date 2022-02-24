@@ -3,6 +3,25 @@ const logs = require( '@openagenda/logs' );
 let service, config;
 let agendasSvc;
 
+const defaultFields = [
+  { 'field': 'image', 'fieldType': 'abstract' },
+  { 'field': 'imageCredits', 'fieldType': 'abstract' },
+  { 'field': 'languages', 'fieldType': 'abstract' },
+  { 'field': 'title', 'fieldType': 'abstract' },
+  { 'field': 'description', 'fieldType': 'abstract' },
+  { 'field': 'keywords', 'fieldType': 'abstract' },
+  { 'field': 'longDescription', 'fieldType': 'abstract' },
+  { 'field': 'conditions', 'fieldType': 'abstract' },
+  { 'field': 'age', 'fieldType': 'abstract' },
+  { 'field': 'registration', 'fieldType': 'abstract' },
+  { 'field': 'accessibility', 'fieldType': 'abstract' },
+  { 'field': 'attendanceMode', 'fieldType': 'abstract' },
+  { 'field': 'location', 'fieldType': 'abstract' },
+  { 'field': 'onlineAccessLink', 'fieldType': 'abstract' },
+  { 'field': 'status', 'fieldType': 'abstract' },
+  { 'field': 'timings', 'fieldType': 'abstract' }
+];
+
 module.exports = {
   init,
   create,
@@ -30,11 +49,37 @@ function init( s, c ) {
 
 function create( req, res, next ) {
 
-  agendasSvc.set( Object.assign( req.body, { ownerId: req.user.id } ), { private: null }, ( err, result ) => {
+  agendasSvc.set( Object.assign( req.body, { ownerId: req.user.id } ), { private: null }, async ( err, result ) => {
 
     if ( err ) return next( err );
 
     if ( result.errors.length ) res.status( 400 );
+
+    const { core } = req.app.services;
+
+    if (core) { // skip for testing
+      const { onlineEvents, statusField } = req.body;
+
+      if (onlineEvents || statusField) {
+        const fields = defaultFields.map(v => {
+          if (onlineEvents && (v.field === 'onlineAccessLink' || v.field === 'attendanceMode')) {
+            return { ...v, display: true };
+          }
+
+          if (statusField && v.field === 'status') {
+            return { ...v, display: true };
+          }
+
+          return v;
+        });
+
+        try {
+          await core.agendas(result.agenda.uid).settings.schema.updateFields(fields);
+        } catch (e) {
+          return next(e);
+        }
+      }
+    }
 
     return res.json( result );
 

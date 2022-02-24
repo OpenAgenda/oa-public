@@ -10,9 +10,9 @@ const getDefaultState = () => ({
     prefix: ''
   },
   res: {
-    create: '',
+    create: '/',
     slugAvailable: '/slugs/available',
-    onCreated: ''
+    onCreated: '/:slug/admin/settings/gettingStarted'
   }
 });
 

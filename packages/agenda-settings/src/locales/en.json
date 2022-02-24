@@ -1,0 +1,15 @@
+{
+  "AgendaSetting.contribution.contributionRestrictDates": "Restrict input dates",
+  "AgendaSettings.CreationSecondStep.formEvent": "Form event",
+  "AgendaSettings.CreationSecondStep.onlineEvents": "Allow online event entry",
+  "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Online events can be associated with physical locations",
+  "AgendaSettings.CreationSecondStep.statusField": "Show status field (complete, postponed, cancelled) in the form",
+  "AgendaSettings.CreationSecondStep.statusFieldDesc": "The state of the event can also be modified from the administration of the agenda",
+  "AgendaSettings.contribution.closedContibution": "Closed",
+  "AgendaSettings.contribution.closedContibutionDesc": "The agenda does not accept new contributions",
+  "AgendaSettings.contribution.contribution": "Contribution",
+  "AgendaSettings.contribution.openContribution": "Open",
+  "AgendaSettings.contribution.openContributionDesc": "Any user can add events, under your moderation",
+  "AgendaSettings.contribution.reducedContribution": "Reduced",
+  "AgendaSettings.contribution.reducedContributionDesc": "Only invited users can add events"
+}

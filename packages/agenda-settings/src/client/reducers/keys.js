@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         loading: false,
         loaded: true,
-        data: action.result,
+        data: action.result.data,
         error: null
       };
     case LOAD_FAIL:
@@ -38,7 +38,7 @@ export default function reducer(state = initialState, action) {
         loading: false,
         loaded: false,
         data: null,
-        error: action.error
+        error: action.error.response.data.error
       };
     case CREATE:
       return {
@@ -54,14 +54,14 @@ export default function reducer(state = initialState, action) {
         data: {
           ...state.data,
           total: state.data.total + 1,
-          items: [...state.data.items, action.result]
+          items: [...state.data.items, action.result.data]
         }
       };
     case CREATE_FAIL:
       return {
         ...state,
         updateLoading: false,
-        updateError: action.error
+        updateError: action.error.response.data.error
       };
     case UPDATE:
       return {
@@ -79,7 +79,7 @@ export default function reducer(state = initialState, action) {
           ...state.data,
           items: [
             ...state.data.items.slice(0, index),
-            action.result,
+            action.result.data,
             ...state.data.items.slice(index + 1)
           ]
         }
@@ -88,7 +88,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         updateLoading: false,
-        updateError: action.error
+        updateError: action.error.response.data.error
       };
     case REMOVE:
       return {
@@ -114,7 +114,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         removeLoading: false,
-        removeError: action.error
+        removeError: action.error.response.data.error
       };
     default:
       return state;
