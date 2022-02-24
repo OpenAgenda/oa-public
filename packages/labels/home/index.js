@@ -33,7 +33,7 @@ module.exports = {
   },
   "removeMember": {
     "fr": "Me retirer de l'agenda",
-    "en": "Unlist myself from the agenda"
+    "en": "Remove myself from the agenda"
   },
   "removeMemberInformation": {
     "fr": "Si vous vous retirez de l'agenda, vous cesserez d'être notifié de son activité et ne pourrez plus en éditer les événements ni d'en ajouter de nouveaux. L'agenda n'apparaitra plus dans votre page d'accueil.",

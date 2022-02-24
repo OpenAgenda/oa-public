@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { ImageInput, Modal, useLayoutData } from '@openagenda/react-shared';
 import { edit } from '../../reducers/agenda';
+import * as agendaActions from '../../reducers/agenda';
 import * as modalsActions from '../../reducers/modals';
 import validate, { schema as agendaSchema } from '../../utils/validateProfile';
 import { BasicInput, BasicTextarea, InputGroup } from '../../utils/inputs';
@@ -46,6 +47,7 @@ export default function ProfileEdition() {
 
   const showModal = useCallback((name, options = {}) => dispatch(modalsActions.showModal(name, options)), [dispatch]);
   const closeModal = useCallback(name => dispatch(modalsActions.closeModal(name)), [dispatch]);
+  const remove = useCallback(() => dispatch(agendaActions.remove()), [dispatch]);
 
   const initialValues = useMemo(
     () => ({ title, description, url, slug, image }),

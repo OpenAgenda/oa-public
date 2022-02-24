@@ -1,6 +1,6 @@
 {
-  "tokenNotFound": "Unsubscription token is not found.",
-  "tokenAlreadyUsed": "Unsubscription token was already used.",
+  "tokenNotFound": "Unsubscribe token is not found.",
+  "tokenAlreadyUsed": "Unsubscribe token was already used.",
   "tokenMalformed": "The link is no longer valid. It has probably already been used.",
   "unsubscriptionSucceed": "Your settings have been updated.",
   "guestUnsubscriptionSucceed": "You are now unsubscribed."

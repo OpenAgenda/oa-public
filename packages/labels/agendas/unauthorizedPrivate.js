@@ -10,7 +10,7 @@ module.exports = {
     "io": "crwdns12986:0crwdne12986:0"
   },
   "message": {
-    "en": "Access to this agenda is **restricted**. If you require an access, contact the administrar",
+    "en": "Access to this agenda is **restricted**. If you require an access, contact the administrator",
     "fr": "L'accès à cet agenda est **restreint**. Pour obtenir un accès, contactez son administrateur",
     "de": "Der Zugriff auf dieseVerwaltungskalender ist ** ** eingeschränkt. Wenn Sie einen Zugang benötigen, kontaktiere den administrar",
     "es": "El acceso a este agenda está restringido ** **. Para el acceso, póngase en contacto con el administrador",

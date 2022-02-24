@@ -115,7 +115,7 @@ module.exports = {
   },
   "mainBroadcastText": {
     "fr": "Vos événement sont rediffusés sur les agendas de la plateforme ainsi que chez nos partenaires",
-    "en": "Your events are broadcasted on agendas of the platform as well as with our partners",
+    "en": "Your events are broadcast on agendas of the platform as well as with our partners",
     "de": "Ihre Veranstaltungen sind auf Kalenders der Plattform sowie mit unseren Partnern ausgestrahlt",
     "es": "Sus eventos se repiten en las agendas de la plataforma, así como con nuestros socios",
     "it": "I vostri eventi vengono trasmessi sulle agende della piattaforma e sui siti web dei nostri partner.",
@@ -147,7 +147,7 @@ module.exports = {
   },
   "mainBroadcastPoint4": {
     "fr": "Ils sont intégrables sur **[votre site](/decouvrir/votre-site)**",
-    "en": "They are embedabble in your **[your website](/discover/your-website)**",
+    "en": "They are embeddable in your **[your website](/discover/your-website)**",
     "de": "Du bist embedabble in Ihrem ** [Deine Website] (/ entdecken / your-Website) **",
     "es": "Se integran en ** [su sitio] (/ descubrir / tu-sitio web) **",
     "it": "Possono essere integrati su **[il tuo sito](/cover/il tuo sito)**.",
@@ -236,7 +236,7 @@ module.exports = {
   },
   "mainPricingAgendaPoint1": {
     "fr": "Lancez maintenant l’agenda de votre lieu, salon, festival, organisation.",
-    "en": "Launch now the calendar of your location, exhibition, festival, organisation.",
+    "en": "Launch now the calendar of your location, exhibition, festival, organization.",
     "de": "Starte jetzt den Kalender Ihres Standorts, Ausstellung, Festival, Organisation.",
     "es": "Ahora ejecuta el agenda de su lugar, el salón, la organización del festival.",
     "it": "Lanciate ora l'agenda del vostro luogo, fiera, festival, organizzazione.",
@@ -348,7 +348,7 @@ module.exports = {
   },
   "agendaPricingPresPoint1": {
     "fr": "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères",
-    "en": "Your event pages are detailed and you can organize your calendar with multiple criterias.",
+    "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios",
     "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri",
@@ -668,7 +668,7 @@ module.exports = {
   },
   "networkPricingFreeFeature3": {
     "fr": "Agrégation avec filtres",
-    "en": "Filtered agregation",
+    "en": "Filtered aggregation",
     "de": "gefiltert agregation",
     "es": "Agregación con filtros",
     "it": "Aggregazione con filtri",
@@ -899,7 +899,7 @@ module.exports = {
     "io": "crwdns13668:0crwdne13668:0"
   },
   "openDataLicence": {
-    "en": "are published under an **[Open Data Licence](https://en.wikipedia.org/wiki/Open_licence_(French))**",
+    "en": "are published under an **[Open Data License](https://en.wikipedia.org/wiki/Open_licence_(French))**",
     "fr": "sous license **[ouverte](https://fr.wikipedia.org/wiki/Licence_Ouverte)**",
     "de": "werden unter ** [Open Data License] veröffentlicht (https://en.wikipedia.org/wiki/Open_licence_ (Französisch)) **",
     "es": "** licencia [abierta] (https://fr.wikipedia.org/wiki/Licence_Ouverte) **",
@@ -1132,7 +1132,7 @@ module.exports = {
   },
   "boundariesLocation": {
     "fr": "Limitez les contributions à une liste de lieux",
-    "en": "Limit contribution to a pre-defined list of locations",
+    "en": "Limit contribution to a predefined list of locations",
     "de": "Limit Beitrag zu einer vordefinierten Liste von Standorten",
     "es": "contribuciones de carrera a una lista de lugares",
     "it": "Limitare i contributi a un elenco di località",
@@ -1749,7 +1749,7 @@ module.exports = {
     "io": "crwdns13880:0crwdne13880:0"
   },
   "exportsNetworkable": {
-    "en": "Your content can be broadcasted within a parent network such as a city or region a parent company or specialized media",
+    "en": "Your content can be broadcast within a parent network such as a city or region a parent company or specialized media",
     "fr": "Votre contenu peut être rediffusé au sein d'un réseau tel qu'une ville ou région, entreprise mère ou média spécialisé",
     "de": "Ihr Inhalt kann innerhalb eines übergeordneten Netzwerks wie beispielsweise eine Stadt oder Region einer Muttergesellschaft oder Fachmedien ausgestrahlt",
     "es": "Su contenido puede ser reproducido dentro de una red tal como una ciudad o región, empresa matriz o medios especializados",
@@ -1845,7 +1845,7 @@ module.exports = {
     "io": "crwdns13904:0crwdne13904:0"
   },
   "virginieStaelsTestimony": {
-    "en": "We organized a nationwide operation, where nearly 100 contributors published events in our OpenAgenda calendar. In the end, the feedbacks praised the ease of use and stability of the agenda. The solution contributed largely to the success of our ministry's project!",
+    "en": "We organized a nationwide operation, where nearly 100 contributors published events in our OpenAgenda calendar. In the end, the feedback praised the ease of use and stability of the agenda. The solution contributed largely to the success of our ministry's project!",
     "fr": "Nous avons monté une opération nationale, où près de 100 contributeurs ont inscrit des événements dans l'agenda OpenAgenda. Au final, tous ont rapporté la simplicité et la stabilité de l'agenda. La solution a largement participé à la réussite du projet de notre ministère!",
     "de": "Wir organisierten einen flächendeckenden Betrieb, in dem fast 100 Mitwirkenden Veranstaltungen in unserem OpenAgenda Kalender veröffentlicht. Am Ende lobten die Feedbacks der Benutzerfreundlichkeit und Stabilität der Kalender. Die Lösung trug wesentlich zum Erfolg unseres Dienstes des Projektes!",
     "es": "Montamos una operación nacional, donde cerca de 100 colaboradores han agendado eventos en el agenda OpenAgenda. Al final, todos informaron la simplicidad y la estabilidad de la agenda. La solución ha contribuido en gran medida al éxito del proyecto en nuestro departamento!",
@@ -1997,7 +1997,7 @@ module.exports = {
     "io": "crwdns13942:0crwdne13942:0"
   },
   "testimoniesHeadDescription": {
-    "en": "Find out what our clients say about OpneAgenda",
+    "en": "Find out what our clients say about OpenAgenda",
     "fr": "Découvrez ce que nos clients pensent d'OpenAgenda",
     "de": "Finde heraus, was unsere Kunden über OpneAgenda sagen",
     "es": "Vea lo que nuestros clientes piensan de OpenAgenda",

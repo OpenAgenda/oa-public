@@ -74,7 +74,7 @@ module.exports = {
     "io": "crwdns13290:0crwdne13290:0"
   },
   "function1Description": {
-    "en": "Your event pages are detailed and you can organize your calendar with multiple criterias.",
+    "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
     "fr": "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères !",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst Deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios!",

@@ -2,7 +2,7 @@
 
 module.exports = {
   "tokenNotFound": {
-    "en": "Unsubscription token is not found.",
+    "en": "Unsubscribe token is not found.",
     "fr": "Le jeton de désabonnement est introuvable.",
     "de": "Unsubscription Token nicht gefunden wird.",
     "es": "token de la rotación se encuentra.",
@@ -10,7 +10,7 @@ module.exports = {
     "io": "crwdns15792:0crwdne15792:0"
   },
   "tokenAlreadyUsed": {
-    "en": "Unsubscription token was already used.",
+    "en": "Unsubscribe token was already used.",
     "fr": "Le lien n'est plus valide. Il a probablement déjà été utilisé.",
     "de": "Unsubscription Token wurde bereits verwendet.",
     "es": "El enlace ya no es válida. Él probablemente ya ha sido utilizada.",

@@ -7,7 +7,7 @@
   "listInfo": "Information field",
   "listSection": "Agenda categories",
   "add": "Add",
-  "noCategories": "You haven't yet defined any categories for this agendda",
+  "noCategories": "You haven't yet defined any category for this agenda",
   "linkError": "An error occurred while saving your data. Please try again later",
   "cancelUpdateTag": "Cancel",
   "updateTag": "Ok",

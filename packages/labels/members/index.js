@@ -166,7 +166,7 @@ module.exports = {
   },
   "editProfile": {
     "fr": "Voir la fiche contact",
-    "en": "Edit contact data",
+    "en": "Edit profile",
     "de": "Profil bearbeiten",
     "es": "Editar Perfil",
     "it": "Modifica profilo",

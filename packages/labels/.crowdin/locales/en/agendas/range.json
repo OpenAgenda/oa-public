@@ -5,11 +5,11 @@
   "noDates": "no dates available",
   "minuteSeparator": ":",
   "prefix": "on",
-  "weekday-0": "sundays",
-  "weekday-1": "mondays",
-  "weekday-2": "tuesdays",
-  "weekday-3": "wednesdays",
-  "weekday-4": "thursdays",
-  "weekday-5": "fridays",
-  "weekday-6": "saturdays"
+  "weekday-0": "Sundays",
+  "weekday-1": "Mondays",
+  "weekday-2": "Tuesdays",
+  "weekday-3": "Wednesdays",
+  "weekday-4": "Thursdays",
+  "weekday-5": "Fridays",
+  "weekday-6": "Saturdays"
 }

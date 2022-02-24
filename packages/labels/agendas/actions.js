@@ -11,7 +11,7 @@ module.exports = {
     "io": "crwdns12762:0%oldstate%crwdnd12762:0%newstate%crwdne12762:0"
   },
   "ownershipTransfered": {
-    "en": "The ownership of the event has successfully been transfered",
+    "en": "The ownership of the event has successfully been transferred",
     "fr": "La propriété de l'événement a été transférée avec succès",
     "it": "La proprietà dell'evento è stata trasferita con successo.",
     "de": "Das Eigentum an der Veranstaltung wurde erfolgreich übertragen.",
