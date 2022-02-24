@@ -25,11 +25,13 @@
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.19.0",
     "base-64": "^1.0.0",
+    "final-form": "^4.20.2",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-final-form": "^6.5.3",
     "react-intl": "^5.12.2",
     "utf8": "^3.0.0"
   },

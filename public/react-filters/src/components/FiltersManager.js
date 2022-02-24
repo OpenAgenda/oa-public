@@ -186,7 +186,7 @@ export default React.forwardRef(function FiltersManager({
       const widgetsOnPage = getWidgets();
 
       setWidgets(widgetsOnPage.reduce((accu, next) => {
-        const found = _.find(widgets, next);
+        const found = widgets.find(v => _.isEqual(v, next));
 
         // Conserve if found & elem has not changed
         if (found && (!found.elem || document.body.contains(found.elem))) {
