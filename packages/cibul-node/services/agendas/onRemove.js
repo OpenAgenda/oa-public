@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onRemove');
 
 module.exports = async (services, agenda) => {
@@ -21,4 +22,4 @@ module.exports = async (services, agenda) => {
 
   // feed / activity
   activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
-}
+};
