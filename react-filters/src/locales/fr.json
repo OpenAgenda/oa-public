@@ -3,6 +3,7 @@
   "ReactFilters.ChoiceFilter.moreOptions": "Plus d'options",
   "ReactFilters.ChoiceFilter.noResult": "Aucun résultat",
   "ReactFilters.ChoiceFilter.searchPlaceholder": "Rechercher",
+  "ReactFilters.ChoiceFilter.unrecognizedOption": "Valeur de filtre inconnue ({value})",
   "ReactFilters.DateRangeFilter.dateRange": "Du {startDate, time, ::yyyyMMdd} au {endDate, time, ::yyyyMMdd}",
   "ReactFilters.DateRangeFilter.endDate": "Fin",
   "ReactFilters.DateRangeFilter.from": "À partir du {date, time, ::yyyyMMdd}",

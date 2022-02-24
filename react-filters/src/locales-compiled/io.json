@@ -23,6 +23,20 @@
       "value": "crwdns854:0crwdne854:0"
     }
   ],
+  "ReactFilters.ChoiceFilter.unrecognizedOption": [
+    {
+      "type": 0,
+      "value": "Unknown filter value ("
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
   "ReactFilters.DateRangeFilter.dateRange": [
     {
       "type": 0,
@@ -314,7 +328,7 @@
   "ReactFilters.messages.attendanceModeOptions.offline": [
     {
       "type": 0,
-      "value": "Offline"
+      "value": "In situ"
     }
   ],
   "ReactFilters.messages.attendanceModeOptions.online": [

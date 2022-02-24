@@ -18,7 +18,7 @@ const urls = {
   jsonV1: '/events.json',
   pdf: '/',
   xlsx: 'https://localhost:9001/agendas/1234/events.v2.xlsx',
-  gcal: '/',
+  gcal: 'https://openagenda.com/agendas/1234/events.ics?oaq[passed]=1',
   ical: '/',
   csv: 'https://localhost:9001/agendas/1234/events.v2.csv',
   ics: '/',

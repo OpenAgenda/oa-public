@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Modal } from '@openagenda/react-shared';
 import Radio from '../Radio';
 import SpreadsheetOptions from './SpreadsheetOptions';
+import ExternalCalendarOptions from './ExternalCalendarOptions';
 
 const ExportModal = ({
   res, languages, onClose, userLogged
@@ -16,6 +17,7 @@ const ExportModal = ({
   const [jsonDetailed, setJsonDetailed] = useState(false);
   const [publicKey, setPublicKey] = useState('');
   const [gCal, setGCal] = useState(false);
+  const [outlook, setOutlook] = useState(false);
   const [newTab, setNewTab] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
   const [fields, setFields] = useState([]);
@@ -43,26 +45,6 @@ const ExportModal = ({
     cancel: {
       id: 'cancel',
       defaultMessage: 'Cancel',
-    },
-    instructions: {
-      id: 'instructions',
-      defaultMessage: 'Instructions',
-    },
-    instructionsStep1: {
-      id: 'instructionsStep1',
-      defaultMessage: 'Copy the link in the field above',
-    },
-    instructionsStep2: {
-      id: 'instructionsStep2',
-      defaultMessage: 'Open ',
-    },
-    instructionsStep3: {
-      id: 'instructionsStep3',
-      defaultMessage: 'In the left section, open "Other Calendars > Add by URL"',
-    },
-    instructionsStep4: {
-      id: 'instructionsStep4',
-      defaultMessage: 'Follow the instructions by pasting the link you copied in step 1',
     },
     logIn: {
       id: 'login',
@@ -95,6 +77,7 @@ const ExportModal = ({
     { type: 'PDF', id: 'pdf' },
     { type: 'JSON / API', id: 'jsonV2' },
     { type: 'Google Agenda', id: 'gcal' },
+    { type: 'Outlook', id: 'outlook' },
     { type: 'iCal', id: 'ical' },
     { type: 'ICS', id: 'ics' },
     { type: 'RSS', id: 'rss' },
@@ -115,6 +98,7 @@ const ExportModal = ({
   const setChoice = (value, id) => {
     setDisplayButton(false);
     setGCal(false);
+    setOutlook(false);
     setSpreadsheetForm(false);
     setJsonOptions(false);
     setFormatChoice({ value, id });
@@ -122,6 +106,7 @@ const ExportModal = ({
     if (id === 'jsonV2' || id === 'rss') setNewTab(true);
     if (id === 'gcal') return setGCal(true);
     if (id === 'jsonV2') return setJsonOptions(true);
+    if (id === 'outlook') return setOutlook(true);
     setDisplayButton(true);
   };
 
@@ -167,8 +152,6 @@ const ExportModal = ({
     setSpreadsheetOptions(options);
   };
 
-  const handleClick = e => e.target.select();
-
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
       <form className="export export-form" onSubmit={handleSubmit}>
@@ -188,6 +171,12 @@ const ExportModal = ({
                 fields={fields}
                 options={spreadsheetOptions}
               />
+              )}
+              {gCal && id === 'gcal' && (
+                <ExternalCalendarOptions type={id} exportUrl={res.export.gcal} />
+              )}
+              {outlook && id === 'outlook' && (
+                <ExternalCalendarOptions type={id} exportUrl={res.export.gcal} />
               )}
               {jsonOptions && id === formatChoice.id && (
                 <>
@@ -211,26 +200,6 @@ const ExportModal = ({
                   <button type="submit" className="btn btn-primary">
                     {intl.formatMessage(messages.modalTitle)}
                   </button>
-                </div>
-              )}
-              {gCal && id === 'gcal' && (
-                <div className="margin-left-md">
-                  <input
-                    className="form-control url-input"
-                    value={res.export.gcal}
-                    readOnly
-                    onClick={handleClick}
-                  />
-                  <h4>{intl.formatMessage(messages.instructions)}</h4>
-                  <p>1. {intl.formatMessage(messages.instructionsStep1)}</p>
-                  <p>
-                    2. {intl.formatMessage(messages.instructionsStep2)}
-                    <a target="_blank" href="https://calendar.google.com" rel="noreferrer" className="calendars-link">
-                      Google Calendar
-                    </a>
-                  </p>
-                  <p>3. {intl.formatMessage(messages.instructionsStep3)}</p>
-                  <p>4. {intl.formatMessage(messages.instructionsStep4)}.</p>
                 </div>
               )}
             </React.Fragment>

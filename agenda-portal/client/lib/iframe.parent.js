@@ -11,11 +11,7 @@ function updateRelativePath(state, relative) {
 }
 
 function appendAttributeValueToQuery(iframe, current, key, attrKey) {
-  const url = new URL(current, window.location.href);
-
-  url.searchParams.append(key, iframe.getAttribute(attrKey));
-
-  return `${url.pathname}${url.search}`;
+  return `${current}${current.includes('?') ? '&' : '?'}${key}=${iframe.getAttribute(attrKey)}`;
 }
 
 function onMessage(state, { message }) {

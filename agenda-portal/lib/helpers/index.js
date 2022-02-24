@@ -1,19 +1,17 @@
 'use strict';
 
-const marked = require('marked');
 const imageToUrl = require('../../utils/imageToUrl');
+const markdownToHTML = require('../../utils/markdownToHTML');
 const loadFilter = require('./loadFilter');
 const loadCustom = require('./loadCustom');
 const loadWidget = require('./loadWidget');
-
-const mdToHtml = md => marked(md, { breaks: true });
 
 const fieldSchema = (fieldName, { data }) => data.root.agenda.schema.fields
   .find(v => v.field === fieldName);
 
 function loadHelpers(hbs) {
   return {
-    mdToHtml,
+    mdToHtml: markdownToHTML,
     json: JSON.stringify,
     object: ({ hash = {} } = {}) => hash,
     array: (...arr) => arr.slice(0, -1),

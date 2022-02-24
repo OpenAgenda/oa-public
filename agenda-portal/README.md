@@ -22,7 +22,8 @@ Table of contents:
    * [I18n](#i18n)
    * [Helpers](#helpers)
    * [Customizing data](#customizing-data)
-   * [Navigation and Filters](#navigation)
+   * [Navigation and Filters](#navigation-and-filters)
+   * [Favorites](#favorites)
  * [IFrames](#iframes)
  * [Preview](#preview)
  * [Miscellaneous](#miscellaneous)
@@ -249,7 +250,7 @@ For details on possible options, refer to the cloudimage documentation [here](ht
 
 
 
-### Navigation
+### Navigation and filters
 
 #### Filters
 
@@ -420,6 +421,64 @@ When a search is done on the main agenda page and an event is selected, it is lo
 
 The partial illustrating this is `navigation.hbs`
 
+
+### Favorites
+
+An event selection utility that stores a selection of events in the local storage of the user can be implemented using the following widget/filter codes. With this functionality, the user can select events as he navigates on the portal and then filter the list to see his selection.
+
+To implement this on a portal, two components need to be added: one widget for adding/removing a favorite, another to filter the list to the favorites selection.
+
+The feature is available on the default portal made available on a fresh installation and deploy.
+
+#### Add/Remove a favorite
+
+The component is associated with an event identifier. A typical implementation would see it placed on an event list item and another on the event page.
+
+```
+{{#customWidget
+  name='favorite'
+  tagName='span'
+  className='float-right'
+  eventUid=uid
+  activeClass='fas'
+  inactiveClass='far'
+  activeTargetSelector='i'
+  handlerSelector='i'
+}}
+  <i class="far fa-star"></i>
+{{/customWidget}}
+```
+
+In the example above, a star is displayed, full when the event is a favorite, empty when it isn't.
+
+The required properties are:
+
+ * **eventUid**: the event to be added or removed to/from the favorites selection
+ * **name**: Must be "favorite"
+
+The remaining properties function as the ones documented in the [section dedicated to the custom filter](#custom-filters).
+
+#### Favorites filter
+
+The component is a custom filter with a type set to "favorites". When clicked, the list filters on the favorites selection:
+
+```
+{{#customFilter
+  type='favorites'
+  activeClass='active'
+  inactiveClass='inactive'
+  className='custom-example checkbox'
+  activeFilterLabel='Favoris'
+}}
+  <label for="nothing">
+    <input type="checkbox" tabindex="-1" readonly checked />
+    <input type="checkbox" tabindex="-1" readonly />
+    Favoris
+  </label>
+{{/customFilter}}
+```
+
+Other properties are documented in the [section dedicated to the custom filter](#custom-filters).
 
 ## IFrames
 
