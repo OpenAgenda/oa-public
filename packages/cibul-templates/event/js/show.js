@@ -113,7 +113,7 @@ window.asap(options => {
         agendaUid: params.agendaUid
       });
 
-      if (['administrator', 'moderator'].includes(member?.role)) {
+      if (['administrator', 'moderator'].includes(me?.member?.role)) {
         du.removeClass(du.el('.js_edit_location'), 'display-none');
       }
     });
