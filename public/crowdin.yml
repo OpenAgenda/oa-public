@@ -1,0 +1,4 @@
+files:
+  - source: /packages/*/src/locales/en.json
+    translation: /%original_path%/%two_letters_code%.%file_extension%
+    update_option: update_as_unapproved
