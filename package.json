@@ -21,7 +21,6 @@
     "*"
   ],
   "resolutions": {
-    "final-form": "4.20.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },

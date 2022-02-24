@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { debounce, throttle } from 'lodash';
 import axios from 'axios';
 import { defineMessages, useIntl } from 'react-intl';
-
+import { Form, Field } from 'react-final-form';
 import { AgendasSearch } from '@openagenda/react-shared';
 
 const defineParams = ({
@@ -118,6 +118,8 @@ const AgendaSearchInput = ({
   return (
     <AgendasSearch
       id="selectAgendasForSharing"
+      Form={Form}
+      Field={Field}
       getTitleLink={getTitleLink}
       getLabel={getLabel}
       listLoading={loading}
