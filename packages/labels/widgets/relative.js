@@ -12,7 +12,7 @@ module.exports = {
     "io": "crwdns15928:0crwdne15928:0"
   },
   "yesterday": {
-    "en": "yesterday",
+    "en": "Yesterday",
     "fr": "hier",
     "es": "ayer",
     "br": "dec'h",
@@ -32,7 +32,7 @@ module.exports = {
   },
   "thisWeekend": {
     "fr": "Ce week-end",
-    "en": "This Weekend",
+    "en": "This weekend",
     "it": "Questo week end",
     "de": "Dieses Wochenende",
     "pl": "W ten weekend",

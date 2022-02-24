@@ -531,7 +531,7 @@ module.exports = {
   },
   "personalization": {
     "fr": "Personnalisation",
-    "en": "Personalization",
+    "en": "Customization",
     "de": "Personalisierung",
     "es": "Personalización",
     "it": "Personalizzazione",

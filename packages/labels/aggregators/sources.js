@@ -51,7 +51,7 @@ module.exports = {
   },
   "aggregationLoop": {
     "fr": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
-    "en": "This agenda agregates events from the agenda you want to add it to. Agregation loops are not permitted.",
+    "en": "This agenda aggregates events from the agenda you want to add it to. Agregation loops are not permitted.",
     "de": "DieseVerwaltungskalender agregates Veranstaltungen von andere Kalenders.",
     "es": "Este agenda agrupa los eventos del agenda que desee agregar. Los bucles de agregación no están permitidos.",
     "it": "Questo agenda aggrega gli eventi del agenda a cui si desidera aggiungerlo. I cicli di aggregazione non sono ammessi.",

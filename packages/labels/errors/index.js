@@ -35,7 +35,7 @@ module.exports = {
   },
   "string.tooshort": {
     "fr": "Le champ doit comporter au moins %min% caractères",
-    "en": "The field must contain at least %min% caracters",
+    "en": "The field must contain at least %min% characters",
     "de": "Das Feld muss mindestens %min% enthalten caracters",
     "es": "Este campo debe tener al menos %min% caracteres",
     "br": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ",
@@ -44,7 +44,7 @@ module.exports = {
   },
   "string.toolong": {
     "fr": "Le champ doit comporter au plus %max% caractères",
-    "en": "The field must contain at must %max% caracters",
+    "en": "The field must contain at must %max% characters",
     "de": "Das Feld muss bei Most %max% caracters enthalten",
     "es": "Este campo no debe tener más de %max% caracteres",
     "br": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ",
@@ -89,7 +89,7 @@ module.exports = {
   },
   "integer.invalid": {
     "fr": "Un entier valide doit être renseigné",
-    "en": "A valid integer must be intput",
+    "en": "A valid integer must be input",
     "de": "Eine gültige ganze Zahl sein muss Intput",
     "es": "Una completa válida deben llenarse",
     "br": "Ret eo lakaat un niver anterin reizh",

@@ -56,49 +56,49 @@ module.exports = {
     "io": "crwdns12898:0crwdne12898:0"
   },
   "weekday-0": {
-    "en": "sundays",
+    "en": "Sundays",
     "fr": "dimanches",
     "he": "ימי ראשון",
     "ar": "الأحد",
     "de": "sonntag"
   },
   "weekday-1": {
-    "en": "mondays",
+    "en": "Mondays",
     "fr": "lundis",
     "he": "ימי שני",
     "ar": "الاثنين",
     "de": "montag"
   },
   "weekday-2": {
-    "en": "tuesdays",
+    "en": "Tuesdays",
     "fr": "mardis",
     "he": "ימי שלישי",
     "ar": "الثلاثاء",
     "de": "dienstag"
   },
   "weekday-3": {
-    "en": "wednesdays",
+    "en": "Wednesdays",
     "fr": "mercredis",
     "he": "ימי רביעי",
     "ar": "الأربعاء",
     "de": "mittwoch"
   },
   "weekday-4": {
-    "en": "thursdays",
+    "en": "Thursdays",
     "fr": "jeudis",
     "he": "ימי חמישי",
     "ar": "الخميس",
     "de": "donnerstag"
   },
   "weekday-5": {
-    "en": "fridays",
+    "en": "Fridays",
     "fr": "vendredis",
     "he": "ימי שישי",
     "ar": "الجمعة",
     "de": "freitag"
   },
   "weekday-6": {
-    "en": "saturdays",
+    "en": "Saturdays",
     "fr": "samedis",
     "he": "ימי שבת",
     "ar": "السبت",

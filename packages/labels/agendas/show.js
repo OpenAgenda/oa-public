@@ -382,7 +382,7 @@ module.exports = {
     "fr": "Reporté"
   },
   "statusCancelled": {
-    "en": "Cancelled",
+    "en": "Canceled",
     "fr": "Annulé"
   },
   "statusFull": {

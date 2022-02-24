@@ -74,7 +74,7 @@ module.exports = {
     "io": "crwdns15774:0crwdne15774:0"
   },
   "emailSignup": {
-    "en": "S'inscrire",
+    "en": "Signup",
     "fr": "Sign up",
     "de": "s'inscrire",
     "es": "contratar",

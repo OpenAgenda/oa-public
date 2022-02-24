@@ -66,7 +66,7 @@ module.exports = {
     "io": "crwdns11458:0crwdne11458:0"
   },
   "noCategories": {
-    "en": "You haven't yet defined any categories for this agendda",
+    "en": "You haven't yet defined any category for this agenda",
     "fr": "Vous n'avez encore défini aucune catégorie pour cet agenda",
     "de": "Du hast noch keine Kategorien definiert für diese agendda",
     "es": "No se ha definido ninguna categoría para esta agenda",

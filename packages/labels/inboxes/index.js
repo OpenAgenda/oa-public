@@ -107,7 +107,7 @@ module.exports = {
   },
   "resolvedConversation": {
     "fr": "Conversation résolue",
-    "en": "Resoved conversation",
+    "en": "Resolved conversation",
     "de": "Resoved Gespräch",
     "es": "conversación resuelto",
     "it": "Conversazione risoluta",
@@ -911,7 +911,7 @@ module.exports = {
   },
   "requestEditionCreationTitle": {
     "fr": "Demande de droits d'édition sur <a href=\"%link%\">%title%</a>",
-    "en": "Request for editing rights de",
+    "en": "Request for editing rights of <a href=\\\"%link%\\\">%title%</a>",
     "de": "Antrag auf Editierrechte de",
     "es": "derechos de publicación de la solicitud <a href=\"%link%\"> %title% </a>",
     "it": "Richiesta di diritti di modifica su <a href=\"%link%\">%title%</a>",
