@@ -30,6 +30,7 @@ const log = require('@openagenda/logs')('search');
 
 async function search(config, set, query = {}, nav = {}, options = {}) {
   log('searching on set %s', set);
+  const start = (new Date()).getTime();
 
   let cleanNav = {}, cleanDSL;
 
@@ -109,6 +110,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   if (requestedAggregations) {
     aggregationResults = aggregations.formatResult(requestedAggregations, query, aggregationResults, { formSchema });
   }
+
+  log('info', 'response', { time: (new Date()).getTime() - start, query, nav, aggregations: options.aggregations, itemsLength: parsedEvents.length, total });
 
   if (first) {
     return parsedEvents.pop();
