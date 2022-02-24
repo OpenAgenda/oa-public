@@ -1,6 +1,6 @@
 import { defineMessages, useIntl } from 'react-intl';
 import React, { useMemo } from 'react';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 import { ReactSelectField, Modal } from '@openagenda/react-shared';
 import useChartTitle from '../hooks/useChartTitle';
 import form from './messages/form';
@@ -49,6 +49,7 @@ function StatEditForm({ handleSubmit, onCancel, stat }) {
           </p>
           <ReactSelectField
             name="chart.width"
+            Field={Field}
             placeholder={intl.formatMessage(form.widthSelectPlaceholder)}
             initialValue={1}
             options={widthOptions}

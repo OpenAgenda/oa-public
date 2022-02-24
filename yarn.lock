@@ -3263,21 +3263,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/register@npm:^7.13.16":
-  version: 7.13.16
-  resolution: "@babel/register@npm:7.13.16"
-  dependencies:
-    clone-deep: ^4.0.1
-    find-cache-dir: ^2.0.0
-    make-dir: ^2.1.0
-    pirates: ^4.0.0
-    source-map-support: ^0.5.16
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: a2a4622292c281fa22e1e501c5c9cf5de41131b6824f3b96095275e315316d1f193593a1316f078bc43fb290f510c0419ae8d3515616c7607b4af4eefecc3d55
-  languageName: node
-  linkType: hard
-
 "@babel/register@npm:^7.13.8":
   version: 7.13.14
   resolution: "@babel/register@npm:7.13.14"
@@ -3384,6 +3369,15 @@ __metadata:
   dependencies:
     regenerator-runtime: ^0.13.4
   checksum: 4a1a75db3a8894f6e2a6a2012639a266df2a53d4d303f4a01550fac64ebc43715f42ef7f053d2917b627c7d8e09cbe3517b351e8907cf516e33c8c8e122b297b
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.15.4":
+  version: 7.17.2
+  resolution: "@babel/runtime@npm:7.17.2"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: a48702d271ecc59c09c397856407afa29ff980ab537b3da58eeee1aeaa0f545402d340a1680c9af58aec94dfdcbccfb6abb211991b74686a86d03d3f6956cacd
   languageName: node
   linkType: hard
 
@@ -5405,7 +5399,6 @@ __metadata:
     rimraf: ^3.0.1
     webpack: ^5.53.0
   peerDependencies:
-    final-form: ^4.20.2
     react: ^16.12.0
     react-dom: ^16.12.0
   languageName: unknown
@@ -5853,7 +5846,6 @@ __metadata:
     debug: ^3.2.6
     eslint: ^6.8.0
     express: ^4.17.1
-    final-form: ^4.20.2
     hbs: ^4.1.0
     http-proxy: ^1.18.1
     iframe-resizer: ^4.2.10
@@ -5874,7 +5866,6 @@ __metadata:
     react: ^16.13.1
     react-cookie-consent: ^7.2.1
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
     react-intl: ^5.12.2
     react-query: ^3.6.0
     regenerator-runtime: ^0.13.7
@@ -5993,14 +5984,13 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/node": ^7.13.13
-    "@babel/register": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
     "@openagenda/agendas": ^1.7.0
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
-    "@openagenda/files": ^3.1.0
+    "@openagenda/files": "workspace:packages/files"
     "@openagenda/keys": ^2.2.10
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
@@ -6015,34 +6005,32 @@ __metadata:
     core-js: ^3.10.2
     errorhandler: ^1.5.0
     express: ^4.17.1
-    final-form: ^4.20.2
+    final-form: ^4.20.6
     history: ^4.10.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
     lodash: ^4.17.15
-    mocha: ^7.0.1
     morgan: ^1.9.1
+    multer: ^1.4.4
     mysql: ^2.11.1
-    prop-types: ^15.5.8
     react: ^16.13.1
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.5.8
+    react-final-form-listeners: ^1.0.3
+    react-intl: ^5.12.2
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
+    react-use: ^15.3.4
     redial: ^0.5.0
     redux: ^4.0.5
-    redux-form: ^8.1.0
     regenerator-runtime: ^0.13.7
-    reselect: ^3.0.1
     rimraf: ^3.0.1
-    should: ^13.2.3
     slugify: ^1.4.6
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -6102,7 +6090,6 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.13.1
     react-dom: ^16.13.1
     react-router: ^5.0.0
@@ -6220,7 +6207,6 @@ __metadata:
     webpack: ^4.46.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -6436,6 +6422,7 @@ __metadata:
     react-cookie-consent: ^7.2.1
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
+    react-final-form: ^6.5.3
     react-intl: ^5.12.2
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -6613,7 +6600,6 @@ __metadata:
     "@openagenda/react-shared": ^2.3.2
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
-    axios-mock-adapter: ^1.19.0
     babel-loader: ^8.2.2
     classnames: ^2.3.1
     core-js: ^3.10.2
@@ -6647,7 +6633,6 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-dom: ^16.12.0
     react-router: ^5.0.0
@@ -6954,7 +6939,6 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -7034,7 +7018,6 @@ __metadata:
     uppy: ^0.23.2
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -7321,7 +7304,6 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -7632,7 +7614,6 @@ __metadata:
     webpack-cli: ^4.8.0
     webpackbar: ^5.0.0-3
   peerDependencies:
-    final-form: ^4.20.2
     react: ^16.12.0
     react-dom: ^16.12.0
   languageName: unknown
@@ -7707,7 +7688,6 @@ __metadata:
     core-js: ^3.10.2
     css-minimizer-webpack-plugin: ^2.0.0
     eslint: ^6.8.0
-    final-form: ^4.20.2
     flatted: ^2.0.1
     he: ^1.2.0
     history: ^4.10.1
@@ -7839,11 +7819,13 @@ __metadata:
     babel-loader: ^8.2.2
     base-64: ^1.0.0
     eslint: ^6.8.0
+    final-form: ^4.20.2
     lodash: ^4.17.15
     moment-timezone: ^0.5.31
     prop-types: ^15.7.2
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-final-form: ^6.5.3
     react-intl: ^5.12.2
     rimraf: ^3.0.1
     utf8: ^3.0.0
@@ -7914,19 +7896,13 @@ __metadata:
     yargs: ^15.1.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: "*"
     react: ^16.12.0
-    react-final-form: "*"
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     react-select: ^3.0.0
     redux: ^4.0.5
   peerDependenciesMeta:
     "@loadable/component":
-      optional: true
-    final-form:
-      optional: true
-    react-final-form:
       optional: true
     react-router:
       optional: true
@@ -7978,7 +7954,6 @@ __metadata:
     rrule: ^2.6.8
     text-mask-addons: ^3.8.0
   peerDependencies:
-    final-form: ^4.20.2
     react: ^16.12.0
   languageName: unknown
   linkType: soft
@@ -8158,7 +8133,6 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.13.1
     react-dom: ^16.13.1
     react-router: ^5.0.0
@@ -8242,6 +8216,7 @@ __metadata:
     prop-types: ^15.6.1
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-final-form: ^6.5.3
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -8254,7 +8229,6 @@ __metadata:
     rimraf: ^3.0.1
   peerDependencies:
     "@loadable/component": ^5.12.0
-    final-form: ^4.20.2
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -16412,7 +16386,6 @@ __metadata:
     fast-levenshtein: ^2.0.6
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
-    final-form: ^4.20.2
     form-data: ^3.0.0
     history: ^4.10.1
     http-proxy: ^1.18.0
@@ -22093,12 +22066,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"final-form@npm:4.20.2":
-  version: 4.20.2
-  resolution: "final-form@npm:4.20.2"
+"final-form@npm:^4.20.2, final-form@npm:^4.20.6":
+  version: 4.20.6
+  resolution: "final-form@npm:4.20.6"
   dependencies:
     "@babel/runtime": ^7.10.0
-  checksum: 7a006228bd5e284e84e944e8f46f641fd830284d0c1681f73bf8b9c79e52d79e39e666ab3958f4d480015781079de495ad4d0e0dc1811b3dc7dfbd6ef31ab96c
+  checksum: 6f8ac3643f0cd0cb34b204c41dec114382a3542d839b73e1376d6360da35eac3cd3e1c59b5ba8cfe915fe39d110af7178134131fe8ad667e23e657f682cbf359
   languageName: node
   linkType: hard
 
@@ -31253,7 +31226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:^0.5.5":
+"mkdirp@npm:^0.5.4, mkdirp@npm:^0.5.5":
   version: 0.5.5
   resolution: "mkdirp@npm:0.5.5"
   dependencies:
@@ -31478,6 +31451,22 @@ __metadata:
     type-is: ^1.6.4
     xtend: ^4.0.0
   checksum: a77ba79ec96b8376fdd09531c1cfd36f1d04e195b5e944a2cd4979c992cdc9b521887abed0893f75a21c59bb4dffe6356046da966059c268801d1f7c83e6ea16
+  languageName: node
+  linkType: hard
+
+"multer@npm:^1.4.4":
+  version: 1.4.4
+  resolution: "multer@npm:1.4.4"
+  dependencies:
+    append-field: ^1.0.0
+    busboy: ^0.2.11
+    concat-stream: ^1.5.2
+    mkdirp: ^0.5.4
+    object-assign: ^4.1.1
+    on-finished: ^2.3.0
+    type-is: ^1.6.4
+    xtend: ^4.0.0
+  checksum: b5550d250aeee9c4d630eaecd133af0899239f6b10cec4b448ddd0a808025b383520b8227198a8612f60c2cd2094bcb60de93d973084f889d4e40efe6dbd641e
   languageName: node
   linkType: hard
 
@@ -36143,6 +36132,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-final-form-listeners@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "react-final-form-listeners@npm:1.0.3"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+  peerDependencies:
+    final-form: ">=4.0.0"
+    prop-types: ^15.6.0
+    react: ^15.3.0 || ^16.0.0 || ^17.0.0
+    react-final-form: ">=3.0.0"
+  checksum: 9f32a2158c7e27b529cd25166f1b78f40fb99bc23dcc869513fa790be1c9e4687dd5a057c23275c7c0e352e7ef6d60f76dad5ede02de3855c49bc4dd68a907e9
+  languageName: node
+  linkType: hard
+
 "react-final-form@npm:^4.1.0":
   version: 4.1.0
   resolution: "react-final-form@npm:4.1.0"
@@ -36164,6 +36167,18 @@ __metadata:
     final-form: ^4.20.0
     react: ^16.8.0 || ^17.0.0
   checksum: f05bcbea51f004895f46d9be43bb0d70ecd10d172c6e6bb1498740a245ae54267789e1f8b9ca2ac77f75b240841d44f20fe698871bf267aa3baf58e7c7be1154
+  languageName: node
+  linkType: hard
+
+"react-final-form@npm:^6.5.8":
+  version: 6.5.8
+  resolution: "react-final-form@npm:6.5.8"
+  dependencies:
+    "@babel/runtime": ^7.15.4
+  peerDependencies:
+    final-form: ^4.20.4
+    react: ^16.8.0 || ^17.0.0
+  checksum: ea73cbd941e5f338429753cfde8bdfd849571d00eeea1fe90e39463c2da02d5ebe5551e8d30234800174ef96d853edd7db776a2bab17ab71ca3ecc9a24a5fc28
   languageName: node
   linkType: hard
 
@@ -38091,13 +38106,6 @@ __metadata:
   version: 1.0.0
   resolution: "requires-port@npm:1.0.0"
   checksum: eee0e303adffb69be55d1a214e415cf42b7441ae858c76dfc5353148644f6fd6e698926fc4643f510d5c126d12a705e7c8ed7e38061113bdf37547ab356797ff
-  languageName: node
-  linkType: hard
-
-"reselect@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "reselect@npm:3.0.1"
-  checksum: c7ce544bae92db2dc6e768bc2dcc1248f9a21ada22ab5906c5e3c472e1dbc5f080889e5a715b8a2535e652d74c599dd090f5a68bcbe7e6f88053b7599ef4e8d3
   languageName: node
   linkType: hard
 

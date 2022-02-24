@@ -40,7 +40,6 @@
     "@welldone-software/why-did-you-render": "^6.0.0-rc.1",
     "buffer": "^6.0.3",
     "core-js": "^3.10.2",
-    "final-form": "^4.20.2",
     "flatted": "^2.0.1",
     "he": "^1.2.0",
     "history": "^4.10.1",
