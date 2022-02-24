@@ -45,7 +45,7 @@
   "rtp.recurrencerForm.forceSubmit": "Create anyway",
   "rtp.recurrencerForm.intervalTooSmall": "Interval must be greater than 0",
   "rtp.recurrencerForm.invalidDate": "Invalid end date",
-  "rtp.recurrencerForm.invalidFrequence": "Invalid frequence",
+  "rtp.recurrencerForm.invalidFrequence": "Invalid frequency",
   "rtp.recurrencerForm.invalidMonthlyIntervalType": "Invalid monthly interval type",
   "rtp.recurrencerForm.month": "month",
   "rtp.recurrencerForm.monthlyCount": "{count, plural, one {month} other {months}}",
