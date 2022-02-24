@@ -1,16 +1,17 @@
 'use strict';
 
 const { Router } = require('express');
-const is = require('type-is');
+const mixedMultipartMw = require('./mixedMultipartMw');
+const cleanupMw = require('./cleanupMw');
 
-function getMulterMw(svc, fields) {
+function getMulterMw(multer, fields) {
   switch (fields) {
     case 'any':
-      return svc.multer.any();
+      return multer.any();
     case 'none':
-      return svc.multer.none();
+      return multer.none();
     default:
-      return svc.multer.fields(
+      return multer.fields(
         fields.map(field => {
           if (!field.unique) {
             return field;
@@ -105,40 +106,16 @@ function filterFakeFiles(fields) {
   };
 }
 
-function mixedMultipartMw(dataKey = 'data') {
-  return (req, res, next) => {
-    if (!is(req, ['multipart'])) return next();
-
-    try {
-      const rawBody = req.body && req.body[dataKey];
-
-      if (rawBody) {
-        const body = JSON.parse(rawBody);
-
-        delete req.body[dataKey];
-
-        Object.assign(req.body, body);
-      }
-
-      Object.assign(req.body, req.files);
-    } catch (e) {
-      return next(new Error('Body parse error'));
-    }
-
-    next();
-  };
-}
-
-module.exports = function makeMiddleware(svc) {
+module.exports = function makeMiddleware(multer) {
   return (fields = 'none', options = {}) => {
     const { cleanup = true, mixedMultipart = 'data' } = options;
 
     const router = Router({ mergeParams: true });
 
-    router.use(getMulterMw(svc, fields), uniqueFields(fields));
+    router.use(getMulterMw(multer, fields), uniqueFields(fields));
 
     if (cleanup) {
-      router.use(svc.cleanup());
+      router.use(cleanupMw());
     }
 
     if (mixedMultipart) {

@@ -1,13 +1,28 @@
 'use strict';
 
-const fs = require('fs');
 const multer = require('multer');
 const processFile = require('./processFile');
 const TempStorage = require('./TempStorage');
 const s3 = require('./providers/s3');
 const makeMiddleware = require('./makeMiddleware');
+const cleanupMw = require('./cleanupMw');
+const mixedMultipartMw = require('./mixedMultipartMw');
 const isFile = require('./isFile');
 const gm = require('./gm');
+
+function transformAndUpload(cfg, providers, options) {
+  return (file, context) => {
+    const fileOptions = (Array.isArray(options) ? options : [options]).find(
+      option => option.key === file.fieldname
+    );
+
+    if (!fileOptions) {
+      throw new Error(`Unable to find options for file '${file.fieldname}'`);
+    }
+
+    return processFile(cfg, providers, file, fileOptions, context);
+  };
+}
 
 function transformResult(resultKey) {
   return value => {
@@ -54,32 +69,6 @@ function abortAllUploads(filesRegistry) {
   }
 
   return Promise.all(promises);
-}
-
-function cleanup() {
-  return (req, res, next) => {
-    const _cleanup = file => {
-      if (Array.isArray(file)) {
-        return file.forEach(f => _cleanup(f));
-      }
-
-      if (fs.existsSync(file.path)) {
-        fs.unlinkSync(file.path);
-      }
-    };
-
-    res.on('finish', () => {
-      if (req.file) {
-        _cleanup(req.file);
-      }
-
-      if (req.files) {
-        Object.keys(req.files).forEach(name => _cleanup(req.files[name]));
-      }
-    });
-
-    next();
-  };
 }
 
 module.exports = cfg => {
@@ -147,14 +136,16 @@ module.exports = cfg => {
     }
 
     upload.multer = multer({
-      storage: new TempStorage({ cfg, providers, options }),
+      storage: new TempStorage({
+        transformAndUpload: transformAndUpload(cfg, providers, options),
+      }),
     });
 
-    upload.cleanup = cleanup;
-
-    upload.middleware = makeMiddleware(upload);
+    upload.middleware = makeMiddleware(upload.multer);
 
     upload.providers = providers;
+
+    upload.cleanup = cleanupMw;
 
     return upload;
   }
@@ -163,5 +154,13 @@ module.exports = cfg => {
 
   filesManager.gm = gm;
 
+  filesManager.cleanup = cleanupMw;
+
   return filesManager;
 };
+
+module.exports.makeMiddleware = makeMiddleware;
+
+module.exports.cleanupMw = cleanupMw;
+
+module.exports.mixedMultipartMw = mixedMultipartMw;
