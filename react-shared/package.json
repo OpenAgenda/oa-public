@@ -104,9 +104,7 @@
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
-    "final-form": "*",
     "react": "^16.12.0",
-    "react-final-form": "*",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-select": "^3.0.0",
@@ -114,12 +112,6 @@
   },
   "peerDependenciesMeta": {
     "@loadable/component": {
-      "optional": true
-    },
-    "final-form": {
-      "optional": true
-    },
-    "react-final-form": {
       "optional": true
     },
     "react-router": {

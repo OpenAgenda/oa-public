@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { Field } from 'react-final-form';
 import ReactSelectInput from './ReactSelectInput';
 
 const getValue = arg => arg?.value ?? arg;
 
 export default function ReactSelectField({
+  Field,
   name,
   initialValue,
   options,

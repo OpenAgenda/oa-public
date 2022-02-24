@@ -1,5 +1,6 @@
+import React from 'react';
 import { mount } from 'enzyme';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 import ReactSelectField from '../src/components/ReactSelectField';
 
 describe('ReactSelectField', () => {
@@ -27,7 +28,7 @@ describe('ReactSelectField', () => {
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <ReactSelectField name="type" options={options} />
+            <ReactSelectField Field={Field} name="type" options={options} />
           </form>
         )}
       />
