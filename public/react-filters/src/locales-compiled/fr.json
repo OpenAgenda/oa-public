@@ -23,6 +23,20 @@
       "value": "Rechercher"
     }
   ],
+  "ReactFilters.ChoiceFilter.unrecognizedOption": [
+    {
+      "type": 0,
+      "value": "Valeur de filtre inconnue ("
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
   "ReactFilters.DateRangeFilter.dateRange": [
     {
       "type": 0,
@@ -294,7 +308,7 @@
   "ReactFilters.messages.attendanceModeOptions.offline": [
     {
       "type": 0,
-      "value": "Hors ligne"
+      "value": "Sur place"
     }
   ],
   "ReactFilters.messages.attendanceModeOptions.online": [
