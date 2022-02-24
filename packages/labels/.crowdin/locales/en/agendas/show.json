@@ -39,6 +39,6 @@
   "statusRescheduled": "Rescheduled",
   "statusMovedOnline": "Moved online",
   "statusPostponed": "Postponed",
-  "statusCancelled": "Cancelled",
+  "statusCancelled": "Canceled",
   "statusFull": "Fully booked"
 }

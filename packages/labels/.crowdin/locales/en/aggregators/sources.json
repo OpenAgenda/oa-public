@@ -5,7 +5,7 @@
   "sourcesExplanation": "The events published by the agendas listed here are automatically added to the [%title%](%link%) agenda.",
   "addSources": "To aggregate new agendas, [go to the page of the agenda](%searchLink%) you wish to add and click on Export > Aggregate in > **%agenda%**",
   "sourcesHelp": "Click here to find out more about aggregations",
-  "aggregationLoop": "This agenda agregates events from the agenda you want to add it to. Agregation loops are not permitted.",
+  "aggregationLoop": "This agenda aggregates events from the agenda you want to add it to. Agregation loops are not permitted.",
   "searchAgenda": "Search an agenda",
   "officialAgenda": "Official agenda",
   "noResult": "No result found",

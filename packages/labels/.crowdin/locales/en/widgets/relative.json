@@ -1,8 +1,8 @@
 {
   "today": "Today",
-  "yesterday": "yesterday",
+  "yesterday": "Yesterday",
   "tomorrow": "Tomorrow",
-  "thisWeekend": "This Weekend",
+  "thisWeekend": "This weekend",
   "thisWeek": "This week",
   "thisMonth": "This month",
   "relativeToNowPast": "%count% %units% ago",

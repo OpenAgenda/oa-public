@@ -1,6 +1,6 @@
 {
   "actionsInProcess": "Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%.",
-  "ownershipTransfered": "The ownership of the event has successfully been transfered",
+  "ownershipTransfered": "The ownership of the event has successfully been transferred",
   "spreadsheetTitle": "Download",
   "allLanguages": "All languages",
   "spreadsheetDescription": "Limit downloaded content to specified languages"

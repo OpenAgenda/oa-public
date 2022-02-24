@@ -19,7 +19,7 @@
   "removeMember": "Remove member",
   "removeConfirmMessage": "Are you sure you want to delete this user from members ?",
   "removeModalError": "You cannot remove this member.",
-  "editProfile": "Edit contact data",
+  "editProfile": "Edit profile",
   "changeRole": "Edit the role",
   "operationSuccessful": "Operation done",
   "patchSuccessConfirm": "The member was updated",
