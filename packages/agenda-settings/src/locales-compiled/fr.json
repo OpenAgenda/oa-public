@@ -1,0 +1,80 @@
+{
+  "AgendaSetting.contribution.contributionRestrictDates": [
+    {
+      "type": 0,
+      "value": "Limiter les dates de saisies"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.formEvent": [
+    {
+      "type": 0,
+      "value": "Événement formulaire"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEvents": [
+    {
+      "type": 0,
+      "value": "Permettre la saisie d'événements en ligne"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEventsDesc": [
+    {
+      "type": 0,
+      "value": "Les événements en ligne peuvent être associés à des lieux physiques"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.statusField": [
+    {
+      "type": 0,
+      "value": "Afficher le champ de l'état (complet, reporté, annulé) dans le formulaire)"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.statusFieldDesc": [
+    {
+      "type": 0,
+      "value": "L'état des événements peut également être modifié depuis l'administration de l'agenda"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibution": [
+    {
+      "type": 0,
+      "value": "Fermé"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibutionDesc": [
+    {
+      "type": 0,
+      "value": "L'agenda n'accepte pas de nouvelles contributions"
+    }
+  ],
+  "AgendaSettings.contribution.contribution": [
+    {
+      "type": 0,
+      "value": "Contribution"
+    }
+  ],
+  "AgendaSettings.contribution.openContribution": [
+    {
+      "type": 0,
+      "value": "Ouverte"
+    }
+  ],
+  "AgendaSettings.contribution.openContributionDesc": [
+    {
+      "type": 0,
+      "value": "Tout utilisateur peut ajouter des événements, sous votre modération"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContribution": [
+    {
+      "type": 0,
+      "value": "Réduite"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContributionDesc": [
+    {
+      "type": 0,
+      "value": "Seuls les invités peuvent ajouter des événements"
+    }
+  ]
+}

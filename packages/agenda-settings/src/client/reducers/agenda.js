@@ -1,5 +1,3 @@
-import { actionTypes as formActionTypes, SubmissionError } from 'redux-form';
-import slugify from 'slugify';
 import toMixedMultipart from '@openagenda/utils/toMixedMultipart';
 
 const LOAD = 'agenda-settings/agenda/LOAD';
@@ -11,25 +9,12 @@ const CREATE_FAIL = 'agenda-settings/agenda/CREATE_FAIL';
 const EDIT = 'agenda-settings/agenda/EDIT';
 const EDIT_SUCCESS = 'agenda-settings/agenda/EDIT_SUCCESS';
 const EDIT_FAIL = 'agenda-settings/agenda/EDIT_FAIL';
-const CHECK_SLUG = 'agenda-settings/agenda/CHECK_SLUG';
-const CHECK_SLUG_SUCCESS = 'agenda-settings/agenda/CHECK_SLUG_SUCCESS';
-const CHECK_SLUG_FAIL = 'agenda-settings/agenda/CHECK_SLUG_FAIL';
 const REMOVE = 'agenda-settings/agenda/REMOVE';
 const REMOVE_SUCCESS = 'agenda-settings/agenda/REMOVE_SUCCESS';
 const REMOVE_FAIL = 'agenda-settings/agenda/REMOVE_FAIL';
 
 const initialState = {
   loaded: false
-};
-
-const catchValidation = res => {
-  if (res.errors) {
-    throw new SubmissionError(Object.assign(...res.errors.map(v => ({ [v.field]: v.message }))));
-  }
-  if (res.response && res.response.error && res.response.error.message) {
-    throw new SubmissionError({ _error: res.response.error.message });
-  }
-  return Promise.reject(res);
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -44,7 +29,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        data: action.result,
+        data: action.result.data,
         error: null
       };
     case LOAD_FAIL:
@@ -53,47 +38,19 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: false,
         data: null,
-        error: typeof action.error === 'string' ? action.error : 'Error'
+        error: typeof action.error.response.data.error === 'string'
+          ? action.error.response.data.error
+          : 'Error'
       };
     case EDIT_SUCCESS:
       return {
         ...state,
-        data: action.result.agenda
+        data: action.result.data.agenda
       };
     default:
       return state;
   }
 };
-
-export function formPlugin(state = {}, action) {
-  switch (action.type) {
-    case formActionTypes.CHANGE:
-      if (!state.values) {
-        return {
-          ...state,
-          slugModified: false
-        };
-      }
-      if (action.meta.field === 'slug') {
-        return {
-          ...state,
-          slugModified: action.payload !== ''
-        }
-      }
-      if (action.meta.field !== 'title' || state.slugModified) {
-        return state;
-      }
-      return {
-        ...state,
-        values: {
-          ...state.values,
-          slug: slugify(action.payload, { lower: true, strict: true })
-        }
-      };
-    default:
-      return state;
-  }
-}
 
 export function create(data) {
   return {
@@ -101,7 +58,7 @@ export function create(data) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.create, toMixedMultipart(data)).catch(catchValidation);
+      return client.post(res.create, toMixedMultipart(data));
     }
   };
 }
@@ -112,19 +69,7 @@ export function edit(data) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.set.replace(':slug', params.slug), toMixedMultipart(data))
-        .catch(catchValidation);
-    }
-  };
-}
-
-export function checkSlug(data) {
-  return {
-    types: [CHECK_SLUG, CHECK_SLUG_SUCCESS, CHECK_SLUG_FAIL],
-    promise: ({ client }, { getState }) => {
-      const { res } = getState();
-
-      return client.post(res.slugAvailable, data);
+      return client.post(res.set.replace(':slug', params.slug), toMixedMultipart(data));
     }
   };
 }

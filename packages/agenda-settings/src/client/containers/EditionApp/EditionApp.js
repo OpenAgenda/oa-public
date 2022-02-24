@@ -1,26 +1,57 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
-import { reducer as formReducer } from 'redux-form';
-import { withLayoutData, Spinner } from '@openagenda/react-shared';
+import { IntlProvider } from 'react-intl';
+import { css } from '@emotion/react';
+import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition';
+import locales from '../../../locales-compiled';
 import * as agendaActions from '../../reducers/agenda';
 import * as keysActions from '../../reducers/keys';
 import * as modalsActions from '../../reducers/modals';
 import I18nContext from '../../contexts/I18nContext';
 
-@withLayoutData('lang')
-@provideHooks({
+
+function EditionApp({ route }) {
+  const { lang } = useLayoutData();
+
+  const i18nContextValue = useMemo(() => ({
+    lang,
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, lang)
+  }), [lang]);
+
+  const loading = useSelector(state => state.agenda.loading);
+
+  return (
+    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      <I18nContext.Provider value={i18nContextValue}>
+        <div
+          className="agenda-settings-edit"
+          css={css`
+            .radio label, .checkbox label {
+              line-height: 20px;
+            }
+          `}
+        >
+          {loading
+            ? (
+              <div style={{ margin: '150px 0' }}>
+                <Spinner />
+              </div>
+            ) : renderRoutes(route.routes)}
+        </div>
+      </I18nContext.Provider>
+    </IntlProvider>
+  );
+}
+
+export default provideHooks({
   inject: ({ store }) => store.inject({
-    form: formReducer.plugin({
-      agendaCreation: agendaActions.formPlugin
-    }),
     agenda: agendaActions.default,
     keys: keysActions.default,
-    modals: modalsActions.default
+    modals: modalsActions.default,
   }),
   defer: async ({ store: { dispatch, getState } }) => {
     const promises = [];
@@ -35,42 +66,4 @@ import I18nContext from '../../contexts/I18nContext';
 
     return Promise.all(typeof window !== 'undefined' ? [] : promises);
   }
-})
-@connect(
-  state => ({
-    loading: state.agenda.loading
-  })
-)
-export default class EditionApp extends Component {
-  static childContextTypes = {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func
-  };
-
-  i18nContextValue = {
-    lang: this.props.lang,
-    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang)
-  };
-
-  getChildContext() {
-    return this.i18nContextValue;
-  }
-
-  render() {
-    const { route, loading } = this.props;
-
-    return (
-      <I18nContext.Provider value={this.i18nContextValue}>
-        <div className="agenda-settings-edit">
-          {loading
-            ? (
-              <div style={{ margin: '150px 0' }}>
-                <Spinner />
-              </div>
-            ) : renderRoutes(route.routes)}
-        </div>
-      </I18nContext.Provider>
-    );
-  }
-
-}
+})(EditionApp);

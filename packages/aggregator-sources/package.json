@@ -33,6 +33,7 @@
     "@openagenda/react-shared": "^2.3.2",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",
+    "final-form": "^4.20.2",
     "final-form-arrays": "^3.0.2",
     "fuse.js": "^3.4.6",
     "lodash": "^4.17.15",
@@ -69,7 +70,6 @@
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "eslint": "^6.8.0",
-    "final-form": "^4.20.2",
     "history": "^4.10.1",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
@@ -84,7 +84,6 @@
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
-    "final-form": "^4.20.2",
     "react": "^16.12.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",

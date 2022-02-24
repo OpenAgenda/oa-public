@@ -60,7 +60,7 @@ export const Profile = () => wrapApp(createApp({
 }), wrapAppOptions);
 
 export const Contribution = () => wrapApp(createApp({
-  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/profile`] }),
+  history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/contribution`] }),
   initialState: getDefaultState()
 }), wrapAppOptions);
 

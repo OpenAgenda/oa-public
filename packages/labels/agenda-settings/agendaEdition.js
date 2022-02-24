@@ -107,11 +107,11 @@ module.exports = {
     "io": "crwdns12522:0crwdne12522:0"
   },
   "contribDefaultStatePublishedText": {
-    "fr": "vous pouvez modifier les événements ensuite",
-    "en": "you can edit the events later",
-    "de": "Du kannst die Veranstaltungen später bearbeiten",
-    "es": "Puede editar los eventos más adelante",
-    "it": "è possibile modificare gli eventi in seguito",
+    "fr": "Vous pouvez modifier les événements ensuite.",
+    "en": "You can edit the events later.",
+    "de": "Du kannst später die Veranstaltungen bearbeiten.",
+    "es": "Se pueden cambiar los eventos a continuación.",
+    "it": "È possibile modificare gli eventi in seguito.",
     "io": "crwdns12524:0crwdne12524:0"
   },
   "contribDefaultStateUnpublished": {
@@ -123,11 +123,11 @@ module.exports = {
     "io": "crwdns12526:0crwdne12526:0"
   },
   "contribDefaultStateUnpublishedText": {
-    "fr": "les événements ne deviennent publics qu'après votre validation",
-    "en": "events become public only after your validation",
-    "de": "Veranstaltungen werden öffentlich erst nach Ihrer Bestätigung",
-    "es": "Eventos no se hacen públicas hasta después de su validación",
-    "it": "gli eventi diventano pubblici solo dopo la vostra convalida",
+    "fr": "Les événements ne deviennent publics qu'après votre validation.",
+    "en": "Events become public only after your validation.",
+    "de": "Veranstaltungen werden erst nach der Validierung der Öffentlichkeit.",
+    "es": "Los eventos se harán públicos después de su validación.",
+    "it": "Gli eventi diventano pubblici solo dopo la vostra convalida.",
     "io": "crwdns12528:0crwdne12528:0"
   },
   "required": {

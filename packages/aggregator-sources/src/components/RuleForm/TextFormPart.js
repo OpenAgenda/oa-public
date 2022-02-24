@@ -50,6 +50,7 @@ export default ({ sourceSchema = { fields: [] } }) => {
           <div className="col-sm-10">
             <ReactSelectField
               name="textField"
+              Field={Field}
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
               options={options}
