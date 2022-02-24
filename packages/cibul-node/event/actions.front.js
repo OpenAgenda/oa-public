@@ -59,19 +59,17 @@ module.exports = app => {
     '/:slug/events/:eventUid/action/dates',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get({ uid: req.params.eventUid }, { includeFields: ['uid'] })
-      .then(event => req.app.services.core.agendas(req.agenda.uid)
-        .events
-        .get(event?.uid, { detailed: true })
-        .then(result => {
-          if (!result) {
-            return next({ code: 404 });
-          }
-          req.event = result;
-          next();
-        })
-        .catch(next)
-      ),
+    (req, res, next) => req.app.services.core.agendas(req.agenda.uid)
+      .events
+      .get(req.params.eventUid, { detailed: true })
+      .then(result => {
+        if (!result) {
+          return next({ code: 404 });
+        }
+        req.event = result;
+        next();
+      })
+      .catch(next),
     cmn.loadBaseData('oa.css'),
     actionDatesShow
   );

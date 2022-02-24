@@ -3,6 +3,7 @@
 const { promisify } = require('util');
 const _ = require('lodash');
 const express = require('express');
+const VError = require('@openagenda/verror');
 
 async function saveExpiration(delay, req, res) {
   const {
@@ -43,10 +44,14 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
       if (cached) {
         req.log('info', {
           cached: `${namespace}:${identifier}`,
-          message: `cached response`
+          message: 'cached response'
         });
 
-        res.data = JSON.parse(cached);
+        try {
+          res.data = JSON.parse(cached);
+        } catch (e) {
+          throw new VError(e, 'failed to parse cached data at %s:%s - %s', namespace, identifier, cached);
+        }
 
         await saveExpiration(delay, req, res);
 
@@ -64,7 +69,7 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
       next(e);
     }
   };
-}
+};
 
 function saveToCache(namespace, delay) {
   return async (req, res, next) => {

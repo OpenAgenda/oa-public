@@ -165,6 +165,12 @@ describe('event-search - unit: utils', function() {
       });
     });
 
+    it('converts empty string given in uid list into -1', () => {
+      assert.deepEqual(preCleanRawQuery({
+        uid: ['']
+      }), { uid: [-1] });
+    })
+
     it('replaces date with timings', () => {
       assert.deepEqual(preCleanRawQuery({
         city: 'Courbevoie',
