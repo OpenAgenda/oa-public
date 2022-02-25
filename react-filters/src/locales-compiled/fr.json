@@ -428,7 +428,7 @@
   "ReactFilters.messages.filterTitles.timings": [
     {
       "type": 0,
-      "value": "Dates"
+      "value": "Date"
     }
   ],
   "ReactFilters.messages.filterTitles.updatedAt": [
