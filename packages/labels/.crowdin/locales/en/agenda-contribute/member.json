@@ -1,10 +1,10 @@
 {
   "title": "Welcome !",
   "subtitle": "Present yourself before starting to type in your events",
-  "description": "Your personal information will only be visible by the administration team of the agenda. Only your organization name will be publicly displayed.",
-  "organisation": "Organization",
+  "description": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
+  "organisation": "Organisation",
   "phone": "Telephone",
-  "phoneSub": "Valid characters: digits, space, -, + or ()",
+  "phoneSub": "Valid characters: digits, space, -, + ou ()",
   "name": "Name Surname",
   "position": "Position in the organization",
   "email": "Email",

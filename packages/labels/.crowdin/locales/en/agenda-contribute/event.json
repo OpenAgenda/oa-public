@@ -18,7 +18,7 @@
   "noEditionRights": "You do not have edition rights on this event.",
   "onlyAdditionalFieldsCanBeEdited": "Only additional fields of the agenda can be edited here.",
   "requestEditionRights": "Request edition rights",
-  "onlyAdditionalFieldsCanBeEditedInfo": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only members of the agenda where the event was contributed can change its content.",
+  "onlyAdditionalFieldsCanBeEditedInfo": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.",
   "requestEditionRightsInfo": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
   "shareRestrictionInfo": "The following issues must be addressed to allow make the event \"%event%\" shareable on the agenda \"%agenda%\"",
   "suggestChange": "Suggest a change",
