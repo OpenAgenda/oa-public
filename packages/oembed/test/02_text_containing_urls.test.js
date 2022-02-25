@@ -90,4 +90,17 @@ describe('parsing links from markdown', () => {
     expect(_.get(result, '0.data.provider_name')).toEqual('YouTube');
     expect(result[1].link).toEqual('https://www.facebook.com/forroraffut/');
   });
+
+  test('filters out invalid links', async () => {
+    // break a link
+    const invalidRaffut = texts.raffut.replace('www.facebook.com', 'wwwfacebookcom');
+
+    const result = await oe.fromMarkdown(invalidRaffut, {
+      includeEmbedlessLinks: true,
+      filterInvalidLinks: true
+    });
+
+    expect(result.length).toBe(1);
+    expect(result[0].link.indexOf('youtube') !== -1).toBeTruthy();
+  });
 });
