@@ -89,15 +89,15 @@
         data-oa-filter="8"
         data-oa-filter-params="<%= JSON.stringify({
           type: 'favorites',
+          agendaUid,
           activeClass: 'active',
           inactiveClass: 'inactive',
           activeFilterLabel: 'Favoris',
           exclusive: true
         }) %>"
       >
-        <label for="nothing">
-          <input type="checkbox" tabindex="-1" readonly checked>
-          <input type="checkbox" tabindex="-1" readonly>
+        <label for="favorites">
+          <input type="checkbox" id="favorites">
           Favoris
         </label>
       </div>

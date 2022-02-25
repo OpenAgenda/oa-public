@@ -8,7 +8,7 @@ import useFavoriteState from './hooks/useFavoriteState';
 
 export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
   const form = useForm();
-  const [value, setValue] = useFavoriteState(agendaUid);
+  const [value, setValue] = useFavoriteState(widget.agendaUid || agendaUid);
   const firstRender = useRef(true);
 
   const latestValue = useLatest(value);
