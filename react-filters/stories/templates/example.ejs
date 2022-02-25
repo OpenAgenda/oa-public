@@ -326,42 +326,33 @@
             ></div>
             <b>Filtres personnalisés</b>
             <div
-              class="custom-example checkbox inactive"
+              class="checkbox"
               data-oa-filter="8"
               data-oa-filter-params="<%- JSON.stringify({
-                aggregation: null,
                 type: 'custom',
-                query: { attendanceMode: '1', relative: ['current', 'upcoming'] },
-                activeClass: 'active',
-                inactiveClass: 'inactive',
+                query: { attendanceMode: '1', relative: ['current', 'upcoming'] }
               }) %>"
             >
-              <label for="nothing">
-                <input type="checkbox" tabindex="-1" readonly checked>
-                <input type="checkbox" tabindex="-1" readonly>
-                En cours + à venir + hors ligne
+              <label for="custom-1">
+                <input type="checkbox" id="custom-1">
+                En cours + à venir + sur place
               </label>
             </div>
             <div
-              class="custom-example checkbox inactive"
+              class="checkbox"
               data-oa-filter="9"
               data-oa-filter-params="<%- JSON.stringify({
-                aggregation: null,
                 type: 'custom',
                 query: {
                   timings: {
                     lte: '2021-06-24T21:59:59.999Z',
                     gte: '2021-06-23T22:00:00.000Z',
                   },
-                },
-                activeClass: 'active',
-                inactiveClass: 'inactive',
-                handlerSelector: '.checkbox',
+                }
               }) %>"
             >
-              <label for="nothing">
-                <input type="checkbox" tabindex="-1" readonly checked>
-                <input type="checkbox" tabindex="-1" readonly>
+              <label for="custom-2">
+                <input type="checkbox" id="custom-2">
                 Jeudi 24 juin
               </label>
             </div>

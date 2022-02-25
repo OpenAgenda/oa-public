@@ -75,16 +75,3 @@ header {
     color: white;
   }
 }
-
-.custom-example {
-  input[type="checkbox"][readonly] {
-    pointer-events: none !important;
-  }
-
-  &.active input[type="checkbox"]:not(:checked) {
-    display: none;
-  }
-  &.inactive input[type="checkbox"]:checked {
-    display: none;
-  }
-}

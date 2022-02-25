@@ -101,8 +101,6 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
 
     const handlerElem = filter.handlerElem || filter.elem;
 
-    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
-
     const clickHandler = e => {
       e.preventDefault();
       const query = form.getState().values;
@@ -134,6 +132,8 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
 
       updateFormValues(form, newQuery, !isMatchQuery);
     };
+
+    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
 
     if (innerCheckboxes.length === 1 && !filter.handlerElem) {
       innerCheckboxes[0].addEventListener('change', clickHandler, false);
