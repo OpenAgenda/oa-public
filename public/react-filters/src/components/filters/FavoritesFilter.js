@@ -19,7 +19,7 @@ function Preview({
   ...rest
 }) {
   const form = useForm();
-  const [value] = useFavoriteState(agendaUid);
+  const [value] = useFavoriteState(filter.agendaUid || agendaUid);
 
   const onRemove = useCallback(
     e => {
@@ -33,8 +33,15 @@ function Preview({
         uid: undefined,
         favorites: undefined
       }, false);
+
+      const handlerElem = filter.handlerElem || filter.elem;
+      const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
+
+      if (innerCheckboxes.length === 1 && !filter.handlerElem) {
+        innerCheckboxes[0].checked = false;
+      }
     },
-    [disabled, form]
+    [disabled, form, filter]
   );
 
   return (
@@ -63,10 +70,10 @@ function Preview({
 }
 
 // Favorite + uid
-const FavoritesFilter = React.forwardRef(function FavoriteFilter({ agendaUid, filter }, _ref) {
+const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, filter }, _ref) {
   const form = useForm();
   const firstRender = useRef(true);
-  const [value] = useFavoriteState(agendaUid);
+  const [value] = useFavoriteState(filter.agendaUid || agendaUid);
 
   const latestValue = useLatest(value);
 
@@ -91,6 +98,10 @@ const FavoritesFilter = React.forwardRef(function FavoriteFilter({ agendaUid, fi
         });
       }
     }
+
+    const handlerElem = filter.handlerElem || filter.elem;
+
+    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
 
     const clickHandler = e => {
       e.preventDefault();
@@ -124,9 +135,11 @@ const FavoritesFilter = React.forwardRef(function FavoriteFilter({ agendaUid, fi
       updateFormValues(form, newQuery, !isMatchQuery);
     };
 
-    const handlerElem = filter.handlerElem || filter.elem;
-
-    handlerElem.addEventListener('click', clickHandler, false);
+    if (innerCheckboxes.length === 1 && !filter.handlerElem) {
+      innerCheckboxes[0].addEventListener('change', clickHandler, false);
+    } else {
+      handlerElem.addEventListener('click', clickHandler, false);
+    }
 
     const unsubscribe = form.subscribe(
       ({ values }) => updateCustomFilter(filter, matchQuery(values, {
@@ -137,7 +150,11 @@ const FavoritesFilter = React.forwardRef(function FavoriteFilter({ agendaUid, fi
     );
 
     return () => {
-      handlerElem.removeEventListener('click', clickHandler, false);
+      if (innerCheckboxes.length === 1 && !filter.handlerElem) {
+        innerCheckboxes[0].removeEventListener('change', clickHandler, false);
+      } else {
+        handlerElem.removeEventListener('click', clickHandler, false);
+      }
       unsubscribe();
     };
   }, [filter, form, latestValue]);

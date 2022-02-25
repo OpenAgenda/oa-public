@@ -51,7 +51,7 @@ app.get('/', async (req, res, next) => {
     });
 
     // render
-    res.render('index', { events: data.events });
+    res.render('index', { events: data.events, agendaUid: AGENDA_UID });
   } catch (e) {
     console.log(e);
     next(e);
@@ -77,7 +77,7 @@ app.get('/events', async (req, res, next) => {
     let listHtml = '';
 
     for (const event of data.events) {
-      listHtml += await render('event', event);
+      listHtml += await render('event', { ...event, agendaUid: AGENDA_UID });
     }
 
     res.json({ ...data, html: listHtml });
