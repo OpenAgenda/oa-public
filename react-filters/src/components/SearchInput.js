@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-final-form';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -46,6 +46,10 @@ export default function SearchInput({
     value: tmpValue,
     onChange
   }), [input, onChange, tmpValue]);
+
+  useEffect(() => {
+    setTmpValue(input.value);
+  }, [input.value]);
 
   return React.createElement(inputComponent, {
     input: wrappedInput,
