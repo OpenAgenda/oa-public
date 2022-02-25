@@ -83,8 +83,13 @@ function CustomFilter({ filter }) {
     };
 
     const handlerElem = filter.handlerElem || filter.elem;
+    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
 
-    handlerElem.addEventListener('click', clickHandler, false);
+    if (innerCheckboxes.length === 1 && !filter.handlerElem) {
+      innerCheckboxes[0].addEventListener('change', clickHandler, false);
+    } else {
+      handlerElem.addEventListener('click', clickHandler, false);
+    }
 
     const unsubscribe = form.subscribe(
       ({ values }) => updateCustomFilter(filter, matchQuery(values, filter.query)),
@@ -92,7 +97,11 @@ function CustomFilter({ filter }) {
     );
 
     return () => {
-      handlerElem.removeEventListener('click', clickHandler, false);
+      if (innerCheckboxes.length === 1 && !filter.handlerElem) {
+        innerCheckboxes[0].removeEventListener('change', clickHandler, false);
+      } else {
+        handlerElem.removeEventListener('click', clickHandler, false);
+      }
       unsubscribe();
     };
   }, [filter, form]);
