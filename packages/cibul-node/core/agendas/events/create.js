@@ -81,7 +81,11 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   const payload = createPayload(services, agenda);
 
   try {
-    clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, { current: clean.event.links, includeEmbedlessLinks: true });
+    clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
+      current: clean.event.links,
+      includeEmbedlessLinks: true,
+      filterInvalidLinks: true
+    });
     log('  retrieved %s links', clean.event.links.length);
   } catch (e) {
     log('error', '  could not retrieve oembeds', e);

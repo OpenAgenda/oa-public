@@ -55,7 +55,11 @@ module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) =
     try {
       response.member = ae?.userUid ? await core.agendas(agendaUid).members.get(ae.userUid, options) : null;
     } catch (e) {
-      log('warn', e);
+      if (e.name === 'Forbidden') {
+        log('event member data is not accessible to requesting user');
+      } else {
+        log('warn', e);
+      }
     }
   }
 
