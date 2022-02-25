@@ -26,5 +26,9 @@ module.exports = schema({
   includeEmbedlessLinks: {
     type: 'bool',
     default: false
+  },
+  filterInvalidLinks: {
+    type: 'bool',
+    default: false
   }
 });

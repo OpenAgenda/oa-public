@@ -11,6 +11,24 @@ const log = logger('main');
 const cleanOptions = require('./validators/options');
 const cleanFromMarkdownOptions = require('./validators/fromMarkdownOptions');
 const injectEmbeds = require('./utils/injectEmbeds');
+const linkValidator = require('@openagenda/validators/link');
+
+const validateLink = linkValidator();
+
+const isLink = v => {
+  try {
+    validateLink(v)
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+const isEmbedlessLink = (filters, link) => {
+  return !filters.filter(
+    filter => filter.test(link)
+  ).length;
+}
 
 module.exports = class OEmbed {
   constructor(options) {
@@ -41,16 +59,21 @@ module.exports = class OEmbed {
   }
 
   fromMarkdown(md = '', options = {}) {
-    const cleanedOptions = cleanFromMarkdownOptions(options);
+    const cleanOptions = cleanFromMarkdownOptions(options);
 
-    const urls = cleanedOptions.includeEmbedlessLinks ? _.uniq(mdExtractor(md))
-      : _.uniq(mdExtractor(md)
-        .filter(link => !!this.params.filters.filter(
-          filter => filter.test(link)
-        ).length));
+    const urls = _.uniq(mdExtractor(md)).filter(link => {
+      const unescapedLink = _.unescape(link);
+      if (cleanOptions.filterInvalidLinks && !isLink(unescapedLink)) {
+        return false;
+      }
+      if (!cleanOptions.includeEmbedlessLinks && isEmbedlessLink(this.params.filters, link)) {
+        return false;
+      }
+      return true;
+    });
 
     return Promise.all(urls.map(async url => {
-      const matchingCurrent = _.first(cleanedOptions.current.filter(c => c.link === url));
+      const matchingCurrent = _.first(cleanOptions.current.filter(c => c.link === url));
 
       if (matchingCurrent) return matchingCurrent;
 
