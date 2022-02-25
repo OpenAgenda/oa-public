@@ -52,7 +52,7 @@
     "@openagenda/browserslist-config": "^1.0.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/polyfills": "^1.2.4",
-    "@openagenda/react-filters": "^2.6.0",
+    "@openagenda/react-filters": "^2.6.1",
     "@openagenda/react-portal-ssr": "^1.0.0",
     "@openagenda/react-shared": "^2.3.2",
     "axios": "^0.21.1",
