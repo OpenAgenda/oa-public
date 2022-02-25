@@ -94,7 +94,7 @@ const FavoritesFilter = React.forwardRef(function FavoritesFilter({ agendaUid, f
       if (!registeredFields.includes('favorites')) {
         form.registerField('favorites', () => {
         }, { value: true }, {
-          initialValue: !!query.favorite
+          initialValue: query.favorite
         });
       }
     }
