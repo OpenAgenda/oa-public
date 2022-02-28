@@ -4,7 +4,6 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
 
 module.exports = async (services, before, after, context) => {
-
   const {
     activities,
     elasticsearch: legacyEventSearch,
@@ -46,9 +45,9 @@ module.exports = async (services, before, after, context) => {
 
   if (before.title !== after.title) {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
-      actor: 'user:' + context.user.uid,
+      actor: `user:${context.user.uid}`,
       verb: 'agenda.rename',
-      target: 'agenda:' + after.uid,
+      target: `agenda:${after.uid}`,
       store: {
         labels: {
           actor: context.user.name,
@@ -61,9 +60,9 @@ module.exports = async (services, before, after, context) => {
 
   if (updateType && updateType !== 'credentials') {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
-      actor: 'user:' + context.user.uid,
-      verb: 'agenda.update' + _.upperFirst(updateType),
-      target: 'agenda:' + after.uid,
+      actor: `user:${context.user.uid}`,
+      verb: `agenda.update${_.upperFirst(updateType)}`,
+      target: `agenda:${after.uid}`,
       store: {
         labels: {
           actor: context.user.name,
@@ -75,9 +74,9 @@ module.exports = async (services, before, after, context) => {
 
   if (before.official !== after.official) {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
-      actor: 'user:' + context.user.uid,
+      actor: `user:${context.user.uid}`,
       verb: 'agenda.setOfficial',
-      target: 'agenda:' + after.uid,
+      target: `agenda:${after.uid}`,
       store: {
         labels: {
           actor: context.user.name,
@@ -87,5 +86,4 @@ module.exports = async (services, before, after, context) => {
       }
     });
   }
-
-}
+};
