@@ -148,6 +148,22 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.addLanguage',
     defaultMessage: 'Add a language',
   },
+  findOutMore: {
+    id: 'AgendaLocations.LocationForm.findOutMore',
+    defaultMessage: 'Learn more about the license',
+  },
+  imageRightsAreHeld: {
+    id: 'AgendaLocations.LocationForm.imageRightsAreHeld',
+    defaultMessage: 'Image rights are held'
+  },
+  requiredField: {
+    id: 'AgendaLocations.LocationForm.requiredField',
+    defaultMessage: '(Required field)',
+  },
+  imageRights: {
+    id: 'AgendaLocations.LocationForm.imageRights',
+    defaultMessage: 'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
+  },
 });
 
 const LocationForm = ({
@@ -172,6 +188,8 @@ const LocationForm = ({
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);
+
+  if (!location.countryCode) location.countryCode = 'FR';
 
   // -- globals fcts
   const onChange = (name, value) => {
@@ -340,6 +358,25 @@ const LocationForm = ({
         validator={validate.field('imageCredits')}
         bottom={false}
       />
+
+      { settings?.displayImageRightsConfirmCheckbox ? (
+          <div className="checkbox">
+            <label htmlFor="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition">
+              <input
+                id="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
+                type="checkbox"
+                name="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
+                onChange={() => onChange('imageRightsAreHeld', !location.imageRightsAreHeld)}
+                checked={!!location.imageRightsAreHeld}
+              />
+              <span className="margin-right-xs">
+                {intl.formatMessage(messages.imageRights)}
+              </span>
+              <span className="margin-right-xs">{intl.formatMessage(messages.requiredField)}</span>
+              <a className="margin-right-xs" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">{intl.formatMessage(messages.findOutMore)}</a>
+            </label>
+          </div>
+        ) : null}
 
       <div className="multilingual-group">
         {displayLanguageTabs ? (

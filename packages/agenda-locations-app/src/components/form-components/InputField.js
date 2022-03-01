@@ -14,6 +14,7 @@ const InputField = ({
   className,
   value,
   info,
+  onKeyDown,
 }) => {
   const [userHasTyped, setUserHasTyped] = useState(false);
   let classNameBis = enabled ? 'form-group' : 'form-group disabled';
@@ -71,6 +72,7 @@ const InputField = ({
             value={value || ''}
             onChange={myOnChange}
             disabled={!enabled}
+            onKeyDown={e => onKeyDown(e)}
           />
         ) : (
           <textarea

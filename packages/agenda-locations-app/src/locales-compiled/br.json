@@ -695,6 +695,12 @@
       "value": "Définir un identifiant unique pour ce lieu"
     }
   ],
+  "AgendaLocations.LocationForm.findOutMore": [
+    {
+      "type": 0,
+      "value": "En savoir plus sur la licence"
+    }
+  ],
   "AgendaLocations.LocationForm.geocodeFieldCancel": [
     {
       "type": 0,
@@ -729,6 +735,18 @@
     {
       "type": 0,
       "value": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
+    }
+  ],
+  "AgendaLocations.LocationForm.imageRights": [
+    {
+      "type": 0,
+      "value": "J’accepte que l’image puisse être librement utilisée, à la condition de l'attribuer à l'auteur en citant son nom, et partagée dans les mêmes conditions."
+    }
+  ],
+  "AgendaLocations.LocationForm.imageRightsAreHeld": [
+    {
+      "type": 0,
+      "value": "Possession des droits de l'image"
     }
   ],
   "AgendaLocations.LocationForm.insee": [
@@ -783,6 +801,12 @@
     {
       "type": 0,
       "value": "Requis"
+    }
+  ],
+  "AgendaLocations.LocationForm.requiredField": [
+    {
+      "type": 0,
+      "value": "(Champ obligatoire)"
     }
   ],
   "AgendaLocations.LocationForm.saving": [

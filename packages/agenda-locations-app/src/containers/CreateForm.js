@@ -4,6 +4,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
 import axios from 'axios';
+import FormData from 'form-data';
 
 import useRes from '../hooks/useRes';
 
@@ -32,10 +33,7 @@ const messages = defineMessages({
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
 const CreateForm = ({
-  // agenda,
-  // lang,
   enableGeocode,
-  // settings,
   tiles,
   detailedInfo
 }) => {
@@ -65,13 +63,20 @@ const CreateForm = ({
 
   const onSubmit = location => {
     let clean;
+    const options = {
+      optional: false,
+      isEnabled: settings?.displayImageRightsConfirmCheckbox
+    };
     try {
-      clean = validate(location);
+      clean = validate(location, settings, options);
     } catch (err) {
       setErrors(err);
       return;
     }
-    axios.post(res.create, clean)
+    const form = new FormData();
+    if (clean.image instanceof File) form.append('image', clean.image);
+    form.append('data', JSON.stringify(clean));
+    axios.post(res.create, form)
       .then(result => {
         dispatch(onGoinActions.initiate('create'));
         if (nq) history.push(nq); else history.push(prefix);

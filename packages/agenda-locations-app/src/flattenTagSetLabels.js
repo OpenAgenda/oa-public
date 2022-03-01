@@ -9,10 +9,10 @@ export default (tagSet, lang) => (
     ...tagSet,
     groups: tagSet.groups.map(g => ({
       ...g,
-      name: flatLabel(g.name, lang),
+      name: flatLabel(g.name, lang.toLowerCase()),
       tags: g.tags.map(t => ({
         ...t,
-        label: flatLabel(t.label, lang),
+        label: flatLabel(t.label, lang.toLowerCase()),
       })),
     })),
   }

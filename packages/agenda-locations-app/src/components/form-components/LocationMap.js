@@ -25,6 +25,11 @@ const defaults = {
   iconSize: [25, 41]
 };
 
+const posDiff = (pos1, pos2) => {
+  if (pos1[0] === pos2[0] && pos1[1] === pos2[1]) return false;
+  return true;
+};
+
 const MapContent = ({
   draggable,
   pos,
@@ -32,7 +37,8 @@ const MapContent = ({
   isGeolocated,
   defaultZoom,
   manualMode,
-  setManualMode
+  setManualMode,
+  locationPos
 }) => {
   const map = useMap();
   const markerRef = useRef(null);
@@ -59,7 +65,9 @@ const MapContent = ({
     [onMarkerDragged, setManualMode],
   );
 
-  if (!manualMode && map.getCenter() !== { lat: pos[0], lng: pos[1] }) map.setView({ lat: pos[0], lng: pos[1] }, defaultZoom);
+  if (!manualMode && posDiff(pos, locationPos)) {
+    map.setView({ lat: locationPos[0], lng: locationPos[1] }, defaultZoom);
+  }
   if (isGeolocated()) {
     return (
       <Marker
@@ -91,11 +99,11 @@ const LocationMap = ({
   const [defaultZoom, setDefaultZoom] = useState(isGeolocated() ? defaults.focusedZoom : defaultUnZoom);
 
   useEffect(() => {
-    if (isGeolocated()) {
-      setDefaultZoom(defaults.focusedZoom);
+    if (isGeolocated() && posDiff(pos, getLocationPos())) {
       setPos(getLocationPos());
+      setDefaultZoom(defaults.focusedZoom);
     }
-  }, [location, isGeolocated, getLocationPos]);
+  }, [location, isGeolocated, getLocationPos, pos]);
 
   return (
     <>
@@ -130,6 +138,7 @@ const LocationMap = ({
           defaultZoom={defaultZoom}
           manualMode={manualMode}
           setManualMode={setManualMode}
+          locationPos={getLocationPos()}
         />
       </MapContainer>
     </>

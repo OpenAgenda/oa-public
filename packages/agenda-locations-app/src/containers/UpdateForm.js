@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import FormData from 'form-data';
 
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import AccessModal from '../components/AccessModal';
@@ -46,11 +47,12 @@ const UpdateForm = ({
   const historyLocation = useLocation();
   const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
-  const { isLoading, error, data: location } = useQuery(`location-${locationUid}`, () => (
+  const { isLoading, error, data: location } = useQuery(['location', locationUid], () => (
     axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => {
       return response.data.location;
     })
-  ));
+  ), { cacheTime: 0 });
+
   const dispatch = useDispatch();
 
   const UpdateFormHeader = () => (
@@ -68,13 +70,22 @@ const UpdateForm = ({
 
   const onSubmit = updatedLocation => {
     let clean;
+    const options = {
+      optional: true,
+      isEnabled: settings?.displayImageRightsConfirmCheckbox
+    };
     try {
-      clean = validate(updatedLocation);
+      clean = validate(updatedLocation, settings, options);
     } catch (err) {
       setErrors(err);
       return;
     }
-    axios.post(res.update.replace(':locationUid', locationUid), clean)
+
+    const form = new FormData();
+    if (clean.image instanceof File) form.append('image', clean.image);
+    form.append('data', JSON.stringify(clean));
+
+    axios.post(res.update.replace(':locationUid', locationUid), form)
       .then(result => {
         if (nq) history.push(nq); else history.push(prefix);
         dispatch(onGoinActions.initiate('update'));
@@ -118,7 +129,7 @@ const UpdateForm = ({
       ) : null}
       <LocationForm
         Header={UpdateFormHeader()}
-        showToggler={false}
+        showToggler
         res={res}
         lang={lang}
         locationProp={location}
@@ -126,7 +137,6 @@ const UpdateForm = ({
         settings={settings}
         onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
         enableGeocode={enableGeocode}
-        postRes={res.update}
         tiles={tiles}
         mode="update"
         onSubmit={onSubmit}

@@ -64,7 +64,7 @@ const GeoFieldsAndMap = ({
     });
   }, [location, res.insee, onChange]);
 
-  const updateLocationGeocode = value => {
+  const updateLocationGeocode = useCallback(value => {
     setGeocodeEdit(false);
     if (value === undefined) return;
     axios.get(res.geocode.replace(':agendaUid', agenda.uid), { params: { address: value, countryCode: location?.countryCode } })
@@ -92,12 +92,11 @@ const GeoFieldsAndMap = ({
         }
         setGeocodeNoResults(false);
         setGeocodeLoading(false);
-        setManualMode(false);
       })
       .catch(err => {
         setGeocodeError(err);
       });
-  };
+  }, [location, onChange, agenda.uid, res.geocode, fetchINSEE]);
 
   const updateLocationReverseGeocode = (lat, long) => {
     setGeocodeEdit(false);
@@ -136,15 +135,24 @@ const GeoFieldsAndMap = ({
   };
 
   const debouncedOnChange = useDebouncedCallback(value => {
-    const doGeocode = value && value.trim().length >= 2;
+    const doGeocode = value && value.trim().length > 2;
     setGeocodeLoading(doGeocode);
     if (doGeocode) updateLocationGeocode(value);
   }, 1500);
 
-  const onAddressChange = useCallback((n, v) => {
+  const onAddressChange = useCallback((v, disableManualMode) => {
     onChange({ ...location, address: v });
-    if (!manualMode) debouncedOnChange(v);
-  }, [debouncedOnChange, onChange, location, manualMode]);
+    if (disableManualMode) {
+      const doGeocode = v && v.trim().length > 2;
+      setGeocodeLoading(doGeocode);
+      if (doGeocode) updateLocationGeocode(v);
+      setManualMode(false);
+      return;
+    }
+    if (!manualMode) {
+      debouncedOnChange(v);
+    }
+  }, [debouncedOnChange, onChange, location, manualMode, updateLocationGeocode]);
 
   const onMarkerDragged = pos => {
     if (!enableGeocode) onChange({ ...location, longitude: pos.lng, latitude: pos.lat });
@@ -166,7 +174,7 @@ const GeoFieldsAndMap = ({
       <button
         className="btn btn-default"
         type="button"
-        onClick={() => { setManualMode(false); onAddressChange('adress', location.address); }}
+        onClick={() => { onAddressChange(location.address, true); }}
       >
         {geocodeLoading ? (
           <i style={{ padding: '0.2em 0.65em' }}>
@@ -203,7 +211,7 @@ const GeoFieldsAndMap = ({
         value={location?.address || ''}
         info="addressInfo"
         placeholder="addressPlaceholder"
-        onChange={(n, v) => onAddressChange(n, v)}
+        onChange={(n, v) => onAddressChange(v)}
         validator={validate.field('address')}
         lang={lang}
         getLabel={getLabel}
@@ -215,6 +223,9 @@ const GeoFieldsAndMap = ({
               ? renderGeocodeButton
               : false
           }
+        onKeyDown={e => {
+          if (e.key === 'Enter') onAddressChange(e.target.value, true);
+        }}
       />
 
       <GeoBadges

@@ -29,9 +29,10 @@ const GroupTagSelector = ({
       <div
         className={isDisabled ? 'checkbox disabled' : 'checkbox'}
         key={item.id}
+        onClick={(checked ? removeItem : addItem).bind(null, item, groupIndex)}
       >
         <label htmlFor="item">
-          <input type="checkbox" checked={checked} onChange={(checked ? removeItem : addItem).bind(null, item, groupIndex)} />
+          <input type="checkbox" checked={checked} />
           {item.label}
         </label>
         {tagBottom ? tagBottom(item, groupIndex, itemIndex) : null}
