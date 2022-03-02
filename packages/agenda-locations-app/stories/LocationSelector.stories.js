@@ -3,27 +3,27 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 import LocationSelector from '../src/components/LocationSelector';
 
-import agendaSettings from './fixtures/agendaTestSettings.json';
+import agendaSettings from './fixtures/slslf-2022.json';
 import propLocation from './fixtures/location.json';
 import Providers from './decorators/Providers';
 import ComponentCanvas from './decorators/ComponentCanvas';
 
 const res = {
-  index: '/api/agendas/:agendaUid/locations?detailed=1',
-  getSettings: '/api/agendas/:agendaUid/locations/settings',
-  get: '/api/agendas/:agendaUid/locations/:locationUid?detailed=1',
-  create: '/api/agendas/:agendaUid/locations',
-  update: '/api/agendas/:agendaUid/locations/:locationUid',
-  merge: '/api/agendas/:agendaUid/locations/merge',
-  remove: '/api/agendas/:agendaUid/locations/:locationUid',
-  geocode: '/api/agendas/:agendaUid/locations/geocode',
-  reverseGeocode: '/api/agendas/:agendaUid/locations/geocode/reverse',
-  insee: '/api/agendas/:agendaUid/locations/insee',
+  index: '/api/agendas/1/locations?detailed=1',
+  getSettings: '/api/agendas/1/locations/settings',
+  get: '/api/agendas/1/locations/:locationUid?detailed=1',
+  create: '/api/agendas/1/locations',
+  update: '/api/agendas/1/locations/:locationUid',
+  merge: '/api/agendas/1/locations/merge',
+  remove: '/api/agendas/1/locations/:locationUid',
+  geocode: '/api/agendas/1/locations/geocode',
+  reverseGeocode: '/api/agendas/1/locations/geocode/reverse',
+  insee: '/api/agendas/1/locations/insee',
   csv: '#csv',
   xlsx: '#xlsx',
-  disqualifyDuplicates: '/api/agendas/:agendaUid/locations/disqualify',
-  agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
-  seeEvents: '/api/agendas/:agendaUid/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
+  disqualifyDuplicates: '/api/agendas/1/locations/disqualify',
+  agendaSearch: '/api/agendas/1/locations/agendas',
+  seeEvents: '/api/agendas/1/locations/:agendaSlug/admin?locationUid=:locationUid&q.locationUid=:locationUid',
   suggestChange: 'https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create'
 };
 
@@ -61,6 +61,7 @@ export const CreateMode = () => {
       res={res}
       location={location}
       onChange={(t, l) => { setMode(t); setLocation(l); }}
+      detailedInfo
     />
   );
 };

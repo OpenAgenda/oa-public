@@ -24,8 +24,8 @@ const GeoFieldsAndMap = ({
   getLabel,
   validate,
   enableGeocode = false,
-  agenda,
-  res
+  res,
+  tiles
 }) => {
   const intl = useIntl();
   const [geocodeNoResults, setGeocodeNoResults] = useState(false);
@@ -67,7 +67,7 @@ const GeoFieldsAndMap = ({
   const updateLocationGeocode = useCallback(value => {
     setGeocodeEdit(false);
     if (value === undefined) return;
-    axios.get(res.geocode.replace(':agendaUid', agenda.uid), { params: { address: value, countryCode: location?.countryCode } })
+    axios.get(res.geocode, { params: { address: value, countryCode: location?.countryCode } })
       .then(response => {
         if (!response.data.results[0]) setGeocodeNoResults(true);
         const obj = response.data.results[0];
@@ -96,11 +96,11 @@ const GeoFieldsAndMap = ({
       .catch(err => {
         setGeocodeError(err);
       });
-  }, [location, onChange, agenda.uid, res.geocode, fetchINSEE]);
+  }, [location, onChange, res.geocode, fetchINSEE]);
 
   const updateLocationReverseGeocode = (lat, long) => {
     setGeocodeEdit(false);
-    axios.get(res.reverseGeocode.replace(':agendaUid', agenda.uid), { params: { latitude: lat, longitude: long } })
+    axios.get(res.reverseGeocode, { params: { latitude: lat, longitude: long } })
       .then(response => {
         if (!response.data.results[0]) {
           setGeocodeNoResults(true);
@@ -253,6 +253,7 @@ const GeoFieldsAndMap = ({
           location={location}
           manualMode={manualMode}
           setManualMode={setManualMode}
+          tiles={tiles}
         />
       </div>
     </>

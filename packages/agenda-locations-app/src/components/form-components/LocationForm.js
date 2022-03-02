@@ -181,9 +181,9 @@ const LocationForm = ({
   cancel,
   onCancel,
   res,
-  agenda,
   onSubmit,
   errors,
+  tiles
 }) => {
   const intl = useIntl();
   const [location, setLocation] = useState(locationProp || {});
@@ -506,7 +506,7 @@ const LocationForm = ({
         validate={validate}
         enableGeocode={enableGeocode}
         res={res}
-        agenda={agenda}
+        tiles={tiles}
       />
 
       {detailedInfo ? renderDetailsInfo() : null}

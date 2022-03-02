@@ -3,10 +3,15 @@
 const _ = require('lodash');
 const cors = require('cors');
 const express = require('express');
+const multer = require('multer');
+const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
 const getFixtures = require('../fixtures');
 
+const filesMw = makeFilesMw(multer());
 const dev = express();
+dev.use(express.urlencoded({ extended: true }));
 dev.use(express.json());
+dev.use(filesMw([{ name: 'image', unique: true }]));
 
 dev.use(cors());
 
@@ -27,7 +32,7 @@ dev.get('/api/agendas/:agendaUid/locations', (req, res) => {
   const total = req.query.uids ? resLocations.length : allLocations.length;
   res.json({
     ...response,
-    locations: resLocations,
+    items: resLocations,
     size: resLocations.length,
     from: req.query.from,
     total
@@ -119,7 +124,8 @@ dev.post('/api/agendas/:agendaUid/locations/', (req, res) => {
   }
   console.log('create', req.body);
   res.json({
-    ...req.location
+    location: req.body,
+    success: true
   });
 });
 

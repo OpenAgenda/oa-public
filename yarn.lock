@@ -5757,6 +5757,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/countries": ^0.1.1
+    "@openagenda/files": ^3.1.0
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.2.0
@@ -5774,6 +5775,7 @@ __metadata:
     languages: ^0.1.3
     leaflet: ^1.7.1
     lodash: ^4.17.21
+    multer: ^1.3.1
     qs: ^6.9.1
     rc-switch: ^1.4.3
     react: ^16.13.1
@@ -6711,6 +6713,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/agenda-locations": ^2.1.2
+    "@openagenda/agenda-locations-app": ^0.0.0
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/form-schemas": ^1.9.2

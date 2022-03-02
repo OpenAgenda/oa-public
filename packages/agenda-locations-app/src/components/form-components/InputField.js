@@ -14,7 +14,7 @@ const InputField = ({
   className,
   value,
   info,
-  onKeyDown,
+  onKeyDown = () => {},
 }) => {
   const [userHasTyped, setUserHasTyped] = useState(false);
   let classNameBis = enabled ? 'form-group' : 'form-group disabled';

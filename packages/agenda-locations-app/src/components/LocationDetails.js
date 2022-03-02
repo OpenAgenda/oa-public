@@ -213,7 +213,7 @@ const LocationDetails = ({
       {settings?.tagSet
         ? flattenTagSetLabels(settings.tagSet, lang).groups.map(
           group => (
-            <div key={`tag-group-${group}`} className="margin-top-sm">
+            <div key={`tag-group-${group.name}`} className="margin-top-sm">
               <label htmlFor="group-name">{group.name}</label>
               <ul
                 className="list-unstyled"

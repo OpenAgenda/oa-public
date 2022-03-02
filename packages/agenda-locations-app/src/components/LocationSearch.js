@@ -76,10 +76,8 @@ function reducer(state, action) {
   }
 }
 
-// #toDo useReducer => moins de rerender; ???
 const LocationSearch = ({
   res,
-  agenda,
   init = null,
   allowCreate,
   onCreateRequest,
@@ -104,7 +102,7 @@ const LocationSearch = ({
 
   useEffect(() => {
     dispatch({ type: 'loading' });
-    axios.get(res.index.replace(':agendaUid', agenda.uid), {
+    axios.get(res.index, {
       params: {
         from: state.from,
         page: state.page,
@@ -114,12 +112,12 @@ const LocationSearch = ({
     }).then(response => {
       dispatch({
         type: 'setResult',
-        locations: response.data.locations,
+        locations: response.data.items,
         hasNext: response.data.total > state.page * 10,
         hasPrev: state.page !== 1
       });
     });
-  }, [state.query, state.from, state.page, res.index, agenda]);
+  }, [state.query, state.from, state.page, res.index]);
 
   const onFocus = value => {
     dispatch({ type: 'setQuery', query: { search: value } });

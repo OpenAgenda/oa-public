@@ -33,11 +33,10 @@ const messages = defineMessages({
 });
 
 const UpdateForm = ({
-  enableGeocode,
-  tiles,
-  detailedInfo
+  detailedInfo = true
 }) => {
   const { lang, agenda } = useLayoutData();
+  const tiles = useSelector(state => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const history = useHistory();
@@ -136,12 +135,10 @@ const UpdateForm = ({
         detailedInfo={detailedInfo}
         settings={settings}
         onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
-        enableGeocode={enableGeocode}
         tiles={tiles}
         mode="update"
         onSubmit={onSubmit}
         errors={errors}
-        agenda={agenda}
       />
     </>
   );

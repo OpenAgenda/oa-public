@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import axios from 'axios';
+import validate from '../validate';
 import LocationForm from './form-components/LocationForm';
 import LocationSearch from './LocationSearch';
 
@@ -31,12 +33,9 @@ const messages = defineMessages({
 });
 
 const LocationSelector = ({
-  agenda,
   res,
   lang,
   location,
-  tiles,
-  staticMapTiles,
   onChange,
   onRemove,
   mode = 'create',
@@ -51,7 +50,10 @@ const LocationSelector = ({
     },
   },
   allowRemove = false,
+  tiles
 }) => {
+  const [errors, setErrors] = useState(false);
+
   const onSelect = l => {
     onChange(confirmRequired ? 'confirm' : 'show', l);
   };
@@ -68,13 +70,37 @@ const LocationSelector = ({
     onChange('search', l);
   };
 
+  const onSubmit = loc => {
+    let clean;
+    const options = {
+      optional: false,
+      isEnabled: settings?.displayImageRightsConfirmCheckbox
+    };
+    try {
+      clean = validate(loc, settings, options);
+    } catch (err) {
+      setErrors(err);
+      return;
+    }
+    const form = new FormData();
+    if (clean.image instanceof File) form.append('image', clean.image);
+    delete clean.image;
+    form.append('data', JSON.stringify(clean));
+    axios.post(res.create, form)
+      .then(result => {
+        onSelect(result.data.location);
+      }).catch(err => {
+        console.log(err);
+      });
+  };
+
   const renderConfirmation = () => (
 /*     <LocationConfirmation
       res={res}
       lang={lang}
       location={location}
       tiles={tiles}
-      staticMapTiles={staticMapTiles}
+      staticMapTiles={staticTiles}
       settings={settings}
       onConfirm={onConfirm}
       onCancel={switchToSearch}
@@ -119,7 +145,6 @@ const LocationSelector = ({
 
   const renderSearch = () => (
     <LocationSearch
-      agenda={agenda}
       init={location ? location.name : ''}
       res={res}
       allowCreate={allowCreate}
@@ -140,7 +165,7 @@ const LocationSelector = ({
       Header={renderHeader()}
       res={res}
       lang={lang}
-      location={location}
+      locationProp={location}
       detailedInfo={
         (settings.eventForm
           && settings.eventForm.detailed)
@@ -148,11 +173,12 @@ const LocationSelector = ({
       }
       settings={settings}
       onCancel={switchToSearch}
-      onSuccess={e => onSelect(false, e)}
+      onSubmit={onSubmit}
       enableGeocode={enableGeocode}
       postRes={res.create}
       tiles={tiles}
       mode="create"
+      errors={errors}
     />
   );
 
@@ -167,7 +193,11 @@ const LocationSelector = ({
     return renderSelected();
   };
 
-  return <div className="location-selector">{renderComponent()}</div>;
+  return (
+    <div className="location-selector">
+      {renderComponent()}
+    </div>
+  );
 };
 
 export default LocationSelector;

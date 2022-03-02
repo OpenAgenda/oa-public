@@ -33,11 +33,10 @@ const messages = defineMessages({
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
 const CreateForm = ({
-  enableGeocode,
-  tiles,
-  detailedInfo
+  detailedInfo = true
 }) => {
   const { lang, agenda } = useLayoutData();
+  const tiles = useSelector(state => state.settings.mapTiles);
   const [errors, setErrors] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const history = useHistory();
@@ -113,10 +112,8 @@ const CreateForm = ({
         settings={settings}
         onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
         onSubmit={onSubmit}
-        enableGeocode={enableGeocode}
         tiles={tiles}
         mode="create"
-        agenda={agenda}
         errors={errors}
       />
     </>

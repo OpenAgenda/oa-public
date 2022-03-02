@@ -65,8 +65,8 @@ const MapContent = ({
     [onMarkerDragged, setManualMode],
   );
 
-  if (!manualMode && posDiff(pos, locationPos)) {
-    map.setView({ lat: locationPos[0], lng: locationPos[1] }, defaultZoom);
+  if (isGeolocated() && !manualMode && posDiff(pos, locationPos)) {
+    map.setView({ lat: locationPos[0], lng: locationPos[1] }, defaults.focusedZoom);
   }
   if (isGeolocated()) {
     return (
@@ -97,7 +97,6 @@ const LocationMap = ({
   const isGeolocated = useCallback(() => location?.latitude !== undefined, [location]);
   const [pos, setPos] = useState(isGeolocated() ? getLocationPos() : defaults.pos);
   const [defaultZoom, setDefaultZoom] = useState(isGeolocated() ? defaults.focusedZoom : defaultUnZoom);
-
   useEffect(() => {
     if (isGeolocated() && posDiff(pos, getLocationPos())) {
       setPos(getLocationPos());
