@@ -3,7 +3,8 @@
 module.exports = {
   "setSubtitle": {
     "fr": "Jeu de %locationsCount% lieux mutualisés entre ",
-    "en": "Set of %locationsCount% locations used in "
+    "en": "Set of %locationsCount% locations used in %agendasCount% agendas",
+    "io": "crwdns12346:0%locationsCount%crwdnd12346:0%agendasCount%crwdne12346:0"
   },
   "setSubtitleLink": {
     "fr": "%agendasCount% agendas",

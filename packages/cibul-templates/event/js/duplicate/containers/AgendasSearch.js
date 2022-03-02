@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Form, Field } from 'react-final-form';
 import { debounce, throttle } from 'lodash';
 import { AgendasSearch as AgendasSearchComponent } from '@openagenda/react-shared';
 import * as agendasActions from '../redux/modules/agendas';
@@ -113,6 +114,8 @@ export default class AgendasSearch extends Component {
     return (
       <AgendasSearchComponent
         form={id}
+        Form={Form}
+        Field={Field}
         Header={Header}
         search={this.debouncedSearch}
         nextPage={this.throttledNextPage}

@@ -9,6 +9,7 @@ export default function validate(ajv, schemaId, data) {
       name: 'ValidationError',
       info: {
         errors: getFormErrors(ajv.errors.slice()),
+        data,
       },
     });
   }

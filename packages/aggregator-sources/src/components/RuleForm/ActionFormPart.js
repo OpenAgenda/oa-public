@@ -18,10 +18,10 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   const form = useForm();
   const { values, initialValues: initials } = form.getState();
 
-  const action = useMemo(() => values.actions.find(v => v.id === id), [
-    id,
-    values.actions,
-  ]);
+  const action = useMemo(
+    () => values.actions.find(v => v.id === id),
+    [id, values.actions]
+  );
   const fieldName = useMemoOne(() => action?.field, [action]);
   // console.log('fieldName ', fieldName);
   const prevFieldName = usePrevious(fieldName);
@@ -177,6 +177,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   return (
     <>
       <ReactSelectField
+        Field={Field}
         name={`${name}.field`}
         placeholder={intl.formatMessage(messages.selectField)}
         noOptionsMessage={() => intl.formatMessage(messages.noOption)}
@@ -190,6 +191,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
         <>
           <ReactSelectField
             key="values"
+            Field={Field}
             name={`${name}.values`}
             placeholder={intl.formatMessage(
               messages[

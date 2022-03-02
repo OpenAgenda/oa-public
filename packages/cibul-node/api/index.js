@@ -361,9 +361,18 @@ module.exports = core => {
     settings.resync
   ]);
 
-  app.get('/me', (req, res, next) => core.users
-    .get(req.user.uid, { detailed: true })
-    .then(user => res.json(_.pick(user, ['apiKey'])), next));
+  app.get('/me', (req, res, next) => {
+    if (!req.user) {
+      res.json({ logged: false });
+    } else {
+      core.users
+        .get(req.user.uid, { detailed: true })
+        .then(user => res.json({
+          logged: true,
+          ..._.pick(user, ['apiKey'])
+        }), next);
+    }
+  });
 
   app.get('/me/agendas', (req, res, next) => {
     core.users(req.user).agendas.list(req.query)

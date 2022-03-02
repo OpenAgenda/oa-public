@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/utils/processOEmbed');
 
-module.exports = (oembed, text, { current = [], includeEmbedlessLinks = false }) => {
+module.exports = (oembed, text, { current = [], includeEmbedlessLinks = false, filterInvalidLinks = false }) => {
   if (!oembed) {
     log('oembed service is not initialized');
     return [];
@@ -13,6 +13,6 @@ module.exports = (oembed, text, { current = [], includeEmbedlessLinks = false })
   return oembed.fromMarkdown(_.keys(text).reduce((concatenated, lang) => [
     concatenated, _.get(text, lang)
   ].join('\n'), ''), {
-    current, includeEmbedlessLinks
+    current, includeEmbedlessLinks, filterInvalidLinks
   }).then(links => links.map(link => _.set(link, 'type', 'oembed')));
 };

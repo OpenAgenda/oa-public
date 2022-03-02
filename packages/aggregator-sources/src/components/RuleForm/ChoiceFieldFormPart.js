@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 
-import { useForm } from 'react-final-form';
+import { useForm, Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import formLabels from '@openagenda/labels/event/form';
@@ -83,6 +83,7 @@ export default ({ sourceSchema }) => {
           <div className="col-sm-10">
             <ReactSelectField
               name="choiceField"
+              Field={Field}
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
               options={options}
@@ -104,6 +105,7 @@ export default ({ sourceSchema }) => {
             <div className="col-sm-10">
               <ReactSelectField
                 name="choiceValues"
+                Field={Field}
                 initialValue={
                   values.choiceField !== undefined
                   && values.choiceField === initialValues?.choiceField

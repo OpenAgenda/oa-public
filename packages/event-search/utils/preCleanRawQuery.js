@@ -17,6 +17,10 @@ module.exports = produce((query = {}) => {
     log('error', 'provided state is invalid %j', query);
   }
 
+  if (Array.isArray(query.uid)) {
+    query.uid = query.uid.map(uid => uid === '' ? -1 : uid)
+  }
+
   try {
     if (query.attendanceMode) {
       query.attendanceMode = []

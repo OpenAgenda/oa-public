@@ -93,7 +93,7 @@ module.exports = {
   },
   "disabledGeocode": {
     "fr": "La fonction de localisation automatique est momentanément indisponible. Localisez votre lieu en glissant le marqueur au bon endroit sur la carte.",
-    "en": "The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually.",
+    "en": "The automatic localization is temporarily unavailable. Drag the marker to the correct location on the map manually.",
     "de": "Die automatische Lokalisierung ist vorübergehend nicht verfügbar. Ziehe die Markierung an die richtige Stelle auf der Karte manuell.",
     "es": "La función de seguimiento automático no está disponible temporalmente. Encontrar su ubicación arrastrando el marcador en el lugar correcto en el mapa.",
     "br": "Al lec'hiañ emgefre n'a ket en-dro evit poent. Riklit ar merker betek al lec'h mat war ar gartenn evit lec'hiañ anezhañ.",
@@ -156,7 +156,7 @@ module.exports = {
   },
   "addressPlaceholder": {
     "fr": "Numéro Voie, Ville ( exemple : 82 Boulevard de Clichy, Paris )",
-    "en": "Number Street, City ( example : 82 Boulevard de Clichy, Paris )",
+    "en": "Number Street, City (example : 82 Boulevard de Clichy, Paris)",
     "de": "Nummer Straße, Ort (Beispiel: 82 Boulevard de Clichy, Paris)",
     "es": "No Way Ciudad (ejemplo: 82 Boulevard de Clichy, París)",
     "br": "Niverenn er straed, Kêr (da skouer 15 straed ar C'hastell, Brest)",
@@ -237,7 +237,7 @@ module.exports = {
   },
   "location.length": {
     "fr": "la longueur de ce texte doit être comprise entre %min% et %max%",
-    "en": "the length must be between %min% and %max% caracters",
+    "en": "the length must be between %min% and %max% characters",
     "de": "die Länge muss zwischen %min% und %max% caracters sein",
     "es": "La longitud de este texto debe estar entre %min% y %max%",
     "br": "ret eo d'an hirder bezañ etre %min% ha %max% arouezenn",
@@ -246,7 +246,7 @@ module.exports = {
   },
   "location.invalid.latitude": {
     "fr": "Le lieu doit être géolocalisé",
-    "en": "The location must be geolocated",
+    "en": "The location must be geocoded",
     "de": "Die Lage muss geolokalisiert",
     "es": "El lugar debe ser geolocalizados",
     "br": "Ret eo d'al lec'h bezañ douarlec'hiet",
@@ -387,7 +387,7 @@ module.exports = {
   },
   "extIdInfo": {
     "fr": "Optionnellement, précisez un identifiant unique pour ce lieu",
-    "en": "Optionnally, specify a unique identifier for this location",
+    "en": "Optionally, specify a unique identifier for this location",
     "de": "Optionnally, gebe eine eindeutige Kennung für diesen Standort",
     "es": "Opcionalmente, especifique un identificador único para este lugar",
     "br": "Ma karit, e c'hallit lakaat un anaouder hepken evit al lec'h-mañ",

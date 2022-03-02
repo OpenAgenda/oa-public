@@ -35,6 +35,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     defaultLang,
     filterUnauthorizedData,
     returnPayload,
+    fileKey
   } = {
     access: 'public', // read or write?
     draft: false,
@@ -80,7 +81,11 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   const payload = createPayload(services, agenda);
 
   try {
-    clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, { current: clean.event.links, includeEmbedlessLinks: true });
+    clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
+      current: clean.event.links,
+      includeEmbedlessLinks: true,
+      filterInvalidLinks: true
+    });
     log('  retrieved %s links', clean.event.links.length);
   } catch (e) {
     log('error', '  could not retrieve oembeds', e);
@@ -97,7 +102,8 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       detailed: true,
       access: 'internal',
       private: !!agenda.private,
-      draft
+      draft,
+      fileKey
     });
 
     payload.setItem('event', event);

@@ -5,7 +5,6 @@ const os = require('os');
 const { join } = require('path');
 const crypto = require('crypto');
 const mkdirp = require('mkdirp');
-const processFile = require('./processFile');
 
 function getFilename(req, file, cb) {
   crypto.randomBytes(16, (err, raw) => {
@@ -18,13 +17,8 @@ function getDestination(req, file, cb) {
 }
 
 class TempStorage {
-  constructor({
-    cfg, providers, options, tmpFilename, tmpDestination
-  }) {
-    this.cfg = cfg;
-    this.providers = providers;
-    this.options = options;
-
+  constructor({ tmpFilename, tmpDestination, transformAndUpload }) {
+    this.transformAndUpload = transformAndUpload;
     this.getFilename = tmpFilename || getFilename;
 
     if (typeof tmpDestination === 'string') {
@@ -35,17 +29,6 @@ class TempStorage {
     } else {
       this.getDestination = tmpDestination || getDestination;
     }
-  }
-
-  transformAndUpload(file, context) {
-    const options = Array.isArray(this.options) ? this.options : [this.options];
-    const fileOptions = options.find(option => option.key === file.fieldname);
-
-    if (!fileOptions) {
-      throw new Error(`Unable to find options for file '${file.fieldname}'`);
-    }
-
-    return processFile(this.cfg, this.providers, file, fileOptions, context);
   }
 
   _handleFile(req, file, cb) {
@@ -64,7 +47,7 @@ class TempStorage {
         outStream.on('error', cb);
         outStream.on('finish', () => {
           Object.assign(file, {
-            transformAndUpload: this.transformAndUpload.bind(this, file),
+            transformAndUpload: (...args) => this.transformAndUpload(file, ...args),
             destination,
             filename,
             path: finalPath,

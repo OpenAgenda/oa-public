@@ -1,6 +1,6 @@
-export CreationFirstStep from './CreationFirstStep';
-export CreationSecondStep from './CreationSecondStep';
-export InboxSettingsForm from './InboxSettingsForm';
-export KeysManager from './KeysManager';
-export LabSettingsForm from './LabSettingsForm';
-export TrackingSettingsForm from './TrackingSettingsForm';
+export { default as CreationFirstStep } from './CreationFirstStep';
+export { default as CreationSecondStep } from './CreationSecondStep';
+export { default as InboxSettingsForm } from './InboxSettingsForm';
+export { default as KeysManager } from './KeysManager';
+export { default as LabSettingsForm } from './LabSettingsForm';
+export { default as TrackingSettingsForm } from './TrackingSettingsForm';

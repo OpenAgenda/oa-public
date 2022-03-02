@@ -261,7 +261,7 @@ module.exports = {
   },
   "cannotChangeStatus": {
     "en": "Cancel / Full / Postponed...",
-    "fr": "Annuler / Complet / Reporté...",
+    "fr": "Annuler / Complet / Reporté..."
   },
   "cannotChangeStatusInfo": {
     "en": "You do not have edition rights over this event",
@@ -278,7 +278,7 @@ module.exports = {
     "io": "crwdns14482:0crwdne14482:0"
   },
   "cancelled": {
-    "en": "Cancelled",
+    "en": "Canceled",
     "fr": "Annulé",
     "de": "Abgesagt",
     "it": "Cancellato",
@@ -286,14 +286,14 @@ module.exports = {
     "io": "crwdns14484:0crwdne14484:0"
   },
   "cancelEvent": {
-    "en": "Mark event as cancelled",
+    "en": "Mark event as canceled",
     "fr": "Marquer l'événement comme annulé",
     "es": "Marcar el evento como Cancelado",
     "de": "Veranstaltung als abgesagt kennzeichnen",
     "io": "crwdns14486:0crwdne14486:0"
   },
   "uncancelEvent": {
-    "en": "Un-cancel event",
+    "en": "Uncancel event",
     "fr": "L'événement n'est plus annulé",
     "es": "El evento no está Cancelado",
     "io": "crwdns14488:0crwdne14488:0"
@@ -303,7 +303,7 @@ module.exports = {
     "it": "Il vostro evento rimanera online, con il suo titolo preceduto da 'Cancellato'.",
     "de": "Deine Veranstaltung wird mit dem Hinweis \"Abgesagt\" angezeigt.",
     "es": "Su evento permanecera en línea, con su título precedido por 'Cancelado'.",
-    "en": "Your event will remain online, with its title preceded by 'Cancelled'.",
+    "en": "Your event will remain online, with its title preceded by 'Canceled'.",
     "io": "crwdns14490:0crwdne14490:0"
   },
   "uncancelInfo": {
@@ -722,7 +722,7 @@ module.exports = {
     "io": "crwdns14578:0%name%crwdne14578:0"
   },
   "couldYouBringFollowingChanges": {
-    "en": "Hi, could you bring the following changes to the location named '%name'? reference: %uid% - ( add details of the change here )",
+    "en": "Hi, could you bring the following changes to the location named '%name%'? reference: %uid% - (add details of the change here)",
     "fr": "Bonjour, pourriez-vous apporter les modifications suivantes au lieu ayant pour nom '%name%' ? reference: %uid% - ( détaillez les modifications ici )",
     "it": "Bongiorno, potreste apportare le modifiche seguenti al luogo chiamato '%name%' riferimento: %uid% - ( dettaglia qui le modifiche )",
     "de": "Guten Tag, können Sie die folgenden Änderungen zum Standort namens '%name%'? Referenz: %uid% hinzufügen - ( fügen Sie Details der Änderungen hier an )",
@@ -880,7 +880,7 @@ module.exports = {
     "fr": "L'événement a été reporté à des dates encore non connues"
   },
   "statusCancelled": {
-    "en": "Cancelled",
+    "en": "Canceled",
     "fr": "Annulé"
   },
   "markAsCancelled": {

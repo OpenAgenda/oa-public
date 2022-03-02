@@ -10,7 +10,7 @@
   "AgendaStats.ComposedChart.tooltipContentUpdatedAt": "{value, plural, =0 {{value, number} updated event} one {{value, number} updated event} other {{value, number} updated events}}",
   "AgendaStats.CustomTooltip.events": "{value, number} events",
   "AgendaStats.Dashboard.cancel": "Cancel",
-  "AgendaStats.Dashboard.changeOrder": "Change ordrer",
+  "AgendaStats.Dashboard.changeOrder": "Change order",
   "AgendaStats.Dashboard.edit": "Edit the report",
   "AgendaStats.Dashboard.filters": "Filters",
   "AgendaStats.Dashboard.pulseDesc": "Activity of the past year",

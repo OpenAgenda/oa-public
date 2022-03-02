@@ -21,7 +21,7 @@ module.exports = {
   },
   "offlineAttendanceMode": {
     "fr": "Sur place",
-    "en": "In situ",
+    "en": "Offline",
     "it": "Disconnesso",
     "es": "Desconnectad",
     "de": "Offline",
@@ -39,7 +39,7 @@ module.exports = {
   },
   "mixedAttendanceMode": {
     "fr": "Mixte",
-    "en": "Both",
+    "en": "Mixed",
     "it": "Misto",
     "es": "Mezclado",
     "de": "Gemischt",
@@ -242,7 +242,7 @@ module.exports = {
   },
   "conditions": {
     "fr": "Conditions de participation, tarifs",
-    "en": "Attendence conditions, pricing",
+    "en": "Attendance conditions, pricing",
     "it": "Condizioni di partecipazione, prezzi",
     "de": "Teilnahmebedingungen, Preisgestaltung",
     "es": "Condiciones de las tasas de participación",
@@ -509,7 +509,7 @@ module.exports = {
   },
   "cancelled": {
     "fr": "Annulé",
-    "en": "Cancelled"
+    "en": "Canceled"
   },
   "full": {
     "fr": "Complet",

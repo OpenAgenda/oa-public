@@ -53,8 +53,18 @@ for (const labelFile of labelFiles) {
 }
 
 function getLocales(root, filePath) {
-  return [...LANGS, 'io'].reduce((accu, lang) => ({
-    ...accu,
-    [lang]: require(path.join(root, lang, filePath))
-  }), {});
+  return [...LANGS, 'io'].reduce((accu, lang) => {
+    let locales = {};
+
+    try {
+      locales = require(path.join(root, lang, filePath));
+    } catch (e) {
+      console.error(`Missing lang ${lang} for file "${filePath}"`)
+    }
+
+    return {
+      ...accu,
+      [lang]: locales
+    }
+  }, {});
 }

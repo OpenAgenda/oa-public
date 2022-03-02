@@ -1,57 +1,45 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useMemo } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
-import { reducer as formReducer } from 'redux-form';
+import { IntlProvider } from 'react-intl';
+import { css } from '@emotion/react';
 import makeGetterLabel from '@openagenda/labels';
-import { withLayoutData } from '@openagenda/react-shared';
+import { useLayoutData } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/agenda-settings/agendaCreation';
+import locales from '../../../locales-compiled';
 import * as agendaActions from '../../reducers/agenda';
 import I18nContext from '../../contexts/I18nContext';
 
-@withLayoutData('lang')
-@provideHooks({
-  inject: ({ store }) => store.inject({
-    form: formReducer.plugin({
-      agendaCreation: agendaActions.formPlugin
-    }),
-    agenda: agendaActions.default
-  })
-})
-@connect(
-  state => ({
-    loading: state.agenda.loading
-  })
-)
-export default class CreationApp extends Component {
-  static childContextTypes = {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func
-  };
+function CreationApp({ route }) {
+  const { lang } = useLayoutData();
 
-  i18nContextValue = {
-    lang: this.props.lang,
-    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang)
-  };
+  const i18nContextValue = useMemo(() => ({
+    lang,
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, lang)
+  }), [lang]);
 
-  getChildContext() {
-    return this.i18nContextValue;
-  }
-
-  render() {
-    const { route } = this.props;
-
-    return (
-      <I18nContext.Provider value={this.i18nContextValue}>
-        <div className="page">
+  return (
+    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      <I18nContext.Provider value={i18nContextValue}>
+        <div
+          className="page"
+          css={css`
+            .radio label, .checkbox label {
+              line-height: 20px;
+            }
+          `}
+        >
           <div className="container agenda-settings-creation">
             {renderRoutes(route.routes)}
           </div>
         </div>
       </I18nContext.Provider>
-    );
-  }
-
+    </IntlProvider>
+  );
 }
 
+export default provideHooks({
+  inject: ({ store }) => store.inject({
+    agenda: agendaActions.default,
+  }),
+})(CreationApp);

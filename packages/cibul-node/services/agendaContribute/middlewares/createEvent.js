@@ -14,6 +14,7 @@ module.exports = function createEvent(req, res) {
   core.agendas(req.agenda.uid).events.create(req.dataWithFiles, {
     draft: req.draft,
     userUid: req.user.uid,
-    filterUnauthorizedData: true
+    filterUnauthorizedData: true,
+    fileKey: req.fileKey
   }).then(event => res.json({ success: true, event }), error => handleError({ res, log }, error));
 };

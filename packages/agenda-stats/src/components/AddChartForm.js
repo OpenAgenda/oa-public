@@ -1,5 +1,6 @@
 import { useIntl } from 'react-intl';
 import React, { useMemo } from 'react';
+import { Field } from 'react-final-form';
 import { ReactSelectField, getLocaleValue } from '@openagenda/react-shared';
 import titleMessages from '../messages/chartTitles';
 import form from './messages/form';
@@ -115,6 +116,7 @@ export default function AddChartForm({
     <form onSubmit={handleSubmit} className="margin-v-lg margin-h-md">
       <ReactSelectField
         name="type"
+        Field={Field}
         placeholder={intl.formatMessage(form.typeSelectPlaceholder)}
         options={chartOptions}
       />
@@ -137,6 +139,7 @@ export default function AddChartForm({
           </p>
           <ReactSelectField
             name="width"
+            Field={Field}
             placeholder={intl.formatMessage(form.widthSelectPlaceholder)}
             initialValue={1}
             options={widthOptions}

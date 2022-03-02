@@ -60,7 +60,7 @@ module.exports = (agendaSettings, event) => {
     linkedEvents: [],
     location: {
       ...event.location,
-      countryCode: event.location.countryCode.toLowerCase(),
+      countryCode: event.location.countryCode ? event.location.countryCode.toLowerCase() : undefined,
       country: event.country
     },
     accessibility: convertAccessibility(event.accessibility),

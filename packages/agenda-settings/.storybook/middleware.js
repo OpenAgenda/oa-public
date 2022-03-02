@@ -1,8 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const errorHandler = require('errorhandler');
+const multer = require('multer');
 const knexLib = require('knex');
 const agendasSvc = require('@openagenda/agendas');
+const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
 const keysSvc = require('@openagenda/keys');
 const keysMw = require('@openagenda/keys/middleware');
 const service = require('../src/service');
@@ -39,8 +41,11 @@ module.exports = router => {
     router.use(morgan('dev'));
   }
 
+  const filesMw = makeFilesMw(multer());
+
   router.use(express.json());
   router.use(express.urlencoded({ extended: true }));
+  router.use(filesMw('any'));
 
   router.use((req, res, next) => {
     req.user = { id: 2 };
@@ -48,6 +53,9 @@ module.exports = router => {
       uid: 17026855,
       slug: 'proces-d-assises-2016'
     }
+    req.app = {
+      services: {}
+    };
     next();
   });
 
