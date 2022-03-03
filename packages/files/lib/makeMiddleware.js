@@ -4,6 +4,25 @@ const { Router } = require('express');
 const mixedMultipartMw = require('./mixedMultipartMw');
 const cleanupMw = require('./cleanupMw');
 
+function normalizeField(field) {
+  if (typeof field === 'string') {
+    return {
+      name: field,
+      unique: true,
+      maxCount: 1,
+    };
+  }
+
+  if (field.unique) {
+    return {
+      ...field,
+      maxCount: 1,
+    };
+  }
+
+  return field;
+}
+
 function getMulterMw(multer, fields) {
   switch (fields) {
     case 'any':
@@ -11,18 +30,7 @@ function getMulterMw(multer, fields) {
     case 'none':
       return multer.none();
     default:
-      return multer.fields(
-        fields.map(field => {
-          if (!field.unique) {
-            return field;
-          }
-
-          return {
-            ...field,
-            maxCount: 1,
-          };
-        })
-      );
+      return multer.fields(fields);
   }
 }
 
@@ -30,7 +38,7 @@ function uniqueFields(fields) {
   return (req, res, next) => {
     const { files } = req;
 
-    if (!files) {
+    if (!files || fields === 'any' || fields === 'none') {
       return next();
     }
 
@@ -38,8 +46,7 @@ function uniqueFields(fields) {
       const value = files[field.name];
 
       if (field.unique && Array.isArray(value)) {
-        // eslint-disable-next-line prefer-destructuring
-        files[field.name] = value[0];
+        [files[field.name]] = value;
       }
     }
 
@@ -51,13 +58,26 @@ function filterFakeFiles(fields) {
   return (req, res, next) => {
     const { body, files } = req;
 
-    if (!body) {
+    if (!body || fields === 'none') {
       return next();
     }
 
-    for (const field of fields) {
+    if (fields === 'any' && !files) {
+      return next();
+    }
+
+    const fieldsToCheck = fields === 'any'
+      ? files.reduce((accu, key) => {
+        if (!accu.find(v => v.name === key)) {
+          accu.push({ name: key });
+        }
+        return accu;
+      }, [])
+      : fields;
+
+    for (const field of fieldsToCheck) {
       const value = body[field.name];
-      const originalValue = files && files[field.name];
+      const originalValue = files?.[field.name];
 
       if (!value) {
         continue;
@@ -65,13 +85,11 @@ function filterFakeFiles(fields) {
 
       if (Array.isArray(value)) {
         body[field.name] = value.reduce((accu, file, index) => {
-          const originalPath = originalValue && originalValue[index] && originalValue[index].path;
-
           if (
             typeof file === 'object'
             && file !== null
             && 'path' in file
-            && file.path !== originalPath
+            && file.path !== originalValue?.[index]?.path
           ) {
             if (Object.keys(file).length > 1) {
               delete file.path;
@@ -92,7 +110,7 @@ function filterFakeFiles(fields) {
         typeof value === 'object'
         && value !== null
         && 'path' in value
-        && value.path !== (originalValue && originalValue.path)
+        && value.path !== originalValue?.path
       ) {
         if (Object.keys(value).length === 1) {
           delete body[field.name];
@@ -112,7 +130,14 @@ module.exports = function makeMiddleware(multer) {
 
     const router = Router({ mergeParams: true });
 
-    router.use(getMulterMw(multer, fields), uniqueFields(fields));
+    const normalizedFields = fields === 'none' || fields === 'any'
+      ? fields
+      : [].concat(fields).map(normalizeField);
+
+    router.use(
+      getMulterMw(multer, normalizedFields),
+      uniqueFields(normalizedFields)
+    );
 
     if (cleanup) {
       router.use(cleanupMw());
@@ -122,7 +147,7 @@ module.exports = function makeMiddleware(multer) {
       router.use(mixedMultipartMw(mixedMultipart));
     }
 
-    router.use(filterFakeFiles(fields));
+    router.use(filterFakeFiles(normalizedFields));
 
     return router;
   };

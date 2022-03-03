@@ -17,7 +17,18 @@ module.exports = function mixedMultipartMw(dataKey = 'data') {
         Object.assign(req.body, body);
       }
 
-      Object.assign(req.body, req.files);
+      const files = Array.isArray(req.files)
+        ? req.files.reduce((accu, file) => {
+          if (accu[file.fieldname]) {
+            accu[file.fieldname].push(file);
+          } else {
+            accu[file.fieldname] = [file];
+          }
+          return accu;
+        }, {})
+        : req.files;
+
+      Object.assign(req.body, files);
     } catch (e) {
       return next(new Error('Body parse error'));
     }
