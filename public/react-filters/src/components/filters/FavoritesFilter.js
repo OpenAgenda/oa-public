@@ -4,8 +4,8 @@ import { useLatest } from 'react-use';
 import matchQuery from '../../utils/matchQuery';
 import updateFormValues from '../../utils/updateFormValues';
 import updateCustomFilter from '../../utils/updateCustomFilter';
+import { useFavoriteState } from '../../hooks';
 import FilterPreviewer from '../FilterPreviewer';
-import useFavoriteState from '../hooks/useFavoriteState';
 
 const subscription = { values: true };
 

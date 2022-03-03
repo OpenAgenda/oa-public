@@ -251,6 +251,20 @@
       "value": "Remove filter"
     }
   ],
+  "ReactFilters.ValueBadge.removeFilterWithTitle": [
+    {
+      "type": 0,
+      "value": "Remove filter ("
+    },
+    {
+      "type": 1,
+      "value": "title"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
   "ReactFilters.dateRanges.currentMonth": [
     {
       "type": 0,
@@ -299,22 +313,28 @@
       "value": "Search"
     }
   ],
-  "ReactFilters.messages.attendanceModeOptions.mixed": [
+  "ReactFilters.messages.attendanceMode.mixed": [
     {
       "type": 0,
       "value": "Mixed"
     }
   ],
-  "ReactFilters.messages.attendanceModeOptions.offline": [
+  "ReactFilters.messages.attendanceMode.offline": [
     {
       "type": 0,
       "value": "In situ"
     }
   ],
-  "ReactFilters.messages.attendanceModeOptions.online": [
+  "ReactFilters.messages.attendanceMode.online": [
     {
       "type": 0,
       "value": "Online"
+    }
+  ],
+  "ReactFilters.messages.featured.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
     }
   ],
   "ReactFilters.messages.filterTitles.addMethod": [
@@ -437,22 +457,106 @@
       "value": "Date of update"
     }
   ],
-  "ReactFilters.messages.relativeOptions.current": [
+  "ReactFilters.messages.provenance.aggregation": [
+    {
+      "type": 0,
+      "value": "Aggregation"
+    }
+  ],
+  "ReactFilters.messages.provenance.contribution": [
+    {
+      "type": 0,
+      "value": "Contribution"
+    }
+  ],
+  "ReactFilters.messages.provenance.share": [
+    {
+      "type": 0,
+      "value": "Share"
+    }
+  ],
+  "ReactFilters.messages.relative.current": [
     {
       "type": 0,
       "value": "Current"
     }
   ],
-  "ReactFilters.messages.relativeOptions.passed": [
+  "ReactFilters.messages.relative.passed": [
     {
       "type": 0,
       "value": "Passed"
     }
   ],
-  "ReactFilters.messages.relativeOptions.upcoming": [
+  "ReactFilters.messages.relative.upcoming": [
     {
       "type": 0,
       "value": "Upcoming"
+    }
+  ],
+  "ReactFilters.messages.state.controlled": [
+    {
+      "type": 0,
+      "value": "Controlled"
+    }
+  ],
+  "ReactFilters.messages.state.published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "ReactFilters.messages.state.refused": [
+    {
+      "type": 0,
+      "value": "Refused"
+    }
+  ],
+  "ReactFilters.messages.state.toModerate": [
+    {
+      "type": 0,
+      "value": "To moderate"
+    }
+  ],
+  "ReactFilters.messages.status.cancelled": [
+    {
+      "type": 0,
+      "value": "Cancelled"
+    }
+  ],
+  "ReactFilters.messages.status.full": [
+    {
+      "type": 0,
+      "value": "Fully booked"
+    }
+  ],
+  "ReactFilters.messages.status.movedOnline": [
+    {
+      "type": 0,
+      "value": "Moved online"
+    }
+  ],
+  "ReactFilters.messages.status.postponed": [
+    {
+      "type": 0,
+      "value": "Postponed"
+    }
+  ],
+  "ReactFilters.messages.status.programmed": [
+    {
+      "type": 0,
+      "value": "Programmed"
+    }
+  ],
+  "ReactFilters.messages.status.rescheduled": [
+    {
+      "type": 0,
+      "value": "Rescheduled"
+    }
+  ],
+  "ReactFilters.useGetFilterOptions.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Without value)"
     }
   ]
 }
