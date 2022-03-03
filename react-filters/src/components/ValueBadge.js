@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
+import { css } from '@emotion/react';
 import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 
 const messages = defineMessages({
@@ -8,18 +9,41 @@ const messages = defineMessages({
     id: 'ReactFilters.ValueBadge.removeFilter',
     defaultMessage: 'Remove filter',
   },
+  removeFilterWithTitle: {
+    id: 'ReactFilters.ValueBadge.removeFilterWithTitle',
+    defaultMessage: 'Remove filter ({title})',
+  },
 });
 
-export default function ValueBadge({ label, onRemove, disabled }) {
+export default function ValueBadge({
+  label,
+  title,
+  onRemove,
+  disabled
+}) {
   const intl = useIntl();
+
+  const titleLabel = title?.length
+    ? intl.formatMessage(messages.removeFilterWithTitle, { title })
+    : intl.formatMessage(messages.removeFilter);
 
   return (
     <button
       type="button"
-      title={intl.formatMessage(messages.removeFilter)}
-      className={classNames('btn badge badge-pill badge-info margin-left-xs', {
+      title={titleLabel}
+      className={classNames('btn badge badge-pill badge-info margin-right-xs', {
         disabled,
       })}
+      css={css`
+        line-height: 18px;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        :hover {
+          color: #da4453;
+          border-color: #d43f3a;
+        }
+      `}
       // disabled={disabled}
       onClick={onRemove}
     >

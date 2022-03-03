@@ -12,6 +12,7 @@ export default function filtersToAggregations(filters, base = false) {
       return {
         key: filter.name,
         type: filter.name,
+        missing: filter.missingValue ? 'null' : undefined,
         ...filter.aggregation,
       };
     })
