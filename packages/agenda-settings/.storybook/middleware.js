@@ -45,7 +45,7 @@ module.exports = router => {
 
   router.use(express.json());
   router.use(express.urlencoded({ extended: true }));
-  router.use(filesMw('any'));
+  router.use(filesMw(['image']));
 
   router.use((req, res, next) => {
     req.user = { id: 2 };
