@@ -28,6 +28,13 @@
           text-decoration: underline darken($color, 10%) !important;
         }
       }
+
+      &.btn-hover-#{$name} {
+        &:hover, &:focus {
+          color: darken($color, 10%) !important;
+          text-decoration: underline darken($color, 10%) !important;
+        }
+      }
     }
   }
 
