@@ -220,9 +220,9 @@ module.exports = {
     "io": "crwdns12942:0crwdne12942:0"
   },
   "agendaHasNotEventsPublished": {
-    "en": "This agenda has not published any events yet",
-    "fr": "Cet agenda n'a pas encore publié d'événements",
-    "it": "Questa Agenda non ha ancora pubblicato degli eventi  ",
+    "en": "This agenda has not published any event yet",
+    "fr": "Cet agenda n'a pas encore publié d'événement",
+    "it": "Questa Agenda non ha ancora pubblicato degli eventi",
     "de": "Dieser Kalender hat noch keine Veranstaltungen veröffentlicht.",
     "pl": "Ten kalendarz nie opublikował jeszcze żadnego wydarzenia",
     "br": "An deiziataer-mañ n'en deus ket embannet darvoudoù c'hoazh",
@@ -250,8 +250,8 @@ module.exports = {
     "io": "crwdns12948:0%name%crwdne12948:0"
   },
   "agendaHasNotUpcomingEvents": {
-    "en": "There are no upcoming events published in this agenda.",
-    "fr": "Il n'y a pas d'événements publiés à venir dans cet agenda.",
+    "en": "There are no upcoming event published in this agenda.",
+    "fr": "Il n'y a pas d'événement publié à venir dans cet agenda.",
     "it": "Non ci sono eventi futuri pubblicati in questa Agenda.",
     "de": "Keine veröffentlichten künftigen Veranstaltungen in diesem Kalender.",
     "pl": "Nie ma żadnych nadchodzących wydarzeń w tym kalendarzu ",
