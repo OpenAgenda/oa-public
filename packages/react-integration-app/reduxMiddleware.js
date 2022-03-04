@@ -27,12 +27,12 @@ module.exports = function reduxMiddleware(layoutStore, queryClient) {
           await queryClient.cancelQueries(queryKeyPrefix);
 
           const queryCache = queryClient.getQueryCache();
-          const query = queryCache.find(queryKeyPrefix);
+          const query = queryCache.findAll(queryKeyPrefix)[0];
 
           queryClient.setQueryData(
             query.queryKey,
             produce(draft => {
-              draft.agenda = action.result.agenda;
+              draft.agenda = action.result.data.agenda;
             })
           );
           break;
