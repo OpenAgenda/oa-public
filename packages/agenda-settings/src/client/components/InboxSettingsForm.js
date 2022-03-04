@@ -86,6 +86,7 @@ export default function InboxSettingsForm() {
             placeholder={getLabel('emailPlaceholder')}
             className="form-control"
             subLabel={<div>{getLabel('mailtoEmailDesc')}</div>}
+            parse={_.identity} // to keep empty value
           />
 
           <Field
@@ -95,6 +96,7 @@ export default function InboxSettingsForm() {
             label={getLabel('subjectLabel')}
             placeholder={getLabel('subjectDesc')}
             className="form-control"
+            parse={_.identity} // to keep empty value
           />
 
           <button

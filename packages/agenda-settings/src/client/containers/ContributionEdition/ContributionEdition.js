@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
@@ -163,6 +164,7 @@ export default function ContributionEdition() {
                         name="messages.instructions"
                         component={MarkdownInput}
                         lang={lang}
+                        parse={_.identity} // to keep empty value
                       />
                     </div>
                   ) : null}
@@ -191,6 +193,7 @@ export default function ContributionEdition() {
                             name="messages.complete"
                             component={MarkdownInput}
                             lang={lang}
+                            parse={_.identity} // to keep empty value
                           />
                         </div>
                       </>
@@ -222,6 +225,7 @@ export default function ContributionEdition() {
                             name="messages.publication"
                             component={MarkdownInput}
                             lang={lang}
+                            parse={_.identity} // to keep empty value
                           />
                         </div>
                       </>

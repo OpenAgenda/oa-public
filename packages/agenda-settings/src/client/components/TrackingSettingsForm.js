@@ -57,6 +57,7 @@ export default function TrackingSettingsForm() {
             label={getLabel( 'googleAnalyticsId' )}
             placeholder="GA_TRACKING_ID"
             className="form-control"
+            parse={_.identity} // to keep empty value
           />
 
           <button
