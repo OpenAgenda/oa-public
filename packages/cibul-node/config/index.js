@@ -582,54 +582,6 @@ const config = {
           method: 'get',
           uri: '/:slug/locations/:locationUid'
         },
-        agendaSettingsCreateApp: {
-          method: 'get',
-          uri: '/new'
-        },
-        agendaSettingsEditSub: {
-          method: 'get',
-          uri: '/:slug/admin/settings(/*?)?'
-        },
-        agendaSettingsCreateAgenda: {
-          method: 'post',
-          uri: '/new'
-        },
-        agendaSettingsSlugAvailable: {
-          method: 'post',
-          uri: '/agendas/slugs/available'
-        },
-        agendaSettingsGetAgenda: {
-          method: 'get',
-          uri: '/agendas/:uid/admin/settings.json'
-        },
-        agendaSettingsEditAgenda: {
-          method: 'post',
-          uri: '/:slug/admin/settings/edit'
-        },
-        agendaSettingsRemoveAgenda: {
-          method: 'post',
-          uri: '/:slug/admin/settings/remove'
-        },
-        agendaSettingsKeysCreate: {
-          method: 'post',
-          uri: '/:slug/admin/settings/keys/create'
-        },
-        agendaSettingsKeysGet: {
-          method: 'get',
-          uri: '/:slug/admin/settings/keys/get'
-        },
-        agendaSettingsKeysList: {
-          method: 'get',
-          uri: '/:slug/admin/settings/keys/list'
-        },
-        agendaSettingsKeysUpdate: {
-          method: 'patch',
-          uri: '/:slug/admin/settings/keys/update'
-        },
-        agendaSettingsKeysRemove: {
-          method: 'delete',
-          uri: '/:slug/admin/settings/keys/remove'
-        },
         agendaAdminMembers: {
           method: 'get',
           uri: '/:slug/admin/members'
