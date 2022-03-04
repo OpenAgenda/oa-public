@@ -1,10 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Form, Field } from 'react-final-form';
+import { useDispatch } from 'react-redux';
 import I18nContext from '../contexts/I18nContext';
-import { Spinner } from '@openagenda/react-shared';
+import { Spinner, useLayoutData } from '@openagenda/react-shared';
+import * as agendaActions from '../reducers/agenda';
+import catchFormErrors from '../utils/catchFormErrors';
 
-export default function LabSettingsForm({ agenda, onSubmit }) {
+export default function LabSettingsForm() {
+  const { agenda } = useLayoutData();
   const { getLabel } = useContext(I18nContext);
+
+  const dispatch = useDispatch();
+
+  const onSubmit = useCallback(
+    (data, form) => dispatch(agendaActions.edit({ settings: { lab: data } }))
+      .then(result => form.reset(result.data.agenda.settings.lab))
+      .catch(error => catchFormErrors(error, 'settings.lab')),
+    [dispatch]
+  );
 
   return (
     <Form

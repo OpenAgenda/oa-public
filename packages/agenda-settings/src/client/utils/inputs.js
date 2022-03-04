@@ -9,19 +9,20 @@ export function BaseField({
 }) {
   const { getLabel } = useContext(I18nContext);
   const errorDisplayed = displayError ? displayError(meta) : touched && invalid;
+  const errorCode = error || submitError;
 
   return (
     <div
       className={classNames({
         'form-group': type !== 'hidden' || !formGroupClass,
-        'has-error has-feedback': errorDisplayed && error
+        'has-error has-feedback': errorDisplayed && errorCode
       })}
     >
       {label && <label htmlFor={name}>{label}</label>}
       {subLabel}
       {children}
-      {errorDisplayed && (error || submitError) && <div className={`text-danger ${max && 'pull-left' || ''}`}>
-        {getLabel(error || submitError)}
+      {errorDisplayed && errorCode && <div className={`text-danger ${max && 'pull-left' || ''}`}>
+        {getLabel(errorCode) || errorCode}
       </div>}
       {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>
         {max - value.length}

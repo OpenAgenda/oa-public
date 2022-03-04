@@ -1,15 +1,27 @@
+import _ from 'lodash';
 import { FORM_ERROR } from 'final-form';
 
-export default function catchFormErrors(error) {
-  if (error.response?.data?.errors) {
-    return error.response.data.errors.reduce((accu, next) => {
-      accu[next.field] = next.code;
-      return accu;
-    }, {});
+export default function catchFormErrors(error, key) {
+  if (!error?.response?.data) {
+    throw error;
   }
 
-  if (error.response?.data?.error?.message) {
-    return { [FORM_ERROR]: error.response.data.error.message };
+  const { data } = error.response;
+  const info = data.info || data;
+
+  if (info?.errors) {
+    const formErrors = info.errors.reduce((accu, next) => {
+      _.set(accu, next.field, next.code);
+      return accu;
+    }, {});
+
+    console.log(key ? _.get(formErrors, key) : formErrors);
+
+    return key ? _.get(formErrors, key) : formErrors;
+  }
+
+  if (data.message || data.error?.message) {
+    return { [FORM_ERROR]: data.message || data.error.message };
   }
 
   throw error;

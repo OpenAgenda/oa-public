@@ -1,11 +1,14 @@
 import _ from 'lodash';
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
 import { email as emailValidator } from '@openagenda/validators';
 import I18nContext from '../contexts/I18nContext';
 import { BasicInput } from '../utils/inputs';
+import * as agendaActions from '../reducers/agenda';
+import catchFormErrors from '../utils/catchFormErrors';
 
 const isEmail = emailValidator();
 
@@ -31,16 +34,28 @@ function validate(values) {
   return errors;
 }
 
-export default function InboxSettingsForm({ onSubmit }) {
-  const { agenda } = useLayoutData();
-
-  const { getLabel } = useContext(I18nContext);
-
-  const [initialValues] = useState(() => ({
+function getFormValues(agenda) {
+  return {
     enabled: _.get(agenda, 'settings.inbox.mailto.enabled', false),
     email: _.get(agenda, 'settings.inbox.mailto.email', null),
     subject: _.get(agenda, 'settings.inbox.mailto.subject', null)
-  }));
+  };
+}
+
+export default function InboxSettingsForm() {
+  const { agenda } = useLayoutData();
+  const { getLabel } = useContext(I18nContext);
+
+  const dispatch = useDispatch();
+
+  const [initialValues] = useState(() => getFormValues(agenda));
+
+  const onSubmit = useCallback(
+    (data, form) => dispatch(agendaActions.edit({ settings: { inbox: { mailto: data } } }))
+      .then(result => form.reset(getFormValues(result.data.agenda)))
+      .catch(error => catchFormErrors(error, 'settings.inbox.mailto')),
+    [dispatch]
+  );
 
   return (
     <Form
@@ -48,7 +63,7 @@ export default function InboxSettingsForm({ onSubmit }) {
       validate={validate}
       onSubmit={onSubmit}
     >
-      {({ handleSubmit, pristine, invalid }) => (
+      {({ handleSubmit, pristine, hasValidationError }) => (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <div className="checkbox">
@@ -84,8 +99,8 @@ export default function InboxSettingsForm({ onSubmit }) {
 
           <button
             type="submit"
-            className={cn('btn btn-primary', { disabled: pristine || invalid })}
-            disabled={pristine || invalid ? true : undefined}
+            className={cn('btn btn-primary', { disabled: pristine || hasValidationError })}
+            disabled={pristine || hasValidationError ? true : undefined}
           >
             {getLabel('update')}
           </button>

@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
@@ -7,6 +6,7 @@ import { useLayoutData } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import { MarkdownInput } from '../../utils/inputs';
 import * as agendaActions from '../../reducers/agenda';
+import catchFormErrors from '../../utils/catchFormErrors';
 
 function getError(form, fieldname) {
   const fieldState = form.getFieldState(fieldname);
@@ -43,22 +43,21 @@ export default function ContributionEdition() {
   const { getLabel, lang } = useContext(I18nContext);
   const dispatch = useDispatch();
 
-  const [initialValues] = useState(() => agenda.settings.contribution);
+  const initialValues = useMemo(() => agenda.settings.contribution, [agenda.settings.contribution]);
   const [hasInstructions, setHasInstructions] = useState(() => initialValues?.messages?.instructions ?? false);
   const [hasComplete, setHasComplete] = useState(() => initialValues?.messages?.complete ?? false);
   const [hasPublication, setHasPublication] = useState(() => initialValues?.messages?.publication ?? false);
 
-  const onSubmit = useCallback(values => dispatch(agendaActions.edit({
-    settings: {
-      contribution: _.defaultsDeep({
-        messages: {
-          instructions: null,
-          complete: null,
-          publication: null
-        }
-      }, values)
-    }
-  })), [dispatch]);
+  const onSubmit = useCallback(
+    (values, form) => dispatch(agendaActions.edit({
+      settings: {
+        contribution: values
+      }
+    }))
+      .then(result => form.reset(result.data.agenda))
+      .catch(error => catchFormErrors(error, 'settings.contribution')),
+    [dispatch]
+  );
 
   return (
     <div className="contribution">
@@ -80,7 +79,7 @@ export default function ContributionEdition() {
                         name="type"
                         component="input"
                         type="radio"
-                        value="2"
+                        value="1"
                         format={v => v == null ? '' : v.toString()}
                         parse={value => value === undefined ? undefined : parseInt(value)}
                       />
@@ -101,7 +100,7 @@ export default function ContributionEdition() {
                         name="type"
                         component="input"
                         type="radio"
-                        value="1"
+                        value="2"
                         format={v => v == null ? '' : v.toString()}
                         parse={value => value === undefined ? undefined : parseInt(value)}
                       />

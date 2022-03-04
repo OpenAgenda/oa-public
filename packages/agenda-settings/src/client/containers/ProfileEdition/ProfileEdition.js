@@ -1,6 +1,7 @@
 import React, { useContext, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
+import { useHistory, useLocation } from 'react-router';
 import { ImageInput, Modal, useLayoutData } from '@openagenda/react-shared';
 import { edit } from '../../reducers/agenda';
 import * as agendaActions from '../../reducers/agenda';
@@ -11,11 +12,6 @@ import I18nContext from '../../contexts/I18nContext';
 import catchFormErrors from '../../utils/catchFormErrors';
 
 const MAX_SIZE = 1024 * 1024 * 20; // 20MB
-
-// TODO si le slug change au submit, déplacer à la bonne page
-// if (this.props.agenda.slug !== prevProps.agenda.slug) {
-//   window.location.replace(window.location.pathname.replace(prevProps.agenda.slug, this.props.agenda.slug));
-// }
 
 function SubmitButton() {
   const { getLabel } = useContext(I18nContext);
@@ -29,7 +25,7 @@ function SubmitButton() {
     return <button type="submit" className="btn btn-primary" disabled>{getLabel('saving')}</button>;
   } else {
     return (
-      <button type="submit" className="btn btn-primary" disable={dirty && !hasValidationError ? undefined : true}>
+      <button type="submit" className="btn btn-primary" disabled={dirty && !hasValidationError ? undefined : true}>
         {getLabel('saveModifications')}
       </button>
     );
@@ -38,6 +34,8 @@ function SubmitButton() {
 
 export default function ProfileEdition() {
   const { agenda: { title, description, url, slug, image } } = useLayoutData();
+  const history = useHistory();
+  const location = useLocation();
 
   const { getLabel, lang } = useContext(I18nContext);
 
@@ -54,12 +52,21 @@ export default function ProfileEdition() {
     [title, description, url, slug, image]
   );
 
-  const onSubmit = useCallback(values => dispatch(edit(values)).then(() => {
-    if (values.slug !== slug) {
-      console.log('SLUG changed');
-      // window.location.replace(window.location.pathname.replace(prevProps.agenda.slug, this.props.agenda.slug));
-    }
-  }).catch(catchFormErrors), [dispatch]);
+  const onSubmit = useCallback(
+    (values, form) => dispatch(edit(values))
+      .then(result => {
+        const newSlug = result.data.agenda.slug;
+
+        if (newSlug !== slug) {
+          history.push(location.pathname.replace(slug, newSlug));
+          return;
+        }
+
+        form.reset(result.data.agenda);
+      })
+      .catch(catchFormErrors),
+    [dispatch, history, location]
+  );
 
   return (
     <div className="profile">

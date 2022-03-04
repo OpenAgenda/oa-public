@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import classNames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Modal, useLayoutData } from '@openagenda/react-shared';
 import {
   KeysManager,
@@ -8,11 +8,9 @@ import {
   TrackingSettingsForm,
   LabSettingsForm
 } from '../../components';
-import * as  agendaActions from '../../reducers/agenda';
 import * as  modalsActions from '../../reducers/modals';
 import * as  keysActions from '../../reducers/keys';
 import I18nContext from '../../contexts/I18nContext';
-import { FORM_ERROR } from 'final-form';
 
 const docRes = {
   official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',
@@ -60,16 +58,10 @@ export default function AdvancedEdition() {
 
   const { getLabel } = useContext(I18nContext);
 
-  const dispatch = useDispatch();
 
   const removeModal = useSelector(state => (state.modals['removeKey'] || {}));
 
   const [activeTab, setActiveTab] = useState(null);
-
-  const editAgenda = useCallback(
-    data => dispatch(agendaActions.edit(data)).then(() => null).catch(catchFormErrors),
-    [dispatch]
-  );
 
   return (
     <div className="advanced">
@@ -182,12 +174,7 @@ export default function AdvancedEdition() {
             tabName="inbox"
             description={<b>{getLabel('inbox')}</b>}
             closedComponent={getLabel('inboxTabDescription')}
-            openedComponent={(
-              <InboxSettingsForm
-                agenda={agenda}
-                onSubmit={data => editAgenda({ settings: { inbox: { mailto: data } } })}
-              />
-            )}
+            openedComponent={<InboxSettingsForm />}
           />
 
           <TableRow
@@ -196,12 +183,7 @@ export default function AdvancedEdition() {
             tabName="analytics"
             description={<b>{getLabel('stats')}</b>}
             closedComponent={getLabel('statsTabDescription')}
-            openedComponent={(
-              <TrackingSettingsForm
-                agenda={agenda}
-                onSubmit={data => editAgenda({ settings: { tracking: data } })}
-              />
-            )}
+            openedComponent={<TrackingSettingsForm />}
           />
 
           <TableRow
@@ -210,12 +192,7 @@ export default function AdvancedEdition() {
             tabName="lab"
             description={<b>{getLabel('lab')}</b>}
             closedComponent={getLabel('labTabDescription')}
-            openedComponent={(
-              <LabSettingsForm
-                agenda={agenda}
-                onSubmit={data => editAgenda({ settings: { lab: data } })}
-              />
-            )}
+            openedComponent={<LabSettingsForm />}
           />
           </tbody>
         </table>
