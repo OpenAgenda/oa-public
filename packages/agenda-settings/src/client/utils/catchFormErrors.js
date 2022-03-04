@@ -15,8 +15,6 @@ export default function catchFormErrors(error, key) {
       return accu;
     }, {});
 
-    console.log(key ? _.get(formErrors, key) : formErrors);
-
     return key ? _.get(formErrors, key) : formErrors;
   }
 
