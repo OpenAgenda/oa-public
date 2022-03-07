@@ -3,6 +3,7 @@
 const { promisify } = require('util');
 const _ = require('lodash');
 
+const { BadRequest } = require('@openagenda/verror');
 const log = require('@openagenda/logs')('core/agendas/update');
 
 const agendaSettings = require('./settings');
@@ -21,8 +22,11 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
 
   const {
     success,
+    errors,
     agenda
   } = await setAgenda({ uid: agendaUid }, data, options);
+
+  if (errors?.length) throw new BadRequest({ info: { errors } }, 'invalid data');
 
   if (!success) throw new Error('could not update agenda');
 

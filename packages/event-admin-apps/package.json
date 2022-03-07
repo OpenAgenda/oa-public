@@ -57,8 +57,7 @@
     "react-use": "^15.3.4",
     "react-waypoint": "^9.0.2",
     "redial": "^0.5.0",
-    "regenerator-runtime": "^0.13.7",
-    "use-debounce": "^5.0.3"
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",

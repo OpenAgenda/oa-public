@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useQuery } from 'react-query';
+import { useIntl } from 'react-intl';
 import { css } from '@emotion/react';
 import {
   getEvents,
@@ -8,21 +9,28 @@ import {
   Filters,
   ChoiceFilter,
   MapFilter,
+  useGetFilterOptions,
+  useGetTotal,
+  useLoadGeoData,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
-import useFilterOptions from '../hooks/useFilterOptions';
 
 function FiltersPart({
-  agenda, filters, query, page, loadGeoData
+  agenda, filters, query, page
 }) {
   const apiClient = useApiClient();
+  const intl = useIntl();
   const res = useSelector(state => state.res);
+
+  const geoRes = useMemo(
+    () => res.jsonExport.replace(':slug', agenda.slug).replace(':uid', agenda.uid),
+    [agenda.slug, agenda.uid]
+  );
 
   const filtersQuery = useQuery(
     ['event-admin-apps', 'filtersBase', agenda.slug],
     () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
     {
-      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
     }
   );
@@ -42,7 +50,6 @@ function FiltersPart({
       page
     ),
     {
-      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
       keepPreviousData: true, // because query and page change
     }
@@ -51,29 +58,10 @@ function FiltersPart({
   const { aggregations: filterAggs } = filtersQuery.data;
   const { aggregations } = data;
 
-  const getTotal = useCallback(
-    (filter, option) => {
-      const aggregation = aggregations[filter.name];
+  const getOptions = useGetFilterOptions(intl, filterAggs, aggregations);
+  const getTotal = useGetTotal(aggregations);
+  const loadGeoData = useLoadGeoData(apiClient, geoRes, query);
 
-      if (!aggregation) return null;
-
-      const dataKey = 'id' in option ? 'id' : 'key';
-      const optionKey = 'id' in option ? 'id' : 'value';
-
-      const optionValue = aggregation.find(
-        v => v[dataKey] === option[optionKey]
-      );
-
-      if (optionValue) {
-        return optionValue.eventCount || 0;
-      }
-
-      return 0;
-    },
-    [aggregations]
-  );
-
-  const getOptions = useFilterOptions(filterAggs);
   const [initialViewport] = useState(() => aggregations.viewport);
 
   const mapProps = useMemo(() => ({ query }), [query]);

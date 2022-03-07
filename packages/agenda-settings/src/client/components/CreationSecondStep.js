@@ -35,7 +35,7 @@ export default function CreationSecondStep({
               name="settings.contribution.type"
               component="input"
               type="radio"
-              value="2"
+              value="1"
               format={v => v == null ? '' : v.toString()}
               parse={value => value === undefined ? undefined : parseInt(value)}
             />
@@ -56,7 +56,7 @@ export default function CreationSecondStep({
               name="settings.contribution.type"
               component="input"
               type="radio"
-              value="1"
+              value="2"
               format={v => v == null ? '' : v.toString()}
               parse={value => value === undefined ? undefined : parseInt(value)}
             />

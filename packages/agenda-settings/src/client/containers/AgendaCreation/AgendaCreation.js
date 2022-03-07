@@ -83,7 +83,7 @@ export default function AgendaCreation() {
 
       history.push(res.onCreated.replace(':slug', result.data.agenda.slug));
     } catch (e) {
-      catchFormErrors(e);
+      return catchFormErrors(e);
     }
   }, [page, nextPage, dispatch, res, history]);
 

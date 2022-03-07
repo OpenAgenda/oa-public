@@ -423,6 +423,18 @@
       "value": "crwdns594:0crwdne594:0"
     }
   ],
+  "aggregator-sources.DefineRules.brokenFilter": [
+    {
+      "type": 0,
+      "value": "Invalid filter"
+    }
+  ],
+  "aggregator-sources.DefineRules.brokenFilterInfo": [
+    {
+      "type": 0,
+      "value": "this filter refers to a field that cannot be found. It may have been deleted from the source agenda!"
+    }
+  ],
   "aggregator-sources.DefineRules.cancel": [
     {
       "type": 0,
@@ -1108,7 +1120,7 @@
   "aggregator-sources.RuleForm.textFilterCaseSensitive": [
     {
       "type": 0,
-      "value": "The filter is case sensitive"
+      "value": "The filter is case-sensitive"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [

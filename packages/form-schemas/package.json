@@ -9,6 +9,7 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/form-schemas",
   "scripts": {
+    "stories": "start-storybook -p 9001 --ci",
     "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false",
     "prepack": "yarn build",
     "start": "nodemon server.dev",
@@ -60,6 +61,7 @@
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",
+    "@storybook/react": "^6.4.9",
     "babel-loader": "^8.2.2",
     "express": "^4.17.1",
     "jest": "^26.1.0",

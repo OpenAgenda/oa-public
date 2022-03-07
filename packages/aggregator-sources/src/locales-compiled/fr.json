@@ -458,6 +458,18 @@
       "value": "Les assignations de valeurs sont faites par correspondance d'étiquette en partant du champ du même nom sur l'agenda source"
     }
   ],
+  "aggregator-sources.DefineRules.brokenFilter": [
+    {
+      "type": 0,
+      "value": "Filtre invalide"
+    }
+  ],
+  "aggregator-sources.DefineRules.brokenFilterInfo": [
+    {
+      "type": 0,
+      "value": "ce filtre fait référence à un champ qui est introuvable. Il a peut-être été supprimé de l'agenda source"
+    }
+  ],
   "aggregator-sources.DefineRules.cancel": [
     {
       "type": 0,
