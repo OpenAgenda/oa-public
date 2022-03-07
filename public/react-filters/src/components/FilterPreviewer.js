@@ -3,6 +3,7 @@ import { useFilterTitle } from '../hooks';
 import ValueBadge from './ValueBadge';
 
 export default function FilterPreviewer({
+  withTitle = true,
   name,
   filter,
   label,
@@ -18,11 +19,12 @@ export default function FilterPreviewer({
     return (
       <>
         {valueOptions.map(option => (
-          <span key={option.value} className={className} title={title}>
+          <span key={option.value} className={className}>
             <ValueBadge
               label={option.label}
               onRemove={onRemove(option)}
               disabled={disabled}
+              title={withTitle ? title : null}
             />
           </span>
         ))}
@@ -33,8 +35,13 @@ export default function FilterPreviewer({
   // single
   if (label) {
     return (
-      <span className={className} title={title}>
-        <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
+      <span className={className}>
+        <ValueBadge
+          label={label}
+          onRemove={onRemove}
+          disabled={disabled}
+          title={withTitle ? title : null}
+        />
       </span>
     );
   }

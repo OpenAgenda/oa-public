@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import LoadableMapField from '../fields/LoadableMapField';
+import Title from '../Title';
 import Panel from '../Panel';
-import useFilterTitle from '../../hooks/useFilterTitle';
 import FilterPreviewer from '../FilterPreviewer';
 
 const subscription = { value: true };
@@ -52,28 +52,6 @@ function Preview({
   });
 }
 
-function Title({ name, filter, disabled }) {
-  const title = useFilterTitle(name, filter.fieldSchema);
-  const { input } = useField(name, { subscription });
-
-  if (!input.value || input.value === '') {
-    return <div>{title}</div>;
-  }
-
-  return (
-    <div className="flex-auto">
-      {title}
-      <Preview
-        name={name}
-        filter={filter}
-        title={title}
-        disabled={disabled}
-        className="oa-filter-value-preview"
-      />
-    </div>
-  );
-}
-
 function MapFilter({
   name,
   filter,
@@ -118,6 +96,7 @@ const Collapsable = React.forwardRef(function Collapsable(
         <Title
           name={name}
           filter={filter}
+          component={Preview}
           disabled={disabled}
         />
       )}

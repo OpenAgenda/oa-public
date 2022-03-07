@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import qs from 'qs';
 import React, {
-  useCallback, useEffect,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useState
@@ -11,10 +11,10 @@ import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { useQuery } from 'react-query';
 import { Portal } from '@openagenda/react-portal-ssr';
-import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
 import { getEvents } from '../api';
 import { withDefaultFilterConfig, filtersToAggregations, getWidgets } from '../utils';
+import { useGetFilterOptions, useGetTotal, useLoadGeoData } from '../hooks';
 import Filters from './Filters';
 import ActiveFilters from './ActiveFilters';
 import FavoriteToggle from './FavoriteToggle';
@@ -33,6 +33,8 @@ export default React.forwardRef(function FiltersManager({
   aggregations: initialAggregations = {},
   query: initialQuery = {},
   total: initialTotal = 0,
+  missingValue = false,
+  mapTiles,
   defaultViewport,
   res,
   filtersBase: initialFiltersBase,
@@ -55,8 +57,8 @@ export default React.forwardRef(function FiltersManager({
   const widgetSeed = useUIDSeed();
 
   const filters = useMemo(
-    () => rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl)),
-    [rawFilters, intl]
+    () => rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl, { missingValue, mapTiles })),
+    [rawFilters, intl, missingValue, mapTiles]
   );
   const [widgets, setWidgets] = useState(() => initialWidgets);
 
@@ -89,91 +91,9 @@ export default React.forwardRef(function FiltersManager({
     }
   );
 
-  const getOptions = useCallback(
-    filter => {
-      if (filter.options) return filter.options;
-
-      if (!filtersBaseQuery.data?.[filter.name]) return [];
-
-      const baseAgg = [...filtersBaseQuery.data[filter.name]];
-
-      const aggregation = aggregations[filter.name];
-
-      if (aggregation) {
-        aggregation.forEach(entry => {
-          const dataKey = 'id' in entry ? 'id' : 'key';
-          const found = baseAgg.find(v => v[dataKey] === entry[dataKey]);
-          if (!found) baseAgg.push(entry);
-        });
-      }
-
-      const labelKey = filter.labelKey || 'key';
-
-      return baseAgg.map(entry => {
-        const dataKey = 'id' in entry ? 'id' : 'key';
-
-        return {
-          ...entry,
-          label: getLocaleValue(_.get(entry, labelKey)),
-          value: entry[dataKey]
-        };
-      });
-    },
-    [aggregations, filtersBaseQuery.data]
-  );
-
-  const getTotal = useCallback(
-    (filter, option) => {
-      const aggregation = aggregations[filter.name];
-
-      if (!aggregation) return null;
-
-      const dataKey = 'id' in option ? 'id' : 'key';
-      const optionKey = 'id' in option ? 'id' : 'value';
-
-      const optionValue = aggregation.find(v => String(v[dataKey]) === String(option[optionKey]));
-
-      if (optionValue) {
-        return optionValue.eventCount || 0;
-      }
-
-      return 0;
-    },
-    [aggregations]
-  );
-
-  const loadGeoData = useCallback(
-    async (filter, bounds, zoom) => {
-      const northEast = bounds.getNorthEast().wrap();
-      const southWest = bounds.getSouthWest().wrap();
-
-      const params = {
-        // oaq: { passed: 1 },
-        size: 0,
-        ...query,
-        aggregations: [
-          {
-            type: 'geohash',
-            size: 2000,
-            zoom: Math.max(zoom, 1),
-            radius: zoom === 0 ? 80 : 40
-          },
-        ],
-        geo: {
-          northEast,
-          southWest,
-        },
-      };
-
-      const result = (await axios.get(res, {
-        params,
-        paramsSerializer: p => qs.stringify(p, { skipNulls: true })
-      })).data;
-
-      return result.aggregations.geohash;
-    },
-    [axios, query, res]
-  );
+  const getOptions = useGetFilterOptions(intl, filtersBaseQuery.data, aggregations);
+  const getTotal = useGetTotal(aggregations);
+  const loadGeoData = useLoadGeoData(axios, res, query);
 
   useImperativeHandle(ref, () => ({
     getFilters: () => filters,
@@ -273,6 +193,7 @@ export default React.forwardRef(function FiltersManager({
         loadGeoData={loadGeoData}
         query={query}
         agendaUid={agendaUid}
+        missingValue={missingValue}
         // filters
         choiceComponent={choiceComponent}
         dateRangeComponent={dateRangeComponent}
