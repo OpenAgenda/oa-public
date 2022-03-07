@@ -121,3 +121,40 @@ EditMany.decorators = [
   ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
   IntlDecorator,
 ];
+
+const brokenRules = [
+  {
+    id: 1,
+    query: {
+      'category-group': [29],
+    },
+    actions: [
+      {
+        field: 'types-devenement',
+        values: [10],
+        automatic: false,
+      },
+    ],
+    required: false,
+  },
+];
+
+export const EditBroken = () => (
+  <DefineRules
+    displayInfo={false}
+    aggregator={aggregator}
+    aggregatorAgenda={aggregatorAgenda}
+    aggregatorAgendaSchema={aggregatorAgendaSchema}
+    sourceAgenda={sourceAgenda}
+    sourceSchema={sourceAgendaSchema}
+    initialRules={brokenRules}
+    onSubmit={() => {}}
+    onCancel={() => {}}
+  />
+);
+EditBroken.storyName = 'Edit/Broken rule list';
+EditBroken.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
+  IntlDecorator,
+];

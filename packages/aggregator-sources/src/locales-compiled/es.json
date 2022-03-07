@@ -451,7 +451,19 @@
   "aggregator-sources.DefineRules.automaticDetail": [
     {
       "type": 0,
-      "value": "Value assocation is made based on labels of the field of the same name in the source agenda"
+      "value": "Value association is made based on labels of the field of the same name in the source agenda"
+    }
+  ],
+  "aggregator-sources.DefineRules.brokenFilter": [
+    {
+      "type": 0,
+      "value": "Invalid filter"
+    }
+  ],
+  "aggregator-sources.DefineRules.brokenFilterInfo": [
+    {
+      "type": 0,
+      "value": "this filter refers to a field that cannot be found. It may have been deleted from the source agenda!"
     }
   ],
   "aggregator-sources.DefineRules.cancel": [
@@ -839,7 +851,7 @@
     },
     {
       "type": 0,
-      "value": "\" "
+      "value": "\""
     }
   ],
   "aggregator-sources.DefineRules.toModerate": [
@@ -1218,7 +1230,7 @@
   "aggregator-sources.RuleForm.textFilterCaseSensitive": [
     {
       "type": 0,
-      "value": "The filter is case sensitive"
+      "value": "The filter is case-sensitive"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [
@@ -1414,7 +1426,7 @@
   "aggregator-sources.utils.stateMessages.stateToControl": [
     {
       "type": 0,
-      "value": "To moderate"
+      "value": "To control"
     }
   ]
 }

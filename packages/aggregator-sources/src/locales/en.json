@@ -51,6 +51,8 @@
   "aggregator-sources.DefineRules.allEvents": "All events",
   "aggregator-sources.DefineRules.automatic": "Auto",
   "aggregator-sources.DefineRules.automaticDetail": "Value association is made based on labels of the field of the same name in the source agenda",
+  "aggregator-sources.DefineRules.brokenFilter": "Invalid filter",
+  "aggregator-sources.DefineRules.brokenFilterInfo": "this filter refers to a field that cannot be found. It may have been deleted from the source agenda!",
   "aggregator-sources.DefineRules.cancel": "Cancel",
   "aggregator-sources.DefineRules.caseInsensitive": "case-insensitive",
   "aggregator-sources.DefineRules.caseSensitive": "case-sensitive",

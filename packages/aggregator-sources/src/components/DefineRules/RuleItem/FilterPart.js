@@ -6,13 +6,14 @@ export default ({
   rule, intl, sourceAgendaSchema, sourceAgenda
 }) => {
   const {
-    label, value, detail, casse
+    label, value, detail, casse, broken
   } = extract({
     intl,
     rule,
     sourceAgendaSchema,
     sourceAgenda,
   });
+  const labelClass = `margin-right-xs ${broken ? 'text-danger' : ''}`;
   return (
     <div className="padding-v-xs">
       <span
@@ -27,7 +28,7 @@ export default ({
       </span>
       <div className="padding-left-md">
         <div className="padding-left-xs" title={detail}>
-          <label className="margin-right-xs" htmlFor={rule.id}>
+          <label className={labelClass} htmlFor={rule.id}>
             {label}:
           </label>
           {value}

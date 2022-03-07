@@ -64,6 +64,14 @@ const choiceFilter = ({
   const filterFieldName = getFilterField(rule);
   const allFields = sourceAgendaSchema.fields.concat(attendanceModeField);
   const field = pickFieldInFields(allFields, filterFieldName);
+  if (!field) {
+    return {
+      label: intl.formatMessage(messages.brokenFilter),
+      value: intl.formatMessage(messages.brokenFilterInfo),
+      detail: JSON.stringify(rule),
+      broken: true,
+    };
+  }
   return {
     label: getLocalValue(field.label),
     value: field.options
@@ -115,7 +123,6 @@ export default ({
   intl, sourceAgenda, sourceAgendaSchema, rule
 }) => {
   const type = getFilterType(rule);
-
   switch (type) {
     case 'location':
       return locationFilter({ intl, rule });
