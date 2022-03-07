@@ -8057,9 +8057,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/simple-cache@workspace:packages/simple-cache"
   dependencies:
-    mocha: ^7.0.1
+    "@openagenda/logs": ^1.1.9
+    jest: ^26.4.2
     redis: ^2.7.1
-    should: ^13.2.3
   languageName: unknown
   linkType: soft
 
