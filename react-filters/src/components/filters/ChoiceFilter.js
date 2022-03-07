@@ -8,8 +8,8 @@ import { useIsomorphicLayoutEffect, usePrevious } from 'react-use';
 import { defineMessages, useIntl } from 'react-intl';
 import { css } from '@emotion/react';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
-import useFilterTitle from '../../hooks/useFilterTitle';
 import ChoiceField from '../fields/ChoiceField';
+import Title from '../Title';
 import Panel from '../Panel';
 import FilterPreviewer from '../FilterPreviewer';
 
@@ -116,33 +116,6 @@ function Preview({
     disabled,
     ...rest,
   });
-}
-
-function Title({
-  name, filter, getOptions, disabled
-}) {
-  const title = useFilterTitle(name, filter.fieldSchema);
-  const field = useField(name, { subscription });
-
-  const { input } = field;
-
-  if (!input.value?.length) {
-    return <div>{title}</div>;
-  }
-
-  return (
-    <div className="flex-auto">
-      {title}
-      <Preview
-        name={name}
-        filter={filter}
-        title={title}
-        getOptions={getOptions}
-        disabled={disabled}
-        className="oa-filter-value-preview"
-      />
-    </div>
-  );
 }
 
 const ChoiceFilter = React.forwardRef(function ChoiceFilter({
@@ -306,6 +279,7 @@ const Collapsable = React.forwardRef(function Collapsable(
         <Title
           name={name}
           filter={filter}
+          component={Preview}
           getOptions={getOptions}
           disabled={disabled}
         />

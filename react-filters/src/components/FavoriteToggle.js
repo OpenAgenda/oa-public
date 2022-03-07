@@ -4,7 +4,7 @@ import { useLatest } from 'react-use';
 import { useForm } from 'react-final-form';
 import updateCustomFilter from '../utils/updateCustomFilter';
 import updateFormValues from '../utils/updateFormValues';
-import useFavoriteState from './hooks/useFavoriteState';
+import { useFavoriteState } from '../hooks';
 
 export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
   const form = useForm();

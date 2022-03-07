@@ -2,8 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { parseISO, endOfDay, isSameDay } from 'date-fns';
-import useFilterTitle from '../../hooks/useFilterTitle';
 import DateRangePicker from '../fields/DateRangePicker';
+import Title from '../Title';
 import Panel from '../Panel';
 import FilterPreviewer from '../FilterPreviewer';
 
@@ -155,31 +155,6 @@ function Preview({
   });
 }
 
-function Title({
-  name, filter, staticRanges, disabled
-}) {
-  const title = useFilterTitle(name, filter.fieldSchema);
-  const { input } = useField(name, { subscription });
-
-  if (!input.value || input.value === '') {
-    return <div>{title}</div>;
-  }
-
-  return (
-    <div className="flex-auto">
-      {title}
-      <Preview
-        name={name}
-        filter={filter}
-        title={title}
-        staticRanges={staticRanges}
-        disabled={disabled}
-        className="oa-filter-value-preview"
-      />
-    </div>
-  );
-}
-
 const DateRangeFilter = React.forwardRef(function DateRangeFilter(
   {
     name,
@@ -230,6 +205,7 @@ const Collapsable = React.forwardRef(function Collapsable(
         <Title
           name={name}
           filter={filter}
+          component={Preview}
           staticRanges={staticRanges}
           disabled={disabled}
         />
