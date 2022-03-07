@@ -18,6 +18,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',

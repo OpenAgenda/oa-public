@@ -20,6 +20,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'queues',
         'files',
         'events',
@@ -43,6 +44,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     core = Core(services, testConfig);
 
     await core.agendas(92983929).events.search.rebuild();
+    await services.simpleCache.clearAll();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

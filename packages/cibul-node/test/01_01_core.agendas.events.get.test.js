@@ -16,6 +16,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'queues',
         'files',
         'events',

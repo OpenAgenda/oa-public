@@ -16,6 +16,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',

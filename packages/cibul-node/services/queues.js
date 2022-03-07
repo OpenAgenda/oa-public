@@ -18,7 +18,9 @@ module.exports = Object.assign( name => {
 }, { init } );
 
 function init( config ) {
+  const logger = config.getLogConfig('svc', 'queues');
   queues = Queues( {
+    logger,
     redis: config.redisClient || redis.createClient( config.port, config.host ),
     prefix: 'q:'
   } );

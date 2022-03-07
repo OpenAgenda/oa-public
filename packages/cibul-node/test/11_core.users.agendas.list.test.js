@@ -20,6 +20,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',
@@ -42,6 +43,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
 
     core = Core(services, testConfig);
 
+    await services.simpleCache.clearAll();
     await core.agendas.rebuildIndex();
   });
 

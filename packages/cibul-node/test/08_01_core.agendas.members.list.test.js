@@ -19,6 +19,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',

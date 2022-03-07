@@ -24,6 +24,7 @@ describe('14 - core - functional(server): api get accessToken', function() {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',

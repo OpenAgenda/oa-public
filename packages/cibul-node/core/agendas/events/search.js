@@ -14,7 +14,8 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
     includeMember: true,
     includeAgendaEvent: true,
     access: 'internal',
-    private: null
+    private: null,
+    useCache: true
   });
 
   if (!agenda) {

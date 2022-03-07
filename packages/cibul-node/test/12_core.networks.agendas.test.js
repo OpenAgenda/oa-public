@@ -17,6 +17,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',

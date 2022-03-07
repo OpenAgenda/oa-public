@@ -16,6 +16,7 @@ describe('10 - core - functional (server): core.users().get()', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',

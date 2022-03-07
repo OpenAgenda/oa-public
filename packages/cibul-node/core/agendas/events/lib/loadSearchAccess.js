@@ -4,7 +4,8 @@ const log = require('@openagenda/logs')('core/agendas/events/loadSearchAccess');
 
 module.exports = async (core, agendaUid, options) => {
   const {
-    members
+    members,
+    simpleCache
   } = core.services;
 
   const {
@@ -16,16 +17,29 @@ module.exports = async (core, agendaUid, options) => {
     return options.access;
   }
 
+  if (!options.userUid) {
+    return null;
+  }
+
+  const cached = await simpleCache.hash('members', `${agendaUid}.${options.userUid}`).get('role');
+
+  if (cached) {
+    return cached;
+  }
+
   const member = options.userUid ? await members.get({
     agendaUid,
     userUid: options.userUid
   }) : null;
 
+  let role = 'public';
+
   if (member) {
-    const role = getRoleSlug(member.role);
+    role = getRoleSlug(member.role);
     log('member is loaded, using role as access', role);
-    return role;
   }
 
-  return 'public';
+  simpleCache.hash('members', `${agendaUid}.${options.userUid}`).set('role', role);
+
+  return role;
 };

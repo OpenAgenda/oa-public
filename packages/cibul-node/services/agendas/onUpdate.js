@@ -3,6 +3,8 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
 
+const resetCache = require('./lib/resetCache');
+
 module.exports = async (services, before, after, context) => {
   const {
     activities,
@@ -33,6 +35,8 @@ module.exports = async (services, before, after, context) => {
   )) {
     updateType = 'profile';
   }
+
+  await resetCache(services, after);
 
   if (!activities) {
     return;
