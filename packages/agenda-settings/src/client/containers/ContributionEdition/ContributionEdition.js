@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
@@ -7,6 +7,7 @@ import { useLayoutData } from '@openagenda/react-shared';
 import I18nContext from '../../contexts/I18nContext';
 import { MarkdownInput } from '../../utils/inputs';
 import * as agendaActions from '../../reducers/agenda';
+import catchFormErrors from '../../utils/catchFormErrors';
 
 function getError(form, fieldname) {
   const fieldState = form.getFieldState(fieldname);
@@ -15,13 +16,21 @@ function getError(form, fieldname) {
   return fieldState?.touched && errors?.[fieldname];
 }
 
-function SubmitButton() {
+function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
   const { getLabel } = useContext(I18nContext);
   const form = useForm();
 
-  const { dirty, submitting, submitSucceeded, hasValidationErrors } = form.getState();
+  const { dirty, submitting, submitSucceeded, hasValidationErrors, initialValues } = form.getState();
 
-  if (!dirty && submitSucceeded) {
+  const messageUnchecked = (
+    (!!initialValues.messages?.instructions?.length && !hasInstructions)
+    || (!!initialValues.messages?.complete?.length && !hasComplete)
+    || (!!initialValues.messages?.publication?.length && !hasPublication)
+  );
+
+  const isDirty = dirty || messageUnchecked;
+
+  if (!isDirty && submitSucceeded) {
     return <button type="submit" className="btn btn-success" disabled>{getLabel('saved')}</button>;
   } else if (submitting) {
     return <button type="submit" className="btn btn-primary" disabled>{getLabel('saving')}</button>;
@@ -30,7 +39,7 @@ function SubmitButton() {
       <button
         type="submit"
         className="btn btn-primary"
-        disabled={dirty && !hasValidationErrors ? undefined : true}
+        disabled={isDirty && !hasValidationErrors ? undefined : true}
       >
         {getLabel('saveModifications')}
       </button>
@@ -43,22 +52,35 @@ export default function ContributionEdition() {
   const { getLabel, lang } = useContext(I18nContext);
   const dispatch = useDispatch();
 
-  const [initialValues] = useState(() => agenda.settings.contribution);
-  const [hasInstructions, setHasInstructions] = useState(() => initialValues?.messages?.instructions ?? false);
-  const [hasComplete, setHasComplete] = useState(() => initialValues?.messages?.complete ?? false);
-  const [hasPublication, setHasPublication] = useState(() => initialValues?.messages?.publication ?? false);
+  const initialValues = useMemo(() => agenda.settings.contribution, [agenda.settings.contribution]);
+  const [hasInstructions, setHasInstructions] = useState(() => !!initialValues?.messages?.instructions?.length);
+  const [hasComplete, setHasComplete] = useState(() => !!initialValues?.messages?.complete?.length);
+  const [hasPublication, setHasPublication] = useState(() => !!initialValues?.messages?.publication?.length);
 
-  const onSubmit = useCallback(values => dispatch(agendaActions.edit({
-    settings: {
-      contribution: _.defaultsDeep({
-        messages: {
-          instructions: null,
-          complete: null,
-          publication: null
+  const onSubmit = useCallback(
+    (values, form) => dispatch(agendaActions.edit({
+      settings: {
+        contribution: {
+          ...values,
+          messages: {
+            instructions: hasInstructions ? values.messages.instructions : null,
+            complete: hasComplete ? values.messages.complete : null,
+            publication: hasPublication ? values.messages.publication : null
+          }
         }
-      }, values)
-    }
-  })), [dispatch]);
+      }
+    }))
+      .then(result => {
+        const newContribSettings = result.data.agenda.settings.contribution;
+
+        form.reset(newContribSettings);
+        setHasInstructions(!!newContribSettings?.messages?.instructions?.length);
+        setHasComplete(!!newContribSettings?.messages?.complete?.length);
+        setHasPublication(!!newContribSettings?.messages?.publication?.length);
+      })
+      .catch(error => catchFormErrors(error, 'settings.contribution')),
+    [dispatch, hasInstructions, hasComplete, hasPublication]
+  );
 
   return (
     <div className="contribution">
@@ -80,7 +102,7 @@ export default function ContributionEdition() {
                         name="type"
                         component="input"
                         type="radio"
-                        value="2"
+                        value="1"
                         format={v => v == null ? '' : v.toString()}
                         parse={value => value === undefined ? undefined : parseInt(value)}
                       />
@@ -101,7 +123,7 @@ export default function ContributionEdition() {
                         name="type"
                         component="input"
                         type="radio"
-                        value="1"
+                        value="2"
                         format={v => v == null ? '' : v.toString()}
                         parse={value => value === undefined ? undefined : parseInt(value)}
                       />
@@ -148,7 +170,7 @@ export default function ContributionEdition() {
                     <input
                       type="checkbox"
                       onChange={() => setHasInstructions(prev => !prev)}
-                      defaultChecked={hasInstructions}
+                      checked={hasInstructions}
                     />
                     <p>
                       <b>{getLabel('consigne')}</b>
@@ -164,6 +186,7 @@ export default function ContributionEdition() {
                         name="messages.instructions"
                         component={MarkdownInput}
                         lang={lang}
+                        parse={_.identity} // to keep empty value
                       />
                     </div>
                   ) : null}
@@ -175,7 +198,7 @@ export default function ContributionEdition() {
                       <input
                         type="checkbox"
                         onChange={() => setHasComplete(prev => !prev)}
-                        defaultChecked={hasComplete}
+                        checked={hasComplete}
                       />
                       <p>
                         <b>{getLabel('contributionMessageComplete')}</b>
@@ -192,6 +215,7 @@ export default function ContributionEdition() {
                             name="messages.complete"
                             component={MarkdownInput}
                             lang={lang}
+                            parse={_.identity} // to keep empty value
                           />
                         </div>
                       </>
@@ -205,7 +229,7 @@ export default function ContributionEdition() {
                       <input
                         type="checkbox"
                         onChange={() => setHasPublication(prev => !prev)}
-                        defaultChecked={hasPublication}
+                        checked={hasPublication}
                       />
                       <p>
                         <b>{getLabel('contributionMessagePublication')}</b>
@@ -223,6 +247,7 @@ export default function ContributionEdition() {
                             name="messages.publication"
                             component={MarkdownInput}
                             lang={lang}
+                            parse={_.identity} // to keep empty value
                           />
                         </div>
                       </>
@@ -323,7 +348,11 @@ export default function ContributionEdition() {
                 </div>
 
                 <div className="text-right">
-                  <SubmitButton />
+                  <SubmitButton
+                    hasInstructions={hasInstructions}
+                    hasComplete={hasComplete}
+                    hasPublication={hasPublication}
+                  />
                 </div>
               </form>
             )}

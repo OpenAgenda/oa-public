@@ -59,7 +59,15 @@ module.exports = function( selector, lang ) {
     let passedIncluded = !!parseInt( elem.getAttribute( params.attributes.passedIncluded ) );
 
     elem.innerHTML = _.template(  `
-<span><%= __( !handlePassed || passedIncluded ? 'totalEvents' : 'upcomingEvents', { count: total } ) %></span><% if ( handlePassed && !passedIncluded) { %> - 
+<span>
+  <%= !handlePassed || passedIncluded
+    ? total > 1
+      ? __('totalEvents', { count: total })
+      : __('totalEvent')
+    : total > 1
+      ? __('upcomingEvents', { count: total })
+      : __('upcomingEvent') %>
+</span><% if ( handlePassed && !passedIncluded) { %> - 
 <a href="<%= link %>"><%= __( 'includePassed' ) %></a><% } %>
     `)( {
       total: elem.getAttribute( params.attributes.total ),

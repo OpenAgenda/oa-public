@@ -52,7 +52,13 @@ module.exports = app => {
       }).then(agenda => res.json({
         success: true,
         agenda
-      }), next);
+      }), err => {
+        if (err.name === 'BadRequest') {
+          return res.status(400).json(err);
+        }
+
+        next(err);
+      });
     }
   );
 

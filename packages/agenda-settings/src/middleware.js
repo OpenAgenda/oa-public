@@ -99,6 +99,7 @@ function get( req, res, next ) {
 
 }
 
+// only fo storybook, to remove one day
 function set( req, res, next ) {
   agendasSvc.set(
     { slug: req.params.slug },
@@ -109,6 +110,9 @@ function set( req, res, next ) {
       context: req.context || null,
       internal: true
     }, ( err, result ) => {
+
+      console.log('ERR', err);
+      console.log(result);
 
       if ( err ) return next( err );
 

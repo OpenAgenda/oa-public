@@ -235,7 +235,11 @@ const { makeMiddleware: makeFilesMw } = require('@openagenda/files');
 
 const filesMw = makeFilesMw(multer());
 
-app.use(filesMw('any'));
+app.use(filesMw(['image', 'other'])); // string is for unique file
+// or
+app.use(filesMw([{ name: 'image', unique: true }, { name: 'files', maxCount: 3 }]));
+// or
+app.use(filesMw('any')); // each fieldname become an array, e.g. `req.body.image[0]`
 ```
 
 C'est utilisé dans le middleware du storybook du package `agenda-settings`.

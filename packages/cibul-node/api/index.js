@@ -385,9 +385,7 @@ module.exports = core => {
       });
     }
 
-    if ([
-      'UnauthorizedError'
-    ].includes(err.name)) {
+    if (err.name === 'UnauthorizedError') {
       return res.status(err.statusCode).json({
         message: err.message
       });

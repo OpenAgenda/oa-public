@@ -14,7 +14,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useField } from 'react-final-form';
-import { useDebouncedCallback } from 'use-debounce';
 import produce from 'immer';
 import { css } from '@emotion/react';
 import {
@@ -28,11 +27,12 @@ import {
   FiltersProvider,
   SearchInput,
   getEvents,
+  useFilters,
+  useGetFilterOptions,
 } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPortal from '../components/FiltersPortal';
 import FiltersPreview from '../components/FiltersPreview';
-import useFilters from '../hooks/useFilters';
 import EmptyDashboard from '../components/EmptyDashboard';
 import RemoveModal from '../components/RemoveModal';
 import EventItem from '../components/EventItem';
@@ -178,7 +178,7 @@ function SearchFilter({
     }
   }, [query.sort, userSort]);
 
-  const { callback: onChange } = useDebouncedCallback(() => {
+  const onChange = useCallback(() => {
     if (previousValue === '' && value !== '') {
       setUserSort(query.sort);
 
@@ -214,7 +214,7 @@ function SearchFilter({
     if (value !== previousValue) {
       setPreviousValue(value);
     }
-  }, 400);
+  }, [previousValue, query, setQuery, userSort, value]);
 
   useUpdateEffect(() => {
     onChange();
@@ -297,8 +297,6 @@ function Dashboard() {
     );
   });
 
-  console.log('Dashboard render', query);
-
   const hasFilter = useMemo(
     () => Object.keys(query).length
       && Object.keys(query).some(key => key !== 'sort'),
@@ -313,46 +311,7 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const loadGeoData = useCallback(
-    async (filter, bounds, zoom) => {
-      const url = res.jsonExport
-        .replace(':slug', agenda.slug)
-        .replace(':uid', agenda.uid);
-
-      const northEast = bounds.getNorthEast().wrap();
-      const southWest = bounds.getSouthWest().wrap();
-
-      const params = {
-        // oaq: { passed: 1 },
-        size: 0,
-        ...query,
-        aggregations: [
-          {
-            type: 'geohash',
-            size: 2000,
-            zoom: Math.max(zoom, 1),
-            radius: zoom === 0 ? 80 : 40,
-          },
-        ],
-        geo: {
-          northEast,
-          southWest,
-        },
-      };
-
-      const result = (
-        await apiClient.get(url, {
-          params,
-          paramsSerializer: p => qs.stringify(p, { skipNulls: true }),
-        })
-      ).data;
-
-      return result.aggregations.geohash;
-    },
-    [agenda.slug, agenda.uid, apiClient, query, res.jsonExport]
-  );
-
-  const filters = useFilters(agendaSchema);
+  const filters = useFilters(intl, agendaSchema, { missingValue: true });
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
     [filters]
@@ -385,7 +344,6 @@ function Dashboard() {
       true
     ),
     {
-      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
     }
   );
@@ -407,7 +365,6 @@ function Dashboard() {
       page
     ),
     {
-      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
       onSuccess: newData => {
@@ -455,12 +412,13 @@ function Dashboard() {
           mapElem.onQueryChange(newData.aggregations.viewport);
         }
       },
-      getNextPageParam: lastPage => {
-        if (lastPage.sort) {
-          return lastPage.sort;
-        }
-      },
     }
+  );
+
+  const getOptions = useGetFilterOptions(
+    intl,
+    filtersQuery.data?.aggregations,
+    data?.aggregations
   );
 
   const onFilterChange = useCallback(
@@ -682,23 +640,18 @@ function Dashboard() {
             className="margin-top-sm"
             css={css`
               line-height: 24px;
-
-              .badge {
-                margin-right: 4px;
-              }
             `}
           >
             <span className="hidden-sm">
               <FiltersPreview
-                agenda={agenda}
-                query={query}
-                page={page}
                 filters={filters}
+                getOptions={getOptions}
+                disabled={isFetching || filtersQuery.isFetching}
               />
             </span>
             <button
               type="button"
-              className="btn btn-link btn-link-inline"
+              className="btn btn-hover-danger btn-link btn-link-inline"
               css={css`
                 line-height: 16px;
               `}
@@ -890,7 +843,6 @@ function Dashboard() {
         filters={filters}
         query={query}
         page={page}
-        loadGeoData={loadGeoData}
       />
     </FiltersProvider>
   );
