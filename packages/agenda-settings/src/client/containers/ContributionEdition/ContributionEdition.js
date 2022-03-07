@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Field, useForm } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
@@ -16,13 +16,21 @@ function getError(form, fieldname) {
   return fieldState?.touched && errors?.[fieldname];
 }
 
-function SubmitButton() {
+function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
   const { getLabel } = useContext(I18nContext);
   const form = useForm();
 
-  const { dirty, submitting, submitSucceeded, hasValidationErrors } = form.getState();
+  const { dirty, submitting, submitSucceeded, hasValidationErrors, initialValues } = form.getState();
 
-  if (!dirty && submitSucceeded) {
+  const messageUnchecked = (
+    (!!initialValues.messages?.instructions?.length && !hasInstructions)
+    || (!!initialValues.messages?.complete?.length && !hasComplete)
+    || (!!initialValues.messages?.publication?.length && !hasPublication)
+  );
+
+  const isDirty = dirty || messageUnchecked;
+
+  if (!isDirty && submitSucceeded) {
     return <button type="submit" className="btn btn-success" disabled>{getLabel('saved')}</button>;
   } else if (submitting) {
     return <button type="submit" className="btn btn-primary" disabled>{getLabel('saving')}</button>;
@@ -31,7 +39,7 @@ function SubmitButton() {
       <button
         type="submit"
         className="btn btn-primary"
-        disabled={dirty && !hasValidationErrors ? undefined : true}
+        disabled={isDirty && !hasValidationErrors ? undefined : true}
       >
         {getLabel('saveModifications')}
       </button>
@@ -45,19 +53,33 @@ export default function ContributionEdition() {
   const dispatch = useDispatch();
 
   const initialValues = useMemo(() => agenda.settings.contribution, [agenda.settings.contribution]);
-  const [hasInstructions, setHasInstructions] = useState(() => initialValues?.messages?.instructions ?? false);
-  const [hasComplete, setHasComplete] = useState(() => initialValues?.messages?.complete ?? false);
-  const [hasPublication, setHasPublication] = useState(() => initialValues?.messages?.publication ?? false);
+  const [hasInstructions, setHasInstructions] = useState(() => !!initialValues?.messages?.instructions?.length);
+  const [hasComplete, setHasComplete] = useState(() => !!initialValues?.messages?.complete?.length);
+  const [hasPublication, setHasPublication] = useState(() => !!initialValues?.messages?.publication?.length);
 
   const onSubmit = useCallback(
     (values, form) => dispatch(agendaActions.edit({
       settings: {
-        contribution: values
+        contribution: {
+          ...values,
+          messages: {
+            instructions: hasInstructions ? values.messages.instructions : null,
+            complete: hasComplete ? values.messages.complete : null,
+            publication: hasPublication ? values.messages.publication : null
+          }
+        }
       }
     }))
-      .then(result => form.reset(result.data.agenda))
+      .then(result => {
+        const newContribSettings = result.data.agenda.settings.contribution;
+
+        form.reset(newContribSettings);
+        setHasInstructions(!!newContribSettings?.messages?.instructions?.length);
+        setHasComplete(!!newContribSettings?.messages?.complete?.length);
+        setHasPublication(!!newContribSettings?.messages?.publication?.length);
+      })
       .catch(error => catchFormErrors(error, 'settings.contribution')),
-    [dispatch]
+    [dispatch, hasInstructions, hasComplete, hasPublication]
   );
 
   return (
@@ -148,7 +170,7 @@ export default function ContributionEdition() {
                     <input
                       type="checkbox"
                       onChange={() => setHasInstructions(prev => !prev)}
-                      defaultChecked={hasInstructions}
+                      checked={hasInstructions}
                     />
                     <p>
                       <b>{getLabel('consigne')}</b>
@@ -176,7 +198,7 @@ export default function ContributionEdition() {
                       <input
                         type="checkbox"
                         onChange={() => setHasComplete(prev => !prev)}
-                        defaultChecked={hasComplete}
+                        checked={hasComplete}
                       />
                       <p>
                         <b>{getLabel('contributionMessageComplete')}</b>
@@ -207,7 +229,7 @@ export default function ContributionEdition() {
                       <input
                         type="checkbox"
                         onChange={() => setHasPublication(prev => !prev)}
-                        defaultChecked={hasPublication}
+                        checked={hasPublication}
                       />
                       <p>
                         <b>{getLabel('contributionMessagePublication')}</b>
@@ -326,7 +348,11 @@ export default function ContributionEdition() {
                 </div>
 
                 <div className="text-right">
-                  <SubmitButton />
+                  <SubmitButton
+                    hasInstructions={hasInstructions}
+                    hasComplete={hasComplete}
+                    hasPublication={hasPublication}
+                  />
                 </div>
               </form>
             )}
