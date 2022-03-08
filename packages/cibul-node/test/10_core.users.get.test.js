@@ -37,6 +37,8 @@ describe('10 - core - functional (server): core.users().get()', () => {
     });
 
     core = Core(services, testConfig);
+
+    await services.simpleCache.clearAll();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
