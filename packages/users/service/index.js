@@ -343,7 +343,9 @@ hooks(Users.prototype, {
   },
   update: {
     context: withParams('id', 'data', ['params', {}]),
-    middleware: [],
+    middleware: wrap({
+      after: [callInterface('onUpdate')],
+    }),
   },
   patch: {
     context: withParams('id', 'data', ['params', {}]),
@@ -366,6 +368,7 @@ hooks(Users.prototype, {
       after: [
         ...afterAll,
         populateAccountTypes(),
+        callInterface('onPatch'),
         iff(
           context => !context.params.before.isActivated && context.result.isActivated,
           callInterface('onActivation'),

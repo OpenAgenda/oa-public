@@ -12,6 +12,8 @@ const sessions = require('@openagenda/sessions');
 const beforeCreate = require('./beforeCreate');
 const beforeRemove = require('./beforeRemove');
 const onCreate = require('./onCreate');
+const onUpdate = require('./onUpdate');
+const onPatch = require('./onPatch');
 const onGenerateApiKey = require('./onGenerateApiKey');
 const onActivation = require('./onActivation');
 const sendToken = require('./sendToken');
@@ -149,6 +151,8 @@ async function init(config, services) {
       beforeRemove,
       beforeCreate: beforeCreate.bind(null, config, services),
       onCreate: onCreate.bind(null, config, services),
+      onUpdate: onUpdate.bind(null, config, services),
+      onPatch: onPatch.bind(null, config, services),
       onGenerateApiKey,
       onActivation,
       sendToken: sendToken.bind(null, config),

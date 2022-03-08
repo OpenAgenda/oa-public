@@ -146,4 +146,13 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.caseInsensitive',
     defaultMessage: 'case-insensitive',
   },
+  brokenFilter: {
+    id: 'aggregator-sources.DefineRules.brokenFilter',
+    defaultMessage: 'Invalid filter',
+  },
+  brokenFilterInfo: {
+    id: 'aggregator-sources.DefineRules.brokenFilterInfo',
+    defaultMessage:
+      'this filter refers to a field that cannot be found. It may have been deleted from the source agenda',
+  },
 });

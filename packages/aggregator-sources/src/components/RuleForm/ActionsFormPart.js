@@ -75,7 +75,7 @@ export default ({ aggregatorAgendaSchema }) => {
               <button
                 type="button"
                 className="btn btn-link-inline"
-                onClick={() => fields.remove(index)}
+                onClick={() => fields.remove(index, undefined)}
                 title={intl.formatMessage(messages.removeAction)}
               >
                 <i className="fa fa-times text-danger" aria-hidden="true" />

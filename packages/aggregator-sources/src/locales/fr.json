@@ -51,6 +51,8 @@
   "aggregator-sources.DefineRules.allEvents": "Tous les événements",
   "aggregator-sources.DefineRules.automatic": "Auto",
   "aggregator-sources.DefineRules.automaticDetail": "Les assignations de valeurs sont faites par correspondance d'étiquette en partant du champ du même nom sur l'agenda source",
+  "aggregator-sources.DefineRules.brokenFilter": "Filtre invalide",
+  "aggregator-sources.DefineRules.brokenFilterInfo": "ce filtre fait référence à un champ qui est introuvable. Il a peut-être été supprimé de l'agenda source",
   "aggregator-sources.DefineRules.cancel": "Annuler",
   "aggregator-sources.DefineRules.caseInsensitive": "Insensilbe à la casse",
   "aggregator-sources.DefineRules.caseSensitive": "Sensible à la casse",

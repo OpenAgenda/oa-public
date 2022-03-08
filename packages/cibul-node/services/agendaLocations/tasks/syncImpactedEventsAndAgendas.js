@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('services/agendaLocations/tasks/syncImpactedEventsAndAgendas');
 
-module.exports = async function syncImpactedEventsAndAgendas(services, before, after) {
+module.exports = services => async function syncImpactedEventsAndAgendas(before, after) {
   const {
     core,
     elasticsearch: legacyEventSearch,

@@ -24,6 +24,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'queues',
         'files',
         'events',
@@ -59,6 +60,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       });
     } catch (e) { /* */ }
   });
+
+  afterAll(() => core.services.simpleCache.clearAll());
 
   describe('simple create', () => {
     let event;

@@ -23,6 +23,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'tracker',
         'accessTokens',
         'files',
@@ -46,8 +47,10 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     await core.agendas(93399464).events.search.rebuild();
     await core.agendas(48353388).events.search.rebuild();
+
     core.services.agendaLocations.task({ reset: true, detectDuplicates: false });
     core.services.eventSearch.task({ reset: true });
+    await services.simpleCache.clearAll();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

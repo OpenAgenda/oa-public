@@ -19,6 +19,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'tracker', // for testing
         'queues',
         'files',

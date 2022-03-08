@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import React, {
-  useCallback, useMemo, useRef, useState
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
 } from 'react';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
@@ -23,8 +27,12 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     [id, values.actions]
   );
   const fieldName = useMemoOne(() => action?.field, [action]);
-  // console.log('fieldName ', fieldName);
   const prevFieldName = usePrevious(fieldName);
+
+  useEffect(() => {
+    if (prevFieldName && fieldName !== prevFieldName) form.change(`${name}.values`, null);
+  }, [fieldName, prevFieldName, form, name]);
+
   const initialValues = useRef(initials).current;
 
   const automatic = useMemoOne(() => !!action?.automatic, [action]);
@@ -71,18 +79,11 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       textFieldOptions,
     ]
   );
-
-  // console.log('fieldOptions', fieldOptions);
-
   const fieldSchema = useMemoOne(
     () => fieldName
       && aggregatorAgendaSchema.fields.find(v => v.field === fieldName),
     [aggregatorAgendaSchema.fields, fieldName]
   );
-
-  // console.log('fieldSchema', fieldSchema);
-  // console.log('isStringType', isStringType(fieldSchema));
-
   const valuesOptions = useMemoOne(() => {
     if (fieldName === 'state') {
       return [
@@ -108,9 +109,6 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       }));
     }
   }, [fieldName, fieldSchema, intl]);
-
-  // console.log('valuesOptions', valuesOptions);
-
   const areAdvancedOptionsUsed = () => action?.automatic || action?.set;
 
   const [advancedMode, setAdvancedMode] = useState(areAdvancedOptionsUsed());
@@ -185,6 +183,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
         menuPosition="fixed"
         className="margin-bottom-xs"
         isSearchable
+        initialValue={action?.field}
       />
 
       {valuesOptions ? (
@@ -233,6 +232,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
           <Field
             keys="values"
             name={`${name}.values`}
+            initialValue={action?.values}
             render={({ input }) => (
               <div className="row">
                 <div className="form-group form-group-v-aligned">

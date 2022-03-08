@@ -6189,7 +6189,7 @@ __metadata:
     react-beautiful-dnd: ^13.0.0
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
-    react-final-form: ^6.5.3
+    react-final-form: ^6.5.8
     react-final-form-arrays: ^3.1.1
     react-intl: ^5.12.2
     react-is: ^16.13.1
@@ -6827,6 +6827,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-shared": ^2.3.2
     "@openagenda/validators": ^2.4.0
+    "@storybook/react": ^6.4.9
     autosize: ^5.0.1
     aws-sdk: ^2.544.0
     babel-loader: ^8.2.2
@@ -7530,6 +7531,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/queues@workspace:public/queues"
   dependencies:
+    "@openagenda/logs": ^1.1.9
     lodash: ^4.17.15
     mocha: ^7.0.1
     redis: ^2.8.0
@@ -8056,9 +8058,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/simple-cache@workspace:packages/simple-cache"
   dependencies:
-    mocha: ^7.0.1
+    "@openagenda/logs": ^1.1.9
+    jest: ^26.4.2
     redis: ^2.7.1
-    should: ^13.2.3
   languageName: unknown
   linkType: soft
 

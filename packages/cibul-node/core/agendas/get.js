@@ -7,13 +7,29 @@ const {
 const getMergedSchema = require('./settings/getMergedSchema');
 const loadSummary = require('./utils/loadSummary');
 
+function cacheAndReturn(services, options, agendaUid, result) {
+  const {
+    simpleCache
+  } = services;
+  const {
+    useCache
+  } = options;
+
+  if (useCache) {
+    simpleCache.hash('core.agendas.get', agendaUid).set(options, result);
+  }
+
+  return result;
+}
+
 module.exports = async (core, agendaUid, options = {}) => {
   const {
     services
   } = core;
 
   const {
-    agendas
+    agendas,
+    simpleCache
   } = services;
 
   const {
@@ -23,10 +39,18 @@ module.exports = async (core, agendaUid, options = {}) => {
     includeAgendaEvent = false,
     includeMember = false,
     throwNotFound = false,
-    includeNonDataFields = false
+    includeNonDataFields = false,
+    useCache = false
   } = options;
 
   log('getting agenda %s, info with access %s', agendaUid, access);
+
+  if (useCache) {
+    const cached = await simpleCache.hash('core.agendas.get', agendaUid).get(options, { json: true });
+    if (cached) {
+      return cached;
+    }
+  }
 
   const agenda = await agendas.get({ uid: agendaUid }, {
     includeImagePath: true,
@@ -38,11 +62,14 @@ module.exports = async (core, agendaUid, options = {}) => {
   if (!agenda && throwNotFound) {
     throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
   } else if (!agenda) {
-    return null;
+    return cacheAndReturn(services, options, agendaUid, null);
   }
 
   if (!detailed && !includeEvent) {
-    return access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access);
+    return cacheAndReturn(
+      services, options, agendaUid,
+      access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access)
+    );
   }
 
   log('getting detailed info with access %s', access);
@@ -65,14 +92,16 @@ module.exports = async (core, agendaUid, options = {}) => {
   });
 
   if (access === 'internal') {
-    return {
-      ...agenda,
-      ...related
-    };
+    return cacheAndReturn(
+      services, options, agendaUid,
+      { ...agenda, ...related }
+    );
   }
 
-  return {
-    ...agendas.utils.filterByAccess(agenda, 'read', access),
-    ...related
-  };
+  return cacheAndReturn(
+    services, options, agendaUid, {
+      ...agendas.utils.filterByAccess(agenda, 'read', access),
+      ...related
+    }
+  );
 };

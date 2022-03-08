@@ -19,6 +19,7 @@ describe('13 - core - functional(server): core.agendas().locations.merge', funct
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'tracker',
         'accessTokens',
         'files',
