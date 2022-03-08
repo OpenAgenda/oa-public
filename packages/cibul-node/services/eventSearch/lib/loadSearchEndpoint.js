@@ -3,12 +3,13 @@
 const convert = require('@openagenda/legacy/convertLegacyFilter');
 
 const mapIncludeFields = includeFields => {
-  if (includeFields && includeFields.includes('permalink')) {
-    const requestedFields = [...includeFields];
-    requestedFields[includeFields.indexOf('permalink')] = 'uid';
-    return requestedFields;
-  }
-  return includeFields;
+  if (!includeFields) return null;
+
+  return includeFields.map(field => {
+    if (field === 'permalink') return 'uid';
+    if (field === 'firstDate' || field === 'lastDate') return 'timings';
+    return field;
+  });
 };
 
 module.exports = core => async (req, res, next) => {
