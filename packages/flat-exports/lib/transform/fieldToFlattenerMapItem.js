@@ -21,7 +21,8 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
   const {
     lang,
     languages = [],
-    includeLanguages
+    includeLanguages,
+    distributeOptionalFields
   } = options;
 
   const targetBaseName = flatten(field.label, lang, field.field);
@@ -36,11 +37,28 @@ module.exports = function fieldToFlattenerMapItem(field, options = {}) {
     };
   }
 
+  // optioned field with the distribute option
+  if (distributeOptionalFields && distributeOptionalFields.includes(field.field) && field.options) {
+    const opts = field.options.map(option => {
+      const optionLabel = flatten(option.label, lang, option.value);
+      const target = `${targetBaseName}: ${optionLabel}`;
+      return {
+        source: field.field,
+        target,
+        transform: {
+          [option.id]: optionLabel
+        }
+      };
+    });
+    return opts;
+  }
+
   // optioned field
   if (field.options) {
     return {
       source: field.field,
       target: targetBaseName,
+      hasOptions: true,
       transform: field.options.reduce((transform, option) => ({
         ...transform,
         [option.id]: flatten(option.label, lang, option.value)

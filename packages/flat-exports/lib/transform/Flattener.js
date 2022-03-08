@@ -28,7 +28,7 @@ function flattenSourceValues(mapItem, src, options) {
   if (transform) {
     return [].concat(
       _.get(src, source)
-    ).map(s => _.get(transform, s, defaultItem || null)).join(separator);
+    ).map(s => _.get(transform, s, defaultItem || null)).filter(s => s).join(separator);
   }
 
   if (lang && languages && src[source]) {
