@@ -35,7 +35,7 @@
     "react-dom": "16.13.1"
   },
   "dependencies": {
-    "browserslist": "^4.16.5",
+    "browserslist": "^4.20.0",
     "mime": "^2.4.4"
   },
   "devDependencies": {
