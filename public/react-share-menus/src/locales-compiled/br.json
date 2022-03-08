@@ -67,6 +67,12 @@
       "value": "Utiliser le format détaillé"
     }
   ],
+  "distribute-fields": [
+    {
+      "type": 0,
+      "value": "Champs à choix: une valeur par colonne"
+    }
+  ],
   "documentation": [
     {
       "type": 0,
