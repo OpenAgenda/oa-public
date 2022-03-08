@@ -153,16 +153,16 @@ function hset(...args) {
   });
 }
 
-function ttl(svc, namespace, identifier, cb) {
+function ttl(svc, namespace, identifier, key, cb) {
   const {
     client,
     prefix
   } = svc;
 
-  const hashKey = getHashKey(prefix, namespace, identifier);
+  const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
   return new Promise((rs, rj) => {
-    client.ttl(hashKey, (err, value) => {
+    client.ttl(redisKey, (err, value) => {
       rejectOrResolve(rs, rj, cb, err, value);
     });
   });
