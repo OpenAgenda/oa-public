@@ -2,9 +2,6 @@
 
 module.exports = {
   groups: [{
-    label: 'Getting Started',
-    slug: 'getting-started'
-  }, {
     label: 'Form field types',
     slug: 'types'
   }, {
@@ -15,56 +12,6 @@ module.exports = {
     slug: 'builder'
   }],
   cases: [{
-    name: 'The simplest empty form',
-    description: 'To get started',
-    link: '/simplest',
-    group: 'getting-started'
-  }, {
-    name: 'Simple with a constraint',
-    description: 'A min and max',
-    link: '/simplewithconstraint',
-    group: 'getting-started'
-  }, {
-    name: 'Simple with a default value',
-    description: 'A default value can be defined',
-    link: 'simplewithdefault',
-    group: 'getting-started'
-  }, {
-    name: 'Info text',
-    description: 'An info text can be placed between the label and the field',
-    link: 'simplewithinfo',
-    group: 'getting-started'
-  }, {
-    name: 'Help link',
-    description: 'A help link can be set. It presents some context help when clicked on',
-    link: '/simplewithhelp',
-    group: 'getting-started'
-  }, {
-    name: 'Per-field access control',
-    description: 'Fields are displayed depending on the role of the viewer',
-    link: '/access',
-    group: 'getting-started'
-  }, {
-    name: 'A member form',
-    description: 'To troubleshoot a member form use case',
-    link: '/member',
-    group: 'getting-started'
-  }, {
-    name: 'Display warning on page leave',
-    description: 'When form was edited, confirmation popup appears if an attempt to leave is made',
-    link: '/warning',
-    group: 'getting-started'
-  }, {
-    name: 'A form',
-    description: 'This is the dev app before it was split. It shows a form with mixed fields',
-    link: '/form',
-    group: 'getting-started'
-  }, {
-    name: 'A form with values',
-    description: 'Another form loaded with valid and invalid values',
-    link: '/loadedform',
-    group: 'getting-started'
-  }, {
     name: 'Errors not displayed on mount',
     description: 'Sometimes the user needs to load data which he knows is incomplete. For example, a contributor saved a draft event and comes back to complete it. The form that is loaded should not show errors all over. In that case, the schema is loaded with a withErrors prop set to false',
     link: 'errorsnotdisplayedonmount',
