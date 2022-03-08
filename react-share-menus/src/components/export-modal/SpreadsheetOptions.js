@@ -9,10 +9,10 @@ const SpreadsheetOptions = ({
 }) => {
   const [displayLanguages, setDisplayLanguages] = useState(false);
   const [displayFields, setDisplayFields] = useState(false);
-  const [checkedState, setCheckedState] = useState(
-    []
-  );
+  const [checkedState, setCheckedState] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
+  const [distributeOptions, setDistributeOptions] = useState(false);
+  const [distributedFields, setDistributedFields] = useState([]);
 
   const intl = useIntl();
   const messages = defineMessages({
@@ -31,6 +31,10 @@ const SpreadsheetOptions = ({
     selectAll: {
       id: 'select-all',
       defaultMessage: 'Select all'
+    },
+    distributeOptions: {
+      id: 'distribute-fields',
+      defaultMessage: 'Fields with options: display one value per column'
     }
   });
 
@@ -81,6 +85,18 @@ const SpreadsheetOptions = ({
 
     const updatedOptions = options.fields.filter(field => field !== event.target.value);
     return setChoice({ ...options, fields: updatedOptions });
+  };
+
+  const handleDistributedFields = event => {
+    if (event.target.checked) {
+      const selectedFields = [...distributedFields, event.target.value];
+      setDistributedFields(selectedFields);
+      return setChoice({ ...options, distributeFields: selectedFields });
+    }
+
+    const selectedFields = distributedFields.filter(f => f !== event.target.value);
+    setDistributedFields(selectedFields);
+    return setChoice({ ...options, distributeFields: selectedFields });
   };
 
   const handleFormat = (value, id) => {
@@ -139,6 +155,28 @@ const SpreadsheetOptions = ({
         ))}
       </div>
       )}
+      <div>
+        <label htmlFor="distributedOptions">
+          <input name="columns" id="distributedOptions" type="checkbox" defaultChecked={distributeOptions} onChange={() => setDistributeOptions(!distributeOptions)} />
+          {intl.formatMessage(messages.distributeOptions)}
+        </label>
+        {distributeOptions && (
+          <div className="margin-left-md checkbox-list">
+            {fields.map((field, index) => {
+              if (field.hasOptions) {
+                const key = `${field.source}Distributed`;
+                return (
+                  <label htmlFor={key} key={key}>
+                    <input name="distributedFields" id={key} type="checkbox" onChange={event => handleDistributedFields(event, index)} value={field.source} className="margin-right-sm" />
+                    {formatTarget(field.target)}
+                  </label>
+                );
+              }
+              return null;
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -9,6 +9,7 @@
   "connection-btn": "Sign In",
   "create-agenda": "Create an agenda",
   "detailed-format": "Use the detailed format",
+  "distribute-fields": "Fields with options: display one value per column",
   "documentation": "See the documentation",
   "email-placeholder": "Type in the email you want to send the event to",
   "email-success": "The event was sent to {count, plural, =0 {no email address} one {# email address} other {# email addresses}}.",

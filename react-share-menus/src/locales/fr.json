@@ -9,6 +9,7 @@
   "connection-btn": "Connexion",
   "create-agenda": "Créer un agenda",
   "detailed-format": "Utiliser le format détaillé",
+  "distribute-fields": "Champs à choix: une valeur par colonne",
   "documentation": "Voir la documentation",
   "email-placeholder": "Veuillez saisir les addresses email auxquelles vous souhaiter envoyer l'événement",
   "email-success": "L'événement a été envoyé à {count, plural, =0 {aucune adresse email} one {# adresse email} other {# adresses email}}.",
