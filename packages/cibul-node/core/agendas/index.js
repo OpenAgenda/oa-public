@@ -1,6 +1,6 @@
 'use strict';
 
-const events = require('./events');
+const Events = require('./events');
 const embeds = require('./embeds');
 const Settings = require('./settings');
 const create = require('./create');
@@ -13,12 +13,13 @@ const search = require('./search');
 
 module.exports = core => {
   const settings = Settings(core);
+  const events = Events(core);
 
   return Object.assign(agendaUid => ({
     get: get.bind(null, core, agendaUid),
     update: update.bind(null, core, agendaUid),
     remove: remove.bind(null, agendaUid),
-    events: events(core, agendaUid),
+    events: events(agendaUid),
     locations: locations(core, agendaUid),
     members: members(core.services, agendaUid),
     settings: settings(agendaUid),

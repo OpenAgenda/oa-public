@@ -2,6 +2,11 @@
 
 module.exports = async (req, res, next) => {
   const {
+    simpleCache,
+    agendas
+  } = req.app.services;
+
+  const {
     agendaSlug,
     agendaUid
   } = req.params;
@@ -12,7 +17,13 @@ module.exports = async (req, res, next) => {
     slug: agendaSlug
   };
 
-  req.app.services.agendas.get(identifier, {
+  req.agenda = await simpleCache.hash('agendas', agendaUid || agendaSlug).get('api', { json: true });
+
+  if (req.agenda) {
+    return next();
+  }
+
+  agendas.get(identifier, {
     private: null,
     internal: true
   }, (err, agenda) => {
@@ -26,6 +37,8 @@ module.exports = async (req, res, next) => {
         agendaUid: req.params.agendaUid
       });
     }
+
+    simpleCache.hash('agendas', agendaUid || agendaSlug).set('api', agenda);
 
     req.agenda = agenda;
 

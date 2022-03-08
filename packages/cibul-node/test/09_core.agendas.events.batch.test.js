@@ -19,6 +19,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'queues',
         'files',

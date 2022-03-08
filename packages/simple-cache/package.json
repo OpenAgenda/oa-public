@@ -4,16 +4,16 @@
   "description": "Redis wrapper to provide simple to use interface for http caching.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "jest --runInBand --forceExit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openagenda/logs": "^1.1.9",
     "redis": "^2.7.1"
   },
   "devDependencies": {
-    "mocha": "^7.0.1",
-    "should": "^13.2.3"
+    "jest": "^26.4.2"
   }
 }

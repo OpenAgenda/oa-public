@@ -18,6 +18,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'accessTokens',
         'files',
         'queues',
@@ -38,6 +39,8 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
     });
 
     core = Core(services, testConfig);
+
+    await services.simpleCache.clearAll();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

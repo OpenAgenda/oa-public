@@ -33,7 +33,10 @@ raw.push(knex('api_key_set').insert([
 
 raw.push(knex('access_token').insert([
   require('./sql/accessTokens/01.json'),
-  require('./sql/accessTokens/02.json')
+  ({
+    ...require('./sql/accessTokens/02.json'),
+    created_at: new Date()
+  })
 ]));
 
 module.exports = raw.join(';\n') + ';';

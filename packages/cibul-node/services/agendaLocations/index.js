@@ -26,8 +26,9 @@ module.exports.init = async (config, services) => {
   const queue = services.queues('locations');
   let taskRunning = false;
 
+  log('registering syncImpactedEventsAndAgendas');
   queue.register({
-    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas.bind(null, services)
+    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas(services)
   });
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
@@ -62,10 +63,9 @@ module.exports.init = async (config, services) => {
       if (!taskRunning) return;
 
       log('stopping task');
-      if (options.clear || options.reset) {
-        await queue.clear();
-      }
-      return queue.stop();
+      await queue.stop({ remove: true, clear: options.clear || options.reset });
+
+      log('task stopped');
     },
     task: async (options = {}) => {
       const {

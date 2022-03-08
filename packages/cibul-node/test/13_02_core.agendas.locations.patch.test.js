@@ -17,6 +17,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
       enabled: [
         'knex',
         'redis',
+        'simpleCache',
         'queues',
         'files',
         'events',
@@ -44,6 +45,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
 
     core.services.agendaLocations.task({ reset: true });
     services.aggregators.task();
+    await services.simpleCache.clearAll();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
