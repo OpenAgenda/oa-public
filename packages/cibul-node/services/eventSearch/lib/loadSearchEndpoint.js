@@ -16,9 +16,12 @@ module.exports = core => async (req, res, next) => {
     .agendas(req.params.agendaUid)
     .events.search;
 
+  const { includeFields, distributeOptionalFields } = req.query;
+  if (distributeOptionalFields) includeFields.push(...distributeOptionalFields);
+
   req.searchOptions = {
     ...req.query,
-    includeFields: mapIncludeFields(req.query.includeFields),
+    includeFields: mapIncludeFields(includeFields),
     stream: false,
     detailed: true,
     access: req.access ?? 'public'
