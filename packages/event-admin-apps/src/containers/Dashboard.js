@@ -13,7 +13,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
-import { useField } from 'react-final-form';
+import { useField } from '@openagenda/react-filters/lib/react-final-form';
 import produce from 'immer';
 import { css } from '@emotion/react';
 import {
