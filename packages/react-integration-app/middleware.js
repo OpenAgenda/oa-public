@@ -45,6 +45,7 @@ const createMembersApp = require('@openagenda/member-apps/dist/app');
 const createLegacyEmbedsApp = require('@openagenda/legacy/embeds/app/dist');
 const createAgendaContributeApp = require('@openagenda/agenda-contribute/dist');
 const createEventAdminApp = require('@openagenda/event-admin-apps/dist/app');
+const createAgendaLocationAdminApp = require('@openagenda/agenda-locations-app/dist/app');
 const createSupervisorApp = require('@openagenda/supervisor/lib/app');
 const RootHelmet = require('./RootHelmet');
 const createReduxMiddleware = require('./reduxMiddleware');
@@ -166,6 +167,11 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
             AgendaAdminDataLayout,
             AgendaAdminFiltersLayout,
           ],
+        ],
+        [
+          'agendaLocationAdmin',
+          createAgendaLocationAdminApp,
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         [
           'agendaSettingsEdit',

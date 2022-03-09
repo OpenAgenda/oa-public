@@ -10,4 +10,8 @@ module.exports = schema({
     type: 'boolean',
     default: false,
   },
+  includeSettings: {
+    type: 'boolean',
+    default: false
+  }
 });

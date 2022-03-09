@@ -213,6 +213,36 @@ module.exports = core => {
     next();
   });
 
+  app.get('/locations/geocode', (req, res, next) => core.services.geocoder(req.query.address, {
+    countryCode: req.query.countryCode,
+    language: req.lang || 'fr'
+  }).then(results => res.send({ results }), next));
+
+  app.get('/locations/geocode/reverse', (req, res, next) => core.services.geocoder
+    .reverse(req.query.latitude, req.query.longitude, {
+      language: req.lang || 'fr'
+    }).then(results => res.send({ results }), next));
+
+  app.get('/locations/insee', (req, res, next) => core.services.agendaLocations.utils.getINSEECode(
+    _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
+  ).then(code => res.json({ code }), next));
+
+  app.get('/agendas/:agendaUid/locations/settings', (req, res, next) => core
+    .agendas(req.agenda.uid)
+    .locations.settings.get({ includeSetInfo: req.query.includeSetInfo })
+    .then(resp => res.json(resp), next));
+
+  app.post('/agendas/:agendaUid/locations/merge', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .locations.merge(req.body.mergeIn, { uids: req.body.merged })
+      .then(location => res.json({
+        location,
+        success: true
+      }), next)
+  ]);
+
   app.get([
     '/agendas/:agendaUid/locations/:locationUid',
     '/agendas/:agendaUid/locations/ext/:locationExtId'

@@ -31,6 +31,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         'events',
         'agendas',
         'agendaEvents',
+        'geocoder',
         'agendaLocations',
         'formSchemas',
         'custom',
