@@ -93,12 +93,24 @@ function get(req, res, next) {
 
 function _extendWithConfig(agenda) {
 
-  return _.extend(agenda, {
-    config: {
-      credentials: config.interfaces.getAgendaCredentialDetails()
-    }
-  })
+  const credsConfig = config.interfaces.getAgendaCredentialDetails();
 
+  const defaultCreds = Object.entries(credsConfig)
+    .reduce((accu, [key, value]) => ({
+      ...accu,
+      [key]: value.default
+    }), {});
+
+  return {
+    ...agenda,
+    credentials: {
+      ...defaultCreds,
+      ...agenda.credentials
+    },
+    config: {
+      credentials: credsConfig
+    }
+  };
 }
 
 function set(req, res, next) {
