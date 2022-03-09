@@ -15,9 +15,7 @@ import setFlashMessage from '../../utils/setFlashMessage';
 
 async function asyncLoad( { store: { dispatch, getState }, agenda } ) {
   const state = getState();
-
-  const { focusFistConversation } = state.settings;
-  const query = focusFistConversation ? { limit: 1 } : {};
+  const query = {};
 
   if ( !inboxActions.isLoaded( state ) ) {
     await dispatch( inboxActions.load( query, agenda ) );
