@@ -1,40 +1,47 @@
 {
   "spreadsheetColumns": [
     {
+      "hasOptions": false,
       "source": "uid",
       "target": "Identifiant"
     },
     {
+      "hasOptions": false,
       "source": "title",
       "target": [
         "Titre - FR"
       ]
     },
     {
+      "hasOptions": false,
       "source": "description",
       "target": [
         "Description courte - FR"
       ]
     },
     {
+      "hasOptions": false,
       "source": "longDescription",
       "target": [
         "Description longue"
       ]
     },
     {
+      "hasOptions": false,
       "source": "keywords",
       "target": [
         "Mots clés"
       ]
     },
     {
+      "hasOptions": false,
       "source": "dateRange",
       "target": [
         "Résumé horaires"
       ]
     },
     {
+      "hasOptions": false,
       "source": "timings",
       "target": [
         "Horaires ISO",
@@ -42,6 +49,7 @@
       ]
     },
     {
+      "hasOptions": false,
       "source": "conditions",
       "target": [
         "Conditions de participation, tarifs - FR",
@@ -49,60 +57,78 @@
       ]
     },
     {
+      "hasOptions": false,
       "source": "accessibility",
       "target": [
         "Accessibilité"
       ]
     },
     {
+      "hasOptions": false,
       "source": "location.uid",
       "target": "Identifiant du lieu"
     },
     {
+      "hasOptions": false,
       "source": "location.name",
       "target": "Nom du lieu"
     },
     {
+      "hasOptions": false,
       "source": "location.address",
       "target": "Adresse"
     },
     {
+      "hasOptions": false,
       "source": "location.city",
       "target": "Ville"
     },
     {
+      "hasOptions": false,
       "source": "location.department",
       "target": "Département"
     },
     {
+      "hasOptions": false,
       "source": "location.region",
       "target": "Région"
     },
     {
+      "hasOptions": false,
       "source": "location.latitude",
       "target": "Latitude"
     },
     {
+      "hasOptions": false,
       "source": "location.longitude",
       "target": "Longitude"
     },
     {
+      "hasOptions": false,
       "source": "country",
       "target": [
         "Pays"
       ]
     },
     {
+      "hasOptions": false,
       "source": "imageCredits",
       "target": "Crédits de l'image"
     },
     {
+      "hasOptions": true,
       "source": "attendanceMode",
       "target": "Mode de participation"
     },
     {
+      "hasOptions": true,
       "source": "status",
       "target": "État"
+    },
+    {
+      "hasOptions": true,
+      "source": "categories-agenda-metropolitain",
+      "target": "Catégories Agenda Métropolitain"
     }
   ]
 }

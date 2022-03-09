@@ -140,6 +140,10 @@ const ExportModal = ({
         spreadsheetOptions.fields.map(f => formatUrl.searchParams.append('includeFields[]', f));
       }
 
+      if (spreadsheetOptions.distributeFields) {
+        spreadsheetOptions.distributeFields.map(f => formatUrl.searchParams.append('distributeOptionalFields[]', f));
+      }
+
       window.open(formatUrl, '_self');
       return onClose();
     }

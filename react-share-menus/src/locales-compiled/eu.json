@@ -67,6 +67,12 @@
       "value": "Use the detailed format"
     }
   ],
+  "distribute-fields": [
+    {
+      "type": 0,
+      "value": "Fields with options: display one value per column"
+    }
+  ],
   "documentation": [
     {
       "type": 0,
