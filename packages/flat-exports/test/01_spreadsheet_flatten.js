@@ -162,6 +162,21 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
       expect(flat['Tags du lieu']).toEqual('Lieu de spectacles, sports et loisirs');
     });
 
+    test('DistributeOptionalFields option distributes additional fields values in one column each', () => {
+      const flatten = getFlattener({
+        lang: 'fr',
+        languages: ['fr'],
+        labels,
+        formSchema,
+        includeFields: ['uid', 'type-devenement'],
+        distributeOptionalFields: ['type-devenement']
+      });
+
+      const flat = flatten(event);
+      expect(flat["Type d'événement: Atelier"]).toEqual('Atelier');
+      expect(flat["Type d'événement: Exposition"]).toEqual('');
+    });
+
     test('optioned additional field provides values in requested language', () => {
       const flatten = getFlattener({
         lang: 'fr',
@@ -234,22 +249,33 @@ describe('flat-exports - unit - spreadsheet_flatten', () => {
         lang: 'fr',
         languages: ['fr', 'en'],
         labels,
-        includeFields: ['title', 'uid', 'timings'],
-        includeLanguages: ['fr']
+        includeFields: ['permalink', 'uid', 'timings', 'type-devenement'],
+        includeLanguages: ['fr'],
+        formSchema
       });
       headers = flatten.getHeaders(event);
     });
 
     test('return only headers', () => {
       expect(headers).toEqual([
-        { source: 'uid', target: 'Identifiant' },
-        { source: 'title', target: ['Titre - FR'] },
+        { hasOptions: false, source: 'uid', target: 'Identifiant' },
         {
+          hasOptions: false,
+          source: 'permalink',
+          target: 'Permalien',
+        },
+        {
+          hasOptions: false,
           source: 'timings',
           target: [
             'Horaires ISO',
             'Horaires détaillés - FR',
           ],
+        },
+        {
+          hasOptions: true,
+          source: 'type-devenement',
+          target: "Type d'événement"
         }
       ]);
     });

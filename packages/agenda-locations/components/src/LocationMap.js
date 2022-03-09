@@ -51,7 +51,6 @@ class LocationMap extends Component {
     return [location.latitude, location.longitude];
   }
 
-
   isGeolocated() {
     const { location } = this.props;
     return location.latitude !== undefined;

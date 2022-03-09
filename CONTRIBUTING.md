@@ -32,7 +32,7 @@ git config diff.submodule log
 # Practical aliases:
 git config alias.sstatus '!'"git status -sb && git submodule foreach 'git status -sb'"
 git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
-git config alias.spush 'push --recurse-submodules=on-demand'
+git config alias.spush '!'"git submodule foreach --recursive 'git push' && git push --no-recurse-submodule"
 git config alias.spull '!'"git pull --no-recurse-submodule && git submodule update --merge"
 git config alias.supdate 'submodule update --remote --merge'
 ```
