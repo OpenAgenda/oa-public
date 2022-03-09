@@ -20,7 +20,8 @@ module.exports = (req, res) => {
     maintainedFields: ['dateRange', 'country'],
     formSchema: req.formSchema,
     includeFields: req.query.includeFields,
-    includeLanguages: req.query.includeLanguages
+    includeLanguages: req.query.includeLanguages,
+    distributeOptionalFields: req.query.distributeOptionalFields
   }).pipe(res);
 
   return res.writeHead(200, {
