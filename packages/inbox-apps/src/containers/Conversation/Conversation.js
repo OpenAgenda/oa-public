@@ -18,12 +18,12 @@ function asyncLoad({ store: { getState, dispatch }, history, conversationId, age
   const state = getState();
   const promises = [];
 
-  const { prefix, focusFistConversation } = state.settings;
-  const query = focusFistConversation ? { limit: 1 } : {};
+  const { prefix } = state.settings;
+  const query = { total: true };
 
-  // if ( !inboxActions.isLoaded( state ) ) {
-  promises.push(dispatch(inboxActions.load(query, agenda)));
-  // }
+  if ( !inboxActions.isLoaded( state ) ) {
+    promises.push(dispatch(inboxActions.load(query, agenda)));
+  }
 
   if (!conversationActions.isAuthorLoaded(state)) {
     promises.push(dispatch(conversationActions.loadAuthor(agenda)));
@@ -169,6 +169,11 @@ class Conversation extends Component {
     return getLabel(conversation.closedAt ? 'conversationAreClosed' : 'conversationAreResolved');
   };
 
+  reloadInbox = () => {
+    const { inboxLoad, agenda } = this.props;
+    inboxLoad({}, agenda).catch(() => null);
+  };
+
   TitleEntityComponent = ({ children, type, agendaUid, eventUid, locationUid }) => {
     const { agenda, settings } = this.props;
     const { context } = settings;
@@ -224,7 +229,6 @@ class Conversation extends Component {
       conversation,
       messages,
       user,
-      inboxLoad,
       triggerAction,
       showModal,
       nextLoading,
@@ -295,9 +299,7 @@ class Conversation extends Component {
                 <ActionsList
                   onAction={
                     code => triggerAction(conversation.id, code, agenda)
-                      .then(() => {
-                        inboxLoad(focusFistConversation ? { limit: 1 } : {}, agenda).catch(() => null);
-                      })
+                      .then(this.reloadInbox)
                   }
                   actions={conversation.actions}
                   showModal={showModal}

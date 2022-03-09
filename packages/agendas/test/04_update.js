@@ -292,7 +292,7 @@ describe('agendas - functional (server): set (update)', function() {
             docxExport: false,
             eventOwnershipTransfer: false,
             graphs: false,
-            useJSONBridge: true
+            useJSONBridge: false
           },
           legacyStore: {
             moderated: false,

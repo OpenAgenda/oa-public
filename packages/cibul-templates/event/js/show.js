@@ -71,21 +71,18 @@ window.hook(options => {
   }));
 });
 
-window.asap(options => {
+window.asap(async options => {
   const params = utils.extend({
     agendaUid: null,
     hasCustomFields: false,
     hasOwnershipTransfer: false,
-    res: {
-      detailedSession: '/session?detailed=1'
-    }
+    me: null,
+    member: null,
   }, defaults, options);
 
-  log = debug('event');
+  params.user = session.getUser();
 
-  if (window.env === 'tpl') {
-    params.res.detailedSession = 'detailedsession.json';
-  }
+  log = debug('event');
 
   displayReferences(params.agendaUid, params.uid);
 
@@ -98,109 +95,95 @@ window.asap(options => {
     })
   });
 
-  const user = session.getUser();
-
-  if (user) {
-    get(window.env === 'tpl' ? '/server/testdata/eventusercontext.json' : `/api/me/agendas/${params.agendaUid}/events/${params.uid}`, (err, res) => {
-      if (!res) return;
-  
-      const { me, member } = res;
-  
-      displayContributorSection({
-        me,
-        member,
-        lang: params.lang,
-        agendaUid: params.agendaUid
-      });
-
-      if (['administrator', 'moderator'].includes(me?.member?.role)) {
-        du.removeClass(du.el('.js_edit_location'), 'display-none');
-      }
-    });
-  }
-
   displayAdditionalFields({
     lang: params.lang,
     agendaUid: params.agendaUid,
     eventUid: params.uid
   });
 
-  _defineRoles(params, (err, roles) => {
-    log('roles: [%s]', roles.join(','));
+  displayShareButtons(params, !!params.user);
+  eventMap();
 
-    let showControls = adminControls(session, {
+  if (params.user) {
+    try {
+      ({
+        me: params.me,
+        member: params.member
+      } = await get.promise(window.env === 'tpl'
+        ? '/server/testdata/eventusercontext.json'
+        : `/api/me/agendas/${params.agendaUid}/events/${params.uid}`));
+    } catch (e) {
+      console.error('Failed to get event context data', e);
+      return;
+    }
+
+    displayContributorSection({
+      me: params.me,
+      member: params.member,
       lang: params.lang,
-      eventUid: params.uid,
-      agendaUid: params.agendaUid,
-      agendaSlug: params.agendaSlug,
-      agendaTitle: params.agendaTitle,
-      agendaImage: params.agendaImage,
-      testFunc: () => roles.length,
-      displaySelectors: roles.map(r => params.selectors[r])
+      agendaUid: params.agendaUid
     });
 
-    const prv = privateData();
-
-    if (params.hasOwnershipTransfer) {
-      ownershipTransfer({
-        lang: params.lang
-      });
+    if (['administrator', 'moderator'].includes(params.me?.member?.role)) {
+      const elem = du.el('.js_edit_location');
+      if (elem) du.removeClass(elem, 'display-none');
     }
+  }
 
-    prv.load(params.agendaUid, params.uid, params.lang);
+  const roles = defineRoles(params);
 
-    if (roles.includes(ROLES.EVENTEDITOR)) {
-      prv.activities(params.agendaUid, params.uid, params.lang);
-    }
+  log('roles: [%s]', roles.join(','));
 
-    if (user) {
-      prv.inbox(params, { roles, ROLES });
-    }
-
+  let showControls = adminControls(session, {
+    lang: params.lang,
+    eventUid: params.uid,
+    agendaUid: params.agendaUid,
+    agendaSlug: params.agendaSlug,
+    agendaTitle: params.agendaTitle,
+    agendaImage: params.agendaImage,
+    testFunc: () => roles.length,
+    displaySelectors: roles.map(r => params.selectors[r])
   });
 
-  displayShareButtons(params, !!user);
-  eventMap();
+  const prv = privateData();
+
+  if (params.hasOwnershipTransfer) {
+    ownershipTransfer({
+      lang: params.lang
+    });
+  }
+
+  prv.load(params.agendaUid, params.uid, params.lang);
+
+  if (roles.includes(ROLES.EVENTEDITOR)) {
+    prv.activities(params.agendaUid, params.uid, params.lang);
+  }
+
+  if (params.user) {
+    prv.inbox(params, { roles, ROLES });
+  }
 });
 
 
-function _defineRoles(params, cb) {
-  if (!session.isLogged()) return cb(null, []);
-
-  const user = session.getUser();
+function defineRoles(params) {
   const roles = [];
 
+  if (!params.user) return roles;
+
   // user is owner
-  if (user.uid == params.ownerUid) {
+  if (params.user.uid == params.ownerUid) {
     roles.push(ROLES.EVENTEDITOR);
   }
 
-  get(params.res.detailedSession, (err, res) => {
-    if (err) return cb(err);
+  if (params.me?.member?.role === 'administrator') {
+    roles.push(ROLES.EVENTEDITOR);
+    roles.push(ROLES.AGENDAADMIN);
+  }
 
-    if (params.adminAgendaUids
-      .filter(uid => res.agendas.map(a => a.uid).indexOf(uid) !== -1)
-      .map(uid => res.agendas.filter(a => a.uid === uid)[0].role)
-      .filter(r => ['administrator', 'moderator'].indexOf(r) !== -1)
-      .length) {
-      roles.push(ROLES.EVENTEDITOR);
-    }
+  if (params.me?.member?.role === 'moderator') {
+    roles.push(ROLES.EVENTEDITOR);
+    roles.push(ROLES.AGENDAMODERATOR);
+  }
 
-    if (!params.agendaUid) return cb(null, roles);
-
-    const matches = res.agendas.filter(a => a.uid === params.agendaUid);
-
-    if (!matches.length) return cb(null, roles);
-
-    if (matches.filter(a => a.role === 'administrator').length) {
-      roles.push(ROLES.AGENDAADMIN);
-    }
-
-    if (matches.filter(a => a.role === 'moderator').length) {
-      roles.push(ROLES.AGENDAMODERATOR);
-    }
-
-    cb(null, roles);
-  });
-
+  return roles;
 }
