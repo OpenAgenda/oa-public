@@ -104,7 +104,7 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
   } else if (relative.includes('passed')) {
     parts.push(_timestampFilter('_search_last_timing', { lt: 'now' }));
   } else if (relative.includes('upcoming') && relative.includes('current')) {
-    parts.push(_havingUpcomingTimings());
+    parts.push(_havingUpcomingAndCurrentTimings());
   } else if (relative.includes('upcoming')) {
     parts.push(_timestampFilter('_search_first_timing', { gt: 'now' }));
   } else if (relative.includes('current')) {
@@ -275,13 +275,13 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
   return parts;
 }
 
-function _havingUpcomingTimings() {
+function _havingUpcomingAndCurrentTimings() {
   return {
     nested: {
       path: 'timings',
       query: {
         range: {
-          'timings.begin': { gte: 'now' }
+          'timings.end': { gte: 'now' }
         }
       }
     }
