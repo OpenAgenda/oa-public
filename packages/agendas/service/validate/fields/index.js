@@ -384,6 +384,6 @@ module.exports = [{
     field: 'useJSONBridge',
     description: 'JSON export V1 is generated from the V2 format',
     type: 'boolean',
-    default: true
+    default: false
   }]
 }];
