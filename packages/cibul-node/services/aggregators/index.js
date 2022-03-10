@@ -123,7 +123,7 @@ module.exports.init = (config, services) => {
           aggregated: ae.aggregated
         } : null)),
       listEventReferences: (agendaUid, after, query = {}) => services.core.agendas(agendaUid).events.search(
-        query,
+        { ...query, state: 2 },
         { after },
         { useAfterKey: true, detailed: true }
       ),
