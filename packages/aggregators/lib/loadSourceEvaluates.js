@@ -26,10 +26,7 @@ module.exports = async (
       events,
       after: nextAfter,
       total,
-    } = await listEventReferences(sourceAgenda.uid, after, {
-      ...(query ?? {}),
-      state: 2,
-    });
+    } = await listEventReferences(sourceAgenda.uid, after, query);
     after = nextAfter;
     count += events.length;
     log('enqueuing %s evaluates on %s', count, total);

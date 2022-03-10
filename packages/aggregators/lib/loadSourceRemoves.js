@@ -16,8 +16,7 @@ module.exports = async (
   while (hasMore) {
     const { after: nextAfter, events } = await listEventReferences(
       sourceAgendaUid,
-      after,
-      { state: null }
+      after
     );
 
     log('enqueuing %s removes', events.length);
