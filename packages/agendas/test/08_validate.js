@@ -58,7 +58,7 @@ describe('agendas - unit (server): validate', () => {
               complete: null,
               publication: null
             },
-            type: 2,
+            type: 1,
             moderateOnChangeBy: [],
             useFields: false,
             authorizedIPAddresses: [],
@@ -195,7 +195,7 @@ describe('agendas - unit (server): validate', () => {
               complete: null,
               publication: null
             },
-            type: 2,
+            type: 1,
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: ['administrators', 'moderators'],

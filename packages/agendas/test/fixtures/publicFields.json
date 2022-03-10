@@ -83,7 +83,7 @@
       "contribution": {
         "fields": {
           "type": {
-            "default": 2,
+            "default": 1,
             "type": "choice",
             "optional": false,
             "unique": true,
