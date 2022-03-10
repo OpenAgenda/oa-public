@@ -1,0 +1,78 @@
+{
+    "id": -1,
+    "fields": [
+        {
+            "field": "image",
+            "fieldType": "image",
+            "label": "Image",
+            "purpose": "Image principale de l'événement",
+            "optional": true,
+            "display": false
+        },
+        {
+            "field": "imageCredits",
+            "fieldType": "text",
+            "label": "Crédits image",
+            "optional": true
+        },
+        {
+            "field": "languages",
+            "fieldType": "languages",
+            "label": "Langues"
+        },
+        {
+            "field": "title",
+            "fieldType": "text",
+            "label": {
+                "en": "Title",
+                "fr": "Titre"
+            }
+        },
+        {
+            "field": "description",
+            "fieldType": "text",
+            "label": "Description"
+        },
+        {
+            "field": "keywords",
+            "fieldType": "text",
+            "label": "Keywords"
+        },
+        {
+            "field": "longDescription",
+            "fieldType": "markdown",
+            "label": "Long description"
+        },
+        {
+            "field": "conditions",
+            "fieldType": "text",
+            "label": "Conditions"
+        },
+        {
+            "field": "age",
+            "fieldType": "text",
+            "label": "Age"
+        },
+        {
+            "field": "registration",
+            "fieldType": "registration",
+            "label": "Registration"
+        },
+        {
+            "field": "accessibility",
+            "fieldType": "accessibility",
+            "label": "Accessibility conditions",
+            "display": false
+        },
+        {
+            "field": "location",
+            "fieldType": "location",
+            "label": "Location"
+        },
+        {
+            "field": "timings",
+            "fieldType": "timings",
+            "label": "Horaires"
+        }
+    ]
+}

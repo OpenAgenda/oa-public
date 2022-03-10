@@ -52,7 +52,7 @@ export default class FormSchemaBuilder extends Component {
 
     const initState = {
       schema: _.get(props, 'schema', { fields: [] }),
-      labelLanguages:  extractSchemaLabelLanguages(props.useExtendedLabelLanguages ? mergedSchema : props.schema),
+      labelLanguages: extractSchemaLabelLanguages(props.useExtendedLabelLanguages ? mergedSchema : props.schema),
       saveState: saveStates.UNCHANGED,
       editedField: null,
       mode: null,
