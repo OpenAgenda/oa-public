@@ -9,14 +9,15 @@ module.exports = async (
   const log = Log(
     `source agenda ${sourceAgendaUid} of aggregator agenda ${aggregatorAgendaUid}`
   );
-  let lastId = 0;
+  let after;
   let hasMore = true;
   let count = 0;
 
   while (hasMore) {
-    const { lastId: updatedLastId, events } = await listEventReferences(
+    const { after: nextAfter, events } = await listEventReferences(
       sourceAgendaUid,
-      lastId
+      after,
+      { state: null }
     );
 
     log('enqueuing %s removes', events.length);
@@ -31,7 +32,7 @@ module.exports = async (
       });
     }
 
-    lastId = updatedLastId;
+    after = nextAfter;
     if (!events.length) hasMore = false;
   }
   log('enqueued %s removes, done', count);

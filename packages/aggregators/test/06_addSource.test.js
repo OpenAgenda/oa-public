@@ -103,6 +103,7 @@ describe('06 - addSource', () => {
     test('query is given to interface', () => {
       expect(enqueuedListEventReferencesQuery[0]).toStrictEqual({
         relative: 'current',
+        state: 2,
       });
     });
   });
