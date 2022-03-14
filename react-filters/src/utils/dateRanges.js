@@ -134,15 +134,15 @@ export default function dateRanges(intl, opts = {}) {
   };
 
   return {
-    staticRanges: opts.staticRanges ? opts.staticRanges.map(v => {
-      if (typeof v === 'string') {
-        const result = defaults.staticRanges.find(w => w.id === v);
-        if (result) {
-          return result;
-        }
+    staticRanges: opts.staticRanges ? opts.staticRanges.reduce((accu, next) => {
+      if (typeof next === 'string') {
+        const result = defaults.staticRanges.find(w => w.id === next);
+        if (result) accu.push(result);
+        else console.log(`Cannot found static range "${next}"`);
       }
-      return v;
-    }) : defaults.staticRanges,
+      accu.push(next);
+      return accu;
+    }, []) : defaults.staticRanges,
     inputRanges: opts.inputRanges || defaults.inputRanges,
   };
 }
