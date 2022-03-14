@@ -3,7 +3,6 @@ import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import { parseISO, endOfDay, isSameDay } from 'date-fns';
 import DefinedRangePicker from '../fields/DefinedRangeField';
-import { dateRanges } from '../../utils';
 import Title from '../Title';
 import Panel from '../Panel';
 import FilterPreviewer from '../FilterPreviewer';
@@ -159,17 +158,11 @@ function Preview({
 const DefinedRangeFilter = React.forwardRef(function DefinedRangeFilter(
   {
     name,
-    staticRanges: staticRangesProp,
+    staticRanges,
     inputRanges
   },
   ref
 ) {
-  const intl = useIntl();
-  const { staticRanges } = useMemo(() => dateRanges(intl, {
-    staticRanges: staticRangesProp,
-    inputRanges
-  }), [inputRanges, intl, staticRangesProp]);
-
   return (
     <>
       <Field
