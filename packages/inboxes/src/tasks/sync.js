@@ -141,7 +141,7 @@ export async function syncAgenda(svc, agenda, stats) {
         upStats(stats, 'inboxUsersRemoved');
         log(
           'info',
-          'InboxUser %j is removed to inbox %j',
+          'InboxUser %j is removed from inbox %j',
           inboxUserIdentifiers,
           inboxIdentifiers
         );
@@ -170,7 +170,7 @@ export async function syncAgenda(svc, agenda, stats) {
       upStats(stats, 'inboxUsersRemoved');
       log(
         'info',
-        'InboxUser %j is removed to inbox %j',
+        'InboxUser %j is removed from inbox %j',
         inboxUserIdentifiers,
         inboxIdentifiers
       );
