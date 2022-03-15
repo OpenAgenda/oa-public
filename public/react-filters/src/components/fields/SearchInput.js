@@ -32,14 +32,20 @@ function Input({ input, placeholder, onButtonClick }) {
 export default function SearchInput({
   inputComponent = Input,
   input,
+  onChange, // user onChange
   ...rest
 }) {
   const form = useForm();
   const [tmpValue, setTmpValue] = useState(input.value);
 
-  const debouncedOnChange = useDebouncedCallback(e => input.onChange(e), 400);
+  const debouncedOnChange = useDebouncedCallback(e => {
+    input.onChange(e);
+    if (typeof onChange === 'function') {
+      onChange(e.target.value);
+    }
+  }, 400);
 
-  const onChange = useCallback(e => {
+  const inputOnChange = useCallback(e => {
     e.persist();
 
     setTmpValue(e.target.value);
@@ -49,8 +55,8 @@ export default function SearchInput({
   const wrappedInput = useMemo(() => ({
     ...input,
     value: tmpValue,
-    onChange
-  }), [input, onChange, tmpValue]);
+    onChange: inputOnChange
+  }), [input, inputOnChange, tmpValue]);
 
   useEffect(() => {
     setTmpValue(input.value);

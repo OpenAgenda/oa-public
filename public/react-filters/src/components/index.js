@@ -12,6 +12,7 @@ export { default as Filters } from './Filters';
 export { default as FiltersManager } from './FiltersManager';
 export { default as FiltersProvider } from './FiltersProvider';
 export { default as Panel } from './Panel';
-export { default as SearchInput } from './SearchInput';
+export { default as Sort } from './Sort';
+export { default as SearchInput } from './fields/SearchInput';
 export { default as Total } from './Total';
 export { default as ValueBadge } from './ValueBadge';
