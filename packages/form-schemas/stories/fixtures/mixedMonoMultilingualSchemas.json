@@ -1,0 +1,2293 @@
+{
+  "schema": {
+    "custom": null,
+    "defaultLabelLanguage": null,
+    "nextOptionId": 28,
+    "fields": [
+        {
+            "field": "status",
+            "display": true,
+            "fieldType": "abstract"
+        },
+        {
+            "field": "languages",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "title",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "sous-titre",
+            "label": "Sous-titre",
+            "info": "Indiquez un complément de titre si nécesaire.",
+            "display": true,
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "description",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "image",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "imageCredits",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "image_alt_text",
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "longDescription",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "timings",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "attendanceMode",
+            "display": true,
+            "fieldType": "abstract"
+        },
+        {
+            "field": "location",
+            "default": {
+                "uid": 70831886
+            },
+            "fieldType": "abstract"
+        },
+        {
+            "field": "other_place",
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "onlineAccessLink",
+            "display": true,
+            "fieldType": "abstract"
+        },
+        {
+            "field": "type-devenement",
+            "origin": "tags",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "type-devenement-institutions",
+            "label": "Type d'événement Institutions",
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "optionalWith": null,
+            "related": {
+                "enable": [],
+                "optional": []
+            },
+            "min": null,
+            "max": null,
+            "options": [
+                {
+                    "id": 19,
+                    "value": "evenements",
+                    "label": {
+                        "fr": "Evenements"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 6,
+                    "value": "chrysanthemes-dragons-et-samourais",
+                    "label": {
+                        "fr": "Chrysanthèmes, dragons et samouraïs"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 7,
+                    "value": "tasses-regards-de-lionel-latham",
+                    "label": {
+                        "fr": "Tasses! Regards de Lionel Latham"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 8,
+                    "value": "pieces-a-problemes-robert-dawson-et-richard-slee",
+                    "label": {
+                        "fr": "Pièces à problèmes. Robert Dawson et Richard Slee"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 21,
+                    "value": "autour-du-japon",
+                    "label": {
+                        "fr": "Autour du japon"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 9,
+                    "value": "vitrine-carte-blanche",
+                    "label": {
+                        "fr": "Vitrine Carte blanche"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 10,
+                    "value": "visites-thematiques",
+                    "label": {
+                        "fr": "Visites thématiques"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 11,
+                    "value": "jeune-public",
+                    "label": {
+                        "fr": "Jeune public"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 20,
+                    "value": "ateliers-enfants",
+                    "label": {
+                        "fr": "Ateliers enfants"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 23,
+                    "value": "ateliers-adultes",
+                    "label": {
+                        "fr": "Ateliers adultes"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 24,
+                    "value": "hubert-crevoisier",
+                    "label": {
+                        "fr": "Hubert Crevoisier"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 25,
+                    "value": "alexandre-joly",
+                    "label": {
+                        "fr": "Alexandre Joly"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 26,
+                    "value": "visite-commentee",
+                    "label": {
+                        "fr": "Visite commentée"
+                    },
+                    "info": null,
+                    "display": true
+                },
+                {
+                    "id": 27,
+                    "value": "handicap",
+                    "label": {
+                        "fr": "Handicap"
+                    },
+                    "info": null,
+                    "display": true
+                }
+            ],
+            "fieldType": "checkbox"
+        },
+        {
+            "field": "publics-cibles",
+            "origin": "tags",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "age",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "accessibility",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "conditions",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "registration",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "id-secutix",
+            "label": "ID Secutix",
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": "Pour faire un lien vers la billetterie, saisir l'identifiant fourni par Secutix. Uniquement pour le site Drupal.",
+            "sub": null,
+            "placeholder": "10228344060674",
+            "write": null,
+            "read": null,
+            "optional": true,
+            "display": true,
+            "origin": "custom",
+            "enableWith": null,
+            "optionalWith": null,
+            "related": {
+                "enable": [],
+                "optional": []
+            },
+            "min": 1111111111,
+            "max": 11111111111111110000,
+            "fieldType": "integer"
+        },
+        {
+            "field": "labels",
+            "label": "Labels pour geneve.ch",
+            "info": "Ces labels permettent aux internautes de filtrer les événements en fonction du type d'activités qu'ils recherchent sur le site de la Ville de Genève.",
+            "sub": null,
+            "placeholder": null,
+            "display": true,
+            "origin": "tags",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "references",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "internal_remarks",
+            "label": "Remarques internes",
+            "info": "Ce champ vous permet d'indiquer qui a effectué la saisie.",
+            "sub": null,
+            "placeholder": null,
+            "display": true,
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "organisation-de-levenement",
+            "default": 33,
+            "display": false,
+            "origin": "tags",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "organisator",
+            "display": false,
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "organisator_url",
+            "display": false,
+            "origin": "custom",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "service-contributeur",
+            "default": 3,
+            "display": false,
+            "origin": "tags",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "keywords",
+            "display": true,
+            "fieldType": "abstract"
+        },
+        {
+            "field": "thematiques-internes",
+            "display": false,
+            "origin": "tags",
+            "fieldType": "abstract"
+        },
+        {
+            "field": "thematiques-musees",
+            "display": true,
+            "origin": "tags",
+            "fieldType": "abstract"
+        }
+    ],
+    "id": 27415
+  },
+  "extensions": [{
+    "schema": {
+      "id": -1,
+      "custom": {},
+      "fields": [
+          {
+              "field": "image",
+              "fieldType": "image",
+              "optional": true,
+              "label": {
+                  "fr": "Image de l'événement",
+                  "en": "Image of the event",
+                  "it": "Immagine dell'evento",
+                  "de": "Bild der Veranstaltung",
+                  "es": "imagen del evento",
+                  "br": "Skeudenn an darvoud",
+                  "io": "crwdns14296:0crwdne14296:0"
+              },
+              "info": {
+                  "fr": "Chargez une image d'au moins 300 pixels de large",
+                  "en": "Load an image of at least 300 pixels width",
+                  "it": "Carica un'immagine di almeno 300 pixel di larghezza",
+                  "de": "Laden Sie ein Bild mit einer Breite von mindestens 300 Pixeln.",
+                  "es": "Cargar una imagen de al menos 300 píxeles de ancho",
+                  "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ",
+                  "io": "crwdns14298:0crwdne14298:0"
+              },
+              "allowURL": true,
+              "allowPath": true,
+              "imageWithSizeAndVariants": true,
+              "extensions": [
+                  "jpg",
+                  "bmp",
+                  "png",
+                  "jpeg"
+              ],
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "imageCredits",
+              "fieldType": "text",
+              "optional": true,
+              "label": {
+                  "fr": "Crédits de l'image",
+                  "en": "Image credits",
+                  "it": "Crediti d'immagine",
+                  "de": "Bildnachweise",
+                  "es": "créditos del imágen",
+                  "br": "Perc'henn ar skeudenn",
+                  "io": "crwdns14300:0crwdne14300:0"
+              },
+              "enableWith": "image",
+              "max": 255,
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "languages",
+              "fieldType": "languages",
+              "label": {
+                  "fr": "Langues de saisie",
+                  "en": "Input languages",
+                  "it": "Scegli una lingua",
+                  "de": "Wählen Sie eine Sprache",
+                  "es": "idiomas de entrada",
+                  "br": "Choazit ur yezh",
+                  "io": "crwdns14336:0crwdne14336:0"
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "languages": [],
+              "field": "title",
+              "fieldType": "text",
+              "optional": false,
+              "max": 140,
+              "label": {
+                  "fr": "Titre",
+                  "en": "Title",
+                  "it": "Titolo",
+                  "de": "Titel",
+                  "es": "título",
+                  "br": "Titl",
+                  "io": "crwdns14284:0crwdne14284:0"
+              },
+              "placeholder": {
+                  "fr": "Le titre de votre événement",
+                  "en": "Title of your event",
+                  "it": "Il titolo del tuo evento",
+                  "de": "Titel Ihrer Veranstaltung",
+                  "es": "El título de su evento",
+                  "br": "Titl ho tarvoud",
+                  "io": "crwdns14288:0crwdne14288:0"
+              },
+              "purpose": {
+                  "fr": "Titre de l'événement",
+                  "en": "Title of the event",
+                  "es": "Nombre del evento",
+                  "br": "Titl an darvoud",
+                  "io": "crwdns14286:0crwdne14286:0"
+              },
+              "sub": {
+                  "fr": "",
+                  "en": "",
+                  "de": "",
+                  "br": ""
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "languages": [],
+              "field": "description",
+              "fieldType": "text",
+              "optional": false,
+              "max": 200,
+              "label": {
+                  "fr": "Description courte",
+                  "en": "Short description",
+                  "it": "Breve descrizione",
+                  "de": "Kurzbeschreibung",
+                  "es": "Descripción corta",
+                  "br": "Deskrivadur berr",
+                  "io": "crwdns14290:0crwdne14290:0"
+              },
+              "purpose": {
+                  "fr": "Description pour les affichages réduits ou liste",
+                  "en": "Description for short or list displays",
+                  "es": "Descripción de las pequeñas pantallas o lista",
+                  "br": "Deskrivadur evit an diskweloù berr pe listenn",
+                  "io": "crwdns14292:0crwdne14292:0"
+              },
+              "placeholder": {
+                  "fr": "Une courte description de votre événement",
+                  "en": "A short description of your event",
+                  "it": "Una breve descrizione del vostro evento",
+                  "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
+                  "es": "Una breve descripción de su evento",
+                  "br": "Un deskrivadur berr eus ho tarvoud",
+                  "io": "crwdns14294:0crwdne14294:0"
+              },
+              "sub": {
+                  "fr": "",
+                  "en": "",
+                  "de": "",
+                  "br": ""
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "languages": [],
+              "field": "keywords",
+              "fieldType": "keywords",
+              "optional": true,
+              "max": 255,
+              "label": {
+                  "fr": "Mots clés",
+                  "en": "Keywords",
+                  "it": "Parole Chiave",
+                  "de": "Schlüsselwörter",
+                  "es": "Palabras llave",
+                  "br": "Gerioù-alc'hwez",
+                  "io": "crwdns14306:0crwdne14306:0"
+              },
+              "placeholder": {
+                  "fr": "Séparez les mots clés par des tabulations ou des virgules",
+                  "en": "Separate each keyword with tabs or commas",
+                  "it": "Parole chiave separate con schede o virgole",
+                  "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
+                  "es": "palabras llave separadas por comas o fichas",
+                  "br": "Dispartiit ar gerioù-alc'hwez gant arouezennoù taolennata pe virgulennoù",
+                  "io": "crwdns14308:0crwdne14308:0"
+              },
+              "sub": {
+                  "fr": "Les mots clés sont utiles pour les fonctions de recherche",
+                  "en": "Keywords are useful for search features",
+                  "it": "Le parole chiave sono utili per le funzioni di ricerca",
+                  "de": "Keywords sind nützlich für Suchfunktionen.",
+                  "es": "Las palabras llave son útiles para las funciones de búsqueda",
+                  "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
+                  "io": "crwdns14310:0crwdne14310:0"
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "languages": [],
+              "field": "longDescription",
+              "fieldType": "markdown",
+              "label": {
+                  "fr": "Description longue",
+                  "en": "Long description",
+                  "it": "Descrizione lunga",
+                  "de": "Lange Beschreibung",
+                  "es": "Descripción larga",
+                  "br": "Deskrivadur hir",
+                  "io": "crwdns14302:0crwdne14302:0"
+              },
+              "max": 10000,
+              "sub": {
+                  "fr": "",
+                  "en": "",
+                  "de": "",
+                  "br": ""
+              },
+              "placeholder": {
+                  "fr": "Saisissez une description détaillée de votre événement.",
+                  "en": "Type in a detailed description of your event.",
+                  "it": "Inserisci una descrizione dettagliata del tuo evento.",
+                  "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
+                  "es": "Introduzca una descripción detallada de su evento.",
+                  "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud.",
+                  "io": "crwdns14304:0crwdne14304:0"
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "languages": [],
+              "field": "conditions",
+              "fieldType": "text",
+              "label": {
+                  "fr": "Conditions de participation, tarifs",
+                  "en": "Attendance conditions, pricing",
+                  "it": "Condizioni di partecipazione, prezzi",
+                  "de": "Teilnahmebedingungen, Preisgestaltung",
+                  "es": "Condiciones de las tasas de participación",
+                  "br": "Divizoù evit kemer perzh, prizioù",
+                  "io": "crwdns14312:0crwdne14312:0"
+              },
+              "max": 255,
+              "placeholder": {
+                  "fr": "Entrée libre, sur inscription, autre...",
+                  "en": "Free access, registration required, other...",
+                  "it": "Ingresso libero, su registrazione, altro.....",
+                  "de": "Freier Zugang, Registrierung erforderlich, andere.....",
+                  "es": "Entrada gratuita para los suscriptores, otra ...",
+                  "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
+                  "io": "crwdns14314:0crwdne14314:0"
+              },
+              "sub": {
+                  "fr": "",
+                  "en": "",
+                  "de": "",
+                  "br": ""
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "age",
+              "fieldType": "age",
+              "optional": true,
+              "label": {
+                  "fr": "Age du public ciblé",
+                  "en": "Targeted public age",
+                  "it": "Età del pubblico di riferimento",
+                  "de": "Gezieltes öffentliches Alter",
+                  "es": "Edad del objetivo",
+                  "br": "Oad an dud a glasker tizhout",
+                  "io": "crwdns14326:0crwdne14326:0"
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "registration",
+              "fieldType": "registration",
+              "optional": true,
+              "label": {
+                  "fr": "Outils d'inscription",
+                  "en": "Registration",
+                  "it": "Strumenti di registrazione",
+                  "de": "Registrierung",
+                  "es": "Herramientas de registro",
+                  "br": "En em enskrivañ",
+                  "io": "crwdns14316:0crwdne14316:0"
+              },
+              "info": {
+                  "fr": "Liens, emails ou numéros de téléphone",
+                  "en": "Links, emails or phone numbers",
+                  "it": "Link, e-mail o numeri di telefono",
+                  "de": "Links, E-Mails oder Telefonnummern",
+                  "es": "Enlaces, números de teléfono o correo electrónico",
+                  "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
+                  "io": "crwdns14320:0crwdne14320:0"
+              },
+              "sub": {
+                  "fr": "Séparez les items par des tabulations ou des virgules",
+                  "en": "Separate each item with tabs or commas",
+                  "it": "Separare le voci per tabulazione o virgole",
+                  "de": "Trenne jedes Element mit Tabs oder Kommas.",
+                  "es": "artículos por separado con tabulaciones o comas",
+                  "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
+                  "io": "crwdns14318:0crwdne14318:0"
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "accessibility",
+              "fieldType": "accessibility",
+              "optional": true,
+              "label": {
+                  "fr": "Accessibilité particulière",
+                  "en": "Accessibility conditions",
+                  "it": "Accessibilità speciale",
+                  "de": "Bedingungen für die Zugänglichkeit",
+                  "es": "accesibilidad especial",
+                  "br": "Monedusted",
+                  "io": "crwdns14322:0crwdne14322:0"
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "display": false,
+              "field": "attendanceMode",
+              "fieldType": "radio",
+              "label": {
+                  "fr": "Mode de participation",
+                  "en": "Attendance mode",
+                  "it": "Modalità di partecipazione",
+                  "es": "Modo de asistencia",
+                  "de": "Anwesenheitsmodus",
+                  "br": "Doare perzhiañ",
+                  "io": "crwdns14264:0crwdne14264:0"
+              },
+              "optional": false,
+              "default": 1,
+              "options": [
+                  {
+                      "id": 1,
+                      "value": "offline",
+                      "label": {
+                          "fr": "Sur place",
+                          "en": "Offline",
+                          "it": "Disconnesso",
+                          "es": "Desconnectad",
+                          "de": "Offline",
+                          "br": "War al lec’h",
+                          "io": "crwdns14266:0crwdne14266:0"
+                      }
+                  },
+                  {
+                      "id": 2,
+                      "value": "online",
+                      "label": {
+                          "fr": "En ligne",
+                          "en": "Online",
+                          "it": "In linea",
+                          "es": "En linea",
+                          "de": "Online",
+                          "br": "Enlinenn",
+                          "io": "crwdns14268:0crwdne14268:0"
+                      }
+                  },
+                  {
+                      "id": 3,
+                      "value": "mixed",
+                      "label": {
+                          "fr": "Mixte",
+                          "en": "Mixed",
+                          "it": "Misto",
+                          "es": "Mezclado",
+                          "de": "Gemischt",
+                          "br": "Kemmesk",
+                          "io": "crwdns14270:0crwdne14270:0"
+                      }
+                  }
+              ],
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "location",
+              "fieldType": "location",
+              "label": {
+                  "fr": "Lieu",
+                  "en": "Location",
+                  "it": "Posizione",
+                  "de": "Ort",
+                  "es": "lugar",
+                  "br": "Lec'h",
+                  "io": "crwdns14274:0crwdne14274:0"
+              },
+              "sub": {
+                  "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+                  "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
+                  "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'.",
+                  "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
+                  "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
+                  "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
+                  "io": "crwdns14278:0crwdne14278:0"
+              },
+              "optionalWith": {
+                  "field": "attendanceMode",
+                  "value": 2
+              },
+              "disableChange": false,
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "display": false,
+              "field": "onlineAccessLink",
+              "fieldType": "link",
+              "label": {
+                  "fr": "Lien d'accès",
+                  "en": "Access link",
+                  "de": "Zugangslink",
+                  "es": "Enlace de acceso",
+                  "it": "Collegamento di accesso",
+                  "br": "Liamm moned",
+                  "io": "crwdns14272:0crwdne14272:0"
+              },
+              "optional": false,
+              "enableWith": {
+                  "field": "attendanceMode",
+                  "value": [
+                      2,
+                      3
+                  ]
+              },
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "status",
+              "fieldType": "select",
+              "default": 1,
+              "display": false,
+              "label": {
+                  "fr": "État",
+                  "en": "Status"
+              },
+              "options": [
+                  {
+                      "id": 1,
+                      "value": "scheduled",
+                      "label": {
+                          "fr": "Programmé",
+                          "en": "Scheduled"
+                      }
+                  },
+                  {
+                      "id": 2,
+                      "value": "rescheduled",
+                      "label": {
+                          "fr": "Re-programmé",
+                          "en": "Re-scheduled"
+                      }
+                  },
+                  {
+                      "id": 3,
+                      "value": "movedOnline",
+                      "label": {
+                          "fr": "Passé en ligne",
+                          "en": "Moved online"
+                      }
+                  },
+                  {
+                      "id": 4,
+                      "value": "postponed",
+                      "label": {
+                          "fr": "Reporté",
+                          "en": "Postponed"
+                      }
+                  },
+                  {
+                      "id": 5,
+                      "value": "full",
+                      "label": {
+                          "fr": "Complet",
+                          "en": "Full"
+                      }
+                  },
+                  {
+                      "id": 6,
+                      "value": "cancelled",
+                      "label": {
+                          "fr": "Annulé",
+                          "en": "Canceled"
+                      }
+                  }
+              ],
+              "schemaId": null,
+              "schemaType": "event"
+          },
+          {
+              "field": "timings",
+              "fieldType": "timings",
+              "max": 800,
+              "optional": false,
+              "label": {
+                  "fr": "Horaires",
+                  "en": "Timings",
+                  "it": "Orari",
+                  "de": "Timings",
+                  "es": "horario",
+                  "br": "Eurioù",
+                  "io": "crwdns14328:0crwdne14328:0"
+              },
+              "info": {
+                  "fr": "Définissez les horaires de votre événement",
+                  "en": "Specify timings for your event",
+                  "it": "Definire gli orari del vostro evento",
+                  "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+                  "es": "Ajuste el tiempo de su evento",
+                  "br": "Lakait eurioù ho tarvoud",
+                  "io": "crwdns14330:0crwdne14330:0"
+              },
+              "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+              "schemaId": null,
+              "schemaType": "event"
+          }
+      ]
+    },
+    "info": {
+      "label": { "fr": "Standard", "en": "Standard" },
+      "detail": { "fr": "Champ événement", "en": "Event field"}
+    }
+  }, {
+    "schema": {
+      "custom": null,
+      "defaultLabelLanguage": null,
+      "nextOptionId": 105,
+      "fields": [
+          {
+              "field": "languages",
+              "display": true,
+              "fieldType": "abstract"
+          },
+          {
+              "field": "title",
+              "info": {
+                  "en": "The title must not exceed 140 characters",
+                  "fr": "Le titre ne doit pas dépasser 140 caractères"
+              },
+              "fieldType": "abstract"
+          },
+          {
+              "field": "description",
+              "label": {
+                  "en": "Excerpt",
+                  "fr": "Chapeau"
+              },
+              "info": {
+                  "en": "The excerpt must summarize in a few words your text and contain some keywords. It must address the why, the who and the what",
+                  "fr": "Le chapeau doit résumer en quelques phrases votre texte, et contenir des mots clés. Il doit répondre brièvement (200 signes environ) à 5 questions: Quoi? Qui? Où? Quand? Pourquoi?"
+              },
+              "fieldType": "abstract"
+          },
+          {
+              "field": "sous-titre",
+              "label": {
+                  "en": "Subtitle",
+                  "fr": "Sous-titre"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": null,
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": true,
+              "display": false,
+              "origin": "custom",
+              "enableWith": null,
+              "optionalWith": null,
+              "languages": [],
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": 300,
+              "fieldType": "text"
+          },
+          {
+              "field": "longDescription",
+              "label": {
+                  "en": "Text",
+                  "fr": "Texte"
+              },
+              "info": {
+                  "en": "You can type and format your text, add videos, a document, sound extracts by placing links to content hosted on common media platforms.",
+                  "fr": "Vous pouvez saisir et mettre en page votre texte, et y ajouter si besoin une vidéo, un document, un extrait sonore ou des liens. Pour cela, inscrivez-les sous forme de lien url directement dans le corps du texte."
+              },
+              "fieldType": "abstract"
+          },
+          {
+              "field": "timings",
+              "info": {
+                  "en": "Define the timings and dates of the event, specifying whether the event is recurring and excluding closing dates",
+                  "fr": "Indiquez les horaires et dates de l'événement, en précisant si l'événement est récurrent et excluant les jours de fermeture."
+              },
+              "fieldType": "abstract"
+          },
+          {
+              "field": "internal_remarks",
+              "label": {
+                  "en": "Internal remarks",
+                  "fr": "Remarques internes"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "This field allows you to indicate to Infocom your remarks if any concerning the treatment of this event.",
+                  "fr": "Ce champ vous permet d'indiquer à Infocom vos éventuelles remarques concernant le traitement de cet événement."
+              },
+              "sub": {
+                  "en": "This field is currently multilingual",
+                  "fr": "Ce champ est actuellement multilingue"
+              },
+              "placeholder": null,
+              "write": null,
+              "read": [
+                  "administrator",
+                  "moderator"
+              ],
+              "optional": true,
+              "display": true,
+              "origin": "custom",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "languages": [],
+              "fieldType": "textarea"
+          },
+          {
+              "field": "service-contributeur",
+              "label": {
+                  "en": "Contribution service",
+                  "fr": "Service Contributeur"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Specify who is in charge of the event. If the event is organized by multiple services, check several values. This information is not public; it will only be used internally.",
+                  "fr": "Indiquez quel est le service responsable de l'événement. Si l'événement est organisé par plusieurs services, vous pouvez en cocher plusieurs. Cette information ne sera pas publique; elle utile uniquement pour l'interne."
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": false,
+              "display": true,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "options": [
+                  {
+                      "id": 1,
+                      "value": "infocom",
+                      "label": {
+                          "fr": "INFOCOM",
+                          "en": "INFOCOM"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 2,
+                      "value": "a21",
+                      "label": {
+                          "fr": "A21",
+                          "en": "A21"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 3,
+                      "value": "ari",
+                      "label": {
+                          "fr": "ARI",
+                          "en": "ARI"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 4,
+                      "value": "bge",
+                      "label": {
+                          "fr": "BGE",
+                          "en": "BGE"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 5,
+                      "value": "bmu",
+                      "label": {
+                          "fr": "BMU",
+                          "en": "BMU"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 6,
+                      "value": "cjb",
+                      "label": {
+                          "fr": "CJB",
+                          "en": "CJB"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 85,
+                      "value": "dacm",
+                      "label": {
+                          "en": "DACM",
+                          "fr": "DACM"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 7,
+                      "value": "dej",
+                      "label": {
+                          "fr": "DEJ",
+                          "en": "DEJ"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 8,
+                      "value": "dctn",
+                      "label": {
+                          "fr": "DCTN",
+                          "en": "DCTN"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 63,
+                      "value": "dcss",
+                      "label": {
+                          "en": "DCSS",
+                          "fr": "DCSS"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 9,
+                      "value": "dfel",
+                      "label": {
+                          "fr": "DFEL",
+                          "en": "DFEL"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 88,
+                      "value": "dssp",
+                      "label": {
+                          "en": "DSSP",
+                          "fr": "DSSP"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 64,
+                      "value": "eco",
+                      "label": {
+                          "en": "ECO",
+                          "fr": "ECO"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 56,
+                      "value": "fmac",
+                      "label": {
+                          "en": "FMAC",
+                          "fr": "FMAC"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 89,
+                      "value": "lom",
+                      "label": {
+                          "en": "LOM",
+                          "fr": "LOM"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 10,
+                      "value": "mah",
+                      "label": {
+                          "fr": "MAH",
+                          "en": "MAH"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 11,
+                      "value": "meg",
+                      "label": {
+                          "fr": "MEG",
+                          "en": "MEG"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 12,
+                      "value": "mhn",
+                      "label": {
+                          "fr": "MHN",
+                          "en": "MHN"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 65,
+                      "value": "sdpe",
+                      "label": {
+                          "en": "SDPE",
+                          "fr": "SDPE"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 69,
+                      "value": "sec",
+                      "label": {
+                          "en": "SEC",
+                          "fr": "SEC"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 13,
+                      "value": "soc",
+                      "label": {
+                          "fr": "SOC",
+                          "en": "SOC"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 66,
+                      "value": "spf",
+                      "label": {
+                          "en": "SPF",
+                          "fr": "SPF"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 14,
+                      "value": "spo",
+                      "label": {
+                          "fr": "SPO",
+                          "en": "SPO"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 54,
+                      "value": "vh",
+                      "label": {
+                          "fr": "VH",
+                          "en": "VH"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 55,
+                      "value": "ext",
+                      "label": {
+                          "fr": "Contributeur Externe",
+                          "en": "Contributeur Externe"
+                      },
+                      "info": null,
+                      "display": true
+                  }
+              ],
+              "fieldType": "radio"
+          },
+          {
+              "field": "type-devenement",
+              "label": {
+                  "en": "Event type",
+                  "fr": "Type d'événement"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Choose a type for this event. Tags allow users to filter the event list according to their interests",
+                  "fr": "Veuillez choisir un type d'événement pour cet événement. Ces tags permettent aux utilisateurs de trier les événements selon leurs intérêts."
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": false,
+              "display": true,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "options": [
+                  {
+                      "id": 34,
+                      "value": "animation",
+                      "label": {
+                          "fr": "Animation",
+                          "en": "Entertainment"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 35,
+                      "value": "atelier",
+                      "label": {
+                          "fr": "Atelier",
+                          "en": "Workshop"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 36,
+                      "value": "balade",
+                      "label": {
+                          "fr": "Balade",
+                          "en": "Walk"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 86,
+                      "value": "clubbing",
+                      "label": {
+                          "en": "Clubbing",
+                          "fr": "Clubbing"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 38,
+                      "value": "concert",
+                      "label": {
+                          "fr": "Concert",
+                          "en": "Concert"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 39,
+                      "value": "conference-rencontre",
+                      "label": {
+                          "fr": "Conférence-Rencontre",
+                          "en": "Conference-Meeting"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 40,
+                      "value": "danse",
+                      "label": {
+                          "fr": "Danse",
+                          "en": "Dance"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 41,
+                      "value": "exposition",
+                      "label": {
+                          "fr": "Exposition",
+                          "en": "Exhibition"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 61,
+                      "value": "festival",
+                      "label": {
+                          "en": "Festival",
+                          "fr": "Festival"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 42,
+                      "value": "inauguration",
+                      "label": {
+                          "fr": "Inauguration",
+                          "en": "Inauguration"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 43,
+                      "value": "lecture",
+                      "label": {
+                          "fr": "Lecture",
+                          "en": "Reading"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 44,
+                      "value": "foires-et-manifestations",
+                      "label": {
+                          "fr": "Foires et manifestations",
+                          "en": "Event"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 84,
+                      "value": "opera",
+                      "label": {
+                          "en": "Opéra",
+                          "fr": "Opera"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 45,
+                      "value": "projection",
+                      "label": {
+                          "fr": "Projection",
+                          "en": "Screening"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 70,
+                      "value": "sport",
+                      "label": {
+                          "fr": "Sport",
+                          "en": "Sport"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 73,
+                      "value": "stands-et-marches",
+                      "label": {
+                          "en": "Markets",
+                          "fr": "Stands et marchés"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 47,
+                      "value": "spectacle-theatre",
+                      "label": {
+                          "fr": "Spectacle - Théâtre",
+                          "en": "Theatre"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 48,
+                      "value": "visite-commentee",
+                      "label": {
+                          "fr": "Visite commentée",
+                          "en": "Guided visit"
+                      },
+                      "info": null,
+                      "display": true
+                  }
+              ],
+              "fieldType": "radio"
+          },
+          {
+              "field": "thematiques-musees",
+              "label": "Museum themes",
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Do not fill for the time being",
+                  "fr": "Ne pas remplir pour l'instant (campagne 2022)"
+              },
+              "sub": {
+                  "en": "Do not fill for the time being",
+                  "fr": "Ne pas remplir pour l'instant (campagne 2022)"
+              },
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "display": false,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "options": [
+                  {
+                      "id": 90,
+                      "value": "option-1",
+                      "label": {
+                          "fr": "Les fake news ont-elles toujours existé ? (communication / médias)",
+                          "en": "Have fake news always existed ? (communication / media)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 91,
+                      "value": "option-2",
+                      "label": {
+                          "fr": "Est-ce vraiment dans les vieux pots qu’on fait les meilleures soupes ? (alimentation)",
+                          "en": "Is it really in old kitchen pots that best soups are made ? (nutrition)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 92,
+                      "value": "option-3",
+                      "label": {
+                          "fr": "L’harmonie est-elle universelle ? (musique)",
+                          "en": "Is harmony universal ? (music)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 93,
+                      "value": "option-4",
+                      "label": {
+                          "fr": "Et les plantes, communiquent-elles aussi ? (écologie / environnement / climat)",
+                          "en": "And plants, do they also communicate ? (ecology / environment / climate)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 94,
+                      "value": "option-5",
+                      "label": {
+                          "fr": "Les stars d’hier sont-elles si différentes de celles d’aujourd’hui ? (histoire / politique)",
+                          "en": "Yesterday's stars are they that different from contemporary ones ? (history / politics)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 95,
+                      "value": "option-6",
+                      "label": {
+                          "fr": "La science apporte-t-elle plus de questions que de réponses ? (science)",
+                          "en": "Does science bring more questions thant answers ? (science)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 96,
+                      "value": "option-7",
+                      "label": {
+                          "fr": "Le musée est-il un site de rencontre ? (la rencontre)",
+                          "en": "Are museums meeting places ? (encounters)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 97,
+                      "value": "option-8",
+                      "label": {
+                          "fr": "L’art a-t-il besoin des musées ? (rôle des musées)",
+                          "en": "Does art need museums ? (role of museums)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 98,
+                      "value": "option-9",
+                      "label": {
+                          "fr": "Copie ou original ? (droits d’auteur)",
+                          "en": "Copy or original ? (author rights)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 99,
+                      "value": "option-10",
+                      "label": {
+                          "fr": "Accessoire ou essentiel ? (apparence)",
+                          "en": "Accessory or essential ? (appearance)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 100,
+                      "value": "option-11",
+                      "label": {
+                          "fr": "Est-ce qu’il faut savoir dessiner pour être un artiste ? (art et expression contemporains)",
+                          "en": "Is it needed to know how to draw in order to be an artist ? (art and contemporary expression)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 101,
+                      "value": "option-12",
+                      "label": {
+                          "fr": "Pot de fleur ou chef d’œuvre ? (savoir-faire / artisanat / traditions)",
+                          "en": "Flower pot or masterpiece ? (know-how / craftmanship / tradition)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 102,
+                      "value": "option-13",
+                      "label": {
+                          "fr": "L’histoire est-elle écrite par les vainqueurs ? (droit d’expression)",
+                          "en": "Is history written by the victors ? (expression rights)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 103,
+                      "value": "option-14",
+                      "label": {
+                          "fr": "Hier ou aujourd'hui ? (Intemporalité des œuvres)",
+                          "en": "Yesterday or today ? (Intemporality of artwork)"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 104,
+                      "value": "option-15",
+                      "label": {
+                          "fr": "option 15"
+                      },
+                      "info": null,
+                      "display": false
+                  }
+              ],
+              "fieldType": "checkbox"
+          },
+          {
+              "field": "location",
+              "default": {
+                  "countryCode": "CH",
+                  "city": "Genève",
+                  "latitude": 46.2050579,
+                  "longitude": 6.126579
+              },
+              "info": {
+                  "en": "Fin the venu of your event in the database. If it is not listed, or if you want to list more than one, select \"other location\" and give details in the following field",
+                  "fr": "Recherchez le lieu de votre événement dans la base mise à disposition. S'il ne s'y trouve pas ou si vous désirez en afficher plusieurs, sélectionnez \"autre lieu\" puis remplissez le champ texte \"autre lieu\" ci-dessous."
+              },
+              "allowCreate": false,
+              "fieldType": "abstract"
+          },
+          {
+              "field": "other_place",
+              "label": {
+                  "en": "Other place",
+                  "fr": "Autre lieu"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "If the location of your event is not listed in the field above, type in its name and coordinates here.",
+                  "fr": "Si le lieu de votre événement ne se trouve pas dans la liste suggérée ci-dessus, saisissez le nom et les coordonnées de votre lieu en format texte."
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": true,
+              "display": true,
+              "origin": "custom",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": 300,
+              "fieldType": "text"
+          },
+          {
+              "field": "publics-cibles",
+              "label": {
+                  "en": "Target audience",
+                  "fr": "Public(s) cible(s)"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Select the audiences targetted by the event.",
+                  "fr": "Cochez le(s) public(s) qui sont spécialement concernés par cet événement. Si l'événement s'adresse à un public large, cochez \"Tous publics\"."
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": false,
+              "display": true,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "options": [
+                  {
+                      "id": 30,
+                      "value": "tous-publics",
+                      "label": {
+                          "fr": "Tous publics",
+                          "en": "General public"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 27,
+                      "value": "enfants-et-famille",
+                      "label": {
+                          "fr": "Enfants et famille",
+                          "en": "Children and family"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 26,
+                      "value": "jeunes",
+                      "label": {
+                          "fr": "Jeunes",
+                          "en": "School"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 29,
+                      "value": "seniors-et-retraite-e-s",
+                      "label": {
+                          "fr": "Seniors et retraité-e-s",
+                          "en": "Senior citizens and pensioners"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 28,
+                      "value": "personnes-en-situation-de-handicap",
+                      "label": {
+                          "fr": "Personnes en situation de handicap",
+                          "en": "Handicapped people"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 77,
+                      "value": "associations",
+                      "label": {
+                          "en": "Associations",
+                          "fr": "Associations"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 82,
+                      "value": "ecoles",
+                      "label": {
+                          "en": "Écoles",
+                          "fr": "Schools"
+                      },
+                      "info": null,
+                      "display": true
+                  }
+              ],
+              "fieldType": "checkbox"
+          },
+          {
+              "field": "organisation-de-levenement",
+              "label": {
+                  "en": "Event organisation",
+                  "fr": "Organisation de l'événement"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Specify here who organizes the event, if the city provides aid in a way or the other (venue, financing, personel) or whether it is organized by another organization. This information will be displayed on the eent page. If the event is organized by an \"external organization\", provide details in the Organizer and Organizer website fields.",
+                  "fr": "Indiquez ici si l'événement est organisé par la Ville de Genève (=un événement Ville de Genève); est soutenu par la Ville de Genève d'une façon ou d'une autre (prêt de la salle, financement d'une partie, personnel à disposition, etc.) ou s'il est organisé par un organisme externe à l'administration et n'est pas soutenu. Cette information sera affichée sur la page de l'événement. Si \"Un événement organisé par un externe\" est sélectionné, veillez à compléter les champs \"Organisateur\" et \"Site web de l'organisateur\""
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": false,
+              "display": true,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "options": [
+                  {
+                      "id": 31,
+                      "value": "evenement-vdg",
+                      "label": {
+                          "fr": "Evénement VDG",
+                          "en": "VDG Event"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 32,
+                      "value": "evenement-soutenu-par-vdg",
+                      "label": {
+                          "fr": "Evénement soutenu par VDG",
+                          "en": "VDG-sponsored event"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 33,
+                      "value": "evenement-organise-par-un-externe",
+                      "label": {
+                          "fr": "Evénement organisé par un externe",
+                          "en": "Event organized by an external organization"
+                      },
+                      "info": null,
+                      "display": true
+                  }
+              ],
+              "fieldType": "radio"
+          },
+          {
+              "field": "organisator",
+              "label": {
+                  "en": "Organizer",
+                  "fr": "Organisateur"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "fr": "Introduisez le nom de-s organisateur-s",
+                  "en": "Specify the organizer's name"
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": true,
+              "display": true,
+              "origin": "custom",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "fieldType": "text"
+          },
+          {
+              "field": "organisator_url",
+              "label": {
+                  "en": "Organizer url",
+                  "fr": "Organisateur url"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Specify the organizers website",
+                  "fr": "Introduisez l'adresse du site web ou de la Facebook de l'organisateur"
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": true,
+              "display": true,
+              "origin": "custom",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "fieldType": "text"
+          },
+          {
+              "field": "image_alt_text",
+              "label": {
+                  "en": "Texte alternatif à l'image",
+                  "fr": "Texte alternatif à l'image"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Décrivez ce que vous voyez dans l'image pour les personnes en situation de handicap",
+                  "fr": "Décrivez ce que vous voyez dans l'image pour les personnes en situation de handicap"
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": false,
+              "display": true,
+              "origin": "custom",
+              "enableWith": "image",
+              "optionalWith": null,
+              "related": {
+                  "enable": [
+                      "image"
+                  ],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "fieldType": "text"
+          },
+          {
+              "field": "registration",
+              "label": {
+                  "en": "Réservation et billetterie",
+                  "fr": "Réservation et billetterie"
+              },
+              "info": {
+                  "en": "Indiquez les détails de contacts ou renvoyer vers le site de la billetterie",
+                  "fr": "Indiquez les détails de contacts ou renvoyer vers le site de la billetterie"
+              },
+              "fieldType": "abstract"
+          },
+          {
+              "field": "keywords",
+              "display": false,
+              "fieldType": "abstract"
+          },
+          {
+              "field": "references",
+              "related": [
+                  "type-devenement",
+                  "publics-cibles",
+                  "location"
+              ],
+              "fieldType": "abstract",
+              "boost": {
+                  "type-devenement": 50,
+                  "publics-cibles": 10,
+                  "location": 5
+              },
+              "suggest": true
+          },
+          {
+              "field": "conditions",
+              "label": {
+                  "en": "Tarifs et conditions",
+                  "fr": "Tarifs et conditions"
+              },
+              "info": {
+                  "en": "Le prix doit être indiqué de manière suivante: CHF 0.- ou CHF 0.50, en mentionnnant les différentes catégories (normal/réduit)",
+                  "fr": "Le prix doit être indiqué de manière suivante: CHF 0.- ou CHF 0.50, en mentionnnant les différentes catégories (normal/réduit)"
+              },
+              "placeholder": {
+                  "en": "Prix",
+                  "fr": "Prix"
+              },
+              "fieldType": "abstract"
+          },
+          {
+              "field": "thematiques-internes",
+              "label": {
+                  "en": "Thématiques internes",
+                  "fr": "Thématiques internes"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Ces tags permettent d'afficher ces événements sur des pages spécifiques du site officiel de la Ville.",
+                  "fr": "Ces tags permettent d'afficher ces événements sur des pages spécifiques du site officiel de la Ville."
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": [
+                  "administrator",
+                  "moderator"
+              ],
+              "read": [
+                  "administrator",
+                  "moderator"
+              ],
+              "optional": true,
+              "display": true,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "options": [
+                  {
+                      "id": 80,
+                      "value": "arbres",
+                      "label": {
+                          "en": "Arbres",
+                          "fr": "Arbres"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 57,
+                      "value": "climat",
+                      "label": {
+                          "en": "Climate",
+                          "fr": "Climat"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 71,
+                      "value": "cours-de-sport-en-plein-air",
+                      "label": {
+                          "en": "Cours de sport en plein air",
+                          "fr": "Cours de sport en plein air"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 49,
+                      "value": "culture-vdg",
+                      "label": {
+                          "fr": "Culture VDG",
+                          "en": "Culture VDG"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 58,
+                      "value": "diversite",
+                      "label": {
+                          "en": "Diversity",
+                          "fr": "Diversité"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 51,
+                      "value": "espaces-de-quartier",
+                      "label": {
+                          "fr": "Espaces de quartier",
+                          "en": "Espaces de quartier"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 74,
+                      "value": "food-trucks",
+                      "label": {
+                          "en": "Food-Trucks",
+                          "fr": "Food-Trucks"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 87,
+                      "value": "geneve-ville-du-gout",
+                      "label": {
+                          "en": "Genève, ville du goût",
+                          "fr": "Genève, ville du goût"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 62,
+                      "value": "genre-et-sports",
+                      "label": {
+                          "en": "Genre et sports",
+                          "fr": "Genre et sports"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 75,
+                      "value": "marches",
+                      "label": {
+                          "en": "Marchés",
+                          "fr": "Marchés"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 59,
+                      "value": "nourrir-la-ville",
+                      "label": {
+                          "en": "Feed the city",
+                          "fr": "Nourrir la ville"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 78,
+                      "value": "spectacles-en-ligne-et-en-direct",
+                      "label": {
+                          "en": "Spectacles en ligne et en direct",
+                          "fr": "Spectacles en ligne et en direct"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 50,
+                      "value": "sport",
+                      "label": {
+                          "fr": "Sport",
+                          "en": "Sport"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 76,
+                      "value": "velos",
+                      "label": {
+                          "en": "Bicycles",
+                          "fr": "Vélos"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 60,
+                      "value": "zero-sexisme",
+                      "label": {
+                          "en": "Zero Sexism",
+                          "fr": "Zéro Sexisme"
+                      },
+                      "info": null,
+                      "display": true
+                  }
+              ],
+              "fieldType": "checkbox"
+          },
+          {
+              "field": "labels",
+              "label": {
+                  "en": "Labels",
+                  "fr": "Labels"
+              },
+              "help": null,
+              "helpLink": null,
+              "helpContent": null,
+              "info": {
+                  "en": "Ces labels permettent aux internautes de filtrer les événements en fonction du type d'activités qu'ils recherchent.",
+                  "fr": "Ces labels permettent aux internautes de filtrer les événements en fonction du type d'activités qu'ils recherchent."
+              },
+              "sub": null,
+              "placeholder": null,
+              "write": null,
+              "read": null,
+              "optional": true,
+              "display": true,
+              "origin": "tags",
+              "enableWith": null,
+              "optionalWith": null,
+              "related": {
+                  "enable": [],
+                  "optional": []
+              },
+              "min": null,
+              "max": null,
+              "options": [
+                  {
+                      "id": 24,
+                      "value": "100-gratuit",
+                      "label": {
+                          "fr": "100% gratuit",
+                          "en": "100% gratuit"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 25,
+                      "value": "en-plein-air",
+                      "label": {
+                          "fr": "En plein air",
+                          "en": "En plein air"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 83,
+                      "value": "musiques-en-ete-2021",
+                      "label": {
+                          "en": "Musiques en été 2021",
+                          "fr": "Musiques en été 2021"
+                      },
+                      "info": null,
+                      "display": true
+                  },
+                  {
+                      "id": 79,
+                      "value": "online",
+                      "label": {
+                          "en": "Online",
+                          "fr": "Online"
+                      },
+                      "info": null,
+                      "display": true
+                  }
+              ],
+              "fieldType": "checkbox"
+          },
+          {
+              "field": "age",
+              "fieldType": "abstract"
+          },
+          {
+              "field": "accessibility",
+              "fieldType": "abstract"
+          },
+          {
+              "field": "attendanceMode",
+              "fieldType": "abstract"
+          },
+          {
+              "field": "onlineAccessLink",
+              "fieldType": "abstract"
+          },
+          {
+              "field": "status",
+              "fieldType": "abstract"
+          }
+      ],
+      "id": 9661
+    },
+    "info": {
+      "label": { "fr": "Réseau", "en": "Network" },
+      "detail": { "fr": "Champ réseau", "en": "Network field"}
+    }
+  }]
+}

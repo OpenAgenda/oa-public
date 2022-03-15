@@ -15,6 +15,7 @@ exports.seed = async knex => {
     files: [
       agendasSvcRoot + '/test/fixtures/resetDb.sql',
       agendasSvcRoot + '/model.sql',
+      agendasSvcRoot + '/test/fixtures/agenda.data.sql',
       agendasSvcRoot + '/test/fixtures/occurrence.data.sql',
       agendasSvcRoot + '/test/fixtures/legacyCredentialSet.data.sql'
     ],
@@ -32,9 +33,6 @@ exports.seed = async knex => {
       table: schemas.event,
       src: path.resolve( __dirname, 'event.sql' )
     }, {
-      table: schemas.member,
-      src: path.resolve( __dirname, 'member.sql' )
-    }, , {
       table: schemas.stakeholder,
       src: path.resolve( __dirname, 'stakeholder.sql' )
     }, {

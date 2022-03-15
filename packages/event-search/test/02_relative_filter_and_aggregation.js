@@ -21,10 +21,22 @@ describe('02 - event search - functional: relative filter', () => {
   });
 
   before(async () => {
+    const fixtures = JSON.parse(
+      fs.readFileSync(`${__dirname}/fixtures/02_events.relative.json`)
+    );
+    const anHourAgo = new Date();
+    anHourAgo.setHours(anHourAgo.getHours() - 1);
+
+    const inAnHour = new Date();
+    inAnHour.setHours(inAnHour.getHours() + 1);
+
+    fixtures.events[fixtures.events.length - 1].timings = [{
+      begin: JSON.stringify(anHourAgo).replace(/"/g, ''),
+      end: JSON.stringify(inAnHour).replace(/"/g, '')
+    }];
+
     await service('relative').rebuild({
-      eventsList: async (lastId, limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/02_events.relative.json`)
-      )
+      eventsList: async (lastId, limit) => fixtures
     })
   });
 
@@ -51,8 +63,16 @@ describe('02 - event search - functional: relative filter', () => {
       relative: 'current'
     });
 
-    assert.equal(total, 1);
+    assert.equal(total, 2);
     assert.equal(events[0].title.fr, 'Eclipses lunaires');
+  });
+
+  it('filter on current and upcoming returns also current but not upcoming', async () => {
+    const { events, total } = await service('relative').search({
+      relative: ['current', 'upcoming']
+    });
+
+    assert.equal(events.map(e => e.uid).includes(4), true);
   });
 
   it('aggregation', async () => {
@@ -64,7 +84,7 @@ describe('02 - event search - functional: relative filter', () => {
       aggregations.relative,
       [{
         key: 'current',
-        eventCount: 1
+        eventCount: 2
       }, {
         key: 'passed',
         eventCount: 1
@@ -82,7 +102,7 @@ describe('02 - event search - functional: relative filter', () => {
 
     assert.deepEqual(
       events.map(e => e.title.fr),
-      ['Eclipses lunaires', 'Amarsissage de Musk']
+      ['Eclipses lunaires', 'Amarsissage de Musk', 'En cours et pas à venir']
     );
   });
 
@@ -98,7 +118,7 @@ describe('02 - event search - functional: relative filter', () => {
   });
 
   it('relative filter set to passed and upcoming excludes current', async () => {
-    const { events } = await service('relative').search({
+    const { events } = await service('relative').search({
       relative: ['passed', 'upcoming']
     });
 

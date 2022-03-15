@@ -223,7 +223,7 @@ describe( 'agendas - functional (server): get', function() {
         docxExport: false,
         eventOwnershipTransfer: false,
         graphs: false,
-        useJSONBridge: true
+        useJSONBridge: false
       } );
 
       done();

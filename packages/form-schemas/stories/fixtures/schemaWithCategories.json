@@ -1,0 +1,23 @@
+{
+    "id": 12,
+    "fields": [
+        {
+            "field": "categories",
+            "fieldType": "radio",
+            "label": "Catégories",
+            "optional": false,
+            "options": [
+                {
+                    "id": 1,
+                    "value": "concert",
+                    "label": "Concert"
+                },
+                {
+                    "id": 2,
+                    "value": "theatre",
+                    "label": "Théatre"
+                }
+            ]
+        }
+    ]
+}

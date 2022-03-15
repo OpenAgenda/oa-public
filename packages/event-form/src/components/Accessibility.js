@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import ih from 'immutability-helper';
 
 import mLabels from '@openagenda/labels/event/accessibility';
 import flatten from '@openagenda/labels/flatten';
@@ -50,7 +51,7 @@ module.exports = class AccessibilityComponent extends Component {
 
     const value = this.props.value || this.getDefault();
 
-    this.props.onChange( _.set( value, type, !value[ type ] ) );
+    this.props.onChange(ih(this.props.value, _.set( {}, type, { $set: !value[ type ] })));
 
   }
 

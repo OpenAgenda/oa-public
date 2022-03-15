@@ -152,11 +152,6 @@ module.exports = {
     link: '/missinglanguage'
   }, {
     group: 'builder',
-    name: 'formbuilder',
-    description: 'A form builder',
-    link: '/formbuilder'
-  }, {
-    group: 'builder',
     name: 'Options',
     description: 'For when you need to type in values for checkbox or radio lists',
     link: '/options'
