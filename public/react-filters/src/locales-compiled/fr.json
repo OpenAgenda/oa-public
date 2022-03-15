@@ -334,7 +334,7 @@
   "ReactFilters.messages.featured.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "En une"
     }
   ],
   "ReactFilters.messages.filterTitles.addMethod": [
@@ -460,7 +460,7 @@
   "ReactFilters.messages.provenance.aggregation": [
     {
       "type": 0,
-      "value": "Aggregation"
+      "value": "Agrégation"
     }
   ],
   "ReactFilters.messages.provenance.contribution": [
@@ -472,7 +472,7 @@
   "ReactFilters.messages.provenance.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Partage"
     }
   ],
   "ReactFilters.messages.relative.current": [
@@ -496,61 +496,61 @@
   "ReactFilters.messages.state.controlled": [
     {
       "type": 0,
-      "value": "Controlled"
+      "value": "Prêt à publier"
     }
   ],
   "ReactFilters.messages.state.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Publié"
     }
   ],
   "ReactFilters.messages.state.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Refusé"
     }
   ],
   "ReactFilters.messages.state.toModerate": [
     {
       "type": 0,
-      "value": "To moderate"
+      "value": "À modérer"
     }
   ],
   "ReactFilters.messages.status.cancelled": [
     {
       "type": 0,
-      "value": "Cancelled"
+      "value": "Annulé"
     }
   ],
   "ReactFilters.messages.status.full": [
     {
       "type": 0,
-      "value": "Fully booked"
+      "value": "Complet"
     }
   ],
   "ReactFilters.messages.status.movedOnline": [
     {
       "type": 0,
-      "value": "Moved online"
+      "value": "Déplacé en ligne"
     }
   ],
   "ReactFilters.messages.status.postponed": [
     {
       "type": 0,
-      "value": "Postponed"
+      "value": "Reporté"
     }
   ],
   "ReactFilters.messages.status.programmed": [
     {
       "type": 0,
-      "value": "Programmed"
+      "value": "Programmé"
     }
   ],
   "ReactFilters.messages.status.rescheduled": [
     {
       "type": 0,
-      "value": "Rescheduled"
+      "value": "Reporgrammé"
     }
   ],
   "ReactFilters.useGetFilterOptions.emptyOption": [
