@@ -65,7 +65,7 @@
   "ReactFilters.messages.status.full": "Fully booked",
   "ReactFilters.messages.status.movedOnline": "Moved online",
   "ReactFilters.messages.status.postponed": "Postponed",
-  "ReactFilters.messages.status.programmed": "Programmed",
+  "ReactFilters.messages.status.programmed": "Scheduled",
   "ReactFilters.messages.status.rescheduled": "Rescheduled",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Without value)"
 }

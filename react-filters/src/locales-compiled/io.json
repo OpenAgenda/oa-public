@@ -564,7 +564,7 @@
   "ReactFilters.messages.status.programmed": [
     {
       "type": 0,
-      "value": "Programmed"
+      "value": "Scheduled"
     }
   ],
   "ReactFilters.messages.status.rescheduled": [
