@@ -66,6 +66,6 @@
   "ReactFilters.messages.status.movedOnline": "Déplacé en ligne",
   "ReactFilters.messages.status.postponed": "Reporté",
   "ReactFilters.messages.status.programmed": "Programmé",
-  "ReactFilters.messages.status.rescheduled": "Reporgrammé",
+  "ReactFilters.messages.status.rescheduled": "Reprogrammé",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Sans valeur)"
 }
