@@ -3,10 +3,22 @@ import ReactSelectInput from './ReactSelectInput';
 
 const getValue = arg => arg?.value ?? arg;
 
-export default function ReactSelectField({
+function WrappedReactSelectInput({ defaultOption, ...props }) {
+  const { value } = props.input;
+
+  return (
+    <ReactSelectInput
+      {...props}
+      value={value && value !== '' ? value : defaultOption}
+    />
+  );
+}
+
+function ReactSelectField({
   Field,
   name,
   initialValue,
+  defaultValue,
   options,
   isCreatable,
   onBlur,
@@ -94,18 +106,24 @@ export default function ReactSelectField({
     []
   );
 
-  const initialOption = useMemo(() => initialValue ?? format(initialValue), [
+  const initialOption = useMemo(() => (initialValue ? format(initialValue) : initialValue), [
     format,
     initialValue,
+  ]);
+
+  const defaultOption = useMemo(() => (defaultValue ? format(defaultValue) : defaultValue), [
+    format,
+    defaultValue,
   ]);
 
   return (
     <Field
       name={name}
       innerRef={selectRef}
-      component={ReactSelectInput}
+      component={WrappedReactSelectInput}
       options={options}
       initialValue={initialOption}
+      defaultOption={defaultOption} // defaultValue is already used by reactFinalForm
       isCreatable={isCreatable}
       format={format}
       parse={parse}
@@ -115,4 +133,8 @@ export default function ReactSelectField({
       {...props}
     />
   );
-};
+}
+
+ReactSelectField.defaultStyles = ReactSelectInput.defaultStyles;
+
+export default ReactSelectField;
