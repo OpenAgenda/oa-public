@@ -81,4 +81,44 @@ describe('02 - event search - functional: search in optioned additional fields',
     assert.strictEqual(events.length, 2);
     assert.deepEqual(events.map(e => e.uid), [2, 3]);
   });
+
+  it('aggregation on additional field provides count for events with unspecified values', async () => {
+    const { aggregations } = await service('additional').search({
+      state: null
+    }, { size: 0 }, {
+      formSchema: fixtures.formSchema,
+      detailed: true,
+      aggregations: [{
+        key: 'littleFurryBunny',
+        field: 'categories-agenda-metropolitain',
+        type: 'additionalFields',
+        missing: 'N/A'
+      }]
+    });
+
+    assert.deepEqual(aggregations, {
+      littleFurryBunny: [
+        {
+          key: 'N/A',
+          eventCount: 1
+        },
+        {
+          id: 43,
+          value: 'atelier',
+          label: {
+            fr: 'Atelier'
+          },
+          eventCount: 1
+        },
+        {
+          id: 46,
+          value: 'concert',
+          label: {
+            fr: 'Concert'
+          },
+          eventCount: 1
+        }
+      ]
+    });
+  });
 });
