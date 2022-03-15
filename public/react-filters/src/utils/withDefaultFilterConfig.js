@@ -10,6 +10,18 @@ import dateRanges from './dateRanges';
 
 const AGGREGATION_SIZE = 2000;
 
+function assignDateRanges(filter, intl) {
+  if (filter.type === 'definedRange') {
+    Object.assign(
+      filter,
+      dateRanges(intl, {
+        staticRanges: filter.staticRanges,
+        inputRanges: filter.inputRanges,
+      })
+    );
+  }
+}
+
 export default function withDefaultFilterConfig(filter, intl, opts = {}) {
   const missingValue = opts.missingValue ? 'null' : undefined;
 
@@ -66,40 +78,22 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       _.defaults(filter, {
         type: 'dateRange',
         aggregation: null,
-        ...(filter.type === 'definedRange'
-          ? dateRanges(intl, {
-            staticRanges: filter.staticRanges,
-            inputRanges: filter.inputRanges
-          })
-          : null
-        )
       });
+      assignDateRanges(filter, intl);
       break;
     case 'createdAt':
       _.defaults(filter, {
         type: 'dateRange',
         aggregation: null,
-        ...(filter.type === 'definedRange'
-          ? dateRanges(intl, {
-            staticRanges: filter.staticRanges,
-            inputRanges: filter.inputRanges
-          })
-          : null
-        )
       });
+      assignDateRanges(filter, intl)
       break;
     case 'updatedAt':
       _.defaults(filter, {
         type: 'dateRange',
         aggregation: null,
-        ...(filter.type === 'definedRange'
-          ? dateRanges(intl, {
-            staticRanges: filter.staticRanges,
-            inputRanges: filter.inputRanges
-          })
-          : null
-        )
       });
+      assignDateRanges(filter, intl)
       break;
     case 'state':
       _.defaults(filter, {
