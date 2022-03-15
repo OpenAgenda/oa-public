@@ -47,7 +47,7 @@ module.exports = withAggs => async (req, res, next) => {
 
     req.data = _.assign(req.data || {}, {
       query: req.query,
-      searchString: qs.stringify(req.query, { addQueryPrefix: true }),
+      searchString: qs.stringify(_.omit(req.query, 'aggregations'), { addQueryPrefix: true }),
       total,
       events: events?.map((e, index) => transform(e, req, res, {
         total,
