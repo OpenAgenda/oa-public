@@ -3,7 +3,7 @@ import { Field, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { defineMessages, useIntl } from 'react-intl';
 import FilterPreviewer from '../FilterPreviewer';
-import SearchInput from '../SearchInput';
+import SearchInput from '../fields/SearchInput';
 
 const subscription = { value: true };
 
