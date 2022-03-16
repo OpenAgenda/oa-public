@@ -249,7 +249,7 @@ export const Map = () => {
           style="width: 320px; height: calc(180px + 24px); padding-bottom: 24px;"
           data-oa-filter="an-id"
           data-oa-filter-params="<%- JSON.stringify({
-            tileUrl: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileAttribution: 'Map data © OpenStreetMap contributors',
             searchWithMap: true,
             searchMessage: 'Rechercher quand je déplace la carte',
