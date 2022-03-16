@@ -64,7 +64,7 @@ describe('02 - event search - functional: relative filter', () => {
     });
 
     assert.equal(total, 2);
-    assert.equal(events[0].title.fr, 'Eclipses lunaires');
+    assert.equal(events[0].title.fr, 'En cours et pas à venir');
   });
 
   it('filter on current and upcoming returns also current but not upcoming', async () => {
@@ -102,8 +102,16 @@ describe('02 - event search - functional: relative filter', () => {
 
     assert.deepEqual(
       events.map(e => e.title.fr),
-      ['Eclipses lunaires', 'Amarsissage de Musk', 'En cours et pas à venir']
+      ['En cours et pas à venir', 'Eclipses lunaires', 'Amarsissage de Musk']
     );
+  });
+
+  it('ongoing event appears before event with upcoming timings on a default sort', async () => {
+    const { events } = await service('relative').search({
+      relative: ['current', 'upcoming']
+    });
+
+    assert.strictEqual(events[0].title.fr, 'En cours et pas à venir');
   });
 
   it('relative filter set to passed and current returns passed and current', async () => {
