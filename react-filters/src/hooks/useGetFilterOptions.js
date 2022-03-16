@@ -13,7 +13,15 @@ const messages = defineMessages({
 export default function useGetFilterOptions(intl, filtersBase, aggregations) {
   return useCallback(
     filter => {
-      if (filter.options) return filter.options;
+      const missingLabel = intl.formatMessage(messages.emptyOption);
+
+      if (filter.options) {
+        return filter.missingValue ? [{
+          label: missingLabel,
+          key: filter.missingValue,
+          value: filter.missingValue
+        }].concat(filter.options) : filter.options;
+      }
 
       if (!filtersBase?.[filter.name]) return [];
 
@@ -30,7 +38,6 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
       }
 
       const labelKey = filter.labelKey || 'key';
-      const missingLabel = intl.formatMessage(messages.emptyOption);
 
       return baseAgg.map(entry => {
         const dataKey = 'id' in entry ? 'id' : 'key';
