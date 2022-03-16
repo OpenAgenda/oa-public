@@ -245,6 +245,24 @@
       "value": "Search with map"
     }
   ],
+  "ReactFilters.Sort.chronological": [
+    {
+      "type": 0,
+      "value": "Chronological order"
+    }
+  ],
+  "ReactFilters.Sort.recentlyUpdated": [
+    {
+      "type": 0,
+      "value": "Recently updated"
+    }
+  ],
+  "ReactFilters.Sort.relevance": [
+    {
+      "type": 0,
+      "value": "Relevance"
+    }
+  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,

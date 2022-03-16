@@ -245,6 +245,24 @@
       "value": "Rechercher avec la carte"
     }
   ],
+  "ReactFilters.Sort.chronological": [
+    {
+      "type": 0,
+      "value": "Ordre chronologique"
+    }
+  ],
+  "ReactFilters.Sort.recentlyUpdated": [
+    {
+      "type": 0,
+      "value": "Date de mise à jour"
+    }
+  ],
+  "ReactFilters.Sort.relevance": [
+    {
+      "type": 0,
+      "value": "Pertinence"
+    }
+  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
