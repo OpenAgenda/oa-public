@@ -3835,7 +3835,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
-    "@openagenda/react-filters": ^2.6.6
+    "@openagenda/react-filters": ^2.6.7
     "@openagenda/react-portal-ssr": ^1.0.0
     "@openagenda/react-shared": ^2.3.2
     axios: ^0.21.1
@@ -4117,7 +4117,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-filters@^2.6.6, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@^2.6.7, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
