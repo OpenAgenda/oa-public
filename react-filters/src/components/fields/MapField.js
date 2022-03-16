@@ -21,8 +21,8 @@ import { defineMessages, useIntl } from 'react-intl';
 import { usePrevious } from 'react-use';
 import '@raruto/leaflet-gesture-handling';
 
-const paddingRatio = 0.2;
-const unpadRatio = -(1 / ((1 + paddingRatio) / paddingRatio));
+const padRatio = 0.2;
+const unpadRatio = -(1 / ((1 + padRatio + padRatio) / padRatio));
 
 const worldViewport = {
   bottomRight: {
@@ -134,8 +134,8 @@ function valueToViewport(value) {
     new L.LatLng(value.southWest.lat, value.southWest.lng)
   );
 
-  const southEast = bounds.getSouthEast().wrap();
-  const northWest = bounds.getNorthWest().wrap();
+  const southEast = bounds.getSouthEast();
+  const northWest = bounds.getNorthWest();
 
   return {
     bottomRight: {
@@ -153,6 +153,32 @@ function viewportToBounds(viewport) {
   return new L.LatLngBounds(
     new L.LatLng(viewport.bottomRight.latitude, viewport.bottomRight.longitude),
     new L.LatLng(viewport.topLeft.latitude, viewport.topLeft.longitude)
+  );
+}
+
+/*
+Returns bounds created by extending or retracting the current bounds by a given ratio in each direction.
+For example, a ratio of 0.5 extends the bounds by 50% in each direction.
+Negative values will retract the bounds.
+Skip the padding if the whole map is seen.
+*/
+function normalizeBounds(bounds, bufferRatio = 1) {
+  const sw = bounds.getSouthWest();
+  const ne = bounds.getNorthEast();
+  const height = Math.abs(sw.lat - ne.lat); // 85 * 2 is the whole map
+  const width = Math.abs(sw.lng - ne.lng); // 180 * 2 is the whole map
+  const heightBuffer = height * bufferRatio;
+  const widthBuffer = Math.min(width, 360) * bufferRatio;
+
+  // For positive pad
+  const south = height > 170 ? sw.lat : sw.lat - heightBuffer;
+  const west = width > 360 ? -180 : sw.lng - widthBuffer;
+  const north = height > 170 ? ne.lat : ne.lat + heightBuffer;
+  const east = width > 360 ? 180 : ne.lng + widthBuffer;
+
+  return new L.LatLngBounds(
+    new L.LatLng(south, west),
+    new L.LatLng(north, east)
   );
 }
 
@@ -197,8 +223,8 @@ function OnMapMove({ onChange, programmaticMoveRef }) {
         return;
       }
 
-      const innerBounds = map.getBounds().pad(unpadRatio);
-      const innerZoom = map.getBoundsZoom(innerBounds);
+      const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
+      const innerZoom = map.getBoundsZoom(map.getBounds());
 
       onChange({
         bounds: innerBounds,
@@ -234,8 +260,7 @@ const Map = React.forwardRef(
     const [data, setData] = useState(() => []);
 
     const [displayedMarkers, setDisplayedMarkers] = useState(false);
-    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport).pad(paddingRatio));
-
+    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport).pad(padRatio));
     useImperativeHandle(ref, () => ({
       setData,
       onQueryChange: newViewport => {
@@ -244,8 +269,8 @@ const Map = React.forwardRef(
         const needFitBounds = !userControlled || isEmptyValue(input.value);
 
         function reloadData() {
-          const innerBounds = map.getBounds().pad(unpadRatio);
-          const innerZoom = map.getBoundsZoom(innerBounds);
+          const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
+          const innerZoom = map.getBoundsZoom(map.getBounds());
 
           loadGeoData(filter, innerBounds, innerZoom)
             .then(newData => setData(newData?.reverse() ?? []));
@@ -255,7 +280,7 @@ const Map = React.forwardRef(
           map.once('moveend', () => reloadData());
 
           programmaticMoveRef.current = true;
-          map.fitBounds(viewportToBounds(newViewport || defaultViewport).pad(paddingRatio));
+          map.fitBounds(viewportToBounds(newViewport || defaultViewport).pad(padRatio));
         } else {
           reloadData();
         }
@@ -266,8 +291,8 @@ const Map = React.forwardRef(
       map => {
         mapRef.current = map;
 
-        const innerBounds = map.getBounds().pad(unpadRatio);
-        const innerZoom = map.getBoundsZoom(innerBounds);
+        const innerBounds = normalizeBounds(map.getBounds(), unpadRatio);
+        const innerZoom = map.getBoundsZoom(map.getBounds());
 
         loadGeoData(filter, innerBounds, innerZoom).then(newData => {
           setData(newData?.reverse() ?? []);
@@ -292,7 +317,7 @@ const Map = React.forwardRef(
       if (!map || !displayedMarkers) return;
 
       if (previousUserControlled === false && userControlled === true) {
-        const innerBounds = mapRef.current.getBounds().pad(unpadRatio);
+        const innerBounds = mapRef.current.getBounds();
         const innerZoom = mapRef.current.getBoundsZoom(innerBounds);
 
         onChange({
@@ -311,40 +336,37 @@ const Map = React.forwardRef(
     }), [intl.locale]);
 
     return (
-      <>
-        <MapContainer
-          className={className}
-          css={css`
-            height: 100%;
-            ${markerClusterStyle}
-            ${gestureHandlingStyle}
-          `}
-          bounds={bounds}
-          whenCreated={onMapCreate}
-          // scrollWheelZoom={false}
-          gestureHandling
-          gestureHandlingOptions={gestureHandlingOptions}
-          doubleClickZoom
-          worldCopyJump
-          // minZoom={1}
-          noWrap
-        >
-          <TileLayer attribution={tileAttribution} url={tileUrl} />
+      <MapContainer
+        className={className}
+        css={css`
+          height: 100%;
+          ${markerClusterStyle}
+          ${gestureHandlingStyle}
+        `}
+        bounds={bounds}
+        whenCreated={onMapCreate}
+        // scrollWheelZoom={false}
+        gestureHandling
+        gestureHandlingOptions={gestureHandlingOptions}
+        doubleClickZoom
+        worldCopyJump
+        // minZoom={1}
+      >
+        <TileLayer attribution={tileAttribution} url={tileUrl} />
 
-          {displayedMarkers
-            ? data.map(entry => (
-              <MarkerClusterIcon
-                key={entry.key}
-                eventCount={entry.eventCount}
-                latitude={entry.latitude}
-                longitude={entry.longitude}
-              />
-            ))
-            : null}
+        {displayedMarkers
+          ? data.map(entry => (
+            <MarkerClusterIcon
+              key={entry.key}
+              eventCount={entry.eventCount}
+              latitude={entry.latitude}
+              longitude={entry.longitude}
+            />
+          ))
+          : null}
 
-          <OnMapMove onChange={onChange} programmaticMoveRef={programmaticMoveRef} />
-        </MapContainer>
-      </>
+        <OnMapMove onChange={onChange} programmaticMoveRef={programmaticMoveRef} />
+      </MapContainer>
     );
   }
 );
