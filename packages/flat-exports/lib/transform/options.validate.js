@@ -50,5 +50,9 @@ module.exports = schema({
   },
   agendaUid: {
     type: 'num'
+  },
+  distributeOptionalFields: {
+    type: 'text',
+    list: { default: [] }
   }
 });

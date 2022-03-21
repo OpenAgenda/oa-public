@@ -6,15 +6,12 @@ import React, {
   useState,
   useRef,
   useLayoutEffect,
-  useEffect,
 } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
-import { useField } from 'react-final-form';
-import produce from 'immer';
 import { css } from '@emotion/react';
 import {
   a11yButtonActionHandler,
@@ -25,10 +22,11 @@ import {
 } from '@openagenda/react-shared';
 import {
   FiltersProvider,
-  SearchInput,
+  SearchFilter,
   getEvents,
   useFilters,
   useGetFilterOptions,
+  Sort,
 } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPortal from '../components/FiltersPortal';
@@ -36,7 +34,6 @@ import FiltersPreview from '../components/FiltersPreview';
 import EmptyDashboard from '../components/EmptyDashboard';
 import RemoveModal from '../components/RemoveModal';
 import EventItem from '../components/EventItem';
-import SortSelector from '../components/SortSelector';
 import Actions from '../components/Actions';
 import exportsMessages from '../messages/exports';
 import BatchedStateSelector from '../components/BatchedStateSelector';
@@ -162,67 +159,13 @@ function SearchInputBs3({ input, disabled, isLoading }) {
   );
 }
 
-function SearchFilter({
-  disabled, isLoading, query, setQuery
-}) {
-  const fieldProps = useField('search');
-
-  const { value } = fieldProps.input;
-  const [previousValue, setPreviousValue] = useState(() => value);
-
-  const [userSort, setUserSort] = useState(() => query.sort);
-
-  useEffect(() => {
-    if (query.sort !== 'score') {
-      setUserSort(query.sort);
-    }
-  }, [query.sort, userSort]);
-
-  const onChange = useCallback(() => {
-    if (previousValue === '' && value !== '') {
-      setUserSort(query.sort);
-
-      setQuery({
-        ...query,
-        search: value,
-        sort: 'score',
-      });
-    } else if (query.sort === 'score' && previousValue !== '' && value === '') {
-      setQuery(
-        produce(draft => {
-          delete draft.search;
-
-          if (userSort) {
-            draft.sort = userSort;
-          } else {
-            delete draft.sort;
-          }
-        })
-      );
-    } else {
-      setQuery(
-        produce(draft => {
-          if (value) {
-            draft.search = value;
-          } else {
-            delete draft.search;
-          }
-        })
-      );
-    }
-
-    if (value !== previousValue) {
-      setPreviousValue(value);
-    }
-  }, [previousValue, query, setQuery, userSort, value]);
-
-  useUpdateEffect(() => {
-    onChange();
-  }, [fieldProps.input.value, onChange]);
+function Search({ disabled, isLoading }) {
+  const [filter] = useState(() => ({ name: 'search' }));
 
   return (
-    <SearchInput
-      {...fieldProps}
+    <SearchFilter
+      name="search"
+      filter={filter}
       isLoading={isLoading}
       disabled={disabled}
       inputComponent={SearchInputBs3}
@@ -288,16 +231,24 @@ function Dashboard() {
     [location.search]
   );
 
-  const [query, setQuery] = useState(() => {
-    const urlQuery = removeQueryPrefix(parsedLocationSearch);
+  const urlQuery = useMemo(() => {
+    const { query: q } = removeQueryPrefix(parsedLocationSearch);
 
     return _.pick(
-      validateQuery(urlQuery, { formSchema: agendaSchema, emptyValue: 'null' }),
-      Object.keys(urlQuery)
+      validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
+      Object.keys(q)
     );
-  });
+  }, [agendaSchema, parsedLocationSearch]);
 
-  const hasFilter = useMemo(
+  const [query, setQuery] = useState(() => urlQuery);
+
+  const hasUrlQuery = useMemo(
+    () => Object.keys(urlQuery).length
+      && Object.keys(urlQuery).some(key => key !== 'sort'),
+    [urlQuery]
+  );
+
+  const hasQuery = useMemo(
     () => Object.keys(query).length
       && Object.keys(query).some(key => key !== 'sort'),
     [query]
@@ -344,6 +295,7 @@ function Dashboard() {
       true
     ),
     {
+      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
     }
   );
@@ -365,6 +317,7 @@ function Dashboard() {
       page
     ),
     {
+      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
       onSuccess: newData => {
@@ -372,16 +325,10 @@ function Dashboard() {
         setSelectedEvents(new Set());
         setExtendedAllSelected(false);
 
-        const urlQuery = removeQueryPrefix(parsedLocationSearch);
-        const queryRest = Object.keys(parsedLocationSearch).reduce(
-          (accu, key) => (key.startsWith('q.')
-            ? accu
-            : { ...accu, [key]: parsedLocationSearch[key] }),
-          {}
-        );
+        const { query: q, rest: queryRest } = removeQueryPrefix(parsedLocationSearch);
 
         // Reset pagination if query has changed
-        const queryChanged = !_.isEqual(query, urlQuery);
+        const queryChanged = !_.isEqual(query, q);
 
         if (queryChanged && page === parseInt(queryRest.page, 10)) {
           setPage(1);
@@ -421,13 +368,7 @@ function Dashboard() {
     data?.aggregations
   );
 
-  const onFilterChange = useCallback(
-    values => setQuery(old => ({
-      sort: old.sort, // sort is not in form
-      ...values,
-    })),
-    [setQuery]
-  );
+  const onFilterChange = useCallback(values => setQuery(values), [setQuery]);
 
   // Selection
   const isSelectedEvent = useCallback(
@@ -529,7 +470,7 @@ function Dashboard() {
 
   // for FiltersProvider
   const filtersFormRef = useRef();
-  const [initialValues] = useState(() => _.omit(query, 'sort'));
+  const [initialValues] = useState(() => query);
   const validate = useCallback(
     values => {
       try {
@@ -549,10 +490,10 @@ function Dashboard() {
 
   // Update query when location change
   useUpdateEffect(() => {
-    const urlQuery = removeQueryPrefix(parsedLocationSearch);
+    const { query: q } = removeQueryPrefix(parsedLocationSearch);
     const cleanQuery = _.pick(
-      validateQuery(urlQuery, { formSchema: agendaSchema, emptyValue: 'null' }),
-      Object.keys(urlQuery)
+      validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
+      Object.keys(q)
     );
 
     if ('featured' in cleanQuery) {
@@ -619,23 +560,18 @@ function Dashboard() {
             width: 50%;
           `}
         >
-          <SearchFilter
-            disabled={isFetching}
-            isLoading={isFetching}
-            query={query}
-            setQuery={setQuery}
-          />
+          <Search disabled={isFetching} isLoading={isFetching} />
         </div>
 
         <div className="pull-right">
           {intl.formatMessage(messages.sortedBy)}
           &nbsp;
-          <SortSelector query={query} setQuery={setQuery} />
+          <Sort />
         </div>
 
         <div className="clearfix" />
 
-        {hasFilter ? (
+        {hasQuery ? (
           <div
             className="margin-top-sm"
             css={css`
@@ -758,7 +694,7 @@ function Dashboard() {
 
           <div className="padding-top-xs">
             <span className="margin-right-md">
-              {hasFilter
+              {hasUrlQuery && hasQuery
                 ? intl.formatMessage(messages.totalWithFilters, {
                   selection: data.total,
                   total: filtersQuery.data.total,

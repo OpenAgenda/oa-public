@@ -1,11 +1,14 @@
 'use strict';
 
+const Files = require('@openagenda/files');
+
 module.exports = {
   mysql : {
     host : '127.0.0.1',
     database : 'oa_test_admin_agendas',
     password : 'grut',
-    user : 'root'
+    user : 'root',
+    ssl: true
   },
   schemas : {
     agenda: 'agenda',
@@ -36,6 +39,15 @@ module.exports = {
       port: 6379
     }
   },
+  Files: Files({
+    s3: {
+      accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+      region: process.env.AWS_DEV_REGION,
+      defaultBucket: process.env.AWS_DEV_BUCKET
+    },
+    defaultProvider: 's3'
+  }),
   interfaces: {
     getEventCount: ( agendaId, userId, cb ) => {
 

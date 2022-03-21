@@ -82,6 +82,7 @@ describe('flat-exports - unit - transforms', () => {
           schemaType: 'event'
         }, { lang: 'fr', languages: [] })
       ).toEqual({
+        hasOptions: true,
         source: 'status',
         target: 'État',
         transform: {
@@ -135,6 +136,7 @@ describe('flat-exports - unit - transforms', () => {
             target: ['Description - FR', 'Description - EN']
           },
           {
+            hasOptions: true,
             source: 'type-devenement',
             target: 'Type d\'événement',
             transform: { 1: 'Concert' }

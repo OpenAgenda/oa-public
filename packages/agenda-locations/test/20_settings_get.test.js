@@ -128,6 +128,7 @@ describe('agenda-locations - functional - settings get', () => {
           getAgendaDetailsByUid: async (_uid, _fields) => ({
             locationSetUid: 1903810
           }),
+          getSetAgendasCount: async _setUid => 14,
         },
       });
     });
@@ -192,6 +193,11 @@ describe('agenda-locations - functional - settings get', () => {
       });
       expect(settings.access.update.authorized).toBeFalsy();
     });
+
+    it('using option getting set info aswell', async () => {
+      const settings = await svc(11).settings.get({ includeSetInfo: true });
+      expect(settings.set.agendasCount).toBeTruthy();
+    });
   });
 
   describe('fromDbEntryToSettings', () => {
@@ -246,4 +252,5 @@ describe('agenda-locations - functional - settings get', () => {
       ]);
     });
   });
+  // add test for set info
 });

@@ -169,7 +169,7 @@ module.exports = [{
     read: ['administrator', 'internal', 'public', 'legacy', 'legacyPublic'],
     fields: [{
       field: 'type',
-      default: c.MEMBERS_ONLY,
+      default: c.OPEN,
       type: 'choice',
       optional: false,
       unique: true,
@@ -384,6 +384,6 @@ module.exports = [{
     field: 'useJSONBridge',
     description: 'JSON export V1 is generated from the V2 format',
     type: 'boolean',
-    default: true
+    default: false
   }]
 }];

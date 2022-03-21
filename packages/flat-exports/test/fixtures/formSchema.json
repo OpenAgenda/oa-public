@@ -2,6 +2,77 @@
     "custom": {},
     "fields": [
       {
+        "field": "type-devenement",
+        "label": "Type d'événement",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "optionalWith": null,
+        "related": {
+          "enable": [],
+          "optional": []
+        },
+        "options": [
+          {
+            "id": 33,
+            "value": "atelier",
+            "label": {
+              "fr": "Atelier"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 34,
+            "value": "concours-dictee",
+            "label": {
+              "fr": "Concours / dictée"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 35,
+            "value": "conference-table-ronde",
+            "label": {
+              "fr": "Conférence / table-ronde"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 36,
+            "value": "exposition",
+            "label": {
+              "fr": "Exposition"
+            },
+            "info": null,
+            "display": true
+          },
+          {
+            "id": 39,
+            "value": "lecture-conte",
+            "label": {
+              "fr": "Lecture / Conte"
+            },
+            "info": null,
+            "display": true
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 30658,
+        "schemaType": "agenda"
+      },
+      {
         "field": "id",
         "fieldType": "integer",
         "optional": false,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { MemoryRouter } from 'react-router';
 import { useConstant } from '@openagenda/react-shared';
 import { IntlProvider } from 'react-intl';
 
@@ -20,12 +21,14 @@ export default Story => {
   );
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
-      <QueryClientProvider client={queryClient}>
-        <HelmetProvider>
-          <Story />
-        </HelmetProvider>
-      </QueryClientProvider>
-    </IntlProvider>
+    <MemoryRouter>
+      <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+        <QueryClientProvider client={queryClient}>
+          <HelmetProvider>
+            <Story />
+          </HelmetProvider>
+        </QueryClientProvider>
+      </IntlProvider>
+    </MemoryRouter>
   );
 };

@@ -8,7 +8,7 @@ const {
 module.exports.formatDSL = (query, options = {}) => {
   const aggregationQuery = {
     terms: {
-      field: '_search_additional_keywords',
+      field: '_search_additional_keywords'
     }
   };
 

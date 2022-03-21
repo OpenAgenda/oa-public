@@ -1,13 +1,12 @@
 'use strict';
 
+const _ = require('lodash');
 const fromDbEntryToSettings = require('./lib/fromDbEntryToSettings');
 
 async function get(service, { setUid, agendaUid }, options = {}) {
   const requestedAgendaUid = agendaUid || options.agendaUid;
 
-  const {
-    knex
-  } = service.clients;
+  const { includeSetInfo } = options;
 
   const defaultAccess = {
     authorized: true,
@@ -40,13 +39,9 @@ async function get(service, { setUid, agendaUid }, options = {}) {
 
   const effectiveSetUid = setUid || (await service.interfaces.getAgendaDetailsByUid(requestedAgendaUid).then(d => d?.locationSetUid));
   if (effectiveSetUid) {
-    const locationSetSettings = await knex
-      .first('settings')
-      .from('location_set')
-      .where('uid', effectiveSetUid)
-      .then(entry => (entry?.settings ? JSON.parse(entry.settings) : null));
-    if (locationSetSettings) {
-      Object.assign(settings, locationSetSettings);
+    const set = await service.sets.get(effectiveSetUid, { detailed: includeSetInfo, includeSettings: true });
+    if (set) {
+      Object.assign(settings, set.settings, includeSetInfo ? { set: _.omit(set, ['settings']) } : {});
     }
   }
   return fromDbEntryToSettings(settings, { ...options, setUid: effectiveSetUid });

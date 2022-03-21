@@ -105,7 +105,7 @@ module.exports = options => {
   function renderInboxApp({ initialState, extraProps, selector }) {
     ReactDOM.render(wrapApp(createInboxApp({
       initialState,
-      history: createMemoryHistory({ initialEntries: [ '/conversation/create' ] })
+      history: createMemoryHistory()
     }), {
       extraProps,
       disableScrollToTop: true
@@ -169,7 +169,7 @@ module.exports = options => {
         settings: {
           context: 'event',
           prefix: '',
-          focusFistConversation: ['contributor', 'simpleUser'].includes(userRole), // force to display the first conversation if exists
+          focusFistConversation: true, // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: true, // display (or not) creation button
           allClosedForCreate: ['contributor', 'simpleUser'].includes(userRole),

@@ -31,6 +31,7 @@ function FiltersPart({
     ['event-admin-apps', 'filtersBase', agenda.slug],
     () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }),
     {
+      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
     }
   );
@@ -50,6 +51,7 @@ function FiltersPart({
       page
     ),
     {
+      staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
       keepPreviousData: true, // because query and page change
     }

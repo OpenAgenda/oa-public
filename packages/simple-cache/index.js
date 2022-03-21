@@ -261,6 +261,6 @@ module.exports = c => {
       del: del.bind(null, { client, prefix }, namespace, identifier),
       reset: hashReset.bind(null, { client, prefix }, namespace, identifier)
     }),
-    clearAll: clearAll.bind(null, { client, prefix } )
+    clearAll: clearAll.bind(null, { client, prefix })
   });
 };

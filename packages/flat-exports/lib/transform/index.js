@@ -16,7 +16,7 @@ function getFlattener(o = {}) {
 
   if (!formSchema?.fields) {
     const getHeaders = () => defaultFieldMap.reduce((acc, curr) => {
-      acc.push({ source: curr.field || curr.source, target: curr.target });
+      acc.push({ source: curr.field || curr.source, target: curr.target, hasOptions: curr.hasOptions || false });
       return acc;
     }, []);
 
@@ -37,7 +37,7 @@ function getFlattener(o = {}) {
   const decoratedFieldMap = decorateFieldMap(filteredDefaultFieldMap, options);
 
   const getHeaders = () => decoratedFieldMap.reduce((acc, curr) => {
-    acc.push({ source: curr.field || curr.source, target: curr.target });
+    acc.push({ source: curr.field || curr.source, target: curr.target, hasOptions: curr.hasOptions || false });
     return acc;
   }, []);
 

@@ -99,7 +99,7 @@ describe('agendas - functional (server): set (update)', function() {
               complete: null,
               publication: null
             },
-            type: 2,
+            type: 1,
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: ['administrators', 'moderators'],
@@ -258,7 +258,7 @@ describe('agendas - functional (server): set (update)', function() {
                 complete: null,
                 publication: null
               },
-              type: 2,
+              type: 1,
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: ['administrators', 'moderators'],
@@ -292,7 +292,7 @@ describe('agendas - functional (server): set (update)', function() {
             docxExport: false,
             eventOwnershipTransfer: false,
             graphs: false,
-            useJSONBridge: true
+            useJSONBridge: false
           },
           legacyStore: {
             moderated: false,

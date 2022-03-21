@@ -1,10 +1,9 @@
 "use strict";
 
-var xhr = require('xhr'),
+const xhr = require('xhr');
+const qs = require('qs');
 
-  qs = require('qs');
-
-module.exports = function(res, data, cb) {
+function get(res, data, cb) {
 
   if (arguments.length === 2) {
 
@@ -14,9 +13,8 @@ module.exports = function(res, data, cb) {
 
   }
 
-  var query = qs.stringify(data),
-
-  separator;
+  const query = qs.stringify(data);
+  let separator;
 
   if ((!res || !res.length) && window) {
 
@@ -47,4 +45,12 @@ module.exports = function(res, data, cb) {
 
   });
 
+}
+
+module.exports = get;
+
+module.exports.promise = (res, data = {}) => {
+  return new Promise((resolve, reject) => {
+    get(res, data, (err, result) => (err ? reject(err) : resolve(result)));
+  });
 };

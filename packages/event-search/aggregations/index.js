@@ -2,6 +2,8 @@
 
 const terms = require('./terms');
 const timestamp = require('./timestamp');
+const missingAdditionalFields = require('./missingAdditionalFields');
+
 const {
   BadRequest
 } = require('@openagenda/verror');
@@ -33,7 +35,8 @@ const aggregationTypes = {
   timings: require('./timings'),
   createdAt: timestamp('createdAt'),
   updatedAt: timestamp('_exclusiveUpdatedAt'),
-  createdOrUpdatedAt: timestamp('updatedAt')
+  createdOrUpdatedAt: timestamp('updatedAt'),
+  missingAdditionalFields
 }
 
 module.exports = {
@@ -45,6 +48,10 @@ module.exports = {
         info: errors
       }, 'Invalid requested aggregations');
     }
+
+
+    // here it is necessary to build an aggregation specifically for 
+    // empty values, when they are required (missing config on )
 
     return [].concat(requested)
       .map(extractKeyAndType)
@@ -64,14 +71,18 @@ module.exports = {
             getOptions(requested, options)
           )
         };
-      }, {});
+      }, missingAdditionalFields.formatDSL(requested, query, options));
   },
-  formatResult: (requested, query, result, options = {}) => requested
-    .map(extractKeyAndType)
-    .reduce((formatted, { key, type, requested }) => ({
-      ...formatted,
-      [key]: aggregationTypes[type].formatResult(result[key], { ...getOptions(requested, options), query })
-    }), {})
+  formatResult: (requested, query, result, options = {}) => missingAdditionalFields.dispatchMissingCounts(
+    requested,
+    result,
+    requested
+      .map(extractKeyAndType)
+      .reduce((formatted, { key, type, requested }) => ({
+        ...formatted,
+        [key]: aggregationTypes[type].formatResult(result[key], { ...getOptions(requested, options), query })
+      }), {})
+  )
 }
 
 function getValidationErrors(requested) {

@@ -17,7 +17,7 @@ import setFlashMessage from '../../utils/setFlashMessage';
 function asyncLoad({ store: { getState, dispatch }, location, history, agenda }) {
   const state = getState();
   const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
-  const query = focusFistConversation ? { limit: 1 } : {};
+  const query = { total: true };
 
   let promise;
 
@@ -46,9 +46,9 @@ function asyncLoad({ store: { getState, dispatch }, location, history, agenda })
       }
 
       if (focusFistConversation) {
-        if (result.conversations && !result.conversations.length) {
+        if (!result.conversations?.length) {
           return history.replace(baseUrl + '/conversation/create');
-        } else if (result.conversations && result.conversations.length && !result.conversations[0].closedAt) {
+        } else if (result.conversations.filter(conv => !conv.closedAt).length === 1) {
           return history.replace(`${baseUrl}/conversation/${result.conversations[0].id}`);
         }
       }

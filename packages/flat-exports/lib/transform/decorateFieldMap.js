@@ -45,7 +45,7 @@ module.exports = (fieldMap, options = {}) => {
 
     return match;
   }).concat(
-    decorateWith.filter(d => !fieldMap.find(f => f.source === d.source))
+    ...decorateWith.filter(d => !fieldMap.find(f => f.source === d.source))
   );
 
   return decoratedFieldMap;

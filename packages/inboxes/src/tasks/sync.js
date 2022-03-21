@@ -136,16 +136,44 @@ export async function syncAgenda(svc, agenda, stats) {
           inboxUserIdentifiers,
           inboxIdentifiers
         );
-      } else if (!isAdminMod && inboxUser.data) {
+      } else if (!isAdminMod && inboxUser.data && !inboxUser.data.leftAt) {
         await inbox.users.remove(inboxUserIdentifiers);
         upStats(stats, 'inboxUsersRemoved');
         log(
           'info',
-          'InboxUser %j is removed to inbox %j',
+          'InboxUser %j is removed from inbox %j',
           inboxUserIdentifiers,
           inboxIdentifiers
         );
       }
+    }
+  }
+
+  // remove members who left
+  pos = 0;
+  const inboxUsers = [];
+
+  while (
+    ({ data: result } = await inbox.users.list({ leftAt: false }, pos, limit))
+  ) {
+    if (!result.length) break;
+    pos += limit;
+
+    Array.prototype.push.apply(inboxUsers, result);
+  }
+
+  for (const inboxUser of inboxUsers) {
+    const member = members.find(v => v.userUid === inboxUser.userUid);
+    if (!member) {
+      const inboxUserIdentifiers = { userUid: inboxUser.userUid };
+      await inbox.users.remove(inboxUserIdentifiers);
+      upStats(stats, 'inboxUsersRemoved');
+      log(
+        'info',
+        'InboxUser %j is removed from inbox %j',
+        inboxUserIdentifiers,
+        inboxIdentifiers
+      );
     }
   }
 }

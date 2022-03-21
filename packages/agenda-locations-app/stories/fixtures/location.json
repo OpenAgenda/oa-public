@@ -1,0 +1,60 @@
+{
+  "access": {
+    "fr": "Prendre RER A en direction de Marne-la-Vallée/Chessy d'une des stations parisiennes suivantes: Charles-de-Gaulle/Etoile; Auber/Opéra; Châtelet les Halles; Gare de Lyon; Nation.   Descendre à la gare de Noisiel/Le luzard (environ 25mn de trajet depuis la station Châtelet/Les halles) Bus 220 arrêt mairie de ChampsUn parking de 50 places est à disposition des visiteurs"
+  },
+  "timezone": null,
+  "latitude": 48.852659,
+  "imageCredits": "© Colombe Clier - CMN",
+  "description": {
+    "fr": "Le château de Champs-sur-Marne est caractéristique des maisons de plaisance bâties à la campagne, permettant d’’échapper aux lourdeurs de la cour. Il est construit vers 1703 par les architectes Pierre Bullet et Jean-Baptiste Bullet de Chamblain, à la demande du financier de Louis XIV, Paul Poisson de Bourvallais. Le château possède  de somptueux décors rocaille, des chinoiseries  peintes par Christophe Huet en 1740, un magnifique mobilier signé des grands noms de l’ébénisterie des Lumières.\nSon parc de 85 ha, dessiné vers 1710 par Desgot, élève et neveu de Le Nôtre est restauré en 1895 par Henri et Achille Duchêne. D’inspiration classique, enchâssé dans un parc paysagé à l’anglaise, il est aujourd’hui un lieu de promenade agréable entre Nature et Patrimoine.\nLe château a accueilli d’illustres locataires : la princesse de Conti en 1718, fille légitimée de Louis XIV ;  le  duc de La Vallière ; son fils, Louis César de La Baume Le Blanc, y reçoit de 1739 à 1763 les grands de la cour et les Encyclopédistes, Diderot, d’Alembert et Voltaire. La marquise de Pompadour le loue deux ans vers 1757.  Le duc Gaston de Lévis l’achète en 1801 et y reçoit Chateaubriand. Le comte Louis Cahen d’Anvers, banquier, fut le dernier  propriétaire en 1895. Il entreprend d’importants travaux de restauration, conduits  par l’architecte Walter Destailleur et accueille  Marcel Proust et le roi d’Espagne, Alphonse XIII.\nSuite à une donation à l’Etat français en 1935, il est transformé en résidence officielle de la Présidence de la République dès 1959 ; 20 chefs d’Etat étrangers, principalement africains,  y séjournent, à l’invitation du général de Gaulle.\nLe château de Champs-sur-Marne est également très connu comme lieu de tournage : 80 films ont utilisé son décor intérieur et extérieur, notamment Les liaisons dangereuses de Stephens Frears en 1987, Ridicule de Patrice Leconte en 1995 et Marie-Antoinette de Sofia Coppola en 2005.\n\nLe château de Champs-sur-Marne est géré par le Centre des monuments nationaux.",
+    "en": "The castle of some place in France..."
+  },
+  "agendaId": 23849,
+  "uid": 41773174,
+  "countryCode": "FR",
+  "links": [
+    "https://www.facebook.com/ChateauDeChampsSurMarne",
+    "https://twitter.com/hashtag/coronaravirus"
+  ],
+  "state": 1,
+  "extId": null,
+  "email": "champs@monuments-nationaux.fr",
+  "longitude": 2.604189,
+  "updatedAt": "2020-01-23T10:36:14.646Z",
+  "image": "//cibul.s3.amazonaws.com/location44980244.jpg",
+  "website": "http://www.chateau-champs-sur-marne.fr",
+  "address": "31 rue de Paris 77420 Champs-sur-Marne",
+  "tags": [
+    {
+      "id": 38,
+      "label": "Jardin remarquable"
+    },
+    {
+      "id": 42,
+      "label": "Monument historique"
+    },
+    {
+      "id": 39,
+      "label": "Tourisme et handicap"
+    },
+    {
+      "id": 2,
+      "label": "Castle, palace, manor house"
+    }
+  ],
+  "insee": "77083",
+  "phone": "01 60 05 24 43",
+  "name": "Château de Champs-sur-Marne",
+  "region": "Île-de-France",
+  "department": "Seine-et-Marne",
+  "district": "Centre Ville",
+  "postalCode": "77420",
+  "eventCount": 1,
+  "city": "Champs-sur-Marne",
+  "adminLevel1": "Île-de-France",
+  "adminLevel2": "Seine-et-Marne",
+  "adminLevel3": null,
+  "adminLevel4": "Champs-sur-Marne",
+  "adminLevel5": null,
+  "adminLevel6": "Centre Ville"
+}

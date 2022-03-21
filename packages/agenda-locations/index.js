@@ -16,6 +16,7 @@ const remove = require('./remove');
 const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
+const geoFields = require('./utils/geoFields');
 const decorateWithGeocodeData = require('./lib/decorateWithGeocodeData');
 const imageVariants = require('./lib/imageVariants');
 const detectCandidates = require('./duplicates/detectCandidates');
@@ -196,6 +197,7 @@ module.exports = Object.assign(
     utils: {
       countries,
       distance: geolib.getDistance,
-    },
+      geoFields,
+    }
   }
 );
