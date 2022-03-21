@@ -16,5 +16,6 @@
   "longitude": 4.64716,
   "updated_at": "2019-04-29T15:40:33.000",
   "created_at": "2017-10-30 14:21:07",
+  "set_uid": 1,
   "store": "{\"image\":\"//cibuldev.s3.amazonaws.com/location6396618.jpg\",\"description\":{\"fr\":\"Fort médiéval embelli au XVe et XVIIe siècles, le palais épiscopal de Bourg St Andéol est un des monuments les plus complexes du Vivarais. Ses points forts: les cuisines et salle des banquets du XVe siècle, les plafonds à la française peints au XVIIe siècle (1638) et dans la chapelle le musée René Margotton, peintre contemporain.\"},\"tags\":[{\"id\":2,\"label\":\"Château, hôtel urbain, palais, manoir\"},{\"id\":13,\"label\":\"Lieu de pouvoir, édifice judiciaire\"},{\"id\":15,\"label\":\"Musée, salle d'exposition\"},{\"id\":36,\"label\":\"Villes et Pays d'art et d'histoire\"},{\"id\":38,\"label\":\"Jardin remarquable\"},{\"id\":42,\"label\":\"Monument historique\"}],\"website\":\"http://www.palais-des-eveques.fr\",\"phone\":\"04 75 54 41 76\",\"access\":{\"fr\":\"Stationnement sur les quais du Rhône, au pied du Palais\"},\"state\":1,\"timezone\":\"Europe/Paris\"}"
 }

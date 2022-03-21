@@ -2,7 +2,7 @@
 
 const getAgenda = require('../utils/getAgenda');
 
-module.exports = (core, agendaOrUid) => async (identifiers, options = {}) => {
+module.exports = (core, agendaOrUid) => async (mergeInItem, query, data, options = {}) => {
   const {
     agendaLocations
   } = core.services;
@@ -11,5 +11,5 @@ module.exports = (core, agendaOrUid) => async (identifiers, options = {}) => {
 
   const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
 
-  return endpoints.merge(identifiers, options);
+  return endpoints.merge(mergeInItem, query, data, options);
 };
