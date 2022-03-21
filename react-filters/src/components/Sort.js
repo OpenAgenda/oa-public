@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Field, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
-import { ReactSelectField } from '@openagenda/react-shared';
+import ReactSelectField from '@openagenda/react-shared/lib/components/ReactSelectField';
 
 const { defaultStyles: defaultReactSelectStyles } = ReactSelectField;
 
