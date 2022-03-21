@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { useFormState, Field } from 'react-final-form';
+import { /* useFormState, */ Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
@@ -9,7 +9,7 @@ import messages from './messages';
 
 export default ({ schema }) => {
   const intl = useIntl();
-  const { initialValues } = useFormState();
+  // const { initialValues } = useFormState();
 
   const options = useMemoOne(
     () => (schema
@@ -36,7 +36,7 @@ export default ({ schema }) => {
           <ReactSelectField
             name="tagValues"
             Field={Field}
-            initialValue={initialValues?.tagValues}
+            // initialValue={initialValues?.tagValues}
             placeholder={intl.formatMessage(messages.addAValue)}
             noOptionsMessage={() => intl.formatMessage(messages.noOption)}
             formatCreateLabel={value => intl.formatMessage(messages.createOption, { value })}

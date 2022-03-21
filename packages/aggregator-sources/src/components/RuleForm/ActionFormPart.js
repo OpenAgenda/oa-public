@@ -9,6 +9,7 @@ import React, {
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
+// import { OnChange } from 'react-final-form-listeners';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
 import getLocalValue from '../../utils/getLocalValue';
@@ -30,18 +31,16 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   const prevFieldName = usePrevious(fieldName);
 
   useEffect(() => {
-    if (prevFieldName && fieldName !== prevFieldName) form.change(`${name}.values`, null);
+    if (prevFieldName && fieldName !== prevFieldName) {
+      form.change(`${name}.values`, null);
+    }
   }, [fieldName, prevFieldName, form, name]);
 
   const initialValues = useRef(initials).current;
 
   const automatic = useMemoOne(() => !!action?.automatic, [action]);
   const prevAutomatic = usePrevious(automatic);
-
-  const initialAction = useMemo(
-    () => initialValues?.actions?.find(v => v.field === fieldName),
-    [fieldName, initialValues]
-  );
+  const [initialAction] = useState(() => initialValues?.actions?.find(v => v.field === fieldName));
 
   // console.log('aggregatorAgendaSchema.fields ', aggregatorAgendaSchema.fields);
 
@@ -79,6 +78,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       textFieldOptions,
     ]
   );
+
   const fieldSchema = useMemoOne(
     () => fieldName
       && aggregatorAgendaSchema.fields.find(v => v.field === fieldName),
@@ -183,13 +183,13 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
         menuPosition="fixed"
         className="margin-bottom-xs"
         isSearchable
-        initialValue={action?.field}
+        // initialValue={initialAction?.field}
       />
 
       {valuesOptions ? (
         <>
           <ReactSelectField
-            key="values"
+            key={`${fieldName}-values`}
             Field={Field}
             name={`${name}.values`}
             placeholder={intl.formatMessage(
@@ -202,7 +202,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
             menuPosition="fixed"
             isMulti={fieldSchema?.fieldType === 'checkbox'}
             isDisabled={action?.automatic}
-            initialValue={action?.values}
+            // initialValue={action?.values}
             isSearchable
           />
           {advancedMode ? (
@@ -230,7 +230,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       {isStringType(fieldSchema) ? (
         <>
           <Field
-            keys="values"
+            key="values"
             name={`${name}.values`}
             initialValue={action?.values}
             render={({ input }) => (
