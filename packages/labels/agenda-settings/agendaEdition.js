@@ -601,6 +601,14 @@ module.exports = {
     "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento.",
     "io": "crwdns12644:0crwdne12644:0"
   },
+  "GDPRInformation": {
+    "fr": "Information relative à l'utilisation des données personnelles des membres",
+    "en": "Usage of member's personal information"
+  },
+  "GDPRInformationSubLabel": {
+    "fr": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
+    "en": "Modify the text presented to members informing them of the usage made of their personal information"
+  },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",
     "en": "End of contribution message",
