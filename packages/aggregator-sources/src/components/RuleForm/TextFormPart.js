@@ -24,7 +24,7 @@ export default ({ sourceSchema = { fields: [] } }) => {
   const intl = useIntl();
   const form = useForm();
 
-  const { values, initialValues } = form.getState();
+  const { values /* , initialValues */ } = form.getState();
 
   const options = useMemoOne(
     () => sourceSchema.fields
@@ -56,7 +56,7 @@ export default ({ sourceSchema = { fields: [] } }) => {
               options={options}
               menuPosition="fixed"
               isSearchable
-              initialValue={initialValues?.textField}
+              // initialValue={initialValues?.textField}
             />
           </div>
         </div>
