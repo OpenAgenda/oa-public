@@ -14,14 +14,16 @@ function registerPartial(hbs, partialsDir, filePath) {
   hbs.registerPartial(templateName, data);
 }
 
-module.exports = function watchViews(hbs, partialsDir) {
+module.exports = function watchViews(hbs, partialsDir, callback) {
   clientRefresher
     .enableSpecialReload('*.hbs')
-    .onFileModified(filePath => {
+    .onFileModified(async filePath => {
       const isPartial = filePath.startsWith(partialsDir);
 
       if (isPartial) {
         registerPartial(hbs, partialsDir, filePath);
+
+        await callback();
       } else {
         delete hbs.cache[filePath];
       }

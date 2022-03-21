@@ -126,10 +126,6 @@ module.exports = async options => {
 
   await promisify(hbs.registerPartials).call(hbs, partialsDir);
 
-  if (process.env.NODE_ENV === 'development') {
-    require('./dev/watchViews')(hbs, partialsDir);
-  }
-
   app.locals.defaultLang = config.lang || 'en';
 
   registerHelpers(hbs);
@@ -182,11 +178,19 @@ module.exports = async options => {
     );
   }
 
-  app.locals.filters = [];
-  app.locals.widgets = [];
+  async function extractFiltersAndWidgets() {
+    app.locals.filters = [];
+    app.locals.widgets = [];
 
-  // populate filters and widgets
-  await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });
+    // populate filters and widgets
+    await promisify(app.render).call(app, 'index', { __extractFiltersAndWidgets: true });
+  }
+
+  await extractFiltersAndWidgets();
+
+  if (process.env.NODE_ENV === 'development') {
+    require('./dev/watchViews')(hbs, partialsDir, extractFiltersAndWidgets);
+  }
 
   if (process.env.NODE_ENV === 'development') {
     require('./dev/webpackProxy')(app, devServerPort);
