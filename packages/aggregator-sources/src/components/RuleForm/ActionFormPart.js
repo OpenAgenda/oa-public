@@ -4,7 +4,7 @@ import React, {
   useMemo,
   useRef,
   useState,
-  useEffect,
+  // useEffect,
 } from 'react';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
@@ -30,11 +30,11 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   const fieldName = useMemoOne(() => action?.field, [action]);
   const prevFieldName = usePrevious(fieldName);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (prevFieldName && fieldName !== prevFieldName) {
       form.change(`${name}.values`, null);
     }
-  }, [fieldName, prevFieldName, form, name]);
+  }, [fieldName, prevFieldName, form, name]); */
 
   const initialValues = useRef(initials).current;
 
