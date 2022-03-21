@@ -455,7 +455,7 @@ export default function EventItem({
             <li>
               <a
                 className="btn btn-link btn-link-inline"
-                href={`/${agenda.slug}/admin/locations?uids[]=${event.location.uid}`}
+                href={`/${agenda.slug}/admin/locations/${event.location.uid}?uids[]=${event.location.uid}`}
               >
                 {intl.formatMessage(messages.showLocation)}
               </a>
