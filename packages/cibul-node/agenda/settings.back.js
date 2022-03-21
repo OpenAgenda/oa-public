@@ -70,6 +70,9 @@ module.exports = app => {
     (req, res, next) => {
       core.agendas(req.agenda).update({
         settings: produce(req.agenda.settings, draft => {
+          if (!draft.lab) {
+            draft.lab = {};
+          }
           draft.lab.eventAdmin = req.params.version === 'new';
         })
       }, {
