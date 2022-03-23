@@ -5,34 +5,12 @@ import qs from 'qs';
 import { prepareClientPortals } from '@openagenda/react-portal-ssr';
 import Provider from './components/FiltersProvider';
 import FiltersManager from './components/FiltersManager';
-import { parseFilterAttrs, extractAttrs, getWidgets } from './utils';
+import { getFilters, getWidgets } from './utils';
 
 function createContainer() {
   const container = document.createElement('div');
   container.setAttribute('data-oa-filters-root', '');
   return container;
-}
-
-function getFilters() {
-  const filterElems = document.querySelectorAll('[data-oa-filter]');
-
-  return Array.from(
-    filterElems,
-    elem => {
-      const { id, ...dataSet } = parseFilterAttrs(extractAttrs(elem));
-
-      dataSet.destSelector = `[data-oa-filter="${elem.getAttribute('data-oa-filter')}"]`;
-
-      if (dataSet.type === 'custom' || dataSet.type === 'favorites') {
-        dataSet.elem = elem;
-        dataSet.handlerElem = dataSet.handlerSelector ? elem.querySelector(dataSet.handlerSelector) : null;
-      } else {
-        dataSet.elemRef = React.createRef();
-      }
-
-      return dataSet;
-    }
-  );
 }
 
 function defaultFilterChange(values, aggregations, ref, form) {
@@ -89,6 +67,7 @@ export default function renderFiltersAndWidgets({
       locale={locale}
       locales={userLocales}
       filters={filters}
+      widgets={widgets}
       onSubmit={wrapCallback(onFilterChange)}
       initialValues={_.omit(initialValues, 'sort')}
       apiClient={apiClient}
@@ -96,8 +75,6 @@ export default function renderFiltersAndWidgets({
       <FiltersManager
         ref={ref}
         res={res}
-        filters={filters}
-        widgets={widgets}
         aggregations={aggregations}
         total={total}
         query={initialValues}

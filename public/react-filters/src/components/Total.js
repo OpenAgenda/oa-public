@@ -1,4 +1,4 @@
-const { useIntl } = require('react-intl');
+import { useIntl } from 'react-intl';
 
 export default function Total({ message, total }) {
   const intl = useIntl();

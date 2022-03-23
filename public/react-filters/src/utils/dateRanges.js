@@ -139,8 +139,9 @@ export default function dateRanges(intl, opts = {}) {
         const result = defaults.staticRanges.find(w => w.id === next);
         if (result) accu.push(result);
         else console.log(`Cannot found static range "${next}"`);
+      } else {
+        accu.push(next);
       }
-      accu.push(next);
       return accu;
     }, []) : defaults.staticRanges,
     inputRanges: opts.inputRanges || defaults.inputRanges,

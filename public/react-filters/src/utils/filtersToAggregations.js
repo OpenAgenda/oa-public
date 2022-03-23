@@ -16,7 +16,7 @@ export default function filtersToAggregations(filters, base = false) {
         ...filter.aggregation,
       };
     })
-    .filter(Boolean);
+    .filter(filter => filter?.key);
 
   const needViewport = usedFilters.some(filter => filter.type === 'map');
 
