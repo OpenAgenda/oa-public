@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { useUIDSeed } from 'react-uid';
 import { Portal } from '@openagenda/react-portal-ssr';
 
@@ -131,9 +130,7 @@ function Filters({
           );
         }
 
-        return filter.destContainer
-          ? ReactDOM.createPortal(elem, filter.destContainer)
-          : elem;
+        return elem;
       })}
     </>
   );

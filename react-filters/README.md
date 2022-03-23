@@ -104,6 +104,6 @@ Voir `React.createRef()` ou `React.useRef()`
 
 ### definedRange
 
-Affiche des liens cliquables pour filtrer sur des périodes relatives au présent (aujourd'hui, demaine...)
+Affiche des liens cliquables pour filtrer sur des périodes relatives au présent (aujourd'hui, demain...)
 
  * **staticRanges**: pour préciser la liste à afficher. Valeurs possibles: `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`

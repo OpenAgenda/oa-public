@@ -1,11 +1,12 @@
 import _ from 'lodash';
 import qs from 'qs';
 import React, {
+  useContext,
   useEffect,
   useImperativeHandle,
-  useMemo,
   useState
 } from 'react';
+import { unstable_batchedUpdates } from 'react-dom';
 import { useIntl } from 'react-intl';
 import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
@@ -13,8 +14,14 @@ import { useQuery } from 'react-query';
 import { Portal } from '@openagenda/react-portal-ssr';
 import useApiClient from '@openagenda/react-shared/lib/hooks/useApiClient';
 import { getEvents } from '../api';
-import { withDefaultFilterConfig, filtersToAggregations, getWidgets } from '../utils';
+import {
+  filtersToAggregations,
+  getFilters,
+  getWidgets,
+  withDefaultFilterConfig
+} from '../utils';
 import { useGetFilterOptions, useGetTotal, useLoadGeoData } from '../hooks';
+import FiltersAndWidgetsContext from '../contexts/FiltersAndWidgetsContext';
 import Filters from './Filters';
 import ActiveFilters from './ActiveFilters';
 import FavoriteToggle from './FavoriteToggle';
@@ -28,13 +35,9 @@ import CustomFilter from './filters/CustomFilter';
 import FavoritesFilter from './filters/FavoritesFilter';
 
 export default React.forwardRef(function FiltersManager({
-  filters: rawFilters,
-  widgets: initialWidgets,
   aggregations: initialAggregations = {},
   query: initialQuery = {},
   total: initialTotal = 0,
-  missingValue = false,
-  mapTiles,
   defaultViewport,
   res,
   filtersBase: initialFiltersBase,
@@ -56,11 +59,13 @@ export default React.forwardRef(function FiltersManager({
   const axios = useApiClient();
   const widgetSeed = useUIDSeed();
 
-  const filters = useMemo(
-    () => rawFilters.map(rawFilter => withDefaultFilterConfig(rawFilter, intl, { missingValue, mapTiles })),
-    [rawFilters, intl, missingValue, mapTiles]
-  );
-  const [widgets, setWidgets] = useState(() => initialWidgets);
+  const {
+    filters,
+    widgets,
+    setFilters,
+    setWidgets,
+    filtersOptions,
+  } = useContext(FiltersAndWidgetsContext);
 
   const [query, setQuery] = useState(() => initialQuery);
   const [total, setTotal] = useState(() => initialTotal);
@@ -81,14 +86,14 @@ export default React.forwardRef(function FiltersManager({
         res,
         { uid: agendaUid },
         filters.filter(filter => filter.type === 'choice' && !filter.options),
-        { size: 0 }
+        { size: 0 },
       )).aggregations;
     },
     {
       initialData: initialFiltersBase,
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
-    }
+    },
   );
 
   const getOptions = useGetFilterOptions(intl, filtersBaseQuery.data, aggregations);
@@ -104,24 +109,41 @@ export default React.forwardRef(function FiltersManager({
     setTotal,
     updateFiltersAndWidgets: (values, result) => {
       const widgetsOnPage = getWidgets();
+      const filtersOnPage = getFilters();
 
-      setWidgets(widgetsOnPage.reduce((accu, next) => {
-        const found = widgets.find(v => _.isEqual(v, next));
+      const newFilters = filtersOnPage.map(nextFilter => {
+        const completedNext = withDefaultFilterConfig(nextFilter, intl, filtersOptions);
+        const found = filters.find(v => (
+          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(completedNext, 'elemRef'))
+        ));
 
         // Conserve if found & elem has not changed
-        if (found && (!found.elem || document.body.contains(found.elem))) {
-          accu.push(found);
-          return accu;
+        return found && document.body.contains(found.elem) ? found : completedNext;
+      });
+
+      const newWidgets = widgetsOnPage.map(nextWidget => {
+        const found = widgets.find(v => (
+          JSON.stringify(_.omit(v, 'elemRef')) === JSON.stringify(_.omit(nextWidget, 'elemRef'))
+        ));
+
+        // Conserve if found & elem has not changed
+        return found && document.body.contains(found.elem) ? found : nextWidget;
+      });
+
+      // Because re-render filters separatly to widgets throws an error
+      unstable_batchedUpdates(() => {
+        if (!_.isEqual(filters, newFilters)) {
+          setFilters(newFilters);
         }
 
-        accu.push(next);
+        if (!_.isEqual(widgets, newWidgets)) {
+          setWidgets(newWidgets);
+        }
 
-        return accu;
-      }, []));
-
-      setAggregations(result.aggregations || []);
-      setTotal(result.total || 0);
-      setQuery(values);
+        setAggregations(result.aggregations || []);
+        setTotal(result.total || 0);
+        setQuery(values);
+      });
 
       const mapFilter = filters.find(v => v.type === 'map');
       const mapElem = mapFilter?.elemRef?.current;
@@ -137,9 +159,9 @@ export default React.forwardRef(function FiltersManager({
       window.history.pushState(
         {},
         null,
-        `${window.location.pathname}${queryStr}`
+        `${window.location.pathname}${queryStr}`,
       );
-    }
+    },
   }));
 
   useEffect(() => {
@@ -164,7 +186,11 @@ export default React.forwardRef(function FiltersManager({
         return (
           <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
             <span>
-              <ActiveFilters agendaUid={agendaUid} filters={filters} getOptions={getOptions} />
+              <ActiveFilters
+                agendaUid={agendaUid}
+                filters={filters}
+                getOptions={getOptions}
+              />
             </span>
           </Portal>
         );
@@ -193,7 +219,7 @@ export default React.forwardRef(function FiltersManager({
         loadGeoData={loadGeoData}
         query={query}
         agendaUid={agendaUid}
-        missingValue={missingValue}
+        missingValue={filtersOptions.missingValue}
         // filters
         choiceComponent={choiceComponent}
         dateRangeComponent={dateRangeComponent}
