@@ -264,7 +264,7 @@ Displays a map geolocating events. Place the following code where the map is to 
 {{filter
   type='map'
   name='geo'
-  className='map-container'
+  mapClass='map-container'
   searchMessage='rechercher quand je déplace la carte'
   searchWithMap=true
   tileAttribution='Map data © OpenStreetMap contributors'
