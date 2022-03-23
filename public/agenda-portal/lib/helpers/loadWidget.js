@@ -1,12 +1,9 @@
 'use strict';
 
-module.exports = hbs => ({ hash, data }) => {
-  if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
-    data.root.__filtersAndWidgetsCounter = 0;
-  }
+const counters = require('./utils/counters');
 
-  const i = data.root.__filtersAndWidgetsCounter;
-  data.root.__filtersAndWidgetsCounter += 1;
+module.exports = hbs => ({ hash, data }) => {
+  counters.init(data);
 
   const {
     tagName = 'div',
@@ -29,10 +26,13 @@ module.exports = hbs => ({ hash, data }) => {
     };
   }
 
+  const i = counters.increment(data, 'widgets', name);
+
   if (data.root.__extractFiltersAndWidgets) {
     data.root.widgets.push({
       ...attrs,
-      destSelector: `[data-oa-widget="${i}"]`
+      destSelector: `[data-oa-widget="${name}-${i}"][data-oa-widget-params="${JSON.stringify(attrs)
+        .replace(/["\\]/g, '\\$&')}"]`
     });
   }
 
@@ -40,7 +40,7 @@ module.exports = hbs => ({ hash, data }) => {
     <${tagName}
       ${className ? `class="${className}"` : ''}
       ${attributes}
-      data-oa-widget="${i}"
+      data-oa-widget="${name}-${i}"
       data-oa-widget-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
     ></${tagName}>
   `);

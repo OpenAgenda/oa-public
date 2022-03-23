@@ -13,6 +13,8 @@ function withProvider(req, res, children) {
 
   return React.createElement(FiltersProvider, {
     intl,
+    filters: res.locals.filters,
+    widgets: res.locals.widgets,
     initialValues: _.omit(req.query, 'sort'),
     onSubmit: () => {}
   }, children);
@@ -46,8 +48,6 @@ module.exports = async (req, res, next) => {
   const portal = new PortalServer(PortalContext);
 
   const elem = React.createElement(FiltersManager, {
-    filters: res.locals.filters,
-    widgets: res.locals.widgets,
     defaultViewport: res.locals.agenda.summary.viewport,
     agendaUid: res.locals.agenda.uid,
     aggregations: req.data.aggregations,

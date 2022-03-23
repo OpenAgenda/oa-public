@@ -345,30 +345,14 @@ The following custom filter is defined to show ongoing and upcoming events that 
   inactiveClass='inactive'
   className='custom-example checkbox'
 }}
-  <label for="nothing">
-    <input type="checkbox" tabindex="-1" readonly checked />
-    <input type="checkbox" tabindex="-1" readonly />
+  <label for="custom-example">
+    <input type="checkbox" id="custom-example">
     En cours + à venir + hors ligne
   </label>
 {{/customFilter}}
 ```
 
-CSS rules can target which input to display depending on the active state of the filter. For instance, in the case above, the following sass ensures that only one input is displayed at any given time:
-
-```sass
-.custom-example {
-  input[type="checkbox"][readonly] {
-    pointer-events: none !important;
-  }
-
-  &.active input[type="checkbox"]:not(:checked) {
-    display: none;
-  }
-  &.inactive input[type="checkbox"]:checked {
-    display: none;
-  }
-}
-```
+If a checkbox input is inserted in the body of the custom filter and no handlerSelector is defined, the checkbox input is used to handle and show the state of the filter.
 
 ###### Example 2: filtering on events occurring on a specific date
 
@@ -380,9 +364,8 @@ CSS rules can target which input to display depending on the active state of the
   inactiveClass='inactive'
   className='custom-example checkbox'
 }}
-  <label for="nothing">
-    <input type="checkbox" tabindex="-1" readonly checked />
-    <input type="checkbox" tabindex="-1" readonly />
+  <label for="jeudi">
+    <input type="checkbox" id="jeudi">
     Jeudi 24 juin
   </label>
 {{/customFilter}}
@@ -470,9 +453,8 @@ The component is a custom filter with a type set to "favorites". When clicked, t
   className='custom-example checkbox'
   activeFilterLabel='Favoris'
 }}
-  <label for="nothing">
-    <input type="checkbox" tabindex="-1" readonly checked />
-    <input type="checkbox" tabindex="-1" readonly />
+  <label for="favorites">
+    <input type="checkbox" id="favorites">
     Favoris
   </label>
 {{/customFilter}}

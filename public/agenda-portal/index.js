@@ -235,7 +235,7 @@ module.exports = async options => {
 
   app.get(
     '/events/p/:page',
-    mw.list(),
+    mw.list(true),
     middlewareHooks.list.preRender,
     mw.renderList
   );
