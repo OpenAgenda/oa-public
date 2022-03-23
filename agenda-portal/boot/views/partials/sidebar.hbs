@@ -7,10 +7,11 @@
       {{filter
         name='geo'
         className='map-container'
+        height='180px'
         searchMessage=(i18n 'searchWhenMoving')
         searchWithMap=true
         tileAttribution='Map data © OpenStreetMap contributors'
-        tileUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        tileUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       }}
     </div>
 
@@ -38,11 +39,10 @@
         query=(object relative=(array 'current' 'upcoming') attendanceMode='1')
         activeClass='active'
         inactiveClass='inactive'
-        className='custom-example checkbox'
+        className='checkbox'
       }}
-        <label for="nothing">
-          <input type="checkbox" tabindex="-1" readonly checked />
-          <input type="checkbox" tabindex="-1" readonly />
+        <label for="custom-example">
+          <input type="checkbox" id="custom-example">
           En cours + à venir + hors ligne
         </label>
       {{/customFilter}}
@@ -52,11 +52,10 @@
         handlerSelector='.checkbox'
         activeClass='active'
         inactiveClass='inactive'
-        className='custom-example checkbox'
+        className='checkbox'
       }}
-        <label for="nothing">
-          <input type="checkbox" tabindex="-1" readonly checked />
-          <input type="checkbox" tabindex="-1" readonly />
+        <label for="jeudi">
+          <input type="checkbox" id="jeudi">
           Jeudi 24 juin
         </label>
       {{/customFilter}}
@@ -65,12 +64,11 @@
         type='favorites'
         activeClass='active'
         inactiveClass='inactive'
-        className='custom-example checkbox'
+        className='checkbox'
         activeFilterLabel='Favoris'
       }}
-        <label for="nothing">
-          <input type="checkbox" tabindex="-1" readonly checked />
-          <input type="checkbox" tabindex="-1" readonly />
+        <label for="favorites">
+          <input type="checkbox" id="favorites">
           Favoris
         </label>
       {{/customFilter}}

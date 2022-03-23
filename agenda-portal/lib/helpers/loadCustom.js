@@ -2,14 +2,10 @@
 
 const _ = require('lodash');
 const cn = require('classnames');
+const counters = require('./utils/counters');
 
 module.exports = (hbs, filterOrWidget) => ({ fn, hash, data }) => {
-  if (typeof data.root.__filtersAndWidgetsCounter !== 'number') {
-    data.root.__filtersAndWidgetsCounter = 0;
-  }
-
-  const i = data.root.__filtersAndWidgetsCounter;
-  data.root.__filtersAndWidgetsCounter += 1;
+  counters.init(data);
 
   const {
     tagName = 'div',
@@ -40,7 +36,7 @@ module.exports = (hbs, filterOrWidget) => ({ fn, hash, data }) => {
     <${tagName}
       ${attributes}
       class="${cn(className, !attrs.activeTargetSelector ? statusClass : '')}"
-      data-oa-${filterOrWidget}="${i}"
+      data-oa-${filterOrWidget}=""
       data-oa-${filterOrWidget}-params="${hbs.Utils.escapeExpression(JSON.stringify(attrs))}"
     >
       ${fn(this)}

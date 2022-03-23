@@ -22,10 +22,10 @@ module.exports = function watchViews(hbs, partialsDir, callback) {
 
       if (isPartial) {
         registerPartial(hbs, partialsDir, filePath);
-
-        await callback();
-      } else {
-        delete hbs.cache[filePath];
       }
+
+      delete hbs.cache[filePath];
+
+      await callback();
     });
 };
