@@ -28,9 +28,7 @@ module.exports = schema({
   monolingual: {
     type: 'text',
     default: null,
-    list: {
-      max: 2
-    }
+    max: 2
   },
   access: {
     type: 'text',
@@ -41,6 +39,11 @@ module.exports = schema({
     type: 'text',
     optional: true,
     list: { default: null }
+  },
+  includeLabels: {
+    type: 'boolean',
+    optional: true,
+    default: false
   },
   useAfterKey: {
     type: 'boolean',

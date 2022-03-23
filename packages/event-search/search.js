@@ -16,6 +16,7 @@ const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
+const includeLabelsInEvent = require('./utils/includeLabelsInEvent');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
@@ -47,6 +48,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     monolingual,
     first,
     access,
+    includeLabels,
     includeFields: requestedIncludes,
     useAfterKey,
     parser
@@ -103,7 +105,13 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     scrollId
   } = await postDSL(_.pick(config, ['client']), index, cleanDSL, cleanNav.scroll ? cleanNav : {});
 
-  const eventParsers = _buildEventParsers({ detailed, monolingual, formSchema, access, parser }, aggregationResults);
+  const eventParsers = _buildEventParsers({
+    detailed,
+    monolingual,
+    formSchema,
+    includeLabels,
+    parser
+  }, aggregationResults);
 
   const parsedEvents = _parseEvents(eventParsers, events);
 
@@ -157,7 +165,7 @@ function _parseEvents(parsers, events) {
   });
 }
 
-function _buildEventParsers({ detailed, monolingual, parser }) {
+function _buildEventParsers({ detailed, monolingual, parser, includeLabels, formSchema }) {
   const parsers = [
     convertToLocalTimezone,
     appendNextAndLastTiming
@@ -185,6 +193,13 @@ function _buildEventParsers({ detailed, monolingual, parser }) {
 
   if (parser) {
     parsers.push(parser);
+  }
+
+  if (includeLabels && formSchema) {
+    parsers.push(includeLabelsInEvent.bind(null, {
+      formSchema,
+      monolingual
+    }));
   }
 
   return parsers;

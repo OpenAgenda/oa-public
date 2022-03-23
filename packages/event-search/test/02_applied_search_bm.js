@@ -1074,6 +1074,13 @@ describe('02 - event search - functional: Applied search', function() {
 
     });
 
+    describe('Options', () => {
+      it('includeLabels includes additional field labels in results', async () => {
+        const { events } = await service('bdx')
+          .search({}, { size: 1 }, { detailed: true, includeLabels: true, formSchema });
+      });
+    })
+
   });
 
 } );
