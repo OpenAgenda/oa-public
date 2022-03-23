@@ -12,7 +12,7 @@ export default {
 };
 
 export const Simple = () => (
-  <>
+  <div className="col-offset-4 col-lg-3">
     <div className="simple">
       <DateRangePicker input={{ onChange: () => {} }} />
     </div>
@@ -44,5 +44,5 @@ export const Simple = () => (
         }}
       />
     </div>
-  </>
+  </div>
 );
