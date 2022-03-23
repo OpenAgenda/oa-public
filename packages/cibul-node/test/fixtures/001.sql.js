@@ -182,11 +182,11 @@ raw.push(knex('form_schema').insert([{
       options: [{
         id: 1,
         value: 'concert',
-        label: 'Concert'
+        label: { fr: 'Concert' }
       }, {
         id: 2,
         value: 'exposition',
-        label: 'Exposition'
+        label: { fr: 'Exposition' }
       }]
     }, {
       field: 'note',

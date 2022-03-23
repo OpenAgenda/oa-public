@@ -26,7 +26,7 @@ module.exports = schema({
   },
   monolingual: {
     type: 'text',
-    list: { max: 2 }
+    max: 2
   },
   access: {
     type: 'text'
@@ -37,5 +37,9 @@ module.exports = schema({
   includeFields: {
     type: 'text',
     list: { default: null }
+  },
+  includeLabels: {
+    type: 'boolean',
+    default: false,
   }
 });

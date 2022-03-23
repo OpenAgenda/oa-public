@@ -77,6 +77,30 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
 
+    it('if includeLabels option is set, additional field values are provided with labels', async () => {
+      const { events } = await core.agendas(2).events.search({ state: null }, {}, {
+        detailed: true,
+        access: 'administrator',
+        includeLabels: true
+      });
+
+      expect(events[0].thematique).toEqual({ id: 2, label: { fr: 'Exposition' } });
+    });
+
+    it('if monolingal option is specified, additional field values are provided with monolingual labels', async () => {
+      const { events } = await core.agendas(2).events.search({ state: null }, {}, {
+        detailed: true,
+        access: 'administrator',
+        includeLabels: true,
+        monolingual: 'fr'
+      });
+
+      expect(events[0].thematique).toEqual({
+        id: 2,
+        label: 'Exposition'
+      });
+    });
+
     it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
