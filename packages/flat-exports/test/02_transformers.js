@@ -176,16 +176,17 @@ describe('flat-exports - unit - transforms', () => {
       const flatten = Flattener(map);
 
       const flat = flatten({
+        timezone: 'Europe/London',
         timings: [{
-          begin: '2017-03-16T09:30:00-01:00',
-          end: '2017-03-16T12:00:00-01:00'
+          begin: '2022-04-03T09:00:00.000Z',
+          end: '2022-04-03T10:00:00.000Z'
         }]
       });
 
       expect(flat).toEqual({
-        ISO: '2017-03-16T09:30:00-01:00 -> 2017-03-16T12:00:00-01:00',
-        'timings - FR': 'jeudi 16 mars 2017 - 09:30',
-        'timings - EN': 'Thursday 16 March 2017 - 09:30'
+        ISO: '2022-04-03T09:00:00.000Z -> 2022-04-03T10:00:00.000Z',
+        'timings - FR': 'dimanche 3 avril 2022 - 10:00',
+        'timings - EN': 'Sunday 3 April 2022 - 10:00'
       });
     });
 
