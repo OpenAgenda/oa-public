@@ -91,6 +91,7 @@
     "mkdirp": "^1.0.4",
     "nodemon": "^2.0.15",
     "prettier-eslint-cli": "^5.0.0",
+    "raw-loader": "^4.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "rimraf": "^3.0.1",
