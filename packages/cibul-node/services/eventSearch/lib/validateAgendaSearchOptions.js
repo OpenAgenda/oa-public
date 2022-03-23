@@ -37,9 +37,5 @@ module.exports = schema({
   includeFields: {
     type: 'text',
     list: { default: null }
-  },
-  includeLanguages: {
-    type: 'text',
-    list: { default: null }
   }
 });
