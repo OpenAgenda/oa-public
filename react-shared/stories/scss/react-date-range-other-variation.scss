@@ -1,0 +1,60 @@
+// Container
+$container: 90% !important;
+$margin: auto;
+
+// Main
+$border-color: #3b2257;
+$size: 12px;
+$bg: #fff;
+
+// Header
+$header-wrapper-bg: none;
+
+$header-item-bg:rgba(194, 149, 235, 0.205);
+$header-item-border: 1px solid transparent;
+
+$header-placeholder: #3b2257;
+
+$header-input-bg: transparent;
+$header-input-color: #3b2257;
+
+$header-input-active-color: #3b2257;
+
+$header-input-size: $size;
+$header-input-weight: 0;
+
+// Month-Year
+$month-year-color: #3e484f;
+$month-year-bg: transparent;
+$month-year-border: transparent;
+$month-year-weight: 0;
+$month-year-size: $size;
+
+$arrow-bg: rgba(194, 149, 235, 0.205);
+$arrow-border: transparent;
+
+// Week
+$week-color: rgb(132, 144, 149);
+$week-weight: 400;
+$week-size: $size;
+
+// Body
+$body-color: #413a42 !default;
+$body-color-selected: #3b2257;
+$body-bg: transparent;
+$body-selected-bg: rgba(194, 149, 235, 0.205);;
+$body-size: $size;
+
+// Preview
+$preview-bg: rgba(255, 255, 255, 0.09);
+
+// Today
+$today-weight: 500;
+
+$today-content: "";
+$today-content-bg:#3b2257;
+$today-content-selected: #3b2257;
+
+// Disabled dates
+$passive-bg: transparent;
+$passive-color: transparent;
