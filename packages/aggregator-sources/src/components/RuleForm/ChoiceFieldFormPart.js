@@ -32,7 +32,7 @@ export default ({ sourceSchema }) => {
   const intl = useIntl();
   const form = useForm();
 
-  const { values, initialValues } = form.getState();
+  const { values /* , initialValues */ } = form.getState();
 
   const options = useMemoOne(
     () => sourceSchema.fields
@@ -89,7 +89,7 @@ export default ({ sourceSchema }) => {
               options={options}
               menuPosition="fixed"
               isSearchable
-              initialValue={initialValues?.choiceField}
+              // initialValue={initialValues?.choiceField}
             />
           </div>
         </div>
@@ -106,12 +106,12 @@ export default ({ sourceSchema }) => {
               <ReactSelectField
                 name="choiceValues"
                 Field={Field}
-                initialValue={
+                /* initialValue={
                   values.choiceField !== undefined
                   && values.choiceField === initialValues?.choiceField
                     ? initialValues?.choiceValues
                     : undefined
-                }
+                } */
                 placeholder={intl.formatMessage(messages.selectValue)}
                 noOptionsMessage={() => intl.formatMessage(messages.noOption)}
                 options={valuesOptions}

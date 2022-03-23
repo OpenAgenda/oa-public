@@ -5,6 +5,7 @@ const list = require('./list');
 const get = require('./get');
 const patch = require('./patch');
 const remove = require('./remove');
+const merge = require('./merge');
 const getSettings = require('./getSettings');
 
 module.exports = (core, agendaOrUid) => {
@@ -27,7 +28,7 @@ module.exports = (core, agendaOrUid) => {
     remove: remove(core, agendaOrUid),
     get: get(core, agendaOrUid),
     list: list(core, agendaOrUid),
-    merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data, { agendaUid }),
+    merge: merge(core, agendaOrUid),
     settings: {
       get: getSettings(core, agendaOrUid)
     }
