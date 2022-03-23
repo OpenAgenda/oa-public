@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Field, useField } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
-import LoadableMapField from '../fields/LoadableMapField';
+import MapField from '../fields/MapField';
 import Title from '../Title';
 import Panel from '../Panel';
 import FilterPreviewer from '../FilterPreviewer';
@@ -67,7 +67,7 @@ function MapFilter({
         ref={ref}
         name={name}
         subscription={subscription}
-        component={LoadableMapField}
+        component={MapField}
         filter={filter}
         disabled={disabled}
         className={className}
