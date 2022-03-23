@@ -1,0 +1,60 @@
+// Container
+$container: 90% !important;
+$margin: auto;
+
+// Main
+$border-color: #fdb417;
+$size: 12px;
+$bg: none;
+
+// Header
+$header-wrapper-bg: none;
+
+$header-item-bg:rgb(255, 255, 255);
+$header-item-border: 1px solid transparent;
+
+$header-placeholder: #849095;
+
+$header-input-bg: transparent;
+$header-input-color: #849095;
+
+$header-input-active-color: #7d888d;
+
+$header-input-size: $size;
+$header-input-weight: 0;
+
+// Month-Year
+$month-year-color: #3e484f;
+$month-year-bg: transparent;
+$month-year-border: transparent;
+$month-year-weight: 0;
+$month-year-size: $size;
+
+$arrow-bg: #fff;
+$arrow-border: transparent;
+
+// Week
+$week-color: rgb(132, 144, 149);
+$week-weight: 400;
+$week-size: $size;
+
+// Body
+$body-color: #413a42 !default;
+$body-color-selected: rgba(255, 255, 255, 0.85);
+$body-bg: #fff;
+$body-selected-bg: #e64818 !default;
+$body-size: $size;
+
+// Preview
+$preview-bg: rgba(255, 255, 255, 0.09);
+
+// Today
+$today-weight: 500;
+
+$today-content: "";
+$today-content-bg:#fae207;
+$today-content-selected: #fff;
+
+// Disabled dates
+$passive-bg: transparent;
+$passive-color: #d5dce0;
