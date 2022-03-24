@@ -27,7 +27,9 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
       access: 'internal', // access is evaluated in other middleware.
       longDescriptionFormat: req.query.longDescriptionFormat,
       useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
-      returnAgenda: true
+      returnAgenda: true,
+      includeLabels: req.query.includeLabels,
+      monolingual: req.query.monolingual
     }).then(async ({ agenda, result }) => {
       const { events } = result;
 

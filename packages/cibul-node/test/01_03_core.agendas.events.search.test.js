@@ -385,6 +385,24 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(response.event.uid).toBe(2);
       });
 
+      it('includeFields: get by slug with additional field labels', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/2/events/slug/event-1?detailed=1&includeLabels=1',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
+          }
+        }).then(r => r.data);
+
+        expect(response.event.thematique).toEqual({
+          id: 2,
+          label: { fr: 'Exposition' }
+        });
+      });
+
       it('unpublished event is gettable by owning contributor', async () => {
         const { event } = await axios({
           method: 'get',
