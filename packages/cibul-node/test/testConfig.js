@@ -4,7 +4,7 @@ const fs = require('fs');
 const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 
-module.exports = {
+const testConfig = {
   track: true,
   queues: {},
   db: {
@@ -61,4 +61,12 @@ module.exports = {
   oembed: {
     key: process.env.IFRAMELY_KEY
   }
+};
+
+module.exports = {
+  ...testConfig,
+  extendWith: (config = {}) => ({
+    ...testConfig,
+    ...config
+  })
 };
