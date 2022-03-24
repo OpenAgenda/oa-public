@@ -8,7 +8,6 @@ const createMails = require('@openagenda/mails');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const labels = require('@openagenda/labels/all').mails;
 
-const Queues = require('../queues');
 const walkProtoChain = require('../../lib/walkProtoChain');
 
 const unsubscription = require('./unsubscription');
@@ -20,6 +19,10 @@ const stripHtml = html => sanitizeHtml(html, { allowedTags: [], allowedAttribute
 
 module.exports.init = async (config, services) => {
   unsubscription.init(config);
+
+  const {
+    queues
+  } = services;
 
   const mails = await createMails({
     // Templating
@@ -46,7 +49,7 @@ module.exports.init = async (config, services) => {
     // Queuing
     redis: config.redis,
     queueName: 'mails',
-    Queues,
+    Queues: queues,
 
     // Logging
     logger: config.getLogConfig('svc', 'mails', false),
