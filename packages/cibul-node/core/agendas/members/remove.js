@@ -4,7 +4,7 @@ const _ = require('lodash');
 const { Forbidden, BadRequest } = require('@openagenda/verror');
 const canEdit = require('./lib/canEdit');
 
-module.exports = async (services, agendaOrUid, userUid, options = {}) => {
+module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
   const {
     members,
     users
@@ -20,6 +20,11 @@ module.exports = async (services, agendaOrUid, userUid, options = {}) => {
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
+  const member = await members.get({
+    agendaUid,
+    ...identifiers
+  });
+
   const actingMember = await members.get({
     agendaUid,
     userUid: actingUserUid
@@ -29,16 +34,12 @@ module.exports = async (services, agendaOrUid, userUid, options = {}) => {
 
   if (!canEdit(services, {
     acting: actingMember,
-    actingUserUid,
-    userUid
+    userUid: member.userUid
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
 
-  return members.remove({
-    agendaUid,
-    userUid,
-  }, {
+  return members.remove(member.id, {
     context: {
       user: actingUser
     }
