@@ -31,6 +31,10 @@ describe('11 - event-search - unit: formatEvent', function() {
         id: 2,
         label: 'Two'
       }]
+    }, {
+      schemaId: 13,
+      field: 'somAdditionalBoolean',
+      fieldType: 'boolean'
     }]
   };
 
@@ -77,7 +81,8 @@ describe('11 - event-search - unit: formatEvent', function() {
     }],
     someAdditionalValue: 'oa@oa.com',
     someAdditionalPrice: 29.99,
-    someAdditionalPlaces: 5
+    someAdditionalPlaces: 5,
+    somAdditionalBoolean: true
   };
 
   let formatted;
@@ -104,34 +109,6 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('additional value is in formatted data', () => {
     formatted.someAdditionalValue.should.equal('oa@oa.com');
-  });
-
-  it('additional value is null if is not in formatted data', () => {
-    const eventWithNoAdditionalValue = produce(event, draft => {
-      delete draft.someAdditionalValue;
-    });
-
-    const formatted = formatEvent(eventWithNoAdditionalValue, { formSchema });
-
-    should(formatted.someAdditionalValue).equal(null);
-  });
-
-  it('additional value is empty array if is not in formatted data and field is of list type (radio)', () => {
-    const eventWithNoAdditionalValue = produce(event, draft => {
-      delete draft.someAdditionalValue;
-    });
-
-    const formatted = formatEvent(eventWithNoAdditionalValue, {
-      formSchema: {
-        fields: [{
-          schemaId: 123,
-          field: 'someAdditionalValue',
-          fieldType: 'radio',
-        }]
-      }
-    });
-
-    should(formatted.someAdditionalValue).eql([]);
   });
 
   it('originAgenda._agg is a string with info on agenda', () => {
@@ -206,7 +183,11 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('additional field of email type is indexed in _search_additional_keywords', () => {
-    formatted['_search_additional_keywords'].should.eql(['oa@oa.com']);
+    assert.strictEqual(formatted['_search_additional_keywords'].includes('oa@oa.com'), true);
+  });
+
+  it('additional field of boolean type is indexed in _search_additional_keywords', () => {
+    assert.strictEqual(formatted['_search_additional_keywords'].includes('13.true'), true);
   });
 
   it('timestamps createdAt and updatedAt are in formatted object', () => {

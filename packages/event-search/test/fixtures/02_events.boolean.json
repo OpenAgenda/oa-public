@@ -1,0 +1,33 @@
+{
+  "list": {
+    "lastId": -1,
+    "events": [
+      {
+        "uid": 1,
+        "state": 2,
+        "trueOrFalse": true
+      },
+      {
+        "uid": 2,
+        "state": 2,
+        "trueOrFalse": true
+      },
+      {
+        "uid": 3,
+        "state": 2
+      },
+      {
+        "uid": 4,
+        "state": 2,
+        "trueOrFalse": false
+      }
+    ]
+  },
+  "formSchema": {
+    "fields": [{
+      "field": "trueOrFalse",
+      "fieldType": "boolean",
+      "schemaId": 12
+    }]
+  } 
+}

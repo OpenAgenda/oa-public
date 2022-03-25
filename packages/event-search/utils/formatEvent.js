@@ -9,7 +9,8 @@ const addRegistrationType = require('@openagenda/utils/registration/addType');
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const aggObjects = require('./aggregatorObjects');
-const { produce } = require('immer');
+const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
+const { produce, current } = require('immer');
 
 const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5'];
 
@@ -157,8 +158,8 @@ module.exports = produce((event, options = {}) => {
   const schemaAdditionalFields = getFormSchemaAdditionalFields(formSchema);
 
   schemaAdditionalFields.forEach(additionalField => {
-    if (event[additionalField.field] === undefined) {
-      event[additionalField.field] = ['radio', 'select'].includes(additionalField.fieldType) ? [] : null;
+    if (['multiselect', 'checkbox'].includes(additionalField.fieldType) && event[additionalField.field] === undefined) {
+      event[additionalField.field] = [];
     }
 
     if (isEmpty(event[additionalField.field])) {
@@ -174,11 +175,11 @@ module.exports = produce((event, options = {}) => {
     .filter(({ value, field }) => (
       ![undefined, null].includes(value) // there is a value
     ) && (
-      ['email', 'radio', 'select', 'checkbox', 'multiselect'].includes(field.fieldType)
+      ['email', 'radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(field.fieldType)
     ))
     .reduce((keywords, { field, value }) => {
-      return keywords.concat(['radio', 'checkbox', 'select', 'multiselect'].includes(field.fieldType)
-        ? [].concat(value).map(v => [field.schemaId, v].join('.')) : value)
+      return keywords.concat(['radio', 'checkbox', 'select', 'multiselect', 'boolean'].includes(field.fieldType)
+        ? [].concat(value).map(v => keywordizeDiscreteValue(field, v)) : value)
     }, []);
 
   event['_search_additional_numbers'] = schemaAdditionalFields

@@ -5,6 +5,12 @@ const {
   BadRequest
 } = require('@openagenda/verror');
 
+function getFieldValues(field) {
+  const options = field.fieldType === 'boolean' ? [{ id: 'true' },{ id: 'false' }] : field.options;
+  
+  return options.map(o => [field.schemaId, o.id].join('.'));
+}
+
 module.exports.formatDSL = (query, options = {}) => {
   const aggregationQuery = {
     terms: {
@@ -21,7 +27,7 @@ module.exports.formatDSL = (query, options = {}) => {
       }, 'Invalid requested aggregations: unknown additional field');
     }
 
-    const fieldValues = field.options.map(o => [field.schemaId, o.id].join('.'));
+    const fieldValues = getFieldValues(field);
 
     aggregationQuery.terms.include = fieldValues;
     aggregationQuery.terms.size = fieldValues.length;
@@ -68,13 +74,20 @@ function _formSchemaOptionsCount(formSchema) {
 }
 
 function _decorateWithSchemaFieldAndOption(formSchema, { key, doc_count }) {
-  const [schemaId, optionsId] = key.split('.').map(k => parseInt(k));
+  const [schemaIdStr, optionValue] = key.split('.');
+  const schemaId = parseInt(schemaIdStr);
 
   for (const field of formSchema.fields) {
     if (field.schemaId !== schemaId) continue;
-    if (!field.options) continue;
+    if (!field.options && field.fieldType !== 'boolean') continue;
 
-    const matchingOption = field.options.filter(o => o.id === optionsId).pop();
+    const keyedOptions = field.options ? field.options.map(o => ({ ...o, key: o.id })) : [{
+      key: 'true'
+    }, {
+      key: 'false'
+    }];
+
+    const matchingOption = keyedOptions.filter(o => `${o.key}` === optionValue).pop();
 
     if (!matchingOption) continue;
 
