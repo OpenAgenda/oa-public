@@ -58,34 +58,23 @@ describe('convert legacy filters', () => {
     expect(convertLegacyFilter(oaq)).toStrictEqual({ district: 'centre', relative: ['current', 'upcoming'] });
   });
 
-  test('convert lille tags', () => {
-    const oaq = {
-      tags: 'spectacle'
-    };
-
-    expect(convertLegacyFilter(oaq, {
-      formSchema: lilleFormSchema,
-      tagSet: lilleTagSet
-    })).toStrictEqual({ 'categories-metropolitaines': 20, relative: ['current', 'upcoming'] });
-  });
-
   test('convert lille tag filter', () => {
     const oaq = {
       tags: ['spectacle']
     };
 
-    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': 20, relative: ['current', 'upcoming'] });
+    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': [20], relative: ['current', 'upcoming'] });
   });
 
   test('convert bordeaux tags', () => {
     const oaq = {
-      tags: 'administration'
+      tags: ['administration']
     };
 
     expect(convertLegacyFilter(oaq, {
       formSchema: bordeauxFormSchema,
       tagSet: bordeauxTagSet
-    })).toStrictEqual({ 'thematiques-bordeaux-metropole': 3, relative: ['current', 'upcoming'] });
+    })).toStrictEqual({ 'thematiques-bordeaux-metropole': [3], relative: ['current', 'upcoming'] });
   });
 
   test('convert category', () => {
