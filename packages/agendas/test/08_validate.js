@@ -56,7 +56,8 @@ describe('agendas - unit (server): validate', () => {
             messages: {
               instructions: null,
               complete: null,
-              publication: null
+              publication: null,
+              GDPRInformation: null
             },
             type: 1,
             moderateOnChangeBy: [],
@@ -193,7 +194,8 @@ describe('agendas - unit (server): validate', () => {
             messages: {
               instructions: null,
               complete: null,
-              publication: null
+              publication: null,
+              GDPRInformation: null
             },
             type: 1,
             useFields: false,
