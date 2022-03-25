@@ -83,7 +83,7 @@ const IntlProvided = React.forwardRef(({
     () => ({ missingValue, mapTiles }),
     [missingValue, mapTiles]
   );
-  const [filters, setFilters] = useState(() => rawFilters.map(rawFilter => (
+  const [filters, setFilters] = useState(() => (rawFilters ?? []).map(rawFilter => (
     withDefaultFilterConfig(rawFilter, intl, filtersOptions)
   )));
   const [widgets, setWidgets] = useState(() => rawWidgets);
