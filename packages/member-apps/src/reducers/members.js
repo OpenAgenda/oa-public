@@ -321,7 +321,7 @@ export function updateListItem(data) {
       {}
     ),
     role: data.role,
-    memberId: data.memberId,
+    memberId: data.id,
   };
 }
 

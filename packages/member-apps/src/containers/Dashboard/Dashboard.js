@@ -521,7 +521,7 @@ class Dashboard extends Component {
             showSuccessMessage
             res={`${res.update
               .replace(':agendaUid', agenda.uid)
-              .replace(':userUid', editModal.member.userUid)}`}
+              .replace(':memberId', editModal.member.id)}`}
             onSuccess={update => {
               dispatch(membersActions.updateListItem(update));
 
