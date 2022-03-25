@@ -7,5 +7,6 @@
   "uid": 2,
   "network_uid": 1,
   "created_at": "2020-04-08T17:00:00",
-  "updated_at": "2020-04-08T17:19:00"
+  "updated_at": "2020-04-08T17:19:00",
+  "settings": "{\"tracking\":{\"googleAnalytics\":\"UA-187857400-1\"},\"lab\":{\"eventAdmin\":true,\"status\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[\"contributor\"],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"translation\":{\"enabled\":false,\"source\":\"fr\",\"sets\":[],\"service\":\"reverso\",\"options\":null}}"
 }

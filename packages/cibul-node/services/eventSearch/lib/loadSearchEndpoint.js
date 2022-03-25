@@ -5,9 +5,9 @@ const convert = require('@openagenda/legacy/convertLegacyFilter');
 const mapIncludeFields = includeFields => {
   if (!includeFields) return null;
 
-  return includeFields.map(field => {
+  return includeFields.flatMap(field => {
     if (field === 'permalink') return 'uid';
-    if (field === 'firstDate' || field === 'lastDate') return 'timings';
+    if (field === 'firstDate' || field === 'lastDate' || field === 'timings') return ['timings', 'timezone'];
     return field;
   });
 };

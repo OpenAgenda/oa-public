@@ -1,6 +1,6 @@
 'use strict';
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const possibleLanguages = ['fr', 'en', 'it', 'es', 'de'];
 
@@ -20,12 +20,12 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
   return {
     source,
     target: [isoTarget || 'ISO'].concat(targetLanguages.map(l => (target || source) + (languages.length > 1 ? ` - ${l.toUpperCase()}` : ''))),
-    transform: v => {
+    transform: event => {
       const columns = [[]].concat(targetLanguages.map(() => []));
 
       let cursor;
 
-      (v ?? []).forEach(t => {
+      (event.timings ?? []).forEach(t => {
         // pop out timezone info
         const begin = t.begin.replace(/(\+|-)[0-9][0-9]:[0-9][0-9]$/, '');
 
@@ -43,7 +43,7 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
 
         targetLanguages.forEach((l, i) => {
           if (dateChanged) {
-            columns[i + 1].push(moment(begin).locale(l).format('dddd D MMMM YYYY - HH:mm'));
+            columns[i + 1].push(moment.tz(begin, event.timezone).locale(l).format('dddd D MMMM YYYY - HH:mm'));
           } else {
             columns[i + 1][columns[i + 1].length - 1] += `, ${moment(begin).locale(l).format('HH:mm')}`;
           }

@@ -66,7 +66,7 @@ describe('02 - event search - functional: search in optioned additional fields',
     });
 
     assert.strictEqual(events.length, 1);
-    assert.deepEqual(events[0]['categories-agenda-metropolitain'], []);
+    assert.deepEqual(events[0]['categories-agenda-metropolitain'], undefined);
   });
 
   it('filters on absence of value AND existing value set for specific additional field', async () => {
@@ -104,6 +104,7 @@ describe('02 - event search - functional: search in optioned additional fields',
         },
         {
           id: 43,
+          key: 43,
           value: 'atelier',
           label: {
             fr: 'Atelier'
@@ -112,6 +113,7 @@ describe('02 - event search - functional: search in optioned additional fields',
         },
         {
           id: 46,
+          key: 46,
           value: 'concert',
           label: {
             fr: 'Concert'

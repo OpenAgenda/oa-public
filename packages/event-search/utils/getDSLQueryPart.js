@@ -153,7 +153,7 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
   }
 
   additionalFields.forEach(field => {
-    if (!cleanQuery[field.field]/* || hasExplicitEmptyValue(cleanQuery[field.field], emptyValue)*/) {
+    if (cleanQuery[field.field] === undefined) {
       return;
     }
 
@@ -163,7 +163,7 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
         '_search_additional_keywords',
         cleanQuery[field.field]
      ));
-    } else if (['radio', 'select', 'checkbox', 'multiselect'].includes(field.fieldType)) {
+    } else if (['radio', 'select', 'checkbox', 'multiselect', 'boolean'].includes(field.fieldType)) {
       parts.push(_filterPart(
         field.field,
         _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue }),
