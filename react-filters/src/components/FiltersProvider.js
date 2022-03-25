@@ -21,7 +21,12 @@ import { withDefaultFilterConfig } from '../utils';
 const defaultSubscription = {};
 const spySubscription = { dirty: true, values: true };
 
-const FiltersForm = React.forwardRef(({ onSubmit, initialValues, subscription, children }, ref) => {
+const FiltersForm = React.forwardRef(({
+  onSubmit,
+  initialValues,
+  subscription,
+  children
+}, ref) => {
   const { filters } = useContext(FiltersAndWidgetsContext);
 
   const handleSubmit = useCallback((values, form) => {
