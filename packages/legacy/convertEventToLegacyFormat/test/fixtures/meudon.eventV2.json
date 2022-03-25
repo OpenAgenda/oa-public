@@ -1,0 +1,155 @@
+{
+  "longDescription": {
+    "fr": "Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d'un trafiquant du quartier."
+  },
+  "country": {
+    "de": "Frankreich (Metropolitan)",
+    "code": "FR",
+    "en": "France (Metropolitan)",
+    "it": "Francia (continente)",
+    "fr": "France (Métropole)",
+    "es": "Francia (Metropolitana)"
+  },
+  "featured": true,
+  "private": 0,
+  "keywords": {},
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "dateRange": {
+    "ar": "الجمعة ٢٥ فبراير, 20:30",
+    "de": "Freitag 25 Februar, 20:30",
+    "en": "Friday 25 February, 20:30",
+    "fr": "Vendredi 25 février, 20h30",
+    "es": "Friday 25 February, 20:30"
+  },
+  "timezone": "Europe/Paris",
+  "imageCredits": null,
+  "nombre-de-dates-de-levenement": 14,
+  "originAgenda": {
+    "uid": 31101747,
+    "image": "agenda31101747.jpg?__ts=1630922974792",
+    "title": "DAC - Ville de Meudon"
+  },
+  "description": {
+    "fr": "POLICIER, DRAME DE SPIKE LEE AVEC HARVEY KEITEL… ÉTATS-UNIS - 1995 - 2H08"
+  },
+  "title": {
+    "fr": "Coup de coeur des \"ressorties\" CLOCKERS"
+  },
+  "onlineAccessLink": null,
+  "createdAt": "2022-01-28T14:43:30.000Z",
+  "uid": 83276338,
+  "draft": 0,
+  "timings": [
+    {
+      "begin": "2022-02-25T20:30:00+01:00",
+      "end": "2022-02-25T22:38:00+01:00"
+    }
+  ],
+  "links": [],
+  "theme": 9,
+  "state": 2,
+  "slug": "coup-de-coeur-des-ressorties-clockers",
+  "updatedAt": "2022-01-28T14:43:30.000Z",
+  "addMethod": "aggregation",
+  "image": {
+    "filename": "3190df5eae4544c095c428592328c2c9.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 1029
+    },
+    "variants": [
+      {
+        "filename": "3190df5eae4544c095c428592328c2c9.full.image.jpg",
+        "size": {
+          "width": 338,
+          "height": 497
+        },
+        "type": "full"
+      },
+      {
+        "filename": "3190df5eae4544c095c428592328c2c9.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cibul.s3.amazonaws.com/"
+  },
+  "attendanceMode": 1,
+  "sourceAgendas": [
+    {
+      "image": "agenda31101747.jpg?__ts=1630922974792",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Centre d'art et de culture et Espace culturel Robert-Doisneau / Théâtre et cinéma\nConférences / Université Auguste-Rodin",
+      "title": "DAC - Ville de Meudon",
+      "url": "https://sorties.meudon.fr/",
+      "_agg": "eyJ1aWQiOjMxMTAxNzQ3LCJ0aXRsZSI6IkRBQyAtIFZpbGxlIGRlIE1ldWRvbiIsImltYWdlIjoiYWdlbmRhMzExMDE3NDcuanBnP19fdHM9MTYzMDkyMjk3NDc5MiJ9",
+      "uid": 31101747,
+      "createdAt": "2017-06-16T10:12:26.000Z",
+      "officializedAt": "2019-09-19T14:33:52.000Z",
+      "slug": "service-culture-meudon",
+      "updatedAt": "2022-02-21T12:02:03.000Z"
+    }
+  ],
+  "creatorUid": 11840264,
+  "registration": [],
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Meudon",
+    "timezone": "Europe/Paris",
+    "postalCode": "92190",
+    "latitude": 48.814028,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 2780149,
+    "createdAt": "2020-06-04T15:33:27.000Z",
+    "duplicateCandidates": [],
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": null,
+    "department": "Hauts-de-Seine",
+    "slug": "centre-dart-et-de-culture792",
+    "email": null,
+    "longitude": 2.235906,
+    "updatedAt": "2021-07-23T04:25:47.000Z",
+    "image": null,
+    "website": null,
+    "address": "15 Boulevard des Nations Unies, 92190 Meudon",
+    "adminLevel3": "Grand Paris Seine Ouest",
+    "adminLevel1": "Île-de-France",
+    "adminLevel2": "Hauts-de-Seine",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjI3ODAxNDksIm5hbWUiOiJDZW50cmUgZCdhcnQgZXQgZGUgQ3VsdHVyZSJ9",
+    "tags": null,
+    "insee": "92048",
+    "phone": null,
+    "district": "Meudon-sur-Seine",
+    "name": "Centre d'art et de Culture",
+    "region": "Île-de-France"
+  },
+  "conditions": {
+    "fr": "INTERDIT AUX MOINS DE 16 ANS"
+  },
+  "age": {},
+  "status": 1,
+  "lastTiming": {
+    "begin": "2022-02-25T20:30:00+01:00",
+    "end": "2022-02-25T22:38:00+01:00"
+  },
+  "nextTiming": null
+}
