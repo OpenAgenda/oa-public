@@ -121,7 +121,7 @@ export default function reducer(state = initialState, action) {
         patching: true,
       };
     case PATCH_SUCCESS: {
-      const data = state.data.map(m => (m.userUid === action.userUid
+      const data = state.data.map(m => (m.id === action.memberId
         ? {
           ...m,
           role: action.result.role || m.role,
@@ -148,10 +148,7 @@ export default function reducer(state = initialState, action) {
         patching: false,
       };
     case UPDATE_LIST_ITEM: {
-      const index = _.findIndex(
-        state.data,
-        m => m.user?.uid === action.userUid
-      );
+      const index = _.findIndex(state.data, m => m.id === action.memberId);
 
       if (index === -1) return state;
 
@@ -181,10 +178,7 @@ export default function reducer(state = initialState, action) {
         showInviteResult: true,
       };
     case REMOVE_SUCCESS: {
-      const index = _.findIndex(
-        state.data,
-        m => m.user?.uid === action.userUid
-      );
+      const index = _.findIndex(state.data, m => m.id === action.memberId);
 
       if (index === -1) return state;
 
@@ -289,17 +283,17 @@ export function nextPage(agenda, query, page) {
   };
 }
 
-export function patch(agenda, userUid, { role }) {
+export function patch(agenda, memberId, { role }) {
   return {
     types: [PATCH, PATCH_SUCCESS, PATCH_FAIL],
-    userUid,
+    memberId,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
       return client.patch(
         res.update
           .replace(':agendaUid', agenda.uid)
-          .replace(':userUid', userUid),
+          .replace(':memberId', memberId),
         {
           role,
         }
@@ -327,7 +321,7 @@ export function updateListItem(data) {
       {}
     ),
     role: data.role,
-    userUid: data.userUid,
+    memberId: data.memberId,
   };
 }
 
@@ -382,17 +376,17 @@ export function cleanInviteResult() {
   };
 }
 
-export function remove(agenda, userUid) {
+export function remove(agenda, memberId) {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
-    userUid,
+    memberId,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
       return client.delete(
         res.remove
           .replace(':agendaUid', agenda.uid)
-          .replace(':userUid', userUid)
+          .replace(':memberId', memberId)
       );
     },
   };
