@@ -6,9 +6,12 @@ const {
 } = require('@openagenda/verror');
 
 function getFieldValues(field) {
-  const options = field.fieldType === 'boolean' ? [{ id: 'true' },{ id: 'false' }] : field.options;
-  
-  return options.map(o => [field.schemaId, o.id].join('.'));
+  if (field.fieldType === 'boolean') {
+    return ['true', 'false'].map(v => (
+      [field.schemaId, field.field, v].join('.')
+    ));
+  }  
+  return field.options.map(o => [field.schemaId, o.id].join('.'));
 }
 
 module.exports.formatDSL = (query, options = {}) => {
@@ -73,18 +76,30 @@ function _formSchemaOptionsCount(formSchema) {
   }, 0);
 }
 
-function _decorateWithSchemaFieldAndOption(formSchema, { key, doc_count }) {
-  const [schemaIdStr, optionValue] = key.split('.');
-  const schemaId = parseInt(schemaIdStr);
+function _cleanOption(field, matchingOption) {
+  if (field.fieldType !== 'boolean') {
+    return _.omit(matchingOption, ['legacyId']);
+  }
 
+  return {
+    ..._.omit(matchingOption, ['legacyId', 'key']),
+    key: matchingOption.key.split('.').pop()
+  }
+}
+
+function _decorateWithSchemaFieldAndOption(formSchema, { key, doc_count }) {
+  const keyParts = key.split('.');
+  const schemaId = parseInt(keyParts.shift());
+  const optionValue = keyParts.join('.');
+  
   for (const field of formSchema.fields) {
     if (field.schemaId !== schemaId) continue;
     if (!field.options && field.fieldType !== 'boolean') continue;
 
     const keyedOptions = field.options ? field.options.map(o => ({ ...o, key: o.id })) : [{
-      key: 'true'
+      key: `${field.field}.true`
     }, {
-      key: 'false'
+      key: `${field.field}.false`
     }];
 
     const matchingOption = keyedOptions.filter(o => `${o.key}` === optionValue).pop();
@@ -95,7 +110,7 @@ function _decorateWithSchemaFieldAndOption(formSchema, { key, doc_count }) {
       key,
       eventCount: doc_count,
       field,
-      option: _.omit(matchingOption, ['legacyId'])
+      option: _cleanOption(field, matchingOption)
     }
   }
 

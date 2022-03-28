@@ -10,7 +10,7 @@ const addRegistrationType = require('@openagenda/utils/registration/addType');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const aggObjects = require('./aggregatorObjects');
 const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
-const { produce, current } = require('immer');
+const { produce } = require('immer');
 
 const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5'];
 
