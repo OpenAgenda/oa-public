@@ -7,7 +7,7 @@ const {
 
 function getFieldValues(field) {
   const options = field.fieldType === 'boolean' ? [{ id: 'true' },{ id: 'false' }] : field.options;
-  
+
   return options.map(o => [field.schemaId, o.id].join('.'));
 }
 
@@ -23,7 +23,7 @@ module.exports.formatDSL = (query, options = {}) => {
 
     if (!field) {
       throw new BadRequest({
-        info: { field }
+        info: { field: options.field }
       }, 'Invalid requested aggregations: unknown additional field');
     }
 
