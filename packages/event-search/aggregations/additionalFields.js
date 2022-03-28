@@ -26,7 +26,7 @@ module.exports.formatDSL = (query, options = {}) => {
 
     if (!field) {
       throw new BadRequest({
-        info: { field }
+        info: { field: options.field }
       }, 'Invalid requested aggregations: unknown additional field');
     }
 

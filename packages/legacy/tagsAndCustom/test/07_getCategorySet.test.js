@@ -3,12 +3,12 @@
 const knexLib = require('knex');
 
 const getCategorySet = require('../lib/getCategorySet');
-const config = require('./testconfig');
+const config = require('../testconfig');
 
 const knex = knexLib({ client: 'mysql', connection: config.mysql });
 
 const interfaces = {
-  getAgendaId: agendaUid => 7796
+  getAgendaId: () => 2935
 };
 
 test('get category set', async () => {

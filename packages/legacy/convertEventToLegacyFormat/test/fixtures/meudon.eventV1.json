@@ -1,0 +1,155 @@
+{
+  "uid": 83276338,
+  "slug": "coup-de-coeur-des-ressorties-clockers",
+  "canonicalUrl": "https://openagenda.com/meudon/events/coup-de-coeur-des-ressorties-clockers",
+  "title": {
+    "fr": "Coup de coeur des \"ressorties\" CLOCKERS"
+  },
+  "description": {
+    "fr": "POLICIER, DRAME DE SPIKE LEE AVEC HARVEY KEITEL… ÉTATS-UNIS - 1995 - 2H08"
+  },
+  "longDescription": {
+    "fr": "Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d'un trafiquant du quartier."
+  },
+  "keywords": null,
+  "html": {
+    "fr": "<p>Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d'un trafiquant du quartier.</p>\n"
+  },
+  "longDescriptionLinks": [],
+  "image": "https://cibul.s3.amazonaws.com/3190df5eae4544c095c428592328c2c9.base.image.jpg",
+  "thumbnail": "https://cibul.s3.amazonaws.com/3190df5eae4544c095c428592328c2c9.thumb.image.jpg",
+  "originalImage": "https://cibul.s3.amazonaws.com/3190df5eae4544c095c428592328c2c9.full.image.jpg",
+  "age": null,
+  "accessibility": [],
+  "updatedAt": "2022-01-28T14:43:30.000Z",
+  "createdAt": "2022-01-28T14:43:30.000Z",
+  "range": {
+    "fr": "Vendredi 25 février, 20h30",
+    "en": "Friday 25 February, 20:30",
+    "de": "Freitag 25 Februar, 20:30",
+    "es": "Friday 25 February, 20:30"
+  },
+  "location": {
+    "uid": 2780149,
+    "name": "Centre d'art et de Culture",
+    "slug": "centre-dart-et-de-culture792",
+    "address": "15 Boulevard des Nations Unies, 92190 Meudon",
+    "image": null,
+    "imageCredits": null,
+    "postalCode": "92190",
+    "city": "Meudon",
+    "district": "Meudon-sur-Seine",
+    "department": "Hauts-de-Seine",
+    "region": "Île-de-France",
+    "latitude": 48.814028,
+    "longitude": 2.235906,
+    "description": {},
+    "access": {},
+    "countryCode": "fr",
+    "website": null,
+    "email": null,
+    "links": [],
+    "insee": "92048",
+    "phone": null,
+    "tags": null,
+    "timezone": "Europe/Paris",
+    "updatedAt": "2021-07-23T04:25:47.000Z",
+    "extId": null,
+    "country": {
+      "en": "France (Metropolitan)",
+      "fr": "France (Métropole)",
+      "de": "Frankreich (Metropolitan)",
+      "es": "Francia (Metropolitana)",
+      "code": "FR"
+    }
+  },
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "status": 1,
+  "imageCredits": null,
+  "origin": {
+    "uid": 31101747,
+    "title": "DAC - Ville de Meudon",
+    "url": "https://sorties.meudon.fr/",
+    "slug": "service-culture-meudon",
+    "oaUrl": "https://openagenda.com/agendas/31101747"
+  },
+  "conditions": {
+    "fr": "INTERDIT AUX MOINS DE 16 ANS"
+  },
+  "registrationUrl": null,
+  "locationName": "Centre d'art et de Culture",
+  "locationUid": 2780149,
+  "address": "15 Boulevard des Nations Unies, 92190 Meudon",
+  "postalCode": "92190",
+  "city": "Meudon",
+  "district": "Meudon-sur-Seine",
+  "department": "Hauts-de-Seine",
+  "region": "Île-de-France",
+  "latitude": 48.814028,
+  "longitude": 2.235906,
+  "timings": [
+    {
+      "start": "2022-02-25T19:30:00.000Z",
+      "end": "2022-02-25T21:38:00.000Z"
+    }
+  ],
+  "registration": [],
+  "firstDate": "2022-02-25",
+  "firstTimeStart": "20:30",
+  "firstTimeEnd": "22:38",
+  "lastDate": "2022-02-25",
+  "lastTimeStart": "20:30",
+  "lastTimeEnd": "22:38",
+  "permalink": "https://openagenda.com/agendas/11207540/events/83276338",
+  "featured": 1,
+  "custom": {
+    "evenement-pour-enfants": false,
+    "nombre-de-dates-de-levenement": "evenement-court-1-ou-2-dates"
+  },
+  "contributor": null,
+  "category": null,
+  "tags": [
+    {
+      "label": "Cinéma",
+      "slug": "cinema",
+      "id": 79109,
+      "schemaOptionId": "20081.9"
+    },
+    {
+      "label": "événement court (1 ou 2 dates)",
+      "slug": "evenement-court-1-ou-2-dates",
+      "id": 85566,
+      "schemaOptionId": "20081.14"
+    }
+  ],
+  "tagGroups": [
+    {
+      "name": "Thème",
+      "access": "public",
+      "slug": "theme",
+      "tags": [
+        {
+          "label": "Cinéma",
+          "slug": "cinema",
+          "id": 79109,
+          "schemaOptionId": "20081.9"
+        }
+      ]
+    },
+    {
+      "name": "Nombre de dates de l'événement",
+      "access": "public",
+      "slug": "nombre-de-dates-de-levenement",
+      "tags": [
+        {
+          "label": "événement court (1 ou 2 dates)",
+          "slug": "evenement-court-1-ou-2-dates",
+          "id": 85566,
+          "schemaOptionId": "20081.14"
+        }
+      ]
+    }
+  ],
+  "linkedEvents": []
+}

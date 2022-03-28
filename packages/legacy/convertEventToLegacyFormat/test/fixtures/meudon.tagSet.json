@@ -1,0 +1,114 @@
+{
+  "title": "Ville de Meudon",
+  "description": "Les événements de la Ville de Meudon",
+  "slug": "meudon",
+  "url": "https://www.meudon.fr",
+  "tagSet": {
+    "groups": [
+      {
+        "name": "Thème",
+        "tags": [
+          {
+            "id": 79109,
+            "label": "Cinéma",
+            "slug": "cinema",
+            "schemaOptionId": "20081.9"
+          },
+          {
+            "id": 79111,
+            "label": "Spectacle",
+            "slug": "spectacle",
+            "schemaOptionId": "20081.11"
+          },
+          {
+            "id": 79107,
+            "label": "Conférence - Rencontre - Débat",
+            "slug": "conference-rencontre-debat",
+            "schemaOptionId": "20081.7"
+          },
+          {
+            "id": 79108,
+            "label": "Exposition",
+            "slug": "exposition",
+            "schemaOptionId": "20081.8"
+          },
+          {
+            "id": 79106,
+            "label": "Balade - Visite - Découverte",
+            "slug": "balade-visite-decouverte",
+            "schemaOptionId": "20081.6"
+          },
+          {
+            "id": 79110,
+            "label": "Sport",
+            "slug": "sport",
+            "schemaOptionId": "20081.10"
+          },
+          {
+            "id": 79112,
+            "label": "Stage - Atelier - Jeu",
+            "slug": "stage-atelier-jeu",
+            "schemaOptionId": "20081.12"
+          },
+          {
+            "id": 79113,
+            "label": "Enfant",
+            "slug": "enfant",
+            "schemaOptionId": "20081.13"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": true
+      },
+      {
+        "name": "Nombre de dates de l'événement",
+        "tags": [
+          {
+            "id": 85566,
+            "label": "événement court (1 ou 2 dates)",
+            "slug": "evenement-court-1-ou-2-dates",
+            "schemaOptionId": "20081.14"
+          },
+          {
+            "id": 85567,
+            "label": "événement long (plus de 2 dates)",
+            "slug": "evenement-long-plus-de-2-dates",
+            "schemaOptionId": "20081.15"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": true
+      }
+    ]
+  },
+  "categorySet": {
+    "categories": []
+  },
+  "customSet": [
+    {
+      "name": "evenement-pour-enfants",
+      "type": "public",
+      "fieldType": "checkbox",
+      "optional": true,
+      "label": {
+        "fr": "Événement pour enfants",
+        "en": "Événement pour enfants"
+      }
+    },
+    {
+      "name": "nombre-de-dates-de-levenement",
+      "type": "public",
+      "fieldType": "radio",
+      "optional": false,
+      "label": {
+        "fr": "Nombre de dates de l'événement",
+        "en": "Nombre de dates de l'événement"
+      }
+    }
+  ],
+  "embeds": [
+    77876763
+  ]
+}

@@ -135,6 +135,7 @@ async function _onNewMember( { services, agenda, user, senderUser, context, memb
 
   const usersSvc = services.users;
   const activities = services.activities;
+  const { Inbox } = services.inboxes;
 
   if ( user.isNew ) {
     await usersSvc.setNewFlag( user.uid, { isNew: false } );
@@ -159,6 +160,23 @@ async function _onNewMember( { services, agenda, user, senderUser, context, memb
   }, {
     credential: member.role
   } );
+
+  if (Inbox) {
+    if (isSuperiorToOrEqual(member.role, 'moderator')) {
+      try {
+        await new Inbox({
+          type: 'agenda',
+          identifier: agenda.uid
+        }).users.add({
+          userUid: user.uid
+        });
+      } catch (e) {
+        log('error', 'could not add member to agenda inbox', e);
+      }
+    }
+  } else {
+    log('warn', 'inboxes service was not initialized');
+  }
 
   await activityQueue( 'addMemberAcceptInvitation', {
     agenda, user, senderUser, member, context

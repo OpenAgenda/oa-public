@@ -3,21 +3,17 @@
 const flattenTagSet = require('../../utils/flattenTagSet');
 
 module.exports = (agendaSettings, event) => {
-  const { formSchema } = agendaSettings;
-  const { tagSet } = agendaSettings.legacy;
-
-  const tagFields = formSchema.fields.filter(f => Object.keys(event).find(el => f.field === el) && f.origin === 'tags');
+  const { formSchema, legacy: { tagSet } } = agendaSettings;
+  const tagFields = formSchema.fields.filter(f => Object.keys(event).find(el => f.field === el && (f.origin === 'tags' || f.origin === null)));
 
   const tagsList = flattenTagSet(tagSet, tagFields);
 
-  const filteredTags = tagsList.filter(t => tagFields.find(field => {
-    if (Array.isArray(event[field.field])) {
-      return parseInt(field.schemaId, 10) === t.schemaId && event[field.field].includes(t.optionId);
-    }
-    return parseInt(field.schemaId, 10) === t.schemaId && parseInt(event[field.field], 10) === t.optionId;
-  }));
+  const filteredTags = tagsList.filter(tag => {
+    if (Array.isArray(event[tag.fieldSlug])) return event[tag.fieldSlug] && event[tag.fieldSlug].includes(tag.optionId);
+    return event[tag.fieldSlug] && tag.optionId === event[tag.fieldSlug];
+  });
 
-  const tagGroups = tagSet && Object.keys(tagSet).length
+  const tagGroups = tagSet && tagSet.groups
     ? tagSet.groups.reduce((carry, tagGroup) => {
       const tag = filteredTags.filter(filteredTag => filteredTag.field === tagGroup.name).map(filteredTag => ({
         label: filteredTag.label,
@@ -26,14 +22,13 @@ module.exports = (agendaSettings, event) => {
         schemaOptionId: filteredTag.schemaOptionId
       }));
 
-      const item = {
-        name: tagGroup.name,
-        access: tagGroup.access,
-        slug: filteredTags.filter(filteredTag => filteredTag.field === tagGroup.name).reduce((acc, filteredTag) => filteredTag.fieldSlug, ''),
-        tags: tag
-      };
-
-      if (item.tags.length) {
+      if (tag.length) {
+        const item = {
+          name: tagGroup.name,
+          access: tagGroup.access,
+          slug: filteredTags.find(filteredTag => filteredTag.field === tagGroup.name)?.fieldSlug,
+          tags: tag
+        };
         carry.push(item);
       }
 

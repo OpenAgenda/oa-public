@@ -21,7 +21,7 @@
   "verifiedInfo": "Los lugares creados a través del evento toman estado del formulario \"check in\" para permitir que el agenda de control de los administradores",
   "locationselection": "lugares destacados",
   "events": "%count% eventos",
-  "seeEvents": " %count% eventos asociados",
+  "seeEvents": "%count% eventos asociados",
   "seeEvent": "1 evento asociado",
   "noEvent": "No hay eventos relacionados",
   "hassuggestions": "%s sugerencias",
