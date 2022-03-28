@@ -4,6 +4,6 @@
   "emailSubmitted": "El recuento asunto del correo electrónico se está procesando",
   "noNewInvite": "No hay nueva invitación fue enviada",
   "sentInvites": "invitaciones enviados: %count%",
-  "resentInvites": " %count% invitaciones están siendo enviados. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar una vez cada 24 horas.",
+  "resentInvites": "%count% invitaciones están siendo enviados. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar una vez cada 24 horas.",
   "resentInvite": "La invitación está siendo re-enviado"
 }

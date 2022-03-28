@@ -4,7 +4,7 @@
   "submit": "Guardar",
   "submitError": "El lugar no podría ser actualizado",
   "singleSuggestionCount": "Un cambio fue sugerido para este lugar",
-  "suggestionCount": " %count% se sugirieron cambios para este lugar",
+  "suggestionCount": "%count% se sugirieron cambios para este lugar",
   "loadSuggestion": "Ver",
   "suggestionInstruction": "Los cambios fueron sugeridos por la agenda contribuyentes"
 }

@@ -7,9 +7,9 @@
   "found": "Encontrado %count% agendas",
   "empty": "Lo sentimos, hay una agenda coincide con esta búsqueda",
   "publishedEvent": "1 evento pasado",
-  "publishedEvents": " %count% sucesos pasados",
+  "publishedEvents": "%count% sucesos pasados",
   "upcomingEvent": "1 próximo evento",
-  "upcomingEvents": " %count% próximos eventos",
+  "upcomingEvents": "%count% próximos eventos",
   "loadPrevious": "Cargar los resultados anteriores",
   "loadNext": "Cargar más resultados",
   "addEvent": "Añadir un evento"
