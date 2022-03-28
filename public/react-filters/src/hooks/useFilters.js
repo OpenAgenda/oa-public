@@ -33,7 +33,7 @@ export default function useFilters(intl, agendaSchema, opts = {}) {
     ];
 
     const additionalFilters = agendaSchema.fields
-      .filter(fieldSchema => fieldSchema.options && fieldSchema.options.length > 0)
+      .filter(fieldSchema => ['checkbox', 'radio', 'multiselect', 'boolean'].includes(fieldSchema.fieldType))
       .map(fieldSchema => ({
         name: fieldSchema.field,
         fieldSchema

@@ -6,6 +6,7 @@ import provenanceMessages from '../messages/provenance';
 import featuredMessages from '../messages/featured';
 import stateMessages from '../messages/state';
 import statusMessages from '../messages/status';
+import booleanMessages from '../messages/boolean';
 import dateRanges from './dateRanges';
 
 const AGGREGATION_SIZE = 2000;
@@ -86,14 +87,14 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         type: 'dateRange',
         aggregation: null,
       });
-      assignDateRanges(filter, intl)
+      assignDateRanges(filter, intl);
       break;
     case 'updatedAt':
       _.defaults(filter, {
         type: 'dateRange',
         aggregation: null,
       });
-      assignDateRanges(filter, intl)
+      assignDateRanges(filter, intl);
       break;
     case 'state':
       _.defaults(filter, {
@@ -324,22 +325,35 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
 
   const { fieldSchema } = filter;
 
+  // additionalField
   if (fieldSchema) {
+    const isBoolean = fieldSchema.fieldType === 'boolean';
+    const options = isBoolean
+      ? [{ // boolean
+        label: intl.formatMessage(booleanMessages.selected),
+        value: 'true'
+      },
+      {
+        label: intl.formatMessage(booleanMessages.notSelected),
+        value: 'false'
+      }]
+      : fieldSchema.options.map(option => ({
+        ...option,
+        label: getLocaleValue(option.label, intl.locale),
+        value: String(option.id)
+      }));
+
     _.defaults(filter, {
       name: fieldSchema.field,
       type: 'choice',
       fieldSchema,
-      options: fieldSchema.options.map(option => ({
-        ...option,
-        label: getLocaleValue(option.label, intl.locale),
-        value: String(option.id)
-      })),
+      options,
       missingValue,
       aggregation: {
         type: 'additionalFields',
         field: fieldSchema.field,
         size: AGGREGATION_SIZE
-      }
+      },
     });
   }
 
