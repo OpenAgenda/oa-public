@@ -264,7 +264,7 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const filters = useFilters(intl, agendaSchema, { missingValue: true });
+  const filters = useFilters(intl, agendaSchema, { missingValue: 'null' });
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
     [filters]
