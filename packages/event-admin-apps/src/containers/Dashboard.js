@@ -235,8 +235,10 @@ function Dashboard() {
     const { query: q } = removeQueryPrefix(parsedLocationSearch);
 
     return _.pick(
-      validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
-      Object.keys(q)
+      q,
+      Object.keys(
+        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' })
+      )
     );
   }, [agendaSchema, parsedLocationSearch]);
 
@@ -492,8 +494,10 @@ function Dashboard() {
   useUpdateEffect(() => {
     const { query: q } = removeQueryPrefix(parsedLocationSearch);
     const cleanQuery = _.pick(
-      validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
-      Object.keys(q)
+      q,
+      Object.keys(
+        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' })
+      )
     );
 
     if ('featured' in cleanQuery) {
