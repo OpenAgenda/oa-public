@@ -9,9 +9,8 @@ module.exports.formatDSL = function formatDSL(requested, query, options) {
     .map(r => r.field);
 
   const fields = getFormSchemaAdditionalFields(options.formSchema)
-    .filter(field => !!field.options)
+    .filter(field => !!field.options || field.fieldType === 'boolean')
     .filter(field => requestedFields.includes(field.field));
-    
 
   if (!fields.length) {
     return {};
