@@ -1,15 +1,9 @@
-import _ from 'lodash';
 import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  // useEffect,
+  useCallback, useMemo, useRef, useState
 } from 'react';
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
-// import { OnChange } from 'react-final-form-listeners';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
 import getLocalValue from '../../utils/getLocalValue';
@@ -29,28 +23,16 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   );
   const fieldName = useMemoOne(() => action?.field, [action]);
   const prevFieldName = usePrevious(fieldName);
-
-  /*   useEffect(() => {
-    if (prevFieldName && fieldName !== prevFieldName) {
-      form.change(`${name}.values`, null);
-    }
-  }, [fieldName, prevFieldName, form, name]); */
-
   const initialValues = useRef(initials).current;
 
   const automatic = useMemoOne(() => !!action?.automatic, [action]);
   const prevAutomatic = usePrevious(automatic);
   const [initialAction] = useState(() => initialValues?.actions?.find(v => v.field === fieldName));
-
-  // console.log('aggregatorAgendaSchema.fields ', aggregatorAgendaSchema.fields);
-
   const textFieldOptions = aggregatorAgendaSchema.fields.filter(v => stringType.includes(v.fieldType));
 
   function isStringType(fieldSchema) {
     return stringType.includes(fieldSchema?.fieldType);
   }
-
-  // console.log('textFielOptions', textFieldOptions);
 
   const fieldOptions = useMemoOne(
     () => aggregatorAgendaSchema.fields
@@ -129,32 +111,6 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     }
   }, [automatic, prevAutomatic, action, form, name, valuesBeforeAutomatic]);
 
-  useIsomorphicLayoutEffect(() => {
-    if (prevFieldName && fieldName) {
-      const haveAllOptions = []
-        .concat(action?.values)
-        .every(actionValue => valuesOptions?.find(v => _.isEqual(actionValue, v.value)));
-
-      if (prevFieldName !== fieldName && !haveAllOptions) {
-        setAdvancedMode(false);
-        setValuesBeforeAutomatic(undefined);
-
-        form.batch(() => {
-          form.change(`${name}.values`, undefined);
-          form.change(`${name}.automatic`, undefined);
-        });
-      }
-    }
-  }, [
-    action,
-    fieldName,
-    form,
-    name,
-    prevFieldName,
-    valuesOptions,
-    advancedMode,
-  ]);
-
   const advanceModeSetField = (
     <Field
       key="set"
@@ -183,13 +139,25 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
         menuPosition="fixed"
         className="margin-bottom-xs"
         isSearchable
-        // initialValue={initialAction?.field}
+        onChange={e => {
+          if (prevFieldName !== e.value) {
+            form.batch(() => {
+              form.change(`${name}.field`, e.value);
+              form.change(`${name}.values`, undefined);
+              form.change(`${name}.automatic`, undefined);
+            });
+            setAdvancedMode(false);
+            setValuesBeforeAutomatic(undefined);
+          } else {
+            form.change(`${name}.field`, e.value);
+          }
+        }}
       />
 
       {valuesOptions ? (
         <>
           <ReactSelectField
-            key={`${fieldName}-values`}
+            key={`${name}-values-${action.field}`}
             Field={Field}
             name={`${name}.values`}
             placeholder={intl.formatMessage(
@@ -202,7 +170,6 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
             menuPosition="fixed"
             isMulti={fieldSchema?.fieldType === 'checkbox'}
             isDisabled={action?.automatic}
-            // initialValue={action?.values}
             isSearchable
           />
           {advancedMode ? (
@@ -230,9 +197,8 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       {isStringType(fieldSchema) ? (
         <>
           <Field
-            key="values"
+            key={`${name}-values-${action.field}`}
             name={`${name}.values`}
-            initialValue={action?.values}
             render={({ input }) => (
               <div className="row">
                 <div className="form-group form-group-v-aligned">
