@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 
 import { Modal, Spinner } from '@openagenda/react-shared';
 import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector';
-import Provider from '@openagenda/agenda-locations/components/build/Provider';
+import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers';
+//import Provider from '@openagenda/agenda-locations/components/build/Provider';
 
 import flattenLocationTagSet from '../utils/flattenLocationTagSet';
 
