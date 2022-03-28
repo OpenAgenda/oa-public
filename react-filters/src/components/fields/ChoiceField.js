@@ -26,8 +26,8 @@ export default function ChoiceField({
           id={seed(input)}
           disabled={disabled}
           {...input}
-        />{' '}
-        {getLocaleValue(option.label)}
+        />
+        {getLocaleValue(option.label) || <>&nbsp;</>}
         {Number.isInteger(total) && total !== 0 ? (
           <span className="oa-filter-total">{total}</span>
         ) : null}
