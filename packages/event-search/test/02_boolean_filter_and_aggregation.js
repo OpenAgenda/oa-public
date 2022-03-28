@@ -90,6 +90,9 @@ describe('02 - event search - functional: boolean type', () => {
     });
 
     assert.deepEqual(aggregations.kayonashi, [{
+      key: 'N/A',
+      eventCount: 1
+    }, {
       key: 'true',
       eventCount: 2
     }, {

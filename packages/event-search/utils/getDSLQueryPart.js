@@ -3,6 +3,7 @@
 const clean = require('@openagenda/validators/schema/clean');
 const _ = require('lodash');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
+const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
 
 const termsFiltersMap = {
   memberUid: 'member.uid',
@@ -180,7 +181,7 @@ function _extractValuesWithSchemaIds(field, cleanQuery, { emptyValue }) {
   return [].concat(
     cleanQuery[field.field]
   ).map(
-    v => v === emptyValue ? v : `${field.schemaId}.${v}`
+    v => v === emptyValue ? v : keywordizeDiscreteValue(field, v)
   );
 }
 
