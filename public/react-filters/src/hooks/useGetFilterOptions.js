@@ -16,7 +16,14 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
       const missingLabel = intl.formatMessage(messages.emptyOption);
 
       if (filter.options) {
-        return filter.missingValue ? [{
+        const missingOption = filter.missingValue
+          ? filtersBase?.[filter.name]?.find(v => {
+            const dataKey = 'id' in v ? 'id' : 'key';
+            return v[dataKey] === filter.missingValue;
+          })
+          : null;
+
+        return missingOption ? [{
           label: missingLabel,
           key: filter.missingValue,
           value: filter.missingValue
@@ -45,7 +52,7 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
 
         return {
           ...entry,
-          label: labelValue === 'null' ? missingLabel : getLocaleValue(labelValue),
+          label: labelValue === filter.missingValue ? missingLabel : getLocaleValue(labelValue),
           value: entry[dataKey]
         };
       });

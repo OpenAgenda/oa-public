@@ -349,6 +349,18 @@
       "value": "En ligne"
     }
   ],
+  "ReactFilters.messages.boolean.notSelected": [
+    {
+      "type": 0,
+      "value": "Non sélectionné"
+    }
+  ],
+  "ReactFilters.messages.boolean.selected": [
+    {
+      "type": 0,
+      "value": "Sélectionné"
+    }
+  ],
   "ReactFilters.messages.featured.featured": [
     {
       "type": 0,

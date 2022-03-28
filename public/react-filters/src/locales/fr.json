@@ -33,6 +33,8 @@
   "ReactFilters.messages.attendanceMode.mixed": "Mixte",
   "ReactFilters.messages.attendanceMode.offline": "Sur place",
   "ReactFilters.messages.attendanceMode.online": "En ligne",
+  "ReactFilters.messages.boolean.notSelected": "Non sélectionné",
+  "ReactFilters.messages.boolean.selected": "Sélectionné",
   "ReactFilters.messages.featured.featured": "En une",
   "ReactFilters.messages.filterTitles.addMethod": "Provenance",
   "ReactFilters.messages.filterTitles.adminLevel3": "Niveau administratif 3",

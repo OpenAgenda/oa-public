@@ -24,7 +24,7 @@ function assignDateRanges(filter, intl) {
 }
 
 export default function withDefaultFilterConfig(filter, intl, opts = {}) {
-  const missingValue = opts.missingValue ? 'null' : undefined;
+  const { missingValue } = opts;
 
   switch (filter.name) {
     case 'viewport':

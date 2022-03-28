@@ -76,7 +76,7 @@ function Preview({
     }
 
     return [].concat(input.value)
-      .map(v => (options.find(option => String(option.value) === String(v)) ?? {
+      .map(v => (options.find(option => option.value === v) ?? {
         value: v,
         label: intl.formatMessage(messages.unrecognizedOption, { value: v })
       }));
@@ -96,7 +96,7 @@ function Preview({
         return;
       }
 
-      const newValue = input.value.filter(v => String(v) !== String(option.value));
+      const newValue = input.value.filter(v => v !== option.value);
 
       input.onChange(newValue.length ? newValue : undefined);
     },
