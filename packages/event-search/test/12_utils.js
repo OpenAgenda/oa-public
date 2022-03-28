@@ -11,6 +11,7 @@ const geoJSON = require('../utils/geoJSON');
 const getDSLSortPart = require('../utils/getDSLSortPart');
 const preCleanRawQuery = require('../utils/preCleanRawQuery');
 const monolingual = require('../utils/monolingualize');
+const includeLabelsInEvent = require('../utils/includeLabelsInEvent');
 
 const config = require('../testconfig');
 const Service = require('../');
@@ -19,7 +20,9 @@ const fx = {
   geo: {
     in: require('./service/parsers/geoJSON.in.json'),
     out: require('./service/parsers/geoJSON.out.json')
-  }
+  },
+  formSchema: require('./fixtures/applied/bordeaux-metropole.schema.json'),
+  multilingualLabelledEvent: require('./fixtures/applied/bordeaux-metropole.2134211.10.json').events[0]
 };
 
 describe('event-search - unit: utils', function() {
@@ -135,8 +138,85 @@ describe('event-search - unit: utils', function() {
 
   });
 
-  describe('convertToLocalTimezone', () => {
+  describe('includeLabelsInEvent', () => {
+    it('replaces option id with label/id pairs', () => {
+      const event = includeLabelsInEvent({ formSchema: fx.formSchema }, fx.multilingualLabelledEvent);
 
+      assert.deepEqual(
+        event['categories-agenda-metropolitain'],
+        {
+          id: 53,
+          label: { fr: 'Fête - Festival' }
+        }
+      );
+    });
+
+    it('if monolingual option is specified, labels are flattened to requested lang when possible', () => {
+      const event = includeLabelsInEvent({
+        formSchema: fx.formSchema,
+        monolingual: 'fr'
+      }, fx.multilingualLabelledEvent);
+
+      assert.deepEqual(
+        event['categories-agenda-metropolitain'],
+        {
+          id: 53,
+          label: 'Fête - Festival'
+        }
+      );
+    });
+
+    it('if monolingual option is specified but corresponding label is not multilingual, available label is provided', () => {
+      const event = includeLabelsInEvent({
+        formSchema: {
+          fields: [{
+            field: 'categories',
+            options: [{
+              id: 1,
+              label: 'Spectacle'
+            }]
+          }]
+        },
+        monolingual: 'fr'
+      }, {
+        categories: [1]
+      });
+
+      assert.deepEqual(
+        event.categories,
+        [{
+          id: 1,
+          label: 'Spectacle'
+        }]
+      )
+    });
+
+    it('if monolingual option is specified but corresponding label does not include corresponding language, available label is provided', () => {
+      const event = includeLabelsInEvent({
+        formSchema: {
+          fields: [{
+            field: 'categories',
+            options: [{
+              id: 1,
+              label: {
+                en: 'Spectacle'
+              }
+            }]
+          }]
+        },
+        monolingual: 'fr'
+      }, {
+        categories: 1
+      });
+
+      assert.deepEqual(event.categories, {
+        id: 1,
+        label: 'Spectacle'
+      });
+    });
+  });
+
+  describe('convertToLocalTimezone', () => {
     it('when timings and local timezone are available in event, timings are converted', () => {
       assert.deepEqual(convertToLocalTimezone({
         timings: [{
@@ -152,11 +232,9 @@ describe('event-search - unit: utils', function() {
         timezone: 'Europe/Paris'
       });
     });
-
   });
 
   describe('preCleanRawQuery', () => {
-
     it('converts state to numbers when strings are provided', () => {
       assert.deepEqual(preCleanRawQuery({
         state: ['1', '0']
@@ -184,7 +262,6 @@ describe('event-search - unit: utils', function() {
         }
       });
     });
-
   });
 
   describe('getDSLSortPart', () => {

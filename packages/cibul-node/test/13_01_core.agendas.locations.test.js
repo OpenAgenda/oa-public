@@ -16,10 +16,12 @@ const testConfig = require('./testConfig');
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
+  const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
+
+  beforeAll(() => loadFixtures(config.db, '014.sql'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -44,7 +46,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       ]
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await core.agendas(93399464).events.search.rebuild();
     await core.agendas(48353388).events.search.rebuild();
@@ -157,7 +159,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     it('location is removed', async () => {
-      const location = await testConfig.knex('location').first().where('uid', 9955517);
+      const location = await config.knex('location').first().where('uid', 9955517);
       expect(location.deleted).toBe(1);
     });
   });

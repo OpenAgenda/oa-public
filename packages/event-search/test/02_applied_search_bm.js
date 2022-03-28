@@ -911,6 +911,7 @@ describe('02 - event search - functional: Applied search', function() {
         it('each field lists event count corresponding to field option', () => {
           agg['thematiques-bordeaux-metropole'].values[0].should.eql({
             id: 9,
+            key: 9,
             value: 'culture',
             label: { fr: 'Culture' },
             eventCount: 37
@@ -941,6 +942,7 @@ describe('02 - event search - functional: Applied search', function() {
         it('only values of field are collected', () => {
           agg[0].should.eql({
             id: 9,
+            key: 9,
             value: 'culture',
             label: { fr: 'Culture' },
             eventCount: 118
@@ -1073,6 +1075,13 @@ describe('02 - event search - functional: Applied search', function() {
       });
 
     });
+
+    describe('Options', () => {
+      it('includeLabels includes additional field labels in results', async () => {
+        const { events } = await service('bdx')
+          .search({}, { size: 1 }, { detailed: true, includeLabels: true, formSchema });
+      });
+    })
 
   });
 

@@ -10,7 +10,6 @@ const activities = require('./lib/activities');
 const streamCsv = require('./lib/streamCsv');
 const streamXlsx = require('./lib/streamXlsx');
 const transferEvent = require('./lib/transferEvent');
-const queues = require('../queues');
 const sessions = require('../sessions');
 
 const getEventCountByUserUid = require('./getEventCountByUserUid');
@@ -44,6 +43,10 @@ module.exports = Object.assign(plugApp, {
 
 function init(c, services) {
   Object.assign(config, c);
+
+  const {
+    queues
+  } = services;
 
   const activityQueue = queues('memberActivities');
   const messageQueue = queues('memberMessages');

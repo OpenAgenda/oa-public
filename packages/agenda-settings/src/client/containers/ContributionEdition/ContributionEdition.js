@@ -23,9 +23,9 @@ function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
   const { dirty, submitting, submitSucceeded, hasValidationErrors, initialValues } = form.getState();
 
   const messageUnchecked = (
-    (!!initialValues.messages?.instructions?.length && !hasInstructions)
-    || (!!initialValues.messages?.complete?.length && !hasComplete)
-    || (!!initialValues.messages?.publication?.length && !hasPublication)
+    (!!initialValues?.messages?.instructions?.length && !hasInstructions)
+    || (!!initialValues?.messages?.complete?.length && !hasComplete)
+    || (!!initialValues?.messages?.publication?.length && !hasPublication)
   );
 
   const isDirty = dirty || messageUnchecked;

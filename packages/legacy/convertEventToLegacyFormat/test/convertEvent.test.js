@@ -27,6 +27,11 @@ const lilleEventV2 = require('./fixtures/lille.eventV2.json');
 const lilleTagSet = require('./fixtures/lille.tagSet.json');
 const lilleFormSchema = require('./fixtures/lille.formSchema.json');
 
+const meudonEventV1 = require('./fixtures/meudon.eventV1.json');
+const meudonEventV2 = require('./fixtures/meudon.eventV2.json');
+const meudonTagSet = require('./fixtures/meudon.tagSet.json');
+const meudonFormSchema = require('./fixtures/meudon.formSchema.json');
+
 const bordeauxAgendaSettings = {
   legacy: bordeauxTagSet,
   formSchema: bordeauxFormSchema,
@@ -121,7 +126,7 @@ describe('Convert specific fields', () => {
   });
 
   test('Return the event\'s permalink', () => {
-    expect(getPermalink(bordeauxAgendaSettings, bordeauxEventV2)).toStrictEqual(bordeauxEventV1.permalink);
+    expect(getPermalink(bordeauxAgendaSettings, bordeauxEventV2)).toStrictEqual(`https://openagenda.com/agendas/${bordeauxAgendaSettings.uid}/events/${bordeauxEventV2.uid}`);
   });
 
   test('Return the custom fields', () => {
@@ -168,4 +173,20 @@ describe('An admin key allows access to restricted fields', () => {
   test('All member fields are included', () => {
     expect(convertedContent.contributor).toStrictEqual(bordeauxEventV1.contributor);
   });
+});
+
+test('Convert Meudon event from version 2 to version 1', () => {
+  const meudonAgendaSettings = {
+    legacy: meudonTagSet,
+    formSchema: meudonFormSchema,
+    uid: 11207540,
+    slug: 'meudon',
+    interfaces: {
+      admin: false,
+      renderHTMLFromMarkdown: () => '<p>Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d\'un trafiquant du quartier.</p>\n'
+    }
+  };
+
+  const convertedContent = converEventLegacyFormat(meudonAgendaSettings, meudonEventV2);
+  expect(convertedContent).toMatchObject(meudonEventV1);
 });

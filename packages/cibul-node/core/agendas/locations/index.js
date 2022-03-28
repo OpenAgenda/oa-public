@@ -29,7 +29,6 @@ module.exports = (core, agendaOrUid) => {
     get: get(core, agendaOrUid),
     list: list(core, agendaOrUid),
     merge: merge(core, agendaOrUid),
-    //merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data, { agendaUid }),
     settings: {
       get: getSettings(core, agendaOrUid)
     }

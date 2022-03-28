@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 function applyTransform(transformFunction, data, keys, defaultValue = null) {
+  if (keys === 'timings') return transformFunction(data);
   return transformFunction.apply(null, [].concat(keys).map(k => _.get(data, k)), defaultValue);
 }
 
