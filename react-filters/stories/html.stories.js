@@ -346,6 +346,55 @@ export const Keywords = () => (
 );
 Keywords.storyName = 'Keywords filter';
 
+export const FavoritesSelectorWithCheckbox = () => (
+  <Html
+    options={{
+      locale: 'fr'
+    }}
+    html={_.template(`
+      <div
+        class="checkbox"
+        data-oa-widget
+        data-oa-widget-params="<%- JSON.stringify({
+          eventUid: 4564564,
+          name: 'favorite'
+        }) %>"
+      >
+        <label for="check-favorite-4564564">
+          <input id="check-favorite-4564564" type="checkbox"/>
+          Add to favorites
+        </label>
+      </div>
+    `)()}
+  />
+);
+FavoritesSelectorWithCheckbox.storyName = 'Favorites selector';
+
+export const FavoritesFilter = () => (
+  <Html
+    options={{
+      locale: 'fr'
+    }}
+    html={_.template(`
+      <div
+        class="checkbox"
+        data-oa-filter
+        data-oa-filter-params="<%- JSON.stringify({
+          activeClass: 'active',
+          inactiveClass: 'inactive',
+          activeFilterLabel: 'Favorites'
+        }) %>"
+      >
+        <label for="favorites">
+          <input type="checkbox" id="favorites" />
+          Favoris
+        </label>
+      </div>
+    `)()}
+  />
+);
+FavoritesFilter.storyName = 'Favorites filter';
+
 export const Total = () => (
   <Html
     options={{

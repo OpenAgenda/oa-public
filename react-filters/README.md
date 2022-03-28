@@ -20,6 +20,18 @@
 </html>
 ```
 
+Un filtre est défini en plaçant un div avec des paramètres passés en attributs. Exemple d'un filtre "city":
+
+```
+<div
+  data-oa-filter="unique-filter-id"
+  data-oa-filter-params="{&quot;name&quot;:&quot;city&quot;}"
+></div>
+```
+
+ * L'attribut 'data-oa-filter' doit être unique sur la page.
+ * L'attribut 'data-oa-filter-params' prend la configuration du filtre encodé en JSON.
+
 ## Paramètres
 
 Le gestionnaire de filtre est configuré à partir des valeurs défines sur window.oa
