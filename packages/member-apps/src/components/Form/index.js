@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
+import ReactMarkdown from 'react-markdown';
+import { MoreInfo } from '@openagenda/react-shared';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import Modal from '@openagenda/react-shared/lib/components/Modal';
@@ -14,8 +16,7 @@ const messages = defineMessages({
   },
   description: {
     id: 'MemberApps.Form.description',
-    defaultMessage:
-      'This information will allow the agenda administrators to get in touch with you if needed.',
+    defaultMessage: 'This information will be visible to the agenda moderators',
   },
   success: {
     id: 'MemberApps.Form.success',
@@ -55,6 +56,10 @@ const messages = defineMessages({
     id: 'MemberApps.Form.save',
     defaultMessage: 'Save',
   },
+  moreInfo: {
+    id: 'MemberApps.Form.moreInfo',
+    defaultMessage: 'Read more',
+  },
 });
 
 const BlankComponent = () => <FormSchemaComponent schema={schema} />;
@@ -87,6 +92,7 @@ export default ({
   optionalFields, // optional: whether form info should be optional
   displayRemoveAction,
   blockButtons,
+  moreInfo,
   hideCancel,
   member, // optional preloaded member
 }) => {
@@ -174,11 +180,24 @@ export default ({
     <>
       {isLoading ? <Spinner /> : null}
       {operation === 'update' ? (
-        <div>
+        <div className="margin-bottom-sm">
           <h3>{title !== undefined ? title : m(messages.updateTitle)}</h3>
-          <p>
+          <p className="margin-bottom-z">
             {description !== undefined ? description : m(messages.description)}
           </p>
+          {moreInfo ? (
+            <MoreInfo
+              placement="bottom"
+              content={<ReactMarkdown>{moreInfo}</ReactMarkdown>}
+            >
+              <button
+                type="button"
+                className="btn btn-link margin-all-z padding-all-z"
+              >
+                {m(messages.moreInfo)}
+              </button>
+            </MoreInfo>
+          ) : null}
         </div>
       ) : null}
       {isLoading ? (

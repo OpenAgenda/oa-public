@@ -3,6 +3,7 @@ import '@openagenda/bs-templates/compiled/main.css';
 import Form from '../src/components/Form';
 import ComponentCanvas from './decorators/ComponentCanvas';
 import Providers from './decorators/Providers';
+import GDPRInformation from './fixtures/GDPRInformation.md';
 
 export default {
   title: 'Form',
@@ -29,6 +30,7 @@ export const updateForm = () => (
       lang="fr"
       operation="update"
       res="/api/agendas/123/members/456"
+      moreInfo={GDPRInformation}
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');

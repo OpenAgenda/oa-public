@@ -1,0 +1,5 @@
+## Les mentions légales d'information des personnes
+
+Les données recueillies font l’objet d’un traitement mis en oeuvre dans le cadre d’un dispositif de type « Open genda ». Toulouse Métropole est responsable du traitement, représentée par la Direction de la Communication. Seuls les agents habilités du service gestionnaire sont destinataires des données qui seront conservées jusqu’à suppression de votre compte (identification) ou le temps de votre session (connexions).
+
+Conformément à la législation relative à la protection des données personnelles, vous bénéficiez d'un droit d'accès, de modification et de suppression des données qui vous concernent. Vous pouvez exercer ces droits en vous adressant à webmaster@toulouse-metropole.fr . Vous pouvez vous opposer au traitement des données vous concernant. La base légale de ce traitement est la mission d’intérêt public.
