@@ -39,8 +39,6 @@
   "EventAdminApp.RemoveModal.deleteEvent": "crwdns822:0crwdne822:0",
   "EventAdminApp.RemoveModal.removeDesc": "crwdns824:0crwdne824:0",
   "EventAdminApp.RemoveModal.removeEvent": "crwdns826:0crwdne826:0",
-  "EventAdminApp.SortSelector.chronological": "crwdns5974:0crwdne5974:0",
-  "EventAdminApp.SortSelector.recentlyUpdated": "crwdns5976:0crwdne5976:0",
   "EventAdminApp.messages.attendanceModes.mixed": "crwdns6064:0crwdne6064:0",
   "EventAdminApp.messages.attendanceModes.offline": "crwdns6066:0crwdne6066:0",
   "EventAdminApp.messages.attendanceModes.online": "crwdns6068:0crwdne6068:0",
