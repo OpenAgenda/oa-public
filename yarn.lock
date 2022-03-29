@@ -5811,10 +5811,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations@workspace:packages/agenda-locations"
   dependencies:
-    "@babel/cli": ^7.13.16
-    "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
     "@openagenda/countries": ^0.1.1
     "@openagenda/eslint-config": "workspace:public/eslint-config"
     "@openagenda/files": ^3.1.0
@@ -5822,7 +5818,6 @@ __metadata:
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
-    async: ^1.5.0
     babel-loader: ^8.2.2
     body-parser: ^1.19.0
     core-js: ^3.10.2
@@ -5846,7 +5841,6 @@ __metadata:
     redis: ^2.8.0
     slugify: ^1.4.5
     superagent: ^3.8.2
-    webpack: ^4.46.0
   languageName: unknown
   linkType: soft
 
@@ -6395,7 +6389,6 @@ __metadata:
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/admin-agendas": ^1.1.17
     "@openagenda/agenda-categories": ^1.0.5
-    "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
     "@openagenda/agenda-tags": ^1.0.7
