@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import classNames from 'classnames';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Modal, useLayoutData } from '@openagenda/react-shared';
 import {
   KeysManager,
@@ -11,6 +11,7 @@ import {
 import * as  modalsActions from '../../reducers/modals';
 import * as  keysActions from '../../reducers/keys';
 import I18nContext from '../../contexts/I18nContext';
+import * as agendaActions from '../../reducers/agenda';
 
 const docRes = {
   official: 'https://doc.openagenda.com/les-agendas-officiels-sur-openagenda',
@@ -57,6 +58,8 @@ export default function AdvancedEdition() {
   const { agenda } = useLayoutData();
 
   const { getLabel } = useContext(I18nContext);
+
+  const dispatch = useDispatch();
 
 
   const removeModal = useSelector(state => (state.modals['removeKey'] || {}));
@@ -126,8 +129,8 @@ export default function AdvancedEdition() {
                   <label>
                     <input
                       type="checkbox"
-                      defaultChecked={agenda.indexed}
-                      onChange={() => editAgenda({ indexed: !agenda.indexed })}
+                      checked={agenda.indexed}
+                      onChange={() => dispatch(agendaActions.edit({ indexed: !agenda.indexed }))}
                     />{' '}{getLabel('indexedAgendaDesc')}
                   </label>
                 </div>
