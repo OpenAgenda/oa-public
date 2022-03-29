@@ -29,7 +29,7 @@ module.exports = ({ members }, {
     return true;
   }
 
-  if (parseInt(acting.userUid, 10) === parseInt(userUid, 10)) {
+  if (parseInt(acting?.userUid, 10) === parseInt(userUid, 10)) {
     return true;
   }
 
