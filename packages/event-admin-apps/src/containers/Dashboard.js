@@ -40,7 +40,6 @@ import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 import removeQueryPrefix from '../utils/removeQueryPrefix';
 import addQueryPrefix from '../utils/addQueryPrefix';
-import switchToLegacyAdminPage from '../utils/switchToLegacyAdminPage';
 import ExportsDropdown from '../components/ExportsDropdown';
 
 const PAGE_SIZE = 20;
@@ -130,10 +129,6 @@ const messages = defineMessages({
   clearFilters: {
     id: 'EventAdminApp.Dashboard.clearFilters',
     defaultMessage: 'Clear filters',
-  },
-  backToLegacy: {
-    id: 'EventAdminApp.Dashboard.backToLegacy',
-    defaultMessage: 'Revert to previous version of this page',
   },
 });
 
@@ -235,8 +230,10 @@ function Dashboard() {
     const { query: q } = removeQueryPrefix(parsedLocationSearch);
 
     return _.pick(
-      validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
-      Object.keys(q)
+      q,
+      Object.keys(
+        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' })
+      )
     );
   }, [agendaSchema, parsedLocationSearch]);
 
@@ -262,7 +259,7 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const filters = useFilters(intl, agendaSchema, { missingValue: true });
+  const filters = useFilters(intl, agendaSchema, { missingValue: 'null' });
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
     [filters]
@@ -492,8 +489,10 @@ function Dashboard() {
   useUpdateEffect(() => {
     const { query: q } = removeQueryPrefix(parsedLocationSearch);
     const cleanQuery = _.pick(
-      validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' }),
-      Object.keys(q)
+      q,
+      Object.keys(
+        validateQuery(q, { formSchema: agendaSchema, emptyValue: 'null' })
+      )
     );
 
     if ('featured' in cleanQuery) {
@@ -538,15 +537,6 @@ function Dashboard() {
       filters={filters}
     >
       <header>
-        <div className="pull-right">
-          <button
-            className="btn btn-link text-muted padding-h-z"
-            type="button"
-            onClick={switchToLegacyAdminPage.bind(null, agenda.slug)}
-          >
-            {intl.formatMessage(messages.backToLegacy)}
-          </button>
-        </div>
         <Actions
           agenda={agenda}
           query={query}

@@ -49,12 +49,6 @@
       "value": " événements de cette page sont sélectionnés."
     }
   ],
-  "EventAdminApp.Dashboard.backToLegacy": [
-    {
-      "type": 0,
-      "value": "Revenir à l'ancienne version de cette page"
-    }
-  ],
   "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,
@@ -709,48 +703,6 @@
     {
       "type": 0,
       "value": "Retirer l'événement"
-    }
-  ],
-  "EventAdminApp.SortSelector.chronological": [
-    {
-      "type": 0,
-      "value": "Ordre chronologique"
-    }
-  ],
-  "EventAdminApp.SortSelector.recentlyUpdated": [
-    {
-      "type": 0,
-      "value": "Date de mise à jour"
-    }
-  ],
-  "EventAdminApp.SortSelector.relevance": [
-    {
-      "type": 0,
-      "value": "Pertinence"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.aggregation": [
-    {
-      "type": 0,
-      "value": "Agrégation"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.contribution": [
-    {
-      "type": 0,
-      "value": "Contribution"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.featured": [
-    {
-      "type": 0,
-      "value": "En une"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.share": [
-    {
-      "type": 0,
-      "value": "Partage"
     }
   ],
   "EventAdminApp.messages.attendanceModes.mixed": [
