@@ -43,12 +43,6 @@
       "value": "crwdne5986:0"
     }
   ],
-  "EventAdminApp.Dashboard.backToLegacy": [
-    {
-      "type": 0,
-      "value": "Revert to previous version of this page"
-    }
-  ],
   "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,
@@ -516,7 +510,7 @@
   "EventAdminApp.EventItem.statusCancelled": [
     {
       "type": 0,
-      "value": "Cancelled"
+      "value": "Canceled"
     }
   ],
   "EventAdminApp.EventItem.statusCancelledInfo": [
@@ -613,48 +607,6 @@
     {
       "type": 0,
       "value": "crwdns826:0crwdne826:0"
-    }
-  ],
-  "EventAdminApp.SortSelector.chronological": [
-    {
-      "type": 0,
-      "value": "crwdns5974:0crwdne5974:0"
-    }
-  ],
-  "EventAdminApp.SortSelector.recentlyUpdated": [
-    {
-      "type": 0,
-      "value": "crwdns5976:0crwdne5976:0"
-    }
-  ],
-  "EventAdminApp.SortSelector.relevance": [
-    {
-      "type": 0,
-      "value": "Relevance"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.aggregation": [
-    {
-      "type": 0,
-      "value": "Aggregation"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.contribution": [
-    {
-      "type": 0,
-      "value": "Contribution"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.featured": [
-    {
-      "type": 0,
-      "value": "Featured"
-    }
-  ],
-  "EventAdminApp.hooks.useFilters.share": [
-    {
-      "type": 0,
-      "value": "Share"
     }
   ],
   "EventAdminApp.messages.attendanceModes.mixed": [
@@ -788,7 +740,7 @@
   "EventAdminApp.messages.status.cancelled": [
     {
       "type": 0,
-      "value": "Cancelled"
+      "value": "Canceled"
     }
   ],
   "EventAdminApp.messages.status.full": [

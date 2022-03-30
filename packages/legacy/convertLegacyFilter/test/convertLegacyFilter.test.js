@@ -58,58 +58,56 @@ describe('convert legacy filters', () => {
     expect(convertLegacyFilter(oaq)).toStrictEqual({ district: 'centre', relative: ['current', 'upcoming'] });
   });
 
-  test('convert lille tags', () => {
-    const oaq = {
-      tags: 'spectacle'
-    };
-
-    expect(convertLegacyFilter(oaq, {
-      formSchema: lilleFormSchema,
-      tagSet: lilleTagSet
-    })).toStrictEqual({ 'categories-metropolitaines': 20, relative: ['current', 'upcoming'] });
-  });
-
   test('convert lille tag filter', () => {
     const oaq = {
       tags: ['spectacle']
     };
 
-    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': 20, relative: ['current', 'upcoming'] });
+    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': [20], relative: ['current', 'upcoming'] });
   });
 
   test('convert bordeaux tags', () => {
     const oaq = {
-      tags: 'administration'
+      tags: ['administration']
     };
 
     expect(convertLegacyFilter(oaq, {
       formSchema: bordeauxFormSchema,
       tagSet: bordeauxTagSet
-    })).toStrictEqual({ 'thematiques-bordeaux-metropole': 3, relative: ['current', 'upcoming'] });
+    })).toStrictEqual({ 'thematiques-bordeaux-metropole': [3], relative: ['current', 'upcoming'] });
   });
 
   test('convert category', () => {
     const oaq = {
-      category: 'concert'
+      category: ['concert', 'atelier']
     };
 
     expect(convertLegacyFilter(oaq, {
       formSchema: bordeauxFormSchema,
       categorySet: bordeauxCategorySet
-    })).toStrictEqual({ 'categories-agenda-metropolitain': 46, relative: ['current', 'upcoming'] });
+    })).toStrictEqual({ 'categories-agenda-metropolitain': [43, 46], relative: ['current', 'upcoming'] });
+  });
+
+  test('convert featured', () => {
+    const oaq = {
+      featured: 1
+    };
+
+    expect(convertLegacyFilter(oaq, {})).toStrictEqual({ featured: 1, relative: ['current', 'upcoming'] });
   });
 
   test('convert multiple filters', () => {
     const oaq = {
-      tags: 'spectacle',
+      tags: ['spectacle', 'concert', 'culture'],
       location: 65918542,
       passed: '1',
       from: '2021-09-20',
       to: '2021-09-20'
     };
 
-    expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({
-      'categories-metropolitaines': 20,
+    expect(convertLegacyFilter(oaq, { formSchema: bordeauxFormSchema, tagSet: bordeauxTagSet })).toStrictEqual({
+      'categories-agenda-metropolitain': [46, 59],
+      'thematiques-bordeaux-metropole': [9],
       locationUid: 65918542,
       timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' }
     });

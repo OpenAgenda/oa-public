@@ -10,9 +10,9 @@ const addRegistrationType = require('@openagenda/utils/registration/addType');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const aggObjects = require('./aggregatorObjects');
 const keywordizeDiscreteValue = require('./keywordizeDiscreteValue');
-const { produce, current } = require('immer');
+const { produce } = require('immer');
 
-const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5'];
+const locationFields = ['address', 'city', 'region', 'department', 'name', 'adminLevel3', 'adminLevel5', 'district'];
 
 const registrationHasType = (registration = []) => !!registration.some(r => typeof r === 'object' && r?.type);
 
@@ -100,7 +100,7 @@ module.exports = produce((event, options = {}) => {
   } else {
     event['_search_empty_fields'].push('title');
   }
-  
+
   if (multilingualFieldHasValue(event.description)) {
     event['_search_description'] = Object.values(event.description);
   } else {
@@ -146,7 +146,7 @@ module.exports = produce((event, options = {}) => {
   } else {
     event['_search_empty_fields'].push('registration');
   }
-  
+
   if (!_lessThanOneMinuteApart(event.updatedAt, event.createdAt)) {
     event['_exclusiveUpdatedAt'] = event.updatedAt;
   }

@@ -5,7 +5,7 @@ const { Forbidden, BadRequest } = require('@openagenda/verror');
 const format = require('./lib/format');
 const canEdit = require('./lib/canEdit');
 
-module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
+module.exports = async (services, agendaOrUid, identifiers, data, options = {}) => {
   const {
     members
   } = services;
@@ -30,7 +30,7 @@ module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
 
   const member = await members.get({
     agendaUid,
-    userUid
+    ...identifiers
   });
 
   if (data.role !== undefined && (members.utils.getRoleCode(data.role) !== member.role)) {
@@ -44,17 +44,13 @@ module.exports = async (services, agendaOrUid, userUid, data, options = {}) => {
 
   if (!canEdit(services, {
     acting: actingMember,
-    actingUserUid,
-    userUid,
+    userUid: member.userUid,
     role: patchData.role
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
 
-  return members.patch({
-    agendaUid,
-    userUid
-  }, patchData, {
+  return members.patch(member.id, patchData, {
     throwOnError: true,
     requireCustom: false
   }).then(result => format(members, result.member));

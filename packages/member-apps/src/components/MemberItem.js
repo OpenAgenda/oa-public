@@ -169,15 +169,17 @@ function MemberItem({
                         {getLabel('administrator')}
                       </div>
                     </MenuItem>
-                    <MenuItem
-                      eventKey="moderator"
-                      disabled={userRole !== 2 || role === 3}
-                      onClick={() => patchRole('moderator')}
-                    >
-                      <div className="margin-h-sm margin-v-xs">
-                        {getLabel('moderator')}
-                      </div>
-                    </MenuItem>
+                    {agenda.credentials.moderators ? (
+                      <MenuItem
+                        eventKey="moderator"
+                        disabled={userRole !== 2 || role === 3}
+                        onClick={() => patchRole('moderator')}
+                      >
+                        <div className="margin-h-sm margin-v-xs">
+                          {getLabel('moderator')}
+                        </div>
+                      </MenuItem>
+                    ) : null}
                     <MenuItem
                       eventKey="contributor"
                       disabled={role === 1}

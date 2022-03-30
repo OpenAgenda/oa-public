@@ -55,41 +55,50 @@ module.exports = (legacyFilter, sets = {}) => {
         convertedQuery.slug = legacyFilter.slug;
         delete convertedQuery.relative;
         break;
+      case 'featured':
+        convertedQuery.featured = legacyFilter.featured;
+        break;
       case 'tags': {
         if (!tagSet && !formSchema) return;
 
-        const tag = Array.isArray(legacyFilter.tags) ? tags.find(t => t.slug === legacyFilter.tags[0]) : tags.find(t => t.slug === legacyFilter.tags);
+        const match = tags.filter(tag => legacyFilter.tags.some(f => f === tag.slug));
 
-        if (!tag) return;
+        if (!match.length) return;
 
-        const schemaFields = formSchema.fields.reduce((carry, field) => {
-          if (!field.options || field.schemaId !== tag.schemaId) return carry;
-          return carry.concat(field.options.map(option => ({
-            id: option.id,
-            fieldName: field.field
-          })));
-        }, []);
+        const tagObject = match.reduce((carry, tag) => {
+          carry[tag.fieldSlug] = carry[tag.fieldSlug] ? [...carry[tag.fieldSlug], tag.optionId] : [tag.optionId];
+          return carry;
+        }, {});
 
-        const field = schemaFields.find(f => f.id === tag.optionId);
-        convertedQuery[field.fieldName] = field.id;
+        Object.assign(convertedQuery, tagObject);
         break;
       }
       case 'category': {
         if (!categorySet && !formSchema) return;
-        const category = categorySet.categories.find(cat => cat.slug === legacyFilter.category);
 
-        if (!category) return;
-        const schemaFields = formSchema.fields.reduce((carry, field) => {
-          if (!field.options && field.origin !== 'categories') return carry;
-          return carry.concat(field.options.map(option => ({
-            id: option.id,
-            value: option.value,
-            fieldName: field.field
-          })));
+        const categories = categorySet.categories.filter(cat => legacyFilter.category.some(c => c === cat.slug));
+
+        if (!categories.length) return;
+
+        const flattenedFields = formSchema.fields.reduce((carry, field) => {
+          if (field.origin === 'categories') {
+            return carry.concat(field.options.map(option => ({
+              id: option.id,
+              value: option.value,
+              fieldName: field.field
+            })));
+          }
+          return carry;
         }, []);
 
-        const field = schemaFields.find(f => f.value === category.slug);
-        convertedQuery[field.fieldName] = field.id;
+        const categoryObject = flattenedFields
+          .filter(f => categories.some(c => f.value === c.slug))
+          .reduce((carry, field) => {
+            carry[field.fieldName] = carry[field.fieldName] ? [...carry[field.fieldName], field.id] : [field.id];
+            return carry;
+          }, {});
+
+        Object.assign(convertedQuery, categoryObject);
         break;
       }
       default:

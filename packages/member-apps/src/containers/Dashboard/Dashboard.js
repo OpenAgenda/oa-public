@@ -481,7 +481,7 @@ class Dashboard extends Component {
                 key={`member-${m.id}`}
                 member={m}
                 showModal={showModal}
-                patchRole={role => patch(agenda, m.userUid, { role })}
+                patchRole={role => patch(agenda, m.id, { role })}
                 resendInvitation={resendInvitation}
                 agenda={agenda}
                 i18n={i18n}
@@ -521,7 +521,7 @@ class Dashboard extends Component {
             showSuccessMessage
             res={`${res.update
               .replace(':agendaUid', agenda.uid)
-              .replace(':userUid', editModal.member.userUid)}`}
+              .replace(':memberId', editModal.member.id)}`}
             onSuccess={update => {
               dispatch(membersActions.updateListItem(update));
 
@@ -560,7 +560,7 @@ class Dashboard extends Component {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => remove(agenda, removeModal.member.userUid)
+                    onClick={() => remove(agenda, removeModal.member.id)
                       .then(() => closeModal('removeMember'))
                       .catch(() => setModal('removeMember', { error: true }))}
                   >

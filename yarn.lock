@@ -5811,32 +5811,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations@workspace:packages/agenda-locations"
   dependencies:
-    "@babel/cli": ^7.13.16
-    "@babel/core": ^7.13.16
-    "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
-    "@openagenda/bs-templates": ^2.2.0
     "@openagenda/countries": ^0.1.1
-    "@openagenda/dom-utils": ^2.2.12
     "@openagenda/eslint-config": "workspace:public/eslint-config"
     "@openagenda/files": ^3.1.0
-    "@openagenda/fixtures": ^2.0.2
-    "@openagenda/geocoder": ^1.2.8
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.3.2
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
-    "@storybook/react": ^6.2.8
-    async: ^1.5.0
     babel-loader: ^8.2.2
     body-parser: ^1.19.0
-    concurrently: ^6.0.2
     core-js: ^3.10.2
     cors: ^2.8.5
-    create-react-class: ^15.5.2
-    debug: ^4.1.0
     errorhandler: ^1.5.0
     eslint: ^6.8.0
     express: ^4.17.1
@@ -5847,33 +5832,15 @@ __metadata:
     jaro-winkler: ^0.2.8
     jest: ^26.4.2
     knex: ^0.19.5
-    languages: ^0.1.3
-    leaflet: ^0.7.7
-    lint-staged: ^10.5.3
     lodash: ^4.17.15
     morgan: ^1.9.1
     multer: ^1.3.1
     mysql: ^2.9.0
     nodemon: ^2.0.4
     prettier-eslint-cli: ^5.0.0
-    prop-types: ^15.5.8
-    qs: ^6.9.1
-    rc-switch: ^1.3.2
-    react: ^16.13.1
-    react-bootstrap: 0.33.1
-    react-dom: ^16.13.1
-    react-intl: ^5.12.2
-    react-select: ^3.0.8
     redis: ^2.8.0
-    rimraf: ^3.0.1
     slugify: ^1.4.5
     superagent: ^3.8.2
-    uuid: ^3.4.0
-    webpack: ^4.46.0
-    when: ^3.7.8
-    xhr: ^2.2.0
-  peerDependencies:
-    react: ^16.12.0
   languageName: unknown
   linkType: soft
 
@@ -6364,7 +6331,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/bs-templates@^2.2.0, @openagenda/bs-templates@^2.5.0, @openagenda/bs-templates@workspace:public/bs-templates":
+"@openagenda/bs-templates@^2.5.0, @openagenda/bs-templates@workspace:public/bs-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/bs-templates@workspace:public/bs-templates"
   dependencies:
@@ -6422,7 +6389,6 @@ __metadata:
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/admin-agendas": ^1.1.17
     "@openagenda/agenda-categories": ^1.0.5
-    "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
     "@openagenda/agenda-tags": ^1.0.7
@@ -18263,7 +18229,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^6.2.0, commander@npm:^6.2.1":
+"commander@npm:^6.2.1":
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
   checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
@@ -19996,7 +19962,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.2.0, debug@npm:~4.3.1, debug@npm:~4.3.2":
+"debug@npm:~2.0":
+  version: 2.0.0
+  resolution: "debug@npm:2.0.0"
+  dependencies:
+    ms: 0.6.2
+  checksum: 3a1be456590c7c46740d212b5d149cc689a3e4811d3b3a7938084e953b99d0bd32f4c3540cf7a2269aef45c53634fa1c57431e8ceaa279ac95b516a35823309a
+  languageName: node
+  linkType: hard
+
+"debug@npm:~4.3.1, debug@npm:~4.3.2":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
   dependencies:
@@ -20005,15 +19980,6 @@ __metadata:
     supports-color:
       optional: true
   checksum: 820ea160e267e23c953c9ed87e7ad93494d8cda2f7349af5e7e3bb236d23707ee3022f477d5a7d2ee86ef2bf7d60aa9ab22d1f58080d7deb9dccd073585e1e43
-  languageName: node
-  linkType: hard
-
-"debug@npm:~2.0":
-  version: 2.0.0
-  resolution: "debug@npm:2.0.0"
-  dependencies:
-    ms: 0.6.2
-  checksum: 3a1be456590c7c46740d212b5d149cc689a3e4811d3b3a7938084e953b99d0bd32f4c3540cf7a2269aef45c53634fa1c57431e8ceaa279ac95b516a35823309a
   languageName: node
   linkType: hard
 
@@ -21415,7 +21381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enquirer@npm:^2.3.5, enquirer@npm:^2.3.6":
+"enquirer@npm:^2.3.5":
   version: 2.3.6
   resolution: "enquirer@npm:2.3.6"
   dependencies:
@@ -22438,23 +22404,6 @@ __metadata:
     signal-exit: ^3.0.2
     strip-final-newline: ^2.0.0
   checksum: b4748f7f39f4fecab9975740bfa8773852c462e4dbdc2b08c5c52c0db8e87ed77a9524c5be1691cebd7d9264ef892081104c8fe96007d53163b8d854e79f766b
-  languageName: node
-  linkType: hard
-
-"execa@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "execa@npm:4.1.0"
-  dependencies:
-    cross-spawn: ^7.0.0
-    get-stream: ^5.0.0
-    human-signals: ^1.1.1
-    is-stream: ^2.0.0
-    merge-stream: ^2.0.0
-    npm-run-path: ^4.0.0
-    onetime: ^5.1.0
-    signal-exit: ^3.0.2
-    strip-final-newline: ^2.0.0
-  checksum: e30d298934d9c52f90f3847704fd8224e849a081ab2b517bbc02f5f7732c24e56a21f14cb96a08256deffeb2d12b2b7cb7e2b014a12fb36f8d3357e06417ed55
   languageName: node
   linkType: hard
 
@@ -29991,17 +29940,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leaflet@npm:^0.7.7, leaflet@npm:~0.7.1":
-  version: 0.7.7
-  resolution: "leaflet@npm:0.7.7"
-  checksum: a1ccb905bfea60005ec2dcf53c149ecff817908b18f2c23d0773bf9209a4bf31d6fed0acc621be872d9a6f42d9893e191d2d3e9e4e6d620015471f02c81a07b5
-  languageName: node
-  linkType: hard
-
 "leaflet@npm:^1.7.1":
   version: 1.7.1
   resolution: "leaflet@npm:1.7.1"
   checksum: f69149ab482eeb6cdabd837939c4782c97a7a18bc0b2a9330d4a828ca0dc6e035981f2ecdb71c6646aa173bc369cd3b4fd6bbe5d81df4c59c45254f9e9361d03
+  languageName: node
+  linkType: hard
+
+"leaflet@npm:~0.7.1":
+  version: 0.7.7
+  resolution: "leaflet@npm:0.7.7"
+  checksum: a1ccb905bfea60005ec2dcf53c149ecff817908b18f2c23d0773bf9209a4bf31d6fed0acc621be872d9a6f42d9893e191d2d3e9e4e6d620015471f02c81a07b5
   languageName: node
   linkType: hard
 
@@ -30133,31 +30082,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^10.5.3":
-  version: 10.5.3
-  resolution: "lint-staged@npm:10.5.3"
-  dependencies:
-    chalk: ^4.1.0
-    cli-truncate: ^2.1.0
-    commander: ^6.2.0
-    cosmiconfig: ^7.0.0
-    debug: ^4.2.0
-    dedent: ^0.7.0
-    enquirer: ^2.3.6
-    execa: ^4.1.0
-    listr2: ^3.2.2
-    log-symbols: ^4.0.0
-    micromatch: ^4.0.2
-    normalize-path: ^3.0.0
-    please-upgrade-node: ^3.2.0
-    string-argv: 0.3.1
-    stringify-object: ^3.3.0
-  bin:
-    lint-staged: bin/lint-staged.js
-  checksum: 106656c47e403a3d8038a225aa47d85d6923976efd2698a35252c7e4f8eb7109d5f7cbbacc42b5ec2684f1585566c349ca557f7fa7b4ac643e8cf9f745cb4d8f
-  languageName: node
-  linkType: hard
-
 "listenercount@npm:~1.0.1":
   version: 1.0.1
   resolution: "listenercount@npm:1.0.1"
@@ -30180,24 +30104,6 @@ __metadata:
   peerDependencies:
     enquirer: ">= 2.3.0 < 3"
   checksum: 8f170a1c50f5535d1b189767e6b33762957ec1d060a64356f6de734261ddbbdbaea6651775599ce1d903c18ae7cb1bbecd947de5718a2731fd8d2a76c8b414be
-  languageName: node
-  linkType: hard
-
-"listr2@npm:^3.2.2":
-  version: 3.2.3
-  resolution: "listr2@npm:3.2.3"
-  dependencies:
-    chalk: ^4.1.0
-    cli-truncate: ^2.1.0
-    figures: ^3.2.0
-    indent-string: ^4.0.0
-    log-update: ^4.0.0
-    p-map: ^4.0.0
-    rxjs: ^6.6.3
-    through: ^2.3.8
-  peerDependencies:
-    enquirer: ">= 2.3.0 < 3"
-  checksum: 360045cc9f7ad0118a24811e2d6de7ed5e944a8132896260e1b5267a2afe73052120fef8d843cff1abc02b7717edbf70fbc32ec2a382f138dd29419ab3e9f3eb
   languageName: node
   linkType: hard
 
@@ -37049,7 +36955,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-switch@npm:^1.3.2, rc-switch@npm:^1.4.2, rc-switch@npm:^1.4.3":
+"rc-switch@npm:^1.4.2, rc-switch@npm:^1.4.3":
   version: 1.9.0
   resolution: "rc-switch@npm:1.9.0"
   dependencies:

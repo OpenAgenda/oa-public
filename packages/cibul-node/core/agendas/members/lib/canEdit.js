@@ -4,7 +4,6 @@ const log = require('@openagenda/logs')('core/agendas/members/canEdit');
 
 module.exports = ({ members }, {
   acting,
-  actingUserUid,
   userUid,
   role
 }) => {
@@ -30,7 +29,7 @@ module.exports = ({ members }, {
     return true;
   }
 
-  if (parseInt(actingUserUid, 10) === parseInt(userUid, 10)) {
+  if (parseInt(acting?.userUid, 10) === parseInt(userUid, 10)) {
     return true;
   }
 

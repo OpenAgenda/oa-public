@@ -45,8 +45,6 @@ module.exports = [
 
   'adminRedirect/index',
 
-  'locations/index',
-
   'agendaAdminEvents/index',
 
   'error/show',
@@ -142,11 +140,5 @@ module.exports = [
     js: 'agenda embed menu/js/embedMenu.js',
     prod: 'review/embedMenu.js',
   },
-  {
-    js: path.relative(
-      __dirname,
-      require.resolve('@openagenda/agenda-locations/components/build/verifiedLocationsCounter.js')
-    ),
-    prod: 'verifiedLocationsCounter.js',
-  },
+
 ];

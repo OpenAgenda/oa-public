@@ -169,19 +169,29 @@ module.exports = core => {
       .then(member => res.json(member), next)
   ]);
 
-  app.patch('/agendas/:agendaUid/members/:userUid', [
+  app.patch([
+    '/agendas/:agendaUid/members/:userUid',
+    '/agendas/:agendaUid/members/member/:memberId'
+  ], [
     mw.member.load,
     (req, res, next) => core
       .agendas(req.agenda.uid)
-      .members.patch(req.params.userUid, req.parsedData, { userUid: req.user.uid })
+      .members.patch(req.params.memberId
+        ? { id: req.params.memberId }
+        : { userUid: req.params.userUid }, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next)
   ]);
 
-  app.delete('/agendas/:agendaUid/members/:userUid', [
+  app.delete([
+    '/agendas/:agendaUid/members/:userUid',
+    '/agendas/:agendaUid/members/member/:memberId'
+  ], [
     mw.member.load,
     (req, res, next) => core
       .agendas(req.agenda.uid).members
-      .remove(req.params.userUid, {
+      .remove(req.params.memberId
+        ? { id: req.params.memberId }
+        : { userUid: req.params.userUid }, {
         userUid: req.user.uid
       }).then(() => res.json({
         success: true

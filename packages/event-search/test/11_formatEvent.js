@@ -187,7 +187,7 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('additional field of boolean type is indexed in _search_additional_keywords', () => {
-    assert.strictEqual(formatted['_search_additional_keywords'].includes('13.true'), true);
+    assert.strictEqual(formatted['_search_additional_keywords'].includes('13.somAdditionalBoolean.true'), true);
   });
 
   it('timestamps createdAt and updatedAt are in formatted object', () => {

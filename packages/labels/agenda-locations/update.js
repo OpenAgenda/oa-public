@@ -46,7 +46,7 @@ module.exports = {
     "fr": "%count% modifications ont été suggérées pour ce lieu",
     "en": "%count% changes have been suggested for this location",
     "de": "%count% Änderungen wurden für diesen Standort vorgeschlagen",
-    "es": " %count% se sugirieron cambios para este lugar",
+    "es": "%count% se sugirieron cambios para este lugar",
     "it": "Per questa località sono state suggerite%count % variazioni",
     "io": "crwdns12406:0%count%crwdne12406:0"
   },

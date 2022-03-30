@@ -7,7 +7,7 @@ module.exports = {
     "it": "%count% eventi imminenti",
     "de": "%count% anstehende Veranstaltungen",
     "pl": "%count% nadchodzące wydarzenia",
-    "es": " %count% próximos eventos",
+    "es": "%count% próximos eventos",
     "br": "%count% a zarvoudoù da zont",
     "io": "crwdns12974:0%count%crwdne12974:0"
   },
@@ -27,7 +27,7 @@ module.exports = {
     "it": "%count% eventi",
     "de": "%count% Veranstaltung",
     "pl": "%count% zdarzenia",
-    "es": " %count% eventos",
+    "es": "%count% eventos",
     "br": "%count% a zarvoudoù",
     "io": "crwdns12978:0%count%crwdne12978:0"
   },
