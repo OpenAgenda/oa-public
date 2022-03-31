@@ -53,7 +53,7 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
         return {
           ...entry,
           label: labelValue === filter.missingValue ? missingLabel : getLocaleValue(labelValue),
-          value: entry[dataKey]
+          value: String(entry[dataKey])
         };
       });
     },
