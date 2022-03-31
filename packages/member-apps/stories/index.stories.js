@@ -13,6 +13,7 @@ const getDefaultState = () => ({
   res: {
     app: '#',
     list: '/members.json',
+    get: '/api/agendas/:agendaUid/members/:userUid',
     update: '/api/agendas/:agendaUid/members/:userUid',
     remove: '/api/agendas/:agendaUid/members/:userUid',
     invite: '/invite',

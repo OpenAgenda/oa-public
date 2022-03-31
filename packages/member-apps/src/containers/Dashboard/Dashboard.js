@@ -519,7 +519,11 @@ class Dashboard extends Component {
             description={null}
             optionalFields
             showSuccessMessage
-            res={`${res.update
+            getRes={`${res.get
+              .replace(':agendaUid', agenda.uid)
+              .replace(':userUid', editModal.member.userUid)
+              .replace(':memberId', editModal.member.id)}`}
+            saveRes={`${res.update
               .replace(':agendaUid', agenda.uid)
               .replace(':memberId', editModal.member.id)}`}
             onSuccess={update => {

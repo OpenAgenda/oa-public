@@ -78,7 +78,8 @@ export default ({
   description, // optional. specify subtitle
   mode, // modal or not
   operation, // update or create
-  res, // where to save
+  saveRes, // where to save
+  getRes = saveRes, // where to get
   onSuccess, // when save is done
   onRemoveSuccess,
   onCloseModalRequest, // if modal and user clicks to close
@@ -91,7 +92,7 @@ export default ({
   member, // optional preloaded member
 }) => {
   const query = operation === 'update' && !member
-    ? useQuery('getMember', () => axios.get(res), {
+    ? useQuery('getMember', () => axios.get(getRes), {
       select: ({ data }) => data,
       cacheTime: 0,
     })
@@ -149,7 +150,7 @@ export default ({
             type="button"
             className="btn btn-danger margin-top-sm"
             onClick={() => axios
-              .delete(res)
+              .delete(saveRes)
               .then(onRemove)
               .catch(() => setStep('removeFail'))}
           >
@@ -188,8 +189,8 @@ export default ({
           <FormSchemaComponent
             method={operation === 'update' ? 'patch' : 'post'}
             res={{
-              patch: res,
-              post: res,
+              patch: saveRes,
+              post: saveRes,
             }}
             values={loadedMember}
             schema={schema({ optionalFields })}
