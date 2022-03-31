@@ -15,7 +15,7 @@ export const createForm = () => (
     <Form
       lang="fr"
       operation="create"
-      res="/api/agendas/123/members"
+      saveRes="/api/agendas/123/members"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -30,6 +30,7 @@ export const updateForm = () => (
       lang="fr"
       operation="update"
       res="/api/agendas/123/members/456"
+      saveRes="/api/agendas/123/members/456"
       moreInfo={GDPRInformation}
       onSuccess={() => {
         // eslint-disable-next-line no-console
@@ -44,7 +45,7 @@ export const updateFormWithPreloadedMember = () => (
     <Form
       lang="fr"
       operation="update"
-      res="http://localhost:3000/api/agendas/123/members/456"
+      saveRes="http://localhost:3000/api/agendas/123/members/456"
       member={{
         userUid: 456,
         name: 'Préchargé',
@@ -73,7 +74,7 @@ export const UpdateFormModal = () => {
       lang="fr"
       operation="update"
       mode="modal"
-      res="/api/agendas/123/members/456"
+      saveRes="/api/agendas/123/members/456"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -99,7 +100,7 @@ export const UpdateFormModalWithConfirm = () => {
       operation="update"
       mode="modal"
       showSuccessMessage
-      res="/api/agendas/123/members/456"
+      saveRes="/api/agendas/123/members/456"
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -113,7 +114,7 @@ export const FormWithCustomTitleAndDescription = () => (
   <Form
     lang="fr"
     operation="update"
-    res="/api/agendas/123/members/456"
+    saveRes="/api/agendas/123/members/456"
     title="Un titre passé en prop"
     description="Une description passée en prop"
     onSuccess={() => {
@@ -128,7 +129,7 @@ export const FormWithOptionalFields = () => (
     lang="fr"
     operation="update"
     optionalFields
-    res="/api/agendas/123/members/456"
+    saveRes="/api/agendas/123/members/456"
     title="Les champs sont optionnels"
     description={null}
     onSuccess={() => {
@@ -143,7 +144,7 @@ export const FormWithRemoveMeLink = () => (
     lang="fr"
     operation="update"
     optionalFields
-    res="/api/agendas/123/members/456"
+    saveRes="/api/agendas/123/members/456"
     title="Un lien pour se retirer est présent"
     description={null}
     displayRemoveAction
@@ -158,7 +159,7 @@ export const FormForRemove = () => (
   <Form
     lang="fr"
     operation="remove"
-    res="/api/agendas/123/members/456"
+    saveRes="/api/agendas/123/members/456"
     onRemoveSuccess={() => {
       // eslint-disable-next-line no-console
       console.log('success');
@@ -170,7 +171,7 @@ export const FullWidthButtons = () => (
   <Form
     lang="fr"
     operation="create"
-    res="http://localhost:3000/api/agendas/123/members/456"
+    saveRes="http://localhost:3000/api/agendas/123/members/456"
     blockButtons
     onRemoveSuccess={() => {
       // eslint-disable-next-line no-console
@@ -183,7 +184,7 @@ export const noCancelButton = () => (
   <Form
     lang="fr"
     operation="create"
-    res="http://localhost:3000/api/agendas/123/members/456"
+    saveRes="http://localhost:3000/api/agendas/123/members/456"
     hideCancel
     onRemoveSuccess={() => {
       // eslint-disable-next-line no-console
@@ -235,7 +236,7 @@ export const FixTwoLinksOneForm = () => {
       operation="update"
       mode="modal"
       showSuccessMessage
-      res={`/api/agendas/123/members/${res}`}
+      saveRes={`/api/agendas/123/members/${res}`}
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');

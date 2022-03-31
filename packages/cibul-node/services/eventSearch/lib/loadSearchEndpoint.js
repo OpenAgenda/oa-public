@@ -21,6 +21,7 @@ module.exports = core => async (req, res, next) => {
   if (distributeOptionalFields) includeFields.push(...distributeOptionalFields);
 
   req.searchOptions = {
+    aggregations: req.query.aggs,
     ...req.query,
     includeFields: mapIncludeFields(includeFields),
     stream: false,
