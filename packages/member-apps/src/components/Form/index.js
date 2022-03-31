@@ -78,8 +78,9 @@ export default ({
   description, // optional. specify subtitle
   mode, // modal or not
   operation, // update or create
-  saveRes, // where to save
-  getRes = saveRes, // where to get
+  res,
+  saveRes = res, // where to save
+  getRes = res, // where to get
   onSuccess, // when save is done
   onRemoveSuccess,
   onCloseModalRequest, // if modal and user clicks to close
