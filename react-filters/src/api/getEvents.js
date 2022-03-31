@@ -12,12 +12,8 @@ export default async function getEvents(
   pageParam,
   filtersBase
 ) {
-  const aggregations = filtersToAggregations(filters, filtersBase);
-
   const params = {
-    // oaq: { passed: 1 },
-    // size: 0,
-    aggregations,
+    aggs: filtersToAggregations(filters, filtersBase),
     from: pageParam > 1 ? (pageParam - 1) * PAGE_SIZE : undefined,
     ...query,
   };
