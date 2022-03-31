@@ -292,7 +292,8 @@ const config = {
       75052324, // Kaoré
       99999999, // Romain
       55507091, // Clément
-      91586633 // rendezvous@dggl.org (Susanne Yacoub)
+      91586633, // rendezvous@dggl.org (Susanne Yacoub)
+      69922451 // coordinamento@apgi.it (Giuseppe La Mastra)
     ],
     routes: {
       globals: {
