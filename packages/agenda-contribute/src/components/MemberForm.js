@@ -46,7 +46,7 @@ export default ({
         lang={locale}
         optionalFields={['administrator', 'moderator'].includes(role)}
         operation={member ? 'update' : 'create'}
-        res={member ? `${res}/${member.userUid}` : res}
+        saveRes={member ? `${res}/${member.userUid}` : res}
         blockButtons
         hideCancel
         onSuccess={onSuccess}
