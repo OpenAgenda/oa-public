@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Without value)"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,

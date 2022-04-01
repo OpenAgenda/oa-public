@@ -1,9 +1,8 @@
-import _ from 'lodash';
-import React, {
-  useState, useMemo, useCallback, useLayoutEffect
-} from 'react';
+import React, { useState, useCallback } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
+import { useDispatch } from 'react-redux';
 import { Spinner } from '@openagenda/react-shared';
+import * as statsActions from '../reducers/stats';
 
 const messages = defineMessages({
   loadMore: {
@@ -16,85 +15,28 @@ const messages = defineMessages({
   },
 });
 
-export default function LoadMore({ stat, total, loadMore }) {
+export default function LoadMore({ stat }) {
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
-  const [noMore, setNoMore] = useState(false);
-  const [message, setMessage] = useState(null);
+  const dispatch = useDispatch();
+
+  const loadMore = useCallback(
+    () => dispatch(
+      statsActions.updateStat(stat.id, {
+        state: {
+          itemsDisplayed: stat.state.itemsDisplayed + 5,
+        },
+      })
+    ),
+    [dispatch, stat.id, stat.state.itemsDisplayed]
+  );
 
   const handleClick = useCallback(() => {
     setLoading(true);
-    Promise.resolve(loadMore())
-      .then(result => {
-        const receivedMore = Array.isArray(stat.aggregation)
-          ? stat.aggregation.some(
-            (v, i) => stat.state.data[i].length
-                < result.data.aggregations[`${v.type}-${stat.id}`].length
-          )
-          : stat.state.data.length
-            < result.data.aggregations[`${stat.aggregation.type}-${stat.id}`]
-              .length;
+    loadMore().finally(() => setLoading(false));
+  }, [loadMore]);
 
-        if (!receivedMore) {
-          setNoMore(true);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, [loadMore, stat.aggregation, stat.state.data, stat.id]);
-
-  const hasMore = useMemo(() => {
-    if (!stat.state.data) {
-      return false;
-    }
-
-    if (Array.isArray(stat.aggregation)) {
-      return stat.aggregation.some(
-        (v, i) => total
-          !== stat.state.data[i].reduce(
-            (accu, next) => accu + _.get(next, stat.chart.dataKey[i]),
-            0
-          )
-      );
-    }
-
-    return (
-      total
-      !== stat.state.data.reduce(
-        (accu, next) => accu + _.get(next, stat.chart.dataKey),
-        0
-      )
-    );
-  }, [stat.aggregation, stat.chart.dataKey, stat.state.data, total]);
-
-  // Reset `hasMore` if data changes
-  useLayoutEffect(() => {
-    if (hasMore) {
-      setNoMore(false);
-    }
-  }, [stat.state.data, hasMore]);
-
-  useLayoutEffect(() => {
-    let id;
-
-    if (noMore) {
-      setMessage(intl.formatMessage(messages.nothingMore));
-      id = setTimeout(() => {
-        setMessage(null);
-      }, 1800);
-    }
-
-    return () => {
-      if (id) {
-        clearTimeout(id);
-      }
-    };
-  }, [intl, noMore]);
-
-  if (!hasMore || noMore) {
-    if (message) {
-      return <div className="text-center text-muted">{message}</div>;
-    }
-
+  if (stat.state.itemsDisplayed >= stat.state.data.length) {
     return null;
   }
 

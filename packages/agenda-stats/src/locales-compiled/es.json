@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Without value)"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
@@ -253,7 +259,7 @@
   "AgendaStats.Dashboard.changeOrder": [
     {
       "type": 0,
-      "value": "Change ordrer"
+      "value": "Change order"
     }
   ],
   "AgendaStats.Dashboard.edit": [
