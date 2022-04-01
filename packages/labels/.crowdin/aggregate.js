@@ -23,6 +23,15 @@ for (const lang of LANGS) {
   }
 }
 
+// Remove deleted files
+for (const file of getLabelFiles.walkSync('locales', __dirname)) {
+  const labelFile = file.split('/').slice(2).join('/').replace(/\.json$/, '.js');
+  const removed = !labelFiles.find(v => v === labelFile);
+  if (removed) {
+    fs.unlinkSync(file);
+  }
+}
+
 function getLocaleLabels(labels, lang) {
   const result = {};
 
