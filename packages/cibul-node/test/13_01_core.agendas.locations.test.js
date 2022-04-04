@@ -4,6 +4,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const axios = require('axios');
 const FormData = require('form-data');
+const qs = require('qs');
 
 const api = require('../api');
 const Services = require('../services/init');
@@ -100,6 +101,25 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       expect(items[0].eventCount).toBe(1);
+    });
+
+    it('geo filter', async () => {
+      const {
+        items: geoItems
+      } = await core.agendas(17026855).locations.list({
+        geo: {
+          northEast: { lat: '48', lng: '5' },
+          southWest: { lat: '44.37', lng: '4.00' }
+        }
+      }, {}, {
+      });
+
+      const {
+        items
+      } = await core.agendas(17026855).locations.list({}, {}, {});
+      //console.log(items, '||', geoItems);
+      //console.log(items.length, '|', geoItems.length);
+      expect(items.length).toBeGreaterThan(geoItems.length);
     });
   });
 
@@ -586,6 +606,37 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         expect(nextResults.locations[0].name).toBe(locationNames[2]);
         expect(nextResults.locations.length).toBe(1);
+      });
+
+      it('geo Filter', async () => {
+        const geoResults = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            geo: {
+              northEast: { lat: '48', lng: '5' },
+              southWest: { lat: '44.37', lng: '0.00' }
+            }
+          },
+          headers: {
+            'content-type': 'application/json'
+          },
+          paramsSerializer: params => qs.stringify(params)
+        }).then(r => r?.data);
+
+        const noFilterResults = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          },
+          headers: {
+            'content-type': 'application/json'
+          },
+          paramsSerializer: params => qs.stringify(params)
+        }).then(r => r?.data);
+        expect(geoResults.total).toBeLessThan(noFilterResults.total);
       });
     });
 

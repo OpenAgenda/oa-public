@@ -7,6 +7,8 @@ const text = require('@openagenda/validators/text');
 
 schema.register({ integer, text, date });
 
+const isNumber = a => typeof a === 'number';
+
 const validate = schema({
   agendaUid: {
     type: 'integer',
@@ -76,7 +78,6 @@ module.exports = async (service, k, deleted, query) => {
   const {
     agendaUid, setUid, search, state, updatedAt, uids, excludeUid, geo, hasNull
   } = validate(query);
-
   const agendaId = agendaUid
     ? await service.interfaces
       .getAgendaDetailsByUid(agendaUid, ['id'])
@@ -115,7 +116,8 @@ module.exports = async (service, k, deleted, query) => {
   if (excludeUid) {
     k.whereNotIn('uid', excludeUid);
   }
-  if (geo?.northEast?.lat && geo?.northEast?.lng && geo?.southWest?.lat && geo?.southWest?.lng) {
+  if (isNumber(geo?.northEast?.lat) && isNumber(geo?.northEast?.lng)
+    && isNumber(geo?.southWest?.lat) && isNumber(geo?.southWest?.lng)) {
     k.whereBetween('latitude', [geo.southWest.lat, geo.northEast.lat]);
     k.whereBetween('longitude', [geo.southWest.lng, geo.northEast.lng]);
   }
