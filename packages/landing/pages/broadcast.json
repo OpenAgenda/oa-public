@@ -9,6 +9,8 @@
     "lang" : "es", "key" : "diffusez-vos-evenements-es"
   }, {
     "lang" : "br", "key" : "diffusez-vos-evenements-br"
+  }, {
+    "lang": "it", "key": "trasmetti-i-tuoi-eventi "
   } ],
   "head" : {
     "title" : "broadcastHeadTitle",
