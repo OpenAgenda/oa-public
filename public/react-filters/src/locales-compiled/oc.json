@@ -248,7 +248,7 @@
   "ReactFilters.Sort.chronological": [
     {
       "type": 0,
-      "value": "Chronological order"
+      "value": "Òrdre cronologic"
     }
   ],
   "ReactFilters.Sort.recentlyUpdated": [
@@ -260,7 +260,7 @@
   "ReactFilters.Sort.relevance": [
     {
       "type": 0,
-      "value": "Relevance"
+      "value": "Pertinéncia"
     }
   ],
   "ReactFilters.ValueBadge.removeFilter": [
@@ -406,7 +406,7 @@
   "ReactFilters.messages.filterTitles.district": [
     {
       "type": 0,
-      "value": "District"
+      "value": "Districte"
     }
   ],
   "ReactFilters.messages.filterTitles.featured": [
@@ -418,7 +418,7 @@
   "ReactFilters.messages.filterTitles.geo": [
     {
       "type": 0,
-      "value": "Geolocation"
+      "value": "Geolocalizacion"
     }
   ],
   "ReactFilters.messages.filterTitles.keyword": [
@@ -502,7 +502,7 @@
   "ReactFilters.messages.provenance.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Partatjar"
     }
   ],
   "ReactFilters.messages.relative.current": [
@@ -556,13 +556,13 @@
   "ReactFilters.messages.status.full": [
     {
       "type": 0,
-      "value": "Fully booked"
+      "value": "Totalament complèt"
     }
   ],
   "ReactFilters.messages.status.movedOnline": [
     {
       "type": 0,
-      "value": "Moved online"
+      "value": "Transferit en linha"
     }
   ],
   "ReactFilters.messages.status.postponed": [
@@ -580,7 +580,7 @@
   "ReactFilters.messages.status.rescheduled": [
     {
       "type": 0,
-      "value": "Rescheduled"
+      "value": "Tornat planificar"
     }
   ],
   "ReactFilters.useGetFilterOptions.emptyOption": [
