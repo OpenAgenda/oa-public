@@ -1,1 +1,26 @@
-{}
+{
+  "EventAdminApp.BatchedStateSelector.title": "Confirmacion",
+  "EventAdminApp.Dashboard.sortedBy": "Destriat per :",
+  "EventAdminApp.Dashboard.yourSelection": "Vòstra seleccion :",
+  "EventAdminApp.EmptyDashboard.addSources": "Agregar los eveniments publicats sus d'autras agendas en las <link>apondent a las sorsas</link>",
+  "EventAdminApp.EmptyDashboard.alternatively": "Podètz tanben :",
+  "EventAdminApp.EmptyDashboard.noEvents": "Vòstra agenda referéncia pas encara d'eveniments !",
+  "EventAdminApp.EventItem.remove": "Tirat de l'agenda",
+  "EventAdminApp.EventItem.shared": "Partejat per un·a membre que daissèt l'agenda",
+  "EventAdminApp.EventItem.statusCancelledInfo": "L'eveniment es estat definitivament anullat",
+  "EventAdminApp.EventItem.statusFull": "Totalament complèt",
+  "EventAdminApp.EventItem.statusMovedOnline": "Transferit en linha",
+  "EventAdminApp.EventItem.statusRescheduled": "Tornat planificar",
+  "EventAdminApp.RemoveModal.deleteDesc": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
+  "EventAdminApp.RemoveModal.removeDesc": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments",
+  "EventAdminApp.messages.exports.toDOCX": "docx",
+  "EventAdminApp.messages.exports.toICS": "ics",
+  "EventAdminApp.messages.exports.toJSON": "json",
+  "EventAdminApp.messages.exports.toMD": "md",
+  "EventAdminApp.messages.exports.toRSS": "rss",
+  "EventAdminApp.messages.exports.toSpreadsheet": "cap a una fuèlha de calcul (csv / xlsx)",
+  "EventAdminApp.messages.exports.toTXT": "txt",
+  "EventAdminApp.messages.status.full": "Totalament complèt",
+  "EventAdminApp.messages.status.movedOnline": "Transferit en linha",
+  "EventAdminApp.messages.status.rescheduled": "Tornat planificar"
+}

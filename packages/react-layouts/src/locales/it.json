@@ -6,5 +6,7 @@
   "react-layouts.MainLayout.searchAgenda": "Cerca un'agenda",
   "react-layouts.MainLayout.settings": "Impostazioni",
   "react-layouts.MainLayout.signout": "Uscire",
-  "react-layouts.components.Search.search": "Cerca"
+  "react-layouts.components.Search.search": "Cerca",
+  "react-layouts.AdminHeader.return": "Vedere la pagina pubblica",
+  "react-layouts.MainLayout.translate": "Gestire"
 }

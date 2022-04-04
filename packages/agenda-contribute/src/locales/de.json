@@ -4,5 +4,17 @@
   "AgendaContribute.Member.title": "Willkommen!",
   "AgendaContribute.Stepper.confirmation": "Bestätigung",
   "AgendaContribute.Stepper.event": "Meine Veranstaltung",
-  "AgendaContribute.Stepper.member": "Kontaktdaten"
+  "AgendaContribute.Stepper.member": "Kontaktdaten",
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": "Entwurf",
+  "AgendaContribute.Confirmation.contactAdministrators": "Kontaktiere den Administrator",
+  "AgendaContribute.Confirmation.createOtherEvent": "Eine weitere Veranstaltung hinzufügen",
+  "AgendaContribute.Confirmation.recapDetailState0": "Deine Veranstaltung wurde gespeichert und wird zeitnah geprüft. Du bekommst eine E-Mail sobald sie veröffentlicht ist.",
+  "AgendaContribute.Confirmation.recapDetailState1": "Deine Veranstaltung ist gut aufgezeichnet, sie wird moderiert. Sie werden per E-Mail benachrichtigt, sobald es veröffentlicht wird.",
+  "AgendaContribute.Confirmation.recapDetailState2": "Ihre Veranstaltung ist gut aufgezeichnet und wurde auf der Agenda veröffentlicht.",
+  "AgendaContribute.Confirmation.seeEventAction": "Meine Veranstalltung sehen.",
+  "AgendaContribute.Confirmation.showMyEvents": "Alle meine Veranstaltungen anzeigen",
+  "AgendaContribute.EventNew.create": "Deine Veranstaltung senden",
+  "AgendaContribute.EventNew.deleteDraft": "Den Entwurf löschen",
+  "AgendaContribute.EventNew.draft": "Deinen Entwurf speichern",
+  "AgendaContribute.EventNew.updateDraft": "Den Entwurf aktualisieren"
 }
