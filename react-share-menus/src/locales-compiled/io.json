@@ -2,7 +2,7 @@
   "aggregator-description": [
     {
       "type": 0,
-      "value": "Events published by "
+      "value": "crwdns16642:0"
     },
     {
       "type": 1,
@@ -10,205 +10,171 @@
     },
     {
       "type": 0,
-      "value": " will be automatically added to the selected calendar."
+      "value": "crwdne16642:0"
     }
   ],
   "aggregator-title": [
     {
       "type": 0,
-      "value": "Aggregate to an agenda"
+      "value": "crwdns16644:0crwdne16644:0"
     }
   ],
   "all-fields": [
     {
       "type": 0,
-      "value": "Export every field"
+      "value": "crwdns16646:0crwdne16646:0"
     }
   ],
   "all-languages": [
     {
       "type": 0,
-      "value": "Export in all languages"
+      "value": "crwdns16648:0crwdne16648:0"
     }
   ],
   "calendar-date": [
     {
       "type": 0,
-      "value": "This event has no upcoming dates"
+      "value": "crwdns16650:0crwdne16650:0"
     }
   ],
   "cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "crwdns16652:0crwdne16652:0"
     }
   ],
   "close": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "crwdns16654:0crwdne16654:0"
     }
   ],
   "connection-btn": [
     {
       "type": 0,
-      "value": "Sign In"
+      "value": "crwdns16656:0crwdne16656:0"
     }
   ],
   "create-agenda": [
     {
       "type": 0,
-      "value": "Create an agenda"
+      "value": "crwdns16658:0crwdne16658:0"
     }
   ],
   "detailed-format": [
     {
       "type": 0,
-      "value": "Use the detailed format"
+      "value": "crwdns16660:0crwdne16660:0"
     }
   ],
   "distribute-fields": [
     {
       "type": 0,
-      "value": "Fields with options: display one value per column"
+      "value": "crwdns16918:0crwdne16918:0"
     }
   ],
   "documentation": [
     {
       "type": 0,
-      "value": "See the documentation"
+      "value": "crwdns16662:0crwdne16662:0"
     }
   ],
   "email-placeholder": [
     {
       "type": 0,
-      "value": "Type in the email you want to send the event to"
+      "value": "crwdns16664:0crwdne16664:0"
     }
   ],
   "email-success": [
     {
       "type": 0,
-      "value": "The event was sent to "
+      "value": "crwdns16666:0count="
     },
     {
-      "offset": 0,
-      "options": {
-        "=0": {
-          "value": [
-            {
-              "type": 0,
-              "value": "no email address"
-            }
-          ]
-        },
-        "one": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " email address"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " email addresses"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "type": 1,
       "value": "count"
     },
     {
       "type": 0,
-      "value": "."
+      "value": "crwdne16666:0"
     }
   ],
   "exportJson": [
     {
       "type": 0,
-      "value": "Use the previous JSON export version"
+      "value": "crwdns16668:0crwdne16668:0"
     }
   ],
   "gcalStep2": [
     {
       "type": 0,
-      "value": "2. In the left section, open \"Other Calendars > Add by URL\"."
+      "value": "crwdns16670:0crwdne16670:0"
     }
   ],
   "gcalStep3": [
     {
       "type": 0,
-      "value": "3. Follow the instructions by pasting the link you copied in step 1"
+      "value": "crwdns16672:0crwdne16672:0"
     }
   ],
   "import": [
     {
       "type": 0,
-      "value": "Import"
+      "value": "crwdns16674:0crwdne16674:0"
     }
   ],
   "input-field": [
     {
       "type": 0,
-      "value": "Select the fields to export"
+      "value": "crwdns16676:0crwdne16676:0"
     }
   ],
   "input-format": [
     {
       "type": 0,
-      "value": "Choose a format"
+      "value": "crwdns16678:0crwdne16678:0"
     }
   ],
   "instructions": [
     {
       "type": 0,
-      "value": "Instructions"
+      "value": "crwdns16680:0crwdne16680:0"
     }
   ],
   "instructionsCopyLink": [
     {
       "type": 0,
-      "value": "1. Copy the link in the field above and open "
+      "value": "crwdns16682:0crwdne16682:0"
     }
   ],
   "jsonDoc1": [
     {
       "type": 0,
-      "value": "Documentation"
+      "value": "crwdns16684:0crwdne16684:0"
     }
   ],
   "jsonDoc2": [
     {
       "type": 0,
-      "value": "here"
+      "value": "crwdns16686:0crwdne16686:0"
     }
   ],
   "login": [
     {
       "type": 0,
-      "value": "Please log in to access the export link directly from this menu"
+      "value": "crwdns16688:0crwdne16688:0"
     }
   ],
   "modal-title": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "crwdns16690:0crwdne16690:0"
     }
   ],
   "no-agenda": [
     {
       "type": 0,
-      "value": "Warning: No agenda is administered by your account. Please create one first if you wish to aggregate "
+      "value": "crwdns16692:0"
     },
     {
       "type": 1,
@@ -216,97 +182,97 @@
     },
     {
       "type": 0,
-      "value": "'s events."
+      "value": "crwdne16692:0"
     }
   ],
   "official-agenda": [
     {
       "type": 0,
-      "value": "Official agenda"
+      "value": "crwdns16694:0crwdne16694:0"
     }
   ],
   "outlookStep2": [
     {
       "type": 0,
-      "value": "2. At the bottom of the page, select the calendar icon"
+      "value": "crwdns16696:0crwdne16696:0"
     }
   ],
   "outlookStep3": [
     {
       "type": 0,
-      "value": "3. In the navigation pane, select \"Add calendar\""
+      "value": "crwdns16698:0crwdne16698:0"
     }
   ],
   "outlookStep4": [
     {
       "type": 0,
-      "value": "4. Select \"Subscribe from web\""
+      "value": "crwdns16700:0crwdne16700:0"
     }
   ],
   "outlookStep5": [
     {
       "type": 0,
-      "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
+      "value": "crwdns16702:0crwdne16702:0"
     }
   ],
   "private-agenda": [
     {
       "type": 0,
-      "value": "Private agenda"
+      "value": "crwdns16704:0crwdne16704:0"
     }
   ],
   "search-agenda": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "crwdns16706:0crwdne16706:0"
     }
   ],
   "select-all": [
     {
       "type": 0,
-      "value": "Select all"
+      "value": "crwdns16708:0crwdne16708:0"
     }
   ],
   "send": [
     {
       "type": 0,
-      "value": "Send"
+      "value": "crwdns16710:0crwdne16710:0"
     }
   ],
   "share-calendar": [
     {
       "type": 0,
-      "value": "Import in a personal calendar"
+      "value": "crwdns16712:0crwdne16712:0"
     }
   ],
   "share-email": [
     {
       "type": 0,
-      "value": "Send by email"
+      "value": "crwdns16714:0crwdne16714:0"
     }
   ],
   "share-oa": [
     {
       "type": 0,
-      "value": "Share on OpenAgenda"
+      "value": "crwdns16716:0crwdne16716:0"
     }
   ],
   "share-title": [
     {
       "type": 0,
-      "value": "Share this event"
+      "value": "crwdns16718:0crwdne16718:0"
     }
   ],
   "sign-in": [
     {
       "type": 0,
-      "value": "You need to sign in to your account to add this event to your OpenAgendas"
+      "value": "crwdns16720:0crwdne16720:0"
     }
   ],
   "sign-in-agg": [
     {
       "type": 0,
-      "value": "You need to sign in to your account to aggregate this event."
+      "value": "crwdns16722:0crwdne16722:0"
     }
   ]
 }

@@ -25,5 +25,5 @@ module.exports = {
   fr,
   io,
   it,
-  oc
+  oc,
 };

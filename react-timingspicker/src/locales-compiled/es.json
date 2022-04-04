@@ -526,7 +526,7 @@
   "rtp.recurrencerForm.invalidFrequence": [
     {
       "type": 0,
-      "value": "Invalid frequence"
+      "value": "Invalid frequency"
     }
   ],
   "rtp.recurrencerForm.invalidMonthlyIntervalType": [
@@ -618,7 +618,7 @@
   "rtp.reset": [
     {
       "type": 0,
-      "value": "Borrar todos los horarios"
+      "value": "Borrar"
     }
   ],
   "rtp.scheduler.openMultiRecurrencerModal": [
