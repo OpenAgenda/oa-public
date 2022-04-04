@@ -5,6 +5,19 @@ function getHash() {
   return (window.location.hash || '').replace(/^#/, '');
 }
 
+/**
+ * hash to be handled by iframe are paths or queries. They either start with ? or /.
+ * Other hashes are regular navigation hashes for the parent of the frame.
+ */
+function isPortalHash() {
+  const hash = getHash();
+  if (!hash.length) {
+    return false;
+  }
+
+  return ['?', '/'].includes(hash.substring(0, 1));
+}
+
 function updateRelativePath(state, relative) {
   state.relative = relative;
   window.location.hash = relative;
@@ -17,7 +30,7 @@ function appendAttributeValueToQuery(iframe, current, key, attrKey) {
 function onMessage(state, { message }) {
   if (message.code === 'ready' && !state.iFrameReady) {
     state.iFrameReady = true;
-    if (window.location.hash.length) {
+    if (isPortalHash()) {
       state.iframe.iFrameResizer.sendMessage({
         code: 'nav',
         nav: getHash(),
@@ -92,7 +105,7 @@ module.exports = (iframe, options = {}) => {
 
   if (iframe.getAttribute('data-query')) {
     relative = `?${iframe.getAttribute('data-query')}`;
-  } else if (monitorHash) {
+  } else if (monitorHash && isPortalHash()) {
     relative = getHash();
   }
 
