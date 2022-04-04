@@ -2,7 +2,7 @@
   "rtp.defineTiming": [
     {
       "type": 0,
-      "value": "Click and drag on the grid to set a timing"
+      "value": "Clicca e striscia sulla griglia per creare un nuovo orario"
     }
   ],
   "rtp.definedTimings": [
@@ -526,7 +526,7 @@
   "rtp.recurrencerForm.invalidFrequence": [
     {
       "type": 0,
-      "value": "Invalid frequence"
+      "value": "Invalid frequency"
     }
   ],
   "rtp.recurrencerForm.invalidMonthlyIntervalType": [
@@ -618,7 +618,7 @@
   "rtp.reset": [
     {
       "type": 0,
-      "value": "Cancellare tutti i programmi previsionali"
+      "value": "Cancellare tutti"
     }
   ],
   "rtp.scheduler.openMultiRecurrencerModal": [

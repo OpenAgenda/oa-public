@@ -2,37 +2,37 @@
   "ReactShared.ConsentBanner.accept": [
     {
       "type": 0,
-      "value": "Accept"
+      "value": "crwdns16724:0crwdne16724:0"
     }
   ],
   "ReactShared.ConsentBanner.decline": [
     {
       "type": 0,
-      "value": "Decline"
+      "value": "crwdns16726:0crwdne16726:0"
     }
   ],
   "ReactShared.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
+      "value": "crwdns16728:0crwdne16728:0"
     }
   ],
   "ReactShared.ConsentBanner.moreInfoLink": [
     {
       "type": 0,
-      "value": "Click here for more information"
+      "value": "crwdns16730:0crwdne16730:0"
     }
   ],
   "ReactShared.ImageInput.acceptedFiles": [
     {
       "type": 0,
-      "value": "crwdns912:0crwdne912:0"
+      "value": "crwdns16732:0crwdne16732:0"
     }
   ],
   "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "crwdns914:0"
+      "value": "crwdns16734:0"
     },
     {
       "type": 1,
@@ -40,7 +40,7 @@
     },
     {
       "type": 0,
-      "value": "crwdnd914:0"
+      "value": "crwdnd16734:0"
     },
     {
       "type": 1,
@@ -48,7 +48,7 @@
     },
     {
       "type": 0,
-      "value": "crwdnd914:0"
+      "value": "crwdnd16734:0"
     },
     {
       "type": 1,
@@ -56,13 +56,13 @@
     },
     {
       "type": 0,
-      "value": "crwdne914:0"
+      "value": "crwdne16734:0"
     }
   ],
   "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "crwdns916:0"
+      "value": "crwdns16736:0"
     },
     {
       "type": 1,
@@ -70,7 +70,7 @@
     },
     {
       "type": 0,
-      "value": "crwdnd916:0"
+      "value": "crwdnd16736:0"
     },
     {
       "type": 1,
@@ -78,7 +78,7 @@
     },
     {
       "type": 0,
-      "value": "crwdnd916:0"
+      "value": "crwdnd16736:0"
     },
     {
       "type": 1,
@@ -86,13 +86,13 @@
     },
     {
       "type": 0,
-      "value": "crwdne916:0"
+      "value": "crwdne16736:0"
     }
   ],
   "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "crwdns918:0"
+      "value": "crwdns16738:0"
     },
     {
       "type": 1,
@@ -100,37 +100,37 @@
     },
     {
       "type": 0,
-      "value": "crwdne918:0"
+      "value": "crwdne16738:0"
     }
   ],
   "ReactShared.ImageInput.remove": [
     {
       "type": 0,
-      "value": "crwdns920:0crwdne920:0"
+      "value": "crwdns16740:0crwdne16740:0"
     }
   ],
   "ReactShared.ImageInput.tooManyFiles": [
     {
       "type": 0,
-      "value": "crwdns922:0crwdne922:0"
+      "value": "crwdns16742:0crwdne16742:0"
     }
   ],
   "ReactShared.ImageInput.update": [
     {
       "type": 0,
-      "value": "crwdns924:0crwdne924:0"
+      "value": "crwdns16744:0crwdne16744:0"
     }
   ],
   "ReactShared.ImageInput.upload": [
     {
       "type": 0,
-      "value": "crwdns926:0crwdne926:0"
+      "value": "crwdns16746:0crwdne16746:0"
     }
   ],
   "ReactShared.LeaveWarningPrompt.areYouSure": [
     {
       "type": 0,
-      "value": "Are you sure you want to leave this page? All unsaved data will be lost."
+      "value": "crwdns16748:0crwdne16748:0"
     }
   ]
 }
