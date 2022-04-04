@@ -1,13 +1,13 @@
 {
-  "title": "Suggerisci modifiche",
+  "title": "Suggerire modifiche",
   "suggestionEditTitle": "Modificare il suggerimento",
-  "info": "Inserite le modifiche che volete suggerire. Questi saranno poi elaborati da un amministratore.",
+  "info": "Inserire le modifiche che vuole suggerire. Questi saranno poi elaborati da un amministratore.",
   "suggestionEditInfo": "Modificare le modifiche suggerite. Ripristinate i valori originali cliccando sui link sotto le vostre modifiche.",
-  "submit": "Invia suggerimento",
+  "submit": "Inviare suggerimento",
   "submitError": "Il suggerimento non ha potuto essere inviato. Riprovare tra un attimo",
   "loadError": "Il modulo non poteva essere caricato. Si prega di ricaricare la pagina.",
   "currentValue": "Valore corrente",
-  "completeTitle": "Grazie! Grazie! Grazie! Grazie! Il suo suggerimento è stato preso in considerazione.",
+  "completeTitle": "Grazie! Il suo suggerimento è stato preso in considerazione.",
   "completeText": "Un moderatore se ne occuperà a breve. È possibile modificarlo in qualsiasi momento tornando alla pagina dell'evento associato.",
-  "completeLink": "Torna alla pagina dell'evento"
+  "completeLink": "Tornare alla pagina dell'evento"
 }

@@ -4,5 +4,7 @@
   "submit": "Registrati",
   "help": "Aiuto",
   "noChoice": "Nessuna scelta",
-  "cancel": "Annullare"
+  "cancel": "Annulla",
+  "noOption": "Nessuna corrispondenza",
+  "selectPlaceholder": "Seleziona..."
 }

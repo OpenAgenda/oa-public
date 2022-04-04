@@ -102,6 +102,8 @@ module.exports = {
   },
   "stateFieldInfo": {
     "fr": "Ce champ n'est pas accessible aux contributeurs",
-    "en": "This field is not available to contributors"
+    "en": "This field is not available to contributors",
+    "it": "I contributori non possono vedere ni modificare questo campo",
+    "io": "crwdns16460:0crwdne16460:0"
   }
 }

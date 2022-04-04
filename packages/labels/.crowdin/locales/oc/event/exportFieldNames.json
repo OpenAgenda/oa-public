@@ -1,1 +1,5 @@
-{}
+{
+  "location.latitude": "Latitud",
+  "location.longitude": "Longitud",
+  "location.district": "Districte"
+}

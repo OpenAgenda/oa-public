@@ -39,7 +39,7 @@ module.exports = {
     "en": "Administrator",
     "de": "Administrator",
     "es": "administrador",
-    "it": "Direttore",
+    "it": "Amministratore",
     "io": "crwdns15608:0crwdne15608:0"
   },
   "moderator": {
@@ -174,15 +174,21 @@ module.exports = {
   },
   "changeRole": {
     "fr": "Changer le rôle",
-    "en": "Edit the role"
+    "en": "Edit the role",
+    "it": "Modificare il ruolo",
+    "io": "crwdns16504:0crwdne16504:0"
   },
   "operationSuccessful": {
     "fr": "Operation effectuée",
-    "en": "Operation done"
+    "en": "Operation done",
+    "it": "Fatto",
+    "io": "crwdns16506:0crwdne16506:0"
   },
   "patchSuccessConfirm": {
     "fr": "Le membre a été mis à jour",
-    "en": "The member was updated"
+    "en": "The member was updated",
+    "it": "Il membro è statto aggiornato",
+    "io": "crwdns16508:0crwdne16508:0"
   },
   "inviteMembers": {
     "fr": "Inviter des membres",
@@ -245,7 +251,7 @@ module.exports = {
     "en": "Email",
     "de": "Email",
     "es": "e-mail",
-    "it": "Invia un'e-mail a",
+    "it": "Email",
     "br": "Postel",
     "io": "crwdns15656:0crwdne15656:0"
   },
@@ -573,7 +579,7 @@ module.exports = {
     "en": "User that has been invited to become member. This user does not yet have an OpenAgenda account. A mail was sent to invite him to create one.",
     "de": "Benutzer, der eingeladen wurde, Mitglied zu werden. Dieser Benutzer hat noch kein OpenAgenda Konto. Eine E-Mail gesendet wurde, um ihn einzuladen, eine zu erstellen.",
     "es": "El usuario ha sido invitado a convertirse en miembro. Este usuario no tiene cuenta en OpenAgenda. Un correo electrónico fue enviado a él para invitarle a crearlo.",
-    "it": "L'utente è stato invitato a diventare membro. Questo utente non ha ancora un conto su OpenAgenda. Gli è stata inviata una e-mail che lo invita a crearne una.",
+    "it": "L'utente è stato invitato come membro. Questo utente non ha ancora un conto su OpenAgenda. Gli è stata inviata una e-mail che lo invita a crearne una.",
     "io": "crwdns15738:0crwdne15738:0"
   },
   "moreinfoDeleted": {
@@ -642,10 +648,14 @@ module.exports = {
   },
   "sortBy": {
     "fr": "Trié par",
-    "en": "Order by"
+    "en": "Order by",
+    "it": "Ordinato per",
+    "io": "crwdns16148:0crwdne16148:0"
   },
   "removeFilter": {
     "fr": "Supprimer le filtre",
-    "en": "Remove filter"
+    "en": "Remove filter",
+    "it": "Rimuovere il filtro",
+    "io": "crwdns16150:0crwdne16150:0"
   }
 }

@@ -14,11 +14,13 @@ module.exports = {
   "instruction": {
     "fr": "**Vous serez notifié rapidement de l'activation de votre compte par email (quelques minutes pendant les heures de bureau).**",
     "en": "**You will be quickly notified of the activation of your account by email (a few minutes during office hours Paris time).**",
-    "io": "crwdns13090:0crwdne13090:0"
+    "io": "crwdns13090:0crwdne13090:0",
+    "it": "**L'attivazione del tuo account ti sarà notificata rapidamente via e-mail (pochi minuti durante l'orario d'ufficio di Parigi).**"
   },
   "complaint": {
     "fr": "Dans l'éventualité où nous tarderions à traiter votre demande, adressez-nous un message via l'outil de clavadarge disponible sur [notre page d'accueil](/). Alternativement, écrivez-nous à [verif@openagenda.com](mailto:verif@openagenda.com) en précisant l'adresse email que vous avez utilisée pour créer votre compte.",
     "en": "In case there is delay in processing your request, send us a message via the chat tool on our [homepage](/) or send us an email at [verif@openagenda.com](mailto:verif@openagenda.com) with the email used during the account creation.",
-    "io": "crwdns13092:0[homepage]crwdne13092:0"
+    "io": "crwdns13092:0[homepage]crwdne13092:0",
+    "it": "Nel caso in cui ci sia un ritardo nell'elaborazione della tua richiesta, inviaci un messaggio tramite lo strumento di chat sulla nostra [homepage](/) o inviaci una mail a [verif@openagenda.com](mailto:verif@openagenda.com) con l'email utilizzata durante la creazione dell'account."
   }
 }

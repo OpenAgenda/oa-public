@@ -68,7 +68,7 @@ module.exports = {
   "agenda": {
     "en": "Agenda",
     "fr": "Journal",
-    "it": "agenda",
+    "it": "Agenda",
     "de": "Agenda",
     "pl": "Porządek obrad",
     "es": "periódico",
@@ -105,7 +105,7 @@ module.exports = {
   "more": {
     "en": "See all events",
     "fr": "Voir tous les événements",
-    "it": "Vedi tutti gli eventi",
+    "it": "Vedere tutti gli eventi",
     "de": "Alle Veranstaltungen ansehen",
     "pl": "Zobacz wszystkie wydarzenia",
     "es": "Ver todos los eventos",

@@ -7,7 +7,8 @@ module.exports = {
     "de": "Diese Agenda ist privat",
     "es": "Esta agenda es privada",
     "it": "Questa agenda è privata",
-    "io": "crwdns12986:0crwdne12986:0"
+    "io": "crwdns12986:0crwdne12986:0",
+    "oc": "Aquela agenda es privada"
   },
   "message": {
     "en": "Access to this agenda is **restricted**. If you require an access, contact the administrator",
@@ -15,7 +16,8 @@ module.exports = {
     "de": "Der Zugriff auf dieseVerwaltungskalender ist ** ** eingeschränkt. Wenn Sie einen Zugang benötigen, kontaktiere den administrar",
     "es": "El acceso a este agenda está restringido ** **. Para el acceso, póngase en contacto con el administrador",
     "it": "L'accesso a questo agenda è **limitato**. Per ottenere l'accesso, contattare il suo amministratore",
-    "io": "crwdns12988:0crwdne12988:0"
+    "io": "crwdns12988:0crwdne12988:0",
+    "oc": "L'accès a aquela agenda es**restrench**. Se vos fa mestièr un accès, contactatz l'administrator·a"
   },
   "contactAdmin": {
     "en": "Contact the administrator",

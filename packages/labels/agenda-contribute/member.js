@@ -8,7 +8,8 @@ module.exports = {
     "de": "Willkommen!",
     "br": "Degemer mat deoc'h !",
     "es": "Bienvenido!",
-    "io": "crwdns11550:0crwdne11550:0"
+    "io": "crwdns11550:0crwdne11550:0",
+    "oc": "Benvengut·da !"
   },
   "subtitle": {
     "fr": "Présentez-vous avant de saisir vos événements",
@@ -22,11 +23,12 @@ module.exports = {
   "description": {
     "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
     "en": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
-    "it": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
+    "it": "Le vostre informazione personale saranno visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
     "de": "Schön, dass du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
     "br": "Ne vo gwelet ho titouroù personnel nemet gant skipailh an deiziataer. N'eus nemet anv hoc'h aozadur a c'hallo bezañ foran.",
     "es": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública.",
-    "io": "crwdns11554:0crwdne11554:0"
+    "io": "crwdns11554:0crwdne11554:0",
+    "oc": "Vòstras informacions personalas seràn visiblas sonque de la còla d'administracion de l'agenda. Lo nom de vòstra organizacion sol serà afichat."
   },
   "organisation": {
     "fr": "Organisation",
@@ -49,11 +51,12 @@ module.exports = {
   "phoneSub": {
     "fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
     "en": "Valid characters: digits, space, -, + ou ()",
-    "it": "Carattere autorizzati : ciffri, spazio, -, + o ()",
+    "it": "Carattere autorizzati: cifro, spazio, -, + o ()",
     "de": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()",
     "br": "Arouezennoù aotreet : sifroù, lizherennoù, esaouennoù, -, + pe ()",
     "es": "Los caracteres permitidos: cifras, espacio, -, + o ()",
-    "io": "crwdns11560:0crwdne11560:0"
+    "io": "crwdns11560:0crwdne11560:0",
+    "oc": "Caractèrs valids : chifras, espaci, -, + o ()"
   },
   "name": {
     "fr": "Prénom Nom",

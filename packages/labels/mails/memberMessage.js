@@ -15,7 +15,8 @@ module.exports = {
     "de": "Veranstaltungskalender anzeigen",
     "es": "Ver la agenda",
     "it": "Vedi l'agenda",
-    "io": "crwdns15462:0crwdne15462:0"
+    "io": "crwdns15462:0crwdne15462:0",
+    "oc": "Mostrar l'agenda"
   },
   "unsubscribe": {
     "fr": "Ne plus recevoir les messages de la fonction \"Leur écrire\"",

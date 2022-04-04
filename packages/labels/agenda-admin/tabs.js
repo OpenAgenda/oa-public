@@ -55,7 +55,7 @@ module.exports = {
     "fr": "Lieux",
     "de": "Standorte",
     "es": "Lugares",
-    "it": "Sedi",
+    "it": "Luoghi",
     "io": "crwdns11410:0crwdne11410:0"
   },
   "categories": {
@@ -71,7 +71,7 @@ module.exports = {
     "fr": "Messagerie",
     "de": "Posteingang",
     "es": "Mensajería",
-    "it": "Posta",
+    "it": "Messaggi",
     "io": "crwdns11414:0crwdne11414:0"
   },
   "customized": {
@@ -88,7 +88,8 @@ module.exports = {
     "de": "Quellen",
     "es": "fuentes",
     "it": "Fonti",
-    "io": "crwdns11418:0crwdne11418:0"
+    "io": "crwdns11418:0crwdne11418:0",
+    "oc": "Sorsas"
   },
   "facebook": {
     "en": "Facebook",
@@ -104,7 +105,8 @@ module.exports = {
     "de": "Swapcard",
     "es": "Swapcard",
     "it": "Swapcard",
-    "io": "crwdns11422:0crwdne11422:0"
+    "io": "crwdns11422:0crwdne11422:0",
+    "oc": "Swapcard"
   },
   "web": {
     "en": "Web Integration",
@@ -120,7 +122,7 @@ module.exports = {
     "de": "Web-Integration",
     "es": "Integración web",
     "it": "Integrazione web",
-    "io": "crwdns11424:0crwdne11424:0"
+    "io": "crwdns16022:0crwdne16022:0"
   },
   "indesign": {
     "en": "Indesign - Xml",
@@ -128,7 +130,8 @@ module.exports = {
     "de": "Indesign - Xml",
     "es": "InDesign - XML",
     "it": "Indesign - Xml",
-    "io": "crwdns11426:0crwdne11426:0"
+    "io": "crwdns11426:0crwdne11426:0",
+    "oc": "Indesign - Xml"
   },
   "emailstrategie": {
     "en": "EmailStrategie",
@@ -136,7 +139,8 @@ module.exports = {
     "de": "EmailStrategie",
     "es": "EmailStrategie",
     "it": "EmailStrategia",
-    "io": "crwdns11428:0crwdne11428:0"
+    "io": "crwdns11428:0crwdne11428:0",
+    "oc": "EmailStrategie"
   },
   "administrators": {
     "en": "Administrators",
@@ -175,7 +179,7 @@ module.exports = {
     "fr": "Contribution",
     "de": "Beitrag",
     "es": "Contribución",
-    "it": "Contributo",
+    "it": "Contribuzione",
     "io": "crwdns11438:0crwdne11438:0"
   },
   "settings_advanced": {
@@ -192,6 +196,7 @@ module.exports = {
     "de": "Statistik",
     "es": "Estadísticas",
     "it": "Statistica",
-    "io": "crwdns11442:0crwdne11442:0"
+    "io": "crwdns11442:0crwdne11442:0",
+    "oc": "Estatisticas"
   }
 }

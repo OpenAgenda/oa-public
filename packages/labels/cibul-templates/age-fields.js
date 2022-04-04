@@ -30,7 +30,7 @@ module.exports = {
     "en": "to",
     "de": "zu",
     "es": "para",
-    "it": "à",
+    "it": "a",
     "io": "crwdns13232:0crwdne13232:0"
   },
   "select": {

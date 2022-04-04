@@ -22,7 +22,7 @@ module.exports = {
   "offlineAttendanceMode": {
     "fr": "Sur place",
     "en": "Offline",
-    "it": "Disconnesso",
+    "it": "In loco",
     "es": "Desconnectad",
     "de": "Offline",
     "br": "War al lec’h",
@@ -58,7 +58,7 @@ module.exports = {
   "location": {
     "fr": "Lieu",
     "en": "Location",
-    "it": "Posizione",
+    "it": "Luogo",
     "de": "Ort",
     "es": "lugar",
     "br": "Lec'h",
@@ -76,7 +76,7 @@ module.exports = {
   "locationSub": {
     "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
     "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
-    "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'.",
+    "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'",
     "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
     "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
     "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
@@ -85,7 +85,7 @@ module.exports = {
   "locationSection": {
     "fr": "Lieu",
     "en": "Location",
-    "it": "Posizione",
+    "it": "Luogo",
     "de": "Ort",
     "es": "lugar",
     "br": "Lec'h",
@@ -114,7 +114,8 @@ module.exports = {
     "en": "Title of the event",
     "es": "Nombre del evento",
     "br": "Titl an darvoud",
-    "io": "crwdns14286:0crwdne14286:0"
+    "io": "crwdns14286:0crwdne14286:0",
+    "it": "Il titolo del tuo evento"
   },
   "titleSub": {
     "fr": "",
@@ -145,7 +146,8 @@ module.exports = {
     "en": "Description for short or list displays",
     "es": "Descripción de las pequeñas pantallas o lista",
     "br": "Deskrivadur evit an diskweloù berr pe listenn",
-    "io": "crwdns14292:0crwdne14292:0"
+    "io": "crwdns14292:0crwdne14292:0",
+    "it": "Utile per la lista degli eventi"
   },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",
@@ -381,7 +383,7 @@ module.exports = {
   "cancelLanguageChange": {
     "fr": "Annuler",
     "en": "Cancel",
-    "it": "Annulla",
+    "it": "Annullare",
     "de": "Abbrechen",
     "es": "anular",
     "br": "Nullañ",
@@ -390,7 +392,7 @@ module.exports = {
   "noDates": {
     "fr": "Au moins un horaire doit être défini",
     "en": "At least one timing must be defined",
-    "it": "Deve essere definito almeno un programma previsionale",
+    "it": "Per favore indicare almeno un orario",
     "de": "Es muss mindestens ein Zeitpunkt definiert werden.",
     "es": "Al menos una zona debe definirse",
     "br": "Ret eo lakaat un eur da vihanañ",
@@ -421,7 +423,8 @@ module.exports = {
     "de": "Diese werden verwendet, um Deine Veranstaltung im Veranstaltungskalender zu indexieren. Such dir einen aus.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede elegir uno.",
     "br": "Implijet e vez ar re-mañ da venegeriñ an deiziataer. Gallout a rit choaz unan.",
-    "io": "crwdns14350:0crwdne14350:0"
+    "io": "crwdns14350:0crwdne14350:0",
+    "oc": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una."
   },
   "defaultTagGroupName": {
     "en": "Tags",
@@ -497,30 +500,41 @@ module.exports = {
   },
   "scheduled": {
     "fr": "Programmé",
-    "en": "Scheduled"
+    "en": "Scheduled",
+    "io": "crwdns16100:0crwdne16100:0"
   },
   "rescheduled": {
     "fr": "Re-programmé",
-    "en": "Re-scheduled"
+    "en": "Re-scheduled",
+    "io": "crwdns16102:0crwdne16102:0"
   },
   "movedOnline": {
     "fr": "Passé en ligne",
-    "en": "Moved online"
+    "en": "Moved online",
+    "it": "Finalmente in linea",
+    "oc": "Transferit en linha",
+    "io": "crwdns16104:0crwdne16104:0"
   },
   "cancelled": {
     "fr": "Annulé",
-    "en": "Canceled"
+    "en": "Canceled",
+    "it": "Cancellato",
+    "io": "crwdns16106:0crwdne16106:0"
   },
   "full": {
     "fr": "Complet",
-    "en": "Full"
+    "en": "Full",
+    "io": "crwdns16448:0crwdne16448:0"
   },
   "postponed": {
     "fr": "Reporté",
-    "en": "Postponed"
+    "en": "Postponed",
+    "it": "Riprogrammato",
+    "io": "crwdns16108:0crwdne16108:0"
   },
   "status": {
     "fr": "État",
-    "en": "Status"
+    "en": "Status",
+    "io": "crwdns16110:0crwdne16110:0"
   }
 };

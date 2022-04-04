@@ -13,16 +13,17 @@
   "agenda.setUnofficial": "L'agenda {agenda} è diventato ufficioso.",
   "agenda.changeEventState": "{user} ha cambiato {event} de \"{before}\" ha \"{after}\".",
   "agenda.publishEvent": "{user} ha pubblicato {event} su {agenda}.",
-  "agenda.unpublishEvent": "{user} ha inedito {event} su {agenda}.",
-  "agenda.removeEvent": "{user} ha rimosso {event} de {agenda}.",
+  "agenda.unpublishEvent": "{user} ha annullato la pubblicazione di {event} su {agenda}.",
+  "agenda.removeEvent": "{user} ha rimosso {event} di {agenda}.",
   "agenda.aggregateEvent": "{agenda} ha aggregato {event} da {sourceAgenda}.",
   "agenda.addEvent": "{user} ha aggiunto {event} su {agenda} da {sourceAgenda}.",
-  "event.create": "{user} ha creato {event} dans l'agenda {agenda}.",
+  "event.create": "{user} ha creato {event} nell'agenda {agenda}.",
   "event.update": "{user} ha aggiornato {event} su {agenda}.",
   "event.updateWithOneChange": "{user} ha aggiornato il campo {fields} de {event} su {agenda}.",
   "event.updateWithSomeChanges": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
   "event.updateWithLotOfChanges": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} ha cancellato {event} su {agenda}.",
   "noActivity": "Nessuna attività",
-  "unknownActivity": "Etichetta di attività mancante per {verb}."
+  "unknownActivity": "Etichetta di attività mancante per {verb}",
+  "agenda.sendInvitation": "{user} ha invitato {email} come {credential} su {agenda}."
 }

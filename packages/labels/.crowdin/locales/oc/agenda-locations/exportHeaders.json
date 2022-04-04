@@ -1,1 +1,7 @@
-{}
+{
+  "latitude": "Latitud",
+  "longitude": "Longitud",
+  "district": "Districte",
+  "agendaEventCount": "Eveniments associats dins l'agenda",
+  "extId": "Identificant extèrne"
+}

@@ -11,7 +11,7 @@
   "Abilities.RulesCheckbox.rules.receiveEventAddition": "Recevoir les ajouts d'événements",
   "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Recevoir les agrégations d'événements",
   "Abilities.RulesCheckbox.rules.receiveEventChangeState": "Recevoir les changements de statut vers {state}",
-  "Abilities.RulesCheckbox.rules.receiveEventCreation": "Recevoir les ajouts d'événements",
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": "Recevoir les créations d'événements",
   "Abilities.RulesCheckbox.rules.receiveEventUpdate": "Recevoir les mises à jour d'événements",
   "Abilities.RulesCheckbox.rules.receiveInvitation": "Recevoir les invitations",
   "Abilities.RulesCheckbox.rules.receiveMemberMessage": "Recevoir les messages envoyés via la fonctionnalité \"Leur écrire\"",

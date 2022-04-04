@@ -1,1 +1,6 @@
-{}
+{
+  "invitationError": "I aguèt una error pendent lo tractament dels convits. Mercés de tornar ensajar dins un momentòt.",
+  "invitationNotSent": "Lo convit s'es pas poscut mandar",
+  "emailSubmitted": "Vòstres %count% emails sometuts son en cors de tractament",
+  "sentInvites": "Mandar de convits : %count%"
+}

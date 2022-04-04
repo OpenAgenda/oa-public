@@ -15,7 +15,8 @@ module.exports = {
     "de": "Der Zugriff auf diesen Kalender ist eingeschränkt. Weitere Informationen erhalten Sie vom Administrator des Kalenders.",
     "es": "El acceso a este calendario está restringido, póngase en contacto con el administrador del calendario para obtener más información.",
     "it": "L'accesso a questo calendario è limitato, contatta l'amministratore del calendario per ulteriori informazioni.",
-    "io": "crwdns12850:0crwdne12850:0"
+    "io": "crwdns12850:0crwdne12850:0",
+    "oc": "L'accès a aqueste calendièr es restrench, contactatz l'adminsitrator del calendièr per mai d'informacions."
   },
   "contact": {
     "fr": "Contacter l'administrateur",
@@ -31,6 +32,7 @@ module.exports = {
     "de": "Zurück zur Kalender",
     "es": "Volver a la agenda",
     "it": "Torna all'ordine del giorno",
-    "io": "crwdns12854:0crwdne12854:0"
+    "io": "crwdns12854:0crwdne12854:0",
+    "oc": "Tornar a l'agenda"
   }
 }

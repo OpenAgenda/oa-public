@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Dodaj do mojego kalendarza",
     "es": "Añadir a mi agenda",
     "br": "Ouzhpennañ da'm deiziataer",
-    "io": "crwdns14426:0crwdne14426:0"
+    "io": "crwdns14426:0crwdne14426:0",
+    "oc": "Apondre a mon agenda"
   },
   "export": {
     "en": "Export",
@@ -23,15 +24,18 @@ module.exports = {
   },
   "cannotShareInfo": {
     "en": "This share is not available for private or unpublished events",
-    "fr": "Ce partage n'est pas disponible pour les événements privés ou non-publiés"
+    "fr": "Ce partage n'est pas disponible pour les événements privés ou non-publiés",
+    "io": "crwdns16450:0crwdne16450:0"
   },
   "copyInClipboard": {
     "en": "Click to copy link to clipboard",
-    "fr": "Cliquer pour copier le lien dans le presse-papier"
+    "fr": "Cliquer pour copier le lien dans le presse-papier",
+    "io": "crwdns16452:0crwdne16452:0"
   },
   "printPermalink": {
     "en": "Online version",
-    "fr": "Version en ligne"
+    "fr": "Version en ligne",
+    "io": "crwdns16454:0crwdne16454:0"
   },
   "otherShares": {
     "en": "Other shares",
@@ -106,7 +110,8 @@ module.exports = {
     "pl": "Wersja robocza",
     "es": "Borrador",
     "br": "Brouilhed",
-    "io": "crwdns14444:0crwdne14444:0"
+    "io": "crwdns14444:0crwdne14444:0",
+    "oc": "Borrolhon"
   },
   "private": {
     "en": "Private",
@@ -147,7 +152,9 @@ module.exports = {
   "remove": {
     "en": "Remove from agenda",
     "fr": "Retirer de l'agenda",
-    "io": "crwdns14454:0crwdne14454:0"
+    "io": "crwdns14454:0crwdne14454:0",
+    "it": "Rimuovere dall'agenda",
+    "oc": "Tirat de l'agenda"
   },
   "removeInfo": {
     "fr": "L'événement ne sera plus référencé sur l'agenda",
@@ -261,11 +268,13 @@ module.exports = {
   },
   "cannotChangeStatus": {
     "en": "Cancel / Full / Postponed...",
-    "fr": "Annuler / Complet / Reporté..."
+    "fr": "Annuler / Complet / Reporté...",
+    "io": "crwdns16456:0crwdne16456:0"
   },
   "cannotChangeStatusInfo": {
     "en": "You do not have edition rights over this event",
-    "fr": "Vous n'avez pas les droits d'édition sur cet événement"
+    "fr": "Vous n'avez pas les droits d'édition sur cet événement",
+    "io": "crwdns16458:0crwdne16458:0"
   },
   "cancel": {
     "en": "Cancel",
@@ -314,12 +323,15 @@ module.exports = {
   "requestEditionRights": {
     "fr": "Demander les droits d'édition",
     "en": "Request edition rights",
-    "io": "crwdns14494:0crwdne14494:0"
+    "io": "crwdns14494:0crwdne14494:0",
+    "it": "Chiedere il diritto di modificare questo evento"
   },
   "requestEditionRightsInfo": {
     "fr": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
     "en": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)",
-    "io": "crwdns14496:0crwdne14496:0"
+    "io": "crwdns14496:0crwdne14496:0",
+    "it": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
+    "oc": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)"
   },
   "eventState": {
     "en": "Event state",
@@ -504,7 +516,7 @@ module.exports = {
   "featured": {
     "en": "Featured",
     "fr": "Mis en une",
-    "it": "Selezionato",
+    "it": "Prima pagina",
     "de": "ausgewählt",
     "pl": "Opisane",
     "es": "Poner en una",
@@ -540,7 +552,8 @@ module.exports = {
     "de": "Dubliziere Deine Veranstaltung und übertrage alle Angaben auf einen weiteren Event.",
     "en": "Load a new event form pre-filled with the details from this event",
     "fr": "Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement",
-    "io": "crwdns14542:0crwdne14542:0"
+    "io": "crwdns14542:0crwdne14542:0",
+    "it": "Carica un nuovo modulo di evento precompilato con i dettagli di questo evento"
   },
   "startingAt": {
     "en": "Starting at %min% years old",
@@ -724,12 +737,12 @@ module.exports = {
   "couldYouBringFollowingChanges": {
     "en": "Hi, could you bring the following changes to the location named '%name%'? reference: %uid% - (add details of the change here)",
     "fr": "Bonjour, pourriez-vous apporter les modifications suivantes au lieu ayant pour nom '%name%' ? reference: %uid% - ( détaillez les modifications ici )",
-    "it": "Bongiorno, potreste apportare le modifiche seguenti al luogo chiamato '%name%' riferimento: %uid% - ( dettaglia qui le modifiche )",
+    "it": "Buongiorno, Lei potrebbe apportare le modifiche seguenti al luogo chiamato '%name%'? Riferimento: %uid% - (dettaglia qui le modifiche)",
     "de": "Guten Tag, können Sie die folgenden Änderungen zum Standort namens '%name%'? Referenz: %uid% hinzufügen - ( fügen Sie Details der Änderungen hier an )",
     "pl": "Witaj! Czy mógłbyś nanieść zmiany miejsca określonego mianem '%name%' ? odniesienie: %uid% - (sprecyzuj zmiany tutaj)",
     "es": "Hola, ¿podría hacer los siguientes cambios en el lugar llamado ' %name%'? Referencia:%uid% - (especificar los cambios aquí)",
     "br": "Demat deoc'h, ha gallout a rafec'h ober ar cheñchamantoù-mañ el lec'h anvet '%name%' ? Dave : %uid% - (Skrivit ar cheñchamantoù amañ )",
-    "io": "crwdns14580:0%ncrwdnd14580:0%uid%crwdne14580:0"
+    "io": "crwdns14580:0%name%crwdnd14580:0%uid%crwdne14580:0"
   },
   "moreLinks": {
     "en": "More links",
@@ -824,7 +837,7 @@ module.exports = {
   "contributionRestricted": {
     "en": "The contribution to this agenda is restricted",
     "fr": "La contribution à cet agenda est restreinte",
-    "it": "Il contributo a questa agenda è limitato",
+    "it": "Il contributo a questo agenda è limitato",
     "de": "Die Teilnahme an diesem Veranstaltungskalender ist beschränkt.",
     "pl": "Udział w tym kalendarzu jest ograniczony",
     "es": "La contribución a este agenda está restringido",
@@ -833,74 +846,106 @@ module.exports = {
   },
   "statusScheduled": {
     "en": "Scheduled",
-    "fr": "Programmé"
+    "fr": "Programmé",
+    "io": "crwdns16112:0crwdne16112:0"
   },
   "markAsScheduled": {
     "en": "Clear the status of the event",
-    "fr": "Réinitialiser l'état de l'événement"
+    "fr": "Réinitialiser l'état de l'événement",
+    "io": "crwdns16114:0crwdne16114:0"
   },
   "statusScheduledInfo": {
     "en": "The event is not cancelled, nor rescheduled, etc..",
-    "fr": "L'événement n'est pas annulé, ni reprogrammé, etc.."
+    "fr": "L'événement n'est pas annulé, ni reprogrammé, etc..",
+    "io": "crwdns16116:0crwdne16116:0"
   },
   "statusRescheduled": {
     "en": "Rescheduled",
-    "fr": "Reprogrammé"
+    "fr": "Reprogrammé",
+    "it": "Riprogrammato",
+    "oc": "Tornat planificar",
+    "io": "crwdns16118:0crwdne16118:0"
   },
   "markAsRescheduled": {
     "en": "The event was rescheduled",
-    "fr": "L'événement a été reprogrammé"
+    "fr": "L'événement a été reprogrammé",
+    "io": "crwdns16120:0crwdne16120:0"
   },
   "statusRescheduledInfo": {
     "en": "The timings and dates of the event have been modified",
-    "fr": "Les dates et/ou horaires de l'événement ont été modifiées"
+    "fr": "Les dates et/ou horaires de l'événement ont été modifiées",
+    "io": "crwdns16122:0crwdne16122:0"
   },
   "statusMovedOnline": {
     "en": "Moved online",
-    "fr": "Déplacé en ligne"
+    "fr": "Déplacé en ligne",
+    "it": "Finalmente in linea",
+    "oc": "Transferit en linha",
+    "io": "crwdns16124:0crwdne16124:0"
   },
   "markAsMovedOnline": {
     "en": "The event is moved online",
-    "fr": "L'événement a lieu en ligne"
+    "fr": "L'événement a lieu en ligne",
+    "io": "crwdns16126:0crwdne16126:0"
   },
   "statusMovedOnlineInfo": {
     "en": "The event will no longer be attended to at a physical location",
-    "fr": "La participation de l'événement n'est désormais plus possible en présentiel"
+    "fr": "La participation de l'événement n'est désormais plus possible en présentiel",
+    "io": "crwdns16128:0crwdne16128:0"
   },
   "statusPostponed": {
     "en": "Postponed",
-    "fr": "Reporté"
+    "fr": "Reporté",
+    "it": "Riprogrammato",
+    "io": "crwdns16130:0crwdne16130:0"
   },
   "markAsPostponed": {
     "en": "The event is postponed",
-    "fr": "L'événement est reporté"
+    "fr": "L'événement est reporté",
+    "it": "L'evento è rimandato",
+    "io": "crwdns16132:0crwdne16132:0"
   },
   "statusPostponedInfo": {
     "en": "The event dates are no longer valid. New dates are not yet known",
-    "fr": "L'événement a été reporté à des dates encore non connues"
+    "fr": "L'événement a été reporté à des dates encore non connues",
+    "it": "Le date dell'evento non sono più valide. Le nuove date non sono ancora note",
+    "io": "crwdns16134:0crwdne16134:0"
   },
   "statusCancelled": {
     "en": "Canceled",
-    "fr": "Annulé"
+    "fr": "Annulé",
+    "it": "Cancellato",
+    "io": "crwdns16136:0crwdne16136:0"
   },
   "markAsCancelled": {
     "en": "The event is cancelled",
-    "fr": "L'événement est annulé"
+    "fr": "L'événement est annulé",
+    "it": "L'evento è annullato",
+    "io": "crwdns16138:0crwdne16138:0"
   },
   "statusCancelledInfo": {
     "en": "The event has been permanently cancelled",
-    "fr": "L'événement a été annulé de manière permanente"
+    "fr": "L'événement a été annulé de manière permanente",
+    "it": "L'evento è annullato",
+    "io": "crwdns16140:0crwdne16140:0"
   },
   "statusFull": {
     "en": "Fully booked",
-    "fr": "Complet"
+    "fr": "Complet",
+    "it": "Completo",
+    "oc": "Totalament complèt",
+    "io": "crwdns16142:0crwdne16142:0"
   },
   "markAsFull": {
     "en": "The event is fully booked",
-    "fr": "L'événement est complet"
+    "fr": "L'événement est complet",
+    "it": "L'evento è esaurito",
+    "io": "crwdns16144:0crwdne16144:0"
   },
   "statusFullInfo": {
     "en": "New participants are no longer accepted to the event",
-    "fr": "L'événement n'accepte plus de nouveaux participants"
+    "fr": "L'événement n'accepte plus de nouveaux participants",
+    "it": "I nuovi partecipanti non sono più accettati all'evento",
+    "io": "crwdns16146:0crwdne16146:0"
   }
 }

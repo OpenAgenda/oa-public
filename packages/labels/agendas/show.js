@@ -19,7 +19,8 @@ module.exports = {
     "pl": "Udostępnij",
     "br": "Skignañ",
     "es": "Compartir",
-    "io": "crwdns12902:0crwdne12902:0"
+    "io": "crwdns12902:0crwdne12902:0",
+    "oc": "Partatjar"
   },
   "online": {
     "en": "Online",
@@ -32,7 +33,7 @@ module.exports = {
   "addEvent": {
     "en": "Add an event",
     "fr": "Ajouter un événement",
-    "it": "Aggiungere un evento ",
+    "it": "Aggiungere un evento",
     "de": "Veranstaltung hinzufügen",
     "pl": "Dodaj wydarzenie",
     "br": "Ouzhpennañ un darvoud",
@@ -67,7 +68,8 @@ module.exports = {
     "pl": "Dodaj do mojego kalendarza",
     "br": "Ouzhpennañ da'm deiziataer",
     "es": "Añadir a mi agenda",
-    "io": "crwdns12912:0crwdne12912:0"
+    "io": "crwdns12912:0crwdne12912:0",
+    "oc": "Apondre a mon agenda"
   },
   "searchInThisAgenda": {
     "en": "Search in this agenda",
@@ -77,7 +79,8 @@ module.exports = {
     "pl": "Wyszukaj w tym kalendarzu",
     "br": "Klask en deiziataer-mañ",
     "es": "Buscar en este agenda",
-    "io": "crwdns12914:0crwdne12914:0"
+    "io": "crwdns12914:0crwdne12914:0",
+    "oc": "Cercar dins aquesta agenda"
   },
   "tags": {
     "en": "Tags",
@@ -222,12 +225,13 @@ module.exports = {
   "agendaHasNotEventsPublished": {
     "en": "This agenda has not published any event yet",
     "fr": "Cet agenda n'a pas encore publié d'événement",
-    "it": "Questa Agenda non ha ancora pubblicato degli eventi",
+    "it": "Questa Agenda non ha ancora pubblicato degli eventi  ",
     "de": "Dieser Kalender hat noch keine Veranstaltungen veröffentlicht.",
     "pl": "Ten kalendarz nie opublikował jeszcze żadnego wydarzenia",
     "br": "An deiziataer-mañ n'en deus ket embannet darvoudoù c'hoazh",
     "es": "Este agenda no ha publicado eventos",
-    "io": "crwdns12944:0crwdne12944:0"
+    "io": "crwdns12944:0crwdne12944:0",
+    "oc": "Aquela agenda a pas encara cap eveniment publicat"
   },
   "contactAdministrator": {
     "en": "Contact administrator",
@@ -257,7 +261,8 @@ module.exports = {
     "pl": "Nie ma żadnych nadchodzących wydarzeń w tym kalendarzu ",
     "br": "N'eus ket bet embannet darvoudoù da zont en deiziataer-mañ.",
     "es": "No hay eventos publicados por delante en esta agenda.",
-    "io": "crwdns12950:0crwdne12950:0"
+    "io": "crwdns12950:0crwdne12950:0",
+    "oc": "I a pas d'eveniments venents publicats dins aquela agenda."
   },
   "here": {
     "en": "here",
@@ -371,22 +376,35 @@ module.exports = {
   },
   "statusRescheduled": {
     "en": "Rescheduled",
-    "fr": "Reprogrammé"
+    "fr": "Reprogrammé",
+    "it": "Riprogrammato",
+    "oc": "Tornat planificar",
+    "io": "crwdns16088:0crwdne16088:0"
   },
   "statusMovedOnline": {
     "en": "Moved online",
-    "fr": "Déplacé en ligne"
+    "fr": "Déplacé en ligne",
+    "it": "Finalmente in linea",
+    "oc": "Transferit en linha",
+    "io": "crwdns16090:0crwdne16090:0"
   },
   "statusPostponed": {
     "en": "Postponed",
-    "fr": "Reporté"
+    "fr": "Reporté",
+    "it": "Riprogrammato",
+    "io": "crwdns16092:0crwdne16092:0"
   },
   "statusCancelled": {
     "en": "Canceled",
-    "fr": "Annulé"
+    "fr": "Annulé",
+    "it": "Cancellato",
+    "io": "crwdns16094:0crwdne16094:0"
   },
   "statusFull": {
     "en": "Fully booked",
-    "fr": "Complet"
+    "fr": "Complet",
+    "it": "Completo",
+    "oc": "Totalament complèt",
+    "io": "crwdns16096:0crwdne16096:0"
   }
 }

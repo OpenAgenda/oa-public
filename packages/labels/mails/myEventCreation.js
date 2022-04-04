@@ -14,7 +14,7 @@ module.exports = {
     "en": "Your event **%event%** has been created on the agenda **%agenda%** with the state **%state%**.",
     "de": "Ihre Veranstaltung **%event% ** wurde auf der Agenda **%agenda%** erstellt mit dem Zustand **%state%**.",
     "es": "Su evento **%event%** ha sido creado en la agenda ** %agenda%** con el estado **%state%**.",
-    "it": "Il tuo evento **%event%** è stato creato sul agenda **%event%** con lo stato **%stato%**.",
+    "it": "Il tuo evento **%event%** è stato creato nell'agenda **%agenda%** con lo stato **%state%**.",
     "io": "crwdns15542:0%event%crwdnd15542:0%agenda%crwdnd15542:0%state%crwdne15542:0"
   },
   "bodyText": {

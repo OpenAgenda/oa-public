@@ -85,5 +85,7 @@
   "emptyOptions": "crwdns14840:0crwdne14840:0",
   "optionDuplicateError": "crwdns14842:0crwdne14842:0",
   "optionEmptyError": "crwdns14844:0crwdne14844:0",
-  "requiredError": "crwdns14846:0crwdne14846:0"
+  "requiredError": "crwdns14846:0crwdne14846:0",
+  "dateFieldType": "crwdns16462:0crwdne16462:0",
+  "dateFieldTypeInfo": "crwdns16464:0crwdne16464:0"
 }

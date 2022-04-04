@@ -11,5 +11,6 @@
   "event.updateWithSomeChanges": "crwdns11172:0{user}crwdnd11172:0{event}crwdnd11172:0{agenda}crwdnd11172:0{fields}crwdne11172:0",
   "event.updateWithLotOfChanges": "crwdns11174:0{user}crwdnd11174:0{event}crwdnd11174:0{agenda}crwdnd11174:0{fieldsCount}crwdne11174:0",
   "event.delete": "crwdns11176:0{user}crwdnd11176:0{event}crwdnd11176:0{agenda}crwdne11176:0",
-  "unknownActivity": "crwdns11178:0{verb}crwdne11178:0"
+  "unknownActivity": "crwdns11178:0{verb}crwdne11178:0",
+  "agenda.systemUnpublishEvent": "crwdns16408:0{event}crwdnd16408:0{agenda}crwdne16408:0"
 }

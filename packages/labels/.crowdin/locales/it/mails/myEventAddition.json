@@ -1,5 +1,5 @@
 {
-  "title": "Il vostro evento è stato aggiunto a %agenda%.",
+  "title": "Il suo evento %event% è stato aggiunto a %agenda%",
   "body": "**%event%** dal **%sourceAgenda%** è stato aggiunto con lo stato **%state%** da **%user%**.",
   "bodyText": "%event% da agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
   "actionDescription": "Visualizza evento",

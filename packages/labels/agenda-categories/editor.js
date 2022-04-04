@@ -31,14 +31,15 @@ module.exports = {
     "de": "Kategorien bilden eine einzige Auswahlliste",
     "es": "Las categorías son una lista única opción",
     "it": "Le categorie formano un elenco a scelta unica",
-    "io": "crwdns11450:0crwdne11450:0"
+    "io": "crwdns11450:0crwdne11450:0",
+    "oc": "Las categorias fòrman una tièra de causida unica"
   },
   "listName": {
     "en": "Name of the list",
     "fr": "Intitulé de la liste",
     "de": "Name der Liste",
     "es": "Encabezando la lista",
-    "it": "Titolo della lista",
+    "it": "Nome della lista",
     "io": "crwdns11452:0crwdne11452:0"
   },
   "listInfo": {
@@ -55,14 +56,15 @@ module.exports = {
     "de": "Agenda Kategorien",
     "es": "Categorías de eventos",
     "it": "Categorie del diario",
-    "io": "crwdns11456:0crwdne11456:0"
+    "io": "crwdns11456:0crwdne11456:0",
+    "oc": "Categorias de l'agenda"
   },
   "add": {
     "en": "Add",
     "fr": "Ajouter",
     "de": "Hinzufügen",
     "es": "Añadir",
-    "it": "Aggiungi",
+    "it": "Aggiungere",
     "io": "crwdns11458:0crwdne11458:0"
   },
   "noCategories": {
@@ -70,15 +72,16 @@ module.exports = {
     "fr": "Vous n'avez encore défini aucune catégorie pour cet agenda",
     "de": "Du hast noch keine Kategorien definiert für diese agendda",
     "es": "No se ha definido ninguna categoría para esta agenda",
-    "it": "Non avete ancora definito alcuna categoria per questo calendario.",
-    "io": "crwdns11460:0crwdne11460:0"
+    "it": "Non avete ancora definito alcuna categoria per questo agenda",
+    "io": "crwdns11460:0crwdne11460:0",
+    "oc": "Avètz pas encara definit cap categoria per aquesta agenda"
   },
   "linkError": {
     "en": "An error occurred while saving your data. Please try again later",
     "fr": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
     "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
     "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
-    "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve.",
+    "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
     "io": "crwdns11462:0crwdne11462:0"
   },
   "cancelUpdateTag": {
@@ -86,7 +89,7 @@ module.exports = {
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "Anular",
-    "it": "Annulla",
+    "it": "Annullare",
     "br": "Nullañ",
     "io": "crwdns11464:0crwdne11464:0"
   },
@@ -96,7 +99,8 @@ module.exports = {
     "de": "OK",
     "es": "Ok",
     "it": "Ok",
-    "io": "crwdns11466:0crwdne11466:0"
+    "io": "crwdns11466:0crwdne11466:0",
+    "oc": "Ok"
   },
   "required": {
     "en": "Make required. One category must be selected.",

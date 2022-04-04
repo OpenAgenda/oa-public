@@ -31,5 +31,6 @@
   "agenda.addEvent": "crwdns11250:0{actor}crwdnd11250:0{object}crwdnd11250:0{target}crwdnd11250:0{sourceAgenda}crwdne11250:0",
   "event.create": "crwdns11252:0{actor}crwdnd11252:0{object}crwdnd11252:0{target}crwdne11252:0",
   "event.update": "crwdns11254:0{actor}crwdnd11254:0{object}crwdnd11254:0{target}crwdne11254:0",
-  "event.delete": "crwdns11256:0{actor}crwdnd11256:0{object}crwdnd11256:0{target}crwdne11256:0"
+  "event.delete": "crwdns11256:0{actor}crwdnd11256:0{object}crwdnd11256:0{target}crwdne11256:0",
+  "agenda.systemUnpublishEvent": "crwdns16410:0{object}crwdnd16410:0{target}crwdne16410:0"
 }

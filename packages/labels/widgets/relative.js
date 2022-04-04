@@ -18,7 +18,8 @@ module.exports = {
     "br": "dec'h",
     "it": "ieri",
     "de": "gestern",
-    "io": "crwdns15930:0crwdne15930:0"
+    "io": "crwdns15930:0crwdne15930:0",
+    "oc": "ièr"
   },
   "tomorrow": {
     "fr": "Demain",

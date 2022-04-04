@@ -62,7 +62,7 @@ module.exports = {
     "fr": "S'inscrire",
     "de": "Anmelden",
     "es": "Inscribirse",
-    "it": "Iscriviti ora",
+    "it": "Crea un conto",
     "io": "crwdns15772:0crwdne15772:0"
   },
   "emailShowAgenda": {
@@ -71,7 +71,8 @@ module.exports = {
     "de": "Show Agenda",
     "es": "Ver la agenda",
     "it": "Vedi l'agenda",
-    "io": "crwdns15774:0crwdne15774:0"
+    "io": "crwdns15774:0crwdne15774:0",
+    "oc": "Mostrar l'agenda"
   },
   "emailSignup": {
     "en": "Signup",

@@ -1,6 +1,6 @@
 {
   "title": "Conferma della creazione del vostro evento su %agenda%: %event%.",
-  "body": "Il tuo evento **%event%** è stato creato sul agenda **%event%** con lo stato **%stato%**.",
+  "body": "Il tuo evento **%event%** è stato creato nell'agenda **%agenda%** con lo stato **%state%**.",
   "bodyText": "Il vostro evento %event% è stato creato nell'agenda %agenda% con lo status %state%.",
   "actionDescription": "Visualizza l'evento",
   "tocontrol": "verificabile",

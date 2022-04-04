@@ -22,7 +22,7 @@ module.exports = {
     "en": "change",
     "de": "Veränderung",
     "es": "cambiar",
-    "it": "modifica",
+    "it": "modificare",
     "io": "crwdns12330:0crwdne12330:0"
   },
   "create": {
@@ -30,7 +30,7 @@ module.exports = {
     "en": "Create a new location",
     "de": "Einen neuen Standort erstellen",
     "es": "Crear nuevo lugar",
-    "it": "Creare un nuovo posto",
+    "it": "Aggiungere un luogo",
     "io": "crwdns12332:0crwdne12332:0"
   },
   "noresult": {
@@ -54,7 +54,7 @@ module.exports = {
     "en": "Select a location",
     "de": "Wähle einen Ort",
     "es": "Seleccione una ubicación",
-    "it": "Seleziona una località",
+    "it": "Scegliere un luogo",
     "io": "crwdns12338:0crwdne12338:0"
   },
   "find": {
@@ -62,7 +62,7 @@ module.exports = {
     "en": "Find",
     "de": "Finden",
     "es": "Buscar",
-    "it": "Ricerca",
+    "it": "Cercare",
     "io": "crwdns12340:0crwdne12340:0"
   },
   "selectorCreateInfo": {
@@ -71,7 +71,8 @@ module.exports = {
     "de": "Beschreibe den Ort, an dem das Veranstaltung stattfindet",
     "es": "Describir el lugar donde tiene lugar el evento",
     "it": "Descrivere il luogo dell'evento",
-    "io": "crwdns12342:0crwdne12342:0"
+    "io": "crwdns12342:0crwdne12342:0",
+    "oc": "Describètz lo lòc ont los eveniments se debanaràn"
   },
   "searching": {
     "fr": "Recherche en cours...",

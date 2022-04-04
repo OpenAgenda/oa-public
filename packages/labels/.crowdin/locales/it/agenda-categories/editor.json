@@ -3,13 +3,13 @@
   "duplicate": "questa categoria esiste già",
   "categories": "Categorie",
   "subtitle": "Le categorie formano un elenco a scelta unica",
-  "listName": "Titolo della lista",
+  "listName": "Nome della lista",
   "listInfo": "Campo indicativo",
   "listSection": "Categorie del diario",
-  "add": "Aggiungi",
-  "noCategories": "Non avete ancora definito alcuna categoria per questo calendario.",
-  "linkError": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve.",
-  "cancelUpdateTag": "Annulla",
+  "add": "Aggiungere",
+  "noCategories": "Non avete ancora definito alcuna categoria per questo agenda",
+  "linkError": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
+  "cancelUpdateTag": "Annullare",
   "updateTag": "Ok",
   "required": "Rendetelo obbligatorio. Deve essere selezionata una categoria."
 }

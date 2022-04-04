@@ -1,1 +1,19 @@
-{}
+{
+  "uid": "ID",
+  "name": "Nome",
+  "address": "Indirizzo",
+  "city": "Città",
+  "department": "Dipartimento",
+  "latitude": "Latitudine",
+  "longitude": "Longitudine",
+  "postalCode": "Codice postale",
+  "insee": "Codice INSEE (Francia)",
+  "countryCode": "Codice del paese",
+  "district": "Quartiere",
+  "region": "Regione",
+  "eventCount": "Eventi associati",
+  "agendaEventCount": "Eventi associati nell'agenda",
+  "state": "Verificato",
+  "extId": "Id esternale",
+  "slug": "URL"
+}

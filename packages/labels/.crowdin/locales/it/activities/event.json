@@ -1,14 +1,14 @@
 {
   "agenda.publishEvent": "{user} ha pubblicato {event} su {agenda}.",
-  "agenda.unpublishEvent": "{user} ha inedito {event} su {agenda}.",
-  "agenda.removeEvent": "{user} ha rimosso {event} de {agenda}.",
+  "agenda.unpublishEvent": "{user} ha annullato la pubblicazione di {event} su {agenda}.",
+  "agenda.removeEvent": "{user} ha rimosso {event} da {agenda}.",
   "agenda.aggregateEvent": "{agenda} ha aggregato {event} da {sourceAgenda}.",
   "agenda.addEvent": "{user} ha aggiunto {event} da {sourceAgenda}.",
-  "event.create": "{user} ha creato {event} dans l'agenda {agenda}.",
+  "event.create": "{user} ha creato {event} nell'agenda {agenda}.",
   "event.update": "{user} ha aggiornato {event} su {agenda}.",
   "event.updateWithOneChange": "{user} ha aggiornato il campo {fields} de {event} su {agenda}.",
   "event.updateWithSomeChanges": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
   "event.updateWithLotOfChanges": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} ha cancellato {event} su {agenda}.",
-  "unknownActivity": "Etichetta di attività mancante per {verb}."
+  "unknownActivity": "Etichetta di attività mancante per {verb}"
 }

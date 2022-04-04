@@ -1,1 +1,9 @@
-{}
+{
+  "addToAgenda": "Apondre a mon agenda",
+  "draft": "Borrolhon",
+  "remove": "Tirat de l'agenda",
+  "requestEditionRightsInfo": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)",
+  "statusRescheduled": "Tornat planificar",
+  "statusMovedOnline": "Transferit en linha",
+  "statusFull": "Totalament complèt"
+}

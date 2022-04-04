@@ -15,7 +15,8 @@ module.exports = {
     "de": "Definiere die Informationen in der fusionierten Position zu speichern",
     "es": "Establecer la información que se utilizará para el lugar fusionada",
     "it": "Definire le informazioni da conservare per la sede unificata",
-    "io": "crwdns12320:0crwdne12320:0"
+    "io": "crwdns12320:0crwdne12320:0",
+    "oc": "Definissètz las informacions d'enregistrar pel lòc fusionat"
   },
   "submit": {
     "fr": "Finaliser la fusion",
@@ -30,7 +31,7 @@ module.exports = {
     "en": "The locations could not be merged",
     "de": "Die Standorte können nicht zusammengeführt werden",
     "es": "Los lugares no podrían fusionarse",
-    "it": "I luoghi non potevano essere uniti...",
+    "it": "I luoghi non potevano essere uniti",
     "io": "crwdns12324:0crwdne12324:0"
   }
 }

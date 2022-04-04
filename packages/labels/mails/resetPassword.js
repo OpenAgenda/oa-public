@@ -23,7 +23,7 @@ module.exports = {
     "en": "Reset password",
     "de": "Passwort zurücksetzen",
     "es": "restablecimiento de contraseña",
-    "it": "Reimposta la password",
+    "it": "Reimpostare la password",
     "io": "crwdns15598:0crwdne15598:0"
   }
 }

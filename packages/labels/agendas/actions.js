@@ -17,7 +17,8 @@ module.exports = {
     "de": "Das Eigentum an der Veranstaltung wurde erfolgreich übertragen.",
     "pl": "Własność wydarzenia została pomyślnie przeniesiona",
     "es": "La propiedad del evento fue transferido con éxito",
-    "io": "crwdns12764:0crwdne12764:0"
+    "io": "crwdns12764:0crwdne12764:0",
+    "oc": "La proprietat de l'eveniment es plan estada transferida"
   },
   "spreadsheetTitle": {
     "en": "Download",

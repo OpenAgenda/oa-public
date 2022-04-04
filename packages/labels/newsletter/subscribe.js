@@ -22,7 +22,7 @@ module.exports = {
     "en": "You will from now on no longer receive event emails at the address %email%",
     "de": "Du wirst ab sofort keine Veranstaltungs- E-Mails mehr an diese Adresse %email% erhalten.",
     "es": "Ahora recibirá más eventos a %email%",
-    "it": "Non riceverete più eventi a %email%.",
+    "it": "Non riceverete più messaggi sopra eventi su l'indirizzo %email%",
     "io": "crwdns15786:0%email%crwdne15786:0"
   }
 }

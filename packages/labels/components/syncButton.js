@@ -3,10 +3,10 @@
 module.exports = {
   "update": {
     "en": "Save",
-    "fr": "Enregistrer",
+    "fr": "Sauvegarder",
     "de": "sparen",
     "es": "Guardar",
-    "it": "Registrati",
+    "it": "Registrare",
     "br": "Enrollañ",
     "io": "crwdns13238:0crwdne13238:0"
   },
@@ -15,7 +15,7 @@ module.exports = {
     "fr": "Mise à jour",
     "de": "Aktualisierung",
     "es": "Actualización",
-    "it": "Aggiorna",
+    "it": "Aggiornando",
     "io": "crwdns13240:0crwdne13240:0"
   },
   "updated": {
@@ -39,7 +39,7 @@ module.exports = {
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annulla",
+    "it": "Annullare",
     "br": "Nullañ",
     "io": "crwdns13246:0crwdne13246:0"
   }

@@ -30,7 +30,7 @@ module.exports = {
     "de": "Ungültige Einträge werden nicht gespeichert",
     "es": "No se guardarán las entradas no válidas",
     "br": "Ne vo ket enrollet an traoù direizh",
-    "it": "Le voci non valide non verranno salvate.",
+    "it": "Le informazioni non valide non verranno salvate",
     "io": "crwdns14038:0crwdne14038:0"
   },
   "string.tooshort": {
@@ -134,7 +134,8 @@ module.exports = {
   },
   "choice.required.max": {
     "fr": "La sélection ne peut excéder %max% choix",
-    "en": "The selection must not exceed %max% choices"
+    "en": "The selection must not exceed %max% choices",
+    "io": "crwdns16098:0%max%crwdne16098:0"
   },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
@@ -148,7 +149,8 @@ module.exports = {
   "serverErrorTooLargeFile": {
     "fr": "L'enregistrement a échoué: une image ou un fichier trop volumineux a été chargé dans le formulaire. La taille maximale autorisée est de %max% mégaoctets",
     "en": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes",
-    "io": "crwdns14064:0%max%crwdne14064:0"
+    "io": "crwdns14064:0%max%crwdne14064:0",
+    "it": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte"
   },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
@@ -185,6 +187,7 @@ module.exports = {
   },
   "invalidOrIncompleteEvent": {
     "fr": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération.",
-    "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again"
+    "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
+    "io": "crwdns16424:0crwdne16424:0"
   }
 }

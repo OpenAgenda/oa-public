@@ -1,1 +1,5 @@
-{}
+{
+  "noAccessToClosedAgenda": "Aquesta agenda es pas obèrta a las contribucions",
+  "noAccessToDraft": "Avètz pas los dreits d'edicion per aqueste borrolhon",
+  "eventNotLinkedToAgenda": "Aqueste eveniment es pas referenciat sus l'agenda"
+}

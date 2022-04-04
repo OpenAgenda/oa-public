@@ -1,1 +1,6 @@
-{}
+{
+  "createAggregator": "Activar l'agregacion d'agendas",
+  "sourceAgendas": "Agendas sorsas",
+  "sourcesHelp": "Clicatz aquí per ne saber mai a perpaus de las agregacions",
+  "removeConfirmMessage": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?"
+}

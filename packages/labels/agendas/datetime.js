@@ -17,7 +17,8 @@ module.exports = {
     "de": "februar",
     "it": "febbraio",
     "br": "c'hwevrer",
-    "io": "crwdns12806:0crwdne12806:0"
+    "io": "crwdns12806:0crwdne12806:0",
+    "oc": "ferbrièr"
   },
   "march": {
     "en": "march",

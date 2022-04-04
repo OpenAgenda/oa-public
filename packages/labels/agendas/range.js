@@ -44,7 +44,8 @@ module.exports = {
     "ar": ":",
     "de": ":",
     "it": ":",
-    "io": "crwdns12896:0crwdne12896:0"
+    "io": "crwdns12896:0crwdne12896:0",
+    "oc": " :"
   },
   "prefix": {
     "en": "on",
@@ -52,7 +53,7 @@ module.exports = {
     "he": "במועדים",
     "ar": "في",
     "de": "am",
-    "it": "",
+    "it": "su",
     "io": "crwdns12898:0crwdne12898:0"
   },
   "weekday-0": {
@@ -60,48 +61,69 @@ module.exports = {
     "fr": "dimanches",
     "he": "ימי ראשון",
     "ar": "الأحد",
-    "de": "sonntag"
+    "de": "sonntag",
+    "it": "Domenica",
+    "oc": "dimenges",
+    "io": "crwdns16074:0crwdne16074:0"
   },
   "weekday-1": {
     "en": "Mondays",
     "fr": "lundis",
     "he": "ימי שני",
     "ar": "الاثنين",
-    "de": "montag"
+    "de": "montag",
+    "it": "Lunedì",
+    "oc": "diluns",
+    "io": "crwdns16076:0crwdne16076:0"
   },
   "weekday-2": {
     "en": "Tuesdays",
     "fr": "mardis",
     "he": "ימי שלישי",
     "ar": "الثلاثاء",
-    "de": "dienstag"
+    "de": "dienstag",
+    "it": "Martedì",
+    "oc": "dimars",
+    "io": "crwdns16078:0crwdne16078:0"
   },
   "weekday-3": {
     "en": "Wednesdays",
     "fr": "mercredis",
     "he": "ימי רביעי",
     "ar": "الأربعاء",
-    "de": "mittwoch"
+    "de": "mittwoch",
+    "it": "Mercoledì",
+    "oc": "dimècres",
+    "io": "crwdns16080:0crwdne16080:0"
   },
   "weekday-4": {
     "en": "Thursdays",
     "fr": "jeudis",
     "he": "ימי חמישי",
     "ar": "الخميس",
-    "de": "donnerstag"
+    "de": "donnerstag",
+    "it": "Giovedì",
+    "oc": "dijòus",
+    "io": "crwdns16082:0crwdne16082:0"
   },
   "weekday-5": {
     "en": "Fridays",
     "fr": "vendredis",
     "he": "ימי שישי",
     "ar": "الجمعة",
-    "de": "freitag"
+    "de": "freitag",
+    "it": "Venerdì",
+    "oc": "divendres",
+    "io": "crwdns16084:0crwdne16084:0"
   },
   "weekday-6": {
     "en": "Saturdays",
     "fr": "samedis",
     "he": "ימי שבת",
     "ar": "السبت",
-    "de": "sonnabend"
+    "de": "sonnabend",
+    "it": "Sabato",
+    "oc": "dissabtes",
+    "io": "crwdns16086:0crwdne16086:0"
   }
 }

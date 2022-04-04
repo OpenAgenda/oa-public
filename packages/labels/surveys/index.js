@@ -7,7 +7,8 @@ module.exports = {
     "de": "Danke für Ihren Beitrag!",
     "es": "Gracias por participar!",
     "it": "Grazie per aver partecipato!",
-    "io": "crwdns15788:0crwdne15788:0"
+    "io": "crwdns15788:0crwdne15788:0",
+    "oc": "Mercés per vòstra contribucion !"
   },
   "done": {
     "fr": "Fermer",

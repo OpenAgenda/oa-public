@@ -1,1 +1,15 @@
-{}
+{
+  "agenda.removeSource": "{user} a tirat {sourceAgenda} de las sorsas de {agenda}.",
+  "agenda.create": "{user} a creat l'agenda {agenda}.",
+  "agenda.updateContribution": "{user} a metut a jorn los reglatges de contribucion sus {agenda}.",
+  "agenda.updateProfile": "{user} a metut lo perfil a jorn sus {agenda}.",
+  "agenda.rename": "{user} tornèt nomenar l'agenda {before} en {after}.",
+  "agenda.setOfficial": "L'agenda {agenda} es venguda oficiala.",
+  "agenda.setUnofficial": "L'agenda {agenda} es venguda non-oficiala.",
+  "agenda.unpublishEvent": "{user} a despublicat {event} sus {agenda}.",
+  "event.create": "{user} a creat {event} dins l'agenda {agenda}.",
+  "event.update": "{user} a metut {event} a jorn sus {agenda}.",
+  "event.updateWithOneChange": "{user} a metut a jorn lo camp {fields} de {event} sus {agenda}.",
+  "event.updateWithSomeChanges": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats.",
+  "event.updateWithLotOfChanges": "{user} a metut a jorn {event} sus {agenda} ({fieldsCount} camps)."
+}

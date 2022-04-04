@@ -2,7 +2,7 @@
   "export": "Esportare",
   "share": "Condividere",
   "online": "In linea",
-  "addEvent": "Aggiungere un evento ",
+  "addEvent": "Aggiungere un evento",
   "startToFinish": "Dallo %start% al %finish%",
   "startTime": "%start%, %time%",
   "addToMyAgenda": "Aggiungere alla mia Agenda",
@@ -21,7 +21,7 @@
   "noResultForSearchPleaseWiden": "Non ci sono eventi corrispondenti. Si prega di ampliare la ricerca.",
   "noResultForSearchWithLink": "Nessun risultato per questa ricerca. Puoi effettuare una ricerca sulla globalità del sito nella pagina in alto, a %page%",
   "reloadPage": "Ricarica la pagina Agenda",
-  "agendaHasNotEventsPublished": "Questa Agenda non ha ancora pubblicato degli eventi",
+  "agendaHasNotEventsPublished": "Questa Agenda non ha ancora pubblicato degli eventi  ",
   "contactAdministrator": "Contattare l'Amministratore",
   "byName": "Attraverso %name%",
   "agendaHasNotUpcomingEvents": "Non ci sono eventi futuri pubblicati in questa Agenda.",
@@ -35,5 +35,10 @@
   "contact": "Contattare",
   "officialAgenda": "Agenda ufficiale",
   "privateAgenda": "Agenda privata",
-  "showCalendar": "Guardare il calendario"
+  "showCalendar": "Guardare il calendario",
+  "statusRescheduled": "Riprogrammato",
+  "statusMovedOnline": "Finalmente in linea",
+  "statusPostponed": "Riprogrammato",
+  "statusCancelled": "Cancellato",
+  "statusFull": "Completo"
 }

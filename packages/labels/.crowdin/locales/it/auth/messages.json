@@ -1,8 +1,8 @@
 {
   "limitedAccessEvent": "Devi essere autenticato per accedere a questo evento. Accedi",
   "limitedAccessAgenda": "Devi essere autenticato per accedere a questo programma. Accedi",
-  "abortedAuth": "L'autenticazione è stata interrotta su %service%%.",
-  "facebookEmailMissing": "L'e-mail nel tuo conto Facebook non è disponibile. Convalidarla su Facebook prima di riprovare.",
+  "abortedAuth": "L'autenticazione è stata interrotta su %service%",
+  "facebookEmailMissing": "L'e-mail nel suo conto Facebook non è disponibile. Convalidarla su Facebook prima di riprovare.",
   "genericError": "C'è stato un problema. Riprovare più tardi",
-  "accountEmailAlreadyExists": "Esiste già un conto con la tua email. Accedi utilizzando la tua email e la tua parola d'accesso"
+  "accountEmailAlreadyExists": "Esiste già un conto con la sua email. Accedi utilizzando la sua email e la sua password"
 }
