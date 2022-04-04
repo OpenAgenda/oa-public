@@ -8,7 +8,7 @@ import fieldLanguages from './lib/fieldLanguages';
 import getFieldTypeLabel from './lib/getFieldTypeLabel';
 import getPreferredLang from './lib/getPreferredLang';
 
-const getLabel = makeLabelGetter( labels );
+const getLabel = makeLabelGetter(labels);
 
 export default class FieldPreview extends Component {
 

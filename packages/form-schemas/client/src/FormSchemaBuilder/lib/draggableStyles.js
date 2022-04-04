@@ -1,13 +1,13 @@
 export default {
-  getDraggableListItemStyle: ( isDragging, draggableStyle ) => ({
+  getDraggableListItemStyle: (isDragging, draggableStyle) => ({
     ...isDragging ? {
       background: 'white'
     } : {},
     ...draggableStyle
   }),
   getDraggableListStyle: isDraggingOver => ({
-    ... isDraggingOver ? {
+    ...isDraggingOver ? {
       background: '#f9f9f9'
     } : {}
   })
-}
+};
