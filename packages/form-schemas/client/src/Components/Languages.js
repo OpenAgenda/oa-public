@@ -97,6 +97,7 @@ export default class Languages extends Component {
           options={this.getRemainingLanguages()}
           onChange={this.onAdd.bind( this )}
           clearable={false}
+          menuPosition="fixed"
         />
       </span> }
       { this.state.changing && <Select
