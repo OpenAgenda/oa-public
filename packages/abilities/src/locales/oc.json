@@ -1,1 +1,14 @@
-{}
+{
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": "Reglatges d'administrator/moderator :",
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": "Reglatges de contributor :",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": "Vòstres reglatges d'administrator/moderator :",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": "Vòstres reglatges de contributor :",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": "Vòstres reglatges globals :",
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Recebre los messatges de la boita d'agenda",
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": "Recebre de notificacions quand qualqu'un apond mos eveniments",
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": "Recebre de notificacions quand qualqu'un agrèga mos eveniments",
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": "Recebre de notificacions quand qualqu'un càmbia l'estatut de mos eveniments",
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": "Recebre la confirmacion de creacion de vòstre eveniment",
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": "Recebre de notificacions quand qualqu'un bòta a jorn mos eveniments",
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": "Recebre de resumits de las notificacions"
+}

@@ -1,1 +1,14 @@
-{}
+{
+  "AgendaLocations.CreateForm.info": "Definissètz lo nom, l'adreiça e l'emplaçament exacte del lòc",
+  "AgendaLocations.FR.adminLevel6": "Districte",
+  "AgendaLocations.GeoBadges.geocodeFieldSave": "Ok",
+  "AgendaLocations.GeoBadges.geocodeNoResults": "Avèm pas pogut localizar aquesta adreiça. Tornatz començar en dintrant sonque lo nom de vila, botatz lo marcaire sus la mapa al bon endreit puèi dintratz l'adreiça complèta un còp que lo marcaire es plaçat coma cal.",
+  "AgendaLocations.LocationDetails.extId": "Identificant extèrne",
+  "AgendaLocations.LocationForm.extId": "Identificant extèrne",
+  "AgendaLocations.LocationForm.geocodeFieldSave": "Ok",
+  "AgendaLocations.LocationForm.geocodeNoResults": "Avèm pas pogut localizar aquesta adreiça. Tornatz començar en dintrant sonque lo nom de vila, botatz lo marcaire sus la mapa al bon endreit puèi dintratz l'adreiça complèta un còp que lo marcaire es plaçat coma cal.",
+  "AgendaLocations.LocationForm.namePlaceholder": "Exemple : Lo Molin Roge",
+  "AgendaLocations.LocationSelector.info": "Definissètz lo nom, l'adreiça e l'emplaçament exacte del lòc",
+  "AgendaLocations.setHeader.help": "Los administrators d'agendas qu'utilizan queste ensemble an accès a totas las operacions : creacion, mesa a jorn, supression, fusion. Las operacions pòdon doncas impactar totas las agendas de l'ensemble.",
+  "AgendaLocations.stepper.confirmation": "Confirmacion"
+}
