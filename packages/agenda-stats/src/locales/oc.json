@@ -1,1 +1,6 @@
-{}
+{
+  "AgendaStats.OrderModal.width": "Largor :",
+  "AgendaStats.RangeTypeModal.rangeTypeDesc": "Lo periòd del <b>X</b> al <b>Y</b> s'aplica a :",
+  "AgendaStats.StatEditModal.modalTitle": "Modificar lo grafic : {chartTitle}",
+  "AgendaStats.form.componentWidth": "Largor del compausant :"
+}

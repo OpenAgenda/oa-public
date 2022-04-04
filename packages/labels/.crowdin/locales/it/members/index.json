@@ -3,7 +3,7 @@
   "member": "Membro",
   "searchMember": "Ricerca di un membro",
   "contributor": "Collaboratore",
-  "administrator": "Direttore",
+  "administrator": "Amministratore",
   "moderator": "Moderatore",
   "reader": "Lettore",
   "contributors": "Collaboratori",
@@ -27,7 +27,7 @@
   "role": "Ruolo",
   "selectRole": "Seleziona un ruolo",
   "name": "Nome",
-  "email": "Invia un'e-mail a",
+  "email": "Email",
   "phone": "Telefono",
   "position": "Pubblicare",
   "organization": "Organizzazione",
@@ -68,7 +68,7 @@
   "memberRequired": "La pagina che avete tentato di caricare è accessibile solo ai membri del calendario. Contattare gli amministratori tramite il pulsante 'Contatto'.",
   "moreinfoActive": "Membro del agenda che ha contribuito agli eventi",
   "moreinfoInactive": "Utente membro dell'agenda che non ha ancora contribuito agli eventi",
-  "moreinfoInvited": "L'utente è stato invitato a diventare membro. Questo utente non ha ancora un conto su OpenAgenda. Gli è stata inviata una e-mail che lo invita a crearne una.",
+  "moreinfoInvited": "L'utente è stato invitato come membro. Questo utente non ha ancora un conto su OpenAgenda. Gli è stata inviata una e-mail che lo invita a crearne una.",
   "moreinfoDeleted": "Membro che ha cancellato il suo account utente",
   "writeToHim": "Scrivetegli",
   "writeToThem": "Scrivi a loro",
@@ -77,5 +77,10 @@
   "order.arrivalDate": "data di arrivo",
   "order.name": "nome",
   "order.activity": "attività",
-  "orderSort": "Ordina ordine"
+  "orderSort": "Ordina ordine",
+  "changeRole": "Modificare il ruolo",
+  "operationSuccessful": "Fatto",
+  "patchSuccessConfirm": "Il membro è statto aggiornato",
+  "sortBy": "Ordinato per",
+  "removeFilter": "Rimuovere il filtro"
 }

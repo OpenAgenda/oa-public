@@ -8,7 +8,7 @@
   "AgendaLocations.AccessModal.closeModal": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "AgendaLocations.AccessModal.create": [
@@ -68,7 +68,7 @@
   "AgendaLocations.AgendaAdminLocation.closeModal": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "AgendaLocations.AgendaAdminLocation.contactSupport": [
@@ -1229,7 +1229,7 @@
   "AgendaLocations.RemoveModal.closeModal": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "AgendaLocations.RemoveModal.confirm": [

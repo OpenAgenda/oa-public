@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Nessun valore)"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
@@ -44,7 +50,9 @@
         "=0": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -55,7 +63,9 @@
         "one": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -66,7 +76,9 @@
         "other": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -87,7 +99,9 @@
         "=0": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -98,7 +112,9 @@
         "one": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -109,7 +125,9 @@
         "other": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -130,7 +148,9 @@
         "=0": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -141,7 +161,9 @@
         "one": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -152,7 +174,9 @@
         "other": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -173,7 +197,9 @@
         "=0": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -184,7 +210,9 @@
         "one": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -195,7 +223,9 @@
         "other": {
           "value": [
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "value"
             },
             {
               "type": 0,
@@ -710,7 +740,7 @@
   "AgendaStats.form.avg": [
     {
       "type": 0,
-      "value": "Average"
+      "value": "Medio"
     }
   ],
   "AgendaStats.form.cancel": [
@@ -722,13 +752,13 @@
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
-      "value": "Larghezza componente"
+      "value": "Larghezza del componente"
     }
   ],
   "AgendaStats.form.data": [
     {
       "type": 0,
-      "value": "Data"
+      "value": "Dati"
     }
   ],
   "AgendaStats.form.max": [
@@ -740,7 +770,7 @@
   "AgendaStats.form.metric": [
     {
       "type": 0,
-      "value": "Metric"
+      "value": "Statistiche"
     }
   ],
   "AgendaStats.form.min": [
@@ -782,7 +812,7 @@
   "AgendaStats.form.sum": [
     {
       "type": 0,
-      "value": "Summary"
+      "value": "Riassunto"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [
@@ -854,7 +884,7 @@
   "AgendaStats.messages.chartTitles.states": [
     {
       "type": 0,
-      "value": "Stati"
+      "value": "Paesi"
     }
   ],
   "AgendaStats.messages.chartTitles.timings": [

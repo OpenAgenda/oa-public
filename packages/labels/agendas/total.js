@@ -4,7 +4,7 @@ module.exports = {
   "upcomingEvents": {
     "en": "%count% upcoming events",
     "fr": "%count% événements à venir",
-    "it": "%count% eventi imminenti",
+    "it": "%count% eventi futuri",
     "de": "%count% anstehende Veranstaltungen",
     "pl": "%count% nadchodzące wydarzenia",
     "es": "%count% próximos eventos",
@@ -14,7 +14,7 @@ module.exports = {
   "upcomingEvent": {
     "en": "1 upcoming event",
     "fr": "1 événement à venir",
-    "it": "1 evento imminente",
+    "it": "1 evento futuro",
     "de": "1 bevorstehendes Veranstaltung",
     "pl": "1 zbliżające się wydarzenie",
     "es": "1 próximo evento",

@@ -1,1 +1,10 @@
-{}
+{
+  "minuteSeparator": " :",
+  "weekday-0": "dimenges",
+  "weekday-1": "diluns",
+  "weekday-2": "dimars",
+  "weekday-3": "dimècres",
+  "weekday-4": "dijòus",
+  "weekday-5": "divendres",
+  "weekday-6": "dissabtes"
+}

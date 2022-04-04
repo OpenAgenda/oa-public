@@ -44,7 +44,7 @@ module.exports = {
   "resend": {
     "en": "Click here to resend",
     "fr": "Cliquez ici pour relancer l'envoi",
-    "it": "Clicca qui per inviare nuovamente",
+    "it": "Cliccare qui per inviare di nuovo",
     "de": "Klicke hier, um wieder zu senden.",
     "pl": "Kliknij tutaj, aby wysłać ponownie",
     "es": "Haga clic aquí para iniciar el envío",
@@ -74,7 +74,7 @@ module.exports = {
   "getOurNewsletter": {
     "en": "Get our newsletter",
     "fr": "Recevez notre lettre d'information",
-    "it": "Ricevi la nostra newsletter",
+    "it": "Ricevere la nostra newsletter",
     "de": "Unseren Newsletter bekommen",
     "pl": "Pobierz nasz biuletyn informacyjny",
     "es": "Recibe nuestro boletín",
@@ -84,7 +84,7 @@ module.exports = {
   "yourEmail": {
     "en": "Your email",
     "fr": "Votre email",
-    "it": "Il tuo indirizzo e-mail",
+    "it": "Il suo indirizzo e-mail",
     "de": "Deine E-Mail",
     "pl": "Twój e-mail",
     "es": "Su email",

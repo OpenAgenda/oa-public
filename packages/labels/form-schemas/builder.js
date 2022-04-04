@@ -19,14 +19,14 @@ module.exports = {
     "fr": "Editer",
     "en": "Edit",
     "es": "editar",
-    "it": "Modifica",
+    "it": "Modificare",
     "io": "crwdns14678:0crwdne14678:0"
   },
   "hideField": {
     "fr": "Cacher",
     "en": "Hide",
     "es": "Ocultar",
-    "it": "Nascondi",
+    "it": "Nascondere",
     "io": "crwdns14680:0crwdne14680:0"
   },
   "showField": {
@@ -58,10 +58,10 @@ module.exports = {
     "io": "crwdns14688:0crwdne14688:0"
   },
   "editFieldSave": {
-    "fr": "Enregistrer",
+    "fr": "Sauvegarder",
     "en": "Save",
     "es": "Guardar",
-    "it": "Registrati",
+    "it": "Registrare",
     "br": "Enrollañ",
     "io": "crwdns14690:0crwdne14690:0"
   },
@@ -69,7 +69,7 @@ module.exports = {
     "fr": "Annuler",
     "en": "Cancel",
     "es": "anular",
-    "it": "Annulla",
+    "it": "Annullare",
     "br": "Nullañ",
     "io": "crwdns14692:0crwdne14692:0"
   },
@@ -161,7 +161,7 @@ module.exports = {
     "fr": "Éditer",
     "en": "Edit",
     "es": "editar",
-    "it": "Modifica",
+    "it": "Modificare",
     "io": "crwdns14718:0crwdne14718:0"
   },
   "editLabelLanguagesInfo": {
@@ -196,7 +196,7 @@ module.exports = {
     "fr": "Valider",
     "en": "Submit",
     "es": "validar",
-    "it": "Convalida",
+    "it": "Convalidare",
     "br": "Kemmañ",
     "io": "crwdns14728:0crwdne14728:0"
   },
@@ -238,7 +238,8 @@ module.exports = {
   "markdownFieldTypeInfo": {
     "fr": "Champ texte enrichi (markdown)",
     "en": "Enriched text field (markdown)",
-    "io": "crwdns14740:0crwdne14740:0"
+    "io": "crwdns14740:0crwdne14740:0",
+    "it": "Campo di testo arricchito (markdown)"
   },
   "integerFieldType": {
     "fr": "Nombre entier",
@@ -281,17 +282,20 @@ module.exports = {
   "checkboxFieldTypeInfo": {
     "fr": "Séries de cases à cocher permettant la sélection de valeurs multiples",
     "en": "A series of checkboxes allowing for the selection of multiple values",
-    "io": "crwdns14752:0crwdne14752:0"
+    "io": "crwdns14752:0crwdne14752:0",
+    "it": "Una serie di caselle di controllo che permettono la selezione di più valori"
   },
   "multiselectFieldType": {
     "fr": "Menu déroulant à sélection multiple",
     "en": "Multiple choice dropdown select",
-    "io": "crwdns14754:0crwdne14754:0"
+    "io": "crwdns14754:0crwdne14754:0",
+    "it": "Selezione a discesa a scelta multipla"
   },
   "multiselectFieldTypeInfo": {
     "fr": "Champ de saisie avec menu déroulant et auto-completion permettant la sélection de valeurs multiples",
     "en": "Input field with dropdown and autocomplete allowing the selection of multiple values from a list",
-    "io": "crwdns14756:0crwdne14756:0"
+    "io": "crwdns14756:0crwdne14756:0",
+    "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista"
   },
   "radioFieldType": {
     "fr": "Liste de cases à cocher, à choix unique",
@@ -303,17 +307,20 @@ module.exports = {
   "radioFieldTypeInfo": {
     "fr": "Adapté pour la sélection d'une valeur, une seule, parmi plusieurs options",
     "en": "List of choices allowing the selection of a unique value",
-    "io": "crwdns14760:0crwdne14760:0"
+    "io": "crwdns14760:0crwdne14760:0",
+    "it": "Elenco di scelte che permettono la selezione di un valore unico"
   },
   "selectFieldType": {
     "fr": "Menu déroulant à sélection unique",
     "en": "Single selection dropdown select",
-    "io": "crwdns14762:0crwdne14762:0"
+    "io": "crwdns14762:0crwdne14762:0",
+    "it": "Selezione singola a discesa"
   },
   "selectFieldTypeInfo": {
     "fr": "Adapté à une longue liste de choix. Cela affiche un champ de saisie avec menu déroulant et auto-completion pour trouver et sélectionner rapidement une valeur",
     "en": "Input field with dropdown and autocomplete allowing the selection of single value from a list",
-    "io": "crwdns14764:0crwdne14764:0"
+    "io": "crwdns14764:0crwdne14764:0",
+    "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista"
   },
   "booleanFieldType": {
     "fr": "Case à cocher unique",
@@ -325,15 +332,20 @@ module.exports = {
   "booleanFieldTypeInfo": {
     "fr": "Adapté aux choix de type oui/non",
     "en": "Yes/no choice",
-    "io": "crwdns14768:0crwdne14768:0"
+    "io": "crwdns14768:0crwdne14768:0",
+    "it": "Scelta sì/no"
   },
   "dateFieldType": {
     "fr": "Sélecteur de date",
-    "en": "Date selection"
+    "en": "Date selection",
+    "it": "Selezione della data",
+    "io": "crwdns16462:0crwdne16462:0"
   },
   "dateFieldTypeInfo": {
     "fr": "Un calendrier permet la sélection d'une date",
-    "en": "A calendar to select a date"
+    "en": "A calendar to select a date",
+    "it": "Un calendario per selezionare una data",
+    "io": "crwdns16464:0crwdne16464:0"
   },
   "imageFieldType": {
     "fr": "Image",
@@ -394,10 +406,10 @@ module.exports = {
     "io": "crwdns14784:0crwdne14784:0"
   },
   "buttonSave": {
-    "fr": "Enregistrer",
+    "fr": "Sauvegarder",
     "en": "Save",
     "es": "Guardar",
-    "it": "Registrati",
+    "it": "Salvare",
     "br": "Enrollañ",
     "io": "crwdns14786:0crwdne14786:0"
   },
@@ -413,7 +425,7 @@ module.exports = {
     "fr": "Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant",
     "en": "There was a problem during save. Try again shortly",
     "es": "Hubo una preocupación al realizar copias de intentarlo de nuevo en un momento",
-    "it": "C'è stato un problema mentre salvava riprovare in un attimo.",
+    "it": "C'è stato un problema. Per favore riprovare in un attimo",
     "io": "crwdns14790:0crwdne14790:0"
   },
   "orderCancel": {

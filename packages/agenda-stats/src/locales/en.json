@@ -1,4 +1,5 @@
 {
+  "AgendaState.message.emptyOption": "(Without value)",
   "AgendaStats.ChartAdder.addChart": "Add a chart",
   "AgendaStats.ChartWrapper.remove": "Remove",
   "AgendaStats.ChartWrapper.update": "Update",

@@ -4,7 +4,7 @@ module.exports = {
   "title": {
     "fr": "Votre événement a été ajouté sur %agenda%",
     "en": "Your event has been added on %agenda%: %event%",
-    "it": "Il vostro evento è stato aggiunto a %agenda%.",
+    "it": "Il suo evento %event% è stato aggiunto a %agenda%",
     "io": "crwdns15472:0%agenda%crwdnd15472:0%event%crwdne15472:0"
   },
   "body": {

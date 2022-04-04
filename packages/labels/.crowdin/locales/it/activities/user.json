@@ -17,14 +17,15 @@
   "agenda.removeEvent": "{user} ha rimosso {event} de {agenda}.",
   "agenda.aggregateEvent": "{agenda} ha aggregato {event} da {sourceAgenda}.",
   "agenda.addEvent": "{user} ha aggiunto {event} su {agenda} da {sourceAgenda}.",
-  "event.create": "{user} ha creato {event} dans l'agenda {agenda}.",
+  "event.create": "{user} ha creato {event} nell'agenda {agenda}.",
   "event.update": "{user} ha aggiornato {event} su {agenda}.",
   "event.updateWithOneChange": "{user} ha aggiornato il campo {fields} de {event} su {agenda}.",
   "event.updateWithSomeChanges": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
   "event.updateWithLotOfChanges": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} ha cancellato {event} su {agenda}.",
   "activities": "Attività",
-  "next": "Avanti",
+  "next": "Prossimo",
   "noActivity": "Le vostre attività saranno visualizzate qui.",
-  "unknownActivity": "Etichetta di attività mancante per {verb}"
+  "unknownActivity": "Etichetta di attività mancante per {verb}",
+  "agenda.sendInvitation": "{user} ha invitato {email} come {credential} su {agenda}."
 }

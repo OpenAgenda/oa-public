@@ -7,7 +7,7 @@ module.exports = {
     "de": "Motorische beeinträchtigung",
     "es": "Movilidad reducida",
     "br": "Dalc'het en o c'heflusk",
-    "it": "Incapacità motoria",
+    "it": "Disabilità motoria",
     "io": "crwdns14076:0crwdne14076:0"
   },
   "hi": {
@@ -42,7 +42,7 @@ module.exports = {
     "de": "Sehbehinderung",
     "es": "Discapacidad visual",
     "br": "Na wel ket mat",
-    "it": "Invalidità visiva",
+    "it": "Disabilità visiva",
     "io": "crwdns14084:0crwdne14084:0"
   },
   "sl": {
@@ -60,7 +60,7 @@ module.exports = {
     "de": "Dieses Veranstaltung verfügt über Annehmlichkeiten Zugänglichkeit zu erleichtern",
     "es": "Este evento incluye las mejoras a la accesibilidad",
     "br": "En darvoud-mañ ez eus aveadurioù da aesaat ar vonedusted",
-    "it": "Questo evento include alloggi per l'accessibilità",
+    "it": "Questo evento prevede dispositivi o soluzioni adeguate per:",
     "io": "crwdns14088:0crwdne14088:0"
   }
 }

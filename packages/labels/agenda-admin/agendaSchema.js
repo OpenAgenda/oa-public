@@ -15,7 +15,8 @@ module.exports = {
     "de": "Feld durch die Agenda Netzwerk erforderlich",
     "es": "Campo requerido por la red de agendas",
     "it": "Campo richiesto dalla rete di agende",
-    "io": "crwdns11338:0crwdne11338:0"
+    "io": "crwdns11338:0crwdne11338:0",
+    "oc": "Camp requesit pel malhum d'agendas"
   },
   "event": {
     "en": "Standard",

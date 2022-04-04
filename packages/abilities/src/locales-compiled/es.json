@@ -56,7 +56,7 @@
   "Abilities.RulesCheckbox.rules.receiveEventAddition": [
     {
       "type": 0,
-      "value": "Receive event creations"
+      "value": "Receive event additions"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveEventAggregation": [

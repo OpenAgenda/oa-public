@@ -112,7 +112,8 @@ module.exports = {
     "de": "Du kannst später die Veranstaltungen bearbeiten.",
     "es": "Se pueden cambiar los eventos a continuación.",
     "it": "È possibile modificare gli eventi in seguito.",
-    "io": "crwdns12524:0crwdne12524:0"
+    "io": "crwdns12524:0crwdne12524:0",
+    "oc": "podètz modificar los eveniments mai tard"
   },
   "contribDefaultStateUnpublished": {
     "fr": "Non-publiés",
@@ -128,7 +129,8 @@ module.exports = {
     "de": "Veranstaltungen werden erst nach der Validierung der Öffentlichkeit.",
     "es": "Los eventos se harán públicos después de su validación.",
     "it": "Gli eventi diventano pubblici solo dopo la vostra convalida.",
-    "io": "crwdns12528:0crwdne12528:0"
+    "io": "crwdns12528:0crwdne12528:0",
+    "oc": "los eveniments venon publics pas qu'aprèp vòstra validacion"
   },
   "required": {
     "fr": "Requis",
@@ -184,8 +186,9 @@ module.exports = {
     "en": "Only lowercase letters, digits and dashes (-) are allowed",
     "de": "Nur Kleinbuchstaben, Ziffern und Bindestriche (-) sind erlaubt",
     "es": "Sólo letras minúsculas, números y guiones (-) están permitidos",
-    "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
-    "io": "crwdns12542:0crwdne12542:0"
+    "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-)",
+    "io": "crwdns12542:0crwdne12542:0",
+    "oc": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats"
   },
   "email.invalid": {
     "fr": "L'adresse email n'est pas valide",
@@ -225,7 +228,8 @@ module.exports = {
     "de": "Agenda Profil",
     "es": "Perfil de la agenda",
     "it": "Profilo del diario",
-    "io": "crwdns12552:0crwdne12552:0"
+    "io": "crwdns12552:0crwdne12552:0",
+    "oc": "Perfil d'agenda"
   },
   "yes": {
     "fr": "Oui",
@@ -257,7 +261,8 @@ module.exports = {
     "de": "löschen Agenda",
     "es": "Eliminar agenda",
     "it": "Cancellare l'ordine del giorno",
-    "io": "crwdns12560:0crwdne12560:0"
+    "io": "crwdns12560:0crwdne12560:0",
+    "oc": "Suprimir l'agenda"
   },
   "removeAgendaWarning": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet agenda ?",
@@ -298,7 +303,7 @@ module.exports = {
     "en": "Key n°%nbr%",
     "de": "Key n °%nbr%",
     "es": "llave #%nbr%",
-    "it": "Chiave n. %nbr",
+    "it": "Chiave n° %nbr%",
     "io": "crwdns12570:0%nbr%crwdne12570:0"
   },
   "generateKey": {
@@ -365,7 +370,7 @@ module.exports = {
     "en": "Access keys",
     "de": "Zugriffstasten",
     "es": "Acceso teclas",
-    "it": "Tasti di accesso",
+    "it": "Chiavi di accesso",
     "io": "crwdns12586:0crwdne12586:0"
   },
   "manageKeys": {
@@ -373,7 +378,7 @@ module.exports = {
     "en": "Manage keys",
     "de": "verwalten Tasten",
     "es": "Administrar llave",
-    "it": "Gestire i tasti",
+    "it": "Gestire le chiave",
     "io": "crwdns12588:0crwdne12588:0"
   },
   "labeling": {
@@ -382,14 +387,15 @@ module.exports = {
     "de": "Beschriftung",
     "es": "Etiquetado",
     "it": "Etichettatura",
-    "io": "crwdns12590:0crwdne12590:0"
+    "io": "crwdns12590:0crwdne12590:0",
+    "oc": "Etiquetatge"
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
     "en": "Official agenda",
     "de": "Offizielle Kalender",
     "es": "Agenda",
-    "it": "agenda ufficiale",
+    "it": "Agenda ufficiale",
     "br": "Deiziataer ofisiel",
     "io": "crwdns12592:0crwdne12592:0"
   },
@@ -398,7 +404,7 @@ module.exports = {
     "en": "Unofficial agenda",
     "de": "Inoffizieller Agenda",
     "es": "Eventos no oficiales",
-    "it": "agenda non ufficiale",
+    "it": "Agenda non ufficiale",
     "io": "crwdns12594:0crwdne12594:0"
   },
   "requestOfficialAgenda": {
@@ -406,7 +412,7 @@ module.exports = {
     "en": "Request a agenda official",
     "de": "Fordern Sie eineVerwaltungskalender offiziellen",
     "es": "Solicitar agenda oficial",
-    "it": "Richiedi un agenda ufficiale",
+    "it": "Richiedere un agenda ufficiale",
     "io": "crwdns12596:0crwdne12596:0"
   },
   "learnMore": {
@@ -423,7 +429,8 @@ module.exports = {
     "de": "Um die Wieder Nutzer der Veranstaltungen auf OpenAgenda veröffentlicht zu führen, haben wir eine Kontrolle der Kalenders eins nach dem anderen, um ihnen eine „offizielle“ Bezeichnung zu erteilen einzurichten, um zu bestätigen, dass es in der Tat authentisch Programmierung ist, bearbeitet sich durch den Veranstalter. Dies schließt Test Kalenders.\n\nEin blaues Symbol erscheint neben dem Programm-Namen.\n\nUm als offizielle Kalender zu erkennen, müssen Sie",
     "es": "Para guiar a los reutilizadores de los eventos enumerados OpenAgenda, se ha implementado un agenda de control de uno en uno, para darles una etiqueta \"oficial\" para certificar que es de hecho una auténtica agendación editado por el propio organizador. Esto excluye incluyendo horarios de prueba.\n\nUn icono azul aparece junto al nombre del agenda.\n\nPara ser reconocido como un agenda oficial debe",
     "it": "Per guidare i riutilizzatori degli eventi pubblicati su OpenAgenda, abbiamo impostato un controllo delle agende una ad una, per dare loro un'etichetta \"ufficiale\", per certificare che si tratta di una programmazione autentica, pubblicata dall'organizzatore stesso. Sono esclusi in particolare i diari di prova.  Un'icona blu appare quindi accanto al nome del programma.  Per essere riconosciuto come diario ufficiale, deve essere",
-    "io": "crwdns12600:0crwdne12600:0"
+    "io": "crwdns12600:0crwdne12600:0",
+    "oc": "Per fin de guidar los reutilizators d'eveniments publicats sus OpenAgenda, nos cal controlar las agendas una per una, per lor acordar un sagèl \"oficial\", e per certificar que s'agís plan d'una programacion autentica, editada per l'organizator meteis. Aquò exclutz las agendas de tèst.\n\nUna icòna blava apareis a costat del nom d'agenda.\n\nPer èsser reconegut coma una agenda oficiala, vos cal"
   },
   "makeARequest": {
     "fr": "faire une demande",
@@ -438,7 +445,7 @@ module.exports = {
     "en": "Private agenda",
     "de": "Private Agenda",
     "es": "Eventos privados",
-    "it": "Diario privato",
+    "it": "Agenda privato",
     "io": "crwdns12604:0crwdne12604:0"
   },
   "publicAgenda": {
@@ -446,7 +453,7 @@ module.exports = {
     "en": "Public agenda",
     "de": "öffentliche Agenda",
     "es": "Agenda pública",
-    "it": "agenda pubblico",
+    "it": "Agenda pubblico",
     "io": "crwdns12606:0crwdne12606:0"
   },
   "visibility": {
@@ -462,7 +469,7 @@ module.exports = {
     "en": "Request a private agenda",
     "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar un agenda íntimo",
-    "it": "Richiedi un'agenda privata",
+    "it": "Richiedere un'agenda privata",
     "io": "crwdns12610:0crwdne12610:0"
   },
   "requestPublicAgenda": {
@@ -470,7 +477,7 @@ module.exports = {
     "en": "Request a public agenda",
     "de": "Fordern Sie eine öffentliche Verwaltungskalender",
     "es": "Solicitar un agenda público",
-    "it": "Richiedi un agenda pubblico",
+    "it": "Richiedere un agenda pubblico",
     "io": "crwdns12612:0crwdne12612:0"
   },
   "indexedAgenda": {
@@ -478,8 +485,9 @@ module.exports = {
     "en": "Indexed agenda",
     "de": "Indexed Agenda",
     "es": "Agenda indexada",
-    "it": "Diario indicizzato",
-    "io": "crwdns12614:0crwdne12614:0"
+    "it": "Agenda indicizzato",
+    "io": "crwdns12614:0crwdne12614:0",
+    "oc": "Agenda indexada"
   },
   "indexedAgendaDesc": {
     "fr": "Indexer l'agenda dans les moteurs de recherche (Un délai est requis pour que tout changement soit pris en compte)",
@@ -487,15 +495,17 @@ module.exports = {
     "de": "Index der Kalender in den Suchmaschinen (Der Index wird nach einer gewissen Zeit aktualisiert)",
     "es": "Índice de la agenda en los motores de búsqueda (Se requiere un retardo para que los cambios tengan efecto)",
     "it": "Indicare l'agenda nei motori di ricerca (è necessario un ritardo per tener conto di eventuali modifiche)",
-    "io": "crwdns12616:0crwdne12616:0"
+    "io": "crwdns12616:0crwdne12616:0",
+    "oc": "Indexar l'agenda dins los motors de recèrca (l'indèx serà mes a jorn passat un moment)"
   },
   "notIndexedAgenda": {
     "fr": "Agenda non indexé",
     "en": "Agenda not indexed",
     "de": "Agenda nicht indiziert",
     "es": "Agenda unindexed",
-    "it": "Diario non indicizzato",
-    "io": "crwdns12618:0crwdne12618:0"
+    "it": "Agenda non indicizzato",
+    "io": "crwdns12618:0crwdne12618:0",
+    "oc": "Agenda pas indexada"
   },
   "limitDates": {
     "fr": "Limitation des dates de saisies",
@@ -503,7 +513,8 @@ module.exports = {
     "de": "Begrenzung der Anfallsdaten",
     "es": "La limitación de fechas convulsiones",
     "it": "Limitazione delle date di entrata",
-    "io": "crwdns12620:0crwdne12620:0"
+    "io": "crwdns12620:0crwdne12620:0",
+    "oc": "Limitacion de datas de sasida"
   },
   "requestLimitDates": {
     "fr": "Demander la limitation des dates",
@@ -511,7 +522,8 @@ module.exports = {
     "de": "Antrag auf Termine Einschränkung",
     "es": "Solicitud de limitación de fechas",
     "it": "Limitazione della data di richiesta",
-    "io": "crwdns12622:0crwdne12622:0"
+    "io": "crwdns12622:0crwdne12622:0",
+    "oc": "Demandar la limitacion de datas"
   },
   "customMessage": {
     "fr": "Messages personnalisés",
@@ -527,7 +539,8 @@ module.exports = {
     "de": "Anfordern Nachricht Anpassung aktivieren",
     "es": "Solicitud permitir la personalización de los mensajes",
     "it": "Richiesta di attivazione della personalizzazione del messaggio",
-    "io": "crwdns12626:0crwdne12626:0"
+    "io": "crwdns12626:0crwdne12626:0",
+    "oc": "Demandar d'activar la personalizacion dels messatges"
   },
   "personalization": {
     "fr": "Personnalisation",
@@ -535,7 +548,8 @@ module.exports = {
     "de": "Personalisierung",
     "es": "Personalización",
     "it": "Personalizzazione",
-    "io": "crwdns12628:0crwdne12628:0"
+    "io": "crwdns12628:0crwdne12628:0",
+    "oc": "Personalizacion"
   },
   "editEventsDescription": {
     "fr": "Modifiez la description des événements",
@@ -550,7 +564,7 @@ module.exports = {
     "en": "Remove key",
     "de": "Entfernen-Taste",
     "es": "Eliminar llave",
-    "it": "Tasto Cancella",
+    "it": "Rimuovere la chiave",
     "io": "crwdns12632:0crwdne12632:0"
   },
   "removeKeyWarning": {
@@ -558,8 +572,9 @@ module.exports = {
     "en": "Are you sure you want to delete this key?",
     "de": "Bist du sicher, dass Sie diesen Schlüssel wirklich löschen?",
     "es": "¿Está seguro de que desea eliminar esta llave?",
-    "it": "Siete sicuri di voler cancellare questa chiave?",
-    "io": "crwdns12634:0crwdne12634:0"
+    "it": "Lei è sicura di voler cancellare questa chiave?",
+    "io": "crwdns12634:0crwdne12634:0",
+    "oc": "Sètz segur·a de voler suprimir aquesta clau ?"
   },
   "contribModerateOnChangeBy": {
     "fr": "Statut d'un événement après modification",
@@ -575,7 +590,8 @@ module.exports = {
     "de": "Unpublish die Veranstaltung, so dass es erneut geprüft",
     "es": "Anular la publicación del evento para que se comprueba de nuevo",
     "it": "Sbloccare l'evento in modo che possa essere ricontrollato",
-    "io": "crwdns12638:0crwdne12638:0"
+    "io": "crwdns12638:0crwdne12638:0",
+    "oc": "Despublicar l'eveniment per que siá controlat tornarmai"
   },
   "contributorsMessages": {
     "fr": "Messages aux contributeurs",
@@ -598,7 +614,7 @@ module.exports = {
     "en": "The guideline appears at the beginning of the event entry form",
     "de": "Die Richtlinie erscheint zu Beginn der Veranstaltung Teilnahmeformular",
     "es": "El conjunto aparece al principio de la forma de entrada de evento",
-    "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento.",
+    "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento",
     "io": "crwdns12644:0crwdne12644:0"
   },
   "contributionMessageComplete": {
@@ -638,7 +654,7 @@ module.exports = {
     "en": "Inbox",
     "de": "Posteingang",
     "es": "Mensajería",
-    "it": "Posta",
+    "it": "Messaggi",
     "io": "crwdns12654:0crwdne12654:0"
   },
   "inboxTabDescription": {
@@ -654,16 +670,18 @@ module.exports = {
     "en": "Disable email: Replace inbox links with email",
     "de": "Deaktiviere E-Mail: Ersetzen Posteingang Links mit E-Mail",
     "es": "Deshabilitar el correo: Reemplazar los lazos de correo mediante el envío de correo electrónico",
-    "it": "Disattivare l'e-mail: Sostituire i link presenti nell'e-mail con un messaggio e-mail.",
-    "io": "crwdns12658:0crwdne12658:0"
+    "it": "Disattivare l'e-mail: Sostituire i link presenti nell'e-mail con un messaggio e-mail",
+    "io": "crwdns12658:0crwdne12658:0",
+    "oc": "Desactivar los emails : emplaçar los ligams de la messatjariá per d'emails"
   },
   "mailtoEmailDesc": {
     "fr": "Un lien \"mailto\" pointant sur cet email sera présent sur les pages de l'agenda.",
     "en": "A link \"mailto\" pointing to this email will be present on the pages of the agenda.",
     "de": "Ein Link „mailto“ zeigt auf diese E-Mail wird auf den Seiten der Kalender vorliegen.",
     "es": "Un \"mailto\" enlace apuntando a este correo electrónico estará presente en las hojas del agenda.",
-    "it": "Un link \"mailto\" che punta a questa e-mail sarà presente su",
-    "io": "crwdns12660:0crwdne12660:0"
+    "it": "Un link \"mailto\" che punta a questa e-mail sarà presente su la pagina principale dell'agenda.",
+    "io": "crwdns12660:0crwdne12660:0",
+    "oc": "Un ligam \"mailto\" que punta sus aqueste email serà present sus las paginas de l'agenda."
   },
   "receptionEmail": {
     "fr": "Email de réception",
@@ -686,7 +704,7 @@ module.exports = {
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Guardar",
-    "it": "Aggiorna",
+    "it": "Aggiornare",
     "br": "Hizivaat",
     "io": "crwdns12666:0crwdne12666:0"
   },
@@ -704,7 +722,8 @@ module.exports = {
     "de": "Nachricht wurde gesendet von ‚Industry Week‘ Agenda",
     "es": "Mensaje enviado desde el agenda 'Semana de la industria'",
     "it": "Messaggio inviato dall'agenda della \"Settimana dell'industria",
-    "io": "crwdns12670:0crwdne12670:0"
+    "io": "crwdns12670:0crwdne12670:0",
+    "oc": "Messatge mandat de l'agenda \"La setmana de l'industria\""
   },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
@@ -712,7 +731,8 @@ module.exports = {
     "de": "Google Analytics-Tracking-ID",
     "es": "Seguimiento de Google Analytics ID",
     "it": "ID di tracciamento di Google Analytics",
-    "io": "crwdns12672:0crwdne12672:0"
+    "io": "crwdns12672:0crwdne12672:0",
+    "oc": "Identificant de seguit Google Analytics"
   },
   "stats": {
     "fr": "Statistiques",
@@ -720,7 +740,8 @@ module.exports = {
     "de": "Statistiken",
     "es": "Estadística",
     "it": "Statistiche",
-    "io": "crwdns12674:0crwdne12674:0"
+    "io": "crwdns12674:0crwdne12674:0",
+    "oc": "Estatisticas"
   },
   "statsTabDescription": {
     "fr": "Paramètrez votre identifiant de suivi Google Analytics",
@@ -728,7 +749,8 @@ module.exports = {
     "de": "Stelle Deine Google Analytics-Tracking-ID",
     "es": "Configurar su ID de seguimiento de Google Analytics",
     "it": "Imposta il tuo identificativo di tracciamento di Google Analytics",
-    "io": "crwdns12676:0crwdne12676:0"
+    "io": "crwdns12676:0crwdne12676:0",
+    "oc": "Definissètz vòstre identificant de seguit Google Analytics"
   },
   "statsDescription": {
     "fr": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",
@@ -741,20 +763,27 @@ module.exports = {
   "lab": {
     "fr": "Lab",
     "en": "Lab",
-    "io": "crwdns12680:0crwdne12680:0"
+    "io": "crwdns12680:0crwdne12680:0",
+    "it": "Lab"
   },
   "labTabDescription": {
     "fr": "Utilisez les fonctionnalités disponibles en version bêta",
     "en": "Use the features available in beta version",
-    "io": "crwdns12682:0crwdne12682:0"
+    "io": "crwdns12682:0crwdne12682:0",
+    "it": "Utilizzare le caratteristiche disponibili nella versione beta",
+    "oc": "Utilizatz las foncionalitats disponiblas en version bèta"
   },
   "eventAdminDesc": {
     "fr": "Utiliser la nouvelle interface d'administration des événements",
     "en": "Use the new event administration interface",
-    "io": "crwdns12684:0crwdne12684:0"
+    "io": "crwdns12684:0crwdne12684:0",
+    "it": "Utilizzare la nuova interfaccia di amministrazione degli eventi"
   },
   "eventStatusDesc": {
     "fr": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)",
-    "en": "Activate event status controls (cancelled, full, rescheduled...)"
+    "en": "Activate event status controls (cancelled, full, rescheduled...)",
+    "it": "Attivare i controlli dello stato dell'evento (cancellato, pieno, riprogrammato...)",
+    "oc": "Activar los contròles d'estatut de l'eveniment (anullat, complèt, tornat programar...)",
+    "io": "crwdns16072:0crwdne16072:0"
   }
 }

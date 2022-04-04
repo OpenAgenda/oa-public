@@ -1,1 +1,5 @@
-{}
+{
+  "subject": "{nbr} notificacions pas vistas dempuèi lo {date}",
+  "dailySummary": "Resumit quotidian de vòstras notificacions",
+  "unsubsribe": "Pas pus recebre de resumit quotidian de notificacions"
+}

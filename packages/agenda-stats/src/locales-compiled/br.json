@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Sans valeur)"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
@@ -831,7 +837,7 @@
   "AgendaStats.form.typeSelectPlaceholder": [
     {
       "type": 0,
-      "value": "Séléctionner un élément à ajouter"
+      "value": "Sélectionner un élément à ajouter"
     }
   ],
   "AgendaStats.form.update": [
@@ -843,7 +849,7 @@
   "AgendaStats.form.widthSelectPlaceholder": [
     {
       "type": 0,
-      "value": "Séléctionner"
+      "value": "Sélectionner"
     }
   ],
   "AgendaStats.messages.chartTitles.cities": [

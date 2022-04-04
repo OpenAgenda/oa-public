@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { Field } from 'react-final-form';
-import form from './messages/form';
+import form from '../messages/form';
 
 const initialMetricsValue = ['avg'];
 

@@ -8,7 +8,8 @@ module.exports = {
     "de": "Bei der Bearbeitung der Einladungen ist ein Fehler aufgetreten. Bitte versuche es in Kürze noch einmal.",
     "pl": "Podczas przetwarzania zaproszeń wystąpił błąd. Proszę spróbować ponownie za chwilę.",
     "es": "Se ha recibido un error al procesar las invitaciones. Por favor, intente nuevamente en unos momentos",
-    "io": "crwdns12870:0crwdne12870:0"
+    "io": "crwdns12870:0crwdne12870:0",
+    "oc": "I aguèt una error pendent lo tractament dels convits. Mercés de tornar ensajar dins un momentòt."
   },
   "invitationNotSent": {
     "fr": "L'invitation n'a pas pu être envoyée",
@@ -17,7 +18,8 @@ module.exports = {
     "de": "Die Einladung konnte nicht gesendet werden.",
     "pl": "Zaproszenie nie mogło zostać wysłane",
     "es": "La invitación no se pudo enviar",
-    "io": "crwdns12872:0crwdne12872:0"
+    "io": "crwdns12872:0crwdne12872:0",
+    "oc": "Lo convit s'es pas poscut mandar"
   },
   "emailSubmitted": {
     "en": "Your %count% submitted emails are being processed",
@@ -26,7 +28,8 @@ module.exports = {
     "de": "Ihre %count% eingereichten E-Mails werden verarbeitet.",
     "pl": "Twoja %count% przesłanych wiadomości e-mail jest przetwarzana",
     "es": "El recuento asunto del correo electrónico se está procesando",
-    "io": "crwdns12874:0%count%crwdne12874:0"
+    "io": "crwdns12874:0%count%crwdne12874:0",
+    "oc": "Vòstres %count% emails sometuts son en cors de tractament"
   },
   "noNewInvite": {
     "en": "No new invitation was sent",
@@ -44,7 +47,8 @@ module.exports = {
     "de": "Gesendete Einladungen: %count%.",
     "pl": "Zaproszenia wysłane: %count%",
     "es": "invitaciones enviados: %count%",
-    "io": "crwdns12878:0%count%crwdne12878:0"
+    "io": "crwdns12878:0%count%crwdne12878:0",
+    "oc": "Mandar de convits : %count%"
   },
   "resentInvites": {
     "en": "%count% invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours",

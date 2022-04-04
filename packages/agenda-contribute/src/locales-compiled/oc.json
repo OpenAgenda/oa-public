@@ -2,7 +2,7 @@
   "AgendaContribute.Canvas.fromAgenda": [
     {
       "type": 0,
-      "value": "from the agenda"
+      "value": "de l'agenda"
     }
   ],
   "AgendaContribute.Canvas.shareEvent": [
@@ -20,37 +20,37 @@
   "AgendaContribute.Canvas.toAgenda": [
     {
       "type": 0,
-      "value": "to the agenda"
+      "value": "de l'agenda"
     }
   ],
   "AgendaContribute.CanvasWithStepper.addEvent": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Add an event"
     }
   ],
   "AgendaContribute.CanvasWithStepper.editDraftTitle": [
     {
       "type": 0,
-      "value": "Draft"
+      "value": "Borrolhon"
     }
   ],
   "AgendaContribute.ClosedMessage.forAdminModerators": [
     {
       "type": 0,
-      "value": "This agenda is currently not open to contributors. Only administrators or moderators can add events."
+      "value": "Aquela agenda es pas actualament dobèrta a las contribucions. Sol·a·s lo·a·s administrator·a·s o moderator·a·s pòdon apondre d'eveniments."
     }
   ],
   "AgendaContribute.ClosedMessage.forContributors": [
     {
       "type": 0,
-      "value": "This agenda is not or no longer open for new contributions."
+      "value": "Aquela agenda es pas o pas pus dobèrta a las contribucions novèlas."
     }
   ],
   "AgendaContribute.Confirmation.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact the agenda administrators"
+      "value": "Contactar los administrators de l'agenda"
     }
   ],
   "AgendaContribute.Confirmation.createOtherEvent": [
@@ -62,25 +62,25 @@
   "AgendaContribute.Confirmation.duplicateEvent": [
     {
       "type": 0,
-      "value": "Duplicate event"
+      "value": "Duplicar l'eveniment"
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState0": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is being moderated. You will be notified by email when it will be published."
+      "value": "Vòstre eveniment es estat sometut e es en cors de moderacion. Seretz notificat·da per mail quand serà publicat."
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState1": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is ready to be published. You will be notified as soon as it is."
+      "value": "Vòstre eveniment es estat sometut e es prèste per èsser publicat. Seretz notificat·da aitanlèu."
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState2": [
     {
       "type": 0,
-      "value": "Your event has been published and is visible on the agenda."
+      "value": "Vòstre eveniment es estat publicat e se pòt veire sus l'agenda."
     }
   ],
   "AgendaContribute.Confirmation.seeEventAction": [
@@ -98,7 +98,7 @@
   "AgendaContribute.ErrorMessage.cancelChange": [
     {
       "type": 0,
-      "value": "Cancel the share"
+      "value": "Anullar lo partatge"
     }
   ],
   "AgendaContribute.ErrorMessage.conditions": [
@@ -140,7 +140,7 @@
   "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
     {
       "type": 0,
-      "value": "The following issues must be addressed to allow make the event \""
+      "value": "Los problèmas seguents devon èsser tractats per permetre a l'eveniment \""
     },
     {
       "type": 1,
@@ -148,7 +148,7 @@
     },
     {
       "type": 0,
-      "value": "\" shareable on the agenda \""
+      "value": "\" d'èsser partejat sus l'agenda \""
     },
     {
       "type": 1,
@@ -186,7 +186,7 @@
   "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
     {
       "type": 0,
-      "value": "The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven't published it yet."
+      "value": "L'eveniment es ja referenciat sus l'agenda sus la quala lo volètz partatjar. Se lo vesètz pas aparéisser sus la pagina principala, es segurament que los administrators l'an pas encara publicat."
     }
   ],
   "AgendaContribute.EventNew.create": [
@@ -198,19 +198,19 @@
   "AgendaContribute.EventNew.deleteDraft": [
     {
       "type": 0,
-      "value": "Delete the draft"
+      "value": "Escafar lo borrolhon"
     }
   ],
   "AgendaContribute.EventNew.draft": [
     {
       "type": 0,
-      "value": "Save as draft"
+      "value": "Enregistrar coma borrolhon"
     }
   ],
   "AgendaContribute.EventNew.updateDraft": [
     {
       "type": 0,
-      "value": "Update draft"
+      "value": "Metre lo borrolhon a jorn"
     }
   ],
   "AgendaContribute.EventShare.share": [
@@ -270,19 +270,19 @@
   "AgendaContribute.Member.description": [
     {
       "type": 0,
-      "value": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed."
+      "value": "Vòstras informacions personalas seràn visiblas sonque de la còla d'administracion de l'agenda. Lo nom de vòstra organizacion sol serà afichat."
     }
   ],
   "AgendaContribute.Member.subtitle": [
     {
       "type": 0,
-      "value": "Present yourself to the agenda administrators before starting typing your events"
+      "value": "Presentatz-vos als administrator·a·s de l'agenda abans de començar a dintrar vòstres eveniments"
     }
   ],
   "AgendaContribute.Member.title": [
     {
       "type": 0,
-      "value": "Welcome !"
+      "value": "Benvengut·da !"
     }
   ],
   "AgendaContribute.RequestEditionRights.noEditionRights": [
@@ -294,13 +294,13 @@
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
     {
       "type": 0,
-      "value": "Only additional fields of the agenda can be edited here."
+      "value": "Sonque los camps suplementaris de l'agenda se pòdon modificar aquí."
     }
   ],
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
     {
       "type": 0,
-      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
+      "value": "Aqueste eveniment es estat apondut a l'agenda \"%agenda%\" per un partatge o per agregacion. Sols los membres de l'agenda que l'eveniment es estat dintrat pòdon cambiar son contengut."
     }
   ],
   "AgendaContribute.RequestEditionRights.requestEditionRights": [
@@ -312,13 +312,13 @@
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)"
     }
   ],
   "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
     {
       "type": 0,
-      "value": "Only additional fields of the agenda are currently shown"
+      "value": "Sols los camps suplementaris de l'agenda son mostrats per ara"
     }
   ],
   "AgendaContribute.ShowFullEventForm.showEventFields": [
@@ -330,13 +330,13 @@
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
     {
       "type": 0,
-      "value": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published."
+      "value": "Avètz los dreits d'edicion sus l'eveniment. Cada modificacion que siá sus l'eveniment serà vesedoira pertot ont es publicat."
     }
   ],
   "AgendaContribute.Stepper.confirmation": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Confirmacion"
     }
   ],
   "AgendaContribute.Stepper.event": [
@@ -348,7 +348,7 @@
   "AgendaContribute.Stepper.member": [
     {
       "type": 0,
-      "value": "Member form"
+      "value": "Fiicha de membre"
     }
   ]
 }

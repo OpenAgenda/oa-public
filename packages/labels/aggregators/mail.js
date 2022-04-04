@@ -14,7 +14,7 @@ module.exports = {
     "en": "**%event%** from the agenda **%sourceAgenda%** has been aggregated with the state **%state%**",
     "de": "**%event% ** von der Kalender **%sourceAgenda%** hat sich mit dem Zustand **%state%** aggregiert ",
     "es": "**%event%** del agenda **%sourceAgenda%** fue asociado con el estado **%state%**",
-    "it": "**%event%** dal **%sourceAgenda%** è stato aggregato con lo stato **%stato%**",
+    "it": "**%event%** dal **%sourceAgenda%** è stato aggregato con lo stato **%state%**",
     "io": "crwdns12994:0%event%crwdnd12994:0%sourceAgenda%crwdnd12994:0%state%crwdne12994:0"
   },
   "newAggregationAction": {
@@ -22,7 +22,7 @@ module.exports = {
     "en": "See the event",
     "de": "Deine Veranstaltung hier ansehen",
     "es": "Ver evento",
-    "it": "Vedi l'evento",
+    "it": "Vedere l'evento",
     "io": "crwdns12996:0crwdne12996:0"
   },
   "toBeControlled": {

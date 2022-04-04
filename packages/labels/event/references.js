@@ -22,7 +22,7 @@ module.exports = {
     "en": "See also",
     "de": "Siehe auch",
     "es": "Ver también",
-    "it": "Vedi anche",
+    "it": "Vedere anche",
     "io": "crwdns14372:0crwdne14372:0"
   },
   "emptyReferences": {
@@ -46,7 +46,7 @@ module.exports = {
     "en": "Add an event",
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
-    "it": "Aggiungi un evento",
+    "it": "Aggiungere un evento",
     "io": "crwdns14378:0crwdne14378:0"
   },
   "addEventOr": {
@@ -70,7 +70,7 @@ module.exports = {
     "en": "Search by title or location name",
     "de": "Suche nach Titel oder Ortsnamen",
     "es": "Buscar a través de título o lugar",
-    "it": "Ricerca per titolo o località",
+    "it": "Ricerca per titolo o luogo",
     "io": "crwdns14384:0crwdne14384:0"
   },
   "searchResultTitle": {

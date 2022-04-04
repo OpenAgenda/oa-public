@@ -5,9 +5,9 @@
   "members": "Membri",
   "activities": "Attività",
   "newTab": "Nuovo!",
-  "locations": "Sedi",
+  "locations": "Luoghi",
   "categories": "Categorie e Tag",
-  "inbox": "Posta",
+  "inbox": "Messaggi",
   "customized": "Campi personalizzati",
   "sources": "Fonti",
   "facebook": "Facebook",
@@ -20,7 +20,7 @@
   "settings": "Impostazioni",
   "settings_profile": "Profilo",
   "schema": "Modulo",
-  "settings_contribution": "Contributo",
+  "settings_contribution": "Contribuzione",
   "settings_advanced": "Avanzato",
   "statistics": "Statistica"
 }

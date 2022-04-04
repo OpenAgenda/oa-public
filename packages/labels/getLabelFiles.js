@@ -3,6 +3,24 @@
 const fs = require('fs');
 const path = require('path');
 
+function walkSync(dir, basePath = __dirname) {
+  const files = fs.readdirSync(path.join(basePath, dir));
+  const results = [];
+
+  for (const file of files) {
+    const filePath = path.join(dir, file);
+    const stat = fs.statSync(path.join(basePath, filePath));
+
+    if (stat && stat.isDirectory()) {
+      Array.prototype.push.apply(results, walkSync(filePath, basePath));
+    } else {
+      results.push(filePath);
+    }
+  }
+
+  return results;
+}
+
 module.exports = function getLabelFiles() {
   const files = fs.readdirSync(__dirname);
   const results = [];
@@ -18,20 +36,4 @@ module.exports = function getLabelFiles() {
   return results;
 }
 
-function walkSync(dir) {
-  const files = fs.readdirSync(path.join(__dirname, dir));
-  const results = [];
-
-  for (const file of files) {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(path.join(__dirname, filePath));
-
-    if (stat && stat.isDirectory()) {
-      Array.prototype.push.apply(results, walkSync(filePath));
-    } else {
-      results.push(filePath);
-    }
-  }
-
-  return results;
-}
+module.exports.walkSync = walkSync;

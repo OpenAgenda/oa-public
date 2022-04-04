@@ -1,1 +1,10 @@
-{}
+{
+  "share": "Partatjar",
+  "addToMyAgenda": "Apondre a mon agenda",
+  "searchInThisAgenda": "Cercar dins aquesta agenda",
+  "agendaHasNotEventsPublished": "Aquela agenda a pas encara cap eveniment publicat",
+  "agendaHasNotUpcomingEvents": "I a pas d'eveniments venents publicats dins aquela agenda.",
+  "statusRescheduled": "Tornat planificar",
+  "statusMovedOnline": "Transferit en linha",
+  "statusFull": "Totalament complèt"
+}

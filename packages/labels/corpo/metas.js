@@ -6,7 +6,7 @@ module.exports = {
     "en": "OpenAgenda - Create an efficient public calendar",
     "de": "OpenAgenda - Erstellen einer effizienten öffentlichen Kalender",
     "es": "OpenAgenda - Crear un agenda público eficiente",
-    "it": "OpenAgenda - Creare una potente agenda pubblica",
+    "it": "OpenAgenda - Creare una potente agenda pubblico",
     "io": "crwdns13440:0crwdne13440:0"
   },
   "description": {

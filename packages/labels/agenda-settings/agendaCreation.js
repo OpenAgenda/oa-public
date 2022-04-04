@@ -86,7 +86,7 @@ module.exports = {
     "en": "Next",
     "de": "Nächster",
     "es": "Próximo",
-    "it": "Avanti",
+    "it": "Prossimo",
     "br": "War-lerc'h",
     "io": "crwdns12460:0crwdne12460:0"
   },
@@ -95,7 +95,7 @@ module.exports = {
     "en": "Who can add events to this calendar ?",
     "de": "Wer kann Veranstaltungen in diesem Kalender hinzufügen?",
     "es": "¿Quién puede añadir eventos a este agenda?",
-    "it": "Chi può aggiungere eventi a questo calendario?",
+    "it": "Chi può aggiungere eventi a questo calendario ?",
     "io": "crwdns12462:0crwdne12462:0"
   },
   "contribTypeChoosen": {
@@ -153,7 +153,8 @@ module.exports = {
     "de": "Veranstaltungen werden erst nach der Validierung der Öffentlichkeit.",
     "es": "Los eventos se harán públicos después de su validación.",
     "it": "Gli eventi diventano pubblici solo dopo la vostra convalida.",
-    "io": "crwdns12476:0crwdne12476:0"
+    "io": "crwdns12476:0crwdne12476:0",
+    "oc": "Los eveniments venon publics pas qu'aprèp validacion."
   },
   "previous": {
     "fr": "Précédent",
@@ -169,7 +170,8 @@ module.exports = {
     "de": "Erstellen Agenda",
     "es": "Crear agenda",
     "it": "Creare l'agenda",
-    "io": "crwdns12480:0crwdne12480:0"
+    "io": "crwdns12480:0crwdne12480:0",
+    "oc": "Crear l'agenda"
   },
   "required": {
     "fr": "Requis",
@@ -226,7 +228,8 @@ module.exports = {
     "de": "Nur Kleinbuchstaben, Ziffern und Bindestriche (-) sind erlaubt",
     "es": "Sólo letras minúsculas, números y guiones (-) están permitidos",
     "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
-    "io": "crwdns12494:0crwdne12494:0"
+    "io": "crwdns12494:0crwdne12494:0",
+    "oc": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats"
   },
   "description.tooManyLines": {
     "fr": "La description ne doit pas dépasser 4 lignes",

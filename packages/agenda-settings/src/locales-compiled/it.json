@@ -50,13 +50,13 @@
   "AgendaSettings.contribution.contribution": [
     {
       "type": 0,
-      "value": "Contribution"
+      "value": "Contribuzione"
     }
   ],
   "AgendaSettings.contribution.openContribution": [
     {
       "type": 0,
-      "value": "Open"
+      "value": "Aprire"
     }
   ],
   "AgendaSettings.contribution.openContributionDesc": [

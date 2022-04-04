@@ -14,37 +14,37 @@
   "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
     {
       "type": 0,
-      "value": "Administrator/moderator settings:"
+      "value": "Reglatges d'administrator/moderator :"
     }
   ],
   "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
     {
       "type": 0,
-      "value": "Contributor settings:"
+      "value": "Reglatges de contributor :"
     }
   ],
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
     {
       "type": 0,
-      "value": "Your administrator/moderator settings:"
+      "value": "Vòstres reglatges d'administrator/moderator :"
     }
   ],
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
     {
       "type": 0,
-      "value": "Your contributor settings:"
+      "value": "Vòstres reglatges de contributor :"
     }
   ],
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
     {
       "type": 0,
-      "value": "Your global settings:"
+      "value": "Vòstres reglatges globals :"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
     {
       "type": 0,
-      "value": "Receive messages from agenda inbox"
+      "value": "Recebre los messatges de la boita d'agenda"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveEvent": [
@@ -56,7 +56,7 @@
   "Abilities.RulesCheckbox.rules.receiveEventAddition": [
     {
       "type": 0,
-      "value": "Receive event creations"
+      "value": "Receive event additions"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
@@ -102,37 +102,37 @@
   "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
     {
       "type": 0,
-      "value": "Receive notifications when someone add my events"
+      "value": "Recebre de notificacions quand qualqu'un apond mos eveniments"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
     {
       "type": 0,
-      "value": "Receive notifications when someone aggregates my events"
+      "value": "Recebre de notificacions quand qualqu'un agrèga mos eveniments"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
     {
       "type": 0,
-      "value": "Receive notifications when someone changes state of my events"
+      "value": "Recebre de notificacions quand qualqu'un càmbia l'estatut de mos eveniments"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
     {
       "type": 0,
-      "value": "Receive confirmations of your event creations"
+      "value": "Recebre la confirmacion de creacion de vòstre eveniment"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
     {
       "type": 0,
-      "value": "Receive notifications when someone updates my events"
+      "value": "Recebre de notificacions quand qualqu'un bòta a jorn mos eveniments"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
     {
       "type": 0,
-      "value": "Receive summaries of notifications"
+      "value": "Recebre de resumits de las notificacions"
     }
   ],
   "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [

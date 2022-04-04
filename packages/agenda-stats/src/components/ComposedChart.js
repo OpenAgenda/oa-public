@@ -7,6 +7,7 @@ import { getLocaleValue } from '@openagenda/react-shared';
 import mergeMultiData from '../utils/mergeMultiData';
 import addRestItem from '../utils/addRestItem';
 import { getChartConfig } from '../common/defaultStatConfigs';
+import emptyOptionMessage from '../messages/emptyOption';
 import HorizontalBarChart from './basics/HorizontalBarChart';
 import VerticalBarChart from './basics/VerticalBarChart';
 import PieChart from './basics/PieChart';
@@ -41,6 +42,10 @@ const messages = defineMessages({
     defaultMessage: 'No value.',
   },
 });
+
+function sortData(result, dataKey) {
+  return result.sort((a, b) => _.get(b, dataKey) - _.get(a, dataKey));
+}
 
 function ChartLoading() {
   return (
@@ -93,6 +98,7 @@ function ComposedChart({
     }
 
     const labelKeys = [].concat(labelKey);
+    const dataKeys = [].concat(dataKey);
     let result = rawData;
 
     if (fromDataKey?.length) {
@@ -100,10 +106,12 @@ function ComposedChart({
     }
 
     if (restItem) {
-      [].concat(dataKey).forEach((key, index) => {
+      dataKeys.forEach((key, index) => {
         result = addRestItem(result, totalEvents, intl, key, labelKeys[index]);
       });
     }
+
+    result = sortData(result, dataKeys[0]);
 
     const withDataColors = typeof dataColors === 'object'
       && dataColors !== null
@@ -116,12 +124,15 @@ function ComposedChart({
         return {
           ...v,
           color: withDataColors ? dataColors[label] : null,
-          [k]: getLocaleValue(label, intl.locale),
+          [k]:
+            v.key === 'null'
+              ? intl.formatMessage(emptyOptionMessage)
+              : getLocaleValue(label, intl.locale),
         };
       });
     });
 
-    return result;
+    return result.slice(0, state.itemsDisplayed);
   }, [
     rawData,
     labelKey,
@@ -131,6 +142,7 @@ function ComposedChart({
     dataKey,
     totalEvents,
     intl,
+    state.itemsDisplayed,
   ]);
 
   const ChartComponent = useMemo(() => {

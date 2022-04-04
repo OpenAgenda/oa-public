@@ -7,7 +7,8 @@ module.exports = {
     "de": "Diese Agenda ist nicht offen für Beiträge",
     "es": "Este agenda está cerrado a la contribución",
     "it": "Questo agenda è chiuso ai contributi",
-    "io": "crwdns11478:0crwdne11478:0"
+    "io": "crwdns11478:0crwdne11478:0",
+    "oc": "Aquesta agenda es pas obèrta a las contribucions"
   },
   "noAccessToEdit": {
     "fr": "Vous n'avez pas accès à l'édition de cet événement",
@@ -23,13 +24,15 @@ module.exports = {
   "noAccessToDraft": {
     "fr": "Vous n'avez pas accès à l'édition de ce brouillon",
     "en": "You do not have edit rights to this draft",
-    "it": "Non avete accesso all'edizione di questa bozza.",
-    "io": "crwdns11484:0crwdne11484:0"
+    "it": "Non puoi modificare questa bozza",
+    "io": "crwdns11484:0crwdne11484:0",
+    "oc": "Avètz pas los dreits d'edicion per aqueste borrolhon"
   },
   "eventNotLinkedToAgenda": {
     "fr": "L'événement n'est pas réferencé sur l'agenda",
     "en": "This event is not listed in agenda",
-    "it": "L'evento non è menzionato nell'ordine del giorno.",
-    "io": "crwdns11486:0crwdne11486:0"
+    "it": "L'evento non è presente nell'agenda",
+    "io": "crwdns11486:0crwdne11486:0",
+    "oc": "Aqueste eveniment es pas referenciat sus l'agenda"
   }
 }

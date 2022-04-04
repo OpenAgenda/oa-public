@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useLayoutData } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
 import ComposedChart from './ComposedChart';
 import ChartWrapper from './ChartWrapper';
@@ -11,8 +12,10 @@ import MetricsChart from './MetricsChart';
 
 const LAYOUT_WIDTH = 2;
 
-function AggregationCharts({ agenda, agendaSchema }) {
+function AggregationCharts() {
   const dispatch = useDispatch();
+
+  const { agenda, agendaSchema } = useLayoutData();
 
   const stats = useSelector(state => state.stats.data, shallowEqual);
   const query = useSelector(state => state.stats.query);
@@ -77,7 +80,6 @@ function AggregationCharts({ agenda, agendaSchema }) {
           className={`col-md-12 col-lg-${chartCol} margin-top-md`}
           stat={stat}
           // chartConfig={chartConfig}
-          totalEvents={totalEvents}
           query={query}
           loadStat={loadStat}
         >

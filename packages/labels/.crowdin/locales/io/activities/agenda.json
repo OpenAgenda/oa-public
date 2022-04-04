@@ -27,5 +27,6 @@
   "activities": "crwdns11146:0crwdne11146:0",
   "next": "crwdns11148:0crwdne11148:0",
   "noActivity": "crwdns11150:0crwdne11150:0",
-  "unknownActivity": "crwdns11152:0{verb}crwdne11152:0"
+  "unknownActivity": "crwdns11152:0{verb}crwdne11152:0",
+  "agenda.systemUnpublishEvent": "crwdns16406:0{event}crwdnd16406:0{agenda}crwdne16406:0"
 }

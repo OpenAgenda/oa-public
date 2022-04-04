@@ -3,7 +3,7 @@
   "eventRemoveTitle": "Retirer un événement de l'agenda",
   "eventRemoveDetails": "Etes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus.",
   "eventDeleteTitle": "Supprimer un événement",
-  "eventDeleteDetails": "Etes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",
+  "eventDeleteDetails": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",
   "confirm": "Confirmer",
   "eventDeleted": "L'événement a été définitivement supprimé"
 }

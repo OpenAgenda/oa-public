@@ -15,7 +15,8 @@ module.exports = {
     "de": "Kalender Startseite",
     "es": "Ir al inicio del Agenda",
     "it": "Vai alla reception dell'agenda",
-    "io": "crwdns11388:0crwdne11388:0"
+    "io": "crwdns11388:0crwdne11388:0",
+    "oc": "Anar a l'acuèlh de l'agenda"
   },
   "manage": {
     "fr": "Gérer",

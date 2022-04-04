@@ -15,14 +15,15 @@ module.exports = {
     "de": "Durch die Änderungen des Bewerters vorgeschlagen werden in den aktiven Feldern geladen. Bearbeite sie, bevor Sie das Formular zu speichern.",
     "es": "Los cambios propuestos por el contribuyente se cargan en los campos activos. Editarlas antes de comprometerse.",
     "it": "Le modifiche proposte dal collaboratore vengono caricate nei campi attivi. Modificarli prima di convalidarli.",
-    "io": "crwdns12374:0crwdne12374:0"
+    "io": "crwdns12374:0crwdne12374:0",
+    "oc": "Los cambiaments suggerits pel contributor son cargats dins los camps actius. Modificatz-los abans d'enregistrar lo formulari."
   },
   "submit": {
     "fr": "Valider",
     "en": "Validate",
     "de": "Bestätigen",
     "es": "validar",
-    "it": "Convalida",
+    "it": "Convalidare",
     "io": "crwdns12376:0crwdne12376:0"
   },
   "submitError": {
@@ -46,7 +47,7 @@ module.exports = {
     "en": "Next",
     "de": "Nächster",
     "es": "Próximo",
-    "it": "Avanti",
+    "it": "Prossimo",
     "br": "War-lerc'h",
     "io": "crwdns12382:0crwdne12382:0"
   },
@@ -87,7 +88,7 @@ module.exports = {
     "en": "Ignore this suggestion",
     "de": "Ignoriere diesen Vorschlag",
     "es": "Ignorar esta sugerencia",
-    "it": "Ignora questo suggerimento",
+    "it": "Ignorare questo suggerimento",
     "io": "crwdns12392:0crwdne12392:0"
   },
   "back": {

@@ -20,9 +20,5 @@
   "export-all-button": "Export",
   "export-select-button": "Export the selection",
   "more-button": "more",
-  "share-button": "Share on OpenAgenda",
-  "trackConsent.accept": "Accept",
-  "trackConsent.decline": "Decline",
-  "trackConsent.informationText": "This agenda uses cookies from the Google Analytics tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?",
-  "trackConsent.moreInfoLink": "Click here for more information"
+  "share-button": "Share on OpenAgenda"
 }

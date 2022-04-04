@@ -1,12 +1,12 @@
 {
   "name": "Nome del luogo",
   "namePlaceholder": "Inserire il nome del luogo dell'evento",
-  "change": "modifica",
-  "create": "Creare un nuovo posto",
+  "change": "modificare",
+  "create": "Aggiungere un luogo",
   "noresult": "Nessun risultato corrisponde alla tua iscrizione",
   "cancel": "annullare",
-  "nolocation": "Seleziona una località",
-  "find": "Ricerca",
+  "nolocation": "Scegliere un luogo",
+  "find": "Cercare",
   "selectorCreateInfo": "Descrivere il luogo dell'evento",
   "searching": "Ricerca in corso..."
 }

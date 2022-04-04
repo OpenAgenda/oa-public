@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import ContentLoader from 'react-content-loader';
 import { css } from '@emotion/react';
-import form from './messages/form';
+import form from '../messages/form';
 
 function ChartLoading() {
   return (

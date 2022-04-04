@@ -1,1 +1,12 @@
-{}
+{
+  "draft": "Enregistrar coma borrolhon",
+  "updateDraft": "Metre lo borrolhon a jorn",
+  "deleteDraft": "Escafar lo borrolhon",
+  "editDraftTitle": "Borrolhon",
+  "fromAgenda": "de l'agenda",
+  "toAgenda": "de l'agenda",
+  "onlyAdditionalFieldsCanBeEdited": "Sonque los camps suplementaris de l'agenda se pòdon modificar aquí.",
+  "onlyAdditionalFieldsCanBeEditedInfo": "Aqueste eveniment es estat apondut a l'agenda \"%agenda%\" per un partatge o per agregacion. Sols los membres de l'agenda que l'eveniment es estat dintrat pòdon cambiar son contengut.",
+  "requestEditionRightsInfo": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)",
+  "cancelShare": "Anullar lo partatge"
+}

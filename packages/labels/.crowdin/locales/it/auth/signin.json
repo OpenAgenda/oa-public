@@ -1,11 +1,11 @@
 {
   "connection": "Connessione",
-  "incorrectPassword": "L'e-mail o la parola d'accesso non è corretta.",
-  "resetPassword": "Reimposta la tua parola d'accesso",
+  "incorrectPassword": "L'e-mail o la password non è corretta.",
+  "resetPassword": "Reimpostare la password",
   "email": "Email",
-  "password": "Parola d'accesso",
-  "signin": "Accedi",
-  "lostPassword": "Ho perso la mia parola d'accesso",
+  "password": "Password",
+  "signin": "Connettersi",
+  "lostPassword": "Ho perso la mia password",
   "noAccount": "Non hai ancora un conto?",
   "createAccount": "Crea un conto!"
 }

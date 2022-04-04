@@ -1,6 +1,10 @@
 import _ from 'lodash';
 import React, {
-  useCallback, useEffect, useRef, useState
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
 } from 'react';
 import ReactDOM from 'react-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
@@ -9,13 +13,18 @@ import { useLatest } from 'react-use';
 import { useHistory, useLocation } from 'react-router';
 import { useQuery } from 'react-query';
 import qs from 'qs';
-import { FiltersProvider } from '@openagenda/react-filters';
+import {
+  FiltersProvider,
+  useFilters,
+  getEvents,
+} from '@openagenda/react-filters';
 import {
   useApiClient,
   useLayoutData,
   useModal,
   MoreInfo,
   Spinner,
+  getLocaleValue,
 } from '@openagenda/react-shared';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import * as statsActions from '../reducers/stats';
@@ -25,8 +34,7 @@ import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import PulseChart from '../components/PulseChart';
 import determineDefaultRange from '../utils/determineDefaultRange';
-import useFilters from '../hooks/useFilters';
-import getEvents from '../api/getEvents';
+import emptyOptionMessage from '../messages/emptyOption';
 
 const messages = defineMessages({
   save: {
@@ -68,7 +76,9 @@ function Dashboard() {
 
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading'));
-  const loaded = useSelector(state => _.get(state, 'stats.loaded'));
+  const loaded = useSelector(
+    state => _.get(state, 'stats.agendaUid') === agenda.uid
+  );
   const error = useSelector(state => _.get(state, 'stats.error'));
   const totalEvents = useSelector(state => state.stats.totalEvents);
   const editing = useSelector(state => state.stats.editing);
@@ -76,16 +86,22 @@ function Dashboard() {
 
   const latestStats = useLatest(stats);
 
-  const [initialQuery, setInitialQuery] = useState(() => {
-    const baseQuery = qs.parse(location.search, {
+  const parsedLocationSearch = useMemo(
+    () => qs.parse(location.search, {
       ignoreQueryPrefix: true,
-    });
+    }),
+    [location.search]
+  );
 
-    return _.pick(
-      validateQuery(baseQuery, agendaSchema),
-      Object.keys(baseQuery)
-    );
-  });
+  const [initialQuery, setInitialQuery] = useState(() => _.pick(
+    parsedLocationSearch,
+    Object.keys(
+      validateQuery(parsedLocationSearch, {
+        formSchema: agendaSchema,
+        emptyValue: 'null',
+      })
+    )
+  ));
 
   const orderModal = useModal();
 
@@ -107,22 +123,18 @@ function Dashboard() {
     [agenda, dispatch]
   );
 
-  const filters = useFilters(agendaSchema);
+  const filters = useFilters(intl, agendaSchema, { missingValue: 'null' });
 
   const filtersQuery = useQuery(
-    ['agenda-stats', 'filtersBase'],
-    () => getEvents(
-      apiClient,
-      res.jsonExport,
-      agenda,
-      filters.filter(filter => filter.type !== 'dateRange'),
-      { size: 0 }
-    ),
+    ['agenda-stats', 'filtersBase', agenda.slug],
+    () => getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }, true),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
     }
   );
+
+  const { aggregations: filtersBase } = filtersQuery.data ?? {};
 
   // A ref to conserve the same onFilterChange callback
   const latestLocation = useLatest(location);
@@ -141,6 +153,71 @@ function Dashboard() {
       }
     }),
     [filters, agenda, dispatch, history, latestLocation, latestStats]
+  );
+
+  const getOptions = useCallback(
+    filter => {
+      const missingLabel = intl.formatMessage(emptyOptionMessage);
+
+      if (filter.options) {
+        const missingOption = filter.missingValue
+          ? filtersBase[filter.name]?.find(v => {
+            const dataKey = 'id' in v ? 'id' : 'key';
+            return v[dataKey] === filter.missingValue;
+          })
+          : null;
+
+        return missingOption
+          ? [
+            {
+              label: missingLabel,
+              key: filter.missingValue,
+              value: filter.missingValue,
+            },
+          ].concat(filter.options)
+          : filter.options;
+      }
+
+      if (!filtersBase[filter.name]) return [];
+
+      const baseAgg = [...filtersBase[filter.name]];
+
+      const aggregation = stats.find(s => _.isMatch(
+        s.aggregation,
+        _.omit(
+          {
+            type: filter.name,
+            ...filter.aggregation,
+          },
+          'size'
+        )
+      ))?.state?.data;
+
+      if (aggregation) {
+        aggregation.forEach(entry => {
+          const dataKey = 'id' in entry ? 'id' : 'key';
+          const found = baseAgg.find(v => v[dataKey] === entry[dataKey]);
+          if (!found) baseAgg.push(entry);
+        });
+      }
+
+      const labelKey = filter.labelKey || 'key';
+
+      return baseAgg.map(entry => {
+        const dataKey = 'id' in entry ? 'id' : 'key';
+        const labelValue = _.get(entry, labelKey);
+
+        return {
+          ...entry,
+          label:
+            labelValue === filter.missingValue
+              ? missingLabel
+              : getLocaleValue(labelValue),
+          value: String(entry[dataKey]),
+        };
+      });
+    },
+    [filtersBase, intl, stats]
   );
 
   // Load timespan & aggregations
@@ -172,11 +249,9 @@ function Dashboard() {
           timings: determineDefaultRange({ first, last }),
         };
 
-        setInitialQuery(defaultQuery);
-
         return dispatch(
           statsActions.load(agenda, configResult.data, filters, defaultQuery)
-        );
+        ).then(() => setInitialQuery(defaultQuery));
       }
 
       return dispatch(
@@ -274,13 +349,15 @@ function Dashboard() {
       <div className="row margin-top-xs">
         <div className="col-xs-12">
           {typeof totalEvents === 'number' ? (
-            <FormattedMessage
-              id="AgendaStats.Dashboard.totalEvents"
-              defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
-              values={{
-                total: totalEvents,
-              }}
-            />
+            <span className="margin-right-xs">
+              <FormattedMessage
+                id="AgendaStats.Dashboard.totalEvents"
+                defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
+                values={{
+                  total: totalEvents,
+                }}
+              />
+            </span>
           ) : null}
 
           <span className="oa-filter-value-preview">
@@ -288,6 +365,7 @@ function Dashboard() {
               isFetching={loading}
               agenda={agenda}
               filters={filters}
+              getOptions={getOptions}
             />
           </span>
         </div>
@@ -295,7 +373,7 @@ function Dashboard() {
 
       <div className="clearfix" />
 
-      <AggregationCharts agenda={agenda} agendaSchema={agendaSchema} />
+      <AggregationCharts />
 
       <div className="margin-top-md text-right">{editButtons}</div>
 
@@ -310,11 +388,10 @@ function Dashboard() {
           </div>
 
           <FiltersPart
-            agenda={agenda}
-            agendaSchema={agendaSchema}
             filters={filters}
             filtersFormRef={filtersFormRef}
             initialQuery={initialQuery}
+            getOptions={getOptions}
           />
         </div>,
         filtersContainerRef.current

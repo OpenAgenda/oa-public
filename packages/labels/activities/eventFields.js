@@ -28,7 +28,7 @@ module.exports = {
   "location": {
     "fr": "lieu",
     "en": "location",
-    "it": "posto",
+    "it": "luogo",
     "io": "crwdns11188:0crwdne11188:0"
   },
   "image": {

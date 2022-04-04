@@ -13,5 +13,7 @@
   "requestPrivate": "crwdns11378:0crwdne11378:0",
   "needOfficial": "crwdns11380:0crwdne11380:0",
   "requestOfficial": "crwdns11382:0crwdne11382:0",
-  "learnMore": "crwdns11384:0crwdne11384:0"
+  "learnMore": "crwdns11384:0crwdne11384:0",
+  "or": "crwdns16414:0crwdne16414:0",
+  "useAPlugin": "crwdns16416:0crwdne16416:0"
 }

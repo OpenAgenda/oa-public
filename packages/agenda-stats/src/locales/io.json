@@ -89,5 +89,12 @@
   "AgendaStats.messages.states.refused": "crwdns15958:0crwdne15958:0",
   "AgendaStats.messages.states.toModerate": "crwdns15960:0crwdne15960:0",
   "AgendaStats.utils.addRestItem.noValue": "crwdns476:0crwdne476:0",
-  "AgendaStats.utils.addRestItem.others": "crwdns478:0crwdne478:0"
+  "AgendaStats.utils.addRestItem.others": "crwdns478:0crwdne478:0",
+  "AgendaState.message.emptyOption": "crwdns17314:0crwdne17314:0",
+  "AgendaStats.form.avg": "crwdns16177:0crwdne16177:0",
+  "AgendaStats.form.data": "crwdns16187:0crwdne16187:0",
+  "AgendaStats.form.max": "crwdns16179:0crwdne16179:0",
+  "AgendaStats.form.metric": "crwdns16181:0crwdne16181:0",
+  "AgendaStats.form.min": "crwdns16183:0crwdne16183:0",
+  "AgendaStats.form.sum": "crwdns16185:0crwdne16185:0"
 }

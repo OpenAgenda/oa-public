@@ -26,13 +26,13 @@
   "AgendaContribute.CanvasWithStepper.addEvent": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Add an event"
     }
   ],
   "AgendaContribute.CanvasWithStepper.editDraftTitle": [
     {
       "type": 0,
-      "value": "Draft"
+      "value": "Entwurf"
     }
   ],
   "AgendaContribute.ClosedMessage.forAdminModerators": [
@@ -50,13 +50,13 @@
   "AgendaContribute.Confirmation.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact the agenda administrators"
+      "value": "Kontaktiere den Administrator"
     }
   ],
   "AgendaContribute.Confirmation.createOtherEvent": [
     {
       "type": 0,
-      "value": "Add another event"
+      "value": "Eine weitere Veranstaltung hinzufügen"
     }
   ],
   "AgendaContribute.Confirmation.duplicateEvent": [
@@ -68,31 +68,31 @@
   "AgendaContribute.Confirmation.recapDetailState0": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is being moderated. You will be notified by email when it will be published."
+      "value": "Deine Veranstaltung wurde gespeichert und wird zeitnah geprüft. Du bekommst eine E-Mail sobald sie veröffentlicht ist."
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState1": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is ready to be published. You will be notified as soon as it is."
+      "value": "Deine Veranstaltung ist gut aufgezeichnet, sie wird moderiert. Sie werden per E-Mail benachrichtigt, sobald es veröffentlicht wird."
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState2": [
     {
       "type": 0,
-      "value": "Your event has been published and is visible on the agenda."
+      "value": "Ihre Veranstaltung ist gut aufgezeichnet und wurde auf der Agenda veröffentlicht."
     }
   ],
   "AgendaContribute.Confirmation.seeEventAction": [
     {
       "type": 0,
-      "value": "View my event"
+      "value": "Meine Veranstalltung sehen."
     }
   ],
   "AgendaContribute.Confirmation.showMyEvents": [
     {
       "type": 0,
-      "value": "List all my events"
+      "value": "Alle meine Veranstaltungen anzeigen"
     }
   ],
   "AgendaContribute.ErrorMessage.cancelChange": [
@@ -192,25 +192,25 @@
   "AgendaContribute.EventNew.create": [
     {
       "type": 0,
-      "value": "Create the event"
+      "value": "Deine Veranstaltung senden"
     }
   ],
   "AgendaContribute.EventNew.deleteDraft": [
     {
       "type": 0,
-      "value": "Delete the draft"
+      "value": "Den Entwurf löschen"
     }
   ],
   "AgendaContribute.EventNew.draft": [
     {
       "type": 0,
-      "value": "Save as draft"
+      "value": "Deinen Entwurf speichern"
     }
   ],
   "AgendaContribute.EventNew.updateDraft": [
     {
       "type": 0,
-      "value": "Update draft"
+      "value": "Den Entwurf aktualisieren"
     }
   ],
   "AgendaContribute.EventShare.share": [
@@ -300,7 +300,7 @@
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
     {
       "type": 0,
-      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
+      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only members of the agenda where the event was contributed can change its content."
     }
   ],
   "AgendaContribute.RequestEditionRights.requestEditionRights": [

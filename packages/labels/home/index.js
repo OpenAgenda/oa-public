@@ -21,23 +21,34 @@ module.exports = {
   },
   "editMember": {
     "fr": "Voir ma fiche contact",
-    "en": "See my contact info"
+    "en": "See my contact info",
+    "it": "Vedere le mie informazioni di contatto",
+    "io": "crwdns16468:0crwdne16468:0"
   },
   "editMemberInformation": {
     "fr": "Les administrateurs de l'agenda requierent certaines informations additionnelles pour leur permettre de vous contacter en cas de besoin.",
-    "en": "Administrators of this agenda require some additional information to allow them to contact you in case of need"
+    "en": "Administrators of this agenda require some additional information to allow them to contact you in case of need",
+    "it": "Gli amministratori di questa agenda hanno bisogno di alcune informazioni aggiuntive per poterla contattare in caso di necessità",
+    "io": "crwdns16470:0crwdne16470:0"
   },
   "otherActions": {
     "fr": "Autres actions",
-    "en": "Other actions"
+    "en": "Other actions",
+    "it": "Azioni",
+    "io": "crwdns16472:0crwdne16472:0"
   },
   "removeMember": {
     "fr": "Me retirer de l'agenda",
-    "en": "Remove myself from the agenda"
+    "en": "Remove myself from the agenda",
+    "it": "Lasciare l'agenda",
+    "io": "crwdns16474:0crwdne16474:0"
   },
   "removeMemberInformation": {
     "fr": "Si vous vous retirez de l'agenda, vous cesserez d'être notifié de son activité et ne pourrez plus en éditer les événements ni d'en ajouter de nouveaux. L'agenda n'apparaitra plus dans votre page d'accueil.",
-    "en": "If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen."
+    "en": "If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen.",
+    "it": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",
+    "oc": "Se vos tiratz de l'agenda, recebretz pas mai las notificacions e poiretz pas pus modificar vòstres eveniments o n'apondre de novèls. L'agenda s'aficharà pas pus sus vòstre ecran d'acuèlh.",
+    "io": "crwdns16476:0crwdne16476:0"
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
@@ -90,7 +101,7 @@ module.exports = {
     "de": "Verwalten",
     "br": "Merañ",
     "es": "gestionar",
-    "it": "Gestisci",
+    "it": "Gestire",
     "io": "crwdns14914:0crwdne14914:0"
   },
   "moderate": {
@@ -217,7 +228,8 @@ module.exports = {
     "br": "Brouilhed",
     "es": "Borrador",
     "it": "Bozza",
-    "io": "crwdns14942:0crwdne14942:0"
+    "io": "crwdns14942:0crwdne14942:0",
+    "oc": "Borrolhon"
   },
   "contact": {
     "fr": "Contacter",
@@ -287,7 +299,8 @@ module.exports = {
     "en": "Open",
     "de": "Ansehen",
     "es": "Ver",
-    "io": "crwdns14958:0crwdne14958:0"
+    "io": "crwdns14958:0crwdne14958:0",
+    "it": "Aprire"
   },
   "seeMore": {
     "fr": "Voir plus",

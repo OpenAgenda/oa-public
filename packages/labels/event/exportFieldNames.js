@@ -191,7 +191,8 @@ module.exports = {
     "fr": "Inscription",
     "de": "Registrierung",
     "es": "Registro",
-    "it": "Registrazione"
+    "it": "Strumenti di registrazione",
+    "io": "crwdns16430:0crwdne16430:0"
   },
   "accessibility": {
     "en": "Accessibility",
@@ -220,7 +221,8 @@ module.exports = {
   },
   "permalink": {
     "en": "Permalink",
-    "fr": "Permalien"
+    "fr": "Permalien",
+    "io": "crwdns16432:0crwdne16432:0"
   },
   "location.uid": {
     "en": "Location identifier",
@@ -236,7 +238,8 @@ module.exports = {
     "de": "Breite",
     "es": "latitud",
     "it": "Latitudine",
-    "io": "crwdns14200:0crwdne14200:0"
+    "io": "crwdns14200:0crwdne14200:0",
+    "oc": "Latitud"
   },
   "location.longitude": {
     "en": "Longitude",
@@ -244,7 +247,8 @@ module.exports = {
     "de": "Längengrad",
     "es": "longitud",
     "it": "Longitudine",
-    "io": "crwdns14202:0crwdne14202:0"
+    "io": "crwdns14202:0crwdne14202:0",
+    "oc": "Longitud"
   },
   "location.name": {
     "en": "Location name",
@@ -463,7 +467,8 @@ module.exports = {
     "de": "Kreis",
     "es": "Barrio",
     "it": "Comune",
-    "io": "crwdns14256:0crwdne14256:0"
+    "io": "crwdns14256:0crwdne14256:0",
+    "oc": "Districte"
   },
   "state": {
     "en": "State",
@@ -487,7 +492,8 @@ module.exports = {
     "it": "Modalità di partecipazione",
     "es": "Modo de asistencia",
     "de": "Anwesenheitsmodus",
-    "br": "Doare perzhiañ"
+    "br": "Doare perzhiañ",
+    "io": "crwdns16152:0crwdne16152:0"
   },
   "onlineAccessLink": {
     "fr": "Lien d'accès",
@@ -495,38 +501,48 @@ module.exports = {
     "de": "Zugangslink",
     "es": "Enlace de acceso",
     "it": "Collegamento di accesso",
-    "br": "Liamm moned"
+    "br": "Liamm moned",
+    "io": "crwdns16154:0crwdne16154:0"
   },
   "status": {
     "fr": "État",
-    "en": "Status"
+    "en": "Status",
+    "io": "crwdns16156:0crwdne16156:0"
   },
   "member.uid": {
     "fr": "Membre: identifiant",
-    "en": "Member: Identifier"
+    "en": "Member: Identifier",
+    "io": "crwdns16434:0crwdne16434:0"
   },
   "member.role": {
     "fr": "Membre: rôle",
-    "en": "Member: role"
+    "en": "Member: role",
+    "io": "crwdns16436:0crwdne16436:0"
   },
   "member.phone": {
     "fr": "Membre: téléphone",
-    "en": "Member: phone"
+    "en": "Member: phone",
+    "io": "crwdns16438:0crwdne16438:0"
   },
   "member.email": {
     "fr": "Membre: email",
-    "en": "Member: email"
+    "en": "Member: email",
+    "it": "Membro: email",
+    "io": "crwdns16440:0crwdne16440:0"
   },
   "member.organization": {
     "fr": "Membre: organisme",
-    "en": "Member: organization"
+    "en": "Member: organization",
+    "io": "crwdns16442:0crwdne16442:0"
   },
   "member.name": {
     "fr": "Membre: nom",
-    "en": "Member: name"
+    "en": "Member: name",
+    "io": "crwdns16444:0crwdne16444:0"
   },
   "member.position": {
     "fr": "Membre: fonction",
-    "en": "Member: title"
+    "en": "Member: title",
+    "io": "crwdns16446:0crwdne16446:0"
   }
 };

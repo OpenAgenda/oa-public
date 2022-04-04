@@ -3,10 +3,10 @@
   "checkEmail": "Controlla la tua mail per un link di convalida",
   "checkEmailInstruction": "A breve ti verrà inviata un'e-mail contenente il link di attivazione del tuo conto. Controlla la tua casella di posta per completare il processo di creazione del tuo conto.",
   "didNotReceive": "Non hai ricevuto nessuna mail? %resend% o scrivi a %support%.",
-  "resend": "Clicca qui per inviare nuovamente",
+  "resend": "Cliccare qui per inviare di nuovo",
   "stayUpToDate": "Rimani aggiornato su ciò che sta succedendo con OpenAgenda!",
   "followUs": "Seguici",
-  "getOurNewsletter": "Ricevi la nostra newsletter",
-  "yourEmail": "Il tuo indirizzo e-mail",
+  "getOurNewsletter": "Ricevere la nostra newsletter",
+  "yourEmail": "Il suo indirizzo e-mail",
   "subscribe": "Abbonarsi"
 }

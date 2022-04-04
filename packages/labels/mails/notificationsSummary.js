@@ -16,7 +16,8 @@ module.exports = {
     "es": "resumen agenda de las notificaciones",
     "it": "Riepilogo giornaliero delle vostre notifiche",
     "br": "Diverradenn bemdeziek eus ho kemennoù",
-    "io": "crwdns15586:0crwdne15586:0"
+    "io": "crwdns15586:0crwdne15586:0",
+    "oc": "Resumit quotidian de vòstras notificacions"
   },
   "goToOA": {
     "fr": "Aller sur OpenAgenda",

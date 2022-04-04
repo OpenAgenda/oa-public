@@ -6,7 +6,7 @@ module.exports = {
     "fr": "Administrateur",
     "de": "Administrator",
     "es": "administrador",
-    "it": "Direttore",
+    "it": "Amministratore",
     "io": "crwdns13248:0crwdne13248:0"
   },
   "moderator": {
