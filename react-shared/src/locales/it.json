@@ -2,5 +2,10 @@
   "ReactShared.ImageInput.acceptedFiles": "File accettati",
   "ReactShared.ImageInput.remove": "Cancellare",
   "ReactShared.ImageInput.update": "Aggiorna l'immagine",
-  "ReactShared.ImageInput.upload": "Carica un'immagine"
+  "ReactShared.ImageInput.upload": "Carica un'immagine",
+  "ReactShared.ConsentBanner.accept": "Accettare",
+  "ReactShared.ConsentBanner.decline": "Rifiutare",
+  "ReactShared.ConsentBanner.informationText": "Questa agenda utilizza i cookie del servizio di monitoraggio Google Analytics. Essi permettono agli amministratori dell'agenda di ottenere informazioni su quali contenuti vengono visualizzati dai visitatori sui siti web. Li accetti?",
+  "ReactShared.ConsentBanner.moreInfoLink": "Per saperne di più",
+  "ReactShared.ImageInput.fileTooLarge": "Il documento {fileName} è {fileSize}, il limite superiore per la dimensione del file è {maxSize}"
 }
