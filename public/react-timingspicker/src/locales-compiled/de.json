@@ -540,7 +540,7 @@
   "rtp.recurrencerForm.invalidFrequence": [
     {
       "type": 0,
-      "value": "Invalid frequence"
+      "value": "Invalid frequency"
     }
   ],
   "rtp.recurrencerForm.invalidMonthlyIntervalType": [

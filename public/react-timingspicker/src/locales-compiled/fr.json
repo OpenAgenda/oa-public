@@ -637,7 +637,7 @@
   "rtp.reset": [
     {
       "type": 0,
-      "value": "Supprimer tous les horaires"
+      "value": "Supprimer"
     }
   ],
   "rtp.scheduler.openMultiRecurrencerModal": [

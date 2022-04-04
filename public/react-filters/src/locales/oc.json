@@ -1,1 +1,10 @@
-{}
+{
+  "ReactFilters.Sort.chronological": "Òrdre cronologic",
+  "ReactFilters.Sort.relevance": "Pertinéncia",
+  "ReactFilters.messages.filterTitles.district": "Districte",
+  "ReactFilters.messages.filterTitles.geo": "Geolocalizacion",
+  "ReactFilters.messages.provenance.share": "Partatjar",
+  "ReactFilters.messages.status.full": "Totalament complèt",
+  "ReactFilters.messages.status.movedOnline": "Transferit en linha",
+  "ReactFilters.messages.status.rescheduled": "Tornat planificar"
+}

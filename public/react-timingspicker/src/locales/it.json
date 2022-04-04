@@ -55,5 +55,6 @@
   "rtp.recurrencerForm.week": "settimana",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {settimana} other {settimane}}",
   "rtp.reset": "Cancellare tutti",
-  "rtp.scheduler.openMultiRecurrencerModal": "Definire la ricorrenza"
+  "rtp.scheduler.openMultiRecurrencerModal": "Definire la ricorrenza",
+  "rtp.defineTiming": "Clicca e striscia sulla griglia per creare un nuovo orario"
 }

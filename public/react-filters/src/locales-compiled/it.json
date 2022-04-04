@@ -14,13 +14,13 @@
   "ReactFilters.ChoiceFilter.noResult": [
     {
       "type": 0,
-      "value": "No result"
+      "value": "Nessun risultato"
     }
   ],
   "ReactFilters.ChoiceFilter.searchPlaceholder": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Cerca"
     }
   ],
   "ReactFilters.ChoiceFilter.unrecognizedOption": [
@@ -116,7 +116,7 @@
   "ReactFilters.DateRangeFilter.startDate": [
     {
       "type": 0,
-      "value": "Start"
+      "value": "Iniziare"
     }
   ],
   "ReactFilters.DateRangeFilter.until": [
@@ -217,7 +217,7 @@
   "ReactFilters.DefinedRangeFilter.startDate": [
     {
       "type": 0,
-      "value": "Start"
+      "value": "Iniziare"
     }
   ],
   "ReactFilters.DefinedRangeFilter.until": [
@@ -266,7 +266,7 @@
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Remove filter"
+      "value": "Rimuovere il filtro"
     }
   ],
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
@@ -304,37 +304,37 @@
   "ReactFilters.dateRanges.today": [
     {
       "type": 0,
-      "value": "Today"
+      "value": "Oggi"
     }
   ],
   "ReactFilters.dateRanges.tomorrow": [
     {
       "type": 0,
-      "value": "Tomorrow"
+      "value": "Domani"
     }
   ],
   "ReactFilters.filters.MapFilter.previewLabel": [
     {
       "type": 0,
-      "value": "Map"
+      "value": "Mappa"
     }
   ],
   "ReactFilters.filters.searchFilter.placeholder": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Cerca"
     }
   ],
   "ReactFilters.filters.searchFilter.previewLabel": [
     {
       "type": 0,
-      "value": "Search"
+      "value": "Cerca"
     }
   ],
   "ReactFilters.messages.attendanceMode.mixed": [
     {
       "type": 0,
-      "value": "Mixed"
+      "value": "Misto"
     }
   ],
   "ReactFilters.messages.attendanceMode.offline": [
@@ -346,7 +346,7 @@
   "ReactFilters.messages.attendanceMode.online": [
     {
       "type": 0,
-      "value": "Online"
+      "value": "In linea"
     }
   ],
   "ReactFilters.messages.boolean.notSelected": [
@@ -364,7 +364,7 @@
   "ReactFilters.messages.featured.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "Selezionato"
     }
   ],
   "ReactFilters.messages.filterTitles.addMethod": [
@@ -388,55 +388,55 @@
   "ReactFilters.messages.filterTitles.city": [
     {
       "type": 0,
-      "value": "City"
+      "value": "Città"
     }
   ],
   "ReactFilters.messages.filterTitles.createdAt": [
     {
       "type": 0,
-      "value": "Creation date"
+      "value": "Creazione del record"
     }
   ],
   "ReactFilters.messages.filterTitles.department": [
     {
       "type": 0,
-      "value": "Department"
+      "value": "Dipartimento"
     }
   ],
   "ReactFilters.messages.filterTitles.district": [
     {
       "type": 0,
-      "value": "District"
+      "value": "Quartiere"
     }
   ],
   "ReactFilters.messages.filterTitles.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "Selezionato"
     }
   ],
   "ReactFilters.messages.filterTitles.geo": [
     {
       "type": 0,
-      "value": "Geolocation"
+      "value": "Geolocalizzazione"
     }
   ],
   "ReactFilters.messages.filterTitles.keyword": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Parole Chiave"
     }
   ],
   "ReactFilters.messages.filterTitles.locationUid": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Luogo"
     }
   ],
   "ReactFilters.messages.filterTitles.memberUid": [
     {
       "type": 0,
-      "value": "Member"
+      "value": "Membro"
     }
   ],
   "ReactFilters.messages.filterTitles.originAgendaUid": [
@@ -448,7 +448,7 @@
   "ReactFilters.messages.filterTitles.region": [
     {
       "type": 0,
-      "value": "Region"
+      "value": "Regione"
     }
   ],
   "ReactFilters.messages.filterTitles.relative": [
@@ -466,13 +466,13 @@
   "ReactFilters.messages.filterTitles.state": [
     {
       "type": 0,
-      "value": "State"
+      "value": "Stato"
     }
   ],
   "ReactFilters.messages.filterTitles.status": [
     {
       "type": 0,
-      "value": "Etat"
+      "value": "Stato"
     }
   ],
   "ReactFilters.messages.filterTitles.timings": [
@@ -484,109 +484,109 @@
   "ReactFilters.messages.filterTitles.updatedAt": [
     {
       "type": 0,
-      "value": "Date of update"
+      "value": "Data di aggiornamento"
     }
   ],
   "ReactFilters.messages.provenance.aggregation": [
     {
       "type": 0,
-      "value": "Aggregation"
+      "value": "Aggregazione"
     }
   ],
   "ReactFilters.messages.provenance.contribution": [
     {
       "type": 0,
-      "value": "Contribution"
+      "value": "Contribuzione"
     }
   ],
   "ReactFilters.messages.provenance.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Condividere"
     }
   ],
   "ReactFilters.messages.relative.current": [
     {
       "type": 0,
-      "value": "Current"
+      "value": "Attuale"
     }
   ],
   "ReactFilters.messages.relative.passed": [
     {
       "type": 0,
-      "value": "Passed"
+      "value": "Passato"
     }
   ],
   "ReactFilters.messages.relative.upcoming": [
     {
       "type": 0,
-      "value": "Upcoming"
+      "value": "Futuro"
     }
   ],
   "ReactFilters.messages.state.controlled": [
     {
       "type": 0,
-      "value": "Controlled"
+      "value": "Controllato"
     }
   ],
   "ReactFilters.messages.state.published": [
     {
       "type": 0,
-      "value": "Published"
+      "value": "Pubblicato"
     }
   ],
   "ReactFilters.messages.state.refused": [
     {
       "type": 0,
-      "value": "Refused"
+      "value": "Rifiutato"
     }
   ],
   "ReactFilters.messages.state.toModerate": [
     {
       "type": 0,
-      "value": "To moderate"
+      "value": "Da controllare"
     }
   ],
   "ReactFilters.messages.status.cancelled": [
     {
       "type": 0,
-      "value": "Cancelled"
+      "value": "Cancellato"
     }
   ],
   "ReactFilters.messages.status.full": [
     {
       "type": 0,
-      "value": "Fully booked"
+      "value": "Completo"
     }
   ],
   "ReactFilters.messages.status.movedOnline": [
     {
       "type": 0,
-      "value": "Moved online"
+      "value": "Finalmente in linea"
     }
   ],
   "ReactFilters.messages.status.postponed": [
     {
       "type": 0,
-      "value": "Postponed"
+      "value": "Riprogrammato"
     }
   ],
   "ReactFilters.messages.status.programmed": [
     {
       "type": 0,
-      "value": "Scheduled"
+      "value": "Programmato"
     }
   ],
   "ReactFilters.messages.status.rescheduled": [
     {
       "type": 0,
-      "value": "Rescheduled"
+      "value": "Riprogrammato"
     }
   ],
   "ReactFilters.useGetFilterOptions.emptyOption": [
     {
       "type": 0,
-      "value": "(Without value)"
+      "value": "(Nessun valore)"
     }
   ]
 }

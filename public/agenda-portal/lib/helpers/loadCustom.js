@@ -4,7 +4,7 @@ const _ = require('lodash');
 const cn = require('classnames');
 const counters = require('./utils/counters');
 
-module.exports = (hbs, filterOrWidget) => ({ fn, hash, data }) => {
+module.exports = (hbs, filterOrWidget) => function ({ fn, hash, data }) {
   counters.init(data);
 
   const {
