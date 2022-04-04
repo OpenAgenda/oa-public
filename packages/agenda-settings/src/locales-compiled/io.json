@@ -2,79 +2,79 @@
   "AgendaSetting.contribution.contributionRestrictDates": [
     {
       "type": 0,
-      "value": "Restrict input dates"
+      "value": "crwdns16510:0crwdne16510:0"
     }
   ],
   "AgendaSettings.CreationSecondStep.formEvent": [
     {
       "type": 0,
-      "value": "Form event"
+      "value": "crwdns16512:0crwdne16512:0"
     }
   ],
   "AgendaSettings.CreationSecondStep.onlineEvents": [
     {
       "type": 0,
-      "value": "Allow online event entry"
+      "value": "crwdns16514:0crwdne16514:0"
     }
   ],
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": [
     {
       "type": 0,
-      "value": "Online events can be associated with physical locations"
+      "value": "crwdns16516:0crwdne16516:0"
     }
   ],
   "AgendaSettings.CreationSecondStep.statusField": [
     {
       "type": 0,
-      "value": "Show status field (complete, postponed, cancelled) in the form"
+      "value": "crwdns16518:0crwdne16518:0"
     }
   ],
   "AgendaSettings.CreationSecondStep.statusFieldDesc": [
     {
       "type": 0,
-      "value": "The state of the event can also be modified from the administration of the agenda"
+      "value": "crwdns16520:0crwdne16520:0"
     }
   ],
   "AgendaSettings.contribution.closedContibution": [
     {
       "type": 0,
-      "value": "Closed"
+      "value": "crwdns16522:0crwdne16522:0"
     }
   ],
   "AgendaSettings.contribution.closedContibutionDesc": [
     {
       "type": 0,
-      "value": "The agenda does not accept new contributions"
+      "value": "crwdns16524:0crwdne16524:0"
     }
   ],
   "AgendaSettings.contribution.contribution": [
     {
       "type": 0,
-      "value": "Contribution"
+      "value": "crwdns16526:0crwdne16526:0"
     }
   ],
   "AgendaSettings.contribution.openContribution": [
     {
       "type": 0,
-      "value": "Open"
+      "value": "crwdns16528:0crwdne16528:0"
     }
   ],
   "AgendaSettings.contribution.openContributionDesc": [
     {
       "type": 0,
-      "value": "Any user can add events, under your moderation"
+      "value": "crwdns16530:0crwdne16530:0"
     }
   ],
   "AgendaSettings.contribution.reducedContribution": [
     {
       "type": 0,
-      "value": "Reduced"
+      "value": "crwdns16532:0crwdne16532:0"
     }
   ],
   "AgendaSettings.contribution.reducedContributionDesc": [
     {
       "type": 0,
-      "value": "Only invited users can add events"
+      "value": "crwdns16534:0crwdne16534:0"
     }
   ]
 }

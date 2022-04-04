@@ -2,43 +2,43 @@
   "AgendaContribute.Canvas.fromAgenda": [
     {
       "type": 0,
-      "value": "from the agenda"
+      "value": "dell'agenda"
     }
   ],
   "AgendaContribute.Canvas.shareEvent": [
     {
       "type": 0,
-      "value": "Share an event"
+      "value": "Condividere un evento"
     }
   ],
   "AgendaContribute.Canvas.takeEvent": [
     {
       "type": 0,
-      "value": "Take"
+      "value": "Prendere"
     }
   ],
   "AgendaContribute.Canvas.toAgenda": [
     {
       "type": 0,
-      "value": "to the agenda"
+      "value": "fino all'agenda"
     }
   ],
   "AgendaContribute.CanvasWithStepper.addEvent": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Aggiungi un evento"
     }
   ],
   "AgendaContribute.CanvasWithStepper.editDraftTitle": [
     {
       "type": 0,
-      "value": "Draft"
+      "value": "Bozza"
     }
   ],
   "AgendaContribute.ClosedMessage.forAdminModerators": [
     {
       "type": 0,
-      "value": "This agenda is currently not open to contributors. Only administrators or moderators can add events."
+      "value": "Questa agenda non è attualmente aperta ai contributori. Solo gli amministratori o i moderatori possono aggiungere eventi."
     }
   ],
   "AgendaContribute.ClosedMessage.forContributors": [
@@ -50,91 +50,91 @@
   "AgendaContribute.Confirmation.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact the agenda administrators"
+      "value": "Contattare gli amministratori"
     }
   ],
   "AgendaContribute.Confirmation.createOtherEvent": [
     {
       "type": 0,
-      "value": "Add another event"
+      "value": "Aggiungere un evento"
     }
   ],
   "AgendaContribute.Confirmation.duplicateEvent": [
     {
       "type": 0,
-      "value": "Duplicate event"
+      "value": "Duplicare l'evento"
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState0": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is being moderated. You will be notified by email when it will be published."
+      "value": "Il suo evento è registrato e sarà controllato. Lei riceverà une notificazione quando il suo evento sarà pubblicato."
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState1": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is ready to be published. You will be notified as soon as it is."
+      "value": "Il suo evento è registrato e sarà controllato. Lei riceverà une notificazione quando il suo evento sarà pubblicato."
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState2": [
     {
       "type": 0,
-      "value": "Your event has been published and is visible on the agenda."
+      "value": "Il suo evento è registrato e pubblicato."
     }
   ],
   "AgendaContribute.Confirmation.seeEventAction": [
     {
       "type": 0,
-      "value": "View my event"
+      "value": "Vedere il moi evento"
     }
   ],
   "AgendaContribute.Confirmation.showMyEvents": [
     {
       "type": 0,
-      "value": "List all my events"
+      "value": "Vedere tutti i miei eventi"
     }
   ],
   "AgendaContribute.ErrorMessage.cancelChange": [
     {
       "type": 0,
-      "value": "Cancel the share"
+      "value": "Cancellare la condivisione"
     }
   ],
   "AgendaContribute.ErrorMessage.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condizioni"
     }
   ],
   "AgendaContribute.ErrorMessage.endLessThanBegin": [
     {
       "type": 0,
-      "value": "At least one timing is invalid with an begin time occuring after the ending time"
+      "value": "Almeno un orario è invalido con un tempo d'inizio che viene dopo il tempo di fine"
     }
   ],
   "AgendaContribute.ErrorMessage.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Crediti immagine"
     }
   ],
   "AgendaContribute.ErrorMessage.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Descrizione lunga"
     }
   ],
   "AgendaContribute.ErrorMessage.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Strumenti di registrazione"
     }
   ],
   "AgendaContribute.ErrorMessage.required": [
     {
       "type": 0,
-      "value": "Required"
+      "value": "Richiesto"
     }
   ],
   "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
@@ -162,19 +162,19 @@
   "AgendaContribute.ErrorMessage.suggestChange": [
     {
       "type": 0,
-      "value": "Suggest a change"
+      "value": "Suggerisci un cambiamento"
     }
   ],
   "AgendaContribute.ErrorMessage.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Orari"
     }
   ],
   "AgendaContribute.EventEdit.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "Aggiorna"
     }
   ],
   "AgendaContribute.EventIsAlreadyInTarget.goBack": [
@@ -192,31 +192,31 @@
   "AgendaContribute.EventNew.create": [
     {
       "type": 0,
-      "value": "Create the event"
+      "value": "Registrare l’evento"
     }
   ],
   "AgendaContribute.EventNew.deleteDraft": [
     {
       "type": 0,
-      "value": "Delete the draft"
+      "value": "Cancellare la bozza"
     }
   ],
   "AgendaContribute.EventNew.draft": [
     {
       "type": 0,
-      "value": "Save as draft"
+      "value": "Registrare una bozza"
     }
   ],
   "AgendaContribute.EventNew.updateDraft": [
     {
       "type": 0,
-      "value": "Update draft"
+      "value": "Modificare la bozza"
     }
   ],
   "AgendaContribute.EventShare.share": [
     {
       "type": 0,
-      "value": "Add the event"
+      "value": "Aggiungere un evento"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.goBack": [
@@ -288,31 +288,31 @@
   "AgendaContribute.RequestEditionRights.noEditionRights": [
     {
       "type": 0,
-      "value": "You do not have edition rights on this event."
+      "value": "Non avete accesso all'edizione di questo evento."
     }
   ],
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
     {
       "type": 0,
-      "value": "Only additional fields of the agenda can be edited here."
+      "value": "Solo i campi aggiuntivi dell'agenda possono essere modificati qui."
     }
   ],
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
     {
       "type": 0,
-      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
+      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only members of the agenda where the event was contributed can change its content."
     }
   ],
   "AgendaContribute.RequestEditionRights.requestEditionRights": [
     {
       "type": 0,
-      "value": "Request edition rights"
+      "value": "Chiedere il diritto di modificare questo evento"
     }
   ],
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)"
     }
   ],
   "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
@@ -336,13 +336,13 @@
   "AgendaContribute.Stepper.confirmation": [
     {
       "type": 0,
-      "value": "Confermazione"
+      "value": "Conferma"
     }
   ],
   "AgendaContribute.Stepper.event": [
     {
       "type": 0,
-      "value": "Il moi evento"
+      "value": "Il mio evento"
     }
   ],
   "AgendaContribute.Stepper.member": [

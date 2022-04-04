@@ -2,145 +2,145 @@
   "AgendaContribute.Canvas.fromAgenda": [
     {
       "type": 0,
-      "value": "from the agenda"
+      "value": "crwdns16261:0crwdne16261:0"
     }
   ],
   "AgendaContribute.Canvas.shareEvent": [
     {
       "type": 0,
-      "value": "Share an event"
+      "value": "crwdns16263:0crwdne16263:0"
     }
   ],
   "AgendaContribute.Canvas.takeEvent": [
     {
       "type": 0,
-      "value": "Take"
+      "value": "crwdns16265:0crwdne16265:0"
     }
   ],
   "AgendaContribute.Canvas.toAgenda": [
     {
       "type": 0,
-      "value": "to the agenda"
+      "value": "crwdns16267:0crwdne16267:0"
     }
   ],
   "AgendaContribute.CanvasWithStepper.addEvent": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "crwdns16269:0crwdne16269:0"
     }
   ],
   "AgendaContribute.CanvasWithStepper.editDraftTitle": [
     {
       "type": 0,
-      "value": "Draft"
+      "value": "crwdns16271:0crwdne16271:0"
     }
   ],
   "AgendaContribute.ClosedMessage.forAdminModerators": [
     {
       "type": 0,
-      "value": "This agenda is currently not open to contributors. Only administrators or moderators can add events."
+      "value": "crwdns16273:0crwdne16273:0"
     }
   ],
   "AgendaContribute.ClosedMessage.forContributors": [
     {
       "type": 0,
-      "value": "This agenda is not or no longer open for new contributions."
+      "value": "crwdns16275:0crwdne16275:0"
     }
   ],
   "AgendaContribute.Confirmation.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contact the agenda administrators"
+      "value": "crwdns16277:0crwdne16277:0"
     }
   ],
   "AgendaContribute.Confirmation.createOtherEvent": [
     {
       "type": 0,
-      "value": "Add another event"
+      "value": "crwdns16279:0crwdne16279:0"
     }
   ],
   "AgendaContribute.Confirmation.duplicateEvent": [
     {
       "type": 0,
-      "value": "Duplicate event"
+      "value": "crwdns16281:0crwdne16281:0"
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState0": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is being moderated. You will be notified by email when it will be published."
+      "value": "crwdns16283:0crwdne16283:0"
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState1": [
     {
       "type": 0,
-      "value": "Your event has been submitted and is ready to be published. You will be notified as soon as it is."
+      "value": "crwdns16285:0crwdne16285:0"
     }
   ],
   "AgendaContribute.Confirmation.recapDetailState2": [
     {
       "type": 0,
-      "value": "Your event has been published and is visible on the agenda."
+      "value": "crwdns16287:0crwdne16287:0"
     }
   ],
   "AgendaContribute.Confirmation.seeEventAction": [
     {
       "type": 0,
-      "value": "View my event"
+      "value": "crwdns16289:0crwdne16289:0"
     }
   ],
   "AgendaContribute.Confirmation.showMyEvents": [
     {
       "type": 0,
-      "value": "List all my events"
+      "value": "crwdns16291:0crwdne16291:0"
     }
   ],
   "AgendaContribute.ErrorMessage.cancelChange": [
     {
       "type": 0,
-      "value": "Cancel the share"
+      "value": "crwdns16361:0crwdne16361:0"
     }
   ],
   "AgendaContribute.ErrorMessage.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "crwdns16363:0crwdne16363:0"
     }
   ],
   "AgendaContribute.ErrorMessage.endLessThanBegin": [
     {
       "type": 0,
-      "value": "At least one timing is invalid with an begin time occuring after the ending time"
+      "value": "crwdns16365:0crwdne16365:0"
     }
   ],
   "AgendaContribute.ErrorMessage.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "crwdns16367:0crwdne16367:0"
     }
   ],
   "AgendaContribute.ErrorMessage.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "crwdns16369:0crwdne16369:0"
     }
   ],
   "AgendaContribute.ErrorMessage.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "crwdns16371:0crwdne16371:0"
     }
   ],
   "AgendaContribute.ErrorMessage.required": [
     {
       "type": 0,
-      "value": "Required"
+      "value": "crwdns16373:0crwdne16373:0"
     }
   ],
   "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
     {
       "type": 0,
-      "value": "The following issues must be addressed to allow make the event \""
+      "value": "crwdns16375:0"
     },
     {
       "type": 1,
@@ -148,7 +148,7 @@
     },
     {
       "type": 0,
-      "value": "\" shareable on the agenda \""
+      "value": "crwdnd16375:0"
     },
     {
       "type": 1,
@@ -156,93 +156,101 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "crwdne16375:0"
     }
   ],
   "AgendaContribute.ErrorMessage.suggestChange": [
     {
       "type": 0,
-      "value": "Suggest a change"
+      "value": "crwdns16377:0crwdne16377:0"
     }
   ],
   "AgendaContribute.ErrorMessage.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "crwdns16379:0crwdne16379:0"
     }
   ],
   "AgendaContribute.EventEdit.update": [
     {
       "type": 0,
-      "value": "Update"
+      "value": "crwdns16293:0crwdne16293:0"
     }
   ],
   "AgendaContribute.EventIsAlreadyInTarget.goBack": [
     {
       "type": 0,
-      "value": "Go back"
+      "value": "crwdns16295:0crwdne16295:0"
     }
   ],
   "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
     {
       "type": 0,
-      "value": "The event is already referenced in the agenda you want to share it to. If you do not see it appear on the main page, it is likely that administrators haven't published it yet."
+      "value": "crwdns16297:0crwdne16297:0"
     }
   ],
   "AgendaContribute.EventNew.create": [
     {
       "type": 0,
-      "value": "Create the event"
+      "value": "crwdns16299:0crwdne16299:0"
     }
   ],
   "AgendaContribute.EventNew.deleteDraft": [
     {
       "type": 0,
-      "value": "Delete the draft"
+      "value": "crwdns16301:0crwdne16301:0"
     }
   ],
   "AgendaContribute.EventNew.draft": [
     {
       "type": 0,
-      "value": "Save as draft"
+      "value": "crwdns16303:0crwdne16303:0"
     }
   ],
   "AgendaContribute.EventNew.updateDraft": [
     {
       "type": 0,
-      "value": "Update draft"
+      "value": "crwdns16305:0crwdne16305:0"
     }
   ],
   "AgendaContribute.EventShare.share": [
     {
       "type": 0,
-      "value": "Add the event"
+      "value": "crwdns16319:0crwdne16319:0"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.goBack": [
     {
       "type": 0,
-      "value": "Go back to the event page in "
+      "value": "crwdns16325:0"
     },
     {
       "type": 1,
       "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16325:0"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.goTo": [
     {
       "type": 0,
-      "value": "See the event in "
+      "value": "crwdns16327:0"
     },
     {
       "type": 1,
       "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16327:0"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": [
     {
       "type": 0,
-      "value": "The event is now published on \""
+      "value": "crwdns16329:0"
     },
     {
       "type": 1,
@@ -250,13 +258,13 @@
     },
     {
       "type": 0,
-      "value": "\""
+      "value": "crwdne16329:0"
     }
   ],
   "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": [
     {
       "type": 0,
-      "value": "The event has been added to \""
+      "value": "crwdns16331:0"
     },
     {
       "type": 1,
@@ -264,91 +272,91 @@
     },
     {
       "type": 0,
-      "value": "\". It will be reviewed before being published"
+      "value": "crwdne16331:0"
     }
   ],
   "AgendaContribute.Member.description": [
     {
       "type": 0,
-      "value": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed."
+      "value": "crwdns16333:0crwdne16333:0"
     }
   ],
   "AgendaContribute.Member.subtitle": [
     {
       "type": 0,
-      "value": "Present yourself to the agenda administrators before starting typing your events"
+      "value": "crwdns16335:0crwdne16335:0"
     }
   ],
   "AgendaContribute.Member.title": [
     {
       "type": 0,
-      "value": "Welcome !"
+      "value": "crwdns16337:0crwdne16337:0"
     }
   ],
   "AgendaContribute.RequestEditionRights.noEditionRights": [
     {
       "type": 0,
-      "value": "You do not have edition rights on this event."
+      "value": "crwdns16339:0crwdne16339:0"
     }
   ],
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
     {
       "type": 0,
-      "value": "Only additional fields of the agenda can be edited here."
+      "value": "crwdns16341:0crwdne16341:0"
     }
   ],
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
     {
       "type": 0,
-      "value": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
+      "value": "crwdns16343:0%agenda%crwdne16343:0"
     }
   ],
   "AgendaContribute.RequestEditionRights.requestEditionRights": [
     {
       "type": 0,
-      "value": "Request edition rights"
+      "value": "crwdns16345:0crwdne16345:0"
     }
   ],
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
     {
       "type": 0,
-      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+      "value": "crwdns16347:0crwdne16347:0"
     }
   ],
   "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
     {
       "type": 0,
-      "value": "Only additional fields of the agenda are currently shown"
+      "value": "crwdns16349:0crwdne16349:0"
     }
   ],
   "AgendaContribute.ShowFullEventForm.showEventFields": [
     {
       "type": 0,
-      "value": "Edit event fields"
+      "value": "crwdns16351:0crwdne16351:0"
     }
   ],
   "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
     {
       "type": 0,
-      "value": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published."
+      "value": "crwdns16353:0crwdne16353:0"
     }
   ],
   "AgendaContribute.Stepper.confirmation": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "crwdns16355:0crwdne16355:0"
     }
   ],
   "AgendaContribute.Stepper.event": [
     {
       "type": 0,
-      "value": "My event"
+      "value": "crwdns16357:0crwdne16357:0"
     }
   ],
   "AgendaContribute.Stepper.member": [
     {
       "type": 0,
-      "value": "Member form"
+      "value": "crwdns16359:0crwdne16359:0"
     }
   ]
 }

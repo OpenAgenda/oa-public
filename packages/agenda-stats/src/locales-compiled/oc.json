@@ -466,7 +466,7 @@
   "AgendaStats.OrderModal.width": [
     {
       "type": 0,
-      "value": "Width:"
+      "value": "Largor :"
     }
   ],
   "AgendaStats.RangeFilter.range": [
@@ -600,7 +600,7 @@
   "AgendaStats.RangeTypeModal.rangeTypeDesc": [
     {
       "type": 0,
-      "value": "The period from "
+      "value": "Lo periòd del "
     },
     {
       "children": [
@@ -614,7 +614,7 @@
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " al "
     },
     {
       "children": [
@@ -628,7 +628,7 @@
     },
     {
       "type": 0,
-      "value": " applies to:"
+      "value": " s'aplica a :"
     }
   ],
   "AgendaStats.RangeTypeModal.submit": [
@@ -652,7 +652,7 @@
   "AgendaStats.StatEditModal.modalTitle": [
     {
       "type": 0,
-      "value": "Edit the chart: "
+      "value": "Modificar lo grafic : "
     },
     {
       "type": 1,
@@ -752,7 +752,7 @@
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
-      "value": "Component width"
+      "value": "Largor del compausant :"
     }
   ],
   "AgendaStats.form.data": [

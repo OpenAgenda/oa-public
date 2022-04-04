@@ -8,7 +8,7 @@
   "react-layouts.AdminHeader.return": [
     {
       "type": 0,
-      "value": "Go to the Agenda Homepage"
+      "value": "Vedere la pagina pubblica"
     }
   ],
   "react-layouts.AdminSections.newTab": [
@@ -74,7 +74,7 @@
   "react-layouts.MainLayout.translate": [
     {
       "type": 0,
-      "value": "Translate"
+      "value": "Gestire"
     }
   ],
   "react-layouts.components.Search.search": [
