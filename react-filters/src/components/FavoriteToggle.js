@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback, useMemo } from 'react';
 import { useLatest } from 'react-use';
 import { useForm } from 'react-final-form';
+import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 import updateCustomFilter from '../utils/updateCustomFilter';
 import updateFormValues from '../utils/updateFormValues';
 import { useFavoriteState } from '../hooks';
@@ -15,6 +16,20 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
 
   const eventUidStr = String(eventUid);
 
+  const updateForm = useCallback(e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const active = latestValue.current?.includes(eventUidStr);
+    const newValue = active
+      ? latestValue.current.filter(v => v !== eventUidStr)
+      : [...(latestValue.current || []), eventUidStr].filter(v => v !== '-1');
+
+    setValue(newValue.length ? newValue : undefined);
+  }, [eventUidStr, latestValue, setValue]);
+
+  const onChange = useMemo(() => a11yButtonActionHandler(updateForm), [updateForm]);
+
   // Add & remove click listener
   useEffect(() => {
     if (firstRender.current) {
@@ -25,25 +40,31 @@ export default function FavoriteToggle({ agendaUid, eventUid, widget }) {
       }
     }
 
-    const clickHandler = e => {
-      e.preventDefault();
-
-      const active = latestValue.current?.includes(eventUidStr);
-      const newValue = active
-        ? latestValue.current.filter(v => v !== eventUidStr)
-        : [...(latestValue.current || []), eventUidStr].filter(v => v !== '-1');
-
-      setValue(newValue.length ? newValue : undefined);
-    };
-
     const handlerElem = widget.handlerElem || widget.elem;
+    const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
 
-    handlerElem.addEventListener('click', clickHandler, false);
+    const handlerIsLabelWithCheckbox = innerCheckboxes.length === 1
+      && handlerElem.tagName === 'LABEL'
+      && handlerElem.contains(innerCheckboxes[0]);
+
+    if (innerCheckboxes.length === 1 && (!widget.handlerElem || handlerIsLabelWithCheckbox)) {
+      innerCheckboxes[0].addEventListener('change', updateForm, false);
+    } else {
+      handlerElem.addEventListener('click', onChange, false);
+    }
+
+    handlerElem.addEventListener('keydown', onChange, false);
 
     return () => {
-      handlerElem.removeEventListener('click', clickHandler, false);
+      if (innerCheckboxes.length === 1 && (!widget.handlerElem || handlerIsLabelWithCheckbox)) {
+        innerCheckboxes[0].removeEventListener('change', updateForm, false);
+      } else {
+        handlerElem.removeEventListener('click', onChange, false);
+      }
+
+      handlerElem.removeEventListener('keydown', onChange, false);
     };
-  }, [eventUidStr, widget, latestValue, setValue]);
+  }, [eventUidStr, widget, latestValue, onChange]);
 
   // Watch value change
   useEffect(() => {

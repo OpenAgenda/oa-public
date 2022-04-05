@@ -134,7 +134,7 @@
                     name: 'favorite'
                   }) %>"
                 >
-                  <i class="far fa-star"></i>
+                  <i class="far fa-star" tabindex="0"></i>
                 <span>
               </div>
               <div class="col-md-10">
@@ -358,11 +358,12 @@
               data-oa-filter="8"
               data-oa-filter-params="<%- JSON.stringify({
                 type: 'custom',
-                query: { attendanceMode: '1', relative: ['current', 'upcoming'] }
+                query: { attendanceMode: '1', relative: ['current', 'upcoming'] },
+                handlerSelector: 'label'
               }) %>"
             >
-              <label for="custom-1">
-                <input type="checkbox" id="custom-1">
+              <label for="custom-1" tabindex="0">
+                <input type="checkbox" id="custom-1" tabindex="-1">
                 En cours + à venir + sur place
               </label>
             </div>
