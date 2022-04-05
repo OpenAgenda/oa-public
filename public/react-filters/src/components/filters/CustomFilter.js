@@ -1,5 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef
+} from 'react';
 import { useForm, FormSpy } from 'react-final-form';
+import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
 import matchQuery from '../../utils/matchQuery';
 import updateFormValues from '../../utils/updateFormValues';
 import updateCustomFilter from '../../utils/updateCustomFilter';
@@ -55,6 +61,17 @@ function CustomFilter({ filter }) {
   const form = useForm();
   const firstRender = useRef(true);
 
+  const updateForm = useCallback(e => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const query = form.getState().values;
+
+    updateFormValues(form, filter.query, !matchQuery(query, filter.query));
+  }, [filter.query, form]);
+
+  const onChange = useMemo(() => a11yButtonActionHandler(updateForm), [updateForm]);
+
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
@@ -75,21 +92,20 @@ function CustomFilter({ filter }) {
       }
     }
 
-    const clickHandler = e => {
-      e.preventDefault();
-      const query = form.getState().values;
-
-      updateFormValues(form, filter.query, !matchQuery(query, filter.query));
-    };
-
     const handlerElem = filter.handlerElem || filter.elem;
     const innerCheckboxes = handlerElem.querySelectorAll('input[type="checkbox"]');
 
-    if (innerCheckboxes.length === 1 && !filter.handlerElem) {
-      innerCheckboxes[0].addEventListener('change', clickHandler, false);
+    const handlerIsLabelWithCheckbox = innerCheckboxes.length === 1
+      && handlerElem.tagName === 'LABEL'
+      && handlerElem.contains(innerCheckboxes[0]);
+
+    if (innerCheckboxes.length === 1 && (!filter.handlerElem || handlerIsLabelWithCheckbox)) {
+      innerCheckboxes[0].addEventListener('change', updateForm, false);
     } else {
-      handlerElem.addEventListener('click', clickHandler, false);
+      handlerElem.addEventListener('click', onChange, false);
     }
+
+    handlerElem.addEventListener('keydown', onChange, false);
 
     const unsubscribe = form.subscribe(
       ({ values }) => updateCustomFilter(filter, matchQuery(values, filter.query)),
@@ -97,14 +113,17 @@ function CustomFilter({ filter }) {
     );
 
     return () => {
-      if (innerCheckboxes.length === 1 && !filter.handlerElem) {
-        innerCheckboxes[0].removeEventListener('change', clickHandler, false);
+      if (innerCheckboxes.length === 1 && (!filter.handlerElem || handlerIsLabelWithCheckbox)) {
+        innerCheckboxes[0].removeEventListener('change', updateForm, false);
       } else {
-        handlerElem.removeEventListener('click', clickHandler, false);
+        handlerElem.removeEventListener('click', onChange, false);
       }
+
+      handlerElem.removeEventListener('keydown', onChange, false);
+
       unsubscribe();
     };
-  }, [filter, form]);
+  }, [filter, form, onChange, updateForm]);
 
   return null;
 }
