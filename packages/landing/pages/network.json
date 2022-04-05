@@ -9,6 +9,8 @@
     "lang" : "es", "key" : "red-de-agendas"
   }, {
     "lang" : "br", "key" : "reseau-d-agendas-br"
+  }, {
+    "lang" : "it", "key" : "rete-di-calendari"
   } ],
   "head" : {
     "title": "networkOfferHeadTitle",

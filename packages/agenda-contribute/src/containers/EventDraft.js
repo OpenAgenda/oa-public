@@ -42,8 +42,9 @@ export default function EventDraft({ agenda, history }) {
   const prefix = usePrefix(agenda);
   const { config, isLoading } = useEventFormConfig(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
+  const redirecting = useSelector(state => state.contribute.redirecting);
 
-  if (isLoading || agendaContextIsLoading || eventIsLoading) {
+  if (isLoading || agendaContextIsLoading || eventIsLoading || redirecting) {
     return <Loading />;
   }
 
@@ -71,7 +72,9 @@ export default function EventDraft({ agenda, history }) {
           }));
         }}
         memberRole={agendaContext.me.member.role}
-        onDraftDelete={() => {}}
+        onDraftDelete={() => dispatch(contributeReducer.eventDelete({
+          agenda, event
+        }))}
       />
     </CanvasWithStepper>
   );

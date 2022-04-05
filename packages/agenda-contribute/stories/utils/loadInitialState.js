@@ -28,6 +28,7 @@ export default function loadInitialState() {
       suggestions: '/agendas/:agendaUid/events/suggestions',
       suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact',
       showEvent: '/agendas/:agendaUid/events/:eventUid',
+      removeEvent: '/api/agendas/:agendaUid/events/:eventUid',
       showMyEvents: '/home/events',
       contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
     },

@@ -5,15 +5,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import { unloadWarning } from '@openagenda/react-shared';
+import submit from '../lib/submit';
+import merge from '../iso/merge';
 import labels from './lib/labels';
 
 import isEmptySchema from './lib/isEmptySchema';
 import isOwnField from './lib/isOwnField';
-import merge from '../iso/merge';
-import {
-  getDraggableListStyle,
-  getDraggableListItemStyle
-} from './lib/draggableStyles';
+import draggableStyles from './lib/draggableStyles';
 
 import extractSchemaInfo from './lib/extractSchemaInfo';
 import insertMissingAbstractFields from './lib/insertMissingAbstractFields';
@@ -24,16 +22,12 @@ import addSchemaField from './lib/addSchemaField';
 import removeSchemaField from './lib/removeSchemaField';
 import restrictLabelLanguages from './lib/restrictLabelLanguages';
 import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
-import submit from '../lib/submit';
 
 import FieldPreview from './FieldPreview';
 import LabelLanguages from './LabelLanguages';
-import FieldOrder from './FieldOrder';
-import FieldOrderActions from './FieldOrderActions';
 import SaveButton from './SaveButton';
 import FieldAdd from './FieldAdd';
 import FieldEdit from './FieldEdit';
-
 
 const getLabel = makeLabelGetter(labels);
 
@@ -41,7 +35,7 @@ const modes = {
   ORDERING: 1,
   EDITLABELLANGUAGES: 2,
   ADDFIELD: 3
-}
+};
 
 export default class FormSchemaBuilder extends Component {
 
@@ -57,7 +51,7 @@ export default class FormSchemaBuilder extends Component {
       editedField: null,
       mode: null,
       labels
-    }
+    };
 
     if (props.devState) {
       Object.assign(initState, props.devState);
@@ -73,7 +67,7 @@ export default class FormSchemaBuilder extends Component {
       this.getMergedSchema(),
       source.index,
       destination.index
-   );
+    );
 
     this.updateSchema(insertMissingAbstractFields(this.getSchema(), reorderedSchema));
   }
@@ -107,21 +101,21 @@ export default class FormSchemaBuilder extends Component {
   onSave() {
     this.setSaveState(saveStates.LOADING);
 
-    submit({ values: restrictLabelLanguages.applyToSchema(
-      this.getSchema(),
-      this.state.labelLanguages
-   ) }).then(() => {
+    submit({
+      values: restrictLabelLanguages.applyToSchema(
+        this.getSchema(),
+        this.state.labelLanguages
+      )
+    }).then(() => {
       this.setSaveState(saveStates.SAVED);
     }, err => {
       this.setSaveState(saveStates.ERROR);
     });
-
   }
 
   onFieldEdit(field) {
     this.setState({ editedField: field });
   }
-
 
   onFieldRemove(field) {
     this.updateSchema(removeSchemaField(this.getSchema(), field));
@@ -181,18 +175,25 @@ export default class FormSchemaBuilder extends Component {
     const { mode, labelLanguages } = this.state;
     const { lang, renderHead, addEnabled } = this.props;
 
-    if (mode === modes.ORDERING) {
-      return <FieldOrderActions
-        lang={lang}
-        fields={mergedSchema.fields}
-        onFinishOrder={()=>{ this.setState({ mode: null })}}
-        onCancel={this.onCancelOrder.bind(this)}
-      />
-    }
+/*     if (mode === modes.ORDERING) {
+      return (
+        <FieldOrderActions
+          lang={lang}
+          fields={mergedSchema.fields}
+          onFinishOrder={() => { this.setState({ mode: null }) }}
+          onCancel={this.onCancelOrder.bind(this)}
+        />
+      );
+    } */
 
-    return <div>{ renderHead ? renderHead() : null } { addEnabled ? <div className="padding-v-sm padding-h-sm">
-      <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this)} />
-    </div> : null }</div>
+    return (
+      <div>{renderHead ? renderHead() : null} {addEnabled ? (
+        <div className="padding-v-sm padding-h-sm">
+          <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this)} />
+        </div>
+      ) : null}
+      </div>
+    );
   }
 
   render() {
@@ -217,102 +218,112 @@ export default class FormSchemaBuilder extends Component {
 
     const disabled = saveState === saveStates.LOADING;
 
-    return <div className="form-schema-builder row">
-      <div className="col-sm-12 col-md-5 col-md-push-7">
-        <div className="wsq padding-all-sm">
-          { settingsEnabled ? <LabelLanguages
-            disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
-            lang={lang}
-            labelLanguages={labelLanguages}
-            onUpdate={labelLanguages => this.setState({
-              labelLanguages,
-              saveState: saveStates.CHANGED
-            }) }
-          /> : null }
-          { settingsEnabled ? <div className="padding-bottom-sm">
-            <FieldOrder
-              disabled={mode === modes.ORDERING || this.isDisabled(modes.ORDERING)}
+    return (
+      <div className="form-schema-builder row">
+        <div className="col-sm-12 col-md-5 col-md-push-7">
+          <div className="wsq padding-all-sm">
+            {settingsEnabled ? (
+              <LabelLanguages
+                disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
+                lang={lang}
+                labelLanguages={labelLanguages}
+                onUpdate={labelLanguages => this.setState({
+                  labelLanguages,
+                  saveState: saveStates.CHANGED
+                })}
+              />
+            ) : null}
+{/*             {settingsEnabled ? (
+              <div className="padding-bottom-sm">
+                <FieldOrder
+                  disabled={mode === modes.ORDERING || this.isDisabled(modes.ORDERING)}
+                  lang={lang}
+                  onStartOrder={() => { this.setState({ mode: modes.ORDERING }) }}
+                />
+              </div>
+            ) : null} */}
+            <div className="padding-bottom-sm">
+              <SaveButton
+                disabled={mode}
+                lang={lang}
+                onClick={() => this.onSave()}
+                saveState={saveState}
+                block={true}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-12 col-md-7 col-md-pull-5">
+          {editedField ? (
+            <FieldEdit
+              isOwnField={isOwnField(schema, editedField)}
+              field={editedField}
+              labelLanguages={labelLanguages}
               lang={lang}
-              onStartOrder={()=>{ this.setState({ mode: modes.ORDERING })}}
+              onSave={this.onFieldEditSave.bind(this, editedField)}
+              onCancel={this.onFieldEditCancel.bind(this)}
             />
-          </div> : null }
-          <div className="padding-bottom-sm">
-            <SaveButton
-              disabled={mode}
-              lang={lang}
-              onClick={() => this.onSave() }
-              saveState={saveState}
-              block={true}
-            />
+          ) : null}
+          <div>
+            {this.renderFieldListHead(mergedSchema)}
+            <DragDropContext
+              className="list-group"
+              onDragEnd={this.onDragEnd.bind(this)}>
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <div
+                    className={`list-group field-preview-canvas wsq${editedField ? ' editing' : ''}`}
+                    ref={provided.innerRef}
+                    style={draggableStyles.getDraggableListStyle(snapshot.isDraggingOver)}
+                  >
+                    {_.get(mergedSchema, 'fields', []).map((field, index) => (
+                      <Draggable
+                        key={field.field}
+                        draggableId={field.field}
+                        // isDragDisabled={mode !== modes.ORDERING}
+                        index={index}
+                      >
+                        {(providedInner, snapshot) => (
+                          <div
+                            className={classNames({
+                              'list-group-item draggable': true,
+                              dragged: snapshot.isDragging,
+                              disabled: this.isFieldDisabled(field, disabled)
+                            })}
+                            ref={providedInner.innerRef}
+                            {...providedInner.draggableProps}
+                            {...providedInner.dragHandleProps}
+                            style={draggableStyles.getDraggableListItemStyle(
+                              snapshot.isDragging,
+                              providedInner.draggableProps.style
+                            )}
+                          >
+                            <FieldPreview
+                              disabled={this.isFieldDisabled(field, disabled)}
+                              ordering={mode === modes.ORDERING}
+                              field={field}
+                              isOwn={isOwnField(schema, field)}
+                              editableExtensions={editableExtensions}
+                              schemaInfo={extractSchemaInfo(field, extendedFrom)}
+                              lang={this.props.lang}
+                              labelLanguages={labelLanguages}
+                              onEdit={this.onFieldEdit.bind(this, field)}
+                              onHide={() => this.onFieldEditSave(field, { display: false })}
+                              onShow={() => this.onFieldEditSave(field, { display: true })}
+                              onRemove={this.onFieldRemove.bind(this, field)}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </div>
         </div>
       </div>
-      <div className="col-sm-12 col-md-7 col-md-pull-5">
-        { editedField ? <FieldEdit
-          isOwnField={isOwnField(schema, editedField)}
-          field={editedField}
-          labelLanguages={labelLanguages}
-          lang={lang}
-          onSave={this.onFieldEditSave.bind(this, editedField)}
-          onCancel={this.onFieldEditCancel.bind(this)}
-        /> : null }
-        <div>
-          {this.renderFieldListHead(mergedSchema)}
-          <DragDropContext
-            onDragEnd={this.onDragEnd.bind(this)}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div
-                  className={'list-group field-preview-canvas wsq' + (editedField ? ' editing' : '')}
-                  ref={provided.innerRef}
-                  style={getDraggableListStyle(snapshot.isDraggingOver)}
-                >
-                  {_.get(mergedSchema, 'fields', []).map((field, index) => (
-                    <Draggable
-                      key={field.field}
-                      draggableId={field.field}
-                      isDragDisabled={mode !== modes.ORDERING}
-                      index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          className={ classNames({
-                            'list-group-item' : true,
-                            disabled: this.isFieldDisabled(field, disabled) }
-                         ) }
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getDraggableListItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                         )} >
-                          <FieldPreview
-                            disabled={this.isFieldDisabled(field, disabled)}
-                            ordering={mode === modes.ORDERING}
-                            field={field}
-                            isOwn={isOwnField(schema, field)}
-                            editableExtensions={editableExtensions}
-                            schemaInfo={extractSchemaInfo(field, extendedFrom)}
-                            lang={this.props.lang}
-                            labelLanguages={labelLanguages}
-                            onEdit={this.onFieldEdit.bind(this, field)}
-                            onHide={() => this.onFieldEditSave(field, { display: false }) }
-                            onShow={() => this.onFieldEditSave(field, { display: true }) }
-                            onRemove={this.onFieldRemove.bind(this, field)}
-                          />
-                        </div>
-                     )}
-                    </Draggable>
-                 ))}
-                  {provided.placeholder}
-                </div>
-             )}
-            </Droppable>
-          </DragDropContext>
-        </div>
-      </div>
-    </div>
-
+    );
   }
-
 }

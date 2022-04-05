@@ -4,7 +4,8 @@
     { "lang" : "fr", "key" : "construisez-votre-reseau" },
     { "lang" : "de", "key" : "bauen-sie-ihr-netzwerk-auf" },
     { "lang" : "es", "key" : "construisez-votre-reseau-es" },
-    { "lang" : "br", "key" : "construisez-votre-reseau-br" }
+    { "lang" : "br", "key" : "construisez-votre-reseau-br" },
+    { "lang": "it", "key": "costruisci-la-tua-rete" }
   ],
   "head" : {
     "title" : "buildNetworkHeadTitle",
