@@ -1,5 +1,5 @@
 import { useUIDSeed } from 'react-uid';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import cn from 'classnames';
 import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
@@ -18,7 +18,13 @@ export default function ChoiceField({
     option,
   ]);
 
+  const inputRef = useRef();
+
   const onChange = useMemo(() => a11yButtonActionHandler(e => {
+    if (e.target === inputRef.current) {
+      return;
+    }
+
     e.preventDefault();
     e.stopPropagation();
 
@@ -57,6 +63,7 @@ export default function ChoiceField({
         onKeyPress={onChange}
       >
         <input
+          ref={inputRef}
           tabIndex="-1"
           type={input.type}
           id={seed(input)}
