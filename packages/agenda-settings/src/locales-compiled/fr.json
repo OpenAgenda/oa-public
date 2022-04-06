@@ -8,7 +8,7 @@
   "AgendaSettings.CreationSecondStep.formEvent": [
     {
       "type": 0,
-      "value": "Événement formulaire"
+      "value": "Formulaire événement"
     }
   ],
   "AgendaSettings.CreationSecondStep.onlineEvents": [
@@ -26,7 +26,7 @@
   "AgendaSettings.CreationSecondStep.statusField": [
     {
       "type": 0,
-      "value": "Afficher le champ de l'état (complet, reporté, annulé) dans le formulaire)"
+      "value": "Afficher le champ de l'état (complet, reporté, annulé) dans le formulaire"
     }
   ],
   "AgendaSettings.CreationSecondStep.statusFieldDesc": [
