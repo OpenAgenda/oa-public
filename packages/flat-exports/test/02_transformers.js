@@ -8,6 +8,7 @@ const formatTime = require('../lib/transform/formatTime');
 const image = require('../lib/transform/image');
 const fieldToFlattenerMapItem = require('../lib/transform/fieldToFlattenerMapItem');
 const decorateFieldMap = require('../lib/transform/decorateFieldMap');
+const getDefaultFieldMap = require('../lib/transform/getDefaultFieldMap');
 
 describe('flat-exports - unit - transforms', () => {
   describe('fieldToFlattenerMapItem', () => {
@@ -416,6 +417,25 @@ describe('flat-exports - unit - transforms', () => {
 
       expect(flat).toEqual({
         image: 'https://cibuldev.s3.amazonaws.com/ceci-est-une-image.jpg'
+      });
+    });
+  });
+
+  describe('getDefaultFieldMap', () => {
+    test('stripped call returns a field map', () => {
+      const fieldMap = getDefaultFieldMap();
+
+      expect(Array.isArray(fieldMap)).toBe(true);
+    });
+
+    test('location.postalCode is in base map', () => {
+      const fieldMap = getDefaultFieldMap();
+
+      expect(
+        fieldMap.find(item => item.source === 'location.postalCode')
+      ).toEqual({
+        source: 'location.postalCode',
+        target: 'location.postalCode'
       });
     });
   });

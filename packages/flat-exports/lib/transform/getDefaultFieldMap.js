@@ -18,9 +18,20 @@ const defaultMap = c => ({
   ...(c.transform ? { transform: c.transform } : {})
 });
 
-module.exports = function getDefaultFieldMap(options) {
+module.exports = function getDefaultFieldMap(options = {}) {
   const labelLanguages = ['fr', 'en'];
-  const getTarget = getTargetField.bind(null, options.labels, options.lang);
+
+  const {
+    labels = {},
+    lang
+  } = options;
+
+  const subOptions = {
+    languages: [],
+    ...options
+  }
+
+  const getTarget = getTargetField.bind(null, labels, lang);
 
   let fields = [{
     source: 'uid',
@@ -87,6 +98,9 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'location.address',
     target: getTarget('location.address')
   }, {
+    source: 'location.postalCode',
+    target: getTarget('location.postalCode')
+  }, {
     source: 'location.city',
     target: getTarget('location.city')
   }, {
@@ -135,9 +149,9 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'member.role',
     target: getTarget('member.role'),
     transform: {
-      1: _.get(options.labels, `contributor.${options.lang}`, 'contributor'),
-      2: _.get(options.labels, `administrator.${options.lang}`, 'administrator'),
-      3: _.get(options.labels, `moderator.${options.lang}`, 'moderator')
+      1: _.get(labels, `contributor.${lang}`, 'contributor'),
+      2: _.get(labels, `administrator.${lang}`, 'administrator'),
+      3: _.get(labels, `moderator.${lang}`, 'moderator')
     }
   }, {
     source: 'member.organization',
@@ -199,10 +213,10 @@ module.exports = function getDefaultFieldMap(options) {
     source: 'state',
     target: _.capitalize(getTarget('state')),
     transform: {
-      '-1': _.capitalize(_.get(options.labels, `refused.${options.lang}`, 'refused')),
-      0: _.capitalize(_.get(options.labels, `tocontrol.${options.lang}`, 'in moderation')),
-      1: _.capitalize(_.get(options.labels, `controlled.${options.lang}`, 'ready to publish')),
-      2: _.capitalize(_.get(options.labels, `published.${options.lang}`, 'published')),
+      '-1': _.capitalize(_.get(labels, `refused.${lang}`, 'refused')),
+      0: _.capitalize(_.get(labels, `tocontrol.${lang}`, 'in moderation')),
+      1: _.capitalize(_.get(labels, `controlled.${lang}`, 'ready to publish')),
+      2: _.capitalize(_.get(labels, `published.${lang}`, 'published')),
     }
   }];
 
@@ -217,13 +231,13 @@ module.exports = function getDefaultFieldMap(options) {
 
   // make a flat map.
   return fields.map(c => _.get({
-    timings: timings.bind(null, options),
-    accessibility: accessibility.bind(null, options),
-    multilingual: multilingual.bind(null, options),
-    time: formatTime.bind(null, options),
-    firstLastDate: firstLastDate.bind(null, options),
+    timings: timings.bind(null, subOptions),
+    accessibility: accessibility.bind(null, subOptions),
+    multilingual: multilingual.bind(null, subOptions),
+    time: formatTime.bind(null, subOptions),
+    firstLastDate: firstLastDate.bind(null, subOptions),
     image: image.bind(null),
     registration: registration.bind(null, { source: c.source, target: c.target }),
-    permalink: permalink.bind(null, options, { source: c.source, target: c.target })
+    permalink: permalink.bind(null, subOptions, { source: c.source, target: c.target })
   }, c.type, defaultMap)(c));
 };
