@@ -72,7 +72,7 @@ With hot reload.
 More packages are needed ( in dev deps ):
 
  * *babel dependencies*: babel-core babel-loader babel-plugin-lodash babel-plugin-transform-es3-member-expression-literals babel-plugin-transform-es3-property-literals babel-plugin-transform-object-rest-spread babel-preset-env babel-preset-es2015 babel-preset-minify babel-preset-react babel-preset-stage-0
- * *webpack dependencies*: webpack webpack-cli webpack-dev-middleware webpack-hot-middleware lodash-webpack-plugin
+ * *webpack dependencies*: webpack webpack-cli webpack-dev-middleware webpack-hot-middleware
 
 The webpack dev configuration should be placed in the root of the project in a file named `webpack.dev.js`. Here is the content:
 
@@ -347,7 +347,6 @@ And should contain the following for transpiling, compiling, compressing and pus
     "use strict";
 
     const CompressionPlugin = require( 'compression-webpack-plugin' );
-    const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
     const S3Plugin = require( 'webpack-s3-plugin' );
 
     module.exports = {
@@ -364,8 +363,7 @@ And should contain the following for transpiling, compiling, compressing and pus
         filename: 'app.js',
         path: __dirname + '/client/dist'
       },
-      plugins: [ new LodashModuleReplacementPlugin ].concat(
-        ( process.env.NODE_ENV === 'production' && parseInt( process.env.CDN ) ) ? [
+      plugins: process.env.NODE_ENV === 'production' && parseInt( process.env.CDN ) ) ? [
           new CompressionPlugin( {
             test: /\.js/,
             filename ( asset ) {
@@ -383,7 +381,7 @@ And should contain the following for transpiling, compiling, compressing and pus
             },
             basePathTransform: f => 'agenda-calendar-apps/' + f
           } )
-      ] : [] ),
+      ] : [],
       module: {
         rules: [ {
           test: /\.js$/,
