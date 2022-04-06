@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useLatest, useUpdateEffect } from 'react-use';
 import qs from 'qs';
+import { css } from '@emotion/react';
 import {
   Filters,
   DateRangeFilter,
@@ -98,7 +99,19 @@ export default function FiltersPart({
   ]);
 
   return (
-    <div className="oa-collapse">
+    <div
+      className="oa-collapse"
+      css={css`
+        .oa-choice-option-label {
+          min-height: 20px;
+          line-height: 20px;
+          padding-left: 20px;
+          margin-bottom: 0;
+          font-weight: normal;
+          cursor: pointer;
+        }
+      `}
+    >
       <Filters
         filters={filters}
         disabled={loading}
