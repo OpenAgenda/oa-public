@@ -3,7 +3,6 @@
 const fs = require('fs');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 const jsEntryFiles = fs
   .readdirSync(`${__dirname}/../client`)
@@ -25,7 +24,6 @@ module.exports = {
     filename: '[name].js',
   },
   plugins: [
-    new LodashModuleReplacementPlugin({ paths: true }),
     new CleanWebpackPlugin(),
   ],
   module: {
