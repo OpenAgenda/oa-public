@@ -167,7 +167,7 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         options: [
           {
             label: intl.formatMessage(featuredMessages.featured),
-            value: true,
+            value: 'true',
           },
         ],
         aggregation: null,
