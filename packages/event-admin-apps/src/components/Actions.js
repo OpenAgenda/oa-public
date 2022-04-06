@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import qs from 'qs';
 import { css } from '@emotion/react';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
@@ -76,9 +77,9 @@ export default function Actions({
         {intl.formatMessage(exportsMessages.export)}
       </ExportsDropdown>
 
-      <a href={`/${agenda.slug}/contribute`}>
+      <Link to={`/${agenda.slug}/contribute`}>
         {intl.formatMessage(messages.createAnEvent)}
-      </a>
+      </Link>
 
       {/* <button
         className="btn btn-link btn-link-inline"
