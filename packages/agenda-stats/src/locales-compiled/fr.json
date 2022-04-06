@@ -403,6 +403,40 @@
       "value": "weekNumber"
     }
   ],
+  "AgendaStats.EmptyDashboard.action": [
+    {
+      "type": 0,
+      "value": "Saisissez votre premier événement"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.creationHelp": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Cliquez ici"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " pour en savoir plus sur comment ajouter des événements à votre agenda."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.description": [
+    {
+      "type": 0,
+      "value": "Ajoutez ou saisissez des événements puis configurez ici un rapport constitué de diagrammes circulaires, en barre ou bien des histogrammes pour avoir une vue d'ensemble sur votre programmation."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.title": [
+    {
+      "type": 0,
+      "value": "Génerez des statistiques sur les contenus de votre agenda."
+    }
+  ],
   "AgendaStats.IntervalSelect.day": [
     {
       "type": 0,
