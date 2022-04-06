@@ -18,7 +18,9 @@ const landingPages = landing( {
   en: config.root + '/discover',
   fr: config.root + '/decouvrir',
   de: config.root + '/entdecken',
-  br: config.root + '/decouvrirbr'
+  br: config.root + '/decouvrirbr',
+  es: config.root + '/descubrir',
+  it: config.root + '/scoprire'
 } );
 
 const legacyPages = {
@@ -52,7 +54,7 @@ module.exports = app => {
   };
 
   app.get(
-    [ '/', '/en', '/de', '/es', '/br' ],
+    [ '/', '/en', '/de', '/es', '/br', '/it' ],
     preMw,
     cmn.https,
     sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
@@ -104,9 +106,8 @@ module.exports = app => {
     start
   );
 
-
   app.get(
-    [ '/decouvrir/:page', '/discover/:page', '/entdecken/:page' ],
+    ['/decouvrir/:page', '/discover/:page', '/entdecken/:page', '/scoprire/:page', 'descubrir/:page', '/decouvrirbr/:page'],
     preMw,
     cmn.https,
     _corpoBrowserCache,
@@ -135,7 +136,8 @@ function _setLang( req, res, next ) {
     '/en' : 'en',
     '/de' : 'de',
     '/es' : 'es',
-    '/br' : 'br'
+    '/br' : 'br',
+    '/it' : 'it'
   }, req.url, null );
 
   if ( !req.lang ) return res.redirect( 302, '/' );

@@ -4,7 +4,8 @@
     { "lang" : "fr", "key" : "votre-site" },
     { "lang" : "de", "key" : "deine-website" },
     { "lang" : "es", "key" : "vuestro-sitio-web" },
-    { "lang" : "br", "key" : "votre-site-br" }
+    { "lang" : "br", "key" : "votre-site-br" },
+    { "lang" : "it", "key": "il-tuo-sito" }
   ],
   "head" : {
     "title" : "embedTitle",

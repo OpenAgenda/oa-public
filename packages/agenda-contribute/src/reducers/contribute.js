@@ -11,6 +11,7 @@ const {
 const EVENT_CREATE_SUCCESS = 'agenda-contribute/EVENT_CREATE_SUCCESS';
 const EVENT_SHARE_SUCCESS = 'agenda-contribute/EVENT_SHARE_SUCCESS';
 const EVENT_SHARE_DISPLAY_EVENT_FIELDS = 'agenda-contribute/EVENT_SHARE_DISPLAY_EVENT_FIELDS';
+const REDIRECTING = 'agenda-contribute/REDIRECTING';
 
 function reducer(state = {}, action = {}) {
   switch (action.type) {
@@ -28,6 +29,11 @@ function reducer(state = {}, action = {}) {
       return {
         ...state,
         requestedDisplayEventFieldsInShare: true
+      };
+    case REDIRECTING:
+      return {
+        ...state,
+        redirecting: true
       };
     default:
       return state;
@@ -80,6 +86,28 @@ function eventCreateSuccess({ agenda, response }) {
     history.push({
       ...history.location,
       pathname: `${prefix.replace(':slug', agenda.slug)}/confirmation`
+    });
+  };
+}
+
+function eventDelete({ agenda, event }) {
+  return ({ history, location }, { getState, dispatch }) => {
+    const {
+      res: {
+        removeEvent: removeRes,
+        showMyEvents: showMyEventsRes
+      }
+    } = getState();
+
+    axios.delete(
+      removeRes
+        .replace(':agendaUid', agenda.uid)
+        .replace(':eventUid', event.uid)
+    ).then(() => {
+      dispatch({
+        type: REDIRECTING
+      });
+      doRedirect(history, location, showMyEventsRes);
     });
   };
 }
@@ -140,5 +168,6 @@ export default Object.assign(reducer, {
   goBackOrToEvent,
   launchImmediateEventShare,
   displayEventFieldsInShare,
-  displayShareSuccess
+  displayShareSuccess,
+  eventDelete
 });

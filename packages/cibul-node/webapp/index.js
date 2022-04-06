@@ -385,6 +385,7 @@ const initialState = async req => {
         suggestChangeRes: '/:agendaSlug/admin/events/:eventSlug/contact',
         showEvent: '/agendas/:agendaUid/events/:eventUid',
         showMyEvents: '/home/events',
+        removeEvent: '/api/agendas/:agendaUid/events/:eventUid',
         contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
       },
       memberFreshness: new Date(60 * 60 * 24 * 30 * 120 * 1000),
