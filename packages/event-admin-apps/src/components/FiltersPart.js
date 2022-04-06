@@ -76,6 +76,15 @@ function FiltersPart({
           .leaflet-container {
             height: 300px;
           }
+
+          .oa-choice-option-label {
+            min-height: 20px;
+            line-height: 20px;
+            padding-left: 20px;
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+          }
         `}
       >
         <Filters
