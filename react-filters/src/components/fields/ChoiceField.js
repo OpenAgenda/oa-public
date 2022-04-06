@@ -1,5 +1,5 @@
 import { useUIDSeed } from 'react-uid';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import cn from 'classnames';
 import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
@@ -55,6 +55,7 @@ export default function ChoiceField({
   return (
     <div className={cn(input.type, { disabled, active: input.checked, inactive: !input.checked })}>
       <span
+        className="oa-choice-option-label"
         role="checkbox"
         tabIndex="0"
         aria-checked={input.checked}
