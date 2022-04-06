@@ -95,7 +95,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "rimraf": "^3.0.1",
-    "sass": "^1.43.4",
+    "sass": "1.32.13",
     "source-map-loader": "^2.0.1",
     "terser-webpack-plugin": "^2.3.3",
     "webpack": "^5.53.0",

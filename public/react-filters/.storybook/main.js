@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const sass = require('sass');
 
 module.exports = {
   stories: [
@@ -11,7 +12,16 @@ module.exports = {
   webpackFinal: async config => {
     config.module.rules.push({
       test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: require.resolve('sass-loader'),
+          options: {
+            implementation: sass
+          }
+        }
+      ],
       include: path.resolve(__dirname, '..'),
     });
     config.module.rules.push({
