@@ -72,29 +72,10 @@ export default class FormSchemaBuilder extends Component {
     this.updateSchema(insertMissingAbstractFields(this.getSchema(), reorderedSchema));
   }
 
-  updateSchema(schema) {
-    this.setSaveState(saveStates.CHANGED, { schema });
-
-    this.props.onUpdate(schema);
-  }
-
   onCancelOrder(previousOrder) {
     this.setState({
       mode: null,
       mergedSchema: reorderSchemaFields.applyOrder(this.getMergedSchema(), previousOrder)
-    });
-  }
-
-  setSaveState(newSaveState, otherStateSet = {}) {
-    if (newSaveState === saveStates.SAVED) {
-      unloadWarning.unset();
-    } else {
-      unloadWarning.set();
-    }
-
-    this.setState({
-      saveState: newSaveState,
-      ...otherStateSet
     });
   }
 
@@ -125,12 +106,8 @@ export default class FormSchemaBuilder extends Component {
     this.setState({ editedField: null });
   }
 
-  getSchema() {
-    return this.state.schema || { fields: [] };
-  }
-
-  onFieldAdd(field) {
-    this.updateSchema(addSchemaField(this.getSchema(), field));
+  onFieldAdd(addToEnd, field) {
+    this.updateSchema(addSchemaField(this.getSchema(), field, addToEnd));
   }
 
   onFieldEditSave(field, update) {
@@ -141,11 +118,35 @@ export default class FormSchemaBuilder extends Component {
     this.updateSchema(updateSchemaField(schema, field, update));
   }
 
+  getSchema() {
+    return this.state.schema || { fields: [] };
+  }
+
+  setSaveState(newSaveState, otherStateSet = {}) {
+    if (newSaveState === saveStates.SAVED) {
+      unloadWarning.unset();
+    } else {
+      unloadWarning.set();
+    }
+
+    this.setState({
+      saveState: newSaveState,
+      ...otherStateSet
+    });
+  }
+
   getMergedSchema(props) {
     const currentSchema = props ? props.schema : this.getSchema();
     const extensions = _.get(props || this.props, 'extendedFrom', []);
 
     return merge.apply(null, extensions.map(e => e.schema).concat(currentSchema));
+  }
+
+  updateSchema(schema) {
+    console.log('updateSchema', schema)
+    this.setSaveState(saveStates.CHANGED, { schema });
+
+    this.props.onUpdate(schema);
   }
 
   isDisabled(actionName) {
@@ -171,25 +172,14 @@ export default class FormSchemaBuilder extends Component {
     return editedField && (editedField !== field.field);
   }
 
-  renderFieldListHead(mergedSchema) {
-    const { mode, labelLanguages } = this.state;
+  renderFieldListHead() {
+    const { labelLanguages } = this.state;
     const { lang, renderHead, addEnabled } = this.props;
-
-/*     if (mode === modes.ORDERING) {
-      return (
-        <FieldOrderActions
-          lang={lang}
-          fields={mergedSchema.fields}
-          onFinishOrder={() => { this.setState({ mode: null }) }}
-          onCancel={this.onCancelOrder.bind(this)}
-        />
-      );
-    } */
 
     return (
       <div>{renderHead ? renderHead() : null} {addEnabled ? (
         <div className="padding-v-sm padding-h-sm">
-          <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this)} />
+          <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this, false)} />
         </div>
       ) : null}
       </div>
@@ -217,6 +207,7 @@ export default class FormSchemaBuilder extends Component {
     const mergedSchema = this.getMergedSchema();
 
     const disabled = saveState === saveStates.LOADING;
+    console.log('schema: ', schema);
 
     return (
       <div className="form-schema-builder row">
@@ -233,15 +224,6 @@ export default class FormSchemaBuilder extends Component {
                 })}
               />
             ) : null}
-{/*             {settingsEnabled ? (
-              <div className="padding-bottom-sm">
-                <FieldOrder
-                  disabled={mode === modes.ORDERING || this.isDisabled(modes.ORDERING)}
-                  lang={lang}
-                  onStartOrder={() => { this.setState({ mode: modes.ORDERING }) }}
-                />
-              </div>
-            ) : null} */}
             <div className="padding-bottom-sm">
               <SaveButton
                 disabled={mode}
@@ -321,6 +303,11 @@ export default class FormSchemaBuilder extends Component {
                 )}
               </Droppable>
             </DragDropContext>
+            {addEnabled ? (
+              <div className="padding-v-sm padding-h-sm">
+                <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this, true)} />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
