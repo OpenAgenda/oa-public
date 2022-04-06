@@ -29,7 +29,7 @@ module.exports = function getDefaultFieldMap(options = {}) {
   const subOptions = {
     languages: [],
     ...options
-  }
+  };
 
   const getTarget = getTargetField.bind(null, labels, lang);
 
