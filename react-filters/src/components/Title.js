@@ -15,7 +15,7 @@ export default function Title({
 
   const { input } = field;
 
-  if (!input.value?.length) {
+  if (!input.value?.length && !(typeof input.value === 'object' && input.value !== null)) {
     return <div>{title}</div>;
   }
 
