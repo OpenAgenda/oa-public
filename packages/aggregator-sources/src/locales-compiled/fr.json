@@ -1130,7 +1130,7 @@
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
-      "value": "Location filter"
+      "value": "Filtre lieu"
     }
   ],
   "aggregator-sources.RuleForm.modeAdvanced": [

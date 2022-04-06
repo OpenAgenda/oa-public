@@ -9,23 +9,23 @@ import labels from '@openagenda/labels/agenda-admin/agendaSchema';
 import getSchemaFieldCount from './lib/getSchemaFieldCount';
 
 
-if ( module.hot ) module.hot.accept();
+if (module.hot) module.hot.accept();
 
 class Main extends Component {
 
-  constructor( props ) {
+  constructor(props) {
 
-    super( props );
+    super(props);
 
     this.state = {
-      currentFieldCount: getSchemaFieldCount( props.schema )
+      currentFieldCount: getSchemaFieldCount(props.schema)
     }
 
   }
 
-  onUpdate( updatedSchema ) {
+  onUpdate(updatedSchema) {
 
-    this.setState( { currentFieldCount: getSchemaFieldCount( updatedSchema ) } );
+    this.setState({ currentFieldCount: getSchemaFieldCount(updatedSchema) });
 
   }
 
@@ -37,7 +37,12 @@ class Main extends Component {
       <label>Adaptez la configuration du formulaire événement</label>
       {maxFields === 1 ? <div>
         <p>Vous pouvez ajouter le champ de votre choix au formulaire événement</p>
-      </div> : null }
+      </div> : null}
+      {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
+        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
+          Besoin de plus de champs?
+        </a>
+      </div> : null}
     </div>
 
   }
@@ -45,7 +50,7 @@ class Main extends Component {
   render() {
 
     const { lang, extensions, schema, agenda, maxFields, editableExtensions } = this.props;
-
+    console.log(maxFields, this.state.currentFieldCount)
     return <div>
 
       <FormSchemaBuilder
@@ -57,32 +62,28 @@ class Main extends Component {
           //editedField: 'title'
         }}
         schema={schema}
-        extendedFrom={_.keys( extensions )
-          .filter( extKey => extensions[ extKey ] )
-          .map( extKey => ( {
-            schema: extensions[ extKey ],
+        extendedFrom={_.keys(extensions)
+          .filter(extKey => extensions[extKey])
+          .map(extKey => ({
+            schema: extensions[extKey],
             info: {
-              label: _.get( labels, extKey ),
-              detail: _.get( labels, extKey + 'Detail' )
+              label: _.get(labels, extKey),
+              detail: _.get(labels, extKey + 'Detail')
             }
-          } ) ) }
-        onUpdate={this.onUpdate.bind( this )}
-        renderHead={this.renderHeadComponent.bind( this )}
+          }))}
+        onUpdate={this.onUpdate.bind(this)}
+        renderHead={this.renderHeadComponent.bind(this)}
       />
-
-      {maxFields === 1 ? <div>
+      {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
         <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
           Besoin de plus de champs?
         </a>
-      </div> : null }
-
+      </div> : null}
     </div>
-
   }
-
 }
 
 
-const props = JSON.parse(document.getElementById( 'props' ).innerHTML);
+const props = JSON.parse(document.getElementById('props').innerHTML);
 
-render( <Main {...props} />, document.getElementById( 'app' ) );
+render(<Main {...props} />, document.getElementById('app'));

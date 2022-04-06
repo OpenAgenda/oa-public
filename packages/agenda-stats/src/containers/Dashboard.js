@@ -11,6 +11,7 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLatest } from 'react-use';
 import { useHistory, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import qs from 'qs';
 import {
@@ -62,6 +63,51 @@ const messages = defineMessages({
     defaultMessage: 'Filters',
   },
 });
+
+function EmptyDashoard() {
+  const { agenda } = useLayoutData();
+
+  return (
+    <>
+      <div className="text-center margin-v-lg">
+        <b>
+          <FormattedMessage
+            id="AgendaStats.EmptyDashboard.title"
+            defaultMessage="Generate statistics on the contents of your agenda."
+          />
+        </b>
+      </div>
+      <div>
+        <FormattedMessage
+          id="AgendaStats.EmptyDashboard.description"
+          defaultMessage="Add or enter events then configure a report here consisting of pie charts, bar charts or histograms to get an overview of your programming."
+        />
+        <div className="margin-top-md">
+          <FormattedMessage
+            id="AgendaStats.EmptyDashboard.creationHelp"
+            defaultMessage="<link>Click here</link> to learn more about adding events to your agenda."
+            values={{
+              link: (...chunks) => (
+                <a href="https://doc.openagenda.com/ajouter-des-evenements-a-un-agenda/">
+                  {chunks}
+                </a>
+              ),
+            }}
+          />
+        </div>
+
+        <div className="text-center margin-top-lg">
+          <Link to={`/${agenda.slug}/contribute`} className="btn btn-primary">
+            <FormattedMessage
+              id="AgendaStats.EmptyDashboard.action"
+              defaultMessage="Create a first event"
+            />
+          </Link>
+        </div>
+      </div>
+    </>
+  );
+}
 
 function Dashboard() {
   const intl = useIntl();
@@ -312,89 +358,95 @@ function Dashboard() {
       ref={filtersFormRef}
       filters={filters}
     >
-      <div className="row margin-top-sm">
-        <div className="col-sm-6">
-          <MoreInfo
-            id="pulse-chart-more-info"
-            content={intl.formatMessage(messages.pulseDesc)}
-            placement="bottom"
-          >
-            <div
-              css={{
-                width: '155px',
-                display: 'block',
-                // marginLeft: 'auto',
-                // marginRight: 'auto',
-              }}
-            >
-              <PulseChart agendaUid={agenda.uid} />
+      {filtersQuery.data.total > 0 ? (
+        <>
+          <div className="row margin-top-sm">
+            <div className="col-sm-6">
+              <MoreInfo
+                id="pulse-chart-more-info"
+                content={intl.formatMessage(messages.pulseDesc)}
+                placement="bottom"
+              >
+                <div
+                  css={{
+                    width: '155px',
+                    display: 'block',
+                    // marginLeft: 'auto',
+                    // marginRight: 'auto',
+                  }}
+                >
+                  <PulseChart agendaUid={agenda.uid} />
+                </div>
+              </MoreInfo>
             </div>
-          </MoreInfo>
-        </div>
 
-        <div className="col-sm-6 text-right">
-          <div>{editButtons}</div>
-          {editing ? (
-            <button
-              type="button"
-              className="btn btn-link btn-link-inline margin-top-sm"
-              onClick={() => orderModal.open()}
-            >
-              {intl.formatMessage(messages.changeOrder)}
-            </button>
-          ) : null}
-        </div>
-      </div>
-
-      <div className="row margin-top-xs">
-        <div className="col-xs-12">
-          {typeof totalEvents === 'number' ? (
-            <span className="margin-right-xs">
-              <FormattedMessage
-                id="AgendaStats.Dashboard.totalEvents"
-                defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
-                values={{
-                  total: totalEvents,
-                }}
-              />
-            </span>
-          ) : null}
-
-          <span className="oa-filter-value-preview">
-            <FiltersPreview
-              isFetching={loading}
-              agenda={agenda}
-              filters={filters}
-              getOptions={getOptions}
-            />
-          </span>
-        </div>
-      </div>
-
-      <div className="clearfix" />
-
-      <AggregationCharts />
-
-      <div className="margin-top-md text-right">{editButtons}</div>
-
-      {orderModal.isOpen ? (
-        <OrderModal onSubmit={onOrderChange} onClose={orderModal.close} />
-      ) : null}
-
-      {ReactDOM.createPortal(
-        <div>
-          <div className="margin-bottom-xs">
-            <b>{intl.formatMessage(messages.filters)}</b>
+            <div className="col-sm-6 text-right">
+              <div>{editButtons}</div>
+              {editing ? (
+                <button
+                  type="button"
+                  className="btn btn-link btn-link-inline margin-top-sm"
+                  onClick={() => orderModal.open()}
+                >
+                  {intl.formatMessage(messages.changeOrder)}
+                </button>
+              ) : null}
+            </div>
           </div>
 
-          <FiltersPart
-            filters={filters}
-            filtersFormRef={filtersFormRef}
-            initialQuery={initialQuery}
-            getOptions={getOptions}
-          />
-        </div>,
-        filtersContainerRef.current
+          <div className="row margin-top-xs">
+            <div className="col-xs-12">
+              {typeof totalEvents === 'number' ? (
+                <span className="margin-right-xs">
+                  <FormattedMessage
+                    id="AgendaStats.Dashboard.totalEvents"
+                    defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
+                    values={{
+                      total: totalEvents,
+                    }}
+                  />
+                </span>
+              ) : null}
+
+              <span className="oa-filter-value-preview">
+                <FiltersPreview
+                  isFetching={loading}
+                  agenda={agenda}
+                  filters={filters}
+                  getOptions={getOptions}
+                />
+              </span>
+            </div>
+          </div>
+
+          <div className="clearfix" />
+
+          <AggregationCharts />
+
+          <div className="margin-top-md text-right">{editButtons}</div>
+
+          {orderModal.isOpen ? (
+            <OrderModal onSubmit={onOrderChange} onClose={orderModal.close} />
+          ) : null}
+
+          {ReactDOM.createPortal(
+            <div>
+              <div className="margin-bottom-xs">
+                <b>{intl.formatMessage(messages.filters)}</b>
+              </div>
+
+              <FiltersPart
+                filters={filters}
+                filtersFormRef={filtersFormRef}
+                initialQuery={initialQuery}
+                getOptions={getOptions}
+              />
+            </div>,
+            filtersContainerRef.current
+          )}
+        </>
+      ) : (
+        <EmptyDashoard />
       )}
     </FiltersProvider>
   );

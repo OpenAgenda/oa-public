@@ -2,7 +2,6 @@
 
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CompressionPlugin = require( 'compression-webpack-plugin' );
-const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
 const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
 
@@ -29,7 +28,6 @@ module.exports = {
     chunkFilename: '[id]-[chunkhash].js',
   },
   plugins: [
-    new LodashModuleReplacementPlugin( { paths: true } ),
     new CleanWebpackPlugin(),
     new WebpackAssetsManifest( {
       output: __dirname + '/client/dist/manifest.json'
