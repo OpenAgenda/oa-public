@@ -1,16 +1,16 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 
 const Service = require('@openagenda/members');
 const log = require('@openagenda/logs')('services/members');
 
+const sessions = require('../sessions');
 const mail = require('./lib/mail');
 const activities = require('./lib/activities');
 const streamCsv = require('./lib/streamCsv');
 const streamXlsx = require('./lib/streamXlsx');
 const transferEvent = require('./lib/transferEvent');
-const sessions = require('../sessions');
 
 const getEventCountByUserUid = require('./getEventCountByUserUid');
 const getUsersByUid = require('./getUsersByUid');
@@ -20,26 +20,10 @@ const onCreate = require('./onCreate');
 const onRemove = require('./onRemove');
 const onPatch = require('./onPatch');
 
-const mw = {
-  authorize: require('./middleware/authorize'),
-  list: require('./middleware/list'),
-  loadAgenda: require('./middleware/loadAgenda'),
-  loadEvent: require('./middleware/loadEvent'),
-  load: require('./middleware/load'),
-  loadTarget: require('./middleware/loadTarget'),
-  loadContext: require('./middleware/loadContext'),
-  invite: require('./middleware/invite'),
-  sendMessage: require('./middleware/sendMessage'),
-  spreadsheet: require('./middleware/spreadsheet')
-}
+const mw = require('./middleware');
 
 const members = {};
 const config = {};
-
-module.exports = Object.assign(plugApp, {
-  init,
-  utils: Service.utils
-});
 
 function init(c, services) {
   Object.assign(config, c);
@@ -96,9 +80,9 @@ function init(c, services) {
         loadAndAuthorize: mw.load.andAuthorize,
         authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
         authorizeAdminModOrKey: mw.authorize.adminModOrKey,
-        loadTarget: Object.assign( mw.loadTarget.bind(null, members), {
+        loadTarget: Object.assign(mw.loadTarget.bind(null, members), {
           options: mw.loadTarget.options.bind(null, members)
-        } )
+        })
       }
     }
   );
@@ -168,7 +152,7 @@ function plugApp(app) {
   app.get(
     '/:agendaSlug/admin/members/:id/details',
     mw.loadTarget.options.bind(null, members, { detailed: true }),
-    (req, res, next) => res.json({
+    (req, res) => res.json({
       ..._.pick(req.targetMember, [
         'id',
         'role',
@@ -215,12 +199,17 @@ function plugApp(app) {
         member
       }) => {
         if (member && member.userUid) {
-          return res.status(200).json({ message: 'user is member' })
+          return res.status(200).json({
+            message: 'user is member'
+          });
         }
         next();
       }, next);
     },
-    (req, res, next) => mail.resendInvitation(req.app.services, config, {
+    (req, res, next) => mail.resendInvitation({
+      services: req.app.services,
+      config
+    }, {
       agenda: req.agenda,
       member: req.targetMember
     }).then(() => res.status(200).json({ message: 'pabim.' }), next)
@@ -242,4 +231,9 @@ function plugApp(app) {
 
   app.get('/:agendaSlug/admin/members.csv', streamCsv);
   app.get('/:agendaSlug/admin/members.xlsx', streamXlsx);
-};
+}
+
+module.exports = Object.assign(plugApp, {
+  init,
+  utils: Service.utils
+});

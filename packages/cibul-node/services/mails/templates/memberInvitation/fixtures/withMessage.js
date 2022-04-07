@@ -1,8 +1,10 @@
-const _ = require( 'lodash' );
-const sanitizeHtml = require( 'sanitize-html' );
+'use strict';
+
+const _ = require('lodash');
+const sanitizeHtml = require('sanitize-html');
 
 module.exports = {
-  stripHtml: html => sanitizeHtml( html, { allowedTags: [], allowedAttributes: {} } ),
+  stripHtml: html => sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} }),
   _,
   root: 'https://d.openagenda.com',
   logo: {
@@ -19,5 +21,5 @@ module.exports = {
   isRegisteredUser: true
 };
 
-module.exports.$makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
-module.exports.$labels = require( '@openagenda/labels/mails/memberInvitation' );
+module.exports.$makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
+module.exports.$labels = require('@openagenda/labels/mails/memberInvitation');

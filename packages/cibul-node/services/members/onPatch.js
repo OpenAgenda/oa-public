@@ -112,7 +112,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
 
     if (invitation && isDeleted) {
       try {
-        await invitations.remove({ email: before.custom.email })
+        await invitations.remove({ email: before.custom.email });
       } catch (e) {
         log('error', 'failed to remove invitation', e);
       }
@@ -120,7 +120,9 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
       try {
         invitation.email = member.custom.email;
         await invitation.save();
-        await sendInvitation(services, config, { invitation, member, context, agenda });
+        await sendInvitation({ services, config }, {
+          invitation, member, context, agenda
+        });
       } catch (e) {
         log('error', 'failed to update invitation', e);
       }
