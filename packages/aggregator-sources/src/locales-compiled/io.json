@@ -2,13 +2,13 @@
   "aggregator-sources.AddSourceModal.InfoMessage": [
     {
       "type": 0,
-      "value": "The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes."
+      "value": "crwdns16237:0crwdne16237:0"
     }
   ],
   "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
     {
       "type": 0,
-      "value": "The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar."
+      "value": "crwdns16239:0crwdne16239:0"
     }
   ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
@@ -82,7 +82,7 @@
   "aggregator-sources.AddSourceModal.evaluationStep": [
     {
       "type": 0,
-      "value": "Evaluation"
+      "value": "crwdns16243:0crwdne16243:0"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [
@@ -128,7 +128,7 @@
   "aggregator-sources.AddSourceModal.ok": [
     {
       "type": 0,
-      "value": "OK"
+      "value": "crwdns16245:0crwdne16245:0"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
@@ -426,13 +426,13 @@
   "aggregator-sources.DefineRules.brokenFilter": [
     {
       "type": 0,
-      "value": "Invalid filter"
+      "value": "crwdns16914:0crwdne16914:0"
     }
   ],
   "aggregator-sources.DefineRules.brokenFilterInfo": [
     {
       "type": 0,
-      "value": "this filter refers to a field that cannot be found. It may have been deleted from the source agenda!"
+      "value": "crwdns16916:0crwdne16916:0"
     }
   ],
   "aggregator-sources.DefineRules.cancel": [
@@ -444,13 +444,13 @@
   "aggregator-sources.DefineRules.caseInsensitive": [
     {
       "type": 0,
-      "value": "case-insensitive"
+      "value": "crwdns16168:0crwdne16168:0"
     }
   ],
   "aggregator-sources.DefineRules.caseSensitive": [
     {
       "type": 0,
-      "value": "case-sensitive"
+      "value": "crwdns16170:0crwdne16170:0"
     }
   ],
   "aggregator-sources.DefineRules.choice": [
@@ -590,7 +590,7 @@
   "aggregator-sources.DefineRules.name": [
     {
       "type": 0,
-      "value": "Location name"
+      "value": "crwdns16217:0crwdne16217:0"
     }
   ],
   "aggregator-sources.DefineRules.newRule": [
@@ -834,25 +834,25 @@
   "aggregator-sources.EvaluateOptions.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "crwdns16247:0crwdne16247:0"
     }
   ],
   "aggregator-sources.EvaluateOptions.evaluateOption0": [
     {
       "type": 0,
-      "value": "Aggregate only upcoming events"
+      "value": "crwdns16249:0crwdne16249:0"
     }
   ],
   "aggregator-sources.EvaluateOptions.evaluateOption1": [
     {
       "type": 0,
-      "value": "Aggregate all events"
+      "value": "crwdns16251:0crwdne16251:0"
     }
   ],
   "aggregator-sources.EvaluateOptions.evaluateOption2": [
     {
       "type": 0,
-      "value": "Aggregate current and future events"
+      "value": "crwdns16253:0crwdne16253:0"
     }
   ],
   "aggregator-sources.RemoveSourceModal.cancel": [
@@ -1034,7 +1034,7 @@
   "aggregator-sources.RuleForm.name": [
     {
       "type": 0,
-      "value": "Name"
+      "value": "crwdns16219:0crwdne16219:0"
     }
   ],
   "aggregator-sources.RuleForm.noOption": [
@@ -1120,7 +1120,7 @@
   "aggregator-sources.RuleForm.textFilterCaseSensitive": [
     {
       "type": 0,
-      "value": "The filter is case-sensitive"
+      "value": "crwdns16172:0crwdne16172:0"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [
@@ -1226,7 +1226,7 @@
   "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
     {
       "type": 0,
-      "value": "Would you like events published in the source calendar to be re-evaluated as a result of this update?"
+      "value": "crwdns16255:0crwdne16255:0"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateASource": [

@@ -46,20 +46,23 @@ module.exports = {
   "noOption": {
     "fr": "Pas de correspondance",
     "en": "No match",
-    "io": "crwdns14892:0crwdne14892:0"
+    "io": "crwdns14892:0crwdne14892:0",
+    "it": "Nessuna corrispondenza"
   },
   "selectPlaceholder": {
     "fr": "Sélectionner...",
     "en": "Select...",
-    "io": "crwdns14894:0crwdne14894:0"
+    "io": "crwdns14894:0crwdne14894:0",
+    "it": "Seleziona..."
   },
   "cancel": {
     "en": "Cancel",
     "fr": "Annuler",
-    "it": "Annullare",
+    "it": "Annulla",
     "de": "annulieren",
     "pl": "Anuluj",
     "es": "anular",
-    "br": "Nullañ"
+    "br": "Nullañ",
+    "io": "crwdns16466:0crwdne16466:0"
   }
 }

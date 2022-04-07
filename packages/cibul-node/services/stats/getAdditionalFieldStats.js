@@ -9,7 +9,8 @@ module.exports = function getAdditionalFieldStats(agendaSchema) {
       return {
         aggregation: {
           type: 'additionalFields',
-          field: fieldSchema.field
+          field: fieldSchema.field,
+          missing: !isCheckbox ? 'null' : undefined,
         },
         chart: {
           type: isCheckbox ? 'pie' : 'vertical',
@@ -17,6 +18,7 @@ module.exports = function getAdditionalFieldStats(agendaSchema) {
           labelKey: 'label',
           restItem: isCheckbox,
           dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null,
+          loadMore: !isCheckbox,
         }
       };
     });

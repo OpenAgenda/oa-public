@@ -3,5 +3,13 @@
   "twoDates": "%firstDate% et %lastDate%",
   "moreDates": "%firstDate% - %lastDate%",
   "noDates": "Nessun data disponible",
-  "minuteSeparator": ":"
+  "minuteSeparator": ":",
+  "prefix": "su",
+  "weekday-0": "Domenica",
+  "weekday-1": "Lunedì",
+  "weekday-2": "Martedì",
+  "weekday-3": "Mercoledì",
+  "weekday-4": "Giovedì",
+  "weekday-5": "Venerdì",
+  "weekday-6": "Sabato"
 }

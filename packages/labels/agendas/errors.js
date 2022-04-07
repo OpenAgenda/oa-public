@@ -8,7 +8,8 @@ module.exports = {
     "de": "Veranstaltung steht bereits auf dem Programm",
     "pl": "wydarzenie jest już częścią porządku dziennego",
     "es": "el evento se ha añadido a la agenda",
-    "io": "crwdns12842:0crwdne12842:0"
+    "io": "crwdns12842:0crwdne12842:0",
+    "oc": "l'eveniment fa ja partida de l'agenda"
   },
   "selectActionBefore": {
     "en": "Select an action to execute before pressing the button",

@@ -4,8 +4,8 @@
   "agenda.removeMember": "{originMember} ha rimosso {user} ({credential}).",
   "agenda.setMemberRole": "{user} ha cambiato {originMember} de {beforeCredential} ha {credential}.",
   "agenda.addSource": "{user} ha aggiunto {sourceAgenda} aux sources.",
-  "agenda.removeSource": "{user} ha rimosso {sourceAgenda} des sources.",
-  "agenda.create": "{user} ha creato l'agenda.",
+  "agenda.removeSource": "{user} ha rimosso {sourceAgenda} dei fonti.",
+  "agenda.create": "{user} ha creato l'agenda",
   "agenda.updateContribution": "{user} ha aggiornato le impostazioni dei contributi.",
   "agenda.updateProfile": "{user} ha aggiornato il profilo de l'agenda.",
   "agenda.rename": "{user} ha rinominato l'agenda {before} en {after}.",
@@ -24,7 +24,8 @@
   "event.updateWithLotOfChanges": "{user} ha aggiornato {event} ({fieldsCount} champs).",
   "event.delete": "{user} ha cancellato {event}.",
   "activities": "Attività",
-  "next": "Avanti",
-  "noActivity": "L'attività del vostro agenda sarà visualizzata qui.",
-  "unknownActivity": "Etichetta di attività mancante per {verb}."
+  "next": "Prossimo",
+  "noActivity": "L'attività del vostro agenda sarà visibile qui.",
+  "unknownActivity": "Etichetta di attività mancante per {verb}.",
+  "agenda.sendInvitation": "{user} ha invitato {email} come {credential}."
 }

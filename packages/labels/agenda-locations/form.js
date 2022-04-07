@@ -52,7 +52,7 @@ module.exports = {
     "de": "Kontakt E-mail",
     "es": "e-mail",
     "br": "Postel",
-    "it": "Invia un'e-mail a",
+    "it": "Indirizzo email",
     "io": "crwdns12146:0crwdne12146:0"
   },
   "groupTags.required": {
@@ -70,8 +70,9 @@ module.exports = {
     "de": "Die Geolocation war nicht erfolgreich. Bitte versuche es wieder oder die Markierung platzieren manuell",
     "es": "Geolocalización, no se pudo completar. Inténtalo de nuevo o mover el marcador manualmente",
     "br": "N'eo ket deuet an douarlec'hiañ da benn vat. Adesaeit pe lakait ar merker gant an dorn, mar plij",
-    "it": "La geolocalizzazione non ha avuto successo. Riprovare o posizionare il marcatore manualmente.",
-    "io": "crwdns12150:0crwdne12150:0"
+    "it": "La geolocalizzazione non ha avuto successo. Riprovare o posizionare il marcatore manualmente",
+    "io": "crwdns12150:0crwdne12150:0",
+    "oc": "La geolocalizacion a pas capitat. Mercés de tornar ensajar o de plaçar lo marcaire a la man"
   },
   "geocodeFieldSave": {
     "fr": "Ok",
@@ -80,7 +81,8 @@ module.exports = {
     "es": "Ok",
     "br": "Ok",
     "it": "Ok",
-    "io": "crwdns12152:0crwdne12152:0"
+    "io": "crwdns12152:0crwdne12152:0",
+    "oc": "Ok"
   },
   "geocodeFieldCancel": {
     "fr": "Annuler",
@@ -98,7 +100,8 @@ module.exports = {
     "es": "La función de seguimiento automático no está disponible temporalmente. Encontrar su ubicación arrastrando el marcador en el lugar correcto en el mapa.",
     "br": "Al lec'hiañ emgefre n'a ket en-dro evit poent. Riklit ar merker betek al lec'h mat war ar gartenn evit lec'hiañ anezhañ.",
     "it": "La funzione di localizzazione automatica non è temporaneamente disponibile. Individuare la propria posizione trascinando il marcatore nel punto giusto della mappa.",
-    "io": "crwdns12156:0crwdne12156:0"
+    "io": "crwdns12156:0crwdne12156:0",
+    "oc": "La localizacion automatica es pas disponibla pel moment. Desplaçatz manualament lo marcaire sus l'endreit corrècte de la mapa."
   },
   "name": {
     "fr": "Nom du lieu",
@@ -106,7 +109,7 @@ module.exports = {
     "de": "Name des Orts",
     "es": "Lugar Nombre",
     "br": "Anv al lec'h",
-    "it": "Nome della località",
+    "it": "Nome del luogo",
     "io": "crwdns12158:0crwdne12158:0"
   },
   "namePlaceholder": {
@@ -116,7 +119,8 @@ module.exports = {
     "es": "Ejemplo: El Moulin Rouge",
     "br": "Da skouer : Ar C'houarz",
     "it": "Esempio: il Moulin Rouge",
-    "io": "crwdns12160:0crwdne12160:0"
+    "io": "crwdns12160:0crwdne12160:0",
+    "oc": "Exemple : Lo Molin Roge"
   },
   "description": {
     "fr": "Description",
@@ -133,7 +137,7 @@ module.exports = {
     "de": "Details über den Standort",
     "es": "Detalles de la ubicación",
     "br": "Munudoù diwar-benn al lec'h",
-    "it": "Dettagli sulla posizione",
+    "it": "Dettagli sul luogo",
     "io": "crwdns12164:0crwdne12164:0"
   },
   "country": {
@@ -160,8 +164,9 @@ module.exports = {
     "de": "Nummer Straße, Ort (Beispiel: 82 Boulevard de Clichy, Paris)",
     "es": "No Way Ciudad (ejemplo: 82 Boulevard de Clichy, París)",
     "br": "Niverenn er straed, Kêr (da skouer 15 straed ar C'hastell, Brest)",
-    "it": "Numero del binario, Città ( esempio : 82 Boulevard de Clichy, Parigi )",
-    "io": "crwdns12170:0crwdne12170:0"
+    "it": "(esempio : Viale della Trinità dei Monti, 1, Roma)",
+    "io": "crwdns12170:0crwdne12170:0",
+    "oc": "Numèro de carrièra, Vila ( exemple : 82, baloard de Clichy, París )"
   },
   "latitude": {
     "fr": "Géolocalisation",
@@ -170,7 +175,8 @@ module.exports = {
     "es": "Geolocalización",
     "br": "Douarlec'hiañ",
     "it": "Geolocalizzazione",
-    "io": "crwdns12172:0crwdne12172:0"
+    "io": "crwdns12172:0crwdne12172:0",
+    "oc": "Geolocalizacion"
   },
   "image": {
     "fr": "Image",
@@ -205,7 +211,7 @@ module.exports = {
     "de": "Sprache hinzufügen",
     "es": "Agregar idioma",
     "br": "Ouzhpennañ ur yezh",
-    "it": "Aggiungi una lingua",
+    "it": "Aggiungere una lingua",
     "io": "crwdns12180:0crwdne12180:0"
   },
   "cancel": {
@@ -214,7 +220,7 @@ module.exports = {
     "de": "Stornieren",
     "es": "Anular",
     "br": "Nullañ",
-    "it": "Annulla",
+    "it": "Annullare",
     "io": "crwdns12182:0crwdne12182:0"
   },
   "back": {
@@ -223,7 +229,7 @@ module.exports = {
     "de": "Zurück zur Liste",
     "es": "Volver a la lista",
     "br": "Distreiñ d'ar roll",
-    "it": "Torna alla lista",
+    "it": "Tornare alla lista",
     "io": "crwdns12184:0crwdne12184:0"
   },
   "location.required": {
@@ -251,7 +257,8 @@ module.exports = {
     "es": "El lugar debe ser geolocalizados",
     "br": "Ret eo d'al lec'h bezañ douarlec'hiet",
     "it": "Il luogo deve essere geolocalizzato",
-    "io": "crwdns12190:0crwdne12190:0"
+    "io": "crwdns12190:0crwdne12190:0",
+    "oc": "Lo lòc se deu geolocalizar"
   },
   "location.invalid.identifier": {
     "fr": "l'identifiant n'est pas valide",
@@ -260,7 +267,8 @@ module.exports = {
     "es": "ID no es válido",
     "br": "Direizh eo an anaouder",
     "it": "l'identificatore non è valido",
-    "io": "crwdns12192:0crwdne12192:0"
+    "io": "crwdns12192:0crwdne12192:0",
+    "oc": "l'identificant es pas valid"
   },
   "noMapLocation": {
     "fr": "La localisation du lieu n'est pas encore définie",
@@ -284,7 +292,8 @@ module.exports = {
     "fr": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse.",
     "en": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed.",
     "it": "Non siamo riusciti a trovare quell'indirizzo. Modificare la voce per lasciare solo il nome del comune, posizionare il marcatore nel punto giusto sulla mappa e terminare completando l'indirizzo.",
-    "io": "crwdns12198:0crwdne12198:0"
+    "io": "crwdns12198:0crwdne12198:0",
+    "oc": "Avèm pas pogut localizar aquesta adreiça. Tornatz començar en dintrant sonque lo nom de vila, botatz lo marcaire sus la mapa al bon endreit puèi dintratz l'adreiça complèta un còp que lo marcaire es plaçat coma cal."
   },
   "loadingError": {
     "fr": "Un problème est survenu lors du chargement. Veuillez ré-essayer.",
@@ -374,7 +383,8 @@ module.exports = {
     "es": "barrio",
     "br": "Karter",
     "it": "Quartiere",
-    "io": "crwdns12218:0crwdne12218:0"
+    "io": "crwdns12218:0crwdne12218:0",
+    "oc": "Districte"
   },
   "extId": {
     "fr": "Identifiant externe",
@@ -383,7 +393,8 @@ module.exports = {
     "es": "iD externa",
     "br": "Anaouder diavaez",
     "it": "Identificatore esterno",
-    "io": "crwdns12220:0crwdne12220:0"
+    "io": "crwdns12220:0crwdne12220:0",
+    "oc": "Identificant extèrne"
   },
   "extIdInfo": {
     "fr": "Optionnellement, précisez un identifiant unique pour ce lieu",
@@ -392,7 +403,8 @@ module.exports = {
     "es": "Opcionalmente, especifique un identificador único para este lugar",
     "br": "Ma karit, e c'hallit lakaat un anaouder hepken evit al lec'h-mañ",
     "it": "Facoltativamente, specificare un identificatore univoco per questa posizione",
-    "io": "crwdns12222:0crwdne12222:0"
+    "io": "crwdns12222:0crwdne12222:0",
+    "oc": "Opcionalament, dintratz un identificant unic per aqueste lòc"
   },
   "extIdLink": {
     "fr": "Définir un identifiant unique pour ce lieu",

@@ -1,6 +1,6 @@
 {
   "noAccessToClosedAgenda": "Questo agenda è chiuso ai contributi",
   "noAccessToEdit": "Non avete accesso all'edizione di questo evento",
-  "noAccessToDraft": "Non avete accesso all'edizione di questa bozza.",
-  "eventNotLinkedToAgenda": "L'evento non è menzionato nell'ordine del giorno."
+  "noAccessToDraft": "Non puoi modificare questa bozza",
+  "eventNotLinkedToAgenda": "L'evento non è presente nell'agenda"
 }

@@ -1,1 +1,5 @@
-{}
+{
+  "contribDefaultStateUnpublishedText": "Los eveniments venon publics pas qu'aprèp validacion.",
+  "createAgenda": "Crear l'agenda",
+  "slug.invalid": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats"
+}

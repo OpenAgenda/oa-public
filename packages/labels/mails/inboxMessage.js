@@ -39,7 +39,8 @@ module.exports = {
     "de": "Show Agenda",
     "es": "Ver la agenda",
     "it": "Vedi l'agenda",
-    "io": "crwdns15420:0crwdne15420:0"
+    "io": "crwdns15420:0crwdne15420:0",
+    "oc": "Mostrar l'agenda"
   },
   "sentBy": {
     "fr": "Envoyé par **%senderName%**",

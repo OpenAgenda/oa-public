@@ -26,7 +26,7 @@
   "EventAdminApp.BatchedStateSelector.title": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Confirmacion"
     }
   ],
   "EventAdminApp.Dashboard.allSelected": [
@@ -183,7 +183,7 @@
   "EventAdminApp.Dashboard.sortedBy": [
     {
       "type": 0,
-      "value": "Sorted by:"
+      "value": "Destriat per :"
     }
   ],
   "EventAdminApp.Dashboard.state": [
@@ -314,19 +314,19 @@
   "EventAdminApp.Dashboard.yourSelection": [
     {
       "type": 0,
-      "value": "Your selection:"
+      "value": "Vòstra seleccion :"
     }
   ],
   "EventAdminApp.EmptyDashboard.addSources": [
     {
       "type": 0,
-      "value": "Aggregate events published on other agendas by "
+      "value": "Agregar los eveniments publicats sus d'autras agendas en las "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "adding them to sources"
+          "value": "apondent a las sorsas"
         }
       ],
       "type": 8,
@@ -336,7 +336,7 @@
   "EventAdminApp.EmptyDashboard.alternatively": [
     {
       "type": 0,
-      "value": "Alternatively, you can:"
+      "value": "Podètz tanben :"
     }
   ],
   "EventAdminApp.EmptyDashboard.createFirstEvent": [
@@ -364,7 +364,7 @@
   "EventAdminApp.EmptyDashboard.noEvents": [
     {
       "type": 0,
-      "value": "Your agenda does not yet reference any event!"
+      "value": "Vòstra agenda referéncia pas encara d'eveniments !"
     }
   ],
   "EventAdminApp.EmptyDashboard.visitDoc": [
@@ -530,7 +530,7 @@
   "EventAdminApp.EventItem.remove": [
     {
       "type": 0,
-      "value": "Remove from agenda"
+      "value": "Tirat de l'agenda"
     }
   ],
   "EventAdminApp.EventItem.removeFeatured": [
@@ -542,7 +542,7 @@
   "EventAdminApp.EventItem.shared": [
     {
       "type": 0,
-      "value": "Shared by a member which has left the agenda"
+      "value": "Partejat per un·a membre que daissèt l'agenda"
     }
   ],
   "EventAdminApp.EventItem.sharedBy": [
@@ -628,13 +628,13 @@
   "EventAdminApp.EventItem.statusCancelledInfo": [
     {
       "type": 0,
-      "value": "The event has been permanently cancelled"
+      "value": "L'eveniment es estat definitivament anullat"
     }
   ],
   "EventAdminApp.EventItem.statusFull": [
     {
       "type": 0,
-      "value": "Fully booked"
+      "value": "Totalament complèt"
     }
   ],
   "EventAdminApp.EventItem.statusFullInfo": [
@@ -646,7 +646,7 @@
   "EventAdminApp.EventItem.statusMovedOnline": [
     {
       "type": 0,
-      "value": "Moved online"
+      "value": "Transferit en linha"
     }
   ],
   "EventAdminApp.EventItem.statusMovedOnlineInfo": [
@@ -670,7 +670,7 @@
   "EventAdminApp.EventItem.statusRescheduled": [
     {
       "type": 0,
-      "value": "Rescheduled"
+      "value": "Tornat planificar"
     }
   ],
   "EventAdminApp.EventItem.statusRescheduledInfo": [
@@ -700,7 +700,7 @@
   "EventAdminApp.RemoveModal.deleteDesc": [
     {
       "type": 0,
-      "value": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda."
+      "value": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda."
     }
   ],
   "EventAdminApp.RemoveModal.deleteEvent": [
@@ -712,7 +712,7 @@
   "EventAdminApp.RemoveModal.removeDesc": [
     {
       "type": 0,
-      "value": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events"
+      "value": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments"
     }
   ],
   "EventAdminApp.RemoveModal.removeEvent": [
@@ -831,7 +831,7 @@
   "EventAdminApp.messages.exports.toSpreadsheet": [
     {
       "type": 0,
-      "value": "to spreadsheet (csv / xlsx)"
+      "value": "cap a una fuèlha de calcul (csv / xlsx)"
     }
   ],
   "EventAdminApp.messages.exports.toTXT": [
@@ -891,13 +891,13 @@
   "EventAdminApp.messages.status.full": [
     {
       "type": 0,
-      "value": "Fully booked"
+      "value": "Totalament complèt"
     }
   ],
   "EventAdminApp.messages.status.movedOnline": [
     {
       "type": 0,
-      "value": "Moved online"
+      "value": "Transferit en linha"
     }
   ],
   "EventAdminApp.messages.status.postponed": [
@@ -915,7 +915,7 @@
   "EventAdminApp.messages.status.rescheduled": [
     {
       "type": 0,
-      "value": "Rescheduled"
+      "value": "Tornat planificar"
     }
   ]
 }

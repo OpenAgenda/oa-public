@@ -9,6 +9,8 @@
     "lang" : "es", "key" : "precios-agenda"
   }, {
     "lang" : "br", "key" : "tarifs-agenda-br"
+  }, {
+    "lang" : "it", "key" : "prezzi-diario"
   } ],
   "head" : {
     "title" : "agendaPricingTitle",

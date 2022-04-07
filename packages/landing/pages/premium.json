@@ -4,7 +4,8 @@
     { "lang" : "fr", "key" : "agenda-premium" },
     { "lang" : "de", "key" : "premium-agenda-de" },
     { "lang" : "es", "key" : "premium-agenda-es" },
-    { "lang" : "br", "key" : "premium-agenda-br" }
+    { "lang" : "br", "key" : "premium-agenda-br" },
+    { "lang" : "it", "key" : "premium-agenda-it" }
   ],
   "head" : {
     "title": "premiumOfferHeadTitle",

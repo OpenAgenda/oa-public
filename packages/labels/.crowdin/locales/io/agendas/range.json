@@ -4,5 +4,12 @@
   "moreDates": "crwdns12892:0%firstDate%crwdnd12892:0%lastDate%crwdne12892:0",
   "noDates": "crwdns12894:0crwdne12894:0",
   "minuteSeparator": "crwdns12896:0crwdne12896:0",
-  "prefix": "crwdns12898:0crwdne12898:0"
+  "prefix": "crwdns12898:0crwdne12898:0",
+  "weekday-0": "crwdns16074:0crwdne16074:0",
+  "weekday-1": "crwdns16076:0crwdne16076:0",
+  "weekday-2": "crwdns16078:0crwdne16078:0",
+  "weekday-3": "crwdns16080:0crwdne16080:0",
+  "weekday-4": "crwdns16082:0crwdne16082:0",
+  "weekday-5": "crwdns16084:0crwdne16084:0",
+  "weekday-6": "crwdns16086:0crwdne16086:0"
 }

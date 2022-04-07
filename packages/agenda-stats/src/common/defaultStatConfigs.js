@@ -5,6 +5,7 @@ const defaultStatConfigs = {
   regions: {
     aggregation: {
       type: 'regions',
+      missing: 'null',
     },
     chart: {
       type: 'vertical',
@@ -16,6 +17,7 @@ const defaultStatConfigs = {
   departments: {
     aggregation: {
       type: 'departments',
+      missing: 'null',
     },
     chart: {
       type: 'vertical',
@@ -27,6 +29,7 @@ const defaultStatConfigs = {
   cities: {
     aggregation: {
       type: 'cities',
+      missing: 'null',
     },
     chart: {
       type: 'vertical',
@@ -49,7 +52,9 @@ const defaultStatConfigs = {
     },
   },
   createdAt: {
-    aggregation: { type: 'createdAt' },
+    aggregation: {
+      type: 'createdAt',
+    },
     chart: {
       type: 'horizontal',
       intervalSelector: true,
@@ -60,7 +65,9 @@ const defaultStatConfigs = {
     },
   },
   updatedAt: {
-    aggregation: { type: 'updatedAt' },
+    aggregation: {
+      type: 'updatedAt',
+    },
     chart: {
       type: 'horizontal',
       intervalSelector: true,
@@ -132,6 +139,7 @@ const defaultStatConfigs = {
       aggregation: {
         type: 'additionalFields',
         field: fieldSchema.field,
+        missing: !isCheckbox ? 'null' : undefined,
       },
       chart: {
         type: isCheckbox ? 'pie' : 'vertical',
@@ -139,6 +147,7 @@ const defaultStatConfigs = {
         labelKey: 'label',
         restItem: isCheckbox,
         dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null,
+        loadMore: !isCheckbox,
       },
       state: {
         fieldSchema,

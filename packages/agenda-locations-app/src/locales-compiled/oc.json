@@ -253,7 +253,7 @@
   "AgendaLocations.CreateForm.info": [
     {
       "type": 0,
-      "value": "Define the name, address and exact location of the place"
+      "value": "Definissètz lo nom, l'adreiça e l'emplaçament exacte del lòc"
     }
   ],
   "AgendaLocations.CreateForm.title": [
@@ -319,7 +319,7 @@
   "AgendaLocations.FR.adminLevel6": [
     {
       "type": 0,
-      "value": "District"
+      "value": "Districte"
     }
   ],
   "AgendaLocations.Filters.uids": [
@@ -355,7 +355,7 @@
   "AgendaLocations.GeoBadges.geocodeNoResults": [
     {
       "type": 0,
-      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+      "value": "Avèm pas pogut localizar aquesta adreiça. Tornatz començar en dintrant sonque lo nom de vila, botatz lo marcaire sus la mapa al bon endreit puèi dintratz l'adreiça complèta un còp que lo marcaire es plaçat coma cal."
     }
   ],
   "AgendaLocations.GeoBadges.insee": [
@@ -469,7 +469,7 @@
   "AgendaLocations.LocationDetails.extId": [
     {
       "type": 0,
-      "value": "External Identifier"
+      "value": "Identificant extèrne"
     }
   ],
   "AgendaLocations.LocationDetails.hoverInfo": [
@@ -680,7 +680,7 @@
   "AgendaLocations.LocationForm.extId": [
     {
       "type": 0,
-      "value": "External Identifier"
+      "value": "Identificant extèrne"
     }
   ],
   "AgendaLocations.LocationForm.extIdInfo": [
@@ -716,7 +716,7 @@
   "AgendaLocations.LocationForm.geocodeNoResults": [
     {
       "type": 0,
-      "value": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+      "value": "Avèm pas pogut localizar aquesta adreiça. Tornatz començar en dintrant sonque lo nom de vila, botatz lo marcaire sus la mapa al bon endreit puèi dintratz l'adreiça complèta un còp que lo marcaire es plaçat coma cal."
     }
   ],
   "AgendaLocations.LocationForm.image": [
@@ -782,7 +782,7 @@
   "AgendaLocations.LocationForm.namePlaceholder": [
     {
       "type": 0,
-      "value": "Example: Moulin Rouge"
+      "value": "Exemple : Lo Molin Roge"
     }
   ],
   "AgendaLocations.LocationForm.phone": [
@@ -1006,7 +1006,7 @@
   "AgendaLocations.LocationSelector.info": [
     {
       "type": 0,
-      "value": "Define the name, address and exact location of the place"
+      "value": "Definissètz lo nom, l'adreiça e l'emplaçament exacte del lòc"
     }
   ],
   "AgendaLocations.LocationSelector.noLocation": [
@@ -1453,7 +1453,7 @@
   "AgendaLocations.setHeader.help": [
     {
       "type": 0,
-      "value": "Administrators of agendas using this set have access to all operations on the locations of the set: creation, update, deletion, merging. Operations can therefore impact all agendas of the set."
+      "value": "Los administrators d'agendas qu'utilizan queste ensemble an accès a totas las operacions : creacion, mesa a jorn, supression, fusion. Las operacions pòdon doncas impactar totas las agendas de l'ensemble."
     }
   ],
   "AgendaLocations.setHeader.setSubtitle": [
@@ -1592,7 +1592,7 @@
   "AgendaLocations.stepper.confirmation": [
     {
       "type": 0,
-      "value": "Confirmation"
+      "value": "Confirmacion"
     }
   ],
   "AgendaLocations.stepper.duplicatesSelection": [

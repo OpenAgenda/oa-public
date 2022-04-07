@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { ReactSelectField, Modal } from '@openagenda/react-shared';
 import useChartTitle from '../hooks/useChartTitle';
-import form from './messages/form';
+import form from '../messages/form';
 import MetricsField from './MetricsField';
 
 const messages = defineMessages({
@@ -86,7 +86,7 @@ export default function StatEditModal({ stat, onSubmit, onClose }) {
         width: stat.chart.width || 1,
       },
     }),
-    [stat.chart.width]
+    [stat.aggregation.metrics, stat.chart.width]
   );
 
   return (

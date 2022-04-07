@@ -582,7 +582,7 @@
   "aggregator-sources.DefineRules.editForDetail": [
     {
       "type": 0,
-      "value": "Editer pour voir le détail"
+      "value": "Éditer pour voir le détail"
     }
   ],
   "aggregator-sources.DefineRules.eventLocationDetail": [
@@ -937,7 +937,9 @@
               "value": "avec "
             },
             {
-              "type": 7
+              "style": null,
+              "type": 2,
+              "value": "actionCount"
             },
             {
               "type": 0,
@@ -1116,7 +1118,7 @@
   "aggregator-sources.RuleForm.helpFilterTag": [
     {
       "type": 0,
-      "value": "Appliquer la règle aux événements associés à des valeurs à choix dont les étiquettes correspondent"
+      "value": "Appliquer la règle aux événements associés à des valeurs à choix dont les étiquettes correspondent."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterText": [
@@ -1128,7 +1130,7 @@
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
-      "value": "Filtre géographique"
+      "value": "Filtre lieu"
     }
   ],
   "aggregator-sources.RuleForm.modeAdvanced": [

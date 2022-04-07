@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Field } from 'react-final-form';
 import { ReactSelectField, getLocaleValue } from '@openagenda/react-shared';
 import titleMessages from '../messages/chartTitles';
-import form from './messages/form';
+import form from '../messages/form';
 import MetricsField from './MetricsField';
 
 export default function AddChartForm({

@@ -6,7 +6,7 @@ module.exports = {
     "en": "Create a location",
     "de": "Erstelle einen Standort",
     "es": "Creación de un sitio",
-    "it": "Creazione di un luogo",
+    "it": "Aggiungere un luogo",
     "io": "crwdns12094:0crwdne12094:0"
   },
   "info": {
@@ -15,14 +15,15 @@ module.exports = {
     "de": "Definiere den Namen, die Adresse und dem genauen Standort des Ortes",
     "es": "Definir con precisión el nombre, dirección y ubicación del lugar",
     "it": "Definire con precisione il nome, l'indirizzo e la posizione del luogo",
-    "io": "crwdns12096:0crwdne12096:0"
+    "io": "crwdns12096:0crwdne12096:0",
+    "oc": "Definissètz lo nom, l'adreiça e l'emplaçament exacte del lòc"
   },
   "submit": {
     "fr": "Créer",
     "en": "Create",
     "de": "Erstellen",
     "es": "Crear",
-    "it": "Crea",
+    "it": "Creare",
     "io": "crwdns12098:0crwdne12098:0"
   },
   "submitError": {

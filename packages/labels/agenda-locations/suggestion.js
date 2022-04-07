@@ -6,7 +6,7 @@ module.exports = {
     "en": "Suggest changes",
     "de": "Änderungen vorschlagen",
     "es": "sugerir cambios",
-    "it": "Suggerisci modifiche",
+    "it": "Suggerire modifiche",
     "io": "crwdns12350:0crwdne12350:0"
   },
   "suggestionEditTitle": {
@@ -22,7 +22,7 @@ module.exports = {
     "en": "Type in the changes you wish to bring to the location. These will then be processed by an administrator.",
     "de": "Schreibe die Änderungen in Sie an den Ort bringen wollen. Diese werden dann von einem Administrator bearbeitet werden.",
     "es": "Introducir los cambios que desea sugerir. Estos son entonces procesadas por un administrador.",
-    "it": "Inserite le modifiche che volete suggerire. Questi saranno poi elaborati da un amministratore.",
+    "it": "Inserire le modifiche che vuole suggerire. Questi saranno poi elaborati da un amministratore.",
     "io": "crwdns12354:0crwdne12354:0"
   },
   "suggestionEditInfo": {
@@ -38,7 +38,7 @@ module.exports = {
     "en": "Send the suggestion",
     "de": "Sende den Vorschlag",
     "es": "Enviar sugerencia",
-    "it": "Invia suggerimento",
+    "it": "Inviare suggerimento",
     "io": "crwdns12358:0crwdne12358:0"
   },
   "submitError": {
@@ -47,7 +47,8 @@ module.exports = {
     "de": "Der Vorschlag kann nicht gesendet werden. Bitte versuche es in ein paar Minuten Zeit",
     "es": "La sugerencia no se pudo enviar. Por favor, inténtelo de nuevo en un momento",
     "it": "Il suggerimento non ha potuto essere inviato. Riprovare tra un attimo",
-    "io": "crwdns12360:0crwdne12360:0"
+    "io": "crwdns12360:0crwdne12360:0",
+    "oc": "La suggestion se poguèt pas mandar. Mercés de tornar ensajar dins un momenton"
   },
   "loadError": {
     "fr": "Le formulaire n'a pas pu être chargé. Veuillez recharger la page.",
@@ -70,8 +71,9 @@ module.exports = {
     "en": "Thanks! Your suggestion has been submitted.",
     "de": "Vielen Dank! Ihr Vorschlag wurde vorgelegt.",
     "es": "¡Gracias! Su sugerencia ha sido tenido en cuenta.",
-    "it": "Grazie! Grazie! Grazie! Grazie! Il suo suggerimento è stato preso in considerazione.",
-    "io": "crwdns12366:0crwdne12366:0"
+    "it": "Grazie! Il suo suggerimento è stato preso in considerazione.",
+    "io": "crwdns12366:0crwdne12366:0",
+    "oc": "Mercés ! Vòstra suggestion es estada mandada."
   },
   "completeText": {
     "fr": "Un modérateur la traitera prochainement. Vous pouvez la modifier à tout moment en revenant sur la page événement associée.",
@@ -86,7 +88,7 @@ module.exports = {
     "en": "Back to the event page",
     "de": "Zurück zur Veranstaltungsseite",
     "es": "Volver a la página del evento",
-    "it": "Torna alla pagina dell'evento",
+    "it": "Tornare alla pagina dell'evento",
     "io": "crwdns12370:0crwdne12370:0"
   }
 }

@@ -22,7 +22,7 @@ module.exports = {
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Guardar",
-    "it": "Aggiorna",
+    "it": "Aggiornare",
     "br": "Hizivaat",
     "io": "crwdns12400:0crwdne12400:0"
   },
@@ -47,7 +47,7 @@ module.exports = {
     "en": "%count% changes have been suggested for this location",
     "de": "%count% Änderungen wurden für diesen Standort vorgeschlagen",
     "es": "%count% se sugirieron cambios para este lugar",
-    "it": "Per questa località sono state suggerite%count % variazioni",
+    "it": "Per questa località sono state suggerite %count% variazioni",
     "io": "crwdns12406:0%count%crwdne12406:0"
   },
   "loadSuggestion": {
@@ -55,7 +55,7 @@ module.exports = {
     "fr": "Voir",
     "de": "Sehen",
     "es": "Ver",
-    "it": "Vedi",
+    "it": "Vedere",
     "br": "Gwelet",
     "io": "crwdns12408:0crwdne12408:0"
   },
@@ -65,6 +65,7 @@ module.exports = {
     "de": "Änderungen wurden von der Kalender Mitwirkenden vorgeschlagen",
     "es": "Los cambios fueron sugeridos por la agenda contribuyentes",
     "it": "Le modifiche sono state suggerite da chi ha contribuito all'ordine del giorno",
-    "io": "crwdns12410:0crwdne12410:0"
+    "io": "crwdns12410:0crwdne12410:0",
+    "oc": "De cambiaments son estat suggerits per de contributor·a·s de l'agenda"
   }
 }

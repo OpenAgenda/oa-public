@@ -1,7 +1,7 @@
 {
   "number.toobig": "Il numero deve essere inferiore o uguale a %max%.",
   "multi-input.info": "Inserire uno o più valori",
-  "multi-input.error": "Le voci non valide non verranno salvate.",
+  "multi-input.error": "Le informazioni non valide non verranno salvate",
   "string.tooshort": "Il campo deve contenere almeno %min% di caratteri.",
   "string.toolong": "Il campo non deve contenere più di %max% di caratteri.",
   "email.invalid": "Deve essere compilata un'e-mail valida",
@@ -17,5 +17,6 @@
   "noOrigin": "Questo evento non è disponibile perché non è associato ad alcun ordine del giorno.",
   "defaultBack": "Torna alla home page",
   "defaultAgendaBack": "Torna all'ordine del giorno",
-  "pageDoesNotExist": "La pagina richiesta non esiste."
+  "pageDoesNotExist": "La pagina richiesta non esiste.",
+  "serverErrorTooLargeFile": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte"
 }

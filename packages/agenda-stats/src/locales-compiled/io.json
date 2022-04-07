@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "crwdns17314:0crwdne17314:0"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
@@ -371,6 +377,40 @@
       "value": "crwdne346:0"
     }
   ],
+  "AgendaStats.EmptyDashboard.action": [
+    {
+      "type": 0,
+      "value": "Create a first event"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.creationHelp": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Click here"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to learn more about adding events to your agenda."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.description": [
+    {
+      "type": 0,
+      "value": "Add or enter events then configure a report here consisting of pie charts, bar charts or histograms to get an overview of your programming."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.title": [
+    {
+      "type": 0,
+      "value": "Generate statistics on the contents of your agenda."
+    }
+  ],
   "AgendaStats.IntervalSelect.day": [
     {
       "type": 0,
@@ -694,7 +734,7 @@
   "AgendaStats.form.avg": [
     {
       "type": 0,
-      "value": "Average"
+      "value": "crwdns16177:0crwdne16177:0"
     }
   ],
   "AgendaStats.form.cancel": [
@@ -712,25 +752,25 @@
   "AgendaStats.form.data": [
     {
       "type": 0,
-      "value": "Data"
+      "value": "crwdns16187:0crwdne16187:0"
     }
   ],
   "AgendaStats.form.max": [
     {
       "type": 0,
-      "value": "Maximum"
+      "value": "crwdns16179:0crwdne16179:0"
     }
   ],
   "AgendaStats.form.metric": [
     {
       "type": 0,
-      "value": "Metric"
+      "value": "crwdns16181:0crwdne16181:0"
     }
   ],
   "AgendaStats.form.min": [
     {
       "type": 0,
-      "value": "Minimum"
+      "value": "crwdns16183:0crwdne16183:0"
     }
   ],
   "AgendaStats.form.oneColumn": [
@@ -766,7 +806,7 @@
   "AgendaStats.form.sum": [
     {
       "type": 0,
-      "value": "Summary"
+      "value": "crwdns16185:0crwdne16185:0"
     }
   ],
   "AgendaStats.form.typeSelectPlaceholder": [

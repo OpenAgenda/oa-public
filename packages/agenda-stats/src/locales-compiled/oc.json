@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Without value)"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
@@ -253,7 +259,7 @@
   "AgendaStats.Dashboard.changeOrder": [
     {
       "type": 0,
-      "value": "Change ordrer"
+      "value": "Change order"
     }
   ],
   "AgendaStats.Dashboard.edit": [
@@ -397,6 +403,40 @@
       "value": "weekNumber"
     }
   ],
+  "AgendaStats.EmptyDashboard.action": [
+    {
+      "type": 0,
+      "value": "Create a first event"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.creationHelp": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Click here"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to learn more about adding events to your agenda."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.description": [
+    {
+      "type": 0,
+      "value": "Add or enter events then configure a report here consisting of pie charts, bar charts or histograms to get an overview of your programming."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.title": [
+    {
+      "type": 0,
+      "value": "Generate statistics on the contents of your agenda."
+    }
+  ],
   "AgendaStats.IntervalSelect.day": [
     {
       "type": 0,
@@ -460,7 +500,7 @@
   "AgendaStats.OrderModal.width": [
     {
       "type": 0,
-      "value": "Width:"
+      "value": "Largor :"
     }
   ],
   "AgendaStats.RangeFilter.range": [
@@ -594,7 +634,7 @@
   "AgendaStats.RangeTypeModal.rangeTypeDesc": [
     {
       "type": 0,
-      "value": "The period from "
+      "value": "Lo periòd del "
     },
     {
       "children": [
@@ -608,7 +648,7 @@
     },
     {
       "type": 0,
-      "value": " to "
+      "value": " al "
     },
     {
       "children": [
@@ -622,7 +662,7 @@
     },
     {
       "type": 0,
-      "value": " applies to:"
+      "value": " s'aplica a :"
     }
   ],
   "AgendaStats.RangeTypeModal.submit": [
@@ -646,7 +686,7 @@
   "AgendaStats.StatEditModal.modalTitle": [
     {
       "type": 0,
-      "value": "Edit the chart: "
+      "value": "Modificar lo grafic : "
     },
     {
       "type": 1,
@@ -746,7 +786,7 @@
   "AgendaStats.form.componentWidth": [
     {
       "type": 0,
-      "value": "Component width"
+      "value": "Largor del compausant :"
     }
   ],
   "AgendaStats.form.data": [

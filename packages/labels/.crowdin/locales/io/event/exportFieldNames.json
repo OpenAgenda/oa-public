@@ -56,5 +56,17 @@
   "category": "crwdns14254:0crwdne14254:0",
   "location.district": "crwdns14256:0crwdne14256:0",
   "state": "crwdns14258:0crwdne14258:0",
-  "references": "crwdns14260:0crwdne14260:0"
+  "references": "crwdns14260:0crwdne14260:0",
+  "registration": "crwdns16430:0crwdne16430:0",
+  "permalink": "crwdns16432:0crwdne16432:0",
+  "attendanceMode": "crwdns16152:0crwdne16152:0",
+  "onlineAccessLink": "crwdns16154:0crwdne16154:0",
+  "status": "crwdns16156:0crwdne16156:0",
+  "member.uid": "crwdns16434:0crwdne16434:0",
+  "member.role": "crwdns16436:0crwdne16436:0",
+  "member.phone": "crwdns16438:0crwdne16438:0",
+  "member.email": "crwdns16440:0crwdne16440:0",
+  "member.organization": "crwdns16442:0crwdne16442:0",
+  "member.name": "crwdns16444:0crwdne16444:0",
+  "member.position": "crwdns16446:0crwdne16446:0"
 }

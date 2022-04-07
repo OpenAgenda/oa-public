@@ -1,1 +1,14 @@
-{}
+{
+  "noAccountFound": "Nessun conto trovato",
+  "accountAlreadyActivated": "Il conto è già attivato",
+  "incorrectPassword": "Questo password non è corretto",
+  "invalidToken": "Token non valido",
+  "userNotFound": "Nessun conto trovato",
+  "userNotActivated": "Conto non attivato",
+  "userAlreadyActivated": "Il conto è già attivato",
+  "passwordsMustMatch": "La password deve corrispondere.",
+  "fieldCannotBeEmpty": "Questo campo non può essere vuoto",
+  "passwordCouldNotBeModified": "La password non può essere modificata",
+  "passwordResetSent": "Una reimpostazione della password è stata inviata alla sua email",
+  "passwordUpdated": "La tua password è stata aggiornata."
+}

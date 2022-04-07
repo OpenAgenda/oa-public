@@ -1,6 +1,0 @@
-{
-  "alreadyReferencedAndPublished": "The event [is already referenced](%eventLink%) on the agenda [%agendaTitle%](%agendaLink%)",
-  "alreadyReferencedAndUnpublished": "The event is already referenced on the agenda [%agendaTitle%](%agendaLink%) but it hasn't yet been published",
-  "sharedAndPublished": "[The event is now published](%eventLink%) on the agenda [%agendaTitle%](%agendaLink%)",
-  "sharedAndUnpublished": "The event was added to the agenda [%agendaTitle%](%agendaLink%).\n You will be notified when it will be published."
-}

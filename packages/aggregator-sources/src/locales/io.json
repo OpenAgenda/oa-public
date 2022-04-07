@@ -147,5 +147,21 @@
   "aggregator-sources.utils.stateMessages.state": "crwdns780:0crwdne780:0",
   "aggregator-sources.utils.stateMessages.stateControlled": "crwdns782:0crwdne782:0",
   "aggregator-sources.utils.stateMessages.statePublished": "crwdns784:0crwdne784:0",
-  "aggregator-sources.utils.stateMessages.stateToControl": "crwdns786:0crwdne786:0"
+  "aggregator-sources.utils.stateMessages.stateToControl": "crwdns786:0crwdne786:0",
+  "aggregator-sources.AddSourceModal.InfoMessage": "crwdns16237:0crwdne16237:0",
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": "crwdns16239:0crwdne16239:0",
+  "aggregator-sources.AddSourceModal.evaluationStep": "crwdns16243:0crwdne16243:0",
+  "aggregator-sources.AddSourceModal.ok": "crwdns16245:0crwdne16245:0",
+  "aggregator-sources.DefineRules.brokenFilter": "crwdns16914:0crwdne16914:0",
+  "aggregator-sources.DefineRules.brokenFilterInfo": "crwdns16916:0crwdne16916:0",
+  "aggregator-sources.DefineRules.caseInsensitive": "crwdns16168:0crwdne16168:0",
+  "aggregator-sources.DefineRules.caseSensitive": "crwdns16170:0crwdne16170:0",
+  "aggregator-sources.DefineRules.name": "crwdns16217:0crwdne16217:0",
+  "aggregator-sources.EvaluateOptions.cancel": "crwdns16247:0crwdne16247:0",
+  "aggregator-sources.EvaluateOptions.evaluateOption0": "crwdns16249:0crwdne16249:0",
+  "aggregator-sources.EvaluateOptions.evaluateOption1": "crwdns16251:0crwdne16251:0",
+  "aggregator-sources.EvaluateOptions.evaluateOption2": "crwdns16253:0crwdne16253:0",
+  "aggregator-sources.RuleForm.name": "crwdns16219:0crwdne16219:0",
+  "aggregator-sources.RuleForm.textFilterCaseSensitive": "crwdns16172:0crwdne16172:0",
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "crwdns16255:0crwdne16255:0"
 }

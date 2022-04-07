@@ -31,7 +31,8 @@ module.exports = {
     "de": "Kalendersucher",
     "es": "Búsqueda de agendas",
     "it": "Ricerca del diario",
-    "io": "crwdns12418:0crwdne12418:0"
+    "io": "crwdns12418:0crwdne12418:0",
+    "oc": "Recèrca d'agendas"
   },
   "genericSearchTitle": {
     "en": "Calendar search results",
@@ -39,7 +40,8 @@ module.exports = {
     "de": "Kalendersuchergebnisse",
     "es": "resultados agendas",
     "it": "Risultati della ricerca del diario",
-    "io": "crwdns12420:0crwdne12420:0"
+    "io": "crwdns12420:0crwdne12420:0",
+    "oc": "Resultats de la recèrca d'agendas"
   },
   "found": {
     "en": "Found %count% agendas",
@@ -103,7 +105,8 @@ module.exports = {
     "de": "Nächste Ergebnisse laden",
     "es": "Cargar más resultados",
     "it": "Caricare i seguenti risultati",
-    "io": "crwdns12436:0crwdne12436:0"
+    "io": "crwdns12436:0crwdne12436:0",
+    "oc": "Cargar los resultats seguents"
   },
   "addEvent": {
     "fr": "Ajouter un événement",

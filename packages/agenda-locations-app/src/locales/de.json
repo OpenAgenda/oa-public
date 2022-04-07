@@ -1,1 +1,5 @@
-{}
+{
+  "AgendaLocations.AccessModal.closeModal": "Schließen",
+  "AgendaLocations.AgendaAdminLocation.closeModal": "Schließen",
+  "AgendaLocations.RemoveModal.closeModal": "Schließen"
+}

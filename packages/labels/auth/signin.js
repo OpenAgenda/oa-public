@@ -14,7 +14,7 @@ module.exports = {
   "incorrectPassword": {
     "fr": "L'email ou le mot de passe sont incorrects",
     "en": "Your email or password is incorrect.",
-    "it": "L'e-mail o la parola d'accesso non è corretta.",
+    "it": "L'e-mail o la password non è corretta.",
     "de": "Deine E-Mail oder dein Passwort ist falsch.",
     "pl": "Twój adres e-mail lub hasło jest nieprawidłowe.",
     "es": "El correo electrónico o la contraseña son incorrectos",
@@ -24,7 +24,7 @@ module.exports = {
   "resetPassword": {
     "fr": "Réinitialiser le mot de passe",
     "en": "Reset your password",
-    "it": "Reimposta la tua parola d'accesso",
+    "it": "Reimpostare la password",
     "de": "Passwort zurücksetzen",
     "pl": "Zresetuj hasło",
     "es": "restablecimiento de contraseña",
@@ -44,7 +44,7 @@ module.exports = {
   "password": {
     "fr": "Mot de passe",
     "en": "Password",
-    "it": "Parola d'accesso",
+    "it": "Password",
     "de": "Passwort",
     "pl": "Hasło",
     "es": "Contraseña",
@@ -54,7 +54,7 @@ module.exports = {
   "signin": {
     "fr": "Se connecter",
     "en": "Sign in",
-    "it": "Accedi",
+    "it": "Connettersi",
     "de": "Anmelden",
     "pl": "Zaloguj się",
     "es": "Conectarse",
@@ -64,7 +64,7 @@ module.exports = {
   "lostPassword": {
     "fr": "J'ai perdu mon mot de passe",
     "en": "I lost my password",
-    "it": "Ho perso la mia parola d'accesso",
+    "it": "Ho perso la mia password",
     "de": "Ich habe mein Passwort vergessen",
     "pl": "Zgubiłem hasło",
     "es": "He perdido mi contraseña",

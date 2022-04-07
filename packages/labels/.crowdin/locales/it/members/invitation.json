@@ -6,7 +6,7 @@
   "emailSubject": "Invito ad un ordine del giorno",
   "emailTitle": "Siete stati invitati a contribuire all'agenda %title% agenda",
   "emailTitleForExistantUser": "Sei diventato %credenziale% dell'agenda %title%",
-  "emailInscription": "Iscriviti ora",
+  "emailInscription": "Crea un conto",
   "emailShowAgenda": "Vedi l'agenda",
   "emailSignup": "Iscriviti",
   "emailDescription": "Siete stati invitati a contribuire all'agenda **%titolo%** come **%credenziali%**.",

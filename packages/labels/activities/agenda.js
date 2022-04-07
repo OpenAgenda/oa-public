@@ -4,7 +4,8 @@ module.exports = {
   "agenda.sendInvitation": {
     "en": "{user} invited {email} as {credential}.",
     "fr": "{user} a invité {email} comme {credential}.",
-    "io": "crwdns11096:0{user}crwdnd11096:0{email}crwdnd11096:0{credential}crwdne11096:0"
+    "io": "crwdns11096:0{user}crwdnd11096:0{email}crwdnd11096:0{credential}crwdne11096:0",
+    "it": "{user} ha invitato {email} come {credential}."
   },
   "agenda.acceptInvitation": {
     "en": "{user} has accepted the invitation of {originMember} to become {credential}.",
@@ -45,16 +46,18 @@ module.exports = {
   "agenda.removeSource": {
     "en": "{user} removed {sourceAgenda} from the sources.",
     "fr": "{user} a retiré {sourceAgenda} des sources.",
-    "it": "{user} ha rimosso {sourceAgenda} des sources.",
-    "io": "crwdns11108:0{user}crwdnd11108:0{sourceAgenda}crwdne11108:0"
+    "it": "{user} ha rimosso {sourceAgenda} dei fonti.",
+    "io": "crwdns11108:0{user}crwdnd11108:0{sourceAgenda}crwdne11108:0",
+    "oc": "{user} a tirat {sourceAgenda} de las sorsas."
   },
   "agenda.create": {
     "en": "{user} created the agenda",
     "fr": "{user} a créé l'agenda.",
     "de": "{user} erstellt die Kalender",
     "es": "{user} ha establecido el agenda.",
-    "it": "{user} ha creato l'agenda.",
-    "io": "crwdns11110:0{user}crwdne11110:0"
+    "it": "{user} ha creato l'agenda",
+    "io": "crwdns11110:0{user}crwdne11110:0",
+    "oc": "{user} a creat l'agenda"
   },
   "agenda.updateContribution": {
     "en": "{user} updated contribution settings.",
@@ -62,7 +65,8 @@ module.exports = {
     "de": "{user} Beitrag Einstellungen aktualisiert.",
     "es": "{user} ha actualizado los parámetros de entrada.",
     "it": "{user} ha aggiornato le impostazioni dei contributi.",
-    "io": "crwdns11112:0{user}crwdne11112:0"
+    "io": "crwdns11112:0{user}crwdne11112:0",
+    "oc": "{user} a metut a jorn los reglatges de contribucion."
   },
   "agenda.updateProfile": {
     "en": "{user} updated profile of the agenda.",
@@ -70,7 +74,8 @@ module.exports = {
     "de": "{user} Profil der Agenda aktualisiert.",
     "es": "{user} ha actualizado el perfil agenda.",
     "it": "{user} ha aggiornato il profilo de l'agenda.",
-    "io": "crwdns11114:0{user}crwdne11114:0"
+    "io": "crwdns11114:0{user}crwdne11114:0",
+    "oc": "{user} a metut lo perfil a jorn."
   },
   "agenda.rename": {
     "en": "{user} renamed the agenda {before} to {after}.",
@@ -78,7 +83,8 @@ module.exports = {
     "de": "{user} umbenannt die Agenda {before} auf {after}.",
     "es": "{user} cambió el nombre del agenda {before} a {after} del horario.",
     "it": "{user} ha rinominato l'agenda {before} en {after}.",
-    "io": "crwdns11116:0{user}crwdnd11116:0{before}crwdnd11116:0{after}crwdne11116:0"
+    "io": "crwdns11116:0{user}crwdnd11116:0{before}crwdnd11116:0{after}crwdne11116:0",
+    "oc": "{user} tornèt nomenar l'agenda {before} en {after}."
   },
   "agenda.setOfficial": {
     "en": "The agenda {agenda} became official.",
@@ -86,7 +92,8 @@ module.exports = {
     "de": "Die Kalender {agenda} wurde offiziell.",
     "es": "El agenda {agenda} se convirtió oficial.",
     "it": "L'agenda {agenda} è diventato ufficiale.",
-    "io": "crwdns11118:0{agenda}crwdne11118:0"
+    "io": "crwdns11118:0{agenda}crwdne11118:0",
+    "oc": "L'agenda {agenda} es venguda oficiala."
   },
   "agenda.setUnofficial": {
     "en": "The agenda {agenda} became unofficial.",
@@ -94,7 +101,8 @@ module.exports = {
     "de": "Die Kalender {agenda} wurde inoffiziell.",
     "es": "El agenda {agenda} se convirtió oficial.",
     "it": "L'agenda {agenda} è diventato ufficioso.",
-    "io": "crwdns11120:0{agenda}crwdne11120:0"
+    "io": "crwdns11120:0{agenda}crwdne11120:0",
+    "oc": "L'agenda {agenda} es venguda non-oficiala."
   },
   "agenda.changeEventState": {
     "en": "{user} passed {event} from \"{before}\" to \"{after}\".",
@@ -118,11 +126,13 @@ module.exports = {
     "de": "{user} nicht veröffentlichtes {event}.",
     "es": "{user} ha inéditos {event}.",
     "it": "{user} ha inedito {event}.",
-    "io": "crwdns11126:0{user}crwdnd11126:0{event}crwdne11126:0"
+    "io": "crwdns11126:0{user}crwdnd11126:0{event}crwdne11126:0",
+    "oc": "{user} a despublicat {event}."
   },
   "agenda.systemUnpublishEvent": {
     "en": "{event} has been automatically unpublished on {agenda} for moderation",
-    "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle"
+    "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle",
+    "io": "crwdns16406:0{event}crwdnd16406:0{agenda}crwdne16406:0"
   },
   "agenda.removeEvent": {
     "en": "{user} removed {event}.",
@@ -160,25 +170,29 @@ module.exports = {
     "de": "{user} Veranstaltung aktualisiert.",
     "es": "{user} ha actualizado {event}.",
     "it": "{user} ha aggiornato {event}.",
-    "io": "crwdns11136:0{user}crwdnd11136:0{event}crwdne11136:0"
+    "io": "crwdns11136:0{user}crwdnd11136:0{event}crwdne11136:0",
+    "oc": "{user} a metut {event} a jorn."
   },
   "event.updateWithOneChange": {
     "en": "{user} updated the field {fields} of {event}.",
     "fr": "{user} a mis à jour le champ {fields} de {event}.",
     "it": "{user} ha aggiornato il campo {fields} de {event}.",
-    "io": "crwdns11138:0{user}crwdnd11138:0{fields}crwdnd11138:0{event}crwdne11138:0"
+    "io": "crwdns11138:0{user}crwdnd11138:0{fields}crwdnd11138:0{event}crwdne11138:0",
+    "oc": "{user} a metut a jorn lo camp {fields} de {event}."
   },
   "event.updateWithSomeChanges": {
     "en": "{user} updated {event}: {fields} have been changed.",
     "fr": "{user} a mis à jour {event}: {fields} ont été modifiés.",
     "it": "{user} ha aggiornato {event}: {fields} sono stati modificati.",
-    "io": "crwdns11140:0{user}crwdnd11140:0{event}crwdnd11140:0{fields}crwdne11140:0"
+    "io": "crwdns11140:0{user}crwdnd11140:0{event}crwdnd11140:0{fields}crwdne11140:0",
+    "oc": "{user} a metut a jorn {event} : {fields} son estats cambiats."
   },
   "event.updateWithLotOfChanges": {
     "en": "{user} updated {event} ({fieldsCount} fields).",
     "fr": "{user} a mis à jour {event} ({fieldsCount} champs).",
     "it": "{user} ha aggiornato {event} ({fieldsCount} champs).",
-    "io": "crwdns11142:0{user}crwdnd11142:0{event}crwdnd11142:0{fieldsCount}crwdne11142:0"
+    "io": "crwdns11142:0{user}crwdnd11142:0{event}crwdnd11142:0{fieldsCount}crwdne11142:0",
+    "oc": "{user} a metut a jorn {event} ({fieldsCount} camps)."
   },
   "event.delete": {
     "en": "{user} deleted {event}.",
@@ -201,7 +215,7 @@ module.exports = {
     "fr": "Suivant",
     "de": "Nächster",
     "es": "Próximo",
-    "it": "Avanti",
+    "it": "Prossimo",
     "br": "War-lerc'h",
     "io": "crwdns11148:0crwdne11148:0"
   },
@@ -210,7 +224,7 @@ module.exports = {
     "fr": "L'activité de votre agenda s'affichera ici.",
     "de": "Ihre Agenda Aktivität wird hier angezeigt.",
     "es": "La actividad de su agenda aparecerá aquí.",
-    "it": "L'attività del vostro agenda sarà visualizzata qui.",
+    "it": "L'attività del vostro agenda sarà visibile qui.",
     "io": "crwdns11150:0crwdne11150:0"
   },
   "unknownActivity": {

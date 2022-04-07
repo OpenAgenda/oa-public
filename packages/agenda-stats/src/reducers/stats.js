@@ -20,6 +20,8 @@ const SAVE = 'agenda-stats/stats/SAVE';
 const SAVE_SUCCESS = 'agenda-stats/stats/SAVE_SUCCESS';
 const SAVE_FAIL = 'agenda-stats/stats/SAVE_FAIL';
 
+const AGGREGATION_SIZE = 2000;
+
 const initialState = {};
 
 function addId(stat) {
@@ -63,8 +65,22 @@ function addInterval(query) {
   };
 }
 
+function addSize(size) {
+  return stat => ({
+    ...stat,
+    state: {
+      ...stat.state,
+      size,
+    },
+  });
+}
+
 function decorateStats(stats, query = {}) {
-  return stats.map(addId).map(addState).map(addInterval(query));
+  return stats
+    .map(addId)
+    .map(addState)
+    .map(addInterval(query))
+    .map(addSize(AGGREGATION_SIZE));
 }
 
 export default function reducer(state = initialState, action) {
@@ -90,6 +106,7 @@ export default function reducer(state = initialState, action) {
     case LOAD_SUCCESS:
       return {
         ...state,
+        agendaUid: action.agendaUid,
         loaded: true,
         totalEvents: action.result.data.total,
         data: action.stats.map(v => {
@@ -105,6 +122,7 @@ export default function reducer(state = initialState, action) {
               ...v.state,
               loading: false,
               loaded: true,
+              itemsDisplayed: 10,
               data: Array.isArray(v.aggregation)
                 ? v.aggregation.map(getData)
                 : getData(v.aggregation),
@@ -169,6 +187,7 @@ export default function reducer(state = initialState, action) {
           ...action.stat.state,
           interval: action.stat.state.interval,
           loading: false,
+          itemsDisplayed: 10,
           data: Array.isArray(action.stat.aggregation)
             ? action.stat.aggregation.map(getData)
             : getData(action.stat.aggregation),
@@ -227,6 +246,10 @@ export default function reducer(state = initialState, action) {
           ...actualStat.chart,
           ...action.values.chart,
         },
+        state: {
+          ...actualStat.state,
+          ...action.values.state,
+        },
       };
 
       return {
@@ -262,13 +285,20 @@ export function load(agenda, stats, filters, query) {
 
     const filterAggregations = filters
       .filter(
-        filter => filter.type !== 'dateRange'
-          && !stats.find(stat => _.isMatch(stat.aggregation, {
-            type: filter.name,
-            ...filter.aggregation,
-          }))
+        filter => filter.aggregation !== null
+          && !stats.find(stat => _.isMatch(
+            stat.aggregation,
+            _.omit(
+              {
+                type: filter.name,
+                ...filter.aggregation,
+              },
+              'size'
+            )
+          ))
       )
       .map(filter => ({
+        // like stats
         id: filter.id,
         aggregation: {
           type: filter.name,
@@ -284,7 +314,7 @@ export function load(agenda, stats, filters, query) {
     const params = {
       oaq: { passed: 1 },
       size: 0,
-      aggregations,
+      aggs: aggregations,
       ...query,
     };
 
@@ -298,6 +328,7 @@ export function load(agenda, stats, filters, query) {
         return client.get(url, { params });
       },
       stats: decoratedStats,
+      agendaUid: agenda.uid,
       query,
     });
   };

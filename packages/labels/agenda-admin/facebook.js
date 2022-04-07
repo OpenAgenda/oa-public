@@ -32,7 +32,8 @@ module.exports = {
     "de": "Als Facebook seines %link% aktualisiert hat, ist diese Funktion auf Seiten mit mehr als 2000 Leuten zur Verfügung.",
     "es": "Facebook ha actualizado su %link%, esta función sólo está disponible para páginas con más de 2.000 gustos.",
     "it": "Poiché Facebook ha aggiornato il suo %link%, questa funzione è disponibile solo per le pagine con più di 2000 \"Mi piace\".",
-    "io": "crwdns11350:0%link%crwdne11350:0"
+    "io": "crwdns11350:0%link%crwdne11350:0",
+    "oc": "Coma Facebook a metut a jorn sas %link%, aquela foncionalitat es disponibla sonque per las paginas amb mai de 2000 \"m'agrada\"."
   },
   "add": {
     "fr": "Choisir une page Facebook",

@@ -54,7 +54,7 @@ module.exports = {
   "passwordNotEqual": {
     "en": "The passwords are not identical",
     "fr": "Les mots de passe ne sont pas identiques",
-    "it": "Le parole chiave non sono identiche",
+    "it": "Le password non sono identiche",
     "de": "Die Passwörter sind nicht identisch.",
     "pl": "Hasła nie są identyczne",
     "es": "Las contraseñas no son idénticas",
@@ -74,7 +74,7 @@ module.exports = {
   "captchaTryAgain": {
     "fr": "Veuillez ré-essayer",
     "en": "Try this again",
-    "it": "Riprovaci ancora una volta",
+    "it": "Riprovare",
     "de": "Versuche dies noch einmal",
     "pl": "Spróbuj to jeszcze raz",
     "es": "Por favor, inténtelo de nuevo",
@@ -84,7 +84,7 @@ module.exports = {
   "hasAccount": {
     "fr": "Vous avez déjà utilisé OpenAgenda ?",
     "en": "Have you already used OpenAgenda ?",
-    "it": "Hai già utilizzato OpenAgenda ?",
+    "it": "Lei già ha utilizzato OpenAgenda ?",
     "de": "Schon registriert ?",
     "pl": "Czy korzystałeś już z OpenAgendy ?",
     "es": "Ya ha utilizado OpenAgenda ?",
@@ -124,7 +124,7 @@ module.exports = {
   "password": {
     "fr": "Mot de passe",
     "en": "Password",
-    "it": "La parola d'accesso",
+    "it": "Password",
     "de": "Passwort",
     "pl": "Hasło",
     "es": "Contraseña",
@@ -134,7 +134,7 @@ module.exports = {
   "repeatPassword": {
     "fr": "Répéter le mot de passe",
     "en": "Repeat Password",
-    "it": "Ripetere la parola d'accesso",
+    "it": "Ripetere la password",
     "de": "Passwort wiederholen",
     "pl": "Powtórz hasło",
     "es": "Repetir contraseña",

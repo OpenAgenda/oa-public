@@ -99,7 +99,7 @@
   "youContactedSupport": "crwdns15192:0crwdne15192:0",
   "contactedSupport": "crwdns15194:0crwdne15194:0",
   "conversationCreationSuccess": "crwdns15196:0crwdne15196:0",
-  "requestEditionCreationTitle": "crwdns15198:0crwdne15198:0",
+  "requestEditionCreationTitle": "crwdns15198:0%link%crwdnd15198:0%title%crwdne15198:0",
   "requestContributeAcceptModalTitle": "crwdns15200:0crwdne15200:0",
   "requestContributeAcceptModal": "crwdns15202:0crwdne15202:0",
   "requestContributeRefuseModalTitle": "crwdns15204:0crwdne15204:0",
@@ -122,5 +122,18 @@
   "uploadError": "crwdns15238:0crwdne15238:0",
   "from": "crwdns15240:0crwdne15240:0",
   "validate": "crwdns15242:0crwdne15242:0",
-  "supportPlaceholder": "crwdns15244:0crwdne15244:0"
+  "supportPlaceholder": "crwdns15244:0crwdne15244:0",
+  "agendaSchemaTitle": "crwdns16478:0crwdne16478:0",
+  "agendaSchemaDesc": "crwdns16480:0crwdne16480:0",
+  "privateAgendaTitle": "crwdns16482:0crwdne16482:0",
+  "privateAgendaDesc": "crwdns16484:0crwdne16484:0",
+  "publicAgendaTitle": "crwdns16486:0crwdne16486:0",
+  "officialAgendaTitle": "crwdns16488:0crwdne16488:0",
+  "officialAgendaDesc": "crwdns16490:0crwdne16490:0",
+  "limitDatesTitle": "crwdns16492:0crwdne16492:0",
+  "limitDatesDesc": "crwdns16494:0crwdne16494:0",
+  "moderatorsTitle": "crwdns16496:0crwdne16496:0",
+  "moderatorsDesc": "crwdns16498:0crwdne16498:0",
+  "writeToAllTitle": "crwdns16500:0crwdne16500:0",
+  "writeToAllDesc": "crwdns16502:0crwdne16502:0"
 }

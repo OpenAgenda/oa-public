@@ -368,7 +368,7 @@ module.exports = {
     "en": "<p>Do you have a technical question about using OpenAgenda? The answer is certainly in the documentation.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">See the documentation</a></p><p>If your question relates more to the administrators of a calendar, you can reach them via the messaging at the bottom of each of your event files or directly on the calendar by clicking on \"contact\".</p><p><a href=\"/home\">See my calendars</a> or <a href=\"/home/events\">see my events</a></p><p>For any other question, you can join us directly:</p>",
     "de": "<p>Haben Sie eine technische Frage zur Verwendung von OpenAgenda? Die Antwort finden Sie sicherlich in der Dokumentation.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Siehe Dokumentation</a></p><p>Wenn Ihre Frage Administratoren eines Kalenders betrifft, können Sie diese über den Nachrichtendienst am Ende jeder Ihrer Ereignisdateien oder direkt im Kalender erreichen, indem Sie auf \"Kontakt\" klicken.</p><p><a href=\"/home\">Meine Kalender anzeigen</a> oder <a href=\"/home/events\">meine Veranstaltungen anzeigen</a></p><p>Bei allen anderen Fragen wenden Sie sich an Sie kann sich uns direkt anschließen:</p>",
     "es": "<p>¿Tiene alguna pregunta técnica sobre el uso de OpenAgenda? La respuesta está ciertamente en la documentación.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Consulte la documentación</a></p><p>Si su pregunta se relaciona más con los administradores de un calendario, puede comunicarse con ellos a través del mensaje en la parte inferior de cada uno de sus archivos de eventos o directamente en el calendario haciendo clic en \"contacto\".</p><p><a href=\"/home\">Vea mis calendarios</a> o <a href=\"/home/events\">vea mis eventos</a></p><p>Para cualquier otra pregunta, usted puede unirse a nosotros directamente:</p>",
-    "it": "<p>Hai una domanda tecnica sull'uso di OpenAgenda? La risposta è sicuramente nella documentazione.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Vedi la documentazione</a></p><p>Se la tua domanda riguarda maggiormente gli amministratori di un calendario, puoi raggiungerli tramite la messaggistica in fondo a ciascuno dei tuoi file di eventi o direttamente sul calendario facendo clic su \"contatta\".</p><p><a href=\"/home\">Vedi i miei calendari</a> o <a href=\"/home/events\">vedi i miei eventi</a></p><p>Per qualsiasi altra domanda, tu puoi unirti direttamente a noi:</p>",
+    "it": "<p>Hai una domanda tecnica sull'uso di OpenAgenda? La risposta è sicuramente nella documentazione.</p><p><a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/fr\">Vedi la documentazione</a></p><p>Se la tua domanda riguarda maggiormente gli amministratori di un calendario, puoi raggiungerli tramite la messaggistica in fondo a ciascuno dei tuoi file di eventi o direttamente sul calendario facendo clic su \"contatta\".</p><p><a href=\"/home\">Vedi i miei calendari</a> o <a href=\"/home/events\">vedi i miei eventi</a></p><p>Per qualsiasi altra domanda, tu puoi unirti direttamente a noi:</p>",
     "io": "crwdns15088:0crwdne15088:0"
   },
   "agendaSchemaTitle": {
@@ -377,7 +377,7 @@ module.exports = {
     "de": "Antrag auf zusätzliche benutzerdefinierte Felder",
     "es": "Solicitud de campos personalizados adicionales",
     "it": "Richiesta di campi aggiuntivi personalizzati",
-    "io": "crwdns13188:0crwdne13188:0"
+    "io": "crwdns16478:0crwdne16478:0"
   },
   "agendaSchemaDesc": {
     "fr": "Vous voulez ajouter plus de champs à votre formulaire, en adapter l'ordre ou les instructions? Ecrivez nous un rapide message",
@@ -385,7 +385,7 @@ module.exports = {
     "de": "Mehrere Felder zum Formular hinzufügen ? Reihenfolge oder Etiketten ändern? Sende uns eine kurze Nachricht",
     "es": "Si desea añadir más campos al formulario, o ajustar el orden de las instrucciones? Escríbanos un mensaje rápido",
     "it": "Volete aggiungere altri campi al vostro modulo, adattare l'ordine o le istruzioni? Scrivici un messaggio veloce",
-    "io": "crwdns13190:0crwdne13190:0"
+    "io": "crwdns16480:0crwdne16480:0"
   },
   "privateAgendaTitle": {
     "fr": "Demande d'activation d'un agenda privé",
@@ -393,15 +393,15 @@ module.exports = {
     "de": "Ein private Veranstaltungskalender aktivieren",
     "es": "solicitud de activación de un agenda íntimo",
     "it": "Richiesta di attivazione di un agenda privato",
-    "io": "crwdns13192:0crwdne13192:0"
+    "io": "crwdns16482:0crwdne16482:0"
   },
   "privateAgendaDesc": {
     "fr": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu. Donnez-nous quelques détails sur votre besoin et nous vous ferons un retour",
     "en": "Let us know more about your requirement:",
     "de": "Dies ist eine neue Funktion, lasse uns mehr über Deine Anforderung wissen:",
     "es": "Esta característica es nueva, nos dice su uso:",
-    "it": "Questa è una nuova funzione, spiegateci il vostro utilizzo:",
-    "io": "crwdns13194:0crwdne13194:0"
+    "it": "Fateci sapere di più sul vostro requisito:",
+    "io": "crwdns16484:0crwdne16484:0"
   },
   "publicAgendaTitle": {
     "fr": "Demande d'activation d'un agenda public",
@@ -409,7 +409,7 @@ module.exports = {
     "de": "Fordern Sie eine öffentlicheVerwaltungskalender zu aktivieren",
     "es": "solicitud de activación de un agenda público",
     "it": "Richiesta di attivazione di un agenda pubblico",
-    "io": "crwdns13204:0crwdne13204:0"
+    "io": "crwdns16486:0crwdne16486:0"
   },
   "officialAgendaTitle": {
     "fr": "Demande d'activation d'un agenda officiel",
@@ -417,7 +417,7 @@ module.exports = {
     "de": "Fordern Sie eine offizielle Kalender zu aktivieren",
     "es": "solicitud de activación de una agenda oficial",
     "it": "Richiesta di attivazione di un agenda ufficiale",
-    "io": "crwdns13184:0crwdne13184:0"
+    "io": "crwdns16488:0crwdne16488:0"
   },
   "officialAgendaDesc": {
     "fr": "Merci de publier au moins un événement sur votre agenda avant votre demande d'officialisation.",
@@ -425,7 +425,7 @@ module.exports = {
     "de": "Bitte sende mindestens eine Veranstaltung auf der Kalender, bevor Sie Deine Anfrage für officialization.",
     "es": "Gracias a publicar al menos un evento en su agenda antes de que su solicitud de formalización.",
     "it": "Si prega di pubblicare almeno un evento in agenda prima della richiesta di ufficializzazione.",
-    "io": "crwdns13186:0crwdne13186:0"
+    "io": "crwdns16490:0crwdne16490:0"
   },
   "limitDatesTitle": {
     "fr": "Bornez les dates des événements contribués",
@@ -433,15 +433,15 @@ module.exports = {
     "de": "In Grenzen zu den Terminen von beigetragen Veranstaltungen",
     "es": "Confinar las fechas de los eventos contribuido",
     "it": "Segnare le date degli eventi contributivi",
-    "io": "crwdns13206:0crwdne13206:0"
+    "io": "crwdns16492:0crwdne16492:0"
   },
   "limitDatesDesc": {
     "fr": "Bornez le sélecteur de dates du formulaire de saisie de votre agenda.\n\nInteressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
     "en": "Limit contributions to predefined event dates. \n\nInterested by this feature? Give us details on your requirements and we'll get back to you shortly!",
     "de": "Begrenze Beiträge zu vordefinierten Veranstaltungdaten.\n\nGünstiger dieses Feature? Gebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Confinar el selector de fecha de su formulario de entrada de agenda.\n\nInteresado (a)? nos deja un mensaje y vamos a procesar su solicitud tan pronto como sea posible!",
-    "it": "Legare il selettore di data del modulo di iscrizione della data dell'ordine del giorno.  Sei interessato? Lasciateci un messaggio e provvederemo ad elaborare la vostra richiesta il prima possibile!",
-    "io": "crwdns13208:0crwdne13208:0"
+    "it": "Limita i contributi a date di eventi predefinite. \n\nSei interessato a questa funzione? Dacci i dettagli delle tue esigenze e ti risponderemo a breve!",
+    "io": "crwdns16494:0crwdne16494:0"
   },
   "moderatorsTitle": {
     "fr": "Membres modérateurs",
@@ -449,31 +449,31 @@ module.exports = {
     "de": "Moderator Mitglieder",
     "es": "miembros moderadores",
     "it": "Moderatori membri",
-    "io": "crwdns13214:0crwdne13214:0"
+    "io": "crwdns16496:0crwdne16496:0"
   },
   "moderatorsDesc": {
     "fr": "Les modérateurs sont des membres pouvant éditer tous les événements d'un agenda, sans pour autant avoir les accès de paramétrages.\n\nDétaillez-nous votre besoin et nous traiterons votre demande dans les plus brefs délais !",
     "en": "Moderators are members that can edit the events of an agenda and change event states, without having access to agenda settings.\n\nGive us details on your requirements and we'll get back to you shortly!",
     "de": "Moderatoren sind Mitglieder, die die Veranstaltungen einerVerwaltungskalender bearbeiten und Veranstaltungzustände ändern, ohne Einstellungen Zugriff aufVerwaltungskalender zu haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Los moderadores son miembros que pueden editar todas agenda de eventos, sin tener la configuración de acceso.\n\nExplicar sus necesidades y vamos a procesar su solicitud tan pronto como sea posible!",
-    "it": "I moderatori sono membri che possono modificare tutti gli eventi di un calendario, senza avere accesso alle impostazioni.  Diteci di cosa avete bisogno e noi elaboreremo la vostra richiesta il prima possibile!",
-    "io": "crwdns13216:0crwdne13216:0"
+    "it": "I moderatori sono membri che possono modificare tutti gli eventi di un calendario, senza avere accesso alle impostazioni. Diteci di cosa avete bisogno e noi elaboreremo la vostra richiesta il prima possibile!",
+    "io": "crwdns16498:0crwdne16498:0"
   },
   "writeToAllTitle": {
     "fr": "Demande d'activation de la fonction \"Leur écrire\"",
     "en": "Request to activate the \"Write to them\" function",
     "de": "Anfrage zur Aktivierung des „Schreibe sie“ -Funktion",
     "es": "Solicitud de activación de la función \"Su escritura\"",
-    "it": "Richiesta di attivazione della funzione \"Scrivi a loro\".",
-    "io": "crwdns13218:0crwdne13218:0"
+    "it": "Richiesta di attivazione della funzione \"Scrivi a loro\"",
+    "io": "crwdns16500:0crwdne16500:0"
   },
   "writeToAllDesc": {
     "fr": "Envoyez un message à tous les membres de votre agenda ou envoyez une relance personnalisée à tous les membres n'ayant pas encore contribué.\n\nInterressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
     "en": "Send a message to all members of your agenda or target the ones that have not yet contributed.\n\nGive us details on your requirements and we'll get back to you shortly!",
     "de": "Schicke eine Nachricht an alle Mitglieder deinerVerwaltungskalender oder diejenigen zielen, die noch nicht beigetragen haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Enviar un mensaje a todos los miembros de su agenda o enviar una recuperación personalizada a todos los miembros que aún no han contribuido.\n\nInteresado (a)? nos deja un mensaje y vamos a procesar su solicitud tan pronto como sea posible!",
-    "it": "Invia un messaggio a tutti i membri del tuo agenda o invia un promemoria personalizzato a tutti i membri che non hanno ancora contribuito.  Sei interessato? Lasciateci un messaggio e provvederemo ad elaborare la vostra richiesta il prima possibile!",
-    "io": "crwdns13220:0crwdne13220:0"
+    "it": "Invia un messaggio a tutti i membri del tuo agenda o invia un promemoria personalizzato a tutti i membri che non hanno ancora contribuito. Sei interessato? Lasciateci un messaggio e provvederemo ad elaborare la vostra richiesta il prima possibile!",
+    "io": "crwdns16502:0crwdne16502:0"
   },
   "contactContributor": {
     "fr": "Contacter le contributeur",
@@ -915,7 +915,7 @@ module.exports = {
     "de": "Antrag auf Editierrechte de",
     "es": "derechos de publicación de la solicitud <a href=\"%link%\"> %title% </a>",
     "it": "Richiesta di diritti di modifica su <a href=\"%link%\">%title%</a>",
-    "io": "crwdns15198:0crwdne15198:0"
+    "io": "crwdns15198:0%link%crwdnd15198:0%title%crwdne15198:0"
   },
   "requestContributeAcceptModalTitle": {
     "fr": "Accepter le contributeur",

@@ -2,13 +2,13 @@
   "aggregator-sources.AddSourceModal.InfoMessage": [
     {
       "type": 0,
-      "value": "The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes."
+      "value": "Questo agenda fa adesso parte dei fonti del suo agenda. I eventi corrispondenti alle eventuale regole saranno importati in qualche minuti."
     }
   ],
   "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
     {
       "type": 0,
-      "value": "The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar."
+      "value": "Questo agenda fa adesso parte dei fonti del suo agenda. I eventi corrispondenti alle eventuale regole saranno importati in qualche minuti."
     }
   ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
@@ -52,7 +52,7 @@
     },
     {
       "type": 0,
-      "value": " sarà aggregato da "
+      "value": " sarà aggregato a "
     },
     {
       "type": 1,
@@ -69,7 +69,7 @@
           "value": [
             {
               "type": 0,
-              "value": "direttamente"
+              "value": "senza regole"
             }
           ]
         },
@@ -77,7 +77,7 @@
           "value": [
             {
               "type": 0,
-              "value": "con 1 regola"
+              "value": "con una regola"
             }
           ]
         },
@@ -110,7 +110,7 @@
   "aggregator-sources.AddSourceModal.evaluationStep": [
     {
       "type": 0,
-      "value": "Evaluation"
+      "value": "Controllo"
     }
   ],
   "aggregator-sources.AddSourceModal.makeASearch": [
@@ -122,7 +122,7 @@
   "aggregator-sources.AddSourceModal.modalTitle": [
     {
       "type": 0,
-      "value": "Add a source"
+      "value": "Aggiungere un agenda fonte"
     },
     {
       "options": {
@@ -149,49 +149,49 @@
   "aggregator-sources.AddSourceModal.noAgendas": [
     {
       "type": 0,
-      "value": "No agenda corresponds to your search"
+      "value": "Nessun agenda corrisponde alla sua ricerca"
     }
   ],
   "aggregator-sources.AddSourceModal.official": [
     {
       "type": 0,
-      "value": "Official"
+      "value": "Ufficiale"
     }
   ],
   "aggregator-sources.AddSourceModal.ok": [
     {
       "type": 0,
-      "value": "OK"
+      "value": "Va bene"
     }
   ],
   "aggregator-sources.AddSourceModal.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "oppure"
     }
   ],
   "aggregator-sources.AddSourceModal.private": [
     {
       "type": 0,
-      "value": "Private"
+      "value": "Privato"
     }
   ],
   "aggregator-sources.AddSourceModal.removeConfirmMessage": [
     {
       "type": 0,
-      "value": "Are you sure you want to delete this agenda from sources ?"
+      "value": "Siete sicuri di voler eliminare questa agenda dalle fonti?"
     }
   ],
   "aggregator-sources.AddSourceModal.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Cerca un'agenda"
     }
   ],
   "aggregator-sources.AddSourceModal.selectAgenda": [
     {
       "type": 0,
-      "value": "Select an agenda"
+      "value": "Scegliere un agenda"
     }
   ],
   "aggregator-sources.AddSourceModal.selectStep": [
@@ -203,19 +203,19 @@
   "aggregator-sources.AddSourceModal.selectThisAgenda": [
     {
       "type": 0,
-      "value": "Select this agenda"
+      "value": "Scegliere questo agenda"
     }
   ],
   "aggregator-sources.AddSourceModal.showAgendaAction": [
     {
       "type": 0,
-      "value": "Show agenda"
+      "value": "Vedi l'agenda"
     }
   ],
   "aggregator-sources.AddSourceModal.submitButton": [
     {
       "type": 0,
-      "value": "Add source"
+      "value": "Aggiungere l'agenda fonte"
     }
   ],
   "aggregator-sources.AggregatorRulesModal.cancel": [
@@ -227,13 +227,13 @@
   "aggregator-sources.AggregatorRulesModal.modalTitle": [
     {
       "type": 0,
-      "value": "Aggregator rules"
+      "value": "Regole di aggregazione"
     }
   ],
   "aggregator-sources.AggregatorRulesModal.next": [
     {
       "type": 0,
-      "value": "Next"
+      "value": "Prossimo"
     }
   ],
   "aggregator-sources.AggregatorRulesModal.save": [
@@ -245,13 +245,13 @@
   "aggregator-sources.Dashboard.addASource": [
     {
       "type": 0,
-      "value": "Add a source"
+      "value": "Aggiungere un agenda fonte"
     }
   ],
   "aggregator-sources.Dashboard.aggregationCountWarning": [
     {
       "type": 0,
-      "value": "You have reached the aggregation threshold of "
+      "value": "Ha raggiunto la soglia di aggregazione di "
     },
     {
       "type": 1,
@@ -259,7 +259,7 @@
     },
     {
       "type": 0,
-      "value": " events/year of the free version !"
+      "value": " eventi all'anno della versione gratuita !"
     },
     {
       "type": 1,
@@ -267,7 +267,7 @@
     },
     {
       "type": 0,
-      "value": "To increase it, write us a message."
+      "value": " Per aumentarla, scriveci un messaggio."
     },
     {
       "type": 1,
@@ -281,7 +281,7 @@
       "children": [
         {
           "type": 0,
-          "value": "Increase the threshold"
+          "value": "Aumentare la soglia"
         }
       ],
       "type": 8,
@@ -291,67 +291,67 @@
   "aggregator-sources.Dashboard.aggregationDesc": [
     {
       "type": 0,
-      "value": "Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!"
+      "value": "Usa la funzione di aggregazione degli eventi per importare automaticamente gli eventi pubblicati su altri calendari OpenAgenda. Combina fino a 365 eventi all'anno con la versione gratuita!"
     }
   ],
   "aggregator-sources.Dashboard.aggregationHeadline": [
     {
       "type": 0,
-      "value": "Connect source agendas and automatize event publications"
+      "value": "Aggiungere qui delle agende fonti e automatizza l'importazione degli eventi"
     }
   ],
   "aggregator-sources.Dashboard.aggregatorExplanation": [
     {
       "type": 0,
-      "value": "This feature allows you to automatically fetch the events added to the agendas of your choice."
+      "value": "Colla funzione di aggregazione, importa automaticamente gli eventi di altri agende."
     }
   ],
   "aggregator-sources.Dashboard.createAggregator": [
     {
       "type": 0,
-      "value": "Activate agenda aggregation"
+      "value": "Attiva la funzione di aggregazione"
     }
   ],
   "aggregator-sources.Dashboard.findOutMore": [
     {
       "type": 0,
-      "value": "Find out more"
+      "value": "Per saperne di più"
     }
   ],
   "aggregator-sources.Dashboard.noResult": [
     {
       "type": 0,
-      "value": "No result found"
+      "value": "Nessun risultato trovato"
     }
   ],
   "aggregator-sources.Dashboard.noSources": [
     {
       "type": 0,
-      "value": "Your agenda is not yet linked to any sources. Add a first source agenda!"
+      "value": "Lei non aggrega nessun agenda. Aggiunga il primo!"
     }
   ],
   "aggregator-sources.Dashboard.numberOfResults": [
     {
       "type": 0,
-      "value": "Number of results"
+      "value": "Numero di risultati"
     }
   ],
   "aggregator-sources.Dashboard.searchAgenda": [
     {
       "type": 0,
-      "value": "Search an agenda"
+      "value": "Cerca un'agenda"
     }
   ],
   "aggregator-sources.Dashboard.sourceAgendas": [
     {
       "type": 0,
-      "value": "Source agendas"
+      "value": "Agende fonti"
     }
   ],
   "aggregator-sources.Dashboard.sourcesExplanation": [
     {
       "type": 0,
-      "value": "The events published by the agendas listed here are automatically added to the ["
+      "value": "Gli eventi pubblicati dai calendari qui elencati vengono aggiunti automaticamente all'agenda "
     },
     {
       "type": 1,
@@ -359,7 +359,7 @@
     },
     {
       "type": 0,
-      "value": "]("
+      "value": "("
     },
     {
       "type": 1,
@@ -367,19 +367,19 @@
     },
     {
       "type": 0,
-      "value": ") agenda."
+      "value": ")."
     }
   ],
   "aggregator-sources.Dashboard.sourcesHelp": [
     {
       "type": 0,
-      "value": "Click here to find out more about aggregations"
+      "value": "Clicca qui per maggiori informazioni"
     }
   ],
   "aggregator-sources.Dashboard.startUse": [
     {
       "type": 0,
-      "value": "Start"
+      "value": "Iniziare"
     }
   ],
   "aggregator-sources.DefineRules.RuleItem.update": [
@@ -390,24 +390,24 @@
   ],
   "aggregator-sources.DefineRules.actionStatusDetail": [
     {
-      "type": 1,
-      "value": "state"
+      "type": 0,
+      "value": "L'evento è adesso "
     },
     {
-      "type": 0,
-      "value": " is applied to event"
+      "type": 1,
+      "value": "state"
     }
   ],
   "aggregator-sources.DefineRules.actionsAfterFilterDetails": [
     {
       "type": 0,
-      "value": "The following values are assigned to the event when the filter matches"
+      "value": "I seguenti valori sono assegnati all'evento quando il filtro corrisponde"
     }
   ],
   "aggregator-sources.DefineRules.actionsDetails": [
     {
       "type": 0,
-      "value": "The following actions are always assigned to the aggregated event"
+      "value": "Le seguenti azioni sono sempre assegnate all'evento aggregato"
     }
   ],
   "aggregator-sources.DefineRules.add": [
@@ -419,13 +419,13 @@
   "aggregator-sources.DefineRules.addARule": [
     {
       "type": 0,
-      "value": "Add a filter"
+      "value": "Aggiungere un filtro"
     }
   ],
   "aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail": [
     {
       "type": 0,
-      "value": "Field & Value of \""
+      "value": "Campo e valore di \""
     },
     {
       "type": 1,
@@ -433,13 +433,13 @@
     },
     {
       "type": 0,
-      "value": "\" that will be associated with event"
+      "value": "\" che saranno associati all'evento"
     }
   ],
   "aggregator-sources.DefineRules.allEvents": [
     {
       "type": 0,
-      "value": "All events"
+      "value": "Tutti gli eventi"
     }
   ],
   "aggregator-sources.DefineRules.automatic": [
@@ -451,19 +451,19 @@
   "aggregator-sources.DefineRules.automaticDetail": [
     {
       "type": 0,
-      "value": "Value association is made based on labels of the field of the same name in the source agenda"
+      "value": "L'associazione dei valori è fatta in base alle etichette del campo con lo stesso nome nell'agenda di origine"
     }
   ],
   "aggregator-sources.DefineRules.brokenFilter": [
     {
       "type": 0,
-      "value": "Invalid filter"
+      "value": "Filtro non valido"
     }
   ],
   "aggregator-sources.DefineRules.brokenFilterInfo": [
     {
       "type": 0,
-      "value": "this filter refers to a field that cannot be found. It may have been deleted from the source agenda!"
+      "value": "Questo filtro si riferisce a un campo che non può essere trovato. Potrebbe essere stato cancellato dall'agenda fonte"
     }
   ],
   "aggregator-sources.DefineRules.cancel": [
@@ -475,51 +475,43 @@
   "aggregator-sources.DefineRules.caseInsensitive": [
     {
       "type": 0,
-      "value": "case-insensitive"
+      "value": "maiuscolo/minuscolo ignorati"
     }
   ],
   "aggregator-sources.DefineRules.caseSensitive": [
     {
       "type": 0,
-      "value": "case-sensitive"
+      "value": "maiuscolo/minuscolo considerati"
     }
   ],
   "aggregator-sources.DefineRules.choice": [
     {
       "type": 0,
-      "value": "Source agenda field"
+      "value": "Informazione dell'agenda fonte"
     }
   ],
   "aggregator-sources.DefineRules.choiceFilter": [
     {
       "type": 0,
-      "value": "Choice field filter"
+      "value": "Scegliere un filtro"
     }
   ],
   "aggregator-sources.DefineRules.city": [
     {
       "type": 0,
-      "value": "City"
+      "value": "Città"
     }
   ],
   "aggregator-sources.DefineRules.department": [
     {
       "type": 0,
-      "value": "Department"
+      "value": "Dipartimento"
     }
   ],
   "aggregator-sources.DefineRules.description": [
     {
       "type": 0,
-      "value": "Rules are applied to the events in their aggregation."
-    },
-    {
-      "type": 1,
-      "value": "br"
-    },
-    {
-      "type": 0,
-      "value": " They are used to condition the aggregation, or to assign values to extended fields in your agenda."
+      "value": "Le regole sono applicate agli eventi nella loro aggregazione. Sono usate per condizionare l'aggregazione, o per assegnare valori a campi estesi nella sua agenda."
     }
   ],
   "aggregator-sources.DefineRules.displayAggregatorRulesExist": [
@@ -530,7 +522,7 @@
           "value": [
             {
               "type": 0,
-              "value": "One general rule exists"
+              "value": "Una regola esiste"
             }
           ]
         },
@@ -542,7 +534,7 @@
             },
             {
               "type": 0,
-              "value": " general rules exist"
+              "value": " regole generale esistono"
             }
           ]
         }
@@ -555,13 +547,13 @@
   "aggregator-sources.DefineRules.displayAggregatorRulesExistDetail": [
     {
       "type": 0,
-      "value": "General rules apply on all events before source-specific rules are evaluated."
+      "value": "Le regole generali si applicano a tutti gli eventi prima che vengano valutate le regole specifiche della fonte."
     }
   ],
   "aggregator-sources.DefineRules.editForDetail": [
     {
       "type": 0,
-      "value": "Edit to see details"
+      "value": "Modificare per vedere i dettagli"
     }
   ],
   "aggregator-sources.DefineRules.eventLocationDetail": [
@@ -571,25 +563,25 @@
     },
     {
       "type": 0,
-      "value": " where the event should take place"
+      "value": " dove l'evento dovrebbe avere luogo"
     }
   ],
   "aggregator-sources.DefineRules.filterDetail": [
     {
       "type": 0,
-      "value": "If the filter matches the event, the associated actions apply"
+      "value": "Se il filtro corrisponde all'evento, si applicano le azioni associate"
     }
   ],
   "aggregator-sources.DefineRules.locationFilter": [
     {
       "type": 0,
-      "value": "Location filter"
+      "value": "Filtro di localizzazione"
     }
   ],
   "aggregator-sources.DefineRules.manualPasteRules": [
     {
       "type": 0,
-      "value": "Paste rules from another source with CTRL + V"
+      "value": "Incolla le regole da un'altra fonte con CTRL + V"
     }
   ],
   "aggregator-sources.DefineRules.missingRequiredFields": [
@@ -600,7 +592,7 @@
           "value": [
             {
               "type": 0,
-              "value": "The field "
+              "value": "Il campo "
             },
             {
               "type": 1,
@@ -608,7 +600,7 @@
             },
             {
               "type": 0,
-              "value": " is required"
+              "value": " è richiesto"
             }
           ]
         },
@@ -616,7 +608,7 @@
           "value": [
             {
               "type": 0,
-              "value": "The fields "
+              "value": "I campi "
             },
             {
               "type": 1,
@@ -624,7 +616,7 @@
             },
             {
               "type": 0,
-              "value": " are required"
+              "value": " sono richiesti"
             }
           ]
         }
@@ -641,37 +633,37 @@
   "aggregator-sources.DefineRules.name": [
     {
       "type": 0,
-      "value": "Location name"
+      "value": "Nome del luogo"
     }
   ],
   "aggregator-sources.DefineRules.newRule": [
     {
       "type": 0,
-      "value": "New rule"
+      "value": "Nuova regola"
     }
   ],
   "aggregator-sources.DefineRules.noDefinedRules": [
     {
       "type": 0,
-      "value": "No defined rule"
+      "value": "Nessun regola definita"
     }
   ],
   "aggregator-sources.DefineRules.noFilter": [
     {
       "type": 0,
-      "value": "No filter"
+      "value": "Nessun filtro"
     }
   ],
   "aggregator-sources.DefineRules.otherFilter": [
     {
       "type": 0,
-      "value": "Other"
+      "value": "Altri"
     }
   ],
   "aggregator-sources.DefineRules.pasteRules": [
     {
       "type": 0,
-      "value": "Apply rules from another source"
+      "value": "Applica le regole di un altro fonte"
     }
   ],
   "aggregator-sources.DefineRules.published": [
@@ -683,7 +675,7 @@
   "aggregator-sources.DefineRules.readyToPublish": [
     {
       "type": 0,
-      "value": "Ready to publish"
+      "value": "Da completare"
     }
   ],
   "aggregator-sources.DefineRules.refused": [
@@ -695,7 +687,7 @@
   "aggregator-sources.DefineRules.region": [
     {
       "type": 0,
-      "value": "Region"
+      "value": "Regione"
     }
   ],
   "aggregator-sources.DefineRules.remove": [
@@ -707,7 +699,7 @@
   "aggregator-sources.DefineRules.replacingActionDetail": [
     {
       "type": 0,
-      "value": "This value will come replace any other that was defined in a previous rule"
+      "value": "Questo valore verrà a sostituire qualsiasi altro che è stato definito in una regola precedente"
     }
   ],
   "aggregator-sources.DefineRules.requiredFieldsWarning": [
@@ -718,7 +710,7 @@
           "value": [
             {
               "type": 0,
-              "value": "The field "
+              "value": "Il campo "
             },
             {
               "type": 1,
@@ -726,7 +718,7 @@
             },
             {
               "type": 0,
-              "value": " is required"
+              "value": " è richiesto"
             }
           ]
         },
@@ -734,7 +726,7 @@
           "value": [
             {
               "type": 0,
-              "value": "The fields "
+              "value": "I campi "
             },
             {
               "type": 1,
@@ -742,7 +734,7 @@
             },
             {
               "type": 0,
-              "value": " are required"
+              "value": " sono richiesti"
             }
           ]
         }
@@ -759,7 +751,7 @@
   "aggregator-sources.DefineRules.requiredFieldsWarningDetail": [
     {
       "type": 0,
-      "value": "The agenda \""
+      "value": "L'agenda \""
     },
     {
       "type": 1,
@@ -767,37 +759,37 @@
     },
     {
       "type": 0,
-      "value": "\" has required fields. Event aggregation will only occur for events associated to at least one value of each required field. Use aggregation rules to attribute values to the event at aggregation."
+      "value": "\" ha campi obbligatori. L'aggregazione degli eventi avverrà solo per gli eventi associati ad almeno un valore di ogni campo obbligatorio. Usa le regole di aggregazione per attribuire valori all'evento al momento dell'aggregazione."
     }
   ],
   "aggregator-sources.DefineRules.requiredFilter": [
     {
       "type": 0,
-      "value": "This rule blocks the aggregation if the filter does not match"
+      "value": "Questa regola blocca l'aggregazione se il filtro non corrisponde"
     }
   ],
   "aggregator-sources.DefineRules.requiredSubdivision": [
     {
       "type": 0,
-      "value": "Required subdivision"
+      "value": "Suddivisione richiesta"
     }
   ],
   "aggregator-sources.DefineRules.requiredType": [
     {
       "type": 0,
-      "value": "Required type of filter"
+      "value": "Tipo di filtro richiesto"
     }
   ],
   "aggregator-sources.DefineRules.requiredValues": [
     {
       "type": 0,
-      "value": "Required values"
+      "value": "Valori richiesti"
     }
   ],
   "aggregator-sources.DefineRules.ruleDescription": [
     {
       "type": 0,
-      "value": "A rule consists of a filter and/or actions applied to each event published on the source."
+      "value": "Una regola consiste in un filtro e/o azioni applicate ad ogni evento pubblicato sulla fonte."
     }
   ],
   "aggregator-sources.DefineRules.sourceAgendaFieldValueDetail": [
@@ -920,7 +912,7 @@
   "aggregator-sources.EvaluateOptions.cancel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annulla"
     }
   ],
   "aggregator-sources.EvaluateOptions.evaluateOption0": [
@@ -932,7 +924,7 @@
   "aggregator-sources.EvaluateOptions.evaluateOption1": [
     {
       "type": 0,
-      "value": "Aggregate all events"
+      "value": "Aggregare tutti i eventi, anche i passati"
     }
   ],
   "aggregator-sources.EvaluateOptions.evaluateOption2": [
@@ -962,7 +954,7 @@
   "aggregator-sources.RemoveSourceModal.removeASource": [
     {
       "type": 0,
-      "value": "Remove a source"
+      "value": "Rimuovere dai fonti"
     }
   ],
   "aggregator-sources.RemoveSourceModal.removeConfirmMessage": [
@@ -1020,13 +1012,13 @@
   "aggregator-sources.RuleForm.choiceFilter": [
     {
       "type": 0,
-      "value": "Choice field filter"
+      "value": "Scegliere un filtro"
     }
   ],
   "aggregator-sources.RuleForm.city": [
     {
       "type": 0,
-      "value": "City"
+      "value": "Città"
     }
   ],
   "aggregator-sources.RuleForm.clearAssignment": [
@@ -1058,7 +1050,7 @@
   "aggregator-sources.RuleForm.department": [
     {
       "type": 0,
-      "value": "Department"
+      "value": "Dipartimento"
     }
   ],
   "aggregator-sources.RuleForm.field": [
@@ -1134,7 +1126,7 @@
   "aggregator-sources.RuleForm.name": [
     {
       "type": 0,
-      "value": "Name"
+      "value": "Nome"
     }
   ],
   "aggregator-sources.RuleForm.noOption": [
@@ -1146,7 +1138,7 @@
   "aggregator-sources.RuleForm.region": [
     {
       "type": 0,
-      "value": "Region"
+      "value": "Regione"
     }
   ],
   "aggregator-sources.RuleForm.removeAction": [
@@ -1248,7 +1240,7 @@
   "aggregator-sources.RuleForm.useFilter": [
     {
       "type": 0,
-      "value": "Use an aggregation filter"
+      "value": "Usare un filtro di aggregazione"
     }
   ],
   "aggregator-sources.RuleForm.useFilterDesc": [
@@ -1260,13 +1252,13 @@
   "aggregator-sources.RuleForm.value": [
     {
       "type": 0,
-      "value": "Value:"
+      "value": "Valore:"
     }
   ],
   "aggregator-sources.RuleForm.values": [
     {
       "type": 0,
-      "value": "Values:"
+      "value": "Valori:"
     }
   ],
   "aggregator-sources.RulesSummary.rulesSummary": [
@@ -1277,7 +1269,7 @@
           "value": [
             {
               "type": 0,
-              "value": "No general rule is defined"
+              "value": "Nessun regola generale è definita"
             }
           ]
         },
@@ -1285,7 +1277,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 general rule is defined"
+              "value": "Una generale regola è definita"
             }
           ]
         },
@@ -1296,7 +1288,7 @@
             },
             {
               "type": 0,
-              "value": " general rules are defined"
+              "value": " generale regole sono definite"
             }
           ]
         }
@@ -1309,19 +1301,19 @@
   "aggregator-sources.SlugSearch.enterLink": [
     {
       "type": 0,
-      "value": "Enter an agenda page link"
+      "value": "Inserisci il collegamento di un agenda"
     }
   ],
   "aggregator-sources.SourcesList.copy": [
     {
       "type": 0,
-      "value": "Copy"
+      "value": "Copia"
     }
   ],
   "aggregator-sources.SourcesList.officialAgenda": [
     {
       "type": 0,
-      "value": "Official agenda"
+      "value": "Agenda ufficiale"
     }
   ],
   "aggregator-sources.SourcesList.remove": [
@@ -1333,7 +1325,7 @@
   "aggregator-sources.SourcesList.seeAgenda": [
     {
       "type": 0,
-      "value": "See agenda"
+      "value": "Vedere l'agenda"
     }
   ],
   "aggregator-sources.SourcesList.update": [
@@ -1344,7 +1336,7 @@
           "value": [
             {
               "type": 0,
-              "value": "See the aggregation rule"
+              "value": "Vedere la regola d'aggregazione"
             }
           ]
         },
@@ -1352,14 +1344,14 @@
           "value": [
             {
               "type": 0,
-              "value": "See the "
+              "value": "Vedere le "
             },
             {
               "type": 7
             },
             {
               "type": 0,
-              "value": " aggregation rules"
+              "value": " regole d'aggregazione"
             }
           ]
         }
@@ -1378,13 +1370,13 @@
   "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": [
     {
       "type": 0,
-      "value": "Would you like events published in the source calendar to be re-evaluated as a result of this update?"
+      "value": "Lei vuole che gli eventi pubblicati nel calendario fonte siano rivalutati con questo aggiornamento?"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateASource": [
     {
       "type": 0,
-      "value": "Aggregation rules"
+      "value": "Regole di aggregazione"
     }
   ],
   "aggregator-sources.UpdateSourceModal.updateSource": [
@@ -1402,13 +1394,13 @@
   "aggregator-sources.edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificare"
     }
   ],
   "aggregator-sources.utils.stateMessages.state": [
     {
       "type": 0,
-      "value": "State"
+      "value": "Stato"
     }
   ],
   "aggregator-sources.utils.stateMessages.stateControlled": [

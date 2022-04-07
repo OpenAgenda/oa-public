@@ -8,7 +8,7 @@
   "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": "Your global settings:",
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Receive messages from agenda inbox",
   "Abilities.RulesCheckbox.rules.receiveEvent": "Receive events sent by other users",
-  "Abilities.RulesCheckbox.rules.receiveEventAddition": "Receive event creations",
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": "Receive event additions",
   "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Receive event aggregations",
   "Abilities.RulesCheckbox.rules.receiveEventChangeState": "Receive state changes to {state}",
   "Abilities.RulesCheckbox.rules.receiveEventCreation": "Receive event creations",

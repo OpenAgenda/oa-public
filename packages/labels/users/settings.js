@@ -188,7 +188,8 @@ module.exports = {
     "es": "confirmación",
     "it": "Conferma",
     "br": "Kadarnaat",
-    "io": "crwdns15864:0crwdne15864:0"
+    "io": "crwdns15864:0crwdne15864:0",
+    "oc": "Confirmacion"
   },
   "apiKeyInformation": {
     "en": "API key for reading and writing data via OpenAgenda's API.",

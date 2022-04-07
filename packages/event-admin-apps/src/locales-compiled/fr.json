@@ -407,6 +407,20 @@
       ],
       "type": 8,
       "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " dans "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agenda"
+        }
+      ],
+      "type": 8,
+      "value": "agendaLink"
     }
   ],
   "EventAdminApp.EventItem.administrator": [
@@ -684,7 +698,7 @@
   "EventAdminApp.RemoveModal.deleteDesc": [
     {
       "type": 0,
-      "value": "Etes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda."
+      "value": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda."
     }
   ],
   "EventAdminApp.RemoveModal.deleteEvent": [

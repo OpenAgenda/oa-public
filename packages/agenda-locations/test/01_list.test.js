@@ -236,11 +236,12 @@ describe('agenda-locations - functional - list', () => {
         },
         southWest: {
           lat: 44,
-          lng: 3,
+          lng: 0.0,
         }
       };
 
       const selection = await svc(7196947).list({ geo });
+      console.log(selection);
       expect(selection.length).toBe(4);
     });
 

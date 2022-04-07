@@ -1,10 +1,10 @@
 {
   "title": "Benvenuta !",
   "subtitle": "Presentatevi prima di aggiungere i vostri eventi",
-  "description": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
+  "description": "Le vostre informazione personale saranno visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
   "organisation": "Organizzazione",
   "phone": "Telefono",
-  "phoneSub": "Carattere autorizzati : ciffri, spazio, -, + o ()",
+  "phoneSub": "Carattere autorizzati: cifro, spazio, -, + o ()",
   "name": "Nome e cognome",
   "position": "Posizione lavorativa",
   "email": "Email",

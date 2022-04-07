@@ -35,5 +35,10 @@
   "contact": "crwdns12966:0crwdne12966:0",
   "officialAgenda": "crwdns12968:0crwdne12968:0",
   "privateAgenda": "crwdns12970:0crwdne12970:0",
-  "showCalendar": "crwdns12972:0crwdne12972:0"
+  "showCalendar": "crwdns12972:0crwdne12972:0",
+  "statusRescheduled": "crwdns16088:0crwdne16088:0",
+  "statusMovedOnline": "crwdns16090:0crwdne16090:0",
+  "statusPostponed": "crwdns16092:0crwdne16092:0",
+  "statusCancelled": "crwdns16094:0crwdne16094:0",
+  "statusFull": "crwdns16096:0crwdne16096:0"
 }

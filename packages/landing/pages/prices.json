@@ -9,6 +9,8 @@
     "lang" : "es", "key" : "precios"
   }, {
     "lang" : "br", "key" : "tarifs-br"
+  }, {
+    "lang" : "it", "key" : "tariffe"
   } ],
   "head" : {
     "title" : "pricingTitle",

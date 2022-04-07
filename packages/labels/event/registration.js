@@ -38,7 +38,7 @@ module.exports = {
     "fr": "S'inscrire / réserver",
     "de": "Registrieren / Buch",
     "es": "Registro / libro",
-    "it": "Registrati / prenota",
+    "it": "Registrarsi / prenotare",
     "io": "crwdns14410:0crwdne14410:0"
   }
 }

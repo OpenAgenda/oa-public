@@ -19,5 +19,7 @@
   "noOrigin": "crwdns14066:0crwdne14066:0",
   "defaultBack": "crwdns14068:0crwdne14068:0",
   "defaultAgendaBack": "crwdns14070:0crwdne14070:0",
-  "pageDoesNotExist": "crwdns14072:0crwdne14072:0"
+  "pageDoesNotExist": "crwdns14072:0crwdne14072:0",
+  "choice.required.max": "crwdns16098:0%max%crwdne16098:0",
+  "invalidOrIncompleteEvent": "crwdns16424:0crwdne16424:0"
 }

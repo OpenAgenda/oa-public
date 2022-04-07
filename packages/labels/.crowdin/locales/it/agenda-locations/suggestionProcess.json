@@ -1,14 +1,14 @@
 {
   "title": "Convalidare un suggerimento",
   "info": "Le modifiche proposte dal collaboratore vengono caricate nei campi attivi. Modificarli prima di convalidarli.",
-  "submit": "Convalida",
+  "submit": "Convalidare",
   "submitError": "Il suggerimento non ha potuto essere accolto. Riprovare tra un attimo",
   "previous": "Precedente",
-  "next": "Avanti",
+  "next": "Prossimo",
   "suggestionCount": "Suggerimento %current%/%total%",
   "suggestionFrom": "Suggerimento di %stakeholder%",
   "currentValue": "Invece di",
   "suggestionUnknownFrom": "Suggerimento di un ex collaboratore",
-  "suggestionDiscard": "Ignora questo suggerimento",
+  "suggestionDiscard": "Ignorare questo suggerimento",
   "back": "Indietro"
 }

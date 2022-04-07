@@ -4,19 +4,19 @@ module.exports = {
   "title": {
     "fr": "Nouvel événement ajouté sur %agenda%",
     "en": "New event added on %agenda%: %event%",
-    "it": "Nuovo evento aggiunto su %agenda",
+    "it": "Nuovo evento aggiunto su %agenda%: %event%",
     "io": "crwdns15292:0%agenda%crwdnd15292:0%event%crwdne15292:0"
   },
   "body": {
     "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été ajouté avec le statut **%state%** par **%user%**.",
     "en": "**%event%** from the agenda **%sourceAgenda%** has been added with the state **%state%** by **%user%**.",
-    "it": "**%event%** creato nel'agenda **%sourceAgenda%** è stato aggiunto con lo stato **%state%** da **%user%**.",
+    "it": "L’evento %event%, creato nell'agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
     "io": "crwdns15294:0%event%crwdnd15294:0%sourceAgenda%crwdnd15294:0%state%crwdnd15294:0%user%crwdne15294:0"
   },
   "bodyText": {
     "fr": "%event% provenant de l'agenda %sourceAgenda% a été ajouté avec le statut %state% par %user%.",
     "en": "%event% from the agenda %sourceAgenda% has been added with the state %state% by %user%.",
-    "it": "L’evento %event%, creato nel agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
+    "it": "L’evento %event%, creato nell'agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
     "io": "crwdns15296:0%event%crwdnd15296:0%sourceAgenda%crwdnd15296:0%state%crwdnd15296:0%user%crwdne15296:0"
   },
   "actionDescription": {

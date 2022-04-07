@@ -15,7 +15,8 @@ module.exports = {
     "de": "Diese werden zu indizieren Ihre Veranstaltung in der Agenda eingesetzt. Wähle eins.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede elegir uno.",
     "it": "Questi sono utilizzati per l'indicizzazione nel diario. Potete scegliere uno di loro.",
-    "io": "crwdns11472:0crwdne11472:0"
+    "io": "crwdns11472:0crwdne11472:0",
+    "oc": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una."
   },
   "categoriesRequired": {
     "en": "Required.",

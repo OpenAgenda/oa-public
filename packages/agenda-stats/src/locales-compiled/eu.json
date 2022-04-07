@@ -1,4 +1,10 @@
 {
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Without value)"
+    }
+  ],
   "AgendaStats.ChartAdder.addChart": [
     {
       "type": 0,
@@ -253,7 +259,7 @@
   "AgendaStats.Dashboard.changeOrder": [
     {
       "type": 0,
-      "value": "Change ordrer"
+      "value": "Change order"
     }
   ],
   "AgendaStats.Dashboard.edit": [
@@ -395,6 +401,40 @@
     {
       "type": 1,
       "value": "weekNumber"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.action": [
+    {
+      "type": 0,
+      "value": "Create a first event"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.creationHelp": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Click here"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to learn more about adding events to your agenda."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.description": [
+    {
+      "type": 0,
+      "value": "Add or enter events then configure a report here consisting of pie charts, bar charts or histograms to get an overview of your programming."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.title": [
+    {
+      "type": 0,
+      "value": "Generate statistics on the contents of your agenda."
     }
   ],
   "AgendaStats.IntervalSelect.day": [

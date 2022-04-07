@@ -1,1 +1,12 @@
-{}
+{
+  "noNotif": "Pas cap notificacion.",
+  "agenda.removeSource": "{actor} a tirat {object} de las sorsas sus {target}.",
+  "agenda.create": "{actor} a creat l'agenda {target}.",
+  "agenda.updateContribution": "{actor} a metut a jorn los reglatges de contribucion de {target}.",
+  "agenda.updateProfile": "{actor} a metut lo perfil de {target} a jorn.",
+  "agenda.rename": "{actor} a tornat nomenar l'agenda {beforeTitle} en {afterTitle}.",
+  "agenda.setOfficial": "L'agenda {target} es venguda oficiala.",
+  "agenda.setUnofficial": "L'agenda {target} es venguda non-oficiala.",
+  "agenda.unpublishEvent": "{actor} a despublicat {object} sus {target}.",
+  "event.update": "{actor} a metut {object} a jorn sus {target}."
+}

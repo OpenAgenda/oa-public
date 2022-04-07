@@ -1,1 +1,8 @@
-{}
+{
+  "listSection": "Etiquetas d'agenda",
+  "confirmDeleteGroup": "I a %count% etiquetas dins aqueste grop. Ne sètz segu·ra ?",
+  "updateTag": "Ok",
+  "redirectMain": "Aqueste onglet es estat mudat a la seccion Configuracion de vòstra pagina d'administracion d'agenda",
+  "redirectSub": "Seretz automaticament redirigit·da dins un moment",
+  "contributorAccess": "Vesedor sonque dels membres de l'agenda"
+}

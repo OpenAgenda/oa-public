@@ -48,6 +48,10 @@ dev.get('/api/agendas/:agendaUid/events/:eventUid', (req, res) => {
   res.json(getFixtures(req.params.agendaUid).event);
 });
 
+dev.delete('/api/agendas/:agendaUid/events/:eventUid', (req, res) => {
+  res.status(200).send();
+});
+
 dev.get('/locations/:uid.json', (req, res) => {
   res.json(getLocation(req.params.uid));
 });

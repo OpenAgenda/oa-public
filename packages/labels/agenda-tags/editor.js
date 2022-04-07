@@ -93,14 +93,15 @@ module.exports = {
     "de": "Agenda-Tags",
     "es": "Etiquetas agenda",
     "it": "Tag dell'ordine del giorno",
-    "io": "crwdns12706:0crwdne12706:0"
+    "io": "crwdns12706:0crwdne12706:0",
+    "oc": "Etiquetas d'agenda"
   },
   "add": {
     "en": "Add",
     "fr": "Ajouter",
     "de": "Hinzufügen",
     "es": "añadir",
-    "it": "Aggiungi",
+    "it": "Aggiungere",
     "io": "crwdns12708:0crwdne12708:0"
   },
   "addTag": {
@@ -108,7 +109,7 @@ module.exports = {
     "fr": "Ajouter un tag",
     "de": "Füge einen Tag hinzu",
     "es": "Añadir una etiqueta",
-    "it": "Aggiungi un tag",
+    "it": "Aggiungere un tag",
     "io": "crwdns12710:0crwdne12710:0"
   },
   "addGroup": {
@@ -132,7 +133,7 @@ module.exports = {
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annulla",
+    "it": "Annullare",
     "br": "Nullañ",
     "io": "crwdns12716:0crwdne12716:0"
   },
@@ -142,7 +143,8 @@ module.exports = {
     "de": "Es gibt %count%-Tags in dieser Gruppe. Bist du sicher?",
     "es": "Hay %count% etiquetas en este grupo está seguro de que quiere eliminar?",
     "it": "Ci sono %count% tags in questo gruppo, sei sicuro di volerli rimuovere?",
-    "io": "crwdns12718:0%count%crwdne12718:0"
+    "io": "crwdns12718:0%count%crwdne12718:0",
+    "oc": "I a %count% etiquetas dins aqueste grop. Ne sètz segu·ra ?"
   },
   "confirm": {
     "en": "Yes",
@@ -174,14 +176,15 @@ module.exports = {
     "de": "OK",
     "es": "bueno",
     "it": "Ok",
-    "io": "crwdns12726:0crwdne12726:0"
+    "io": "crwdns12726:0crwdne12726:0",
+    "oc": "Ok"
   },
   "cancelUpdateTag": {
     "en": "Cancel",
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annulla",
+    "it": "Annullare",
     "br": "Nullañ",
     "io": "crwdns12728:0crwdne12728:0"
   },
@@ -232,7 +235,8 @@ module.exports = {
     "de": "Diese Registerkarte wurde dem Setup-Abschnitt Ihrer Agenda Verwaltungsseite bewegt",
     "es": "Esta ficha se ha movido en la 'Configuración' de la administración de su agenda",
     "it": "Questa scheda è stata spostata nella sezione \"Impostazioni\" dell'amministrazione del calendario.",
-    "io": "crwdns12740:0crwdne12740:0"
+    "io": "crwdns12740:0crwdne12740:0",
+    "oc": "Aqueste onglet es estat mudat a la seccion Configuracion de vòstra pagina d'administracion d'agenda"
   },
   "redirectSub": {
     "en": "You will be automatically redirected in an instant",
@@ -240,7 +244,8 @@ module.exports = {
     "de": "Sie werden automatisch in einem Augenblick umgeleitet werden",
     "es": "Se le redireccionará en un momento",
     "it": "Sarete automaticamente reindirizzati in un attimo.",
-    "io": "crwdns12742:0crwdne12742:0"
+    "io": "crwdns12742:0crwdne12742:0",
+    "oc": "Seretz automaticament redirigit·da dins un moment"
   },
   "publicAccess": {
     "en": "Openly viewable",
@@ -256,7 +261,8 @@ module.exports = {
     "de": "nur sichtbar Agenda Mitglieder",
     "es": "sólo los miembros visibles de la agenda",
     "it": "Visibile solo ai membri dell'ordine del giorno",
-    "io": "crwdns12746:0crwdne12746:0"
+    "io": "crwdns12746:0crwdne12746:0",
+    "oc": "Vesedor sonque dels membres de l'agenda"
   },
   "administratorAccess": {
     "en": "Viewable by administrators and moderators only",

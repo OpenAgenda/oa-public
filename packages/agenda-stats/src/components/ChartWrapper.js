@@ -40,7 +40,6 @@ function ChartWrapper(
   {
     stat,
     chartConfig = {}, // used for intervalSelector and loadMore
-    totalEvents,
     loadStat,
     editMode,
     className,
@@ -56,17 +55,6 @@ function ChartWrapper(
   const previousInterval = usePrevious(interval);
   const [loading, setLoading] = useState(false);
   const statEditModal = useModal();
-
-  const loadMore = useCallback(
-    () => loadStat(stat.id, prevStat => ({
-      ...prevStat,
-      state: {
-        ...prevStat.state,
-        size: (prevStat.state.data?.length || 0) + 5,
-      },
-    })),
-    [loadStat, stat.id]
-  );
 
   const removeStat = useCallback(
     () => dispatch(statsActions.removeStat(stat.id)),
@@ -154,9 +142,7 @@ function ChartWrapper(
 
         {children}
 
-        {chartConfig.loadMore ? (
-          <LoadMore stat={stat} total={totalEvents} loadMore={loadMore} />
-        ) : null}
+        {chartConfig.loadMore ? <LoadMore stat={stat} /> : null}
       </ContentWrapper>
 
       {statEditModal.isOpen ? (

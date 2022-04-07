@@ -1,4 +1,7 @@
 {
   "location.required": "La posizione deve essere specificata",
-  "timings.toolong": "Non possono esserci più di 800 fasce orarie per un singolo evento."
+  "timings.toolong": "Non possono esserci più di 800 fasce orarie per un singolo evento.",
+  "timings.empty": "Per favore indicare almeno un orario",
+  "timings.min.1": "Per favore indicare almeno un orario",
+  "timings.invalid": "Per favore indicare almeno un orario"
 }

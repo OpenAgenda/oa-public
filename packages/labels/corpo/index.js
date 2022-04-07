@@ -14,7 +14,7 @@ module.exports = {
     "fr": "Pour votre",
     "de": "Für dein",
     "es": "Para vuestro",
-    "it": "Per il vostro",
+    "it": "Per il suo",
     "io": "crwdns13276:0crwdne13276:0"
   },
   "initialName": {
@@ -38,7 +38,7 @@ module.exports = {
     "fr": "Chercher un agenda",
     "de": "Einen Kalender Suchen",
     "es": "agenda de búsqueda",
-    "it": "Cerca un'agenda",
+    "it": "Cercare un'agenda",
     "io": "crwdns13282:0crwdne13282:0"
   },
   "canCustomize": {
@@ -46,7 +46,7 @@ module.exports = {
     "fr": "Paramétrez",
     "de": "Anpassen",
     "es": "conjunto",
-    "it": "Impostazione",
+    "it": "Personnalizare",
     "io": "crwdns13284:0crwdne13284:0"
   },
   "canCollaborate": {
@@ -54,7 +54,7 @@ module.exports = {
     "fr": "Collaborez",
     "de": "Zusammenarbeiten",
     "es": "colaborar",
-    "it": "Collabora",
+    "it": "Collaborare",
     "io": "crwdns13286:0crwdne13286:0"
   },
   "canBroadcast": {
@@ -62,7 +62,7 @@ module.exports = {
     "fr": "Diffusez",
     "de": "Übertragung",
     "es": "puesto",
-    "it": "Distribuisci",
+    "it": "Trasmettere",
     "io": "crwdns13288:0crwdne13288:0"
   },
   "function1Head": {
@@ -150,7 +150,7 @@ module.exports = {
     "fr": "Suivant",
     "de": "Nächster",
     "es": "Próximo",
-    "it": "Avanti",
+    "it": "Prossimo",
     "br": "War-lerc'h",
     "io": "crwdns13310:0crwdne13310:0"
   },
@@ -159,7 +159,7 @@ module.exports = {
     "fr": "Ce que disent nos clients",
     "de": "Was unsere Kunden sagen",
     "es": "Lo que nuestros clientes dicen",
-    "it": "Cosa dicono i nostri clienti",
+    "it": "Prossimo",
     "io": "crwdns13312:0crwdne13312:0"
   },
   "pricing": {
@@ -448,7 +448,7 @@ module.exports = {
     "fr": "agendas",
     "de": "Kalender",
     "es": "agendas",
-    "it": "ordini del giorno",
+    "it": "agende",
     "io": "crwdns13384:0crwdne13384:0"
   },
   "contributors": {
@@ -481,7 +481,7 @@ module.exports = {
     "fr": "Créez votre agenda !",
     "de": "Erstelle deinen Kalender jetzt!",
     "es": "Crear su agenda!",
-    "it": "Crea la tua agenda!",
+    "it": "Crea su agenda!",
     "io": "crwdns13392:0crwdne13392:0"
   },
   "contact": {
@@ -497,7 +497,7 @@ module.exports = {
     "fr": "Votre adresse email",
     "de": "deine Emailadresse",
     "es": "Su dirección de correo electrónico",
-    "it": "Il tuo indirizzo e-mail",
+    "it": "Il suo indirizzo e-mail",
     "io": "crwdns13396:0crwdne13396:0"
   },
   "subscribe": {

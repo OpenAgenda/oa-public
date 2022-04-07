@@ -1,5 +1,5 @@
 {
   "invalidEmail": "L'e-mail inserita non è valida o il servizio di newsletter non è disponibile. La preghiamo di riprovare tra qualche minuto.",
   "subscribed": "Siete stati aggiunti alla nostra mailing list della newsletter. Grazie per il vostro interesse!",
-  "unsubscribed": "Non riceverete più eventi a %email%."
+  "unsubscribed": "Non riceverete più messaggi sopra eventi su l'indirizzo %email%"
 }

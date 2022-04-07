@@ -6,7 +6,8 @@ module.exports = {
     "en": "At least one timing must be defined",
     "es": "A lo menos un horario debe ser definido",
     "br": "Ret eo lakaat un eur da vihanañ",
-    "io": "crwdns14140:0crwdne14140:0"
+    "io": "crwdns14140:0crwdne14140:0",
+    "it": "Per favore indicare almeno un orario"
   },
   "location.required": {
     "fr": "Le lieu doit être spécifié",
@@ -28,12 +29,16 @@ module.exports = {
     "fr": "Au moins un horaire doit être défini",
     "en": "At least one timing must be defined",
     "es": "A lo menos un horario debe ser definido",
-    "br": "Ret eo lakaat un eur da vihanañ"
+    "br": "Ret eo lakaat un eur da vihanañ",
+    "it": "Per favore indicare almeno un orario",
+    "io": "crwdns16426:0crwdne16426:0"
   },
   "timings.invalid": {
     "fr": "Au moins un horaire doit être défini",
     "en": "At least one timing must be defined",
     "es": "A lo menos un horario debe ser definido",
-    "br": "Ret eo lakaat un eur da vihanañ"
+    "br": "Ret eo lakaat un eur da vihanañ",
+    "it": "Per favore indicare almeno un orario",
+    "io": "crwdns16428:0crwdne16428:0"
   }
 }

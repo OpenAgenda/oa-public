@@ -6,7 +6,7 @@ module.exports = {
     "en": "Congratulations, your agenda is ready !",
     "de": "Herzlichen Glückwunsch, Ihr Programm fertig!",
     "es": "Felicitaciones, su agenda está listo!",
-    "it": "Bravo, il tuo programma è pronto!",
+    "it": "Auguri, il suo agenda è pronto!",
     "io": "crwdns11356:0crwdne11356:0"
   },
   "someActions": {
@@ -14,7 +14,7 @@ module.exports = {
     "en": "Here are few simple actions to get you started using your agenda",
     "de": "Hier sind einige einfache Aktionen, die Sie für die Inbetriebnahme desVerwaltungskalender mit",
     "es": "Unas pocas acciones simples para un buen comienzo con su agenda",
-    "it": "Poche semplici azioni per iniziare bene la vostra agenda",
+    "it": "Qualchi semplici azioni per iniziare bene la vostra agenda",
     "io": "crwdns11358:0crwdne11358:0"
   },
   "addYourFirstEvent": {
@@ -22,8 +22,9 @@ module.exports = {
     "en": "Add your first event!",
     "de": "Füge Deine erste Veranstaltung!",
     "es": "Añadir su primer evento!",
-    "it": "Aggiungi il tuo primo evento!",
-    "io": "crwdns11360:0crwdne11360:0"
+    "it": "Aggiungere un primo evento",
+    "io": "crwdns11360:0crwdne11360:0",
+    "oc": "Apondètz vòstre primièr eveniment !"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
@@ -38,7 +39,7 @@ module.exports = {
     "en": "Add a profile image to your agenda",
     "de": "Füge ein Profilbild zu Ihrem Terminkalender",
     "es": "Añadir una imagen de perfil a su agenda",
-    "it": "Aggiungi un'immagine del profilo al tuo calendario",
+    "it": "Aggiungere un'immagine del profilo sull'agenda",
     "io": "crwdns11364:0crwdne11364:0"
   },
   "sendLink": {
@@ -46,7 +47,7 @@ module.exports = {
     "en": "Send the link of your agenda to your contributors !",
     "de": "Sende den Link deinerVerwaltungskalender zu deinen Mitwirkenden!",
     "es": "Enviar el enlace a su agenda con sus colaboradores",
-    "it": "Invia il link del tuo diario ai tuoi collaboratori!",
+    "it": "Invia il link dell'agenda ai suoi collaboratori!",
     "io": "crwdns11366:0crwdne11366:0"
   },
   "copyLinkAndSend": {
@@ -54,7 +55,7 @@ module.exports = {
     "en": "Copy and paste the link below and send it via email or post it on social networks.",
     "de": "Kopiere den unten stehenden Link und sende es per E-Mail oder per Post auf sozialen Netzwerken.",
     "es": "Copiar y pegar este enlace y enviarlo por correo electrónico o las redes sociales.",
-    "it": "Copia e incolla questo link e invialo via e-mail o tramite i tuoi social network.",
+    "it": "Copia e incolla questo link e invialo via e-mail o tramite i suoi social network.",
     "io": "crwdns11368:0crwdne11368:0"
   },
   "copyLink": {
@@ -70,7 +71,7 @@ module.exports = {
     "en": "Embed your agenda into your website",
     "de": "Bette DeineVerwaltungskalender auf deiner Webseite",
     "es": "Integre su agenda en su sitio web",
-    "it": "Integrate la vostra agenda nel vostro sito web",
+    "it": "Integrate l'agenda nel suo sito web",
     "io": "crwdns11372:0crwdne11372:0"
   },
   "createEmbedded": {
@@ -86,8 +87,9 @@ module.exports = {
     "en": "You want a private agenda? This is a new feature, let us know more about your requirement.",
     "de": "Sie wollen eine private Verwaltungskalender? Dies ist eine neue Funktion, lasse uns mehr über Deine Anforderung wissen.",
     "es": "¿Quieres una agenda privada? Esta característica es nueva, nos dice su uso.",
-    "it": "Volete un diario privato? Questa è una nuova funzione, spiegateci il vostro utilizzo.",
-    "io": "crwdns11376:0crwdne11376:0"
+    "it": "Lei vuole un agenda privato? Questa è una funzione fatta per casi particolari, spiegateci il suo utilizzo.",
+    "io": "crwdns11376:0crwdne11376:0",
+    "oc": "Volèta una agenda privada ? Aquò's una foncionalitat novèla, assabentatz-nos de vòstres besonhs."
   },
   "requestPrivate": {
     "fr": "Demander un agenda privé",
@@ -102,24 +104,28 @@ module.exports = {
     "en": "You want an official agenda?",
     "de": "Sie wollen eine offizielle Verwaltungskalender?",
     "es": "¿Quieres una agenda formal?",
-    "it": "Volete un agenda ufficiale?",
-    "io": "crwdns11380:0crwdne11380:0"
+    "it": "Lei vuole un agenda ufficiale?",
+    "io": "crwdns11380:0crwdne11380:0",
+    "oc": "Volètz una agenda oficiala ?"
   },
   "requestOfficial": {
     "fr": "Demander un agenda officiel",
     "en": "Request an official agenda",
     "de": "Eine offizielle Verwaltungskalender fragen",
     "es": "Solicitar agenda oficial",
-    "it": "Richiedi un agenda ufficiale",
+    "it": "Richiedere un agenda ufficiale",
     "io": "crwdns11382:0crwdne11382:0"
   },
   "or": {
     "fr": "ou",
-    "en": "or"
+    "en": "or",
+    "it": "oppure",
+    "io": "crwdns16414:0crwdne16414:0"
   },
   "useAPlugin": {
     "fr": "Utilisez un plugin",
-    "en": "Use a plugin"
+    "en": "Use a plugin",
+    "io": "crwdns16416:0crwdne16416:0"
   },
   "learnMore": {
     "fr": "En savoir plus",

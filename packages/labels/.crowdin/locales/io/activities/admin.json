@@ -25,5 +25,6 @@
   "event.updateWithLotOfChanges": "crwdns11088:0{user}crwdnd11088:0{event}crwdnd11088:0{agenda}crwdnd11088:0{fieldsCount}crwdne11088:0",
   "event.delete": "crwdns11090:0{user}crwdnd11090:0{event}crwdnd11090:0{agenda}crwdne11090:0",
   "noActivity": "crwdns11092:0crwdne11092:0",
-  "unknownActivity": "crwdns11094:0{verb}crwdne11094:0"
+  "unknownActivity": "crwdns11094:0{verb}crwdne11094:0",
+  "agenda.systemUnpublishEvent": "crwdns16404:0{event}crwdnd16404:0{agenda}crwdne16404:0"
 }

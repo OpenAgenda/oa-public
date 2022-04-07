@@ -9,6 +9,8 @@
     "lang" : "es", "key" : "precios-red"
   }, {
     "lang" : "br", "key" : "tarifs-reseaux-br"
+  }, {
+    "lang" : "it", "key" : "tariffe-di-rete"
   } ],
   "head" : {
     "title" : "networkPricingTitle",
