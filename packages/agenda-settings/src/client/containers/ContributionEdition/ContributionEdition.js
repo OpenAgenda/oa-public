@@ -16,7 +16,7 @@ function getError(form, fieldname) {
   return fieldState?.touched && errors?.[fieldname];
 }
 
-function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
+function SubmitButton({ hasInstructions, hasComplete, hasPublication, hasGDPRInformation }) {
   const { getLabel } = useContext(I18nContext);
   const form = useForm();
 
@@ -26,11 +26,12 @@ function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
     (!!initialValues?.messages?.instructions?.length && !hasInstructions)
     || (!!initialValues?.messages?.complete?.length && !hasComplete)
     || (!!initialValues?.messages?.publication?.length && !hasPublication)
+    || (!!initialValues?.messages?.GDPRInformation?.length && !hasGDPRInformation)
   );
 
-  const isDirty = dirty || messageUnchecked;
+  const hasChanged = dirty || messageUnchecked;
 
-  if (!isDirty && submitSucceeded) {
+  if (!hasChanged && submitSucceeded) {
     return <button type="submit" className="btn btn-success" disabled>{getLabel('saved')}</button>;
   } else if (submitting) {
     return <button type="submit" className="btn btn-primary" disabled>{getLabel('saving')}</button>;
@@ -39,7 +40,7 @@ function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
       <button
         type="submit"
         className="btn btn-primary"
-        disabled={isDirty && !hasValidationErrors ? undefined : true}
+        disabled={hasChanged && !hasValidationErrors ? undefined : true}
       >
         {getLabel('saveModifications')}
       </button>
@@ -66,7 +67,8 @@ export default function ContributionEdition() {
           messages: {
             instructions: hasInstructions ? values.messages.instructions : null,
             complete: hasComplete ? values.messages.complete : null,
-            publication: hasPublication ? values.messages.publication : null
+            publication: hasPublication ? values.messages.publication : null,
+            GDPRInformation: hasGDPRInformation ? values.messages.GDPRInformation : null
           }
         }
       }
@@ -78,9 +80,10 @@ export default function ContributionEdition() {
         setHasInstructions(!!newContribSettings?.messages?.instructions?.length);
         setHasComplete(!!newContribSettings?.messages?.complete?.length);
         setHasPublication(!!newContribSettings?.messages?.publication?.length);
+        setHasGDPRInformation(!!newContribSettings?.messages?.GDPRInformation?.length);
       })
       .catch(error => catchFormErrors(error, 'settings.contribution')),
-    [dispatch, hasInstructions, hasComplete, hasPublication]
+    [dispatch, hasInstructions, hasComplete, hasPublication, hasGDPRInformation]
   );
 
   return (
@@ -382,6 +385,7 @@ export default function ContributionEdition() {
                     hasInstructions={hasInstructions}
                     hasComplete={hasComplete}
                     hasPublication={hasPublication}
+                    hasGDPRInformation={hasGDPRInformation}
                   />
                 </div>
               </form>
