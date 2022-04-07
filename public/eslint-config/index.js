@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = {
   root: true,
 
@@ -33,7 +35,8 @@ module.exports = {
   settings: {
     react: {
       version: 'detect'
-    }
+    },
+    'import/resolver': path.resolve(__dirname, './resolver')
   },
 
   rules: {

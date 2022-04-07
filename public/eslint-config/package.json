@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
+    "enhanced-resolve": "^5.9.2",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.5",
