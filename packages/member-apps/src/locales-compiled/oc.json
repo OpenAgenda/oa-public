@@ -1,4 +1,10 @@
 {
+  "MemberApps.Form.GDPRSummary": [
+    {
+      "type": 0,
+      "value": "This information will be visible to the agenda moderators"
+    }
+  ],
   "MemberApps.Form.cancel": [
     {
       "type": 0,
@@ -23,10 +29,10 @@
       "value": "Se vos tiratz de l'agenda, recebretz pas mai las notificacions e poiretz pas pus modificar vòstres eveniments o n'apondre de novèls. L'agenda s'aficharà pas pus sus vòstre ecran d'acuèlh."
     }
   ],
-  "MemberApps.Form.description": [
+  "MemberApps.Form.moreInfo": [
     {
       "type": 0,
-      "value": "This information will allow the agenda administrators to get in touch with you if needed."
+      "value": "Read more"
     }
   ],
   "MemberApps.Form.remove": [

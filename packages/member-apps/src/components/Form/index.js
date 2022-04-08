@@ -14,8 +14,8 @@ const messages = defineMessages({
     id: 'MemberApps.Form.updateTitle',
     defaultMessage: 'Update your coordinates',
   },
-  description: {
-    id: 'MemberApps.Form.description',
+  GDPRSummary: {
+    id: 'MemberApps.Form.GDPRSummary',
     defaultMessage: 'This information will be visible to the agenda moderators',
   },
   success: {
@@ -80,7 +80,6 @@ const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
 
 export default ({
   title, // optional. specify form title
-  description, // optional. specify subtitle
   mode, // modal or not
   operation, // update or create
   res,
@@ -94,7 +93,7 @@ export default ({
   optionalFields, // optional: whether form info should be optional
   displayRemoveAction,
   blockButtons,
-  moreInfo,
+  GDPR,
   hideCancel,
   member, // optional preloaded member
 }) => {
@@ -110,6 +109,8 @@ export default ({
   const m = useIntl().formatMessage;
 
   const isLoading = operation === 'update' && !query.data && !member;
+
+  const { display: displayGDPRInformation, moreInfo: GDPRInformation } = GDPR ?? {};
 
   const loadedMember = member || query.data;
 
@@ -181,27 +182,38 @@ export default ({
   return Canvas(
     <>
       {isLoading ? <Spinner /> : null}
-      {operation === 'update' ? (
-        <div className="margin-bottom-sm">
+      <div className="margin-v-sm">
+        {operation === 'update' ? (
           <h3>{title !== undefined ? title : m(messages.updateTitle)}</h3>
-          <p className="margin-bottom-z">
-            {description !== undefined ? description : m(messages.description)}
-          </p>
-          {moreInfo ? (
-            <MoreInfo
-              placement="bottom"
-              content={<ReactMarkdown>{moreInfo}</ReactMarkdown>}
-            >
-              <button
-                type="button"
+        ) : null}
+        {displayGDPRInformation ? (
+          <>
+            <p className="margin-bottom-z">{m(messages.GDPRSummary)}</p>
+            {GDPRInformation ? (
+              <MoreInfo
+                placement="bottom"
+                content={<ReactMarkdown>{GDPRInformation}</ReactMarkdown>}
+              >
+                <button
+                  type="button"
+                  className="btn btn-link margin-all-z padding-all-z"
+                >
+                  {m(messages.moreInfo)}
+                </button>
+              </MoreInfo>
+            ) : (
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
                 className="btn btn-link margin-all-z padding-all-z"
               >
                 {m(messages.moreInfo)}
-              </button>
-            </MoreInfo>
-          ) : null}
-        </div>
-      ) : null}
+              </a>
+            )}
+          </>
+        ) : null}
+      </div>
       {isLoading ? (
         <BlankComponent />
       ) : (

@@ -16,6 +16,9 @@ export const createForm = () => (
       lang="fr"
       operation="create"
       res="/api/agendas/123/members"
+      GDPR={{
+        display: true,
+      }}
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');
@@ -30,7 +33,10 @@ export const updateForm = () => (
       lang="fr"
       operation="update"
       res="/api/agendas/123/members/456"
-      moreInfo={GDPRInformation}
+      GDPR={{
+        display: true,
+        moreInfo: GDPRInformation,
+      }}
       onSuccess={() => {
         // eslint-disable-next-line no-console
         console.log('success');

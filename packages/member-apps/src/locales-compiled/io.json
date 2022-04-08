@@ -1,4 +1,10 @@
 {
+  "MemberApps.Form.GDPRSummary": [
+    {
+      "type": 0,
+      "value": "This information will be visible to the agenda moderators"
+    }
+  ],
   "MemberApps.Form.cancel": [
     {
       "type": 0,
@@ -23,10 +29,10 @@
       "value": "crwdns16227:0crwdne16227:0"
     }
   ],
-  "MemberApps.Form.description": [
+  "MemberApps.Form.moreInfo": [
     {
       "type": 0,
-      "value": "crwdns16211:0crwdne16211:0"
+      "value": "Read more"
     }
   ],
   "MemberApps.Form.remove": [
