@@ -117,7 +117,8 @@
           "messages": {
             "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
             "complete": null,
-            "publication": null
+            "publication": null,
+            "GDPRInformation": "Message personnalisé d'information sur l'usage des données custo en **Markdown**"
           },
           "useFields": true,
           "authorizedIPAddresses": [],
