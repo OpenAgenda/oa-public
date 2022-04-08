@@ -10,15 +10,12 @@ const messages = defineMessages({
   subtitle: {
     id: 'AgendaContribute.Member.subtitle',
     defaultMessage: 'Present yourself to the agenda administrators before starting typing your events'
-  },
-  description: {
-    id: 'AgendaContribute.Member.description',
-    defaultMessage: 'Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.'
   }
 });
 
 export default ({
   member,
+  agenda,
   res,
   role,
   onSuccess
@@ -33,16 +30,14 @@ export default ({
   return (
     <div>
       <h3>{m(messages.title)}</h3>
-      <div className="padding-top-md padding-bottom-sm">
-        <div className="padding-bottom-sm">
-          <strong>{m(messages.subtitle)}</strong>
-        </div>
-        <p>{m(messages.description)}</p>
-      </div>
+      <strong>{m(messages.subtitle)}</strong>
       <MemberFormComponent
         member={member}
         title={null}
-        description={null}
+        GDPR={{
+          display: true,
+          moreInfo: agenda.settings?.contribution?.messages?.GDPRInformation
+        }}
         lang={locale}
         optionalFields={['administrator', 'moderator'].includes(role)}
         operation={member ? 'update' : 'create'}

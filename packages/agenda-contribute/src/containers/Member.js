@@ -54,6 +54,7 @@ export default function Member({
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
+            agenda={agenda}
             member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
