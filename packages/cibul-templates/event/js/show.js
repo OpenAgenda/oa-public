@@ -121,7 +121,8 @@ window.asap(async options => {
       me: params.me,
       member: params.member,
       lang: params.lang,
-      agendaUid: params.agendaUid
+      agendaUid: params.agendaUid,
+      GDPRInformation: params.GDPRInformation
     });
 
     if (['administrator', 'moderator'].includes(params.me?.member?.role)) {
