@@ -1,3 +1,12 @@
+<% if (typeof footnote !== 'undefined') { %>
+  <mj-section padding="15px 0 0">
+    <mj-column>
+      <%- typeof footnote === 'string'
+      ? `<mj-markdown>${footnote}</mj-markdown>`
+      : '' %>
+    </mj-column>
+  </mj-section>
+<% } %>
 <mj-section padding="15px 0">
   <mj-column>
     <mj-image

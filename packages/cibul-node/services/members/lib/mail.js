@@ -44,7 +44,7 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
 }
 
 function processSend({ config, services }, {
-  invitation, member, agenda, message, lang
+  invitation, member, agenda, message, lang, footnote
 }) {
   const {
     members
@@ -83,6 +83,7 @@ function processSend({ config, services }, {
       agenda: agenda.title,
       role,
       message,
+      footnote,
       isMember
     },
     lang
@@ -124,6 +125,7 @@ async function sendInvitation({ services, config }, {
     member,
     agenda,
     message: invitationContext?.message,
+    footnote: agenda.settings?.contribution?.messages?.GDPRInformation,
     lang
   });
 }
