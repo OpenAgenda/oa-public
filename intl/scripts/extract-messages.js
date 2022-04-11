@@ -6,32 +6,86 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const { sync: globSync } = require('glob');
-const { argv } = require('yargs');
+const { argv } = require('yargs/yargs')(process.argv.slice(2))
+  .command('$0 [files]', 'Extract and/or compile messages.', yargs => {
+    yargs.positional('files', {
+      default: 'src/**/*.js',
+      desc: 'Glob path to extract translations from, the source files.',
+    });
+  })
+  .options({
+    outDir: {
+      alias: 'o',
+      default: 'src/locales',
+      desc: 'The target dir path where the script will output an aggregated'
+        + ' `.json` file per lang of all the translations from the `files` supplied.',
+    },
+    compiledDir: {
+      default: 'src/locales-compiled',
+      desc: 'The target dir path where the script will output the compiled version of the translation files,'
+        + ' completed with the fallback langs.',
+    },
+    compileOnly: {
+      type: 'boolean',
+      alias: 'c',
+      default: false,
+      desc: 'Compile only, skip extraction.',
+    },
+    defaultLang: {
+      default: 'en',
+      desc: 'Default language, the one that is filled in for the default messages in the files.',
+    },
+    langs: {
+      default: 'en,fr,de,it,es,br,ca,eu,oc,io',
+      coerce: arg => arg.split(','),
+      desc: 'The target languages of the translations.',
+    },
+    definedDefault: {
+      default: 'fr',
+      coerce: arg => arg.split(','),
+      desc: 'Languages that are populated with messages set to "" for ease of translation.',
+    },
+    fallbackMap: {
+      default: '{ "br": "fr" }',
+      coerce: JSON.parse,
+      desc: 'A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.',
+    },
+    idInterpolationPattern: {
+      default: '[sha512:contenthash:base64:6]',
+      desc: 'If certain message descriptors don\'t have id,'
+        + ' this `pattern` will be used to automatically generate IDs for them,\n'
+        + 'where `contenthash` is the hash of `defaultMessage` and `description`.'
+    }
+  })
+  // .check(argvToCheck => {
+  //   console.log(argvToCheck);
+  //   const filePaths = argvToCheck._;
+  //   if (filePaths.length !== 1) {
+  //     throw new Error('Should have 1 source of files');
+  //   } else {
+  //     return true;
+  //   }
+  // })
+  .wrap(null)
+  .locale('en')
+  .help();
 const dedent = require('dedent');
 const mkdirp = require('mkdirp');
 const tmp = require('tmp');
 const { extract, compile } = require('@formatjs/cli');
 
-const FILES = argv._[0] || 'src/**/*.js';
-const OUT_DIR = argv.outDir || 'src/locales';
-const COMPILED_DIR = argv.compiledDir || 'src/locales-compiled';
-const ID_INTERPOLATION_PATTERN = argv.idInterpolationPattern || '[sha512:contenthash:base64:6]';
-const COMPILE_ONLY = argv.compile || argv.c;
+const FILES = argv.files;
+const OUT_DIR = argv.outDir;
+const COMPILED_DIR = argv.compiledDir;
+const ID_INTERPOLATION_PATTERN = argv.idInterpolationPattern;
+const COMPILE_ONLY = argv.compileOnly;
 const FORMAT = 'simple';
 
-const DEFAULT_LANG = argv.defaultLang || 'en';
-let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
-const DEFINED_DEFAULT = ['fr'];
+const DEFAULT_LANG = argv.defaultLang;
+const LANGS = argv.langs;
+const DEFINED_DEFAULT = argv.definedDefault;
 
-const FALLBACK_MAP = {
-  br: 'fr',
-};
-
-if (Array.isArray(argv.langs)) {
-  LANGS = argv.langs;
-} else if (typeof argv.langs === 'string') {
-  LANGS = argv.langs.split(',').map(v => v.trim());
-}
+const FALLBACK_MAP = argv.fallbackMap;
 
 function getMessages(localesPath) {
   try {
@@ -61,7 +115,7 @@ function getFallbackedMessages(lang) {
 
         return accu;
       },
-      fallbackMessages
+      fallbackMessages,
     );
   }
 
@@ -87,7 +141,7 @@ async function extractLang(defaultMessages, lang) {
   const defaults = getDefaults(defaultMessages, lang);
   const messages = _.pickBy(
     existingMessages,
-    (value, key) => key in defaultMessages && value
+    (value, key) => key in defaultMessages && value,
   );
 
   const result = _.merge(defaults, messages);
@@ -99,7 +153,7 @@ async function compileLang(lang) {
   const compiledLocalesPath = path.join(
     process.cwd(),
     COMPILED_DIR,
-    `${lang}.json`
+    `${lang}.json`,
   );
   const messages = getFallbackedMessages(lang);
   const tmpFile = tmp.fileSync();
@@ -113,7 +167,7 @@ async function compileLang(lang) {
       await compile([tmpFile.name], {
         ast: true,
         format: FORMAT,
-      })
+      }),
     );
 
     compiledLocales = _.mapValues(compiledLocales, item => (Array.isArray(item) && item.length === 0 ? null : item));
@@ -125,7 +179,7 @@ async function compileLang(lang) {
 
   fs.writeFileSync(
     compiledLocalesPath,
-    `${JSON.stringify(compiledLocales, null, 2)}\n`
+    `${JSON.stringify(compiledLocales, null, 2)}\n`,
   );
 }
 
@@ -141,16 +195,12 @@ function createIndex(dir) {
 
     'use strict';
 
-    ${dedent(
-    LANGS.sort()
-      .map(v => `const ${v} = require('./${v}.json');`)
-      .join('\n    ')
-  )}
+    ${dedent(LANGS.sort().map(v => `const ${v} = require('./${v}.json');`).join('\n    '))}
 
     module.exports = {
       ${LANGS.sort().join(',\n      ')},
     };
-    `}\n`
+    `}\n`,
   );
 }
 
@@ -163,13 +213,13 @@ function createIndex(dir) {
       idInterpolationPattern: ID_INTERPOLATION_PATTERN,
       extractFromFormatMessageCall: true,
       format: FORMAT,
-    })
+    }),
   );
 
   // Extract
   if (!COMPILE_ONLY) {
     const extractResults = await Promise.allSettled(
-      LANGS.map(lang => extractLang(defaultMessages, lang))
+      LANGS.map(lang => extractLang(defaultMessages, lang)),
     );
 
     extractResults.forEach(result => {
@@ -181,7 +231,7 @@ function createIndex(dir) {
 
   // Compile
   const compileResults = await Promise.allSettled(
-    LANGS.map(lang => compileLang(lang))
+    LANGS.map(lang => compileLang(lang)),
   );
 
   compileResults.forEach(result => {
