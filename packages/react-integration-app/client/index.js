@@ -134,7 +134,7 @@ const apps = [
   [
     'agendaContribute',
     createAgendaContributeApp,
-    [MainLayout, RequiredUser, AgendaDataLayout, AgendaLayout],
+    [MainLayout, RequiredUser.agenda, AgendaDataLayout, AgendaLayout],
   ],
   [
     'eventAdmin',
