@@ -491,6 +491,7 @@ function Dashboard() {
           res={res}
           settings={settings}
           agenda={agenda}
+          lang={lang}
           search={betterQsStringify({ ...search, page })}
           prefix={prefix}
           closeDetail={() => {
