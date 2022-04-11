@@ -73,10 +73,10 @@ const choiceFilter = ({
     };
   }
   return {
-    label: getLocalValue(field.label),
+    label: getLocalValue(field.label, intl.locale),
     value: field.options
       .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
-      .map(o => getLocalValue(o.label))
+      .map(o => getLocalValue(o.label, intl.locale))
       .join(', '),
     detail: intl.formatMessage(messages.sourceAgendaChoiceFieldValueDetail, {
       agendaTitle: sourceAgenda.title,
@@ -109,7 +109,7 @@ const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
   const textField = getTextFilterField(rule);
   const allFields = sourceAgendaSchema.fields.concat(eventTextFields);
   const field = pickFieldInFields(allFields, textField);
-  const label = getLocalValue(field.label);
+  const label = getLocalValue(field.label, intl.locale);
   return {
     label,
     value: intl.formatMessage(messages.textFilterValue, {

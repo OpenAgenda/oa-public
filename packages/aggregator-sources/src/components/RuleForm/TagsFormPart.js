@@ -19,7 +19,7 @@ export default ({ schema }) => {
         .flat()
         .map(v => ({
           value: v.label,
-          label: getLocalValue(v.label),
+          label: getLocalValue(v.label, intl.locale),
         }))
       : []),
     [schema]
