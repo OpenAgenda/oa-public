@@ -14,7 +14,10 @@ const validate = schema({
     type: 'integer'
   },
   locationUid: {
-    type: 'integer'
+    type: 'integer',
+    list: {
+      default: null
+    }
   },
   ownerUid: {
     type: 'integer'
@@ -55,7 +58,7 @@ module.exports = (k, query, options = {}) => {
   }
 
   if (locationUid) {
-    k.where('location_uid', locationUid);
+    k.whereIn('location_uid', locationUid);
   }
 
   if (ownerUid) {
