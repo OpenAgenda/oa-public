@@ -6,8 +6,22 @@ const log = require('@openagenda/logs')('services/agendaLocations/getEventCounts
 module.exports = (config, services) => async (locationUids, { agendaUid }) => {
   log('getting for %s for agenda %s', locationUids.join(', '), agendaUid);
   const { knex, core } = services;
-  const { aggregations: { locations: agendaEventCounts } } = await core.agendas(agendaUid).events.search({ locationUid: locationUids, state: null }, { size: 0 },
-    { aggregations: { type: 'locations', size: locationUids.length } });
+
+  const {
+    aggregations: {
+      locations: agendaEventCounts
+    }
+  } = await core.agendas(agendaUid).events.search({
+    locationUid: locationUids,
+    state: null
+  }, {
+    size: 0
+  }, {
+    aggregations: {
+      type: 'locations',
+      size: locationUids.length
+    }
+  });
 
   const absoluteCounts = await knex('event_2 as e')
     .select(['e.location_uid as locationUid', knex.raw('count(e.id) as eventCount')])
