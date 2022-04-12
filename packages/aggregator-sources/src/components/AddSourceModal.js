@@ -99,8 +99,7 @@ const messages = defineMessages({
   },
   infoMessageImmediat: {
     id: 'aggregator-sources.AddSourceModal.InfoMessageImmediat',
-    defaultMessage:
-      'The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar.',
+    defaultMessage: 'The calendar has been added to your sources.',
   },
   infoMessage: {
     id: 'aggregator-sources.AddSourceModal.InfoMessage',
