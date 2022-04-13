@@ -1,29 +1,18 @@
 'use strict';
 
-const _ = require('lodash');
 const list = require('./list');
 const get = require('./get');
 const patch = require('./patch');
 const remove = require('./remove');
 const merge = require('./merge');
+const update = require('./update');
+const create = require('./create');
 const getSettings = require('./getSettings');
 
-module.exports = (core, agendaOrUid) => {
-  const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
-
-  const locations = core.services.agendaLocations(agendaUid);
-
-  return {
-    create: data => locations.create(data, {
-      geocodeIfUndefined: true,
-      includeImagePath: true,
-      agendaUid
-    }),
-    update: (uid, data) => locations.update(uid, data, {
-      geocodeIfUndefined: true,
-      includeImagePath: true,
-      agendaUid
-    }),
+module.exports = (core, agendaOrUid) => (
+  {
+    create: create(core, agendaOrUid),
+    update: update(core, agendaOrUid),
     patch: patch(core, agendaOrUid),
     remove: remove(core, agendaOrUid),
     get: get(core, agendaOrUid),
@@ -32,5 +21,5 @@ module.exports = (core, agendaOrUid) => {
     settings: {
       get: getSettings(core, agendaOrUid)
     }
-  };
-};
+  }
+);
