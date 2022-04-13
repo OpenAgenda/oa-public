@@ -138,7 +138,19 @@ body {
 .info-block {
 
   background-color: $oa-gray-lightest;
-  padding: 1em;
+  padding: 1em 1.25em;
+  border: 1px solid $oa-gray-lighter;
+
+  label {
+    margin-right: 1em;
+  }
+
+}
+
+.info-block-sm {
+
+  background-color: $oa-gray-lightest;
+  padding: 0.5em 0.75em;
   border: 1px solid $oa-gray-lighter;
 
   label {
