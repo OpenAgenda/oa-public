@@ -5,23 +5,23 @@ const log = require('@openagenda/logs')('services/agendaLocations/getEventCounts
 
 module.exports = (config, services) => async (locationUids, { agendaUid }) => {
   log('getting for %s for agenda %s', locationUids.join(', '), agendaUid);
-  const { knex, core } = services;
+  const { knex } = services;
 
-  const {
-    aggregations: {
-      locations: agendaEventCounts
-    }
-  } = await core.agendas(agendaUid).events.search({
-    locationUid: locationUids,
-    state: null
-  }, {
-    size: 0
-  }, {
-    aggregations: {
-      type: 'locations',
-      size: locationUids.length
-    }
-  });
+  const query = knex('event_2 as e')
+    .select(['e.location_uid as locationUid', knex.raw('count(e.id) as eventCount')])
+    .leftJoin('agenda_event as ae', 'e.uid', 'ae.event_uid')
+    .whereIn('e.location_uid', locationUids);
+
+  if (agendaUid) {
+    query.andWhere('ae.agenda_uid', agendaUid);
+  }
+
+  const agendaEventCounts = await query
+    .groupBy('e.location_uid')
+    .then(rows => rows.map(r => ({
+      uid: r.locationUid,
+      agendaEventCount: r.eventCount
+    })));
 
   const absoluteCounts = await knex('event_2 as e')
     .select(['e.location_uid as locationUid', knex.raw('count(e.id) as eventCount')])
@@ -45,5 +45,5 @@ module.exports = (config, services) => async (locationUids, { agendaUid }) => {
     }
 
     return merged;
-  }, agendaEventCounts.map(e => ({ uid: e.key, agendaEventCount: e.eventCount, eventCount: 0 })));
+  }, agendaEventCounts.map(pair => ({ ...pair, eventCount: 0 })));
 };
