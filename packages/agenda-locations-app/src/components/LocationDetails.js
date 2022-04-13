@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { Spinner } from '@openagenda/react-shared';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields';
@@ -23,7 +25,7 @@ const messages = {
     },
     noRefAgendas: {
       id: 'AgendaLocations.LocationDetails.noRefAgendas',
-      defaultMessage: 'This place is not referenced in any other agenda.',
+      defaultMessage: 'This location is use only in <strong>{title}</strong>',
     },
     hoverInfo: {
       id: 'AgendaLocations.LocationDetails.hoverInfo',
@@ -81,8 +83,14 @@ const messages = {
       id: 'AgendaLocations.LocationDetails.extId',
       defaultMessage: 'External Identifier',
     },
+    editLocation: {
+      id: 'AgendaLocations.LocationDetails.editLocation',
+      defaultMessage: 'Edit Location',
+    },
   })
 };
+
+const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
 const mapValues = location => ({
   '{w}': 500,
@@ -124,7 +132,8 @@ const LocationDetails = ({
   const hoverInfo = hover ? intl.formatMessage(messages.hoverInfo) : null;
   const existingLangs = getExistingLangs(location);
   const staticMap = staticTiles?.replace(/{w}|{h}|{lon}|{lat}|{z}/gi, matched => mapValues(location)[matched]);
-
+  const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
+  const history = useHistory();
   const toggleCurrentLang = (newContentLang, e) => {
     e.preventDefault();
     setContentLang(newContentLang);
@@ -137,11 +146,18 @@ const LocationDetails = ({
     const link = `${res.agendaSearch}?uid[]=${filteredLAgendas.map(a => a.uid).join('&uid[]=')}`;
 
     if (nbAgendasRendered === 0) {
-      return (<p><FormattedMessage {...messages.noRefAgendas} /></p>);
+      return (
+        <div>
+          {intl.formatMessage(messages.noRefAgendas, {
+            title: agenda.title,
+            b: chunks => <b>{chunks}</b>,
+          })}
+        </div>
+      );
     }
     return (
       <div>
-        <p>
+        <div>
           <span><FormattedMessage values={{ count: nbAgendasRendered }} {...messages.refAgendas} /></span>
           {filteredLAgendas.slice(0, nbAgendasRendered - 1).map(a => (
             <>
@@ -152,7 +168,7 @@ const LocationDetails = ({
           <a href={`${res.agendaSearch}/${filteredLAgendas[nbAgendasRendered - 1].uid}`}>{filteredLAgendas[nbAgendasRendered - 1].title}</a>
           {nbAgendasUnrendered !== 0 ? <span><FormattedMessage {...messages.andOn} /></span> : null}
           {nbAgendasUnrendered !== 0 ? <a href={link}><FormattedMessage values={{ count: nbAgendasUnrendered }} {...messages.others} /> </a> : null}
-        </p>
+        </div>
       </div>
     );
   };
@@ -160,21 +176,26 @@ const LocationDetails = ({
   return (
     <div>
       <div className="margin-bottom-md">
-        {!linkedAgendas ? (
-          <i style={{ padding: '0.2em 0.65em' }}>
-            <Spinner
-              mode="inline"
-              options={{
-                width: 2,
-                length: 3,
-                radius: 4,
-                color: '#666',
-              }}
-            />
-          </i>
-        ) : (
-          renderLinkedAgendas()
-        )}
+        <div className="info-block-sm margin-bottom-sm">
+          {!linkedAgendas ? (
+            <i style={{ padding: '0.2em 0.65em' }}>
+              <Spinner
+                mode="inline"
+                options={{
+                  width: 2,
+                  length: 3,
+                  radius: 4,
+                  color: '#666',
+                }}
+              />
+            </i>
+          ) : (
+            renderLinkedAgendas()
+          )}
+          <button type="button" className="btn btn-link padding-all-z" onClick={() => history.push(`${prefix}/${location.uid}/edit`)}>
+            <FormattedMessage {...messages.editLocation} />
+          </button>
+        </div>
         <p title={hoverInfo}>{location.address}</p>
         <a
           title={hoverInfo}
