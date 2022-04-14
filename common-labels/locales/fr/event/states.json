@@ -1,0 +1,6 @@
+{
+  "common.event.states.refused": "Refusé",
+  "common.event.states.toModerate": "À modérer",
+  "common.event.states.controlled": "Prêt à publier",
+  "common.event.states.published": "Publié"
+}
