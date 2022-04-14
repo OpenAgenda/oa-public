@@ -96,5 +96,9 @@
   "AgendaStats.form.max": "crwdns16179:0crwdne16179:0",
   "AgendaStats.form.metric": "crwdns16181:0crwdne16181:0",
   "AgendaStats.form.min": "crwdns16183:0crwdne16183:0",
-  "AgendaStats.form.sum": "crwdns16185:0crwdne16185:0"
+  "AgendaStats.form.sum": "crwdns16185:0crwdne16185:0",
+  "AgendaStats.EmptyDashboard.action": "crwdns17316:0crwdne17316:0",
+  "AgendaStats.EmptyDashboard.creationHelp": "crwdns17318:0crwdne17318:0",
+  "AgendaStats.EmptyDashboard.description": "crwdns17320:0crwdne17320:0",
+  "AgendaStats.EmptyDashboard.title": "crwdns17322:0crwdne17322:0"
 }

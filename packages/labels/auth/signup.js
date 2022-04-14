@@ -4,7 +4,7 @@ module.exports = {
   "usedAccount": {
     "fr": "Ce service est déjà utilisé sur un autre compte",
     "en": "This service account is already in use",
-    "it": "Questo conto di servizio è già in uso",
+    "it": "Questo account di servizio è già in uso",
     "de": "Dieses Servicekonto ist bereits in Gebrauch.",
     "pl": "To konto serwisu jest już w użyciu",
     "es": "Este servicio ya está en uso en otra cuenta",
@@ -64,7 +64,7 @@ module.exports = {
   "createAccount": {
     "fr": "Créez un compte",
     "en": "Create an account",
-    "it": "Crea un conto",
+    "it": "Crea un account",
     "de": "Ein Konto erstellen",
     "pl": "Utwórz konto",
     "es": "Crear una cuenta",
@@ -104,7 +104,7 @@ module.exports = {
   "nameSurname": {
     "fr": "Prénom Nom",
     "en": "Name Surname",
-    "it": "Nome Cognome",
+    "it": "Nome e cognome",
     "de": "Vorname Nachname",
     "pl": "Imię i nazwisko",
     "es": "Nombre Apellido",
@@ -114,7 +114,7 @@ module.exports = {
   "email": {
     "fr": "Email",
     "en": "Email",
-    "it": "Email eMail",
+    "it": "Email",
     "de": "E-Mail",
     "pl": "Poczta elektroniczna",
     "es": "e-mail",
@@ -154,7 +154,7 @@ module.exports = {
   "agree": {
     "fr": "En créant un compte vous acceptez les %terms% ainsi que la %policy%.",
     "en": "By creating an account you agree to the %terms% and to the %policy%.",
-    "it": "Creando un conto si accettano le %terms% e le %policy%.",
+    "it": "Creando un account si accettano le %terms% e le %policy%.",
     "de": "Mit der Erstellung eines Kontos, akzeptieren Sie den %terms% und der %policy%.",
     "pl": "Tworząc konto zgadzasz się na %terms% i %policy%.",
     "es": "Al crear una cuenta en la que acepta los términos% y la política .",

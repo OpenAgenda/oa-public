@@ -4,12 +4,14 @@ module.exports = {
   "title": {
     "fr": "Vérification de votre demande de création de compte",
     "en": "Verification of you account creation request",
-    "io": "crwdns13086:0crwdne13086:0"
+    "io": "crwdns13086:0crwdne13086:0",
+    "it": "Verifica della tua richiesta di creazione dell'account"
   },
   "context": {
     "fr": "En raison d'une quantité importante et récente de création de contenus publicitaires automatisés sur la plateforme, une étape temporaire de vérification des nouveaux comptes est nécessaire.",
     "en": "Due to a recent increase of account creations for the sole purpose of publishing advertisement content, a temporary measure has been set up to verify accounts prior to their creation.",
-    "io": "crwdns13088:0crwdne13088:0"
+    "io": "crwdns13088:0crwdne13088:0",
+    "it": "A causa di un recente aumento di creazioni di account al solo scopo di pubblicare contenuti pubblicitari, è stata istituita una misura temporanea per verificare gli account prima della loro creazione."
   },
   "instruction": {
     "fr": "**Vous serez notifié rapidement de l'activation de votre compte par email (quelques minutes pendant les heures de bureau).**",

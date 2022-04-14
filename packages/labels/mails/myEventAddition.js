@@ -10,13 +10,13 @@ module.exports = {
   "body": {
     "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été ajouté avec le statut **%state%** par **%user%**.",
     "en": "**%event%** from the agenda **%sourceAgenda%** has been added with the state **%state%** by **%user%**.",
-    "it": "**%event%** dal **%sourceAgenda%** è stato aggiunto con lo stato **%state%** da **%user%**.",
+    "it": "L’evento %event%, creato nell'agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
     "io": "crwdns15474:0%event%crwdnd15474:0%sourceAgenda%crwdnd15474:0%state%crwdnd15474:0%user%crwdne15474:0"
   },
   "bodyText": {
     "fr": "%event% provenant de l'agenda %sourceAgenda% a été ajouté avec le statut %state% par %user%.",
     "en": "%event% from the agenda %sourceAgenda% has been added with the state %state% by %user%.",
-    "it": "%event% da agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
+    "it": "L’evento %event%, creato nell'agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
     "io": "crwdns15476:0%event%crwdnd15476:0%sourceAgenda%crwdnd15476:0%state%crwdnd15476:0%user%crwdne15476:0"
   },
   "actionDescription": {
@@ -57,7 +57,7 @@ module.exports = {
     "en": "refused",
     "de": "verweigert",
     "es": "rechazado",
-    "it": "respinto",
+    "it": "rifiutato",
     "br": "nac'het",
     "io": "crwdns15486:0crwdne15486:0"
   },

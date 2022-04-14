@@ -46,7 +46,7 @@ module.exports = {
     "fr": "Mots clés",
     "de": "Schlüsselwörter",
     "es": "Palabras llave",
-    "it": "Parole chiave",
+    "it": "Parole Chiave",
     "br": "Gerioù-alc'hwez",
     "io": "crwdns14156:0crwdne14156:0"
   },
@@ -207,7 +207,7 @@ module.exports = {
     "fr": "En Une",
     "de": "Hervorgehoben",
     "es": "En titular",
-    "it": "Prima pagina",
+    "it": "Selezionato",
     "br": "Keleier pennañ",
     "io": "crwdns14194:0crwdne14194:0"
   },
@@ -466,7 +466,7 @@ module.exports = {
     "fr": "Arrondissement",
     "de": "Kreis",
     "es": "Barrio",
-    "it": "Comune",
+    "it": "Quartiere",
     "io": "crwdns14256:0crwdne14256:0",
     "oc": "Districte"
   },

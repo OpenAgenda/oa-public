@@ -25,7 +25,7 @@ module.exports = {
     "de": "Offizieller Veranstaltungskalender",
     "br": "Deiziataer ofisiel",
     "es": "Agenda oficial",
-    "it": "agenda ufficiale",
+    "it": "Agenda ufficiale",
     "io": "crwdns14122:0crwdne14122:0"
   },
   "noResult": {

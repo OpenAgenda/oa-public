@@ -380,35 +380,25 @@
   "AgendaStats.EmptyDashboard.action": [
     {
       "type": 0,
-      "value": "Create a first event"
+      "value": "crwdns17316:0crwdne17316:0"
     }
   ],
   "AgendaStats.EmptyDashboard.creationHelp": [
     {
-      "children": [
-        {
-          "type": 0,
-          "value": "Click here"
-        }
-      ],
-      "type": 8,
-      "value": "link"
-    },
-    {
       "type": 0,
-      "value": " to learn more about adding events to your agenda."
+      "value": "crwdns17318:0crwdne17318:0"
     }
   ],
   "AgendaStats.EmptyDashboard.description": [
     {
       "type": 0,
-      "value": "Add or enter events then configure a report here consisting of pie charts, bar charts or histograms to get an overview of your programming."
+      "value": "crwdns17320:0crwdne17320:0"
     }
   ],
   "AgendaStats.EmptyDashboard.title": [
     {
       "type": 0,
-      "value": "Generate statistics on the contents of your agenda."
+      "value": "crwdns17322:0crwdne17322:0"
     }
   ],
   "AgendaStats.IntervalSelect.day": [

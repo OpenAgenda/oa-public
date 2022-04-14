@@ -4,13 +4,13 @@ module.exports = {
   "noAccountFound": {
     "en": "No account was found",
     "fr": "Compte introuvable",
-    "it": "Nessun conto trovato",
+    "it": "Nessun account trovato",
     "io": "crwdns13056:0crwdne13056:0"
   },
   "accountAlreadyActivated": {
     "en": "The account is already activated",
     "fr": "Le compte est déjà activé",
-    "it": "Il conto è già attivato",
+    "it": "Il account è già attivato",
     "io": "crwdns13058:0crwdne13058:0"
   },
   "incorrectPassword": {

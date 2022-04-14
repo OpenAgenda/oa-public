@@ -194,9 +194,15 @@
   ],
   "EventAdminApp.Dashboard.totalEvents": [
     {
-      "style": null,
-      "type": 2,
-      "value": "total"
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
     },
     {
       "type": 0,

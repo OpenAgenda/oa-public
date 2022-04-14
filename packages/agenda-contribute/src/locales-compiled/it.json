@@ -232,7 +232,7 @@
   "AgendaContribute.EventWasSuccessfullyShared.goTo": [
     {
       "type": 0,
-      "value": "See the event in "
+      "value": "Vedere l'evento in "
     },
     {
       "type": 1,
@@ -267,22 +267,16 @@
       "value": "\". It will be reviewed before being published"
     }
   ],
-  "AgendaContribute.Member.description": [
-    {
-      "type": 0,
-      "value": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica."
-    }
-  ],
   "AgendaContribute.Member.subtitle": [
     {
       "type": 0,
-      "value": "Presentatevi prima di aggiungere i vostri eventi"
+      "value": "Vi preghiamo di inserire i vostri dati prima di procedere al caricamento dell’evento"
     }
   ],
   "AgendaContribute.Member.title": [
     {
       "type": 0,
-      "value": "Benvenuta !"
+      "value": "Benvenuti!"
     }
   ],
   "AgendaContribute.RequestEditionRights.noEditionRights": [

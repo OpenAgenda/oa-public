@@ -22,7 +22,7 @@ module.exports = {
     "en": "Submit",
     "de": "Rekord",
     "es": "Guardar",
-    "it": "Registrati",
+    "it": "Invia",
     "br": "Kemmañ",
     "io": "crwdns14886:0crwdne14886:0"
   },

@@ -17,7 +17,7 @@ module.exports = {
     "he": "%firstDate% וגם %lastDate% ",
     "ar": "%firstDate% و %lastDate% ",
     "de": "%firstDate% und %lastDate%",
-    "it": "%firstDate% e %lastDate%",
+    "it": "%firstDate% et %lastDate%",
     "es": "%firstDate% i %lastDate%",
     "io": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0"
   },
@@ -58,7 +58,7 @@ module.exports = {
     "he": "במועדים",
     "ar": "في",
     "de": "am",
-    "it": "i",
+    "it": "su",
     "es": "los",
     "io": "crwdns12898:0crwdne12898:0"
   },
@@ -68,7 +68,7 @@ module.exports = {
     "he": "ימי ראשון",
     "ar": "الأحد",
     "de": "sonntag",
-    "it": "Domeniche",
+    "it": "Domenica",
     "es": "Domingos",
     "oc": "dimenges",
     "io": "crwdns16074:0crwdne16074:0"
@@ -134,7 +134,7 @@ module.exports = {
     "he": "ימי שבת",
     "ar": "السبت",
     "de": "sonnabend",
-    "it": "Sabati",
+    "it": "Sabato",
     "es": "Sabado",
     "oc": "dissabtes",
     "io": "crwdns16086:0crwdne16086:0"

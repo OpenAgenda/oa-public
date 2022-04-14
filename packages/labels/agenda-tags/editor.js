@@ -84,7 +84,7 @@ module.exports = {
     "fr": "Intitulé de la liste",
     "de": "Name der Liste",
     "es": "Encabezando la lista",
-    "it": "Titolo della lista",
+    "it": "Nome della lista",
     "io": "crwdns12704:0crwdne12704:0"
   },
   "listSection": {
@@ -101,7 +101,7 @@ module.exports = {
     "fr": "Ajouter",
     "de": "Hinzufügen",
     "es": "añadir",
-    "it": "Aggiungere",
+    "it": "Aggiungi",
     "io": "crwdns12708:0crwdne12708:0"
   },
   "addTag": {
@@ -133,7 +133,7 @@ module.exports = {
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns12716:0crwdne12716:0"
   },
@@ -159,7 +159,7 @@ module.exports = {
     "fr": "Vous n'avez encore défini aucune tags pour cet agenda",
     "de": "Du hast noch keine Tags zu diesem Programm definiert",
     "es": "No se ha definido ninguna etiqueta para esta agenda",
-    "it": "Non avete ancora impostato alcun tag per questo calendario.",
+    "it": "Non avete ancora impostato alcun tag per questo calendario",
     "io": "crwdns12722:0crwdne12722:0"
   },
   "linkError": {
@@ -167,7 +167,7 @@ module.exports = {
     "fr": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
     "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
     "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
-    "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve.",
+    "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
     "io": "crwdns12724:0crwdne12724:0"
   },
   "updateTag": {
@@ -184,7 +184,7 @@ module.exports = {
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns12728:0crwdne12728:0"
   },
@@ -193,7 +193,7 @@ module.exports = {
     "fr": "Obligatoire",
     "de": "Erforderlich",
     "es": "obligatorio",
-    "it": "Obbligatorio",
+    "it": "Richiesto",
     "br": "Rekis",
     "io": "crwdns12730:0crwdne12730:0"
   },
@@ -234,7 +234,7 @@ module.exports = {
     "fr": "Cet onglet a été déplacé dans la section 'Paramétrer' de l'administration de votre agenda",
     "de": "Diese Registerkarte wurde dem Setup-Abschnitt Ihrer Agenda Verwaltungsseite bewegt",
     "es": "Esta ficha se ha movido en la 'Configuración' de la administración de su agenda",
-    "it": "Questa scheda è stata spostata nella sezione \"Impostazioni\" dell'amministrazione del calendario.",
+    "it": "Questa scheda è stata spostata nella sezione \"Impostazioni\" dell'amministrazione del calendario",
     "io": "crwdns12740:0crwdne12740:0",
     "oc": "Aqueste onglet es estat mudat a la seccion Configuracion de vòstra pagina d'administracion d'agenda"
   },
@@ -243,7 +243,7 @@ module.exports = {
     "fr": "Vous allez être redirigé automatiquement dans un instant",
     "de": "Sie werden automatisch in einem Augenblick umgeleitet werden",
     "es": "Se le redireccionará en un momento",
-    "it": "Sarete automaticamente reindirizzati in un attimo.",
+    "it": "Sarete automaticamente reindirizzati in un attimo",
     "io": "crwdns12742:0crwdne12742:0",
     "oc": "Seretz automaticament redirigit·da dins un moment"
   },

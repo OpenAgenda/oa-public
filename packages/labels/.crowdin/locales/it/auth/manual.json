@@ -1,4 +1,6 @@
 {
   "instruction": "**L'attivazione del tuo account ti sarà notificata rapidamente via e-mail (pochi minuti durante l'orario d'ufficio di Parigi).**",
-  "complaint": "Nel caso in cui ci sia un ritardo nell'elaborazione della tua richiesta, inviaci un messaggio tramite lo strumento di chat sulla nostra [homepage](/) o inviaci una mail a [verif@openagenda.com](mailto:verif@openagenda.com) con l'email utilizzata durante la creazione dell'account."
+  "complaint": "Nel caso in cui ci sia un ritardo nell'elaborazione della tua richiesta, inviaci un messaggio tramite lo strumento di chat sulla nostra [homepage](/) o inviaci una mail a [verif@openagenda.com](mailto:verif@openagenda.com) con l'email utilizzata durante la creazione dell'account.",
+  "title": "Verifica della tua richiesta di creazione dell'account",
+  "context": "A causa di un recente aumento di creazioni di account al solo scopo di pubblicare contenuti pubblicitari, è stata istituita una misura temporanea per verificare gli account prima della loro creazione."
 }

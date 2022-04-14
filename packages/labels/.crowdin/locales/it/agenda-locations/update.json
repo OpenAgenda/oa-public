@@ -1,8 +1,8 @@
 {
   "title": "Edizione del luogo",
   "info": "Tutti gli eventi relativi a questa località saranno aggiornati.",
-  "submit": "Aggiornare",
-  "submitError": "La posizione non ha potuto essere aggiornata.",
+  "submit": "Aggiorna",
+  "submitError": "La posizione non ha potuto essere aggiornata",
   "singleSuggestionCount": "Per questa località è stata suggerita una modifica",
   "suggestionCount": "Per questa località sono state suggerite %count% variazioni",
   "loadSuggestion": "Vedere",

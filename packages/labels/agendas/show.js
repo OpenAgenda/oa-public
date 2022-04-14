@@ -145,7 +145,7 @@ module.exports = {
   "manage": {
     "en": "Manage",
     "fr": "Gérer",
-    "it": "Gestire",
+    "it": "Gestisci",
     "de": "verwalten",
     "pl": "Zarządzaj",
     "br": "Merañ",
@@ -225,7 +225,7 @@ module.exports = {
   "agendaHasNotEventsPublished": {
     "en": "This agenda has not published any event yet",
     "fr": "Cet agenda n'a pas encore publié d'événement",
-    "it": "Questa Agenda non ha ancora pubblicato degli eventi  ",
+    "it": "Questa Agenda non ha ancora pubblicato degli eventi",
     "de": "Dieser Kalender hat noch keine Veranstaltungen veröffentlicht.",
     "pl": "Ten kalendarz nie opublikował jeszcze żadnego wydarzenia",
     "br": "An deiziataer-mañ n'en deus ket embannet darvoudoù c'hoazh",
@@ -317,7 +317,7 @@ module.exports = {
   "countUpcomingEvents": {
     "en": "%count% upcoming events",
     "fr": "%count% événements à venir",
-    "it": "%count% eventi futuri",
+    "it": "%count% eventi in programma",
     "de": "%count% künftige Veranstaltungen",
     "pl": "%count% przyszłych wydarzeń",
     "br": "%count% a zarvoudoù da zont",

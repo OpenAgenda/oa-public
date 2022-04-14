@@ -836,7 +836,7 @@
   "AgendaLocations.LocationForm.updateSubmitError": [
     {
       "type": 0,
-      "value": "La posizione non ha potuto essere aggiornata."
+      "value": "La posizione non ha potuto essere aggiornata"
     }
   ],
   "AgendaLocations.LocationForm.website": [

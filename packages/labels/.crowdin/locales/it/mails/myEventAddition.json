@@ -1,12 +1,12 @@
 {
   "title": "Il suo evento %event% è stato aggiunto a %agenda%",
-  "body": "**%event%** dal **%sourceAgenda%** è stato aggiunto con lo stato **%state%** da **%user%**.",
-  "bodyText": "%event% da agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
+  "body": "L’evento %event%, creato nell'agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
+  "bodyText": "L’evento %event%, creato nell'agenda %sourceAgenda% è stato aggiunto con stato %state% da %user%.",
   "actionDescription": "Visualizza evento",
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",
-  "refused": "respinto",
+  "refused": "rifiutato",
   "unsubscribe": "Interrompere la ricezione delle aggiunte di eventi",
   "memberUnsubscribe": "Non ricevere più aggiunte di eventi su questo calendario",
   "changeEmailSettings": "Modificare le mie impostazioni e-mail"

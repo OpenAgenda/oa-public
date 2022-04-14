@@ -1,8 +1,8 @@
 {
   "sendAgain": "L'e-mail di attivazione viene inviata di nuovo",
   "checkEmail": "Controlla la tua mail per un link di convalida",
-  "checkEmailInstruction": "A breve ti verrà inviata un'e-mail contenente il link di attivazione del tuo conto. Controlla la tua casella di posta per completare il processo di creazione del tuo conto.",
-  "didNotReceive": "Non hai ricevuto nessuna mail? %resend% o scrivi a %support%.",
+  "checkEmailInstruction": "A breve ti verrà inviata un e-mail contenente il link di attivazione del tuo conto. Controlla la tua casella di posta per completare il processo di creazione del tuo account.",
+  "didNotReceive": "Non hai ricevuto nessuna mail? %resend% o scrivi a %support%",
   "resend": "Cliccare qui per inviare di nuovo",
   "stayUpToDate": "Rimani aggiornato su ciò che sta succedendo con OpenAgenda!",
   "followUs": "Seguici",

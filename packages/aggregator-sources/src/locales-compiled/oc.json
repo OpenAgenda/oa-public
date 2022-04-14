@@ -530,8 +530,26 @@
   ],
   "aggregator-sources.DefineRules.locationFilter": [
     {
-      "type": 0,
-      "value": "Location filter"
+      "options": {
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Location filter"
+            }
+          ]
+        },
+        "true": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Required location filter"
+            }
+          ]
+        }
+      },
+      "type": 5,
+      "value": "required"
     }
   ],
   "aggregator-sources.DefineRules.manualPasteRules": [
@@ -1048,29 +1066,7 @@
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
-      "value": " "
-    },
-    {
-      "options": {
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Location filter"
-            }
-          ]
-        },
-        "true": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Required location filter"
-            }
-          ]
-        }
-      },
-      "type": 5,
-      "value": "required"
+      "value": "Location filter"
     }
   ],
   "aggregator-sources.RuleForm.modeAdvanced": [

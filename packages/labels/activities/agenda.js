@@ -230,7 +230,7 @@ module.exports = {
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
     "fr": "Libellé d'activité manquant pour {verb}",
-    "it": "Etichetta di attività mancante per {verb}.",
+    "it": "Etichetta di attività mancante per {verb}",
     "io": "crwdns11152:0{verb}crwdne11152:0"
   }
 }

@@ -14,7 +14,7 @@
   "AgendaSettings.CreationSecondStep.onlineEvents": [
     {
       "type": 0,
-      "value": "Allow online event entry"
+      "value": "Consentire agli annunzi di eventi in linea"
     }
   ],
   "AgendaSettings.CreationSecondStep.onlineEventsDesc": [
@@ -26,7 +26,7 @@
   "AgendaSettings.CreationSecondStep.statusField": [
     {
       "type": 0,
-      "value": "Show status field (complete, postponed, cancelled) in the form"
+      "value": "Essere in grado di assegnare gli stati agli eventi: pieno, rimandato, cancellato"
     }
   ],
   "AgendaSettings.CreationSecondStep.statusFieldDesc": [
@@ -38,7 +38,7 @@
   "AgendaSettings.contribution.closedContibution": [
     {
       "type": 0,
-      "value": "Closed"
+      "value": "Chiusa"
     }
   ],
   "AgendaSettings.contribution.closedContibutionDesc": [
@@ -56,25 +56,25 @@
   "AgendaSettings.contribution.openContribution": [
     {
       "type": 0,
-      "value": "Aprire"
+      "value": "Aperta"
     }
   ],
   "AgendaSettings.contribution.openContributionDesc": [
     {
       "type": 0,
-      "value": "Any user can add events, under your moderation"
+      "value": "Qualsiasi utente può aggiungere eventi, sotto la sua moderazione"
     }
   ],
   "AgendaSettings.contribution.reducedContribution": [
     {
       "type": 0,
-      "value": "Reduced"
+      "value": "Ridotta"
     }
   ],
   "AgendaSettings.contribution.reducedContributionDesc": [
     {
       "type": 0,
-      "value": "Only invited users can add events"
+      "value": "Solo gli utenti invitati possono aggiungere eventi"
     }
   ]
 }

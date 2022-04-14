@@ -6,12 +6,12 @@
   "messages": "Messaggi",
   "notifications": "Notifiche",
   "addAnEvent": "Aggiungi un evento",
-  "manage": "Gestire",
+  "manage": "Gestisci",
   "moderate": "Moderato",
-  "officialAgenda": "agenda ufficiale",
-  "welcomeTitle": "Benvenuti nel vostro conto OpenAgenda!",
+  "officialAgenda": "Agenda ufficiale",
+  "welcomeTitle": "Benvenuti nel suo account OpenAgenda!",
   "welcomeMessage": "Puoi iscriverti a calendari aperti al contributo o creare il tuo calendario.",
-  "openAgendasOfMoment": "Diari aperti attuali :",
+  "openAgendasOfMoment": "Agenda aperti attuali :",
   "contributeToExisting": "Contribuire ad un'agenda esistente",
   "orCreateYourAgenda": "Contribuire ad un'agenda esistente",
   "noResult": "Nessun risultato trovato",
@@ -21,7 +21,7 @@
   "privateAgenda": "Diario privato",
   "privateEvent": "Evento privato",
   "draft": "Bozza",
-  "contact": "Contatto",
+  "contact": "Contattare",
   "see": "Vedi",
   "support": "Supporto",
   "modify": "Modifica",
@@ -34,5 +34,5 @@
   "otherActions": "Azioni",
   "removeMember": "Lasciare l'agenda",
   "removeMemberInformation": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",
-  "show": "Aprire"
+  "show": "Aperta"
 }

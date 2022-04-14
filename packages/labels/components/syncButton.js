@@ -6,7 +6,7 @@ module.exports = {
     "fr": "Sauvegarder",
     "de": "sparen",
     "es": "Guardar",
-    "it": "Registrare",
+    "it": "Salva",
     "br": "Enrollañ",
     "io": "crwdns13238:0crwdne13238:0"
   },
@@ -39,7 +39,7 @@ module.exports = {
     "fr": "Annuler",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns13246:0crwdne13246:0"
   }

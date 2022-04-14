@@ -8,5 +8,6 @@
   "MemberApps.Form.removeSuccess": "Lei non è più membro dell'agenda",
   "MemberApps.Form.save": "Salva",
   "MemberApps.Form.success": "Aggiornamento fatto",
-  "MemberApps.Form.updateTitle": "Modulo di contatto"
+  "MemberApps.Form.updateTitle": "Modulo di contatto",
+  "MemberApps.Form.GDPRSummary": "Queste informazioni saranno visibili ai moderatori dell'agenda"
 }

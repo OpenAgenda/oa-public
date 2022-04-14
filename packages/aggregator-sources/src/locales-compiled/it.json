@@ -463,7 +463,7 @@
   "aggregator-sources.DefineRules.brokenFilterInfo": [
     {
       "type": 0,
-      "value": "Questo filtro si riferisce a un campo che non può essere trovato. Potrebbe essere stato cancellato dall'agenda fonte"
+      "value": "questo filtro si riferisce a un campo che non può essere trovato. Potrebbe essere stato cancellato dall'agenda fonte!"
     }
   ],
   "aggregator-sources.DefineRules.cancel": [
@@ -511,7 +511,15 @@
   "aggregator-sources.DefineRules.description": [
     {
       "type": 0,
-      "value": "Le regole sono applicate agli eventi nella loro aggregazione. Sono usate per condizionare l'aggregazione, o per assegnare valori a campi estesi nella sua agenda."
+      "value": "Le regole sono applicate agli eventi nella loro aggregazione."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " Sono usate per condizionare l'aggregazione, o per assegnare valori a campi estesi nella sua agenda."
     }
   ],
   "aggregator-sources.DefineRules.displayAggregatorRulesExist": [
@@ -1086,29 +1094,7 @@
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
-      "value": " "
-    },
-    {
-      "options": {
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Location filter"
-            }
-          ]
-        },
-        "true": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Required location filter"
-            }
-          ]
-        }
-      },
-      "type": 5,
-      "value": "required"
+      "value": "Filtro di localizzazione"
     }
   ],
   "aggregator-sources.RuleForm.modeAdvanced": [

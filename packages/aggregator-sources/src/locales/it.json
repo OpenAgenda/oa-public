@@ -65,14 +65,14 @@
   "aggregator-sources.DefineRules.automatic": "Auto",
   "aggregator-sources.DefineRules.automaticDetail": "L'associazione dei valori è fatta in base alle etichette del campo con lo stesso nome nell'agenda di origine",
   "aggregator-sources.DefineRules.brokenFilter": "Filtro non valido",
-  "aggregator-sources.DefineRules.brokenFilterInfo": "Questo filtro si riferisce a un campo che non può essere trovato. Potrebbe essere stato cancellato dall'agenda fonte",
+  "aggregator-sources.DefineRules.brokenFilterInfo": "questo filtro si riferisce a un campo che non può essere trovato. Potrebbe essere stato cancellato dall'agenda fonte!",
   "aggregator-sources.DefineRules.caseInsensitive": "maiuscolo/minuscolo ignorati",
   "aggregator-sources.DefineRules.caseSensitive": "maiuscolo/minuscolo considerati",
   "aggregator-sources.DefineRules.choice": "Informazione dell'agenda fonte",
   "aggregator-sources.DefineRules.choiceFilter": "Scegliere un filtro",
   "aggregator-sources.DefineRules.city": "Città",
   "aggregator-sources.DefineRules.department": "Dipartimento",
-  "aggregator-sources.DefineRules.description": "Le regole sono applicate agli eventi nella loro aggregazione. Sono usate per condizionare l'aggregazione, o per assegnare valori a campi estesi nella sua agenda.",
+  "aggregator-sources.DefineRules.description": "Le regole sono applicate agli eventi nella loro aggregazione.{br} Sono usate per condizionare l'aggregazione, o per assegnare valori a campi estesi nella sua agenda.",
   "aggregator-sources.DefineRules.displayAggregatorRulesExist": "{count, plural, =1 {Una regola esiste} other {{count} regole generale esistono}}",
   "aggregator-sources.DefineRules.displayAggregatorRulesExistDetail": "Le regole generali si applicano a tutti gli eventi prima che vengano valutate le regole specifiche della fonte.",
   "aggregator-sources.DefineRules.editForDetail": "Modificare per vedere i dettagli",
@@ -117,5 +117,6 @@
   "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Lei vuole che gli eventi pubblicati nel calendario fonte siano rivalutati con questo aggiornamento?",
   "aggregator-sources.UpdateSourceModal.updateASource": "Regole di aggregazione",
   "aggregator-sources.edit": "Modificare",
-  "aggregator-sources.utils.stateMessages.state": "Stato"
+  "aggregator-sources.utils.stateMessages.state": "Stato",
+  "aggregator-sources.RuleForm.locationFilter": "Filtro di localizzazione"
 }

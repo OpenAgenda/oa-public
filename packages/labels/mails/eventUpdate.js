@@ -63,7 +63,7 @@ module.exports = {
     "en": "refused",
     "de": "verweigert",
     "es": "rechazado",
-    "it": "respinto",
+    "it": "rifiutato",
     "br": "nac'het",
     "io": "crwdns15404:0crwdne15404:0"
   },

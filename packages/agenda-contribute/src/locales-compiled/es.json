@@ -267,12 +267,6 @@
       "value": "\". It will be reviewed before being published"
     }
   ],
-  "AgendaContribute.Member.description": [
-    {
-      "type": 0,
-      "value": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública."
-    }
-  ],
   "AgendaContribute.Member.subtitle": [
     {
       "type": 0,

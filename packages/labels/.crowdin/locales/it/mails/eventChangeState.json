@@ -6,7 +6,7 @@
   "tocontrol": "verificabile",
   "controlled": "pronto per la pubblicazione",
   "published": "pubblicato",
-  "refused": "respinto",
+  "refused": "rifiutato",
   "unsubscribe": "Non ricevere più le modifiche dello stato dell'evento in \"{afterState, select, refused {refused} tocontrol {to control} controllato {ready to publish} pubblicato {published}\".",
   "memberUnsubscribe": "Non ricevere più i cambiamenti di stato dell'evento da questo programma a \"{afterState, select, refused {refused} tocontrol {to control} controllato {ready to publish} pubblicato {published}\".",
   "changeEmailSettings": "Modificare le mie impostazioni e-mail"

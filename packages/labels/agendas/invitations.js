@@ -62,7 +62,7 @@ module.exports = {
   "resentInvite": {
     "en": "The invitation is being resent",
     "fr": "L'invitation est en cours de ré-envoi",
-    "it": "L'invito è essere risentito.",
+    "it": "L'invito è essere risentito",
     "de": "Die Einladung wird erneut versendet.",
     "pl": "Zaproszenie jest wysyłane ponownie",
     "es": "La invitación está siendo re-enviado",

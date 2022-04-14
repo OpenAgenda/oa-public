@@ -259,12 +259,6 @@
       "value": "'. Il doit être vu par un administrateur avant sa publication."
     }
   ],
-  "AgendaContribute.Member.description": [
-    {
-      "type": 0,
-      "value": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public."
-    }
-  ],
   "AgendaContribute.Member.subtitle": [
     {
       "type": 0,

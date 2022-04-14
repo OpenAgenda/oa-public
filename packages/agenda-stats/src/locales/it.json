@@ -96,5 +96,6 @@
   "AgendaStats.form.max": "Maximum",
   "AgendaStats.form.metric": "Statistiche",
   "AgendaStats.form.min": "Minimum",
-  "AgendaStats.form.sum": "Riassunto"
+  "AgendaStats.form.sum": "Riassunto",
+  "AgendaStats.EmptyDashboard.action": "Creare un evento"
 }

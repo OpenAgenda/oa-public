@@ -6,7 +6,7 @@ module.exports = {
     "en": "%nbr% notifications not seen since the %date%",
     "de": "%nbr% Benachrichtigungen nicht seit %date% gesehen",
     "es": "%nbr% notificaciones no se veía desde la %date%",
-    "it": "%nbr% notifiche non viste dalla %data",
+    "it": "%nbr% notifiche non viste dalla %date%",
     "io": "crwdns15584:0%nbr%crwdnd15584:0%date%crwdne15584:0"
   },
   "dailySummary": {

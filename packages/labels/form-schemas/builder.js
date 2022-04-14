@@ -61,7 +61,7 @@ module.exports = {
     "fr": "Sauvegarder",
     "en": "Save",
     "es": "Guardar",
-    "it": "Registrare",
+    "it": "Salva",
     "br": "Enrollañ",
     "io": "crwdns14690:0crwdne14690:0"
   },
@@ -69,7 +69,7 @@ module.exports = {
     "fr": "Annuler",
     "en": "Cancel",
     "es": "anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14692:0crwdne14692:0"
   },
@@ -196,7 +196,7 @@ module.exports = {
     "fr": "Valider",
     "en": "Submit",
     "es": "validar",
-    "it": "Convalidare",
+    "it": "Invia",
     "br": "Kemmañ",
     "io": "crwdns14728:0crwdne14728:0"
   },
@@ -409,7 +409,7 @@ module.exports = {
     "fr": "Sauvegarder",
     "en": "Save",
     "es": "Guardar",
-    "it": "Salvare",
+    "it": "Salva",
     "br": "Enrollañ",
     "io": "crwdns14786:0crwdne14786:0"
   },
@@ -440,7 +440,7 @@ module.exports = {
     "fr": "Modifier",
     "en": "Edit",
     "es": "Editar",
-    "it": "Modifica",
+    "it": "Modificare",
     "io": "crwdns14794:0crwdne14794:0"
   },
   "orderInstruction": {
@@ -475,7 +475,7 @@ module.exports = {
     "fr": "Obligatoire",
     "en": "Required",
     "es": "obligatorio",
-    "it": "Obbligatorio",
+    "it": "Richiesto",
     "de": "Erforderlich",
     "br": "Rekis",
     "io": "crwdns14804:0crwdne14804:0"
@@ -564,7 +564,7 @@ module.exports = {
     "fr": "Modifier",
     "en": "Edit",
     "es": "Editar",
-    "it": "Modifica",
+    "it": "Modificare",
     "io": "crwdns14828:0crwdne14828:0"
   },
   "optionEditCancel": {
@@ -594,7 +594,7 @@ module.exports = {
     "fr": "Supprimer",
     "en": "Remove",
     "es": "Finalizar la clasificación",
-    "it": "Cancellare",
+    "it": "Rimuovi",
     "br": "Lemel",
     "io": "crwdns14836:0crwdne14836:0"
   },

@@ -413,7 +413,7 @@ module.exports = {
     "fr": "Compte existant",
     "en": "Account exists",
     "es": "Tiene cuenta",
-    "it": "Conto esistente",
+    "it": "Account esistente",
     "de": "",
     "io": "crwdns15696:0crwdne15696:0"
   },
@@ -619,7 +619,7 @@ module.exports = {
     "en": "Export",
     "de": "Export",
     "es": "Exportar",
-    "it": "Esportazione",
+    "it": "Esportare",
     "io": "crwdns15748:0crwdne15748:0"
   },
   "order.arrivalDate": {

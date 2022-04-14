@@ -548,7 +548,15 @@
   "aggregator-sources.DefineRules.locationFilter": [
     {
       "type": 0,
-      "value": "crwdns618:0crwdne618:0"
+      "value": "crwdns618:0required="
+    },
+    {
+      "type": 1,
+      "value": "required"
+    },
+    {
+      "type": 0,
+      "value": "crwdne618:0"
     }
   ],
   "aggregator-sources.DefineRules.manualPasteRules": [
@@ -1008,15 +1016,7 @@
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
-      "value": "crwdns720:0required="
-    },
-    {
-      "type": 1,
-      "value": "required"
-    },
-    {
-      "type": 0,
-      "value": "crwdne720:0"
+      "value": "crwdns720:0crwdne720:0"
     }
   ],
   "aggregator-sources.RuleForm.modeAdvanced": [
@@ -1220,13 +1220,13 @@
   "aggregator-sources.UpdateSourceModal.InfoMessage": [
     {
       "type": 0,
-      "value": "The update was successful. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes."
+      "value": "crwdns17328:0crwdne17328:0"
     }
   ],
   "aggregator-sources.UpdateSourceModal.InfoMessageImmediat": [
     {
       "type": 0,
-      "value": "The update was successful."
+      "value": "crwdns17330:0crwdne17330:0"
     }
   ],
   "aggregator-sources.UpdateSourceModal.cancel": [
