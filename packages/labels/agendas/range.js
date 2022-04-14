@@ -5,6 +5,7 @@ module.exports = {
     "en": "%day%, %times%",
     "fr": "%day%, %times%",
     "he": "%day%, %times%",
+    "es": "%day%, %times%",
     "ar": "%day%, %times%",
     "de": "%day%, %times%",
     "it": "%day%, %times%",
@@ -16,7 +17,8 @@ module.exports = {
     "he": "%firstDate% וגם %lastDate% ",
     "ar": "%firstDate% و %lastDate% ",
     "de": "%firstDate% und %lastDate%",
-    "it": "%firstDate% et %lastDate%",
+    "it": "%firstDate% e %lastDate%",
+    "es": "%firstDate% i %lastDate%",
     "io": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0"
   },
   "moreDates": {
@@ -25,6 +27,7 @@ module.exports = {
     "he": "%firstDate% - %lastDate%",
     "ar": "%firstDate% - %lastDate%",
     "de": "%firstDate% - %lastDate%",
+    "es": "%firstDate% - %lastDate%",
     "it": "%firstDate% - %lastDate%",
     "io": "crwdns12892:0%firstDate%crwdnd12892:0%lastDate%crwdne12892:0"
   },
@@ -35,6 +38,7 @@ module.exports = {
     "ar": "لا يتوفر أي تاريخ",
     "de": "keine Termine vorhanden%",
     "it": "Nessun data disponible",
+    "es": "Fecha no disponible",
     "io": "crwdns12894:0crwdne12894:0"
   },
   "minuteSeparator": {
@@ -44,6 +48,7 @@ module.exports = {
     "ar": ":",
     "de": ":",
     "it": ":",
+    "es": ":",
     "io": "crwdns12896:0crwdne12896:0",
     "oc": " :"
   },
@@ -53,7 +58,8 @@ module.exports = {
     "he": "במועדים",
     "ar": "في",
     "de": "am",
-    "it": "su",
+    "it": "i",
+    "es": "los",
     "io": "crwdns12898:0crwdne12898:0"
   },
   "weekday-0": {
@@ -62,7 +68,8 @@ module.exports = {
     "he": "ימי ראשון",
     "ar": "الأحد",
     "de": "sonntag",
-    "it": "Domenica",
+    "it": "Domeniche",
+    "es": "Domingos",
     "oc": "dimenges",
     "io": "crwdns16074:0crwdne16074:0"
   },
@@ -73,6 +80,7 @@ module.exports = {
     "ar": "الاثنين",
     "de": "montag",
     "it": "Lunedì",
+    "es": "Lunes",
     "oc": "diluns",
     "io": "crwdns16076:0crwdne16076:0"
   },
@@ -83,6 +91,7 @@ module.exports = {
     "ar": "الثلاثاء",
     "de": "dienstag",
     "it": "Martedì",
+    "es": "Martes",
     "oc": "dimars",
     "io": "crwdns16078:0crwdne16078:0"
   },
@@ -93,6 +102,7 @@ module.exports = {
     "ar": "الأربعاء",
     "de": "mittwoch",
     "it": "Mercoledì",
+    "es": "Miercoles",
     "oc": "dimècres",
     "io": "crwdns16080:0crwdne16080:0"
   },
@@ -103,6 +113,7 @@ module.exports = {
     "ar": "الخميس",
     "de": "donnerstag",
     "it": "Giovedì",
+    "es": "Jueves",
     "oc": "dijòus",
     "io": "crwdns16082:0crwdne16082:0"
   },
@@ -113,6 +124,7 @@ module.exports = {
     "ar": "الجمعة",
     "de": "freitag",
     "it": "Venerdì",
+    "es": "Viernes",
     "oc": "divendres",
     "io": "crwdns16084:0crwdne16084:0"
   },
@@ -122,7 +134,8 @@ module.exports = {
     "he": "ימי שבת",
     "ar": "السبت",
     "de": "sonnabend",
-    "it": "Sabato",
+    "it": "Sabati",
+    "es": "Sabado",
     "oc": "dissabtes",
     "io": "crwdns16086:0crwdne16086:0"
   }
