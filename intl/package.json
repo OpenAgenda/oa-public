@@ -24,6 +24,7 @@
       "require": "./lib/index.js",
       "default": "./lib/index.js"
     },
+    "./scripts/*": "./scripts/*.js",
     "./*": {
       "import": "./esm/*.js",
       "require": "./lib/*.js",
@@ -32,7 +33,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "oa-extract-messages": "./scripts/extract-messages.js"
+    "oa-intl": "./scripts/cli.js"
   },
   "scripts": {
     "prepack": "yarn clean && yarn build",
