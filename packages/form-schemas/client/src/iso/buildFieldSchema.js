@@ -72,7 +72,7 @@ function buildFieldSchema(type, options = {}) {
 
     placeholder: {
       type: labelFieldType,
-      max: 300,
+      max: 400,
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage
