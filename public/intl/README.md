@@ -103,7 +103,7 @@ expect(locales).toEqual({
 });
 ```
 
-## Bin `oa-extract-messages`
+## Bin `oa-intl`
 
 To extract messages to translate from your sources you have to add a script in your package.json:
 
@@ -111,7 +111,7 @@ To extract messages to translate from your sources you have to add a script in y
 {
   ...
   "scripts": {
-    "extract-messages": "yarn oa-extract-messages"
+    "extract-messages": "yarn oa-intl"
   },
   ...
 }
@@ -119,24 +119,70 @@ To extract messages to translate from your sources you have to add a script in y
 
 ### Usage
 
-```
-extract-messages.js [files]
+Default command, extract and compile:
 
-Extract and/or compile messages.
+```
+oa-intl [files]
+
+Extract and compile locales.
 
 Positionals:
   files  Glob path to extract translations from, the source files.  [default: "src/**/*.js"]
 
 Options:
       --version                 Show version number  [boolean]
-  -o, --outDir                  The target dir path where the script will output an aggregated `.json` file per lang of all the translations from the `files` supplied.  [default: "src/locales"]
-      --compiledDir             The target dir path where the script will output the compiled version of the translation files, completed with the fallback langs.  [default: "src/locales-compiled"]
-  -c, --compileOnly             Compile only, skip extraction.  [boolean] [default: false]
+      --help                    Show help  [boolean]
+  -o, --output                  The target path where the script will output an aggregated `.json` file per lang of all the translations from the `files` supplied.  [default: "src/locales/%lang%.json"]
+      --compiled             The target path where the script will output the compiled version of the translation files, completed with the fallback langs.  [default: "src/locales-compiled/%lang%.json"]
+  -c, --compileOnly             Compile only, skip extraction.  [boolean]
       --defaultLang             Default language, the one that is filled in for the default messages in the files.  [default: "en"]
       --langs                   The target languages of the translations.  [default: "en,fr,de,it,es,br,ca,eu,oc,io"]
       --definedDefault          Languages that are populated with messages set to "" for ease of translation.  [default: "fr"]
-      --fallbackMap             A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{ "br": "fr" }"]
       --idInterpolationPattern  If certain message descriptors don't have id, this `pattern` will be used to automatically generate IDs for them,
                                 where `contenthash` is the hash of `defaultMessage` and `description`.  [default: "[sha512:contenthash:base64:6]"]
+      --fallbackMap             A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{ "br": "fr" }"]
+      --skipIndex               Does not create index js file.  [boolean]
+      --ast                     Whether to compile message into AST instead of just string.  [boolean] [default: true]
+```
+
+Extract:
+
+```
+oa-intl extract [files]
+
+Extract messages.
+
+Positionals:
+  files  Glob path to extract translations from, the source files.  [default: "src/**/*.js"]
+
+Options:
+      --version                 Show version number  [boolean]
       --help                    Show help  [boolean]
+  -o, --output                  The target path where the script will output an aggregated `.json` file per lang of all the translations from the `files` supplied.  [default: "src/locales/%lang%.json"]
+      --defaultLang             Default language, the one that is filled in for the default messages in the files.  [default: "en"]
+      --langs                   The target languages of the translations.  [default: "en,fr,de,it,es,br,ca,eu,oc,io"]
+      --definedDefault          Languages that are populated with messages set to "" for ease of translation.  [default: "fr"]
+      --idInterpolationPattern  If certain message descriptors don't have id, this `pattern` will be used to automatically generate IDs for them,
+                                where `contenthash` is the hash of `defaultMessage` and `description`.  [default: "[sha512:contenthash:base64:6]"]
+      --skipIndex               Does not create index js file.  [boolean]
+```
+
+Compile:
+```
+oa-intl compile [locales]
+
+Compile locales.
+
+Positionals:
+  locales  Glob path to compile locales from.  [default: "src/locales/%lang%.json"]
+
+Options:
+      --version      Show version number  [boolean]
+      --help         Show help  [boolean]
+  -o, --output       The target path where the script will output the compiled version of the translation files, completed with the fallback langs.  [default: "src/locales-compiled/%lang%.json"]
+      --defaultLang  Default language, the one that is filled in for the default messages in the files.  [default: "en"]
+      --langs        The target languages of the translations.  [default: "en,fr,de,it,es,br,ca,eu,oc,io"]
+      --fallbackMap  A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{ "br": "fr" }"]
+      --skipIndex    Does not create index js file.  [boolean]
+      --ast          Whether to compile message into AST instead of just string.  [boolean] [default: true]
 ```
