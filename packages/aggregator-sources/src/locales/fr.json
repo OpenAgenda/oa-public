@@ -1,6 +1,6 @@
 {
   "aggregator-sources.AddSourceModal.InfoMessage": "L'agenda a été ajouté à vos sources. Les événements sont en cours d'évaluation, ceux qui correspondent aux règles que vous avez défini remonteront dans votre agenda d'ici quelques minutes.",
-  "aggregator-sources.AddSourceModal.InfoMessageImmediat": "L'agenda a bien été ajouté à vos sources. Les prochains événements qui y seront publiés et qui correspondent aux règles que vous avez défini remonteront dans votre agenda",
+  "aggregator-sources.AddSourceModal.InfoMessageImmediat": "L'agenda a bien été ajouté à vos sources.",
   "aggregator-sources.AddSourceModal.alreadyInSources": "Déjà dans les sources",
   "aggregator-sources.AddSourceModal.chooseAnotherSource": "Choisir un autre agenda source",
   "aggregator-sources.AddSourceModal.defineRules": "Définir des règles",
@@ -154,6 +154,8 @@
   "aggregator-sources.SourcesList.remove": "Retirer",
   "aggregator-sources.SourcesList.seeAgenda": "Voir l'agenda",
   "aggregator-sources.SourcesList.update": "{rulesCount, plural, =0 {Ajouter des règles d'agrégation} =1 {Voir la règle d'agrégation} other {Voir les # règles d'agrégation}}",
+  "aggregator-sources.UpdateSourceModal.InfoMessage": "La mise à jour a été effectuée avec succès, Les événements sont en cours d'évaluation, ceux qui correspondent aux règles que vous avez défini remonteront dans votre agenda d'ici quelques minutes.",
+  "aggregator-sources.UpdateSourceModal.InfoMessageImmediat": "La mise à jour a été effectuée avec succès.",
   "aggregator-sources.UpdateSourceModal.cancel": "Annuler",
   "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Souhaitez-vous que les événements publiés dans l'agenda source soient ré-évalués à la suite de cette mise à jour?",
   "aggregator-sources.UpdateSourceModal.updateASource": "Règles d'agrégation",

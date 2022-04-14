@@ -454,6 +454,12 @@
       "value": "Description"
     }
   ],
+  "AgendaLocations.LocationDetails.editLocation": [
+    {
+      "type": 0,
+      "value": "Modifier le lieu"
+    }
+  ],
   "AgendaLocations.LocationDetails.email": [
     {
       "type": 0,
@@ -519,7 +525,21 @@
   "AgendaLocations.LocationDetails.noRefAgendas": [
     {
       "type": 0,
-      "value": "Ce lieu n'est référencé dans aucun autre agenda."
+      "value": "Ce lieu est utilisé par l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " uniquement"
     }
   ],
   "AgendaLocations.LocationDetails.noValue": [

@@ -1369,6 +1369,18 @@
       "value": "rulesCount"
     }
   ],
+  "aggregator-sources.UpdateSourceModal.InfoMessage": [
+    {
+      "type": 0,
+      "value": "The update was successful. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes."
+    }
+  ],
+  "aggregator-sources.UpdateSourceModal.InfoMessageImmediat": [
+    {
+      "type": 0,
+      "value": "The update was successful."
+    }
+  ],
   "aggregator-sources.UpdateSourceModal.cancel": [
     {
       "type": 0,

@@ -8,7 +8,7 @@
   "aggregator-sources.AddSourceModal.InfoMessageImmediat": [
     {
       "type": 0,
-      "value": "L'agenda a bien été ajouté à vos sources. Les prochains événements qui y seront publiés et qui correspondent aux règles que vous avez défini remonteront dans votre agenda"
+      "value": "L'agenda a bien été ajouté à vos sources."
     }
   ],
   "aggregator-sources.AddSourceModal.alreadyInSources": [
@@ -1371,6 +1371,18 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "rulesCount"
+    }
+  ],
+  "aggregator-sources.UpdateSourceModal.InfoMessage": [
+    {
+      "type": 0,
+      "value": "La mise à jour a été effectuée avec succès, Les événements sont en cours d'évaluation, ceux qui correspondent aux règles que vous avez défini remonteront dans votre agenda d'ici quelques minutes."
+    }
+  ],
+  "aggregator-sources.UpdateSourceModal.InfoMessageImmediat": [
+    {
+      "type": 0,
+      "value": "La mise à jour a été effectuée avec succès."
     }
   ],
   "aggregator-sources.UpdateSourceModal.cancel": [

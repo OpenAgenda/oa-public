@@ -154,6 +154,8 @@
   "aggregator-sources.SourcesList.remove": "Remove",
   "aggregator-sources.SourcesList.seeAgenda": "See agenda",
   "aggregator-sources.SourcesList.update": "{rulesCount, plural, =1 {See the aggregation rule} other {See the # aggregation rules}}",
+  "aggregator-sources.UpdateSourceModal.InfoMessage": "The update was successful. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.",
+  "aggregator-sources.UpdateSourceModal.InfoMessageImmediat": "The update was successful.",
   "aggregator-sources.UpdateSourceModal.cancel": "Cancel",
   "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Would you like events published in the source calendar to be re-evaluated as a result of this update?",
   "aggregator-sources.UpdateSourceModal.updateASource": "Aggregation rules",

@@ -241,8 +241,7 @@ describe('agenda-locations - functional - list', () => {
       };
 
       const selection = await svc(7196947).list({ geo });
-      console.log(selection);
-      expect(selection.length).toBe(4);
+      expect(selection.length).toBe(5);
     });
 
     it('"updatedAt.gte" filter', async () => {

@@ -427,6 +427,12 @@
       "value": "crwdns17058:0crwdne17058:0"
     }
   ],
+  "AgendaLocations.LocationDetails.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit Location"
+    }
+  ],
   "AgendaLocations.LocationDetails.email": [
     {
       "type": 0,

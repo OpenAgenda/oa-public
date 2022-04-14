@@ -145,6 +145,7 @@ function Dashboard() {
   const history = useHistory();
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
+  console.log('render');
   const { mergeMode } = useMemo(() => {
     if (pathname.includes('merge') && settings?.access.merge.authorized) {
       dispatch(mergeActions.initiate());
@@ -297,7 +298,7 @@ function Dashboard() {
 
   const disqualifyMergeCandidates = () => {
     const data = merge.locationUids;
-    dispatch(mergeActions.disqualifyDuplicates(data, res, agenda.slug, { pathname: prefix, search: betterQsStringify({ ...search, page }) }, setErroModal));
+    dispatch(mergeActions.disqualifyDuplicates(data, res, agenda.slug, { pathname: prefix, search: betterQsStringify({ ...search, page }) }, setErrorModal));
   };
 
   return (

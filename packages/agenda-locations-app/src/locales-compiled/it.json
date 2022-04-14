@@ -454,6 +454,12 @@
       "value": "Descrizione"
     }
   ],
+  "AgendaLocations.LocationDetails.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit Location"
+    }
+  ],
   "AgendaLocations.LocationDetails.email": [
     {
       "type": 0,
