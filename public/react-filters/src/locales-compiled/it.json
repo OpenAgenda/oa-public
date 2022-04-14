@@ -340,7 +340,7 @@
   "ReactFilters.messages.attendanceMode.offline": [
     {
       "type": 0,
-      "value": "In situ"
+      "value": "In presenza"
     }
   ],
   "ReactFilters.messages.attendanceMode.online": [
