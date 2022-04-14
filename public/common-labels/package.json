@@ -1,0 +1,38 @@
+{
+  "name": "@openagenda/common-labels",
+  "version": "1.2.4",
+  "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
+    "directory": "common-labels"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "build",
+    "locales-compiled",
+    "messages"
+  ],
+  "exports": {
+    ".": "./build/index.js",
+    "./*": "./messages/*.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "prepack": "yarn clean && yarn build",
+    "build": "node scripts/build",
+    "clean": "rimraf locales-compiled"
+  },
+  "devDependencies": {
+    "@openagenda/intl": "^1.0.0",
+    "glob": "^8.0.1",
+    "lodash": "^4.17.21",
+    "mkdirp": "^1.0.4",
+    "rimraf": "^3.0.2",
+    "yargs": "^17.4.1"
+  }
+}

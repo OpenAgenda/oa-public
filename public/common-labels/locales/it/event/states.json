@@ -1,0 +1,5 @@
+{
+  "common.event.states.refused": "Rifiutato",
+  "common.event.states.controlled": "Controllato",
+  "common.event.states.published": "Pubblicato"
+}
