@@ -59,11 +59,10 @@ module.exports = app => {
     );
   });
 
-  app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) => {
-    res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateTagSet(req.query.force)
-    );
-  });
+  app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) => res.json(
+    await req.app.services.core.agendas(req.agenda.uid)
+      .settings.legacy.updateTagSet({ lang: req.lang })
+  ));
 
   app.get('/:agendaSlug/admin/stats/transfer-to-categoryset', async (req, res) => {
     res.json(await req.app.services.core.agendas(req.agenda.uid)

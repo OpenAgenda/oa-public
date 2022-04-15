@@ -39,11 +39,15 @@ const Operations = services => {
   };
 };
 
-module.exports = async (core, agendaOrUid, type) => {
+module.exports = async (core, agendaOrUid, type, options = {}) => {
   const config = core.getConfig();
   const {
     services
   } = core;
+
+  const {
+    lang
+  } = options;
 
   const operations = Operations(services);
 
@@ -67,7 +71,7 @@ module.exports = async (core, agendaOrUid, type) => {
     set: updatedLegacySet,
     messages,
     fields
-  } = operations[type].generate(schema, legacySet);
+  } = operations[type].generate(schema, legacySet, { lang });
 
   const res = {
     messages,

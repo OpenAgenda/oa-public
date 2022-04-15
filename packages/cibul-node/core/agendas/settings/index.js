@@ -25,7 +25,7 @@ module.exports = core => {
   } = services;
 
   const resyncFn = {
-    updateTagSet: agendaUid => updateLegacySetFromSchema(core, agendaUid, 'tags'),
+    updateTagSet: (agendaUid, options) => updateLegacySetFromSchema(core, agendaUid, 'tags', options),
     updateCategorySet: agendaUid => updateLegacySetFromSchema(core, agendaUid, 'categories'),
     updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
     updateLegacy: agendaUid => updateLegacy(core, agendaUid),
