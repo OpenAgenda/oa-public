@@ -345,7 +345,7 @@ function Dashboard() {
           {intl.formatMessage(messages.aggregationCountWarning, {
             limit: aggregator.limit,
             br: <br />,
-            'support-link': (...chunks) => (
+            'support-link': chunks => (
               <a
                 className="btn btn-primary"
                 href={`/support?origin=${encodeURIComponent(

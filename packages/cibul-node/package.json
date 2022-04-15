@@ -54,6 +54,7 @@
     "@openagenda/home": "^2.2.1",
     "@openagenda/inbox-apps": "^1.2.1",
     "@openagenda/inboxes": "^1.1.14",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/invitations": "^1.1.5",
     "@openagenda/keys": "^2.2.10",
     "@openagenda/labels": "^2.3.0",

@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
-const { getLocaleValue } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/intl');
 
 module.exports = ({ config, render }) => (req, res, next) => {
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;

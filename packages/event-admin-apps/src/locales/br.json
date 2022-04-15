@@ -6,8 +6,5 @@
   "EventAdminApp.Dashboard.next": "War-lerc'h",
   "EventAdminApp.messages.attendanceModes.mixed": "Kemmesk",
   "EventAdminApp.messages.attendanceModes.offline": "War al lec’h",
-  "EventAdminApp.messages.attendanceModes.online": "Enlinenn",
-  "EventAdminApp.messages.states.controlled": "Prest da vezañ embannet",
-  "EventAdminApp.messages.states.published": "Embannet",
-  "EventAdminApp.messages.states.refused": "Nac'het"
+  "EventAdminApp.messages.attendanceModes.online": "Enlinenn"
 }

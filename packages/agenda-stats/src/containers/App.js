@@ -4,11 +4,8 @@ import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import {
-  mergeLocales,
-  useConstant,
-  useLayoutData,
-} from '@openagenda/react-shared';
+import { useConstant, useLayoutData } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import statsReducer from '../reducers/stats';
 import appLocales from '../locales-compiled';

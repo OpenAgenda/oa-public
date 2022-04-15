@@ -8,7 +8,6 @@ import { FieldArray } from 'react-final-form-arrays';
 import { usePrevious } from 'react-use';
 
 import { useMemoOne, useCallbackOne } from '@openagenda/react-shared';
-
 import ActionFormPart from './ActionFormPart';
 import messages from './messages';
 

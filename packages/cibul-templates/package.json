@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --ignore build --ignore node_modules app.js",
-    "extract-messages": "yarn oa:extract-messages '**/js/*.js' --out-dir 'locales' --compiled-dir 'locales-compiled'",
+    "extract-messages": "yarn oa-intl '**/js/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json'",
     "build:dev": "bnr build:dev",
     "build:prod": "bnr build:prod",
     "test": "nodemon ./event/js/test.js"
@@ -43,6 +43,7 @@
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/home": "^2.2.1",
     "@openagenda/inbox-apps": "^1.2.1",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/leaflet.markercluster": "^0.4.0",
     "@openagenda/member-apps": "^2.1.1",

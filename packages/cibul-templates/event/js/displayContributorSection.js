@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useConstant, mergeLocales } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
+import { useConstant } from '@openagenda/react-shared';
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
 
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
@@ -82,7 +83,7 @@ function ContributorSection({ me, member, agendaUid, lang }) {
   return (
     <>
       {displayEditModal ? <QueryClientProvider client={queryClient}>
-          <MemberForm 
+          <MemberForm
             lang={lang}
             operation="update"
             mode="modal"
@@ -130,7 +131,7 @@ export default function ContributionCanvas(options) {
   } = options;
 
   const canvasElem = document.querySelector('.js_contributor');
-  
+
   if (!canvasElem || !member) {
     return;
   }
@@ -138,7 +139,7 @@ export default function ContributionCanvas(options) {
   ReactDom.render(
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
         <ContributorSection {...options} />
-    </IntlProvider>, 
+    </IntlProvider>,
     canvasElem
   );
 }

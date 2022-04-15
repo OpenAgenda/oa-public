@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDom from 'react-dom';
 
-import { mergeLocales } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
 import { modalLocales } from '@openagenda/react-share-menus';
 import { EventShareModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
@@ -73,7 +73,7 @@ const ShareAllModalContainer = ({ params, userLogged, query }) => {
   useEffect(() => {
     if(query.includes('sharemodal')) setDisplay(true);
   }, [query])
- 
+
   return (
     <>
       <button className="btn btn-link" onClick={() => setDisplay(true)}>
@@ -97,7 +97,7 @@ export default function displayShareButtons({agendaUid , uid, agendaSlug, agenda
     lang,
     root
   };
-  
+
   if (document.querySelector(selectors.shareOa)) {
     ReactDom.render(
       <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareOAModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,

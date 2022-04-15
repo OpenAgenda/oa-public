@@ -3,9 +3,9 @@ import React, { useState, useMemo, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { getLocaleValue } from '@openagenda/intl';
 import { useMemoOne, MoreInfo } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks';
-import getLocalValue from '../../utils/getLocalValue';
 import readClipboard from '../../utils/readClipboard';
 import messages from './messages';
 import RuleItem from './RuleItem';
@@ -55,7 +55,7 @@ export default function List({
 
   const requiredFieldList = useMemo(
     () => requiredFields.map(field => (
-      <em key={field.field}>{getLocalValue(field.label, intl.locale)}</em>
+      <em key={field.field}>{getLocaleValue(field.label, intl.locale)}</em>
     )),
     [intl.locale, requiredFields]
   );

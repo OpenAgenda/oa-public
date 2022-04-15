@@ -11,15 +11,16 @@
   "main": "",
   "scripts": {
     "start": "start-storybook -p 9001",
-    "extract-messages": "yarn oa:extract-messages 'src/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'",
+    "extract-messages": "yarn oa-intl",
     "build": "babel --copy-files src -d dist -s",
-    "prepack": "yarn build"
+    "prepack": "yarn oa-intl compile && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/countries": "^0.1.1",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/react-form-components": "^2.1.14",
     "@openagenda/react-shared": "^2.2.0",
