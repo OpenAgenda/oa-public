@@ -4,11 +4,8 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useMutation, useQueryClient } from 'react-query';
 import qs from 'qs';
 import { css } from '@emotion/react';
-import {
-  getLocaleValue,
-  useApiClient,
-  MoreInfo,
-} from '@openagenda/react-shared';
+import { useApiClient, MoreInfo } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import addQueryPrefix from '../utils/addQueryPrefix';
 import EventStateSelector from './EventStateSelector';
 import EventItemShareLine from './EventItemShareLine';
