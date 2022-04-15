@@ -6,7 +6,7 @@ module.exports = {
     "en": "Your account is activated",
     "de": "Ihr Konto ist aktiviert",
     "es": "Tu cuenta esta activada",
-    "it": "Il tuo account è attivato",
+    "it": "Il suo account è attivato",
     "io": "crwdns15266:0crwdne15266:0"
   },
   "description": {

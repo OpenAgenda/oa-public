@@ -7,7 +7,7 @@ module.exports = {
     "de": "Aktivieren Sie Ihr Konto OpenAgenda",
     "es": "Active su cuenta OpenAgenda",
     "br": "Gweredekaat ho kont OpenAgenda",
-    "it": "Attivare il conto OpenAgenda",
+    "it": "Attivare il account OpenAgenda",
     "io": "crwdns15260:0crwdne15260:0"
   },
   "description": {
@@ -25,7 +25,7 @@ module.exports = {
     "de": "aktiviere deinen Account",
     "es": "Active su cuenta",
     "br": "Gweredekaat ho kont",
-    "it": "Attivare il tuo conto",
+    "it": "Attivare il suo account",
     "io": "crwdns15264:0crwdne15264:0"
   }
 }

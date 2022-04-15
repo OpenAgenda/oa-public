@@ -101,7 +101,7 @@ module.exports = {
     "de": "Verwalten",
     "br": "Merañ",
     "es": "gestionar",
-    "it": "Gestire",
+    "it": "Gestisci",
     "io": "crwdns14914:0crwdne14914:0"
   },
   "moderate": {
@@ -119,7 +119,7 @@ module.exports = {
     "de": "Offizieller Veranstaltungskalender",
     "br": "Deiziataer ofisiel",
     "es": "agenda",
-    "it": "agenda ufficiale",
+    "it": "Agenda ufficiale",
     "io": "crwdns14918:0crwdne14918:0"
   },
   "welcomeTitle": {
@@ -128,7 +128,7 @@ module.exports = {
     "de": "Willkommen in Ihrem OpenAgenda-Konto!",
     "br": "Degemer mat en ho kont OpenAgenda !",
     "es": "Bienvenido a su cuenta OpenAgenda!",
-    "it": "Benvenuti nel vostro conto OpenAgenda!",
+    "it": "Benvenuti nel suo account OpenAgenda!",
     "io": "crwdns14920:0crwdne14920:0"
   },
   "welcomeMessage": {
@@ -146,7 +146,7 @@ module.exports = {
     "de": "Aktuelle offene Tagebücher :",
     "br": "",
     "es": "Diarios abiertos actuales :",
-    "it": "Diari aperti attuali :",
+    "it": "Agenda aperti attuali :",
     "io": "crwdns14924:0crwdne14924:0"
   },
   "contributeToExisting": {
@@ -237,7 +237,7 @@ module.exports = {
     "de": "Nachricht",
     "br": "Mont e darempred",
     "es": "Contactar con",
-    "it": "Contatto",
+    "it": "Contattare",
     "io": "crwdns14944:0crwdne14944:0"
   },
   "see": {
@@ -300,7 +300,7 @@ module.exports = {
     "de": "Ansehen",
     "es": "Ver",
     "io": "crwdns14958:0crwdne14958:0",
-    "it": "Aprire"
+    "it": "Aperta"
   },
   "seeMore": {
     "fr": "Voir plus",

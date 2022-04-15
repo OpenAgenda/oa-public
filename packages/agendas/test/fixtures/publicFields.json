@@ -153,6 +153,9 @@
               },
               "publication": {
                 "type": "text"
+              },
+              "GDPRInformation": {
+                "type": "text"
               }
             }
           },

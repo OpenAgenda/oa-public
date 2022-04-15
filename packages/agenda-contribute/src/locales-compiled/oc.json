@@ -1,0 +1,348 @@
+{
+  "AgendaContribute.Canvas.fromAgenda": [
+    {
+      "type": 0,
+      "value": "de l'agenda"
+    }
+  ],
+  "AgendaContribute.Canvas.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share an event"
+    }
+  ],
+  "AgendaContribute.Canvas.takeEvent": [
+    {
+      "type": 0,
+      "value": "Take"
+    }
+  ],
+  "AgendaContribute.Canvas.toAgenda": [
+    {
+      "type": 0,
+      "value": "de l'agenda"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.addEvent": [
+    {
+      "type": 0,
+      "value": "Add an event"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": [
+    {
+      "type": 0,
+      "value": "Borrolhon"
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forAdminModerators": [
+    {
+      "type": 0,
+      "value": "Aquela agenda es pas actualament dobèrta a las contribucions. Sol·a·s lo·a·s administrator·a·s o moderator·a·s pòdon apondre d'eveniments."
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forContributors": [
+    {
+      "type": 0,
+      "value": "Aquela agenda es pas o pas pus dobèrta a las contribucions novèlas."
+    }
+  ],
+  "AgendaContribute.Confirmation.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contactar los administrators de l'agenda"
+    }
+  ],
+  "AgendaContribute.Confirmation.createOtherEvent": [
+    {
+      "type": 0,
+      "value": "Add another event"
+    }
+  ],
+  "AgendaContribute.Confirmation.duplicateEvent": [
+    {
+      "type": 0,
+      "value": "Duplicar l'eveniment"
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState0": [
+    {
+      "type": 0,
+      "value": "Vòstre eveniment es estat sometut e es en cors de moderacion. Seretz notificat·da per mail quand serà publicat."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState1": [
+    {
+      "type": 0,
+      "value": "Vòstre eveniment es estat sometut e es prèste per èsser publicat. Seretz notificat·da aitanlèu."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState2": [
+    {
+      "type": 0,
+      "value": "Vòstre eveniment es estat publicat e se pòt veire sus l'agenda."
+    }
+  ],
+  "AgendaContribute.Confirmation.seeEventAction": [
+    {
+      "type": 0,
+      "value": "View my event"
+    }
+  ],
+  "AgendaContribute.Confirmation.showMyEvents": [
+    {
+      "type": 0,
+      "value": "List all my events"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.cancelChange": [
+    {
+      "type": 0,
+      "value": "Anullar lo partatge"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.endLessThanBegin": [
+    {
+      "type": 0,
+      "value": "At least one timing is invalid with an begin time occuring after the ending time"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.required": [
+    {
+      "type": 0,
+      "value": "Required"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
+    {
+      "type": 0,
+      "value": "Los problèmas seguents devon èsser tractats per permetre a l'eveniment \""
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "\" d'èsser partejat sus l'agenda \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.ErrorMessage.suggestChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "AgendaContribute.EventEdit.update": [
+    {
+      "type": 0,
+      "value": "Update"
+    }
+  ],
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": [
+    {
+      "type": 0,
+      "value": "Go back"
+    }
+  ],
+  "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
+    {
+      "type": 0,
+      "value": "L'eveniment es ja referenciat sus l'agenda sus la quala lo volètz partatjar. Se lo vesètz pas aparéisser sus la pagina principala, es segurament que los administrators l'an pas encara publicat."
+    }
+  ],
+  "AgendaContribute.EventNew.create": [
+    {
+      "type": 0,
+      "value": "Create the event"
+    }
+  ],
+  "AgendaContribute.EventNew.deleteDraft": [
+    {
+      "type": 0,
+      "value": "Escafar lo borrolhon"
+    }
+  ],
+  "AgendaContribute.EventNew.draft": [
+    {
+      "type": 0,
+      "value": "Enregistrar coma borrolhon"
+    }
+  ],
+  "AgendaContribute.EventNew.updateDraft": [
+    {
+      "type": 0,
+      "value": "Metre lo borrolhon a jorn"
+    }
+  ],
+  "AgendaContribute.EventShare.share": [
+    {
+      "type": 0,
+      "value": "Add the event"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goBack": [
+    {
+      "type": 0,
+      "value": "Go back to the event page in "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": [
+    {
+      "type": 0,
+      "value": "See the event in "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": [
+    {
+      "type": 0,
+      "value": "The event is now published on \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": [
+    {
+      "type": 0,
+      "value": "The event has been added to \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\". It will be reviewed before being published"
+    }
+  ],
+  "AgendaContribute.Member.subtitle": [
+    {
+      "type": 0,
+      "value": "Presentatz-vos als administrator·a·s de l'agenda abans de començar a dintrar vòstres eveniments"
+    }
+  ],
+  "AgendaContribute.Member.title": [
+    {
+      "type": 0,
+      "value": "Benvengut·da !"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.noEditionRights": [
+    {
+      "type": 0,
+      "value": "You do not have edition rights on this event."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
+    {
+      "type": 0,
+      "value": "Sonque los camps suplementaris de l'agenda se pòdon modificar aquí."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
+    {
+      "type": 0,
+      "value": "Aqueste eveniment es estat apondut a l'agenda \"%agenda%\" per un partatge o per agregacion. Sols los membres de l'agenda que l'eveniment es estat dintrat pòdon cambiar son contengut."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Request edition rights"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
+    {
+      "type": 0,
+      "value": "Sols los camps suplementaris de l'agenda son mostrats per ara"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFields": [
+    {
+      "type": 0,
+      "value": "Edit event fields"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
+    {
+      "type": 0,
+      "value": "Avètz los dreits d'edicion sus l'eveniment. Cada modificacion que siá sus l'eveniment serà vesedoira pertot ont es publicat."
+    }
+  ],
+  "AgendaContribute.Stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmacion"
+    }
+  ],
+  "AgendaContribute.Stepper.event": [
+    {
+      "type": 0,
+      "value": "My event"
+    }
+  ],
+  "AgendaContribute.Stepper.member": [
+    {
+      "type": 0,
+      "value": "Fiicha de membre"
+    }
+  ]
+}

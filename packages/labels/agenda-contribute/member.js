@@ -4,7 +4,7 @@ module.exports = {
   "title": {
     "fr": "Bienvenue !",
     "en": "Welcome !",
-    "it": "Benvenuta !",
+    "it": "Benvenuti!",
     "de": "Willkommen!",
     "br": "Degemer mat deoc'h !",
     "es": "Bienvenido!",

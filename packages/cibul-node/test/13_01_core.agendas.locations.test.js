@@ -51,6 +51,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     await core.agendas(93399464).events.search.rebuild();
     await core.agendas(48353388).events.search.rebuild();
+    await core.agendas(17026855).events.search.rebuild();
 
     core.services.agendaLocations.task({ reset: true, detectDuplicates: false });
     core.services.eventSearch.task({ reset: true });
@@ -117,8 +118,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       const {
         items
       } = await core.agendas(17026855).locations.list({}, {}, {});
-      //console.log(items, '||', geoItems);
-      //console.log(items.length, '|', geoItems.length);
       expect(items.length).toBeGreaterThan(geoItems.length);
     });
   });

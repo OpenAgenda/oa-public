@@ -1,0 +1,80 @@
+{
+  "AgendaSetting.contribution.contributionRestrictDates": [
+    {
+      "type": 0,
+      "value": "Restrict input dates"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.formEvent": [
+    {
+      "type": 0,
+      "value": "Form event"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEvents": [
+    {
+      "type": 0,
+      "value": "Consentire agli annunzi di eventi in linea"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEventsDesc": [
+    {
+      "type": 0,
+      "value": "Online events can be associated with physical locations"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.statusField": [
+    {
+      "type": 0,
+      "value": "Essere in grado di assegnare gli stati agli eventi: pieno, rimandato, cancellato"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.statusFieldDesc": [
+    {
+      "type": 0,
+      "value": "The state of the event can also be modified from the administration of the agenda"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibution": [
+    {
+      "type": 0,
+      "value": "Chiusa"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibutionDesc": [
+    {
+      "type": 0,
+      "value": "The agenda does not accept new contributions"
+    }
+  ],
+  "AgendaSettings.contribution.contribution": [
+    {
+      "type": 0,
+      "value": "Contribuzione"
+    }
+  ],
+  "AgendaSettings.contribution.openContribution": [
+    {
+      "type": 0,
+      "value": "Aperta"
+    }
+  ],
+  "AgendaSettings.contribution.openContributionDesc": [
+    {
+      "type": 0,
+      "value": "Qualsiasi utente può aggiungere eventi, sotto la sua moderazione"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContribution": [
+    {
+      "type": 0,
+      "value": "Ridotta"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContributionDesc": [
+    {
+      "type": 0,
+      "value": "Solo gli utenti invitati possono aggiungere eventi"
+    }
+  ]
+}

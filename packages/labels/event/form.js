@@ -185,7 +185,7 @@ module.exports = {
   "imageCredits": {
     "fr": "Crédits de l'image",
     "en": "Image credits",
-    "it": "Crediti d'immagine",
+    "it": "Crediti immagine",
     "de": "Bildnachweise",
     "es": "créditos del imágen",
     "br": "Perc'henn ar skeudenn",
@@ -350,7 +350,7 @@ module.exports = {
   "uploadButton": {
     "fr": "Sélectionner",
     "en": "Select",
-    "it": "Selezionare",
+    "it": "Seleziona",
     "de": "Auswählen",
     "es": "seleccionar",
     "br": "Diuzañ",
@@ -383,7 +383,7 @@ module.exports = {
   "cancelLanguageChange": {
     "fr": "Annuler",
     "en": "Cancel",
-    "it": "Annullare",
+    "it": "Annulla",
     "de": "Abbrechen",
     "es": "anular",
     "br": "Nullañ",
@@ -419,7 +419,7 @@ module.exports = {
   "categoriesInfo": {
     "en": "These are used to index your event in the agenda. Pick one.",
     "fr": "Celles-ci servent pour l'indexation dans l'agenda. Vous pouvez en choisir une.",
-    "it": "Questi sono utilizzati per l'indicizzazione nell'agenda. Puoi sceglierne uno.",
+    "it": "Questi sono utilizzati per l'indicizzazione nel diario. Potete scegliere uno di loro.",
     "de": "Diese werden verwendet, um Deine Veranstaltung im Veranstaltungskalender zu indexieren. Such dir einen aus.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede elegir uno.",
     "br": "Implijet e vez ar re-mañ da venegeriñ an deiziataer. Gallout a rit choaz unan.",
@@ -447,7 +447,7 @@ module.exports = {
   "required": {
     "en": "Required.",
     "fr": "Requis.",
-    "it": "Obbligatorio.",
+    "it": "Necessario.",
     "de": "Erforderlich.",
     "es": "Requerido.",
     "br": "Rekis.",
@@ -456,7 +456,7 @@ module.exports = {
   "categoriesRequired": {
     "en": "Required.",
     "fr": "Requis.",
-    "it": "Obbligatorio.",
+    "it": "Necessario.",
     "de": "Erforderlich.",
     "es": "Requerido.",
     "br": "Rekis.",

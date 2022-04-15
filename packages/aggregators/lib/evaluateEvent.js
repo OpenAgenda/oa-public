@@ -69,6 +69,7 @@ module.exports = async (
   const payload = evaluateResult
     ? pickReferenceValues(aggregatorSchema, evaluateResult)
     : null;
+
   const aggregatedKey = generateChecksum(payload);
 
   const reference = await getEventReference(aggregatorAgendaUid, event.uid);

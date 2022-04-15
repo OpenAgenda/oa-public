@@ -16,7 +16,7 @@ function getError(form, fieldname) {
   return fieldState?.touched && errors?.[fieldname];
 }
 
-function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
+function SubmitButton({ hasInstructions, hasComplete, hasPublication, hasGDPRInformation }) {
   const { getLabel } = useContext(I18nContext);
   const form = useForm();
 
@@ -26,11 +26,12 @@ function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
     (!!initialValues?.messages?.instructions?.length && !hasInstructions)
     || (!!initialValues?.messages?.complete?.length && !hasComplete)
     || (!!initialValues?.messages?.publication?.length && !hasPublication)
+    || (!!initialValues?.messages?.GDPRInformation?.length && !hasGDPRInformation)
   );
 
-  const isDirty = dirty || messageUnchecked;
+  const hasChanged = dirty || messageUnchecked;
 
-  if (!isDirty && submitSucceeded) {
+  if (!hasChanged && submitSucceeded) {
     return <button type="submit" className="btn btn-success" disabled>{getLabel('saved')}</button>;
   } else if (submitting) {
     return <button type="submit" className="btn btn-primary" disabled>{getLabel('saving')}</button>;
@@ -39,7 +40,7 @@ function SubmitButton({ hasInstructions, hasComplete, hasPublication }) {
       <button
         type="submit"
         className="btn btn-primary"
-        disabled={isDirty && !hasValidationErrors ? undefined : true}
+        disabled={hasChanged && !hasValidationErrors ? undefined : true}
       >
         {getLabel('saveModifications')}
       </button>
@@ -56,6 +57,7 @@ export default function ContributionEdition() {
   const [hasInstructions, setHasInstructions] = useState(() => !!initialValues?.messages?.instructions?.length);
   const [hasComplete, setHasComplete] = useState(() => !!initialValues?.messages?.complete?.length);
   const [hasPublication, setHasPublication] = useState(() => !!initialValues?.messages?.publication?.length);
+  const [hasGDPRInformation, setHasGDPRInformation] = useState(() => !!initialValues?.messages?.GDPRInformation?.length);
 
   const onSubmit = useCallback(
     (values, form) => dispatch(agendaActions.edit({
@@ -65,7 +67,8 @@ export default function ContributionEdition() {
           messages: {
             instructions: hasInstructions ? values.messages.instructions : null,
             complete: hasComplete ? values.messages.complete : null,
-            publication: hasPublication ? values.messages.publication : null
+            publication: hasPublication ? values.messages.publication : null,
+            GDPRInformation: hasGDPRInformation ? values.messages.GDPRInformation : null
           }
         }
       }
@@ -77,9 +80,10 @@ export default function ContributionEdition() {
         setHasInstructions(!!newContribSettings?.messages?.instructions?.length);
         setHasComplete(!!newContribSettings?.messages?.complete?.length);
         setHasPublication(!!newContribSettings?.messages?.publication?.length);
+        setHasGDPRInformation(!!newContribSettings?.messages?.GDPRInformation?.length);
       })
       .catch(error => catchFormErrors(error, 'settings.contribution')),
-    [dispatch, hasInstructions, hasComplete, hasPublication]
+    [dispatch, hasInstructions, hasComplete, hasPublication, hasGDPRInformation]
   );
 
   return (
@@ -163,6 +167,34 @@ export default function ContributionEdition() {
                   </div>
                 </div>
 
+                <div className="form-group">
+                  <div className={`radio ${getError(form, 'useFields') ? 'has-error' : ''}`}>
+                    <p><b>{getLabel('contribUseFields')}</b></p>
+                    <label>
+                      <Field
+                        name="useFields"
+                        component="input"
+                        type="radio"
+                        value="1"
+                        format={v => (v ? '1' : '0')}
+                        parse={v => Boolean(parseInt(v))}
+                      />
+                      {getLabel('yes')}
+                    </label><br />
+                    <label>
+                      <Field
+                        name="useFields"
+                        component="input"
+                        type="radio"
+                        value="0"
+                        format={v => (v ? '1' : '0')}
+                        parse={v => Boolean(parseInt(v))}
+                      />
+                      {getLabel('no')}
+                    </label>
+                  </div>
+                </div>
+
                 <p><b>{getLabel('contributorsMessages')}</b></p>
 
                 <div className="checkbox">
@@ -191,6 +223,35 @@ export default function ContributionEdition() {
                     </div>
                   ) : null}
                 </div>
+
+                {form.getFieldState('useFields')?.value ? (
+                  <div className="checkbox">
+                    <label>
+                      <input
+                        type="checkbox"
+                        onChange={() => setHasGDPRInformation(prev => !prev)}
+                        checked={hasGDPRInformation}
+                      />
+                      <p>
+                        <b>{getLabel('GDPRInformation')}</b>
+                        <br />
+                        <span className="text-muted">
+                          {getLabel('GDPRInformationSubLabel')}
+                        </span>
+                      </p>
+                    </label>
+                    {hasGDPRInformation ? (
+                      <div style={{ paddingLeft: '20px' }}>
+                        <Field
+                          name="messages.GDPRInformation"
+                          component={MarkdownInput}
+                          lang={lang}
+                          parse={_.identity}
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
 
                 {agenda.credentials.invitationMessage ? (
                   <div className="checkbox">
@@ -254,34 +315,6 @@ export default function ContributionEdition() {
                     ) : null}
                   </div>
                 ) : null}
-
-                <div className="form-group">
-                  <div className={`radio ${getError(form, 'useFields') ? 'has-error' : ''}`}>
-                    <p><b>{getLabel('contribUseFields')}</b></p>
-                    <label>
-                      <Field
-                        name="useFields"
-                        component="input"
-                        type="radio"
-                        value="1"
-                        format={v => (v ? '1' : '0')}
-                        parse={v => Boolean(parseInt(v))}
-                      />
-                      {getLabel('yes')}
-                    </label><br />
-                    <label>
-                      <Field
-                        name="useFields"
-                        component="input"
-                        type="radio"
-                        value="0"
-                        format={v => (v ? '1' : '0')}
-                        parse={v => Boolean(parseInt(v))}
-                      />
-                      {getLabel('no')}
-                    </label>
-                  </div>
-                </div>
 
                 <div className="form-group">
                   <div className={`radio ${getError(form, 'defaultState') ? 'has-error' : ''}`}>
@@ -352,6 +385,7 @@ export default function ContributionEdition() {
                     hasInstructions={hasInstructions}
                     hasComplete={hasComplete}
                     hasPublication={hasPublication}
+                    hasGDPRInformation={hasGDPRInformation}
                   />
                 </div>
               </form>

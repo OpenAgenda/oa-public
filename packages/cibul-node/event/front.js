@@ -610,6 +610,9 @@ function _appendSettings(req, res, next) {
         moderatorCanPublish: {
           $set: _.get(agenda, 'settings.contribution.canPublish', ['moderators', 'administrators']).includes('moderators')
         },
+        GDPRInformation: {
+          $set: agenda?.settings?.contribution?.messages?.GDPRInformation
+        },
         googleAnalyticsID: {
           $set: agenda?.settings?.tracking?.googleAnalytics
         }

@@ -62,7 +62,7 @@ module.exports = {
     "en": "Contribution",
     "de": "Beitrag",
     "es": "Contribución",
-    "it": "Contributo",
+    "it": "Contribuzione",
     "io": "crwdns12512:0crwdne12512:0"
   },
   "contribType": {
@@ -70,7 +70,7 @@ module.exports = {
     "en": "Who can add events to this calendar ?",
     "de": "Wer kann Veranstaltungen in diesem Kalender hinzufügen?",
     "es": "¿Quién puede añadir eventos a este agenda?",
-    "it": "Chi può aggiungere eventi a questo calendario?",
+    "it": "Chi può aggiungere eventi a questo calendario ?",
     "io": "crwdns12514:0crwdne12514:0"
   },
   "contribTypeChoosen": {
@@ -186,7 +186,7 @@ module.exports = {
     "en": "Only lowercase letters, digits and dashes (-) are allowed",
     "de": "Nur Kleinbuchstaben, Ziffern und Bindestriche (-) sind erlaubt",
     "es": "Sólo letras minúsculas, números y guiones (-) están permitidos",
-    "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-)",
+    "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
     "io": "crwdns12542:0crwdne12542:0",
     "oc": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats"
   },
@@ -286,7 +286,7 @@ module.exports = {
     "en": "Remove",
     "de": "Löschen",
     "es": "Eliminar",
-    "it": "Cancellare",
+    "it": "Rimuovi",
     "br": "Lemel",
     "io": "crwdns12566:0crwdne12566:0"
   },
@@ -469,7 +469,7 @@ module.exports = {
     "en": "Request a private agenda",
     "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar un agenda íntimo",
-    "it": "Richiedere un'agenda privata",
+    "it": "Richiedi un'agenda privata",
     "io": "crwdns12610:0crwdne12610:0"
   },
   "requestPublicAgenda": {
@@ -617,6 +617,14 @@ module.exports = {
     "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento",
     "io": "crwdns12644:0crwdne12644:0"
   },
+  "GDPRInformation": {
+    "fr": "Information relative à l'utilisation des données personnelles des membres",
+    "en": "Usage of member's personal information"
+  },
+  "GDPRInformationSubLabel": {
+    "fr": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
+    "en": "Modify the text presented to members informing them of the usage made of their personal information"
+  },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",
     "en": "End of contribution message",
@@ -704,7 +712,7 @@ module.exports = {
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Guardar",
-    "it": "Aggiornare",
+    "it": "Aggiorna",
     "br": "Hizivaat",
     "io": "crwdns12666:0crwdne12666:0"
   },
@@ -739,7 +747,7 @@ module.exports = {
     "en": "Statistics",
     "de": "Statistiken",
     "es": "Estadística",
-    "it": "Statistiche",
+    "it": "Statistica",
     "io": "crwdns12674:0crwdne12674:0",
     "oc": "Estatisticas"
   },

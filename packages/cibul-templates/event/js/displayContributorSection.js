@@ -62,13 +62,13 @@ const getMemberInfo = (member, m) => ['name', 'position', 'organization', 'email
   value: member[key]
 }));
 
-function ContributorSection({ me, member, agendaUid, lang }) {
+function ContributorSection({ me, member, agendaUid, lang, GDPRInformation }) {
   const m = useIntl().formatMessage;
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [memberInfo, setMemberInfo] = useState(getMemberInfo(member, m));
 
   const canEdit = ['administrator', 'contributor'].includes(me.member.role) || (me.member.userUid === member.userUid);
-  const memberIsAdminMod = ['administrator', 'contributor'].includes(member.role);
+  const memberIsAdminMod = ['administrator', 'moderator'].includes(member.role);
 
   const queryClient = useConstant(
     () => new QueryClient({
@@ -87,8 +87,11 @@ function ContributorSection({ me, member, agendaUid, lang }) {
             lang={lang}
             operation="update"
             mode="modal"
-            description={null}
             optionalFields={memberIsAdminMod}
+            GDPR={{
+              display: !memberIsAdminMod,
+              moreInfo: GDPRInformation
+            }}
             showSuccessMessage
             res={`/api/agendas/${agendaUid}/members/${member.userUid}`}
             onSuccess={update => setMemberInfo(getMemberInfo(update, m))}

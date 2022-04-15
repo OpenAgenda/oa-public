@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
+import ReactMarkdown from 'react-markdown';
+import { MoreInfo } from '@openagenda/react-shared';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import Modal from '@openagenda/react-shared/lib/components/Modal';
@@ -12,10 +14,9 @@ const messages = defineMessages({
     id: 'MemberApps.Form.updateTitle',
     defaultMessage: 'Update your coordinates',
   },
-  description: {
-    id: 'MemberApps.Form.description',
-    defaultMessage:
-      'This information will allow the agenda administrators to get in touch with you if needed.',
+  GDPRSummary: {
+    id: 'MemberApps.Form.GDPRSummary',
+    defaultMessage: 'This information will be visible to the agenda moderators',
   },
   success: {
     id: 'MemberApps.Form.success',
@@ -55,6 +56,10 @@ const messages = defineMessages({
     id: 'MemberApps.Form.save',
     defaultMessage: 'Save',
   },
+  moreInfo: {
+    id: 'MemberApps.Form.moreInfo',
+    defaultMessage: 'Read more',
+  },
 });
 
 const BlankComponent = () => <FormSchemaComponent schema={schema} />;
@@ -75,7 +80,6 @@ const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
 
 export default ({
   title, // optional. specify form title
-  description, // optional. specify subtitle
   mode, // modal or not
   operation, // update or create
   res,
@@ -89,6 +93,7 @@ export default ({
   optionalFields, // optional: whether form info should be optional
   displayRemoveAction,
   blockButtons,
+  GDPR,
   hideCancel,
   member, // optional preloaded member
 }) => {
@@ -104,6 +109,8 @@ export default ({
   const m = useIntl().formatMessage;
 
   const isLoading = operation === 'update' && !query.data && !member;
+
+  const { display: displayGDPRInformation, moreInfo: GDPRInformation } = GDPR ?? {};
 
   const loadedMember = member || query.data;
 
@@ -175,14 +182,38 @@ export default ({
   return Canvas(
     <>
       {isLoading ? <Spinner /> : null}
-      {operation === 'update' ? (
-        <div>
+      <div className="margin-v-sm">
+        {operation === 'update' ? (
           <h3>{title !== undefined ? title : m(messages.updateTitle)}</h3>
-          <p>
-            {description !== undefined ? description : m(messages.description)}
-          </p>
-        </div>
-      ) : null}
+        ) : null}
+        {displayGDPRInformation ? (
+          <>
+            <p className="margin-bottom-z">{m(messages.GDPRSummary)}</p>
+            {GDPRInformation ? (
+              <MoreInfo
+                placement="bottom"
+                content={<ReactMarkdown>{GDPRInformation}</ReactMarkdown>}
+              >
+                <button
+                  type="button"
+                  className="btn btn-link margin-all-z padding-all-z"
+                >
+                  {m(messages.moreInfo)}
+                </button>
+              </MoreInfo>
+            ) : (
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://doc.openagenda.com/confidentialite/#vous-compl-tez-une-fiche-membre"
+                className="btn btn-link margin-all-z padding-all-z"
+              >
+                {m(messages.moreInfo)}
+              </a>
+            )}
+          </>
+        ) : null}
+      </div>
       {isLoading ? (
         <BlankComponent />
       ) : (

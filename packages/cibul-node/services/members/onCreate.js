@@ -91,7 +91,6 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
     log('warn', 'inboxes service was not initialized');
   }
 
-
   if (!activities) {
     log('warn', 'activities service was not initialized');
     return;
@@ -120,7 +119,7 @@ async function _memberIsExistingUser({ services, config, activityQueue }, { memb
 
   if (!senderUser) throw new VError('Sender user %j not found', { uid: senderUserUid });
 
-  await send(config, {
+  await send({ config, services }, {
     member,
     agenda,
     context,
@@ -152,5 +151,7 @@ async function _memberIsInvitedNonUser({ services, config }, { member, agenda, c
     email: member.custom.email
   }, 'linkMember', [member, context]);
 
-  return sendInvitation(services, config, { invitation, member, context, agenda });
+  return sendInvitation({ services, config }, {
+    invitation, member, context, agenda
+  });
 }

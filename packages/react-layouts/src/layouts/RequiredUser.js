@@ -1,44 +1,72 @@
-import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import qs from 'qs';
+import React, { useMemo } from 'react';
+import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import ChildLayouts from '../components/ChildLayouts';
 import Loading from '../components/Loading';
 
-function RequiredUser({
-  childLayouts,
-  children,
-  extraProps,
-  onError,
-  FallbackComponent,
-}) {
-  const history = useHistory();
-  const location = useLocation();
+function createRequiredUser(options = {}) {
+  const { inAgendaContext = false } = options;
 
-  if (!extraProps.user) {
-    const url = location.pathname + location.search;
-    const base64Url = Buffer.from(url).toString('base64');
+  const fn = function RequiredUser({
+    childLayouts,
+    children,
+    extraProps,
+    onError,
+    FallbackComponent,
+  }) {
+    const history = useHistory();
+    const location = useLocation();
 
-    if (typeof window === 'undefined') {
-      history.replace(`/signin?redirect=${base64Url}`);
-    } else {
-      window.location.href = `/signin?redirect=${base64Url}`;
+    const { params } = useMemo(
+      () => matchPath(location.pathname, '/:slug'),
+      [location.pathname]
+    );
+
+    if (!extraProps.user) {
+      const url = location.pathname + location.search;
+
+      const query = {
+        redirect: Buffer.from(url).toString('base64'),
+      };
+
+      const { lang } = qs.parse(location.search, { ignoreQueryPrefix: true });
+
+      if (lang) {
+        query.lang = lang;
+      }
+
+      const redirectUrl = (inAgendaContext ? `/${params.slug}/signin` : '/signin')
+        + qs.stringify(query, { addQueryPrefix: true });
+
+      if (typeof window === 'undefined') {
+        history.replace(redirectUrl);
+      } else {
+        window.location.href = redirectUrl;
+      }
+
+      // Display Loading waiting redirection
+      return <Loading />;
     }
 
-    // Display Loading waiting redirection
-    return <Loading />;
-  }
+    return (
+      <ChildLayouts
+        layouts={childLayouts}
+        extraProps={extraProps}
+        onError={onError}
+        FallbackComponent={FallbackComponent}
+      >
+        {children}
+      </ChildLayouts>
+    );
+  };
 
-  return (
-    <ChildLayouts
-      layouts={childLayouts}
-      extraProps={extraProps}
-      onError={onError}
-      FallbackComponent={FallbackComponent}
-    >
-      {children}
-    </ChildLayouts>
-  );
+  fn.layoutName = inAgendaContext ? 'RequiredUser.agenda' : 'RequiredUser';
+
+  return fn;
 }
 
-RequiredUser.layoutName = 'RequiredUser';
+const RequiredUser = createRequiredUser();
+
+RequiredUser.agenda = createRequiredUser({ inAgendaContext: true });
 
 export default RequiredUser;

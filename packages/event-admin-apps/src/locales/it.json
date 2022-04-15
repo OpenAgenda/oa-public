@@ -24,7 +24,7 @@
   "EventAdminApp.Dashboard.selectedEvents": "{count, number} {count, plural, =0 {evento} one {evento} other {eventi}}",
   "EventAdminApp.Dashboard.sortedBy": "Ordinato per:",
   "EventAdminApp.Dashboard.state": "Stato",
-  "EventAdminApp.Dashboard.totalEvents": "{total, number} {total, plural, =0 {evento} one {evento} other {eventi}}",
+  "EventAdminApp.Dashboard.totalEvents": "<strong>{total, number}</strong> {total, plural, =0 {evento} one {evento} other {eventi}}",
   "EventAdminApp.Dashboard.totalWithFilters": "<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {evento} one {evento} other {eventi}}",
   "EventAdminApp.Dashboard.unselect": "Deselezionare",
   "EventAdminApp.Dashboard.yourSelection": "La sua selezione:",

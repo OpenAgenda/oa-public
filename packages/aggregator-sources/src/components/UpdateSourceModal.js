@@ -19,14 +19,13 @@ const messages = defineMessages({
     defaultMessage: 'Cancel',
   },
   infoMessageImmediat: {
-    id: 'aggregator-sources.AddSourceModal.InfoMessageImmediat',
-    defaultMessage:
-      'The calendar has been added to your sources. The next events which will be published there and which correspond to the rules that you have defined will go up in your calendar.',
+    id: 'aggregator-sources.UpdateSourceModal.InfoMessageImmediat',
+    defaultMessage: 'The update was successful.',
   },
   infoMessage: {
-    id: 'aggregator-sources.AddSourceModal.InfoMessage',
+    id: 'aggregator-sources.UpdateSourceModal.InfoMessage',
     defaultMessage:
-      'The calendar has been added to your sources. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.',
+      'The update was successful. The events are being evaluated, those which correspond to the rules that you have defined will go up in your calendar in a few minutes.',
   },
   ok: {
     id: 'aggregator-sources.AddSourceModal.ok',
@@ -107,10 +106,10 @@ export default function UpdateSourceModal({
           submitMessage={intl.formatMessage(messages.updateSource)}
         />
       ) : null}
-      {step === 'info' ? (
+      {step === 'info' && selectedEvaluate ? (
         <div>
           <div>
-            {selectedEvaluate.evaluate === 'all'
+            {selectedEvaluate === 'null'
               ? intl.formatMessage(messages.infoMessageImmediat)
               : intl.formatMessage(messages.infoMessage)}
           </div>

@@ -190,5 +190,6 @@
   "AgendaLocations.stepper.notDuplicates": "crwdns17296:0crwdne17296:0",
   "AgendaLocations.stepper.see": "crwdns17298:0crwdne17298:0",
   "AgendaLocations.stepper.seeDetails": "crwdns17300:0crwdne17300:0",
-  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0"
+  "AgendaLocations.stepper.targetChoice": "crwdns17302:0crwdne17302:0",
+  "AgendaLocations.LocationDetails.editLocation": "crwdns17332:0crwdne17332:0"
 }

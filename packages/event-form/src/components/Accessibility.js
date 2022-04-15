@@ -1,58 +1,66 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import ih from 'immutability-helper';
 
 import mLabels from '@openagenda/labels/event/accessibility';
 import flatten from '@openagenda/labels/flatten';
 
 const TYPES = ['hi', 'vi', 'pi', 'mi', 'ii'];
 
+const getDefault = () => TYPES.reduce((c, t) => ({
+  ...c,
+  [t]: false
+}), {});
+
 module.exports = class AccessibilityComponent extends Component {
+  constructor(props) {
+    super(props);
 
-  constructor( props ) {
-
-    super( props );
-
-    const { value } = props;
-
-    this.state = { enabled: this.hasAccessibility() }
-
-  }
-
-  getDefault() {
-
-    return TYPES.reduce( ( c, t ) => { c[ t ] = false; return c; }, {} );
-
+    this.state = {
+      enabled: this.hasAccessibility()
+    };
   }
 
   hasAccessibility() {
+    const {
+      value: currentValue
+    } = this.props;
+    const value = currentValue ?? getDefault();
 
-    const value = this.props.value || this.getDefault();
-
-    return !!_.keys( value ).filter( k => value[ k ] ).length;
-
+    return !!_.keys(value).filter(k => value[k]).length;
   }
 
   toggleEnabled() {
+    const {
+      onChange
+    } = this.props;
 
-    const enabled = !this.state.enabled;
+    const {
+      enabled
+    } = this.state;
 
-    this.setState( { enabled } );
+    const toggled = !enabled;
 
-    if ( !enabled && this.hasAccessibility() ) {
+    this.setState({
+      enabled: toggled
+    });
 
-      this.props.onChange( this.getDefault() );
-
+    if (!toggled && this.hasAccessibility()) {
+      onChange(getDefault());
     }
-
   }
 
-  toggleAccessibility( type ) {
+  toggleAccessibility(type) {
+    const {
+      onChange,
+      value: currentValue
+    } = this.props;
 
-    const value = this.props.value || this.getDefault();
+    const value = currentValue ?? getDefault();
 
-    this.props.onChange(ih(this.props.value, _.set( {}, type, { $set: !value[ type ] })));
-
+    onChange({
+      ...value,
+      [type]: !value[type]
+    });
   }
 
   render() {
@@ -61,34 +69,48 @@ module.exports = class AccessibilityComponent extends Component {
       lang
     } = this.props;
 
-    const labels = flatten( mLabels, lang, true );
+    const labels = flatten(mLabels, lang, true);
 
-    return <div className="accessibility form-group">
-      <div className="checkbox">
-        <label>
-          <input type="checkbox" checked={this.state.enabled} onChange={this.toggleEnabled.bind( this )}/>
-          {labels.input}
-        </label>
-      </div>
-      {this.state.enabled && <div className="accessibility-detail margin-left-md margin-top-md">{
-        TYPES.map((type, i) => (
-          <div
-            className={'checkbox ' + type + ( i + 1 < TYPES.length ? ' margin-bottom-md' : ' margin-bottom-xs' ) } key={type}>
-            <label htmlFor={type}>
-              <input
-                id={type}
-                name={type}
-                type="checkbox"
-                checked={!!value?.[type]}
-                onChange={this.toggleAccessibility.bind( this, type )}/>
-              <i></i>{labels[ type ]}
-            </label>
+    const {
+      enabled
+    } = this.state;
+
+    return (
+      <div className="accessibility form-group">
+        <div className="checkbox">
+          <label htmlFor="show-accessibility">
+            <input
+              id="show-accessibility"
+              type="checkbox"
+              checked={enabled}
+              onChange={this.toggleEnabled.bind(this)}
+            />
+            {labels.input}
+          </label>
+        </div>
+        {enabled ? (
+          <div className="accessibility-detail margin-left-md margin-top-md">{
+            TYPES.map((type, i) => (
+              <div
+                className={`checkbox ${type + (i + 1 < TYPES.length ? ' margin-bottom-md' : ' margin-bottom-xs')}`}
+                key={type}
+              >
+                <label htmlFor={type}>
+                  <input
+                    id={type}
+                    name={type}
+                    type="checkbox"
+                    checked={!!value?.[type]}
+                    onChange={this.toggleAccessibility.bind(this, type)}
+                  />
+                  <i />{labels[type]}
+                </label>
+              </div>
+            ))
+          }
           </div>
-        ))
-      }</div>}
-    </div>
-
+        ) : null}
+      </div>
+    );
   }
-
-}
-
+};

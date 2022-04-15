@@ -18,7 +18,7 @@ export default ({ schema }) => {
         .flat()
         .map(v => ({
           value: v.label,
-          label: getLocaleValue(v.label),
+          label: getLocaleValue(v.label, intl.locale),
         }))
       : []),
     [schema]

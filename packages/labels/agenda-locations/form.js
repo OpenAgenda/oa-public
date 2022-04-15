@@ -220,7 +220,7 @@ module.exports = {
     "de": "Stornieren",
     "es": "Anular",
     "br": "Nullañ",
-    "it": "Annullare",
+    "it": "Annulla",
     "io": "crwdns12182:0crwdne12182:0"
   },
   "back": {

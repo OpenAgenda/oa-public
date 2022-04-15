@@ -156,7 +156,7 @@ module.exports = function match({ initialState, publicPath, apiRoot }) {
         [
           'agendaContribute',
           createAgendaContributeApp,
-          [MainLayout, RequiredUser, AgendaDataLayout, AgendaLayout],
+          [MainLayout, RequiredUser.agenda, AgendaDataLayout, AgendaLayout],
         ],
         [
           'eventAdmin',

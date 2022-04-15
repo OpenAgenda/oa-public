@@ -1,0 +1,1676 @@
+{
+  "AgendaLocations.AccessModal.cantDo": [
+    {
+      "type": 0,
+      "value": "You do not have the rights for:"
+    }
+  ],
+  "AgendaLocations.AccessModal.closeModal": [
+    {
+      "type": 0,
+      "value": "Chiudere"
+    }
+  ],
+  "AgendaLocations.AccessModal.create": [
+    {
+      "type": 0,
+      "value": "Add a location"
+    }
+  ],
+  "AgendaLocations.AccessModal.doOn": [
+    {
+      "type": 0,
+      "value": "This action is to be carried out on the website of"
+    }
+  ],
+  "AgendaLocations.AccessModal.edit": [
+    {
+      "type": 0,
+      "value": "Modificare"
+    }
+  ],
+  "AgendaLocations.AccessModal.goTo": [
+    {
+      "type": 0,
+      "value": "Go to"
+    }
+  ],
+  "AgendaLocations.AccessModal.info": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
+  "AgendaLocations.AccessModal.merge": [
+    {
+      "type": 0,
+      "value": "Merge locations"
+    }
+  ],
+  "AgendaLocations.AccessModal.newTab": [
+    {
+      "type": 0,
+      "value": "A new tab will open in an instant."
+    }
+  ],
+  "AgendaLocations.AccessModal.remove": [
+    {
+      "type": 0,
+      "value": "Cancellare"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Cancel Merge"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.closeModal": [
+    {
+      "type": 0,
+      "value": "Chiudere"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contatta il supporto"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.create": [
+    {
+      "type": 0,
+      "value": "Add a location"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.createAction": [
+    {
+      "type": 0,
+      "value": "Location creation"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.deleteAction": [
+    {
+      "type": 0,
+      "value": "Location deletion"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.filterList": [
+    {
+      "type": 0,
+      "value": "Filter List"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.information": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.merge": [
+    {
+      "type": 0,
+      "value": "Merge locations"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeAction": [
+    {
+      "type": 0,
+      "value": "Fusione di posti"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeDescription": [
+    {
+      "type": 0,
+      "value": "Fusione di posti"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.mergeInProgress": [
+    {
+      "type": 0,
+      "value": "Merge is in progress"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.postalCode": [
+    {
+      "type": 0,
+      "value": "postalCode"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.search": [
+    {
+      "type": 0,
+      "value": "Filter list"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.somethingWentWrong": [
+    {
+      "type": 0,
+      "value": "An error has occurred, please contact support if it happens again"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.toVerify": [
+    {
+      "type": 0,
+      "value": "See locations to verify"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.total": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No location matches this search"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Total: one location"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Total: "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " locations"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "itemCount"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.updateAction": [
+    {
+      "type": 0,
+      "value": "Location update"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.verifiedInfo": [
+    {
+      "type": 0,
+      "value": "Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them"
+    }
+  ],
+  "AgendaLocations.AgendaAdminLocation.wentWell": [
+    {
+      "type": 0,
+      "value": "went well"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Canton"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.CH.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
+    }
+  ],
+  "AgendaLocations.CountryField.country": [
+    {
+      "type": 0,
+      "value": "Paese"
+    }
+  ],
+  "AgendaLocations.CreateForm.back": [
+    {
+      "type": 0,
+      "value": "Tornare alla lista"
+    }
+  ],
+  "AgendaLocations.CreateForm.info": [
+    {
+      "type": 0,
+      "value": "Definire con precisione il nome, l'indirizzo e la posizione del luogo"
+    }
+  ],
+  "AgendaLocations.CreateForm.title": [
+    {
+      "type": 0,
+      "value": "Aggiungere un luogo"
+    }
+  ],
+  "AgendaLocations.DropdownIncompleteLocation.incompleteLocations": [
+    {
+      "type": 0,
+      "value": "See incomplete Locations"
+    }
+  ],
+  "AgendaLocations.ErrorModal.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contatta il supporto"
+    }
+  ],
+  "AgendaLocations.ErrorModal.contactSupportMessage": [
+    {
+      "type": 0,
+      "value": "Please contact support if it happens again"
+    }
+  ],
+  "AgendaLocations.ErrorModal.somethingWentWrong": [
+    {
+      "type": 0,
+      "value": "Oops, Something went wrong. Please try again later"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Regione"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Dipartimento"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunality"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.FR.adminLevel6": [
+    {
+      "type": 0,
+      "value": "Quartiere"
+    }
+  ],
+  "AgendaLocations.Filters.uids": [
+    {
+      "type": 0,
+      "value": "Locations selection"
+    }
+  ],
+  "AgendaLocations.Filters.uncompletedLocations": [
+    {
+      "type": 0,
+      "value": "Uncomplete locations"
+    }
+  ],
+  "AgendaLocations.Filters.verify": [
+    {
+      "type": 0,
+      "value": "To verify"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldCancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeFieldSave": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "AgendaLocations.GeoBadges.geocodeNoResults": [
+    {
+      "type": 0,
+      "value": "Non siamo riusciti a trovare quell'indirizzo. Modificare la voce per lasciare solo il nome del comune, posizionare il marcatore nel punto giusto sulla mappa e terminare completando l'indirizzo."
+    }
+  ],
+  "AgendaLocations.GeoBadges.insee": [
+    {
+      "type": 0,
+      "value": "Codice INSEE"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel1": [
+    {
+      "type": 0,
+      "value": "Regione"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel2": [
+    {
+      "type": 0,
+      "value": "Province"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Admin Level 3"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel4": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.IT.adminLevel6": [
+    {
+      "type": 0,
+      "value": "City District"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.cancel": [
+    {
+      "type": 0,
+      "value": "Select another location"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.guide": [
+    {
+      "type": 0,
+      "value": "Are the details of this location correct ?"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.guideDetail": [
+    {
+      "type": 0,
+      "value": "Se è necessario apportare alcune modifiche, si prega di specificarle utilizzando il pulsante qui sotto prima di confermare la selezione"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.suggest": [
+    {
+      "type": 0,
+      "value": "Suggerisci un cambiamento"
+    }
+  ],
+  "AgendaLocations.LocationConfirmation.suggestChangeMessage": [
+    {
+      "type": 0,
+      "value": "Nel browser si è aperta una nuova scheda. Dettagliare le modifiche che si desidera apportare prima di selezionare la località"
+    }
+  ],
+  "AgendaLocations.LocationDetails.access": [
+    {
+      "type": 0,
+      "value": "Condizioni di accesso"
+    }
+  ],
+  "AgendaLocations.LocationDetails.andOn": [
+    {
+      "type": 0,
+      "value": "i su"
+    }
+  ],
+  "AgendaLocations.LocationDetails.description": [
+    {
+      "type": 0,
+      "value": "Descrizione"
+    }
+  ],
+  "AgendaLocations.LocationDetails.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit Location"
+    }
+  ],
+  "AgendaLocations.LocationDetails.email": [
+    {
+      "type": 0,
+      "value": "Indirizzo email"
+    }
+  ],
+  "AgendaLocations.LocationDetails.emptyGeo": [
+    {
+      "type": 0,
+      "value": "Vuoto"
+    }
+  ],
+  "AgendaLocations.LocationDetails.extId": [
+    {
+      "type": 0,
+      "value": "Identificatore esterno"
+    }
+  ],
+  "AgendaLocations.LocationDetails.hoverInfo": [
+    {
+      "type": 0,
+      "value": "Queste informazioni non sono corrette? Cliccare sul pulsante nell'intestazione di questo modal per dettagliare le modifiche da apportare"
+    }
+  ],
+  "AgendaLocations.LocationDetails.image": [
+    {
+      "type": 0,
+      "value": "Immagine"
+    }
+  ],
+  "AgendaLocations.LocationDetails.insee": [
+    {
+      "type": 0,
+      "value": "Codice INSEE"
+    }
+  ],
+  "AgendaLocations.LocationDetails.links": [
+    {
+      "type": 0,
+      "value": "Link aggiuntivi"
+    }
+  ],
+  "AgendaLocations.LocationDetails.noContent": [
+    {
+      "type": 0,
+      "value": "Nessun testo "
+    },
+    {
+      "type": 1,
+      "value": "lang"
+    },
+    {
+      "type": 0,
+      "value": " è definito"
+    }
+  ],
+  "AgendaLocations.LocationDetails.noImage": [
+    {
+      "type": 0,
+      "value": "Nessuna illustrazione è definita"
+    }
+  ],
+  "AgendaLocations.LocationDetails.noRefAgendas": [
+    {
+      "type": 0,
+      "value": "Questo luogo non è ancora conosciuto."
+    }
+  ],
+  "AgendaLocations.LocationDetails.noValue": [
+    {
+      "type": 0,
+      "value": "Non specificato"
+    }
+  ],
+  "AgendaLocations.LocationDetails.others": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "un altro"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " altri"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationDetails.phone": [
+    {
+      "type": 0,
+      "value": "Numero di telefono"
+    }
+  ],
+  "AgendaLocations.LocationDetails.refAgendas": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "niente"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Questo luogo è anche presente sull'agenda"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Questo luogo è anche presente su più agende"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationDetails.website": [
+    {
+      "type": 0,
+      "value": "Sito web"
+    }
+  ],
+  "AgendaLocations.LocationForm.access": [
+    {
+      "type": 0,
+      "value": "Condizioni di accesso"
+    }
+  ],
+  "AgendaLocations.LocationForm.addLanguage": [
+    {
+      "type": 0,
+      "value": "Aggiungere una lingua"
+    }
+  ],
+  "AgendaLocations.LocationForm.address": [
+    {
+      "type": 0,
+      "value": "Indirizzo"
+    }
+  ],
+  "AgendaLocations.LocationForm.addressPlaceholder": [
+    {
+      "type": 0,
+      "value": "(esempio : Viale della Trinità dei Monti, 1, Roma)"
+    }
+  ],
+  "AgendaLocations.LocationForm.cancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "AgendaLocations.LocationForm.createSubmit": [
+    {
+      "type": 0,
+      "value": "Creare"
+    }
+  ],
+  "AgendaLocations.LocationForm.createSubmitError": [
+    {
+      "type": 0,
+      "value": "Il posto non poteva essere creato"
+    }
+  ],
+  "AgendaLocations.LocationForm.description": [
+    {
+      "type": 0,
+      "value": "Descrizione"
+    }
+  ],
+  "AgendaLocations.LocationForm.descriptionInfo": [
+    {
+      "type": 0,
+      "value": "Dettagli sul luogo"
+    }
+  ],
+  "AgendaLocations.LocationForm.disabledGeocode": [
+    {
+      "type": 0,
+      "value": "La funzione di localizzazione automatica non è temporaneamente disponibile. Individuare la propria posizione trascinando il marcatore nel punto giusto della mappa."
+    }
+  ],
+  "AgendaLocations.LocationForm.email": [
+    {
+      "type": 0,
+      "value": "Indirizzo email"
+    }
+  ],
+  "AgendaLocations.LocationForm.extId": [
+    {
+      "type": 0,
+      "value": "Identificatore esterno"
+    }
+  ],
+  "AgendaLocations.LocationForm.extIdInfo": [
+    {
+      "type": 0,
+      "value": "Facoltativamente, specificare un identificatore univoco per questa posizione"
+    }
+  ],
+  "AgendaLocations.LocationForm.extIdLink": [
+    {
+      "type": 0,
+      "value": "Definire un identificatore univoco per questa posizione"
+    }
+  ],
+  "AgendaLocations.LocationForm.findOutMore": [
+    {
+      "type": 0,
+      "value": "Saperne di più sulla licenza"
+    }
+  ],
+  "AgendaLocations.LocationForm.geocodeFieldCancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "AgendaLocations.LocationForm.geocodeFieldSave": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "AgendaLocations.LocationForm.geocodeNoResults": [
+    {
+      "type": 0,
+      "value": "Non siamo riusciti a trovare quell'indirizzo. Modificare la voce per lasciare solo il nome del comune, posizionare il marcatore nel punto giusto sulla mappa e terminare completando l'indirizzo."
+    }
+  ],
+  "AgendaLocations.LocationForm.image": [
+    {
+      "type": 0,
+      "value": "Immagine"
+    }
+  ],
+  "AgendaLocations.LocationForm.imageCredits": [
+    {
+      "type": 0,
+      "value": "Crediti immagine"
+    }
+  ],
+  "AgendaLocations.LocationForm.imageInfo": [
+    {
+      "type": 0,
+      "value": "Selezionare solo le immagini per le quali si dispone di una licenza valida."
+    }
+  ],
+  "AgendaLocations.LocationForm.imageRights": [
+    {
+      "type": 0,
+      "value": "Accetto che l'immagine possa essere utilizzata liberamente, a condizione di attribuirla all'autore citando il suo nome, e condivisa alle stesse condizioni."
+    }
+  ],
+  "AgendaLocations.LocationForm.imageRightsAreHeld": [
+    {
+      "type": 0,
+      "value": "I diritti d'immagine sono detenuti"
+    }
+  ],
+  "AgendaLocations.LocationForm.insee": [
+    {
+      "type": 0,
+      "value": "Codice INSEE"
+    }
+  ],
+  "AgendaLocations.LocationForm.links": [
+    {
+      "type": 0,
+      "value": "Link aggiuntivi"
+    }
+  ],
+  "AgendaLocations.LocationForm.linksInfo": [
+    {
+      "type": 0,
+      "value": "Aggiungi facebook, twitter o qualsiasi altro link relativo al luogo"
+    }
+  ],
+  "AgendaLocations.LocationForm.loadingError": [
+    {
+      "type": 0,
+      "value": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare."
+    }
+  ],
+  "AgendaLocations.LocationForm.name": [
+    {
+      "type": 0,
+      "value": "Nome del luogo"
+    }
+  ],
+  "AgendaLocations.LocationForm.namePlaceholder": [
+    {
+      "type": 0,
+      "value": "Esempio: il Moulin Rouge"
+    }
+  ],
+  "AgendaLocations.LocationForm.phone": [
+    {
+      "type": 0,
+      "value": "Numero di telefono"
+    }
+  ],
+  "AgendaLocations.LocationForm.postalCode": [
+    {
+      "type": 0,
+      "value": "Codice postale"
+    }
+  ],
+  "AgendaLocations.LocationForm.required": [
+    {
+      "type": 0,
+      "value": "Richiesto"
+    }
+  ],
+  "AgendaLocations.LocationForm.requiredField": [
+    {
+      "type": 0,
+      "value": "(Campo obbligatorio)"
+    }
+  ],
+  "AgendaLocations.LocationForm.saving": [
+    {
+      "type": 0,
+      "value": "Backup"
+    }
+  ],
+  "AgendaLocations.LocationForm.string.tooshort": [
+    {
+      "type": 0,
+      "value": "La stringa è troppo corta"
+    }
+  ],
+  "AgendaLocations.LocationForm.updateSubmit": [
+    {
+      "type": 0,
+      "value": "Aggiorna"
+    }
+  ],
+  "AgendaLocations.LocationForm.updateSubmitError": [
+    {
+      "type": 0,
+      "value": "La posizione non ha potuto essere aggiornata"
+    }
+  ],
+  "AgendaLocations.LocationForm.website": [
+    {
+      "type": 0,
+      "value": "Sito web"
+    }
+  ],
+  "AgendaLocations.LocationItem.detailsButton": [
+    {
+      "type": 0,
+      "value": "Dettagli"
+    }
+  ],
+  "AgendaLocations.LocationItem.edit": [
+    {
+      "type": 0,
+      "value": "Modificare"
+    }
+  ],
+  "AgendaLocations.LocationItem.noEvent": [
+    {
+      "type": 0,
+      "value": "Nessun evento associato"
+    }
+  ],
+  "AgendaLocations.LocationItem.refLocationMerge": [
+    {
+      "type": 0,
+      "value": "Luogo di riferimento per l'unione"
+    }
+  ],
+  "AgendaLocations.LocationItem.remove": [
+    {
+      "type": 0,
+      "value": "Cancellare"
+    }
+  ],
+  "AgendaLocations.LocationItem.seeEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 associated event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " associated events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationItem.select": [
+    {
+      "type": 0,
+      "value": "Seleziona"
+    }
+  ],
+  "AgendaLocations.LocationItem.unselect": [
+    {
+      "type": 0,
+      "value": "Deselezionare"
+    }
+  ],
+  "AgendaLocations.LocationItem.verify": [
+    {
+      "type": 0,
+      "value": "To verify"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyAndMerge": [
+    {
+      "type": 0,
+      "value": "Verify and Merge"
+    }
+  ],
+  "AgendaLocations.LocationItem.verifyDuplicates": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 duplicate to verify"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " duplicates to verify"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.LocationSearch.create": [
+    {
+      "type": 0,
+      "value": "Aggiungere un luogo"
+    }
+  ],
+  "AgendaLocations.LocationSearch.namePlaceholder": [
+    {
+      "type": 0,
+      "value": "Inserire il nome del luogo dell'evento"
+    }
+  ],
+  "AgendaLocations.LocationSearch.noResult": [
+    {
+      "type": 0,
+      "value": "Nessun risultato corrisponde alla tua iscrizione"
+    }
+  ],
+  "AgendaLocations.LocationSearch.searching": [
+    {
+      "type": 0,
+      "value": "Ricerca in corso..."
+    }
+  ],
+  "AgendaLocations.LocationSelector.change": [
+    {
+      "type": 0,
+      "value": "modificare"
+    }
+  ],
+  "AgendaLocations.LocationSelector.find": [
+    {
+      "type": 0,
+      "value": "Cercare"
+    }
+  ],
+  "AgendaLocations.LocationSelector.info": [
+    {
+      "type": 0,
+      "value": "Definire con precisione il nome, l'indirizzo e la posizione del luogo"
+    }
+  ],
+  "AgendaLocations.LocationSelector.noLocation": [
+    {
+      "type": 0,
+      "value": "Scegliere un luogo"
+    }
+  ],
+  "AgendaLocations.LocationSelector.remove": [
+    {
+      "type": 0,
+      "value": "Rimuovi"
+    }
+  ],
+  "AgendaLocations.LocationSelector.title": [
+    {
+      "type": 0,
+      "value": "Aggiungere un luogo"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveEnd": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " has been contributed on the agenda."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": " have been contributed on the agenda. By deleting the location, the associated events will also be deleted."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveEndEq": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " By deleting the location, the associated event will also be deleted."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": " By deleting the location, the associated events will also be deleted."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveLink": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " one of which"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": " "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " of which"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveLinkEq": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "one event."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveStart": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "The location is associated to one event,"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "The location is associated to "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events,"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.cannotRemoveStartEq": [
+    {
+      "type": 0,
+      "value": "The location is associated to"
+    }
+  ],
+  "AgendaLocations.RemoveModal.closeModal": [
+    {
+      "type": 0,
+      "value": "Chiudere"
+    }
+  ],
+  "AgendaLocations.RemoveModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "AgendaLocations.RemoveModal.confirmRemove": [
+    {
+      "type": 0,
+      "value": "Confirm deletion"
+    }
+  ],
+  "AgendaLocations.RemoveModal.confirmRemoveMessage": [
+    {
+      "type": 0,
+      "value": "The location will be removed from the database"
+    }
+  ],
+  "AgendaLocations.RemoveModal.notRemove": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": " Do not delete the event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Do not delete "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.notRemoveInfo": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "This will continue to display the data of the deleted location until it is updated the next time."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "These will continue to display the data of the deleted location until their next update."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.removeComplete": [
+    {
+      "type": 0,
+      "value": "The location was removed"
+    }
+  ],
+  "AgendaLocations.RemoveModal.removeEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Delete the event."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Delete the "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.RemoveModal.removeTitle": [
+    {
+      "type": 0,
+      "value": "Delete a location"
+    }
+  ],
+  "AgendaLocations.StateToggler.toverify": [
+    {
+      "type": 0,
+      "value": "Questo posto deve essere controllato"
+    }
+  ],
+  "AgendaLocations.StateToggler.verified": [
+    {
+      "type": 0,
+      "value": "Questa posizione è controllata"
+    }
+  ],
+  "AgendaLocations.UpdateForm.back": [
+    {
+      "type": 0,
+      "value": "Tornare alla lista"
+    }
+  ],
+  "AgendaLocations.UpdateForm.info": [
+    {
+      "type": 0,
+      "value": "Tutti gli eventi relativi a questa località saranno aggiornati."
+    }
+  ],
+  "AgendaLocations.UpdateForm.title": [
+    {
+      "type": 0,
+      "value": "Edizione del luogo"
+    }
+  ],
+  "AgendaLocations.adminLevel1": [
+    {
+      "type": 0,
+      "value": "adminLevel1"
+    }
+  ],
+  "AgendaLocations.adminLevel2": [
+    {
+      "type": 0,
+      "value": "adminLevel2"
+    }
+  ],
+  "AgendaLocations.adminLevel3": [
+    {
+      "type": 0,
+      "value": "adminLevel3"
+    }
+  ],
+  "AgendaLocations.adminLevel4": [
+    {
+      "type": 0,
+      "value": "adminLevel4"
+    }
+  ],
+  "AgendaLocations.adminLevel5": [
+    {
+      "type": 0,
+      "value": "adminLevel5"
+    }
+  ],
+  "AgendaLocations.adminLevel6": [
+    {
+      "type": 0,
+      "value": "adminLevel6"
+    }
+  ],
+  "AgendaLocations.postalCode": [
+    {
+      "type": 0,
+      "value": "Codice postale"
+    }
+  ],
+  "AgendaLocations.setHeader.help": [
+    {
+      "type": 0,
+      "value": "Gli amministratori delle agende che utilizzano questo set hanno accesso a tutte le operazioni sulle posizioni del set: creazione, aggiornamento, cancellazione, fusione. Le operazioni possono quindi avere un impatto su tutte le agende dell'insieme."
+    }
+  ],
+  "AgendaLocations.setHeader.setSubtitle": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Set of one location used in "
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Set of "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " locations used in "
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.setHeader.setSubtitleLink": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "nothing"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "one agenda"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " agendas"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.Selection": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "no location selected"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 location selected"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " locations selected"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "AgendaLocations.stepper.backToSelection": [
+    {
+      "type": 0,
+      "value": "go back to selection"
+    }
+  ],
+  "AgendaLocations.stepper.backToTargetSelection": [
+    {
+      "type": 0,
+      "value": "go back to target selection"
+    }
+  ],
+  "AgendaLocations.stepper.cancelMerge": [
+    {
+      "type": 0,
+      "value": "Cancel Merge"
+    }
+  ],
+  "AgendaLocations.stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Conferma"
+    }
+  ],
+  "AgendaLocations.stepper.duplicatesSelection": [
+    {
+      "type": 0,
+      "value": "Duplicates Selection"
+    }
+  ],
+  "AgendaLocations.stepper.infoConfirmation": [
+    {
+      "type": 0,
+      "value": "Merged locations will be deleted and there linked events will be link to the target location"
+    }
+  ],
+  "AgendaLocations.stepper.infoRefSelection": [
+    {
+      "type": 0,
+      "value": "Select target from your selection, it will be kept after the merge"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelection": [
+    {
+      "type": 0,
+      "value": "Select locations you want to merge"
+    }
+  ],
+  "AgendaLocations.stepper.infoSelectionFromDP": [
+    {
+      "type": 0,
+      "value": "Check the selection and deselect those who are not duplicates"
+    }
+  ],
+  "AgendaLocations.stepper.launchMerge": [
+    {
+      "type": 0,
+      "value": "Launch merge"
+    }
+  ],
+  "AgendaLocations.stepper.locationsMerge": [
+    {
+      "type": 0,
+      "value": "Locations Merge"
+    }
+  ],
+  "AgendaLocations.stepper.next": [
+    {
+      "type": 0,
+      "value": "Next:"
+    }
+  ],
+  "AgendaLocations.stepper.notDuplicates": [
+    {
+      "type": 0,
+      "value": "Those are not Duplicates"
+    }
+  ],
+  "AgendaLocations.stepper.see": [
+    {
+      "type": 0,
+      "value": "see"
+    }
+  ],
+  "AgendaLocations.stepper.seeDetails": [
+    {
+      "type": 0,
+      "value": "Dettagli"
+    }
+  ],
+  "AgendaLocations.stepper.targetChoice": [
+    {
+      "type": 0,
+      "value": "Target location choice"
+    }
+  ]
+}

@@ -98,7 +98,7 @@ export default ({
     };
   }
   // console.log('field: ', field);
-  const label = getLocaleValue(field.label);
+  const label = getLocaleValue(field.label, intl.locale);
   // console.log('label: ', label);
 
   if (action.automatic) {
@@ -120,7 +120,9 @@ export default ({
   console.log(
     'value : ',
     matchingOptions[0] !== undefined
-      ? matchingOptions.map(o => getLocaleValue(o?.label)).join(', ')
+      ? matchingOptions
+        .map(o => getLocaleValue(o?.label, intl.locale))
+        .join(', ')
       : getValues(action)[0]
   );
 
@@ -129,7 +131,9 @@ export default ({
     label,
     value:
       matchingOptions[0] !== undefined
-        ? matchingOptions.map(o => getLocaleValue(o?.label)).join(', ')
+        ? matchingOptions
+          .map(o => getLocaleValue(o?.label, intl.locale))
+          .join(', ')
         : getValues(action)[0],
     detail: intl.formatMessage(
       messages.aggregatorAgendaChoiceFieldValueDetail,

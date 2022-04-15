@@ -118,7 +118,7 @@ module.exports = {
     "en": "Your events are broadcast on agendas of the platform as well as with our partners",
     "de": "Ihre Veranstaltungen sind auf Kalenders der Plattform sowie mit unseren Partnern ausgestrahlt",
     "es": "Sus eventos se repiten en las agendas de la plataforma, así como con nuestros socios",
-    "it": "I vostri eventi vengono trasmessi sulle agende della piattaforma e sui siti web dei nostri partner.",
+    "it": "I suoi eventi vengono trasmessi sulle agende della piattaforma e sui siti web dei nostri partner",
     "io": "crwdns13474:0crwdne13474:0"
   },
   "mainBroadcastPoint1": {
@@ -142,7 +142,7 @@ module.exports = {
     "en": "They are available for reuse by more than a hundred media, including Le Parisien, Ouest France, ViaFrance or TootSweet",
     "de": "Du bist für die Wiederverwendung von mehr als hundert Medien einschließlich Le Parisien, Ouest France, Viafrance oder TootSweet",
     "es": "Ellos redifusé por más de un centenar de medios incluyendo el oeste de París Francia, y viaFrance TootSweet",
-    "it": "Sono ripetute da più di cento media, tra cui Le Parisien, Ouest France, Viafrance e TootSweet.",
+    "it": "Sono ripetute da più di cento media, tra cui Le Parisien, Ouest France, Viafrance e TootSweet",
     "io": "crwdns13480:0crwdne13480:0"
   },
   "mainBroadcastPoint4": {
@@ -247,7 +247,7 @@ module.exports = {
     "en": "The cost is proportional to the degree of customization",
     "de": "Die Kosten sind proportional zum Grad der Anpassung",
     "es": "El coste es proporcional al grado de personalización.",
-    "it": "Il costo è proporzionale al grado di personalizzazione.",
+    "it": "Il costo è proporzionale al grado di personalizzazione",
     "io": "crwdns13506:0crwdne13506:0"
   },
   "mainPricingAgendaPoint3": {
@@ -351,7 +351,7 @@ module.exports = {
     "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios",
-    "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri",
+    "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri.",
     "io": "crwdns13532:0crwdne13532:0"
   },
   "agendaPricingPresPoint2": {
@@ -359,7 +359,7 @@ module.exports = {
     "en": "Regardless of your staff size, your calendar fits your context",
     "de": "Unabhängig von Ihrem Personal Größe, Ihr Kalender paßt Ihren Kontext",
     "es": "Sólo ? En equipos de unas pocas docenas? Decenas de miles? <br> Su agenda se adapte a su contexto",
-    "it": "Da solo? In una squadra di poche decine? Decine di migliaia ?<br>La tua agenda si adatta al tuo contesto",
+    "it": "Qualsiasi la dimensione della sua squadra, la sua agenda si adatta al tuo contesto",
     "io": "crwdns13534:0crwdne13534:0"
   },
   "agendaPricingPresPoint3": {
@@ -591,7 +591,7 @@ module.exports = {
     "en": "Agenda Networks enable you to manage a multitude of interconnected agendas",
     "de": "Agenda-Netzwerke ermöglichen es Ihnen, eine Vielzahl von miteinander verbundenen Kalenders zu verwalten",
     "es": "La red de agendas permiten administrar una multitud de agendas interconectados",
-    "it": "Le reti di agende consentono di gestire una moltitudine di agende interconnesse.",
+    "it": "Le reti di agende consentono di gestire una moltitudine di agende interconnesse",
     "io": "crwdns13592:0crwdne13592:0"
   },
   "networkPricingDescription": {
@@ -816,7 +816,7 @@ module.exports = {
     "en": "Call us!",
     "de": "Rufe uns an!",
     "es": "¡Llámenos!",
-    "it": "Ci chiami.",
+    "it": "Chiamiamoci!",
     "io": "crwdns13648:0crwdne13648:0"
   },
   "basicOfferHeadTitle": {
@@ -840,7 +840,7 @@ module.exports = {
     "fr": "Créez autant d’agendas que vous le souhaitez, c’est gratuit et ça le sera toujours.",
     "de": "Erstelle so viele Kalenders, wie Sie wollen, du bist kostenlos und wird es immer sein",
     "es": "Crear tantos agendas como desee, es gratis y siempre lo será.",
-    "it": "Crea tutti i calendari che vuoi, è gratis e sarà sempre gratis.",
+    "it": "Crea tutte le agende che vuoi, c'è una offerta gratuita",
     "io": "crwdns13654:0crwdne13654:0"
   },
   "unlimitedTitle": {
@@ -864,7 +864,7 @@ module.exports = {
     "fr": "Pilotez votre agenda seul ou animez une communauté autour d’un agenda commun.",
     "de": "Verwalte deine Verwaltungskalender auf eigene Faust oder mobilisieren, um eine Gemeinschaft um eine gemeinsame Verwaltungskalender",
     "es": "Pilotar su única agenda o llevar una comunidad en torno a una agenda común.",
-    "it": "Gestite la vostra agenda da soli o animate una comunità intorno a un'agenda comune.",
+    "it": "Gestite la vostra agenda da soli o animate una comunità intorno a un'agenda comune",
     "io": "crwdns13660:0crwdne13660:0"
   },
   "unlimitedDownloads": {
@@ -1176,7 +1176,7 @@ module.exports = {
     "en": "Our template engine will give you full control over customization (HTML / CSS)",
     "de": "Unser Template-Engine gibt Ihnen die volle Kontrolle über Anpassung (HTML / CSS)",
     "es": "Nuestro motor de plantillas le permite incluir en su página web un agenda totalmente personalizado (HTML y CSS)",
-    "it": "Il nostro motore di template vi permette di integrare sul vostro sito un'agenda completamente personalizzata (HTML e CSS).",
+    "it": "Il nostro motore di template vi permette di integrare sul suo sito un'agenda completamente personalizzata (HTML e CSS)",
     "io": "crwdns13738:0crwdne13738:0"
   },
   "validationProcessTitle": {
@@ -1200,7 +1200,7 @@ module.exports = {
     "fr": "Vos événements sont soit __à modérer__, __prêts à être publiés__, ou __publiés__",
     "de": "Ihre Veranstaltungen sind entweder __to werden moderated__, __ready werden published__ oder __published__",
     "es": "Sus eventos son o modérer__ __Un, __prêts ser publiés__ o __publiés__",
-    "it": "I vostri eventi sono __destinati ad essere moderati__, __preparati ad essere pubblicati__, oppure __pubblicati__.",
+    "it": "I eventi sono da moderare, aspettando pubblicazione oppure pubblicati",
     "io": "crwdns13744:0__published__crwdne13744:0"
   },
   "moderatorTitle": {
@@ -1208,7 +1208,7 @@ module.exports = {
     "fr": "Nommez des modérateurs pour faciliter le contrôle des contributions de vos agendas",
     "de": "Name Moderatoren Beiträge auf Ihrer Agenda überprüfen",
     "es": "Nombrar a los asesores para facilitar el control de las contribuciones de sus agendas",
-    "it": "Nominate dei moderatori per facilitare il controllo dei contributi alle vostre agende.",
+    "it": "Nominate dei moderatori per facilitare il controllo dei contributi alle sue agende",
     "io": "crwdns13746:0crwdne13746:0"
   },
   "moderatorRights": {
@@ -1224,7 +1224,7 @@ module.exports = {
     "fr": "Décidez s'ils peuvent également publier les événements controlés",
     "de": "Entscheiden Sie, ob Moderatoren veröffentlichen haben Rechte über die Veranstaltungen",
     "es": "Decidir si también pueden publicar eventos controlado",
-    "it": "Decidere se possono pubblicare anche eventi controllati.",
+    "it": "Lei decide se i moderatori possono pubblicare anche eventi controllati",
     "io": "crwdns13750:0crwdne13750:0"
   },
   "contactUsTitle": {
@@ -1232,7 +1232,7 @@ module.exports = {
     "fr": "Des questions ?",
     "de": "In Kontakt kommen !",
     "es": "Preguntas ?",
-    "it": "Qualche domanda?",
+    "it": "Chiamiamoci!",
     "io": "crwdns13752:0crwdne13752:0"
   },
   "contactUsLabel": {
@@ -1280,7 +1280,7 @@ module.exports = {
     "fr": "Déployez un réseau d’agendas interconnectés.",
     "de": "Bereitstellen eines Netzwerk von miteinander verbundenen Kalenders",
     "es": "Desplegar una red de agendas interconectados.",
-    "it": "Dispiegare una rete di agende interconnesse.",
+    "it": "Dispiegare una rete di agende interconnessi",
     "io": "crwdns13764:0crwdne13764:0"
   },
   "networkEvolving": {
@@ -1288,7 +1288,7 @@ module.exports = {
     "fr": "Bénéficiez d’une solution en ligne en constante amélioration.",
     "de": "Genieße die Vorzüge einer Online-Lösung spezialisiert in ständiger Entwicklung",
     "es": "Disfrutar de una solución en línea en constante mejora.",
-    "it": "Approfittate di una soluzione online in costante miglioramento.",
+    "it": "Approfittate di una soluzione online in costante miglioramento",
     "io": "crwdns13766:0crwdne13766:0"
   },
   "networkSupport": {
@@ -1304,7 +1304,7 @@ module.exports = {
     "fr": "Le nombre d’agendas gratuit est illimité et vous disposez de **20 agendas premium**",
     "de": "Erhalte eine unbegrenzte Anzahl von freien Kalenders plus ** 20 Premium-Kalenders **",
     "es": "El número de agenda libre es ilimitado y tiene premium ** 20 ** agendas",
-    "it": "Il numero di agende gratuite è illimitato e si hanno **20 agende premium**.",
+    "it": "Il numero di agende gratuite è illimitato e si hanno **20 agende premium**",
     "io": "crwdns13770:0crwdne13770:0"
   },
   "networkExport": {
@@ -1312,7 +1312,7 @@ module.exports = {
     "fr": "Les événements de votre réseau sont exportables depuis une interface unifiée",
     "de": "Die Veranstaltungen Ihrer Netzwerke können in einer einheitlichen Schnittstelle exportiert werden",
     "es": "Los acontecimientos en la red se pueden exportar desde una interfaz unificada",
-    "it": "I vostri eventi di rete possono essere esportati da un'interfaccia unificata.",
+    "it": "I suoi eventi di rete possono essere esportati da un'interfaccia unificata",
     "io": "crwdns13772:0crwdne13772:0"
   },
   "supportTitle": {
@@ -1336,7 +1336,7 @@ module.exports = {
     "fr": "Profitez d'un conseil spécialisé au démarrage de votre projet pour partir sur de bonnes bases",
     "de": "Hole sich ein Eins-zu-Eins-Gespräch zu Beginn des Projektes auf dem rechten Fuß zu beginnen",
     "es": "Disfrutar de asesoramiento de expertos en el inicio de su proyecto desde el derecho básico",
-    "it": "Approfittate della consulenza di esperti all'inizio del vostro progetto per iniziare bene il progetto.",
+    "it": "Approfittate della consulenza di esperti all'inizio del suo progetto per iniziare bene",
     "io": "crwdns13778:0crwdne13778:0"
   },
   "multiplePremiumTitle": {
@@ -1400,7 +1400,7 @@ module.exports = {
     "fr": "Agenda",
     "de": "Agenda",
     "es": "agenda",
-    "it": "Ordine del giorno",
+    "it": "Agenda",
     "br": "Deiziataer",
     "io": "crwdns13794:0crwdne13794:0"
   },
@@ -1433,7 +1433,7 @@ module.exports = {
     "fr": "Contact",
     "de": "Kontakt",
     "es": "Contactar",
-    "it": "Contatto",
+    "it": "Contattare",
     "io": "crwdns13802:0crwdne13802:0"
   },
   "footerService": {
@@ -1506,7 +1506,7 @@ module.exports = {
     "fr": "(*) Les prix affichés excluent la TVA",
     "de": "(*) Die angegebenen Preise verstehen sich inklusive Mehrwertsteuer",
     "es": "(*) Los precios indicados no incluyen ni IVA",
-    "it": "(*) I prezzi indicati si intendono IVA esclusa.",
+    "it": "(*) I prezzi indicati si intendono IVA esclusa",
     "io": "crwdns13820:0crwdne13820:0"
   },
   "tailoredTitle": {
@@ -1538,7 +1538,7 @@ module.exports = {
     "fr": "L'équipe OpenAgenda peut intervenir sur votre projet à plusieurs niveaux",
     "de": "Das OpenAgenda Team kann auf mehreren Ebenen in Ihrem Projekt eingreifen",
     "es": "El equipo OpenAgenda puede trabajar en su proyecto en muchos niveles",
-    "it": "Il team di OpenAgenda può lavorare sul vostro progetto a diversi livelli",
+    "it": "La squadra di OpenAgenda può lavorare sul vostro progetto a diversi livelli",
     "io": "crwdns13828:0crwdne13828:0"
   },
   "expertiseOperationalSupport": {
@@ -1658,7 +1658,7 @@ module.exports = {
     "fr": "Grâce aux agendas contributifs, gérez des milliers d'événements avec votre équipe de modérateurs",
     "de": "Dank contributive Kalenders, verwalten Tausende von Veranstaltungen mit Ihrem Team von Mitarbeitern",
     "es": "Contribuyendo con agendas, gestionar miles de eventos con su equipo de moderadores",
-    "it": "Gestisci migliaia di eventi con il tuo team di moderatori utilizzando i calendari contributivi.",
+    "it": "Gestisci migliaia di eventi con il tuo team di moderatori utilizzando i agende contributivi",
     "io": "crwdns13858:0crwdne13858:0"
   },
   "stakeholderTitle": {
@@ -1674,7 +1674,7 @@ module.exports = {
     "fr": "Votre agenda peut-être ouvert à toutes contributions ou être limité à une liste prédéfinie de contributeurs",
     "de": "Ihre Agenda kann auf alle Beiträge offen sein oder zu einem Satz von eingeladen Mitwirkenden begrenzt",
     "es": "Su agenda puede ser abierto a las contribuciones o limitarse a una lista predefinida de contribuyentes",
-    "it": "Il vostro agenda può essere aperto a tutti i contributi o essere limitato a un elenco predefinito di collaboratori.",
+    "it": "Il vostro agenda può essere aperto a tutti i contributi o essere limitato a un elenco predefinito di collaboratori",
     "io": "crwdns13862:0crwdne13862:0"
   },
   "stakeholderInfo": {
@@ -1682,7 +1682,7 @@ module.exports = {
     "fr": "Récuperez des données de contact plus précises de vos contributeurs comme leur numéro, organisation, et fonction",
     "de": "Informiere sich über Deine Mitwirkenden wie Telefonnummer, die Rolle und den Namen der Organisation",
     "es": "Obtener datos más precisos de contacto de sus colaboradores, tal como su número, organización y función",
-    "it": "Ottenete informazioni di contatto più precise dai vostri collaboratori, come il loro numero, l'organizzazione e la funzione.",
+    "it": "Ottenete informazioni di contatto più precise dai vostri collaboratori, come il loro numero, l'organizzazione e la funzione",
     "io": "crwdns13864:0crwdne13864:0"
   },
   "buildNetworkTitle": {
@@ -1738,7 +1738,7 @@ module.exports = {
     "fr": "Vos événements sont rediffusés sur des plateformes tierces ainsi que sur d'autres OpenAgendas",
     "de": "Veranstaltungen werden von Plattformen von Drittanbietern sowie andere OpenAgendas wiederverwendet werden",
     "es": "Sus eventos se repiten en las plataformas de terceros y otros OpenAgendas",
-    "it": "I vostri eventi vengono riprodotti su piattaforme di terze parti e su altre OpenAgendas.",
+    "it": "I sui eventi vengono riprodotti su piattaforme di terze parti e su altre OpenAgendas",
     "io": "crwdns13878:0crwdne13878:0"
   },
   "exportsBroadcastTitle": {
@@ -1754,7 +1754,7 @@ module.exports = {
     "fr": "Votre contenu peut être rediffusé au sein d'un réseau tel qu'une ville ou région, entreprise mère ou média spécialisé",
     "de": "Ihr Inhalt kann innerhalb eines übergeordneten Netzwerks wie beispielsweise eine Stadt oder Region einer Muttergesellschaft oder Fachmedien ausgestrahlt",
     "es": "Su contenido puede ser reproducido dentro de una red tal como una ciudad o región, empresa matriz o medios especializados",
-    "it": "I vostri contenuti possono essere ritrasmessi all'interno di una rete come una città o regione, una società madre o media specializzati.",
+    "it": "I suoi contenuti possono essere ritrasmessi all'interno di una rete come una città o regione, una società madre o media specializzati",
     "io": "crwdns13882:0crwdne13882:0"
   },
   "exportsBroadcastDescription": {
@@ -1786,7 +1786,7 @@ module.exports = {
     "fr": "Les contenus d'agendas privés ne sont accessible que par des utilisateurs choisis",
     "de": "Private Kalenders sind nur sichtbar, identifiziert Benutzer gewählt",
     "es": "Los contenidos agendas privados sólo son accesibles por los usuarios seleccionados",
-    "it": "Il contenuto delle agende private è accessibile solo agli utenti selezionati.",
+    "it": "Il contenuto delle agende private è accessibile solo agli utenti selezionati",
     "io": "crwdns13890:0crwdne13890:0"
   },
   "privateBroadcast": {
@@ -1874,7 +1874,7 @@ module.exports = {
     "fr": "OpenAgenda s'impose comme l'outil de référence en France. L'interface est intuitive et offre de nombreuses fonctionnalités. Nous l'utilisons aujourd'hui pour toutes nos manifestations nationales (Journées européennes du Patrimoine, Fête de la Musique, Nuit européenne des musées, etc).",
     "de": "OpenAgenda wird zum Referenzinstrument in Frankreich. Die Schnittstelle ist intuitiv und bietet eine Vielzahl von Funktionen. Wir verwenden es heute für alle unsere nationalen Veranstaltungen (European Heritage Days, Fête de la Musique, Europäische Museumsnacht, etc).",
     "es": "OpenAgenda como la herramienta de referencia en Francia. La interfaz es intuitiva y ofrece muchas características. Hoy en día usamos para todos nuestros eventos nacionales (Jornadas Europeas del Patrimonio, Festival de música, Noche Europea de los Museos, etc).",
-    "it": "OpenAgenda è lo strumento di riferimento in Francia. L'interfaccia è intuitiva e offre molte funzionalità. Ora lo utilizziamo per tutti i nostri eventi nazionali (Giornate Europee del Patrimonio, Festa della Musica, Notte dei Musei d'Europa, ecc.)",
+    "it": "OpenAgenda è lo strumento di riferimento in Francia. L'interfaccia è intuitiva e offre molte funzionalità. Ora lo utilizziamo per tutti i nostri eventi nazionali (Giornate Europee del Patrimonio, Festa della Musica, Notte dei Musei d'Europa, etc.).",
     "io": "crwdns13912:0crwdne13912:0"
   },
   "jeromeMessinaRole": {
@@ -1922,7 +1922,7 @@ module.exports = {
     "fr": "Nous souhaitions avec des partenaires, créer des agendas collaboratifs dédiés aux événements du numérique, de l'innovation, et du coworking. Openagenda nous a permis de gagner du temps en mutualisant nos événements et de les diffuser plus largement via nos sites web et au delà.",
     "de": "Wir brauchten kollaborative Kalender mit unseren Partnern an Veranstaltungen in den digitalen, Innovation und Coworking Felder widmen. OpenAgenda erlaubt uns, Zeit zu gewinnen, indem Sie uns erlauben unsere Veranstaltungen mutualize und übertragen sie mehr global über unsere Websites und darüber hinaus",
     "es": "Quisimos crear agendas con los socios de colaboración dedicados a la digital de eventos, la innovación y el coworking. Openagenda nos permitió ahorrar tiempo al compartir nuestros eventos y difusión a través de nuestros sitios web y más allá.",
-    "it": "Insieme ai partner, abbiamo voluto creare delle agende collaborative dedicate al digitale, all'innovazione e agli eventi di coworking. Openagenda ci ha permesso di risparmiare tempo mettendo in comune i nostri eventi e di diffonderli più ampiamente attraverso i nostri siti web e non solo.",
+    "it": "Insieme ai partner, abbiamo voluto creare delle agende collaborative dedicate al digitale, all'innovazione e agli eventi di coworking. Openagenda ci ha permesso di risparmiare tempo mettendo in comune i nostri eventi e di diffonderli più ampiamente attraverso i nostri siti web e non solo",
     "io": "crwdns13924:0crwdne13924:0"
   },
   "xavierMasclauxRole": {
@@ -1978,7 +1978,7 @@ module.exports = {
     "fr": "Appelez-nous ou laissez nous un message, nous vous répondrons rapidement",
     "de": "Rufe uns an oder rechts eine Notiz, wir werden in Kürze bei Ihnen zurück",
     "es": "Llámenos o dejar un mensaje, vamos a responder con rapidez",
-    "it": "Chiamateci o lasciateci un messaggio, vi risponderemo prontamente.",
+    "it": "Chiamateci o lasciateci un messaggio, vi risponderemo prontamente",
     "io": "crwdns13938:0crwdne13938:0"
   },
   "testimoniesTitle": {
@@ -2074,7 +2074,7 @@ module.exports = {
     "fr": "Les événements sont rediffusables par nos et vos partenaires",
     "de": "Events sind wiederverwendbar durch unsere und Ihre Partner",
     "es": "Los eventos se retransmisión y por nuestros socios",
-    "it": "Gli eventi possono essere ritrasmessi dal nostro e dai vostri partner.",
+    "it": "Gli eventi possono essere ritrasmessi dal nostro e dai vostri partner",
     "io": "crwdns13962:0crwdne13962:0"
   },
   "premiumSumCustomizable": {
@@ -2114,7 +2114,7 @@ module.exports = {
     "fr": "Agrégez les événements d'autres agendas sur le votre",
     "de": "Aggregate Veranstaltungen von anderen Kalenders in Ihre",
     "es": "Agregar los otros eventos en su agenda",
-    "it": "Aggregare eventi da altre agende per conto proprio.",
+    "it": "Aggregare eventi da altre agende per conto proprio",
     "io": "crwdns13972:0crwdne13972:0"
   },
   "premiumSumValidation": {
@@ -2146,7 +2146,7 @@ module.exports = {
     "fr": "Intégrez votre OpenAgenda en marque blanche",
     "de": "Bette Deine White-Label OpenAgenda in deiner Website",
     "es": "Integrar su marca blanca OpenAgenda",
-    "it": "Integrate il vostro OpenAgenda come etichetta bianca",
+    "it": "Integrate il suo OpenAgenda come etichetta bianca",
     "io": "crwdns13980:0crwdne13980:0"
   },
   "embedDiscover": {

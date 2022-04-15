@@ -12,7 +12,7 @@ export default (agenda, page, search) => {
     () => (
       axios.get(res.index, {
         params: {
-          page, from, size, search: search.search, uids: search.uids, eventCount: true, hasNull: search.hasNull, state: search.state
+          page, from, size, search: search.search, uids: search.uids, hasNull: search.hasNull, state: search.state
         }
       }).then(response => response.data)
     ));

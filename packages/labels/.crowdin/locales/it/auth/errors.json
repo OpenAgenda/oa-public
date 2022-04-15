@@ -1,6 +1,6 @@
 {
-  "noAccountFound": "Nessun conto trovato",
-  "accountAlreadyActivated": "Il conto è già attivato",
+  "noAccountFound": "Nessun account trovato",
+  "accountAlreadyActivated": "Il account è già attivato",
   "incorrectPassword": "Questo password non è corretto",
   "invalidToken": "Token non valido",
   "userNotFound": "Nessun conto trovato",

@@ -26,6 +26,6 @@
   "activities": "Attività",
   "next": "Prossimo",
   "noActivity": "L'attività del vostro agenda sarà visibile qui.",
-  "unknownActivity": "Etichetta di attività mancante per {verb}.",
+  "unknownActivity": "Etichetta di attività mancante per {verb}",
   "agenda.sendInvitation": "{user} ha invitato {email} come {credential}."
 }

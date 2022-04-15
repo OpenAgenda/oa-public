@@ -8,14 +8,6 @@ const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
 
-const layout = require('../lib/layouts').load(
-  'agendaAdmin', { selectedTab: 'locations' }
-);
-
-const {
-  getLocationSet,
-} = require('./lib/middleware');
-
 module.exports = (config, services, instance, app, base) => {
   const {
     members,
@@ -32,70 +24,6 @@ module.exports = (config, services, instance, app, base) => {
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
     loadLocationEndpoints(instance));
 
-  /* app.get(base,
-    getLocationSet(instance),
-    (req, res, _next) => {
-      const layoutData = {
-        role: req.member.role,
-        lang: req.lang,
-        agenda: req.agenda,
-        bodyAttributes: [
-          {
-            name: 'data-options',
-            value: JSON.stringify({
-              detailedInfo: _.get(req, 'locationLegacySettings.admin.detailed', true),
-              settings: req.settings,
-              lang: req.lang,
-              enableGeocode: true,
-              agenda: {
-                slug: req.agenda.slug,
-                title: req.agenda.title,
-                uid: req.agenda.uid
-              },
-              tiles: config.tiles,
-              staticTiles: config.staticTiles,
-              set: req.locationSet,
-              res: {
-                csv: `/${req.agenda.slug}/admin/locations.csv`,
-                xlsx: `/${req.agenda.slug}/admin/locations.xlsx`,
-                index: `/${req.agenda.slug}/admin/locations.json`,
-                geocode: '/locations/geocode',
-                insee: '/locations/insee',
-                reverseGeocode: '/locations/geocode/reverse',
-                seeEvents: `/${req.agenda.slug}/admin/events?locationUid=:locationUid&q.locationUid=:locationUid`,
-                create: `/${req.agenda.slug}/admin/locations`,
-                update: `/${req.agenda.slug}/admin/locations/:locationUid`,
-                get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
-                remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
-                merge: `/${req.agenda.slug}/admin/locations/merge`,
-                agendaSearch: '/agendas',
-                disqualifyDuplicates: `/${req.agenda.slug}/admin/locations/disqualify`,
-              }
-            })
-          }
-        ],
-        scripts: {
-          bottom: [{
-            src: '/js/locationsIndex.js'
-          }].concat(config.matomoCloudCode ? {
-            body: config.matomoCloudCode
-          } : [])
-        }
-      };
-
-      layoutData.translateMode = Boolean(req.cookies.translateMode);
-      layoutData.isTranslator = req.user?.uid && config.translators.includes(req.user.uid);
-
-      if (req.cookies.translateMode) {
-        layoutData.scripts.top = [
-          { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
-          { src: '//cdn.crowdin.com/jipt/jipt.js' }
-        ];
-      }
-
-      res.send(layout('<div class="js_canvas"></div>', layoutData));
-    });
- */
   app.get(`${base}.json`, (req, res, next) => {
     req.locations.list(
       req.query,

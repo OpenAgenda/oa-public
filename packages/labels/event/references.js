@@ -46,7 +46,7 @@ module.exports = {
     "en": "Add an event",
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
-    "it": "Aggiungere un evento",
+    "it": "Aggiungi un evento",
     "io": "crwdns14378:0crwdne14378:0"
   },
   "addEventOr": {

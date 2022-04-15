@@ -6,7 +6,7 @@ module.exports = {
     "en": "This feature allows you to automatically fetch the events added to the agendas of your choice.",
     "de": "Automatisch Import",
     "es": "Esta función recuperará automáticamente el agenda de eventos que ha elegido.",
-    "it": "Questa funzione consente di richiamare automaticamente gli eventi dalle agende scelte.",
+    "it": "Colla funzione di aggregazione, importa automaticamente gli eventi di altri agende.",
     "io": "crwdns13004:0crwdne13004:0"
   },
   "createAggregator": {
@@ -14,7 +14,7 @@ module.exports = {
     "en": "Activate agenda aggregation",
     "de": "Aktivieren Agenda Aggregation",
     "es": "Habilitar la agregación de los agendas",
-    "it": "Attivare l'aggregazione degli ordini del giorno",
+    "it": "Attiva la funzione di aggregazione",
     "io": "crwdns13006:0crwdne13006:0",
     "oc": "Activar l'agregacion d'agendas"
   },
@@ -65,7 +65,7 @@ module.exports = {
     "en": "Search an agenda",
     "de": "Suche eine Verwaltungskalender",
     "es": "agenda de búsqueda",
-    "it": "Ricerca di un calendario",
+    "it": "Cerca un'agenda",
     "br": "Klask un deiziataer",
     "io": "crwdns13018:0crwdne13018:0"
   },
@@ -74,7 +74,7 @@ module.exports = {
     "en": "Official agenda",
     "de": "offizielle Kalender",
     "es": "agenda",
-    "it": "agenda ufficiale",
+    "it": "Agenda ufficiale",
     "br": "Deiziataer ofisiel",
     "io": "crwdns13020:0crwdne13020:0"
   },

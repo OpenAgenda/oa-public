@@ -54,7 +54,7 @@ module.exports = {
     "fr": "Supprimer",
     "de": "Löschen",
     "es": "Eliminar",
-    "it": "Cancellare",
+    "it": "Rimuovi",
     "br": "Lemel",
     "io": "crwdns14876:0crwdne14876:0"
   },

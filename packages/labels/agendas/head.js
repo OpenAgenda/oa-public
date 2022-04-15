@@ -64,7 +64,7 @@ module.exports = {
   "manage": {
     "en": "Manage",
     "fr": "Gérer",
-    "it": "Gestire",
+    "it": "Gestisci",
     "de": "verwalten",
     "pl": "Zarządzaj",
     "es": "Gestionar",

@@ -1,7 +1,7 @@
 {
-  "update": "Registrare",
+  "update": "Salva",
   "updating": "Aggiornando",
   "updated": "Registrato",
   "syncError": "Il backup non ha avuto successo. La preghiamo di riprovare.",
-  "cancel": "Annullare"
+  "cancel": "Annulla"
 }

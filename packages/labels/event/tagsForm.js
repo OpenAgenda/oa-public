@@ -30,7 +30,7 @@ module.exports = {
     "en": "Submit",
     "de": "einreichen",
     "es": "validar",
-    "it": "Convalida",
+    "it": "Invia",
     "br": "Kemmañ",
     "io": "crwdns14630:0crwdne14630:0"
   },
@@ -87,7 +87,7 @@ module.exports = {
     "en": "Cancel",
     "de": "Stornieren",
     "es": "anular",
-    "it": "Annullare",
+    "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns14644:0crwdne14644:0"
   },
@@ -96,7 +96,7 @@ module.exports = {
     "en": "Select",
     "de": "Wählen",
     "es": "seleccionar",
-    "it": "Selezionare",
+    "it": "Seleziona",
     "io": "crwdns14646:0crwdne14646:0"
   }
 }

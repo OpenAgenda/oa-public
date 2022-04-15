@@ -6,7 +6,7 @@ module.exports = {
     "en": "Inbox",
     "de": "Posteingang",
     "es": "mensajería",
-    "it": "Posta",
+    "it": "Messaggi",
     "io": "crwdns14998:0crwdne14998:0"
   },
   "conversation": {
@@ -166,7 +166,7 @@ module.exports = {
     "en": "Submit",
     "de": "einreichen",
     "es": "enviar a",
-    "it": "Inviare a",
+    "it": "Invia",
     "br": "Kemmañ",
     "io": "crwdns15038:0crwdne15038:0"
   },
@@ -698,7 +698,7 @@ module.exports = {
     "en": "replied %date% ago",
     "de": "Vor antwortete %date%",
     "es": "Hace respondido %date%",
-    "it": "risposto %date %date",
+    "it": "risposto %date% fa",
     "io": "crwdns15144:0%date%crwdne15144:0"
   },
   "youRepliedAgo": {
@@ -706,7 +706,7 @@ module.exports = {
     "en": "You replied %date% ago",
     "de": "Du hast vor %date% geantwortet",
     "es": "Hace su respuesta es la %date%",
-    "it": "Hai risposto %date %date",
+    "it": "Hai risposto %date% fa",
     "io": "crwdns15146:0%date%crwdne15146:0"
   },
   "contactForm": {

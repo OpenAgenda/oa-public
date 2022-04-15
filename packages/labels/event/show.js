@@ -279,7 +279,7 @@ module.exports = {
   "cancel": {
     "en": "Cancel",
     "fr": "Annuler",
-    "it": "Annullare",
+    "it": "Annulla",
     "de": "annulieren",
     "pl": "Anuluj",
     "es": "anular",
@@ -516,7 +516,7 @@ module.exports = {
   "featured": {
     "en": "Featured",
     "fr": "Mis en une",
-    "it": "Prima pagina",
+    "it": "Selezionato",
     "de": "ausgewählt",
     "pl": "Opisane",
     "es": "Poner en una",
@@ -621,7 +621,7 @@ module.exports = {
     "de": "Geistige Behinderung",
     "es": "Discapacidad mental",
     "br": "Dalc'het en o spered",
-    "it": "Disabilità mental",
+    "it": "Accessibile ai disabili cognitivi",
     "io": "crwdns14556:0crwdne14556:0"
   },
   "signLanguageAvailable": {
@@ -657,7 +657,7 @@ module.exports = {
   "access": {
     "en": "Access",
     "fr": "Accès",
-    "it": "Accesso",
+    "it": "Condizioni di accesso",
     "de": "Zugang",
     "pl": "Dostęp",
     "es": "acceso",
@@ -797,7 +797,7 @@ module.exports = {
   "inbox": {
     "en": "Inbox",
     "fr": "Messagerie",
-    "it": "Posta elettronica",
+    "it": "Messaggi",
     "de": "Posteingang",
     "pl": "Skrzynka z informacjami",
     "es": "mensajería",

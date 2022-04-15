@@ -3,9 +3,10 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendaLocations/getEventCounts');
 
-module.exports = ({ knex }) => async (locationUids, { agendaUid }) => {
+module.exports = (config, services) => async (locationUids, { agendaUid }) => {
   log('getting for %s for agenda %s', locationUids.join(', '), agendaUid);
-  
+  const { knex } = services;
+
   const query = knex('event_2 as e')
     .select(['e.location_uid as locationUid', knex.raw('count(e.id) as eventCount')])
     .leftJoin('agenda_event as ae', 'e.uid', 'ae.event_uid')
@@ -45,4 +46,4 @@ module.exports = ({ knex }) => async (locationUids, { agendaUid }) => {
 
     return merged;
   }, agendaEventCounts.map(pair => ({ ...pair, eventCount: 0 })));
-}
+};

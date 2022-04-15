@@ -70,7 +70,7 @@ module.exports = {
     "fr": "Un agenda <em>complet</em> et <em>structuré</em>",
     "de": "Ihr Kalender, <em> organisiert </ em> und <em> umfassende </ em>",
     "es": "Un agenda <em> completa </ ​​em> y <em> estructurado </ em>",
-    "it": "Un agenda completo e un agenda strutturato.",
+    "it": "Un agenda completo e un agenda strutturato",
     "io": "crwdns13290:0crwdne13290:0"
   },
   "function1Description": {
@@ -78,7 +78,7 @@ module.exports = {
     "fr": "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères !",
     "de": "Deine Veranstaltungsseiten sind detailliert und du kannst Deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios!",
-    "it": "I vostri eventi sono dettagliati e potete organizzare la vostra agenda secondo diversi criteri!",
+    "it": "I suoi eventi sono dettagliati e potete organizzare la sua agenda secondo diversi criteri.",
     "io": "crwdns13292:0crwdne13292:0"
   },
   "function2Head": {
@@ -102,7 +102,7 @@ module.exports = {
     "fr": "Déployez <em>votre réseau</em> d'agendas !",
     "de": "Bereitstellen von <em> Ihr eigenes Netzwerk </ em> von Kalendern",
     "es": "Implementar <em> su red </ em> agendas!",
-    "it": "Distribuire <em> la vostra rete</em> di agende!",
+    "it": "Distribuire <em> la sua rete</em> di agende",
     "io": "crwdns13298:0crwdne13298:0"
   },
   "function3Description": {
@@ -126,7 +126,7 @@ module.exports = {
     "fr": "Votre agenda est synchronisable avec tous vos supports et diffusable par tous !<br>#DonnéesOuvertes #OpenData",
     "de": "Synchronisieren Sie Ihren Kalender mit Ihren Medien und teilen Sie es mit der ganzen Welt als #OpenData.",
     "es": "Su agenda está sincronizado con todos sus medios y distribuir por todo! <br> # DonnéesOuvertes #opendata",
-    "it": "La vostra agenda è sincronizzabile con tutti i vostri media e può essere distribuita da tutti !<br>#OpenData",
+    "it": "La sua agenda è sincronizzabile con tutti i suoi media e può essere trasmessa a tutti come dati aperti #OpenData.",
     "io": "crwdns13304:0crwdne13304:0"
   },
   "ourReferences": {
@@ -215,7 +215,7 @@ module.exports = {
     "fr": "OpenData",
     "de": "Opendata",
     "es": "opendata",
-    "it": "OpenData",
+    "it": "Dati Aperti",
     "io": "crwdns13326:0crwdne13326:0"
   },
   "multilingualAndMedia": {
@@ -489,7 +489,7 @@ module.exports = {
     "fr": "Contact",
     "de": "Kontakt",
     "es": "Contactar",
-    "it": "Contatto",
+    "it": "Contattare",
     "io": "crwdns13394:0crwdne13394:0"
   },
   "email": {

@@ -12,7 +12,7 @@ module.exports = {
     "de": "Die Zahl muss gleich oder niedriger als %max%",
     "es": "El número debe ser menor o igual al %max%",
     "br": "Arabat d'an niver bezañ ouzhpenn %max%",
-    "it": "Il numero deve essere inferiore o uguale a %max%.",
+    "it": "Il numero deve essere inferiore o uguale a %max%",
     "io": "crwdns14034:0%max%crwdne14034:0"
   },
   "multi-input.info": {
@@ -39,7 +39,7 @@ module.exports = {
     "de": "Das Feld muss mindestens %min% enthalten caracters",
     "es": "Este campo debe tener al menos %min% caracteres",
     "br": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ",
-    "it": "Il campo deve contenere almeno %min% di caratteri.",
+    "it": "Il campo deve contenere almeno %min% di caratteri",
     "io": "crwdns14040:0%min%crwdne14040:0"
   },
   "string.toolong": {
@@ -48,7 +48,7 @@ module.exports = {
     "de": "Das Feld muss bei Most %max% caracters enthalten",
     "es": "Este campo no debe tener más de %max% caracteres",
     "br": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ",
-    "it": "Il campo non deve contenere più di %max% di caratteri.",
+    "it": "Il campo non deve contenere più di %max% di caratteri",
     "io": "crwdns14042:0%max%crwdne14042:0"
   },
   "email.invalid": {
@@ -66,7 +66,7 @@ module.exports = {
     "de": "Eine gültige Telefonnummer eingegeben werden muss",
     "es": "Un número de teléfono válido debe llenarse",
     "br": "Ret eo lakaat un niverenn bellgomz reizh",
-    "it": "È necessario inserire un numero di telefono valido.",
+    "it": "È necessario inserire un numero di telefono valido",
     "io": "crwdns14046:0crwdne14046:0"
   },
   "link.invalid": {
@@ -143,7 +143,7 @@ module.exports = {
     "de": "Es gab Probleme, während die Daten zu speichern, wiederholen Sie den Vorgang in kurzer Zeit",
     "es": "Hubo una preocupación cuando se guarda, por favor, inténtelo de nuevo en un momento",
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
-    "it": "C'è stato un problema durante il backup, riprovare tra un attimo.",
+    "it": "C'è stato un problema durante il backup, riprovare tra un attimo",
     "io": "crwdns14062:0crwdne14062:0"
   },
   "serverErrorTooLargeFile": {
@@ -182,7 +182,7 @@ module.exports = {
     "en": "The page you requested does not exist",
     "de": "Die von Ihnen angeforderte Seite existiert nicht",
     "es": "La página solicitada no existe",
-    "it": "La pagina richiesta non esiste.",
+    "it": "La pagina richiesta non esiste",
     "io": "crwdns14072:0crwdne14072:0"
   },
   "invalidOrIncompleteEvent": {

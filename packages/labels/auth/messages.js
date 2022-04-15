@@ -4,7 +4,8 @@ module.exports = {
   "isBlacklisted": {
     "fr": "Votre compte a été ajouté a notre liste de comptes frauduleux.",
     "en": "Your account has been added to our fraudulous accounts list.",
-    "io": "crwdns13094:0crwdne13094:0"
+    "io": "crwdns13094:0crwdne13094:0",
+    "it": "Il suo account è stato aggiunto alla nostra lista di account fraudolenti."
   },
   "isBlacklistedInfo": {
     "fr": "En cas d'erreur de notre part, contactez-nous soit via notre robot ou depuis le menu d'Aide.",
@@ -50,7 +51,7 @@ module.exports = {
   "facebookEmailMissing": {
     "en": "The email in your Facebook account is not available. Validate it on Facebook before retrying.",
     "fr": "L'email associé à votre compte Facebook est indisponible. Rendez-vous sur Facebook pour le valider.",
-    "it": "L'e-mail nel suo conto Facebook non è disponibile. Convalidarla su Facebook prima di riprovare.",
+    "it": "L'e-mail nel suo account Facebook non è disponibile. Convalidarla su Facebook prima di riprovare.",
     "de": "Die E-Mail in deinem Facebook-Konto ist nicht verfügbar. Überprüfe es auf Facebook, bevor Sie es wieder versuchen.",
     "pl": "Wiadomość e-mail na Twoim koncie na Facebooku nie jest dostępna. Zatwierdź to na Facebooku przed ponownym wypróbowaniem.",
     "es": "El correo electrónico asociada con su cuenta de Facebook no está disponible. Visita Facebook para confirmar.",
@@ -70,7 +71,7 @@ module.exports = {
   "accountEmailAlreadyExists": {
     "en": "An account with your email already exists. Please sign in using your email and password",
     "fr": "Un compte utilisant cet email existe déjà. Veuillez vous authentifier en utilisant votre email et mot de passe.",
-    "it": "Esiste già un conto con la sua email. Accedi utilizzando la sua email e la sua password",
+    "it": "Esiste già un account con la sua email. Accedi utilizzando la sua email e la sua password",
     "de": "Ein Konto mit deiner E-Mail existiert bereits. Bitte melde sich mit deiner E-Mail-Adresse und Ihrem Passwort an.",
     "pl": "Konto z Twoim e-mailem już istnieje. Zaloguj się używając swojego adresu e-mail i hasła",
     "es": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña.",

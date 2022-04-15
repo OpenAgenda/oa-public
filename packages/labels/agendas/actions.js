@@ -13,7 +13,7 @@ module.exports = {
   "ownershipTransfered": {
     "en": "The ownership of the event has successfully been transferred",
     "fr": "La propriété de l'événement a été transférée avec succès",
-    "it": "La proprietà dell'evento è stata trasferita con successo.",
+    "it": "La proprietà dell'evento è stata trasferita con successo",
     "de": "Das Eigentum an der Veranstaltung wurde erfolgreich übertragen.",
     "pl": "Własność wydarzenia została pomyślnie przeniesiona",
     "es": "La propiedad del evento fue transferido con éxito",

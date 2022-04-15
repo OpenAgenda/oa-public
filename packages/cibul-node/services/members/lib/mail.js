@@ -1,75 +1,61 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const invitations = require('@openagenda/invitations');
-const members = require('@openagenda/members');
 const log = require('@openagenda/logs')('members/mail');
 const mails = require('../../mails');
-const activities = require('../../activities');
+
 const agendaLogo = require('./agendaLogo');
 const extractInvitationContext = require('./invitationContext');
+const messages = require('./messages');
 
-module.exports = {
-  sendInvitation,
-  send,
-  resendInvitation,
-  messages: require('./messages')
-};
-
-async function send(config, { member, context, agenda, message }) {
-  log('send');
-
-  const lang = _.get(context, 'lang', 'fr');
-
-  return _send(config, {
-    member,
-    agenda,
-    message,
-    lang
-  });
-}
-
-async function resendInvitation(services, config, { agenda, member }) {
+async function createSenderActivity(services, { agenda, invitationContext, member }) {
   const {
-    invitation
-  } = await invitations.get({ email: member.custom.email });
+    activities
+  } = services;
 
-  if (!invitation) {
-    throw new Error('There is no invitation for this member');
+  const user = await services.users.findOne({
+    query: {
+      uid: invitationContext.sender.userUid
+    }
+  });
+
+  if (!user) {
+    throw new Error('Sender not found');
   }
 
-  return sendInvitation(services, config, { invitation, agenda, member });
+  return activities.feed({
+    entityType: 'agenda',
+    entityUid: agenda.uid
+  }).activities.add({
+    actor: `user:${user.uid}`,
+    verb: 'agenda.sendInvitation',
+    object: `email:${member.custom.email}`,
+    target: `agenda:${agenda.uid}`,
+    store: {
+      labels: {
+        actor: invitationContext.sender.memberName,
+        object: member.custom.email,
+        target: agenda.title
+      },
+      credential: member.role
+    }
+  });
 }
 
-async function sendInvitation(services, config, { invitation, member, context, agenda }) {
-  log('sendInvitation');
+function processSend({ config, services }, {
+  invitation, member, agenda, message, lang, footnote
+}) {
+  const {
+    members
+  } = services;
 
-  const invitationContext = extractInvitationContext(invitation, context);
-
-  try {
-    await _createSenderActivity(services, { agenda, invitationContext, member });
-  } catch (e) {
-    log('error', 'could not create sender activity', e);
-  }
-
-  const lang = _.get(invitationContext, 'lang', 'fr');
-
-  return _send(config, {
-    invitation,
-    member,
-    agenda,
-    message: (invitationContext && invitationContext.message) || undefined,
-    lang
-  });
-};
-
-function _send(config, { invitation, member, agenda, message, lang }) {
   const isMember = !!member.userUid;
   const role = members.utils.getRoleSlug(member.role);
   let link = `${config.root}/agendas/${agenda.uid}?lang=${lang}`;
 
   if (invitation) {
-    link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}`
+    link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}`;
   } else if (isMember) {
     if (role === 'administrator' || role === 'moderator') {
       link = `${config.root}/agendas/${agenda.uid}/admin/events`;
@@ -97,38 +83,68 @@ function _send(config, { invitation, member, agenda, message, lang }) {
       agenda: agenda.title,
       role,
       message,
+      footnote,
       isMember
     },
     lang
   });
 }
 
-async function _createSenderActivity(services, { agenda, invitationContext, member }) {
-  const user = await services.users.findOne({
-    query: {
-      uid: invitationContext.sender.userUid
-    }
-  });
+async function send({ config, services }, {
+  member, context, agenda, message
+}) {
+  log('send');
 
-  if (!user) {
-    throw new Error('Sender not found');
-  }
+  const lang = _.get(context, 'lang', 'fr');
 
-  return activities.feed({
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  }).activities.add({
-    actor: 'user:' + user.uid,
-    verb: 'agenda.sendInvitation',
-    object: 'email:' + member.custom.email,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: invitationContext.sender.memberName,
-        object: member.custom.email,
-        target: agenda.title
-      },
-      credential: member.role
-    }
+  return processSend({ config, services }, {
+    member,
+    agenda,
+    message,
+    lang
   });
 }
+
+async function sendInvitation({ services, config }, {
+  invitation, member, context, agenda
+}) {
+  log('sendInvitation');
+
+  const invitationContext = extractInvitationContext(invitation, context);
+
+  try {
+    await createSenderActivity(services, { agenda, invitationContext, member });
+  } catch (e) {
+    log('error', 'could not create sender activity', e);
+  }
+
+  const lang = _.get(invitationContext, 'lang', 'fr');
+
+  return processSend({ config, services }, {
+    invitation,
+    member,
+    agenda,
+    message: invitationContext?.message,
+    footnote: agenda.settings?.contribution?.messages?.GDPRInformation,
+    lang
+  });
+}
+
+async function resendInvitation({ services, config }, { agenda, member }) {
+  const {
+    invitation
+  } = await invitations.get({ email: member.custom.email });
+
+  if (!invitation) {
+    throw new Error('There is no invitation for this member');
+  }
+
+  return sendInvitation({ services, config }, { invitation, agenda, member });
+}
+
+module.exports = {
+  sendInvitation,
+  send,
+  resendInvitation,
+  messages
+};

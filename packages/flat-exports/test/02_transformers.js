@@ -8,6 +8,7 @@ const formatTime = require('../lib/transform/formatTime');
 const image = require('../lib/transform/image');
 const fieldToFlattenerMapItem = require('../lib/transform/fieldToFlattenerMapItem');
 const decorateFieldMap = require('../lib/transform/decorateFieldMap');
+const getDefaultFieldMap = require('../lib/transform/getDefaultFieldMap');
 
 describe('flat-exports - unit - transforms', () => {
   describe('fieldToFlattenerMapItem', () => {
@@ -163,8 +164,8 @@ describe('flat-exports - unit - transforms', () => {
 
       expect(flat).toEqual({
         ISO: '2017-03-16T09:30:00+01:00 -> 2017-03-16T12:00:00+01:00',
-        'timings - FR': 'jeudi 16 mars 2017 - 09:30',
-        'timings - EN': 'Thursday 16 March 2017 - 09:30'
+        'timings - FR': 'jeudi 16 mars 2017 - 09:30 ⤏ 12:00',
+        'timings - EN': 'Thursday 16 March 2017 - 09:30 ⤏ 12:00'
       });
     });
 
@@ -185,8 +186,8 @@ describe('flat-exports - unit - transforms', () => {
 
       expect(flat).toEqual({
         ISO: '2022-04-03T09:00:00.000Z -> 2022-04-03T10:00:00.000Z',
-        'timings - FR': 'dimanche 3 avril 2022 - 10:00',
-        'timings - EN': 'Sunday 3 April 2022 - 10:00'
+        'timings - FR': 'dimanche 3 avril 2022 - 10:00 ⤏ 11:00',
+        'timings - EN': 'Sunday 3 April 2022 - 10:00 ⤏ 11:00'
       });
     });
 
@@ -212,7 +213,7 @@ describe('flat-exports - unit - transforms', () => {
 
       expect(flat).toEqual({
         ISO: '2017-03-16T09:30:00+06:00 -> 2017-03-16T12:00:00+06:00 | 2017-03-16T14:30:00+06:00 -> 2017-03-16T22:00:00+06:00 | 2017-03-17T09:30:00+06:00 -> 2017-03-17T12:00:00+06:00',
-        timings: 'jeudi 16 mars 2017 - 09:30, 14:30 | vendredi 17 mars 2017 - 09:30'
+        timings: 'jeudi 16 mars 2017 - 09:30 ⤏ 12:00, 14:30 ⤏ 22:00 | vendredi 17 mars 2017 - 09:30 ⤏ 12:00'
       });
     });
   });
@@ -416,6 +417,25 @@ describe('flat-exports - unit - transforms', () => {
 
       expect(flat).toEqual({
         image: 'https://cibuldev.s3.amazonaws.com/ceci-est-une-image.jpg'
+      });
+    });
+  });
+
+  describe('getDefaultFieldMap', () => {
+    test('stripped call returns a field map', () => {
+      const fieldMap = getDefaultFieldMap();
+
+      expect(Array.isArray(fieldMap)).toBe(true);
+    });
+
+    test('location.postalCode is in base map', () => {
+      const fieldMap = getDefaultFieldMap();
+
+      expect(
+        fieldMap.find(item => item.source === 'location.postalCode')
+      ).toEqual({
+        source: 'location.postalCode',
+        target: 'location.postalCode'
       });
     });
   });

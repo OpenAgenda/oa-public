@@ -224,6 +224,9 @@ module.exports = [{
       }, {
         field: 'publication',
         type: 'text'
+      }, {
+        field: 'GDPRInformation',
+        type: 'text'
       }]
     }, {
       field: 'useFields',

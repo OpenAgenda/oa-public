@@ -15,7 +15,7 @@ module.exports = {
     "fr": "Paramètres du compte",
     "de": "Allgemeine Einstellungen",
     "es": "Configuración de la cuenta",
-    "it": "Impostazioni del conto",
+    "it": "Impostazioni dell'account",
     "io": "crwdns15822:0crwdne15822:0"
   },
   "userProfile": {
@@ -39,7 +39,7 @@ module.exports = {
     "fr": "Email",
     "de": "E-Mail",
     "es": "e-mail",
-    "it": "Invia un'e-mail a",
+    "it": "Email",
     "br": "Postel",
     "io": "crwdns15828:0crwdne15828:0"
   },
@@ -244,7 +244,7 @@ module.exports = {
     "fr": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ?\n\n Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
     "de": "Bist du sicher, dass du Dein Konto dauerhaft löschen willst?\n\nDeine Kalender und Veranstaltungen werden online bleiben. du kannst diese manuell löschen, wenn du sie online nicht speichern willst",
     "es": "¿Está seguro de que quiere eliminar su cuenta de forma permanente?\n\n Sus agendas y eventos permanecerán en línea, puede eliminarlos manualmente si no desea permitir en línea",
-    "it": "Sei sicuro di voler cancellare il tuo account in modo permanente?   Le vostre agende e i vostri eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online.",
+    "it": "Sei sicuro di voler cancellare il suo account in modo permanente? Le sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",
     "io": "crwdns15878:0crwdne15878:0"
   },
   "deleteModalButton": {

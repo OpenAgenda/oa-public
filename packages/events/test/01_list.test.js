@@ -49,6 +49,15 @@ describe('events - functional - list', () => {
        assert.equal(total, 6);
     });
 
+    it('by mutliple locationUids', async () => {
+      const {
+        items: events,
+        total
+       } = await svc.list({ locationUid: [46457931, 36223087] }, {}, { total: true });
+
+       assert.equal(total, 9);
+    });
+
     it('by ownerUid', async () => {
       const {
         total

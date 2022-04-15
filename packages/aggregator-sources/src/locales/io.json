@@ -58,7 +58,7 @@
   "aggregator-sources.DefineRules.editForDetail": "crwdns608:0crwdne608:0",
   "aggregator-sources.DefineRules.eventLocationDetail": "crwdns610:0{geo}crwdne610:0",
   "aggregator-sources.DefineRules.filterDetail": "crwdns616:0crwdne616:0",
-  "aggregator-sources.DefineRules.locationFilter": "crwdns618:0crwdne618:0",
+  "aggregator-sources.DefineRules.locationFilter": "crwdns618:0required={required}crwdne618:0",
   "aggregator-sources.DefineRules.manualPasteRules": "crwdns620:0crwdne620:0",
   "aggregator-sources.DefineRules.missingRequiredFields": "crwdns622:0fieldsCount={fieldsCount}crwdnd622:0fields={fields}crwdnd622:0fields={fields}crwdne622:0",
   "aggregator-sources.DefineRules.newRule": "crwdns624:0crwdne624:0",
@@ -111,7 +111,7 @@
   "aggregator-sources.RuleForm.helpFilterLocation": "crwdns716:0crwdne716:0",
   "aggregator-sources.RuleForm.helpFilterTag": "crwdns718:0crwdne718:0",
   "aggregator-sources.RuleForm.helpFilterText": "crwdns6036:0crwdne6036:0",
-  "aggregator-sources.RuleForm.locationFilter": "crwdns720:0required={required}crwdne720:0",
+  "aggregator-sources.RuleForm.locationFilter": "crwdns720:0crwdne720:0",
   "aggregator-sources.RuleForm.modeAdvanced": "crwdns722:0crwdne722:0",
   "aggregator-sources.RuleForm.modeSimple": "crwdns724:0crwdne724:0",
   "aggregator-sources.RuleForm.noOption": "crwdns726:0crwdne726:0",
@@ -163,5 +163,7 @@
   "aggregator-sources.EvaluateOptions.evaluateOption2": "crwdns16253:0crwdne16253:0",
   "aggregator-sources.RuleForm.name": "crwdns16219:0crwdne16219:0",
   "aggregator-sources.RuleForm.textFilterCaseSensitive": "crwdns16172:0crwdne16172:0",
-  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "crwdns16255:0crwdne16255:0"
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "crwdns16255:0crwdne16255:0",
+  "aggregator-sources.UpdateSourceModal.InfoMessage": "crwdns17328:0crwdne17328:0",
+  "aggregator-sources.UpdateSourceModal.InfoMessageImmediat": "crwdns17330:0crwdne17330:0"
 }

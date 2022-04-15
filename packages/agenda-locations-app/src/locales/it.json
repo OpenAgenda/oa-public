@@ -79,7 +79,7 @@
   "AgendaLocations.LocationForm.saving": "Backup",
   "AgendaLocations.LocationForm.string.tooshort": "La stringa è troppo corta",
   "AgendaLocations.LocationForm.updateSubmit": "Aggiorna",
-  "AgendaLocations.LocationForm.updateSubmitError": "La posizione non ha potuto essere aggiornata.",
+  "AgendaLocations.LocationForm.updateSubmitError": "La posizione non ha potuto essere aggiornata",
   "AgendaLocations.LocationForm.website": "Sito web",
   "AgendaLocations.LocationItem.detailsButton": "Dettagli",
   "AgendaLocations.LocationItem.edit": "Modificare",

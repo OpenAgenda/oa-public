@@ -10,7 +10,8 @@ const LocationDetailModal = ({
   res,
   settings,
   agenda,
-  closeDetail
+  closeDetail,
+  lang
 }) => {
   const staticTiles = useSelector(state => state.settings.staticTiles);
   const [detailedLocation, setDetailedLocation] = useState();
@@ -31,7 +32,7 @@ const LocationDetailModal = ({
         <LocationDetails
           res={res}
           location={detailedLocation}
-          lang="FR"
+          lang={lang}
           settings={settings}
           hover={false}
           staticTiles={staticTiles}

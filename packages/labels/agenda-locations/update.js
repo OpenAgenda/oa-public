@@ -22,7 +22,7 @@ module.exports = {
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Guardar",
-    "it": "Aggiornare",
+    "it": "Aggiorna",
     "br": "Hizivaat",
     "io": "crwdns12400:0crwdne12400:0"
   },
@@ -31,7 +31,7 @@ module.exports = {
     "en": "The location could not be updated",
     "de": "Die Lage könnte nicht aktualisiert werden",
     "es": "El lugar no podría ser actualizado",
-    "it": "La posizione non ha potuto essere aggiornata.",
+    "it": "La posizione non ha potuto essere aggiornata",
     "io": "crwdns12402:0crwdne12402:0"
   },
   "singleSuggestionCount": {

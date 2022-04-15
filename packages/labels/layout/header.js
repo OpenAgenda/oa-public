@@ -15,7 +15,7 @@ module.exports = {
     "en": "Search",
     "de": "Suchen",
     "es": "Buscar",
-    "it": "Ricerca",
+    "it": "Cerca",
     "io": "crwdns15248:0crwdne15248:0"
   },
   "help": {

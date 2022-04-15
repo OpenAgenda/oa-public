@@ -3,11 +3,12 @@
   "MemberApps.Form.confirm": "crwdns16223:0crwdne16223:0",
   "MemberApps.Form.confirmRemove": "crwdns16225:0crwdne16225:0",
   "MemberApps.Form.confirmRemoveInfo": "crwdns16227:0crwdne16227:0",
-  "MemberApps.Form.description": "crwdns16211:0crwdne16211:0",
   "MemberApps.Form.remove": "crwdns16229:0crwdne16229:0",
   "MemberApps.Form.removeFail": "crwdns16231:0crwdne16231:0",
   "MemberApps.Form.removeSuccess": "crwdns16233:0crwdne16233:0",
   "MemberApps.Form.save": "crwdns16259:0crwdne16259:0",
   "MemberApps.Form.success": "crwdns16213:0crwdne16213:0",
-  "MemberApps.Form.updateTitle": "crwdns16215:0crwdne16215:0"
+  "MemberApps.Form.updateTitle": "crwdns16215:0crwdne16215:0",
+  "MemberApps.Form.GDPRSummary": "crwdns17324:0crwdne17324:0",
+  "MemberApps.Form.moreInfo": "crwdns17326:0crwdne17326:0"
 }

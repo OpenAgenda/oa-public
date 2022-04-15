@@ -7,7 +7,7 @@ module.exports = {
     "de": "verweigert",
     "es": "rechazado",
     "br": "nac'het",
-    "it": "respinto",
+    "it": "rifiutato",
     "io": "crwdns14602:0crwdne14602:0"
   },
   "tocontrol": {

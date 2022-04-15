@@ -22,7 +22,7 @@ module.exports = {
     "en": "Add your first event!",
     "de": "Füge Deine erste Veranstaltung!",
     "es": "Añadir su primer evento!",
-    "it": "Aggiungere un primo evento",
+    "it": "Aggiungere un primo evento!",
     "io": "crwdns11360:0crwdne11360:0",
     "oc": "Apondètz vòstre primièr eveniment !"
   },

@@ -69,6 +69,7 @@
   "AgendaLocations.LocationDetails.access": "Access",
   "AgendaLocations.LocationDetails.andOn": "and on",
   "AgendaLocations.LocationDetails.description": "Description",
+  "AgendaLocations.LocationDetails.editLocation": "Edit Location",
   "AgendaLocations.LocationDetails.email": "Contact email",
   "AgendaLocations.LocationDetails.emptyGeo": "Empty",
   "AgendaLocations.LocationDetails.extId": "External Identifier",

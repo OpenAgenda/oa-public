@@ -1,9 +1,10 @@
 {
+  "MemberApps.Form.GDPRSummary": "This information will be visible to the agenda moderators",
   "MemberApps.Form.cancel": "Cancel",
   "MemberApps.Form.confirm": "Ok",
   "MemberApps.Form.confirmRemove": "Remove me from the agenda",
   "MemberApps.Form.confirmRemoveInfo": "If you remove yourself from the agenda, you will stop receiving notifications and will no longer be able to edit your events nor add new events. The agenda will stop appearing in your home screen.",
-  "MemberApps.Form.description": "This information will allow the agenda administrators to get in touch with you if needed.",
+  "MemberApps.Form.moreInfo": "Read more",
   "MemberApps.Form.remove": "I wish to be removed from the agenda",
   "MemberApps.Form.removeFail": "The request failed. Try again shortly. If this problem persists, send us a short message at support@openagenda.com",
   "MemberApps.Form.removeSuccess": "You are no longer member of the agenda",

@@ -74,7 +74,7 @@ module.exports = {
   "noAccount": {
     "fr": "Vous n'avez pas encore de compte?",
     "en": "Don't have an account yet?",
-    "it": "Non hai ancora un conto?",
+    "it": "Non hai ancora un account?",
     "de": "Noch nicht registriert? Hier geht's zur Anmeldung.",
     "pl": "Nie masz jeszcze konta?",
     "es": "¿No tienes una cuenta?",
@@ -84,7 +84,7 @@ module.exports = {
   "createAccount": {
     "fr": "Créez-en un!",
     "en": "Create one!",
-    "it": "Crea un conto!",
+    "it": "Non hai ancora un account!",
     "de": "Erstelle eine!",
     "pl": "Załóż je!",
     "es": "Crea uno!",

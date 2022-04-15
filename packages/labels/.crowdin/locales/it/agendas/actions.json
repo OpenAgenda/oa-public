@@ -1,6 +1,6 @@
 {
   "actionsInProcess": "La sua azione e' in corso di elaborazione. Gli eventi nello stato %oldstate% saranno a breve modificati in %newstate%.",
-  "ownershipTransfered": "La proprietà dell'evento è stata trasferita con successo.",
+  "ownershipTransfered": "La proprietà dell'evento è stata trasferita con successo",
   "spreadsheetTitle": "Scaricare",
   "allLanguages": "Tutte le lingue",
   "spreadsheetDescription": "Limitare il contenuto scaricato alle lingue specificate"
