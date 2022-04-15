@@ -10,11 +10,11 @@ const legacyAccessType = require('./legacyAccessType');
 const includeTypes = ['radio', 'select', 'checkbox', 'multiselect'];
 const uniques = ['radio', 'select'];
 
-function defineTags(schemaId, currentTags = [], options = []) {
-  return options.map(o => {
+function defineTags(schemaId, currentTags = [], fieldOptions = [], { lang }) {
+  return fieldOptions.map(o => {
     let matchingTagIndex = -1;
 
-    const label = extractLabelString(o.label);
+    const label = extractLabelString(o.label, lang);
     const slug = o.value;
     const schemaOptionId = `${schemaId}.${o.id}`;
 
@@ -42,7 +42,10 @@ function defineTags(schemaId, currentTags = [], options = []) {
   });
 }
 
-module.exports = (schema, currentTagSet = null) => {
+module.exports = (schema, currentTagSet = null, options = {}) => {
+  const {
+    lang
+  } = options;
   const currentTagGroups = _.get(currentTagSet, 'groups', []);
 
   const tagSettableFields = schema.fields
@@ -57,11 +60,11 @@ module.exports = (schema, currentTagSet = null) => {
     const index = getMatchingIndex(currentTagGroups.map(g => g.name), f.label);
 
     return {
-      name: extractLabelString(f.label),
+      name: extractLabelString(f.label, lang),
       required: !f.optional,
       unique: uniques.includes(f.fieldType),
       access: legacyAccessType(f, 'contributor'),
-      tags: defineTags(f.schemaId, index === -1 ? [] : currentTagGroups[index].tags, f.options)
+      tags: defineTags(f.schemaId, index === -1 ? [] : currentTagGroups[index].tags, f.options, options)
     };
   });
 
