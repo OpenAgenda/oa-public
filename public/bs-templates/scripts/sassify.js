@@ -16,6 +16,19 @@ module.exports = createCss;
 
 module.exports.render = render;
 
+function isInOA() {
+  try {
+    const packageJson = require('../../../package.json');
+
+    if (packageJson.name === 'oa') {
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 function createCss( filename, cb ) {
 
   if ( !/\.scss$/.test( filename ) ) return cb ? cb() : null;
@@ -139,8 +152,10 @@ function render( filename, cb ) {
       : [
         path.resolve( __dirname, '..' ),                      // bs-templates
         path.resolve( __dirname, '../node_modules' ),         // bs-templates node_modules
+        path.resolve( __dirname, '../../node_modules' ),      // public root node_modules
+      ].concat(isInOA() ? [
         path.resolve( __dirname, '../../../node_modules' )    // oa root node_modules
-      ]
+      ] : [])
   }, ( err, result ) => {
 
     if ( err ) return cb( err );
