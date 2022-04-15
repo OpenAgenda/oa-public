@@ -30,7 +30,7 @@ module.exports = {
     "fr": "Créer un compte",
     "de": "Anmelden",
     "es": "Crear una cuenta",
-    "it": "Crea un conto",
+    "it": "Crea un account",
     "io": "crwdns13436:0crwdne13436:0"
   },
   "layoutSignin": {
@@ -38,7 +38,7 @@ module.exports = {
     "fr": "Connexion",
     "de": "Einloggen",
     "es": "acceder",
-    "it": "Login",
+    "it": "Accedi",
     "br": "Kevreañ",
     "io": "crwdns13438:0crwdne13438:0"
   }

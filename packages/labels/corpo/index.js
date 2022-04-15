@@ -22,7 +22,7 @@ module.exports = {
     "fr": "organisation",
     "de": "Organisation",
     "es": "organización",
-    "it": "organizzazione",
+    "it": "ragione sociale",
     "io": "crwdns13278:0crwdne13278:0"
   },
   "createAnAgenda": {

@@ -23,7 +23,7 @@ module.exports = {
   "description": {
     "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
     "en": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
-    "it": "Le vostre informazione personale saranno visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
+    "it": "Le sue informazione personale saranno visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
     "de": "Schön, dass du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
     "br": "Ne vo gwelet ho titouroù personnel nemet gant skipailh an deiziataer. N'eus nemet anv hoc'h aozadur a c'hallo bezañ foran.",
     "es": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública.",
@@ -33,7 +33,7 @@ module.exports = {
   "organisation": {
     "fr": "Organisation",
     "en": "Organisation",
-    "it": "Organizzazione",
+    "it": "Ragione sociale",
     "de": "Unternehmen",
     "br": "Aozadur",
     "es": "organización",
@@ -70,7 +70,7 @@ module.exports = {
   "position": {
     "fr": "Fonction",
     "en": "Position in the organization",
-    "it": "Posizione lavorativa",
+    "it": "Ruolo",
     "de": "Funktion",
     "br": "Karg",
     "es": "función",

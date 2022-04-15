@@ -31,7 +31,7 @@ module.exports = {
     "fr": "Département",
     "br": "Departamant",
     "io": "crwdns12110:0crwdne12110:0",
-    "it": "Dipartimento"
+    "it": "Provincia"
   },
   "latitude": {
     "en": "Latitude",

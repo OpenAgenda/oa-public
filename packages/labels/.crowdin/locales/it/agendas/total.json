@@ -1,5 +1,5 @@
 {
-  "upcomingEvents": "%count% eventi in programma",
+  "upcomingEvents": "%count% eventi futuri",
   "upcomingEvent": "1 evento imminente",
   "totalEvents": "%count% eventi",
   "totalEvent": "1 evento",

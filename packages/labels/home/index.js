@@ -92,7 +92,7 @@ module.exports = {
     "de": "Veranstaltung hinzufügen",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento",
-    "it": "Aggiungi un evento",
+    "it": "Aggiungere un evento",
     "io": "crwdns14912:0crwdne14912:0"
   },
   "manage": {

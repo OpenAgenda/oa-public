@@ -54,7 +54,7 @@ module.exports = {
   "signin": {
     "fr": "Se connecter",
     "en": "Sign in",
-    "it": "Connettersi",
+    "it": "Accedi",
     "de": "Anmelden",
     "pl": "Zaloguj się",
     "es": "Conectarse",
@@ -84,7 +84,7 @@ module.exports = {
   "createAccount": {
     "fr": "Créez-en un!",
     "en": "Create one!",
-    "it": "Non hai ancora un account!",
+    "it": "Crea un account!",
     "de": "Erstelle eine!",
     "pl": "Załóż je!",
     "es": "Crea uno!",

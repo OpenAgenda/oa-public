@@ -23,7 +23,7 @@ module.exports = {
     "en": "Create",
     "de": "Erstellen",
     "es": "Crear",
-    "it": "Creare",
+    "it": "Crea",
     "io": "crwdns12098:0crwdne12098:0"
   },
   "submitError": {

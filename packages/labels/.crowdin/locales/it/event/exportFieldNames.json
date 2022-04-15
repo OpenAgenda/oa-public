@@ -33,7 +33,7 @@
   "location.address": "Indirizzo",
   "location.postalCode": "Codice postale",
   "location.city": "Città",
-  "location.department": "Dipartimento",
+  "location.department": "Provincia",
   "location.region": "Regione",
   "location.countryCode": "Paese",
   "location.image": "Immagine del luogo",

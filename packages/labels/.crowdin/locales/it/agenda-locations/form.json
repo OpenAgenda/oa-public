@@ -1,5 +1,5 @@
 {
-  "access": "Condizioni di accesso",
+  "access": "Come arrivare",
   "links": "Link aggiuntivi",
   "linksInfo": "Aggiungi facebook, twitter o qualsiasi altro link relativo al luogo",
   "website": "Sito web",
@@ -36,7 +36,7 @@
   "toverify": "Questo posto deve essere controllato",
   "saving": "Backup",
   "region": "Regione",
-  "department": "Dipartimento",
+  "department": "Provincia",
   "city": "Città",
   "insee": "Codice INSEE",
   "postalCode": "Codice postale",

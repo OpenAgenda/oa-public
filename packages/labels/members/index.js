@@ -268,7 +268,7 @@ module.exports = {
     "en": "Position",
     "de": "Position",
     "es": "puesto",
-    "it": "Pubblicare",
+    "it": "Ruolo",
     "io": "crwdns15660:0crwdne15660:0"
   },
   "organization": {
@@ -276,7 +276,7 @@ module.exports = {
     "en": "Organization",
     "de": "Organisation",
     "es": "organización",
-    "it": "Organizzazione",
+    "it": "Ragione sociale",
     "br": "Aozadur",
     "io": "crwdns15662:0crwdne15662:0"
   },
@@ -398,7 +398,7 @@ module.exports = {
     "en": "Deleted user",
     "de": "Gelöschter Benutzer",
     "es": "Usario eliminado",
-    "it": "Conto cancellato",
+    "it": "Account cancellato",
     "io": "crwdns15692:0crwdne15692:0"
   },
   "invited": {

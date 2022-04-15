@@ -3,7 +3,7 @@
   "name": "Nome",
   "address": "Indirizzo",
   "city": "Città",
-  "department": "Dipartimento",
+  "department": "Provincia",
   "latitude": "Latitudine",
   "longitude": "Longitudine",
   "postalCode": "Codice postale",

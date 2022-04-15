@@ -118,7 +118,7 @@
   "multimediaEventsTimings": "Dettagli delle fasce orarie",
   "multimediaEventsLang": "Descrizioni multilingue",
   "multimediaEvents": "Descrizioni multimediali: integrare video, registrazioni audio e immagini",
-  "multimediaEventsGeo": "Ricca geolocalizzazione: digitare l'indirizzo e OpenAgenda trova latitudine, longitudine, dipartimento, regione e paese. Grazie a OpenStreetMap!",
+  "multimediaEventsGeo": "Ricca geolocalizzazione: digitare l'indirizzo e OpenAgenda trova latitudine, longitudine, provincia, regione e paese. Grazie a OpenStreetMap!",
   "broadcastHeadTitle": "OpenAgenda - Singola voce per trasmissioni multiple",
   "broadcastHeadDescription": "I vostri eventi sono riproducibili e ritrasmessi sul web",
   "broadcastTitle": "Singola voce per trasmissioni multiple",

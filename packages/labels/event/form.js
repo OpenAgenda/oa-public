@@ -22,7 +22,7 @@ module.exports = {
   "offlineAttendanceMode": {
     "fr": "Sur place",
     "en": "Offline",
-    "it": "In loco",
+    "it": "In presenza",
     "es": "Desconnectad",
     "de": "Offline",
     "br": "War al lec’h",
@@ -511,7 +511,7 @@ module.exports = {
   "movedOnline": {
     "fr": "Passé en ligne",
     "en": "Moved online",
-    "it": "Finalmente in linea",
+    "it": "Oramai in linea",
     "oc": "Transferit en linha",
     "io": "crwdns16104:0crwdne16104:0"
   },

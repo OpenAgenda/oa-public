@@ -30,7 +30,7 @@ module.exports = {
     "en": "My organization, my festival, my city, other",
     "de": "Meine Organisation, mein Fest, meine Stadt, andere",
     "es": "Mi organización, mi fiesta, mi ciudad, otra",
-    "it": "La mia organizzazione, il mio festival, la mia città, altri",
+    "it": "La mia ragione sociale, il mio festival, la mia città, altri",
     "io": "crwdns12504:0crwdne12504:0"
   },
   "website": {
@@ -252,7 +252,7 @@ module.exports = {
     "en": "Invite members to present themselves (organization, phone, name, title, email)",
     "de": "Lade Mitglieder präsentieren sich (Organisation, Telefon, Name, Titel, E-Mail)",
     "es": "Invite a cada miembro de que se presenten (organización, teléfono, nombre, título, correo electrónico)",
-    "it": "Invitare ogni membro a presentarsi (organizzazione, telefono, cognome, nome, posizione, e-mail)",
+    "it": "Invitare ogni membro a presentarsi (ragione sociale, telefono, cognome, nome, posizione, e-mail)",
     "io": "crwdns12558:0crwdne12558:0"
   },
   "removeAgenda": {

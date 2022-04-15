@@ -35,7 +35,8 @@ module.exports = {
   "printPermalink": {
     "en": "Online version",
     "fr": "Version en ligne",
-    "io": "crwdns16454:0crwdne16454:0"
+    "io": "crwdns16454:0crwdne16454:0",
+    "it": "Versione in linea"
   },
   "otherShares": {
     "en": "Other shares",
@@ -234,7 +235,8 @@ module.exports = {
   "onlineAccess": {
     "en": "Access the event online",
     "fr": "Accéder à l'événement en ligne",
-    "io": "crwdns14472:0crwdne14472:0"
+    "io": "crwdns14472:0crwdne14472:0",
+    "it": "Accedere all'evento in linea"
   },
   "seeAllEvents": {
     "en": "see all the events",
@@ -309,7 +311,7 @@ module.exports = {
   },
   "cancelInfo": {
     "fr": "Votre événement reste en ligne, avec son titre précédé par 'Annulé'",
-    "it": "Il vostro evento rimanera online, con il suo titolo preceduto da 'Cancellato'.",
+    "it": "Il suo evento rimanera online, con il suo titolo preceduto da 'Cancellato'.",
     "de": "Deine Veranstaltung wird mit dem Hinweis \"Abgesagt\" angezeigt.",
     "es": "Su evento permanecera en línea, con su título precedido por 'Cancelado'.",
     "en": "Your event will remain online, with its title preceded by 'Canceled'.",
@@ -541,7 +543,7 @@ module.exports = {
   "duplicate": {
     "en": "Duplicate",
     "fr": "Dupliquer",
-    "it": "Duplicare ",
+    "it": "Duplicare",
     "de": "Veranstaltung dublizieren",
     "pl": "Powielić",
     "es": "duplicar",
@@ -657,7 +659,7 @@ module.exports = {
   "access": {
     "en": "Access",
     "fr": "Accès",
-    "it": "Condizioni di accesso",
+    "it": "Come arrivare",
     "de": "Zugang",
     "pl": "Dostęp",
     "es": "acceso",
@@ -879,19 +881,21 @@ module.exports = {
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
-    "it": "Finalmente in linea",
+    "it": "Oramai in linea",
     "oc": "Transferit en linha",
     "io": "crwdns16124:0crwdne16124:0"
   },
   "markAsMovedOnline": {
     "en": "The event is moved online",
     "fr": "L'événement a lieu en ligne",
-    "io": "crwdns16126:0crwdne16126:0"
+    "io": "crwdns16126:0crwdne16126:0",
+    "it": "L'evento non è più proposto in presenza, ma oramai in linea"
   },
   "statusMovedOnlineInfo": {
     "en": "The event will no longer be attended to at a physical location",
     "fr": "La participation de l'événement n'est désormais plus possible en présentiel",
-    "io": "crwdns16128:0crwdne16128:0"
+    "io": "crwdns16128:0crwdne16128:0",
+    "it": "L'evento non è più proposto in presenza, ma oramai in linea"
   },
   "statusPostponed": {
     "en": "Postponed",

@@ -7,7 +7,7 @@ module.exports = {
     "de": "Zugriff",
     "es": "Condiciones de acceso",
     "br": "Moned",
-    "it": "Condizioni di accesso",
+    "it": "Come arrivare",
     "io": "crwdns12136:0crwdne12136:0"
   },
   "links": {
@@ -291,7 +291,7 @@ module.exports = {
   "geocodeNoResults": {
     "fr": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse.",
     "en": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed.",
-    "it": "Non siamo riusciti a trovare quell'indirizzo. Modificare la voce per lasciare solo il nome del comune, posizionare il marcatore nel punto giusto sulla mappa e terminare completando l'indirizzo.",
+    "it": "Non siamo riusciti a trovare quell'indirizzo. Modifica per lasciare solo il nome del comune, posizionare il marcatore nel punto giusto sulla mappa e terminare completando l'indirizzo.",
     "io": "crwdns12198:0crwdne12198:0",
     "oc": "Avèm pas pogut localizar aquesta adreiça. Tornatz començar en dintrant sonque lo nom de vila, botatz lo marcaire sus la mapa al bon endreit puèi dintratz l'adreiça complèta un còp que lo marcaire es plaçat coma cal."
   },
@@ -346,7 +346,7 @@ module.exports = {
     "de": "Abteilung",
     "es": "departamento",
     "br": "Departamant",
-    "it": "Dipartimento",
+    "it": "Provincia",
     "io": "crwdns12210:0crwdne12210:0"
   },
   "city": {

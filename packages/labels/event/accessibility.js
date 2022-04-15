@@ -60,7 +60,7 @@ module.exports = {
     "de": "Dieses Veranstaltung verfügt über Annehmlichkeiten Zugänglichkeit zu erleichtern",
     "es": "Este evento incluye las mejoras a la accesibilidad",
     "br": "En darvoud-mañ ez eus aveadurioù da aesaat ar vonedusted",
-    "it": "Questo evento include alloggi per l'accessibilità",
+    "it": "Questo evento prevede dispositivi o soluzioni adeguate per:",
     "io": "crwdns14088:0crwdne14088:0"
   }
 }
