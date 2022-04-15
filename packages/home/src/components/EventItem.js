@@ -77,7 +77,7 @@ function EventItem({
                 <div className="agenda">{event.agenda.title}</div>
               ) : null}
               <strong>
-                {getMultilangLabel(event.title, getLabel('noTitle'))}
+                {getMultilangLabel(event.title, lang, getLabel('noTitle'))}
               </strong>
               {event.private ? (
                 <div className="tooltip-icon">
