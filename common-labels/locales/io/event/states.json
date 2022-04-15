@@ -1,1 +1,6 @@
-{}
+{
+  "common.event.states.refused": "crwdns17334:0crwdne17334:0",
+  "common.event.states.toModerate": "crwdns17336:0crwdne17336:0",
+  "common.event.states.controlled": "crwdns17338:0crwdne17338:0",
+  "common.event.states.published": "crwdns17340:0crwdne17340:0"
+}
