@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 
 const getEventEditLink = (res, event) => res.edit
   .replace(':slug', event.agenda && event.agenda.slug)
@@ -41,13 +42,6 @@ const getImagePath = image => {
   return `${base}/${filename}`;
 };
 
-const getMultilangLabel = (field, lang, defaultValue = '') => {
-  if (field === null || typeof field !== 'object') {
-    return field || defaultValue;
-  }
-  return field[lang] || field[Object.keys(field)[0]] || defaultValue;
-};
-
 function EventItem({
   event, res, getLabel, lang
 }) {
@@ -66,7 +60,7 @@ function EventItem({
                 'cibul'
               )}
               className="media-object ill avatar"
-              alt={getMultilangLabel(event.title, lang, getLabel('noTitle'))}
+              alt={getLocaleValue(event.title, lang) || getLabel('noTitle')}
             />
           </a>
         </div>
@@ -77,7 +71,7 @@ function EventItem({
                 <div className="agenda">{event.agenda.title}</div>
               ) : null}
               <strong>
-                {getMultilangLabel(event.title, lang, getLabel('noTitle'))}
+                {getLocaleValue(event.title, lang) || getLabel('noTitle')}
               </strong>
               {event.private ? (
                 <div className="tooltip-icon">
