@@ -6,7 +6,7 @@
   "EventAdminApp.FiltersPortal.filters": "Filtri",
   "EventAdminApp.Dashboard.previous": "Precedente",
   "EventAdminApp.messages.attendanceModes.mixed": "Misto",
-  "EventAdminApp.messages.attendanceModes.offline": "In loco",
+  "EventAdminApp.messages.attendanceModes.offline": "In presenza",
   "EventAdminApp.messages.attendanceModes.online": "In linea",
   "EventAdminApp.messages.exports.export": "Esportare",
   "EventAdminApp.messages.exports.exportSelection": "Esportare",
@@ -60,14 +60,16 @@
   "EventAdminApp.EventItem.statusCancelledInfo": "L'evento è annullato",
   "EventAdminApp.EventItem.statusFull": "Completo",
   "EventAdminApp.EventItem.statusFullInfo": "I nuovi partecipanti non sono più accettati all'evento",
-  "EventAdminApp.EventItem.statusMovedOnline": "Finalmente in linea",
+  "EventAdminApp.EventItem.statusMovedOnline": "Oramai in linea",
   "EventAdminApp.EventItem.statusPostponed": "Riprogrammato",
   "EventAdminApp.EventItem.statusPostponedInfo": "Le date dell'evento non sono più valide. Le nuove date non sono ancora note",
   "EventAdminApp.EventItem.statusRescheduled": "Riprogrammato",
   "EventAdminApp.messages.relative.passed": "Passato",
   "EventAdminApp.messages.status.cancelled": "Cancellato",
   "EventAdminApp.messages.status.full": "Completo",
-  "EventAdminApp.messages.status.movedOnline": "Finalmente in linea",
+  "EventAdminApp.messages.status.movedOnline": "Oramai in linea",
   "EventAdminApp.messages.status.postponed": "Riprogrammato",
-  "EventAdminApp.messages.status.rescheduled": "Riprogrammato"
+  "EventAdminApp.messages.status.rescheduled": "Riprogrammato",
+  "EventAdminApp.EventItem.showOnlineLocation": "Accedere all'evento in linea",
+  "EventAdminApp.EventItem.statusMovedOnlineInfo": "L'evento non è più proposto in presenza, ma oramai in linea"
 }

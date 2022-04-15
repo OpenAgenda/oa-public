@@ -9,5 +9,6 @@
   "MemberApps.Form.save": "Salva",
   "MemberApps.Form.success": "Aggiornamento fatto",
   "MemberApps.Form.updateTitle": "Modulo di contatto",
-  "MemberApps.Form.GDPRSummary": "Queste informazioni saranno visibili ai moderatori dell'agenda"
+  "MemberApps.Form.GDPRSummary": "Questi dati saranno visibili solo ai moderatori dell’Agenda e non saranno resi pubblici",
+  "MemberApps.Form.moreInfo": "Per saperne di più"
 }

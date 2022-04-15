@@ -52,7 +52,7 @@
   "contributor.email": "Collaboratore: Email",
   "contributor.contactNumber": "Collaboratore: Telefono",
   "contributor.contactName": "Collaboratore: Nome",
-  "contributor.contactPosition": "Collaboratore: Funzione",
+  "contributor.contactPosition": "Collaboratore: ruolo",
   "contributor.organization": "Collaboratore: organizzazione",
   "category": "Categoria",
   "location.district": "Quartiere",
@@ -60,5 +60,6 @@
   "references": "Eventi correlati",
   "attendanceMode": "Modalità di partecipazione",
   "onlineAccessLink": "Collegamento di accesso",
-  "member.email": "Membro: email"
+  "member.email": "Membro: email",
+  "member.position": "Membro: ruolo"
 }

@@ -1,12 +1,12 @@
 {
   "title": "Benvenuti!",
   "subtitle": "Presentatevi prima di aggiungere i vostri eventi",
-  "description": "Le vostre informazione personale saranno visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
-  "organisation": "Organizzazione",
+  "description": "Le sue informazione personale saranno visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
+  "organisation": "Ragione sociale",
   "phone": "Telefono",
   "phoneSub": "Carattere autorizzati: cifro, spazio, -, + o ()",
   "name": "Nome e cognome",
-  "position": "Posizione lavorativa",
+  "position": "Ruolo",
   "email": "Email",
   "submit": "Validare"
 }

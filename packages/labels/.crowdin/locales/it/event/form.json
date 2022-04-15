@@ -1,7 +1,7 @@
 {
   "descriptionSection": "Descrizioni",
   "attendanceMode": "Modalità di partecipazione",
-  "offlineAttendanceMode": "In loco",
+  "offlineAttendanceMode": "In presenza",
   "onlineAttendanceMode": "In linea",
   "mixedAttendanceMode": "Misto",
   "onlineAccessLink": "Collegamento di accesso",
@@ -52,7 +52,7 @@
   "compulsoryNote": "Le vostre attività saranno visualizzate qui.",
   "titlePurpose": "Il titolo del tuo evento",
   "descriptionPurpose": "Utile per la lista degli eventi",
-  "movedOnline": "Finalmente in linea",
+  "movedOnline": "Oramai in linea",
   "cancelled": "Cancellato",
   "postponed": "Riprogrammato"
 }
