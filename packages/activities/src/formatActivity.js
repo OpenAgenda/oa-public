@@ -3,7 +3,7 @@
 const merge = require('lodash/merge');
 const escape = require('lodash/escape');
 
-const { getLocaleValue } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/intl');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const credentialLabels = require('@openagenda/labels/contributors/credentials');
 const stateLabels = require('@openagenda/labels/event/states');

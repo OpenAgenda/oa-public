@@ -9,12 +9,13 @@
     "build": "babel --copy-files embeds/app/src -d embeds/app/dist -s",
     "start": "start-storybook -c embeds/app/.storybook -p 9001 --ci",
     "test": "jest --runInBand --testEnvironment=node",
-    "prepack": "yarn build",
-    "extract-messages": "yarn oa:extract-messages 'embeds/app/src/**/*.js' --out-dir 'embeds/app/src/locales' --compiled-dir 'embeds/app/src/locales-compiled'"
+    "prepack": "yarn extract-messages -c && yarn build",
+    "extract-messages": "yarn oa-intl 'embeds/app/src/**/*.js' --output 'embeds/app/src/locales/%lang%.json' --compiled 'embeds/app/src/locales-compiled/%lang%.json'"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-shared": "^2.3.2",
     "@openagenda/utils": "^1.3.0",

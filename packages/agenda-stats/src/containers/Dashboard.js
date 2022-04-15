@@ -25,8 +25,8 @@ import {
   useModal,
   MoreInfo,
   Spinner,
-  getLocaleValue,
 } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import * as statsActions from '../reducers/stats';
 import FiltersPart from '../components/FiltersPart';
@@ -87,7 +87,7 @@ function EmptyDashoard() {
             id="AgendaStats.EmptyDashboard.creationHelp"
             defaultMessage="<link>Click here</link> to learn more about adding events to your agenda."
             values={{
-              link: (...chunks) => (
+              link: chunks => (
                 <a href="https://doc.openagenda.com/ajouter-des-evenements-a-un-agenda/">
                   {chunks}
                 </a>

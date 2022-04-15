@@ -1,6 +1,6 @@
 'use strict';
 
-const { getLocaleValue } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/intl');
 const moment = require('moment-timezone');
 
 function _linkifyTime(time) {

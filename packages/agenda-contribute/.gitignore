@@ -1,10 +1,12 @@
 .idea/
 .vscode/
 node_modules/
-build
-dist
 npm-debug.log
 yarn-error.log
 testconfig.js
 coverage/
+
 .cache/
+build
+dist
+src/locales-compiled/

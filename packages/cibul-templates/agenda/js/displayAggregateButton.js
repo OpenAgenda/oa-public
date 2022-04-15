@@ -2,7 +2,7 @@ const React = require('react');
 const { useState, useEffect } = require('react');
 const ReactDom = require('react-dom');
 
-import { mergeLocales } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
 import { modalLocales } from '@openagenda/react-share-menus';
 import { AggregatorModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
@@ -62,6 +62,6 @@ export default function displayAggregateButton(params, options, query, userLogge
   const buttonLocation = document.querySelector(params.selectors.aggregate);
   const lang = options.lang;
   const locales = mergeLocales(appLocales, modalLocales);
-  
+
   return ReactDom.render(<IntlProvider messages={locales[lang]} locale={lang} key={lang}><AggregatorModalContainer options={options} query={query} userLogged={userLogged} /></IntlProvider>, buttonLocation);
 }

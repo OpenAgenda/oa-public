@@ -2,10 +2,8 @@ import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import {
-  useConstant,
-  mergeLocales
-} from '@openagenda/react-shared';
+import { useConstant } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
 
 import { locales as memberLocales } from '@openagenda/member-apps';
 import appLocales from '../../src/locales-compiled';

@@ -3,10 +3,10 @@
   "version": "1.5.2",
   "main": "server/index",
   "scripts": {
-    "prepack": "yarn build",
+    "prepack": "yarn oa-intl compile && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "start": "start-storybook -p 9001 --ci",
-    "extract-messages": "yarn oa:extract-messages 'src/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'",
+    "extract-messages": "yarn oa-intl",
     "test": "jest"
   },
   "dependencies": {
@@ -14,6 +14,7 @@
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/event-form": "^1.5.1",
     "@openagenda/form-schemas": "^1.9.2",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/member-apps": "^2.1.1",

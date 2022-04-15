@@ -9,3 +9,4 @@ coverage/
 testconfig.js
 build/
 storybook-static/
+src/locales-compiled/

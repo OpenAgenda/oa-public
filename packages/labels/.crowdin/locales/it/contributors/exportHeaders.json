@@ -1,9 +1,9 @@
 {
   "name": "Nome",
   "email": "Email",
-  "organization": "Organizzazione",
+  "organization": "Ragione sociale",
   "phone": "Telefono",
-  "position": "Funzione",
+  "position": "Ruolo",
   "contributions": "Eventi collaterali",
   "credential": "Ruolo",
   "role": "Ruolo",

@@ -3,8 +3,7 @@ import { useIntl } from 'react-intl';
 import { /* useFormState, */ Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-
-import getLocalValue from '../../utils/getLocalValue';
+import { getLocaleValue } from '@openagenda/intl';
 import messages from './messages';
 
 export default ({ schema }) => {
@@ -19,7 +18,7 @@ export default ({ schema }) => {
         .flat()
         .map(v => ({
           value: v.label,
-          label: getLocalValue(v.label, intl.locale),
+          label: getLocaleValue(v.label, intl.locale),
         }))
       : []),
     [schema]

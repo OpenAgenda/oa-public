@@ -2,7 +2,7 @@ import React, { useImperativeHandle, useEffect, useState } from 'react';
 import qs from 'qs';
 import ReactDom from 'react-dom';
 
-import { mergeLocales } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
 import { modalLocales } from '@openagenda/react-share-menus';
 import { ExportModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
@@ -57,7 +57,7 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
     );
 
     return url;
-  } 
+  }
 
   return (
     <>

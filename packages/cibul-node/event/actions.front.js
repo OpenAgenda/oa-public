@@ -11,7 +11,7 @@ const range = require('@openagenda/date-range');
 
 const log = require('@openagenda/logs')('event/actions');
 
-const { getLocaleValue } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/intl');
 const mails = require('../services/mails');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
@@ -367,7 +367,7 @@ async function eventMailSend(req, res, next) {
     gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
 
     res.send({ count: emails.length });
-    
+
     log('ICI ', {
       name: req.event.location.name,
       lat: req.event.location.latitude,
@@ -381,7 +381,7 @@ async function eventMailSend(req, res, next) {
           'lon':req.event.location.longitude,
           'lat':req.event.location.latitude
         }[matched])}),
-    
+
     })
   } catch (err) {
     return next(err);

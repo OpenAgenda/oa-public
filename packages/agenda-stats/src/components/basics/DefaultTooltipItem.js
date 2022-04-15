@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
-import { getLocaleValue } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 
 const messages = defineMessages({
   events: {

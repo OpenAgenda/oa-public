@@ -7,7 +7,7 @@ const mapValues = require( 'lodash/mapValues' );
 const transform = require( 'lodash/transform' );
 const mapKeys = require( 'lodash/mapKeys' );
 
-const { getLocaleValue } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/intl');
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
 const stateLabels = require( '@openagenda/labels/event/states' );

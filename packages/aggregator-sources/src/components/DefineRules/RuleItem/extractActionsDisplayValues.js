@@ -1,5 +1,5 @@
 import React from 'react';
-import getLocalValue from '../../../utils/getLocalValue';
+import { getLocaleValue } from '@openagenda/intl';
 import messages from './messages';
 
 function isSet(action) {
@@ -98,7 +98,7 @@ export default ({
     };
   }
   // console.log('field: ', field);
-  const label = getLocalValue(field.label, intl.locale);
+  const label = getLocaleValue(field.label, intl.locale);
   // console.log('label: ', label);
 
   if (action.automatic) {
@@ -121,7 +121,7 @@ export default ({
     'value : ',
     matchingOptions[0] !== undefined
       ? matchingOptions
-        .map(o => getLocalValue(o?.label), intl.locale)
+        .map(o => getLocaleValue(o?.label, intl.locale))
         .join(', ')
       : getValues(action)[0]
   );
@@ -132,7 +132,7 @@ export default ({
     value:
       matchingOptions[0] !== undefined
         ? matchingOptions
-          .map(o => getLocalValue(o?.label), intl.locale)
+          .map(o => getLocaleValue(o?.label, intl.locale))
           .join(', ')
         : getValues(action)[0],
     detail: intl.formatMessage(

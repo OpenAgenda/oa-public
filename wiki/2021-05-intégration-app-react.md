@@ -168,13 +168,13 @@ L'app étant multilingue, la gestion des labels multilingues doit être mise en 
 
 J'ajoute `react-intl` dans les dépendences du projet: `yarn add -i react-intl`
 
-... et `@openagenda/react-shared` directement en dépendences dans `package.json`, la dernière version du package.
+... et `@openagenda/intl` directement en dépendences dans `package.json`, la dernière version du package.
 
 Puis encore dans le `package.json` les script d'extraction des labels multilingues doit être référencé sous la balise `scripts`:
 
 ```
     ...
-    "extract-messages": "yarn oa:extract-messages 'embeds/app/src/components/**/*.js' --out-dir 'embeds/app/src/locales' --compiled-dir 'embeds/app/src/locales-compiled'",
+    "extract-messages": "yarn oa-intl 'embeds/app/src/components/**/*.js' --output 'embeds/app/src/locales/%lang%.json' --compiled 'embeds/app/src/locales-compiled/%lang%.json'",
     ...
 ```
 

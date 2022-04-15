@@ -12,12 +12,13 @@
     "knex": "babel-node ../../node_modules/.bin/knex",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn build",
-    "extract-messages": "yarn oa:extract-messages"
+    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
+    "extract-messages": "yarn oa-intl"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/agendas": "^1.7.0",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-form-components": "^2.1.14",

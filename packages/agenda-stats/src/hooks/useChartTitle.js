@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { useIntl } from 'react-intl';
 import { useMemo } from 'react';
-import { getLocaleValue } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import titleMessages from '../messages/chartTitles';
 
 function statToTitleMessageKey(aggregation) {

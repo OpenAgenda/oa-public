@@ -4,7 +4,7 @@ import { Field, useForm } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import formLabels from '@openagenda/labels/event/form';
-import getLocalValue from '../../utils/getLocalValue';
+import { getLocaleValue } from '@openagenda/intl';
 import stringType from '../../utils/stringType';
 import messages from './messages';
 import Radio from './Radio';
@@ -32,8 +32,8 @@ export default ({ sourceSchema = { fields: [] } }) => {
       .concat(eventFields)
       .map(({ field, label }) => ({
         value: field,
-        label: getLocalValue(label, intl.locale)
-          ? getLocalValue(label, intl.locale)
+        label: getLocaleValue(label, intl.locale)
+          ? getLocaleValue(label, intl.locale)
           : field,
       })),
     [intl.locale, sourceSchema.fields]

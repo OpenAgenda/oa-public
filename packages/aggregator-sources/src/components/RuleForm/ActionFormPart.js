@@ -4,9 +4,9 @@ import React, {
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
-import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
-import getLocalValue from '../../utils/getLocalValue';
+import { getLocaleValue } from '@openagenda/intl';
+import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import stateMessages from '../../utils/stateMessages';
 import stringType from '../../utils/stringType';
 import messages from './messages';
@@ -50,7 +50,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       )
       .map(v => ({
         value: v.field,
-        label: getLocalValue(v.label, intl.locale),
+        label: getLocaleValue(v.label, intl.locale),
       })),
     [
       aggregatorAgendaSchema.fields,
@@ -87,7 +87,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     if (fieldSchema?.options) {
       return fieldSchema.options.map(v => ({
         value: v.id,
-        label: getLocalValue(v.label, intl.locale),
+        label: getLocaleValue(v.label, intl.locale),
       }));
     }
   }, [fieldName, fieldSchema, intl]);

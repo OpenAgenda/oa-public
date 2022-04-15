@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/exports'));
-const { getLocaleValue } = require('@openagenda/react-shared');
+const { getLocaleValue } = require('@openagenda/intl');
 const config = require('../../../config');
 
 function espaceIcsValue(txt) {

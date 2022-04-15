@@ -7,7 +7,7 @@ import { useForm, Field } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import formLabels from '@openagenda/labels/event/form';
-import getLocalValue from '../../utils/getLocalValue';
+import { getLocaleValue } from '@openagenda/intl';
 import messages from './messages';
 
 const AttendanceOptions = [
@@ -40,7 +40,7 @@ export default ({ sourceSchema }) => {
       .concat([{ field: 'attendanceMode', label: formLabels.attendanceMode }])
       .map(({ field, label }) => ({
         value: field,
-        label: getLocalValue(label, intl.locale),
+        label: getLocaleValue(label, intl.locale),
       })),
     [intl.locale, sourceSchema.fields]
   );
@@ -67,7 +67,7 @@ export default ({ sourceSchema }) => {
     if (fieldSchema?.options) {
       return fieldSchema.options.map(v => ({
         value: v.id,
-        label: getLocalValue(v.label, intl.locale),
+        label: getLocaleValue(v.label, intl.locale),
       }));
     }
   }, [fieldSchema, intl.locale]);

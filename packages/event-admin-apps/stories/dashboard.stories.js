@@ -4,7 +4,7 @@ import MockAdapter from '@openagenda/axios-mock-adapter';
 import { IntlProvider } from 'react-intl';
 
 import { modalLocales } from '@openagenda/react-share-menus';
-import { mergeLocales } from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
 import SpreadsheetModal from '../src/components/SpreadsheetModal';
 import appLocales from '../src/locales-compiled';
 import SimplePageDecorator from './decorators/SimplePage';

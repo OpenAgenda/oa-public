@@ -3,7 +3,7 @@ import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import ContentLoader from 'react-content-loader';
-import { getLocaleValue } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import mergeMultiData from '../utils/mergeMultiData';
 import addRestItem from '../utils/addRestItem';
 import { getChartConfig } from '../common/defaultStatConfigs';

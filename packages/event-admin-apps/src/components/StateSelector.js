@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { ReactSelectInput } from '@openagenda/react-shared';
 import { css } from '@emotion/react';
-import stateMessages from '../messages/states';
+import statesMessages from '@openagenda/common-labels/event/states';
 
 const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 
@@ -79,7 +79,7 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
             >
               &nbsp;
             </span>
-            {intl.formatMessage(stateMessages.refused)}
+            {intl.formatMessage(statesMessages.refused)}
           </>
         ),
         value: -1,
@@ -93,7 +93,7 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
             >
               &nbsp;
             </span>
-            {intl.formatMessage(stateMessages.toModerate)}
+            {intl.formatMessage(statesMessages.toModerate)}
           </>
         ),
         value: 0,
@@ -107,7 +107,7 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
             >
               &nbsp;
             </span>
-            {intl.formatMessage(stateMessages.controlled)}
+            {intl.formatMessage(statesMessages.controlled)}
           </>
         ),
         value: 1,
@@ -121,7 +121,7 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
             >
               &nbsp;
             </span>
-            {intl.formatMessage(stateMessages.published)}
+            {intl.formatMessage(statesMessages.published)}
           </>
         ),
         value: 2,

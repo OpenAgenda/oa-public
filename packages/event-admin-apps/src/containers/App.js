@@ -5,17 +5,20 @@ import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Helmet } from 'react-helmet-async';
-import {
-  useConstant,
-  mergeLocales,
-  useLayoutData,
-} from '@openagenda/react-shared';
+import { mergeLocales } from '@openagenda/intl';
+import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
+import commonLocales from '@openagenda/common-labels';
 import { modalLocales } from '@openagenda/react-share-menus';
 import eventsReducer from '../reducers/events';
 import appLocales from '../locales-compiled';
 
-const locales = mergeLocales(appLocales, reactFiltersLocales, modalLocales);
+const locales = mergeLocales(
+  appLocales,
+  reactFiltersLocales,
+  modalLocales,
+  commonLocales
+);
 
 function App({ route }) {
   const parentQueryClient = useQueryClient();
