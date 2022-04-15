@@ -4462,8 +4462,6 @@ __metadata:
       optional: true
     redux:
       optional: true
-  bin:
-    "oa:extract-messages": ./scripts/extract-messages.js
   languageName: unknown
   linkType: soft
 
