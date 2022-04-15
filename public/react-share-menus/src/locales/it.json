@@ -25,7 +25,7 @@
   "jsonDoc2": "qui",
   "login": "Si prega di effettuare il login per accedere al link di esportazione direttamente da questo menu",
   "modal-title": "Esportare",
-  "no-agenda": "Attenzione: Nessuna agenda è amministrata dal tuo account. Per favore creane una prima se vuoi aggregare gli eventi di {targetAgenda}.",
+  "no-agenda": "Attenzione: Nessuna agenda è amministrata dal suo account. Per favore creane una prima se vuoi aggregare gli eventi di {targetAgenda}.",
   "official-agenda": "Agenda ufficiale",
   "outlookStep2": "2. In fondo alla pagina, seleziona l'icona del calendario",
   "outlookStep3": "3. Nel pannello di navigazione, seleziona \"Aggiungi calendario\"",

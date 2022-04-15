@@ -1,178 +1,179 @@
 <% include ../layout/_top.ejs %>
-<% include _bottom-navbar %>
-<div class="container">
+	<% include _bottom-navbar %>
+		<div class="container">
 
-  <div class="row">
-    <section class="col-sm-6 col-sm-offset-2 top-margined">
-    	<h2>Stepper</h2>
-    	<div class="wsq content">
-	      <% include stepper/_two-h-steps %>
-	      <% include stepper/_three-h-steps %>
-	      <% include stepper/_four-h-steps %>
-				<% include stepper/_confirmation-h-steps %>
-    	</div>
-			<div class="content">
-	      <% include stepper/_three-h-steps-gray-bg-lightest %>
-    	</div>
-    </section>
-  </div>
-
-	<div class="row">
-
-		<section class="col-sm-6 col-sm-offset-2 top-margined">
-
-			<h2>Small map</h2>
-			<div class="wsq content" style="width:400px">
-				<% include _small-map %>
+			<div class="row">
+				<section class="col-sm-6 col-sm-offset-2 top-margined">
+					<h2>Stepper</h2>
+					<div class="wsq content">
+						<% include stepper/_two-h-steps %>
+							<% include stepper/_three-h-steps %>
+								<% include stepper/_four-h-steps %>
+									<% include stepper/_confirmation-h-steps %>
+					</div>
+					<div class="content">
+						<% include stepper/_three-h-steps-gray-bg-lightest %>
+					</div>
+				</section>
 			</div>
 
-		</section>
+			<div class="row">
 
-	</div>
+				<section class="col-sm-6 col-sm-offset-2 top-margined">
 
-	<div class="row">
+					<h2>Small map</h2>
+					<div class="wsq content" style="width:400px">
+						<% include _small-map %>
+					</div>
 
-		<section class="col-sm-6 col-sm-offset-2 top-margined">
-			<h2>Official label</h2>
+				</section>
 
-			<div class="wsq content">
-				<% include _official %>
-
-				<% include _official-big %>
 			</div>
 
-		</section>
+			<div class="row">
 
-	</div>
+				<section class="col-sm-6 col-sm-offset-2 top-margined">
+					<h2>Official label</h2>
 
-	<div class="row">
+					<div class="wsq content">
+						<% include _official %>
 
-		<section class="col-sm-6 col-sm-offset-2 top-margined">
-			<h2>Golden icon</h2>
+							<% include _official-big %>
+					</div>
 
-			<div class="wsq content icon-hoverable">
-				<p><i class="golden-icon"></i> with icon-hoverable</p>
+				</section>
+
 			</div>
 
-			<div class="wsq content">
-				<p><i class="golden-icon"></i> without</p>
+			<div class="row">
+
+				<section class="col-sm-6 col-sm-offset-2 top-margined">
+					<h2>Golden icon</h2>
+
+					<div class="wsq content icon-hoverable">
+						<p><i class="golden-icon"></i> with icon-hoverable</p>
+					</div>
+
+					<div class="wsq content">
+						<p><i class="golden-icon"></i> without</p>
+					</div>
+
+				</section>
+
 			</div>
 
-		</section>
+			<% include _dropdown.ejs %>
 
-	</div>
+				<div class="row">
+					<section class="col-sm-6 col-sm-offset-2 top-margined">
 
-	<% include _dropdown.ejs %>
+						<h2>Calendar</h2>
 
-	<div class="row">
-		<section class="col-sm-6 col-sm-offset-2 top-margined">
+						<div class="wsq content">
+							<% include _calendar %>
+						</div>
+					</section>
+				</div>
 
-			<h2>Calendar</h2>
+				<div class="row">
+					<section class="col-sm-6 col-sm-offset-2 top-margined">
 
-			<div class="wsq content">
-				<% include _calendar %>
-			</div>
-		</section>
-	</div>
+						<h2>Popover</h2>
 
-	<div class="row">
-		<section class="col-sm-6 col-sm-offset-2 top-margined">
+						<div class="wsq content">
+							<% include _tooltip-icon %>
 
-			<h2>Popover</h2>
+								<div style="position: relative">
+									<i class="fa fa-question-circle" aria-hidden="true" style="font-size: 1.3em; color: #41acdd;"></i>
+									<div style="height:120px;">
+										<div role="tooltip" class="popover right" style="display:block;top:-20px;left:20px;">
+											<div class="arrow"></div>
+											<div class="popover-content">
+												And here's some <strong>amazing</strong>
+												content. It's very engaging. right?
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+					</section>
+				</div>
 
-			<div class="wsq content">
-				<% include _tooltip-icon %>
+				<div class="row margin-v-lg">
+					<section class="col-sm-6 col-sm-offset-2">
+						<h2>Draggable list items</h2>
+						<div class="wsq content">
+							<ul class="list-group">
+								<li class="list-group-item draggable">
+									<p>Un item</p>
+								</li>
+								<li class="list-group-item draggable">
+									<p>Un autre item</p>
+								</li>
+								<li class="list-group-item draggable">
+									<p>Encore un item</p>
+								</li>
+							</ul>
+						</div>
+					</section>
+				</div>
 
-				<div style="position: relative">
-					<i class="fa fa-question-circle" aria-hidden="true" style="font-size: 1.3em; color: #41acdd;"></i>
-					<div style="height:120px;">
-						<div
-								role="tooltip"
-								class="popover right"
-								style="display:block;top:-20px;left:20px;"
-						>
-							<div class="arrow"></div>
-							<div class="popover-content">
-								And here's some <strong>amazing</strong>
-								content. It's very engaging. right?
+				<div class="row">
+					<section class="col-sm-6 col-sm-offset-2 top-margined">
+						<div class="wsq content">
+							<h2>Info blocks</h2>
+							<div class="info-block margin-bottom-sm">Info block</div>
+							<div class="info-block-sm">Small info block</div>
+						</div>
+					</section>
+				</div>
+
+				<div class="row">
+					<section class="col-sm-6 col-sm-offset-2 top-margined">
+
+						<h2>Bo-list-item (bo comme back-office :+1:)</h2>
+
+						<div class="wsq content">
+							<div class="bo-list-item media">
+								<div class="media-left">
+									<a href="#">
+										<img class="media-object ill avatar"
+											src="https://cibul.s3.amazonaws.com/review_martinefreymann67-gmail-com_00.jpg" alt="...">
+									</a>
+								</div>
+								<div class="media-body">
+									<div class="title media-heading">
+										<a href="#"><strong>Rendez-vous aux jardins de trapelune</strong></a>
+										<% include _official %>
+									</div>
+									<div class="actions">
+										<a href="#" class="text-muted">Retirer des sources</a>
+									</div>
+								</div>
 							</div>
+
+							<div class="bo-list-item media">
+								<div class="media-left">
+									<a href="#">
+										<img class="media-object ill avatar"
+											src="https://cibul.s3.amazonaws.com/review_martinefreymann67-gmail-com_00.jpg" alt="...">
+									</a>
+								</div>
+								<div class="media-body">
+									<div class="title media-heading">
+										<a href="#"><strong>Rendez-vous aux jardins de trapelune</strong></a>
+									</div>
+									<div class="actions">
+										<a href="#" class="text-muted">Retirer des sources</a>
+										<a href="#" class="text-muted">Faire caca</a>
+									</div>
+								</div>
+							</div>
+
 						</div>
-					</div>
+					</section>
 				</div>
-			</div>
-		</section>
-	</div>
+		</div>
 
-	<div class="row margin-v-lg">
-		<section class="col-sm-6 col-sm-offset-2">
-			<h2>Draggable list items</h2>
-			<div class="wsq content">
-				<ul class="list-group">
-					<li class="list-group-item draggable">
-						<p>Un item</p>
-					</li>
-					<li class="list-group-item draggable">
-						<p>Un autre item</p>
-					</li>
-					<li class="list-group-item draggable">
-						<p>Encore un item</p>
-					</li>
-				</ul>
-			</div>
-		</section>
-	</div>
-
-	<div class="row">
-		<section class="col-sm-6 col-sm-offset-2 top-margined">
-
-			<h2>Bo-list-item (bo comme back-office :+1:)</h2>
-
-			<div class="wsq content">
-				<div class="bo-list-item media">
-					<div class="media-left">
-						<a href="#">
-							<img
-									class="media-object ill avatar"
-									src="https://cibul.s3.amazonaws.com/review_martinefreymann67-gmail-com_00.jpg"
-									alt="...">
-						</a>
-					</div>
-					<div class="media-body">
-						<div class="title media-heading">
-							<a href="#"><strong>Rendez-vous aux jardins de trapelune</strong></a>
-							<% include _official %>
-						</div>
-						<div class="actions">
-							<a href="#" class="text-muted">Retirer des sources</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="bo-list-item media">
-					<div class="media-left">
-						<a href="#">
-							<img
-									class="media-object ill avatar"
-									src="https://cibul.s3.amazonaws.com/review_martinefreymann67-gmail-com_00.jpg"
-									alt="...">
-						</a>
-					</div>
-					<div class="media-body">
-						<div class="title media-heading">
-							<a href="#"><strong>Rendez-vous aux jardins de trapelune</strong></a>
-						</div>
-						<div class="actions">
-							<a href="#" class="text-muted">Retirer des sources</a>
-							<a href="#" class="text-muted">Faire caca</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</section>
-	</div>
-
-</div>
-
-</div>
-<% include ../layout/_bottom.ejs %>
+		</div>
+		<% include ../layout/_bottom.ejs %>
