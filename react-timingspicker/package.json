@@ -15,9 +15,9 @@
     "start": "start-storybook -p 9001",
     "test": "TZ=Europe/Paris jest --forceExit --detectOpenHandles",
     "build": "babel --copy-files src -d dist -s",
-    "extract-messages": "yarn oa:extract-messages",
+    "extract-messages": "yarn oa-intl",
     "clean": "rimraf dist",
-    "prepack": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/react-shared": "^2.3.2",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",

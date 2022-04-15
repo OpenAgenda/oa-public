@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import { Form, FormSpy } from 'react-final-form';
 import ApiClient from '@openagenda/react-shared/lib/utils/apiClient';
-import mergeLocales from '@openagenda/react-shared/lib/utils/mergeLocales';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import ApiClientContext from '@openagenda/react-shared/lib/contexts/ApiClientContext';
+import { mergeLocales } from '@openagenda/intl';
 import { createForm } from 'final-form';
 import { IntlProvider, RawIntlProvider, useIntl } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';

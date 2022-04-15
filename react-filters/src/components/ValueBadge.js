@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
 import { css } from '@emotion/react';
-import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/intl';
 
 const messages = defineMessages({
   removeFilter: {

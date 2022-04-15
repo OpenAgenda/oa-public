@@ -12,14 +12,15 @@
   "module": "lib/index.js",
   "scripts": {
     "start": "start-storybook -c .storybook -p 9001 --ci",
-    "prepack": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn oa-intl compile && yarn build",
     "clean": "rimraf lib",
     "build": "babel --copy-files src -d lib -s",
-    "extract-messages": "yarn oa:extract-messages 'src/components/**/*.js' --out-dir 'src/locales' --compiled-dir 'src/locales-compiled'"
+    "extract-messages": "yarn oa-intl"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/react-shared": "^2.3.2",
     "@storybook/addon-actions": "^6.2.8",
     "axios": "^0.21.1",
