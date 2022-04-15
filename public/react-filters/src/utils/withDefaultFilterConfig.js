@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/intl';
 import relativeOptions from '../messages/relative';
 import attendanceModeOptions from '../messages/attendanceMode';
 import provenanceMessages from '../messages/provenance';

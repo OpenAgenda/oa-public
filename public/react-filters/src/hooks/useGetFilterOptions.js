@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { useCallback } from 'react';
 import { defineMessages } from 'react-intl';
-import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/intl';
 
 const messages = defineMessages({
   emptyOption: {

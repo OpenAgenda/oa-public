@@ -1,7 +1,7 @@
 'use strict';
 
 const { createIntl, createIntlCache } = require('@formatjs/intl');
-const mergeLocales = require('@openagenda/react-shared/lib/utils/mergeLocales');
+const { mergeLocales } = require('@openagenda/intl');
 const filtersLocales = require('@openagenda/react-filters/lib/locales');
 
 function createIntlByLocale(path) {

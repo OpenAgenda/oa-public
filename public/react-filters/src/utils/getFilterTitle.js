@@ -1,4 +1,4 @@
-import getLocaleValue from '@openagenda/react-shared/lib/utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/intl';
 
 export default function getFilterTitle(
   intl,

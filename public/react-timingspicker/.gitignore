@@ -8,3 +8,4 @@ testconfig.js
 coverage/
 .cache/
 dist/
+src/locales-compiled/

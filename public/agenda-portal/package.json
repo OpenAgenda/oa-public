@@ -50,6 +50,7 @@
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/browserslist-config": "^1.0.0",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/polyfills": "^1.2.4",
     "@openagenda/react-filters": "^2.8.1",

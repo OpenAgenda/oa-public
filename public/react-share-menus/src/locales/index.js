@@ -1,4 +1,4 @@
-// DOES NOT EDIT, generated file by '@openagenda/react-shared/scripts/extract-messages.js'
+// DOES NOT EDIT, generated file by 'oa-intl'
 
 /* eslint-disable */
 
