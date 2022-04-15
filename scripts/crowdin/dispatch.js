@@ -4,6 +4,7 @@ const https = require('https');
 const tmp = require('tmp');
 const JSZip = require('jszip');
 const { default: Crowdin } = require('@crowdin/crowdin-api-client');
+const { fork } = require('child_process');
 
 const { CROWDIN_KEY } = process.env;
 
@@ -133,4 +134,8 @@ async function downloadFile(url, to) {
   }
 
   console.log(`Successfully ${translationsCounter} translations extracted in ${fileCounter} files.`);
+
+  fork('packages/labels/.crowdin/dispatch');
+
+  console.log('Dispatched in package labels');
 })();
