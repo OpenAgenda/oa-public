@@ -1,7 +1,11 @@
-"use strict";
+'use strict';
 
+const util = require('util');
 const _ = require('lodash');
-const { promisify } = require( 'util' );
+const logs = require('@openagenda/logs');
+
+const { promisify } = util;
+const log = logs('core/agendas/settings/legacy/updateLegacySet');
 
 const getAgenda = require('../../utils/getAgenda');
 const getMergedSchema = require('../getMergedSchema');
@@ -32,12 +36,10 @@ const Operations = services => {
       get: getCategories,
       generate: generateCategories
     }
-  }
+  };
 };
 
-const log = require('@openagenda/logs')('core/agendas/settings/legacy/updateLegacySet');
-
-module.exports = async (core, agendaOrUid, type, force = false) => {
+module.exports = async (core, agendaOrUid, type) => {
   const config = core.getConfig();
   const {
     services
@@ -51,9 +53,11 @@ module.exports = async (core, agendaOrUid, type, force = false) => {
 
   const schema = await getMergedSchema(services, agenda);
 
-  if (!schema) return {
-    message: `No schema was found for agenda ${agenda.uid}`
-  };
+  if (!schema) {
+    return {
+      message: `No schema was found for agenda ${agenda.uid}`
+    };
+  }
 
   const { id } = await config.knex('review').first(['id']).where('uid', agenda.uid);
 
@@ -63,12 +67,12 @@ module.exports = async (core, agendaOrUid, type, force = false) => {
     set: updatedLegacySet,
     messages,
     fields
-  } = operations[type].generate(schema, legacySet)
+  } = operations[type].generate(schema, legacySet);
 
   const res = {
     messages,
-    [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet'] : updatedLegacySet
-  }
+    [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']: updatedLegacySet
+  };
 
   if (!updatedLegacySet) {
     res.messages.push(`no ${type} set generated`);
@@ -82,7 +86,7 @@ module.exports = async (core, agendaOrUid, type, force = false) => {
     log('updated category set has %s categories', updatedLegacySet.categories.length);
   }
 
-  const result = await operations[type].set(id, updatedLegacySet);
+  await operations[type].set(id, updatedLegacySet);
 
   res.messages.push(`generated ${type} set at id ${id}`);
 
@@ -98,4 +102,4 @@ module.exports = async (core, agendaOrUid, type, force = false) => {
   }
 
   return res;
-}
+};
