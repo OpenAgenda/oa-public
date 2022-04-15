@@ -2,3 +2,8 @@ files:
   - source: /*/src/locales/en.json
     translation: /%original_path%/%two_letters_code%.%file_extension%
     update_option: update_as_unapproved
+
+  - source: /common-labels/locales/en/**/*.json
+    translation: >-
+      /common-labels/locales/%two_letters_code%/**/%original_file_name%
+    update_option: update_as_unapproved
