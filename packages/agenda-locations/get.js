@@ -1,6 +1,5 @@
 'use strict';
 
-const log = require('@openagenda/logs')('get');
 const { BadRequest, NotFound } = require('@openagenda/verror');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
@@ -10,12 +9,14 @@ const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 const legacy = require('./lib/legacy');
 const getMergedLocation = require('./lib/getMergedLocation');
+const log = require('@openagenda/logs')('get');
 
 async function get({ internals, endpoints }, identifiers, options = {}) {
   log('received %j %j', identifiers, options);
   const k = internals.clients.knex(internals.config.schema);
   const {
     eventCounts: includeEventCounts,
+    endpointId,
     context,
     includeImagePath,
     includeFields,
@@ -27,7 +28,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
 
   await addGetQuery(internals, k, deleted, {
     ...cleanGetIdentifiers(identifiers),
-    ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
+    ...pickContextIdentifiers(endpointId, ['agendaUid', 'setUid']),
   });
 
   addSelect(k, 'public', { first: true, includeFields });
@@ -85,12 +86,12 @@ module.exports.byAgendaUid = async (
   if (!agendaUid) {
     throw new BadRequest('agenda identifier is missing');
   }
-  return get({ internals, endpoints }, identifiers, { ...options, context: { agendaUid } });
+  return get({ internals, endpoints }, identifiers, { ...options, endpointId: { agendaUid } });
 };
 
 module.exports.bySetUid = async ({ internals, endpoints }, setUid, identifiers, options = {}) => {
   if (!setUid) {
     throw new BadRequest('set identifier is missing');
   }
-  return get({ internals, endpoints }, identifiers, { ...options, context: { setUid } });
+  return get({ internals, endpoints }, identifiers, { ...options, endpointId: { setUid } });
 };
