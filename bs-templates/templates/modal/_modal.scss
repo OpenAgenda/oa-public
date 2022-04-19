@@ -89,7 +89,7 @@
 /*
  if modal appears in erroring form, error should not propagate inside modal
 */
-/* .has-error .popup-content {
+ .has-error .popup-content {
   .form-control {
     border-color: $oa-gray-light;
     -webkit-box-shadow: inherit;
@@ -111,4 +111,4 @@
   .form-control-feedback {
     color: inherit;
   }
-} */
+}
