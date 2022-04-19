@@ -16,7 +16,7 @@ module.exports = {
     "de": "Herzliche Glückwünsche! Sie haben gerade Ihr OpenAgenda Konto erstellt.\nKlicken Sie auf den folgenden Button um es zu aktivieren und starten Sie Ihren Kalender mit:",
     "es": "Felicitaciones! Usted ha creado su cuenta OpenAgenda.\nHaga clic en el botón situado junto a activarlo y comenzar a usar su agenda:",
     "br": "Gourc'hemennoù ! Emaoc'h o paouez krouiñ ho kont OpenAgenda.\nKlikit war ar bouton war-lerc'h evit gweredekaat anezhi ha kregiñ da implijout ho teiziataer :",
-    "it": "Congratulazioni! Ha appena creato il suo conto OpenAgenda. Clicca sul seguente tasto per attivarlo e iniziare ad annuziare eventi:",
+    "it": "Congratulazioni! Ha appena creato il suo account OpenAgenda. Clicca sul seguente tasto per attivarlo e iniziare ad annuziare eventi:",
     "io": "crwdns15262:0crwdne15262:0"
   },
   "actionDescription": {

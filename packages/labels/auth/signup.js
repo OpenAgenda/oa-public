@@ -94,7 +94,7 @@ module.exports = {
   "connect": {
     "fr": "Connectez-vous",
     "en": "Connect",
-    "it": "Connettiti",
+    "it": "Accedi",
     "de": "Anmelden",
     "pl": "Połącz się",
     "es": "login",

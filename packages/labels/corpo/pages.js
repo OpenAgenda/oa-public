@@ -960,7 +960,7 @@ module.exports = {
     "en": "Rich geocoding: type the address and all localization details are retrieved: latitude, longitude, region, country...",
     "de": "Rich Geokodierung: Gebe die Adresse und alle Lokalisierungs Details abgerufen werden sollen: Breitengrad, Längengrad, Region, Land ...",
     "es": "Geolocalización rica: escriba la dirección y se encontró OpenAgenda latitud, longitud, estado y país",
-    "it": "Ricca geolocalizzazione: digitare l'indirizzo e OpenAgenda trova latitudine, longitudine, dipartimento, regione e paese. Grazie a OpenStreetMap!",
+    "it": "Ricca geolocalizzazione: digitare l'indirizzo e OpenAgenda trova latitudine, longitudine, provincia, regione e paese. Grazie a OpenStreetMap!",
     "io": "crwdns13684:0crwdne13684:0"
   },
   "broadcastHeadTitle": {
@@ -2082,7 +2082,7 @@ module.exports = {
     "fr": "Personnalisez et ajoutez des champs événement",
     "de": "Anpassen und fügen Veranstaltungfelder",
     "es": "Personalizar y añadir campos de eventos",
-    "it": "Personalizza e aggiungi campi evento",
+    "it": "Personalizzare e aggiungere campi per l'evento",
     "io": "crwdns13964:0crwdne13964:0"
   },
   "premiumSumPrivate": {

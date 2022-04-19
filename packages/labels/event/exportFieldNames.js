@@ -288,7 +288,7 @@ module.exports = {
     "fr": "Département",
     "de": "Abteilung",
     "es": "departamento",
-    "it": "Dipartimento",
+    "it": "Provincia",
     "br": "Departamant",
     "io": "crwdns14212:0crwdne14212:0"
   },
@@ -442,7 +442,7 @@ module.exports = {
     "fr": "Contributeur: Fonction",
     "de": "Anbieter: Titel",
     "es": "Colaborador: Función",
-    "it": "Collaboratore: Funzione",
+    "it": "Collaboratore: ruolo",
     "io": "crwdns14250:0crwdne14250:0"
   },
   "contributor.organization": {
@@ -543,6 +543,7 @@ module.exports = {
   "member.position": {
     "fr": "Membre: fonction",
     "en": "Member: title",
-    "io": "crwdns16446:0crwdne16446:0"
+    "io": "crwdns16446:0crwdne16446:0",
+    "it": "Membro: ruolo"
   }
 };

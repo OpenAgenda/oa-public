@@ -85,7 +85,6 @@ const RemoveLocationModal = ({
     modalStates = eventCount ? 'withEvents' : 'noEvents';
   }
 
-  console.log(eventCount, agendaEventCount);
   const renderRemovedModal = () => (
     <div>
       <p className="text-center">

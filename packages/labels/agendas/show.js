@@ -105,7 +105,7 @@ module.exports = {
   "organization": {
     "en": "Organization",
     "fr": "Organisation",
-    "it": "Organizzazione",
+    "it": "Ragione sociale",
     "de": "Organisation",
     "pl": "Organizacja",
     "br": "Aozadur",
@@ -317,7 +317,7 @@ module.exports = {
   "countUpcomingEvents": {
     "en": "%count% upcoming events",
     "fr": "%count% événements à venir",
-    "it": "%count% eventi in programma",
+    "it": "%count% eventi futuri",
     "de": "%count% künftige Veranstaltungen",
     "pl": "%count% przyszłych wydarzeń",
     "br": "%count% a zarvoudoù da zont",
@@ -384,7 +384,7 @@ module.exports = {
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
-    "it": "Finalmente in linea",
+    "it": "Oramai in linea",
     "oc": "Transferit en linha",
     "io": "crwdns16090:0crwdne16090:0"
   },

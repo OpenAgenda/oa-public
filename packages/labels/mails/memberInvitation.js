@@ -46,7 +46,7 @@ module.exports = {
     "en": "Sign up",
     "de": "Anmelden",
     "es": "Inscribirse",
-    "it": "Iscriviti ora",
+    "it": "Crea un account",
     "io": "crwdns15442:0crwdne15442:0"
   },
   "memberAction": {

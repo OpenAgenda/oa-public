@@ -4,8 +4,8 @@
   "resetPassword": "Reimpostare la password",
   "email": "Email",
   "password": "Password",
-  "signin": "Connettersi",
+  "signin": "Accedi",
   "lostPassword": "Ho perso la mia password",
   "noAccount": "Non hai ancora un account?",
-  "createAccount": "Non hai ancora un account!"
+  "createAccount": "Crea un account!"
 }

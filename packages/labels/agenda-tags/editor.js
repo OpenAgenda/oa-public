@@ -101,7 +101,7 @@ module.exports = {
     "fr": "Ajouter",
     "de": "Hinzufügen",
     "es": "añadir",
-    "it": "Aggiungi",
+    "it": "Aggiungere",
     "io": "crwdns12708:0crwdne12708:0"
   },
   "addTag": {

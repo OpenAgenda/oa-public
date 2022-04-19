@@ -6,7 +6,7 @@ module.exports = {
     "en": "Activate your OpenAgenda account",
     "de": "Aktivieren Sie Ihr Konto OpenAgenda",
     "es": "Restablecimiento de la contraseña",
-    "it": "Reimpostazione della password",
+    "it": "Attivare il account OpenAgenda",
     "br": "Gweredekaat ho kont OpenAgenda",
     "io": "crwdns15594:0crwdne15594:0"
   },

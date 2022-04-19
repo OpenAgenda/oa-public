@@ -46,7 +46,7 @@ module.exports = {
     "en": "cancel",
     "de": "stornieren",
     "es": "anular",
-    "it": "annullare",
+    "it": "annulla",
     "io": "crwdns12336:0crwdne12336:0"
   },
   "nolocation": {

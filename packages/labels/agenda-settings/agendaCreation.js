@@ -54,7 +54,7 @@ module.exports = {
     "en": "My organization, my festival, my city, other",
     "de": "Meine Organisation, mein Fest, meine Stadt, andere",
     "es": "Mi organización, mi fiesta, mi ciudad, otra",
-    "it": "La mia organizzazione, il mio festival, la mia città, altri",
+    "it": "La mia ragione sociale, il mio festival, la mia città, altri",
     "io": "crwdns12452:0crwdne12452:0"
   },
   "website": {

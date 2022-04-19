@@ -34,7 +34,7 @@ module.exports = {
     "de": "Kontaktposition",
     "es": "funcionamiento de los contactos",
     "br": "Karg an darempred",
-    "it": "Funzione del contatto",
+    "it": "Ruolo del contatto",
     "io": "crwdns14116:0crwdne14116:0"
   }
 }

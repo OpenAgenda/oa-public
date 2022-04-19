@@ -6,7 +6,7 @@ module.exports = {
     "en": "Sign in",
     "de": "Login",
     "es": "Conectarse",
-    "it": "Accesso",
+    "it": "Accedi",
     "br": "Kevreañ",
     "io": "crwdns15246:0crwdne15246:0"
   },

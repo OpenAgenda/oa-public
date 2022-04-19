@@ -140,7 +140,7 @@ module.exports = {
     "fr": "Ajouter des langues",
     "en": "Add languages",
     "es": "Añadir idiomas",
-    "it": "Aggiungi lingue",
+    "it": "Aggiungere una lingua",
     "io": "crwdns14712:0crwdne14712:0"
   },
   "monolingualLabels": {
@@ -549,7 +549,7 @@ module.exports = {
     "fr": "Ajouter",
     "en": "Add",
     "es": "añadir",
-    "it": "Aggiungi",
+    "it": "Aggiungere",
     "io": "crwdns14824:0crwdne14824:0"
   },
   "optionUpdateAction": {

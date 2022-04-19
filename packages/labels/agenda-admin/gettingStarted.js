@@ -31,7 +31,7 @@ module.exports = {
     "en": "Add an event",
     "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento",
-    "it": "Aggiungi un evento",
+    "it": "Aggiungere un evento",
     "io": "crwdns11362:0crwdne11362:0"
   },
   "addProfileImage": {

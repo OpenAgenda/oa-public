@@ -17,7 +17,7 @@ module.exports = {
     "he": "%firstDate% וגם %lastDate% ",
     "ar": "%firstDate% و %lastDate% ",
     "de": "%firstDate% und %lastDate%",
-    "it": "%firstDate% et %lastDate%",
+    "it": "%firstDate% e %lastDate%",
     "es": "%firstDate% i %lastDate%",
     "io": "crwdns12890:0%firstDate%crwdnd12890:0%lastDate%crwdne12890:0"
   },
