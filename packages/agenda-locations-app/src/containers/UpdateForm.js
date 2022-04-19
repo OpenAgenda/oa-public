@@ -83,7 +83,6 @@ const UpdateForm = ({
     const form = new FormData();
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
-    console.log(res.update.replace(':locationUid', locationUid));
     axios.post(res.update.replace(':locationUid', locationUid), form)
       .then(result => {
         if (nq) history.push(nq); else history.push(prefix);

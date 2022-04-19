@@ -231,30 +231,6 @@ const LocationForm = ({
     onCancel(location);
   };
 
-  const decorateLocation = (gfResult, excludeCoordinates = false) => {
-    const item = gfResult.results[0];
-    const decoration = [
-      'adminLevel1',
-      'adminLevel2',
-      'adminLevel3',
-      'adminLevel4',
-      'adminLevel5',
-      'adminLevel6',
-      'postalCode',
-      'timezone',
-      'insee',
-    ].reduce((d, field) => {
-      d[field] = item[field];
-      return d;
-    }, {});
-    if (!excludeCoordinates) {
-      decoration.latitude = item.latitude;
-      decoration.longitude = item.longitude;
-    }
-    if (item.countryCode && item.countryCode !== location.countryCode) decoration.countryCode = _.isString(item.countryCode) ? item.countryCode.toUpperCase() : null;
-    return decoration;
-  };
-
   // --  multiLang fcts
   const getMultilingual = field => {
     const data = location?.[field];

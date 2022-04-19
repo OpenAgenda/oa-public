@@ -145,7 +145,6 @@ function Dashboard() {
   const history = useHistory();
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
-  console.log('render');
   const { mergeMode } = useMemo(() => {
     if (pathname.includes('merge') && settings?.access.merge.authorized) {
       dispatch(mergeActions.initiate());
