@@ -1,6 +1,5 @@
 'use strict';
 
-const log = require('@openagenda/logs')('create');
 const slug = require('slugify');
 const { NotFound } = require('@openagenda/verror');
 const cleanOptions = require('./lib/cleanSetOptions');
@@ -9,13 +8,14 @@ const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
 const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
 const legacy = require('./lib/legacy');
+const log = require('@openagenda/logs')('create');
 
 async function create(service, data, options = {}) {
   log('received %j payload with options %j', data.name, options);
 
   await authorize(service, 'create', null, options);
 
-  const { context, includeImagePath, geocodeIfUndefined } = cleanOptions(
+  const { endpointId, includeImagePath, geocodeIfUndefined } = cleanOptions(
     options
   );
 
@@ -36,18 +36,18 @@ async function create(service, data, options = {}) {
     updatedAt: new Date(),
   };
 
-  if (context.agendaUid) {
+  if (endpointId.agendaUid) {
     Object.assign(
       clean,
       await service.interfaces
-        .getAgendaDetailsByUid(context.agendaUid, ['id', 'locationSetUid'])
+        .getAgendaDetailsByUid(endpointId.agendaUid, ['id', 'locationSetUid'])
         .then(a => ({
           agendaId: a.id,
           setUid: a.locationSetUid,
         }))
     );
-  } else if (context.setUid) {
-    clean.setUid = context.setUid;
+  } else if (endpointId.setUid) {
+    clean.setUid = endpointId.setUid;
   }
 
   if (clean.image) {
@@ -74,7 +74,7 @@ async function create(service, data, options = {}) {
 
 module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) => create(service, data, {
   ...options,
-  context: { agendaUid },
+  endpointId: { agendaUid }
 });
 
 module.exports.bySetUid = async (service, setUid, data, options = {}) => {
@@ -83,6 +83,6 @@ module.exports.bySetUid = async (service, setUid, data, options = {}) => {
   }
   return create(service, data, {
     ...options,
-    context: { setUid },
+    endpointId: { setUid }
   });
 };

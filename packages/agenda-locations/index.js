@@ -13,7 +13,6 @@ const get = require('./get');
 const list = require('./list');
 const merge = require('./merge');
 const remove = require('./remove');
-const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
 const geoFields = require('./utils/geoFields');
@@ -125,7 +124,6 @@ module.exports = Object.assign(
           ...endpoints,
           create: create.bySetUid.bind(null, svc, setUid),
           merge: merge.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
-          terms: terms.bySetUid.bind(null, svc, setUid),
           remove: remove.bySetUid.bind(null, { internals: svc, endpoints }, setUid),
           update: update.bySetUid.bind(
             null,
@@ -167,7 +165,6 @@ module.exports = Object.assign(
           agendaUid
         ),
         remove: remove.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
-        terms: terms.byAgendaUid.bind(null, svc, agendaUid),
         merge: merge.byAgendaUid.bind(null, { internals: svc, endpoints }, agendaUid),
         settings: {
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),

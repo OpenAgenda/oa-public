@@ -1,11 +1,10 @@
 'use strict';
 
-const log = require('@openagenda/logs')('remove');
 const { NotFound } = require('@openagenda/verror');
 const removeCandidate = require('./duplicates/removeCandidate');
-
 const get = require('./get');
 const authorize = require('./lib/authorize');
+const log = require('@openagenda/logs')('remove');
 
 async function remove({ endpoints, internals }, current, options = {}) {
   log('received %j payload with options %j', current.uid, options);
