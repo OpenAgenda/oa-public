@@ -1,12 +1,11 @@
 'use strict';
 
+const fields = require('./fields');
 const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
 const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
 const pass = require('@openagenda/validators/pass');
-
-const fields = require('./fields');
 
 schema.register({
   boolean,
@@ -41,12 +40,18 @@ const validate = schema({
     default: false,
     allowNull: true,
   },
-  context: {
+  endpointId: {
     agendaUid: {
       type: 'integer',
       default: null,
     },
     setUid: {
+      type: 'integer',
+      default: null,
+    },
+  },
+  context: {
+    agendaUid: {
       type: 'integer',
       default: null,
     },

@@ -61,16 +61,16 @@ module.exports = function( selector, lang ) {
     elem.innerHTML = _.template(  `
 <span>
   <%= !handlePassed || passedIncluded
-    ? total > 1
+    ? (total > 1 || total === 0)
       ? __('totalEvents', { count: total })
       : __('totalEvent')
-    : total > 1
+    : (total > 1 || total === 0)
       ? __('upcomingEvents', { count: total })
       : __('upcomingEvent') %>
 </span><% if ( handlePassed && !passedIncluded) { %> - 
 <a href="<%= link %>"><%= __( 'includePassed' ) %></a><% } %>
     `)( {
-      total: elem.getAttribute( params.attributes.total ),
+      total: parseInt(elem.getAttribute( params.attributes.total ), 10),
       passedIncluded: passedIncluded,
       handlePassed: !_hasOtherTimeFilter(),
       link: _buildLink( passedIncluded ),

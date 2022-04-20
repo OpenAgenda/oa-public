@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('list');
 const { BadRequest } = require('@openagenda/verror');
 
 const addListQuery = require('./lib/addListQuery');
@@ -12,6 +11,7 @@ const validateNav = require('./lib/validateNav');
 const validateListOptions = require('./lib/validateListOptions');
 const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
+const log = require('@openagenda/logs')('list');
 
 async function list(service, query = {}, nav = {}, options = {}) {
   log('received %j %j %j', query, nav, options);
@@ -19,7 +19,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
   const cleanListOptions = validateListOptions(options);
   const {
     total: includeTotal,
-    context,
+    endpointId,
     detailed,
     includeFields,
     stream: streamOptions,
@@ -30,7 +30,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   await addListQuery(service, k, deleted, {
     ...query,
-    ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
+    ...pickContextIdentifiers(endpointId, ['agendaUid', 'setUid']),
   });
 
   const total = includeTotal
@@ -101,7 +101,7 @@ module.exports.byAgendaUid = async (
 
   return list(service, query, nav, {
     ...options,
-    context: { agendaUid },
+    endpointId: { agendaUid },
   });
 };
 
@@ -118,6 +118,6 @@ module.exports.bySetUid = async (
 
   return list(service, query, nav, {
     ...options,
-    context: { setUid },
+    endpointId: { setUid },
   });
 };

@@ -14,6 +14,7 @@ module.exports = (core, agendaOrUid) => async data => {
   return endpoints.create(data, {
     geocodeIfUndefined: true,
     includeImagePath: true,
-    agendaUid: agenda.uid
+    agendaUid: agenda.uid,
+    context: { agendaUid: agenda.uid }
   });
 };

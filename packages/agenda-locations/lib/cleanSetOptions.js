@@ -10,7 +10,7 @@ schema.register({
 });
 
 module.exports = schema({
-  context: {
+  endpointId: {
     agendaUid: {
       type: 'integer',
       default: null,

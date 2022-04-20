@@ -25,6 +25,7 @@ module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
     total: true,
     includeImagePath: true,
     detailed: !!query?.detailed,
-    eventCounts
+    eventCounts,
+    context: { agendaUid: agenda.uid }
   });
 };
