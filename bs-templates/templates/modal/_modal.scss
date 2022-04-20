@@ -12,7 +12,7 @@
   height: 100%;
   width: 100%;
 
-  > section {
+  >section {
     display: flex;
     flex-direction: column;
     max-width: 500px;
@@ -30,13 +30,13 @@
       width: 100%;
       position: relative;
 
-      > h2 {
+      >h2 {
         font-size: 16px;
         line-height: 20px;
         margin: 0;
       }
 
-      > .close-link {
+      >.close-link {
         background: none;
         border: none;
         color: $oa-white;
@@ -57,7 +57,7 @@
   }
 
   &.big {
-    > section {
+    >section {
       overflow-y: auto;
       max-height: 80%;
       background: $oa-white;
@@ -65,7 +65,7 @@
   }
 
   @media (min-width: 768px) {
-    > section {
+    >section {
       width: 38.2%;
     }
   }
@@ -89,17 +89,29 @@
 /*
  if modal appears in erroring form, error should not propagate inside modal
 */
- .has-error .popup-content {
-  .form-control {
-    border-color: $oa-gray-light;
-    -webkit-box-shadow: inherit;
-    box-shadow: inherit;
+.has-error .popup-content {
+  .form-group {
+    &.has-error {
+      .form-control {
+        border-color: $oa-red;
+      }
+    }
 
-    &:focus {
-      border-color: inherit;
+    .form-control {
+      border-color: $oa-gray-light;
       -webkit-box-shadow: inherit;
       box-shadow: inherit;
+
+      &:focus {
+        border-color: inherit;
+        -webkit-box-shadow: inherit;
+        box-shadow: inherit;
+      }
     }
+  }
+
+  .checkbox {
+    color: $oa-black;
   }
 
   .input-group-addon {
