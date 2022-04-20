@@ -115,6 +115,7 @@ const CreateForm = ({
         tiles={tiles}
         mode="create"
         errors={errors}
+        displayExtIdLink
       />
     </>
   );

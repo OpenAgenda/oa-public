@@ -12,6 +12,7 @@ import {
   useMap
 } from 'react-leaflet';
 import L from 'leaflet';
+import { GestureHandling } from 'leaflet-gesture-handling';
 import { Helmet } from 'react-helmet-async';
 
 const defaults = {
@@ -104,6 +105,13 @@ const LocationMap = ({
     }
   }, [location, isGeolocated, getLocationPos, pos]);
 
+  const GestureHandlingSetter = () => {
+    const map = useMap();
+    map.gestureHandling.enable();
+    map.addHandler('gestureHandling', GestureHandling);
+    return null;
+  };
+
   return (
     <>
       <Helmet>
@@ -125,6 +133,7 @@ const LocationMap = ({
         scrollWheelZoom={scrollable && enabled}
         style={{ height: '300px' }}
       >
+        <GestureHandlingSetter />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={tiles || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
