@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
+    "@emotion/react": "^11.1.5",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/countries": "^0.1.1",
@@ -26,6 +27,7 @@
     "@openagenda/react-shared": "^2.2.0",
     "@openagenda/utils": "^1.3.0",
     "@openagenda/validators": "^2.4.0",
+    "@raruto/leaflet-gesture-handling": "^1.3.4",
     "axios": "^0.24.0",
     "core-js": "^3.10.2",
     "cors": "^2.8.5",
@@ -35,7 +37,6 @@
     "immer": "^9.0.6",
     "languages": "^0.1.3",
     "leaflet": "^1.7.1",
-    "leaflet-gesture-handling": "^1.2.2",
     "lodash": "^4.17.21",
     "qs": "^6.9.1",
     "rc-switch": "^1.4.3",
