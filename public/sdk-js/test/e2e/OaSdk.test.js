@@ -1,29 +1,13 @@
 import sinon from 'sinon';
-import MockAdapter from '@openagenda/axios-mock-adapter';
-import OaSdk from '../src';
-import testconfig from '../testconfig';
-
-function mockAuth(api) {
-  const mock = new MockAdapter(api);
-
-  mock
-    .onPost('/requestAccessToken')
-    .reply(200, {
-      access_token: '4fcf5c0a3e38c9ed9da5818ffdf4f1a7',
-      expires_in: 3600
-    })
-    .onAny()
-    .reply(500);
-
-  return mock;
-}
+import OaSdk from '../../src';
+import testconfig from '../../testconfig';
+import getError from '../utils/getError';
 
 describe('connection', () => {
+  jest.setTimeout(10000);
+
   it('simple connect', async () => {
     const oa = new OaSdk({ secretKey: testconfig.secretKey });
-
-    mockAuth(oa.api);
-
     await oa.connect();
 
     expect(oa.accessToken).toHaveLength(32);
@@ -31,20 +15,25 @@ describe('connection', () => {
 
   it('simple connect - key provided on connect', async () => {
     const oa = new OaSdk();
-
-    mockAuth(oa.api);
-
     await oa.connect(testconfig.secretKey);
 
     expect(oa.accessToken).toHaveLength(32);
+  });
+
+  it('fail connection', async () => {
+    const oa = new OaSdk();
+
+    const error = await getError(() => oa.connect('inexistant'));
+
+    expect(error.message).toBe('Request failed with status code 401');
+    expect(error.response.status).toBe(401);
+    expect(error.response.statusText).toBe('Unauthorized');
   });
 });
 
 describe('refresh expired token', () => {
   it('refresh token if needed', async () => {
     const oa = new OaSdk();
-
-    mockAuth(oa.api);
 
     const spy = sinon.spy(oa, 'connect');
 

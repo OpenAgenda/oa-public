@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import superagent from 'superagent';
-import baseUrl from './baseUrl';
+import axios from 'axios';
+import qs from 'qs';
 import Events from './Events';
 import Locations from './Locations';
-import parseJsonResponse from './utils/parseJsonResponse';
 import reduceAccessToken from './utils/reduceAccessToken';
 
 export default class OaSdk {
@@ -13,13 +12,47 @@ export default class OaSdk {
         publicKey: null,
         secretKey: null,
       },
-      options
+      options,
     );
 
     this.accessToken = null;
     this.expiresIn = null;
 
-    this.agent = superagent.agent();
+    this.api = axios.create({
+      baseURL: process.env.NODE_ENV !== 'development'
+        ? 'https://api.openagenda.com/v2'
+        : 'https://dapi.openagenda.com/v2',
+      paramsSerializer: qs.stringify,
+    });
+
+    this.api.interceptors.request.use(async config => {
+      if (!config.skipRefreshToken && this.params.secretKey) {
+        await this.refreshToken();
+      }
+
+      if (!config.skipAccessToken && this.accessToken) {
+        config.headers = {
+          'access-token': this.accessToken,
+          ...config.headers,
+        };
+      }
+
+      if (!config.skipNonce && ['post', 'put', 'patch', 'delete'].includes(config.method)) {
+        config.headers = {
+          nonce: this.getNonce(),
+          ...config.headers,
+        };
+      }
+
+      if (!config.skipPublicKey && config.method === 'get' && this.params.publicKey) {
+        config.params = {
+          key: this.params.publicKey,
+          ...config.params,
+        };
+      }
+
+      return config;
+    });
   }
 
   events = new Events(this);
@@ -33,17 +66,16 @@ export default class OaSdk {
       this.params.secretKey = secretKey;
     }
 
-    const response = await this.agent
-      .post(`${baseUrl.v2}/requestAccessToken`)
-      .accept('json')
-      .send({
+    const response = await this.api
+      .post('/requestAccessToken', {
         'grant-type': 'authorization_code',
         code: secretKey || this.params.secretKey,
-      })
-      .then(parseJsonResponse);
+      }, {
+        skipRefreshToken: true, // avoid loop
+      });
 
-    this.accessToken = response.body.access_token;
-    this.expiresIn = response.body.expires_in;
+    this.accessToken = response.data.access_token;
+    this.expiresIn = response.data.expires_in;
     this.requestTokenTime = time;
 
     this.reducedAccessToken = reduceAccessToken(this.accessToken);

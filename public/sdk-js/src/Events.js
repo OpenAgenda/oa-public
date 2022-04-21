@@ -1,23 +1,23 @@
-import parseJsonResponse from './utils/parseJsonResponse';
-import baseUrl from './baseUrl';
-
 export default class Events {
   constructor(sdk) {
     this.sdk = sdk;
   }
 
-  async get(eventUid) {
-    await this.sdk.refreshToken();
-
-    return this.sdk.agent
-      .get(`${baseUrl.v1}/events/${eventUid}`)
-      .accept('json')
-      .query({ key: this.sdk.params.publicKey })
-      .then(parseJsonResponse)
-      .then(v => v.body.data);
+  get(agendaUid, eventUid) {
+    return this.sdk.api
+      .get(`/agendas/${agendaUid}/events/${eventUid}`)
+      .then(v => v.data.event);
   }
 
-  async create(agendaUid, data) {
+  list(agendaUid, data) {
+    return this.sdk.api
+      .get(`/agendas/${agendaUid}/events`, {
+        params: data
+      })
+      .then(v => v.data);
+  }
+
+  create(agendaUid, data) {
     /*
      * title
      * description
@@ -32,49 +32,26 @@ export default class Events {
      * ...customs
      * */
 
-    await this.sdk.refreshToken();
-
-    return this.sdk.agent
-      .post(`${baseUrl.v2}/agendas/${agendaUid}/events`)
-      .type('form')
-      .accept('json')
-      .query({ key: this.sdk.params.publicKey })
-      .set('access-token', this.sdk.accessToken)
-      .set('nonce', this.sdk.getNonce())
-      .field({
-        data: JSON.stringify(data),
-      })
-      .then(parseJsonResponse)
-      .then(v => v.body);
+    return this.sdk.api
+      .post(`/agendas/${agendaUid}/events`, data)
+      .then(v => v.data.event);
   }
 
-  async update(agendaUid, eventUid, data) {
-    await this.sdk.refreshToken();
-
-    return this.sdk.agent
-      .patch(`${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}`)
-      .accept('json')
-      .query({ key: this.sdk.params.publicKey })
-      .set('access-token', this.sdk.accessToken)
-      .set('nonce', this.sdk.getNonce())
-      .field({
-        data: JSON.stringify(data),
-      })
-      .then(parseJsonResponse)
-      .then(v => v.body);
+  patch(agendaUid, eventUid, data) {
+    return this.sdk.api
+      .patch(`/agendas/${agendaUid}/events/${eventUid}`, data)
+      .then(v => v.data.event);
   }
 
-  async delete(agendaUid, eventUid) {
-    await this.sdk.refreshToken();
+  update(agendaUid, eventUid, data) {
+    return this.sdk.api
+      .post(`/agendas/${agendaUid}/events/${eventUid}`, data)
+      .then(v => v.data.event);
+  }
 
-    return this.sdk.agent
-      .delete(`${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}`)
-      .type('form')
-      .accept('json')
-      .query({ key: this.sdk.params.publicKey })
-      .set('access-token', this.sdk.accessToken)
-      .set('nonce', this.sdk.getNonce())
-      .then(parseJsonResponse)
-      .then(v => v.body);
+  delete(agendaUid, eventUid) {
+    return this.sdk.api
+      .delete(`/agendas/${agendaUid}/events/${eventUid}`)
+      .then(v => v.data.event);
   }
 }

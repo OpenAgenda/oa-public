@@ -1,31 +1,51 @@
-import parseJsonResponse from './utils/parseJsonResponse';
-import baseUrl from './baseUrl';
-
 export default class Locations {
   constructor(sdk) {
     this.sdk = sdk;
   }
 
-  async create(agendaUid, data) {
+  get(agendaUid, locationUid) {
+    return this.sdk.api
+      .get(`/agendas/${agendaUid}/locations/${locationUid}`)
+      .then(v => v.data.location);
+  }
+
+  list(agendaUid, data) {
+    return this.sdk.api
+      .get(`/agendas/${agendaUid}/locations`, {
+        params: data
+      })
+      .then(v => v.data);
+  }
+
+  create(agendaUid, data) {
     /*
      * name
      * address
      * latitude
      * longitude
+     * countryCode
      * */
 
-    await this.sdk.refreshToken();
+    return this.sdk.api
+      .post(`/agendas/${agendaUid}/locations`, data)
+      .then(v => v.data.location);
+  }
 
-    return this.sdk.agent
-      .post(`${baseUrl.v1}/locations`)
-      .type('form')
-      .accept('json')
-      .field({
-        access_token: this.sdk.accessToken,
-        nonce: this.sdk.getNonce(),
-        data: JSON.stringify({ ...data, agenda_uid: agendaUid }),
-      })
-      .then(parseJsonResponse)
-      .then(v => v.body);
+  patch(agendaUid, eventUid, data) {
+    return this.sdk.api
+      .patch(`/agendas/${agendaUid}/locations/${eventUid}`, data)
+      .then(v => v.data.location);
+  }
+
+  update(agendaUid, eventUid, data) {
+    return this.sdk.api
+      .post(`/agendas/${agendaUid}/locations/${eventUid}`, data)
+      .then(v => v.data.location);
+  }
+
+  delete(agendaUid, eventUid) {
+    return this.sdk.api
+      .delete(`/agendas/${agendaUid}/locations/${eventUid}`)
+      .then(v => v.data.location);
   }
 }
