@@ -38,6 +38,21 @@ describe('validate', () => {
   );
 
   it(
+    'long descriptions with multicaractered single accented letters is cleaned up',
+    async () => {
+      const longDescription = {
+        fr: 'À côté'
+      };
+      const clean = await validate({
+        longDescription
+      }, { isDraft: 1 });
+
+      assert.equal(longDescription.fr.length, 9);
+      assert.equal(clean.longDescription.fr.length, 6);
+    }
+  );
+
+  it(
     'onlineAccessLink is removed from clean values when attendanceMode is offline',
     async () => {
       const event = await validate({
@@ -114,7 +129,7 @@ describe('validate', () => {
 
   it('age should be an object with min and max values', async () => {
     const clean = await validate({
-      age: { min: 12, max: 100 }
+      age: { min: 12, max: 100 }
     }, { isDraft: true });
 
     assert.deepEqual(clean.age, {
