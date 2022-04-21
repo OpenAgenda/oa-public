@@ -25,7 +25,8 @@ const GeoFieldsAndMap = ({
   validate,
   enableGeocode = false,
   res,
-  tiles
+  tiles,
+  errors
 }) => {
   const intl = useIntl();
   const [geocodeNoResults, setGeocodeNoResults] = useState(false);
@@ -215,7 +216,7 @@ const GeoFieldsAndMap = ({
         validator={validate.field('address')}
         lang={lang}
         getLabel={getLabel}
-        groupClassName="margin-bottom-xs"
+        groupClassName={errors && errors.find(e => e.field === 'name') ? 'has-error margin-bottom-xs' : 'margin-bottom-xs'}
         className={enableGeocode ? 'input-group' : 'form-group'}
         errors={geocodeError ? [{ code: 'geocodeError' }] : false}
         renderButton={

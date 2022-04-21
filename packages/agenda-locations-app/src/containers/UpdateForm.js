@@ -138,6 +138,7 @@ const UpdateForm = ({
         mode="update"
         onSubmit={onSubmit}
         errors={errors}
+        displayExtIdLink
       />
     </>
   );
