@@ -132,7 +132,14 @@ const LocationSearch = ({
 
   const renderNav = type => {
     if (type === 'next' ? state.hasNext : state.hasPrev) {
-      return <li className="nav-item" onClick={() => getAdjacentPage(type)}><i className="fa fa-ellipsis-h" /></li>;
+      return (
+        <li
+          className="nav-item"
+          onClick={() => getAdjacentPage(type)}
+        >
+          <i className="fa fa-ellipsis-h" />
+        </li>
+      );
     }
     return '';
   };

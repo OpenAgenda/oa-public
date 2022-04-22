@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import locales from '../locales-compiled';
 import mergeReducer from '../reducers/merge';
-import onGoinReducer from '../reducers/onGoinModal';
+import onGoingReducer from '../reducers/onGoingModal';
 
 function App({
   route,
@@ -42,6 +42,6 @@ export default
 provideHooks({
   inject: ({ store }) => store.inject({
     merge: mergeReducer,
-    onGoin: onGoinReducer
+    onGoing: onGoingReducer
   }),
 })(App);

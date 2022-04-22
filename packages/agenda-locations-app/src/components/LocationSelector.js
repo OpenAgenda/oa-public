@@ -94,20 +94,6 @@ const LocationSelector = ({
       });
   };
 
-  const renderConfirmation = () => (
-/*     <LocationConfirmation
-      res={res}
-      lang={lang}
-      location={location}
-      tiles={tiles}
-      staticMapTiles={staticTiles}
-      settings={settings}
-      onConfirm={onConfirm}
-      onCancel={switchToSearch}
-    /> */
-    <div>CONFIRMATION</div>
-  );
-
   const renderSelected = () => (
     <div className="selected-location">
       {!disableChange ? (

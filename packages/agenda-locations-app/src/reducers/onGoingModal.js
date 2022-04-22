@@ -1,5 +1,5 @@
-const INITIATE = 'agenda-locations/onGoin/INITIATE';
-const CLOSE = 'ageanda-locations/onGoin/CLOSE';
+const INITIATE = 'agenda-locations/onGoing/INITIATE';
+const CLOSE = 'ageanda-locations/onGoing/CLOSE';
 const initialState = false;
 
 export default function reducer(state = initialState, action) {
