@@ -7,6 +7,7 @@ const glob = require('glob');
 const { extract } = require('@formatjs/cli');
 const getMessages = require('./utils/getMessages');
 const createIndex = require('./utils/createIndex');
+const inputToOuputPath = require('./utils/inputToOuputPath');
 
 // Functions
 
@@ -27,30 +28,58 @@ function getDefaults({
   return {};
 }
 
+async function memoizedExtract(cache, globPath, options) {
+  if (cache.has(globPath)) {
+    return cache.get(globPath);
+  }
+
+  const result = await extract(glob.sync(globPath), options);
+
+  cache.set(globPath, result);
+
+  return result;
+}
+
 async function extractLang({
+  files,
   output,
-  defaultMessages,
   lang,
   defaultLang,
   definedDefault,
+  cache,
+  idInterpolationPattern,
+  format,
 }) {
-  const localesPath = path.join(process.cwd(), output.replace('%lang%', lang));
-  const existingMessages = getMessages(localesPath);
+  const pathArray = output.includes('**') ? glob.sync(files) : [files];
 
-  const defaults = getDefaults({
-    defaultMessages,
-    lang,
-    defaultLang,
-    definedDefault,
-  });
-  const messages = _.pickBy(
-    existingMessages,
-    (value, key) => key in defaultMessages && value,
-  );
+  for (const file of pathArray) {
+    const { result: outPath } = inputToOuputPath(files, file, output, lang);
 
-  const result = _.merge(defaults, messages);
+    const localesPath = path.join(process.cwd(), outPath.replace(/\.js$/, '.json'));
+    const existingMessages = getMessages(localesPath);
 
-  fs.writeFileSync(localesPath, `${JSON.stringify(result, null, 2)}\n`);
+    const defaultMessages = JSON.parse(await memoizedExtract(cache, file, {
+      idInterpolationPattern,
+      extractFromFormatMessageCall: true,
+      format,
+    }));
+
+    const defaults = getDefaults({
+      defaultMessages,
+      lang,
+      defaultLang,
+      definedDefault,
+    });
+
+    const messages = _.pickBy(
+      existingMessages,
+      (value, key) => key in defaultMessages && value,
+    );
+
+    const result = _.merge(defaults, messages);
+
+    fs.writeFileSync(localesPath, `${JSON.stringify(result, null, 2)}\n`);
+  }
 }
 
 // Command
@@ -112,22 +141,19 @@ module.exports.handler = async argv => {
 
   const format = 'simple';
 
-  // Extract
-  const defaultMessages = JSON.parse(
-    await extract(glob.sync(files), {
-      idInterpolationPattern,
-      extractFromFormatMessageCall: true,
-      format,
-    }),
-  );
+  const cache = new Map();
 
+  // Extract
   const extractResults = await Promise.allSettled(
     langs.map(lang => extractLang({
+      files,
       output,
-      defaultMessages,
       lang,
       defaultLang,
       definedDefault,
+      cache,
+      idInterpolationPattern,
+      format,
     })),
   );
 
