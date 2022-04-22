@@ -9,13 +9,10 @@ const yargs = require('yargs');
 const glob = require('glob');
 const mkdirp = require('mkdirp');
 const dedent = require('dedent');
+const extract = require('@openagenda/intl/scripts/extract');
 const compile = require('@openagenda/intl/scripts/compile');
 const inputToOuputPath = require('@openagenda/intl/scripts/utils/inputToOuputPath');
 const getMessages = require('@openagenda/intl/scripts/utils/getMessages');
-
-function space(count) {
-  return ' '.repeat(count);
-}
 
 function fileExists(filepath) {
   try {
@@ -115,16 +112,22 @@ async function createIndex(langs, locales) {
   const defaultLang = 'en';
   const definedDefault = ['fr'];
 
+  const messages = 'messages/**/*.js';
   const locales = 'locales/%lang%/**/*.json';
 
-  // 1. Duplicate from 'en' to others langs, only define empty keys for fr
+  // 1. Extract messages
+  await yargs.command(extract).parse(
+    `extract ${messages} -o locales/%lang%/**/%original_file_name%`
+  );
+
+  // 2. Duplicate from 'en' to others langs, only define empty keys for fr
   await duplicateLangs({ locales, langs, defaultLang, definedDefault });
 
-  // 2. Compile all
+  // 3. Compile all
   await yargs.command(compile).parse(
     `compile ${locales} -o locales-compiled/%lang%/**/%original_file_name%`,
   );
 
-  // 3. Create index
+  // 4. Create index
   await createIndex(langs, 'locales-compiled/%lang%/**/*.json');
 })();
