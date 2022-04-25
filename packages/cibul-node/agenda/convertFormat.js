@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
 const renderHTMLFromMarkdown = require('@openagenda/legacy/utils/renderHTMLFromMarkdown');
@@ -17,13 +19,21 @@ module.exports = async (req, res, next) => {
   const categorySet = await tagsAndCustom.getCategorySet(req.params.uid);
   const formSchema = await req.app.core.agendas(req.params.uid).settings.get({ access: 'internal' });
 
-  if (Object.keys(req.query).includes('oaq')) {
-    req.query = { ...convertLegacyFilter(req.query.oaq, { formSchema, tagSet, categorySet }), ...req.query };
-    delete req.query.oaq;
-  }
+  const nav = req.query.page ? {
+    from: (parseInt(req.query.page, 10) - 1) * 20,
+    size: req.query.limit ?? 20
+  } : {
+    from: parseInt(req.query.offset ?? 0, 10),
+    size: parseInt(req.query.limit ?? 20, 10)
+  };
+
+  req.query = _.omit({
+    ...convertLegacyFilter(req.query.oaq ?? {}, { formSchema, tagSet, categorySet }),
+    ...req.query
+  }, ['page', 'oaq']);
 
   const agenda = await req.app.core.agendas(req.params.uid).get();
-  const eventsList = await req.app.core.agendas(req.params.uid).events.search(req.query, { from: req.query.offset, size: req.query.limit }, { detailed: true, access: 'administrator' });
+  const eventsList = await req.app.core.agendas(req.params.uid).events.search(req.query, nav, { detailed: true, access: 'administrator' });
 
   const agendaSettings = {
     uid: req.params.uid,
@@ -40,8 +50,7 @@ module.exports = async (req, res, next) => {
   res.json({
     readme: 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/',
     total: eventsList.total,
-    offset: parseInt(req.query.offset, 10) || 0,
-    limit: parseInt(req.query.limit, 10) || 20,
-    events: convertedEvents
+    events: convertedEvents,
+    ...nav
   });
 };
