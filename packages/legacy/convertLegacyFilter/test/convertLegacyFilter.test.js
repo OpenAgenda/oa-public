@@ -25,12 +25,28 @@ describe('convert legacy filters', () => {
     expect(convertLegacyFilter(oaq)).toStrictEqual({ search: 'concert', relative: ['current', 'upcoming'] });
   });
 
-  test('convert passed', () => {
+  test('when passed is set to 1 in legacy, no filter is defined in converted object', () => {
     const oaq = {
       passed: '1'
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ });
+  });
+
+  test('when passed is set to 0 in legacy, filter should be relative set with current and upcoming', () => {
+    expect(
+      convertLegacyFilter({ passed: '0' })
+    ).toEqual({
+      relative: ['current', 'upcoming']
+    });
+  });
+
+  test('when passed is not set in legacy, filter should be relative set with current and upcoming', () => {
+    expect(
+      convertLegacyFilter({})
+    ).toEqual({
+      relative: ['current', 'upcoming']
+    });
   });
 
   test('convert location', () => {
