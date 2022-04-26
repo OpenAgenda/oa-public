@@ -8,7 +8,7 @@ jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
 
-    environment: Nodejs test
+    environment: Crowdin
 
     steps:
 
