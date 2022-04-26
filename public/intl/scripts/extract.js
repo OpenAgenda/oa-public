@@ -11,6 +11,15 @@ const inputToOuputPath = require('./utils/inputToOuputPath');
 
 // Functions
 
+function fileExists(filepath) {
+  try {
+    fs.accessSync(filepath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function getDefaults({
   defaultMessages,
   lang,
@@ -50,7 +59,8 @@ async function extractLang({
   idInterpolationPattern,
   format,
 }) {
-  const pathArray = output.includes('**') ? glob.sync(files) : [files];
+  const isMultiOut = output.includes('**');
+  const pathArray = isMultiOut ? glob.sync(files) : [files];
 
   for (const file of pathArray) {
     const { result: outPath } = inputToOuputPath(files, file, output, lang);
@@ -79,6 +89,30 @@ async function extractLang({
     const result = _.merge(defaults, messages);
 
     fs.writeFileSync(localesPath, `${JSON.stringify(result, null, 2)}\n`);
+  }
+
+  if (!isMultiOut) {
+    return;
+  }
+
+  // Remove obsolete files
+  const localesBasePath = output.replace('%lang%', lang).replace('%original_file_name%', '*.json');
+  const localesFiles = glob.sync(localesBasePath);
+
+  for (const localesFile of localesFiles) {
+    const {
+      result: messageFilePath,
+      originalFileName
+    } = inputToOuputPath(localesBasePath, localesFile, files, lang);
+    const inputPath = path.join(
+      process.cwd(),
+      path.dirname(messageFilePath),
+      originalFileName.replace(/\.json$/, '.js')
+    );
+
+    if (!fileExists(inputPath)) {
+      fs.unlinkSync(path.join(process.cwd(), localesFile));
+    }
   }
 }
 
