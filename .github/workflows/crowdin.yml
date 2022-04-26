@@ -8,8 +8,6 @@ jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
 
-    environment: Crowdin
-
     steps:
 
       - name: Checkout
