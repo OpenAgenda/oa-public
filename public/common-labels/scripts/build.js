@@ -96,9 +96,9 @@ async function createIndex(langs, locales) {
     
     const { mergeLocales } = require('@openagenda/intl');
 
-    ${dedent(langs.sort().map(lang => `const ${lang} = mergeLocales([
+    ${dedent(langs.sort().map(lang => `const ${lang} = mergeLocales(
       ${filesPerLang[lang].map(file => `    require('../${file}')`).join(`,\n${' '.repeat(6)}`)}
-    ]);`).join(`\n${' '.repeat(4)}`))}
+    );`).join(`\n${' '.repeat(4)}`))}
 
     module.exports = {
       ${langs.sort().join(`,\n${' '.repeat(6)}`)},
