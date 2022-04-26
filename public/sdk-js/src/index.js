@@ -37,14 +37,14 @@ export default class OaSdk {
         };
       }
 
-      if (!config.skipNonce && ['post', 'put', 'patch', 'delete'].includes(config.method)) {
+      if (!config.skipNonce && this.accessToken) {
         config.headers = {
           nonce: this.getNonce(),
           ...config.headers,
         };
       }
 
-      if (!config.skipPublicKey && config.method === 'get' && this.params.publicKey) {
+      if (!config.skipPublicKey && config.method === 'get' && !this.accessToken) {
         config.params = {
           key: this.params.publicKey,
           ...config.params,
