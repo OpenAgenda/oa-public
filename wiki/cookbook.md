@@ -170,7 +170,44 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
 
+
 ## Tests
+
+### A propos des certificats
+
+L'accès du cluster elasticsearch en production est protégé par une vérification de clés authentifiant le client executant la recherche. Un proxy nginx se charge de cette vérification.
+
+[Client] -> [Nginx] -> [Elasticsearch]
+
+Le certificat servant pour vérifier la clé du client est celui qui l'aura signé. L'autorité de certification peut servir. La configuration du proxy nginx (`es.conf` pour le container de l'environnemnet de dev) ressemble à ceci:
+
+```
+server {
+  server_name ${ES7_DOMAIN};
+
+  # certificats pour le domain ES7_DOMAIN
+  listen 443 ssl;
+  ssl_certificate /ssl/es7.cert.pem;
+  ssl_certificate_key /ssl/es7.key.pem;
+
+  # certificat utilisé pour vérifier la clé du client
+  ssl_client_certificate /ssl/client.crt;
+  ssl_verify_client on;
+
+  location / {
+    proxy_pass http://${ES7_HOST}:9200;
+  }
+}
+```
+
+La clé du client est générée en la faisant signer par le certificat spécifié dans la conf ci-dessus.
+
+Pour l'environnement de dev, c'est le script `docker/devinstaller/ssl/create_client_certificate.sh` qui peut être utilisé pour la générer.
+
+Autrement, il est également possible d'utiliser directement le certificat de vérification ainsi que ça clé. Cela va sans dire qu'en production, ceci ne doit jamais être fait.
+
+
+### Configuration des tests
 
 Pour executer les tests intégrés il est nécessaire d'avoir elasticsearch d'accessible de l'exterieur du container.
 
