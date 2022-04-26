@@ -38,12 +38,14 @@ async function get(service, { setUid, agendaUid }, options = {}) {
   }
 
   const effectiveSetUid = setUid || (await service.interfaces.getAgendaDetailsByUid(requestedAgendaUid).then(d => d?.locationSetUid));
+
   if (effectiveSetUid) {
     const set = await service.sets.get(effectiveSetUid, { detailed: includeSetInfo, includeSettings: true });
     if (set) {
       Object.assign(settings, set.settings, includeSetInfo ? { set: _.omit(set, ['settings']) } : {});
     }
   }
+
   return fromDbEntryToSettings(settings, { ...options, setUid: effectiveSetUid });
 }
 
