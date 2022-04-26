@@ -119,7 +119,7 @@ module.exports = (data = {}) => {
     return clean;
   } catch (errors) {
     throw new BadRequest({
-      info: errors,
+      info: { errors },
       message: 'Submitted data is not valid'
     });
   }
