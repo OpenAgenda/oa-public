@@ -13,7 +13,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    environment: Nodejs test
+    environment: Crowdin
 
     strategy:
       matrix:

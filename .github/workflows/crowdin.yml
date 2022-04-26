@@ -2,11 +2,13 @@ name: Crowdin Action
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
+
+    environment: Nodejs test
 
     steps:
 
