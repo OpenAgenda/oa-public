@@ -30,6 +30,7 @@ module.exports = async (service, uid, options = {}) => {
       .count('id', { as: 'total' })
       .from(service.config.schema)
       .where('set_uid', uid)
+      .where('deleted', '<>', 1)
       .then(r => r.pop().total);
   }
 
