@@ -14,15 +14,6 @@ const compile = require('@openagenda/intl/scripts/compile');
 const inputToOuputPath = require('@openagenda/intl/scripts/utils/inputToOuputPath');
 const getMessages = require('@openagenda/intl/scripts/utils/getMessages');
 
-function fileExists(filepath) {
-  try {
-    fs.accessSync(filepath);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 async function duplicateLangs({ locales, langs, defaultLang, definedDefault }) {
   const defaultLocalesGlobPath = locales.replace('%lang%', defaultLang);
   const defaultLocalesPaths = glob.sync(defaultLocalesGlobPath);
@@ -46,21 +37,6 @@ async function duplicateLangs({ locales, langs, defaultLang, definedDefault }) {
 
       mkdirp.sync(path.dirname(destPath));
       fs.writeFileSync(destPath, `${JSON.stringify(result, null, 2)}\n`);
-    }
-  }
-
-  // remove obsolete files
-  for (const lang of langs) {
-    const localesGlobPath = locales.replace('%lang%', lang);
-    const localesPaths = glob.sync(localesGlobPath);
-
-    for (const localesPath of localesPaths) {
-      const { inputPath } = inputToOuputPath(locales, localesPath, locales, defaultLang);
-      const defaultLocalePath = inputPath.replace('%lang%', defaultLang);
-
-      if (!fileExists(defaultLocalePath)) {
-        fs.unlinkSync(localesPath);
-      }
     }
   }
 }
