@@ -5,6 +5,7 @@ const log = require('@openagenda/logs')('services/agendaLocations/getEventCounts
 
 module.exports = (config, services) => async (locationUids, { agendaUid }) => {
   log('getting for %s for agenda %s', locationUids.join(', '), agendaUid);
+  if (!locationUids.length) return [];
   const { knex, core } = services;
 
   const {

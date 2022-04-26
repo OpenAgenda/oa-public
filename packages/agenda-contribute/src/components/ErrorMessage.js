@@ -1,5 +1,6 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
+import errorMessages from '@openagenda/common-labels/errors';
 import getEventTitle from '../lib/getEventTitle';
 
 const messages = defineMessages({
@@ -23,10 +24,6 @@ const messages = defineMessages({
     id: 'AgendaContribute.ErrorMessage.imageCredits',
     defaultMessage: 'Image credits'
   },
-  required: {
-    id: 'AgendaContribute.ErrorMessage.required',
-    defaultMessage: 'Required'
-  },
   conditions: {
     id: 'AgendaContribute.ErrorMessage.conditions',
     defaultMessage: 'Conditions'
@@ -38,10 +35,6 @@ const messages = defineMessages({
   timings: {
     id: 'AgendaContribute.ErrorMessage.timings',
     defaultMessage: 'Timings'
-  },
-  endLessThanBegin: {
-    id: 'AgendaContribute.ErrorMessage.endLessThanBegin',
-    defaultMessage: 'At least one timing is invalid with an begin time occuring after the end time'
   }
 });
 
@@ -69,7 +62,7 @@ export default function ErrorMessage({
       <ul className={canEditEvent ? 'padding-top-md padding-h-md' : 'padding-v-md padding-h-md'}>
         {errors.map(err => (
           <li>
-            <strong>{messages?.[err.field] ? m(messages[err.field]) : err.field}</strong>: {messages?.[err.code] ? m(messages[err.code]) : err.code}
+            <strong>{messages?.[err.field] ? m(messages[err.field]) : err.field}</strong>: {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
           </li>
         ))}
       </ul>

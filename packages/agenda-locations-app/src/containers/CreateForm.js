@@ -13,7 +13,7 @@ import LocationForm from '../components/form-components/LocationForm';
 import ErrorModal from '../components/ErrorModal';
 import useSettings from '../hooks/useSettings';
 import validate from '../validate';
-import * as onGoinActions from '../reducers/onGoinModal';
+import * as onGoingActions from '../reducers/onGoingModal';
 
 const messages = defineMessages({
   back: {
@@ -76,8 +76,8 @@ const CreateForm = ({
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
     axios.post(res.create, form)
-      .then(result => {
-        dispatch(onGoinActions.initiate('create'));
+      .then(() => {
+        dispatch(onGoingActions.initiate('create'));
         if (nq) history.push(nq); else history.push(prefix);
         setErrors(false);
       }).catch(err => {
@@ -115,6 +115,7 @@ const CreateForm = ({
         tiles={tiles}
         mode="create"
         errors={errors}
+        displayExtIdLink
       />
     </>
   );

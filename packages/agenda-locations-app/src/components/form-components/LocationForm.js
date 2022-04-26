@@ -176,6 +176,7 @@ const LocationForm = ({
   displayLanguageTabs = true,
   detailedInfo = true,
   showExtIdInput,
+  displayExtIdLink,
   pageSpin = false,
   mode,
   cancel,
@@ -285,7 +286,6 @@ const LocationForm = ({
       <label htmlFor="err-submit"><FormattedMessage {...messages[`${mode}SubmitError`]} />:</label>
       {errors.map(err => {
         const values = {};
-
         for (const k in err.values) {
           if (Object.prototype.hasOwnProperty.call(err.values, k)) {
             values[`${k}`] = err.values[k];
@@ -309,6 +309,39 @@ const LocationForm = ({
       })}
     </div>
   );
+
+  const renderExId = () => {
+    if (!displayExtIdLink) return;
+    if (detailedInfo && (location.extId || showExtId)) {
+      return (
+        <InputField
+          name="extId"
+          enabled
+          value={location?.extId || ''}
+          getLabel={getLabel}
+          lang={lang}
+          info="extIdInfo"
+          placeholder="extIdplaceholder"
+          onChange={onChange}
+          validator={validate.field('extId')}
+        />
+      );
+    }
+    return (
+      <div className="form-group">
+        <button
+          type="button"
+          className="btn btn-link"
+          onClick={e => {
+            e.preventDefault();
+            setShowExtId(true);
+          }}
+        >
+          {intl.formatMessage(messages.extIdLink)}
+        </button>
+      </div>
+    );
+  };
 
   const renderDetailsInfo = () => (
     <div className="form-group">
@@ -335,24 +368,24 @@ const LocationForm = ({
         bottom={false}
       />
 
-      { settings?.displayImageRightsConfirmCheckbox ? (
-          <div className="checkbox">
-            <label htmlFor="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition">
-              <input
-                id="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
-                type="checkbox"
-                name="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
-                onChange={() => onChange('imageRightsAreHeld', !location.imageRightsAreHeld)}
-                checked={!!location.imageRightsAreHeld}
-              />
-              <span className="margin-right-xs">
-                {intl.formatMessage(messages.imageRights)}
-              </span>
-              <span className="margin-right-xs">{intl.formatMessage(messages.requiredField)}</span>
-              <a className="margin-right-xs" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">{intl.formatMessage(messages.findOutMore)}</a>
-            </label>
-          </div>
-        ) : null}
+      {settings?.displayImageRightsConfirmCheckbox ? (
+        <div className="checkbox">
+          <label htmlFor="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition">
+            <input
+              id="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
+              type="checkbox"
+              name="jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition"
+              onChange={() => onChange('imageRightsAreHeld', !location.imageRightsAreHeld)}
+              checked={!!location.imageRightsAreHeld}
+            />
+            <span className="margin-right-xs">
+              {intl.formatMessage(messages.imageRights)}
+            </span>
+            <span className="margin-right-xs">{intl.formatMessage(messages.requiredField)}</span>
+            <a className="margin-right-xs" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">{intl.formatMessage(messages.findOutMore)}</a>
+          </label>
+        </div>
+      ) : null}
 
       <div className="multilingual-group">
         {displayLanguageTabs ? (
@@ -372,6 +405,7 @@ const LocationForm = ({
           placeholder={getLabel('descriptionPlaceholder')}
           info={getLabel('descriptionInfo')}
           type="textarea"
+          groupClassName={errors && errors.find(e => e.field === 'description') ? 'has-error' : ''}
         />
 
         <MultilingualInputField
@@ -384,6 +418,7 @@ const LocationForm = ({
           placeholder={getLabel('accessPlaceholder')}
           info={getLabel('accessInfo')}
           type="text"
+          groupClassName={errors && errors.find(e => e.field === 'access') ? 'has-error' : ''}
         />
       </div>
 
@@ -397,6 +432,7 @@ const LocationForm = ({
         info="phoneInfo"
         placeholder="phonePlaceholder"
         validator={validate.field('phone')}
+        groupClassName={errors && errors.find(e => e.field === 'phone') ? 'has-error' : ''}
       />
 
       <InputField
@@ -409,6 +445,7 @@ const LocationForm = ({
         placeholder="websitePlaceholder"
         onChange={onChange}
         validator={validate.field('website')}
+        groupClassName={errors && errors.find(e => e.field === 'website') ? 'has-error' : ''}
       />
 
       <InputField
@@ -421,6 +458,7 @@ const LocationForm = ({
         placeholder="emailPlaceholder"
         onChange={onChange}
         validator={validate.field('email')}
+        groupClassName={errors && errors.find(e => e.field === 'email') ? 'has-error' : ''}
       />
       <MultiInputField
         name="links"
@@ -432,6 +470,7 @@ const LocationForm = ({
         lang={lang}
         onChange={onChange}
         validator={validate.field('links')}
+        groupClassName={errors && errors.find(e => e.field === 'links') ? 'has-error' : ''}
       />
       {Object.keys(settings).length
         && settings.tagSet
@@ -470,8 +509,9 @@ const LocationForm = ({
         getLabel={getLabel}
         lang={lang}
         onChange={onChange}
-        validator={() => true}
+        validator={validate.field('name')}
         renderButton={false}
+        groupClassName={errors && errors.find(e => e.field === 'name') ? 'has-error' : ''}
       />
 
       <GeoFieldsAndMap
@@ -483,35 +523,11 @@ const LocationForm = ({
         enableGeocode={enableGeocode}
         res={res}
         tiles={tiles}
+        errors={errors}
       />
 
       {detailedInfo ? renderDetailsInfo() : null}
-      {detailedInfo && (location.extId || showExtId) ? (
-        <InputField
-          name="extId"
-          enabled
-          value={location?.extId || ''}
-          getLabel={getLabel}
-          lang={lang}
-          info="extIdInfo"
-          placeholder="extIdplaceholder"
-          onChange={onChange}
-          validator={validate.field('extId')}
-        />
-      ) : (
-        <div className="form-group">
-          <button
-            type="button"
-            className="btn btn-link"
-            onClick={e => {
-              e.preventDefault();
-              setShowExtId(true);
-            }}
-          >
-            {intl.formatMessage(messages.extIdLink)}
-          </button>
-        </div>
-      )}
+      {renderExId()}
 
       {errors ? renderErrors() : ''}
 

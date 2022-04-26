@@ -4,7 +4,7 @@ const VError = require('@openagenda/verror');
 
 const fieldToFlattenerMapItem = require('./fieldToFlattenerMapItem');
 
-const handledTypes = ['text'];
+const handledTypes = ['text', 'integer', 'number', 'email', 'phone', 'link'];
 
 // decorates a ready-to-be used flattener field map
 // with the provided form-schemas schema

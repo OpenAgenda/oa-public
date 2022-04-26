@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
+import { Modal } from '@openagenda/react-shared';
 
 import LocationSelector from '../src/components/LocationSelector';
 
@@ -53,16 +54,22 @@ export const CreateMode = () => {
   const [mode, setMode] = useState('create');
   const [location, setLocation] = useState(null);
   return (
-    <LocationSelector
-      agenda={{ uid: 1 }}
-      mode={mode}
-      lang="fr"
-      settings={agendaSettings}
-      res={res}
-      location={location}
-      onChange={(t, l) => { setMode(t); setLocation(l); }}
-      detailedInfo
-    />
+    <div className="from-group has-error">
+      <Modal
+        classNames={{ overlay: 'popup-overlay big' }}
+      >
+        <LocationSelector
+          agenda={{ uid: 1 }}
+          mode={mode}
+          lang="fr"
+          settings={agendaSettings}
+          res={res}
+          location={location}
+          onChange={(t, l) => { setMode(t); setLocation(l); }}
+          detailedInfo
+        />
+      </Modal>
+    </div>
   );
 };
 

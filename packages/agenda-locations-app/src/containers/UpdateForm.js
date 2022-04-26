@@ -13,7 +13,7 @@ import LocationForm from '../components/form-components/LocationForm';
 import useRes from '../hooks/useRes';
 import useSettings from '../hooks/useSettings';
 import validate from '../validate';
-import * as onGoinActions from '../reducers/onGoinModal';
+import * as onGoingActions from '../reducers/onGoingModal';
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
@@ -46,7 +46,7 @@ const UpdateForm = ({
   const historyLocation = useLocation();
   const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
-  const { isLoading, error, data: location } = useQuery(['location', locationUid], () => (
+  const { isLoading, data: location } = useQuery(['location', locationUid], () => (
     axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => {
       return response.data.location;
     })
@@ -84,9 +84,9 @@ const UpdateForm = ({
     if (clean.image instanceof File) form.append('image', clean.image);
     form.append('data', JSON.stringify(clean));
     axios.post(res.update.replace(':locationUid', locationUid), form)
-      .then(result => {
+      .then(() => {
         if (nq) history.push(nq); else history.push(prefix);
-        dispatch(onGoinActions.initiate('update'));
+        dispatch(onGoingActions.initiate('update'));
         setErrors(false);
       }).catch(err => {
         setErrorModal(err);
@@ -138,6 +138,7 @@ const UpdateForm = ({
         mode="update"
         onSubmit={onSubmit}
         errors={errors}
+        displayExtIdLink
       />
     </>
   );

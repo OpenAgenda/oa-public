@@ -12,6 +12,8 @@ const fields = require('./fields');
 const statusSlugs = fields.find(f => f.field === 'status').options.map(o => o.value);
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
 
+const replaceAccents = require('@openagenda/utils/replaceAccents');
+
 const isDHM = require('../iso/src/validators/dateHoursMinutesTiming').is;
 
 const removeRegistrationTypes = (registration = []) => registration
@@ -78,6 +80,10 @@ module.exports = async (current, data, options = {}) => {
   if (data?.location instanceof Object && !data?.timezone && data.location.timezone) {
     compiled.timezone = data.location.timezone;
     editedFields.push('timezone');
+  }
+
+  if (data.longDescription) {
+    compiled.longDescription = replaceAccents(data.longDescription);
   }
 
   if (statusSlugs.includes(data?.status)) {

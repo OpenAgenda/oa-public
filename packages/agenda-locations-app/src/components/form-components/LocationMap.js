@@ -12,7 +12,55 @@ import {
   useMap
 } from 'react-leaflet';
 import L from 'leaflet';
+import '@raruto/leaflet-gesture-handling';
+import { useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet-async';
+import { css } from '@emotion/react';
+
+const gestureHandlingStyle = css`
+  &.leaflet-gesture-handling:after {
+    color: #fff;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 22px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1001;
+    pointer-events: none;
+    text-align: center;
+    -webkit-transition: opacity .8s ease-in-out;
+    transition: opacity .8s ease-in-out;
+    opacity: 0;
+    content: ""
+  }
+  
+  &.leaflet-gesture-handling-warning:after {
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    opacity: 1
+  }
+  
+  &.leaflet-gesture-handling-touch:after {
+    content: attr(data-gesture-handling-touch-content)
+  }
+  
+  &.leaflet-gesture-handling-scroll:after {
+    content: attr(data-gesture-handling-scroll-content)
+  }
+`;
 
 const defaults = {
   tiles:
@@ -93,6 +141,7 @@ const LocationMap = ({
   manualMode,
   setManualMode,
 }) => {
+  const intl = useIntl();
   const getLocationPos = useCallback(() => [location?.latitude, location?.longitude], [location]);
   const isGeolocated = useCallback(() => location?.latitude !== undefined, [location]);
   const [pos, setPos] = useState(isGeolocated() ? getLocationPos() : defaults.pos);
@@ -103,6 +152,10 @@ const LocationMap = ({
       setDefaultZoom(defaults.focusedZoom);
     }
   }, [location, isGeolocated, getLocationPos, pos]);
+
+  const gestureHandlingOptions = useMemo(() => ({
+    locale: intl.locale
+  }), [intl.locale]);
 
   return (
     <>
@@ -124,6 +177,12 @@ const LocationMap = ({
         zoom={defaultZoom}
         scrollWheelZoom={scrollable && enabled}
         style={{ height: '300px' }}
+        gestureHandling
+        gestureHandlingOptions={gestureHandlingOptions}
+        css={css`
+        height: 100%;
+        ${gestureHandlingStyle}
+      `}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

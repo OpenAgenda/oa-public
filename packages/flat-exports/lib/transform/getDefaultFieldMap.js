@@ -140,6 +140,10 @@ module.exports = function getDefaultFieldMap(options = {}) {
     target: getTarget('location.phone')
   },
   {
+    source: 'location.website',
+    target: getTarget('location.website')
+  },
+  {
     source: 'member.uid',
     target: getTarget('member.uid')
   }, {

@@ -32,7 +32,7 @@ import RemoveModal from '../components/RemoveModal';
 import ErrorModal from '../components/ErrorModal';
 import SetHeader from '../components/SetHeader';
 import * as mergeActions from '../reducers/merge';
-import * as onGoinActions from '../reducers/onGoinModal';
+import * as onGoingActions from '../reducers/onGoingModal';
 
 const completedPrefix = (agenda, prefix) => prefix.replace(':agendaSlug', agenda.slug);
 
@@ -132,7 +132,7 @@ function Dashboard() {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const merge = useSelector(state => state.merge);
-  const onGoin = useSelector(state => state.onGoin);
+  const onGoing = useSelector(state => state.onGoing);
   const [accessModal, setAccessModal] = useState(false);
   const [openDetails, setOpenDetails] = useState(false);
   const [removeModal, setRemoveModal] = useState(false);
@@ -221,7 +221,7 @@ function Dashboard() {
       return;
     }
     setRemoveModal(false);
-    dispatch(onGoinActions.initiate('delete'));
+    dispatch(onGoingActions.initiate('delete'));
     queryClient.resetQueries('locations');
   };
 
@@ -517,13 +517,13 @@ function Dashboard() {
           onRemove={withEvents => onRemoveLocation(removeModal.data.location, withEvents)}
         />
       ) : null}
-      {onGoin ? (
+      {onGoing ? (
         <Modal
-          onClose={() => dispatch(onGoinActions.close())}
+          onClose={() => dispatch(onGoingActions.close())}
         >
           <div className="text-center">
-            <p>{`${intl.formatMessage(messages[`${onGoin.name}Action`])} ${intl.formatMessage(messages.wentWell)}`}</p>
-            <button className="btn btn-primary" type="button" onClick={() => dispatch(onGoinActions.close())}>Ok</button>
+            <p>{`${intl.formatMessage(messages[`${onGoing.name}Action`])} ${intl.formatMessage(messages.wentWell)}`}</p>
+            <button className="btn btn-primary" type="button" onClick={() => dispatch(onGoingActions.close())}>Ok</button>
           </div>
         </Modal>
       ) : null}

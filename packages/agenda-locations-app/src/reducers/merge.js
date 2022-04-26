@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as onGoinActions from './onGoinModal';
+import * as onGoingActions from './onGoingModal';
 
 const INITIATE = 'agenda-locations/merge/INITIATE';
 const INITIATE_FROM_DUPLICATES = 'agenda-locations/merge/INITIATE_FROM_DUPLICATATES';
@@ -63,7 +63,7 @@ export function initiateFromDuplicates(locationUids, entryPoint) {
 export function disqualifyDuplicates(locationUids, res, agendaSlug, nextLocation, setErrorModal) {
   return ({ history }, { dispatch }) => {
     axios.post(res.disqualifyDuplicates.replace(':agendaSlug', agendaSlug), { uids: locationUids })
-      .then(result => {
+      .then(() => {
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         history.push(nextLocation);
       })
@@ -104,10 +104,10 @@ export function launchMerge(merge, res, nextLocation, setErrorModal) {
       merged,
     };
     axios.post(res.merge, body)
-      .then(result => {
+      .then(() => {
         history.push(nextLocation);
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
-        dispatch(onGoinActions.initiate('merge'));
+        dispatch(onGoingActions.initiate('merge'));
       })
       .catch(err => {
         console.log('error', err);
