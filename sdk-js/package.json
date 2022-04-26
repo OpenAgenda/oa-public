@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sdk-js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "dist/index.js",
   "repository": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
