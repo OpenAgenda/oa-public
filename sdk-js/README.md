@@ -10,9 +10,15 @@ OpenAgenda SDK for JavaScript in the browser and Node.js.
     - [list](#events-list)
     - [create](#events-create)
     - [update](#events-update)
+    - [patch](#events-patch)
     - [delete](#events-delete)
   - [Locations](#locations)
+    - [get](#locations-get)
+    - [list](#locations-list)
     - [create](#locations-create)
+    - [update](#locations-update)
+    - [patch](#locations-patch)
+    - [delete](#locations-delete)
 - [Errors](#errors)
 
 ## Installation
