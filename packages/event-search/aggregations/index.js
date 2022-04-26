@@ -45,12 +45,12 @@ module.exports = {
 
     if (errors.length) {
       throw new BadRequest({
-        info: errors
+        info: { errors }
       }, 'Invalid requested aggregations');
     }
 
 
-    // here it is necessary to build an aggregation specifically for 
+    // here it is necessary to build an aggregation specifically for
     // empty values, when they are required (missing config on )
 
     return [].concat(requested)

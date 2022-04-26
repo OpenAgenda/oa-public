@@ -50,7 +50,9 @@ module.exports = async function updateEvent(services, {
   } catch (e) {
     if (e.toString() === 'ValidationError: Invalid data') {
       log('info', 'invalid data', e);
-      throw new BadRequest({ info: e.detail }, 'invalid data');
+      throw new BadRequest({
+        info: { errors: e.detail }
+      }, 'invalid data');
     }
     log('error', 'failed to update event', {
       agendaUid,
