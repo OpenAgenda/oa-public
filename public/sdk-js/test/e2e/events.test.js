@@ -332,6 +332,50 @@ describe('events', () => {
     expect(patchedEvent.title.fr).toBe('Titre mise à jour');
   });
 
+  it('update an event - invalid data', async () => {
+    createdEvent = await oa.events.create(testconfig.agendaUid, {
+      slug: `a-title-${_.random(10 ** 6)}`,
+      title: {
+        fr: 'Un titre',
+        en: 'A title',
+      },
+      description: {
+        fr: 'On va faire un truc',
+        en: 'We make a truc',
+      },
+      locationUid: 78372099,
+      timings: [
+        {
+          begin: moment(),
+          end: moment().add(1, 'hour'),
+        },
+        {
+          begin: moment().add(1, 'day'),
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
+      ],
+    });
+
+    await expect(oa.events.update(
+      testconfig.agendaUid,
+      createdEvent.uid,
+      {
+        ...createdEvent,
+        image: { url: 'https://google.fr' }
+      }
+    )).rejects.toMatchObject({
+      response: {
+        data: {
+          errors: [{
+            code: 'format.unknown',
+            field: 'image',
+            message: 'provided format is unknown'
+          }]
+        },
+      },
+    });
+  });
+
   it('delete an event', async () => {
     const event = await oa.events.create(testconfig.agendaUid, {
       slug: `a-title-${_.random(10 ** 6)}`,
