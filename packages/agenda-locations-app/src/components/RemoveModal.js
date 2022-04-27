@@ -38,11 +38,11 @@ const messages = defineMessages({
   },
   cannotRemoveLink: {
     id: 'AgendaLocations.RemoveModal.cannotRemoveLink',
-    defaultMessage: '{count, plural, =0 {nothing} one { one of which} other { # of which}}',
+    defaultMessage: '{count, plural, =0 { none of which} one { one of which} other { # of which}}',
   },
   cannotRemoveEnd: {
     id: 'AgendaLocations.RemoveModal.cannotRemoveEnd',
-    defaultMessage: '{count, plural, =0 {nothing} one { has been contributed on the agenda.} other { have been contributed on the agenda. By deleting the location, the associated events will also be deleted.}}',
+    defaultMessage: '{count, plural, =0 {has been contributed on the agenda.} one { has been contributed on the agenda.} other { have been contributed on the agenda. By deleting the location, the associated events will also be deleted.}}',
   },
   cannotRemoveStartEq: {
     id: 'AgendaLocations.RemoveModal.cannotRemoveStartEq',

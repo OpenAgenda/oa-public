@@ -8,6 +8,7 @@ const get = require('./get');
 const list = require('./list');
 const remove = require('./remove');
 const update = require('./update');
+const countByLocationUids = require('./countByLocationUids');
 const setFromLegacy = require('./lib/legacy/from');
 const imageVariants = require('./lib/imageVariants');
 
@@ -59,6 +60,7 @@ module.exports = c => {
     create: create.bind(null, service),
     get: get.bind(null, service),
     list: list.bind(null, service),
+    countByLocationUids: countByLocationUids.bind(null, service),
     patch: update.bind(null, { service, isPatch: true }),
     remove: remove.bind(null, service),
     update: update.bind(null, { service }),
