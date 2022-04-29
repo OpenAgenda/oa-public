@@ -88,7 +88,11 @@ function EmptyDashoard() {
             defaultMessage="<link>Click here</link> to learn more about adding events to your agenda."
             values={{
               link: chunks => (
-                <a href="https://doc.openagenda.com/ajouter-des-evenements-a-un-agenda/">
+                <a
+                  rel="noreferrer"
+                  target="_blank"
+                  href="https://doc.openagenda.com/ajouter-des-evenements-a-un-agenda/"
+                >
                   {chunks}
                 </a>
               ),
