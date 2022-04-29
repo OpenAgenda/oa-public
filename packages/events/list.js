@@ -4,8 +4,8 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('list');
 
 const validateNav = require('./lib/validateNav');
-const addListQuery = require('./lib/addListQuery');
-const cleanListOptions = require('./lib/cleanListOptions');
+const addListQuery = require('./lib/addQuery');
+const cleanListOptions = require('./lib/cleanOptions');
 const getDatabaseFieldName = require('@openagenda/utils/fields/databaseField').getName;
 const addPaginationAndOrder = require('./lib/paginationAndOrder');
 const handleInterface = require('./lib/handleInterface');

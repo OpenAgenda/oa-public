@@ -113,7 +113,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     if (e.toString() === 'ValidationError: Invalid data') {
       log('info', 'invalid data', e);
       throw new BadRequest({
-        info: e.detail
+        info: { errors: e.detail }
       }, 'invalid data');
     }
     log('error', 'failed to create event', {

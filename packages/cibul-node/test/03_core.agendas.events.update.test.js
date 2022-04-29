@@ -589,6 +589,62 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       });
     });
 
+    describe('unsuccessful update - invalid image', () => {
+      beforeAll(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/17026855/events/19201989',
+            headers: {
+              'access-token': accessToken,
+              nonce: 128937,
+              'content-type': 'application/json'
+            },
+            data: {
+              title: {
+                fr: 'Un événement mis à jour via l\'api',
+                en: 'An updated event through the api'
+              },
+              description: {
+                fr: 'Une description',
+                en: 'A desc'
+              },
+              location: {
+                uid: 123
+              },
+              custom_description: 'Meh',
+              'categories-agenda-metropolitain': 43,
+              'thematiques-bordeaux-metropole': [3],
+              timings: [{
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00')
+              }, {
+                begin: new Date('2019-05-06T12:00:00'),
+                end: new Date('2019-05-06T13:00:00')
+              }],
+              image: { url: 'https://google.fr' }
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+      });
+
+      it('response status should be 400', () => {
+        expect(response.status).toBe(400);
+      });
+
+      it('response body provides validation errors', () => {
+        expect(response.data.errors).toEqual([
+          {
+            field: 'image',
+            code: 'format.unknown',
+            message: 'provided format is unknown'
+          }
+        ]);
+      });
+    });
+
     describe('successful patch', () => {
       beforeAll(async () => {
         try {
