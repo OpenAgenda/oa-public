@@ -96,7 +96,6 @@ function defaultOnUnauthorizedIPAddress(options = {}) {
   };
 }
 
-
 function authorizeByIPAddress(options = {}) {
   const params = _.merge({
     namespaces: {
@@ -109,7 +108,7 @@ function authorizeByIPAddress(options = {}) {
     // annoying. when evaluating an instance, data is in .data
     const data = req[params.namespaces.agenda].data || req[params.namespaces.agenda];
 
-    const authorizedIPs = data.settings.contribution.authorizedIPAddresses;
+    const authorizedIPs = (typeof data.settings === 'string' ? JSON.parse(data.settings) : data.settings).contribution.authorizedIPAddresses;
 
     if (!authorizedIPs || !authorizedIPs.length) {
       return next();
