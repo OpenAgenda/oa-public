@@ -5,7 +5,7 @@ require( '@openagenda/polyfills/intl-locales' );
 
 var layout = require( '../../layout/js/layout' ),
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+cn = require( '../../js/lib/common' ),
 
 debug = require( 'debug' ),
 

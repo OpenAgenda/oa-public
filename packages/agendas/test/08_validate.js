@@ -35,7 +35,6 @@ describe('agendas - unit (server): validate', () => {
         locationSetUid: null,
         settings: {
           lab: {
-            eventAdmin: true,
             status: false
           },
           inbox: {
@@ -173,7 +172,6 @@ describe('agendas - unit (server): validate', () => {
         locationSetUid: null,
         settings: {
           lab: {
-            eventAdmin: true,
             status: false
           },
           tracking: {

@@ -13,7 +13,7 @@ services:
       .env
     volumes:
       - ./docker/nginx:/tmp/nginx
-      - ${SF_PROJECT_PATH}/web:/static
+      - ${ASSETS_PATH}:/static
       - ${SITE_SSL_CERT}:/ssl/cert.pem
       - ${SITE_SSL_KEY}:/ssl/key.pem
       - ${API_SSL_CERT}:/ssl/api.cert.pem
@@ -40,14 +40,12 @@ services:
     links:
       - es1
       - es7
-      - php
       - node
       - phpmyadmin
       - mailcatcher
       - elastichq
     depends_on:
       - node
-      - php
 
   es1:
     container_name: es1
@@ -61,26 +59,6 @@ services:
         hard: -1
     volumes:
       - ${ES1_CONTAINER_DATA_PATH}:/usr/share/elasticsearch/data
-
-  php:
-    container_name: php
-    build:
-      context: ./docker/php
-    restart: always
-    volumes:
-      - .env:/.env
-      - ${SF_PROJECT_PATH}:/cibul-symfony
-      - ${SF_API_PROJECT_PATH}:/cibulapi-symfony
-      - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
-      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem
-    links:
-      - mysql
-      - redis
-      - node
-    env_file:
-      .env
 
   node:
     container_name: node
@@ -219,7 +197,7 @@ services:
       PMA_SSL_CERT: /ssl/db-cert.pem
       PMA_SSL_CA: /ssl/db-ca.pem
     volumes:
-      - ./docker/php/phpmyadmin.config.php:/etc/phpmyadmin/config.user.inc.php
+      - ./docker/phpmyadmin.config.php:/etc/phpmyadmin/config.user.inc.php
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
       - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
       - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem

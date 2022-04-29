@@ -1,6 +1,6 @@
 "use strict";
 
-const lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
+const lightbox = require('../../js/lib/lightbox'),
 
 session = require( '@openagenda/sessions/client' ),
 

@@ -135,7 +135,7 @@ var ejs = require( 'ejs' ),
 
   readFile = cachedFs.readFile,
 
-  cn = require( '../js/lib/common/common.mod.js' ),
+  cn = require( '../js/lib/common' ),
 
   async = require( 'async' ),
 

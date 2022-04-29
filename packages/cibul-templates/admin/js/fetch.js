@@ -1,4 +1,4 @@
-var remote = require( '../../js/lib/remote/remote.mod.js' );
+var remote = require( '../../js/lib/remote' );
 
 module.exports = function( res, cb ) {
 

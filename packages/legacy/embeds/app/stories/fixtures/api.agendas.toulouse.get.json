@@ -14,9 +14,6 @@
         "tracking": {
             "googleAnalytics": "UA-111097426-1"
         },
-        "lab": {
-            "eventAdmin": false
-        },
         "inbox": {
             "mailto": {
                 "enabled": true,

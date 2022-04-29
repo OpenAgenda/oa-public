@@ -6,7 +6,7 @@ import UserList from './userList';
 import UserSearch from './userSearch';
 import UserPagination from './userPagination';
 import UserShow from './userShow';
-import remote from '../../js/lib/remote/remote.mod';
+import remote from '../../js/lib/remote';
 
 const defaults = {
   all: {

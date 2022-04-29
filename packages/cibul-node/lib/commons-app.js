@@ -889,16 +889,10 @@ function _filterNonParsable( str ) {
 
 function loadLegacyRoutes( genUrl ) {
 
-  const legacyRoutes = config.routes.globals;
-  const prefix = config.routes.defaultGlobalsPrefix;
-
-  for ( const name in legacyRoutes ) {
-
-    legacyRoutes[ name ] = `${legacyRoutes[ name ].legacy ? prefix : ''}${legacyRoutes[ name ].uri}`;
-
-  }
-
-  genUrl.load( legacyRoutes );
+  genUrl.load(Object.entries(config.routes.globals).reduce((accu, [name, route]) => {
+    accu[name] = route.uri;
+    return accu;
+  }, {}));
 
 }
 

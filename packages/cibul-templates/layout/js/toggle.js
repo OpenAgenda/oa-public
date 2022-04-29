@@ -6,7 +6,7 @@
  * run once per page
  */
 
-var cn = require('../../js/lib/common/common.mod.js'),
+var cn = require('../../js/lib/common'),
 
 defaults = {
   selectors: {

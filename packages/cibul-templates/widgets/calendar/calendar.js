@@ -7,7 +7,7 @@ const capitalize = require('lodash/capitalize');
 
 var UID = 0, LANG = 1,
 
-cn = require(  '../../js/lib/common/common.mod.js' ),
+cn = require(  '../../js/lib/common' ),
 
 wLib = require(  '../lib/widgetLib' ),
 

@@ -1,7 +1,7 @@
 'use strict';
 
 const du = require('@openagenda/dom-utils');
-const mapLib = require('../../../js/lib/maps/osm.maps.mod');
+const mapLib = require('../../../js/lib/osm.maps');
 const tpl = require('./main.ejs');
 const promisify = require('./promisify');
 
@@ -19,7 +19,7 @@ const createMap = (mapUtils, elem, { center, zoom }) => new Promise(rs => {
 
 module.exports = async (props, state, { labels }) => {
   const mapUtils = mapLib({
-    url: props.tiles 
+    url: props.tiles
   });
 
   const div = document.createElement('div');

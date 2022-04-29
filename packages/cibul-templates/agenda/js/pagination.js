@@ -1,6 +1,6 @@
 "use strict";
 
-var cn = require( '../../js/lib/common/common.mod' ),
+var cn = require( '../../js/lib/common' ),
 
 debug = require( 'debug' ), log,
 
@@ -101,7 +101,7 @@ function loadNext( cb ) {
 
 
   newHref = _setHrefPage( params.href, page + 1 );
-  
+
 
   params.loadNext( newHref, function( err, data ) {
 
@@ -187,7 +187,7 @@ function _initPrevPage( href ) {
 
     } );
 
-    cn.removeClass( cn.el( params.selectors.previous ), params.classes.displayNone );    
+    cn.removeClass( cn.el( params.selectors.previous ), params.classes.displayNone );
 
   } else {
 

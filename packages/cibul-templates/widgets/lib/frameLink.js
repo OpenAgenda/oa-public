@@ -2,7 +2,7 @@
 
 var debug = require( 'debug' ),
 
-cn = require( '../../js/lib/common/common.mod.js' );
+cn = require( '../../js/lib/common' );
 
 module.exports = {
   frame: parentLink, // link with parent window

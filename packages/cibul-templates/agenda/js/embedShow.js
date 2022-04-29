@@ -14,7 +14,7 @@ activeFilters = require( '../../widgets/activeFilters/activeFilters' ),
 
 list = require( './list' ),
 
-cn = require( '../../js/lib/common/common.mod' ),
+cn = require( '../../js/lib/common' ),
 
 handler,
 

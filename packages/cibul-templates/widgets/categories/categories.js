@@ -4,7 +4,7 @@ exports.setOnReady = setOnReady;
 
 var UID = 0, MODE = 1,
 
-cn = require(  '../../js/lib/common/common.mod.js' ),
+cn = require(  '../../js/lib/common' ),
 
 wLib = require(  '../lib/widgetLib' ),
 

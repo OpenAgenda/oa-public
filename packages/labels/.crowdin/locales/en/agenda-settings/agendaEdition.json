@@ -92,6 +92,5 @@
   "statsDescription": "Follow the crowds of visitors on the public pages of your agenda on openagenda.com",
   "lab": "Lab",
   "labTabDescription": "Use the features available in beta version",
-  "eventAdminDesc": "Use the new event administration interface",
   "eventStatusDesc": "Activate event status controls (cancelled, full, rescheduled...)"
 }

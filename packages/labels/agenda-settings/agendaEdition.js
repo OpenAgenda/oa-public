@@ -781,12 +781,6 @@ module.exports = {
     "it": "Utilizzare le caratteristiche disponibili nella versione beta",
     "oc": "Utilizatz las foncionalitats disponiblas en version bèta"
   },
-  "eventAdminDesc": {
-    "fr": "Utiliser la nouvelle interface d'administration des événements",
-    "en": "Use the new event administration interface",
-    "io": "crwdns12684:0crwdne12684:0",
-    "it": "Utilizzare la nuova interfaccia di amministrazione degli eventi"
-  },
   "eventStatusDesc": {
     "fr": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)",
     "en": "Activate event status controls (cancelled, full, rescheduled...)",

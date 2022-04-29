@@ -15,7 +15,6 @@
             "googleAnalytics": null
         },
         "lab": {
-            "eventAdmin": true,
             "status": false
         },
         "inbox": {
@@ -156,7 +155,7 @@
                 "display": true,
                 "origin": "tags",
                 "enableWith": null,
-                
+
                 "min": null,
                 "max": null,
                 "options": [

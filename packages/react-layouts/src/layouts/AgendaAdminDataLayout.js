@@ -22,9 +22,10 @@ function AgendaAdminDataLayout({
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { params } = useMemo(() => matchPath(location.pathname, '/:slug'), [
-    location.pathname,
-  ]);
+  const { params } = useMemo(
+    () => matchPath(location.pathname, '/:slug'),
+    [location.pathname]
+  );
 
   const { data, isLoading, error } = useQuery(
     ['react-layouts', 'agendaAdminData', { slug: params.slug }],
@@ -66,16 +67,6 @@ function AgendaAdminDataLayout({
   }, [history, error, params.slug, user]);
 
   if (isLoading || error) {
-    return <Loading />;
-  }
-
-  if (
-    matchPath(location.pathname, { path: '/:slug/admin/events' })
-    && !data.agenda?.settings?.lab?.eventAdmin
-  ) {
-    const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
-    window.location.href = `${phpPrefix}${data.agenda.slug}/admin${location.search}`;
-
     return <Loading />;
   }
 

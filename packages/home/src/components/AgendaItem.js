@@ -4,8 +4,6 @@ import { Image } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
-const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
-
 function AgendaItem({
   agenda,
   res,
@@ -66,27 +64,14 @@ function AgendaItem({
             </a>
           )}
           {[2, 3].includes(agenda.member.role) && (
-            <>
-              {agenda?.settings?.lab?.eventAdmin ? (
-                <Link
-                  to={`/${agenda.slug}/admin/events`}
-                  className="btn btn-link padding-left-z padding-top-z"
-                >
-                  {agenda.member.role === 2
-                    ? getLabel('manage')
-                    : getLabel('moderate')}
-                </Link>
-              ) : (
-                <a
-                  className="btn btn-link padding-left-z padding-top-z"
-                  href={`${phpPrefix}${agenda.slug}/admin`}
-                >
-                  {agenda.member.role === 2
-                    ? getLabel('manage')
-                    : getLabel('moderate')}
-                </a>
-              )}
-            </>
+            <Link
+              to={`/${agenda.slug}/admin/events`}
+              className="btn btn-link padding-left-z padding-top-z"
+            >
+              {agenda.member.role === 2
+                ? getLabel('manage')
+                : getLabel('moderate')}
+            </Link>
           )}
           {[1, 2, 3].includes(agenda.member.role) && (
             <Link

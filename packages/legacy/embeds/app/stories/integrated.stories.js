@@ -41,7 +41,6 @@ export function IntegratedDefaultTemplates() {
                 apiRoot: `http://localhost:${process.env.STORYBOOK_PORT}`,
                 prefix: '',
                 res: {
-                  legacy: '/agendas/:agendaUid/admin/webembed',
                   events: '/agendas/:agendaUid/events',
                   embeds: '/agendas/:agendaUid/embeds',
                   agendaSettings: '/agendas/:agendaUid',
@@ -92,7 +91,6 @@ export function IntegratedForUpdate() {
                 apiRoot: `http://localhost:${process.env.STORYBOOK_PORT}`,
                 prefix: '',
                 res: {
-                  legacy: '/agendas/:agendaUid/admin/webembed',
                   events: '/agendas/:agendaUid/events',
                   embeds: '/agendas/:agendaUid/embeds',
                   agendaSettings: '/agendas/:agendaUid',

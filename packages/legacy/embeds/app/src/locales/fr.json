@@ -17,8 +17,6 @@
   "LegacyEmbed.App.tilesMenu": "Tuiles",
   "LegacyEmbed.CalendarMenu.code": "Ce filtre vous permet de limiter les événements affichés à ceux se déroulant sur une période donnée",
   "LegacyEmbed.ConfigurationMenuSelector.placeholder": "Sélectionner un menu",
-  "LegacyEmbed.Dashboard.applicationInfo": "Vous utilisez une nouvelle version de l'outil de configuration des agendas intégrés.",
-  "LegacyEmbed.Dashboard.backToLegacy": "Utiliser l'ancienne version",
   "LegacyEmbed.EmbedSelection.calendar": "Filtre calendrier",
   "LegacyEmbed.EmbedSelection.calendarInfo": "Ce code affiche un composant calendrier mensuel. Il est à placer sur une page hébergeant le code d'intégration principal",
   "LegacyEmbed.EmbedSelection.list": "Code d'intégration principal",

@@ -218,6 +218,7 @@ function Dashboard() {
   const { agenda, agendaSchema, filtersContainerRef } = useLayoutData();
 
   const res = useSelector(state => state.res);
+  const mapTiles = useSelector(state => state.settings.mapTiles);
 
   const parsedLocationSearch = useMemo(
     () => qs.parse(location.search, {
@@ -259,7 +260,10 @@ function Dashboard() {
 
   const redirectURL = useMemo(() => getRedirectURL(location), [location]);
 
-  const filters = useFilters(intl, agendaSchema, { missingValue: 'null' });
+  const filters = useFilters(intl, agendaSchema, {
+    missingValue: 'null',
+    mapTiles,
+  });
   const mapFilter = useMemo(
     () => filters.find(v => v.name === 'geo'),
     [filters]

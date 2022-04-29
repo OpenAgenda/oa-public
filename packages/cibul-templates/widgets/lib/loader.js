@@ -2,7 +2,7 @@
 
 var domain = require( '../../domain' );
 
-var loadJs = require( '../../js/lib/loadJs/loadJs.mod.js' ),
+var loadJs = require( '../../js/lib/loadJs' ),
 
 utils = require( '@openagenda/utils' ),
 

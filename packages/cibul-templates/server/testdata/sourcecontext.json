@@ -6,7 +6,7 @@
          "p":{
             "uid":"36234263",
             "slug":"kaore-olafsson",
-            "url":"\/frontend_dev.php\/kaore-olafsson\/fr",
+            "url":"\/kaore-olafsson\/fr",
             "title":"Kari Olafsson",
             "description":"Quelques \u00e9v\u00e9nements",
             "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_kaore-olafsson_01.jpg",
@@ -18,7 +18,7 @@
          "p":{
             "uid":"93892242",
             "slug":"romainlange",
-            "url":"\/frontend_dev.php\/romainlange\/fr",
+            "url":"\/romainlange\/fr",
             "title":"Romain Lange",
             "description":"Va voir ailleurs s'il y est.",
             "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_romainlange_00.jpg"
@@ -29,7 +29,7 @@
          "p":{
             "uid":"74583765",
             "slug":"collectif-culture-bar-bars",
-            "url":"\/frontend_dev.php\/collectif-culture-bar-bars\/fr",
+            "url":"\/collectif-culture-bar-bars\/fr",
             "title":"Collectif Culture Bar-Bars",
             "description":"Agenda partag\u00e9 des caf\u00e9s cultures du Collectif Culture Bar-Bars",
             "cred":null
@@ -40,7 +40,7 @@
          "p":{
             "uid":"51780064",
             "slug":"enlarge-your-paris",
-            "url":"\/frontend_dev.php\/enlarge-your-paris\/fr",
+            "url":"\/enlarge-your-paris\/fr",
             "title":"Enlarge your Paris",
             "description":"L'agenda des sorties de Paris Xtramuros",
             "image":"\/\/cibultest.s3.amazonaws.com\/rwtbreview_enlarge-your-paris_01.jpg",
@@ -52,7 +52,7 @@
          "p":{
             "uid":"24110065",
             "slug":"agenda-culturel-opendata-de-la-bourgogne",
-            "url":"\/frontend_dev.php\/agenda-culturel-opendata-de-la-bourgogne\/fr",
+            "url":"\/agenda-culturel-opendata-de-la-bourgogne\/fr",
             "title":"Agenda Culturel OpenData de la Bourgogne",
             "description":"Agenda ouvert de la vie artistique et culturelle en Bourgogne",
             "cred":"1"

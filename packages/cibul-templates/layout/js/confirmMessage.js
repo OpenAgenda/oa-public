@@ -1,10 +1,10 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common' ),
 
 debug = require('debug'),
 
 log = debug('handleMessageLinks'),
 
-lightbox = require( '../../js/lib/lightbox/lightbox.mod' ),
+lightbox = require( '../../js/lib/lightbox' ),
 
 params = {
   lang: "fr",

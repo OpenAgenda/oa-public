@@ -1,6 +1,6 @@
 "use strict";
 
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common' ),
 
 params = {
   selectors: {

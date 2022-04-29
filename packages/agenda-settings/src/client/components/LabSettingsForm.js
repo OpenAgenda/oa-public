@@ -27,18 +27,6 @@ export default function LabSettingsForm() {
       {({ handleSubmit, submitting }) => (
         <form onSubmit={handleSubmit}>
           <Field
-            name="eventAdmin"
-            type="checkbox"
-            render={({ input }) => (
-              <div className="checkbox">
-                <label>
-                  <input {...input} />
-                  {getLabel('eventAdminDesc')}
-                </label>
-              </div>
-            )}
-          />
-          <Field
             name="status"
             type="checkbox"
             render={({ input }) => (

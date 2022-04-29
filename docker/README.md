@@ -9,13 +9,11 @@
 
 ## Get the projects
 
-Git clone the following:
+Git clone oa (with `--recurse-submodules` git option):
 
- * oa (with `--recurse-submodules` git option)
- * cibul-symfony
- * cibulapi-symfony
-
-In cibul-symfony, if not present, create the following directories: `web/js/event`, `web/js/embed` and `web/js/review`
+```
+git clone git@github.com:OpenAgenda/oa.git --recurse-submodules
+```
 
 Create an empty folder for hosting mysql data. Take note of the path.
 Do the same for elasticsearch 1. Take note of the path.

@@ -6,12 +6,12 @@ const getLabelFactory = require( '@openagenda/labels' );
 const labels = require( '@openagenda/labels/users/profile' );
 const session = require( '@openagenda/sessions/client' );
 
-const b64 = require( '../../js/lib/Base64/Base64.mod.js' );
 const bsTemplate = require( '../../user/bsMenu.ejs' );
+const template = require( '../../user/menu.ejs' );
+const b64 = require( '../../js/lib/Base64' );
 const du = require( '../../js/lib/domUtils' );
 const envelope = require( './envelope' );
 const toggle = require( './toggle' );
-const template = require( '../../user/menu.ejs' );
 
 const params = {
   selectors: {

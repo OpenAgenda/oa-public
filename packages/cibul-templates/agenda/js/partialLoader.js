@@ -1,6 +1,6 @@
-var remote = require( '../../js/lib/remote/remote.mod' ),
+var remote = require( '../../js/lib/remote' ),
 
-cn = require( '../../js/lib/common/common.mod' ),
+cn = require( '../../js/lib/common' ),
 
 log = require( 'debug' )( 'partialLoader' ),
 
@@ -96,7 +96,7 @@ module.exports = function( options ) {
 
     }
 
-    if ( window.env == 'tpl' ) href = _templateHref( href ); 
+    if ( window.env == 'tpl' ) href = _templateHref( href );
 
     remote.getXmlHttp( href, settings, function( responseType, data ) {
 
@@ -142,7 +142,7 @@ module.exports = function( options ) {
 function _clear( elem ) {
 
   var child;
-  
+
   while ( child = cn.childObject( elem, 0 ) ) {
 
     elem.removeChild( child );

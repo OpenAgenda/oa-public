@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const _ = require('lodash');
+const qs = require('qs');
 
 const layout = require('../services/lib/layouts').load('agendaAdmin');
 
@@ -9,7 +10,7 @@ const statsTemplate = _.template(fs.readFileSync(__dirname + '/stats.tpl', 'utf-
 
 module.exports = app => {
   const {
-    agendas, members, sessions, agendaStatistics
+    agendas, members, sessions, agendaStatistics,
   } = app.services;
 
   const agendaLoad = agendas.middleware.load({
@@ -19,9 +20,9 @@ module.exports = app => {
     namespaces: {
       identifiers: {
         slug: 'params.agendaSlug',
-        uid: 'params.agendaUid'
-      }
-    }
+        uid: 'params.agendaUid',
+      },
+    },
   });
 
   /**
@@ -29,14 +30,17 @@ module.exports = app => {
    */
   app.use([
     '/:agendaSlug/admin/stats',
-    '/:agendaSlug/admin/stats/resync/:type'
+    '/:agendaSlug/admin/stats/resync/:type',
   ], [
     sessions.mw.load(),
     agendaLoad,
     agendas.mw.authorizeByIPAddress(),
-    members.mw.authorizeAdminModOrKey()
+    members.mw.authorizeAdminModOrKey(),
   ]);
 
+  app.get('/:agendaSlug/admin', (req, res) => {
+    res.redirect(301, `/${req.params.agendaSlug}/admin/events${qs.stringify(req.query, { addQueryPrefix: true })}`);
+  });
 
   app.get('/agendas/:agendaUid/admin(/*?)?', agendaAdminRedirect);
 
@@ -49,30 +53,30 @@ module.exports = app => {
     '/:agendaSlug/admin/stats',
     async (req, res, next) => res.send(layout(
       statsTemplate(await agendaStatistics(req.agenda.uid)),
-      { ...req, role: req.member.role }
-    ))
-  )
+      { ...req, role: req.member.role },
+    )),
+  );
 
   app.get('/:agendaSlug/admin/stats/transfer-form-schema', async (req, res) => {
     res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.createFormSchema()
+      .settings.legacy.createFormSchema(),
     );
   });
 
   app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) => res.json(
     await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateTagSet({ lang: req.lang })
+      .settings.legacy.updateTagSet({ lang: req.lang }),
   ));
 
   app.get('/:agendaSlug/admin/stats/transfer-to-categoryset', async (req, res) => {
     res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateCategorySet(req.query.force)
+      .settings.legacy.updateCategorySet(req.query.force),
     );
   });
 
   app.get('/:agendaSlug/admin/stats/transfer-to-custom', async (req, res) => {
     res.json(await req.app.services.core.agendas(req.agenda.uid)
-      .settings.legacy.updateCustom(req.query.force)
+      .settings.legacy.updateCustom(req.query.force),
     );
   });
 
@@ -86,7 +90,7 @@ module.exports = app => {
 
     res.json({ operation: 'resyncing ' + req.params.type });
   });
-}
+};
 
 
 /**

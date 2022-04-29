@@ -8,7 +8,7 @@ if ( !window.cibul ) {
 
   var debug = require( 'debug' ),
 
-  cn = require( '../../js/lib/common/common.mod.js' ),
+  cn = require( '../../js/lib/common' ),
 
   controller = require( './controller' );
 

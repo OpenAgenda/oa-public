@@ -1,6 +1,6 @@
 var d3 = require( 'd3' ),
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+cn = require( '../../js/lib/common' ),
 
 fetch = require( './fetch' ),
 

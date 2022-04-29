@@ -1,0 +1,15 @@
+User-agent: *
+
+Disallow: /securesignin
+Disallow: /fbsignin
+Disallow: /twitter/
+Disallow: /captcha
+Disallow: /signout
+Disallow: /search/
+Disallow: /programarticle/
+Disallow: /account/
+Disallow: /settings
+Disallow: /message/
+Disallow: /register/
+Disallow: /unregister/
+Disallow: /new/

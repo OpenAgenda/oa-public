@@ -17,7 +17,7 @@ exports.setOnReady = setOnReady;
 
 const domain = require('../../domain');
 
-var remote = require( '../../js/lib/remote/remote.mod.js' ),
+var remote = require( '../../js/lib/remote' ),
 
 wLib = require(  '../lib/widgetLib' ),
 
@@ -27,7 +27,7 @@ baseConfig = require( './config.js' ),
 
 history = require( './history' ),
 
-mapLib = require( '../../js/lib/maps/osm.maps.mod' ),
+mapLib = require( '../../js/lib/osm.maps' ),
 
 templates = {
   main: require( './main.ejs' ),
@@ -130,7 +130,7 @@ function widget( elem, options ) {
     const data = await getControlData();
 
     loadInitialState.fromControlData(state, data);
-    
+
     log('control data fetched, state updated %j', state);
 
     _initLocations(data);
@@ -141,7 +141,7 @@ function widget( elem, options ) {
       state.explicitInitialPosition = true;
       log('focusing on ', state.center);
     }
-    
+
     if (!state.center) {
       const firstLocationUid = Object.keys(locations).shift();
       state.center = locations[firstLocationUid].coords;
@@ -323,7 +323,7 @@ function widget( elem, options ) {
       bounds = false;
 
       navHistory.add( reqParams, navHistory.current() );
-    
+
     } else if (state.enablesCount === 0 && state.explicitInitialPosition) {
 
       bounds = false;
@@ -731,7 +731,7 @@ function widget( elem, options ) {
 
   function _refreshMarker(location) {
     const active = (enabled && (activeLocations.indexOf(location.uid) !== -1));
-    
+
     log('refreshMarker of location %s - %s (in %s mode)', location.uid, active ? 'active' : 'inactive', enabled ? 'enabled' : 'disabled');
 
     m.setMarkerIcon(location.marker, state.icons[active ? 'active' : 'inactive']);
@@ -1116,7 +1116,7 @@ function widget( elem, options ) {
     if (state.auto) {
       du.el( elem, config.selectors.sync ).checked = true;
     }
-    
+
     du.addEvent( du.el( elem, config.selectors.sync ), 'change', function( e ) {
 
       state.auto = !state.auto;

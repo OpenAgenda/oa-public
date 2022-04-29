@@ -15,7 +15,6 @@
             "googleAnalytics": null
         },
         "lab": {
-            "eventAdmin": false,
             "status": false
         },
         "inbox": {

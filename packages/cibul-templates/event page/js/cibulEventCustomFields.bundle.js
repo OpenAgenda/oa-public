@@ -1,1 +1,0 @@
-console.error("Error: Cannot find module '/home/kaore/Dev/www/cibul-templates/event page/js/cibulEventCustomFields.js' from '/home/kaore/Dev/www/cibul-templates/event page/js'");

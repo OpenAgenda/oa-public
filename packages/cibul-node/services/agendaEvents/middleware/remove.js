@@ -33,7 +33,7 @@ module.exports = [
 
     if (redirect) {
       log('redirecting to %s', redirect);
-      return res.redirect(302, _appendPHPDefPrefix(redirect));
+      return res.redirect(302, redirect);
     }
 
     if (req.isAdminMod) {
@@ -43,22 +43,3 @@ module.exports = [
     res.redirect(302, `/${req.agenda.slug}`);
   }
 ]
-
-
-function _appendPHPDefPrefix(redirect) {
-  const sfPrefix = '/frontend_dev.php';
-
-  if (redirect.indexOf('/admin') === -1) {
-    return redirect;
-  }
-
-  if (process.env.NODE_ENV !== 'development') {
-    return redirect;
-  }
-
-  if (redirect.indexOf(sfPrefix) !== -1) {
-    return redirect;
-  }
-
-  return sfPrefix + redirect;
-}

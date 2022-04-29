@@ -1,8 +1,8 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common' ),
 
 cLib = require( '../../js/vendors/CibulCalendar/src/CibulCalendar' ),
 
-lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
+lightbox = require('../../js/lib/lightbox'),
 
 lb, // lightbox instance
 
@@ -15,8 +15,8 @@ params = {
   classes: {
     lightbox: {
       frame: 'wsq lightbox-frame',
-      canvas: 'lightbox-canvas', 
-      buttonBox: 'lightbox-buttons', 
+      canvas: 'lightbox-canvas',
+      buttonBox: 'lightbox-buttons',
       body: 'noscroll'
     }
   },

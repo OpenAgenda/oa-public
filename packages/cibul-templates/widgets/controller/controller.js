@@ -6,15 +6,15 @@ const base64 = require('@openagenda/utils/base64');
 const debug = require('debug');
 const qs = require('qs');
 
-const cn = require('../../js/lib/common/common.mod.js');
+const cn = require('../../js/lib/common');
 
-const remote = require('../../js/lib/remote/remote.mod.js');
+const remote = require('../../js/lib/remote');
 
 const filters = require('./filters');
 
 const geoLib = require('./geolocate');
 
-const controlDataFetch = require('../../js/lib/controlDataFetch/controlDataFetch');
+const controlDataFetch = require('../../js/lib/controlDataFetch');
 
 const env = window.env ? window.env : 'production';
 

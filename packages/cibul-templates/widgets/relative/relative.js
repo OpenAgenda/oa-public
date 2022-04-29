@@ -13,7 +13,7 @@ const utils = require( '@openagenda/utils' );
 
 const wLib = require(  '../lib/widgetLib' );
 
-const cn = require(  '../../js/lib/common/common.mod.js' );
+const cn = require(  '../../js/lib/common' );
 const map = require( './template.map.json' );
 
 import tpl from './relative.tblr';

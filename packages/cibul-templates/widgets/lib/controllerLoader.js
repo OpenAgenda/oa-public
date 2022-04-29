@@ -2,9 +2,9 @@
 
 var domain = require( '../../domain' );
 
-var loadJs = require( '../../js/lib/loadJs/loadJs.mod.js' ),
+var loadJs = require( '../../js/lib/loadJs' ),
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+cn = require( '../../js/lib/common' ),
 
 defaults = {
   all : {

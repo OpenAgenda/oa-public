@@ -2,7 +2,7 @@
   "agenda" : {
     "slug" : "slug",
     "title" : "La Gargouille",
-    "url" : "https://d.openagenda.com/frontend_dev.php/la-gargouille",
+    "url" : "https://d.openagenda.com/la-gargouille",
     "image" : "review_la-gargouille_00.jpg"
   },
 
@@ -16,11 +16,6 @@
     "key" : "contributors",
     "label" : "Contributors",
     "uri" : "agendaAdminContributors"
-  }, {
-    "section" : "manage",
-    "key" : "dataviz",
-    "label" : "Dataviz",
-    "uri" : "agendaAdminDataviz"
   }, {
     "section" : "manage",
     "key" : "categories",

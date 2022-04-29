@@ -9,7 +9,7 @@ import createInboxApp from '@openagenda/inbox-apps/dist/app';
 import sessions from '@openagenda/sessions/client';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
-import remote from '../../js/lib/remote/remote.mod.js';
+import remote from '../../js/lib/remote';
 import textHelpers from '../../helpers/text.js';
 import activities from './activities';
 

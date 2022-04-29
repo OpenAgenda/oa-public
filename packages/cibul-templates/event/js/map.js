@@ -1,6 +1,6 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common' ),
 
-mapLib = require( '../../js/lib/maps/osm.maps.mod' ),
+mapLib = require( '../../js/lib/osm.maps' ),
 
 params = {
   selectors: {
@@ -20,7 +20,7 @@ module.exports = function( options ) {
   const canvas = cn.el(params.selectors.canvas);
 
   if (!canvas) return;
-  
+
   const coords = _readCoords(canvas);
 
   const maps = mapLib({

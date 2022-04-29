@@ -4,7 +4,7 @@ var frameLink = require( './frameLink' ).frame,
 
 debug = require( 'debug' ), log,
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+cn = require( '../../js/lib/common' ),
 
 pageHeight = require( './pageHeight' ),
 

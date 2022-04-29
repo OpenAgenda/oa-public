@@ -10,7 +10,7 @@ const controllers = require('../../widgets/controller/main'),
   qs = require('qs'),
   debug = require('debug'),
   // deprecate this
-  cn = require('../../js/lib/common/common.mod'),
+  cn = require('../../js/lib/common'),
   // in favor of this
   du = require('@openagenda/dom-utils'),
   _ = {

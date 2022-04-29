@@ -21,7 +21,7 @@ const getDefaultState = () => ({
   res: {
     agenda: '/:slug',
     addEvent: '/:slug/contribute',
-    createEmbed: '/:slug/admin/webembed',
+    createEmbed: '/:slug/admin/embeds',
     get: '/:uid/agenda.json',
     set: '/:slug/edit',
     slugAvailable: '/slugs/available',

@@ -1,4 +1,4 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common' ),
 
 log = require( 'debug' )( 'categories dom' ),
 

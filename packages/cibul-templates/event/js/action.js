@@ -1,6 +1,6 @@
 "use strict";
 
-var cn = require( '../../js/lib/common/common.mod' ),
+var cn = require( '../../js/lib/common' ),
 
 modalPartial = require( '../../bsLayout/js/modalPartial' );
 

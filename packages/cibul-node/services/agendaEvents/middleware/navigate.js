@@ -3,7 +3,6 @@
 const qs = require('qs');
 const log = require('@openagenda/logs')('services/agendaEvents/middleware/navigate');
 
-const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
 const PAGE_SIZE = 20;
 
 function removeQueryPrefix(query, prefix = 'q.') {
@@ -37,16 +36,6 @@ module.exports = async function navigate(req, res, next) {
   try {
     const { agenda } = req;
     const { core } = req.app.services;
-
-    if (!agenda.settings?.lab?.eventAdmin) {
-      const queryString = qs.stringify(req.query, {
-        addQueryPrefix: true,
-        arrayFormat: 'brackets',
-        skipNulls: true,
-      });
-
-      return res.redirect(`${phpPrefix}/${agenda.slug}/admin/navigate${queryString}`);
-    }
 
     const {
       nav,

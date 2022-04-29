@@ -7,6 +7,9 @@ testconfig.js
 coverage/
 .cache/
 
-agenda admin/js/dataVizBundle.js
 build/browserified/
 build/sass/
+
+dist/css/
+dist/js/*
+!dist/js/tinymce/

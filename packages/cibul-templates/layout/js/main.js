@@ -44,7 +44,7 @@ var utils = require( '@openagenda/utils' ),
 
   Raven = require( 'raven-js' ),
 
-  eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
+  eh = require( '../../js/lib/EventHandler' ).sEventHandler.getInstance(),
 
   ran = false, asapRan = false,
 

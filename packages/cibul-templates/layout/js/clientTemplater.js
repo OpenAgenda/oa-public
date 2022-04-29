@@ -2,7 +2,7 @@
 
 var utils = require( '@openagenda/utils' ),
 
-  remote = require( '../../js/lib/remote/remote.mod' ),
+  remote = require( '../../js/lib/remote' ),
 
   store = require( 'store' ),
 

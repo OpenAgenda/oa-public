@@ -45,7 +45,7 @@ var defaults = {
   }
 },
 
-cn = require( '../js/lib/common/common.mod' );
+cn = require( '../js/lib/common' );
 
 module.exports = function() {
 
@@ -91,9 +91,9 @@ function renderer( service ) {
       if (typeof params[item.params[i]] !== 'undefined') {
 
         reqParams.push( i + '=' + encodeURIComponent(params[item.params[i]]) );
-      
+
       } else {
-      
+
         reqParams.push( i + '=' + encodeURIComponent(item.params[i]) );
 
       }

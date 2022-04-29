@@ -1,8 +1,8 @@
-var lightbox = require( '../../js/lib/lightbox/lightbox.mod.js' ),
+var lightbox = require( '../../js/lib/lightbox' ),
 
-  cn = require( '../../js/lib/common/common.mod.js' ),
+  cn = require( '../../js/lib/common' ),
 
-  remote = require( '../../js/lib/remote/remote.mod.js' ),
+  remote = require( '../../js/lib/remote' ),
 
   debug = require( 'debug' ),
 

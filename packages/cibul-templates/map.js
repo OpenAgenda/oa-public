@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 module.exports = [
   'event/inbox',
   'agenda/inbox',
@@ -105,14 +103,6 @@ module.exports = [
     prod: 'embed/oaActiveFilters.js',
   },
   {
-    js: 'widgets/form/form.js',
-    prod: 'embed/cibulFormWidget.js',
-  },
-  {
-    js: 'widgets/list/list.js',
-    prod: 'embed/cibulListWidget.js',
-  },
-  {
     js: 'widgets/body/body.js',
     prod: 'embed/cibulBodyWidget.js',
   },
@@ -136,9 +126,4 @@ module.exports = [
     js: 'widgets/custom/custom.js',
     prod: 'embed/cibulCustomWidget.js',
   },
-  {
-    js: 'agenda embed menu/js/embedMenu.js',
-    prod: 'review/embedMenu.js',
-  },
-
 ];

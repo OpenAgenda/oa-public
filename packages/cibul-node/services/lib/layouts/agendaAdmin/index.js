@@ -69,19 +69,11 @@ function _formatTab({ agenda, tab, lang, selectedTab }) {
       $set: getTabLabels(tab.name, lang)
     },
     link: {
-      $set: `${_phpLinkPrefix(tab)}/${agenda.slug}/admin${tab.route !== undefined ? tab.route : '/' + tab.name}`
+      $set: `/${agenda.slug}/admin${tab.route !== undefined ? tab.route : '/' + tab.name}`
     },
     selected: {
       $set: selectedTab === tab.name
     }
   });
-
-}
-
-function _phpLinkPrefix(tab) {
-
-  if (process.env.NODE_ENV !== 'development') return '';
-
-  return tab.php ? '/frontend_dev.php' : '';
 
 }

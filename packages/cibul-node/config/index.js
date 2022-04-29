@@ -300,9 +300,9 @@ const config = {
           uri: '/agendas/:uid.csv',
           legacy: true
         },
-        aggregatorCreate: {
+        agendaAdminWeb: {
           method: 'get',
-          uri: '/agenda/:uid/aggregator/create',
+          uri: '/:slug/admin/webembed',
           legacy: true
         },
         agendaAdminShow: {
@@ -312,21 +312,6 @@ const config = {
         agendaEventAdminNavigate: {
           method: 'get',
           uri: '/:slug/admin/events/navigate'
-        },
-        agendaAdminWeb: {
-          method: 'get',
-          uri: '/:slug/admin/webembed',
-          legacy: true
-        },
-        agendaAdminIndesign: {
-          method: 'get',
-          uri: '/:slug/admin/xml',
-          legacy: true
-        },
-        eventRemove: {
-          method: 'get',
-          uri: '/event/:eventUid/remove',
-          legacy: true
         },
         signup: {
           method: 'get',
@@ -472,16 +457,8 @@ const config = {
           method: 'get',
           uri: '/password/reset/:token'
         },
-        resetPasswordSubmit: {
-          method: 'post',
-          uri: '/password/reset/:token'
-        },
         contributorsInfo: {
           method: 'get',
-          uri: '/:slug/admin/contributors/info'
-        },
-        contributorsInfoSubmit: {
-          method: 'post',
           uri: '/:slug/admin/contributors/info'
         },
         eventTransfer: {
@@ -652,8 +629,7 @@ const config = {
           method: 'get',
           uri: '/agendas/:uid/events.ics'
         }
-      },
-      defaultGlobalsPrefix: ''
+      }
     }
   },
 
@@ -776,9 +752,6 @@ const config = {
       },
       disableVerify: true
     },
-    routes: {
-      defaultGlobalsPrefix: '/frontend_dev.php'
-    },
     newsletter: {
       featuredLimit: 3,  // maximum number of featured events displayable in the same newsletter campaign
       selectionLimit: 5  // maximum number of events displayable in the selection of a newsletter campaign
@@ -844,9 +817,6 @@ const config = {
       port: 9200,
       indexName: 'cibultest',
       channel: 'maintest'
-    },
-    routes: {
-      defaultGlobalsPrefix: '/frontend_test.php'
     },
     redis: {
       host: 'localhost',

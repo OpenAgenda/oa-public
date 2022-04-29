@@ -17,8 +17,6 @@
   "LegacyEmbed.App.tilesMenu": "Tiles",
   "LegacyEmbed.CalendarMenu.code": "This widget allows you to filter the embedded agenda by range of dates.",
   "LegacyEmbed.ConfigurationMenuSelector.placeholder": "Sélectionner un menu",
-  "LegacyEmbed.Dashboard.applicationInfo": "You are now using an new iteration of the the integrated views configuration tool.",
-  "LegacyEmbed.Dashboard.backToLegacy": "Use the legacy application instead",
   "LegacyEmbed.EmbedSelection.calendar": "Calendar filter",
   "LegacyEmbed.EmbedSelection.calendarInfo": "Displays a days-of-the-month calendar. This code is placed alongside the main embed",
   "LegacyEmbed.EmbedSelection.list": "Main agenda embed",

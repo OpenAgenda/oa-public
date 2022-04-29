@@ -4,7 +4,7 @@ var domain = require( '../../domain' );
 
 var parser = require( '@openagenda/tumblr-parser' ),
 
-cn = require(  '../../js/lib/common/common.mod.js' ),
+cn = require(  '../../js/lib/common' ),
 
 config = require( './config' ),
 
@@ -14,7 +14,7 @@ env = window.env ? window.env : 'production',
 
 tplMap = require( './template.map.json' ),
 
-remote = require( '../../js/lib/remote/remote.mod.js' ),
+remote = require( '../../js/lib/remote' ),
 
 debug = require( 'debug' ),
 

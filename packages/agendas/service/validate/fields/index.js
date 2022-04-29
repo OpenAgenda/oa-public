@@ -129,10 +129,6 @@ module.exports = [{
     read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
-      field: 'eventAdmin',
-      type: 'boolean',
-      default: true
-    }, {
       field: 'status',
       type: 'boolean',
       default: false

@@ -1,4 +1,4 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+var cn = require( '../../js/lib/common' ),
 
 totalsSection = require( './totalsSection' ),
 

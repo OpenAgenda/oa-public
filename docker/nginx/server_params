@@ -57,10 +57,6 @@ location = /favicon.ico {
   include conf.d/static_params;
 }
 
-location ^~ /sf/ {
-  include conf.d/php_static_params;
-}
-
 
 
 ##########################################################
@@ -72,60 +68,30 @@ location /legacy {
 
 
 ##########################################################
-#            PHP SPECIFIC ROUTES
+#            REDIRECTIONS
 
 # /event/:slugOrUid -> /events/:slugOrUid
-location ~ ^/(frontend_dev.php|)event/[^/]+$ {
-  rewrite ^/(frontend_dev.php|)event/([^/]+) /events/$2 permanent;
+location ~ ^/event/[^/]+$ {
+  rewrite ^/event/([^/]+) /events/$2 permanent;
   return 403;
 }
 
 # /:agenda/event/:slugOrUid -> /:agenda/events/:slugOrUid
-location ~ ^/(frontend_dev.php|)[^/]+/event/[^/]+$ {
-  rewrite ^/(frontend_dev.php|)([^/]+)/event/([^/]+) /$2/events/$3 permanent;
+location ~ ^/[^/]+/event/[^/]+$ {
+  rewrite ^/([^/]+)/event/([^/]+) /$2/events/$3 permanent;
   return 403;
 }
 
 # /:agendaSlug/event/:eventSlug/:lang
-location ~ ^/(frontend_dev.php|)[^/]+/event/[^/]+/(fr|en|de|es|it|br)$ {
-  rewrite ^/(frontend_dev.php|)([^/]+)/event/([^/]+)/(fr|en|de|es|it|br)$ /$2/events/$3?lang=$4 permanent;
+location ~ ^/[^/]+/event/[^/]+/(fr|en|de|es|it|br)$ {
+  rewrite ^/([^/]+)/event/([^/]+)/(fr|en|de|es|it|br)$ /$2/events/$3?lang=$4 permanent;
   return 403;
 }
 
 # /:agendaSlug/:lang
-location ~ ^/(frontend_dev.php|)[^/]+/(fr|en|de|es|it|br)$ {
-  rewrite ^/(frontend_dev.php|)([^/]+)/(fr|en|de|es|it|br)$ /$2?lang=$3 permanent;
+location ~ ^/[^/]+/(fr|en|de|es|it|br)$ {
+  rewrite ^/([^/]+)/(fr|en|de|es|it|br)$ /$2?lang=$3 permanent;
   return 403;
-}
-
-location ~ ^/(frontend_dev.php|)(videos|termsofuse|program|auth)(/|$) {
-  try_files $uri $uri/ /index.php$uri?$args;
-  include conf.d/php_params;
-}
-
-location ~ ^/(frontend_dev.php|)[^/]+/admin/?$ {
-  try_files $uri $uri/ /index.php$uri?$args;
-  include conf.d/php_params;
-}
-
-location ~ ^/(frontend_dev.php|)[^/]+/admin/webembed(/|$) {
-  try_files $uri $uri/ /index.php$uri?$args;
-  include conf.d/php_params;
-}
-
-location ~ ^/(frontend_dev.php|)[^/]+/admin/navigate$ {
-  try_files $uri $uri/ /index.php$uri?$args;
-  include conf.d/php_params;
-}
-
-# /agenda/:agendaUid.:lang.(ics|ical|xml|atom|csv)
-location ~ ^/(frontend_dev.php|)agenda/\d+\.[a-z]+\.(ics|ical|xml|atom|csv)$ {
-  try_files $uri $uri/ /index.php$uri?$args;
-  include conf.d/php_params;
-}
-
-location ~ "^(.+\.php)($|/)" {
-  include conf.d/php_params;
 }
 
 ##########################################################

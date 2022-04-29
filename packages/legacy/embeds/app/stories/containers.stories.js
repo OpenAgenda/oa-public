@@ -36,7 +36,6 @@ export function DashboardBeforeCreate() {
           selectionMenuContainerRef={selectionMenuRef}
           agendaUid={50522407}
           res={{
-            legacy: '/agendas/:agendaUid/admin/webembed',
             embeds: '/agendas/:agendaUid/embeds',
             events: '/agendas/:agendaUid/events',
             agendaSettings: '/agendas/:agendaUid',
@@ -68,7 +67,6 @@ export function DashboardDefaultView() {
           selectionMenuContainerRef={selectionMenuRef}
           agendaUid={50522407}
           res={{
-            legacy: '/agendas/:agendaUid/admin/webembed',
             events: '/agendas/:agendaUid/events',
             embeds: '/agendas/:agendaUid/embeds',
             agendaSettings: '/agendas/:agendaUid',

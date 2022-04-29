@@ -11,7 +11,7 @@ module.exports = {
 
 var height,
 
-cn = require( '../../js/lib/common/common.mod' ),
+cn = require( '../../js/lib/common' ),
 
 onChangeCb = false,
 
@@ -28,12 +28,12 @@ cn.addEvent( window, 'load', function() {
     check();
 
     // big images still take time for the dom to adapt.
-    setTimeout( function() { 
+    setTimeout( function() {
 
       check( true );
 
     }, 500 );
-    
+
   } );
 
 });
@@ -72,19 +72,19 @@ function setOnChange( cb ) {
 
 }
 
-function _isDisabled() { 
+function _isDisabled() {
 
   return !enabled;
 
 }
 
-function _disable() { 
+function _disable() {
 
   enabled = false;
 
 }
 
-function _enable( delay ) { 
+function _enable( delay ) {
 
   if ( enableTimeout ) clearTimeout( enableTimeout );
 
@@ -97,7 +97,7 @@ function _enable( delay ) {
 }
 
 function get() {
-  
+
   // for IE8, html tag returns wrong height. Taking body height is needed for a cross browser solution.
   return document.getElementsByTagName('body')[0].offsetHeight - _getFirstChildPaddingSum();
 

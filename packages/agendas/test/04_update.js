@@ -76,7 +76,6 @@ describe('agendas - functional (server): set (update)', function() {
         networkUid: null,
         settings: {
           lab: {
-            eventAdmin: true,
             status: false
           },
           inbox: {
@@ -200,7 +199,7 @@ describe('agendas - functional (server): set (update)', function() {
 
       con.query(`select * from legacy_credential_set where review_id = ?`, result.agenda.id, (err, rows) => {
         assert.strictEqual(rows[0].aggregator, 1);
-        
+
         done();
       });
     });
@@ -236,7 +235,6 @@ describe('agendas - functional (server): set (update)', function() {
           image: null,
           settings: {
             lab: {
-              eventAdmin: true,
               status: false
             },
             inbox: {
