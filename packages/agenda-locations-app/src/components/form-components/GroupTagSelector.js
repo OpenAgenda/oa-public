@@ -11,6 +11,13 @@ const GroupTagSelector = ({
 }) => {
   const [userHasTyped, setUserHasTyped] = useState([]);
 
+  const addUniqueItem = (item, groupIndex) => {
+    const groupTags = set.groups[groupIndex].tags.map(e => e.id);
+    const newSelection = value.filter(v => !groupTags.includes(v.id));
+    setUserHasTyped(userHasTyped.concat([groupIndex]));
+    onChange(name, newSelection.concat(item));
+  };
+
   const addItem = (item, groupIndex) => {
     setUserHasTyped(userHasTyped.concat([groupIndex]));
     onChange(name, value.concat(item));
@@ -40,6 +47,24 @@ const GroupTagSelector = ({
     );
   };
 
+  const renderUniqueItem = (item, groupIndex, itemIndex) => {
+    const checked = value.map(v => v.id).indexOf(item.id) !== -1;
+    const isDisabled = disabledTagIds.indexOf(item.id) !== -1;
+    return (
+      <div
+        className={isDisabled ? 'radio disabled' : 'radio'}
+        key={item.id}
+        onClick={(checked ? removeItem : addUniqueItem).bind(null, item, groupIndex)}
+      >
+        <label htmlFor="item">
+          <input type="radio" checked={checked} />
+          {item.label}
+        </label>
+        {tagBottom ? tagBottom(item, groupIndex, itemIndex) : null}
+      </div>
+    );
+  };
+
   const renderGroupHead = (group, i) => {
     let errors = [];
     let displayError = false;
@@ -62,7 +87,7 @@ const GroupTagSelector = ({
     return (
       <div className={groupIsDisabled ? 'gt-group disabled' : 'gt-group'} key={i}>
         {renderGroupHead(group, i)}
-        <div className="list-unstyled gt-selector-items">{group.tags.map((t, ti) => (renderItem(t, i, ti)))}</div>
+        <div className="list-unstyled gt-selector-items">{group.tags.map((t, ti) => (group?.unique ? renderUniqueItem(t, i, ti) : renderItem(t, i, ti)))}</div>
       </div>
     );
   };
