@@ -18,20 +18,16 @@ export default function AddChartForm({
 
   const chartOptions = useMemo(() => {
     const additionalFieldOpts = agendaSchema.fields
-      .filter(fieldSchema => ['radio', 'checkbox', 'integer'].includes(fieldSchema.fieldType))
-      .map(fieldSchema => {
-        const isCheckbox = fieldSchema.fieldType === 'checkbox'
-          && fieldSchema.options.length === 1;
-
-        return {
-          label: getLocaleValue(fieldSchema.label, intl.locale),
-          value: {
-            additionalField: true,
-            fieldSchema,
-            isCheckbox,
-          },
-        };
-      });
+      .filter(fieldSchema => ['radio', 'checkbox', 'integer', 'boolean'].includes(
+        fieldSchema.fieldType
+      ))
+      .map(fieldSchema => ({
+        label: getLocaleValue(fieldSchema.label, intl.locale),
+        value: {
+          additionalField: true,
+          fieldSchema,
+        },
+      }));
 
     return [
       {
@@ -75,13 +71,14 @@ export default function AddChartForm({
           .concat(additionalFieldOpts)
           .filter(
             v => !stats.find(stat => {
-              if (!stat.aggregation) {
+              if (!stat.chart) {
                 return false;
               }
 
               if (
                 v.value.additionalField
-                  && stat.aggregation.type === 'additionalFields'
+                  && (stat.aggregation.type === 'additionalFields'
+                    || stat.aggregation.type === 'additionalFieldMetrics')
               ) {
                 return stat.aggregation.field === v.value.fieldSchema.field;
               }

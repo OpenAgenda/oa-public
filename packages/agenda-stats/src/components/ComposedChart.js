@@ -14,6 +14,7 @@ import PieChart from './basics/PieChart';
 import DateAxisTick from './basics/DateAxisTick';
 import DateTooltipItem from './basics/DateTooltipItem';
 import StateTooltipItem from './basics/StateTooltipItem';
+import BooleanTooltipItem from './basics/BooleanTooltipItem';
 import DefaultTooltipItem from './basics/DefaultTooltipItem';
 
 const messages = defineMessages({
@@ -207,6 +208,17 @@ function ComposedChart({
       if (tooltipType === 'state') {
         return (
           <StateTooltipItem
+            interval={stat.state.interval}
+            message={tooltipContentMessage}
+            hideLabel={hideLabel}
+            {...props}
+          />
+        );
+      }
+
+      if (tooltipType === 'boolean') {
+        return (
+          <BooleanTooltipItem
             interval={stat.state.interval}
             message={tooltipContentMessage}
             hideLabel={hideLabel}
