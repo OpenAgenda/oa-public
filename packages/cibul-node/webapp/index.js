@@ -451,6 +451,7 @@ const initialState = async req => {
         xlsx: '/:agendaSlug/admin/locations.xlsx',
         disqualifyDuplicates: '/:agendaSlug/admin/locations/disqualify',
         agendaSearch: '/api/agendas/:agendaUid/locations/agendas',
+        agendaSearchPage: '/agendas',
         seeEvents: '/:agendaSlug/admin/events?q.locationUid=:locationUid',
         suggestChange: '/:agendaSlug/locations/:locationUid/suggest-change/conversation/create'
       }
