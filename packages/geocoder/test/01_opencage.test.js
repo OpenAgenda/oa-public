@@ -143,21 +143,6 @@ describe('opencage', () => {
     });
 
     describe('DOM-TOM', () => {
-    /*       it('Mayotte addresses respond to YT country code', async () => {
-        const res = await geocode('Espace Canopia- Les Hauts Vallons, Mamoudzou, Mayotte', {
-          countryCode: 'YT',
-          language: 'fr'
-        });
-        expect(res.length).toBeGreaterThan(0);
-      });
-
-      it('Polynésie Française addresses respond to PF country code', async () => {
-        const res = await geocode('Papeari, PAPEETE, Polynésie française', {
-          countryCode: 'PF',
-          language: 'fr'
-        });
-        expect(res.length).toBeGreaterThan(0);
-      }); */
 
       it('Saint Pierre et Miquelon addresses respond to PM country code', async () => {
         const res = await geocode('Rue du 11 novembre B.P. 4208, Saint-Pierre, Saint-Pierre-et-Miquelon', {
