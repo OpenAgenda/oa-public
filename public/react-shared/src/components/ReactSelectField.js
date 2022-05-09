@@ -106,15 +106,15 @@ function ReactSelectField({
     []
   );
 
-  const initialOption = useMemo(() => (initialValue ? format(initialValue) : initialValue), [
-    format,
-    initialValue,
-  ]);
-
-  const defaultOption = useMemo(() => (defaultValue ? format(defaultValue) : defaultValue), [
-    format,
-    defaultValue,
-  ]);
+  const defaultOption = useMemo(
+    () => (defaultValue !== undefined && defaultValue !== ''
+      ? format(defaultValue)
+      : defaultValue),
+    [
+      format,
+      defaultValue,
+    ],
+  );
 
   return (
     <Field
@@ -122,7 +122,7 @@ function ReactSelectField({
       innerRef={selectRef}
       component={WrappedReactSelectInput}
       options={options}
-      initialValue={initialOption}
+      initialValue={initialValue}
       defaultOption={defaultOption} // defaultValue is already used by reactFinalForm
       isCreatable={isCreatable}
       format={format}
