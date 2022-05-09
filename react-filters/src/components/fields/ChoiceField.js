@@ -28,11 +28,11 @@ export default function ChoiceField({
     e.preventDefault();
     e.stopPropagation();
 
-    if (e.currentTarget.ariaDisabled === 'true') {
+    if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
       return;
     }
 
-    if (e.currentTarget.ariaChecked === 'true') {
+    if (e.currentTarget.getAttribute('aria-checked') === 'true') {
       input.onChange({
         target: {
           type: input.type,
