@@ -152,6 +152,7 @@
           "en": "Types of place"
         },
         "info": null,
+        "unique": true,
         "tags": [
           {
             "id": 2,
