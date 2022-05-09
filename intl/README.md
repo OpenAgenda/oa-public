@@ -27,17 +27,11 @@ function getLocaleValue(
   labels,
   lang,
   defaultLang = DEFAULT_LANG,
-  fallbackMap = FALLBACK_MAP
+  fallbackMap = DEFAULT_FALLBACK_MAP
 )
-
-// where
-
-const DEFAULT_LANG = 'en';
-
-const FALLBACK_MAP = {
-  br: 'fr',
-};
 ```
+
+See [Default constants](#default-constants).
 
 If labels is not an object then it is returned as is.
 
@@ -61,7 +55,7 @@ getLocaleValue(multiLabel, 'fr');
 
 ### `mergeLocales`
 
-Like an `object.assign` with a depth of 2, to combine multiple locale objects.
+Like an `Object.assign` with a depth of 2, to combine multiple locale objects.
 
 Example:
 
@@ -103,17 +97,77 @@ expect(locales).toEqual({
 });
 ```
 
+### `getFallbackedMessages`
+
+```js
+function getFallbackedMessages(
+  messagesMap,
+  fallbackMap = DEFAULT_FALLBACK_MAP,
+  defaultLang = DEFAULT_LANG
+)
+```
+
+See [Default constants](#default-constants).
+
+Complete the messages with the fallback languages then the default language, useful when there is no locale compilation step.
+
+Example:
+
+```js
+const messagesMap = {
+  en: {
+    signup: 'Signup',
+    signin: 'Signin',
+  },
+  fr: {
+    signup: 'S\'inscrire',
+  },
+  br: {}
+};
+
+const fallbackedMessages = getFallbackedMessages(messagesMap, userLocales);
+
+// result:
+
+expect(fallbackedMessages).toEqual({
+  en: {
+    signup: 'Signup',
+    signin: 'Signin',
+  },
+  fr: {
+    signup: 'S\'inscrire',
+    signin: 'Signin',
+  },
+  br: {
+    signup: 'S\'inscrire',
+    signin: 'Signin',
+  }
+});
+```
+
+
+
+## Default constants
+
+```js
+const DEFAULT_LANG = 'en';
+
+const DEFAULT_FALLBACK_MAP = {
+  br: 'fr',
+};
+```
+
+These constants are used for `getLocaleValue` and `getFallbackedMessages`.
+
 ## Bin `oa-intl`
 
 To extract messages to translate from your sources you have to add a script in your package.json:
 
 ```json
 {
-  ...
   "scripts": {
     "extract-messages": "yarn oa-intl"
-  },
-  ...
+  }
 }
 ```
 
