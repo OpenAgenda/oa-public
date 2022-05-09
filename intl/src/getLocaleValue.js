@@ -1,14 +1,10 @@
-const DEFAULT_LANG = 'en';
-
-const FALLBACK_MAP = {
-  br: 'fr',
-};
+import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants';
 
 export default function getLocaleValue(
   labels,
   lang,
   defaultLang = DEFAULT_LANG,
-  fallbackMap = FALLBACK_MAP
+  fallbackMap = DEFAULT_FALLBACK_MAP
 ) {
   if (!labels || typeof labels !== 'object') {
     return labels;

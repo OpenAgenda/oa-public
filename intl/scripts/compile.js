@@ -35,10 +35,7 @@ function getFallbackedMessages({
       messages,
       (accu, value, key) => {
         if (value && value !== '') {
-          return {
-            ...accu,
-            [key]: value,
-          };
+          accu[key] = value;
         }
 
         return accu;
