@@ -135,28 +135,28 @@ body {
 
 }
 
-.info-block {
-
+.info-block, .info-block-sm {
   background-color: $oa-gray-lightest;
   padding: 1em 1.25em;
   border: 1px solid $oa-gray-lighter;
 
+  &.warning {
+    border-color: $oa-warning;
+    color: $oa-warning;
+  }
+
+  &.error {
+    border-color: $oa-danger;
+    color: $oa-danger;
+  }
+
   label {
     margin-right: 1em;
   }
-
 }
 
 .info-block-sm {
-
-  background-color: $oa-gray-lightest;
   padding: 0.5em 0.75em;
-  border: 1px solid $oa-gray-lighter;
-
-  label {
-    margin-right: 1em;
-  }
-
 }
 
 /**
