@@ -70,7 +70,7 @@ const filtersLocales = {
     desc: 'Description',
   },
 };
-const filtersLocales = {
+const userLocales = {
   fr: {
     other: 'Autre',
   },
@@ -145,6 +145,53 @@ expect(fallbackedMessages).toEqual({
 });
 ```
 
+### `getSupportedLocale`
+
+```js
+function getSupportedLocale(
+  lang,
+  fallbackMap = DEFAULT_FALLBACK_MAP,
+  defaultLang = DEFAULT_LANG
+)
+```
+
+See [Default constants](#default-constants).
+
+Returns the first language supported by Intl following the chain of fallbacks.
+
+Example:
+
+```js
+const defaultLocale = getSupportedLocale('oc');
+
+// result:
+
+expect(defaultLocale).toBe('fr');
+```
+
+### `getFallbackChain`
+
+```js
+function getFallbackChain(
+  lang,
+  fallbackMap = DEFAULT_FALLBACK_MAP,
+  defaultLang = DEFAULT_LANG
+)
+```
+
+See [Default constants](#default-constants).
+
+Returns an array of languages in the order they should be used in case of missing data.
+
+Example:
+
+```js
+const fallbacks = getFallbackChain('br');
+
+// result:
+
+expect(fallbacks).toEqual(['br', 'fr', 'en']);
+```
 
 
 ## Default constants
@@ -152,8 +199,13 @@ expect(fallbackedMessages).toEqual({
 ```js
 const DEFAULT_LANG = 'en';
 
+const DEFAULT_LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'eu', 'oc', 'io'];
+
 const DEFAULT_FALLBACK_MAP = {
   br: 'fr',
+  ca: 'es',
+  eu: 'fr',
+  oc: 'fr',
 };
 ```
 
@@ -187,14 +239,14 @@ Options:
       --version                 Show version number  [boolean]
       --help                    Show help  [boolean]
   -o, --output                  The target path where the script will output an aggregated `.json` file per lang of all the translations from the `files` supplied.  [default: "src/locales/%lang%.json"]
-      --compiled             The target path where the script will output the compiled version of the translation files, completed with the fallback langs.  [default: "src/locales-compiled/%lang%.json"]
+      --compiled                The target path where the script will output the compiled version of the translation files, completed with the fallback langs.  [default: "src/locales-compiled/%lang%.json"]
   -c, --compileOnly             Compile only, skip extraction.  [boolean]
       --defaultLang             Default language, the one that is filled in for the default messages in the files.  [default: "en"]
       --langs                   The target languages of the translations.  [default: "en,fr,de,it,es,br,ca,eu,oc,io"]
       --definedDefault          Languages that are populated with messages set to "" for ease of translation.  [default: "fr"]
       --idInterpolationPattern  If certain message descriptors don't have id, this `pattern` will be used to automatically generate IDs for them,
                                 where `contenthash` is the hash of `defaultMessage` and `description`.  [default: "[sha512:contenthash:base64:6]"]
-      --fallbackMap             A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{ "br": "fr" }"]
+      --fallbackMap             A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{"br":"fr","ca":"es","eu":"fr","oc":"fr"}"]
       --skipIndex               Does not create index js file.  [boolean]
       --ast                     Whether to compile message into AST instead of just string.  [boolean] [default: true]
 ```
@@ -236,7 +288,7 @@ Options:
   -o, --output       The target path where the script will output the compiled version of the translation files, completed with the fallback langs.  [default: "src/locales-compiled/%lang%.json"]
       --defaultLang  Default language, the one that is filled in for the default messages in the files.  [default: "en"]
       --langs        The target languages of the translations.  [default: "en,fr,de,it,es,br,ca,eu,oc,io"]
-      --fallbackMap  A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{ "br": "fr" }"]
+      --fallbackMap  A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.  [default: "{"br":"fr","ca":"es","eu":"fr","oc":"fr"}"]
       --skipIndex    Does not create index js file.  [boolean]
       --ast          Whether to compile message into AST instead of just string.  [boolean] [default: true]
 ```

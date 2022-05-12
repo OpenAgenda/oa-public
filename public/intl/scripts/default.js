@@ -1,5 +1,6 @@
 'use strict';
 
+const { DEFAULT_LANG, DEFAULT_LANGS, DEFAULT_FALLBACK_MAP } = require('../lib/constants');
 const extract = require('./extract');
 const compile = require('./compile');
 
@@ -33,11 +34,11 @@ module.exports.builder = yargsBuilder => {
       desc: 'Compile only, skip extraction.',
     },
     defaultLang: {
-      default: 'en',
+      default: DEFAULT_LANG,
       desc: 'Default language, the one that is filled in for the default messages in the files.',
     },
     langs: {
-      default: 'en,fr,de,it,es,br,ca,eu,oc,io',
+      default: DEFAULT_LANGS.join(','),
       coerce: arg => arg.split(','),
       desc: 'The target languages of the translations.',
     },
@@ -53,7 +54,7 @@ module.exports.builder = yargsBuilder => {
         + 'where `contenthash` is the hash of `defaultMessage` and `description`.',
     },
     fallbackMap: {
-      default: '{ "br": "fr" }',
+      default: JSON.stringify(DEFAULT_FALLBACK_MAP),
       coerce: JSON.parse,
       desc: 'A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.',
     },

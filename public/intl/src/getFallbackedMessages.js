@@ -1,19 +1,6 @@
-import _ from 'lodash';
 import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants';
-
-function completeMessages(messages, fallbackMessages) {
-  return _.reduce(
-    messages,
-    (accu, value, key) => {
-      if (value && value !== '') {
-        accu[key] = value;
-      }
-
-      return accu;
-    },
-    fallbackMessages,
-  );
-}
+import getFallbackChain from './getFallbackChain';
+import completeMessages from './utils/completeMessages';
 
 export default function getFallbackedMessages(
   messagesMap,
@@ -24,16 +11,13 @@ export default function getFallbackedMessages(
   const result = {};
 
   for (const lang of langs) {
-    let cursor = fallbackMap[lang];
+    const fallbacks = getFallbackChain(lang, fallbackMap, defaultLang);
 
-    result[lang] = messagesMap[cursor];
+    result[lang] = {};
 
-    while (cursor) {
-      result[lang] = completeMessages(result[lang], messagesMap[cursor]);
-      cursor = fallbackMap[cursor];
+    for (const fallback of fallbacks) {
+      result[lang] = completeMessages(result[lang], messagesMap[fallback]);
     }
-
-    result[lang] = completeMessages(result[lang], messagesMap[defaultLang]);
   }
 
   return result;

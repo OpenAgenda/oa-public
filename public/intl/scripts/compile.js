@@ -7,6 +7,9 @@ const glob = require('glob');
 const mkdirp = require('mkdirp');
 const tmp = require('tmp');
 const { compile } = require('@formatjs/cli');
+const { DEFAULT_LANG, DEFAULT_LANGS, DEFAULT_FALLBACK_MAP } = require('../lib/constants');
+const getFallbackChain = require('../lib/getFallbackChain');
+const completeMessages = require('../lib/utils/completeMessages');
 const createIndex = require('./utils/createIndex');
 const getMessages = require('./utils/getMessages');
 const inputToOuputPath = require('./utils/inputToOuputPath');
@@ -19,32 +22,17 @@ function getFallbackedMessages({
   lang,
   defaultLang,
 }) {
-  const fallbackLang = fallbackMap[lang] || defaultLang;
-  const localesPath = path.join(process.cwd(), inputPath.replace('%lang%', lang));
+  const fallbacks = getFallbackChain(lang, fallbackMap, defaultLang);
+  let result = {};
 
-  if (fallbackLang !== lang) {
-    const fallbackMessages = getFallbackedMessages({
-      inputPath,
-      fallbackMap,
-      lang: fallbackLang,
-      defaultLang,
-    });
+  for (const fallback of fallbacks) {
+    const localesPath = path.join(process.cwd(), inputPath.replace('%lang%', fallback));
     const messages = getMessages(localesPath);
 
-    return _.reduce(
-      messages,
-      (accu, value, key) => {
-        if (value && value !== '') {
-          accu[key] = value;
-        }
-
-        return accu;
-      },
-      fallbackMessages,
-    );
+    result = completeMessages(result, messages);
   }
 
-  return getMessages(localesPath);
+  return result;
 }
 
 async function compileLang({
@@ -122,16 +110,16 @@ module.exports.builder = yargs => {
         + ' completed with the fallback langs.',
     },
     defaultLang: {
-      default: 'en',
+      default: DEFAULT_LANG,
       desc: 'Default language, the one that is filled in for the default messages in the files.',
     },
     langs: {
-      default: 'en,fr,de,it,es,br,ca,eu,oc,io',
+      default: DEFAULT_LANGS.join(','),
       coerce: arg => arg.split(','),
       desc: 'The target languages of the translations.',
     },
     fallbackMap: {
-      default: '{ "br": "fr" }',
+      default: JSON.stringify(DEFAULT_FALLBACK_MAP),
       coerce: JSON.parse,
       desc: 'A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.',
     },
