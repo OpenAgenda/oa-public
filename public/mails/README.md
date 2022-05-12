@@ -18,7 +18,7 @@ yarn add @openagenda/mails
 
 ### Initializing
 
-Before using it you must initialize the service, the configuration needs to know where to find the templates, how to send them, then optionally the default values for each send (for example: *domain*, *lang*) and the translations of your templates.
+Before using it you must initialize the service, the configuration needs to know where to find the templates, how to send them and optionally the default values for each send (for example: *domain*, *lang*).
 
 ```js
 const createMails = require('@openagenda/mails');
@@ -41,12 +41,6 @@ const config = {
     rateDelta: 1000
   },
   defaults: {},
-
-  // Localization
-  translations: {
-    labels: {},
-    makeLabelGetter
-  },
 
   // Queuing
   redis: {
@@ -87,12 +81,13 @@ See [@openagenda/mails-editor](https://www.npmjs.com/package/@openagenda/mails-e
 
 #### Structure
 
-Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js`.
+Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js` (or a `fixtures` folder with some js files).
 
 **index.mjml** is the entry point of your template, it can be split into different partials (see [`include`](https://github.com/mde/ejs#includes) of EJS).  
 **text.ejs** is the text version of your template.  
 **subject.ejs** is the subject of the mail corresponding to your template.  
-**fixtures.js** exports data that are used in the template to preview as in production. If you use translations with dev app you can put your labels in a `$labels` key and add a `__` custom method if you need it.
+**fixtures.js** exports data that are used in the template to preview as in production.
+**locales** folder with `%lang%.json` files, where `%lang%` is the language code (`en.json`, `fr.json`, etc).
 
 The structure of your templates folder can look like this:
 ```
@@ -103,7 +98,12 @@ The structure of your templates folder can look like this:
     text.ejs
     subject.ejs
   /accountActivation
-    fixtures.js
+    /locales
+      en.json
+      fr.json
+    /fixtures
+      fixture1.js
+      fixture2.js
     index.mjml
     text.ejs
     subject.ejs
@@ -138,12 +138,6 @@ const mails = await createMails({
   },
   defaults: {},
 
-  // Localization
-  translations: {
-    labels: {},
-    makeLabelGetter
-  },
-
   // Queuing
   redis: {
     host: 'localhost',
@@ -167,7 +161,6 @@ Value | Required | Description |
 |`mjmlConfigPath` |  | Uses the .mjmlconfig file in the specified path or directory to include custom components.
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
-|`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter(labels, defaultLang)` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `(name, values, lang)` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
 |`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/OpenAgenda/oa-public/tree/main/queues))
 |`queueName` | * | A string that is the name of your Redis queue.
 |`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
@@ -281,8 +274,7 @@ mails.task();
 
 The `render` and `compile` methods allow you to use your [MJML](https://mjml.io/) templates, coupled with [EJS](http://ejs.co/) for replacing variables and loops, among others.
 
-These methods add `__` method in the data for use the translations in the templates, the labels are found with the `templateName` argument.  
-You can pass your own translation method or overload the existing one with the data.
+These methods add `__` method in the data for use the translations in the templates (json files in `locales` directory).
 
 The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options).
 

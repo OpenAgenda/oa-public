@@ -4,7 +4,6 @@ const path = require('path');
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const createMails = require('../index');
-const makeLabelGetter = require('../utils/makeLabelGetter');
 
 const templatesDir = path.join(__dirname, '..', 'templates');
 
@@ -68,8 +67,8 @@ describe('sendMail', () => {
           'envelopeTime',
           'messageId',
           'messageTime',
-          'response'
-        ))
+          'response',
+        )),
       ).toMatchSnapshot();
     });
 
@@ -86,7 +85,7 @@ describe('sendMail', () => {
       expect(errors).toMatchSnapshot();
     });
 
-    it("send a mail with an error don't send anything", async () => {
+    it('send a mail with an error don\'t send anything', async () => {
       const { errors } = await mails.send({
         template: 'helloWorld',
         to: 'kevin.bertho@@gmail',
@@ -121,8 +120,8 @@ describe('sendMail', () => {
         template: 'unknow',
         to: 'kevin.bertho@gmail.com',
         queue: false,
-      })
-    ).rejects.toThrow("Email template 'unknow' does not exist"));
+      }),
+    ).rejects.toThrow('Email template \'unknow\' does not exist'));
 
     it('sendMail with a text email', async () => {
       const res = await mails.send({
@@ -145,7 +144,7 @@ describe('sendMail', () => {
 
       expect(message.subject).toBe('Nouvel inscrit à la newsletter');
       expect(message.text).toBe(
-        '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com'
+        '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com',
       );
     });
   });
@@ -187,7 +186,7 @@ describe('sendMail', () => {
       }
 
       expect(
-        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response'))
+        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
       ).toMatchSnapshot();
     });
 
@@ -217,7 +216,7 @@ describe('sendMail', () => {
       expect(results[0].envelope.from).toBe(from);
 
       expect(
-        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response'))
+        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response')),
       ).toMatchSnapshot();
     });
   });
@@ -234,21 +233,6 @@ describe('sendMail', () => {
             domain: 'https://openagenda.com',
           },
           lang: 'en',
-        },
-        translations: {
-          labels: {
-            'helloWorld-i18n': {
-              hello: {
-                fr: 'Salut %username%',
-                en: 'Hello %username%',
-              },
-              goToOA: {
-                fr: 'Aller sur OpenAgenda',
-                en: 'Go to OpenAgenda',
-              },
-            },
-          },
-          makeLabelGetter,
         },
       });
 
@@ -268,7 +252,7 @@ describe('sendMail', () => {
         results.map(v => {
           v.message = JSON.parse(v.message);
           return _.omit(v, 'messageId', 'message.messageId');
-        })
+        }),
       ).toMatchSnapshot();
     });
 
@@ -283,21 +267,6 @@ describe('sendMail', () => {
             domain: 'https://openagenda.com',
           },
           lang: 'en',
-        },
-        translations: {
-          labels: {
-            'helloWorld-i18n': {
-              hello: {
-                fr: 'Salut %username%',
-                en: 'Hello %username%',
-              },
-              goToOA: {
-                fr: 'Aller sur OpenAgenda',
-                en: 'Go to OpenAgenda',
-              },
-            },
-          },
-          makeLabelGetter,
         },
       });
 
@@ -318,7 +287,7 @@ describe('sendMail', () => {
         results.map(v => {
           v.message = JSON.parse(v.message);
           return _.omit(v, 'messageId', 'message.messageId');
-        })
+        }),
       ).toMatchSnapshot();
     });
   });

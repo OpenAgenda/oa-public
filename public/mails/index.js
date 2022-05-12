@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const addressParser = require('nodemailer/lib/addressparser');
 const { handleMjmlConfig, registerComponent } = require('mjml-core');
@@ -10,6 +9,7 @@ const log = require('@openagenda/logs')('mails/index');
 const { runFilterTask, runSendTask } = require('./task');
 const render = require('./templater');
 const createConfig = require('./config');
+const fileExists = require('./utils/fileExists');
 
 class Mails {
   constructor(config) {
@@ -56,7 +56,7 @@ class Mails {
         options.template
       );
 
-      if (!fs.existsSync(templateDir)) {
+      if (!await fileExists(templateDir)) {
         throw new Error(`Email template '${options.template}' does not exist`);
       }
     }
@@ -98,29 +98,17 @@ class Mails {
 
       try {
         if (!enqueue || !config.queues) {
-          if (typeof config.sendFilter === 'function') {
-            const allowed = await config.sendFilter(params);
-
-            if (!allowed) {
-              log.info('Sending filtered', {
-                recipient,
-                template: options.template,
-              });
-              continue;
-            }
+          if (typeof config.sendFilter === 'function' && !await config.sendFilter(params)) {
+            log.info('Sending filtered', {
+              recipient,
+              template: options.template,
+            });
+            continue;
           }
 
           if (typeof config.beforeSend === 'function') {
             await config.beforeSend(params);
           }
-
-          const labels = params.labels
-            || (config.translations.labels || {})[params.template]
-            || {};
-          params.data.__ = config.translations.makeLabelGetter(
-            labels,
-            params.data.lang
-          );
 
           Object.assign(
             params,
