@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
 import { css } from '@emotion/react';
+import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 import Image from './Image';
 
@@ -293,7 +294,12 @@ export default function IntlImageInput({
   );
 
   return (
-    <IntlProvider locale={locale} key={locale} messages={messages}>
+    <IntlProvider
+      key={locale}
+      locale={locale}
+      messages={messages[locale]}
+      defaultLocale={getSupportedLocale(locale)}
+    >
       <ImageInput {...props} />
     </IntlProvider>
   );
