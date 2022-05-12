@@ -9,7 +9,7 @@ import { Form, FormSpy } from 'react-final-form';
 import ApiClient from '@openagenda/react-shared/lib/utils/apiClient';
 import useConstant from '@openagenda/react-shared/lib/hooks/useConstant';
 import ApiClientContext from '@openagenda/react-shared/lib/contexts/ApiClientContext';
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { createForm } from 'final-form';
 import { IntlProvider, RawIntlProvider, useIntl } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -171,7 +171,12 @@ function FiltersProvider(
   }
 
   return (
-    <IntlProvider messages={locales[locale]} locale={locale} key={locale}>
+    <IntlProvider
+      key={locale}
+      locale={locale}
+      messages={locales[locale]}
+      defaultLocale={getSupportedLocale(locale)}
+    >
       {child}
     </IntlProvider>
   );

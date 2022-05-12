@@ -3,6 +3,7 @@ import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';
 import classNames from 'classnames';
 import { IntlProvider } from 'react-intl';
+import { getSupportedLocale } from '@openagenda/intl';
 import Stats from './Stats';
 import Header from './Header';
 import Scheduler from './Scheduler';
@@ -227,7 +228,12 @@ export default class TimingsPicker extends Component {
     } = this.state;
 
     return (
-      <IntlProvider locale={locale} key={locale} messages={messages}>
+      <IntlProvider
+        key={locale}
+        locale={locale}
+        messages={messages[locale]}
+        defaultLocale={getSupportedLocale(locale)}
+      >
         <div
           className={classNames(`${classNamePrefix}calendar`, {
             [classNamePrefix + breakpoint]: breakpoint,
