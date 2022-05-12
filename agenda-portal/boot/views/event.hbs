@@ -22,23 +22,25 @@
         </div>
         <div class="col-md-10">
           {{>navigation}}
-          <div class="wbg p-4">
-            <h1>{{event.title}}</h1>
-            {{#if event.timing}}
-            <p><strong>{{event.timing.labels.begin.day}} @ {{event.timing.labels.begin.time}} - {{event.timing.labels.end.time}}</strong></p>
+          <main role="main">
+            <div class="wbg p-4">
+              <h1>{{event.title}}</h1>
+              {{#if event.timing}}
+              <p><strong>{{event.timing.labels.begin.day}} @ {{event.timing.labels.begin.time}} - {{event.timing.labels.end.time}}</strong></p>
+              {{/if}}
+              <p>{{event.description}}</p>
+            </div>
+            {{#if event.image}}
+            <div class="wbg text-center">
+              <img class="img-fluid" src="{{image event.image}}" alt="{{event.description}}" />
+            </div>
             {{/if}}
-            <p>{{event.description}}</p>
-          </div>
-          {{#if event.image}}
-          <div class="wbg text-center">
-            <img class="img-fluid" src="{{image event.image}}" alt="{{event.description}}" />
-          </div>
-          {{/if}}
-          {{#if event.longDescription}}
-          <div class="wbg p-4">
-            {{{mdToHtml event.longDescription}}}
-          </div>
-          {{/if}}
+            {{#if event.longDescription}}
+            <div class="wbg p-4">
+              {{{mdToHtml event.longDescription}}}
+            </div>
+            {{/if}}
+          </main>
         </div>
       </div>
     </div>
