@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/mails-editor",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "index.js",
   "repository": {
@@ -36,7 +36,7 @@
     "prettier-eslint-cli": "^5.0.0"
   },
   "peerDependencies": {
-    "@openagenda/mails": "^3.0.1"
+    "@openagenda/mails": "^4.0.0"
   },
   "lint-staged": {
     "**/*.js": [
