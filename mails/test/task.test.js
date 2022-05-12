@@ -107,7 +107,7 @@ describe('task', () => {
     expect(Date.now() - start).toBeGreaterThan((recipients.length - 1) * 300);
   });
 
-  it("send a mail with an error don't send anything", async () => {
+  it('send a mail with an error don\'t send anything', async () => {
     const spy = jest.spyOn(mails.config.transporter, 'sendMail');
 
     const { results, errors } = await mails.send({

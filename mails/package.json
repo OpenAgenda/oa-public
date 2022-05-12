@@ -17,6 +17,8 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@formatjs/intl": "^2.2.1",
+    "@openagenda/intl": "^1.0.0",
     "@openagenda/logs": "^1.1.9",
     "ejs": "^2.7.4",
     "isemail": "^3.2.0",

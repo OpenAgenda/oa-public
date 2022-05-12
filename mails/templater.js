@@ -1,15 +1,14 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
 const mjml = require('mjml');
 const ejs = require('ejs');
 const VError = require('verror');
 const log = require('@openagenda/logs')('mails/templater');
+const cachedReadFile = require('./utils/cachedReadFile');
+const defaultFormatMessage = require('./utils/defaultFormatMessage');
 
 const mjml2html = mjml.__esModule ? mjml.default : mjml;
-const readFile = promisify(fs.readFile);
 
 async function render(config, templateName, data = {}, opts = {}) {
   const templateDir = templateName
@@ -17,15 +16,12 @@ async function render(config, templateName, data = {}, opts = {}) {
     : null;
   const lang = data.lang || opts.lang;
 
-  let __ = data.__ || opts.__;
-  if (!__) {
-    const labels = (config.translations.labels || {})[templateName] || {};
-    __ = config.translations.makeLabelGetter(labels, lang);
-  }
+  const __ = data.__ || opts.__ || defaultFormatMessage(config, templateName, lang);
 
   const templateData = {
     ...data,
     lang,
+    intl: config.intl[lang],
     __,
   };
 
@@ -39,7 +35,7 @@ async function render(config, templateName, data = {}, opts = {}) {
 
     if (templateDir) {
       try {
-        rawHtml = await readFile(path.join(templateDir, 'index.mjml'), 'utf8');
+        rawHtml = await cachedReadFile(config.cache, path.join(templateDir, 'index.mjml'));
       } catch (e) {
         log.error(
           new VError(
@@ -76,7 +72,7 @@ async function render(config, templateName, data = {}, opts = {}) {
 
     if (templateDir) {
       try {
-        rawText = await readFile(path.join(templateDir, 'text.ejs'), 'utf8');
+        rawText = await cachedReadFile(config.cache, path.join(templateDir, 'text.ejs'));
       } catch (e) {
         log.error(
           new VError(
@@ -101,10 +97,7 @@ async function render(config, templateName, data = {}, opts = {}) {
 
     if (templateDir) {
       try {
-        rawSubject = await readFile(
-          path.join(templateDir, 'subject.ejs'),
-          'utf8'
-        );
+        rawSubject = await cachedReadFile(config.cache, path.join(templateDir, 'subject.ejs'));
       } catch (e) {
         log.error(
           new VError(

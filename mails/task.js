@@ -27,11 +27,8 @@ async function runFilterTask(config, params) {
       await config.beforeSend(params);
     }
 
-    const labels = (config.translations.labels || {})[params.template] || {};
-    params.data.__ = config.translations.makeLabelGetter(
-      labels,
-      params.data.lang
-    );
+    const intl = config.intl[params.data.lang];
+    params.data.__ = (code, values) => intl.formatMessage({ id: `${params.templateName}.${code}` }, values);
 
     Object.assign(params.data, config.defaults.data);
 
