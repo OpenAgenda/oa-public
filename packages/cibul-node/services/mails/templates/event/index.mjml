@@ -3,11 +3,11 @@
     <mj-title><%= event.title %></mj-title>
     <mj-preview><%= event.title %> - <%= event.description %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-wrapper padding="0" border="1px solid #eeeeee">
       <!-- Event title + description -->
@@ -28,7 +28,7 @@
       </mj-section>
 
       <!-- Event image -->
-      <% if ( event.image ) { %>
+      <% if (event.image) { %>
         <mj-section
           background-color="#ffffff"
           padding="20px 0 20px 0"
@@ -41,7 +41,7 @@
               alt="event image"
             />
 
-            <% if ( event.credits ) { %>
+            <% if (event.credits) { %>
               <mj-text padding="0 15px" font-style="italic">
                 <%= event.credits %>
               </mj-text>
@@ -56,7 +56,7 @@
         padding="0 40px 20px 40px"
       >
         <mj-column>
-          <% if ( event.longDescription ) { %>
+          <% if (event.longDescription) { %>
             <mj-markdown>
               <%- event.longDescription %>
             </mj-markdown>
@@ -65,19 +65,19 @@
           <mj-divider border-width="1px" border-style="dashed" border-color="#555555" />
 
           <mj-text>
-            <%= _.upperFirst( event.dateRange ) %>
+            <%= _.upperFirst(event.dateRange) %>
           </mj-text>
 
-          <% if ( event.conditions || event.formattedRegistration.length ) { %>
+          <% if (event.conditions || event.formattedRegistration.length) { %>
             <mj-text>
-              <% if ( event.conditions ) { %>
+              <% if (event.conditions) { %>
                 <%= event.conditions %>
               <% } %>
-              <% if ( event.formattedRegistration.length && event.conditions ) { %>
-                  &nbsp;-&nbsp;
+              <% if (event.formattedRegistration.length && event.conditions) { %>
+                &nbsp;-&nbsp;
               <% } %>
               <% if (event.formattedRegistration.length) { %>
-                <a href="<%= event.formattedRegistration[0] %>" target="_blank"><%= __( 'book' ) %></a>
+                <a href="<%= event.formattedRegistration[0] %>" target="_blank"><%= __('book') %></a>
               <% } %>
             </mj-text>
           <% } %>
@@ -112,27 +112,27 @@
             </a>
           </mj-text>
 
-          <% if ( event.timings.length > 1 ) { %>
+          <% if (event.timings.length > 1) { %>
             <mj-text padding="0 25px">
-              <h3><%= __( 'timingsDetails' ) %></h3>
+              <h3><%= __('timingsDetails') %></h3>
 
               <p>
-                <% for ( const date of event.dates ) { %>
+                <% for (const date of event.dates) { %>
                   <%= date.day %> -
-                  <%= date.timings.map( t => __( 'timing', { from: t.begin, to: t.end } ) )
-                  .join( ', ' ) %><br />
+                  <%= date.timings.map(t => __('timing', { from: t.begin, to: t.end }))
+                    .join(', ') %><br />
                 <% } %>
               </p>
             </mj-text>
           <% } %>
 
-          <% if ( customData && Object.keys( customData ).length ) { %>
+          <% if (customData && Object.keys(customData).length) { %>
             <mj-text padding="0 25px">
-              <% for ( const [ label, value ] of Object.entries( customData ) ) { %>
+              <% for (const [label, value] of Object.entries(customData)) { %>
                 <b><%= label %></b>: <% if (!value || !value.length) { %>
                   -
                 <% } else { %>
-                  <%= Array.isArray( value ) ? value.join( ', ' ) : value %>
+                  <%= Array.isArray(value) ? value.join(', ') : value %>
                 <% } %>
                 <br />
               <% } %>
@@ -153,12 +153,12 @@
             align="center"
             href="<%= link %>"
           >
-            <%= __( 'actionDescription' ) %>
+            <%= __('actionDescription') %>
           </mj-button>
         </mj-column>
       </mj-section>
     </mj-wrapper>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

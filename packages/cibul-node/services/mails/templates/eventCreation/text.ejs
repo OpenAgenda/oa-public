@@ -1,9 +1,9 @@
-<%- __( 'title', { agenda, event } ) %>:
+<%- __('title', { agenda, event }) %>:
 
-<%- __( 'bodyText', { agenda, event, state: __( state ) } ) %>
+<%- __('body', { agenda, event, state: __(state), b: chunks => chunks }) %>
 
-<%- __( 'actionDescription' ) %>: <%- link %>
-<% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
-<%- __( 'memberUnsubscribe' ) %>: <%- memberUnsubscribeLink %><% } %>
-<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
-<%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %>
+<%- __('actionDescription') %>: <%- link %>
+<% if (typeof memberUnsubscribeLink !== 'undefined') { %>
+  <%- __('memberUnsubscribe') %>: <%- memberUnsubscribeLink %><% } %>
+<%- __('unsubscribe') %>: <%- unsubscribeLink %>
+<%- __('changeEmailSettings') %>: <%- emailSettingsLink %>

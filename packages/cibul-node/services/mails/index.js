@@ -3,13 +3,8 @@
 const path = require('path');
 const _ = require('lodash');
 const sanitizeHtml = require('sanitize-html');
-
 const createMails = require('@openagenda/mails');
-const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
-const labels = require('@openagenda/labels/all').mails;
-
 const walkProtoChain = require('../../lib/walkProtoChain');
-
 const unsubscription = require('./unsubscription');
 const beforeSend = require('./lib/beforeSend');
 const filterBouncingAndUnsubscribed = require('./lib/filterBouncingAndUnsubscribed');
@@ -38,12 +33,6 @@ module.exports.init = async (config, services) => {
         root: config.root,
         emailSettingsLink: `https://${config.domain}/settings/emails`
       }
-    },
-
-    // Localization
-    translations: {
-      labels,
-      makeLabelGetter
     },
 
     // Queuing

@@ -1,0 +1,12 @@
+{
+  "title": "La confirmación de la creación de su agenda de eventos %:{event}",
+  "body": "Su evento <b>{event}</b> ha sido creado en la agenda <b>{agenda}</b> con el estado <b>{state}</b>.",
+  "actionDescription": "Ver evento",
+  "tocontrol": "al control",
+  "controlled": "listo para su publicación",
+  "published": "publicado",
+  "refused": "rechazado",
+  "unsubscribe": "Dejar de recibir las confirmaciones de sus creaciones de eventos",
+  "memberUnsubscribe": "Dejar de recibir las confirmaciones de sus creaciones de eventos en esta agenda",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+}

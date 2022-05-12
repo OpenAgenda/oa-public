@@ -1,0 +1,12 @@
+{
+  "title": "Événement modifié sur {agenda}: {event}",
+  "body": "<b>{event}</b> a été modifié sur l'agenda <b>{agenda}</b>.",
+  "actionDescription": "Voir l'événement",
+  "tocontrol": "à contrôler",
+  "controlled": "prêt à être publié",
+  "published": "publié",
+  "refused": "refusé",
+  "unsubscribe": "Ne plus recevoir les modifications d'événement",
+  "memberUnsubscribe": "Ne plus recevoir les modifications d'événement de cet agenda",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

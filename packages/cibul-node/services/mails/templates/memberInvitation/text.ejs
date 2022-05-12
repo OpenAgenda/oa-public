@@ -1,15 +1,15 @@
 <%- __(
   isMember
     ? 'subjectForExistingMember'
-    : 'subject', { agenda, role: __( role ), roleVerb: __( role + 'Verb' ) }
+    : 'subject', { agenda, role: __(role), roleVerb: __(role + 'Verb') }
 ) %>:
 
 <%- typeof message === 'string'
-  ? stripHtml( message )
+  ? stripHtml(message)
   : '' %>
 
-<%- __( isMember ? 'memberAction' : 'signup', { role } ) %>: <%- link %>
+<%- __(isMember ? 'memberAction' : 'signup', { role }) %>: <%- link %>
 
-<%- __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>: <%- unsubscribeLink %>
-<% if ( isRegisteredUser ) { %><%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %><% } %>
+<%- __(isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest') %>: <%- unsubscribeLink %>
+<% if (isRegisteredUser) { %><%- __('changeEmailSettings') %>: <%- emailSettingsLink %><% } %>
 

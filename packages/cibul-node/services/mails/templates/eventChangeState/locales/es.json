@@ -1,0 +1,12 @@
+{
+  "subject": " {agenda} : {event} ha cambiado de estado",
+  "title": "El evento <b>{event}</b> ha pasado de <b>{beforeState}</b> a <b>{afterState}</b> en la agenda <b>{agenda}</b>.",
+  "actionDescription": "Ver evento",
+  "tocontrol": "al control",
+  "controlled": "listo para su publicación",
+  "published": "publicado",
+  "refused": "rechazado",
+  "unsubscribe": "Ya no recibir cambios de estado de evento a \"{afterState, seleccionar, se negó} {negado tocontrol {controlador}} a {controlada listo para publicar publicadas publicada {}}\"",
+  "memberUnsubscribe": "Ya no recibir los cambios de estado de eventos para este agenda \"{afterState, seleccionar, se negó} {negado tocontrol {controlador}} a {controlada listo para publicar publicadas publicada {}}\"",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+}

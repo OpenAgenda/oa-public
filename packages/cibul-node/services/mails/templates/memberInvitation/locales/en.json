@@ -1,0 +1,16 @@
+{
+  "subject": "You have been invited to {roleVerb} \"{agenda}\"",
+  "contributorVerb": "contribute to",
+  "moderatorVerb": "moderate",
+  "administratorVerb": "administrate",
+  "subjectForExistingMember": "You have become {role} of \"{agenda}\"",
+  "signup": "Sign up",
+  "memberAction": "{role, select, administrator {Manage the agenda} moderator {Moderate events} contributor {Contribute to the agenda} reader {See the agenda}}",
+  "administrator": "administrator",
+  "moderator": "moderator",
+  "contributor": "contributor",
+  "reader": "reader",
+  "unsubscribe": "Stop receiving invitations",
+  "unsubscribeGuest": "Stop receiving emails from OpenAgenda",
+  "changeEmailSettings": "Change my email sending settings"
+}

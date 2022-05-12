@@ -1,19 +1,19 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __( 'title' ) %></mj-title>
-    <mj-preview><%= __( 'title' ) %></mj-preview>
+    <mj-title><%= __('title') %></mj-title>
+    <mj-preview><%= __('title') %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title"><%= __( 'title' ) %></h1>
-          <%- _.escape( __( 'description' ) ).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+          <h1 class="title"><%= __('title') %></h1>
+          <%- _.escape(__('description')).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
         </mj-text>
 
         <mj-button
@@ -22,11 +22,11 @@
           align="center"
           href="<%= resetLink %>"
         >
-          <%= __( 'actionDescription' ) %>
+          <%= __('actionDescription') %>
         </mj-button>
       </mj-column>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

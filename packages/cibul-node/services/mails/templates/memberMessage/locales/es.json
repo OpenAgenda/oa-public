@@ -1,0 +1,8 @@
+{
+  "title": "El agenda {agenda} escribió un mensaje",
+  "actionDescription": "Ver la agenda",
+  "unsubscribe": "Dejar de recibir mensajes desde el \"escribir su\"",
+  "unsubscribeGuest": "Dejar de recibir correos electrónicos de OpenAgenda",
+  "memberUnsubscribe": "Dejar de recibir mensajes de la \"Ellos escriben\" esta agenda",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+}

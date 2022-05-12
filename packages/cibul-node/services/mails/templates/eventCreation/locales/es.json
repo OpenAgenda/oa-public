@@ -1,0 +1,12 @@
+{
+  "title": "Nuevo evento en el {agenda}:{event}",
+  "body": "<b>{event}</b> fue creado en la agenda <b>{agenda}</b> con el estado <b>{state}</b>.",
+  "actionDescription": "Ver evento",
+  "tocontrol": "al control",
+  "controlled": "listo para su publicación",
+  "published": "publicado",
+  "refused": "rechazado",
+  "unsubscribe": "Ya no recibirá creaciones de eventos",
+  "memberUnsubscribe": "Optar por esta creación evento del agenda",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+}

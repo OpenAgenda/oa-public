@@ -1,0 +1,12 @@
+{
+  "subject": "OpenAgenda | Nouveau message",
+  "subjectWithAgenda": "OpenAgenda | {agenda} | Nouveau message",
+  "title": "Vous avez reçu un nouveau message.",
+  "titleWithAgenda": "Vous avez reçu un nouveau message sur la messagerie de l'agenda {agenda}.",
+  "actionDescription": "Voir l'agenda",
+  "sentBy": "Envoyé par <b>{senderName}</b>",
+  "reply": "Répondre",
+  "unsubscribe": "Ne plus recevoir les messages {agenda, select, null {de ma messagerie} other {des messageries des agendas}}",
+  "memberUnsubscribe": "Ne plus recevoir les messages de la messagerie de cet agenda",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

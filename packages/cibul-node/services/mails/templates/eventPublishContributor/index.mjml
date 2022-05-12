@@ -1,26 +1,26 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __( 'title', { agenda: agendaTitle, event: eventTitle } ) %></mj-title>
+    <mj-title><%= __('title', { agenda: agendaTitle, event: eventTitle }) %></mj-title>
     <mj-preview>
-      <%= typeof message !== 'undefined' ? message : __( 'title', { agenda: agendaTitle, event: eventTitle } ) %>
+      <%= typeof message !== 'undefined' ? message : __('title', { agenda: agendaTitle, event: eventTitle }) %>
     </mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title"><%= __( 'title', { agenda: agendaTitle, event: eventTitle } ) %></h1>
+          <h1 class="title"><%= __('title', { agenda: agendaTitle, event: eventTitle }) %></h1>
         </mj-text>
 
-        <% if ( typeof message !== 'undefined' ) { %>
-        <mj-markdown padding-top="0">
-          <%- message %>
-        </mj-markdown>
+        <% if (typeof message !== 'undefined') { %>
+          <mj-markdown padding-top="0">
+            <%- message %>
+          </mj-markdown>
         <% } %>
 
         <mj-button
@@ -29,11 +29,11 @@
           align="center"
           href="<%= link %>"
         >
-          <%= __( 'actionDescription' ) %>
+          <%= __('actionDescription') %>
         </mj-button>
       </mj-column>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

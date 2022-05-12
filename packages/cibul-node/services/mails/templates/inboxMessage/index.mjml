@@ -1,26 +1,26 @@
 <mjml>
   <mj-head>
-    <mj-title><%= agenda ? __( 'titleWithAgenda', { agenda } ) : __( 'title' ) %></mj-title>
+    <mj-title><%= agenda ? __('titleWithAgenda', { agenda }) : __('title') %></mj-title>
     <mj-preview><%= message %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title"><%= agenda ? __( 'titleWithAgenda', { agenda } ) : __( 'title' ) %></h1>
+          <h1 class="title"><%= agenda ? __('titleWithAgenda', { agenda }) : __('title') %></h1>
         </mj-text>
 
         <mj-markdown><%- message %></mj-markdown>
 
-        <% if ( typeof senderName !== 'undefined' ) { %>
-          <mj-markdown padding-top="0" font-style="italic" align="right">
-            <%- __( 'sentBy', { senderName } ) %>
-          </mj-markdown>
+        <% if (typeof senderName !== 'undefined') { %>
+          <mj-text padding-top="0" font-style="italic" align="right">
+            <%- __('sentBy', { senderName: _.escape(senderName), b: chunks => `<b>${chunks}</b>` }) %>
+          </mj-text>
         <% } %>
 
         <mj-button
@@ -29,11 +29,11 @@
           align="center"
           href="<%= link %>"
         >
-          <%= __( 'reply' ) %>
+          <%= __('reply') %>
         </mj-button>
       </mj-column>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

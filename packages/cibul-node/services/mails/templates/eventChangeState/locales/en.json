@@ -1,0 +1,12 @@
+{
+  "subject": "{agenda}: {event} changed status",
+  "title": "The event <b>{event}</b> changed from <b>{beforeState}</b> status to <b>{afterState}</b> status on the agenda <b>{agenda}</b>.",
+  "actionDescription": "See the event",
+  "tocontrol": "to be controlled",
+  "controlled": "ready to publish",
+  "published": "published",
+  "refused": "refused",
+  "unsubscribe": "Stop receiving event state changes to \"{afterState}\"",
+  "memberUnsubscribe": "Stop receiving event state changes to \"{afterState}\" on this agenda",
+  "changeEmailSettings": "Change my email sending settings"
+}
