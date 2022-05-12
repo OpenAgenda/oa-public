@@ -1,7 +1,7 @@
 'use strict';
 
 const { createIntl, createIntlCache } = require('@formatjs/intl');
-const { mergeLocales } = require('@openagenda/intl');
+const { mergeLocales, getFallbackedMessages, getSupportedLocale } = require('@openagenda/intl');
 const filtersLocales = require('@openagenda/react-filters/lib/locales');
 
 function createIntlByLocale(path) {
@@ -9,15 +9,23 @@ function createIntlByLocale(path) {
 
   // eslint-disable-next-line global-require,import/no-dynamic-require
   const userLocales = require(path);
-  const locales = mergeLocales(filtersLocales, userLocales);
+  const locales = getFallbackedMessages(mergeLocales(filtersLocales, userLocales));
 
   return Object.entries(locales)
     .reduce((byLocale, [locale, localeMessages]) => {
-      if (locale === 'io' || locale === 'oc') {
+      if (locale === 'io') {
         return byLocale;
       }
 
-      byLocale[locale] = createIntl({ messages: localeMessages, locale }, cache);
+      try {
+        byLocale[locale] = createIntl({
+          locale,
+          messages: localeMessages,
+          defaultLocale: getSupportedLocale(locale)
+        }, cache);
+      } catch (e) {
+        console.log(e);
+      }
 
       return byLocale;
     }, {});

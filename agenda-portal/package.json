@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.4.2",
+  "version": "6.4.3",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
@@ -53,7 +53,7 @@
     "@openagenda/intl": "^1.0.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/polyfills": "^1.2.4",
-    "@openagenda/react-filters": "^2.8.1",
+    "@openagenda/react-filters": "^2.8.2",
     "@openagenda/react-portal-ssr": "^1.0.0",
     "@openagenda/react-shared": "^2.3.2",
     "axios": "^0.21.1",
