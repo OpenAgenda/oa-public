@@ -100,6 +100,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       'location.name',
       'location.adminLevel3',
       'location.adminLevel5',
+      'location.district',
       'description',
       'keywords',
       'member',
@@ -145,7 +146,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       ar: '١٨ و ١٩ يناير ٢٠٢٠ ',
       en: '18 and 19 January 2020',
       de: '18 und 19 Januar 2020',
-      es: '18 and 19 January 2020'
+      es: '18 i 19 enero 2020'
     });
   });
 
@@ -155,7 +156,8 @@ describe('11 - event-search - unit: formatEvent', function() {
       fr: 'France (Métropole)',
       de: 'Frankreich (Metropolitan)',
       es: 'Francia (Metropolitana)',
-      it: 'Francia (continente)'
+      it: 'Francia (continente)',
+      oc: 'França (Metropolitana)'
     });
   });
 
@@ -165,7 +167,7 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('_search_full_address_text key contains a strict with address-specific information', () => {
     formatted['_search_full_address_text']
-      .should.equal('8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente)');
+      .should.equal('8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) França (Metropolitana)');
   });
 
   it('_search_location contains coords', () => {

@@ -1,6 +1,9 @@
 'use strict';
 
 const { produce } = require('immer');
+const {
+  BadRequest
+} = require('@openagenda/verror');
 
 module.exports = produce((query = {}) => {
   try {
@@ -18,7 +21,13 @@ module.exports = produce((query = {}) => {
   }
 
   if (Array.isArray(query.uid)) {
-    query.uid = query.uid.map(uid => uid === '' ? -1 : uid)
+    query.uid = query.uid.map(uid => uid === '' ? -1 : uid);
+  } else if (query.uid instanceof Object) {
+    try {
+      query.uid = Object.values(query.uid).map(uid => parseInt(uid, 10));
+    } catch (e) {
+      throw new Error('uids provided are invalid');
+    }
   }
 
   try {

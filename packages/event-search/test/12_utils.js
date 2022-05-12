@@ -247,7 +247,16 @@ describe('event-search - unit: utils', function() {
       assert.deepEqual(preCleanRawQuery({
         uid: ['']
       }), { uid: [-1] });
-    })
+    });
+
+    it('converts object of uids into list', () => {
+      assert.deepEqual(preCleanRawQuery({
+        uid: {
+          '0': '456',
+          '1': '789'
+        }
+      }), { uid: [456, 789] });
+    });
 
     it('replaces date with timings', () => {
       assert.deepEqual(preCleanRawQuery({
