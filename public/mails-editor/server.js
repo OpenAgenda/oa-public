@@ -34,8 +34,16 @@ function recursiveListPaths(base, type, filters) {
   return new Promise(resolve => walker.on('end', () => resolve(paths)));
 }
 
-function getLangsFromLabels(labels) {
-  return _.uniq(_.flatten(_.map(labels, _.keys)));
+function getLangsFromTemplateDir(templateDir) {
+  const localesDir = path.join(templateDir, 'locales');
+
+  if (fs.existsSync(localesDir)) {
+    return fs.readdirSync(localesDir)
+      .map(v => path.parse(v).name)
+      .filter(lang => lang !== 'io');
+  }
+
+  return [];
 }
 
 function renderLangsList(langs, query) {
@@ -150,21 +158,14 @@ app.get(/.mjml$/, async (req, res, next) => {
 
   Object.assign(data, mails.config.defaults.data);
 
-  const labels = data.$labels || {};
-  const langs = getLangsFromLabels(labels);
+  const langs = getLangsFromTemplateDir(templateDir);
   const lang = req.query.lang || mails.config.defaults.lang || langs[0];
-  const __ = (
-    data.$makeLabelGetter || mails.config.translations.makeLabelGetter
-  )(labels, lang);
 
   let html;
   let text;
   let subject;
   try {
-    ({ html, text, subject } = await mails.render(templateName, data, {
-      lang,
-      __,
-    }));
+    ({ html, text, subject } = await mails.render(templateName, data, { lang }));
   } catch (error) {
     return next(error);
   }
@@ -202,8 +203,11 @@ app.get(/.mjml$/, async (req, res, next) => {
     .replace(/\n/g, ' ');
 
   const initialHtml = [
-    '<html>',
-    '<head><title>Mails Editor 🎉</title></head>',
+    '<html lang="en" class="notranslate" translate="no">',
+    '<head>',
+    '  <title>Mails Editor 🎉</title>',
+    '  <meta name="google" content="notranslate" />',
+    '</head>',
     '<body style="margin: 0">',
     '<script>',
     '  function resizeIframe(obj) {',
