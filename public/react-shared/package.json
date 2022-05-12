@@ -43,7 +43,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@emotion/react": "^11.1.5",
-    "@openagenda/intl": "^1.0.0",
+    "@openagenda/intl": "^1.1.0",
     "axios": "^0.21.1",
     "bytes": "^3.1.0",
     "classnames": "^2.3.1",
