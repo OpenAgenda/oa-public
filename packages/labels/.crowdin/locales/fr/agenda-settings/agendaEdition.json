@@ -73,6 +73,8 @@
   "contributorsMessages": "Messages aux contributeurs",
   "consigne": "Consigne de saisie",
   "consigneSubLabel": "La consigne s'affiche au début du formulaire de saisie d'événement",
+  "GDPRInformation": "Information relative à l'utilisation des données personnelles des membres",
+  "GDPRInformationSubLabel": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
   "contributionMessageComplete": "Message de fin de contribution",
   "contributionMessageCompleteSubLabel": "S'affiche lorsque le contributeur a soumi sa contribution",
   "contributionMessagePublication": "Message de publication",

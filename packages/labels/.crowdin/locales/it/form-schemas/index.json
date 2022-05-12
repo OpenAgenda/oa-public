@@ -4,7 +4,7 @@
   "submit": "Invia",
   "help": "Aiuto",
   "noChoice": "Nessuna scelta",
-  "cancel": "Annulla",
   "noOption": "Nessuna corrispondenza",
-  "selectPlaceholder": "Seleziona..."
+  "selectPlaceholder": "Seleziona...",
+  "cancel": "Annulla"
 }

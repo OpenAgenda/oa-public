@@ -20,6 +20,9 @@
   "removeConfirmMessage": "Sei sicuro di voler rimuovere questo utente dall'iscrizione?",
   "removeModalError": "Non è possibile cancellare questo membro.",
   "editProfile": "Modifica profilo",
+  "changeRole": "Modificare il ruolo",
+  "operationSuccessful": "Fatto",
+  "patchSuccessConfirm": "Il membro è statto aggiornato",
   "inviteMembers": "Invitare i membri",
   "invite": "Invitare",
   "inviteMembersPlaceholder": "Incolla qui gli indirizzi e-mail dei nuovi membri, separati da virgole",
@@ -78,9 +81,6 @@
   "order.name": "nome",
   "order.activity": "attività",
   "orderSort": "Ordina ordine",
-  "changeRole": "Modificare il ruolo",
-  "operationSuccessful": "Fatto",
-  "patchSuccessConfirm": "Il membro è statto aggiornato",
   "sortBy": "Ordinato per",
   "removeFilter": "Rimuovere il filtro"
 }

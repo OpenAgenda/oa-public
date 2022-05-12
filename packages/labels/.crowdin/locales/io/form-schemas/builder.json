@@ -47,6 +47,8 @@
   "selectFieldTypeInfo": "crwdns14764:0crwdne14764:0",
   "booleanFieldType": "crwdns14766:0crwdne14766:0",
   "booleanFieldTypeInfo": "crwdns14768:0crwdne14768:0",
+  "dateFieldType": "crwdns16462:0crwdne16462:0",
+  "dateFieldTypeInfo": "crwdns16464:0crwdne16464:0",
   "imageFieldType": "crwdns14770:0crwdne14770:0",
   "unknownFieldType": "crwdns14772:0crwdne14772:0",
   "languagesFieldType": "crwdns14774:0crwdne14774:0",
@@ -85,7 +87,5 @@
   "emptyOptions": "crwdns14840:0crwdne14840:0",
   "optionDuplicateError": "crwdns14842:0crwdne14842:0",
   "optionEmptyError": "crwdns14844:0crwdne14844:0",
-  "requiredError": "crwdns14846:0crwdne14846:0",
-  "dateFieldType": "crwdns16462:0crwdne16462:0",
-  "dateFieldTypeInfo": "crwdns16464:0crwdne16464:0"
+  "requiredError": "crwdns14846:0crwdne14846:0"
 }

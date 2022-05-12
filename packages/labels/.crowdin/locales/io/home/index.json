@@ -1,6 +1,11 @@
 {
   "myAgendas": "crwdns14900:0crwdne14900:0",
   "createAgenda": "crwdns14902:0crwdne14902:0",
+  "editMember": "crwdns16468:0crwdne16468:0",
+  "editMemberInformation": "crwdns16470:0crwdne16470:0",
+  "otherActions": "crwdns16472:0crwdne16472:0",
+  "removeMember": "crwdns16474:0crwdne16474:0",
+  "removeMemberInformation": "crwdns16476:0crwdne16476:0",
   "searchAgenda": "crwdns14904:0crwdne14904:0",
   "myEvents": "crwdns14906:0crwdne14906:0",
   "messages": "crwdns14908:0crwdne14908:0",
@@ -29,10 +34,5 @@
   "noLocation": "crwdns14954:0crwdne14954:0",
   "noEventsCreated": "crwdns14956:0crwdne14956:0",
   "show": "crwdns14958:0crwdne14958:0",
-  "seeMore": "crwdns14960:0crwdne14960:0",
-  "editMember": "crwdns16468:0crwdne16468:0",
-  "editMemberInformation": "crwdns16470:0crwdne16470:0",
-  "otherActions": "crwdns16472:0crwdne16472:0",
-  "removeMember": "crwdns16474:0crwdne16474:0",
-  "removeMemberInformation": "crwdns16476:0crwdne16476:0"
+  "seeMore": "crwdns14960:0crwdne14960:0"
 }

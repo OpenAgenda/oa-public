@@ -20,8 +20,8 @@
   "requestEditionRights": "crwdns11542:0crwdne11542:0",
   "onlyAdditionalFieldsCanBeEditedInfo": "crwdns11544:0%agenda%crwdne11544:0",
   "requestEditionRightsInfo": "crwdns11546:0crwdne11546:0",
-  "close": "crwdns11548:0crwdne11548:0",
   "shareRestrictionInfo": "crwdns16418:0%event%crwdnd16418:0%agenda%crwdne16418:0",
   "suggestChange": "crwdns16420:0crwdne16420:0",
-  "cancelShare": "crwdns16422:0crwdne16422:0"
+  "cancelShare": "crwdns16422:0crwdne16422:0",
+  "close": "crwdns11548:0crwdne11548:0"
 }
