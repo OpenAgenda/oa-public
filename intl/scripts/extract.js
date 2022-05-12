@@ -5,6 +5,7 @@ const path = require('path');
 const _ = require('lodash');
 const glob = require('glob');
 const { extract } = require('@formatjs/cli');
+const { DEFAULT_LANG, DEFAULT_LANGS } = require('../lib/constants');
 const getMessages = require('./utils/getMessages');
 const createIndex = require('./utils/createIndex');
 const inputToOuputPath = require('./utils/inputToOuputPath');
@@ -136,11 +137,11 @@ module.exports.builder = yargs => {
         + ' `.json` file per lang of all the translations from the `files` supplied.',
     },
     defaultLang: {
-      default: 'en',
+      default: DEFAULT_LANG,
       desc: 'Default language, the one that is filled in for the default messages in the files.',
     },
     langs: {
-      default: 'en,fr,de,it,es,br,ca,eu,oc,io',
+      default: DEFAULT_LANGS.join(','),
       coerce: arg => arg.split(','),
       desc: 'The target languages of the translations.',
     },
