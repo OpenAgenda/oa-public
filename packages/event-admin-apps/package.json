@@ -37,7 +37,7 @@
     "@openagenda/agenda-docx": "^1.2.1",
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/event-search": "^2.8.0",
-    "@openagenda/intl": "^1.1.0",
+    "@openagenda/intl": "^1.1.1",
     "@openagenda/react-filters": "^2.8.2",
     "@openagenda/react-share-menus": "^1.0.0",
     "@openagenda/react-shared": "^2.3.2",
