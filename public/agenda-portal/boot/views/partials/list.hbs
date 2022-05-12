@@ -3,11 +3,13 @@
   <div class="col-6 col-md-4 mb-4 text-right">{{>exports}}</div>
 </div>
 
-<ul class="list-unstyled js_progressive_load_disabled">
-  {{#each events}}
-  <li>{{>event.item}}</li>
-  {{/each}}
-</ul>
+<main role="main">
+  <ul class="list-unstyled js_progressive_load_disabled">
+    {{#each events}}
+    <li>{{>event.item}}</li>
+    {{/each}}
+  </ul>
+</main>
 
 <div class="row my-4">
   <div class="offset-md-2 col-md-8">{{>pagination}}</div>
