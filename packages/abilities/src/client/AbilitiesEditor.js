@@ -6,6 +6,7 @@ import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';
@@ -156,7 +157,12 @@ export default class AbilitiesEditor extends Component {
     const messages = locales[locale] || locales.en;
 
     return (
-      <IntlProvider locale={locale} key={locale} messages={messages}>
+      <IntlProvider
+        key={locale}
+        locale={locale}
+        messages={messages}
+        defaultLocale={getSupportedLocale(locale)}
+      >
         {this.renderContent()}
       </IntlProvider>
     );

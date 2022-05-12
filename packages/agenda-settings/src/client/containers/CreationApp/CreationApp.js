@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { css } from '@emotion/react';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import labels from '@openagenda/labels/agenda-settings/agendaCreation';
 import locales from '../../../locales-compiled';
 import * as agendaActions from '../../reducers/agenda';
@@ -19,7 +20,12 @@ function CreationApp({ route }) {
   }), [lang]);
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <I18nContext.Provider value={i18nContextValue}>
         <div
           className="page"

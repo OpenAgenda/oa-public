@@ -5,6 +5,7 @@ import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { css } from '@emotion/react';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition';
 import locales from '../../../locales-compiled';
@@ -25,7 +26,12 @@ function EditionApp({ route }) {
   const loading = useSelector(state => state.agenda.loading);
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <I18nContext.Provider value={i18nContextValue}>
         <div
           className="agenda-settings-edit"

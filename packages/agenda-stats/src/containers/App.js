@@ -5,7 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import statsReducer from '../reducers/stats';
 import appLocales from '../locales-compiled';
@@ -25,7 +25,12 @@ function App({ route }) {
   );
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <QueryClientProvider client={queryClient}>
         <div className="agenda-stats">{renderRoutes(route.routes)}</div>
         <ReactQueryDevtools initialIsOpen={false} />

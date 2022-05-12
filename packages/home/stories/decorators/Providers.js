@@ -1,9 +1,9 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useConstant } from '@openagenda/react-shared';
 import { IntlProvider } from 'react-intl';
-
+import { useConstant } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
 
 const lang = 'fr';
@@ -20,7 +20,12 @@ export default Story => {
   );
 
   return (
-    <IntlProvider messages={memberAppsLocals[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={memberAppsLocals[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <QueryClientProvider client={queryClient}>
         <HelmetProvider>
           <Story />

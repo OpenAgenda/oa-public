@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { matchRoutes } from 'react-router-config';
 import { useHistory, useLocation } from 'react-router-dom';
+import { getSupportedLocale } from '@openagenda/intl';
 import shallowEqual from 'shallowequal';
 import qs from 'qs';
 import locales from './locales-compiled';
@@ -113,10 +114,10 @@ function Layout({ firstOnly = true, apps, ...props }) {
 
   return (
     <IntlProvider
+      key={i18n.locale}
       messages={i18n.messages}
       locale={i18n.locale}
-      defaultLocale="en"
-      otherKey={i18n.locale}
+      defaultLocale={getSupportedLocale(i18n.locale)}
     >
       {layouts.map(layoutProps => (
         <AppsDisplayer

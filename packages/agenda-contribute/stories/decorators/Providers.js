@@ -3,7 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { IntlProvider } from 'react-intl';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useConstant } from '@openagenda/react-shared';
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 
 import { locales as memberLocales } from '@openagenda/member-apps';
 import appLocales from '../../src/locales-compiled';
@@ -24,7 +24,12 @@ export default Story => {
   );
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <QueryClientProvider client={queryClient}>
         <HelmetProvider>
           <Story />

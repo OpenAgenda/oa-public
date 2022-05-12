@@ -2,6 +2,7 @@ import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router';
+import { getSupportedLocale } from '@openagenda/intl';
 import { useConstant } from '@openagenda/react-shared';
 import { IntlProvider } from 'react-intl';
 
@@ -22,7 +23,12 @@ export default Story => {
 
   return (
     <MemoryRouter>
-      <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
         <QueryClientProvider client={queryClient}>
           <HelmetProvider>
             <Story />
