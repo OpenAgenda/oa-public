@@ -30,7 +30,7 @@
     "@babel/runtime-corejs3": "^7.13.17",
     "@emotion/react": "^11.1.5",
     "@openagenda/form-schemas": "^1.9.2",
-    "@openagenda/intl": "^1.0.0",
+    "@openagenda/intl": "^1.1.0",
     "@openagenda/react-shared": "^2.3.2",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",

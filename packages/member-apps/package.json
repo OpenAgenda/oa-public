@@ -32,7 +32,7 @@
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/dom-utils": "^2.2.12",
     "@openagenda/form-schemas": "^1.9.2",
-    "@openagenda/intl": "^1.0.0",
+    "@openagenda/intl": "^1.1.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/members": "^1.15.13",
     "@openagenda/react-form-components": "^2.1.14",

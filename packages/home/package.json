@@ -28,7 +28,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/bs-templates": "^2.5.0",
-    "@openagenda/intl": "^1.0.0",
+    "@openagenda/intl": "^1.1.0",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/member-apps": "^2.1.1",
     "@openagenda/react-shared": "^2.3.2",

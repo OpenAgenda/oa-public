@@ -31,7 +31,7 @@
     "@openagenda/event-admin-apps": "^0.0.0",
     "@openagenda/home": "^2.2.1",
     "@openagenda/inbox-apps": "^1.2.1",
-    "@openagenda/intl": "^1.0.0",
+    "@openagenda/intl": "^1.1.0",
     "@openagenda/legacy": "^1.11.0",
     "@openagenda/member-apps": "^2.1.1",
     "@openagenda/polyfills": "^1.2.4",
