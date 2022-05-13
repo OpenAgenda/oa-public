@@ -7,6 +7,7 @@ const cloudimage = require('./cloudimage');
 const I18N = require('./I18N');
 const loadEnvironment = require('./loadEnvironment');
 const imageToUrl = require('./imageToUrl');
+const decorateOptionedFieldValues = require('./decorateOptionedFieldValues');
 
 module.exports = {
   decorateTimings,
@@ -15,5 +16,6 @@ module.exports = {
   spreadRegistration,
   loadEnvironment,
   I18N,
-  imageToUrl
+  imageToUrl,
+  decorateOptionedFieldValues
 };
