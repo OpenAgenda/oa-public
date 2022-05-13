@@ -769,15 +769,13 @@ $passive-color: #d5dce0;
   display: none;
 }
 
-.rdrDayEndOfWeek,
-.rdrDayEndOfMonth {
+.rdrDayEndOfWeek {
   border-top-right-radius: 1.333em;
   border-bottom-right-radius: 1.333em;
   right: 2px;
 }
 
-.rdrDayStartOfWeek,
-.rdrDayStartOfMonth {
+.rdrDayStartOfWeek {
   border-top-left-radius: 1.333em;
   border-bottom-left-radius: 1.333em;
   left: 2px;
