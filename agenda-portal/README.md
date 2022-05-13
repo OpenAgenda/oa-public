@@ -188,6 +188,7 @@ A set of ready-to-use utilities is available through the module `@openagenda/age
  * `markdownToHTML`: returns html content corresponding to the provided markdown
  * `spreadRegistration`: spreads registration values to specified keys according to their types
  * `cloudimage`: generates cloud image links for event images given cloudimage options
+ * `decorateOptionedFieldValues`: replaces basic ids with { label, id, link } objects
 
 #### utils - decorateTimings
 
@@ -248,6 +249,16 @@ event.anotherImage = cloudimage(BASECILINK, { width: 400, grey: 1 } /* cloudimag
 
 For details on possible options, refer to the cloudimage documentation [here](https://docs.cloudimage.io/go/cloudimage-documentation-v7/en/introduction). Options passed to the utility are integrated into the image link.
 
+#### utils - decorateOptionedFieldValues
+
+Use in the event hook.
+
+Useful for agendas with optioned additional fields. By default, an additional field value is the id(s) of the option(s) selected for the evaluated event. Often, the need in templates is to display the corresponding label and provide  a link allowing the user to limit results to all events matching that id.
+
+Provide the event, the agenda configuration and the preferred languages as parameters as such:
+```
+const decoratedEvent = decorateOptionedFieldValues(event, { agenda, lang });
+```
 
 
 ### Navigation and filters

@@ -15,7 +15,11 @@ module.exports = function decorateOptionedFieldsWithLabels(event, { agenda, lang
     .reduce((accu, fieldSchema) => {
       if (!event[fieldSchema.field]) return accu;
       accu[fieldSchema.field] = [].concat(event[fieldSchema.field])
-        .map(id => optionToLabel(fieldSchema.options, id, lang));
+        .map(id => ({
+          label: optionToLabel(fieldSchema.options, id, lang),
+          link: `/?${fieldSchema.field}=${id}`,
+          id
+        }));
       return accu;
     }, {});
 
