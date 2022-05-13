@@ -10,7 +10,6 @@
   "undraft": "Registrare l’evento",
   "addEvent": "Aggiungere un evento ",
   "editDraftTitle": "Bozza",
-  "close": "Chiudere",
   "fromAgenda": "dall'agenda",
   "toAgenda": "fino all'agenda",
   "confirmAdd": "Aggiungere un evento",
@@ -21,5 +20,6 @@
   "requestEditionRightsInfo": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
   "shareRestrictionInfo": "Le seguenti questioni devono essere affrontate per permettere di rendere l'evento \"%event%\" condivisibile sull'agenda \"%agenda%\"",
   "suggestChange": "Suggerisci un cambiamento",
-  "cancelShare": "Cancellare la condivisione"
+  "cancelShare": "Cancellare la condivisione",
+  "close": "Chiudere"
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
+import { getSupportedLocale } from '@openagenda/intl';
 
 const defaultMessages = {
   en: {
@@ -30,7 +31,12 @@ export default function ErrorComponent({
   messages = defaultMessages,
 }) {
   return (
-    <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={messages[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <div className="text-center">
         <h1>
           <FormattedMessage id="oops" defaultMessage="Oops !" />

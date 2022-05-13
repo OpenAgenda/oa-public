@@ -1,0 +1,12 @@
+{
+  "subject": "{agenda}: {event} Zustand geändert",
+  "title": "Die Veranstaltung <b>{event}</b> geändert von <b>{beforeState}</b> Zustand zu <b>{afterState}</b> Zustand auf der Kalender <b>{agenda}</b>.",
+  "actionDescription": "Siehe die Veranstaltung",
+  "tocontrol": "kontrolliert werden",
+  "controlled": "bereit zu veröffentlichen",
+  "published": "veröffentlicht",
+  "refused": "verweigert",
+  "unsubscribe": "Stopp Zustandsänderungen Ihrer Veranstaltungen Empfang",
+  "memberUnsubscribe": "Beenden des Empfangs von Zustandsänderungen Ihrer Veranstaltungen zu diesem Kalenders",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+}

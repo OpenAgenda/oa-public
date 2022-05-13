@@ -4,9 +4,8 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const { diff } = require('deep-diff');
+const { DEFAULT_LANGS } = require('@openagenda/intl');
 const getLabelFiles = require('../getLabelFiles');
-
-const LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'ca', 'oc'];
 
 const labelFiles = getLabelFiles();
 
@@ -16,7 +15,7 @@ for (const labelFile of labelFiles) {
   const result = {};
 
   for (const key in labels) {
-    const missingLangs = new Set(LANGS);
+    const missingLangs = new Set(DEFAULT_LANGS);
 
     for (const lang of Object.keys(labels[key])) {
       if (missingLangs.has(lang)) {
@@ -35,12 +34,6 @@ for (const labelFile of labelFiles) {
         _.set(result, [key, lang], newValue);
       }
     }
-
-    const ioValue = _.get(locales, ['io', key]) || _.get(labels, [key, 'io']);
-
-    if (ioValue) {
-      _.set(result, [key, 'io'], ioValue);
-    }
   }
 
   const rawLabels = fs.readFileSync(path.join(__dirname, '..', labelFile), 'utf-8');
@@ -53,7 +46,7 @@ for (const labelFile of labelFiles) {
 }
 
 function getLocales(root, filePath) {
-  return [...LANGS, 'io'].reduce((accu, lang) => {
+  return DEFAULT_LANGS.reduce((accu, lang) => {
     let locales = {};
 
     try {

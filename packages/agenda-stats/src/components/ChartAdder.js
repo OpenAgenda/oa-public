@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
 import * as statsActions from '../reducers/stats';
+import getDefaultStatConfig from '../common/defaultStatConfigs';
 import BorderBox from './BorderBox';
 import AddChartForm from './AddChartForm';
 
@@ -43,25 +44,20 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
           }
         }
 
+        const defaults = getDefaultStatConfig(aggType, values.type.fieldSchema);
+
         statConfig = {
           aggregation: {
+            ...defaults.aggregation,
             type: aggType,
           },
           chart: {
             width: values.width,
           },
-          state: {},
+          state: {
+            fieldSchema: values.type.fieldSchema,
+          },
         };
-
-        if (isAdditionalField) {
-          statConfig.aggregation.field = values.type.fieldSchema.field;
-          statConfig.state.fieldSchema = values.type.fieldSchema;
-        }
-
-        if (aggType === 'additionalFieldMetrics') {
-          statConfig.chart.type = 'metrics';
-          statConfig.aggregation.metrics = values.metrics;
-        }
       }
 
       // Une promesse ? 🤔

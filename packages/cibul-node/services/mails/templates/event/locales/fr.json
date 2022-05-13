@@ -1,0 +1,9 @@
+{
+  "actionDescription": "Voir l'événement",
+  "timingsDetails": "Détail des dates",
+  "timing": "{from} à {to}",
+  "book": "réserver",
+  "unsubscribe": "Ne plus recevoir les événements par email",
+  "unsubscribeGuest": "Ne plus recevoir les emails d'OpenAgenda",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

@@ -5,7 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Helmet } from 'react-helmet-async';
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import commonLocales from '@openagenda/common-labels';
@@ -36,7 +36,12 @@ function App({ route }) {
   const { lang } = useLayoutData();
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <QueryClientProvider client={queryClient}>
         <Helmet>
           <link

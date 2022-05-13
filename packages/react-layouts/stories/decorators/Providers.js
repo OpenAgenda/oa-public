@@ -7,6 +7,7 @@ import {
   ApiClientContext,
   apiClient,
 } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import appLocales from '../../src/locales-compiled';
 
 const lang = 'fr';
@@ -25,7 +26,12 @@ export default Story => {
   const axios = useConstant(() => apiClient());
 
   return (
-    <IntlProvider messages={appLocales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={appLocales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <ApiClientContext.Provider value={axios}>
         <QueryClientProvider client={queryClient}>
           <HelmetProvider>

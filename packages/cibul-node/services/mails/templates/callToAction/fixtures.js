@@ -1,4 +1,4 @@
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 module.exports = {
   _,
@@ -7,8 +7,8 @@ module.exports = {
   message: 'J\'aimerais que gna gna gna...',
   user: {
     email: 'kevin.bertho@gmail.com',
-    uid: 12345678
+    uid: 12345678,
   },
   url: 'https://openagenda.com/mon-agenda',
-  agenda: 'Mon agenda'
+  agenda: 'Mon agenda',
 };

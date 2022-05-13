@@ -73,6 +73,8 @@
   "contributorsMessages": "Messages to contributors",
   "consigne": "Event form instructions",
   "consigneSubLabel": "The guideline appears at the beginning of the event entry form",
+  "GDPRInformation": "Usage of member's personal information",
+  "GDPRInformationSubLabel": "Modify the text presented to members informing them of the usage made of their personal information",
   "contributionMessageComplete": "End of contribution message",
   "contributionMessageCompleteSubLabel": "Appears when the contributor has submitted their contribution",
   "contributionMessagePublication": "Publication message",

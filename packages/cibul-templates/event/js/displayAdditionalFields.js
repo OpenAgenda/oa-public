@@ -1,10 +1,9 @@
-'use strict';
-
 import debug from 'debug';
 import React from 'react';
 import ReactDom from 'react-dom';
 import du from '@openagenda/dom-utils';
 import get from '@openagenda/utils/get';
+import { getSupportedLocale } from '@openagenda/intl';
 import { Portal } from '@openagenda/react-portal-ssr';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import locales from '../../locales-compiled';
@@ -114,7 +113,7 @@ const renderImageField = (field, m) => (<>
   <div className="row">
     <div className="col-xs-12 col-print-6">
       {field.value ? (
-        <img 
+        <img
           className="img-responsive"
           src={field.value.link}
           alt={field.label}
@@ -189,9 +188,14 @@ function displayAdditionalFields({ agendaUid, eventUid, lang }) {
       }
 
       const additionalFields = formatAdditionalFieldData(agendaResponse.schema, eventResponse.event, lang);
-      
+
       ReactDom.render(
-        <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+        <IntlProvider
+          key={lang}
+          locale={lang}
+          messages={locales[lang]}
+          defaultLocale={getSupportedLocale(lang)}
+        >
           <AdditionalFieldsSection
             additionalFields={additionalFields}
             lang={lang}

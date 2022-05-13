@@ -36,7 +36,7 @@ export default function LoadMore({ stat }) {
     loadMore().finally(() => setLoading(false));
   }, [loadMore]);
 
-  if (stat.state.itemsDisplayed >= stat.state.data.length) {
+  if (!stat.state.data || stat.state.itemsDisplayed >= stat.state.data.length) {
     return null;
   }
 

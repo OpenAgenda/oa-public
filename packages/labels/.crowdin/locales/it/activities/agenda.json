@@ -1,4 +1,5 @@
 {
+  "agenda.sendInvitation": "{user} ha invitato {email} come {credential}.",
   "agenda.acceptInvitation": "{user} ha accettato l'invito de {originMember} ha diventare {credential}.",
   "agenda.addMember": "{originMember} ha aggiunto {user} come {credential}.",
   "agenda.removeMember": "{originMember} ha rimosso {user} ({credential}).",
@@ -26,6 +27,5 @@
   "activities": "Attività",
   "next": "Prossimo",
   "noActivity": "L'attività del vostro agenda sarà visibile qui.",
-  "unknownActivity": "Etichetta di attività mancante per {verb}",
-  "agenda.sendInvitation": "{user} ha invitato {email} come {credential}."
+  "unknownActivity": "Etichetta di attività mancante per {verb}"
 }

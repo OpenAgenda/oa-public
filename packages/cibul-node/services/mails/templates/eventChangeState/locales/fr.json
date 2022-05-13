@@ -1,0 +1,12 @@
+{
+  "subject": "{agenda}: {event} a changé de statut",
+  "title": "L'événement <b>{event}</b> est passé du statut <b>{beforeState}</b> au statut <b>{afterState}</b> sur l'agenda <b>{agenda}</b>.",
+  "actionDescription": "Voir l'événement",
+  "tocontrol": "à contrôler",
+  "controlled": "prêt à être publié",
+  "published": "publié",
+  "refused": "refusé",
+  "unsubscribe": "Ne plus recevoir les changements de statut d'événement vers \"{afterState}\"",
+  "memberUnsubscribe": "Ne plus recevoir les changements de statut d'événement de cet agenda vers \"{afterState}\"",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

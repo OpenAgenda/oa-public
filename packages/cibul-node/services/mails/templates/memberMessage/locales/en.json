@@ -1,0 +1,8 @@
+{
+  "title": "The {agenda} agenda has written you a message",
+  "actionDescription": "Show agenda",
+  "unsubscribe": "Stop receiving messages from the \"Write to them\" feature",
+  "unsubscribeGuest": "Stop receiving emails from OpenAgenda",
+  "memberUnsubscribe": "Stop receiving messages from the \"Write to them\" feature of this agenda",
+  "changeEmailSettings": "Change my email sending settings"
+}

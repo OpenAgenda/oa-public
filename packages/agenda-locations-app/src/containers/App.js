@@ -4,6 +4,7 @@ import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 import mergeReducer from '../reducers/merge';
 import onGoingReducer from '../reducers/onGoingModal';
@@ -27,9 +28,10 @@ function App({
 
   return (
     <IntlProvider
-      messages={locales[lang]}
-      locale={lang}
       key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
     >
       <QueryClientProvider client={queryClient}>
         {renderRoutes(route.routes)}

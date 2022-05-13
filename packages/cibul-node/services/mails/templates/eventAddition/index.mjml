@@ -1,28 +1,29 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __( 'title', { agenda, event } ) %></mj-title>
-    <mj-preview><%= __( 'title', { agenda, event } ) %></mj-preview>
+    <mj-title><%= __('title', { agenda, event }) %></mj-title>
+    <mj-preview><%= __('title', { agenda, event }) %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title" align="center"><%= __( 'title', { user, agenda, event } ) %></h1>
+          <h1 class="title" align="center"><%= __('title', { user, agenda, event }) %></h1>
         </mj-text>
 
-        <mj-markdown>
-          <%- __( 'body', {
-            user,
-            event: _.escape( event ),
-            sourceAgenda: _.escape( sourceAgenda ),
-            state: __( state )
-          } ) %>
-        </mj-markdown>
+        <mj-text>
+          <%- __('body', {
+            user: _.escape(user),
+            event: _.escape(event),
+            sourceAgenda: _.escape(sourceAgenda),
+            state: __(state),
+            b: chunks => `<b>${chunks}</b>`
+          }) %>
+        </mj-text>
 
         <mj-button
           background-color="#41acdd"
@@ -30,11 +31,11 @@
           align="center"
           href="<%= link %>"
         >
-          <%= __( 'actionDescription' ) %>
+          <%= __('actionDescription') %>
         </mj-button>
       </mj-column>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

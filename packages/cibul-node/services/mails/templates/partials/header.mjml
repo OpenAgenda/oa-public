@@ -1,23 +1,23 @@
 <mj-section padding="15px 0">
   <mj-column>
-    <% if ( typeof logo === 'object' && logo !== null ) { %>
-    <mj-image
-      css-class="logo"
-      width="<%= logo.width || '300px' %>"
-      src="<%= logo.src %>"
-      href="<%= link %>"
-      padding="0"
-      alt=""
-    />
+    <% if (typeof logo === 'object' && logo !== null) { %>
+      <mj-image
+        css-class="logo"
+        width="<%= logo.width || '300px' %>"
+        src="<%= logo.src %>"
+        href="<%= link %>"
+        padding="0"
+        alt=""
+      />
     <% } else { %>
-    <mj-image
-      css-class="logo"
-      width="300px"
-      src="https://openagenda.com/images/openagenda.png"
-      href="<%= root %>"
-      padding="0"
-      alt=""
-    />
+      <mj-image
+        css-class="logo"
+        width="300px"
+        src="https://openagenda.com/images/openagenda.png"
+        href="<%= root %>"
+        padding="0"
+        alt=""
+      />
     <% } %>
   </mj-column>
 </mj-section>

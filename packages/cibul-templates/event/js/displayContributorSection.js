@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import ReactDom from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { useConstant } from '@openagenda/react-shared';
 import MemberForm from '@openagenda/member-apps/dist/components/Form';
+import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
 
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
 import packageLocales from '../../locales-compiled';
-import { locales as memberAppsLocals } from '@openagenda/member-apps/src';
 
 const locales = mergeLocales(packageLocales, memberAppsLocals);
 
@@ -140,8 +140,13 @@ export default function ContributionCanvas(options) {
   }
 
   ReactDom.render(
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
-        <ContributorSection {...options} />
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
+      <ContributorSection {...options} />
     </IntlProvider>,
     canvasElem
   );

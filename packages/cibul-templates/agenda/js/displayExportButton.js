@@ -1,8 +1,7 @@
 import React, { useImperativeHandle, useEffect, useState } from 'react';
 import qs from 'qs';
 import ReactDom from 'react-dom';
-
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { modalLocales } from '@openagenda/react-share-menus';
 import { ExportModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
@@ -113,7 +112,12 @@ export default function displayExportButton(
   const query = window.location.href;
 
   return ReactDom.render(
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={locales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <ExportModalContainer
         ref={ref}
         controller={controller}

@@ -1,0 +1,12 @@
+{
+  "subject": "{agenda}: {event} cambiato stato",
+  "title": "Il tuo evento <b>{event}</b> è passato dallo stato <b>{beforeState}</b> allo stato <b>{afterState}</b> sull’agenda <b>{agenda}</b>.",
+  "actionDescription": "Visualizza evento",
+  "tocontrol": "verificabile",
+  "controlled": "pronto per la pubblicazione",
+  "published": "pubblicato",
+  "refused": "rifiutato",
+  "unsubscribe": "Interrompere la ricezione dei cambiamenti di stato dei vostri eventi",
+  "memberUnsubscribe": "Interrompere la ricezione delle modifiche allo stato dei vostri eventi su questo calendario",
+  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
+}

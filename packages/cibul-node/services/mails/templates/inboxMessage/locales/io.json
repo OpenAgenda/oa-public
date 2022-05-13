@@ -1,0 +1,12 @@
+{
+  "subject": "crwdns15412:0crwdne15412:0",
+  "subjectWithAgenda": "crwdns15414:0{agenda}crwdne15414:0",
+  "title": "crwdns15416:0crwdne15416:0",
+  "titleWithAgenda": "crwdns15418:0{agenda}crwdne15418:0",
+  "actionDescription": "crwdns15420:0crwdne15420:0",
+  "sentBy": "crwdns15422:0{senderName}crwdne15422:0",
+  "reply": "crwdns15424:0crwdne15424:0",
+  "unsubscribe": "crwdns15426:0agenda={agenda}crwdne15426:0",
+  "memberUnsubscribe": "crwdns15428:0crwdne15428:0",
+  "changeEmailSettings": "crwdns15430:0crwdne15430:0"
+}

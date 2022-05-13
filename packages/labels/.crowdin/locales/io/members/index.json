@@ -20,6 +20,9 @@
   "removeConfirmMessage": "crwdns15636:0crwdne15636:0",
   "removeModalError": "crwdns15638:0crwdne15638:0",
   "editProfile": "crwdns15640:0crwdne15640:0",
+  "changeRole": "crwdns16504:0crwdne16504:0",
+  "operationSuccessful": "crwdns16506:0crwdne16506:0",
+  "patchSuccessConfirm": "crwdns16508:0crwdne16508:0",
   "inviteMembers": "crwdns15642:0crwdne15642:0",
   "invite": "crwdns15644:0crwdne15644:0",
   "inviteMembersPlaceholder": "crwdns15646:0crwdne15646:0",
@@ -78,9 +81,6 @@
   "order.name": "crwdns15752:0crwdne15752:0",
   "order.activity": "crwdns15754:0crwdne15754:0",
   "orderSort": "crwdns15756:0crwdne15756:0",
-  "changeRole": "crwdns16504:0crwdne16504:0",
-  "operationSuccessful": "crwdns16506:0crwdne16506:0",
-  "patchSuccessConfirm": "crwdns16508:0crwdne16508:0",
   "sortBy": "crwdns16148:0crwdne16148:0",
   "removeFilter": "crwdns16150:0crwdne16150:0"
 }

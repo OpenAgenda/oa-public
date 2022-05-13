@@ -1,4 +1,4 @@
-import { defaultStateColors } from './defaultDataColors';
+import { defaultStateColors, defaultBooleanColors } from './defaultDataColors';
 
 const defaultStatConfigs = {
   // Charts
@@ -9,9 +9,9 @@ const defaultStatConfigs = {
     },
     chart: {
       type: 'vertical',
-      loadMore: true,
       dataKey: 'eventCount',
       labelKey: 'key',
+      loadMore: true,
     },
   },
   departments: {
@@ -21,9 +21,9 @@ const defaultStatConfigs = {
     },
     chart: {
       type: 'vertical',
-      loadMore: true,
       dataKey: 'eventCount',
       labelKey: 'key',
+      loadMore: true,
     },
   },
   cities: {
@@ -33,9 +33,9 @@ const defaultStatConfigs = {
     },
     chart: {
       type: 'vertical',
-      loadMore: true,
       dataKey: 'eventCount',
       labelKey: 'key',
+      loadMore: true,
     },
   },
   timings: {
@@ -85,6 +85,7 @@ const defaultStatConfigs = {
       type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'member.name',
+      loadMore: true,
     },
   },
   originAgendas: {
@@ -95,6 +96,7 @@ const defaultStatConfigs = {
       type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'agenda.title',
+      loadMore: true,
     },
   },
   keywords: {
@@ -134,20 +136,29 @@ const defaultStatConfigs = {
   }),
   additionalFields: ({ fieldSchema }) => {
     const isCheckbox = fieldSchema.fieldType === 'checkbox' && fieldSchema.options.length === 1;
+    const isBoolean = fieldSchema.fieldType === 'boolean';
+
+    // eslint-disable-next-line no-nested-ternary
+    const dataColors = isBoolean
+      ? defaultBooleanColors
+      : isCheckbox
+        ? ['#41acdd', '#c6c6c6']
+        : undefined;
 
     return {
       aggregation: {
         type: 'additionalFields',
         field: fieldSchema.field,
-        missing: !isCheckbox ? 'null' : undefined,
+        missing: 'null',
       },
       chart: {
-        type: isCheckbox ? 'pie' : 'vertical',
+        type: isCheckbox || isBoolean ? 'pie' : 'vertical',
         dataKey: 'eventCount',
-        labelKey: 'label',
+        labelKey: isBoolean ? 'key' : 'label',
         restItem: isCheckbox,
-        dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null,
-        loadMore: !isCheckbox,
+        dataColors,
+        loadMore: !(isCheckbox || isBoolean),
+        tooltip: isBoolean ? 'boolean' : undefined,
       },
       state: {
         fieldSchema,

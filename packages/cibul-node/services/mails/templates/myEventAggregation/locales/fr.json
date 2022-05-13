@@ -1,0 +1,13 @@
+{
+  "title": "{agenda} a repris votre événement: {event}",
+  "body": "<b>{event}</b> provenant de l'agenda <b>{sourceAgenda}</b> a été repris avec le statut <b>{state}</b>.",
+  "actionDescription": "Voir l'événement",
+  "tocontrol": "à contrôler",
+  "controlled": "prêt à être publié",
+  "published": "publié",
+  "refused": "refusé",
+  "unsubscribe": "Ne plus recevoir les agrégations de mes événements",
+  "memberUnsubscribe": "Ne plus recevoir les agrégations de mes événements sur cet agenda",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
+  "contactAgenda": "Contacter l'agenda"
+}

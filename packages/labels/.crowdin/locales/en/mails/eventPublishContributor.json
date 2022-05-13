@@ -1,7 +1,0 @@
-{
-  "title": "The agenda %agenda% has published your event %event%",
-  "actionDescription": "Show event",
-  "unsubscribe": "Stop receiving state changes from my events",
-  "memberUnsubscribe": "Stop receiving state changes from my events on this agenda",
-  "changeEmailSettings": "Change my email sending settings"
-}

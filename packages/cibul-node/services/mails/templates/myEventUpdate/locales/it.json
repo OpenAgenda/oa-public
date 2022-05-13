@@ -1,0 +1,12 @@
+{
+  "title": "Il vostro evento {event} è stato modificato su {agenda}.",
+  "body": "Il tuo evento è stato modificato nell'agenda del tuo <b>{event}</b>.",
+  "actionDescription": "Visualizza l'evento",
+  "tocontrol": "verificabile",
+  "controlled": "pronto per la pubblicazione",
+  "published": "pubblicato",
+  "refused": "rifiutato",
+  "unsubscribe": "Non riceverete più conferme dei vostri cambiamenti di evento",
+  "memberUnsubscribe": "Smettete di ricevere conferme dei cambiamenti del vostro evento su questo calendario",
+  "changeEmailSettings": "Modificare le mie impostazioni e-mail"
+}

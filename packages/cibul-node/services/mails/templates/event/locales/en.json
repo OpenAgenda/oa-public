@@ -1,0 +1,9 @@
+{
+  "actionDescription": "Show event",
+  "timingsDetails": "Details of the dates",
+  "timing": "{from} to {to}",
+  "book": "book",
+  "unsubscribe": "Stop receiving events by email",
+  "unsubscribeGuest": "Stop receiving emails from OpenAgenda",
+  "changeEmailSettings": "Change my email sending settings"
+}
