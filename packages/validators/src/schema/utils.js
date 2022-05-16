@@ -28,26 +28,27 @@ function mapValuesToValidators(fields, values, defaults) {
       _extractType(_.get(fields, fieldName)),
       fieldName,
       _.get(fields, fieldName), // options
-      valuesWithDefaults
+      valuesWithDefaults,
+      fields
    ),
-    value: _extractValue(_.get(values, fieldName), values, valuesWithDefaults, fields[fieldName])
+    value: _extractValue(_.get(values, fieldName), values, valuesWithDefaults, fields, fields[fieldName])
   }));
 }
 
 
-function _extractValue(value, values, valuesWithDefaults, fieldOptions = {}) {
+function _extractValue(value, values, valuesWithDefaults, fields, fieldOptions = {}) {
   if (!_.get(fieldOptions, 'enableWith')) {
     return value;
   }
 
-  if (withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults)) {
+  if (withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults, fields)) {
     return value;
   }
 
   return null;
 }
 
-function _makeValidator(type, field, options, values) {
+function _makeValidator(type, field, options, values, fields) {
   const validatorOptions = {
     field,
     ...options
@@ -59,7 +60,7 @@ function _makeValidator(type, field, options, values) {
   
   if (
     validatorOptions.enableWith && 
-    !withFieldValueMatches(validatorOptions, 'enableWith', values)
+    !withFieldValueMatches(validatorOptions, 'enableWith', values, fields)
   ) {
     validatorOptions.optional = true;
   }
@@ -69,7 +70,7 @@ function _makeValidator(type, field, options, values) {
   if (
     optionalIsUndefined &&
     validatorOptions.optionalWith && 
-    !withFieldValueMatches(validatorOptions, 'optionalWith', values)
+    !withFieldValueMatches(validatorOptions, 'optionalWith', values, fields)
   ) {
     validatorOptions.optional = false;
   } else if (

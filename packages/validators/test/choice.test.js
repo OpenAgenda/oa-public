@@ -98,6 +98,27 @@ describe('choice validator', () => {
       expect(clean).toBe(2);
     });
 
+    it('option provided as string when options are integer is cleaned', () => {
+      const validate = validators.choice({
+        options: [2, 4],
+        unique: true
+      });
+
+      const clean = validate('2');
+
+      expect(clean).toBe(2);
+    });
+
+    it('strings can be provided as options', () => {
+      const validate = validators.choice({
+        options: ['two', 'three'],
+      });
+
+      const clean = validate('two');
+
+      expect(clean).toEqual(['two']);
+    });
+
     it('default unique output is undefined by default', () => {
       const validate = validators.choice({
         options: [2, 4],
