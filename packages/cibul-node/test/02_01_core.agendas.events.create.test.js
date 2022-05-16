@@ -448,6 +448,39 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     });
   });
 
+  describe('online event create', () => {
+    let event;
+
+    const memberUserUid = 63170200;
+    const agendaUid = 17026855;
+
+    beforeAll(async () => {
+      event = await core.agendas(agendaUid).events.create({
+        title: {
+          fr: 'Un événement en ligne'
+        },
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        description: { fr: 'Voilà' },
+        timings: [{
+          begin: new Date('2021-05-28T12:00:00+0100'),
+          end: new Date('2021-05-28T14:00:00+0100')
+        }],
+        'categories-agenda-metropolitain': 42,
+      }, {
+        context: {
+          userUid: memberUserUid
+        },
+        detailed: 1,
+        access: 'moderator'
+      });
+    });
+
+    it('online event was created and is online', () => {
+      expect(event.attendanceMode).toBe(2);
+    });
+  });
+
   describe('draft create', () => {
     let event;
 
@@ -789,6 +822,44 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           });
 
         expect(createResponse.body.success).toBe(true);
+      });
+
+      it('create online event', async () => {
+        const onlineEventCreateResponse = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/17026855/events',
+          headers: {
+            'access-token': accessToken,
+            nonce: 39209390,
+            'content-type': 'application/json'
+          },
+          data: {
+            title: {
+              fr: 'Un événement créé par API'
+            },
+            description: {
+              fr: 'Un tout petit événement'
+            },
+            image: {
+              url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+              credits: 'Les crédits'
+            },
+            timings: [{
+              begin: new Date('2019-05-06T10:00:00'),
+              end: new Date('2019-05-06T11:00:00')
+            }],
+            keywords: {
+              fr: ['un', 'deux', 'trois']
+            },
+            attendanceMode: 2,
+            onlineAccessLink: 'https://openagenda.com',
+            'categories-agenda-metropolitain': 42,
+            'thematiques-bordeaux-metropole': [3, 4],
+            accessibility: { sl: true }
+          }
+        }).then(r => r.data);
+
+        expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
       });
 
       it('contributor may not set state through api', async () => {
