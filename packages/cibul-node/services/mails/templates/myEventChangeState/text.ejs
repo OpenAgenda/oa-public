@@ -1,7 +1,7 @@
-<%- __( 'titleText', { agenda, event, beforeState: __( beforeState ), afterState: __( afterState ) } ) %>
+<%- __('title', { agenda, event, beforeState: __(beforeState), afterState: __(afterState), b: chunks => chunks }) %>
 
-<%- __( 'actionDescription' ) %>: <%- link %>
-<% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
-<%- __( 'memberUnsubscribe', locals ) %>: <%- memberUnsubscribeLink %><% } %>
-<%- __( 'unsubscribe', locals ) %>: <%- unsubscribeLink %>
-<%- __( 'changeEmailSettings', locals ) %>: <%- emailSettingsLink %>
+<%- __('actionDescription') %>: <%- link %>
+<% if (typeof memberUnsubscribeLink !== 'undefined') { %>
+  <%- __('memberUnsubscribe') %>: <%- memberUnsubscribeLink %><% } %>
+<%- __('unsubscribe') %>: <%- unsubscribeLink %>
+<%- __('changeEmailSettings') %>: <%- emailSettingsLink %>

@@ -1,28 +1,29 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __( 'title', { agenda, event } ) %></mj-title>
-    <mj-preview><%= __( 'title', { agenda, event } ) %></mj-preview>
+    <mj-title><%= __('title', { agenda, event }) %></mj-title>
+    <mj-preview><%= __('title', { agenda, event }) %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-section>
         <mj-column>
           <mj-text>
-            <h1 class="title"><%= __( 'title', { agenda, event } ) %></h1>
+            <h1 class="title"><%= __('title', { agenda, event }) %></h1>
           </mj-text>
 
-          <mj-markdown>
-            <%- __( 'body', {
-              event: _.escape( event ),
-              sourceAgenda: _.escape( sourceAgenda ),
-              state: __( state )
-            } ) %>
-          </mj-markdown>
+          <mj-text>
+            <%- __('body', {
+              event: _.escape(event),
+              sourceAgenda: _.escape(sourceAgenda),
+              state: __(state),
+              b: chunks => `<b>${chunks}</b>`
+            }) %>
+          </mj-text>
         </mj-column>
       </mj-section>
 
@@ -35,26 +36,26 @@
             align="center"
             href="<%= link %>"
           >
-            <%= __( 'actionDescription' ) %>
+            <%= __('actionDescription') %>
           </mj-button>
         </mj-column>
 
         <% if (typeof contactLink !== 'undefined') { %>
-        <mj-column>
-          <mj-button
-            align="left"
-            background-color="#41acdd"
-            color="white"
-            align="center"
-            href="<%= contactLink %>"
-          >
-            <%= __( 'contactAgenda' ) %>
-          </mj-button>
-        </mj-column>
+          <mj-column>
+            <mj-button
+              align="left"
+              background-color="#41acdd"
+              color="white"
+              align="center"
+              href="<%= contactLink %>"
+            >
+              <%= __('contactAgenda') %>
+            </mj-button>
+          </mj-column>
         <% } %>
       </mj-section>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

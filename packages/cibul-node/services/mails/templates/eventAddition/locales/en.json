@@ -1,0 +1,12 @@
+{
+  "title": "New event added on {agenda}: {event}",
+  "body": "<b>{event}</b> from the agenda <b>{sourceAgenda}</b> has been added with the state <b>{state}</b> by <b>{user}</b>.",
+  "actionDescription": "See the event",
+  "tocontrol": "to be controlled",
+  "controlled": "ready to publish",
+  "published": "published",
+  "refused": "refused",
+  "unsubscribe": "Stop receiving event additions",
+  "memberUnsubscribe": "Stop receiving event additions on this agenda",
+  "changeEmailSettings": "Change my email sending settings"
+}

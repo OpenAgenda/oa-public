@@ -3,11 +3,11 @@
     <mj-title>Demande d'activation: <%= subject %></mj-title>
     <mj-preview><%= message %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-column>
@@ -16,7 +16,7 @@
           User: <%= user && user.email %><%= user && user.uid ? ` (${user.uid})` : '' %><br />
           Url: <%= url %><br />
           Agenda: <%= agenda %>
-          <% if ( message ) { %><br />Message de l'utilisateur:<br />
+          <% if (message) { %><br />Message de l'utilisateur:<br />
           <br />
           <%= message %>
           <% } %>
@@ -24,6 +24,6 @@
       </mj-column>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

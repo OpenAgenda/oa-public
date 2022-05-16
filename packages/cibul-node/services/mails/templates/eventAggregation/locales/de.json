@@ -1,0 +1,12 @@
+{
+  "title": "{agenda} hat ein neues Veranstaltung aggregiert : {event} ",
+  "body": "<b>{event}</b> von der Kalender <b>{sourceAgenda}</b> hat sich mit dem Zustand <b>{state}</b> zusammengefasst.",
+  "actionDescription": "Siehe die Veranstaltung",
+  "tocontrol": "kontrolliert werden",
+  "controlled": "bereit zu veröffentlichen",
+  "published": "veröffentlicht",
+  "refused": "verweigert",
+  "unsubscribe": "Stop-Veranstaltung Aggregationen Empfang",
+  "memberUnsubscribe": "Erhalte keine Nachrichten mehr zu Event-Aggregationen in diesem Veranstaltungskalender.",
+  "changeEmailSettings": "Ändern Sie per E-Mail zu senden Einstellungen"
+}

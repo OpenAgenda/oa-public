@@ -1,9 +1,9 @@
-<%- agenda ? __( 'titleWithAgenda', { agenda } ) : __( 'title' ) %>:
+<%- agenda ? __('titleWithAgenda', { agenda }) : __('title') %>:
 
 <%- message %>
 
-<%- __( 'reply' ) %>: <%- link %>
-<% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
-<%- __( 'memberUnsubscribe', locals ) %>: <%- memberUnsubscribeLink %><% } %>
-<%- __( 'unsubscribe', locals ) %>: <%- unsubscribeLink %>
-<%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %>
+<%- __('reply') %>: <%- link %>
+<% if (typeof memberUnsubscribeLink !== 'undefined') { %>
+  <%- __('memberUnsubscribe') %>: <%- memberUnsubscribeLink %><% } %>
+<%- __('unsubscribe', { agenda }) %>: <%- unsubscribeLink %>
+<%- __('changeEmailSettings') %>: <%- emailSettingsLink %>

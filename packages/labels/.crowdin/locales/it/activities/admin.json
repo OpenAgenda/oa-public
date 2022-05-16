@@ -1,4 +1,5 @@
 {
+  "agenda.sendInvitation": "{user} ha invitato {email} come {credential} su {agenda}.",
   "agenda.acceptInvitation": "{user} ha accettato l'invito de {originMember} ha diventare {credential} su {agenda}.",
   "agenda.addMember": "{originMember} ha aggiunto {user} come {credential} su {agenda}.",
   "agenda.removeMember": "{originMember} ha rimosso {user} ({credential}) de {agenda}.",
@@ -24,6 +25,5 @@
   "event.updateWithLotOfChanges": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} ha cancellato {event} su {agenda}.",
   "noActivity": "Nessuna attività",
-  "unknownActivity": "Etichetta di attività mancante per {verb}",
-  "agenda.sendInvitation": "{user} ha invitato {email} come {credential} su {agenda}."
+  "unknownActivity": "Etichetta di attività mancante per {verb}"
 }

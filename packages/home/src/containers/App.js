@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData, useConstant } from '@openagenda/react-shared';
 import { locales as memberAppsLocals } from '@openagenda/member-apps';
+import { getSupportedLocale } from '@openagenda/intl';
 import labels from '@openagenda/labels/home';
 import I18nContext from '../contexts/I18nContext';
 import MenuItem from '../components/MenuItem';
@@ -65,7 +66,12 @@ function App({ route }) {
   }
 
   return (
-    <IntlProvider messages={memberAppsLocals[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      key={lang}
+      locale={lang}
+      messages={memberAppsLocals[lang]}
+      defaultLocale={getSupportedLocale(lang)}
+    >
       <QueryClientProvider client={queryClient}>
         <I18nContext.Provider value={i18nContextValue}>
           {!total ? (

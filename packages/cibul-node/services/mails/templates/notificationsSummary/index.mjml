@@ -1,18 +1,18 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __( 'subject', { nbr, date } ) %></mj-title>
-    <mj-preview><%= __( 'dailySummary' ) %></mj-preview>
+    <mj-title><%= __('subject', { nbr, date }) %></mj-title>
+    <mj-preview><%= __('dailySummary') %></mj-preview>
 
-    <%- include( '../partials/defaultStyle.mjml' ) %>
+    <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
 
   <mj-body>
-    <%- include( '../partials/header.mjml' ) %>
+    <%- include('../partials/header.mjml') %>
 
     <mj-content>
       <mj-column>
         <mj-text>
-          <h1 class="title"><%= __( 'dailySummary' ) %></h1>
+          <h1 class="title"><%= __('dailySummary') %></h1>
         </mj-text>
 
         <mj-markdown><%- message %></mj-markdown>
@@ -23,11 +23,11 @@
           align="center"
           href="<%= link %>"
         >
-          <%= __( 'goToOA' ) %>
+          <%= __('goToOA') %>
         </mj-button>
       </mj-column>
     </mj-content>
 
-    <%- include( '../partials/footer.mjml' ) %>
+    <%- include('../partials/footer.mjml') %>
   </mj-body>
 </mjml>

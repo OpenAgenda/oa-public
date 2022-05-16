@@ -25,7 +25,7 @@ const SetHeader = ({ set, res }) => {
         <h2>{set.title}</h2>
         <div>
           <FormattedMessage values={{ count: set.locationsCount }} {...messages.setSubtitle} />
-          <a href={`${res.agendaSearch}?locationSet=${set.uid}`}>
+          <a href={`${res.agendaSearchPage}?locationSet=${set.uid}`}>
             <FormattedMessage values={{ count: set.agendasCount }} {...messages.setSubtitleLink} />
           </a>
           <MoreInfo

@@ -302,6 +302,7 @@ export function load(agenda, stats, filters, query) {
         id: filter.id,
         aggregation: {
           type: filter.name,
+          missing: filter.missingValue,
           ...filter.aggregation,
         },
       }));

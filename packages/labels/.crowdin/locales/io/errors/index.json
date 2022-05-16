@@ -14,12 +14,12 @@
   "groupTags.required": "crwdns14056:0crwdne14056:0",
   "required": "crwdns14058:0crwdne14058:0",
   "choice.required": "crwdns14060:0crwdne14060:0",
+  "choice.required.max": "crwdns16098:0%max%crwdne16098:0",
   "serverException": "crwdns14062:0crwdne14062:0",
   "serverErrorTooLargeFile": "crwdns14064:0%max%crwdne14064:0",
   "noOrigin": "crwdns14066:0crwdne14066:0",
   "defaultBack": "crwdns14068:0crwdne14068:0",
   "defaultAgendaBack": "crwdns14070:0crwdne14070:0",
   "pageDoesNotExist": "crwdns14072:0crwdne14072:0",
-  "choice.required.max": "crwdns16098:0%max%crwdne16098:0",
   "invalidOrIncompleteEvent": "crwdns16424:0crwdne16424:0"
 }

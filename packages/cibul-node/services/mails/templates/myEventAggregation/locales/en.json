@@ -1,0 +1,13 @@
+{
+  "title": "{agenda} took over your event: {event}",
+  "body": "<b>{event}</b> from the agenda <b>{sourceAgenda}</b> was taken up with the state <b>{state}</b>.",
+  "actionDescription": "See the event",
+  "tocontrol": "to be controlled",
+  "controlled": "ready to publish",
+  "published": "published",
+  "refused": "refused",
+  "unsubscribe": "Stop receiving event aggregations",
+  "memberUnsubscribe": "Stop receiving event aggregations of this agenda",
+  "changeEmailSettings": "Change my email sending settings",
+  "contactAgenda": "Contact the agenda"
+}

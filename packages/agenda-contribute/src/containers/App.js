@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { locales as sharedLocales } from '@openagenda/react-shared';
 import { locales as memberLocales } from '@openagenda/member-apps';
 import commonLocales from '@openagenda/common-labels';
@@ -91,9 +91,10 @@ function App(props) {
 
   return (
     <IntlProvider
-      messages={mergedLocales[lang]}
-      locale={lang}
       key={lang}
+      locale={lang}
+      messages={mergedLocales[lang]}
+      defaultLocale={getSupportedLocale(lang)}
     >{
       showClosedMessage ? (
         <Canvas>

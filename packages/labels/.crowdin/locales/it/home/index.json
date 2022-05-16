@@ -1,6 +1,11 @@
 {
   "myAgendas": "Le mie agende",
   "createAgenda": "Creare un'agenda",
+  "editMember": "Vedere le mie informazioni di contatto",
+  "editMemberInformation": "Gli amministratori di questa agenda hanno bisogno di alcune informazioni aggiuntive per poterla contattare in caso di necessità",
+  "otherActions": "Azioni",
+  "removeMember": "Lasciare l'agenda",
+  "removeMemberInformation": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",
   "searchAgenda": "Cerca un'agenda",
   "myEvents": "I miei eventi",
   "messages": "Messaggi",
@@ -28,11 +33,6 @@
   "noTitle": "Titolo non definito",
   "noLocation": "Posizione non definita",
   "noEventsCreated": "Non avete ancora creato alcun evento",
-  "seeMore": "Vedere di più",
-  "editMember": "Vedere le mie informazioni di contatto",
-  "editMemberInformation": "Gli amministratori di questa agenda hanno bisogno di alcune informazioni aggiuntive per poterla contattare in caso di necessità",
-  "otherActions": "Azioni",
-  "removeMember": "Lasciare l'agenda",
-  "removeMemberInformation": "Se ti rimuovi dall'agenda, smetterai di ricevere notifiche e non potrai più modificare i tuoi eventi né aggiungere nuovi eventi. L'agenda smetterà di apparire nella tua schermata iniziale.",
-  "show": "Aperta"
+  "show": "Aperta",
+  "seeMore": "Vedere di più"
 }

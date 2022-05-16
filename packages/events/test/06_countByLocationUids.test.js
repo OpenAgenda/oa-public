@@ -30,7 +30,6 @@ describe('events - functional - countByLocationUids', () => {
 
     beforeAll(async () => {
       counts = await svc.countByLocationUids({ locationUid: [34342835, 4395371, 43953713] }, { private: false });
-      console.log(counts)
     });
 
     it('lists 20 items by default', () => {

@@ -15,6 +15,7 @@
   "agenda.changeEventState": "crwdns11292:0{user}crwdnd11292:0{event}crwdnd11292:0{after}crwdnd11292:0{agenda}crwdne11292:0",
   "agenda.publishEvent": "crwdns11294:0{user}crwdnd11294:0{event}crwdnd11294:0{agenda}crwdne11294:0",
   "agenda.unpublishEvent": "crwdns11296:0{user}crwdnd11296:0{event}crwdnd11296:0{agenda}crwdne11296:0",
+  "agenda.systemUnpublishEvent": "crwdns16412:0{event}crwdnd16412:0{agenda}crwdne16412:0",
   "agenda.removeEvent": "crwdns11298:0{user}crwdnd11298:0{event}crwdnd11298:0{agenda}crwdne11298:0",
   "agenda.aggregateEvent": "crwdns11300:0{agenda}crwdnd11300:0{event}crwdnd11300:0{sourceAgenda}crwdne11300:0",
   "agenda.addEvent": "crwdns11302:0{user}crwdnd11302:0{event}crwdnd11302:0{agenda}crwdnd11302:0{sourceAgenda}crwdne11302:0",
@@ -27,6 +28,5 @@
   "activities": "crwdns11316:0crwdne11316:0",
   "next": "crwdns11318:0crwdne11318:0",
   "noActivity": "crwdns11320:0crwdne11320:0",
-  "unknownActivity": "crwdns11322:0{verb}crwdne11322:0",
-  "agenda.systemUnpublishEvent": "crwdns16412:0{event}crwdnd16412:0{agenda}crwdne16412:0"
+  "unknownActivity": "crwdns11322:0{verb}crwdne11322:0"
 }

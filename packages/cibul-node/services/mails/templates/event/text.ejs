@@ -5,16 +5,16 @@
 
 <%- link %>
 
-<% if ( event.pricingInfo ) { %><%-
+<% if (event.pricingInfo) { %><%-
   event.pricingInfo
 %><% } %>
-<% if ( event.ticketLink ) { %><%-
-  __( 'book' ) %>: <%- event.ticketLink
+<% if (event.ticketLink) { %><%-
+  __('book') %>: <%- event.ticketLink
 %><% } %>
 
 <%- event.description %>
 
 <%- event.freeText %>
 
-<%- __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>: <%- unsubscribeLink %>
-<% if ( isRegisteredUser ) { %><%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %><% } %>
+<%- __(isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest') %>: <%- unsubscribeLink %>
+<% if (isRegisteredUser) { %><%- __('changeEmailSettings') %>: <%- emailSettingsLink %><% } %>

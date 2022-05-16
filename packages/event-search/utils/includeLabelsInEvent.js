@@ -24,6 +24,7 @@ module.exports = function includeLabelsInEvent({ formSchema, monolingual }, even
 
     const corresponding = [].concat(draft[field])
       .map(value => options.find(o => o.id === value))
+      .filter(o => o !== undefined)
       .map(option => ({
         id: option.id,
         label: monolingual ? extractLabel(option.label, monolingual) : option.label

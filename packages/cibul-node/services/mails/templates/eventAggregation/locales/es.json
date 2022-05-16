@@ -1,0 +1,12 @@
+{
+  "title": "{agenda} recaudó un nuevo evento: {event}",
+  "body": "<b>{event}</b> del agenda <b>{sourceAgenda}</b> fue asociado con el estado de <b>{state}</b>.",
+  "actionDescription": "Ver evento",
+  "tocontrol": "al control",
+  "controlled": "listo para su publicación",
+  "published": "publicado",
+  "refused": "rechazado",
+  "unsubscribe": "Ya no recibir agregaciones de eventos",
+  "memberUnsubscribe": "Ya no recibir agregaciones de eventos de esta agenda",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+}

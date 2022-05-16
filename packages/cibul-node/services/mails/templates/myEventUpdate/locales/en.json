@@ -1,0 +1,12 @@
+{
+  "title": "Your event {event} has been changed on {agenda}",
+  "body": "Your event <b>{event}</b> has been changed on the agenda <b>{agenda}</b>.",
+  "actionDescription": "See the event",
+  "tocontrol": "to be controlled",
+  "controlled": "ready to publish",
+  "published": "published",
+  "refused": "refused",
+  "unsubscribe": "Stop receiving confirmations of your event modifications",
+  "memberUnsubscribe": "Stop receiving confirmations of your event modifications on this agenda",
+  "changeEmailSettings": "Change my email sending settings"
+}

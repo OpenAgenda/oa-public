@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDom from 'react-dom';
 
-import { mergeLocales } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { modalLocales } from '@openagenda/react-share-menus';
 import { EventShareModal } from '@openagenda/react-share-menus';
 import { IntlProvider, defineMessages, useIntl } from 'react-intl';
@@ -100,19 +100,40 @@ export default function displayShareButtons({agendaUid , uid, agendaSlug, agenda
 
   if (document.querySelector(selectors.shareOa)) {
     ReactDom.render(
-      <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareOAModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
+        <ShareOAModalContainer params={eventParams} userLogged={userLogged} />
+      </IntlProvider>,
       document.querySelector(selectors.shareOa)
     );
   }
   if (document.querySelector(selectors.shareEmail)) {
     ReactDom.render(
-      <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareEmailModalContainer params={eventParams} userLogged={userLogged} /></IntlProvider>,
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
+        <ShareEmailModalContainer params={eventParams} userLogged={userLogged} />
+      </IntlProvider>,
       document.querySelector(selectors.shareEmail)
     );
   }
   if (document.querySelector(selectors.shareAll)) {
     ReactDom.render(
-      <IntlProvider messages={locales[lang]} locale={lang} key={lang}><ShareAllModalContainer params={eventParams} userLogged={userLogged} query={query} /></IntlProvider>,
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
+        <ShareAllModalContainer params={eventParams} userLogged={userLogged} query={query} />
+      </IntlProvider>,
       document.querySelector(selectors.shareAll)
     );
   }

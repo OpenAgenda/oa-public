@@ -300,7 +300,7 @@ describe('10 - event-search - unit: dsl search', function() {
         de: 'Montag 24 Oktober 2016, 08:00',
         fr: 'Lundi 24 octobre 2016, 08h00',
         en: 'Monday 24 October 2016, 08:00',
-        es: 'Monday 24 October 2016, 08:00'
+        es: 'Lunes 24 octubre 2016, 08:00'
       } );
 
     } );

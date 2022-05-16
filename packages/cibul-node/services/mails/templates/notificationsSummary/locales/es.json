@@ -1,0 +1,7 @@
+{
+  "subject": "{nbr} notificaciones no se veía desde la {date}",
+  "dailySummary": "resumen agenda de las notificaciones",
+  "goToOA": "Ir OpenAgenda",
+  "unsubscribe": "Notificaciones dejar de recibir resumen agendas",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+}

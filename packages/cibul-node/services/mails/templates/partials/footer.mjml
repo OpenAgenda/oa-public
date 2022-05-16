@@ -2,8 +2,8 @@
   <mj-section padding="15px 0 0">
     <mj-column>
       <%- typeof footnote === 'string'
-      ? `<mj-markdown>${footnote}</mj-markdown>`
-      : '' %>
+        ? `<mj-markdown>${footnote}</mj-markdown>`
+        : '' %>
     </mj-column>
   </mj-section>
 <% } %>
@@ -18,34 +18,34 @@
     />
 
     <mj-text align="center">
-      <% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
-      <div>
-        <a href="<%= memberUnsubscribeLink %>" class="grey-link">
-          <%= __( 'memberUnsubscribe', locals ) %>
-        </a>
-      </div>
+      <% if (typeof memberUnsubscribeLink !== 'undefined') { %>
+        <div>
+          <a href="<%= memberUnsubscribeLink %>" class="grey-link">
+            <%= __('memberUnsubscribe', locals) %>
+          </a>
+        </div>
       <% } %>
 
-      <% if ( typeof unsubscribeLink !== 'undefined' ) { %>
-      <div>
-        <a href="<%= unsubscribeLink %>" class="grey-link">
-          <%= __(
-            typeof isRegisteredUser !== 'undefined' && isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest',
-            locals
-          ) %>
-        </a>
-      </div>
+      <% if (typeof unsubscribeLink !== 'undefined') { %>
+        <div>
+          <a href="<%= unsubscribeLink %>" class="grey-link">
+            <%= __(
+              typeof isRegisteredUser !== 'undefined' && isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest',
+              locals
+            ) %>
+          </a>
+        </div>
       <% } %>
 
       <% if (
         typeof isRegisteredUser !== 'undefined' && isRegisteredUser
         && typeof emailSettingsLink !== 'undefined'
       ) { %>
-      <div>
-        <a href="<%= emailSettingsLink %>" class="grey-link">
-          <%= __( 'changeEmailSettings' ) %>
-        </a>
-      </div>
+        <div>
+          <a href="<%= emailSettingsLink %>" class="grey-link">
+            <%= __('changeEmailSettings') %>
+          </a>
+        </div>
       <% } %>
     </mj-text>
   </mj-column>

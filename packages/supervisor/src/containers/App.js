@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { loadable, useConstant, useLayoutData } from '@openagenda/react-shared';
+import { getSupportedLocale } from '@openagenda/intl';
 import locales from '../locales-compiled';
 
 const AnnouncementManager = loadable(
@@ -41,7 +42,12 @@ function App({ user }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+      <IntlProvider
+        key={lang}
+        locale={lang}
+        messages={locales[lang]}
+        defaultLocale={getSupportedLocale(lang)}
+      >
         <div className="supervisor">
           <Switch>
             <Route exact path={path}>

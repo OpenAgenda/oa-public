@@ -1,0 +1,7 @@
+{
+  "title": "L'agenda {agenda} a publié votre événement {event}",
+  "actionDescription": "Voir l'événement",
+  "unsubscribe": "Ne plus recevoir les changements de statut de mes événements",
+  "memberUnsubscribe": "Ne plus recevoir les changements de statut de mes événements sur cet agenda",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

@@ -7,6 +7,10 @@ files:
     translation: /%original_path%/%two_letters_code%.%file_extension%
     update_option: update_as_unapproved
 
+  - source: /packages/cibul-node/services/mails/templates/*/locales/en.json
+    translation: /%original_path%/%two_letters_code%.%file_extension%
+    update_option: update_as_unapproved
+
   - source: /packages/cibul-templates/locales/en.json
     translation: /%original_path%/%two_letters_code%.%file_extension%
     update_option: update_as_unapproved
