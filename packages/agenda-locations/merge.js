@@ -12,7 +12,7 @@ const authorize = require('./lib/authorize');
 async function merge({ internals, endpoints }, mergeInItem, items, data = null, options = {}) {
   log('mergin ', items.length, 'location in ', mergeInItem.uid);
 
-  await authorize(internals, 'merge', mergeInItem.uid, { ...options, agendaUid: options.context.agendaUid });
+  await authorize(internals, 'merge', mergeInItem.uid, options);
 
   const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
 
@@ -29,12 +29,12 @@ async function merge({ internals, endpoints }, mergeInItem, items, data = null, 
     { service: internals, isPatch: true },
     mergeInItem.uid,
     data,
-    { ...options, agendaUid: options.context.agendaUid }
+    { ...options }
   ) : mergeInItem;
 
   log('removing other locations');
   for (const location of toBeMerged) {
-    await remove({ internals, endpoints }, location, { mergedIn: mergeInItem.uid, agendaUid: options.context.agendaUid });
+    await remove({ internals, endpoints }, location, { ...options, mergedIn: mergeInItem.uid });
   }
 
   log('merge complete');

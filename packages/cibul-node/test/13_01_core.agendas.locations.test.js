@@ -265,6 +265,34 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
+    describe('unsuccessful create cause unknowed adress', () => {
+      let error;
+      beforeAll(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/agendas/17026855/locations',
+            headers: {
+              'access-token': accessToken,
+              nonce: 1231486,
+              'content-type': 'application/json'
+            },
+            data: {
+              name: 'Error on address',
+              address: 'Route des Bordes, 82110 LAUZERTE',
+              countryCode: 'fr'
+            }
+          });
+        } catch (e) {
+          // console.log(e.data.response)
+          error = e;
+        }
+      });
+      it('test error message', () => {
+        expect(error.response.data.message).toBe('geocoder didn\'t find address');
+      });
+    });
+
     describe('successful create with an image', () => {
       beforeAll(async () => {
         try {
