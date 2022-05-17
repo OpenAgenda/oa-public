@@ -775,64 +775,6 @@ const config = {
       tmpBucket: 'cibuldevtmp'
     }
   },
-  test: {
-    env: 'test',
-    multiCore: false,
-    mainChannel: 'maintest',
-    logger: {
-      debug: {
-        prefix: 'oa:',
-        enable: false
-      },
-      token: false
-    },
-    root: 'https://d.openagenda.com',
-    domain: 'd.openagenda.com',
-    db: {
-      database: 'oatest',
-      host: 'localhost',
-      user: 'root',
-      password: 'grut',
-      timezone: 'UTC'
-    },
-    reCaptcha: {
-      enabled: false
-    },
-    auth: {
-      facebook: {
-        id: '160151044018305',
-        secret: '12f736eeec5b1be1ee3bf5705e65aa7a'
-      },
-      twitter: {
-        key: 'hMcfdN7tfpzdfvTAeGUQ',
-        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc'
-      },
-      google: {
-        id: null,
-        secret: null
-      }
-    },
-    es: {
-      host: 'localhost',
-      port: 9200,
-      indexName: 'cibultest',
-      channel: 'maintest'
-    },
-    redis: {
-      host: 'localhost',
-      port: 6379
-    },
-    aws: {
-      accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
-      secretAccessKey: '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',
-      region: 'eu-west-1',
-      tmpBucketPath: 'https://cibultesttmp.s3.amazonaws.com/',
-      imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
-      bucket: 'cibultest',
-      tmpBucket: 'cibultesttmp'
-    }
-  },
 
   production: {
     mails: {
