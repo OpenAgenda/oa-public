@@ -1,6 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('lib/decorateWithGeocodeData');
+const { BadRequest } = require('@openagenda/verror');
 const deduceLanguageFromCountry = require('./deduceLanguageFromCountry');
 
 const hasCityAndDept = (g = {}) => (!!g.city && !!g.department) || (!!g.adminLevel4 && !!g.adminLevel2);
@@ -25,11 +26,12 @@ async function geocode(interfaces, data) {
     });
 
     if (!results.length) {
-      return {};
+      throw new BadRequest('geocoder didn\'t find address');
     }
 
     return results[0];
   } catch (e) {
+    if (e.name === 'BadRequest') throw e;
     log('error', e.message);
     return {};
   }
