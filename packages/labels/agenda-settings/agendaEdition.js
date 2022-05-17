@@ -634,7 +634,7 @@ module.exports = {
     "io": "crwdns12646:0crwdne12646:0"
   },
   "contributionMessageCompleteSubLabel": {
-    "fr": "S'affiche lorsque le contributeur a soumi sa contribution",
+    "fr": "S'affiche lorsque le contributeur a enregistré sa contribution",
     "en": "Appears when the contributor has submitted their contribution",
     "de": "Erscheint, wenn der Beitrag ihres Beitrags vorgelegt hat",
     "es": "Se muestra cuando soumi la contribución del colaborador",

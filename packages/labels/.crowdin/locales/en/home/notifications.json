@@ -7,7 +7,6 @@
   "seeAgenda": "See the agenda",
   "seeEvent": "See the event",
   "agendaEventPublished": "%user% published %event%.",
-  "agendaEventSubmitModeration": "%user% has submitted %event% to %agenda% for moderation",
   "userNewContributor": "You are now a contributor of the agenda %agenda%.",
   "agendaNewContributor": "%user% is now contributor of the agenda %agenda%.",
   "agendaNewAdministrator": "%user% is now administrator of the agenda %agenda%.",

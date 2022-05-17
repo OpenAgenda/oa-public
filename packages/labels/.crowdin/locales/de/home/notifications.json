@@ -7,7 +7,6 @@
   "seeAgenda": "Veranstaltungskalender anzeigen",
   "seeEvent": "Siehe die Veranstaltung",
   "agendaEventPublished": "%user% Veranstaltung veröffentlicht.",
-  "agendaEventSubmitModeration": "%user% hat zur Mäßigung auf %agenda% Veranstaltung eingereicht",
   "userNewContributor": "Du bist jetzt ein Teilnehmer des Veranstaltungskalenders %agenda%.",
   "agendaNewContributor": " %user% ist jetzt Teilnehmer des Veranstaltungskalenders %agenda%.",
   "agendaNewAdministrator": " %user% ist jetzt Administrator des Veranstaltungskalenders %agenda%.",

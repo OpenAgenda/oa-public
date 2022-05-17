@@ -7,7 +7,6 @@
   "seeAgenda": "Ver la agenda",
   "seeEvent": "Ver evento",
   "agendaEventPublished": "%user% registró %event%.",
-  "agendaEventSubmitModeration": "%user% presentó %event% al agenda del %agenda% para la moderación",
   "userNewContributor": "Ahora se encuentra colaborador agenda %agenda%.",
   "agendaNewContributor": "%user% es ahora colaborador agenda %agenda%.",
   "agendaNewAdministrator": "%user% es ahora director de la agenda %agenda%.",

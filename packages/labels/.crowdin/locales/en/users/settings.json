@@ -44,7 +44,6 @@
   "generateNewApiKeyModalButton": "Generate",
   "accountRemoved": "Your account was successfully deleted",
   "agendaEventUpdate": "Event updated",
-  "agendaEventSubmitModeration": "Event subject to moderation",
   "agendaEventPublished": "Published event",
   "agendaNewAggregator": "Agenda aggregated",
   "notificationsSummary": "Daily summary",
