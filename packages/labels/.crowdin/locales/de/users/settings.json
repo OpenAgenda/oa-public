@@ -44,7 +44,6 @@
   "generateNewApiKeyModalButton": "Generieren",
   "accountRemoved": "Ihr Konto wurde erfolgreich gelöscht",
   "agendaEventUpdate": "Veranstaltung aktualisert",
-  "agendaEventSubmitModeration": "Veranstaltung unter Moderation",
   "agendaEventPublished": "Veröffentlicht Veranstaltung",
   "agendaNewAggregator": "Veranstaltungskalender aggregiert",
   "notificationsSummary": "Tägliche Zusammenfassung",

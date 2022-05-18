@@ -10,13 +10,13 @@ module.exports = async (services, options) => {
 
   const sets = await agendaLocations.sets.list();
   for (const set of sets.filter(s => !options.ignoredUids.setUids.includes(s.uid))) {
-    log(`detection started in locationSet ${set.uid}`);
+    log('info', `detection started in locationSet ${set.uid}`);
     try {
       await agendaLocations.sets(set.uid).locations.duplicates.detectAll(options);
     } catch (e) {
       log(e);
     }
-    log.info(`detection finished in locationSet ${set.uid}`);
+    log('info', `detection finished in locationSet ${set.uid}`);
   }
 
   let offset = 0;
@@ -31,7 +31,7 @@ module.exports = async (services, options) => {
     }
     offset = lastId;
     for (const agenda of agendas.filter(a => a.locationSetUid === null && !options.ignoredUids.agendaUids.includes(a.uid))) {
-      log(`detection started in agenda ${agenda.uid}`);
+      log('info', `detection started in agenda ${agenda.uid}`);
       try {
         await agendaLocations(agenda.uid).duplicates.detectAll({
           sleep: options.sleep
@@ -39,7 +39,7 @@ module.exports = async (services, options) => {
       } catch (e) {
         log(e);
       }
-      log.info(`detection finished in agenda ${agenda.uid}`);
+      log('info', `detection finished in agenda ${agenda.uid}`);
     }
   }
   log.info('global duplicates detection finished');

@@ -1,7 +1,20 @@
 import cleanParams from './lib/params';
 import errors from './lib/errors';
 
-export default (config = {}) => {
+function preClean(params, value) {
+  const optionsAreIntegers = params.options.filter(o => Number.isInteger(o)).length === params.options.length;
+
+  return ([].concat(value))
+    .map(v => {
+      const valuePart = (v instanceof Object) ? v[params.key] : v;
+
+      return params.options.indexOf(optionsAreIntegers ? parseInt(valuePart, 10) : valuePart);
+    })
+    .filter(matchingIndex => matchingIndex !== -1)
+    .map(matchingIndex => params.options[matchingIndex]);
+}
+
+const validator = (config = {}) => {
   const params = cleanParams('choice', config, {
     field: false,
     options: [], // required. Put something
@@ -13,9 +26,7 @@ export default (config = {}) => {
   });
 
   return Object.assign(value => {
-    let clean = ([].concat(value))
-      .map(v => ((v instanceof Object) ? v[params.key] : v))
-      .filter(v => params.options.indexOf(v) !== -1);
+    let clean = preClean(params, value);
 
     if ((value === undefined) && (params.default !== undefined)) {
       return params.unique ? params.default : [].concat(params.default);
@@ -66,3 +77,7 @@ export default (config = {}) => {
     field: params.field
   });
 };
+
+export default Object.assign(validator, {
+  preClean
+});

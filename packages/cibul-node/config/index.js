@@ -164,6 +164,14 @@ const config = {
       host: _.get(prod, 'redis.host', 'localhost'),
       port: _.get(prod, 'redis.port', 6379)
     },
+    locationDuplicationDetection: {
+      enabled: prod.detectLocationDuplicates ?? (!!process.env.OA_DETECT_LOCATION_DUPLICATES),
+      ignoredUids: {
+        setUids: prod.detectLocationDuplicatesIgnoredSetUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+        agendaUids: prod.detectLocationDuplicatesIgnoredAgendaUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
+      },
+      sleep: prod.detectLocationDuplicatesSleep ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP ? parseInt(process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP, 10) : 0),
+    },
     session: {
       name: 'oa', // session cookie name
       writableName: 'oa.rw', // store client-editable data
@@ -765,72 +773,6 @@ const config = {
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
       bucket: 'cibuldev',
       tmpBucket: 'cibuldevtmp'
-    },
-    locationDuplicationDetection: {
-      enabled: prod.detectLocationDuplicates ?? (!!process.env.OA_DETECT_LOCATION_DUPLICATES),
-      ignoredUids: {
-        setUids: prod.detectLocationDuplicatesIgnoredSetUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_SET_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
-        agendaUids: prod.detectLocationDuplicatesIgnoredAgendaUids ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_IGNORED_AGENDA_UIDS ?? '').split(',').map(i => parseInt(i, 10)),
-      },
-      sleep: prod.detectLocationDuplicatesSleep ?? (process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP ? parseInt(process.env.OA_DETECT_LOCATION_DUPLICATES_SLEEP, 10) : 0),
-    },
-  },
-  test: {
-    env: 'test',
-    multiCore: false,
-    mainChannel: 'maintest',
-    logger: {
-      debug: {
-        prefix: 'oa:',
-        enable: false
-      },
-      token: false
-    },
-    root: 'https://d.openagenda.com',
-    domain: 'd.openagenda.com',
-    db: {
-      database: 'oatest',
-      host: 'localhost',
-      user: 'root',
-      password: 'grut',
-      timezone: 'UTC'
-    },
-    reCaptcha: {
-      enabled: false
-    },
-    auth: {
-      facebook: {
-        id: '160151044018305',
-        secret: '12f736eeec5b1be1ee3bf5705e65aa7a'
-      },
-      twitter: {
-        key: 'hMcfdN7tfpzdfvTAeGUQ',
-        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc'
-      },
-      google: {
-        id: null,
-        secret: null
-      }
-    },
-    es: {
-      host: 'localhost',
-      port: 9200,
-      indexName: 'cibultest',
-      channel: 'maintest'
-    },
-    redis: {
-      host: 'localhost',
-      port: 6379
-    },
-    aws: {
-      accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
-      secretAccessKey: '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',
-      region: 'eu-west-1',
-      tmpBucketPath: 'https://cibultesttmp.s3.amazonaws.com/',
-      imageBucketPath: 'https://cibultest.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
-      bucket: 'cibultest',
-      tmpBucket: 'cibultesttmp'
     }
   },
 

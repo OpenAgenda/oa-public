@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = ({ labels }) => [{
   field: 'id',
   fieldType: 'integer',
@@ -71,16 +69,16 @@ module.exports = ({ labels }) => [{
   imageWithSizeAndVariants: true,
   extensions: ['jpg', 'bmp', 'png', 'jpeg']
 }, {
-  field : 'imageCredits',
-  fieldType : 'text',
-  optional : true,
-  label : labels?.imageCredits,
-  enableWith : 'image',
+  field: 'imageCredits',
+  fieldType: 'text',
+  optional: true,
+  label: labels?.imageCredits,
+  enableWith: 'image',
   max: 255
 }, {
-  field : 'languages',
-  fieldType : 'languages',
-  label : labels?.languages
+  field: 'languages',
+  fieldType: 'languages',
+  label: labels?.languages
 }, {
   languages: [],
   field: 'title',
@@ -112,16 +110,16 @@ module.exports = ({ labels }) => [{
   sub: labels?.keywordsSub
 }, {
   languages: [],
-  field : 'longDescription',
-  fieldType : 'markdown',
+  field: 'longDescription',
+  fieldType: 'markdown',
   label: labels?.longDescription,
   max: 10000,
   sub: labels?.longDescriptionSub,
   placeholder: labels?.longDescriptionPlaceholder
 }, {
   languages: [],
-  field : 'conditions',
-  fieldType : 'text',
+  field: 'conditions',
+  fieldType: 'text',
   label: labels?.conditions,
   max: 255,
   placeholder: labels?.conditionsPlaceholder,

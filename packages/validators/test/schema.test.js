@@ -1087,6 +1087,35 @@ describe('schema validator', () => {
         expect(errors[0].code).toEqual('required');
       });
 
+      it('enableWith can target a specific cleaned value of reference field', () => {
+        const validate = schema({
+          selection: {
+            type: 'choice',
+            options: [13, 14, 15]
+          },
+          someField: {
+            optional: false,
+            enableWith: {
+              field: 'selection',
+              value: 14
+            },
+            type: 'text'
+          }
+        });
+
+        let enableWithErrors;
+
+        try {
+          validate({
+            selection: '14',
+          });
+        } catch (e) {
+          enableWithErrors = e;
+        }
+
+        expect(enableWithErrors[0].code).toEqual('required');
+      });
+
       it('enableWith can target multiple values of reference field', () => {
 
         const validate = schema({
@@ -1126,7 +1155,6 @@ describe('schema validator', () => {
           eventAttendanceMode: 1,
           locationUid: 1
         });
-
       });
 
       it('when enableWith with value is different, field is not evaluated', () => {
