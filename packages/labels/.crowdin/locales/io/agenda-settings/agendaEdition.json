@@ -92,5 +92,7 @@
   "statsDescription": "crwdns12678:0crwdne12678:0",
   "lab": "crwdns12680:0crwdne12680:0",
   "labTabDescription": "crwdns12682:0crwdne12682:0",
-  "eventStatusDesc": "crwdns16072:0crwdne16072:0"
+  "eventStatusDesc": "crwdns16072:0crwdne16072:0",
+  "GDPRInformation": "crwdns30982:0crwdne30982:0",
+  "GDPRInformationSubLabel": "crwdns30984:0crwdne30984:0"
 }

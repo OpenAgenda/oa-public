@@ -211,7 +211,7 @@ module.exports = {
     "en": "Saving...",
     "de": "Speichern ...",
     "es": "Ahorro",
-    "it": "Backup in corso",
+    "it": "Backup in corso...",
     "io": "crwdns12548:0crwdne12548:0"
   },
   "saved": {
@@ -619,11 +619,13 @@ module.exports = {
   },
   "GDPRInformation": {
     "fr": "Information relative à l'utilisation des données personnelles des membres",
-    "en": "Usage of member's personal information"
+    "en": "Usage of member's personal information",
+    "io": "crwdns30982:0crwdne30982:0"
   },
   "GDPRInformationSubLabel": {
     "fr": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
-    "en": "Modify the text presented to members informing them of the usage made of their personal information"
+    "en": "Modify the text presented to members informing them of the usage made of their personal information",
+    "io": "crwdns30984:0crwdne30984:0"
   },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",
