@@ -1,1 +1,4 @@
-{}
+{
+  "common.errors.endLessThanBegin": "crwdns17342:0crwdne17342:0",
+  "common.errors.required": "crwdns17344:0crwdne17344:0"
+}
