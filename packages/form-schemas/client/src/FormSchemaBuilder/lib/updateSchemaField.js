@@ -1,39 +1,31 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
-const updatableAbstractFieldKeys = [ 'label', 'info', 'placeholder', 'sub', 'display' ];
+const updatableAbstractFieldKeys = ['label', 'info', 'placeholder', 'sub', 'display'];
 
-export default ( schema, field, updatedFieldValues ) => {
+export default function updateSchemaField(schema, field, updatedFieldValues) {
+  const fieldIndex = _.findIndex(schema.fields, sf => sf.field === field.field);
 
-  const fieldIndex = _.findIndex( schema.fields, sf => sf.field === field.field );
-
-  if ( fieldIndex === -1 ) {
-
-    throw new Error( 'Did not find field to update in schema' );
-
+  if (fieldIndex === -1) {
+    throw new Error('Did not find field to update in schema');
   }
 
   let updatedField = field;
 
   // only labels, display and default value can be changed for abstract field
-  if ( schema.fields[ fieldIndex ].fieldType === 'abstract' ) {
-
+  if (schema.fields[fieldIndex].fieldType === 'abstract') {
     const update = updatableAbstractFieldKeys
-      .filter( fieldKey => updatedFieldValues[ fieldKey ] !== undefined )
-      .reduce( ( update, fieldKey ) => _.set(
-        update, fieldKey, { $set: updatedFieldValues[ fieldKey ] }
-      ), {} );
+      .filter(fieldKey => updatedFieldValues[fieldKey] !== undefined)
+      .reduce((carry, fieldKey) => _.set(
+        carry, fieldKey, { $set: updatedFieldValues[fieldKey] }
+      ), {});
 
-    updatedField = ih( schema.fields[ fieldIndex ], update );
-
+    updatedField = ih(schema.fields[fieldIndex], update);
   } else {
-
-    updatedField = _.assign( {}, field, updatedFieldValues );
-
+    updatedField = _.assign({}, field, updatedFieldValues);
   }
 
-  return ih( schema, {
-    fields: { $splice: [[ fieldIndex, 1, updatedField ]] }
-  } );
-
+  return ih(schema, {
+    fields: { $splice: [[fieldIndex, 1, updatedField]] }
+  });
 }
