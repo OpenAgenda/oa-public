@@ -1,1 +1,9 @@
-{}
+{
+  "event/contributor-section": "Collaboratore",
+  "event/contributor/edit": "Modificare",
+  "event/contributor/email": "Email",
+  "event/contributor/name": "Nome",
+  "event/contributor/organization": "Ragione sociale",
+  "event/contributor/position": "Ruolo",
+  "export-all-button": "Esportare"
+}
