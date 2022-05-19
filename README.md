@@ -6,7 +6,7 @@
 ## Installation
 
 ```bash
-git clone git@github.com:OpenAgenda/oa.git --recurse-submodules
+git clone ssh://git@github.com/OpenAgenda/oa.git --recurse-submodules
 ```
 
 You have the choice of installing the dependencies with `yarn` or following the [instructions](./docker/README.md) for an installation with docker.

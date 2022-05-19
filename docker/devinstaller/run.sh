@@ -22,4 +22,4 @@ docker run \
   -e "HOME=/root" \
   --env-file "$env_file" \
   -w /root/oa \
-  $image_name /root/oa/docker/devinstaller/command.sh "${SITE_DOMAIN}" "${API_DOMAIN}" "${PMA_HOST}" "${ELASTICHQ_DOMAIN}"
+  $image_name /root/oa/docker/devinstaller/command.sh "${SITE_DOMAIN}" "${API_DOMAIN}" "${PMA_HOST}" "${ELASTICHQ_DOMAIN}" "${MAILCATCHER_DOMAIN}"
