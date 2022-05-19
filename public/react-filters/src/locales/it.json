@@ -46,5 +46,6 @@
   "ReactFilters.messages.status.programmed": "Programmato",
   "ReactFilters.messages.status.rescheduled": "Riprogrammato",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)",
-  "ReactFilters.messages.attendanceMode.offline": "In presenza"
+  "ReactFilters.messages.attendanceMode.offline": "In presenza",
+  "ReactFilters.messages.filterTitles.adminLevel3": "Città metropolitane"
 }
