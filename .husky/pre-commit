@@ -3,8 +3,16 @@
 
 set -e
 
+REQUIRED_PKG="jq"
+
+if ! dpkg -s jq >/dev/null 2>&1; then
+  echo Missing package $REQUIRED_PKG. Installing...
+  sudo apt install $REQUIRED_PKG -y
+fi
+
 WORKSPACES=$(yarn workspaces list --json)
 MODIFIED_PACKAGES=""
+
 
 maybe_modified_package() {
   NAME=$(echo "$1" | jq -r .name)
