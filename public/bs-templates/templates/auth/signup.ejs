@@ -13,7 +13,7 @@
       <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md">
         <div class="row">
           <div class="col-sm-12 margin-h-md">
-            <h2>Créez un compte</h2>
+            <h2>Création d'un nouveau compte</h2>
           </div>
         </div>
         <div class="row">
@@ -33,8 +33,9 @@
           <div class="col-md-6">
             <form class="margin-h-md">
               <div class="form-group">
-                <label>Prénom Nom</label>
+                <label>Pseudo / Nom d'utilisateur</label>
                 <input class="form-control"/>
+                <span class="sub">Votre pseudo ou nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre</span>
               </div>
               <div class="form-group has-error">
                 <label class="control-label">Email</label>
@@ -56,17 +57,13 @@
                   </label>
                 </div>
               </div>
-              <div class="form-group">
-                <button class="btn btn-primary" type="submit">Valider</button>
+              <p class="margin-v-md">En créant un compte vous acceptez les <a href="#">Conditions d'Utilisation</a> ainsi que la <a href="#">Politique de confidentialité</a>.</p>
+              <div class="form-group margin-bottom-lg">
+                <button class="btn btn-primary btn-block" type="submit">Accepter et créer le compte</button>
               </div>
             </form>
           </div>
           <% include ./_social.ejs %>
-        </div>
-        <div class="row">
-          <div class="col-sm-12 margin-v-md margin-h-md">
-            <p>En créant un compte vous acceptez les <a href="#">Conditions d'Utilisation</a> ainsi que la <a href="#">Politique de confidentialité</a>.</p>
-          </div>
         </div>
       </section>
     </div>
