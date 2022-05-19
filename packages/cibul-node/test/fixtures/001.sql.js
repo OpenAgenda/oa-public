@@ -22,23 +22,26 @@ raw.push(knex('user').insert([
   require('./sql/users/01.json'),
   require('./sql/users/50300.json'),
   require('./sql/users/jean-benoit.json'),
-  require('./sql/users/lise.json')
+  require('./sql/users/lise.json'),
+  require('./sql/users/thibaud.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
   require('./sql/apiKeySets/50300.json'),
   require('./sql/apiKeySets/0101.json'),
   require('./sql/apiKeySets/jean-benoit.keys.json'),
-  require('./sql/apiKeySets/lise.keys.json')
+  require('./sql/apiKeySets/lise.keys.json'),
+  require('./sql/apiKeySets/thibaud.keys.json')
 ]));
 
 raw.push(knex('reviewer').insert([
   require('./sql/members/01.json'), // contributor
-  require('./sql/members/50300.admin.02.json'),
+  require('./sql/members/50300.admin.02.json'), // agenda uid 2
   {
     ...require('./sql/members/lise.contributor.albi.json'),
     agenda_uid: 2
-  }
+  },
+  require('./sql/members/thibaud.admin.json') // agenda uid 1
 ]));
 
 raw.push(knex('location').insert([{
@@ -142,6 +145,19 @@ raw.push(knex('event_2').insert([{
   }),
   created_at: new Date(),
   updated_at: new Date()
+}, {
+  id: 4,
+  uid: 4,
+  owner_uid: 82253124,
+  creator_uid: 82253124,
+  agenda_uid: 1,
+  slug: 'draft-event-2',
+  draft: 1,
+  title: JSON.stringify({
+    fr: 'Evénement brouillon 2'
+  }),
+  created_at: new Date(),
+  updated_at: new Date()
 }]));
 
 raw.push(knex('agenda_event').insert([{
@@ -204,6 +220,16 @@ raw.push(knex('custom').insert([{
   store: JSON.stringify({
     thematique: 2,
     note: 'Une note interne pour les administrateurs'
+  }),
+  created_at: new Date(),
+  updated_at: new Date()
+}, {
+  id: 2,
+  form_schema_id: 1,
+  identifier: 4,
+  store: JSON.stringify({
+    thematique: 2,
+    note: 'Une autre note interne'
   }),
   created_at: new Date(),
   updated_at: new Date()

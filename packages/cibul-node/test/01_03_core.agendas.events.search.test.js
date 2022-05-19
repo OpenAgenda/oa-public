@@ -474,6 +474,21 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(response.status).toBe(200);
       });
 
+      it('draft event restricted data is gettable by credded user', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/1/events/4',
+          headers: {
+            'content-type': 'application/json'
+          },
+          params: {
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if'
+          }
+        });
+
+        expect(response.data.event.note).toBe('Une autre note interne');
+      });
+
       it('draft event is not gettable by other user', async () => {
         let error;
 
