@@ -1,5 +1,13 @@
 .signup, .signin {
 
+  .sub {
+    font-size: 13px;
+  }
+
+  .gray {
+    color: $oa-gray-light;
+  }
+
   .jumbotron {
 
     p:last-child {
@@ -8,6 +16,14 @@
 
     }
 
+  }
+
+  .light-border-left {
+    border-left: 1px solid $oa-gray-lighter;
+  }
+
+  @media screen and (max-width: 768px) {
+    border-left: none;
   }
 
   .btn-facebook {
