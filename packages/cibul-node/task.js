@@ -110,6 +110,6 @@ module.exports = (config, core, services) => {
 
   services.eventSearch.task();
 
-  services.eventSearch.rebuild();
+  // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();
 };
