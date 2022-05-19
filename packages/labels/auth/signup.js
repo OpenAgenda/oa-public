@@ -102,22 +102,32 @@ module.exports = {
     "io": "crwdns13148:0crwdne13148:0"
   },
   "pseudonym": {
-    "fr": "Pseudo / nom d'utilisateur",
-    "en": "Name / Pseudonym",
-    "it": "Nome di utente / pseudonimo",
-    "de": "Benutzername oder Pseudonym",
-    "pl": "Nazwa użytkownika lub pseudonim",
-    "es": "Nombre de usuario o seudónimo",
-    "br": "Anv pe lesanv",
+    "fr": "Nom d'utilisateur",
+    "en": "Username",
+    "it": "Nome utente",
+    "de": "Benutzername",
+    "pl": "Nazwa użytkownika",
+    "es": "Nombre de usuario",
+    "br": "Anv",
     "io": "crwdns13150:0crwdne13150:0"
   },
   "pseudonymSub": {
-    "fr": "Votre pseudo ou nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre",
-    "en": "Your pseudonym will be visible by the administrators of the calendars where you will contribute events"
+    "fr": "Votre nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre",
+    "en": "Your username will be visible by the administrators of the calendars where you will contribute events",
+    "it": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri.",
+    "de": "Ihr Benutzername wird für die Administratoren der Terminkalender, bei denen Sie Mitglied sind, sichtbar sein..",
+    "pl": "Twoja nazwa użytkownika będzie widoczna dla administratorów agend, których jesteś uczestnikiem",
+    "es": "Su nombre de usuario será visible para los administradores de las agendas de las que es miembro",
+    "br": ""
   },
   "emailSub": {
-    "fr": "Identifiant d'authentification. OpenAgenda vous enverra vos notifications à cette adresse. Elle ne sera transmise à aucun tiers.",
-    "en": "For authentication. Openagenda will send you notifications to this adress."
+    "fr": "OpenAgenda vous enverra vos notifications à cette adresse. Elle ne sera transmise à aucun tiers.",
+    "en": "OpenAgenda will send your notifications to this address. It will not be passed on to any third party.",
+    "it": "OpenAgenda invierà le notifiche a questo indirizzo. Non saranno trasmessi a terzi.",
+    "de": "OpenAgenda sendet Ihnen Ihre Benachrichtigungen an diese Adresse. Sie wird nicht an Dritte weitergeleitet.",
+    "pl": "OpenAgenda będzie wysyłać powiadomienia na ten adres. Nie będą one przekazywane osobom trzecim.",
+    "es": "OpenAgenda enviará sus notificaciones a esta dirección. No se transmitirá a ningún tercero.",
+    "br": ""
   },
   "email": {
     "fr": "Adresse email",
