@@ -62,7 +62,7 @@ module.exports = {
     "io": "crwdns13140:0crwdne13140:0"
   },
   "createAccount": {
-    "fr": "Créez un compte",
+    "fr": "Création d'un nouveau compte",
     "en": "Create an account",
     "it": "Crea un account",
     "de": "Ein Konto erstellen",
@@ -101,15 +101,19 @@ module.exports = {
     "br": "Kevreit",
     "io": "crwdns13148:0crwdne13148:0"
   },
-  "nameSurname": {
-    "fr": "Prénom Nom",
-    "en": "Name Surname",
+  "pseudonym": {
+    "fr": "Nom / Pseudonyme",
+    "en": "Name / Pseudonym",
     "it": "Nome e cognome",
     "de": "Vorname Nachname",
     "pl": "Imię i nazwisko",
     "es": "Nombre Apellido",
-    "br": "Anv Anv-bihan",
+    "br": "Anv Anv- bihan",
     "io": "crwdns13150:0crwdne13150:0"
+  },
+  "pseudonymSub": {
+    "fr": "Cette information sera visible des administrateurs des agendas sur lesquels vous contribuerez des événements",
+    "en": "This information will be visible by the administrators of the calendars where you will contribute events"
   },
   "email": {
     "fr": "Email",
@@ -142,12 +146,12 @@ module.exports = {
     "io": "crwdns13156:0crwdne13156:0"
   },
   "signup": {
-    "fr": "S'inscrire",
-    "en": "Sign Up",
+    "fr": "Accepter et créer le compte",
+    "en": "Accept and create the account",
     "it": "Iscriviti",
     "de": "Registriere dich",
     "pl": "Zarejestruj się",
-    "es": "Inscribirse",
+    "es": "Acceptar i crear la cuenta",
     "br": "En em enskrivañ",
     "io": "crwdns13158:0crwdne13158:0"
   },
@@ -188,5 +192,9 @@ module.exports = {
     "es": "Idioma",
     "it": "Lingua",
     "io": "crwdns13166:0crwdne13166:0"
+  },
+  "more": {
+    "fr": "En savoir plus",
+    "en": "Read more"
   }
 }

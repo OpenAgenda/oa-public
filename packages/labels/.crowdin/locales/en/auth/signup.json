@@ -9,13 +9,15 @@
   "captchaTryAgain": "Try this again",
   "hasAccount": "Have you already used OpenAgenda ?",
   "connect": "Connect",
-  "nameSurname": "Name Surname",
+  "pseudonym": "Name / Pseudonym",
+  "pseudonymSub": "This information will be visible by the administrators of the calendars where you will contribute events",
   "email": "Email",
   "password": "Password",
   "repeatPassword": "Repeat Password",
-  "signup": "Sign Up",
+  "signup": "Accept and create the account",
   "agree": "By creating an account you agree to the %terms% and to the %policy%.",
   "termsOfUse": "Terms of Use",
   "policy": "Privacy Policy",
-  "culture": "Language"
+  "culture": "Language",
+  "more": "Read more"
 }

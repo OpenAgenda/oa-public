@@ -73,6 +73,8 @@
   "contributorsMessages": "crwdns12640:0crwdne12640:0",
   "consigne": "crwdns12642:0crwdne12642:0",
   "consigneSubLabel": "crwdns12644:0crwdne12644:0",
+  "GDPRInformation": "crwdns30982:0crwdne30982:0",
+  "GDPRInformationSubLabel": "crwdns30984:0crwdne30984:0",
   "contributionMessageComplete": "crwdns12646:0crwdne12646:0",
   "contributionMessageCompleteSubLabel": "crwdns12648:0crwdne12648:0",
   "contributionMessagePublication": "crwdns12650:0crwdne12650:0",
@@ -92,7 +94,5 @@
   "statsDescription": "crwdns12678:0crwdne12678:0",
   "lab": "crwdns12680:0crwdne12680:0",
   "labTabDescription": "crwdns12682:0crwdne12682:0",
-  "eventStatusDesc": "crwdns16072:0crwdne16072:0",
-  "GDPRInformation": "crwdns30982:0crwdne30982:0",
-  "GDPRInformationSubLabel": "crwdns30984:0crwdne30984:0"
+  "eventStatusDesc": "crwdns16072:0crwdne16072:0"
 }
