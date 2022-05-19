@@ -205,7 +205,7 @@ Add a reference in the html string:
 Otherwise, you'll need the following packages as dev dependencies
 
     "css-loader": "^0.28.7",
-    "node-sass": "^4.7.2",
+    "node-sass": "^6.0.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
 
