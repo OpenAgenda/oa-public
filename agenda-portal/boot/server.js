@@ -8,7 +8,7 @@ const Portal = require('..');
 
 Portal.utils.loadEnvironment(__dirname);
 
-function eventHook(event /* { lang, agenda, root } */) {
+function eventHook(event /* , { lang, agenda, root } */) {
   return event;
 }
 
