@@ -33,7 +33,7 @@
   "geocodeNoResults": "Non siamo riusciti a trovare quell'indirizzo. Modifica per lasciare solo il nome del comune, posizionare il marcatore nel punto giusto sulla mappa e terminare completando l'indirizzo.",
   "loadingError": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
   "verified": "Questa posizione è controllata",
-  "toverify": "Questo posto deve essere controllato",
+  "toverify": "Questo luogo deve essere controllato",
   "saving": "Backup",
   "region": "Regione",
   "department": "Provincia",

@@ -319,7 +319,7 @@ module.exports = {
     "de": "Dieser Standort muss überprüft werden",
     "es": "Este lugar está en jaque",
     "br": "N'eo ket bet gwiriet al lec'h-mañ",
-    "it": "Questo posto deve essere controllato",
+    "it": "Questo luogo deve essere controllato",
     "io": "crwdns12204:0crwdne12204:0"
   },
   "saving": {

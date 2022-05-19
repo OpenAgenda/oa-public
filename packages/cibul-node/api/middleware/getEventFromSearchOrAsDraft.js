@@ -21,7 +21,8 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
   log('getting event matching query %j', query);
 
   core
-    .agendas(req.agenda.uid).events
+    .agendas(req.agenda.uid)
+    .events
     .search(query, { size: 1 }, {
       detailed: true,
       access: 'internal', // access is evaluated in other middleware.
@@ -46,7 +47,8 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
       core.agendas(req.agenda.uid).events
         .get(req.params.eventUid, {
           useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
-          useLocationObjectFormat: true
+          useLocationObjectFormat: true,
+          access: 'internal'
         })
         .then(event => {
           if (event?.draft) {

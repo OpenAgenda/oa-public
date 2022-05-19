@@ -2,7 +2,7 @@
   "oneDate": "%day%, %times%",
   "twoDates": "%firstDate% e %lastDate%",
   "moreDates": "%firstDate% - %lastDate%",
-  "noDates": "Nessun data disponible",
+  "noDates": "nessun data disponibile",
   "minuteSeparator": ":",
   "prefix": "su",
   "weekday-0": "Domenica",

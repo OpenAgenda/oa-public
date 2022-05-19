@@ -146,7 +146,7 @@ module.exports = {
     "en": "Saving...",
     "de": "Speichern...",
     "es": "Ahorro",
-    "it": "Backup in corso",
+    "it": "Backup in corso...",
     "io": "crwdns15854:0crwdne15854:0"
   },
   "saved": {
@@ -369,14 +369,6 @@ module.exports = {
     "es": "evento actualiza",
     "it": "Evento aggiornato",
     "io": "crwdns15908:0crwdne15908:0"
-  },
-  "agendaEventSubmitModeration": {
-    "en": "Event subject to moderation",
-    "fr": "Événement soumis à la modération",
-    "de": "Veranstaltung unter Moderation",
-    "es": "titulo del evento a la moderación",
-    "it": "Evento moderato",
-    "io": "crwdns15910:0crwdne15910:0"
   },
   "agendaEventPublished": {
     "en": "Published event",

@@ -113,12 +113,12 @@ async function downloadFile(url, to) {
 
     translationsCounter += Object.keys(crowdinLabels).length;
 
-    let rawProjectLabels = '';
+    let rawProjectLabels = '{}';
 
     try {
       rawProjectLabels = fs.readFileSync(path.join(PROJECT, root, filePath), 'utf-8');
     } catch (e) {
-      console.log(`File '${file}' does not exists in project`);
+      console.log(`File '${file.name}' does not exists in project`);
     }
 
     const start = rawProjectLabels.slice(0, rawProjectLabels.indexOf('{'));

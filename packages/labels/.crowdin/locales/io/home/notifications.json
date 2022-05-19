@@ -7,7 +7,6 @@
   "seeAgenda": "crwdns14972:0crwdne14972:0",
   "seeEvent": "crwdns14974:0crwdne14974:0",
   "agendaEventPublished": "crwdns14976:0%user%crwdnd14976:0%event%crwdne14976:0",
-  "agendaEventSubmitModeration": "crwdns14978:0%user%crwdnd14978:0%event%crwdnd14978:0%agenda%crwdne14978:0",
   "userNewContributor": "crwdns14980:0%agenda%crwdne14980:0",
   "agendaNewContributor": "crwdns14982:0%user%crwdnd14982:0%agenda%crwdne14982:0",
   "agendaNewAdministrator": "crwdns14984:0%user%crwdnd14984:0%agenda%crwdne14984:0",

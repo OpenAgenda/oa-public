@@ -73,15 +73,6 @@ module.exports = {
     "it": "%user% ha pubblicato %event%.",
     "io": "crwdns14976:0%user%crwdnd14976:0%event%crwdne14976:0"
   },
-  "agendaEventSubmitModeration": {
-    "en": "%user% has submitted %event% to %agenda% for moderation",
-    "fr": "%user% a soumis %event% à l'agenda %agenda% pour modération",
-    "de": "%user% hat zur Mäßigung auf %agenda% Veranstaltung eingereicht",
-    "es": "%user% presentó %event% al agenda del %agenda% para la moderación",
-    "br": "%user% en/he deus kaset %event% da %agenda% evit bezañ habaskaet",
-    "it": "%user% ha presentato %event% a %agenda% per moderazione",
-    "io": "crwdns14978:0%user%crwdnd14978:0%event%crwdnd14978:0%agenda%crwdne14978:0"
-  },
   "userNewContributor": {
     "en": "You are now a contributor of the agenda %agenda%.",
     "fr": "Vous êtes désormais contributeur de l'agenda %agenda%.",

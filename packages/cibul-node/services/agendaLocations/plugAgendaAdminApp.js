@@ -24,18 +24,9 @@ module.exports = (config, services, instance, app, base) => {
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
     loadLocationEndpoints(instance));
 
-  app.get(`${base}.json`, (req, res, next) => {
-    req.locations.list(
-      req.query,
-      _.pick(req.query, ['offset', 'limit']),
-      {
-        total: true, eventCounts: true, detailed: true, includeImagePath: true
-      }
-    ).then(({ items, total }) => res.json({ items, total }), next);
-  });
-
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
     req.locations.list(req.query, {}, {
+      context: { agendaUid: req.agenda.uid },
       stream: true,
       eventCounts: true,
       detailed: true,

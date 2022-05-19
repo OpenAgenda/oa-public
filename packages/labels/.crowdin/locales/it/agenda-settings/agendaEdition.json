@@ -24,7 +24,7 @@
   "slug.invalid": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
   "email.invalid": "L'indirizzo e-mail non è valido",
   "saveModifications": "Salva le modifiche",
-  "saving": "Backup in corso",
+  "saving": "Backup in corso...",
   "saved": "Modifiche salvate",
   "agendaProfile": "Profilo del diario",
   "yes": "Sì",

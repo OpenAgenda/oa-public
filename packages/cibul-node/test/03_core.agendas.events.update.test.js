@@ -75,6 +75,8 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           location: {
             uid: 123
           },
+          attendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
           timings: [{
             begin: new Date('2019-05-06T10:00:00'),
             end: new Date('2019-05-06T11:00:00')
@@ -110,6 +112,11 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       it('provides the location in a location key', async () => {
         expect(event.location.name).toBe('La boutique');
+      });
+
+      it('attendanceMode and onlineAccessLink can be edited at update', () => {
+        expect(event.attendanceMode).toBe(2);
+        expect(event.onlineAccessLink).toBe('https://openagenda.com');
       });
     });
 
@@ -659,7 +666,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             data: {
               title: {
                 fr: 'Un événement mis à jour via l\'api'
-              }
+              },
+              attendanceMode: 2,
+              onlineAccessLink: 'https://openagenda.com'
             }
           });
         } catch (e) {
@@ -677,6 +686,10 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       it('fix: image is maintained', () => {
         expect(response.data.event.image.filename).toEqual('fdqfsdq.jpg');
+      });
+
+      it('attendanceMode is patched', () => {
+        expect(response.data.event.attendanceMode).toBe(2);
       });
     });
 

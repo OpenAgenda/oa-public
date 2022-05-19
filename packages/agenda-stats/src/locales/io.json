@@ -100,5 +100,7 @@
   "AgendaStats.EmptyDashboard.action": "crwdns17316:0crwdne17316:0",
   "AgendaStats.EmptyDashboard.creationHelp": "crwdns17318:0crwdne17318:0",
   "AgendaStats.EmptyDashboard.description": "crwdns17320:0crwdne17320:0",
-  "AgendaStats.EmptyDashboard.title": "crwdns17322:0crwdne17322:0"
+  "AgendaStats.EmptyDashboard.title": "crwdns17322:0crwdne17322:0",
+  "AgendaStats.BooleanTooltipItem.notSelected": "crwdns30658:0crwdne30658:0",
+  "AgendaStats.BooleanTooltipItem.selected": "crwdns30660:0crwdne30660:0"
 }

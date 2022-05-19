@@ -94,14 +94,14 @@ function validate(value, options = {}) {
   if (clean.enableWith) {
     const fieldName = getWithFieldName(clean.enableWith);
     if (!_.get(clean, 'related.enable', []).includes(fieldName)) {
-      clean.related.enable = _.get(clean, 'related.enable', []).concat(fieldName);
+      _.set(clean, 'related.enable', _.get(clean, 'related.enable', []).concat(fieldName));
     }
   }
 
   if (clean.optionalWith) {
     const fieldName = getWithFieldName(clean.optionalWith);
     if (!_.get(clean, 'related.optional', []).includes(fieldName)) {
-      clean.related.optional = _.get(clean, 'related.optional', []).concat(fieldName);
+      _.set(clean, 'related.optional', _.get(clean, 'related.optional', []).concat(fieldName));
     }
   }
 

@@ -103,7 +103,7 @@ function schema(options) {
       };
     }
 
-    if (cursor.enableWith && !withFieldValueMatches(cursor, 'enableWith', contextValues)) {
+    if (cursor.enableWith && !withFieldValueMatches(cursor, 'enableWith', contextValues, params.fields)) {
       return;
     }
 

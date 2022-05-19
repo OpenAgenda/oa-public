@@ -6,7 +6,7 @@ module.exports = {
     "en": "Locations merge",
     "de": "Standorte fusionieren",
     "es": "lugares de fusión",
-    "it": "Fusione di posti",
+    "it": "Fusione di luoghi",
     "io": "crwdns12318:0crwdne12318:0"
   },
   "info": {
@@ -31,7 +31,7 @@ module.exports = {
     "en": "The locations could not be merged",
     "de": "Die Standorte können nicht zusammengeführt werden",
     "es": "Los lugares no podrían fusionarse",
-    "it": "I luoghi non potevano essere uniti",
+    "it": "I luoghi non potevano essere fusionati",
     "io": "crwdns12324:0crwdne12324:0"
   }
 }

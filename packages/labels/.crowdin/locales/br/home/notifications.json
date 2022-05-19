@@ -7,7 +7,6 @@
   "seeAgenda": "Gwelet an deiziataer",
   "seeEvent": "Gwelet an darvoud",
   "agendaEventPublished": "%user% en/he deus embannet %event%.",
-  "agendaEventSubmitModeration": "%user% en/he deus kaset %event% da %agenda% evit bezañ habaskaet",
   "userNewContributor": "Ur c'hendaoler eus an deiziataer %agenda% oc'h bremañ.",
   "agendaNewContributor": "%user% a gendaol d'an deiziataer %agenda% bremañ.",
   "agendaNewAdministrator": "%user% zo ur merour eus an deiziataer %agenda% bremañ.",
