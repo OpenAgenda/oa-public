@@ -9,7 +9,9 @@
     "errors" : {
       "email" : "the email is not known"
     },
-    "enabledServices" : [ "twitter", "facebook", "google" ]
+    "enabledServices" : [ "twitter", "facebook", "google" ],
+    "signin": "/signin",
+    "signup": "/signup"
   },
   "noinvites" : {
     "optionals" : {
