@@ -5,17 +5,19 @@
   "invalidEmail": "Cet email n'est pas valide",
   "passwordTooShort": "Le mot de passe est trop court",
   "passwordNotEqual": "Les mots de passe ne sont pas identiques",
-  "createAccount": "Créez un compte",
+  "createAccount": "Création d'un nouveau compte",
   "captchaTryAgain": "Veuillez ré-essayer",
   "hasAccount": "Vous avez déjà utilisé OpenAgenda ?",
   "connect": "Connectez-vous",
-  "nameSurname": "Prénom Nom",
+  "pseudonym": "Nom / Pseudonyme",
+  "pseudonymSub": "Cette information sera visible des administrateurs des agendas sur lesquels vous contribuerez des événements",
   "email": "Email",
   "password": "Mot de passe",
   "repeatPassword": "Répéter le mot de passe",
-  "signup": "S'inscrire",
+  "signup": "Accepter et créer le compte",
   "agree": "En créant un compte vous acceptez les %terms% ainsi que la %policy%.",
   "termsOfUse": "Conditions d'Utilisation",
   "policy": "Politique de confidentialité",
-  "culture": "Langue"
+  "culture": "Langue",
+  "more": "En savoir plus"
 }

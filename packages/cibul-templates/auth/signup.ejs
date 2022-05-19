@@ -30,10 +30,12 @@
           <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
             <form id="signup-form" class="margin-h-md" method="post">
               <div class="form-group<%= errors.fullName ? ' has-error' : '' %>">
-                <label for="full_name" class="control-label"><%= __( 'nameSurname' ) %></label>
+                <label for="full_name" class="control-label"><%= __( 'pseudonym' ) %></label>
                 <input name="full_name" class="form-control" value="<%= full_name %>" />
                 <% if ( errors.fullName ) { %>
                   <span class="text-danger"><%= __( errors.fullName ) %></span>
+                <% } else { %>
+                  <span style="font-size: 13px;"><%= __( 'pseudonymSub' ) %> <a href="https://doc.openagenda.com/confidentialite/#votre-compte-utilisateur" target="_blank"><%= __( 'more' ) %></a></span>
                 <% } %>
               </div>
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
@@ -95,6 +97,13 @@
                   <% } %>
                 </div>
               <% } %>
+              <p class="margin-v-md">
+                <%- __( 'agree', {
+                  terms: '<a target="_blank" href="/termsofuse">' + __( 'termsOfUse' ) + '</a>',
+                  policy: '<a target="_blank" href="https://doc.openagenda.com/confidentialite/">' + __(
+                    'policy' ) + '</a>'
+                } ) %>
+              </p>
               <div class="form-group">
                 <button id="signup-submit" class="btn btn-primary" type="submit"><%= __( 'signup' ) %></button>
               </div>
@@ -178,17 +187,6 @@
               </div>
             </div>
           <% } %>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="margin-all-md">
-              <%- __( 'agree', {
-                terms: '<a target="_blank" href="/termsofuse">' + __( 'termsOfUse' ) + '</a>',
-                policy: '<a target="_blank" href="https://doc.openagenda.com/confidentialite/">' + __(
-                  'policy' ) + '</a>'
-              } ) %>
-            </p>
-          </div>
         </div>
       </section>
     </div>
