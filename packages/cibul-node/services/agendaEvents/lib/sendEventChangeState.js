@@ -13,9 +13,7 @@ const listAdminMods = require('./utils/listAdminMods');
 const log = require('@openagenda/logs')('agendaEvents/sendEventChangeState');
 
 module.exports = async ({ config, services }, { agendaEvent, before, context, agenda, event }) => {
-  const {
-    root
-  } = config;
+  const { root } = config;
 
   const {
     mails,
@@ -43,26 +41,62 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
 
   const contributor = contributorUser ? await membersSvc.get({
     agendaUid: agenda.uid,
-    userUid: contributorUser.uid
+    userUid: contributorUser.uid,
   }) : null;
-
-  if (agendaEvent.agendaUid === event.agendaUid) {
-    if (!contributorUser) {
-      throw new VError('User matching agendaEvent.userUid %s was not found', _.get(agendaEvent, 'userUid'));
-    } else {
-      await _sendToContributor({
-        services,
-        contributor,
-        contributorUser,
-        agendaEvent,
-        agenda,
-        event,
-        logo,
-        link,
-        beforeStateLabel,
-        afterStateLabel
-      });
+  const creator = await membersSvc.get({
+    agendaUid: event.agendaUid, // origin agenda
+    userUid: event.creatorUid
+  });
+  const creatorUser = await usersSvc.findOne({
+    query: {
+      uid: event.creatorUid
     }
+  });
+
+  const eventIsPublished = agendaEvent.state === agendaEventStates.PUBLISHED
+  const eventIsRefused = agendaEvent.state === agendaEventStates.REFUSED;
+
+  const creatorIsAdminmod = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
+  const visibleForCreator = creatorIsAdminmod || (!agenda.private && eventIsPublished);
+
+  const contributorIsAdminmod = contributor?.role
+    && membersSvc.utils.compareRoles.isSuperiorToOrEqual(contributor.role, 'moderator');
+
+  let sentToCreator = false;
+  let sentToContributor = false;
+
+  if (creatorUser.uid !== contributorUser.uid && visibleForCreator) {
+    await _sendToContributor({
+      services,
+      contributor: creator,
+      contributorUser: creatorUser,
+      agendaEvent,
+      agenda,
+      event,
+      logo,
+      link,
+      beforeStateLabel,
+      afterStateLabel
+    });
+
+    sentToCreator = true;
+  }
+
+  if (contributorIsAdminmod || eventIsPublished || eventIsRefused) {
+    await _sendToContributor({
+      services,
+      contributor,
+      contributorUser,
+      agendaEvent,
+      agenda,
+      event,
+      logo,
+      link,
+      beforeStateLabel,
+      afterStateLabel
+    });
+
+    sentToContributor = true;
   }
 
   if (_.get(context, 'batched')) {
@@ -73,7 +107,6 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   await mails.send({
     template: 'eventChangeState',
     to: members
-      .filter(member => member.id !== _.get(contributor, 'id'))
       .filter(member => {
         if (!member.user) {
           log('warn', 'no user was found matching member %s', member.id);
@@ -81,6 +114,10 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
 
         return !!member.user;
       })
+      .filter(member => (
+        (sentToCreator && member.user.uid === creatorUser.uid)
+        || (sentToContributor && member.user.uid === contributorUser.uid)
+      ))
       .map(member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);
