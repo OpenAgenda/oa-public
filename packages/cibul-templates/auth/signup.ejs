@@ -35,7 +35,7 @@
                 <% if ( errors.fullName ) { %>
                   <span class="text-danger"><%= __( errors.fullName ) %></span>
                 <% } else { %>
-                  <span style="font-size: 13px;"><%= __( 'pseudonymSub' ) %> <a href="https://doc.openagenda.com/confidentialite/#votre-compte-utilisateur" target="_blank"><%= __( 'more' ) %></a></span>
+                  <span class="sub"><%= __( 'pseudonymSub' ) %> <a href="https://doc.openagenda.com/confidentialite/#votre-compte-utilisateur" target="_blank"><%= __( 'more' ) %></a></span>
                 <% } %>
               </div>
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
@@ -104,13 +104,20 @@
                     'policy' ) + '</a>'
                 } ) %>
               </p>
-              <div class="form-group">
-                <button id="signup-submit" class="btn btn-primary" type="submit"><%= __( 'signup' ) %></button>
+              <div class="form-group margin-bottom-lg">
+                <button id="signup-submit" class="btn btn-primary btn-block" type="submit"><%= __( 'signup' ) %></button>
               </div>
             </form>
           </div>
           <% if ( enabledServices.length ) { %>
-            <div class="col-md-6">
+            <div class="col-md-6 light-border-left">
+              <div class="margin-all-md">
+                <div class="text-center margin-bottom-sm"><strong class="gray"><%= __('orSocial') %></strong></div>
+                <div class="text-center">
+                  <strong><%= __('socialHead') %></strong>
+                </div>
+                <div class="margin-top-sm"><%= __('socialDescription') %></div>
+              </div>
               <div class="margin-all-md">
                 <% if ( enabledServices.includes( 'facebook' ) ) { %>
                   <div class="margin-bottom-md">
