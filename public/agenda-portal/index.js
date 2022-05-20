@@ -72,6 +72,7 @@ module.exports = async options => {
     eventsPerPage: 20,
     assetsRoot: null,
     devServerPort: 3001,
+    longDescriptionFormat: 'HTMLWithEmbeds',
     ...options,
   };
 
@@ -93,7 +94,8 @@ module.exports = async options => {
     proxy: injectedProxy,
     assetsRoot,
     proxyHookBeforeGet,
-    devServerPort
+    devServerPort,
+    longDescriptionFormat,
   } = config;
 
   const middlewareHooks = {
@@ -149,6 +151,7 @@ module.exports = async options => {
       defaultFilter,
       defaultTimezone,
       proxyHookBeforeGet,
+      longDescriptionFormat
     });
 
   app.set('proxy', proxy);

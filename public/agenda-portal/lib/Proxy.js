@@ -25,7 +25,8 @@ module.exports = ({
   preFilter,
   defaultFilter,
   defaultTimezone,
-  proxyHookBeforeGet
+  proxyHookBeforeGet,
+  longDescriptionFormat,
 }) => {
   async function _fetch(agendaUid, res, userQuery, forcedLimit = null) {
     const query = { ...preFilter, ...userQuery };
@@ -91,18 +92,19 @@ module.exports = ({
       agendaUid,
       'events.v2.json',
       {
+        longDescriptionFormat,
         ...(uid ? { uid } : {}),
         ...(slug ? { slug } : {}),
         detailed: 1,
       }
     ).then(r => r.events
-      .filter(e => {
+      .find(e => {
         if (slug) {
           return e.slug === slug;
         }
         return e.uid === parseInt(uid, 10);
       })
-      .pop());
+    );
   }
 
   const cached = _.memoize(_fetch, (agendaUid, res, query) => [agendaUid, res, qs.stringify(query)].join('|'));
