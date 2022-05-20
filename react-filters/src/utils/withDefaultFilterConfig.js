@@ -102,19 +102,19 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         options: [
           {
             label: intl.formatMessage(stateMessages.refused),
-            value: -1,
+            value: '-1',
           },
           {
             label: intl.formatMessage(stateMessages.toModerate),
-            value: 0,
+            value: '0',
           },
           {
             label: intl.formatMessage(stateMessages.controlled),
-            value: 1,
+            value: '1',
           },
           {
             label: intl.formatMessage(stateMessages.published),
-            value: 2,
+            value: '2',
           },
         ],
         aggregation: {
