@@ -83,7 +83,7 @@ const messages = defineMessages({
   aggregationCountWarning: {
     id: 'aggregator-sources.Dashboard.aggregationCountWarning',
     defaultMessage:
-      'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.',
+      'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}, other {}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.',
   },
 });
 
