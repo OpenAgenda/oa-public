@@ -237,10 +237,9 @@ const Map = React.forwardRef(
       tileUrl,
       loadGeoData,
       initialViewport,
-      defaultViewport = worldViewport,
+      defaultViewport,
       onChange,
       userControlled,
-      className,
     },
     ref
   ) => {
@@ -252,7 +251,7 @@ const Map = React.forwardRef(
     const [data, setData] = useState(() => []);
 
     const [displayedMarkers, setDisplayedMarkers] = useState(false);
-    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport).pad(padRatio));
+    const [bounds] = useState(() => viewportToBounds(viewport || defaultViewport || worldViewport).pad(padRatio));
     useImperativeHandle(ref, () => ({
       setData,
       onQueryChange: newViewport => {
@@ -272,7 +271,7 @@ const Map = React.forwardRef(
           map.once('moveend', () => reloadData());
 
           programmaticMoveRef.current = true;
-          map.fitBounds(viewportToBounds(newViewport || defaultViewport).pad(padRatio));
+          map.fitBounds(viewportToBounds(newViewport || defaultViewport || worldViewport).pad(padRatio));
         } else {
           reloadData();
         }
