@@ -11,7 +11,6 @@ const resyncInbox = require('./resyncInbox');
 
 const updateSchemaFields = require('./updateSchemaFields');
 const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
-const pushDataToFormSchema = require('./pushDataToFormSchema');
 const contributionTypes = require('./contributionTypes');
 
 module.exports = core => {
@@ -31,8 +30,7 @@ module.exports = core => {
     updateLegacy: agendaUid => updateLegacy(core, agendaUid),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
-    createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
-    pushDataToFormSchema: agendaUid => pushDataToFormSchema(services, agendaUid)
+    createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid)
   };
 
   tasks.register(resyncFn);
@@ -54,8 +52,7 @@ module.exports = core => {
       updateCustom: resyncFn.updateCustomFromSchema.bind(null, agendaUid),
       update: resyncFn.updateLegacy.bind(null, agendaUid),
       rebuildControlData: resyncFn.rebuildControlData.bind(null, agendaUid),
-      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid),
-      pushDataToFormSchema: resyncFn.pushDataToFormSchema.bind(null, agendaUid)
+      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid)
     },
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {

@@ -7,8 +7,6 @@ const rebuildActivityFeeds = require('@openagenda/activities/dist/service/rebuil
 
 const queue = require('@openagenda/queue');
 
-const custom = require('./lib/custom');
-
 async function resyncLegacySearch(services, agendaUid) {
   log('info', 'resyncing agenda %d - legacy search index rebuild', agendaUid);
 
@@ -56,9 +54,6 @@ module.exports = (config, services) => {
       switch (data.type) {
         case 'controlData':
           return services.legacy.controlData.rebuild(data.agendaUid).then(() => cb(), cb);
-        case 'custom':
-          custom(services, data);
-          break;
 
         case 'customToLegacy':
           services.legacy.tagsAndCustom.setAll(data.agendaUid);
