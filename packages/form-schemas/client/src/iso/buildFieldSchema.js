@@ -129,6 +129,11 @@ function buildFieldSchema(type, options = {}) {
         default: [],
         list: true
       }
+    },
+
+    constraints: {
+      type: 'pass',
+      optional: true
     }
 
   };

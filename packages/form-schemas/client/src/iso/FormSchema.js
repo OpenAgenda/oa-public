@@ -87,7 +87,6 @@ function validate(data, options = {}) {
 }
 
 module.exports = class {
-
   constructor(data, options = {}) {
     // { fields, nextOptionId, res, id, custom }
     this.data = validate(data, {
@@ -126,7 +125,7 @@ module.exports = class {
       'custom', 'defaultLabelLanguage', 'nextOptionId'
     ]));
 
-    const fieldIndex  = this._getFieldIndex(clean.field);
+    const fieldIndex = this._getFieldIndex(clean.field);
 
     this.data.nextOptionId = nextOptionId;
 
@@ -208,6 +207,7 @@ module.exports = class {
   }
 
   updateFields(fields) {
+    console.log('iso FormSchema', fields);
     const updatedFieldsNames = fields.map(f => f.field);
 
     // remove
@@ -225,7 +225,7 @@ module.exports = class {
     });
 
     fields.map((f, i) => this.moveFieldTo(f.field, i));
-    
+
     return this.data.fields;
   }
 
