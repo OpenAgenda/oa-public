@@ -7,6 +7,7 @@ import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaB
 import labels from '@openagenda/labels/agenda-admin/agendaSchema';
 
 import getSchemaFieldCount from './lib/getSchemaFieldCount';
+import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges'; 
 
 
 if (module.hot) module.hot.accept();
@@ -51,6 +52,7 @@ class Main extends Component {
 
     const { lang, extensions, schema, agenda, maxFields, editableExtensions } = this.props;
     console.log(maxFields, this.state.currentFieldCount)
+    console.log("schema:", schema, extensions)
     return <div>
 
       <FormSchemaBuilder
@@ -73,6 +75,24 @@ class Main extends Component {
           }))}
         onUpdate={this.onUpdate.bind(this)}
         renderHead={this.renderHeadComponent.bind(this)}
+        components={{
+          enabledRanges: EnabledRanges
+        }}
+        customFieldConfigurationSchemas={({
+          timings: {
+            fields: [{
+              field: 'label',
+              fieldType: 'abstract'
+            }, {
+              field: 'sub',
+              fieldType: 'abstract'
+            },{
+              field: 'enabledRanges',
+              fieldType: 'enabledRanges',
+              label: 'Configurateur des saisie de dates'
+            }],
+          }
+        })}
       />
       {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
         <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
