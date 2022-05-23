@@ -6,11 +6,9 @@ const log = require( '@openagenda/logs' )( 'legacy' );
 
 const config = require( '../config' );
 const set = require( './set' );
-const setAll = require( './setAll' );
 
 module.exports = _.extend( set, {
-  remove,
-  setAll: setAll.bind( null, config )
+  remove
 } );
 
 async function remove( formSchemaId, identifier ) {

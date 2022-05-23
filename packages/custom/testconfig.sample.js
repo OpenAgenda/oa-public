@@ -6,7 +6,8 @@ module.exports = {
     host: '127.0.0.1',
     database: 'oatest_custom',
     password: 'grut',
-    user: 'root'
+    user: 'root',
+    ssl: true
   },
 
   schemas: {

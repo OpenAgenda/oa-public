@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `legacy_event` (
   `id` bigint(20) NOT NULL,
-  `slug` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `background_image` varchar(255) DEFAULT NULL,
@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS `legacy_event` (
   `owner_id` bigint(20) DEFAULT NULL,
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `is_new` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `uid` bigint(20) DEFAULT NULL,
   `origin_uid` bigint(20),
   `file_key` varchar(32),
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS `legacy_event` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `${schema}` (`id`, `uid`, `slug`, `url`, `image`, `background_image`, `background_color`, `owner_id`, `is_published`, `is_new`, `created_at`, `updated_at`, `store`, `eve_id`, `custom_fields`, `age_min`, `age_max`, `accessibility`, `type`, `origin_uid`, `file_key`, `image_credits` ) VALUES
-(147621, 27434489, 
-  'indoor-de-paris-cso-pro-1', NULL, 'event_indoor-de-paris-cso-pro-1_563851.jpg', NULL, NULL, 27645, 1, 0, '2016-10-14 15:01:00', '2016-10-14 15:01:01', 
+(147621, 27434489, 'indoor-de-paris-cso-pro-1',
+  NULL, 'event_indoor-de-paris-cso-pro-1_563851.jpg', NULL, NULL, 27645, 1, 0, '2016-10-14 15:01:00', '2016-10-14 15:01:01', 
   '{"customFields":{"custom_description" : "Joooohnnyyyyy!"}}',
   NULL, NULL, NULL, NULL, '["mi","hi","sl"]', NULL, 48959239, 'reai4iufo57yuqo3fdy6qqoi5fy3iqo', '@gaetan 2017' ),
 (147620, 31259734, 'indoor-de-paris-pro-3', NULL, 'event_indoor-de-paris-pro-3_625276.jpg', NULL, NULL, 27645, 1, 0, '2016-10-14 14:48:53', '2016-10-14 14:49:25', 
