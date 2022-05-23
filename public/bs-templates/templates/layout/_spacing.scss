@@ -36,3 +36,8 @@
   line-height: 2em;
 
 }
+
+.oa-form .form-group {
+  @include createSpacing(margin);
+  @include createSpacing(padding);
+}
