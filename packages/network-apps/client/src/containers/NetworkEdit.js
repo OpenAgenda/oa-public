@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
+import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges'; 
 
 import reducers from '../reducers';
 
@@ -41,6 +42,24 @@ export class NetworkEdit extends Component {
             }
           }]}
           onUpdate={onUpdate}
+          components={{
+            enabledRanges: EnabledRanges
+          }}
+          customFieldConfigurationSchemas={({
+            timings: {
+              fields: [{
+                field: 'label',
+                fieldType: 'abstract'
+              }, {
+                field: 'sub',
+                fieldType: 'abstract'
+              },{
+                field: 'enabledRanges',
+                fieldType: 'enabledRanges',
+                label: 'Configurateur des saisie de dates'
+              }],
+            }
+          })}
         />
         <pre><code>{JSON.stringify(schema, null, 2)}</code></pre>
         <pre><code>{JSON.stringify(eventSchema, null, 2)}</code></pre>
