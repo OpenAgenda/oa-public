@@ -1,18 +1,6 @@
-const { registerDependencies } = require( 'mjml-validator' );
-const { BodyComponent } = require( 'mjml-core' );
-const marked = require( 'marked' );
-const dedent = require( 'dedent' );
-
-
-registerDependencies( {
-  // Tell the validator which tags are allowed as our component's parent
-  'mj-column': [ 'mj-markdown' ],
-  'mj-hero': [ 'mj-markdown' ],
-  'mj-text-md': [ 'mj-markdown' ],
-  // 'mj-text': [ 'mj-markdown' ],
-  // // Tell the validator which tags are allowed as our component's children
-  'mj-markdown': [],
-} );
+const { BodyComponent } = require('mjml-core');
+const marked = require('marked');
+const dedent = require('dedent');
 
 
 class MjMarkdown extends BodyComponent {
@@ -30,7 +18,7 @@ class MjMarkdown extends BodyComponent {
         'text-align': this.getAttribute('align'),
         'text-decoration': this.getAttribute('text-decoration'),
         'text-transform': this.getAttribute('text-transform'),
-      }
+      },
     };
   }
 
@@ -40,14 +28,23 @@ class MjMarkdown extends BodyComponent {
   */
   render() {
     return `
-      <div ${this.htmlAttributes( { // this.htmlAttributes() is the recommended way to pass attributes to html tags
-        class: this.getAttribute( 'css-class' ),
-        style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
-      } )}>
-        ${marked( dedent( this.getContent() ), { breaks: this.getAttribute( 'breaks' ) } )}
+      <div ${this.htmlAttributes({ // this.htmlAttributes() is the recommended way to pass attributes to html tags
+      class: this.getAttribute('css-class'),
+      style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
+    })}>
+        ${marked(dedent(this.getContent()), { breaks: this.getAttribute('breaks') })}
       </div>
     `;
   }
+};
+
+MjMarkdown.dependencies = {
+  // Tell the validator which tags are allowed as our component's parent
+  'mj-column': ['mj-markdown'],
+  'mj-hero': ['mj-markdown'],
+  // 'mj-text': [ 'mj-markdown' ],
+  // // Tell the validator which tags are allowed as our component's children
+  'mj-markdown': [],
 };
 
 // Tell the parser that our component won't contain other mjml tags
@@ -81,7 +78,7 @@ MjMarkdown.defaultAttributes = {
   'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
   'font-size': '13px',
   'line-height': '1',
-  padding: '10px 25px'
+  padding: '10px 25px',
 };
 
 
