@@ -15,7 +15,7 @@
     "@openagenda/common-labels": "^1.0.0",
     "@openagenda/event-form": "^1.5.1",
     "@openagenda/form-schemas": "^1.9.2",
-    "@openagenda/intl": "^1.1.1",
+    "@openagenda/intl": "^1.1.2",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/member-apps": "^2.1.1",

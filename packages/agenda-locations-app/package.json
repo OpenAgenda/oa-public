@@ -21,7 +21,7 @@
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/countries": "^0.1.1",
-    "@openagenda/intl": "^1.1.1",
+    "@openagenda/intl": "^1.1.2",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/react-form-components": "^2.1.14",
     "@openagenda/react-shared": "^2.2.0",
