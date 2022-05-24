@@ -1,39 +1,57 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
+import debug from 'debug';
 
-const updatableAbstractFieldKeys = [ 'label', 'info', 'placeholder', 'sub', 'display' ];
+const log = debug('FormSchemaBuilder/lib/updateSchemaField');
 
-export default ( schema, field, updatedFieldValues ) => {
+const standardFieldKeys = [
+  'options',
+  'max',
+  'min',
+  'fieldType',
+  'origin',
+  'optional',
+  'field',
+  'languages',
+  'read',
+  'write',
+  'enableWith',
+  'optionalWith'
+];
 
-  const fieldIndex = _.findIndex( schema.fields, sf => sf.field === field.field );
+export default function updateSchemaField(schema, field, updatedFieldValues) {
+  const fieldIndex = _.findIndex(schema.fields, sf => sf.field === field.field);
 
-  if ( fieldIndex === -1 ) {
-
-    throw new Error( 'Did not find field to update in schema' );
-
+  if (fieldIndex === -1) {
+    throw new Error('Did not find field to update in schema');
   }
 
   let updatedField = field;
 
-  // only labels, display and default value can be changed for abstract field
-  if ( schema.fields[ fieldIndex ].fieldType === 'abstract' ) {
+  const isAbstract = schema.fields[fieldIndex].fieldType === 'abstract';
 
-    const update = updatableAbstractFieldKeys
-      .filter( fieldKey => updatedFieldValues[ fieldKey ] !== undefined )
-      .reduce( ( update, fieldKey ) => _.set(
-        update, fieldKey, { $set: updatedFieldValues[ fieldKey ] }
-      ), {} );
+  if (isAbstract) {
+    log('field %s is abstract, updating labels, display and default only', field.field);
+    log(updatedField, updatedFieldValues);
+    const update = Object.keys(updatedFieldValues).reduce((carry, fieldKey) => {
+      if (standardFieldKeys.includes(fieldKey)) {
+        return carry;
+      }
+      return {
+        ...carry,
+        [fieldKey]: {
+          $set: updatedFieldValues[fieldKey]
+        }
+      };
+    }, {});
 
-    updatedField = ih( schema.fields[ fieldIndex ], update );
-
+    updatedField = ih(schema.fields[fieldIndex], update);
+    log('updateField', updatedField);
   } else {
-
-    updatedField = _.assign( {}, field, updatedFieldValues );
-
+    updatedField = _.assign({}, field, updatedFieldValues);
   }
 
-  return ih( schema, {
-    fields: { $splice: [[ fieldIndex, 1, updatedField ]] }
-  } );
-
+  return ih(schema, {
+    fields: { $splice: [[fieldIndex, 1, updatedField]] }
+  });
 }
