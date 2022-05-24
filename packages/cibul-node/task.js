@@ -75,8 +75,6 @@ module.exports = (config, core, services) => {
 
   services.agendaStatistics.task();
 
-  services.custom.task();
-
   services.activities.tasks.notifications.addActivity.task();
 
   services.mails.task();
