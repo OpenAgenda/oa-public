@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import store from 'store';
 import { IntlProvider } from 'react-intl';
 
+import EnabledRanges from '../../src/components/configuration/EnabledRanges';
 import { locales } from '@openagenda/react-shared';
 
 import { schema } from '../../test/fixtures/reed.json';
@@ -12,7 +13,7 @@ console.log(schema);
 
 import EventForm from '../../src';
 
-if ( module.hot ) module.hot.accept();
+if (module.hot) module.hot.accept();
 
 import {
   tiles
@@ -21,17 +22,17 @@ import {
 
 const storeKey = 'eventFormSandbox';
 
-console.log( '***** CHANGE ******' );
+console.log('***** CHANGE ******');
 
 class Main extends Component {
 
-  constructor( props ) {
+  constructor(props) {
 
-    super( props );
+    super(props);
 
-    const stored = store.get( storeKey );
+    const stored = store.get(storeKey);
 
-    if ( _.isObject( stored ) ) {
+    if (_.isObject(stored)) {
 
       this.state = stored;
 
@@ -39,19 +40,19 @@ class Main extends Component {
 
   }
 
-  onValuesChange( changed ) {
+  onValuesChange(changed) {
 
-    console.log( changed );
+    console.log(changed);
 
-    this.setState( {
+    this.setState({
       values: changed
-    } );
+    });
 
   }
 
   render() {
     const values = _.get(this, 'state.values', null);
-    
+
     const schemaWithoutInternals = {
       ...schema,
       fields: schema.fields
@@ -99,8 +100,16 @@ class Main extends Component {
             </div>
             <div className="col-sm-4">
               <pre>
-                <code>{JSON.stringify( values, null, 2 ) }</code>
+                <code>{JSON.stringify(values, null, 2)}</code>
               </pre>
+              <EnabledRanges
+                field="enabledRanges"
+                value={{
+                  begin: "2021-07-03T07:00",
+                  end: "2021-07-04T06:00"
+                }}
+                onChange={v => console.log(v)}
+              />
             </div>
           </div>
         </div>
@@ -110,4 +119,4 @@ class Main extends Component {
 
 }
 
-render( <Main />, document.getElementById( 'app' ) );
+render(<Main />, document.getElementById('app'));

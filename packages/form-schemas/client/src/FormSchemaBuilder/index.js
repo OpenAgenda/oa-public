@@ -38,7 +38,6 @@ const modes = {
 };
 
 export default class FormSchemaBuilder extends Component {
-
   constructor(props) {
     super(props);
 
@@ -81,13 +80,17 @@ export default class FormSchemaBuilder extends Component {
 
   onSave() {
     this.setSaveState(saveStates.LOADING);
-
+    console.log('onSave', restrictLabelLanguages.applyToSchema(
+      this.getSchema(),
+      this.state.labelLanguages
+    ));
     submit({
       values: restrictLabelLanguages.applyToSchema(
         this.getSchema(),
         this.state.labelLanguages
       )
     }).then(() => {
+      console.log('onSave then', saveStates.SAVED);
       this.setSaveState(saveStates.SAVED);
     }, err => {
       this.setSaveState(saveStates.ERROR);
@@ -110,12 +113,13 @@ export default class FormSchemaBuilder extends Component {
     this.updateSchema(addSchemaField(this.getSchema(), field, addToEnd));
   }
 
-  onFieldEditSave(field, update) {
+  // bisounours
+  onFieldEditSave(field, update, /* parentField */) {
     this.setState({ editedField: null });
 
     const schema = insertMissingAbstractFields(this.getSchema(), this.getMergedSchema());
 
-    this.updateSchema(updateSchemaField(schema, field, update));
+    this.updateSchema(updateSchemaField(schema, field, update, /* { fieldValidator } */ ));
   }
 
   getSchema() {
@@ -142,11 +146,16 @@ export default class FormSchemaBuilder extends Component {
     return merge.apply(null, extensions.map(e => e.schema).concat(currentSchema));
   }
 
-  updateSchema(schema) {
-    console.log('updateSchema', schema)
-    this.setSaveState(saveStates.CHANGED, { schema });
+  getMergedExtentionSchema(props) {
+    const extensions = _.get(props || this.props, 'extendedFrom', []);
+    return merge.apply(null, extensions.map(e => e.schema));
+  }
 
-    this.props.onUpdate(schema);
+  updateSchema(schema) {
+    const { onUpdate } = this.props;
+    this.setSaveState(saveStates.CHANGED, { schema });
+    console.log('updateSchema', schema);
+    onUpdate(schema);
   }
 
   isDisabled(actionName) {
@@ -192,7 +201,9 @@ export default class FormSchemaBuilder extends Component {
       settingsEnabled,
       editableExtensions,
       extendedFrom,
-      lang
+      lang,
+      customFieldConfigurationSchemas,
+      components
     } = this.props;
 
     const {
@@ -205,9 +216,8 @@ export default class FormSchemaBuilder extends Component {
     } = this.state;
 
     const mergedSchema = this.getMergedSchema();
-
+    const parentsMergedSchema = this.getMergedExtentionSchema();
     const disabled = saveState === saveStates.LOADING;
-    console.log('schema: ', schema);
 
     return (
       <div className="form-schema-builder row">
@@ -244,6 +254,9 @@ export default class FormSchemaBuilder extends Component {
               lang={lang}
               onSave={this.onFieldEditSave.bind(this, editedField)}
               onCancel={this.onFieldEditCancel.bind(this)}
+              customFieldConfigurationSchemas={customFieldConfigurationSchemas}
+              components={components}
+              parentsFields={parentsMergedSchema}
             />
           ) : null}
           <div>

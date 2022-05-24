@@ -117,18 +117,3 @@ export default class FieldPreview extends Component {
     return _.get(field, 'display', true) ? this.renderDisplayed() : this.renderHidden();
   }
 }
-
-<div class="field-preview">
-  <div>
-    <label class="margin-right-xs padding-top-xs">Crédits de l'image</label>
-    <span title="Champ événement standard" class="badge badge-default margin-right-xs pull-right margin-top-xs">Standard</span>
-    <ul class="list-inline margin-bottom-xs">
-      <li><span>Champ texte</span></li>
-      <li class="text-muted" title="Code du champ">imageCredits</li>
-    </ul>
-    <div class="form-item-actions padding-h-xs">
-      <button title="Ce champ ne peut pas être modifié" class="btn btn-link" disabled="">Editer</button>
-      <button class="btn btn-link">Cacher</button>
-    </div>
-  </div>
-</div>

@@ -150,20 +150,5 @@ module.exports = {
     name: 'missinglanguage',
     description: 'if requested language is not defined in label, other language is used for labels',
     link: '/missinglanguage'
-  }, {
-    group: 'builder',
-    name: 'Options',
-    description: 'For when you need to type in values for checkbox or radio lists',
-    link: '/options'
-  }, {
-    group: 'builder',
-    name: 'A form builder with a loaded Radio field',
-    description: 'Monolingual and multilingual radio field option labels should be displayed',
-    link: '/formbuilderwithradios'
-  }, {
-    group: 'builder',
-    name: 'A form builder with a custom field type',
-    description: 'When a field type does not have a defined field schema, only labels can be edited',
-    link: '/formbuilderwithunhandledtypes'
   }]
 };

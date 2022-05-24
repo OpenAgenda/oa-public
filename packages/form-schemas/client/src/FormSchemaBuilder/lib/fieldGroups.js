@@ -1,12 +1,5 @@
 import l from './labels';
 
-export default {
-  labels,
-  minMax,
-  optional,
-  options
-}
-
 function labels({ labelLanguages }) {
   return {
     fields: [{
@@ -34,7 +27,7 @@ function labels({ labelLanguages }) {
       label: l.fieldSub,
       sub: l.fieldSubSub
     }]
-  }
+  };
 }
 
 function options({ labelLanguages }) {
@@ -46,7 +39,7 @@ function options({ labelLanguages }) {
       label: l.fieldOptions,
       languages: labelLanguages.length ? labelLanguages : null
     }]
-  }
+  };
 }
 
 function minMax({ min, max }) {
@@ -61,7 +54,7 @@ function minMax({ min, max }) {
       fieldType: 'integer',
       label: l.fieldFormMaxTextLength
     }]
-  }
+  };
 }
 
 function optional() {
@@ -73,5 +66,12 @@ function optional() {
       default: true,
       label: l.fieldFormOptional
     }]
-  }
+  };
 }
+
+export default {
+  labels,
+  minMax,
+  optional,
+  options
+};
