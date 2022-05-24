@@ -1,4 +1,4 @@
-<%- __('bodyText', { agenda, event }) %>
+<%- __('body', { agenda, event, b: chunks => chunks }) %>
 
 <%- __('actionDescription') %>: <%- link %>
 <% if (typeof memberUnsubscribeLink !== 'undefined') { %>

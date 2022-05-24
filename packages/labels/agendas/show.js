@@ -277,7 +277,7 @@ module.exports = {
   "loadMore": {
     "en": "load more",
     "fr": "voir plus",
-    "it": "Caricare di più",
+    "it": "caricare di più",
     "de": "mehr anzeigen",
     "pl": "Załaduj więcej",
     "br": "gwelet muioc'h",
@@ -327,7 +327,7 @@ module.exports = {
   "includePassedEvents": {
     "en": "include passed events",
     "fr": "inclure les événements passés",
-    "it": "Includere eventi passati",
+    "it": "includere eventi passati",
     "de": "vergangene Veranstaltungen einbeziehen",
     "pl": "Dołącz wydarzenia przeszłe",
     "br": "lakaat an darvoudoù tremenet e-barzh",

@@ -30,10 +30,12 @@
           <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
             <form id="signup-form" class="margin-h-md" method="post">
               <div class="form-group<%= errors.fullName ? ' has-error' : '' %>">
-                <label for="full_name" class="control-label"><%= __( 'nameSurname' ) %></label>
+                <label for="full_name" class="control-label"><%= __( 'pseudonym' ) %></label>
                 <input name="full_name" class="form-control" value="<%= full_name %>" />
                 <% if ( errors.fullName ) { %>
                   <span class="text-danger"><%= __( errors.fullName ) %></span>
+                <% } else { %>
+                  <span class="sub"><%= __( 'pseudonymSub' ) %> <a href="https://doc.openagenda.com/confidentialite/#votre-compte-utilisateur" target="_blank"><%= __( 'more' ) %></a></span>
                 <% } %>
               </div>
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
@@ -95,13 +97,27 @@
                   <% } %>
                 </div>
               <% } %>
-              <div class="form-group">
-                <button id="signup-submit" class="btn btn-primary" type="submit"><%= __( 'signup' ) %></button>
+              <p class="margin-v-md">
+                <%- __( 'agree', {
+                  terms: '<a target="_blank" href="/termsofuse">' + __( 'termsOfUse' ) + '</a>',
+                  policy: '<a target="_blank" href="https://doc.openagenda.com/confidentialite/">' + __(
+                    'policy' ) + '</a>'
+                } ) %>
+              </p>
+              <div class="form-group margin-bottom-lg">
+                <button id="signup-submit" class="btn btn-primary btn-block" type="submit"><%= __( 'signup' ) %></button>
               </div>
             </form>
           </div>
           <% if ( enabledServices.length ) { %>
-            <div class="col-md-6">
+            <div class="col-md-6 light-border-left">
+              <div class="margin-all-md">
+                <div class="text-center margin-bottom-sm"><strong class="gray"><%= __('orSocial') %></strong></div>
+                <div class="text-center">
+                  <strong><%= __('socialHead') %></strong>
+                </div>
+                <div class="margin-top-sm"><%= __('socialDescription') %></div>
+              </div>
               <div class="margin-all-md">
                 <% if ( enabledServices.includes( 'facebook' ) ) { %>
                   <div class="margin-bottom-md">
@@ -178,17 +194,6 @@
               </div>
             </div>
           <% } %>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="margin-all-md">
-              <%- __( 'agree', {
-                terms: '<a target="_blank" href="/termsofuse">' + __( 'termsOfUse' ) + '</a>',
-                policy: '<a target="_blank" href="https://doc.openagenda.com/confidentialite/">' + __(
-                  'policy' ) + '</a>'
-              } ) %>
-            </p>
-          </div>
         </div>
       </section>
     </div>

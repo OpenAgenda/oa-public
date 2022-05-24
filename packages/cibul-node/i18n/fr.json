@@ -160,9 +160,9 @@
   "%s invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours"
   : "%s invitations sont en cours d'envoi. <br/><br/>Notez que les invitations ne peuvent être relancés qu'une fois toutes les 24h.",
   "Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb"
-  : "Votre soumission est trop importante: le maximum autorisé est %max%kb, vous avez soumis %sub%kb",
+  : "Votre enregistrement est trop volumineux: le maximum autorisé est %max%kb, vous avez enregistré %sub%kb",
   "Your %s submitted emails are being processed"
-  : "Les %s emails soumis sont en cours de traitement",
+  : "Les %s emails enregistrés sont en cours de traitement",
   "the action you requested is unknown"
   : "l'action que vous avez demandé est inconne",
   "Activate your OpenAgenda Account"

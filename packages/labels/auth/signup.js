@@ -62,7 +62,7 @@ module.exports = {
     "io": "crwdns13140:0crwdne13140:0"
   },
   "createAccount": {
-    "fr": "Créez un compte",
+    "fr": "Création d'un nouveau compte",
     "en": "Create an account",
     "it": "Crea un account",
     "de": "Ein Konto erstellen",
@@ -101,18 +101,36 @@ module.exports = {
     "br": "Kevreit",
     "io": "crwdns13148:0crwdne13148:0"
   },
-  "nameSurname": {
-    "fr": "Prénom Nom",
-    "en": "Name Surname",
-    "it": "Nome e cognome",
-    "de": "Vorname Nachname",
-    "pl": "Imię i nazwisko",
-    "es": "Nombre Apellido",
-    "br": "Anv Anv-bihan",
+  "pseudonym": {
+    "fr": "Nom d'utilisateur",
+    "en": "Username",
+    "it": "Nome utente",
+    "de": "Benutzername",
+    "pl": "Nazwa użytkownika",
+    "es": "Nombre de usuario",
+    "br": "Anv",
     "io": "crwdns13150:0crwdne13150:0"
   },
+  "pseudonymSub": {
+    "fr": "Votre nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre",
+    "en": "Your username will be visible by the administrators of the calendars where you will contribute events",
+    "it": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri.",
+    "de": "Ihr Benutzername wird für die Administratoren der Terminkalender, bei denen Sie Mitglied sind, sichtbar sein..",
+    "pl": "Twoja nazwa użytkownika będzie widoczna dla administratorów agend, których jesteś uczestnikiem",
+    "es": "Su nombre de usuario será visible para los administradores de las agendas de las que es miembro",
+    "br": ""
+  },
+  "emailSub": {
+    "fr": "OpenAgenda vous enverra vos notifications à cette adresse. Elle ne sera transmise à aucun tiers.",
+    "en": "OpenAgenda will send your notifications to this address. It will not be passed on to any third party.",
+    "it": "OpenAgenda invierà le notifiche a questo indirizzo. Non saranno trasmessi a terzi.",
+    "de": "OpenAgenda sendet Ihnen Ihre Benachrichtigungen an diese Adresse. Sie wird nicht an Dritte weitergeleitet.",
+    "pl": "OpenAgenda będzie wysyłać powiadomienia na ten adres. Nie będą one przekazywane osobom trzecim.",
+    "es": "OpenAgenda enviará sus notificaciones a esta dirección. No se transmitirá a ningún tercero.",
+    "br": ""
+  },
   "email": {
-    "fr": "Email",
+    "fr": "Adresse email",
     "en": "Email",
     "it": "Email",
     "de": "E-Mail",
@@ -142,12 +160,12 @@ module.exports = {
     "io": "crwdns13156:0crwdne13156:0"
   },
   "signup": {
-    "fr": "S'inscrire",
-    "en": "Sign Up",
+    "fr": "Accepter et créer le compte",
+    "en": "Accept and create the account",
     "it": "Iscriviti",
     "de": "Registriere dich",
     "pl": "Zarejestruj się",
-    "es": "Inscribirse",
+    "es": "Acceptar i crear la cuenta",
     "br": "En em enskrivañ",
     "io": "crwdns13158:0crwdne13158:0"
   },
@@ -188,5 +206,21 @@ module.exports = {
     "es": "Idioma",
     "it": "Lingua",
     "io": "crwdns13166:0crwdne13166:0"
+  },
+  "more": {
+    "fr": "En savoir plus",
+    "en": "Read more"
+  },
+  "orSocial": {
+    "fr": "Où",
+    "en": "Or"
+  },
+  "socialHead": {
+    "fr": "Création à partir d'un compte Facebook, Twitter ou Google",
+    "en": "Create an account using Facebook, Twitter or Google"
+  },
+  "socialDescription": {
+    "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",
+    "en": "Your OpenAgenda account will be linked to the chosen account. Authentication will be done through that social network."
   }
 }

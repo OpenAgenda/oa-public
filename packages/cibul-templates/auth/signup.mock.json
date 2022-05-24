@@ -16,6 +16,9 @@
     "password" : "wigglypoof",
     "repeat" : "wigglypouf",
     "enabledServices" : [ "twitter", "facebook", "google" ],
+    "signin": "/signin",
+    "signup": "/signup",
+    "mtCaptchaEnabled": true,
     "errors" : {
       "email" : "the email is invalid",
       "password" : "a password is required",

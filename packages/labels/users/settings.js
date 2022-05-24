@@ -146,7 +146,7 @@ module.exports = {
     "en": "Saving...",
     "de": "Speichern...",
     "es": "Ahorro",
-    "it": "Backup in corso",
+    "it": "Backup in corso...",
     "io": "crwdns15854:0crwdne15854:0"
   },
   "saved": {

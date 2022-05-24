@@ -53,7 +53,7 @@ module.exports = {
   "resentInvites": {
     "en": "%count% invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours",
     "fr": "%count% invitations sont en cours d'envoi. <br/><br/>Notez que les invitations ne peuvent être relancées qu'une fois toutes les 24h.",
-    "it": "Nota che gli inviti non possono essere inviati all'ingrosso più di una volta ogni 24 ore",
+    "it": "%count% inviti vengono di nuovo inviate. Nota che gli inviti non possono essere inviati all'ingrosso più di una volta ogni 24 ore",
     "de": "%count% Einladungen werden erneut versendet.<br/><br/><br/> Beachten Sie, dass Einladungen nicht mehr als einmal alle 24 Stunden in großen Mengen versendet werden können.",
     "pl": "%count% zaproszenia są wysyłane ponownie.<br/><br/>Notka, że zaproszenia nie mogą być wysyłane masowo więcej niż raz na 24 godziny",
     "es": "%count% invitaciones están siendo enviados. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar una vez cada 24 horas.",

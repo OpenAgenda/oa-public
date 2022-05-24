@@ -12,6 +12,7 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'key',
       loadMore: true,
+      sort: true,
     },
   },
   departments: {
@@ -24,6 +25,7 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'key',
       loadMore: true,
+      sort: true,
     },
   },
   cities: {
@@ -36,6 +38,7 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'key',
       loadMore: true,
+      sort: true,
     },
   },
   timings: {
@@ -86,6 +89,7 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'member.name',
       loadMore: true,
+      sort: true,
     },
   },
   originAgendas: {
@@ -97,6 +101,7 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'agenda.title',
       loadMore: true,
+      sort: true,
     },
   },
   keywords: {
@@ -108,6 +113,7 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'key',
       loadMore: true,
+      sort: true,
     },
   },
   states: {
@@ -120,6 +126,7 @@ const defaultStatConfigs = {
       labelKey: 'key',
       tooltip: 'state',
       dataColors: defaultStateColors,
+      sort: true,
     },
   },
   additionalFieldMetrics: ({ fieldSchema }) => ({
@@ -159,6 +166,7 @@ const defaultStatConfigs = {
         dataColors,
         loadMore: !(isCheckbox || isBoolean),
         tooltip: isBoolean ? 'boolean' : undefined,
+        sort: true,
       },
       state: {
         fieldSchema,

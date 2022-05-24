@@ -12,7 +12,7 @@
 Git clone oa (with `--recurse-submodules` git option):
 
 ```
-git clone git@github.com:OpenAgenda/oa.git --recurse-submodules
+git clone ssh://git@github.com/OpenAgenda/oa.git --recurse-submodules
 ```
 
 Create an empty folder for hosting mysql data. Take note of the path.
@@ -43,6 +43,12 @@ chmod +x docker/devinstaller/run.sh
 
 Once the installation is complete, the process should exit.
 
+After that you need to give readable permissions to the mysql private key, for phpmyadmin:
+
+```shell script
+sudo chmod 644 <YOUR_CONTAINERS_DATA_PATH>/mysql/client-key.pem
+```
+
 Add authority certificate to Ubuntu CA store with:
 
 ```shell script
@@ -54,7 +60,7 @@ sudo update-ca-certificates
 # or (non-interactive)
 
 sudo cp docker/devinstaller/ssl/certs/ca.crt /usr/local/share/ca-certificates/auth.openagenda.crt
-sudo chmod 644 /usr/local/share/ca-certificates/dev/auth.openagenda.crt
+sudo chmod 644 /usr/local/share/ca-certificates/auth.openagenda.crt
 sudo update-ca-certificates
 ```
 

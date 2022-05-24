@@ -27,13 +27,13 @@ services:
       - ${PMA_SSL_KEY:-/dev/null}:/ssl/pma.key.pem
       - ${ELASTICHQ_SSL_CERT:-/dev/null}:/ssl/elastichq.cert.pem
       - ${ELASTICHQ_SSL_KEY:-/dev/null}:/ssl/elastichq.key.pem
+      - ${MAILCATCHER_SSL_CERT:-/dev/null}:/ssl/mailcatcher.cert.pem
+      - ${MAILCATCHER_SSL_KEY:-/dev/null}:/ssl/mailcatcher.key.pem
     command: >
       /bin/bash -c
         "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
-          mkdir -p $$(dirname $${filename/\/tmp\/nginx/\/etc\/nginx});
-          cat $$filename \
-            | envsubst \"`printf '$${%s} ' $$(bash -c \"compgen -A variable\")`\" \
-            > $${filename/\/tmp\/nginx/\/etc\/nginx\/conf.d};
+          mkdir -p $$(dirname $${filename/\\/tmp\\/nginx/\\/etc\\/nginx});
+          cat $$filename | envsubst \"`printf '$${%s} ' $$(bash -c \"compgen -A variable\")`\" > $${filename/\\/tmp\\/nginx/\\/etc\\/nginx\\/conf.d};
         done;
         /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILCATCHER_NGINX_PROXY:-0} ${DEPLOY_ELASTICHQ_NGINX_PROXY:-0} ${DEPLOY_API_NGINX_PROXY:-0};
         nginx -g 'daemon off;'"

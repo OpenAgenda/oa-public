@@ -81,44 +81,56 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
     return;
   }
 
-  await mails.send( {
-    template: 'myEventAddition',
-    to: {
-      address: creatorUser.email,
-      unsubscriptions: [ {
-        rule: ['receive', 'myEventAddition'],
-        dataPath: 'unsubscribeLink'
-      }, {
-        memberId: creator.id,
-        rule: ['receive', 'myEventAddition'],
-        dataPath: 'memberUnsubscribeLink'
-      } ]
-    },
-    data: {
-      user: sharerMember.custom.contactName || user.fullName,
-      event: event.title[ creatorLang ] || _.find(event.title),
-      agenda: agenda.title,
-      state: stateLabel,
-      logo,
-      link,
-      sourceAgenda: sourceAgenda.title
-    },
-    lang: creatorLang
-  } );
+  const creatorIsInDestination = members.indexOf(member => member.user && member.user.uid !== creatorUser.uid) !== -1;
+  const visibleForCreator = creatorIsInDestination
+    || (!agenda.private && agendaEvent.state === agendaEventStates.PUBLISHED);
+
+  if (visibleForCreator) {
+    await mails.send({
+      template: 'myEventAddition',
+      to: {
+        address: creatorUser.email,
+        unsubscriptions: [
+          {
+            rule: ['receive', 'myEventAddition'],
+            dataPath: 'unsubscribeLink'
+          }, {
+            memberId: creator.id,
+            rule: ['receive', 'myEventAddition'],
+            dataPath: 'memberUnsubscribeLink'
+          }
+        ]
+      },
+      data: {
+        user: sharerMember.custom.contactName || user.fullName,
+        event: event.title[creatorLang] || _.find(event.title),
+        agenda: agenda.title,
+        state: stateLabel,
+        logo,
+        link,
+        sourceAgenda: sourceAgenda.title
+      },
+      lang: creatorLang
+    });
+  }
 
   if (!context.batched) {
+    const targetedMembers = members.filter(member => (
+      member.user
+      && !(
+        member.user.uid === creatorUser.uid && visibleForCreator
+      )
+    ));
+
     await mails.send( {
       template: 'eventAddition',
-      to: members
-        .filter( member => member.user && member.user.uid !== creatorUser.uid )
+      to: targetedMembers
         .filter( member => {
-
           if ( !member.user ) {
             log( 'warn', 'no user was found matching member %s', member.id );
           }
 
           return !!member.user;
-
         } )
         .map( member => {
           const lang = member.user.culture || 'fr';

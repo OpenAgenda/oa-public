@@ -1,3 +1,4 @@
 {
-  "dailySummary": "Resumit quotidian de vòstras notificacions"
+  "dailySummary": "Resumit quotidian de vòstras notificacions",
+  "subject": "{nbr} notificacions pas vistas dempuèi lo {date}"
 }

@@ -91,6 +91,7 @@ function ComposedChart({
     labelKey,
     restItem,
     dataColors,
+    sort,
   } = chartConfig;
 
   const data = useMemo(() => {
@@ -112,7 +113,9 @@ function ComposedChart({
       });
     }
 
-    result = sortData(result, dataKeys[0]);
+    if (sort) {
+      result = sortData(result, dataKeys[0]);
+    }
 
     const withDataColors = typeof dataColors === 'object'
       && dataColors !== null

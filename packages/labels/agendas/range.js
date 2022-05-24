@@ -37,7 +37,7 @@ module.exports = {
     "he": "אין תאריך זמין",
     "ar": "لا يتوفر أي تاريخ",
     "de": "keine Termine vorhanden%",
-    "it": "Nessun data disponible",
+    "it": "nessun data disponibile",
     "es": "Fecha no disponible",
     "io": "crwdns12894:0crwdne12894:0"
   },
