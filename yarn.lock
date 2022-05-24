@@ -6690,7 +6690,6 @@ __metadata:
   dependencies:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.9
-    "@openagenda/queues": ^1.2.7
     "@openagenda/validators": ^2.4.0
     immutability-helper: ^3.0.0
     knex: ^0.20.13
