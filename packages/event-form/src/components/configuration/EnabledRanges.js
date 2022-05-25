@@ -72,8 +72,9 @@ const EnabledRanges = ({
 
   return (
     <div>
-      <label htmlFor="checkbox">
+      <label htmlFor="enabledRanges">
         <input
+          id="enabledRanges"
           type="checkbox"
           checked={checked}
           onChange={() => {
