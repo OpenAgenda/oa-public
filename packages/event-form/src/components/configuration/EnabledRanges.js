@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import MaskedInput from 'react-text-mask';
 import { format } from 'date-fns';
 
@@ -53,7 +53,6 @@ const EnabledRanges = ({
   };
 
   useEffect(() => {
-    console.log('useEffect');
     checkAndOnChange(localValue);
   }, []);
 
@@ -110,10 +109,10 @@ const EnabledRanges = ({
                 lang={lang}
                 onChange={v => {
                   if (!getTime('begin')) {
-                    checkAndOnChange([{ ...readValue(value), begin: `${format(v, 'yyyy-MM-dd')}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}` }]);
                     return;
                   }
-                  checkAndOnChange([{ ...readValue(value), begin: `${format(v, 'yyyy-MM-dd')}T${getTime('begin')}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}T${getTime('begin')}` }]);
                 }}
               />
             </div>
@@ -128,12 +127,12 @@ const EnabledRanges = ({
                 placeholder="HH:MM"
                 keepCharPositions
                 onBlur={e => {
-                  checkAndOnChange([{ ...readValue(value), begin: `${getDate('begin')}T${e.target.value}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
                 }}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    checkAndOnChange([{ ...readValue(value), begin: `${getDate('begin')}T${e.target.value}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
                   }
                 }}
                 style={{
@@ -156,10 +155,10 @@ const EnabledRanges = ({
                 lang={lang}
                 onChange={v => {
                   if (!getTime('end')) {
-                    checkAndOnChange([{ ...readValue(value), end: `${format(v, 'yyyy-MM-dd')}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}` }]);
                     return;
                   }
-                  checkAndOnChange([{ ...readValue(value), end: `${format(v, 'yyyy-MM-dd')}T${getTime('end')}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}T${getTime('end')}` }]);
                 }}
               />
             </div>
@@ -174,12 +173,12 @@ const EnabledRanges = ({
                 placeholder="HH:MM"
                 keepCharPositions
                 onBlur={e => {
-                  checkAndOnChange([{ ...readValue(value), end: `${getDate('end')}T${e.target.value}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
                 }}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    checkAndOnChange([{ ...readValue(value), end: `${getDate('end')}T${e.target.value}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
                   }
                 }}
                 style={{
