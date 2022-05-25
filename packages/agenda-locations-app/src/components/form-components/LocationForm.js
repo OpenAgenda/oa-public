@@ -200,8 +200,10 @@ const LocationForm = ({
   const getLabel = (name, values) => {
     let str;
     let k;
+    console.log('getLabel for ', name, values);
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
+      console.log('in settings', settings?.labels?.[name]);
       const l = settings.labels[name];
       str = _.get(l, lang, l[_.first(_.keys(l))]);
       if (!str) {
@@ -217,6 +219,7 @@ const LocationForm = ({
 
     // use intl to format standard labels
     if (messages[name]) {
+      console.log('intl', messages[name]);
       if (!values) {
         str = intl.formatMessage(messages[name]);
         return str;
@@ -402,8 +405,8 @@ const LocationForm = ({
           languages={getLanguages()}
           getLabel={getLabel}
           onChange={onChange}
-          placeholder={getLabel('descriptionPlaceholder')}
-          info={getLabel('descriptionInfo')}
+          placeholder="descriptionPlaceholder"
+          info="descriptionInfo"
           type="textarea"
           groupClassName={errors && errors.find(e => e.field === 'description') ? 'has-error' : ''}
         />
@@ -415,8 +418,8 @@ const LocationForm = ({
           languages={getLanguages()}
           getLabel={getLabel}
           onChange={onChange}
-          placeholder={getLabel('accessPlaceholder')}
-          info={getLabel('accessInfo')}
+          placeholder="accessPlaceholder"
+          info="accessInfo"
           type="text"
           groupClassName={errors && errors.find(e => e.field === 'access') ? 'has-error' : ''}
         />
@@ -463,8 +466,8 @@ const LocationForm = ({
       <MultiInputField
         name="links"
         enabled
-        info={getLabel('linksInfo')}
-        placeholder={getLabel('linksPlaceholder')}
+        info="linksInfo"
+        placeholder="linksPlaceholder"
         value={location.links}
         getLabel={getLabel}
         lang={lang}

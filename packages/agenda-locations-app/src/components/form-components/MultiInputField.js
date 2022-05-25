@@ -70,7 +70,7 @@ const MultiInputField = ({
           disabled: !enabled
         }}
       />
-      <span className={error ? 'error' : 'info'}>{ error ? getLabel('multi-input.error') : info || getLabel('multi-input.info')}</span>
+      <span className={error ? 'error' : 'info'}>{ error ? getLabel('multi-input.error') : getLabel('multi-input.info')}</span>
     </div>
   );
 };

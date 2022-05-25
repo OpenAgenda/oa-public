@@ -37,7 +37,7 @@ const MultilingualInputField = ({
           <textarea
             name={completedName}
             rows={rows}
-            placeholder={getLabel(placeholder) || placeholder}
+            placeholder={getLabel(placeholder)}
             value={value[lang]}
             className="form-control"
             onChange={myOnChange(lang)}
@@ -47,7 +47,7 @@ const MultilingualInputField = ({
           <input
             name={completedName}
             type="text"
-            placeholder={getLabel(placeholder) || placeholder}
+            placeholder={getLabel(placeholder)}
             value={value[lang]}
             className="form-control"
             onChange={myOnChange(lang)}
@@ -74,7 +74,7 @@ const MultilingualInputField = ({
   return (
     <div className={classes.join(' ')}>
       <label htmlFor={label}>{label || getLabel(name)}</label>
-      {info ? <span className="info">{getLabel(info) || info}</span> : null}
+      {info ? <span className="info">{getLabel(info)}</span> : null}
       <ul className="list-unstyled">
         {languages.map(lang => (
           <li key={lang} className={isEnabled(lang) ? '' : 'disabled'}>
