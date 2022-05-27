@@ -7,6 +7,10 @@
     "start": "nodemon dev/server",
     "dist": "webpack-cli --config webpack.dist.js"
   },
+  "files": [
+    "server",
+    "client/dist"
+  ],
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/form-schemas": "^1.9.2",
