@@ -1,4 +1,7 @@
+'use strict';
+
 const { promisify } = require('util');
+const log = require('@openagenda/logs')('services/users/beforeRemove');
 
 /**
  * this interface will prevent user removal if not correctly executed
@@ -20,21 +23,14 @@ module.exports = function beforeRemove() {
     const members = await membersSvc.list({ userUid: user.uid }, { limit: 1000 });
 
     for (const member of members) {
-
       try {
-
         await membersSvc.patch(
           member.id,
           { deletedUser: true }
         );
-
       } catch (err) {
-
         log('error', 'could not remove member ', err);
-
       }
-
     }
-
   };
 };
