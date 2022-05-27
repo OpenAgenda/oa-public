@@ -7,7 +7,7 @@ const {
   resetAndCreateTables
 } = require('./sql');
 
-const loadAndExtendJSON = (path, data = {}) => ({
+const load = (path, data = {}) => ({
   ...JSON.parse(fs.readFileSync(`${__dirname}/${path}`, 'utf-8')),
   ...data
 });
@@ -15,15 +15,20 @@ const loadAndExtendJSON = (path, data = {}) => ({
 const raw = resetAndCreateTables();
 
 raw.push(knex('user').insert([
-  loadAndExtendJSON('sql/users/jean-benoit.json')
+  load('sql/users/jean-benoit.json'),
+  load('sql/users/steevie.json', { id: 1002 })
 ]));
 
 raw.push(knex('review').insert([
-  loadAndExtendJSON('sql/agendas/fetedelamusique.json')
+  load('sql/agendas/fetedelamusique.json')
 ]));
 
 raw.push(knex('reviewer').insert([
-  loadAndExtendJSON('sql/members/jean-benoit-fetedelamusique.json')
+  load('sql/members/jean-benoit-fetedelamusique.json')
+]));
+
+raw.push(knex('api_key_set').insert([
+  load('sql/apiKeySets/01.json', { user_id: 1002 })
 ]));
 
 module.exports = `${raw.join(';\n')};`;
