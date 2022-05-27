@@ -24,11 +24,22 @@ module.exports = function beforeRemove() {
 
     const members = await membersSvc.list({ userUid: user.uid }, { limit: 1000 });
 
+    log('anonymize %s member refs', members.length);
+
     for (const member of members) {
       try {
         await membersSvc.patch(
           member.id,
-          { deletedUser: true }
+          {
+            deletedUser: true,
+            custom: {
+              ...member.custom,
+              contactNumber: null,
+              contactName: null,
+              email: null
+            },
+          },
+          { requireCustom: false }
         );
       } catch (err) {
         log('error', 'could not remove member ', err);
