@@ -51,8 +51,7 @@ class Main extends Component {
   render() {
 
     const { lang, extensions, schema, agenda, maxFields, editableExtensions } = this.props;
-    console.log(maxFields, this.state.currentFieldCount)
-    console.log("schema:", schema, extensions)
+
     return <div>
 
       <FormSchemaBuilder
