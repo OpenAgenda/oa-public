@@ -68,6 +68,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
 
     it('a member key in each item provide details on member information', () => {
       expect(result.items[0].member).toEqual({
+        deletedUser: false,
         name: 'Jan',
         email: null,
         organization: null,

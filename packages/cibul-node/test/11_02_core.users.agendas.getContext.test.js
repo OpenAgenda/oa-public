@@ -123,6 +123,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
       expect(
         Object.keys(context.me.member).sort()
       ).toEqual([
+        'deletedUser',
         'email',
         'name',
         'organization',

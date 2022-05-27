@@ -52,6 +52,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       });
 
       expect(member).toEqual({
+        deletedUser: false,
         name: 'Jan',
         phone: null,
         email: null,
@@ -125,6 +126,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
       it('member data is provided', () => {
         expect(member).toEqual({
+          deletedUser: false,
           name: 'Jan',
           phone: null,
           email: null,
