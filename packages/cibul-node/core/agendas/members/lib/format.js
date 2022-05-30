@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 const map = [{
   legacy: 'contactName',
   field: 'name'
@@ -21,12 +19,13 @@ const map = [{
 
 module.exports = (membersSvc, item) => ({
   userUid: item?.userUid,
-  name: _.get(item, 'custom.contactName', null),
-  phone: _.get(item, 'custom.contactNumber', null),
-  email: _.get(item, 'custom.email', null),
-  position: _.get(item, 'custom.contactPosition', null),
-  organization: _.get(item, 'custom.organization', null),
-  role: membersSvc.utils.getRoleSlug(_.get(item, 'role')),
+  deletedUser: item?.deletedUser ?? null,
+  name: item?.custom?.contactName ?? null,
+  phone: item?.custom?.contactNumber ?? null,
+  email: item?.custom?.email ?? null,
+  position: item?.custom?.contactPosition ?? null,
+  organization: item?.custom?.organization ?? null,
+  role: membersSvc.utils.getRoleSlug(item?.role),
   updatedAt: item.updatedAt ?? null
 });
 

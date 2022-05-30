@@ -47,8 +47,14 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
+    let memberRefAfterRemove;
     beforeAll(async () => {
       await core.users(99999967).remove();
+
+      memberRefAfterRemove = await core.agendas(6184770).members.get(99999967, {
+        access: 'internal',
+        detailed: true
+      });
     });
 
     it('user is marked as removed', async () => {
@@ -59,6 +65,18 @@ describe('10 - core - functional (server): core.users().remove()', () => {
       });
 
       expect(user.isRemoved).toBe(true);
+    });
+
+    it('member ref marks user as having been removed', () => {
+      expect(memberRefAfterRemove.deletedUser).toBe(true);
+    });
+
+    it('user member refs are anonymized', () => {
+      expect(memberRefAfterRemove.name).toBeNull();
+    });
+
+    it('member organization is maintained', () => {
+      expect(memberRefAfterRemove.organization).toBe('FdP');
     });
   });
 
