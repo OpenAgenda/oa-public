@@ -39,7 +39,7 @@ module.exports = ({
 
     if (Number.isInteger(forcedLimit)) {
       limit = forcedLimit;
-    } else if (Number.isInteger(query.limit)) {
+    } else if (Number.isInteger(parseInt(query.limit, 10))) {
       limit = query.limit;
     } else {
       limit = defaultLimit;
