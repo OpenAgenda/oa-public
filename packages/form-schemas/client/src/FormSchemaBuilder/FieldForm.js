@@ -25,13 +25,14 @@ const fieldSchemaTypes = {
   labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
-    fg.minMax({ min: 0, max: 255 }),
+    parentsField ? null : fg.minMax({ min: 0, max: 255 }),
     parentsField?.optional ? fg.optional() : null,
     fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub'])
   ),
-  radioLike: ({ labelLanguages }) => merge(
-    fg.optional(),
-    fg.options({ labelLanguages }),
+  radioLike: ({ labelLanguages, parentsField }) => merge(
+    fg.labels({ labelLanguages }),
+    parentsField ? null : fg.optional(),
+    parentsField ? null : fg.options({ labelLanguages }),
     fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub'])
   ),
   customLike: customFieldSchema => ({ labelLanguages }) => merge(
@@ -80,7 +81,6 @@ export default class FieldForm extends Component {
     } = this.props;
 
     const { values } = this.state;
-    console.log('FieldForm onSubmit', values, fieldType);
     const { errors } = sanitize(values);
 
     if (errors.length) {
@@ -123,7 +123,6 @@ export default class FieldForm extends Component {
       options: optionsValidator,
     };
 
-    console.log('FieldForm schema', schema);
     return (
       <div className="margin-top-sm">
         <FormSchemaComponent

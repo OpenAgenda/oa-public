@@ -99,8 +99,9 @@ const EnabledRanges = ({
             <div className="form-group">
               {labels.from}
             </div>
-            <div className="form-group margin-h-sm">
+            <div className="form-group">
               <DateField
+                className="margin-h-sm"
                 field={{
                   field: 'begin',
                   fieldType: 'date',
@@ -120,10 +121,10 @@ const EnabledRanges = ({
             <div className="form-group">
               {labels.at}
             </div>
-            <div className={`form-group margin-left-sm ${timeError?.begin ? 'has-error' : ''}`}>
+            <div className={`form-group ${timeError?.begin ? 'has-error' : ''}`}>
               <MaskedInput
                 value={getTime('begin') || ''}
-                className="form-control text-center"
+                className="form-control text-center margin-left-sm"
                 mask={timeMask}
                 placeholder="HH:MM"
                 keepCharPositions
@@ -146,8 +147,9 @@ const EnabledRanges = ({
             <div className="form-group">
               {labels.to}
             </div>
-            <div className={`form-group  margin-h-sm ${dateError ? 'has-error' : ''}`}>
+            <div className={`form-group ${dateError ? 'has-error' : ''}`}>
               <DateField
+                className="margin-h-sm"
                 field={{
                   field: 'end',
                 }}
@@ -166,9 +168,9 @@ const EnabledRanges = ({
             <div className="form-group">
               {labels.at}
             </div>
-            <div className={`form-group margin-left-sm ${timeError?.end ? 'has-error' : ''}`}>
+            <div className={`form-group ${timeError?.end ? 'has-error' : ''}`}>
               <MaskedInput
-                className="form-control text-center"
+                className="form-control text-center margin-left-sm"
                 value={getTime('end') || ''}
                 mask={timeMask}
                 placeholder="HH:MM"

@@ -207,7 +207,6 @@ module.exports = class {
   }
 
   updateFields(fields) {
-    console.log('iso FormSchema', fields);
     const updatedFieldsNames = fields.map(f => f.field);
 
     // remove
