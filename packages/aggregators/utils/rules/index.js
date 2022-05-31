@@ -108,7 +108,13 @@ function extractAutomaticValues(
     {}
   );
 
-  return labels.map(l => aggregatorOptionIdsByLabel[l]).filter(id => !!id);
+  return labels
+    .map(l => aggregatorOptionIdsByLabel[l])
+    .filter(id => !!id)
+    .reduce(
+      (deduped, id) => (deduped.includes(id) ? deduped : [...deduped, id]),
+      []
+    );
 }
 
 module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
@@ -178,9 +184,8 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
           : (currentFieldTransformValues || []).concat(actionValues);
 
         return {
-          [actionOperation === '$set'
-            ? actionOperation
-            : fieldOperation]: updatedFieldTransformValues,
+          [actionOperation === '$set' ? actionOperation : fieldOperation]:
+            updatedFieldTransformValues,
         };
       }, {}),
     }),
