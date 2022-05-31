@@ -10,7 +10,6 @@ const getLabel = makeLabelGetter(labels);
 
 export default class FieldEdit extends Component {
   onSubmit(values) {
-    console.log('fieldEdit onSubmit', values);
     const { onSave } = this.props;
     onSave(values);
   }

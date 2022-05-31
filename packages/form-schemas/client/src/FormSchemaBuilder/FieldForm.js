@@ -81,7 +81,6 @@ export default class FieldForm extends Component {
     } = this.props;
 
     const { values } = this.state;
-    console.log('FieldForm onSubmit', values, fieldType);
     const { errors } = sanitize(values);
 
     if (errors.length) {
@@ -124,7 +123,6 @@ export default class FieldForm extends Component {
       options: optionsValidator,
     };
 
-    console.log('FieldForm schema', schema);
     return (
       <div className="margin-top-sm">
         <FormSchemaComponent
