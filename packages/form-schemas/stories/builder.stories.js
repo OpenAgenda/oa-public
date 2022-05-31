@@ -613,7 +613,8 @@ export function WithRestrictedTimmings() {
                 }, {
                   field: 'someCustomParam1',
                   fieldType: 'enabledRanges',
-                  label: 'Time delimiter'
+                  label: 'Time delimiter',
+                  selfHandled: ['label', 'info', 'help', 'sub']
                 }]
               }
             })}
@@ -676,7 +677,8 @@ export function WithNotRestrictedTimmings() {
                 }, {
                   field: 'someCustomParam1',
                   fieldType: 'enabledRanges',
-                  label: 'Time delimiter'
+                  label: 'Time delimiter',
+                  selfHandled: ['label', 'info', 'help', 'sub']
                 }]
               }
             })}
