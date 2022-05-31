@@ -100,6 +100,7 @@ export default class FieldForm extends Component {
       labelLanguages,
       lang,
       field,
+      fieldType,
       actionComponent,
       customFieldConfigurationSchemas, // new
       components, // new
@@ -108,7 +109,7 @@ export default class FieldForm extends Component {
     const { values, errors } = this.state;
 
     const schema = assignConstraintsToFields(
-      schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
+      schemas(field ? field.fieldType : fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
       parentsField
     );
 
