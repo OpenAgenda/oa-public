@@ -542,14 +542,6 @@ export function WithCustomField() {
                 }, {
                   field: 'sub',
                   fieldType: 'abstract'
-                }, {
-                  field: 'someCustomParam1',
-                  fieldType: 'enabledRanges',
-                  label: 'custom param'
-                }, {
-                  field: 'someCustomParam2',
-                  fieldType: 'integer',
-                  label: 'custom param 2'
                 }]
               }
             })}
