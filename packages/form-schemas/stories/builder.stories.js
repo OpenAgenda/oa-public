@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SimpleRowDecorator from './decorators/SimpleRow';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
 import eventLikeSchema from './fixtures/eventLikeSchema';
@@ -323,7 +323,7 @@ const cases = {
   }
 }
 
-export function OptionsStorie() {
+export function OptionsStory() {
   const { empty, adding, withOptions, withEditedOption, dragging, monolingual } = cases;
   return (
     <div className="container top-margined">
@@ -379,7 +379,7 @@ export function OptionsStorie() {
   )
 }
 
-export function WithRatio() {
+export function WithRadio() {
 
   const schema = {
     fields: [ {
@@ -687,4 +687,165 @@ export function WithNotRestrictedTimmings() {
       </div>
     </div>
   )
+}
+
+export function CustomField() {
+  const [updatedSchema, setUpdatedSchema] = useState(null) 
+  const schema = {
+    fields: [{
+      field: 'myfield',
+      fieldType: 'text',
+      label: { fr: 'Mon champ' }
+    }]
+  };
+
+  const extensions = [];
+
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
+        setUpdatedSchema(updatedSchema);
+  }
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              devState={{
+                // editedField: 'title'
+              }}
+              schema={schema}
+              extendedFrom={extensions}
+              onUpdate={onUpdate}
+              renderHead={()=>(
+                <span className="padding-all-sm">fieldType should not be destroyed on update</span>
+              )}
+            />
+          </div>
+        </div>
+        <span>{JSON.stringify(updatedSchema)}</span>
+      </div>
+    </div>
+  );
+}
+
+
+export function ExtendedTextField() {
+  const schema = {
+  };
+
+  const extensions = [ {
+    schema: {
+      id:12, 
+      fields: [
+        {
+          field: 'title',
+          label: 'Titre',
+          fieldType: 'text',
+          optional: false,
+        }
+     ]
+    },
+    info: {
+      label: { fr: 'Réseau', en: 'Network' },
+      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' }
+    }
+  }];
+
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
+  }
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              devState={{
+                // editedField: 'title'
+              }}
+              schema={schema}
+              extendedFrom={extensions}
+              onUpdate={onUpdate}
+              renderHead={()=>(
+                <span className="padding-all-sm">You should be able to change text fields</span>
+              )}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ExtendedChoiceField() {
+  const schema = {
+  };
+
+  const extensions = [ {
+    schema: {
+      id:12, 
+      fields: [
+        {
+          field: 'categories',
+          label: 'Catégories',
+          fieldType: 'radio',
+          optional: false,
+          options: [ {
+            label: 'Une première option',
+            value: 'premiereoption',
+            id: 1
+          }]
+        }
+     ]
+    },
+    info: {
+      label: { fr: 'Réseau', en: 'Network' },
+      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' }
+    }
+  }];
+
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
+
+  }
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              devState={{
+                // editedField: 'title'
+              }}
+              schema={schema}
+              extendedFrom={extensions}
+              onUpdate={onUpdate}
+              renderHead={()=>(
+                <span className="padding-all-sm">You shouldn't be able to change options and optional but text fields</span>
+              )}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

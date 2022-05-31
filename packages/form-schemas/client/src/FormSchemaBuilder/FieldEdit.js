@@ -10,6 +10,7 @@ const getLabel = makeLabelGetter(labels);
 
 export default class FieldEdit extends Component {
   onSubmit(values) {
+    console.log('fieldEdit onSubmit', values);
     const { onSave } = this.props;
     onSave(values);
   }
@@ -31,7 +32,6 @@ export default class FieldEdit extends Component {
           lang={lang}
           labelLanguages={labelLanguages}
           field={field}
-          //fieldType={isOwnField ? field.fieldType : 'labels'}
           onSubmit={this.onSubmit.bind(this)}
           actionComponent={({ onSubmit }) => (
             <div>

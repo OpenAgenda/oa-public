@@ -80,7 +80,7 @@ export default class FieldForm extends Component {
     } = this.props;
 
     const { values } = this.state;
-
+    console.log('FieldForm onSubmit', values, fieldType);
     const { errors } = sanitize(values);
 
     if (errors.length) {
@@ -90,7 +90,7 @@ export default class FieldForm extends Component {
     if (!values || (this.state?.errors || []).length) return;
 
     onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
-      fieldType,
+      fieldType: field.fieldType,
       field: field?.field || slugFromLabel(values.label, lang)
     }));
   }
@@ -99,8 +99,8 @@ export default class FieldForm extends Component {
     const {
       labelLanguages,
       lang,
-      field,
-      fieldType,
+      field: propsField,
+      initFieldType,
       actionComponent,
       customFieldConfigurationSchemas, // new
       components, // new
@@ -108,8 +108,12 @@ export default class FieldForm extends Component {
     } = this.props;
     const { values, errors } = this.state;
 
+    const field = propsField ?? {
+      fieldType: initFieldType
+    };
+
     const schema = assignConstraintsToFields(
-      schemas(field ? field.fieldType : fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
+      schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
       parentsField
     );
 
@@ -119,6 +123,7 @@ export default class FieldForm extends Component {
       options: optionsValidator,
     };
 
+    console.log('FieldForm schema', schema);
     return (
       <div className="margin-top-sm">
         <FormSchemaComponent
