@@ -7053,7 +7053,6 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/fixtures": ^2.0.2
-    "@openagenda/intl": ^1.1.1
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-shared": ^2.3.2
