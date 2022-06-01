@@ -58,7 +58,7 @@ export default class FieldAdd extends Component {
 
     return (
       <FieldForm
-        fieldType={fieldType}
+        initFieldType={fieldType}
         onSubmit={values => this.onSubmit(values)}
         lang={lang}
         labelLanguages={labelLanguages}
