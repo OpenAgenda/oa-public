@@ -24,6 +24,8 @@ module.exports = ({ interfaces, knex }, agendaUid) => async (uid, data = {}) => 
     id: embed.id
   });
 
+  log('update successful');
+
   return {
     uid,
     agendaUid,
