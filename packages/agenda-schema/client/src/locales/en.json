@@ -1,6 +1,9 @@
 {
+  "AgendaSchema.adaptForm": "Adapt the configuration of the event form",
+  "AgendaSchema.canAddField": "Vous pouvez ajouter le champ de votre choix au formulaire événement",
   "AgendaSchema.event": "Standard",
   "AgendaSchema.eventDetail": "Standard event field",
+  "AgendaSchema.needMoreFields": "Need more fields?",
   "AgendaSchema.network": "Network",
   "AgendaSchema.networkDetail": "Field required by the agenda network"
 }

@@ -27,7 +27,20 @@ const messages = defineMessages({
   eventDetail: {
     id: 'AgendaSchema.eventDetail',
     defaultMessage: "Standard event field",
+  },
+  needMoreFields: {
+    id: 'AgendaSchema.needMoreFields',
+    defaultMessage: "Need more fields?"
+  },
+  adaptForm: {
+    id: 'AgendaSchema.adaptForm',
+    defaultMessage: "Adapt the configuration of the event form"
+  },
+  canAddField: {
+    id: 'AgendaSchema.canAddField',
+    defaultMessage: "Vous pouvez ajouter le champ de votre choix au formulaire événement"
   }
+
 });
 
 
@@ -56,13 +69,13 @@ class Main extends Component {
     const { maxFields } = this.props;
 
     return <div className="padding-all-sm">
-      <label>Adaptez la configuration du formulaire événement</label>
+      <label>{intl.formatMessage(messages.adaptForm)}</label>
       {maxFields === 1 ? <div>
-        <p>Vous pouvez ajouter le champ de votre choix au formulaire événement</p>
+        <p>{intl.formatMessage(messages.canAddField)}</p>
       </div> : null}
       {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
         <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
-          Besoin de plus de champs?
+          {intl.formatMessage(messages.needMoreFields)}
         </a>
       </div> : null}
     </div>
@@ -117,7 +130,7 @@ class Main extends Component {
           />
           {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
             <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
-              Besoin de plus de champs?
+              {intl.formatMessage(messages.needMoreFields)}
             </a>
           </div> : null}
         </div>
