@@ -9,8 +9,9 @@
   "captchaTryAgain": "Try this again",
   "hasAccount": "Have you already used OpenAgenda ?",
   "connect": "Connect",
-  "pseudonym": "Name / Pseudonym",
-  "pseudonymSub": "This information will be visible by the administrators of the calendars where you will contribute events",
+  "pseudonym": "Username",
+  "pseudonymSub": "Your username will be visible by the administrators of the calendars where you will contribute events",
+  "emailSub": "OpenAgenda will send your notifications to this address. It will not be passed on to any third party.",
   "email": "Email",
   "password": "Password",
   "repeatPassword": "Repeat Password",
@@ -19,5 +20,8 @@
   "termsOfUse": "Terms of Use",
   "policy": "Privacy Policy",
   "culture": "Language",
-  "more": "Read more"
+  "more": "Read more",
+  "orSocial": "Or",
+  "socialHead": "Create an account using Facebook, Twitter or Google",
+  "socialDescription": "Your OpenAgenda account will be linked to the chosen account. Authentication will be done through that social network."
 }

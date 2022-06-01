@@ -14,6 +14,10 @@ files:
   - source: /packages/cibul-templates/locales/en.json
     translation: /%original_path%/%two_letters_code%.%file_extension%
     update_option: update_as_unapproved
+    
+  - source: /packages/agenda-schema/client/src/locales/en.json
+    translation: /%original_path%/%two_letters_code%.%file_extension%
+    update_option: update_as_unapproved
 
   - source: /packages/legacy/embeds/app/src/locales/en.json
     translation: /%original_path%/%two_letters_code%.%file_extension%
