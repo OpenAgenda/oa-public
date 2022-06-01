@@ -1,5 +1,0 @@
-{
-  "setSubtitle": "Ensemble de %locationsCount% lòcs utilizats dins %agendasCount% agendas",
-  "setSubtitleLink": "%agendasCount% agendas",
-  "help": "Los administrators d'agendas qu'utilizan queste ensemble an accès a totas las operacions : creacion, mesa a jorn, supression, fusion. Las operacions pòdon doncas impactar totas las agendas de l'ensemble."
-}

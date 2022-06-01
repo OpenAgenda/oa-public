@@ -109,7 +109,7 @@ module.exports = {
     "pl": "Nazwa użytkownika",
     "es": "Nombre de usuario",
     "br": "Anv",
-    "io": "crwdns13150:0crwdne13150:0"
+    "io": "crwdns31270:0crwdne31270:0"
   },
   "pseudonymSub": {
     "fr": "Votre nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre",
@@ -118,7 +118,8 @@ module.exports = {
     "de": "Ihr Benutzername wird für die Administratoren der Terminkalender, bei denen Sie Mitglied sind, sichtbar sein..",
     "pl": "Twoja nazwa użytkownika będzie widoczna dla administratorów agend, których jesteś uczestnikiem",
     "es": "Su nombre de usuario será visible para los administradores de las agendas de las que es miembro",
-    "br": ""
+    "br": "",
+    "io": "crwdns31272:0crwdne31272:0"
   },
   "emailSub": {
     "fr": "OpenAgenda vous enverra vos notifications à cette adresse. Elle ne sera transmise à aucun tiers.",
@@ -209,7 +210,9 @@ module.exports = {
   },
   "more": {
     "fr": "En savoir plus",
-    "en": "Read more"
+    "en": "Read more",
+    "it": "Per saperne di più",
+    "io": "crwdns31274:0crwdne31274:0"
   },
   "orSocial": {
     "fr": "Où",

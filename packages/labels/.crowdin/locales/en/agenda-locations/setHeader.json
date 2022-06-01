@@ -1,5 +1,0 @@
-{
-  "setSubtitle": "Set of %locationsCount% locations used in %agendasCount% agendas",
-  "setSubtitleLink": "%agendasCount% agendas",
-  "help": "Administrators of agendas using this set have access to all operations on the locations of the set: creation, update, deletion, merging. Operations can therefore impact all agendas of the set."
-}
