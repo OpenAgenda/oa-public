@@ -134,6 +134,35 @@ export default Story => (
   </IntlProvider>
 );
 ```
+### Intl dans React 'before hooks'
+
+L'utilisation d'hook tel useIntl() est impossible dans cette version de react.
+intl est donc donné en props avec injectIntl()
+
+```js
+import React from 'react';
+import { defineMessages, IntlProvider, injectIntl } from 'react-intl';
+import {getSupportedLocale} from '@openagenda/intl'
+
+class Main extends Component {...};
+
+const MainWithIntl = injectIntl(Main) ;
+render(
+  <IntlProvider
+    key={props.lang}
+    locale={props.lang}
+    messages={locales[props.lang]}
+    defaultLocale={getSupportedLocale(props.lang)}
+  >
+    <MainWithIntl {...props} />
+  </IntlProvider>, document.getElementById('app'));
+```
+
+## Crowdin && Labels
+Pour éviter d'écraser les modifications faites sur crowndin, il faut recup ces modifs
+Dans oa `node script/crowdin/dispach.js`
+Puis faire nos modifs
+Puis dans labels `node .crowdin/aggregate.js`
 
 ## redis
 
