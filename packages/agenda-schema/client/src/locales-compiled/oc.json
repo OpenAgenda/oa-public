@@ -1,0 +1,26 @@
+{
+  "AgendaSchema.event": [
+    {
+      "type": 0,
+      "value": "Standard"
+    }
+  ],
+  "AgendaSchema.eventDetail": [
+    {
+      "type": 0,
+      "value": "Champ événement standard"
+    }
+  ],
+  "AgendaSchema.network": [
+    {
+      "type": 0,
+      "value": "Réseau"
+    }
+  ],
+  "AgendaSchema.networkDetail": [
+    {
+      "type": 0,
+      "value": "Camp requesit pel malhum d'agendas"
+    }
+  ]
+}

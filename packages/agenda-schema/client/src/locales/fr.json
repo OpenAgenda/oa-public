@@ -1,0 +1,6 @@
+{
+  "AgendaSchema.event": "Standard",
+  "AgendaSchema.eventDetail": "Champ événement standard",
+  "AgendaSchema.network": "Réseau",
+  "AgendaSchema.networkDetail": "Champ requis par le réseau d'agendas"
+}

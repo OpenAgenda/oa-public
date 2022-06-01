@@ -4,10 +4,31 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
-import labels from '@openagenda/labels/agenda-admin/agendaSchema';
+import {getSupportedLocale} from '@openagenda/intl'
+import { defineMessages, IntlProvider, injectIntl } from 'react-intl';
 
+import locales from './locales-compiled';
 import getSchemaFieldCount from './lib/getSchemaFieldCount';
-import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges'; 
+import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges';
+
+const messages = defineMessages({
+  network: {
+    id: 'AgendaSchema.network',
+    defaultMessage: "Network",
+  },
+  networkDetail: {
+    id: 'AgendaSchema.networkDetail',
+    defaultMessage: "Field required by the agenda network",
+  },
+  event: {
+    id: 'AgendaSchema.event',
+    defaultMessage: "Standard",
+  },
+  eventDetail: {
+    id: 'AgendaSchema.eventDetail',
+    defaultMessage: "Standard event field",
+  }
+});
 
 
 if (module.hot) module.hot.accept();
@@ -49,60 +70,71 @@ class Main extends Component {
   }
 
   render() {
+    const { lang, extensions, schema, agenda, maxFields, editableExtensions, intl } = this.props;
+    console.log(lang, intl.formatMessage(messages.eventDetail))
+    return (
+        <div>
+          {intl.formatMessage(messages.eventDetail)}
+          <FormSchemaBuilder
+            lang={lang}
+            addEnabled={maxFields > this.state.currentFieldCount}
+            settingsEnabled={true}
+            editableExtensions={editableExtensions}
+            devState={{
+              //editedField: 'title'
+            }}
+            schema={schema}
+            extendedFrom={_.keys(extensions)
+              .filter(extKey => extensions[extKey])
+              .map(extKey => ({
+                schema: extensions[extKey],
+                info: {
+                  label: intl.formatMessage(messages[extKey]),
+                  detail: intl.formatMessage(messages[`${extKey}Detail`])
+                }
+              }))}
+            onUpdate={this.onUpdate.bind(this)}
+            renderHead={this.renderHeadComponent.bind(this)}
+            components={{
+              enabledRanges: EnabledRanges
+            }}
+            customFieldConfigurationSchemas={({
+              timings: {
+                fields: [{
+                  field: 'label',
+                  fieldType: 'abstract'
+                }, {
+                  field: 'sub',
+                  fieldType: 'abstract'
+                }, {
+                  field: 'enabledRanges',
+                  fieldType: 'enabledRanges',
+                  label: 'Configurateur des saisie de dates',
+                  selfHandled: ['label', 'info', 'help', 'sub']
+                }],
+              }
+            })}
+          />
+          {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
+            <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
+              Besoin de plus de champs?
+            </a>
+          </div> : null}
+        </div>
 
-    const { lang, extensions, schema, agenda, maxFields, editableExtensions } = this.props;
-
-    return <div>
-
-      <FormSchemaBuilder
-        lang={lang}
-        addEnabled={maxFields > this.state.currentFieldCount}
-        settingsEnabled={true}
-        editableExtensions={editableExtensions}
-        devState={{
-          //editedField: 'title'
-        }}
-        schema={schema}
-        extendedFrom={_.keys(extensions)
-          .filter(extKey => extensions[extKey])
-          .map(extKey => ({
-            schema: extensions[extKey],
-            info: {
-              label: _.get(labels, extKey),
-              detail: _.get(labels, extKey + 'Detail')
-            }
-          }))}
-        onUpdate={this.onUpdate.bind(this)}
-        renderHead={this.renderHeadComponent.bind(this)}
-        components={{
-          enabledRanges: EnabledRanges
-        }}
-        customFieldConfigurationSchemas={({
-          timings: {
-            fields: [{
-              field: 'label',
-              fieldType: 'abstract'
-            }, {
-              field: 'sub',
-              fieldType: 'abstract'
-            },{
-              field: 'enabledRanges',
-              fieldType: 'enabledRanges',
-              label: 'Configurateur des saisie de dates'
-            }],
-          }
-        })}
-      />
-      {maxFields === 1 && maxFields === this.state.currentFieldCount ? <div>
-        <a href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}>
-          Besoin de plus de champs?
-        </a>
-      </div> : null}
-    </div>
+    )
   }
 }
 
 
 const props = JSON.parse(document.getElementById('props').innerHTML);
-
-render(<Main {...props} />, document.getElementById('app'));
+const MainWithIntl = injectIntl(Main) 
+render(
+  <IntlProvider
+    key={props.lang}
+    locale={props.lang}
+    messages={locales[props.lang]}
+    defaultLocale={getSupportedLocale(props.lang)}
+  >
+    <MainWithIntl {...props} />
+  </IntlProvider>, document.getElementById('app'));

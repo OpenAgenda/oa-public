@@ -1,0 +1,26 @@
+{
+  "AgendaSchema.event": [
+    {
+      "type": 0,
+      "value": "Standard"
+    }
+  ],
+  "AgendaSchema.eventDetail": [
+    {
+      "type": 0,
+      "value": "Standard event field"
+    }
+  ],
+  "AgendaSchema.network": [
+    {
+      "type": 0,
+      "value": "Network"
+    }
+  ],
+  "AgendaSchema.networkDetail": [
+    {
+      "type": 0,
+      "value": "Field required by the agenda network"
+    }
+  ]
+}
