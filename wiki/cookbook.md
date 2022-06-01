@@ -166,6 +166,10 @@ Utile quand on veux publier une librairie publique sans pour autant partir d'un 
 
 On fait les commits sur la lib, on itère sur la version directement dans le `package.json` qu'on commit également, puis `yarn npm publish --access public`
 
+### Patcher une lib publique de manière isolée
+
+Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch -i`, en commitant les modifications, puis en `npm publish`ant le package localement.
+
 ## structure d'un projet
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
