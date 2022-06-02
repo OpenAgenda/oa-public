@@ -71,7 +71,9 @@ module.exports = async (core, agendaOrUid, type, options = {}) => {
     set: updatedLegacySet,
     messages,
     fields
-  } = operations[type].generate(schema, legacySet, { lang });
+  } = operations[type].generate(schema, legacySet, {
+    lang: agenda.settings.contribution.defaultLang ?? lang
+  });
 
   const res = {
     messages,

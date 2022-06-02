@@ -6124,7 +6124,9 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
+    "@openagenda/event-form": ^1.5.1
     "@openagenda/form-schemas": ^1.9.2
+    "@openagenda/intl": ^1.1.1
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     babel-loader: ^8.2.2
@@ -6706,7 +6708,6 @@ __metadata:
   dependencies:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.9
-    "@openagenda/queues": ^1.2.7
     "@openagenda/validators": ^2.4.0
     immutability-helper: ^3.0.0
     knex: ^0.20.13
@@ -7294,7 +7295,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@^1.1.2, @openagenda/intl@workspace:public/intl":
+"@openagenda/intl@^1.1.1, @openagenda/intl@^1.1.2, @openagenda/intl@workspace:public/intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:public/intl"
   dependencies:
@@ -7639,6 +7640,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
+    "@openagenda/event-form": ^1.5.1
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import MaskedInput from 'react-text-mask';
 import { format } from 'date-fns';
 
@@ -53,7 +53,6 @@ const EnabledRanges = ({
   };
 
   useEffect(() => {
-    console.log('useEffect');
     checkAndOnChange(localValue);
   }, []);
 
@@ -73,8 +72,9 @@ const EnabledRanges = ({
 
   return (
     <div>
-      <label htmlFor="checkbox">
+      <label htmlFor="enabledRanges">
         <input
+          id="enabledRanges"
           type="checkbox"
           checked={checked}
           onChange={() => {
@@ -99,8 +99,9 @@ const EnabledRanges = ({
             <div className="form-group">
               {labels.from}
             </div>
-            <div className="form-group margin-h-sm">
+            <div className="form-group">
               <DateField
+                className="margin-h-sm"
                 field={{
                   field: 'begin',
                   fieldType: 'date',
@@ -110,30 +111,30 @@ const EnabledRanges = ({
                 lang={lang}
                 onChange={v => {
                   if (!getTime('begin')) {
-                    checkAndOnChange([{ ...readValue(value), begin: `${format(v, 'yyyy-MM-dd')}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}` }]);
                     return;
                   }
-                  checkAndOnChange([{ ...readValue(value), begin: `${format(v, 'yyyy-MM-dd')}T${getTime('begin')}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}T${getTime('begin')}` }]);
                 }}
               />
             </div>
             <div className="form-group">
               {labels.at}
             </div>
-            <div className={`form-group margin-left-sm ${timeError?.begin ? 'has-error' : ''}`}>
+            <div className={`form-group ${timeError?.begin ? 'has-error' : ''}`}>
               <MaskedInput
                 value={getTime('begin') || ''}
-                className="form-control text-center"
+                className="form-control text-center margin-left-sm"
                 mask={timeMask}
                 placeholder="HH:MM"
                 keepCharPositions
                 onBlur={e => {
-                  checkAndOnChange([{ ...readValue(value), begin: `${getDate('begin')}T${e.target.value}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
                 }}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    checkAndOnChange([{ ...readValue(value), begin: `${getDate('begin')}T${e.target.value}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
                   }
                 }}
                 style={{
@@ -146,8 +147,9 @@ const EnabledRanges = ({
             <div className="form-group">
               {labels.to}
             </div>
-            <div className={`form-group  margin-h-sm ${dateError ? 'has-error' : ''}`}>
+            <div className={`form-group ${dateError ? 'has-error' : ''}`}>
               <DateField
+                className="margin-h-sm"
                 field={{
                   field: 'end',
                 }}
@@ -156,30 +158,30 @@ const EnabledRanges = ({
                 lang={lang}
                 onChange={v => {
                   if (!getTime('end')) {
-                    checkAndOnChange([{ ...readValue(value), end: `${format(v, 'yyyy-MM-dd')}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}` }]);
                     return;
                   }
-                  checkAndOnChange([{ ...readValue(value), end: `${format(v, 'yyyy-MM-dd')}T${getTime('end')}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}T${getTime('end')}` }]);
                 }}
               />
             </div>
             <div className="form-group">
               {labels.at}
             </div>
-            <div className={`form-group margin-left-sm ${timeError?.end ? 'has-error' : ''}`}>
+            <div className={`form-group ${timeError?.end ? 'has-error' : ''}`}>
               <MaskedInput
-                className="form-control text-center"
+                className="form-control text-center margin-left-sm"
                 value={getTime('end') || ''}
                 mask={timeMask}
                 placeholder="HH:MM"
                 keepCharPositions
                 onBlur={e => {
-                  checkAndOnChange([{ ...readValue(value), end: `${getDate('end')}T${e.target.value}` }]);
+                  checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
                 }}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    checkAndOnChange([{ ...readValue(value), end: `${getDate('end')}T${e.target.value}` }]);
+                    checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
                   }
                 }}
                 style={{

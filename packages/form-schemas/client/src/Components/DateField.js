@@ -28,7 +28,8 @@ function DateField({
   value,
   enabled,
   onChange,
-  lang
+  lang,
+  className
 }) {
   const {
     field: fieldName,
@@ -38,7 +39,9 @@ function DateField({
   const cleanValue = getValueAsDate(value);
 
   return (
-    <div>{enabled ? (
+    <div
+      className={className || ''}
+    >{enabled ? (
       <Dropdown
         id={`${fieldName}-input`}
       >

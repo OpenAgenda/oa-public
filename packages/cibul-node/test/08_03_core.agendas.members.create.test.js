@@ -54,6 +54,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       });
 
       expect(_.omit(member, 'updatedAt')).toEqual({
+        deletedUser: false,
         name: 'Fred',
         phone: '06',
         email: null,

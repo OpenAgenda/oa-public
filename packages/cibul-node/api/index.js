@@ -4,6 +4,7 @@ const _ = require('lodash');
 const VError = require('verror');
 const express = require('express');
 const log = require('@openagenda/logs')('api');
+const { NotAuthenticated } = require('@openagenda/verror');
 
 const logRequests = require('../services/logRequests');
 const errors = require('../services/errors');
@@ -383,6 +384,22 @@ module.exports = core => {
           ..._.pick(user, ['apiKey'])
         }), next);
     }
+  });
+
+  app.delete('/me', (req, res, next) => {
+    if (!req.user) {
+      return next(new NotAuthenticated('Authentication is required'));
+    }
+    core.users(req.user.uid)
+      .remove()
+      .then(() => {
+        if (core.services.sessions) {
+          core.services.sessions.mw.close();
+        }
+        res.json({
+          success: true
+        });
+      });
   });
 
   app.get('/me/agendas', (req, res, next) => {

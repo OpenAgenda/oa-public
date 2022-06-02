@@ -9,8 +9,10 @@ const canEditEvent = require('./canEditEvent');
 const getEventUserContext = require('./getEventUserContext');
 const getAgendaUserContext = require('./getAgendaUserContext');
 const get = require('./get');
+const remove = require('./remove');
 
 module.exports = core => Object.assign(identifier => ({
+  remove: remove(core, identifier),
   agendas: Object.assign(agendaUid => ({
     getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid),
     getContext: (options = {}) => getAgendaUserContext(core, identifier, agendaUid, options),

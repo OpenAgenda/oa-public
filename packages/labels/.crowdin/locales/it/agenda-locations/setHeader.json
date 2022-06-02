@@ -1,5 +1,0 @@
-{
-  "setSubtitle": "%locationsCount% luoghi usati in %agendasCount% agende",
-  "setSubtitleLink": "%agendasCount% agende",
-  "help": "Gli amministratori delle agende che utilizzano questo set hanno accesso a tutte le operazioni sulle posizioni del set: creazione, aggiornamento, cancellazione, fusione. Le operazioni possono quindi avere un impatto su tutte le agende dell'insieme."
-}

@@ -1,0 +1,10 @@
+{
+  "from": "Du ",
+  "to": "Au ",
+  "at": " à ",
+  "checkboxInfo": " Restreindre les periodes autorisée pour les dates saisies",
+  "constraintError": "La nouvelle limite doit être comprise dans celle existante",
+  "constraintInfo": "Le champ déjà contraint à un niveau supérieur",
+  "dateError": "La date de debut doit etre avant la date de fin",
+  "timeError": "L'heure définie n'est pas valide"
+}

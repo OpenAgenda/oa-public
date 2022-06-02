@@ -31,7 +31,6 @@ export default class FieldEdit extends Component {
           lang={lang}
           labelLanguages={labelLanguages}
           field={field}
-          //fieldType={isOwnField ? field.fieldType : 'labels'}
           onSubmit={this.onSubmit.bind(this)}
           actionComponent={({ onSubmit }) => (
             <div>

@@ -134,6 +134,35 @@ export default Story => (
   </IntlProvider>
 );
 ```
+### Intl dans React 'before hooks'
+
+L'utilisation d'hook tel useIntl() est impossible dans cette version de react.
+intl est donc donné en props avec injectIntl()
+
+```js
+import React from 'react';
+import { defineMessages, IntlProvider, injectIntl } from 'react-intl';
+import {getSupportedLocale} from '@openagenda/intl'
+
+class Main extends Component {...};
+
+const MainWithIntl = injectIntl(Main) ;
+render(
+  <IntlProvider
+    key={props.lang}
+    locale={props.lang}
+    messages={locales[props.lang]}
+    defaultLocale={getSupportedLocale(props.lang)}
+  >
+    <MainWithIntl {...props} />
+  </IntlProvider>, document.getElementById('app'));
+```
+
+## Crowdin && Labels
+Pour éviter d'écraser les modifications faites sur crowndin, il faut recup ces modifs
+Dans oa `node script/crowdin/dispach.js`
+Puis faire nos modifs
+Puis dans labels `node .crowdin/aggregate.js`
 
 ## redis
 
@@ -165,6 +194,10 @@ express,regex
 Utile quand on veux publier une librairie publique sans pour autant partir d'un monorepo propre (à jour, sans modifications). Cette méthode est une "mauvaise" pratique, elle est à éviter au possible. Il faut préférer la méthode documentée dans `CONTRIBUTING.md`
 
 On fait les commits sur la lib, on itère sur la version directement dans le `package.json` qu'on commit également, puis `yarn npm publish --access public`
+
+### Patcher une lib publique de manière isolée
+
+Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch -i`, en commitant les modifications, puis en `npm publish`ant le package localement.
 
 ## structure d'un projet
 

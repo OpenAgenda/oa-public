@@ -9,7 +9,8 @@
   "captchaTryAgain": "crwdns13144:0crwdne13144:0",
   "hasAccount": "crwdns13146:0crwdne13146:0",
   "connect": "crwdns13148:0crwdne13148:0",
-  "pseudonym": "crwdns13150:0crwdne13150:0",
+  "pseudonym": "crwdns31270:0crwdne31270:0",
+  "pseudonymSub": "crwdns31272:0crwdne31272:0",
   "email": "crwdns13152:0crwdne13152:0",
   "password": "crwdns13154:0crwdne13154:0",
   "repeatPassword": "crwdns13156:0crwdne13156:0",
@@ -17,5 +18,6 @@
   "agree": "crwdns13160:0%terms%crwdnd13160:0%policy%crwdne13160:0",
   "termsOfUse": "crwdns13162:0crwdne13162:0",
   "policy": "crwdns13164:0crwdne13164:0",
-  "culture": "crwdns13166:0crwdne13166:0"
+  "culture": "crwdns13166:0crwdne13166:0",
+  "more": "crwdns31274:0crwdne31274:0"
 }

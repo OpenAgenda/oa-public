@@ -16,7 +16,7 @@ module.exports = {
     "io": "crwdns14676:0crwdne14676:0"
   },
   "editField": {
-    "fr": "Editer",
+    "fr": "Modifier",
     "en": "Edit",
     "es": "editar",
     "it": "Modificare",

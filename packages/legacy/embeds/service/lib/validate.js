@@ -50,7 +50,7 @@ const validate = schema({
         min: 2
       },
       mapTiles: {
-        type: 'link',
+        type: 'text',
         default: false
       },
       mapPositionMode: {

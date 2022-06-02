@@ -134,6 +134,12 @@ function buildFieldSchema(type, options = {}) {
     constraints: {
       type: 'pass',
       optional: true
+    },
+
+    selfHandled: {
+      type: 'choice',
+      optional: true,
+      options: ['label', 'help', 'max', 'info', 'sub']
     }
 
   };

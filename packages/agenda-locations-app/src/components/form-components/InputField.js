@@ -68,7 +68,7 @@ const InputField = ({
           <input
             className="form-control"
             type="text"
-            placeholdcr={myGetLabel(placeholder)}
+            placeholder={myGetLabel(placeholder)}
             value={value || ''}
             onChange={myOnChange}
             disabled={!enabled}

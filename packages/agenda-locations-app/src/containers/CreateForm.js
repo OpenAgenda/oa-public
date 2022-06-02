@@ -41,7 +41,7 @@ const CreateForm = ({
   const [errorModal, setErrorModal] = useState(false);
   const history = useHistory();
   const res = useRes(agenda);
-  const { settings } = useSettings(agenda);
+  const { settings, isLoading } = useSettings(agenda);
   const historyLocation = useLocation();
   const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
@@ -102,21 +102,23 @@ const CreateForm = ({
           error={errorModal}
         />
       ) : null}
-      <LocationForm
-        Header={CreateFormHeader()}
-        showToggler={false}
-        res={res}
-        lang={lang}
-        location={null}
-        detailedInfo={detailedInfo}
-        settings={settings}
-        onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
-        onSubmit={onSubmit}
-        tiles={tiles}
-        mode="create"
-        errors={errors}
-        displayExtIdLink
-      />
+      {!isLoading ? (
+        <LocationForm
+          Header={CreateFormHeader()}
+          showToggler={false}
+          res={res}
+          lang={lang}
+          location={null}
+          detailedInfo={detailedInfo}
+          settings={settings}
+          onCancel={() => { if (nq) history.push(nq); else history.push(prefix); }}
+          onSubmit={onSubmit}
+          tiles={tiles}
+          mode="create"
+          errors={errors}
+          displayExtIdLink
+        />
+      ) : null}
     </>
   );
 };

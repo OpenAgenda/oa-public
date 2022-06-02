@@ -25,13 +25,14 @@ const fieldSchemaTypes = {
   labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
-    fg.minMax({ min: 0, max: 255 }),
+    parentsField ? null : fg.minMax({ min: 0, max: 255 }),
     parentsField?.optional ? fg.optional() : null,
     fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub'])
   ),
-  radioLike: ({ labelLanguages }) => merge(
-    fg.optional(),
-    fg.options({ labelLanguages }),
+  radioLike: ({ labelLanguages, parentsField }) => merge(
+    fg.labels({ labelLanguages }),
+    parentsField ? null : fg.optional(),
+    parentsField ? null : fg.options({ labelLanguages }),
     fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub'])
   ),
   customLike: customFieldSchema => ({ labelLanguages }) => merge(
@@ -80,7 +81,6 @@ export default class FieldForm extends Component {
     } = this.props;
 
     const { values } = this.state;
-
     const { errors } = sanitize(values);
 
     if (errors.length) {
@@ -90,7 +90,7 @@ export default class FieldForm extends Component {
     if (!values || (this.state?.errors || []).length) return;
 
     onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
-      fieldType,
+      fieldType: field.fieldType,
       field: field?.field || slugFromLabel(values.label, lang)
     }));
   }
@@ -99,13 +99,18 @@ export default class FieldForm extends Component {
     const {
       labelLanguages,
       lang,
-      field,
+      field: propsField,
+      initFieldType,
       actionComponent,
       customFieldConfigurationSchemas, // new
       components, // new
       parentsField
     } = this.props;
     const { values, errors } = this.state;
+
+    const field = propsField ?? {
+      fieldType: initFieldType
+    };
 
     const schema = assignConstraintsToFields(
       schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),

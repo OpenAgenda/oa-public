@@ -1,5 +1,0 @@
-{
-  "setSubtitle": "Jeu de %locationsCount% lieux mutualisés entre ",
-  "setSubtitleLink": "%agendasCount% agendas",
-  "help": "Les administrateurs des agendas liés à ce jeu de lieu ont accès à toutes les opérations d'édition: ajout, suppression, fusion, mise à jour. Les opérations seront répercutées sur tous les agendas liés."
-}

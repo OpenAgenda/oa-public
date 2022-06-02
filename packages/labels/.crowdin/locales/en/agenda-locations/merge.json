@@ -1,6 +1,0 @@
-{
-  "title": "Locations merge",
-  "info": "Define the information to save in the merged location",
-  "submit": "Finalize the fusion",
-  "submitError": "The locations could not be merged"
-}

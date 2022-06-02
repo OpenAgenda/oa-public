@@ -1,0 +1,6 @@
+{
+  "AgendaSchema.network": "Rete",
+  "AgendaSchema.networkDetail": "Campo richiesto dalla rete di agende",
+  "AgendaSchema.event": "Standard",
+  "AgendaSchema.eventDetail": "Campo eventi standard"
+}

@@ -80,17 +80,12 @@ export default class FormSchemaBuilder extends Component {
 
   onSave() {
     this.setSaveState(saveStates.LOADING);
-    console.log('onSave', restrictLabelLanguages.applyToSchema(
-      this.getSchema(),
-      this.state.labelLanguages
-    ));
     submit({
       values: restrictLabelLanguages.applyToSchema(
         this.getSchema(),
         this.state.labelLanguages
       )
     }).then(() => {
-      console.log('onSave then', saveStates.SAVED);
       this.setSaveState(saveStates.SAVED);
     }, err => {
       this.setSaveState(saveStates.ERROR);

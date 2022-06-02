@@ -5,7 +5,7 @@
   "administratorVerb": "crwdns30720:0crwdne30720:0",
   "subjectForExistingMember": "crwdns30722:0{role}crwdnd30722:0{agenda}crwdne30722:0",
   "signup": "crwdns30724:0crwdne30724:0",
-  "memberAction": "crwdns30726:0{Manage the agenda}crwdnd30726:0{Moderate events}crwdnd30726:0{Contribute to the agenda}crwdnd30726:0{See the agenda}crwdne30726:0",
+  "memberAction": "crwdns30726:0role={role}crwdne30726:0",
   "administrator": "crwdns30728:0crwdne30728:0",
   "moderator": "crwdns30730:0crwdne30730:0",
   "contributor": "crwdns30732:0crwdne30732:0",

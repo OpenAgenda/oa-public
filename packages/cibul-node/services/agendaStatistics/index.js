@@ -26,7 +26,6 @@ module.exports.init = (config, services) => {
         resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
         resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
         resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
-        resyncLegacyDatasetToCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
         resyncCustomDatasetToLegacy: `${config.root}/${agenda.slug}/admin/stats/resync/customToLegacy`,
         resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
         legacyToFormSchema: `${config.root}/${agenda.slug}/admin/stats/transfer-form-schema`,

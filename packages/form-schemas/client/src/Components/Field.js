@@ -51,6 +51,12 @@ const FieldComponents = {
 
 const log = debug('Field');
 
+const decoratedByFieldComponent = (field, key) => {
+  if (['boolean'].includes(field.fieldType)) return true;
+  if (field.selfHandled.length === 0) return false;
+  return field.selfHandled.includes(key);
+};
+
 export default class Field extends Component {
   getFieldComponent(isMultilingual) {
     const {
@@ -92,7 +98,6 @@ export default class Field extends Component {
     } = this.props;
 
     const field = flattenFieldLabels(schemaField, lang);
-
     const isMultilingual = Array.isArray(field.languages);
 
     const hasMaxCounter = field.max
@@ -100,7 +105,6 @@ export default class Field extends Component {
       && !['integer', 'number'].includes(field.fieldType);
 
     // field is decorated with labels
-    const decoratedByFieldComponent = ['boolean'].includes(field.fieldType);
 
     const FieldComponent = this.getFieldComponent(isMultilingual);
 
@@ -123,7 +127,7 @@ export default class Field extends Component {
         })}
         key={field.field}
       >
-        {!decoratedByFieldComponent && field.label ? (
+        {!decoratedByFieldComponent(field, 'label') && field.label ? (
           <label
             htmlFor={field.field}
             className={classNames({
@@ -134,7 +138,7 @@ export default class Field extends Component {
             {field.label}
           </label>
         ) : null}
-        {!decoratedByFieldComponent && !isOptional ? (
+        {!decoratedByFieldComponent(field, 'label') && !isOptional ? (
           <span
             className={classNames({
               'margin-right-xs': hasHelp(field),
@@ -144,7 +148,7 @@ export default class Field extends Component {
             {`(${labels.required})`}
           </span>
         ) : ''}
-        {!decoratedByFieldComponent && hasHelp(field) ? (
+        {!decoratedByFieldComponent(field, 'help') && hasHelp(field) ? (
           <Help
             id={`help-${field.field}`}
             label={field.help}
@@ -153,7 +157,7 @@ export default class Field extends Component {
             content={field.helpContent}
           />
         ) : null}
-        {!decoratedByFieldComponent ? <Info value={field.info} /> : null }
+        {!decoratedByFieldComponent(field, 'info') ? <Info value={field.info} /> : null }
         <FieldComponent
           enabled={isEnabled}
           lang={lang}
@@ -165,7 +169,7 @@ export default class Field extends Component {
           labels={labels}
         />
         {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null }
-        {!isMultilingual && !decoratedByFieldComponent ? <Sub label={field.sub} error={error} /> : null}
+        {!isMultilingual && !decoratedByFieldComponent(field, 'sub') ? <Sub label={field.sub} error={error} /> : null}
       </div>
     );
   }

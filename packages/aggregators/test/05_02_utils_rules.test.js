@@ -2,17 +2,20 @@
 
 const rules = require('../utils/rules');
 
+const { getJSON } = require('./utils');
+
 /* eslint-disable global-require */
 const fixtures = {
   jepOToJEP: require('./fixtures/evaluate.jep-2019-occitanie.to.albi.json'),
   eventBeforePublish: require('./fixtures/eventBeforePublish.json'),
   eventNowPublish: require('./fixtures/eventNowPublish.json'),
-  eventBeforeUnpublish: require('./fixtures/eventBeforeUnpublish'),
-  eventNowUnpublish: require('./fixtures/eventNowUnpublish'),
-  eventBeforeChange: require('./fixtures/eventBeforeChange'),
-  eventNowChange: require('./fixtures/eventNowChange'),
+  eventBeforeUnpublish: require('./fixtures/eventBeforeUnpublish.json'),
+  eventNowUnpublish: require('./fixtures/eventNowUnpublish.json'),
+  eventBeforeChange: require('./fixtures/eventBeforeChange.json'),
+  eventNowChange: require('./fixtures/eventNowChange.json'),
   simpleSourceSchema: require('./fixtures/simpleSourceSchema.json'),
   simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json'),
+  duplicates: getJSON('./fixtures/evaluateRules/duplicates'),
 };
 /* esint-enable */
 
@@ -838,6 +841,7 @@ describe('05_02 - utils - rules', () => {
       ).toBeNull();
     });
   });
+
   describe('text filter', () => {
     test('simple string', () => {
       expect(
@@ -1004,6 +1008,7 @@ describe('05_02 - utils - rules', () => {
       ).toEqual({});
     });
   });
+
   describe('attendanceMode', () => {
     test('attendanceMode match', () => {
       expect(
@@ -1040,6 +1045,26 @@ describe('05_02 - utils - rules', () => {
           }
         )
       ).toBeNull();
+    });
+  });
+
+  describe('fix', () => {
+    test('avoid piling up duplicates', () => {
+      const {
+        rules: listOfRules,
+        sourceAgendaFormSchema,
+        aggregatorSchema,
+        event,
+      } = fixtures.duplicates;
+
+      const result = rules(
+        listOfRules,
+        sourceAgendaFormSchema,
+        aggregatorSchema,
+        event
+      );
+
+      expect(result.intermunicipal_interest).toEqual([1]);
     });
   });
 });

@@ -19,10 +19,6 @@ module.exports.init = (config, services) => {
       onRemove: () => {},
       getValidator: formSchemas.getValidator
     },
-    queue: {
-      redis: config.redis,
-      name: 'custom'
-    },
     legacy: {
       schemas: {
         event: config.schemas.event,

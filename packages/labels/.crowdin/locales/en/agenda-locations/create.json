@@ -1,6 +1,0 @@
-{
-  "title": "Create a location",
-  "info": "Define the name, address and exact location of the place",
-  "submit": "Create",
-  "submitError": "The location could not be created"
-}

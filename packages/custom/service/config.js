@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 
 const logs = require( '@openagenda/logs' );
-const queues = require( '@openagenda/queues' );
 
 const log = logs( 'init' );
 
@@ -54,14 +53,6 @@ function init( c ) {
     logs.setModuleConfig( c.logger );
 
   }
-
-  if ( c.queue ) {
-
-    queues.init( c.queue );
-
-  }
-
-  config.queue = queues( c.queue.name );
 
   _.extend( config, _.pick( c, [
     'knex',

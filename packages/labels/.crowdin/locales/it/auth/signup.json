@@ -9,7 +9,9 @@
   "captchaTryAgain": "Riprovare",
   "hasAccount": "Lei già ha utilizzato OpenAgenda ?",
   "connect": "Accedi",
-  "pseudonym": "Nome e cognome",
+  "pseudonym": "Nome utente",
+  "pseudonymSub": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri.",
+  "emailSub": "OpenAgenda invierà le notifiche a questo indirizzo. Non saranno trasmessi a terzi.",
   "email": "Email",
   "password": "Password",
   "repeatPassword": "Ripetere la password",
@@ -17,5 +19,6 @@
   "agree": "Creando un account si accettano le %terms% e le %policy%.",
   "termsOfUse": "Condizioni d'uso",
   "policy": "Informativa sulla privacy",
-  "culture": "Lingua"
+  "culture": "Lingua",
+  "more": "Per saperne di più"
 }

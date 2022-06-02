@@ -1,0 +1,110 @@
+{
+    "rules": [
+        {
+            "query": {},
+            "actions": [
+                {
+                    "field": "intermunicipal_interest",
+                    "required": false,
+                    "automatic": true,
+                    "legacy": true
+                }
+            ],
+            "required": true
+        }
+    ],
+    "sourceAgendaFormSchema": {
+        "custom": {},
+        "fields": [
+            {
+                "field": "intermunicipal_interest",
+                "label": {
+                    "fr": "Événement d'intérêt intercommunal",
+                    "en": "Event of inter-municipal interest"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "optionalWith": null,
+                "related": {
+                    "enable": [],
+                    "optional": []
+                },
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "true",
+                        "label": {
+                            "fr": "Événement d'intérêt intercommunal",
+                            "en": "Event of inter-municipal interest"
+                        },
+                        "info": null,
+                        "display": true
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 3,
+                "schemaType": null
+            }
+        ]
+    },
+    "aggregatorSchema": {
+        "custom": {},
+        "fields": [
+            {
+                "field": "intermunicipal_interest",
+                "label": {
+                    "fr": "Événement d'intérêt intercommunal",
+                    "en": "Event of inter-municipal interest"
+                },
+                "help": null,
+                "helpLink": null,
+                "helpContent": null,
+                "info": null,
+                "sub": null,
+                "placeholder": null,
+                "write": null,
+                "read": null,
+                "optional": true,
+                "display": true,
+                "origin": "custom",
+                "enableWith": null,
+                "related": [],
+                "min": null,
+                "max": null,
+                "options": [
+                    {
+                        "id": 1,
+                        "value": "true",
+                        "label": {
+                            "fr": "Événement d'intérêt intercommunal",
+                            "en": "Event of inter-municipal interest"
+                        }
+                    }
+                ],
+                "fieldType": "checkbox",
+                "schemaId": 428,
+                "schemaType": "agenda"
+            }
+        ]
+    },
+    "event": {
+        "intermunicipal_interest": [
+            1,
+            1,
+            1,
+            1
+        ]
+    }
+}

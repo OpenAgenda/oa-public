@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "postinstall": "git config core.hooksPath public/.husky && yarn workspace oa-public postinstall",
-    "prepack": "yarn workspaces foreach --topological-dev --interlaced --verbose --parallel --jobs 2 run prepack",
+    "prepack": "yarn workspaces foreach --topological-dev --interlaced --verbose run prepack",
     "start": "yarn workspace cibul-node start",
     "watch": "yarn workspace cibul-node watch",
     "dev": "concurrently -n \"node,ria\" \"yarn workspace cibul-node watch\" \"yarn workspace @openagenda/react-integration-app dev\"",

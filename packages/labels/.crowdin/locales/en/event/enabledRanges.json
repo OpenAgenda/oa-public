@@ -1,0 +1,10 @@
+{
+  "from": "From ",
+  "to": "To ",
+  "at": " at ",
+  "checkboxInfo": " Restrict the periods allowed for the dates entered",
+  "constraintError": "New limit should be in constraint",
+  "constraintInfo": "Field already constrained at an upper level",
+  "dateError": "Begin date should be before end date",
+  "timeError": "Input time is invalid"
+}
