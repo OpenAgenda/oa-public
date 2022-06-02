@@ -6,6 +6,7 @@ import * as dateFns from 'date-fns';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import { FORM_ERROR } from 'final-form';
 import { FaRegTimesCircle } from 'react-icons/fa';
+import cn from 'classnames';
 
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe('HH:MM');
 const timeRegex = /\d{2}:\d{2}/;
@@ -117,6 +118,7 @@ class EditForm extends Component {
     handleSubmit,
     submitError,
     classNamePrefix,
+    classNames,
     intl,
     closeModal,
     form
@@ -165,14 +167,19 @@ class EditForm extends Component {
           intl={intl}
         />
 
-        <button type="submit">{intl.formatMessage(messages.adjust)}</button>
+        <button
+          type="submit"
+          className={classNames?.editSubmitBtn}
+        >
+          {intl.formatMessage(messages.adjust)}
+        </button>
 
         <div
           role="button"
           tabIndex={0}
           onClick={openRecurrencer}
           onKeyPress={openRecurrencer}
-          className={`${classNamePrefix}recurrencer-button`}
+          className={cn(`${classNamePrefix}recurrencer-button`, classNames?.recurrencerBtn)}
         >
           {intl.formatMessage(messages.openRecurrencerModal)}
         </div>
@@ -190,6 +197,7 @@ class EditForm extends Component {
     const {
       initialValues,
       classNamePrefix,
+      classNames,
       intl,
       closeModal,
     } = this.props;
@@ -201,6 +209,7 @@ class EditForm extends Component {
         subscription={this.subscription}
         render={this.renderForm}
         classNamePrefix={classNamePrefix}
+        classNames={classNames}
         intl={intl}
         closeModal={closeModal}
       />

@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import * as dateFns from 'date-fns';
 import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
+import cn from 'classnames';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import SelectField from './SelectField';
 import NumberInput from './NumberInput';
@@ -231,6 +232,7 @@ class MultiRecurrencerForm extends Component {
     weekStartsOn,
     closeModal,
     onDayPickerHide,
+    classNames,
   }) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
     const formState = form.getState();
@@ -318,7 +320,7 @@ class MultiRecurrencerForm extends Component {
             {intl.formatMessage(messages.ends)}
             <br />
 
-            <div className={`${classNamePrefix}recurrencer-until__radio`}>
+            <div className={cn(`${classNamePrefix}recurrencer-until__radio`, classNames?.radio)}>
               <label
                 role="presentation"
                 htmlFor="endType-until"
@@ -346,7 +348,7 @@ class MultiRecurrencerForm extends Component {
               </label>
             </div>
 
-            <div className={`${classNamePrefix}recurrencer-count__radio`}>
+            <div className={cn(`${classNamePrefix}recurrencer-count__radio`, classNames?.radio)}>
               <label
                 role="presentation"
                 htmlFor="endType-count"
@@ -389,7 +391,12 @@ class MultiRecurrencerForm extends Component {
           </section>
           <Field name="forceTimingsCreation" component="input" type="hidden" />
           <div>
-            <button type="submit">{intl.formatMessage(messages.submit)}</button>
+            <button
+              type="submit"
+              className={classNames?.multiRecurrencerSubmitBtn}
+            >
+              {intl.formatMessage(messages.submit)}
+            </button>
           </div>
           {submitError && !dirtySinceLastSubmit ? (
             <div className={`${classNamePrefix}error`}>
@@ -409,7 +416,11 @@ class MultiRecurrencerForm extends Component {
                     ))}
                   </ul>
 
-                  <button type="button" onClick={() => this.forceSubmit(form)}>
+                  <button
+                    type="button"
+                    onClick={() => this.forceSubmit(form)}
+                    className={classNames?.disabledTimingsBtn}
+                  >
                     {intl.formatMessage(messages.forceSubmit)}
                   </button>
                 </div>
@@ -423,7 +434,11 @@ class MultiRecurrencerForm extends Component {
 
   render() {
     const {
-      classNamePrefix, intl, closeModal, onDayPickerHide
+      classNamePrefix,
+      classNames,
+      intl,
+      closeModal,
+      onDayPickerHide,
     } = this.props;
     const { initialValues, activeWeek, weekStartsOn } = this.state;
 
@@ -435,6 +450,7 @@ class MultiRecurrencerForm extends Component {
         subscription={this.subscription}
         render={this.renderForm}
         classNamePrefix={classNamePrefix}
+        classNames={classNames}
         intl={intl}
         activeWeek={activeWeek}
         weekStartsOn={weekStartsOn}
