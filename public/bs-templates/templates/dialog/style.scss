@@ -1,3 +1,18 @@
-@import "../layout/base";
-@import "page-dialog";
-@import "../agenda/header";
+.page-dialog {
+
+  .actions {
+
+    text-align: center;
+    max-width: 360px;
+    margin: auto;
+
+    a {
+
+      display: block;
+      margin-bottom: 1.6em;
+
+    }
+
+  }
+
+}

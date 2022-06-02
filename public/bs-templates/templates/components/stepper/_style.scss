@@ -19,7 +19,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     padding-left: 0;
-    
+
     &.gray-bg-lightest .step {
       background-color: $oa-gray-lightest;
     }
@@ -76,29 +76,30 @@
       }
 
       &.passed:before, &.validated:before {
-        font-weight: normal;
         border-color: $oa-blue;
         color: $oa-blue;
         content: '\f00c';
-        font-family: FontAwesome;
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
       }
 
       &.active {
         font-weight: bold;
 
         &:before {
-          font-weight: normal;
           color: white;
           border-color: $oa-blue;
           background-color: $oa-blue;
-          font-family: FontAwesome;
-          content: '\f040';
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 900;
+          content: '\f303';
         }
       }
       &.confirmation {
         &:before {
           content: '\f00c';
-          font-family: FontAwesome;
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 900;
         }
 
       }
