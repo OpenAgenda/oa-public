@@ -61,7 +61,7 @@ class Main extends Component {
   }
 
   renderHeadComponent() {
-    const { maxFields } = this.props;
+    const { maxFields, intl } = this.props;
 
     return <div className="padding-all-sm">
       <label>{intl.formatMessage(messages.adaptForm)}</label>
