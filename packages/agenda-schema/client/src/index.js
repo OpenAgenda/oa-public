@@ -49,23 +49,18 @@ if (module.hot) module.hot.accept();
 class Main extends Component {
 
   constructor(props) {
-
     super(props);
 
     this.state = {
       currentFieldCount: getSchemaFieldCount(props.schema)
     }
-
   }
 
   onUpdate(updatedSchema) {
-
     this.setState({ currentFieldCount: getSchemaFieldCount(updatedSchema) });
-
   }
 
   renderHeadComponent() {
-
     const { maxFields } = this.props;
 
     return <div className="padding-all-sm">
@@ -79,12 +74,11 @@ class Main extends Component {
         </a>
       </div> : null}
     </div>
-
   }
 
   render() {
-    const { lang, extensions, schema, agenda, maxFields, editableExtensions, intl } = this.props;
-    console.log(lang, intl.formatMessage(messages.eventDetail))
+    const { lang, extensions, schema, maxFields, editableExtensions, intl } = this.props;
+
     return (
         <div>
           {intl.formatMessage(messages.eventDetail)}
