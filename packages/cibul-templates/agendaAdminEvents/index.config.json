@@ -1,13 +1,7 @@
 {
   "layout" : "agendaAdmin/bsLayout",
 
-  "oaCss" : {
-    "admin-events-header" : "css/header.scss",
-    "agenda-admin-legacy-bridge" : "css/legacy-bridge.scss",
-    "modal": "@openagenda/bs-templates/templates/modal/_modal.scss",
-    "spinner" : "@openagenda/bs-templates/templates/components/_spinner.scss",
-    "spacing": "@openagenda/bs-templates/templates/layout/_spacing.scss"
-  },
+  "oaCss" : {},
 
   "helpers" : {
     "_i" : "image"

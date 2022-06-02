@@ -1,9 +1,7 @@
 {
   "layout" : "bsLayout/main",
 
-  "oaCss" : {
-    "sandbox" : "css/style.scss"
-  },
+  "oaCss" : {},
 
   "base" : {
     "pageId" : "sandbox",

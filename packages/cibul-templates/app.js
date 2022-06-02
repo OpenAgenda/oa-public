@@ -8,7 +8,7 @@ var http = require( 'http' ),
 
   st = require( 'st' ),
 
-  sass = require( 'node-sass' ),
+  sass = require( 'sass' ),
 
   sassDestFile = '/build/sass/tmp.css',
 
@@ -361,15 +361,15 @@ function _compileSass( v ) {
 
     async.eachSeries( cssArr, function ( cssFile, ecb ) {
 
+      console.log(__dirname, cssFile);
+
       log( 'compiling %s', __dirname + cssFile );
 
       fs.readFile( __dirname + cssFile, 'utf-8', function( err, content ) {
 
-        content = _fixFontAwesomeRelativePath( cssFile, content );
-
         if ( err ) {
 
-          return ecb( 'could not read file %s' + cssFile );
+          return ecb( 'could not read file ' + cssFile );
 
         }
 
@@ -418,17 +418,6 @@ function _compileSass( v ) {
     } );
 
   } );
-
-}
-
-
-function _fixFontAwesomeRelativePath( filename, content ) {
-
-  var version = '4.3.0';
-
-  if ( filename.indexOf( 'font-awesome-' + version ) == -1 ) return content;
-
-  return content.replace( /..\/fonts\//g, '/css/font-awesome-' + version + '/fonts/' );
 
 }
 
@@ -689,19 +678,9 @@ function _absolutePath( uri, css ) {
 
   for ( var c in css ) {
 
-    var path = css[ c ].split( '/' ),
+    var path = css[ c ].split( '/' ); // if is a subfolder of current uri
 
-      isSub = true; // if is a subfolder of current uri
-
-    while ( path[ 0 ] == '..' ) {
-
-      path.splice( 0, 1 );
-
-      isSub = false;
-
-    }
-
-    absCss[ c ] = ( isSub ? '/' + templatePath : '' ) + '/' + path.join( '/' );
+    absCss[ c ] = '/' + templatePath + '/' + path.join( '/' );
 
   }
 

@@ -1,14 +1,6 @@
 {
   "layout" : "layout/main",
-  "css" : {
-    "base" : "../css/base.scss",
-    "site" : "../css/site.css",
-    "structure" : "../structure/css/structure.css",
-    "headings" : "../css/headings.css",
-    "header" : "../css/header.css",
-    "opensans" : "../css/opensans.css",
-    "error" : "error.css"
-  },
+  "css" : {},
   "base" : {
     "message" : false,
     "link" : false

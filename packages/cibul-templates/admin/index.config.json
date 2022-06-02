@@ -1,12 +1,6 @@
 {
-  "layout": "layout/main",
-  "css" : {
-    "siteAdmin" : "css/admin.css",
-    "structure" : "../structure/css/structure.css",
-    "forms" : "../css/forms.css",
-    "buttons" : "../css/buttons.css",
-    "calendar" : "../css/calendar.css"
-  },
+  "layout": "bsLayout/main",
+  "oaCss": {},
   "helpers" : {
     "_t" : "time",
     "_i" : "image"

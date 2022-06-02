@@ -1,20 +1,5 @@
 {
-  "css" : {
-    "variables" : "../css/variables.scss",
-    "base" : "../css/base.scss",
-    "site" : "../css/site.css",
-    "page" : "../css/page structure/page.css",
-    "container" : "../structure/css/container.css",
-    "headings" : "../css/headings.css",
-    "header" : "../css/header.css",
-    "userMenu" : "../user/css/menu.css",
-    "main" : "../css/agenda/main.css",
-    "admin" : "../css/agenda/admin.css",
-    "nav" : "../css/nav.css",
-    "forms" : "../css/forms.css",
-    "buttons" : "../css/buttons.css",
-    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css"
-  },
+  "css" : {},
   "base" : {
     "pageClass" : false,
     "search" : "",

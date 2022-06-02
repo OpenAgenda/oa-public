@@ -1,7 +1,6 @@
 {
   "layout": "adminLayout/main",
-  "adminCss" : {
-  },
+  "adminCss" : {},
   "helpers" : {
     "_t" : "time",
     "_i" : "image"

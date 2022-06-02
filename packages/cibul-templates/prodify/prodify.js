@@ -10,7 +10,7 @@ var fs = require( 'fs' ),
 
   webpack = require( 'webpack' ),
 
-  sass = require( 'node-sass' ),
+  sass = require( 'sass' ),
 
   map = require( '../map' ),
 
@@ -42,15 +42,15 @@ var fs = require( 'fs' ),
     mkdirp.sync(path.join(__dirname, '../dist/js'));
 
     async.series( [
-      async.apply( prodifyCss, map, 'css', 'compiled.css' ),
-      async.apply( prodifyCss, map, 'embedCss', 'embedDefault.css' ),
-      async.apply( prodifyCss, map, 'adminCss', 'compiledAdmin.css' ),
-      async.apply( prodifyCss, map, 'oaCss', 'oa.css' ),
-      async.apply( prodifyCss, map, 'oaeCss', 'oae.css' ),
-      async.apply( prodifyCss, map, 'oaetCss', 'oaet.css' )
-    ].concat( onlyCss ? _copyBsCss : [
+      async.apply( prodifyCss, map, 'oaeCss', 'oae.css' ), // embeds (standard)
+      async.apply( prodifyCss, map, 'oaetCss', 'oaet.css' ), // embeds (tiled, cascading)
+    ].concat( onlyCss ? [
+      _copyMainCss,
+      _copyAdminCss,
+    ] : [
       async.apply( prodifyJs, map ),
-      _copyBsCss
+      _copyMainCss,
+      _copyAdminCss,
     ] ), function ( err ) {
 
       if ( err ) throw err;
@@ -62,11 +62,22 @@ var fs = require( 'fs' ),
   },
 
 
-  _copyBsCss = function ( cb ) {
+  _copyMainCss = function ( cb ) {
 
     const src = fs.createReadStream(require.resolve('@openagenda/bs-templates/compiled/main.css'));
 
-    src.pipe(fs.createWriteStream(path.join(__dirname, '../dist/css/oasfmain.css')));
+    src.pipe(fs.createWriteStream(path.join(__dirname, '../dist/css/oa-main.css')));
+
+    src.on('end', () => cb());
+
+  },
+
+
+  _copyAdminCss = function ( cb ) {
+
+    const src = fs.createReadStream(require.resolve('@openagenda/bs-templates/compiled/admin.css'));
+
+    src.pipe(fs.createWriteStream(path.join(__dirname, '../dist/css/oa-admin.css')));
 
     src.on('end', () => cb());
 
