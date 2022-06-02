@@ -104,7 +104,7 @@ function agendaMailTo( agenda ) {
 
 function renderUnauthorized( req, res, next ) {
 
-  loadBaseData( 'oasfmain.css' )( req, res, () => {
+  loadBaseData( 'oa-main.css' )( req, res, () => {
 
     render( req, res, 'dialog/index', {
       agenda: req.agenda,
@@ -410,13 +410,7 @@ function loadBaseData( func, cssFile ) {
 
     func = false;
 
-  } else if ( !cssFile ) {
-
-    cssFile = 'compiled.css';
-
   }
-
-  cssFile += '?v=' + config.cssVersion;
 
   return ( req, res, next ) => {
 
@@ -424,9 +418,9 @@ function loadBaseData( func, cssFile ) {
 
     const baseData = {
       head: {
-        css: {
-          main: '/css/' + cssFile
-        },
+        css: cssFile ? {
+          main: `/css/${cssFile}?v=${config.cssVersion}`
+        } : {},
         js: {}
       },
       bottom: {

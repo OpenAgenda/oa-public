@@ -7,7 +7,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="<%= lang %>"/>
-    <link rel="stylesheet" href="/css/oasfmain.css?v=1"/>
+    <link rel="stylesheet" href="/css/oa-main.css?v=1"/>
     <!--metas-->
   </head>
   <body class="landing" style="background: gray;">

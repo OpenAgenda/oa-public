@@ -14,7 +14,7 @@ const adminSvc = require('../services/admin/admin');
 const config = require('../config');
 
 const preMw = [
-  cmn.loadBaseData(),
+  cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
   cmn.requireSuperAdmin,
 ];
@@ -145,11 +145,6 @@ async function getUsers(req, res, next) {
       defaultValue: 'manual',
       throwOnError: false
     }),
-    head: {
-      css: {
-        main: '/css/compiledAdmin.css',
-      },
-    },
   });
 }
 
@@ -385,7 +380,7 @@ function eventsDiff(req, res) {
 }
 
 function _getFork(services, begin, end) {
-  const { users: usersSvc } = req.app.services;
+  const { users: usersSvc } = services;
 
   return Promise.all([
     promisify(model.reviews().total)({ createdAt: { gte: begin, lte: end } }),

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= agenda.title %> | <%= event.title %></title>
-    <link rel="stylesheet" href="/css/oasfmain.css?v=1"/>
+    <link rel="stylesheet" href="/css/oa-main.css?v=1"/>
 <% for ( meta of metas ) { %>
     <meta property="<%= meta.property %>" content="<%= meta.content %>" />
 <% } %>
@@ -35,7 +35,7 @@
               </div>
             </div>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
     <script type="text/javascript">

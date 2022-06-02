@@ -10,7 +10,7 @@ const config = require( '../config' );
 const cmn = require( '../lib/commons-app' );
 
 const appMw = [
-  cmn.loadBaseData( 'compiledAdmin.css' ),
+  cmn.loadBaseData( 'oa-admin.css' ),
   matchApp
 ];
 

@@ -36,7 +36,6 @@ module.exports = app => {
   require('./auth/google.front')(app);
   require('./auth/local.front')(app);
   require('./auth/reset.front')(app);
-  require('./agenda/emailstrategie.back')(app);
   app.services.aggregators.plugApp(app);
   require('./agenda/settings.back')(app);
   require('./services/members')(app);
@@ -51,6 +50,5 @@ module.exports = app => {
   require('./agenda/front')(app);
   require('./agenda/exports.back')(app);
   require('./agenda/facebook.back')(app);
-  require('./agenda/actions.front')(app);
   require('./agenda/exports.front')(app);
 };

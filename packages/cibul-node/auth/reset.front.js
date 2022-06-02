@@ -12,7 +12,7 @@ const getLabel = makeLabelGetter(labels);
 const config = require( '../config' );
 
 const preMw = [
-  cmn.loadBaseData(),
+  cmn.loadBaseData('oa-main.css'),
   sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
 ];
 

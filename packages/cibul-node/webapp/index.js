@@ -532,7 +532,7 @@ module.exports = app => {
       '/supervisor(/*?)?'
     ],
     cmn.loadLogger('webapp'),
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     // outdatedBrowserMw, // Already added with loadBaseData
     (req, res, next) => matchMw({
       initialState,

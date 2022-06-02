@@ -144,7 +144,6 @@ module.exports.agenda = {
   "contactLists": {},
   "_instanceType": "agenda",
   "sources": {},
-  "emailStrategie": {},
   "passed": false,
   "isEmpty": false
 };

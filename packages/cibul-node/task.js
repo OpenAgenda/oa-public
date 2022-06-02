@@ -71,8 +71,6 @@ module.exports = (config, core, services) => {
 
   services.aggregators.task();
 
-  services.emailStrategie.task();
-
   services.agendaStatistics.task();
 
   services.custom.task();

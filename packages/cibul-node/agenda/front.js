@@ -43,7 +43,7 @@ const middlewares = {
     _format,
     _formatShowLinks,
     showXhr('agenda/show'),
-    cmn.loadBaseData(_layoutData, 'oasfmain.css'),
+    cmn.loadBaseData(_layoutData, 'oa-main.css'),
     _loadAgendaLanguages,
     show,
   ],
@@ -222,9 +222,15 @@ module.exports = app => {
   app.get(
     '/:slug/unauthorized',
     preMw,
-    cmn.loadBaseData( 'oasfmain.css' ),
+    cmn.loadBaseData( 'oa-main.css' ),
     agendaSvc.mw.load( 'slug', { cache: true } ),
     unauthorizedIP
+  );
+
+  app.get(
+    '/:slug/actions', (req, res) => {
+      return res.redirect(`/${req.params.slug}?sharemodal=1`);
+    }
   );
 
 };

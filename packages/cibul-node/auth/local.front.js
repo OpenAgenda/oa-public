@@ -35,7 +35,7 @@ const useOptions = {
 
 const preMw = [
   cmn.https,
-  cmn.loadBaseData(auth.layoutData, 'oasfmain.css')
+  cmn.loadBaseData(auth.layoutData, 'oa-main.css')
 ];
 
 const renderManualPage = (

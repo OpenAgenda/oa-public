@@ -40,14 +40,6 @@
     ]
   },
   {
-    "name": "emailstrategie",
-    "section": "export",
-    "credential": "emailstrategie",
-    "roles": [
-      "administrator"
-    ]
-  },
-  {
     "name": "settings_profile",
     "section": "settings",
     "route": "/settings/profile",
