@@ -55,7 +55,7 @@ app.get( /ejs$/, ( req, res, next ) => {
 
 } );
 
-app.use( '/fonts', express.static( __dirname + '/node_modules/font-awesome/fonts' ) );
+app.use( '/fonts', express.static( __dirname + '/node_modules/@fortawesome/fontawesome-free/webfonts' ) );
 
 
 /**

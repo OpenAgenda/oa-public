@@ -1,8 +1,4 @@
-@import 'uppy/dist/uppy.css';
-@import '../layout/base';
-@import '../agenda-admin/style';
-@import '../components/nav';
-@import '../form-components/input-with-icon';
+@use 'uppy/dist/uppy.css';
 
 .inbox {
   &.inbox-user {

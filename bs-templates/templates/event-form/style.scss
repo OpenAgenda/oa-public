@@ -1,19 +1,18 @@
-@import "../layout/base";
-@import "../agenda/header";
 @import "social-shares";
 @import "references";
 @import "registration";
-@import "../form-components/react-select";
-@import "../form-components/translation";
-@import "../modal/modal";
 @import "timings-picker";
 @import "contribution-info";
 @import "legacy-age";
-
+@import "legacy-image-upload";
+@import "legacy-counter";
+@import "counter";
+@import "legacy-accessibility";
+@import "../rich-text/tinymce";
 @import "legacy-event-form";
 
 .info-note {
-  
+
   padding: 8px;
   border-left: 3px solid #41acdd;
   background: $oa-gray-lightest;
@@ -25,7 +24,7 @@
 }
 
 .legacy-event-form {
-  
+
   .error {
     color: $oa-red;
   }
@@ -40,9 +39,9 @@
     margin-bottom: 30px;
 
   }
-  
+
   .content.jumbotron {
-    
+
     margin-top: 30px;
     margin-bottom: 0;
 

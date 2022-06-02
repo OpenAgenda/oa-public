@@ -223,7 +223,6 @@
         border-radius: 30px;
         color: $oa-gray-lighter;
         content: "";
-        font-family: FontAwesome;
         height: 20px;
         position: absolute;
         right: 15px;
@@ -356,7 +355,8 @@
   .edge-selected {
     &:after {
       content: "\f0d7";
-      font-family: "FontAwesome";
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
       opacity: 0.62;
       position: absolute;
       right: 20px;

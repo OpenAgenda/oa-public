@@ -53,7 +53,11 @@
 @import "assets/stylesheets/bootstrap/responsive-utilities";
 
 // Font awesome
-@import "font-awesome/scss/font-awesome.scss";
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/brands.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/regular.scss";
+@import "@fortawesome/fontawesome-free/scss/v4-shims.scss";
 
 // Spacing
 @import "spacing";
@@ -81,19 +85,11 @@
 @import "_leaflet-0.7.3.scss";
 
 // OA components
-@import "../components/dropdown";
-@import "../components/calendar";
-@import "../components/spinner";
-@import "../components/stepper/style";
-@import "../components/text";
-@import "../components/official";
-@import "../components/golden-icon";
-@import "../components/form-page";
-@import "../components/bo-list-item";
-@import "../components/rc-switch";
-@import "../components/btn-link-dropdown";
+@import "../components/style";
+@import "../form-components/style";
 
-@import "spacing";
+@import '@openagenda/react-shared/scss/react-date-range';
+
 @import "form-feedback";
 
 

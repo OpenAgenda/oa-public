@@ -34,7 +34,8 @@
 
         &:after {
           content: "\f00c";
-          font-family: FontAwesome;
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 900;
           height: 20px;
           line-height: 40px;
           position: absolute;
@@ -124,7 +125,7 @@
       width: auto;
     }
   }
-  
+
   .event-aside {
 
     text-align: right;
@@ -141,7 +142,7 @@
       display: inline-block;
     }
 
-    
+
     .time-count {
       color: $oa-gray;
       clear: right;
@@ -157,7 +158,7 @@
 
 
     @media (min-width: 768px) {
-      
+
       .event-aside {
         left: 20px;
       }
@@ -225,7 +226,7 @@
     list-style: none;
 
     li {
-      
+
       margin: 0 0 5px 0;
 
       i {
@@ -238,9 +239,9 @@
     li.org {
 
       padding-top: 5px;
-    
+
     }
-    
+
   }
 
 }

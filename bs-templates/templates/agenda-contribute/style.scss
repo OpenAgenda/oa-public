@@ -1,16 +1,12 @@
-@import "../layout/base";
-@import "../agenda/header";
-@import "../components/stepper/style";
-
 .event-instruction, .error-summary {
-  
+
   background-color: $oa-gray-lightest;
   border-radius: 0;
 
 }
 
 .event-instruction {
-  
+
   text-align: left;
   border-top: $oa-blue 1px solid;
   border-bottom: $oa-blue 1px solid;

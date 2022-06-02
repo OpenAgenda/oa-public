@@ -1,4 +1,6 @@
-@import 'react-day-picker/lib/style.css';
+@use "sass:math";
+
+@use 'react-day-picker/lib/style.css';
 
 /* #region absolute colors */
 
@@ -207,7 +209,7 @@ $dayInWeek: 7;
 }
 
 @function part-of($number){
-  @return 100% / $number;
+  @return math.div(100%, $number);
 }
 
 /* #endregion utils */
@@ -870,23 +872,15 @@ $dayInWeek: 7;
   margin-top: 8px;
 }
 
-.rtp__calendar .rtp__modal .rtp__error .rtp__recurrencer-error__disabledTimings button {
-  @extend .btn, .btn-xs, .btn-primary;
-}
-
 .rtp__calendar .rtp__edit-modal section ~ section {
   margin-top: 5px;
 }
 
 .rtp__calendar .rtp__edit-modal button[type="submit"] {
-  @extend .btn;
-  @extend .btn-primary;
   margin-top: 12px;
 }
 
 .rtp__calendar .rtp__recurrencer-button {
-  @extend .btn;
-  @extend .btn-link;
   display: inline-block;
   margin-top: 12px;
   float: right;
@@ -894,8 +888,6 @@ $dayInWeek: 7;
 }
 
 .rtp__calendar .rtp__multi-recurrencer-button {
-  @extend .btn;
-  @extend .btn-link;
   display: inline-block;
   margin: 0;
   padding-left: 0;
@@ -916,8 +908,6 @@ $dayInWeek: 7;
 
 .rtp__calendar .rtp__recurrencer-modal button[type="submit"],
 .rtp__calendar .rtp__multi-recurrencer-modal button[type="submit"] {
-  @extend .btn;
-  @extend .btn-primary;
   margin-top: 12px;
 }
 
@@ -978,7 +968,6 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__recurrencer-count__radio,
 .rtp__calendar .rtp__multi-recurrencer-until__radio,
 .rtp__calendar .rtp__multi-recurrencer-count__radio {
-  @extend .radio;
   color: $oa-black;
   margin-top: 4px;
   margin-bottom: 4px;
