@@ -120,7 +120,6 @@
         "embedsTemplates": false,
         "indesign": false,
         "activatingInvitations": false,
-        "emailstrategie": false,
         "aggregator": true,
         "invitationMessage": true,
         "prioritizedAggregator": false,

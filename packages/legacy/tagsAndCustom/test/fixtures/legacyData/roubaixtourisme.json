@@ -351,7 +351,6 @@
       "embedsTemplates": true,
       "indesign": false,
       "activatingInvitations": false,
-      "emailstrategie": false,
       "aggregator": true,
       "invitationMessage": false,
       "prioritizedAggregator": false,

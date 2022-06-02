@@ -279,7 +279,6 @@ describe('agendas - functional (server): set (update)', function() {
             useAgendaSchema: true,
             premiumCustomFields: false,
             activatingInvitations: false,
-            emailstrategie: false,
             moderators: true,
             tags: false,
             embedsHead: true,

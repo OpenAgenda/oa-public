@@ -210,7 +210,6 @@ describe( 'agendas - functional (server): get', function() {
         useAgendaSchema: true,
         premiumCustomFields: false,
         activatingInvitations: false,
-        emailstrategie: false,
         embedsHead: true,
         embedsTemplates: true,
         indesign: false,

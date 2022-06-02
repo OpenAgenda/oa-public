@@ -219,7 +219,6 @@ describe('agendas - unit (server): validate', () => {
           useAgendaSchema: true,
           premiumCustomFields: false,
           activatingInvitations: false,
-          emailstrategie: false,
           indesign: false,
           invitationMessage: false,
           calendarView: false,

@@ -133,15 +133,6 @@ module.exports = {
     "io": "crwdns11426:0crwdne11426:0",
     "oc": "Indesign - Xml"
   },
-  "emailstrategie": {
-    "en": "EmailStrategie",
-    "fr": "EmailStrategie",
-    "de": "EmailStrategie",
-    "es": "EmailStrategie",
-    "it": "EmailStrategia",
-    "io": "crwdns11428:0crwdne11428:0",
-    "oc": "EmailStrategie"
-  },
   "administrators": {
     "en": "Administrators",
     "fr": "Administrateurs",
