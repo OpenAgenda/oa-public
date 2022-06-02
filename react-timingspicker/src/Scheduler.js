@@ -3,6 +3,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
 import * as dateFns from 'date-fns';
+import cn from 'classnames';
 import DaysSelector from './DaysSelector';
 import EditForm from './EditForm';
 import RecurrencerForm from './RecurrencerForm';
@@ -81,6 +82,7 @@ class Scheduler extends Component {
     cellHeight: 40,
     timingLimit: ONE_DAY,
     editOnClick: true,
+    classNames: null,
   };
 
   schedulerRef = React.createRef();
@@ -463,6 +465,7 @@ class Scheduler extends Component {
       editOnClick,
       breakpoint,
       classNamePrefix,
+      classNames,
       intl,
     } = this.props;
     const {
@@ -520,7 +523,7 @@ class Scheduler extends Component {
         </div>
 
         <div
-          className={`${classNamePrefix}multi-recurrencer-button`}
+          className={cn(`${classNamePrefix}multi-recurrencer-button`, classNames?.multiRecurrencerBtn)}
           role="button"
           tabIndex={0}
           onClick={this.openMultiRecurrencerModal}
@@ -549,6 +552,7 @@ class Scheduler extends Component {
               initialValues={editInitialValues}
               onSubmit={this.handleEditSubmit}
               classNamePrefix={classNamePrefix}
+              classNames={classNames}
               valueToEdit={valueToEdit}
               closeModal={this.handleCloseEditModal}
             />
@@ -572,6 +576,7 @@ class Scheduler extends Component {
               weekStartsOn={weekStartsOn}
               onSubmit={this.handleRecurrencerSubmit}
               classNamePrefix={classNamePrefix}
+              classNames={classNames}
               valueToDuplicate={valueToDuplicate}
               closeModal={this.handleCloseRecurrencerModal}
               onDayPickerHide={this.onRecurrencerDayPickerHide}
@@ -597,6 +602,7 @@ class Scheduler extends Component {
               activeWeek={activeWeek}
               onSubmit={this.handleMultiRecurrencerSubmit}
               classNamePrefix={classNamePrefix}
+              classNames={classNames}
               closeModal={this.handleCloseMultiRecurrencerModal}
               onDayPickerHide={this.onMultiRecurrencerDayPickerHide}
             />
