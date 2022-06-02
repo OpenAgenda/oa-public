@@ -159,11 +159,9 @@ const ChoiceFilter = React.forwardRef(function ChoiceFilter({
 
   const fuse = useConstant(
     () => new Fuse(options, {
-      shouldSort: true,
       threshold: 0.3,
-      location: 0,
+      ignoreLocation: true,
       distance: 100,
-      minMatchCharLength: 1,
       keys: ['label'],
     })
   );
