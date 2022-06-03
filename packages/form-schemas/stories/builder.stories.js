@@ -71,16 +71,17 @@ export function StandardBuilderConfigurationExample() {
 }
 
 export function TroubleshootMonolingual() {
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
+  const [schema, setSchema] = useState(mixedMonoMultilingualSchemas.schema);
 
   return (
     <div className="container top-margined">
       <div className="row margin-v-md">
         <div className="col-sm-9">
           <div className="margin-v-md">
-            <strong>If some options of the schema are multilingual, schema should be defined as such.</strong>
+            <ul>
+              <li>If some options of the schema are multilingual, schema should be defined as such.</li>
+              <li>If languages are all removed through label languages control, form becomes monolingual</li>
+            </ul>
           </div>
           <FormSchemaBuilder
             maxFields={2}
@@ -93,11 +94,17 @@ export function TroubleshootMonolingual() {
             }}
             schema={mixedMonoMultilingualSchemas.schema}
             extendedFrom={mixedMonoMultilingualSchemas.extensions}
-            onUpdate={onUpdate}
+            onUpdate={s => setSchema(s)}
             renderHead={()=>(
               <span className="padding-all-sm">This goes on top of the builder</span>
             )}
           />
+        </div>
+        <div className="col-sm-3">
+            <pre>
+              <code>{JSON.stringify(schema, null, 2)}
+              </code>
+            </pre>
         </div>
       </div>
     </div>
