@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';
-import classNames from 'classnames';
+import cn from 'classnames';
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale } from '@openagenda/intl';
 import Stats from './Stats';
@@ -64,6 +64,7 @@ export default class TimingsPicker extends Component {
     editOnClick: true,
     timingLimit: ONE_DAY,
     classNamePrefix: 'rtp__',
+    classNames: null,
     breakpoints: {
       xs: 590,
       sm: 640,
@@ -217,6 +218,7 @@ export default class TimingsPicker extends Component {
       classNamePrefix,
       editOnClick,
       locale,
+      classNames,
     } = this.props;
     const {
       value,
@@ -231,11 +233,11 @@ export default class TimingsPicker extends Component {
       <IntlProvider
         key={locale}
         locale={locale}
-        messages={messages[locale]}
+        messages={messages}
         defaultLocale={getSupportedLocale(locale)}
       >
         <div
-          className={classNames(`${classNamePrefix}calendar`, {
+          className={cn(`${classNamePrefix}calendar`, {
             [classNamePrefix + breakpoint]: breakpoint,
           })}
         >
@@ -271,6 +273,7 @@ export default class TimingsPicker extends Component {
             allowedTimings={allowedTimings}
             breakpoint={breakpoint}
             classNamePrefix={classNamePrefix}
+            classNames={classNames}
             valueToHighlight={valueToHighlight}
             editOnClick={editOnClick}
           />

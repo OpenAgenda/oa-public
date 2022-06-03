@@ -101,6 +101,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
  * **iframable**: false by default. True if the portal is to be displayed within an iframe.
  * **tracking**: enable or disable Google Analytics tracking. Set useAgendaGoogleAnalytics to true to activate Google Analytics tracking. CookieBannerLink is the URL of the link displayed in the cookie consent banner and defaults to the Google Analytics help URL.
+ * **longDescriptionFormat**: Optional. `HTMLWithEmbeds` (default), `markdown` or `HTML`.
 
 ### Cache options
 

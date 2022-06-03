@@ -14,6 +14,7 @@ import getWeekOfMonth from './utils/getWeekOfMonth';
 import isValidDate from './utils/isValidDate';
 import parseNumber from './utils/parseNumber';
 import formatNumber from './utils/formatNumber';
+import cn from 'classnames';
 
 const numberMask = createNumberMask({
   prefix: '',
@@ -245,6 +246,7 @@ class RecurrencerForm extends Component {
     submitError,
     dirtySinceLastSubmit,
     classNamePrefix,
+    classNames,
     intl,
     valueToDuplicate,
     weekStartsOn,
@@ -356,7 +358,7 @@ class RecurrencerForm extends Component {
             {intl.formatMessage(messages.ends)}
             <br />
 
-            <div className={`${classNamePrefix}recurrencer-until__radio`}>
+            <div className={cn(`${classNamePrefix}recurrencer-until__radio`, classNames?.radio)}>
               <label
                 role="presentation"
                 htmlFor="endType-until"
@@ -384,7 +386,7 @@ class RecurrencerForm extends Component {
               </label>
             </div>
 
-            <div className={`${classNamePrefix}recurrencer-count__radio`}>
+            <div className={cn(`${classNamePrefix}recurrencer-count__radio`, classNames?.radio)}>
               <label
                 role="presentation"
                 htmlFor="endType-count"
@@ -432,8 +434,13 @@ class RecurrencerForm extends Component {
           </section>
           <Field name="forceTimingsCreation" component="input" type="hidden" />
           <div>
-            <button type="submit">{intl.formatMessage(messages.submit)}</button>
+            <button
+              type="submit"
+              className={classNames?.recurrencerSubmitBtn}
+            >
+              {intl.formatMessage(messages.submit)}</button>
           </div>
+
           {submitError && !dirtySinceLastSubmit ? (
             <div className={`${classNamePrefix}error`}>
               {intl.formatMessage(messages[submitError.message])}
@@ -467,7 +474,11 @@ class RecurrencerForm extends Component {
 
   render() {
     const {
-      classNamePrefix, intl, closeModal, onDayPickerHide
+      classNamePrefix,
+      classNames,
+      intl,
+      closeModal,
+      onDayPickerHide,
     } = this.props;
     const { initialValues, valueToDuplicate, weekStartsOn } = this.state;
 
@@ -479,6 +490,7 @@ class RecurrencerForm extends Component {
         subscription={this.subscription}
         render={this.renderForm}
         classNamePrefix={classNamePrefix}
+        classNames={classNames}
         intl={intl}
         valueToDuplicate={valueToDuplicate}
         weekStartsOn={weekStartsOn}

@@ -20,13 +20,13 @@
       display: none;
 
     }
-  
+
     padding: 0;
     position: absolute;
     left: 0;
     top: -15px;
     right: 0;
-    
+
     // z-index: 2000;
 
     &.fixed {
@@ -62,7 +62,7 @@
   }
 
   .side-content {
-    
+
     display: none;
 
     .list-group {
@@ -149,7 +149,7 @@
         margin-bottom: 10px;
         margin-top: 20px;
       }
-      
+
     }
 
     @media (max-width: 767px) {
@@ -183,9 +183,10 @@
         }
 
         &:after {
-          content: "\f05c";
+          font-family: 'Font Awesome 6 Free';
+          font-weight: 400;
+          content: "\f057";
           color: $oa-red;
-          font-family: FontAwesome;
           font-size: 23px;
           line-height: 50px;
           position: absolute;

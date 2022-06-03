@@ -1,20 +1,7 @@
-
-/**
- * specific event page style is excluded from current as styling
- * needs to be used by legacy templating project which
- * does not support imports, and avoids style duplication by using
- * a named index.
- */
-
-@import "../layout/base";
-@import "../layout/_leaflet-0.7.3.scss";
-@import "../agenda/admin-bar";
-@import "../agenda/header";
-@import "../inboxes/style";
 @import "base";
 @import "details";
 @import "sharers";
 @import "langs";
-@import "style";
+@import "main";
 @import "hours";
 @import "print";

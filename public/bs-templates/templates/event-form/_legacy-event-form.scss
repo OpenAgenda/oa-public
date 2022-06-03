@@ -1,18 +1,5 @@
-@import "../form-components/language-bar";
-@import "../form-components/multilingual-input";
-@import "../form-components/multi-input-field";
-@import "../form-components/image-upload";
-@import "../agenda-locations/selector";
-
-@import "legacy-image-upload";
-@import "legacy-counter";
-@import "counter";
-@import "legacy-accessibility";
-@import "legacy-age";
-@import "../rich-text/tinymce";
-
 .legacy-event-form {
-  
+
   .info {
 
     display: block;

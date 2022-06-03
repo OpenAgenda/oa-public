@@ -1,10 +1,9 @@
-@import "../layout/base";
-@import 'react-big-calendar.css';
+@use 'react-big-calendar.css';
 
 .agenda-calendar {
 
   .spin-canvas {
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -19,7 +18,7 @@
   }
 
   .rbc-calendar {
-    
+
     min-height: 800px;
     width: 100%;
 
@@ -49,7 +48,7 @@
     color: $oa-white;
     padding: 2px 4px;
     cursor: pointer;
-    
+
     label {
 
       cursor: pointer;
@@ -66,7 +65,7 @@
     label {
       cursor: pointer;
     }
-    
+
 
   }
 
