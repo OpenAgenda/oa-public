@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import SimpleRowDecorator from './decorators/SimpleRow';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
-import eventLikeSchema from './fixtures/eventLikeSchema';
-import schemaWithCategories from './fixtures/schemaWithCategories';
-import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas';
 import FormSchemaComponent from '../client/src/index';
 import Options from '../client/src/FormSchemaBuilder/Options';
 import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
-
-import EnabledRanges from '@openagenda/event-form/src/components/configuration/EnabledRanges';
+import SimpleRowDecorator from './decorators/SimpleRow';
+import eventLikeSchema from './fixtures/eventLikeSchema.json';
+import schemaWithCategories from './fixtures/schemaWithCategories.json';
+import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json';
 
 export default {
   title: 'Form builder',
@@ -59,7 +57,7 @@ export function StandardBuilderConfigurationExample() {
               schema={schema}
               extendedFrom={extensions}
               onUpdate={onUpdate}
-              renderHead={()=>(
+              renderHead={() => (
                 <span className="padding-all-sm">This goes on top of the builder</span>
               )}
             />
@@ -95,21 +93,21 @@ export function TroubleshootMonolingual() {
             schema={mixedMonoMultilingualSchemas.schema}
             extendedFrom={mixedMonoMultilingualSchemas.extensions}
             onUpdate={s => setSchema(s)}
-            renderHead={()=>(
+            renderHead={() => (
               <span className="padding-all-sm">This goes on top of the builder</span>
             )}
           />
         </div>
         <div className="col-sm-3">
-            <pre>
-              <code>{JSON.stringify(schema, null, 2)}
-              </code>
-            </pre>
+          <pre>
+            <code>{JSON.stringify(schema, null, 2)}
+            </code>
+          </pre>
         </div>
       </div>
     </div>
   );
-};
+}
 
 const cases = {
   empty: {
@@ -328,15 +326,17 @@ const cases = {
       }
     }
   }
-}
+};
 
 export function OptionsStory() {
-  const { empty, adding, withOptions, withEditedOption, dragging, monolingual } = cases;
+  const {
+    empty, adding, withOptions, withEditedOption, dragging, monolingual
+  } = cases;
   return (
     <div className="container top-margined">
       <div className="col-sm-4">
         <div className="text-center margin-v-md">
-          <label>{empty.comment}</label>
+          <strong>{empty.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...empty.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
@@ -344,7 +344,7 @@ export function OptionsStory() {
       </div>
       <div className="col-sm-4">
         <div className="text-center margin-v-md">
-          <label>{adding.comment}</label>
+          <strong>{adding.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...adding.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
@@ -352,7 +352,7 @@ export function OptionsStory() {
       </div>
       <div className="col-sm-4">
         <div className="text-center margin-v-md">
-          <label>{withOptions.comment}</label>
+          <strong>{withOptions.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...withOptions.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
@@ -360,7 +360,7 @@ export function OptionsStory() {
       </div>
       <div className="col-sm-4">
         <div className="text-center margin-v-md">
-          <label>{withEditedOption.comment}</label>
+          <strong>{withEditedOption.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...withEditedOption.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
@@ -368,7 +368,7 @@ export function OptionsStory() {
       </div>
       <div className="col-sm-4">
         <div className="text-center margin-v-md">
-          <label>{dragging.comment}</label>
+          <strong>{dragging.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...dragging.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
@@ -376,33 +376,32 @@ export function OptionsStory() {
       </div>
       <div className="col-sm-4">
         <div className="text-center margin-v-md">
-          <label>{monolingual.comment}</label>
+          <strong>{monolingual.comment}</strong>
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...monolingual.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function WithRadio() {
-
   const schema = {
-    fields: [ {
+    fields: [{
       field: 'aradiofield',
       label: 'Un champ radio',
       fieldType: 'radio',
-      options: [ {
+      options: [{
         label: 'Une première option',
         value: 'premiereoption',
         id: 1
-      } ]
-    } ]
-  }
+      }]
+    }]
+  };
 
-  function onUpdate( updatedSchema ) {
-    console.log( updatedSchema );
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
   }
 
   return (
@@ -417,34 +416,34 @@ export function WithRadio() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function WithUnhandledType() {
   const schema = {
-    fields: [ {
+    fields: [{
       field: 'anunhandledtype',
       label: 'Un champ custo',
       fieldType: 'timings'
-    } ]
-  }
-  
-  const extensions = [ {
+    }]
+  };
+
+  const extensions = [{
     schema: {
-      fields: [ {
+      fields: [{
         field: 'title',
         label: 'Titre',
         fieldType: 'text'
-      } ]
+      }]
     },
     info: {
       label: 'Standard field',
       detail: 'Though shalt not change this'
     }
-  } ];
+  }];
 
-  function onUpdate( updatedSchema ) {
-    console.log( updatedSchema );
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
   }
 
   return (
@@ -457,30 +456,30 @@ export function WithUnhandledType() {
           <FormSchemaBuilder
             lang="fr"
             schema={schema}
-            editableExtensions={true}
+            editableExtensions
             extendedFrom={extensions}
             onUpdate={onUpdate}
           />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-
 export function WithCustomField() {
+  const EnabledRanges = <p>Custom component</p>;
 
   const schema = {
-    fields: [ {
+    fields: [{
       field: 'someCustomField',
       label: 'Un champ custo',
       fieldType: 'notreChampCustom'
-    } ]
-  }
-  
-  const extensions = [ {
+    }]
+  };
+
+  const extensions = [{
     schema: {
-      fields: [ {
+      fields: [{
         field: 'title',
         label: 'Titre',
         fieldType: 'text'
@@ -493,17 +492,19 @@ export function WithCustomField() {
       },
       {
         field: 'timings',
-        label :'Horaires',
+        label: 'Horaires',
         fieldType: 'timings',
-        someCustomParam1: [{ begin: "2022-11-05T11:30", end: "2022-11-16T11:30" }]
-      }
-     ]
+        someCustomParam1: [{
+          begin: '2022-11-05T11:30',
+          end: '2022-11-16T11:30'
+        }]
+      }]
     },
     info: {
       label: 'Standard field',
       detail: 'Though shalt not change this'
     }
-  } ];
+  }];
 
   function onUpdate(updatedSchema) {
     console.log('updatedSchema', updatedSchema);
@@ -519,7 +520,7 @@ export function WithCustomField() {
           <FormSchemaBuilder
             lang="fr"
             schema={schema}
-            editableExtensions={true}
+            editableExtensions
             extendedFrom={extensions}
             onUpdate={onUpdate}
             components={{
@@ -556,30 +557,30 @@ export function WithCustomField() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function WithRestrictedTimmings() {
-
   const schema = {
-  }
-  
-  const extensions = [ {
+  };
+
+  const extensions = [{
     schema: {
-      fields: [
-      {
+      fields: [{
         field: 'timings',
-        label :'Horaires',
+        label: 'Horaires',
         fieldType: 'timings',
-        someCustomParam1: [{ begin: "2022-11-05T11:30", end: "2022-11-16T11:30" }]
-      }
-     ]
+        someCustomParam1: [{
+          begin: '2022-11-05T11:30',
+          end: '2022-11-16T11:30'
+        }]
+      }]
     },
     info: {
       label: 'Standard field',
       detail: 'Though shalt not change this'
     }
-  } ];
+  }];
 
   function onUpdate(updatedSchema) {
     console.log('updatedSchema', updatedSchema);
@@ -595,11 +596,11 @@ export function WithRestrictedTimmings() {
           <FormSchemaBuilder
             lang="fr"
             schema={schema}
-            editableExtensions={true}
+            editableExtensions
             extendedFrom={extensions}
             onUpdate={onUpdate}
             components={{
-              enabledRanges: EnabledRanges
+              enabledRanges: <p>Some custom component</p>
             }}
             customFieldConfigurationSchemas={({
               timings: {
@@ -621,33 +622,32 @@ export function WithRestrictedTimmings() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function WithNotRestrictedTimmings() {
-
   const schema = {
-  }
-  
-  const extensions = [ {
+  };
+
+  const extensions = [{
     schema: {
-      fields: [
-      {
+      fields: [{
         field: 'timings',
-        label :'Horaires',
+        label: 'Horaires',
         fieldType: 'timings',
-      }
-     ]
+      }]
     },
     info: {
       label: 'Standard field',
       detail: 'Though shalt not change this'
     }
-  } ];
+  }];
 
   function onUpdate(updatedSchema) {
     console.log('updatedSchema', updatedSchema);
   }
+
+  const EnabledRanges = <div>Custom component</div>;
 
   return (
     <div className="container top-margined">
@@ -659,7 +659,7 @@ export function WithNotRestrictedTimmings() {
           <FormSchemaBuilder
             lang="fr"
             schema={schema}
-            editableExtensions={true}
+            editableExtensions
             extendedFrom={extensions}
             onUpdate={onUpdate}
             components={{
@@ -685,11 +685,11 @@ export function WithNotRestrictedTimmings() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function CustomField() {
-  const [updatedSchema, setUpdatedSchema] = useState(null) 
+  const [updatedSchema, setUpdatedSchema] = useState(null);
   const schema = {
     fields: [{
       field: 'myfield',
@@ -700,9 +700,9 @@ export function CustomField() {
 
   const extensions = [];
 
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-        setUpdatedSchema(updatedSchema);
+  function onUpdate(update) {
+    console.log(update);
+    setUpdatedSchema(update);
   }
 
   return (
@@ -722,7 +722,7 @@ export function CustomField() {
               schema={schema}
               extendedFrom={extensions}
               onUpdate={onUpdate}
-              renderHead={()=>(
+              renderHead={() => (
                 <span className="padding-all-sm">fieldType should not be destroyed on update</span>
               )}
             />
@@ -734,14 +734,13 @@ export function CustomField() {
   );
 }
 
-
 export function ExtendedTextField() {
   const schema = {
   };
 
-  const extensions = [ {
+  const extensions = [{
     schema: {
-      id:12, 
+      id: 12,
       fields: [
         {
           field: 'title',
@@ -749,11 +748,14 @@ export function ExtendedTextField() {
           fieldType: 'text',
           optional: false,
         }
-     ]
+      ]
     },
     info: {
       label: { fr: 'Réseau', en: 'Network' },
-      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' }
+      detail: {
+        fr: 'Champ requis par le réseau d\'agendas',
+        en: 'Field required by the agenda network'
+      }
     }
   }];
 
@@ -778,7 +780,7 @@ export function ExtendedTextField() {
               schema={schema}
               extendedFrom={extensions}
               onUpdate={onUpdate}
-              renderHead={()=>(
+              renderHead={() => (
                 <span className="padding-all-sm">You should be able to change text fields</span>
               )}
             />
@@ -793,22 +795,22 @@ export function ExtendedChoiceField() {
   const schema = {
   };
 
-  const extensions = [ {
+  const extensions = [{
     schema: {
-      id:12, 
+      id: 12,
       fields: [
         {
           field: 'categories',
           label: 'Catégories',
           fieldType: 'radio',
           optional: false,
-          options: [ {
+          options: [{
             label: 'Une première option',
             value: 'premiereoption',
             id: 1
           }]
         }
-     ]
+      ]
     },
     info: {
       label: { fr: 'Réseau', en: 'Network' },
@@ -818,7 +820,6 @@ export function ExtendedChoiceField() {
 
   function onUpdate(updatedSchema) {
     console.log(updatedSchema);
-
   }
 
   return (
@@ -838,8 +839,8 @@ export function ExtendedChoiceField() {
               schema={schema}
               extendedFrom={extensions}
               onUpdate={onUpdate}
-              renderHead={()=>(
-                <span className="padding-all-sm">You shouldn't be able to change options and optional but text fields</span>
+              renderHead={() => (
+                <span className="padding-all-sm">You shouldn&apos;t be able to change options and optional but text fields</span>
               )}
             />
           </div>

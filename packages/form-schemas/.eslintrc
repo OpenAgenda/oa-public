@@ -21,7 +21,8 @@
     {
       "files": [
         "client/src/**/*.js",
-        "dev/client/**/*.js"
+        "dev/client/**/*.js",
+        "stories/**/*.js"
       ],
       "parserOptions": {
         "sourceType": "module"
