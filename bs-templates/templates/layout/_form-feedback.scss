@@ -90,6 +90,6 @@
 
 .form-horizontal {
   .has-feedback-left .form-control-feedback {
-    left: ($grid-gutter-width / 2);
+    left: ($grid-gutter-width * 0.5);
   }
 }

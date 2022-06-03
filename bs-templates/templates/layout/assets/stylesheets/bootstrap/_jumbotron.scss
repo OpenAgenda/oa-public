@@ -16,7 +16,7 @@
   }
 
   p {
-    margin-bottom: ($jumbotron-padding / 2);
+    margin-bottom: ($jumbotron-padding * 0.5);
     font-size: $jumbotron-font-size;
     font-weight: 200;
   }

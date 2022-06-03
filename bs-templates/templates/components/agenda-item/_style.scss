@@ -1,0 +1,5 @@
+@use "mixin";
+
+.agenda-item {
+  @include mixin.agenda-item;
+}

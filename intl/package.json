@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/intl",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
   "homepage": "https://github.com/OpenAgenda/oa-public",
   "license": "ISC",
@@ -53,7 +53,9 @@
     ]
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.13.17",
     "@formatjs/cli": "^4.8.3",
+    "core-js": "^3.10.2",
     "dedent": "^0.7.0",
     "glob": "^7.2.0",
     "lodash": "^4.17.21",
