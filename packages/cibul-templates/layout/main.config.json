@@ -1,17 +1,6 @@
 {
   "css" : {
-    "variables" : "../css/variables.scss",
-    "base" : "../css/base.scss",
-    "site" : "../css/site.css",
-    "userMenu" : "../user/css/menu.css",
-    "header" : "../css/header.css",
-    "headings" : "../css/headings.css",
-    "forms" : "../css/forms.css",
-    "page" : "../css/page structure/page.css",
-    "structure" : "../structure/css/structure.css",
-    "buttons" : "../css/buttons.css",
-    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
-    "outdated" : "../css/outdated.scss"
+    "main": "../../../public/bs-templates/compiled/main.css"
   },
 
   "base" : {

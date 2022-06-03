@@ -1,9 +1,7 @@
 {
   "layout": "bsLayout/main",
 
-  "bsCss" : {
-    "main" : "/../../public/bs-templates/compiled/main.css"
-  },
+  "bsCss" : {},
 
   "labels": "auth/signup",
 

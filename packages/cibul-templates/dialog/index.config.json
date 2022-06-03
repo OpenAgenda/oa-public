@@ -1,8 +1,6 @@
 {
   "layout" : "bsLayout/main",
-  "bsCss" : {
-    "main" : "/../../public/bs-templates/compiled/main.css"
-  },
+  "bsCss" : {},
   "helpers" : {
     "_txt" : "text",
     "_i" : "image"

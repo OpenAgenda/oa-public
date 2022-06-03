@@ -1,11 +1,6 @@
 {
   "layout" : "layout/main",
-  "css" : {
-    "structure" : "../structure/css/structure.css",
-    "fontawesome410" : "../css/font-awesome-4.1.0/css/font-awesome.css",
-    "search" : "css/style.css",
-    "opensans" : "../css/opensans.css"
-  },
+  "css" : {},
   "base" : {
     "pageClass" : "cb search-page"
   },

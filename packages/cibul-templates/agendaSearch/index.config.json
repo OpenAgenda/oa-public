@@ -1,8 +1,6 @@
 {
   "layout" : "bsLayout/main",
-  "bsCss" : {
-    "main" : "@openagenda/bs-templates/compiled/main.css"
-  },
+  "bsCss" : {},
 
   "js" : true
 }

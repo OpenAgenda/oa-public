@@ -1,11 +1,9 @@
 {
-  "adminCss" : {
-    "bootstrap" : "@openagenda/bs-templates/compiled/admin.css"
+  "adminCss": {
+    "main": "../../../public/bs-templates/compiled/admin.css"
   },
-
-  "base" : {
-    "lang" : "fr"
+  "base": {
+    "lang": "fr"
   },
-
-  "js" : true
+  "js": true
 }

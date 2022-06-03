@@ -3,18 +3,9 @@
 
   "labels": "agendas/show",
 
-  "oaeCss" : {
-    "agenda-base" : "@openagenda/bs-templates/templates/agenda/_base.scss",
-    "agenda-embed" : "css/embed-style.scss",
-    "agenda-favorites" : "@openagenda/bs-templates/templates/agenda/_favorites.scss"
-  },
+  "oaeCss" : {},
 
-  "oaetCss" : {
-    "agenda-base" : "@openagenda/bs-templates/templates/agenda/_base.scss",
-    "agenda-embed" : "css/embed-style.scss",
-    "agenda-embed-tiled" : "css/embed-tiled-style.scss",
-    "agenda-favorites" : "@openagenda/bs-templates/templates/agenda/_favorites.scss"
-  },
+  "oaetCss" : {},
 
   "helpers" : {
     "_t" : "time",

@@ -71,7 +71,7 @@ module.exports = (app, config, services) => {
       field: 'slug'
     }),
     members.mw.load,
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     renderContactInboxApp({ render, config })
   );
 
@@ -85,7 +85,7 @@ module.exports = (app, config, services) => {
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadTarget.options({ detailed: true }),
     members.mw.loadAndAuthorize('moderator'),
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     renderMemberContactApp({ render, services, config })
   );
 
@@ -97,7 +97,7 @@ module.exports = (app, config, services) => {
       field: 'slug'
     }),
     agendas.mw.authorizeByIPAddress(),
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     members.mw.loadAndAuthorize('moderator'),
     loadEvent,
     renderAdminEventContactApp({ render, config })
@@ -111,7 +111,7 @@ module.exports = (app, config, services) => {
       field: 'slug'
     }),
     members.mw.load,
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     loadEvent,
     renderEventContactApp({ render, config })
   );
@@ -125,7 +125,7 @@ module.exports = (app, config, services) => {
     }),
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     loadEvent,
     renderEditionRequestApp({ render, config })
   );
@@ -138,7 +138,7 @@ module.exports = (app, config, services) => {
       field: 'slug'
     }),
     members.mw.load,
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     renderRequestContributeApp({ services, config, render })
   );
 
@@ -150,7 +150,7 @@ module.exports = (app, config, services) => {
       field: 'slug'
     }),
     members.mw.load,
-    cmn.loadBaseData('oasfmain.css'),
+    cmn.loadBaseData('oa-main.css'),
     (req, res, next) => {
       agendaLocations.get(req.params.locationUid.split('.').pop())
         .then(location => {

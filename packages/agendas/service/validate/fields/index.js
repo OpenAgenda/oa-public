@@ -340,11 +340,6 @@ module.exports = [{
     type: 'boolean',
     default: false
   }, {
-    field: 'emailstrategie',
-    description: 'Newsletter app used by Est-Ensemble only. To be deprecated',
-    type: 'boolean',
-    default: false
-  }, {
     field: 'aggregator',
     description: 'Agenda aggregation. Do not forget to initialize the tab on the agenda admin menu',
     type: 'boolean',

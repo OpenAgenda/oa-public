@@ -27,7 +27,7 @@
     "@emotion/react": "^11.1.5",
     "@openagenda/activity-apps": "^1.2.1",
     "@openagenda/bs-templates": "^2.5.0",
-    "@openagenda/intl": "^1.1.1",
+    "@openagenda/intl": "^1.1.2",
     "@openagenda/members": "^1.15.13",
     "@openagenda/react-shared": "^2.3.2",
     "@openagenda/sessions": "^4.1.0",

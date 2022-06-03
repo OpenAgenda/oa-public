@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import TimingsPicker from '@openagenda/react-timingspicker';
+import TimingsPicker, { classNames } from '@openagenda/react-timingspicker';
 
 function loadTimings(props) {
   return (props.value || _.get(props, 'field.default') || [])
@@ -70,6 +70,7 @@ module.exports = class TimingsComponent extends Component {
         locale={lang}
         weekStartsOn={1}
         allowedTimings={allowedTimings}
+        classNames={classNames.bootstrap3}
       />
     );
   }

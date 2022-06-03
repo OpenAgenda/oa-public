@@ -1,18 +1,10 @@
 {
   "oaeCss" : {
-    "variables" : "../css/variables.scss",
-    "bootstrap" : "../bootstrap/custom-bootstrap.css",
-    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
-    "bsEmbedBase" : "../css/bsEmbedBase.scss",
-    "bsButtons" : "../css/bsButtons.scss"
+    "main" : "../css/oae.css"
   },
 
   "oaetCss" : {
-    "variables" : "../css/variables.scss",
-    "bootstrap" : "../bootstrap/custom-bootstrap.css",
-    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
-    "bsEmbedBase" : "../css/bsEmbedBase.scss",
-    "bsButtons" : "../css/bsButtons.scss"
+    "main" : "../css/oaet.css"
   },
 
   "base" : {
@@ -27,6 +19,6 @@
     "pageId" : false,
     "fb" : false
   },
-  
+
   "js" : true
 }

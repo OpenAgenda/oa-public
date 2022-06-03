@@ -3,9 +3,7 @@
 
   "labels": "agendas/show",
 
-  "bsCss" : {
-    "main" : "/../../public/bs-templates/compiled/main.css"
-  },
+  "bsCss" : {},
 
   "helpers" : {
     "_t" : "time",

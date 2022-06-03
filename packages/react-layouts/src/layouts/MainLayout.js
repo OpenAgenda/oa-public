@@ -121,9 +121,10 @@ function MainLayout({
 
   const dispatch = useDispatch();
 
-  const loadLayoutData = useCallback(() => dispatch(mainActions.getUser()), [
-    dispatch,
-  ]);
+  const loadLayoutData = useCallback(
+    () => dispatch(mainActions.getUser()),
+    [dispatch]
+  );
 
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),
@@ -283,8 +284,8 @@ function MainLayout({
                     <Link to="/home/inbox">
                       <i className="fa fa-envelope" aria-hidden="true" />
                       {hasInboxNews ? (
-                        <span className="label label-danger ">
-                          <i className="fa fa-exclamation" />
+                        <span className="label label-danger">
+                          <b>!</b>
                         </span>
                       ) : null}
                     </Link>

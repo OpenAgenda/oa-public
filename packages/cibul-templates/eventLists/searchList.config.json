@@ -1,10 +1,6 @@
 {
   "layout" : "layout/blank",
-  "css" : {
-    "base" : "../css/base.scss",
-    "eventListBase" : "css/base.css",
-    "eventListSearch" : "css/search.css"
-  },
+  "css" : {},
   "helpers" : {
     "_t" : "time",
     "_i" : "image"

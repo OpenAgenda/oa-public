@@ -1,8 +1,6 @@
 {
   "layout" : "agendaAdmin/bsLayout",
-  "bsCss" : {
-    "main" : "/../../public/bs-templates/compiled/main.css"
-  },
+  "bsCss" : {},
 
   "helpers" : {
     "_i" : "image"

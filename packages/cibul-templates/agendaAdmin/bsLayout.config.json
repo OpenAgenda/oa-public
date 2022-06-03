@@ -1,15 +1,5 @@
 {
-  "oaCss" : {
-    "variables" : "../css/variables.scss",
-    "bootstrap" : "../bootstrap/custom-bootstrap.css",
-    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
-    "bsBase" : "../css/bsBase.scss",
-    "bsHeader" : "../css/bsHeader.scss",
-    "bsFooter" : "../css/bsFooter.scss",
-    "bsButtons" : "../css/bsButtons.scss",
-    "bsAgendaLayout" : "css/style.scss",
-    "tmp" : "../css/temporary.css"
-  },
+  "oaCss" : {},
   "base" : {
     "pageClass" : false,
     "search" : "",

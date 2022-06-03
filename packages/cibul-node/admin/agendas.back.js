@@ -7,7 +7,7 @@ const { mw } = require('@openagenda/admin-agendas');
 const cmn = require('../lib/commons-app');
 
 const preMw = [
-  cmn.loadBaseData('compiledAdmin.css'),
+  cmn.loadBaseData('oa-admin.css'),
   sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
   cmn.requireSuperAdmin
 ];

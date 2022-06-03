@@ -68,7 +68,7 @@ function defaultOnUnauthorizedIPAddress(options = {}) {
     }
   }, options);
 
-  const loadBaseData = cmn.loadBaseData('oasfmain.css');
+  const loadBaseData = cmn.loadBaseData('oa-main.css');
 
   return (req, res) => {
     const agenda = req[params.namespaces.agenda].data || req[params.namespaces.agenda];

@@ -4,7 +4,7 @@
     background-color: $oa-green!important;
     color: $oa-white!important;
   }
-  
+
   &.checked {
 
     position: relative;
@@ -12,7 +12,8 @@
 
     &:after {
       content: "\f00c";
-      font-family: FontAwesome;
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
       height: 20px;
       line-height: 40px;
       position: absolute;
@@ -31,7 +32,7 @@
     &:after {
 
       content: "\f00d";
-      
+
     }
 
   }

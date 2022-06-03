@@ -6,7 +6,6 @@ const { callbackify } = require( 'util' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) );
 const landing = require( '@openagenda/landing' );
 const sessions = require( '@openagenda/sessions' );
-const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const log = require( '@openagenda/logs' )( 'newsletter' );
 const config = require( '../config' );
 
@@ -37,7 +36,7 @@ const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
 const preMw = [
   cmn.loadLogger( 'general' ),
-  cmn.loadBaseData( 'oa.css' )
+  cmn.loadBaseData( 'oa-main.css' ),
 ];
 
 module.exports = app => {
@@ -81,18 +80,6 @@ module.exports = app => {
     '/services/:service/connect/callback',
     preMw,
     serviceConnectCallback
-  );
-
-  app.get(
-    '/emailunsubscribe',
-    preMw,
-    unsubscribe
-  );
-
-  app.post(
-    '/emailunsubscribe',
-    preMw,
-    unsubscribeSubmit
   );
 
   app.get('/flash', (req, res, next) => {
@@ -333,34 +320,6 @@ function start( req, res, next ) {
 
   res.redirect( 301, actions[ action ] );
 
-}
-
-
-function unsubscribe( req, res ) {
-
-  cmn.render( req, res, 'general/unsubscribe', {
-    email: '',
-    error: false
-  } );
-
-}
-
-async function unsubscribeSubmit( req, res ) {
-  try {
-    await unsubscribedSvc( 0 ).create( {
-      type: 'eventEmail',
-      subject: 'email',
-      identifier: req.body.email ? req.body.email : '',
-    } );
-
-    sessions.setFlash( req, res, __( 'unsubscribed', { '%email%': req.body.email }, req.lang ) );
-    res.redirect( 302, '/' );
-  } catch ( err ) {
-    cmn.render( req, res, 'general/unsubscribe', {
-      email: req.body.email ? req.body.email : '',
-      error: err
-    } );
-  }
 }
 
 function serviceConnectCallback( req, res ) {

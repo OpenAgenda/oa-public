@@ -51,7 +51,7 @@ function Html({
           crossOrigin="anonymous"
         />
 
-        <link rel="stylesheet" href="/css/oasfmain.css?v=2" />
+        <link rel="stylesheet" href="/css/oa-main.css?v=2" />
 
         {extractor ? extractor.getLinkElements() : null}
       </head>

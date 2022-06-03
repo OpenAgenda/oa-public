@@ -366,10 +366,6 @@ const config = {
           method: 'get',
           uri: '/:slug/events/:eventSlug/action/dates'
         },
-        agendaEventMailSend: {
-          method: 'post',
-          uri: '/:slug/events/:eventSlug/email'
-        },
         agendaEventIcsShow: {
           method: 'get',
           uri: '/:slug/events/:eventSlug/ics'
@@ -473,26 +469,6 @@ const config = {
         eventTransfer: {
           method: 'get',
           uri: '/:slug/admin/contributors/transfer/:eventSlug'
-        },
-        emailStrategieNew: {
-          method: 'get',
-          uri: '/:slug/admin/emailstrategie/new'
-        },
-        emailStrategieNewSubmit: {
-          method: 'post',
-          uri: '/:slug/admin/emailstrategie/new'
-        },
-        emailStrategieShow: {
-          method: 'get',
-          uri: '/:slug/admin/emailstrategie'
-        },
-        emailStrategiePush: {
-          method: 'post',
-          uri: '/:slug/admin/emailstrategie/push'
-        },
-        emailStrategieUnlink: {
-          method: 'get',
-          uri: '/:slug/admin/emailstrategie/unlink'
         },
         agendaAdminLocations: {
           method: 'get',
@@ -804,14 +780,6 @@ if (currentConfig.matomoCloudId) {
     })();
   `;
 }
-
-/**
- * emailstrategie database configuration
- */
-
-currentConfig.emailStrategieDb = _.merge({}, currentConfig.db, {
-  database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
-});
 
 if (process.env.DEBUG) {
   currentConfig.logger.debug.enable = process.env.DEBUG;

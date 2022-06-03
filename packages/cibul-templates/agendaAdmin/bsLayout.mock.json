@@ -61,11 +61,6 @@
     "label" : "Indesign - Xml",
     "uri" : "agendaAdminIndesign"
   }, {
-    "section" : "export",
-    "key" : "emailstrategie",
-    "label" : "EmailStrategie",
-    "uri" : "agendaEmailStrategie"
-  }, {
     "section" : "settings",
     "key" : "administrators",
     "label" : "Administrators",

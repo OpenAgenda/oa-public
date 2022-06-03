@@ -38,9 +38,6 @@ module.exports = [
   'newsletter/unsubscribe',
   'newsletter/unsubscribeComplete',
 
-  'emailStrategie/index',
-  'emailStrategie/new',
-
   'adminRedirect/index',
 
   'agendaAdminEvents/index',

@@ -18,7 +18,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@openagenda/agendas": "^1.7.0",
-    "@openagenda/intl": "^1.1.1",
+    "@openagenda/intl": "^1.1.2",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-form-components": "^2.1.14",

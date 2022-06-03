@@ -61,13 +61,6 @@ module.exports = {
     access: 'administrator',
     requiredCred: 'indesign'
   }, {
-    section: 'export',
-    key: 'emailstrategie',
-    label: 'EmailStrategie',
-    uri: 'agendaAdminEmailStrategie',
-    access: 'administrator',
-    requiredCred: 'emailstrategie'
-  }, {
     section: 'settings',
     key: 'settings_profile',
     label: 'Profile',

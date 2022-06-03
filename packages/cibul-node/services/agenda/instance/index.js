@@ -22,8 +22,6 @@ var model = require( '../../model' ),
 
   flattener = require( './flattener' ),
 
-  emailStrategie = require( './emailStrategie' ),
-
   coms = require( '../../../lib/coms' ),
 
   config = require( '../../../config' ),
@@ -72,10 +70,6 @@ function instanciate( data ) {
 
   flattener( svcInstance, instance, [
     'flattener'
-  ] );
-
-  emailStrategie( svcInstance, instance, [
-    'emailStrategie'
   ] );
 
   return cache( 'agenda', svcInstance, [], [ 'addEvent', 'removeEvent' ] );

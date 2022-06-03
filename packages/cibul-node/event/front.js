@@ -144,7 +144,7 @@ const middlewares = {
     formatAgendaLinks('agendaShow', ['slug']),
     legacyAgendaSvc.mw.decorateEvent(false),
     formatSocialLinks,
-    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oasfmain.css'),
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oa-main.css'),
     _appendEventTransferCredential,
     _appendSettings,
     _decorateLocation,

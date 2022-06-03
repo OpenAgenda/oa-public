@@ -1,14 +1,4 @@
-const { registerDependencies } = require( 'mjml-validator' );
-const { BodyComponent } = require( 'mjml-core' );
-
-
-registerDependencies( {
-  // Tell the validator which tags are allowed as our component's parent
-  'mj-body': [ 'mj-content' ],
-  // // Tell the validator which tags are allowed as our component's children
-  'mj-content': [ 'mj-column', 'mj-group', 'mj-raw' ]
-} );
-
+const { BodyComponent } = require('mjml-core');
 
 class MjContent extends BodyComponent {
   /*
@@ -17,7 +7,7 @@ class MjContent extends BodyComponent {
   */
 
   render() {
-    return this.renderMJML( `
+    return this.renderMJML(`
 	  	<mj-wrapper padding="0" css-class="content-wrapper">
         <mj-section
           background-color="#ffffff"
@@ -26,8 +16,15 @@ class MjContent extends BodyComponent {
           ${this.getContent()}
         </mj-section>
       </mj-wrapper>
-	  ` );
+	  `);
   }
+};
+
+MjContent.dependencies = {
+  // Tell the validator which tags are allowed as our component's parent
+  'mj-body': ['mj-content'],
+  // // Tell the validator which tags are allowed as our component's children
+  'mj-content': ['mj-column', 'mj-group', 'mj-raw'],
 };
 
 // Tell the parser that our component won't contain other mjml tags

@@ -1,9 +1,7 @@
 {
   "layout": "bsLayout/main",
   "labels": "event/show",
-  "bsCss": {
-    "main" : "/../../public/bs-templates/compiled/main.css"
-  },
+  "bsCss": {},
   "helpers": {
     "_t": "time",
     "_i": "image",

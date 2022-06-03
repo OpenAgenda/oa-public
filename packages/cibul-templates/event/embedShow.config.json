@@ -2,15 +2,9 @@
   "layout" : "embedLayout/main",
   "labels": "event/show",
 
-  "oaeCss" : {
-    "event-embed" : "css/embed-style.scss",
-    "event-hours" : "@openagenda/bs-templates/templates/event/_hours.scss"
-  },
+  "oaeCss" : {},
 
-  "oaetCss" : {
-    "event-embed" : "css/embed-style.scss",
-    "event-hours" : "@openagenda/bs-templates/templates/event/_hours.scss"
-  },
+  "oaetCss" : {},
 
   "helpers" : {
     "_t" : "time",

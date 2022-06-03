@@ -10,7 +10,7 @@
   "updated_at": "2021-06-25 08:05:57",
   "uid": 48353388,
   "official": 1,
-  "credentials": "{\"useContributeApp\":true,\"useAgendaSchema\":true,\"premiumCustomFields\":false,\"moderators\":true,\"tags\":false,\"embedsHead\":true,\"embedsTemplates\":true,\"indesign\":false,\"activatingInvitations\":false,\"emailstrategie\":false,\"aggregator\":true,\"invitationMessage\":false,\"prioritizedAggregator\":false,\"docxExport\":true,\"calendarView\":false,\"eventOwnershipTransfer\":false,\"graphs\":true}",
+  "credentials": "{\"useContributeApp\":true,\"useAgendaSchema\":true,\"premiumCustomFields\":false,\"moderators\":true,\"tags\":false,\"embedsHead\":true,\"embedsTemplates\":true,\"indesign\":false,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":false,\"prioritizedAggregator\":false,\"docxExport\":true,\"calendarView\":false,\"eventOwnershipTransfer\":false,\"graphs\":true}",
   "settings": "{\"tracking\":{\"googleAnalytics\":null},\"lab\":{\"eventAdmin\":true,\"status\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":2,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]},\"translation\":{\"enabled\":false,\"source\":\"fr\",\"sets\":[],\"service\":\"reverso\",\"options\":null}}",
   "private": 0,
   "form_schema_id": 10522,

@@ -63,7 +63,6 @@ function _updateCredentials( v ) {
       custom_templates: v.data.credentials.embedsTemplates,
       moderator: v.data.credentials.moderators,
       custom_head: v.data.credentials.embedsHead,
-      emailstrategie: v.data.credentials.emailstrategie,
       tags: v.data.credentials.tags,
       aggregator: v.data.credentials.aggregator,
       event_transfer: v.data.credentials.eventOwnershipTransfer
