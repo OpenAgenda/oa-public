@@ -20,6 +20,7 @@ import addSchemaField from './lib/addSchemaField';
 import removeSchemaField from './lib/removeSchemaField';
 import restrictLabelLanguages from './lib/restrictLabelLanguages';
 import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
+import monolingualizeSchema from './lib/monolingualizeSchema';
 
 import FieldPreview from './FieldPreview';
 import LabelLanguages from './LabelLanguages';
@@ -111,6 +112,23 @@ export default class FormSchemaBuilder extends Component {
     const schema = insertMissingAbstractFields(this.getSchema(), this.getMergedSchema());
 
     this.updateSchema(updateSchemaField(schema, field, update, /* { fieldValidator } */));
+  }
+
+  onLabelLanguagesChange(updatedLabelLanguages) {
+    const {
+      labelLanguages
+    } = this.state;
+
+    const wasMonolingualized = !updatedLabelLanguages.length && labelLanguages.length;
+
+    this.setState({
+      labelLanguages: updatedLabelLanguages,
+      saveState: saveStates.CHANGED
+    });
+
+    if (wasMonolingualized) {
+      this.updateSchema(monolingualizeSchema(this.getSchema()));
+    }
   }
 
   getSchema() {
@@ -226,10 +244,7 @@ export default class FormSchemaBuilder extends Component {
                 disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
                 lang={lang}
                 labelLanguages={labelLanguages}
-                onUpdate={updatedLabelLanguages => this.setState({
-                  labelLanguages: updatedLabelLanguages,
-                  saveState: saveStates.CHANGED
-                })}
+                onUpdate={update => this.onLabelLanguagesChange(update)}
               />
             ) : null}
             <div className="padding-bottom-sm">
