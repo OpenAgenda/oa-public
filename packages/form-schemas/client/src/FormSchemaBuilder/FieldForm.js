@@ -75,7 +75,7 @@ export default class FieldForm extends Component {
     const {
       lang,
       field,
-      fieldType,
+      initFieldType,
       labelLanguages,
       onSubmit
     } = this.props;
@@ -90,7 +90,7 @@ export default class FieldForm extends Component {
     if (!values || (this.state?.errors || []).length) return;
 
     onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
-      fieldType: field.fieldType,
+      fieldType: field?.fieldType ?? initFieldType,
       field: field?.field || slugFromLabel(values.label, lang)
     }));
   }
