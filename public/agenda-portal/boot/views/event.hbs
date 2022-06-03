@@ -24,7 +24,20 @@
           {{>navigation}}
           <main role="main">
             <div class="wbg p-4">
-              <h1>{{event.title}}</h1>
+              <h1>{{event.title}} {{#customWidget
+                name='favorite'
+                tagName='span'
+                aria-label=(i18n 'addToFavorites')
+                className='float-right'
+                eventUid=event.uid
+                activeClass='fas'
+                inactiveClass='far'
+                activeTargetSelector='i'
+                handlerSelector='i'
+              }}</h1>
+              
+                <i class="far fa-star" tabindex="0"></i>
+              {{/customWidget}}
               {{#if event.timing}}
               <p><strong>{{event.timing.labels.begin.day}} @ {{event.timing.labels.begin.time}} - {{event.timing.labels.end.time}}</strong></p>
               {{/if}}
