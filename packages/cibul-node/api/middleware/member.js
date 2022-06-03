@@ -16,7 +16,7 @@ async function verify(roles, req, res, next) {
   });
 
   if (!req.member) {
-    return next(new Forbidden('not authorized to create members'));
+    return next(new Forbidden('not authorized for non-members'));
   }
 
   req.access = members.utils.getRoleSlug(req.member.role);
