@@ -65,6 +65,8 @@ export default class FieldForm extends Component {
       values: labelLanguages.length ? unflattenLabels(field, labelLanguages) : flattenLabels(field, lang),
       errors: []
     };
+
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange({ values, errors }) {
@@ -133,7 +135,7 @@ export default class FieldForm extends Component {
             options: Options,
             ...components
           }}
-          onChange={this.onChange.bind(this)}
+          onChange={this.onChange}
           lang={lang}
           schema={schema}
           actionComponents={[{
