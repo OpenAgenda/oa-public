@@ -227,6 +227,13 @@ module.exports = app => {
     unauthorizedIP
   );
 
+  app.get(
+    '/:slug/addevent',
+    (req, res, next) => {
+      res.redirect(301, `/${req.params.slug}/contribute`);
+    }
+  )
+
 };
 
 
