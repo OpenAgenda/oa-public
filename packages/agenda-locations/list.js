@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const { BadRequest } = require('@openagenda/verror');
+const logs = require('@openagenda/logs');
 
 const addListQuery = require('./lib/addListQuery');
 const addPagination = require('./lib/addPagination');
@@ -11,7 +12,8 @@ const validateNav = require('./lib/validateNav');
 const validateListOptions = require('./lib/validateListOptions');
 const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
-const log = require('@openagenda/logs')('list');
+
+const log = logs('list');
 
 async function list(service, query = {}, nav = {}, options = {}) {
   log('received %j %j %j', query, nav, options);
