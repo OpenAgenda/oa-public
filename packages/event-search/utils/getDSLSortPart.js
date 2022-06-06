@@ -2,26 +2,32 @@
 
 const _ = require('lodash');
 
-const timings = [{
-  '_search_timings.accessible_until' : {
-    mode: 'min',
-    order: 'asc',
-    nested: {
-      path: '_search_timings',
-      filter: {
-        range: {
-          '_search_timings.accessible_until' : { 'gte': 'now' }
+const timings = query => {
+  return [{
+    '_search_timings.accessible_until' : {
+      mode: 'min',
+      order: 'asc',
+      nested: {
+        path: '_search_timings',
+        filter: {
+          range: {
+            '_search_timings.accessible_until' : { 'gte': query?.timings?.gte ?? 'now' }
+          }
         }
       }
     }
-  }
-}, {
-  _search_last_timing: { order: 'desc' }
-}, {
-  uid: { order: 'asc' } // tie breaker
-}];
+    }, {
+    _search_last_timing: { order: 'desc' }
+    }, {
+    uid: { order: 'asc' } // tie breaker
+  }]
+}
 
-module.exports = (s = []) => {
+module.exports = (query = {}) => {
+  const {
+    sort: s = []
+  } = query;
+
   const sorts = [].concat(s);
 
   if (!sorts.length) {
@@ -33,11 +39,11 @@ module.exports = (s = []) => {
   if (sorts[0].split('.')[0] === 'timingsWithFeatured') {
     return [{
       featured: { order: 'desc' }
-    }].concat(timings);
+    }].concat(timings(query));
   }
 
   if (sorts[0].split('.')[0] === 'timings') {
-    return timings;
+    return timings(query);
   }
 
   return sorts.map(sort => {
