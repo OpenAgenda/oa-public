@@ -635,6 +635,29 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(nextResults.locations.length).toBe(1);
       });
 
+      it('order by name.asc provides ordered locations and an after key', async () => {
+        const { locations, after } = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations',
+          params: {
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            order: 'name.asc'
+          },
+          headers: {
+            'content-type': 'application/json'
+          }
+        }).then(r => r?.data);
+
+        expect(locations.map(i => i.name).join(' - ')).toBe(
+          locations
+            .map(i => i.name)
+            .sort((a, b) => a.localeCompare(b))
+            .join(' - ')
+        );
+
+        expect(after[0]).toBe(locations[locations.length - 1].name);
+      });
+
       it('geo Filter', async () => {
         const geoResults = await axios({
           method: 'get',
