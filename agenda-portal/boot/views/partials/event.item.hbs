@@ -6,7 +6,7 @@
       {{else if lastTiming}}
       {{lastTiming.label}}
       {{else}}
-      Aucun horaire n'est disponible
+      {{i18n 'noAvailableTiming'}}
       {{/if}}
     </span>
   </div>
@@ -18,7 +18,7 @@
           {{#customWidget
             name='favorite'
             tagName='span'
-            aria-label='Ajouter aux favoris'
+            aria-label=(i18n 'addToFavorites')
             className='float-right'
             eventUid=uid
             activeClass='fas'
@@ -35,7 +35,8 @@
         {{#if location}}
           <p>{{locationName}}</p>
         {{else}}
-          <p>En ligne</p>
+          <p>{{i18n 'online'}}</p>
+          <a href={{onlineAccessLink}}>{{i18n 'accessOnlineEvent'}}</a>
         {{/if}}
 
       </div>
