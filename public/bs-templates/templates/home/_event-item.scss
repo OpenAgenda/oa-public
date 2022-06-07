@@ -1,8 +1,9 @@
 @use '../components/agenda-item/mixin' as agenda-item;
+@use '../variables';
 
 .event-item {
 
-  @include agenda-item.agenda-item;
+  @include agenda-item.agenda-item();
 
   padding: 0!important;
 
