@@ -6541,7 +6541,6 @@ __metadata:
     ejs: ^2.7.4
     express: ^4.17.1
     moment: ^2.27.0
-    node-sass-import-once: ^1.2.0
     node-watch: ^0.3.5
     nodemon: ^2.0.6
     react: ^16.13.1
@@ -30487,7 +30486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:3.13.1, js-yaml@npm:^3.13.0, js-yaml@npm:^3.13.1, js-yaml@npm:^3.2.7":
+"js-yaml@npm:3.13.1, js-yaml@npm:^3.13.0, js-yaml@npm:^3.13.1":
   version: 3.13.1
   resolution: "js-yaml@npm:3.13.1"
   dependencies:
@@ -34640,15 +34639,6 @@ __metadata:
   version: 2.0.2
   resolution: "node-releases@npm:2.0.2"
   checksum: da858bf86b4d512842379749f5a5e4196ddab05ba18ffcf29f05bf460beceaca927f070f4430bb5046efec18941ddbc85e4c5fdbb83afc28a38dd6069a2f255e
-  languageName: node
-  linkType: hard
-
-"node-sass-import-once@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "node-sass-import-once@npm:1.2.0"
-  dependencies:
-    js-yaml: ^3.2.7
-  checksum: 62348a77bade8c4ab609c196458d093862a15c57a391da2b75bd5d719d2b06564ecf72bc99e384da6d3ef51fd58ae5b099f7b3aa27bd9a1540b8b5cc592752ef
   languageName: node
   linkType: hard
 
