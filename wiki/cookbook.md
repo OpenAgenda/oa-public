@@ -171,15 +171,15 @@ Le script `dispatch` ne télécharge que les traductions, sans la langue `en`.
 
 Il suffit de faire un commit et de le push.
 
-On peut ensuite traduire les labels sur crowdin et lancer `node script/crowdin/dispach.js` dans oa pour récupérer les traductions.
+On peut ensuite traduire les labels sur crowdin et lancer `node scripts/crowdin/dispach.js` dans oa pour récupérer les traductions.
 
 ### Lorsqu'on a traduit des labels sur crowdin
 
-Il faut exécuter `node script/crowdin/dispach.js` dans oa pour récupérer les traductions.
+Il faut exécuter `node scripts/crowdin/dispach.js` dans oa pour récupérer les traductions.
 
 ### Si on veut traduire des labels depuis les sources
 
-Avant toute modification il faut se mettre à jour par rapport à crowdin en éxecutant `node script/crowdin/dispach.js` dans oa.
+Avant toute modification il faut se mettre à jour par rapport à crowdin en éxecutant `node scripts/crowdin/dispach.js` dans oa.
 
 On peut maintenant traduire ce qu'on veut.
 
