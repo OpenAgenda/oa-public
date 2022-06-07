@@ -8,4 +8,4 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
-src/locales-compiled
+client/src/locales-compiled
