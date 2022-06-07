@@ -23,6 +23,8 @@ const isURL = url => {
   }
 };
 
+const flatten = (obj, preferredKey) => obj[Object.keys(obj).includes(preferredKey) ? preferredKey : Object.keys(obj).shift()];
+
 let svc;
 
 module.exports = function( eventService ) {
@@ -59,7 +61,7 @@ async function loadMissing(req) {
     .filter(isURL)
     .pop();
 
-  req.event.pricingInfo = JSON.parse(record?.conditions || '{}')[req.lang];
+  req.event.pricingInfo = flatten(JSON.parse(record?.conditions || '{}'), req.lang);
 
   req.event.status = record?.status === undefined ? 1 : record?.status;
 }
