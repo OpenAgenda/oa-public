@@ -1,4 +1,6 @@
-@mixin agenda-item($oa-blue: null, $oa-black: null) {
+@use "../../variables";
+
+@mixin agenda-item($oa-blue: variables.$oa-blue, $oa-black: variables.$oa-black) {
   & > a,
   & > button.btn.btn-link-inline {
     color: inherit;
