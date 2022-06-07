@@ -128,7 +128,8 @@ module.exports = {
     "de": "OpenAgenda sendet Ihnen Ihre Benachrichtigungen an diese Adresse. Sie wird nicht an Dritte weitergeleitet.",
     "pl": "OpenAgenda będzie wysyłać powiadomienia na ten adres. Nie będą one przekazywane osobom trzecim.",
     "es": "OpenAgenda enviará sus notificaciones a esta dirección. No se transmitirá a ningún tercero.",
-    "br": ""
+    "br": "",
+    "io": "crwdns31306:0crwdne31306:0"
   },
   "email": {
     "fr": "Adresse email",
@@ -216,14 +217,17 @@ module.exports = {
   },
   "orSocial": {
     "fr": "Où",
-    "en": "Or"
+    "en": "Or",
+    "io": "crwdns31308:0crwdne31308:0"
   },
   "socialHead": {
     "fr": "Création à partir d'un compte Facebook, Twitter ou Google",
-    "en": "Create an account using Facebook, Twitter or Google"
+    "en": "Create an account using Facebook, Twitter or Google",
+    "io": "crwdns31310:0crwdne31310:0"
   },
   "socialDescription": {
     "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",
-    "en": "Your OpenAgenda account will be linked to the chosen account. Authentication will be done through that social network."
+    "en": "Your OpenAgenda account will be linked to the chosen account. Authentication will be done through that social network.",
+    "io": "crwdns31312:0crwdne31312:0"
   }
 }
