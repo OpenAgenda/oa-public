@@ -3,7 +3,6 @@
 const path = require( 'path' );
 const fs = require( 'fs' );
 const sass = require( 'sass' );
-const importOnce = require( 'node-sass-import-once' );
 
 module.exports = createCss;
 
