@@ -158,11 +158,36 @@ render(
   </IntlProvider>, document.getElementById('app'));
 ```
 
-## Crowdin && Labels
-Pour éviter d'écraser les modifications faites sur crowndin, il faut recup ces modifs
-Dans oa `node script/crowdin/dispach.js`
-Puis faire nos modifs
-Puis dans labels `node .crowdin/aggregate.js`
+## Crowdin & Labels
+
+Il faut privilégier les traductions sur crowdin et modifier les sources (`en`) depuis git.
+
+L'action github qui s'éxécute à chaque `push` n'upload que les sources en supprimant les obsolètes. NE PAS modifier les sources sur crowdin.  
+Le script `dispatch` ne télécharge que les traductions, sans la langue `en`.
+
+### Lorsqu'on ajoute des labels sources
+
+> Si on a modifié le package `labels` il faut y éxecuter `node .crowdin/aggregate.js`.
+
+Il suffit de faire un commit et de le push.
+
+On peut ensuite traduire les labels sur crowdin et lancer `node script/crowdin/dispach.js` dans oa pour récupérer les traductions.
+
+### Lorsqu'on a traduit des labels sur crowdin
+
+Il faut exécuter `node script/crowdin/dispach.js` dans oa pour récupérer les traductions.
+
+### Si on veut traduire des labels depuis les sources
+
+Avant toute modification il faut se mettre à jour par rapport à crowdin en éxecutant `node script/crowdin/dispach.js` dans oa.
+
+On peut maintenant traduire ce qu'on veut.
+
+> Si on a modifié le package `labels` il faut y éxecuter `node .crowdin/aggregate.js`.
+
+Puis depuis l'onglet "intégrations" de crowdin il faut lancer l'action `Upload Translations` manuellement pour oa et/ou oa-public. [Doc](https://support.crowdin.com/github-integration/#uploading-translations-from-repo)
+
+### Si on a modifié le pack
 
 ## redis
 
