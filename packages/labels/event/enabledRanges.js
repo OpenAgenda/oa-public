@@ -40,5 +40,9 @@ module.exports = {
     "en": "Input time is invalid",
     "fr": "L'heure définie n'est pas valide",
     "io": "crwdns31304:0crwdne31304:0"
+  },
+  "usefulFor": {
+    "en": "Useful for agendas referencing events that take place over a limited period. For example: diaries of fairs, festivals or major events",
+    "fr": "Utile pour les agendas référençant des événements qui ont lieu sur une période limitée. Par exemple: les agendas de salons, de festivals ou de grands événements"
   }
 }

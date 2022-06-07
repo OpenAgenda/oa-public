@@ -6,5 +6,6 @@
   "constraintError": "New limit should be in constraint",
   "constraintInfo": "Field already constrained at an upper level",
   "dateError": "Begin date should be before end date",
-  "timeError": "Input time is invalid"
+  "timeError": "Input time is invalid",
+  "usefulFor": "Useful for agendas referencing events that take place over a limited period. For example: diaries of fairs, festivals or major events"
 }

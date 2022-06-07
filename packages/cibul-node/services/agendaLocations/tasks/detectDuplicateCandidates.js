@@ -19,12 +19,17 @@ module.exports = async (services, options) => {
     log('info', `detection finished in locationSet ${set.uid}`);
   }
 
-  let offset = 0;
+  let offset = 9999999999;
   while (offset !== null) {
-    const { agendas, lastId } = await agendasSVC.list(offset, 20, {
+    const res = await agendasSVC.list({ order: 'id.desc' }, offset, 20, {
       onlyIncludeFields: ['uid', 'locationSetUid'],
       offsetAsLastId: true,
     });
+    const { agendas, lastId } = await agendasSVC.list({ order: 'id.desc' }, offset, 20, {
+      onlyIncludeFields: ['uid', 'locationSetUid'],
+      offsetAsLastId: true,
+    });
+    log(res);
     if (!agendas || agendas.length === 0) {
       offset = null;
       continue;

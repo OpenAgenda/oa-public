@@ -71,7 +71,7 @@ const EnabledRanges = ({
   };
 
   return (
-    <div>
+    <div className="checkbox">
       <label htmlFor="enabledRanges">
         <input
           id="enabledRanges"
@@ -84,121 +84,124 @@ const EnabledRanges = ({
             setChecked(!checked);
           }}
         />
-        {labels.checkboxInfo}
+        <strong>{labels.checkboxInfo}</strong>
+        <div className="text-muted margin-bottom-sm">{labels.usefulFor}</div>
       </label>
-      {checked ? (
-        <>
-          {constraints ? (
-            <div className={`info-block-sm margin-bottom-sm ${constraintError ? 'danger' : ''}`}>
-              <p>{labels.constraintInfo}</p>
-              <p>{labels.from}: {new Date(constraints[0].begin).toLocaleDateString('fr-FR')} {labels.at} {new Date(constraints[0].begin).toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'})}</p>
-              <text>{labels.to}: {new Date(constraints[0].end).toLocaleDateString('fr-FR')} {labels.at} {new Date(constraints[0].end).toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'}) }</text>
-            </div>
-          ) : null}
-          <form className="form-inline">
-            <div className="form-group">
-              {labels.from}
-            </div>
-            <div className="form-group">
-              <DateField
-                className="margin-h-sm"
-                field={{
-                  field: 'begin',
-                  fieldType: 'date',
-                }}
-                value={getDate('begin')}
-                enabled
-                lang={lang}
-                onChange={v => {
-                  if (!getTime('begin')) {
-                    checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}` }]);
-                    return;
-                  }
-                  checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}T${getTime('begin')}` }]);
-                }}
-              />
-            </div>
-            <div className="form-group">
-              {labels.at}
-            </div>
-            <div className={`form-group ${timeError?.begin ? 'has-error' : ''}`}>
-              <MaskedInput
-                value={getTime('begin') || ''}
-                className="form-control text-center margin-left-sm"
-                mask={timeMask}
-                placeholder="HH:MM"
-                keepCharPositions
-                onBlur={e => {
-                  checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
-                }}
-                onKeyDown={e => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
+      <div className="checkbox-sub-menu">
+        {checked ? (
+          <>
+            {constraints ? (
+              <div className={`info-block-sm margin-bottom-sm ${constraintError ? 'danger' : ''}`}>
+                <p>{labels.constraintInfo}</p>
+                <p>{labels.from}: {new Date(constraints[0].begin).toLocaleDateString('fr-FR')} {labels.at} {new Date(constraints[0].begin).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</p>
+                <text>{labels.to}: {new Date(constraints[0].end).toLocaleDateString('fr-FR')} {labels.at} {new Date(constraints[0].end).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</text>
+              </div>
+            ) : null}
+            <form className="form-inline">
+              <div className="form-group">
+                {labels.from}
+              </div>
+              <div className="form-group">
+                <DateField
+                  className="margin-h-sm"
+                  field={{
+                    field: 'begin',
+                    fieldType: 'date',
+                  }}
+                  value={getDate('begin')}
+                  enabled
+                  lang={lang}
+                  onChange={v => {
+                    if (!getTime('begin')) {
+                      checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}` }]);
+                      return;
+                    }
+                    checkAndOnChange([{ ...readValue(localValue), begin: `${format(v, 'yyyy-MM-dd')}T${getTime('begin')}` }]);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                {labels.at}
+              </div>
+              <div className={`form-group ${timeError?.begin ? 'has-error' : ''}`}>
+                <MaskedInput
+                  value={getTime('begin') || ''}
+                  className="form-control text-center margin-left-sm"
+                  mask={timeMask}
+                  placeholder="HH:MM"
+                  keepCharPositions
+                  onBlur={e => {
                     checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
-                  }
-                }}
-                style={{
-                  width: '75px',
-                }}
-              />
-            </div>
-          </form>
-          <form className="form-inline margin-top-sm">
-            <div className="form-group">
-              {labels.to}
-            </div>
-            <div className={`form-group ${dateError ? 'has-error' : ''}`}>
-              <DateField
-                className="margin-h-sm"
-                field={{
-                  field: 'end',
-                }}
-                value={getDate('end')}
-                enabled
-                lang={lang}
-                onChange={v => {
-                  if (!getTime('end')) {
-                    checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}` }]);
-                    return;
-                  }
-                  checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}T${getTime('end')}` }]);
-                }}
-              />
-            </div>
-            <div className="form-group">
-              {labels.at}
-            </div>
-            <div className={`form-group ${timeError?.end ? 'has-error' : ''}`}>
-              <MaskedInput
-                className="form-control text-center margin-left-sm"
-                value={getTime('end') || ''}
-                mask={timeMask}
-                placeholder="HH:MM"
-                keepCharPositions
-                onBlur={e => {
-                  checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
-                }}
-                onKeyDown={e => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      checkAndOnChange([{ ...readValue(localValue), begin: `${getDate('begin')}T${e.target.value}` }]);
+                    }
+                  }}
+                  style={{
+                    width: '75px',
+                  }}
+                />
+              </div>
+            </form>
+            <form className="form-inline margin-top-sm margin-left-md">
+              <div className="form-group">
+                {labels.to}
+              </div>
+              <div className={`form-group ${dateError ? 'has-error' : ''}`}>
+                <DateField
+                  className="margin-h-sm"
+                  field={{
+                    field: 'end',
+                  }}
+                  value={getDate('end')}
+                  enabled
+                  lang={lang}
+                  onChange={v => {
+                    if (!getTime('end')) {
+                      checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}` }]);
+                      return;
+                    }
+                    checkAndOnChange([{ ...readValue(localValue), end: `${format(v, 'yyyy-MM-dd')}T${getTime('end')}` }]);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                {labels.at}
+              </div>
+              <div className={`form-group ${timeError?.end ? 'has-error' : ''}`}>
+                <MaskedInput
+                  className="form-control text-center margin-left-sm"
+                  value={getTime('end') || ''}
+                  mask={timeMask}
+                  placeholder="HH:MM"
+                  keepCharPositions
+                  onBlur={e => {
                     checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
-                  }
-                }}
-                style={{
-                  width: '75px',
-                }}
-              />
-            </div>
-          </form>
-          {constraintError || dateError || timeError ? (
-            <div className="info-block-sm danger">
-              {timeError ? labels.timeError : null}
-              {dateError ? labels.dateError : null}
-              {constraintError ? labels.constraintError : null}
-            </div>
-          ) : null}
-        </>
-      ) : null}
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      checkAndOnChange([{ ...readValue(localValue), end: `${getDate('end')}T${e.target.value}` }]);
+                    }
+                  }}
+                  style={{
+                    width: '75px',
+                  }}
+                />
+              </div>
+            </form>
+            {constraintError || dateError || timeError ? (
+              <div className="info-block-sm danger">
+                {timeError ? labels.timeError : null}
+                {dateError ? labels.dateError : null}
+                {constraintError ? labels.constraintError : null}
+              </div>
+            ) : null}
+          </>
+        ) : null}
+      </div>
     </div>
   );
 };
