@@ -20,7 +20,6 @@ jobs:
         with:
           upload_sources: true
           upload_sources_args: --delete-obsolete
-          upload_translations: true
           crowdin_branch_name: '[OpenAgenda.oa-public] main'
           config: crowdin.yml
         env:
