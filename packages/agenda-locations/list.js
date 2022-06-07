@@ -2,16 +2,22 @@
 
 const _ = require('lodash');
 const { BadRequest } = require('@openagenda/verror');
+const logs = require('@openagenda/logs');
 
 const addListQuery = require('./lib/addListQuery');
-const addPagination = require('./lib/addPagination');
+const addPaginationAndOrder = require('./lib/paginationAndOrder');
+const {
+  make: makeAfter,
+  include: includeAfterFields
+} = require('./lib/after');
 const addSelect = require('./lib/addSelect');
 const createStream = require('./lib/createStream');
 const validateNav = require('./lib/validateNav');
 const validateListOptions = require('./lib/validateListOptions');
 const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
-const log = require('@openagenda/logs')('list');
+
+const log = logs('list');
 
 async function list(service, query = {}, nav = {}, options = {}) {
   log('received %j %j %j', query, nav, options);
@@ -22,7 +28,6 @@ async function list(service, query = {}, nav = {}, options = {}) {
     endpointId,
     detailed,
     includeFields,
-    stream: streamOptions,
     deleted
   } = cleanListOptions;
 
@@ -43,7 +48,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
   log('total: %s', total);
 
   addSelect(k, detailed ? 'public' : 'list', {
-    include: cleanNav.useAfter ? ['id'] : [],
+    include: includeAfterFields(cleanNav),
     includeFields,
   });
 
@@ -51,11 +56,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
     k.select('agenda_id');
   }
 
-  if (!streamOptions) {
-    addPagination(k, cleanNav);
-  }
-
-  k.orderBy('id', 'desc');
+  addPaginationAndOrder(k, cleanNav, cleanListOptions);
 
   const result = {};
 
@@ -80,7 +81,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
   }
 
   if (cleanNav.useAfter) {
-    result.after = result.rows.length ? _.last(result.rows).id : null;
+    result.after = makeAfter(result, cleanNav);
   }
 
   return _.omit(result, ['rows']);

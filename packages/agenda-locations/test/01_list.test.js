@@ -165,6 +165,40 @@ describe('agenda-locations - functional - list', () => {
         expect(items[0].uid).toBe(7630649);
       }
     );
+
+    it('order can by by asc name', async () => {
+      const items = await svc(7196947).list({}, { order: 'name.asc', limit: 3 });
+
+      expect(items.map(i => i.name).join(' - ')).toBe(
+        items
+          .map(i => i.name)
+          .sort((a, b) => a.localeCompare(b))
+          .join(' - ')
+      );
+    });
+
+    it('order on name with useAfter provides array in after key', async () => {
+      const {
+        after
+      } = await svc(7196947).list({}, { order: 'name.asc', useAfter: true, limit: 3 });
+
+      expect(after).toEqual(['Ancien moulinage', 836469]);
+    });
+
+    it('after on name can be used to fetch next round of results', async () => {
+      const { items } = await svc(7196947).list({}, {
+        order: 'name.asc',
+        useAfter: true,
+        limit: 3,
+        after: ['Ancien moulinage', 836469]
+      });
+
+      expect(items.map(i => i.name)).toEqual([
+        'Ancienne église Saint-Jean-Baptiste',
+        'Ancienne Usine de Soie du Moulinet',
+        'Ancienne usine Murat'
+      ]);
+    });
   });
 
   describe('filters', () => {

@@ -302,7 +302,7 @@ describe('event-search - unit: utils', function() {
 
     it('sort can be on a mapped field', () => {
       assert.deepEqual(
-        getDSLSortPart('featured.desc'),
+        getDSLSortPart({ sort: 'featured.desc' }),
         [{
           featured: 'desc'
         }, {
@@ -315,7 +315,9 @@ describe('event-search - unit: utils', function() {
 
     it('sort can be on multiple mapped fields', () => {
       assert.deepEqual(
-        getDSLSortPart(['featured.desc', 'updatedAt.asc']),
+        getDSLSortPart({
+          sort: ['featured.desc', 'updatedAt.asc']
+        }),
         [{
           featured: 'desc'
         }, {
@@ -329,7 +331,7 @@ describe('event-search - unit: utils', function() {
     });
 
     it('if sort is by score, no explicit score is passed to elasticsearch DSL', () => {
-      assert.equal(getDSLSortPart('score'), null);
+      assert.equal(getDSLSortPart({ sort: 'score' }), null);
     });
   });
 

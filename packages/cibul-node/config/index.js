@@ -21,6 +21,7 @@ const config = {
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',
+    enableMigrations: true,
     queues: {
       aggregator: 'aggregator',
       oembed: 'oembed',

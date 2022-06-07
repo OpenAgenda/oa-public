@@ -19,7 +19,7 @@ module.exports = (query = {}, nav = {}, options = {}) => {
     _source: getDSLSourcePart(includes)
   };
   
-  const sort = getDSLSortPart(query.sort);
+  const sort = getDSLSortPart(query);
 
   if (sort) DSL.sort = sort;
 

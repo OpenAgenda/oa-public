@@ -3,13 +3,11 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import { unloadWarning } from '@openagenda/react-shared';
 import submit from '../lib/submit';
 import merge from '../iso/merge';
 import labels from './lib/labels';
 
-import isEmptySchema from './lib/isEmptySchema';
 import isOwnField from './lib/isOwnField';
 import draggableStyles from './lib/draggableStyles';
 
@@ -22,14 +20,13 @@ import addSchemaField from './lib/addSchemaField';
 import removeSchemaField from './lib/removeSchemaField';
 import restrictLabelLanguages from './lib/restrictLabelLanguages';
 import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
+import monolingualizeSchema from './lib/monolingualizeSchema';
 
 import FieldPreview from './FieldPreview';
 import LabelLanguages from './LabelLanguages';
 import SaveButton from './SaveButton';
 import FieldAdd from './FieldAdd';
 import FieldEdit from './FieldEdit';
-
-const getLabel = makeLabelGetter(labels);
 
 const modes = {
   ORDERING: 1,
@@ -57,6 +54,9 @@ export default class FormSchemaBuilder extends Component {
     }
 
     this.state = initState;
+
+    this.onFieldEditCancel = this.onFieldEditCancel.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
   onDragEnd({ source, destination }) {
@@ -71,23 +71,21 @@ export default class FormSchemaBuilder extends Component {
     this.updateSchema(insertMissingAbstractFields(this.getSchema(), reorderedSchema));
   }
 
-  onCancelOrder(previousOrder) {
-    this.setState({
-      mode: null,
-      mergedSchema: reorderSchemaFields.applyOrder(this.getMergedSchema(), previousOrder)
-    });
-  }
-
   onSave() {
     this.setSaveState(saveStates.LOADING);
+
+    const {
+      labelLanguages
+    } = this.state;
+
     submit({
       values: restrictLabelLanguages.applyToSchema(
         this.getSchema(),
-        this.state.labelLanguages
+        labelLanguages
       )
     }).then(() => {
       this.setSaveState(saveStates.SAVED);
-    }, err => {
+    }, _err => {
       this.setSaveState(saveStates.ERROR);
     });
   }
@@ -108,17 +106,37 @@ export default class FormSchemaBuilder extends Component {
     this.updateSchema(addSchemaField(this.getSchema(), field, addToEnd));
   }
 
-  // bisounours
   onFieldEditSave(field, update, /* parentField */) {
     this.setState({ editedField: null });
 
     const schema = insertMissingAbstractFields(this.getSchema(), this.getMergedSchema());
 
-    this.updateSchema(updateSchemaField(schema, field, update, /* { fieldValidator } */ ));
+    this.updateSchema(updateSchemaField(schema, field, update, /* { fieldValidator } */));
+  }
+
+  onLabelLanguagesChange(updatedLabelLanguages) {
+    const {
+      labelLanguages
+    } = this.state;
+
+    const wasMonolingualized = !updatedLabelLanguages.length && labelLanguages.length;
+
+    this.setState({
+      labelLanguages: updatedLabelLanguages,
+      saveState: saveStates.CHANGED
+    });
+
+    if (wasMonolingualized) {
+      this.updateSchema(monolingualizeSchema(this.getSchema()));
+    }
   }
 
   getSchema() {
-    return this.state.schema || { fields: [] };
+    const {
+      schema = { fields: [] }
+    } = this.state;
+
+    return schema;
   }
 
   setSaveState(newSaveState, otherStateSet = {}) {
@@ -138,18 +156,17 @@ export default class FormSchemaBuilder extends Component {
     const currentSchema = props ? props.schema : this.getSchema();
     const extensions = _.get(props || this.props, 'extendedFrom', []);
 
-    return merge.apply(null, extensions.map(e => e.schema).concat(currentSchema));
+    return merge(...extensions.map(e => e.schema).concat(currentSchema));
   }
 
   getMergedExtentionSchema(props) {
     const extensions = _.get(props || this.props, 'extendedFrom', []);
-    return merge.apply(null, extensions.map(e => e.schema));
+    return merge(...extensions.map(e => e.schema));
   }
 
   updateSchema(schema) {
     const { onUpdate } = this.props;
     this.setSaveState(saveStates.CHANGED, { schema });
-    console.log('updateSchema', schema);
     onUpdate(schema);
   }
 
@@ -183,7 +200,12 @@ export default class FormSchemaBuilder extends Component {
     return (
       <div>{renderHead ? renderHead() : null} {addEnabled ? (
         <div className="padding-v-sm padding-h-sm">
-          <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this, false)} />
+          <FieldAdd
+            disabled={this.isDisabled(modes.ADDFIELD)}
+            labelLanguages={labelLanguages}
+            lang={lang}
+            onAdd={field => this.onFieldAdd(false, field)}
+          />
         </div>
       ) : null}
       </div>
@@ -202,7 +224,6 @@ export default class FormSchemaBuilder extends Component {
     } = this.props;
 
     const {
-      labels,
       labelLanguages,
       editedField,
       saveState,
@@ -223,10 +244,7 @@ export default class FormSchemaBuilder extends Component {
                 disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
                 lang={lang}
                 labelLanguages={labelLanguages}
-                onUpdate={labelLanguages => this.setState({
-                  labelLanguages,
-                  saveState: saveStates.CHANGED
-                })}
+                onUpdate={update => this.onLabelLanguagesChange(update)}
               />
             ) : null}
             <div className="padding-bottom-sm">
@@ -235,7 +253,7 @@ export default class FormSchemaBuilder extends Component {
                 lang={lang}
                 onClick={() => this.onSave()}
                 saveState={saveState}
-                block={true}
+                block
               />
             </div>
           </div>
@@ -247,8 +265,8 @@ export default class FormSchemaBuilder extends Component {
               field={editedField}
               labelLanguages={labelLanguages}
               lang={lang}
-              onSave={this.onFieldEditSave.bind(this, editedField)}
-              onCancel={this.onFieldEditCancel.bind(this)}
+              onSave={update => this.onFieldEditSave(editedField, update)}
+              onCancel={this.onFieldEditCancel}
               customFieldConfigurationSchemas={customFieldConfigurationSchemas}
               components={components}
               parentsFields={parentsMergedSchema}
@@ -258,7 +276,8 @@ export default class FormSchemaBuilder extends Component {
             {this.renderFieldListHead(mergedSchema)}
             <DragDropContext
               className="list-group"
-              onDragEnd={this.onDragEnd.bind(this)}>
+              onDragEnd={this.onDragEnd}
+            >
               <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
                   <div
@@ -273,18 +292,18 @@ export default class FormSchemaBuilder extends Component {
                         // isDragDisabled={mode !== modes.ORDERING}
                         index={index}
                       >
-                        {(providedInner, snapshot) => (
+                        {(providedInner, draggableSnapshot) => (
                           <div
                             className={classNames({
                               'list-group-item draggable': true,
-                              dragged: snapshot.isDragging,
+                              dragged: draggableSnapshot.isDragging,
                               disabled: this.isFieldDisabled(field, disabled)
                             })}
                             ref={providedInner.innerRef}
                             {...providedInner.draggableProps}
                             {...providedInner.dragHandleProps}
                             style={draggableStyles.getDraggableListItemStyle(
-                              snapshot.isDragging,
+                              draggableSnapshot.isDragging,
                               providedInner.draggableProps.style
                             )}
                           >
@@ -295,12 +314,12 @@ export default class FormSchemaBuilder extends Component {
                               isOwn={isOwnField(schema, field)}
                               editableExtensions={editableExtensions}
                               schemaInfo={extractSchemaInfo(field, extendedFrom)}
-                              lang={this.props.lang}
+                              lang={lang}
                               labelLanguages={labelLanguages}
-                              onEdit={this.onFieldEdit.bind(this, field)}
+                              onEdit={() => this.onFieldEdit(field)}
                               onHide={() => this.onFieldEditSave(field, { display: false })}
                               onShow={() => this.onFieldEditSave(field, { display: true })}
-                              onRemove={this.onFieldRemove.bind(this, field)}
+                              onRemove={() => this.onFieldRemove(field)}
                             />
                           </div>
                         )}
@@ -313,7 +332,12 @@ export default class FormSchemaBuilder extends Component {
             </DragDropContext>
             {addEnabled ? (
               <div className="padding-v-sm padding-h-sm">
-                <FieldAdd disabled={this.isDisabled(modes.ADDFIELD)} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind(this, true)} />
+                <FieldAdd
+                  disabled={this.isDisabled(modes.ADDFIELD)}
+                  labelLanguages={labelLanguages}
+                  lang={lang}
+                  onAdd={addedField => this.onFieldAdd(true, addedField)}
+                />
               </div>
             ) : null}
           </div>

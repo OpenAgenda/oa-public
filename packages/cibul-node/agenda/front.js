@@ -228,11 +228,18 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/actions', (req, res) => {
-      return res.redirect(`/${req.params.slug}?sharemodal=1`);
+    '/:slug/addevent',
+    (req, res) => {
+      res.redirect(301, `/${req.params.slug}/contribute`);
     }
   );
 
+  app.get(
+    '/:slug/actions',
+    (req, res) => {
+      res.redirect(`/${req.params.slug}?sharemodal=1`);
+    }
+  );
 };
 
 

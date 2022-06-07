@@ -1,0 +1,347 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 28,
+  "fields": [
+    {
+      "field": "status",
+      "display": true,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "sous-titre",
+      "label": "Sous-titre",
+      "info": "Indiquez un complément de titre si nécesaire.",
+      "display": true,
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image_alt_text",
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "attendanceMode",
+      "display": true,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "default": {
+        "uid": 70831886
+      },
+      "fieldType": "abstract"
+    },
+    {
+      "field": "other_place",
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "onlineAccessLink",
+      "display": true,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "type-devenement",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "type-devenement-institutions",
+      "label": {
+        "fr": "Type d'événement Institutions"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 19,
+          "value": "evenements",
+          "label": {
+            "fr": "Evenements"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 6,
+          "value": "chrysanthemes-dragons-et-samourais",
+          "label": {
+            "fr": "Chrysanthèmes, dragons et samouraïs"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 7,
+          "value": "tasses-regards-de-lionel-latham",
+          "label": {
+            "fr": "Tasses! Regards de Lionel Latham"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 8,
+          "value": "pieces-a-problemes-robert-dawson-et-richard-slee",
+          "label": {
+            "fr": "Pièces à problèmes. Robert Dawson et Richard Slee"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 21,
+          "value": "autour-du-japon",
+          "label": {
+            "fr": "Autour du japon"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 9,
+          "value": "vitrine-carte-blanche",
+          "label": {
+            "fr": "Vitrine Carte blanche"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 10,
+          "value": "visites-thematiques",
+          "label": {
+            "fr": "Visites thématiques"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 11,
+          "value": "jeune-public",
+          "label": {
+            "fr": "Jeune public"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 20,
+          "value": "ateliers-enfants",
+          "label": {
+            "fr": "Ateliers enfants"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 23,
+          "value": "ateliers-adultes",
+          "label": {
+            "fr": "Ateliers adultes"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 24,
+          "value": "hubert-crevoisier",
+          "label": {
+            "fr": "Hubert Crevoisier"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 25,
+          "value": "alexandre-joly",
+          "label": {
+            "fr": "Alexandre Joly"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 26,
+          "value": "visite-commentee",
+          "label": {
+            "fr": "Visite commentée"
+          },
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 27,
+          "value": "handicap",
+          "label": {
+            "fr": "Handicap"
+          },
+          "info": null,
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "publics-cibles",
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "id-secutix",
+      "label": "ID Secutix",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Pour faire un lien vers la billetterie, saisir l'identifiant fourni par Secutix. Uniquement pour le site Drupal.",
+      "sub": null,
+      "placeholder": "10228344060674",
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "optionalWith": null,
+      "related": {
+        "enable": [],
+        "optional": []
+      },
+      "min": 1111111111,
+      "max": 11111111111111110000,
+      "fieldType": "integer"
+    },
+    {
+      "field": "labels",
+      "label": "Labels pour geneve.ch",
+      "info": "Ces labels permettent aux internautes de filtrer les événements en fonction du type d'activités qu'ils recherchent sur le site de la Ville de Genève.",
+      "sub": null,
+      "placeholder": null,
+      "display": true,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "references",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "internal_remarks",
+      "label": "Remarques internes",
+      "info": "Ce champ vous permet d'indiquer qui a effectué la saisie.",
+      "sub": null,
+      "placeholder": null,
+      "display": true,
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "organisation-de-levenement",
+      "default": 33,
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "organisator",
+      "display": false,
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "organisator_url",
+      "display": false,
+      "origin": "custom",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "service-contributeur",
+      "default": 3,
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "display": true,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "thematiques-internes",
+      "display": false,
+      "origin": "tags",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "thematiques-musees",
+      "display": true,
+      "origin": "tags",
+      "fieldType": "abstract"
+    }
+  ],
+  "id": 27415
+}

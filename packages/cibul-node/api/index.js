@@ -259,7 +259,6 @@ module.exports = core => {
     '/agendas/:agendaUid/locations/:locationUid',
     '/agendas/:agendaUid/locations/ext/:locationExtId'
   ], [
-    mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .get(req.locationIdentifier, {

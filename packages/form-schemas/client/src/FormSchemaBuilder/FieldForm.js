@@ -65,6 +65,8 @@ export default class FieldForm extends Component {
       values: labelLanguages.length ? unflattenLabels(field, labelLanguages) : flattenLabels(field, lang),
       errors: []
     };
+
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange({ values, errors }) {
@@ -75,7 +77,7 @@ export default class FieldForm extends Component {
     const {
       lang,
       field,
-      fieldType,
+      initFieldType,
       labelLanguages,
       onSubmit
     } = this.props;
@@ -90,7 +92,7 @@ export default class FieldForm extends Component {
     if (!values || (this.state?.errors || []).length) return;
 
     onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
-      fieldType: field.fieldType,
+      fieldType: field?.fieldType ?? initFieldType,
       field: field?.field || slugFromLabel(values.label, lang)
     }));
   }
@@ -133,7 +135,7 @@ export default class FieldForm extends Component {
             options: Options,
             ...components
           }}
-          onChange={this.onChange.bind(this)}
+          onChange={this.onChange}
           lang={lang}
           schema={schema}
           actionComponents={[{

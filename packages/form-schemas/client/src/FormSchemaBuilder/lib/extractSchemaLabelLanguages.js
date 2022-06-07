@@ -1,4 +1,4 @@
-const labelKeys = ['label', 'info', 'placeholder'];
+const labelKeys = ['label', 'info', 'placeholder', 'sub'];
 
 function amendWithFieldLanguages(field, existingLanguages = []) {
   let updatedLanguages = labelKeys.reduce(
