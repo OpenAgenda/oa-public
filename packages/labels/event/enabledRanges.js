@@ -43,6 +43,7 @@ module.exports = {
   },
   "usefulFor": {
     "en": "Useful for agendas referencing events that take place over a limited period. For example: diaries of fairs, festivals or major events",
-    "fr": "Utile pour les agendas référençant des événements qui ont lieu sur une période limitée. Par exemple: les agendas de salons, de festivals ou de grands événements"
+    "fr": "Utile pour les agendas référençant des événements qui ont lieu sur une période limitée. Par exemple : les agendas de salons, de festivals ou de grands événements",
+    "io": "crwdns32374:0crwdne32374:0"
   }
 }

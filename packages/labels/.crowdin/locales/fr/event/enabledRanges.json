@@ -7,5 +7,5 @@
   "constraintInfo": "Le champ déjà contraint à un niveau supérieur",
   "dateError": "La date de debut doit etre avant la date de fin",
   "timeError": "L'heure définie n'est pas valide",
-  "usefulFor": "Utile pour les agendas référençant des événements qui ont lieu sur une période limitée. Par exemple: les agendas de salons, de festivals ou de grands événements"
+  "usefulFor": "Utile pour les agendas référençant des événements qui ont lieu sur une période limitée. Par exemple : les agendas de salons, de festivals ou de grands événements"
 }
