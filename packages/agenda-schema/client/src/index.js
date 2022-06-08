@@ -81,7 +81,6 @@ class Main extends Component {
 
     return (
         <div>
-          {intl.formatMessage(messages.eventDetail)}
           <FormSchemaBuilder
             lang={lang}
             addEnabled={maxFields > this.state.currentFieldCount}
