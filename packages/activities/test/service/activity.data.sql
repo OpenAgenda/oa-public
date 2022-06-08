@@ -1,8 +1,8 @@
 INSERT INTO `${schema}` (`id`, `actor`, `verb`, `object`, `target`, `store`, `created_at`) VALUES
-  (1, 'user:54849455', 'event.create', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
-  (2, 'user:99999999', 'event.delete', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
-  (3, 'user:99999950', 'event.action', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
-  (4, 'user:99999951', 'event.delete', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
-  (5, 'user:99999952', 'event.action', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
-  (6, 'user:99999953', 'event.action', 'event:54548513', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
-  (7, 'user:99999954', 'event.delete', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonyme","target":"la-gargouille"}}', '2017-03-27 14:15:09');
+  (1, 'user:54849455', 'event.create', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
+  (2, 'user:99999999', 'event.delete', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
+  (3, 'user:99999950', 'event.action', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
+  (4, 'user:99999951', 'event.delete', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
+  (5, 'user:99999952', 'event.action', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
+  (6, 'user:99999953', 'event.action', 'event:54548513', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09'),
+  (7, 'user:99999954', 'event.delete', 'event:54548512', 'agenda:48648352', '{"labels":{"actor":"Jacky","object":"Réunion des junkies anonymes","target":"la-gargouille"}}', '2017-03-27 14:15:09');
