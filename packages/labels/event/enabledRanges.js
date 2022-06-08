@@ -18,7 +18,7 @@ module.exports = {
   },
   "checkboxInfo": {
     "en": " Restrict the periods allowed for the dates entered",
-    "fr": " Restreindre les periodes autorisée pour les dates saisies",
+    "fr": " Restreindre les périodes autorisées pour les dates saisies",
     "io": "crwdns31296:0crwdne31296:0"
   },
   "constraintError": {
