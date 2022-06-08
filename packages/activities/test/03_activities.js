@@ -54,7 +54,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -68,7 +68,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -82,7 +82,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -96,7 +96,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -110,7 +110,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -124,7 +124,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -156,7 +156,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -170,7 +170,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -202,7 +202,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -216,7 +216,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -248,7 +248,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -262,7 +262,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -276,7 +276,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -290,7 +290,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -304,7 +304,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -318,7 +318,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -332,7 +332,7 @@ describe( 'activities - activities', function () {
             store: {
               labels: {
                 actor: 'Jacky',
-                object: 'Réunion des junkies anonyme',
+                object: 'Réunion des junkies anonymes',
                 target: 'la-gargouille'
               }
             }
@@ -610,7 +610,7 @@ describe( 'activities - activities', function () {
           store: {
             labels: {
               actor: 'Jacky',
-              object: 'Réunion des junkies anonyme',
+              object: 'Réunion des junkies anonymes',
               target: 'la-gargouille'
             }
           }
@@ -650,7 +650,7 @@ describe( 'activities - activities', function () {
           store: {
             labels: {
               actor: 'Jacky',
-              object: 'Réunion des junkies anonyme',
+              object: 'Réunion des junkies anonymes',
               target: 'la-gargouille'
             }
           }
