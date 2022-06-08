@@ -145,7 +145,7 @@ const EnabledRanges = ({
                 />
               </div>
             </form>
-            <form className="form-inline margin-top-sm margin-left-md">
+            <form className="form-inline margin-top-sm">
               <div className="form-group">
                 {labels.to}
               </div>
