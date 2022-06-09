@@ -225,12 +225,14 @@ describe( 'activities - activities', function () {
 
     } );
 
-    it( 'list that doesn\'t associated to a feed', () => {
+    it( 'list that is not associated with a feed', () => {
 
       return service.activities.list()
         .then( activities => {
 
-          return activities.map( activity => {
+          return activities
+            .filter(a => a.id < 8) // next activites used for other tests
+            .map( activity => {
 
             activity.createdAt.should.Date();
             return _.omit( activity, 'createdAt', 'updatedAt' );
@@ -379,7 +381,7 @@ describe( 'activities - activities', function () {
 
         } )
         .should.fulfilledWith( {
-          id: 8,
+          id: 13,
           actor: 'user:78978978',
           verb: 'event.create',
           object: 'event:56488589',
@@ -660,4 +662,42 @@ describe( 'activities - activities', function () {
 
   } );
 
-} );
+  describe('anonymize', () => {
+    it('no personal information is left after activities have been anonymized using user id', async () => {
+      await service.activities.anonymize('user:1234');
+
+      const activitiesWhereUserIsActor = await service.activities.list({
+        actor: 'user:1234'
+      });
+
+      for (const activity of activitiesWhereUserIsActor) {
+        activity.store.labels.actor.should.equal('$__deleted');
+      }
+
+      const activitiesWhereUserIsTarget = await service.activities.list({
+        target: 'user:1234'
+      });
+
+      for (const activity of activitiesWhereUserIsTarget) {
+        activity.store.labels.target.should.equal('$__deleted');
+      }
+    });
+
+    it('anonymization of email', async () => {
+      const activitiesWhereEmailIsObject = await service.activities.list({
+        object: 'email:aogendo@oagenda.com'
+      });
+      const ids = activitiesWhereEmailIsObject.map(a => a.id);
+
+      await service.activities.anonymize('email:aogendo@oagenda.com', { anonymizeMainField: true });
+
+      const activityWhereEmailWasObject = (await service.activities.list({}))
+        .filter(a => ids.includes(a.id))
+        .pop();
+
+      activityWhereEmailWasObject.store.labels.object.should.equal('$__deleted');
+      activityWhereEmailWasObject.object.should.equal('$__deleted');
+    });
+  });
+
+});
