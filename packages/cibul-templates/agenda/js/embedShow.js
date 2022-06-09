@@ -88,8 +88,10 @@ window.asap( function( options ) {
 
   favorites.sweep();
 
-  _handleLoadNextElements( params.selectors.loadNext );
+});
 
+window.hook( function() {
+  _handleLoadNextElements( params.selectors.loadNext );
 });
 
 /**
@@ -179,9 +181,13 @@ function _initEmbedded( params ) {
 
 function _handleLoadNextElements( selector ) {
 
+  log( 'adding load next behavior on %s elements', selector );
+
   cn.forEach( cn.els( selector ), function( elem ) {
 
     cn.addEvent( elem, 'click', function( e ) {
+
+      log( 'load next is clicked' );
 
       cn.preventDefault( e );
 
@@ -195,7 +201,10 @@ function _handleLoadNextElements( selector ) {
 
 function _loadNext() {
 
-  if ( !handler ) return;
+  if ( !handler ) {
+    log('handler is not defined, not loading next');
+    return;
+  }
 
   list.loadNext( function( err ) {
 
