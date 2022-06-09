@@ -45,4 +45,18 @@ describe('02 - event search - functional: timings sorting', () => {
       ['Rangers du risque', 'Tac', 'Tic']
     );
   });
+
+  it('sorts using begin of timing, filters out on accessible_until (end)', async () => {
+    const { events } = await service('timings').search({
+      state: 1,
+      timings: {
+        gte: new Date('2042-06-11T00:00:00+0200')
+      }
+    });
+
+    assert.deepEqual(
+      events.map(e => e.title.fr),
+      ['Visite guidée le Vieux Lille', 'Mon dodo']
+    );
+  });
 });

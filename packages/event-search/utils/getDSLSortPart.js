@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const timings = query => {
   return [{
-    '_search_timings.accessible_until' : {
+    '_search_timings.begin' : {
       mode: 'min',
       order: 'asc',
       nested: {
@@ -34,7 +34,9 @@ module.exports = (query = {}) => {
     sorts.push('timings.asc');
   }
 
-  if (sorts[0] === 'score') return null;
+  if (sorts[0] === 'score') {
+    return null;
+  }
 
   if (sorts[0].split('.')[0] === 'timingsWithFeatured') {
     return [{

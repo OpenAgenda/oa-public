@@ -86,11 +86,13 @@ module.exports = produce((event, options = {}) => {
         '_search_begin_from_midnight': _secondsMidnightDiff(t.begin, timezone)
       })),
       '_search_timings': event.timings.map(t => ({
-        accessible_until: t.end
+        accessible_until: t.end,
+        begin: t.begin
       })).concat({
         // this bit is important for search_after.
         // End of times need to be a manageable date
-        accessible_until: '3000-01-01T01:00:00.000Z'
+        accessible_until: '3000-01-01T01:00:00.000Z',
+        begin: '3000-01-01T00:00:00.000Z'
       })
     });
   }

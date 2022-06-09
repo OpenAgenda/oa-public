@@ -278,7 +278,7 @@ describe('event-search - unit: utils', function() {
     it('default is sort by timings future asc, passed desc', () => {
       assert.deepEqual(
         getDSLSortPart(), [{
-          '_search_timings.accessible_until': {
+          '_search_timings.begin': {
             mode: 'min',
             order: 'asc',
             nested: {

@@ -160,6 +160,9 @@
   "_search_timings": {
     "type": "nested",
     "properties": {
+      "begin": {
+        "type": "date"
+      },
       "accessible_until": {
         "type": "date"
       }
