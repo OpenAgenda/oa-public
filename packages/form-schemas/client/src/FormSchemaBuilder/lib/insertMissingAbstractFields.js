@@ -1,21 +1,21 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
-export default ( schema, updatedMerge ) => {
+export default function insertMissingAbstractFields(schema, updatedMerge) {
+  return ih(schema ?? { fields: [] }, {
+    fields: {
+      $set: updatedMerge.fields.map(f => {
+        const fieldIndex = _.findIndex(schema?.fields ?? [], sf => sf.field === f.field);
 
-  return ih( schema ?? { fields: [] }, { fields: {
-    $set: updatedMerge.fields.map( f => {
+        if (fieldIndex === -1) {
+          return {
+            field: f.field,
+            fieldType: 'abstract'
+          };
+        }
 
-      const fieldIndex = _.findIndex( schema?.fields ?? [], sf => sf.field === f.field );
-
-      if ( fieldIndex === -1 ) return {
-        field: f.field,
-        fieldType: 'abstract'
-      }
-
-      return schema.fields[ fieldIndex ];
-
-    } )
-  } } );
-
+        return schema.fields[fieldIndex];
+      })
+    }
+  });
 }
