@@ -58,7 +58,7 @@ module.exports = async function(services, ES, options, cb) {
     await _removeEventZombies(services, ES, agendaId);
   }
 
-  await _updateEvents(ES, agendaId, _.pick(params, ['since', 'logEveryUpdate']));
+  await _updateEvents(services, ES, agendaId, _.pick(params, ['since', 'logEveryUpdate']));
 
   await ES.refreshIndex();
 
@@ -86,11 +86,18 @@ async function _updateReviews(ES, { since, logEveryUpdate }) {
 
 }
 
-async function _updateEvents(ES, agendaId, { since, logEveryUpdate }) {
+async function _updateEvents(services, ES, agendaId, { since, logEveryUpdate }) {
+  const {
+    knex
+  } = services;
 
   const count = { processed: 0, errors: 0 };
 
   await loopThroughTable(knex, agendaId ? 'review_article' : 'event', async id => {
+    if (!await knex('agenda_event').first('id').where('legacy_id', `${agendaId}.${id}`)) {
+      log(`no matching agenda_event for legacy ref ${agendaId}.${id}. skipping`);
+      return;
+    }
 
     try {
       const result = await ES.updateEvent(id);

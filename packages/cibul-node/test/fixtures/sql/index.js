@@ -37,6 +37,9 @@ module.exports = {
     'legacyTagSet.create.sql',
     'apiKeySet.create.sql',
     'key.create.sql',
-    'accessToken.create.sql'
+    'accessToken.create.sql',
+    'activity.create.sql',
+    'activityFeed.create.sql',
+    'activityFeedActivity.create.sql'
   ].map(fx => fs.readFileSync(__dirname + '/' + fx, 'utf-8').replace(/;(\n|)$/, ''))
 }

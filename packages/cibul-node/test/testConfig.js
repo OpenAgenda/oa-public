@@ -60,7 +60,8 @@ const testConfig = {
   agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test',
   oembed: {
     key: process.env.IFRAMELY_KEY
-  }
+  },
+  enableMigrations: false
 };
 
 module.exports = {

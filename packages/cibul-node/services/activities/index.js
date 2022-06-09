@@ -26,9 +26,9 @@ module.exports.init = async (config, services) => {
   const service = await Service({
     knex: config.knex,
     schemas: config.schemas,
-    migrations: {
+    migrations: config.enableMigrations ? {
       tableName: 'activity_migrations'
-    },
+    } : null,
     queue: {
       names: {
         addActivity: config.queues.notificationAddActivity,
@@ -224,7 +224,7 @@ module.exports.init = async (config, services) => {
         }
       }
     ],
-    logger: config.getLogConfig('oa', 'activities', false)
+    logger: config.getLogConfig('svc', 'activities', false)
   });
 
   Object.assign(activities, service);

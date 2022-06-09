@@ -23,5 +23,8 @@ module.exports = {
   user: 'user',
   userToken: 'user_token', // users svc
   stakeholder: 'member',
-  stakeholderSettings: 'member_settings'
+  stakeholderSettings: 'member_settings',
+  feed: 'activity_feed',
+  activity: 'activity',
+  feed_activity: 'activity_feed_activity'
 }

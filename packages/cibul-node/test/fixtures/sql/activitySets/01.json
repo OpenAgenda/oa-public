@@ -1,0 +1,28 @@
+{
+  "activities": [{
+    "id": 1,
+    "actor": "user:99999967",
+    "verb": "event.create",
+    "object": "event:40740739",
+    "target": "agenda:6184770",
+    "created_at": "2022-05-27T17:14:00.000",
+    "updated_at": "2022-05-27T17:14:00.000",
+    "store": "{\"labels\":{\"actor\":\"Steevie\",\"object\":{\"fr\":\"Festival nihiliste\"},\"target\":\"Nuit européenne des musées 2022 : La Réunion\"}}"
+  }],
+  "feeds": [{
+    "id": 1,
+    "entity_type": "user",
+    "entity_uid": 99999967
+  }, {
+    "id": 2,
+    "entity_type": "event",
+    "entity_uid": 40740739
+  }],
+  "feedActivities": [{
+    "feed_id": 1,
+    "activity_id": 1
+  }, {
+    "feed_id": 2,
+    "activity_id": 1
+  }]
+}

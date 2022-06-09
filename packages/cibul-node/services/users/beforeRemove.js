@@ -19,7 +19,19 @@ module.exports = function beforeRemove() {
     }
 
     if (activitiesSvc) {
-      await promisify(activitiesSvc.feed({ entityType: 'user', entityUid: user.uid }).remove)();
+      log('removing user feed for user %s', user.uid);
+      await promisify(
+        activitiesSvc.feed({
+          entityType: 'user',
+          entityUid: user.uid
+        }).remove
+      )();
+
+      log('anonymizing activities for user %s', user.uid);
+      await activitiesSvc.activities.anonymize(`user:${user.uid}`);
+      if (user.email) {
+        await activitiesSvc.activities.anonymize(`email:${user.email}`);
+      }
     }
 
     const members = await membersSvc.list({ userUid: user.uid }, { limit: 1000 });

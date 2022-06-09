@@ -35,7 +35,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'legacy',
         'users',
         'keys',
-        'trackers'
+        'trackers',
+        'activities'
       ]
     });
 
@@ -77,6 +78,14 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     it('member organization is maintained', () => {
       expect(memberRefAfterRemove.organization).toBe('FdP');
+    });
+
+    it('related activities are anonymized', async () => {
+      const activities = await core.services.activities.activities.list({
+        entityType: 'user',
+        entityUid: 99999967
+      });
+      expect(activities[0].store.labels.actor).toBe('$__deleted');
     });
   });
 
