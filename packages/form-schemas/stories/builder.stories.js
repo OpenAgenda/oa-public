@@ -849,3 +849,36 @@ export function ExtendedChoiceField() {
     </div>
   );
 }
+
+export function HidingAFieldOnAnUndefinedSchema() {
+  const extensions = [{
+    schema: {
+      fields: [{
+        fieldType: 'some-inherited-field',
+        label: 'Un champ hérité'
+      }]
+    }
+  }];
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <p>Hide the field, no error is thrown and the field becomes hidden</p>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              schema={undefined}
+              extendedFrom={extensions}
+              onUpdate={() => {}}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
