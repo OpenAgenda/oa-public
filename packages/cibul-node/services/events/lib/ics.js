@@ -16,7 +16,7 @@ function espaceIcsValue(txt) {
 function formatIcsDate(d, format = 'YYYYMMDDTHHmm00') {
   const date = moment(d);
 
-  return date.format(format) + 'Z';
+  return `${date.format(format)}Z`;
 }
 
 function formatIcsText(str) {
@@ -35,11 +35,11 @@ function icsHead(agenda, lang) {
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//' + espaceIcsValue(agenda.title) + '//agenda::' + lang,
+    `PRODID:-//${espaceIcsValue(agenda.title)}//agenda::${lang}`,
     'METHOD:PUBLISH',
-    'X-WR-CALNAME:' + espaceIcsValue(agenda.title),
-    'X-WR-CALDESC:' + espaceIcsValue(agenda.description),
-    'X-WR-RELCALID:' + agenda.uid,
+    `X-WR-CALNAME:${espaceIcsValue(agenda.title)}`,
+    `X-WR-CALDESC:${espaceIcsValue(agenda.description)}`,
+    `X-WR-RELCALID:${agenda.uid}`
   ].join('\n');
 }
 
@@ -54,38 +54,37 @@ function usedTimings(event, timingIndex = -1) {
 
   if (!chosenTiming) {
     return [];
-  } else {
-    return [chosenTiming];
   }
+  return [chosenTiming];
 }
 
 function icsBody(agenda, event, lang, timingIndex = -1) {
   const url = `${config.root}/${agenda.slug}/events/${event.slug}`;
-  const description = /*truncateWithEllipses(*/getLocaleValue(event.description, lang)/*, 30)*/;
+  const description = getLocaleValue(event.description, lang);
   const now = new Date();
 
   const repeatedParts = [
-    'DTSTAMP:' + formatIcsDate(now),
-    'TZID:' + event.timezone.replace('/', '-'),
-    formatIcsText('SUMMARY:' + espaceIcsValue(getLocaleValue(event.title, lang))),
-    formatIcsText('DESCRIPTION:' + espaceIcsValue(description) + ' ' + getLabel('seeMore', lang) + ': ' + url),
+    `DTSTAMP:${formatIcsDate(now)}`,
+    `TZID:${event.timezone.replace('/', '-')}`,
+    formatIcsText(`SUMMARY:${espaceIcsValue(getLocaleValue(event.title, lang))}`),
+    formatIcsText(`DESCRIPTION:${espaceIcsValue(description)} ${getLabel('seeMore', lang)}: ${url}`),
     'STATUS:CONFIRMED',
-    formatIcsText('URL:' + url),
-    'LAST-MODIFIED:' + formatIcsDate(event.updatedAt)
+    formatIcsText(`URL:${url}`),
+    `LAST-MODIFIED:${formatIcsDate(event.updatedAt)}`
   ];
 
   if (event.location) {
-    repeatedParts.push(formatIcsText('LOCATION:' + espaceIcsValue(event.location.name + ' - ' + event.location.address)));
-    repeatedParts.push('GEO:' + event.location.latitude + ';' + event.location.longitude);
+    repeatedParts.push(formatIcsText(`LOCATION:${espaceIcsValue(`${event.location.name} - ${event.location.address}`)}`));
+    repeatedParts.push(`GEO:${event.location.latitude};${event.location.longitude}`);
   }
 
   return usedTimings(event, timingIndex)
     .filter((t, i) => (i < 10))
     .map(timing => [
       'BEGIN:VEVENT',
-      'UID:' + agenda.uid + '//' + event.uid + '//' + formatIcsDate(timing.begin, 'YYYY-MM-DD//HH:mm:00'),
-      'DTSTART:' + formatIcsDate(timing.begin),
-      'DTEND:' + formatIcsDate(timing.end),
+      `UID:${agenda.uid}//${event.uid}//${formatIcsDate(timing.begin, 'YYYY-MM-DD//HH:mm:00')}`,
+      `DTSTART:${formatIcsDate(timing.begin)}`,
+      `DTEND:${formatIcsDate(timing.end)}`,
       ...repeatedParts,
       'ORGANIZER:OA',
       'END:VEVENT'
