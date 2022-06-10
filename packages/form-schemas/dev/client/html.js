@@ -58,6 +58,7 @@ class Main extends Component {
     const {
       values
     } = this.state || {};
+    console.log(values);
 
     return (
       <div className="container top-margined">
