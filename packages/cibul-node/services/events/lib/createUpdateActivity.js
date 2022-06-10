@@ -6,7 +6,7 @@ const VError = require('verror');
 
 const agendasSvc = require('@openagenda/agendas');
 
-const log = require('@openagenda/logs')('events/createActivity');
+const log = require('@openagenda/logs')('events/createUpdateActivity');
 
 module.exports = async function createActivity(services, before, after, context) {
   log('processing');

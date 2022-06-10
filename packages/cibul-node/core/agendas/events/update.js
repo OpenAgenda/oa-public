@@ -172,7 +172,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   // event is not draft (anymore)
-
   if (clean.agendaEvent) {
     try {
       const result = await agendaEvents(agendaUid).set(eventUid, ih(clean.agendaEvent, {

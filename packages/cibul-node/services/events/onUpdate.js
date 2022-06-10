@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('events/onUpdate');
 
-const createActivity = require('./lib/createActivity');
+const createUpdateActivity = require('./lib/createUpdateActivity');
 
 module.exports = async (services, before, after, context) => {
   log('info', 'updated event %s', after.uid, { context });
@@ -16,7 +16,7 @@ module.exports = async (services, before, after, context) => {
   if (after.draft) return;
 
   try {
-    await createActivity(services, before, after, context);
+    await createUpdateActivity(services, before, after, context);
   } catch (e) {
     log('error', 'failed to create activity', e);
   }
