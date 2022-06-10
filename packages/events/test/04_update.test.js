@@ -23,7 +23,8 @@ const data = {
   timings: [{
     begin: '2020-12-09T10:00:00.000Z',
     end: '2020-12-09T12:00:00.000Z',
-  }]
+  }],
+  age: { min: undefined, max: undefined }
 };
 
 describe('events - functional - update', () => {
@@ -164,6 +165,13 @@ describe('events - functional - update', () => {
     it('onUpdate was called', () => {
       assert.equal(calls[1][0], 'onUpdate');
     });
+
+    it('age in onUpdate is with values set to null', () => {
+      assert.deepEqual(calls[1][2].age, {
+        min: null,
+        max: null
+      });
+    });
   });
 
   describe('other', () => {
@@ -249,6 +257,13 @@ describe('events - functional - update', () => {
         });
 
         assert.equal(result.links.length, 1);
+    });
+
+    it('age provided as empty object is cleaned to { min: null, max: null }', async () => {
+      const { age } = await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
+        age: {}
+      });
+      expect(age).toEqual({ min: null, max: null });
     });
 
   });

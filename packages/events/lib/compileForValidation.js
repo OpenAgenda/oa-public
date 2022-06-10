@@ -86,6 +86,11 @@ module.exports = async (current, data, options = {}) => {
     compiled.longDescription = replaceAccents(data.longDescription);
   }
 
+  if (data.age && !Object.keys(data.age).filter(k => data.age[k] !== undefined).length) {
+    compiled.age = { min: null, max: null };
+    editedFields.push('age');
+  }
+
   if (statusSlugs.includes(data?.status)) {
     compiled.status = fields
       .find(f => f.field === 'status')

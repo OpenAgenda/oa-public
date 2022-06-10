@@ -90,6 +90,10 @@ module.exports = (event, options = {}) => {
     additionalFields.push('location');
   }
 
+  if (event.age && !Object.keys(event.age).filter(k => event.age[k] !== undefined).length) {
+    event.age = { min: null, max: null };
+  }
+
   return filterItemValuesByFieldAccess(
     lang ? flatten(event, lang, options) : event,
     {

@@ -24,7 +24,11 @@ module.exports = ({ field }) => v => {
 
   for (const index in arrayOfValues) {
     try {
-      clean.push(validateSingle(arrayOfValues[index]));
+      const cleanSingle = validateSingle(arrayOfValues[index]);
+      if (cleanSingle.data === undefined) {
+        delete cleanSingle.data;
+      }
+      clean.push(cleanSingle);
     } catch (e) {
       if (!Array.isArray(e)) {
         throw e;

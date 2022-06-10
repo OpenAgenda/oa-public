@@ -275,4 +275,23 @@ describe('events - functional - get', () => {
 
   });
 
+  describe('miscellaneous', () => {
+    it(
+      'when no min & max age is defined, age provides { min: null, max: null }',
+      async () => {
+        const eventHavingNullAgesInDB = await svc.get(80107389);
+        const eventHavingEmptyObjectInAgeInDb = await svc.get(16687899);
+
+        assert.deepEqual(eventHavingNullAgesInDB.age, {
+          min: null,
+          max: null
+        });
+        
+        assert.deepEqual(eventHavingEmptyObjectInAgeInDb.age, {
+          min: null,
+          max: null
+        });
+      }
+    );
+  });
 });

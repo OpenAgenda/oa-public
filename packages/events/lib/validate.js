@@ -72,6 +72,4 @@ module.exports = async (data, options = {}) => {
   } catch (errors) {
     throw new ValidationError(errors);
   }
-
-  return clean;
 };
