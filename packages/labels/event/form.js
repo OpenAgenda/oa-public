@@ -509,7 +509,7 @@ module.exports = {
     "io": "crwdns16102:0crwdne16102:0"
   },
   "movedOnline": {
-    "fr": "Passé en ligne",
+    "fr": "Déplacé en ligne",
     "en": "Moved online",
     "it": "Oramai in linea",
     "oc": "Transferit en linha",
