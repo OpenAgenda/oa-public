@@ -175,7 +175,7 @@ On peut ensuite traduire les labels sur crowdin et lancer `node scripts/crowdin/
 
 ### Lorsqu'on a traduit des labels sur crowdin
 
-Il faut exécuter `node scripts/crowdin/dispach.js` dans oa pour récupérer les traductions.
+Il faut exécuter `node scripts/crowdin/dispatch.js` dans oa pour récupérer les traductions.
 
 ### Si on veut traduire des labels depuis les sources
 
