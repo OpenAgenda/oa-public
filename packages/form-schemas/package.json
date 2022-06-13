@@ -9,10 +9,9 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/form-schemas",
   "scripts": {
-    "stories": "start-storybook -p 9001 --ci",
+    "start": "start-storybook -p 9001 --ci",
     "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false",
     "prepack": "yarn build",
-    "start": "nodemon server.dev",
     "build": "rimraf client/build && babel client/src -d client/build -s"
   },
   "dependencies": {

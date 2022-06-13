@@ -2,11 +2,11 @@ import _ from 'lodash';
 
 import React, { useState } from 'react';
 
-import SimplePageDecorator from './decorators/SimplePage';
 import FormSchemaComponent from '../client/src/index';
 
-import WigglyPoofComponent from '../dev/client/custom/WigglyPoofComponent';
-import wigglypoofValidator from '../test/custom/wigglypoof.validator';
+import WigglyPoofComponent from './custom/WigglyPoofComponent';
+import wigglypoofValidator from './custom/wigglypoof.validator';
+import SimplePageDecorator from './decorators/SimplePage';
 
 import '@openagenda/bs-templates/compiled/main.css';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-module.exports = class WigglyPoofComponent extends Component {
+export default class WigglyPoofComponent extends Component {
 
   constructor( props ) {
 
