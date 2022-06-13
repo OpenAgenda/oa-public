@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
+<<<<<<< HEAD
 import FormSchemaComponent from '../client/src/index';
 import Options from '../client/src/FormSchemaBuilder/Options';
 import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
@@ -7,6 +8,14 @@ import SimpleRowDecorator from './decorators/SimpleRow';
 import eventLikeSchema from './fixtures/eventLikeSchema.json';
 import schemaWithCategories from './fixtures/schemaWithCategories.json';
 import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json';
+=======
+import eventLikeSchema from './fixtures/eventLikeSchema';
+import schemaWithCategories from './fixtures/schemaWithCategories';
+import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas';
+import FormSchemaComponent from '../client/src/index';
+import Options from '../client/src/FormSchemaBuilder/Options';
+import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
+>>>>>>> 1e17dd51d796e7923e1f32f48fd89721bda62a9c
 
 export default {
   title: 'Form builder',
