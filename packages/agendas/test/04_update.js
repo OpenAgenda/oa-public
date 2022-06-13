@@ -76,7 +76,7 @@ describe('agendas - functional (server): set (update)', function() {
         networkUid: null,
         settings: {
           lab: {
-            status: false
+            status: true
           },
           inbox: {
             mailto: {
@@ -235,7 +235,7 @@ describe('agendas - functional (server): set (update)', function() {
           image: null,
           settings: {
             lab: {
-              status: false
+              status: true
             },
             inbox: {
               mailto: {

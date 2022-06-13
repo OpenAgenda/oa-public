@@ -40,7 +40,7 @@
         "fields": {
           "status": {
             "type": "boolean",
-            "default": false
+            "default": true
           }
         }
       },

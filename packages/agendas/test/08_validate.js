@@ -35,7 +35,7 @@ describe('agendas - unit (server): validate', () => {
         locationSetUid: null,
         settings: {
           lab: {
-            status: false
+            status: true
           },
           inbox: {
             mailto: {
@@ -172,7 +172,7 @@ describe('agendas - unit (server): validate', () => {
         locationSetUid: null,
         settings: {
           lab: {
-            status: false
+            status: true
           },
           tracking: {
             googleAnalytics: null

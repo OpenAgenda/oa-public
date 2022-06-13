@@ -131,7 +131,7 @@ module.exports = [{
     fields: [{
       field: 'status',
       type: 'boolean',
-      default: false
+      default: true
     }]
   }, {
     field: 'inbox',
