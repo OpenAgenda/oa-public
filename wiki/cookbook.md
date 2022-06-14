@@ -187,6 +187,15 @@ On peut maintenant traduire ce qu'on veut.
 
 Puis depuis l'onglet "intégrations" de crowdin il faut lancer l'action `Upload Translations` manuellement pour oa et/ou oa-public. [Doc](https://support.crowdin.com/github-integration/#uploading-translations-from-repo)
 
+### Si on veut ajouter de nouveaux labels dans sources
+
+Dans les packages concernés, on a executé `yarn extract-messages` pour ajouter les nouveaux labels dans les fichiers de sources.
+On push
+Crowdin devrait récupérer les nouvelles sources.
+On traduit les nouveaux labels dans crowdin
+Puis `node scripts/crowdin/dispatch.js`
+
+
 ### Si on a modifié le pack
 
 ## redis
