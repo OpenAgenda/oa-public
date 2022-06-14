@@ -36,5 +36,6 @@
   "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": "Solo i campi aggiuntivi dell'agenda possono essere modificati qui.",
   "AgendaContribute.RequestEditionRights.requestEditionRights": "Chiedere il diritto di modificare questo evento",
   "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
-  "AgendaContribute.EventWasSuccessfullyShared.goTo": "Vedere l'evento in {agenda}"
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": "Vedere l'evento in {agenda}",
+  "AgendaContribute.ErrorMessage.title": "Titolo"
 }
