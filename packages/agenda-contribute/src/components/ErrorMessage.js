@@ -1,7 +1,10 @@
+import debug from 'debug';
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import errorMessages from '@openagenda/common-labels/errors';
 import getEventTitle from '../lib/getEventTitle';
+
+const log = debug('ErrorMessage');
 
 const messages = defineMessages({
   shareRestrictionInfo: {
@@ -35,8 +38,18 @@ const messages = defineMessages({
   timings: {
     id: 'AgendaContribute.ErrorMessage.timings',
     defaultMessage: 'Timings'
+  },
+  title: {
+    id: 'AgendaContribute.ErrorMessage.title',
+    defaultMessage: 'Title'
+  },
+  description: {
+    id: 'AgendaContribute.ErrorMessage.description',
+    defaultMessage: 'Description'
   }
 });
+
+const renderErrorLabel = ({ err, m }) => `${messages?.[err.field] ? m(messages[err.field]) : err.field}${err.lang ? ` (${err.lang.toUpperCase()})` : ''}`;
 
 export default function ErrorMessage({
   errors,
@@ -51,6 +64,8 @@ export default function ErrorMessage({
     formatMessage: m
   } = useIntl();
 
+  log('displaying errors %j', errors);
+
   return (
     <div className="error-summary boxed padding-v-md padding-h-md text-left margin-bottom-md">
       <strong>
@@ -62,7 +77,7 @@ export default function ErrorMessage({
       <ul className={canEditEvent ? 'padding-top-md padding-h-md' : 'padding-v-md padding-h-md'}>
         {errors.map(err => (
           <li>
-            <strong>{messages?.[err.field] ? m(messages[err.field]) : err.field}</strong>: {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
+            <strong>{renderErrorLabel({ err, m })}</strong>: {errorMessages?.[err.code] ? m(errorMessages[err.code]) : err.code}
           </li>
         ))}
       </ul>
