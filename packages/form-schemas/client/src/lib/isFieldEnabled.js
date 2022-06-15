@@ -1,14 +1,14 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
-const getWithFieldName = require('../iso/getWithFieldName');
-const isObject = require('../iso/isObject');
+import getWithFieldName from '../iso/getWithFieldName';
+import isObject from '../iso/isObject';
 
 const fileValueIsDefined = value => (
   ('originalName' in value)
   || ('filename' in value)
 );
 
-module.exports = (field, values, disabledForm = false) => {
+export default function isFieldEnabled(field, values, disabledForm = false) {
   if (disabledForm) return false;
 
   if (!field.enableWith) return true;
@@ -30,4 +30,4 @@ module.exports = (field, values, disabledForm = false) => {
   }
 
   return !!relatedFieldValue;
-};
+}
