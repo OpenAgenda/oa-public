@@ -92,35 +92,37 @@ export default class ImageField extends Component {
               {preview && (
                 <div className="center-button margin-bottom-sm">
                   <button type="button" className="btn btn-primary margin-all-sm">
-                    <label>{labels.update}</label>
+                    {labels.update}
                   </button>
                 </div>
               )}
               {preview && (
-                <img className="padding-all-sm" src={this.state.preview} />
+                <img alt="" className="padding-all-sm" src={preview} />
               )}
               {!preview && (
                 <div className="center-button margin-bottom-sm">
                   <button type="button" className="btn btn-primary">
-                    <label>{labels.upload}</label>
+                    {labels.upload}
                   </button>
                 </div>
               )}
               <span className="accepted-image-info">
-                {labels.acceptedExtensions}:&nbsp; .{[].concat(extensions).join(", .")}
+                {labels.acceptedExtensions}:&nbsp; .{[].concat(extensions).join(', .')}
               </span>
             </div>
           )}
         </Dropzone>
-        {value ? <a
-          onClick={this.onRemove}
-          className="btn btn-danger margin-all-sm remove-file"
-          title={labels.remove}>
-          <i className="fa fa-trash"></i>
-        </a> : null}
+        {value ? (
+          <button
+            type="button"
+            onClick={this.onRemove}
+            className="btn btn-danger margin-all-sm remove-file"
+            title={labels.remove}
+          >
+            <i className="fa fa-trash" />
+          </button>
+        ) : null}
       </div>
     );
-
   }
-
 }
