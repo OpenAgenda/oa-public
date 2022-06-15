@@ -361,18 +361,18 @@ export function RequiredConditional() {
 				label: 'Radio',
 				default: 1,
 				options: [{
-				id: 1,
-				label: 'Betelgeuse',
-				value: 'betelgeuse'
-			}, {
-				id: 2,
-				label: 'Chausson',
-				value: 'chausson'
-			}, {
-				id: 3,
-				label: 'Hydroxychloroquine',
-				value: 'hydroxychloroquine'
-			}]
+					id: 1,
+					label: 'Betelgeuse',
+					value: 'betelgeuse'
+				}, {
+					id: 2,
+					label: 'Chausson',
+					value: 'chausson'
+				}, {
+					id: 3,
+					label: 'Hydroxychloroquine',
+					value: 'hydroxychloroquine'
+				}]
 			}, {
 				field: 'moreconditioned',
 				fieldType: 'text',
@@ -420,6 +420,9 @@ export function RequiredConditional() {
 export function Dependents() {
 	const props = {
 		lang: 'fr',
+		values: {
+			image: '🦤'
+		},
 		schema: {
 			fields : [{
 				field: 'attendance',
@@ -429,15 +432,18 @@ export function Dependents() {
 				options: [{
 					id: 1,
 					label: 'Offline',
-					value: 'offline'
+					value: 'offline',
+					info: 'No fields are conditioned to this value.'
 				}, {
 					id: 2,
 					label: 'Online',
-					value: 'online'
+					value: 'online',
+					info: 'When selected, Online access link is enabled, location is optional'
 				}, {
 					id: 3,
 					label: 'Mixed',
-					value: 'mixed'
+					value: 'mixed',
+					info: 'When selected, online access link is enabled'
 				}]
 			}, {
 				field: 'location',
@@ -458,6 +464,12 @@ export function Dependents() {
 					field: 'attendance',
 					value: [2, 3]
 				}
+			}, {
+				field: 'image',
+				fieldType: 'text',
+				optional: true,
+				label: 'Pretend this is an image',
+				enabled: false
 			}]
 		}
 	};

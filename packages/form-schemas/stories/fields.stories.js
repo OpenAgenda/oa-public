@@ -9,7 +9,7 @@ if (module.hot) module.hot.accept();
 
 
 export default {
-  title: 'Form field types',
+  title: 'Field types',
   decorators: [SimplePageDecorator],
 };
 
