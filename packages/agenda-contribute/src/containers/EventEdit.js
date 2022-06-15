@@ -75,6 +75,8 @@ export default function EventEdit({
         res={`${apiRoot}${location.pathname}`}
         config={{
           ...config,
+          // when event cannot be edited, schema should exclude event fields
+          // but when event cannot be edited but has fields linked to extended fields, schema should load disabled event fields.
           schema: eventContext.me?.authorizations?.canEditEvent ? schema : schemaWithoutEventFields(schema)
         }}
         event={filterEventData({
