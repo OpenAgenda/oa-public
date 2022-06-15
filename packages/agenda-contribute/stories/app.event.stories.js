@@ -37,6 +37,11 @@ export const NewEventFormWithDefaults = componentFromFixtures(
   }, { addQueryPrefix: true })
 );
 
+export const NewEventFormWithTwoLanguageTabsOpened = componentFromFixtures(
+  'Contributor is shown event form with two language tabs opened',
+  103
+);
+
 export const EventCreateLeadsToCompletionStep = componentFromFixtures(
   'When event is created, contributor goes to completing step',
   103, qs.stringify({

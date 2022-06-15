@@ -196,6 +196,23 @@ storySets.NewEventFormWithDefaults = {
   }
 };
 
+const agenda103 = produce(basicDetailedAgenda, draft => {
+  const languagesField = draft.schema.fields.find(f => f.field === 'languages');
+  languagesField.default = ['fr', 'en'];
+  languagesField.display = true;
+  draft.uid = 103;
+});
+storySets.NewEventFormWithTwoLanguageTabsOpened = {
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  agenda: agenda103,
+  extraProps: {
+    lang: 'fr',
+    agenda: agenda103
+  }
+}
+
 storySets.EventCreateLeadsToCompletionStep = {
   agendaContext: produce(agendaContributorContext, draft => {
     draft.me.member.updatedAt = new Date();
