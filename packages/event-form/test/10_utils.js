@@ -44,6 +44,18 @@ describe('event-form utils unit tests', () => {
 
       expect(languages).toEqual(['en']);
     });
+
+    test('if no values are presented and default languages are defined, they are applied', () => {
+      const languages = extractLanguages({
+        fields: [{
+          field: 'languages',
+          fieldType: 'languages',
+          default: ['fr', 'en']
+        }]
+      }, {});
+
+      expect(languages).toEqual(['fr', 'en']);
+    });
   });
 
   describe('schemaLanguages', () => {
