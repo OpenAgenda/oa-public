@@ -38,7 +38,6 @@ module.exports = async (core, payload, clean, options = {}) => {
   } = {
     batched: false,
     aggregated: null,
-    paths: null,
     sourceAgenda: null,
     draft: false,
     access: 'public',
