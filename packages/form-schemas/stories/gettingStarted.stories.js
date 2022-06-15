@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ih from 'immutability-helper';
 import '@openagenda/bs-templates/compiled/main.css';
 
@@ -72,6 +72,49 @@ export function OneFieldWithDefaultValue() {
           lang="fr"
           schema={schema}
         />
+      </div>
+    </div>
+  );
+}
+
+export function OneDisabledFieldWithValue() {
+  const [values, setUpdatedValues] = useState({
+    disabledfield: 'This value is not editable'
+  });
+
+  const schema = {
+    fields: [{
+      field: 'disabledfield',
+      fieldType: 'text',
+      label: 'This field should be disabled',
+      enable: false
+    }]
+  };
+  return (
+    <div className="row">
+      <div className="col-sm-offset-2 col-sm-4">
+        <p>
+          <strong>Value of disabled field is in update and submitted payload.</strong>
+          &nbsp;(value should be visible on the right)
+        </p>
+        <div className="wsq padding-all-sm">
+          <FormSchemaComponent
+            lang="fr"
+            schema={schema}
+            values={{
+              disabledfield: 'This value is not editable'
+            }}
+            onUpdate={v => setUpdatedValues(v)}
+            onSubmit={({ clean }) => setUpdatedValues(clean)}
+          />
+        </div>
+      </div>
+      <div className="col-sm-4 padding-all-sm">
+        <pre className="wsq padding-all-sm">
+          <code>
+            {JSON.stringify(values, null, 2)}
+          </code>
+        </pre>
       </div>
     </div>
   );

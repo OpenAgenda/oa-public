@@ -4,7 +4,7 @@ import FormSchemaComponent from '../client/src/index';
 
 import WigglyPoofComponent from './custom/WigglyPoofComponent';
 import wigglypoofValidator from './custom/wigglypoof.validator';
-import SimplePageDecorator from './decorators/SimplePage';
+import SimplePageDecorator from './decorators/SimpleTransparentPage';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
@@ -418,7 +418,7 @@ export function RequiredConditional() {
   );
 }
 
-export function Dependents() {
+export function WithDependenciesBetweenFields() {
   const props = {
     lang: 'fr',
     values: {
@@ -470,7 +470,14 @@ export function Dependents() {
         fieldType: 'text',
         optional: true,
         label: 'Pretend this is an image',
-        enabled: false
+        info: 'This field is not enabled, it cannot be edited',
+        enable: false
+      }, {
+        field: 'alt',
+        fieldType: 'text',
+        label: 'Image alt',
+        info: 'This field is linked to the disabled field image. It should be enabled as the disabled image field has a value.',
+        enableWith: 'image'
       }]
     }
   };

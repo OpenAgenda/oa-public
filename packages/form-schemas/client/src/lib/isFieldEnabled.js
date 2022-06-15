@@ -11,6 +11,8 @@ const fileValueIsDefined = value => (
 export default function isFieldEnabled(field, values, disabledForm = false) {
   if (disabledForm) return false;
 
+  if (field.enable === false) return false;
+
   if (!field.enableWith) return true;
 
   const relatedFieldValue = _.get(values, getWithFieldName(field.enableWith));
