@@ -40,6 +40,7 @@ export default class FileField extends Component {
 
     return <div className="file-upload">
       <Dropzone
+        disabled={field.enable === false}
         accept={ '.' + extensions.join( ',.' ) }
         multiple={false}
         name={ name }

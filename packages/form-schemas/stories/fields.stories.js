@@ -813,6 +813,12 @@ export function ImageUploadField() {
         field: 'imageCredits',
         fieldType: 'text',
         enableWith: 'somerequiredimage'
+      }, {
+        field: 'somedisabledimage',
+        fieldType: 'image',
+        extensions: ['jpg'],
+        enable: false,
+        label: 'A disabled image field'
       }]
     }
   };
