@@ -1,11 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
-
 const ValidationError = require('./ValidationError');
 const isUnknownFormatException = error => (error?.jse_info?.uploadReason?.message || '').indexOf('no decode delegate for this image format') !== -1;
 
-module.exports = async (service, { image, fileKey }) => {
+module.exports = async function processImage(service, { image, fileKey }) {
   if (image?.filename && !('transformAndUpload' in image)) {
     return image;
   }
@@ -28,9 +26,15 @@ module.exports = async (service, { image, fileKey }) => {
   }
 
   const base = result.shift();
+  const timestamp = new Date().getTime();
 
   return {
-    ..._.pick(base, ['filename', 'size']),
-    variants: result.map(r => _.pick(r, ['filename', 'size', 'type']))
+    filename: `${base.filename}?_ts=${timestamp}`,
+    size: base.size,
+    variants: result.map(r => ({
+      filename: `${r.filename}?_ts=${timestamp}`,
+      size: r.size,
+      type: r.type
+    }))
   };
 }
