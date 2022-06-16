@@ -9,6 +9,9 @@ schema.register({ integer, text });
 const { BadRequest } = require('@openagenda/verror');
 
 const validate = schema({
+  slug: {
+    type: 'text'
+  },
   uid: {
     type: 'integer',
   },

@@ -17,6 +17,9 @@ const validate = schema({
   extId: {
     type: 'text',
   },
+  slug: {
+    type: 'text'
+  },
   uid: {
     type: 'integer',
   },
@@ -27,7 +30,7 @@ module.exports = async (service, k, deleted, query) => {
 
   try {
     Object.assign(cleanQuery, validate(query));
-    if (!cleanQuery.uid && !cleanQuery.extId) {
+    if (!cleanQuery.uid && !cleanQuery.extId && !cleanQuery.slug) {
       throw new Error('identifier is missing');
     }
   } catch (e) {
@@ -35,7 +38,7 @@ module.exports = async (service, k, deleted, query) => {
   }
 
   const {
-    setUid, agendaUid, uid, extId
+    setUid, agendaUid, uid, extId, slug
   } = cleanQuery;
 
   const agendaId = agendaUid
@@ -54,6 +57,8 @@ module.exports = async (service, k, deleted, query) => {
 
   if (extId) {
     k.where('ext_id', extId);
+  } else if (slug) {
+    k.where('slug', slug);
   } else {
     k.where('uid', uid);
   }

@@ -166,6 +166,11 @@ describe('agenda-locations - functional - get', () => {
       expect(location.uid).toBe(30433085);
     });
 
+    it('location can be fetched by its slug', async () => {
+      const location = await svc.get({ slug: 'saint-paul-le-jeune' });
+      expect(location.name).toBe('Saint-Paul-le-Jeune');
+    });
+
     it('uid can be provided as a string', async () => {
       const location = await svc.get('51665987');
 
