@@ -58,7 +58,10 @@
       <% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">
-      <span class="edge-selected"><%= __( 'actions' ) %></span>
+      <div class="edge-selected edge-head">
+        <div class="edge-head-title"><%= __( 'actions') %></div>
+        <div class="edge-head-info"><%= __('actionsInfo') %></div>
+      </div>
       <ul class="list-group js_dropdown_menu">
         <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">
 <% if ( event.featured ) { %>
@@ -76,7 +79,7 @@
           <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><label><%= __( 'duplicate' ) %></label><span><%= __('duplicateInfo') %></span></a>
         </li>
 <% if (useDetailedStatusActions) { %>
-        <li class="list-group-item w25">
+        <li class="list-group-item w25 divider">
           <a
             class="item <% if (event.status !== 1) { %>active<% } %> js_status display-none"
             href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=1` %>"
@@ -126,7 +129,7 @@
           <span><%= __('statusFullInfo') %></span>
         </a>
       </li>
-      <li class="list-group-item w25">
+      <li class="list-group-item w25 divider-bottom">
         <a
           class="item <% if (event.status !== 6) { %>active<% } %> js_status display-none"
           href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=6` %>"
@@ -137,7 +140,7 @@
         </a>
       </li>
 <% } else { %>
-        <li class="list-group-item w25">
+        <li class="list-group-item w25 divider divider-bottom">
           <a
             class="item active js_status display-none"
             href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}` %>"
