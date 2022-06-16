@@ -12,7 +12,9 @@ function RequiredSuperAdmin({
 }) {
   const history = useHistory();
 
-  if (![75052324, 99999999, 31046551].includes(extraProps.user?.uid)) {
+  if (
+    ![75052324, 99999999, 31046551, 87101680].includes(extraProps.user?.uid)
+  ) {
     history.replace('/home');
 
     return <Loading />;
