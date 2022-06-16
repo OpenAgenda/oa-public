@@ -97,10 +97,16 @@
     }
 
     .admin-nav {
+      height: 50px;
 
       .edge-link {
+        line-height: unset;
 
         &.center {
+          display: flex;
+          flex-direction: row;
+          height: 50px;
+          align-items: center;
 
           padding: 0 80px;
 
@@ -110,6 +116,18 @@
 
           }
 
+          @media screen and (max-width: 1660px) {
+            justify-content: center;
+            text-align: center;
+            .fa-list {
+              display: none;
+            }
+          }
+
+          @media screen and (max-width: 1200px) {
+            font-size: 0.9em;
+            padding: 0 40px;
+          }
         }
 
         &.nav-link {
@@ -150,10 +168,33 @@
 
           }
 
+          @media screen and (max-width: 1660px) {
+            padding: 0 10px;
+          }
+
         }
 
       }
 
+    }
+
+    .edge-head {
+      height: 50px;
+      line-height: unset;
+      .edge-head-title, .edge-head-info {
+        line-height: unset;
+        margin: 0;
+        padding: 0;
+      }
+      .edge-head-title {
+        padding-top: 5px;
+      }
+      .edge-head-info {
+        font-size: 0.9em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
   }
@@ -190,6 +231,17 @@
     background: transparent;
     border: none;
     padding: 0;
+
+    &.divider {
+      border-top: 1px solid $oa-gray-lighter;
+      padding-top: 8px;
+      margin-top: 10px; 
+    }
+    &.divider-bottom {
+      border-bottom: 1px solid $oa-gray-lighter;
+      margin-bottom: 8px;
+      padding-bottom: 10px; 
+    }
 
     .item {
 
@@ -328,6 +380,10 @@
 
     }
 
+    &:last-child {
+      padding-bottom: 10px;
+    }
+
   }
 
 
@@ -361,6 +417,10 @@
       position: absolute;
       right: 20px;
       top: 0;
+    }
+
+    &.edge-head:after {
+      top: 15px;
     }
 
     &:hover {
