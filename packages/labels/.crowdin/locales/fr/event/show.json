@@ -85,6 +85,7 @@
   "state": "Statut",
   "editLocation": "Editer le lieu",
   "actions": "Autres actions",
+  "actionsInfo": "Mise en une, annulation, report, duplication...",
   "activity": "Activité",
   "inbox": "Messagerie",
   "contactForm": "Formulaire de contact",

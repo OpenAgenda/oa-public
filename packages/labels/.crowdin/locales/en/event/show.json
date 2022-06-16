@@ -85,6 +85,7 @@
   "state": "State",
   "editLocation": "Edit location",
   "actions": "Other actions",
+  "actionsInfo": "Featured, cancellation, rescheduled, duplication...",
   "activity": "Activity",
   "inbox": "Inbox",
   "contactForm": "Contact form",

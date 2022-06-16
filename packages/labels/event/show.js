@@ -786,6 +786,10 @@ module.exports = {
     "br": "Oberoù",
     "io": "crwdns14588:0crwdne14588:0"
   },
+  "actionsInfo": {
+    "en": "Featured, cancellation, rescheduled, duplication...",
+    "fr": "Mise en une, annulation, report, duplication..."
+  },
   "activity": {
     "en": "Activity",
     "fr": "Activité",
