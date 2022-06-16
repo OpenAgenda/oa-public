@@ -789,5 +789,9 @@ module.exports = {
     "it": "Attivare i controlli dello stato dell'evento (cancellato, pieno, riprogrammato...)",
     "oc": "Activar los contròles d'estatut de l'eveniment (anullat, complèt, tornat programar...)",
     "io": "crwdns16072:0crwdne16072:0"
+  },
+  "eventStatusKnowMore": {
+    "fr": "En savoir plus",
+    "en": "Learn more"
   }
 }
