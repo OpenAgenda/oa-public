@@ -6,7 +6,6 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
-.eslintrc
 config/prod.js
 config/debug.namespaces.js
 dev.sh
