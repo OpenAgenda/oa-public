@@ -58,15 +58,11 @@ function create( req, res, next ) {
     const { core } = req.app.services;
 
     if (core) { // skip for testing
-      const { onlineEvents, statusField } = req.body;
+      const { onlineEvents } = req.body;
 
-      if (onlineEvents || statusField) {
+      if (onlineEvents) {
         const fields = defaultFields.map(v => {
           if (onlineEvents && (v.field === 'onlineAccessLink' || v.field === 'attendanceMode')) {
-            return { ...v, display: true };
-          }
-
-          if (statusField && v.field === 'status') {
             return { ...v, display: true };
           }
 

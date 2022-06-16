@@ -33,7 +33,7 @@ export default function LabSettingsForm() {
               <div className="checkbox">
                 <label>
                   <input {...input} />
-                  {getLabel('eventStatusDesc')}
+                  {getLabel('eventStatusDesc')}<br/><a target="_blank" href="https://doc.openagenda.com/les-etats-dun-evenement/">En savoir plus</a>
                 </label>
               </div>
             )}

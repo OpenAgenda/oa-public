@@ -126,25 +126,6 @@ export default function CreationSecondStep({
               />
             </span>
           </label>
-          <br />
-          <label>
-            <Field
-              name="statusField"
-              component="input"
-              type="checkbox"
-            />
-            <FormattedMessage
-              id="AgendaSettings.CreationSecondStep.statusField"
-              defaultMessage="Show status field (complete, postponed, cancelled) in the form"
-            />
-            <br />
-            <span className="text-muted">
-              <FormattedMessage
-                id="AgendaSettings.CreationSecondStep.statusFieldDesc"
-                defaultMessage="The state of the event can also be modified from the administration of the agenda"
-              />
-            </span>
-          </label>
         </div>
       </div>
       <button
