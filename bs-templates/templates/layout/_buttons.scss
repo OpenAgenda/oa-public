@@ -46,7 +46,7 @@
     // For Help link in header
     i {
       font-size: 1.2em;
-      vertical-align: text-bottom;
+      vertical-align: baseline;
     }
 
     @each $name, $color in (
