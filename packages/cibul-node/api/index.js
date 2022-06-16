@@ -225,6 +225,13 @@ module.exports = core => {
     next();
   });
 
+  app.param('locationSlug', (req, res, next) => {
+    req.locationIdentifier = {
+      slug: req.params.locationSlug
+    };
+    next();
+  });
+
   app.get('/locations/geocode', (req, res, next) => core.services.geocoder(req.query.address, {
     countryCode: req.query.countryCode,
     language: req.lang || 'fr'
@@ -257,7 +264,8 @@ module.exports = core => {
 
   app.get([
     '/agendas/:agendaUid/locations/:locationUid',
-    '/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/ext/:locationExtId',
+    '/agendas/:agendaUid/locations/slug/:locationSlug'
   ], [
     (req, res, next) => core
       .agendas(req.agenda.uid).locations

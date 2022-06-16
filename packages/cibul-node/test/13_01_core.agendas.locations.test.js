@@ -483,6 +483,38 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         expect(location.uid).toBe(95455142);
       });
+
+      it('location chan be fetched using a slug', async () => {
+        const getResponse = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          headers: {
+            'content-type': 'application/json'
+          },
+        });
+
+        const {
+          location
+        } = getResponse.data;
+
+        expect(location.uid).toBe(95455142);
+      });
+
+      it('location chan be fetched using an extId', async () => {
+        const getResponse = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          headers: {
+            'content-type': 'application/json'
+          },
+        });
+
+        const {
+          location
+        } = getResponse.data;
+
+        expect(location.uid).toBe(24505639);
+      });
     });
 
     describe('successful list', () => {
