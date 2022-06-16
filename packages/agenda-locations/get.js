@@ -1,6 +1,7 @@
 'use strict';
 
 const { BadRequest, NotFound } = require('@openagenda/verror');
+const logs = require('@openagenda/logs');
 const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
@@ -9,7 +10,8 @@ const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 const legacy = require('./lib/legacy');
 const getMergedLocation = require('./lib/getMergedLocation');
-const log = require('@openagenda/logs')('get');
+
+const log = logs('get');
 
 async function get({ internals, endpoints }, identifiers, options = {}) {
   log('received %j %j', identifiers, options);
