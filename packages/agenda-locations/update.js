@@ -1,6 +1,7 @@
 'use strict';
 
 const { NotFound } = require('@openagenda/verror');
+const logs = require('@openagenda/logs');
 
 const cleanOptions = require('./lib/cleanSetOptions');
 const get = require('./get');
@@ -8,7 +9,8 @@ const validate = require('./lib/validate');
 const authorize = require('./lib/authorize');
 const preCleanBeforeUpdate = require('./lib/preCleanBeforeUpdate');
 const legacy = require('./lib/legacy');
-const log = require('@openagenda/logs')('update');
+
+const log = logs('update');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
