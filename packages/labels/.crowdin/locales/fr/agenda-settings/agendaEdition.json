@@ -94,5 +94,6 @@
   "statsDescription": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",
   "lab": "Lab",
   "labTabDescription": "Utilisez les fonctionnalités disponibles en version bêta",
-  "eventStatusDesc": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)"
+  "eventStatusDesc": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)",
+  "eventStatusKnowMore": "En savoir plus"
 }
