@@ -1,0 +1,77 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "title": {
+        "fr": "Moteur"
+      },
+      "state": 2,
+      "timings": [{
+        "begin": "2030-01-01T08:00:00+0200",
+        "end": "2030-01-01T09:00:00+0200"
+      }],
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "ii": false
+      }
+    },
+    {
+      "uid": 2,
+      "title": {
+        "fr": "Visuel et Auditif"
+      },
+      "state": 2,
+      "timings": [{
+        "begin": "2030-01-01T10:00:00+0200",
+        "end": "2030-01-01T11:00:00+0200"
+      }],
+      "accessibility": {
+        "mi": false,
+        "hi": true,
+        "pi": false,
+        "vi": true,
+        "ii": false
+      }
+    },
+    {
+      "uid": 3,
+      "title": {
+        "fr": "Psychique et intellectuel"
+      },
+      "state": 2,
+      "timings": [{
+        "begin": "2030-01-01T19:00:00+0200",
+        "end": "2030-01-01T20:00:00+0200"
+      }],
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "ii": true
+      }
+    },
+    {
+      "uid": 4,
+      "title": {
+        "fr": "Auditif"
+      },
+      "state": 2,
+      "timings": [{
+        "begin": "2042-06-11T14:00:00+02:00",
+        "end": "2042-06-11T18:00:00+02:00"
+      }],
+      "accessibility": {
+        "mi": false,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "ii": false
+      }
+    }
+  ]
+}

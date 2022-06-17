@@ -36,6 +36,12 @@ const validate = schema({
     type: 'text',
     list: true
   },
+  accessibility: {
+    type: 'text',
+    min: 2,
+    max: 2,
+    list: true
+  },
   lang: {
     type: 'text',
     list: true

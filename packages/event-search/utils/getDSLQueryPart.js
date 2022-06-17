@@ -247,6 +247,15 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
     }
   });
 
+  // accessibility constraints
+  if (cleanQuery.accessibility?.length) {
+    parts.push(_mustPart(
+      'terms',
+      '_search_keywords', 
+      cleanQuery.accessibility.map(a => `accessibility.${a}`)
+    ));
+  }
+
   // add bounds constraints
   if (
     _.get(cleanQuery, 'geo.northEast.lat')

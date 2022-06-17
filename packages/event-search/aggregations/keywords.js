@@ -3,7 +3,8 @@
 module.exports.formatDSL = (query, options = {}) => ({
   terms: {
     field: '_search_keywords',
-    size: options.size
+    size: options.size,
+    exclude: 'accessibility.*',
   }
 });
 

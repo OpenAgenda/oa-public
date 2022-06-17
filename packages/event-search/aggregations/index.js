@@ -36,6 +36,7 @@ const aggregationTypes = {
   createdAt: timestamp('createdAt'),
   updatedAt: timestamp('_exclusiveUpdatedAt'),
   createdOrUpdatedAt: timestamp('updatedAt'),
+  accessibilities: require('./accessibilities'),
   missingAdditionalFields
 }
 

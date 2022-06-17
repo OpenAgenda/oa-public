@@ -4,6 +4,7 @@ const { produce } = require('immer');
 const assert = require('assert');
 const should = require('should');
 const formatEvent = require('../utils/formatEvent');
+const _ = require('lodash');
 
 describe('11 - event-search - unit: formatEvent', function() {
 
@@ -56,6 +57,15 @@ describe('11 - event-search - unit: formatEvent', function() {
       longitude: 2.2836904,
       timezone: 'Europe/Paris'
     },
+    keywords: {
+      fr: ['jazz', 'restaurant', 'diner', 'theatre'],
+      en: ['jazz', 'theater']
+    },
+    accessilibity: {
+      vi: false,
+      hi: true,
+      ii: true
+    },
     timings: [{
       begin: new Date('2020-01-18T10:05:00+0100'),
       end: new Date('2020-01-18T18:30:00+0100')
@@ -102,7 +112,6 @@ describe('11 - event-search - unit: formatEvent', function() {
       'location.adminLevel5',
       'location.district',
       'description',
-      'keywords',
       'member',
       'someAdditionalOptions'
     ]);
@@ -130,6 +139,18 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('_search_last_timing hold the end of the last timing', () => {
     formatted['_search_last_timing'].getTime().should.equal(event.timings[1].end.getTime());
+  });
+
+  it('_search_keywords includes keywords from all languages', () => {
+    for (const keyword of ['jazz', 'restaurant', 'diner', 'theatre', 'theater']) {
+      formatted['_search_keywords'].flat().includes(keyword).should.equal(true);
+    }
+  });
+
+  it('_search_keywords includes accessibility keys', () => {
+    for (const accKey of ['accessibility.hi', 'accessibility.ii']) {
+      formatted['_search_keywords'].flat().includes(accKey);
+    }
   });
 
   it('registration should be indexed with a type', () => {

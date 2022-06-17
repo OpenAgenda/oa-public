@@ -109,8 +109,18 @@ module.exports = produce((event, options = {}) => {
     event['_search_empty_fields'].push('description');
   }
 
+  event['_search_keywords'] = [];
+  
+  if (Object.keys(event.accessibility ?? {}).length) {
+    event['_search_keywords'].push([
+      Object.keys(event.accessibility ?? {})
+        .filter(a => !!event.accessibility[a])
+        .map(a => `accessibility.${a}`)
+    ]);
+  } 
+
   if (multilingualFieldHasValue(event.keywords)) {
-    event['_search_keywords'] = Object.values(event.keywords);
+    event['_search_keywords'] = event['_search_keywords'].concat(Object.values(event.keywords));
     event['_search_keywords_text'] = Object.values(event.keywords);
   } else {
     event['_search_empty_fields'].push('keywords');
