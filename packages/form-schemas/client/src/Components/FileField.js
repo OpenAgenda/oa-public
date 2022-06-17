@@ -28,6 +28,9 @@ export default class FileField extends Component {
   }
 
   render() {
+    const {
+      field,
+    } = this.props;
 
     const labels = flattenLabels( multilingualLabels, this.props.lang );
 
@@ -36,7 +39,7 @@ export default class FileField extends Component {
       placeholder,
       extensions,
       store
-    } = this.props.field;
+    } = field;
 
     return <div className="file-upload">
       <Dropzone
