@@ -44,8 +44,8 @@ const UpdateForm = ({
   const { settings } = useSettings(agenda);
   const { locationUid } = useParams();
   const historyLocation = useLocation();
-  const nq = historyLocation.state;
   const prefix = completedPrefix(agenda, useSelector(state => state.settings.prefix));
+  const nq = historyLocation.state || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
   const { isLoading, data: location } = useQuery(['location', locationUid], () => (
     axios.get(res.get.replace(':locationUid', locationUid), {}).then(response => {
       return response.data.location;
