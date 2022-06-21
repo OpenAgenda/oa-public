@@ -378,8 +378,9 @@ function Dashboard() {
                   />
                 </div>
                 <div className="checkbox">
-                  <label htmlFor="checkbox">
+                  <label htmlFor="state-filter-checkbox">
                     <input
+                      id="state-filter-checkbox"
                       type="checkbox"
                       onChange={() => {
                         if (search.state) removeFilter('state');
