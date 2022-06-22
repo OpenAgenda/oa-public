@@ -174,7 +174,7 @@ position: relative;
 }
 
 .rdrDayNumber span {
-color: $body-color;
+color: $body-color-with-selection;
 }
 
 .rdrDayDisabled {
@@ -182,9 +182,9 @@ cursor: not-allowed;
 }
 
 @supports (-ms-ime-align: auto) {
-.rdrDay {
+    .rdrDay {
     flex-basis: 14.285% !important;
-}
+    }
 }
 
 .rdrSelected,
@@ -275,7 +275,7 @@ margin: 0.833em;
 }
 
 .rdrDateDisplayItem {
-border-radius: 4px;
+border-radius: $header-item-border-radius;
 background-color: $header-item-bg;
 box-shadow: 0 1px 2px 0 rgba(35, 57, 66, 0.21);
 border: $header-item-border;
@@ -350,7 +350,7 @@ min-width: 24px;
 height: 24px;
 padding: 0;
 border: 1px solid $arrow-border;
-border-radius: 5px;
+border-radius: $arrow-radius;
 background: $arrow-bg;
 }
 
@@ -421,7 +421,7 @@ padding: 5px 0;
 line-height: 3em;
 height: 3em;
 text-align: center;
-color: $body-color;
+color: $body-color-with-selection;
 }
 
 .rdrDay.rdrDayPassive {
@@ -450,6 +450,7 @@ justify-content: center;
 
 .rdrDayToday .rdrDayNumber span {
 font-weight: $today-weight;
+color: $today-color-not-selected;
 }
 
 .rdrDayToday .rdrDayNumber span:after {
@@ -472,11 +473,18 @@ background: $today-content-bg;
 background: $today-content-selected;
 }
 
+.rdrDayToday:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
+.rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+.rdrDayToday:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
+.rdrDayToday:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+color: $today-color-selected!important;
+}
+
 .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
 .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
 .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
 .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-color: $body-color-selected;
+    color: $body-color-selected;
 }
 
 .rdrSelected,
@@ -501,57 +509,74 @@ right: 2px;
 }
 
 .rdrStartEdge {
-border-top-left-radius: 1.042em;
-border-bottom-left-radius: 1.042em;
-left: 2px;
+border-top-left-radius: $body-selected-radius;
+border-bottom-left-radius: $body-selected-radius;
+left: 0px;
 }
 
 .rdrEndEdge {
-border-top-right-radius: 1.042em;
-border-bottom-right-radius: 1.042em;
-right: 2px;
+border-top-right-radius: $body-selected-radius;
+border-bottom-right-radius: $body-selected-radius;
+right: 0px;
 }
 
 .rdrSelected {
-border-radius: 1.042em;
+border-radius: $body-selected-radius;
 }
 
 .rdrDayStartOfMonth .rdrInRange,
 .rdrDayStartOfMonth .rdrEndEdge,
 .rdrDayStartOfWeek .rdrInRange,
 .rdrDayStartOfWeek .rdrEndEdge {
-border-top-left-radius: 1.042em;
-border-bottom-left-radius: 1.042em;
-left: 2px;
+border-top-left-radius: $body-selected-radius;
+border-bottom-left-radius: $body-selected-radius;
+left: 0px;
 }
 
-.rdrDayEndOfMonth .rdrInRange,
-.rdrDayEndOfMonth .rdrStartEdge,
+.rdrDayEndOfWeek .rdrStartEdge,
 .rdrDayEndOfWeek .rdrInRange,
-.rdrDayEndOfWeek .rdrStartEdge {
-border-top-right-radius: 1.042em;
-border-bottom-right-radius: 1.042em;
-right: 2px;
+.rdrDayEndOfWeek .rdrEndEdge,
+.rdrDayEndOfMonth .rdrInRange,
+.rdrDayEndOfMonth .rdrEndEdge {
+border-top-right-radius: $body-selected-radius;
+border-bottom-right-radius: $body-selected-radius;
+right: 0px;
 }
 
+.rdrDayStartOfMonth .rdrDayStartPreview,
 .rdrDayStartOfMonth .rdrDayInPreview,
-.rdrDayStartOfMonth .rdrDayEndPreview,
+.rdrDayStartOfMonth .rdrDayEndPreview {
+border-top-left-radius: $body-preview-radius;
+border-bottom-left-radius: $body-preview-radius;
+border-left-width: 1px;
+left: 0px;
+}
+
+.rdrDayEndOfMonth .rdrDayStartPreview,
+.rdrDayEndOfMonth .rdrDayInPreview,
+.rdrDayEndOfMonth .rdrDayEndPreview {
+border-top-right-radius: $body-preview-radius;
+border-bottom-right-radius: $body-preview-radius;
+border-right-width: 1px;
+right: 0px;
+}
+
+.rdrDayStartOfWeek .rdrDayStartPreview,
 .rdrDayStartOfWeek .rdrDayInPreview,
 .rdrDayStartOfWeek .rdrDayEndPreview {
-border-top-left-radius: 1.333em;
-border-bottom-left-radius: 1.333em;
+border-top-left-radius: $body-preview-radius;
+border-bottom-left-radius: $body-preview-radius;
 border-left-width: 1px;
-left: 2px;
+left: 0px;
 }
 
-.rdrDayEndOfMonth .rdrDayInPreview,
-.rdrDayEndOfMonth .rdrDayStartPreview,
+.rdrDayEndOfWeek .rdrDayStartPreview,
 .rdrDayEndOfWeek .rdrDayInPreview,
-.rdrDayEndOfWeek .rdrDayStartPreview {
-border-top-right-radius: 1.333em;
-border-bottom-right-radius: 1.333em;
+.rdrDayEndOfWeek .rdrDayEndPreview {
+border-top-right-radius: $body-preview-radius;
+border-bottom-right-radius: $body-preview-radius;
 border-right-width: 1px;
-right: 2px;
+right: 0px;
 }
 
 .rdrDayStartPreview,
@@ -572,9 +597,9 @@ z-index: 1;
 border-top-width: 1px;
 border-left-width: 1px;
 border-bottom-width: 1px;
-border-top-left-radius: 1.333em;
-border-bottom-left-radius: 1.333em;
-left: 2px;
+border-top-left-radius: $body-preview-radius;
+border-bottom-left-radius: $body-preview-radius;
+
 }
 
 .rdrDayInPreview {
@@ -586,9 +611,9 @@ border-bottom-width: 1px;
 border-top-width: 1px;
 border-right-width: 1px;
 border-bottom-width: 1px;
-border-top-right-radius: 1.333em;
-border-bottom-right-radius: 1.333em;
-right: 2px;
+border-top-right-radius: $body-preview-radius;
+border-bottom-right-radius: $body-preview-radius;
+right: 0px;
 }
 
 .rdrDefinedRangesWrapper {
@@ -714,31 +739,39 @@ padding: 0.833em;
 display: none;
 }
 
-.rdrDayEndOfWeek {
-border-top-right-radius: 1.333em;
-border-bottom-right-radius: 1.333em;
-right: 2px;
+.rdrDayEndOfWeek,
+.rdrDayEndOfMonth {
+border-top-right-radius: $body-bg-radius;
+border-bottom-right-radius: $body-bg-radius;
+right: 0px;
 }
 
-.rdrDayStartOfWeek {
-border-top-left-radius: 1.333em;
-border-bottom-left-radius: 1.333em;
-left: 2px;
+.rdrDayStartOfWeek,
+.rdrDayStartOfMonth {
+border-top-left-radius: $body-bg-radius;
+border-bottom-left-radius: $body-bg-radius;
+left: 0px;
 }
 
 .rdrNoSelection {
-.rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge {
-    background: #fff;
-}
+    .rdrSelected, .rdrInRange, .rdrStartEdge, .rdrEndEdge {
+        background: #fff;
+    }
 
-.rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
-.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-    color: $body-color;
-
+    .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
+    .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
+    .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
+    .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
         &:after {
         background: $body-selected-bg;
         }
     }
+}
+
+.rdrNoSelection .rdrDay:not(.rdrDayPassive) .rdrDayNumber span {
+  color: $body-color-no-selection;
+}
+
+.rdrNoSelection .rdrDayToday .rdrDayNumber span {
+    color:$today-color-not-selected!important;
 }
