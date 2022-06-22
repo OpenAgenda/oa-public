@@ -12,6 +12,7 @@ $header-wrapper-bg: none;
 
 $header-item-bg:rgb(255, 255, 255);
 $header-item-border: 1px solid transparent;
+$header-item-border-radius: 4px;
 
 $header-placeholder: #849095;
 
@@ -31,7 +32,8 @@ $month-year-weight: 0;
 $month-year-size: $size;
 
 $arrow-bg: #fff;
-$arrow-border: transparent;
+$arrow-border: #fae207;
+$arrow-radius: 5px;
 
 // Week
 $week-color: rgb(132, 144, 149);
@@ -39,21 +41,32 @@ $week-weight: 400;
 $week-size: $size;
 
 // Body
-$body-color: #413a42 !default;
-$body-color-selected: rgba(255, 255, 255, 0.85);
+$body-color-no-selection: #413a42;
+$body-color-with-selection: #a1a1a1;
+
 $body-bg: #fff;
-$body-selected-bg: #e64818 !default;
+$body-bg-radius: 1.333em;
+
+$body-color-selected: rgba(255, 255, 255, 0.85);
+$body-selected-bg: #e64818;
+$body-selected-radius: 1.042em;
+
+$body-preview-radius: 1.333em;
+
 $body-size: $size;
 
 // Preview
-$preview-bg: rgba(255, 255, 255, 0.09);
+$preview-bg: transparent;
 
 // Today
 $today-weight: 500;
 
+$today-color-not-selected:#e64818;
+$today-color-selected:#fae207;
+
+$today-content-selected: #fae207;
 $today-content: "";
-$today-content-bg:#fae207;
-$today-content-selected: #fff;
+$today-content-bg:#e64818;
 
 // Disabled dates
 $passive-bg: transparent;
