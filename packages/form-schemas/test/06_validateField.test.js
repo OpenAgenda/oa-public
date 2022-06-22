@@ -1,25 +1,21 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const should = require('should');
-const assert = require('assert');
 
 const iso = require('../iso');
 
-const customValidator = require('./custom/wigglypoof.validator.js');
+const customValidator = require('../stories/custom/wigglypoof.validator');
 
 describe('form-schemas -06- validateField', () => {
-
   describe('simple cases', () => {
-
     it('validates a text field definition', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'atextfield',
         fieldType: 'text',
         label: {
           fr: 'Un champ texte'
         }
-      }).should.eql({
+      })).toStrictEqual({
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
         info: null,
@@ -37,39 +33,42 @@ describe('form-schemas -06- validateField', () => {
         helpContent: null,
         fieldType: 'text',
         origin: null,
-        enableWith : null,
+        enableWith: null,
         related: {
           enable: [],
           optional: []
         },
-        default: undefined
+        default: undefined,
+        constraints: undefined,
+        selfHandled: [],
+        enable: true
       });
     });
 
     it('field labels can be strings', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'atextfield',
         fieldType: 'text',
         label: 'Un champ texte'
-      }).label.should.equal('Un champ texte');
+      }).label).toBe('Un champ texte');
     });
 
     it('validates a multilingual text field definition', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'amultilingualtextfield',
         fieldType: 'text',
-        languages: [ 'fr', 'en', 'it' ],
+        languages: ['fr', 'en', 'it'],
         label: {
           fr: 'Un champ texte multilingue'
         }
-      }).should.eql({
+      })).toStrictEqual({
         field: 'amultilingualtextfield',
         label: { fr: 'Un champ texte multilingue' },
         info: null,
         placeholder: null,
         sub: null,
-        help : null,
-        helpLink : null,
+        help: null,
+        helpLink: null,
         helpContent: null,
         write: null,
         read: null,
@@ -77,21 +76,24 @@ describe('form-schemas -06- validateField', () => {
         optionalWith: null,
         display: true,
         origin: null,
-        languages: [ 'fr', 'en', 'it' ],
+        languages: ['fr', 'en', 'it'],
         min: null,
         max: null,
-        fieldType: 'text' ,
-        enableWith : null,
+        fieldType: 'text',
+        enableWith: null,
         related: {
           enable: [],
           optional: []
         },
-        default: undefined
+        default: undefined,
+        constraints: undefined,
+        selfHandled: [],
+        enable: true
       });
     });
 
     it('validates a radio field definition', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'anoptionlist',
         fieldType: 'radio',
         label: { fr: 'Choix multiples' },
@@ -103,14 +105,14 @@ describe('form-schemas -06- validateField', () => {
           label: { fr: 'Deux' }
         }],
         origin: null
-      }).should.eql({
+      })).toStrictEqual({
         field: 'anoptionlist',
         label: { fr: 'Choix multiples' },
         info: null,
         placeholder: null,
         sub: null,
-        help : null,
-        helpLink : null,
+        help: null,
+        helpLink: null,
         helpContent: null,
         read: null,
         write: null,
@@ -118,26 +120,41 @@ describe('form-schemas -06- validateField', () => {
         optionalWith: null,
         display: true,
         options: [
-          { id: undefined, value: '1', label: { fr: 'Un' }, display: true, info: null },
-          { id: undefined, value: '2', label: { fr: 'Deux' }, display: true, info: null }
+          {
+            id: undefined,
+            value: '1',
+            label: { fr: 'Un' },
+            display: true,
+            info: null
+          },
+          {
+            id: undefined,
+            value: '2',
+            label: { fr: 'Deux' },
+            display: true,
+            info: null
+          }
         ],
         fieldType: 'radio',
         origin: null,
-        enableWith : null,
+        enableWith: null,
         related: {
           enable: [],
           optional: []
         },
-        default: undefined
+        default: undefined,
+        constraints: undefined,
+        selfHandled: [],
+        enable: true
       });
     });
 
     it('radio field definition can be monolingual', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'anoptionlist',
         fieldType: 'radio',
         label: 'Choix multiples',
-        options: [ {
+        options: [{
           id: 1,
           value: '1',
           label: 'Un'
@@ -145,26 +162,25 @@ describe('form-schemas -06- validateField', () => {
           id: 2,
           value: '2',
           label: 'Deux'
-        } ],
+        }],
         origin: null
-      }).options.should.eql([ {
-          id: 1,
-          value: '1',
-          label: { en: 'Un' },
-          display: true,
-          info: null
-        }, {
-          id: 2,
-          value: '2',
-          label: { en: 'Deux' },
-          display: true,
-          info: null
-        } ]);
+      }).options).toStrictEqual([{
+        id: 1,
+        value: '1',
+        label: { en: 'Un' },
+        display: true,
+        info: null
+      }, {
+        id: 2,
+        value: '2',
+        label: { en: 'Deux' },
+        display: true,
+        info: null
+      }]);
     });
 
-
     it('validates a text field that includes min and max', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'atextfield',
         fieldType: 'textarea',
         label: { fr: 'Un champ de texte libre' },
@@ -172,14 +188,14 @@ describe('form-schemas -06- validateField', () => {
         min: 3,
         max: 10,
         origin: null
-      }).should.eql({
+      })).toStrictEqual({
         field: 'atextfield',
         label: { fr: 'Un champ de texte libre' },
         info: { fr: 'Avec un détail explicatif' },
-        placeholder : null,
+        placeholder: null,
         sub: null,
-        help : null,
-        helpLink : null,
+        help: null,
+        helpLink: null,
         helpContent: null,
         read: null,
         write: null,
@@ -190,18 +206,20 @@ describe('form-schemas -06- validateField', () => {
         max: 10,
         fieldType: 'textarea',
         origin: null,
-        enableWith : null,
+        enableWith: null,
         related: {
           enable: [],
           optional: []
         },
-        default: undefined
+        default: undefined,
+        constraints: undefined,
+        selfHandled: [],
+        enable: true
       });
     });
 
-
     it('validate a field requiring a custom validator', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'acustomfield',
         fieldType: 'someCustomType',
         label: {
@@ -211,14 +229,14 @@ describe('form-schemas -06- validateField', () => {
         custom: {
           someCustomType: customValidator
         }
-      }).should.eql({
+      })).toStrictEqual({
         field: 'acustomfield',
         label: { fr: 'Un champ au type personnalisé' },
         info: null,
         placeholder: null,
         sub: null,
-        help : null,
-        helpLink : null,
+        help: null,
+        helpLink: null,
         helpContent: null,
         write: null,
         read: null,
@@ -229,69 +247,70 @@ describe('form-schemas -06- validateField', () => {
         fieldType: 'someCustomType',
         min: null,
         max: null,
-        enableWith : null,
+        enableWith: null,
         related: {
           enable: [],
           optional: []
         },
-        default: undefined
+        default: undefined,
+        constraints: undefined,
+        selfHandled: [],
+        enable: true
       });
     });
 
     it('validate a field with labels specified only in one language', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'afield',
         fieldType: 'text',
         label: 'A monolingual label',
-      }, { defaultLabelLanguage: 'fr' }).label
-      .should.eql({
-        fr: 'A monolingual label'
-      });
+      }, { defaultLabelLanguage: 'fr' }).label)
+        .toStrictEqual({
+          fr: 'A monolingual label'
+        });
     });
 
     it('abstract fields do not have required values', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'afield',
         fieldType: 'abstract',
         optional: false
-      }).should.eql({
+      })).toStrictEqual({
         field: 'afield',
         optional: false,
         fieldType: 'abstract'
       });
     });
 
-
     it(
       'a field with an enableWith value set will have the value added to the related fields list',
       () => {
-        assert.deepEqual(iso.validateField({
+        expect(iso.validateField({
           field: 'afield',
           fieldType: 'text',
           label: 'A label',
           enableWith: 'anotherfield'
-        }).related, { enable: ['anotherfield'], optional: [] });
+        }).related).toStrictEqual({ enable: ['anotherfield'], optional: [] });
       }
     );
 
     it('enableWith can be an object', () => {
       const field = iso.validateField({
-        "field": "textfield",
-        "fieldType": "text",
-        "optional": false,
-        "label": "Write in that",
-        "info": "Activated if \"Or that\" value is checked",
-        "enableWith": {
-          "field": "checkboxes",
-          "value": 2
+        field: 'textfield',
+        fieldType: 'text',
+        optional: false,
+        label: 'Write in that',
+        info: 'Activated if "Or that" value is checked',
+        enableWith: {
+          field: 'checkboxes',
+          value: 2
         }
       }, {
-        "custom":null,
-        "defaultLabelLanguage": "fr",
-        "requireLabels":true
+        custom: null,
+        defaultLabelLanguage: 'fr',
+        requireLabels: true
       });
-
-      assert.deepEqual(field.enableWith, {
+      expect(field.enableWith).toStrictEqual({
         field: 'checkboxes',
         value: 2
       });
@@ -299,27 +318,24 @@ describe('form-schemas -06- validateField', () => {
   });
 
   describe('read and write field values', () => {
-
     it('defaults are null', () => {
-      _.pick(iso.validateField({
+      expect(_.pick(iso.validateField({
         field: 'afield',
         fieldType: 'text',
         label: 'A label',
-      }), [ 'write', 'read' ]).should.eql({
+      }), ['write', 'read'])).toStrictEqual({
         read: null,
         write: null
       });
     });
 
     it('multiple values can be specified', () => {
-      iso.validateField({
+      expect(iso.validateField({
         field: 'f',
         fieldType: 'text',
         label: 'alabel',
-        read: [ 'steve', 'janine' ]
-      }).read.should.eql([ 'steve', 'janine' ]);
+        read: ['steve', 'janine']
+      }).read).toStrictEqual(['steve', 'janine']);
     });
-
   });
-
 });

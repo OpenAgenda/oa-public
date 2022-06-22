@@ -1,11 +1,10 @@
-import should from 'should';
-import restrictLabelLanguages from '../client/src/FormSchemaBuilder/lib/restrictLabelLanguages';
+'use strict';
 
-describe( '16 - unit - restrictLabelLanguages', () => {
+const restrictLabelLanguages = require('../client/src/FormSchemaBuilder/lib/restrictLabelLanguages');
 
+describe('16 - unit - restrictLabelLanguages', () => {
   it('restricts labels of field to given set of languages', () => {
-
-    restrictLabelLanguages( {
+    expect(restrictLabelLanguages({
       label: {
         fr: 'Titre',
         en: 'Title'
@@ -15,7 +14,7 @@ describe( '16 - unit - restrictLabelLanguages', () => {
         en: 'Info about the title'
       },
       fieldType: 'text'
-    }, [ 'fr', 'es' ] ).should.eql( {
+    }, ['fr', 'es'])).toStrictEqual({
       label: {
         fr: 'Titre',
         es: 'Titre'
@@ -25,13 +24,11 @@ describe( '16 - unit - restrictLabelLanguages', () => {
         es: 'Info sur le titre'
       },
       fieldType: 'text'
-    } );
-
+    });
   });
 
   it('turns multilingual to monolingual', () => {
-
-    restrictLabelLanguages( {
+    expect(restrictLabelLanguages({
       label: {
         fr: 'Titre',
         en: 'Title'
@@ -41,21 +38,19 @@ describe( '16 - unit - restrictLabelLanguages', () => {
         en: 'Info about the title'
       },
       fieldType: 'text'
-    } ).should.eql( {
+    })).toStrictEqual({
       label: 'Titre',
       info: 'Info sur le titre',
       fieldType: 'text'
-    } );
-
+    });
   });
 
   it('turns monolingual to multilingual', () => {
-
-    restrictLabelLanguages( {
+    expect(restrictLabelLanguages({
       label: 'Titre',
       info: 'Info sur le titre',
       fieldType: 'text'
-    }, [ 'fr', 'es' ] ).should.eql( {
+    }, ['fr', 'es'])).toStrictEqual({
       label: {
         fr: 'Titre',
         es: 'Titre'
@@ -65,14 +60,12 @@ describe( '16 - unit - restrictLabelLanguages', () => {
         es: 'Info sur le titre'
       },
       fieldType: 'text'
-    } );
-
+    });
   });
 
   it('apply restrict languages to schema', () => {
-
-    restrictLabelLanguages.applyToSchema( {
-      fields: [ {
+    expect(restrictLabelLanguages.applyToSchema({
+      fields: [{
         label: 'Titre',
         field: 'title',
         fieldType: 'text'
@@ -80,9 +73,9 @@ describe( '16 - unit - restrictLabelLanguages', () => {
         label: 'Description',
         field: 'description',
         fieldType: 'text'
-      } ]
-    }, [ 'fr' ] ).should.eql( {
-      fields: [ {
+      }]
+    }, ['fr'])).toStrictEqual({
+      fields: [{
         label: {
           fr: 'Titre'
         },
@@ -94,9 +87,7 @@ describe( '16 - unit - restrictLabelLanguages', () => {
         },
         field: 'description',
         fieldType: 'text'
-      } ]
-    } );
-
+      }]
+    });
   });
-
-} );
+});

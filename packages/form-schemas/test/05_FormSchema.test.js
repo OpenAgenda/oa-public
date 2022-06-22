@@ -1,30 +1,24 @@
 'use strict';
 
-const should = require('should');
-
-const customValidator = require('./custom/wigglypoof.validator');
-const FormSchema = require('../iso/FormSchema.js');
+const FormSchema = require('../iso/FormSchema');
+const customValidator = require('../stories/custom/wigglypoof.validator');
 
 describe('form-schemas -05- FormSchema', () => {
-
   describe('getting started', () => {
-
     it('instanciate a new FormSchema by giving it nothing', () => {
       const s = new FormSchema();
-
-      s.isNew().should.equal(true);
+      expect(s.isNew()).toBeTruthy();
     });
 
     it('a new FormSchema is empty', () => {
       const s = new FormSchema();
-
-      s.isEmpty().should.equal(true);
+      expect(s.isEmpty()).toBeTruthy();
     });
 
     it('you can add a field to a form schema instance', () => {
       const s = new FormSchema();
 
-      s.getFieldCount().should.equal(0);
+      expect(s.getFieldCount()).toBe(0);
 
       s.addField({
         field: 'atextfield',
@@ -32,7 +26,7 @@ describe('form-schemas -05- FormSchema', () => {
         fieldType: 'text'
       });
 
-      s.getFieldCount().should.equal(1);
+      expect(s.getFieldCount()).toBe(1);
     });
 
     it('but you can\'t add two fields with the same name', () => {
@@ -51,11 +45,11 @@ describe('form-schemas -05- FormSchema', () => {
           label: { fr: 'Un champ texte' },
           fieldType: 'text'
         });
-      } catch(e) {
+      } catch (e) {
         error = e;
       }
 
-      error.should.equal('This field name is taken! : atextfield');
+      expect(error).toBe('This field name is taken! : atextfield');
     });
 
     it('a FormSchema can be initialized with preset fields', () => {
@@ -86,7 +80,7 @@ describe('form-schemas -05- FormSchema', () => {
         custom: null
       });
 
-      s.getFieldCount().should.equal(3);
+      expect(s.getFieldCount()).toBe(3);
     });
 
     it(
@@ -99,12 +93,11 @@ describe('form-schemas -05- FormSchema', () => {
             fieldType: 'text'
           }],
           defaultLabelLanguage: 'fr'
-        })
+        });
 
-        s.getFields()[0].label.should.eql({ fr: 'Un champ texte' });
+        expect(s.getFields()[0].label).toStrictEqual({ fr: 'Un champ texte' });
       }
     );
-
   });
 
   describe('adding fields', () => {
@@ -144,21 +137,20 @@ describe('form-schemas -05- FormSchema', () => {
         label: { fr: 'Un nouveau champ' }
       });
 
-      s.getField(3).field.should.equal('anaddedfield');
+      expect(s.getField(3).field).toBe('anaddedfield');
     });
-
   });
 
   describe('updating all fields', () => {
     let s;
 
     beforeAll(() => {
-      s =new FormSchema({
+      s = new FormSchema({
         nextOptionId: 1000,
         fields: [{
           field: 'aradiofield',
           fieldType: 'radio',
-          label:'Un choix unique',
+          label: 'Un choix unique',
           options: [{
             id: 1,
             label: 'Un',
@@ -173,7 +165,7 @@ describe('form-schemas -05- FormSchema', () => {
       s.updateFields([{
         field: 'aradiofield',
         fieldType: 'radio',
-        label:'Un choix unique',
+        label: 'Un choix unique',
         options: [{
           id: 1,
           label: 'Un',
@@ -218,7 +210,7 @@ describe('form-schemas -05- FormSchema', () => {
         fieldType: 'integer'
       }]);
 
-      s.getData().fields.length.should.equal(2);
+      expect(s.getData().fields.length).toBe(2);
     });
 
     it('removes absent fields', () => {
@@ -236,111 +228,108 @@ describe('form-schemas -05- FormSchema', () => {
         fieldType: 'integer'
       }]);
 
-      s.getData().fields.length.should.equal(1);
-
-      s.getData().fields[0].field.should.equal('aninteger');
+      expect(s.getData().fields.length).toBe(1);
+      expect(s.getData().fields[0].field).toBe('aninteger');
     });
 
     it('removes absent fields (fix)', () => {
       const s = new FormSchema({
         id: 9999,
-        "custom": null,
-        "defaultLabelLanguage": null,
-        "nextOptionId": 1,
-        "fields": [{
-          "field": "description",
-          "label": "Name Band / Künstle",
-          "fieldType": "abstract"
+        custom: null,
+        defaultLabelLanguage: null,
+        nextOptionId: 1,
+        fields: [{
+          field: 'description',
+          label: 'Name Band / Künstle',
+          fieldType: 'abstract'
         }, {
-          "field": "timings",
-          "info": "Darunter ein +, damit man jeweils noch weitere Acts der Veranstaltung innerhalb des Events mit Zeiten anlegen kann, nach denen man dann suchen / nach Uhrzeit filtern kann",
-          "fieldType": "abstract"
+          field: 'timings',
+          info: 'Darunter ein +, damit man jeweils noch weitere Acts der Veranstaltung innerhalb des Events mit Zeiten anlegen kann, nach denen man dann suchen / nach Uhrzeit filtern kann',
+          fieldType: 'abstract'
         }, {
-          "field": "keywords",
-          "fieldType": "abstract"
+          field: 'keywords',
+          fieldType: 'abstract'
         }]
       });
 
       s.updateFields([{
-        field: "description",
-        label: "Name Band / Künstle",
-        fieldType: "abstract"
+        field: 'description',
+        label: 'Name Band / Künstle',
+        fieldType: 'abstract'
       }]);
 
-      s.getData().fields.map(f => f.field).should.eql(['description']);
+      expect(s.getData().fields.map(f => f.field)).toStrictEqual(['description']);
     });
 
     it('options with missing id have been given one', () => {
-      s.getField('aradiofield').options.map(o => o.id).should.eql([1, 1001, 1002]);
+      expect(s.getField('aradiofield').options.map(o => o.id)).toStrictEqual([1, 1002, 1003]);
     });
 
     it('options of newly added fields are given ids', () => {
-      s.getField('acheckboxfield').options.map(o => o.id).should.eql([1003, 1004]);
+      expect(s.getField('acheckboxfield').options.map(o => o.id)).toStrictEqual([1004, 1005]);
     });
 
     it('nextOptionId is incremented', () => {
-      s.getData().nextOptionId.should.equal(1005);
+      expect(s.getData().nextOptionId).toBe(1005);
     });
 
     it('ordering respects given fields order', () => {
       const s = new FormSchema({
-        "fields": [
+        fields: [
           {
-            "field": "hello",
-            "fieldType": "abstract"
+            field: 'hello',
+            fieldType: 'abstract'
           },
           {
-            "field": "cat",
-            "fieldType": "abstract"
+            field: 'cat',
+            fieldType: 'abstract'
           }
-       ]
+        ]
       });
 
       s.updateFields([
         {
-          "field": "location",
-          "fieldType": "abstract"
+          field: 'location',
+          fieldType: 'abstract'
         },
         {
-          "field": "hello",
-          "fieldType": "abstract"
+          field: 'hello',
+          fieldType: 'abstract'
         },
         {
-          "field": "cat",
-          "fieldType": "abstract"
+          field: 'cat',
+          fieldType: 'abstract'
         },
         {
-          "field": "image",
-          "fieldType": "abstract"
+          field: 'image',
+          fieldType: 'abstract'
         }
-     ]);
+      ]);
 
-      s.getData().fields.map(f => f.field).should.eql(['location', 'hello', 'cat', 'image']);
+      expect(s.getData().fields.map(f => f.field)).toStrictEqual(['location', 'hello', 'cat', 'image']);
     });
-
 
     it('field-specific keys are kept', () => {
       const s = new FormSchema({
         fields: [
           {
-            "field": "timings",
-            "fieldType": "abstract",
-            "enabledRanges" : "someTimeRange"
+            field: 'timings',
+            fieldType: 'abstract',
+            enabledRanges: 'someTimeRange'
           }
-       ]
+        ]
       });
 
       s.updateFields([
         {
-          "field": "timings",
-          "fieldType": "abstract",
-          "enabledRanges" : "someTimeRange"
+          field: 'timings',
+          fieldType: 'abstract',
+          enabledRanges: 'someTimeRange'
         }
-     ]);
+      ]);
 
-      s.getData().fields[0].enabledRanges.should.equal('someTimeRange');
+      expect(s.getData().fields[0].enabledRanges).toBe('someTimeRange');
     });
-
   });
 
   describe('getting, moving and removing fields', () => {
@@ -374,27 +363,24 @@ describe('form-schemas -05- FormSchema', () => {
       });
     });
 
-
     it('Fields can be fetched by their position index in the schema', () => {
-      s.getField(1).field.should.equal('anotherfield');
+      expect(s.getField(1).field).toBe('anotherfield');
     });
 
     it('Fields can be moved down in the schema', () => {
       s.moveField(0, 2);
 
-      s.getField(2).field.should.equal('atextfield');
+      expect(s.getField(2).field).toBe('atextfield');
     });
 
     it('Fields can also be moved up', () => {
       s.moveField(2, -2);
-
-      s.getField(0).field.should.equal('andanotherfield');
+      expect(s.getField(0).field).toBe('andanotherfield');
     });
 
     it('A field move does not affect schema field count', () => {
       s.moveField(0, 2);
-
-      s.getFieldCount().should.equal(3);
+      expect(s.getFieldCount()).toBe(3);
     });
 
     it('Moves cannot throw fields out of schema index bounds', () => {
@@ -402,29 +388,25 @@ describe('form-schemas -05- FormSchema', () => {
 
       try {
         s.moveField(0, 102);
-      } catch(e) {
+      } catch (e) {
         error = e;
       }
 
-      error.should.equal('Move value exceeds possible value');
+      expect(error).toBe('Move value exceeds possible value');
     });
 
     it('A field is removed using its index in the schema', () => {
       s.removeField(0);
-
-      s.getFieldCount().should.equal(2);
+      expect(s.getFieldCount()).toBe(2);
     });
 
     it('A field remove shifts the index of following fields', () => {
       s.removeField(1);
-
-      s.getField(1).field.should.equal('andanotherfield');
+      expect(s.getField(1).field).toBe('andanotherfield');
     });
-
   });
 
   describe('deriving validator', () => {
-
     const fs = new FormSchema({
       fields: [{
         field: 'atextfield',
@@ -457,7 +439,7 @@ describe('form-schemas -05- FormSchema', () => {
     it(
       '.getValidate() returns the validator defined by the FormSchema fields',
       () => {
-        validate.default.should.eql({
+        expect(validate.default).toStrictEqual({
           atextfield: undefined,
           anotherfield: undefined,
           andanotherfield: undefined
@@ -467,9 +449,7 @@ describe('form-schemas -05- FormSchema', () => {
 
     // this fails when languages is a possibility
     it('.getValidate() validates choice fields correctly', () => {
-      validate({
-        andanotherfield: 1
-      }).should.eql({
+      expect(validate({ andanotherfield: 1 })).toStrictEqual({
         atextfield: undefined,
         anotherfield: undefined,
         andanotherfield: 1
@@ -479,16 +459,14 @@ describe('form-schemas -05- FormSchema', () => {
     it(
       '.getValidate by default returns a validator that processes the full schema',
       () => {
+        let err;
         try {
           validate();
-        } catch(errors) {
+        } catch (errors) {
           // because andanotherfield is required
-          errors.length.should.equal(1);
-          return;
+          err = errors;
         }
-
-        // should never reach here
-        should().ok();
+        expect(err.length).toBe(1);
       }
     );
 
@@ -501,12 +479,11 @@ describe('form-schemas -05- FormSchema', () => {
 
         const clean = draftValidate();
 
-        clean.should.eql({
+        expect(clean).toStrictEqual({
           atextfield: undefined,
           anotherfield: undefined,
           andanotherfield: undefined
         });
-        
       }
     );
   });
@@ -532,20 +509,21 @@ describe('form-schemas -05- FormSchema', () => {
     it(
       'validate data with a schema that includes a custom field - throws an error',
       () => {
+        let err;
         try {
           validate({
             atextfield: 'Un petit text',
             acustomfield: 'Not wigglypoof'
           });
-
         } catch (errors) {
-          errors.should.eql([{
-            code: 'invalid',
-            message: 'Not Wigglypoof',
-            origin: 'Not wigglypoof',
-            field: 'acustomfield'
-          }]);
+          err = errors;
         }
+        expect(err).toStrictEqual([{
+          code: 'invalid',
+          message: 'Not Wigglypoof',
+          origin: 'Not wigglypoof',
+          field: 'acustomfield'
+        }]);
       }
     );
 
@@ -556,14 +534,11 @@ describe('form-schemas -05- FormSchema', () => {
           atextfield: 'un petit texte',
           acustomfield: 'Wigglypoof'
         });
-
-        clean.should.eql({
+        expect(clean).toStrictEqual({
           atextfield: 'un petit texte',
           acustomfield: 'Wigglypoof'
         });
       }
     );
-
   });
-
 });

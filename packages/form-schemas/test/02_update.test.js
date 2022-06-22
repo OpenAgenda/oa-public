@@ -1,9 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const should = require('should');
-
-const Service = require( '../server');
+const Service = require('../server');
 const config = require('../testconfig');
 const fixtures = require('./service/fixtures');
 
@@ -29,7 +26,9 @@ describe('form-schemas -02- functional (server): update', () => {
   });
 
   it('simple update', async () => {
-    (await svc.update(1, formSchemaData)).should.eql({
+    const result = await svc.update(1, formSchemaData);
+
+    expect(result).toStrictEqual({
       id: 1,
       success: true,
       formSchema: formSchemaData

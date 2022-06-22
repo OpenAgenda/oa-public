@@ -2,11 +2,9 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require('should');
-
-const Service = require( '../server');
+const Service = require('../server');
+const config = require('../testconfig');
 const fixtures = require('./service/fixtures');
-const config = require( '../testconfig' );
 
 describe('form-schemas -03- functional (server): remove', () => {
   let svc;
@@ -28,20 +26,15 @@ describe('form-schemas -03- functional (server): remove', () => {
   });
 
   it('simple remove', async () => {
-    const client = svc.internals.client;
+    const { client } = svc.internals;
 
     const { id } = await svc.create({
       data: true
     });
 
-    (await client('form_schema').where({ id })).length.should.equal(1);
-
-    (await svc.remove(id) ).should.eql({
-      success: true,
-      id
-    });
-
-    (await client('form_schema').where({ id })).length.should.equal(0);
+    const lenBeforeRemove = (await client('form_schema').where({ id })).length;
+    const removeRet = await svc.remove(id);
+    const lenAfterRemove = (await client('form_schema').where({ id })).length;
+    expect([lenBeforeRemove, lenAfterRemove, removeRet]).toStrictEqual([1, 0, { success: true, id }]);
   });
-
-} );
+});

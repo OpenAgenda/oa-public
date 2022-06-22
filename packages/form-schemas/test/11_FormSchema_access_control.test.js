@@ -1,17 +1,13 @@
-"use strict";
+'use strict';
 
-const FormSchema = require( '../iso/FormSchema.js' );
+const FormSchema = require('../iso/FormSchema');
 
-const should = require( 'should' );
-
-describe( 'FormSchema - access control', () => {
-
+describe('FormSchema - access control', () => {
   let s;
 
   beforeAll(() => {
-
-    s = new FormSchema( {
-      fields: [ {
+    s = new FormSchema({
+      fields: [{
         label: { fr: 'un label' },
         field: 'anopenfield',
         fieldType: 'text'
@@ -25,77 +21,64 @@ describe( 'FormSchema - access control', () => {
         field: 'anotherlimitedfield',
         fieldType: 'number',
         read: 'moderator'
-      } ],
+      }],
       custom: null
-    } );
-
+    });
   });
-
 
   it(
     'validator with access type specified but no level returns open fields only',
     () => {
+      const v = s.getValidate('read');
 
-      let v = s.getValidate( 'read' );
-
-      v( {
+      expect(v({
         anopenfield: 'Absolom',
         alimitedfield: 2022,
         anotherlimitedfield: 8.5
-      } ).should.eql( {
+      })).toStrictEqual({
         anopenfield: 'Absolom'
-      } );
-
+      });
     }
   );
 
-
   it('validator is used to clean data to specified read access', () => {
+    const v = s.getValidate('read', 'administrator');
 
-    let v = s.getValidate( 'read', 'administrator' );
-
-    v( {
+    expect(v({
       anopenfield: 'Absolom',
       alimitedfield: 2022,
       anotherlimitedfield: 8.5
-    } ).should.eql( {
+    })).toStrictEqual({
       anopenfield: 'Absolom',
       alimitedfield: 2022
-    } );
-
+    });
   });
-
 
   it(
     'validator is used to keep data strictly matching specified level',
     () => {
+      const v = s.getValidate('read', 'administrator', { includeUnspecified: false });
 
-      let v = s.getValidate( 'read', 'administrator', { includeUnspecified: false } );
-
-      v( {
+      expect(v({
         anopenfield: 'Plastic bag',
         alimitedfield: 123,
         anotherlimitedfield: 12.3
-      } ).should.eql( {
+      })).toStrictEqual({
         alimitedfield: 123
-      } );
-
+      });
     }
   );
 
   it('validator can return data matching multiple levels', () => {
+    const v = s.getValidate('read', ['administrator', 'moderator'], { includeUnspecified: false });
 
-    let v = s.getValidate( 'read', [ 'administrator', 'moderator' ], { includeUnspecified: false } );
-
-    v( {
+    expect(v({
       anopenfield: 'Trash',
       alimitedfield: 666,
       anotherlimitedfield: 4.5
-    } ).should.eql( {
+    })).toStrictEqual({
       alimitedfield: 666,
       anotherlimitedfield: 4.5
-    } );
-
+    });
   });
-
-} );
+});

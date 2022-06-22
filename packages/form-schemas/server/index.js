@@ -9,7 +9,6 @@ const FormSchema = require('../iso/FormSchema');
 const merge = require('../iso/merge');
 const filterByAccess = require('../iso/filterByAccess');
 const markdown = require('../iso/markdown');
-const legacy = require('./legacy');
 const filesMw = require('./middleware/files');
 
 const utils = {
@@ -54,10 +53,7 @@ module.exports = Object.assign(config => {
     }
   };
 
-  return {
-    ...svc,
-    legacy: legacy({ ...c, service: svc })
-  }
+  return svc;
 }, {
   utils
 });
@@ -156,7 +152,6 @@ async function update({ client, schemas }, id, data) {
     formSchema: clean
   };
 }
-
 
 async function remove({ client, schemas }, id) {
   const removedId = await client(schemas.formSchema)

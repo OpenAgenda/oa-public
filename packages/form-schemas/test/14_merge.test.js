@@ -1,12 +1,10 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const assert = require('assert');
 
 const merge = require('../iso/merge');
 
 describe('unit - assigning schema properties to another schema', () => {
-
   describe('simple merge', () => {
     let merged;
 
@@ -53,19 +51,17 @@ describe('unit - assigning schema properties to another schema', () => {
     it(
       'in each field, type of schema where field is defined is provided in schemaType key',
       () => {
-        assert.deepEqual(
-          merged.fields.map(f => _.pick(f, ['field', 'schemaType'])),
+        expect(merged.fields.map(f => _.pick(f, ['field', 'schemaType']))).toStrictEqual(
           [
             { field: 'someagendafield', schemaType: 'agenda' },
             { field: 'somenetworkfield', schemaType: 'network' }
           ]
-       );
+        );
       }
     );
 
     it('ids of options of merged schemas are no longer unique', () => {
-      assert.deepEqual(
-        merged.fields.map(f => f.options), 
+      expect(merged.fields.map(f => f.options)).toStrictEqual(
         [
           [
             { id: 1, value: 'clubs', label: 'Clubs' },
@@ -74,19 +70,20 @@ describe('unit - assigning schema properties to another schema', () => {
             { id: 1, value: 'dogs', label: 'Dogs' },
             { id: 2, value: 'tics', label: 'Tics' }
           ]
-        ]);
+        ]
+      );
     });
 
     it('in-field identifier of schema shows where field was defined', () => {
-      assert.deepEqual(
-        merged.fields.map(f => _.pick(f, [ 'field', 'schemaId' ])),
+      expect(merged.fields.map(f => _.pick(f, ['field', 'schemaId']))).toStrictEqual(
         [{
           field: 'someagendafield',
           schemaId: 2
         }, {
           field: 'somenetworkfield',
           schemaId: 1
-        }]);
+        }]
+      );
     });
   });
 
@@ -128,57 +125,57 @@ describe('unit - assigning schema properties to another schema', () => {
     };
 
     it('if access option is not provided, all fields are returned', () => {
-      assert.deepEqual(
+      expect(
         merge(networkSchema, agendaSchema)
           .fields
-          .map(f => f.field),
-        ['someagendafield', 'somenetworkfield']
-     );
+          .map(f => f.field)
+      ).toStrictEqual(['someagendafield', 'somenetworkfield']);
     });
 
     it(
       'if access option is provided and field does not include provided value, field is excluded',
       () => {
-        assert.deepEqual(
+        expect(
           merge(networkSchema, agendaSchema, { access: { read: 'contributor' } }).fields
-            .map(f => f.field),
+            .map(f => f.field)
+        ).toStrictEqual(
           ['somenetworkfield']
-       );
+        );
       }
     );
 
     it(
       'if access option is provided and field includes provided value, field is included',
       () => {
-        assert.deepEqual(
+        expect(
           merge(networkSchema, agendaSchema, { access: { read: 'administrator' } }).fields
-            .map(f => f.field),
+            .map(f => f.field)
+        ).toStrictEqual(
           ['someagendafield', 'somenetworkfield']
-       );
+        );
       }
     );
 
     it(
       'if both read and write access options are provided and field does not match for one, field is excluded',
       () => {
-        assert.deepEqual(
-          merge(networkSchema, agendaSchema, { access: {
-            read: 'moderator',
-            write: 'moderator'
-          } }).fields
-          .map(f => f.field),
+        expect(
+          merge(networkSchema, agendaSchema, {
+            access: {
+              read: 'moderator',
+              write: 'moderator'
+            }
+          }).fields.map(f => f.field)
+        ).toStrictEqual(
           ['somenetworkfield']
-       );
+        );
       }
     );
-
   });
 
   describe('other', () => {
-
     // ids will need to be prefixed by formschema id before they can make sense
     it('order of fields is dictated by outer-most schema', () => {
-
       const eventSchema = {
         fields: [{
           field: 'title',
@@ -197,7 +194,7 @@ describe('unit - assigning schema properties to another schema', () => {
           fieldType: 'text',
           label: 'Thème'
         }]
-      }
+      };
 
       const agendaSchema = {
         fields: [{
@@ -212,25 +209,24 @@ describe('unit - assigning schema properties to another schema', () => {
           field: 'description',
           fieldType: 'abstract'
         }]
-      }
+      };
 
-      assert.deepEqual(
-        merge(eventSchema, networkSchema, agendaSchema).fields.map(f => f.field),
+      expect(
+        merge(eventSchema, networkSchema, agendaSchema).fields.map(f => f.field)
+      ).toStrictEqual(
         ['title', 'participants', 'description', 'theme']
       );
     });
 
-
     it('merge extends schemas', () => {
-
       const s1 = {
         id: 1,
         fields: [{
-          field: "participants",
+          field: 'participants',
           optional: false,
-          fieldType: "integer",
-          label: "Participants",
-          info: "Combien de participants"
+          fieldType: 'integer',
+          label: 'Participants',
+          info: 'Combien de participants'
         }, {
           field: 'keywords',
           fieldType: 'keywords',
@@ -264,8 +260,9 @@ describe('unit - assigning schema properties to another schema', () => {
         }]
       };
 
-      assert.deepEqual(
-        merge(s1, s2, s3),
+      expect(
+        merge(s1, s2, s3)
+      ).toStrictEqual(
         {
           custom: {},
           fields: [{
@@ -302,58 +299,54 @@ describe('unit - assigning schema properties to another schema', () => {
           }]
         }
       );
-
     });
 
     it('merge can render optional field non-optional', () => {
       const schema = {
         fields: [{
-          "field" : "image",
-          "fieldType" : "text",
-          "label" : "Image",
-          "optional" : true
+          field: 'image',
+          fieldType: 'text',
+          label: 'Image',
+          optional: true
         }, {
-          "field" : "imageCredits",
-          "fieldType" : "text",
-          "optional" : true,
-          "label" : "Image credits",
-          "enableWith" : "image"
+          field: 'imageCredits',
+          fieldType: 'text',
+          optional: true,
+          label: 'Image credits',
+          enableWith: 'image'
         }]
       };
 
       const abstract = {
         fields: [{
-          "field" : "imageCredits",
-          "fieldType" : "abstract",
-          "optional" : false
+          field: 'imageCredits',
+          fieldType: 'abstract',
+          optional: false
         }]
       };
 
-      assert.equal(
-        merge(schema, abstract).fields.filter(f => f.field === 'imageCredits')[ 0 ].optional,
-        false
-      );
+      expect(merge(schema, abstract).fields.filter(f => f.field === 'imageCredits')[0].optional).toBeFalsy();
     });
 
     it('merge can relabel fields', () => {
       const schema = {
         id: 1,
         fields: [{
-          "field": "participants",
-          "optional": true,
-          "fieldType": "integer",
-          "min": null,
-          "max": null,
-          "label": {
-            "fr": "Participants",
-            "en": "Participants"
+          field: 'participants',
+          optional: true,
+          fieldType: 'integer',
+          min: null,
+          max: null,
+          label: {
+            fr: 'Participants',
+            en: 'Participants'
           },
-          "info": {
-            "fr": "Combien de participants",
-            "en": "How many participants"
+          info: {
+            fr: 'Combien de participants',
+            en: 'How many participants'
           },
-          "placeholder" : null,
-          "sub" : null
+          placeholder: null,
+          sub: null
         }]
       };
 
@@ -373,16 +366,17 @@ describe('unit - assigning schema properties to another schema', () => {
         }]
       };
 
-      assert.deepEqual(
-        merge(schema, abstract),
+      expect(
+        merge(schema, abstract)
+      ).toStrictEqual(
         {
           custom: {},
           fields: [{
-            "field": "participants",
-            "optional": true,
-            "fieldType": "integer",
-            "min": null,
-            "max": null,
+            field: 'participants',
+            optional: true,
+            fieldType: 'integer',
+            min: null,
+            max: null,
             label: {
               fr: 'Les gens',
               en: 'People'
@@ -391,8 +385,8 @@ describe('unit - assigning schema properties to another schema', () => {
               fr: 'Combien de gens',
               en: 'How many people'
             },
-            "placeholder" : null,
-            "sub" : null,
+            placeholder: null,
+            sub: null,
             schemaId: 1,
             schemaType: null
           }]
@@ -400,16 +394,15 @@ describe('unit - assigning schema properties to another schema', () => {
       );
     });
 
-
     it(
       'an abstract field is maintained as abstract as long as no field with the same name is added to the merge',
       () => {
         const schema = {
           id: 1,
           fields: [{
-            "field": "title",
-            "fieldType": "text",
-            "label": "Titre"
+            field: 'title',
+            fieldType: 'text',
+            label: 'Titre'
           }]
         };
 
@@ -422,8 +415,7 @@ describe('unit - assigning schema properties to another schema', () => {
           }]
         };
 
-        assert.deepEqual(
-          merge(schema, abstract),
+        expect(merge(schema, abstract)).toStrictEqual(
           {
             custom: {},
             fields: [{
@@ -444,7 +436,6 @@ describe('unit - assigning schema properties to another schema', () => {
       }
     );
 
-
     it('all values of an abstract field trickle down to merge', () => {
       const schema = {
         id: 1,
@@ -453,7 +444,7 @@ describe('unit - assigning schema properties to another schema', () => {
           label: 'Evénements liés',
           fieldType: 'references',
           suggest: false,
-          related: [ 'title', 'description', 'location' ],
+          related: ['title', 'description', 'location'],
           res: '/references'
         }]
       };
@@ -461,14 +452,13 @@ describe('unit - assigning schema properties to another schema', () => {
       const abstract = {
         id: 2,
         fields: [{
-          field : 'references',
+          field: 'references',
           fieldType: 'abstract',
-          suggest : true
+          suggest: true
         }]
       };
 
-      assert.deepEqual(
-        merge(schema, abstract),
+      expect(merge(schema, abstract)).toStrictEqual(
         {
           custom: {},
           fields: [{
@@ -476,49 +466,45 @@ describe('unit - assigning schema properties to another schema', () => {
             label: 'Evénements liés',
             fieldType: 'references',
             suggest: true,
-            related: [ 'title', 'description', 'location' ],
+            related: ['title', 'description', 'location'],
             res: '/references',
             schemaId: 1,
             schemaType: null
           }]
         }
-     );
-
+      );
     });
-
 
     it('null schemas are ignored', () => {
       const schema = {
         id: 1,
         fields: [{
-          "field": "title",
-          "fieldType": "text",
-          "label": "Titre"
+          field: 'title',
+          fieldType: 'text',
+          label: 'Titre'
         }]
-      }
+      };
 
-      assert.deepEqual(
-        merge(null, schema),
+      expect(merge(null, schema)).toStrictEqual(
         {
           custom: {},
           fields: [{
-            "field": "title",
-            "fieldType": "text",
-            "label": "Titre",
+            field: 'title',
+            fieldType: 'text',
+            label: 'Titre',
             schemaId: 1,
             schemaType: null
           }]
         }
       );
 
-      assert.deepEqual(
-        merge(schema, null),
+      expect(merge(schema, null)).toStrictEqual(
         {
           custom: {},
           fields: [{
-            "field": "title",
-            "fieldType": "text",
-            "label": "Titre",
+            field: 'title',
+            fieldType: 'text',
+            label: 'Titre',
             schemaId: 1,
             schemaType: null
           }]
@@ -547,19 +533,16 @@ describe('unit - assigning schema properties to another schema', () => {
       const otherSchema = {
         id: 1,
         fields: [{
-          "field": "title",
-          "fieldType": "text",
-          "label": "Titre",
+          field: 'title',
+          fieldType: 'text',
+          label: 'Titre',
           origin: 'custom'
         }]
-      }
+      };
 
       const merged = merge(schema, otherSchema);
 
-      assert.deepEqual(
-        merged.fields.map(f => f.origin),
-        [ 'custom', 'tags' ]
-      );
+      expect(merged.fields.map(f => f.origin)).toStrictEqual(['custom', 'tags']);
     });
 
     it('origin value is maintained', () => {
@@ -583,17 +566,16 @@ describe('unit - assigning schema properties to another schema', () => {
       const otherSchema = {
         id: 1,
         fields: [{
-          "field": "chooseyouravatar",
-          "fieldType": "abstract",
-          "origin": null
+          field: 'chooseyouravatar',
+          fieldType: 'abstract',
+          origin: null
         }]
       };
 
       const merged = merge(schema, otherSchema);
 
-      assert.equal(merged.fields[0].origin, 'tags');
+      expect(merged.fields[0].origin).toBe('tags');
     });
-
 
     it('options can be limited to allowed set through a schema merge', () => {
       const schema = {
@@ -619,10 +601,9 @@ describe('unit - assigning schema properties to another schema', () => {
           fieldType: 'abstract',
           allowedOptions: [2]
         }]
-      }
+      };
 
-      assert.deepEqual(
-        merge(schema, restrictiveSchema).fields,
+      expect(merge(schema, restrictiveSchema).fields).toStrictEqual(
         [{
           field: 'chooseyouravatar',
           fieldType: 'radio',
@@ -636,6 +617,5 @@ describe('unit - assigning schema properties to another schema', () => {
         }]
       );
     });
-
   });
 });

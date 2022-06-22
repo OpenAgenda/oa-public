@@ -1,15 +1,16 @@
 'use strict';
 
-const should = require('should');
-
-const Service = require( '../server');
-const fixtures = require('./service/fixtures');
+const Service = require('../server');
 const config = require('../testconfig');
+const fixtures = require('./service/fixtures');
+
+const integer = require('./parse/integer.schema.json');
+const number = require('./parse/number.schema');
 
 const fx = {
   schemas: {
-    integer: require('./parse/integer.schema.json'),
-    number: require('./parse/number.schema')
+    integer,
+    number,
   }
 };
 
@@ -41,8 +42,7 @@ describe('form-schemas -04- functional (server): get', () => {
 
   it('simple get', async () => {
     const result = await svc.get(id);
-
-    result.should.eql({
+    expect(result).toStrictEqual({
       ...fx.schemas.integer,
       id
     });
@@ -51,30 +51,27 @@ describe('form-schemas -04- functional (server): get', () => {
   it('get instanciated', async () => {
     const fs = await svc.get(id, { instanciate: true });
 
-    fs.isNew().should.equal(false);
+    expect(fs.isNew()).toBeFalsy();
   });
 
   it('simple getValidator', async () => {
     const validate = await svc.getValidator(id);
 
-    validate({
+    expect(validate({
       participants: 1,
       someIgnoredField: 'lol'
-    }).should.eql({
-      participants: 1
-    });
+    })).toStrictEqual({ participants: 1 });
   });
 
   it('get merged schemas', async () => {
     const fs = await svc.getMerged([id, secondId]);
 
-    fs.fields.length.should.equal(2);
+    expect(fs.fields.length).toBe(2);
   });
 
   it('get merged schemas, instanciated', async () => {
     const fs = await svc.getMerged([id, secondId], { instanciate: true });
 
-    (typeof fs.getValidate()).should.equal('function');
+    expect(typeof fs.getValidate()).toBe('function');
   });
-
 });

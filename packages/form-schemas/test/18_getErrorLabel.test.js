@@ -1,10 +1,8 @@
 'use strict';
 
-import should from 'should';
-import getErrorLabel from '../client/src/iso/getErrorLabel';
+const getErrorLabel = require('../client/src/iso/getErrorLabel');
 
 describe('18 - unit - getErrorLabel', () => {
-
   it(
     'given a set of labels and an error code, returns a rendered error text',
     () => {
@@ -24,8 +22,7 @@ describe('18 - unit - getErrorLabel', () => {
 
       const rendered = getErrorLabel(errorLabels, field, error);
 
-      rendered.should.equal('Le champ doit comporter au plus 100 caractères');
+      expect(rendered).toBe('Le champ doit comporter au plus 100 caractères');
     }
   );
-
 });

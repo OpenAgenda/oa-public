@@ -1,7 +1,5 @@
 'use strict';
 
-const should = require('should');
-
 const Service = require('../server');
 const config = require('../testconfig');
 const fixtures = require('./service/fixtures');
@@ -30,7 +28,7 @@ describe('form-schemas -01- functional (server): create', () => {
       data: true
     });
 
-    result.should.eql({
+    expect(result).toStrictEqual({
       success: true,
       id: 2,
       formSchema: {
@@ -41,5 +39,4 @@ describe('form-schemas -01- functional (server): create', () => {
       }
     });
   });
-
-} );
+});

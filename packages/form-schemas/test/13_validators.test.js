@@ -1,11 +1,14 @@
 'use strict';
 
 const fs = require('fs');
-const assert = require('assert');
 
 const getValidatorFromField = require('../iso/getValidatorFromField');
 const fileValidator = require('../iso/fileValidator');
 const getSchema = require('../iso/getSchema');
+
+function _get(name) {
+  return JSON.parse(fs.readFileSync(__dirname + '/parse/' + name + '.json', 'utf-8'));
+}
 
 describe('file validator', () => {
   it('file by url', () => {
@@ -20,13 +23,12 @@ describe('file validator', () => {
       filename: '7839789.txt',
     });
 
-    assert.deepEqual(clean, {
+    expect(clean).toStrictEqual({
       extension: 'txt',
       originalName: 'someFile.txt',
       filename: '7839789.txt',
       url: '//some.path.net/7839789.txt'
-    }
-    )
+    });
   });
 
   it('image with size and variants option', () => {
@@ -44,7 +46,7 @@ describe('file validator', () => {
       }]
     });
 
-    assert.deepStrictEqual(clean, {
+    expect(clean).toStrictEqual({
       extension: null,
       originalName: null,
       filename: 'image.png',
@@ -66,7 +68,7 @@ describe('file validator', () => {
       filename: 'image.png'
     });
 
-    assert.deepStrictEqual(clean, {
+    expect(clean).toStrictEqual({
       extension: null,
       originalName: null,
       filename: 'image.png',
@@ -78,54 +80,32 @@ describe('file validator', () => {
 
 describe('deriving validators', () => {
   it('text field to validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('text.field')),
-      _get('text.validator')
-    );
+    expect(getValidatorFromField(_get('text.field'))).toStrictEqual(_get('text.validator'));
   });
 
   it('radio field to choice validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('radio.field')),
-      _get('radio.validator')
-    );
+    expect(getValidatorFromField(_get('radio.field'))).toStrictEqual(_get('radio.validator'));
   });
 
   it('integer field to validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('integer.field')),
-      _get('integer.validator')
-    );
+    expect(getValidatorFromField(_get('integer.field'))).toStrictEqual(_get('integer.validator'));
   });
 
   it('select field to choice validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('select.field')),
-      _get('select.validator')
-    );
+    expect(getValidatorFromField(_get('select.field'))).toStrictEqual(_get('select.validator'));
   });
 
   it('number field to validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('number.field')),
-      _get('number.validator')
-    );
+    expect(getValidatorFromField(_get('number.field'))).toStrictEqual(_get('number.validator'));
   });
 
   it('multilingual text field to multilingual validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('multilingualText.field')),
-      _get('multilingual.validator')
-    );
+    expect(getValidatorFromField(_get('multilingualText.field'))).toStrictEqual(_get('multilingual.validator'));
   });
 
   it('multilingual textarea field to multilingual validator', () => {
-    assert.deepEqual(
-      getValidatorFromField(_get('multilingualTextarea.field')),
-      _get('multilingual.validator')
-    );
+    expect(getValidatorFromField(_get('multilingualTextarea.field'))).toStrictEqual(_get('multilingual.validator'));
   });
-
 
   it('FormSchema getSchema takes into account enableWith when defined', () => {
     const fields = [{
@@ -148,11 +128,10 @@ describe('deriving validators', () => {
       s();
     } catch (e) {
       console.log(e);
-
       errored = true;
     }
 
-    assert.equal(errored, false);
+    expect(errored).toBeFalsy();
   });
 
   it('getSchema ignores abstract fields', () => {
@@ -172,7 +151,7 @@ describe('deriving validators', () => {
       anotherfield: 13
     });
 
-    assert.deepEqual(clean, {
+    expect(clean).toStrictEqual({
       anotherfield: 13
     });
   });
@@ -214,16 +193,11 @@ describe('deriving validators', () => {
         andanotherfield: 1
       });
 
-      assert.deepEqual(clean, {
+      expect(clean).toStrictEqual({
         atextfield: 'Some text',
         anotherfield: 13,
         andanotherfield: 1
       });
     }
   );
-
 });
-
-function _get(name) {
-  return JSON.parse(fs.readFileSync(__dirname + '/parse/' + name + '.json', 'utf-8'));
-}

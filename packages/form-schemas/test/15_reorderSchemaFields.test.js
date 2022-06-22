@@ -1,11 +1,10 @@
+'use strict';
 
-import should from 'should';
-import reorderSchemaFields from '../client/src/FormSchemaBuilder/lib/reorderSchemaFields';
+const reorderSchemaFields = require('../client/src/FormSchemaBuilder/lib/reorderSchemaFields');
 
-describe( 'unit - reordering schema fields', () => {
-
+describe('unit - reordering schema fields', () => {
   const schema = {
-    fields: [ {
+    fields: [{
       field: 'one'
     }, {
       field: 'three'
@@ -15,15 +14,12 @@ describe( 'unit - reordering schema fields', () => {
       field: 'two'
     }, {
       field: 'five'
-    } ]
+    }]
   };
 
   it('reorders', () => {
-
-    reorderSchemaFields( schema, 3, 1 ).fields.map( f => f.field ).should.eql( [
+    expect(reorderSchemaFields(schema, 3, 1).fields.map(f => f.field)).toStrictEqual([
       'one', 'two', 'three', 'four', 'five'
-    ] );
-
+    ]);
   });
-
-} );
+});

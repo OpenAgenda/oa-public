@@ -31,6 +31,9 @@
       "enable": [],
       "optional": []
     },
-    "default" : null
+    "default" : null,
+    "constraints": "undefined",
+    "enable": true,
+    "selfHandled": []
   } ]
 }
