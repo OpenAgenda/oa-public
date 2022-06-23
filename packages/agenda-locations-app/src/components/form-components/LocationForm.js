@@ -200,10 +200,8 @@ const LocationForm = ({
   const getLabel = (name, values) => {
     let str;
     let k;
-    console.log('getLabel for ', name, values);
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
-      console.log('in settings', settings?.labels?.[name]);
       const l = settings.labels[name];
       str = _.get(l, lang, l[_.first(_.keys(l))]);
       if (!str) {
@@ -219,7 +217,6 @@ const LocationForm = ({
 
     // use intl to format standard labels
     if (messages[name]) {
-      console.log('intl', messages[name]);
       if (!values) {
         str = intl.formatMessage(messages[name]);
         return str;

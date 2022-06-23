@@ -226,8 +226,8 @@ function Dashboard() {
   };
 
   const confirmRemove = useCallback(l => {
-    if (!settings.access.delete.authorized && settings.access.delete.external) setAccessModal({ action: 'remove' });
-    else setRemoveModal({ data: { location: l } });
+    if (settings.access.delete.authorized && !settings.access.delete.external)setRemoveModal({ data: { location: l } });
+    else setAccessModal({ action: 'remove' });
   }, [settings]);
 
   const onLocationItemEdit = useCallback(location => {
@@ -378,8 +378,9 @@ function Dashboard() {
                   />
                 </div>
                 <div className="checkbox">
-                  <label htmlFor="checkbox">
+                  <label htmlFor="state-filter-checkbox">
                     <input
+                      id="state-filter-checkbox"
                       type="checkbox"
                       onChange={() => {
                         if (search.state) removeFilter('state');
@@ -512,7 +513,7 @@ function Dashboard() {
         <RemoveModal
           modal={removeModal}
           lang={lang}
-          seeEventsLink={res.seeEvents}
+          seeEventsLink={res.seeEvents.replace(':locationUid', removeModal.data.location.uid)}
           onClose={() => setRemoveModal(false)}
           onRemove={withEvents => onRemoveLocation(removeModal.data.location, withEvents)}
         />

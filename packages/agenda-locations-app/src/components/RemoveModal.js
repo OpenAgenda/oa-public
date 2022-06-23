@@ -143,6 +143,14 @@ const RemoveLocationModal = ({
           </p>
         </span>
       );
+    } else if (agendaEventCount === 0) {
+      infoText = (
+        <p className="text-left">
+          <FormattedMessage values={{ count: eventCount }} {...messages.cannotRemoveStart} />
+          <FormattedMessage values={{ count: agendaEventCount }} {...messages.cannotRemoveLink} />
+          <FormattedMessage values={{ count: agendaEventCount }} {...messages.cannotRemoveEnd} />
+        </p>
+      );
     }
     return (
       <div className="form-group margin-v-sm">

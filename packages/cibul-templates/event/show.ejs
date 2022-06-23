@@ -327,7 +327,7 @@
         <div class="location-head">
         <% if ( event.location.agendaId === agendaId ) { %>
           <div class="display-none js_edit_location pull-right">
-            <a class="btn btn-default" rel="nofollow" href="/<%= slug %>/admin/locations/<%= event.location.uid %>/edit"><%= __( 'editLocation' ) %></a>
+            <a class="btn btn-default" rel="nofollow" href="/<%= slug %>/admin/locations/<%= event.location.uid %>/edit?uids[]=<%= event.location.uid %>"><%= __( 'editLocation' ) %></a>
           </div>
         <% } %>
 
