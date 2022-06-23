@@ -1,20 +1,19 @@
 'use strict';
 
 const axios = require('axios');
-const assert = require('assert');
 const FormData = require('form-data');
 
-const loadFixtures = require('./fixtures/load');
-
+const Core = require('../core');
 const api = require('../api');
 
 const Services = require('../services/init');
-const Core = require('../core');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
-describe('14 - core - functional(server): api get accessToken', function() {
-  let core, server;
+describe('14 - core - functional(server): api get accessToken', () => {
+  let core;
+  let server;
   let accessToken;
 
   beforeAll(() => loadFixtures(testConfig.db, '015.sql'));
@@ -46,8 +45,8 @@ describe('14 - core - functional(server): api get accessToken', function() {
     core = Core(services, testConfig);
   });
 
-  beforeAll(done => {
-    server = api(core).listen(3000, done);
+  beforeAll(async () => {
+    server = await api(core).listen(3000);
   });
 
   const axiosJSONPayload = {
@@ -70,8 +69,8 @@ describe('14 - core - functional(server): api get accessToken', function() {
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('access token was fetched through json post', () => {
-    assert.equal(typeof accessToken, 'string');
-    assert.equal(accessToken.length, 32);
+    expect(typeof accessToken).toBe('string');
+    expect(accessToken.length).toBe(32);
   });
 
   it('access token can be fetched through multipart/form-data post', async () => {
@@ -79,14 +78,14 @@ describe('14 - core - functional(server): api get accessToken', function() {
 
     form.append('code', 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM');
 
-    const accessToken = await axios({
+    const otherAccessToken = await axios({
       method: 'post',
       url: 'http://localhost:3000/requestAccessToken',
       headers: form.getHeaders(),
       data: form
     }).then(r => r.data.access_token);
 
-    assert.equal(typeof accessToken, 'string');
+    expect(typeof otherAccessToken).toBe('string');
   });
 
   it('expiry is pushed back when new request is made', async () => {
@@ -94,7 +93,6 @@ describe('14 - core - functional(server): api get accessToken', function() {
 
     const { data } = await axios(axiosJSONPayload);
 
-    assert.equal(data.expires_in, 3600);
+    expect(data.expires_in).toBe(3600);
   });
-
 });
