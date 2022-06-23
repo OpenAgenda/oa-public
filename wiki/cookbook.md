@@ -22,6 +22,13 @@ Dans le fichier nginx-jelastic.conf, sous le listen 80, server_name, mettre:
         return 301 https://$host$request_uri;
     }
 
+
+## Mails
+
+Un éditeur de template peut être lancé depuis cibul-node: `yarn mails-editor`.
+
+Les labels sont placés dans un dossier `locales`, une langue par fichier. Crowdin générera les fichiers restants après un push.
+
 ## Ghost
 
 Les sites de documentation utilisent un déploiement avec un équilibreur nginx et une image docker ghost 3.40.2-alpine. Une variable d'environnement doit être ajoutée pour préciser à ghost quelle url utiliser. Son nom: "url" (ex: https://doc.openagenda.com)
