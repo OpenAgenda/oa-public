@@ -1,1 +1,4 @@
-{}
+{
+  "ReactShared.ConsentBanner.informationText": "Aquesta agenda utiliza de cookies del servici Analytics de Google. Permeton als administrators de l'agenda d'aver un apercebut sus qual contengut es gaitat pels visitaires suls sites internet. Los acceptatz?",
+  "ReactShared.LeaveWarningPrompt.areYouSure": "Sètz segur·a que volètz partir d'aquesta pagina ? Totas las donadas pas enregistradas seràn perdudas."
+}
