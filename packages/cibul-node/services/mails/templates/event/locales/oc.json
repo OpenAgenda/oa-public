@@ -1,1 +1,5 @@
-{}
+{
+  "unsubscribe": "Arrestar de recebre los eveniments per email",
+  "unsubscribeGuest": "Arrestar de recebre los mails d'OpenAgenda",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+}

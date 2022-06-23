@@ -1,1 +1,6 @@
-{}
+{
+  "subject": "{agenda}: {event} cambièt d'estatut",
+  "title": "L'eveniment <b>{event}</b> passèt de l'estatut <b>{beforeState}</b> a l'estatut <b>{afterState}</b> sus l'agenda <b>{agenda}</b>.",
+  "memberUnsubscribe": "Arrestar de recebre los cambiaments d'estatut d'eveniment d'aquela agenda cap a \"{afterState}\"",
+  "changeEmailSettings": "Cambiar mos reglatges de mandadís d'emails"
+}

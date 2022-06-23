@@ -108,5 +108,6 @@
   "statusCancelledInfo": "crwdns16140:0crwdne16140:0",
   "statusFull": "crwdns16142:0crwdne16142:0",
   "markAsFull": "crwdns16144:0crwdne16144:0",
-  "statusFullInfo": "crwdns16146:0crwdne16146:0"
+  "statusFullInfo": "crwdns16146:0crwdne16146:0",
+  "actionsInfo": "crwdns32382:0crwdne32382:0"
 }

@@ -1,1 +1,5 @@
-{}
+{
+  "AgendaSettings.CreationSecondStep.statusField": "Mostrar lo camp d'estatut (complèt, reportat, anullat) dins lo formulari",
+  "AgendaSettings.CreationSecondStep.statusFieldDesc": "L'estat de l'eveniment se pòt tanben modificar a partir de l'administracion de l'agenda",
+  "AgendaSettings.contribution.closedContibutionDesc": "L'agenda accèpta las contribucions novèlas"
+}
