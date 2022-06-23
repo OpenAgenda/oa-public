@@ -73,6 +73,14 @@ describe('14 - core - functional(server): api get accessToken', () => {
     expect(accessToken.length).toBe(32);
   });
 
+  it('lastSignin timestamp of user account is refreshed when access token is obtained', async () => {
+    const user = await core.users.get(1, { detailed: true });
+
+    const lastSigninTimeFromNow = (new Date()).getTime() - (new Date(user.lastSignin)).getTime();
+
+    expect(lastSigninTimeFromNow).toBeLessThan(1000);
+  });
+
   it('access token can be fetched through multipart/form-data post', async () => {
     const form = new FormData();
 

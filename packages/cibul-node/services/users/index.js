@@ -25,6 +25,7 @@ const loadBySessionOrKey = require('./middleware/loadBySessionOrKey');
 const verifySuperAdmin = require('./middleware/verifySuperAdmin');
 const getHandler = require('./getHandler');
 const svcHooks = require('./hooks.js');
+const notifyAndRemove = require('./tasks/notifyAndRemove');
 
 function replaceIdMe() {
   return async (context, next) => {
@@ -179,6 +180,10 @@ async function init(config, services) {
   };
 
   services.tokens = tokensService;
+
+  service.tasks = {
+    notifyAndRemove: notifyAndRemove(services)
+  };
 
   return service;
 }

@@ -5,6 +5,7 @@ const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 
 const testConfig = {
+  domain: 'openagenda.com',
   track: true,
   queues: {},
   db: {

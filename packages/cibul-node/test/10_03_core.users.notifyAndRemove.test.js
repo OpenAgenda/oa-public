@@ -92,7 +92,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
   beforeAll(async () => {
     result = await services.users.tasks.notifyAndRemove({
-      onStateUpdate: data => stateUpdates.push(data)
+      onStateUpdate: data => stateUpdates.push(data),
+      send: false
     });
   });
 
@@ -131,7 +132,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     const newStateUpdates = [];
     await services.users.tasks.notifyAndRemove({
-      onStateUpdate: data => newStateUpdates.push(data)
+      onStateUpdate: data => newStateUpdates.push(data),
+      send: false
     });
 
     const jeanBenoitState = newStateUpdates.find(state => state.user.uid === 1).state;
@@ -145,7 +147,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     const newStateUpdates = [];
     await services.users.tasks.notifyAndRemove({
-      onStateUpdate: data => newStateUpdates.push(data)
+      onStateUpdate: data => newStateUpdates.push(data),
+      send: false
     });
 
     expect(newStateUpdates.filter(state => state.user.uid === 6).length).toBe(0);

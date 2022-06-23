@@ -7,8 +7,20 @@ const log = require('@openagenda/logs')('services/accessTokens/generateTokenFrom
 const getApiKeySetFromKey = require('./getApiKeySetFromKey');
 const getTokenDeath = require('./getTokenDeath');
 
-module.exports = async function generateTokenFromSecretKey(knex, { secretKey }) {
+const {
+  secret: getUserFromSecretKey
+} = require('./getUserFromKey');
+
+module.exports = async function generateTokenFromSecretKey(services, { secretKey }, options = {}) {
   log('generating from secret key %s', secretKey);
+
+  const {
+    loadUser = false
+  } = options;
+
+  const {
+    knex
+  } = services;
 
   const apiKeySet = await getApiKeySetFromKey(knex, 'api_secret', secretKey);
 
@@ -36,10 +48,15 @@ module.exports = async function generateTokenFromSecretKey(knex, { secretKey }) 
       .update(update)
       .where('id', token.id);
 
-    return {
+    const updatedToken = {
       ...token,
       ...update
     };
+
+    return loadUser ? {
+      token: updatedToken,
+      user: await getUserFromSecretKey(services, secretKey)
+    } : updatedToken;
   }
 
   const newToken = {
@@ -53,8 +70,12 @@ module.exports = async function generateTokenFromSecretKey(knex, { secretKey }) 
     lifespan: TOKEN_LIFESPAN / 1000
   };
 
-  return {
-    ...newToken,
-    id: (await knex('access_token').insert(newToken))[0]
-  };
+  const newTokenId = (await knex('access_token').insert(newToken))[0];
+
+  newToken.id = newTokenId;
+
+  return loadUser ? {
+    token: newToken,
+    user: await getUserFromSecretKey(services, secretKey)
+  } : newToken;
 };

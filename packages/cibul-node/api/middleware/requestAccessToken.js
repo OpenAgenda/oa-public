@@ -1,8 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('api/middleware/requestAccessToken');
-
-module.exports = async (req, res, next) => {
+module.exports = async function requestAccessToken(req, res) {
   try {
     const token = await req.app.core.users({
       secretKey: req.parsedData.code
@@ -10,7 +8,7 @@ module.exports = async (req, res, next) => {
 
     res.json({
       access_token: token.token,
-      expires_in: Math.ceil((token.created_at.getTime() - (new Date).getTime())/1000 + token.lifespan)
+      expires_in: Math.ceil((token.created_at.getTime() - (new Date()).getTime()) / 1000 + token.lifespan)
     });
   } catch (e) {
     res.status(401);
@@ -18,4 +16,4 @@ module.exports = async (req, res, next) => {
       message: e.message
     });
   }
-}
+};
