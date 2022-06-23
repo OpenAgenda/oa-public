@@ -6,5 +6,8 @@
   "ReactFilters.messages.provenance.share": "Partatjar",
   "ReactFilters.messages.status.full": "Totalament complèt",
   "ReactFilters.messages.status.movedOnline": "Transferit en linha",
-  "ReactFilters.messages.status.rescheduled": "Tornat planificar"
+  "ReactFilters.messages.status.rescheduled": "Tornat planificar",
+  "ReactFilters.messages.filterTitles.adminLevel3": "Administrative level 3",
+  "ReactFilters.messages.filterTitles.originAgendaUid": "Agenda d'origina",
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": "Agenda sorsa"
 }

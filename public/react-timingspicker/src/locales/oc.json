@@ -1,1 +1,13 @@
-{}
+{
+  "rtp.defineTiming": "Clicatz e bloegatz sus la grasilha per definir un orari",
+  "rtp.multiRecurrencerForm.confirmation": "D'oraris recurrents son estats aponduts.",
+  "rtp.multiRecurrencerForm.forceSubmit": "Crear çaquelà",
+  "rtp.multiRecurrencerForm.intervalTooSmall": "L'intervalle deu èsser superior a 0",
+  "rtp.multiRecurrencerForm.someDisabledValues": "D'unas valors son desactivadas",
+  "rtp.recurrencerForm.confirmation": "D'oraris recurrents son estats aponduts.",
+  "rtp.recurrencerForm.everyMonthByDate": "Cada {dayNumber, selectordinal, one {{dayNumber, number}èr} two {{dayNumber, number}nd} few {{dayNumber, number}en} other {{dayNumber, number}en}} del mes",
+  "rtp.recurrencerForm.everyMonthByWeekday": "Cada {weekNumber, selectordinal, one {{weekNumber, number}èr} two {{weekNumber, number}nd} few {{weekNumber, number}en} other {{weekNumber, number}en}} {weekday} del mes",
+  "rtp.recurrencerForm.forceSubmit": "Crear çaquelà",
+  "rtp.recurrencerForm.intervalTooSmall": "L'intervalle deu èsser superior a 0",
+  "rtp.recurrencerForm.someDisabledValues": "D'unes oraris son ja utilizats o pas dobèrts a la sasida :"
+}
