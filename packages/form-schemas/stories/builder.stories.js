@@ -560,7 +560,7 @@ export function WithCustomField() {
   );
 }
 
-export function WithRestrictedTimmings() {
+export function WithRestrictedTimings() {
   const schema = {
   };
 
@@ -600,7 +600,7 @@ export function WithRestrictedTimmings() {
             extendedFrom={extensions}
             onUpdate={onUpdate}
             components={{
-              enabledRanges: <p>Some custom component</p>
+              enabledRanges: () => <p>Some custom component</p>
             }}
             customFieldConfigurationSchemas={({
               timings: {
@@ -625,7 +625,7 @@ export function WithRestrictedTimmings() {
   );
 }
 
-export function WithNotRestrictedTimmings() {
+export function WithNotRestrictedTimings() {
   const schema = {
   };
 
@@ -647,7 +647,7 @@ export function WithNotRestrictedTimmings() {
     console.log('updatedSchema', updatedSchema);
   }
 
-  const EnabledRanges = <div>Custom component</div>;
+  const EnabledRanges = () => <div>Custom component</div>;
 
   return (
     <div className="container top-margined">
