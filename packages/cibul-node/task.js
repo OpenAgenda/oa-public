@@ -46,6 +46,11 @@ module.exports = (config, core, services) => {
     time: '08:00'
   });
 
+  tfy(services.users.tasks.notifyAndRemove, {
+    period: 'daily',
+    time: '10:00'
+  });
+
   tfy(services.inboxes.tasks.sync, {
     // bootOffset: 5000,
     period: 'weekly',

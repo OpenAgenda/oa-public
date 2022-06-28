@@ -788,7 +788,8 @@ module.exports = {
   },
   "actionsInfo": {
     "en": "Featured, cancellation, rescheduled, duplication...",
-    "fr": "Mise en une, annulation, report, duplication..."
+    "fr": "Mise en une, annulation, report, duplication...",
+    "io": "crwdns32382:0crwdne32382:0"
   },
   "activity": {
     "en": "Activity",

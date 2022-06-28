@@ -1,1 +1,25 @@
-{}
+{
+  "LegacyEmbed.AdvancedMenu.customCSS": "Dintratz vòstre css",
+  "LegacyEmbed.AdvancedMenu.customListHead": "Modèl d'entèsta de tièra personalizat",
+  "LegacyEmbed.AdvancedMenu.linkCSS": "Apondre un ligam cap a una fuèlha d'estile",
+  "LegacyEmbed.App.mapCodeLabel": "Aquel widget mòstra los eveniments sus una mapa e filtra la tièra d'eveniments quand los marcaires son clicats.",
+  "LegacyEmbed.App.positioningMenu": "Posicionament",
+  "LegacyEmbed.App.sharesMenu": "Partatges",
+  "LegacyEmbed.CalendarMenu.code": "Aquel widget vos permet de filtrar l'agenda integrada per serias de datas.",
+  "LegacyEmbed.EmbedSelection.list": "Integracion d'agenda principala",
+  "LegacyEmbed.EmbedSelection.listInfo": "Lo còdi embarcat qu'intègra la vista principala del vòstre calendièr.",
+  "LegacyEmbed.EmbedSelection.map": "Widget de mapa",
+  "LegacyEmbed.EmbedSelection.tag": "Widget de causida",
+  "LegacyEmbed.GeneralMenu.useEventSlug": "Utilizar los identificants de títols coma d'identificants d'eveniments dins la barra d'adreças",
+  "LegacyEmbed.PositioningMapMenu.mapAuto": "Metre a jorn la barra d'adreças del navigador amb los reglatges d'agenda",
+  "LegacyEmbed.PositioningMapMenu.mapPositionModeAuto": "Automatic",
+  "LegacyEmbed.Presentation.create": "Crear una integracion per aquela agenda",
+  "LegacyEmbed.Presentation.description": "Afichatz l'agenda ont vos agrada, sus qual site internet que siá, sus Facebook, amb de widgets de mapas, categorias o calendièrs.",
+  "LegacyEmbed.Presentation.details": "Crear una vista de vòstra agenda vos permetrà d'integrar lo sieu contengut e d'utilizar de widgets de navigacion coma una mapa, un calendièr, de menuts de categorias... dirèctament sul site que volètz",
+  "LegacyEmbed.Presentation.title": "Integratz l'agenda al vòstre site",
+  "LegacyEmbed.ShareMenu.facebookAppId": "L'identificant de l'aplicacion Facebook del vòstre site",
+  "LegacyEmbed.ShareMenu.facebookAppIdSub": "Necessari per partejar d'eveniments sus Facebook amb de ligams que puntan cap al vòstre site",
+  "LegacyEmbed.ShareMenu.siteURL": "Utilizatz l'URL de vòstre site dins los ligams de partatge (activatz l'opcion de mesa a jorn de l'URL)",
+  "LegacyEmbed.TagSelectionMenu.tagMenuInfo": "Las modificacions portadas aquí meton a jorn lo còdi embarcat",
+  "LegacyEmbed.TagSelectionMenu.tagSelectionLabel": "Causissètz las valors de cargar dins lo widget"
+}

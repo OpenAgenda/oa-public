@@ -40,5 +40,9 @@
   "aggregator-sources.RuleForm.values": "Valors :",
   "aggregator-sources.SlugSearch.enterLink": "Dintrar un ligam d'agenda",
   "aggregator-sources.SourcesList.seeAgenda": "Veire l'agenda",
-  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Volètz que los eveniments publicats dins lo calendièr sorsa sián tornats avalorar en seguida d'aquela mesa a jorn ?"
+  "aggregator-sources.UpdateSourceModal.evaluateOptionsMessages": "Volètz que los eveniments publicats dins lo calendièr sorsa sián tornats avalorar en seguida d'aquela mesa a jorn ?",
+  "aggregator-sources.DefineRules.brokenFilterInfo": "aqueste filtre remanda a un camp que se posquèt pas trapar. Se pòt que siá estat escafat de l'agenda-sorsa!",
+  "aggregator-sources.DefineRules.locationFilter": "{required, select, true {Filtre de localizacion requesit} other {Filtre de localizacion}}",
+  "aggregator-sources.RuleForm.locationFilter": "Filtre de localizacion",
+  "aggregator-sources.UpdateSourceModal.InfoMessage": "La mesa a jorn capitèt. Los eveniments son avalorats, los que correspondon a las règlas que definiguèretz apareitràn dins vòstre calendièr d'aquí un ponhat de minutas."
 }

@@ -15,6 +15,6 @@ module.exports.init = (config, services) => {
     isValid: loadTokenAndValidate.bind(null, knex),
     getUser: getUser.bind(null, knex, users),
     getUserFromKey: getUserFromKey.bind(null, services),
-    generateToken: generateTokenFromSecretKey.bind(null, knex)
+    generateToken: generateTokenFromSecretKey.bind(null, services)
   };
 };

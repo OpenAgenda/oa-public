@@ -1,0 +1,29 @@
+<mjml>
+  <mj-head>
+    <mj-title><%= __('title') %></mj-title>
+    <%- include('../partials/defaultStyle.mjml') %>
+  </mj-head>
+  <mj-body>
+    <%- include('../partials/header.mjml') %>
+
+    <mj-content>
+      <mj-column>
+        <mj-text>
+          <h1 class="title"><%= __('title') %></h1>
+        </mj-text>
+        <mj-text>
+          <%- __('content') %>
+        </mj-text>
+        <mj-button
+          background-color="#41acdd"
+          color="white"
+          align="center"
+          href="<%= link %>"
+        >
+          <%= __('connect') %>
+        </mj-button>
+      </mj-column>
+    </mj-content>
+    <%- include('../partials/footer.mjml') %>
+  </mj-body>
+</mjml>

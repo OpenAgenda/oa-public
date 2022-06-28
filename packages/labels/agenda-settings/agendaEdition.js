@@ -792,6 +792,8 @@ module.exports = {
   },
   "eventStatusKnowMore": {
     "fr": "En savoir plus",
-    "en": "Learn more"
+    "en": "Learn more",
+    "it": "Per saperne di più",
+    "io": "crwdns32380:0crwdne32380:0"
   }
 }

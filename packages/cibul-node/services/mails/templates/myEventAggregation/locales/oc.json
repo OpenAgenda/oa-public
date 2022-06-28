@@ -1,1 +1,4 @@
-{}
+{
+  "body": "<b>{event}</b> de l'agenda <b>{sourceAgenda}</b> es estat représ amb l'estatut <b>{state}</b>.",
+  "memberUnsubscribe": "Arrestar de recebre las agregacions d'eveniments d'aquela agenda"
+}

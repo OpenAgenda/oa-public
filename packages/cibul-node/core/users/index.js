@@ -10,6 +10,7 @@ const getEventUserContext = require('./getEventUserContext');
 const getAgendaUserContext = require('./getAgendaUserContext');
 const get = require('./get');
 const remove = require('./remove');
+const generateToken = require('./generateToken');
 
 module.exports = core => Object.assign(identifier => ({
   remove: remove(core, identifier),
@@ -22,7 +23,7 @@ module.exports = core => Object.assign(identifier => ({
   }), {
     list: listUserAgendas(core, identifier)
   }),
-  generateToken: core.services.accessTokens.generateToken.bind(null, identifier),
+  generateToken: generateToken.bind(null, core, identifier),
   canEditEvent: canEditEvent.bind(null, core, identifier)
 }), {
   get: Object.assign(get(core), {

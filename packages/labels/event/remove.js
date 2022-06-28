@@ -21,7 +21,7 @@ module.exports = {
     "de": "Bist du sicher, dass Sie dies tun? Wenn Sie das Veranstaltung aus dieserVerwaltungskalender entfernen, wird es nicht mehr in den Ausfuhr aufgeführt wird und von jedem Programm entfernt werden aggregiert Deine Veranstaltungen",
     "es": "¿Está seguro de que desea eliminar el evento? Si es así, sino que también será eliminado del agenda de exportación y los agregadores agendas conectados a su contenido.",
     "io": "crwdns14416:0crwdne14416:0",
-    "oc": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments"
+    "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments"
   },
   "eventDeleteTitle": {
     "en": "Event deletion",
@@ -32,7 +32,7 @@ module.exports = {
     "en": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
     "fr": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",
     "io": "crwdns14420:0crwdne14420:0",
-    "oc": "Sètz segur·a que volètz far aquò ? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda."
+    "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda."
   },
   "confirm": {
     "en": "Confirm",

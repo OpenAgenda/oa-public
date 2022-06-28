@@ -8,14 +8,12 @@ const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
 const merge = require('../utils/merge');
 
-async function loadFormSchema(formSchemas, agendaId, formSchemaId, hasNetworkSchema = false) {
+async function loadFormSchema(formSchemas, agendaId, formSchemaId) {
   if (formSchemaId) {
     return formSchemas.get(formSchemaId);
   }
 
-  if (hasNetworkSchema) return null;
-
-  return formSchemas.legacy.transfer(agendaId);
+  return null;
 }
 
 module.exports = async (services, agendaOrUid, options = {}) => {

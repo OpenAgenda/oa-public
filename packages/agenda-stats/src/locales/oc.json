@@ -2,5 +2,8 @@
   "AgendaStats.OrderModal.width": "Largor :",
   "AgendaStats.RangeTypeModal.rangeTypeDesc": "Lo periòd del <b>X</b> al <b>Y</b> s'aplica a :",
   "AgendaStats.StatEditModal.modalTitle": "Modificar lo grafic : {chartTitle}",
-  "AgendaStats.form.componentWidth": "Largor del compausant :"
+  "AgendaStats.form.componentWidth": "Largor del compausant :",
+  "AgendaStats.EmptyDashboard.creationHelp": "<link>Clicatz aicí</link> per n'apréner mai a prepaus de l'apondon d'eveniments a vòstra agenda.",
+  "AgendaStats.EmptyDashboard.description": "Apondètz o dintratz d'eveniments puèi configuratz un rapòrt que consistís en de diagramas circulars, en barras o istogramas per aver un apercebut de la vòstra programacion.",
+  "AgendaStats.EmptyDashboard.title": "Generar d'estatisticas suls contenguts de vòstra agenda."
 }
