@@ -218,5 +218,7 @@ module.exports = services => async function notifyAndRemove(options = {}) {
     }
   }
 
+  log('info', 'notified and remove run done', counts);
+
   return counts;
 };
