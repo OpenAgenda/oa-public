@@ -25,8 +25,9 @@ const eventFormComponents = {
   location: require('./components/Location'),
   languages: require('./components/Languages'),
   accessibility: require('./components/Accessibility'),
-  references: require('./components/References')
-}
+  references: require('./components/References'),
+  longDescription: require('./components/CustomDesc'),
+};
 
 const eventSchema = require('./schema');
 
@@ -64,7 +65,7 @@ class EventForm extends Component {
     const languageChanges = identifyLanguageChanges(
       _.get(this.state, 'values.languages'), // before
       _.get(values, 'languages') // now
-   );
+    );
 
     const update = _.omitBy({
       errors,
@@ -84,9 +85,9 @@ class EventForm extends Component {
         multilingualFieldNames,
         _.get(this, 'state.values.languages.0'),
         _.first(languageChanges.swapped)
-     ), {
+      ), {
         languages: {
-          $set: [ languageChanges.swapped[ 0 ] ]
+          $set: [languageChanges.swapped[0]]
         }
       });
     } else if (languageChanges.removed.length) {
@@ -94,7 +95,7 @@ class EventForm extends Component {
         this.state.values,
         multilingualFieldNames,
         languageChanges.removed
-     ), {
+      ), {
         languages: {
           $set: this.state.values.languages.filter(l => !languageChanges.removed.includes(l))
         }
@@ -108,8 +109,7 @@ class EventForm extends Component {
         update.schema,
         lang,
         update.values.languages
-     );
-
+      );
     }
 
     if (this.props.devOnChange) this.props.devOnChange(update);
@@ -145,7 +145,7 @@ class EventForm extends Component {
     return {
       schema,
       hash: JSON.stringify(languages) // only language changes may trigger schema changes
-    }
+    };
   }
 
   render() {
@@ -166,35 +166,35 @@ class EventForm extends Component {
       hash
     } = this.state;
 
-    return <FormSchemaComponent
-      res={res ? { post: res } : undefined}
-      method="post"
-      unloadWarning={unloadWarning ?? true}
-      role={role}
-      stateless={true}
-      maxFileSize={maxFileSize}
-      lang={lang}
-      components={eventFormComponents}
-      values={values}
-      errors={this.state.errors}
-      globalError={this.state.globalError}
-      loading={this.state.loading}
-      files={this.state.files}
-      onChange={this.onChange.bind(this)}
-      schema={schema}
-      hash={hash}
-      classNames={ih(classNames ?? {}, {
-        field: { $set: 'padding-v-sm form-group' }
-      })}
-      actionComponents={actionComponents}
-      onSubmitSuccess={onSubmitSuccess}
-      labels={{
-        errors: errorLabels
-      }}
-    />
-
+    return (
+      <FormSchemaComponent
+        res={res ? { post: res } : undefined}
+        method="post"
+        unloadWarning={unloadWarning ?? true}
+        role={role}
+        stateless={true}
+        maxFileSize={maxFileSize}
+        lang={lang}
+        components={eventFormComponents}
+        values={values}
+        errors={this.state.errors}
+        globalError={this.state.globalError}
+        loading={this.state.loading}
+        files={this.state.files}
+        onChange={this.onChange.bind(this)}
+        schema={schema}
+        hash={hash}
+        classNames={ih(classNames ?? {}, {
+          field: { $set: 'padding-v-sm form-group' }
+        })}
+        actionComponents={actionComponents}
+        onSubmitSuccess={onSubmitSuccess}
+        labels={{
+          errors: errorLabels
+        }}
+      />
+    );
   }
-
 }
 
 export default Object.assign(EventForm, {

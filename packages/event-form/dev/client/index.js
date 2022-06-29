@@ -5,6 +5,7 @@ import store from 'store';
 import { IntlProvider } from 'react-intl';
 
 import EnabledRanges from '../../src/components/configuration/EnabledRanges';
+
 import { locales } from '@openagenda/react-shared';
 
 import { schema } from '../../test/fixtures/reed.json';
@@ -18,7 +19,6 @@ if (module.hot) module.hot.accept();
 import {
   tiles
 } from '../../testconfig';
-
 
 const storeKey = 'eventFormSandbox';
 
@@ -60,7 +60,7 @@ class Main extends Component {
     };
 
     return (
-      <IntlProvider messages={locales['fr']} locale={'fr'} key={'fr'}>
+      <IntlProvider messages={locales['fr']} locale="fr" key="fr">
         <div className="container-fluid top-margined">
           <div className="row">
             <div className="col-sm-4">
@@ -105,8 +105,8 @@ class Main extends Component {
               <EnabledRanges
                 field="enabledRanges"
                 value={{
-                  begin: "2021-07-03T07:00",
-                  end: "2021-07-04T06:00"
+                  begin: '2021-07-03T07:00',
+                  end: '2021-07-04T06:00'
                 }}
                 onChange={v => console.log(v)}
               />
