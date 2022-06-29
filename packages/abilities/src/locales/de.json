@@ -1,7 +1,7 @@
 {
-  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": "Einstellungen Veranstalter",
-  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": "Deine Admin- / Moderatoreinstellungen",
-  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": "Meine Veranstaltereinstellungen",
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": "Einstellungen Veranstalter:",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": "Deine Admin- / Moderatoreinstellungen:",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": "Meine Veranstaltereinstellungen:",
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Erhalte Nachrichten bei Änderungen des Bearbeitungstatus",
   "Abilities.RulesCheckbox.rules.receiveEvent": "Infos über Veranstaltungen anderer User",
   "Abilities.RulesCheckbox.rules.receiveEventChangeState": "Erhalte Nachrichten wenn sich der Status meiner Veranstaltungen ändert",
