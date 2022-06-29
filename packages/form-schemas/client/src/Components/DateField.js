@@ -52,11 +52,13 @@ function DateField({
           {getContent(cleanValue, placeholder, lang)}
         </Dropdown.Toggle>
         <Dropdown.Menu bsRole="menu">
-          <Calendar
-            date={cleanValue || null}
-            onChange={onChange}
-            locale={rdrLocales[lang]}
-          />
+          <div className="dropdown-calendar" style={{ minWidth: '300px' }}>
+            <Calendar
+              date={cleanValue || null}
+              onChange={onChange}
+              locale={rdrLocales[lang]}
+            />
+          </div>
         </Dropdown.Menu>
       </Dropdown>
     ) : (
