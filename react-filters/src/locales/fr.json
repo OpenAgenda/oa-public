@@ -53,7 +53,7 @@
   "ReactFilters.messages.filterTitles.relative": "Passé / en cours / à venir",
   "ReactFilters.messages.filterTitles.sourceAgendaUid": "Agenda source",
   "ReactFilters.messages.filterTitles.state": "Statut",
-  "ReactFilters.messages.filterTitles.status": "Etat",
+  "ReactFilters.messages.filterTitles.status": "État",
   "ReactFilters.messages.filterTitles.timings": "Date",
   "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour",
   "ReactFilters.messages.provenance.aggregation": "Agrégation",
