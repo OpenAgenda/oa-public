@@ -285,27 +285,27 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         options: [
           {
             label: intl.formatMessage(statusMessages.programmed),
-            value: 1,
+            value: '1',
           },
           {
             label: intl.formatMessage(statusMessages.rescheduled),
-            value: 2,
+            value: '2',
           },
           {
             label: intl.formatMessage(statusMessages.movedOnline),
-            value: 3,
+            value: '3',
           },
           {
             label: intl.formatMessage(statusMessages.postponed),
-            value: 4,
+            value: '4',
           },
           {
             label: intl.formatMessage(statusMessages.full),
-            value: 5,
+            value: '5',
           },
           {
             label: intl.formatMessage(statusMessages.cancelled),
-            value: 6,
+            value: '6',
           },
         ],
         aggregation: {
