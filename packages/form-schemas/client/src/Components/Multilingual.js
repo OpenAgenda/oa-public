@@ -1,20 +1,10 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 
 import FieldCounter from './FieldCounter';
 import Sub from './Sub';
-
 import TextField from './TextField';
-import HTMLField from './HTMLField';
-import MarkdownField from './MarkdownField';
-
-const FieldComponents = {
-  text: TextField,
-  textarea: TextField,
-  html: HTMLField,
-  markdown: MarkdownField
-};
 
 function extractLanguageValue(value, l) {
   if (!value) return;
@@ -39,33 +29,24 @@ function multilingualizeValue(value, languages) {
   return value;
 }
 
-export default class MultilingualField extends Component {
-  onChange(language, singleLanguageValue) {
-    const {
-      onChange,
-      value,
-      field
-    } = this.props;
-
+const MultilingualField = ({
+  onChange,
+  value,
+  field,
+  error,
+  enabled,
+  lang,
+  FieldComponent
+}) => {
+  const myOnChange = useCallback((language, singleLanguageValue) => {
     const multilingualizedValue = multilingualizeValue(value, field.languages);
-
     onChange({
       ...multilingualizedValue,
       [language]: singleLanguageValue
     });
-  }
+  }, [onChange, field.languages, value]);
 
-  renderField(l) {
-    const {
-      field,
-      error,
-      enabled,
-      lang,
-      value
-    } = this.props;
-
-    const FieldComponent = _.get(this.props, 'component', FieldComponents[field.fieldType]);
-
+  const renderField = useCallback(l => {
     const languageField = ih(field, {
       default: {
         $set: _.get(
@@ -83,32 +64,37 @@ export default class MultilingualField extends Component {
           field={languageField}
           enabled={enabled}
           value={extractLanguageValue(value, l)}
-          onChange={v => this.onChange(l, v)}
+          onChange={v => myOnChange(l, v)}
         />
         {field.max ? <FieldCounter value={_.get(value, l)} max={field.max} /> : null}
         <Sub label={field.sub} error={_.get(error, l)} />
       </div>
     );
+  }, [enabled, error, field, value, myOnChange, lang]);
+
+  if (field.languages.length === 1) {
+    return renderField(field.languages[0]);
   }
 
-  render() {
-    const { field } = this.props;
+  return (
+    <ul className="list-unstyled">
+      {field.languages.map(l => (
+        <li key={`${field.field}_${l}`}>
+          <div className="lang-input">
+            <label htmlFor={`${field.field}.${l}`}>{l}</label>
+            {renderField(l)}
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
-    if (field.languages.length === 1) {
-      return this.renderField(field.languages[0]);
-    }
+export default MultilingualField;
 
-    return (
-      <ul className="list-unstyled">
-        {field.languages.map(l => (
-          <li key={`${field.field}_${l}`}>
-            <div className="lang-input">
-              <label htmlFor={`${field.field}.${l}`}>{l}</label>
-              {this.renderField(l)}
-            </div>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-}
+/*export default fieldComponent => props => (
+   <MultilingualField
+    {...props}
+    FieldComponent={fieldComponent}
+  />
+); */

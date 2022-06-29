@@ -28,7 +28,7 @@ const isFieldOptional = require('../lib/isFieldOptional');
 const hasHelp = require('../lib/hasHelp');
 
 const FieldComponents = {
-  multilingual: MultilingualField,
+  // multilingual: MultilingualField,
   text: TextField,
   integer: TextField,
   number: TextField,
@@ -46,7 +46,7 @@ const FieldComponents = {
   boolean: BooleanField,
   date: DateField,
   file: FileField,
-  image: ImageField
+  image: ImageField,
 };
 
 const log = debug('Field');
@@ -58,23 +58,19 @@ const decoratedByFieldComponent = (field, key) => {
 };
 
 export default class Field extends Component {
-  getFieldComponent(isMultilingual) {
+  getFieldComponent() {
     const {
       field: {
         fieldType,
         field
       },
-      customComponents
+      customComponents = {}
     } = this.props;
 
-    const CustomComponent = _.get(customComponents, fieldType);
+    const CustomComponent = customComponents[fieldType];
 
     if (CustomComponent) {
       return CustomComponent;
-    }
-
-    if (isMultilingual) {
-      return FieldComponents.multilingual;
     }
 
     if (FieldComponents[fieldType]) {
@@ -106,7 +102,7 @@ export default class Field extends Component {
 
     // field is decorated with labels
 
-    const FieldComponent = this.getFieldComponent(isMultilingual);
+    const FieldComponent = this.getFieldComponent();
 
     const isEnabled = isFieldEnabled(field, relatedValues.enable, disabled);
     const isOptional = isFieldOptional(field, relatedValues.optional);
@@ -116,6 +112,17 @@ export default class Field extends Component {
       isOptional ? 'optional' : 'required',
       isEnabled ? 'enabled' : 'disabled'
     );
+
+    const fieldComponentsProps = {
+      enabled: isEnabled,
+      lang,
+      field,
+      value,
+      error,
+      onChange,
+      relatedValues,
+      labels,
+    };
 
     return (
       <div
@@ -158,16 +165,7 @@ export default class Field extends Component {
           />
         ) : null}
         {!decoratedByFieldComponent(field, 'info') ? <Info value={field.info} /> : null }
-        <FieldComponent
-          enabled={isEnabled}
-          lang={lang}
-          field={field}
-          value={value}
-          error={error}
-          onChange={onChange}
-          relatedValues={relatedValues}
-          labels={labels}
-        />
+        {isMultilingual ? (<MultilingualField {...fieldComponentsProps} FieldComponent={FieldComponent} />) : (<FieldComponent {...fieldComponentsProps}/>)}
         {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null }
         {!isMultilingual && !decoratedByFieldComponent(field, 'sub') ? <Sub label={field.sub} error={error} /> : null}
       </div>

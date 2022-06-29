@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   mysql: {
@@ -20,4 +20,4 @@ module.exports = {
       categorySet: 'legacy_category_set'
     }
   }
-}
+};

@@ -22,7 +22,7 @@ module.exports = Object.assign(config => {
     logger.setModuleConfig(config.logger);
   }
 
-  log( 'initializing' );
+  log('initializing');
 
   const c = {
     client: config.knex || knex({
@@ -97,7 +97,6 @@ async function getValidator({ client, schemas }, id, options = {}) {
   return data ? (new FormSchema(data)).getValidate(options) : null;
 }
 
-
 async function create({ client, schemas }, data) {
   let clean;
   try {
@@ -108,7 +107,7 @@ async function create({ client, schemas }, data) {
     return {
       success: false,
       errors
-    }
+    };
   }
 
   const id = await client(schemas.formSchema).insert({
@@ -121,7 +120,7 @@ async function create({ client, schemas }, data) {
     success: true,
     id,
     formSchema: clean
-  }
+  };
 }
 
 async function update({ client, schemas }, id, data) {
@@ -135,7 +134,7 @@ async function update({ client, schemas }, id, data) {
       id,
       success: false,
       errors
-    }
+    };
   }
 
   const updatedId = await client(schemas.formSchema)
@@ -160,5 +159,5 @@ async function remove({ client, schemas }, id) {
   return {
     success: true,
     id: removedId
-  }
+  };
 }
