@@ -3,7 +3,7 @@ import ih from 'immutability-helper';
 import labelKeys from './labelKeys';
 
 function restrictLabelLanguages(field, languages = []) {
-  return ih(field, labelKeys
+  const restricted = ih(field, labelKeys
     .filter(labelKey => field[labelKey])
     .reduce((updates, labelKey) => {
       const currentLabelLanguages = _.isString(field[labelKey]) ? [] : _.keys(field[labelKey]);
@@ -16,6 +16,12 @@ function restrictLabelLanguages(field, languages = []) {
         ), {}) : fillerLabel
       });
     }, {}));
+
+  if (restricted.options) {
+    restricted.options = restricted.options.map(o => restrictLabelLanguages(o, languages));
+  }
+
+  return restricted;
 }
 
 function applyToSchema(schema, languages = []) {

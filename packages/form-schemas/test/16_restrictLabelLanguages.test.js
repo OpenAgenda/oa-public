@@ -90,4 +90,38 @@ describe('16 - unit - restrictLabelLanguages', () => {
       }]
     });
   });
+
+  it('options are also processed', () => {
+    expect(restrictLabelLanguages.applyToSchema({
+      fields: [{
+        label: { fr: 'Catégories', en: 'Categories' },
+        field: 'categories',
+        fieldType: 'radio',
+        options: [{
+          id: 1,
+          value: 'concert',
+          label: { fr: 'Concert', en: 'Concert' }
+        }, {
+          id: 2,
+          value: 'theatre',
+          label: { fr: 'Théâtre', en: 'Theater' }
+        }]
+      }]
+    }, ['fr'])).toStrictEqual({
+      fields: [{
+        label: { fr: 'Catégories' },
+        field: 'categories',
+        fieldType: 'radio',
+        options: [{
+          id: 1,
+          value: 'concert',
+          label: { fr: 'Concert' }
+        }, {
+          id: 2,
+          value: 'theatre',
+          label: { fr: 'Théâtre' }
+        }]
+      }]
+    });
+  });
 });
