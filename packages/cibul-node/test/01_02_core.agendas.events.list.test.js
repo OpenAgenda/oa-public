@@ -235,5 +235,15 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
       const events = await core.agendas(2).events.list({}, { limit: 10 });
       expect(events.filter(e => e.uid === 2).pop().addMethod).toBe('aggregation');
     });
+
+    it('updatedAt is max between event & agenda_event records', async () => {
+      const events = await core.agendas(2).events.list();
+
+      expect(
+        events.filter(e => e.uid === 1).pop().updatedAt.getTime()
+      ).toBe(
+        (new Date('2022-06-30T09:00:00.000Z')).getTime()
+      );
+    });
   });
 });
