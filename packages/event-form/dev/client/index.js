@@ -63,7 +63,7 @@ class Main extends Component {
       <IntlProvider messages={locales['fr']} locale={'fr'} key={'fr'}>
         <div className="container-fluid top-margined">
           <div className="row">
-            <div className="col-sm-4">
+            <div className="col-xs-12 col-sm-8 col-md-6">
               <EventForm
                 mode="edit"
                 includeEventFields
