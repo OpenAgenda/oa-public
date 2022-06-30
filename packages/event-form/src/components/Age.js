@@ -55,8 +55,13 @@ module.exports = class AgeComponent extends Component {
 
   isEnabled() {
     const {
-      value
+      value,
+      enabled: enabledFromProps = true
     } = this.props;
+
+    if (!enabledFromProps) {
+      return false;
+    }
 
     const min = parseInt(value?.min ?? 'NaN', 10);
     const max = parseInt(value?.max ?? 'NaN', 10);
@@ -100,7 +105,8 @@ module.exports = class AgeComponent extends Component {
   render() {
     const {
       lang,
-      value
+      value,
+      enabled: enabledFromProps = true
     } = this.props;
 
     const labels = flattenLabels(ageLabels, lang);
@@ -131,6 +137,7 @@ module.exports = class AgeComponent extends Component {
     return (
       <div className="age">
         <input
+          disabled={!enabledFromProps}
           type="checkbox"
           name="age"
           checked={isEnabled}
@@ -139,6 +146,7 @@ module.exports = class AgeComponent extends Component {
         <div className="age-inputs">
           <label htmlFor="minage" className="margin-right-sm">{labels.min}</label>
           <Select
+            isDisabled={!enabledFromProps}
             styles={selectStyles}
             name="minage"
             value={minAgeValue}
@@ -150,6 +158,7 @@ module.exports = class AgeComponent extends Component {
           />
           <label className="margin-h-sm" htmlFor="maxage">{labels.max}</label>
           <Select
+            isDisabled={!enabledFromProps}
             styles={selectStyles}
             name="maxage"
             value={maxAgeValue}

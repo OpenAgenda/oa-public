@@ -12,6 +12,7 @@ import { schema } from '../../test/fixtures/reed.json';
 console.log(schema);
 
 import EventForm from '../../src';
+import Age from '../../src/components/Age';
 
 if (module.hot) module.hot.accept();
 
@@ -98,18 +99,40 @@ class Main extends Component {
                 }}
               />
             </div>
-            <div className="col-sm-4">
-              <pre>
-                <code>{JSON.stringify(values, null, 2)}</code>
-              </pre>
-              <EnabledRanges
-                field="enabledRanges"
-                value={{
-                  begin: "2021-07-03T07:00",
-                  end: "2021-07-04T06:00"
-                }}
-                onChange={v => console.log(v)}
-              />
+            <div className="col-xs-12 col-sm-4 col-md-6">
+              <div className="row">
+                <div className="col-xs-12 wsq margin-bottom-md">
+                  <strong>Values typed in the form</strong>
+                  <pre>
+                    <code>{JSON.stringify(values, null, 2)}</code>
+                  </pre>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-12 wsq margin-bottom-md">
+                  <div className="margin-v-sm">Timings configuration component</div>
+                  <EnabledRanges
+                    field="enabledRanges"
+                    value={{
+                      begin: '2021-07-03T07:00',
+                      end: '2021-07-04T06:00'
+                    }}
+                    onChange={v => console.log(v)}
+                  />
+                </div>
+              </div>
+              <div className="row oa-form">
+                <div className="col-xs-12 wsq margin-bottom-md padding-bottom-sm">
+                  <div className="margin-v-sm">Disabled age form component</div>
+                  <div className="form-group disabled">
+                    <Age
+                      onChange={() => {}}
+                      lang="fr"
+                      enabled={false}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
