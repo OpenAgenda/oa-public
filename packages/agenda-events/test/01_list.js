@@ -180,6 +180,11 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     assert.equal(items.length, 0);
   });
 
+  it('updatedAt timestamp is in result of list', async () => {
+    const { items } = await svc(62792452).list();
+    assert(items[0].updatedAt instanceof Date);
+  });
+
   it('an item contains agenda & event references, state, featured bool and custom data', async () => {
 
     const result = await svc(62792452).list(0, 1);

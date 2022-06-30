@@ -28,6 +28,7 @@ module.exports = (service, query, nav, options = {}) => {
     'state',
     'aggregated',
     'featured',
+    'updated_at',
     'legacy_id'
   ];
 
