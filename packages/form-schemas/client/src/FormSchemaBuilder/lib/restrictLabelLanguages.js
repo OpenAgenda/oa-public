@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import ih from 'immutability-helper';
 import labelKeys from './labelKeys';
 
@@ -6,15 +5,19 @@ function restrictLabelLanguages(field, languages = []) {
   const restricted = ih(field, labelKeys
     .filter(labelKey => field[labelKey])
     .reduce((updates, labelKey) => {
-      const currentLabelLanguages = _.isString(field[labelKey]) ? [] : _.keys(field[labelKey]);
+      const currentLabelLanguages = typeof field[labelKey] === 'string' ? [] : Object.keys(field[labelKey]);
 
       const fillerLabel = currentLabelLanguages.length ? field[labelKey][currentLabelLanguages[0]] : field[labelKey];
 
-      return _.set(updates, labelKey, {
-        $set: languages.length ? languages.reduce((labelValue, language) => _.set(
-          labelValue, language, currentLabelLanguages.includes(language) ? field[labelKey][language] : fillerLabel
-        ), {}) : fillerLabel
-      });
+      return {
+        ...updates,
+        [labelKey]: {
+          $set: languages.length ? languages.reduce((labelValue, language) => ({
+            ...labelValue,
+            [language]: currentLabelLanguages.includes(language) ? field[labelKey][language] : fillerLabel
+          }), {}) : fillerLabel
+        }
+      };
     }, {}));
 
   if (restricted.options) {
@@ -25,7 +28,9 @@ function restrictLabelLanguages(field, languages = []) {
 }
 
 function applyToSchema(schema, languages = []) {
-  if (!_.get(schema, 'fields', []).length) return schema;
+  if ((!schema?.fields ?? []).length) {
+    return schema;
+  }
 
   return ih(schema, {
     fields: {
