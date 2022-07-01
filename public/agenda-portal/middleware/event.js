@@ -6,18 +6,22 @@ module.exports.get = async (req, res, next) => {
   const proxy = req.app.get('proxy');
   const transform = req.app.get('transforms').event.show;
 
-  const event = await proxy.get(res.locals.agendaUid, {
-    slug: req.params.slug,
-  });
+  try {
+    const event = await proxy.get(res.locals.agendaUid, {
+      slug: req.params.slug,
+    });
 
-  if (!event) return next();
+    if (!event) return next();
 
-  req.data.event = transform(event, req, res);
+    req.data.event = transform(event, req, res);
 
-  setPageProp(req, 'pageType', 'event');
-  setPageProp(req, 'lang', res.locals.lang);
-  setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
-  setPageProp(req, 'agendaUid', res.locals.agenda.uid);
+    setPageProp(req, 'pageType', 'event');
+    setPageProp(req, 'lang', res.locals.lang);
+    setPageProp(req, 'defaultViewport', res.locals.agenda.summary.viewport);
+    setPageProp(req, 'agendaUid', res.locals.agenda.uid);
+  } catch (err) {
+    return next(err);
+  }
 
   next();
 };
