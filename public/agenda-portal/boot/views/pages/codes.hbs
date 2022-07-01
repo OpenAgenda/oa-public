@@ -1,0 +1,48 @@
+{{>layout.top}}
+{{>head tagName="h1" link=root}}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="my-5 col-6 col-md-8 col-sm-10 wbg px-4 py-3">
+      <h2>Main embed code</h2>
+      <p>Use when the portal is to be displayed from within an iframe</p>
+      <pre>
+        <code>
+          &lt;iframe
+            data-oa-portal="{{root}}"
+            data-scroll-offset="0"
+            allowtransparency="allowtransparency"
+            frameborder="0"
+            data-lang="{{lang}}"
+          &gt;&lt;/iframe&gt;
+          &ltscript 
+            type="text/javascript"
+            src="{{root}}/js/oaPortalController.js"
+          &gt;&lt;/script&gt;
+        </code>
+      </pre>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="my-5 col-6 col-md-8 col-sm-10 wbg px-4 py-3">
+      <h2>Preview embed code</h2>
+      <p>Use in a page where a preview selection of events is to be displayed</p>
+      <pre>
+        <code>
+          &lt;iframe
+            data-oa-preview="{{root}}/preview"
+            data-count="3"
+            data-random-from-set="20"
+            data-lang="fr"
+            data-target-url="https://url_where_the_portal_is.com"
+            data-target-iframe
+            allowtransparency="allowtransparency"
+            frameborder="0">&lt;/iframe&gt;
+          &lt;script
+            type="text/javascript"
+            src="{{root}}/js/oaPreviewController.js"
+          &gt;&lt;/script&gt;
+        </code>
+      </pre>
+    </div>
+</div>
+{{>layout.bottom}}
