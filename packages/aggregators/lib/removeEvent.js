@@ -47,5 +47,9 @@ module.exports = async (
   log(
     'other source references are present, current source ref must be removed'
   );
-  await updateSourcePaths(aggregatorAgendaUid, eventUid, updatedPaths);
+  await updateSourcePaths({
+    aggregatorAgendaUid,
+    eventUid,
+    paths: updatedPaths,
+  });
 };
