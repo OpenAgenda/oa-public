@@ -81,4 +81,8 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.district',
     defaultMessage: 'District',
   },
+  accessibility: {
+    id: 'ReactFilters.messages.filterTitles.accessibility',
+    defaultMessage: 'Accessibility',
+  },
 });

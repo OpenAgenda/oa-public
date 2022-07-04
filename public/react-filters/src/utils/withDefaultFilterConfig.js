@@ -7,6 +7,7 @@ import featuredMessages from '../messages/featured';
 import stateMessages from '../messages/state';
 import statusMessages from '../messages/status';
 import booleanMessages from '../messages/boolean';
+import accessibilitiesMessages from '../messages/accessibilities';
 import dateRanges from './dateRanges';
 
 const AGGREGATION_SIZE = 2000;
@@ -61,6 +62,36 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         ],
         aggregation: {
           type: 'addMethods',
+        },
+      });
+      break;
+    case 'accessibility':
+      _.defaults(filter, {
+        type: 'choice',
+        options: [
+          {
+            label: intl.formatMessage(accessibilitiesMessages.hi),
+            value: 'hi',
+          },
+          {
+            label: intl.formatMessage(accessibilitiesMessages.vi),
+            value: 'vi',
+          },
+          {
+            label: intl.formatMessage(accessibilitiesMessages.pi),
+            value: 'pi',
+          },
+          {
+            label: intl.formatMessage(accessibilitiesMessages.mi),
+            value: 'mi',
+          },
+          {
+            label: intl.formatMessage(accessibilitiesMessages.ii),
+            value: 'ii',
+          },
+        ],
+        aggregation: {
+          type: 'accessibilities',
         },
       });
       break;
