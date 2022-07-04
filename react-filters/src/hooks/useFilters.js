@@ -30,6 +30,7 @@ export default function useFilters(intl, agendaSchema, opts = {}) {
       { name: 'keyword' },
       { name: 'status' },
       { name: 'district' },
+      { name: 'accessibility' }
     ];
 
     const additionalFilters = agendaSchema.fields
