@@ -72,5 +72,11 @@
   "ReactFilters.messages.status.postponed": "crwdns16906:0crwdne16906:0",
   "ReactFilters.messages.status.programmed": "crwdns16908:0crwdne16908:0",
   "ReactFilters.messages.status.rescheduled": "crwdns16910:0crwdne16910:0",
-  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0"
+  "ReactFilters.useGetFilterOptions.emptyOption": "crwdns16912:0crwdne16912:0",
+  "ReactFilters.messages.accessiblities.hi": "crwdns32422:0crwdne32422:0",
+  "ReactFilters.messages.accessiblities.ii": "crwdns32424:0crwdne32424:0",
+  "ReactFilters.messages.accessiblities.mi": "crwdns32426:0crwdne32426:0",
+  "ReactFilters.messages.accessiblities.pi": "crwdns32428:0crwdne32428:0",
+  "ReactFilters.messages.accessiblities.vi": "crwdns32430:0crwdne32430:0",
+  "ReactFilters.messages.filterTitles.accessibility": "crwdns32434:0crwdne32434:0"
 }
