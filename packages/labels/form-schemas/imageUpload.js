@@ -51,7 +51,7 @@ module.exports = {
   },
   "remove": {
     "en": "Remove",
-    "fr": "Supprimer",
+    "fr": "Retirer",
     "de": "Löschen",
     "es": "Eliminar",
     "it": "Rimuovi",

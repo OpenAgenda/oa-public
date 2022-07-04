@@ -9,7 +9,7 @@
   "event.create": "{user} a créé {event} dans l'agenda {agenda}.",
   "event.update": "{user} a mis à jour {event} sur {agenda}.",
   "event.updateWithOneChange": "{user} a mis à jour le champ {fields} de {event} sur {agenda}.",
-  "event.updateWithSomeChanges": "{user} a mis à jour {event} sur {agenda}: {fields} ont été modifiés.",
+  "event.updateWithSomeChanges": "{user} a mis à jour {event} sur {agenda} : {fields} ont été modifiés.",
   "event.updateWithLotOfChanges": "{user} a mis à jour {event} sur {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} a supprimé {event} sur {agenda}.",
   "unknownActivity": "Libellé d'activité manquant pour {verb}"

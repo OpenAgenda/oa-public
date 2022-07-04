@@ -35,7 +35,7 @@ module.exports = {
     "io": "crwdns11392:0crwdne11392:0"
   },
   "settings": {
-    "fr": "Paramétrer",
+    "fr": "Paramètres",
     "en": "Settings",
     "de": "Die Einstellungen",
     "es": "Conjunto",

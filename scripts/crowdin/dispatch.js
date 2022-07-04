@@ -135,7 +135,7 @@ async function downloadFile(url, to) {
 
   console.log(`Successfully ${translationsCounter} translations extracted in ${fileCounter} files.`);
 
-  fork('packages/labels/.crowdin/dispatch');
+  fork(path.join(PROJECT, 'packages/labels/.crowdin/dispatch'));
 
   console.log('Dispatched in package labels');
 })();

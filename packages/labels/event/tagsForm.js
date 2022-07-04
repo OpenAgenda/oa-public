@@ -26,7 +26,7 @@ module.exports = {
     "io": "crwdns14628:0crwdne14628:0"
   },
   "submit": {
-    "fr": "Valider",
+    "fr": "Enregistrer",
     "en": "Submit",
     "de": "einreichen",
     "es": "validar",

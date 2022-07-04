@@ -123,7 +123,7 @@ module.exports = {
     "io": "crwdns12468:0crwdne12468:0"
   },
   "contribDefaultStatePublished": {
-    "fr": "Publiés",
+    "fr": "Publié",
     "en": "Published",
     "de": "Veröffentlicht",
     "es": "Publicado",

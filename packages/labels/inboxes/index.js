@@ -162,7 +162,7 @@ module.exports = {
     "io": "crwdns15036:0crwdne15036:0"
   },
   "submit": {
-    "fr": "Envoyer",
+    "fr": "Enregistrer",
     "en": "Submit",
     "de": "einreichen",
     "es": "enviar a",

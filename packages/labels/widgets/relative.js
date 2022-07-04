@@ -52,7 +52,7 @@ module.exports = {
     "io": "crwdns15936:0crwdne15936:0"
   },
   "thisMonth": {
-    "fr": "Ce mois-ci",
+    "fr": "Ce mois",
     "en": "This month",
     "it": "In questo mese",
     "de": "Diesen Monat",
