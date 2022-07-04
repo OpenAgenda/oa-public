@@ -41,7 +41,7 @@
   "ReactFilters.messages.boolean.notSelected": "Not selected",
   "ReactFilters.messages.boolean.selected": "Selected",
   "ReactFilters.messages.featured.featured": "Featured",
-  "ReactFilters.messages.filterTitles.accessibilities": "Accessibilities",
+  "ReactFilters.messages.filterTitles.accessibility": "Accessibility",
   "ReactFilters.messages.filterTitles.addMethod": "Provenance",
   "ReactFilters.messages.filterTitles.adminLevel3": "Administrative level 3",
   "ReactFilters.messages.filterTitles.attendanceMode": "Attendance mode",
