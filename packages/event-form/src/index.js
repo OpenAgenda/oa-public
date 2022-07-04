@@ -26,7 +26,7 @@ const eventFormComponents = {
   languages: require('./components/Languages'),
   accessibility: require('./components/Accessibility'),
   references: require('./components/References'),
-  longDescription: require('./components/CustomDesc'),
+  longDescription: require('./components/ConfigurableTextarea'),
 };
 
 const eventSchema = require('./schema');
