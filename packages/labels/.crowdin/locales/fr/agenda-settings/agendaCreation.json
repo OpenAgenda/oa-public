@@ -14,7 +14,7 @@
   "contribTypeChoosen": "Seulement des personnes choisies et moi",
   "contribTypeAll": "Tout le monde",
   "contribDefaultState": "Statut par défaut des événements",
-  "contribDefaultStatePublished": "Publiés",
+  "contribDefaultStatePublished": "Publié",
   "contribDefaultStatePublishedText": "Vous pouvez modifier les événements ensuite.",
   "contribDefaultStateUnpublished": "Non-publiés",
   "contribDefaultStateUnpublishedText": "Les événements ne deviennent publics qu'après votre validation.",

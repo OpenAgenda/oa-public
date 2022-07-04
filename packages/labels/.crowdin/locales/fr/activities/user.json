@@ -1,7 +1,7 @@
 {
-  "agenda.sendInvitation": "{user} a invité {email} comme {credential} sur {agenda}.",
+  "agenda.sendInvitation": "{user} a invité {email} en tant que {credential} sur {agenda}.",
   "agenda.acceptInvitation": "{user} a accepté l'invitation de {originMember} pour devenir {credential} sur {agenda}.",
-  "agenda.addMember": "{originMember} a ajouté {user} comme {credential} sur {agenda}.",
+  "agenda.addMember": "{originMember} a ajouté {user} en tant que {credential} sur {agenda}.",
   "agenda.removeMember": "{originMember} a retiré {user} ({credential}) de {agenda}.",
   "agenda.setMemberRole": "{user} a nommé {originMember} {credential} sur {agenda}.",
   "agenda.addSource": "{user} a ajouté {sourceAgenda} aux sources de {agenda}.",
@@ -22,7 +22,7 @@
   "event.create": "{user} a créé {event} dans l'agenda {agenda}.",
   "event.update": "{user} a mis à jour {event} sur {agenda}.",
   "event.updateWithOneChange": "{user} a mis à jour le champ {fields} de {event} sur {agenda}.",
-  "event.updateWithSomeChanges": "{user} a mis à jour {event} sur {agenda}: {fields} ont été modifiés.",
+  "event.updateWithSomeChanges": "{user} a mis à jour {event} sur {agenda} : {fields} ont été modifiés.",
   "event.updateWithLotOfChanges": "{user} a mis à jour {event} sur {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} a supprimé {event} sur {agenda}.",
   "activities": "Activités",

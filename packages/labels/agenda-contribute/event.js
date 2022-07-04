@@ -39,7 +39,7 @@ module.exports = {
     "oc": "Enregistrar coma borrolhon"
   },
   "update": {
-    "fr": "Mettre à jour",
+    "fr": "Modifier",
     "en": "Update",
     "it": "Modificare",
     "de": "ändern",

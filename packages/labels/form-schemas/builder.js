@@ -193,7 +193,7 @@ module.exports = {
     "io": "crwdns14726:0crwdne14726:0"
   },
   "submitLabelLanguages": {
-    "fr": "Valider",
+    "fr": "Enregistrer",
     "en": "Submit",
     "es": "validar",
     "it": "Invia",
@@ -516,7 +516,7 @@ module.exports = {
     "io": "crwdns14814:0crwdne14814:0"
   },
   "confirmFieldUpdate": {
-    "fr": "Mettre à jour",
+    "fr": "Modifier",
     "en": "Update",
     "es": "Poner al día",
     "it": "Aggiorna",
@@ -553,7 +553,7 @@ module.exports = {
     "io": "crwdns14824:0crwdne14824:0"
   },
   "optionUpdateAction": {
-    "fr": "Mettre à jour",
+    "fr": "Modifier",
     "en": "Update",
     "es": "Poner al día",
     "it": "Aggiorna",
@@ -583,7 +583,7 @@ module.exports = {
     "io": "crwdns14832:0crwdne14832:0"
   },
   "optionOrder": {
-    "fr": "Trier",
+    "fr": "Modifier l'ordre",
     "en": "Change order",
     "es": "Clasificar",
     "it": "Ordina",
@@ -591,7 +591,7 @@ module.exports = {
     "io": "crwdns14834:0crwdne14834:0"
   },
   "optionRemove": {
-    "fr": "Supprimer",
+    "fr": "Retirer",
     "en": "Remove",
     "es": "Finalizar la clasificación",
     "it": "Rimuovi",
