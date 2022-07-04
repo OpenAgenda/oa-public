@@ -4,7 +4,6 @@ import React, { useCallback } from 'react';
 
 import FieldCounter from './FieldCounter';
 import Sub from './Sub';
-import TextField from './TextField';
 
 function extractLanguageValue(value, l) {
   if (!value) return;
@@ -92,9 +91,3 @@ const MultilingualField = ({
 
 export default MultilingualField;
 
-/*export default fieldComponent => props => (
-   <MultilingualField
-    {...props}
-    FieldComponent={fieldComponent}
-  />
-); */
