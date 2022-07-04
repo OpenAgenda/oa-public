@@ -47,5 +47,7 @@
   "ReactFilters.messages.status.rescheduled": "Riprogrammato",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)",
   "ReactFilters.messages.attendanceMode.offline": "In presenza",
-  "ReactFilters.messages.filterTitles.adminLevel3": "Città metropolitane"
+  "ReactFilters.messages.filterTitles.adminLevel3": "Città metropolitane",
+  "ReactFilters.messages.accessiblities.mi": "Incapacità motoria",
+  "ReactFilters.messages.accessiblities.vi": "Invalidità visiva"
 }
