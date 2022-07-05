@@ -18,6 +18,10 @@ function evaluateUserAccessToEvent(req, res, next) {
     return next();
   }
 
+  if (!req.user) {
+    return next(new Forbidden('not authorized to read event'));
+  }
+
   core
     .users(req.user.uid)
     .agendas(req.agenda.uid)
