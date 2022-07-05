@@ -45,6 +45,32 @@ async function sendEmail(services, user, template, options = {}) {
   });
 }
 
+async function removeActiveUsersFromStore(services, stateStore, uids, time) {
+  const {
+    users: usersSvc
+  } = services;
+
+  const since = new Date((new Date()).getTime() - time);
+
+  const activeUsers = await usersSvc.find({
+    query: {
+      last_signin: {
+        $gte: since
+      },
+      uid: {
+        $in: uids
+      },
+      $limit: limit
+    }
+  }).then(r => r?.data);
+
+  log('there are %s users from store that are now active and must not longer be processed by task', activeUsers.length);
+
+  for (const user of activeUsers) {
+    await stateStore.del(user);
+  }
+}
+
 async function loadInactiveUsers(services, time, uids = null) {
   const {
     users: usersSvc,
@@ -120,10 +146,12 @@ function getLastSendFromNow(state) {
   return Math.ceil(((new Date()).getTime() - (new Date(state.sent[state.sent.length - 1].date)).getTime()) / (1000 * 60 * 60 * 24));
 }
 
-async function loadUsers(services, stateStore) {
+async function refreshAndLoadUsers(services, stateStore) {
   const storedUserUids = await stateStore.list();
 
   if (storedUserUids.length) {
+    await removeActiveUsersFromStore(services, stateStore, storedUserUids, inactiveTime);
+
     const users = await loadInactiveUsers(services, inactiveTime, storedUserUids);
 
     log('loaded %s accounts from users service from %s that are still in process store', users.length, storedUserUids.length);
@@ -147,7 +175,7 @@ module.exports = services => async function notifyAndRemove(options = {}) {
 
   const stateStore = InactiveUserStateStore(services, storePrefix, options);
 
-  const users = await loadUsers(services, stateStore);
+  const users = await refreshAndLoadUsers(services, stateStore);
 
   const counts = {
     processed: 0,
