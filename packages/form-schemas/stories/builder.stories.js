@@ -419,6 +419,49 @@ export function WithRadio() {
   );
 }
 
+export function WithNullSchema() {
+  const schema = null;
+
+  const extensions = [{
+    schema: {
+      fields: [{
+        field: 'title',
+        label: 'Titre',
+        fieldType: 'text'
+      }]
+    },
+    info: {
+      label: 'Standard field',
+      detail: 'Though shalt not change this'
+    }
+  }];
+
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
+  }
+
+  return (
+    <div className="container top-margined">
+      <div>
+        <p>Uninitialized schema can be provided as null. Adding a field initializes it.</p>
+      </div>
+      <div className="row margin-v-md">
+        <div>
+          <FormSchemaBuilder
+            maxFields={2}
+            addEnabled
+            lang="fr"
+            schema={schema}
+            editableExtensions
+            extendedFrom={extensions}
+            onUpdate={onUpdate}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function WithUnhandledType() {
   const schema = {
     fields: [{

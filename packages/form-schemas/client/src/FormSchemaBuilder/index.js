@@ -132,11 +132,12 @@ export default class FormSchemaBuilder extends Component {
   }
 
   getSchema() {
+    const defaultSchema = { fields: [] };
     const {
-      schema = { fields: [] }
+      schema = defaultSchema
     } = this.state;
 
-    return schema;
+    return schema === null ? defaultSchema : schema;
   }
 
   setSaveState(newSaveState, otherStateSet = {}) {
