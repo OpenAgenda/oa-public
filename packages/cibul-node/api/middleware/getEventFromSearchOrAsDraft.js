@@ -48,7 +48,8 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
         .get(req.params.eventUid, {
           useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
           useLocationObjectFormat: true,
-          access: 'internal'
+          access: 'internal',
+          private: null
         })
         .then(event => {
           if (event?.draft) {
