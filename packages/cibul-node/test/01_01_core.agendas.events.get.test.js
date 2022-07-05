@@ -276,6 +276,16 @@ describe('core - functional (server): core.agendas().events.get()', () => {
   });
 
   describe('other', () => {
+    it('updatedAt value is latest between event and agenda_event record', async () => {
+      const ev = await core.agendas(2).events.get(1);
+
+      expect(
+        ev.updatedAt.getTime()
+      ).toBe(
+        (new Date('2022-06-30T09:00:00.000Z')).getTime()
+      );
+    });
+
     it('get on event includes source paths', async () => {
       const ev = await core.agendas(2).events.get(2);
 

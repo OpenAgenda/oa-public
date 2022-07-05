@@ -202,6 +202,33 @@ Crowdin devrait récupérer les nouvelles sources.
 On traduit les nouveaux labels dans crowdin
 Puis `node scripts/crowdin/dispatch.js`
 
+### Si on veut modifier des sources directement sur crowdin
+
+Il faut les récupérer sur le projet en partant d'un code non édité/modifié par rapport à ce qui se trouve sur le repo en ligne.
+
+... et avoir le crowdin-cli d'installé: `npm i -g @crowdin/cli`
+
+On télécharge les sources dans le dossier de base du projet (oa):
+
+```
+CROWDIN_PROJECT_ID=316319 CROWDIN_PERSONAL_TOKEN=$CROWDIN_KEY crowdin download sources -b "[OpenAgenda.oa] main"
+```
+
+On dispatch les labels récupérés dans le package labels:
+
+```
+cd packages/labels
+node .crowdin/dispatch.js
+```
+
+... et dans le projet public
+
+```
+CROWDIN_PROJECT_ID=316319 CROWDIN_PERSONAL_TOKEN=$CROWDIN_KEY crowdin download sources -b "[OpenAgenda.oa-public] main"
+```
+
+On commie
+
 
 ### Si on a modifié le pack
 

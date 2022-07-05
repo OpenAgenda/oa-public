@@ -77,7 +77,7 @@ module.exports = {
   },
   "event.updateWithSomeChanges": {
     "en": "{user} updated {event} on {agenda}: {fields} have been changed.",
-    "fr": "{user} a mis à jour {event} sur {agenda}: {fields} ont été modifiés.",
+    "fr": "{user} a mis à jour {event} sur {agenda} : {fields} ont été modifiés.",
     "it": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
     "io": "crwdns11172:0{user}crwdnd11172:0{event}crwdnd11172:0{agenda}crwdnd11172:0{fields}crwdne11172:0",
     "oc": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats."

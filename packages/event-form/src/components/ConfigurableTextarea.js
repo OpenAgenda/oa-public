@@ -16,6 +16,7 @@ const ConfigurableTextarea = props => {
   return (
     <MarkdownField
       {...props}
+      field={{ ...field, fieldType: 'textarea' }}
     />
   );
 };

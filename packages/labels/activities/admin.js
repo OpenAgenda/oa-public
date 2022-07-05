@@ -3,7 +3,7 @@
 module.exports = {
   "agenda.sendInvitation": {
     "en": "{user} invited {email} as {credential} on {agenda}.",
-    "fr": "{user} a invité {email} comme {credential} sur {agenda}.",
+    "fr": "{user} a invité {email} en tant que {credential} sur {agenda}.",
     "io": "crwdns11042:0{user}crwdnd11042:0{email}crwdnd11042:0{credential}crwdnd11042:0{agenda}crwdne11042:0",
     "it": "{user} ha invitato {email} come {credential} su {agenda}."
   },
@@ -17,7 +17,7 @@ module.exports = {
   },
   "agenda.addMember": {
     "en": "{originMember} added {user} as {credential} on {agenda}.",
-    "fr": "{originMember} a ajouté {user} comme {credential} sur {agenda}.",
+    "fr": "{originMember} a ajouté {user} en tant que {credential} sur {agenda}.",
     "de": "{originMember} hinzugefügt {user} in {credential} auf {agenda}.",
     "es": "{originMember} añadió {user} como de la {agenda} {credential}.",
     "it": "{originMember} ha aggiunto {user} come {credential} su {agenda}.",
@@ -183,7 +183,7 @@ module.exports = {
   },
   "event.updateWithSomeChanges": {
     "en": "{user} updated {event} on {agenda}: {fields} have been changed.",
-    "fr": "{user} a mis à jour {event} sur {agenda}: {fields} ont été modifiés.",
+    "fr": "{user} a mis à jour {event} sur {agenda} : {fields} ont été modifiés.",
     "it": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
     "io": "crwdns11086:0{user}crwdnd11086:0{event}crwdnd11086:0{agenda}crwdnd11086:0{fields}crwdne11086:0",
     "oc": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats."

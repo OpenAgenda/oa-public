@@ -1,10 +1,3 @@
-'use strict';
-
-const _ = {
-  get: require('lodash/get'),
-  set: require('lodash/set')
-};
-
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
 import Select from 'react-select';
@@ -20,21 +13,39 @@ const limits = {
 const defaults = {
   min: 0,
   max: 99
-}
+};
 
 module.exports = class AgeComponent extends Component {
+  onChange(field, choice) {
+    const {
+      onChange,
+      value
+    } = this.props;
+
+    const clean = parseInt(choice.value, 10);
+
+    onChange(ih(value, {
+      [field]: {
+        $set: Number.isNaN(clean) ? null : clean
+      }
+    }));
+  }
 
   getSelectOptions(minValue) {
-    const labels = flattenLabels(ageLabels, this.props.lang);
+    const {
+      lang
+    } = this.props;
+
+    const labels = flattenLabels(ageLabels, lang);
     const options = [];
 
-    let min = minValue || limits.min;
+    const min = minValue || limits.min;
 
-    for (let i=0; i<limits.max; i++) {
+    for (let i = 0; i < limits.max; i++) {
       if (min <= i) {
         options.push({
-          value: i + '',
-          label: i + ' ' + (i < 2 ? labels.year : labels.years)
+          value: `${i}`,
+          label: `${i} ${(i < 2 ? labels.year : labels.years)}`
         });
       }
     }
@@ -43,18 +54,19 @@ module.exports = class AgeComponent extends Component {
   }
 
   isEnabled() {
-    const min = parseInt(_.get(this.props.value, 'min', 'NaN'));
-    const max = parseInt(_.get(this.props.value, 'max', 'NaN'));
+    const {
+      value,
+      enabled: enabledFromProps = true
+    } = this.props;
 
-    return !isNaN(min) || !isNaN(max);
-  }
+    if (!enabledFromProps) {
+      return false;
+    }
 
-  onChange(field, choice) {
-    const clean = parseInt(choice.value);
+    const min = parseInt(value?.min ?? 'NaN', 10);
+    const max = parseInt(value?.max ?? 'NaN', 10);
 
-    this.props.onChange(ih(this.props.value, _.set({}, field, {
-      $set: isNaN(clean) ? null : clean
-    })));
+    return !Number.isNaN(min) || !Number.isNaN(max);
   }
 
   toggleEnabled(enable = null) {
@@ -72,27 +84,42 @@ module.exports = class AgeComponent extends Component {
   }
 
   disable() {
-    this.props.onChange({ min: null, max: null });
+    const {
+      onChange
+    } = this.props;
+
+    onChange({
+      min: null,
+      max: null
+    });
   }
 
   initialize() {
-    this.props.onChange(defaults);
+    const {
+      onChange
+    } = this.props;
+
+    onChange(defaults);
   }
 
   render() {
-    const field = this.props.field;
+    const {
+      lang,
+      value,
+      enabled: enabledFromProps = true
+    } = this.props;
 
-    const labels = flattenLabels(ageLabels, this.props.lang);
+    const labels = flattenLabels(ageLabels, lang);
 
-    const min = _.get(this.props.value, 'min', '') + '';
-    const max = _.get(this.props.value, 'max', '') + '';
+    const min = `${value?.min ?? ''}`;
+    const max = `${value?.max ?? ''}`;
 
     const isEnabled = this.isEnabled();
 
     const minAgeOptions = this.getSelectOptions();
     const minAgeValue = isEnabled ? minAgeOptions.find(option => option.value === min) : null;
 
-    const maxAgeOptions = this.getSelectOptions(this.props.value ? min : false);
+    const maxAgeOptions = this.getSelectOptions(value ? min : false);
     const maxAgeValue = isEnabled ? maxAgeOptions.find(option => option.value === max) : null;
 
     const selectStyles = {
@@ -110,37 +137,39 @@ module.exports = class AgeComponent extends Component {
     return (
       <div className="age">
         <input
+          disabled={!enabledFromProps}
           type="checkbox"
           name="age"
           checked={isEnabled}
-          onChange={this.toggleEnabled.bind( this, null )} />
+          onChange={() => this.toggleEnabled(null)}
+        />
         <div className="age-inputs">
-          <label className="margin-right-sm">{labels.min}</label>
+          <label htmlFor="minage" className="margin-right-sm">{labels.min}</label>
           <Select
+            isDisabled={!enabledFromProps}
             styles={selectStyles}
             name="minage"
             value={minAgeValue}
             options={minAgeOptions}
             clearable={false}
-            onChange={this.onChange.bind( this, 'min' )}
-            onFocus={this.toggleEnabled.bind( this, true )}
+            onChange={choice => this.onChange('min', choice)}
+            onFocus={() => this.toggleEnabled(true)}
             placeholder={labels.select}
           />
           <label className="margin-h-sm" htmlFor="maxage">{labels.max}</label>
           <Select
+            isDisabled={!enabledFromProps}
             styles={selectStyles}
             name="maxage"
             value={maxAgeValue}
             options={maxAgeOptions}
             clearable={false}
-            onChange={this.onChange.bind( this, 'max' )}
-            onFocus={this.toggleEnabled.bind( this, true )}
+            onChange={choice => this.onChange('max', choice)}
+            onFocus={() => this.toggleEnabled(true)}
             placeholder={labels.select}
           />
         </div>
       </div>
     );
-
   }
-
-}
+};

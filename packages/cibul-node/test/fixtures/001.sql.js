@@ -81,8 +81,8 @@ raw.push(knex('event_2').insert([{
   }]),
   location_uid: 1,
   timezone: 'Europe/Paris',
-  created_at: new Date(),
-  updated_at: new Date(),
+  created_at: new Date('2022-06-01T14:00:00.000Z'),
+  updated_at: new Date('2022-06-10T09:00:00.000Z'),
   file_key: '31a7df7098744844b6c6ce0d2cdba0f4'
 }, {
   id: 2,
@@ -130,8 +130,8 @@ raw.push(knex('event_2').insert([{
     base: 'https://cibuldev.s3.amazonaws.com/',
     credits: 'Gaetan Latouche'
   }),
-  created_at: new Date(),
-  updated_at: new Date()
+  created_at: new Date('2022-06-01T09:00:00.000Z'),
+  updated_at: new Date('2022-06-22T09:00:00.000Z')
 }, {
   id: 3,
   uid: 3,
@@ -167,15 +167,15 @@ raw.push(knex('agenda_event').insert([{
   event_uid: 1,
   state: 2,
   created_at: new Date(),
-  updated_at: new Date()
+  updated_at: new Date('2022-06-22T09:00:00.000Z')
 }, {
   id: 2,
   user_uid: 1,
   agenda_uid: 2,
   event_uid: 1,
   state: 0,
-  created_at: new Date(),
-  updated_at: new Date()
+  created_at: new Date('2022-06-01T14:00:00.000Z'),
+  updated_at: new Date('2022-06-30T09:00:00.000Z')
 }, {
   id: 3,
   user_uid: null,
@@ -185,7 +185,7 @@ raw.push(knex('agenda_event').insert([{
   source_agenda_uid: JSON.stringify([[1]]),
   aggregated: 1,
   created_at: new Date(),
-  updated_at: new Date()
+  updated_at: new Date('2022-06-22T09:00:00.000Z')
 }]));
 
 raw.push(knex('form_schema').insert([{

@@ -4,7 +4,7 @@
   "tomorrow": "Demain",
   "thisWeekend": "Ce week-end",
   "thisWeek": "Cette semaine",
-  "thisMonth": "Ce mois-ci",
+  "thisMonth": "Ce mois",
   "relativeToNowPast": "il y a %count% %units%",
   "relativeToNowUpcoming": "dans %count% %units%",
   "days": "jours",

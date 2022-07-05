@@ -8,14 +8,6 @@ module.exports = produce((draft, current, options = {}) => {
     isPatch
   } = options;
 
-/*   if (isPatch && draft.duplicateCandidates && current.duplicateCandidates) {
-    draft.duplicateCandidates = draft.duplicateCandidates.concat(current.duplicateCandidates).sort((a, b) => a - b);
-  }
-
-  if (isPatch && draft.disqualiedDuplicates && current.disqualiedDuplicates) {
-    draft.disqualiedDuplicates = draft.disqualiedDuplicates.concat(current.disqualiedDuplicates).sort((a, b) => a - b);
-  } */
-
   if (!draft.extId && current.extId) {
     draft.extId = current.extId;
   }

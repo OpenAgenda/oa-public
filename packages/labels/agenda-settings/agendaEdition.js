@@ -98,7 +98,7 @@ module.exports = {
     "io": "crwdns12520:0crwdne12520:0"
   },
   "contribDefaultStatePublished": {
-    "fr": "Publiés",
+    "fr": "Publié",
     "en": "Published",
     "de": "Veröffentlicht",
     "es": "Publicado",
@@ -282,7 +282,7 @@ module.exports = {
     "io": "crwdns12564:0crwdne12564:0"
   },
   "remove": {
-    "fr": "Supprimer",
+    "fr": "Retirer",
     "en": "Remove",
     "de": "Löschen",
     "es": "Eliminar",
@@ -710,7 +710,7 @@ module.exports = {
     "io": "crwdns12664:0crwdne12664:0"
   },
   "update": {
-    "fr": "Mettre à jour",
+    "fr": "Modifier",
     "en": "Update",
     "de": "Aktualisieren",
     "es": "Guardar",

@@ -1,18 +1,28 @@
-"use strict";
+'use strict';
 
-const events = require( '@openagenda/events' );
+const logs = require('@openagenda/logs');
 
-const activities = require( '../../activities' );
-const legacyEventSearch = require( '../../elasticsearch' );
+const log = logs('services/members/transferEvent');
 
-const log = require( '@openagenda/logs' )( 'services/members/transferEvent' );
+function feedFollow(activities, follow, userUid, eventUid) {
+  return activities.feed({
+    entityType: 'user',
+    entityUid: userUid
+  })[follow ? 'follow' : 'unfollow']({
+    entityType: 'event',
+    entityUid: eventUid
+  });
+}
 
-module.exports = async (services, event, member) => {
+module.exports = async function transferEvent(services, event, member) {
   const {
-    agendaEvents
+    agendaEvents,
+    events,
+    activities,
+    elasticsearch: legacyEventSearch
   } = services;
 
-  log( 'processing event to member', event.uid, member.id );
+  log('processing event to member', event.uid, member.id);
 
   const previousOwnerUid = event.ownerUid;
 
@@ -20,36 +30,25 @@ module.exports = async (services, event, member) => {
     userUid: member.userUid
   }, { protected: false, transferToLegacy: true });
 
-  await events.update( { uid: event.uid }, {
+  await events.update({ uid: event.uid }, {
     ownerUid: member.userUid
-  }, { protected: false, transferToLegacy: true } );
+  }, { protected: false, transferToLegacy: true });
 
   try {
-    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
-  } catch ( e ) {
-    log( 'error', 'could not update legacy search', event.slug );
+    await legacyEventSearch.updateEvent({ uid: event.uid });
+  } catch (e) {
+    log('error', 'could not update legacy search', event.slug);
   }
 
   try {
-    await _feedFollow( false, previousOwnerUid, event.uid );
-  } catch ( e ) {
-    log( 'error', 'failed to update current owner feed', e );
+    await feedFollow(activities, false, previousOwnerUid, event.uid);
+  } catch (e) {
+    log('error', 'failed to update current owner feed', e);
   }
 
   try {
-    await _feedFollow( true, member.userUid, event.uid );
-  } catch ( e ) {
-    log( 'error', 'failed to update transferred to user feed', e );
+    await feedFollow(activities, true, member.userUid, event.uid);
+  } catch (e) {
+    log('error', 'failed to update transferred to user feed', e);
   }
-
-}
-
-function _feedFollow( follow, userUid, eventUid ) {
-  return activities.feed( {
-    entityType: 'user',
-    entityUid: userUid
-  } )[ follow ? 'follow' : 'unfollow' ]( {
-    entityType: 'event',
-    entityUid: eventUid
-  } );
-}
+};
