@@ -123,7 +123,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
       first: 0,
       second: 1,
       last: 1,
-      removals: 1
+      removals: 1,
+      signedIn: 0
     });
   });
 

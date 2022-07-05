@@ -50,6 +50,10 @@ async function removeActiveUsersFromStore(services, stateStore, uids, time) {
     users: usersSvc
   } = services;
 
+  if (!uids.length) {
+    return 0;
+  }
+
   const since = new Date((new Date()).getTime() - time);
 
   const activeUsers = await usersSvc.find({
@@ -69,6 +73,8 @@ async function removeActiveUsersFromStore(services, stateStore, uids, time) {
   for (const user of activeUsers) {
     await stateStore.del(user);
   }
+
+  return activeUsers.length;
 }
 
 async function loadInactiveUsers(services, time, uids = null) {
@@ -146,12 +152,8 @@ function getLastSendFromNow(state) {
   return Math.ceil(((new Date()).getTime() - (new Date(state.sent[state.sent.length - 1].date)).getTime()) / (1000 * 60 * 60 * 24));
 }
 
-async function refreshAndLoadUsers(services, stateStore) {
-  const storedUserUids = await stateStore.list();
-
+async function loadUsers(services, storedUserUids) {
   if (storedUserUids.length) {
-    await removeActiveUsersFromStore(services, stateStore, storedUserUids, inactiveTime);
-
     const users = await loadInactiveUsers(services, inactiveTime, storedUserUids);
 
     log('loaded %s accounts from users service from %s that are still in process store', users.length, storedUserUids.length);
@@ -175,15 +177,18 @@ module.exports = services => async function notifyAndRemove(options = {}) {
 
   const stateStore = InactiveUserStateStore(services, storePrefix, options);
 
-  const users = await refreshAndLoadUsers(services, stateStore);
+  const storedUserUids = await stateStore.list();
 
   const counts = {
     processed: 0,
     first: 0,
     second: 0,
     last: 0,
-    removals: 0
+    removals: 0,
+    signedIn: await removeActiveUsersFromStore(services, stateStore, storedUserUids, inactiveTime)
   };
+
+  const users = await loadUsers(services, storedUserUids);
 
   for (const user of users) {
     log('processing user %s', user.uid);
