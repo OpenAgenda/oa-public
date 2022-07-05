@@ -74,8 +74,7 @@ module.exports = class TimingsComponent extends Component {
       />
     );
   }
-}
-
+};
 
 function _extractDateString(d) {
   return [

@@ -111,7 +111,7 @@ module.exports = ({ labels }) => [{
 }, {
   languages: [],
   field: 'longDescription',
-  fieldType: 'markdown',
+  fieldType: 'longDescription',
   label: labels?.longDescription,
   max: 10000,
   sub: labels?.longDescriptionSub,
