@@ -26,12 +26,12 @@ const fieldSchemaTypes = {
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
     parentsField ? null : fg.minMax({ min: 0, max: 255 }),
-    parentsField?.optional ? fg.optional() : null,
+    (!parentsField || (parentsField?.optional ?? true)) ? fg.optional() : null,
     fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub'])
   ),
   radioLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
-    parentsField ? null : fg.optional(),
+    (!parentsField || (parentsField?.optional ?? true)) ? fg.optional() : null,
     parentsField ? null : fg.options({ labelLanguages }),
     fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub'])
   ),

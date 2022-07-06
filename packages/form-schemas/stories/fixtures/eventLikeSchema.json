@@ -23,6 +23,7 @@
         {
             "field": "title",
             "fieldType": "text",
+            "optional": false,
             "label": {
                 "en": "Title",
                 "fr": "Titre"
