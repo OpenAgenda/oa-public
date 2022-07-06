@@ -120,8 +120,6 @@ module.exports = class RegistrationComponent extends Component {
 
     const errors = this.props.errors;
 
-    console.log(values);
-
     return (
       <div className="registration">
         <TagsInput
