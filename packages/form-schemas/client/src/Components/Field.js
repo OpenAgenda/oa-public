@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import debug from 'debug';
@@ -165,7 +163,7 @@ export default class Field extends Component {
           />
         ) : null}
         {!decoratedByFieldComponent(field, 'info') ? <Info value={field.info} /> : null }
-        {isMultilingual ? (<MultilingualField {...fieldComponentsProps} FieldComponent={FieldComponent} />) : (<FieldComponent {...fieldComponentsProps}/>)}
+        {isMultilingual ? (<MultilingualField {...fieldComponentsProps} FieldComponent={FieldComponent} />) : (<FieldComponent {...fieldComponentsProps} />)}
         {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null }
         {!isMultilingual && !decoratedByFieldComponent(field, 'sub') ? <Sub label={field.sub} error={error} /> : null}
       </div>
