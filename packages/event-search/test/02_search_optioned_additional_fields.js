@@ -56,6 +56,17 @@ describe('02 - event search - functional: search in optioned additional fields',
     assert.deepEqual(events.map(e => e.uid), [1, 2]);
   });
 
+  it('empty list passed to additional field filter is ignored', async () => {
+    const { total } = await service('additional').search({
+      'categories-agenda-metropolitain': []
+    }, {}, {
+      formSchema: fixtures.formSchema,
+      detailed: true
+    });
+
+    assert(total > 0);
+  });
+
   it('filters on absence of value set for specific additional field', async () => {
     const { events } = await service('additional').search({
       state: 2,
