@@ -191,6 +191,30 @@ describe('form-schemas -05- FormSchema', () => {
       }]);
     });
 
+    it('if defaultLabelLanguage is null, options are monolingual', () => {
+      const someSchema = new FormSchema({
+        defaultLabelLanguage: null,
+        fields: []
+      });
+
+      someSchema.updateFields([{
+        field: 'achoicefield',
+        label: 'A label',
+        fieldType: 'checkbox',
+        options: [{
+          value: 'one',
+          label: 'One'
+        }, {
+          value: 'two',
+          label: 'Two'
+        }]
+      }]);
+
+      expect(
+        someSchema.getData().fields[0].options[0].label
+      ).toBe('One');
+    });
+
     it('adds new fields', () => {
       const otherSchema = new FormSchema({
         fields: [{

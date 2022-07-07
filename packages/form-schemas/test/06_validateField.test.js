@@ -167,13 +167,13 @@ describe('form-schemas -06- validateField', () => {
       }).options).toStrictEqual([{
         id: 1,
         value: '1',
-        label: { en: 'Un' },
+        label: 'Un',
         display: true,
         info: null
       }, {
         id: 2,
         value: '2',
-        label: { en: 'Deux' },
+        label: 'Deux',
         display: true,
         info: null
       }]);

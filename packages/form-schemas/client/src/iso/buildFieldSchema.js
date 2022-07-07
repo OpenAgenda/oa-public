@@ -208,12 +208,12 @@ function buildFieldSchema(type, options = {}) {
             optional: false
           },
           label: {
-            type: 'multilingual',
+            type: labelFieldType,
             optional: false,
             defaultLanguage: defaultLabelLanguage
           },
           info: {
-            type: 'multilingual',
+            type: labelFieldType,
             optional: true,
             default: null,
             defaultLanguage: defaultLabelLanguage
