@@ -1,19 +1,20 @@
-"use string";
+const _ = require('lodash');
 
-const _ = require( 'lodash' );
+const labelFields = ['label', 'info', 'sub', 'help', 'placeholder'];
 
-const labelFields = [ 'label', 'info', 'sub', 'help', 'placeholder' ];
+const isMultilingual = (field, labelKey) => _.isObject(field[labelKey]);
 
-module.exports = field => {
+module.exports = function areFieldLabelsMultilingual(field) {
+  const definedLabelFields = labelFields.filter(f => _.get(field, f));
 
-  const setLabelFIelds = labelFields.filter( f => _.get( field, f ) );
+  if (definedLabelFields.filter(f => !isMultilingual(field, f)).length !== definedLabelFields.length) {
+    return true;
+  }
 
-  return setLabelFIelds.filter( f => !_isMultilingual( field, f ) ).length !== setLabelFIelds.length;
+  if (field.options) {
+    const multilingualOptions = field.options.filter(o => areFieldLabelsMultilingual(o));
+    return !!multilingualOptions.length;
+  }
 
-}
-
-function _isMultilingual( field, labelKey ) {
-
-  return _.isObject( field[ labelKey ] );
-
-}
+  return false;
+};

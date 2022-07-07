@@ -65,6 +65,12 @@ const fieldTypeChoices = [{
   info: labels.dateFieldTypeInfo
 }];
 
+const flatChoices = lang => fieldTypeChoices.map(c => ({
+  ...c,
+  label: c.label[lang],
+  info: c.info?.[lang]
+}));
+
 export default class ChooseFieldType extends Component {
   onFieldTypeChange({ values }) {
     this.setState(values);
@@ -98,7 +104,7 @@ export default class ChooseFieldType extends Component {
             label: getLabel('chooseFieldType', lang),
             default: 1,
             optional: false,
-            options: fieldTypeChoices
+            options: flatChoices(lang)
           }]
         }}
         actionComponents={[{
