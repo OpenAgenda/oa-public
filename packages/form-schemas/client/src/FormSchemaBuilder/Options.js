@@ -183,9 +183,9 @@ export default class OptionsField extends Component {
         <div className="margin-top-md">
           <OptionLabelsForm
             otherOptions={this.getOptions()}
-            onSubmit={o => this.addOption(o)}
+            onSubmit={(i, o) => this.addOption(o)}
             lang={lang}
-            languages={_.isArray(field.languages) && field.languages.length ? field.languages : null}
+            languages={_.isArray(field.labelLanguages) && field.labelLanguages.length ? field.labelLanguages : null}
           />
         </div>
       );

@@ -21,6 +21,7 @@ export default class OptionItem extends Component {
     const {
       field,
       lang,
+      index,
       option,
       otherOptions,
       onUpdate,
@@ -29,12 +30,13 @@ export default class OptionItem extends Component {
 
     return (
       <OptionLabelsForm
+        index={index}
         option={option}
         otherOptions={otherOptions}
         onSubmit={onUpdate}
         onCancel={onEditCancel}
         lang={lang}
-        languages={field.languages}
+        languages={field.labelLanguages}
       />
     );
   }

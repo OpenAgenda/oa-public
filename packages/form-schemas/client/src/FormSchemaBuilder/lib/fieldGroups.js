@@ -37,7 +37,7 @@ function options({ labelLanguages }) {
       field: 'options',
       fieldType: 'options',
       label: l.fieldOptions,
-      languages: labelLanguages.length ? labelLanguages : null
+      labelLanguages: labelLanguages.length ? labelLanguages : null
     }]
   };
 }

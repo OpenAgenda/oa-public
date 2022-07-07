@@ -43,7 +43,8 @@ export default class OptionAdd extends Component {
     const {
       lang,
       otherOptions,
-      onSubmit
+      onSubmit,
+      index
     } = this.props;
 
     if (error) return;
@@ -70,7 +71,7 @@ export default class OptionAdd extends Component {
         error: this.getErrorLabel('optionDuplicate')
       });
     } else {
-      onSubmit(option);
+      onSubmit(index, option);
 
       this.setState({
         option: null,

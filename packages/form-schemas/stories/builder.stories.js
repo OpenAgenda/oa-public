@@ -128,7 +128,7 @@ const cases = {
           field: 'optionsfield',
           fieldType: 'options',
           label: 'Option values',
-          languages: ['fr', 'en'],
+          labelLanguages: ['fr', 'en'],
           optional: false
         }]
       }
@@ -152,7 +152,7 @@ const cases = {
           field: 'optionsfield',
           fieldType: 'options',
           label: 'Option values',
-          languages: ['fr', 'en'],
+          labelLanguages: ['fr', 'en'],
           optional: false,
           devInitState: {
             mode: 0
@@ -200,7 +200,7 @@ const cases = {
           field: 'optionsfield',
           fieldType: 'options',
           label: 'Option values',
-          languages: ['fr', 'en'],
+          labelLanguages: ['fr', 'en'],
           optional: false
         }]
       }
@@ -245,7 +245,7 @@ const cases = {
           field: 'optionsfield',
           fieldType: 'options',
           label: 'Option values',
-          languages: ['fr', 'en'],
+          labelLanguages: ['fr', 'en'],
           optional: false,
           devInitState: {
             mode: 1,
@@ -294,7 +294,7 @@ const cases = {
           field: 'optionsfield',
           fieldType: 'options',
           label: 'Option values',
-          languages: ['fr', 'en'],
+          labelLanguages: ['fr', 'en'],
           optional: false,
           devInitState: {
             mode: 2
