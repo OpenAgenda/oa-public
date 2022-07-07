@@ -1,12 +1,7 @@
-const _ = {
-  get: require('lodash/get'),
-  omit: require('lodash/omit'),
-  pick: require('lodash/pick')
-};
+const _ = require('lodash');
+const ih = require('immutability-helper');
 
 const isObject = require('./isObject');
-
-const ih = require('immutability-helper');
 
 const {
   extractNextOptionId
@@ -16,6 +11,8 @@ const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionI
 
 const getSchema = require('./getSchema');
 const getWithFieldName = require('./getWithFieldName');
+
+const isNew = data => data.id === null;
 
 function validate(data, options = {}) {
   const {
@@ -31,14 +28,15 @@ function validate(data, options = {}) {
 
   let errors = [];
 
-  let dirty = Object.assign({
+  const dirty = {
     id: null,
     nextOptionId: 1,
     fields: [],
     res: null,
     custom: null,
-    defaultLabelLanguage: null
-  }, data || {});
+    defaultLabelLanguage: null,
+    ...(data || {})
+  };
 
   // these we take as is
   const clean = _.pick(dirty, [
@@ -70,9 +68,11 @@ function validate(data, options = {}) {
       clean.fields.push(cleanField);
     } catch (e) {
       if (!Array.isArray(e)) {
-        throw { ...e,
+        const error = {
+          ...e,
           message: `Validation of field ${f.field} failed: ${e.message}`
-        }
+        };
+        throw error;
       }
 
       errors = errors.concat(e);
@@ -109,7 +109,8 @@ module.exports = class {
     ]));
 
     if (!this.isFieldNameAvailable(clean.field)) {
-      throw 'This field name is taken! : ' + clean.field;
+      const error = `This field name is taken! : ${clean.field}`;
+      throw error;
     }
 
     this.data.nextOptionId = nextOptionId;
@@ -152,13 +153,21 @@ module.exports = class {
     return this.data.fields.filter(f => {
       if (optionalWithFieldName === f.field) {
         return true;
-      } else if (enableWithFieldName == f.field) {
+      }
+
+      if (enableWithFieldName === f.field) {
         return true;
-      } else if (getWithFieldName(f.optionalWith) === referenceFieldName) {
+      }
+
+      if (getWithFieldName(f.optionalWith) === referenceFieldName) {
         return true;
-      } else if (getWithFieldName(f.enableWith) === referenceFieldName) {
+      }
+
+      if (getWithFieldName(f.enableWith) === referenceFieldName) {
         return true;
-      };
+      }
+
+      return false;
     });
   }
 
@@ -191,7 +200,7 @@ module.exports = class {
   }
 
   isFieldNameAvailable(name) {
-    return !this.data.fields.filter(f => f.field == name).length;
+    return !this.data.fields.filter(f => f.field === name).length;
   }
 
   getFieldCount() {
@@ -203,7 +212,7 @@ module.exports = class {
   }
 
   isNew() {
-    return _isNew(this.data);
+    return isNew(this.data);
   }
 
   updateFields(fields) {
@@ -215,7 +224,7 @@ module.exports = class {
       .forEach(fieldToRemove => this.removeField(fieldToRemove.field));
 
     // add and update
-    fields.forEach((f, i) => {
+    fields.forEach(f => {
       if (this.getFieldExists(f.field)) {
         this.updateField(f);
       } else {
@@ -229,15 +238,21 @@ module.exports = class {
   }
 
   getValidate(accessType = null, accessLevel = null, options = {}) {
-    if (isObject(accessType)) {
-      options = accessType;
-      accessType = null;
-    }
-    return getSchema(
-      this.data.fields,
+    const args = isObject(accessType) ? {
+      accessType: null,
+      accessLevel: null,
+      options: accessType
+    } : {
       accessType,
       accessLevel,
-      ih(options, {
+      options
+    };
+
+    return getSchema(
+      this.data.fields,
+      args.accessType,
+      args.accessLevel,
+      ih(args.options, {
         custom: {
           $set: this.data.custom
         }
@@ -247,7 +262,7 @@ module.exports = class {
 
   getFieldExists(indexOrName) {
     if (typeof indexOrName === 'string') {
-      return this._getFieldIndex(indexOrName) === -1 ? false : true;
+      return this._getFieldIndex(indexOrName) !== -1;
     }
 
     return indexOrName < this.data.fields.length;
@@ -271,7 +286,3 @@ module.exports = class {
 };
 
 module.exports.validate = validate;
-
-function _isNew(data) {
-  return data.id === null;
-}

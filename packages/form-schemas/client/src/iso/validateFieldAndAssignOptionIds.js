@@ -1,18 +1,20 @@
-'use strict';
-
-const debug = require('debug');
 const validateField = require('./validateField');
 
 const {
-  extractNextOptionId,
   fieldHasUnnassignedOptions,
   fieldAssignOptionIds,
   fieldHasSuperiorOptions
 } = require('./fieldOptions');
 
-const log = debug('validateFieldAndAssignOptionIds');
-
-module.exports = (dirtyField, { custom, defaultLabelLanguage, nextOptionId, requireLabels }) => {
+module.exports = function validateFieldAndAssignOptionIds(
+  dirtyField,
+  {
+    custom,
+    defaultLabelLanguage,
+    nextOptionId,
+    requireLabels
+  }
+) {
   let updatedNextOptionId = nextOptionId;
 
   const cleanField = validateField(dirtyField, {
@@ -25,7 +27,7 @@ module.exports = (dirtyField, { custom, defaultLabelLanguage, nextOptionId, requ
     updatedNextOptionId = fieldAssignOptionIds(cleanField, nextOptionId);
   } else if (fieldHasSuperiorOptions(cleanField, nextOptionId)) {
     updatedNextOptionId = cleanField.options.reduce(
-      ( max, o ) => max < o.id ? o.id : max,
+      (max, o) => (max < o.id ? o.id : max),
       updatedNextOptionId
     ) + 1;
   }

@@ -192,7 +192,7 @@ describe('form-schemas -05- FormSchema', () => {
     });
 
     it('adds new fields', () => {
-      const s = new FormSchema({
+      const otherSchema = new FormSchema({
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
@@ -200,7 +200,7 @@ describe('form-schemas -05- FormSchema', () => {
         }]
       });
 
-      s.updateFields([{
+      otherSchema.updateFields([{
         field: 'atextfield',
         label: 'Un texte',
         fieldType: 'text'
@@ -210,11 +210,11 @@ describe('form-schemas -05- FormSchema', () => {
         fieldType: 'integer'
       }]);
 
-      expect(s.getData().fields.length).toBe(2);
+      expect(otherSchema.getData().fields.length).toBe(2);
     });
 
     it('removes absent fields', () => {
-      const s = new FormSchema({
+      const otherSchema = new FormSchema({
         fields: [{
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
@@ -222,18 +222,18 @@ describe('form-schemas -05- FormSchema', () => {
         }]
       });
 
-      s.updateFields([{
+      otherSchema.updateFields([{
         field: 'aninteger',
         label: 'Un entier',
         fieldType: 'integer'
       }]);
 
-      expect(s.getData().fields.length).toBe(1);
-      expect(s.getData().fields[0].field).toBe('aninteger');
+      expect(otherSchema.getData().fields.length).toBe(1);
+      expect(otherSchema.getData().fields[0].field).toBe('aninteger');
     });
 
     it('removes absent fields (fix)', () => {
-      const s = new FormSchema({
+      const otherSchema = new FormSchema({
         id: 9999,
         custom: null,
         defaultLabelLanguage: null,
@@ -252,13 +252,13 @@ describe('form-schemas -05- FormSchema', () => {
         }]
       });
 
-      s.updateFields([{
+      otherSchema.updateFields([{
         field: 'description',
         label: 'Name Band / Künstle',
         fieldType: 'abstract'
       }]);
 
-      expect(s.getData().fields.map(f => f.field)).toStrictEqual(['description']);
+      expect(otherSchema.getData().fields.map(f => f.field)).toStrictEqual(['description']);
     });
 
     it('options with missing id have been given one', () => {
@@ -274,7 +274,7 @@ describe('form-schemas -05- FormSchema', () => {
     });
 
     it('ordering respects given fields order', () => {
-      const s = new FormSchema({
+      const otherSchema = new FormSchema({
         fields: [
           {
             field: 'hello',
@@ -287,7 +287,7 @@ describe('form-schemas -05- FormSchema', () => {
         ]
       });
 
-      s.updateFields([
+      otherSchema.updateFields([
         {
           field: 'location',
           fieldType: 'abstract'
@@ -306,11 +306,11 @@ describe('form-schemas -05- FormSchema', () => {
         }
       ]);
 
-      expect(s.getData().fields.map(f => f.field)).toStrictEqual(['location', 'hello', 'cat', 'image']);
+      expect(otherSchema.getData().fields.map(f => f.field)).toStrictEqual(['location', 'hello', 'cat', 'image']);
     });
 
     it('field-specific keys are kept', () => {
-      const s = new FormSchema({
+      const otherSchema = new FormSchema({
         fields: [
           {
             field: 'timings',
@@ -320,7 +320,7 @@ describe('form-schemas -05- FormSchema', () => {
         ]
       });
 
-      s.updateFields([
+      otherSchema.updateFields([
         {
           field: 'timings',
           fieldType: 'abstract',
@@ -328,7 +328,7 @@ describe('form-schemas -05- FormSchema', () => {
         }
       ]);
 
-      expect(s.getData().fields[0].enabledRanges).toBe('someTimeRange');
+      expect(otherSchema.getData().fields[0].enabledRanges).toBe('someTimeRange');
     });
   });
 
