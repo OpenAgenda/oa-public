@@ -14,7 +14,7 @@ module.exports = core => {
   } = core;
 
   tasks.register({
-    agendaLegacySettingsUpdate: (agendaUid, force) => core.agendas(agendaUid).settings.legacy.update(force)
+    agendaRebuild: agendaUid => core.agendas(agendaUid).rebuild()
   });
 
   const {
@@ -54,9 +54,8 @@ module.exports = core => {
 
     log('updating legacy models for %s agendas', agendas.length);
 
-    // all agendas must have their legacy models resynced.
     for (const agenda of agendas) {
-      tasks.enqueue('agendaLegacySettingsUpdate', agenda.uid, true);
+      tasks.enqueue('agendaRebuild', agenda.uid, true);
     }
   };
 };

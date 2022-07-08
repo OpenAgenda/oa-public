@@ -7,6 +7,7 @@ const cmn = require('../../lib/commons-app');
 const controlDataSvc = require('../legacy').controlData;
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
 const middleware = require('./middleware');
+const resetCache = require('./lib/resetCache');
 
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
@@ -66,7 +67,8 @@ module.exports.init = (config, services) => {
 
   return {
     ...agendasSvc,
-    mw: middleware(agendasSvc)
+    mw: middleware(agendasSvc),
+    resetCache: resetCache.bind(null, services)
   };
 };
 
