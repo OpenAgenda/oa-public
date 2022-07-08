@@ -1,6 +1,8 @@
 'use strict';
 
-const agendas = require('@openagenda/agendas');
+const logs = require('@openagenda/logs');
+const agendasSvc = require('@openagenda/agendas');
+
 const cmn = require('../../lib/commons-app');
 const controlDataSvc = require('../legacy').controlData;
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
@@ -10,7 +12,7 @@ const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const onRemove = require('./onRemove');
 
-const log = require('@openagenda/logs')('services/agendas');
+const log = logs('services/agendas');
 
 const throwUnauthorized = (req, res, next) => {
   const error = new Error('Unauthorized');
@@ -38,8 +40,15 @@ const checkUser = (req, res, next) => {
   return next();
 };
 
+function beforeRemove(agenda, cb) {
+  controlDataSvc.clear(agenda.uid).then(cb.bind(null, null), err => {
+    log('warn', 'could not clear agenda control data', agenda.uid, err);
+    cb();
+  });
+}
+
 module.exports.init = (config, services) => {
-  agendas.init({
+  agendasSvc.init({
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
     schemas: config.schemas,
@@ -56,8 +65,8 @@ module.exports.init = (config, services) => {
   });
 
   return {
-    ...agendas,
-    mw: middleware(agendas)
+    ...agendasSvc,
+    mw: middleware(agendasSvc)
   };
 };
 
@@ -86,7 +95,7 @@ module.exports.plugApp = app => {
             role: req.member.role,
             lang: req.lang
           })
-        })
+        });
       } catch (e) {
         next(e);
       }
@@ -111,11 +120,3 @@ module.exports.plugApp = app => {
     }
   );
 };
-
-
-function beforeRemove(agenda, cb) {
-  controlDataSvc.clear(agenda.uid).then(cb.bind(null, null), err => {
-    log('warn', 'could not clear agenda control data', agenda.uid, err);
-    cb();
-  });
-}
