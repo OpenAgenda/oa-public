@@ -28,11 +28,11 @@ async function remove(service, current, options = {}) {
   return current;
 }
 
-module.exports = async (service, identifier, data, options = {}) => remove(
+module.exports = async (service, identifier, options = {}) => remove(
   service,
   await get(service, identifier, {
     ...options,
-    throwOnError: true
+    throwOnNotFound: true
   }),
   options
 );

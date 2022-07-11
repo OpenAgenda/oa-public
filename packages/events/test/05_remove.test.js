@@ -42,7 +42,6 @@ describe('events - functional - remove', () => {
 
       assert(deletedAt instanceof Date);
     });
-
   });
 
   describe('interfaces', () => {
@@ -81,5 +80,13 @@ describe('events - functional - remove', () => {
     it('onRemove was called', () => {
       assert.equal(calls[1][0], 'onRemove');
     });
+  });
+
+  describe('other', () => {
+    it('private event can be removed if private option is set', async () => {
+      const removed = await svc.remove(51999554, { private: null });
+    
+      assert.equal(removed.uid, 51999554);
+    })
   });
 })

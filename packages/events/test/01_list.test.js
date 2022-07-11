@@ -63,7 +63,7 @@ describe('events - functional - list', () => {
         total
       } = await svc.list({ ownerUid: 96815475 }, {}, { total: true });
 
-      assert.equal(total, 248);
+      assert.equal(total, 247);
     });
 
     it('by search', async () => {
@@ -180,7 +180,7 @@ describe('events - functional - list', () => {
         total
       } = await svc.list({}, {}, { total: true, draft: null });
 
-      assert.equal(total, 662);
+      assert.equal(total, 661);
       assert.equal(items.length, 20);
     });
 
