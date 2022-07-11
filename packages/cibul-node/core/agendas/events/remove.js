@@ -30,12 +30,14 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     access,
     batched,
     returnPayload,
-    protectFromOriginRemove
+    protectFromOriginRemove,
+    private: privateOption
   } = {
     batched: false,
     access: 'public',
     returnPayload: false,
     protectFromOriginRemove: false,
+    private: false,
     ...(options || {})
   };
 
@@ -119,7 +121,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       context: {
         agendaUid,
         userUid: contextUserUid
-      }
+      },
+      private: privateOption
     });
     log('  removed from event service');
   }

@@ -108,7 +108,8 @@ module.exports = core => {
       context: {
         agendaUid: req.agenda.uid,
         userUid: req.user.uid
-      }
+      },
+      private: null
     }).then(event => res.json({ success: true, event }), next));
 
   app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
