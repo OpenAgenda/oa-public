@@ -58,6 +58,9 @@ export const ShareAll = () => {
   mock
     .onGet(`/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=ics`)
     .reply(200, apiAgendas);
+  mock
+    .onPost(`/${event.agendaSlug}/events/${event.uid}/email`)
+    .reply(200, { count: 10 });
 
   return (
     <div className="ctas export-container">
@@ -98,6 +101,10 @@ export const OneDate = () => {
 
 export const ShareEmail = () => {
   const [display, setDisplay] = useState(false);
+  const mock = new MockAdapter(axios);
+  mock
+    .onPost(`/${event.agendaSlug}/events/${event.uid}/email`)
+    .reply(200, { count: 10 });
 
   return (
     <div className="ctas export-container">
