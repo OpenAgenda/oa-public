@@ -330,8 +330,8 @@ describe('event-search - unit: utils', function() {
       );
     });
 
-    it('if sort is by score, no explicit score is passed to elasticsearch DSL', () => {
-      assert.equal(getDSLSortPart({ sort: 'score' }), null);
+    it('if sort is by score, score and uid are defined in DSL', () => {
+      assert.deepEqual(getDSLSortPart({ sort: 'score' }), ['_score', { uid: { order: 'asc' } }]);
     });
   });
 

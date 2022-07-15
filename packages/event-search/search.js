@@ -55,7 +55,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   } = validateOptions(options);
 
   try {
-    cleanNav = validateNav(nav, { useAfterKey });
+    cleanNav = validateNav(nav);
   } catch(e) {
     throw new BadRequest('nav is not valid');
   }

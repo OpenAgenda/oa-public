@@ -35,7 +35,10 @@ module.exports = (query = {}) => {
   }
 
   if (sorts[0] === 'score') {
-    return null;
+    return [
+      '_score',
+      { uid: { order: 'asc' } }
+    ];
   }
 
   if (sorts[0].split('.')[0] === 'timingsWithFeatured') {

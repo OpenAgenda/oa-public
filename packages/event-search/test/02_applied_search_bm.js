@@ -304,6 +304,14 @@ describe('02 - event search - functional: Applied search', function() {
         assert.equal(sort, 'timingsWithFeatured.asc');
       });
 
+      it('fix: after key is provided event when search filter is used', async () => {
+        const result = await service('bdx').search({
+          search: 'Spectacle'
+        }, { size: 1 }, { useAfterKey: true });
+
+        assert(result.after)
+      });
+
     });
 
     describe('Additional fields search', () => {
