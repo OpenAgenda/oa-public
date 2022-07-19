@@ -6,8 +6,6 @@ const moment = require( 'moment-timezone' );
 
 const countries = require('@openagenda/countries');
 const accessibilityLabels = require( '@openagenda/labels/event/accessibility' );
-const agendaCategories = require( '@openagenda/agenda-categories' );
-const agendaTags = require( '@openagenda/agenda-tags' );
 const exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' );
 const stateLabels = require( '@openagenda/labels/event/states' );
 const eventFormLabels = require('@openagenda/labels/event/form');
@@ -15,6 +13,8 @@ const eventLabels = require('@openagenda/labels/event/show');
 const utils = require( '@openagenda/utils' );
 const config = require( '../../../config' );
 const possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
+
+const legacy = require('../../legacy');
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
@@ -57,36 +57,20 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       },
       wcb => {
-
-        agendaTags.get( instance.id, ( err, t ) => {
-
-          if ( err ) return wcb( err );
-
+        legacy.getTagSet(instance.id).then(t => {
           tagSet = t;
-
-          if ( tagSet && !params.includePrivateData ) {
-
-            tagSet.groups = tagSet.groups.filter( g => !g.access || g.access === 'public' );
-
+          if (tagSet && !params.includePrivateData) {
+            tagSet.groups = tagSet.groups.filter(g => !g.access || g.access === 'public');
           }
-
           wcb();
-
-        } );
-
+        }, wcb);
       },
       wcb => {
-
-        agendaCategories.get( instance.id, ( err, c ) => {
-
-          if ( err ) return wcb( err );
-
+        legacy.getCategorySet(instance.id).then(c => {
           categorySet = c;
 
           wcb();
-
-        } );
-
+        }, wcb);
       }
     ], err => {
 

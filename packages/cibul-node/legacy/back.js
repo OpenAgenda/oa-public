@@ -15,7 +15,6 @@ const legacyAgendaSvc = require('../services/agenda');
 const legacyEventSvc = require('../services/event');
 const legacyEventSearch = require('../services/elasticsearch');
 const formOrderMw = require( './formOrder.mw.js' );
-const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 
 const customSvc = require('@openagenda/custom');
 
@@ -34,16 +33,6 @@ module.exports = app => {
     cmn.loadLogger( 'legacy' ),
     _checkLocalhost
   ];
-
-  /**
-   * provide to sf the html of the head section of an agenda
-   */
-  app.get(
-    '/legacy/:slug/head',
-    preMw,
-    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    head
-  );
 
   app.post(
     '/legacy/:slug/admin/layout/:tab',
@@ -128,13 +117,6 @@ module.exports = app => {
   );
 
   app.get(
-    '/legacy/:slug/form-fields/:userUid',
-    preMw,
-    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    formFieldsByUser
-  );
-
-  app.get(
     '/legacy/embeds/:embedUid/clear',
     preMw,
     ( req, res, next ) => {
@@ -206,26 +188,6 @@ module.exports = app => {
     preMw,
     session
   );
-
-}
-
-
-/**
- * give a rendered header of agenda
- */
-
-function head( req, res, next ) {
-
-  agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
-
-    cmn.render( req, res, 'agenda/headPart', {
-      mailto: cmn.agendaMailTo( req.agenda ),
-      agenda: req.agenda,
-      includeActionLinks: true,
-      targetBlank: true
-    } );
-
-  } );
 
 }
 

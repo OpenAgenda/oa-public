@@ -1,9 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const tagSvc = require( '@openagenda/agenda-tags' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
-const categorySvc = require( '@openagenda/agenda-categories' );
 const utils = require( '@openagenda/utils' );
 const cbify = require( '@openagenda/utils/cbify' );
 const keysSvc = require( '@openagenda/keys' );
@@ -279,30 +277,30 @@ function _prepareLocationExport( req, res, next ) {
 
 function _loadTagSet( req, res, next ) {
 
-  tagSvc.get( req.agenda.id, ( err, tagSet ) => {
+  const {
+    legacy: {
+      getTagSet
+    }
+  } = req.app.services;
 
-    if ( err ) return next( err );
-
+  getTagSet(req.agenda.id).then(tagSet => {
     req.tagSet = tagSet;
 
     next();
-
-  } );
-
+  }, next);
 }
 
-function _loadCategorySet( req, res, next ) {
+function _loadCategorySet(req, res, next) {
+  const {
+    legacy: {
+      getCategorySet
+    }
+  } = req.app.services;
 
-  categorySvc.get( req.agenda.id, ( err, categorySet ) => {
-
-    if ( err ) return next( err );
-
+  getCategorySet(req.agenda.id).then(categorySet => {
     req.categorySet = categorySet;
-
     next();
-
-  } );
-
+  }, next);
 }
 
 

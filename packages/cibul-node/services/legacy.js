@@ -4,6 +4,8 @@ const fs = require('fs');
 const ControlData = require('@openagenda/legacy/controlData');
 const Embeds = require('@openagenda/legacy/embeds');
 const TagsAndCustom = require('@openagenda/legacy/tagsAndCustom');
+const GetTagSet = require('@openagenda/legacy/getTagSet');
+const GetCategorySet = require('@openagenda/legacy/getCategorySet');
 const utils = require('@openagenda/legacy/utils');
 
 module.exports.controlData = {};
@@ -43,6 +45,9 @@ module.exports.init = (config, services) => {
     queue: Queues('legacyTagsAndCustom'),
     interfaces
   }));
+
+  module.exports.getTagSet = GetTagSet({ knex });
+  module.exports.getCategorySet = GetCategorySet({ knex });
 
   module.exports.embeds = Embeds({
     knex,

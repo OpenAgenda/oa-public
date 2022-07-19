@@ -57,7 +57,6 @@ module.exports = async function (configObject, options = {}) {
   await init('activityApps', require('./activityApps'));
   await init('members', require('./members'));
   await init('agendaCalendar', require('./agendaCalendar'));
-  await init('agendaCategories', require('./agendaCategories'));
   await init('agendaContribute', require('./agendaContribute'));
   await init('agendaDocx', require('./agendaDocx'));
   await init('agendaEvents', require('./agendaEvents'));
@@ -66,7 +65,6 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaSettings', require('./agendaSettings'));
   await init('inboxes', require('./inboxes'));
   await init('agendaStatistics', require('./agendaStatistics'));
-  await init('agendaTags', require('./agendaTags'));
   await init('agendas', require('./agendas'));
   await init('agendaSearch', require('./agendaSearch'));
   await init('adminAgendas', require('./adminAgendas'));

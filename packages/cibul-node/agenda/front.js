@@ -9,7 +9,6 @@ const base64 = require('@openagenda/utils/base64');
 
 const agendas = require( '@openagenda/agendas' );
 const agendaSvc = require( '../services/agenda' );
-const agendaTags = require( '@openagenda/agenda-tags' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const fb = require( '@openagenda/facebook' );
 const getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
@@ -270,17 +269,18 @@ function _optionalClearCookie( req, res, next ) {
 
 function _loadTagGroups( req, res, next ) {
 
+  const {
+    legacy: {
+      getTagSet
+    }
+  } = req.app.services;
+
   if ( !req.agenda ) return next();
 
-  agendaTags.get( req.agenda.id, ( err, tagSet ) => {
-
-    if ( err ) return cb( err );
-
+  getTagSet(req.agenda.id).then(tagSet => {
     req.agenda.tagSet = tagSet;
-
     next();
-
-  } );
+  }, next);
 
 }
 

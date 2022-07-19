@@ -5,7 +5,6 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const contributorLabels = require('@openagenda/labels/event/contributors');
-const agendaTags = require('@openagenda/agenda-tags');
 
 const { getRoleSlug } = require('@openagenda/members').utils;
 
@@ -13,7 +12,6 @@ const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
 const legacyAgendaSvc = require('../services/agenda');
 
-const getAgendaTags = promisify(agendaTags.get);
 const renderReferences = _.template(fs.readFileSync(`${__dirname}/references.tpl`));
 
 function _filterByRole(role, item) {
@@ -25,13 +23,18 @@ function _filterByRole(role, item) {
 }
 
 async function getPrivateEventData(req, res) {
+  const {
+    legacy: {
+      getTagSet
+    }
+  } = req.app.services;
   const custom = req.formatted.custom
     .filter(_filterByRole.bind(null, req.member.role))
     .filter(c => c.access !== 'public');
 
   const labels = req.formatted.customLabels;
 
-  const tagSet = await getAgendaTags(req.agenda.id) || null;
+  const tagSet = await getTagSet(req.agenda.id) || null;
   const tags = tagSet ? await promisify(req.event.getAgendaTags)(req.agenda.id) : null;
 
   const tagGroups = tagSet ? tagSet.groups.map(g => ({

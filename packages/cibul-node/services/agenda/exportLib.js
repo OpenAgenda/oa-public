@@ -4,12 +4,12 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const w = require( 'when' );
 
-const agendaTags = require( '@openagenda/agenda-tags' );
 const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
 const slugs = require( '@openagenda/slugs' );
 const utils = require( '@openagenda/utils' );
 
 const config = require( '../../config' );
+const legacy = require('../legacy');
 
 let svc;
 
@@ -26,44 +26,25 @@ module.exports = function( service ) {
 
 
 function decorateEvents( agenda, events, toDecorate, options, cb ) {
-
   let i = 0;
 
-  agendaTags.get( agenda.id, ( err, tagSet ) => {
-
-    if ( err ) return cb( err );
-
+  legacy.getTagSet(agenda.id).then(tagSet => {
     agenda.tagSet = tagSet;
 
-    async.eachSeries( events, ( event, ecb ) => {
-
-      decorateEvent( agenda, event, toDecorate[ i++ ], options, ecb );
-
-    }, cb );
-
-  } );
-
+    async.eachSeries(events, (event, ecb) => {
+      decorateEvent(agenda, event, toDecorate[i], options, ecb);
+      i += 1;
+    }, cb);
+  }, cb);
 }
 
+function _loadTagSet(v) {
+  if (!v.loadTagSet || v.agenda.tagSet) return v;
 
-function _loadTagSet( v ) {
-
-  if ( !v.loadTagSet || v.agenda.tagSet ) return v;
-
-  const d = w.defer();
-
-  agendaTags.get( v.agenda.id, ( err, tagSet ) => {
-
-    if ( err ) return d.reject( err );
-
+  return legacy.getTagSet(v.agenda.id).then(tagSet => {
     v.agenda.tagSet = tagSet;
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
+    return v;
+  });
 }
 
 
