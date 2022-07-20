@@ -3317,7 +3317,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs3@npm:^7.8.7, @babel/runtime-corejs3@npm:^7.9.0":
+"@babel/runtime-corejs3@npm:^7.9.0":
   version: 7.10.4
   resolution: "@babel/runtime-corejs3@npm:7.10.4"
   dependencies:
@@ -5762,30 +5762,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/agenda-categories@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@openagenda/agenda-categories@npm:1.0.5"
-  dependencies:
-    "@babel/runtime-corejs3": ^7.8.7
-    "@openagenda/labels": ^2.0.7
-    "@openagenda/logs": ^1.1.0
-    "@openagenda/mysql-table-store": ^1.0.0
-    core-js: ^3.6.4
-    create-react-class: ^15.5.2
-    deep-extend: ^0.4.0
-    immutability-helper: ^2.2.0
-    lodash: ^4.17.4
-    mysql: 2.9.0
-    prop-types: ^15.5.8
-    regenerator-runtime: ^0.13.5
-    slug: 0.9.1
-    when: 3.7.4
-  peerDependencies:
-    react: 15 || 16
-  checksum: eb97b80fd6056de0a5147449921974a4f326242bbf70fa002bea5b20ada4bf76765b3e460a7b4d302eec02f24caad7dfaf51cd930eaeec7b24c61b7f5744a618
-  languageName: node
-  linkType: hard
-
 "@openagenda/agenda-contribute@^1.5.2, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-contribute@workspace:packages/agenda-contribute"
@@ -6328,34 +6304,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-tags@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "@openagenda/agenda-tags@npm:1.0.7"
-  dependencies:
-    "@babel/runtime-corejs3": ^7.8.7
-    "@openagenda/basic-logger": ^2.0.0
-    "@openagenda/labels": ^2.0.7
-    "@openagenda/logs": ^1.1.0
-    "@openagenda/mysql-table-store": ^1.0.0
-    async: ^1.5.2
-    core-js: ^3.6.4
-    create-react-class: ^15.5.2
-    deep-extend: ^0.4.0
-    immutability-helper: ^2.2.0
-    knex: ^0.10.0
-    lodash: ^4.17.5
-    mysql: 2.9.0
-    prop-types: ^15.5.8
-    regenerator-runtime: ^0.13.5
-    slug: 0.9.1
-    when: 3.7.4
-  peerDependencies:
-    react: 15 || 16
-    react-dom: 15 || 16
-  checksum: 9b6d939049cb72b1138ce4a9ea22c91cc2df78082db9f755b3ecbd7316c0950a773c40a3068ec6554c68e0554576e7d0b767315135163174c0f6ffe41e2e0f53
-  languageName: node
-  linkType: hard
-
 "@openagenda/agendas@^1.7.0, @openagenda/agendas@workspace:packages/agendas":
   version: 0.0.0-use.local
   resolution: "@openagenda/agendas@workspace:packages/agendas"
@@ -6517,13 +6465,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/basic-logger@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@openagenda/basic-logger@npm:2.0.0"
-  checksum: 2248ffe84f69b7a16162623ae0b4415121b5f935fa220fa275ad2d8d1bcab9afdd8b2785af24b2e8cf3aee42e207146dc8dacbdd2359f0d4cb080885dc700b19
-  languageName: node
-  linkType: hard
-
 "@openagenda/browserslist-config@^1.0.0, @openagenda/browserslist-config@workspace:public/browserslist-config":
   version: 0.0.0-use.local
   resolution: "@openagenda/browserslist-config@workspace:public/browserslist-config"
@@ -6586,10 +6527,8 @@ __metadata:
     "@loadable/webpack-plugin": ^5.14.2
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/admin-agendas": ^1.1.17
-    "@openagenda/agenda-categories": ^1.0.5
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
-    "@openagenda/agenda-tags": ^1.0.7
     "@openagenda/aggregator-sources": ^1.3.1
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
@@ -7458,14 +7397,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/logs@^1.0.8, @openagenda/logs@^1.1.0, @openagenda/logs@^1.1.2, @openagenda/logs@^1.1.9, @openagenda/logs@workspace:public/logs":
+"@openagenda/logs@^1.0.8, @openagenda/logs@^1.1.2, @openagenda/logs@^1.1.9, @openagenda/logs@workspace:public/logs":
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:public/logs"
   dependencies:
     debug: ^3.2.6
     jest: ^26.1.0
     lodash: ^4.17.15
-    r7insight_node: ^1.8.1
+    r7insight_node: ^3.3.1
     sinon: ^3.2.1
     winston: ^2.4.5
   languageName: unknown
@@ -7607,17 +7546,6 @@ __metadata:
     slugify: ^1.4.5
   languageName: unknown
   linkType: soft
-
-"@openagenda/mysql-table-store@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@openagenda/mysql-table-store@npm:1.0.0"
-  dependencies:
-    lodash: ^4.17.2
-    mysql: 2.9.0
-    verror: ^1.10.0
-  checksum: 910b7cd5390fab0d73955fd6b89c3d33b1e184026fe39c67f9fb8f172d0964f833037de34f48f061568197067474a112e2faf1d5661b74366de8d41597c3b196
-  languageName: node
-  linkType: hard
 
 "@openagenda/mysql-utils@npm:^2.0.4":
   version: 2.0.4
@@ -16142,6 +16070,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"async@npm:^3.2.3":
+  version: 3.2.4
+  resolution: "async@npm:3.2.4"
+  checksum: 43d07459a4e1d09b84a20772414aa684ff4de085cbcaec6eea3c7a8f8150e8c62aa6cd4e699fe8ee93c3a5b324e777d34642531875a0817a35697522c1b02e89
+  languageName: node
+  linkType: hard
+
 "async@npm:~0.2.6":
   version: 0.2.10
   resolution: "async@npm:0.2.10"
@@ -16858,15 +16793,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-runtime@npm:6.6.1":
-  version: 6.6.1
-  resolution: "babel-runtime@npm:6.6.1"
-  dependencies:
-    core-js: ^2.1.0
-  checksum: c40e547da681b1a2e4a1e339407d153aa2a015ece0924869e040a75584a432b3769ded3ba2f006bcaf8d350959b4e182a3b120d3241b677bb526b02ce7042263
-  languageName: node
-  linkType: hard
-
 "babel-runtime@npm:^5.8.38":
   version: 5.8.38
   resolution: "babel-runtime@npm:5.8.38"
@@ -17215,13 +17141,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bluebird@npm:^2.9.24":
-  version: 2.11.0
-  resolution: "bluebird@npm:2.11.0"
-  checksum: f1c6cbec64100bca65c88e5de0d9ee9bbb435f7c74c68a16a9466a8b40daf64346805c2fe04af821564ce6d4199085e7855d2e272282a065eb723344815cc354
-  languageName: node
-  linkType: hard
-
 "bluebird@npm:^3.3.5, bluebird@npm:^3.4.6, bluebird@npm:^3.4.7, bluebird@npm:^3.5.0, bluebird@npm:^3.5.5, bluebird@npm:^3.7.0":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
@@ -17410,7 +17329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"brace-expansion@npm:^1.0.0, brace-expansion@npm:^1.1.7":
+"brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
   dependencies:
@@ -18734,7 +18653,6 @@ __metadata:
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/admin-agendas": ^1.1.17
     "@openagenda/agenda-calendar-apps": ^1.3.0
-    "@openagenda/agenda-categories": ^1.0.5
     "@openagenda/agenda-contribute": ^1.5.2
     "@openagenda/agenda-docx": ^1.2.1
     "@openagenda/agenda-events": ^1.11.14
@@ -18743,7 +18661,6 @@ __metadata:
     "@openagenda/agenda-schema": ^1.0.16
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
-    "@openagenda/agenda-tags": ^1.0.7
     "@openagenda/agendas": ^1.7.0
     "@openagenda/aggregator-sources": ^1.3.1
     "@openagenda/aggregators": ^1.11.6
@@ -19180,15 +19097,6 @@ __metadata:
   bin:
     codecov: ./bin/codecov
   checksum: bb2d36f06f848cbdc8c958ebee12f323d3d35e055577b719b1fd09674e13273b69bae99c2fe5f99a5c7aed624d65bbabc7f503968b6430be280bae076e0d1c28
-  languageName: node
-  linkType: hard
-
-"codependency@npm:0.1.4":
-  version: 0.1.4
-  resolution: "codependency@npm:0.1.4"
-  dependencies:
-    semver: 5.0.1
-  checksum: 57dd09e5a16590831d5bc729bfe3591c1c6a63b79350539411725db08ec6d89c96f1f644869bfa0c11a2ce537ae7a4b512780d72382f31faf1ca7f77abe15df1
   languageName: node
   linkType: hard
 
@@ -20100,13 +20008,6 @@ __metadata:
   version: 1.2.7
   resolution: "core-js@npm:1.2.7"
   checksum: 0b76371bfa98708351cde580f9287e2360d2209920e738ae950ae74ad08639a2e063541020bf666c28778956fc356ed9fe56d962129c88a87a6a4a0612526c75
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^2.1.0":
-  version: 2.6.12
-  resolution: "core-js@npm:2.6.12"
-  checksum: 44fa9934a85f8c78d61e0c8b7b22436330471ffe59ec5076fe7f324d6e8cf7f824b14b1c81ca73608b13bdb0fef035bd820989bf059767ad6fa13123bb8bd016
   languageName: node
   linkType: hard
 
@@ -21331,13 +21232,6 @@ __metadata:
   version: 0.6.0
   resolution: "deep-extend@npm:0.6.0"
   checksum: 7be7e5a8d468d6b10e6a67c3de828f55001b6eb515d014f7aeb9066ce36bd5717161eb47d6a0f7bed8a9083935b465bc163ee2581c8b128d29bf61092fdf57a7
-  languageName: node
-  linkType: hard
-
-"deep-extend@npm:^0.4.0":
-  version: 0.4.2
-  resolution: "deep-extend@npm:0.4.2"
-  checksum: 48720f7424cf08bee1bbd8821e4e794e351d35bcf2914ab98dcc86d01a5eb86d8e848982671cdd89061bb9336e92cd5d0315745289fb11299d203a8d8801eec4
   languageName: node
   linkType: hard
 
@@ -23974,13 +23868,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"extend@npm:~2.0.0":
-  version: 2.0.2
-  resolution: "extend@npm:2.0.2"
-  checksum: b54b6f7af6c780a611791198341d393f8c3f295edb89dd27d81278d0b817e850df7d261ee0c2f092ae68562ac4e20c8ec4b31fe7cfa2ca86bedfd4c48190b40f
-  languageName: node
-  linkType: hard
-
 "extended@npm:0.0.6, extended@npm:~0.0.3":
   version: 0.0.6
   resolution: "extended@npm:0.0.6"
@@ -24711,15 +24598,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"findup-sync@npm:~0.2.0":
-  version: 0.2.1
-  resolution: "findup-sync@npm:0.2.1"
-  dependencies:
-    glob: ~4.3.0
-  checksum: abb7493979bec3016f6f8a6a1638a8d5c83d4bc988da93b139cb1f5e985f0fc03ab87cafdd7d7ac8cf04d0f3fbbaf464271b74f3b01e728bcef097dc6c5840b6
-  languageName: node
-  linkType: hard
-
 "fined@npm:^1.0.1":
   version: 1.2.0
   resolution: "fined@npm:1.2.0"
@@ -24742,7 +24620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flagged-respawn@npm:^0.3.2, flagged-respawn@npm:~0.3.0":
+"flagged-respawn@npm:^0.3.2":
   version: 0.3.2
   resolution: "flagged-respawn@npm:0.3.2"
   checksum: 4c6cf1294bfde7ebd0e8b3afbd38b4c62f80220bbfcc8a3c0fa249ed28ea316a41dd1b71b8cb27a2c8597f87e07ba40957cfe565ca02ace5bc30421bb30a58be
@@ -25751,18 +25629,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:~4.3.0":
-  version: 4.3.5
-  resolution: "glob@npm:4.3.5"
-  dependencies:
-    inflight: ^1.0.4
-    inherits: 2
-    minimatch: ^2.0.1
-    once: ^1.3.0
-  checksum: 02b0cf6cbb5acad1c0c77f9dccff94c76cc4eb45ada72bbdb376737df6e91a0cc14950ad9ba90eba5276c7da14d924bcd47170e9952628af112727223eac6b1d
-  languageName: node
-  linkType: hard
-
 "global-dirs@npm:^0.1.1":
   version: 0.1.1
   resolution: "global-dirs@npm:0.1.1"
@@ -26387,13 +26253,6 @@ __metadata:
     inherits: ^2.0.3
     minimalistic-assert: ^1.0.1
   checksum: e350096e659c62422b85fa508e4b3669017311aa4c49b74f19f8e1bc7f3a54a584fdfd45326d4964d6011f2b2d882e38bea775a96046f2a61b7779a979629d8f
-  languageName: node
-  linkType: hard
-
-"hashmap@npm:^2.0.1":
-  version: 2.4.0
-  resolution: "hashmap@npm:2.4.0"
-  checksum: 70e29ffab6863c18442bd945f6c83011897726a2702dc4222e08be5491adc7eee447f623d571873e69f24b32f23e57e1ee9f463aaffd40ff8b5e933699a7e2c2
   languageName: node
   linkType: hard
 
@@ -27377,7 +27236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutability-helper@npm:^2.2.0, immutability-helper@npm:^2.2.2, immutability-helper@npm:^2.3.0":
+"immutability-helper@npm:^2.2.2, immutability-helper@npm:^2.3.0":
   version: 2.9.1
   resolution: "immutability-helper@npm:2.9.1"
   dependencies:
@@ -30757,7 +30616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-stringify-safe@npm:5.0.1, json-stringify-safe@npm:~5.0.1":
+"json-stringify-safe@npm:^5.0.1, json-stringify-safe@npm:~5.0.1":
   version: 5.0.1
   resolution: "json-stringify-safe@npm:5.0.1"
   checksum: 48ec0adad5280b8a96bb93f4563aa1667fd7a36334f79149abd42446d0989f2ddc58274b479f4819f1f00617957e6344c886c55d05a4e15ebb4ab931e4a6a8ee
@@ -31090,31 +30949,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knex@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "knex@npm:0.10.0"
-  dependencies:
-    bluebird: ^2.9.24
-    chalk: ^1.0.0
-    commander: ^2.2.0
-    debug: ^2.1.3
-    inherits: ~2.0.1
-    interpret: ^0.6.5
-    liftoff: ~2.0.0
-    lodash: ^3.7.0
-    minimist: ~1.1.0
-    mkdirp: ^0.5.0
-    pg-connection-string: ^0.1.3
-    pool2: ^1.1.0
-    readable-stream: ^1.1.12
-    tildify: ~1.0.0
-    v8flags: ^2.0.2
-  bin:
-    knex: ./lib/bin/cli.js
-  checksum: 6e33936408d9c637ca4cf8a288192b642772e04b680ee69192959cb30160906860979eebf17164e337e838a1d8596a19093ead3f8c7d5087bf03fc3d40c69c6d
-  languageName: node
-  linkType: hard
-
 "knex@npm:^0.12.5, knex@npm:^0.12.6":
   version: 0.12.9
   resolution: "knex@npm:0.12.9"
@@ -31385,19 +31219,6 @@ __metadata:
     rechoir: ^0.6.2
     resolve: ^1.1.7
   checksum: 054f0757f2966b699884273b4d45c13ade602f61127defc7b77c23b48f1f54a3a921778b32973bb80c361bfcf46f08889cf8037904554cd9aae6d0d7bf17d1aa
-  languageName: node
-  linkType: hard
-
-"liftoff@npm:~2.0.0":
-  version: 2.0.3
-  resolution: "liftoff@npm:2.0.3"
-  dependencies:
-    extend: ~2.0.0
-    findup-sync: ~0.2.0
-    flagged-respawn: ~0.3.0
-    minimist: ~1.1.0
-    resolve: ~1.1.0
-  checksum: 1a5b83b25c9587d4b0b650791c8a8172d7f61e6c72d56a867a7de091dcf5a9899ee63d390f9a25d9994d4ff7732e72d9baa37b0c832f761ba6462276ea4289e9
   languageName: node
   linkType: hard
 
@@ -32051,14 +31872,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^3.10.1, lodash@npm:^3.7.0":
+"lodash@npm:^3.10.1":
   version: 3.10.1
   resolution: "lodash@npm:3.10.1"
   checksum: 53065d3712a2fd90b55690c5af19f9625a5bbb2b7876ff76d782ee1dc22618fd4dff191d44a8e165a17b5b81a851c3e884d3b5b25e314422fbe24bb299542685
   languageName: node
   linkType: hard
 
-"lodash@npm:^4, lodash@npm:^4.1.1, lodash@npm:^4.15.0, lodash@npm:^4.17.10, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.2, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.17.5, lodash@npm:^4.3.0, lodash@npm:^4.6.0, lodash@npm:^4.8.0, lodash@npm:~4.17.4":
+"lodash@npm:^4, lodash@npm:^4.1.1, lodash@npm:^4.15.0, lodash@npm:^4.17.10, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.17.5, lodash@npm:^4.3.0, lodash@npm:^4.6.0, lodash@npm:^4.8.0, lodash@npm:~4.17.4":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -33186,15 +33007,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^2.0.1":
-  version: 2.0.10
-  resolution: "minimatch@npm:2.0.10"
-  dependencies:
-    brace-expansion: ^1.0.0
-  checksum: 70c99221e7db80dde6027b1b7a545e6a8247a094456cf5f1d82dcf62fbc83b196c85825e807da0c818ab93fa9276085c63c35e4cae721c51f38d5b35d317a7e9
-  languageName: node
-  linkType: hard
-
 "minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -34087,16 +33899,6 @@ __metadata:
     bignumber.js: 2.0.7
     readable-stream: ~1.1.13
   checksum: b6ffcf09f36b2be5fa9b2eb261f3be573678e47755a17dfb72dc9b51df06daea4edf80616c66fd39d0a450c4a40fd025f44913f44ce736dc236ab69ca15db02a
-  languageName: node
-  linkType: hard
-
-"mysql@npm:2.9.0":
-  version: 2.9.0
-  resolution: "mysql@npm:2.9.0"
-  dependencies:
-    bignumber.js: 2.0.7
-    readable-stream: ~1.1.13
-  checksum: 52c1450f09097edb0815cb7bd9fa4fca7609f9afa663d1d74d82e283fdc6b54ab44ae82cd32b202b36feeaa209dada9c75ceb9b41cd1877304267187453eb07a
   languageName: node
   linkType: hard
 
@@ -36440,18 +36242,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pool2@npm:^1.1.0":
-  version: 1.4.1
-  resolution: "pool2@npm:1.4.1"
-  dependencies:
-    debug: ^2.1.3
-    double-ended-queue: ^2.1.0-0
-    hashmap: ^2.0.1
-    simple-backoff: ^1.0.0
-  checksum: f90e62ff69a63e9374c556cde4415df343fac002237be584efd9a9778cd4d84dbd8cf3bbe2b2d6a399a216f1946190df70521518392e5c9dd7fc58777a96350a
-  languageName: node
-  linkType: hard
-
 "popper.js@npm:^1.14.4":
   version: 1.16.1
   resolution: "popper.js@npm:1.16.1"
@@ -38002,17 +37792,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"r7insight_node@npm:^1.8.1":
-  version: 1.8.4
-  resolution: "r7insight_node@npm:1.8.4"
+"r7insight_node@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "r7insight_node@npm:3.3.1"
   dependencies:
-    babel-runtime: 6.6.1
-    codependency: 0.1.4
-    json-stringify-safe: 5.0.1
-    lodash: 4.17.15
-    reconnect-core: 1.3.0
-    semver: 5.1.0
-  checksum: 72736c5b9b3616f9531219af23940b387ee7dd246eeb779a7c43c4943b0ac563c37dd2c50cfe9025a45d420ef24feda9023fc125d311162dcc3f7330aeb51529
+    json-stringify-safe: ^5.0.1
+    lodash: ^4.17.15
+    reconnect-core: ^1.3.0
+  peerDependencies:
+    winston: 3.x
+    winston-transport: 4.x
+  peerDependenciesMeta:
+    winston:
+      optional: true
+    winston-transport:
+      optional: true
+  checksum: 28edccd3e9b8f7fc0722d237298d2c00ec12de602f3136e636b87ebbc531a0ebdaf48deadde0143e912e6f020763d57b96c61ace7d2f50fe08fc97c4f550f5db
   languageName: node
   linkType: hard
 
@@ -39928,7 +39723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reconnect-core@npm:1.3.0":
+"reconnect-core@npm:^1.3.0":
   version: 1.3.0
   resolution: "reconnect-core@npm:1.3.0"
   dependencies:
@@ -40736,7 +40531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@1.1.7, resolve@~1.1.0":
+resolve@1.1.7:
   version: 1.1.7
   resolution: "resolve@npm:1.1.7"
   checksum: afd20873fbde7641c9125efe3f940c2a99f6b1f90f1b7b743e744bdaac1cb105b2e4e0317bcc052ed7e31d57afa86b394a4dc9a1b33a297977be134fdf0250ab
@@ -40785,7 +40580,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@~1.1.0#~builtin<compat/resolve>":
+"resolve@patch:resolve@1.1.7#~builtin<compat/resolve>":
   version: 1.1.7
   resolution: "resolve@patch:resolve@npm%3A1.1.7#~builtin<compat/resolve>::version=1.1.7&hash=00b1ff"
   checksum: 3477c7e1cb7c0588764f1c2dbdd84d1f4e98d0ad138485ff280c210ddc252c86735f9e6113cbe9491e24cf3205058fce8a7a1dd1f50370707656dbd895bd3826
@@ -41461,24 +41256,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"semver@npm:5.0.1":
-  version: 5.0.1
-  resolution: "semver@npm:5.0.1"
-  bin:
-    semver: ./bin/semver
-  checksum: 9bf1960390a0ef1b9dfb0a4311d2519eed5bf63959b379465bc4fc1d20f85449c63b7f1a55770f04fd9d691e47d7a91c118bf68383ac97be7d2aac5362b43be8
-  languageName: node
-  linkType: hard
-
-"semver@npm:5.1.0":
-  version: 5.1.0
-  resolution: "semver@npm:5.1.0"
-  bin:
-    semver: ./bin/semver
-  checksum: 379dba24a5fe2b3a2080bfae05113f1ee79f7510a2716573aabd30d97f11e44609d3e74563b3082c502d2e02424d142099bb2f329176a130c3f76f8c35c5d124
-  languageName: node
-  linkType: hard
-
 "semver@npm:5.5.0":
   version: 5.5.0
   resolution: "semver@npm:5.5.0"
@@ -42006,13 +41783,6 @@ resolve@^2.0.0-next.3:
   version: 3.0.3
   resolution: "signal-exit@npm:3.0.3"
   checksum: f0169d3f1263d06df32ca072b0bf33b34c6f8f0341a7a1621558a2444dfbe8f5fec76b35537fcc6f0bc4944bdb5336fe0bdcf41a5422c4e45a1dba3f45475e6c
-  languageName: node
-  linkType: hard
-
-"simple-backoff@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "simple-backoff@npm:1.1.0"
-  checksum: d256acb611d42dfb135f8391e1029feeb812a25da87d28ff7710f4a419389f6351509e21193b292c1ed718ff0c7e9fd406d5ed9e978b5c15117822e307a63f80
   languageName: node
   linkType: hard
 
@@ -46979,13 +46749,6 @@ typescript@^4.5:
   languageName: node
   linkType: hard
 
-"when@npm:3.7.4":
-  version: 3.7.4
-  resolution: "when@npm:3.7.4"
-  checksum: a2f4d976687212ae150f5e769d20901a877be75796ba5404d2e7c3dde93147e0d1a7ad6b2bbedbc05222387b0f14c5c6c62c5603b2242d67bd53524878e9bc95
-  languageName: node
-  linkType: hard
-
 "when@npm:^3.7.7, when@npm:^3.7.8, when@npm:~3.7.8":
   version: 3.7.8
   resolution: "when@npm:3.7.8"
@@ -47129,7 +46892,7 @@ typescript@^4.5:
   languageName: node
   linkType: hard
 
-"winston@npm:^2.3.1, winston@npm:^2.4.5":
+"winston@npm:^2.3.1":
   version: 2.4.5
   resolution: "winston@npm:2.4.5"
   dependencies:
@@ -47140,6 +46903,20 @@ typescript@^4.5:
     isstream: 0.1.x
     stack-trace: 0.0.x
   checksum: aba54cae4c97df6f01c6ad98b5ecbf79eaa79326b5f99c379063e91a9bd6dd961b2958768d850546b7a54ef159ecc67bcaf08a6fec4029592be7436d955460f0
+  languageName: node
+  linkType: hard
+
+"winston@npm:^2.4.5":
+  version: 2.4.6
+  resolution: "winston@npm:2.4.6"
+  dependencies:
+    async: ^3.2.3
+    colors: 1.0.x
+    cycle: 1.0.x
+    eyes: 0.1.x
+    isstream: 0.1.x
+    stack-trace: 0.0.x
+  checksum: 507ebfde315a8a0bc78ed73f41cc4c499291c23c25c58deab200baf192614af9481d637b463f9853c86a586811c1c5ffe980c33f8a37279f07f8d2409e9eb77b
   languageName: node
   linkType: hard
 
