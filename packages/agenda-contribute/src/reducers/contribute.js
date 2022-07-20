@@ -130,7 +130,13 @@ function eventUpdateSuccess({ agenda, response }) {
   };
 }
 
-function memberSetSuccess({ agenda, queryClient }) {
+function memberSetSuccess({
+  agenda,
+  queryClient,
+  mode = 'create',
+  fromAgenda = null,
+  event = null
+}) {
   return ({ history, location }, { getState }) => {
     const {
       settings: {
@@ -138,8 +144,12 @@ function memberSetSuccess({ agenda, queryClient }) {
       }
     } = getState();
     queryClient.removeQueries(`agendaContext.${agenda.uid}`);
-    const newPathname = `${prefix.replace(':slug', agenda.slug)}/event`;
-    log('member set was successful, moving on to event step: %s', newPathname);
+    const newPathname = mode === 'create' ? (
+      `${prefix.replace(':slug', agenda.slug)}/event`
+    ) : (
+      `${prefix.replace(':slug', agenda.slug)}/event/${event.uid}/from/${fromAgenda.uid}`
+    );
+    log('member set was successful, moving on to %s', newPathname);
     history.push({
       ...location,
       pathname: newPathname

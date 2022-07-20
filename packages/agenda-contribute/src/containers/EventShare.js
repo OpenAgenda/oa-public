@@ -181,7 +181,7 @@ export default function EventShare({ agenda, history }) {
             ...config,
             schema: displayEventFields ? schema : schemaWithoutEventFields(schema)
           }}
-          memberRole={agendaContext.me.member.role}
+          memberRole={agendaContext.me?.member?.role}
           event={filterEventData({
             event,
             canChangeState: agendaContext?.me?.authorizations?.canChangeState,

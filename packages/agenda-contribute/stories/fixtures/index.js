@@ -8,6 +8,7 @@ const detailedAgendaWithAdditionalFields = require('./detailed.withAdditionalFie
 const detailedAgendaWithMoreConstraints = require('./detailed.withMoreConstraints.json');
 const eventContributorContext = require('./contributor.context.json');
 const agendaContributorContext = require('./agendaContributor.context.json');
+const agendaNotAMemberContext = require('./agendaNotAMember.context.json');
 const agendaIncompleteContributorContext = require('./agendaContributor.incomplete.context.json');
 const basicEventResponse = require('./event.json');
 const bareboneEventResponse = require('./barebone.event.json');
@@ -211,7 +212,7 @@ storySets.NewEventFormWithTwoLanguageTabsOpened = {
     lang: 'fr',
     agenda: agenda103
   }
-}
+};
 
 storySets.EventCreateLeadsToCompletionStep = {
   agendaContext: produce(agendaContributorContext, draft => {
@@ -629,6 +630,35 @@ storySets.ShareIncompleteEventWithEditRightsFromAgenda = {
   extraProps: {
     agenda: {
       uid: 5685
+    }
+  },
+  eventContext: produce(eventContributorContext, draft => {
+    draft.me.authorizations.canEditEvent = true;
+  })
+};
+
+storySets.ShareWhenNotAMember = {
+  agendaContext: agendaNotAMemberContext,
+  agenda: detailedAgendaWithAdditionalFields,
+  extraProps: {
+    lang: 'fr',
+    agenda: {
+      ...detailedAgendaWithAdditionalFields,
+      uid: 309
+    }
+  }
+};
+storySets.ShareWhenNotAMemberFromAgenda = {
+  agenda: produce(basicDetailedAgenda, draft => {
+    draft.uid = 5686;
+  }),
+  event: bareboneEventResponse,
+  agendaContext: produce(agendaContributorContext, draft => {
+    draft.me.member.updatedAt = new Date();
+  }),
+  extraProps: {
+    agenda: {
+      uid: 5686
     }
   },
   eventContext: produce(eventContributorContext, draft => {

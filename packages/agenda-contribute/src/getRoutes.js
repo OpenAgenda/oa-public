@@ -12,6 +12,11 @@ const Member = loadable(() => import(
   './containers/Member'
 ));
 
+const MemberSharing = loadable(() => import(
+  /* webpackChunkName: "agendaContribute-MemberSharing" */
+  './containers/MemberSharing'
+));
+
 const EventNew = loadable(() => import(
   /* webpackChunkName: "agendaContribute-EventNew" */
   './containers/EventNew'
@@ -69,7 +74,11 @@ export default (prefix = '') => ([
       component: Confirmation
     }, {
       path: `${prefix}/event/:eventUid/from/:fromAgendaUid`,
-      component: EventShare
+      component: EventShare,
+      exact: true
+    }, {
+      path: `${prefix}/event/:eventUid/from/:fromAgendaUid/member`,
+      component: MemberSharing
     }]
   }
 ]);

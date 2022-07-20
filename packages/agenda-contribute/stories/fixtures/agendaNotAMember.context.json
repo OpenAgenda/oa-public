@@ -1,0 +1,13 @@
+{
+  "me": {
+    "authorizations": {
+      "mustBeModerated": false,
+      "canChangeState": false,
+      "canPublish": false,
+      "canEditEvent": true,
+      "canCreateEvent": true,
+      "canContribute": true
+    },
+    "member": null
+  }
+}

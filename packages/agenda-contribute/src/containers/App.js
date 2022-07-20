@@ -2,6 +2,7 @@ import debug from 'debug';
 import React, { useEffect } from 'react';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
+import { matchPath } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -56,7 +57,16 @@ function App(props) {
 
   const prefix = usePrefix(agenda);
 
+  const shouldGoToShareMember = !agendaContextIsLoading
+    && matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid` })?.isExact
+    && isMemberDataRequired(agenda)
+    && !agendaContext?.me?.member;
+
+  const isAtShareMember = matchPath(location.pathname, { path: `${prefix}/event/:eventUid/from/:fromAgendaUid/member` })?.isExact;
+
   const shouldGoToFirstStep = !agendaContextIsLoading
+    && !shouldGoToShareMember
+    && !isAtShareMember
     && !matchStepPath(location, prefix, 'member')
     && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberDataRequired(agenda)
@@ -64,19 +74,31 @@ function App(props) {
     && (!agendaContext?.me?.member || !isMemberDataComplete(agendaContext?.me?.member));
 
   useEffect(() => {
-    if (!shouldGoToFirstStep) {
+    if (shouldGoToShareMember && !isAtShareMember) {
+      history.replace({
+        ...location,
+        pathname: `${location.pathname}/member`
+      });
+      return;
+    }
+
+    if (!shouldGoToFirstStep || isAtShareMember) {
       return;
     }
 
     log('  Base path is requested, user is not a member. Redirecting to member step');
     replaceWithStep(history, location, prefix, 'member');
-  }, [shouldGoToFirstStep, history, prefix, location]);
+  }, [shouldGoToFirstStep, shouldGoToShareMember, history, prefix, location, isAtShareMember]);
 
-  if (agendaContextIsLoading || shouldGoToFirstStep) {
+  if (agendaContextIsLoading || shouldGoToFirstStep || shouldGoToShareMember) {
     return <Loading />;
   }
 
-  if (!agendaContext?.me?.member && isContributionType(agenda, 'MEMBERS_ONLY')) {
+  if (
+    !agendaContext?.me?.member
+    && isContributionType(agenda, 'MEMBERS_ONLY')
+    && !isAtShareMember
+  ) {
     log('  This is a members only agenda, redirecting to request to become a member');
     doRedirect(history, location, res.requestContribute.replace(':agendaSlug', agenda.slug), { ignoreURLRedirect: true });
     return <Loading />;

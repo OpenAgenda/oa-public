@@ -66,3 +66,8 @@ export const ShareIncompleteEventWithEditRights = componentFromFixtures(
   All fields are shown. Story similar to 301 except here event can be completed.`,
   308, '/event/01/from/5685'
 );
+
+export const ShareWhenNotAMember = componentFromFixtures(
+  'Non-member user shares event. Member form is presented.',
+  309, '/event/01/from/5686'
+);
