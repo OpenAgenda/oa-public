@@ -100,7 +100,10 @@ EventShareModal.propTypes = {
     root: PropTypes.string
   }).isRequired,
   onClose: PropTypes.func.isRequired,
-  res: PropTypes.string,
+  res: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ]),
   segment: PropTypes.string,
   userLogged: PropTypes.bool,
 };
