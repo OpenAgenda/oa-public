@@ -3,11 +3,11 @@
 const path = require('path');
 const _ = require('lodash');
 const winston = require('winston');
-const LE = require('r7insight_node');
+const Insight = require('r7insight_node');
 const DebugTransport = require('./DebugTransport');
 const { getCallerFile, getModule } = require('./utils/caller');
 
-LE.provisionWinston(winston);
+Insight.provisionWinston(winston);
 
 let config;
 const levels = Object.keys(winston.config.npm.levels);
@@ -107,15 +107,17 @@ function getTransporters(options) {
   );
 
   if (params && params.token) {
-    transports.push(
-      new winston.transports.Logentries({
-        level: 'info',
-        token: params.token,
-        region: 'eu',
-        json: true,
-        withStack: true
-      })
-    );
+    const transport = new winston.transports.Insight({
+      level: 'info',
+      token: params.token,
+      region: 'eu',
+      json: true,
+      withStack: true
+    });
+
+    transport.name = 'insight';
+
+    transports.push(transport);
   }
 
   return transports;
@@ -180,7 +182,7 @@ function setConfig(logger, persist = true) {
       return;
     }
 
-    const rewriters = logger.rewriters.filter(v => v.name === '_loadMetadata');
+    const rewriters = logger.rewriters.filter(v => v.name === '_loadMetadata'); 
 
     logger.configure({
       transports: getTransporters(_.merge(logger.options, conf))
