@@ -10,6 +10,7 @@ const mergeDataWithFiles = require('./middlewares/mergeDataWithFiles');
 const getAgendaSchema = require('./middlewares/getAgendaSchema');
 const loadMember = require('./middlewares/loadMember');
 const verifyMemberAuthorization = require('./middlewares/verifyMemberAuthorization');
+const addNewMember = require('./middlewares/addNewMember');
 
 module.exports = (_config, services) => parentApp => {
   const {
@@ -66,6 +67,7 @@ module.exports = (_config, services) => parentApp => {
     loadEvent,
     loadOrDefineFileKey,
     verifyMemberAuthorization.edit,
+    addNewMember,
     formSchemaFilesMw.cleanFileValues.bind(null, {}),
     formSchemaFilesMw.putInTemporary.bind(null, {}),
     formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),

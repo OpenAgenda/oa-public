@@ -39,6 +39,7 @@ module.exports = core => {
     isOpen: contributionTypes.isOpen.bind(null, services, agendaUid),
     isClosed: contributionTypes.isClosed.bind(null, services, agendaUid),
     isMembersOnly: contributionTypes.isMembersOnly.bind(null, services, agendaUid),
+    isMemberDataRequired: contributionTypes.isMemberDataRequired.bind(null, services, agendaUid),
     get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
       get: getSchema.bind(null, services, agendaUid),

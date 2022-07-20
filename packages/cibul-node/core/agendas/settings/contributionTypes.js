@@ -11,3 +11,8 @@ const is = async (requested, services, agendaOrUid) => _.get(
 module.exports.isOpen = is.bind(null, 'OPEN');
 module.exports.isClosed = is.bind(null, 'CLOSED');
 module.exports.isMembersOnly = is.bind(null, 'MEMBERS_ONLY');
+
+module.exports.isMemberDataRequired = async function isMemberDataRequired(services, agendaOrUid) {
+  return getAgenda(services, agendaOrUid)
+    .then(agenda => !!agenda?.settings?.contribution?.useFields);
+};

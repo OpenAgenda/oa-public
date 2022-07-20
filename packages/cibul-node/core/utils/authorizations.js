@@ -56,6 +56,22 @@ const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
   );
 };
 
+function canContribute(services, member, { agendaIsClosed, isMemberDataRequired }) {
+  const {
+    members: {
+      utils: {
+        compareRoles
+      }
+    }
+  } = services;
+
+  if (!member && !isMemberDataRequired) {
+    return true;
+  }
+
+  return (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false;
+}
+
 async function fromMember(core, agenda, agendaEvent, event, member) {
   const {
     members
@@ -68,6 +84,7 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
 
   const memberRole = member ? getRoleSlug(member.role) : null;
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
+  const isMemberDataRequired = await core.agendas(agenda).settings.isMemberDataRequired();
 
   log('fromMember with %s role %s', memberRole, agendaIsClosed ? ' on closed agenda' : '');
 
@@ -80,7 +97,7 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
     canPublish: (member && canPublish(agenda, memberRole)) ?? false,
     canEditEvent,
     canCreateEvent: canCreateEvent(core.services, member, agendaIsClosed),
-    canContribute: (member && !agendaIsClosed && compareRoles.isSuperiorToOrEqual(member?.role, 'contributor')) ?? false
+    canContribute: canContribute(core.services, member, { agendaIsClosed, isMemberDataRequired })
   };
 }
 
