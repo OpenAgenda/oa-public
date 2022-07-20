@@ -31,14 +31,14 @@
               </div>
               
               <div class="map text-center">
-                <img src="map.png" />
+                <img class="mobile-map" src="map.png" />
                 <div class="map-sync js_map_sync">
                   <input type="checkbox" id="map-sync" class="js_sync_checkbox">
                   <label for="map-sync">Rechercher quand je déplace la carte</label>
                 </div>
               </div>
               <div class="calendar">              
-                <div class="">
+                <div>
                   <% include ../components/_calendar %>
                 </div>             
               </div>
@@ -53,28 +53,22 @@
                     <div class="side-content cbpgct" data-cbctl="48959239|bs" data-flag="1">
                       <ul class="list-group">
                         <li class="list-group-item">
-                          <input type="radio" id="concours" name="categories">
-                          <label for="concours">Concours et prix</label>
+                          <span class="item bullet active">Concours et prix</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="challenges" name="categories">
-                          <label for="challenges">Challenges inter-établissements</label>
+                          <span class="item bullet active">Challenges inter-établissements</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="conferences" name="categories">
-                          <label for="conferences">Conférences / tables rondes</label>
+                          <span class="item bullet active">Conférences / tables rondes</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="journee-semaine" name="categories">
-                          <label for="journee-semaine">Journées/semaine thématiques</label>
+                          <span class="item bullet active">Journées/semaine thématiques</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="ateliers" name="categories">
-                          <label for="ateliers">Ateliers / cycles d'ateliers</label>
+                          <span class="item bullet active">Ateliers / cycles d'ateliers</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="weekend-startup" name="categories">
-                          <label for="weekend-startup">Weekend startup</label>
+                          <span class="item bullet active">Weekend startup</span>
                         </li>
                       </ul>
                     </div>
@@ -91,24 +85,19 @@
                     <div class="side-content cbpgtg" data-cbctl="48959239||bs" data-flag="1">
                       <ul class="list-group">
                         <li class="list-group-item">
-                          <input type="radio" id="entreprendre" name="tags">
-                          <label for="entreprendre">Entreprendre au féminin</label>
+                          <span class="item bullet active">Entreprendre au féminin</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="ess" name="tags">
-                          <label for="ess">ESS (éco.sociale/solidaire)</label>
+                          <span class="item bullet active">ESS (éco.sociale/solidaire)</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="statut" name="tags">
-                          <label for="status">Statut étudiant-entrepreneur</label>
+                          <span class="item bullet active">Statut étudiant-entrepreneur</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="reprise" name="tags">
-                          <label for="reprise">Reprise d’entreprise</label>
+                          <span class="item bullet active">Reprise d’entreprise</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="startup" name="tags">
-                          <label for="startup">Startup</label>
+                          <span class="item bullet active">Startup</span>
                         </li>
                       </ul>
                     </div>
@@ -125,110 +114,83 @@
                   <div class="well">
                     <div class="side-content cbpgor" data-cbctl="48959239|bs" data-flag="1">
                       <ul class="list-group">
-    
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-paca-est" name="organisation">
-                          <label for="pepite-paca-est">PEPITE Cré@tude Paca Est</label>
+                          <span class="item bullet active">PEPITE Cré@tude Paca Est</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="lille" name="organisation">
-                          <label for=lille">COMUE Lille Nord de France</label>
+                          <span class="item bullet active">COMUE Lille Nord de France</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="edc" name="organisation">
-                          <label for="edc">EDC PARIS BUSINESS SCHOOL</label>
+                          <span class="item bullet">EDC PARIS BUSINESS SCHOOL</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-bretagne" name="organisation">
-                          <label for="pepite-bretagne">PEPITE Bretagne</label>
+                          <span class="item bullet active">PEPITE Bretagne</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-peea" name="organisation">
-                          <label for="pepite-peea">PEPITE PEEA</label>
+                          <span class="item bullet">PEPITE PEEA</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-grenoble" name="organisation">
-                          <label for="pepite-grenoble">Pôle oZer - Pépite de l'Université de Grenoble</label>
+                          <span class="item bullet active">Pôle oZer - Pépite de l'Université de Grenoble</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-paca-ouest" name="organisation">
-                          <label for="pepite-paca-ouest">PEPITE PACA OUEST</label>
+                          <span class="item bullet active">PEPITE PACA OUEST</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="avrile" name="organisation">
-                          <label for="avrile">AVRILE</label>
+                          <span class="item bullet active">AVRILE</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="sorbonne" name="organisation">
-                          <label for="sorbonne">SORBONNE UNIVERSITES</label>
+                          <span class="item bullet active">SORBONNE UNIVERSITES</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-lr" name="organisation">
-                          <label for="pepite-lr">PEPITE-LR</label>
+                          <span class="item bullet active">PEPITE-LR</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-peel" name="organisation">
-                          <label for="pepite-peel">PEPITE By PeeL</label>
+                          <span class="item bullet active">PEPITE By PeeL</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-upon" name="organisation">
-                          <label for="pepite-upon">PEPITE UPON</label>
+                          <span class="item bullet active">PEPITE UPON </span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-menesr" name="organisation">
-                          <label for="pepite-menesr">PEPITE MENESR</label>
+                          <span class="item bullet active">PEPITE MENESR</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="peips" name="organisation">
-                          <label for="peips">PEIPS</label>
+                          <span class="item bullet active">PEIPS</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-limousin" name="organisation">
-                          <label for="pepite-limousin">PEPITE Limousin Poitou-Charentes</label>
+                          <span class="item bullet active">PEPITE Limousin Poitou-Charentes</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite" name="organisation">
-                          <label for="pepite">PéPite</label>
+                          <span class="item bullet active">PéPite</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="aix" name="organisation">
-                          <label for="aix">Université d'AIX MARSEILLE/ PEPITE PACA OUEST</label>
+                          <span class="item bullet active">Université d'AIX MARSEILLE/ PEPITE PACA OUEST</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="yec" name="organisation">
-                          <label for="yec">Le YEC - Pepite Champagne-Ardenne</label>
+                          <span class="item bullet active">Le YEC - Pepite Champagne-Ardenne</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="unam" name="organisation">
-                          <label for="unam">L'UNAM</label>
+                          <span class="item bullet active">L'UNAM</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-psl" name="organisation">
-                          <label for="pepite-psl">PSL Pépite</label>
+                          <span class="item bullet active">PSL Pépite</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-champagne" name="organisation">
-                          <label for="pepite-champagne">PEPITE Champagne Ardenne</label>
+                          <span class="item bullet active">PEPITE Champagne Ardenne</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="innovation" name="organisation">
-                          <label for="innovation">Plateforme Innovation &amp; Création d'Entreprises</label>
+                          <span class="item bullet active">Plateforme Innovation &amp; Création d'Entreprises</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-corse" name="organisation">
-                          <label for="pepite-corse">Pépite Corse</label>
+                          <span class="item bullet active">Pépite Corse</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="comue-unam" name="organisation">
-                          <label for="comue-unam">COMUE l'UNAM</label>
+                          <span class="item bullet">COMUE l'UNAM</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-peips" name="organisation">
-                          <label for="pepite-peips">PEPITE PEIPS</label>
+                          <span class="item bullet active">PEPITE PEIPS</span>
                         </li>
                         <li class="list-group-item">
-                          <input type="radio" id="pepite-creer" name="organisation">
-                          <label for="pepite-creer">Pépite CREER</label>
+                          <span class="item bullet active">Pépite CREER</span>
                         </li>
                       </ul>
                     </div>
