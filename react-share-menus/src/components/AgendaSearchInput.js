@@ -6,35 +6,41 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Form, Field } from 'react-final-form';
 import { AgendasSearch } from '@openagenda/react-shared';
 
-const defineParams = ({
-  searchText, filter, page
-}) => {
-  const query = {
-    search: searchText
-  };
+import {
+  reset as resetNav,
+  defineParams,
+  loadNext as loadNextNav,
+  isStart as isNavStart
+} from './lib/navState';
 
-  if (filter) {
-    Object.assign(query, filter);
-  }
+const appendNewAgendas = (agendas, newAgendas) => {
+  const appended = [...agendas];
+  newAgendas.forEach(n => {
+    if (agendas.some(a => a.uid === n.uid)) {
+      return;
+    }
+    appended.push(n);
+  });
 
-  if (page > 1) {
-    query.page = page;
-  }
-
-  return query;
+  return appended;
 };
 
-const AgendaSearchInput = ({
-  targetAgenda, getTitleLink, preFetchAgendas, res, filter, noAgendas
-}) => {
+const AgendaSearchInput = props => {
+  const {
+    targetAgenda,
+    getTitleLink,
+    preFetchAgendas,
+    noAgendas,
+    res,
+    perPageLimit,
+    filter
+  } = props;
+
   const [initialLoad, setInitialLoad] = useState(true);
   const [agendas, setAgendas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [visibility, setVisibility] = useState(true);
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [perPageLimit] = useState(20);
+  const [nav, setNav] = useState(resetNav({ res, perPageLimit, filter }));
 
   const intl = useIntl();
 
@@ -59,37 +65,45 @@ const AgendaSearchInput = ({
   });
 
   const fetchAgendas = useCallback(
-    async (searchText = '', pageToLoad = 1) => {
-      setSearch(searchText);
+    async navPatch => {
       setLoading(true);
-      const response = await axios.get(res, {
-        params: defineParams({
-          searchText,
-          filter,
-          page: pageToLoad,
-        }),
+
+      const updatedNav = navPatch ? { ...nav, ...navPatch } : nav;
+
+      if (navPatch) {
+        setNav(updatedNav);
+      }
+
+      const response = await axios.get(updatedNav.currentRes, {
+        params: defineParams(updatedNav),
       });
 
       const results = response.data.agendas.filter(agenda => agenda.slug !== targetAgenda.slug);
 
       setLoading(false);
-      setTotal(response.data.total);
 
-      if (searchText === '' && results.length === 0 && noAgendas) {
+      updatedNav.total = response.data.total;
+
+      setNav(updatedNav);
+
+      const emptySearchString = updatedNav.search === '';
+
+      if (emptySearchString && results.length === 0 && noAgendas) {
         setVisibility(false);
         return noAgendas(true);
       }
 
-      if (searchText === '' && response.data.total < perPageLimit && response.data.total > 1) {
-        setVisibility(false);
-      }
-
-      if (searchText === '' && !preFetchAgendas) {
+      if (emptySearchString && !preFetchAgendas) {
         return setAgendas([]);
       }
-      return setAgendas(prevAgendas => (pageToLoad > 1 ? [...prevAgendas, ...results] : results));
+
+      if (isNavStart(updatedNav) && (results.length < nav.perPageLimit) && Array.isArray(res)) {
+        fetchAgendas(loadNextNav(updatedNav));
+      }
+
+      return setAgendas(prevAgendas => (isNavStart(updatedNav) ? results : appendNewAgendas(prevAgendas, results)));
     },
-    [filter, res, preFetchAgendas, targetAgenda.slug, noAgendas, perPageLimit]
+    [preFetchAgendas, targetAgenda.slug, noAgendas, nav, res]
   );
 
   useEffect(() => {
@@ -100,9 +114,17 @@ const AgendaSearchInput = ({
   }, [preFetchAgendas, initialLoad, fetchAgendas]);
 
   const nextPage = () => {
-    if (!agendas || !agendas.length || loading || page * perPageLimit >= total) return;
-    setPage(page + 1);
-    fetchAgendas(search, page + 1);
+    if (loading) {
+      return false;
+    }
+
+    const nextNav = loadNextNav(nav);
+
+    if (!nextNav) {
+      return false;
+    }
+
+    fetchAgendas(nextNav);
   };
 
   const handleVisibility = () => visibility;
@@ -112,7 +134,10 @@ const AgendaSearchInput = ({
     return intl.formatMessage(messages[str]);
   };
 
-  const debouncedSearch = debounce(fetchAgendas, 400);
+  const debouncedSearch = debounce(search => {
+    fetchAgendas(resetNav({ ...props, search }));
+  }, 400);
+
   const throttledNextPage = throttle(nextPage, 400, { trailing: false });
 
   return (
@@ -137,12 +162,17 @@ AgendaSearchInput.propTypes = {
   targetAgenda: PropTypes.shape({ title: PropTypes.string, slug: PropTypes.string }).isRequired,
   getTitleLink: PropTypes.func.isRequired,
   preFetchAgendas: PropTypes.bool,
-  res: PropTypes.string.isRequired,
+  perPageLimit: PropTypes.number,
+  res: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array
+  ]).isRequired,
   noAgendas: PropTypes.func,
   filter: PropTypes.shape({ role: PropTypes.string }),
 };
 
 AgendaSearchInput.defaultProps = {
+  perPageLimit: 20,
   preFetchAgendas: false,
   noAgendas: undefined,
   filter: undefined,
