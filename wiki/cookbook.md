@@ -271,10 +271,7 @@ Une petite modification sur agenda-portal à patcher sur npm peut se faire simpl
 
 [Comment nommer les dossiers](https://gist.github.com/tracker1/59f2c13044315f88bee9)
 
-
-## Tests
-
-### A propos des certificats
+## Certificats
 
 L'accès du cluster elasticsearch en production est protégé par une vérification de clés authentifiant le client executant la recherche. Un proxy nginx se charge de cette vérification.
 
@@ -301,12 +298,51 @@ server {
 }
 ```
 
-La clé du client est générée en la faisant signer par le certificat spécifié dans la conf ci-dessus.
+La clé du client est générée en la faisant signer par la clé associée au certificat spécifié dans la conf ci-dessus.
+
+### En développement
 
 Pour l'environnement de dev, c'est le script `docker/devinstaller/ssl/create_client_certificate.sh` qui peut être utilisé pour la générer.
 
-Autrement, il est également possible d'utiliser directement le certificat de vérification ainsi que ça clé. Cela va sans dire qu'en production, ceci ne doit jamais être fait.
+Autrement, il est également possible d'utiliser directement le certificat de vérification ainsi que sa clé. Cela va sans dire qu'en production, ceci ne doit jamais être fait.
 
+### En production
+
+La paire certificat/clé est dans le keepass technique. Elle est nécessaire pour créer de nouvelle clés clients.
+
+#### L'autorité
+
+Si l'autorité doit être créée, utiliser les informations suivantes (en suivant les commandes détaillées dans le script create_oa_authority)
+
+C = FR,
+L = Courbevoie,
+O = OA,
+CN = auth.openagenda.com,
+emailAddress = support@openagenda.com
+
+Les clients devront également être mis à jour. Et une fois la paire de l'autorité en production, il faut mettre à jour le keepass technique avec les nouvelles clés.
+
+Autrement, il est également possible de prolonger la validité de l'autorité: https://www.golinuxcloud.com/renew-self-signed-certificate-openssl/
+
+En production, seul le certificat se place dans le sous-groupe du répartiteur, ici: `/etc/nginx/certs/auth.pem`
+
+#### Les clients
+
+Mettre autre chose que ce qui a été précisé dans le CN de l'autorité:
+
+C = FR,
+ST = Some-State,
+O = Open Agenda SAS,
+CN = openagenda.com
+
+
+
+
+### Les clients
+
+Si ce sont les clients qui doivent être renouveler, reprendre la paire autorité du keepass pour suivre les commandes utilisées dans le script create_client_certificate. Les certificats clients doivent alors être placés dans chaque instance se connectant au clusteur (.ssh/es7.key et .crt)
+
+## Tests
 
 ### Configuration des tests
 
