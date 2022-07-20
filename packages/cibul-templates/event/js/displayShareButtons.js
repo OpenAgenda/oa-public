@@ -33,7 +33,7 @@ const ShareOAModalContainer = ({ params, userLogged }) => {
       {display && (
         <EventShareModal
           onClose={() => setDisplay(false)}
-          res="/home/agendas"
+          res={['/home/agendas', '/api/agendas?contributionType=1&useDefaultImage=1']}
           segment="openagenda"
           event={params}
           userLogged={userLogged}

@@ -167,12 +167,13 @@ window.asap(async options => {
 
 
 function defineRoles(params) {
+  if (!params.user) {
+    return [];
+  }
+
   const roles = [];
 
-  if (!params.user) return roles;
-
-  // user is owner
-  if (params.user.uid == params.ownerUid) {
+  if (params.me?.authorizations?.canEditEvent) {
     roles.push(ROLES.EVENTEDITOR);
   }
 
