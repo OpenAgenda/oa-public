@@ -1,35 +1,49 @@
-import _ from 'lodash';
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
 import labels from './lib/labels';
-import fieldLanguages from './lib/fieldLanguages';
 import getFieldTypeLabel from './lib/getFieldTypeLabel';
 import getPreferredLang from './lib/getPreferredLang';
 
 const getLabel = makeLabelGetter(labels);
 
+const renderSchemaInfo = (schemaInfo, lang) => {
+  if (!schemaInfo) {
+    return null;
+  }
+
+  return (
+    <span
+      title={getPreferredLang(schemaInfo.detail, lang)}
+      className="badge badge-default margin-right-xs pull-right margin-top-xs"
+    >{getPreferredLang(schemaInfo.label, lang)}
+    </span>
+  );
+};
+
 export default class FieldPreview extends Component {
   getInfoLabel() {
-    if (!this.props.editable) return getLabel('uneditableFieldInfo', this.props.lang);
-    if (this.props.disabled) return null;
-    return getLabel('editFieldInfo', this.props.lang);
+    const {
+      editable,
+      lang,
+      disabled
+    } = this.props;
+    if (!editable) {
+      return getLabel('uneditableFieldInfo', lang);
+    }
+    if (disabled) {
+      return null;
+    }
+    return getLabel('editFieldInfo', lang);
   }
 
   isFieldOptional() {
-    return _.get(this.props.field, 'optional', true);
-  }
+    const {
+      field
+    } = this.props;
 
-  renderSchemaInfo(schemaInfo, lang) {
-    if (!schemaInfo) return null;
-
-    return (
-      <span
-        title={getPreferredLang(schemaInfo.detail, lang)}
-        className="badge badge-default margin-right-xs pull-right margin-top-xs">{getPreferredLang(schemaInfo.label, lang)}
-      </span>
-    );
+    return field?.optional ?? true;
   }
 
   renderDisplayed() {
@@ -40,10 +54,14 @@ export default class FieldPreview extends Component {
       schemaInfo,
       ordering,
       editableExtensions,
-      isOwn
+      isOwn,
+      onEdit,
+      onHide,
+      onRemove
     } = this.props;
 
     const editable = isOwn || editableExtensions;
+    const isDisabled = !editable || disabled;
 
     return (
       <div
@@ -52,31 +70,54 @@ export default class FieldPreview extends Component {
         })}
       >
         <div>
-          <label className="margin-right-xs padding-top-xs">{getPreferredLang(field.label, lang)}</label>
+          <label
+            className="margin-right-xs padding-top-xs"
+            htmlFor={`edit-${field.field}`}
+          >
+            {getPreferredLang(field.label, lang)}
+          </label>
           {this.isFieldOptional() ? null : <span className="text-muted margin-right-xs">{getLabel('requiredField', lang)}</span>}
-          {this.renderSchemaInfo(schemaInfo, lang)}
+          {renderSchemaInfo(schemaInfo, lang)}
           <ul className="list-inline margin-bottom-xs">
             <li><span>{field.purpose ? getPreferredLang(field.purpose, lang) : getFieldTypeLabel(field, lang)}</span></li>
             <li className="text-muted" title="Code du champ">{field.field}</li>
           </ul>
-          {ordering ? <ul className="form-item-actions list-inline">
-            <li><span className="btn btn-link">{getLabel('orderField', lang)}</span></li>
-          </ul> : <div className="form-item-actions padding-h-xs">
-            <button
-              title={this.getInfoLabel()}
-              onClick={() => !editable || disabled ? () => { } : this.props.onEdit()}
-              className="btn btn-link"
-              disabled={!editable || disabled}>{getLabel('editField', lang)}</button>
-            {this.isFieldOptional() ? <button
-              onClick={() => this.props.onHide()}
-              className="btn btn-link"
-            >{getLabel('hideField', lang)}</button> : null}
-            {isOwn ? <button
-              onClick={() => disabled ? () => { } : this.props.onRemove()}
-              className="btn btn-link">
-              <span className="text-danger">{getLabel('removeField', lang)}</span>
-            </button> : null}
-          </div>}
+          {ordering ? (
+            <ul className="form-item-actions list-inline">
+              <li><span className="btn btn-link">{getLabel('orderField', lang)}</span></li>
+            </ul>
+          ) : (
+            <div className="form-item-actions padding-h-xs">
+              <button
+                type="button"
+                name={`edit-${field.field}`}
+                title={this.getInfoLabel()}
+                onClick={() => (!isDisabled ? onEdit() : null)}
+                className="btn btn-link"
+                disabled={!editable || disabled}
+              >
+                {getLabel('editField', lang)}
+              </button>
+              {this.isFieldOptional() ? (
+                <button
+                  type="button"
+                  onClick={() => onHide()}
+                  className="btn btn-link"
+                >
+                  {getLabel('hideField', lang)}
+                </button>
+              ) : null}
+              {isOwn ? (
+                <button
+                  type="button"
+                  onClick={() => (isDisabled ? null : onRemove())}
+                  className="btn btn-link"
+                >
+                  <span className="text-danger">{getLabel('removeField', lang)}</span>
+                </button>
+              ) : null}
+            </div>
+          )}
         </div>
       </div>
     );
@@ -86,7 +127,8 @@ export default class FieldPreview extends Component {
     const {
       field,
       lang,
-      schemaInfo
+      schemaInfo,
+      onShow
     } = this.props;
 
     return (
@@ -95,17 +137,31 @@ export default class FieldPreview extends Component {
           'field-preview': true
         })}
       >
-        <label className="margin-right-xs padding-top-xs">{getPreferredLang(field.label, lang)}</label>
-        {this.renderSchemaInfo(schemaInfo, lang)}
+        <label
+          htmlFor={`show-${field.field}`}
+          className="margin-right-xs padding-top-xs"
+        >
+          {getPreferredLang(field.label, lang)}
+        </label>
+        {renderSchemaInfo(schemaInfo, lang)}
         <span>{getLabel('hiddenField', lang)}</span>
-        {field.purpose ? <ul className="list-inline margin-bottom-xs">
-          <li>
-            <span>{getPreferredLang(field.purpose, lang)}</span>
-          </li>
-          <li className="text-muted" title="Code du champ">{field.field}</li>
-        </ul> : null}
+        {field.purpose ? (
+          <ul className="list-inline margin-bottom-xs">
+            <li>
+              <span>{getPreferredLang(field.purpose, lang)}</span>
+            </li>
+            <li className="text-muted" title="Code du champ">{field.field}</li>
+          </ul>
+        ) : null}
         <div className="form-item-actions padding-h-xs">
-          <button className="btn btn-link" onClick={() => this.props.onShow()}>{getLabel('showField', lang)}</button>
+          <button
+            type="button"
+            name={`show-${field.field}`}
+            className="btn btn-link"
+            onClick={() => onShow()}
+          >
+            {getLabel('showField', lang)}
+          </button>
         </div>
       </div>
     );
@@ -114,6 +170,6 @@ export default class FieldPreview extends Component {
   render() {
     const { field } = this.props;
 
-    return _.get(field, 'display', true) ? this.renderDisplayed() : this.renderHidden();
+    return (field?.display ?? true) ? this.renderDisplayed() : this.renderHidden();
   }
 }

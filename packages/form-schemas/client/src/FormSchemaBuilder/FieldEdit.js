@@ -31,7 +31,7 @@ export default class FieldEdit extends Component {
           lang={lang}
           labelLanguages={labelLanguages}
           field={field}
-          onSubmit={this.onSubmit.bind(this)}
+          onSubmit={v => this.onSubmit(v)}
           actionComponent={({ onSubmit }) => (
             <div>
               <button type="button" className="btn btn-default" onClick={onCancel}>{getLabel('cancelFieldEdit', lang)}</button>
