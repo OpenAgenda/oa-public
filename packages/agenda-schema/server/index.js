@@ -1,67 +1,50 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const router = require('./router');
 
-const logger = require( '@openagenda/logs' );
-
-const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../client/dist/manifest.json', 'utf-8' ) );
-
-const name = JSON.parse(
-  require( 'fs' ).readFileSync( __dirname + '/../package.json', 'utf-8' )
-).name.split( '/' ).pop();
-
-module.exports = _.assign( ( config = {} ) => {
-
-  const load = loadServiceResources.bind( null, config.interfaces );
+module.exports = Object.assign((config = {}) => {
+  const load = loadServiceResources.bind(null, config.interfaces);
 
   return {
-    name,
+    name: 'agenda-schema',
     config,
-    loadAppResources: loadAppResources.bind( null, load ),
-    setSchemaFields: setSchemaFields.bind( null, load, config.interfaces.setSchemaFields )
+    loadAppResources: loadAppResources.bind(null, load),
+    setSchemaFields: setSchemaFields.bind(null, load, config.interfaces.setSchemaFields)
   };
 
-}, {
-  router: require( './router' )
-} );
+}, { router });
 
-async function setSchemaFields( load, setSchemaFields, agendaIdentifiers, update ) {
+async function setSchemaFields(load, setSchemaFields, agendaIdentifiers, update) {
+  const { agenda } = await load(agendaIdentifiers);
 
-  const { agenda, schema, extensions } = await load( agendaIdentifiers );
-
-  return setSchemaFields( agenda, update );
-
+  return setSchemaFields(agenda, update);
 }
 
-async function loadAppResources( load, agendaIdentifiers ) {
-
-  const { agenda, schema, extensions } = await load( agendaIdentifiers );
+async function loadAppResources(load, agendaIdentifiers) {
+  const { agenda, schema, extensions } = await load(agendaIdentifiers);
 
   return {
     agenda,
     schema,
-    maxFields: _.get( agenda, 'credentials.premiumCustomFields' ) ? 100 : 1,
+    maxFields: agenda?.credentials?.premiumCustomFields ? 100 : 1,
     extensions,
-    editableExtensions: !!_.get( agenda, 'credentials.premiumCustomFields' )
+    editableExtensions: !!agenda?.credentials?.premiumCustomFields
   }
-
 }
 
 
-async function loadServiceResources( { getAgenda, getSchema, getSchemaExtensions }, agendaIdentifiers ) {
+async function loadServiceResources({ getAgenda, getSchema, getSchemaExtensions }, agendaIdentifiers) {
+  const agenda = await getAgenda(agendaIdentifiers);
 
-  const agenda = await getAgenda( agendaIdentifiers );
+  if (!agenda) throw new Error('Could not find agenda');
 
-  if ( !agenda ) throw new Error( 'Could not find agenda' );
+  const schema = await getSchema(agenda);
 
-  const schema = await getSchema( agenda );
-
-  const extensions = await getSchemaExtensions( agenda );
+  const extensions = await getSchemaExtensions(agenda);
 
   return {
     agenda,
     schema,
     extensions
   };
-
 }
