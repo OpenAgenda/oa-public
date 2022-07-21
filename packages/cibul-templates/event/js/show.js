@@ -173,7 +173,9 @@ function defineRoles(params) {
 
   const roles = [];
 
-  if (params.me?.authorizations?.canEditEvent) {
+  const isEventContributor = (params?.me?.member?.userUid === params?.member?.userUid) 
+
+  if ((params.member.role === 'contributor') && isEventContributor) {
     roles.push(ROLES.EVENTEDITOR);
   }
 
