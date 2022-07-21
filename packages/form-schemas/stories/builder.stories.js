@@ -834,6 +834,72 @@ export function ExtendedTextField() {
   );
 }
 
+export function TargetedEditableExtendedTextField() {
+  const schema = {
+  };
+
+  const extensions = [{
+    schema: {
+      id: 12,
+      fields: [
+        {
+          field: 'title',
+          label: 'Titre',
+          fieldType: 'text',
+          optional: false,
+        },
+        {
+          field: 'description',
+          label: 'Description',
+          fieldType: 'text',
+          optional: false
+        }
+      ]
+    },
+    info: {
+      label: {
+        fr: 'Réseau',
+        en: 'Network'
+      },
+      detail: {
+        fr: 'Champ requis par le réseau d\'agendas',
+        en: 'Field required by the agenda network'
+      }
+    }
+  }];
+
+  function onUpdate(updatedSchema) {
+    console.log(updatedSchema);
+  }
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <div>
+            <FormSchemaBuilder
+              maxFields={2}
+              editableExtensions={['description']}
+              lang="fr"
+              addEnabled
+              settingsEnabled
+              devState={{
+                // editedField: 'title'
+              }}
+              schema={schema}
+              extendedFrom={extensions}
+              onUpdate={onUpdate}
+              renderHead={() => (
+                <div className="padding-all-sm wsq">Only description field should be editable as it is explicited in list provided in editableExtensions prop</div>
+              )}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ExtendedChoiceField() {
   const schema = {
   };

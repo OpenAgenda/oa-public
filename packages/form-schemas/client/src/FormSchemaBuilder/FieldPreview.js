@@ -22,6 +22,18 @@ const renderSchemaInfo = (schemaInfo, lang) => {
   );
 };
 
+const defineIsEditable = (field, { isOwn, editableExtensions }) => {
+  if (isOwn) {
+    return true;
+  }
+
+  if (Array.isArray(editableExtensions)) {
+    return editableExtensions.includes(field.field);
+  }
+
+  return editableExtensions;
+};
+
 export default class FieldPreview extends Component {
   getInfoLabel() {
     const {
@@ -60,7 +72,7 @@ export default class FieldPreview extends Component {
       onRemove
     } = this.props;
 
-    const editable = isOwn || editableExtensions;
+    const editable = defineIsEditable(field, { isOwn, editableExtensions });
     const isDisabled = !editable || disabled;
 
     return (
