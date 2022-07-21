@@ -220,21 +220,18 @@
       }
     }
     .back,
-    .search-form,
-    .map,
+    .small-map,
     .calendar {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
   
     .btn-primary,
-    .search-form,
     .map,
     .calendar,
     .filter {
       margin-left: auto;
       margin-right: auto;
     }
-    .search-form,
     .map,
     .calendar,
     .filter {
@@ -301,7 +298,7 @@
       bottom: 0;
       padding: auto;
       display: flex;
-      p {
+      .total-text {
         margin: auto;
         color: #fff;
         font-size: 16px;
