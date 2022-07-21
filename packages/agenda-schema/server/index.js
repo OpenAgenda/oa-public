@@ -28,7 +28,7 @@ async function loadAppResources(load, agendaIdentifiers) {
     schema,
     maxFields: agenda?.credentials?.premiumCustomFields ? 100 : 1,
     extensions,
-    editableExtensions: !!agenda?.credentials?.premiumCustomFields
+    editableExtensions: (!!agenda?.credentials?.premiumCustomFields) || ['timings']
   }
 }
 
