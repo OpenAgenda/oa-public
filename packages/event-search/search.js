@@ -17,6 +17,7 @@ const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
 const includeLabelsInEvent = require('./utils/includeLabelsInEvent');
+const filterImageTimestamps = require('./utils/filterImageTimestamps');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
@@ -51,7 +52,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includeLabels,
     includeFields: requestedIncludes,
     useAfterKey,
-    parser
+    parser,
+    includeImageTimestamps
   } = validateOptions(options);
 
   try {
@@ -110,6 +112,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     monolingual,
     formSchema,
     includeLabels,
+    includeImageTimestamps,
     parser
   }, aggregationResults);
 
@@ -165,7 +168,14 @@ function _parseEvents(parsers, events) {
   });
 }
 
-function _buildEventParsers({ detailed, monolingual, parser, includeLabels, formSchema }) {
+function _buildEventParsers({
+  detailed,
+  monolingual,
+  parser,
+  includeLabels,
+  formSchema,
+  includeImageTimestamps
+}) {
   const parsers = [
     convertToLocalTimezone,
     appendNextAndLastTiming
@@ -200,6 +210,10 @@ function _buildEventParsers({ detailed, monolingual, parser, includeLabels, form
       formSchema,
       monolingual
     }));
+  }
+
+  if (!includeImageTimestamps) {
+    parsers.push(filterImageTimestamps);
   }
 
   return parsers;

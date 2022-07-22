@@ -1089,6 +1089,13 @@ describe('02 - event search - functional: Applied search', function() {
         const { events } = await service('bdx')
           .search({}, { size: 1 }, { detailed: true, includeLabels: true, formSchema });
       });
+
+      it('includeImageTimestamps', async () => {
+        const { events } = await service('bdx')
+          .search({}, { size: 1 }, { detailed: true, includeLabels: true, formSchema });
+
+        events[0].image.filename.indexOf('?').should.equal(-1);
+      });
     })
 
   });

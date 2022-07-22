@@ -45,6 +45,11 @@ module.exports = schema({
     optional: true,
     default: false
   },
+  includeImageTimestamps: {
+    type: 'boolean',
+    optional: true,
+    default: false,
+  },
   useAfterKey: {
     type: 'boolean',
     optional: true,
