@@ -2,7 +2,9 @@
 
 const _ = require('lodash');
 
-module.exports = (req, res, next) => {
+const parseBool = v => (typeof v === 'string' ? v === 'true' : !!v);
+
+module.exports = function eventUpdate(req, res, next) {
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
   if (_.get(req, 'file.path')) {
     _.set(req.parsedData, 'image.path', _.get(req, 'file.path', undefined));
@@ -13,7 +15,7 @@ module.exports = (req, res, next) => {
     _.omit(req.parsedData, ['ownerUid', 'creatorUid']),
     {
       partial: req.method === 'PATCH',
-      batched: _parseBool(req.headers.batched || req.body.batched),
+      batched: parseBool(req.headers.batched || req.body.batched),
       context: {
         userUid: req.member.userUid
       },
@@ -21,8 +23,4 @@ module.exports = (req, res, next) => {
       defaultLang: req.headers.lang
     }
   ).then(event => res.json({ success: true, event }), next);
-}
-
-function _parseBool(v) {
-  return typeof v === 'string' ? v === 'true' : !!v;
-}
+};
