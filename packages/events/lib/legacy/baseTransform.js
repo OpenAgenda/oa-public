@@ -25,32 +25,37 @@ module.exports = (event, options = {}) => {
   const languages = getEventLanguages(event);
   const timezone = event.timezone || 'Europe/Paris';
 
+  const legacyEvent = {
+    uid: event.uid,
+    slug: event.slug,
+    image: event.image?.filename || null,
+    image_credits: event.imageCredits ?? null,
+    origin_uid: event.agendaUid,
+    age_min: event.age?.min || null,
+    age_max: event.age?.max || null,
+    accessibility:  event.accessibility ? JSON.stringify(
+      Object.keys(event.accessibility).filter(code => event.accessibility[code])
+    ) : null,
+    is_published: true,
+    is_new: false,
+    updated_at: new Date(),
+    store: JSON.stringify({
+      attendanceMode: event.attendanceMode,
+      onlineAccessLink: event.onlineAccessLink,
+      images: event.image,
+      links: (event.links || []).map(({ link, data }) => ({
+        link,
+        code: data?.html
+      }))
+    })
+  };
+
+  if (userId !== null) {
+    legacyEvent.owner_id = userId;
+  }
+
   return {
-    event: {
-      uid: event.uid,
-      slug: event.slug,
-      image: event.image?.filename || null,
-      image_credits: event.imageCredits ?? null,
-      origin_uid: event.agendaUid,
-      age_min: event.age?.min || null,
-      age_max: event.age?.max || null,
-      accessibility:  event.accessibility ? JSON.stringify(
-        Object.keys(event.accessibility).filter(code => event.accessibility[code])
-      ) : null,
-      is_published: true,
-      is_new: false,
-      updated_at: new Date(),
-      owner_id: userId,
-      store: JSON.stringify({
-        attendanceMode: event.attendanceMode,
-        onlineAccessLink: event.onlineAccessLink,
-        images: event.image,
-        links: (event.links || []).map(({ link, data }) => ({
-          link,
-          code: data?.html
-        }))
-      })
-    },
+    event: legacyEvent,
     event_translation: languages.map(lang => ({
       lang,
       title: event.title?.[lang] || '',
