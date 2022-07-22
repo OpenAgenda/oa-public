@@ -256,29 +256,17 @@
       }
     }
     .filter {
-      .categories,
-      .tags,
-      .organisation {
-        width: 100%;
-        background-color: #fff;
-        color: $oa-blue;
-        height: 40px;
-        i {
-          margin-left: 10px;
+      span {
+        padding-left: 0;
+      }
+      .bullet:after {
+        outline: 1px solid silver;
+        &:hover {
+          border: 5px solid white;
         }
       }
-      #categories,
-      #tags,
-      #organisation {
-        .bullet:after {
-          outline: 1px solid silver;
-          &:hover {
-            border: 5px solid white;
-          }
-        }
-        .side-item {
-          display: block;
-        }
+      .side-item {
+        display: block;
       }
     }
     .list-group-item label {
