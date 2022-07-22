@@ -318,6 +318,13 @@ function cleanJson(req, res, next) {
 
       delete f.references;
     }
+
+    ['image', 'thumbnail', 'originalImage'].forEach(imageField => {
+      if ((f[imageField] || '').indexOf('?') === -1) {
+        return;
+      }
+      f[imageField] = f[imageField].split('?').shift();
+    });
   });
 
   next();

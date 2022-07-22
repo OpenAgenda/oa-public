@@ -41,5 +41,9 @@ module.exports = schema({
   includeLabels: {
     type: 'boolean',
     default: false,
+  },
+  includeImageTimestamps: {
+    type: 'boolean',
+    default: false
   }
 });
