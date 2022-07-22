@@ -245,9 +245,9 @@ const config = {
       secret: 'DUy=dBGY1,(B]Yj'
     },
     mailjet: {
-      apiKey: prod.mailjet && prod.mailjet.apiKey,
-      apiSecret: prod.mailjet && prod.mailjet.apiSecret,
-      contactsListId: prod.mailjet && prod.mailjet.contactsListId
+      apiKey: process.env.MAILJET_KEY ?? prod.mailjet?.apiKey,
+      apiSecret: process.env.MAILJET_SECRET ?? prod.mailjet?.apiSecret,
+      contactsListId: process.env.MAILJET_CONTACTS_LIST_ID ?? prod.mailjet?.contactsListId
     },
     mailgun: {
       domain: prod.mailgun && prod.mailgun.domain,
