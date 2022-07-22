@@ -213,11 +213,7 @@
     }
   
     .filter {
-      margin-bottom: 20px;
-      .well {
-        background-color: #faf9f9;
-        border-color: #faf9f9;
-      }
+      margin-bottom: 40px;
     }
     .back,
     .small-map,
@@ -226,7 +222,7 @@
     }
   
     .btn-primary,
-    .map,
+    .small-map,
     .calendar,
     .filter {
       margin-left: auto;
@@ -262,6 +258,7 @@
       .bullet:after {
         outline: 1px solid silver;
         &:hover {
+          background-color: #41acdd;
           border: 5px solid white;
         }
       }
