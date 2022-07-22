@@ -120,7 +120,7 @@ export default function Confirmation({ history, agenda }) {
             <button
               type="button"
               className="btn btn-default btn-block"
-              onClick={() => doRedirect(history, location, `${prefix}?eventUid=${createdEvent.uid}`, { ignoreURLRedirect: true })}
+              onClick={() => doRedirect(history, location, `${prefix}?eventUid=${createdEvent.uid}&agendaUid=${agenda.uid}`, { ignoreURLRedirect: true })}
             >
               {m(messages.duplicateEvent)}
             </button>
