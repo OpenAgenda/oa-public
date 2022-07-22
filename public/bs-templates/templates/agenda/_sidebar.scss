@@ -63,8 +63,6 @@
 
   .side-content {
 
-    display: none;
-
     .list-group {
 
       padding-left: 10px;
@@ -198,11 +196,147 @@
   }
 
   .side-title {
-    display: none;
 
     @media (min-width: 768px) {
       display: inline;
     }
   }
 
+  .filtres {
+    margin-bottom: 10px;
+  }
+  .collapse,
+  .collapse.in,
+  .collapsing {
+    .btn-primary {
+      display: block;
+    }
+  
+    .filter {
+      margin-bottom: 20px;
+      .well {
+        background-color: #faf9f9;
+        border-color: #faf9f9;
+      }
+    }
+    .back,
+    .small-map,
+    .calendar {
+      margin-bottom: 40px;
+    }
+  
+    .btn-primary,
+    .map,
+    .calendar,
+    .filter {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .map,
+    .calendar,
+    .filter {
+      width: 95%;
+    }
+    .map {
+      .mobile-map {
+        max-height: 360px;
+      }
+    }
+    .calendar {
+      .calmonthnav {
+        background: #41acdd;
+        border: 1px solid silver;
+        font-weight: 600;
+        color: white;
+      }
+      .calweekdays {
+        li {
+          background-color: #eee;
+        }
+      }
+    }
+    .filter {
+      .categories,
+      .tags,
+      .organisation {
+        width: 100%;
+        background-color: #fff;
+        color: $oa-blue;
+        height: 40px;
+        i {
+          margin-left: 10px;
+        }
+      }
+      #categories,
+      #tags,
+      #organisation {
+        .bullet:after {
+          outline: 1px solid silver;
+          &:hover {
+            border: 5px solid white;
+          }
+        }
+        .side-item {
+          display: block;
+        }
+      }
+    }
+    .list-group-item label {
+      font-weight: normal;
+      margin-left: 8px;
+    }
+    .list-group {
+      margin-bottom: 0;
+    }
+    .total-event {
+      background-color: $oa-blue;
+      height: 7vh;
+      position: fixed;
+      left: 0;
+      width: 100%;
+      z-index: 4000;
+      bottom: 0;
+      padding: auto;
+      display: flex;
+      .total-text {
+        margin: auto;
+        color: #fff;
+        font-size: 16px;
+      }
+    }
+  }
+  
+  #collapse {
+    .open-sidebar {
+      position: fixed;
+      display: block;
+      background-color: #fff;
+      height: 93vh;
+      top: 0;
+      padding: 20px;  
+      width: 100vw; 
+      z-index: 3000;
+      overflow: scroll;
+    }
+  }
+  .collapse {
+    .open-sidebar,
+    .total-event {
+      left: 150vw;
+    }
+  }
+  .collapsing {
+    .open-sidebar,
+    .total-event {
+      left: 100%;
+      transition: all .6s ease;
+    }
+  }
+  .collapse.in {
+    .open-sidebar,
+    .total-event {
+      left: 0vw;
+      transition: all .6s ease;    
+    }
+  }
 }
