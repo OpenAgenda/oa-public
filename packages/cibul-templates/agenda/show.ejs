@@ -1,116 +1,115 @@
-<div id="agenda">
-    <% include ./head.part.ejs %>
+<% include ./head.part.ejs %>
+    <div id="agenda">
 <% if ( !agenda.isEmpty ) { %>
-    <div id="content">
-        <div class="container">
-            <div class="row mobile-content-canvas">
-                <section class="col-sm-6 col-sm-offset-2 main-content">
-                    <div class="export-container">
-                        <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
-                        <div class="js_export"></div>
-                    </div>
-                    <div class="total js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
-                    <button class="btn btn-primary visible-xs-block filtres" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
-                        Filtres
-                    </button>
-                    <div class="collapse" id="collapse">
-                        <div class="open-sidebar">
-                            <button class="btn btn-primary back" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
-                            Retour à la liste
-                            </button>
-                            <div class="side-content mobile-map cbpgmp small-map" data-tiles="<%= tiles %>" data-cbctl="<%= agenda.uid %>|<%= lang %>">
-                                <div class="map-sync js_map_sync">
-                                    <input type="checkbox" id="map-sync" class="js_sync_checkbox">
-                                        <label for="map-sync"><%= __( 'searchWhenMoveMap' ) %></label>
+        <div id="content">
+            <div class="container mobile-content-canvas">
+                <div class="row">
+                    <section class="col-sm-6 col-sm-offset-2 main-content">
+                        <div class="export-container">
+                            <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
+                            <div class="js_export"></div>
+                        </div>
+                        <div class="total js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
+                        <button class="btn btn-primary visible-xs-block filtres" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                            Filtres
+                        </button>
+                        <div class="collapse" id="collapse">
+                            <div class="open-sidebar">
+                                <button class="btn btn-primary back" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                Retour à la liste
+                                </button>
+                                <div class="side-content mobile-map cbpgmp small-map" data-tiles="<%= tiles %>" data-cbctl="<%= agenda.uid %>|<%= lang %>">
+                                    <div class="map-sync js_map_sync">
+                                        <input type="checkbox" id="map-sync" class="js_sync_checkbox">
+                                            <label for="map-sync"><%= __( 'searchWhenMoveMap' ) %></label>
+                                        </div>
+                                    </div>
+                                    <div class="calendar">
+                                        <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>         
+                                    </div>
+                                    <div class="filter">
+                                        <section   section class="side-item side-categories js_category_widget">
+                                            <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
+                                        </section>
+                                    </div>
+                                    <div class="filter">
+                                        <section class="side-item side-tags js_tags_widget">
+                                            <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
+                                        </section>
+                                    </div>
+                                    <div class="filter">
+                                        <section class="side-item js_org_widget">
+                                            <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
+                                        </section>
                                     </div>
                                 </div>
-                                <div class="calendar">
-                                    <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>         
-                                </div>
-                                <div class="filter">
-                                    <section   section class="side-item side-categories js_category_widget">
-                                        <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
-                                    </section>
-                                </div>
-                                <div class="filter">
-                                    <section class="side-item side-tags js_tags_widget">
-                                        <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
-                                    </section>
-                                </div>
-                                <div class="filter">
-                                    <section class="side-item js_org_widget">
-                                        <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
-                                    </section>
+                            </div>
+                            <div class="total-event js_total">
+                                <div class="total-text" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
+                            </div>
+                        </div>	
+                    </section>
+                    <section class="col-sm-8 main-content js_list_content">
+                        <% include ./show.part.ejs %>
+                    </section>
+                    <aside class="col-sm-4 col-aside sidebar">
+                        <section class="side-item side-search">
+                            <div class="side-content">
+                                <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
+                                    <input type="text" placeholder="<%= __( 'searchInThisAgenda' ) %>" class="search-input">
+                                    <div class="search-button">
+                                        <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="total-event js_total">
-                            <div class="total-text" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
-                        </div>
-                    </div>	
-                </section>
-                <section class="col-sm-8 main-content js_list_content">
-                    <% include ./show.part.ejs %>
-                </section>
-                <aside class="col-sm-4 col-aside sidebar">
-                    <section class="side-item side-search">
-                        <div class="side-content">
-                            <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
-                                <input type="text" placeholder="<%= __( 'searchInThisAgenda' ) %>" class="search-input">
-                                <div class="search-button">
-                                    <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                        </section>
+                        <section class="side-item side-map">
+                            <div
+                                class="side-content cbpgmp small-map"
+                                data-tiles="<%= tiles %>"
+                                data-cbctl="<%= agenda.uid %>|<%= lang %>">
+                                <div class="map-sync js_map_sync">
+                                    <input type="checkbox" id="map-sync" class="js_sync_checkbox">
+                                    <label for="map-sync"><%= __( 'searchWhenMoveMap' ) %></label>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <section class="side-item side-map">
-                        <div
-                            class="side-content cbpgmp small-map"
-                            data-tiles="<%= tiles %>"
-                            data-cbctl="<%= agenda.uid %>|<%= lang %>">
-                            <div class="map-sync js_map_sync">
-                                <input type="checkbox" id="map-sync" class="js_sync_checkbox">
-                                <label for="map-sync"><%= __( 'searchWhenMoveMap' ) %></label>
+                        </section>
+                        <section class="side-item side-calendar">
+                            <h3 class="mobile-only">
+                                <i class="fa fa-calendar-o side-icon"></i><span
+                                        class="side-title"><%= __( 'selectDates' ) %></span>
+                            </h3>
+                            <div class="side-content">
+                                <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
                             </div>
-                        </div>
-                    </section>
-                    <section class="side-item side-calendar">
-                        <h3 class="mobile-only">
-                            <i class="fa fa-calendar-o side-icon"></i><span
-                                    class="side-title"><%= __( 'selectDates' ) %></span>
-                        </h3>
-                        <div class="side-content">
-                            <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
-                        </div>
-                    </section>
-                    <section class="side-item side-categories display-none js_category_widget">
-                        <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
-                    </section>
-                      <section class="side-item side-tags display-none js_tags_widget">
-                        <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
-                    </section>
-                    <section class="side-item display-none js_org_widget">
-                        <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
-                    </section>
-                    <% var footerUid = agenda.uid; %>
-                    <% include ../bsLayout/footer.part.ejs %>
-                </aside>
+                        </section>
+                        <section class="side-item side-categories display-none js_category_widget">
+                            <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
+                        </section>
+                            <section class="side-item side-tags display-none js_tags_widget">
+                            <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
+                        </section>
+                        <section class="side-item display-none js_org_widget">
+                            <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
+                        </section>
+                        <% var footerUid = agenda.uid; %>
+                        <% include ../bsLayout/footer.part.ejs %>
+                    </aside>
+                </div>
             </div>
         </div>
-    </div>
 <% } else { %>
-<div id="content" class="no-event">
-    <div class="container">
-        <p class="display-none js_add_button">
-            <a class="btn btn-success btn-lg" href="/<%= agenda.slug %>/contribute" rel="nofollow"><%= __( 'addEvent' ) %></a>
-        </p>
-        <p><%= __( 'agendaHasNotEventsPublished' ) %></p>
+    <div id="content" class="no-event">
+        <div class="container">
+            <p class="display-none js_add_button">
+                <a class="btn btn-success btn-lg" href="/<%= agenda.slug %>/contribute" rel="nofollow"><%= __( 'addEvent' ) %></a>
+            </p>
+            <p><%= __( 'agendaHasNotEventsPublished' ) %></p>
+        </div>
     </div>
-</div>
 <% var centeredFooter = true; %>
 <% var footerUid = agenda.uid; %>
 <% include ../bsLayout/footer.part.ejs %>
 <% } %>
 </div>
-
 <% include show.jsonld.ejs %>
