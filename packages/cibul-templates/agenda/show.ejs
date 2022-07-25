@@ -28,56 +28,31 @@
                                     <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>         
                                 </div>
                                 <div class="filter">
-                                    <button class="btn btn-primary categories" type="button" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
-                                        Catégories
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </button>
-                                    <div class="collapse" id="categories">
-                                        <div class="well">
-                                            <section   section class="side-item side-categories js_category_widget">
-                                                <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
-                                            </section>
-                                        </div>
-                                    </div>
+                                    <section   section class="side-item side-categories js_category_widget">
+                                        <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
+                                    </section>
                                 </div>
                                 <div class="filter">
-                                    <button class="btn btn-primary tags" type="button" data-toggle="collapse" data-target="#tags" aria-expanded="false" aria-controls="tags">
-                                        Tags
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </button>
-                                    <div class="collapse" id="tags">
-                                        <div class="well">
-                                            <section class="side-item side-tags js_tags_widget">
-                                                <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
-                                            </section>
-                                        </div>
-                                    </div>
+                                    <section class="side-item side-tags js_tags_widget">
+                                        <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
+                                    </section>
                                 </div>
                                 <div class="filter">
-                                    <button class="btn btn-primary organisation" type="button" data-toggle="collapse" data-target="#organisation" aria-expanded="false" aria-controls="organisation">
-                                        Organisation
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </button>
-                                    <div class="collapse" id="organisation">
-                                        <div class="well">
-                                            <section class="side-item js_org_widget">
-                                                <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
-                                            </section>
-                                        </div>
-                                    </div>
+                                    <section class="side-item js_org_widget">
+                                        <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
+                                    </section>
                                 </div>
                             </div>
+                        </div>
                         <div class="total-event js_total">
                             <div class="total-text" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
                         </div>
                     </div>	
                 </section>
-
                 <section class="col-sm-8 main-content js_list_content">
                     <% include ./show.part.ejs %>
                 </section>
                 <aside class="col-sm-4 col-aside sidebar">
-
                     <section class="side-item side-search">
                         <div class="side-content">
                             <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
@@ -88,7 +63,6 @@
                             </div>
                         </div>
                     </section>
-
                     <section class="side-item side-map">
                         <div
                             class="side-content cbpgmp small-map"
@@ -100,7 +74,6 @@
                             </div>
                         </div>
                     </section>
-
                     <section class="side-item side-calendar">
                         <h3 class="mobile-only">
                             <i class="fa fa-calendar-o side-icon"></i><span
@@ -110,15 +83,12 @@
                             <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
                         </div>
                     </section>
-
                     <section class="side-item side-categories display-none js_category_widget">
                         <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
                     </section>
-
-                    <section class="side-item side-tags display-none js_tags_widget">
+                      <section class="side-item side-tags display-none js_tags_widget">
                         <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
                     </section>
-
                     <section class="side-item display-none js_org_widget">
                         <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
                     </section>
