@@ -15,8 +15,7 @@
                 <button type="submit" class="btn btn-default btn-primary"><i class="fa fa-external-link"></i></span>&nbsp; Exporter la sélection</span></button>
               </li>
             </ul>       
-          </div>
-          
+          </div>      
           <button class="btn btn-primary visible-xs-block filtres" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
             Filtres
           </button>
@@ -25,7 +24,7 @@
               <button class="btn btn-primary back" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
                 Retour à la liste
               </button>
-              <div class="map text-center">
+              <div class="small-map text-center">
                 <img class="mobile-map" src="map.png" />
                 <div class="map-sync js_map_sync">
                   <input type="checkbox" id="map-sync" class="js_sync_checkbox">
@@ -37,171 +36,142 @@
                   <% include ../components/_calendar %>
                 </div>             
               </div>
-
               <div class="filter">
-                <button class="btn btn-primary categories" type="button" data-toggle="collapse" data-target="#categories" aria-expanded="false" aria-controls="categories">
-                  Catégories
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </button>
-                <div class="collapse" id="categories">
-                  <div class="well">
-                    <div class="side-content cbpgct" data-cbctl="48959239|bs" data-flag="1">
-                      <ul class="list-group">
-                        <li class="list-group-item">
-                          <span class="item bullet active">Concours et prix</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Challenges inter-établissements</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Conférences / tables rondes</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Journées/semaine thématiques</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Ateliers / cycles d'ateliers</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Weekend startup</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                <div class="side-content cbpgct" data-cbctl="48959239|bs" data-flag="1">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span class="item bullet active">Concours et prix</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Challenges inter-établissements</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Conférences / tables rondes</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Journées/semaine thématiques</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Ateliers / cycles d'ateliers</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Weekend startup</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
               <div class="filter">
-                <button class="btn btn-primary tags" type="button" data-toggle="collapse" data-target="#tags" aria-expanded="false" aria-controls="tags">
-                  Tags
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </button>
-                <div class="collapse" id="tags">
-                  <div class="well">
-                    <div class="side-content cbpgtg" data-cbctl="48959239||bs" data-flag="1">
-                      <ul class="list-group">
-                        <li class="list-group-item">
-                          <span class="item bullet active">Entreprendre au féminin</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">ESS (éco.sociale/solidaire)</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Statut étudiant-entrepreneur</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Reprise d’entreprise</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Startup</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                <div class="side-content cbpgtg" data-cbctl="48959239||bs" data-flag="1">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span class="item bullet active">Entreprendre au féminin</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">ESS (éco.sociale/solidaire)</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Statut étudiant-entrepreneur</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Reprise d’entreprise</span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="item bullet active">Startup</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
-
-              <div class="filter">
-                <button class="btn btn-primary organisation" type="button" data-toggle="collapse" data-target="#organisation" aria-expanded="false" aria-controls="organisation">
-                  Organisation
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </button>
-                <div class="collapse" id="organisation">
-                  <div class="well">
-                    <div class="side-content cbpgor" data-cbctl="48959239|bs" data-flag="1">
-                      <ul class="list-group">
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE Cré@tude Paca Est</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">COMUE Lille Nord de France</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet">EDC PARIS BUSINESS SCHOOL</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE Bretagne</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet">PEPITE PEEA</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Pôle oZer - Pépite de l'Université de Grenoble</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE PACA OUEST</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">AVRILE</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">SORBONNE UNIVERSITES</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE-LR</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE By PeeL</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE UPON </span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE MENESR</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEIPS</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE Limousin Poitou-Charentes</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PéPite</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Université d'AIX MARSEILLE/ PEPITE PACA OUEST</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Le YEC - Pepite Champagne-Ardenne</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">L'UNAM</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PSL Pépite</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE Champagne Ardenne</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Plateforme Innovation &amp; Création d'Entreprises</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Pépite Corse</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet">COMUE l'UNAM</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">PEPITE PEIPS</span>
-                        </li>
-                        <li class="list-group-item">
-                          <span class="item bullet active">Pépite CREER</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+            <div class="filter">
+              <div class="side-content cbpgor" data-cbctl="48959239|bs" data-flag="1">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE Cré@tude Paca Est</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">COMUE Lille Nord de France</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet">EDC PARIS BUSINESS SCHOOL</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE Bretagne</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet">PEPITE PEEA</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">Pôle oZer - Pépite de l'Université de Grenoble</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE PACA OUEST</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">AVRILE</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">SORBONNE UNIVERSITES</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE-LR</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE By PeeL</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE UPON </span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE MENESR</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEIPS</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE Limousin Poitou-Charentes</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PéPite</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">Université d'AIX MARSEILLE/ PEPITE PACA OUEST</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">Le YEC - Pepite Champagne-Ardenne</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">L'UNAM</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PSL Pépite</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE Champagne Ardenne</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">Plateforme Innovation &amp; Création d'Entreprises</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">Pépite Corse</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet">COMUE l'UNAM</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">PEPITE PEIPS</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item bullet active">Pépite CREER</span>
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="total-event">
               <p class="total-text">200 événements</p>
             </div>
           </div>
-
           <div class="total js_total">200 événements</div>
         </section>
         <section class="col-sm-8 main-content js_list_content">
-
           <article class="row">
             <aside class="col-sm-3 event-aside">
               <div>
