@@ -37,14 +37,14 @@ describe( 'logs', () => {
 
     } );
 
-    it( 'log with insight + debug', () => {
+    it( 'log with logentries + debug', () => {
 
       logs.init( {
         token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
       } );
 
       const transportDebug = logs.getTransports().debug;
-      const transportLogentries = logs.getTransports().insight;
+      const transportLogentries = logs.getTransports().logentries;
       const spyDebug = sinon.spy( transportDebug, 'log' );
       const spyLogentries = sinon.spy( transportLogentries, 'log' );
 
@@ -54,7 +54,7 @@ describe( 'logs', () => {
       sinon.assert.calledOnce( spyDebug );
       sinon.assert.calledWith( spyDebug, 'info', 'Un log bidon' );
 
-      expect( transportLogentries.name ).toBe( 'insight' );
+      expect( transportLogentries.name ).toBe( 'logentries' );
       sinon.assert.calledOnce( spyLogentries );
       sinon.assert.calledWith( spyLogentries, 'info', 'Un log bidon' );
 
@@ -191,7 +191,7 @@ describe( 'logs', () => {
 
     } );
 
-    it( 'log with insight + debug', () => {
+    it( 'log with logentries + debug', () => {
 
       logs.init( {
         debug: { prefix: 'oa:' },
@@ -201,7 +201,7 @@ describe( 'logs', () => {
       const log = logs( 'test' );
 
       const transportDebug = log.getTransports().debug;
-      const transportLogentries = log.getTransports().insight;
+      const transportLogentries = log.getTransports().logentries;
       const spyDebug = sinon.spy( transportDebug, 'log' );
       const spyLogentries = sinon.spy( transportLogentries, 'log' );
 
@@ -212,7 +212,7 @@ describe( 'logs', () => {
       sinon.assert.calledOnce( spyDebug );
       sinon.assert.calledWith( spyDebug, 'info', 'Un log bidon', { namespace: 'test' } );
 
-      expect( transportLogentries.name ).toBe( 'insight' );
+      expect( transportLogentries.name ).toBe( 'logentries' );
       sinon.assert.calledOnce( spyLogentries );
       sinon.assert.calledWith( spyLogentries, 'info', 'Un log bidon', { namespace: 'test' } );
 
@@ -388,7 +388,7 @@ describe( 'logs', () => {
 
       const log = logs( 'test-5' );
 
-      const transport = log.getTransports().insight;
+      const transport = log.getTransports().logentries;
       const spy = sinon.spy( transport, 'log' );
 
       log( 'error', new Error( 'Une erreur ici !' ) );
