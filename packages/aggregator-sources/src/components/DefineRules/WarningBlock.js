@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages } from 'react-intl';
-import { MoreInfo } from '@openagenda/react-shared';
+import { MoreInfo, useMemoOne } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
 import externalLinks from '../../utils/externalLinks';
 
@@ -31,10 +31,32 @@ export default function WarningBlock({
   top,
   aggregator,
   aggregatorAgenda,
+  isAggregator,
+  aggregatorAgendaSchema,
   sourceSchema,
-  requiredFields,
   intl,
 }) {
+  const requiredFields = useMemoOne(
+    () => aggregatorAgendaSchema.fields.filter(field => {
+      if (isAggregator) {
+        return false;
+      }
+
+      const sourceField = sourceSchema?.fields?.find(
+          v => v.schemaId
+            && v.field === field.field
+            && v.schemaId === field.schemaId
+        );
+
+      if (sourceField) {
+        return false;
+      }
+
+      return field.fieldType !== 'abstract' && field.optional === false;
+    }),
+    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
+  );
+
   const displayRequiredFieldsMessage = sourceSchema && requiredFields.length;
   const displayAggregatorRulesExist = (aggregator?.rules || []).length;
 

@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useMemoOne, MoreInfo } from '@openagenda/react-shared';
+import { MoreInfo } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks';
 import readClipboard from '../../utils/readClipboard';
 import messages from './messages';
@@ -31,27 +31,6 @@ export default function List({
   const intl = useIntl();
   const [error, setError] = useState(null);
 
-  const requiredFields = useMemoOne(
-    () => aggregatorAgendaSchema.fields.filter(field => {
-      if (isAggregator) {
-        return false;
-      }
-
-      const sourceField = sourceSchema?.fields?.find(
-          v => v.schemaId
-            && v.field === field.field
-            && v.schemaId === field.schemaId
-        );
-
-      if (sourceField) {
-        return false;
-      }
-
-      return field.fieldType !== 'abstract' && field.optional === false;
-    }),
-    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
-  );
-
   const pasteRules = useCallback(async () => {
     addRules(await readClipboard().catch(() => null));
   }, [addRules]);
@@ -78,17 +57,16 @@ export default function List({
             {intl.formatMessage(messages.description, { br: <br key="br" /> })}
           </div>
         ) : null}
-
         <WarningBlock
           top={!displayInfo}
           aggregator={aggregator}
           aggregatorAgenda={aggregatorAgenda}
           sourceSchema={sourceSchema}
-          requiredFields={requiredFields}
+          aggregatorAgendaSchema={aggregatorAgendaSchema}
+          isAggregator={isAggregator}
           intl={intl}
           messages={messages}
         />
-
         <div className="margin-v-sm">
           <DragDropContext className="list-group" onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
