@@ -7,6 +7,7 @@ import ModalDecorator from './decorators/ModalDecorator';
 import IntlDecorator from './decorators/IntlDecorator';
 
 import aggregatorAgendaSchema from './mocks/DefineRules/TAM.schema.json';
+import aggregatorAgendaSchemaWithEnableWith from './mocks/DefineRules/eteculturel.schema.json';
 import sourceAgendaSchema from './mocks/DefineRules/NDM.schema.json';
 import steps from './mocks/DefineRules/steps.json';
 import rules from './mocks/DefineRules/rules.json';
@@ -99,6 +100,28 @@ EditEmpty.storyName = 'Edit/Empty rule list';
 EditEmpty.decorators = [
   SourcesCanvasDecorator,
   ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
+  IntlDecorator,
+];
+
+export const EditEmptyWithEnableWithField = () => (
+  <DefineRules
+    displayInfo={false}
+    aggregator={aggregator}
+    aggregatorAgenda={aggregatorAgenda}
+    aggregatorAgendaSchema={aggregatorAgendaSchemaWithEnableWith}
+    sourceAgenda={sourceAgenda}
+    sourceSchema={sourceAgendaSchema}
+    initialRules={[]}
+    onSubmit={() => {}}
+    onCancel={() => {}}
+  />
+);
+EditEmptyWithEnableWithField.storyName = 'Aggregator with required enableWith field';
+EditEmptyWithEnableWithField.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator(
+    'EnableWith field should not block the configuration of rules. No required notification appears in modal'
+  ),
   IntlDecorator,
 ];
 

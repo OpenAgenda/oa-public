@@ -1,0 +1,658 @@
+{
+    "custom": {},
+    "fields": [
+        {
+            "field": "title",
+            "label": {
+                "en": "Nom de l'événement",
+                "fr": "Nom de l'événement"
+            },
+            "info": {
+                "en": "Précisez le type et le nom de l’événement",
+                "fr": "Précisez le type et le nom de l’événement"
+            },
+            "sub": "",
+            "placeholder": {
+                "en": "ex : Atelier musical « jardins sonores »",
+                "fr": "ex : Atelier musical « jardins sonores »"
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "image",
+            "label": {
+                "en": "Image de l'activité",
+                "fr": "Image de l'activité"
+            },
+            "info": {
+                "en": "Les événements disposant d'une image ont un taux de clic deux fois plus élevé. L'image doit présenter 500 pixels de largeur minimum et être au format horizontal.",
+                "fr": "Les événements disposant d'une image ont un taux de clic deux fois plus élevé. L'image doit présenter 500 pixels de largeur minimum et être au format horizontal."
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "imageCredits",
+            "label": {
+                "en": "Crédits de l'image",
+                "fr": "Crédits de l'image"
+            },
+            "default": "©",
+            "info": {
+                "en": "Indiquez le propriétaire de l'image.",
+                "fr": "Indiquez le propriétaire de l'image."
+            },
+            "placeholder": {
+                "en": "© Ministère de la Culture",
+                "fr": "© Ministère de la Culture"
+            },
+            "optional": false,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "longDescription",
+            "label": {
+                "en": "Description longue",
+                "fr": "Description longue"
+            },
+            "info": {
+                "en": "Décrivez l'événement, donnez des précisions sur son déroulé, les éventuels supports de médiation proposés. \nNe mentionnez pas les outils d’inscription et conditions de participation qui seront renseignés dans les champs spécifiques ci-dessous.",
+                "fr": "Décrivez l'événement, donnez des précisions sur son déroulé, les éventuels supports de médiation proposés. \nNe mentionnez pas les outils d’inscription et conditions de participation qui seront renseignés dans les champs spécifiques ci-dessous."
+            },
+            "sub": "",
+            "placeholder": {
+                "en": "Vous pouvez ajouter des médias (audio, vidéo) en copiant/collant une URL Youtube, Dailymotion, Soundcloud, etc.",
+                "fr": "Vous pouvez ajouter des médias (audio, vidéo) en copiant/collant une URL Youtube, Dailymotion, Soundcloud, etc."
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "attendanceMode",
+            "display": true,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "onlineAccessLink",
+            "label": {
+                "en": "Indiquez l’adresse de votre événement en ligne (inclure le http:// ou https://).",
+                "fr": "Indiquez l’adresse de votre événement en ligne (inclure le http:// ou https://)."
+            },
+            "display": true,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "location",
+            "label": {
+                "en": "Lieu",
+                "fr": "Lieu"
+            },
+            "info": {
+                "en": "Recherchez un lieu dans notre base de donnée ou créez une nouvelle fiche. Attention : vous ne pourrez plus modifier la fiche une fois créée mais simplement suggérer une modification. Votre demande sera traitée par les modérateurs de l'agenda.",
+                "fr": "Recherchez un lieu dans notre base de donnée ou créez une nouvelle fiche. Attention : vous ne pourrez plus modifier la fiche une fois créée mais simplement suggérer une modification. Votre demande sera traitée par les modérateurs de l'agenda."
+            },
+            "sub": {
+                "en": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+                "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'"
+            },
+            "placeholder": {
+                "en": "Saisissez le nom du lieu de l’événement.",
+                "fr": "Saisissez le nom du lieu de l’événement."
+            },
+            "optional": false,
+            "fieldType": "abstract",
+            "legacy": {
+                "displayImageRightsConfirmCheckbox": true,
+                "eventForm": {
+                    "detailed": true
+                },
+                "labels": {
+                    "create": {
+                        "info": {
+                            "en": "The address will be automatically completed with corresponding Department, City, Country extracted from the geolocation.",
+                            "fr": "L'adresse sera automatiquement complétée avec les correspondances Département, Ville, Pays extraites de la géolocalisation."
+                        }
+                    },
+                    "name": {
+                        "en": "Name of the location of the event ( Required field )",
+                        "fr": "Saisissez le nom du lieu de l’événement ( Obligatoire )"
+                    },
+                    "nameInfo": {
+                        "en": "",
+                        "fr": "Saisissez le nom du lieu où se déroule l’activité. Si l’événement est itinérant, indiquez le nom et l’adresse du lieu de départ, et précisez-le déroulé du parcours dans la description de l’événement."
+                    },
+                    "namePlaceholder": {
+                        "fr": "Ministère de la Culture",
+                        "en": "Ministry of culture"
+                    },
+                    "address": {
+                        "en": "Address ( Required field )",
+                        "fr": "Adresse ( Champ obligatoire )"
+                    },
+                    "addressInfo": {
+                        "en": "Indicate the number, name of the street, the name and postal code of the city",
+                        "fr": "Indiquez le numéro, le nom de la voie, le code postal et le nom de la commune.\nAttention : N’utilisez pas de codes postaux sous forme de cedex.\nUne fois le champ « Adresse » complété, vérifiez sur la carte que le pointeur est correctement situé. Vous pouvez le déplacer manuellement si nécessaire.\nA noter : L'adresse sera automatiquement complétée avec les correspondances Département, Région, Pays, extraites de la géolocalisation."
+                    },
+                    "addressPlaceholder": {
+                        "en": "03 rue de Valois 75001 Paris",
+                        "fr": "03 rue de Valois 75001 Paris"
+                    },
+                    "imageInfo": {
+                        "en": "Only upload images you have the right to re-use. The image must have a minimum width of 500 pixels.",
+                        "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
+                    },
+                    "imageCredits": {
+                        "en": "Image credits ( Required field )",
+                        "fr": "Crédits de l’image ( Champ obligatoire )"
+                    },
+                    "imageCreditsInfo": {
+                        "en": "Indicate the owner of the image.",
+                        "fr": "Indiquez le propriétaire de l'image."
+                    },
+                    "descriptionInfo": {
+                        "en": "Describe your location (its history, particularities, the type of offered activities, etc).",
+                        "fr": "Présentez votre lieu (son histoire, ses particularités, le type d’activité proposée, etc)."
+                    },
+                    "accessInfo": {
+                        "en": "Indicate the access conditions to your location",
+                        "fr": "Indiquez les conditions d’accès à votre lieu (transports à proximité, présence de parkings, aménagements spécifiques, etc)."
+                    },
+                    "phoneInfo": {
+                        "en": "Indicate a contact phone number for the public",
+                        "fr": "Indiquez un numéro de téléphone pour les demandes du public (standard, tél. fixe)."
+                    },
+                    "email": {
+                        "en": "Email",
+                        "fr": "Courriel"
+                    },
+                    "emailPlaceholder": {
+                        "en": "exemple@culture.gouv.fr",
+                        "fr": "exemple@culture.gouv.fr"
+                    },
+                    "phonePlaceholder": {
+                        "en": "Ex : +33 (0)1 40 15 80 00",
+                        "fr": "Ex : +33 (0)1 40 15 80 00"
+                    },
+                    "websiteInfo": {
+                        "fr": "Indiquez l’adresse de votre site Internet, si existant (inclure le http:// ou https://)",
+                        "en": "Indicate the website of the location if any  (don’t forget http:// or https://)."
+                    },
+                    "website": {
+                        "fr": "Site internet",
+                        "en": "Website"
+                    },
+                    "websitePlaceholder": {
+                        "fr": "ex : https://eteculturel.fr",
+                        "en": "ex : https://eteculturel.fr"
+                    },
+                    "linksInfo": {
+                        "fr": "Ajoutez le lien de vos pages Facebook, Twitter ou tout autre lien relatif au lieu.",
+                        "en": "Add social media references, or any other link related to the location"
+                    }
+                },
+                "tagSet": {
+                    "groups": [
+                        {
+                            "name": {
+                                "fr": "Types de lieu",
+                                "en": "Types of place"
+                            },
+                            "info": null,
+                            "tags": [
+                                {
+                                    "id": 1,
+                                    "label": {
+                                        "en": "Archives",
+                                        "fr": "Archives"
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "label": {
+                                        "en": "Musique",
+                                        "fr": "Musique"
+                                    }
+                                },
+                                {
+                                    "id": 3,
+                                    "label": {
+                                        "en": "Théâtre",
+                                        "fr": "Théâtre"
+                                    }
+                                },
+                                {
+                                    "id": 4,
+                                    "label": {
+                                        "en": "Danse",
+                                        "fr": "Danse"
+                                    }
+                                },
+                                {
+                                    "id": 5,
+                                    "label": {
+                                        "en": "Arts de la rue",
+                                        "fr": "Arts de la rue"
+                                    }
+                                },
+                                {
+                                    "id": 6,
+                                    "label": {
+                                        "en": "Arts du cirque",
+                                        "fr": "Arts du cirque"
+                                    }
+                                },
+                                {
+                                    "id": 8,
+                                    "label": {
+                                        "en": "Centre d’art",
+                                        "fr": "Centre d’art"
+                                    }
+                                },
+                                {
+                                    "id": 9,
+                                    "label": {
+                                        "en": "Art urbain",
+                                        "fr": "Art urbain"
+                                    }
+                                },
+                                {
+                                    "id": 10,
+                                    "label": {
+                                        "en": "Cinéma et audiovisuel",
+                                        "fr": "Cinéma et audiovisuel"
+                                    }
+                                },
+                                {
+                                    "id": 11,
+                                    "label": {
+                                        "en": "Conservatoire",
+                                        "fr": "Conservatoire"
+                                    }
+                                },
+                                {
+                                    "id": 12,
+                                    "label": {
+                                        "en": "Établissement d’enseignement supérieur",
+                                        "fr": "Établissement d’enseignement supérieur"
+                                    }
+                                },
+                                {
+                                    "id": 13,
+                                    "label": {
+                                        "en": "Librairie",
+                                        "fr": "Librairie"
+                                    }
+                                },
+                                {
+                                    "id": 14,
+                                    "label": {
+                                        "en": "Bibliothèque et médiathèque",
+                                        "fr": "Bibliothèque et médiathèque"
+                                    }
+                                },
+                                {
+                                    "id": 15,
+                                    "label": {
+                                        "en": "Archéologie",
+                                        "fr": "Archéologie"
+                                    }
+                                },
+                                {
+                                    "id": 16,
+                                    "label": {
+                                        "en": "Monument et architecture",
+                                        "fr": "Monument et architecture"
+                                    }
+                                },
+                                {
+                                    "id": 17,
+                                    "label": {
+                                        "en": "Lieu de mémoire",
+                                        "fr": "Lieu de mémoire"
+                                    }
+                                },
+                                {
+                                    "id": 18,
+                                    "label": {
+                                        "en": "Musée",
+                                        "fr": "Musée"
+                                    }
+                                },
+                                {
+                                    "id": 19,
+                                    "label": {
+                                        "en": "Centre culturel",
+                                        "fr": "Centre culturel"
+                                    }
+                                },
+                                {
+                                    "id": 20,
+                                    "label": {
+                                        "en": "Parcs et jardins",
+                                        "fr": "Parcs et jardins"
+                                    }
+                                },
+                                {
+                                    "id": 21,
+                                    "label": {
+                                        "en": "Espace protégé",
+                                        "fr": "Espace protégé"
+                                    }
+                                }
+                            ],
+                            "required": false
+                        },
+                        {
+                            "name": "Protections, appellation et labels",
+                            "info": null,
+                            "tags": [
+                                {
+                                    "id": 50,
+                                    "label": "Architecture contemporaine remarquable"
+                                },
+                                {
+                                    "id": 38,
+                                    "label": "Jardin remarquable"
+                                },
+                                {
+                                    "id": 41,
+                                    "label": "Maison des illustres"
+                                },
+                                {
+                                    "id": 42,
+                                    "label": "Monument historique"
+                                },
+                                {
+                                    "id": 40,
+                                    "label": "Musée de France"
+                                },
+                                {
+                                    "id": 35,
+                                    "label": "Patrimoine européen"
+                                },
+                                {
+                                    "id": 37,
+                                    "label": "Patrimoine mondial de l'UNESCO"
+                                },
+                                {
+                                    "id": 51,
+                                    "label": "Site patrimonial remarquable"
+                                },
+                                {
+                                    "id": 39,
+                                    "label": "Tourisme et handicap"
+                                },
+                                {
+                                    "id": 36,
+                                    "label": "Villes et Pays d'art et d'histoire"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "timings",
+            "info": {
+                "en": "Indiquez les dates et horaires de votre événement en sélectionnant une ou plusieurs plages horaires sur le calendrier ci-dessous. Cliquez et faites glisser sur la grille pour définir un horaire",
+                "fr": "Indiquez les dates et horaires de votre événement en sélectionnant une ou plusieurs plages horaires sur le calendrier ci-dessous. Cliquez et faites glisser sur la grille pour définir un horaire"
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "conditions",
+            "label": {
+                "en": "Details of participation conditions",
+                "fr": "Détail des conditions de participation"
+            },
+            "info": {
+                "en": "Specify fares, conditions of free entrance, number of places available or any other request",
+                "fr": "Indiquez les tarifs, les conditions de gratuité, le nombre limité de places disponibles, le matériel à prévoir, etc."
+            },
+            "placeholder": {
+                "en": "ex : Entrée libre, sur inscription, autre...",
+                "fr": "ex : Entrée libre, sur inscription, autre..."
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "registration",
+            "label": {
+                "en": "Registration details",
+                "fr": "Outils d'inscription"
+            },
+            "info": {
+                "en": "Specify a phone number or an email for the registration.",
+                "fr": "Pour les inscriptions obligatoires, indiquez un numéro de téléphone, une adresse courriel ou un lien de réservation."
+            },
+            "placeholder": {
+                "en": "Separate each value by a tab or a comma",
+                "fr": "Séparez chaque valeur par une virgule ou une tabulation"
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "accessibility",
+            "label": {
+                "en": "Accessibility conditions",
+                "fr": "Accessibilité particulière"
+            },
+            "info": {
+                "en": "Specify availability of special access",
+                "fr": "Précisez à quel(s) type(s) de handicap(s) cet événement est accessible."
+            },
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "diffusion-sur-le-pass-culture",
+            "label": {
+                "en": "Diffusion sur le pass culture",
+                "fr": "Diffusion sur le pass culture"
+            },
+            "help": {
+                "en": "Contacter l'équipe du pass"
+            },
+            "helpLink": "mailto:support-pro@passculture.app",
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "read": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "optional": true,
+            "display": true,
+            "origin": "tags",
+            "enableWith": null,
+            "optionalWith": null,
+            "related": {
+                "enable": [],
+                "optional": []
+            },
+            "min": null,
+            "max": null,
+            "options": [
+                {
+                    "id": 46,
+                    "value": "pass-culture",
+                    "label": {
+                        "en": "Offre pass Culture : cet évènement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app"
+                    },
+                    "info": null,
+                    "display": true
+                }
+            ],
+            "fieldType": "checkbox",
+            "schemaId": 32587,
+            "schemaType": "network"
+        },
+        {
+            "field": "siret",
+            "label": {
+                "en": "Numéro SIRET de mon établissement (ou à défaut, numéro de SIREN)",
+                "fr": "Numéro SIRET de mon établissement (ou à défaut, numéro de SIREN)"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": null,
+            "sub": null,
+            "placeholder": null,
+            "write": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "read": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "optional": false,
+            "display": true,
+            "origin": "custom",
+            "enableWith": "diffusion-sur-le-pass-culture",
+            "optionalWith": null,
+            "min": null,
+            "max": 20,
+            "fieldType": "text",
+            "schemaId": 32587,
+            "schemaType": "network"
+        },
+        {
+            "field": "prix-pass-culture",
+            "label": {
+                "en": "Prix de l'événement tel qu'affiché sur le pass Culture",
+                "fr": "Prix de l'événement tel qu'affiché sur le pass Culture"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": {
+                "en": "Merci d'indiquer un nombre entier, saisissez « 0 » si l'événement est gratuit.",
+                "fr": "Merci d'indiquer un nombre entier, saisissez « 0 » si l'événement est gratuit."
+            },
+            "sub": null,
+            "placeholder": null,
+            "write": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "read": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "optional": false,
+            "display": true,
+            "origin": "custom",
+            "enableWith": "diffusion-sur-le-pass-culture",
+            "optionalWith": null,
+            "min": null,
+            "max": 100,
+            "fieldType": "number",
+            "schemaId": 32587,
+            "schemaType": "network"
+        },
+        {
+            "field": "url-pass-culture",
+            "label": {
+                "en": "URL pass culture",
+                "fr": "URL pass culture"
+            },
+            "help": null,
+            "helpLink": null,
+            "helpContent": null,
+            "info": {
+                "en": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
+                "fr": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp"
+            },
+            "sub": null,
+            "placeholder": null,
+            "write": [
+                "administrator",
+                "moderator"
+            ],
+            "read": [
+                "administrator",
+                "moderator",
+                "contributor"
+            ],
+            "optional": true,
+            "display": true,
+            "origin": "custom",
+            "enableWith": "diffusion-sur-le-pass-culture",
+            "optionalWith": null,
+            "min": null,
+            "max": null,
+            "fieldType": "text",
+            "schemaId": 32587,
+            "schemaType": "network"
+        },
+        {
+            "field": "languages",
+            "display": false,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "description",
+            "default": "Été culturel 2022",
+            "display": false,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "keywords",
+            "display": false,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "age",
+            "display": false,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        },
+        {
+            "field": "status",
+            "display": false,
+            "fieldType": "abstract",
+            "schemaId": null,
+            "schemaType": null
+        }
+    ]
+}

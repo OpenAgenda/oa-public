@@ -52,7 +52,11 @@ export default function WarningBlock({
         return false;
       }
 
-      return field.fieldType !== 'abstract' && field.optional === false;
+      return (
+        field.fieldType !== 'abstract'
+          && field.optional === false
+          && !field.enableWith
+      );
     }),
     [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
   );
