@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { getLocaleValue } from '@openagenda/intl';
 import { useMemoOne, MoreInfo } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks';
 import readClipboard from '../../utils/readClipboard';
@@ -53,13 +52,6 @@ export default function List({
     [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
   );
 
-  const requiredFieldList = useMemo(
-    () => requiredFields.map(field => (
-      <em key={field.field}>{getLocaleValue(field.label, intl.locale)}</em>
-    )),
-    [intl.locale, requiredFields]
-  );
-
   const pasteRules = useCallback(async () => {
     addRules(await readClipboard().catch(() => null));
   }, [addRules]);
@@ -93,7 +85,6 @@ export default function List({
           aggregatorAgenda={aggregatorAgenda}
           sourceSchema={sourceSchema}
           requiredFields={requiredFields}
-          requiredFieldList={requiredFieldList}
           intl={intl}
           messages={messages}
         />
