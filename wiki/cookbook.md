@@ -387,17 +387,32 @@ Si une donnée passée à un service à un mauvais formattage, le service doit l
     const { BadRequest } = require('@openagenda/verror');
     throw new BadRequest({ info: { errors } }, 'invalid something something');
 
-## openssl
+## Ubuntu, serveur
+
+### openssl
 
 Si une clé fournie commence par `-----BEGIN ENCRYPTED PRIVATE KEY-----`, elle est encryptée et doit être décryptée par mot de passe avant son utilisation dans nginx. Une fois le mot de passe en main, la commande pour la décrypter est la suivante:
 
     openssl rsa -in /path/to/encrypted/key -out /path/to/decrypted/key
 
-## crontab
+### crontab
 
 Utiliser la bonne version de `node` avec `nvm` et `crontab` sans coder en dur la version de node:
 
 https://gist.github.com/simov/cdbebe2d65644279db1323042fcf7624
+
+### Configuration d'une instance ec2 pour la prod
+
+Pour une instance ec2 ubuntu 20.04:
+
+ 1. `sudo apt-get update && sudo apt-get upgrade`
+ 2. `sudo apt-get install npm nginx imagemagick libmagick++-dev libmagic-dev webp`
+ 3. `sudo npm install forever -g`
+ 4. Créer un dossier `www` sur la home
+ 5. Lancer une mise en prod pour charger les fichiers nginx dans le dossier `www`
+ 6. Créer un lien symbolique `cd /etc/nginx && sudo ln -s /home/ubuntu/www/nginx conf.d`
+ 7. Ajouter les clés de connexion au cluster es7 dans .ssh -> es7.crt & es7.key
+ 8. Créer un raccourci pour cibul-node: `ln -s /home/ubuntu/www/oa/packages/cibul-node cibul-node`
 
 ## @openagenda/files
 
