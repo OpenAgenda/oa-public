@@ -156,7 +156,7 @@ async function loadUsers(services, storedUserUids) {
   if (storedUserUids.length) {
     const users = await loadInactiveUsers(services, inactiveTime, storedUserUids);
 
-    log('loaded %s accounts from users service from %s that are still in process store', users.length, storedUserUids.length);
+    log('info', 'loaded %s accounts from users service from %s that are still in process store', users.length, storedUserUids.length);
 
     if (users.length) {
       return users;
@@ -165,7 +165,7 @@ async function loadUsers(services, storedUserUids) {
 
   const users = await loadInactiveUsers(services, inactiveTime);
 
-  log('loaded %s accounts from users service', users.length);
+  log('info', 'loaded %s accounts from users service', users.length);
 
   return users;
 }
