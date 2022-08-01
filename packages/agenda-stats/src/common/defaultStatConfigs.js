@@ -132,7 +132,7 @@ const defaultStatConfigs = {
   additionalFieldMetrics: ({ fieldSchema }) => ({
     aggregation: {
       type: 'additionalFieldMetrics',
-      dataKey: ['avg'],
+      metrics: ['avg'],
     },
     chart: {
       type: 'metrics',
