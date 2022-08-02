@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
+const { produce } = require('immer');
 const qs = require('qs');
 const base64 = require('@openagenda/utils/base64');
 const determineEventCancellationFromTitle = require('@openagenda/utils/cancellation/determineFromTitle');
@@ -12,6 +13,9 @@ const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event
 const errorLabels = require('@openagenda/labels/errors');
 const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('event/front');
+const {
+  utils: agendaPortalUtils
+} = require('@openagenda/agenda-portal');
 
 const members = require('../services/members');
 
@@ -137,6 +141,41 @@ function loadAgendaCoreSettings(req, res, next) {
 
 const middlewares = {
   agendaEventShow: [
+    (req, res, next) => {
+      const {
+        core
+      } = req.app.services;
+
+      core
+        .agendas(req.agenda.uid)
+        .events
+        .search({
+          slug: req.params.eventSlug,
+          state: null
+        }, { size: 1 }, {
+          userUid: req.user?.uid,
+          detailed: true,
+          longDescriptionFormat: 'HTMLWithEmbeds',
+          // useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
+          includeLabels: true,
+        }).then(result => {
+          const event = result.events.pop();
+
+          if (!event) {
+            return next({ code: 404 });
+          }
+
+          req.indexedEvent = produce(event, draft => {
+            draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
+              event.timings.map(t => agendaPortalUtils.detailedTiming({ req, event }, t, req.lang)),
+              event.timezone,
+              req.lang
+            );
+          });
+
+          next();
+        });
+    },
     legacyEventSvc.mw.load('eventSlug', 'slug'),
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
@@ -387,6 +426,7 @@ async function agendaEventShow(req, res, next) {
     redirect: cmn.makeRedirect(req),
     isCancelled: determineEventCancellationFromTitle(req.event.title),
     event: req.formatted,
+    indexedEvent: req.indexedEvent,
     hasLocation: !!req.formatted.location?.uid,
     components: req.components,
     showRequestLocation: ![2, 3].includes(_.get(member, 'role', 0)),
