@@ -29,6 +29,8 @@ const hours = require('./hours');
 
 const permalink = require('./permalink');
 
+const portalTimings = require('./portalTimings');
+
 
 let log;
 
@@ -69,6 +71,8 @@ window.hook(options => {
       months: '.js_months',
     }
   }));
+
+  portalTimings();
 });
 
 window.asap(async options => {

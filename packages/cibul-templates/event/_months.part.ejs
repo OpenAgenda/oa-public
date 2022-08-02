@@ -1,0 +1,42 @@
+<div class="timings">
+  <ul class="months">
+  <% indexedEvent.months.forEach(({
+    hasPrevious,
+    hasNext,
+    current,
+    displayed,
+    label,
+    weeks
+  }) => { %>
+    <li class="month<% if (current) { %> current<% } %><% if (!displayed) { %> display-none<% } %> js_month">
+      <div class="month-title">
+        <% if (hasPrevious) { %>
+          <i class="prev fa fa-chevron-left js_portal_timings_prev"></i>
+        <% } %>
+        <h4><%= label %></h4>
+        <% if (hasNext) { %>
+          <i class="next fa fa-chevron-right js_portal_timings_next"></i>
+        <% } %>
+      </div>
+      <ul class="month-list">
+        <% weeks.forEach(({ days }) => { %>
+          <% days.forEach(({
+            passed,
+            label: dayLabel,
+            timings
+          }) => { %>
+            <li class="month-item <%= passed ? 'passed' : ''%>">
+              <span class="day"><%= dayLabel %></span>
+              <% timings.forEach(({
+                labels
+              }) => { %>
+                <span class="hour"><%= labels.begin.time %> - <%= labels.end.time %></span>
+              <% }); %>
+            </li>
+          <% }); %>
+        <% }); %>
+      </ul>
+    </li>
+  <% }); %>
+  </ul>
+</div>

@@ -200,8 +200,8 @@
               <% } %>
             </div>
             <div class="col-sm-12 col-print-6 padding-print-h-z">
-              <section class="detail-item display-none js_hours timings margin-bottom-md">
-                <ul class="months"></ul>
+              <section class="detail-item timings margin-bottom-md">
+                <% include _months.part.ejs %>
               </section>
               <% if ( event.accessibility && event.accessibility.length ) { %>
               <% event.accessibility.forEach( function( i ) { %>
@@ -270,15 +270,6 @@
               <% } %>
             </div>
           </div>
-          
-          <section class="detail-item timings no-js js_timings_canvas">
-            <h3><i class="fa fa-calendar-o"></i></h3>
-          <% if ( typeof event.timingsComponents !== 'undefined' ) { %>
-            <%- event.timingsComponent %>
-          <% } else { %>
-            <% include _hours.part.ejs %>
-          <% } %>
-          </section>
           <section class="detail-item">
             <% include ../bsLayout/footer.part.ejs %>
           </section>
