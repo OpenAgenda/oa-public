@@ -132,7 +132,7 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
 
   const nearestMonthIndex = months.reduce(
     ({ diff, index }, month, monthIndex) => ({
-      diff: Math.abs(month.diff) < diff ? month.diff : diff,
+      diff: Math.abs(month.diff) < diff ? Math.abs(month.diff) : diff,
       index: Math.abs(month.diff) < diff ? monthIndex : index,
     }),
     { diff: Math.abs(months[0].diff), index: 0 }
