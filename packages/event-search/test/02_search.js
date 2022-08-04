@@ -273,7 +273,7 @@ describe('02 - event search - functional: search', function() {
             'state',            'slug',
             'updatedAt',        'image',
             'attendanceMode',   'creatorUid',
-            'registration',     'location',
+            'registration',     'location',      'ownerUid',
             'age',              'lastTiming',
             'nextTiming'
           ]
