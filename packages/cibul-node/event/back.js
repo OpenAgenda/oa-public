@@ -1,68 +1,12 @@
 'use strict';
 
-const { promisify } = require('util');
 const fs = require('fs');
 const _ = require('lodash');
 
-const contributorLabels = require('@openagenda/labels/event/contributors');
-
-const { getRoleSlug } = require('@openagenda/members').utils;
-
-const cmn = require('../lib/commons-app');
 const legacyEventSvc = require('../services/event');
 const legacyAgendaSvc = require('../services/agenda');
 
 const renderReferences = _.template(fs.readFileSync(`${__dirname}/references.tpl`));
-
-function _filterByRole(role, item) {
-  if (item.access === 'administrator') {
-    return ['administrator', 'moderator'].includes(getRoleSlug(role));
-  }
-
-  return true;
-}
-
-async function getPrivateEventData(req, res) {
-  const {
-    legacy: {
-      getTagSet
-    }
-  } = req.app.services;
-  const custom = req.formatted.custom
-    .filter(_filterByRole.bind(null, req.member.role))
-    .filter(c => c.access !== 'public');
-
-  const labels = req.formatted.customLabels;
-
-  const tagSet = await getTagSet(req.agenda.id) || null;
-  const tags = tagSet ? await promisify(req.event.getAgendaTags)(req.agenda.id) : null;
-
-  const tagGroups = tagSet ? tagSet.groups.map(g => ({
-    name: g.name,
-    access: g.access || 'public',
-    tags: g.tags.filter(t => tags.map(tg => tg.id).includes(t.id))
-  })).filter(_filterByRole.bind(null, req.member.role)) : [];
-
-  const contributor = _.omit(await promisify(req.event.getContributorInfo)(), ['organizationSlug']);
-
-  cmn.renderJson(req, res, {
-    custom: {
-      custom,
-      labels
-    },
-    authorizations: await req.app.services.core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations(req.event),
-    contributor: {
-      data: contributor,
-      labels: {
-        organization: contributorLabels.organization[req.lang],
-        contactNumber: contributorLabels.contactNumber[req.lang],
-        contactName: contributorLabels.contactName[req.lang],
-        contactPosition: contributorLabels.contactPosition[req.lang]
-      }
-    },
-    tagGroups
-  });
-}
 
 module.exports = app => {
   const {
@@ -88,23 +32,6 @@ module.exports = app => {
         schema: result.formSchema
       }));
     }
-  );
-
-  app.get(
-    '/agendas/:uid/events/:eventUid/private',
-    legacyAgendaSvc.mw.load('uid'),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
-    sessions.mw.loadOrRedirect(),
-    members.mw.load,
-    (req, res, next) => {
-      if (!req.member || !members.utils.compareRoles.isSuperiorToOrEqual('contributor')) {
-        return res.sendStatus(403);
-      }
-      next();
-    },
-    legacyEventSvc.mw.format,
-    legacyAgendaSvc.mw.decorateEvent(true),
-    getPrivateEventData
   );
 
   app.get(
