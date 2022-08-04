@@ -7,9 +7,9 @@ module.exports = ({ event, req }, timing) => {
   const code = new Date(begin).getTime();
 
   return {
-    link: `${event.link}/t/${code}${req.query.nc ? `?nc=${req.query.nc}` : ''}`,
+    link: `${event.link}/t/${code}${req?.query.nc ? `?nc=${req.query.nc}` : ''}`,
     permalink: `${event.permalink}/t/${code}${
-      req.query.nc ? `?nc=${req.query.nc}` : ''
+      req?.query.nc ? `?nc=${req.query.nc}` : ''
     }`,
   };
 };
