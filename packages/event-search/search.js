@@ -17,6 +17,7 @@ const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
 const includeLabelsInEvent = require('./utils/includeLabelsInEvent');
+const includePathInLocationImage = require('./utils/includePathInLocationImage');
 const filterImageTimestamps = require('./utils/filterImageTimestamps');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
@@ -39,7 +40,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   const {
     defaultIndex,
     predefinedAggregations,
-    emptyValue
+    emptyValue,
+    assetsPath
   } = config;
 
   const {
@@ -53,7 +55,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includeFields: requestedIncludes,
     useAfterKey,
     parser,
-    includeImageTimestamps
+    includeImageTimestamps,
+    includeLocationImagePath
   } = validateOptions(options);
 
   try {
@@ -113,6 +116,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     formSchema,
     includeLabels,
     includeImageTimestamps,
+    includeLocationImagePath,
+    assetsPath,
     parser
   }, aggregationResults);
 
@@ -174,7 +179,9 @@ function _buildEventParsers({
   parser,
   includeLabels,
   formSchema,
-  includeImageTimestamps
+  includeImageTimestamps,
+  includeLocationImagePath,
+  assetsPath
 }) {
   const parsers = [
     convertToLocalTimezone,
@@ -214,6 +221,10 @@ function _buildEventParsers({
 
   if (!includeImageTimestamps) {
     parsers.push(filterImageTimestamps);
+  }
+
+  if (includeLocationImagePath && assetsPath) {
+    parsers.push(includePathInLocationImage.bind(null, { assetsPath }));
   }
 
   return parsers;

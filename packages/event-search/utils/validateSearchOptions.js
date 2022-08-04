@@ -50,6 +50,11 @@ module.exports = schema({
     optional: true,
     default: false,
   },
+  includeLocationImagePath: {
+    type: 'boolean',
+    optional: true,
+    default: false
+  },
   useAfterKey: {
     type: 'boolean',
     optional: true,

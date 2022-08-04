@@ -22,7 +22,8 @@ module.exports = c => {
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
     detailedSearchIncludes: searchIncludes.detailed,
-    defaultIndex: 'main'
+    defaultIndex: 'main',
+    assetsPath: null
   }, c);
   
   if (c.logger) {
