@@ -51,7 +51,6 @@ const defaults = {
     inbox: '.js_inbox_event'
   },
   agendaUid: false, // uid of the current agenda environment
-  ownerUid: false, // uid of the owner
   adminAgendaUids: [], // uids of agendas with admin rights on event
 };
 
@@ -78,7 +77,6 @@ window.hook(options => {
 window.asap(async options => {
   const params = utils.extend({
     agendaUid: null,
-    hasCustomFields: false,
     hasOwnershipTransfer: false,
     me: null,
     member: null,
@@ -139,7 +137,7 @@ window.asap(async options => {
 
   log('roles: [%s]', roles.join(','));
 
-  let showControls = adminControls(session, {
+  adminControls(session, {
     lang: params.lang,
     eventUid: params.uid,
     agendaUid: params.agendaUid,
@@ -152,13 +150,17 @@ window.asap(async options => {
 
   const prv = privateData();
 
+  console.log(params);
+
   if (params.hasOwnershipTransfer) {
     ownershipTransfer({
       lang: params.lang
     });
   }
 
-  prv.load(params.agendaUid, params.uid, params.lang);
+  prv.displayMenus({
+    me: params.me
+  });
 
   if (roles.includes(ROLES.EVENTEDITOR)) {
     prv.activities(params.agendaUid, params.uid, params.lang);

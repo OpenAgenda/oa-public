@@ -1,16 +1,18 @@
 <%
-  function locationPart( l ) {
+  function locationPart(e, l) {
+    const data = e.location[l];
 
-    var data = event.location[ l ];
+    if (typeof data === 'string') {
+      return data;
+    }
 
-    if ( typeof data === 'string' ) return data;
+    const v = data[lang];
 
-    var v = data[ lang ];
-
-    if ( v === 'France (Métropole)' ) return null;
+    if (v === 'France (Métropole)') {
+      return null;
+    }
 
     return v;
-
   }
 %>
 
@@ -20,12 +22,12 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1 agenda-container">
-        <a href="<%= event.backLink %>">
-<% if ( image ) { %>
-          <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
+        <a href="<%= backLink %>">
+<% if (image) { %>
+          <img class="avatar" src="<%= _i(image) %>" alt="<%= title %>">
 <% } %>
           <strong><%= title %></strong>
-          <span>(<%= __( 'seeAllEvents' ) %>)</span>
+          <span>(<%= __('seeAllEvents') %>)</span>
         </a>
       </div>
     </div>
@@ -37,14 +39,14 @@
 
       <section class="col-sm-7 col-sm-offset-1 col-xs-12">
 
-<% if ( event.languages ) { %>
+<% if (indexedEvent.languages) { %>
         <div class="langs">
           <ul>
-<% event.languages.selection.forEach( function( l ) { %>
-<% if ( l.label === event.languages.current ) { %>
-            <li class="current"><a><%= l.label %></a></li>
+<% indexedEvent.languages.forEach(l => { %>
+<% if (l.code === lang) { %>
+            <li class="current"><a><%= l.code %></a></li>
 <% } else { %>
-            <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
+            <li><a hreflang="<%= l.code %>" href="<%= l.link %>"><%= l.code %></a></li>
 <% } %>
 <% }) %>
           </ul>
@@ -52,30 +54,30 @@
 <% } %>
 
         <div class="event-content margin-print-bottom-lg">
-          <span class="print-permalink display-none padding-bottom-sm"><%= __('printPermalink') %>: <%= event.permalink %></span>
-<% if (typeof event.status !== 'undefined' && event.status > 1) { %>
+          <span class="print-permalink display-none padding-bottom-sm"><%= __('printPermalink') %>: <%= indexedEvent.permalink %></span>
+<% if (indexedEvent.status.id > 1) { %>
           <div class="padding-h-md padding-top-md status">
-<% if (event.status === 2) { %> 
+<% if (indexedEvent.status.id === 2) { %> 
             <span
               title="<%= __('statusRescheduledInfo') %>"
               class="label label-warning"
             ><%= __('statusRescheduled') %></span>
-<% } else if (event.status === 3) { %>
+<% } else if (indexedEvent.status.id === 3) { %>
             <span
               class="label label-warning"
               title="<%= __('statusMovedOnlineInfo') %>"
             ><%= __('statusMovedOnline') %></span>
-<% } else if (event.status === 4) { %>
+<% } else if (indexedEvent.status.id === 4) { %>
             <span
               class="label label-warning"
               title="<%= __('statusPostponedInfo') %>"
             ><%= __('statusPostponed') %></span>
-<% } else if (event.status === 5) { %>
+<% } else if (indexedEvent.status.id === 5) { %>
             <span
               class="label label-danger"
               title="<%= __('statusFullInfo') %>"
             ><%= __('statusFull') %></span>
-<% } else if (event.status === 6) { %>
+<% } else if (indexedEvent.status.id === 6) { %>
             <span
               class="label label-danger"
               title="<%= __('statusCancelledInfo') %>"
@@ -83,8 +85,8 @@
 <% } %>
           </div>
 <% } %> 
-          <h1><%= event.title %></h1>
-          <p class="short-description"><%= event.description %></p>
+          <h1><%= indexedEvent.title %></h1>
+          <p class="short-description"><%= indexedEvent.description %></p>
         </div>
       </section>
 
@@ -98,9 +100,9 @@
           </section>
           <section class="detail-item share margin-bottom-md margin-top-xs shares">
             <%= __('otherShares') %>&nbsp;:
-            <% if (!private && (event.currentState === 'published')) { %>
+            <% if (!indexedEvent.private && (indexedEvent.state === 2)) { %>
               <a
-                href="<%= event.facebookShare %>"
+                href="<%= indexedEvent.facebookShare %>"
                 target="_blank"
                 class="fb text-muted"
                 rel="nofollow"
@@ -113,12 +115,13 @@
                 title="<%= __('cannotShareInfo') %>"
               ><i class="fa fa-facebook"></i></a>
             <% } %>
-            <% if (!private && (event.currentState === 'published')) { %>
+            <% if (!indexedEvent.private && (indexedEvent.state === 2)) { %>
               <a
-                href="<%= event.twitterShare %>"
+                href="<%= indexedEvent.twitterShare %>"
                 target="_blank"
                 class="tw text-muted"
-                rel="nofollow"><i class="fa fa-twitter"></i></a>
+                rel="nofollow"
+              ><i class="fa fa-twitter"></i></a>
             <% } else { %>
               <a
                disabled
@@ -127,9 +130,9 @@
                title="<%= __('cannotShareInfo') %>"
               ><i class="fa fa-twitter"></i></a>
             <% } %>
-            <% if (!private && (event.currentState === 'published')) { %>
+            <% if (!indexedEvent.private && (indexedEvent.state === 2)) { %>
               <a
-                href="<%= event.linkedInShare %>"
+                href="<%= indexedEvent.linkedInShare %>"
                 target="_blank"
                 class="li text-muted"
                 rel="nofollow"><i class="fa fa-linkedin"></i></a>
@@ -141,7 +144,7 @@
                 title="<%= __('cannotShareInfo') %>"
               ><i class="fa fa-linkedin"></i></a>
             <% } %>
-            <% if (!private && (event.currentState === 'published')) { %>
+            <% if (!indexedEvent.private && (indexedEvent.state === 2)) { %>
               <div class="js_shareEmail share-button"></div>
             <% } else { %>
               <a
@@ -151,8 +154,8 @@
               ><i class="fa fa-envelope-o"></i></a>
             <% } %>
             <a href="#" onclick="window.print(); return false;" class="text-muted"><i class="fa fa-print"></i></a>
-            <a title="<%= __('copyInClipboard') %>" href="<%= event.permalink %>" class="js_permalink text-muted"><i class="fa fa-link"></i></a>
-            <% if (!private && (event.currentState === 'published')) { %>
+            <a title="<%= __('copyInClipboard') %>" href="<%= indexedEvent.permalink %>" class="js_permalink text-muted"><i class="fa fa-link"></i></a>
+            <% if (!indexedEvent.private && (indexedEvent.state === 2)) { %>
               <div class="js_shareAll share-button">
                 <%= __('allShares') %>
               </div>
@@ -167,57 +170,71 @@
           </section>
           <div class="row">
             <div class="col-sm-12 col-print-6 padding-print-h-z">
-              <% if (event.onlineAccessLink) { %>
+              <% if (indexedEvent.onlineAccessLink) { %>
               <section class="detail-item margin-bottom-md online-access-link">
                 <h3><i class="fa fa-link"></i></h3>
                 <a
                   target="_blank"
-                  href="<%= event.onlineAccessLink %>"
+                  href="<%= indexedEvent.onlineAccessLink %>"
                   class="btn btn-default"
                 ><%= __('onlineAccess') %></a>
-                <span class="display-none"><%= event.onlineAccessLink %></span>
+                <span class="display-none"><%= indexedEvent.onlineAccessLink %></span>
               </section>
               <% } %>
               <section class="detail-item margin-bottom-sm">
-                <h3><% if (event.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
+                <h3><% if (indexedEvent.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
                 <p class="detail-item-content">
-                  <span><%= event.dateRange %></span>
-                  <% if (!event.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
+                  <span><%= indexedEvent.dateRange %></span>
+                  <% if (!indexedEvent.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
                 </p>
               </section>
-              <% if ( event.pricingInfo || event.registrationComponent ) { %>
-              <section class="detail-item conditions margin-v-md">
-                <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
-                  <% if ( event.pricingInfo ) { %>
-                    <div class="detail-item-content">
-                      <p><%= event.pricingInfo %></p>
-                    </div>
+              <% if (indexedEvent.conditions || indexedEvent.registration.length ) { %>
+                <section class="detail-item conditions margin-v-md">
+                  <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
+                  <% if (indexedEvent.conditions) { %>
+                  <div class="detail-item-content">
+                    <p><%= indexedEvent.conditions %></p>
+                  </div>
                   <% } %>
-                  <% if (event.registrationComponent) { %>
-                    <%- event.registrationComponent %>
+                  <% if (indexedEvent.registration.length) { %>
+                  <ul class="registration">
+                  <% indexedEvent.registration.forEach(registrationItem => { %>
+                    <li>
+                      <i class="fa <%= registrationItem.icon %>"></i>
+                      <span>
+                        <% if (typeof registrationItem.label !== 'undefined') { %>
+                          <%= registrationItem.label %> :
+                        <% } %>
+                        <a href="<%= registrationItem.prefix %><%= registrationItem.value %>">
+                          <%= registrationItem.value %>
+                        </a>
+                      </span>
+                    </li>
+                  <% }); %>
+                  </ul>
                   <% } %>
-              </section>
+                </section>
               <% } %>
             </div>
             <div class="col-sm-12 col-print-6 padding-print-h-z">
               <section class="detail-item timings margin-bottom-md">
                 <% include _months.part.ejs %>
               </section>
-              <% if ( event.accessibility && event.accessibility.length ) { %>
-              <% event.accessibility.forEach( function( i ) { %>
+              <% if (indexedEvent.availableAccessibilities.length) { %>
+              <% indexedEvent.availableAccessibilities.forEach(i => { %>
               <section class="detail-item margin-v-sm">
                 <h3><i class="acc <%= i %>"></i></h3>
-                <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
+                <p class="detail-item-content"><%= __(impairments[i]) %></p>
               </section>
               <% }) %>
               <% } %>
-              <% if ( event.age ) { %>
+              <% if (indexedEvent.age?.min || indexedEvent.age?.max) { %>
                 <section class="detail-item margin-v-md">
                   <h3><i class="fa fa-child"></i></h3>
-                  <% if ( !event.age.max ) { %>
-                  <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
+                  <% if (!indexedEvent.age.max) { %>
+                  <p class="detail-item-content"><%= __('startingAt', { min: indexedEvent.age.min }) %></p>
                   <% } else { %>
-                  <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
+                  <p class="detail-item-content"><%= __('minToMaxYearsOld', { min: indexedEvent.age.min, max: indexedEvent.age.max }) %></p>
                   <% } %>
                 </section>
               <% } %>
@@ -230,42 +247,36 @@
                 <h3><i class="fa fa-map-marker"></i></h3>
                 <div class="detail-item-content">
                   <p>
-                    <%- event.location.name %><% /* escaped in model already */ %>
+                    <%- indexedEvent.location.name %><% /* escaped in model already */ %>
                   </p>
-                  <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
+                  <span class="margin-right-xs"><a target="_blank" href="<%= indexedEvent.location.OSMItineraryLink || '#' %>"><%= indexedEvent.location.address %></a></span>
                   <ul class="info list-inline location-info-parts">
-                  <% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
-                  <% if ( event.location[ part ] && locationPart( part ) ) { %>
-                    <li><span><%= locationPart( part ) %></span></li>
+                  <% ['department', 'region', 'country'].forEach(function(part) { %>
+                  <% if ( indexedEvent.location[part] && locationPart(indexedEvent, part) ) { %>
+                    <li><span><%= locationPart(indexedEvent, part) %></span></li>
                   <% } %>
                   <% }); %>
                   </ul>
                 </div><!--
                 --><div
                     class="map js_map"
-                    data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"
+                    data-coord="<%= indexedEvent.location.latitude %>|<%= indexedEvent.location.longitude %>"
                     data-tiles="<%= tiles %>"
                   ></div>
               </section>
               <% } %>
-              <% if ( event.agendaReferences.length > 1 ) { %>
+              <% if (agendaReferences.length > 0) { %>
               <div class="sharers">
                 <ul><!--
-              <% event.agendaReferences.forEach( function( ref ) { %>
-              <% if ( loner || ( ref.slug !== slug ) ) { %>
-                          --><li <% if ( !ref.thumbnail ) { %>class="empty"<% } %>>
-                            <a href="<%= genUrl( 'agendaShow', { slug: ref.slug } ) %>"><!--
-              <% if ( ref.thumbnail ) { %>
-                              --><img class="avatar" alt="<%= ref.title %>" src="<%= _i( ref.thumbnail ) %>"/><!--
-              <% } else { %>
-                              --><div class="avatar"></div><!--
-              <% } %>
-                              --><span><%= _txt.truncate( ref.title, 26, ' ...' ) %></span>
-                            </a>
-                          </li><!--
-              <% } %>
+              <% agendaReferences.forEach( function( ref ) { %>
+               --><li <% if ( !ref.image ) { %>class="empty"<% } %>>
+                    <a href="<%= genUrl('agendaShow', { slug: ref.slug }) %>"><!--
+                   --><img class="avatar" alt="<%= ref.title %>" src="<%= ref.image %>"/><!--
+                   --><span><%= _txt.truncate(ref.title, 26, ' ...') %></span>
+                    </a>
+                  </li><!--
               <% }); %>
-                --></ul>
+             --></ul>
               </div>
               <% } %>
             </div>
@@ -279,21 +290,21 @@
       <section class="col-sm-7 col-sm-offset-1 col-xs-12">
         <div class="event-content">
           <div class="js_additional_fields_info"></div>
-          <% if ( event.image ) { %>
+          <% if (indexedEvent.image && indexedEvent.image.filename) { %>
           <div class="row">
             <div class="col-xs-12 col-print-6">
-              <img  class="img-responsive col-print-6" src="<%= event.image %>">
-              <% if ( event.credits ) { %>
-              <div class="credits margin-h-xs"><%= event.credits %></div>
+              <img  class="img-responsive col-print-6" src="<%= indexedEvent.image.base %><%= indexedEvent.image.filename %>">
+              <% if (indexedEvent.imageCredits) { %>
+              <div class="credits margin-h-xs"><%= indexedEvent.imageCredits %></div>
               <% } %>
             </div>
           </div>
           <% } %>
-          <div class="description event-content-section"><%- event.freeText %></div>
+          <div class="description event-content-section"><%- indexedEvent.longDescription %></div>
 
-<% if ( typeof event.keywords !== 'undefined' && event.keywords.length ) { %>
+<% if (typeof indexedEvent.keywords !== 'undefined' && indexedEvent.keywords.length) { %>
           <div class="keywords">
-            <span><%= event.keywords %></span>
+            <span><%= indexedEvent.keywords.join(', ') %></span>
           </div>
 <% } %>
 
@@ -303,34 +314,27 @@
 
         <div class="js_additional_fields"></div>
 
-<% if (
-  hasLocation &&
- (event.location.description
-  || event.location.access
-  || event.location.image
-  || event.location.website
-  || event.location.phone
-  || event.location.tags )) { %>
+<% if (hasLocation) { %>
     <div class="location-details event-secondary">
       <h3><%= __( 'aboutTheVenue' ) %></h3>
       <div class="event-content">
 
         <div class="location-head">
-        <% if ( event.location.agendaId === agendaId ) { %>
+        <% if (indexedEvent.location.agendaUid === agenda.uid) { %>
           <div class="display-none js_edit_location pull-right">
-            <a class="btn btn-default" rel="nofollow" href="/<%= slug %>/admin/locations/<%= event.location.uid %>/edit?uids[]=<%= event.location.uid %>"><%= __( 'editLocation' ) %></a>
+            <a class="btn btn-default" rel="nofollow" href="/<%= slug %>/admin/locations/<%= indexedEvent.location.uid %>/edit?uids[]=<%= indexedEvent.location.uid %>"><%= __('editLocation') %></a>
           </div>
         <% } %>
 
           <label>
-            <%- event.location.name %>
+            <%- indexedEvent.location.name %>
           </label>
-          <span><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%- event.location.address %></a></span>
-<% if ( event.location.tags && event.location.tags.length ) { %>
+          <span><a target="_blank" href="<%= indexedEvent.OSMItineraryLink || '#' %>"><%- indexedEvent.location.address %></a></span>
+<% if (indexedEvent.location.tags && indexedEvent.location.tags.length ) { %>
           <div class="tags">
             <label><%= __( 'tags' ) %>:</label>
             <ul>
-<%- event.location.tags.map( t => {
+<%- indexedEvent.location.tags.map( t => {
     return '<li>' + _txt.escape( t.label ) + '</li>';
 }).join( ', ' ) %>
             </ul>
@@ -338,55 +342,55 @@
 <% } %>
         </div>
 
-<% if ( event.location.description ) { %>
-        <p><%- event.location.description %></p>
+<% if ( indexedEvent.location.description ) { %>
+        <p><%- indexedEvent.location.description %></p>
 <% } %>
-<% if ( event.location.access ) { %>
+<% if ( indexedEvent.location.access ) { %>
         <p>
           <strong><%= __( 'access' ) %>:</strong>
-          <span><%- event.location.access %></span>
+          <span><%- indexedEvent.location.access %></span>
         </p>
 <% } %>
-<% if ( event.location.image ) { %>
+<% if (indexedEvent.location.image) { %>
         <div class="location-image row">
           <div class="col-xs-12 col-print-6">
-            <img class="img-responsive" src="<%= event.location.image %>" alt="<%= event.location.name %>" />
-            <% if ( event.location.imageCredits ) { %>
-            <span class="credits"><%= event.location.imageCredits %></span>
+            <img class="img-responsive" src="<%= indexedEvent.location.image %>" alt="<%= indexedEvent.location.name %>" />
+            <% if ( indexedEvent.location.imageCredits ) { %>
+            <span class="credits"><%= indexedEvent.location.imageCredits %></span>
             <% } %>
           </div>
         </div>
 <% } %>
 
         <ul class="list-unstyled">
-<% if ( event.location.website ) { %>
+<% if (indexedEvent.location.website) { %>
           <li>
             <i class="fa fa-globe"></i>
-            <a href="<%= event.location.website %>">
-              <span><%= event.location.website %></span>
+            <a href="<%= indexedEvent.location.website %>">
+              <span><%= indexedEvent.location.website %></span>
             </a>
           </li>
 <% } %>
-<% if ( event.location.phone ) { %>
+<% if (indexedEvent.location.phone) { %>
           <li>
             <i class="fa fa-phone"></i>
-            <a href="tel:<%= event.location.phone %>">
-              <span><%= event.location.phone %></span>
+            <a href="tel:<%= indexedEvent.location.phone %>">
+              <span><%= indexedEvent.location.phone %></span>
             </a>
           </li>
 <% } %>
-<% if ( event.location.links && event.location.links.length ) { %>
-          <li class="location-links">
-            <label><%= __( 'moreLinks' ) %></label>:
-<% event.location.links.forEach( function( link ) { %>
+<% if (indexedEvent.location.links && indexedEvent.location.links.length) { %>
+          <li class="location-hlinks">
+            <label><%= __('moreLinks') %></label>:
+<% indexedEvent.location.links.forEach(function(link) { %>
             <a href="<%= link %>" target="_blank"><%= link %></a>
-<% } ); %>
+<% }); %>
           </li>
 <% } %>
 
 <% if ( showRequestLocation ) { %>
           <li>
-            <a class="btn btn-default" rel="nofollow" href="<%= `/${slug}/locations/${uid}.${event.location.uid}/suggest-change` %>">
+            <a class="btn btn-default" rel="nofollow" href="<%= `/${slug}/locations/${uid}.${indexedEvent.location.uid}/suggest-change` %>">
               <%= __( 'requestChangeLocation' ) %>
             </a>
           </li>
@@ -399,7 +403,7 @@
     <div class="js_contributor"></div>
 
     <div class="js_activities activity-section"></div>
-<% if ( mailto ) { %>
+<% if ( mailto?.enabled ) { %>
     <h3 class="margin-top-lg"><%= __( 'contactEmail' ) %></h3>
     <div class="padding-all-md wsq" style="text-align: center;">
       <a href="<%= mailto %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
@@ -417,4 +421,6 @@
   </div>
 
 </div>
-<% include show.jsonld.ejs %>
+<script type="application/ld+json">
+  <%- indexedEvent.JSONLD %>
+</script>

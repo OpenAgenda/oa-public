@@ -10,7 +10,6 @@ import sessions from '@openagenda/sessions/client';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 import remote from '../../js/lib/remote';
-import textHelpers from '../../helpers/text.js';
 import activities from './activities';
 
 const getInboxesLabel = makeLabelGetter(inboxesLabels);
@@ -53,44 +52,36 @@ module.exports = options => {
   log = debug('customData');
 
   return {
-    load: load,
+    displayMenus,
     activities: displayActivities,
     inbox
   }
 
-  function load(agendaUid, eventUid, lang) {
-    log('loading private data');
-    _fetch(_defineRes(agendaUid, eventUid, lang), (err, data) => {
+  function displayMenus({
+    me
+  }) {
+    log('displaying menus', me);
 
-      if (err) {
-        log('error', err);
-
-        return;
+    if (me.authorizations?.canEditEvent) {
+      log('can edit event, displaying status change controls');
+      for (const el of du.els('.js_status')) {
+        du.removeClass(el, 'display-none');
       }
-      log('loaded');
+    } else {
+      log('cannot edit event, displaying disabled status change message');
+      du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
+      du.removeClass(du.el('.js_disabled_status'), 'display-none');
+    }
 
-      if (data.authorizations?.canEditEvent) {
-        log('can edit event, displaying status change controls');
-        for (const el of du.els('.js_status')) {
-          du.removeClass(el, 'display-none');
-        }
-      } else {
-        log('cannot edit event, displaying disabled status change message');
-        du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
-        du.removeClass(du.el('.js_disabled_status'), 'display-none');
-      }
+    if (me.authorizations?.canChangeState) {
+      du.removeClass(du.el('.js_can_change_state'), 'display-none');
+    } else {
+      du.removeClass(du.el('.js_cannot_change_state'), 'display-none');
+    }
 
-      if (data.authorizations?.canChangeState) {
-        du.removeClass(du.el('.js_can_change_state'), 'display-none');
-      } else {
-        du.removeClass(du.el('.js_cannot_change_state'), 'display-none');
-      }
-
-      if (data.authorizations?.canPublish) {
-        du.removeClass(du.el('.js_can_publish_event'), 'display-none');
-      }
-    });
-
+    if (me.authorizations?.canPublish) {
+      du.removeClass(du.el('.js_can_publish_event'), 'display-none');
+    }
   }
 
   function displayActivities(agendaUid, eventUid, lang) {
@@ -242,30 +233,4 @@ module.exports = options => {
       }
     }, true);
   }
-
-  function _defineRes(agendaUid, eventUid, lang) {
-    let res = params.url[params.env];
-
-    res = res.replace('{eventUid}', eventUid)
-      .replace('{agendaUid}', agendaUid);
-
-    if (lang) res += '?lang=' + lang;
-
-    return res;
-  }
-
-  function _renderCustom(data) {
-    return params.customTemplate(_.extend({
-      private: '<div class="private-label"><i class="fa fa-unlock-alt"></i> <span>Information privée</span></div>',
-      _i: (image, staticFile) => {
-        if (staticFile) {
-          return '//cibulstatic.s3.amazonaws.com/' + image;
-        }
-
-        return '//cibul.s3.amazonaws.com/' + image;
-      },
-      _txt: textHelpers()
-    }, data));
-  }
-
 }
