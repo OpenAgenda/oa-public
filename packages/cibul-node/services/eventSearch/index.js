@@ -58,7 +58,8 @@ module.exports.init = async (config, services) => {
         tracker(`eventSearch.onUpdate.${set}`);
       }
     },
-    emptyValue: 'null'
+    emptyValue: 'null',
+    assetsPath: config.aws.imageBucketPath
   });
 
   const queue = queues('eventSearch');

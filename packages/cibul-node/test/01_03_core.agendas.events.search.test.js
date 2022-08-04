@@ -101,6 +101,18 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
     });
 
+    it('location image provides full path with includeLocationImagePath option', async () => {
+      const { events } = await core.agendas(2).events.search({
+        state: null,
+        locationUid: 1
+      }, { size: 1 }, {
+        detailed: true,
+        includeLocationImagePath: true
+      });
+
+      expect(events[0].location.image).toBe('https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg');
+    });
+
     it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,

@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('core/agendas/events/loadSearchAccess');
 
-module.exports = async (core, agendaUid, options) => {
+module.exports = async (core, agendaUid, options = {}) => {
   const {
     members,
     simpleCache

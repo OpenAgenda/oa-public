@@ -44,6 +44,7 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
       detailed: true,
       longDescriptionFormat: 'HTMLWithEmbeds',
       includeLabels: true,
+      includeLocationImagePath: true
     });
 
   const event = result.events.pop();

@@ -118,7 +118,8 @@ module.exports = core => {
       aggregations: req.query.aggs,
       ...req.convertedQuery,
       useAfterKey: true,
-      userUid: req.user?.uid
+      userUid: req.user?.uid,
+      includeLocationImagePath: true
     }).then(result => res.json({
       success: true,
       ...result
