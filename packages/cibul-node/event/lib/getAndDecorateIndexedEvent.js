@@ -67,12 +67,22 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
   }
 
   return produce(event, draft => {
-    // timings component data structure
-    draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
-      event.timings.map(t => agendaPortalUtils.detailedTiming({ event }, t, lang)),
-      event.timezone,
-      lang
-    );
+    if (detailed) {
+      // timings component data structure
+      draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
+        event.timings.map(t => agendaPortalUtils.detailedTiming({ event }, t, lang)),
+        event.timezone,
+        lang
+      );
+
+      draft.isUpcoming = new Date(event.timings[event.timings.length - 1].begin) > new Date();
+
+      draft.availableAccessibilities = Object.keys(event.accessibility).filter(key => !!event.accessibility[key]);
+
+      draft.JSONLD = agendaPortalUtils.getEventSchemaJSONLD(event, {
+        defaultTimezone: 'Europe/Paris'
+      });
+    }
 
     // flatten main multilingual fields
     ['title', 'description', 'keywords', 'conditions', 'longDescription', 'dateRange'].forEach(field => {
@@ -122,16 +132,8 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
 
     draft.permalink = permalink;
 
-    draft.isUpcoming = new Date(event.timings[event.timings.length - 1].begin) > new Date();
-
-    draft.availableAccessibilities = Object.keys(event.accessibility).filter(key => !!event.accessibility[key]);
-
     draft.facebookShare = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl)}`;
     draft.twitterShare = `https://twitter.com/share?url=${encodeURIComponent(eventUrl)}&text=${encodeURIComponent(draft.title)}`;
     draft.linkedInShare = `http://www.linkedin.com/shareArticle?url=${encodeURIComponent(eventUrl)}&title=${encodeURIComponent(draft.title)}&summary=${encodeURIComponent(`${draft.description} - ${eventUrl}`)}&source=${encodeURIComponent(root)}`;
-
-    draft.JSONLD = agendaPortalUtils.getEventSchemaJSONLD(event, {
-      defaultTimezone: 'Europe/Paris'
-    });
   });
 };
