@@ -37,21 +37,19 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
 
   const eventUrl = `${root}${originalUrl.split('?').shift()}?lang=${lang}`;
 
-  const query = {
-    state: null
-  };
+  const identifier = {};
 
   if (eventSlug) {
-    query.slug = eventSlug;
+    identifier.slug = eventSlug;
   }
 
   if (eventUid) {
-    query.uid = eventUid;
+    identifier.uid = eventUid;
   }
 
-  const result = await core.agendas(agendaUid)
+  const event = await core.agendas(agendaUid)
     .events
-    .search(query, { size: 1 }, {
+    .search.get(identifier, {
       userUid,
       detailed,
       longDescriptionFormat: 'HTMLWithEmbeds',
@@ -59,8 +57,6 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
       includeLocationImagePath: true,
       includeImageTimestamps: true
     });
-
-  const event = result.events.pop();
 
   if (!event) {
     return null;
