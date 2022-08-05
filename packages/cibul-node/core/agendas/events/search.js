@@ -105,15 +105,17 @@ async function getEventFromSearch(core, agendaUid, identifier, options = {}) {
     }, 'event not found');
   }
 
+  const isPublished = event.state === 2;
+
   if (!userUid && (
     event.private
     || agenda.private
-    || event.state !== 2
+    || !isPublished
   )) {
     throw new Forbidden('not authorized to read event');
   }
 
-  const context = await core
+  const context = userUid && await core
     .users(options.userUid)
     .agendas(agenda.uid)
     .events(event)
@@ -122,7 +124,9 @@ async function getEventFromSearch(core, agendaUid, identifier, options = {}) {
       includes: ['me.authorizations', 'me.member']
     });
 
-  if (!context.me.authorizations.canRead) {
+  if (context?.me && !context.me.authorizations.canRead) {
+    throw new Forbidden('not authorized to read event');
+  } else if (!context?.me && !isPublished) {
     throw new Forbidden('not authorized to read event');
   }
 
