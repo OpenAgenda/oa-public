@@ -3,8 +3,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const legacyEventSvc = require('../services/event');
-const legacyAgendaSvc = require('../services/agenda');
+const getAndDecorateIndexedEvent = require('./lib/getAndDecorateIndexedEvent');
 
 const renderReferences = _.template(fs.readFileSync(`${__dirname}/references.tpl`));
 
@@ -12,12 +11,13 @@ module.exports = app => {
   const {
     sessions,
     members,
-    core
+    core,
+    agendas: agendasSvc
   } = app.services;
 
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
-    legacyAgendaSvc.mw.load('uid'),
+    agendasSvc.mw.loadBy({ path: 'params.uid', field: 'uid' }),
     sessions.mw.loadOrRedirect(),
     members.mw.load,
     (req, res) => {
@@ -97,8 +97,24 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
-    legacyAgendaSvc.mw.load('uid'),
-    legacyEventSvc.mw.load('eventUid', 'uid'),
+    agendasSvc.mw.loadBy({ path: 'params.uid', field: 'uid' }),
+    (req, res, next) => {
+      getAndDecorateIndexedEvent(req.app.services, {
+        agendaUid: req.agenda.uid,
+        eventUid: req.params.eventUid,
+        userUid: req.user?.uid,
+        lang: req.lang,
+        originalUrl: req.originalUrl
+      }).then(indexedEvent => {
+        if (!indexedEvent) {
+          return next({ code: 404 });
+        }
+
+        req.event = indexedEvent;
+
+        next();
+      }, next);
+    },
     members.mw.loadAndAuthorize('moderator', {
       or: (req, res) => res.json({ count: 0 })
     }),

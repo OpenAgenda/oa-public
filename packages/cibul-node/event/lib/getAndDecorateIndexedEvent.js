@@ -22,26 +22,38 @@ function pickPreferredLang(value, lang) {
 
 module.exports = async function getAndDecoratedIndexedEvent(services, {
   eventSlug,
+  eventUid,
   agendaUid,
   userUid,
   lang,
-  root,
-  originalUrl
+  originalUrl,
+  detailed = false
 }) {
   const {
     core
   } = services;
 
+  const { root } = core.getConfig();
+
   const eventUrl = `${root}${originalUrl.split('?').shift()}?lang=${lang}`;
+
+  const query = {
+    state: null
+  };
+
+  if (eventSlug) {
+    query.slug = eventSlug;
+  }
+
+  if (eventUid) {
+    query.uid = eventUid;
+  }
 
   const result = await core.agendas(agendaUid)
     .events
-    .search({
-      slug: eventSlug,
-      state: null
-    }, { size: 1 }, {
+    .search(query, { size: 1 }, {
       userUid,
-      detailed: true,
+      detailed,
       longDescriptionFormat: 'HTMLWithEmbeds',
       includeLabels: true,
       includeLocationImagePath: true,

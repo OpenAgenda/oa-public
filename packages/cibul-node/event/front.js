@@ -133,8 +133,8 @@ const middlewares = {
         eventSlug: req.params.eventSlug,
         userUid: req.user?.uid,
         lang: req.lang,
-        root: config.root,
-        originalUrl: req.originalUrl
+        originalUrl: req.originalUrl,
+        detailed: true
       }).then(indexedEvent => {
         if (!indexedEvent) {
           return next({ code: 404 });
