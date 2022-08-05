@@ -85,13 +85,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
     describe('draft event', () => {
       let context;
-  
+
       beforeAll(async () => {
         context = await core.users(63170203).agendas(17026855).events(83902931).getContext({
           userUid: 1
         });
       });
-  
+
       it('context of draft event is accessible', () => {
         expect(context.me.authorizations.canEditEvent).toBe(true);
       });

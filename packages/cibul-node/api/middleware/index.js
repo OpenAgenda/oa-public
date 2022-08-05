@@ -11,9 +11,8 @@ const moveEventLegacyImageCredits = require('./moveEventLegacyImageCredits');
 const parseBodyData = require('./parseBodyData');
 const requestAccessToken = require('./requestAccessToken');
 const convertLegacyFilter = require('./convertLegacyFilter');
-const evaluateUserAccessToEvent = require('./evaluateUserAccessToEvent');
+const evaluateAnonymousAccess = require('./evaluateAnonymousAccess');
 const getEventFromSearchOrAsDraft = require('./getEventFromSearchOrAsDraft');
-const filterEventContentByRole = require('./filterEventContentByRole');
 
 module.exports = {
   verifyAndLoadAccessTokenUser,
@@ -27,7 +26,6 @@ module.exports = {
   parseBodyData,
   requestAccessToken,
   convertLegacyFilter,
-  evaluateUserAccessToEvent,
-  getEventFromSearchOrAsDraft,
-  filterEventContentByRole
+  evaluateAnonymousAccess,
+  getEventFromSearchOrAsDraft
 };

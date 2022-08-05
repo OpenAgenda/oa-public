@@ -129,9 +129,8 @@ module.exports = core => {
     '/agendas/:agendaUid/events/:eventUid',
     '/agendas/:agendaUid/events/slug/:eventSlug'
   ], [
+    mw.evaluateAnonymousAccess,
     mw.getEventFromSearchOrAsDraft,
-    mw.evaluateUserAccessToEvent,
-    mw.filterEventContentByRole,
     (req, res) => res.json({
       success: true,
       event: req.event
