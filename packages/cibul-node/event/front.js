@@ -412,21 +412,6 @@ function renderAgendaEmbedEvent(req, res, next) {
 }
 
 
-function agendaCustomEmbedEventShow(req, res) {
-
-  _addLanguageLinks(req, `/agendas/${req.params.uid}/embeds/${req.params.embedUid}/events/${req.params.eventUid}`);
-
-  // back link needs to
-
-  cmn.render(req, res, 'event/embedShow', {
-    event: req.formatted,
-    backUri: 'customEmbedShow',
-    backQuery: { uid: req.params.uid, embedUid: req.params.embedUid }
-  });
-
-}
-
-
 function _appendFacebookParams(req, res, next) {
 
   if (!req.query.fb) return next();
@@ -443,137 +428,10 @@ function _appendFacebookParams(req, res, next) {
 }
 
 
-function _addLanguageLinks(req, url, urlParams) {
-
-  var linkedLanguages = [];
-
-  if (!req.formatted.languages) return;
-
-  req.formatted.languages.selection.forEach(lang => {
-
-    linkedLanguages.push({
-      label: lang,
-      link: url + qs.stringify({ ...urlParams, lang }, { addQueryPrefix: true })
-    });
-
-  });
-
-  req.formatted.languages.selection = linkedLanguages;
-
-}
-
 function _switchEmbedLang(req, res, next) {
   req.event.switchLanguage(req.lang);
 
   next();
-}
-
-
-/**
- * append 'back to agenda' link and event social share links to event data
- */
-
-function _formatEmbedLinks(req, res, next) {
-
-  req.formatted.backLink = req.genUrl('agendaEmbedShow', {
-    uid: req.params.uid,
-    lang: req.lang
-  });
-
-
-  req.formatted.locationLink = req.genUrl('agendaEmbedShow', {
-    uid: req.params.uid,
-    oaq: {
-      location: req.event.getLocationUid()
-    },
-    lang: req.lang
-  });
-
-  req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
-  req.formatted.osmItineraryLink = OSMItineraryLink(req.event.getLatitude(), req.event.getLongitude());
-
-
-  req.formatted.categoryLink = false;
-
-  if (req.formatted.categorySlug) {
-
-    req.formatted.categoryLink = req.genUrl('agendaEmbedShow', {
-      uid: req.params.uid,
-      oaq: {
-        category: req.formatted.categorySlug
-      }
-    });
-
-  }
-
-  req.formatted.backLabel = getLabel('back', req.lang);
-
-  next();
-}
-
-
-/**
- * append 'back to agenda' link and event social share links to event data
- */
-
-function _formatCustomEmbedLinks(req, res, next) {
-
-  req.formatted.backLink = req.genUrl('customEmbedShow', {
-    uid: req.params.uid,
-    embedUid: req.params.embedUid,
-    lang: req.lang
-  });
-
-  req.formatted.locationLink = req.genUrl('customEmbedShow', {
-    uid: req.params.uid,
-    embedUid: req.params.embedUid,
-    oaq: {
-      location: req.event.getLocationUid()
-    },
-    lang: req.lang
-  });
-
-  req.formatted.googleItineraryLink = googleItineraryLink(req.event.getLatitude(), req.event.getLongitude());
-  req.formatted.osmItineraryLink = OSMItineraryLink(req.event.getLatitude(), req.event.getLongitude());
-
-  req.formatted.categoryLink = false;
-
-  if (req.formatted.categorySlug) {
-
-    req.formatted.categoryLink = req.genUrl('customEmbedShow', {
-      uid: req.params.uid,
-      embedUid: req.params.embedUid,
-      oaq: {
-        category: req.formatted.categorySlug
-      },
-      lang: req.lang
-    });
-
-  }
-
-  req.formatted.backLabel = getLabel('back', req.lang);
-
-  next();
-
-}
-
-
-function _appendEventTransferCredential(req, res, next) {
-
-  req.baseData.hasOwnershipTransfer = false;
-
-  req.baseData.scriptParams.hasOwnershipTransfer = false;
-
-  req.agenda.hasCredential('eventTransfer', (err, has) => {
-
-    req.baseData.hasOwnershipTransfer = has;
-
-    req.baseData.scriptParams.hasOwnershipTransfer = has;
-
-    next();
-
-  });
-
 }
 
 function _appendSettings(req, res, next) {
@@ -649,43 +507,4 @@ function _formatEmbedHeadLinks(req, res, next) {
 
 function wrap(fn) {
   return (req, res, next) => fn(req, res, next).catch(next);
-}
-
-function _decorateLocation(req, res, next) {
-
-  const locationTags = _.get(req, 'formatted.location.tags', []);
-
-  if (!locationTags.length) return next();
-
-  const locationField = _.first(
-    _.get(req, 'agendaSettings.fields', [])
-      .filter(f => f.field === 'location')
- );
-
-  if (!locationField) return next();
-
-  try {
-
-    const tags = _.get(locationField, 'legacy.tagSet.groups', [])
-      .reduce((tags, g) => tags.concat(g.tags), []);
-
-    req.formatted.location.tags = locationTags
-      .map(t => {
-
-        const matching = _.first(tags.filter(tag => tag.id === t.id));
-
-        t.label = _.get(matching, ['label', req.lang]) || t.label;
-
-        return t;
-
-      });
-
-  } catch (e) {
-
-    log('error', 'failed to use schema tags for location of event %s', _.get(req, 'formatted.event.uid'), e);
-
-  }
-
-  next();
-
 }
