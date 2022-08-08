@@ -65,11 +65,15 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
   return produce(event, draft => {
     if (detailed) {
       // timings component data structure
-      draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
-        event.timings.map(t => agendaPortalUtils.detailedTiming({ event }, t, lang)),
-        event.timezone,
-        lang
-      );
+      try {
+        draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
+          event.timings.map(t => agendaPortalUtils.detailedTiming({ event }, t, lang)),
+          event.timezone,
+          lang
+        );
+      } catch (e) {
+        throw new Error(`months of event ${event.slug} could not be extracted`);
+      }
 
       draft.isUpcoming = new Date(event.timings[event.timings.length - 1].begin) > new Date();
 
