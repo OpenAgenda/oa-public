@@ -4,6 +4,8 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { tz } = require('moment-timezone');
 
+const MAX_ITERATIONS = 10000;
+
 const {
   getKey: getTimingBeginKey,
   getValue: getTimingBeginValue,
@@ -99,8 +101,15 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   const last = tz(keyedTimings.last, timezone).locale(locale).format('YYYY-MM');
   let current = null;
   let previous = null;
+  let iterations = 0;
 
   while ((current = tz(dayCursor, timezone).locale(locale).format('YYYY-MM')) <= last) {
+    iterations += 1;
+
+    if (iterations > MAX_ITERATIONS) {
+      throw new Error('Too many iterations');
+    }
+
     if (current === previous) {
       dayCursor.setMonth(dayCursor.getMonth() + 1);
       continue;
