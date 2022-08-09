@@ -80,4 +80,14 @@ describe('10 - spreadPerMonthPerDay', () => {
       ).toBe(spreadTimingsNYC);
     });
   });
+
+  describe('invalid timings', () => {
+    it('null timings are filtered out', () => {
+      const timings = [
+        { begin: null, end: null }
+      ];
+
+      expect(spreadPerMonth(timings, 'Europe/Paris', 'fr')).toEqual([]);
+    });
+  });
 });

@@ -61,38 +61,44 @@ function _getKeys(d, timezone, locale) {
 module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   if (!timings.length) return [];
 
-  const keyedTimings = timings.reduce(
-    (carry, timing) => {
-      const start = new Date(getTimingBeginValue(timing));
+  const keyedTimings = timings
+    .filter(t => t.begin !== null)
+    .reduce(
+      (carry, timing) => {
+        const start = new Date(getTimingBeginValue(timing));
 
-      if (!carry.first || start < carry.first) {
-        carry.first = start;
+        if (!carry.first || start < carry.first) {
+          carry.first = start;
+        }
+
+        if (!carry.last || start > carry.last) {
+          carry.last = start;
+        }
+
+        const keys = _getKeys(getTimingBeginValue(timing), timezone, locale);
+
+        if (!_.get(carry.months, [keys.month, keys.week, keys.day])) {
+          _prepare(carry.months, keys);
+        }
+
+        return _.set(
+          carry,
+          ['months', keys.month, keys.week, keys.day],
+          _.get(carry.months, [keys.month, keys.week, keys.day], []).concat(
+            timing
+          )
+        );
+      },
+      {
+        first: null,
+        last: null,
+        months: {},
       }
+    );
 
-      if (!carry.last || start > carry.last) {
-        carry.last = start;
-      }
-
-      const keys = _getKeys(getTimingBeginValue(timing), timezone, locale);
-
-      if (!_.get(carry.months, [keys.month, keys.week, keys.day])) {
-        _prepare(carry.months, keys);
-      }
-
-      return _.set(
-        carry,
-        ['months', keys.month, keys.week, keys.day],
-        _.get(carry.months, [keys.month, keys.week, keys.day], []).concat(
-          timing
-        )
-      );
-    },
-    {
-      first: null,
-      last: null,
-      months: {},
-    }
-  );
+  if (!Object.keys(keyedTimings.months).length) {
+    return [];
+  }
 
   const months = [];
   const today = _getKeys(new Date(), timezone, locale);
