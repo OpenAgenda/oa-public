@@ -4,8 +4,11 @@ const { produce } = require('immer');
 const languages = require('languages');
 const registrationLabels = require('@openagenda/labels/event/registration');
 const makeLabelGetter = require('@openagenda/labels');
+const logs = require('@openagenda/logs');
 
 const getLabel = makeLabelGetter(registrationLabels);
+
+const log = logs('event/lib/getAndDecorateIndexedEvent');
 
 const {
   utils: agendaPortalUtils
@@ -72,7 +75,9 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
           lang
         );
       } catch (e) {
-        throw new Error(`months of event ${event.slug} could not be extracted`);
+        const message = `months of event ${event.slug} could not be extracted`;
+        log('error', message);
+        throw new Error(message);
       }
 
       draft.isUpcoming = new Date(event.timings[event.timings.length - 1].begin) > new Date();
