@@ -50,6 +50,10 @@ const validate = schema({
     type: 'integer',
     list: true
   },
+  ownerUid: {
+    type: 'integer',
+    list: true
+  },
   region: {
     type: 'text',
     list: true

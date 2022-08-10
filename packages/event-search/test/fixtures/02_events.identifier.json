@@ -1,0 +1,30 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "state": 2,
+      "ownerUid": 1
+    },
+    {
+      "uid": 2,
+      "state": 2,
+      "ownerUid": 1
+    },
+    {
+      "uid": 3,
+      "state": 2,
+      "ownerUid": 2
+    },
+    {
+      "uid": 4,
+      "state": 2,
+      "ownerUid": 2
+    },
+    {
+      "uid": 5,
+      "state": 2,
+      "ownerUid": 3
+    }
+  ]
+}

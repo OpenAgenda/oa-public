@@ -18,7 +18,8 @@ const termsFiltersMap = {
   locationUid: 'location.uid',
   uid: 'uid',
   slug: 'slug',
-}
+  ownerUid: 'ownerUid'
+};
 
 function hasExplicitEmptyValue(queryValue, emptyValue) {
   if (!queryValue) return false;
