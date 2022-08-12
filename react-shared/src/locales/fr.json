@@ -1,4 +1,5 @@
 {
+  "ReactShared.AgendaContextBar.addEvent": "Ajouter un événement",
   "ReactShared.AgendaContextBar.drafts": "{count, plural, one {1 brouillon} other {# brouillons}}",
   "ReactShared.AgendaContextBar.draftsModalInfo": "Voici les brouillons que vous avez enregistré sur cet agenda. Ils doivent êtres complétés avant de pouvoir être modérés et publiés.",
   "ReactShared.AgendaContextBar.draftsModalTitle": "Brouillons",

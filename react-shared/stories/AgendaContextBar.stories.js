@@ -43,7 +43,8 @@ export const Simple = () => {
       drafts={2}
       res={{
         drafts: '/drafts',
-        events: '/events'
+        events: '/events',
+        contribute: '/contribute'
       }}
       actions={{
         drafts: [{
