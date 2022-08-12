@@ -1,4 +1,11 @@
 {
+  "ReactShared.AgendaAdminModContextBar.empty": "This calendar is empty",
+  "ReactShared.AgendaAdminModContextBar.events": "Events in this calendar",
+  "ReactShared.AgendaAdminModContextBar.manage": "Manage",
+  "ReactShared.AgendaAdminModContextBar.moderated": "{count, plural, one {1 to be moderated} other {# to be moderated}}",
+  "ReactShared.AgendaAdminModContextBar.published": "{count, plural, one {1 published} other {# published}}",
+  "ReactShared.AgendaAdminModContextBar.readyToPublish": "{count, plural, one {1 ready to publish} other {# ready to publish}}",
+  "ReactShared.AgendaAdminModContextBar.refused": "{count, plural, one {1 refused} other {# refused}}",
   "ReactShared.AgendaContextBar.addEvent": "Add an event",
   "ReactShared.AgendaContextBar.drafts": "{count, plural, one {1 draft} other {# drafts}}",
   "ReactShared.AgendaContextBar.draftsModalInfo": "These are the draft you saved. They are not visible to the calendar moderators. They must be completed and submitted before they can be moderated and published.",

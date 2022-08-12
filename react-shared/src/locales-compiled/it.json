@@ -1,4 +1,138 @@
 {
+  "ReactShared.AgendaAdminModContextBar.empty": [
+    {
+      "type": 0,
+      "value": "This calendar is empty"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.events": [
+    {
+      "type": 0,
+      "value": "Events in this calendar"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.manage": [
+    {
+      "type": 0,
+      "value": "Manage"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.moderated": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 to be moderated"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " to be moderated"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.published": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 published"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " published"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.readyToPublish": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 ready to publish"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " ready to publish"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.refused": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 refused"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " refused"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
   "ReactShared.AgendaContextBar.addEvent": [
     {
       "type": 0,

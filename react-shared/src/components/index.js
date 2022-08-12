@@ -15,3 +15,4 @@ export { default as Switch } from './Switch';
 export { default as LeaveWarningPrompt } from './LeaveWarningPrompt';
 export { default as EventSelection } from './EventSelection';
 export { default as AgendaContextBar } from './AgendaContextBar';
+export { default as AgendaAdminModContextBar } from './AgendaAdminModContextBar';
