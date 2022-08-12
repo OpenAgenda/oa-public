@@ -67,7 +67,7 @@ module.exports = ({ labels }) => [{
   allowURL: true,
   allowPath: true,
   imageWithSizeAndVariants: true,
-  extensions: ['jpg', 'bmp', 'png', 'jpeg']
+  extensions: ['jpg', 'bmp', 'png', 'jpeg', 'webp']
 }, {
   field: 'imageCredits',
   fieldType: 'text',
