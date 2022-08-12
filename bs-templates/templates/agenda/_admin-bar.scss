@@ -90,10 +90,49 @@
       font-weight: bold;
     }
 
+    .edge-info {
+      .info-label, .info-actions {
+        display: inline-block;
+      }
+      .btn {
+        vertical-align: baseline;
+      }
+      .primary-action {
+        float: right;
+      }
+
+      @media screen and (max-width: 460px) {
+        .info-label {
+          padding-top: 01em;
+        }
+        .info-label, .info-actions {
+          display: block;
+          line-height: 1em;
+        }
+        .info-actions {
+          padding-bottom: 0;
+        }
+
+        .primary-action {
+          float: none;
+          margin: 0;
+        }
+      }
+    }
+
+    .edge-btn {
+      &.btn-default {
+        background: transparent;
+        border: 2px solid white;
+        &:hover {
+          background-color: $oa-white;
+          color: $oa-blue;
+        }
+      }
+    }
+
     a {
-
       cursor: pointer;
-
     }
 
     .admin-nav {
