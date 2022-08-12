@@ -123,7 +123,9 @@
     .edge-btn {
       &.btn-default {
         background: transparent;
-        border: 2px solid white;
+        border: 1px solid white;
+        font-weight: normal;
+        margin: 8px 0;
         &:hover {
           background-color: $oa-white;
           color: $oa-blue;
