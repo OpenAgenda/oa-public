@@ -46,7 +46,7 @@ const controllers = require('../../widgets/controller/main'),
     },
     res: {
       role: '/session/agendas/:agendaUid/role',
-      context: window.env === 'tpl' ? '/server/testdata/agendausercontext.json' : '/api/me/agendas/:agendaUid?includes[]=me.member&includes[]=me.authorizations&includes[]=me.events'
+      context: window.env === 'tpl' ? '/server/testdata/agendausercontext.json' : '/api/me/agendas/:agendaUid?includes[]=me.member&includes[]=me.authorizations&includes[]=me.events&includes[]=events'
     },
     classes: {
       displayNone: 'display-none',
@@ -142,16 +142,25 @@ window.asap(options => {
     }
 
     get(params.res.context.replace(':agendaUid', uid), (err, data = {}) => {
-      const { me } = data;
+      const { me, events } = data;
+
+      log(data);
       
       const {
-        states,
-        drafts
-      } = me.events;
+        role
+      } = me?.member ?? {};
   
-      if (['administrator', 'moderator'].includes(me?.member?.role)) {
+      if (['administrator', 'moderator'].includes(role)) {
         _displayAdminButton();
         _removeAddButtonAsPrimary();
+      }
+
+      if (![
+        'administrator',
+        'moderator',
+        'contributor'
+      ].includes(role)) {
+        return;
       }
 
       displayContextBar({
@@ -160,9 +169,10 @@ window.asap(options => {
           uid,
           slug
         },
-        states,
-        drafts,
-        canContribute: me.authorizations.canContribute
+        myEvents: me.events,
+        events,
+        canContribute: me.authorizations.canContribute,
+        role
       });
     });
   });

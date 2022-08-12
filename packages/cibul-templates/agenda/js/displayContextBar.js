@@ -11,7 +11,8 @@ import {
 
 import {
   locales as contextLocales,
-  AgendaContextBar
+  AgendaContextBar,
+  AgendaAdminModContextBar
 } from '@openagenda/react-shared';
 
 import {
@@ -41,12 +42,22 @@ const log = debug('displayContextBar');
 
 function AgendaContextBarContainer({
   agenda,
-  states,
-  drafts,
-  canContribute
+  myEvents,
+  events,
+  canContribute,
+  role
 }) {
   log('loading context bar');
   const intl = useIntl();
+
+  if (['administrator', 'moderator'].includes(role)) {
+    return (
+      <AgendaAdminModContextBar
+        res={`/${agenda.slug}/admin/events`}
+        states={events.states}
+      />
+    );
+  }
 
   return (
     <AgendaContextBar
@@ -55,8 +66,8 @@ function AgendaContextBarContainer({
         events: `/api/me/agendas/${agenda.uid}/events`,
         contribute: canContribute ? `/${agenda.slug}/contribute` : null
       }}
-      drafts={drafts}
-      states={states}
+      drafts={myEvents.drafts}
+      states={myEvents.states}
       actions={{
         drafts: [{
           link: `/${agenda.slug}/contribute/event/{event.uid}`,
@@ -83,13 +94,7 @@ export default function displayContextBar(props) {
 
   const {
     lang,
-    states,
-    drafts
   } = props;
-
-  if (!states.length && drafts === 0) {
-    return;
-  }
   
   const locales = mergeLocales(appLocales, contextLocales);
 
