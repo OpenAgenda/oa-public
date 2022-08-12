@@ -3,6 +3,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import AgendaContextBar from '../src/components/AgendaContextBar';
+import AgendaAdminModContextBar from '../src/components/AgendaAdminModContextBar';
 import SimpleCanvas from './decorators/SimpleCanvas';
 import IntlProvider from './decorators/IntlProvider';
 
@@ -15,7 +16,23 @@ export default {
   decorators: [IntlProvider, SimpleCanvas]
 };
 
-export const Simple = () => {
+export const AgendaAdminContextBar = () => (
+  <AgendaAdminModContextBar
+    res="/admin"
+    states={[{
+      key: -1,
+      eventCount: 1
+    }, {
+      key: 1,
+      eventCount: 2
+    }, {
+      key: 2,
+      eventCount: 2
+    }]}
+  />
+);
+
+export const AgendaContributorContextBar = () => {
   const mock = new MockAdapter(axios);
 
   [

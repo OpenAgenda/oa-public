@@ -1,4 +1,11 @@
 {
+  "ReactShared.AgendaAdminModContextBar.empty": "Cet agenda est vide.",
+  "ReactShared.AgendaAdminModContextBar.events": "Événements",
+  "ReactShared.AgendaAdminModContextBar.manage": "Gérer",
+  "ReactShared.AgendaAdminModContextBar.moderated": "{count, plural, one {1 en modération} other {# en modération}}",
+  "ReactShared.AgendaAdminModContextBar.published": "{count, plural, one {1 publié} other {# publiés}}",
+  "ReactShared.AgendaAdminModContextBar.readyToPublish": "{count, plural, one {1 prêt à publier} other {# prêts à publier}}",
+  "ReactShared.AgendaAdminModContextBar.refused": "{count, plural, one {1 refusé} other {# refusés}}",
   "ReactShared.AgendaContextBar.addEvent": "Ajouter un événement",
   "ReactShared.AgendaContextBar.drafts": "{count, plural, one {1 brouillon} other {# brouillons}}",
   "ReactShared.AgendaContextBar.draftsModalInfo": "Voici les brouillons que vous avez enregistré sur cet agenda. Ils doivent êtres complétés avant de pouvoir être modérés et publiés.",
