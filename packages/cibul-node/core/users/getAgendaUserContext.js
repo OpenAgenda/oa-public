@@ -19,10 +19,12 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
     context.me = {};
   }
 
+  const member = includes.includes('me.member') || includes.includes('events') ? await core
+    .agendas(agendaUid).members
+    .get(identifier, options) : undefined;
+
   if (includes.includes('me.member')) {
-    context.me.member = await core
-      .agendas(agendaUid).members
-      .get(identifier, options);
+    context.me.member = member;
   }
 
   if (includes.includes('me.authorizations')) {
@@ -31,6 +33,14 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
 
   if (includes.includes('me.events')) {
     context.me.events = await getAgendaUserEventStats(core, identifier, agendaUid);
+  }
+
+  if (includes.includes('events') && ['administrator', 'moderator'].includes(member?.role)) {
+    context.events = await core.agendas(agendaUid).events
+      .search({ state: null }, { size: 0 }, {
+        aggregations: ['states'],
+        access: member.role
+      }).then(({ aggregations }) => aggregations);
   }
 
   return context;

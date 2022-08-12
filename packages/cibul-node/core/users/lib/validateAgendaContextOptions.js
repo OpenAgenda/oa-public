@@ -10,7 +10,7 @@ schema.register({
 module.exports = schema({
   includes: {
     type: 'choice',
-    options: ['me.authorizations', 'me.member', 'me.events'],
+    options: ['me.authorizations', 'me.member', 'me.events', 'events'],
     default: ['me.authorizations', 'me.member']
   }
 });
