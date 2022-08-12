@@ -4483,6 +4483,7 @@ __metadata:
     "@storybook/preset-scss": ^1.0.3
     "@storybook/react": ^6.4.9
     axios: ^0.21.1
+    axios-mock-adapter: ^1.19.0
     babel-jest: ^26.6.3
     bytes: ^3.1.0
     classnames: ^2.3.1
