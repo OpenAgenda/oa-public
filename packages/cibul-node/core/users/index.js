@@ -8,6 +8,8 @@ const listUserAgendas = require('./listUserAgendas');
 const canEditEvent = require('./canEditEvent');
 const getEventUserContext = require('./getEventUserContext');
 const getAgendaUserContext = require('./getAgendaUserContext');
+const userEventsSearch = require('./userEventsSearch');
+const userDraftEvents = require('./userDraftEvents');
 const get = require('./get');
 const remove = require('./remove');
 const generateToken = require('./generateToken');
@@ -17,8 +19,11 @@ module.exports = core => Object.assign(identifier => ({
   agendas: Object.assign(agendaUid => ({
     getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid),
     getContext: (options = {}) => getAgendaUserContext(core, identifier, agendaUid, options),
-    events: eventOrUid => ({
+    events: Object.assign(eventOrUid => ({
       getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventOrUid, options)
+    }), {
+      search: userEventsSearch.bind(null, core, identifier, agendaUid),
+      drafts: userDraftEvents.bind(null, core, identifier, agendaUid)
     })
   }), {
     list: listUserAgendas(core, identifier)
