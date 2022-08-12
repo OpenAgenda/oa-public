@@ -55,6 +55,10 @@ const messages = defineMessages({
   publishedModalInfo: {
     id: 'ReactShared.AgendaContextBar.publishedModalInfo',
     defaultMessage: 'These events have been published and are accessible by the viewers of the calendar'
+  },
+  addEvent: {
+    id: 'ReactShared.AgendaContextBar.addEvent',
+    defaultMessage: 'Add an event'
   }
 });
 
@@ -185,6 +189,14 @@ export default function AgendaContextBar({
                   {index < bundledStates.length - 1 ? ' · ' : null}
                 </span>
               )) : null}
+              {res.contribute ? (
+                <a
+                  className="btn edge-btn btn-default margin-all-xs margin-right-z primary-action"
+                  href={res.contribute}
+                >
+                  <i className="fa fa-plus" />&nbsp;{m(messages.addEvent)}
+                </a>
+              ) : null}
             </span>
           </li>
         </ul>

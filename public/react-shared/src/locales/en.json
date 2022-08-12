@@ -1,4 +1,5 @@
 {
+  "ReactShared.AgendaContextBar.addEvent": "Add an event",
   "ReactShared.AgendaContextBar.drafts": "{count, plural, one {1 draft} other {# drafts}}",
   "ReactShared.AgendaContextBar.draftsModalInfo": "These are the draft you saved. They are not visible to the calendar moderators. They must be completed and submitted before they can be moderated and published.",
   "ReactShared.AgendaContextBar.draftsModalTitle": "Drafts",

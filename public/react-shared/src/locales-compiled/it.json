@@ -1,4 +1,10 @@
 {
+  "ReactShared.AgendaContextBar.addEvent": [
+    {
+      "type": 0,
+      "value": "Add an event"
+    }
+  ],
   "ReactShared.AgendaContextBar.drafts": [
     {
       "offset": 0,
