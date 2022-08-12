@@ -2,133 +2,151 @@
   "aggregate-button": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "crwdns30500:0crwdne30500:0"
+    }
+  ],
+  "cibulTemplates.displayContextBar.completeAction": [
+    {
+      "type": 0,
+      "value": "Complete"
+    }
+  ],
+  "cibulTemplates.displayContextBar.displayAction": [
+    {
+      "type": 0,
+      "value": "Display"
+    }
+  ],
+  "cibulTemplates.displayContextBar.modifyAction": [
+    {
+      "type": 0,
+      "value": "Modify"
     }
   ],
   "displayAdditionalFields.additionalFieldsInfo": [
     {
       "type": 0,
-      "value": "Event values specific to this agenda are displayed in the next section below"
+      "value": "crwdns30502:0crwdne30502:0"
     }
   ],
   "displayAdditionalFields.emptyValue": [
     {
       "type": 0,
-      "value": "No input"
+      "value": "crwdns30504:0crwdne30504:0"
     }
   ],
   "displayAdditionalFields.goToAdditionalFields": [
     {
       "type": 0,
-      "value": "see"
+      "value": "crwdns30506:0crwdne30506:0"
     }
   ],
   "displayAdditionalFields.noFile": [
     {
       "type": 0,
-      "value": "No file is loaded"
+      "value": "crwdns30508:0crwdne30508:0"
     }
   ],
   "displayAdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "No image is loaded"
+      "value": "crwdns30510:0crwdne30510:0"
     }
   ],
   "displayAdditionalFields.noSelectionValue": [
     {
       "type": 0,
-      "value": "No selection"
+      "value": "crwdns30512:0crwdne30512:0"
     }
   ],
   "displayAdditionalFields.privateField": [
     {
       "type": 0,
-      "value": "Restricted information"
+      "value": "crwdns30514:0crwdne30514:0"
     }
   ],
   "event/contributor-section": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "crwdns30516:0crwdne30516:0"
     }
   ],
   "event/contributor/edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "crwdns30518:0crwdne30518:0"
     }
   ],
   "event/contributor/email": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "crwdns30520:0crwdne30520:0"
     }
   ],
   "event/contributor/emptyContactInfo": [
     {
       "type": 0,
-      "value": "No contact information available"
+      "value": "crwdns30522:0crwdne30522:0"
     }
   ],
   "event/contributor/name": [
     {
       "type": 0,
-      "value": "Name"
+      "value": "crwdns30524:0crwdne30524:0"
     }
   ],
   "event/contributor/organization": [
     {
       "type": 0,
-      "value": "Organization"
+      "value": "crwdns30526:0crwdne30526:0"
     }
   ],
   "event/contributor/phone": [
     {
       "type": 0,
-      "value": "Phone"
+      "value": "crwdns30528:0crwdne30528:0"
     }
   ],
   "event/contributor/position": [
     {
       "type": 0,
-      "value": "Position"
+      "value": "crwdns30530:0crwdne30530:0"
     }
   ],
   "event/contributor/role": [
     {
       "type": 0,
-      "value": "Role"
+      "value": "crwdns30532:0crwdne30532:0"
     }
   ],
   "event/private-section": [
     {
       "type": 0,
-      "value": "Private information"
+      "value": "crwdns30534:0crwdne30534:0"
     }
   ],
   "export-all-button": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "crwdns30536:0crwdne30536:0"
     }
   ],
   "export-select-button": [
     {
       "type": 0,
-      "value": "Export the selection"
+      "value": "crwdns30538:0crwdne30538:0"
     }
   ],
   "more-button": [
     {
       "type": 0,
-      "value": "more"
+      "value": "crwdns30540:0crwdne30540:0"
     }
   ],
   "share-button": [
     {
       "type": 0,
-      "value": "Share on OpenAgenda"
+      "value": "crwdns30542:0crwdne30542:0"
     }
   ]
 }
