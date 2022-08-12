@@ -1,14 +1,11 @@
 .edge-bar {
-
   background: $oa-blue;
 
   &.fixed-bottom {
-
     position: fixed;
     bottom: 0;
     width: 100%;
     z-index: 3000;
-
   }
 
   .edge-list {
@@ -88,7 +85,10 @@
 
     }
 
-    .edge-info a { color: $oa-white; }
+    .edge-info a, button {
+      color: $oa-white;
+      font-weight: bold;
+    }
 
     a {
 
@@ -462,18 +462,22 @@
       border-bottom: none;
       border-right: 1px solid rgba(255,255,255,0.38);
       width: 50%;
-    }
 
-    .edge-item.w33 {
-      width: 33%;
-    }
+      &.w33 {
+        width: 33%;
+      }
 
-    .edge-item.w25 {
-      width: 25%;
-    }
+      &.w25 {
+        width: 25%;
+      }
 
-    .edge-item.w20 {
-      width: 20%;
+      &.w20 {
+        width: 20%;
+      }
+
+      &.w100 {
+        width: 100%;
+      }
     }
 
     .list-group {
