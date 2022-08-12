@@ -13,3 +13,5 @@ export { default as SearchInput } from './SearchInput';
 export { default as Spinner } from './Spinner';
 export { default as Switch } from './Switch';
 export { default as LeaveWarningPrompt } from './LeaveWarningPrompt';
+export { default as EventSelection } from './EventSelection';
+export { default as AgendaContextBar } from './AgendaContextBar';
