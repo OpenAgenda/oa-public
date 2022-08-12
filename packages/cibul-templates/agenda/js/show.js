@@ -161,7 +161,8 @@ window.asap(options => {
           slug
         },
         states,
-        drafts
+        drafts,
+        canContribute: me.authorizations.canContribute
       });
     });
   });

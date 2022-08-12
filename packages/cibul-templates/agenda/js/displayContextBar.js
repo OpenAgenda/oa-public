@@ -42,7 +42,8 @@ const log = debug('displayContextBar');
 function AgendaContextBarContainer({
   agenda,
   states,
-  drafts
+  drafts,
+  canContribute
 }) {
   log('loading context bar');
   const intl = useIntl();
@@ -51,7 +52,8 @@ function AgendaContextBarContainer({
     <AgendaContextBar
       res={{
         drafts: `/api/me/agendas/${agenda.uid}/events/drafts`,
-        events: `/api/me/agendas/${agenda.uid}/events`
+        events: `/api/me/agendas/${agenda.uid}/events`,
+        contribute: canContribute ? `/${agenda.slug}/contribute` : null
       }}
       drafts={drafts}
       states={states}
