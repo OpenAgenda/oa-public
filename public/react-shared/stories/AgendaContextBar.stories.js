@@ -79,3 +79,28 @@ export const AgendaContributorContextBar = () => {
     />
   );
 };
+
+export const AgendaContributorEmptyContextBar = () => (
+  <AgendaContextBar
+    states={[]}
+    drafts={0}
+    res={{
+      drafts: '/drafts',
+      events: '/events',
+      contribute: '/contribute'
+    }}
+    actions={{
+      drafts: [{
+        link: '/contribute/event/{event.uid}',
+        label: 'Compléter'
+      }],
+      events: [{
+        link: '/agendas/events/{event.uid}',
+        label: 'Voir'
+      }, {
+        link: '/contribute/event/{event.uid}',
+        label: 'Modifier'
+      }]
+    }}
+  />
+);

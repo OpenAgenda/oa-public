@@ -14,6 +14,7 @@
   "ReactShared.AgendaContextBar.moderatedModalInfo": "These events have been submitted to the agenda for moderation but have not yet been published.",
   "ReactShared.AgendaContextBar.moderatedModalTitle": "Events in moderation",
   "ReactShared.AgendaContextBar.myEvents": "My events in this calendar",
+  "ReactShared.AgendaContextBar.noEvents": "You haven't submitted any events in this calendar yet",
   "ReactShared.AgendaContextBar.published": "{count, plural, one {1 published} other {# published}}",
   "ReactShared.AgendaContextBar.publishedModalInfo": "These events have been published and are accessible by the viewers of the calendar",
   "ReactShared.AgendaContextBar.publishedModalTitle": "Published events",
