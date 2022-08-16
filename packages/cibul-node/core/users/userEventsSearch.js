@@ -10,8 +10,24 @@ module.exports = async function userEventsSearch(core, identifier, agendaUid, qu
     searchOptions.access = 'internal';
   }
 
+  const {
+    relation = []
+  } = (query ?? {});
+
+  let filterKey = 'ownerUid';
+
+  if (relation.length === 1 && relation.includes('contributed')) {
+    filterKey = 'memberUid';
+  } else if (relation.includes('contributed') && relation.includes('owned')) {
+    filterKey = 'ownerOrMemberUid';
+  }
+
+  const userFilter = {
+    [filterKey]: identifier
+  };
+
   return core.agendas(agendaUid).events.search({
     ...query,
-    ownerUid: identifier
+    ...userFilter
   }, nav, searchOptions);
 };

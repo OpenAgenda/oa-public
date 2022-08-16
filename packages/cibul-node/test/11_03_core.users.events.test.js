@@ -56,8 +56,25 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
   describe('events', () => {
     it('list events owned by user in agenda', async () => {
       const result = await core.users(63170203).agendas(17026855).events.search();
+
+      expect(result.total).toBe(2);
+      expect(result.events.map(e => e.uid)).toEqual([
+        19201989,
+        19390293
+      ]);
+    });
+
+    it('list events owned or contributed by user in agenda', async () => {
+      const result = await core.users(63170203).agendas(17026855).events.search({
+        relation: ['owned', 'contributed']
+      }, {});
+
       expect(result.total).toBe(3);
-      expect(result.events.length).toBe(3);
+      expect(result.events.map(e => e.uid)).toEqual([
+        19201989,
+        19390293,
+        99999999
+      ]);
     });
   });
 });

@@ -432,7 +432,9 @@ module.exports = core => {
     (req, res, next) => core
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
-      .events.search({}, req.query, {
+      .events.search({
+        relation: ['contributed', 'owned']
+      }, req.query, {
         useAfterKey: true,
         userUid: req.user?.uid
       }).then(result => res.json({

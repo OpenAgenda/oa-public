@@ -162,7 +162,7 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
       it('me.events provides count of events contributed by user per state', () => {
         expect(contributorContext.me.events.states).toEqual([{
-          eventCount: 3,
+          eventCount: 2,
           key: 2
         }]);
       });
