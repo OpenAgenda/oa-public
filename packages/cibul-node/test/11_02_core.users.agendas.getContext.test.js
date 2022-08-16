@@ -38,6 +38,8 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(17026855).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -99,40 +101,94 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
   });
 
   describe('agenda context', () => {
-    let context;
+    describe('defaults', () => {
+      let context;
 
-    beforeAll(async () => {
-      context = await core.users(63170203).agendas(17026855).getContext({
-        userUid: 63170203
+      beforeAll(async () => {
+        context = await core.users(63170203).agendas(17026855).getContext({
+          userUid: 63170203
+        });
+      });
+
+      it('context provides authorizations', () => {
+        expect(context.me.authorizations).toEqual({
+          canRead: false,
+          mustBeModerated: false,
+          canChangeState: false,
+          canPublish: false,
+          canEditEvent: false,
+          canCreateEvent: true,
+          canContribute: true
+        });
+      });
+
+      it('context provides member information', () => {
+        expect(
+          Object.keys(context.me.member).sort()
+        ).toEqual([
+          'deletedUser',
+          'email',
+          'name',
+          'organization',
+          'phone',
+          'position',
+          'role',
+          'updatedAt',
+          'userUid'
+        ]);
       });
     });
 
-    it('context provides authorizations', () => {
-      expect(context.me.authorizations).toEqual({
-        canRead: false,
-        mustBeModerated: false,
-        canChangeState: false,
-        canPublish: false,
-        canEditEvent: false,
-        canCreateEvent: true,
-        canContribute: true
+    describe('contributor non-default call', () => {
+      let contributorContext;
+
+      beforeAll(async () => {
+        contributorContext = await core.users(63170203).agendas(17026855).getContext({
+          userUid: 63170203,
+          includes: [
+            'me.events',
+            'events'
+          ]
+        });
+      });
+
+      it('contributor does not have access to general event statistics', async () => {
+        expect(contributorContext.events).toBeUndefined();
+      });
+
+      it('me.events provides count of drafts saved by user', () => {
+        expect(contributorContext.me.events.drafts).toBe(1);
+      });
+
+      it('me.events provides count of events contributed by user per state', () => {
+        expect(contributorContext.me.events.states).toEqual([{
+          eventCount: 3,
+          key: 2
+        }]);
       });
     });
 
-    it('context provides member information', () => {
-      expect(
-        Object.keys(context.me.member).sort()
-      ).toEqual([
-        'deletedUser',
-        'email',
-        'name',
-        'organization',
-        'phone',
-        'position',
-        'role',
-        'updatedAt',
-        'userUid'
-      ]);
+    describe('administrator non-default call', () => {
+      let administratorContext;
+
+      beforeAll(async () => {
+        administratorContext = await core.users(63170203).agendas(17026855).getContext({
+          userUid: 1,
+          includes: [
+            'me.events',
+            'events'
+          ]
+        });
+      });
+
+      it('administrator has access to general event statistics', async () => {
+        expect(administratorContext.events).toEqual({
+          states: [{
+            key: 2,
+            eventCount: 3
+          }]
+        });
+      });
     });
   });
 });
