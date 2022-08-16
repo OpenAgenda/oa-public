@@ -60,6 +60,10 @@ module.exports = schema({
     optional: true,
     default: false
   },
+  useDefaultImage: {
+    type: 'boolean',
+    default: false
+  },
   parser: {
     type: 'pass'
   }
