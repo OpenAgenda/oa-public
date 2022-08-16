@@ -14,6 +14,7 @@
   "ReactShared.AgendaContextBar.moderatedModalInfo": "Les événements suivants doivent être revus par les modérateurs de l'agenda avant leur publication.",
   "ReactShared.AgendaContextBar.moderatedModalTitle": "Événements en modération",
   "ReactShared.AgendaContextBar.myEvents": "Mes événements dans l'agenda",
+  "ReactShared.AgendaContextBar.noEvents": "Vous n'avez complété encore aucun événement sur cet agenda",
   "ReactShared.AgendaContextBar.published": "{count, plural, one {1 publié} other {# publiés}}",
   "ReactShared.AgendaContextBar.publishedModalInfo": "Ces événements ont été publié et sont visibles par les visiteurs de l'agenda",
   "ReactShared.AgendaContextBar.publishedModalTitle": "Événements publiés",

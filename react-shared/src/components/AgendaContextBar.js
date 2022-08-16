@@ -59,6 +59,10 @@ const messages = defineMessages({
   addEvent: {
     id: 'ReactShared.AgendaContextBar.addEvent',
     defaultMessage: 'Add an event'
+  },
+  noEvents: {
+    id: 'ReactShared.AgendaContextBar.noEvents',
+    defaultMessage: 'You haven\'t submitted any events in this calendar yet'
   }
 });
 
@@ -188,7 +192,7 @@ export default function AgendaContextBar({
                   </button>
                   {index < bundledStates.length - 1 ? ' · ' : null}
                 </span>
-              )) : null}
+              )) : <span className="padding-left-xs">{m(messages.noEvents)}</span>}
               {res.contribute ? (
                 <a
                   className="btn edge-btn btn-default margin-all-xs margin-right-z primary-action"

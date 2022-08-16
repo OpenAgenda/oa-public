@@ -208,6 +208,12 @@
       "value": "My events in this calendar"
     }
   ],
+  "ReactShared.AgendaContextBar.noEvents": [
+    {
+      "type": 0,
+      "value": "You haven't submitted any events in this calendar yet"
+    }
+  ],
   "ReactShared.AgendaContextBar.published": [
     {
       "offset": 0,
