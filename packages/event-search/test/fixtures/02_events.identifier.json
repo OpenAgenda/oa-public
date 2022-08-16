@@ -24,7 +24,10 @@
     {
       "uid": 5,
       "state": 2,
-      "ownerUid": 3
+      "ownerUid": 3,
+      "member": {
+        "userUid": 1
+      }
     }
   ]
 }

@@ -69,6 +69,16 @@ module.exports = (cleanQuery, options = {}) => {
   return query;
 }
 
+const ownerOrMemberUidPart = uid => ({
+  bool: {
+    should: [{
+      terms: { ownerUid: uid }
+    }, {
+      terms: { 'member.uid': uid }
+    }]
+  }
+});
+
 function _terms(fieldName, value) {
   const values = [].concat(value);
   return {
@@ -141,6 +151,10 @@ function _getQueryFilterParts(cleanQuery, { additionalFields, emptyValue }) {
         _filterPart(key, cleanQuery[key], termsFiltersMap[key], { emptyValue })
       )
     })
+
+  if ((cleanQuery.ownerOrMemberUid ?? []).length) {
+    parts.push(ownerOrMemberUidPart(cleanQuery.ownerOrMemberUid));
+  }
 
   if (_.get(cleanQuery, 'state', []).filter(s => s !== null).length) {
     parts.push(_mustPart('terms', 'state', cleanQuery.state));

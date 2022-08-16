@@ -69,4 +69,19 @@ describe('02 - event search - funcional: identifier filters', () => {
     assert.equal(events.length, 4);
     assert.deepEqual(events.map(e => e.uid), [1, 2, 3, 4]);
   });
+
+  it('filter by ownerOrMemberUid', async () => {
+    const {
+      events
+    } = await service('identifier').search({
+      ownerOrMemberUid: 1
+    }, {}, {
+      detailed: 1
+    });
+
+    assert.deepEqual(
+      events.map(e => e.uid),
+      [1, 2, 5]
+    );
+  });
 });

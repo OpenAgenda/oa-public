@@ -54,6 +54,14 @@ const validate = schema({
     type: 'integer',
     list: true
   },
+  memberUid: {
+    type: 'integer',
+    list: true
+  },
+  ownerOrMemberUid: {
+    type: 'integer',
+    list: true
+  },
   region: {
     type: 'text',
     list: true
@@ -90,10 +98,6 @@ const validate = schema({
     type: 'text',
     min: 0,
     max: 2,
-    list: true
-  },
-  memberUid: {
-    type: 'integer',
     list: true
   },
   originAgendaUid: {
