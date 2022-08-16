@@ -34,7 +34,7 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
   }
 
   if (includes.includes('me.events')) {
-    context.me.events = await getAgendaUserEventStats(core, identifier, agendaUid);
+    context.me.events = await getAgendaUserEventStats(core, identifier, agendaUid, options);
   }
 
   const access = await loadSearchAccess(core, agendaUid, options);

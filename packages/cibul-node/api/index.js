@@ -422,7 +422,8 @@ module.exports = core => {
       .agendas(req.params.agendaUid)
       .getContext({
         userUid: req.user.uid,
-        includes: req.query.includes
+        includes: req.query.includes,
+        relation: ['contributed', 'owned']
       })
       .then(context => res.json(context), next)
   ]);
