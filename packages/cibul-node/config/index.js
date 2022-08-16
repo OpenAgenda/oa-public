@@ -223,7 +223,11 @@ const config = {
       servicesBucketPath: prod.aws && `https://${prod.aws.buckets.services}.s3.amazonaws.com/`,
       bucket: prod.aws && prod.aws.buckets.main,
       tmpBucket: prod.aws && prod.aws.buckets.temporary,
-      defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH || `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
+      defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH || '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+      defaultImageSize: {
+        width: parseInt(process.env.OA_DEFAULT_IMAGE_SIZE_WIDTH ?? '140', 10),
+        height: parseInt(process.env.OA_DEFAULT_IMAGE_SIZE_HEIGHT ?? '140', 10)
+      },
       oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg'
     },
     authorizedMimeTypes: {

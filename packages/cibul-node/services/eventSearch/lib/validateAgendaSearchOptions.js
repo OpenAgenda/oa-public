@@ -49,5 +49,9 @@ module.exports = schema({
   includeLocationImagePath: {
     type: 'boolean',
     default: false
+  },
+  useDefaultImage: {
+    type: 'boolean',
+    default: false
   }
 });

@@ -437,7 +437,8 @@ module.exports = core => {
         relation: ['contributed', 'owned']
       }, req.query, {
         useAfterKey: true,
-        userUid: req.user?.uid
+        userUid: req.user?.uid,
+        useDefaultImage: true
       }).then(result => res.json({
         success: true,
         ...result
