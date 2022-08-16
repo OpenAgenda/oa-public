@@ -109,46 +109,47 @@ window.asap(options => {
   const sessionUser = session.getUser();
 
   controller.getControlData(ctl => {
-    if (ctl.prv) {
-      return;
-    }
-
-    if (parseInt(ctl.c) !== 0) {
+    if (!ctl.prv && (parseInt(ctl.c) !== 0)) {
       _displayAddButton();
     }
 
-    const routes =  {
-      agendaExportSettings: `${options.root}/agendas/:agendaUid/settings/exports`,
-      me: '/api/me',
-      export: {
-        jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
-        jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
-        pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
-        xlsx: `${options.root}/agendas/:agendaUid/events.v2.xlsx`,
-        gcal: `${options.root}/agendas/:agendaUid/events.v2.ics`,
-        ical: `${options.root}/agendas/:agendaUid/events.v2.ics`,
-        csv: `${options.root}/agendas/:agendaUid/events.v2.csv`,
-        ics: `${options.root}/agendas/:agendaUid/events.v2.ics`,
-        rss: `${options.root}/agendas/:agendaUid/events.rss`,
-      }
-    };
-    
-    displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: true }, !!sessionUser);
-    displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: false }, !!sessionUser);
-    displayAggregateButton(params, options, initialQuery, !!sessionUser);
+    if (!ctl.prv) {
+      const routes =  {
+        agendaExportSettings: `${options.root}/agendas/:agendaUid/settings/exports`,
+        me: '/api/me',
+        export: {
+          jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
+          jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
+          pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
+          xlsx: `${options.root}/agendas/:agendaUid/events.v2.xlsx`,
+          gcal: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+          ical: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+          csv: `${options.root}/agendas/:agendaUid/events.v2.csv`,
+          ics: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+          rss: `${options.root}/agendas/:agendaUid/events.rss`,
+        }
+      };
+      
+      displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: true }, !!sessionUser);
+      displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: false }, !!sessionUser);
+      displayAggregateButton(params, options, initialQuery, !!sessionUser);
+    }
 
     if (!sessionUser) {
+      log('Session is not available.');
       return;
     }
 
     get(params.res.context.replace(':agendaUid', uid), (err, data = {}) => {
       const { me, events } = data;
 
-      log(data);
-      
       const {
         role
       } = me?.member ?? {};
+
+      if (ctl.prv && me?.authorizations?.canContribute) {
+        _displayAddButton();
+      }
   
       if (['administrator', 'moderator'].includes(role)) {
         _displayAdminButton();
