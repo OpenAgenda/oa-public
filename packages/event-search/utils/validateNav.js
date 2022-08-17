@@ -8,7 +8,23 @@ schema.register({
 });
 
 module.exports = nav => {
-  const clean = navValidator(nav);
+  const preClean = {
+    ...(nav ?? {})
+  };
+
+  const {
+    offset, limit
+  } = preClean;
+
+  if (offset) {
+    preClean.from = offset
+  }
+
+  if (limit) {
+    preClean.size = limit;
+  }
+
+  const clean = navValidator(preClean);
 
   return clean.scroll ? {
     scroll: clean.scroll,
