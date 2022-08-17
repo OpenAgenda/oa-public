@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import EventSelection from './EventSelection';
 import Modal from './Modal';
@@ -72,8 +72,14 @@ function DraftModal({
   actions,
   m
 }) {
+  const ref = useRef(null);
+  const onContentChange = useCallback(() => {
+    ref.current.scrollTo(0, 0);
+  }, [ref]);
+
   return (
     <Modal
+      contentRef={ref}
       onClose={onClose}
       classNames={{ overlay: 'popup-overlay big' }}
       disableBodyScroll
@@ -84,6 +90,7 @@ function DraftModal({
         infoType="warning"
         res={res}
         actions={actions}
+        onContentChange={onContentChange}
       />
     </Modal>
   );
@@ -97,9 +104,16 @@ function StateModal({
   actions,
   m
 }) {
+  const ref = useRef(null);
+  const onContentChange = useCallback(() => {
+    ref.current.scrollTo(0, 0);
+  }, [ref]);
+
   const query = [].concat(state).map(s => `state[]=${s}`).join('&');
+
   return (
     <Modal
+      contentRef={ref}
       onClose={onClose}
       classNames={{ overlay: 'popup-overlay big' }}
       disableBodyScroll
@@ -109,6 +123,7 @@ function StateModal({
         info={m(messages[`${slug}ModalInfo`])}
         res={`${res}?${query}`}
         actions={actions}
+        onContentChange={onContentChange}
       />
     </Modal>
   );

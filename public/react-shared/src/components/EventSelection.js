@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { defineMessages, useIntl } from 'react-intl';
 
+import Pager from './Pager';
 import Spinner from './Spinner';
+
+const PAGE_SIZE = 20;
 
 const infoTypes = {
   warning: 'warning-outline'
 };
+
+const getPage = (offset, pageSize) => Math.floor(offset / pageSize) + 1;
+const getOffset = (page, pageSize) => Math.floor((page - 1) * pageSize);
 
 const messages = defineMessages({
   emptyList: {
@@ -74,7 +80,7 @@ const EventItem = ({
   actions,
   m
 }) => (
-  <li className="event-item media compact margin-v-md" key={`event-selection-item-${event.uid}`}>
+  <>
     <div className="media-left">
       <img
         className="media-object ill avatar"
@@ -94,6 +100,7 @@ const EventItem = ({
         <div className="actions">
           {actions.map(action => (
             <a
+              key={`event-selection-item-${event.uid}-${action.link}`}
               className="margin-right-sm"
               href={actionLink(event, action.link)}
             >
@@ -103,7 +110,7 @@ const EventItem = ({
         </div>
       ) : null}
     </div>
-  </li>
+  </>
 );
 
 const Selection = ({
@@ -117,14 +124,16 @@ const Selection = ({
   }
 
   return (
-    <ul className="list-unstyled padding-v-sm">
+    <ul className="list-unstyled padding-top-sm">
       {events.map(event => (
-        <EventItem
-          event={event}
-          locale={intl.locale}
-          actions={actions}
-          m={m}
-        />
+        <li className="event-item media compact margin-v-md" key={`event-selection-item-${event.uid}`}>
+          <EventItem
+            event={event}
+            locale={intl.locale}
+            actions={actions}
+            m={m}
+          />
+        </li>
       ))}
     </ul>
   );
@@ -135,18 +144,43 @@ export default function EventSelection({
   info,
   infoType,
   res,
-  actions = []
+  actions = [],
+  onContentChange
 }) {
   const intl = useIntl();
   const [isLoading, setIsLoading] = useState(true);
   const [events, setEvents] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [offset, setOffset] = useState(0);
+
+  const loadEvents = useCallback((forOffset = 0) => {
+    setIsLoading(true);
+    axios.get(res, {
+      params: {
+        offset: forOffset,
+        limit: PAGE_SIZE
+      }
+    }).then(({ data }) => {
+      setEvents(data.events);
+      setTotal(data.total);
+      setIsLoading(false);
+      setOffset(forOffset);
+
+      if (onContentChange) {
+        onContentChange();
+      }
+    });
+  }, [res, onContentChange]);
+
+  const changePage = useCallback(change => {
+    loadEvents(
+      getOffset(getPage(offset, PAGE_SIZE) + change, PAGE_SIZE)
+    );
+  }, [offset, loadEvents]);
 
   useEffect(() => {
-    axios.get(res).then(({ data }) => {
-      setEvents(data.events);
-      setIsLoading(false);
-    });
-  }, [res]);
+    loadEvents();
+  }, [loadEvents]);
 
   return (
     <Canvas title={title} info={info} infoType={infoType}>
@@ -155,12 +189,25 @@ export default function EventSelection({
           <Spinner />
         </div>
       ) : (
-        <Selection
-          intl={intl}
-          events={events}
-          actions={actions}
-          m={intl.formatMessage}
-        />
+        <>
+          <Selection
+            intl={intl}
+            events={events}
+            actions={actions}
+            m={intl.formatMessage}
+          />
+          {PAGE_SIZE < total ? (
+            <Pager
+              page={getPage(offset, PAGE_SIZE)}
+              pageSize={PAGE_SIZE}
+              total={total}
+              previousPage={() => changePage(-1)}
+              nextPage={() => changePage(1)}
+              previousMessage="Previous"
+              nextMessage="Next"
+            />
+          ) : null}
+        </>
       )}
     </Canvas>
   );
