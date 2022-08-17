@@ -10,7 +10,11 @@ export default class Modal extends Component {
     onClose: PropTypes.func,
     disableBodyScroll: PropTypes.bool,
     classNames: PropTypes.shape({ overlay: PropTypes.string }),
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    contentRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.shape({ current: PropTypes.instanceOf(Object) }) // Element is undefined in ssr
+    ])
   };
 
   static defaultProps = {
@@ -21,6 +25,7 @@ export default class Modal extends Component {
     classNames: {
       overlay: 'popup-overlay',
     },
+    contentRef: null
   };
 
   constructor(props) {
@@ -91,11 +96,19 @@ export default class Modal extends Component {
 
   render() {
     const {
-      title, children, visible, classNames
+      title, children, visible, classNames, contentRef
     } = this.props;
 
     if (!visible) {
       return null;
+    }
+
+    const contentProps = {
+      className: 'popup-content'
+    };
+
+    if (contentRef) {
+      contentProps.ref = contentRef;
     }
 
     return (
@@ -109,7 +122,7 @@ export default class Modal extends Component {
               </button>
             </header>
           ) : null}
-          <div className="popup-content">{children}</div>
+          <div {...contentProps}>{children}</div>
         </section>
       </div>
     );
