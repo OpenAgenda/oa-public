@@ -40,7 +40,9 @@ module.exports = async (
     const aggregatedCount = await getAggregatedCount(aggregatorAgendaUid);
 
     log(
-      `Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${aggregatorLimit} events`
+      `Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${
+        aggregatorLimit ?? 'unlimited'
+      } events`
     );
 
     if (limit.isReached(aggregatorLimit, aggregatedCount)) {

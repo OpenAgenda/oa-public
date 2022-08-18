@@ -5553,7 +5553,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.2
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/users": ^3.1.0
     "@storybook/react": ^6.4.9
     axios: ^0.21.1
@@ -5580,8 +5580,8 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.6.2
     rc-collapse: ^3.1.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-final-form: ^4.1.0
     react-intl: ^5.12.2
     recompose: ^0.30.0
@@ -5589,8 +5589,8 @@ __metadata:
     rimraf: ^3.0.1
     webpack: ^5.53.0
   peerDependencies:
-    react: ^16.12.0
-    react-dom: ^16.12.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -5645,7 +5645,7 @@ __metadata:
     "@openagenda/members": ^1.15.13
     "@openagenda/react-bootstrap-datetimerangepicker": ^2.0.5
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/sessions": ^4.1.0
     "@openagenda/utils": ^1.3.0
     "@storybook/react": ^6.2.8
@@ -5670,9 +5670,9 @@ __metadata:
     mysql: ^2.16.0
     prop-types: ^15.5.8
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-bootstrap: ^0.33.1
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -5687,7 +5687,7 @@ __metadata:
     when: ^3.7.8
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -5711,7 +5711,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/members": ^1.15.13
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.4.19
@@ -5732,12 +5732,12 @@ __metadata:
     nodemon: ^2.0.4
     prop-types: ^15.5.8
     rc-switch: ^1.4.2
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     rimraf: ^3.0.1
     when: ^3.7.8
   peerDependencies:
-    react: ^16.12.0
+    react: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -5779,7 +5779,7 @@ __metadata:
     "@openagenda/logs": ^1.1.9
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/outdated-browser": ^0.0.0
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/validators": ^2.4.0
     "@storybook/builder-webpack5": ^6.4.22
     "@storybook/manager-webpack5": ^6.4.22
@@ -5806,8 +5806,8 @@ __metadata:
     nodemon: ^2.0.4
     prop-types: ^15.6.0
     qs: ^6.9.4
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
     react-markdown: ^6.0.0
@@ -5833,8 +5833,8 @@ __metadata:
     webpack-hot-middleware: ^2.25.1
     webpack-s3-plugin: ^1.2.0-rc.0
   peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -5870,9 +5870,9 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prompt-input: ^3.0.0
     prop-types: ^15.7.2
-    react: ^16.13.1
+    react: ^17.0.2
     react-datepicker: ^1.6.0
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     redis: ^2.8.0
     regenerator-runtime: ^0.13.7
@@ -5888,8 +5888,8 @@ __metadata:
     webpack-dev-middleware: ^4.3.0
     webpack-hot-middleware: ^2.25.1
   peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -5931,7 +5931,7 @@ __metadata:
     "@openagenda/intl": ^1.1.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.2.0
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@raruto/leaflet-gesture-handling": ^1.3.4
@@ -5950,9 +5950,9 @@ __metadata:
     multer: ^1.3.1
     qs: ^6.9.1
     rc-switch: ^1.4.3
-    react: ^16.13.1
+    react: ^17.0.2
     react-bootstrap: ^0.33.1
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-helmet-async: ^1.0.3
     react-hot-loader: ^4.13.0
     react-intl: ^5.12.2
@@ -5970,8 +5970,8 @@ __metadata:
     source-map-loader: ^2.0.1
     use-debounce: ^7.0.1
   peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-router: ^5.1.2
     react-router-dom: ^5.1.2
     redux: ^4.0.0
@@ -6015,7 +6015,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@^6.6.0, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@^6.7.0, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -6031,7 +6031,7 @@ __metadata:
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-filters": ^2.8.2
     "@openagenda/react-portal-ssr": ^1.0.0
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     axios: ^0.21.1
     babel-loader: ^8.2.2
     babel-plugin-handlebars-inline-precompile: ^2.1.1
@@ -6065,9 +6065,9 @@ __metadata:
     prompt-confirm: ^2.0.4
     prompt-input: ^3.0.0
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-cookie-consent: ^7.2.1
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-intl: ^5.12.2
     react-query: ^3.6.0
     regenerator-runtime: ^0.13.7
@@ -6114,8 +6114,8 @@ __metadata:
     express: ^4.17.1
     lodash: ^4.17.15
     nodemon: ^2.0.4
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     regenerator-runtime: ^0.13.7
     sass-loader: ^8.0.2
     serialize-javascript: ^2.1.0
@@ -6168,8 +6168,8 @@ __metadata:
     nodemon: ^2.0.4
     prop-types: ^15.5.8
     qs: ^6.9.1
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     rimraf: ^3.0.1
     rss: ^1.2.1
     verror: ^1.10.0
@@ -6177,7 +6177,7 @@ __metadata:
     when: ^3.7.8
     xhr: ^2.2.0
   peerDependencies:
-    react: ^16.12.0
+    react: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -6200,7 +6200,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.4.9
@@ -6218,9 +6218,9 @@ __metadata:
     morgan: ^1.9.1
     multer: ^1.4.4
     mysql: ^2.11.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-copy-to-clipboard: ^5.0.2
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.8
     react-final-form-listeners: ^1.0.3
     react-intl: ^5.12.2
@@ -6236,7 +6236,7 @@ __metadata:
     slugify: ^1.4.6
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -6260,7 +6260,7 @@ __metadata:
     "@openagenda/event-search": ^2.8.0
     "@openagenda/intl": ^1.1.2
     "@openagenda/react-filters": ^2.8.2
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/react": ^6.2.8
     babel-loader: ^8.2.2
     classnames: ^2.3.1
@@ -6275,11 +6275,11 @@ __metadata:
     lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-beautiful-dnd: ^13.0.0
     react-content-loader: ^5.1.0
     react-date-range: ^1.1.3
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-intl: ^5.12.2
     react-query: ^3.6.0
@@ -6296,8 +6296,8 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -6345,7 +6345,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.2
     "@openagenda/labels": ^2.3.0
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     babel-loader: ^8.2.2
@@ -6362,14 +6362,14 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.7.2
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-beautiful-dnd: ^13.0.0
     react-copy-to-clipboard: ^5.0.2
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.8
     react-final-form-arrays: ^3.1.1
     react-intl: ^5.12.2
-    react-is: ^16.13.1
+    react-is: ^17.0.2
     react-markdown: ^6.0.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -6386,7 +6386,7 @@ __metadata:
     webpack: ^4.46.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -6457,8 +6457,8 @@ __metadata:
     babel-plugin-dynamic-import-node: ^2.3.3
     babel-plugin-lodash: ^3.3.4
     babel-plugin-react-intl: ^8.2.25
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-refresh: ^0.11.0
   peerDependencies:
     "@babel/core": ^7.8.4
@@ -6484,10 +6484,10 @@ __metadata:
     moment: ^2.27.0
     node-watch: ^0.3.5
     nodemon: ^2.0.6
-    react: ^16.13.1
+    react: ^17.0.2
     react-datepicker: ^1.6.0
     react-day-picker: ^7.3.0
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     reload: ^3.0.4
     sass: ^1.52.1
     uppy: ^0.23.2
@@ -6542,7 +6542,7 @@ __metadata:
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-layouts": ^2.2.1
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/registration": ^1.1.4
     "@openagenda/sessions": ^4.1.0
     "@openagenda/translators": ^2.0.12
@@ -6586,10 +6586,10 @@ __metadata:
     raven-js: ^3.9.1
     raw-loader: ^4.0.0
     rc-switch: ^1.4.3
-    react: ^16.13.1
+    react: ^17.0.2
     react-cookie-consent: ^7.2.1
     react-copy-to-clipboard: ^5.0.2
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-intl: ^5.12.2
     react-redux: ^7.1.3
@@ -6765,8 +6765,8 @@ __metadata:
     "@openagenda/event-search": ^2.8.0
     "@openagenda/intl": ^1.1.2
     "@openagenda/react-filters": ^2.8.2
-    "@openagenda/react-share-menus": ^1.0.0
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-share-menus": ^1.1.0
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/builder-webpack5": ^6.4.22
     "@storybook/manager-webpack5": ^6.4.22
     "@storybook/react": ^6.4.22
@@ -6780,9 +6780,9 @@ __metadata:
     lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     qs: ^6.9.4
-    react: ^16.13.1
+    react: ^17.0.2
     react-bootstrap: ^0.33.1
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
     react-query: ^3.6.0
@@ -6800,8 +6800,8 @@ __metadata:
     webpack: ^5.72.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
-    react-dom: ^16.12.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -6823,8 +6823,8 @@ __metadata:
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.3.2
-    "@openagenda/react-timingspicker": ^1.3.0
+    "@openagenda/react-shared": ^2.4.0
+    "@openagenda/react-timingspicker": ^1.4.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
     babel-jest: ^26.6.3
@@ -6840,9 +6840,9 @@ __metadata:
     lodash: ^4.17.15
     nodemon: ^2.0.4
     prop-types: ^15.6.0
-    react: ^16.13.1
+    react: ^17.0.2
     react-date-range: ^1.1.3
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-intl: ^5.12.2
     react-json-editor-ajrm: ^2.5.9
     react-outside-click-handler: ^1.3.0
@@ -6995,7 +6995,7 @@ __metadata:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.4.9
     autosize: ^5.0.1
@@ -7019,11 +7019,11 @@ __metadata:
     mysql: ^2.18.1
     nodemon: ^2.0.4
     prop-types: ^15.7.2
-    react: ^16.13.1
+    react: ^17.0.2
     react-beautiful-dnd: ^13.1.0
     react-bootstrap: 0.33.1
     react-date-range: ^1.1.3
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-dropzone: ^11.2.0
     react-intl: ^5.12.2
     react-markdown: ^6.0.0
@@ -7077,7 +7077,7 @@ __metadata:
     "@openagenda/intl": ^1.1.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/member-apps": ^2.1.1
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     axios-mock-adapter: ^1.19.0
@@ -7092,9 +7092,9 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.5.8
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-bootstrap: 0.33.1
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
@@ -7112,7 +7112,7 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -7135,7 +7135,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/sessions": ^4.1.0
     "@openagenda/validators": ^2.4.0
     "@storybook/builder-webpack5": ^6.4.9
@@ -7172,8 +7172,8 @@ __metadata:
     nodemon: ^2.0.4
     prop-types: ^15.6.1
     qs: ^6.9.1
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -7191,7 +7191,7 @@ __metadata:
     uppy: ^0.23.2
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -7256,7 +7256,7 @@ __metadata:
     tmp: ^0.2.1
     yargs: ^17.4.0
   peerDependencies:
-    react: ^16.12.0
+    react: ^17.0.2
   peerDependenciesMeta:
     react:
       optional: true
@@ -7358,7 +7358,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/intl": ^1.1.2
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
     "@openagenda/verror": ^3.0.0
@@ -7377,8 +7377,8 @@ __metadata:
     lodash: ^4.17.15
     moment-timezone: ^0.5.31
     mysql: ^2.16.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
     react-leaflet: ^3.1.0
@@ -7391,8 +7391,8 @@ __metadata:
     should: ^13.2.3
     verror: ^1.10.0
   peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     redux: ^4.0.5
   languageName: unknown
   linkType: soft
@@ -7474,7 +7474,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/members": ^1.15.13
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/validators": ^2.4.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -7494,9 +7494,9 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.5.8
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-bootstrap: ^0.33.1
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
@@ -7513,7 +7513,7 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -7572,7 +7572,7 @@ __metadata:
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
     axios-mock-adapter: ^1.19.0
@@ -7587,8 +7587,8 @@ __metadata:
     immutability-helper: ^3.0.0
     lodash: ^4.17.15
     nodemon: ^2.0.4
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -7765,7 +7765,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.2
     "@openagenda/react-portal-ssr": ^1.0.0
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@raruto/leaflet-gesture-handling": ^1.3.4
     "@storybook/addon-essentials": ^6.4.9
     "@storybook/builder-webpack5": ^6.4.9
@@ -7796,9 +7796,9 @@ __metadata:
     prop-types: ^15.7.2
     qs: ^6.9.1
     raw-loader: ^4.0.2
-    react: ^16.13.1
+    react: ^17.0.2
     react-date-range: ^1.1.3
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-final-form-listeners: ^1.0.3
     react-intl: ^5.12.2
@@ -7817,8 +7817,8 @@ __metadata:
     webpack-cli: ^4.8.0
     webpackbar: ^5.0.0-3
   peerDependencies:
-    react: ^16.12.0
-    react-dom: ^16.12.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -7843,8 +7843,8 @@ __metadata:
     marked: ^0.7.0
     mocha: ^7.0.1
     prop-types: ^15.5.8
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-select: ^3.0.8
     react-tagsinput: ^3.16.1
     rimraf: ^3.0.1
@@ -7852,7 +7852,7 @@ __metadata:
     spin.js: 2.3.2
     to-markdown: ^3.0.1
   peerDependencies:
-    react: ^16.12.0
+    react: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -7882,7 +7882,7 @@ __metadata:
     "@openagenda/outdated-browser": ^0.0.0
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-layouts": ^2.2.1
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/supervisor": ^1.3.1
     "@openagenda/user-apps": ^1.2.1
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.4
@@ -7904,8 +7904,8 @@ __metadata:
     mkdirp: ^0.5.1
     nprogress: ^0.2.0
     prettier-eslint-cli: ^5.0.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
     react-query: ^3.6.0
@@ -7946,7 +7946,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.2
     "@openagenda/members": ^1.15.13
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/sessions": ^4.1.0
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -7959,13 +7959,13 @@ __metadata:
     lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     qs: ^6.9.1
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-error-boundary: ^1.2.5
     react-helmet: ^5.2.1
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
-    react-is: ^16.13.1
+    react-is: ^17.0.2
     react-markdown: ^6.0.0
     react-outside-click-handler: ^1.3.0
     react-query: ^3.6.0
@@ -7977,7 +7977,7 @@ __metadata:
     rimraf: ^3.0.1
     shallowequal: ^1.1.0
   peerDependencies:
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
   languageName: unknown
@@ -7997,16 +7997,16 @@ __metadata:
     eslint: ^6.8.0
     lint-staged: ^10.2.11
     prettier-eslint-cli: ^5.0.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     rimraf: ^3.0.1
   peerDependencies:
-    react: ^16.12.0
-    react-dom: ^16.12.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-share-menus@^1.0.0, @openagenda/react-share-menus@workspace:public/react-share-menus":
+"@openagenda/react-share-menus@^1.1.0, @openagenda/react-share-menus@workspace:public/react-share-menus":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-share-menus@workspace:public/react-share-menus"
   dependencies:
@@ -8018,7 +8018,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.2
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-actions": ^6.2.8
     "@storybook/react": ^6.2.8
     axios: ^0.21.1
@@ -8030,19 +8030,19 @@ __metadata:
     lodash: ^4.17.15
     moment-timezone: ^0.5.31
     prop-types: ^15.7.2
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-intl: ^5.12.2
     rimraf: ^3.0.1
     utf8: ^3.0.0
   peerDependencies:
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-shared@^2.2.0, @openagenda/react-shared@^2.3.2, @openagenda/react-shared@workspace:public/react-shared":
+"@openagenda/react-shared@^2.4.0, @openagenda/react-shared@workspace:public/react-shared":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-shared@workspace:public/react-shared"
   dependencies:
@@ -8080,11 +8080,11 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.7.2
     qs: ^6.9.1
-    react: ^16.13.1
+    react: ^17.0.2
     react-bootstrap: ^0.33.1
     react-cookie-consent: ^7.2.1
     react-date-range: ^1.4.0
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-dropzone: ^11.2.0
     react-final-form: ^6.5.3
     react-intl: ^5.12.2
@@ -8105,7 +8105,7 @@ __metadata:
     style-loader: ^2.0.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     react-select: ^3.0.0
@@ -8124,7 +8124,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-timingspicker@^1.3.0, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
+"@openagenda/react-timingspicker@^1.4.0, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-timingspicker@workspace:public/react-timingspicker"
   dependencies:
@@ -8134,7 +8134,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.2
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-viewport": ^6.2.8
     "@storybook/addons": ^6.2.8
     "@storybook/react": ^6.2.8
@@ -8149,9 +8149,9 @@ __metadata:
     jest: ^26.1.0
     lint-staged: ^10.2.11
     prettier-eslint-cli: ^5.0.0
-    react: ^16.13.1
+    react: ^17.0.2
     react-day-picker: ^7.3.0
-    react-dom: ^16.13.1
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-icons: ^3.8.0
     react-intl: ^5.12.2
@@ -8163,7 +8163,7 @@ __metadata:
     rrule: ^2.6.8
     text-mask-addons: ^3.8.0
   peerDependencies:
-    react: ^16.12.0
+    react: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -8306,7 +8306,7 @@ __metadata:
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/form-schemas": ^1.9.2
     "@openagenda/intl": ^1.1.2
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-essentials": ^6.2.8
     "@storybook/addon-links": ^6.2.8
     "@storybook/react": ^6.2.8
@@ -8326,12 +8326,12 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.7.2
     qs: ^6.9.1
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-final-form-arrays: ^3.1.1
     react-intl: ^5.12.2
-    react-is: ^16.13.1
+    react-is: ^17.0.2
     react-markdown: ^6.0.0
     react-query: ^3.6.0
     react-redux: ^7.1.3
@@ -8345,8 +8345,8 @@ __metadata:
     webpack: ^5.53.0
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -8417,7 +8417,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/labels": ^2.3.0
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/users": ^3.1.0
     "@openagenda/utils": ^1.3.0
     "@storybook/react": ^6.4.9
@@ -8426,8 +8426,8 @@ __metadata:
     history: ^4.10.1
     lodash: ^4.17.15
     prop-types: ^15.6.1
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-final-form: ^6.5.3
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -8441,7 +8441,7 @@ __metadata:
     rimraf: ^3.0.1
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^16.12.0
+    react: ^17.0.2
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -18668,7 +18668,7 @@ __metadata:
     "@openagenda/agenda-events": ^1.11.14
     "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-locations-app": ^0.0.0
-    "@openagenda/agenda-portal": ^6.6.0
+    "@openagenda/agenda-portal": ^6.7.0
     "@openagenda/agenda-schema": ^1.0.16
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
@@ -18714,7 +18714,7 @@ __metadata:
     "@openagenda/queues": ^1.2.7
     "@openagenda/react-integration-app": ^1.6.1
     "@openagenda/react-layouts": ^2.2.1
-    "@openagenda/react-shared": ^2.3.2
+    "@openagenda/react-shared": ^2.4.0
     "@openagenda/registration": ^1.1.4
     "@openagenda/sessions": ^4.1.0
     "@openagenda/shares": ^0.1.1
@@ -18773,8 +18773,8 @@ __metadata:
     planer: ^1.1.1
     qs: ^6.9.1
     rate-limit-redis: ^3.0.0
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^17.0.2
+    react-dom: ^17.0.2
     react-router: ^5.1.2
     react-router-dom: ^5.1.2
     redis: ^2.8.0
@@ -38386,17 +38386,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:16.13.1":
-  version: 16.13.1
-  resolution: "react-dom@npm:16.13.1"
+"react-dom@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.19.1
+    scheduler: ^0.20.2
   peerDependencies:
-    react: ^16.13.1
-  checksum: 5009f3ee9bca06d6d4b9cf92c832eca102c284e6d019e832179c8de3e353534571474c95b7ab975935b22823726710dcd73783596c11dd71304beb11c19281c5
+    react: 17.0.2
+  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
   languageName: node
   linkType: hard
 
@@ -38693,7 +38692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
+"react-is@npm:^16.12.0, react-is@npm:^16.3.2, react-is@npm:^16.6.0, react-is@npm:^16.6.3, react-is@npm:^16.7.0, react-is@npm:^16.8.1, react-is@npm:^16.8.6, react-is@npm:^16.9.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
@@ -39453,14 +39452,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:16.13.1":
-  version: 16.13.1
-  resolution: "react@npm:16.13.1"
+"react@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-  checksum: 4508f4207caca6bef55736284cbf2ce18d2edfee4c1457fc0bb2086b34ed5bcf9b44acdb71e27574e73a5b5d4d093720b5b4ec0bf92bb89394ee3a0a7c42c2d4
+  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
   languageName: node
   linkType: hard
 
@@ -41143,13 +41141,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.19.1":
-  version: 0.19.1
-  resolution: "scheduler@npm:0.19.1"
+"scheduler@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "scheduler@npm:0.20.2"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-  checksum: 73e185a59e2ff5aa3609f5b9cb97ddd376f89e1610579d29939d952411ca6eb7a24907a4ea4556569dacb931467a1a4a56d94fe809ef713aa76748642cd96a6c
+  checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
   languageName: node
   linkType: hard
 

@@ -29,7 +29,7 @@
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/intl": "^1.1.2",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/react-shared": "^2.3.2",
+    "@openagenda/react-shared": "^2.4.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "core-js": "^3.10.2",
@@ -68,13 +68,13 @@
     "morgan": "^1.9.1",
     "nodemon": "^2.0.4",
     "prettier-eslint-cli": "^5.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rimraf": "^3.0.1",
     "webpack": "^5.53.0"
   },
   "peerDependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
