@@ -23,7 +23,10 @@ export default function ClickListener(element, { onOutsideClick }) {
   }
 
   element.addEventListener('click', handleModalClick);
-  document.addEventListener('click', handleReferenceClick);
+  
+  setImmediate(() => {
+    document.addEventListener('click', handleReferenceClick);
+  });
 
   return {
     shutdown: shutdown.bind(null, element, { handleModalClick, handleReferenceClick })
