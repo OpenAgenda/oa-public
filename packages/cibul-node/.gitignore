@@ -9,3 +9,4 @@ coverage/
 config/prod.js
 config/debug.namespaces.js
 dev.sh
+.next
