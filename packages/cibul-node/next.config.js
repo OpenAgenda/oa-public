@@ -12,10 +12,7 @@ module.exports = async phase => {
   if (phase !== PHASE_PRODUCTION_BUILD) {
     const services = await initServices();
 
-    const core = Core(
-      serverRuntimeConfig.services,
-      config
-    );
+    const core = Core(services, config);
 
     services.core = core;
 
@@ -28,8 +25,7 @@ module.exports = async phase => {
     serverRuntimeConfig.isBuilding = true;
   }
 
-  return {
-    assetPrefix: config.next.CDN,
+  const nextConfig = {
     serverRuntimeConfig,
     async rewrites() {
       return {
@@ -40,4 +36,10 @@ module.exports = async phase => {
       };
     }
   };
+
+  if (config.next.CDN) {
+    nextConfig.assetPrefix = config.next.CDN;
+  }
+
+  return nextConfig;
 };

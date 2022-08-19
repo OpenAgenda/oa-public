@@ -9,7 +9,6 @@
     "watch": "concurrently \"yarn next\" \"yarn server-watch\"",
     "server": "TZ=Etc/UTC node server.js web admin task",
     "server-watch": "TZ=Etc/UTC nodemon server.js web admin task",
-    "swatch": "TZ=Etc/UTC nodemon server.js web admin task",
     "next": "next dev -p $OA_NEXT_PORT",
     "next-build": "next build",
     "next-start": "next start",
