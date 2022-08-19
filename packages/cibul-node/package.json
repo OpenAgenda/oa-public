@@ -11,7 +11,7 @@
     "server-watch": "TZ=Etc/UTC nodemon server.js web admin task",
     "next": "next dev -p $OA_NEXT_PORT",
     "next-build": "next build",
-    "next-start": "next start",
+    "next-start": "next start -p $OA_NEXT_PORT",
     "next-push": "node scripts/pushNextToCDN.mjs",
     "dev": "DEV_SERVER_PORT=8905 yarn start",
     "background": "nohup npm start >/dev/null 2>&1 &",
