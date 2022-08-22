@@ -432,3 +432,17 @@ app.use(filesMw('any')); // each fieldname become an array, e.g. `req.body.image
 ```
 
 C'est utilisé dans le middleware du storybook du package `agenda-settings`.
+
+## Intégration de NextJs
+
+https://openagenda.com/next
+
+NextJS est désormais intégré au projet, directement dans le package `cibul-node`. Il tourne sur son process node et reçoit les requêtes du client et les faire suivre s'il ne doit pas les traiter. L'application dans son ensemble écoute trois ports:
+
+ * 8901: le nouveau process NextJS 
+ * 8902: les requêtes qui ne concernent pas NextJS sont transférées ici, elles sont traitées par le process historique
+ * 8903: les requêtes API qui sont aussi traitées par le process historique
+
+En développement, les 2 process sont lancés via le scripts "start" ou "watch" qui se servent du package `concurrently`. En production, les 2 process sont gérés par `pm2` qui fonctionne en mode cluster: 2 core pour nextJs, 6 pour le serveur.
+
+Le script de mise en prod (build) fait un `pm2 reload all` à la fin de la mise à jour. Un fichier `ecosystem.config.js` présent sur le serveur contient la configuration à charger.  Deux nouvelles tâches sont ajoutées dans la suite `gulp`: l'une pour le `build` de next, l'autre pour le chargement des scripts next sur le CDN.
