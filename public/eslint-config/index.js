@@ -57,10 +57,10 @@ module.exports = {
     // 'computed-property-spacing': [ 'error', 'always' ],
     // 'array-bracket-spacing': [ 'error', 'always' ],
     'prefer-arrow-callback': [ 'error', { allowNamedFunctions: true } ],
-    'import/extensions': {
+    'import/extensions': [ 'warn', {
       js: 'never',
       mjs: 'always'
-    },
+    } ],
     'import/no-unresolved': 'error',
     'import/named': 'error',
     'import/namespace': 'error',
