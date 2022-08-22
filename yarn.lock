@@ -6874,12 +6874,12 @@ __metadata:
     core-js: ^3.10.2
     eslint: ^6.8.0
     history: ^4.10.1
+    js-base64: ^2.5.1
     lint-staged: ^10.2.11
     lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     qs: ^6.9.4
     react: ^17.0.2
-    react-bootstrap: ^0.33.1
     react-dom: ^17.0.2
     react-helmet-async: ^1.0.3
     react-intl: ^5.12.2
@@ -37321,11 +37321,11 @@ __metadata:
   linkType: hard
 
 "prism-media@npm:^1.2.9":
-  version: 1.2.9
-  resolution: "prism-media@npm:1.2.9"
+  version: 1.3.4
+  resolution: "prism-media@npm:1.3.4"
   peerDependencies:
-    "@discordjs/opus": ^0.5.0
-    ffmpeg-static: ^4.2.7 || ^3.0.0 || ^2.4.0
+    "@discordjs/opus": ^0.8.0
+    ffmpeg-static: ^5.0.2 || ^4.2.7 || ^3.0.0 || ^2.4.0
     node-opus: ^0.3.3
     opusscript: ^0.0.8
   peerDependenciesMeta:
@@ -37337,7 +37337,7 @@ __metadata:
       optional: true
     opusscript:
       optional: true
-  checksum: ee404a0c44d1dc3a2a1224035826355ed02d6b6f69cc958ea92639bdd52a42b483fa4cdd966e486ed8a4d26b235deed6176e0d998887748389d6e09bffa39dcb
+  checksum: 703be28c87b4694714a52a0ea84516b19d2e62e510d0f204efc074b044ad93dde00241d4b4741c25aa2e27a00e3b472e60ad0f6c94e88710f0827dc63889373a
   languageName: node
   linkType: hard
 
@@ -47398,9 +47398,9 @@ typescript@^4.5:
   languageName: node
   linkType: hard
 
-"ws@npm:^7.4.4, ws@npm:~7.4.2":
-  version: 7.4.5
-  resolution: "ws@npm:7.4.5"
+"ws@npm:^7.4.4":
+  version: 7.5.9
+  resolution: "ws@npm:7.5.9"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -47409,7 +47409,7 @@ typescript@^4.5:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 5c7d1527f93ef27f9306aaf52db76315e8ff84174d1df717196527c50334c80bc10307dcaf6674a9aca4bb73aac3f77c23d3d9b1800e8aa810a5ee7f52d67cfb
+  checksum: c3c100a181b731f40b7f2fddf004aa023f79d64f489706a28bc23ff88e87f6a64b3c6651fbec3a84a53960b75159574d7a7385709847a62ddb7ad6af76f49138
   languageName: node
   linkType: hard
 
@@ -47479,6 +47479,21 @@ typescript@^4.5:
     utf-8-validate:
       optional: true
   checksum: 4dc06da11813b7d7f2b2a662ed372418a0d28846b5ee5bda6cdf45402dbe00d8744e27080acfd4e8a31af093719be55f34a9c6878aa0a76ac4d22e4a3a7c3537
+  languageName: node
+  linkType: hard
+
+"ws@npm:~7.4.2":
+  version: 7.4.5
+  resolution: "ws@npm:7.4.5"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 5c7d1527f93ef27f9306aaf52db76315e8ff84174d1df717196527c50334c80bc10307dcaf6674a9aca4bb73aac3f77c23d3d9b1800e8aa810a5ee7f52d67cfb
   languageName: node
   linkType: hard
 
