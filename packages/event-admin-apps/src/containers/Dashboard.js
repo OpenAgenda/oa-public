@@ -12,6 +12,7 @@ import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
+import { Base64 } from 'js-base64';
 import { css } from '@emotion/react';
 import {
   a11yButtonActionHandler,
@@ -50,7 +51,7 @@ const searchSpinner = {
   radius: 4,
 };
 
-const getRedirectURL = location => Buffer.from(location.pathname + location.search).toString('base64');
+const getRedirectURL = location => Base64.encode(location.pathname + location.search);
 
 const messages = defineMessages({
   totalEvents: {
