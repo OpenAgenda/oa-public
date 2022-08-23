@@ -143,7 +143,8 @@ function _defineGetQuery(type, params, obj) {
 
 async function _removeEventZombies(services, ES, agendaId) {
   const {
-    agendaEvents
+    agendaEvents,
+    knex
   } = services;
 
   log('info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId);
