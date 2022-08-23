@@ -1,12 +1,17 @@
 .btn-link-dropdown {
-  display: inline-block;
+  display: inline-block;  
+  &:focus-visible {
+    outline: none;
+  }
+
   & > button.btn-link {
     border: 0;
     border-color: transparent;
     background: transparent;
-    &:active,&:hover,&:focus {
+    &:active,&:hover,&:focus,&:focus-visible {
       border-color: transparent;
       background: transparent;
+      outline: none;
     }
   }
   .dropdown-menu {
