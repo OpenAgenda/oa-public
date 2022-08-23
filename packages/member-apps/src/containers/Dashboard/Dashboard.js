@@ -5,10 +5,13 @@ import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import qs from 'qs';
-
-import { withContext, withLayoutData, Modal } from '@openagenda/react-shared';
+import {
+  withContext,
+  withLayoutData,
+  Modal,
+  Dropdown,
+} from '@openagenda/react-shared';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 
@@ -303,37 +306,69 @@ class Dashboard extends Component {
       <div>
         <div className="text-right">
           <div className="btn-group">
-            <DropdownButton
-              title={getLabel('export')}
-              id="nested-export-dropdown"
+            <Dropdown
+              className="dropdown btn-group open"
+              Trigger={props => (
+                <button type="button" {...props} className="btn btn-default">
+                  {getLabel('export')}&nbsp;
+                  <span className="caret" />
+                </button>
+              )}
             >
-              <MenuItem href={res.exportToXlsx.replace(':slug', agenda.slug)}>
-                XLSX
-              </MenuItem>
-              <MenuItem href={res.exportToCsv.replace(':slug', agenda.slug)}>
-                CSV
-              </MenuItem>
-            </DropdownButton>
+              <ul className="list-unstyled margin-v-z">
+                <li key="download-xlsx">
+                  <a
+                    className="btn btn-link padding-v-xs btn-block"
+                    download={`agenda.${agenda.slug}.locations.xlsx`}
+                    href={res.exportToXlsx.replace(':slug', agenda.slug)}
+                  >
+                    XLSX
+                  </a>
+                </li>
+                <li key="download-csv">
+                  <a
+                    className="btn btn-link padding-v-xs btn-block"
+                    download={`agenda.${agenda.slug}.locations.csv`}
+                    href={res.exportToCsv.replace(':slug', agenda.slug)}
+                  >
+                    CSV
+                  </a>
+                </li>
+              </ul>
+            </Dropdown>
 
-            <Button onClick={() => showModal('inviteMembers')}>
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={() => showModal('inviteMembers')}
+            >
               {getLabel('invite')}
-            </Button>
+            </button>
 
-            {!agenda.credentials.invitationMessage && (
-              <DropdownButton
-                id="nested-more-dropdown"
-                title={<i className="fa fa-ellipsis-v" aria-hidden="true" />}
-                pullRight
-                noCaret
+            {agenda.credentials.invitationMessage ? null : (
+              <Dropdown
+                className="dropdown btn-group open"
+                Trigger={props => (
+                  <button className="btn btn-default" type="button" {...props}>
+                    <i className="fa fa-ellipsis-v" aria-hidden="true" />
+                  </button>
+                )}
               >
-                <MenuItem
-                  href={`/support?origin=${encodeURIComponent(
-                    window.location.pathname
-                  )}&subject=moderators`}
-                >
-                  <i className="golden-icon" /> {getLabel('nameModerators')}
-                </MenuItem>
-              </DropdownButton>
+                <ul className="list-unstyled margin-v-z">
+                  <li key="moderators-feature">
+                    <a
+                      className="btn btn-link padding-v-xs btn-block"
+                      href={`/support?origin=${encodeURIComponent(
+                        window.location.pathname
+                      )}&subject=moderators`}
+                    >
+                      <i className="golden-icon" />
+                      &nbsp;
+                      {getLabel('nameModerators')}
+                    </a>
+                  </li>
+                </ul>
+              </Dropdown>
             )}
           </div>
         </div>

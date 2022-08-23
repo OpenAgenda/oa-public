@@ -4,8 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { Base64 } from 'js-base64';
-import { Dropdown, MenuItem } from 'react-bootstrap';
-import { MoreInfo } from '@openagenda/react-shared';
+import { MoreInfo, Dropdown } from '@openagenda/react-shared';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import { isSuperiorToOrEqual } from '@openagenda/members/build/compareRoles';
 
@@ -15,7 +14,7 @@ const roleLabel = (i18n, role) => {
   return getLabel(getRoleSlug(role));
 };
 
-function MemberItem({
+function MemberItemComponent({
   user,
   member,
   agenda,
@@ -24,6 +23,8 @@ function MemberItem({
   i18n,
   userRole,
   patchRole,
+  location,
+  LinkComponent,
 }) {
   const {
     id,
@@ -35,7 +36,6 @@ function MemberItem({
     role,
   } = member;
 
-  const location = useLocation();
   const { getLabel } = i18n;
 
   const canEditMember = isSuperiorToOrEqual(userRole, role);
@@ -46,7 +46,7 @@ function MemberItem({
     if (deletedUser && !invited) return 'deleted';
   })();
 
-  const base64url = Base64.encode(location.pathname + location.search);
+  const base64url = Base64.encode(location?.pathname + location?.search);
 
   const resendInvitationHandler = () => resendInvitation(agenda, id)
     .then(() => showModal('memberReinvited', { member, success: true }))
@@ -55,7 +55,7 @@ function MemberItem({
   return (
     <div key={id} className="bo-list-item media">
       <div className="media-body">
-        <div className="title media-heading">
+        <div className="title media-heading margin-bottom-z">
           <strong>
             {custom.contactName
               || (memberUser && memberUser.fullName)
@@ -85,7 +85,7 @@ function MemberItem({
         </div>
         <div className="actions">
           {(custom.organization || custom.contactPosition) && (
-            <p>
+            <div className="margin-top-xs margin-bottom-z">
               {
                 <span className="text-muted">
                   {custom.organization || null}
@@ -97,10 +97,10 @@ function MemberItem({
                   {custom.contactPosition || null}
                 </span>
               }
-            </p>
+            </div>
           )}
           {!invited && (custom.email || custom.contactNumber) && (
-            <p>
+            <div className="margin-top-xs margin-bottom-z">
               {<span className="text-muted">{custom.email || null}</span>}
               {custom.email && custom.contactNumber && ' - '}
               {
@@ -108,24 +108,18 @@ function MemberItem({
                   {custom.contactNumber || null}
                 </span>
               }
-            </p>
+            </div>
           )}
 
-          <Link
-            to={`/${agenda.slug}/admin/events?${qs.stringify({
-              contributorId: id,
-              'q.memberUid': [member.userUid],
-            })}`}
-            className="btn btn-link padding-left-z padding-top-z"
-          >
+          <LinkComponent>
             {eventCount}{' '}
             {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
-          </Link>
+          </LinkComponent>
 
           {canEditMember && (
             <button
               type="button"
-              className="btn btn-link padding-left-z padding-top-z"
+              className="btn btn-link padding-left-z"
               onClick={() => showModal('editMember', { member })}
             >
               {getLabel('editProfile')}
@@ -133,7 +127,7 @@ function MemberItem({
           )}
           {user?.uid !== member.userUid ? (
             <a
-              className="btn btn-link padding-left-z padding-top-z"
+              className="btn btn-link padding-left-z"
               href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
             >
               {getLabel('sendAMessage')}
@@ -143,53 +137,40 @@ function MemberItem({
             <>
               <button
                 type="button"
-                className="btn btn-link padding-left-z padding-top-z"
+                className="btn btn-link padding-left-z"
                 onClick={() => showModal('removeMember', { member })}
               >
                 {getLabel('removeMember')}
               </button>
               {userRole !== 3 ? (
                 <Dropdown
-                  id={`member-${member.userUid}-change-role`}
-                  className="btn-link-dropdown"
+                  className="btn-link-dropdown dropdown open"
+                  Trigger={props => (
+                    <button
+                      type="button"
+                      {...props}
+                      className="btn-link padding-left-z"
+                    >
+                      {getLabel('changeRole')}&nbsp;
+                      <span className="caret" />
+                    </button>
+                  )}
                 >
-                  <Dropdown.Toggle
-                    className="btn-link padding-left-z padding-top-z"
-                    bsRole="toggle"
-                  >
-                    {getLabel('changeRole')}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu bsRole="menu">
-                    <MenuItem
-                      eventKey="administator"
-                      disabled={role === 2}
-                      onClick={() => patchRole('administrator')}
-                    >
-                      <div className="margin-h-sm margin-v-xs">
-                        {getLabel('administrator')}
-                      </div>
-                    </MenuItem>
-                    {agenda.credentials.moderators ? (
-                      <MenuItem
-                        eventKey="moderator"
-                        disabled={userRole !== 2 || role === 3}
-                        onClick={() => patchRole('moderator')}
-                      >
-                        <div className="margin-h-sm margin-v-xs">
-                          {getLabel('moderator')}
-                        </div>
-                      </MenuItem>
-                    ) : null}
-                    <MenuItem
-                      eventKey="contributor"
-                      disabled={role === 1}
-                      onClick={() => patchRole('contributor')}
-                    >
-                      <div className="margin-h-sm margin-v-xs">
-                        {getLabel('contributor')}
-                      </div>
-                    </MenuItem>
-                  </Dropdown.Menu>
+                  <ul className="list-unstyled margin-v-z">
+                    {['administrator', 'moderator', 'contributor'].map(
+                      targetRole => (
+                        <li key={targetRole}>
+                          <button
+                            type="button"
+                            className="btn btn-link btn-block"
+                            onClick={() => patchRole(targetRole)}
+                          >
+                            {getLabel(targetRole)}
+                          </button>
+                        </li>
+                      )
+                    )}
+                  </ul>
                 </Dropdown>
               ) : null}
             </>
@@ -208,5 +189,31 @@ function MemberItem({
     </div>
   );
 }
+
+function MemberItem(props) {
+  const location = useLocation();
+
+  const { agenda, member } = props;
+
+  return (
+    <MemberItemComponent
+      {...props}
+      location={location}
+      LinkComponent={({ children }) => (
+        <Link
+          to={`/${agenda.slug}/admin/events?${qs.stringify({
+            contributorId: member.id,
+            'q.memberUid': [member.userUid],
+          })}`}
+          className="btn btn-link padding-left-z"
+        >
+          {children}
+        </Link>
+      )}
+    />
+  );
+}
+
+MemberItem.Component = MemberItemComponent;
 
 export default MemberItem;

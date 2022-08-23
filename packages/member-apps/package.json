@@ -47,7 +47,6 @@
     "lodash": "^4.17.15",
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",
-    "react-bootstrap": "^0.33.1",
     "react-final-form": "^6.5.3",
     "react-helmet-async": "^1.0.3",
     "react-intl": "^5.12.2",
