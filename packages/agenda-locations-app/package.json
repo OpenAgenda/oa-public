@@ -40,7 +40,6 @@
     "lodash": "^4.17.21",
     "qs": "^6.9.1",
     "rc-switch": "^1.4.3",
-    "react-bootstrap": "^0.33.1",
     "react-helmet-async": "^1.0.3",
     "react-hot-loader": "^4.13.0",
     "react-intl": "^5.12.2",
