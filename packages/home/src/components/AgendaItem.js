@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import { Image } from '@openagenda/react-shared';
+import { Image, Dropdown } from '@openagenda/react-shared';
 import { Link } from 'react-router-dom';
-import { Dropdown, MenuItem } from 'react-bootstrap';
 
 function AgendaItem({
   agenda,
@@ -98,18 +97,21 @@ function AgendaItem({
             </a>
           )}
           <Dropdown
-            id={`agenda-${agenda.slug}-more-actions`}
-            className="btn-link-dropdown"
+            className="dropdown btn-link-dropdown open"
+            Trigger={props => (
+              <button
+                {...props}
+                className="btn btn-link padding-top-z padding-left-z"
+                type="button"
+              >
+                {getLabel('otherActions')}&nbsp;
+                <span className="caret" />
+              </button>
+            )}
           >
-            <Dropdown.Toggle
-              className="btn-link padding-left-z padding-top-z"
-              bsRole="toggle"
-            >
-              {getLabel('otherActions')}
-            </Dropdown.Toggle>
-            <Dropdown.Menu bsRole="menu">
+            <ul className="list-unstyled margin-v-xs">
               {agenda.settings?.contribution.useFields ? (
-                <MenuItem>
+                <li key="edit-member-action">
                   <button
                     type="button"
                     className="btn btn-link"
@@ -118,9 +120,9 @@ function AgendaItem({
                   >
                     {getLabel('editMember')}
                   </button>
-                </MenuItem>
+                </li>
               ) : null}
-              <MenuItem>
+              <li key="remove-me-from-agenda-action">
                 <button
                   type="button"
                   className="btn btn-link text-danger visible-on-hover"
@@ -129,8 +131,8 @@ function AgendaItem({
                 >
                   {getLabel('removeMember')}
                 </button>
-              </MenuItem>
-            </Dropdown.Menu>
+              </li>
+            </ul>
           </Dropdown>
         </div>
       </div>
