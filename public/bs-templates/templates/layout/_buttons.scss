@@ -22,17 +22,17 @@
       danger: $brand-danger
     ) {
       &.text-#{$name} {
-        color: darken($color, 10%) !important;
+        color: darken($color, 10%);
 
         &:hover, &:focus {
-          text-decoration: underline darken($color, 10%) !important;
+          text-decoration: underline darken($color, 10%);
         }
       }
 
       &.btn-hover-#{$name} {
         &:hover, &:focus {
-          color: darken($color, 10%) !important;
-          text-decoration: underline darken($color, 10%) !important;
+          color: darken($color, 10%);
+          text-decoration: underline darken($color, 10%);
         }
       }
     }
