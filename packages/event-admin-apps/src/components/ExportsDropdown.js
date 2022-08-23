@@ -24,7 +24,8 @@ export default function ExportsDropdown({
           disabled={disabled}
           onClick={onClick}
         >
-          {children}
+          {children}&nbsp;
+          <span className="caret" />
         </button>
       )}
       className={cn('btn-link-dropdown', className, 'dropdown open')}
