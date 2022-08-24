@@ -40,7 +40,8 @@ const getDefaultState = () => ({
 
 const wrapAppOptions = {
   extraProps: {
-    agenda
+    agenda,
+    lang: 'fr'
   }
 };
 
