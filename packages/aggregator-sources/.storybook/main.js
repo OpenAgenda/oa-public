@@ -5,6 +5,9 @@ module.exports = {
     '../stories/**/*.stories.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
+  core: {
+    builder: 'webpack5',
+  },
   webpackFinal: async config => {
     config.plugins.push(
       new webpack.DefinePlugin({

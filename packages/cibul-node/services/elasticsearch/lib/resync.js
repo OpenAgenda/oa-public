@@ -8,6 +8,7 @@ const VError = require('verror');
 const { promisify } = require('util');
 
 const log = require('@openagenda/logs')('services/elasticsearch/resync');
+
 const loopThroughTable = require('@openagenda/legacy/rebuildSearchIndex/loopThroughTable');
 
 const { aws: { imageBucketPath: imageBasePath } } = require('../../../config');

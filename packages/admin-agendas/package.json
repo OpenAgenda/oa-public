@@ -52,7 +52,7 @@
     "@openagenda/files": "^3.1.0",
     "@openagenda/fixtures": "^2.0.2",
     "@openagenda/members": "^1.15.13",
-    "@storybook/react": "^6.4.19",
+    "@storybook/react": "^6.5.9",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
@@ -60,11 +60,11 @@
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rimraf": "^3.0.1"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.2.0"
   }
 }
