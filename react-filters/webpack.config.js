@@ -106,6 +106,7 @@ module.exports = (env = {}, argv = {}) => {
       alias: {
         react: require.resolve('react'),
         'react-dom/server': require.resolve('react-dom/server'),
+        'react-dom/client': require.resolve('react-dom/client'),
         'react-dom': require.resolve('react-dom'),
       },
       fallback: {
