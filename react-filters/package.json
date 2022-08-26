@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
-    "@emotion/react": "^11.1.5",
+    "@emotion/react": "^11.10.0",
     "@formatjs/cli": "^2.11.3",
     "@openagenda/intl": "^1.1.2",
     "@openagenda/react-portal-ssr": "^1.0.0",
