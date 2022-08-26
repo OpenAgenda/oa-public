@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
-    "@emotion/react": "^11.1.5",
+    "@emotion/react": "^11.10.0",
     "@openagenda/activity-apps": "^1.2.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/intl": "^1.1.2",
