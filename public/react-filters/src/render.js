@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import qs from 'qs';
 import { prepareClientPortals } from '@openagenda/react-portal-ssr';
 import Provider from './components/FiltersProvider';
@@ -62,7 +62,9 @@ export default function renderFiltersAndWidgets({
     return (values, aggs, form) => fn(values, aggs, bindRef(), form);
   }
 
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(container);
+
+  root.render(
     <Provider
       locale={locale}
       locales={userLocales}
@@ -83,7 +85,6 @@ export default function renderFiltersAndWidgets({
         onLoad={wrapCallback(onLoad)}
         {...rest}
       />
-    </Provider>,
-    container
+    </Provider>
   );
 }
