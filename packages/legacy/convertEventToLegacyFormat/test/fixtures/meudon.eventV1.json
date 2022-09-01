@@ -94,7 +94,7 @@
       "end": "2022-02-25T21:38:00.000Z"
     }
   ],
-  "registration": [],
+  "registration": null,
   "firstDate": "2022-02-25",
   "firstTimeStart": "20:30",
   "firstTimeEnd": "22:38",
@@ -151,5 +151,5 @@
       ]
     }
   ],
-  "linkedEvents": []
+  "linkedEvents": null
 }

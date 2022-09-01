@@ -8,6 +8,7 @@ module.exports = event => {
       oaUrl: '#'
     };
   }
+
   const copyOriginAgenda = { ...originAgenda };
   if (copyOriginAgenda.image) delete copyOriginAgenda.image;
   copyOriginAgenda.oaUrl = `https://openagenda.com/agendas/${event.originAgenda.uid}`;

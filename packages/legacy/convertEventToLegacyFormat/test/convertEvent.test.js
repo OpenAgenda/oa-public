@@ -40,7 +40,8 @@ const bordeauxAgendaSettings = {
   interfaces: {
     admin: false,
     renderHTMLFromMarkdown: () => '<p>Balade en nocturne à la lumière des lampions à travers le parc</p>\n'
-  }
+  },
+  root: 'https://openagenda.com'
 };
 
 const lilleAgendaSettings = {
@@ -184,7 +185,8 @@ test('Convert Meudon event from version 2 to version 1', () => {
     interfaces: {
       admin: false,
       renderHTMLFromMarkdown: () => '<p>Un jeune dealer Noir de Brooklyn se retrouve coincé entre son mentor, un frère peu recommandable, et un policier Blanc, bien décidé à le faire condamner pour le meurtre d\'un trafiquant du quartier.</p>\n'
-    }
+    },
+    root: 'https://openagenda.com'
   };
 
   const convertedContent = converEventLegacyFormat(meudonAgendaSettings, meudonEventV2);
