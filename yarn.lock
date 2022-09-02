@@ -9011,6 +9011,7 @@ __metadata:
     redis: ^2.8.0
     redux: ^4.0.5
     should: ^13.2.3
+    slugify: ^1.4.5
     verror: ^1.10.0
   peerDependencies:
     react: ^18.2.0
