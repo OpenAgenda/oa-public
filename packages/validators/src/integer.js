@@ -1,8 +1,10 @@
+import omit from 'lodash/omit';
 import numberValidator from './number';
 import cleanParams from './lib/params';
 import errors from './lib/errors';
 
 import listify from './listify';
+
 
 export default (config = {}) => {
   const params = cleanParams('integer', config, {
@@ -12,7 +14,7 @@ export default (config = {}) => {
     }
   });
 
-  const validateNumber = numberValidator(params);
+  const validateNumber = numberValidator(omit(params, ['list']));
 
   const validate = value => {
     let clean;

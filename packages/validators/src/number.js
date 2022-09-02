@@ -1,13 +1,15 @@
 import errors from './lib/errors';
 import cleanParams from './lib/params';
 
+import listify from './listify';
+
 export default config => {
   const params = cleanParams('number', config, {
     min: null,
     max: null,
   });
 
-  return Object.assign(value => {
+  const validate = value => {
     let clean;
 
     if (typeof value === 'string' && value.length) {
@@ -45,8 +47,10 @@ export default config => {
     }
 
     return clean;
-  }, {
-    type: 'number',
-    field: params.field
-  });
+  };
+
+  validate.type = 'number';
+  validate.field = params.field;
+
+  return params.list ? listify(validate, params) : validate;
 };
