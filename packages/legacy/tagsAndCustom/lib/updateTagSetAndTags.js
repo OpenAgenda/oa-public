@@ -41,8 +41,8 @@ async function setTags(knex, id, tagSet) {
       const matchingTag = tags.filter(t => ((groupTag.slug === t.slug) || (groupTag.id === t.id))).pop();
 
       if (!matchingTag) {
-        const tagId = await createTag(knex, id, groupTag);
-        groupTag.id = tagId;
+        const tagIds = await createTag(knex, id, groupTag);
+        groupTag.id = tagIds.pop();
       } else if (matchingTag.label !== groupTag.label) {
         groupTag.id = matchingTag.id;
         await updateTag(knex, id, groupTag);
