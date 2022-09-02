@@ -1,85 +1,69 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-    
-  body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    line-height: 1.4;
-    background: #fff;
-    color: #444;
-  }
-    
-  .container {
-    max-width: 600px;
-    margin: 6rem auto 4rem;
-    padding: 0 10px;
-  }
-  
-  .heading {
-    font-size: 23px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  
   .accordion {
     list-style: none;
     margin: 0;
-  }
-  .accordion_item.active .button {
-    padding: 18px 8px 0px 8px;
-  }
-  .button {
-    font-size: 14px;
-    background-color: #fff;
-    color: #000;
-    text-align: left;
-    width: 100%;
-    padding: 18px 8px;
-    cursor: pointer;
-    border: none;
-    div {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 700;
-    }
-    p {
-      margin: 0;
-    }
-    div,
-    p {
-      margin-bottom: 6px;
+
+    .accordion_item {
+      &.active .button {
+        padding: 18px 8px 0px 0;
+      }
+
+      .button {
+        font-size: 14px;
+        background-color: #fff;
+        color: #000;
+        text-align: left;
+        width: 100%;
+        padding: 18px 8px 18px 0;
+        cursor: pointer;
+        border: none;
+        div {
+          display: flex;
+          justify-content: space-between;
+          font-weight: 700;
+        }
+        p {
+          margin: 0;
+        }
+        div,
+        p {
+          margin-bottom: 6px;
+        }
+      }
+
+      .control {
+        font-size: 20px;
+
+        &.down {
+          color: #41acdd;
+        }
+      }
+
+      .wrapper {
+        height: 0;
+        overflow: hidden;
+        transition: height ease 0.2s;
+
+        .wrapper-item {
+          background-color: #fff;
+          padding: 0px 8px 18px 0;
+          color: #000;
+          p {
+            margin-bottom: 6px;
+          }
+          p:last-child {
+            margin-bottom: 0px;
+          }
+        }
+      }
+      &.active {
+        .button {
+          background-color: #fff;
+        }
+        .wrapper {
+          height: auto;
+        }
+      }
+
     }
   }
   
-  .control {
-    font-size: 20px;
-  }
-  .control.down {
-    color: #41acdd;
-  }
-  
-  .wrapper_item {
-    background-color: #fff;
-    padding: 0px 8px 18px 8px;
-    color: #000;
-    p {
-      margin-bottom: 6px;
-    }
-    p:last-child {
-      margin-bottom: 0px;
-    }
-  }
-  
-  .accordion_item.active .button {
-    background-color: #fff;
-  }
-  .wrapper {
-    height: 0;
-    overflow: hidden;
-    transition: height ease 0.2s;
-  }
-  .accordion_item.active .wrapper {
-    height: auto;
-  }
