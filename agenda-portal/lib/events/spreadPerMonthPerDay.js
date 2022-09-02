@@ -30,17 +30,19 @@ function _monthWeeks({
     week,
     label: week,
     current: today.week === week,
-    days: _.keys(weeks[week]).map(day => ({
-      day,
-      current: today.day === day && today.month === month,
-      passed: today.month + today.day > month + day,
-      timings: weeks[week][day],
-      label: _.capitalize(
-        tz(_.get(weeks[week][day], `0.${timingBeginKey}`), timezone)
-          .locale(locale)
-          .format('dddd D')
-      ),
-    })),
+    days: _.keys(weeks[week])
+      .sort((day1, day2) => (day1 > day2 ? 1 : -1))
+      .map(day => ({
+        day,
+        current: today.day === day && today.month === month,
+        passed: today.month + today.day > month + day,
+        timings: weeks[week][day],
+        label: _.capitalize(
+          tz(_.get(weeks[week][day], `0.${timingBeginKey}`), timezone)
+            .locale(locale)
+            .format('dddd D')
+        ),
+      })),
   }));
 }
 
