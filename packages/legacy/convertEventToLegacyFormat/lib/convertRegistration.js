@@ -1,18 +1,15 @@
 'use strict';
 
 module.exports = registrationArray => {
-  const registration = registrationArray.map(el => {
-    if (el.type === 'link') {
-      return { ...el, prefix: '' };
-    }
-    if (el.type === 'phone') {
-      return { ...el, prefix: 'tel:' };
-    }
-    if (el.type === 'email') {
-      return { ...el, prefix: 'mailto:' };
-    }
-    return el;
-  });
+  const registration = registrationArray.map(item => ({
+    value: item.value,
+    type: item.type,
+    prefix: ({
+      link: '',
+      phone: 'tel:',
+      email: 'mailto:'
+    })[item.type]
+  }));
 
   const registrationlink = registrationArray.find(reg => reg.type === 'link');
 
