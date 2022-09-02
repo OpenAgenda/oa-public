@@ -3,6 +3,8 @@
 const fs = require('fs');
 const _ = require('lodash');
 
+const inputTimings = require('./fixtures/timings.json');
+
 const spreadPerMonth = require('../lib/events/spreadPerMonthPerDay');
 
 describe('10 - spreadPerMonthPerDay', () => {
@@ -88,6 +90,14 @@ describe('10 - spreadPerMonthPerDay', () => {
       ];
 
       expect(spreadPerMonth(timings, 'Europe/Paris', 'fr')).toEqual([]);
+    });
+  });
+
+  describe('fixes', () => {
+    it('spread timings must appear sorted', () => {
+      const result = spreadPerMonth(inputTimings, 'Europe/Paris', 'fr');
+
+      expect(result[0].weeks[1].days.map(d => d.day).join(',')).toEqual('05,06,07,08,09,10,11');
     });
   });
 });
