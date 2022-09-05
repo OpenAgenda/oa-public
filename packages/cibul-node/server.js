@@ -3,14 +3,13 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 const sourceMapSupport = require('source-map-support');
+const express = require('express');
 require('@openagenda/polyfills/intl');
 require('@openagenda/polyfills/intl-locales');
 const logs = require('@openagenda/logs');
 
-const config = require('./config');
+const loadServicesAndCore = require('./loadServicesAndCore');
 const task = require('./task');
-const initServices = require('./services/init');
-const Core = require('./core');
 const API = require('./api');
 
 const ADMIN = process.argv.includes('admin');
@@ -19,12 +18,13 @@ const WEB = process.argv.includes('web');
 
 (async () => {
   try {
-    const services = await initServices();
-    const core = Core(services, config);
-    const express = require('express');
-    const api = API(core);
+    const {
+      services,
+      core,
+      config
+    } = await loadServicesAndCore();
 
-    services.core = core;
+    const api = API(core);
 
     const {
       sessions
