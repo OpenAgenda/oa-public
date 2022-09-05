@@ -67,7 +67,10 @@ services:
       dockerfile: docker/Dockerfile
     user: ${DOCKER_USER:-}
     working_dir: /root/oa
-    command: yarn ${NODE_YARN_COMMAND:-start}
+    command: >
+      yarn concurrently -n "node,next" \
+      "yarn workspace cibul-node ${NODE_YARN_COMMAND:-start}" \
+      "yarn workspace @openagenda/next dev"
     restart: always
     volumes:
       - .:/root/oa
