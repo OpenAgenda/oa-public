@@ -9,13 +9,10 @@
     "start": "next start -p $OA_NEXT_PORT",
     "push": "node scripts/pushNextToCDN.mjs"
   },
-  "packages": {
+  "dependencies": {
     "cibul-node": "^0.15.0",
     "next": "^12.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "dependencies": {
-    "next": "^12.2.5"
   }
 }
