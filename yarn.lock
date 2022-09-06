@@ -9262,7 +9262,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/next@workspace:packages/next"
   dependencies:
+    cibul-node: ^0.15.0
     next: ^12.2.5
+    react: ^18.2.0
+    react-dom: ^18.2.0
   languageName: unknown
   linkType: soft
 
@@ -17706,7 +17709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cibul-node@workspace:packages/cibul-node":
+"cibul-node@^0.15.0, cibul-node@workspace:packages/cibul-node":
   version: 0.0.0-use.local
   resolution: "cibul-node@workspace:packages/cibul-node"
   dependencies:
