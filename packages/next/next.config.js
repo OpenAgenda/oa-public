@@ -34,9 +34,9 @@ module.exports = async phase => {
       };
     }
   };
-
-  if (serverRuntimeConfig?.next?.CDN) {
-    nextConfig.assetPrefix = serverRuntimeConfig.next.CDN;
+  
+  if (serverRuntimeConfig?.config?.next?.CDN) {
+    nextConfig.assetPrefix = serverRuntimeConfig.config.next.CDN;
   }
 
   return nextConfig;
