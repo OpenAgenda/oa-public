@@ -3,21 +3,14 @@ import React from 'react';
 
 const {
   serverRuntimeConfig: {
-    core,
-    isBuilding = false
+    core
   }
 } = getConfig();
 
 export async function getServerSideProps() {
-  if (isBuilding) {
-    return {
-      props: {
-        agendas: []
-      }
-    };
-  }
-
-  const { agendas } = await core.agendas.search();
+  const {
+    agendas
+  } = await core.agendas.search();
 
   return {
     props: {

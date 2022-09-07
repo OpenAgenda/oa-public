@@ -2,7 +2,10 @@
 
 const { PHASE_PRODUCTION_BUILD } = require('next/constants');
 
-const loadServicesAndCore = require('cibul-node/loadServicesAndCore');
+const {
+  loadServicesAndCore,
+  config
+} = require('cibul-node');
 
 module.exports = async phase => {
   const serverRuntimeConfig = {};
@@ -11,7 +14,6 @@ module.exports = async phase => {
     const {
       services,
       core,
-      config
     } = await loadServicesAndCore();
 
     Object.assign(serverRuntimeConfig, {
@@ -19,8 +21,6 @@ module.exports = async phase => {
       core,
       config
     });
-  } else {
-    serverRuntimeConfig.isBuilding = true;
   }
 
   const nextConfig = {
