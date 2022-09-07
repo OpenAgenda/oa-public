@@ -11,6 +11,6 @@ export default {
 export const Buttons = () => (
   <>
     <Button>Default Button</Button>&nbsp;
-    <Button variant="primary">Primary Button</Button>
+    <Button colorScheme="primary">Primary Button</Button>&nbsp;
   </>
 );

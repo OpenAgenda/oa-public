@@ -1,5 +1,18 @@
 import { extendTheme } from '@chakra-ui/react';
 
+const brandColor = {
+  50: '#eef7fc',
+  100: '#cbe8f6',
+  200: '#a8d9f0',
+  300: '#86caea',
+  400: '#63bbe3',
+  500: '#41acdd', // https://coolors.co/30343f-fafaff-e4d9ff-41acdd-1e2749
+  600: '#259ad0',
+  700: '#1f80ad',
+  800: '#18678b',
+  900: '#030d11'
+};
+
 const theme = extendTheme({
   styles: {
     global: () => ({
@@ -45,39 +58,23 @@ const theme = extendTheme({
     '10xl': '8rem',
   },
   colors: {
-    brand: {
-      50: '#eef7fc',
-      100: '#cbe8f6',
-      200: '#a8d9f0',
-      300: '#86caea',
-      400: '#63bbe3',
-      500: '#41acdd', // https://coolors.co/30343f-fafaff-e4d9ff-41acdd-1e2749
-      600: '#259ad0',
-      700: '#1f80ad',
-      800: '#18678b',
-      900: '#030d11'
-    }
+    brand: brandColor,
+    primary: brandColor
   },
   components: {
     Button: {
-      baseStyle: {
-        color: 'gray.900',
+      baseStyle: props => ({
         fontSize: 'inherit',
         fontWeight: 'normal',
         border: '1px',
-        borderColor: 'gray.600',
+        borderColor: props.colorScheme === 'primary' ? 'brand.500' : 'gray.700',
         borderRadius: '4',
         backgroundColor: 'gray.50'
-      },
-      variants: { // as suggested by variant examples in styled-system specs page: https://styled-system.com/theme-specification/
-        primary: {
-          color: 'white',
-          backgroundColor: 'brand.500',
-          borderColor: 'brand.500',
-          _hover: {
-            backgroundColor: 'brand.600'
-          }
-        }
+      }),
+      variants: {
+        solid: props => ({
+          color: props.colorScheme === 'primary' ? 'white' : 'gray.700'
+        })
       }
     }
   }
