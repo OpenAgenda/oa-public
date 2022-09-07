@@ -47,7 +47,7 @@ export default function ValueBadge({
       // disabled={disabled}
       onClick={onRemove}
     >
-      {getLocaleValue(label)}
+      {getLocaleValue(label, intl.locale)}
       &nbsp;
       <i className="fa fa-times" aria-hidden="true" />
     </button>
