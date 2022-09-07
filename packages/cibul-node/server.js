@@ -8,9 +8,12 @@ require('@openagenda/polyfills/intl');
 require('@openagenda/polyfills/intl-locales');
 const logs = require('@openagenda/logs');
 
-const loadServicesAndCore = require('./loadServicesAndCore');
 const task = require('./task');
 const API = require('./api');
+const {
+  config,
+  loadServicesAndCore
+} = require('.');
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
@@ -20,8 +23,7 @@ const WEB = process.argv.includes('web');
   try {
     const {
       services,
-      core,
-      config
+      core
     } = await loadServicesAndCore();
 
     const api = API(core);

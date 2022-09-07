@@ -4,7 +4,7 @@ const config = require('./config');
 const initServices = require('./services/init');
 const Core = require('./core');
 
-module.exports = async () => {
+async function loadServicesAndCore() {
   const services = await initServices();
   const core = Core(services, config);
 
@@ -12,7 +12,11 @@ module.exports = async () => {
 
   return {
     services,
-    core,
-    config
+    core
   };
+}
+
+module.exports = {
+  loadServicesAndCore,
+  config
 };
