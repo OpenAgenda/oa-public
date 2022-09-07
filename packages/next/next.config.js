@@ -8,7 +8,9 @@ const {
 } = require('cibul-node');
 
 module.exports = async phase => {
-  const serverRuntimeConfig = {};
+  const serverRuntimeConfig = {
+    config
+  };
 
   if (phase !== PHASE_PRODUCTION_BUILD) {
     const {
@@ -18,8 +20,7 @@ module.exports = async phase => {
 
     Object.assign(serverRuntimeConfig, {
       services,
-      core,
-      config
+      core
     });
   }
 
@@ -35,7 +36,7 @@ module.exports = async phase => {
     }
   };
   
-  if (serverRuntimeConfig?.config?.next?.CDN) {
+  if (serverRuntimeConfig.config?.next?.CDN) {
     nextConfig.assetPrefix = serverRuntimeConfig.config.next.CDN;
   }
 
