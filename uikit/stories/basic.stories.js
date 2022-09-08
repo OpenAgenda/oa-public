@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button } from '..';
 
 import Providers from './decorators/Providers';
 
