@@ -114,7 +114,7 @@ export default ({
   const { display: displayGDPRInformation, moreInfo: GDPRInformation } = GDPR ?? {};
 
   const loadedMember = member || query.data;
-  const loadedSchema = schema || hardSchema;
+  const loadedSchema = schema || hardSchema({ optionalFields });
 
   useEffect(() => {
     if (operation !== 'remove') {
@@ -227,7 +227,7 @@ export default ({
               post: saveRes,
             }}
             values={loadedMember}
-            schema={loadedSchema({ optionalFields })}
+            schema={loadedSchema}
             onSubmitSuccess={onSubmitSuccess}
             lang={lang}
             actionComponents={[

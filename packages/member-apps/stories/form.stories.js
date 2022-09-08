@@ -40,7 +40,7 @@ export const createFormWithCustomSchema = () => (
         // eslint-disable-next-line no-console
         console.log('success');
       }}
-      schema={() => ({
+      schema={{
         fields: [
           {
             field: 'name',
@@ -49,7 +49,7 @@ export const createFormWithCustomSchema = () => (
             optional: false,
           },
         ],
-      })}
+      }}
     />
   </div>
 );
