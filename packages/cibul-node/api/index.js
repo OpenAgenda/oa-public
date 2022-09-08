@@ -80,7 +80,8 @@ module.exports = core => {
     includeEvent: true,
     detailed: req.query.detailed,
     private: req.member ? null : false,
-    includeNonDataFields: req.query.includeNonDataFields === '1'
+    includeNonDataFields: req.query.includeNonDataFields === '1',
+    includeMemberSchema: req.query.includeMemberSchema
   }).catch(next)));
 
   app.post('/agendas/:agendaUid/events',
