@@ -7,7 +7,7 @@ import { MoreInfo } from '@openagenda/react-shared';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import Modal from '@openagenda/react-shared/lib/components/Modal';
-import schema from './schema';
+import hardSchema from './schema'; // should be in member
 
 const messages = defineMessages({
   updateTitle: {
@@ -62,7 +62,7 @@ const messages = defineMessages({
   },
 });
 
-const BlankComponent = () => <FormSchemaComponent schema={schema} />;
+const BlankComponent = schema => <FormSchemaComponent schema={schema} />;
 
 const Canvas = (content, { mode, onClose }) => (mode === 'modal' ? (
   <Modal
@@ -95,7 +95,8 @@ export default ({
   blockButtons,
   GDPR,
   hideCancel,
-  member, // optional preloaded member
+  member, // optional preloaded member,
+  schema, // optional preloaded member schema
 }) => {
   const query = operation === 'update' && !member
     ? useQuery('getMember', () => axios.get(getRes), {
@@ -113,6 +114,7 @@ export default ({
   const { display: displayGDPRInformation, moreInfo: GDPRInformation } = GDPR ?? {};
 
   const loadedMember = member || query.data;
+  const loadedSchema = schema || hardSchema;
 
   useEffect(() => {
     if (operation !== 'remove') {
@@ -215,7 +217,7 @@ export default ({
         ) : null}
       </div>
       {isLoading ? (
-        <BlankComponent />
+        <BlankComponent schema={loadedSchema} />
       ) : (
         <>
           <FormSchemaComponent
@@ -225,7 +227,7 @@ export default ({
               post: saveRes,
             }}
             values={loadedMember}
-            schema={schema({ optionalFields })}
+            schema={loadedSchema({ optionalFields })}
             onSubmitSuccess={onSubmitSuccess}
             lang={lang}
             actionComponents={[

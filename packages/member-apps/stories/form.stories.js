@@ -27,6 +27,33 @@ export const createForm = () => (
   </div>
 );
 
+export const createFormWithCustomSchema = () => (
+  <div>
+    <Form
+      lang="fr"
+      operation="create"
+      res="/api/agendas/123/members"
+      GDPR={{
+        display: true,
+      }}
+      onSuccess={() => {
+        // eslint-disable-next-line no-console
+        console.log('success');
+      }}
+      schema={() => ({
+        fields: [
+          {
+            field: 'name',
+            label: 'Your name ',
+            fieldType: 'text',
+            optional: false,
+          },
+        ],
+      })}
+    />
+  </div>
+);
+
 export const updateForm = () => (
   <div>
     <Form
