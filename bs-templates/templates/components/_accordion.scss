@@ -1,0 +1,58 @@
+.accordion {
+  margin: 0;
+
+  .accordion_item.active .button {
+    padding: 18px 8px 0px 8px;
+  }
+
+  .button {
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+    text-align: left;
+    width: 100%;
+    padding: 18px 8px;
+    cursor: pointer;
+    border: none;
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  .control {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .control.down {
+    color: #41acdd;
+  }
+
+  .wrapper_item {
+    background-color: #fff;
+    padding: 0px 8px 18px 8px;
+    color: #000;
+    p {
+      margin-bottom: 0px;
+    }
+  }
+
+  .accordion_item.active .button {
+    background-color: #fff;
+  }
+
+  .wrapper {
+    height: 0;
+    overflow: hidden;
+    transition: height ease 0.2s;
+  }
+  
+  .accordion_item.active .wrapper {
+    height: auto;
+  }
+}
