@@ -4,16 +4,22 @@ import React from 'react';
 export async function getServerSideProps(context) {
   const {
     serverRuntimeConfig: {
-      core
+      api
     }
   } = getConfig();
 
   const {
-    query
+    query,
+    req
   } = context;
   
-  const agenda = await core.agendas.slug(query.slug).get({ serializable: true });
-  const events = await core.agendas(89904399).events.search({}, {});
+  const {
+    data: agenda
+  } = await api(req, 'get', `/api/agendas/slug/${query.slug}`);
+
+  const {
+    data: events
+  } = await api(req, 'get', `/api/agendas/${agenda.uid}/events`);
 
   return {
     props: {

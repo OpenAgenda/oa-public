@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@storybook/react": "^6.5.9",
+    "@openagenda/react-shared": "^2.4.0",
     "cibul-node": "^0.15.0",
     "next": "^12.2.5",
     "react": "^18.2.0",

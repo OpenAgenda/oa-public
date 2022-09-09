@@ -3,9 +3,12 @@
 const { PHASE_PRODUCTION_BUILD } = require('next/constants');
 
 const {
-  loadServicesAndCore,
   config
 } = require('cibul-node');
+
+const {
+  apiClient
+} = require('@openagenda/react-shared');
 
 module.exports = async phase => {
   const serverRuntimeConfig = {
@@ -13,15 +16,7 @@ module.exports = async phase => {
   };
 
   if (phase !== PHASE_PRODUCTION_BUILD) {
-    const {
-      services,
-      core,
-    } = await loadServicesAndCore();
-
-    Object.assign(serverRuntimeConfig, {
-      services,
-      core
-    });
+    serverRuntimeConfig.api = (req, method, ...args) => apiClient(`http://localhost:${config.port}`, req)[method](...args)
   }
 
   const nextConfig = {
@@ -30,14 +25,14 @@ module.exports = async phase => {
       return {
         fallback: [{
           source: '/:path*',
-          destination: `http://localhost:${serverRuntimeConfig.config?.port}/:path*`
+          destination: `http://localhost:${config?.port}/:path*`
         }]
       };
     }
   };
   
-  if (serverRuntimeConfig.config?.next?.CDN) {
-    nextConfig.assetPrefix = serverRuntimeConfig.config.next.CDN;
+  if (config?.next?.CDN) {
+    nextConfig.assetPrefix = config.next.CDN;
   }
 
   return nextConfig;
