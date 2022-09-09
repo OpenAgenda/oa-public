@@ -17,4 +17,4 @@ export { default as EventSelection } from './EventSelection';
 export { default as AgendaContextBar } from './AgendaContextBar';
 export { default as AgendaAdminModContextBar } from './AgendaAdminModContextBar';
 export { default as Dropdown } from './Dropdown';
-export { default as AccordionItem } from './AccordionItem';
+export { default as Accordion } from './Accordion';
