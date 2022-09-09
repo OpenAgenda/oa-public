@@ -58,6 +58,11 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(agenda.slug).toBe('agenda-champ-contributeur');
     });
 
+    it('simple get based on slug', async () => {
+      const agenda = await core.agendas.slug('agenda-champ-contributeur').get();
+      expect(agenda.uid).toBe(92983929);
+    });
+
     it('detailed get provides consolidated schema', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,
