@@ -1,0 +1,35 @@
+{
+  "uid": 89904399,
+  "title": "Métropole Européenne de Lille",
+  "slug": "metropole-europeenne-de-lille",
+  "url": "https://www.lillemetropole.fr",
+  "official": 1,
+  "networkUid": 245900410,
+  "locationSetUid": null,
+  "updatedAt": "2022-09-02T11:13:56.000Z",
+  "createdAt": "2017-07-12T08:30:28.000Z",
+  "officializedAt": "2018-04-09T09:18:51.000Z",
+  "image": "https://cibuldev.s3.amazonaws.com/agenda89904399.jpg",
+  "private": 0,
+  "indexed": 1,
+  "settings": {
+    "contribution": {
+      "type": 2,
+      "defaultState": 2,
+      "canPublish": [
+        "administrators",
+        "moderators"
+      ],
+      "moderateOnChangeBy": [],
+      "defaultLang": null,
+      "allowLocationCreate": true,
+      "messages": {
+        "instructions": null,
+        "complete": null,
+        "publication": null,
+        "GDPRInformation": null
+      },
+      "useFields": false
+    }
+  }
+}

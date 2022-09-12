@@ -4,6 +4,7 @@ const schema = require('@openagenda/validators/schema');
 
 schema.register({
   integer: require('@openagenda/validators/integer'),
+  number: require('@openagenda/validators/number'),
   regex: require('@openagenda/validators/regex')
 });
 
@@ -58,7 +59,7 @@ const navValidator = schema({
     optional: true
   },
   after: {
-    type: 'integer',
+    type: 'number',
     list: { default: null },
     optional: true
   }

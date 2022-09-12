@@ -1,10 +1,8 @@
 'use strict';
 
-const util = require('util');
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
 
-const { promisify } = util;
 const log = logs('core/agendas/settings/legacy/updateLegacySet');
 
 const getAgenda = require('../../utils/getAgenda');
@@ -13,26 +11,20 @@ const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
 
 const Operations = services => {
   const {
-    agendaTags,
-    agendaCategories,
     legacy
   } = services;
 
-  const setTags = agendaTags ? promisify(agendaTags.set) : () => log('warn', 'agendaTags was not initialized');
-  const getTags = agendaTags ? promisify(agendaTags.get) : () => log('warn', 'agendaTags was not initialized');
-  const generateTags = legacy ? legacy.tagsAndCustom.utils.generateTagSet : () => log('warn', 'legacy was not initialized');
-  const setCategories = agendaCategories ? promisify(agendaCategories.set) : () => log('warn', 'agendaCategories was not initialized');
-  const getCategories = agendaCategories ? promisify(agendaCategories.get) : () => log('warn', 'agendaCategories was not initialized');
-  const generateCategories = legacy ? legacy.tagsAndCustom.utils.generateCategorySet : () => log('warn', 'legacy was not initialized');
+  const getTags = legacy?.tagsAndCustom?.getTagSet ?? (() => log('warn', 'agendaTags was not initialized'));
+  const generateTags = legacy ? legacy.tagsAndCustom.updateTags : () => log('warn', 'legacy was not initialized');
+  const getCategories = legacy?.tagsAndCustom?.getCategorySet ?? (() => log('warn', 'agendaCategories was not initialized'));
+  const generateCategories = legacy ? legacy.tagsAndCustom.updateCategories : () => log('warn', 'legacy was not initialized');
 
   return {
     tags: {
-      set: setTags,
       get: getTags,
       generate: generateTags
     },
     categories: {
-      set: setCategories,
       get: getCategories,
       generate: generateCategories
     }
@@ -65,13 +57,13 @@ module.exports = async (core, agendaOrUid, type, options = {}) => {
 
   const { id } = await config.knex('review').first(['id']).where('uid', agenda.uid);
 
-  const legacySet = await operations[type].get(id);
+  const legacySet = await operations[type].get(agenda.uid);
 
   const {
     set: updatedLegacySet,
     messages,
     fields
-  } = operations[type].generate(schema, legacySet, {
+  } = await operations[type].generate(id, schema, legacySet, {
     lang: agenda.settings.contribution.defaultLang ?? lang
   });
 
@@ -91,8 +83,6 @@ module.exports = async (core, agendaOrUid, type, options = {}) => {
   } else {
     log('updated category set has %s categories', updatedLegacySet.categories.length);
   }
-
-  await operations[type].set(id, updatedLegacySet);
 
   res.messages.push(`generated ${type} set at id ${id}`);
 
