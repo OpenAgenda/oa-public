@@ -86,6 +86,13 @@ module.exports = [{
   default: null,
   read: ['internal', 'legacy', 'legacyPrivate'],
   write: ['internal']
+},{
+  field: 'memberSchemaId',
+  type: 'integer',
+  optional: true,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate', 'administrator', 'moderator'],
+  write: ['internal'],
+  default: null,
 }, {
   field: 'officializedAt',
   type: 'date',
