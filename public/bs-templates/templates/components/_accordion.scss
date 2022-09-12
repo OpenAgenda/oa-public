@@ -1,7 +1,7 @@
 .accordion {
   margin: 0;
 
-  .accordion_item.active .button {
+  .accordion-item.active .button {
     padding: 18px 8px 0px 8px;
     background-color: #fff;
   }
@@ -34,7 +34,7 @@
     color: #41acdd;
   }
 
-  .wrapper_item {
+  .wrapper-item {
     background-color: #fff;
     padding: 0px 8px 18px 8px;
     color: #000;
@@ -42,19 +42,19 @@
       margin-bottom: 0px;
     }
   }
-  .accordion_content {
+  .accordion-content {
     overflow: hidden;
     transform: scaleY(0);    
     transform-origin: top;
-    transition: transform 0.25s ease-in;
-    -moz-transition: transform .25s ease-in;
-    -webkit-transition: transform .25s ease-in;
+    transition: transform 0.15s ease-in;
+    -moz-transition: transform .15s ease-in;
+    -webkit-transition: transform .15s ease-in;
     p {
       opacity: 0;
     }
   }
   
-  .accordion_item.active .accordion_content {
+  .accordion-item.active .accordion-content {
     transform: scaleY(1);
     p {
       opacity: 1;
