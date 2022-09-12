@@ -3,6 +3,7 @@
 
   .accordion_item.active .button {
     padding: 18px 8px 0px 8px;
+    background-color: #fff;
   }
 
   .button {
@@ -41,18 +42,25 @@
       margin-bottom: 0px;
     }
   }
-
-  .accordion_item.active .button {
-    background-color: #fff;
-  }
-
-  .wrapper {
-    height: 0;
+  .accordion_content {
     overflow: hidden;
-    transition: height ease 0.2s;
+    transform: scaleY(0);    
+    transform-origin: top;
+    transition: transform 0.25s ease-in;
+    -moz-transition: transform .25s ease-in;
+    -webkit-transition: transform .25s ease-in;
+    p {
+      opacity: 0;
+    }
   }
   
-  .accordion_item.active .wrapper {
-    height: auto;
+  .accordion_item.active .accordion_content {
+    transform: scaleY(1);
+    p {
+      opacity: 1;
+      transition: opacity .25s ease-in;
+      -moz-transition: opacity .25s ease-in;
+      -webkit-transition: opacity .25s ease-in;
+    }
   }
 }
