@@ -96,7 +96,7 @@ module.exports = async (core, agendaUid, options = {}) => {
   });
 
   if (includeMemberSchema) {
-    related.memberSchema = getMemberSchema({ optionalFields: ['internal', 'administrator'].includes(access) });
+    related.memberSchema = await getMemberSchema(services, agenda, { access });
   }
 
   if (access === 'internal') {
