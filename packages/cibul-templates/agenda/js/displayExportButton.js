@@ -18,7 +18,14 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
   }));
 
   useEffect(() => {
-    if(query.includes('sharemodal')) setDisplay(true);
+    // both all/selection are evaluated at load
+    // not useful to display both if sharemodal is in query
+    if (exportType.exportAll) {
+      return;
+    }
+    if (query.includes('sharemodal')) {
+      setDisplay(true);
+    }
   }, [query]);
 
   const messages = defineMessages({
