@@ -2,5 +2,6 @@
   "map": "map",
   "passed": "past events",
   "location": "place",
-  "fromTo": "from %start% to %end%"
+  "fromTo": "from %start% to %end%",
+  "selection": "events selection"
 }
