@@ -25,11 +25,9 @@ params = {
   },
   selectors: {
     item: '.js_fav_item',
-    menu: '.js_favorite_menu',
     exports: '.js_fav_export',
     info: '.js_fav_info',
-    clear: '.js_fav_clear',
-    empty: '.js_favorite_menu_empty'
+    clear: '.js_fav_clear'
   },
   attributes: {
     uid: 'data-event-uid'
@@ -40,7 +38,7 @@ params = {
     unfavorited: '<i class="fa fa-star-o"></i>'
   },
   res: {
-    actions: '#' // required
+    share: '#' // required
   }
 },
 
@@ -48,8 +46,7 @@ favUids;
 
 module.exports = {
   init: init,
-  sweep: sweep,
-  menu: menu
+  sweep: sweep
 }
 
 if ( [ 'tpl', 'development' ].indexOf( window.env ) !== -1 ) {
@@ -69,6 +66,31 @@ function init( options ) {
 
   log = debug( 'favorites' );
 
+  refreshBottomBar(favUids);
+}
+
+
+function refreshBottomBar(favUids) {
+  if (!params.bottomBar) {
+    return;
+  }
+
+  if (!favUids.length) {
+    bBar.hide();
+    return;
+  }
+
+  const share = params.res.share + '&' + favUids.map(uid => `oaq[uids][]=${uid}`).join('&');
+
+  bBar.setContent(
+    __( 'You have now %count% events in your favorites', { '%count%' : favUids.length } ) 
+    + ' - <a href="' + share + '">' + __( 'export' ) + '</a>'
+    + ' - <a class="js_fav_clear">' + __( 'clear' ) + '</a>' 
+  );
+
+  bBar.show();
+
+  _eventifyClear();
 }
 
 
@@ -114,54 +136,11 @@ function sweep( ignoreFlagged ) {
 
       _saveFavUids( favUids );
 
-      if ( params.bottomBar ) {
-
-        bBar.setContent(
-          __( 'You have now %count% events in your selection', { '%count%' : favUids.length } ) 
-          + ' - <a href="' + params.res.actions + '">' + __( 'export' ) + '</a>'
-          + ' - <a class="js_fav_clear">' + __( 'clear' ) + '</a>' 
-        );
-
-        bBar.show( 5000 );
-
-      }
-
-      _eventifyClear();
-
+      refreshBottomBar(favUids);
     } );
 
   } );
 
-}
-
-
-function menu() {
-
-  if (!favUids.length) {
-
-    if (du.el(params.selectors.menu)) {
-
-      du.addClass(du.el(params.selectors.menu), params.classes.displayNone);
-      du.removeClass(du.el(params.selectors.empty), params.classes.displayNone);
-    }
-
-    return;
-  }
-
-  let query = favUids.map( uid => 'oaq[uids][]=' + uid ).join( '&' );
-
-  du.el(params.selectors.info).innerHTML = du.el(params.selectors.info).innerHTML.replace('{count}', favUids.length);
-
-  utils.forEach(du.els(params.selectors.exports), function (linkElem) {
-
-    linkElem.setAttribute('href', linkElem.getAttribute('href') + '?' + query);
-  });
-
-  du.addClass(du.el(params.selectors.empty), params.classes.displayNone);
-  du.removeClass(du.el(params.selectors.menu), params.classes.displayNone);
-
-  _eventifyClear();
-  
 }
 
 
@@ -190,8 +169,6 @@ function _eventifyClear( cb ) {
       bBar.hide();
 
     }
-
-    menu();
 
   });
 
