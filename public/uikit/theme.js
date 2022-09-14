@@ -16,7 +16,11 @@ const brandColor = {
 const theme = extendTheme({
   styles: {
     global: () => ({
+      html: {
+        backgroundColor: 'gray.100'
+      },
       body: {
+        backgroundColor: 'transparent',
         fontFamily: 'helvetica'
       },
     }),
@@ -59,7 +63,12 @@ const theme = extendTheme({
   },
   colors: {
     brand: brandColor,
-    primary: brandColor
+    primary: brandColor,
+    gray: {
+      50: '#efefef',
+      100: '#eee',
+      700: '#333'
+    }
   },
   components: {
     Button: {
@@ -74,7 +83,12 @@ const theme = extendTheme({
       variants: {
         solid: props => ({
           color: props.colorScheme === 'primary' ? 'white' : 'gray.700'
-        })
+        }),
+        link: {
+          color: 'brand.500',
+          border: '0',
+          backgroundColor: 'transparent'
+        }
       }
     }
   }
