@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const glob = require('glob');
+const mkdirp = require('mkdirp');
 const { extract } = require('@formatjs/cli');
 const { DEFAULT_LANG, DEFAULT_LANGS } = require('../lib/constants');
 const getMessages = require('./utils/getMessages');
@@ -88,6 +89,8 @@ async function extractLang({
     );
 
     const result = _.merge(defaults, messages);
+
+    await mkdirp(path.dirname(outPath));
 
     fs.writeFileSync(localesPath, `${JSON.stringify(result, null, 2)}\n`);
   }
