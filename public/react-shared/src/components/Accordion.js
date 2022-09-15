@@ -6,8 +6,8 @@ const Accordion = ({
   active, onToggle, head, content
 }) => (
   <div className="accordion">
-    <div className={`accordion_item ${active ? 'active' : ''}`}>
-      <div className="accordion_head">
+    <div className={`accordion-item ${active ? 'active' : ''}`}>
+      <div className="accordion-head">
         <AccordionHead
           Trigger={({ children }) => (
             <button type="button" className="button" onClick={onToggle}>
