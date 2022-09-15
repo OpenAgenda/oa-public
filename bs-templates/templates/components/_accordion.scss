@@ -3,21 +3,25 @@
 
   .accordion-item.active .button {
     padding: 18px 8px 0px 8px;
-    background-color: #fff;
+    background: none;
   }
 
   .button {
     font-size: 14px;
-    background-color: #fff;
+    background: none;
     color: #000;
     text-align: left;
     width: 100%;
     padding: 18px 8px;
     cursor: pointer;
     border: none;
-    div {
+    .accordion-head {
       display: flex;
       justify-content: space-between;
+      div {
+        display: block;
+        width: 100%;
+      }
     }
     p {
       margin: 0;
@@ -35,7 +39,7 @@
   }
 
   .wrapper-item {
-    background-color: #fff;
+    background: none;
     padding: 0px 8px 18px 8px;
     color: #000;
     p {
@@ -43,19 +47,17 @@
     }
   }
   .accordion-content {
+    height: 0;
     overflow: hidden;
-    transform: scaleY(0);    
-    transform-origin: top;
-    transition: transform 0.15s ease-in;
-    -moz-transition: transform .15s ease-in;
-    -webkit-transition: transform .15s ease-in;
+
     p {
       opacity: 0;
     }
   }
   
   .accordion-item.active .accordion-content {
-    transform: scaleY(1);
+    height: 100%;
+
     p {
       opacity: 1;
       transition: opacity .25s ease-in;

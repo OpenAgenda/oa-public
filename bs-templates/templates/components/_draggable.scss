@@ -1,7 +1,7 @@
 .list-group-item.draggable {
   position: relative;
   cursor: grab;
-  padding-left: 1.4em;
+  padding: 0 1.4em;
 
   &:before {
     visibility: hidden;
