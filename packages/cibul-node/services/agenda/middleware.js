@@ -587,7 +587,7 @@ function _loadIsPassed(req, agenda, cb) {
       gte: new Date()
     }
   }, { size: 0 }).then(({ total }) => {
-    agenda.passed = total > 0;
+    agenda.passed = total === 0;
     cb();
   });
 }
