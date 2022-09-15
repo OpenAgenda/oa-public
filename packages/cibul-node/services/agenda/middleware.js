@@ -38,6 +38,31 @@ module.exports = function (agendaService) {
   };
 };
 
+function _hasPublishedEvents(req, agenda, cb) {
+  const {
+    eventSearch
+  } = req.app.services;
+
+  eventSearch.agendas(agenda).search({}, { size: 0 }).then(({ total }) => {
+    cb(null, !!total);
+  }, cb);
+}
+
+function _loadIsPassed(req, agenda, cb) {
+  const {
+    eventSearch
+  } = req.app.services;
+
+  eventSearch.agendas(agenda).search({
+    timings: {
+      gte: new Date()
+    }
+  }, { size: 0 }).then(({ total }) => {
+    agenda.passed = total === 0;
+    cb();
+  });
+}
+
 /**
  * load agenda instance and set it in req.agenda
  */
@@ -93,16 +118,17 @@ function loadAgenda(paramName, fieldName, options) {
 
       // if full load ( default )
       // is requested, more info is fetched
-      _loadIsPassed(req, req[loadOptions.name], err => {
-        if (err) return next(err);
+      _loadIsPassed(req, a, err2 => {
+        if (err2) return next(err2);
 
-        req[loadOptions.name].hasPublishedEvents((err, has) => {
-          if (err) return next(err);
+        _hasPublishedEvents(req, a, (err3, has) => {
+          if (err3) return next(err3);
 
           req[loadOptions.name].isEmpty = !has;
 
           next();
         });
+
       });
     });
   };
@@ -575,21 +601,6 @@ function buildCsv(includePrivateData) {
       });
     });
   };
-}
-
-function _loadIsPassed(req, agenda, cb) {
-  const {
-    eventSearch
-  } = req.app.services;
-
-  eventSearch.agendas(agenda).search({
-    timings: {
-      gte: new Date()
-    }
-  }, { size: 0 }).then(({ total }) => {
-    agenda.passed = total === 0;
-    cb();
-  });
 }
 
 function _hasQueryOtherThan(req, exceptions) {
