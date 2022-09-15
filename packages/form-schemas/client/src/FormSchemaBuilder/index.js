@@ -46,7 +46,8 @@ export default class FormSchemaBuilder extends Component {
       saveState: saveStates.UNCHANGED,
       editedField: null,
       mode: null,
-      labels
+      labels,
+      activeIndex: false,
     };
 
     if (props.devState) {
@@ -57,6 +58,20 @@ export default class FormSchemaBuilder extends Component {
 
     this.onFieldEditCancel = this.onFieldEditCancel.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
+  onAccordionToggle(fieldIndex) {
+    const {
+      activeIndex
+    } = this.state;
+
+    const isOpen = activeIndex === fieldIndex;
+
+    if (isOpen) {
+      this.setState({ activeIndex: -1 });
+    } else {
+      this.setState({ activeIndex: fieldIndex });
+    }
   }
 
   onDragEnd({ source, destination }) {
@@ -229,7 +244,8 @@ export default class FormSchemaBuilder extends Component {
       editedField,
       saveState,
       mode,
-      schema
+      schema,
+      activeIndex
     } = this.state;
 
     const mergedSchema = this.getMergedSchema();
@@ -292,6 +308,7 @@ export default class FormSchemaBuilder extends Component {
                         draggableId={field.field}
                         // isDragDisabled={mode !== modes.ORDERING}
                         index={index}
+                        disableInteractiveElementBlocking
                       >
                         {(providedInner, draggableSnapshot) => (
                           <div
@@ -321,6 +338,8 @@ export default class FormSchemaBuilder extends Component {
                               onHide={() => this.onFieldEditSave(field, { display: false })}
                               onShow={() => this.onFieldEditSave(field, { display: true })}
                               onRemove={() => this.onFieldRemove(field)}
+                              onAccordionToggle={() => this.onAccordionToggle(index)}
+                              active={activeIndex === index}
                             />
                           </div>
                         )}

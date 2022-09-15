@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
+import Accordion from '../../../../../public/react-shared/src/components/Accordion';
+
 import labels from './lib/labels';
 import getFieldTypeLabel from './lib/getFieldTypeLabel';
 import getPreferredLang from './lib/getPreferredLang';
@@ -69,7 +71,9 @@ export default class FieldPreview extends Component {
       isOwn,
       onEdit,
       onHide,
-      onRemove
+      onRemove,
+      onAccordionToggle,
+      active,
     } = this.props;
 
     const editable = defineIsEditable(field, { isOwn, editableExtensions });
@@ -81,56 +85,67 @@ export default class FieldPreview extends Component {
           'field-preview': true
         })}
       >
-        <div>
-          <label
-            className="margin-right-xs padding-top-xs"
-            htmlFor={`edit-${field.field}`}
-          >
-            {getPreferredLang(field.label, lang)}
-          </label>
-          {this.isFieldOptional() ? null : <span className="text-muted margin-right-xs">{getLabel('requiredField', lang)}</span>}
-          {renderSchemaInfo(schemaInfo, lang)}
-          <ul className="list-inline margin-bottom-xs">
-            <li><span>{field.purpose ? getPreferredLang(field.purpose, lang) : getFieldTypeLabel(field, lang)}</span></li>
-            <li className="text-muted" title="Code du champ">{field.field}</li>
-          </ul>
-          {ordering ? (
-            <ul className="form-item-actions list-inline">
-              <li><span className="btn btn-link">{getLabel('orderField', lang)}</span></li>
-            </ul>
-          ) : (
-            <div className="form-item-actions padding-h-xs">
-              <button
-                type="button"
-                name={`edit-${field.field}`}
-                title={this.getInfoLabel()}
-                onClick={() => (!isDisabled ? onEdit() : null)}
-                className="btn btn-link"
-                disabled={!editable || disabled}
+
+        <Accordion
+          head={(
+            <>
+              <label
+                className="margin-right-xs padding-top-xs"
+                htmlFor={`edit-${field.field}`}
               >
-                {getLabel('editField', lang)}
-              </button>
-              {this.isFieldOptional() ? (
-                <button
-                  type="button"
-                  onClick={() => onHide()}
-                  className="btn btn-link"
-                >
-                  {getLabel('hideField', lang)}
-                </button>
-              ) : null}
-              {isOwn ? (
-                <button
-                  type="button"
-                  onClick={() => (isDisabled ? null : onRemove())}
-                  className="btn btn-link"
-                >
-                  <span className="text-danger">{getLabel('removeField', lang)}</span>
-                </button>
-              ) : null}
-            </div>
+                {getPreferredLang(field.label, lang)}
+              </label>
+              {this.isFieldOptional() ? null : <span className="text-muted margin-right-xs">{getLabel('requiredField', lang)}</span>}
+              {renderSchemaInfo(schemaInfo, lang)}
+              <ul className="list-inline margin-bottom-xs">
+                <li><span>{field.purpose ? getPreferredLang(field.purpose, lang) : getFieldTypeLabel(field, lang)}</span></li>
+                <li className="text-muted" title="Code du champ">{field.field}</li>
+              </ul>
+            </>
           )}
-        </div>
+          content={(
+            <>
+              {ordering ? (
+                <ul className="form-item-actions list-inline">
+                  <li><span className="btn btn-link">{getLabel('orderField', lang)}</span></li>
+                </ul>
+              ) : (
+                <div className="form-item-actions padding-h-xs">
+                  <button
+                    type="button"
+                    name={`edit-${field.field}`}
+                    title={this.getInfoLabel()}
+                    onClick={() => (!isDisabled ? onEdit() : null)}
+                    className="btn btn-link"
+                    disabled={!editable || disabled}
+                  >
+                    {getLabel('editField', lang)}
+                  </button>
+                  {this.isFieldOptional() ? (
+                    <button
+                      type="button"
+                      onClick={() => onHide()}
+                      className="btn btn-link"
+                    >
+                      {getLabel('hideField', lang)}
+                    </button>
+                  ) : null}
+                  {isOwn ? (
+                    <button
+                      type="button"
+                      onClick={() => (isDisabled ? null : onRemove())}
+                      className="btn btn-link"
+                    >
+                      <span className="text-danger">{getLabel('removeField', lang)}</span>
+                    </button>
+                  ) : null}
+                </div>
+              )}
+            </>
+          )}
+          onToggle={onAccordionToggle}
+          active={active}
+        />
       </div>
     );
   }
@@ -140,7 +155,9 @@ export default class FieldPreview extends Component {
       field,
       lang,
       schemaInfo,
-      onShow
+      onShow,
+      onAccordionToggle,
+      active,
     } = this.props;
 
     return (
@@ -149,31 +166,43 @@ export default class FieldPreview extends Component {
           'field-preview': true
         })}
       >
-        <label
-          htmlFor={`show-${field.field}`}
-          className="margin-right-xs padding-top-xs"
-        >
-          {getPreferredLang(field.label, lang)}
-        </label>
-        {renderSchemaInfo(schemaInfo, lang)}
-        <span>{getLabel('hiddenField', lang)}</span>
-        {field.purpose ? (
-          <ul className="list-inline margin-bottom-xs">
-            <li>
-              <span>{getPreferredLang(field.purpose, lang)}</span>
-            </li>
-            <li className="text-muted" title="Code du champ">{field.field}</li>
-          </ul>
-        ) : null}
-        <div className="form-item-actions padding-h-xs">
-          <button
-            type="button"
-            name={`show-${field.field}`}
-            className="btn btn-link"
-            onClick={() => onShow()}
-          >
-            {getLabel('showField', lang)}
-          </button>
+        <div>
+          <Accordion
+            head={(
+              <>
+                <label
+                  htmlFor={`show-${field.field}`}
+                  className="margin-right-xs padding-top-xs"
+                >
+                  {getPreferredLang(field.label, lang)}
+                </label>
+                {renderSchemaInfo(schemaInfo, lang)}
+                <span>{getLabel('hiddenField', lang)}</span>
+                {field.purpose ? (
+                  <ul className="list-inline margin-bottom-xs">
+                    <li>
+                      <span>{getPreferredLang(field.purpose, lang)}</span>
+                    </li>
+                    <li className="text-muted" title="Code du champ">{field.field}</li>
+                  </ul>
+                ) : null}
+              </>
+            )}
+            content={(
+              <div className="form-item-actions padding-h-xs">
+                <button
+                  type="button"
+                  name={`show-${field.field}`}
+                  className="btn btn-link"
+                  onClick={() => onShow()}
+                >
+                  {getLabel('showField', lang)}
+                </button>
+              </div>
+              )}
+            onToggle={onAccordionToggle}
+            active={active}
+          />
         </div>
       </div>
     );
