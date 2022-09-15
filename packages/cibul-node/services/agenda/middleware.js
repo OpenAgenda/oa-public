@@ -93,8 +93,7 @@ function loadAgenda(paramName, fieldName, options) {
 
       // if full load ( default )
       // is requested, more info is fetched
-
-      _loadIsPassed(req[loadOptions.name], err => {
+      _loadIsPassed(req, req[loadOptions.name], err => {
         if (err) return next(err);
 
         req[loadOptions.name].hasPublishedEvents((err, has) => {
@@ -578,14 +577,17 @@ function buildCsv(includePrivateData) {
   };
 }
 
-function _loadIsPassed(agenda, cb) {
-  const now = new Date();
+function _loadIsPassed(req, agenda, cb) {
+  const {
+    eventSearch
+  } = req.app.services;
 
-  agenda.getLastOccurrence((err, lastOccurrence) => {
-    if (err) return cb(err);
-
-    agenda.passed = lastOccurrence ? (now > new Date(lastOccurrence.end)) : false;
-
+  eventSearch.agendas(agenda).search({
+    timings: {
+      gte: new Date()
+    }
+  }, { size: 0 }).then(({ total }) => {
+    agenda.passed = total > 0;
     cb();
   });
 }
