@@ -1,7 +1,7 @@
 {
   "all-languages": "Alle",
-  "close": "Schließen",
-  "input-format": "Eine Format auswählen",
-  "modal-title": "Exportieren",
+  "ReactShareMenus.ExportModal.close": "Schließen",
+  "ReactShareMenus.ExportModal.inputFormat": "Eine Format auswählen",
+  "ReactShareMenus.ExportModal.title": "Exportieren",
   "instructions": "Anweisungen"
 }

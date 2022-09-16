@@ -2,7 +2,7 @@
   "aggregator-title": "Agregar a una agenda",
   "distribute-fields": "Camps amb opcions: mostrar una valor per colomna",
   "email-placeholder": "Dintratz l'email sul qual volètz mandar l'eveniment",
-  "exportJson": "Utilizar la version precedenta d'expòrt JSON",
+  "ReactShareMenus.ExportModal.exportJson": "Utilizar la version precedenta d'expòrt JSON",
   "gcalStep3": "3. Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1",
   "input-field": "Seleccionatz los camps d'exportar",
   "no-agenda": "Atencion: vòstre compte baileja pas cap agenda. Mercés de ne crear una primièr se volètz agregar los eveniments de {targetAgenda}.",
