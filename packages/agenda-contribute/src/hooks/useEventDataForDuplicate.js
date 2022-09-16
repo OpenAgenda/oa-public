@@ -81,5 +81,9 @@ export default function useEventDataForDuplicate(destinationAgenda) {
     hasReferenceForDuplicate,
     isReferenceLoading: isReferenceLoading || isReferenceAgendaLoading,
     referenceData: referenceAgenda && referenceData ? removeUnduplicatable(destinationAgenda, referenceAgenda, referenceData) : null,
+    duplicateOrigin: {
+      agendaUid,
+      eventUid
+    }
   }), [hasReferenceForDuplicate, isReferenceLoading, referenceData, isReferenceAgendaLoading, referenceAgenda, destinationAgenda]);
 }
