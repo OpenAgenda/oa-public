@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@openagenda/labels": "^2.1.0",
-    "jest": "^26.1.0",
+    "jest": "^28.1.2",
     "should": "^13.1.2"
   },
   "jest": {

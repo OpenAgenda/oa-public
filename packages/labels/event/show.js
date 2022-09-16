@@ -801,6 +801,10 @@ module.exports = {
     "br": "Obererezh",
     "io": "crwdns14590:0crwdne14590:0"
   },
+  "history": {
+    "en": "History",
+    "fr": "Historique"
+  },
   "inbox": {
     "en": "Inbox",
     "fr": "Messagerie",

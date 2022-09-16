@@ -49,7 +49,7 @@
     "@openagenda/babel-preset": "^1.4.1",
     "@storybook/react": "^6.2.8",
     "babel-loader": "^8.2.2",
-    "jest": "^26.1.0",
+    "jest": "^28.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "redis": "^2.8.0",

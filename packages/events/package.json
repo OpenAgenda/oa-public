@@ -39,7 +39,7 @@
     "@openagenda/eslint-config": "workspace:public/eslint-config",
     "@openagenda/files": "^3.1.0",
     "axios": "^0.21.1",
-    "jest": "^26.1.0",
+    "jest": "^28.1.2",
     "rimraf": "^3.0.1"
   }
 }

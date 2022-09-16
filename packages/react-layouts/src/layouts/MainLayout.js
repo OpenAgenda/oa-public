@@ -10,6 +10,7 @@ import { useCookie, useInterval } from 'react-use';
 import { css } from '@emotion/react';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
+import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications';
 import * as mainActions from '../reducers/main';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -118,6 +119,7 @@ function MainLayout({
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
   const isTranslator = useSelector(state => state.main.isTranslator);
   const translateMode = useSelector(state => state.main.translateMode);
+  const activitiesConfig = useSelector(state => state.settings.activities);
 
   const dispatch = useDispatch();
 
@@ -379,6 +381,12 @@ function MainLayout({
                     </button>
                     <div className="js_notifications_panel hide" />
                   </li>
+
+                  <Notifications
+                    user={user}
+                    activitiesConfig={activitiesConfig}
+                    locale={intl.locale}
+                  />
                 </>
               ) : null}
 
