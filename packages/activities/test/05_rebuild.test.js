@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
 const knexLib = require( 'knex' );
 const service = require( './service' );
 const { rebuild } = require( '../src/service/rebuild' );
@@ -9,11 +8,11 @@ const config = require( '../testconfig' );
 
 describe.skip( 'activities - rebuid', function () {
 
-  this.timeout( 600000 );
+  jest.setTimeout( 600000 );
 
   let knex;
 
-  before( async () => {
+  beforeAll(async () => {
 
     knex = knexLib( {
       client: 'mysql',
@@ -37,11 +36,11 @@ describe.skip( 'activities - rebuid', function () {
       'rebuild_aggregator',
     ] );
 
-  } );
+  });
 
-  it( 'rebuild', () => {
+  it('rebuild', () => {
 
-    return rebuild( {}, Object.assign( {}, config.mysql, {
+    return expect(rebuild( {}, Object.assign( {}, config.mysql, {
       userTable: config.schemas.rebuild_user,
       reviewTable: config.schemas.rebuild_agenda,
       reviewArticleTable: config.schemas.rebuild_review_article,
@@ -70,8 +69,7 @@ describe.skip( 'activities - rebuid', function () {
 
         console.error( err );
 
-      } )
-      .should.fulfilledWith( {
+      } )).resolves.toMatchObject( {
         agendasAffected: 3,
         usersAffected: 108,
         stakeholdersAffected: 100,
@@ -79,6 +77,6 @@ describe.skip( 'activities - rebuid', function () {
         reviewArticlesAffected: 172
       } );
 
-  } );
+  });
 
 } );

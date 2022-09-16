@@ -1,216 +1,156 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
-const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/addActivity' );
-const queue = require( '@openagenda/queue' );
-const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
-const groupBy = require( '../lib/groupBy' );
+const _ = require('lodash');
+const VError = require('verror');
+const log = require('@openagenda/logs')('activities/notifications/tasks/addActivity');
+const queue = require('@openagenda/queue');
+const groupBy = require('../lib/groupBy');
 
 module.exports = config => {
-  const q = queue( config.queue.names.addActivity, { redis: config.queue.redis } );
+  const q = queue(config.queue.names.addActivity, { redis: config.queue.redis });
 
   return Object.assign(
-    addActivity.bind( null, config ),
-    { task: task.bind( null, config, q ) }
+    addActivity.bind(null, config),
+    { task: task.bind(null, config, q) },
   );
 };
 
-function task( config, q, onAdd = null ) {
-
-  q.setConsumer( ( { identifiers, activity }, cb ) => {
-
-    addActivity( config, identifiers, activity, ( err, result ) => {
-
-      if ( err && err.message !== 'The notifications concern only user feeds' ) {
-        log( 'error', 'Error in addActivity task: %s', err );
-      }
-
-      if ( onAdd ) onAdd( err, result );
-
-      cb( err, result );
-
-    } );
-
-  } );
+function task(config, q, onAdd = null) {
+  q.setConsumer(async ({ identifiers, activity }) => {
+    try {
+      const result = await addActivity(config, identifiers, activity);
+      if (onAdd) onAdd(null, result);
+    } catch (e) {
+      log('error', 'Error in addActivity task:', e);
+      console.log('error', 'Error in addActivity task:', e);
+      if (onAdd) onAdd(e);
+    }
+  });
 
   q.launch();
 
   return {
-    shutdown: q.shutdown
-  }
-
-}
-
-function parseArguments( identifiers, activity, options, cb ) {
-
-  const result = {
-    identifiers,
-    activity,
-    options,
-    cb
+    shutdown: q.shutdown,
   };
-
-  const args = Array.isArray( arguments ) ? arguments : Array.from( arguments );
-
-  if ( typeof args[ args.length - 1 ] !== 'function' ) {
-    args.push( null );
-  }
-
-  if ( args.length === 3 ) {
-
-    Object.assign( result, {
-      identifiers: args[ 0 ],
-      activity: args[ 1 ],
-      options: null,
-      cb: args[ 2 ]
-    } );
-
-  }
-
-  return result;
-
 }
 
-function addActivity( config ) {
+function fnOrValue(fnValue, ...params) {
+  return typeof fnValue === 'function'
+    ? fnValue(...params)
+    : fnValue;
+}
 
-  const { service, knex } = config;
-
-  let {
-    identifiers,
-    activity,
-    options,
-    cb
-  } = parseArguments.apply( null, Array.from( arguments ).slice( 1 ) );
-
-  const params = _.merge( {
-    excludeIds: []
-  }, options );
-
-  if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
-
-    return promisePlusCb( Promise.reject( new VError( 'The notifications concern only feeds users' ) ), cb );
-
+function getGroupBy(groupBy, feed, activity) {
+  if (!groupBy) {
+    return null;
   }
 
-  const promise = service.feed( identifiers ).get( { internal: true } )
-    .then( feed => {
+  return groupBy
+    .map(v => v + ':' + _.get(activity, v))
+    .join('|');
+}
 
-      if ( feed === null ) {
-        return Promise.reject( new VError( 'Feed not found' ) );
+async function addActivity(config, identifiers, activity, options) {
+  const {
+    service,
+    knex,
+    activities,
+    enableNotificationsForFeedTypes
+  } = config;
+  const activityConfig = activities[activity.verb];
+
+  const params = _.merge({
+    excludeIds: [],
+  }, options);
+
+  const feed = await service.feed(identifiers).get({ internal: true });
+
+  if (!enableNotificationsForFeedTypes.includes(feed.entityType)) {
+    return null;
+  }
+
+  if (feed === null) {
+    throw new VError('Feed not found');
+  }
+
+  // The actor is not notified of his actions
+  if (`${feed.entityType}:${feed.entityUid}` === activity.actor) {
+    return null;
+  }
+
+  // notif groups activities
+  const groupBy = fnOrValue(activityConfig.notifications.groupBy, { feed, activity });
+  const groupedBy = getGroupBy(groupBy, feed, activity);
+
+  const notif = groupedBy
+    ? await service.feed(feed).notifications.get({
+      feedId: feed.id,
+      verb: activity.verb,
+      groupBy: groupedBy,
+      state: 0,
+      sent: 0,
+    }, { excludeIds: params.excludeIds })
+    : null;
+
+  if (!notif) {
+    const store = {
+      actor: activity.actor ? [activity.actor] : [],
+      object: activity.object ? [activity.object] : [],
+      target: activity.target ? [activity.target] : [],
+      labels: {
+        ...activity.store.labels, // need other groupBy
+        actor: activity.store?.labels?.actor,
+        object: activity.store?.labels?.object,
+        target: activity.store?.labels?.target,
+      },
+    };
+
+    const additionalProps = _.without(groupBy, 'actor', 'object', 'target')
+      .reduce((result, path) => {
+        _.set(result, path, _.get(activity, path));
+        return result;
+      }, {});
+
+    const [id] = await knex(config.schemas.feed_notification).insert({
+      feed_id: feed.id,
+      verb: activity.verb,
+      group_by: groupedBy,
+      store: JSON.stringify(_.merge(store, additionalProps.store)),
+      updated_at: new Date(),
+    });
+
+    return service.feed(feed).notifications.get(id);
+  } else {
+    const createNewStoreKey = key => {
+      const values = Array.from(notif.store[key]);
+      const value = activity[key];
+      if (!value || values.includes(value)) {
+        return values;
       }
-
-      if ( feed.entityType !== 'user' ) {
-        return Promise.reject( new VError( 'The notifications concern only user feeds' ) );
+      if (values.length >= 100) {
+        return { 0: values[0], length: 101 };
       }
+      return values.concat(value);
+    };
 
-      if ( `${feed.entityType}:${feed.entityUid}` === activity.actor ) {
-        return null;
-      }
+    console.log('activity', activity);
 
-      const groupedBy = (groupBy[ activity.verb ] || []).map( v => v + ':' + _.get( activity, v ) ).join( '|' );
+    const store = Object.assign({}, notif.store, {
+      actor: createNewStoreKey('actor'),
+      object: createNewStoreKey('object'),
+      target: createNewStoreKey('target'),
+      labels: {
+        actor: activity.store?.labels?.actor,
+        object: activity.store?.labels?.object,
+        target: activity.store?.labels?.target,
+      },
+    });
 
-      return service.feed( feed ).notifications.get( {
-        feedId: feed.id,
-        verb: activity.verb,
-        groupBy: groupedBy,
-        state: 0,
-        sent: 0
-      }, { excludeIds: params.excludeIds } )
-        .then( notif => {
+    await knex(config.schemas.feed_notification).where({ id: notif.id }).update({
+      store: JSON.stringify(store),
+      updated_at: new Date(),
+    });
 
-          if ( notif && notif.verb === 'agenda.setOfficial' ) {
-            notif = undefined;
-          }
-
-          if (
-            notif && [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notif.verb )
-            && `${feed.entityType}:${feed.entityUid}` === activity.object
-          ) {
-            notif = undefined;
-          }
-
-          if ( notif === undefined ) {
-
-            const store = {
-              actors: activity.actor ? [ activity.actor ] : [],
-              objects: activity.object ? [ activity.object ] : [],
-              targets: activity.target ? [ activity.target ] : [],
-              labels: {
-                ...activity.store.labels,
-                actor: activity.store && activity.store.labels && activity.store.labels.actor,
-                object: activity.store && activity.store.labels && activity.store.labels.object,
-                target: activity.store && activity.store.labels && activity.store.labels.target
-              }
-            };
-
-            const additionalProps = _.without( groupBy[ activity.verb ], 'actor', 'object', 'target' )
-              .reduce( ( result, path ) => {
-                _.set( result, path, _.get( activity, path ) );
-                return result;
-              }, {} );
-
-            return knex( config.schemas.feed_notification ).insert( {
-              feed_id: feed.id,
-              verb: activity.verb,
-              group_by: groupedBy,
-              store: JSON.stringify( _.merge( store, additionalProps.store ) ),
-              updated_at: new Date()
-            } )
-              .then( ids => service.feed( feed ).notifications.get( ids[ 0 ] ) );
-
-          } else {
-
-            const createNewStoreKey = key => {
-              const values = Array.from( notif.store[ key + 's' ] );
-              const value = activity[ key ];
-              if ( !value || values.includes( value ) ) {
-                return values;
-              }
-              if ( values.length >= 100 ) {
-                return { 0: values[ 0 ], length: 101 };
-              }
-              return values.concat( value );
-            };
-
-            const store = Object.assign( {}, notif.store, {
-              actors: createNewStoreKey( 'actor' ),
-              objects: createNewStoreKey( 'object' ),
-              targets: createNewStoreKey( 'target' ),
-              labels: {
-                actor: activity.store && activity.store.labels && activity.store.labels.actor,
-                object: activity.store && activity.store.labels && activity.store.labels.object,
-                target: activity.store && activity.store.labels && activity.store.labels.target
-              }
-            } );
-
-            if (
-              [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notif.verb )
-              && store.objects?.includes( `${feed.entityType}:${feed.entityUid}` )
-            ) {
-
-              return addActivity(
-                config,
-                identifiers,
-                activity,
-                { excludeIds: (params.excludeIds || []).concat( notif.id ) },
-                cb
-              );
-
-            }
-
-            return knex( config.schemas.feed_notification ).where( { id: notif.id } ).update( {
-              store: JSON.stringify( store ),
-              updated_at: new Date()
-            } )
-              .then( () => service.feed( feed ).notifications.get( notif.id ) );
-
-          }
-
-        } );
-
-    } );
-
-  return promisePlusCb( promise, cb );
-
+    return service.feed(feed).notifications.get(notif.id);
+  }
 }

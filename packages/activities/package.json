@@ -13,7 +13,7 @@
   "main": "dist/service/index.js",
   "scripts": {
     "build": "babel src -d dist -s",
-    "test": "mocha --exit",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
     "prepack": "yarn build"
   },
   "dependencies": {
@@ -39,9 +39,8 @@
     "@babel/core": "^7.13.16",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/fixtures": "^2.0.2",
+    "jest": "^28.1.2",
     "knex": "^0.19.5",
-    "mocha": "^7.0.1",
-    "mysql": "^2.18.1",
-    "should": "^13.2.3"
+    "mysql": "^2.18.1"
   }
 }

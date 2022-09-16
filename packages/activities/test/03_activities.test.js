@@ -1,50 +1,58 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const should = require( 'should' );
 const knexLib = require( 'knex' );
 const Service = require( './service' );
 const config = require( '../testconfig' );
 
-describe( 'activities - activities', function () {
+describe( 'activities - activities', () => {
 
-  this.timeout( 60000 );
+  jest.setTimeout( 60000 );
 
   let service;
   let knex;
 
-  before( async () => {
+  beforeEach(async () => {
 
     knex = knexLib( {
       client: 'mysql',
       connection: config.mysql
     } );
 
-    service = await Service.initAndLoad( { ...config, knex } );
+    service = await Service.initAndLoad( {
+      ...config,
+      queue: {
+        ...config.queue,
+        names: {
+          addActivity: `${config.queue.names.addActivity}_activities`,
+          sendSummary: `${config.queue.names.sendSummary}_activities`
+        }
+      },
+      knex
+    } );
 
-  } );
+  });
 
-  after( async () => {
+  afterEach(async () => {
     await knex.destroy();
     await service.shutdown();
-  } );
+  });
 
   describe( 'list', () => {
 
-    it( 'simple list of activities of a feed', () => {
+    it('simple list of activities of a feed', () => {
 
-      return service.feed( { entityType: 'user', entityUid: 42 } ).activities.list()
+      return expect(service.feed( { entityType: 'user', entityUid: 42 } ).activities.list()
         .then( activities => {
 
           return activities.map( activity => {
 
-            activity.createdAt.should.Date();
+            expect(activity.createdAt).toBeInstanceOf(Date);
             return _.omit( activity, 'createdAt', 'updatedAt' );
 
           } );
 
-        } )
-        .should.fulfilledWith( [
+        } )).resolves.toMatchObject( [
           {
             id: 7,
             actor: 'user:99999954',
@@ -131,68 +139,71 @@ describe( 'activities - activities', function () {
           }
         ] );
 
-    } );
+    });
 
-    it( 'list of activities with an offset and a limit', () => {
+    it('list of activities with an offset and a limit', () => {
 
-      return service.feed( { entityType: 'user', entityUid: 42 } ).activities.list( 4, 3 )
-        .then( activities => {
+      return expect(
+        service.feed( { entityType: 'user', entityUid: 42 } ).activities.list( 4, 3 )
+          .then( activities => {
 
-          return activities.map( activity => {
+            return activities.map( activity => {
 
-            activity.createdAt.should.Date();
-            return _.omit( activity, 'createdAt', 'updatedAt' );
+              expect(activity.createdAt).toBeInstanceOf(Date);
 
-          } );
+              return _.omit( activity, 'createdAt', 'updatedAt' );
 
-        } )
-        .should.fulfilledWith( [
-          {
-            id: 3,
-            actor: 'user:99999950',
-            verb: 'event.action',
-            object: 'event:54548512',
-            target: 'agenda:48648352',
-            store: {
-              labels: {
-                actor: 'Jacky',
-                object: 'Réunion des junkies anonymes',
-                target: 'la-gargouille'
-              }
-            }
-          },
-          {
-            id: 1,
-            actor: 'user:54849455',
-            verb: 'event.create',
-            object: 'event:54548512',
-            target: 'agenda:48648352',
-            store: {
-              labels: {
-                actor: 'Jacky',
-                object: 'Réunion des junkies anonymes',
-                target: 'la-gargouille'
-              }
+            } );
+
+          } )
+      ).resolves.toMatchObject( [
+        {
+          id: 3,
+          actor: 'user:99999950',
+          verb: 'event.action',
+          object: 'event:54548512',
+          target: 'agenda:48648352',
+          store: {
+            labels: {
+              actor: 'Jacky',
+              object: 'Réunion des junkies anonymes',
+              target: 'la-gargouille'
             }
           }
-        ] );
+        },
+        {
+          id: 1,
+          actor: 'user:54849455',
+          verb: 'event.create',
+          object: 'event:54548512',
+          target: 'agenda:48648352',
+          store: {
+            labels: {
+              actor: 'Jacky',
+              object: 'Réunion des junkies anonymes',
+              target: 'la-gargouille'
+            }
+          }
+        },
+      ] );
 
-    } );
+    });
 
-    it( 'list with a query', () => {
+    it('list with a query', () => {
 
-      return service.activities.list( { verb: 'event.action', object: 'event:54548512' } )
-        .then( activities => {
+      return expect(
+        service.activities.list( { verb: 'event.action', object: 'event:54548512' } )
+          .then( activities => {
 
-          return activities.map( activity => {
+            return activities.map( activity => {
 
-            activity.createdAt.should.Date();
-            return _.omit( activity, 'createdAt', 'updatedAt' );
+              expect(activity.createdAt).toBeInstanceOf(Date);
+              return _.omit( activity, 'createdAt', 'updatedAt' );
 
-          } );
+            } );
 
-        } )
-        .should.fulfilledWith( [
+          } )
+      ).resolves.toMatchObject( [
           {
             id: 5,
             actor: 'user:99999952',
@@ -223,24 +234,23 @@ describe( 'activities - activities', function () {
           }
         ] );
 
-    } );
+    });
 
     it( 'list that is not associated with a feed', () => {
 
-      return service.activities.list()
+      return expect(service.activities.list()
         .then( activities => {
 
           return activities
             .filter(a => a.id < 8) // next activites used for other tests
             .map( activity => {
 
-            activity.createdAt.should.Date();
+            expect(activity.createdAt).toBeInstanceOf(Date);
             return _.omit( activity, 'createdAt', 'updatedAt' );
 
           } );
 
-        } )
-        .should.fulfilledWith( [
+        } )).resolves.toMatchObject( [
           {
             id: 7,
             actor: 'user:99999954',
@@ -341,15 +351,15 @@ describe( 'activities - activities', function () {
           }
         ] );
 
-    } );
+    });
 
   } );
 
   describe( 'add', () => {
 
-    it( 'add an activity', () => {
+    it('add an activity', () => {
 
-      return service.feed( { entityType: 'user', entityUid: 46 } ).activities.add( {
+      return expect(service.feed( { entityType: 'user', entityUid: 46 } ).activities.add( {
         actor: 'user:78978978',
         verb: 'event.create',
         object: 'event:56488589',
@@ -364,7 +374,7 @@ describe( 'activities - activities', function () {
       } )
         .then( activity => {
 
-          activity.createdAt.should.Date();
+          expect(activity.createdAt).toBeInstanceOf(Date);
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
         } )
@@ -373,14 +383,13 @@ describe( 'activities - activities', function () {
           return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
             .then( rows => {
 
-              rows.map( v => v.feed_id ).should.eql( [ 6, 4, 7, 8, 9, 10 ] );
+              expect(rows.map( v => v.feed_id )).toEqual([ 6, 4, 7, 8, 9, 10 ]);
 
               return activity;
 
             } );
 
-        } )
-        .should.fulfilledWith( {
+        } )).resolves.toMatchObject( {
           id: 13,
           actor: 'user:78978978',
           verb: 'event.create',
@@ -395,35 +404,13 @@ describe( 'activities - activities', function () {
           }
         } );
 
-    } );
+    });
 
-    it( 'add an activity in a feed that doesn\'t exist', () => {
+    it('add an activity with mask', () => {
 
-      return service.feed( { entityType: 'user', entityUid: 75 } ).activities.add( {
+      return expect(service.feed( { entityType: 'user', entityUid: 46 } ).activities.add( {
         actor: 'user:78978978',
-        verb: 'event.create',
-        object: 'event:56488589',
-        target: 'agenda:78625845',
-        store: {
-          labels: {
-            actor: 'Jacky',
-            object: 'Réunion des junkies anonymes 2',
-            target: 'La fumette'
-          }
-        }
-      } )
-        .should.rejectedWith(
-          Error,
-          { message: 'One or more feeds doesn\'t exist in feeds [ { entityType: \'user\', entityUid: 75 } ]' }
-        );
-
-    } );
-
-    it( 'add an activity - without following', () => {
-
-      return service.feed( { entityType: 'user', entityUid: 45 } ).activities.add( {
-        actor: 'user:78978978',
-        verb: 'event.create',
+        verb: 'event.withMask',
         object: 'event:56488589',
         target: 'agenda:78625845',
         store: {
@@ -436,7 +423,7 @@ describe( 'activities - activities', function () {
       } )
         .then( activity => {
 
-          activity.createdAt.should.Date();
+          expect(activity.createdAt).toBeInstanceOf(Date);
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
         } )
@@ -445,14 +432,78 @@ describe( 'activities - activities', function () {
           return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
             .then( rows => {
 
-              rows.map( v => v.feed_id ).should.eql( [ 5 ] );
+              expect(rows.map( v => v.feed_id )).toEqual([ 6, 4, 7, 8, 9, 10 ]);
+
+              return activity;
+
+            } );
+
+        } )).resolves.toMatchObject( {
+          id: 13,
+          verb: 'event.withMask',
+          object: 'event:56488589',
+          target: 'agenda:78625845',
+          store: {
+            labels: {
+              object: 'Réunion des junkies anonymes 2',
+              target: 'La fumette'
+            }
+          }
+        } );
+
+    });
+
+    it('add an activity in a feed that doesn\'t exist', () => {
+
+      return expect(service.feed( { entityType: 'user', entityUid: 75 } ).activities.add( {
+        actor: 'user:78978978',
+        verb: 'event.create',
+        object: 'event:56488589',
+        target: 'agenda:78625845',
+        store: {
+          labels: {
+            actor: 'Jacky',
+            object: 'Réunion des junkies anonymes 2',
+            target: 'La fumette'
+          }
+        }
+      } )).rejects.toThrow('One or more feeds doesn\'t exist in feeds [ { entityType: \'user\', entityUid: 75 } ]');
+
+    });
+
+    it('add an activity - without following', () => {
+
+      return expect(service.feed( { entityType: 'user', entityUid: 45 } ).activities.add( {
+        actor: 'user:78978978',
+        verb: 'event.create',
+        object: 'event:56488589',
+        target: 'agenda:78625845',
+        store: {
+          labels: {
+            actor: 'Jacky',
+            object: 'Réunion des junkies anonymes 2',
+            target: 'La fumette'
+          }
+        }
+      } )
+        .then( activity => {
+
+          expect(activity.createdAt).toBeInstanceOf(Date);
+          return _.omit( activity, 'createdAt', 'updatedAt' );
+
+        } )
+        .then( activity => {
+
+          return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
+            .then( rows => {
+
+              expect(rows.map( v => v.feed_id )).toEqual([ 5 ]);
 
               return _.omit( activity, 'id' );
 
             } );
 
-        } )
-        .should.fulfilledWith( {
+        } )).resolves.toMatchObject( {
           actor: 'user:78978978',
           verb: 'event.create',
           object: 'event:56488589',
@@ -466,11 +517,11 @@ describe( 'activities - activities', function () {
           }
         } );
 
-    } );
+    });
 
-    it( 'add an activity to multiple feeds', () => {
+    it('add an activity to multiple feeds', () => {
 
-      return service.activities.add( {
+      return expect(service.activities.add( {
         actor: 'user:66666666',
         verb: 'event.create',
         object: 'event:56488589',
@@ -485,7 +536,7 @@ describe( 'activities - activities', function () {
       }, [ { entityType: 'user', entityUid: 46 }, 5 ] )
         .then( activity => {
 
-          activity.createdAt.should.Date();
+          expect(activity.createdAt).toBeInstanceOf(Date);
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
         } )
@@ -494,14 +545,13 @@ describe( 'activities - activities', function () {
           return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
             .then( rows => {
 
-              rows.map( v => v.feed_id ).should.eql( [ 6, 5, 4, 7, 8, 9, 10 ] );
+              expect(rows.map( v => v.feed_id )).toEqual([ 6, 5, 4, 7, 8, 9, 10 ]);
 
               return _.omit( activity, 'id' );
 
             } );
 
-        } )
-        .should.fulfilledWith( {
+        } )).resolves.toMatchObject( {
           actor: 'user:66666666',
           verb: 'event.create',
           object: 'event:56488589',
@@ -515,28 +565,27 @@ describe( 'activities - activities', function () {
           }
         } );
 
-    } );
+    });
 
-    it( 'add an activity that passes through the followFilters', async () => {
+    it('add an activity that passes through the followFilters', async () => {
 
       service = await Service( Object.assign( {}, config, {
         knex: knexLib( {
           client: 'mysql',
           connection: config.mysql
         } ),
-        filterFollows: [ {
-          verb: 'event.publish',
-          getFeeds: true,
-          filter: ( activity, originFeed, targetFeed, follow, cb ) => {
-            cb( null, true );
+        activities: {
+          'event.publish': {
+            filterFollows: [
+              ({ /* activity, originFeed, targetFeed, follow */ } ) => {
+                return true;
+              },
+              ({ targetFeed } ) => {
+                return targetFeed.id !== 8;
+              }
+            ]
           }
-        }, {
-          verb: 'event.publish',
-          getFeeds: true,
-          filter: ( activity, originFeed, targetFeed, follow, cb ) => {
-            cb( null, targetFeed.id !== 8 );
-          }
-        } ]
+        },
       } ) );
 
       return service.feed( { entityType: 'user', entityUid: 46 } ).activities.add( {
@@ -554,7 +603,7 @@ describe( 'activities - activities', function () {
       } )
         .then( activity => {
 
-          activity.createdAt.should.Date();
+          expect(activity.createdAt).toBeInstanceOf(Date);
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
         } )
@@ -563,7 +612,7 @@ describe( 'activities - activities', function () {
           return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
             .then( rows => {
 
-              rows.map( v => v.feed_id ).should.eql( [ 6, 4, 7 ] );
+              expect(rows.map( v => v.feed_id )).toEqual([ 6, 4, 7 ]);
 
               return _.omit( activity, 'id' );
 
@@ -572,7 +621,7 @@ describe( 'activities - activities', function () {
         } )
         .then( activity => {
 
-          activity.should.eql( {
+          expect(activity).toEqual({
             actor: 'user:12312312',
             verb: 'event.publish',
             object: 'event:78978978',
@@ -584,26 +633,25 @@ describe( 'activities - activities', function () {
                 target: 'La fumette'
               }
             }
-          } );
+          });
 
         } );
 
-    } );
+    });
 
   } );
 
   describe( 'get', () => {
 
-    it( 'get an activity', () => {
+    it('get an activity', () => {
 
-      return service.feed( { entityType: 'user', entityUid: 42 } ).activities.get( 1 )
+      return expect(service.feed( { entityType: 'user', entityUid: 42 } ).activities.get( 1 )
         .then( activity => {
 
-          activity.createdAt.should.Date();
+          expect(activity.createdAt).toBeInstanceOf(Date);
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
-        } )
-        .should.fulfilledWith( {
+        } )).resolves.toMatchObject( {
           id: 1,
           actor: 'user:54849455',
           verb: 'event.create',
@@ -618,32 +666,54 @@ describe( 'activities - activities', function () {
           }
         } );
 
-    } );
+    });
 
-    it( 'get an activity that not associated to the feed', () => {
+    it('get an activity with masked data', () => {
 
-      return service.feed( { entityType: 'user', entityUid: 42 } ).activities.get( 2 )
-        .should.rejectedWith( Error, { message: 'Activity doesn\'t exists' } );
-
-    } );
-
-    it( 'get an activity that not exists', () => {
-
-      return service.activities.get( 172 )
-        .should.rejectedWith( Error, { message: 'Activity doesn\'t exists' } );
-
-    } );
-
-    it( 'get an activity regardless of feed', () => {
-
-      return service.activities.get( 2 )
+      return expect(service.feed( { entityType: 'user', entityUid: 42 } ).activities.get( 3 )
         .then( activity => {
 
-          activity.createdAt.should.Date();
+          expect(activity.createdAt).toBeInstanceOf(Date);
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
-        } )
-        .should.fulfilledWith( {
+        } )).resolves.toMatchObject({
+          id: 3,
+          verb: 'event.action',
+          object: 'event:54548512',
+          target: 'agenda:48648352',
+          store: {
+            labels: {
+              object: 'Réunion des junkies anonymes',
+              target: 'la-gargouille'
+            }
+          }
+        });
+
+    });
+
+    it('get an activity that not associated to the feed', () => {
+
+      return expect(service.feed({ entityType: 'user', entityUid: 42 }).activities.get(2))
+        .rejects.toThrow('Activity doesn\'t exists');
+
+    });
+
+    it('get an activity that not exists', () => {
+
+      return expect(service.activities.get(172))
+        .rejects.toThrow('Activity doesn\'t exists');
+
+    });
+
+    it('get an activity regardless of feed', () => {
+
+      return expect(service.activities.get( 2 )
+        .then( activity => {
+
+          expect(activity.createdAt).toBeInstanceOf(Date);
+          return _.omit( activity, 'createdAt', 'updatedAt' );
+
+        } )).resolves.toMatchObject( {
           id: 2,
           actor: 'user:99999999',
           verb: 'event.delete',
@@ -658,7 +728,7 @@ describe( 'activities - activities', function () {
           }
         } );
 
-    } );
+    });
 
   } );
 
@@ -671,7 +741,7 @@ describe( 'activities - activities', function () {
       });
 
       for (const activity of activitiesWhereUserIsActor) {
-        activity.store.labels.actor.should.equal('$__deleted');
+        expect(activity.store.labels.actor).toBe('$__deleted');
       }
 
       const activitiesWhereUserIsTarget = await service.activities.list({
@@ -679,7 +749,7 @@ describe( 'activities - activities', function () {
       });
 
       for (const activity of activitiesWhereUserIsTarget) {
-        activity.store.labels.target.should.equal('$__deleted');
+        expect(activity.store.labels.target).toBe('$__deleted');
       }
     });
 
@@ -695,8 +765,8 @@ describe( 'activities - activities', function () {
         .filter(a => ids.includes(a.id))
         .pop();
 
-      activityWhereEmailWasObject.store.labels.object.should.equal('$__deleted');
-      activityWhereEmailWasObject.object.should.equal('$__deleted');
+      expect(activityWhereEmailWasObject.store.labels.object).toBe('$__deleted');
+      expect(activityWhereEmailWasObject.object).toBe('$__deleted');
     });
   });
 

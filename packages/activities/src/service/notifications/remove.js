@@ -9,7 +9,7 @@ module.exports = function remove( config, identifiers, query, cb ) {
 
   if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
 
-    return promisePlusCb( Promise.reject( new VError( 'The notifications concern only feeds users' ) ), cb );
+    return promisePlusCb( Promise.reject( new VError( 'The notifications concern only feeds of type user' ) ), cb );
 
   }
 
