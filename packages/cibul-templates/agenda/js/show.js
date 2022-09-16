@@ -130,8 +130,8 @@ window.asap(options => {
         }
       };
       
-      displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: true }, !!sessionUser);
-      displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: false }, !!sessionUser);
+      displayExportButton(exportRef, params, routes, uid, controller, options, 'all', !!sessionUser);
+      displayExportButton(exportRef, params, routes, uid, controller, options, 'selection', !!sessionUser);
       displayAggregateButton(params, options, initialQuery, !!sessionUser);
     }
 
