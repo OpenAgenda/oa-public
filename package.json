@@ -41,7 +41,7 @@
     "conventional-changelog-conventionalcommits": "^4.5.0",
     "core-js": "^3.10.2",
     "husky": "^5.0.4",
-    "jest": "^26.1.0",
+    "jest": "^28.1.2",
     "regenerator-runtime": "^0.13.7"
   }
 }
