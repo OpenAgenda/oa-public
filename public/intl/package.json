@@ -55,6 +55,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
     "@formatjs/cli": "^4.8.3",
+    "@formatjs/intl": "^1.6.7",
     "core-js": "^3.10.2",
     "dedent": "^0.7.0",
     "glob": "^7.2.0",
