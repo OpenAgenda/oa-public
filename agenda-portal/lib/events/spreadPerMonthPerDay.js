@@ -4,6 +4,8 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { tz } = require('moment-timezone');
 
+const MAX_ITERATIONS = 10000;
+
 const {
   getKey: getTimingBeginKey,
   getValue: getTimingBeginValue,
@@ -28,17 +30,19 @@ function _monthWeeks({
     week,
     label: week,
     current: today.week === week,
-    days: _.keys(weeks[week]).map(day => ({
-      day,
-      current: today.day === day && today.month === month,
-      passed: today.month + today.day > month + day,
-      timings: weeks[week][day],
-      label: _.capitalize(
-        tz(_.get(weeks[week][day], `0.${timingBeginKey}`), timezone)
-          .locale(locale)
-          .format('dddd D')
-      ),
-    })),
+    days: _.keys(weeks[week])
+      .sort((day1, day2) => (day1 > day2 ? 1 : -1))
+      .map(day => ({
+        day,
+        current: today.day === day && today.month === month,
+        passed: today.month + today.day > month + day,
+        timings: weeks[week][day],
+        label: _.capitalize(
+          tz(_.get(weeks[week][day], `0.${timingBeginKey}`), timezone)
+            .locale(locale)
+            .format('dddd D')
+        ),
+      })),
   }));
 }
 
@@ -59,38 +63,44 @@ function _getKeys(d, timezone, locale) {
 module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   if (!timings.length) return [];
 
-  const keyedTimings = timings.reduce(
-    (carry, timing) => {
-      const start = new Date(getTimingBeginValue(timing));
+  const keyedTimings = timings
+    .filter(t => t.begin !== null)
+    .reduce(
+      (carry, timing) => {
+        const start = new Date(getTimingBeginValue(timing));
 
-      if (!carry.first || start < carry.first) {
-        carry.first = start;
+        if (!carry.first || start < carry.first) {
+          carry.first = start;
+        }
+
+        if (!carry.last || start > carry.last) {
+          carry.last = start;
+        }
+
+        const keys = _getKeys(getTimingBeginValue(timing), timezone, locale);
+
+        if (!_.get(carry.months, [keys.month, keys.week, keys.day])) {
+          _prepare(carry.months, keys);
+        }
+
+        return _.set(
+          carry,
+          ['months', keys.month, keys.week, keys.day],
+          _.get(carry.months, [keys.month, keys.week, keys.day], []).concat(
+            timing
+          )
+        );
+      },
+      {
+        first: null,
+        last: null,
+        months: {},
       }
+    );
 
-      if (!carry.last || start > carry.last) {
-        carry.last = start;
-      }
-
-      const keys = _getKeys(getTimingBeginValue(timing), timezone, locale);
-
-      if (!_.get(carry.months, [keys.month, keys.week, keys.day])) {
-        _prepare(carry.months, keys);
-      }
-
-      return _.set(
-        carry,
-        ['months', keys.month, keys.week, keys.day],
-        _.get(carry.months, [keys.month, keys.week, keys.day], []).concat(
-          timing
-        )
-      );
-    },
-    {
-      first: null,
-      last: null,
-      months: {},
-    }
-  );
+  if (!Object.keys(keyedTimings.months).length) {
+    return [];
+  }
 
   const months = [];
   const today = _getKeys(new Date(), timezone, locale);
@@ -99,8 +109,15 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   const last = tz(keyedTimings.last, timezone).locale(locale).format('YYYY-MM');
   let current = null;
   let previous = null;
+  let iterations = 0;
 
   while ((current = tz(dayCursor, timezone).locale(locale).format('YYYY-MM')) <= last) {
+    iterations += 1;
+
+    if (iterations > MAX_ITERATIONS) {
+      throw new Error('Too many iterations');
+    }
+
     if (current === previous) {
       dayCursor.setMonth(dayCursor.getMonth() + 1);
       continue;
@@ -132,7 +149,7 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
 
   const nearestMonthIndex = months.reduce(
     ({ diff, index }, month, monthIndex) => ({
-      diff: Math.abs(month.diff) < diff ? month.diff : diff,
+      diff: Math.abs(month.diff) < diff ? Math.abs(month.diff) : diff,
       index: Math.abs(month.diff) < diff ? monthIndex : index,
     }),
     { diff: Math.abs(months[0].diff), index: 0 }

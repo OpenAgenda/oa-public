@@ -19,3 +19,5 @@ module.exports = (event, options) => ({
   ...event,
   JSONLD: get(event, options),
 });
+
+module.exports.get = get;

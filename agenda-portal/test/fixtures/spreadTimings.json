@@ -52,7 +52,6 @@
         ]
       }
     ],
-    "displayed": true,
     "hasPrevious": true,
     "hasNext": true
   },
@@ -81,6 +80,7 @@
         ]
       }
     ],
+    "displayed": true,
     "hasPrevious": true,
     "hasNext": false
   }

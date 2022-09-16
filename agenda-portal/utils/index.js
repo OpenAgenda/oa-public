@@ -1,5 +1,8 @@
 'use strict';
 
+const applySchemaJSONLD = require('../lib/events/applySchemaJSONLD');
+const spreadTimingsPerMonthPerDay = require('../lib/events/spreadPerMonthPerDay');
+const detailedTiming = require('../lib/timings/detailed');
 const decorateTimings = require('./decorateTimings');
 const markdownToHTML = require('./markdownToHTML');
 const spreadRegistration = require('./spreadRegistration');
@@ -17,5 +20,8 @@ module.exports = {
   loadEnvironment,
   I18N,
   imageToUrl,
-  decorateOptionedFieldValues
+  decorateOptionedFieldValues,
+  spreadTimingsPerMonthPerDay,
+  detailedTiming,
+  getEventSchemaJSONLD: applySchemaJSONLD.get
 };

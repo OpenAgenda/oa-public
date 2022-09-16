@@ -151,6 +151,9 @@ a.btn {
 .btn-block {
   display: block;
   width: 100%;
+  &.btn-link {
+    text-align: left;
+  }
 }
 
 // Vertically space out multiple block buttons
