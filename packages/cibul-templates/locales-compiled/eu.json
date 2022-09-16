@@ -2,61 +2,61 @@
   "aggregate-button": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "Agréger"
     }
   ],
   "displayAdditionalFields.additionalFieldsInfo": [
     {
       "type": 0,
-      "value": "Event values specific to this agenda are displayed in the next section below"
+      "value": "Retrouvez les valeurs de l'événement spécifiques à cet agenda dans la section suivante de cette page"
     }
   ],
   "displayAdditionalFields.emptyValue": [
     {
       "type": 0,
-      "value": "No input"
+      "value": "Aucune saisie"
     }
   ],
   "displayAdditionalFields.goToAdditionalFields": [
     {
       "type": 0,
-      "value": "see"
+      "value": "voir"
     }
   ],
   "displayAdditionalFields.noFile": [
     {
       "type": 0,
-      "value": "No file is loaded"
+      "value": "Fichier non chargé"
     }
   ],
   "displayAdditionalFields.noImage": [
     {
       "type": 0,
-      "value": "No image is loaded"
+      "value": "Image non chargée"
     }
   ],
   "displayAdditionalFields.noSelectionValue": [
     {
       "type": 0,
-      "value": "No selection"
+      "value": "Aucune sélection"
     }
   ],
   "displayAdditionalFields.privateField": [
     {
       "type": 0,
-      "value": "Restricted information"
+      "value": "Information privée"
     }
   ],
   "event/contributor-section": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contributeur"
     }
   ],
   "event/contributor/edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Editer la fiche"
     }
   ],
   "event/contributor/email": [
@@ -68,31 +68,31 @@
   "event/contributor/emptyContactInfo": [
     {
       "type": 0,
-      "value": "No contact information available"
+      "value": "Aucune information de contact n'a été saisie"
     }
   ],
   "event/contributor/name": [
     {
       "type": 0,
-      "value": "Name"
+      "value": "Nom"
     }
   ],
   "event/contributor/organization": [
     {
       "type": 0,
-      "value": "Organization"
+      "value": "Organisme"
     }
   ],
   "event/contributor/phone": [
     {
       "type": 0,
-      "value": "Phone"
+      "value": "Téléphone"
     }
   ],
   "event/contributor/position": [
     {
       "type": 0,
-      "value": "Position"
+      "value": "Fonction"
     }
   ],
   "event/contributor/role": [
@@ -104,31 +104,31 @@
   "event/private-section": [
     {
       "type": 0,
-      "value": "Private information"
+      "value": "Information privée"
     }
   ],
   "export-all-button": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exporter"
     }
   ],
   "export-select-button": [
     {
       "type": 0,
-      "value": "Export the selection"
+      "value": "Exporter la sélection"
     }
   ],
   "more-button": [
     {
       "type": 0,
-      "value": "more"
+      "value": "plus"
     }
   ],
   "share-button": [
     {
       "type": 0,
-      "value": "Share on OpenAgenda"
+      "value": "Partager sur OpenAgenda"
     }
   ]
 }

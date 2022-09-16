@@ -50,13 +50,13 @@
   "event/contributor-section": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Collaboratore"
     }
   ],
   "event/contributor/edit": [
     {
       "type": 0,
-      "value": "Edit"
+      "value": "Modificare"
     }
   ],
   "event/contributor/email": [
@@ -74,13 +74,13 @@
   "event/contributor/name": [
     {
       "type": 0,
-      "value": "Name"
+      "value": "Nome"
     }
   ],
   "event/contributor/organization": [
     {
       "type": 0,
-      "value": "Organization"
+      "value": "Ragione sociale"
     }
   ],
   "event/contributor/phone": [
@@ -92,7 +92,7 @@
   "event/contributor/position": [
     {
       "type": 0,
-      "value": "Position"
+      "value": "Ruolo"
     }
   ],
   "event/contributor/role": [
@@ -110,7 +110,7 @@
   "export-all-button": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Esportare"
     }
   ],
   "export-select-button": [

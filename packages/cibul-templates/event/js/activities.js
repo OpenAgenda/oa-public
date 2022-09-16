@@ -4,11 +4,13 @@ const ReactDOM = require( 'react-dom' );
 
 const du = require( '@openagenda/dom-utils' );
 
-const layout = require( './activities.ejs' );
-
 const labels = require( '@openagenda/labels/event/show' );
 
 const activitiesEventApp = require( '@openagenda/activity-apps/dist/client/apps/event' );
+
+const { getLocaleValue } = require('@openagenda/intl');
+
+const layout = require( './activities.ejs' );
 
 
 module.exports = ( { canvas, fetch, res, lang } ) => {
@@ -25,7 +27,7 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     if ( !result || !result.count ) return;
 
-    canvas.insertAdjacentHTML( 'beforeend', layout( { activityTitle: labels.activity[ lang ] } ) );
+    canvas.insertAdjacentHTML( 'beforeend', layout( { activityTitle: getLocaleValue(labels.history, lang) } ) );
 
     const activities = result.activities;
 
