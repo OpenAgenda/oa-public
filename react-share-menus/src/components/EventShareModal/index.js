@@ -51,12 +51,9 @@ const EventShareModal = ({
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
       <div className="export-form">
-        <button className="export-close" type="button" onClick={onClose}>
+        <button className="eclose" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
-        {segment === 'openagenda, email, calendar' && (
-          <h1 className="export-title-big">{intl.formatMessage(messages.shareTitle)}</h1>
-        )}
         {segment.includes('openagenda') && (
           <OpenAgendaShare
             intl={intl}
