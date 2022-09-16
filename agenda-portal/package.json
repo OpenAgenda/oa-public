@@ -46,7 +46,6 @@
   "dependencies": {
     "@babel/core": "^7.13.16",
     "@babel/runtime-corejs3": "^7.13.17",
-    "@formatjs/intl": "^1.6.7",
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/browserslist-config": "^1.0.0",
@@ -107,7 +106,7 @@
     "babel-plugin-handlebars-inline-precompile": "^2.1.1",
     "eslint": "^6.8.0",
     "http-proxy": "^1.18.1",
-    "jest": "^26.1.0",
+    "jest": "^28.1.2",
     "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^5.0.0",
     "rimraf": "^2.7.1"
