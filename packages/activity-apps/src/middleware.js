@@ -2,8 +2,6 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const ReactDOMServer = require( 'react-dom/server' );
-const notificationsApp = require( './client/apps/notifications' );
 const logs = require( '@openagenda/logs' );
 const log = logs( 'activity-apps/middleware' );
 
@@ -95,19 +93,10 @@ function notificationsList( req, res ) {
     entityUid: req.user.uid
   } ).notifications.list( req.query.fromId, limit )
     .then( async notifications => {
-
-      const app = notificationsApp( { notifications, lang: req.lang || 'fr', userUid: req.user.uid } );
-
       await activitiesSvc.feed( {
         entityType: 'user',
         entityUid: req.user.uid
       } ).notifications.markAs( {}, 1, { allowRegress: false, listArgs: [ 0, 10000 ] } );
-
-      // return activitiesSvc.feed( {
-      //   entityType: 'user',
-      //   entityUid: req.user.uid
-      // } ).notifications.markAs( { ids: notifications.map( v => v.id ) }, 1, { allowRegress: false } )
-      //   .then( notifications => {
 
       return activitiesSvc.feed( {
         entityType: 'user',
@@ -118,18 +107,16 @@ function notificationsList( req, res ) {
           res.json( {
             counter,
             notifications,
-            html: ReactDOMServer.renderToStaticMarkup( app ),
             lastPage: notifications.length < limit
           } );
 
         } );
 
-      // } );
-
     } )
     .catch( err => {
 
       log( 'error', err );
+      console.log( 'error', err );
 
       res.status( 400 ).json( { error: err } );
 

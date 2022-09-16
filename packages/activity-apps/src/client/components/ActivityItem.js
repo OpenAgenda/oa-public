@@ -1,38 +1,104 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import activityFormatMaker from '@openagenda/activities/dist/formatActivity';
+import React, { useMemo } from 'react';
+import { useIntl, FormattedDate } from 'react-intl';
+import { getLocaleValue } from '@openagenda/intl';
+import fieldsMessages from '@openagenda/common-labels/event/fields';
+import formatState from '../utils/formatState';
+import formatRole from '../utils/formatRole';
+import createFormatActivity from '../utils/formatActivity';
+import messages from '../messages/activities';
 
-import 'moment/locale/fr';
 
 
-export default class ActivityItem extends Component {
+function getDiffFields(activity) {
+  const { contributorFields = [], moderatorFields = [], administratorFields = [] } = activity.store;
+  return [...contributorFields, ...moderatorFields, ...administratorFields];
+}
 
-  constructor( props ) {
-    super( props );
-    this.formatActivity = activityFormatMaker( {}, props.labels ).bind( this );
+function getFieldLabel(field, intl) {
+  if (typeof field === 'string') {
+    if (!fieldsMessages[field]) {
+      console.log(`Missing message for field "${field}"`);
+    }
+    return intl.formatMessage(fieldsMessages[field]).toLowerCase();
+  }
+  return getLocaleValue(field.label, intl.locale);
+}
+
+function renderHighlight(text) {
+  return <span className="activity-highlight">{text}</span>
+}
+
+function renderTag({ chunks, tagName, activity, intl/* , entities*/, link, highlight, filter }) {
+  let result = chunks;
+
+  // event update
+  // singleDiff, someDiff, manyDiff, field, fields
+  if (tagName === 'singleDiff') {
+    const diffFields = getDiffFields(activity);
+    if (diffFields.length > 1) return null;
+  }
+  if (tagName === 'someDiff') {
+    const diffFields = getDiffFields(activity);
+    if (diffFields.length <= 1 || diffFields.length > 3) return null;
+  }
+  if (tagName === 'manyDiff') {
+    const diffFields = getDiffFields(activity);
+    if (diffFields.length <= 3) return null;
+  }
+  if (tagName === 'field') {
+    const diffFields = getDiffFields(activity);
+    return renderHighlight(getFieldLabel(diffFields[0], intl));
+  }
+  if (tagName === 'fields') {
+    const diffFields = getDiffFields(activity);
+    if (diffFields.length <= 3) {
+      return intl.formatList(diffFields.map(v => renderHighlight(getFieldLabel(v, intl))));
+    }
+    return intl.formatList([
+      ...diffFields.slice(0, 3).map(v => renderHighlight(getFieldLabel(v, intl))),
+      renderHighlight(intl.formatMessage(messages.XOthers, { count: diffFields.length - 3 }))
+    ]);
   }
 
-  render() {
+  if (tagName === 'state') {
+    result = formatState(intl, chunks[0]);
+  }
 
-    const { activity, lang, withFilterIcons, onActivityClick } = this.props;
+  if (tagName === 'role') {
+    result = formatRole(intl, chunks[0]);
+  }
 
-    const formatArgs = [ activity ];
+  if (link) {
+    result = <a href={link}>{result}</a>;
+  }
 
-    if ( lang ) formatArgs.push( lang );
+  if (highlight) {
+    result = renderHighlight(result);
+  }
 
-    if ( withFilterIcons ) formatArgs.push( { withFilterIcons } );
+  return result;
+}
 
-    return <li>
-      <span
-        className="activity-info activity-item"
-        dangerouslySetInnerHTML={{ __html: this.formatActivity( ...formatArgs ) }}
-        onClick={onActivityClick || null}
-      />
+export default function ActivityItem({ config, activity }) {
+  const intl = useIntl();
+  const formatActivity = useMemo(
+    () =>
+      createFormatActivity({
+        intl,
+        activities: config,
+        renderTag,
+      }),
+    [config],
+  );
+
+  return (
+    <li>
+      <span className="activity-info activity-item">
+        {formatActivity(activity)}
+      </span>
       <span className="activity-time">
-        {moment( activity.createdAt ).locale( lang ).format( 'LLL' )}
+        <FormattedDate value={activity.createdAt} dateStyle="long" timeStyle="short" />
       </span>
     </li>
-
-  }
-
+  );
 }

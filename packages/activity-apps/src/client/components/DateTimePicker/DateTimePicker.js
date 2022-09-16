@@ -8,7 +8,7 @@ export default class DateTimePicker extends Component {
 
   constructor( props ) {
     super( props );
-    this.handleEvent = ::this.handleEvent;
+    this.handleEvent = this.handleEvent.bind(this);
   }
 
   static propTypes = {
