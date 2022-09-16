@@ -46,7 +46,13 @@ export const ExportLoggedIn = () => {
       {display ? (
         <ExportModal
           onClose={() => setDisplay(false)}
-          res={{ export: urls, me: '/api/me', agendaExportSettings: '/columns' }}
+          mode="all"
+          res={{
+            all: urls,
+            selection: urls,
+            me: '/api/me',
+            agendaExportSettings: '/columns'
+          }}
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
           userLogged
         />
@@ -67,7 +73,12 @@ export const ExportLoggedOut = () => {
       {display ? (
         <ExportModal
           onClose={() => setDisplay(false)}
-          res={{ export: urls, me: '/api/me', agendaExportSettings: '/columns' }}
+          res={{
+            all: urls,
+            selection: urls,
+            me: '/api/me',
+            agendaExportSettings: '/columns'
+          }}
           languages={['fr', 'de', 'en', 'es', 'it', 'nl']}
           userLogged={false}
           root="http://localhost:9001"
