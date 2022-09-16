@@ -121,7 +121,13 @@ const SpreadsheetOptions = ({
       <Radio content="CSV" name="spreadsheet-format" id="csv" setChoice={handleFormat} />
       <div>
         <label htmlFor="languages">
-          <input name="columns" id="languages" type="checkbox" defaultChecked={!displayLanguages} onChange={() => setDisplayLanguages(!displayLanguages)} />
+          <input
+            name="columns"
+            id="languages"
+            type="checkbox"
+            defaultChecked={!displayLanguages}
+            onChange={() => setDisplayLanguages(!displayLanguages)}
+          />&nbsp;
           {intl.formatMessage(messages.allLanguages)}
         </label>
         {displayLanguages && (
@@ -129,7 +135,14 @@ const SpreadsheetOptions = ({
             {languages.map(lang => (
               <div className="margin-left-sm" style={{ display: 'inline-block' }} key={lang}>
                 <label htmlFor={lang}>
-                  <input name="languages" id={lang} type="checkbox" onChange={handleLanguage} value={lang} className="margin-right-sm" />
+                  <input
+                    name="languages"
+                    id={lang}
+                    type="checkbox"
+                    onChange={handleLanguage}
+                    value={lang}
+                    className="margin-right-sm"
+                  />&nbsp;
                   {lang.toUpperCase()}
                 </label>
               </div>
@@ -138,18 +151,40 @@ const SpreadsheetOptions = ({
         )}
       </div>
       <label htmlFor="fields">
-        <input name="columns" id="fields" type="checkbox" defaultChecked={!displayFields} onChange={() => setDisplayFields(!displayFields)} />
+        <input
+          name="columns"
+          id="fields"
+          type="checkbox"
+          defaultChecked={!displayFields}
+          onChange={() => setDisplayFields(!displayFields)}
+        />&nbsp;
         {intl.formatMessage(messages.allFields)}
       </label>
       {displayFields && (
       <div className="margin-left-md checkbox-list">
         <label htmlFor="allFields">
-          <input name="fields" id="allFields" type="checkbox" onChange={handleCheckAll} value="allFields" className="margin-right-sm" checked={checkAll} />
+          <input
+            name="fields"
+            id="allFields"
+            type="checkbox"
+            onChange={handleCheckAll}
+            value="allFields"
+            className="margin-right-sm"
+            checked={checkAll}
+          />&nbsp;
           {intl.formatMessage(messages.selectAll)}
         </label>
         {fields.map((field, index) => (
           <label htmlFor={field.source} key={field.source}>
-            <input name="fields" id={field.source} type="checkbox" onChange={event => handleFields(event, index)} value={field.source} className="margin-right-sm" checked={checkedState[index]} />
+            <input
+              name="fields"
+              id={field.source}
+              type="checkbox"
+              onChange={event => handleFields(event, index)}
+              value={field.source}
+              className="margin-right-sm"
+              checked={checkedState[index]}
+            />&nbsp;
             {formatTarget(field.target)}
           </label>
         ))}
@@ -157,7 +192,13 @@ const SpreadsheetOptions = ({
       )}
       <div>
         <label htmlFor="distributedOptions">
-          <input name="columns" id="distributedOptions" type="checkbox" defaultChecked={distributeOptions} onChange={() => setDistributeOptions(!distributeOptions)} />
+          <input
+            name="columns"
+            id="distributedOptions"
+            type="checkbox"
+            defaultChecked={distributeOptions}
+            onChange={() => setDistributeOptions(!distributeOptions)}
+          />&nbsp;
           {intl.formatMessage(messages.distributeOptions)}
         </label>
         {distributeOptions && (
@@ -167,7 +208,14 @@ const SpreadsheetOptions = ({
                 const key = `${field.source}Distributed`;
                 return (
                   <label htmlFor={key} key={key}>
-                    <input name="distributedFields" id={key} type="checkbox" onChange={event => handleDistributedFields(event, index)} value={field.source} className="margin-right-sm" />
+                    <input
+                      name="distributedFields"
+                      id={key}
+                      type="checkbox"
+                      onChange={event => handleDistributedFields(event, index)}
+                      value={field.source}
+                      className="margin-right-sm"
+                    />&nbsp;
                     {formatTarget(field.target)}
                   </label>
                 );
