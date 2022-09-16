@@ -132,11 +132,26 @@ module.exports = async ({ config, services }, ae, context) => {
     }
 
     if (context.aggregated) {
-      await addEventAggregationActivity(services, eventFeed, { agenda, event }, context);
+      await addEventAggregationActivity(services, eventFeed, { agenda, event, ae }, context);
     } else if (ae.agendaUid === event.agendaUid) {
-      await addEventCreationActivity(services, eventFeed, { agenda, event, user }, context);
+      await addEventCreationActivity(services, eventFeed, {
+        agenda,
+        event,
+        ae,
+        user
+      }, context);
     } else {
-      await addEventAdditionActivity(services, eventFeed, { agenda, event, user }, context);
+      await addEventAdditionActivity(
+        services,
+        eventFeed,
+        {
+          agenda,
+          event,
+          user,
+          ae
+        },
+        context
+      );
     }
   } catch (e) {
     log('error', e);

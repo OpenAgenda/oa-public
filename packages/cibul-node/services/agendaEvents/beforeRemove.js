@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const VError = require('verror');
 const log = require('@openagenda/logs')('agendaEvents/beforeRemove');
@@ -8,71 +8,97 @@ const fallbackContextGet = require('./lib/fallbackContextGet');
 module.exports = async ({ services }, ae, context) => {
   const {
     users,
-    activities
+    activities,
   } = services;
 
   log('will remove agenda-event %j', ae, { context });
 
-  const { agenda, event } = await fallbackContextGet({ services }, 'beforeRemove', ae, context);
-  let user;
+  const { agenda, event, user } = await fallbackContextGet({ services }, 'beforeRemove', ae, context);
 
   if (ae.state === 2) {
-
     try {
       await controlDataSvc.remove(ae);
     } catch (e) {
       log('error', 'control data remove failed', e);
     }
-
   }
 
-  if (context.userUid) {
-    try {
-      user = await users.get(context.userUid);
-    } catch (e) {
-      return log('error', new VError(e, 'Error to get user %s', context.userUid));
-    }
+  if (!agenda || !event) {
+    return log('error', new VError({
+      info: { user, agenda, event },
+    }, 'An entity is missing for add activity'));
+  }
 
-    if (!user || !agenda || !event) {
-      return log('error', new VError({
-        info: { user, agenda, event }
-      }, 'An entity is missing for add activity'));
-    }
+  try {
+    console.log('deletion:', context.deletion);
+    console.log('origin agenda:', agenda.uid === event.agendaUid);
 
-    try {
-      if (context.deletion && agenda.uid === event.agendaUid) {
+    if (context.deletion) {
+      if (agenda.uid === event.agendaUid) {
         await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
-          actor: 'user:' + user.uid,
+          actor: `user:${user.uid}`,
           verb: 'event.delete',
-          object: 'event:' + event.uid,
-          target: 'agenda:' + agenda.uid,
+          object: `event:${event.uid}`,
+          target: `agenda:${agenda.uid}`,
           store: {
             labels: {
-              actor: user.fullName,
+              actor: user.name,
               object: event.title,
-              target: agenda.title
-            }
-          }
+              target: agenda.title,
+            },
+          },
         });
-      } else if (!context.deletion) {
+      } else {
         await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
-          actor: 'user:' + user.uid,
-          verb: 'agenda.removeEvent',
-          object: 'event:' + event.uid,
-          target: 'agenda:' + agenda.uid,
+          actor: `agenda:${agenda.uid}`,
+          verb: 'agenda.removeDeletedEvent',
+          object: `event:${event.uid}`,
+          target: `agenda:${agenda.uid}`,
           store: {
+            contributorUid: ae.userUid,
             labels: {
-              actor: user.fullName,
               object: event.title,
-              target: agenda.title
-            }
-          }
+              target: agenda.title,
+            },
+          },
         });
       }
-    } catch (err) {
-      if (err) {
-        log('error', 'Error to add activity event.delete or agenda.removeEvent in feed event:%s', event.uid, err);
-      }
+    } else if (user) {
+      await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
+        actor: `user:${user.uid}`,
+        verb: 'agenda.removeEvent',
+        object: `event:${event.uid}`,
+        target: `agenda:${agenda.uid}`,
+        store: {
+          state: ae.state,
+          ownerUid: event.ownerUid,
+          originAgendaUid: event.agendaUid,
+          sourceAgendaUids: ae.sourcePaths.map(v => v[v.length - 1]),
+          labels: {
+            actor: user.name,
+            object: event.title,
+            target: agenda.title,
+          },
+        },
+      });
+    } else {
+      await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({
+        actor: `agenda:${agenda.uid}`,
+        verb: 'agenda.systemRemoveEvent',
+        object: `event:${event.uid}`,
+        target: `agenda:${agenda.uid}`,
+        store: {
+          contributorUid: ae.userUid,
+          labels: {
+            object: event.title,
+            target: agenda.title,
+          },
+        },
+      });
+    }
+  } catch (err) {
+    if (err) {
+      log('error', 'Error to add activity event.delete, agenda.removeEvent, agenda.removeDeletedEvent or agenda.systemRemoveEvent in feed event:%s', event.uid, err);
     }
   }
 
@@ -82,9 +108,7 @@ module.exports = async ({ services }, ae, context) => {
   } catch (err) {
     if (err) {
       log('error',
-        'Error when feed agenda:%s have tried to unfollow feed event:%s', agenda.uid, event.uid
-      );
+        'Error when feed agenda:%s have tried to unfollow feed event:%s', agenda.uid, event.uid,);
     }
   }
-
-}
+};

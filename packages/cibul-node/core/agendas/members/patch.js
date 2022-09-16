@@ -52,6 +52,12 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
 
   return members.patch(member.id, patchData, {
     throwOnError: true,
-    requireCustom: false
+    requireCustom: false,
+    context: {
+      sender: {
+        userUid: actingUserUid,
+        memberName: actingMember?.custom?.contactName,
+      }
+    }
   }).then(result => format(members, result.member));
 };

@@ -25,6 +25,7 @@ const { filterUnauthorized } = loadAuthorizations;
 
 const assignState = require('../utils/assignState');
 const updateEvent = require('./lib/updateEvent');
+const createUpdateActivity = require('./lib/createUpdateActivity');
 
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
@@ -237,11 +238,19 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const before = await payload.getCompiledEvent('before');
 
+  const formSchema = payload.getFormSchema();
+
+  try {
+    await createUpdateActivity(core.services, before, compiledEvent, { userUid, agenda, formSchema });
+  } catch (e) {
+    log('error', 'failed to create activity', e);
+  }
+
   await aggregators.notify('updateEvent', {
     event: compiledEvent,
     before,
     agenda,
-    formSchema: payload.getFormSchema(),
+    formSchema,
     batched
   });
 

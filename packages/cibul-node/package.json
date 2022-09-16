@@ -150,7 +150,7 @@
   "devDependencies": {
     "@openagenda/mails-editor": "^2.0.0",
     "form-data": "^3.0.0",
-    "jest": "^26.1.0",
+    "jest": "^28.1.2",
     "sinon": "^7.5.0",
     "source-map-support": "^0.5.19"
   }

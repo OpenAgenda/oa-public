@@ -1,8 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
-const utils = require( '@openagenda/utils' );
 const cbify = require( '@openagenda/utils/cbify' );
 const keysSvc = require( '@openagenda/keys' );
 const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
@@ -10,8 +8,6 @@ const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const legacyEventSvc = require( '../services/event' );
 const members = require( '../services/members' );
-const activitiesSvc = require( '../services/activities' );
-const sessions = require( '../services/sessions' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
@@ -50,23 +46,23 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/settings.json',
-      preMw,
-      agendaSvc.mw.load( 'uid' ),
-      cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-      _loadTagSet,
-      _loadCategorySet,
-      _loadEmbedUids,
-      gaTrack( 'settings', 'export', 'json' ),
-      ( req, res ) => cmn.renderJson( req, res, _.assign(
-        _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
-        {
-          tagSet: req.tagSet,
-          categorySet: req.categorySet,
-          locationSet: req.locationSettings,
-          customSet: req.agenda.getCustomFieldsConfig(),
-          embeds: req.embeds
-        }
-      ) )
+    preMw,
+    agendaSvc.mw.load( 'uid' ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
+    _loadTagSet,
+    _loadCategorySet,
+    _loadEmbedUids,
+    gaTrack( 'settings', 'export', 'json' ),
+    ( req, res ) => cmn.renderJson( req, res, _.assign(
+      _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
+      {
+        tagSet: req.tagSet,
+        categorySet: req.categorySet,
+        locationSet: req.locationSettings,
+        customSet: req.agenda.getCustomFieldsConfig(),
+        embeds: req.embeds
+      }
+    ) )
   );
 
   app.get(
@@ -113,28 +109,6 @@ module.exports = app => {
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     gaTrack( 'events', 'export', 'ics' ),
     agendaSvc.mw.buildIcs
-  );
-
-  app.get(
-    '/agendas/:uid/addTo/:aggUid',
-    preMw,
-    agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
-    cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    members.mw.loadAndAuthorize('administrator', { agendaUidPath: 'aggregatorAgenda.uid' }),
-    addSource
-  );
-
-  app.get(
-    '/agendas/:uid/removeFrom/:aggUid',
-    preMw,
-    agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
-    cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    members.mw.loadAndAuthorize('administrator', { agendaUidPath: 'aggregatorAgenda.uid' }),
-    removeSource
   );
 
 };
@@ -184,94 +158,6 @@ function _sleep( ms ) {
     }, ms );
 
   }
-
-}
-
-function addSource(req, res, next) {
-  req.app.services.aggregators.sources.add(req.aggregatorAgenda, req.agenda).then(() => {
-    sessions.setFlash(req, res, getAggLabel('sourceAdded', {
-      source: '<strong>' + req.agenda.title + '</strong>',
-      agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
-    }, req.lang));
-    res.redirect(302, `/${req.agenda.slug}`);
-  });
-}
-
-function removeSource(req, res, next) {
-  req.app.services.aggregators.sources.remove(req.aggregatorAgenda, req.agenda).then(() => {
-    sessions.setFlash(req, res, getAggLabel('sourceRemoved', {
-      source: '<strong>' + req.agenda.title + '</strong>',
-      agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
-    }, req.lang));
-    res.redirect(302, `/${req.agenda.slug}`);
-  });
-}
-
-async function addSourceAddActivity( { user, member, agenda, source } ) {
-  activitiesSvc.feed( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } ).activities.add( {
-    actor: 'user:' + user.uid,
-    verb: 'agenda.addSource',
-    object: 'agenda:' + source.uid,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: member.custom.contactName || user.fullName,
-        object: source.title,
-        target: agenda.title
-      }
-    }
-  } );
-}
-
-async function addRemoveSourceActivity( { user, member, agenda, source } ) {
-  activitiesSvc.feed( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } ).activities.add( {
-    actor: 'user:' + user.uid,
-    verb: 'agenda.removeSource',
-    object: 'agenda:' + source.uid,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: member.custom.contactName || user.fullName,
-        object: source.title,
-        target: agenda.title
-      }
-    }
-  } );
-}
-
-async function loadNeedsForActivity( req ) {
-  const member = await members.get( {
-    agendaUid: req.aggregatorAgenda.uid,
-    userUid: req.user.uid
-  } );
-
-  if ( !member ) {
-    throw new Error( 'Cannot found member' );
-  }
-
-  return {
-    user: req.user,
-    agenda: req.aggregatorAgenda,
-    member,
-    source: req.agenda
-  };
-}
-
-function _prepareLocationExport( req, res, next ) {
-
-  utils.extend( req, {
-    agendaId: req.agenda.id,
-    ignoreXhr: true,
-    filterInternal: true
-  } );
-
-  next();
 
 }
 

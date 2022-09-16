@@ -1,6 +1,6 @@
 <%- __('subject', { nbr, date }) %>:
 
-<%- stripHtml(message) %>
+<%- notifications.map(notif => `${notif.date}\n${stripHtml(notif.label)}`).join('\n\n') %>
 
 <%- __('goToOA') %>: <%- link %>
 

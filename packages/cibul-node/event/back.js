@@ -172,10 +172,15 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load('uid'),
     legacyEventSvc.mw.load('eventUid', 'uid'),
-    members.mw.loadAndAuthorize('moderator', {
-      or: (req, res) => res.json({ count: 0 })
-    }),
+    sessions.mw.load(),
+    // members.mw.loadAndAuthorize('moderator', {
+    //   or: (req, res) => res.json({ count: 0 })
+    // }),
     (req, res, next) => {
+      if (!req.user) {
+        return res.json({ count: 0 });
+      }
+
       const {
         activities: activitiesSvc
       } = req.app.services;
@@ -183,15 +188,15 @@ module.exports = app => {
       const limit = 20;
 
       const feed = activitiesSvc.feed({
-        entityType: 'agenda',
-        entityUid: req.agenda.uid
+        entityType: 'user',
+        entityUid: req.user.uid
       });
 
       feed.get().then(data => {
         if (!data) return res.json({});
 
         feed.activities.list(
-          { object: `event:${req.event.uid}` },
+          { object: `event:${req.event.uid}`/* , target: `agenda:${req.agenda.uid}` */ },
           req.query.fromId || 0,
           limit
         )

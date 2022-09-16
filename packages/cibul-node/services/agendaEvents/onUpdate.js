@@ -9,6 +9,7 @@ const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
 const addEventUpdateActivity = require('./lib/addEventUpdateActivity');
+const addEventAggregationActivity = require('./lib/addEventAggregationActivity');
 
 function haveRealDiff(before, after) {
   return _.uniq([...Object.keys(before), ...Object.keys(after)])
@@ -39,6 +40,20 @@ module.exports = async ({ config, services }, before, after, context) => {
       await controlDataSvc.remove(before);
     } catch (e) {
       log('error', 'control data remove failed', e);
+    }
+  }
+
+  // source added
+  if ((after.sourcePaths?.length || 0) > (before.sourcePaths?.length || 0)) {
+    try {
+      await addEventAggregationActivity(
+        services,
+        { entityType: 'event', entityUid: event.uid },
+        { agenda, event, ae: after },
+        context
+      );
+    } catch (e) {
+      log('error', e);
     }
   }
 

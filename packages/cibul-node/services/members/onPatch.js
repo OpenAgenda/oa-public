@@ -38,6 +38,8 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
 
     if (!user && member.userUid) throw new Error('User not found');
 
+    console.log('CONTEXT', context);
+
     const senderUser = await usersSvc.findOne({
       query: { uid: _.get(context, 'sender.userUid') },
       removed: null
@@ -179,6 +181,8 @@ async function _onNewMember( { services, agenda, user, senderUser, context, memb
   } else {
     log('warn', 'inboxes service was not initialized');
   }
+
+  console.log('QUEUE addMemberAcceptInvitation');
 
   await activityQueue( 'addMemberAcceptInvitation', {
     agenda, user, senderUser, member, context

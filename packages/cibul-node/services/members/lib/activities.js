@@ -18,11 +18,11 @@ function addMemberCreate({
     target: `agenda:${agenda.uid}`,
     store: {
       labels: {
-        actor: context.sender.memberName,
+        actor: context.sender.memberName || senderUser.fullName,
         object: _.get(member, 'custom.contactName') || user.fullName,
         target: agenda.title
       },
-      credential: member.role
+      role: member.role
     }
   });
 }
@@ -44,7 +44,7 @@ function addMemberRemove({
         object: member.custom.contactName || memberUser.fullName, // member that was removed
         target: agenda.title
       },
-      credential: member.role
+      role: member.role
     }
   });
 }
@@ -79,12 +79,12 @@ async function addMemberRoleChange({
     target: `agenda:${agenda.uid}`,
     store: {
       labels: {
-        actor: context.sender.memberName,
+        actor: context.sender.memberName || senderUser.fullName,
         object: member.custom.contactName || user.fullName,
         target: agenda.title
       },
-      beforeCredential: before.role,
-      credential: member.role
+      beforeRole: before.role,
+      role: member.role
     }
   });
 }
@@ -103,10 +103,10 @@ function addMemberAcceptInvitation({
     store: {
       labels: {
         actor: member.custom.contactName || user.fullName,
-        object: context.sender.memberName,
+        object: context.sender.memberName || senderUser.fullName,
         target: agenda.title
       },
-      credential: member.role
+      role: member.role
     }
   });
 }

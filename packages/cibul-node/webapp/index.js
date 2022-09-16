@@ -127,6 +127,9 @@ const initialState = async req => {
           loadAgenda: '/:slug/admin/layout',
           verifyLocationCount: '/agendas/:uid/admin/locations/unverified'
         }
+      },
+      settings: {
+        activities: services.activities.getFormatConfig(),
       }
     },
 
@@ -190,7 +193,8 @@ const initialState = async req => {
       settings: {
         prefix: '/home/activities',
         apiRoot,
-        perPageLimit: 20
+        perPageLimit: 20,
+        activities: services.activities.getFormatConfig(),
       },
       res: {
         list: '/home/activities/list'

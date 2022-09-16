@@ -34,7 +34,8 @@ module.exports = async (core, payload, clean, options = {}) => {
     sourceAgenda,
     draft,
     userUid,
-    access
+    access,
+    duplicateOrigin,
   } = {
     batched: false,
     aggregated: null,
@@ -60,7 +61,8 @@ module.exports = async (core, payload, clean, options = {}) => {
           batched,
           aggregated,
           sourceAgenda,
-          userUid
+          userUid,
+          duplicateOrigin,
         },
         decorate: ['member', 'sourceAgendas']
       });

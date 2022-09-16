@@ -35,7 +35,8 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     defaultLang,
     filterUnauthorizedData,
     returnPayload,
-    fileKey
+    fileKey,
+    duplicateOrigin,
   } = {
     access: 'public', // read or write?
     draft: false,
@@ -97,7 +98,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     const event = await events.create(clean.event, {
       context: {
         userUid,
-        agendaUid
+        agendaUid,
       },
       detailed: true,
       access: 'internal',
@@ -132,7 +133,8 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   }), {
     draft,
     userUid,
-    access
+    access,
+    duplicateOrigin
   });
 
   return returnPayload ? response : response.event;

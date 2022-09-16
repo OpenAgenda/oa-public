@@ -24,7 +24,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
   log('  loaded agenda %s', agenda.slug);
 
-  const contextUserUid = _.get(options, 'context.userUid');
+  const contextUser = options?.context?.user;
+  const contextUserUid = options?.context?.userUid || contextUser?.uid;
 
   const {
     access,
@@ -84,6 +85,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
         event,
         agenda,
         agendaUid,
+        user: contextUser,
         userUid: contextUserUid,
         legacy: false,
         deletion: isOriginAgenda,
@@ -101,6 +103,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       transferToLegacy: !event.draft,
       context: {
         agendaUid,
+        user: contextUser,
         userUid: contextUserUid,
         legacy: false
       }
@@ -120,6 +123,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     await events.remove(eventUid, {
       context: {
         agendaUid,
+        user: contextUser,
         userUid: contextUserUid
       },
       private: privateOption
