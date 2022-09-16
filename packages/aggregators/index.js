@@ -98,6 +98,7 @@ module.exports = ({
         addSourceEntry: addSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
         getMergedSchema: interfaces.getMergedSchema,
+        onAddSource: interfaces.onAddSource,
       }),
       update: updateSource.bind(null, {
         interfaces,
@@ -119,6 +120,7 @@ module.exports = ({
         }),
         removeSourceEntry: removeSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
+        onRemoveSource: interfaces.onRemoveSource,
       }),
     },
     notify: notify.bind(null, {
