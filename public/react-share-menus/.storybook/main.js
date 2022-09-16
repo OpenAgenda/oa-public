@@ -1,3 +1,6 @@
 module.exports = {
-  stories: ['../stories/*.stories.@(js|mdx)']
+  stories: ['../stories/*.stories.@(js|mdx)'],
+  core: {
+    builder: 'webpack5',
+  }
 };

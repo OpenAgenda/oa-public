@@ -141,6 +141,10 @@ body {
     color: $oa-warning;
   }
 
+  &.warning-outline {
+    border-color: $oa-warning;
+  }
+
   &.danger {
     border-color: $oa-danger;
     color: $oa-danger;

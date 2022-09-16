@@ -1,5 +1,6 @@
 import { useUIDSeed } from 'react-uid';
 import React, { useMemo, useRef } from 'react';
+import { useIntl } from 'react-intl';
 import cn from 'classnames';
 import { getLocaleValue } from '@openagenda/intl';
 import a11yButtonActionHandler from '@openagenda/react-shared/lib/utils/a11yButtonActionHandler';
@@ -11,6 +12,7 @@ export default function ChoiceField({
   option,
   disabled,
 }) {
+  const intl = useIntl();
   const seed = useUIDSeed();
   const total = useMemo(() => getTotal && getTotal(filter, option), [
     filter,
@@ -71,7 +73,7 @@ export default function ChoiceField({
           disabled={disabled}
           {...input}
         />
-        {getLocaleValue(option.label) || <>&nbsp;</>}
+        {getLocaleValue(option.label, intl.locale) || <>&nbsp;</>}
         {Number.isInteger(total) && total !== 0 ? (
           <span className="oa-filter-total">{total}</span>
         ) : null}

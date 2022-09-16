@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@openagenda"
+  ],
+
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}

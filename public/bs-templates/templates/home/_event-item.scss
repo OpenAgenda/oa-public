@@ -15,9 +15,19 @@
   }
 
   .avatar {
-
     border: none;
+  }
 
+  &.compact {
+    .ill {
+      max-width: 56px;
+    }
+    .media-heading {
+      margin-bottom: 0px;
+    }
+    .btn {
+      padding: 2px 12px 0 0;
+    }
   }
 
   &.media {
