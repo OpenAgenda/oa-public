@@ -7,4 +7,7 @@ module.exports = {
     fastRefresh: true,
     strictMode: true,
   },
+  core: {
+    builder: 'webpack5',
+  }
 };

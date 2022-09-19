@@ -2,16 +2,27 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/search');
-const { NotFound } = require('@openagenda/verror');
+const { NotFound, Forbidden } = require('@openagenda/verror');
 const convertLongDescription = require('./lib/convertLongDescription');
 const convertToDateHoursMinutesTimings = require('./lib/convertToDateHoursMinutesFormat');
 const loadSearchAccess = require('./lib/loadSearchAccess');
+const filterEventByRole = require('./lib/filterEventByRole');
 const filterAuthorizedSearchFields = require('./lib/filterAuthorizedSearchFields');
 
-module.exports = async (core, agendaUid, query, nav, options = {}) => {
+async function doSearch(core, agendaUid, query, nav, options = {}) {
+  const {
+    returnAgenda = false,
+    stream = false,
+    useAfterKey = false,
+    longDescriptionFormat = null,
+    useDateHoursMinutesFormat = false,
+    ...searchOptions
+  } = options;
+
   const agenda = await core.agendas(agendaUid).get({
     includeEvent: true,
     includeMember: true,
+    includeDateRange: true,
     includeAgendaEvent: true,
     access: 'internal',
     private: null,
@@ -28,15 +39,6 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
 
   const authorizedQuery = filterAuthorizedSearchFields(core, query, access);
 
-  const {
-    returnAgenda = false,
-    stream = false,
-    useAfterKey = false,
-    longDescriptionFormat = null,
-    useDateHoursMinutesFormat = false,
-    ...searchOptions
-  } = options;
-
   const parsers = [];
 
   log('search on %s events with query %s, nav %s and options %s', agendaUid, authorizedQuery, nav, options);
@@ -52,18 +54,20 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
     parsers.push(convertToDateHoursMinutesTimings(core.services.events));
   }
 
-  const { search } = core.services.eventSearch.agendas(agenda);
+  const {
+    search: agendaIndexSearch
+  } = core.services.eventSearch.agendas(agenda);
 
   if (parsers.length) {
     searchOptions.parser = e => parsers.reduce((event, parser) => parser(event), e);
   }
 
   const result = stream
-    ? search.stream(authorizedQuery, {
+    ? agendaIndexSearch.stream(authorizedQuery, {
       ...searchOptions,
       access
     })
-    : await search(authorizedQuery, nav, {
+    : await agendaIndexSearch(authorizedQuery, nav, {
       ...searchOptions,
       useAfterKey,
       access
@@ -72,7 +76,71 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
   return returnAgenda
     ? { agenda, result }
     : result;
-};
+}
+
+async function getEventFromSearch(core, agendaUid, identifier, options = {}) {
+  const {
+    userUid
+  } = options;
+
+  const { agenda, result } = await doSearch(core, agendaUid, {
+    ...identifier,
+    state: null
+  }, { size: 1 }, {
+    ...options,
+    access: 'internal',
+    returnAgenda: true
+  });
+
+  if (!agenda) {
+    throw new NotFound({
+      info: { uid: agendaUid }
+    }, 'agenda not found');
+  }
+
+  const event = result?.events.pop();
+
+  if (!event) {
+    throw new NotFound({
+      info: identifier
+    }, 'event not found');
+  }
+
+  const isPublished = event.state === 2;
+
+  if (!userUid && (
+    event.private
+    || agenda.private
+    || !isPublished
+  )) {
+    throw new Forbidden('not authorized to read event');
+  }
+
+  const context = userUid && await core
+    .users(options.userUid)
+    .agendas(agenda.uid)
+    .events(event)
+    .getContext({
+      userUid,
+      includes: ['me.authorizations', 'me.member']
+    });
+
+  if (context?.me && !context.me.authorizations.canRead) {
+    throw new Forbidden('not authorized to read event');
+  } else if (!context?.me && !isPublished) {
+    throw new Forbidden('not authorized to read event');
+  }
+
+  return filterEventByRole(agenda, event, context);
+}
+
+async function search(core, agendaUid, query, nav, options = {}) {
+  return doSearch(core, agendaUid, query, nav, options);
+}
+
+module.exports = search;
+
+module.exports.get = getEventFromSearch;
 
 module.exports.rebuild = async (core, agendaUid) => {
   const agenda = await core.agendas(agendaUid).get({

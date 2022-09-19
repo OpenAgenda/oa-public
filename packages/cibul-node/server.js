@@ -2,34 +2,40 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-const supervisor = require('./lib/supervisor');
+const sourceMapSupport = require('source-map-support');
+const express = require('express');
+require('@openagenda/polyfills/intl');
+require('@openagenda/polyfills/intl-locales');
+const logs = require('@openagenda/logs');
+
+const task = require('./task');
+const API = require('./api');
+const {
+  config,
+  loadServicesAndCore
+} = require('.');
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
 const WEB = process.argv.includes('web');
 
-supervisor(async loadTasks => {
+(async () => {
   try {
-    require('@openagenda/polyfills/intl');
-    require('@openagenda/polyfills/intl-locales');
+    const {
+      services,
+      core
+    } = await loadServicesAndCore();
 
-    const config = require('./config');
-    const services = await require('./services/init')();
-    const core = require('./core')(services, config);
-    const express = require('express');
-    const api = require('./api')(core);
-
-    services.core = core;
+    const api = API(core);
 
     const {
       sessions
     } = services;
 
     if (__DEVELOPMENT__) {
-      require('source-map-support').install({ hookRequire: true });
+      sourceMapSupport.install({ hookRequire: true });
     }
 
-    const logs = require('@openagenda/logs');
     const log = logs('server');
 
     log('info', 'running server');
@@ -105,10 +111,8 @@ supervisor(async loadTasks => {
       express().use('/v2', api).listen(config.apiPort);
     }
 
-    // only one process runs background tasks. supervisor handles that.
-    // only 'task' types run tasks
-    if (loadTasks && TASK) {
-      require('./task')(config, core, services);
+    if (TASK) {
+      task(config, core, services);
     }
   } catch (e) {
     const logs = require('@openagenda/logs');
@@ -116,4 +120,4 @@ supervisor(async loadTasks => {
 
     log('error', 'could not init app:', e);
   }
-});
+})();

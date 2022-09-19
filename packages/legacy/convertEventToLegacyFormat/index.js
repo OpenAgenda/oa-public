@@ -17,79 +17,117 @@ const convertAge = require('./lib/convertAge');
 const convertMember = require('./lib/convertMember');
 const convertState = require('./lib/convertState');
 
+const pick = (obj, fields) => fields.reduce(
+  (carry, field) => Object.assign(carry, { [field]: obj[field] }),
+  {}
+);
+
 module.exports = (agendaSettings, event) => {
-  const { interfaces, admin } = agendaSettings;
+  const { interfaces, admin, root } = agendaSettings;
 
-  const transformedEvent = [
-    'uid',
-    'slug',
-    'title',
-    'description',
-    'longDescription',
-    'createdAt',
-    'updatedAt',
-    'attendanceMode',
-    'onlineAccessLink',
-    'status',
-    'conditions',
-  ].reduce((carry, field) => {
-    carry[field] = event[field];
-    return carry;
-  }, {});
-
-  for (const field in transformedEvent) {
-    if (typeof transformedEvent[field] === 'object'
-    && transformedEvent[field] !== null
-    && Object.keys(transformedEvent[field]).length === 0
-    ) {
-      transformedEvent[field] = null;
-    }
-  }
-
-  const tags = getTags(agendaSettings, event);
-  const imageFormats = convertImage(event.image);
-  const locationDetails = getLocationInfo(event.location);
-  const firstLastTimings = getfirstLastTimings(event.timings);
-  const registration = convertRegistration(event.registration);
-
-  Object.assign(transformedEvent, {
-    canonicalUrl: `https://openagenda.com/${agendaSettings.slug}/events/${event.slug}`,
-    range: event.dateRange,
-    featured: Number(event.featured),
-    imageCredits: event?.imageCredits ? event?.imageCredits : null,
-    linkedEvents: [],
-    location: {
-      ...event.location,
-      countryCode: event.location.countryCode ? event.location.countryCode.toLowerCase() : undefined,
-      country: event.country
-    },
-    accessibility: convertAccessibility(event.accessibility),
-    origin: convertOriginAgenda(event),
-    timings: convertTimings(event.timings, event.timezone),
-    permalink: getPermalink(agendaSettings, event),
-    longDescriptionLinks: getLongDescriptionLinks(event.links),
-    contributor: convertMember(admin, event.member),
-    age: convertAge(event.age),
+  const legacyFormat = {
+    uid: event.uid,
+    slug: event.slug,
+    canonicalUrl: `${root}/${agendaSettings.slug}/events/${event.slug}`,
+    title: event.title,
+    description: event.description,
+    longDescription: event.longDescription,
     keywords: convertKeywords(event.keywords),
-    custom: getCustom(agendaSettings, event),
-    category: getCategory(agendaSettings, event),
-    ...imageFormats,
-    ...locationDetails,
-    ...firstLastTimings,
-    ...registration,
-    ...tags
-  });
+  };
 
-  if (interfaces.renderHTMLFromMarkdown && transformedEvent.longDescription) {
-    transformedEvent.html = Object.keys(transformedEvent.longDescription).reduce((carry, curr) => {
+  if (interfaces.renderHTMLFromMarkdown && legacyFormat.longDescription) {
+    legacyFormat.html = Object.keys(legacyFormat.longDescription).reduce((carry, curr) => {
       carry[curr] = interfaces.renderHTMLFromMarkdown(event.links, event.longDescription[curr]);
       return carry;
     }, {});
   }
 
+  const {
+    registration,
+    registrationUrl
+  } = convertRegistration(event.registration);
+
+  const {
+    tags,
+    tagGroups
+  } = getTags(agendaSettings, event);
+
+  Object.assign(legacyFormat, {
+    longDescriptionLinks: getLongDescriptionLinks(event.links),
+  }, convertImage(event.image), {
+    age: convertAge(event.age),
+    accessibility: convertAccessibility(event.accessibility),
+    updatedAt: event.updatedAt,
+    createdAt: event.createdAt,
+    range: event.dateRange,
+    location: event.location ? Object.assign(
+      pick(event.location, [
+        'uid',
+        'name',
+        'slug',
+        'address',
+        'image',
+        'imageCredits',
+        'postalCode',
+        'city',
+        'district',
+        'department',
+        'region',
+        'latitude',
+        'longitude',
+        'description',
+        'access',
+      ]), {
+        countryCode: event.location.countryCode ? event.location.countryCode.toLowerCase() : undefined,
+      },
+      pick(event.location, [
+        'website',
+        'email',
+        'links',
+        'insee',
+        'phone',
+        'tags',
+        'timezone',
+        'updatedAt',
+        'extId'
+      ]), {
+        country: event.country
+      }
+    ) : null,
+    attendanceMode: event.attendanceMode,
+    onlineAccessLink: event.onlineAccessLink,
+    status: event.status,
+    imageCredits: event?.imageCredits ? event?.imageCredits : null,
+    origin: convertOriginAgenda(event),
+    conditions: event.conditions,
+    registrationUrl
+  }, getLocationInfo(event.location), {
+    timings: convertTimings(event.timings, event.timezone),
+    registration
+  }, getfirstLastTimings(event.timings), {
+    permalink: getPermalink(agendaSettings, event),
+    featured: Number(event.featured),
+    custom: getCustom(agendaSettings, event),
+    contributor: convertMember(admin, event.member),
+    category: getCategory(agendaSettings, event),
+    tags,
+    tagGroups,
+    linkedEvents: []
+  });
+
   if (admin) {
-    transformedEvent.state = convertState(event.state);
+    legacyFormat.state = convertState(event.state);
   }
 
-  return transformedEvent;
+  for (const field in legacyFormat) {
+    if (typeof legacyFormat[field] === 'object'
+    && legacyFormat[field] !== null
+    && Object.keys(legacyFormat[field]).length === 0
+    && !['longDescriptionLinks', 'accessibility'].includes(field)
+    ) {
+      legacyFormat[field] = null;
+    }
+  }
+
+  return legacyFormat;
 };

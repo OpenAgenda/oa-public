@@ -123,6 +123,9 @@
       }
     }
   },
+  "ownerUid": {
+    "type": "integer"
+  },
   "createdAt": {
     "type": "date"
   },

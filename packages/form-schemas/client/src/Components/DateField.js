@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar } from 'react-date-range';
-import Dropdown from 'react-bootstrap/lib/Dropdown';
+import { Dropdown } from '@openagenda/react-shared';
 import { format } from 'date-fns';
 import * as rdrLocales from 'react-date-range/dist/locale';
 
@@ -32,7 +32,6 @@ function DateField({
   className
 }) {
   const {
-    field: fieldName,
     placeholder
   } = field;
 
@@ -43,23 +42,21 @@ function DateField({
       className={className || ''}
     >{enabled ? (
       <Dropdown
-        id={`${fieldName}-input`}
+        className="dropdown btn-group open"
+        Trigger={props => (
+          <button type="button" {...props} className="form-control btn btn-default">
+            {getContent(cleanValue, placeholder, lang)}&nbsp;
+            <span className="caret" />
+          </button>
+        )}
       >
-        <Dropdown.Toggle
-          bsRole="toggle"
-          className="form-control"
-        >
-          {getContent(cleanValue, placeholder, lang)}
-        </Dropdown.Toggle>
-        <Dropdown.Menu bsRole="menu">
-          <div className="dropdown-calendar" style={{ minWidth: '300px' }}>
-            <Calendar
-              date={cleanValue || null}
-              onChange={onChange}
-              locale={rdrLocales[lang]}
-            />
-          </div>
-        </Dropdown.Menu>
+        <div className="dropdown-calendar" style={{ minWidth: '300px' }}>
+          <Calendar
+            date={cleanValue || null}
+            onChange={onChange}
+            locale={rdrLocales[lang]}
+          />
+        </div>
       </Dropdown>
     ) : (
       <input

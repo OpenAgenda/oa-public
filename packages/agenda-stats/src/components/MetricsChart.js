@@ -36,8 +36,7 @@ export default function MetricsChart({ stat }) {
     return <ChartLoading />;
   }
 
-  const metrics = aggregation.metrics
-    || (data && Object.keys(data)[0]) || ['avg'];
+  const metrics = aggregation.metrics || (data && Object.keys(data)) || ['avg'];
 
   return (
     <div style={{ width: '100%', heigth: 300 }}>

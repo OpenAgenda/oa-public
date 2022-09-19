@@ -37,6 +37,7 @@
   "AgendaContribute.EventWasSuccessfullyShared.goTo": "See the event in {agenda}",
   "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": "The event is now published on \"{agenda}\"",
   "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": "The event has been added to \"{agenda}\". It will be reviewed before being published",
+  "AgendaContribute.Member.share": "This agenda requires some information about yourself to be entered in order to allow event shares",
   "AgendaContribute.Member.subtitle": "Present yourself to the agenda administrators before starting typing your events",
   "AgendaContribute.Member.title": "Welcome !",
   "AgendaContribute.RequestEditionRights.noEditionRights": "You do not have edition rights on this event.",

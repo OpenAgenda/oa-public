@@ -1,0 +1,1561 @@
+{
+  "total": 13609,
+  "events": [
+    {
+      "image": {
+        "filename": "aa7676e8a42a45e8a901e26c77418492.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 933
+        },
+        "variants": [
+          {
+            "filename": "aa7676e8a42a45e8a901e26c77418492.full.image.jpg",
+            "size": {
+              "width": 3024,
+              "height": 4032
+            },
+            "type": "full"
+          },
+          {
+            "filename": "aa7676e8a42a45e8a901e26c77418492.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "٢٠ مايو - ٢ أكتوبر",
+        "de": "20 Mai - 2 Oktober",
+        "en": "20 May - 2 October",
+        "fr": "20 mai - 2 octobre",
+        "es": "20 mayo - 2 octubre"
+      },
+      "imageCredits": "Louis © Marion Feugueur",
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "par Moogli & Déco AMZ"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Louis"
+      },
+      "onlineAccessLink": null,
+      "uid": 18422197,
+      "recurringevent": [],
+      "location": {
+        "address": "Quai de l'Ouest, 59000 Lille",
+        "latitude": 50.626327,
+        "name": "Gare d'eau, Bois-Blancs, Lille",
+        "longitude": 3.020298
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "louis",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T00:00:00+02:00",
+        "end": "2022-10-02T23:59:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T00:00:00+02:00",
+        "end": "2022-09-08T23:59:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "originalName": null,
+        "extension": null,
+        "filename": "e9447fd0c9434d7c91d0160970750d3b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 266
+        },
+        "variants": [
+          {
+            "filename": "e9447fd0c9434d7c91d0160970750d3b.full.image.jpg",
+            "size": {
+              "width": 3417,
+              "height": 1300
+            },
+            "type": "full"
+          },
+          {
+            "filename": "e9447fd0c9434d7c91d0160970750d3b.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ٢ أكتوبر",
+        "de": "14 Mai - 2 Oktober",
+        "en": "14 May - 2 October",
+        "fr": "14 mai - 2 octobre",
+        "es": "14 mayo - 2 octubre"
+      },
+      "imageCredits": "© Kim Simonsson - lille3000",
+      "originAgenda": {
+        "image": "agenda57621068.jpg?__ts=1647873370321",
+        "uid": 57621068,
+        "title": "Ville de Lille"
+      },
+      "description": {
+        "fr": "UTOPIA lille3000"
+      },
+      "label": [],
+      "title": {
+        "fr": "Utopia, 6ème grande édition thématique de lille3000"
+      },
+      "onlineAccessLink": null,
+      "uid": 86082131,
+      "recurringevent": [],
+      "location": {
+        "address": "Lille",
+        "latitude": 50.636565,
+        "name": "Ville de Lille",
+        "longitude": 3.063528
+      },
+      "categories-metropolitaines": [
+        13
+      ],
+      "slug": "utopia-6eme-grande-edition-thematique-de-lille3000-9829610",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T00:00:00+02:00",
+        "end": "2022-10-02T23:59:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T00:00:00+02:00",
+        "end": "2022-09-08T23:59:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "f75b8941207d4847a479cf4f63615405.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 394
+        },
+        "variants": [
+          {
+            "filename": "f75b8941207d4847a479cf4f63615405.full.image.jpg",
+            "size": {
+              "width": 2048,
+              "height": 1152
+            },
+            "type": "full"
+          },
+          {
+            "filename": "f75b8941207d4847a479cf4f63615405.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "٥ يوليو - ١٥ سبتمبر",
+        "de": "5 Juli - 15 September",
+        "en": "5 July - 15 September",
+        "fr": "5 juillet - 15 septembre",
+        "es": "5 julio - 15 septiembre"
+      },
+      "imageCredits": "Ville de Roubaix",
+      "originAgenda": {
+        "image": "agenda9977986.jpg",
+        "uid": 9977986,
+        "title": "Ville de Roubaix"
+      },
+      "description": {
+        "fr": "Une installation décalée et durable"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Jardin Ephémère"
+      },
+      "onlineAccessLink": null,
+      "uid": 80094202,
+      "recurringevent": [],
+      "location": {
+        "address": "88 avenue Jean Lebas, 59100 Roubaix",
+        "latitude": 50.693801,
+        "name": "Place des Martyrs",
+        "longitude": 3.168318
+      },
+      "categories-metropolitaines": [
+        23,
+        12,
+        10
+      ],
+      "slug": "jardin-ephemere-3715852",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-09-15T00:00:00+02:00",
+        "end": "2022-09-15T23:59:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T00:00:00+02:00",
+        "end": "2022-09-08T23:59:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "abe6534b1cfa4086a22bb071d4edc2c3.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "abe6534b1cfa4086a22bb071d4edc2c3.full.image.jpg",
+            "size": {
+              "width": 2048,
+              "height": 1366
+            },
+            "type": "full"
+          },
+          {
+            "filename": "abe6534b1cfa4086a22bb071d4edc2c3.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ١ أكتوبر",
+        "de": "14 Mai - 1 Oktober",
+        "en": "14 May - 1 October",
+        "fr": "14 mai - 1 octobre",
+        "es": "14 mayo - 1 octubre"
+      },
+      "imageCredits": null,
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "Suspendue au cœur de la Gare Lille Flandres surgit Simone"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Simone"
+      },
+      "onlineAccessLink": null,
+      "uid": 92786342,
+      "recurringevent": [],
+      "location": {
+        "address": "Gare Lille Flandres, Lille",
+        "latitude": 50.636327,
+        "name": "Gare Lille Flandres, Lille",
+        "longitude": 3.070667
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "joana-vasconcelos-simone",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-01T05:00:00+02:00",
+        "end": "2022-10-02T00:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T05:00:00+02:00",
+        "end": "2022-09-09T00:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "87354f0b6c304ab49644c3ead2c48032.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 394
+        },
+        "variants": [
+          {
+            "filename": "87354f0b6c304ab49644c3ead2c48032.full.image.jpg",
+            "size": {
+              "width": 850,
+              "height": 478
+            },
+            "type": "full"
+          },
+          {
+            "filename": "87354f0b6c304ab49644c3ead2c48032.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {
+        "fr": [
+          "lecure",
+          "challenge",
+          "adulte"
+        ]
+      },
+      "dateRange": {
+        "ar": "١٥ فبراير - ١٧ ديسمبر",
+        "de": "15 Februar - 17 Dezember",
+        "en": "15 February - 17 December",
+        "fr": "15 février - 17 décembre",
+        "es": "15 febrero - 17 diciembre"
+      },
+      "imageCredits": "Droit réservé",
+      "originAgenda": {
+        "image": "agenda31182441.jpg?__ts=1630508782118",
+        "uid": 31182441,
+        "title": "Wattrelos Tourisme"
+      },
+      "description": {
+        "fr": "Pour la 3ème année consécutive, la bibliothèque municipale organise un « Challenge Lecture » destiné aux lecteurs adultes à partir de 16 ans."
+      },
+      "label": [],
+      "title": {
+        "fr": "Challenge lecture adulte 2022"
+      },
+      "onlineAccessLink": null,
+      "uid": 2392792,
+      "recurringevent": [],
+      "location": {
+        "address": "2 rue Emile Basly 59150 Wattrelos",
+        "latitude": 50.702307,
+        "name": "Bibliothèque Municipale (Centrale)",
+        "longitude": 3.216032
+      },
+      "categories-metropolitaines": [
+        15
+      ],
+      "slug": "challenge-lecture-adulte-2022",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-12-17T08:00:00+01:00",
+        "end": "2022-12-17T18:00:00+01:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T08:00:00+02:00",
+        "end": "2022-09-08T18:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "2c015085cee445f7afc1aff11c224505.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 368
+        },
+        "variants": [
+          {
+            "filename": "2c015085cee445f7afc1aff11c224505.full.image.jpg",
+            "size": {
+              "width": 723,
+              "height": 380
+            },
+            "type": "full"
+          },
+          {
+            "filename": "2c015085cee445f7afc1aff11c224505.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {
+        "fr": [
+          "lecture",
+          "challenge",
+          "concours"
+        ]
+      },
+      "dateRange": {
+        "ar": "١٥ فبراير - ١٧ ديسمبر",
+        "de": "15 Februar - 17 Dezember",
+        "en": "15 February - 17 December",
+        "fr": "15 février - 17 décembre",
+        "es": "15 febrero - 17 diciembre"
+      },
+      "imageCredits": "Droit réservé",
+      "originAgenda": {
+        "image": "agenda31182441.jpg?__ts=1630508782118",
+        "uid": 31182441,
+        "title": "Wattrelos Tourisme"
+      },
+      "description": {
+        "fr": "Pour la deuxième fois, un challenge lecture jeunesse est organisé pour les jeunes lecteurs à partir de 7 ans, jusque 16 ans."
+      },
+      "label": [],
+      "title": {
+        "fr": "Challenge lecture jeunesse 2022"
+      },
+      "onlineAccessLink": null,
+      "uid": 58558683,
+      "recurringevent": [],
+      "location": {
+        "address": "2 rue Emile Basly 59150 Wattrelos",
+        "latitude": 50.702307,
+        "name": "Bibliothèque Municipale (Centrale)",
+        "longitude": 3.216032
+      },
+      "categories-metropolitaines": [
+        15
+      ],
+      "slug": "challenge-lecture-jeunesse-2022",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-12-17T08:00:00+01:00",
+        "end": "2022-12-17T18:00:00+01:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T08:00:00+02:00",
+        "end": "2022-09-08T18:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "af8bade83132480d8a62b326693ec3ca.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "af8bade83132480d8a62b326693ec3ca.full.image.jpg",
+            "size": {
+              "width": 5120,
+              "height": 3840
+            },
+            "type": "full"
+          },
+          {
+            "filename": "af8bade83132480d8a62b326693ec3ca.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٥ مايو - ١ أكتوبر",
+        "de": "15 Mai - 1 Oktober",
+        "en": "15 May - 1 October",
+        "fr": "15 mai - 1 octobre",
+        "es": "15 mayo - 1 octubre"
+      },
+      "imageCredits": null,
+      "originAgenda": {
+        "image": "agenda67836958.jpg?__ts=1644831117735",
+        "uid": 67836958,
+        "title": "Parc de la Citadelle"
+      },
+      "description": {
+        "fr": "Promenade nature et artistique dans le Parc de la Citadelle"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Cap Forêt - A la découverte des arbres remarquables du Parc de la Citadelle"
+      },
+      "onlineAccessLink": null,
+      "uid": 75604610,
+      "recurringevent": [],
+      "location": {
+        "address": "Parc de la Citadelle, Lille",
+        "latitude": 50.637976,
+        "name": "Parc de la Citadelle",
+        "longitude": 3.040119
+      },
+      "categories-metropolitaines": [
+        10,
+        23
+      ],
+      "slug": "cap-foret-a-la-decouverte-des-arbres-remarquables-du-parc-de-la-citadelle",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-01T08:00:00+02:00",
+        "end": "2022-10-01T23:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T08:00:00+02:00",
+        "end": "2022-09-08T23:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "4f3967bf64ad422a9a95e97fc7a570e4.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "4f3967bf64ad422a9a95e97fc7a570e4.full.image.jpg",
+            "size": {
+              "width": 799,
+              "height": 533
+            },
+            "type": "full"
+          },
+          {
+            "filename": "4f3967bf64ad422a9a95e97fc7a570e4.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٦ مايو - ٢٣ سبتمبر",
+        "de": "16 Mai - 23 September",
+        "en": "16 May - 23 September",
+        "fr": "16 mai - 23 septembre",
+        "es": "16 mayo - 23 septiembre"
+      },
+      "imageCredits": "Alain Conion",
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "De mai à septembre, « Hortus incredibili » prend place sur le parvis du pôle culturel. Cet espace paysager où la nature reprend ses droits accueille installations et animations utopiques."
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Le jardin extraordinaire : Hortus Incredibili"
+      },
+      "onlineAccessLink": null,
+      "uid": 55170545,
+      "recurringevent": [],
+      "location": {
+        "address": "9 rue Carnot - 59320 Sequedin",
+        "latitude": 50.623552,
+        "name": "Parvis du pôle culturel",
+        "longitude": 2.987515
+      },
+      "categories-metropolitaines": [
+        23,
+        12,
+        10,
+        3
+      ],
+      "slug": "le-jardin-extraordinaire-hortus-incredibili",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-09-23T08:00:00+02:00",
+        "end": "2022-09-23T20:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T08:00:00+02:00",
+        "end": "2022-09-08T20:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "bd31e42a042e499d929d0de96406a202.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 463
+        },
+        "variants": [
+          {
+            "filename": "bd31e42a042e499d929d0de96406a202.full.image.jpg",
+            "size": {
+              "width": 605,
+              "height": 400
+            },
+            "type": "full"
+          },
+          {
+            "filename": "bd31e42a042e499d929d0de96406a202.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {
+        "fr": [
+          "Exposition",
+          "Photographie",
+          "Textile",
+          "Mode",
+          "Portraits"
+        ]
+      },
+      "dateRange": {
+        "ar": "٧ يوليو - ٢٩ نوفمبر",
+        "de": "7 Juli - 29 November",
+        "en": "7 July - 29 November",
+        "fr": "7 juillet - 29 novembre",
+        "es": "7 julio - 29 noviembre"
+      },
+      "imageCredits": "Ville de Roubaix",
+      "originAgenda": {
+        "image": "agenda3836508.jpg",
+        "uid": 3836508,
+        "title": "L'avant-Poste Roubaix"
+      },
+      "description": {
+        "fr": "Exposition photos"
+      },
+      "label": [],
+      "title": {
+        "fr": "Portraits du textile roubaisien"
+      },
+      "onlineAccessLink": null,
+      "uid": 62007104,
+      "recurringevent": [],
+      "location": {
+        "address": "33 boulevard du Général Leclerc Roubaix",
+        "latitude": 50.68722,
+        "name": "L'Avant-Poste",
+        "longitude": 3.174277
+      },
+      "categories-metropolitaines": [
+        7
+      ],
+      "slug": "portraits-du-textile-roubaisien",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-11-29T08:30:00+01:00",
+        "end": "2022-11-29T17:30:00+01:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T08:30:00+02:00",
+        "end": "2022-09-08T17:30:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "b88a3d9c08e64f0380d6a548781ea42a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "b88a3d9c08e64f0380d6a548781ea42a.full.image.jpg",
+            "size": {
+              "width": 1561,
+              "height": 1041
+            },
+            "type": "full"
+          },
+          {
+            "filename": "b88a3d9c08e64f0380d6a548781ea42a.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {
+        "fr": [
+          "exposition",
+          "art contemporain",
+          "textile",
+          "couture",
+          "2022 textiles du monde"
+        ]
+      },
+      "dateRange": {
+        "ar": "١٨ مايو - ١٠ ديسمبر",
+        "de": "18 Mai - 10 Dezember",
+        "en": "18 May - 10 December",
+        "fr": "18 mai - 10 décembre",
+        "es": "18 mayo - 10 diciembre"
+      },
+      "imageCredits": "Cost-cutting market growth patron 08 / Mais moi j’étouffais, moi j’avais besoin de la vie. patron 13 / Oui c’est arbitraire et c’est comme ça. patron 11 / photo : Romy Finke",
+      "originAgenda": {
+        "image": "agenda64260763.jpg",
+        "uid": 64260763,
+        "title": "Office de Tourisme de Roubaix"
+      },
+      "description": {
+        "fr": "Exposition d'art contemporain"
+      },
+      "label": [],
+      "title": {
+        "fr": "Exposition PATRONS"
+      },
+      "onlineAccessLink": null,
+      "uid": 98515443,
+      "recurringevent": [],
+      "location": {
+        "address": "78 boulevard du Général Leclerc",
+        "latitude": 50.690268,
+        "name": "Archives Nationales du Monde du Travail",
+        "longitude": 3.178305
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "exposition-patrons",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-12-10T14:00:00+01:00",
+        "end": "2022-12-10T18:00:00+01:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:00:00+02:00",
+        "end": "2022-09-08T17:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "8f0f4842d5754cba9e625d69e6450565.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "8f0f4842d5754cba9e625d69e6450565.full.image.jpg",
+            "size": {
+              "width": 4608,
+              "height": 3456
+            },
+            "type": "full"
+          },
+          {
+            "filename": "8f0f4842d5754cba9e625d69e6450565.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "٥ سبتمبر - ٢٧ أكتوبر",
+        "de": "5 September - 27 Oktober",
+        "en": "5 September - 27 October",
+        "fr": "5 septembre - 27 octobre",
+        "es": "5 septiembre - 27 octubre"
+      },
+      "imageCredits": "Dewi Brunet",
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "Plantoidori est l’aboutissement des recherches menées par l’artiste plieur Dewi Brunet avec l’équipe du laboratoire DEFROST de INRIA, spécialisé en robotique déformable."
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Plantoidori"
+      },
+      "onlineAccessLink": null,
+      "uid": 82947971,
+      "recurringevent": [],
+      "location": {
+        "address": "Cité Scientifique Villeneuve-d'Ascq, 59655 Villeneuve-d'Ascq, France",
+        "latitude": 50.606842,
+        "name": "Espace culture",
+        "longitude": 3.142782
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "plantoidori",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-27T09:00:00+02:00",
+        "end": "2022-10-27T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:00:00+02:00",
+        "end": "2022-09-08T18:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "1f2b7d982cd74d2598b9c6a559c65d10.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 394
+        },
+        "variants": [
+          {
+            "filename": "1f2b7d982cd74d2598b9c6a559c65d10.full.image.jpg",
+            "size": {
+              "width": 1920,
+              "height": 1080
+            },
+            "type": "full"
+          },
+          {
+            "filename": "1f2b7d982cd74d2598b9c6a559c65d10.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "٣ مايو - ٣٠ سبتمبر",
+        "de": "3 Mai - 30 September",
+        "en": "3 May - 30 September",
+        "fr": "3 mai - 30 septembre",
+        "es": "3 mayo - 30 septiembre"
+      },
+      "imageCredits": null,
+      "originAgenda": {
+        "image": "agenda32204253.jpg?__ts=1634983762163",
+        "uid": 32204253,
+        "title": "Office de Tourisme de l'Armentiérois & des Weppes"
+      },
+      "description": {
+        "fr": "Au départ de notre magasin Au Panier Vert, nous allons vous fournir un carton de participation et le trajet du parcours de 35km qui vous fera voyager de fermes en fermes entre amis ou en famille ?‍♂️"
+      },
+      "label": [],
+      "title": {
+        "fr": "Rallye fermier à vélo"
+      },
+      "onlineAccessLink": null,
+      "uid": 68509298,
+      "recurringevent": [],
+      "location": {
+        "address": "3862 rue de Messines, Frelinghien",
+        "latitude": 50.696574,
+        "name": "Au Panier Vert",
+        "longitude": 2.976917
+      },
+      "categories-metropolitaines": [
+        21,
+        23,
+        10
+      ],
+      "slug": "rallye-fermier-a-velo",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-09-30T09:00:00+02:00",
+        "end": "2022-09-30T19:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:00:00+02:00",
+        "end": "2022-09-08T19:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "b1829ea1c1434b00a9798b5b65ff21b0.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "b1829ea1c1434b00a9798b5b65ff21b0.full.image.jpg",
+            "size": {
+              "width": 4032,
+              "height": 3024
+            },
+            "type": "full"
+          },
+          {
+            "filename": "b1829ea1c1434b00a9798b5b65ff21b0.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "٤ يوليو - ٣٠ سبتمبر",
+        "de": "4 Juli - 30 September",
+        "en": "4 July - 30 September",
+        "fr": "4 juillet - 30 septembre",
+        "es": "4 julio - 30 septiembre"
+      },
+      "imageCredits": "MNCDG",
+      "originAgenda": {
+        "image": "agenda84178045.jpg?__ts=1644412513142",
+        "uid": 84178045,
+        "title": "La culture en continu"
+      },
+      "description": {
+        "fr": "Pour mieux comprendre l’attachement de Charles de Gaulle à sa ville natale, le Département du Nord en partenariat avec la Ville de Lille propose deux circuits pédestres de 6,3 ou 4,4 km."
+      },
+      "label": [],
+      "title": {
+        "fr": "Un parcours pédestre à Lille pour découvrir l'enfance de Charles de Gaulle"
+      },
+      "onlineAccessLink": null,
+      "uid": 59868499,
+      "recurringevent": [],
+      "location": {
+        "address": "9 rue Princesse  Lille",
+        "latitude": 50.645994,
+        "name": "Maison natale Charles de Gaulle",
+        "longitude": 3.058752
+      },
+      "categories-metropolitaines": [
+        23
+      ],
+      "slug": "un-parcours-pedestre-a-lille-pour-decouvrir-lenfance-de-charles-de-gaulle",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-09-30T09:00:00+02:00",
+        "end": "2022-09-30T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:00:00+02:00",
+        "end": "2022-09-08T18:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "18374a07be6445d3bb482208ecf74fdf.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1050
+        },
+        "variants": [
+          {
+            "filename": "18374a07be6445d3bb482208ecf74fdf.full.image.jpg",
+            "size": {
+              "width": 700,
+              "height": 1050
+            },
+            "type": "full"
+          },
+          {
+            "filename": "18374a07be6445d3bb482208ecf74fdf.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [
+        1
+      ],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "٢ يوليو - ١١ سبتمبر",
+        "de": "2 Juli - 11 September",
+        "en": "2 July - 11 September",
+        "fr": "2 juillet - 11 septembre",
+        "es": "2 julio - 11 septiembre"
+      },
+      "imageCredits": "Claire-Marie Régent",
+      "originAgenda": {
+        "image": "agenda77281150.jpg",
+        "uid": 77281150,
+        "title": "Château de Flers"
+      },
+      "description": {
+        "fr": "Du samedi 2 juillet au dimanche 11 septembre 2022, Claire-Marie Régent pose son regard sur cette envie utopique de vivre en cohésion totale avec la nature dans un monde urbain."
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Exposition extérieure de photographies « Utopia »"
+      },
+      "onlineAccessLink": null,
+      "uid": 91072289,
+      "recurringevent": [],
+      "location": {
+        "address": "Chemin du chat botté 59650 Villeneuve d'Ascq",
+        "latitude": 50.635787,
+        "name": "Château de Flers",
+        "longitude": 3.132724
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "exposition-exterieure-de-photographies-utopia",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-09-11T09:00:00+02:00",
+        "end": "2022-09-11T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:00:00+02:00",
+        "end": "2022-09-08T18:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "9e68259efb7947c797ebb8a7f50971f2.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "9e68259efb7947c797ebb8a7f50971f2.full.image.jpg",
+            "size": {
+              "width": 4000,
+              "height": 3000
+            },
+            "type": "full"
+          },
+          {
+            "filename": "9e68259efb7947c797ebb8a7f50971f2.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ٢ أكتوبر",
+        "de": "14 Mai - 2 Oktober",
+        "en": "14 May - 2 October",
+        "fr": "14 mai - 2 octobre",
+        "es": "14 mayo - 2 octubre"
+      },
+      "imageCredits": "©Audrey Dussutour CNRS",
+      "originAgenda": {
+        "image": "agenda3440742.jpg?__ts=1615286694384",
+        "uid": 3440742,
+        "title": "Musée d'Histoire Naturelle de Lille"
+      },
+      "description": {
+        "fr": "Le Musée d’histoire naturelle vous propose de faire la connaissance du blob !"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "UTOPIA  / Un Blob au Musée !"
+      },
+      "onlineAccessLink": null,
+      "uid": 31814576,
+      "recurringevent": [],
+      "location": {
+        "address": "23 rue Gosselet",
+        "latitude": 50.626398,
+        "name": "Musée d'histoire naturelle de Lille",
+        "longitude": 3.067183
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "utopia-un-blob-au-musee-",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T10:00:00+02:00",
+        "end": "2022-10-02T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:30:00+02:00",
+        "end": "2022-09-08T17:30:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "939197e7ad0240369774d2eb80f14a0a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 700
+        },
+        "variants": [
+          {
+            "filename": "939197e7ad0240369774d2eb80f14a0a.full.image.jpg",
+            "size": {
+              "width": 1440,
+              "height": 1440
+            },
+            "type": "full"
+          },
+          {
+            "filename": "939197e7ad0240369774d2eb80f14a0a.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ٢ أكتوبر",
+        "de": "14 Mai - 2 Oktober",
+        "en": "14 May - 2 October",
+        "fr": "14 mai - 2 octobre",
+        "es": "14 mayo - 2 octubre"
+      },
+      "imageCredits": "©MHN / Ville de Lille",
+      "originAgenda": {
+        "image": "agenda3440742.jpg?__ts=1615286694384",
+        "uid": 3440742,
+        "title": "Musée d'Histoire Naturelle de Lille"
+      },
+      "description": {
+        "fr": "Le Musée d’histoire naturelle propose une exposition-dossier sur le travail de Madeleine Aimé (1904 - 1996), artiste et illustratrice scientifique !"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "UTOPIA / Madeleine Aimé, artiste des forêts fossiles"
+      },
+      "onlineAccessLink": null,
+      "uid": 49425041,
+      "recurringevent": [],
+      "location": {
+        "address": "23 rue Gosselet",
+        "latitude": 50.626398,
+        "name": "Musée d'histoire naturelle de Lille",
+        "longitude": 3.067183
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "utopia-madeleine-aime-artiste-des-forets-fossiles",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T10:00:00+02:00",
+        "end": "2022-10-02T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:30:00+02:00",
+        "end": "2022-09-08T17:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "0ee78e32fa2f43a08927629e98493cd5.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 259
+        },
+        "variants": [
+          {
+            "filename": "0ee78e32fa2f43a08927629e98493cd5.full.image.jpg",
+            "size": {
+              "width": 851,
+              "height": 315
+            },
+            "type": "full"
+          },
+          {
+            "filename": "0ee78e32fa2f43a08927629e98493cd5.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ٢ أكتوبر",
+        "de": "14 Mai - 2 Oktober",
+        "en": "14 May - 2 October",
+        "fr": "14 mai - 2 octobre",
+        "es": "14 mayo - 2 octubre"
+      },
+      "imageCredits": "©Studio Corpus",
+      "originAgenda": {
+        "image": "agenda3440742.jpg?__ts=1615286694384",
+        "uid": 3440742,
+        "title": "Musée d'Histoire Naturelle de Lille"
+      },
+      "description": {
+        "fr": "A l’occasion de la saison Utopia de lille3000, le Musée questionne notre relation à la Nature et propose de célébrer la biodiversité à travers des réflexions scientifiques et regards d’artistes !"
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Utopia au Musée !"
+      },
+      "onlineAccessLink": null,
+      "uid": 73418354,
+      "recurringevent": [],
+      "location": {
+        "address": "23 rue Gosselet",
+        "latitude": 50.626398,
+        "name": "Musée d'histoire naturelle de Lille",
+        "longitude": 3.067183
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "utopia-au-musee-",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T10:00:00+02:00",
+        "end": "2022-10-02T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T09:30:00+02:00",
+        "end": "2022-09-08T17:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "2658e8f27a904db185d845239c831f71.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 517
+        },
+        "variants": [
+          {
+            "filename": "2658e8f27a904db185d845239c831f71.full.image.jpg",
+            "size": {
+              "width": 640,
+              "height": 473
+            },
+            "type": "full"
+          },
+          {
+            "filename": "2658e8f27a904db185d845239c831f71.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٦ مايو - ٢ أكتوبر",
+        "de": "16 Mai - 2 Oktober",
+        "en": "16 May - 2 October",
+        "fr": "16 mai - 2 octobre",
+        "es": "16 mayo - 2 octubre"
+      },
+      "imageCredits": "The Ayahuasca Visions of Pablo Amaringo' by Howard G Charing and Peter Cloudsley. Published by Inner Traditions",
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "En dialogue avec les collections du musée, Le serpent cosmique explore la manière dont les artistes s’inspirent et se nourrissent de la nature et du vivant pour créer des utopies."
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "Le serpent cosmique"
+      },
+      "onlineAccessLink": null,
+      "uid": 4528973,
+      "recurringevent": [],
+      "location": {
+        "address": "32 Rue de la Monnaie, 59800 Lille",
+        "latitude": 50.641048,
+        "name": "Musée de l'Hospice Comtesse, Lille",
+        "longitude": 3.062934
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "le-serpent-cosmique-9000832",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T10:00:00+02:00",
+        "end": "2022-10-02T18:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T10:00:00+02:00",
+        "end": "2022-09-08T18:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "b15749fb76af42f481b4399d6aa63abe.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1049
+        },
+        "variants": [
+          {
+            "filename": "b15749fb76af42f481b4399d6aa63abe.full.image.jpg",
+            "size": {
+              "width": 1366,
+              "height": 2048
+            },
+            "type": "full"
+          },
+          {
+            "filename": "b15749fb76af42f481b4399d6aa63abe.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ٢ أكتوبر",
+        "de": "14 Mai - 2 Oktober",
+        "en": "14 May - 2 October",
+        "fr": "14 mai - 2 octobre",
+        "es": "14 mayo - 2 octubre"
+      },
+      "imageCredits": "Joanna Rajkowska, The Hatchling, 2019 © maxime dufour photographies",
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "The Hatchling est une réplique à grande échelle d’un œuf de merle aux couleurs très caractéristiques : bleu-vert avec des taches brunes."
+      },
+      "label": [
+        32
+      ],
+      "title": {
+        "fr": "The Hatchling"
+      },
+      "onlineAccessLink": null,
+      "uid": 50502785,
+      "recurringevent": [],
+      "location": {
+        "address": "32 Rue de la Monnaie, 59800 Lille",
+        "latitude": 50.641048,
+        "name": "Musée de l'Hospice Comtesse, Lille",
+        "longitude": 3.062934
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "the-hatchling",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T10:00:00+02:00",
+        "end": "2022-10-02T17:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T10:00:00+02:00",
+        "end": "2022-09-08T17:00:00+02:00"
+      }
+    },
+    {
+      "image": {
+        "filename": "24cc576839e340c6b54bdad5482181aa.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "24cc576839e340c6b54bdad5482181aa.full.image.jpg",
+            "size": {
+              "width": 2048,
+              "height": 1366
+            },
+            "type": "full"
+          },
+          {
+            "filename": "24cc576839e340c6b54bdad5482181aa.thumb.image.jpg",
+            "size": {
+              "width": 200,
+              "height": 200
+            },
+            "type": "thumbnail"
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "interetintercommunal": [],
+      "featured": false,
+      "attendanceMode": 1,
+      "keywords": {},
+      "dateRange": {
+        "ar": "١٤ مايو - ٢ أكتوبر",
+        "de": "14 Mai - 2 Oktober",
+        "en": "14 May - 2 October",
+        "fr": "14 mai - 2 octobre",
+        "es": "14 mayo - 2 octubre"
+      },
+      "imageCredits": "Jaider Esbell, Entidades, 2022  © maxime dufour photographies (2)",
+      "originAgenda": {
+        "image": "agenda45360092.jpg?__ts=1645613288656",
+        "uid": 45360092,
+        "title": "Utopia - lille3000"
+      },
+      "description": {
+        "fr": "Entidades reflète et véhicule l’imagerie, l’esthétique et les modes de pensées Macuxi."
+      },
+      "label": [],
+      "title": {
+        "fr": "Entidades"
+      },
+      "onlineAccessLink": null,
+      "uid": 60476042,
+      "recurringevent": [],
+      "location": {
+        "address": "32 Rue de la Monnaie, 59800 Lille",
+        "latitude": 50.641048,
+        "name": "Musée de l'Hospice Comtesse, Lille",
+        "longitude": 3.062934
+      },
+      "categories-metropolitaines": [
+        12
+      ],
+      "slug": "entidades",
+      "status": 1,
+      "lastTiming": {
+        "begin": "2022-10-02T10:00:00+02:00",
+        "end": "2022-10-02T17:00:00+02:00"
+      },
+      "nextTiming": {
+        "begin": "2022-09-08T10:00:00+02:00",
+        "end": "2022-09-08T17:00:00+02:00"
+      }
+    }
+  ],
+  "sort": [
+    0,
+    1662624000000,
+    1664722800000,
+    60476042
+  ]
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown } from '@openagenda/react-shared';
 import adminLevels from '../adminLevels';
 
 const messages = {
@@ -51,15 +51,17 @@ const IncompleteLocationsFilterDropdown = ({
   );
   return (
     <Dropdown
-      id="incomplete-location-filters-dropdown"
-      className="btn-link-dropdown margin-left-sm incomplete-dropdown"
+      className="btn-link-dropdown margin-left-z incomplete-dropdown dropdown open form-group"
+      Trigger={props => (
+        <button type="button" {...props} className="btn-link">
+          <span>{intl.formatMessage(messages.incompleteLocations)}</span>&nbsp;
+          <span className="caret" style={{ marginTop: '-1px' }} />
+        </button>
+      )}
     >
-      <Dropdown.Toggle className="btn-link" bsRole="toggle">
-        {intl.formatMessage(messages.incompleteLocations)}
-      </Dropdown.Toggle>
-      <Dropdown.Menu bsRole="menu">
+      <ul className="list-unstyled">
         {fields.map(element => elem(element))}
-      </Dropdown.Menu>
+      </ul>
     </Dropdown>
   );
 };

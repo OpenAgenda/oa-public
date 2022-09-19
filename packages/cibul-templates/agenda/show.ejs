@@ -10,12 +10,12 @@
                             <div class="js_export"></div>
                         </div>
                         <div class="total js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
-                        <button class="btn btn-primary visible-xs-block filtres" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                        <button class="btn btn-primary visible-xs-block filtres" type="button" data-toggle="collapse" data-target="#collapse-filters" aria-expanded="false" aria-controls="collapse">
                             Filtres
                         </button>
-                        <div class="collapse" id="collapse">
+                        <div class="collapse" id="collapse-filters">
                             <div class="open-sidebar">
-                                <button class="btn btn-primary back" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                <button class="btn btn-primary back" type="button" data-toggle="collapse" data-target="#collapse-filters" aria-expanded="false" aria-controls="collapse">
                                 Retour à la liste
                                 </button>
                                 <div class="side-content mobile-map cbpgmp small-map" data-tiles="<%= tiles %>" data-cbctl="<%= agenda.uid %>|<%= lang %>">
@@ -43,9 +43,9 @@
                                         </section>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="total-event js_total">
-                                <div class="total-text" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
+                                <div class="total-event js_total">
+                                    <div class="total-text js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
+                                </div>
                             </div>
                         </div>	
                     </section>
@@ -83,13 +83,13 @@
                                 <div class="cbpgcl cibulCalendar" data-cbctl="<%= agenda.uid %>|<%= lang %>"></div>
                             </div>
                         </section>
-                        <section class="side-item side-categories display-none js_category_widget">
+                        <section class="side-item side-categories js_category_widget">
                             <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
                         </section>
-                            <section class="side-item side-tags display-none js_tags_widget">
+                            <section class="side-item side-tags js_tags_widget">
                             <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
                         </section>
-                        <section class="side-item display-none js_org_widget">
+                        <section class="side-item js_org_widget">
                             <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
                         </section>
                         <% var footerUid = agenda.uid; %>

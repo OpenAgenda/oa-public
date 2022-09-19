@@ -10,7 +10,7 @@ const {
   getForUserOnAgenda: getUserAuthorizationsOnAgenda
 } = require('../utils/authorizations');
 
-const validateOptions = require('./lib/validateContextOptions');
+const validateOptions = require('./lib/validateEventContextOptions');
 
 module.exports = async (core, identifier, agendaUid, eventOrUid, options = {}) => {
   const {

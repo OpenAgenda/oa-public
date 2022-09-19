@@ -31,8 +31,8 @@
     "public"
   ],
   "resolutions": {
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "dependencies": {
     "browserslist": "^4.20.0",

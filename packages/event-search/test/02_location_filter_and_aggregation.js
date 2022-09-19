@@ -49,6 +49,18 @@ describe('02 - event search - functional: location', () => {
   )
   });
 
+  it('city filter on "Paris"', async () => {
+    const { events } = await service('location').search({ locationUid: 1 }, {}, {
+      detailed: true,
+      includeLocationImagePath: true
+    });
+
+    assert.equal(
+      events.filter(e => e.location?.image).pop().location.image,
+      'https://some.cdn/location123.jpg'
+    );
+  });
+
   it('adminLevel3 filter on "mel"', async () => {
     const { events } = await service('location').search({
       adminLevel3: 'mel'

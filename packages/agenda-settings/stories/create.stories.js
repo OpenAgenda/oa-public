@@ -23,4 +23,8 @@ export default {
 export const App = () => wrapApp(createApp({
   history: createMemoryHistory(),
   initialState: getDefaultState()
-}));
+}), {
+  extraProps: {
+    lang: 'fr'
+  }
+});

@@ -19,10 +19,16 @@ function cacheAndReturn(services, options, agendaUid, result) {
     simpleCache.hash('core.agendas.get', agendaUid).set(options, result);
   }
 
+  if (options.serializable) {
+    ['updatedAt', 'createdAt', 'officializedAt'].forEach(key => {
+      result[key] = result[key].toISOString();
+    });
+  }
+
   return result;
 }
 
-module.exports = async (core, agendaUid, options = {}) => {
+async function get(core, agendaUid, options = {}) {
   const {
     services
   } = core;
@@ -38,6 +44,7 @@ module.exports = async (core, agendaUid, options = {}) => {
     includeEvent = false,
     includeAgendaEvent = false,
     includeMember = false,
+    includeDateRange = false,
     throwNotFound = false,
     includeNonDataFields = false,
     useCache = false
@@ -87,6 +94,7 @@ module.exports = async (core, agendaUid, options = {}) => {
     includeNonDataFields,
     includeEvent,
     includeMember,
+    includeDateRange,
     includeAgendaEvent,
     access: typeof access === 'string' ? { read: access } : access
   });
@@ -104,4 +112,31 @@ module.exports = async (core, agendaUid, options = {}) => {
       ...related
     }
   );
-};
+}
+
+async function bySlug(core, slug, options = {}) {
+  const {
+    services
+  } = core;
+
+  const {
+    simpleCache,
+    agendas
+  } = services;
+
+  const cachedAgenda = await simpleCache.hash('agendas', slug).get('api', { json: true });
+
+  if (cachedAgenda) {
+    return get(core, cachedAgenda.uid, options);
+  }
+
+  const agenda = await agendas.get({ slug }, { private: null, internal: true });
+
+  simpleCache.hash('agendas', slug).set('api', agenda);
+
+  return get(core, agenda.uid, options);
+}
+
+module.exports = Object.assign(get, {
+  slug: bySlug
+});

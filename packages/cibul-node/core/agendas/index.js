@@ -36,6 +36,9 @@ module.exports = core => {
   return Object.assign(agendaEndpoints, {
     search: search(core),
     create: create.bind(null, core),
-    rebuildIndex: () => core.services.agendaSearch.rebuild()
+    rebuildIndex: () => core.services.agendaSearch.rebuild(),
+    slug: agendaSlug => ({
+      get: get.slug.bind(null, core, agendaSlug)
+    })
   });
 };

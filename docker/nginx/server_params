@@ -32,6 +32,10 @@ location ~ ^/agendas/([0-9]+)/pulse\.svg {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/_next {
+  include conf.d/nodejs_params;
+}
+
 location ~ \.(js|png|html|svg|ttf|woff|gif|ejs|ico|css)$ {
   include conf.d/static_params;
 }

@@ -52,12 +52,18 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
             type: aggType,
           },
           chart: {
+            ...defaults.chart,
             width: values.width,
           },
           state: {
             fieldSchema: values.type.fieldSchema,
           },
         };
+
+        if (aggType === 'additionalFieldMetrics') {
+          statConfig.aggregation.field = values.type.fieldSchema.field;
+          statConfig.aggregation.metrics = values.metrics;
+        }
       }
 
       // Une promesse ? 🤔

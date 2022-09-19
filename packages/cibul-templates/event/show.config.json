@@ -30,25 +30,29 @@
     },
     "adminNav": {},
     "states": {
-      "refused" : {
+      "state-1" : {
+        "baseClass": "refused",
         "label" : "refused",
         "type": -1,
         "agendaOnly" : true,
         "classNames" : ""
       },
-      "tocontrol": {
+      "state0": {
+        "baseClass": "tocontrol",
         "label": "toComplete",
         "type": 0,
         "agendaOnly": true,
         "classNames": ""
       },
-      "controlled": {
+      "state1": {
+        "baseClass": "controlled",
         "label": "readyForPublishing",
         "type": 1,
         "agendaOnly": true,
         "classNames": ""
       },
-      "published": {
+      "state2": {
+        "baseClass": "published",
         "label": "published",
         "type": 2,
         "agendaOnly": false,

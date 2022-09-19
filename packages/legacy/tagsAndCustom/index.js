@@ -6,6 +6,8 @@ const set = require('./lib/set');
 const setAll = require('./lib/setAll');
 const getTagSet = require('./lib/getTagSet');
 const getCategorySet = require('./lib/getCategorySet');
+const updateTagSetAndTags = require('./lib/updateTagSetAndTags');
+const updateCategorySetAndCategories = require('./lib/updateCategorySetAndCategories');
 
 const utils = {
   generateTagSet: require('./lib/utils/generateTagSet'),
@@ -20,6 +22,8 @@ module.exports = ({ knex, queue, interfaces }) => ({
   task: setAll.task.bind(null, { knex, queue }),
   getTagSet: getTagSet.bind(null, { knex, interfaces }),
   getCategorySet: getCategorySet.bind(null, { knex, interfaces }),
+  updateTags: updateTagSetAndTags.bind(null, { knex }),
+  updateCategories: updateCategorySetAndCategories.bind(null, { knex }),
   utils
 });
 

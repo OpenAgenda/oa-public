@@ -8,9 +8,10 @@ const VError = require('verror');
 const { promisify } = require('util');
 
 const log = require('@openagenda/logs')('services/elasticsearch/resync');
+
 const loopThroughTable = require('@openagenda/legacy/rebuildSearchIndex/loopThroughTable');
 
-const { knex, aws: { imageBucketPath: imageBasePath } } = require('../../../config');
+const { aws: { imageBucketPath: imageBasePath } } = require('../../../config');
 
 const knownBuildErrors = [
   'no event record',
@@ -26,7 +27,6 @@ const knownBuildErrors = [
 ];
 
 module.exports = async function(services, ES, options, cb) {
-
   if (arguments.length == 1) {
     cb = options;
     options = {};
@@ -51,7 +51,7 @@ module.exports = async function(services, ES, options, cb) {
   const agendaId = params.agendaId || params.reviewId;
 
   if (!agendaId) {
-    await _updateReviews(ES, _.pick(params, ['since', 'logEveryUpdate']));
+    await _updateReviews(services, ES, _.pick(params, ['since', 'logEveryUpdate']));
   }
 
   if (params.removeZombies) {
@@ -66,8 +66,10 @@ module.exports = async function(services, ES, options, cb) {
 
 }
 
-
-async function _updateReviews(ES, { since, logEveryUpdate }) {
+async function _updateReviews(services, ES, { since, logEveryUpdate }) {
+  const {
+    knex
+  } = services;
 
   const count = { processed: 0, errors: 0 };
 
@@ -94,7 +96,7 @@ async function _updateEvents(services, ES, agendaId, { since, logEveryUpdate }) 
   const count = { processed: 0, errors: 0 };
 
   await loopThroughTable(knex, agendaId ? 'review_article' : 'event', async id => {
-    if (!await knex('agenda_event').first('id').where('legacy_id', `${agendaId}.${id}`)) {
+    if (agendaId && !await knex('agenda_event').first('id').where('legacy_id', `${agendaId}.${id}`)) {
       log(`no matching agenda_event for legacy ref ${agendaId}.${id}. skipping`);
       return;
     }
@@ -143,7 +145,8 @@ function _defineGetQuery(type, params, obj) {
 
 async function _removeEventZombies(services, ES, agendaId) {
   const {
-    agendaEvents
+    agendaEvents,
+    knex
   } = services;
 
   log('info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId);

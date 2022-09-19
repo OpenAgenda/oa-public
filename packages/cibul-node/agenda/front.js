@@ -790,6 +790,7 @@ function _layoutData( req, res ) {
       title: req.agenda.title,
       slug: req.agenda.slug,
       res: {
+        share: url + '?sharemodal=1',
         actions: url + '/actions'
       }
     },

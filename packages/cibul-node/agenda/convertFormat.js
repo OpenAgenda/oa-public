@@ -12,8 +12,11 @@ module.exports = async (req, res, next) => {
   const {
     legacy: {
       tagsAndCustom
-    }
+    },
+    core
   } = req.app.services;
+
+  const config = core.getConfig();
 
   const tagSet = await tagsAndCustom.getTagSet(req.params.uid);
   const categorySet = await tagsAndCustom.getCategorySet(req.params.uid);
@@ -43,14 +46,16 @@ module.exports = async (req, res, next) => {
     interfaces: {
       renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services),
     },
-    admin: req.access === 'administrator'
+    admin: req.access === 'administrator',
+    root: config.root
   };
   const convertedEvents = eventsList.events.map(event => convertEventToLegacyFormat(agendaSettings, event));
 
   res.json({
     readme: 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/',
     total: eventsList.total,
-    events: convertedEvents,
-    ...nav
+    offset: nav.from,
+    limit: nav.size,
+    events: convertedEvents
   });
 };

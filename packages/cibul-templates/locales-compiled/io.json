@@ -5,6 +5,24 @@
       "value": "crwdns30500:0crwdne30500:0"
     }
   ],
+  "cibulTemplates.displayContextBar.completeAction": [
+    {
+      "type": 0,
+      "value": "Complete"
+    }
+  ],
+  "cibulTemplates.displayContextBar.displayAction": [
+    {
+      "type": 0,
+      "value": "Display"
+    }
+  ],
+  "cibulTemplates.displayContextBar.modifyAction": [
+    {
+      "type": 0,
+      "value": "Modify"
+    }
+  ],
   "displayAdditionalFields.additionalFieldsInfo": [
     {
       "type": 0,

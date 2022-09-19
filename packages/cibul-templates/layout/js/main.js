@@ -78,8 +78,6 @@ du.asapReady( function () {
 
   flash();
 
-  notifications();
-
   headerInbox();
 
   translateLink();

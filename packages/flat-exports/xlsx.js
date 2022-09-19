@@ -17,7 +17,15 @@ function xlsx(_xlsxOptions = {}, inStream, options = {}) {
   });
 
   transformed.on('end', () => {
-    worksheet.columns = [...new Set(events.reduce((carry, data) => Object.keys(data).map(key => ({ header: key, key, width: 10 }))))];
+    worksheet.columns = events.reduce((cols, event) => cols.concat(
+      Object.keys(event)
+        .filter(key => !cols.find(c => c.key === key))
+        .map(key => ({
+          header: key,
+          key,
+          width: 20
+        }))
+    ), []);
 
     for (const event of events) {
       worksheet.addRow(event).commit();

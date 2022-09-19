@@ -1,6 +1,7 @@
 import React from 'react';
 import { defineMessages } from 'react-intl';
-import { MoreInfo } from '@openagenda/react-shared';
+import { MoreInfo, useMemoOne } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import externalLinks from '../../utils/externalLinks';
 
 const messages = defineMessages({
@@ -30,17 +31,46 @@ export default function WarningBlock({
   top,
   aggregator,
   aggregatorAgenda,
+  isAggregator,
+  aggregatorAgendaSchema,
   sourceSchema,
-  requiredFields,
-  requiredFieldList,
   intl,
 }) {
-  const displayRequiredFieldsMessage = sourceSchema && requiredFieldList.length;
+  const requiredFields = useMemoOne(
+    () => aggregatorAgendaSchema.fields.filter(field => {
+      if (isAggregator) {
+        return false;
+      }
+
+      const sourceField = sourceSchema?.fields?.find(
+          v => v.schemaId
+            && v.field === field.field
+            && v.schemaId === field.schemaId
+        );
+
+      if (sourceField) {
+        return false;
+      }
+
+      return (
+        field.fieldType !== 'abstract'
+          && field.optional === false
+          && !field.enableWith
+      );
+    }),
+    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
+  );
+
+  const displayRequiredFieldsMessage = sourceSchema && requiredFields.length;
   const displayAggregatorRulesExist = (aggregator?.rules || []).length;
 
   if (!displayRequiredFieldsMessage && !displayAggregatorRulesExist) {
     return null;
   }
+
+  const requiredFieldList = requiredFields.map(field => (
+    <em key={field.field}>{getLocaleValue(field.label, intl.locale)}</em>
+  ));
 
   return (
     <div className={`warning-block${top ? ' top' : ''}`}>

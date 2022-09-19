@@ -1411,33 +1411,6 @@
       "conditions": {
         "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
       },
-      "image": {
-        "filename": "af2f717aa9254739990b18d0bb18f04c.base.image.jpg",
-        "size": {
-          "width": 700,
-          "height": 467
-        },
-        "variants": [
-          {
-            "filename": "af2f717aa9254739990b18d0bb18f04c.full.image.jpg",
-            "type": "full",
-            "size": {
-              "width": 1920,
-              "height": 1280
-            }
-          },
-          {
-            "filename": "af2f717aa9254739990b18d0bb18f04c.thumb.image.jpg",
-            "type": "thumbnail",
-            "size": {
-              "width": 200,
-              "height": 200
-            }
-          }
-        ],
-        "credits": null,
-        "base": "https://cibuldev.s3.amazonaws.com/"
-      },
       "draft": 0,
       "private": 0,
       "timezone": "Europe/Paris",

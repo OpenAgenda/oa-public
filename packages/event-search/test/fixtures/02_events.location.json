@@ -16,7 +16,8 @@
         "adminLevel3": "test",
         "adminLevel5": "2eme",
         "countryCode": "FR",
-        "timezone": "Europe/Paris"
+        "timezone": "Europe/Paris",
+        "image": "location123.jpg"
       },
       "state": 2
     },

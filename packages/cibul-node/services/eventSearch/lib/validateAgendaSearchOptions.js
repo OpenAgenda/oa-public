@@ -45,5 +45,13 @@ module.exports = schema({
   includeImageTimestamps: {
     type: 'boolean',
     default: false
+  },
+  includeLocationImagePath: {
+    type: 'boolean',
+    default: false
+  },
+  useDefaultImage: {
+    type: 'boolean',
+    default: false
   }
 });

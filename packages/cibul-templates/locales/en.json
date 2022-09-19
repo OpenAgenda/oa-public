@@ -1,5 +1,8 @@
 {
   "aggregate-button": "Aggregate",
+  "cibulTemplates.displayContextBar.completeAction": "Complete",
+  "cibulTemplates.displayContextBar.displayAction": "Display",
+  "cibulTemplates.displayContextBar.modifyAction": "Modify",
   "displayAdditionalFields.additionalFieldsInfo": "Event values specific to this agenda are displayed in the next section below",
   "displayAdditionalFields.emptyValue": "No input",
   "displayAdditionalFields.goToAdditionalFields": "see",

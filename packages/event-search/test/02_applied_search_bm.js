@@ -1096,6 +1096,13 @@ describe('02 - event search - functional: Applied search', function() {
 
         events[0].image.filename.indexOf('?').should.equal(-1);
       });
+
+      it('useDefaultImage', async () => {
+        const { events } = await service('bdx')
+          .search({ uid: 27240673 }, { size: 1 }, { useDefaultImage: true });
+
+        events[0].image.should.eql(config.defaultImage);
+      });
     })
 
   });

@@ -26,6 +26,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     includeEvent = false,
     includeMember = false,
     includeNonDataFields = false,
+    includeDateRange = false,
     includeAgendaEvent = false,
     access = 'public'
   } = options;
@@ -59,6 +60,15 @@ module.exports = async (services, agendaOrUid, options = {}) => {
         field: 'member',
         read: ['administrator', 'moderator', 'internal'],
         fieldType: 'abstract'
+      }]
+    });
+  }
+
+  if (includeDateRange) {
+    mergeArgs.push({
+      fields: [{
+        field: 'dateRange',
+        fieldType: 'text'
       }]
     });
   }

@@ -19,15 +19,15 @@
       </div>
     </li><!--
     --><li class="edge-item js_toggle w25 js_can_change_state display-none" data-toggle="js_dropdown_menu">
-      <span class="edge-selected state <%= event.currentState %>">
+      <span class="edge-selected state <%= states[`state${indexedEvent.state}`].baseClass %>">
         <i class="sticker"></i>
-        <span><%= __( 'state' ) %>: <%= __( states[ event.currentState ].label ) %></span>
+        <span><%= __( 'state' ) %>: <%= __(states[`state${indexedEvent.state}`].label ) %></span>
       </span>
       <ul class="list-group js_dropdown_menu w380">
 <% for( var i in states ) { %>
 <% if ( !states[ i ].hideAction ) { %>
         <li class="list-group-item <%= states[ i ].classNames %>">
-          <a data-href="<%= states[ i ].type !== null ? `/${slug}/events/${event.slug}/state/${states[ i ].type}?redirect=${redirect}` : '#' %>" class="item bullet <% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow">
+          <a data-href="<%= states[ i ].type !== null ? `/${slug}/events/${indexedEvent.slug}/state/${states[ i ].type}?redirect=${redirect}` : '#' %>" class="item bullet <% if ( i !== `state${indexedEvent.state}` ) { %> active<% } %>" rel="nofollow">
             <label><%= __( states[ i ].label ) %></label>
             <span><%= __( states[ i ].label + 'Info' ) %></span>
           </a>
@@ -37,25 +37,21 @@
       </ul>
     </li><!--
  --><li class="edge-item js_toggle w25 js_cannot_change_state display-none" data-toggle="js_dropdown_menu">
-      <span class="edge-selected state <%= event.currentState %>">
+      <span class="edge-selected state <%= states[`state${indexedEvent.state}`].baseClass %>">
         <i class="sticker"></i>
-        <span><%= __( 'state' ) %>: <%= __( states[ event.currentState ].label ) %></span>
+        <span><%= __( 'state' ) %>: <%= __( states[`state${indexedEvent.state}`].label ) %></span>
       </span>
       <ul class="list-group js_dropdown_menu w380">
         <li class="list-group-info-item">
-          <span><%= __( states[ event.currentState ].label + 'ContributorInfo' ) %></span>
+          <span><%= __( states[`state${indexedEvent.state}`].label + 'ContributorInfo' ) %></span>
           <div class="margin-top-sm">
-            <a class="btn btn-primary" href="/<%= slug %>/events/<%= event.slug %>/contact"><%= __( 'contactAdministrators' ) %></a>
+            <a class="btn btn-primary" href="/<%= slug %>/events/<%= indexedEvent.slug %>/contact"><%= __( 'contactAdministrators' ) %></a>
           </div>
         </li>
       </ul>
     </li><!--
     --><li class="edge-item js_admin_item js_role_agenda_admin js_role_agenda_moderator js_role_event_editor w25">
-      <% if ( useContributeApp ) { %>
-      <a class="edge-link" href="<%= `/${slug}/contribute/event/${event.uid}?redirect=${redirect}` %>" rel="nofollow"><%= __( 'edit' ) %></a>
-      <% } else { %>
-      <a class="edge-link" href="<%= `/${slug}/events/${event.slug}/edit` %>" rel="nofollow"><%= __( 'edit' ) %></a>
-      <% } %>
+      <a class="edge-link" href="<%= `/${slug}/contribute/event/${indexedEvent.uid}?redirect=${redirect}` %>" rel="nofollow"><%= __( 'edit' ) %></a>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">
       <div class="edge-selected edge-head">
@@ -64,25 +60,25 @@
       </div>
       <ul class="list-group js_dropdown_menu">
         <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">
-<% if ( event.featured ) { %>
-          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/notfeatured?redirect=${redirect}` %>" rel="nofollow"><span><label><%= __( 'featured' ) %></label></span><span class="hovered"><label><%= __('removeFromFeatured') %></label></span><span><%= __('featuredInfo') %></span><span class="hovered"><%= __('featuredInfo') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
+<% if ( indexedEvent.featured ) { %>
+          <a class="item starify active" href="<%= `/${slug}/events/${indexedEvent.slug}/featured/notfeatured?redirect=${redirect}` %>" rel="nofollow"><span><label><%= __( 'featured' ) %></label></span><span class="hovered"><label><%= __('removeFromFeatured') %></label></span><span><%= __('featuredInfo') %></span><span class="hovered"><%= __('featuredInfo') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
 <% } else { %>
-          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/featured?redirect=${redirect}` %>" rel="nofollow"><label><%= __('addToFeatured') %></label><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i><span><%= __('featuredInfo') %></a>
+          <a class="item starify active" href="<%= `/${slug}/events/${indexedEvent.slug}/featured/featured?redirect=${redirect}` %>" rel="nofollow"><label><%= __('addToFeatured') %></label><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i><span><%= __('featuredInfo') %></a>
 <% } %>
         </li>
 <% if ( hasOwnershipTransfer ) { %>
-        <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="/<%= slug %>/admin/members/transfer/<%= event.slug %>">
+        <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="/<%= slug %>/admin/members/transfer/<%= indexedEvent.slug %>">
           <a class="item active" rel="nofollow"><label><%= __( 'transferOwnership' ) %></label></a>
         </li>
 <% } %>
         <li class="list-group-item js_admin_item js_role_event_editor">
-          <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><label><%= __( 'duplicate' ) %></label><span><%= __('duplicateInfo') %></span></a>
+          <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= indexedEvent.slug %>/duplicate" rel="nofollow"><label><%= __('duplicate') %></label><span><%= __('duplicateInfo') %></span></a>
         </li>
 <% if (useDetailedStatusActions) { %>
         <li class="list-group-item w25 divider">
           <a
-            class="item <% if (event.status !== 1) { %>active<% } %> js_status display-none"
-            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=1` %>"
+            class="item <% if (indexedEvent.status !== 1) { %>active<% } %> js_status display-none"
+            href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}&status=1` %>"
             rel="nofollow"
           >
             <label><%= __('markAsScheduled') %></label>
@@ -91,8 +87,8 @@
         </li>
         <li class="list-group-item w25">
           <a
-            class="item <% if (event.status !== 2) { %>active<% } %> js_status display-none"
-            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=2` %>"
+            class="item <% if (indexedEvent.status !== 2) { %>active<% } %> js_status display-none"
+            href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}&status=2` %>"
             rel="nofollow"
           >
             <label><%= __('markAsRescheduled') %></label>
@@ -101,8 +97,8 @@
         </li>
         <li class="list-group-item w25">
           <a
-          class="item <% if (event.status !== 3) { %>active<% } %> js_status display-none"
-          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=3` %>"
+          class="item <% if (indexedEvent.status !== 3) { %>active<% } %> js_status display-none"
+          href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}&status=3` %>"
           rel="nofollow"
           >
           <label><%= __('markAsMovedOnline') %></label>
@@ -111,8 +107,8 @@
       </li>
       <li class="list-group-item w25">
         <a
-          class="item <% if (event.status !== 4) { %>active<% } %> js_status display-none"
-          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=4` %>"
+          class="item <% if (indexedEvent.status !== 4) { %>active<% } %> js_status display-none"
+          href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}&status=4` %>"
           rel="nofollow"
         >
           <label><%= __('markAsPostponed') %></label>
@@ -121,8 +117,8 @@
       </li>
       <li class="list-group-item w25">
         <a
-          class="item <% if (event.status !== 5) { %>active<% } %> js_status display-none"
-          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=5` %>"
+          class="item <% if (indexedEvent.status !== 5) { %>active<% } %> js_status display-none"
+          href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}&status=5` %>"
           rel="nofollow"
         >
           <label><%= __('markAsFull') %></label>
@@ -131,8 +127,8 @@
       </li>
       <li class="list-group-item w25 divider-bottom">
         <a
-          class="item <% if (event.status !== 6) { %>active<% } %> js_status display-none"
-          href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}&status=6` %>"
+          class="item <% if (indexedEvent.status !== 6) { %>active<% } %> js_status display-none"
+          href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}&status=6` %>"
           rel="nofollow"
         >
           <label><%= __('markAsCancelled') %></label>
@@ -143,7 +139,7 @@
         <li class="list-group-item w25 divider divider-bottom">
           <a
             class="item active js_status display-none"
-            href="<%= `/${slug}/events/${event.slug}/status?redirect=${redirect}` %>"
+            href="<%= `/${slug}/events/${indexedEvent.slug}/status?redirect=${redirect}` %>"
             rel="nofollow"
           >
             <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
@@ -158,13 +154,13 @@
           </a>
         </li>
         <li class="list-group-item js_request_edition_rights display-none">
-          <a class="item active" href="<%= `/${slug}/admin/events/${event.slug}/edition-request?redirect=${redirect}` %>" rel="nofollow">
+          <a class="item active" href="<%= `/${slug}/admin/events/${indexedEvent.slug}/edition-request?redirect=${redirect}` %>" rel="nofollow">
             <label><%= __('requestEditionRights') %></label>
             <span><%= __('requestEditionRightsInfo') %></span>
           </a>
         </li>
         <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
-          <a class="item active <% if (isOriginAgenda) { %>js_message_confirm<% } %>" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= `/${slug}/events/${event.slug}/remove${removeRedirect ? '?redirect=' + removeRedirect : ''}` %>" rel="nofollow"><label><%= __(isOriginAgenda ? 'delete' : 'remove') %></label><span><%= __(isOriginAgenda ? 'deleteInfo' : 'removeInfo') %></span></a>
+          <a class="item active <% if (isOriginAgenda) { %>js_message_confirm<% } %>" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= `/${slug}/events/${indexedEvent.slug}/remove${removeRedirect ? '?redirect=' + removeRedirect : ''}` %>" rel="nofollow"><label><%= __(isOriginAgenda ? 'delete' : 'remove') %></label><span><%= __(isOriginAgenda ? 'deleteInfo' : 'removeInfo') %></span></a>
         </li>
       </ul>
     </li>

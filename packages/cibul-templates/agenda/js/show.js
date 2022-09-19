@@ -3,6 +3,7 @@
 import React from 'react';
 import displayExportButton from './displayExportButton';
 import displayAggregateButton from './displayAggregateButton';
+import displayContextBar from './displayContextBar';
 import trackConsent from './trackConsent';
 import addGoogleAnalyticsTracker from './addGoogleAnalyticsTracker';
 
@@ -45,6 +46,7 @@ const controllers = require('../../widgets/controller/main'),
     },
     res: {
       role: '/session/agendas/:agendaUid/role',
+      context: window.env === 'tpl' ? '/server/testdata/agendausercontext.json' : '/api/me/agendas/:agendaUid?includes[]=me.member&includes[]=me.authorizations&includes[]=me.events&includes[]=events'
     },
     classes: {
       displayNone: 'display-none',
@@ -67,9 +69,13 @@ window.asap(options => {
 
   log('initing', options);
 
-  let controller = window.cibul.getController(options.uid),
+  const {
+    uid,
+    slug
+  } = options;
+
+  let controller = window.cibul.getController(uid),
     loader,
-    uid = options.uid,
     timeline = timeliner(options.lang),
     total = totalLib('.js_total', options.lang);
 
@@ -100,41 +106,75 @@ window.asap(options => {
     console.log('could not assign language to contribute button', e);
   }
 
-  get(params.res.role.replace(':agendaUid', uid), (err, res) => {
-    controller.getControlData(ctl => {
-      if (parseInt(ctl.c) !== 0) {
-        if (!ctl.prv || res !== 'reader') _displayAddButton();
-      }
+  const sessionUser = session.getUser();
 
-      if (!ctl.prv) {
-        const sessionUser = session.getUser();
-        const routes =  {
-          agendaExportSettings: `${options.root}/agendas/:agendaUid/settings/exports`,
-          me: '/api/me',
-          export: {
-            jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
-            jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
-            pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
-            xlsx: `${options.root}/agendas/:agendaUid/events.v2.xlsx`,
-            gcal: `${options.root}/agendas/:agendaUid/events.v2.ics`,
-            ical: `${options.root}/agendas/:agendaUid/events.v2.ics`,
-            csv: `${options.root}/agendas/:agendaUid/events.v2.csv`,
-            ics: `${options.root}/agendas/:agendaUid/events.v2.ics`,
-            rss: `${options.root}/agendas/:agendaUid/events.rss`,
-          }
+  controller.getControlData(ctl => {
+    if (!ctl.prv && (parseInt(ctl.c) !== 0)) {
+      _displayAddButton();
+    }
+
+    if (!ctl.prv) {
+      const routes =  {
+        agendaExportSettings: `${options.root}/agendas/:agendaUid/settings/exports`,
+        me: '/api/me',
+        export: {
+          jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
+          jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,
+          pdf: `${options.root}/agendas/:agendaUid/events.pdf`,
+          xlsx: `${options.root}/agendas/:agendaUid/events.v2.xlsx`,
+          gcal: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+          ical: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+          csv: `${options.root}/agendas/:agendaUid/events.v2.csv`,
+          ics: `${options.root}/agendas/:agendaUid/events.v2.ics`,
+          rss: `${options.root}/agendas/:agendaUid/events.rss`,
         }
-        displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: true }, !!sessionUser);
-        displayExportButton(exportRef, params, routes, uid, controller, options, { exportAll: false }, !!sessionUser);
-        displayAggregateButton(params, options, initialQuery, !!sessionUser);
-      }
+      };
+      
+      displayExportButton(exportRef, params, routes, uid, controller, options, 'all', !!sessionUser);
+      displayExportButton(exportRef, params, routes, uid, controller, options, 'selection', !!sessionUser);
+      displayAggregateButton(params, options, initialQuery, !!sessionUser);
+    }
 
-      if (['administrator', 'moderator'].indexOf(res) !== -1) {
+    if (!sessionUser) {
+      log('Session is not available.');
+      return;
+    }
+
+    get(params.res.context.replace(':agendaUid', uid), (err, data = {}) => {
+      const { me, events } = data;
+
+      const {
+        role
+      } = me?.member ?? {};
+
+      if (ctl.prv && me?.authorizations?.canContribute) {
         _displayAddButton();
-
+      }
+  
+      if (['administrator', 'moderator'].includes(role)) {
         _displayAdminButton();
-
         _removeAddButtonAsPrimary();
       }
+
+      if (![
+        'administrator',
+        'moderator',
+        'contributor'
+      ].includes(role)) {
+        return;
+      }
+
+      displayContextBar({
+        lang: options.lang,
+        agenda: {
+          uid,
+          slug
+        },
+        myEvents: me.events,
+        events,
+        canContribute: me.authorizations.canContribute,
+        role
+      });
     });
   });
 

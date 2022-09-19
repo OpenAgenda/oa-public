@@ -29,6 +29,7 @@
     "sourceAgendas",
     "addMethod",
     "creatorUid",
+    "ownerUid",
     "country",
     "registration",
     "timings",

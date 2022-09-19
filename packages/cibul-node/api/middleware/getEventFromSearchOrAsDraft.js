@@ -2,15 +2,17 @@
 
 const log = require('@openagenda/logs')('api/middleware/getEventFromSearchOrAsDraft');
 
-const { NotFound } = require('@openagenda/verror');
+const {
+  NotFound,
+  Forbidden
+} = require('@openagenda/verror');
 
 module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
   const {
     core
   } = req.app.services;
 
-  const query = {
-    state: null,
+  const identifier = {
     ...(req.params.eventUid ? {
       uid: req.params.eventUid
     } : {
@@ -18,28 +20,24 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
     })
   };
 
-  log('getting event matching query %j', query);
+  log('getting event matching identifier %j', identifier);
 
   core
     .agendas(req.agenda.uid)
     .events
-    .search(query, { size: 1 }, {
+    .search.get(identifier, {
       detailed: true,
-      access: 'internal', // access is evaluated in other middleware.
+      userUid: req.user?.uid,
       longDescriptionFormat: req.query.longDescriptionFormat,
       useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
-      returnAgenda: true,
       includeLabels: req.query.includeLabels,
       monolingual: req.query.monolingual
-    }).then(async ({ agenda, result }) => {
-      const { events } = result;
-
-      req.schema = agenda.schema;
-      req.event = (events ?? []).pop();
-
-      if (req.event) {
-        log('found event in index');
-        return next();
+    }).then(indexedEvent => {
+      req.event = indexedEvent;
+      next();
+    }, err => {
+      if (err.name !== 'NotFound') {
+        return next(err);
       }
 
       log('event not found in index, getting draft');
@@ -52,14 +50,22 @@ module.exports = function getEventFromSearchOrAsDraft(req, res, next) {
           private: null
         })
         .then(event => {
-          if (event?.draft) {
-            req.event = event;
-            return next();
+          if (!event?.draft) {
+            return next(new NotFound({
+              info: { uid: req.params.eventUid }
+            }, 'event not found'));
           }
 
-          next(new NotFound({
-            info: { uid: req.params.eventUid }
-          }, 'event not found'));
+          // only creator can load draft
+          if (event.creatorUid !== parseInt(req.user?.uid, 10)) {
+            return next(
+              new Forbidden('not authorized to read event')
+            );
+          }
+
+          req.event = event;
+
+          next();
         });
     });
 };

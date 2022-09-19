@@ -14,5 +14,6 @@ module.exports = {
   },
   defaultIndex: 'test',
   interfaces: {},
-  emptyValue: 'null'
+  emptyValue: 'null',
+  defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
 }

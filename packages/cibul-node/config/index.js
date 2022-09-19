@@ -16,7 +16,8 @@ const config = {
     jsVersion: 42,
     cssVersion: 2,
     interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
-    port: 8901 || process.env.OA_PORT,
+    nextPort: 8901 || process.env.OA_NEXT_PORT,
+    port: 8903 || process.env.OA_SERVER_PORT,
     apiPort: 8902 || process.env.OA_API_PORT,
     multiCore: true,
     mainChannel: 'main',
@@ -213,6 +214,9 @@ const config = {
         publishCount: 'event/new/dayCount'
       }
     },
+    next: {
+      CDN: process.env.NODE_ENV === 'production' ? prod?.next?.CDN ?? process.env.KEYCDN_NEXT : ''
+    },
     aws: {
       accessKeyId: prod.aws && prod.aws.key,
       secretAccessKey: prod.aws && prod.aws.secret,
@@ -223,7 +227,11 @@ const config = {
       servicesBucketPath: prod.aws && `https://${prod.aws.buckets.services}.s3.amazonaws.com/`,
       bucket: prod.aws && prod.aws.buckets.main,
       tmpBucket: prod.aws && prod.aws.buckets.temporary,
-      defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH || `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
+      defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH || '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+      defaultImageSize: {
+        width: parseInt(process.env.OA_DEFAULT_IMAGE_SIZE_WIDTH ?? '140', 10),
+        height: parseInt(process.env.OA_DEFAULT_IMAGE_SIZE_HEIGHT ?? '140', 10)
+      },
       oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg'
     },
     authorizedMimeTypes: {
@@ -255,8 +263,6 @@ const config = {
     },
     oembed: {
       res: 'https://iframe.ly/api/oembed',
-      //key: '044c4cbd91d65eab056738',
-      //key: '32d62d210e9dcf24c0134e',
       key: process.env.IFRAMELY_KEY || (prod.iframely && prod.iframely.key),
       platforms: [
         "dropbox",
@@ -629,30 +635,7 @@ const config = {
     logger: {
       debug: {
         prefix: 'oa:',
-        //enable: 'oa:controlData*,oa:services/agenda/task*, oa:services/aggregator*'
-        //enable: 'oa:services/agenda/controlData*'
-        //enable: 'oa:services/agenda/controlData*,oa:services/agenda/task*,oa:services/agenda/dispatcher*,oa:services/aggregator*',
-        //enable: 'oa:services/agenda/controlData*,oa:services/aggregator/sources'
-        //enable: 'oa:services/aggregator/*'
-        //enable: 'oa:search task*',
-        //enable: 'oa:events/interfaces/legacy'
-        //enable: 'oa:agendaEvents/interfaces/legacy',
-        //enable: 'oa:agendaEvents/interfaces/legacy, oa:agendaEvents/interfaces/onUpdate',
-        //enable: 'oa:agendaEvents',
-        //enable: 'oa:services/event/oembed',
-        //enable: 'oa:services/model',
-        //enable: 'oa:events/interfaces*',
-        //enable: 'oa:events*,oa:legacy*',
-        //enable: 'oa:mailer/task/eventAggregation*',
-        //enable: 'oa:legacy:*'
-        //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
-        //enable: 'oa:*,svc:*,-svc:mails/transporter'
         enable: 'oa:*',
-        //enable: 'oa:services/agenda/dispatcher'
-        //enable: 'oa:*,svc:*',
-        //enable: 'events/interfaces/legacy',
-        //enable: 'oa:services/aggregator/evaluate'
-        //enable: 'svc:*'
       },
       token: false // no need to log dev things
       //token: 'a2923436-55dc-4eba-8668-44824d11c089'
@@ -782,10 +765,11 @@ if (currentConfig.matomoCloudId) {
 }
 
 if (process.env.DEBUG) {
-  currentConfig.logger.debug.enable = process.env.DEBUG;
+  currentConfig.logger.debug.enable = Array.isArray(process.env.DEBUG) ? process.env.DEBUG.join(',') : process.env.DEBUG;
 }
 
 debug.disable();
+
 debug.enable(currentConfig.logger.debug.enable);
 
 currentConfig.getLogConfig = (prefix, key, keyInPrefix = true) => ({

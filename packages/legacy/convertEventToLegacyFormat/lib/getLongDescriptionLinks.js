@@ -2,7 +2,7 @@
 
 module.exports = links => {
   if (!links) {
-    return [];
+    return null;
   }
   if (!links.length) {
     return links;

@@ -58,7 +58,17 @@ module.exports.init = async (config, services) => {
         tracker(`eventSearch.onUpdate.${set}`);
       }
     },
-    emptyValue: 'null'
+    emptyValue: 'null',
+    assetsPath: config.aws.imageBucketPath,
+    defaultImage: {
+      filename: config.aws.defaultImagePath.split('/').pop(),
+      size: config.aws.defaultImageSize,
+      base: (() => {
+        const parts = config.aws.defaultImagePath.split('/');
+        parts.pop();
+        return `${parts.join('/')}/`;
+      })()
+    }
   });
 
   const queue = queues('eventSearch');

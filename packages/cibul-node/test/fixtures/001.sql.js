@@ -54,6 +54,9 @@ raw.push(knex('location').insert([{
   uid: 1,
   created_at: new Date(),
   updated_at: new Date(),
+  store: JSON.stringify({
+    image: '52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg'
+  }),
   deleted: 1,
   agenda_id: 1
 }]));

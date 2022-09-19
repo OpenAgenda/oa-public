@@ -1,7 +1,7 @@
 'use strict';
 
 const { Forbidden } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('api/middleware/getEventFromSearchOrAsDraft');
+const log = require('@openagenda/logs')('api/middleware/member');
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 

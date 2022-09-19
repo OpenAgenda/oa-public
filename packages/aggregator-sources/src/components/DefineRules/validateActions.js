@@ -34,6 +34,7 @@ export default function validateActions(
       if (
         !inSourceSchema
         && fieldSchema.optional === false
+        && !fieldSchema.enableWith
         && !aggAction
         && !(hasValue || isAuto)
       ) {

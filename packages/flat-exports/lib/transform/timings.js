@@ -47,8 +47,8 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
             ].join(' ⤏ '));
           } else {
             columns[i + 1][columns[i + 1].length - 1] += `, ${[
-              moment(begin).locale(l).format('HH:mm'),
-              moment(end).locale(l).format('HH:mm')
+              moment.tz(begin, event.timezone).locale(l).format('HH:mm'),
+              moment.tz(end, event.timezone).locale(l).format('HH:mm')
             ].join(' ⤏ ')}`;
           }
         });

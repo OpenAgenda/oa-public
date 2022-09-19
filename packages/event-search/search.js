@@ -17,6 +17,8 @@ const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
 const includeLabelsInEvent = require('./utils/includeLabelsInEvent');
+const includePathInLocationImage = require('./utils/includePathInLocationImage');
+const injectDefaultImage = require('./utils/injectDefaultImage');
 const filterImageTimestamps = require('./utils/filterImageTimestamps');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
@@ -39,7 +41,9 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   const {
     defaultIndex,
     predefinedAggregations,
-    emptyValue
+    emptyValue,
+    assetsPath,
+    defaultImage
   } = config;
 
   const {
@@ -53,7 +57,9 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includeFields: requestedIncludes,
     useAfterKey,
     parser,
-    includeImageTimestamps
+    includeImageTimestamps,
+    includeLocationImagePath,
+    useDefaultImage
   } = validateOptions(options);
 
   try {
@@ -113,6 +119,10 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     formSchema,
     includeLabels,
     includeImageTimestamps,
+    includeLocationImagePath,
+    assetsPath,
+    useDefaultImage,
+    defaultImage,
     parser
   }, aggregationResults);
 
@@ -174,7 +184,11 @@ function _buildEventParsers({
   parser,
   includeLabels,
   formSchema,
-  includeImageTimestamps
+  includeImageTimestamps,
+  includeLocationImagePath,
+  assetsPath,
+  useDefaultImage,
+  defaultImage
 }) {
   const parsers = [
     convertToLocalTimezone,
@@ -212,8 +226,16 @@ function _buildEventParsers({
     }));
   }
 
+  if (useDefaultImage) {
+    parsers.push(injectDefaultImage.bind(null, { defaultImage }));
+  }
+
   if (!includeImageTimestamps) {
     parsers.push(filterImageTimestamps);
+  }
+
+  if (includeLocationImagePath && assetsPath) {
+    parsers.push(includePathInLocationImage.bind(null, { assetsPath }));
   }
 
   return parsers;

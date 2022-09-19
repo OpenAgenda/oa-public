@@ -67,7 +67,10 @@ services:
       dockerfile: docker/Dockerfile
     user: ${DOCKER_USER:-}
     working_dir: /root/oa
-    command: yarn ${NODE_YARN_COMMAND:-start}
+    command: >
+      yarn concurrently -n "node,next" \
+      "yarn workspace cibul-node ${NODE_YARN_COMMAND:-start}" \
+      "yarn workspace @openagenda/next dev"
     restart: always
     volumes:
       - .:/root/oa
@@ -95,8 +98,9 @@ services:
       DEBUG_COLORS: ${DEBUG_COLORS}
       TERM: ${TERM}
       COLORTERM: ${COLORTERM}
-      OA_PORT: 8901
-      OA_API_PORT: 8902
+      OA_NEXT_PORT: ${OA_NEXT_PORT}
+      OA_API_PORT: ${OA_API_PORT}
+      OA_SERVER_PORT: ${OA_SERVER_PORT}
       OA_USE_X_FWD_PROTO: 1
       OA_DOMAIN: ${SITE_DOMAIN}
       OA_ROOT: ${SITE_ROOT}

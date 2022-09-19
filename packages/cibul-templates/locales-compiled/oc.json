@@ -5,6 +5,24 @@
       "value": "Agréger"
     }
   ],
+  "cibulTemplates.displayContextBar.completeAction": [
+    {
+      "type": 0,
+      "value": "Compléter"
+    }
+  ],
+  "cibulTemplates.displayContextBar.displayAction": [
+    {
+      "type": 0,
+      "value": "Afficher"
+    }
+  ],
+  "cibulTemplates.displayContextBar.modifyAction": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
   "displayAdditionalFields.additionalFieldsInfo": [
     {
       "type": 0,

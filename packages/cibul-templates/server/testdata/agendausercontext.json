@@ -1,0 +1,33 @@
+{
+    "me": {
+        "member": {
+            "userUid": 52713580,
+            "deletedUser": false,
+            "name": "Catherine Marzin",
+            "phone": "0214372616",
+            "email": "c.marzin@caenlamer.fr",
+            "position": "responsable communication",
+            "organization": "bibliothèques de Caen",
+            "role": "contributor",
+            "updatedAt": "2022-06-15T11:14:11.000Z"
+        },
+        "authorizations": {
+            "canRead": false,
+            "mustBeModerated": true,
+            "canChangeState": false,
+            "canPublish": false,
+            "canEditEvent": false,
+            "canCreateEvent": true,
+            "canContribute": true
+        },
+        "events": {
+            "states": [
+                {
+                    "key": 2,
+                    "eventCount": 6
+                }
+            ],
+            "drafts": 2
+        }
+    }
+}

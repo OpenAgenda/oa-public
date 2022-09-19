@@ -16,5 +16,18 @@
         ]
       }
     ]
-  }
+  },
+
+  "overrides": [
+    {
+      "files": [
+        "**/*.mjs",
+        "pages/**/*.js",
+        "scripts/**/*.js"
+      ],
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ]
 }

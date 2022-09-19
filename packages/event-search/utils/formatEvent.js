@@ -72,7 +72,7 @@ module.exports = produce((event, options = {}) => {
   if (event.timings) {
     const timezone = event.timezone || (event.location ? event.location.timezone : null);
     Object.assign(event, {
-      dateRange: _dateRange(event.timings, timezone, ['fr', 'ar', 'en', 'de', 'es']),
+      dateRange: _dateRange(event.timings, timezone, ['fr', 'ar', 'en', 'de', 'es', 'it']),
       '_search_last_timing': new Date(event.timings.reduce(
         (last, timing) => timing.end > last ? timing.end : last,
         event.timings[0].end

@@ -4,11 +4,28 @@ const schema = require('@openagenda/validators/schema');
 
 schema.register({
   integer: require('@openagenda/validators/integer'),
+  number: require('@openagenda/validators/number'),
   regex: require('@openagenda/validators/regex')
 });
 
 module.exports = nav => {
-  const clean = navValidator(nav);
+  const preClean = {
+    ...(nav ?? {})
+  };
+
+  const {
+    offset, limit
+  } = preClean;
+
+  if (offset) {
+    preClean.from = offset
+  }
+
+  if (limit) {
+    preClean.size = limit;
+  }
+
+  const clean = navValidator(preClean);
 
   return clean.scroll ? {
     scroll: clean.scroll,
@@ -42,7 +59,7 @@ const navValidator = schema({
     optional: true
   },
   after: {
-    type: 'integer',
+    type: 'number',
     list: { default: null },
     optional: true
   }
