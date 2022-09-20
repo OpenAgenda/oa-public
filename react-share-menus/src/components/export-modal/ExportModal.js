@@ -10,51 +10,51 @@ import ExternalCalendarOptions from './ExternalCalendarOptions';
 
 const messages = defineMessages({
   modalTitle: {
-    id: 'modal-title',
+    id: 'ReactShareMenus.ExportModal.title',
     defaultMessage: 'Export',
   },
   inputFormat: {
-    id: 'input-format',
+    id: 'ReactShareMenus.ExportModal.inputFormat',
     defaultMessage: 'Choose a format',
   },
   close: {
-    id: 'close',
+    id: 'ReactShareMenus.ExportModal.close',
     defaultMessage: 'Close',
   },
   cancel: {
-    id: 'cancel',
+    id: 'ReactShareMenus.ExportModal.cancel',
     defaultMessage: 'Cancel',
   },
   logIn: {
-    id: 'login',
+    id: 'ReactShareMenus.ExportModal.login',
     defaultMessage: 'Please log in to access the export link directly from this menu'
   },
   exportJson: {
-    id: 'exportJson',
+    id: 'ReactShareMenus.ExportModal.exportJson',
     defaultMessage: 'Use the previous JSON export version'
   },
   exportAll: {
-    id: 'exportAll',
+    id: 'ReactShareMenus.ExportModal.exportAll',
     defaultMessage: 'Export all events'
   },
   exportSelection: {
-    id: 'exportSelection',
+    id: 'ReactShareMenus.ExportModal.exportSelection',
     defaultMessage: 'Expect current event selection'
   },
   jsonDoc1: {
-    id: 'jsonDoc1',
+    id: 'ReactShareMenus.ExportModal.jsonDoc1',
     defaultMessage: 'Documentation'
   },
   jsonDoc2: {
-    id: 'jsonDoc2',
+    id: 'ReactShareMenus.ExportModal.jsonDoc2',
     defaultMessage: 'here'
   },
   documentation: {
-    id: 'documentation',
+    id: 'ReactShareMenus.ExportModal.documentation',
     defaultMessage: 'See the documentation'
   },
   detailedFormat: {
-    id: 'detailed-format',
+    id: 'ReactShareMenus.ExportModal.detailedFormat',
     defaultMessage: 'Use the detailed format'
   }
 });
