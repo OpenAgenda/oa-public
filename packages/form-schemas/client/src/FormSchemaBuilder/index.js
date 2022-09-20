@@ -47,7 +47,7 @@ export default class FormSchemaBuilder extends Component {
       editedField: null,
       mode: null,
       labels,
-      activeIndex: false,
+      activeIndex: -1,
     };
 
     if (props.devState) {

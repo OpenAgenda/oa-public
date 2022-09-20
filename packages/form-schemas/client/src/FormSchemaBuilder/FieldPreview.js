@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-
-import Accordion from '../../../../../public/react-shared/src/components/Accordion';
+import Accordion from '@openagenda/react-shared/lib/components/Accordion';
 
 import labels from './lib/labels';
 import getFieldTypeLabel from './lib/getFieldTypeLabel';
