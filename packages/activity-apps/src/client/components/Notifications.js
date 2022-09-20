@@ -100,6 +100,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
   setCounter,
   activitiesConfig,
 }, ref) {
+  const intl = useIntl();
   const apiClient = useApiClient();
 
   const [loading, setLoading] = useState(true);
@@ -181,8 +182,6 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
       </div>
     );
   }
-
-
 
   return (
     <div className="notifications-body" ref={ref}>
