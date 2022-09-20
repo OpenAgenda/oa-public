@@ -98,6 +98,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
     agendasSvc.mw.loadBy({ path: 'params.uid', field: 'uid' }),
+    members.mw.load,
     (req, res, next) => {
       getAndDecorateIndexedEvent(req.app.services, {
         agendaUid: req.agenda.uid,
