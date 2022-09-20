@@ -5,7 +5,6 @@ module.exports = {
   ],
   reactOptions: {
     fastRefresh: true,
-    strictMode: true,
   },
   core: {
     builder: 'webpack5',
