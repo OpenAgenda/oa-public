@@ -24,6 +24,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     includeMember: true,
     includeDateRange: true,
     includeAgendaEvent: true,
+    includeOriginAgenda: true,
     access: 'internal',
     private: null,
     useCache: true

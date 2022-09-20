@@ -43,6 +43,7 @@ async function get(core, agendaUid, options = {}) {
     detailed = false,
     includeEvent = false,
     includeAgendaEvent = false,
+    includeOriginAgenda = false,
     includeMember = false,
     includeDateRange = false,
     throwNotFound = false,
@@ -96,6 +97,7 @@ async function get(core, agendaUid, options = {}) {
     includeMember,
     includeDateRange,
     includeAgendaEvent,
+    includeOriginAgenda,
     access: typeof access === 'string' ? { read: access } : access
   });
 
