@@ -1,7 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const { Forbidden, BadRequest } = require('@openagenda/verror');
+const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
+const getMemberSchema = require('../utils/getMemberSchema');
 const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
 const canCreate = require('./lib/canCreate');
@@ -9,7 +12,8 @@ const canCreate = require('./lib/canCreate');
 module.exports = async (services, agendaOrUid, userUid, role, data, options = {}) => {
   const {
     members,
-    users
+    users,
+    custom
   } = services;
 
   const {
@@ -49,10 +53,36 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
     throw new Forbidden('Not authorized to add a member');
   }
 
-  return members.create({
-    agendaUid,
+  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
+  let cleanMemberData = null;
+  try {
+    const validate = new FormSchema(schemas.merged).getValidate();
+    cleanMemberData = validate(memberData);
+  } catch (error) {
+    throw new BadRequest({
+      info: { error }
+    }, 'data is invalid');
+  }
+
+  try {
+    if (schemas.agendaSchema) {
+      const dispatchedData = dispatchDataPerSchemas(memberData, [schemas.schema, schemas.agendaSchema]);
+      await custom(agenda.memberSchemaId).set(userUid, dispatchedData[1]);
+    }
+    await members.create({
+      agendaUid,
+      userUid,
+      role: members.utils.getRoleCode(role ?? 'contributor'),
+      custom: format.custom(memberData)
+    }, { requireCustom: false });
+  } catch (error) {
+    throw new GeneralError(error, 'something went wrong');
+  }
+
+  return {
+    ...cleanMemberData,
+    deletedUser: false,
     userUid,
-    role: members.utils.getRoleCode(role ?? 'contributor'),
-    custom: format.custom(memberData)
-  }, { requireCustom: false }).then(result => format(members, result.member));
+    role
+  };
 };

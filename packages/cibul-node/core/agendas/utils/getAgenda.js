@@ -15,7 +15,8 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await services.agendas.get({ uid: agendaOrUid }, {
     internal: true,
     private: null,
-    includeImagePath: true
+    includeImagePath: true,
+    includeMemberSchema: true
   });
 
   if (!agenda) {

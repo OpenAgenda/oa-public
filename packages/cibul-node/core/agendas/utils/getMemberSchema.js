@@ -1,0 +1,33 @@
+'use strict';
+
+const memberSchema = require('@openagenda/member-apps/dist/components/Form/schema');
+const _ = require('lodash');
+const getAgenda = require('./getAgenda');
+const isAdminMod = require('./isAdminMod');
+
+module.exports = async (services, agendaOrUid, options) => {
+  const { formSchemas } = services;
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  const { memberSchemaId } = agenda;
+
+  const isAdmin = isAdminMod(options);
+  const optionalFields = isAdmin || !!memberSchemaId || !agenda.settings.contribution.useFields;
+
+  if (!memberSchemaId) {
+    return {
+      merged: memberSchema({ optionalFields }),
+      schema: memberSchema({ optionalFields }),
+      agendaSchema: null
+    };
+  }
+  const aditionalFields = await formSchemas.get(memberSchemaId);
+
+  if (isAdmin) {
+    aditionalFields.fields = aditionalFields.fields.map(e => ({ ...e, optional: true }));
+  }
+  return {
+    merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields),
+    schema: memberSchema({ optionalFields }),
+    agendaSchema: aditionalFields
+  };
+};

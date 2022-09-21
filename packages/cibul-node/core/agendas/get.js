@@ -5,7 +5,7 @@ const {
   NotFound
 } = require('@openagenda/verror');
 const getMergedSchema = require('./settings/getMergedSchema');
-const getMemberSchema = require('./settings/getMemberSchema');
+const getMemberSchema = require('./utils/getMemberSchema');
 const loadSummary = require('./utils/loadSummary');
 
 function cacheAndReturn(services, options, agendaUid, result) {
@@ -96,7 +96,7 @@ module.exports = async (core, agendaUid, options = {}) => {
   });
 
   if (includeMemberSchema) {
-    related.memberSchema = await getMemberSchema(services, agenda, { access });
+    related.memberSchema = (await getMemberSchema(services, agenda, { access })).merged;
   }
 
   if (access === 'internal') {

@@ -6,5 +6,6 @@
   "owner_id": 1,
   "created_at": "2020-04-08T17:00:00",
   "updated_at": "2020-04-08T17:19:00",
-  "uid": 3
+  "uid": 3,
+  "member_schema_Id": 8
 }

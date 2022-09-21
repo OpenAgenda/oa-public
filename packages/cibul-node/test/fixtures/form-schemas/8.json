@@ -1,13 +1,21 @@
 {
-  "fields": [{
-    "field": "num_orga",
-    "label": "Numero d'organisme",
-    "max": null,
-    "min": null,
-    "optional": false,
-    "fieldType": "textarea",
-    "origin": "custom",
-    "read": null,
-    "write": ["contributor"]
-  }]
+  "fields": [
+    {
+      "field": "phone",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "num_orga",
+      "label": "Numero d'organisme",
+      "max": null,
+      "min": null,
+      "optional": false,
+      "fieldType": "textarea",
+      "origin": "custom",
+      "read": null,
+      "write": [
+        "contributor"
+      ]
+    }
+  ]
 }

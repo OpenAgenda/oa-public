@@ -11,6 +11,7 @@ const raw = resetAndCreateTables();
 
 raw.push(knex('user').insert([
   require('./sql/users/01.json'), // user id 1, uid 1
+  require('./sql/users/50300.json'), // new for test on custom
   require('./sql/users/thibaud.json'),
   require('./sql/users/lise.json'),
   require('./sql/users/chrissie.json'),
@@ -30,6 +31,7 @@ const albiAgenda = require('./sql/agendas/albi.json'); // uid 48353388
 raw.push(knex('review').insert([
   require('./sql/agendas/01.json'), // uid 1
   require('./sql/agendas/02.json'), // uid 2
+  require('./sql/agendas/03.json'), // uid 3 with custom member schema
   require('./sql/agendas/albigeois.json'), // uid 93399464
   ({
     ...albiAgenda,
@@ -58,10 +60,13 @@ raw.push(knex('form_schema').insert([{
 }, {
   id: 10522,
   store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`)
+}, {
+  id: 8,
+  store: fs.readFileSync(`${__dirname}/form-schemas/8.json`)
 }]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/01.json'), // user id 1, user 1, agenda uid 2, contributor
+  require('./sql/members/01.json'), // user id 1, user uid 1, agenda uid 2, contributor
   require('./sql/members/02.json'), // user uid 1, agenda uid 3, moderator
   require('./sql/members/03.json'), // uid 1, id 1, agenda uid 9, administrator
   require('./sql/members/04.json'), // contributor agenda uid 11
