@@ -405,7 +405,8 @@ const initialState = async req => {
       settings: {
         prefix: '/:slug/admin/activities',
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
+        activities: services.activities.getFormatConfig(),
       },
       res: {
         list: '/:slug/admin/activities/list',
