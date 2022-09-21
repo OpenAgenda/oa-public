@@ -1,6 +1,6 @@
 'use strict';
 
-const memberSchema = require('@openagenda/member-apps/dist/components/Form/schema');
+const memberSchema = require('@openagenda/members/build/schema');
 const _ = require('lodash');
 const getAgenda = require('./getAgenda');
 const isAdminMod = require('./isAdminMod');
