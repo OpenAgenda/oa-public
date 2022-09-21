@@ -28,6 +28,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
     includeNonDataFields = false,
     includeDateRange = false,
     includeAgendaEvent = false,
+    includeOriginAgenda = false,
     access = 'public'
   } = options;
 
@@ -80,6 +81,15 @@ module.exports = async (services, agendaOrUid, options = {}) => {
         fieldType: 'abstract'
       }, {
         field: 'featured',
+        fieldType: 'abstract'
+      }]
+    });
+  }
+
+  if (includeOriginAgenda) {
+    mergeArgs.push({
+      fields: [{
+        field: 'originAgenda',
         fieldType: 'abstract'
       }]
     });
