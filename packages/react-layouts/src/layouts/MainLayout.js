@@ -262,6 +262,12 @@ function MainLayout({
                     </Link>
                   </li>
 
+                  <Notifications
+                    user={user}
+                    activitiesConfig={activitiesConfig}
+                    locale={intl.locale}
+                  />
+
                   <li className="profile" style={{ position: 'relative' }}>
                     <button
                       type="button"
@@ -339,23 +345,6 @@ function MainLayout({
                       </ul>
                     </OutsideClickHandler>
                   </li>
-
-                  <li className="notifications js_notifications">
-                    <button
-                      type="button"
-                      className="js_notifications_opener btn btn-link-inline"
-                    >
-                      <i className="fa fa-bell" aria-hidden="true" />
-                      <span className="label label-danger" />
-                    </button>
-                    <div className="js_notifications_panel hide" />
-                  </li>
-
-                  <Notifications
-                    user={user}
-                    activitiesConfig={activitiesConfig}
-                    locale={intl.locale}
-                  />
                 </>
               ) : null}
 
