@@ -82,13 +82,6 @@
                 <i class="fa fa-envelope" aria-hidden="true"></i>
               </a>
             </li>
-            <li class="notifications js_notifications hide">
-              <a class="js_notifications_opener">
-                <i class="fa fa-bell" aria-hidden="true"></i>
-                <span class="label label-danger hide"></span>
-              </a>
-              <div class="js_notifications_panel hide"></div>
-            </li>
           </ul>
         </div>
       </div>
