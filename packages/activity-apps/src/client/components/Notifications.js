@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { defineMessages, IntlProvider, useIntl } from 'react-intl';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import moment from 'moment';
 import sessions from '@openagenda/sessions/client';
@@ -98,10 +99,12 @@ function NotificationItem({
 const NotificationsBody = React.forwardRef(function NotificationsBody({
   user,
   setCounter,
+  closePanel,
   activitiesConfig,
 }, ref) {
   const intl = useIntl();
   const apiClient = useApiClient();
+  const history = useHistory();
 
   const [loading, setLoading] = useState(true);
   const [notifications, setNotifications] = useState(null);
@@ -138,8 +141,9 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
   }, [apiClient]);
 
   const onSeeActivities = useCallback(() => {
-    // go to '/home/activities'
-  }, []);
+    closePanel();
+    history.push('/home/activities');
+  }, [closePanel, history]);
 
   const onRemove = useCallback(async id => {
     try {
@@ -209,7 +213,10 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
           <div className="text-center padding-all-sm">
             {intl.formatMessage(messages.noNotif)}
           </div>
-          <button className="btn btn-link see-activities center-block">
+          <button
+            className="btn btn-link see-activities center-block"
+            onClick={onSeeActivities}
+          >
             {intl.formatMessage(messages.viewAllActivities)}
           </button>
         </div>
@@ -249,9 +256,9 @@ export default function Notifications({ user, activitiesConfig, locale }) {
 
   const ref = useRef();
 
-  const onClickOutside = useCallback(() => setOpen(false), []);
+  const closePanel = useCallback(() => setOpen(false), []);
 
-  useOnClickOutside(ref, onClickOutside);
+  useOnClickOutside(ref, closePanel);
 
   useEffect(() => {
     (async () => {
@@ -292,6 +299,7 @@ export default function Notifications({ user, activitiesConfig, locale }) {
             ref={ref}
             user={user}
             setCounter={setCounter}
+            closePanel={closePanel}
             activitiesConfig={activitiesConfig}
           />
         ) : null}
