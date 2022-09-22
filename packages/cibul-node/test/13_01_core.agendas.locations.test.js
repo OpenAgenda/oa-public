@@ -81,6 +81,16 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       expect(result.after).toBe(1);
     });
 
+    it('integers provided in search part of query are processed as an uid filter', async () => {
+      const {
+        items,
+        total
+      } = await core.agendas(17026855).locations.list({ search: '18927679' });
+
+      expect(total).toBe(1);
+      expect(items[0].uid).toBe(18927679);
+    });
+
     it('filter to limit results to unverified locations', async () => {
       const {
         items: unverifiedLocations

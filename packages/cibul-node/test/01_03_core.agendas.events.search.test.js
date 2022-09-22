@@ -77,6 +77,16 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
     });
 
+    it('if search part of query contains an integer, a uid filter is applied', async () => {
+      const { events, total } = await core.agendas(2).events.search({
+        state: null,
+        search: '1'
+      }, {}, { access: 'administrator' });
+
+      expect(total).toBe(1);
+      expect(events[0].uid).toBe(1);
+    });
+
     it('if includeLabels option is set, additional field values are provided with labels', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
