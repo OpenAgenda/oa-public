@@ -797,7 +797,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     afterAll(async () => {
-      await core.services.agendaLocations.task.stop({
+      await core.services.agendaLocations.shutdown({
         reset: true
       });
     });

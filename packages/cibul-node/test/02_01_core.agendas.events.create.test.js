@@ -51,8 +51,6 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     core = Core(services, testConfig);
   });
 
-  afterAll(() => core.services.shutdown({ clear: true }));
-
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
@@ -62,6 +60,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
   });
 
   afterAll(() => core.services.simpleCache.clearAll());
+
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('simple create', () => {
     let event;

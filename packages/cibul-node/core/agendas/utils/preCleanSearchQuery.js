@@ -9,7 +9,7 @@ module.exports = function preCleanSearchQuery(query, options = {}) {
     targetKey = 'uid'
   } = options;
 
-  if (!isInteger(query.search)) {
+  if (!isInteger(query?.search)) {
     return query;
   }
 

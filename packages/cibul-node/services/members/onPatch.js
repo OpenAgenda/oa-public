@@ -38,8 +38,6 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
 
     if (!user && member.userUid) throw new Error('User not found');
 
-    console.log('CONTEXT', context);
-
     const senderUser = await usersSvc.findOne({
       query: { uid: _.get(context, 'sender.userUid') },
       removed: null
