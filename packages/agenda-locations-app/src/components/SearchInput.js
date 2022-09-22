@@ -18,6 +18,9 @@ const SearchInput = ({
 
   const myOnFocus = useCallback(e => {
     e.persist();
+    if (!onFocus) {
+      return;
+    }
     onFocus(e.target.value);
   }, [onFocus]);
 
@@ -27,7 +30,7 @@ const SearchInput = ({
 
   return (
     <div className="search-field input-group input-icon-right">
-      <label className="sr-only" htmlFor="label">Label</label>
+      <label className="sr-only" htmlFor="label">{placeholder}</label>
       <input
         name="search"
         type="text"
