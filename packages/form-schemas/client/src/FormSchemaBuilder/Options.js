@@ -229,7 +229,7 @@ export default class OptionsField extends Component {
                       disabled={this.isOptionDisabled(index)}
                       onEdit={i => this.editOption(i)}
                       onEditCancel={() => this.setState({ mode: null })}
-                      onRemove={i => this.removeOption(i)}
+                      onRemove={() => this.removeOption(index)}
                       onUpdate={(i, o) => this.updateOption(i, o)}
                       provided={oProvided}
                       snapshot={oSnapshot}
