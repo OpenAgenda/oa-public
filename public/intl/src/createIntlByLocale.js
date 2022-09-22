@@ -10,15 +10,16 @@ export default function createIntlByLocale(locales) {
         return byLocale;
       }
 
-      try {
-        byLocale[locale] = createIntl({
-          locale,
-          messages: localeMessages,
-          defaultLocale: getSupportedLocale(locale)
-        }, cache);
-      } catch (e) {
-        console.log(e);
-      }
+      byLocale[locale] = createIntl({
+        locale,
+        messages: localeMessages,
+        defaultLocale: getSupportedLocale(locale),
+        onError(e) {
+          if (e.code !== 'MISSING_DATA') {
+            console.error(e);
+          }
+        }
+      }, cache);
 
       return byLocale;
     }, {});
