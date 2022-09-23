@@ -2,7 +2,7 @@
 
 const isAdminModAccess = async (membres, agendaUid, options) => {
   const { access, actingMember, userUid } = options;
-  console.log('isAdminMod', access, actingMember, userUid, ['administrator', 'moderator', 'internal'].includes(access))
+
   if (access) return ['administrator', 'moderator', 'internal'].includes(access);
   if (actingMember) return [2, 3].includes(actingMember?.role);
   if (!userUid) return false;

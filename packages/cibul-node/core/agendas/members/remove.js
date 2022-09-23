@@ -41,17 +41,17 @@ module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
     throw new Forbidden('Not authorized to patch member');
   }
 
+  const schemas = await getMemberSchema(services, agendaUid, { actingMember });
   const memberRes = await members.remove(member.id, {
     context: {
       user: actingUser
     }
   });
 
-  const schemas = await getMemberSchema(services, agendaUid, { actingMember });
   if (!schemas.agendaSchema) {
     return memberRes;
   }
-  const customRes = await custom(schemas.agendaSchema.id).remove(userUid);
-  console.log('customRes', customRes);
-  return {...memberRes, ...customRes};
+
+  const customRes = await custom(schemas.agendaSchema.id).remove(member.userUid);
+  return { ...memberRes, ...customRes };
 };

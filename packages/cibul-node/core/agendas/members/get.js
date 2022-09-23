@@ -43,8 +43,7 @@ async function get(services, preloadedOptions, agendaOrUid, userUid, options = {
     return memberRes;
   }
   const customRes = await custom(schemas.agendaSchema.id).get(userUid);
-  console.log('customRes', customRes);
-  return {...memberRes, ...customRes};
+  return { ...memberRes, ...customRes };
 }
 
 module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
