@@ -2,12 +2,14 @@
 
 const _ = require('lodash');
 const { Forbidden, BadRequest } = require('@openagenda/verror');
+const getMemberSchema = require('../utils/getMemberSchema');
 const canEdit = require('./lib/canEdit');
 
 module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
   const {
     members,
-    users
+    users,
+    custom
   } = services;
 
   const {
@@ -39,9 +41,17 @@ module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
     throw new Forbidden('Not authorized to patch member');
   }
 
-  return members.remove(member.id, {
+  const memberRes = await members.remove(member.id, {
     context: {
       user: actingUser
     }
   });
+
+  const schemas = await getMemberSchema(services, agendaUid, { actingMember });
+  if (!schemas.agendaSchema) {
+    return memberRes;
+  }
+  const customRes = await custom(schemas.agendaSchema.id).remove(userUid);
+  console.log('customRes', customRes);
+  return {...memberRes, ...customRes};
 };
