@@ -99,6 +99,7 @@ function OrderField({ action, input, title }) {
       stats: state.members.stats ?? {},
       perPageLimit: state.settings.perPageLimit,
       modals: state.modals,
+      schema: state.members.schema ?? null,
     };
   },
   { ...membersActions, ...modalsActions }
@@ -123,6 +124,7 @@ class Dashboard extends Component {
     // if (!membersActions.isLoaded(state)) {
     store.dispatch(membersActions.getStats(agenda)).catch(() => null);
     store.dispatch(membersActions.load(agenda, query)).catch(() => null);
+    store.dispatch(membersActions.getSchema(agenda)).catch(() => null);
     // }
 
     monitorBottomHit(throttle(this.nextPage, 400, { trailing: false }));
@@ -278,6 +280,7 @@ class Dashboard extends Component {
       query,
       i18n,
       user,
+      schema,
     } = this.props;
     const { getLabel, lang } = i18n;
 
@@ -567,6 +570,7 @@ class Dashboard extends Component {
               getStats(agenda);
             }}
             onCloseModalRequest={() => closeModal('editMember')}
+            schema={schema}
           />
         ) : null}
 

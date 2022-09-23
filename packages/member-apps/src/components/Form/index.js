@@ -8,7 +8,6 @@ import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 import Spinner from '@openagenda/react-shared/lib/components/Spinner';
 import Modal from '@openagenda/react-shared/lib/components/Modal';
 import hardSchema from '@openagenda/members/build/schema';
-// import hardSchema from './schema'; // should be in member
 
 const messages = defineMessages({
   updateTitle: {
