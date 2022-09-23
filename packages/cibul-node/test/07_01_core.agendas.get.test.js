@@ -211,15 +211,16 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     });
 
     describe('get from administrator', () => {
-      let agenda;
+      const administratorKey = '0toI8hA1if8auC1hFOmegP36aMbVg1N9';
 
-      beforeAll(async () => {
-        const result = await axios.get('http://localhost:3000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9');
-        agenda = result.data;
+      it('get from administrator provides administrator-access field', async () => {
+        const { data: agenda } = await axios.get(`http://localhost:3000/agendas/92983929?key=${administratorKey}`);
+        expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
 
-      it('get from administrator provides administrator-access field', () => {
-        expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
+      it('fix: get on private agenda', async () => {
+        const { data: agenda } = await axios.get(`http://localhost:3000/agendas/78971487?key=${administratorKey}`);
+        expect(agenda.title).toBe('Un agenda privé');
       });
     });
 

@@ -60,6 +60,18 @@ raw.push(knex('review').insert([{
   network_uid: 1234,
   location_set_uid: 4321,
   settings: JSON.stringify({})
+}, {
+  id: 221,
+  uid: 78971487,
+  title: 'Un agenda privé',
+  slug: 'agenda-prive',
+  private: 1,
+  owner_id: 50304,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06',
+  official: 0,
+  credentials: '{}',
+  settings: JSON.stringify({})
 }]));
 
 raw.push(knex('user').insert([
@@ -73,7 +85,12 @@ raw.push(knex('api_key_set').insert([
 ]));
 
 raw.push(knex('reviewer').insert([
-  load('./sql/members/71386687.json')
+  load('./sql/members/71386687.json'),
+  load('./sql/members/71386687.json', {
+    id: 713866872,
+    agenda_uid: 78971487,
+    user_uid: 63170200
+  })
 ]));
 
 raw.push(knex('network').insert([{
