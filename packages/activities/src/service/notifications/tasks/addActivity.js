@@ -79,7 +79,7 @@ async function addActivity(config, identifiers, activity, options) {
   }
 
   // notif groups activities
-  const groupBy = fnOrValue(activityConfig.notifications.groupBy, { feed, activity });
+  const groupBy = fnOrValue(activityConfig.notifications?.groupBy, { feed, activity });
   const groupedBy = getGroupBy(groupBy, feed, activity);
 
   const notif = groupedBy
@@ -132,8 +132,6 @@ async function addActivity(config, identifiers, activity, options) {
       }
       return values.concat(value);
     };
-
-    console.log('activity', activity);
 
     const store = Object.assign({}, notif.store, {
       actor: createNewStoreKey('actor'),
