@@ -6,10 +6,7 @@ const controlDataSvc = require('../legacy').controlData;
 const fallbackContextGet = require('./lib/fallbackContextGet');
 
 module.exports = async ({ services }, ae, context) => {
-  const {
-    users,
-    activities,
-  } = services;
+  const { activities } = services;
 
   log('will remove agenda-event %j', ae, { context });
 
@@ -30,9 +27,6 @@ module.exports = async ({ services }, ae, context) => {
   }
 
   try {
-    console.log('deletion:', context.deletion);
-    console.log('origin agenda:', agenda.uid === event.agendaUid);
-
     if (context.deletion) {
       if (agenda.uid === event.agendaUid) {
         await activities.feed({ entityType: 'event', entityUid: event.uid }).activities.add({

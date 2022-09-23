@@ -7,6 +7,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
 
   const {
     activities: activitiesSvc,
+    members: membersSvc,
     core
   } = services;
 
@@ -14,6 +15,11 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     log('activities services is not initialized');
     return;
   }
+
+  const contributor = await membersSvc.get({
+    agendaUid: agenda.uid,
+    userUid: user.uid
+  });
 
   const isUnpublished = before.state === 2 && after.state !== 2;
   const isPublished = before.state !== 2 && after.state === 2;
@@ -25,7 +31,7 @@ module.exports = async (services, { agenda, event, user }, before, after, change
     target: `agenda:${agenda.uid}`,
   };
   const activityLabels = {
-    actor: after.member.custom.contactName || user.fullName,
+    actor: contributor.custom.contactName || user.fullName,
     object: event.title,
     target: agenda.title
   };
