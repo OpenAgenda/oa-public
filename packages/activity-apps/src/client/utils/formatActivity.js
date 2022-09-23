@@ -59,7 +59,7 @@ function getTags(activity, tagMap, render, entities, intl) {
 
 function getLabelId({ labelId, labelIds = [] }, data) {
   for (const [partialLabelId, requestedEntities] of labelIds) {
-    const missing = requestedEntities.some(requestedEntity => !data[requestedEntity]);
+    const missing = requestedEntities.some(requestedEntity => !_.get(data, requestedEntity));
 
     if (!missing) {
       return partialLabelId;
@@ -79,6 +79,7 @@ export default function createActivityFormatter(config) {
       const tags = getTags(activity, activityMap.tags, renderTag, entities, intl);
 
       const labelId = getLabelId(activityMap, activity);
+
       const data = { ...entities, ...tags };
 
       return intl.formatMessage({ id: labelId }, data);

@@ -76,7 +76,7 @@ export default class UserDashboard extends Component {
 
     return (
       <div className="content">
-        <h2 className="margin-bottom-md">{getLabel('activities')}</h2>
+        <h2 className="margin-bottom-md">{getLabel('history')}</h2>
 
         {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
           {activities.map(a => (
