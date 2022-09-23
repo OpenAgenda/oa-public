@@ -61,8 +61,8 @@ module.exports = core => {
   app.param('agendaSlug', mw.loadAgenda);
 
   // control all the things
-  app.post('/agendas/:agendaUid/events*', mw.member.verify);
-  app.patch('/agendas/:agendaUid/events*', mw.member.verify);
+  app.post('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
+  app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
   app.get(['/agendas/:agendaUid', '/agendas/:agendaUid/events/:eventUid'], mw.member.load);
 
@@ -112,18 +112,24 @@ module.exports = core => {
       private: null
     }).then(event => res.json({ success: true, event }), next));
 
-  app.get('/agendas/:agendaUid/events', mw.convertLegacyFilter, (req, res, next) => core
-    .agendas(req.agenda.uid).events
-    .search(req.convertedQuery, req.convertedQuery, {
-      aggregations: req.query.aggs,
-      ...req.convertedQuery,
-      useAfterKey: true,
-      userUid: req.user?.uid,
-      includeLocationImagePath: true
-    }).then(result => res.json({
-      success: true,
-      ...result
-    }), next));
+  app.get(
+    [
+      '/agendas/:agendaUid/events',
+      '/agendas/slug/:agendaSlug/events'
+    ],
+    mw.convertLegacyFilter,
+    (req, res, next) => core
+      .agendas(req.agenda.uid).events
+      .search(req.convertedQuery, req.convertedQuery, {
+        aggregations: req.query.aggs,
+        ...req.convertedQuery,
+        useAfterKey: true,
+        userUid: req.user?.uid,
+        includeLocationImagePath: true
+      }).then(result => res.json({
+        success: true,
+        ...result
+      }), next));
 
   app.get([
     '/agendas/:agendaUid/events/:eventUid',
