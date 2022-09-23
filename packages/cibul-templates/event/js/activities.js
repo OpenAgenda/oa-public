@@ -21,7 +21,11 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     button;
 
-  fetch( res, ( err, result ) => {
+  const url = new URL(res, document.location.href);
+
+  url.searchParams.append('withConfig', '1');
+
+  fetch( url, ( err, result ) => {
 
     if ( err ) return console.log( 'errored', err );
 
@@ -30,9 +34,10 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
     canvas.insertAdjacentHTML( 'beforeend', layout( { activityTitle: getLocaleValue(labels.history, lang) } ) );
 
     const activities = result.activities;
+    const config = result.config;
 
     ReactDOM.render(
-      activitiesEventApp( { activities, lang } ),
+      activitiesEventApp( { activities, config, lang } ),
       du.el( '.js_event_activities' )
     );
 

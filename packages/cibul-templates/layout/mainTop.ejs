@@ -49,6 +49,11 @@
           <li <% if ( typeof link.className !== 'undefined') { %>class="<%= link.className %>"<% } %>><a href="<%= link.url %>"><%= __(link.label) %></a></li>
 <% }); %>
 <% } %>
+          <li class="inbox js_inbox_header hide">
+            <a href="/home/inbox">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </a>
+          </li>
           <li><a class="js_signin_link" href="/signin" rel="nofollow"><%= __('Sign in') %></a></li>
           <li class="language-menu js_language_menu js_toggle" data-toggle="language-menu">
             <a class="js_toggle_trigger"><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
@@ -56,18 +61,6 @@
               <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
               --><li><a href="?lang=en" hreflang="en">english</a></li>
             </ul>
-          </li>
-          <li class="inbox js_inbox_header hide">
-            <a href="/home/inbox">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-            </a>
-          </li>
-          <li class="notifications js_notifications hide">
-            <a class="js_notifications_opener">
-              <i class="fa fa-bell" aria-hidden="true"></i>
-              <span class="label label-danger hide"></span>
-            </a>
-            <div class="js_notifications_panel hide"></div>
           </li>
         </ul>
       </div>
