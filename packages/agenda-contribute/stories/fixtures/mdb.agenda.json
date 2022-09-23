@@ -812,40 +812,5 @@
                 "schemaType": "event"
             }
         ]
-    },
-    "memberSchema": {
-        "fields": [
-            {
-              "field": "organization",
-              "label": "Organisation",
-              "fieldType": "text",
-              "optional": false
-            },
-            {
-              "field": "phone",
-              "label": "Phone",
-              "sub": "phoneSub",
-              "fieldType": "phone",
-              "optional": false
-            },
-            {
-              "field": "name",
-              "label": "Your Name",
-              "fieldType": "text",
-              "optional": false
-            },
-            {
-              "field": "position",
-              "label": "Position",
-              "fieldType": "text",
-              "optional": false
-            },
-            {
-              "field": "email",
-              "label": "Email",
-              "fieldType": "email",
-              "optional": false
-            }
-          ]
     }
 }

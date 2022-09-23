@@ -14,7 +14,7 @@ export default function loadInitialState() {
       eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
       requestContribute: '/:agendaSlug/request-contribute/conversation/create/thiswillbreakthestorybook',
       members: '/api/agendas/:agendaUid/members',
-      detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema',
+      detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
       locations: {
         get: '/locations/:uid.json',
         index: '/api/agendas/:agendaUid/locations?itemsKey=items',
