@@ -65,7 +65,7 @@ module.exports = async ({ config, services }, { agendaEvent, before, context, ag
   let sentToCreator = false;
   let sentToContributor = false;
 
-  if (creatorUser.uid !== contributorUser.uid && visibleForCreator) {
+  if (creatorUser.uid !== contributorUser?.uid && visibleForCreator) {
     await _sendToContributor({
       services,
       contributor: creator,

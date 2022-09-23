@@ -146,6 +146,7 @@ module.exports = app => {
 
             res.json({
               activities,
+              config: req.query.withConfig ? activitiesSvc.getFormatConfig() : undefined,
               count: activities.length,
               nextUrl: lastPage
                 ? null

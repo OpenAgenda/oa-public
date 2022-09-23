@@ -34,13 +34,9 @@ module.exports = {
     "br": "Izili",
     "io": "crwdns11404:0crwdne11404:0"
   },
-  "activities": {
-    "en": "Activities",
-    "fr": "Activités",
-    "de": "Aktivitäten",
-    "es": "Actividades",
-    "it": "Attività",
-    "io": "crwdns11406:0crwdne11406:0"
+  "history": {
+    "en": "History",
+    "fr": "Historique"
   },
   "newTab": {
     "en": "New !",

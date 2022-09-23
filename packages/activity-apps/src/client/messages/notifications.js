@@ -35,7 +35,7 @@ export default defineMessages({
   },
   'agenda.removeDeletedEvent': {
     id: 'ActivityApps.notifications.agendaRemoveDeletedEvent',
-    defaultMessage: '{actor} removed {object} from {target} after {objectCount, plural, one {its} other {their}} deletion.'
+    defaultMessage: '{object} has been removed from {target} after {objectCount, plural, one {its} other {their}} deletion.'
   },
   'agenda.systemRemoveEvent': {
     id: 'ActivityApps.notifications.agendaSystemRemoveEvent',

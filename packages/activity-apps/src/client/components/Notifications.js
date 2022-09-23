@@ -11,9 +11,9 @@ import notifications from '../../notifications';
 const ucfirst = s => s[0].toUpperCase() + s.substring(1);
 
 const messages = defineMessages({
-  viewAllActivities: {
-    id: 'ActivityApps.Notifications.viewAllActivities',
-    defaultMessage: 'View all activities'
+  viewHistory: {
+    id: 'ActivityApps.Notifications.viewHistory',
+    defaultMessage: 'View history'
   },
   noNotif: {
     id: 'ActivityApps.Notifications.noNotif',
@@ -196,7 +196,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
               className="btn btn-link-inline see-activities"
               onClick={onSeeActivities}
             >
-              {intl.formatMessage(messages.viewAllActivities)}
+              {intl.formatMessage(messages.viewHistory)}
             </button>
           </div>
           <div className="text-right">
@@ -217,7 +217,7 @@ const NotificationsBody = React.forwardRef(function NotificationsBody({
             className="btn btn-link see-activities center-block"
             onClick={onSeeActivities}
           >
-            {intl.formatMessage(messages.viewAllActivities)}
+            {intl.formatMessage(messages.viewHistory)}
           </button>
         </div>
       )}

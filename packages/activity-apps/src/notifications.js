@@ -226,7 +226,7 @@ exports['event.delete'] = (notification, options) => {
   const { subjectsProps, values } = getProps(notification, options);
 
   return {
-    url: formatUrl('/agendas/:target', subjectProps),
+    url: formatUrl('/agendas/:target', subjectsProps),
     label: intl.formatMessage(notificationsMessages['event.delete'], values),
   };
 };

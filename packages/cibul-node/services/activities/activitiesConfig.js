@@ -118,9 +118,9 @@ async function maskUserIsNotAdminModOf({
     services.members,
     targetFeed.entityUid,
     getActivityEntity(activity, key)
-  )).role;
+  ))?.role;
 
-  if (!isSuperiorToOrEqual(role, 'moderator')) {
+  if (!role || !isSuperiorToOrEqual(role, 'moderator')) {
     return omit;
   }
 }
@@ -163,7 +163,7 @@ function maskFor({ sameAgenda, otherAgenda, userIsNotAdminModOf }) {
 const activitiesConfig = {
   'event.create': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: or(
       fromEventToUser,
@@ -171,9 +171,9 @@ const activitiesConfig = {
       fromAgendaToAdminMod,
     ),
     labelIds: [
-      ['ActivityApps.eventCreate.full', ['actor', 'target']],
+      ['ActivityApps.eventCreate.full', ['actor', 'store.labels.target']],
       ['ActivityApps.eventCreate.actor', ['actor']],
-      ['ActivityApps.eventCreate.target', ['target']],
+      ['ActivityApps.eventCreate.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -203,7 +203,7 @@ const activitiesConfig = {
   },
   'event.duplicate': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
@@ -221,9 +221,9 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.eventDuplicate.full', ['actor', 'target']],
+      ['ActivityApps.eventDuplicate.full', ['actor', 'store.labels.target']],
       ['ActivityApps.eventDuplicate.actor', ['actor']],
-      ['ActivityApps.eventDuplicate.target', ['target']],
+      ['ActivityApps.eventDuplicate.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -272,7 +272,7 @@ const activitiesConfig = {
         : null;
 
       const toOmit = await maskFor({
-        sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+        sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
         otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
         userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       })({ ...props, preloadedRole: role }) || [];
@@ -297,9 +297,9 @@ const activitiesConfig = {
       ),
     ],
     labelIds: [
-      ['ActivityApps.eventUpdate.full', ['actor', 'target']],
+      ['ActivityApps.eventUpdate.full', ['actor', 'store.labels.target']],
       ['ActivityApps.eventUpdate.actor', ['actor']],
-      ['ActivityApps.eventUpdate.target', ['target']],
+      ['ActivityApps.eventUpdate.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -334,7 +334,7 @@ const activitiesConfig = {
   },
   'event.delete': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
     filterFollows: or(
@@ -343,9 +343,9 @@ const activitiesConfig = {
       fromAgendaToAdminMod,
     ),
     labelIds: [
-      ['ActivityApps.eventDelete.full', ['actor', 'target']],
+      ['ActivityApps.eventDelete.full', ['actor', 'store.labels.target']],
       ['ActivityApps.eventDelete.actor', ['actor']],
-      ['ActivityApps.eventDelete.target', ['target']],
+      ['ActivityApps.eventDelete.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -361,8 +361,9 @@ const activitiesConfig = {
         filter: 'actor',
       },
       event: {
-        link: '/agendas/:agendaUid/events/:eventUid',
-        filter: 'object',
+        highlight: true,
+        // link: '/agendas/:agendaUid/events/:eventUid',
+        // filter: 'object',
       },
       agenda: {
         link: '/agendas/:agendaUid',
@@ -384,7 +385,7 @@ const activitiesConfig = {
   * */
   'agenda.publishEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
@@ -402,9 +403,9 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.publishEvent.full', ['actor', 'target']],
+      ['ActivityApps.publishEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.publishEvent.actor', ['actor']],
-      ['ActivityApps.publishEvent.target', ['target']],
+      ['ActivityApps.publishEvent.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -434,7 +435,7 @@ const activitiesConfig = {
   },
   'agenda.unpublishEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
@@ -452,9 +453,9 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.unpublishEvent.full', ['actor', 'target']],
+      ['ActivityApps.unpublishEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.unpublishEvent.actor', ['actor']],
-      ['ActivityApps.unpublishEvent.target', ['target']],
+      ['ActivityApps.unpublishEvent.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -484,7 +485,7 @@ const activitiesConfig = {
   },
   'agenda.refuseEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
@@ -502,9 +503,9 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.refuseEvent.full', ['actor', 'target']],
+      ['ActivityApps.refuseEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.refuseEvent.actor', ['actor']],
-      ['ActivityApps.refuseEvent.target', ['target']],
+      ['ActivityApps.refuseEvent.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -543,7 +544,7 @@ const activitiesConfig = {
   * */
   'agenda.removeEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
@@ -562,9 +563,9 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.removeEvent.full', ['actor', 'target']],
+      ['ActivityApps.removeEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.removeEvent.actor', ['actor']],
-      ['ActivityApps.removeEvent.target', ['target']],
+      ['ActivityApps.removeEvent.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -580,8 +581,9 @@ const activitiesConfig = {
         filter: 'actor',
       },
       event: {
-        link: '/agendas/:agendaUid/events/:eventUid',
-        filter: 'object',
+        highlight: true,
+        // link: '/agendas/:agendaUid/events/:eventUid',
+        // filter: 'object',
       },
       agenda: {
         link: '/agendas/:agendaUid',
@@ -599,7 +601,7 @@ const activitiesConfig = {
   * */
   'agenda.removeDeletedEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] }
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] }
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -607,7 +609,7 @@ const activitiesConfig = {
       toUser('store.contributorUid'), // to contributor
     ),
     labelIds: [
-      ['ActivityApps.removeDeletedEvent.full', ['actor', 'target']],
+      ['ActivityApps.removeDeletedEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.removeDeletedEvent.withoutTarget', []],
     ],
     entities: {
@@ -618,8 +620,9 @@ const activitiesConfig = {
     },
     tags: {
       event: {
-        link: '/agendas/:agendaUid/events/:eventUid',
-        filter: 'object',
+        highlight: true,
+        // link: '/agendas/:agendaUid/events/:eventUid',
+        // filter: 'object',
       },
       agenda: {
         link: '/agendas/:agendaUid',
@@ -632,7 +635,7 @@ const activitiesConfig = {
   },
   'agenda.systemRemoveEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] }
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] }
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -640,7 +643,7 @@ const activitiesConfig = {
       toUser('store.contributorUid'), // to contributor
     ),
     labelIds: [
-      ['ActivityApps.systemRemoveEvent.full', ['actor', 'target']],
+      ['ActivityApps.systemRemoveEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.systemRemoveEvent.withoutTarget', []],
     ],
     entities: {
@@ -651,13 +654,17 @@ const activitiesConfig = {
     },
     tags: {
       event: {
-        link: '/agendas/:agendaUid/events/:eventUid',
-        filter: 'object',
+        highlight: true,
+        // link: '/agendas/:agendaUid/events/:eventUid',
+        // filter: 'object',
       },
       agenda: {
         link: '/agendas/:agendaUid',
         filter: 'target',
       },
+    },
+    notifications: {
+      groupBy: ['target']
     },
   },
   /*
@@ -666,14 +673,14 @@ const activitiesConfig = {
   * */
   'agenda.changeEventState': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] }
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] }
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to target agenda
       fromAgendaToAdminMod, // to adminMods
     ),
     labelIds: [
-      ['ActivityApps.changeEventState.full', ['actor', 'target']],
+      ['ActivityApps.changeEventState.full', ['actor', 'store.labels.target']],
       ['ActivityApps.changeEventState.actor', ['actor']],
     ],
     entities: {
@@ -714,7 +721,7 @@ const activitiesConfig = {
   * */
   'agenda.systemUnpublishEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -722,7 +729,7 @@ const activitiesConfig = {
       toUser('store.contributorUid'), // to contributor
     ),
     labelIds: [
-      ['ActivityApps.systemUnpublishEvent.full', ['target']],
+      ['ActivityApps.systemUnpublishEvent.full', ['store.labels.target']],
       ['ActivityApps.systemUnpublishEvent.withoutTarget', []],
     ],
     entities: {
@@ -747,11 +754,11 @@ const activitiesConfig = {
   },
   'agenda.sendInvitation': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: isSuperiorMod,
     labelIds: [
-      ['ActivityApps.sendInvitation.full', ['target']],
+      ['ActivityApps.sendInvitation.full', ['store.labels.target']],
       ['ActivityApps.sendInvitation.withoutTarget', []],
     ],
     entities: {
@@ -783,11 +790,11 @@ const activitiesConfig = {
   },
   'agenda.acceptInvitation': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: isSuperiorMod,
     labelIds: [
-      ['ActivityApps.acceptInvitation.full', ['target']],
+      ['ActivityApps.acceptInvitation.full', ['store.labels.target']],
       ['ActivityApps.acceptInvitation.withoutTarget', []],
     ],
     entities: {
@@ -819,7 +826,7 @@ const activitiesConfig = {
   },
   'agenda.addMember': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
     filterFollows: or(
@@ -827,9 +834,9 @@ const activitiesConfig = {
       isSuperiorMod,
     ),
     labelIds: [
-      ['ActivityApps.addMember.full', ['actor', 'target']],
+      ['ActivityApps.addMember.full', ['actor', 'store.labels.target']],
       ['ActivityApps.addMember.actor', ['actor']],
-      ['ActivityApps.addMember.target', ['target']],
+      ['ActivityApps.addMember.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -863,7 +870,7 @@ const activitiesConfig = {
   },
   'agenda.setMemberRole': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
     filterFollows: or(
@@ -871,9 +878,9 @@ const activitiesConfig = {
       isSuperiorMod,
     ),
     labelIds: [
-      ['ActivityApps.setMemberRole.full', ['actor', 'target']],
+      ['ActivityApps.setMemberRole.full', ['actor', 'store.labels.target']],
       ['ActivityApps.setMemberRole.actor', ['actor']],
-      ['ActivityApps.setMemberRole.target', ['target']],
+      ['ActivityApps.setMemberRole.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -907,7 +914,7 @@ const activitiesConfig = {
   },
   'agenda.removeMember': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       userIsNotAdminModOf: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
     filterFollows: or(
@@ -915,9 +922,9 @@ const activitiesConfig = {
       isSuperiorMod,
     ),
     labelIds: [
-      ['ActivityApps.removeMember.full', ['actor', 'target']],
+      ['ActivityApps.removeMember.full', ['actor', 'store.labels.target']],
       ['ActivityApps.removeMember.actor', ['actor']],
-      ['ActivityApps.removeMember.target', ['target']],
+      ['ActivityApps.removeMember.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',
@@ -972,11 +979,11 @@ const activitiesConfig = {
   },
   'agenda.addSource': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: isAdminMod,
     labelIds: [
-      ['ActivityApps.addSource.full', ['actor', 'target']],
+      ['ActivityApps.addSource.full', ['actor', 'store.labels.target']],
       ['ActivityApps.addSource.withoutTarget', []],
     ],
     entities: {
@@ -1003,11 +1010,11 @@ const activitiesConfig = {
   },
   'agenda.removeSource': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: isAdminMod,
     labelIds: [
-      ['ActivityApps.removeSource.full', ['actor', 'target']],
+      ['ActivityApps.removeSource.full', ['actor', 'store.labels.target']],
       ['ActivityApps.removeSource.withoutTarget', []],
     ],
     entities: {
@@ -1034,11 +1041,11 @@ const activitiesConfig = {
   },
   'agenda.update': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: isAdminMod,
     labelIds: [
-      ['ActivityApps.agendaUpdate.full', ['actor', 'target']],
+      ['ActivityApps.agendaUpdate.full', ['actor', 'store.labels.target']],
       ['ActivityApps.agendaUpdate.withoutTarget', []],
     ],
     entities: {
@@ -1063,11 +1070,11 @@ const activitiesConfig = {
   },
   'agenda.setOfficial': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: isAdminMod,
     labelIds: [
-      ['ActivityApps.setOfficial.full', ['target']],
+      ['ActivityApps.setOfficial.full', ['store.labels.target']],
       ['ActivityApps.setOfficial.withoutTarget', []],
     ],
     entities: {
@@ -1094,7 +1101,7 @@ const activitiesConfig = {
   * */
   'agenda.aggregateEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
     }),
     filterFollows: or(
       toAgenda('target.uid'), // to aggregator
@@ -1110,7 +1117,7 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.aggregateEvent.full', ['actor', 'target']],
+      ['ActivityApps.aggregateEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.aggregateEvent.actor', ['actor']],
     ],
     entities: {
@@ -1150,7 +1157,7 @@ const activitiesConfig = {
   * */
   'agenda.addEvent': {
     mask: maskFor({
-      sameAgenda: { key: 'target.uid', omit: ['target', 'store.labels.target'] },
+      sameAgenda: { key: 'target.uid', omit: ['store.labels.target'] },
       otherAgenda: { key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
       userIsNotAdminModOf: { norActor: true, key: 'target.uid', omit: ['actor', 'store.labels.actor'] },
     }),
@@ -1169,9 +1176,9 @@ const activitiesConfig = {
       ),
     ),
     labelIds: [
-      ['ActivityApps.addEvent.full', ['actor', 'target']],
+      ['ActivityApps.addEvent.full', ['actor', 'store.labels.target']],
       ['ActivityApps.addEvent.actor', ['actor']],
-      ['ActivityApps.addEvent.target', ['target']],
+      ['ActivityApps.addEvent.target', ['store.labels.target']],
     ],
     entities: {
       userUid: 'actor.uid',

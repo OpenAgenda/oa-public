@@ -229,6 +229,10 @@ module.exports = {
     "it": "Attività",
     "io": "crwdns11316:0crwdne11316:0"
   },
+  "history": {
+    "en": "History",
+    "fr": "Historique",
+  },
   "next": {
     "en": "Next",
     "fr": "Suivant",

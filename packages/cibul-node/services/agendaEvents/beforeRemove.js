@@ -6,9 +6,7 @@ const controlDataSvc = require('../legacy').controlData;
 const fallbackContextGet = require('./lib/fallbackContextGet');
 
 module.exports = async ({ services }, ae, context) => {
-  const {
-    activities,
-  } = services;
+  const { activities } = services;
 
   log('will remove agenda-event %j', ae, { context });
 
