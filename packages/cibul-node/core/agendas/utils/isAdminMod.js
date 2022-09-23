@@ -1,9 +1,13 @@
 'use strict';
 
-const isAdminModAccess = options => {
-  const { access, actingMember } = options;
+const isAdminModAccess = async (membres, agendaUid, options) => {
+  const { access, actingMember, userUid } = options;
+  console.log('isAdminMod', access, actingMember, userUid, ['administrator', 'moderator', 'internal'].includes(access))
   if (access) return ['administrator', 'moderator', 'internal'].includes(access);
-  return [2, 3].includes(actingMember?.role);
+  if (actingMember) return [2, 3].includes(actingMember?.role);
+  if (!userUid) return false;
+  const retrivedActingMember = await membres.get({ userUid, agendaUid });
+  return [2, 3].includes(retrivedActingMember?.role);
 };
 
 module.exports = isAdminModAccess;

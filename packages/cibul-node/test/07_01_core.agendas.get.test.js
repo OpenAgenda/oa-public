@@ -207,7 +207,6 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from non-administrator with includeMemberScema option', async () => {
         const res = await axios.get(`http://localhost:3000/agendas/92983929?key=${contributorKey}`, { params: { includeMemberSchema: true } });
-        console.log(res.data.memberSchema);
         expect(res.data.memberSchema.fields[0].optional).toBeFalsy();
       });
     });
@@ -226,7 +225,6 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from administrator with includeMemberScema option', async () => {
         const res = await axios.get('http://localhost:3000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9', { params: { includeMemberSchema: true } });
-        console.log(res.data.memberSchema);
         expect(res.data.memberSchema.fields[0].optional).toBeTruthy();
       });
     });
@@ -243,6 +241,13 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('simple get provides uid, title and slug', async () => {
         expect(agenda.uid).toBe(92983929);
+      });
+    });
+
+    describe('get settings memberSchema', () => {
+      it('basic get memberSchema', async () => {
+        const res = await axios.get('http://localhost:3000/agendas/92983929/settings/memberSchema?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9')
+        expect(res.data.agendaSchema.id).toBe(8);
       });
     });
   });

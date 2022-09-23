@@ -6,11 +6,10 @@ const getAgenda = require('./getAgenda');
 const isAdminMod = require('./isAdminMod');
 
 module.exports = async (services, agendaOrUid, options) => {
-  const { formSchemas } = services;
+  const { formSchemas, members } = services;
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
   const { memberSchemaId } = agenda;
-
-  const isAdmin = isAdminMod(options);
+  const isAdmin = await isAdminMod(members, agenda.uid, options);
   const optionalFields = isAdmin || !!memberSchemaId || !agenda.settings.contribution.useFields;
 
   if (!memberSchemaId) {
