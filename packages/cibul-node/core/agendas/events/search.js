@@ -3,6 +3,8 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/agendas/events/search');
 const { NotFound, Forbidden } = require('@openagenda/verror');
+
+const preCleanSearchQuery = require('../utils/preCleanSearchQuery');
 const convertLongDescription = require('./lib/convertLongDescription');
 const convertToDateHoursMinutesTimings = require('./lib/convertToDateHoursMinutesFormat');
 const loadSearchAccess = require('./lib/loadSearchAccess');
@@ -38,7 +40,11 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const access = await loadSearchAccess(core, agendaUid, options);
 
-  const authorizedQuery = filterAuthorizedSearchFields(core, query, access);
+  const authorizedQuery = filterAuthorizedSearchFields(
+    core,
+    preCleanSearchQuery(query),
+    access
+  );
 
   const parsers = [];
 

@@ -3,23 +3,105 @@
 const express = require('express');
 const AgendaEvents = require('@openagenda/agenda-events');
 const eventStates = require('@openagenda/agendas/service/validate/eventStates');
+
+const loadAgendaMw = require('../members/middleware/loadAgenda');
+const loadEventMw = require('../members/middleware/loadEvent');
+const changeStateMw = require('./middleware/changeState');
+const loadAgendaEventMw = require('./middleware/load');
+const removeMw = require('./middleware/remove');
+const changeFeaturedMw = require('./middleware/changeFeatured');
+const updateStatusMw = require('./middleware/updateStatus');
+const batchMw = require('./middleware/batch');
+const navigateMw = require('./middleware/navigate');
+
 const beforeRemove = require('./beforeRemove');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const onRemove = require('./onRemove');
 
-const changeStateMw = require('./middleware/changeState');
+function plugApp(parentApp) {
+  const {
+    sessions,
+    members,
+    agendas
+  } = parentApp.services;
 
-const mw = {
-  loadAgenda: require('../members/middleware/loadAgenda'),
-  loadEvent: require('../members/middleware/loadEvent'),
-  load: require('./middleware/load'),
-  remove: require('./middleware/remove'),
-  requireCanEdit: require('./middleware/requireCanEdit'),
-  changeFeatured: require('./middleware/changeFeatured'),
-  updateStatus: require('./middleware/updateStatus'),
-  batch: require('./middleware/batch'),
-  navigate: require('./middleware/navigate')
+  const requireLoggedMw = sessions.mw.ifUnlogged((req, res, next) => next({
+    code: 403, error: 'requiredLogged', message: 'You need to be logged'
+  }));
+
+  const loadMw = express.Router({ mergeParams: true })
+    .use(
+      loadAgendaMw,
+      loadEventMw,
+      loadAgendaEventMw
+    );
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/state/:state', [
+    requireLoggedMw,
+    loadMw,
+    members.mw.loadAndAuthorize('moderator'),
+    changeStateMw
+  ]);
+
+  parentApp.post('/:agendaSlug/events/:eventSlug/state', [
+    requireLoggedMw,
+    loadMw,
+    members.mw.loadAndAuthorize('moderator'),
+    changeStateMw
+  ]);
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/status', [
+    requireLoggedMw,
+    loadMw,
+    members.mw.load,
+    members.mw.authorizeAdminModOrEventOwner,
+    updateStatusMw
+  ]);
+
+  parentApp.delete('/:agendaSlug/events/:eventSlug', [
+    requireLoggedMw,
+    loadMw,
+    members.mw.load,
+    removeMw
+  ]);
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/remove', [
+    requireLoggedMw,
+    loadMw,
+    members.mw.load,
+    removeMw
+  ]);
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/featured/:type', [
+    requireLoggedMw,
+    loadMw,
+    members.mw.loadAndAuthorize('moderator'),
+    changeFeaturedMw
+  ]);
+
+  parentApp.post('/:agendaSlug/admin/events/states', [
+    sessions.mw.loadOrRedirect(),
+    loadAgendaMw,
+    agendas.mw.authorizeByIPAddress(),
+    members.mw.loadAndAuthorize('moderator'),
+    changeStateMw.batched
+  ]);
+
+  parentApp.all('/:agendaSlug/admin/events/batch', [
+    sessions.mw.loadOrRedirect(),
+    loadAgendaMw,
+    agendas.mw.authorizeByIPAddress(),
+    members.mw.loadAndAuthorize('moderator'),
+    batchMw
+  ]);
+
+  parentApp.get('/:agendaSlug/admin/events/navigate', [
+    sessions.mw.loadOrRedirect(),
+    loadAgendaMw,
+    agendas.mw.authorizeByIPAddress(),
+    navigateMw
+  ]);
 }
 
 module.exports = Object.assign(plugApp, {
@@ -28,7 +110,7 @@ module.exports = Object.assign(plugApp, {
     knex: config.knex,
     redis: config.redis,
     redisClient: config.redisClient,
-    logger: config.getLogConfig( 'svc', 'agendaEvents' ),
+    logger: config.getLogConfig('svc', 'agendaEvents'),
     schemas: {
       agendaEvent: config.schemas.agendaEventService
     },
@@ -59,92 +141,6 @@ module.exports = Object.assign(plugApp, {
   }),
   mw: {
     // make the variants load and loadOrFail
-    loadOrFail: mw.load
+    loadOrFail: loadAgendaEventMw
   }
 });
-
-
-function plugApp(parentApp) {
-  const {
-    sessions,
-    members,
-    agendas
-  } = parentApp.services;
-
-  const requireLoggedMw = sessions.mw.ifUnlogged((req, res, next) => next({
-    code: 403, error: 'requiredLogged', message: 'You need to be logged'
-  }));
-
-  const loadMw = express.Router({ mergeParams: true })
-    .use(
-      mw.loadAgenda,
-      mw.loadEvent,
-      mw.load
-    );
-
-  parentApp.get('/:agendaSlug/events/:eventSlug/state/:state', [
-    requireLoggedMw,
-    loadMw,
-    members.mw.loadAndAuthorize('moderator'),
-    changeStateMw
-  ]);
-
-  parentApp.post('/:agendaSlug/events/:eventSlug/state', [
-    requireLoggedMw,
-    loadMw,
-    members.mw.loadAndAuthorize('moderator'),
-    changeStateMw
-  ]);
-
-  parentApp.get('/:agendaSlug/events/:eventSlug/status',
-    requireLoggedMw,
-    loadMw,
-    members.mw.load,
-    members.mw.authorizeAdminModOrEventOwner,
-    mw.updateStatus
-  );
-
-  parentApp.delete('/:agendaSlug/events/:eventSlug',
-    requireLoggedMw,
-    loadMw,
-    members.mw.load,
-    mw.remove
-  );
-
-  parentApp.get('/:agendaSlug/events/:eventSlug/remove',
-    requireLoggedMw,
-    loadMw,
-    members.mw.load,
-    mw.remove
-  );
-
-  parentApp.get('/:agendaSlug/events/:eventSlug/featured/:type',
-    requireLoggedMw,
-    loadMw,
-    members.mw.loadAndAuthorize('moderator'),
-    mw.changeFeatured
-  );
-
-  parentApp.post('/:agendaSlug/admin/events/states', [
-    sessions.mw.loadOrRedirect(),
-    mw.loadAgenda,
-    agendas.mw.authorizeByIPAddress(),
-    members.mw.loadAndAuthorize('moderator'),
-    changeStateMw.batched
-  ]);
-
-  parentApp.all('/:agendaSlug/admin/events/batch',
-    sessions.mw.loadOrRedirect(),
-    mw.loadAgenda,
-    agendas.mw.authorizeByIPAddress(),
-    members.mw.loadAndAuthorize('moderator'),
-    mw.batch
-  );
-
-  parentApp.get('/:agendaSlug/admin/events/navigate',
-    sessions.mw.loadOrRedirect(),
-    mw.loadAgenda,
-    agendas.mw.authorizeByIPAddress(),
-    mw.navigate
-  );
-}

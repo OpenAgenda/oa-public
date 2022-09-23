@@ -1,6 +1,9 @@
 "use strict";
 
+const isInteger = require('./isInteger');
+
 module.exports = {
+  isInteger,
   extend: extend,
   filterByAttr: filterByAttr,
   isArray: isArray,

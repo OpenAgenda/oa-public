@@ -1,6 +1,8 @@
 'use strict';
 
-const fs = require('fs');
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
+
+const load = loadObjectFromFile({ cwd: __dirname });
 
 const {
   knex,
@@ -58,20 +60,37 @@ raw.push(knex('review').insert([{
   network_uid: 1234,
   location_set_uid: 4321,
   settings: JSON.stringify({})
+}, {
+  id: 221,
+  uid: 78971487,
+  title: 'Un agenda privé',
+  slug: 'agenda-prive',
+  private: 1,
+  owner_id: 50304,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06',
+  official: 0,
+  credentials: '{}',
+  settings: JSON.stringify({})
 }]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/50304.json'),
-  require('./sql/users/50300.json')
+  load('./sql/users/50304.json'),
+  load('./sql/users/50300.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 },
-  require('./sql/apiKeySets/02.json')
+  load('./sql/apiKeySets/01.json', { user_id: 50304 }),
+  load('./sql/apiKeySets/02.json')
 ]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/71386687.json')
+  load('./sql/members/71386687.json'),
+  load('./sql/members/71386687.json', {
+    id: 713866872,
+    agenda_uid: 78971487,
+    user_uid: 63170200
+  })
 ]));
 
 raw.push(knex('network').insert([{
@@ -92,7 +111,7 @@ raw.push(knex('location_set').insert([{
 
 raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({
   id,
-  store: fs.readFileSync(`${__dirname}/form-schemas/${id}.json`)
+  store: JSON.stringify(load(`./form-schemas/${id}.json`))
 }))));
 
-module.exports = raw.join(';\n') + ';';
+module.exports = `${raw.join(';\n')};`;
