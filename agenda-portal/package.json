@@ -68,7 +68,7 @@
     "cors": "^2.8.5",
     "css-loader": "^3.4.2",
     "css-minimizer-webpack-plugin": "^2.0.0",
-    "debug": "^3.2.6",
+    "debug": "^4.1.1",
     "express": "^4.17.1",
     "hbs": "^4.1.0",
     "iframe-resizer": "^4.2.10",
