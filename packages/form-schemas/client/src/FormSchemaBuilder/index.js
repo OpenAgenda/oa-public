@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { unloadWarning } from '@openagenda/react-shared';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+
 import submit from '../lib/submit';
 import merge from '../iso/merge';
 import labels from './lib/labels';
@@ -25,14 +27,30 @@ import monolingualizeSchema from './lib/monolingualizeSchema';
 import FieldPreview from './FieldPreview';
 import LabelLanguages from './LabelLanguages';
 import SaveButton from './SaveButton';
-import FieldAdd from './FieldAdd';
+import FieldAddModal from './FieldAddModal';
 import FieldEdit from './FieldEdit';
 
 const modes = {
+  DEFAULT: 0,
   ORDERING: 1,
   EDITLABELLANGUAGES: 2,
   ADDFIELD: 3
 };
+
+const getLabel = makeLabelGetter(labels);
+
+const FieldAddButton = ({ onClick, lang, disabled }) => (
+  <div className="text-center">
+    <button
+      disabled={disabled}
+      type="button"
+      className="btn btn-primary"
+      onClick={onClick}
+    >
+      {getLabel('addField', lang)}
+    </button>
+  </div>
+);
 
 export default class FormSchemaBuilder extends Component {
   constructor(props) {
@@ -102,8 +120,27 @@ export default class FormSchemaBuilder extends Component {
     this.setState({ editedField: null });
   }
 
-  onFieldAdd(addToEnd, field) {
-    this.updateSchema(addSchemaField(this.getSchema(), field, addToEnd));
+  onFieldAdd(field) {
+    const {
+      addToEnd
+    } = this.state;
+
+    const schemaWithAbstractFields = insertMissingAbstractFields(
+      this.getSchema(),
+      this.getMergedSchema()
+    );
+
+    this.updateSchema(
+      addSchemaField(
+        schemaWithAbstractFields,
+        field,
+        addToEnd
+      )
+    );
+
+    this.setState({
+      mode: modes.DEFAULT
+    });
   }
 
   onFieldEditSave(field, update, /* parentField */) {
@@ -195,17 +232,15 @@ export default class FormSchemaBuilder extends Component {
   }
 
   renderFieldListHead() {
-    const { labelLanguages } = this.state;
     const { lang, renderHead, addEnabled } = this.props;
 
     return (
       <div>{renderHead ? renderHead() : null} {addEnabled ? (
         <div className="padding-v-sm padding-h-sm">
-          <FieldAdd
+          <FieldAddButton
             disabled={this.isDisabled(modes.ADDFIELD)}
-            labelLanguages={labelLanguages}
             lang={lang}
-            onAdd={field => this.onFieldAdd(false, field)}
+            onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: false })}
           />
         </div>
       ) : null}
@@ -333,13 +368,20 @@ export default class FormSchemaBuilder extends Component {
             </DragDropContext>
             {addEnabled ? (
               <div className="padding-v-sm padding-h-sm">
-                <FieldAdd
+                <FieldAddButton
                   disabled={this.isDisabled(modes.ADDFIELD)}
-                  labelLanguages={labelLanguages}
                   lang={lang}
-                  onAdd={addedField => this.onFieldAdd(true, addedField)}
+                  onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: true })}
                 />
               </div>
+            ) : null}
+            {mode === modes.ADDFIELD ? (
+              <FieldAddModal
+                labelLanguages={labelLanguages}
+                lang={lang}
+                onAdd={addedField => this.onFieldAdd(addedField)}
+                onClose={() => this.setState({ mode: modes.DEFAULT })}
+              />
             ) : null}
           </div>
         </div>
