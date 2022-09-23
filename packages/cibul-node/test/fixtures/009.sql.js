@@ -74,7 +74,12 @@ raw.push(knex('reviewer').insert([
   require('./sql/members/06.json'), // uid 67, agenda uid 2, contributor
   require('./sql/members/07.json'),
   require('./sql/members/08.json'),
+  require('./sql/members/09.json'), // uid 6887, agenda uid 3, contributor
   require('./sql/members/lise.administrator.json') // uid 50073466, agenda 2, admin
+]));
+
+raw.push(knex('custom').insert([
+  require('./sql/custom/01.json'), // id 1, identifier 6887,
 ]));
 
 module.exports = raw.join(';\n') + ';';
