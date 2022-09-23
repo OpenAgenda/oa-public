@@ -1,6 +1,8 @@
 'use strict';
 
-const fs = require('fs');
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
+
+const load = loadObjectFromFile({ cwd: __dirname });
 
 const {
   knex,
@@ -61,17 +63,17 @@ raw.push(knex('review').insert([{
 }]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/50304.json'),
-  require('./sql/users/50300.json')
+  load('./sql/users/50304.json'),
+  load('./sql/users/50300.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 },
-  require('./sql/apiKeySets/02.json')
+  load('./sql/apiKeySets/01.json', { user_id: 50304 }),
+  load('./sql/apiKeySets/02.json')
 ]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/71386687.json')
+  load('./sql/members/71386687.json')
 ]));
 
 raw.push(knex('network').insert([{
@@ -92,7 +94,7 @@ raw.push(knex('location_set').insert([{
 
 raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({
   id,
-  store: fs.readFileSync(`${__dirname}/form-schemas/${id}.json`)
+  store: JSON.stringify(load(`./form-schemas/${id}.json`))
 }))));
 
-module.exports = raw.join(';\n') + ';';
+module.exports = `${raw.join(';\n')};`;
