@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import debug from 'debug';
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -39,6 +40,8 @@ const modes = {
 
 const getLabel = makeLabelGetter(labels);
 
+const log = debug('FormSchemaBuilder');
+
 const FieldAddButton = ({ onClick, lang, disabled }) => (
   <div className="text-center">
     <button
@@ -57,9 +60,10 @@ export default class FormSchemaBuilder extends Component {
     super(props);
 
     const mergedSchema = this.getMergedSchema(props);
+    const schema = props.schema?.fields ? props.schema : { fields: [] };
 
     const initState = {
-      schema: _.get(props, 'schema', { fields: [] }),
+      schema,
       labelLanguages: extractSchemaLabelLanguages(props.useExtendedLabelLanguages ? mergedSchema : props.schema),
       saveState: saveStates.UNCHANGED,
       editedField: null,
@@ -75,6 +79,8 @@ export default class FormSchemaBuilder extends Component {
 
     this.onFieldEditCancel = this.onFieldEditCancel.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+
+    log('builder for schema of %s fields, %s when merged', schema.fields.length, mergedSchema.fields.length);
   }
 
   onDragEnd({ source, destination }) {
@@ -125,10 +131,15 @@ export default class FormSchemaBuilder extends Component {
       addToEnd
     } = this.state;
 
+    const schema = this.getSchema();
+    const mergedSchema = this.getMergedSchema();
+
     const schemaWithAbstractFields = insertMissingAbstractFields(
-      this.getSchema(),
-      this.getMergedSchema()
+      schema,
+      mergedSchema
     );
+
+    log('adding field on schema of %s fields, %s when merged', schema.fields.length, mergedSchema.fields.length);
 
     this.updateSchema(
       addSchemaField(
