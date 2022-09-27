@@ -7982,7 +7982,7 @@ __metadata:
     cors: ^2.8.5
     css-loader: ^3.4.2
     css-minimizer-webpack-plugin: ^2.0.0
-    debug: ^3.2.6
+    debug: ^4.1.1
     eslint: ^6.8.0
     express: ^4.17.1
     hbs: ^4.1.0
@@ -8495,7 +8495,7 @@ __metadata:
     core-js: ^3.10.2
     create-react-class: ^15.5.2
     d3: 3.5.6
-    debug: ^3.2.6
+    debug: ^4.1.1
     deep-extend: 0.6.0
     ejs: 2.4.2
     ejs-compiled-loader-webpack4: ^2.2.0
@@ -9334,7 +9334,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:public/logs"
   dependencies:
-    debug: ^3.2.6
+    debug: ^4.1.1
     jest: ^26.1.0
     lodash: ^4.17.15
     r7insight_node: ^1.8.1
@@ -18824,7 +18824,7 @@ __metadata:
     body-parser: ^1.19.0
     concurrently: ^7.3.0
     date-fns: ^2.16.1
-    debug: ^3.2.6
+    debug: ^4.1.1
     dedent: ^0.7.0
     deep-diff: ^1.0.2
     exceljs: ^4.3.0
