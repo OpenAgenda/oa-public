@@ -388,6 +388,7 @@ export default class FormSchemaBuilder extends Component {
             ) : null}
             {mode === modes.ADDFIELD ? (
               <FieldAdd
+                schema={mergedSchema}
                 labelLanguages={labelLanguages}
                 lang={lang}
                 onAdd={addedField => this.onFieldAdd(addedField)}

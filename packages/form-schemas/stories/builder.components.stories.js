@@ -34,11 +34,25 @@ export function ChooseFieldTypeStory() {
 }
 
 export function FieldAddStory() {
+  const consolidatedSchema = {
+    fields: [{
+      field: 'one',
+      label: 'One',
+      fieldType: 'text'
+    }, {
+      field: 'two',
+      label: 'Two',
+      fieldType: 'integer'
+    }]
+  };
+
   return (
     <>
       <div className="col-lg-offset-2 col-lg-4 wsq">
+        <p>Type <i>One</i> as field name to see duplicate detection happen</p>
         <FieldAdd
-          modal
+          modal={false}
+          schema={consolidatedSchema}
           labelLanguages={['fr', 'en']}
           lang="fr"
           onAdd={() => {}}
