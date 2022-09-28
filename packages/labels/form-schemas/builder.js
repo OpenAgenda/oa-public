@@ -2,7 +2,7 @@
 
 module.exports = {
   "addField": {
-    "fr": "Ajouter un champ",
+    "fr": "Nouveau champ additionnel",
     "en": "Add a field",
     "es": "Agregar campo",
     "it": "Aggiungere un campo",
@@ -495,11 +495,19 @@ module.exports = {
     "io": "crwdns14808:0crwdne14808:0"
   },
   "chooseFieldType": {
-    "fr": "Sélection du type du champ",
-    "en": "Select the type of the field",
+    "fr": "Type du champ",
+    "en": "Field type",
     "es": "Al seleccionar el tipo de campo",
     "it": "Selezione del tipo di campo",
     "io": "crwdns14810:0crwdne14810:0"
+  },
+  "chooseFieldTypePlaceholder": {
+    "fr": "Choisissez un type de champ",
+    "en": "Choose a field type"
+  },
+  "chooseOtherType": {
+    "fr": "Choisir un autre type",
+    "en": "Choose another type"
   },
   "confirmFieldType": {
     "fr": "Configurer le champ",
