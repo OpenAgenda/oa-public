@@ -509,6 +509,10 @@ module.exports = {
     "fr": "Choisir un autre type",
     "en": "Choose another type"
   },
+  "isLabelDuplicateError": {
+    "fr": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
+    "en": "The title for this field is already taken by another of the form. Modify it before trying to add it again."
+  },
   "confirmFieldType": {
     "fr": "Configurer le champ",
     "en": "Configure the field",

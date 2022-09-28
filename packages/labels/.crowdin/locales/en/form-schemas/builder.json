@@ -72,6 +72,7 @@
   "chooseFieldType": "Field type",
   "chooseFieldTypePlaceholder": "Choose a field type",
   "chooseOtherType": "Choose another type",
+  "isLabelDuplicateError": "The title for this field is already taken by another of the form. Modify it before trying to add it again.",
   "confirmFieldType": "Configure the field",
   "confirmFieldCreate": "Create the field",
   "confirmFieldUpdate": "Update",

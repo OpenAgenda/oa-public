@@ -72,6 +72,7 @@
   "chooseFieldType": "Type du champ",
   "chooseFieldTypePlaceholder": "Choisissez un type de champ",
   "chooseOtherType": "Choisir un autre type",
+  "isLabelDuplicateError": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
   "confirmFieldType": "Configurer le champ",
   "confirmFieldCreate": "Créer le champ",
   "confirmFieldUpdate": "Modifier",
