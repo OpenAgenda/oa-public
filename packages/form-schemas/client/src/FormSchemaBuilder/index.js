@@ -62,15 +62,15 @@ export default class FormSchemaBuilder extends Component {
 
   onAccordionToggle(fieldIndex) {
     const {
-      activeIndex
+      activeFieldName
     } = this.state;
 
-    const isOpen = activeIndex === fieldIndex;
+    const isOpen = activeFieldName === fieldIndex;
 
     if (isOpen) {
-      this.setState({ activeIndex: -1 });
+      this.setState({ activeFieldName: -1 });
     } else {
-      this.setState({ activeIndex: fieldIndex });
+      this.setState({ activeFieldName: fieldIndex });
     }
   }
 
@@ -245,7 +245,7 @@ export default class FormSchemaBuilder extends Component {
       saveState,
       mode,
       schema,
-      activeIndex
+      activeFieldName
     } = this.state;
 
     const mergedSchema = this.getMergedSchema();
@@ -338,8 +338,8 @@ export default class FormSchemaBuilder extends Component {
                               onHide={() => this.onFieldEditSave(field, { display: false })}
                               onShow={() => this.onFieldEditSave(field, { display: true })}
                               onRemove={() => this.onFieldRemove(field)}
-                              onAccordionToggle={() => this.onAccordionToggle(index)}
-                              active={activeIndex === index}
+                              onAccordionToggle={() => this.onAccordionToggle(field.field)}
+                              active={activeFieldName === field.field}
                             />
                           </div>
                         )}
