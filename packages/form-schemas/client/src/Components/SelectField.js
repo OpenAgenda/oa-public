@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { ReactSelectInput } from '@openagenda/react-shared';
+import classNames from 'classnames';
 
 import labels from '@openagenda/labels/form-schemas/index';
 import flattenLabels from '@openagenda/labels/flatten';
@@ -34,16 +35,6 @@ const getCurrentValue = ({ isFresh, field, value }) => {
     return getSelectOptions(field, { value: field.default });
   }
 };
-
-/* function Option({ innerProps, ...props }) {
-  const onClick = e => {
-    e.nativeEvent.stopImmediatePropagation();
-    innerProps.onClick(e);
-  };
-
-  props.innerProps = { ...innerProps, onClick };
-  return <components.Option {...props} />;
-} */
 
 const Option = props => {
   const {
@@ -80,7 +71,7 @@ const Option = props => {
       {...innerProps}
     >
       <div>{label}</div>
-      {info && <div className={cx({ 'text-muted': !isSelected })}>{info}</div>}
+      {info && <div className={classNames({ 'text-muted': !isSelected })}>{info}</div>}
     </div>
   );
 };

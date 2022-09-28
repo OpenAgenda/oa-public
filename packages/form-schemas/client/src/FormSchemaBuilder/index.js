@@ -28,7 +28,7 @@ import monolingualizeSchema from './lib/monolingualizeSchema';
 import FieldPreview from './FieldPreview';
 import LabelLanguages from './LabelLanguages';
 import SaveButton from './SaveButton';
-import FieldAddModal from './FieldAddModal';
+import FieldAdd from './FieldAdd';
 import FieldEdit from './FieldEdit';
 
 const modes = {
@@ -387,7 +387,7 @@ export default class FormSchemaBuilder extends Component {
               </div>
             ) : null}
             {mode === modes.ADDFIELD ? (
-              <FieldAddModal
+              <FieldAdd
                 labelLanguages={labelLanguages}
                 lang={lang}
                 onAdd={addedField => this.onFieldAdd(addedField)}

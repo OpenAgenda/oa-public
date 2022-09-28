@@ -2,6 +2,8 @@ import React from 'react';
 
 import FormSchemaComponent from '../client/src/index';
 import Options from '../client/src/FormSchemaBuilder/Options';
+import FieldAdd from '../client/src/FormSchemaBuilder/FieldAdd';
+import ChooseFieldType from '../client/src/FormSchemaBuilder/ChooseFieldType';
 import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
 import SimpleRowDecorator from './decorators/SimpleRow';
 
@@ -9,6 +11,43 @@ export default {
   title: 'Form builder components',
   decorators: [SimpleRowDecorator],
 };
+
+export function ChooseFieldTypeStory() {
+  return (
+    <>
+      <div className="col-lg-offset-2 col-lg-4 wsq">
+        <p>When the choice is not made</p>
+        <ChooseFieldType
+          lang="fr"
+          onChange={() => {}}
+        />
+
+        <p className="margin-top-md">When the choice is made</p>
+        <ChooseFieldType
+          value="radio"
+          lang="fr"
+          onChange={() => {}}
+        />
+      </div>
+    </>
+  );
+}
+
+export function FieldAddStory() {
+  return (
+    <>
+      <div className="col-lg-offset-2 col-lg-4 wsq">
+        <FieldAdd
+          modal
+          labelLanguages={['fr', 'en']}
+          lang="fr"
+          onAdd={() => {}}
+          onClose={() => {}}
+        />
+      </div>
+    </>
+  );
+}
 
 export function OptionsStory() {
   const cases = {
