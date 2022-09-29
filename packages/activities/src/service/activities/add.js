@@ -78,18 +78,21 @@ const fieldsSchema = [
   },
 ];
 
-async function addActivityToFeed(config, { activity, targetFeed, originFeed, follow }) {
+async function getActivityMask(config, { activity, targetFeed, originFeed, follow }) {
   const maskFn = config.activities[activity.verb]?.mask;
 
+  return maskFn
+    ? await maskFn({ activity, targetFeed, originFeed, follow, config })
+    : null;
+}
+
+async function addActivityToFeed(config, { activity, targetFeed, mask }) {
   const row = {
     feed_id: targetFeed.id,
     activity_id: activity.id,
   };
 
-  if (maskFn) {
-    const maskValue = await maskFn({ activity, targetFeed, originFeed, follow, config });
-    row.mask = maskValue ? JSON.stringify(maskValue) : null;
-  }
+  row.mask = mask ? JSON.stringify(mask) : null;
 
   return config.knex(config.schemas.feed_activity).insert(row);
 }
@@ -148,9 +151,10 @@ async function add(config) {
   const feedContainsActivity = [];
 
   for (const feed of feeds) {
-    await addActivityToFeed(config, { activity, targetFeed: feed });
+    const mask = await getActivityMask(config, { activity, targetFeed: feed });
+    await addActivityToFeed(config, { activity, targetFeed: feed, mask });
     feedContainsActivity.push(feed);
-    await service.feed(feed).notifications.addActivity(activity);
+    await service.feed(feed).notifications.addActivity(_.omit(activity, mask));
   }
 
   let followers = feeds.flatMap(v => v.followedBy);
@@ -189,9 +193,10 @@ async function add(config) {
       }
 
       if (allowedFollow) {
-        await addActivityToFeed(config, { activity, targetFeed, originFeed, follow: follower });
+        const mask = await getActivityMask(config, { activity, targetFeed, originFeed, follow: follower });
+        await addActivityToFeed(config, { activity, targetFeed, mask });
         feedContainsActivity.push(follower);
-        await service.feed(follower.targetFeed).notifications.addActivity(activity);
+        await service.feed(follower.targetFeed).notifications.addActivity(_.omit(activity, mask));
       }
     }
 
