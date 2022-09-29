@@ -4,7 +4,6 @@ const _ = require('lodash');
 const VError = require('verror');
 const log = require('@openagenda/logs')('activities/notifications/tasks/addActivity');
 const queue = require('@openagenda/queue');
-const groupBy = require('../lib/groupBy');
 
 module.exports = config => {
   const q = queue(config.queue.names.addActivity, { redis: config.queue.redis });
