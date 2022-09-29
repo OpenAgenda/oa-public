@@ -106,7 +106,8 @@ export default class FieldForm extends Component {
       actionComponent,
       customFieldConfigurationSchemas, // new
       components, // new
-      parentsField
+      parentsField,
+      enable = true
     } = this.props;
     const { values, errors } = this.state;
 
@@ -118,6 +119,12 @@ export default class FieldForm extends Component {
       schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
       parentsField
     );
+
+    if (!enable) {
+      schema.fields.forEach(f => {
+        f.enable = false;
+      });
+    }
 
     const customs = components ? Object.keys(components).reduce((prev, curr) => ({ ...prev, [curr]: passValidator }), {}) : null;
     schema.custom = {

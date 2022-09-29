@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
-import FormSchemaComponent from '../client/src/index';
-import Options from '../client/src/FormSchemaBuilder/Options';
-import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
+
 import SimpleRowDecorator from './decorators/SimpleRow';
-import eventLikeSchema from './fixtures/eventLikeSchema.json';
-import schemaWithCategories from './fixtures/schemaWithCategories.json';
-import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json';
+import eventLikeSchema from './fixtures/eventLikeSchema';
+import schemaWithCategories from './fixtures/schemaWithCategories';
+import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas';
 
 export default {
   title: 'Form builder',
@@ -14,13 +12,15 @@ export default {
 };
 
 export function StandardBuilderConfigurationExample() {
-  const schema = {
+  const initialSchema = {
     fields: [{
       field: 'myfield',
       fieldType: 'text',
       label: { fr: 'Mon champ' }
     }]
   };
+
+  const [schema, setSchema] = useState(initialSchema);
 
   const extensions = [{
     schema: eventLikeSchema,
@@ -36,32 +36,34 @@ export function StandardBuilderConfigurationExample() {
     }
   }];
 
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
-
   return (
     <div className="container top-margined">
       <div className="row margin-v-md">
         <div className="col-sm-9">
-          <div>
-            <FormSchemaBuilder
-              maxFields={2}
-              editableExtensions
-              lang="fr"
-              addEnabled
-              settingsEnabled
-              devState={{
-                // editedField: 'title'
-              }}
-              schema={schema}
-              extendedFrom={extensions}
-              onUpdate={onUpdate}
-              renderHead={() => (
-                <span className="padding-all-sm">This goes on top of the builder</span>
-              )}
-            />
-          </div>
+          <FormSchemaBuilder
+            maxFields={2}
+            editableExtensions
+            lang="fr"
+            addEnabled
+            settingsEnabled
+            devState={{
+              // editedField: 'title'
+            }}
+            schema={schema}
+            extendedFrom={extensions}
+            onUpdate={updated => setSchema(updated)}
+            renderHead={() => (
+              <span className="padding-all-sm">This goes on top of the builder</span>
+            )}
+          />
+        </div>
+        <div className="col-ms-3">
+          <p>Updated schema:</p>
+          <pre>
+            <code>
+              {JSON.stringify(schema, null, 2)}
+            </code>
+          </pre>
         </div>
       </div>
     </div>
@@ -103,283 +105,6 @@ export function TroubleshootMonolingual() {
             <code>{JSON.stringify(schema, null, 2)}
             </code>
           </pre>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const cases = {
-  empty: {
-    comment: 'When no values have been defined',
-    props: {
-      components: {
-        options: Options
-      },
-      lang: 'fr',
-      values: {
-        optionsfield: []
-      },
-      schema: {
-        custom: {
-          options: optionsValidator
-        },
-        fields: [{
-          field: 'optionsfield',
-          fieldType: 'options',
-          label: 'Option values',
-          labelLanguages: ['fr', 'en'],
-          optional: false
-        }]
-      }
-    }
-  },
-  adding: {
-    comment: 'When add button has been clicked',
-    props: {
-      components: {
-        options: Options
-      },
-      lang: 'fr',
-      values: {
-        optionsfield: []
-      },
-      schema: {
-        custom: {
-          options: optionsValidator
-        },
-        fields: [{
-          field: 'optionsfield',
-          fieldType: 'options',
-          label: 'Option values',
-          labelLanguages: ['fr', 'en'],
-          optional: false,
-          devInitState: {
-            mode: 0
-          }
-        }]
-      }
-    }
-  },
-  withOptions: {
-    comment: 'When component is showing the goods',
-    props: {
-      components: {
-        options: Options
-      },
-      lang: 'fr',
-      values: {
-        optionsfield: [{
-          id: 1,
-          value: 'un',
-          label: {
-            fr: 'Un',
-            en: 'One'
-          }
-        }, {
-          id: 2,
-          value: 'deux',
-          label: {
-            fr: 'Deux',
-            en: 'Two'
-          }
-        }, {
-          id: 3,
-          value: 'trois',
-          label: {
-            fr: 'Trois',
-            en: 'Three'
-          }
-        }]
-      },
-      schema: {
-        custom: {
-          options: optionsValidator
-        },
-        fields: [{
-          field: 'optionsfield',
-          fieldType: 'options',
-          label: 'Option values',
-          labelLanguages: ['fr', 'en'],
-          optional: false
-        }]
-      }
-    }
-  },
-  withEditedOption: {
-    comment: 'When an option is being edited',
-    props: {
-      components: {
-        options: Options
-      },
-      lang: 'fr',
-      values: {
-        optionsfield: [{
-          id: 1,
-          value: 'un',
-          label: {
-            fr: 'Un',
-            en: 'One'
-          }
-        }, {
-          id: 2,
-          value: 'deux',
-          label: {
-            fr: 'Deux',
-            en: 'Two'
-          }
-        }, {
-          id: 3,
-          value: 'trois',
-          label: {
-            fr: 'Trois',
-            en: 'Three'
-          }
-        }]
-      },
-      schema: {
-        custom: {
-          options: optionsValidator
-        },
-        fields: [{
-          field: 'optionsfield',
-          fieldType: 'options',
-          label: 'Option values',
-          labelLanguages: ['fr', 'en'],
-          optional: false,
-          devInitState: {
-            mode: 1,
-            editedIndex: 1
-          }
-        }]
-      }
-    }
-  },
-  dragging: {
-    comment: 'After the ordering button is clicked',
-    props: {
-      components: {
-        options: Options
-      },
-      lang: 'fr',
-      values: {
-        optionsfield: [{
-          id: 1,
-          value: 'un',
-          label: {
-            fr: 'Un',
-            en: 'One'
-          }
-        }, {
-          id: 2,
-          value: 'deux',
-          label: {
-            fr: 'Deux',
-            en: 'Two'
-          }
-        }, {
-          id: 3,
-          value: 'trois',
-          label: {
-            fr: 'Trois',
-            en: 'Three'
-          }
-        }]
-      },
-      schema: {
-        custom: {
-          options: optionsValidator
-        },
-        fields: [{
-          field: 'optionsfield',
-          fieldType: 'options',
-          label: 'Option values',
-          labelLanguages: ['fr', 'en'],
-          optional: false,
-          devInitState: {
-            mode: 2
-          }
-        }]
-      }
-    }
-  },
-  monolingual: {
-    comment: 'When no values have been defined',
-    props: {
-      components: {
-        options: Options
-      },
-      lang: 'fr',
-      values: {
-        optionsfield: []
-      },
-      schema: {
-        custom: {
-          options: optionsValidator
-        },
-        fields: [{
-          field: 'optionsfield',
-          fieldType: 'options',
-          label: 'Option values',
-          optional: false
-        }]
-      }
-    }
-  }
-};
-
-export function OptionsStory() {
-  const {
-    empty, adding, withOptions, withEditedOption, dragging, monolingual
-  } = cases;
-  return (
-    <div className="container top-margined">
-      <div className="col-sm-4">
-        <div className="text-center margin-v-md">
-          <strong>{empty.comment}</strong>
-        </div>
-        <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...empty.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
-        </div>
-      </div>
-      <div className="col-sm-4">
-        <div className="text-center margin-v-md">
-          <strong>{adding.comment}</strong>
-        </div>
-        <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...adding.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
-        </div>
-      </div>
-      <div className="col-sm-4">
-        <div className="text-center margin-v-md">
-          <strong>{withOptions.comment}</strong>
-        </div>
-        <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...withOptions.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
-        </div>
-      </div>
-      <div className="col-sm-4">
-        <div className="text-center margin-v-md">
-          <strong>{withEditedOption.comment}</strong>
-        </div>
-        <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...withEditedOption.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
-        </div>
-      </div>
-      <div className="col-sm-4">
-        <div className="text-center margin-v-md">
-          <strong>{dragging.comment}</strong>
-        </div>
-        <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...dragging.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
-        </div>
-      </div>
-      <div className="col-sm-4">
-        <div className="text-center margin-v-md">
-          <strong>{monolingual.comment}</strong>
-        </div>
-        <div className="padding-all-sm margin-all-sm wsq">
-          <FormSchemaComponent {...monolingual.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
         </div>
       </div>
     </div>

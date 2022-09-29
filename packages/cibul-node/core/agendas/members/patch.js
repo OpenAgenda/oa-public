@@ -1,17 +1,23 @@
 'use strict';
 
 const _ = require('lodash');
-const { Forbidden, BadRequest } = require('@openagenda/verror');
+const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
+const getMemberSchema = require('../utils/getMemberSchema');
+const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
 const canEdit = require('./lib/canEdit');
 
 module.exports = async (services, agendaOrUid, identifiers, data, options = {}) => {
   const {
-    members
+    members,
+    custom
   } = services;
 
   const {
-    userUid: actingUserUid
+    userUid: actingUserUid,
+    access
   } = options;
 
   if (!actingUserUid) {
@@ -20,13 +26,9 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
+  const agenda = await getAgenda(services, agendaUid, { detailed: true });
+
   const patchData = {};
-
-  const custom = format.custom(data);
-
-  if (Object.keys(custom).length) {
-    patchData.custom = custom;
-  }
 
   const member = await members.get({
     agendaUid,
@@ -49,15 +51,42 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
+  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
+  let cleanMemberData = null;
 
-  return members.patch(member.id, patchData, {
-    throwOnError: true,
-    requireCustom: false,
-    context: {
-      sender: {
-        userUid: actingUserUid,
-        memberName: actingMember?.custom?.contactName,
-      }
+  try {
+    const validate = new FormSchema(schemas.merged).getValidate();
+    cleanMemberData = validate(data);
+  } catch (error) {
+    throw new BadRequest({
+      info: { error }
+    }, 'data is invalid');
+  }
+
+  const customData = format.custom(data);
+
+  if (Object.keys(customData).length) {
+    patchData.custom = customData;
+  }
+
+  try {
+    if (schemas.agendaSchema) {
+      const dispatchedData = dispatchDataPerSchemas(cleanMemberData, [schemas.schema, schemas.agendaSchema]);
+      await custom(agenda.memberSchemaId).set(member.userUid, dispatchedData[1]);
     }
-  }).then(result => format(members, result.member));
+    await members.patch(member.id, patchData, {
+      throwOnError: true,
+      requireCustom: false,
+      context: {
+        sender: {
+          userUid: actingUserUid,
+          memberName: actingMember?.custom?.contactName
+        }
+      }
+    });
+  } catch (error) {
+    throw new GeneralError(error, 'something went wrong');
+  }
+
+  return { ...cleanMemberData };
 };

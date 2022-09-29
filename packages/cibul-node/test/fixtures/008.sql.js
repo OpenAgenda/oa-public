@@ -43,7 +43,7 @@ raw.push(knex('review').insert([{
   official: 0,
   credentials: '{}',
   form_schema_id: 3,
-  settings: JSON.stringify({})
+  settings: JSON.stringify({}),
 }, {
   id: 220,
   uid: 92983929,
@@ -59,7 +59,8 @@ raw.push(knex('review').insert([{
   form_schema_id: 6,
   network_uid: 1234,
   location_set_uid: 4321,
-  settings: JSON.stringify({})
+  settings: JSON.stringify({}),
+  member_schema_id: 8
 }, {
   id: 221,
   uid: 78971487,
@@ -109,7 +110,7 @@ raw.push(knex('location_set').insert([{
   updated_at: new Date()
 }]));
 
-raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({
+raw.push(knex('form_schema').insert([2, 5, 6, 8].map(id => ({
   id,
   store: JSON.stringify(load(`./form-schemas/${id}.json`))
 }))));

@@ -10,7 +10,7 @@ const storePrefix = 'inactiveUsers:';
 const inactiveTime = ((365 * 3) - 30) * 24 * 60 * 60 * 1000;
 const storeExpire = 60 * 60 * 24 * 30 * 2; // 2 months
 const limit = 100;
-const maxHandledUsers = 1000;
+const maxHandledUsers = 3000;
 
 async function sendEmail(services, user, template, options = {}) {
   const {

@@ -3,7 +3,7 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   options: {
     storySort: {
-      order: ['Getting started', 'Field types', 'Displaying errors', 'Other']
+      order: ['Getting started', 'Field types', 'Displaying errors', 'Other', 'Form builder components', 'Form builder']
     }
   }
 };

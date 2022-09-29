@@ -168,6 +168,7 @@ describe('agendas - unit (server): validate', () => {
         indexed: true,
         ownerId: 1,
         formSchemaId: null,
+        memberSchemaId: null,
         networkUid: null,
         locationSetUid: null,
         settings: {

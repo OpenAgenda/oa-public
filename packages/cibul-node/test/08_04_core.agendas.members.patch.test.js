@@ -10,11 +10,12 @@ const testConfig = require('./testConfig');
 
 describe('08 - core - functional (server): core.agendas().members.patch', () => {
   let core;
+  let services
 
   beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    services = await Services(testConfig, {
       enabled: [
         'knex',
         'redis',
@@ -67,6 +68,36 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         contact_number: '01',
         contact_position: 'Gardienne',
         email: 'jan@ee.ne'
+      });
+    });
+
+    it('basic patch with custom fields', async () => {
+      await core.agendas({ uid: 3 }).members.patch(1, {
+        name: 'Jam',
+        phone: '02',
+        position: 'Gardien',
+        email: 'jam@ee.ne',
+        organization: 'Ponceau Corp',
+        num_orga: '30org'
+      }, {
+        userUid: 1
+      });
+
+      const result = await core.services.knex('reviewer').first()
+        .where({
+          agenda_uid: 3,
+          user_uid: 1
+        }).then(r => JSON.parse(r.store).custom_fields);
+
+      const custom = await core.services.custom(8).get(1);
+      expect(custom.num_orga).toBe('30org');
+
+      expect(result).toEqual({
+        organization: 'Ponceau Corp',
+        contact_name: 'Jam',
+        contact_number: '02',
+        contact_position: 'Gardien',
+        email: 'jam@ee.ne'
       });
     });
   });

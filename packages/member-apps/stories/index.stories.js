@@ -24,6 +24,7 @@ const getDefaultState = () => ({
     resend: '/:slug/admin/members/:id/invite/resend',
     exportToCsv: '/:slug/admin/members.csv',
     exportToXlsx: '/:slug/admin/members.xlsx',
+    getSchema: '/api/agenda/:agendaUid/settings/memberSchema',
   },
   members: {},
   modals: {},

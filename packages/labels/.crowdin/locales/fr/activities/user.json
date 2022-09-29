@@ -26,6 +26,7 @@
   "event.updateWithLotOfChanges": "{user} a mis à jour {event} sur {agenda} ({fieldsCount} champs).",
   "event.delete": "{user} a supprimé {event} sur {agenda}.",
   "activities": "Activités",
+  "history": "Historique",
   "next": "Suivant",
   "noActivity": "Vos activités s'afficheront ici.",
   "unknownActivity": "Libellé d'activité manquant pour {verb}"
