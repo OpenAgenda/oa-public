@@ -11,11 +11,12 @@ const testConfig = require('./testConfig');
 
 describe('08 - core - functional (server): core.agendas().members.create', () => {
   let core;
+  let services;
 
   beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    services = await Services(testConfig, {
       enabled: [
         'knex',
         'redis',
@@ -73,6 +74,34 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       });
 
       expect(member.role).toBe('contributor');
+    });
+
+    it('admin can add contributor with values to custom fields', async () => {
+      await core.agendas({ uid: 3 }).members.create(50300, 'contributor', {
+        name: 'JayBee',
+        organization: 'thingy',
+        position: 'boss',
+        email: 'my@mail.com',
+        num_orga: '30org'
+      }, {
+        userUid: 1 // actingUserIid
+      });
+      const custom = await services.custom(8).get(50300);
+      const member = await services.members.get({ agendaUid: 3, userUid: 50300 });
+      expect({ customValue: custom.num_orga, memberName: member.custom.contactName }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
+    });
+
+    it('admin can add admin with values to custom fields', async () => {
+      await core.agendas({ uid: 3 }).members.create(9090, 'administrator', {
+        name: 'JayBee',
+        organization: 'thingy',
+        num_orga: '30org'
+      }, {
+        userUid: 1 // actingUserUid
+      });
+      const custom = await services.custom(8).get(50300);
+      const member = await services.members.get({ agendaUid: 3, userUid: 50300 });
+      expect({ customValue: custom.num_orga, memberName: member.custom.contactName }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
     });
   });
 

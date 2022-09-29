@@ -249,6 +249,11 @@
     "optional": true,
     "default": null
   },
+  "memberSchemaId": {
+    "type": "integer",
+    "optional": true,
+    "default": null
+  },
   "officializedAt": {
     "type": "date",
     "default": null

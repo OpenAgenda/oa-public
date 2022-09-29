@@ -34,6 +34,9 @@ const CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
 const SEND_MESSAGE = 'member-apps/members/SEND_MESSAGE';
 const SEND_MESSAGE_SUCCESS = 'member-apps/members/SEND_MESSAGE_SUCCESS';
 const SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
+const GET_SCHEMA = 'member-apps/members/GET_SCHEMAS';
+const GET_SCHEMA_SUCCESS = 'member-apps/members/GET_SCHEMAS_SUCCESS';
+const GET_SCHEMA_FAIL = 'member-apps/members/GET_SCHEMAS_FAIL';
 
 const initialState = {
   loaded: false,
@@ -71,6 +74,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         stats: action.result,
+      };
+    case GET_SCHEMA_SUCCESS:
+      return {
+        ...state,
+        schema: action.result.merged,
       };
     case LIST:
       return {
@@ -249,6 +257,16 @@ export function getStats(agenda) {
       const { res } = getState();
 
       return client.get(res.stats.replace(':slug', agenda.slug));
+    },
+  };
+}
+
+export function getSchema(agenda) {
+  return {
+    types: [GET_SCHEMA, GET_SCHEMA_SUCCESS, GET_SCHEMA_FAIL],
+    promise: ({ client }, { getState }) => {
+      const { res } = getState();
+      return client.get(res.getSchema.replace(':agendaUid', agenda.uid));
     },
   };
 }

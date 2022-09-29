@@ -71,6 +71,25 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
       expect(member.name).toEqual('Jan');
     });
+
+    it('basic get with custom values', async () => {
+      const member = await core.agendas({ uid: 3 }).members.get(6887, {
+        userUid: 1
+      });
+
+      expect(member).toEqual({
+        deletedUser: false,
+        name: 'Constance',
+        phone: null,
+        email: 'con@stance.com',
+        position: null,
+        organization: null,
+        role: 'contributor',
+        updatedAt: new Date('2017-10-30T13:21:07.000Z'),
+        userUid: 6887,
+        num_orga: '30org'
+      });
+    });
   });
 
   describe('unauthorized', () => {

@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   title VARCHAR(255) NOT NULL,
   owner_id BIGINT NOT NULL,
   form_schema_id BIGINT,
+  member_schema_id BIGINT,
   network_uid BIGINT,
   location_set_uid BIGINT,
   slug VARCHAR(255) NOT NULL UNIQUE,

@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 import MemberForm from '../components/MemberForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import useAgendaContext from '../hooks/useAgendaContext';
+import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import usePrefix from '../hooks/usePrefix';
 import steps from '../lib/steps';
 import contributeReducer from '../reducers/contribute';
@@ -33,6 +34,11 @@ export default function Member({
   const dispatch = useDispatch();
 
   const {
+    detailedAgendaIsLoading,
+    detailedAgenda
+  } = useDetailedAgenda(agenda.uid);
+
+  const {
     agendaContextIsLoading,
     agendaContext
   } = useAgendaContext(agenda.uid, 'Member');
@@ -46,6 +52,10 @@ export default function Member({
     return <Loading />;
   }
 
+  if (detailedAgendaIsLoading) {
+    return <Loading />;
+  }
+
   return (
     <CanvasWithStepper
       mode="create"
@@ -54,7 +64,7 @@ export default function Member({
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
-            agenda={agenda}
+            agenda={detailedAgenda}
             member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {

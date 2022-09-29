@@ -80,7 +80,8 @@ module.exports = core => {
     includeEvent: true,
     detailed: req.query.detailed,
     private: req.member ? null : false,
-    includeNonDataFields: req.query.includeNonDataFields === '1'
+    includeNonDataFields: req.query.includeNonDataFields === '1',
+    includeMemberSchema: req.query.includeMemberSchema
   }).catch(next)));
 
   app.post('/agendas/:agendaUid/events',
@@ -146,6 +147,12 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     settings.get
+  ]);
+
+  app.get('/agendas/:agendaUid/settings/memberSchema', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid })
+      .then(data => res.json({ ...data }), next)
   ]);
 
   app.get('/agendas/:agendaUid/members', [
