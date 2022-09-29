@@ -5,8 +5,12 @@ import classNames from 'classnames';
 import moment from 'moment';
 import sessions from '@openagenda/sessions/client';
 import { Spinner, useApiClient } from '@openagenda/react-shared';
-import { getSupportedLocale } from '@openagenda/intl';
+import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
+import commonLocales from '@openagenda/common-labels';
 import notifications from '../../notifications';
+import appLocales from '../../locales-compiled';
+
+const locales = mergeLocales(appLocales, commonLocales);
 
 const ucfirst = s => s[0].toUpperCase() + s.substring(1);
 
@@ -280,7 +284,7 @@ export default function Notifications({ user, activitiesConfig, locale }) {
     <IntlProvider
       key={locale}
       locale={locale}
-      messages={{}}
+      messages={locales[locale]}
       defaultLocale={getSupportedLocale(locale)}
     >
       <li className="notifications">

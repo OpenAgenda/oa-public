@@ -6,7 +6,7 @@ import formatState from '../utils/formatState';
 import formatRole from '../utils/formatRole';
 import createFormatActivity from '../utils/formatActivity';
 import messages from '../messages/activities';
-
+import useSsr from '../hooks/useSSR';
 
 
 function getDiffFields(activity) {
@@ -91,12 +91,14 @@ export default function ActivityItem({ config, activity }) {
     [config],
   );
 
+  const { isBrowser } = useSsr();
+
   return (
     <li>
       <span className="activity-info activity-item">
         {formatActivity(activity)}
       </span>
-      <span className="activity-time">
+      <span className="activity-time" style={{ visibility: isBrowser ? 'visible' : 'hidden' }}>
         <FormattedDate value={activity.createdAt} dateStyle="long" timeStyle="short" />
       </span>
     </li>

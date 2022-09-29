@@ -11,20 +11,20 @@ const formatRole = require('./client/utils/formatRole');
 const subjectTypeLabels = defineMessages({
   user: {
     id: 'ActivityApps.notifications.user',
-    defaultMessage: '{others, plural, =0 {{user}} one {{user} and 1 other user} other {{user} and {others} other users}}'
+    defaultMessage: '{others, plural, =0 {{user}} one {{user} and 1 other user} other {{user} and {others} other users}}',
   },
   agenda: {
     id: 'ActivityApps.notifications.agenda',
-    defaultMessage: '{others, plural, =0 {{agenda}} one {{agenda} and 1 other agenda} other {{agenda} and {others} other agendas}}'
+    defaultMessage: '{others, plural, =0 {{agenda}} one {{agenda} and 1 other agenda} other {{agenda} and {others} other agendas}}',
   },
   event: {
     id: 'ActivityApps.notifications.event',
-    defaultMessage: '{others, plural, =0 {{event}} one {{event} and 1 other event} other {{event} and {others} other events}}'
+    defaultMessage: '{others, plural, =0 {{event}} one {{event} and 1 other event} other {{event} and {others} other events}}',
   },
   email: {
     id: 'ActivityApps.notifications.email',
-    defaultMessage: '{others, plural, =0 {{email}} one {{email} and 1 other} other {{email} and {others} others}}'
-  }
+    defaultMessage: '{others, plural, =0 {{email}} one {{email} and 1 other} other {{email} and {others} others}}',
+  },
 });
 
 function isAdminMod(role) {
@@ -42,10 +42,10 @@ function getGroupBy(notification) {
 function getSubjectsProps(notification) {
   return ['actor', 'object', 'target'].reduce((accu, columnName) => {
     if (!notification.store[columnName]?.length) {
-      return result;
+      return accu;
     }
 
-    const columnStore = notification.store[columnName]// array like with 0 and length keys
+    const columnStore = notification.store[columnName];// array like with 0 and length keys
     const [type, firstUid] = columnStore[0].split(':');
     const counter = columnStore.length;
     const label = notification.store.labels[columnName];
@@ -66,7 +66,7 @@ function getSubjects(intl, notification, subjectsProps) {
 
   return ['actor', 'object', 'target'].reduce((accu, columnName) => {
     if (!subjectsProps[columnName]) {
-      return result;
+      return accu;
     }
 
     const { type, label, counter } = subjectsProps[columnName];
@@ -122,7 +122,7 @@ function formatUrl(url, subjectsProps) {
 function getLabelValues(intl, { subjects, subjectsProps, additionalSubjects }, options) {
   const {
     renderHighlight,
-    escape: isEscaped
+    escape: isEscaped,
   } = options;
   const renders = {
     hl: chunks => renderHighlight(chunks[0]),
@@ -171,17 +171,19 @@ exports['event.create'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const label = intl.formatMessage(notificationsMessages['event.create'], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['event.create'], values),
+      label,
     };
   }
 
   return {
     url: '/agendas/:target',
-    label: intl.formatMessage(notificationsMessages['event.create'], values),
+    label,
   };
 };
 
@@ -189,17 +191,20 @@ exports['event.duplicate'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'event.duplicate' : 'event.duplicate.withoutActor';
+  const label = intl.formatMessage(notificationsMessages[messageKey], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['event.duplicate'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['event.duplicate'], values),
+    label,
   };
 };
 
@@ -207,17 +212,20 @@ exports['event.update'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'event.update' : 'event.update.withoutActor';
+  const label = intl.formatMessage(notificationsMessages[messageKey], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['event.update'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['event.update'], values),
+    label,
   };
 };
 
@@ -225,9 +233,11 @@ exports['event.delete'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'event.delete' : 'event.delete.withoutActor';
+
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['event.delete'], values),
+    label: intl.formatMessage(notificationsMessages[messageKey], values),
   };
 };
 
@@ -235,17 +245,20 @@ exports['agenda.publishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'agenda.publishEvent' : 'agenda.publishEvent.withoutActor';
+  const label = intl.formatMessage(notificationsMessages[messageKey], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['agenda.publishEvent'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.publishEvent'], values),
+    label,
   };
 };
 
@@ -253,9 +266,11 @@ exports['agenda.unpublishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'agenda.unpublishEvent' : 'agenda.unpublishEvent.withoutActor';
+
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.unpublishEvent'], values),
+    label: intl.formatMessage(notificationsMessages[messageKey], values),
   };
 };
 
@@ -263,9 +278,11 @@ exports['agenda.refuseEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'agenda.refuseEvent' : 'agenda.refuseEvent.withoutActor';
+
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.refuseEvent'], values),
+    label: intl.formatMessage(notificationsMessages[messageKey], values),
   };
 };
 
@@ -273,9 +290,11 @@ exports['agenda.removeEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'agenda.removeEvent' : 'agenda.removeEvent.withoutActor';
+
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.removeEvent'], values),
+    label: intl.formatMessage(notificationsMessages[messageKey], values),
   };
 };
 
@@ -303,17 +322,19 @@ exports['agenda.changeEventState'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const label = intl.formatMessage(notificationsMessages['agenda.systemRemoveEvent'], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['agenda.systemRemoveEvent'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.systemRemoveEvent'], values),
+    label,
   };
 };
 
@@ -321,17 +342,19 @@ exports['agenda.systemUnpublishEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const label = intl.formatMessage(notificationsMessages['agenda.systemUnpublishEvent'], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['agenda.systemUnpublishEvent'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.systemUnpublishEvent'], values),
+    label,
   };
 };
 
@@ -363,9 +386,14 @@ exports['agenda.addMember'] = (notification, options, userUid) => {
     ? '/agendas/:target/admin/members'
     : '/agendas/:target';
 
-  const messageKey = subjectsProps.object.firstUid === userUid
-    ? 'agenda.addMember.withYou'
-    : 'agenda.addMember'
+  let messageKey = 'agenda.addMember';
+
+  if (subjectsProps.object.firstUid === userUid) {
+    messageKey += '.withYou';
+  }
+  if (!subjectsProps.actor) {
+    messageKey +=  '.withoutActor';
+  }
 
   return {
     url: formatUrl(url, subjectsProps),
@@ -381,9 +409,14 @@ exports['agenda.setMemberRole'] = (notification, options, userUid) => {
     ? '/agendas/:target/admin/members'
     : '/agendas/:target';
 
-  const messageKey = subjectsProps.object.firstUid === userUid
-    ? 'agenda.addMember.withYou'
-    : 'agenda.addMember'
+  let messageKey = 'agenda.setMemberRole';
+
+  if (subjectsProps.object.firstUid === userUid) {
+    messageKey += '.withYou';
+  }
+  if (!subjectsProps.actor) {
+    messageKey +=  '.withoutActor';
+  }
 
   return {
     url: formatUrl(url, subjectsProps),
@@ -399,9 +432,14 @@ exports['agenda.removeMember'] = (notification, options, userUid) => {
     ? '/agendas/:target/admin/members'
     : '/agendas/:target';
 
-  const messageKey = subjectsProps.object.firstUid === userUid
-    ? 'agenda.addMember.withYou'
-    : 'agenda.addMember'
+  let messageKey = 'agenda.removeMember';
+
+  if (subjectsProps.object.firstUid === userUid) {
+    messageKey += '.withYou';
+  }
+  if (!subjectsProps.actor) {
+    messageKey +=  '.withoutActor';
+  }
 
   return {
     url: formatUrl(url, subjectsProps),
@@ -463,17 +501,19 @@ exports['agenda.aggregateEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const label = intl.formatMessage(notificationsMessages['agenda.aggregateEvent'], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['agenda.aggregateEvent'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.aggregateEvent'], values),
+    label,
   };
 };
 
@@ -481,16 +521,19 @@ exports['agenda.addEvent'] = (notification, options) => {
   const { intl } = options;
   const { subjectsProps, values } = getProps(notification, options);
 
+  const messageKey = subjectsProps.actor ? 'agenda.addEvent' : 'agenda.addEvent.withoutActor';
+  const label = intl.formatMessage(notificationsMessages[messageKey], values);
+
   // If 1 event, go to the event
   if (subjectsProps.object.counter === 1) {
     return {
       url: formatUrl('/agendas/:target/events/:object', subjectsProps),
-      label: intl.formatMessage(notificationsMessages['agenda.addEvent'], values),
+      label,
     };
   }
 
   return {
     url: formatUrl('/agendas/:target', subjectsProps),
-    label: intl.formatMessage(notificationsMessages['agenda.addEvent'], values),
+    label,
   };
 };

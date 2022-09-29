@@ -198,7 +198,7 @@ export default defineMessages({
   },
   'setMemberRole.actor': {
     id: 'ActivityApps.setMemberRole.actor',
-    defaultMessage: '<user>{userName}</user> passed <user>{modifiedMember}</user> from <role>{beforeRole}</role>.'
+    defaultMessage: '<user>{userName}</user> passed <user>{modifiedMember}</user> from <role>{beforeRole}</role> to <role>{afterRole}</role>.'
   },
   'setMemberRole.target': {
     id: 'ActivityApps.setMemberRole.target',
@@ -270,6 +270,6 @@ export default defineMessages({
 
   XOthers: {
     id: 'ActivityApps.XOthers',
-    defaultMessage: '{count} others'
+    defaultMessage: '{count, plural, =1 {other} other {others}}'
   }
 });
