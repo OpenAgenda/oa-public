@@ -9,9 +9,9 @@ module.exports = defineMessages({
     id: 'common.event.states.toModerate',
     defaultMessage: 'To moderate',
   },
-  controlled: {
-    id: 'common.event.states.controlled',
-    defaultMessage: 'Controlled',
+  readyToPublish: {
+    id: 'common.event.states.readyToPublish',
+    defaultMessage: 'Ready to publish',
   },
   published: {
     id: 'common.event.states.published',
