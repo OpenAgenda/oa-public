@@ -1,6 +1,6 @@
 {
-  "common.roles.administrator": "",
-  "common.roles.contributor": "",
-  "common.roles.moderator": "",
-  "common.roles.reader": ""
+  "common.roles.administrator": "Administrateur",
+  "common.roles.contributor": "Contributeur",
+  "common.roles.moderator": "Modérateur",
+  "common.roles.reader": "Lecteur"
 }
