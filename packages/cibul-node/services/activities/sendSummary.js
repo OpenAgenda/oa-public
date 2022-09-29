@@ -56,8 +56,6 @@ module.exports = async function sendSummary(config, { user, notifications }, svc
     //   },
     // ).join('\n***\n');
 
-    console.log('SEND', notifs);
-
     const res = await mails.send({
       template: 'notificationsSummary',
       to: {
@@ -81,8 +79,6 @@ module.exports = async function sendSummary(config, { user, notifications }, svc
         },
       },
     });
-
-    console.log('res', res);
   } catch (err) {
     log.error('Error to send daily notification email to the user %s (%s):', user.email, user.uid, err);
   }
