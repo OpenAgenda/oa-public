@@ -1,19 +1,13 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Container,
-  Flex,
-  HStack,
-  useColorModeValue,
-} from '@openagenda/uikit';
+import Image from 'next/future/image';
+import { Box, Button, Container, Flex, HStack } from '@openagenda/uikit';
+import logoPic from '../../public/images/openagenda.png';
 
 export default function Navbar() {
   return (
-    <Box as="nav" bg="white" boxShadow={useColorModeValue('sm', 'sm-dark')}>
-      <Container maxW="container.xl" py={{ base: '4', lg: '4' }}>
+    <Box as="nav" bg="white" boxShadow="sm">
+      <Container maxW="container.xl" py="4">
         <HStack spacing="10" justify="space-between">
-          <img width="125" src="https://openagenda.com/images/openagenda.png"></img>
+          <Image width="125" height="22" src={logoPic} />
           <Flex justify="right" flex="1">
             <HStack spacing="6">
               <Button variant="link">Sign in</Button>
