@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "nodemon server.js -e js,json,mjml,ejs -w ./templates",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write '**/*.js'",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "lint-staged": "lint-staged"
   },
@@ -31,16 +31,16 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.3.1",
-    "eslint": "^6.8.0",
+    "eslint": "^8.24.0",
     "lint-staged": "^10.2.11",
-    "prettier-eslint-cli": "^5.0.0"
+    "prettier-eslint-cli": "^7.1.0"
   },
   "peerDependencies": {
     "@openagenda/mails": "^4.0.0"
   },
   "lint-staged": {
     "**/*.js": [
-      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "prettier-eslint --write",
       "eslint -c .eslintrc"
     ]
   }

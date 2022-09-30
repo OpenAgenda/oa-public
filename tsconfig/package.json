@@ -1,0 +1,16 @@
+{
+  "name": "@openagenda/tsconfig",
+  "version": "0.0.0",
+  "description": "TypeScript base configs",
+  "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
+    "directory": "tsconfig"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
