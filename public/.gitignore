@@ -15,6 +15,7 @@ sftp-config.*
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+!.yarn/patches
 .pnp.*
 yarn-error.log
 
