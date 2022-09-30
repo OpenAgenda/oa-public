@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import type { StyleFunctionProps } from '@chakra-ui/styled-system';
 
 const brandColor = {
   50: '#eef7fc',
@@ -13,7 +14,7 @@ const brandColor = {
   900: '#030d11'
 };
 
-const theme = extendTheme({
+export default extendTheme({
   styles: {
     global: () => ({
       html: {
@@ -72,7 +73,7 @@ const theme = extendTheme({
   },
   components: {
     Button: {
-      baseStyle: props => ({
+      baseStyle: (props: StyleFunctionProps) => ({
         fontSize: 'inherit',
         fontWeight: 'normal',
         border: '1px',
@@ -81,7 +82,7 @@ const theme = extendTheme({
         backgroundColor: 'gray.50'
       }),
       variants: {
-        solid: props => ({
+        solid: (props: StyleFunctionProps) => ({
           color: props.colorScheme === 'primary' ? 'white' : 'gray.700'
         }),
         link: {
@@ -93,5 +94,3 @@ const theme = extendTheme({
     }
   }
 });
-
-export default theme;
