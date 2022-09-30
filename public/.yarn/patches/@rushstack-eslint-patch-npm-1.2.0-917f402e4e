@@ -1,0 +1,13 @@
+diff --git a/lib/modern-module-resolution.js b/lib/modern-module-resolution.js
+index a163313a0f79a4c814377c8e3f016019866bbaab..de5ac1c5f18ae6588d27ff78b87d2a53df0e0883 100644
+--- a/lib/modern-module-resolution.js
++++ b/lib/modern-module-resolution.js
+@@ -207,7 +207,7 @@ if (!ConfigArrayFactory.__patched) {
+                 ModuleResolver.resolve = function (moduleName, relativeToPath) {
+                     try {
+                         // resolve using ctx.filePath instead of relativeToPath
+-                        return originalResolve.call(this, moduleName, ctx.filePath);
++                        return originalResolve.call(this, moduleName, ctx.filePath || relativeToPath);
+                     }
+                     catch (e) {
+                         if (isModuleResolutionError(e)) {
