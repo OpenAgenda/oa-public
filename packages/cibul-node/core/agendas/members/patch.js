@@ -77,10 +77,10 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
     await members.patch(member.id, patchData, {
       throwOnError: true,
       requireCustom: false
-    })
+    });
   } catch (error) {
     throw new GeneralError(error, 'something went wrong');
   }
 
-  return {...cleanMemberData};
+  return { ...cleanMemberData };
 };
