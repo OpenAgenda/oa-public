@@ -48,9 +48,7 @@
       "description": {
         "fr": "par Moogli & Déco AMZ"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Louis"
       },
@@ -63,9 +61,7 @@
         "name": "Gare d'eau, Bois-Blancs, Lille",
         "longitude": 3.020298
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "louis",
       "status": 1,
       "lastTiming": {
@@ -139,9 +135,7 @@
         "name": "Ville de Lille",
         "longitude": 3.063528
       },
-      "categories-metropolitaines": [
-        13
-      ],
+      "categories-metropolitaines": [13],
       "slug": "utopia-6eme-grande-edition-thematique-de-lille3000-9829610",
       "status": 1,
       "lastTiming": {
@@ -200,9 +194,7 @@
       "description": {
         "fr": "Une installation décalée et durable"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Jardin Ephémère"
       },
@@ -215,11 +207,7 @@
         "name": "Place des Martyrs",
         "longitude": 3.168318
       },
-      "categories-metropolitaines": [
-        23,
-        12,
-        10
-      ],
+      "categories-metropolitaines": [23, 12, 10],
       "slug": "jardin-ephemere-3715852",
       "status": 1,
       "lastTiming": {
@@ -278,9 +266,7 @@
       "description": {
         "fr": "Suspendue au cœur de la Gare Lille Flandres surgit Simone"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Simone"
       },
@@ -293,9 +279,7 @@
         "name": "Gare Lille Flandres, Lille",
         "longitude": 3.070667
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "joana-vasconcelos-simone",
       "status": 1,
       "lastTiming": {
@@ -334,17 +318,11 @@
         ],
         "base": "https://cibuldev.s3.amazonaws.com/"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "attendanceMode": 1,
       "keywords": {
-        "fr": [
-          "lecure",
-          "challenge",
-          "adulte"
-        ]
+        "fr": ["lecure", "challenge", "adulte"]
       },
       "dateRange": {
         "ar": "١٥ فبراير - ١٧ ديسمبر",
@@ -375,9 +353,7 @@
         "name": "Bibliothèque Municipale (Centrale)",
         "longitude": 3.216032
       },
-      "categories-metropolitaines": [
-        15
-      ],
+      "categories-metropolitaines": [15],
       "slug": "challenge-lecture-adulte-2022",
       "status": 1,
       "lastTiming": {
@@ -416,17 +392,11 @@
         ],
         "base": "https://cibuldev.s3.amazonaws.com/"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "attendanceMode": 1,
       "keywords": {
-        "fr": [
-          "lecture",
-          "challenge",
-          "concours"
-        ]
+        "fr": ["lecture", "challenge", "concours"]
       },
       "dateRange": {
         "ar": "١٥ فبراير - ١٧ ديسمبر",
@@ -457,9 +427,7 @@
         "name": "Bibliothèque Municipale (Centrale)",
         "longitude": 3.216032
       },
-      "categories-metropolitaines": [
-        15
-      ],
+      "categories-metropolitaines": [15],
       "slug": "challenge-lecture-jeunesse-2022",
       "status": 1,
       "lastTiming": {
@@ -518,9 +486,7 @@
       "description": {
         "fr": "Promenade nature et artistique dans le Parc de la Citadelle"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Cap Forêt - A la découverte des arbres remarquables du Parc de la Citadelle"
       },
@@ -533,10 +499,7 @@
         "name": "Parc de la Citadelle",
         "longitude": 3.040119
       },
-      "categories-metropolitaines": [
-        10,
-        23
-      ],
+      "categories-metropolitaines": [10, 23],
       "slug": "cap-foret-a-la-decouverte-des-arbres-remarquables-du-parc-de-la-citadelle",
       "status": 1,
       "lastTiming": {
@@ -595,9 +558,7 @@
       "description": {
         "fr": "De mai à septembre, « Hortus incredibili » prend place sur le parvis du pôle culturel. Cet espace paysager où la nature reprend ses droits accueille installations et animations utopiques."
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Le jardin extraordinaire : Hortus Incredibili"
       },
@@ -610,12 +571,7 @@
         "name": "Parvis du pôle culturel",
         "longitude": 2.987515
       },
-      "categories-metropolitaines": [
-        23,
-        12,
-        10,
-        3
-      ],
+      "categories-metropolitaines": [23, 12, 10, 3],
       "slug": "le-jardin-extraordinaire-hortus-incredibili",
       "status": 1,
       "lastTiming": {
@@ -658,13 +614,7 @@
       "featured": false,
       "attendanceMode": 1,
       "keywords": {
-        "fr": [
-          "Exposition",
-          "Photographie",
-          "Textile",
-          "Mode",
-          "Portraits"
-        ]
+        "fr": ["Exposition", "Photographie", "Textile", "Mode", "Portraits"]
       },
       "dateRange": {
         "ar": "٧ يوليو - ٢٩ نوفمبر",
@@ -695,9 +645,7 @@
         "name": "L'Avant-Poste",
         "longitude": 3.174277
       },
-      "categories-metropolitaines": [
-        7
-      ],
+      "categories-metropolitaines": [7],
       "slug": "portraits-du-textile-roubaisien",
       "status": 1,
       "lastTiming": {
@@ -777,9 +725,7 @@
         "name": "Archives Nationales du Monde du Travail",
         "longitude": 3.178305
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "exposition-patrons",
       "status": 1,
       "lastTiming": {
@@ -818,9 +764,7 @@
         ],
         "base": "https://cibuldev.s3.amazonaws.com/"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "attendanceMode": 1,
       "keywords": {},
@@ -840,9 +784,7 @@
       "description": {
         "fr": "Plantoidori est l’aboutissement des recherches menées par l’artiste plieur Dewi Brunet avec l’équipe du laboratoire DEFROST de INRIA, spécialisé en robotique déformable."
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Plantoidori"
       },
@@ -855,9 +797,7 @@
         "name": "Espace culture",
         "longitude": 3.142782
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "plantoidori",
       "status": 1,
       "lastTiming": {
@@ -929,11 +869,7 @@
         "name": "Au Panier Vert",
         "longitude": 2.976917
       },
-      "categories-metropolitaines": [
-        21,
-        23,
-        10
-      ],
+      "categories-metropolitaines": [21, 23, 10],
       "slug": "rallye-fermier-a-velo",
       "status": 1,
       "lastTiming": {
@@ -1005,9 +941,7 @@
         "name": "Maison natale Charles de Gaulle",
         "longitude": 3.058752
       },
-      "categories-metropolitaines": [
-        23
-      ],
+      "categories-metropolitaines": [23],
       "slug": "un-parcours-pedestre-a-lille-pour-decouvrir-lenfance-de-charles-de-gaulle",
       "status": 1,
       "lastTiming": {
@@ -1046,9 +980,7 @@
         ],
         "base": "https://cibuldev.s3.amazonaws.com/"
       },
-      "interetintercommunal": [
-        1
-      ],
+      "interetintercommunal": [1],
       "featured": false,
       "attendanceMode": 1,
       "keywords": {},
@@ -1068,9 +1000,7 @@
       "description": {
         "fr": "Du samedi 2 juillet au dimanche 11 septembre 2022, Claire-Marie Régent pose son regard sur cette envie utopique de vivre en cohésion totale avec la nature dans un monde urbain."
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Exposition extérieure de photographies « Utopia »"
       },
@@ -1083,9 +1013,7 @@
         "name": "Château de Flers",
         "longitude": 3.132724
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "exposition-exterieure-de-photographies-utopia",
       "status": 1,
       "lastTiming": {
@@ -1144,9 +1072,7 @@
       "description": {
         "fr": "Le Musée d’histoire naturelle vous propose de faire la connaissance du blob !"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "UTOPIA  / Un Blob au Musée !"
       },
@@ -1159,9 +1085,7 @@
         "name": "Musée d'histoire naturelle de Lille",
         "longitude": 3.067183
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "utopia-un-blob-au-musee-",
       "status": 1,
       "lastTiming": {
@@ -1220,9 +1144,7 @@
       "description": {
         "fr": "Le Musée d’histoire naturelle propose une exposition-dossier sur le travail de Madeleine Aimé (1904 - 1996), artiste et illustratrice scientifique !"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "UTOPIA / Madeleine Aimé, artiste des forêts fossiles"
       },
@@ -1235,9 +1157,7 @@
         "name": "Musée d'histoire naturelle de Lille",
         "longitude": 3.067183
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "utopia-madeleine-aime-artiste-des-forets-fossiles",
       "status": 1,
       "lastTiming": {
@@ -1296,9 +1216,7 @@
       "description": {
         "fr": "A l’occasion de la saison Utopia de lille3000, le Musée questionne notre relation à la Nature et propose de célébrer la biodiversité à travers des réflexions scientifiques et regards d’artistes !"
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Utopia au Musée !"
       },
@@ -1311,9 +1229,7 @@
         "name": "Musée d'histoire naturelle de Lille",
         "longitude": 3.067183
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "utopia-au-musee-",
       "status": 1,
       "lastTiming": {
@@ -1372,9 +1288,7 @@
       "description": {
         "fr": "En dialogue avec les collections du musée, Le serpent cosmique explore la manière dont les artistes s’inspirent et se nourrissent de la nature et du vivant pour créer des utopies."
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "Le serpent cosmique"
       },
@@ -1387,9 +1301,7 @@
         "name": "Musée de l'Hospice Comtesse, Lille",
         "longitude": 3.062934
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "le-serpent-cosmique-9000832",
       "status": 1,
       "lastTiming": {
@@ -1448,9 +1360,7 @@
       "description": {
         "fr": "The Hatchling est une réplique à grande échelle d’un œuf de merle aux couleurs très caractéristiques : bleu-vert avec des taches brunes."
       },
-      "label": [
-        32
-      ],
+      "label": [32],
       "title": {
         "fr": "The Hatchling"
       },
@@ -1463,9 +1373,7 @@
         "name": "Musée de l'Hospice Comtesse, Lille",
         "longitude": 3.062934
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "the-hatchling",
       "status": 1,
       "lastTiming": {
@@ -1537,9 +1445,7 @@
         "name": "Musée de l'Hospice Comtesse, Lille",
         "longitude": 3.062934
       },
-      "categories-metropolitaines": [
-        12
-      ],
+      "categories-metropolitaines": [12],
       "slug": "entidades",
       "status": 1,
       "lastTiming": {
@@ -1552,10 +1458,5 @@
       }
     }
   ],
-  "sort": [
-    0,
-    1662624000000,
-    1664722800000,
-    60476042
-  ]
+  "sort": [0, 1662624000000, 1664722800000, 60476042]
 }

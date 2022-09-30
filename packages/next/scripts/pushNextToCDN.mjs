@@ -13,7 +13,7 @@ client.connect({
   port: process.env.KEYCDN_NEXT_FTP_PORT ?? 21,
   secure: true,
   user: process.env.KEYCDN_NEXT_FTP_USER,
-  password: process.env.KEYCDN_NEXT_FTP_PASSWORD
+  password: process.env.KEYCDN_NEXT_FTP_PASSWORD,
 });
 
 client.on('ready', async () => {
