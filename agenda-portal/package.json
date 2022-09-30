@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.7.2",
+  "version": "6.7.3",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
@@ -49,7 +49,7 @@
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/browserslist-config": "^1.0.0",
-    "@openagenda/intl": "^1.1.2",
+    "@openagenda/intl": "^1.1.3",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/polyfills": "^1.2.4",
     "@openagenda/react-filters": "^2.8.3",
