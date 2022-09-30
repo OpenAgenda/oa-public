@@ -22,7 +22,8 @@
   ],
   "resolutions": {
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "@rushstack/eslint-patch@1.2.0": "patch:@rushstack/eslint-patch@npm:1.2.0#.yarn/patches/@rushstack-eslint-patch-npm-1.2.0-917f402e4e"
   },
   "dependencies": {
     "mime": "^2.4.4"
