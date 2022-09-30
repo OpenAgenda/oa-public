@@ -30,7 +30,7 @@ function opts(config) {
   return Object.assign({
     fileSystem: nodeFileSystem,
     conditionNames: ['node'],
-    extensions: ['.mjs', '.js', '.json', '.node'],
+    extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node'],
   }, config);
 }
 
