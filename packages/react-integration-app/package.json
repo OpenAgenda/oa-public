@@ -9,12 +9,12 @@
     "analyze": "webpack-dashboard -- yarn build",
     "prepack": "yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write '**/*.js'",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "**/*.js": [
-      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "prettier-eslint --write",
       "eslint -c .eslintrc"
     ]
   },
@@ -73,11 +73,11 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-minimizer-webpack-plugin": "^2.0.0",
-    "eslint": "^6.8.0",
+    "eslint": "^8.24.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^1.5.0",
     "mkdirp": "^0.5.1",
-    "prettier-eslint-cli": "^5.0.0",
+    "prettier-eslint-cli": "^7.1.0",
     "sass": "^1.52.1",
     "sass-loader": "^8.0.2",
     "source-map-loader": "^2.0.1",
