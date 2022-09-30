@@ -28,7 +28,7 @@
     "@openagenda/agenda-events": "^1.11.14",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/agenda-locations-app": "^0.0.0",
-    "@openagenda/agenda-portal": "^6.7.0",
+    "@openagenda/agenda-portal": "^6.7.2",
     "@openagenda/agenda-schema": "^1.0.16",
     "@openagenda/agenda-search": "^1.4.0",
     "@openagenda/agenda-settings": "^1.4.0",
