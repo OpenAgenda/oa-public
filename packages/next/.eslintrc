@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "@openagenda/eslint-config/recommended",
+    "next/core-web-vitals"
+  ],
+   "rules": {
+     // "@next/next/no-html-link-for-pages": ["error", "src/pages/"]
+     "import/no-extraneous-dependencies": [
+       "error",
+       {
+         "devDependencies": [
+           ".storybook/**/*.js",
+           "stories/**/*.js",
+           "scripts/**/*.js"
+         ]
+       }
+     ]
+   },
+  "settings": {
+    "next": {
+      "rootDir": "."
+    }
+  }
+}

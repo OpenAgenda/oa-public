@@ -16,10 +16,7 @@
     "contribution": {
       "type": 2,
       "defaultState": 2,
-      "canPublish": [
-        "administrators",
-        "moderators"
-      ],
+      "canPublish": ["administrators", "moderators"],
       "moderateOnChangeBy": [],
       "defaultLang": null,
       "allowLocationCreate": true,

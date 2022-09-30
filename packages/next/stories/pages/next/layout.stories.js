@@ -1,18 +1,15 @@
+import { ChakraProvider, theme } from '@openagenda/uikit';
 import Layout from '../../../components/Layout';
-import {
-  ChakraProvider,
-  theme
-} from '@openagenda/uikit';
 
 export default {
   title: 'Layout',
-  component: Layout
-}
+  component: Layout,
+};
 
-export const SimpleLayout = () => (
-  <ChakraProvider theme={theme}>
-    <Layout>
-      Sample content
-    </Layout>
-  </ChakraProvider>
-);
+export function SimpleLayout() {
+  return (
+    <ChakraProvider theme={theme}>
+      <Layout>Sample content</Layout>
+    </ChakraProvider>
+  );
+}

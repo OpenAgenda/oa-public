@@ -17,13 +17,13 @@
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn oa-intl compile && yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write '**/*.js'",
     "lint-staged": "lint-staged",
     "extract-messages": "yarn oa-intl"
   },
   "lint-staged": {
     "**/*.js": [
-      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "prettier-eslint --write",
       "eslint -c .eslintrc"
     ]
   },
@@ -66,12 +66,12 @@
     "@storybook/react": "^6.5.9",
     "babel-loader": "^8.2.2",
     "errorhandler": "^1.5.0",
-    "eslint": "^6.8.0",
+    "eslint": "^8.24.0",
     "express": "^4.17.1",
     "lint-staged": "^10.2.11",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.4",
-    "prettier-eslint-cli": "^5.0.0",
+    "prettier-eslint-cli": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.1.2",

@@ -49,7 +49,7 @@
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
-    "@openagenda/files": "workspace:packages/files",
+    "@openagenda/files": "^3.1.0",
     "@openagenda/keys": "^2.2.10",
     "@storybook/react": "^6.5.9",
     "babel-loader": "^8.2.2",

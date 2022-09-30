@@ -1,39 +1,44 @@
-'use strict';
+const { config: nodeConfig } = require('cibul-node');
+const { apiClient } = require('@openagenda/react-shared');
 
-const { PHASE_PRODUCTION_BUILD } = require('next/constants');
+const withTM = require('next-transpile-modules')(['@openagenda/uikit']);
 
-const {
-  config
-} = require('cibul-node');
+// TODO:
+// NEXT_PUBLIC_ASSET_PREFIX
+// NEXT_API_BASE_URL=`http://localhost:${config.port}`
 
-const {
-  apiClient
-} = require('@openagenda/react-shared');
-
-module.exports = async phase => {
+/** @type {() => import('next').NextConfig} */
+const config = async () => {
   const serverRuntimeConfig = {
-    config
+    config: nodeConfig,
+    api: (req, method, ...args) => apiClient(`http://localhost:${nodeConfig.port}`, req)[method](...args),
   };
 
-  if (phase !== PHASE_PRODUCTION_BUILD) {
-    serverRuntimeConfig.api = (req, method, ...args) => apiClient(`http://localhost:${config.port}`, req)[method](...args)
-  }
-
-  const nextConfig = {
+  return withTM({
+    experimental: {
+      images: {
+        allowFutureImage: true,
+        // remotePatterns: [
+        //   {
+        //     protocol: 'https',
+        //     hostname: 'openagenda.com',
+        //   },
+        // ],
+      },
+    },
+    assetPrefix: nodeConfig?.next?.CDN || undefined,
     serverRuntimeConfig,
     async rewrites() {
       return {
-        fallback: [{
-          source: '/:path*',
-          destination: `http://localhost:${config?.port}/:path*`
-        }]
+        fallback: [
+          {
+            source: '/:path*',
+            destination: `http://localhost:${nodeConfig?.port}/:path*`,
+          },
+        ],
       };
-    }
-  };
-  
-  if (config?.next?.CDN) {
-    nextConfig.assetPrefix = config.next.CDN;
-  }
-
-  return nextConfig;
+    },
+  });
 };
+
+module.exports = config;
