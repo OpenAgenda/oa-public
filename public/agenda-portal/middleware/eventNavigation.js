@@ -57,6 +57,16 @@ function redirectToNeighbor(req, res, next) {
         queryPart.lang = lang;
       }
 
+      if (!events.length) {
+        res.redirect(
+          302,
+          `${req.app.locals.root}?${qs.stringify({
+            oaq: search,
+          })}`
+        );
+        return;
+      }
+
       res.redirect(
         302,
         `${req.app.locals.root}/events/${_.first(events).slug}?${qs.stringify(
