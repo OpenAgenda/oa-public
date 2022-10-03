@@ -38,7 +38,7 @@ Portal({
   eventsPerPage: 20,
   // filters that applies even if other filter is specified, can be overloaded
   preFilter: {
-    relative: ['current', 'upcoming']
+    relative: ['current', 'upcoming'],
   },
   // filter that applies when no other filter is specified
   defaultFilter: {
@@ -68,7 +68,7 @@ Portal({
   tracking: {
     useAgendaGoogleAnalytics: process.env.PORTAL_USE_AGENDA_GA_ID ?? false,
     // url of the link displayed in the cookie consent banner
-    cookieBannerLink: 'https://support.google.com/analytics/answer/6004245?hl=fr'
+    cookieBannerLink: 'https://support.google.com/analytics/answer/6004245?hl=fr',
   },
   eventHook,
   // proxyHookBeforeGet
