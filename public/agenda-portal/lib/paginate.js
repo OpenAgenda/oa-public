@@ -24,7 +24,7 @@ module.exports = ({ offset, limit, total }) => {
       page: current - 1,
       offset: (current - 2) * limit,
       current: false,
-      previous: true
+      previous: true,
     });
   }
 
@@ -33,7 +33,7 @@ module.exports = ({ offset, limit, total }) => {
       page: current + 1,
       offset: current * limit,
       current: false,
-      next: true
+      next: true,
     });
   }
 

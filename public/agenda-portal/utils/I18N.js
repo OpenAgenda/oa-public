@@ -40,6 +40,6 @@ module.exports = path => {
 
   return {
     intlByLocale,
-    handlebarsHelper: handlebarsHelper(intlByLocale)
+    handlebarsHelper: handlebarsHelper(intlByLocale),
   };
 };
