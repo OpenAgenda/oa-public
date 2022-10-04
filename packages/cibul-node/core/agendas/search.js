@@ -3,8 +3,8 @@
 module.exports = core => (query, nav, options) => {
   const {
     services: {
-      agendaSearch
-    }
+      agendaSearch,
+    },
   } = core;
 
   return agendaSearch(query, nav, options);

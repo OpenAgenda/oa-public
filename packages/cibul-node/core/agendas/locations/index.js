@@ -19,7 +19,7 @@ module.exports = (core, agendaOrUid) => (
     list: list(core, agendaOrUid),
     merge: merge(core, agendaOrUid),
     settings: {
-      get: getSettings(core, agendaOrUid)
-    }
+      get: getSettings(core, agendaOrUid),
+    },
   }
 );

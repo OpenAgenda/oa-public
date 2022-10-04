@@ -11,7 +11,7 @@ module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
 
   const {
     useAfter = true,
-    eventCounts = false
+    eventCounts = false,
   } = options;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
@@ -22,12 +22,12 @@ module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
     ...nav,
     limit: nav?.size !== undefined ? nav.size : nav?.limit,
     offset: nav?.from !== undefined ? nav.from : nav?.offset,
-    useAfter
+    useAfter,
   }, {
     total: true,
     includeImagePath: true,
     detailed: !!query?.detailed,
     eventCounts,
-    context: { agendaUid: agenda.uid }
+    context: { agendaUid: agenda.uid },
   });
 };

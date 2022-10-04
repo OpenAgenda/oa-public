@@ -4,7 +4,7 @@ const getAgenda = require('../utils/getAgenda');
 
 module.exports = (core, agendaOrUid) => async (uid, options = {}) => {
   const {
-    agendaLocations
+    agendaLocations,
   } = core.services;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
@@ -13,6 +13,6 @@ module.exports = (core, agendaOrUid) => async (uid, options = {}) => {
 
   return endpoints.remove(uid, {
     removeEvents: !!options.removeEvents,
-    agendaUid: agenda.uid
+    agendaUid: agenda.uid,
   });
 };
