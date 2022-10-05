@@ -9,33 +9,33 @@ const canRead = require('./lib/canRead');
 async function get(services, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const {
     members,
-    custom
+    custom,
   } = services;
 
   const {
     userUid: actingUserUid,
-    access = null
+    access = null,
   } = options;
 
   const agenda = await getAgenda(services, agendaOrUid);
 
   const actingMember = actingUserUid ? await members.get({
     agendaUid: agenda.uid,
-    userUid: actingUserUid
+    userUid: actingUserUid,
   }) : null;
 
   if (!canRead(services, {
     access,
     actingMember,
     actingUserUid,
-    userUid
+    userUid,
   })) {
     throw new Forbidden('Not authorized to access member');
   }
 
   const memberRes = await members.get({
     agendaUid: agenda.uid,
-    userUid
+    userUid,
   }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m) : null));
 
   const schemas = await getMemberSchema(services, agenda.uid, { access, actingMember });
@@ -59,5 +59,5 @@ module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
     agendaOrUid,
     userUid,
     options
-  ).then(m => !!m)
+  ).then(m => !!m),
 });

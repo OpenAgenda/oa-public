@@ -12,12 +12,12 @@ const canEdit = require('./lib/canEdit');
 module.exports = async (services, agendaOrUid, identifiers, data, options = {}) => {
   const {
     members,
-    custom
+    custom,
   } = services;
 
   const {
     userUid: actingUserUid,
-    access
+    access,
   } = options;
 
   if (!actingUserUid) {
@@ -32,7 +32,7 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
 
   const member = await members.get({
     agendaUid,
-    ...identifiers
+    ...identifiers,
   });
 
   if (data.role !== undefined && (members.utils.getRoleCode(data.role) !== member.role)) {
@@ -41,13 +41,13 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
 
   const actingMember = await members.get({
     agendaUid,
-    userUid: actingUserUid
+    userUid: actingUserUid,
   });
 
   if (!canEdit(services, {
     acting: actingMember,
     userUid: member.userUid,
-    role: patchData.role
+    role: patchData.role,
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
@@ -59,7 +59,7 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
     cleanMemberData = validate(data);
   } catch (error) {
     throw new BadRequest({
-      info: { error }
+      info: { error },
     }, 'data is invalid');
   }
 
@@ -80,9 +80,9 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
       context: {
         sender: {
           userUid: actingUserUid,
-          memberName: actingMember?.custom?.contactName
-        }
-      }
+          memberName: actingMember?.custom?.contactName,
+        },
+      },
     });
   } catch (error) {
     throw new GeneralError(error, 'something went wrong');

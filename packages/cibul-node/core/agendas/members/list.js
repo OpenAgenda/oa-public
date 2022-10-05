@@ -10,19 +10,19 @@ const canRead = require('./lib/canRead');
 module.exports = async (services, agendaOrUid, nav, options = {}) => {
   const {
     members: membersSvc,
-    agendas
+    agendas,
   } = services;
 
   const {
     userUid: actingUserUid,
-    access = null
+    access = null,
   } = options;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
   const agenda = await agendas.get({ uid: agendaUid }, {
     internal: true,
-    private: null
+    private: null,
   });
 
   if (!agenda) {
@@ -31,24 +31,24 @@ module.exports = async (services, agendaOrUid, nav, options = {}) => {
 
   const actingMember = actingUserUid ? await membersSvc.get({
     agendaUid: agenda.uid,
-    userUid: actingUserUid
+    userUid: actingUserUid,
   }) : null;
 
   if (!canRead(services, {
     access,
     actingMember,
-    list: true
+    list: true,
   })) {
     throw new Forbidden('Not authorized to access member');
   }
 
   return membersSvc.list({
-    agendaUid: agenda.uid
+    agendaUid: agenda.uid,
   }, validateNav(nav), {
-    total: true
+    total: true,
   }).then(({ members, total }) => ({
     total,
     after: _.get(_.last(members), 'order', null),
-    items: members.map(m => format(membersSvc, m))
+    items: members.map(m => format(membersSvc, m)),
   }));
 };

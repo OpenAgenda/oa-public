@@ -12,5 +12,5 @@ module.exports = (services, agendaUid) => ({
   create: create.bind(null, services, agendaUid),
   patch: patch.bind(null, services, agendaUid),
   is: get.is.bind(null, services, agendaUid),
-  remove: remove.bind(null, services, agendaUid)
+  remove: remove.bind(null, services, agendaUid),
 });

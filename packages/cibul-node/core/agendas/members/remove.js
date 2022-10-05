@@ -9,11 +9,11 @@ module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
   const {
     members,
     users,
-    custom
+    custom,
   } = services;
 
   const {
-    userUid: actingUserUid
+    userUid: actingUserUid,
   } = options;
 
   if (!actingUserUid) {
@@ -24,19 +24,19 @@ module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
 
   const member = await members.get({
     agendaUid,
-    ...identifiers
+    ...identifiers,
   });
 
   const actingMember = await members.get({
     agendaUid,
-    userUid: actingUserUid
+    userUid: actingUserUid,
   });
 
   const actingUser = await users.findOne({ query: { uid: actingUserUid } });
 
   if (!canEdit(services, {
     acting: actingMember,
-    userUid: member.userUid
+    userUid: member.userUid,
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
@@ -44,8 +44,8 @@ module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
   const schemas = await getMemberSchema(services, agendaUid, { actingMember });
   const memberRes = await members.remove(member.id, {
     context: {
-      user: actingUser
-    }
+      user: actingUser,
+    },
   });
 
   if (!schemas.agendaSchema) {
