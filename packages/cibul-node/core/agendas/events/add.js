@@ -21,14 +21,14 @@ const { containsEventData } = cleanEvent;
 
 module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   const {
-    services
+    services,
   } = core;
 
   // when the event is added on aggregation, only additional data is provided
   const {
     agendaEvents,
     events,
-    members
+    members,
   } = services;
 
   log('adding event %s to agenda %s%s', eventUid, agendaUid, options.aggregated ? ' through aggregation' : '');
@@ -38,7 +38,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     sourceAgenda,
     batched,
     access,
-    returnPayload
+    returnPayload,
   } = {
     aggregated: null,
     paths: null,
@@ -47,14 +47,14 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     context: {},
     access: 'public',
     returnPayload: false,
-    ...options
+    ...options,
   };
 
   const userUid = extractUserUid(data, options);
 
   const member = userUid ? await members.get({
     agendaUid,
-    userUid
+    userUid,
   }) : null;
   log(member ? '  loaded member %s' : '  member is unspecified', member?.id);
 
@@ -64,11 +64,11 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   }
 
   const event = await events.get({
-    uid: eventUid
+    uid: eventUid,
   }, {
     access: 'internal',
     detailed: true,
-    throwOnNotFound: true
+    throwOnNotFound: true,
   });
   log('  loaded event to be added');
 
@@ -82,7 +82,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     paths,
     aggregated,
     member,
-    access
+    access,
   });
   log('  cleaned associated data');
 
@@ -90,14 +90,14 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     agenda,
     event,
     member,
-    access
+    access,
   });
 
   if (!authorizations.canEditEvent && containsEventData(data)) {
     throw new Forbidden({
       info: {
-        uid: event.uid
-      }
+        uid: event.uid,
+      },
     }, 'not authorized to edit event');
   }
 
@@ -112,7 +112,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
       agendaUid,
       userUid,
       eventUid,
-      event
+      event,
     });
   } else {
     payload.setItem('event', null, event);
@@ -123,7 +123,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     aggregated,
     sourceAgenda,
     userUid: member ? member.userUid : null,
-    access
+    access,
   });
 
   return returnPayload ? response : response.event;

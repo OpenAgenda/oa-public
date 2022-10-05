@@ -7643,7 +7643,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/users": ^3.1.0
@@ -7695,7 +7695,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/fixtures": ^2.0.2
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/queue": ^1.0.1
@@ -7730,7 +7730,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/fixtures": ^2.0.2
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/members": ^1.15.13
@@ -7868,7 +7868,7 @@ __metadata:
     "@openagenda/common-labels": ^1.0.0
     "@openagenda/event-form": ^1.5.1
     "@openagenda/form-schemas": ^1.9.2
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/member-apps": ^2.1.1
@@ -8016,7 +8016,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/countries": ^0.1.1
     "@openagenda/files": ^3.1.0
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-form-components": ^2.1.14
     "@openagenda/react-shared": ^2.4.0
@@ -8102,7 +8102,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@^6.7.0, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@^6.7.4, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -8112,11 +8112,11 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/browserslist-config": ^1.0.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/polyfills": ^1.2.4
     "@openagenda/react-filters": ^2.8.3
-    "@openagenda/react-portal-ssr": ^1.0.0
+    "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
     axios: ^0.21.1
     babel-loader: ^8.2.2
@@ -8188,7 +8188,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/event-form": ^1.5.1
     "@openagenda/form-schemas": ^1.9.2
-    "@openagenda/intl": ^1.1.1
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
     babel-loader: ^8.2.2
@@ -8281,7 +8281,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/files": ^3.1.0
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/keys": ^2.2.10
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
@@ -8344,7 +8344,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/react-filters": ^2.8.3
     "@openagenda/react-shared": ^2.4.0
     "@storybook/react": ^6.5.9
@@ -8429,7 +8429,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-shared": ^2.4.0
     "@storybook/react": ^6.5.9
@@ -8581,9 +8581,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-model@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@openagenda/cibul-model@npm:2.0.2"
+"@openagenda/cibul-model@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@openagenda/cibul-model@npm:2.0.3"
   dependencies:
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/utils": ^1.2.2
@@ -8599,7 +8599,7 @@ __metadata:
     mysql: 2.6.2
     validator: 4.1.0
     when: ~3.4
-  checksum: b0364a1c47032f01ac4044898e3667aaafb267cda3f07ff151a856770838e0d8ed2578d683967dc0fc9ca49005781d8c55feab712f15fd37d665c21b13350d5a
+  checksum: bafe32c0e619bb081a359fd771f9dca1074dabea1fa88024e4953a50f187ed58c3948ecf2f1a792c5a6411618cb0e7e7a2e2ee1aca48104600673681cc54e3c8
   languageName: node
   linkType: hard
 
@@ -8621,7 +8621,7 @@ __metadata:
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/home": ^2.2.1
     "@openagenda/inbox-apps": ^1.2.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/leaflet.markercluster": ^0.4.0
     "@openagenda/member-apps": ^2.1.1
@@ -8707,7 +8707,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/common-labels@workspace:public/common-labels"
   dependencies:
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     glob: ^8.0.1
     lodash: ^4.17.21
     mkdirp: ^1.0.4
@@ -8849,7 +8849,7 @@ __metadata:
     "@openagenda/common-labels": ^1.0.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/react-filters": ^2.8.3
     "@openagenda/react-share-menus": ^1.1.0
     "@openagenda/react-shared": ^2.4.0
@@ -9158,7 +9158,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/react-shared": ^2.4.0
@@ -9316,7 +9316,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@^1.1.1, @openagenda/intl@^1.1.2, @openagenda/intl@workspace:public/intl":
+"@openagenda/intl@^1.1.3, @openagenda/intl@workspace:public/intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:public/intl"
   dependencies:
@@ -9439,7 +9439,7 @@ __metadata:
     "@loadable/babel-plugin": ^5.13.2
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/utils": ^1.3.0
@@ -9523,7 +9523,7 @@ __metadata:
   dependencies:
     "@formatjs/intl": ^2.2.1
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
     "@openagenda/queues": ^1.2.7
     ejs: ^2.7.4
@@ -9554,7 +9554,7 @@ __metadata:
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/form-schemas": ^1.9.2
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
     "@openagenda/members": ^1.15.13
     "@openagenda/react-form-components": ^2.1.14
@@ -9867,8 +9867,8 @@ __metadata:
     "@openagenda/axios-mock-adapter": ^1.21.0
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
-    "@openagenda/react-portal-ssr": ^1.0.0
+    "@openagenda/intl": ^1.1.3
+    "@openagenda/react-portal-ssr": ^1.0.1
     "@openagenda/react-shared": ^2.4.0
     "@raruto/leaflet-gesture-handling": ^1.3.4
     "@storybook/addon-essentials": ^6.5.9
@@ -9980,7 +9980,7 @@ __metadata:
     "@openagenda/event-admin-apps": ^0.0.0
     "@openagenda/home": ^2.2.1
     "@openagenda/inbox-apps": ^1.2.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/legacy": ^1.11.0
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/outdated-browser": ^0.0.0
@@ -10048,7 +10048,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/members": ^1.15.13
     "@openagenda/react-shared": ^2.4.0
     "@openagenda/sessions": ^4.1.0
@@ -10087,7 +10087,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-portal-ssr@^1.0.0, @openagenda/react-portal-ssr@workspace:public/react-portal-ssr":
+"@openagenda/react-portal-ssr@^1.0.1, @openagenda/react-portal-ssr@workspace:public/react-portal-ssr":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-portal-ssr@workspace:public/react-portal-ssr"
   dependencies:
@@ -10121,7 +10121,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-actions": ^6.2.8
     "@storybook/react": ^6.5.9
@@ -10159,7 +10159,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@storybook/addon-actions": ^6.5.9
     "@storybook/preset-scss": ^1.0.3
     "@storybook/react": ^6.5.9
@@ -10237,7 +10237,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-viewport": ^6.5.9
     "@storybook/addons": ^6.5.9
@@ -10409,7 +10409,7 @@ __metadata:
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/form-schemas": ^1.9.2
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/react-shared": ^2.4.0
     "@storybook/addon-essentials": ^6.5.9
     "@storybook/addon-links": ^6.5.9
@@ -18953,14 +18953,14 @@ __metadata:
     "@openagenda/agenda-events": ^1.11.14
     "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-locations-app": ^0.0.0
-    "@openagenda/agenda-portal": ^6.7.0
+    "@openagenda/agenda-portal": ^6.7.4
     "@openagenda/agenda-schema": ^1.0.16
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
     "@openagenda/agendas": ^1.7.0
     "@openagenda/aggregator-sources": ^1.3.1
     "@openagenda/aggregators": ^1.11.6
-    "@openagenda/cibul-model": ^2.0.2
+    "@openagenda/cibul-model": ^2.0.3
     "@openagenda/cibul-templates": ^1.4.1
     "@openagenda/custom": ^1.3.14
     "@openagenda/date-range": ^2.3.0
@@ -18977,7 +18977,7 @@ __metadata:
     "@openagenda/home": ^2.2.1
     "@openagenda/inbox-apps": ^1.2.1
     "@openagenda/inboxes": ^1.1.14
-    "@openagenda/intl": ^1.1.2
+    "@openagenda/intl": ^1.1.3
     "@openagenda/invitations": ^1.1.5
     "@openagenda/keys": ^2.2.10
     "@openagenda/labels": ^2.3.0

@@ -11,7 +11,7 @@ const agendaSettings = require('./settings');
 module.exports = async (core, agendaOrUid, data, options = {}) => {
   const {
     agendas,
-    agendaSearch
+    agendaSearch,
   } = core.services;
 
   const setAgenda = promisify(agendas.set);
@@ -23,7 +23,7 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
   const {
     success,
     errors,
-    agenda
+    agenda,
   } = await setAgenda({ uid: agendaUid }, data, options);
 
   if (errors?.length) throw new BadRequest({ info: { errors } }, 'invalid data');

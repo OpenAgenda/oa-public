@@ -7,7 +7,7 @@ module.exports = async (core, data, options = {}) => {
 
   const {
     success,
-    agenda
+    agenda,
   } = await setAgenda(data);
 
   if (!success) {

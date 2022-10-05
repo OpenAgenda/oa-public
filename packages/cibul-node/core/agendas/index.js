@@ -38,7 +38,7 @@ module.exports = core => {
     create: create.bind(null, core),
     rebuildIndex: () => core.services.agendaSearch.rebuild(),
     slug: agendaSlug => ({
-      get: get.slug.bind(null, core, agendaSlug)
-    })
+      get: get.slug.bind(null, core, agendaSlug),
+    }),
   });
 };

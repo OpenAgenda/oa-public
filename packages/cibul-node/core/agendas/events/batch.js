@@ -14,7 +14,7 @@ const getTaskName = operation => `batched${_.capitalize(operation)}`;
 
 async function agendaBatchSearch(core, agendaUid, operation, query, ...args) {
   const {
-    tasks
+    tasks,
   } = core;
   const options = args[args.length - 1];
   const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
@@ -29,18 +29,18 @@ async function agendaBatchList(core, agendaUid, operation, query, ...args) {
 
   const {
     services,
-    tasks
+    tasks,
   } = core;
 
   while (lastId !== -1) {
     const {
       events,
-      lastId: nextLastId
+      lastId: nextLastId,
     } = await list(services, agendaUid, query, { lastId }, {
       load: {
         agendaEvent: true,
       },
-      returnPayload: true
+      returnPayload: true,
     });
 
     for (const event of events) {
@@ -56,24 +56,35 @@ module.exports = core => {
     agendaBatchList: agendaBatchList.bind(null, core),
     agendaBatchSearch: agendaBatchSearch.bind(null, core),
     batchedPatch: (agendaUid, eventUid, data, options = {}) => patch(
-      core, agendaUid, eventUid, data, { ...options, batched: true }
+      core,
+      agendaUid,
+      eventUid,
+      data,
+      { ...options, batched: true }
     ),
     batchedUpdate: (agendaUid, eventUid, data, options = {}) => update(
-      core, agendaUid, eventUid, data, { ...options, batched: true }
+      core,
+      agendaUid,
+      eventUid,
+      data,
+      { ...options, batched: true }
     ),
     batchedRemove: (agendaUid, eventUid, options = {}) => remove(
-      core.services, agendaUid, eventUid, { ...options, batched: true }
-    )
+      core.services,
+      agendaUid,
+      eventUid,
+      { ...options, batched: true }
+    ),
   });
 
   return (agendaUid, operation, query, ...args) => {
     const options = args[args.length - 1];
 
     const {
-      search: useSearchIndex
+      search: useSearchIndex,
     } = {
       search: false,
-      ...options
+      ...options,
     };
 
     return core.tasks.enqueue(useSearchIndex ? 'agendaBatchSearch' : 'agendaBatchList', agendaUid, operation, query, ...args);

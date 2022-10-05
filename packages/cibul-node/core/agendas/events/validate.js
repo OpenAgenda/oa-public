@@ -10,7 +10,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   log('info', 'validating event on agenda %s', agendaUid);
 
   const {
-    services
+    services,
   } = core;
 
   const {
@@ -21,14 +21,14 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     access,
     draft,
     defaultLang,
-    filterUnauthorizedData
+    filterUnauthorizedData,
   } = {
     access: 'public', // read or write?
     draft: false,
     defaultLang: 'en',
     filterUnauthorizedData: false,
     returnPayload: false,
-    ...options
+    ...options,
   };
 
   const userUid = extractUserUid(data, options);
@@ -43,7 +43,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     defaultLang,
     filterUnauthorizedData,
     member,
-    access
+    access,
   });
 };
 
