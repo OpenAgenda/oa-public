@@ -30,8 +30,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
       __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
-      __dirname + '/fixtures/occurrence.data.sql',
-      __dirname + '/fixtures/legacyCredentialSet.data.sql'
+      __dirname + '/fixtures/occurrence.data.sql'
     ],
     map: {
       database: config.mysql.database,
@@ -43,38 +42,6 @@ describe( 'agendas - unit (server): legacy bridging', function() {
   } ) );
 
   describe( 'applyToLegacy', () => {
-
-    it( 'credentials are written in legacy credentials table', done => {
-
-      let con = mysql.createConnection( config.mysql );
-
-      con.query( 'select * from ' + config.schemas.legacyCredentialSet + ' where review_id = ?', 4828, ( err, rows ) => {
-
-        rows[ 0 ].indesign.should.equal( 0 );
-        rows[ 0 ].custom_templates.should.equal( 0 );
-
-        legacy( 4828 ).applyToLegacy( {
-          credentials: {
-            indesign: 1,
-            embedsTemplates: 1
-          }
-        }, err => {
-
-          con.query( 'select * from ' + config.schemas.legacyCredentialSet + ' where review_id = ?', 4828, ( err, rows ) => {
-
-            rows[ 0 ].indesign.should.equal( 1 );
-            rows[ 0 ].custom_templates.should.equal( 1 );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
 
     it( 'contribution default state is written in store', done => {
 
