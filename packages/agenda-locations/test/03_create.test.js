@@ -20,7 +20,7 @@ const defaultAccess = {
   authorized: true,
   external: false,
   serviceLabel: null,
-  link: null
+  link: null,
 };
 
 const initSettingsDA = {
@@ -29,8 +29,8 @@ const initSettingsDA = {
     create: defaultAccess,
     delete: defaultAccess,
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 const initSettingsCantCreate = {
@@ -39,8 +39,8 @@ const initSettingsCantCreate = {
     create: { ...defaultAccess, authorized: false },
     delete: { ...defaultAccess, authorized: false },
     merge: defaultAccess,
-    update: defaultAccess
-  }
+    update: defaultAccess,
+  },
 };
 
 describe('agenda-locations - functional - create', () => {
@@ -75,7 +75,7 @@ describe('agenda-locations - functional - create', () => {
             adminLevel4: 'Vannes',
           },
         ],
-        getAgendaLocationSettings: async _uid => initSettingsDA
+        getAgendaLocationSettings: async _uid => initSettingsDA,
       },
       Files: Files(dConfig.files),
     });
@@ -86,6 +86,7 @@ describe('agenda-locations - functional - create', () => {
 
     beforeAll(async () => {
       created = await svc(7196947).create(payload);
+      console.log(created);
     });
 
     it('basic create provides created location as a response', async () => {
@@ -236,7 +237,7 @@ describe('agenda-locations - functional - create', () => {
             `${__dirname}/fixtures/images/vieilles_pierres.jpg`
           ),
         }, {
-          includeImagePath: true
+          includeImagePath: true,
         });
       } catch (e) {
         // console.log(e);
@@ -294,6 +295,7 @@ describe('agenda-locations - functional - create', () => {
           insee: '41173',
           countryCode: 'FR',
         });
+        console.log(l);
         expect(l).toBeDefined();
       }
     );

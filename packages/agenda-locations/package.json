@@ -12,7 +12,7 @@
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service server.dev.js",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write '**/*.js'",
-    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false"
+    "test": "jest --runInBand --forceExit --testTimeout=40000 --verbose=false"
   },
   "dependencies": {
     "@openagenda/countries": "^0.1.1",
