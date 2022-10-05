@@ -135,11 +135,11 @@ module.exports = Object.assign(
             detectAll: detectAllCandidates.bind(null, { internals: svc, endpoints }),
             disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
             clearCandidates: clearCandidates.bind(null, endpoints),
-          }
+          },
         },
         settings: {
           get: settings.get.bySetUid.bind(null, svc, setUid),
-        }
+        },
       };
     }, service.sets);
 
@@ -174,7 +174,7 @@ module.exports = Object.assign(
           detectAll: detectAllCandidates.bind(null, { internals: svc, endpoints }),
           disqualifyCandidate: disqualifyCandidate.bind(null, endpoints),
           clearCandidates: clearCandidates.bind(null, endpoints),
-        }
+        },
       };
     };
 
@@ -195,6 +195,6 @@ module.exports = Object.assign(
       countries,
       distance: geolib.getDistance,
       geoFields,
-    }
+    },
   }
 );
