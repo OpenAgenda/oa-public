@@ -423,6 +423,21 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(response.event.uid).toBe(2);
       });
 
+      it('get by agenda slug and event slug', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/slug/un-agenda-thematique/events/slug/event-2',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: nonAdminModKey,
+          },
+        }).then(r => r.data);
+
+        expect(response.event.uid).toBe(2);
+      });
+
       it('includeFields: get by slug with additional field labels', async () => {
         const response = await axios({
           method: 'get',

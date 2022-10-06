@@ -138,6 +138,7 @@ module.exports = core => {
   app.get([
     '/agendas/:agendaUid/events/:eventUid',
     '/agendas/:agendaUid/events/slug/:eventSlug',
+    '/agendas/slug/:agendaSlug/events/slug/:eventSlug',
   ], [
     mw.evaluateAnonymousAccess,
     mw.getEventFromSearchOrAsDraft,
