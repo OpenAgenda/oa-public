@@ -46,7 +46,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
 
   describe('results contents', () => {
     it('basic patch', async () => {
-      await core.agendas({ uid: 2 }).members.patch(1, {
+      await core.agendas(2).members.patch(1, {
         name: 'Janine',
         phone: '01',
         position: 'Gardienne',
@@ -72,7 +72,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
     });
 
     it('basic patch with custom fields', async () => {
-      await core.agendas({ uid: 3 }).members.patch(1, {
+      await core.agendas(3).members.patch(1, {
         name: 'Jam',
         phone: '02',
         position: 'Gardien',
@@ -107,7 +107,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.patch(1, {
+        await core.agendas(2).members.patch(1, {
           name: 'Jayneen',
         }, {
           userUid: 99999967,
@@ -123,7 +123,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.patch(1, {
+        await core.agendas(2).members.patch(1, {
           name: 'Jayneen',
         }, {
           userUid: 5,
@@ -139,7 +139,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.patch(1, {
+        await core.agendas(2).members.patch(1, {
           role: 'moderator',
         }, {
           userUid: 1,

@@ -47,7 +47,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
   describe('results contents', () => {
     it('basic create', async () => {
-      const member = await core.agendas({ uid: 2 }).members.create(82253124, 'administrator', {
+      const member = await core.agendas(2).members.create(82253124, 'administrator', {
         name: 'Fred',
         phone: '06',
       }, {
@@ -67,7 +67,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     });
 
     it('user can add himself on open agenda', async () => {
-      const member = await core.agendas({ uid: 93399464 }).members.create(99999967, 'contributor', {
+      const member = await core.agendas(93399464).members.create(99999967, 'contributor', {
         name: 'Jean-Benoit',
       }, {
         userUid: 99999967,
@@ -77,7 +77,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     });
 
     it('admin can add contributor with values to custom fields', async () => {
-      await core.agendas({ uid: 3 }).members.create(50300, 'contributor', {
+      await core.agendas(3).members.create(63460, 'contributor', {
         name: 'JayBee',
         organization: 'thingy',
         position: 'boss',
@@ -86,21 +86,21 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       }, {
         userUid: 1, // actingUserIid
       });
-      const custom = await services.custom(8).get(50300);
-      const member = await services.members.get({ agendaUid: 3, userUid: 50300 });
+      const custom = await services.custom(8).get(63460);
+      const member = await services.members.get({ agendaUid: 3, userUid: 63460 });
       expect({ customValue: custom.num_orga, memberName: member.custom.contactName }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
     });
 
     it('admin can add admin with values to custom fields', async () => {
-      await core.agendas({ uid: 3 }).members.create(9090, 'administrator', {
+      await core.agendas(3).members.create(9090, 'administrator', {
         name: 'JayBee',
         organization: 'thingy',
         num_orga: '30org',
       }, {
         userUid: 1, // actingUserUid
       });
-      const custom = await services.custom(8).get(50300);
-      const member = await services.members.get({ agendaUid: 3, userUid: 50300 });
+      const custom = await services.custom(8).get(9090);
+      const member = await services.members.get({ agendaUid: 3, userUid: 9090 });
       expect({ customValue: custom.num_orga, memberName: member.custom.contactName }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
     });
   });
@@ -110,7 +110,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.create(10866730, 'contributor', {
+        await core.agendas(2).members.create(10866730, 'contributor', {
           name: 'Hélène',
         }, {
           userUid: 5,
@@ -126,7 +126,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.create(99999967, 'contributor', {
+        await core.agendas(2).members.create(99999967, 'contributor', {
           name: 'JayBee',
         }, {
           userUid: 99999967,

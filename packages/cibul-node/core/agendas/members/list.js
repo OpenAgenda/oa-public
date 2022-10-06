@@ -7,7 +7,8 @@ const validateNav = require('./lib/validateNav');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
 
-module.exports = async (services, agendaOrUid, nav, options = {}) => {
+module.exports = async (core, agendaOrUid, nav, options = {}) => {
+  const { services } = core;
   const {
     members: membersSvc,
     agendas,

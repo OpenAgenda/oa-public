@@ -16,7 +16,7 @@ module.exports = async (services, agendaOrUid, options) => {
     return {
       merged: memberSchema({ optionalFields }),
       schema: memberSchema({ optionalFields }),
-      agendaSchema: null
+      agendaSchema: null,
     };
   }
   const aditionalFields = await formSchemas.get(memberSchemaId);
@@ -27,6 +27,6 @@ module.exports = async (services, agendaOrUid, options) => {
   return {
     merged: formSchemas.utils.merge(memberSchema({ optionalFields }), aditionalFields),
     schema: memberSchema({ optionalFields }),
-    agendaSchema: aditionalFields
+    agendaSchema: aditionalFields,
   };
 };

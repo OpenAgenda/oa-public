@@ -1,12 +1,11 @@
 'use strict';
 
 const { Forbidden } = require('@openagenda/verror');
-const getAgenda = require('../utils/getAgenda');
-const getMemberSchema = require('../utils/getMemberSchema');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
 
-async function get(services, preloadedOptions, agendaOrUid, userUid, options = {}) {
+async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
+  const { services } = core;
   const {
     members,
     custom,
@@ -17,10 +16,9 @@ async function get(services, preloadedOptions, agendaOrUid, userUid, options = {
     access = null,
   } = options;
 
-  const agenda = await getAgenda(services, agendaOrUid);
-
+  const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
   const actingMember = actingUserUid ? await members.get({
-    agendaUid: agenda.uid,
+    agendaUid,
     userUid: actingUserUid,
   }) : null;
 
@@ -33,16 +31,17 @@ async function get(services, preloadedOptions, agendaOrUid, userUid, options = {
     throw new Forbidden('Not authorized to access member');
   }
 
+  const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await core.agendas(agendaOrUid).get({ detailed: true, access });
+
   const memberRes = await members.get({
     agendaUid: agenda.uid,
     userUid,
   }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m) : null));
 
-  const schemas = await getMemberSchema(services, agenda.uid, { access, actingMember });
-  if (!schemas.agendaSchema) {
+  if (!agenda.memberSchemaId) {
     return memberRes;
   }
-  const customRes = await custom(schemas.agendaSchema.id).get(userUid);
+  const customRes = await custom(agenda.memberSchemaId).get(userUid);
   return { ...memberRes, ...customRes };
 }
 

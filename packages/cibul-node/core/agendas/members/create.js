@@ -4,12 +4,11 @@ const _ = require('lodash');
 const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
-const getMemberSchema = require('../utils/getMemberSchema');
-const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
 const canCreate = require('./lib/canCreate');
 
-module.exports = async (services, agendaOrUid, userUid, role, data, options = {}) => {
+module.exports = async (core, agendaOrUid, userUid, role, data, options = {}) => {
+  const { services } = core;
   const {
     members,
     users,
@@ -27,20 +26,15 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  const agenda = await getAgenda(services, agendaUid, { detailed: true });
-
-  const memberData = {
-    ...data || {},
-  };
-
-  if (options.useAccountEmail) {
-    memberData.email = await users.get(userUid).then(u => u.email);
-  }
-
   const actingMember = actingUserUid ? await members.get({
     agendaUid,
     userUid: actingUserUid,
   }) : null;
+
+  const agenda = agendaOrUid?.constructor.name === 'Object'
+    ? agendaOrUid
+    : await core.agendas(agendaOrUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access, actingMember });
+  const { memberSchema: schemas } = agenda;
 
   if (!canCreate(services, {
     agenda,
@@ -53,7 +47,14 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
     throw new Forbidden('Not authorized to add a member');
   }
 
-  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
+  const memberData = {
+    ...data || {},
+  };
+
+  if (options.useAccountEmail) {
+    memberData.email = await users.get(userUid).then(u => u.email);
+  }
+
   let cleanMemberData = null;
   try {
     const validate = new FormSchema(schemas.merged).getValidate();
@@ -65,7 +66,7 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
   }
 
   try {
-    if (schemas.agendaSchema) {
+    if (agenda.memberSchemaId) {
       const dispatchedData = dispatchDataPerSchemas(memberData, [schemas.schema, schemas.agendaSchema]);
       await custom(agenda.memberSchemaId).set(userUid, dispatchedData[1]);
     }

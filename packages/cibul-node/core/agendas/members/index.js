@@ -6,11 +6,11 @@ const list = require('./list');
 const patch = require('./patch');
 const remove = require('./remove');
 
-module.exports = (services, agendaUid) => ({
-  list: list.bind(null, services, agendaUid),
-  get: get.bind(null, services, agendaUid),
-  create: create.bind(null, services, agendaUid),
-  patch: patch.bind(null, services, agendaUid),
-  is: get.is.bind(null, services, agendaUid),
-  remove: remove.bind(null, services, agendaUid),
+module.exports = (core, agendaUid) => ({
+  list: list.bind(null, core, agendaUid),
+  get: get.bind(null, core, agendaUid),
+  create: create.bind(null, core, agendaUid),
+  patch: patch.bind(null, core, agendaUid),
+  is: get.is.bind(null, core, agendaUid),
+  remove: remove.bind(null, core, agendaUid),
 });

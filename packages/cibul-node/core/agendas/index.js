@@ -23,7 +23,7 @@ module.exports = core => {
       remove: remove.bind(null, agendaUid),
       events: events(agendaUid),
       locations: locations(core, agendaUid),
-      members: members(core.services, agendaUid),
+      members: members(core, agendaUid),
       settings: settings(agendaUid),
       embeds: embeds(core, agendaUid),
     };

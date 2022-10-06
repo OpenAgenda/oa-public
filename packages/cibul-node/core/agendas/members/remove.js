@@ -5,7 +5,8 @@ const { Forbidden, BadRequest } = require('@openagenda/verror');
 const getMemberSchema = require('../utils/getMemberSchema');
 const canEdit = require('./lib/canEdit');
 
-module.exports = async (services, agendaOrUid, identifiers, options = {}) => {
+module.exports = async (core, agendaOrUid, identifiers, options = {}) => {
+  const { services } = core;
   const {
     members,
     users,

@@ -51,6 +51,7 @@ async function get(core, agendaUid, options = {}) {
     includeNonDataFields = false,
     useCache = false,
     includeMemberSchema = false,
+    includeSplitedMemberSchema = false,
   } = options;
 
   log('getting agenda %s, info with access %s', agendaUid, access);
@@ -106,7 +107,7 @@ async function get(core, agendaUid, options = {}) {
   });
 
   if (includeMemberSchema) {
-    related.memberSchema = (await getMemberSchema(services, agenda, { access })).merged;
+    related.memberSchema = includeSplitedMemberSchema ? await getMemberSchema(services, agenda, { access }) : (await getMemberSchema(services, agenda, { access })).merged;
   }
 
   if (access === 'internal') {
