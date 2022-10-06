@@ -34,8 +34,8 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -46,13 +46,13 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
   describe('results contents', () => {
     it('basic remove', async () => {
       await core.agendas({ uid: 2 }).members.remove(1, {
-        userUid: 1
+        userUid: 1,
       });
 
       const rows = await core.services.knex('reviewer').select()
         .where({
           agenda_uid: 2,
-          user_uid: 1
+          user_uid: 1,
         });
 
       expect(rows.length).toBe(0);
@@ -74,11 +74,11 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -90,8 +90,8 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
           headers: {
             'access-token': accessToken,
             nonce: 12382108,
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r.data);
       });
 

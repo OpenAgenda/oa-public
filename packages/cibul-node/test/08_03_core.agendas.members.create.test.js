@@ -36,8 +36,8 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -49,9 +49,9 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     it('basic create', async () => {
       const member = await core.agendas({ uid: 2 }).members.create(82253124, 'administrator', {
         name: 'Fred',
-        phone: '06'
+        phone: '06',
       }, {
-        userUid: 50073466
+        userUid: 50073466,
       });
 
       expect(_.omit(member, 'updatedAt')).toEqual({
@@ -62,15 +62,15 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         position: null,
         organization: null,
         role: 'administrator',
-        userUid: 82253124
+        userUid: 82253124,
       });
     });
 
     it('user can add himself on open agenda', async () => {
       const member = await core.agendas({ uid: 93399464 }).members.create(99999967, 'contributor', {
-        name: 'Jean-Benoit'
+        name: 'Jean-Benoit',
       }, {
-        userUid: 99999967
+        userUid: 99999967,
       });
 
       expect(member.role).toBe('contributor');
@@ -82,9 +82,9 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         organization: 'thingy',
         position: 'boss',
         email: 'my@mail.com',
-        num_orga: '30org'
+        num_orga: '30org',
       }, {
-        userUid: 1 // actingUserIid
+        userUid: 1, // actingUserIid
       });
       const custom = await services.custom(8).get(50300);
       const member = await services.members.get({ agendaUid: 3, userUid: 50300 });
@@ -95,9 +95,9 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       await core.agendas({ uid: 3 }).members.create(9090, 'administrator', {
         name: 'JayBee',
         organization: 'thingy',
-        num_orga: '30org'
+        num_orga: '30org',
       }, {
-        userUid: 1 // actingUserUid
+        userUid: 1, // actingUserUid
       });
       const custom = await services.custom(8).get(50300);
       const member = await services.members.get({ agendaUid: 3, userUid: 50300 });
@@ -111,9 +111,9 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       try {
         await core.agendas({ uid: 2 }).members.create(10866730, 'contributor', {
-          name: 'Hélène'
+          name: 'Hélène',
         }, {
-          userUid: 5
+          userUid: 5,
         });
       } catch (e) {
         error = e;
@@ -127,9 +127,9 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       try {
         await core.agendas({ uid: 2 }).members.create(99999967, 'contributor', {
-          name: 'JayBee'
+          name: 'JayBee',
         }, {
-          userUid: 99999967
+          userUid: 99999967,
         });
       } catch (e) {
         error = e;
@@ -155,22 +155,22 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
+        },
       }).then(r => r.data.access_token);
 
       nonMemberAccessToken = await axios({
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -182,14 +182,14 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           headers: {
             'access-token': adminAccessToken,
             nonce: 1238978,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
             name: 'Hélène',
             position: 'Responsable de communication',
             role: 'administrator',
-            userUid: 10866730
-          }
+            userUid: 10866730,
+          },
         }).then(r => r.data);
       });
 
@@ -211,21 +211,21 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           headers: {
             'access-token': nonMemberAccessToken,
             nonce: 1238979,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
             name: 'Chris sie',
             position: 'Petite main',
             role: 'contributor',
-            userUid: 24372732
-          }
+            userUid: 24372732,
+          },
         }).then(r => r.data);
 
         const entry = await core.services.knex('reviewer')
           .first()
           .where({
             user_uid: 24372732,
-            agenda_uid: 48353388
+            agenda_uid: 48353388,
           });
 
         expect(entry.credential).toBe(1);
@@ -244,14 +244,14 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
             headers: {
               'access-token': nonMemberAccessToken,
               nonce: 89189389,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
               name: 'Hélène',
               position: 'Responsable de communication',
               role: 'administrator',
-              userUid: 10866730
-            }
+              userUid: 10866730,
+            },
           });
         } catch (e) {
           response = e.response;
@@ -266,11 +266,11 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           method: 'post',
           url: 'http://localhost:3000/requestAccessToken',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
-            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-          }
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
         }).then(r => r.data.access_token);
 
         try {
@@ -280,14 +280,14 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
             headers: {
               'access-token': contributorAccessToken,
               nonce: 89189389,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
               name: 'Hélène',
               position: 'Responsable de communication',
               role: 'administrator',
-              userUid: 10866730
-            }
+              userUid: 10866730,
+            },
           });
         } catch (e) {
           response = e.response;
