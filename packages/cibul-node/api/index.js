@@ -15,7 +15,7 @@ const getSettingsResyncEndpoint = require('./endpoints/settingsResync');
 
 const settings = {
   get: getSettingsEndpoint,
-  resync: getSettingsResyncEndpoint
+  resync: getSettingsResyncEndpoint,
 };
 
 const handleError = errors.bind(null, 'api');
@@ -29,7 +29,7 @@ module.exports = core => {
   app.services = core.services;
 
   const {
-    verifySuperAdmin
+    verifySuperAdmin,
   } = app.services.users.mw;
 
   log('middleware');
@@ -38,9 +38,9 @@ module.exports = core => {
   const postMw = [
     app.services.events.middleware.imageTransformAndUpload([{
       name: 'image',
-      unique: true
+      unique: true,
     }]),
-    mw.parseBodyData
+    mw.parseBodyData,
   ];
 
   app.post('*', postMw);
@@ -68,36 +68,38 @@ module.exports = core => {
 
   app.get([
     '/agendas/slug/:agendaSlug',
-    '/agendas/:agendaUid'
+    '/agendas/:agendaUid',
   ], mw.redirectIfPrivate);
 
   app.get([
     '/agendas/slug/:agendaSlug',
     '/agendas/:agendaUid',
-    '/agendas/:agendaUid.prv'
+    '/agendas/:agendaUid.prv',
   ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
     access: req.access,
     includeEvent: true,
     detailed: req.query.detailed,
     private: req.member ? null : false,
     includeNonDataFields: req.query.includeNonDataFields === '1',
-    includeMemberSchema: req.query.includeMemberSchema
+    includeMemberSchema: req.query.includeMemberSchema,
   }).catch(next)));
 
-  app.post('/agendas/:agendaUid/events',
+  app.post(
+    '/agendas/:agendaUid/events',
     mw.moveEventLegacyImageCredits,
     (req, res, next) => core
       .agendas(req.agenda.uid).events
       .create(req.parsedData, {
         context: {
-          userUid: req.member.userUid
+          userUid: req.member.userUid,
         },
         access: req.access,
-        defaultLang: req.headers.lang
+        defaultLang: req.headers.lang,
       }).then(event => res.json({
         success: true,
-        event
-      }), next));
+        event,
+      }), next)
+  );
 
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
@@ -108,15 +110,15 @@ module.exports = core => {
     .remove(req.event.uid, {
       context: {
         agendaUid: req.agenda.uid,
-        userUid: req.user.uid
+        userUid: req.user.uid,
       },
-      private: null
+      private: null,
     }).then(event => res.json({ success: true, event }), next));
 
   app.get(
     [
       '/agendas/:agendaUid/events',
-      '/agendas/slug/:agendaSlug/events'
+      '/agendas/slug/:agendaSlug/events',
     ],
     mw.convertLegacyFilter,
     (req, res, next) => core
@@ -126,45 +128,46 @@ module.exports = core => {
         ...req.convertedQuery,
         useAfterKey: true,
         userUid: req.user?.uid,
-        includeLocationImagePath: true
+        includeLocationImagePath: true,
       }).then(result => res.json({
         success: true,
-        ...result
-      }), next));
+        ...result,
+      }), next)
+  );
 
   app.get([
     '/agendas/:agendaUid/events/:eventUid',
-    '/agendas/:agendaUid/events/slug/:eventSlug'
+    '/agendas/:agendaUid/events/slug/:eventSlug',
   ], [
     mw.evaluateAnonymousAccess,
     mw.getEventFromSearchOrAsDraft,
     (req, res) => res.json({
       success: true,
-      event: req.event
-    })
+      event: req.event,
+    }),
   ]);
 
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
-    settings.get
+    settings.get,
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core.agendas(req.agenda.uid).settings.schema.getMember({ userUid: req.user.uid })
-      .then(data => res.json({ ...data }), next)
+      .then(data => res.json({ ...data }), next),
   ]);
 
   app.get('/agendas/:agendaUid/members', [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
       .agendas(req.agenda.uid).members.list(req.query, {
-        userUid: req.user.uid
+        userUid: req.user.uid,
       })
       .then(data => res.json({
         ...data,
-        success: true
-      }), next)
+        success: true,
+      }), next),
   ]);
 
   app.post(
@@ -180,14 +183,14 @@ module.exports = core => {
     (req, res, next) => core
       .agendas(req.agenda.uid).members
       .get(req.params.userUid, {
-        userUid: req.user.uid
+        userUid: req.user.uid,
       })
-      .then(member => res.json(member), next)
+      .then(member => res.json(member), next),
   ]);
 
   app.patch([
     '/agendas/:agendaUid/members/:userUid',
-    '/agendas/:agendaUid/members/member/:memberId'
+    '/agendas/:agendaUid/members/member/:memberId',
   ], [
     mw.member.load,
     (req, res, next) => core
@@ -195,12 +198,12 @@ module.exports = core => {
       .members.patch(req.params.memberId
         ? { id: req.params.memberId }
         : { userUid: req.params.userUid }, req.parsedData, { userUid: req.user.uid })
-      .then(member => res.json(member), next)
+      .then(member => res.json(member), next),
   ]);
 
   app.delete([
     '/agendas/:agendaUid/members/:userUid',
-    '/agendas/:agendaUid/members/member/:memberId'
+    '/agendas/:agendaUid/members/member/:memberId',
   ], [
     mw.member.load,
     (req, res, next) => core
@@ -208,10 +211,10 @@ module.exports = core => {
       .remove(req.params.memberId
         ? { id: req.params.memberId }
         : { userUid: req.params.userUid }, {
-        userUid: req.user.uid
+        userUid: req.user.uid,
       }).then(() => res.json({
-        success: true
-      }), next)
+        success: true,
+      }), next),
   ]);
 
   app.post('/agendas/:agendaUid/locations', [
@@ -219,41 +222,44 @@ module.exports = core => {
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .create(req.parsedData)
-      .then(location => res.json({
-        success: true,
-        location
-      }), next)
+      .then(
+        location => res.json({
+          success: true,
+          location,
+        }),
+        next
+      ),
   ]);
 
   app.param('locationExtId', (req, res, next) => {
     req.locationIdentifier = {
-      extId: req.params.locationExtId
+      extId: req.params.locationExtId,
     };
     next();
   });
 
   app.param('locationUid', (req, res, next) => {
     req.locationIdentifier = {
-      uid: req.params.locationUid
+      uid: req.params.locationUid,
     };
     next();
   });
 
   app.param('locationSlug', (req, res, next) => {
     req.locationIdentifier = {
-      slug: req.params.locationSlug
+      slug: req.params.locationSlug,
     };
     next();
   });
 
   app.get('/locations/geocode', (req, res, next) => core.services.geocoder(req.query.address, {
     countryCode: req.query.countryCode,
-    language: req.lang || 'fr'
+    language: req.lang || 'fr',
   }).then(results => res.send({ results }), next));
 
   app.get('/locations/geocode/reverse', (req, res, next) => core.services.geocoder
     .reverse(req.query.latitude, req.query.longitude, {
-      language: req.lang || 'fr'
+      language: req.lang || 'fr',
     }).then(results => res.send({ results }), next));
 
   app.get('/locations/insee', (req, res, next) => core.services.agendaLocations.utils.getINSEECode(
@@ -272,31 +278,31 @@ module.exports = core => {
       .locations.merge(req.body.mergeIn, { uids: req.body.merged })
       .then(location => res.json({
         location,
-        success: true
-      }), next)
+        success: true,
+      }), next),
   ]);
 
   app.get([
     '/agendas/:agendaUid/locations/:locationUid',
     '/agendas/:agendaUid/locations/ext/:locationExtId',
-    '/agendas/:agendaUid/locations/slug/:locationSlug'
+    '/agendas/:agendaUid/locations/slug/:locationSlug',
   ], [
     (req, res, next) => core
       .agendas(req.agenda.uid).locations
       .get(req.locationIdentifier, {
         access: req.access,
         throwOnNotFound: req.method === 'HEAD',
-        includeFields: req.method === 'HEAD' ? ['uid'] : []
+        includeFields: req.method === 'HEAD' ? ['uid'] : [],
       })
       .then(location => (req.method === 'HEAD' ? res.send() : res.json({
         success: true,
-        location
-      })), next)
+        location,
+      })), next),
   ]);
 
   app.post([
     '/agendas/:agendaUid/locations/:locationUid',
-    '/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/ext/:locationExtId',
   ], [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
@@ -304,13 +310,13 @@ module.exports = core => {
       .update(req.locationIdentifier, req.parsedData)
       .then(location => res.json({
         success: true,
-        location
-      }), next)
+        location,
+      }), next),
   ]);
 
   app.patch([
     '/agendas/:agendaUid/locations/:locationUid',
-    '/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/ext/:locationExtId',
   ], [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
@@ -318,13 +324,13 @@ module.exports = core => {
       .patch(req.locationIdentifier, req.parsedData)
       .then(location => res.json({
         success: true,
-        location
-      }), next)
+        location,
+      }), next),
   ]);
 
   app.delete([
     '/agendas/:agendaUid/locations/:locationUid',
-    '/agendas/:agendaUid/locations/ext/:locationExtId'
+    '/agendas/:agendaUid/locations/ext/:locationExtId',
   ], [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => core
@@ -332,8 +338,8 @@ module.exports = core => {
       .remove(req.locationIdentifier)
       .then(location => res.json({
         success: true,
-        location
-      }), next)
+        location,
+      }), next),
   ]);
 
   app.get(
@@ -343,13 +349,13 @@ module.exports = core => {
       .list(req.query, req.query, {
         useAfter: !req.query.from || !!req.query.after,
         eventCounts: !!req.query.eventCounts,
-        itemsKey: req.query.itemsKey ?? 'locations'
+        itemsKey: req.query.itemsKey ?? 'locations',
       })
       .then(({ items, total, after }) => res.json({
         success: true,
         after,
         total,
-        [req.query.itemsKey ?? 'locations']: items
+        [req.query.itemsKey ?? 'locations']: items,
       }), next)
   );
 
@@ -391,7 +397,7 @@ module.exports = core => {
 
   app.post('/agendas/:agendaUid/settings/resync', [
     verifySuperAdmin,
-    settings.resync
+    settings.resync,
   ]);
 
   app.get('/me', (req, res, next) => {
@@ -402,7 +408,7 @@ module.exports = core => {
         .get(req.user.uid, { detailed: true })
         .then(user => res.json({
           logged: true,
-          ..._.pick(user, ['apiKey'])
+          ..._.pick(user, ['apiKey']),
         }), next);
     }
   });
@@ -418,7 +424,7 @@ module.exports = core => {
           core.services.sessions.mw.close();
         }
         res.json({
-          success: true
+          success: true,
         });
       });
   });
@@ -436,9 +442,9 @@ module.exports = core => {
       .getContext({
         userUid: req.user.uid,
         includes: req.query.includes,
-        relation: ['contributed', 'owned']
+        relation: ['contributed', 'owned'],
       })
-      .then(context => res.json(context), next)
+      .then(context => res.json(context), next),
   ]);
 
   app.get('/me/agendas/:agendaUid/events', [
@@ -447,15 +453,15 @@ module.exports = core => {
       .users(req.user.uid)
       .agendas(req.params.agendaUid)
       .events.search({
-        relation: ['contributed', 'owned']
+        relation: ['contributed', 'owned'],
       }, req.query, {
         useAfterKey: true,
         userUid: req.user?.uid,
-        useDefaultImage: true
+        useDefaultImage: true,
       }).then(result => res.json({
         success: true,
-        ...result
-      }), next)
+        ...result,
+      }), next),
   ]);
 
   app.get('/me/agendas/:agendaUid/events/drafts', [
@@ -468,8 +474,8 @@ module.exports = core => {
       .then(result => res.json({
         success: true,
         events: result.items,
-        total: result.total
-      }), next)
+        total: result.total,
+      }), next),
   ]);
 
   app.get('/me/agendas/:agendaUid/events/:eventUid', [
@@ -479,13 +485,13 @@ module.exports = core => {
       .agendas(req.params.agendaUid)
       .events(req.params.eventUid)
       .getContext({ userUid: req.user.uid })
-      .then(context => res.json(context), next)
+      .then(context => res.json(context), next),
   ]);
 
   app.get('/agendas', (req, res, next) => {
     core.agendas.search(req.query, req.query, {
       useDefaultImage: req.query.useDefaultImage && req.query.useDefaultImage === '1',
-      includeFields: req.query.fields ? [].concat(req.query.fields) : null
+      includeFields: req.query.fields ? [].concat(req.query.fields) : null,
     }).then(data => res.json({ ...data, success: true }), next);
   });
 
@@ -493,16 +499,16 @@ module.exports = core => {
     if ([
       'BadRequestError',
       'NotFoundError',
-      'ValidationError'
+      'ValidationError',
     ].includes(err.name)) {
       return res.status(err.statusCode).json({
-        errors: err.detail
+        errors: err.detail,
       });
     }
 
     if (err.name === 'UnauthorizedError') {
       return res.status(err.statusCode).json({
-        message: err.message
+        message: err.message,
       });
     }
 
@@ -510,17 +516,17 @@ module.exports = core => {
       return res.status(err.code).json({
         message: err.message,
         errors: err.info.errors,
-        info: _.omit(err.info, ['errors'])
+        info: _.omit(err.info, ['errors']),
       });
     }
 
     if ([
       'Forbidden',
-      'NotFound'
+      'NotFound',
     ].includes(err.name)) {
       return res.status(err.code).json({
         message: err.message,
-        info: err.info
+        info: err.info,
       });
     }
 
@@ -528,12 +534,12 @@ module.exports = core => {
       cause: err,
       info: {
         body: req.body,
-        query: req.query
-      }
+        query: req.query,
+      },
     }), req);
 
     return res.status(500).json({
-      message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'
+      message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com',
     });
   });
 
