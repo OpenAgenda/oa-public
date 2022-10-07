@@ -36,8 +36,8 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
         'legacy',
         'users',
         'keys',
-        'accessTokens'
-      ]
+        'accessTokens',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -56,9 +56,9 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     beforeAll(() => {
       core.agendas(17026855).events.create(eventFixtures[2], {
         context: {
-          userUid: memberUserUid
+          userUid: memberUserUid,
         },
-        access: 'contributor'
+        access: 'contributor',
       }).then(e => { event = e; });
 
       return new Promise(rs => {
@@ -83,7 +83,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
     it('sourceAgendas are indexed in event document of aggregator', async () => {
       const {
-        events
+        events,
       } = await core.agendas(55268170).events.search({ uid: event.uid }, {}, { detailed: true });
 
       expect(events[0].sourceAgendas.length).toBe(1);
@@ -93,17 +93,17 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
       let updated;
       beforeAll(async () => {
         updated = await core.agendas(55268170).events.update(event.uid, {
-          featured: 1
+          featured: 1,
         }, {
           partial: true,
           detailed: true,
-          userUid: 1
+          userUid: 1,
         });
       });
 
       it('update does not remove source information in indexed document', async () => {
         const {
-          events
+          events,
         } = await core.agendas(55268170).events.search({ uid: event.uid }, {}, { detailed: true });
 
         expect(events[0].sourceAgendas.length).toBe(1);
@@ -117,21 +117,21 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
   describe('aggregation after add', () => {
     const context = {
-      userUid: memberUserUid
+      userUid: memberUserUid,
     };
     let event;
 
     beforeAll(async () => {
       event = await core.agendas(58025176).events.create(eventFixtures[1], {
         context,
-        access: 'contributor'
+        access: 'contributor',
       });
     });
 
     beforeAll(() => {
       core.agendas(17026855).events.add(event.uid, {
         'thematiques-metropolitaines': 3,
-        'categories-agenda-metropolitain': 42
+        'categories-agenda-metropolitain': 42,
       }, { context });
 
       return new Promise(rs => {
@@ -148,13 +148,13 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
   describe('aggregation values update through rules', () => {
     let event;
     const context = {
-      userUid: memberUserUid
+      userUid: memberUserUid,
     };
 
     beforeAll(async () => {
       event = await core.agendas(17026800).events.create(eventFixtures[2], {
         context,
-        access: 'contributor'
+        access: 'contributor',
       });
 
       await (new Promise(rs => {
@@ -163,10 +163,10 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
       // first aggregation happened
       await core.agendas(17026800).events.update(event.uid, {
-        'categories-agenda-metropolitain': 43
+        'categories-agenda-metropolitain': 43,
       }, {
         partial: true,
-        context
+        context,
       });
 
       return new Promise(rs => {

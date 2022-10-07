@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const {
   knex,
-  resetAndCreateTables
+  resetAndCreateTables,
 } = require('./sql');
 
 const raw = resetAndCreateTables();
@@ -17,13 +17,13 @@ raw.push(knex('user').insert([
   require('./sql/users/chrissie.json'),
   require('./sql/users/helene.json'),
   require('./sql/users/jean-benoit.json'),
-  require('./sql/users/steevie.json')
+  require('./sql/users/steevie.json'),
 ]));
 
 raw.push(knex('api_key_set').insert([
   require('./sql/apiKeySets/01.json'), // user id 1
   require('./sql/apiKeySets/lise.keys.json'),
-  require('./sql/apiKeySets/chrissie.keys.json')
+  require('./sql/apiKeySets/chrissie.keys.json'),
 ]));
 
 const albiAgenda = require('./sql/agendas/albi.json'); // uid 48353388
@@ -36,7 +36,7 @@ raw.push(knex('review').insert([
   ({
     ...albiAgenda,
     settings: '{"tracking":{"googleAnalytics":null},"lab":{"eventAdmin":true,"status":false},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
-  })
+  }),
 ]));
 
 raw.push(knex('network').insert([
@@ -47,22 +47,22 @@ raw.push(knex('network').insert([
 
 raw.push(knex('form_schema').insert([{
   id: 1,
-  store: JSON.stringify({ fields: [] })
+  store: JSON.stringify({ fields: [] }),
 }, {
   id: 23483,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.network.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.network.json`),
 }, {
   id: 23481,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.agenda.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/albigeois.agenda.json`),
 }, {
   id: 73,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albi.network.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/albi.network.json`),
 }, {
   id: 10522,
-  store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/albi.agenda.json`),
 }, {
   id: 8,
-  store: fs.readFileSync(`${__dirname}/form-schemas/8.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/8.json`),
 }]));
 
 raw.push(knex('reviewer').insert([

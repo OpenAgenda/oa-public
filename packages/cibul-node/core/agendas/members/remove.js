@@ -1,8 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
 const { Forbidden, BadRequest } = require('@openagenda/verror');
-const getMemberSchema = require('../utils/getMemberSchema');
 const canEdit = require('./lib/canEdit');
 
 module.exports = async (core, agendaOrUid, identifiers, options = {}) => {
@@ -11,6 +9,7 @@ module.exports = async (core, agendaOrUid, identifiers, options = {}) => {
     members,
     users,
     custom,
+    agendas,
   } = services;
 
   const {
@@ -21,7 +20,7 @@ module.exports = async (core, agendaOrUid, identifiers, options = {}) => {
     throw new BadRequest('userUid option is required');
   }
 
-  const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
+  const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
 
   const member = await members.get({
     agendaUid,
@@ -42,17 +41,20 @@ module.exports = async (core, agendaOrUid, identifiers, options = {}) => {
     throw new Forbidden('Not authorized to patch member');
   }
 
-  const schemas = await getMemberSchema(services, agendaUid, { actingMember });
   const memberRes = await members.remove(member.id, {
     context: {
       user: actingUser,
     },
   });
 
-  if (!schemas.agendaSchema) {
+  const agenda = agendaOrUid?.constructor.name === 'Object'
+    ? agendaOrUid
+    : await agendas.get({ detailed: true, uid: agendaUid });
+
+  if (!agenda.memberSchemaId) {
     return memberRes;
   }
 
-  const customRes = await custom(schemas.agendaSchema.id).remove(member.userUid);
+  const customRes = await custom(agenda.memberSchemaId).remove(member.userUid);
   return { ...memberRes, ...customRes };
 };

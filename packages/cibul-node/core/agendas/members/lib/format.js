@@ -2,19 +2,19 @@
 
 const map = [{
   legacy: 'contactName',
-  field: 'name'
+  field: 'name',
 }, {
   legacy: 'contactNumber',
-  field: 'phone'
+  field: 'phone',
 }, {
   legacy: 'email',
-  field: 'email'
+  field: 'email',
 }, {
   legacy: 'contactPosition',
-  field: 'position'
+  field: 'position',
 }, {
   legacy: 'organization',
-  field: 'organization'
+  field: 'organization',
 }];
 
 module.exports = (membersSvc, item) => ({
@@ -26,12 +26,12 @@ module.exports = (membersSvc, item) => ({
   position: item?.custom?.contactPosition ?? null,
   organization: item?.custom?.organization ?? null,
   role: membersSvc.utils.getRoleSlug(item?.role),
-  updatedAt: item.updatedAt ?? null
+  updatedAt: item.updatedAt ?? null,
 });
 
 module.exports.custom = item => map
   .filter(m => item[m.field] !== undefined)
   .reduce((carry, mapItem) => ({
     ...carry,
-    [mapItem.legacy]: item[mapItem.field]
+    [mapItem.legacy]: item[mapItem.field],
   }), {});

@@ -37,8 +37,8 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         'legacy',
         'users',
         'keys',
-        'tracker'
-      ]
+        'tracker',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -66,7 +66,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     it('detailed get provides consolidated schema', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,
-        access: 'administrator'
+        access: 'administrator',
       });
 
       expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
@@ -74,7 +74,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     it('detailed get provides information on network', async () => {
       const agenda = await core.agendas(92983929).get({
-        detailed: true
+        detailed: true,
       });
 
       expect(agenda.network.uid).toBe(1234);
@@ -83,7 +83,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     it('fix: detailed get provides information on network event if access is internal', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,
-        access: 'internal'
+        access: 'internal',
       });
 
       expect(agenda.network?.uid).toBe(1234);
@@ -100,7 +100,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     it('detailed get with internal access includes admin fields in schema', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,
-        access: 'internal'
+        access: 'internal',
       });
 
       expect(
@@ -115,7 +115,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,
         access: 'internal',
-        includeEvent: true
+        includeEvent: true,
       });
 
       expect(
@@ -131,7 +131,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         detailed: true,
         access: 'internal',
         includeEvent: true,
-        includeNonDataFields: true
+        includeNonDataFields: true,
       });
 
       expect(
@@ -145,7 +145,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     it('schema fields each include a schemaType', async () => {
       const agenda = await core.agendas(92983929).get({
         detailed: true,
-        includeEvent: true
+        includeEvent: true,
       });
 
       expect(
@@ -160,7 +160,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         includeAgendaEvent: true,
         includeMember: true,
         access: 'administrator',
-        includeMemberSchema: true
+        includeMemberSchema: true,
       });
 
       expect(
@@ -170,14 +170,14 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     it('detailed gets returns a summary object', async () => {
       const agenda = await core.agendas(92983929).get({
-        detailed: true
+        detailed: true,
       });
 
       expect(agenda.summary).toEqual({
         keywords: [],
         publishedEvents: { current: 0, passed: 0, upcoming: 0 },
         recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 },
-        viewport: null
+        viewport: null,
       });
     });
   });
@@ -212,7 +212,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from non-administrator with includeMemberScema option', async () => {
         const res = await axios.get(`http://localhost:3000/agendas/92983929?key=${contributorKey}`, { params: { includeMemberSchema: true } });
-        expect(res.data.memberSchema.fields[0].optional).toBeFalsy();
+        expect(res.data.memberSchema.fields[1].optional).toBeFalsy();
       });
     });
 
@@ -252,7 +252,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     describe('get settings memberSchema', () => {
       it('basic get memberSchema', async () => {
-        const res = await axios.get('http://localhost:3000/agendas/92983929/settings/memberSchema?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9')
+        const res = await axios.get('http://localhost:3000/agendas/92983929/settings/memberSchema?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9');
         expect(res.data.agendaSchema.id).toBe(8);
       });
     });
