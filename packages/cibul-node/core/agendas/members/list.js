@@ -12,6 +12,7 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   const {
     members: membersSvc,
     agendas,
+    custom,
   } = services;
 
   const {
@@ -21,17 +22,8 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  const agenda = await agendas.get({ uid: agendaUid }, {
-    internal: true,
-    private: null,
-  });
-
-  if (!agenda) {
-    throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
-  }
-
   const actingMember = actingUserUid ? await membersSvc.get({
-    agendaUid: agenda.uid,
+    agendaUid,
     userUid: actingUserUid,
   }) : null;
 
@@ -43,13 +35,29 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
     throw new Forbidden('Not authorized to access member');
   }
 
-  return membersSvc.list({
+  const agenda = await agendas.get({ uid: agendaUid }, {
+    internal: true,
+    private: null,
+  });
+
+  if (!agenda) {
+    throw new NotFound({ info: { uid: agendaUid } }, 'agenda not found');
+  }
+
+  const { total, members } = await membersSvc.list({
     agendaUid: agenda.uid,
   }, validateNav(nav), {
     total: true,
-  }).then(({ members, total }) => ({
+  });
+
+  const membersUids = members.map(e => e.userUid);
+  const customs = (await custom(agenda.memberSchemaId).list({
+    identifier: membersUids,
+  })).items;
+
+  return {
     total,
     after: _.get(_.last(members), 'order', null),
-    items: members.map(m => format(membersSvc, m)),
-  }));
+    items: members.map(e => ({ ...format(membersSvc, e), ...customs.find(a => a.identifier === e.userUid)?.custom ?? {} })),
+  };
 };
