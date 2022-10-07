@@ -8,6 +8,7 @@ const isAdminMod = require('./isAdminMod');
 module.exports = async (services, agendaOrUid, options) => {
   const { formSchemas, members } = services;
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+  if (agenda.memberSchema?.merged) return agenda.memberSchema;
   const { memberSchemaId } = agenda;
   const isAdmin = await isAdminMod(members, agenda.uid, options);
   const optionalFields = isAdmin || !!memberSchemaId || !agenda.settings.contribution.useFields;

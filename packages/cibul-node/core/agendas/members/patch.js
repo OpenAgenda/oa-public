@@ -4,6 +4,7 @@ const _ = require('lodash');
 const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
+const getMemberSchema = require('../utils/getMemberSchema');
 const format = require('./lib/format');
 const canEdit = require('./lib/canEdit');
 
@@ -51,9 +52,9 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await core.agendas(agendaOrUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access, actingMember });
+    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access, actingMember });
 
-  const { memberSchema: schemas } = agenda;
+  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
   let cleanMemberData = null;
 
   try {
