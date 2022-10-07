@@ -36,7 +36,7 @@ async function setTags(knex, id, tagSet) {
     .select()
     .where('review_id', id);
 
-  for (const { tags: groupTags } of tagSet.groups) {
+  for (const { tags: groupTags } of tagSet?.groups ?? []) {
     for (const groupTag of groupTags) {
       const matchingTag = tags.filter(t => ((groupTag.slug === t.slug) || (groupTag.id === t.id))).pop();
 
@@ -50,7 +50,7 @@ async function setTags(knex, id, tagSet) {
     }
   }
 
-  const flattenedSetTags = tagSet.groups.reduce((flat, group) => flat.concat(group.tags), []);
+  const flattenedSetTags = (tagSet?.groups ?? []).reduce((flat, group) => flat.concat(group.tags), []);
 
   for (const tag of tags) {
     if (flattenedSetTags.filter(st => st.id === tag.id)) {
