@@ -131,13 +131,6 @@ function replaceWithStep(history, location, prefix, step) {
   });
 }
 
-function isMemberDataComplete(data) {
-  const fields = Object.keys(data ?? {}).filter(f => !['deletedUser'].includes(f));
-  const isComplete = fields.filter(field => !!data[field]).length === fields.length;
-  log('member data is %scomplete', isComplete ? '' : 'not ');
-  return isComplete;
-}
-
 function isMemberDataRequired(agenda) {
   return agenda?.settings?.contribution?.useFields ?? false;
 }
@@ -265,7 +258,6 @@ function shouldDisplayEventFields({ schema, eventContext, requestedDisplayEventF
 }
 
 export default {
-  isMemberDataComplete,
   isMemberDataRequired,
   isContributionType,
   isMemberRole,
