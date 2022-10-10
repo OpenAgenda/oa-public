@@ -1,5 +1,6 @@
 import getConfig from 'next/config';
 import React from 'react';
+import Layout from 'components/Layout';
 
 export async function getServerSideProps({ query, req }) {
   const {
@@ -19,7 +20,7 @@ export async function getServerSideProps({ query, req }) {
   };
 }
 
-export default function Agenda({ agenda, events }) {
+function Agenda({ agenda, events }) {
   return (
     <div>
       <h1>Une page NextJs - {agenda.title}</h1>
@@ -32,3 +33,7 @@ export default function Agenda({ agenda, events }) {
     </div>
   );
 }
+
+Agenda.Layout = Layout;
+
+export default Agenda;
