@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      <Container maxW="container.xl" py="4">
+      <Container maxW="container.xl" py="2">
         {children}
       </Container>
     </>
