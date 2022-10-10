@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 module.exports = {
   root: true,
 
@@ -10,6 +8,15 @@ module.exports = {
   extends: [
     '@openagenda/eslint-config/recommended',
     'plugin:jest/recommended'
+  ],
+
+  overrides: [
+    {
+      files: ['*.{ts,tsx}'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      extends: ['plugin:@typescript-eslint/recommended']
+    }
   ],
 
   env: {
@@ -26,13 +33,21 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
       legacyDecorators: true
-    }
+    },
+    babelOptions: {
+      rootMode: 'upward',
+    },
   },
 
   settings: {
     react: {
       version: 'detect'
     },
-    'import/resolver': path.resolve(__dirname, './resolver')
+    // 'import/resolver': path.resolve(__dirname, './resolver')
+    'import/resolver': {
+      node: {
+        "extensions": ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node']
+      }
+    }
   },
 };
