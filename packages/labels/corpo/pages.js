@@ -707,19 +707,19 @@ module.exports = {
     "io": "crwdns13620:0crwdne13620:0"
   },
   "networkPricingSmallPricing": {
-    "fr": "3 000 € / an*",
-    "en": "3,000 € / year*",
-    "de": "3.000 € / Jahr *",
-    "es": "3000 € / año *",
-    "it": "3 000 € / anno*",
+    "fr": "3 500 € / an*",
+    "en": "3,500 € / year*",
+    "de": "3.500 € / Jahr *",
+    "es": "3500 € / año *",
+    "it": "3 500 € / anno*",
     "io": "crwdns13622:0crwdne13622:0"
   },
   "networkPricingSmallPricingDetail": {
-    "fr": "(soit 250€* / mois)",
-    "en": "(i.e. 250€* / month)",
-    "de": "(Das heißt 250 € * / Monat)",
-    "es": "(O 250 € * / mes)",
-    "it": "(cioè 250€* / mese)",
+    "fr": "(soit 292€* / mois)",
+    "en": "(i.e. 292€* / month)",
+    "de": "(Das heißt 292 € * / Monat)",
+    "es": "(O 292 € * / mes)",
+    "it": "(cioè 292€* / mese)",
     "io": "crwdns13624:0crwdne13624:0"
   },
   "networkPricingMedium": {
@@ -747,19 +747,19 @@ module.exports = {
     "io": "crwdns13630:0crwdne13630:0"
   },
   "networkPricingMediumPricing": {
-    "fr": "5 000 €* / an",
-    "en": "5,000 €* / year",
-    "de": "5.000 € * / Jahr",
-    "es": "* 5000 € / año",
-    "it": "5 000 €* / anno",
+    "fr": "6 000 €* / an",
+    "en": "6,000 €* / year",
+    "de": "6.000 € * / Jahr",
+    "es": "6000 € / año",
+    "it": "6 000 €* / anno",
     "io": "crwdns13632:0crwdne13632:0"
   },
   "networkPricingMediumPricingDetail": {
-    "fr": "(soit 416 €* / mois)",
-    "en": "(i.e. 416 €* / month)",
-    "de": "(Das heißt 416 € * / Monat)",
-    "es": "(O 416 € * / mes)",
-    "it": "(ossia 416 €* / mese)",
+    "fr": "(soit 500 €* / mois)",
+    "en": "(i.e. 500 €* / month)",
+    "de": "(Das heißt 500 € * / Monat)",
+    "es": "(O 500 € * / mes)",
+    "it": "(ossia 500 €* / mese)",
     "io": "crwdns13634:0crwdne13634:0"
   },
   "networkPricingLarge": {
@@ -771,11 +771,11 @@ module.exports = {
     "io": "crwdns13636:0crwdne13636:0"
   },
   "networkPricingLargePricing": {
-    "fr": "A partir de 10 000 € / an",
-    "en": "Starting at 10,000 € / year",
-    "de": "Ab 10.000 € / Jahr",
-    "es": "A partir de 10 000 € / año",
-    "it": "Da 10 000 € / anno",
+    "fr": "A partir de 12 000 € / an",
+    "en": "Starting at 12,000 € / year",
+    "de": "Ab 12.000 € / Jahr",
+    "es": "A partir de 12 000 € / año",
+    "it": "Da 12 000 € / anno",
     "io": "crwdns13638:0crwdne13638:0"
   },
   "networkPricingLargeCount": {

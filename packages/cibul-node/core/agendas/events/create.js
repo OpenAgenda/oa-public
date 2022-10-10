@@ -21,12 +21,12 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   log('info', 'creating event on agenda %s', agendaUid);
 
   const {
-    services
+    services,
   } = core;
 
   const {
     members,
-    events
+    events,
   } = services;
 
   const {
@@ -43,7 +43,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     defaultLang: 'en',
     filterUnauthorizedData: false,
     returnPayload: false,
-    ...options
+    ...options,
   };
 
   const userUid = extractUserUid(data, options);
@@ -58,7 +58,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     defaultLang,
     filterUnauthorizedData,
     member,
-    access
+    access,
   });
 
   log('  cleaned data');
@@ -66,7 +66,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
   const authorizations = await loadAuthorizations(core, 'create', {
     agenda,
     member,
-    access
+    access,
   });
 
   if (!authorizations.canCreateEvent) {
@@ -75,7 +75,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
 
   assignState(agenda, null, clean, data, {
     authorizations,
-    draft
+    draft,
   });
   log('  associated state');
 
@@ -85,7 +85,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, {
       current: clean.event.links,
       includeEmbedlessLinks: true,
-      filterInvalidLinks: true
+      filterInvalidLinks: true,
     });
     log('  retrieved %s links', clean.event.links.length);
   } catch (e) {
@@ -104,7 +104,7 @@ module.exports = async (core, agendaUid, data, options = {}) => {
       access: 'internal',
       private: !!agenda.private,
       draft,
-      fileKey
+      fileKey,
     });
 
     payload.setItem('event', event);
@@ -114,27 +114,27 @@ module.exports = async (core, agendaUid, data, options = {}) => {
     if (e.toString() === 'ValidationError: Invalid data') {
       log('info', 'invalid data', e);
       throw new BadRequest({
-        info: { errors: e.detail }
+        info: { errors: e.detail },
       }, 'invalid data');
     }
     log('error', 'failed to create event', {
       agendaUid: agenda.uid,
-      event: clean.event
+      event: clean.event,
     });
     throw e;
   }
 
   const response = await doAdd(core, payload, ih(clean, {
     agendaEvent: {
-      canEdit: { $set: true }
+      canEdit: { $set: true },
     },
     // required for custom legacy sync only.
-    agendaId: { $set: agenda.id }
+    agendaId: { $set: agenda.id },
   }), {
     draft,
     userUid,
     access,
-    duplicateOrigin
+    duplicateOrigin,
   });
 
   return returnPayload ? response : response.event;

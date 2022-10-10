@@ -74,15 +74,15 @@ async function create(service, data, options = {}) {
 
 module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) => create(service, data, {
   ...options,
-  endpointId: { agendaUid }
+  endpointId: { agendaUid },
 });
 
 module.exports.bySetUid = async (service, setUid, data, options = {}) => {
-  if (!(await service.sets.get(setUid))) {
+  if (!await service.sets.get(setUid)) {
     throw new NotFound({ info: { setUid } }, 'set not found');
   }
   return create(service, data, {
     ...options,
-    endpointId: { setUid }
+    endpointId: { setUid },
   });
 };

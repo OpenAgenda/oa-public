@@ -37,8 +37,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         'legacy',
         'users',
         'keys',
-        'accessTokens'
-      ]
+        'accessTokens',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -71,7 +71,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     it('if access is adminmod, unpublished events are returned when requested', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
-        access: 'administrator'
+        access: 'administrator',
       });
 
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
@@ -80,7 +80,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     it('if search part of query contains an integer, a uid filter is applied', async () => {
       const { events, total } = await core.agendas(2).events.search({
         state: null,
-        search: '1'
+        search: '1',
       }, {}, { access: 'administrator' });
 
       expect(total).toBe(1);
@@ -91,7 +91,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
         access: 'administrator',
-        includeLabels: true
+        includeLabels: true,
       });
 
       expect(events[0].thematique).toEqual({ id: 2, label: { fr: 'Exposition' } });
@@ -102,22 +102,22 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         detailed: true,
         access: 'administrator',
         includeLabels: true,
-        monolingual: 'fr'
+        monolingual: 'fr',
       });
 
       expect(events[0].thematique).toEqual({
         id: 2,
-        label: 'Exposition'
+        label: 'Exposition',
       });
     });
 
     it('location image provides full path with includeLocationImagePath option', async () => {
       const { events } = await core.agendas(2).events.search({
         state: null,
-        locationUid: 1
+        locationUid: 1,
       }, { size: 1 }, {
         detailed: true,
-        includeLocationImagePath: true
+        includeLocationImagePath: true,
       });
 
       expect(events[0].location.image).toBe('https://openagendatest.s3.amazonaws.com/52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg');
@@ -126,7 +126,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
       const { events } = await core.agendas(2).events.search({ state: null }, {}, {
         detailed: true,
-        userUid: 63170200
+        userUid: 63170200,
       });
 
       expect(events.filter(e => e.state !== 2).length).toBeGreaterThan(0);
@@ -140,7 +140,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     it('if useAfterKey is set in options, after is to be given to navigation instead of searchAfter and result provides after instead of sort and sort as the effective sort value', async () => {
       const { sort, after, events } = await core.agendas(2).events.search({ state: null }, { size: 1 }, {
         userUid: 63170200,
-        useAfterKey: true
+        useAfterKey: true,
       });
 
       expect(events[0].uid).toBe(1);
@@ -149,7 +149,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       const result = await core.agendas(2).events.search({ state: null }, { size: 1, after }, {
         userUid: 63170200,
-        useAfterKey: true
+        useAfterKey: true,
       });
 
       expect(result.events[0].uid).toBe(2);
@@ -158,16 +158,16 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     it('fix: updatedAt is latest between ae and event timestamps', async () => {
       const { events } = await core.agendas(2).events.search({
         state: null,
-        uid: 1
+        uid: 1,
       }, {}, {
         access: 'administrator',
-        detailed: true
+        detailed: true,
       });
 
       expect(
         new Date(events.pop().updatedAt).getTime()
       ).toBe(
-        (new Date('2022-06-30T09:00:00.000Z')).getTime()
+        new Date('2022-06-30T09:00:00.000Z').getTime()
       );
     });
 
@@ -175,7 +175,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
         longDescriptionFormat: 'HTML',
         detailed: true,
-        userUid: 63170200
+        userUid: 63170200,
       });
 
       expect(events[0].longDescription.fr.substr(0, 38)).toBe('<p><strong>! CHANGEMENT !</strong></p>');
@@ -185,7 +185,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       const { events } = await core.agendas(2).events.search({}, { size: 1 }, {
         longDescriptionFormat: 'HTMLWithEmbeds',
         detailed: true,
-        userUid: 63170200
+        userUid: 63170200,
       });
 
       expect(events[0].longDescription.fr).toContain('<iframe');
@@ -193,7 +193,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
     it('aggregations can requested through options', async () => {
       const { aggregations } = await core.agendas(2).events.search({}, { size: 0 }, {
-        aggregations: ['states']
+        aggregations: ['states'],
       });
       expect(aggregations.states).toBeDefined();
     });
@@ -214,11 +214,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -233,12 +233,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             headers: {
               'access-token': accessToken,
               nonce: 123987,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             params: {
               state: [-1, 0, 1, 2],
-              detailed: 1
-            }
+              detailed: 1,
+            },
           }).then(r => r.data);
         } catch (e) {
           // console.log(e);
@@ -271,7 +271,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             headers: {
               'access-token': accessToken,
               nonce: 123989,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
           }).then(r => r.data);
         } catch (e) {
@@ -316,7 +316,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           headers: {
             'access-token': accessToken,
             nonce: 1239789,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
         }).then(r => r.data.event);
       });
@@ -335,13 +335,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             method: 'get',
             url: 'http://localhost:3000/agendas/2/events',
             headers: {
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             params: {
               key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
               state: [-1, 0, 1, 2],
-              detailed: 1
-            }
+              detailed: 1,
+            },
           }).then(r => r.data);
         } catch (e) {
           // console.log(e);
@@ -365,11 +365,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             method: 'get',
             url: 'http://localhost:3000/agendas/2/events/1',
             headers: {
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             params: {
-              key: nonAdminModKey
-            }
+              key: nonAdminModKey,
+            },
           });
         } catch (e) {
           error = e;
@@ -383,11 +383,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events/2',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
-            key: nonAdminModKey
-          }
+            key: nonAdminModKey,
+          },
         }).then(r => r.data);
 
         expect(response.event.uid).toBe(2);
@@ -401,8 +401,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             'content-type': 'application/json',
           },
           params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
-          }
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+          },
         }).then(r => r.data);
 
         expect(response.event.note).toBeUndefined();
@@ -413,11 +413,26 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events/slug/event-2',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
-            key: nonAdminModKey
-          }
+            key: nonAdminModKey,
+          },
+        }).then(r => r.data);
+
+        expect(response.event.uid).toBe(2);
+      });
+
+      it('get by agenda slug and event slug', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/agendas/slug/un-agenda-thematique/events/slug/event-2',
+          headers: {
+            'content-type': 'application/json',
+          },
+          params: {
+            key: nonAdminModKey,
+          },
         }).then(r => r.data);
 
         expect(response.event.uid).toBe(2);
@@ -428,16 +443,16 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events/slug/event-1?detailed=1&includeLabels=1',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
-          }
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+          },
         }).then(r => r.data);
 
         expect(response.event.thematique).toEqual({
           id: 2,
-          label: { fr: 'Exposition' }
+          label: { fr: 'Exposition' },
         });
       });
 
@@ -446,11 +461,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events/1',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
-          }
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+          },
         }).then(r => r.data);
 
         expect(event.uid).toEqual(1);
@@ -464,11 +479,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             method: 'get',
             url: 'http://localhost:3000/agendas/2/events/1',
             headers: {
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             params: {
-              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL'
-            }
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL',
+            },
           });
         } catch (e) {
           error = e;
@@ -484,11 +499,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             method: 'get',
             url: 'http://localhost:3000/agendas/1/events/3',
             headers: {
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             params: {
-              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
-            }
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+            },
           });
         } catch (e) {
           error = e;
@@ -502,11 +517,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events/3',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz'
-          }
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+          },
         });
 
         expect(response.status).toBe(200);
@@ -517,11 +532,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/1/events/4',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if'
-          }
+            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+          },
         });
 
         expect(response.data.event.note).toBe('Une autre note interne');
@@ -535,11 +550,11 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
             method: 'get',
             url: 'http://localhost:3000/agendas/2/events/3',
             headers: {
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             params: {
-              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9'
-            }
+              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
+            },
           }).then(r => r.data);
         } catch (e) {
           error = e;
@@ -557,14 +572,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             state: [-1, 0, 1, 2],
             size: 1,
-            sort: 'updatedAt.desc'
-          }
+            sort: 'updatedAt.desc',
+          },
         };
 
         try {
@@ -574,8 +589,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
           responses.push(await axios(ih(axiosParams, {
             params: {
-              after: { $set: after }
-            }
+              after: { $set: after },
+            },
           })).then(r => r.data));
         } catch (e) {
           // console.log(e);
@@ -607,14 +622,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           method: 'get',
           url: 'http://localhost:3000/agendas/2/events',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           params: {
             key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
             state: [-1, 0, 1, 2],
             detailed: 1,
-            aggregations: 'states'
-          }
+            aggregations: 'states',
+          },
         }).then(r => r.data);
 
         expect(response.aggregations).toBeDefined();

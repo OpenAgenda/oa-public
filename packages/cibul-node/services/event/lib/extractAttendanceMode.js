@@ -2,17 +2,17 @@
 
 const _ = require('lodash');
 
-module.exports = data => {
+module.exports = function extractAttendanceMode(data) {
   const extracted = {
     attendanceMode: 1,
-    onlineAccessLink: null 
+    onlineAccessLink: null,
   };
 
   try {
     Object.assign(
       extracted,
       _.pick(
-        JSON.parse(data.store), 
+        JSON.parse(data.store),
         ['attendanceMode', 'onlineAccessLink']
       )
     );
@@ -20,4 +20,4 @@ module.exports = data => {
     console.log(e);
   }
   return extracted;
-}
+};

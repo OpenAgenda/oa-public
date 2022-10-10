@@ -8,8 +8,8 @@ export async function getServerSideProps({ query, req }) {
   } = getConfig();
 
   const [{ data: agenda }, { data: events }] = await Promise.all([
-    api(req, 'get', `/api/agendas/slug/${query.slug}`),
-    api(req, 'get', `/api/agendas/slug/${query.slug}/events`),
+    api(req, 'get', `/api/agendas/slug/${query.agendaSlug}`),
+    api(req, 'get', `/api/agendas/slug/${query.agendaSlug}/events`),
   ]);
 
   return {

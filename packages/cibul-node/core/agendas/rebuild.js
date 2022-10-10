@@ -5,8 +5,8 @@ const getAgenda = require('./utils/getAgenda');
 module.exports = (core, endpoints, agendaUid) => async function agendaRebuild() {
   const {
     services: {
-      agendas: agendasSvc
-    }
+      agendas: agendasSvc,
+    },
   } = core;
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true, private: null });

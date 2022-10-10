@@ -1,5 +1,5 @@
 import { ChakraProvider, theme } from '@openagenda/uikit';
-import Agenda from '../../../pages/n/[slug]';
+import Agenda from '../../../src/pages/n/[agendaSlug]';
 
 import agendaFixtures from '../../fixtures/mel.agenda.json';
 import eventsFixtures from '../../fixtures/mel.events.json';

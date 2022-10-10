@@ -1,10 +1,12 @@
 import { ChakraProvider, theme } from '@openagenda/uikit';
-import Layout from '../../../components/Layout';
+import Layout from '../../../src/components/Layout';
 
-export default {
+const head = {
   title: 'Layout',
   component: Layout,
 };
+
+export default head;
 
 export function SimpleLayout() {
   return (

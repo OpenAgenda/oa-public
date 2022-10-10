@@ -13,34 +13,34 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     events: eventsSvc,
     custom,
     agendas,
-    members
+    members,
   } = services;
 
   const {
     lastId,
-    limit
+    limit,
   } = {
     limit: 20,
     lastId: 0,
-    ...nav
+    ...nav,
   };
 
   const {
     load,
     returnPayload,
     access,
-    detailed
+    detailed,
   } = {
     load: {
       event: true,
       agendaEvent: true,
       custom: true,
-      member: true
+      member: true,
     },
     returnPayload: false,
     access: 'public',
     detailed: false,
-    ...options
+    ...options,
   };
 
   const fetched = {};
@@ -51,15 +51,15 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     agenda?.network?.formSchema ?? null,
     agenda.formSchema,
     {
-      access: access !== null ? { read: access } : null
+      access: access !== null ? { read: access } : null,
     }
   );
 
   const {
     lastId: newLastId,
-    items: agendaEvents
+    items: agendaEvents,
   } = await agendaEventsSvc(agendaUid).listByLastId(query, lastId, limit, {
-    decorate: detailed ? ['sourceAgendas'] : []
+    decorate: detailed ? ['sourceAgendas'] : [],
   });
 
   if (load.agendaEvent) {
@@ -71,37 +71,37 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   if (load.event) {
     log('loading %s events', eventUids.length);
     fetched.events = await eventsSvc.list({
-      uid: eventUids
+      uid: eventUids,
     }, { limit: eventUids.length }, {
       detailed,
       private: null, // needed to reindex private agendas
-      access: access === 'internal' ? 'internal' : 'public'
+      access: access === 'internal' ? 'internal' : 'public',
     });
   }
 
   if (load.custom && agenda.formSchemaId) {
     log('loading custom data');
     fetched.custom = (await custom(agenda.formSchemaId).list({
-      identifier: eventUids
+      identifier: eventUids,
     })).items;
   }
 
   if (load.custom && agenda.network && agenda.network.formSchemaId) {
     fetched.networkCustom = (await custom(agenda.network.formSchemaId).list({
-      identifier: eventUids
+      identifier: eventUids,
     })).items;
   }
 
   if (detailed && load.event) {
     fetched.originAgendas = (await agendas.list({
-      uid: fetched.events.map(e => e.agendaUid)
+      uid: fetched.events.map(e => e.agendaUid),
     })).agendas.map(a => _.omit(a, ['id', 'indexed']));
   }
 
   if (detailed && load.member && agendaEvents.length) {
     fetched.members = await members.list({
       agendaUid: agenda.uid,
-      userUid: agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid)
+      userUid: agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid),
     }, { limit }).then(rows => rows.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
   }
 
@@ -118,14 +118,14 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
         event: load.event ? event : null,
         custom: load.custom ? {
           agenda: (_.find(fetched.custom, { identifier: uid }) || {}).custom,
-          network: (_.find(fetched.networkCustom, { identifier: uid }) || {}).custom
-        } : null
+          network: (_.find(fetched.networkCustom, { identifier: uid }) || {}).custom,
+        } : null,
       }, {
         includeFields: formSchema.fields.map(f => f.field),
         originAgenda: load.event ? _.find(fetched.originAgendas, { uid: event.agendaUid }) : null,
         member: load.event ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
-        load
-      })
+        load,
+      }),
     };
   }).filter(event => !!event);
 
@@ -134,6 +134,6 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     events: compiledEvents,
     success: true,
     agenda,
-    formSchema
+    formSchema,
   } : compiledEvents;
 };

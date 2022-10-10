@@ -11,9 +11,9 @@ module.exports = async (req, res, next) => {
 
   const {
     legacy: {
-      tagsAndCustom
+      tagsAndCustom,
     },
-    core
+    core,
   } = req.app.services;
 
   const config = core.getConfig();
@@ -24,15 +24,15 @@ module.exports = async (req, res, next) => {
 
   const nav = req.query.page ? {
     from: (parseInt(req.query.page, 10) - 1) * 20,
-    size: req.query.limit ?? 20
+    size: req.query.limit ?? 20,
   } : {
     from: parseInt(req.query.offset ?? 0, 10),
-    size: parseInt(req.query.limit ?? 20, 10)
+    size: parseInt(req.query.limit ?? 20, 10),
   };
 
   req.query = _.omit({
     ...convertLegacyFilter(req.query.oaq ?? {}, { formSchema, tagSet, categorySet }),
-    ...req.query
+    ...req.query,
   }, ['page', 'oaq']);
 
   const agenda = await req.app.core.agendas(req.params.uid).get();
@@ -47,7 +47,7 @@ module.exports = async (req, res, next) => {
       renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services),
     },
     admin: req.access === 'administrator',
-    root: config.root
+    root: config.root,
   };
   const convertedEvents = eventsList.events.map(event => convertEventToLegacyFormat(agendaSettings, event));
 
@@ -56,6 +56,6 @@ module.exports = async (req, res, next) => {
     total: eventsList.total,
     offset: nav.from,
     limit: nav.size,
-    events: convertedEvents
+    events: convertedEvents,
   });
 };

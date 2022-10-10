@@ -22,8 +22,7 @@ describe('agendas - functional (server): set (update)', function() {
       __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
-      __dirname + '/fixtures/occurrence.data.sql',
-      __dirname + '/fixtures/legacyCredentialSet.data.sql'
+      __dirname + '/fixtures/occurrence.data.sql'
    ],
     map: {
       database: config.mysql.database,
@@ -181,27 +180,6 @@ describe('agendas - functional (server): set (update)', function() {
       result.agenda.slug.should.equal('lait');
 
       done();
-    });
-  });
-
-  it('set credentials on agenda updates legacy data structure', done => {
-    svc.set({ uid: 41416256 }, {
-      credentials: {
-        aggregator: true
-      }
-    }, {
-      internal: true,
-      protected: false
-    }, (err, result) => {
-      assert.strictEqual(result.agenda.credentials.aggregator, true);
-
-      const con = mysql.createConnection(config.mysql);
-
-      con.query(`select * from legacy_credential_set where review_id = ?`, result.agenda.id, (err, rows) => {
-        assert.strictEqual(rows[0].aggregator, 1);
-
-        done();
-      });
     });
   });
 

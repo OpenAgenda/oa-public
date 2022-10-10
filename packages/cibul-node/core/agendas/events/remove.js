@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const { Forbidden, NotFound } = require('@openagenda/verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
@@ -18,7 +17,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     aggregators,
     custom,
     events,
-    eventSearch
+    eventSearch,
   } = services;
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
@@ -32,31 +31,31 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     batched,
     returnPayload,
     protectFromOriginRemove,
-    private: privateOption
+    private: privateOption,
   } = {
     batched: false,
     access: 'public',
     returnPayload: false,
     protectFromOriginRemove: false,
     private: false,
-    ...(options || {})
+    ...options || {},
   };
 
   const payload = createPayload(services, agenda);
 
   const {
-    formSchemaId
+    formSchemaId,
   } = agenda;
 
   const removed = {
     event: false,
     agendaEvent: false,
-    custom: false
+    custom: false,
   };
 
   const event = await events.get(eventUid, {
     private: null,
-    access: 'internal'
+    access: 'internal',
   });
 
   if (!event) {
@@ -89,8 +88,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
         userUid: contextUserUid,
         legacy: false,
         deletion: isOriginAgenda,
-        batched
-      }
+        batched,
+      },
     });
 
     if (result.success) {
@@ -105,8 +104,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
         agendaUid,
         user: contextUser,
         userUid: contextUserUid,
-        legacy: false
-      }
+        legacy: false,
+      },
     });
 
     if (result.success) {
@@ -124,9 +123,9 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       context: {
         agendaUid,
         user: contextUser,
-        userUid: contextUserUid
+        userUid: contextUserUid,
       },
-      private: privateOption
+      private: privateOption,
     });
     log('  removed from event service');
   }
@@ -137,7 +136,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       await aggregators.notify('removeEvent', {
         event: merge.event(event, removed.agendaEvent, removed.custom),
         agenda,
-        batched
+        batched,
       });
       log('  aggregators notified of removal');
     } catch (e) {
@@ -150,7 +149,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       event,
       agenda,
       deletion: isOriginAgenda,
-      otherAgendaReferences: remaining.items
+      otherAgendaReferences: remaining.items,
     });
     log('  removed from search');
   } catch (e) {
@@ -163,6 +162,6 @@ module.exports = async (services, agendaUid, eventUid, options) => {
 
   return returnPayload ? {
     ...result,
-    deletion: isOriginAgenda
+    deletion: isOriginAgenda,
   } : result.removed;
 };
