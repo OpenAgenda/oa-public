@@ -3,7 +3,7 @@ version: '3.8'
 services:
   node:
     command: >
-      yarn concurrently -n "node,ria,next" \
+      yarn concurrently -n "node,next,ria" \
       "yarn workspace cibul-node ${NODE_YARN_COMMAND:-start}" \
       "yarn workspace @openagenda/next dev" \
       "DEV_SERVER_HOST=0.0.0.0 yarn workspace @openagenda/react-integration-app dev"
