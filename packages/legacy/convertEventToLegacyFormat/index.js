@@ -6,7 +6,7 @@ const convertOriginAgenda = require('./lib/convertOriginAgenda');
 const convertTimings = require('./lib/convertTimings');
 const getLongDescriptionLinks = require('./lib/getLongDescriptionLinks');
 const getLocationInfo = require('./lib/getLocationInfo');
-const getfirstLastTimings = require('./lib/firstLastTimings');
+const getFirstLastTimings = require('./lib/getFirstLastTimings');
 const getTags = require('./lib/getTags');
 const getCustom = require('./lib/getCustom');
 const getCategory = require('./lib/getCategory');
@@ -44,12 +44,12 @@ module.exports = (agendaSettings, event) => {
 
   const {
     registration,
-    registrationUrl
+    registrationUrl,
   } = convertRegistration(event.registration);
 
   const {
     tags,
-    tagGroups
+    tagGroups,
   } = getTags(agendaSettings, event);
 
   Object.assign(legacyFormat, {
@@ -61,37 +61,45 @@ module.exports = (agendaSettings, event) => {
     createdAt: event.createdAt,
     range: event.dateRange,
     location: event.location ? Object.assign(
-      pick(event.location, [
-        'uid',
-        'name',
-        'slug',
-        'address',
-        'image',
-        'imageCredits',
-        'postalCode',
-        'city',
-        'district',
-        'department',
-        'region',
-        'latitude',
-        'longitude',
-        'description',
-        'access',
-      ]), {
+      pick(
+        event.location,
+        [
+          'uid',
+          'name',
+          'slug',
+          'address',
+          'image',
+          'imageCredits',
+          'postalCode',
+          'city',
+          'district',
+          'department',
+          'region',
+          'latitude',
+          'longitude',
+          'description',
+          'access',
+        ]
+      ),
+      {
         countryCode: event.location.countryCode ? event.location.countryCode.toLowerCase() : undefined,
       },
-      pick(event.location, [
-        'website',
-        'email',
-        'links',
-        'insee',
-        'phone',
-        'tags',
-        'timezone',
-        'updatedAt',
-        'extId'
-      ]), {
-        country: event.country
+      pick(
+        event.location,
+        [
+          'website',
+          'email',
+          'links',
+          'insee',
+          'phone',
+          'tags',
+          'timezone',
+          'updatedAt',
+          'extId',
+        ]
+      ),
+      {
+        country: event.country,
       }
     ) : null,
     attendanceMode: event.attendanceMode,
@@ -100,11 +108,11 @@ module.exports = (agendaSettings, event) => {
     imageCredits: event?.imageCredits ? event?.imageCredits : null,
     origin: convertOriginAgenda(event),
     conditions: event.conditions,
-    registrationUrl
+    registrationUrl,
   }, getLocationInfo(event.location), {
     timings: convertTimings(event.timings, event.timezone),
-    registration
-  }, getfirstLastTimings(event.timings), {
+    registration,
+  }, getFirstLastTimings(event.timings), {
     permalink: getPermalink(agendaSettings, event),
     featured: Number(event.featured),
     custom: getCustom(agendaSettings, event),
@@ -112,7 +120,7 @@ module.exports = (agendaSettings, event) => {
     category: getCategory(agendaSettings, event),
     tags,
     tagGroups,
-    linkedEvents: []
+    linkedEvents: [],
   });
 
   if (admin) {
