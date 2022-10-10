@@ -93,8 +93,8 @@ module.exports = ({
       'events.v2.json',
       {
         longDescriptionFormat,
-        ...(uid ? { uid } : {}),
-        ...(slug ? { slug } : {}),
+        ...uid ? { uid } : {},
+        ...slug ? { slug } : {},
         detailed: 1,
       }
     ).then(r => r.events
@@ -103,8 +103,7 @@ module.exports = ({
           return e.slug === slug;
         }
         return e.uid === parseInt(uid, 10);
-      })
-    );
+      }));
   }
 
   const cached = _.memoize(_fetch, (agendaUid, res, query) => [agendaUid, res, qs.stringify(query)].join('|'));

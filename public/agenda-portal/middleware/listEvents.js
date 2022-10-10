@@ -18,7 +18,7 @@ module.exports = withAggs => async (req, res, next) => {
         agendaUid,
         {
           aggregations: filtersToAggregations(filters, true),
-          limit: 0
+          limit: 0,
         }
       )).aggregations;
     }
@@ -28,14 +28,14 @@ module.exports = withAggs => async (req, res, next) => {
       offset,
       limit,
       events,
-      aggregations
+      aggregations,
     } = await proxy
       .list(
         agendaUid,
         {
           aggregations: withAggs ? filtersToAggregations(filters) : undefined,
           ...req.query,
-          page: parseInt(_.get(req, 'params.page', 1), 10)
+          page: parseInt(_.get(req, 'params.page', 1), 10),
         }
       );
 
@@ -56,7 +56,7 @@ module.exports = withAggs => async (req, res, next) => {
       aggregations,
       pages,
       hasPages: pages.length > 1,
-      filtersBase
+      filtersBase,
     });
 
     next();
