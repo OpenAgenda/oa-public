@@ -22,7 +22,6 @@ module.exports = {
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],
     'arrow-parens': ['error', 'as-needed'],
-    'comma-dangle': ['error', 'always-multiline'],
     'function-call-argument-newline': 'error',
     "object-curly-newline": ["error", {
       "ObjectExpression": {
@@ -59,6 +58,7 @@ module.exports = {
     'import/no-named-as-default': 'warn',
     'import/no-named-as-default-member': 'off',
     'import/no-duplicates': 'warn',
+    'import/prefer-default-export': 'off',
     // 'import/no-extraneous-dependencies': [
     //   'error',
     //   { devDependencies: [] }
@@ -75,6 +75,13 @@ module.exports = {
       'always',
       {
         ignoreClassFields: true,
+      },
+    ],
+    'react/function-component-definition': [
+      'error',
+      {
+        namedComponents: ['arrow-function', 'function-declaration'],
+        unnamedComponents: 'arrow-function',
       },
     ],
     'react/jsx-filename-extension': [
