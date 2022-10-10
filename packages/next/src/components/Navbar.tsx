@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { Box, Button, Container, Flex, HStack } from '@openagenda/uikit';
 import logoPic from '../../public/images/openagenda.png';
 
@@ -7,7 +7,7 @@ export default function Navbar() {
     <Box as="nav" bg="white" boxShadow="sm">
       <Container maxW="container.xl" py="4">
         <HStack spacing="10" justify="space-between">
-          <Image width="125" height="22" src={logoPic} />
+          <Image alt="logo" width="125" height="22" src={logoPic} />
           <Flex justify="right" flex="1">
             <HStack spacing="6">
               <Button variant="link">Sign in</Button>
