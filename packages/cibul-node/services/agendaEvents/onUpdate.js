@@ -20,7 +20,7 @@ function haveRealDiff(before, after) {
 module.exports = async ({ config, services }, before, after, context) => {
   const {
     legacy: legacySvc,
-    elasticsearch: legacyEventSearch
+    elasticsearch: legacyEventSearch,
   } = services;
 
   const controlDataSvc = legacySvc.controlData;
@@ -75,7 +75,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     // myEventUpdate
     try {
       await sendEventUpdate({ config, services }, {
-        agendaEvent: after, before, context, agenda, event
+        agendaEvent: after, before, context, agenda, event,
       });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event update emails'));
@@ -85,7 +85,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     // myEventChangeState
     try {
       await sendEventChangeState({ config, services }, {
-        agendaEvent: after, before, context, agenda, event
+        agendaEvent: after, before, context, agenda, event,
       });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event change state emails'));

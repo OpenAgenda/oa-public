@@ -132,7 +132,7 @@ function plugApp(app) {
 
   app.get([
     '/:agendaSlug/admin/members.csv',
-    '/:agendaSlug/admin/members.xlsx'
+    '/:agendaSlug/admin/members.xlsx',
   ], mw.spreadsheet.stream.bind(null, members));
 
   app.post(
