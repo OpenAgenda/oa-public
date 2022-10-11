@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = links => {
+module.exports = function getLongDescriptionLinks(links) {
   if (!links) {
     return null;
   }
@@ -12,12 +12,12 @@ module.exports = links => {
     if (link.data) {
       return {
         link: link.link,
-        code: link.data.html
+        code: link.data.html,
       };
     }
 
     return {
-      link: link.link
+      link: link.link,
     };
   });
   return tst;

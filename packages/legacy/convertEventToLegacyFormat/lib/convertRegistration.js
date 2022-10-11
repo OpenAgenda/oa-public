@@ -1,17 +1,17 @@
 'use strict';
 
-module.exports = registrationArray => {
+module.exports = function convertRegistration(registrationArray) {
   const registration = registrationArray.map(item => ({
     value: item.value,
     type: item.type,
-    prefix: ({
+    prefix: {
       link: '',
       phone: 'tel:',
-      email: 'mailto:'
-    })[item.type]
+      email: 'mailto:',
+    }[item.type],
   }));
 
-  const registrationlink = registrationArray.find(reg => reg.type === 'link');
+  const registrationlink = registrationArray.filter(reg => reg.type === 'link').pop();
 
   return { registration: registration || [], registrationUrl: registrationlink ? registrationlink.value : null };
 };
