@@ -36,7 +36,7 @@ module.exports = (agendaSettings, event) => {
     longDescription: event.longDescription ? Object.keys(event.longDescription).reduce((carry, lang) => ({
       ...carry,
       [lang]: cleanString(event.longDescription[lang])
-    }), {}) : event.longDescription,
+    }), {}) : {},
     keywords: convertKeywords(event.keywords),
   };
 
@@ -136,7 +136,7 @@ module.exports = (agendaSettings, event) => {
     if (typeof legacyFormat[field] === 'object'
     && legacyFormat[field] !== null
     && Object.keys(legacyFormat[field]).length === 0
-    && !['longDescriptionLinks', 'accessibility'].includes(field)
+    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html'].includes(field)
     ) {
       legacyFormat[field] = null;
     }
