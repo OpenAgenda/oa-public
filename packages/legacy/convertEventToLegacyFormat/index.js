@@ -1,5 +1,7 @@
 'use strict';
 
+const { cleanString } = require('@openagenda/utils');
+
 const convertImage = require('./lib/convertImage');
 const convertAccessibility = require('./lib/convertAccessibility');
 const convertOriginAgenda = require('./lib/convertOriginAgenda');
@@ -31,13 +33,16 @@ module.exports = (agendaSettings, event) => {
     canonicalUrl: `${root}/${agendaSettings.slug}/events/${event.slug}`,
     title: event.title,
     description: event.description,
-    longDescription: event.longDescription,
+    longDescription: event.longDescription ? Object.keys(event.longDescription).reduce((carry, lang) => ({
+      ...carry,
+      [lang]: cleanString(event.longDescription[lang])
+    }), {}) : event.longDescription,
     keywords: convertKeywords(event.keywords),
   };
 
   if (interfaces.renderHTMLFromMarkdown && legacyFormat.longDescription) {
-    legacyFormat.html = Object.keys(legacyFormat.longDescription).reduce((carry, curr) => {
-      carry[curr] = interfaces.renderHTMLFromMarkdown(event.links, event.longDescription[curr]);
+    legacyFormat.html = Object.keys(legacyFormat.longDescription).reduce((carry, lang) => {
+      carry[lang] = interfaces.renderHTMLFromMarkdown(event.links, cleanString(event.longDescription[lang]));
       return carry;
     }, {});
   }
