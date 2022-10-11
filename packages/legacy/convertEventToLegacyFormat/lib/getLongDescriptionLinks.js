@@ -17,7 +17,7 @@ module.exports = function getLongDescriptionLinks(links) {
     }
 
     return {
-      link: link.link,
+      link: link.link.replace(/^mailto:/, ''),
     };
   });
   return tst;
