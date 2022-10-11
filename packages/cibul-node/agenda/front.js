@@ -133,7 +133,7 @@ module.exports = app => {
       agendaSvc.mw.load('uid', { cache: true }),
       embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
-      convertFormat({ forceLimit: perPage }),
+      convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
       (req, res, next) => {
         if (req.events) {
           return next();

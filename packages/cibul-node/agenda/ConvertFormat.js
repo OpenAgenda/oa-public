@@ -25,6 +25,7 @@ function isEnabled(req) {
 module.exports = function ConvertFormat({
   forceLimit = null,
   sendJSON = false,
+  forceIncludeEmbedded = false
 }) {
   return async (req, res, next) => {
     if (!isEnabled(req)) {
@@ -73,7 +74,9 @@ module.exports = function ConvertFormat({
       legacy: { tagSet, categorySet },
       formSchema,
       interfaces: {
-        renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services),
+        renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services, {
+          includeEmbedded: forceIncludeEmbedded || (req.query.include_embedded === '1')
+        }),
       },
       admin: req.access === 'administrator',
       root: config.root,
