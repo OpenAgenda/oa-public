@@ -9832,7 +9832,6 @@ __metadata:
     "@openagenda/tsconfig": ^0.0.0
     "@openagenda/uikit": ^0.0.1
     "@storybook/react": ^6.5.9
-    cibul-node: ^0.15.0
     eslint: ^8.24.0
     eslint-config-next: ^12.3.1
     next: ^12.2.5
@@ -9840,6 +9839,7 @@ __metadata:
     prettier-eslint-cli: ^7.1.0
     react: ^18.2.0
     react-dom: ^18.2.0
+    swr: ^1.3.0
   languageName: unknown
   linkType: soft
 
@@ -14205,6 +14205,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:^18.0.6":
+  version: 18.0.6
+  resolution: "@types/react-dom@npm:18.0.6"
+  dependencies:
+    "@types/react": "*"
+  checksum: db571047af1a567631758700b9f7d143e566df939cfe5fbf7535347cc0c726a1cdbb5e3f8566d076e54cf708b6c1166689de194a9ba09ee35efc9e1d45911685
+  languageName: node
+  linkType: hard
+
 "@types/react-redux@npm:^7.1.20":
   version: 7.1.23
   resolution: "@types/react-redux@npm:7.1.23"
@@ -14236,6 +14245,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:^18.0.21":
+  version: 18.0.21
+  resolution: "@types/react@npm:18.0.21"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 36c1a7c9d507e81e2e629c1ad3db51d7b84d8b010c2d5008da411874286c6a5ccc711ae1d4c470efc0bdc77153cc8804a40e927e929e5164c669ca41b84b846d
+  languageName: node
+  linkType: hard
+
 "@types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -14249,6 +14269,13 @@ __metadata:
   version: 0.12.0
   resolution: "@types/retry@npm:0.12.0"
   checksum: 61a072c7639f6e8126588bf1eb1ce8835f2cb9c2aba795c4491cf6310e013267b0c8488039857c261c387e9728c1b43205099223f160bb6a76b4374f741b5603
+  languageName: node
+  linkType: hard
+
+"@types/scheduler@npm:*":
+  version: 0.16.2
+  resolution: "@types/scheduler@npm:0.16.2"
+  checksum: b6b4dcfeae6deba2e06a70941860fb1435730576d3689225a421280b7742318d1548b3d22c1f66ab68e414f346a9542f29240bc955b6332c5b11e561077583bc
   languageName: node
   linkType: hard
 
@@ -19387,7 +19414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cibul-node@^0.15.0, cibul-node@workspace:packages/cibul-node":
+"cibul-node@workspace:packages/cibul-node":
   version: 0.0.0-use.local
   resolution: "cibul-node@workspace:packages/cibul-node"
   dependencies:
@@ -36057,6 +36084,8 @@ __metadata:
     "@commitlint/config-lerna-scopes": ^12.1.1
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/cz-conventional-changelog": ^3.2.1
+    "@types/react": ^18.0.21
+    "@types/react-dom": ^18.0.6
     codecov: ^3.6.2
     commitizen: ^4.1.2
     concurrently: ^6.0.2
@@ -36081,6 +36110,8 @@ __metadata:
     "@crowdin/crowdin-api-client": ^1.16.0
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/cz-conventional-changelog": ^3.2.1
+    "@types/react": ^18.0.21
+    "@types/react-dom": ^18.0.6
     browserslist: ^4.20.0
     codecov: ^3.6.2
     commitizen: ^4.1.2
@@ -45014,6 +45045,15 @@ resolve@^2.0.0-next.3:
   bin:
     svgo: bin/svgo
   checksum: 871e1d4eb75dbfd72089e094317526705f27b98849abd0ca53f43867a4e02a581323ee0ba56b1432fb7f248c7f2c64d5903f1fb698dc846c87242d687d85626e
+  languageName: node
+  linkType: hard
+
+"swr@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "swr@npm:1.3.0"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: e7a184f0d560e9c8be85c023cc8e65e56a88a6ed46f9394b301b07f838edca23d2e303685319a4fcd620b81d447a7bcb489c7fa0a752c259f91764903c690cdb
   languageName: node
   linkType: hard
 
