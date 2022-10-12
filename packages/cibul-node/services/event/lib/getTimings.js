@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = inst => {
+module.exports = function getTimings(inst) {
   const instTimings = inst.getTimings();
 
   if (instTimings.length) return instTimings;
@@ -10,4 +10,4 @@ module.exports = inst => {
   }
 
   return [];
-}
+};

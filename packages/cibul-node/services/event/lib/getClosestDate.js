@@ -1,12 +1,14 @@
 'use strict';
 
+const getTimings = require('./getTimings');
+
 module.exports = instance => {
 
   var now = new Date(),
 
   min = [ false, false ]; // past / upcoming
 
-  instance.locations[0]?.timings.forEach( function( timing ) {
+  getTimings(instance).forEach( function( timing ) {
     var end = new Date( timing.end ),
 
     start = new Date( timing.start );
