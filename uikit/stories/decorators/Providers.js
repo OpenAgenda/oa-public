@@ -1,8 +1,7 @@
-import React from 'react';
-import { ChakraProvider, theme } from '../..';
+import { UIKitProvider } from '../../src';
 
 export default Story => (
-  <ChakraProvider theme={theme}>
+  <UIKitProvider>
     <Story />
-  </ChakraProvider>
+  </UIKitProvider>
 );
