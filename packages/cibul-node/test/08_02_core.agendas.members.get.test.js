@@ -88,6 +88,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         updatedAt: new Date('2017-10-30T13:21:07.000Z'),
         userUid: 6887,
         num_orga: '30org',
+        participant: 3,
       });
     });
   });

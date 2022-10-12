@@ -52,11 +52,9 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
 
   const agenda = agendaOrUid?.constructor.name === 'Object'
     ? agendaOrUid
-    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access, actingMember });
-
+    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access: null, actingMember });
   const schemas = await getMemberSchema(services, agenda, { access, actingMember });
   let cleanMemberData = null;
-
   try {
     const validate = new FormSchema(schemas.merged).getValidate();
     cleanMemberData = validate(data);
@@ -65,8 +63,7 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
       info: { error },
     }, 'data is invalid');
   }
-
-  const customData = format.custom(data);
+  const customData = format.custom(data, {});
 
   if (Object.keys(customData).length) {
     patchData.custom = customData;
@@ -75,7 +72,7 @@ module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
   try {
     if (schemas.agendaSchema) {
       const dispatchedData = dispatchDataPerSchemas(cleanMemberData, [schemas.schema, schemas.agendaSchema]);
-      await custom(agenda.memberSchemaId).set(member.userUid, dispatchedData[1]);
+      await custom(agenda.memberSchemaId).set(member.userUid, dispatchedData[1], { validate: false });
     }
     await members.patch(member.id, patchData, {
       throwOnError: true,

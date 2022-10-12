@@ -36,7 +36,7 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const memberRes = await members.get({
     agendaUid: agenda.uid,
     userUid,
-  }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m) : null));
+  }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null));
 
   if (!agenda.memberSchemaId) {
     return memberRes;

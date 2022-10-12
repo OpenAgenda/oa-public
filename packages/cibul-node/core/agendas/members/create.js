@@ -76,7 +76,7 @@ module.exports = async (core, agendaOrUid, userUid, role, data, options = {}) =>
       agendaUid,
       userUid,
       role: members.utils.getRoleCode(role ?? 'contributor'),
-      custom: format.custom(memberData),
+      custom: format.custom(memberData, {}),
     }, { requireCustom: false });
   } catch (error) {
     throw new GeneralError(error, 'something went wrong');

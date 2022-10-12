@@ -17,15 +17,19 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
 
   const {
     userUid: actingUserUid,
+    actingMember: preloadedActingMember,
     access = null,
+    detailed = false,
   } = options;
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  const actingMember = actingUserUid ? await membersSvc.get({
-    agendaUid,
-    userUid: actingUserUid,
-  }) : null;
+  const actingMember = preloadedActingMember || (
+    actingUserUid ? await membersSvc.get({
+      agendaUid,
+      userUid: actingUserUid,
+    }) : null
+  );
 
   if (!canRead(services, {
     access,
@@ -35,7 +39,7 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
     throw new Forbidden('Not authorized to access member');
   }
 
-  const agenda = await agendas.get({ uid: agendaUid }, {
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await agendas.get({ uid: agendaUid }, {
     internal: true,
     private: null,
   });
@@ -48,6 +52,7 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
     agendaUid: agenda.uid,
   }, validateNav(nav), {
     total: true,
+    detailed,
   });
 
   const membersUids = members.map(e => e.userUid);
@@ -58,6 +63,6 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   return {
     total,
     after: _.get(_.last(members), 'order', null),
-    items: members.map(e => ({ ...format(membersSvc, e), ...customs.find(a => a.identifier === e.userUid)?.custom ?? {} })),
+    items: members.map(e => ({ ...format(membersSvc, e, { detailed }), ...customs.find(a => a.identifier === e.userUid)?.custom ?? {} })),
   };
 };

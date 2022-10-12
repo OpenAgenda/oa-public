@@ -8,6 +8,7 @@ const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
+const flattenMemberInfo = require('../core/agendas/utils/flattenMemberInfo');
 
 describe('08 - core - functional (server): core.agendas().members.list', () => {
   let core;
@@ -122,6 +123,30 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         error = e;
       }
       expect(error.name).toBe('Forbidden');
+    });
+  });
+
+  describe('stream', () => {
+    test('stream userUids', async () => {
+      const stream = await core.agendas(3).members.stream(
+        { limit: 1 },
+        {
+          userUid: 1,
+          transform: m => m.userUid,
+        }
+      );
+
+      return new Promise(rs => {
+        const result = [];
+        stream.on('data', b => {
+          result.push(b);
+        });
+
+        stream.on('end', () => {
+          expect(result).toStrictEqual([1, 6887]);
+          rs();
+        });
+      });
     });
   });
 

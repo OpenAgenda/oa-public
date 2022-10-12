@@ -11,6 +11,7 @@ const locations = require('./locations');
 const get = require('./get');
 const search = require('./search');
 const rebuild = require('./rebuild');
+const flattenMemberInfo = require('./utils/flattenMemberInfo');
 
 module.exports = core => {
   const settings = Settings(core);
@@ -40,5 +41,6 @@ module.exports = core => {
     slug: agendaSlug => ({
       get: get.slug.bind(null, core, agendaSlug),
     }),
+    utils: { flattenMemberInfo },
   });
 };
