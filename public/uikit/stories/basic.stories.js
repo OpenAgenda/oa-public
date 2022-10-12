@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Button, VStack, HStack, Heading } from '..';
+import { Button, VStack, HStack, Heading } from '../src';
 import Providers from './decorators/Providers';
 
 export default {
