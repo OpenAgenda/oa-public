@@ -1,7 +1,11 @@
 import { Container } from '@openagenda/uikit';
 import Navbar from './Navbar';
 
-export default function Layout({ children }) {
+type LayoutProps = {
+  children: React.ReactNode
+};
+
+export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Navbar />

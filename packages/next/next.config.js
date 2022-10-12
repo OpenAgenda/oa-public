@@ -24,6 +24,7 @@ const config = async () => {
         //   },
         // ],
       },
+      isrMemoryCacheSize: 0, // Defaults to 50MB
     },
     assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
     serverRuntimeConfig,

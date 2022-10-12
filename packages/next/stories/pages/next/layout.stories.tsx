@@ -1,5 +1,5 @@
-import { ChakraProvider, theme } from '@openagenda/uikit';
-import Layout from '../../../src/components/Layout';
+import { UIKitProvider } from '@openagenda/uikit';
+import Layout from 'components/Layout';
 
 const head = {
   title: 'Layout',
@@ -10,8 +10,8 @@ export default head;
 
 export function SimpleLayout() {
   return (
-    <ChakraProvider theme={theme}>
+    <UIKitProvider>
       <Layout>Sample content</Layout>
-    </ChakraProvider>
+    </UIKitProvider>
   );
 }

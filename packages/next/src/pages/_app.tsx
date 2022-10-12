@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
-import { ChakraProvider, theme } from '@openagenda/uikit';
+import Providers from 'Providers';
 
-type NextPageWithLayout = NextPage & {
-  Layout?: React.FC<React.PropsWithChildren<unknown>>
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  // Layout?: (props: { children: ReactNode }) => ReactElement<typeof props>
+  Layout?: React.FC<{ children: React.ReactNode }>
 }
 
 type AppPropsWithLayout = AppProps & {
@@ -16,10 +17,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const Layout = Component.Layout || Fragment;
 
   return (
-    <ChakraProvider theme={theme}>
+    <Providers>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </ChakraProvider>
+    </Providers>
   );
 }

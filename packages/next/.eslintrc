@@ -16,6 +16,14 @@
        }
      ]
    },
+  "overrides": [
+    {
+      "files": ["*.{ts,mts,cts,tsx}"],
+      "globals": {
+        "React": true
+      }
+    }
+  ],
   "settings": {
     "next": {
       "rootDir": "."

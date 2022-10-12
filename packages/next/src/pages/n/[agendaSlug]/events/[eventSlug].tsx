@@ -1,9 +1,11 @@
 import getConfig from 'next/config';
-import React from 'react';
+import { GetServerSideProps } from 'next';
+import { NextPageWithLayout } from 'pages/_app';
+import Layout from 'components/Layout';
 
 const flatten = (value = {}, preferredLang = 'fr') => value[preferredLang] ?? value[Object.keys(value).shift()];
 
-export async function getServerSideProps({ query, req }) {
+export const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
   const {
     serverRuntimeConfig: { api },
   } = getConfig();
@@ -19,14 +21,25 @@ export async function getServerSideProps({ query, req }) {
       event,
     },
   };
-}
+};
 
-export default function Event({ agenda, event }) {
-  return (
-    <div>
-      <h1>Une autre page NextJs</h1>
-      <h2>L&apos;événement: {flatten(event.title)}</h2>
-      <h3>L&apos;agenda: {agenda.title}</h3>
-    </div>
-  );
-}
+type PageProps = {
+  agenda: {
+    title: string
+  };
+  event: {
+    title: Record<string, string>
+  };
+};
+
+const Event: NextPageWithLayout<PageProps> = ({ agenda, event }) => (
+  <div>
+    <h1>Une autre page NextJs</h1>
+    <h2>L&apos;événement: {flatten(event.title)}</h2>
+    <h3>L&apos;agenda: {agenda.title}</h3>
+  </div>
+);
+
+Event.Layout = Layout;
+
+export default Event;
