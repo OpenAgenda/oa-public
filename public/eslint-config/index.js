@@ -12,10 +12,10 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.{ts,tsx}'],
+      files: ['*.{ts,mts,cts,tsx}'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
-      extends: ['plugin:@typescript-eslint/recommended']
+      extends: ['plugin:@typescript-eslint/recommended'],
     }
   ],
 
@@ -34,6 +34,7 @@ module.exports = {
       jsx: true,
       legacyDecorators: true
     },
+    jsxPragma: null, // for @typescript/eslint-parser
     babelOptions: {
       rootMode: 'upward',
     },
@@ -46,7 +47,7 @@ module.exports = {
     // 'import/resolver': path.resolve(__dirname, './resolver')
     'import/resolver': {
       node: {
-        "extensions": ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node']
+        extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node']
       }
     }
   },

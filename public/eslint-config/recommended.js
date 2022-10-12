@@ -19,6 +19,7 @@ module.exports = {
     'no-extra-parens': 'error',
     'no-promise-executor-return': 'off',
     'consistent-return': 'off',
+    'implicit-arrow-linebreak': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],
     'arrow-parens': ['error', 'as-needed'],
@@ -98,7 +99,8 @@ module.exports = {
         skipUndeclared: true,
       },
     ],
-    // 'react/react-in-jsx-scope': 'off', // TODO check this
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
     'react/static-property-placement': ['error', 'static public field'],
 
     'jsx-a11y/label-has-for': [
@@ -124,4 +126,20 @@ module.exports = {
       },
     ],
   },
+
+  overrides: [
+    {
+      files: ['*.{ts,mts,cts,tsx}'],
+      plugins: ['@typescript-eslint'],
+      rules: {
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          { vars: 'all', args: 'after-used', ignoreRestSiblings: true, argsIgnorePattern: '^_' }
+        ],
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
+      }
+    }
+  ],
 };
