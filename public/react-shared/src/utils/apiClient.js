@@ -2,6 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 function getHeaderValue(req, key) {
+  if (!req) return;
   if (typeof req.header === 'function') {
     return req.header(key);
   }
@@ -27,11 +28,14 @@ export default function apiClient(baseURL, req, { legacy } = {}) {
   instance.interceptors.request.use(
     conf => {
       if (isServer) {
-        if (getHeaderValue(req, 'cookie')) {
-          conf.headers.Cookie = getHeaderValue(req, 'cookie');
+        const cookieHeader = getHeaderValue(req, 'cookie');
+        if (cookieHeader) {
+          conf.headers.Cookie = cookieHeader;
         }
-        if (getHeaderValue(req, 'authorization')) {
-          conf.headers.authorization = getHeaderValue(req, 'authorization');
+
+        const authorizationHeader = getHeaderValue(req, 'authorization');
+        if (authorizationHeader) {
+          conf.headers.authorization = authorizationHeader;
         }
       }
 
