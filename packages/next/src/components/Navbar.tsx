@@ -5,7 +5,7 @@ import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 
 export default function Navbar() {
-  const { user, status, error } = useUser();
+  const { user, status } = useUser();
 
   return (
     <Box as="nav" bg="white" boxShadow="sm">
