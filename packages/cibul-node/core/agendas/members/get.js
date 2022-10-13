@@ -15,7 +15,8 @@ function validateMemberData(data, schema) {
   return !!clean;
 }
 
-async function get(services, preloadedOptions, agendaOrUid, userUid, options = {}) {
+async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) { 
+  const { services } = core;
   const {
     members,
     custom,
