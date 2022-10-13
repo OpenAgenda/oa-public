@@ -134,4 +134,28 @@ describe('02 - event search - functional: search in optioned additional fields',
       ]
     });
   });
+
+  it('aggregation on additional field without options don\'t throw an error', async () => {
+    const { aggregations } = await service('additional').search({
+      state: null
+    }, { size: 0 }, {
+      formSchema: fixtures.formSchema,
+      detailed: true,
+      aggregations: [{
+        key: 'checkboxWithoutOption',
+        field: 'no-option',
+        type: 'additionalFields',
+        missing: 'N/A'
+      }]
+    });
+
+    assert.deepEqual(aggregations, {
+      checkboxWithoutOption: [
+        {
+          eventCount: 3,
+          key: 'N/A'
+        }
+      ]
+    });
+  });
 });
