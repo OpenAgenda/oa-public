@@ -19,8 +19,8 @@ module.exports = async ({ config, services }, ae, context) => {
     elasticsearch: legacyEventSearch,
     custom,
     legacy: {
-      controlData: controlDataSvc
-    }
+      controlData: controlDataSvc,
+    },
   } = services;
 
   services.tracker('agendaEvents.onCreate');
@@ -138,7 +138,7 @@ module.exports = async ({ config, services }, ae, context) => {
         agenda,
         event,
         ae,
-        user
+        user,
       }, context);
     } else {
       await addEventAdditionActivity(
@@ -148,7 +148,7 @@ module.exports = async ({ config, services }, ae, context) => {
           agenda,
           event,
           user,
-          ae
+          ae,
         },
         context
       );

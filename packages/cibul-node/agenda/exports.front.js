@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require( 'lodash' );
 const cbify = require( '@openagenda/utils/cbify' );
@@ -11,7 +11,7 @@ const members = require( '../services/members' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
-const convertFormat = require('./convertFormat');
+const convertFormat = require('./ConvertFormat');
 const loadCredentials = require('./loadCredentials');
 
 const perPage = 20;
@@ -32,7 +32,7 @@ module.exports = app => {
     cacheMw('agendas', 'params.uid', 30, [
       agendaSvc.mw.load( 'uid' ),
       loadCredentials,
-      convertFormat,
+      convertFormat({ sendJSON: true }),
       cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
       agendaSvc.mw.search( perPage ),
       legacyEventSvc.mw.cleanEvents,

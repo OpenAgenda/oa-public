@@ -143,7 +143,7 @@ function getLabelValues(intl, { subjects, subjectsProps, additionalSubjects }, o
 
   return Object.keys(subjects).reduce((result, key) => {
     const { counter } = subjectsProps[key];
-    const value = isEscaped ? escape(subjects[key]) : escape(subjects[key]);
+    const value = isEscaped ? escape(subjects[key]) : subjects[key];
     result[key] = renderHighlight(value);
     result[`${key}Count`] = counter;
     result[`${key}More`] = counter - 1;

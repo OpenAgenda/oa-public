@@ -30,8 +30,8 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'networks',
         'legacy',
         'users',
-        'keys'
-      ]
+        'keys',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -74,7 +74,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         description: 'Une description',
         slug: 'une-commune-de-fraaance',
         image: null,
-        url: null
+        url: null,
       });
     });
   });
@@ -97,7 +97,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'website', 'email', 'phone', 'links', 'access',
         'state', 'imageCredits', 'extId',
         'duplicateCandidates', 'disqualifiedDuplicates',
-        'mergedIn', 'agendaUid'
+        'mergedIn', 'agendaUid',
       ]);
     });
   });
@@ -204,11 +204,11 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     beforeAll(async () => {
       adminResult = await core.agendas(2).events.get(1, {
         returnPayload: true,
-        access: 'administrator'
+        access: 'administrator',
       });
       internalResult = await core.agendas(2).events.get(1, {
         returnPayload: true,
-        access: 'internal'
+        access: 'internal',
       });
     });
 
@@ -246,7 +246,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
 
     beforeAll(async () => {
       event = await core.agendas(2).events.get(2, {
-        longDescriptionFormat: 'HTML'
+        longDescriptionFormat: 'HTML',
       });
     });
 
@@ -258,7 +258,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
   describe('other options', () => {
     it('useDateHoursMinutesFormat', async () => {
       const event = await core.agendas(2).events.get(1, {
-        useDateHoursMinutesFormat: true
+        useDateHoursMinutesFormat: true,
       });
 
       expect(
@@ -268,7 +268,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
 
     it('useLocationObjectFormat', async () => {
       const event = await core.agendas(2).events.get(1, {
-        useLocationObjectFormat: true
+        useLocationObjectFormat: true,
       });
 
       expect(event.location).toEqual({ uid: 1 });
@@ -282,7 +282,7 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       expect(
         ev.updatedAt.getTime()
       ).toBe(
-        (new Date('2022-06-30T09:00:00.000Z')).getTime()
+        new Date('2022-06-30T09:00:00.000Z').getTime()
       );
     });
 
@@ -304,26 +304,26 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     it('get with customOnly option only gets custom data', async () => {
       const data = await core.agendas(2).events.get(1, {
         load: {
-          custom: true
-        }
+          custom: true,
+        },
       });
 
       expect(data).toEqual({
-        thematique: 2
+        thematique: 2,
       });
     });
 
     it('get with customOnly and access "administrator" options gets all custom data', async () => {
       const data = await core.agendas(2).events.get(1, {
         load: {
-          custom: true
+          custom: true,
         },
-        access: 'administrator'
+        access: 'administrator',
       });
 
       expect(data).toEqual({
         thematique: 2,
-        note: 'Une note interne pour les administrateurs'
+        note: 'Une note interne pour les administrateurs',
       });
     });
   });

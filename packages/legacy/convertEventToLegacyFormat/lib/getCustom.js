@@ -20,7 +20,7 @@ module.exports = (agendaSettings, event) => {
       acc[key] = formSchema.fields.find(f => f.field === key).options.find(opt => opt.id === event[key]).value;
     }
 
-    if (event[key] && field.fieldType === 'text') {
+    if (event[key] !== undefined && field.fieldType === 'text') {
       acc[key] = event[key];
     }
 

@@ -1,5 +1,5 @@
-import { ChakraProvider, theme } from '@openagenda/uikit';
-import Agenda from '../../../pages/n/[slug]';
+import { UIKitProvider } from '@openagenda/uikit';
+import Agenda from '../../../src/pages/n/[agendaSlug]';
 
 import agendaFixtures from '../../fixtures/mel.agenda.json';
 import eventsFixtures from '../../fixtures/mel.events.json';
@@ -11,8 +11,8 @@ export default {
 
 export function Sample() {
   return (
-    <ChakraProvider theme={theme}>
+    <UIKitProvider>
       <Agenda agenda={agendaFixtures} events={eventsFixtures} />
-    </ChakraProvider>
+    </UIKitProvider>
   );
 }

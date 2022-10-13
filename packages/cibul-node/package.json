@@ -48,7 +48,7 @@
     "@openagenda/files": "^3.1.0",
     "@openagenda/flat-exports": "^1.4.0",
     "@openagenda/form-schemas": "^1.9.2",
-    "@openagenda/geocoder": "^1.2.8",
+    "@openagenda/geocoder": "^1.2.9",
     "@openagenda/home": "^2.2.1",
     "@openagenda/inbox-apps": "^1.2.1",
     "@openagenda/inboxes": "^1.1.14",

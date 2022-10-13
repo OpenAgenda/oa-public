@@ -214,9 +214,6 @@ const config = {
         publishCount: 'event/new/dayCount'
       }
     },
-    next: {
-      CDN: process.env.NODE_ENV === 'production' ? prod?.next?.CDN ?? process.env.KEYCDN_NEXT : ''
-    },
     aws: {
       accessKeyId: prod.aws && prod.aws.key,
       secretAccessKey: prod.aws && prod.aws.secret,

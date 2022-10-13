@@ -1,11 +1,21 @@
 'use strict';
 
 const { Forbidden } = require('@openagenda/verror');
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const getMemberSchema = require('../utils/getMemberSchema');
 const format = require('./lib/format');
 const canRead = require('./lib/canRead');
 
-async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
-  const { services } = core;
+function validateMemberData(data, schema) {
+  let clean = null;
+  try {
+    const validate = new FormSchema(schema).getValidate();
+    clean = validate(data);
+  } catch (error) { return false; }
+  return !!clean;
+}
+
+async function get(services, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const {
     members,
     custom,
@@ -14,6 +24,7 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const {
     userUid: actingUserUid,
     access = null,
+    isValid = null,
   } = options;
 
   const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
@@ -38,11 +49,14 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
     userUid,
   }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null));
 
-  if (!agenda.memberSchemaId) {
-    return memberRes;
+  const schemas = await getMemberSchema(services, agenda.uid, { access, actingMember });
+
+  if (!schemas.agendaSchema) {
+    return !isValid ? memberRes : { member: memberRes, isValid: validateMemberData(memberRes, schemas.merged) };
   }
-  const customRes = await custom(agenda.memberSchemaId).get(userUid);
-  return { ...memberRes, ...customRes };
+  const customRes = await custom(schemas.agendaSchema.id).get(userUid);
+  const completedMemberData = { ...memberRes, ...customRes };
+  return !isValid ? completedMemberData : { member: completedMemberData, isValid: validateMemberData({ ...memberRes, ...customRes }, schemas.merged) };
 }
 
 module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
