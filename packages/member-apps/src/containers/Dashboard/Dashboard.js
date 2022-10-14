@@ -322,7 +322,7 @@ class Dashboard extends Component {
                 <li key="download-xlsx">
                   <a
                     className="btn btn-link padding-v-xs btn-block"
-                    download={`agenda.${agenda.slug}.locations.xlsx`}
+                    download={`agenda.${agenda.slug}.members.xlsx`}
                     href={res.exportToXlsx.replace(':slug', agenda.slug)}
                   >
                     XLSX
@@ -331,7 +331,7 @@ class Dashboard extends Component {
                 <li key="download-csv">
                   <a
                     className="btn btn-link padding-v-xs btn-block"
-                    download={`agenda.${agenda.slug}.locations.csv`}
+                    download={`agenda.${agenda.slug}.members.csv`}
                     href={res.exportToCsv.replace(':slug', agenda.slug)}
                   >
                     CSV
