@@ -86,7 +86,7 @@ module.exports = (legacyFilter, sets = {}) => {
             return carry.concat(field.options.map(option => ({
               id: option.id,
               value: option.value,
-              fieldName: field.field
+              fieldName: field.field,
             })));
           }
           return carry;
