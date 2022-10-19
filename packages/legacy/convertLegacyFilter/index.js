@@ -75,8 +75,9 @@ module.exports = (legacyFilter, sets = {}) => {
       }
       case 'category': {
         if (!categorySet && !formSchema) return;
+        const categoryFilter = [].concat(legacyFilter?.category ?? []);
 
-        const categories = categorySet.categories.filter(cat => legacyFilter.category.some(c => c === cat.slug));
+        const categories = categorySet.categories.filter(cat => categoryFilter.some(c => c === cat.slug));
 
         if (!categories.length) return;
 
