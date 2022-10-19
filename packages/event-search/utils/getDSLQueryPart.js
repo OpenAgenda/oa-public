@@ -50,7 +50,9 @@ module.exports = (cleanQuery, options = {}) => {
     _.set(query, 'bool.filter', filterParts);
   }
 
-  if (cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2) {
+  const hasPassedAndUpcoming = cleanQuery.relative.filter(r => ['passed', 'upcoming'].includes(r)).length === 2;
+  const hasCurrent = cleanQuery.relative.includes('current');
+  if (hasPassedAndUpcoming && !hasCurrent) {
     _.set(query, 'bool.must_not', {
       bool: {
         filter: [{
