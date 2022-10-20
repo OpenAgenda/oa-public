@@ -11,7 +11,7 @@ const getLabel = makeLabelGetter(registrationLabels);
 const log = logs('event/lib/getAndDecorateIndexedEvent');
 
 const {
-  utils: agendaPortalUtils
+  utils: agendaPortalUtils,
 } = require('@openagenda/agenda-portal');
 
 function pickPreferredLang(value, lang) {
@@ -30,10 +30,10 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
   userUid,
   lang,
   originalUrl,
-  detailed = false
+  detailed = false,
 }) {
   const {
-    core
+    core,
   } = services;
 
   const { root } = core.getConfig();
@@ -58,7 +58,7 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
       longDescriptionFormat: 'HTMLWithEmbeds',
       includeLabels: true,
       includeLocationImagePath: true,
-      includeImageTimestamps: true
+      includeImageTimestamps: true,
     });
 
   if (!event) {
@@ -72,7 +72,7 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
         draft.months = agendaPortalUtils.spreadTimingsPerMonthPerDay(
           event.timings.map(t => agendaPortalUtils.detailedTiming({ event }, t, lang)),
           event.timezone,
-          lang
+          lang,
         );
       } catch (e) {
         const message = `months of event ${event.slug} could not be extracted`;
@@ -85,7 +85,7 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
       draft.availableAccessibilities = Object.keys(event.accessibility).filter(key => !!event.accessibility[key]);
 
       draft.JSONLD = agendaPortalUtils.getEventSchemaJSONLD(event, {
-        defaultTimezone: 'Europe/Paris'
+        defaultTimezone: 'Europe/Paris',
       });
     }
 
@@ -97,7 +97,7 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
     if (draft.location) {
       const {
         latitude,
-        longitude
+        longitude,
       } = event.location;
 
       ['description', 'access'].forEach(field => {
@@ -109,21 +109,21 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
 
     if (draft.registration?.length) {
       draft.registration.forEach(r => {
-        Object.assign(r, ({
+        Object.assign(r, {
           phone: {
             icon: 'fa-phone',
-            prefix: 'tel:'
+            prefix: 'tel:',
           },
           link: {
             icon: 'fa-link',
             prefix: '',
-            label: getLabel('registerBook', lang)
+            label: getLabel('registerBook', lang),
           },
           email: {
             icon: 'fa-envelope',
-            prefix: 'mailto:'
-          }
-        })[r.type]);
+            prefix: 'mailto:',
+          },
+        }[r.type]);
       });
     }
 
@@ -132,7 +132,7 @@ module.exports = async function getAndDecoratedIndexedEvent(services, {
     draft.languages = Object.keys(event.title).map(code => ({
       code,
       label: languages.getLanguageInfo(code).nativeName,
-      link: `${permalink}?lang=${code}`
+      link: `${permalink}?lang=${code}`,
     }));
 
     draft.permalink = permalink;
