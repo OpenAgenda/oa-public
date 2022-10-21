@@ -15,6 +15,7 @@ export default {
 
 export function StandardBuilderConfigurationExample() {
   const schema = {
+    id: 2,
     fields: [{
       field: 'myfield',
       fieldType: 'text',
@@ -24,15 +25,21 @@ export function StandardBuilderConfigurationExample() {
 
   const extensions = [{
     schema: eventLikeSchema,
-    info: {
+    /*info: {
       label: { fr: 'Standard', en: 'Standard' },
       detail: { fr: 'Champ événement standard', en: 'Standard event field' }
-    }
+    }*/
   }, {
     schema: schemaWithCategories,
     info: {
-      label: { fr: 'Réseau', en: 'Network' },
+      label: { fr: 'Champ réseau', en: 'Network field' },
       detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' }
+    }
+  }, {
+    schema,
+    info: {
+      label: { fr: 'Champ Agenda', en: 'Agenda field' },
+      detail: { fr: 'Champ additionnel', en: 'Additional field' }
     }
   }];
 
