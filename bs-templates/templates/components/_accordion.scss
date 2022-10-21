@@ -12,15 +12,19 @@
     color: #000;
     text-align: left;
     width: 100%;
-    padding: 18px 8px;
+    padding: 13px 8px;
     cursor: pointer;
     border: none;
     .accordion-head {
       display: flex;
       justify-content: space-between;
-      div {
+      .head-item {
         display: block;
         width: 100%;
+        max-width: 430px;
+        label {
+          margin-bottom : 0;
+        }
       }
     }
     p {
@@ -48,17 +52,16 @@
   }
   .accordion-content {
     height: 0;
-    overflow: hidden;
-
-    p {
+    .wrapper-item {
       opacity: 0;
+      max-width: 430px;
     }
   }
   
   .accordion-item.active .accordion-content {
     height: 100%;
 
-    p {
+    .wrapper-item {
       opacity: 1;
       transition: opacity .25s ease-in;
       -moz-transition: opacity .25s ease-in;
