@@ -474,7 +474,7 @@ module.exports = {
   "requiredField": {
     "fr": "Obligatoire",
     "en": "Required",
-    "es": "obligatorio",
+    "es": "Obligatorio",
     "it": "Richiesto",
     "de": "Erforderlich",
     "br": "Rekis",
@@ -631,6 +631,90 @@ module.exports = {
     "en": "All fields are required",
     "es": "Todos los campos requeridos",
     "it": "Tutti i campi sono obbligatori",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "moreOptions": {
+    "fr": "choix",
+    "en": "choices",
+    "es": "opciones",
+    "it": "scelte",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "isMultilingual": {
+    "fr": "Multilingue",
+    "en": "Multilingual",
+    "es": "Plurilingüe",
+    "it": "Multilingue",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "isSelected": {
+    "fr": "sélectionné",
+    "en": "selected",
+    "es": "seleccionado",
+    "it": "selezionato",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "notSelected": {
+    "fr": "non séléctionné",
+    "en": "not selected",
+    "es": "no seleccionado",
+    "it": "non selezionato",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "isActif": {
+    "fr": "actif lorsque le champ",
+    "en": "active when the field",
+    "es": "activo cuando el campo",
+    "it": "attivo quando il campo",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "isOptional": {
+    "fr": "optionnel si le champ attendanceMode",
+    "en": "optional if the field attendanceMode",
+    "es": "opcional si el campo attendanceMode",
+    "it": "facoltativo se il campo attendanceMode",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "valueSelected": {
+    "fr": "est saisi",
+    "en": "is selected",
+    "es": "è selezionato",
+    "it": "se selecciona",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "valueOnline": {
+    "fr": 'a la valeur "en ligne"',
+    "en": 'has the value "online"',
+    "es": 'tiene el valor "en línea"',
+    "it": 'ha il valore "online"',
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "hasImage": {
+    "fr": "actif avec le chargement d'une image",
+    "en": "active with image loading",
+    "es": "activo con la carga de una imagen",
+    "it": "attivo con il caricamento di un'immagine",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "defaultValue": {
+    "fr": "Valeur par défaut",
+    "en": "Default value",
+    "es": "Valor por default",
+    "it": "Valore per difetto",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "maxLength": {
+    "fr": "Longueur max",
+    "en": "Max length",
+    "es": "Longitud máxima",
+    "it": "Lunghezza max",
+    "io": "crwdns14846:0crwdne14846:0"
+  },
+  "jsonKey": {
+    "fr": "Clé JSON",
+    "en": "JSON key",
+    "es": "Clave JSON",
+    "it": "chiave JSON",
     "io": "crwdns14846:0crwdne14846:0"
   }
 }

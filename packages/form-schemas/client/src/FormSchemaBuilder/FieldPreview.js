@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import _ from 'lodash';
 import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Accordion from '@openagenda/react-shared/lib/components/Accordion';
@@ -43,7 +42,7 @@ const renderOptionsInfo = (options, lang) => {
     return (
       <div className="margin-top-xs text-muted">
         {options?.slice(0, 4).map(option => <span key={getLocaleValue(option.label, lang)}>{getLocaleValue(option.label, lang)},</span>)}
-        <span> + {options.length - 4} choix.</span>
+        <span> + {options.length - 4} {getLabel('moreOptions', lang)}</span>
       </div>
     );
   }
@@ -54,20 +53,20 @@ const renderOptionsInfo = (options, lang) => {
   );
 };
 
-const isMultilingual = languages => {
+const isMultilingual = (languages, lang) => {
   if (languages !== undefined) {
     return (
       <span className="form-tooltip-icon icon-hide margin-right-xs">
         <i className="multilingual fa fa-globe"> </i>
         <div className="tooltip right" role="tooltip">
           <div className="tooltip-arrow"> </div>
-          <div className="tooltip-inner">multilingue</div>
+          <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
         </div>
       </span>
     );
   }
 };
-const isLinked = (related, enableWith, optionalWith, field) => {
+const isLinked = (related, enableWith, optionalWith, field, lang) => {
   for (let i = 0; i < related?.enable?.length; i++) {
     if (related?.enable[i] === 'image') {
       return (
@@ -75,7 +74,7 @@ const isLinked = (related, enableWith, optionalWith, field) => {
           <i className="linked"> </i>
           <div className="tooltip right" role="tooltip">
             <div className="tooltip-arrow"> </div>
-            <div className="tooltip-inner">actif avec le chargement d&apos;une image</div>
+            <div className="tooltip-inner">{getLabel('hasImage', lang)}</div>
           </div>
         </span>
       );
@@ -86,7 +85,7 @@ const isLinked = (related, enableWith, optionalWith, field) => {
           <i className="linked"> </i>
           <div className="tooltip right" role="tooltip">
             <div className="tooltip-arrow"> </div>
-            <div className="tooltip-inner">actif lorsque le champ {related?.enable[i]} est saisi</div>
+            <div className="tooltip-inner">{getLabel('isActif', lang)} {related?.enable[i]} {getLabel('valueSelected', lang)}</div>
           </div>
         </span>
       );
@@ -98,7 +97,7 @@ const isLinked = (related, enableWith, optionalWith, field) => {
         <i className="linked"> </i>
         <div className="tooltip right" role="tooltip">
           <div className="tooltip-arrow"> </div>
-          <div className="tooltip-inner">actif lorsque le champ {enableWith?.field} à la valeur &quot;en ligne&quot;</div>
+          <div className="tooltip-inner">{getLabel('isActif', lang)} {enableWith?.field} {getLabel('valueOnline', lang)}</div>
         </div>
       </span>
     );
@@ -110,7 +109,7 @@ const isLinked = (related, enableWith, optionalWith, field) => {
         <i className="linked"> </i>
         <div className="tooltip right" role="tooltip">
           <div className="tooltip-arrow"> </div>
-          <div className="tooltip-inner">optionel si le champ attendanceMode prend la valeur &quot;en ligne&quot;</div>
+          <div className="tooltip-inner">{getLabel('isOptional', lang)} {getLabel('valueOnline', lang)}</div>
         </div>
       </span>
     );
@@ -125,9 +124,9 @@ function getDefaultLabel(field, lang) {
 
   if (typeof field.default === 'boolean') {
     if (field.default === true) {
-      return 'séléctionné';
+      return getLabel('isSelected', lang);
     }
-    return 'non séléctionné';
+    return getLabel('notSelected', lang);
   }
 
   return getLocaleValue(field.default, lang);
@@ -177,12 +176,11 @@ export default class FieldPreview extends Component {
     const isDisabled = !editable || disabled;
 
     return (
-      <div
+      <divocaleValue
         className={classNames({
           'field-preview': true
         })}
       >
-
         <Accordion
           head={(
             <>
@@ -192,15 +190,6 @@ export default class FieldPreview extends Component {
               >
                 {getLocaleValue(field.label, lang)}
               </label>
-              {field.type ? (
-                <span className="form-tooltip-icon margin-right-xs">
-                  <i className={field.type}> </i>
-                  <div className="tooltip right" role="tooltip">
-                    <div className="tooltip-arrow"> </div>
-                    <div className="tooltip-inner">{field.type}</div>
-                  </div>
-                </span>
-              ) : null }
               {this.isFieldOptional() ? null
                 : (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
@@ -216,7 +205,7 @@ export default class FieldPreview extends Component {
                   <i className={field.fieldType}> </i>
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
-                    <div className="tooltip-inner">{field.fieldType}</div>
+                    <div className="tooltip-inner">{getFieldTypeLabel(field, lang)}</div>
                   </div>
                 </span>
               ) : null}
@@ -228,8 +217,10 @@ export default class FieldPreview extends Component {
           )}
           content={(
             <>
-              <div className="margin-bottom-xs margin-top-xs">{field.purpose ? getLocaleValue(field.purpose, lang) : getFieldTypeLabel(field, lang)}</div>
-              <div className="margin-bottom-xs">
+              {field.purpose ? (
+                <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
+              ) : null }
+              <div className="margin-top-xs">
                 {this.isFieldOptional() ? null
                   : (
                     <span className="form-icon margin-right-sm">
@@ -240,25 +231,25 @@ export default class FieldPreview extends Component {
                 {field.fieldType ? (
                   <span className="form-icon margin-right-sm">
                     <i className={field.fieldType}> </i>
-                    <span className="fieldtype">{field.fieldType}</span>
+                    <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                   </span>
                 ) : null }
                 {isMultilingual(field.languages) ? (
                   <span className="form-icon margin-right-sm">
                     <i className="multilingual fa fa-globe"> </i>
-                    <span className="multilingual-label">multilingue</span>
+                    <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                   </span>
                 ) : null}
                 {isLinked(field.related, field.enableWith, field.optionalWith, field.field)}
               </div>
               {field.field ? (
-                <div title="Code du champ">Clé JSON: {field.field}</div>
+                <div className="margin-top-xs" title="Code du champ">{getLabel('jsonKey', lang)}: {field.field}</div>
               ) : null }
               {'default' in field ? (
-                <div className="margin-top-xs" title="Longueur du champ">Valeur par défault: {String(getDefaultLabel(field, lang))}</div>
+                <div className="margin-top-xs" title="Valeur par défaut">{getLabel('defaultValue', lang)}: {String(getDefaultLabel(field, lang))}</div>
               ) : null }
               {field.max ? (
-                <div className="margin-top-xs" title="Longueur du champ">Longueur max: {field.max}</div>
+                <div className="margin-top-xs" title="Longueur du champ">{getLabel('maxLength', lang)}: {field.max}</div>
               ) : null }
               {ordering ? (
                 <ul className="form-item-actions list-inline">
@@ -301,7 +292,7 @@ export default class FieldPreview extends Component {
           onToggle={onAccordionToggle}
           active={active}
         />
-      </div>
+      </divocaleValue>
     );
   }
 
@@ -331,15 +322,6 @@ export default class FieldPreview extends Component {
                 >
                   {getLocaleValue(field.label, lang)}
                 </label>
-                {field.type ? (
-                  <span className="form-tooltip-icon margin-right-xs">
-                    <i className={field.type}> </i>
-                    <div className="tooltip right" role="tooltip">
-                      <div className="tooltip-arrow"> </div>
-                      <div className="tooltip-inner">{field.type}</div>
-                    </div>
-                  </span>
-                ) : null }
                 {this.isFieldOptional() ? null
                   : (
                     <span className="form-tooltip-icon icon-hide margin-right-xs">
@@ -362,7 +344,7 @@ export default class FieldPreview extends Component {
                     <i className={field.fieldType}> </i>
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
-                      <div className="tooltip-inner">{field.fieldType}</div>
+                      <div className="tooltip-inner">{getFieldTypeLabel(field, lang)}</div>
                     </div>
                   </span>
                 ) : null}
@@ -374,8 +356,10 @@ export default class FieldPreview extends Component {
             )}
             content={(
               <>
-                <div className="margin-bottom-xs margin-top-xs">{field.purpose ? getLocaleValue(field.purpose, lang) : getFieldTypeLabel(field, lang)}</div>
-                <div className="margin-bottom-xs">
+                {field.purpose ? (
+                  <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
+                ) : null }
+                <div className="margin-top-xs">
                   {this.isFieldOptional() ? null
                     : (
                       <span className="form-icon margin-right-sm">
@@ -390,25 +374,25 @@ export default class FieldPreview extends Component {
                   {field.fieldType ? (
                     <span className="form-icon margin-right-sm">
                       <i className={field.fieldType}> </i>
-                      <span className="fieldtype">{field.fieldType}</span>
+                      <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                     </span>
                   ) : null }
                   {isMultilingual(field.languages) ? (
                     <span className="form-icon margin-right-sm">
                       <i className="multilingual fa fa-globe"> </i>
-                      <span className="multilingual-label">multilingue</span>
+                      <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                     </span>
                   ) : null}
                   {isLinked(field.related, field.enableWith, field.optionalWith, field.field)}
                 </div>
                 {field.field ? (
-                  <div title="Code du champ">Clé JSON: {field.field}</div>
+                  <div className="margin-top-xs" title="Code du champ">{getLabel('jsonKey', lang)}: {field.field}</div>
                 ) : null }
                 {'default' in field ? (
-                  <div className="margin-top-xs" title="Longueur du champ">Valeur par défault: {String(getDefaultLabel(field, lang))}</div>
+                  <div className="margin-top-xs" title="Valeur par défaut">{getLabel('defaultValue', lang)}: {String(getDefaultLabel(field, lang))}</div>
                 ) : null }
                 {field.max ? (
-                  <div className="margin-top-xs" title="Longueur du champ">Longueur max: {field.max}</div>
+                  <div className="margin-top-xs" title="Longueur du champ">{getLabel('maxLength', lang)}: {field.max}</div>
                 ) : null }
                 <div className="form-item-actions padding-h-xs">
                   <button
