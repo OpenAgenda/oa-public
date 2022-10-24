@@ -117,7 +117,7 @@ module.exports = (agendaSettings, event) => {
     origin: convertOriginAgenda(event),
     conditions: event.conditions,
     registrationUrl,
-  }, getLocationInfo(event.location), {
+  }, event.location ? getLocationInfo(event.location) : {}, {
     timings: convertTimings(event.timings, event.timezone),
     registration,
   }, getFirstLastTimings(event.timings), {
