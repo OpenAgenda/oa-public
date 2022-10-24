@@ -17,9 +17,9 @@ module.exports = (_config, services) => parentApp => {
     agendas,
     formSchemas: {
       middleware: {
-        files: formSchemaFilesMw
-      }
-    }
+        files: formSchemaFilesMw,
+      },
+    },
   } = services;
 
   parentApp.post(
@@ -34,12 +34,12 @@ module.exports = (_config, services) => parentApp => {
     formSchemaFilesMw.putInTemporary.bind(null, {}),
     formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
     mergeDataWithFiles,
-    createEvent
+    createEvent,
   );
 
   parentApp.post([
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
   ], [
     agendas.mw.load,
     loadMember,
@@ -52,7 +52,7 @@ module.exports = (_config, services) => parentApp => {
     formSchemaFilesMw.putInTemporary.bind(null, {}),
     formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
     mergeDataWithFiles,
-    updateEvent
+    updateEvent,
   ]);
 
   parentApp.post('/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid', [
@@ -62,7 +62,7 @@ module.exports = (_config, services) => parentApp => {
     agendas.mw.loadBy({
       path: 'params.fromAgendaUid',
       field: 'uid',
-      target: 'fromAgenda'
+      target: 'fromAgenda',
     }),
     loadEvent,
     loadOrDefineFileKey,
@@ -72,6 +72,6 @@ module.exports = (_config, services) => parentApp => {
     formSchemaFilesMw.putInTemporary.bind(null, {}),
     formSchemaFilesMw.uploadFilesToS3.bind(null, { ignore: ['image'] }),
     mergeDataWithFiles,
-    addEvent
+    addEvent,
   ]);
 };
