@@ -43,7 +43,11 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
     throw new Forbidden('Not authorized to access member');
   }
 
-  const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await core.agendas(agendaOrUid).get({ detailed: true, access });
+  const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await core.agendas(agendaOrUid).get({
+    detailed: true,
+    access,
+    private: null,
+  });
 
   const memberRes = await members.get({
     agendaUid: agenda.uid,
