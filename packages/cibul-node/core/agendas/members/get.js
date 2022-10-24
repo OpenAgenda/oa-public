@@ -15,7 +15,7 @@ function validateMemberData(data, schema) {
   return !!clean;
 }
 
-async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) { 
+async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const { services } = core;
   const {
     members,
@@ -65,13 +65,13 @@ module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
   { throwOnNotFound: true },
   agendaOrUid,
   userUid,
-  options
+  options,
 ), {
   is: (services, agendaOrUid, userUid, options = {}) => get(
     services,
     { includeFields: ['id'] },
     agendaOrUid,
     userUid,
-    options
+    options,
   ).then(m => !!m),
 });
