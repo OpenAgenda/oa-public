@@ -25,7 +25,8 @@ function isEnabled(req) {
 module.exports = function ConvertFormat({
   forceLimit = null,
   sendJSON = false,
-  forceIncludeEmbedded = false
+  forceIncludeEmbedded = false,
+  admin = false,
 }) {
   return async (req, res, next) => {
     if (!isEnabled(req)) {
@@ -65,7 +66,7 @@ module.exports = function ConvertFormat({
       .events.search(
         req.query,
         nav,
-        { detailed: true, access: 'administrator' }
+        { detailed: true, access: 'administrator' },
       );
 
     const agendaSettings = {
@@ -75,12 +76,13 @@ module.exports = function ConvertFormat({
       formSchema,
       interfaces: {
         renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services, {
-          includeEmbedded: forceIncludeEmbedded || (req.query.include_embedded === '1')
+          includeEmbedded: forceIncludeEmbedded || (req.query.include_embedded === '1'),
         }),
       },
-      admin: req.access === 'administrator',
+      admin,
       root: config.root,
     };
+
     const convertedEvents = eventsList.events.map(event => convertEventToLegacyFormat(agendaSettings, event));
 
     const response = {
