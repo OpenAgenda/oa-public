@@ -56,7 +56,6 @@ function _mapFileCustomValues(mapItem) {
 
 async function _setCustomValues(knex, eventId, fieldValueMap) {
   log('setting custom values for event id %s', eventId);
-  console.log(fieldValueMap);
 
   const legacyCustom = fieldValueMap
     .filter(mapItem => isLegacyCustom(mapItem.field))
@@ -180,7 +179,7 @@ async function set({ knex }, agendaId, eventUid, schemas = [], customValues = []
     .map((s, i) => ({ schema: s, values: customValues[i] }))
     .filter(sv => !!sv.schema)
     .reduce((carry, sv) => carry.concat(
-      sv.schema.fields.filter(f => Object.keys(sv.values).includes(f.field))
+      sv.schema.fields
         .map(f => ({
           field: f,
           value: sv.values[f.field],
