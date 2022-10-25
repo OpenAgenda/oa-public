@@ -10,43 +10,65 @@ const { DEFAULT_LANG, DEFAULT_LANGS } = require('../lib/constants');
 const getMessages = require('./utils/getMessages');
 const createIndex = require('./utils/createIndex');
 const inputToOuputPath = require('./utils/inputToOuputPath');
+const fileExists = require('./utils/fileExists');
+
+const defaults = {
+  files: ['src/**/*.js'],
+  output: 'src/locales/%lang%.json',
+  defaultLang: DEFAULT_LANG,
+  langs: DEFAULT_LANGS,
+  definedDefault: ['fr'],
+  idInterpolationPattern: '[sha512:contenthash:base64:6]',
+  skipIndex: false,
+  skipEmpty: false,
+};
 
 // Functions
 
-function fileExists(filepath) {
-  try {
-    fs.accessSync(filepath);
-    return true;
-  } catch {
-    return false;
-  }
+function sortObj(obj) {
+  return Object.keys(obj)
+    .sort()
+    .reduce((accu, key) => {
+      accu[key] = obj[key];
+      return accu;
+    }, {});
 }
 
 function getDefaults({
-  defaultMessages,
+  extractedMessages,
   lang,
   defaultLang,
   definedDefault,
 }) {
   if (lang === defaultLang) {
-    return defaultMessages;
+    return extractedMessages;
   }
 
   if (definedDefault.includes(lang)) {
-    return _.mapValues(defaultMessages, () => '');
+    return _.mapValues(extractedMessages, () => '');
   }
 
   return {};
 }
 
-async function memoizedExtract(cache, globPath, options) {
-  if (cache.has(globPath)) {
-    return cache.get(globPath);
+async function extractMessages({
+  files,
+  idInterpolationPattern,
+  format,
+}) {
+  const filesToExtract = files.reduce((accu, globFiles) => {
+    accu.push(...glob.sync(globFiles));
+    return accu;
+  }, []);
+  const result = {};
+
+  for (const file of filesToExtract) {
+    result[file] = JSON.parse(await extract([file], {
+      idInterpolationPattern,
+      extractFromFormatMessageCall: true,
+      format,
+    }));
   }
-
-  const result = await extract(glob.sync(globPath), options);
-
-  cache.set(globPath, result);
 
   return result;
 }
@@ -57,46 +79,57 @@ async function extractLang({
   lang,
   defaultLang,
   definedDefault,
-  cache,
-  idInterpolationPattern,
-  format,
+  extractedMessages,
+  skipEmpty,
 }) {
-  const isMultiOut = output.includes('**');
-  const pathArray = isMultiOut ? glob.sync(files) : [files];
+  const result = {};
 
-  for (const file of pathArray) {
-    const { result: outPath } = inputToOuputPath(files, file, output, lang);
+  for (const globFiles of files) {
+    for (const file of glob.sync(globFiles)) {
+      if (skipEmpty && Object.keys(extractedMessages[file]).length === 0) {
+        continue;
+      }
 
-    const localesPath = path.join(process.cwd(), outPath.replace(/\.js$/, '.json'));
-    const existingMessages = getMessages(localesPath);
+      const { result: outPath } = inputToOuputPath(globFiles, file, output, lang);
 
-    const defaultMessages = JSON.parse(await memoizedExtract(cache, file, {
-      idInterpolationPattern,
-      extractFromFormatMessageCall: true,
-      format,
-    }));
+      const localesPath = path.join(process.cwd(), outPath.replace(/\.js$/, '.json'));
+      const existingMessages = getMessages(localesPath);
 
-    const defaults = getDefaults({
-      defaultMessages,
-      lang,
-      defaultLang,
-      definedDefault,
-    });
+      const defaultMessages = getDefaults({
+        extractedMessages: extractedMessages[file],
+        lang,
+        defaultLang,
+        definedDefault,
+      });
 
-    const messages = _.pickBy(
-      existingMessages,
-      (value, key) => key in defaultMessages && value,
-    );
+      const messages = _.pickBy(
+        existingMessages,
+        (value, key) => key in extractedMessages[file] && value,
+      );
 
-    const result = _.merge(defaults, messages);
+      const messagesWithDefaults = _.merge(defaultMessages, messages);
 
-    await mkdirp(path.dirname(outPath));
-
-    fs.writeFileSync(localesPath, `${JSON.stringify(result, null, 2)}\n`);
+      result[localesPath] = {
+        ...result[localesPath],
+        ...messagesWithDefaults,
+      };
+    }
   }
 
-  if (!isMultiOut) {
-    return;
+  const createdFiles = [];
+
+  for (const localesPath in result) {
+    if (!Object.prototype.hasOwnProperty.call(result, localesPath)) continue;
+
+    await mkdirp(path.dirname(localesPath));
+    fs.writeFileSync(localesPath, `${JSON.stringify(sortObj(result[localesPath]), null, 2)}\n`);
+
+    createdFiles.push(localesPath);
+  }
+
+  // Is not multi output
+  if (!output.includes('**')) {
+    return createdFiles;
   }
 
   // Remove obsolete files
@@ -104,84 +137,101 @@ async function extractLang({
   const localesFiles = glob.sync(localesBasePath);
 
   for (const localesFile of localesFiles) {
-    const {
-      result: messageFilePath,
-      originalFileName
-    } = inputToOuputPath(localesBasePath, localesFile, files, lang);
-    const inputPath = path.join(
-      process.cwd(),
-      path.dirname(messageFilePath),
-      originalFileName.replace(/\.json$/, '.js')
-    );
+    const hasInput = files.some(globFiles => {
+      const {
+        result: messageFilePath,
+        originalFileName,
+      } = inputToOuputPath(localesBasePath, localesFile, globFiles, lang);
+      const inputPath = path.join(
+        process.cwd(),
+        path.dirname(messageFilePath),
+        originalFileName.replace(/\.json$/, '.js'),
+      );
 
-    if (!fileExists(inputPath)) {
+      return fileExists(inputPath);
+    });
+
+    if (!hasInput) {
       fs.unlinkSync(path.join(process.cwd(), localesFile));
     }
   }
+
+  return createdFiles;
 }
 
 // Command
 
-module.exports.command = 'extract [files]';
+module.exports.command = 'extract [...files]';
 
 module.exports.describe = 'Extract messages.';
 
 module.exports.builder = yargs => {
   yargs.positional('files', {
-    default: 'src/**/*.js',
-    desc: 'Glob path to extract translations from, the source files.',
+    default: defaults.files,
+    desc: 'Glob paths to extract translations from, the source files.',
+    array: true,
   });
 
   yargs.options({
     output: {
       alias: 'o',
-      default: 'src/locales/%lang%.json',
+      default: defaults.output,
       desc: 'The target path where the script will output an aggregated'
         + ' `.json` file per lang of all the translations from the `files` supplied.',
     },
     defaultLang: {
-      default: DEFAULT_LANG,
+      default: defaults.defaultLang,
       desc: 'Default language, the one that is filled in for the default messages in the files.',
     },
     langs: {
-      default: DEFAULT_LANGS.join(','),
+      default: defaults.langs.join(','),
       coerce: arg => arg.split(','),
       desc: 'The target languages of the translations.',
     },
     definedDefault: {
-      default: 'fr',
+      default: defaults.definedDefault.join(','),
       coerce: arg => arg.split(','),
       desc: 'Languages that are populated with messages set to "" for ease of translation.',
     },
     idInterpolationPattern: {
-      default: '[sha512:contenthash:base64:6]',
+      default: defaults.idInterpolationPattern,
       desc: 'If certain message descriptors don\'t have id,'
         + ' this `pattern` will be used to automatically generate IDs for them,\n'
         + 'where `contenthash` is the hash of `defaultMessage` and `description`.',
     },
     skipIndex: {
+      default: defaults.skipIndex,
       type: 'boolean',
       desc: 'Does not create index js file.',
-    }
+    },
+    skipEmpty: {
+      default: defaults.skipEmpty,
+      type: 'boolean',
+      desc: 'Does not create empty locale files.',
+    },
   });
 };
 
 module.exports.handler = async argv => {
   const {
-    files,
-    output,
-    idInterpolationPattern,
-    defaultLang,
-    langs,
-    definedDefault,
-    skipIndex,
+    files = defaults.files,
+    output = defaults.output,
+    idInterpolationPattern = defaults.idInterpolationPattern,
+    defaultLang = defaults.defaultLang,
+    langs = defaults.langs,
+    definedDefault = defaults.definedDefault,
+    skipIndex = defaults.skipIndex,
+    skipEmpty = defaults.skipEmpty,
   } = argv;
 
   const format = 'simple';
 
-  const cache = new Map();
+  const extractedMessages = await extractMessages({
+    files,
+    idInterpolationPattern,
+    format,
+  });
 
-  // Extract
   const extractResults = await Promise.allSettled(
     langs.map(lang => extractLang({
       files,
@@ -189,9 +239,8 @@ module.exports.handler = async argv => {
       lang,
       defaultLang,
       definedDefault,
-      cache,
-      idInterpolationPattern,
-      format,
+      extractedMessages,
+      skipEmpty,
     })),
   );
 

@@ -14,6 +14,16 @@ const createIndex = require('./utils/createIndex');
 const getMessages = require('./utils/getMessages');
 const inputToOuputPath = require('./utils/inputToOuputPath');
 
+const defaults = {
+  locales: 'src/locales/%lang%.json',
+  output: 'src/locales-compiled/%lang%.json',
+  defaultLang: DEFAULT_LANG,
+  langs: DEFAULT_LANGS,
+  fallbackMap: DEFAULT_FALLBACK_MAP,
+  skipIndex: false,
+  ast: true,
+};
+
 // Functions
 
 function getFallbackedMessages({
@@ -98,52 +108,53 @@ module.exports.describe = 'Compile locales.';
 
 module.exports.builder = yargs => {
   yargs.positional('locales', {
-    default: 'src/locales/%lang%.json',
+    default: defaults.locales,
     desc: 'Glob path to compile locales from.',
   });
 
   yargs.options({
     output: {
       alias: 'o',
-      default: 'src/locales-compiled/%lang%.json',
+      default: defaults.output,
       desc: 'The target path where the script will output the compiled version of the translation files,'
         + ' completed with the fallback langs.',
     },
     defaultLang: {
-      default: DEFAULT_LANG,
+      default: defaults.defaultLang,
       desc: 'Default language, the one that is filled in for the default messages in the files.',
     },
     langs: {
-      default: DEFAULT_LANGS.join(','),
+      default: defaults.langs.join(','),
       coerce: arg => arg.split(','),
       desc: 'The target languages of the translations.',
     },
     fallbackMap: {
-      default: JSON.stringify(DEFAULT_FALLBACK_MAP),
+      default: JSON.stringify(defaults.fallbackMap),
       coerce: JSON.parse,
       desc: 'A fallback object (json) to complete each key language with the value language. For `{ "br": "fr" }`, the French will complement the Breton.',
     },
     skipIndex: {
+      default: defaults.skipIndex,
       type: 'boolean',
       desc: 'Does not create index js file.',
     },
     ast: {
+      default: defaults.ast,
       type: 'boolean',
-      default: true,
       desc: 'Whether to compile message into AST instead of just string.',
-    }
+    },
   });
 };
 
 module.exports.handler = async argv => {
   const {
-    locales,
-    output,
-    defaultLang,
-    langs,
-    fallbackMap,
-    skipIndex,
-    ast,
+    locales = defaults.locales,
+    output = defaults.output,
+    defaultLang = defaults.defaultLang,
+    langs = defaults.langs,
+    fallbackMap = defaults.fallbackMap,
+    skipIndex = defaults.skipIndex,
+    ast = defaults.ast,
   } = argv;
 
   const format = 'simple';

@@ -18,16 +18,16 @@
     "scripts"
   ],
   "main": "lib/index.js",
-  "module": "esm/index.js",
+  "module": "esm/index.mjs",
   "exports": {
     ".": {
-      "import": "./esm/index.js",
+      "import": "./esm/index.mjs",
       "require": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./scripts/*": "./scripts/*.js",
     "./*": {
-      "import": "./esm/*.js",
+      "import": "./esm/*.mjs",
       "require": "./lib/*.js",
       "default": "./lib/*.js"
     },
@@ -39,7 +39,7 @@
   "scripts": {
     "prepack": "yarn clean && yarn build",
     "build": "yarn build:esm && yarn build:cjs",
-    "build:esm": "babel --copy-files src -d esm -s --env-name esm",
+    "build:esm": "babel --copy-files src -d esm -s --env-name esm --out-file-extension .mjs",
     "build:cjs": "babel --copy-files src -d lib -s",
     "clean": "rimraf esm lib",
     "lint": "eslint -c .eslintrc '**/*.js'",
