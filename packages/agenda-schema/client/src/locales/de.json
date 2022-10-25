@@ -1,6 +1,6 @@
 {
-  "AgendaSchema.network": "Netzwerk",
-  "AgendaSchema.networkDetail": "Feld durch die Agenda Netzwerk erforderlich",
   "AgendaSchema.event": "Standard",
-  "AgendaSchema.eventDetail": "Standard Veranstaltungfeld"
+  "AgendaSchema.eventDetail": "Standard Veranstaltungfeld",
+  "AgendaSchema.network": "Netzwerk",
+  "AgendaSchema.networkDetail": "Feld durch die Agenda Netzwerk erforderlich"
 }

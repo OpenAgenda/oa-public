@@ -55,7 +55,7 @@ module.exports = ( { entry, output } ) => ({
   },
   resolve: {
     // symlinks: false,
-    extensions: [ '.js', '.jsx', '.json' ],
+    extensions: ['.js', '.jsx', '.mjs', '.json'],
     fallback: {
       fs: false,
       path: require.resolve('path-browserify'),
