@@ -102,7 +102,6 @@
     "fast-levenshtein": "^2.0.6",
     "feathers-authentication-hooks": "^0.3.0",
     "feathers-hooks-common": "^4.20.7",
-    "ftp": "^0.3.10",
     "history": "^4.10.1",
     "http-proxy": "^1.18.0",
     "immer": "^9.0.1",
