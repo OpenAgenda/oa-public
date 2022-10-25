@@ -6,14 +6,15 @@ const compile = require('./compile');
 
 // Command
 
-module.exports.command = '$0 [files]';
+module.exports.command = '$0 [...files]';
 
 module.exports.describe = 'Extract and compile locales.';
 
 module.exports.builder = yargsBuilder => {
   yargsBuilder.positional('files', {
-    default: 'src/**/*.js',
-    desc: 'Glob path to extract translations from, the source files.',
+    default: ['src/**/*.js'],
+    desc: 'Glob paths to extract translations from, the source files.',
+    array: true,
   });
 
   yargsBuilder.options({

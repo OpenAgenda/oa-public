@@ -228,12 +228,12 @@ To extract messages to translate from your sources you have to add a script in y
 Default command, extract and compile:
 
 ```
-oa-intl [files]
+oa-intl [...files]
 
 Extract and compile locales.
 
 Positionals:
-  files  Glob path to extract translations from, the source files.  [default: "src/**/*.js"]
+  files  Glob paths to extract translations from, the source files.  [default: ["src/**/*.js"]]
 
 Options:
       --version                 Show version number  [boolean]
@@ -254,12 +254,12 @@ Options:
 Extract:
 
 ```
-oa-intl extract [files]
+oa-intl extract [...files]
 
 Extract messages.
 
 Positionals:
-  files  Glob path to extract translations from, the source files.  [default: "src/**/*.js"]
+  files  Glob paths to extract translations from, the source files.  [default: ["src/**/*.js"]]
 
 Options:
       --version                 Show version number  [boolean]
