@@ -176,7 +176,7 @@ export default class FieldPreview extends Component {
     const isDisabled = !editable || disabled;
 
     return (
-      <divocaleValue
+      <div
         className={classNames({
           'field-preview': true
         })}
@@ -292,7 +292,7 @@ export default class FieldPreview extends Component {
           onToggle={onAccordionToggle}
           active={active}
         />
-      </divocaleValue>
+      </div>
     );
   }
 
