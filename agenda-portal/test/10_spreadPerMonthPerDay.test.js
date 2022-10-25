@@ -3,9 +3,9 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const inputTimings = require('./fixtures/timings.json');
-
 const spreadPerMonth = require('../lib/events/spreadPerMonthPerDay');
+const inputTimings = require('./fixtures/timings');
+const inputTimings2 = require('./fixtures/timings.2');
 
 describe('10 - spreadPerMonthPerDay', () => {
   describe('basics', () => {
@@ -20,7 +20,7 @@ describe('10 - spreadPerMonthPerDay', () => {
           },
         ],
         'Europe/Paris',
-        'fr'
+        'fr',
       );
     });
 
@@ -38,15 +38,15 @@ describe('10 - spreadPerMonthPerDay', () => {
   describe('complete evaluation', () => {
     const timings = [
       {
-        start: new Date('2018-10-10T10:00:00+0200'),
+        begin: new Date('2018-10-10T10:00:00+0200'),
         end: new Date('2018-10-10T11:00:00+0200'),
       },
       {
-        start: new Date('2018-11-15T10:00:00+0200'),
+        begin: new Date('2018-11-15T10:00:00+0200'),
         end: new Date('2018-11-15T15:00:00+0200'),
       },
       {
-        start: new Date('2018-12-01T00:00:00+0100'),
+        begin: new Date('2018-12-01T00:00:00+0100'),
         end: new Date('2018-12-01T01:00:00+0100'),
       },
     ];
@@ -65,8 +65,8 @@ describe('10 - spreadPerMonthPerDay', () => {
         JSON.stringify(
           result.map(m => _.omit(m, 'diff')),
           null,
-          2
-        )
+          2,
+        ),
       ).toBe(spreadTimings);
     });
 
@@ -77,8 +77,8 @@ describe('10 - spreadPerMonthPerDay', () => {
         JSON.stringify(
           result.map(m => _.omit(m, 'diff')),
           null,
-          2
-        )
+          2,
+        ),
       ).toBe(spreadTimingsNYC);
     });
   });
@@ -86,7 +86,7 @@ describe('10 - spreadPerMonthPerDay', () => {
   describe('invalid timings', () => {
     it('null timings are filtered out', () => {
       const timings = [
-        { begin: null, end: null }
+        { begin: null, end: null },
       ];
 
       expect(spreadPerMonth(timings, 'Europe/Paris', 'fr')).toEqual([]);
@@ -98,6 +98,11 @@ describe('10 - spreadPerMonthPerDay', () => {
       const result = spreadPerMonth(inputTimings, 'Europe/Paris', 'fr');
 
       expect(result[0].weeks[1].days.map(d => d.day).join(',')).toEqual('05,06,07,08,09,10,11');
+    });
+
+    it('spread must not make timings disappear', () => {
+      const months = spreadPerMonth(inputTimings2, 'Europe/Paris', 'fr');
+      expect(months.map(m => m.key).join(',')).toBe('2022-10,2022-11');
     });
   });
 });
