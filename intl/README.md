@@ -228,7 +228,7 @@ To extract messages to translate from your sources you have to add a script in y
 Default command, extract and compile:
 
 ```
-oa-intl [...files]
+oa-intl [files...]
 
 Extract and compile locales.
 
@@ -254,7 +254,7 @@ Options:
 Extract:
 
 ```
-oa-intl extract [...files]
+oa-intl extract [files...]
 
 Extract messages.
 

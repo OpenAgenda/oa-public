@@ -161,7 +161,7 @@ async function extractLang({
 
 // Command
 
-module.exports.command = 'extract [...files]';
+module.exports.command = 'extract [files...]';
 
 module.exports.describe = 'Extract messages.';
 
