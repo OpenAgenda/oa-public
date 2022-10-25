@@ -1,4 +1,8 @@
 {
+  "ReactShared.ConsentBanner.accept": "crwdns16724:0crwdne16724:0",
+  "ReactShared.ConsentBanner.decline": "crwdns16726:0crwdne16726:0",
+  "ReactShared.ConsentBanner.informationText": "crwdns16728:0crwdne16728:0",
+  "ReactShared.ConsentBanner.moreInfoLink": "crwdns16730:0crwdne16730:0",
   "ReactShared.ImageInput.acceptedFiles": "crwdns16732:0crwdne16732:0",
   "ReactShared.ImageInput.fileTooLarge": "crwdns16734:0{fileName}crwdnd16734:0{fileSize}crwdnd16734:0{maxSize}crwdne16734:0",
   "ReactShared.ImageInput.fileTooSmall": "crwdns16736:0{fileName}crwdnd16736:0{fileSize}crwdnd16736:0{minSize}crwdne16736:0",
@@ -7,9 +11,5 @@
   "ReactShared.ImageInput.tooManyFiles": "crwdns16742:0crwdne16742:0",
   "ReactShared.ImageInput.update": "crwdns16744:0crwdne16744:0",
   "ReactShared.ImageInput.upload": "crwdns16746:0crwdne16746:0",
-  "ReactShared.ConsentBanner.accept": "crwdns16724:0crwdne16724:0",
-  "ReactShared.ConsentBanner.decline": "crwdns16726:0crwdne16726:0",
-  "ReactShared.ConsentBanner.informationText": "crwdns16728:0crwdne16728:0",
-  "ReactShared.ConsentBanner.moreInfoLink": "crwdns16730:0crwdne16730:0",
   "ReactShared.LeaveWarningPrompt.areYouSure": "crwdns16748:0crwdne16748:0"
 }

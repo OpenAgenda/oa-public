@@ -9,7 +9,7 @@ function getHeaderValue(req, key) {
   return req.headers[key];
 }
 
-export default function apiClient(baseURL, req, { legacy } = {}) {
+export default function apiClient(baseURL = null, req = null, { legacy } = {}) {
   const isServer = typeof window === 'undefined';
   let token;
 
@@ -45,15 +45,15 @@ export default function apiClient(baseURL, req, { legacy } = {}) {
 
       return conf;
     },
-    error => Promise.reject(error)
+    error => Promise.reject(error),
   );
 
   if (legacy) {
     instance.interceptors.response.use(
       response => response.data,
       error => Promise.reject(
-        error.response && error.response.data ? error.response.data : error
-      )
+        error.response && error.response.data ? error.response.data : error,
+      ),
     );
   }
 
