@@ -1,4 +1,4 @@
 {
-  "common.event.states.refused": "Rifiutato",
-  "common.event.states.published": "Pubblicato"
+  "common.event.states.published": "Pubblicato",
+  "common.event.states.refused": "Rifiutato"
 }
