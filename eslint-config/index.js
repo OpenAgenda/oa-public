@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = {
-  root: true,
-
   parser: '@babel/eslint-parser',
 
   extends: [
@@ -12,7 +10,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.{ts,mts,cts,tsx}'],
+      files: ['*.{tsx,ts,mts,cts}'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
       extends: ['plugin:@typescript-eslint/recommended'],
