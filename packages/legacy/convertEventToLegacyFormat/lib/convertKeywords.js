@@ -5,7 +5,7 @@ module.exports = function convertKeywords(keywords) {
     return null;
   }
 
-  if (Object.keys(keywords).length === 1 && Array.isArray(keywords.fr) && !keywords.fr.length) {
+  if (!Object.keys(keywords).filter(lang => !Array.isArray(keywords[lang]) || keywords[lang].length).length) {
     return null;
   }
 
