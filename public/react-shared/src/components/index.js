@@ -1,4 +1,5 @@
 export { default as AgendasSearch } from './AgendasSearch';
+export { default as ApiClientProvider } from './ApiClientProvider';
 export { default as ConsentBanner } from './ConsentBanner';
 export { default as Case } from './Case';
 export { default as Image } from './Image';
