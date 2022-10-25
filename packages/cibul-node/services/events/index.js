@@ -19,8 +19,8 @@ module.exports.init = (config, services) => Service({
     beforeRemove: beforeRemove.bind(null, services),
     onRemove: onRemove.bind(null, services),
     getOriginAgendas: (uids, options) => services.agendas.list({
-      uid: uids
+      uid: uids,
     }, options).then(({ agendas }) => agendas),
     getLocations: getLocations.promise.bind(null, services),
-  }
+  },
 });
