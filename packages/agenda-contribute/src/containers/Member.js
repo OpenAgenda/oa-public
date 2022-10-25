@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 
 import { useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,14 +15,14 @@ import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 
 const {
-  replaceWithStep
+  replaceWithStep,
 } = utils;
 
 const log = debug('Member');
 
 export default function Member({
   agenda,
-  history
+  history,
 }) {
   log('loading');
   const queryClient = useQueryClient();
@@ -35,12 +34,12 @@ export default function Member({
 
   const {
     detailedAgendaIsLoading,
-    detailedAgenda
+    detailedAgenda,
   } = useDetailedAgenda(agenda.uid);
 
   const {
     agendaContextIsLoading,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid, 'Member');
 
   if (!agenda.settings.contribution.useFields) {
@@ -70,7 +69,7 @@ export default function Member({
             onSuccess={() => {
               dispatch(contributeReducer.memberSetSuccess({
                 agenda,
-                queryClient
+                queryClient,
               }));
             }}
           />
