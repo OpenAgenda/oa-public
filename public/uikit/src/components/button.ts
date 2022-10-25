@@ -4,14 +4,13 @@ import { mode } from '@chakra-ui/theme-tools';
 type AccessibleColor = {
   bg?: string;
   color?: string;
+  hover?: string;
   hoverBg?: string;
   activeBg?: string;
-  border?: string;
   borderColor?: string;
 };
 
-/** Accessible color overrides for less accessible colors. */
-const accessibleColorMap: { [key: string]: AccessibleColor } = {
+const solidColorMap: { [key: string]: AccessibleColor } = {
   oaGray: {
     bg: 'oaGray.50',
     color: 'black',
@@ -30,11 +29,12 @@ const variantSolid = defineStyle(props => {
     hoverBg = `${c}.600`,
     activeBg = `${c}.700`,
     borderColor = `${c}.600`,
-  } = accessibleColorMap[c] ?? {};
+  } = solidColorMap[c] ?? {};
 
   const background = mode(bg, `${c}.200`)(props);
 
   return {
+    border: '1px',
     bg: background,
     color: mode(color, 'gray.800')(props),
     borderColor,
@@ -48,15 +48,27 @@ const variantSolid = defineStyle(props => {
   };
 });
 
+const linkColorMap: { [key: string]: AccessibleColor } = {
+  oaGray: {
+    color: 'oaGray.600',
+    hover: 'oaGray.900',
+  },
+};
+
 const variantLink = defineStyle(props => {
   const { colorScheme: c } = props;
 
+  const {
+    color = mode(`${c}.500`, `${c}.200`)(props),
+    hover = mode(`${c}.600`, `${c}.300`)(props),
+  } = linkColorMap[c] ?? {};
+
   return {
-    border: '0',
+    color,
     fontSize: 'inherit',
     fontWeight: 'inherit',
     _hover: {
-      color: `${c}.600`,
+      color: hover,
     },
   };
 });
@@ -87,7 +99,6 @@ const sizes = {
 export const buttonTheme = defineStyleConfig({
   baseStyle: defineStyle({
     fontWeight: 'normal',
-    border: '1px',
   }),
   sizes,
   variants,
