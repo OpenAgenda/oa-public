@@ -48,7 +48,7 @@ module.exports = app => {
     members.mw.authorizeAdminModOrKey(),
     agendaSvc.mw.search(perPage, true),
     loadCredentials,
-    convertFormat({ sendJSON: true }),
+    convertFormat({ sendJSON: true, admin: true }),
     legacyEventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(true),
     agendaSvc.mw.cleanJson,

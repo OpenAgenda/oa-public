@@ -6,17 +6,16 @@ const getNetwork = require('./getNetwork');
 
 module.exports = async (services, agendaOrUid, options = {}) => {
   const {
-    detailed
+    detailed,
   } = {
     detailed: false,
-    ...options
+    ...options,
   };
 
   const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await services.agendas.get({ uid: agendaOrUid }, {
     internal: true,
     private: null,
     includeImagePath: true,
-    includeMemberSchema: true
   });
 
   if (!agenda) {
@@ -31,10 +30,10 @@ module.exports = async (services, agendaOrUid, options = {}) => {
 
   const [
     formSchema,
-    networkSchema
+    networkSchema,
   ] = await getSchemas(services, [
     agenda.formSchemaId,
-    agenda?.network?.formSchemaId
+    agenda?.network?.formSchemaId,
   ]);
 
   if (formSchema) {

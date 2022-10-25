@@ -86,7 +86,6 @@ describe('agenda-locations - functional - create', () => {
 
     beforeAll(async () => {
       created = await svc(7196947).create(payload);
-      console.log(created);
     });
 
     it('basic create provides created location as a response', async () => {
@@ -295,7 +294,6 @@ describe('agenda-locations - functional - create', () => {
           insee: '41173',
           countryCode: 'FR',
         });
-        console.log(l);
         expect(l).toBeDefined();
       }
     );

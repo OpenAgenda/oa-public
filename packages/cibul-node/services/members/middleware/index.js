@@ -21,5 +21,5 @@ module.exports = {
   loadContext,
   invite,
   sendMessage,
-  spreadsheet
+  spreadsheet,
 };

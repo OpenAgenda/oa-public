@@ -142,7 +142,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         draft,
         agendaId: agenda.id,
         access,
-      }
+      },
     );
     if (result.success) {
       log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
@@ -159,7 +159,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       {
         agendaId: agenda.id,
         access,
-      }
+      },
     );
 
     if (result.success) {

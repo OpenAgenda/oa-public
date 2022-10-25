@@ -5,11 +5,11 @@ const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
 const getMemberSchema = require('../utils/getMemberSchema');
-const getAgenda = require('../utils/getAgenda');
 const format = require('./lib/format');
 const canEdit = require('./lib/canEdit');
 
-module.exports = async (services, agendaOrUid, identifiers, data, options = {}) => {
+module.exports = async (core, agendaOrUid, identifiers, data, options = {}) => {
+  const { services } = core;
   const {
     members,
     custom,
@@ -25,8 +25,6 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
   }
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
-
-  const agenda = await getAgenda(services, agendaUid, { detailed: true });
 
   const patchData = {};
 
@@ -51,9 +49,12 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
   })) {
     throw new Forbidden('Not authorized to patch member');
   }
+
+  const agenda = agendaOrUid?.constructor.name === 'Object'
+    ? agendaOrUid
+    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access: null, actingMember });
   const schemas = await getMemberSchema(services, agenda, { access, actingMember });
   let cleanMemberData = null;
-
   try {
     const validate = new FormSchema(schemas.merged).getValidate();
     cleanMemberData = validate(data);
@@ -62,8 +63,7 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
       info: { error },
     }, 'data is invalid');
   }
-
-  const customData = format.custom(data);
+  const customData = format.custom(data, {});
 
   if (Object.keys(customData).length) {
     patchData.custom = customData;
@@ -72,7 +72,7 @@ module.exports = async (services, agendaOrUid, identifiers, data, options = {}) 
   try {
     if (schemas.agendaSchema) {
       const dispatchedData = dispatchDataPerSchemas(cleanMemberData, [schemas.schema, schemas.agendaSchema]);
-      await custom(agenda.memberSchemaId).set(member.userUid, dispatchedData[1]);
+      await custom(agenda.memberSchemaId).set(member.userUid, dispatchedData[1], { validate: false });
     }
     await members.patch(member.id, patchData, {
       throwOnError: true,

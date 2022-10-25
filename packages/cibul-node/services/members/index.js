@@ -29,7 +29,7 @@ function init(c, services) {
   Object.assign(config, c);
 
   const {
-    queues
+    queues,
   } = services;
 
   const activityQueue = queues('memberActivities');
@@ -49,23 +49,24 @@ function init(c, services) {
       onCreate: onCreate.bind(null, { services, config, activityQueue }),
       onRemove: onRemove.bind(null, { services, members, activityQueue }),
       onPatch: onPatch.bind(null, { services, config, activityQueue })
-    }
+    },
   }));
 
   const messages = mail.messages(config, {
     members,
-    queue: messageQueue
+    queue: messageQueue,
   });
 
   const {
-    task: activityTask
+    task: activityTask,
   } = activities({ queue: activityQueue });
 
   mw.sendMessage.init(messages);
 
   return Object.assign(
     module.exports,
-    members, {
+    members,
+    {
       task: () => {
         log('running tasks');
         members.task();
@@ -81,9 +82,9 @@ function init(c, services) {
         authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
         authorizeAdminModOrKey: mw.authorize.adminModOrKey,
         loadTarget: Object.assign(mw.loadTarget.bind(null, members), {
-          options: mw.loadTarget.options.bind(null, members)
-        })
-      }
+          options: mw.loadTarget.options.bind(null, members),
+        }),
+      },
     }
   );
 }
@@ -99,13 +100,13 @@ function plugApp(app) {
     '/:agendaSlug/admin/members/send-message',
     '/:agendaSlug/admin/members/:id',
     '/:agendaSlug/admin/members/:id/details',
-    '/:agendaSlug/admin/members/:id/invite/resend'
+    '/:agendaSlug/admin/members/:id/invite/resend',
   ], [
     mw.loadAgenda,
     agendas.mw.authorizeByIPAddress(),
     sessions.mw.loadOrRedirect(),
     mw.load.andAuthorize('moderator'),
-    agendas.mw.authorizeByIPAddress()
+    agendas.mw.authorizeByIPAddress(),
   ]);
 
   app.get(
@@ -133,7 +134,7 @@ function plugApp(app) {
   app.get([
     '/:agendaSlug/admin/members.csv',
     '/:agendaSlug/admin/members.xlsx',
-  ], mw.spreadsheet.stream.bind(null, members));
+  ], mw.spreadsheet.stream);
 
   app.post(
     '/:agendaSlug/admin/members/invite',
@@ -157,9 +158,9 @@ function plugApp(app) {
         'id',
         'role',
         'userUid',
-        'custom'
+        'custom',
       ]),
-      user: _.pick(req.targetMember.user, ['uid', 'fullName'])
+      user: _.pick(req.targetMember.user, ['uid', 'fullName']),
     })
   );
 
@@ -168,7 +169,7 @@ function plugApp(app) {
     mw.loadTarget.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     (req, res, next) => members.remove(req.targetMember.id, {
-      context: { user: req.user }
+      context: { user: req.user },
     }).then(() => {
       res.status(200).json({ message: 'done.' });
     }, next)
@@ -181,7 +182,7 @@ function plugApp(app) {
     mw.loadContext,
     (req, res, next) => members.patch(req.targetMember.id, req.body, {
       context: req.context,
-      requireCustom: false
+      requireCustom: false,
     }).then(result => {
       res.status(200).json(_.pick(result.member, ['custom', 'role']));
     }, next)
@@ -194,13 +195,13 @@ function plugApp(app) {
     (req, res, next) => {
       members.set.byEmail({
         agendaUid: req.agenda.uid,
-        email: req.targetMember.custom.email
+        email: req.targetMember.custom.email,
       }, { context: req.context }).then(({
-        member
+        member,
       }) => {
         if (member && member.userUid) {
           return res.status(200).json({
-            message: 'user is member'
+            message: 'user is member',
           });
         }
         next();
@@ -208,10 +209,10 @@ function plugApp(app) {
     },
     (req, res, next) => mail.resendInvitation({
       services: req.app.services,
-      config
+      config,
     }, {
       agenda: req.agenda,
-      member: req.targetMember
+      member: req.targetMember,
     }).then(() => res.status(200).json({ message: 'pabim.' }), next)
   );
 
@@ -235,5 +236,5 @@ function plugApp(app) {
 
 module.exports = Object.assign(plugApp, {
   init,
-  utils: Service.utils
+  utils: Service.utils,
 });

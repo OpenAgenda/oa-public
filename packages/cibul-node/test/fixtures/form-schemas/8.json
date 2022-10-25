@@ -3,19 +3,47 @@
     {
       "field": "phone",
       "fieldType": "abstract",
-      "optional": false
+      "optional": true
     },
     {
       "field": "num_orga",
       "label": "Numero d'organisme",
-      "max": null,
-      "min": null,
       "optional": false,
       "fieldType": "textarea",
       "origin": "custom",
       "read": null,
       "write": [
         "contributor"
+      ]
+    },
+    {
+      "field": "participant",
+      "label": "Type de participant",
+      "sub": "/!\\ Les pros doivent participer le WE. Dates obligatoires à l’intérieur des dates officielles.",
+      "optional": true,
+      "fieldType": "radio",
+      "options": [
+        {
+          "id": 1,
+          "value": "professionnels",
+          "label": "Professionnels",
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 2,
+          "value": "porteurs_de_projet",
+          "label": "Porteurs de projet",
+          "info": null,
+          "display": true
+        },
+        {
+          "id": 3,
+          "value": "centre de formations",
+          "label": "Centre de formations",
+          "info": null,
+          "display": true
+        }
       ]
     }
   ]

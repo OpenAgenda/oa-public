@@ -24,6 +24,6 @@ module.exports = (req, res, next) => {
 
   res.writeHead(200, {
     'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'content-disposition': `attachment; filename="contributors.${req.agenda.title}.xlsx"`
+    'content-disposition': `attachment; filename="contributors.${req.agenda.title}.xlsx"`,
   });
 };

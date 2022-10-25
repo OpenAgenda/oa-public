@@ -8,6 +8,7 @@ const Services = require('../services/init');
 const Core = require('../core');
 const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
+const flattenMemberInfo = require('../core/agendas/utils/flattenMemberInfo');
 
 describe('08 - core - functional (server): core.agendas().members.list', () => {
   let core;
@@ -35,8 +36,8 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -48,8 +49,8 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     let result;
 
     beforeAll(async () => {
-      result = await core.agendas({ uid: 2 }).members.list({ limit: 2 }, {
-        userUid: 50073466
+      result = await core.agendas(2).members.list({ limit: 2 }, {
+        userUid: 50073466,
       });
     });
 
@@ -61,19 +62,19 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     });
 
     it('next result set can be fetched using "after" value', async () => {
-      const nextResult = await core.agendas({ uid: 2 })
+      const nextResult = await core.agendas(2)
         .members.list({ after: result.after }, {
-          userUid: 50073466
+          userUid: 50073466,
         });
 
       expect(nextResult.items.length).toBe(4);
     });
 
     it('customAtRoot option', async () => {
-      const { items } = await core.agendas({ uid: 2 })
+      const { items } = await core.agendas(2)
         .members.list({}, {
           customAtRoot: true,
-          userUid: 50073466
+          userUid: 50073466,
         });
 
       expect(_.omit(items[0], 'updatedAt')).toEqual({
@@ -84,17 +85,27 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         position: null,
         organization: null,
         role: 'contributor',
-        userUid: 1
+        userUid: 1,
       });
     });
+  });
+
+  it('list custom values', async () => {
+    const result = await core.agendas(3).members.list({ limit: 2 }, {
+      userUid: 1,
+    });
+
+    expect(result.items.find(e => e.userUid === 6887).num_orga).toBe('30org');
+    expect(_.isArray(result.items)).toBe(true);
+    expect(_.isInteger(result.after)).toBe(true);
   });
 
   describe('unauthorized', () => {
     it('non-member user does not have access to list', async () => {
       let error;
       try {
-        await core.agendas({ uid: 2 }).members.list({ limit: 2 }, {
-          userUid: 99999967
+        await core.agendas(2).members.list({ limit: 2 }, {
+          userUid: 99999967,
         });
       } catch (e) {
         error = e;
@@ -105,13 +116,37 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     it('contributor user does not have access to list', async () => {
       let error;
       try {
-        await core.agendas({ uid: 2 }).members.list({ limit: 2 }, {
-          userUid: 1
+        await core.agendas(2).members.list({ limit: 2 }, {
+          userUid: 1,
         });
       } catch (e) {
         error = e;
       }
       expect(error.name).toBe('Forbidden');
+    });
+  });
+
+  describe('stream', () => {
+    test('stream userUids', async () => {
+      const stream = await core.agendas(3).members.stream(
+        { limit: 1 },
+        {
+          userUid: 1,
+          transform: m => m.userUid,
+        }
+      );
+
+      return new Promise(rs => {
+        const result = [];
+        stream.on('data', b => {
+          result.push(b);
+        });
+
+        stream.on('end', () => {
+          expect(result).toStrictEqual([1, 6887]);
+          rs();
+        });
+      });
     });
   });
 
@@ -133,7 +168,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/agendas/2/members?key=${administratorKey}`
+          url: `http://localhost:3000/agendas/2/members?key=${administratorKey}`,
         }).then(r => r.data);
       });
 
@@ -142,7 +177,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
           'total',
           'after',
           'items',
-          'success'
+          'success',
         ]);
       });
     });
@@ -153,7 +188,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members?key=${administratorKey}&limit=1111`
+            url: `http://localhost:3000/agendas/2/members?key=${administratorKey}&limit=1111`,
           });
         } catch (e) {
           response = e.response;
@@ -166,7 +201,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
           message: 'the integer is too big',
           values: { max: 100 },
           origin: '1111',
-          field: 'limit'
+          field: 'limit',
         }]);
       });
 
@@ -175,7 +210,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members?key=${contributorKey}`
+            url: `http://localhost:3000/agendas/2/members?key=${contributorKey}`,
           });
         } catch (e) {
           response = e.response;
@@ -189,7 +224,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members?key=${nonMemberKey}`
+            url: `http://localhost:3000/agendas/2/members?key=${nonMemberKey}`,
           });
         } catch (e) {
           response = e.response;

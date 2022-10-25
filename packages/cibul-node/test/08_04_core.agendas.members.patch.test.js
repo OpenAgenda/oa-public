@@ -10,7 +10,7 @@ const testConfig = require('./testConfig');
 
 describe('08 - core - functional (server): core.agendas().members.patch', () => {
   let core;
-  let services
+  let services;
 
   beforeAll(() => loadFixtures(testConfig.db, '009.sql'));
 
@@ -35,8 +35,8 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         'legacy',
         'users',
         'keys',
-        'trackers'
-      ]
+        'trackers',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -46,20 +46,20 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
 
   describe('results contents', () => {
     it('basic patch', async () => {
-      await core.agendas({ uid: 2 }).members.patch(1, {
+      await core.agendas(2).members.patch(1, {
         name: 'Janine',
         phone: '01',
         position: 'Gardienne',
         email: 'jan@ee.ne',
-        organization: 'Ponceau Corp'
+        organization: 'Ponceau Corp',
       }, {
-        userUid: 1
+        userUid: 1,
       });
 
       const result = await core.services.knex('reviewer').first()
         .where({
           agenda_uid: 2,
-          user_uid: 1
+          user_uid: 1,
         }).then(r => JSON.parse(r.store).custom_fields);
 
       expect(result).toEqual({
@@ -67,26 +67,26 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         contact_name: 'Janine',
         contact_number: '01',
         contact_position: 'Gardienne',
-        email: 'jan@ee.ne'
+        email: 'jan@ee.ne',
       });
     });
 
     it('basic patch with custom fields', async () => {
-      await core.agendas({ uid: 3 }).members.patch(1, {
+      await core.agendas(3).members.patch(1, {
         name: 'Jam',
         phone: '02',
         position: 'Gardien',
         email: 'jam@ee.ne',
         organization: 'Ponceau Corp',
-        num_orga: '30org'
+        num_orga: '30org',
       }, {
-        userUid: 1
+        userUid: 1,
       });
 
       const result = await core.services.knex('reviewer').first()
         .where({
           agenda_uid: 3,
-          user_uid: 1
+          user_uid: 1,
         }).then(r => JSON.parse(r.store).custom_fields);
 
       const custom = await core.services.custom(8).get(1);
@@ -97,7 +97,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         contact_name: 'Jam',
         contact_number: '02',
         contact_position: 'Gardien',
-        email: 'jam@ee.ne'
+        email: 'jam@ee.ne',
       });
     });
   });
@@ -107,10 +107,10 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.patch(1, {
-          name: 'Jayneen'
+        await core.agendas(2).members.patch(1, {
+          name: 'Jayneen',
         }, {
-          userUid: 99999967
+          userUid: 99999967,
         });
       } catch (e) {
         error = e;
@@ -123,10 +123,10 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.patch(1, {
-          name: 'Jayneen'
+        await core.agendas(2).members.patch(1, {
+          name: 'Jayneen',
         }, {
-          userUid: 5
+          userUid: 5,
         });
       } catch (e) {
         error = e;
@@ -139,10 +139,10 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       let error;
 
       try {
-        await core.agendas({ uid: 2 }).members.patch(1, {
-          role: 'moderator'
+        await core.agendas(2).members.patch(1, {
+          role: 'moderator',
         }, {
-          userUid: 1
+          userUid: 1,
         });
       } catch (e) {
         error = e;
@@ -167,11 +167,11 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -183,7 +183,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
           headers: {
             'access-token': accessToken,
             nonce: 12389708,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
             name: 'Hélène',
@@ -191,8 +191,8 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
             phone: '04',
             role: 'administrator',
             email: 'el@h.en',
-            organization: 'Très'
-          }
+            organization: 'Très',
+          },
         }).then(r => r.data);
       });
 
@@ -201,7 +201,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
           .first()
           .where({
             user_uid: 1,
-            agenda_uid: 2
+            agenda_uid: 2,
           });
 
         expect(entry.credential).toBe(2);

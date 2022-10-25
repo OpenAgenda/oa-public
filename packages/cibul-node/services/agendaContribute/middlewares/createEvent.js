@@ -6,7 +6,7 @@ const handleError = require('../lib/handleError');
 
 module.exports = function createEvent(req, res) {
   const {
-    core
+    core,
   } = req.app;
 
   log(req.draft ? 'creating draft with %j' : 'creating event with %j', req.dataWithFiles);

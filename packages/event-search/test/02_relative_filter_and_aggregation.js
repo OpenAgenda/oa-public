@@ -136,4 +136,19 @@ describe('02 - event search - functional: relative filter', () => {
     );
   });
 
+  it('relative filter set to passed, upcoming and current does not exclude current', async () => {
+    const { events } = await service('relative').search({
+      relative: ['passed', 'upcoming', 'current']
+    });
+
+    assert.deepEqual(
+      events.map(e => e.title.fr),
+      [
+        'En cours et pas à venir',
+        'Eclipses lunaires',
+        'Amarsissage de Musk',
+        'Marignan'
+      ]
+    );
+  });
 });
