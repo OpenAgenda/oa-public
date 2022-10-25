@@ -93,5 +93,6 @@ module.exports = {
       // required only for the timings component
       'react': require.resolve( 'react' )
     },
+    extensions: ['.js', '.mjs', '.json', '.wasm'],
   },
 };
