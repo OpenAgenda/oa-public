@@ -1,11 +1,6 @@
 module.exports = {
   extends: ['airbnb'],
-  plugins: [
-    'import',
-    'jsx-a11y',
-    'react',
-    'react-hooks'
-  ],
+  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks'],
   rules: {
     strict: ['error', 'safe'],
     'no-param-reassign': ['error', { props: false }],
@@ -15,8 +10,24 @@ module.exports = {
     'no-continue': 'off',
     'no-await-in-loop': 'off',
     'no-cond-assign': ['error', 'except-parens'],
-    'no-unused-vars': ['error', { vars: 'all', args: 'after-used', ignoreRestSiblings: true, argsIgnorePattern: '^_' }],
-    'no-extra-parens': 'error',
+    'no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^_',
+      },
+    ],
+    'no-extra-parens': [
+      'error',
+      'all',
+      {
+        ignoreJSX: 'all',
+        nestedBinaryExpressions: false,
+        enforceForArrowConditionals: false,
+      },
+    ],
     'no-promise-executor-return': 'off',
     'consistent-return': 'off',
     'implicit-arrow-linebreak': 'off',
@@ -24,33 +35,29 @@ module.exports = {
     'max-len': ['off', 80],
     'arrow-parens': ['error', 'as-needed'],
     'function-call-argument-newline': 'error',
-    "object-curly-newline": ["error", {
-      "ObjectExpression": {
-        "multiline": true,
-        "consistent": true
-      },
-      "ObjectPattern": {
-        "multiline": true,
-        "consistent": true
-      },
-      "ImportDeclaration": {
-        "multiline": true,
-        "consistent": true
-      },
-      "ExportDeclaration": {
-        "multiline": true,
-        "consistent": true
-      }
-    }],
-    // 'computed-property-spacing': [ 'error', 'always' ],
-    // 'array-bracket-spacing': [ 'error', 'always' ],
-    'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
-    'import/extensions': [
-      'warn', {
-        js: 'never',
-        mjs: 'always',
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: {
+          multiline: true,
+          consistent: true,
+        },
+        ObjectPattern: {
+          multiline: true,
+          consistent: true,
+        },
+        ImportDeclaration: {
+          multiline: true,
+          consistent: true,
+        },
+        ExportDeclaration: {
+          multiline: true,
+          consistent: true,
+        },
       },
     ],
+    'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
+
     'import/no-unresolved': 'error',
     'import/named': 'error',
     'import/namespace': 'error',
@@ -60,14 +67,17 @@ module.exports = {
     'import/no-named-as-default-member': 'off',
     'import/no-duplicates': 'warn',
     'import/prefer-default-export': 'off',
-    // 'import/no-extraneous-dependencies': [
-    //   'error',
-    //   { devDependencies: [] }
-    // ],
     'import/order': [
       'error',
       {
-        groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+        ],
       },
     ],
 
@@ -129,17 +139,43 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.{ts,mts,cts,tsx}'],
+      files: ['*.{tsx,ts,mts,cts}'],
       plugins: ['@typescript-eslint'],
       rules: {
         'no-unused-vars': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
-          { vars: 'all', args: 'after-used', ignoreRestSiblings: true, argsIgnorePattern: '^_' }
+          {
+            vars: 'all',
+            args: 'after-used',
+            ignoreRestSiblings: true,
+            argsIgnorePattern: '^_',
+          },
         ],
         'no-shadow': 'off',
-        '@typescript-eslint/no-shadow': ['error'],
-      }
-    }
+        '@typescript-eslint/no-shadow': 'error',
+        'no-extra-parens': 'off',
+        '@typescript-eslint/no-extra-parens': [
+          'error',
+          'all',
+          {
+            ignoreJSX: 'all',
+            nestedBinaryExpressions: false,
+            enforceForArrowConditionals: false,
+          },
+        ],
+        'import/extensions': [
+          'error',
+          'ignorePackages',
+          {
+            js: 'never',
+            mjs: 'never',
+            jsx: 'never',
+            ts: 'never',
+            tsx: 'never',
+          },
+        ],
+      },
+    },
   ],
 };
