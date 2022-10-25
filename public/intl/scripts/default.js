@@ -6,7 +6,7 @@ const compile = require('./compile');
 
 // Command
 
-module.exports.command = '$0 [...files]';
+module.exports.command = '$0 [files...]';
 
 module.exports.describe = 'Extract and compile locales.';
 
