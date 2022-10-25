@@ -1,10 +1,10 @@
-import * as NextImage from "next/image";
+import NextFutureImage from 'next/future/image';
 
-const OriginalNextImage = NextImage.default;
+const OriginalNextFutureImage = NextFutureImage.default;
 
-Object.defineProperty(NextImage, "default", {
+Object.defineProperty(NextFutureImage, 'default', {
   configurable: true,
-  value: (props) => <OriginalNextImage {...props} unoptimized />,
+  value: props => <OriginalNextFutureImage {...props} unoptimized />,
 });
 
-export const parameters = { layout: 'fullscreen' }
+export const parameters = { layout: 'fullscreen' };

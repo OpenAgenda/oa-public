@@ -1,11 +1,10 @@
 import { UIKitProvider } from '@openagenda/uikit';
-import Agenda from '../../../src/pages/n/[agendaSlug]';
-
-import agendaFixtures from '../../fixtures/mel.agenda.json';
-import eventsFixtures from '../../fixtures/mel.events.json';
+import Agenda from 'views/AgendaShow';
+import agendaFixtures from '../fixtures/mel.agenda.json';
+import eventsFixtures from '../fixtures/mel.events.json';
 
 export default {
-  title: 'Sample story',
+  title: 'AgendaShow',
   component: Agenda,
 };
 

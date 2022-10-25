@@ -1,3 +1,5 @@
-.next
-next-env.d.ts
-.env*.local
+/.next/
+/next-env.d.ts
+/.env*.local
+
+locales/compiled/

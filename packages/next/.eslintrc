@@ -1,26 +1,37 @@
 {
+  "root": true,
   "extends": [
     "@openagenda/eslint-config/recommended",
     "next/core-web-vitals"
   ],
-   "rules": {
-     // "@next/next/no-html-link-for-pages": ["error", "src/pages/"]
-     "import/no-extraneous-dependencies": [
-       "error",
-       {
-         "devDependencies": [
-           ".storybook/**/*.js",
-           "stories/**/*.js",
-           "scripts/**/*.js"
-         ]
-       }
-     ]
-   },
+  "rules": {
+    // "@next/next/no-html-link-for-pages": ["error", "src/pages/"]
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**/*.{tsx,ts,jsx,js,mts,mjs,cts}",
+          "stories/**/*.{tsx,ts,jsx,js,mts,mjs,cts}",
+          "scripts/**/*.{tsx,ts,jsx,js,mts,mjs,cts}"
+        ]
+      }
+    ]
+  },
   "overrides": [
     {
-      "files": ["*.{ts,mts,cts,tsx}"],
+      "files": [
+        "*.{tsx,ts,jsx,js,mts,mjs,cts}"
+      ],
       "globals": {
         "React": true
+      }
+    },
+    {
+      "files": [
+        "*.stories.{tsx,ts,jsx,js,mts,mjs,cts}"
+      ],
+      "rules": {
+        "import/no-anonymous-default-export": "off"
       }
     }
   ],

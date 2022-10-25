@@ -1,8 +1,8 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import Client from 'ftp';
-import FTP from './lib/FTP.mjs';
-import uploadContent from './lib/uploadContent.mjs';
+import FTP from './lib/FTP';
+import uploadContent from './lib/uploadContent';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -13,7 +13,7 @@ client.connect({
   port: process.env.KEYCDN_NEXT_FTP_PORT ?? 21,
   secure: true,
   user: process.env.KEYCDN_NEXT_FTP_USER,
-  password: process.env.KEYCDN_NEXT_FTP_PASSWORD,
+  password: process.env.KEYCDN_NEXT_FTP_PASSWORD
 });
 
 client.on('ready', async () => {

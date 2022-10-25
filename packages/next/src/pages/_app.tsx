@@ -11,11 +11,16 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
+  intlMessages: {
+    [key:string]: string
+  }
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
+
+  const { intlMessages } = pageProps;
 
   return (
     <>
@@ -35,7 +40,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="theme-color" content="#41ACDD" />
         <title>OpenAgenda</title>
       </Head>
-      <Providers>
+      <Providers intlMessages={intlMessages}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -43,3 +48,5 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     </>
   );
 }
+
+export default App;

@@ -1,0 +1,14 @@
+{
+  "next.components.Navbar.signIn": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.components.Navbar.signUp": [
+    {
+      "type": 0,
+      "value": "Sign up"
+    }
+  ]
+}
