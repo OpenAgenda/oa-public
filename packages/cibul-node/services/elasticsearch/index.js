@@ -176,7 +176,6 @@ function search(legacyLib, query, options, cb) {
   }
 
   _prepare(query, options, (params, esQuery) => {
-
     legacyLib.events().search(esQuery, (err, result) => {
 
       if (err) return cb(err);
