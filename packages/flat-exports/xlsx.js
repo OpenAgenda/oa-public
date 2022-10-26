@@ -4,7 +4,7 @@ const ExcelJS = require('exceljs');
 const transform = require('./lib/transform');
 const clean = require('./lib/xlsx/clean');
 
-function xlsx(_xlsxOptions = {}, inStream, options = {}) {
+function xlsx(_xlsxOptions, inStream, options = {}) {
   const transformed = inStream.pipe(transform(options));
 
   const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
@@ -23,8 +23,8 @@ function xlsx(_xlsxOptions = {}, inStream, options = {}) {
         .map(key => ({
           header: key,
           key,
-          width: 20
-        }))
+          width: 20,
+        })),
     ), []);
 
     for (const event of events) {
