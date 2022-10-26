@@ -63,6 +63,17 @@ module.exports = {
     'import/namespace': 'error',
     'import/default': 'error',
     'import/export': 'error',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+        mjs: 'never',
+      },
+    ],
     'import/no-named-as-default': 'warn',
     'import/no-named-as-default-member': 'off',
     'import/no-duplicates': 'warn',
@@ -164,16 +175,14 @@ module.exports = {
             enforceForArrowConditionals: false,
           },
         ],
+      },
+    },
+    {
+      files: ['*.mjs'],
+      rules: {
         'import/extensions': [
           'error',
           'ignorePackages',
-          {
-            js: 'never',
-            mjs: 'never',
-            jsx: 'never',
-            ts: 'never',
-            tsx: 'never',
-          },
         ],
       },
     },
