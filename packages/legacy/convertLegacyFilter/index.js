@@ -60,8 +60,9 @@ module.exports = (legacyFilter, sets = {}) => {
         break;
       case 'tags': {
         if (!tagSet && !formSchema) return;
+        const filterTags = [].concat(legacyFilter.tags);
 
-        const match = tags.filter(tag => legacyFilter.tags.some(f => f === tag.slug));
+        const match = tags.filter(tag => filterTags.some(f => f === tag.slug));
 
         if (!match.length) return;
 
