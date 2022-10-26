@@ -10,11 +10,11 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
   let targetLanguages = languages;
 
   if (possibleLanguages && includeLanguages) {
-    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l) && includeLanguages.includes(l)));
+    targetLanguages = targetLanguages.filter(l => possibleLanguages.includes(l) && includeLanguages.includes(l));
   } else if (possibleLanguages) {
-    targetLanguages = targetLanguages.filter(l => (possibleLanguages.includes(l)));
+    targetLanguages = targetLanguages.filter(l => possibleLanguages.includes(l));
   } else if (includeLanguages) {
-    targetLanguages = targetLanguages.filter(l => (includeLanguages.includes(l)));
+    targetLanguages = targetLanguages.filter(l => includeLanguages.includes(l));
   }
 
   return {
@@ -43,17 +43,17 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
           if (dateChanged) {
             columns[i + 1].push([
               moment.tz(begin, event.timezone).locale(l).format('dddd D MMMM YYYY - HH:mm'),
-              moment.tz(end, event.timezone).locale(l).format('HH:mm')
+              moment.tz(end, event.timezone).locale(l).format('HH:mm'),
             ].join(' ⤏ '));
           } else {
             columns[i + 1][columns[i + 1].length - 1] += `, ${[
               moment.tz(begin, event.timezone).locale(l).format('HH:mm'),
-              moment.tz(end, event.timezone).locale(l).format('HH:mm')
+              moment.tz(end, event.timezone).locale(l).format('HH:mm'),
             ].join(' ⤏ ')}`;
           }
         });
       });
       return columns.map(c => c.join(' | '));
-    }
+    },
   };
 };
