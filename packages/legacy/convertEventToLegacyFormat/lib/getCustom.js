@@ -24,6 +24,10 @@ module.exports = (agendaSettings, event) => {
       acc[key] = event[key];
     }
 
+    if (field.fieldType === 'boolean') {
+      acc[key] = !!event[key];
+    }
+
     return acc;
   }, {});
 
