@@ -24,8 +24,12 @@ module.exports = ({ languages, includeLanguages }, { target, isoTarget }) => {
       const columns = [[]].concat(targetLanguages.map(() => []));
 
       let cursor;
-
       (event.timings ?? []).forEach(t => {
+        // ignore invalid timings
+        if (!t?.begin || !t?.end) {
+          return;
+        }
+
         // pop out timezone info
         const begin = t.begin.replace(/(\+|-)[0-9][0-9]:[0-9][0-9]$/, '');
         const end = t.end.replace(/(\+|-)[0-9][0-9]:[0-9][0-9]$/, '');
