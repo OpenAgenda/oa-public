@@ -33,7 +33,7 @@ module.exports.init = async (config, services) => {
   log('init');
   const {
     queues,
-    tracker
+    tracker,
   } = services;
 
   const port = _.get(config, 'es75.port', 9200);
@@ -49,14 +49,14 @@ module.exports.init = async (config, services) => {
   const eventSearch = EventSearch({
     elasticsearch: {
       node,
-      ssl: _.get(config, 'es75.ssl')
+      ssl: _.get(config, 'es75.ssl'),
     },
     defaultIndex,
     logger: config.getLogConfig('svc', 'eventSearch'),
     interfaces: {
       onUpdate: ({ set }) => {
         tracker(`eventSearch.onUpdate.${set}`);
-      }
+      },
     },
     emptyValue: 'null',
     assetsPath: config.aws.imageBucketPath,
@@ -67,8 +67,8 @@ module.exports.init = async (config, services) => {
         const parts = config.aws.defaultImagePath.split('/');
         parts.pop();
         return `${parts.join('/')}/`;
-      })()
-    }
+      })(),
+    },
   });
 
   const queue = queues('eventSearch');
@@ -78,7 +78,7 @@ module.exports.init = async (config, services) => {
 
   rebuildQueue.register({
     agenda: agenda => agendaIndexRebuild(services, eventSearch, agenda),
-    transverse: options => queue('transverseIndexRebuild', options)
+    transverse: options => queue('transverseIndexRebuild', options),
   });
 
   return {
@@ -89,16 +89,16 @@ module.exports.init = async (config, services) => {
     rebuild: rebuild.bind(null, services, eventSearch, rebuildQueue),
     agendas: agenda => ({
       search: agendaIndexSearch(eventSearch, agenda),
-      rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda)
+      rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
     }),
     transverse: {
       rebuild: options => queue('transverseIndexRebuild', options),
-      search: transverseSearch
+      search: transverseSearch,
     },
     apps: {
       events: transverseEventSearchApp.bind(null, services),
-      agendas: agendaRoutes(services)
+      agendas: agendaRoutes(services),
     },
-    cluster: eventSearch.cluster
+    cluster: eventSearch.cluster,
   };
 };
