@@ -40,7 +40,7 @@ module.exports = services => ({
     services.members.mw.authorizeAdminModOrKey({
       agendaUidPath: 'params.agendaUid',
     }),
-    loadSearchEndpoint(services.core),
+    loadSearchEndpoint(services.core, { admin: true }),
     loadAgendaLanguagesAndFormSchemas(services),
     ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
     ifJSONStreamRequested(loadSearchStream()),
