@@ -38,7 +38,16 @@ const formatExportLinks = (res, agendaUid, controller, mode) => Object.keys(res)
       handleQuery(controller, mode)
   }), {});
 
-const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, options, mode, query, userLogged }, ref) => {
+const ExportModalContainer = React.forwardRef(({
+  controller,
+  agendaUid,
+  res,
+  options,
+  mode,
+  locationInPage,
+  query,
+  userLogged
+}, ref) => {
   const [display, setDisplay] = useState(false);
   const [displayedButton, setDisplayedButton] = useState(() => !!Object.keys(controller.getCurrentQuery()).length);
 
@@ -51,7 +60,7 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
   useEffect(() => {
     // both all/selection are evaluated at load
     // not useful to display both if sharemodal is in query
-    if (mode === 'all') {
+    if (mode === 'selection') {
       return;
     }
     if (query.includes('sharemodal')) {
@@ -61,7 +70,7 @@ const ExportModalContainer = React.forwardRef(({ controller, agendaUid, res, opt
 
   return (
     <>
-      {mode === 'all' ? (
+      {locationInPage === 'exportPageHead' ? (
         <a className="btn btn-default margin-bottom-xs" onClick={() => setDisplay(true)}>
           <i className="fa fa-share-alt"></i> {intl.formatMessage(messages.exportAllButton)}
         </a>
@@ -101,10 +110,10 @@ export default function displayExportButton(
   agendaUid,
   controller,
   options,
-  mode,
+  locationInPage,
   userLogged
 ) {
-  const buttonElem = document.querySelector(params.selectors[mode === 'all' ? 'exportAll' : 'export']);
+  const buttonElem = document.querySelector(params.selectors[locationInPage]);
 
   if (!buttonElem) {
     return;
@@ -123,7 +132,8 @@ export default function displayExportButton(
     >
       <ExportModalContainer
         ref={ref}
-        mode={mode}
+        mode="selection"
+        locationInPage={locationInPage}
         controller={controller}
         agendaUid={agendaUid}
         options={options}

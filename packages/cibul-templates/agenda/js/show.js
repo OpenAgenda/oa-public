@@ -40,8 +40,8 @@ const controllers = require('../../widgets/controller/main'),
       org: '.js_org_widget',
       titleSection: '.js_agenda_title',
       searchLinks: '.js_use_search', // add search params to links with this class
-      export: '.js_export',
-      exportAll: '.js_export_all',
+      exportListHead: '.js_export',
+      exportPageHead: '.js_export_all',
       aggregate: '.js_aggregate',
     },
     res: {
@@ -130,8 +130,8 @@ window.asap(options => {
         }
       };
       
-      displayExportButton(exportRef, params, routes, uid, controller, options, 'all', !!sessionUser);
-      displayExportButton(exportRef, params, routes, uid, controller, options, 'selection', !!sessionUser);
+      displayExportButton(exportRef, params, routes, uid, controller, options, 'exportListHead', !!sessionUser);
+      displayExportButton(exportRef, params, routes, uid, controller, options, 'exportPageHead', !!sessionUser);
       displayAggregateButton(params, options, initialQuery, !!sessionUser);
     }
 
