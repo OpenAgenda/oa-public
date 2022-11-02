@@ -117,8 +117,6 @@ export default function reducer(state = initialState, action = {}) {
           const getData = agg =>
             action.result.data.aggregations[`${agg.type}-${v.id}`];
 
-          console.log('STAT', v);
-
           return {
             ...v,
             state: {
