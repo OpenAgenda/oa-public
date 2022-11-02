@@ -74,7 +74,12 @@ async function createMultiIntl(templatesDir) {
       result[lang] = createIntl({
         locale: lang,
         messages: fallbackedMessages[lang],
-        defaultLocale: getSupportedLocale(lang)
+        defaultLocale: getSupportedLocale(lang),
+        onError(e) {
+          if (e.code !== 'MISSING_DATA') {
+            console.error(e);
+          }
+        }
       }, cache);
     }
   }

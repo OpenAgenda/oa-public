@@ -15,12 +15,12 @@
     "cli": "node cli",
     "prepack": "yarn build && yarn dist",
     "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write '**/*.js'",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "**/*.js": [
-      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "prettier-eslint --write",
       "eslint -c .eslintrc"
     ]
   },
@@ -57,11 +57,11 @@
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "css-loader": "^3.4.2",
-    "eslint": "^6.8.0",
-    "jest": "^26.1.0",
+    "eslint": "^8.24.0",
+    "jest": "^28.1.2",
     "lint-staged": "^10.2.11",
     "nodemon": "^2.0.4",
-    "prettier-eslint-cli": "^5.0.0",
+    "prettier-eslint-cli": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.1",

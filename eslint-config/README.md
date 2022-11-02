@@ -73,7 +73,7 @@ yarn add -D prettier-eslint-cli
 ```json
 {
   "scripts": {
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'"
+    "prettier": "prettier-eslint --write '**/*.js'"
   }
 }
 ```
@@ -98,7 +98,7 @@ yarn add -D lint-staged
   },
   "lint-staged": {
     "**/*.js": [
-      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "prettier-eslint --write",
       "eslint -c .eslintrc",
       "git add"
     ]

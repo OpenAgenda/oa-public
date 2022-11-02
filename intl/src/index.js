@@ -1,3 +1,4 @@
+export { default as createIntlByLocale } from './createIntlByLocale';
 export { default as getFallbackChain } from './getFallbackChain';
 export { default as getFallbackedMessages } from './getFallbackedMessages';
 export { default as getLocaleValue } from './getLocaleValue';

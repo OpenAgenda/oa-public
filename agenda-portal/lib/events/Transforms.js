@@ -39,7 +39,6 @@ module.exports = options => {
   const postTransform = _postEventTransform.bind(null, options);
 
   return {
-
     listItem: (event, req, res, listContext) => {
       const transformed = preTransform(event, req, res);
 

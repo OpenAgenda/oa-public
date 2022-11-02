@@ -10,6 +10,23 @@
     color: black;
     position: relative;
     margin-bottom: 15px;
+
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: none;
+      border: none;
+      color: #4f4f4f;
+      padding: 0;
+      right: 0;
+      vertical-align: middle;
+      cursor: pointer;
+  
+      &:hover {
+        color: black;
+      }
+    }
   }
 
   &-title {
@@ -31,24 +48,10 @@
     align-items: center;
   }
 
-  &-close {
-    margin-left: 100%;
-    position: sticky;
-    display: inline-block;
-    background: none;
-    border: none;
-    color: #4f4f4f;
-    transform: translateY(10px);
-    padding: 0;
-    right: 0;
-    top: -0.5rem;
-    vertical-align: middle;
-    cursor: pointer;
-    z-index: 1;
+  
 
-    &:hover {
-      color: black;
-    }
+  h2 {
+    margin: 10px 0;
   }
 
   #event &-close {
@@ -163,13 +166,6 @@
 
 .aggregator-input.input-icon-right {
   max-width: 100%;
-}
-
-#event h1.export-title-big {
-  margin-top: 20px;
-  margin-bottom: 0;
-  padding: 0;
-  transform: translateY(-20px);
 }
 
 .share-button {

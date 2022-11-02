@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
     root,
     defaultLang,
     filters: rawFilters,
-    widgets
+    widgets,
   } = req.app.locals;
   const { intlByLocale } = req.app;
 
@@ -22,13 +22,13 @@ module.exports = async (req, res, next) => {
     agendaUid: uid || res.locals.agendaUid || req.params.agendaUid,
     agenda:
       req.app.locals.agenda
-      || (await req.app.get('proxy').head(res.locals.agendaUid)),
+      || await req.app.get('proxy').head(res.locals.agendaUid),
     root: typeof root === 'function' ? root(res.locals.agenda) : root,
     lang,
     defaultLang,
     filters,
     widgets,
-    query: req.query
+    query: req.query,
   });
 
   next();
