@@ -405,6 +405,30 @@ module.exports = {
     "it": "Selezione del programma",
     "io": "crwdns14784:0crwdne14784:0"
   },
+  "fileFieldType": {
+    "fr": "Fichier",
+    "en": "File",
+    "es": "Archivo",
+    "it": "File"
+  },
+  "ageFieldType": {
+    "fr": "Sélection de la tranche d'âge",
+    "en": "Selection of age group",
+    "es": "Selección del grupo de edad",
+    "it": "Selezione della fascia di età"
+  },
+  "longDescriptionFieldType": {
+    "fr": "Champ texte",
+    "en": "Text field",
+    "es": "Campo de texto",
+    "it": "Campo di testo"
+  },
+  "keywordsFieldType": {
+    "fr": "Mots-clés",
+    "en": "Keywords",
+    "es": "palabras claves",
+    "it": "parole chiave"
+  },
   "buttonSave": {
     "fr": "Sauvegarder",
     "en": "Save",
@@ -637,84 +661,72 @@ module.exports = {
     "fr": "choix",
     "en": "choices",
     "es": "opciones",
-    "it": "scelte",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "scelte"
   },
   "isMultilingual": {
     "fr": "Multilingue",
     "en": "Multilingual",
     "es": "Plurilingüe",
-    "it": "Multilingue",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "Multilingue"
   },
   "isSelected": {
     "fr": "sélectionné",
     "en": "selected",
     "es": "seleccionado",
-    "it": "selezionato",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "selezionato"
   },
   "notSelected": {
     "fr": "non séléctionné",
     "en": "not selected",
     "es": "no seleccionado",
-    "it": "non selezionato",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "non selezionato"
   },
   "isActif": {
     "fr": "actif lorsque le champ",
     "en": "active when the field",
     "es": "activo cuando el campo",
-    "it": "attivo quando il campo",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "attivo quando il campo"
   },
   "isOptional": {
     "fr": "optionnel si le champ attendanceMode",
     "en": "optional if the field attendanceMode",
     "es": "opcional si el campo attendanceMode",
-    "it": "facoltativo se il campo attendanceMode",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "facoltativo se il campo attendanceMode"
   },
   "valueSelected": {
     "fr": "est saisi",
     "en": "is selected",
     "es": "è selezionato",
-    "it": "se selecciona",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "se selecciona"
   },
   "valueOnline": {
     "fr": 'a la valeur "en ligne"',
     "en": 'has the value "online"',
     "es": 'tiene el valor "en línea"',
-    "it": 'ha il valore "online"',
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": 'ha il valore "online"'
   },
   "hasImage": {
     "fr": "actif avec le chargement d'une image",
     "en": "active with image loading",
     "es": "activo con la carga de una imagen",
-    "it": "attivo con il caricamento di un'immagine",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "attivo con il caricamento di un'immagine"
   },
   "defaultValue": {
     "fr": "Valeur par défaut",
     "en": "Default value",
     "es": "Valor por default",
-    "it": "Valore per difetto",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "Valore per difetto"
   },
   "maxLength": {
     "fr": "Longueur max",
     "en": "Max length",
     "es": "Longitud máxima",
-    "it": "Lunghezza max",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "Lunghezza max"
   },
   "jsonKey": {
     "fr": "Clé JSON",
     "en": "JSON key",
     "es": "Clave JSON",
-    "it": "chiave JSON",
-    "io": "crwdns14846:0crwdne14846:0"
+    "it": "chiave JSON"
   }
 }
