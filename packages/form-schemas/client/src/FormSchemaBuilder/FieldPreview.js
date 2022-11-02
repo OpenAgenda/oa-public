@@ -54,7 +54,7 @@ const renderOptionsInfo = (options, lang) => {
 };
 
 const isMultilingual = (languages, lang) => {
-  if (languages !== undefined) {
+  if (Array.isArray(languages)) {
     return (
       <span className="form-tooltip-icon icon-hide margin-right-xs">
         <i className="multilingual fa fa-globe"> </i>
