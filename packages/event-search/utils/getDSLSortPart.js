@@ -2,20 +2,29 @@
 
 const _ = require('lodash');
 
-const timings = query => {
-  return [{
-    '_search_timings.begin' : {
-      mode: 'min',
-      order: 'asc',
-      nested: {
-        path: '_search_timings',
-        filter: {
-          range: {
-            '_search_timings.accessible_until' : { 'gte': query?.timings?.gte ?? 'now' }
+const timings = (query, options = {}) => {
+  const {
+    mode = 'min',
+    endOfTimes = '3000-01-01T01:00:00.000Z',
+  } = options;
+
+  return [
+    {
+      '_search_timings.begin' : {
+        mode,
+        order: 'asc',
+        nested: {
+          path: '_search_timings',
+          filter: {
+            range: {
+              '_search_timings.accessible_until' : {
+                gte: query?.timings?.gte ?? 'now',
+                ... mode === 'max' ? { lt: endOfTimes } : null
+              }
+            }
           }
         }
       }
-    }
     }, {
     _search_last_timing: { order: 'desc' }
     }, {
@@ -41,10 +50,21 @@ module.exports = (query = {}) => {
     ];
   }
 
-  if (sorts[0].split('.')[0] === 'timingsWithFeatured') {
+  const firstSortType = sorts[0].split('.')[0];
+
+  if (firstSortType === 'timingsWithFeatured') {
     return [{
       featured: { order: 'desc' }
     }].concat(timings(query));
+  }
+
+  if (firstSortType === 'lastTimingWithFeatured') {
+    return [
+      {
+        featured: { order: 'desc' },
+      },
+      ...timings(query, { mode: 'max' }),
+    ];
   }
 
   if (sorts[0].split('.')[0] === 'timings') {

@@ -59,4 +59,27 @@ describe('02 - event search - functional: timings sorting', () => {
       ['Visite guidée le Vieux Lille', 'Mon dodo']
     );
   });
+
+  it('sort using lastTimingWithFeatured', async () => {
+    const { events } = await service('timings').search({
+      state: null,
+      sort: 'lastTimingWithFeatured.asc'
+    });
+
+    const { isSorted } = events.reduce(({ isSorted, previous }, event) => {
+      if (!isSorted) {
+        return { isSorted };
+      };
+
+      return {
+        isSorted: previous ? event.lastTiming.begin > previous.lastTiming.begin : true,
+        previous: event
+      };
+    }, {
+      isSorted: true,
+      previous: null
+    });
+
+    assert(isSorted);
+  });
 });

@@ -201,6 +201,7 @@ const validate = schema({
     options: [
       'timings.asc',
       'timingsWithFeatured.asc',
+      'lastTimingWithFeatured.asc',
       'updatedAt.desc',
       'updatedAt.asc',
       'location.name.asc',
