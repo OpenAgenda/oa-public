@@ -37,17 +37,42 @@
 
   .navbar-nav {
     .inbox, .profile, .notifications {
-      a, button.btn.btn-link-inline {
-        position: relative;
-        padding: 18px;
-        font-size: 14px;
-        line-height: 14px;
-        display: inline-block;
-        color: #777;
+      // bell button
+      > button {
+        padding: 15px;
+      }
 
-        &:hover, &:focus {
-          color:#333;
-          text-decoration: none;
+      .read-all-item {
+        padding: 6px 12px;
+      }
+
+      // link in navbar are grey by default
+      .notifications-body {
+        .btn-link, .btn-link-inline {
+          color: $link-color;
+
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            color: $link-hover-color;
+          }
+        }
+
+        .list-group {
+          word-wrap: break-word;
+          max-height: 318px;
+          overflow: auto;
+
+          /* Works on Chrome, Edge, and Safari */
+          &::-webkit-scrollbar {
+            width: 7px;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            border: solid rgba(255, 255, 255, 0.9);
+            border-width: 0 1px;
+          }
         }
       }
     }

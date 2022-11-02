@@ -8,8 +8,63 @@ import Radio from '../Radio';
 import SpreadsheetOptions from './SpreadsheetOptions';
 import ExternalCalendarOptions from './ExternalCalendarOptions';
 
+const messages = defineMessages({
+  modalTitle: {
+    id: 'ReactShareMenus.ExportModal.title',
+    defaultMessage: 'Export',
+  },
+  inputFormat: {
+    id: 'ReactShareMenus.ExportModal.inputFormat',
+    defaultMessage: 'Choose a format',
+  },
+  close: {
+    id: 'ReactShareMenus.ExportModal.close',
+    defaultMessage: 'Close',
+  },
+  cancel: {
+    id: 'ReactShareMenus.ExportModal.cancel',
+    defaultMessage: 'Cancel',
+  },
+  logIn: {
+    id: 'ReactShareMenus.ExportModal.login',
+    defaultMessage: 'Please log in to access the export link directly from this menu'
+  },
+  exportJson: {
+    id: 'ReactShareMenus.ExportModal.exportJson',
+    defaultMessage: 'Use the previous JSON export version'
+  },
+  exportAll: {
+    id: 'ReactShareMenus.ExportModal.exportAll',
+    defaultMessage: 'Export all events'
+  },
+  exportSelection: {
+    id: 'ReactShareMenus.ExportModal.exportSelection',
+    defaultMessage: 'Expect current event selection'
+  },
+  jsonDoc1: {
+    id: 'ReactShareMenus.ExportModal.jsonDoc1',
+    defaultMessage: 'Documentation'
+  },
+  jsonDoc2: {
+    id: 'ReactShareMenus.ExportModal.jsonDoc2',
+    defaultMessage: 'here'
+  },
+  documentation: {
+    id: 'ReactShareMenus.ExportModal.documentation',
+    defaultMessage: 'See the documentation'
+  },
+  detailedFormat: {
+    id: 'ReactShareMenus.ExportModal.detailedFormat',
+    defaultMessage: 'Use the detailed format'
+  }
+});
+
 const ExportModal = ({
-  res, languages, onClose, userLogged
+  res,
+  languages,
+  onClose,
+  userLogged,
+  mode: modeFromProps
 }) => {
   const [formatChoice, setFormatChoice] = useState({ value: '', id: '' });
   const [spreadsheetForm, setSpreadsheetForm] = useState(false);
@@ -21,6 +76,7 @@ const ExportModal = ({
   const [newTab, setNewTab] = useState(false);
   const [displayButton, setDisplayButton] = useState(false);
   const [fields, setFields] = useState([]);
+  const [mode, setMode] = useState(modeFromProps);
   const [spreadsheetOptions, setSpreadsheetOptions] = useState({
     format: 'xlsx',
     fields: [],
@@ -28,49 +84,6 @@ const ExportModal = ({
   });
 
   const intl = useIntl();
-
-  const messages = defineMessages({
-    modalTitle: {
-      id: 'modal-title',
-      defaultMessage: 'Export',
-    },
-    inputFormat: {
-      id: 'input-format',
-      defaultMessage: 'Choose a format',
-    },
-    close: {
-      id: 'close',
-      defaultMessage: 'Close',
-    },
-    cancel: {
-      id: 'cancel',
-      defaultMessage: 'Cancel',
-    },
-    logIn: {
-      id: 'login',
-      defaultMessage: 'Please log in to access the export link directly from this menu'
-    },
-    exportJson: {
-      id: 'exportJson',
-      defaultMessage: 'Use the previous JSON export version'
-    },
-    jsonDoc1: {
-      id: 'jsonDoc1',
-      defaultMessage: 'Documentation'
-    },
-    jsonDoc2: {
-      id: 'jsonDoc2',
-      defaultMessage: 'here'
-    },
-    documentation: {
-      id: 'documentation',
-      defaultMessage: 'See the documentation'
-    },
-    detailedFormat: {
-      id: 'detailed-format',
-      defaultMessage: 'Use the detailed format'
-    }
-  });
 
   const formats = [
     { type: 'Tableur (Excel / CSV)', id: 'spreadsheet' },
@@ -113,7 +126,7 @@ const ExportModal = ({
   const handleSubmit = e => {
     e.preventDefault();
     if (userLogged && formatChoice.id === 'jsonV2') {
-      const jsonUrl = new URL(res.export.jsonV2);
+      const jsonUrl = new URL(res[mode].jsonV2);
       if (jsonDetailed) {
         jsonUrl.searchParams.append('detailed', 1);
       } else {
@@ -125,12 +138,12 @@ const ExportModal = ({
     }
 
     if (newTab) {
-      window.open(res.export[formatChoice.id]);
+      window.open(res[mode][formatChoice.id]);
       return onClose();
     }
 
     if (formatChoice.id === 'spreadsheet') {
-      const formatUrl = spreadsheetOptions.format === 'xlsx' ? new URL(res.export.xlsx) : new URL(res.export.csv);
+      const formatUrl = spreadsheetOptions.format === 'xlsx' ? new URL(res[mode].xlsx) : new URL(res[mode].csv);
 
       if (spreadsheetOptions.languages.length) {
         spreadsheetOptions.languages.map(l => formatUrl.searchParams.append('includeLanguages[]', l));
@@ -148,7 +161,7 @@ const ExportModal = ({
       return onClose();
     }
 
-    window.open(res.export[formatChoice.id], '_self');
+    window.open(res[mode][formatChoice.id], '_self');
     return onClose();
   };
 
@@ -159,11 +172,25 @@ const ExportModal = ({
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} disableBodyScroll onClose={onClose}>
       <form className="export export-form" onSubmit={handleSubmit}>
-        <button className="export-close" type="button" onClick={onClose}>
+        <button className="close" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
-        <h1 className="export-title-big">{intl.formatMessage(messages.modalTitle)}</h1>
-        <h2 className="export-title-md">{intl.formatMessage(messages.inputFormat)}</h2>
+        <h2>{intl.formatMessage(messages.modalTitle)}</h2>
+        <div className="form-group margin-top-sm">
+          <div className="radio" onChange={() => setMode('all')}>
+            <label htmlFor="export-all">
+              <input defaultChecked={mode === 'all'} name="mode" type="radio" id="export-all" />
+              {intl.formatMessage(messages.exportAll)}
+            </label>
+          </div>
+          <div className="radio" onChange={() => setMode('selection')}>
+            <label htmlFor="export-selection">
+              <input defaultChecked={mode === 'selection'} name="mode" type="radio" id="export-selection" />
+              {intl.formatMessage(messages.exportSelection)}
+            </label>
+          </div>
+        </div>
+        <strong>{intl.formatMessage(messages.inputFormat)}</strong>
         <div className="form-group">
           {formats.map(({ type, id }) => (
             <React.Fragment key={id}>
@@ -177,10 +204,10 @@ const ExportModal = ({
               />
               )}
               {gCal && id === 'gcal' && (
-                <ExternalCalendarOptions type={id} exportUrl={res.export.gcal} />
+                <ExternalCalendarOptions type={id} exportUrl={res[mode].gcal} />
               )}
               {outlook && id === 'outlook' && (
-                <ExternalCalendarOptions type={id} exportUrl={res.export.gcal} />
+                <ExternalCalendarOptions type={id} exportUrl={res[mode].gcal} />
               )}
               {jsonOptions && id === formatChoice.id && (
                 <>
@@ -196,7 +223,7 @@ const ExportModal = ({
                       <a href="https://developers.openagenda.com/10-lecture/" target="_blank" rel="noreferrer">{intl.formatMessage(messages.documentation)}</a>
                     </div>
                   </div>
-                  <a href={res.export.jsonV1} target="_blank" rel="noreferrer" className="margin-left-md">{intl.formatMessage(messages.exportJson)}</a> ({intl.formatMessage(messages.jsonDoc1)}<a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> {intl.formatMessage(messages.jsonDoc2)}</a>)
+                  <a href={res[mode].jsonV1} target="_blank" rel="noreferrer" className="margin-left-md">{intl.formatMessage(messages.exportJson)}</a> ({intl.formatMessage(messages.jsonDoc1)}<a href="https://developers.openagenda.com/export-json-dun-agenda/" target="_blank" rel="noreferrer"> {intl.formatMessage(messages.jsonDoc2)}</a>)
                 </>
               )}
               {displayButton && id === formatChoice.id && (
@@ -218,7 +245,18 @@ export default ExportModal;
 
 ExportModal.propTypes = {
   res: PropTypes.shape({
-    export: PropTypes.shape({
+    all: PropTypes.shape({
+      jsonV1: PropTypes.string,
+      jsonV2: PropTypes.string,
+      pdf: PropTypes.string,
+      xlsx: PropTypes.string,
+      gcal: PropTypes.string,
+      ical: PropTypes.string,
+      csv: PropTypes.string,
+      ics: PropTypes.string,
+      rss: PropTypes.string,
+    }),
+    selection: PropTypes.shape({
       jsonV1: PropTypes.string,
       jsonV2: PropTypes.string,
       pdf: PropTypes.string,
@@ -232,6 +270,7 @@ ExportModal.propTypes = {
     me: PropTypes.string,
     agendaExportSettings: PropTypes.string
   }).isRequired,
+  mode: PropTypes.string,
   languages: PropTypes.arrayOf(PropTypes.string),
   onClose: PropTypes.func.isRequired,
   userLogged: PropTypes.bool.isRequired
@@ -239,4 +278,5 @@ ExportModal.propTypes = {
 
 ExportModal.defaultProps = {
   languages: undefined,
+  mode: 'all'
 };

@@ -1,5 +1,5 @@
 {
-  "common.event.states.refused": "Nac'het",
-  "common.event.states.controlled": "Prest da vezañ embannet",
-  "common.event.states.published": "Embannet"
+  "common.event.states.published": "Embannet",
+  "common.event.states.readyToPublish": "Prest da vezañ embannet",
+  "common.event.states.refused": "Nac'het"
 }
