@@ -5,9 +5,8 @@ const Service = require('@openagenda/activities');
 const sessions = require('@openagenda/sessions');
 const mw = require('@openagenda/activity-apps/dist/middleware');
 const unsubscribedSvc = require('@openagenda/unsubscribed');
-const agendasSvc = require('@openagenda/agendas');
-const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require('@openagenda/members').utils.compareRoles;
 const sendSummary = require('./sendSummary');
+const activitiesConfig = require('./activitiesConfig');
 
 const activities = {};
 const preMw = [
@@ -42,190 +41,41 @@ module.exports.init = async (config, services) => {
         subject: 'notifications',
         type: 'notifications_summary'
       }),
-      sendSummary
+      sendSummary: (...args) => sendSummary(config, ...args)
     },
-    filterFollows: [
-      {
-        verb: [
-          'event.create',
-          'event.update',
-          'event.delete',
-          'agenda.unpublishEvent',
-          'agenda.removeEvent',
-          'agenda.changeEventState',
-          'agenda.systemUnpublishEvent'
-        ],
-        getFeeds: true,
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          if (targetFeed.entityType === 'agenda' && targetFeed.entityUid !== parseInt(activity.target.split(':')[1], 10)) {
-            return cb(null, false);
-          }
-
-          if (activity.verb === 'event.update' && !activity.store.diff) {
-            return cb(null, false);
-          }
-
-          cb(null, true);
-        }
-      }, {
-        verb: 'agenda.publishEvent',
-        getFeeds: true,
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          if (targetFeed.entityType === 'agenda' && targetFeed.entityUid === activity.store.originAgendaUid) {
-            return cb(null, true);
-          }
-
-          if (targetFeed.entityType === 'agenda' && targetFeed.entityUid !== parseInt(activity.target.split(':')[1], 10)) {
-            return cb(null, false);
-          }
-
-          cb(null, true);
-        }
-      }, {
-        verb: [
-          'event.create',
-          'event.update',
-          'event.delete',
-          'agenda.publishEvent',
-          'agenda.unpublishEvent',
-          'agenda.systemUnpublishEvent',
-          'agenda.removeEvent',
-          'agenda.changeEventState',
-          'agenda.addSource',
-          'agenda.removeSource'
-        ],
-        getFeeds: true,
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          if (
-            originFeed.entityType === 'agenda'
-            && targetFeed.entityType === 'user'
-            && isLessThan(follow.store.credential, 'moderator')
-          ) {
-            return cb(null, false);
-          }
-
-          cb(null, true);
-        }
-      }, {
-        verb: ['agenda.sendInvitation', 'agenda.acceptInvitation'],
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          if (
-            isLessThan(follow.store.credential, 'moderator')
-            || (
-              isEqualTo(follow.store.credential, 'moderator')
-              && isEqualTo(
-                activity.store.credential,
-                'administrator'
-              )
-            )// moderator doesn't see who has been invited to become an administrator
-          ) {
-            return cb(null, false);
-          }
-
-          cb(null, true);
-        }
-      }, {
-        verb: ['agenda.addMember', 'agenda.setMemberRole', 'agenda.removeMember'],
-        getFeeds: true,
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          if (targetFeed.entityType === 'user' && targetFeed.entityUid === parseInt(activity.object.split(':')[1], 10)) {
-            return cb(null, true);
-          }
-
-          if (
-            isLessThan(follow.store.credential, 'moderator')
-            || (
-              isEqualTo(follow.store.credential, 'moderator')
-              && isEqualTo(
-                activity.store.credential,
-                'administrator'
-              )
-            ) // moderator doesn't sees who has invited to become an administrator
-          ) {
-            return cb(null, false);
-          }
-
-          cb(null, true);
-        }
-      }, {
-        verb: ['agenda.updateProfile', 'agenda.updateContribution'],
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          cb(null, isSuperiorToOrEqual(follow.store.credential, 'administrator'));
-        }
-      }, {
-        verb: 'agenda.aggregateEvent',
-        getFeeds: true,
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          // si le target (agenda qui agrège) est le targetFeed
-          if (targetFeed.entityType === 'agenda' && targetFeed.entityUid === parseInt(activity.target.split(':')[1], 10)) {
-            return cb(null, true);
-          }
-
-          // si l'actor (agenda source) est le targetFeed
-          if (
-            targetFeed.entityType === 'agenda'
-            && targetFeed.entityUid === parseInt(activity.actor.split(':')[1], 10)
-          ) {
-            return promisify(agendasSvc.get)({
-              uid: parseInt(activity.target.split(':')[1], 10)
-            }, { private: false })
-              .then(agenda => cb(null, !!agenda), () => cb(null, false));
-          }
-
-          // if it is an adminmods
-          if (
-            originFeed.entityType === 'agenda'
-            && targetFeed.entityType === 'user'
-            && isSuperiorToOrEqual(follow.store.credential, 'moderator')
-          ) {
-            return cb(null, true);
-          }
-
-          if (originFeed.entityType === 'event' && targetFeed.entityType === 'user') {
-            return cb(null, true);
-          }
-
-          return cb(null, false);
-        }
-      }, {
-        verb: 'agenda.addEvent',
-        getFeeds: true,
-        filter: (activity, originFeed, targetFeed, follow, cb) => {
-          // si le target (agenda qui agrège) est le targetFeed
-          if (targetFeed.entityType === 'agenda' && targetFeed.entityUid === parseInt(activity.target.split(':')[1], 10)) {
-            return cb(null, true);
-          }
-
-          // si l'agenda source est le targetFeed
-          if (
-            targetFeed.entityType === 'agenda'
-            && targetFeed.entityUid === parseInt(activity.store.sourceAgenda, 10)
-          ) {
-            return promisify(agendasSvc.get)({
-              uid: parseInt(activity.target.split(':')[1], 10)
-            }, { private: false })
-              .then(agenda => cb(null, !!agenda), () => cb(null, false));
-          }
-
-          // if it is an adminmods
-          if (
-            originFeed.entityType === 'agenda'
-            && targetFeed.entityType === 'user'
-            && isSuperiorToOrEqual(follow.store.credential, 'moderator')
-          ) {
-            return cb(null, true);
-          }
-
-          if (originFeed.entityType === 'event' && targetFeed.entityType === 'user') {
-            return cb(null, true);
-          }
-
-          return cb(null, false);
-        }
-      }
-    ],
+    services, // used in mask
+    activities: activitiesConfig,
+    enableNotificationsForFeedTypes: ['user'],
     logger: config.getLogConfig('svc', 'activities', false)
   });
+
+  service.getFormatConfig = () => {
+    const result = {};
+
+    for (const activityKey in activitiesConfig) {
+      // for eslint guard-for-in
+      if (!({}).hasOwnProperty.call(activitiesConfig, activityKey)) {
+        continue;
+      }
+
+      const activityConfig = activitiesConfig[activityKey];
+      const {
+        labelId,
+        labelIds,
+        entities,
+        tags
+      } = activityConfig;
+
+      result[activityKey] = {
+        labelId,
+        labelIds,
+        entities,
+        tags
+      };
+    }
+
+    return result;
+  };
 
   Object.assign(activities, service);
   Object.assign(module.exports, activities);

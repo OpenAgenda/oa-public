@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/agendas/onCreate');
+const { diff } = require('deep-diff');
 
 const resetCache = require('./lib/resetCache');
 
@@ -10,10 +11,6 @@ module.exports = async (services, before, after, context) => {
     activities,
     elasticsearch: legacyEventSearch,
   } = services;
-
-  const hasContributionSettingsChange = JSON.stringify(before.settings.contribution) !== JSON.stringify(after.settings.contribution);
-  const hasCredentialsChange = JSON.stringify(before.credentials) !== JSON.stringify(after.credentials);
-  let updateType;
 
   if (legacyEventSearch) {
     try {
@@ -25,16 +22,7 @@ module.exports = async (services, before, after, context) => {
     log('warn', 'legacy search service was not initialized');
   }
 
-  if (hasContributionSettingsChange) {
-    updateType = 'contribution';
-  } else if (hasCredentialsChange) {
-    updateType = 'credentials';
-  } else if (!_.isEqual(
-    _.omit(before, ['settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt']),
-    _.omit(after, ['settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt'])
-  )) {
-    updateType = 'profile';
-  }
+  // settings.{tracking,lab,inbox,contribution,translation}
 
   await resetCache(services, after);
 
@@ -47,36 +35,32 @@ module.exports = async (services, before, after, context) => {
     return;
   }
 
-  if (before.title !== after.title) {
-    activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
-      actor: `user:${context.user.uid}`,
-      verb: 'agenda.rename',
-      target: `agenda:${after.uid}`,
-      store: {
-        labels: {
-          actor: context.user.name,
-          beforeTitle: before.title,
-          afterTitle: after.title
-        }
-      }
-    });
-  }
+  const profileFields = ['title', 'slug', 'description', 'image', 'url'];
+  const changes = diff(
+    before,
+    after,
+    (path, key) => { // reversed filter, WHY ?
+      if (path.length !== 0) return false; // keep deep
+      return ![...profileFields, 'credentials', 'settings'].includes(key);
+    },
+  );
 
-  if (updateType && updateType !== 'credentials') {
+  if (changes?.length) {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
       actor: `user:${context.user.uid}`,
-      verb: `agenda.update${_.upperFirst(updateType)}`,
+      verb: 'agenda.update',
       target: `agenda:${after.uid}`,
       store: {
         labels: {
           actor: context.user.name,
           target: after.title
-        }
+        },
+        diff: changes
       }
     });
   }
 
-  if (before.official !== after.official) {
+  if (before.official !== after.official && after.official) {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
       actor: `user:${context.user.uid}`,
       verb: 'agenda.setOfficial',

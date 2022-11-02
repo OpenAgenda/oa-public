@@ -29,7 +29,7 @@ module.exports = core => {
     search: Object.assign(search.bind(null, core, agendaUid), {
       rebuild: search.rebuild.bind(null, core, agendaUid),
       resyncEvent: search.resyncEvent.bind(null, core, agendaUid),
-      get: search.get.bind(null, core, agendaUid)
-    })
+      get: search.get.bind(null, core, agendaUid),
+    }),
   });
 };

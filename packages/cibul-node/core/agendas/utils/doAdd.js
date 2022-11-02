@@ -12,7 +12,7 @@ module.exports = async (core, payload, clean, options = {}) => {
   const event = payload.getEvent();
 
   const {
-    services
+    services,
   } = core;
 
   const {
@@ -22,7 +22,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     custom,
     tracker,
     elasticsearch: legacyEventSearch,
-    legacy
+    legacy,
   } = services;
 
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
@@ -34,14 +34,15 @@ module.exports = async (core, payload, clean, options = {}) => {
     sourceAgenda,
     draft,
     userUid,
-    access
+    access,
+    duplicateOrigin,
   } = {
     batched: false,
     aggregated: null,
     sourceAgenda: null,
     draft: false,
     access: 'public',
-    ...options
+    ...options,
   };
 
   if (!userUid) {
@@ -60,9 +61,10 @@ module.exports = async (core, payload, clean, options = {}) => {
           batched,
           aggregated,
           sourceAgenda,
-          userUid
+          userUid,
+          duplicateOrigin,
         },
-        decorate: ['member', 'sourceAgendas']
+        decorate: ['member', 'sourceAgendas'],
       });
 
       payload.setItem('agendaEvent', before, created);
@@ -75,7 +77,7 @@ module.exports = async (core, payload, clean, options = {}) => {
   if (agenda.formSchemaId && clean.custom) {
     const result = await setCustom(custom, agenda.formSchemaId, event.uid, clean.custom, {
       draft,
-      agendaId: clean.agendaId
+      agendaId: clean.agendaId,
     });
 
     if (result.errors.length) {
@@ -88,7 +90,7 @@ module.exports = async (core, payload, clean, options = {}) => {
   if (_.get(agenda, 'network.formSchemaId') && clean.networkCustom) {
     const result = await setCustom(custom, agenda.network.formSchemaId, event.uid, clean.networkCustom, {
       draft,
-      agendaId: clean.agendaId
+      agendaId: clean.agendaId,
     });
 
     if (result.errors.length) {
@@ -106,10 +108,10 @@ module.exports = async (core, payload, clean, options = {}) => {
   try {
     await legacy.tagsAndCustom.set(agenda.id, event.uid, [
       agenda.formSchema,
-      _.get(agenda, 'network.formSchema')
+      _.get(agenda, 'network.formSchema'),
     ], [
       clean.custom,
-      clean.networkCustom
+      clean.networkCustom,
     ]);
   } catch (e) {
     log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, event.uid, e);
@@ -119,7 +121,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
     await core.agendas(agenda).members.create(userUid, 'contributor', {}, {
       access: 'internal',
-      useAccountEmail: true
+      useAccountEmail: true,
     });
   }
 
@@ -136,7 +138,7 @@ module.exports = async (core, payload, clean, options = {}) => {
   try {
     await eventSearch.add({
       ...response,
-      event: compiledEvent
+      event: compiledEvent,
     });
   } catch (e) {
     log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, e);
@@ -146,7 +148,7 @@ module.exports = async (core, payload, clean, options = {}) => {
     event: compiledEvent,
     agenda,
     formSchema,
-    batched
+    batched,
   });
 
   await refreshAgenda(agenda.uid);

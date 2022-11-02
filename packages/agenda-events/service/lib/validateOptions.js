@@ -52,6 +52,11 @@ const base = {
         type: 'integer',
         default: null
       },
+      // user at the origin of the operation
+      user: {
+        type: 'pass',
+        default: null
+      },
       agendaUid: {
         type: 'integer',
         default: null
@@ -94,6 +99,11 @@ const base = {
       },
       stateChangeType: {
         type: 'text',
+        default: null
+      },
+      // Origin of duplication
+      duplicateOrigin: {
+        type: 'pass',
         default: null
       }
     }

@@ -13,10 +13,10 @@ module.exports = async (
     sourceRules,
     formSchema,
     query,
-  }
+  },
 ) => {
   const log = Log(
-    `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`
+    `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`,
   );
 
   let count = 0;
@@ -33,7 +33,7 @@ module.exports = async (
 
     for (const event of events) {
       await enqueueEvaluate({
-        agenda: _.pick(sourceAgenda, ['slug', 'id', 'uid']),
+        agenda: _.pick(sourceAgenda, ['slug', 'title', 'id', 'uid']),
         event,
         aggregatorAgendaUid,
         aggregatorRules,

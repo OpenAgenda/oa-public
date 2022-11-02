@@ -25,6 +25,7 @@ const { filterUnauthorized } = loadAuthorizations;
 
 const assignState = require('../utils/assignState');
 const updateEvent = require('./lib/updateEvent');
+const createUpdateActivity = require('./lib/createUpdateActivity');
 
 const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
 
@@ -37,7 +38,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     eventSearch,
     members,
     aggregators,
-    custom
+    custom,
   } = core.services;
 
   const userUid = extractUserUid(data, options);
@@ -51,7 +52,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     access = 'public',
     filterUnauthorizedData = false,
     returnPayload = false,
-    private: privateOption = false
+    private: privateOption = false,
   } = options;
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
@@ -62,7 +63,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     access: 'internal',
     detailed: true,
     throwOnNotFound: true,
-    private: privateOption
+    private: privateOption,
   });
 
   log('  loaded event %s', event.slug);
@@ -71,7 +72,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const member = userUid ? await members.get({
     agendaUid: agenda.uid,
-    userUid
+    userUid,
   }) : null;
 
   const clean = await cleanEvent(core.services, agenda, data, {
@@ -83,7 +84,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     access,
     member,
     defaultLang,
-    aggregated
+    aggregated,
   });
 
   const authorizations = await loadAuthorizations(core, 'update', {
@@ -91,7 +92,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     event,
     agendaEvent,
     member,
-    access
+    access,
   });
 
   if (filterUnauthorizedData) {
@@ -101,16 +102,16 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   if (!authorizations.canEditEvent && containsEventData(data)) {
     throw new Forbidden({
       info: {
-        uid: event.uid
-      }
+        uid: event.uid,
+      },
     }, 'not authorized to edit event');
   }
 
   const {
-    type: stateChangeType
+    type: stateChangeType,
   } = assignState(agenda, event, clean, data, {
     authorizations,
-    draft
+    draft,
   });
 
   const payload = createPayload(core.services, agenda);
@@ -125,7 +126,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       eventUid,
       privateOption,
       event,
-      partial
+      partial,
     });
   } else {
     payload.setItem('event', event, event);
@@ -136,11 +137,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       custom,
       agenda.formSchemaId,
       eventUid,
-      clean.custom, {
+      clean.custom,
+      {
         draft,
         agendaId: agenda.id,
-        access
-      }
+        access,
+      },
     );
     if (result.success) {
       log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
@@ -153,10 +155,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       custom,
       agenda.network.formSchemaId,
       eventUid,
-      clean.networkCustom, {
+      clean.networkCustom,
+      {
         agendaId: agenda.id,
-        access
-      }
+        access,
+      },
     );
 
     if (result.success) {
@@ -176,8 +179,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     try {
       const result = await agendaEvents(agendaUid).set(eventUid, ih(clean.agendaEvent, {
         create: {
-          $set: { canEdit: true }
-        }
+          $set: { canEdit: true },
+        },
       }), {
         transferToLegacy: true,
         aggregated,
@@ -188,9 +191,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           event,
           agenda,
           stateChangeType,
-          batched
+          batched,
         },
-        decorate: ['member', 'sourceAgendas']
+        decorate: ['member', 'sourceAgendas'],
       });
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
       payload.setItem('agendaEvent', result.before, result.set);
@@ -204,10 +207,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     try {
       await legacy.tagsAndCustom.set(agenda.id, eventUid, [
         agenda.formSchema,
-        _.get(agenda, 'network.formSchema')
+        _.get(agenda, 'network.formSchema'),
       ], [
         partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
-        partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom
+        partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom,
       ]);
       log('set legacy tag & custom values');
     } catch (e) {
@@ -228,7 +231,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   try {
     await eventSearch.update({
       ...response,
-      event: compiledEvent
+      event: compiledEvent,
     });
     log('updated search for event %s', eventUid);
   } catch (e) {
@@ -237,12 +240,20 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
   const before = await payload.getCompiledEvent('before');
 
+  const formSchema = payload.getFormSchema();
+
+  try {
+    await createUpdateActivity(core.services, before, compiledEvent, { userUid, agenda, formSchema });
+  } catch (e) {
+    log('error', 'failed to create activity', e);
+  }
+
   await aggregators.notify('updateEvent', {
     event: compiledEvent,
     before,
     agenda,
-    formSchema: payload.getFormSchema(),
-    batched
+    formSchema,
+    batched,
   });
 
   await refreshAgenda(agenda.uid);
@@ -253,7 +264,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 function patch(core, agendaUid, eventUid, data, options = {}) {
   return update(core, agendaUid, eventUid, data, {
     ...options,
-    partial: true
+    partial: true,
   });
 }
 

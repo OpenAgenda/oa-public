@@ -11,7 +11,7 @@ describe('convert legacy filters', () => {
   test('convert date', () => {
     const oaq = {
       from: '2021-09-20',
-      to: '2021-09-20'
+      to: '2021-09-20',
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' } });
@@ -19,7 +19,7 @@ describe('convert legacy filters', () => {
 
   test('convert search', () => {
     const oaq = {
-      what: 'concert'
+      what: 'concert',
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ search: 'concert', relative: ['current', 'upcoming'] });
@@ -27,7 +27,7 @@ describe('convert legacy filters', () => {
 
   test('when passed is set to 1 in legacy, no filter is defined in converted object', () => {
     const oaq = {
-      passed: '1'
+      passed: '1',
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ });
@@ -35,23 +35,23 @@ describe('convert legacy filters', () => {
 
   test('when passed is set to 0 in legacy, filter should be relative set with current and upcoming', () => {
     expect(
-      convertLegacyFilter({ passed: '0' })
+      convertLegacyFilter({ passed: '0' }),
     ).toEqual({
-      relative: ['current', 'upcoming']
+      relative: ['current', 'upcoming'],
     });
   });
 
   test('when passed is not set in legacy, filter should be relative set with current and upcoming', () => {
     expect(
-      convertLegacyFilter({})
+      convertLegacyFilter({}),
     ).toEqual({
-      relative: ['current', 'upcoming']
+      relative: ['current', 'upcoming'],
     });
   });
 
   test('convert location', () => {
     const oaq = {
-      location: 65918542
+      location: 65918542,
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ locationUid: 65918542, relative: ['current', 'upcoming'] });
@@ -59,7 +59,7 @@ describe('convert legacy filters', () => {
 
   test('convert slug', () => {
     const oaq = {
-      slug: 'mon-événement'
+      slug: 'mon-événement',
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ slug: 'mon-événement' });
@@ -68,7 +68,7 @@ describe('convert legacy filters', () => {
   test('convert district', () => {
     const oaq = {
       scope: 'district',
-      what: 'centre'
+      what: 'centre',
     };
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({ district: 'centre', relative: ['current', 'upcoming'] });
@@ -76,7 +76,7 @@ describe('convert legacy filters', () => {
 
   test('convert lille tag filter', () => {
     const oaq = {
-      tags: ['spectacle']
+      tags: ['spectacle'],
     };
 
     expect(convertLegacyFilter(oaq, { formSchema: lilleFormSchema, tagSet: lilleTagSet })).toStrictEqual({ 'categories-metropolitaines': [20], relative: ['current', 'upcoming'] });
@@ -84,29 +84,29 @@ describe('convert legacy filters', () => {
 
   test('convert bordeaux tags', () => {
     const oaq = {
-      tags: ['administration']
+      tags: ['administration'],
     };
 
     expect(convertLegacyFilter(oaq, {
       formSchema: bordeauxFormSchema,
-      tagSet: bordeauxTagSet
+      tagSet: bordeauxTagSet,
     })).toStrictEqual({ 'thematiques-bordeaux-metropole': [3], relative: ['current', 'upcoming'] });
   });
 
   test('convert category', () => {
     const oaq = {
-      category: ['concert', 'atelier']
+      category: ['concert', 'atelier'],
     };
 
     expect(convertLegacyFilter(oaq, {
       formSchema: bordeauxFormSchema,
-      categorySet: bordeauxCategorySet
+      categorySet: bordeauxCategorySet,
     })).toStrictEqual({ 'categories-agenda-metropolitain': [43, 46], relative: ['current', 'upcoming'] });
   });
 
   test('convert featured', () => {
     const oaq = {
-      featured: 1
+      featured: 1,
     };
 
     expect(convertLegacyFilter(oaq, {})).toStrictEqual({ featured: 1, relative: ['current', 'upcoming'] });
@@ -118,14 +118,17 @@ describe('convert legacy filters', () => {
       location: 65918542,
       passed: '1',
       from: '2021-09-20',
-      to: '2021-09-20'
+      to: '2021-09-20',
     };
 
     expect(convertLegacyFilter(oaq, { formSchema: bordeauxFormSchema, tagSet: bordeauxTagSet })).toStrictEqual({
       'categories-agenda-metropolitain': [46, 59],
       'thematiques-bordeaux-metropole': [9],
       locationUid: 65918542,
-      timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' }
+      timings: {
+        gte: '2021-09-19T00:00:00.0000Z',
+        lte: '2021-09-20T23:59:59.9990Z',
+      },
     });
   });
 });

@@ -15,7 +15,20 @@
           <h1 class="title"><%= __('dailySummary') %></h1>
         </mj-text>
 
-        <mj-markdown><%- message %></mj-markdown>
+        <mj-text>
+          <% for (let i = 0; i < notifications.length; i++) { %>
+            <% const notif = notifications[i]; %>
+            <p>
+              <span style="font-size: 12px"><%= notif.date %></span><br />
+              <a href="<%= notif.url %>" style="color: gray; text-decoration: none">
+                <%- notif.label %>
+              </a>
+            </p>
+            <% if (i < notifications.length - 1) { %>
+              <hr />
+            <% } %>
+          <% } %>
+        </mj-text>
 
         <mj-button
           background-color="#41acdd"

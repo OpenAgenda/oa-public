@@ -180,6 +180,8 @@ async function _onNewMember( { services, agenda, user, senderUser, context, memb
     log('warn', 'inboxes service was not initialized');
   }
 
+  console.log('QUEUE addMemberAcceptInvitation');
+
   await activityQueue( 'addMemberAcceptInvitation', {
     agenda, user, senderUser, member, context
   } );

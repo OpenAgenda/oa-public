@@ -66,16 +66,15 @@ export default function SpreadsheetModal({
       disableBodyScroll
     >
       <form className="export export-form" onSubmit={handleSubmit}>
-        <button className="export-close" type="button" onClick={onClose}>
-          <i className="fa fa-times fa-lg" />
-        </button>
-        <h1 className="export-title-big">Options</h1>
         <SpreadsheetOptions
           languages={languages}
           setChoice={options => handleOptions(options)}
           fields={fields}
           options={spreadsheetOptions}
         />
+        <button className="close" type="button" onClick={onClose}>
+          <i className="fa fa-times fa-lg" />
+        </button>
         <div className="margin-left-md">
           <button type="submit" className="btn btn-primary">
             {intl.formatMessage(exportsMessages.export)}

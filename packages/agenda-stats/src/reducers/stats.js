@@ -83,7 +83,7 @@ function decorateStats(stats, query = {}) {
     .map(addSize(AGGREGATION_SIZE));
 }
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {
@@ -114,7 +114,8 @@ export default function reducer(state = initialState, action) {
             return v;
           }
 
-          const getData = agg => action.result.data.aggregations[`${agg.type}-${v.id}`];
+          const getData = agg =>
+            action.result.data.aggregations[`${agg.type}-${v.id}`];
 
           return {
             ...v,
@@ -122,7 +123,7 @@ export default function reducer(state = initialState, action) {
               ...v.state,
               loading: false,
               loaded: true,
-              itemsDisplayed: 10,
+              itemsDisplayed: v.chart?.loadMore ? 10 : null,
               data: Array.isArray(v.aggregation)
                 ? v.aggregation.map(getData)
                 : getData(v.aggregation),
@@ -179,7 +180,8 @@ export default function reducer(state = initialState, action) {
     }
     case LOAD_STAT_SUCCESS: {
       const statIndex = state.data.findIndex(v => v.id === action.statId);
-      const getData = agg => action.result.data.aggregations[`${agg.type}-${action.statId}`];
+      const getData = agg =>
+        action.result.data.aggregations[`${agg.type}-${action.statId}`];
 
       const newStat = {
         ...action.stat,
@@ -187,7 +189,7 @@ export default function reducer(state = initialState, action) {
           ...action.stat.state,
           interval: action.stat.state.interval,
           loading: false,
-          itemsDisplayed: 10,
+          itemsDisplayed: action.stat.chart?.loadMore ? 10 : null,
           data: Array.isArray(action.stat.aggregation)
             ? action.stat.aggregation.map(getData)
             : getData(action.stat.aggregation),
@@ -285,17 +287,19 @@ export function load(agenda, stats, filters, query) {
 
     const filterAggregations = filters
       .filter(
-        filter => filter.aggregation !== null
-          && !stats.find(stat => _.isMatch(
-            stat.aggregation,
-            _.omit(
-              {
-                type: filter.name,
-                ...filter.aggregation,
-              },
-              'size'
-            )
-          ))
+        filter =>
+          filter.aggregation !== null
+          && !stats.find(stat =>
+            _.isMatch(
+              stat.aggregation,
+              _.omit(
+                {
+                  type: filter.name,
+                  ...filter.aggregation,
+                },
+                'size',
+              ),
+            )),
       )
       .map(filter => ({
         // like stats
@@ -393,7 +397,7 @@ export function save(agenda) {
               aggregation: v.aggregation,
               chart: v.chart,
               separator: v.separator,
-            }))
+            })),
         );
       },
     });

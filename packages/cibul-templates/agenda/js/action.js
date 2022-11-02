@@ -6,7 +6,6 @@ const utils = require( '@openagenda/utils' );
 
 const gShare = require( './googleCalendarShare' );
 const spreadsheet = require( './spreadsheet' );
-const favorites = require( './favorites' );
 
 const params = {
   uid: false // agenda uid required
@@ -27,10 +26,6 @@ window.asap( function( options ) {
   log( 'initing' );
 
   utils.extend( params, options );
-
-  favorites.init( { agendaUid: params.uid } );
-
-  favorites.menu();
 
   gShare( options );
 

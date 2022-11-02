@@ -15,5 +15,6 @@ module.exports = {
   defaultIndex: 'test',
   interfaces: {},
   emptyValue: 'null',
-  defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+  defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+  assetsPath: 'https://some.cdn/'
 }

@@ -1,3 +1,3 @@
 "use strict";
 
-module.exports = require( '../client/src/iso/merge' );
+module.exports = require('../client/src/iso/merge');

@@ -22,8 +22,7 @@ describe('agendas - functional (server): set (update)', function() {
       __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
-      __dirname + '/fixtures/occurrence.data.sql',
-      __dirname + '/fixtures/legacyCredentialSet.data.sql'
+      __dirname + '/fixtures/occurrence.data.sql'
    ],
     map: {
       database: config.mysql.database,
@@ -184,27 +183,6 @@ describe('agendas - functional (server): set (update)', function() {
     });
   });
 
-  it('set credentials on agenda updates legacy data structure', done => {
-    svc.set({ uid: 41416256 }, {
-      credentials: {
-        aggregator: true
-      }
-    }, {
-      internal: true,
-      protected: false
-    }, (err, result) => {
-      assert.strictEqual(result.agenda.credentials.aggregator, true);
-
-      const con = mysql.createConnection(config.mysql);
-
-      con.query(`select * from legacy_credential_set where review_id = ?`, result.agenda.id, (err, rows) => {
-        assert.strictEqual(rows[0].aggregator, 1);
-
-        done();
-      });
-    });
-  });
-
   it('set credentials on pre-exisiting agenda', done => {
     svc.set({ uid: 65903437 }, {
       credentials: {
@@ -221,6 +199,7 @@ describe('agendas - functional (server): set (update)', function() {
           id: 4887,
           ownerId: 7388,
           formSchemaId: null,
+          memberSchemaId: null,
           networkUid: null,
           locationSetUid: null,
           slug: 'agenda-culturel-auvergne',

@@ -107,7 +107,7 @@ export default function StateSelector({ value, onChange, ...otherProps }) {
             >
               &nbsp;
             </span>
-            {intl.formatMessage(statesMessages.controlled)}
+            {intl.formatMessage(statesMessages.readyToPublish)}
           </>
         ),
         value: 1,

@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 
 import { useQueryClient } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,20 +8,21 @@ import Loading from '../components/Loading';
 import MemberForm from '../components/MemberForm';
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import useAgendaContext from '../hooks/useAgendaContext';
+import useDetailedAgenda from '../hooks/useDetailedAgenda';
 import usePrefix from '../hooks/usePrefix';
 import steps from '../lib/steps';
 import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 
 const {
-  replaceWithStep
+  replaceWithStep,
 } = utils;
 
 const log = debug('Member');
 
 export default function Member({
   agenda,
-  history
+  history,
 }) {
   log('loading');
   const queryClient = useQueryClient();
@@ -33,8 +33,13 @@ export default function Member({
   const dispatch = useDispatch();
 
   const {
+    detailedAgendaIsLoading,
+    detailedAgenda,
+  } = useDetailedAgenda(agenda.uid);
+
+  const {
     agendaContextIsLoading,
-    agendaContext
+    agendaContext,
   } = useAgendaContext(agenda.uid, 'Member');
 
   if (!agenda.settings.contribution.useFields) {
@@ -46,6 +51,10 @@ export default function Member({
     return <Loading />;
   }
 
+  if (detailedAgendaIsLoading) {
+    return <Loading />;
+  }
+
   return (
     <CanvasWithStepper
       mode="create"
@@ -54,13 +63,13 @@ export default function Member({
       <div className="padding-top-sm">
         <div className="wsq padding-all-md">
           <MemberForm
-            agenda={agenda}
+            agenda={detailedAgenda}
             member={agendaContext?.me?.member}
             res={res.replace(':agendaUid', agenda.uid)}
             onSuccess={() => {
               dispatch(contributeReducer.memberSetSuccess({
                 agenda,
-                queryClient
+                queryClient,
               }));
             }}
           />

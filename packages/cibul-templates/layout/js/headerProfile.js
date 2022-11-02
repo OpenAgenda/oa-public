@@ -63,7 +63,7 @@ module.exports = options => {
 
   li = du.el( ul, 'li' );
 
-  du.el( params.selectors.notifications ).insertAdjacentElement( 'beforebegin', li );
+  du.el(params.selectors.headerLinks).insertAdjacentElement( 'beforeend', li );
 
   toggle( li );
 

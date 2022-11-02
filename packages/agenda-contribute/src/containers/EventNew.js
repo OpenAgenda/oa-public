@@ -1,7 +1,7 @@
 import debug from 'debug';
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import qs from 'qs';
 
 import CanvasWithStepper from '../components/CanvasWithStepper';
 import ClosedMessage from '../components/ClosedMessage';
@@ -19,7 +19,7 @@ import contributeReducer from '../reducers/contribute';
 
 const {
   isContributionType,
-  filterState
+  filterState,
 } = utils;
 
 const log = debug('EventNew');
@@ -33,14 +33,15 @@ export default function EventNew({ agenda, history }) {
   const {
     config,
     isLoading,
-    agendaContext
+    agendaContext,
   } = useEventFormConfig(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
   const {
     hasReferenceForDuplicate,
     isReferenceLoading,
-    referenceData
+    referenceData,
+    duplicateOrigin,
   } = useEventDataForDuplicate(agenda);
 
   if (isLoading || isReferenceLoading) {
@@ -60,14 +61,14 @@ export default function EventNew({ agenda, history }) {
       />
       <EventNewForm
         location={location}
-        res={`${apiRoot}${prefix}`}
+        res={`${apiRoot}${prefix}${qs.stringify(duplicateOrigin ? { duplicateOrigin } : null, { addQueryPrefix: true })}`}
         event={filterState(agendaContext, hasReferenceForDuplicate ? referenceData : null)}
         history={history}
         config={config}
         onSuccess={(event, response) => {
           dispatch(contributeReducer.eventCreateSuccess({
             agenda,
-            response
+            response,
           }));
         }}
         memberRole={agendaContext?.me?.member?.role}

@@ -1,6 +1,6 @@
 {
-  "You have now %count% events in your selection"
-  : "Vous avez %count% événements dans votre sélection",
+  "You have now %count% events in your favorites"
+  : "Vous avez %count% événements dans vos favoris",
   "clear"
   : "supprimer",
   "export"

@@ -1,5 +1,5 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
+import isInteger from '@openagenda/utils/isInteger';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
@@ -71,64 +71,73 @@ const flatChoices = lang => fieldTypeChoices.map(c => ({
   info: c.info?.[lang]
 }));
 
-export default class ChooseFieldType extends Component {
-  onFieldTypeChange({ values }) {
-    this.setState(values);
-  }
+const getFieldType = valueOrId => fieldTypeChoices
+  .find(choice => choice[isInteger(valueOrId) ? 'id' : 'value'] === valueOrId);
 
-  onFieldTypeSelect() {
-    const {
-      onChooseType
-    } = this.props;
+const ChosenType = ({ lang, value, onReset }) => {
+  const {
+    label, info
+  } = getFieldType(value);
 
-    const fieldType = _.get(this, 'state.fieldType', 1);
+  return (
+    <div>
+      <div>{label[lang]}</div>
+      {info ? <div className="text-muted">{info[lang]}</div> : null}
+      <button
+        type="button"
+        className="btn btn-link padding-all-z"
+        onClick={onReset}
+      >
+        {getLabel('chooseOtherType', lang)}
+      </button>
+    </div>
+  );
+};
 
-    onChooseType(_.get(_.find(
-      fieldTypeChoices,
-      choice => choice.id === fieldType
-    ), 'value', null));
-  }
+export default function ChooseFieldType({
+  value,
+  onChange: propsOnChange,
+  lang
+}) {
+  const onChange = useCallback(choice => {
+    if (!choice) {
+      propsOnChange(null);
+      return;
+    }
+    const fieldTypeChoice = getFieldType(choice.values.fieldType);
+    propsOnChange(fieldTypeChoice.value);
+  }, [propsOnChange]);
 
-  render() {
-    const { lang, onCancel } = this.props;
-
+  if (value) {
     return (
-      <FormSchemaComponent
-        stateless
-        values={{ fieldType: _.get(this, 'state.fieldType', 1) }}
-        onChange={({ values }) => this.onFieldTypeChange({ values })}
-        schema={{
-          fields: [{
-            field: 'fieldType',
-            fieldType: 'radio',
-            label: getLabel('chooseFieldType', lang),
-            default: 1,
-            optional: false,
-            options: flatChoices(lang)
-          }]
-        }}
-        actionComponents={[{
-          position: 'bottom',
-          Component: () => (
-            <div>
-              <button
-                type="button"
-                onClick={onCancel}
-                className="btn btn-default"
-              >
-                {getLabel('cancelFieldEdit', lang)}
-              </button>
-              <button
-                type="button"
-                onClick={() => this.onFieldTypeSelect()}
-                className="btn btn-primary pull-right"
-              >
-                {getLabel('confirmFieldType', lang)}
-              </button>
-            </div>
-          )
-        }]}
+      <ChosenType
+        onReset={() => onChange(null)}
+        value={value}
+        lang={lang}
+        onChange={onChange}
       />
     );
   }
+
+  return (
+    <FormSchemaComponent
+      stateless
+      values={value ? { fieldType: getFieldType(value).id } : {}}
+      onChange={onChange}
+      schema={{
+        fields: [{
+          field: 'fieldType',
+          placeholder: getLabel('chooseFieldTypePlaceholder', lang),
+          fieldType: 'select',
+          label: getLabel('chooseFieldType', lang),
+          optional: false,
+          options: flatChoices(lang)
+        }]
+      }}
+      actionComponents={[{
+        position: 'bottom',
+        Component: () => null
+      }]}
+    />
+  );
 }

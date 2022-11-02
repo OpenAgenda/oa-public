@@ -58,6 +58,7 @@ export default ({
         blockButtons
         hideCancel
         onSuccess={onSuccess}
+        schema={agenda?.memberSchema}
       />
     </div>
   );

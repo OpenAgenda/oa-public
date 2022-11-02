@@ -81,9 +81,9 @@ module.exports = async (services, agenda) => {
   if (agendaFeed) {
     try {
       await activities.feed(agendaFeed).activities.add({
-        actor: 'user:' + user.uid,
+        actor: `user:${user.uid}`,
         verb: 'agenda.create',
-        target: 'agenda:' + agenda.uid,
+        target: `agenda:${agenda.uid}`,
         store: {
           labels: {
             actor: user.fullName,
@@ -91,7 +91,7 @@ module.exports = async (services, agenda) => {
           }
         }
       });
-    } catch(e) {
+    } catch (e) {
       log('error', 'failed to create agenda create activity', e);
     }
   }

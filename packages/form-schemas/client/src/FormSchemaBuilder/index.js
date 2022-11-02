@@ -1,9 +1,12 @@
 import _ from 'lodash';
+import debug from 'debug';
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { unloadWarning } from '@openagenda/react-shared';
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+
 import submit from '../lib/submit';
 import merge from '../iso/merge';
 import labels from './lib/labels';
@@ -29,19 +32,38 @@ import FieldAdd from './FieldAdd';
 import FieldEdit from './FieldEdit';
 
 const modes = {
+  DEFAULT: 0,
   ORDERING: 1,
   EDITLABELLANGUAGES: 2,
   ADDFIELD: 3
 };
+
+const getLabel = makeLabelGetter(labels);
+
+const log = debug('FormSchemaBuilder');
+
+const FieldAddButton = ({ onClick, lang, disabled }) => (
+  <div className="text-center">
+    <button
+      disabled={disabled}
+      type="button"
+      className="btn btn-primary"
+      onClick={onClick}
+    >
+      {getLabel('addField', lang)}
+    </button>
+  </div>
+);
 
 export default class FormSchemaBuilder extends Component {
   constructor(props) {
     super(props);
 
     const mergedSchema = this.getMergedSchema(props);
+    const schema = props.schema?.fields ? props.schema : { fields: [] };
 
     const initState = {
-      schema: _.get(props, 'schema', { fields: [] }),
+      schema,
       labelLanguages: extractSchemaLabelLanguages(props.useExtendedLabelLanguages ? mergedSchema : props.schema),
       saveState: saveStates.UNCHANGED,
       editedField: null,
@@ -58,6 +80,8 @@ export default class FormSchemaBuilder extends Component {
 
     this.onFieldEditCancel = this.onFieldEditCancel.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+
+    log('builder for schema of %s fields, %s when merged', schema.fields.length, mergedSchema.fields.length);
   }
 
   onAccordionToggle(fieldIndex) {
@@ -117,8 +141,32 @@ export default class FormSchemaBuilder extends Component {
     this.setState({ editedField: null });
   }
 
-  onFieldAdd(addToEnd, field) {
-    this.updateSchema(addSchemaField(this.getSchema(), field, addToEnd));
+  onFieldAdd(field) {
+    const {
+      addToEnd
+    } = this.state;
+
+    const schema = this.getSchema();
+    const mergedSchema = this.getMergedSchema();
+
+    const schemaWithAbstractFields = insertMissingAbstractFields(
+      schema,
+      mergedSchema
+    );
+
+    log('adding field on schema of %s fields, %s when merged', schema.fields.length, mergedSchema.fields.length);
+
+    this.updateSchema(
+      addSchemaField(
+        schemaWithAbstractFields,
+        field,
+        addToEnd
+      )
+    );
+
+    this.setState({
+      mode: modes.DEFAULT
+    });
   }
 
   onFieldEditSave(field, update, /* parentField */) {
@@ -210,17 +258,15 @@ export default class FormSchemaBuilder extends Component {
   }
 
   renderFieldListHead() {
-    const { labelLanguages } = this.state;
     const { lang, renderHead, addEnabled } = this.props;
 
     return (
       <div>{renderHead ? renderHead() : null} {addEnabled ? (
         <div className="padding-v-sm padding-h-sm">
-          <FieldAdd
+          <FieldAddButton
             disabled={this.isDisabled(modes.ADDFIELD)}
-            labelLanguages={labelLanguages}
             lang={lang}
-            onAdd={field => this.onFieldAdd(false, field)}
+            onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: false })}
           />
         </div>
       ) : null}
@@ -352,13 +398,21 @@ export default class FormSchemaBuilder extends Component {
             </DragDropContext>
             {addEnabled ? (
               <div className="padding-v-sm padding-h-sm">
-                <FieldAdd
+                <FieldAddButton
                   disabled={this.isDisabled(modes.ADDFIELD)}
-                  labelLanguages={labelLanguages}
                   lang={lang}
-                  onAdd={addedField => this.onFieldAdd(true, addedField)}
+                  onClick={() => this.setState({ mode: modes.ADDFIELD, addToEnd: true })}
                 />
               </div>
+            ) : null}
+            {mode === modes.ADDFIELD ? (
+              <FieldAdd
+                schema={mergedSchema}
+                labelLanguages={labelLanguages}
+                lang={lang}
+                onAdd={addedField => this.onFieldAdd(addedField)}
+                onClose={() => this.setState({ mode: modes.DEFAULT })}
+              />
             ) : null}
           </div>
         </div>

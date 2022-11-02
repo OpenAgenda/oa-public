@@ -44,7 +44,7 @@ const loadJSONValue = (JSONValue, path, value, assign = false) => {
 
 function getItemValue(field, data, currentValue) {
   const itemValue = [field].concat(field.linkedFields ?? []).reduce((acc, value) => {
-    if (data[value.field] !== undefined) {
+    if (data[value.field] !== (undefined || null)) {
       return data[value.field];
     }
     return acc;

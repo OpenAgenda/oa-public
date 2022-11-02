@@ -29,6 +29,7 @@ const pickEventImage = require( '../services/event/lib/pickImage' );
 const legacyEventSvc = require( '../services/event' );
 const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
 const lib = require( '../lib/lib' );
+const convertFormat = require('./ConvertFormat');
 
 const perPage = 20;
 
@@ -127,15 +128,20 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/embeds/:embedUid/events',
     preMw,
-    cacheMw( 'customEmbedShow', 'params.embedUid', 30, [
+    cacheMw('customEmbedShow', 'params.embedUid', 30, [
       cmn.redirectLegacySearch,
-      agendaSvc.mw.load( 'uid', { cache: true } ),
-      //useless if cache is used cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
+      agendaSvc.mw.load('uid', { cache: true }),
+      embedSvc.mw.load('embedUid', 'uid'),
       embedSvc.mw.browserCache,
-      agendaSvc.mw.search( perPage ),
-      middlewares.embedShow
-    ] )
+      convertFormat({ forceLimit: perPage, forceIncludeEmbedded: true }),
+      (req, res, next) => {
+        if (req.events) {
+          return next();
+        }
+        agendaSvc.mw.search(perPage)(req, res, next);
+      },
+      middlewares.embedShow,
+    ])
   );
 
   app.get(
@@ -380,7 +386,6 @@ function redirect( req, res, next ) {
 
 
 function renderEmbedShow( req, res, next ) {
-
   agendas.get( {
     uid: req.agenda.uid
   }, {
@@ -440,7 +445,9 @@ function _format( req, res, next ) {
 
   }, function( err, formattedEvents ) {
 
-    if ( err ) return cb( err );
+    if ( err ) {
+      return next( err );
+    }
 
     const passedQuery = JSON.parse( JSON.stringify( req.query ) );
 
@@ -511,16 +518,48 @@ function _loadAgendaByAgendaId( req, res, next ) {
 
 }
 
+function getAgendaCategory(inst, cb) {
+  if (inst.category !== undefined) {
+    cb(null, inst.category);
+    return;
+  }
+  inst.getAgendaCategory(cb);
+}
 
-function _formatEventItem( event, req, cb ) {
+function getEventTagGroups(agenda, inst, cb) {
+  if (inst.tagGroups !== undefined) {
+    return cb(null, inst.tags, inst.tagGroups);
+  }
 
-  const inst = legacyEventSvc.instanciate( event ),
+  inst.getAgendaTags((err, tags) => {
+    if (err) return cb(err);
 
-  img = inst.getImage( true ),
+    if (!agenda.tagSet) {
+      return cb(null, [], []);
+    }
 
-  keywords = inst.getTags(),
+    const tagGroups = agenda.tagSet.groups.map(g => ({
+      name: g.name,
+      slug: g.name ? slugs.generate(g.name) : null,
+      tags: g.tags.filter(t => tags.map(t2 => t2.slug).includes(t.slug)),
+    })).filter(g => g.tags.length);
 
-  organization = event.organization ? { slug: event.organizationSlug, label: event.organization } : false;
+    cb(null, tags, tagGroups);
+  });
+}
+
+function hasPath(image) {
+  return (image ?? '').match(/^(http(s):|)\/\//);
+}
+
+function _formatEventItem(event, req, cb) {
+  const inst = legacyEventSvc.instanciate(event);
+
+  const img = hasPath(inst.image) ? inst.image : inst.getImage(true);
+
+  const keywords = inst.getTags();
+
+  const organization = event.organization ? { slug: event.organizationSlug, label: event.organization } : false;
 
   inst.switchLanguage( req.lang );
 
@@ -533,13 +572,13 @@ function _formatEventItem( event, req, cb ) {
     keywordList: eventFormat.listifyKeywords( keywords ),
     tags: [],
     title: inst.getTitle(),
-    image: img ? img/*.replace( 'cibuldev', 'cibul' )*/ : false,
+    image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
     thumbnail: pickEventImage( config, inst, 'thumbnail' ),
     description: inst.getDescription(),
     freeText: getLongDescriptionHTML({
       lang: req.lang,
       services: req.app.services
-    }, inst.getFreeText(), longDescriptionLinks),
+    }, inst.getFreeText() ?? inst.longDescription, longDescriptionLinks),
     longDescriptionLinks,
     placeName: inst.getLocationName(),
     address: inst.getAddress()?.label,
@@ -564,34 +603,27 @@ function _formatEventItem( event, req, cb ) {
     location: _.mapValues( _.first( inst.locations ), value => _.isObject( value ) ? _.get( value, req.lang ) : value )
   } );
 
-  inst.getAgendaCategory( function( err, c ) {
+  getAgendaCategory(inst, (err, c) => {
+    if (err) return cb(err, formatted);
 
-    if ( err ) return cb( err, formatted );
-
-    if ( c ) {
-
+    if (c) {
       formatted.category = c.label;
 
       formatted.categorySlug = c.slug;
-
     }
 
-    inst.getAgendaTags( function( err, t ) {
+    getEventTagGroups(req.agenda, inst, (err2, tags, tagGroups) => {
+      if (err2) {
+        return cb(err2);
+      }
 
-      formatted.tags = t;
+      formatted.tags = tags;
 
-      if ( req.agenda.tagSet ) formatted.tagGroups = req.agenda.tagSet.groups.map( g => ( {
-        name: g.name,
-        slug: g.name ? slugs.generate( g.name ) : null,
-        tags: g.tags.filter( t => formatted.tags.map( t => t.slug ).includes( t.slug ) )
-      } ) ).filter( g => g.tags.length );
+      formatted.tagGroups = tagGroups;
 
-      return cb( null, formatted );
-
-    } );
-
-  } );
-
+      return cb(null, formatted);
+    });
+  });
 }
 
 
@@ -790,6 +822,7 @@ function _layoutData( req, res ) {
       title: req.agenda.title,
       slug: req.agenda.slug,
       res: {
+        share: url + '?sharemodal=1',
         actions: url + '/actions'
       }
     },

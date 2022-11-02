@@ -36,5 +36,9 @@ module.exports = {
     "de": "von %start% bis %end%",
     "br": "eus an %start% d'an %end%",
     "io": "crwdns12778:0%start%crwdnd12778:0%end%crwdne12778:0"
+  },
+  "selection": {
+    "en": "events selection",
+    "fr": "sélection d'événements"
   }
 }

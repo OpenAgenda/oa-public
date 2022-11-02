@@ -34,11 +34,11 @@ async function createSenderActivity(services, { agenda, invitationContext, membe
     target: `agenda:${agenda.uid}`,
     store: {
       labels: {
-        actor: invitationContext.sender.memberName,
+        actor: invitationContext.sender.memberName || user.fullName,
         object: member.custom.email,
         target: agenda.title
       },
-      credential: member.role
+      role: member.role
     }
   });
 }

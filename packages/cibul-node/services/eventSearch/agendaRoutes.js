@@ -19,7 +19,7 @@ const handleError = require('./lib/handleError');
 
 module.exports = services => ({
   getPublic: () => Router({
-    mergeParams: true
+    mergeParams: true,
   }).get(
     '',
     loadSearchEndpoint(services.core),
@@ -31,16 +31,16 @@ module.exports = services => ({
     ifFormat(['md', 'txt'], streamMarkdown),
     ifFormat('rss', RSSResponse(services.core)),
     ifFormat('json', JSONResponse),
-    (req, res) => res.status(400).send('Unknown format')
+    (req, res) => res.status(400).send('Unknown format'),
   ),
   getRestricted: () => Router({
-    mergeParams: true
-  }).get('',
+    mergeParams: true,
+  }).get('', [
     expressUtils.https,
     services.members.mw.authorizeAdminModOrKey({
-      agendaUidPath: 'params.agendaUid'
+      agendaUidPath: 'params.agendaUid',
     }),
-    loadSearchEndpoint(services.core),
+    loadSearchEndpoint(services.core, { admin: true }),
     loadAgendaLanguagesAndFormSchemas(services),
     ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
     ifJSONStreamRequested(loadSearchStream()),
@@ -52,13 +52,14 @@ module.exports = services => ({
     ifFormat('rss', RSSResponse(services.core)),
     ifFormat('json', JSONResponse),
     handleError,
-    (req, res) => res.status(400).send('Unknown format')),
+    (req, res) => res.status(400).send('Unknown format'),
+  ]),
   getAgendaExportsSettings: ({ admin } = false) => [
     admin ? services.members.mw.authorizeAdminModOrKey({
-      agendaUidPath: 'params.agendaUid'
+      agendaUidPath: 'params.agendaUid',
     }) : (req, res, next) => { next(); },
     loadSearchEndpoint(services.core),
     loadAgendaLanguagesAndFormSchemas(services),
-    loadAgendaExportsSettings(services)
-  ]
+    loadAgendaExportsSettings(services),
+  ],
 });

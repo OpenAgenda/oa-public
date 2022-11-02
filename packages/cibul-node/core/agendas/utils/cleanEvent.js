@@ -13,7 +13,7 @@ const { BadRequest } = require('@openagenda/verror');
 const labels = require('@openagenda/labels/event/form');
 
 const eventFields = eventSchema.eventFields({
-  labels
+  labels,
 });
 
 const eventFieldNames = eventFields.map(f => f.field);
@@ -23,7 +23,7 @@ const invalidLocationUidErrorItem = uid => ({
   code: 'invalid',
   message: 'provided location uid is invalid',
   origin: uid,
-  step: 'validation'
+  step: 'validation',
 });
 
 function asArray(obj) {
@@ -39,7 +39,7 @@ function distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
     agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
     network: schemaExtensions.network ? schemaExtensions.network.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
-    event: []
+    event: [],
   };
 
   fieldsPerSchema.event = _.keys(consolidatedClean).filter(field => !fieldsPerSchema.agenda.includes(field) && !fieldsPerSchema.network.includes(field));
@@ -47,7 +47,7 @@ function distributeCleanData(consolidatedClean, schemaExtensions) {
   return {
     custom: _.pick(consolidatedClean, fieldsPerSchema.agenda),
     networkCustom: _.pick(consolidatedClean, fieldsPerSchema.network),
-    event: _.pick(consolidatedClean, fieldsPerSchema.event)
+    event: _.pick(consolidatedClean, fieldsPerSchema.event),
   };
 }
 
@@ -56,7 +56,7 @@ function validateEvent({
   validateAgendaEvent,
   formSchema,
   networkFormSchema,
-  location
+  location,
 }, data, options = {}) {
   const {
     draft,
@@ -68,7 +68,7 @@ function validateEvent({
     optionalSecondaryFields,
     paths,
     member,
-    access
+    access,
   } = {
     defaultLang: null,
     evaluateEvent: true,
@@ -80,12 +80,12 @@ function validateEvent({
     paths: null,
     member: null,
     access: 'public',
-    ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
+    ...typeof options === 'boolean' ? { evaluateEvent: options } : options,
   };
 
   const schemaExtensions = {
     network: networkFormSchema,
-    agenda: formSchema
+    agenda: formSchema,
   };
 
   // Define which languages should be included. Should depend on
@@ -94,7 +94,7 @@ function validateEvent({
   //  * default language
   const languages = _.get(data, 'languages') || extractLanguages(null, event ? {
     ...event,
-    ...data
+    ...data,
   } : data, { defaultLanguage: defaultLang });
 
   log('processed languages: %j', languages);
@@ -103,16 +103,16 @@ function validateEvent({
     languages,
     schemaExtensions: asArray(schemaExtensions),
     access: {
-      write: member ? getRoleSlug(member.role) : access
+      write: member ? getRoleSlug(member.role) : access,
     },
-    includeEventFields: !!evaluateEvent
+    includeEventFields: !!evaluateEvent,
   });
 
   const clean = {
     event: null,
     custom: null,
     networkCustom: null,
-    agendaEvent: null
+    agendaEvent: null,
   };
 
   const errors = [];
@@ -120,9 +120,9 @@ function validateEvent({
   // clean consolidated schemas data
   try {
     const validate = new FormSchema(consolidatedSchema, {
-      requireLabels: false
+      requireLabels: false,
     }).getValidate({
-      draft
+      draft,
     });
 
     // update:
@@ -133,7 +133,7 @@ function validateEvent({
     //   event data is partial.
     const consolidatedClean = (partial || draft ? validate.part : validate)(validateWithStoredData ? {
       ...event,
-      ...data
+      ...data,
     } : data);
 
     if (data?.image?.transformAndUpload) {
@@ -142,7 +142,7 @@ function validateEvent({
 
     Object.assign(
       clean,
-      distributeCleanData(consolidatedClean, schemaExtensions)
+      distributeCleanData(consolidatedClean, schemaExtensions),
     );
   } catch (consolidatedErrors) {
     if (!_.isArray(consolidatedErrors)) {
@@ -158,8 +158,8 @@ function validateEvent({
 
     clean.agendaEvent = validateAgendaEvent({
       ...data,
-      ...(paths ? { sourcePaths: paths } : {}),
-      userUid: member ? member.userUid : (data.userUid || data.ownerUid)
+      ...paths ? { sourcePaths: paths } : {},
+      userUid: member ? member.userUid : data.userUid || data.ownerUid,
     }, { optionalSecondaryFields, partial });
   } catch (agendaEventErrors) {
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
@@ -173,7 +173,7 @@ function validateEvent({
 
   if (errors.length) {
     throw new BadRequest({
-      info: { errors }
+      info: { errors },
     }, 'data is invalid');
   }
 
@@ -183,21 +183,21 @@ function validateEvent({
 async function cleanEvent(services, agenda, data, options = {}) {
   const {
     members,
-    agendaEvents
+    agendaEvents,
   } = services;
 
   const completeEventData = options.validateWithStoredData ? {
     ...options.event,
-    ...data
+    ...data,
   } : data;
 
   const locationUid = _.get(completeEventData, 'location.uid', _.get(completeEventData, 'locationUid'));
 
   const location = locationUid ? await services.agendaLocations.get({
-    uid: locationUid
+    uid: locationUid,
   }, {
     returnMergeTarget: true,
-    deleted: null
+    deleted: null,
   }).catch(e => {
     if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
       throw e;
@@ -217,7 +217,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get(agenda, 'network.formSchema'),
     location,
-    validateAgendaEvent: agendaEvents.validate
+    validateAgendaEvent: agendaEvents.validate,
   }, pre, options);
 }
 

@@ -16,7 +16,7 @@ module.exports = [
   (req, res, next) => {
     req.app.services.core
       .agendas(req.agenda.uid)
-      .events.remove(req.event.uid, { returnPayload: true })
+      .events.remove(req.event.uid, { returnPayload: true, context: { user: req.user } })
       .then(result => {
         req.result = result;
         next();

@@ -29,6 +29,7 @@ import I18nContext from '../../contexts/I18nContext';
 
     return {
       res: state.res,
+      activitiesConfig: state.settings.activities,
       activities: state.activities.data,
       fromId: state.activities.fromId,
       loading: state.activities.loading,
@@ -62,13 +63,19 @@ export default class AgendaDashboard extends Component {
   throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
 
   render() {
-    const { activities, nextLoading } = this.props;
-    const { labels, getLabel, lang } = this.context;
+    const { activitiesConfig, activities, nextLoading } = this.props;
+    const { getLabel } = this.context;
 
     return (
       <div className="padding-top-md">
         {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-          {activities.map(a => <ActivityItem key={'activity.' + a.id} activity={a} labels={labels} lang={lang} />)}
+          {activities.map(a => (
+            <ActivityItem
+              key={'activity.' + a.id}
+              activity={a}
+              config={activitiesConfig}
+            />
+          ))}
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

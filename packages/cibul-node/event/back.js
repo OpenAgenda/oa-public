@@ -98,6 +98,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
     agendasSvc.mw.loadBy({ path: 'params.uid', field: 'uid' }),
+    members.mw.load,
     (req, res, next) => {
       getAndDecorateIndexedEvent(req.app.services, {
         agendaUid: req.agenda.uid,
@@ -115,10 +116,11 @@ module.exports = app => {
         next();
       }, next);
     },
-    members.mw.loadAndAuthorize('moderator', {
-      or: (req, res) => res.json({ count: 0 })
-    }),
     (req, res, next) => {
+      if (!req.user) {
+        return res.json({ count: 0 });
+      }
+
       const {
         activities: activitiesSvc
       } = req.app.services;
@@ -126,15 +128,15 @@ module.exports = app => {
       const limit = 20;
 
       const feed = activitiesSvc.feed({
-        entityType: 'agenda',
-        entityUid: req.agenda.uid
+        entityType: 'user',
+        entityUid: req.member.userUid
       });
 
       feed.get().then(data => {
         if (!data) return res.json({});
 
         feed.activities.list(
-          { object: `event:${req.event.uid}` },
+          { object: `event:${req.event.uid}`/* , target: `agenda:${req.agenda.uid}` */ },
           req.query.fromId || 0,
           limit
         )
@@ -144,6 +146,7 @@ module.exports = app => {
 
             res.json({
               activities,
+              config: req.query.withConfig ? activitiesSvc.getFormatConfig() : undefined,
               count: activities.length,
               nextUrl: lastPage
                 ? null

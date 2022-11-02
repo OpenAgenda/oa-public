@@ -3,30 +3,70 @@
 const VError = require('verror');
 const log = require('@openagenda/logs')('agendaEvents/addEventCreationActivity');
 
-module.exports = async (services, eventFeed, { agenda, event, user }, context) => {
+module.exports = async (services, eventFeed, {
+  ae,
+  agenda,
+  event,
+  user
+}, context) => {
   log('processing');
   const {
     activities: activitiesSvc,
-    members: membersSvc
+    members: membersSvc,
+    agendas: agendasSvc,
+    events: eventsSvc,
   } = services;
 
   if (!user) {
     return log('error', new VError('user of uid %s not found', context.userUid));
   }
 
-  await activitiesSvc.feed(eventFeed).activities.add({
-    actor: `user:${user.uid}`,
-    verb: 'event.create',
-    object: `event:${event.uid}`,
-    target: `agenda:${agenda.uid}`,
-    store: {
-      labels: {
-        actor: user.fullName,
-        object: event.title,
-        target: agenda.title
-      }
-    }
-  });
+  const { duplicateOrigin } = context;
+
+  // Duplication
+  if (duplicateOrigin) {
+    const duplicateOriginAgenda = await agendasSvc.get({ uid: duplicateOrigin.agendaUid }, {
+      internal: true,
+      private: null
+    });
+
+    const originEvent = await eventsSvc.get(duplicateOrigin.eventUid, {
+      includeFields: ['ownerUid'],
+      access: 'internal',
+      private: null
+    });
+
+    await activitiesSvc.feed(eventFeed).activities.add({
+      actor: `user:${user.uid}`,
+      verb: 'event.duplicate',
+      object: `event:${event.uid}`,
+      target: `agenda:${agenda.uid}`,
+      store: {
+        labels: {
+          actor: ae.member.custom.contactName || user.fullName,
+          object: event.title,
+          target: agenda.title,
+          duplicateOriginAgenda: duplicateOriginAgenda.title
+        },
+        duplicateOriginAgendaUid: duplicateOriginAgenda.uid,
+        ownerUid: originEvent.ownerUid
+      },
+    });
+  } else {
+    await activitiesSvc.feed(eventFeed).activities.add({
+      actor: `user:${user.uid}`,
+      verb: 'event.create',
+      object: `event:${event.uid}`,
+      target: `agenda:${agenda.uid}`,
+      store: {
+        labels: {
+          actor: ae.member.custom.contactName || user.fullName,
+          object: event.title,
+          target: agenda.title
+        }
+      },
+    });
+  }
 
   await membersSvc.patch.actions.increment({
     agendaUid: agenda.uid,

@@ -346,12 +346,12 @@ function _getCustomFields( req, e, mapping, cb ) {
   // this call works for unconfigured custom fields. Used by MCC 2015 agendas. Need to be
   // deprecated to use getEventPublicCustomData only ( or any single source of structured event data )
 
-  e.getCustomFields( req.lang, true, ( err, eventCustomFields ) => {
+  e.getCustomFields( req.lang, false, ( err, eventCustomFields ) => {
 
     if ( err ) return cb( err );
 
     req.agenda.getEventPublicCustomData( e, req.lang, ( err, custom ) => {
-
+      
       if ( err ) return cb( err );
 
       custom.forEach( ( c ) => {

@@ -1,20 +1,24 @@
 'use strict';
 
 const _ = require('lodash');
-const { Forbidden, BadRequest } = require('@openagenda/verror');
-const getAgenda = require('../utils/getAgenda');
+const { Forbidden, BadRequest, GeneralError } = require('@openagenda/verror');
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const dispatchDataPerSchemas = require('@openagenda/form-schemas/iso/dispatchDataPerSchemas');
+const getMemberSchema = require('../utils/getMemberSchema');
 const format = require('./lib/format');
 const canCreate = require('./lib/canCreate');
 
-module.exports = async (services, agendaOrUid, userUid, role, data, options = {}) => {
+module.exports = async (core, agendaOrUid, userUid, role, data, options = {}) => {
+  const { services } = core;
   const {
     members,
-    users
+    users,
+    custom,
   } = services;
 
   const {
     userUid: actingUserUid,
-    access = null
+    access = null,
   } = options;
 
   if (!actingUserUid && access !== 'internal') {
@@ -23,20 +27,16 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  const agenda = await getAgenda(services, agendaUid, { detailed: true });
-
-  const memberData = {
-    ...(data || {}),
-  };
-
-  if (options.useAccountEmail) {
-    memberData.email = await users.get(userUid).then(u => u.email);
-  }
-
   const actingMember = actingUserUid ? await members.get({
     agendaUid,
-    userUid: actingUserUid
+    userUid: actingUserUid,
   }) : null;
+
+  const agenda = agendaOrUid?.constructor.name === 'Object'
+    ? agendaOrUid
+    : await core.agendas(agendaUid).get({ detailed: true, includeMemberSchema: true, includeSplitedMemberSchema: true, access, actingMember });
+
+  const schemas = await getMemberSchema(services, agenda, { access, actingMember });
 
   if (!canCreate(services, {
     agenda,
@@ -44,15 +44,48 @@ module.exports = async (services, agendaOrUid, userUid, role, data, options = {}
     actingUserUid,
     userUid,
     role,
-    access
+    access,
   })) {
     throw new Forbidden('Not authorized to add a member');
   }
 
-  return members.create({
-    agendaUid,
+  const memberData = {
+    ...data || {},
+  };
+
+  if (options.useAccountEmail) {
+    memberData.email = await users.get(userUid).then(u => u.email);
+  }
+
+  let cleanMemberData = null;
+  try {
+    const validate = new FormSchema(schemas.merged).getValidate();
+    cleanMemberData = validate(memberData);
+  } catch (error) {
+    throw new BadRequest({
+      info: { error },
+    }, 'data is invalid');
+  }
+
+  try {
+    if (agenda.memberSchemaId) {
+      const dispatchedData = dispatchDataPerSchemas(memberData, [schemas.schema, schemas.agendaSchema]);
+      await custom(agenda.memberSchemaId).set(userUid, dispatchedData[1]);
+    }
+    await members.create({
+      agendaUid,
+      userUid,
+      role: members.utils.getRoleCode(role ?? 'contributor'),
+      custom: format.custom(memberData, {}),
+    }, { requireCustom: false });
+  } catch (error) {
+    throw new GeneralError(error, 'something went wrong');
+  }
+
+  return {
+    ...cleanMemberData,
+    deletedUser: false,
     userUid,
-    role: members.utils.getRoleCode(role ?? 'contributor'),
-    custom: format.custom(memberData)
-  }, { requireCustom: false }).then(result => format(members, result.member));
+    role,
+  };
 };

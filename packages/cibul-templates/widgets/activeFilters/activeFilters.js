@@ -161,6 +161,16 @@ var widget = function( elem, options ) {
 
     }
 
+    if ( reqParams.uids ) {
+
+      newFilters.push({
+        type: 'uids',
+        label: getLabel('selection', lang),
+        keys: [ 'uids' ]
+      })
+
+    }
+
     if ( reqParams.tags ) {
 
       reqTags = ( typeof reqParams.tags == 'string' ) ? [ reqParams.tags ] : reqParams.tags;

@@ -1,16 +1,15 @@
 import _ from 'lodash';
 
 import React, { useState } from 'react';
-import SimplePageDecorator from './decorators/SimplePage';
 import FormSchemaComponent from '../client/src/index';
+import SimpleRowDecorator from './decorators/SimpleRow';
 import '@openagenda/bs-templates/compiled/main.css';
 
 if (module.hot) module.hot.accept();
 
-
 export default {
   title: 'Field types',
-  decorators: [SimplePageDecorator],
+  decorators: [SimpleRowDecorator],
 };
 
 export function TextArea() {
@@ -355,18 +354,18 @@ export function LinkFields() {
 
   return (
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-  <div className="row margin-v-md margin-h-sm">
-    <FormSchemaComponent {...props}/>
-  </div>
-  </div>
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent {...props} />
+      </div>
+    </div>
   );
 }
 
 export function DateFields() {
   const props = {
-    res: { 
-      post: '', 
-      redirect: '/' 
+    res: {
+      post: '',
+      redirect: '/'
     },
     lang: 'fr',
     schema: {
@@ -398,6 +397,106 @@ export function DateFields() {
       <div className="row margin-v-md margin-h-sm">
         <p>A single required choice field</p>
         <FormSchemaComponent {...props} />
+      </div>
+    </div>
+  );
+}
+
+export function SelectFields() {
+  const [values, setValues] = useState(null);
+  const props = {
+    res: {
+      post: '',
+      redirect: '/'
+    },
+    lang: 'fr',
+    schema: {
+      fields: [{
+        field: 'amultiselectfield',
+        fieldType: 'multiselect',
+        label: 'Make some choices',
+        optional: false,
+        default: 2,
+        options: [{
+          id: 1,
+          value: 'option-one',
+          label: 'Option one'
+        }, {
+          id: 2,
+          value: 'option-two',
+          label: 'Option two'
+        }, {
+          id: 3,
+          value: 'option-three',
+          label: 'Option three'
+        }, {
+          id: 4,
+          value: 'option-four',
+          label: 'Option Four',
+          display: false
+        }]
+      }, {
+        field: 'anoptionalreadiofieldwithinfo',
+        fieldType: 'select',
+        label: 'Make an informed choice, or not',
+        optional: true,
+        options: [{
+          id: 5,
+          value: 'elephant',
+          label: 'Elephant',
+          info: 'Big and gray, not very hairy.'
+        }, {
+          id: 6,
+          value: 'spider',
+          label: 'Spider',
+          info: 'Never small enough, with 8 feet and 8 eyes'
+        }, {
+          id: 7,
+          value: 'fork',
+          label: 'Fork',
+          info: { en: 'Why is this even here?', fr: 'Pourquoi?' }
+        }]
+      }, {
+        field: 'animplicitelyoptionalradiofield',
+        fieldType: 'select',
+        label: 'Unspecified optional means optional',
+        options: [{
+          id: 8,
+          value: 'tbag',
+          label: 'Tea bag'
+        }]
+      }, {
+        field: 'requiredwithoutvalueatloadisrequired',
+        fieldType: 'select',
+        label: 'Required without value at load is required',
+        info: 'Do not select anything and submit to see error message',
+        optional: false,
+        options: [{
+          id: 9,
+          value: 'scorbut',
+          label: 'Scorbut'
+        }, {
+          id: 10,
+          value: 'wall',
+          label: 'Wall'
+        }]
+      }]
+    },
+    onChange: setValues
+  };
+
+  return (
+    <div className="row">
+      <div className="col-lg-6 wsq">
+        <p>A single required choice field</p>
+        <FormSchemaComponent {...props} />
+      </div>
+      <div className="col-lg-6">
+        <pre>
+          <code>
+            {JSON.stringify(values, null, 2)}
+          </code>
+        </pre>
       </div>
     </div>
   );

@@ -14,8 +14,7 @@ module.exports = {
     schemas : {
       agenda: 'agenda',
       occurrence: 'occurrence',
-      agendaEvent: 'agenda_event',
-      legacyCredentialSet: 'legacy_credential_set'
+      agendaEvent: 'agenda_event'
     },
 
     imagePath: '//openagendatst.s3.amazonaws.com/',

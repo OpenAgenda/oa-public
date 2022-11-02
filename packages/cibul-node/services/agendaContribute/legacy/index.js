@@ -1,24 +1,28 @@
 'use strict';
 
+const fs = require('fs');
 const _ = require('lodash');
 const marked = require('marked');
 const getLabel = require('@openagenda/labels/makeLabelGetter')(
-  require('@openagenda/labels/event/addEvent')
+  require('@openagenda/labels/event/addEvent'),
 );
 const layouts = require('../../lib/layouts');
 const config = require('../../../config');
 
 const renderAddEvent = _.template(
-  require('fs').readFileSync(__dirname + '/addEvent.tpl', 'utf-8')
+  fs.readFileSync(`${__dirname}/addEvent.tpl`, 'utf-8'),
 );
 
 module.exports = app => {
   const {
     agendas,
-    events
+    events,
   } = app.services;
 
-  app.get(['/:agendaSlug/addevent', '/:agendaSlug/event/:eventSlug/edit'],
+  app.get([
+    '/:agendaSlug/addevent',
+    '/:agendaSlug/event/:eventSlug/edit',
+  ], [
     agendas.mw.load,
     (req, res, next) => {
       if (!req.agenda) return next({ code: 404 });
@@ -37,16 +41,16 @@ module.exports = app => {
       if (!req.agenda.credentials.useContributeApp) {
         return next();
       }
-      res.redirect(301, req.event
-        ? `/${req.agenda.slug}/contribute/event/${req.event.uid}`
-        : `/${req.agenda.slug}/contribute`
+      res.redirect(
+        301,
+        req.event ? `/${req.agenda.slug}/contribute/event/${req.event.uid}` : `/${req.agenda.slug}/contribute`,
       );
     },
-    (req, res, next) => {
+    (req, res) => {
       const layoutData = {
         agenda: req.agenda,
         lang: req.lang,
-        title: '/addevent'
+        title: '/addevent',
       };
 
       layoutData.translateMode = Boolean(req.cookies.translateMode);
@@ -55,7 +59,7 @@ module.exports = app => {
       if (req.cookies.translateMode) {
         layoutData.scripts.top = [
           { body: 'window._jipt = [[\'project\', \'openagenda\']];' },
-          { src: '//cdn.crowdin.com/jipt/jipt.js' }
+          { src: '//cdn.crowdin.com/jipt/jipt.js' },
         ];
       }
 
@@ -63,9 +67,8 @@ module.exports = app => {
         title: getLabel('title', req.lang),
         message: marked(getLabel('message', req.lang)),
         support: getLabel('support', req.lang),
-        supportLink: `/support?origin=${encodeURIComponent(`/${req.agenda.slug}/addevent`)}`
+        supportLink: `/support?origin=${encodeURIComponent(`/${req.agenda.slug}/addevent`)}`,
       }), layoutData));
-    }
-  );
-
-}
+    },
+  ]);
+};

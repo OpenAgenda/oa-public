@@ -1,132 +1,94 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
-const schema = require( '@openagenda/validators/schema' );
-const validators = require( '@openagenda/validators' );
-const method = require( '../../utils/method' );
+const _ = require('lodash');
+const schema = require('@openagenda/validators/schema');
+const validators = require('@openagenda/validators');
+const applyMask = require('./utils/applyMask');
 
-schema.register( {
-  number: validators.number
-} );
+schema.register({
+  number: validators.number,
+});
 
-module.exports = function get( config, identifiers, activityId, cb ) {
+const fieldsSchema = [
+  {
+    name: 'id',
+    schema: {
+      type: 'number',
+      optional: false,
+    },
+  }, {
+    name: 'actor',
+  }, {
+    name: 'verb',
+  }, {
+    name: 'object',
+  }, {
+    name: 'target',
+  }, {
+    name: 'store',
+  }, {
+    name: 'created_at',
+    dataKey: 'createdAt',
+  }, {
+    name: 'updated_at',
+    dataKey: 'updatedAt',
+  },
+];
+
+module.exports = async function get(config, feedIdentifiers, activityId) {
 
   const { service, knex } = config;
-  const defaultHook = _.merge( {}, {
-    data: {
-      id: activityId
-    }
-  } );
 
-  const promise = method( [
-    {
-      field: {
-        name: 'id',
-        schema: {
-          type: 'number',
-          optional: false
-        }
-      }
-    }, {
-      field: {
-        name: 'actor'
-      }
-    }, {
-      field: {
-        name: 'verb'
-      }
-    }, {
-      field: {
-        name: 'object'
-      }
-    }, {
-      field: {
-        name: 'target'
-      }
-    }, {
-      field: {
-        name: 'store'
-      }
-    }, {
-      field: {
-        name: 'created_at',
-        dataKey: 'createdAt'
-      }
-    }, {
-      field: {
-        name: 'updated_at',
-        dataKey: 'updatedAt'
-      }
-    }
-  ], ( hook, next ) => {
+  const dataSchema = fieldsSchema.reduce((prev, field) => {
+    if (!field.schema) return prev;
 
-    const dataSchema = hook.fields.reduce( ( prev, field ) => {
-      if ( !field.schema ) return prev;
+    prev[field.dataKey || field.name] = field.schema;
 
-      prev[ field.dataKey || field.name ] = field.schema;
+    return prev;
+  }, {});
 
-      return prev;
-    }, {} );
+  const validate = schema(dataSchema);
 
-    const validate = schema( dataSchema );
+  const data = validate({
+    id: activityId,
+  });
 
-    try {
-      hook.data = validate( hook.data );
-    } catch ( e ) {
-      return next( e );
-    }
+  const columnToSelect = fieldsSchema.reduce((prev, field) => {
+    // if ( !params.internal && field.internal ) return prev;
 
-    const columnToSelect = hook.fields.reduce( ( prev, field ) => {
-      // if ( !params.internal && field.internal ) return prev;
+    prev.push((field.table ? `${field.table}.${field.name}` : field.name) + ` as ${field.dataKey || field.name}`);
+    return prev;
+  }, []);
 
-      prev.push( (field.table ? `${field.table}.${field.name}` : field.name) + ` as ${field.dataKey || field.name}` );
-      return prev;
-    }, [] );
+  const where = fieldsSchema.reduce((prev, field) => {
+    if (!data[field.dataKey || field.name]) return prev;
 
-    const where = hook.fields.reduce( ( prev, field ) => {
-      if ( !hook.data[ field.dataKey || field.name ] ) return prev;
+    prev[field.name] = data[field.dataKey || field.name];
+    return prev;
+  }, {});
 
-      prev[ field.name ] = hook.data[ field.dataKey || field.name ];
-      return prev;
-    }, {} );
+  const feed = feedIdentifiers
+    ? await service.feed(feedIdentifiers).get({ internal: true })
+    : undefined;
 
-    const feedGetter = () => identifiers ? service.feed( identifiers ).get( { internal: true } ) : Promise.resolve();
+  const request = knex(config.schemas.activity).first(columnToSelect).where(where);
 
-    return feedGetter()
-      .then( feed => {
+  if (feed) {
+    request.join(
+      config.schemas.feed_activity,
+      config.schemas.feed_activity + '.activity_id',
+      config.schemas.activity + '.id',
+    )
+      .select(`${config.schemas.feed_activity}.mask`);
+  }
 
-        const request = knex( config.schemas.activity ).column( columnToSelect ).where( where ).limit( 1 );
+  const activity = await request;
 
-        if ( feed ) {
-          request.join(
-            config.schemas.feed_activity,
-            config.schemas.feed_activity + '.activity_id',
-            config.schemas.activity + '.id'
-          );
-        }
+  if (!activity) {
+    throw new Error('Activity doesn\'t exists');
+  }
 
-        return request
-          .then( rows => {
+  activity.store = JSON.parse(activity.store);
 
-            if ( !rows.length ) {
-
-              throw new Error( 'Activity doesn\'t exists' );
-
-            }
-
-            const activity = rows[ 0 ];
-
-            activity.store = JSON.parse( activity.store );
-
-            return Promise.resolve( activity );
-
-          } );
-
-      } );
-
-  }, { defaultHook } );
-
-  return promisePlusCb( promise, cb );
-
+  return applyMask(activity);
 };

@@ -4,7 +4,6 @@ module.exports = [
   'event/inbox',
   'agenda/inbox',
   'agenda/requestContribute',
-  'admin/activities',
   'admin/agendas',
   'admin/index',
   'admin/users',

@@ -8,22 +8,20 @@ module.exports = async (
     getSourceEntry,
     enqueueLoadSourceRemoves,
     getAgendaSourceId,
+    onRemoveSource,
   },
   aggregatorAgenda,
   sourceIdOrAgenda,
-  options = {}
+  options = {},
 ) => {
-  const { evaluate } = {
-    evaluate: false,
-    ...options,
-  };
+  const { evaluate = false, context = {} } = options;
 
   const sourceId = typeof sourceIdOrAgenda === 'object'
     ? await getAgendaSourceId(sourceIdOrAgenda, aggregatorAgenda)
     : sourceIdOrAgenda;
 
   const log = Log(
-    `removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`
+    `removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`,
   );
 
   const source = await getSourceEntry(sourceId, { detailed: true });
@@ -34,6 +32,17 @@ module.exports = async (
   }
 
   await removeSourceEntry(aggregatorAgenda, source.agenda);
+
+  try {
+    if (typeof onRemoveSource === 'function') {
+      await onRemoveSource(
+        { aggregatorAgenda, sourceAgenda: source.agenda },
+        context,
+      );
+    }
+  } catch (e) {
+    log("can't call interface onAddSource", e);
+  }
 
   if (evaluate) {
     log('source removed, evaluating');

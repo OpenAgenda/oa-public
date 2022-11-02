@@ -36,8 +36,6 @@ var utils = require( '@openagenda/utils' ),
 
   flash = require( './handleFlashMessage.js' ),
 
-  notifications = require( '@openagenda/activity-apps/dist/client/notifications' ),
-
   headerInbox = require( './headerInbox' ),
 
   LE = require( './le' ),
@@ -79,8 +77,6 @@ du.asapReady( function () {
   toggle();
 
   flash();
-
-  notifications();
 
   headerInbox();
 

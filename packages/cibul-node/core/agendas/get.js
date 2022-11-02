@@ -2,17 +2,18 @@
 
 const log = require('@openagenda/logs')('core/agendas/get');
 const {
-  NotFound
+  NotFound,
 } = require('@openagenda/verror');
 const getMergedSchema = require('./settings/getMergedSchema');
+const getMemberSchema = require('./utils/getMemberSchema');
 const loadSummary = require('./utils/loadSummary');
 
 function cacheAndReturn(services, options, agendaUid, result) {
   const {
-    simpleCache
+    simpleCache,
   } = services;
   const {
-    useCache
+    useCache,
   } = options;
 
   if (useCache) {
@@ -30,12 +31,12 @@ function cacheAndReturn(services, options, agendaUid, result) {
 
 async function get(core, agendaUid, options = {}) {
   const {
-    services
+    services,
   } = core;
 
   const {
     agendas,
-    simpleCache
+    simpleCache,
   } = services;
 
   const {
@@ -43,11 +44,15 @@ async function get(core, agendaUid, options = {}) {
     detailed = false,
     includeEvent = false,
     includeAgendaEvent = false,
+    includeOriginAgenda = false,
     includeMember = false,
     includeDateRange = false,
     throwNotFound = false,
     includeNonDataFields = false,
-    useCache = false
+    useCache = false,
+    includeMemberSchema = false,
+    includeSplitedMemberSchema = false,
+    actingMember = null,
   } = options;
 
   log('getting agenda %s, info with access %s', agendaUid, access);
@@ -63,7 +68,7 @@ async function get(core, agendaUid, options = {}) {
     includeImagePath: true,
     ...options,
     detailed: false,
-    internal: true
+    internal: true,
   });
 
   if (!agenda && throwNotFound) {
@@ -72,9 +77,11 @@ async function get(core, agendaUid, options = {}) {
     return cacheAndReturn(services, options, agendaUid, null);
   }
 
-  if (!detailed && !includeEvent) {
+  if (!detailed && !includeEvent && !includeMemberSchema) {
     return cacheAndReturn(
-      services, options, agendaUid,
+      services,
+      options,
+      agendaUid,
       access === 'internal' ? agenda : agendas.utils.filterByAccess(agenda, 'read', access)
     );
   }
@@ -96,32 +103,42 @@ async function get(core, agendaUid, options = {}) {
     includeMember,
     includeDateRange,
     includeAgendaEvent,
-    access: typeof access === 'string' ? { read: access } : access
+    includeOriginAgenda,
+    access: typeof access === 'string' ? { read: access } : access,
   });
+
+  if (includeMemberSchema) {
+    related.memberSchema = includeSplitedMemberSchema ? await getMemberSchema(services, agenda, { access, actingMember }) : (await getMemberSchema(services, agenda, { access, actingMember })).merged;
+  }
 
   if (access === 'internal') {
     return cacheAndReturn(
-      services, options, agendaUid,
+      services,
+      options,
+      agendaUid,
       { ...agenda, ...related }
     );
   }
 
   return cacheAndReturn(
-    services, options, agendaUid, {
+    services,
+    options,
+    agendaUid,
+    {
       ...agendas.utils.filterByAccess(agenda, 'read', access),
-      ...related
+      ...related,
     }
   );
 }
 
 async function bySlug(core, slug, options = {}) {
   const {
-    services
+    services,
   } = core;
 
   const {
     simpleCache,
-    agendas
+    agendas,
   } = services;
 
   const cachedAgenda = await simpleCache.hash('agendas', slug).get('api', { json: true });
@@ -138,5 +155,5 @@ async function bySlug(core, slug, options = {}) {
 }
 
 module.exports = Object.assign(get, {
-  slug: bySlug
+  slug: bySlug,
 });

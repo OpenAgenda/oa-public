@@ -10,7 +10,7 @@ function getFieldValues(field) {
     return ['true', 'false'].map(v => (
       [field.schemaId, field.field, v].join('.')
     ));
-  }  
+  }
   return field.options.map(o => [field.schemaId, o.id].join('.'));
 }
 
@@ -33,9 +33,9 @@ module.exports.formatDSL = (query, options = {}) => {
     const fieldValues = getFieldValues(field);
 
     aggregationQuery.terms.include = fieldValues;
-    aggregationQuery.terms.size = fieldValues.length;
+    aggregationQuery.terms.size = fieldValues.length || 1;
   } else {
-    aggregationQuery.terms.size = _formSchemaOptionsCount(options.formSchema);
+    aggregationQuery.terms.size = _formSchemaOptionsCount(options.formSchema) || 1;
   }
 
   return aggregationQuery;
@@ -91,7 +91,7 @@ function _decorateWithSchemaFieldAndOption(formSchema, { key, doc_count }) {
   const keyParts = key.split('.');
   const schemaId = parseInt(keyParts.shift());
   const optionValue = keyParts.join('.');
-  
+
   for (const field of formSchema.fields) {
     if (field.schemaId !== schemaId) continue;
     if (!field.options && field.fieldType !== 'boolean') continue;

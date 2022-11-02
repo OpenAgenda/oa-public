@@ -177,6 +177,17 @@
         ],
         "fieldType": "radio",
         "schemaId": 3
+      },
+      {
+        "field": "no-option",
+        "label": "Un choix sans choix",
+        "info": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "options": [],
+        "fieldType": "radio",
+        "schemaId": 3
       }
     ]
   }

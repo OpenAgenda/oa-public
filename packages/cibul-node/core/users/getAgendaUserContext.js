@@ -21,12 +21,13 @@ module.exports = async function getAgendaUserContext(core, identifier, agendaUid
     context.me = {};
   }
 
-  const member = includes.includes('me.member') || includes.includes('events') ? await core
+  const { isValid, member } = includes.includes('me.member') || includes.includes('events') ? await core
     .agendas(agendaUid).members
-    .get(identifier, options) : undefined;
+    .get(identifier, { ...options, isValid: true }) : undefined;
 
   if (includes.includes('me.member')) {
     context.me.member = member;
+    context.me.isValid = isValid;
   }
 
   if (includes.includes('me.authorizations')) {

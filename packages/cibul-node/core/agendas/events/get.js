@@ -26,14 +26,14 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat,
     useLocationObjectFormat,
     longDescriptionFormat,
-    private: loadPrivate
+    private: loadPrivate,
   } = {
     lang: null,
     load: {
       event: true,
       custom: true,
       agendaEvent: true,
-      member: true
+      member: true,
     },
     access: 'public',
     returnPayload: false,
@@ -42,7 +42,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     useLocationObjectFormat: false,
     longDescriptionFormat: null,
     private: false,
-    ...options
+    ...options,
   };
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
@@ -50,7 +50,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   const payload = createPayload(services, agenda);
 
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
-    decorate: ['member'].concat(detailed ? ['sourceAgendas'] : [])
+    decorate: ['member'].concat(detailed ? ['sourceAgendas'] : []),
   });
 
   payload.setItem('agendaEvent', agendaEvent);
@@ -63,7 +63,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
       useFallbackLang: true,
       useDateHoursMinutesFormat,
       useLocationObjectFormat,
-      private: loadPrivate
+      private: loadPrivate,
     });
 
     if (convertLongDescription.shouldConvert(event?.longDescription, longDescriptionFormat)) {
