@@ -67,8 +67,12 @@ module.exports = (query = {}) => {
     ];
   }
 
-  if (sorts[0].split('.')[0] === 'timings') {
+  if (firstSortType === 'timings') {
     return timings(query);
+  }
+
+  if (firstSortType === 'lastTiming') {
+    return timings(query, { mode: 'max'});
   }
 
   return sorts.map(sort => {
