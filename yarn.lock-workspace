@@ -4129,7 +4129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/styled-system@npm:2.3.4, @chakra-ui/styled-system@npm:^2.3.4":
+"@chakra-ui/styled-system@npm:2.3.4":
   version: 2.3.4
   resolution: "@chakra-ui/styled-system@npm:2.3.4"
   dependencies:
@@ -6940,7 +6940,6 @@ __metadata:
     "@chakra-ui/icons": ^2.0.11
     "@chakra-ui/react": ^2.3.5
     "@chakra-ui/storybook-addon": ^4.0.11
-    "@chakra-ui/styled-system": ^2.3.4
     "@chakra-ui/theme-tools": ^2.0.12
     "@emotion/react": ^11.10.4
     "@emotion/styled": ^11.10.4
