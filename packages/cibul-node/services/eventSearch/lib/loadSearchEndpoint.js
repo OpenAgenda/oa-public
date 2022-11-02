@@ -12,10 +12,14 @@ const mapIncludeFields = includeFields => {
   });
 };
 
-module.exports = core => async (req, res, next) => {
+module.exports = (core, options = {}) => async (req, res, next) => {
   req.search = core
     .agendas(req.params.agendaUid)
     .events.search;
+
+  const {
+    admin = false,
+  } = options;
 
   const { includeFields, distributeOptionalFields } = req.query;
   if (distributeOptionalFields) includeFields.push(...distributeOptionalFields);
@@ -26,29 +30,32 @@ module.exports = core => async (req, res, next) => {
     includeFields: mapIncludeFields(includeFields),
     stream: false,
     detailed: true,
-    access: req.access ?? 'public'
+    access: req.access ?? 'public',
   };
 
   req.searchQuery = {
-    ...req.query
+    ...req.query,
   };
 
   const {
     legacy: {
-      tagsAndCustom
-    }
+      tagsAndCustom,
+    },
   } = req.app.services;
 
-  if (Object.keys(req.searchQuery).includes('oaq')) {
-    let tagSet;
-    let categorySet;
+  if (!admin) {
+    req.searchQuery = {
+      ...convert(
+        req.searchQuery.oaq ?? {},
+        {
+          formSchema: await req.app.core.agendas(req.params.agendaUid).settings.get({ access: 'internal' }),
+          tagSet: req.searchQuery?.oaq?.tags ? await tagsAndCustom.getTagSet(req.params.agendaUid) : null,
+          categorySet: req.searchQuery?.oaq?.category ? await tagsAndCustom.getCategorySet(req.params.agendaUid) : null,
+        },
+      ),
+      ...req.searchQuery,
+    };
 
-    if (Object.keys(req.searchQuery.oaq).includes('tags')) tagSet = await tagsAndCustom.getTagSet(req.params.agendaUid);
-    if (Object.keys(req.searchQuery.oaq).includes('category')) categorySet = await tagsAndCustom.getCategorySet(req.params.agendaUid);
-
-    const formSchema = await req.app.core.agendas(req.params.agendaUid).settings.get({ access: 'internal' });
-
-    req.searchQuery = { ...convert(req.searchQuery.oaq, { formSchema, tagSet, categorySet }), ...req.searchQuery };
     delete req.searchQuery.oaq;
   }
 

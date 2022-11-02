@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const logs = require('@openagenda/logs');
 
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
@@ -28,8 +29,10 @@ module.exports = function ConvertFormat({
   forceIncludeEmbedded = false,
   admin = false,
 }) {
+  const log = logs('agenda/ConvertFormat');
   return async (req, res, next) => {
     if (!isEnabled(req)) {
+      log('info', 'Disabled. Using legacy JSON', req.params);
       return next();
     }
 
