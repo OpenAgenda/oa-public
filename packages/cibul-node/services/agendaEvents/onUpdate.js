@@ -9,6 +9,7 @@ const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventUpdate = require('./lib/sendEventUpdate');
 const sendEventChangeState = require('./lib/sendEventChangeState');
 const addEventUpdateActivity = require('./lib/addEventUpdateActivity');
+const addEventAggregationActivity = require('./lib/addEventAggregationActivity');
 
 function haveRealDiff(before, after) {
   return _.uniq([...Object.keys(before), ...Object.keys(after)])
@@ -19,7 +20,7 @@ function haveRealDiff(before, after) {
 module.exports = async ({ config, services }, before, after, context) => {
   const {
     legacy: legacySvc,
-    elasticsearch: legacyEventSearch
+    elasticsearch: legacyEventSearch,
   } = services;
 
   const controlDataSvc = legacySvc.controlData;
@@ -42,6 +43,20 @@ module.exports = async ({ config, services }, before, after, context) => {
     }
   }
 
+  // source added
+  if ((after.sourcePaths?.length || 0) > (before.sourcePaths?.length || 0)) {
+    try {
+      await addEventAggregationActivity(
+        services,
+        { entityType: 'event', entityUid: event.uid },
+        { agenda, event, ae: after },
+        context
+      );
+    } catch (e) {
+      log('error', e);
+    }
+  }
+
   if (context.aggregated) {
     try {
       await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
@@ -60,7 +75,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     // myEventUpdate
     try {
       await sendEventUpdate({ config, services }, {
-        agendaEvent: after, before, context, agenda, event
+        agendaEvent: after, before, context, agenda, event,
       });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event update emails'));
@@ -70,7 +85,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     // myEventChangeState
     try {
       await sendEventChangeState({ config, services }, {
-        agendaEvent: after, before, context, agenda, event
+        agendaEvent: after, before, context, agenda, event,
       });
     } catch (error) {
       log.error(new VError(error, 'Cannot send event change state emails'));

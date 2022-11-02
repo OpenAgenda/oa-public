@@ -24,7 +24,6 @@ import contributeReducer from '../reducers/contribute';
 import utils from '../lib/utils';
 
 const {
-  isMemberDataComplete,
   isMemberDataRequired,
   isContributionType,
   isMemberRole,
@@ -71,7 +70,7 @@ function App(props) {
     && isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
     && isMemberDataRequired(agenda)
     && !isMemberRole(agendaContext?.me?.member, ['administrator', 'moderator'])
-    && (!agendaContext?.me?.member || !isMemberDataComplete(agendaContext?.me?.member));
+    && (!agendaContext?.me?.member || !agendaContext?.me?.isValid);
 
   useEffect(() => {
     if (shouldGoToShareMember && !isAtShareMember) {

@@ -1,99 +1,59 @@
 "use strict";
 
 const _ = require('lodash');
-const async = require('async');
 const log = require('@openagenda/logs')('activities/notifications/tasks/prepareSummary');
 
 module.exports = async function prepareSummary(config) {
+  const { service, knex, interfaces } = config;
+  const { getUser, isUnsubscribed } = interfaces;
 
-  const { service, knex } = config;
-
-  _traverseTable(
-    knex,
-    config.schemas.feed_notification,
-    q => q.select(
-      config.schemas.feed_notification + '.feed_id',
-      knex.raw(`Min(${config.schemas.feed_notification + '.id'}) AS id`),
-      config.schemas.feed + '.entity_type',
-      config.schemas.feed + '.entity_uid'
-    )
+  try {
+    const stream = knex(config.schemas.feed)
+      .select(
+        config.schemas.feed + '.id',
+        config.schemas.feed + '.entity_type',
+        config.schemas.feed + '.entity_uid',
+        knex.raw(`Min(${config.schemas.feed_notification + '.id'}) AS minNotifId`),
+      )
+      .join(
+        config.schemas.feed_notification,
+        config.schemas.feed + '.id',
+        config.schemas.feed_notification + '.feed_id',
+      )
       .where({ state: 0, sent: 0 })
+      // .andWhere(knex.raw(`${config.schemas.feed_notification + '.updated_at'} > CURRENT_TIMESTAMP - INTERVAL 2 DAY`))
       .groupBy(config.schemas.feed_notification + '.feed_id')
-      .join(config.schemas.feed, config.schemas.feed_notification + '.feed_id', config.schemas.feed + '.id'),
-    async (item, index, cb) => {
-      let notifications = await knex(config.schemas.feed_notification).select()
-        .where({ feed_id: item.feed_id, state: 0, sent: 0 })
-        .andWhere('id', '>=', item.id)
-        .orderBy('updated_at', 'desc');
+      .orderBy(config.schemas.feed_notification + '.feed_id')
+      .stream();
 
-      notifications = notifications.map(notif => {
-
-        notif = _.mapKeys(notif, (value, key) => _.camelCase(key));
-        notif.store = JSON.parse(notif.store || '{}');
-
-        return notif;
-
-      });
-
-      const { getUser, isUnsubscribed } = config.interfaces;
-
-      const user = await getUser(item.entity_uid);
-
-      if (!user) {
-        return cb();
-      }
-
+    for await (const item of stream) {
       try {
-        if ( !await isUnsubscribed( user.uid ) ) {
-        service.tasks.notifications.sendSummary({ user, notifications });
+        const user = await getUser(item.entity_uid);
+
+        if (!user) {
+          continue;
         }
 
-        cb();
-      } catch (e) {
-        return cb(e);
-      }
+        let notifications = await knex(config.schemas.feed_notification).select()
+          .where({ feed_id: item.id, state: 0, sent: 0 })
+          .andWhere('id', '>=', item.minNotifId)
+          .orderBy('updated_at', 'desc');
 
-    },
-    (err, rowsAffected) => {
+        notifications = notifications.map(notif => {
+          notif = _.mapKeys(notif, (value, key) => _.camelCase(key));
+          notif.store = JSON.parse(notif.store || '{}');
 
-      if (err) return log('error', err);
-
-    }
-  );
-
-}
-
-function _traverseTable(knex, table, queryModifier, eachCb, cb) {
-
-  let rowsCount = 0;
-  let rowsAffected = 0;
-
-  async.doWhilst(
-    dcb => {
-
-      const query = knex(table).offset(rowsAffected).limit(100);
-
-      queryModifier(query)
-        .then(rows => {
-
-          rowsCount = rows.length;
-          rowsAffected += rows.length;
-
-          if (!rows.length) return dcb();
-
-          async.eachOfSeries(rows, (item, i, ecb) => {
-            eachCb(item, rowsAffected - rows.length + Number.parseInt(i), ecb);
-          }, dcb);
-
+          return notif;
         });
 
-    },
-    () => rowsCount > 0,
-    err => {
-
-      cb(err, rowsAffected);
-
+        if (!await isUnsubscribed(user.uid)) {
+          service.tasks.notifications.sendSummary({ user, feedId: item.id, notifications });
+        }
+      } catch (e) {
+        log('error', `Can't send notifications summary to user ${user.uid}`, e);
+      }
     }
-  );
-
+  } catch (e2) {
+    log('error', 'Can\'t send notifications summary', e2);
+  }
 }

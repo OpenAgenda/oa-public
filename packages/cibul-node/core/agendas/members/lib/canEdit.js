@@ -5,12 +5,12 @@ const log = require('@openagenda/logs')('core/agendas/members/canEdit');
 module.exports = ({ members }, {
   acting,
   userUid,
-  role
+  role,
 }) => {
   const {
     utils: {
-      getRoleSlug
-    }
+      getRoleSlug,
+    },
   } = members;
 
   const actingRoleSlug = acting ? getRoleSlug(acting.role) : null;

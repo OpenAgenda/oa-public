@@ -9,6 +9,7 @@ module.exports = async (
     addSourceEntry,
     getMergedSchema,
     enqueueLoadSourceEvaluates,
+    onAddSource,
   },
   aggregatorAgenda,
   sourceAgenda,
@@ -16,7 +17,7 @@ module.exports = async (
   options = {}
 ) => {
   const log = Log(`adding ${sourceAgenda.slug} to ${aggregatorAgenda.slug}`);
-  const { query = null } = options;
+  const { query = null, context = {} } = options;
 
   if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
     log('already source, throwing error');
@@ -28,6 +29,14 @@ module.exports = async (
     sourceAgenda,
     sourceRules
   );
+
+  try {
+    if (typeof onAddSource === 'function') {
+      await onAddSource({ aggregatorAgenda, sourceAgenda }, context);
+    }
+  } catch (e) {
+    log("can't call interface onAddSource", e);
+  }
 
   if (query !== null) {
     log('evaluating and done');

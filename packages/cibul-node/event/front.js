@@ -370,7 +370,7 @@ async function agendaEventShow(req, res) {
     agendaReferences: req.agendaReferences,
     private: req.agenda.private,
     adminNav: req.query.admin_nav,
-    isOriginAgenda: _.get(req, 'event.origin.uid') === req.agenda.uid,
+    isOriginAgenda: req.indexedEvent?.originAgenda?.uid === req.agenda.uid,
     removeRedirect: req.query.admin_nav ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.admin_nav)}`) : null,
     redirect: cmn.makeRedirect(req),
     isCancelled: determineEventCancellationFromTitle(req.indexedEvent.title),

@@ -6,16 +6,10 @@ const createUnsubscriptionToken = require('./createUnsubscriptionToken');
 
 
 module.exports = async (services, config, params) => {
-  const usersSvc = services.users;
-  const { address: email } = params.to;
-
-  const recipientUser = await usersSvc.findOne({ query: { email } });
-
-  await defineUnsubscriptionLinks(services, config, recipientUser, params);
+  await defineUnsubscriptionLinks(services, config, params);
 };
 
-
-async function defineUnsubscriptionLinks(services, config, recipientUser, params) {
+async function defineUnsubscriptionLinks(services, config, params) {
   log('processing', _.get(params, 'to.address'));
 
   const usersSvc = services.users;
@@ -25,10 +19,8 @@ async function defineUnsubscriptionLinks(services, config, recipientUser, params
     address: email
   } = params.to;
 
-  params.data.isRegisteredUser = !!recipientUser;
-
   // user or email
-  const user = await usersSvc.findOne( { query: { email } } );
+  const user = await usersSvc.findOne( { query: { email, isActivated: true } } );
 
   params.data.isRegisteredUser = !!user;
 
@@ -40,7 +32,7 @@ async function defineUnsubscriptionLinks(services, config, recipientUser, params
   log('found %s unsubscriptions', unsubscriptions.length);
 
   // user or email
-  const firstEntity = recipientUser ? { entityName: 'user', identifier: recipientUser.uid } : { email };
+  const firstEntity = user ? { entityName: 'user', identifier: user.uid } : { email };
 
   for (const unsubscription of unsubscriptions) {
     log('unsubscription', unsubscription);

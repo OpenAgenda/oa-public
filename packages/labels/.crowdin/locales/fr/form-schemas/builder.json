@@ -1,5 +1,5 @@
 {
-  "addField": "Ajouter un champ",
+  "addField": "Nouveau champ additionnel",
   "draggableField": "Glisser-déposer pour trier",
   "editField": "Modifier",
   "hideField": "Cacher",
@@ -69,7 +69,10 @@
   "requiredField": "Obligatoire",
   "fieldFormMaxTextLength": "Longueur maximale du texte saisi",
   "fieldFormMinTextLength": "Longueur minimal du texte saisi",
-  "chooseFieldType": "Sélection du type du champ",
+  "chooseFieldType": "Type du champ",
+  "chooseFieldTypePlaceholder": "Choisissez un type de champ",
+  "chooseOtherType": "Choisir un autre type",
+  "isLabelDuplicateError": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
   "confirmFieldType": "Configurer le champ",
   "confirmFieldCreate": "Créer le champ",
   "confirmFieldUpdate": "Modifier",

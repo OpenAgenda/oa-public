@@ -2,6 +2,8 @@
 
 const getAgenda = require('../utils/getAgenda');
 
+const preCleanSearchQuery = require('../utils/preCleanSearchQuery');
+
 module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
   const {
     agendaLocations,
@@ -9,23 +11,23 @@ module.exports = (core, agendaOrUid) => async (query, nav, options = {}) => {
 
   const {
     useAfter = true,
-    eventCounts = false
+    eventCounts = false,
   } = options;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
 
   const endpoints = agenda.locationSetUid ? agendaLocations.sets(agenda.locationSetUid).locations : agendaLocations(agenda.uid);
 
-  return endpoints.list(query, {
+  return endpoints.list(preCleanSearchQuery(query, { targetKey: 'uids' }), {
     ...nav,
     limit: nav?.size !== undefined ? nav.size : nav?.limit,
     offset: nav?.from !== undefined ? nav.from : nav?.offset,
-    useAfter
+    useAfter,
   }, {
     total: true,
     includeImagePath: true,
     detailed: !!query?.detailed,
     eventCounts,
-    context: { agendaUid: agenda.uid }
+    context: { agendaUid: agenda.uid },
   });
 };

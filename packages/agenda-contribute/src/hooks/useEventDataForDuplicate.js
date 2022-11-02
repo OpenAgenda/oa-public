@@ -17,11 +17,11 @@ function removeUnduplicatable(destinationAgenda, agenda, data) {
   }
 
   const unduplicatableFields = [
-    'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings'
+    'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings',
   ].concat(
     agenda.schema.fields
       .filter(f => !(f.duplicatable ?? true))
-      .map(f => f.field)
+      .map(f => f.field),
   );
 
   const locationOriginIsDestinationAgenda = data?.location?.agendaUid === destinationAgenda.uid;
@@ -34,7 +34,7 @@ function removeUnduplicatable(destinationAgenda, agenda, data) {
   return Object.keys(data)
     .filter(field => !unduplicatableFields.includes(field))
     .reduce((filtered, field) => Object.assign(filtered, {
-      [field]: data[field]
+      [field]: data[field],
     }), {});
 }
 
@@ -43,16 +43,16 @@ export default function useEventDataForDuplicate(destinationAgenda) {
 
   const {
     eventUid,
-    agendaUid
+    agendaUid,
   } = qs.parse(location.search, { ignoreQueryPrefix: true });
 
   const res = useSelector(
     state => state.settings.apiRoot + state.res.event
       .replace(':agendaUid', agendaUid ?? 'none')
-      .replace(':eventUid', eventUid ?? 'none')
+      .replace(':eventUid', eventUid ?? 'none'),
   );
   const agendaRes = useSelector(
-    state => state.settings.apiRoot + state.res.agenda.replace(':agendaUid', agendaUid ?? 'none')
+    state => state.settings.apiRoot + state.res.agenda.replace(':agendaUid', agendaUid ?? 'none'),
   );
 
   const hasReferenceForDuplicate = agendaUid && eventUid;
@@ -61,25 +61,29 @@ export default function useEventDataForDuplicate(destinationAgenda) {
 
   const {
     isLoading: isReferenceLoading,
-    data: referenceData
+    data: referenceData,
   } = useQuery(
     `duplicateFrom.${agendaUid ?? 'none'}.events.${eventUid ?? 'none'}`,
-    () => axios.get(res).then(response => (response.data.event)),
-    { enabled: !!hasReferenceForDuplicate }
+    () => axios.get(res).then(response => response.data.event),
+    { enabled: !!hasReferenceForDuplicate },
   );
 
   const {
     isLoading: isReferenceAgendaLoading,
-    data: referenceAgenda
+    data: referenceAgenda,
   } = useQuery(
     `duplicateFrom.${agendaUid ?? 'none'}`,
-    () => axios.get(agendaRes).then(response => (response.data)),
-    { enabled: !!hasReferenceForDuplicate }
+    () => axios.get(agendaRes).then(response => response.data),
+    { enabled: !!hasReferenceForDuplicate },
   );
 
   return useMemo(() => ({
     hasReferenceForDuplicate,
     isReferenceLoading: isReferenceLoading || isReferenceAgendaLoading,
     referenceData: referenceAgenda && referenceData ? removeUnduplicatable(destinationAgenda, referenceAgenda, referenceData) : null,
-  }), [hasReferenceForDuplicate, isReferenceLoading, referenceData, isReferenceAgendaLoading, referenceAgenda, destinationAgenda]);
+    duplicateOrigin: {
+      agendaUid,
+      eventUid,
+    },
+  }), [hasReferenceForDuplicate, isReferenceLoading, referenceData, isReferenceAgendaLoading, referenceAgenda, destinationAgenda, agendaUid, eventUid]);
 }

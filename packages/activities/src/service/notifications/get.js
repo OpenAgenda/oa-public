@@ -63,7 +63,7 @@ function get( config ) {
 
   if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
 
-    return promisePlusCb( Promise.reject( new VError( 'The notifications concern only feeds users' ) ), cb );
+    return promisePlusCb( Promise.reject( new VError( 'The notifications concern only feeds of type user' ) ), cb );
 
   }
 
@@ -116,7 +116,7 @@ function get( config ) {
       if ( feed === null ) return Promise.reject( new VError( 'Feed not found' ) );
 
       if ( feed.entityType && feed.entityType !== 'user' ) {
-        return Promise.reject( new VError( 'The notifications concern only feeds users' ) );
+        return Promise.reject( new VError( 'The notifications concern only feeds of type user' ) );
       }
 
       const request = knex( config.schemas.feed_notification ).first()

@@ -28,8 +28,9 @@
     "section": "manage"
   },
   {
-    "name": "activities",
-    "section": "manage"
+    "name": "history",
+    "section": "manage",
+    "route": "/activities"
   },
   {
     "name": "embeds",

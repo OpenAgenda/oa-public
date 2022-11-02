@@ -57,10 +57,12 @@ module.exports = async ({ services, members, activityQueue }, member, context) =
     }
 
     // loading member removing
-    const userMember = await members.get({
-      agendaUid: agenda.uid,
-      userUid: user.uid
-    });
+    const userMember = member.userUid === user.uid
+      ? member
+      : await members.get({
+        agendaUid: agenda.uid,
+        userUid: user.uid
+      });
 
     try {
       await activityQueue('addMemberRemove', {

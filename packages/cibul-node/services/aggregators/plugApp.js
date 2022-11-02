@@ -72,7 +72,13 @@ module.exports = (config, parentApp) => {
       req.agenda,
       req.sourceAgenda,
       req.body.rules,
-      { query: req.body.query }
+      {
+        query: req.body.query,
+        context: {
+          user: req.user,
+          member: req.member,
+        }
+      }
     ).then(res.json.bind(res), next)
   );
 
@@ -114,7 +120,13 @@ module.exports = (config, parentApp) => {
     (req, res, next) => aggregators.sources.remove(
       req.agenda,
       req.params.sourceId,
-      { evaluate: [true, 1, 'true', '1'].includes(req.query.evaluate) }
+      {
+        evaluate: [true, 1, 'true', '1'].includes(req.query.evaluate),
+        context: {
+          user: req.user,
+          member: req.member,
+        }
+      }
     ).then(res.json.bind(res), next)
   );
 

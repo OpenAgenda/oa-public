@@ -36,6 +36,7 @@ module.exports = config => {
           lang: user.culture,
           data: {
             activateLink: link,
+            emailSettingsLink: null
           },
           queue: false,
         } );
@@ -52,6 +53,7 @@ module.exports = config => {
           lang: user.culture,
           data: {
             resetLink: link,
+            emailSettingsLink: null
           },
           queue: false,
         } );

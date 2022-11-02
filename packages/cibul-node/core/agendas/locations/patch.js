@@ -4,7 +4,7 @@ const getAgenda = require('../utils/getAgenda');
 
 module.exports = (core, agendaOrUid) => async (uid, data) => {
   const {
-    agendaLocations
+    agendaLocations,
   } = core.services;
 
   const agenda = await getAgenda(core.services, agendaOrUid);
@@ -14,6 +14,6 @@ module.exports = (core, agendaOrUid) => async (uid, data) => {
   return endpoints.patch(uid, data, {
     geocodeIfUndefined: true,
     includeImagePath: true,
-    agendaUid: agenda.uid
+    agendaUid: agenda.uid,
   });
 };

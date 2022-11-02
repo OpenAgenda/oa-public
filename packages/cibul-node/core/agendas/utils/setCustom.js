@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = async (customService, formSchemaId, eventUid, data, { agendaId }) => {
+module.exports = async (customService, formSchemaId, itemUid, data, { agendaId }) => {
   const result = {
     errors: []
   };
@@ -18,7 +18,7 @@ module.exports = async (customService, formSchemaId, eventUid, data, { agendaId 
 
     Object.assign(
       result,
-      await customService(formSchemaId).set(eventUid, data, options)
+      await customService(formSchemaId).set(itemUid, data, options)
     );
   } catch (errors) {
     result.errors = errors;

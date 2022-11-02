@@ -1,39 +1,57 @@
-'use strict';
+const { apiClient } = require('@openagenda/react-shared');
 
-const { PHASE_PRODUCTION_BUILD } = require('next/constants');
+const withTM = require('next-transpile-modules')(['@openagenda/uikit']);
 
-const {
-  config
-} = require('cibul-node');
+/** @type {() => import('next').NextConfig} */
+const config = async () => {
+  const {
+    NEXT_API_INTERNAL_BASE_URL,
+    NEXT_PUBLIC_ASSET_PREFIX,
+  } = process.env;
 
-const {
-  apiClient
-} = require('@openagenda/react-shared');
-
-module.exports = async phase => {
   const serverRuntimeConfig = {
-    config
+    apiRoot: NEXT_API_INTERNAL_BASE_URL,
+    api: (req, method, ...args) => apiClient(NEXT_API_INTERNAL_BASE_URL, req)[method](...args),
   };
 
-  if (phase !== PHASE_PRODUCTION_BUILD) {
-    serverRuntimeConfig.api = (req, method, ...args) => apiClient(`http://localhost:${config.port}`, req)[method](...args)
-  }
-
-  const nextConfig = {
+  return withTM({
+    assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
+    i18n: {
+      locales: ['fr', 'en'],
+      defaultLocale: 'fr',
+    },
     serverRuntimeConfig,
+    eslint: {
+      dirs: [
+        'src',
+        'scripts',
+        '.storybook',
+        'stories',
+      ],
+    },
+    experimental: {
+      images: {
+        allowFutureImage: true,
+        // remotePatterns: [
+        //   {
+        //     protocol: 'https',
+        //     hostname: 'openagenda.com',
+        //   },
+        // ],
+      },
+      isrMemoryCacheSize: 0, // Defaults to 50MB
+    },
     async rewrites() {
       return {
-        fallback: [{
-          source: '/:path*',
-          destination: `http://localhost:${config?.port}/:path*`
-        }]
+        fallback: [
+          {
+            source: '/:path*',
+            destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
+          },
+        ],
       };
-    }
-  };
-  
-  if (config?.next?.CDN) {
-    nextConfig.assetPrefix = config.next.CDN;
-  }
-
-  return nextConfig;
+    },
+  });
 };
+
+module.exports = config;

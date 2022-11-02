@@ -1,10 +1,15 @@
+const webpack = require('webpack');
+const ImageConfig = require('next/dist/shared/lib/image-config');
+
 module.exports = {
   stories: [
-    '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)'
+    '../stories/**/*.stories.@(tsx|ts|jsx|js|mts|mjs|cts)',
+  ],
+  addons: [
+    'storybook-addon-next',
   ],
   core: {
-    builder: 'webpack5'
+    builder: 'webpack5',
   },
   webpackFinal(config) {
     config.module.rules.push({
@@ -14,6 +19,13 @@ module.exports = {
       },
     });
 
+    config.plugins.push(new webpack.DefinePlugin({
+      'process.env.__NEXT_IMAGE_OPTS': JSON.stringify({
+        ...ImageConfig.imageConfigDefault,
+        experimentalFuture: true,
+      }),
+    }));
+
     return config;
-  }
+  },
 };

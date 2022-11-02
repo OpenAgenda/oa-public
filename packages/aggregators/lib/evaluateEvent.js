@@ -158,6 +158,7 @@ module.exports = async (
     log('source paths need to be updated. Updating reference');
     return updateSourcePaths({
       aggregatorAgendaUid,
+      sourceAgenda,
       eventUid: event.uid,
       paths: updatedPaths,
     });

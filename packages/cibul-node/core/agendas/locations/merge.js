@@ -4,7 +4,7 @@ const getAgenda = require('../utils/getAgenda');
 
 module.exports = (core, agendaOrUid) => async (mergeInItem, query, data, options = {}) => {
   const {
-    agendaLocations
+    agendaLocations,
   } = core.services;
 
   const agenda = await getAgenda(core.services, agendaOrUid);

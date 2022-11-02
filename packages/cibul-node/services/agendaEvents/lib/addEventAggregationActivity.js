@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = async (services, eventFeed, { agenda, event }, context) => {
+module.exports = async (services, eventFeed, { agenda, event, ae }, context) => {
   const {
     activities: activitiesSvc
   } = services;
@@ -13,11 +13,14 @@ module.exports = async (services, eventFeed, { agenda, event }, context) => {
     object: `event:${event.uid}`,
     target: `agenda:${agenda.uid}`, // aggregator
     store: {
+      state: ae.state,
+      ownerUid: event.ownerUid,
+      originAgendaUid: event.agendaUid,
       labels: {
         actor: sourceAgenda.title,
         object: event.title,
-        target: agenda.title
-      }
-    }
+        target: agenda.title,
+      },
+    },
   });
 };

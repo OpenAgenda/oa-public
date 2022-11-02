@@ -74,8 +74,8 @@ describe('01 - embeds - validate', () => {
       } catch (e) {
         errors.short = e;
       }
-      expect(errors.long.info[0].code).toBe('string.toolong');
-      expect(errors.short.info[0].code).toBe('string.tooshort');
+      expect(errors.long.info.errors[0].code).toBe('string.toolong');
+      expect(errors.short.info.errors[0].code).toBe('string.tooshort');
     });
 
     it('mapTiles is false when not specified', () => {

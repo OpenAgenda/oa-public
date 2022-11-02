@@ -6,6 +6,8 @@ const Aggregators = require('@openagenda/aggregators');
 const log = require('@openagenda/logs')('services/aggregators');
 
 const plugApp = require('./plugApp');
+const onAddSource = require('./onAddSource');
+const onRemoveSource = require('./onRemoveSource');
 
 module.exports.init = (config, services) => {
   log('init');
@@ -26,9 +28,15 @@ module.exports.init = (config, services) => {
         .settings.schema.getMerged(),
       updateSourcePaths: ({
         aggregatorAgendaUid,
+        sourceAgenda,
         eventUid,
         paths
-      }) => services.agendaEvents.utils.setSourcePaths(aggregatorAgendaUid, eventUid, paths),
+      }) => services.agendaEvents.utils.setSourcePaths(
+        aggregatorAgendaUid,
+        eventUid,
+        paths,
+        { context: { sourceAgenda } },
+      ),
       referenceEvent: async ({
         aggregatorAgendaUid,
         eventUid,
@@ -144,7 +152,23 @@ module.exports.init = (config, services) => {
           'id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'
         ])));
       },
-      getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount()
+      getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount(),
+      onAddSource: ({ aggregatorAgenda, sourceAgenda }, { user, member }) => {
+        onAddSource(services, {
+          aggregatorAgenda,
+          sourceAgenda,
+          user,
+          member
+        });
+      },
+      onRemoveSource: ({ aggregatorAgenda, sourceAgenda }, { user, member }) => {
+        onRemoveSource(services, {
+          aggregatorAgenda,
+          sourceAgenda,
+          user,
+          member
+        });
+      },
     }
   });
 

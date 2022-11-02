@@ -1,10 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
-const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
+const applyMask = require('./utils/applyMask');
 
 schema.register( {
   text: validators.text,
@@ -12,105 +11,108 @@ schema.register( {
   number: validators.number
 } );
 
-module.exports = function list( config, identifiers ) {
+const argsSchema = {
+  query: {
+    type: 'pass'
+  },
+  offset: {
+    type: 'number'
+  },
+  limit: {
+    type: 'number',
+    max: 100
+  },
+  options: {
+    type: 'pass'
+  }
+}
+
+
+function parseListArguments(...args) {
+  const objectAtFirst = typeof args[0] === 'object';
+  const objectAtLast = typeof args[args.length - 1] === 'object';
+
+  const query = objectAtFirst ? args[0] : {};
+  const options = objectAtLast ? args[args.length - 1] : {};
+
+  const [offset = 0, limit = 20] = args.slice(
+    objectAtFirst ? 1 : 0,
+    objectAtLast ? args.length - 1 : args.length
+  );
+
+  return { query, offset, limit, options };
+}
+
+module.exports = async function list( config, feedIdentifiers, ...restArgs ) {
 
   const { service, knex } = config;
-  const args = parseListArguments.apply( null, Array.from( arguments ).slice( 2 ) );
+
+  const args = parseListArguments(...restArgs);
 
   args.query = _.pick( args.query, [ 'actor', 'verb', 'object', 'target', 'createdAt' ] );
 
-  const validateArgs = schema( {
-    query: {
-      type: 'pass'
-    },
-    offset: {
-      type: 'number'
-    },
-    limit: {
-      type: 'number',
-      max: 100
-    },
-    options: {
-      type: 'pass'
-    },
-    cb: {
-      type: 'pass'
-    }
-  } );
+  const validateArgs = schema(argsSchema);
 
   let {
     query,
     offset: fromId,
     limit,
     options,
-    cb
   } = validateArgs( args );
 
-  const params = _.merge( {
-    feeds: false // TODO get feeds in which the activities are
-  }, options );
+  const feed = feedIdentifiers
+    ? await service.feed(feedIdentifiers).get({ internal: true })
+    : undefined;
 
-  const feedGetter = () => identifiers ? service.feed( identifiers ).get( { internal: true } ) : Promise.resolve();
+  const columnToSelect = [ 'id', 'actor', 'verb', 'object', 'target', 'store', 'created_at', 'updated_at' ]
+    .reduce( ( prev, name ) => {
+      prev.push( `${config.schemas.activity}.${name} as ${_.camelCase( name )}` );
+      return prev;
+    }, [] );
 
-  const promise = feedGetter()
-    .then( feed => {
+  const { createdAt } = query;
+  query = _.pick( query, 'actor', 'verb', 'object', 'target' );
 
-      const columnToSelect = [ 'id', 'actor', 'verb', 'object', 'target', 'store', 'created_at', 'updated_at' ]
-        .reduce( ( prev, name ) => {
-          prev.push( `${config.schemas.activity}.${name} as ${_.camelCase( name )}` );
-          return prev;
-        }, [] );
+  const request = knex( config.schemas.activity ).column( columnToSelect )
+    .where( query )
+    .limit( limit );
 
-      const { createdAt } = query;
-      query = _.pick( query, 'actor', 'verb', 'object', 'target' );
+  if ( fromId ) {
+    request.where( 'id', '<', fromId );
+  }
 
-      const request = knex( config.schemas.activity ).column( columnToSelect )
-        .where( query )
-        .limit( limit );
+  if ( createdAt && createdAt.$lte ) {
+    request.where( 'created_at', '<=', createdAt.$lte );
+  }
 
-      if ( fromId ) {
-        request.where( 'id', '<', fromId );
-      }
+  if ( createdAt && createdAt.$gte ) {
+    request.where( 'created_at', '>=', createdAt.$gte );
+  }
 
-      if ( createdAt && createdAt.$lte ) {
-        request.where( 'created_at', '<=', createdAt.$lte );
-      }
+  if ( typeof createdAt === 'number' ) {
+    request.where( 'created_at', '=', createdAt );
+  }
 
-      if ( createdAt && createdAt.$gte ) {
-        request.where( 'created_at', '>=', createdAt.$gte );
-      }
+  if (feed !== undefined) {
+    request
+      .select(config.schemas.feed_activity + '.mask')
+      .join(
+        config.schemas.feed_activity,
+        config.schemas.feed_activity + '.activity_id',
+        config.schemas.activity + '.id'
+      )
+      .where( config.schemas.feed_activity + '.feed_id', feed ? feed.id : 0 )
+      .orderBy(config.schemas.activity + '.id', 'desc');
+  } else {
+    request.orderBy(config.schemas.activity + '.id', 'desc');
+  }
 
-      if ( typeof createdAt === 'number' ) {
-        request.where( 'created_at', '=', createdAt );
-      }
+  const rows = await request;
 
-      if ( feed !== undefined ) {
-        request
-          .join(
-            config.schemas.feed_activity,
-            config.schemas.feed_activity + '.activity_id',
-            config.schemas.activity + '.id'
-          )
-          .where( config.schemas.feed_activity + '.feed_id', feed ? feed.id : 0 )
-          .orderBy(config.schemas.activity + '.id', 'desc');
-      } else {
-        request.orderBy(config.schemas.activity + '.id', 'desc');
-      }
+  return rows.map(activity => {
+    activity.store = JSON.parse(activity.store);
 
-      return request
-        .then( rows => {
-
-          return rows.map( row => {
-
-            row.store = JSON.parse( row.store );
-            return row;
-
-          } );
-
-        } );
-
-    } );
-
-  return promisePlusCb( promise, cb );
+    return applyMask(activity);
+  });
 
 };

@@ -72,6 +72,22 @@ describe( 'agendas - functional (server): get', function() {
 
   } );
 
+  it( 'internal get returns memberSchemaId', done => {
+
+    svc.get( 4875, { internal: true }, ( err, agenda ) => {
+
+      should( err ).equal( null );
+
+      _.pick( agenda, [ 'memberSchemaId'] ).should.eql( {
+        memberSchemaId: null,
+      } );
+
+      done();
+
+    } );
+
+  } );
+
 
   it( 'find one agenda by title', done => {
 

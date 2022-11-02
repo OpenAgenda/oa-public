@@ -1,6 +1,6 @@
+import React, { useState, useCallback } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import { Modal } from '@openagenda/react-shared';
-import React, { Component } from 'react';
 
 import ChooseFieldType from './ChooseFieldType';
 import FieldForm from './FieldForm';
@@ -8,129 +8,115 @@ import labels from './lib/labels';
 
 const getLabel = makeLabelGetter(labels);
 
-export default class FieldAdd extends Component {
-  constructor(props) {
-    super(props);
+const Canvas = ({ children, modal, onClose }) => (modal ? (
+  <Modal
+    classNames={{ overlay: 'popup-overlay big' }}
+    onClose={() => onClose()}
+  >
+    {children}
+  </Modal>
+) : <>{children}</>);
 
-    this.state = {
-      adding: false,
-      fieldType: null
-    };
-  }
+const isDuplicateLabel = (schema, field) => {
+  const fieldLabels = typeof field.label === 'string' ? [field.label] : Object.values(field.label);
+  return !!schema.fields.reduce(
+    (existingLabels, schemaField) => existingLabels.concat(typeof schemaField.label === 'string' ? [schemaField.label] : Object.values(schemaField.label)),
+    []
+  ).filter(label => fieldLabels.includes(label)).length;
+};
 
-  onSubmit(values) {
-    const {
-      onAdd
-    } = this.props;
+const ErrorSummary = ({
+  errors
+}) => (
+  <div className="error-summary boxed margin-top-sm padding-h-sm padding-v-xs">
+    {errors.map(e => e.label).join(', ')}
+  </div>
+);
 
-    onAdd(values);
+const DisabledFieldForm = ({ lang }) => (
+  <FieldForm
+    enable={false}
+    initFieldType="text"
+    onSubmit={() => {}}
+    lang={lang}
+    labelLanguages={[]}
+    actionComponent={() => (<></>)}
+  />
+);
 
-    this.close();
-  }
+export default function FieldAdd({
+  onAdd: propsOnAdd,
+  schema,
+  onClose,
+  lang,
+  modal = true,
+  labelLanguages
+}) {
+  const [fieldType, setFieldType] = useState(null);
+  const [errors, setErrors] = useState([]);
 
-  onShowChooseTypeMenu() {
-    this.setState({
-      adding: true,
-      fieldType: null
-    });
-  }
+  const onAdd = useCallback(field => {
+    // slug is not defined here: it cannot be used as a basis for duplicate detection
+    if (isDuplicateLabel(schema, field)) {
+      setErrors([{
+        label: getLabel('isLabelDuplicateError', lang)
+      }]);
+      return;
+    }
+    setErrors([]);
+    propsOnAdd(field);
+  }, [schema, propsOnAdd, setErrors, lang]);
 
-  onChooseType(chosenType) {
-    this.setState({
-      adding: true,
-      fieldType: chosenType
-    });
-  }
-
-  close() {
-    this.setState({
-      adding: false
-    });
-  }
-
-  renderFieldForm() {
-    const {
-      lang,
-      labelLanguages
-    } = this.props;
-
-    const fieldType = this.state?.fieldType ?? null;
-
-    return (
-      <FieldForm
-        initFieldType={fieldType}
-        onSubmit={values => this.onSubmit(values)}
+  return (
+    <Canvas
+      modal={modal}
+      onClose={onClose}
+    >
+      <h3 className="margin-v-sm">{getLabel('addField', lang)}</h3>
+      <ChooseFieldType
         lang={lang}
-        labelLanguages={labelLanguages}
-        actionComponent={({ onSubmit }) => (
-          <div>
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={this.close.bind(this)}
-            >
-              {getLabel('cancelFieldEdit', lang)}
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary pull-right"
-              onClick={onSubmit}
-            >
-              {getLabel('confirmFieldCreate', lang)}
-            </button>
-          </div>
-        )}
+        value={fieldType}
+        onChange={setFieldType}
+        onCancel={onClose}
       />
-    );
-  }
-
-  render() {
-    const { lang, disabled } = this.props;
-    const {
-      adding,
-      fieldType
-    } = this.state;
-
-    if (disabled) {
-      return (
-        <button
-          type="button"
-          disabled
-          className="btn btn-primary"
-        >
-          {getLabel('addField', lang)}
-        </button>
-      );
-    }
-
-    if (!adding) {
-      return (
-        <div className="text-center">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.onShowChooseTypeMenu.bind(this)}
-          >
-            {getLabel('addField', lang)}
-          </button>
-        </div>
-      );
-    }
-
-    return (
-      <Modal
-        classNames={{ overlay: 'popup-overlay big' }}
-        onClose={() => this.close()}
-      >
-        <h3 className="margin-bottom-md">{getLabel('addField', lang)}</h3>
-        { fieldType ? this.renderFieldForm() : (
-          <ChooseFieldType
+      {fieldType ? (
+        <>
+          {errors.length ? <ErrorSummary errors={errors} lang={lang} /> : null}
+          <FieldForm
+            initFieldType={fieldType}
+            onSubmit={onAdd}
             lang={lang}
-            onChooseType={type => this.onChooseType(type)}
-            onCancel={() => this.close()}
+            labelLanguages={labelLanguages}
+            actionComponent={({ onSubmit }) => (
+              <>
+                {errors.length ? (
+                  <div className="margin-bottom-md">
+                    <ErrorSummary errors={errors} lang={lang} />
+                  </div>
+                ) : null}
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-default"
+                    onClick={() => onClose()}
+                  >
+                    {getLabel('cancelFieldEdit', lang)}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary pull-right"
+                    onClick={onSubmit}
+                  >
+                    {getLabel('confirmFieldCreate', lang)}
+                  </button>
+                </div>
+              </>
+            )}
           />
-        )}
-      </Modal>
-    );
-  }
+        </>
+      ) : (
+        <DisabledFieldForm lang={lang} />
+      )}
+    </Canvas>
+  );
 }

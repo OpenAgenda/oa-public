@@ -90,10 +90,12 @@ module.exports = {
     ]
   },
   resolve: {
+    extensions: ['.js', '.mjs', '.json', '.wasm'],
     symlinks: false,
     alias: {
       // required only for the timings component
       'react': require.resolve( 'react' )
     },
+    extensions: ['.js', '.mjs', '.json', '.wasm'],
   },
 };

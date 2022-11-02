@@ -8,7 +8,6 @@ import usePrefix from '../hooks/usePrefix';
 import useAgendaContext from '../hooks/useAgendaContext';
 
 const {
-  isMemberDataComplete,
   replaceWithStep,
   isContributionType,
   isMemberDataRequired,
@@ -32,6 +31,7 @@ export default function Landing({
 
   useEffect(() => {
     const member = agendaContext?.me?.member;
+    const isValid = agendaContext?.me?.isValid;
 
     if (
       isContributionType(agenda, ['OPEN', 'MEMBERS_ONLY'])
@@ -46,7 +46,7 @@ export default function Landing({
       && isMemberRole(member, 'contributor')
       && (
         !isMemberDataRequired(agenda)
-        || (isMemberDataComplete(member) && memberIsFresh)
+        || (isValid && memberIsFresh)
       )
     ) {
       log('  Contributor is not required to fill member form or his data is complete. Redirecting to event step');

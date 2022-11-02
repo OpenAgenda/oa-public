@@ -60,8 +60,9 @@ module.exports = (legacyFilter, sets = {}) => {
         break;
       case 'tags': {
         if (!tagSet && !formSchema) return;
+        const filterTags = [].concat(legacyFilter.tags);
 
-        const match = tags.filter(tag => legacyFilter.tags.some(f => f === tag.slug));
+        const match = tags.filter(tag => filterTags.some(f => f === tag.slug));
 
         if (!match.length) return;
 
@@ -75,8 +76,9 @@ module.exports = (legacyFilter, sets = {}) => {
       }
       case 'category': {
         if (!categorySet && !formSchema) return;
+        const categoryFilter = [].concat(legacyFilter?.category ?? []);
 
-        const categories = categorySet.categories.filter(cat => legacyFilter.category.some(c => c === cat.slug));
+        const categories = categorySet.categories.filter(cat => categoryFilter.some(c => c === cat.slug));
 
         if (!categories.length) return;
 
@@ -85,7 +87,7 @@ module.exports = (legacyFilter, sets = {}) => {
             return carry.concat(field.options.map(option => ({
               id: option.id,
               value: option.value,
-              fieldName: field.field
+              fieldName: field.field,
             })));
           }
           return carry;

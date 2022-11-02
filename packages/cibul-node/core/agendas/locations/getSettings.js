@@ -4,7 +4,7 @@ const getAgenda = require('../utils/getAgenda');
 
 module.exports = (core, agendaOrUid) => async function getSettings(options = {}) {
   const {
-    agendaLocations
+    agendaLocations,
   } = core.services;
 
   const { lang, includeSetInfo } = options;

@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { useCookie, useInterval } from 'react-use';
 import { css } from '@emotion/react';
 import session from '@openagenda/sessions/client';
-import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
+import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications';
 import * as mainActions from '../reducers/main';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -113,11 +113,11 @@ function MainLayout({
   const user = useSelector(state => state.main.user, shallowEqual);
   const userLoaded = useSelector(state => state.main.userLoaded);
   const userLoading = useSelector(state => _.get(state, 'main.userLoading', true));
-  const apiRoot = useSelector(state => state.main.apiRoot);
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
   const isTranslator = useSelector(state => state.main.isTranslator);
   const translateMode = useSelector(state => state.main.translateMode);
+  const activitiesConfig = useSelector(state => state.settings.activities);
 
   const dispatch = useDispatch();
 
@@ -141,21 +141,6 @@ function MainLayout({
       setTimeout(() => setUserPanelOpened(false));
     }
   }, [userPanelOpened, setUserPanelOpened]);
-
-  const onSeeActivitiesClick = useCallback(
-    e => {
-      const panelElem = document.querySelector('.js_notifications_panel');
-
-      e.preventDefault();
-
-      if (!panelElem.classList.contains('hide')) {
-        panelElem.classList.add('hide');
-      }
-
-      history.push('/home/activities');
-    },
-    [history]
-  );
 
   const panelLink = useCallback(
     path => event => {
@@ -207,20 +192,6 @@ function MainLayout({
       checkInboxNews().catch(() => null);
     }
   }, [inboxLoaded, checkInboxNews]);
-
-  useEffect(() => {
-    notificationsHandler({
-      res: {
-        getCounter: `${apiRoot}/notifications/count`,
-        list: `${apiRoot}/notifications/list`,
-        remove: `${apiRoot}/notifications/remove/:notifId`,
-        markRead: `${apiRoot}/notifications/mark-read/:notifId`,
-        markAllRead: `${apiRoot}/notifications/mark-all-read`,
-        seeActivities: `${apiRoot}/home/activities`,
-      },
-      onSeeActivitiesClick,
-    });
-  }, [apiRoot, onSeeActivitiesClick]);
 
   const [viewedAnnoucement, setViewedAnnoucement] = useState(true);
 
@@ -290,6 +261,12 @@ function MainLayout({
                       ) : null}
                     </Link>
                   </li>
+
+                  <Notifications
+                    user={user}
+                    activitiesConfig={activitiesConfig}
+                    locale={intl.locale}
+                  />
 
                   <li className="profile" style={{ position: 'relative' }}>
                     <button
@@ -367,17 +344,6 @@ function MainLayout({
                         </li>
                       </ul>
                     </OutsideClickHandler>
-                  </li>
-
-                  <li className="notifications js_notifications">
-                    <button
-                      type="button"
-                      className="js_notifications_opener btn btn-link-inline"
-                    >
-                      <i className="fa fa-bell" aria-hidden="true" />
-                      <span className="label label-danger" />
-                    </button>
-                    <div className="js_notifications_panel hide" />
                   </li>
                 </>
               ) : null}

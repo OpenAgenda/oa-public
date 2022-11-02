@@ -19,7 +19,12 @@ async function task( config, q ) {
 
     try {
 
-      await config.interfaces.sendSummary( summary );
+      await config.interfaces.sendSummary( summary, config );
+
+      await config.knex(config.schemas.feed_notification)
+        .where('feed_id', summary.feedId)
+        .whereIn('id', summary.notifications.map(v => v.id))
+        .update({ sent: 1 });
 
     } catch ( e ) {
 

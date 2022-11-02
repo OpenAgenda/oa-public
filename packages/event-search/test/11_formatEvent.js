@@ -167,7 +167,8 @@ describe('11 - event-search - unit: formatEvent', function() {
       ar: '١٨ و ١٩ يناير ٢٠٢٠ ',
       en: '18 and 19 January 2020',
       de: '18 und 19 Januar 2020',
-      es: '18 i 19 enero 2020'
+      es: '18 i 19 enero 2020',
+      it: '18 e 19 gennaio 2020'
     });
   });
 

@@ -16,9 +16,9 @@ const config = {
     jsVersion: 42,
     cssVersion: 2,
     interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
-    nextPort: 8901 || process.env.OA_NEXT_PORT,
-    port: 8903 || process.env.OA_SERVER_PORT,
-    apiPort: 8902 || process.env.OA_API_PORT,
+    nextPort: process.env.OA_NEXT_PORT || 8901,
+    port: process.env.OA_SERVER_PORT || 8903,
+    apiPort: process.env.OA_API_PORT || 8902,
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',
@@ -213,9 +213,6 @@ const config = {
         prefix: 'apiKeySet:',
         publishCount: 'event/new/dayCount'
       }
-    },
-    next: {
-      CDN: process.env.NODE_ENV === 'production' ? prod?.next?.CDN ?? process.env.KEYCDN_NEXT : ''
     },
     aws: {
       accessKeyId: prod.aws && prod.aws.key,

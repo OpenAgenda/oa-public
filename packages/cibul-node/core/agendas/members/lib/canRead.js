@@ -7,7 +7,7 @@ module.exports = ({ members }, {
   actingMember,
   actingUserUid,
   userUid,
-  list
+  list,
 }) => {
   if (access === 'internal') {
     return true;
@@ -15,8 +15,8 @@ module.exports = ({ members }, {
 
   const {
     utils: {
-      getRoleSlug
-    }
+      getRoleSlug,
+    },
   } = members;
 
   const actingRoleSlug = actingMember ? getRoleSlug(actingMember.role) : null;

@@ -8,16 +8,16 @@ module.exports = ({ members, agendas }, {
   actingUserUid,
   userUid,
   role,
-  access
+  access,
 }) => {
   const {
     utils: {
       getRoleSlug,
       compareRoles: {
         isSuperiorTo,
-        isLessThan
-      }
-    }
+        isLessThan,
+      },
+    },
   } = members;
 
   if (access === 'internal') {

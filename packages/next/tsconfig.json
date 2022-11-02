@@ -1,0 +1,20 @@
+{
+  "extends": "@openagenda/tsconfig/nextjs",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+    "target": "es5",
+    "paths": {
+      "@openagenda/uikit": ["../../../public/uikit/src"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "next-env.d.ts",
+    "additional.d.ts",
+    "src"
+  ]
+}

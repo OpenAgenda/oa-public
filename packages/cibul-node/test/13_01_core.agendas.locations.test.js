@@ -43,8 +43,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         'networks',
         'legacy',
         'users',
-        'keys'
-      ]
+        'keys',
+      ],
     });
 
     core = Core(services, config);
@@ -65,7 +65,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     beforeAll(async () => {
       result = await core.agendas({
-        uid: 17026855
+        uid: 17026855,
       }).locations.list();
     });
 
@@ -81,13 +81,23 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       expect(result.after).toBe(1);
     });
 
+    it('integers provided in search part of query are processed as an uid filter', async () => {
+      const {
+        items,
+        total,
+      } = await core.agendas(17026855).locations.list({ search: '18927679' });
+
+      expect(total).toBe(1);
+      expect(items[0].uid).toBe(18927679);
+    });
+
     it('filter to limit results to unverified locations', async () => {
       const {
-        items: unverifiedLocations
+        items: unverifiedLocations,
       } = await core.agendas(99501607).locations.list({ state: 0 }, { size: 1 });
 
       const {
-        items: verifiedLocations
+        items: verifiedLocations,
       } = await core.agendas(99501607).locations.list({ state: 1 }, { size: 1 });
 
       expect(unverifiedLocations.length).toEqual(1);
@@ -96,9 +106,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     it('include event counts in result with option', async () => {
       const {
-        items
+        items,
       } = await core.agendas(17026855).locations.list({}, {}, {
-        eventCounts: true
+        eventCounts: true,
       });
 
       expect(items[0].eventCount).toBe(1);
@@ -106,17 +116,17 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     it('geo filter', async () => {
       const {
-        items: geoItems
+        items: geoItems,
       } = await core.agendas(17026855).locations.list({
         geo: {
           northEast: { lat: '48', lng: '5' },
-          southWest: { lat: '44.37', lng: '4.00' }
-        }
+          southWest: { lat: '44.37', lng: '4.00' },
+        },
       }, {}, {
       });
 
       const {
-        items
+        items,
       } = await core.agendas(17026855).locations.list({}, {}, {});
       expect(items.length).toBeGreaterThan(geoItems.length);
     });
@@ -130,7 +140,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         .agendas(17026855)
         .locations
         .get(95455142, {
-          includeLinkedAgendas: true
+          includeLinkedAgendas: true,
         });
     });
 
@@ -156,12 +166,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     beforeAll(async () => {
       result = await core.agendas({
-        uid: 17026855
+        uid: 17026855,
       }).locations.create({
         name: 'Bar le Richemont',
         address: 'Place de l\'église',
         city: 'Sarzeau',
-        countryCode: 'FR'
+        countryCode: 'FR',
       });
     });
 
@@ -173,7 +183,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
   describe('remove', () => {
     beforeAll(async () => {
       await core.agendas({
-        uid: 17026855
+        uid: 17026855,
       }).locations.remove(9955517);
     });
 
@@ -195,7 +205,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         department: 'Tarn',
         region: 'Occitanie',
         postalCode: 81000,
-        insee: 81004
+        insee: 81004,
       });
 
       return new Promise(rs => {
@@ -226,11 +236,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -243,13 +253,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             headers: {
               'access-token': accessToken,
               nonce: 1231456,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
               name: 'Chez les beaufs de kevin',
               address: '12 grande rue, Chattancourt',
-              countryCode: 'fr'
-            }
+              countryCode: 'fr',
+            },
           });
         } catch (e) {
           // console.log(e.response.data);
@@ -275,13 +285,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             headers: {
               'access-token': accessToken,
               nonce: 1231486,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
               name: 'Error on address',
               address: 'Route des Bordes, 82110 LAUZERTE',
-              countryCode: 'fr'
-            }
+              countryCode: 'fr',
+            },
           });
         } catch (e) {
           // console.log(e.data.response)
@@ -307,14 +317,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           form.append('data', JSON.stringify({
             name: 'Un lieu avec image',
             address: '12 grande rue, Chattancourt',
-            countryCode: 'fr'
+            countryCode: 'fr',
           }));
 
           response = await axios({
             method: 'post',
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: form.getHeaders(),
-            data: form
+            data: form,
           });
         } catch (e) {
           // console.log(e.response.data);
@@ -323,7 +333,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('image of created location is uploaded', async () => {
         const uploadedHead = await axios.head(response.data.location.image);
-        const sinceLastModified = (new Date()).getTime() - (new Date(uploadedHead.headers['last-modified'])).getTime();
+        const sinceLastModified = new Date().getTime() - new Date(uploadedHead.headers['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(5000);
       });
     });
@@ -340,14 +350,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           form.append('data', JSON.stringify({
             name: 'Un lieu sans image mais en enctype form-data',
             address: '8 rue Alice, Courbevoie',
-            countryCode: 'FR'
+            countryCode: 'FR',
           }));
 
           createdLocation = await axios({
             method: 'post',
             url: 'http://localhost:3000/agendas/17026855/locations',
             headers: form.getHeaders(),
-            data: form
+            data: form,
           });
         } catch (e) {
           // console.log(e);
@@ -368,7 +378,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             headers: {
               'access-token': accessToken,
               nonce: 789456,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
               name: 'Tournon-sur-Rhône',
@@ -381,8 +391,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
               extId: 'ard04',
               countryCode: 'FR',
               latitude: 45.068507,
-              longitude: 4.830648
-            }
+              longitude: 4.830648,
+            },
           });
         } catch (e) {
           // console.log(e.response.data);
@@ -403,11 +413,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             headers: {
               'access-token': accessToken,
               nonce: 10111213,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
-              name: 'Tournon-sur-Rhône patché'
-            }
+              name: 'Tournon-sur-Rhône patché',
+            },
           });
         } catch (e) {
           // console.log(e.response.data);
@@ -429,11 +439,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             headers: {
               'access-token': accessToken,
               nonce: 1011883,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
-              name: 'patché par extId'
-            }
+              name: 'patché par extId',
+            },
           });
         } catch (e) {
           // console.log(e.response.data);
@@ -455,12 +465,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           method: 'get',
           url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
         });
 
         const {
-          location
+          location,
         } = getResponse.data;
 
         expect(location.uid).toBe(95455142);
@@ -473,12 +483,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           headers: {
             'access-token': accessToken,
             nonce: 1014563,
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         });
 
         const {
-          location
+          location,
         } = getResponse.data;
 
         expect(location.uid).toBe(95455142);
@@ -489,12 +499,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           method: 'get',
           url: 'http://localhost:3000/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
         });
 
         const {
-          location
+          location,
         } = getResponse.data;
 
         expect(location.uid).toBe(95455142);
@@ -505,12 +515,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           method: 'get',
           url: 'http://localhost:3000/agendas/17026855/locations/ext/ard04?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
         });
 
         const {
-          location
+          location,
         } = getResponse.data;
 
         expect(location.uid).toBe(24505639);
@@ -526,11 +536,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           method: 'get',
           url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9'
+            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         result = await axios({
@@ -538,11 +548,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1
+            limit: 1,
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
       });
 
@@ -567,11 +577,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
-            detailed: true
+            detailed: true,
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         expect(Object.keys(detailedResults.locations[0])).toEqual(
@@ -588,7 +598,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'state', 'imageCredits', 'imageRightsAreHeld',
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
-            'mergedIn'
+            'mergedIn',
           ]
         );
       });
@@ -603,8 +613,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             state: 1,
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         expect(verifiedLocations.length).toBe(0);
@@ -617,11 +627,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
-            eventCounts: 1
+            eventCounts: 1,
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         expect(locations[0].eventCount).toBe(1);
@@ -634,11 +644,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1, // legacy
-            after: result.after
+            after: result.after,
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         const locationNames = allResults.locations.map(l => l.name);
@@ -654,11 +664,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             size: 1,
-            from: 2
+            from: 2,
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         const locationNames = allResults.locations.map(l => l.name);
@@ -673,11 +683,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           url: 'http://localhost:3000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            order: 'name.asc'
+            order: 'name.asc',
           },
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).then(r => r?.data);
 
         expect(locations.map(i => i.name).join(' - ')).toBe(
@@ -698,13 +708,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             geo: {
               northEast: { lat: '48', lng: '5' },
-              southWest: { lat: '44.37', lng: '0.00' }
-            }
+              southWest: { lat: '44.37', lng: '0.00' },
+            },
           },
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
-          paramsSerializer: params => qs.stringify(params)
+          paramsSerializer: params => qs.stringify(params),
         }).then(r => r?.data);
 
         const noFilterResults = await axios({
@@ -714,9 +724,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           },
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
-          paramsSerializer: params => qs.stringify(params)
+          paramsSerializer: params => qs.stringify(params),
         }).then(r => r?.data);
         expect(geoResults.total).toBeLessThan(noFilterResults.total);
       });
@@ -728,8 +738,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           method: 'head',
           url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         });
 
         expect(headResponse.status).toBe(200);
@@ -742,8 +752,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           headers: {
             'access-token': accessToken,
             nonce: 7894548789,
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         });
 
         expect(headResponse.status).toBe(200);
@@ -756,8 +766,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           headers: {
             'access-token': accessToken,
             nonce: 10145789,
-            'content-type': 'application/json'
-          }
+            'content-type': 'application/json',
+          },
         }).catch(e => e);
 
         expect(error.response.status).toBe(404);
@@ -775,8 +785,8 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             headers: {
               'access-token': accessToken,
               nonce: 7894523,
-              'content-type': 'application/json'
-            }
+              'content-type': 'application/json',
+            },
           });
         } catch (e) {
           // console.log(e);
@@ -792,13 +802,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
   describe('sets and interfaces', () => {
     beforeAll(async () => {
       await core.services.agendaLocations.task({
-        reset: true
+        reset: true,
       });
     });
 
     afterAll(async () => {
-      await core.services.agendaLocations.task.stop({
-        reset: true
+      await core.services.agendaLocations.shutdown({
+        reset: true,
       });
     });
 
@@ -811,7 +821,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           countryCode: 'FR',
           latitude: 43.641532,
           longitude: 1.450607,
-          phone: '0531229417'
+          phone: '0531229417',
         });
 
         expect(created.setUid).toBe(1);
@@ -825,7 +835,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         });
 
         core.agendas(55268170).locations.patch(76464022, {
-          name: 'Lille Métropole Musée d\'art moderne'
+          name: 'Lille Métropole Musée d\'art moderne',
         });
 
         const stack = await promisedStack;
@@ -833,13 +843,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(_.uniq(stack.filter(s => [
           'agendaLocations.syncImpactedEventsAndAgendas',
           'eventSearch.update:17026855.48564567',
-          'eventSearch.update:55268170.55268456'
+          'eventSearch.update:55268170.55268456',
         ].includes(s))).length).toBe(3);
       });
 
       it('a location update on a location set can be done from another agenda than the one it originates from', async () => {
         await core.agendas(55278973).locations.patch(97506318, {
-          address: '40 rue Richard Lenoir, Paris'
+          address: '40 rue Richard Lenoir, Paris',
         });
 
         const location = await core.agendas(55268170).locations.get(97506318);

@@ -29,9 +29,6 @@ function build( files, options, cb ) {
   }, {
     table: config.schemas.occurrence,
     src: __dirname + '/occurrence.data.sql'
-  }, {
-    table: config.schemas.legacyCredentialSet,
-    src: __dirname + '/legacyCredentialSet.data.sql'
   } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
 
 }

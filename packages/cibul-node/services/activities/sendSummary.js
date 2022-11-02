@@ -1,78 +1,85 @@
 'use strict';
 
-const _ = require( 'lodash' );
-const moment = require( 'moment' );
-const notificationFormatMaker = require( '@openagenda/activities/dist/formatNotification' );
-const notifLabels = require( '@openagenda/labels/activities/notifications' );
-const log = require( '@openagenda/logs' )( 'services/activities/sendSummary' );
-const mails = require( '../mails' );
-const config = require( '../../config' );
+const _ = require('lodash');
+const moment = require('moment');
+const locales = require('@openagenda/activity-apps/dist/locales-compiled');
+const formatters = require('@openagenda/activity-apps/dist/notifications');
+const { createIntlByLocale } = require('@openagenda/intl');
+const log = require('@openagenda/logs')('services/activities/sendSummary');
+const mails = require('../mails');
 
-require( 'moment/locale/fr' );
+require('moment/locale/fr');
 
+const intlByLocale = createIntlByLocale(locales);
 
-module.exports = async function sendSummary( { user, notifications } ) {
+module.exports = async function sendSummary(config, { user, notifications }, svcConfig) {
+  if (!notifications.length) return;
 
-  const { knex } = config;
-
-  if ( !notifications.length ) return;
+  const activitiesConfig = svcConfig.activities;
 
   try {
-
-    await knex( config.schemas.feed_notification )
-      .where( 'feed_id', notifications[ 0 ].feedId )
-      .whereIn( 'id', notifications.map( v => v.id ) )
-      .update( { sent: 1 } );
-
-    if ( Math.abs( moment().diff( moment( notifications[ notifications.length - 1 ].updatedAt ), 'days', true ) ) > 2 ) {
-      return log( 'warn', 'Attempt to send too old summary at %s', user.email, { notifications } );
-    }
-
     const lang = user.culture || 'fr';
 
-    const formatNotification = notificationFormatMaker( ( ...args ) => {
-      const url = notificationFormatMaker.defaultGetUrl( ...args );
-      return url ? config.root + url : null
-    }, notifLabels, { userUid: user.uid, renderHighlight: v => `<span style="color: #413a42">${v}</span>` } );
+    const intl = intlByLocale[lang] || intlByLocale.fr;
 
-    const message = notifications.map(
-      v => {
-        const formatted = formatNotification( v, lang );
+    const notifs = notifications.map(notif => {
+      const { label, url } = formatters[notif.verb](notif, {
+        intl,
+        config: activitiesConfig[notif.verb],
+        userUid: user.uid,
+        renderHighlight: v => `<span style="color: #413a42">${v}</span>`,
+        escape: true,
+      });
 
-        return '<span style="font-size: 12px">' +
-          _.upperFirst( moment( v.updatedAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
-          '<a href="' + formatted.url + '" style="color: gray; text-decoration: none">' +
-          formatted.content +
-          '</a>';
-      }
-    ).join( '\n***\n' );
+      return {
+        label,
+        url: `${config.root}${url}`,
+        date: _.upperFirst(moment(notif.updatedAt).locale(lang).format('LLLL'))
+      };
+    });
 
-    await mails.send( {
+    // const formatNotification = notificationFormatMaker((...args) => {
+    //   const url = notificationFormatMaker.defaultGetUrl(...args);
+    //   return url ? config.root + url : null;
+    // }, notifLabels, { userUid: user.uid, renderHighlight: v => `<span style="color: #413a42">${v}</span>` });
+    //
+    // const message = notifications.map(
+    //   v => {
+    //     const formatted = formatNotification(v, lang);
+    //
+    //     // TODO move to mail template
+    //     return '<span style="font-size: 12px">' +
+    //       _.upperFirst(moment(v.updatedAt).locale(lang).format('LLLL')) + '</span><br />' +
+    //       '<a href="' + formatted.url + '" style="color: gray; text-decoration: none">' +
+    //       formatted.content +
+    //       '</a>';
+    //   },
+    // ).join('\n***\n');
+
+    const res = await mails.send({
       template: 'notificationsSummary',
       to: {
         address: user.email,
-        unsubscriptions: [ {
-          rule: [ 'receive', 'notificationsSummary' ],
-          dataPath: 'unsubscribeLink'
-        } ]
+        unsubscriptions: [
+          {
+            rule: ['receive', 'notificationsSummary'],
+            dataPath: 'unsubscribeLink',
+          },
+        ],
       },
       lang,
       data: {
-        message,
+        notifications: notifs,
         nbr: notifications.length,
-        date: moment( notifications[ notifications.length - 1 ].updatedAt ).locale( lang ).format( 'LLL' ),
+        date: moment(notifications[notifications.length - 1].updatedAt).locale(lang).format('LLL'),
         link: config.root,
         logo: {
           src: `${config.root}/images/openagenda.png`,
-          width: '300px'
-        }
-      }
-    } );
-
-  } catch ( err ) {
-
-    log.error( 'Error to send daily notification email to the user %s (%s):', user.email, user.uid, err );
-
+          width: '300px',
+        },
+      },
+    });
+  } catch (err) {
+    log.error('Error to send daily notification email to the user %s (%s):', user.email, user.uid, err);
   }
-
 };

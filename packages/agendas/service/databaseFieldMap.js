@@ -15,6 +15,13 @@ module.exports = [
     list: false
   },
   {
+    db: 'member_schema_id',
+    obj: 'memberSchemaId',
+    list: false,
+    internal: true,
+    protected: true,
+  },
+  {
     db: 'form_schema_id',
     obj: 'formSchemaId',
     internal: true,

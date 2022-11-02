@@ -127,6 +127,9 @@ const initialState = async req => {
           loadAgenda: '/:slug/admin/layout',
           verifyLocationCount: '/agendas/:uid/admin/locations/unverified'
         }
+      },
+      settings: {
+        activities: services.activities.getFormatConfig(),
       }
     },
 
@@ -190,7 +193,8 @@ const initialState = async req => {
       settings: {
         prefix: '/home/activities',
         apiRoot,
-        perPageLimit: 20
+        perPageLimit: 20,
+        activities: services.activities.getFormatConfig(),
       },
       res: {
         list: '/home/activities/list'
@@ -341,7 +345,8 @@ const initialState = async req => {
         showContributor: '/:slug/admin?contributorId=:contributorId',
         exportToCsv: '/:slug/admin/members.csv',
         exportToXlsx: '/:slug/admin/members.xlsx',
-        sendMessage: '/:slug/admin/members/send-message'
+        sendMessage: '/:slug/admin/members/send-message',
+        getSchema: '/api/agendas/:agendaUid/settings/memberSchema'
       }
     },
     legacyEmbeds: {
@@ -369,7 +374,7 @@ const initialState = async req => {
         eventContext: '/api/me/agendas/:agendaUid/events/:eventUid',
         agendaContext: '/api/me/agendas/:agendaUid',
         requestContribute: '/:agendaSlug/request-contribute/conversation/create',
-        detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1',
+        detailedAgenda: '/api/agendas/:agendaUid?detailed=1&includeNonDataFields=1&includeMemberSchema=1',
         locations: {
           get: '/locations/:uid.json',
           index: '/api/agendas/:agendaUid/locations?itemsKey=items',
@@ -401,7 +406,8 @@ const initialState = async req => {
       settings: {
         prefix: '/:slug/admin/activities',
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
+        activities: services.activities.getFormatConfig(),
       },
       res: {
         list: '/:slug/admin/activities/list',
