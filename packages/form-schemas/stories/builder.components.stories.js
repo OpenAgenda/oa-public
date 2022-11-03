@@ -1,5 +1,4 @@
 import React from 'react';
-
 import FormSchemaComponent from '../client/src/index';
 import Options from '../client/src/FormSchemaBuilder/Options';
 import FieldAdd from '../client/src/FormSchemaBuilder/FieldAdd';
@@ -14,22 +13,20 @@ export default {
 
 export function ChooseFieldTypeStory() {
   return (
-    <>
-      <div className="col-lg-offset-2 col-lg-4 wsq">
-        <p>When the choice is not made</p>
-        <ChooseFieldType
-          lang="fr"
-          onChange={() => {}}
-        />
+    <div className="col-lg-offset-2 col-lg-4 wsq">
+      <p>When the choice is not made</p>
+      <ChooseFieldType
+        lang="fr"
+        onChange={() => {}}
+      />
 
-        <p className="margin-top-md">When the choice is made</p>
-        <ChooseFieldType
-          value="radio"
-          lang="fr"
-          onChange={() => {}}
-        />
-      </div>
-    </>
+      <p className="margin-top-md">When the choice is made</p>
+      <ChooseFieldType
+        value="radio"
+        lang="fr"
+        onChange={() => {}}
+      />
+    </div>
   );
 }
 
@@ -38,28 +35,26 @@ export function FieldAddStory() {
     fields: [{
       field: 'one',
       label: 'One',
-      fieldType: 'text'
+      fieldType: 'text',
     }, {
       field: 'two',
       label: 'Two',
-      fieldType: 'integer'
-    }]
+      fieldType: 'integer',
+    }],
   };
 
   return (
-    <>
-      <div className="col-lg-offset-2 col-lg-4 wsq">
-        <p>Type <i>One</i> as field name to see duplicate detection happen</p>
-        <FieldAdd
-          modal={false}
-          schema={consolidatedSchema}
-          labelLanguages={['fr', 'en']}
-          lang="fr"
-          onAdd={() => {}}
-          onClose={() => {}}
-        />
-      </div>
-    </>
+    <div className="col-lg-offset-2 col-lg-4 wsq">
+      <p>Type <i>One</i> as field name to see duplicate detection happen</p>
+      <FieldAdd
+        modal={false}
+        schema={consolidatedSchema}
+        labelLanguages={['fr', 'en']}
+        lang="fr"
+        onAdd={() => {}}
+        onClose={() => {}}
+      />
+    </div>
   );
 }
 
@@ -69,39 +64,39 @@ export function OptionsStory() {
       comment: 'When no values have been defined',
       props: {
         components: {
-          options: Options
+          options: Options,
         },
         lang: 'fr',
         values: {
-          optionsfield: []
+          optionsfield: [],
         },
         schema: {
           custom: {
-            options: optionsValidator
+            options: optionsValidator,
           },
           fields: [{
             field: 'optionsfield',
             fieldType: 'options',
             label: 'Option values',
             labelLanguages: ['fr', 'en'],
-            optional: false
-          }]
-        }
-      }
+            optional: false,
+          }],
+        },
+      },
     },
     adding: {
       comment: 'When add button has been clicked',
       props: {
         components: {
-          options: Options
+          options: Options,
         },
         lang: 'fr',
         values: {
-          optionsfield: []
+          optionsfield: [],
         },
         schema: {
           custom: {
-            options: optionsValidator
+            options: optionsValidator,
           },
           fields: [{
             field: 'optionsfield',
@@ -110,17 +105,17 @@ export function OptionsStory() {
             labelLanguages: ['fr', 'en'],
             optional: false,
             devInitState: {
-              mode: 0
-            }
-          }]
-        }
-      }
+              mode: 0,
+            },
+          }],
+        },
+      },
     },
     withOptions: {
       comment: 'When component is showing the goods',
       props: {
         components: {
-          options: Options
+          options: Options,
         },
         lang: 'fr',
         values: {
@@ -129,43 +124,43 @@ export function OptionsStory() {
             value: 'un',
             label: {
               fr: 'Un',
-              en: 'One'
-            }
+              en: 'One',
+            },
           }, {
             id: 2,
             value: 'deux',
             label: {
               fr: 'Deux',
-              en: 'Two'
-            }
+              en: 'Two',
+            },
           }, {
             id: 3,
             value: 'trois',
             label: {
               fr: 'Trois',
-              en: 'Three'
-            }
-          }]
+              en: 'Three',
+            },
+          }],
         },
         schema: {
           custom: {
-            options: optionsValidator
+            options: optionsValidator,
           },
           fields: [{
             field: 'optionsfield',
             fieldType: 'options',
             label: 'Option values',
             labelLanguages: ['fr', 'en'],
-            optional: false
-          }]
-        }
-      }
+            optional: false,
+          }],
+        },
+      },
     },
     withEditedOption: {
       comment: 'When an option is being edited',
       props: {
         components: {
-          options: Options
+          options: Options,
         },
         lang: 'fr',
         values: {
@@ -174,27 +169,27 @@ export function OptionsStory() {
             value: 'un',
             label: {
               fr: 'Un',
-              en: 'One'
-            }
+              en: 'One',
+            },
           }, {
             id: 2,
             value: 'deux',
             label: {
               fr: 'Deux',
-              en: 'Two'
-            }
+              en: 'Two',
+            },
           }, {
             id: 3,
             value: 'trois',
             label: {
               fr: 'Trois',
-              en: 'Three'
-            }
-          }]
+              en: 'Three',
+            },
+          }],
         },
         schema: {
           custom: {
-            options: optionsValidator
+            options: optionsValidator,
           },
           fields: [{
             field: 'optionsfield',
@@ -204,17 +199,17 @@ export function OptionsStory() {
             optional: false,
             devInitState: {
               mode: 1,
-              editedIndex: 1
-            }
-          }]
-        }
-      }
+              editedIndex: 1,
+            },
+          }],
+        },
+      },
     },
     dragging: {
       comment: 'After the ordering button is clicked',
       props: {
         components: {
-          options: Options
+          options: Options,
         },
         lang: 'fr',
         values: {
@@ -223,27 +218,27 @@ export function OptionsStory() {
             value: 'un',
             label: {
               fr: 'Un',
-              en: 'One'
-            }
+              en: 'One',
+            },
           }, {
             id: 2,
             value: 'deux',
             label: {
               fr: 'Deux',
-              en: 'Two'
-            }
+              en: 'Two',
+            },
           }, {
             id: 3,
             value: 'trois',
             label: {
               fr: 'Trois',
-              en: 'Three'
-            }
-          }]
+              en: 'Three',
+            },
+          }],
         },
         schema: {
           custom: {
-            options: optionsValidator
+            options: optionsValidator,
           },
           fields: [{
             field: 'optionsfield',
@@ -252,39 +247,44 @@ export function OptionsStory() {
             labelLanguages: ['fr', 'en'],
             optional: false,
             devInitState: {
-              mode: 2
-            }
-          }]
-        }
-      }
+              mode: 2,
+            },
+          }],
+        },
+      },
     },
     monolingual: {
       comment: 'When no values have been defined',
       props: {
         components: {
-          options: Options
+          options: Options,
         },
         lang: 'fr',
         values: {
-          optionsfield: []
+          optionsfield: [],
         },
         schema: {
           custom: {
-            options: optionsValidator
+            options: optionsValidator,
           },
           fields: [{
             field: 'optionsfield',
             fieldType: 'options',
             label: 'Option values',
-            optional: false
-          }]
-        }
-      }
-    }
+            optional: false,
+          }],
+        },
+      },
+    },
   };
 
   const {
-    empty, adding, withOptions, withEditedOption, dragging, monolingual
+    empty,
+    adding,
+    withOptions,
+    withEditedOption,
+    dragging,
+    monolingual,
   } = cases;
 
   return (

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
 
 import SimpleRowDecorator from './decorators/SimpleRow';
-import eventLikeSchema from './fixtures/eventLikeSchema';
-import schemaWithCategories from './fixtures/schemaWithCategories';
-import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas';
+import eventLikeSchema from './fixtures/eventLikeSchema.json';
+import schemaWithCategories from './fixtures/schemaWithCategories.json';
+import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json';
 
 export default {
   title: 'Form builder',
@@ -16,30 +16,26 @@ export function StandardBuilderConfigurationExample() {
     fields: [{
       field: 'myfield',
       fieldType: 'text',
-      label: { fr: 'Mon champ' }
-    }]
+      label: { fr: 'Mon champ' },
+    }],
   };
 
   const [schema, setSchema] = useState(initialSchema);
 
   const extensions = [{
     schema: eventLikeSchema,
-    /*info: {
-      label: { fr: 'Standard', en: 'Standard' },
-      detail: { fr: 'Champ événement standard', en: 'Standard event field' }
-    }*/
   }, {
     schema: schemaWithCategories,
     info: {
       label: { fr: 'Champ réseau', en: 'Network field' },
-      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' }
-    }
+      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' },
+    },
   }, {
     schema,
     info: {
       label: { fr: 'Champ Agenda', en: 'Agenda field' },
-      detail: { fr: 'Champ additionnel', en: 'Additional field' }
-    }
+      detail: { fr: 'Champ additionnel', en: 'Additional field' },
+    },
   }];
 
   return (
@@ -117,6 +113,10 @@ export function TroubleshootMonolingual() {
   );
 }
 
+function logSchema(schema) {
+  console.log(schema);
+}
+
 export function WithRadio() {
   const schema = {
     fields: [{
@@ -126,14 +126,10 @@ export function WithRadio() {
       options: [{
         label: 'Une première option',
         value: 'premiereoption',
-        id: 1
-      }]
-    }]
+        id: 1,
+      }],
+    }],
   };
-
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -142,7 +138,7 @@ export function WithRadio() {
           <FormSchemaBuilder
             lang="fr"
             schema={schema}
-            onUpdate={onUpdate}
+            onUpdate={logSchema}
           />
         </div>
       </div>
@@ -158,18 +154,14 @@ export function WithNullSchema() {
       fields: [{
         field: 'title',
         label: 'Titre',
-        fieldType: 'text'
-      }]
+        fieldType: 'text',
+      }],
     },
     info: {
       label: 'Standard field',
-      detail: 'Though shalt not change this'
-    }
+      detail: 'Though shalt not change this',
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -185,7 +177,7 @@ export function WithNullSchema() {
             schema={schema}
             editableExtensions
             extendedFrom={extensions}
-            onUpdate={onUpdate}
+            onUpdate={logSchema}
           />
         </div>
       </div>
@@ -198,8 +190,8 @@ export function WithUnhandledType() {
     fields: [{
       field: 'anunhandledtype',
       label: 'Un champ custo',
-      fieldType: 'timings'
-    }]
+      fieldType: 'timings',
+    }],
   };
 
   const extensions = [{
@@ -207,18 +199,14 @@ export function WithUnhandledType() {
       fields: [{
         field: 'title',
         label: 'Titre',
-        fieldType: 'text'
-      }]
+        fieldType: 'text',
+      }],
     },
     info: {
       label: 'Standard field',
-      detail: 'Though shalt not change this'
-    }
+      detail: 'Though shalt not change this',
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -232,7 +220,7 @@ export function WithUnhandledType() {
             schema={schema}
             editableExtensions
             extendedFrom={extensions}
-            onUpdate={onUpdate}
+            onUpdate={logSchema}
           />
         </div>
       </div>
@@ -247,8 +235,8 @@ export function WithCustomField() {
     fields: [{
       field: 'someCustomField',
       label: 'Un champ custo',
-      fieldType: 'notreChampCustom'
-    }]
+      fieldType: 'notreChampCustom',
+    }],
   };
 
   const extensions = [{
@@ -256,13 +244,13 @@ export function WithCustomField() {
       fields: [{
         field: 'title',
         label: 'Titre',
-        fieldType: 'text'
+        fieldType: 'text',
       },
       {
         field: 'nombre',
         label: 'Nombre',
         fieldType: 'integer',
-        optional: true
+        optional: true,
       },
       {
         field: 'timings',
@@ -270,19 +258,15 @@ export function WithCustomField() {
         fieldType: 'timings',
         someCustomParam1: [{
           begin: '2022-11-05T11:30',
-          end: '2022-11-16T11:30'
-        }]
-      }]
+          end: '2022-11-16T11:30',
+        }],
+      }],
     },
     info: {
       label: 'Standard field',
-      detail: 'Though shalt not change this'
-    }
+      detail: 'Though shalt not change this',
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log('updatedSchema', updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -296,36 +280,36 @@ export function WithCustomField() {
             schema={schema}
             editableExtensions
             extendedFrom={extensions}
-            onUpdate={onUpdate}
+            onUpdate={logSchema}
             components={{
-              enabledRanges: EnabledRanges
+              enabledRanges: EnabledRanges,
             }}
             customFieldConfigurationSchemas={({
               timings: {
                 fields: [{
                   field: 'label',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'sub',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'someCustomParam1',
                   fieldType: 'enabledRanges',
-                  label: 'Time delimiter'
-                }]
+                  label: 'Time delimiter',
+                }],
               },
               notreChampCustom: {
                 fields: [{
                   field: 'label',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'optional',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'sub',
-                  fieldType: 'abstract'
-                }]
-              }
+                  fieldType: 'abstract',
+                }],
+              },
             })}
           />
         </div>
@@ -333,6 +317,8 @@ export function WithCustomField() {
     </div>
   );
 }
+
+const customComponent = () => <p>Some custom component</p>;
 
 export function WithRestrictedTimings() {
   const schema = {
@@ -346,19 +332,15 @@ export function WithRestrictedTimings() {
         fieldType: 'timings',
         someCustomParam1: [{
           begin: '2022-11-05T11:30',
-          end: '2022-11-16T11:30'
-        }]
-      }]
+          end: '2022-11-16T11:30',
+        }],
+      }],
     },
     info: {
       label: 'Standard field',
-      detail: 'Though shalt not change this'
-    }
+      detail: 'Though shalt not change this',
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log('updatedSchema', updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -372,25 +354,25 @@ export function WithRestrictedTimings() {
             schema={schema}
             editableExtensions
             extendedFrom={extensions}
-            onUpdate={onUpdate}
+            onUpdate={logSchema}
             components={{
-              enabledRanges: () => <p>Some custom component</p>
+              enabledRanges: customComponent,
             }}
             customFieldConfigurationSchemas={({
               timings: {
                 fields: [{
                   field: 'label',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'sub',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'someCustomParam1',
                   fieldType: 'enabledRanges',
                   label: 'Time delimiter',
-                  selfHandled: ['label', 'info', 'help', 'sub']
-                }]
-              }
+                  selfHandled: ['label', 'info', 'help', 'sub'],
+                }],
+              },
             })}
           />
         </div>
@@ -398,6 +380,8 @@ export function WithRestrictedTimings() {
     </div>
   );
 }
+
+const EnabledRanges = () => <div>Custom component</div>;
 
 export function WithNotRestrictedTimings() {
   const schema = {
@@ -409,19 +393,13 @@ export function WithNotRestrictedTimings() {
         field: 'timings',
         label: 'Horaires',
         fieldType: 'timings',
-      }]
+      }],
     },
     info: {
       label: 'Standard field',
-      detail: 'Though shalt not change this'
-    }
+      detail: 'Though shalt not change this',
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log('updatedSchema', updatedSchema);
-  }
-
-  const EnabledRanges = () => <div>Custom component</div>;
 
   return (
     <div className="container top-margined">
@@ -435,25 +413,25 @@ export function WithNotRestrictedTimings() {
             schema={schema}
             editableExtensions
             extendedFrom={extensions}
-            onUpdate={onUpdate}
+            onUpdate={logSchema}
             components={{
-              enabledRanges: EnabledRanges
+              enabledRanges: EnabledRanges,
             }}
             customFieldConfigurationSchemas={({
               timings: {
                 fields: [{
                   field: 'label',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'sub',
-                  fieldType: 'abstract'
+                  fieldType: 'abstract',
                 }, {
                   field: 'someCustomParam1',
                   fieldType: 'enabledRanges',
                   label: 'Time delimiter',
-                  selfHandled: ['label', 'info', 'help', 'sub']
-                }]
-              }
+                  selfHandled: ['label', 'info', 'help', 'sub'],
+                }],
+              },
             })}
           />
         </div>
@@ -463,21 +441,16 @@ export function WithNotRestrictedTimings() {
 }
 
 export function CustomField() {
-  const [updatedSchema, setUpdatedSchema] = useState(null);
+  const [updatedSchema] = useState(null);
   const schema = {
     fields: [{
       field: 'myfield',
       fieldType: 'text',
-      label: { fr: 'Mon champ' }
-    }]
+      label: { fr: 'Mon champ' },
+    }],
   };
 
   const extensions = [];
-
-  function onUpdate(update) {
-    console.log(update);
-    setUpdatedSchema(update);
-  }
 
   return (
     <div className="container top-margined">
@@ -495,7 +468,7 @@ export function CustomField() {
               }}
               schema={schema}
               extendedFrom={extensions}
-              onUpdate={onUpdate}
+              onUpdate={logSchema}
               renderHead={() => (
                 <span className="padding-all-sm">fieldType should not be destroyed on update</span>
               )}
@@ -521,21 +494,17 @@ export function ExtendedTextField() {
           label: 'Titre',
           fieldType: 'text',
           optional: false,
-        }
-      ]
+        },
+      ],
     },
     info: {
       label: { fr: 'Réseau', en: 'Network' },
       detail: {
         fr: 'Champ requis par le réseau d\'agendas',
-        en: 'Field required by the agenda network'
-      }
-    }
+        en: 'Field required by the agenda network',
+      },
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -553,7 +522,7 @@ export function ExtendedTextField() {
               }}
               schema={schema}
               extendedFrom={extensions}
-              onUpdate={onUpdate}
+              onUpdate={logSchema}
               renderHead={() => (
                 <span className="padding-all-sm">You should be able to change text fields</span>
               )}
@@ -583,25 +552,21 @@ export function TargetedEditableExtendedTextField() {
           field: 'description',
           label: 'Description',
           fieldType: 'text',
-          optional: false
-        }
-      ]
+          optional: false,
+        },
+      ],
     },
     info: {
       label: {
         fr: 'Réseau',
-        en: 'Network'
+        en: 'Network',
       },
       detail: {
         fr: 'Champ requis par le réseau d\'agendas',
-        en: 'Field required by the agenda network'
-      }
-    }
+        en: 'Field required by the agenda network',
+      },
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -619,7 +584,7 @@ export function TargetedEditableExtendedTextField() {
               }}
               schema={schema}
               extendedFrom={extensions}
-              onUpdate={onUpdate}
+              onUpdate={logSchema}
               renderHead={() => (
                 <div className="padding-all-sm wsq">Only description field should be editable as it is explicited in list provided in editableExtensions prop</div>
               )}
@@ -647,20 +612,16 @@ export function ExtendedChoiceField() {
           options: [{
             label: 'Une première option',
             value: 'premiereoption',
-            id: 1
-          }]
-        }
-      ]
+            id: 1,
+          }],
+        },
+      ],
     },
     info: {
       label: { fr: 'Réseau', en: 'Network' },
-      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' }
-    }
+      detail: { fr: 'Champ requis par le réseau d\'agendas', en: 'Field required by the agenda network' },
+    },
   }];
-
-  function onUpdate(updatedSchema) {
-    console.log(updatedSchema);
-  }
 
   return (
     <div className="container top-margined">
@@ -678,7 +639,7 @@ export function ExtendedChoiceField() {
               }}
               schema={schema}
               extendedFrom={extensions}
-              onUpdate={onUpdate}
+              onUpdate={logSchema}
               renderHead={() => (
                 <span className="padding-all-sm">You shouldn&apos;t be able to change options and optional but text fields</span>
               )}
@@ -695,9 +656,9 @@ export function HidingAFieldOnAnUndefinedSchema() {
     schema: {
       fields: [{
         fieldType: 'some-inherited-field',
-        label: 'Un champ hérité'
-      }]
-    }
+        label: 'Un champ hérité',
+      }],
+    },
   }];
 
   return (
