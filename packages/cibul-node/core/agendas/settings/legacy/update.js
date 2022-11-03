@@ -46,8 +46,8 @@ module.exports = async (core, agendaOrUid, force = false) => {
 
   log('syncing legacy config and data of agenda %s (%s)%s', agenda.uid, agenda.slug, force ? ' forced' : '');
 
-  await updateLegacyFromSchema(core, agenda, 'tags', force);
-  await updateLegacyFromSchema(core, agenda, 'categories', force);
+  await updateLegacyFromSchema(core, agenda, 'tags', { force });
+  await updateLegacyFromSchema(core, agenda, 'categories', { force });
   await updateCustomFromSchema(core, agenda, force);
   await custom.pushCustomDatasetToLegacy(agenda.id);
 
