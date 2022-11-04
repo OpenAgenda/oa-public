@@ -98,7 +98,7 @@ module.exports = core => {
       }).then(event => res.json({
         success: true,
         event,
-      }), next)
+      }), next),
   );
 
   app.post('/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
@@ -132,7 +132,7 @@ module.exports = core => {
       }).then(result => res.json({
         success: true,
         ...result,
-      }), next)
+      }), next),
   );
 
   app.get([
@@ -357,7 +357,7 @@ module.exports = core => {
         after,
         total,
         [req.query.itemsKey ?? 'locations']: items,
-      }), next)
+      }), next),
   );
 
   app.get(
@@ -365,7 +365,7 @@ module.exports = core => {
     (req, res, next) => core
       .agendas(req.agenda.uid)
       .embeds(req.params.embedUid)
-      .get().then(embed => res.json(embed), next)
+      .get().then(embed => res.json(embed), next),
   );
 
   app.post(
@@ -375,7 +375,7 @@ module.exports = core => {
       .agendas(req.agenda.uid)
       .embeds(req.params.embedUid)
       .update(req.parsedData)
-      .then(embed => res.json(embed), next)
+      .then(embed => res.json(embed), next),
   );
 
   app.get(

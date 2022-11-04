@@ -2,9 +2,9 @@
 
 const log = require('@openagenda/logs')('core/agendas/settings');
 
+const getMemberSchema = require('../utils/getMemberSchema');
 const getMergedSchema = require('./getMergedSchema');
 const getSchema = require('./getSchema');
-const getMemberSchema = require('../utils/getMemberSchema');
 const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
 const updateLegacy = require('./legacy/update');
@@ -17,18 +17,18 @@ const contributionTypes = require('./contributionTypes');
 module.exports = core => {
   const {
     tasks,
-    services
+    services,
   } = core;
 
   const {
-    legacy: legacySvc
+    legacy: legacySvc,
   } = services;
 
   const resyncFn = {
     updateTagSet: (agendaUid, options) => updateLegacySetFromSchema(core, agendaUid, 'tags', options),
     updateCategorySet: agendaUid => updateLegacySetFromSchema(core, agendaUid, 'categories'),
     updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
-    updateLegacy: agendaUid => updateLegacy(core, agendaUid),
+    updateLegacy: (agendaUid, options) => updateLegacy(core, agendaUid, options),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid)
@@ -47,7 +47,7 @@ module.exports = core => {
       getNetwork: getSchema.network.bind(null, services, agendaUid),
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
-      getMember: getMemberSchema.bind(null, services, agendaUid)
+      getMember: getMemberSchema.bind(null, services, agendaUid),
     },
     legacy: {
       updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),
@@ -55,7 +55,7 @@ module.exports = core => {
       updateCustom: resyncFn.updateCustomFromSchema.bind(null, agendaUid),
       update: resyncFn.updateLegacy.bind(null, agendaUid),
       rebuildControlData: resyncFn.rebuildControlData.bind(null, agendaUid),
-      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid)
+      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid),
     },
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {
@@ -74,8 +74,8 @@ module.exports = core => {
         }
       }
       return {
-        enqueued
+        enqueued,
       };
-    }
+    },
   });
 };
