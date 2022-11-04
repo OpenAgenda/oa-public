@@ -16,7 +16,7 @@ module.exports = app => {
   app.use('/', app.services.inboxes.getApp());
   app.services.agendaContribute.plugApp(app);
   require('./services/agendaEvents')(app);
-  require('./services/agendaSchema')(app);
+  //require('./services/agendaSchema')(app);
   require('./services/networkApps')(app);
   require('./services/abilities')(app);
   require('./services/mails/unsubscription')(app);

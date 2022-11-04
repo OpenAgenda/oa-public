@@ -1,11 +1,13 @@
 'use strict';
 
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
 const {
   knex,
   resetAndCreateTables
 } = require('./sql');
 
 const raw = resetAndCreateTables();
+const load = loadObjectFromFile({ cwd: __dirname });
 
 raw.push( knex( 'agenda' ).insert( [ {
   id: 13901,
@@ -78,6 +80,10 @@ raw.push( knex( 'user' ).insert( {
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06'
 } ) );
+
+raw.push(knex('api_key_set').insert([
+  load('./sql/apiKeySets/01.json', { user_id: 1 }),
+]));
 
 raw.push(knex('reviewer').insert({
   id: 1,

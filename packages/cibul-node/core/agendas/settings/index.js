@@ -45,6 +45,7 @@ module.exports = core => {
     schema: {
       get: getSchema.bind(null, services, agendaUid),
       getNetwork: getSchema.network.bind(null, services, agendaUid),
+      getAndParents: getSchema.andParents.bind(null, services, agendaUid),
       getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind(null, core, agendaUid),
       getMember: getMemberSchema.bind(null, services, agendaUid),

@@ -64,7 +64,11 @@ module.exports = core => {
   app.post('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
   app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.verify);
   app.get('/agendas/:agendaUid.prv', mw.member.verify);
-  app.get(['/agendas/:agendaUid', '/agendas/:agendaUid/events/:eventUid'], mw.member.load);
+  app.get([
+    '/agendas/:agendaUid',
+    '/agendas/:agendaUid/events/:eventUid',
+    // '/agendas/:agendaUid/settings(/*?)?',
+  ], mw.member.load);
 
   app.get([
     '/agendas/slug/:agendaSlug',
@@ -151,6 +155,22 @@ module.exports = core => {
   app.get('/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
     settings.get,
+  ]);
+
+  app.get('/agendas/:agendaUid/settings/eventSchema', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema[req.query.split === '1' ? 'getAndParents' : 'getMerged']({ lang: req.lang || req.query.lang || 'fr' })
+      .then(data => res.json({ ...data }), next),
+  ]);
+
+  app.post('/agendas/:agendaUid/settings/eventSchema', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core.agendas(req.agenda.uid).settings.schema.updateFields(JSON.parse(req.body.data).fields)
+      .then(() => res.json({
+        success: true,
+      }), er => {
+        next(er);
+      }),
   ]);
 
   app.get('/agendas/:agendaUid/settings/memberSchema', [
