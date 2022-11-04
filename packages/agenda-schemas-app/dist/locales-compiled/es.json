@@ -1,0 +1,44 @@
+{
+  "AgendaSchema.adaptForm": [
+    {
+      "type": 0,
+      "value": "Adapt the configuration of the event form"
+    }
+  ],
+  "AgendaSchema.canAddField": [
+    {
+      "type": 0,
+      "value": "You can add the field of your choice to the event form"
+    }
+  ],
+  "AgendaSchema.event": [
+    {
+      "type": 0,
+      "value": "Estándar"
+    }
+  ],
+  "AgendaSchema.eventDetail": [
+    {
+      "type": 0,
+      "value": "Campo de evento estándar"
+    }
+  ],
+  "AgendaSchema.needMoreFields": [
+    {
+      "type": 0,
+      "value": "Need more fields?"
+    }
+  ],
+  "AgendaSchema.network": [
+    {
+      "type": 0,
+      "value": "Red"
+    }
+  ],
+  "AgendaSchema.networkDetail": [
+    {
+      "type": 0,
+      "value": "Campo requerido por la red de agendas"
+    }
+  ]
+}
