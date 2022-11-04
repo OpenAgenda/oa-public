@@ -97,18 +97,20 @@ export default class FormSchemaBuilder extends Component {
 
   onSave() {
     this.setSaveState(saveStates.LOADING);
-
+    const { res, onSuccess } = this.props;
     const {
       labelLanguages
     } = this.state;
 
     submit({
+      res,
       values: restrictLabelLanguages.applyToSchema(
         this.getSchema(),
         labelLanguages
       )
     }).then(() => {
       this.setSaveState(saveStates.SAVED);
+      if (onSuccess) onSuccess();
     }, _err => {
       this.setSaveState(saveStates.ERROR);
     });
@@ -267,7 +269,7 @@ export default class FormSchemaBuilder extends Component {
       extendedFrom,
       lang,
       customFieldConfigurationSchemas,
-      components
+      components,
     } = this.props;
 
     const {
