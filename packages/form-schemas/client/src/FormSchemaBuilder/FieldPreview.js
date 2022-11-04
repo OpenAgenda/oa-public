@@ -6,6 +6,7 @@ import { getLocaleValue } from '@openagenda/intl';
 
 import labels from './lib/labels';
 import getFieldTypeLabel from './lib/getFieldTypeLabel';
+import fieldTypes from '../iso/fieldTypes';
 
 const getLabel = makeLabelGetter(labels);
 
@@ -66,54 +67,51 @@ const isMultilingual = (languages, lang) => {
     );
   }
 };
-const isLinked = (related, enableWith, optionalWith, field, lang) => {
-  for (let i = 0; i < related?.enable?.length; i++) {
-    if (related?.enable[i] === 'image') {
-      return (
-        <span className="form-tooltip-icon icon-hide margin-right-xs">
-          <i className="linked"> </i>
-          <div className="tooltip right" role="tooltip">
-            <div className="tooltip-arrow"> </div>
-            <div className="tooltip-inner">{getLabel('hasImage', lang)}</div>
-          </div>
-        </span>
-      );
-    }
-    if (!related?.enable[i] !== 'image' && related?.enable.length > 0) {
-      return (
-        <span className="form-tooltip-icon icon-hide">
-          <i className="linked"> </i>
-          <div className="tooltip right" role="tooltip">
-            <div className="tooltip-arrow"> </div>
-            <div className="tooltip-inner">{getLabel('isActif', lang)} {related?.enable[i]} {getLabel('valueSelected', lang)}</div>
-          </div>
-        </span>
-      );
-    }
+const isLinked = (field, lang, schema) => {
+  if (!field.enableWith) {
+    return null;
   }
-  if (enableWith?.field === 'attendanceMode') {
+  if (typeof field.enableWith === 'string') {
+    const foundLabel = schema.fields.findIndex(el => el.field === field.enableWith);
     return (
       <span className="form-tooltip-icon icon-hide">
         <i className="linked"> </i>
         <div className="tooltip right" role="tooltip">
           <div className="tooltip-arrow"> </div>
-          <div className="tooltip-inner">{getLabel('isActif', lang)} {enableWith?.field} {getLabel('valueOnline', lang)}</div>
+          <div className="tooltip-inner">{getLabel('LikedField', lang)} {getLocaleValue(schema.fields[foundLabel].label, lang)}</div>
         </div>
       </span>
     );
   }
-  if (optionalWith?.field === 'attendanceMode') {
-    field.optional = true;
-    return (
-      <span className="form-tooltip-icon icon-hide">
-        <i className="linked"> </i>
-        <div className="tooltip right" role="tooltip">
-          <div className="tooltip-arrow"> </div>
-          <div className="tooltip-inner">{getLabel('isOptional', lang)} {getLabel('valueOnline', lang)}</div>
-        </div>
-      </span>
-    );
+  const foundLabel = schema.fields.findIndex(el => el.field === field.enableWith.field);
+  return (
+    <span className="form-tooltip-icon icon-hide">
+      <i className="linked"> </i>
+      <div className="tooltip right" role="tooltip">
+        <div className="tooltip-arrow"> </div>
+        <div className="tooltip-inner">{getLabel('LikedField', lang)} {getLocaleValue(schema.fields[foundLabel].label, lang)}</div>
+      </div>
+    </span>
+  );
+};
+
+const thenOptional = (field, lang, schema) => {
+  if (!field.optionalWith) {
+    return null;
   }
+  const foundField = schema.fields.findIndex(el => el.options?.map(obj2 => obj2.id === field.optionalWith.value));
+  const foundLabel = schema.fields.map(obj => obj.options?.filter(obj2 => obj2.id === 2).map(obj2 => obj2.label));
+
+  return (
+    <span className="form-tooltip-icon icon-hide">
+      <i className="linked"> </i>
+      <div className="tooltip right" role="tooltip">
+        <div className="tooltip-arrow"> </div>
+        <div className="tooltip-inner">{getLabel('ifField', lang)} {getLocaleValue(schema.fields[foundField].label, lang)} {getLabel('isSet', lang)} {getLocaleValue(foundLabel[0][0], lang)} {getLabel('thenField', lang)} {getLocaleValue(field.label, lang)} {getLabel('isOptional', lang)}</div>
+      </div>
+    </span>
+  );
+
 };
 
 function getDefaultLabel(field, lang) {
@@ -137,7 +135,7 @@ export default class FieldPreview extends Component {
     const {
       editable,
       lang,
-      disabled
+      disabled,
     } = this.props;
     if (!editable) {
       return getLabel('uneditableFieldInfo', lang);
@@ -150,7 +148,7 @@ export default class FieldPreview extends Component {
 
   isFieldOptional() {
     const {
-      field
+      field,
     } = this.props;
 
     return field?.optional ?? true;
@@ -170,6 +168,7 @@ export default class FieldPreview extends Component {
       onRemove,
       onAccordionToggle,
       active,
+      schema,
     } = this.props;
 
     const editable = defineIsEditable(field, { isOwn, editableExtensions });
@@ -178,7 +177,7 @@ export default class FieldPreview extends Component {
     return (
       <div
         className={classNames({
-          'field-preview': true
+          'field-preview': true,
         })}
       >
         <Accordion
@@ -210,7 +209,8 @@ export default class FieldPreview extends Component {
                 </span>
               ) : null}
               {isMultilingual(field.languages) ? isMultilingual(field.languages) : null}
-              {isLinked(field.related, field.enableWith, field.optionalWith, field.field)}
+              {isLinked(field, lang, schema)}
+              {thenOptional(field, lang, schema)}
               {renderSchemaInfo(schemaInfo, lang)}
               {renderOptionsInfo(field.options)}
             </>
@@ -240,7 +240,8 @@ export default class FieldPreview extends Component {
                     <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                   </span>
                 ) : null}
-                {isLinked(field.related, field.enableWith, field.optionalWith, field.field)}
+                {isLinked(field, lang, schema)}
+                {thenOptional(field, lang, schema)}
               </div>
               {field.field ? (
                 <div className="margin-top-xs" title="Code du champ">{getLabel('jsonKey', lang)}: {field.field}</div>
@@ -291,6 +292,7 @@ export default class FieldPreview extends Component {
           )}
           onToggle={onAccordionToggle}
           active={active}
+          schema={schema}
         />
       </div>
     );
@@ -304,12 +306,13 @@ export default class FieldPreview extends Component {
       onShow,
       onAccordionToggle,
       active,
+      schema,
     } = this.props;
 
     return (
       <div
         className={classNames({
-          'field-preview': true
+          'field-preview': true,
         })}
       >
         <div>
@@ -349,7 +352,8 @@ export default class FieldPreview extends Component {
                   </span>
                 ) : null}
                 {isMultilingual(field.languages) ? isMultilingual(field.languages) : null}
-                {isLinked(field.related, field.enableWith, field.optionalWith, field.field)}
+                {isLinked(field, lang, schema)}
+                {thenOptional(field, lang, schema)}
                 {renderSchemaInfo(schemaInfo, lang)}
                 {renderOptionsInfo(field.options)}
               </>
@@ -383,7 +387,8 @@ export default class FieldPreview extends Component {
                       <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                     </span>
                   ) : null}
-                  {isLinked(field.related, field.enableWith, field.optionalWith, field.field)}
+                  {isLinked(field, lang, schema)}
+                  {thenOptional(field, lang, schema)}
                 </div>
                 {field.field ? (
                   <div className="margin-top-xs" title="Code du champ">{getLabel('jsonKey', lang)}: {field.field}</div>
@@ -408,6 +413,7 @@ export default class FieldPreview extends Component {
               )}
             onToggle={onAccordionToggle}
             active={active}
+            schema={schema}
           />
         </div>
       </div>

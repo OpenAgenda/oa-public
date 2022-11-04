@@ -4,6 +4,7 @@ import Options from '../client/src/FormSchemaBuilder/Options';
 import FieldAdd from '../client/src/FormSchemaBuilder/FieldAdd';
 import ChooseFieldType from '../client/src/FormSchemaBuilder/ChooseFieldType';
 import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidator';
+import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
 import SimpleRowDecorator from './decorators/SimpleRow';
 
 export default {
@@ -335,6 +336,214 @@ export function OptionsStory() {
         </div>
         <div className="padding-all-sm margin-all-sm wsq">
           <FormSchemaComponent {...monolingual.props} actionComponents={[{ position: 'bottom', Component: () => null }]} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function logSchema(schema) {
+  console.log(schema);
+}
+
+export function IsLinked() {
+  const cases = {
+    string: {
+      comment: 'When enableWith is a string',
+      props: {
+        maxFields: 2,
+        editableExtensions: ['description'],
+        onUpdate: logSchema,
+        lang: 'fr',
+        schema: {
+          id: 12,
+          fields: [
+            {
+              field: 'image',
+              label: 'Image',
+              fieldType: 'image',
+              optional: false,
+            },
+            {
+              field: 'imageCredits',
+              label: 'Crédits de l\'image',
+              fieldType: 'text',
+              optional: false,
+              enableWith: 'image',
+            },
+          ],
+        },
+        info: {
+          label: {
+            fr: 'Réseau',
+            en: 'Network',
+          },
+          detail: {
+            fr: 'Champ requis par le réseau d\'agendas',
+            en: 'Field required by the agenda network',
+          },
+        },
+      },
+    },
+    object: {
+      comment: 'When enableWith is an object',
+      props: {
+        maxFields: 2,
+        editableExtensions: ['description'],
+        devState: {
+          // editedField: 'title'
+        },
+        lang: 'fr',
+        schema: {
+          id: 12,
+          fields: [
+            {
+              field: 'type-d-organisateur',
+              label: 'Type d\'organisateur',
+              fieldType: 'radio',
+              optional: false,
+              enableWith: null,
+            },
+            {
+              field: 'autre-type-d-organisateur',
+              label: 'Autre type',
+              fieldType: 'text',
+              optional: true,
+              enableWith: {
+                field: 'type-d-organisateur',
+                value: 35,
+              },
+            },
+          ],
+        },
+        info: {
+          label: {
+            fr: 'Réseau',
+            en: 'Network',
+          },
+          detail: {
+            fr: 'Champ requis par le réseau d\'agendas',
+            en: 'Field required by the agenda network',
+          },
+        },
+      },
+    },
+    optional: {
+      comment: 'optionalWith',
+      props: {
+        maxFields: 2,
+        editableExtensions: ['description'],
+        devState: {
+          // editedField: 'title'
+        },
+        lang: 'fr',
+        schema: {
+          id: 12,
+          fields: [
+            {
+              field: 'attendanceMode',
+              label: 'Mode de participation',
+              fieldType: 'radio',
+              optional: false,
+              options: [
+                {
+                  id: 1,
+                  value: 'offline',
+                  label: {
+                    fr: 'Sur place',
+                    en: 'Offline',
+                    it: 'In presenza',
+                    es: 'Desconnectad',
+                    de: 'Offline',
+                    br: 'War al lec’h',
+                    io: 'crwdns14266:0crwdne14266:0',
+                  },
+                },
+                {
+                  id: 2,
+                  value: 'online',
+                  label: {
+                    fr: 'En ligne',
+                    en: 'Online',
+                    it: 'In linea',
+                    es: 'En linea',
+                    de: 'Online',
+                    br: 'Enlinenn',
+                    io: 'crwdns14268:0crwdne14268:0',
+                  },
+                },
+                {
+                  id: 3,
+                  value: 'mixed',
+                  label: {
+                    fr: 'Mixte',
+                    en: 'Mixed',
+                    it: 'Misto',
+                    es: 'Mezclado',
+                    de: 'Gemischt',
+                    br: 'Kemmesk',
+                    io: 'crwdns14270:0crwdne14270:0'
+                  },
+                },
+              ],
+            },
+            {
+              field: 'location',
+              label: 'Lieu',
+              fieldType: 'location',
+              optional: false,
+              enableWith: null,
+              optionalWith: {
+                field: 'attendanceMode',
+                value: 2,
+              },
+            },
+          ],
+        },
+        info: {
+          label: {
+            fr: 'Réseau',
+            en: 'Network',
+          },
+          detail: {
+            fr: 'Champ requis par le réseau d\'agendas',
+            en: 'Field required by the agenda network',
+          },
+        },
+      },
+    },
+  };
+
+  const {
+    string,
+    object,
+    optional,
+  } = cases;
+
+  return (
+    <div className="container top-margined">
+      <div className="col-sm-12">
+        <div className="text-center margin-v-md">
+          <strong>{string.comment}</strong>
+        </div>
+        <div className="padding-all-sm margin-all-sm wsq">
+          <FormSchemaBuilder {...string.props} />
+        </div>
+      </div>
+      <div className="col-sm-12">
+        <div className="text-center margin-v-md">
+          <strong>{object.comment}</strong>
+        </div>
+        <div className="padding-all-sm margin-all-sm wsq">
+          <FormSchemaBuilder {...object.props} />
+        </div>
+      </div>
+      <div className="col-sm-12">
+        <div className="text-center margin-v-md">
+          <strong>{optional.comment}</strong>
+        </div>
+        <div className="padding-all-sm margin-all-sm wsq">
+          <FormSchemaBuilder {...optional.props} />
         </div>
       </div>
     </div>

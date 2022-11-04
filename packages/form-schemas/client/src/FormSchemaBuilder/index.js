@@ -386,6 +386,7 @@ export default class FormSchemaBuilder extends Component {
                               onRemove={() => this.onFieldRemove(field)}
                               onAccordionToggle={() => this.onAccordionToggle(field.field)}
                               active={activeFieldName === field.field}
+                              schema={mergedSchema}
                             />
                           </div>
                         )}

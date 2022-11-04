@@ -681,48 +681,6 @@ module.exports = {
     "es": "Plurilingüe",
     "it": "Multilingue"
   },
-  "isSelected": {
-    "fr": "sélectionné",
-    "en": "selected",
-    "es": "seleccionado",
-    "it": "selezionato"
-  },
-  "notSelected": {
-    "fr": "non séléctionné",
-    "en": "not selected",
-    "es": "no seleccionado",
-    "it": "non selezionato"
-  },
-  "isActif": {
-    "fr": "actif lorsque le champ",
-    "en": "active when the field",
-    "es": "activo cuando el campo",
-    "it": "attivo quando il campo"
-  },
-  "isOptional": {
-    "fr": "optionnel si le champ attendanceMode",
-    "en": "optional if the field attendanceMode",
-    "es": "opcional si el campo attendanceMode",
-    "it": "facoltativo se il campo attendanceMode"
-  },
-  "valueSelected": {
-    "fr": "est saisi",
-    "en": "is selected",
-    "es": "è selezionato",
-    "it": "se selecciona"
-  },
-  "valueOnline": {
-    "fr": 'a la valeur "en ligne"',
-    "en": 'has the value "online"',
-    "es": 'tiene el valor "en línea"',
-    "it": 'ha il valore "online"'
-  },
-  "hasImage": {
-    "fr": "actif avec le chargement d'une image",
-    "en": "active with image loading",
-    "es": "activo con la carga de una imagen",
-    "it": "attivo con il caricamento di un'immagine"
-  },
   "defaultValue": {
     "fr": "Valeur par défaut",
     "en": "Default value",
@@ -740,5 +698,47 @@ module.exports = {
     "en": "JSON key",
     "es": "Clave JSON",
     "it": "chiave JSON"
-  }
+  },
+"isSelected": {
+    "fr": "sélectionné",
+    "en": "selected",
+    "es": "seleccionado",
+    "it": "selezionato"
+  },
+  "notSelected": {
+    "fr": "non séléctionné",
+    "en": "not selected",
+    "es": "no seleccionado",
+    "it": "non selezionato"
+  },
+  "LikedField": {
+    "fr": "Champ lié au champ",
+    "en": "Linked field to",
+    "es": "Campo relacionado con el campo",
+    "it": "Campo relativo al campo"
+  },
+  "ifField": {
+    "fr": "Si le champ",
+    "en": "If the field",
+    "es": "Si el campo",
+    "it": "Se il campo"
+  },
+  "isSet": {
+    "fr": "prend la valeur",
+    "en": "is set to",
+    "es": "toma el valor",
+    "it": "assume il valore"
+  },
+  "thenField": {
+    "fr": "alors le champ",
+    "en": "then the field",
+    "es": "entonces el campo ",
+    "it": "allora il campo"
+  },
+  "isOptional": {
+    "fr": "est optionnel",
+    "en": "is optional",
+    "es": "es opcional",
+    "it": "è facoltativo"
+  },
 }
