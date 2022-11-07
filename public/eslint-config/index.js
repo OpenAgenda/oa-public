@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = {
   parser: '@babel/eslint-parser',
 
@@ -42,8 +44,8 @@ module.exports = {
     react: {
       version: 'detect'
     },
-    // 'import/resolver': path.resolve(__dirname, './resolver')
     'import/resolver': {
+      [path.resolve(__dirname, './resolver')]: {},
       node: {
         extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json', '.node']
       }
