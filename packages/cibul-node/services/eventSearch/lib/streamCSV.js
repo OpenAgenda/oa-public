@@ -15,17 +15,17 @@ module.exports = (req, res) => {
     labels: {
       ...fieldNameLabels,
       ...memberLabels,
-      ...stateLabels
+      ...stateLabels,
     },
     maintainedFields: ['dateRange', 'country'],
     formSchema: req.formSchema,
     includeFields: req.query.includeFields,
     includeLanguages: req.query.includeLanguages,
-    distributeOptionalFields: req.query.distributeOptionalFields
+    distributeOptionalFields: req.query.distributeOptionalFields,
   }).pipe(res);
 
   return res.writeHead(200, {
     'Content-Type': 'text/csv',
-    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.csv"`
+    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.csv"`,
   });
 };

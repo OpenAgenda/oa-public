@@ -56,9 +56,9 @@ module.exports = async (core, agendaOrUid, nav, options = {}) => {
   });
 
   const membersUids = members.map(e => e.userUid);
-  const customs = (await custom(agenda.memberSchemaId).list({
+  const customs = agenda.memberSchemaId ? (await custom(agenda.memberSchemaId).list({
     identifier: membersUids,
-  })).items;
+  })).items : [];
 
   return {
     total,

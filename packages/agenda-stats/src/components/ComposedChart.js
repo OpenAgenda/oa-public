@@ -136,7 +136,9 @@ function ComposedChart({
       });
     });
 
-    return result.slice(0, state.itemsDisplayed);
+    return state.itemsDisplayed
+      ? result.slice(0, state.itemsDisplayed)
+      : result;
   }, [
     rawData,
     labelKey,
@@ -173,11 +175,11 @@ function ComposedChart({
         && props.index > 0
         && getValueByDataKey(
           props.array[props.index].payload,
-          props.array[props.index].datakey
+          props.array[props.index].datakey,
         )
           === getValueByDataKey(
             props.array[props.index - 1].payload,
-            props.array[props.index - 1].datakey
+            props.array[props.index - 1].datakey,
           );
 
       let tooltipContentMessage;
@@ -232,7 +234,7 @@ function ComposedChart({
 
       return <DefaultTooltipItem hideLabel={hideLabel} {...props} />;
     },
-    [aggregation, stat.state.interval, tooltipType]
+    [aggregation, stat.state.interval, tooltipType],
   );
 
   const categoryTick = useMemo(() => {

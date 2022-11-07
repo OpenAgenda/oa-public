@@ -15,7 +15,7 @@ function validateMemberData(data, schema) {
   return !!clean;
 }
 
-async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) { 
+async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
   const { services } = core;
   const {
     members,
@@ -43,7 +43,11 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
     throw new Forbidden('Not authorized to access member');
   }
 
-  const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await core.agendas(agendaOrUid).get({ detailed: true, access });
+  const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await core.agendas(agendaOrUid).get({
+    detailed: true,
+    access,
+    private: null,
+  });
 
   const memberRes = await members.get({
     agendaUid: agenda.uid,
@@ -65,13 +69,13 @@ module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
   { throwOnNotFound: true },
   agendaOrUid,
   userUid,
-  options
+  options,
 ), {
   is: (services, agendaOrUid, userUid, options = {}) => get(
     services,
     { includeFields: ['id'] },
     agendaOrUid,
     userUid,
-    options
+    options,
   ).then(m => !!m),
 });

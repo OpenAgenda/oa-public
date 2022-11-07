@@ -12,8 +12,10 @@ module.exports = function extractAttendanceMode(data) {
       extracted.onlineAccessLink = data.onlineAccessLink;
     } else if (data.store !== undefined) {
       const store = JSON.parse(data.store);
-      extracted.attendanceMode = store.attendanceMode;
-      extracted.onlineAccessLink = store.onlineAccessLink;
+      if (store !== null) {
+        extracted.attendanceMode = store.attendanceMode;
+        extracted.onlineAccessLink = store.onlineAccessLink;
+      }
     }
   } catch (e) {
     console.log(e);

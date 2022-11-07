@@ -196,7 +196,7 @@ module.exports = core => {
     (req, res, next) => core
       .agendas(req.agenda.uid).members
       .create(req.body.userUid ?? req.user.uid, req.body.role, req.parsedData, { userUid: req.user.uid })
-      .then(member => res.json(member), next)
+      .then(member => res.json(member), next),
   );
 
   app.get('/agendas/:agendaUid/members/:userUid', [
@@ -248,7 +248,7 @@ module.exports = core => {
           success: true,
           location,
         }),
-        next
+        next,
       ),
   ]);
 
@@ -284,7 +284,7 @@ module.exports = core => {
     }).then(results => res.send({ results }), next));
 
   app.get('/locations/insee', (req, res, next) => core.services.agendaLocations.utils.getINSEECode(
-    _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
+    _.pick(req.query, ['city', 'department', 'latitude', 'longitude']),
   ).then(code => res.json({ code }), next));
 
   app.get('/agendas/:agendaUid/locations/settings', (req, res, next) => core
@@ -404,7 +404,7 @@ module.exports = core => {
     (req, res, next) => core
       .agendas(req.agenda.uid)
       .embeds.list()
-      .then(embeds => res.json(embeds), next)
+      .then(embeds => res.json(embeds), next),
   );
 
   app.post(
@@ -413,7 +413,7 @@ module.exports = core => {
     (req, res, next) => core
       .agendas(req.agenda.uid)
       .embeds.create(req.parsedData)
-      .then(embed => res.json(embed), next)
+      .then(embed => res.json(embed), next),
   );
 
   app.post('/agendas/:agendaUid/settings/resync', [

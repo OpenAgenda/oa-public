@@ -21,7 +21,7 @@ const convertState = require('./lib/convertState');
 
 const pick = (obj, fields) => fields.reduce(
   (carry, field) => Object.assign(carry, { [field]: obj[field] }),
-  {}
+  {},
 );
 
 module.exports = (agendaSettings, event) => {
@@ -32,10 +32,13 @@ module.exports = (agendaSettings, event) => {
     slug: event.slug,
     canonicalUrl: `${root}/${agendaSettings.slug}/events/${event.slug}`,
     title: event.title,
-    description: event.description,
+    description: event.description ? Object.keys(event.description).reduce((carry, lang) => ({
+      ...carry,
+      [lang]: cleanString(event.description[lang]),
+    }), {}) : {},
     longDescription: event.longDescription ? Object.keys(event.longDescription).reduce((carry, lang) => ({
       ...carry,
-      [lang]: cleanString(event.longDescription[lang])
+      [lang]: cleanString(event.longDescription[lang]),
     }), {}) : {},
     keywords: convertKeywords(event.keywords),
   };
@@ -84,7 +87,7 @@ module.exports = (agendaSettings, event) => {
           'longitude',
           'description',
           'access',
-        ]
+        ],
       ),
       {
         countryCode: event.location.countryCode ? event.location.countryCode.toLowerCase() : undefined,
@@ -101,11 +104,11 @@ module.exports = (agendaSettings, event) => {
           'timezone',
           'updatedAt',
           'extId',
-        ]
+        ],
       ),
       {
         country: event.country,
-      }
+      },
     ) : null,
     attendanceMode: event.attendanceMode,
     onlineAccessLink: event.onlineAccessLink,
@@ -114,14 +117,14 @@ module.exports = (agendaSettings, event) => {
     origin: convertOriginAgenda(event),
     conditions: event.conditions,
     registrationUrl,
-  }, getLocationInfo(event.location), {
+  }, event.location ? getLocationInfo(event.location) : {}, {
     timings: convertTimings(event.timings, event.timezone),
     registration,
   }, getFirstLastTimings(event.timings), {
     permalink: getPermalink(agendaSettings, event),
     featured: Number(event.featured),
     custom: getCustom(agendaSettings, event),
-    contributor: convertMember(admin, event.member),
+    contributor: convertMember(admin, event),
     category: getCategory(agendaSettings, event),
     tags,
     tagGroups,
@@ -136,7 +139,7 @@ module.exports = (agendaSettings, event) => {
     if (typeof legacyFormat[field] === 'object'
     && legacyFormat[field] !== null
     && Object.keys(legacyFormat[field]).length === 0
-    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html'].includes(field)
+    && !['longDescriptionLinks', 'accessibility', 'longDescription', 'html', 'registration'].includes(field)
     ) {
       legacyFormat[field] = null;
     }

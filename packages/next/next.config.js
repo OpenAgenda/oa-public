@@ -10,10 +10,25 @@ const config = async () => {
   } = process.env;
 
   const serverRuntimeConfig = {
+    apiRoot: NEXT_API_INTERNAL_BASE_URL,
     api: (req, method, ...args) => apiClient(NEXT_API_INTERNAL_BASE_URL, req)[method](...args),
   };
 
   return withTM({
+    assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
+    i18n: {
+      locales: ['fr', 'en'],
+      defaultLocale: 'fr',
+    },
+    serverRuntimeConfig,
+    eslint: {
+      dirs: [
+        'src',
+        'scripts',
+        '.storybook',
+        'stories',
+      ],
+    },
     experimental: {
       images: {
         allowFutureImage: true,
@@ -26,8 +41,6 @@ const config = async () => {
       },
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },
-    assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
-    serverRuntimeConfig,
     async rewrites() {
       return {
         fallback: [

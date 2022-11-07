@@ -1,5 +1,4 @@
 import debug from 'debug';
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
@@ -20,7 +19,7 @@ import contributeReducer from '../reducers/contribute';
 
 const {
   isContributionType,
-  filterState
+  filterState,
 } = utils;
 
 const log = debug('EventNew');
@@ -34,7 +33,7 @@ export default function EventNew({ agenda, history }) {
   const {
     config,
     isLoading,
-    agendaContext
+    agendaContext,
   } = useEventFormConfig(agenda);
   const apiRoot = useSelector(state => state.settings.apiRoot);
 
@@ -69,7 +68,7 @@ export default function EventNew({ agenda, history }) {
         onSuccess={(event, response) => {
           dispatch(contributeReducer.eventCreateSuccess({
             agenda,
-            response
+            response,
           }));
         }}
         memberRole={agendaContext?.me?.member?.role}

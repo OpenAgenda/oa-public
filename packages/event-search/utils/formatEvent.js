@@ -27,7 +27,8 @@ const isEmpty = v => Array.isArray(v) ? !v.length : v === undefined;
 
 module.exports = produce((event, options = {}) => {
   const {
-    formSchema = null
+    formSchema = null,
+    endOfTimes = '3000-01-01T01:00:00.000Z',
   } = options;
 
   Object.assign(event, {
@@ -91,8 +92,8 @@ module.exports = produce((event, options = {}) => {
       })).concat({
         // this bit is important for search_after.
         // End of times need to be a manageable date
-        accessible_until: '3000-01-01T01:00:00.000Z',
-        begin: '3000-01-01T00:00:00.000Z'
+        accessible_until: endOfTimes,
+        begin: endOfTimes
       })
     });
   }

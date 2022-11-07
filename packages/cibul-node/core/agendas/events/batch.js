@@ -60,20 +60,20 @@ module.exports = core => {
       agendaUid,
       eventUid,
       data,
-      { ...options, batched: true }
+      { ...options, batched: true },
     ),
     batchedUpdate: (agendaUid, eventUid, data, options = {}) => update(
       core,
       agendaUid,
       eventUid,
       data,
-      { ...options, batched: true }
+      { ...options, batched: true },
     ),
     batchedRemove: (agendaUid, eventUid, options = {}) => remove(
       core.services,
       agendaUid,
       eventUid,
-      { ...options, batched: true }
+      { ...options, batched: true },
     ),
   });
 

@@ -1,44 +1,44 @@
 import getConfig from 'next/config';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
+import EventShow, { EventShowProps } from 'views/EventShow';
 
-const flatten = (value = {}, preferredLang = 'fr') => value[preferredLang] ?? value[Object.keys(value).shift()];
+type PageProps = EventShowProps & {
+  intlMessages: {
+    [key: string]: string
+  }
+};
 
-export const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const {
     serverRuntimeConfig: { api },
   } = getConfig();
 
-  const [{ data: agenda }, { data: { event } }] = await Promise.all([
-    api(req, 'get', `/api/agendas/slug/${query.agendaSlug}`),
-    api(req, 'get', `/api/agendas/slug/${query.agendaSlug}/events/slug/${query.eventSlug}`),
+  const [
+    { data: agenda },
+    { data: { event } },
+    intlMessages,
+  ] = await Promise.all([
+    api(null, 'get', `/api/agendas/slug/${params.agendaSlug}`),
+    api(null, 'get', `/api/agendas/slug/${params.agendaSlug}/events/slug/${params.eventSlug}`),
+    EventShow.fetchLocale(locale),
   ]);
 
+  const props: PageProps = { agenda, event, intlMessages };
+
   return {
-    props: {
-      agenda,
-      event,
-    },
+    props,
+    revalidate: 10,
   };
 };
 
-type PageProps = {
-  agenda: {
-    title: string
-  };
-  event: {
-    title: Record<string, string>
-  };
-};
+export const getStaticPaths = () => ({
+  paths: [],
+  fallback: 'blocking',
+});
 
-const Event: NextPageWithLayout<PageProps> = ({ agenda, event }) => (
-  <div>
-    <h1>Une autre page NextJs</h1>
-    <h2>L&apos;événement: {flatten(event.title)}</h2>
-    <h3>L&apos;agenda: {agenda.title}</h3>
-  </div>
-);
+const Event: NextPageWithLayout<PageProps> = EventShow;
 
 Event.Layout = Layout;
 

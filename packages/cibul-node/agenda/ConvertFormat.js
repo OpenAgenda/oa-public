@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const logs = require('@openagenda/logs');
 
 const convertEventToLegacyFormat = require('@openagenda/legacy/convertEventToLegacyFormat');
 const convertLegacyFilter = require('@openagenda/legacy/convertLegacyFilter');
@@ -25,10 +26,13 @@ function isEnabled(req) {
 module.exports = function ConvertFormat({
   forceLimit = null,
   sendJSON = false,
-  forceIncludeEmbedded = false
+  forceIncludeEmbedded = false,
+  admin = false,
 }) {
+  const log = logs('agenda/ConvertFormat');
   return async (req, res, next) => {
     if (!isEnabled(req)) {
+      log('info', 'Disabled. Using legacy JSON', req.params);
       return next();
     }
 
@@ -65,7 +69,7 @@ module.exports = function ConvertFormat({
       .events.search(
         req.query,
         nav,
-        { detailed: true, access: 'administrator' }
+        { detailed: true, access: 'administrator' },
       );
 
     const agendaSettings = {
@@ -75,12 +79,13 @@ module.exports = function ConvertFormat({
       formSchema,
       interfaces: {
         renderHTMLFromMarkdown: renderHTMLFromMarkdown.bind(null, req.app.services, {
-          includeEmbedded: forceIncludeEmbedded || (req.query.include_embedded === '1')
+          includeEmbedded: forceIncludeEmbedded || (req.query.include_embedded === '1'),
         }),
       },
-      admin: req.access === 'administrator',
+      admin,
       root: config.root,
     };
+
     const convertedEvents = eventsList.events.map(event => convertEventToLegacyFormat(agendaSettings, event));
 
     const response = {
@@ -90,15 +95,21 @@ module.exports = function ConvertFormat({
       events: convertedEvents,
     };
 
-    if (sendJSON) {
+    const readme = 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/';
+
+    if (sendJSON && req.query.callback) {
+      res.send(`${req.query.callback}(${JSON.stringify({
+        readme,
+        ...response,
+      })})`);
+    } else if (sendJSON) {
       res.json({
-        readme: 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/',
+        readme,
         ...response,
       });
-      return;
+    } else {
+      Object.assign(req, response);
+      next();
     }
-
-    Object.assign(req, response);
-    next();
   };
 };

@@ -5,7 +5,7 @@ const verifyMemberAuthorization = require('./middlewares/verifyMemberAuthorizati
 
 module.exports.init = (config, services) => ({
   mw: {
-    verifyMemberAuthorization
+    verifyMemberAuthorization,
   },
-  plugApp: plugApp(config, services)
+  plugApp: plugApp(config, services),
 });

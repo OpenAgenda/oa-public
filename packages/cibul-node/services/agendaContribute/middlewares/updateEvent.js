@@ -7,7 +7,7 @@ const handleError = require('../lib/handleError');
 
 module.exports = function updateEvent(req, res) {
   const {
-    core
+    core,
   } = req.app;
 
   const undrafting = req.event.draft && !req.draft;
@@ -21,6 +21,6 @@ module.exports = function updateEvent(req, res) {
     draft: req.draft,
     userUid: req.user.uid,
     filterUnauthorizedData: true,
-    private: null
+    private: null,
   }).then(event => res.json({ success: true, event }), error => handleError({ res, log }, error));
 };
