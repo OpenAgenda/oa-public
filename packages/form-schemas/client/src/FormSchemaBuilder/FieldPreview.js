@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Accordion from '@openagenda/react-shared/lib/components/Accordion';
 import { getLocaleValue } from '@openagenda/intl';
 
 import labels from './lib/labels';
 import getFieldTypeLabel from './lib/getFieldTypeLabel';
-import fieldTypes from '../iso/fieldTypes';
 
 const getLabel = makeLabelGetter(labels);
 
@@ -111,7 +110,6 @@ const thenOptional = (field, lang, schema) => {
       </div>
     </span>
   );
-
 };
 
 function getDefaultLabel(field, lang) {
@@ -423,6 +421,6 @@ export default class FieldPreview extends Component {
   render() {
     const { field } = this.props;
 
-    return (field?.display ?? true) ? this.renderDisplayed() : this.renderHidden();
+    return field?.display ?? true ? this.renderDisplayed() : this.renderHidden();
   }
 }
