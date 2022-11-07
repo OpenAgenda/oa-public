@@ -15,8 +15,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactIntl = require("react-intl");
 
-var _reactRouter = require("react-router");
-
 var _reactQuery = require("react-query");
 
 var _reactShared = require("@openagenda/react-shared");
@@ -98,7 +96,7 @@ function Dashboard() {
   var maxFields = agenda !== null && agenda !== void 0 && (_agenda$credentials = agenda.credentials) !== null && _agenda$credentials !== void 0 && _agenda$credentials.premiumCustomFields ? 100 : 1;
   var editableParents = (agenda === null || agenda === void 0 ? void 0 : (_agenda$credentials2 = agenda.credentials) === null || _agenda$credentials2 === void 0 ? void 0 : _agenda$credentials2.premiumCustomFields) || ['timings'];
   var intl = (0, _reactIntl.useIntl)();
-  var res = (0, _useRes.default)(agenda); // const { key: locationKey } = useLocation();
+  var res = (0, _useRes.default)(agenda);
 
   var _useEventSchemas = (0, _useEventSchemas2.default)(agenda),
       schema = _useEventSchemas.schema,
@@ -108,8 +106,7 @@ function Dashboard() {
   var _useState = (0, _react.useState)((0, _getSchemaFieldCount.default)(schema)),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
       currentFieldCount = _useState2[0],
-      setCurrentFieldCount = _useState2[1]; //const query = QueryCache.find(['agenda-eventSchema', agenda.uid]);
-
+      setCurrentFieldCount = _useState2[1];
 
   var queryClient = (0, _reactQuery.useQueryClient)();
   (0, _react.useEffect)(function () {
@@ -133,7 +130,7 @@ function Dashboard() {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 76,
+        lineNumber: 73,
         columnNumber: 5
       }
     }, (0, _react2.jsx)("label", {
@@ -141,28 +138,28 @@ function Dashboard() {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 77,
+        lineNumber: 74,
         columnNumber: 7
       }
     }, intl.formatMessage(messages.adaptForm)), maxFields === 1 ? (0, _react2.jsx)("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 79,
+        lineNumber: 76,
         columnNumber: 9
       }
     }, (0, _react2.jsx)("p", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 80,
+        lineNumber: 77,
         columnNumber: 11
       }
     }, intl.formatMessage(messages.canAddField))) : null, maxFields === 1 && maxFields === currentFieldCount ? (0, _react2.jsx)("div", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 84,
+        lineNumber: 81,
         columnNumber: 9
       }
     }, (0, _react2.jsx)("a", {
@@ -170,7 +167,7 @@ function Dashboard() {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 85,
+        lineNumber: 82,
         columnNumber: 11
       }
     }, intl.formatMessage(messages.needMoreFields))) : null);
@@ -181,7 +178,7 @@ function Dashboard() {
       __self: this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 94,
+        lineNumber: 91,
         columnNumber: 12
       }
     });
@@ -191,7 +188,7 @@ function Dashboard() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
+      lineNumber: 95,
       columnNumber: 5
     }
   }, (0, _react2.jsx)(_FormSchemaBuilder.default, {
@@ -229,14 +226,14 @@ function Dashboard() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99,
+      lineNumber: 96,
       columnNumber: 7
     }
   }), maxFields === 1 && maxFields === currentFieldCount ? (0, _react2.jsx)("div", {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134,
+      lineNumber: 131,
       columnNumber: 9
     }
   }, (0, _react2.jsx)("a", {
@@ -244,7 +241,7 @@ function Dashboard() {
     __self: this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135,
+      lineNumber: 132,
       columnNumber: 11
     }
   }, intl.formatMessage(messages.needMoreFields))) : null);

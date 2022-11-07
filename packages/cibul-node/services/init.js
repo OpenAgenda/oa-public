@@ -90,7 +90,6 @@ module.exports = async function (configObject, options = {}) {
   await init('oembed', require('./oembed'));
   await init('simpleCache', require('./simpleCache'));
   await init('unsubscribed', require('./unsubscribed'));
-  await init('agendaSchema', require('./agendaSchema'));
   await init('supervisor', require('./supervisor'));
   await init('stats', require('./stats'));
 
