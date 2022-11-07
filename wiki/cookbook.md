@@ -265,7 +265,7 @@ On fait les commits sur la lib, on itère sur la version directement dans le `pa
 
 ### Patcher une lib publique de manière isolée
 
-Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch -i`, en commitant les modifications, puis en `npm publish`ant le package localement.
+Une petite modification sur agenda-portal à patcher sur npm peut se faire simplement en mettant à jour la version `yarn version patch -i`, en commitant les modifications, puis en `NODE_ENV=production npm publish`ant le package localement.
 
 ## structure d'un projet
 
