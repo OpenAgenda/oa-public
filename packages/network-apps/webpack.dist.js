@@ -88,12 +88,7 @@ module.exports = {
     ]
   },
   resolve: {
+    extensions: ['.js', '.mjs', '.json', '.wasm'],
     symlinks: false,
-    extensions: ['.js', '.mjs', '.json', '.wasm'],
-    alias: {
-      // required only for the timings component
-      'react': require.resolve( 'react' )
-    },
-    extensions: ['.js', '.mjs', '.json', '.wasm'],
   },
 };
