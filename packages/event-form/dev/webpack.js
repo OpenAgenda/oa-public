@@ -26,11 +26,4 @@ module.exports = {
       }
     } ]
   },
-  resolve: {
-    symlinks: false,
-    alias: {
-      // required only for the timings component
-      'react': require.resolve( 'react' )
-    }
-  }
 };
