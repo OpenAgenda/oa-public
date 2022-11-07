@@ -12,7 +12,7 @@ async function createTag(knex, id, tag) {
       strict: true,
     }),
     created_at: new Date(),
-    updated_at: new Date()
+    updated_at: new Date(),
   });
 }
 
@@ -20,14 +20,14 @@ async function updateTag(knex, id, tag) {
   return knex('review_tag').update({
     review_id: id,
     tag: tag.label,
-    updated_at: new Date()
+    updated_at: new Date(),
   }).where('id', tag.id);
 }
 
 async function removeTag(knex, id, tag) {
   return knex('review_tag').remove().where({
     review_id: id,
-    id: tag.id
+    id: tag.id,
   });
 }
 
@@ -38,7 +38,7 @@ async function setTags(knex, id, tagSet) {
 
   for (const { tags: groupTags } of tagSet?.groups ?? []) {
     for (const groupTag of groupTags) {
-      const matchingTag = tags.filter(t => ((groupTag.slug === t.slug) || (groupTag.id === t.id))).pop();
+      const matchingTag = tags.filter(t => (groupTag.slug === t.slug) || (groupTag.id === t.id)).pop();
 
       if (!matchingTag) {
         const tagIds = await createTag(knex, id, groupTag);
@@ -66,7 +66,7 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
   const {
     set: updatedSet,
     messages,
-    fields
+    fields,
   } = await generateTagSet(schema, currentTagSet, options);
 
   const updatedSetWithIds = await setTags(knex, id, updatedSet);
@@ -83,6 +83,6 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
   return {
     set: updatedSet,
     messages,
-    fields
+    fields,
   };
 };

@@ -12,7 +12,7 @@ async function createCategory(knex, id, category) {
       strict: true,
     }),
     created_at: new Date(),
-    updated_at: new Date()
+    updated_at: new Date(),
   });
 }
 
@@ -20,14 +20,14 @@ async function updateCategory(knex, id, category) {
   return knex('review_category').update({
     review_id: id,
     category: category.label,
-    updated_at: new Date()
+    updated_at: new Date(),
   }).where('id', category.id);
 }
 
 async function removeCategory(knex, id, category) {
   return knex('review_category').remove().where({
     review_id: id,
-    id: category.id
+    id: category.id,
   });
 }
 
@@ -37,7 +37,7 @@ async function setCategories(knex, id, categorySet) {
     .where('review_id', id);
 
   for (const category of categorySet.categories) {
-    const matchingCategory = categories.filter(c => ((category.slug === c.slug) || (category.id === c.id))).pop();
+    const matchingCategory = categories.filter(c => (category.slug === c.slug) || (category.id === c.id)).pop();
 
     if (!matchingCategory) {
       const categoryIds = await createCategory(knex, id, category);
@@ -62,7 +62,7 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
   const {
     set: updatedSet,
     messages,
-    fields
+    fields,
   } = await generateCategorySet(schema, currentCategorySet, options);
 
   const updatedSetWithIds = await setCategories(knex, id, updatedSet);
@@ -74,14 +74,13 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
   } else {
     await knex('category_set').insert({
       id,
-      store: JSON.stringify(updatedSetWithIds)
+      store: JSON.stringify(updatedSetWithIds),
     });
   }
-
 
   return {
     set: updatedSet,
     messages,
-    fields
+    fields,
   };
 };
