@@ -67,9 +67,17 @@ module.exports = async function updateCategorySetAndCategories({ knex }, id, sch
 
   const updatedSetWithIds = await setCategories(knex, id, updatedSet);
 
-  await knex('category_set').update({
-    store: JSON.stringify(updatedSetWithIds)
-  }).where('id', id);
+  if (await knex('category_set').first('id').where('id', id)) {
+    await knex('category_set').update({
+      store: JSON.stringify(updatedSetWithIds),
+    }).where('id', id);
+  } else {
+    await knex('category_set').insert({
+      id,
+      store: JSON.stringify(updatedSetWithIds)
+    });
+  }
+
 
   return {
     set: updatedSet,

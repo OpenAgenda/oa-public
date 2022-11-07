@@ -71,7 +71,14 @@ module.exports = async function updateTagSetAndTags({ knex }, id, schema, curren
 
   const updatedSetWithIds = await setTags(knex, id, updatedSet);
 
-  await knex('tag_set').update({ store: JSON.stringify(updatedSetWithIds) }).where('id', id);
+  if (await knex('tag_set').first('id').where('id', id)) {
+    await knex('tag_set').update({ store: JSON.stringify(updatedSetWithIds) }).where('id', id);
+  } else {
+    await knex('tag_set').insert({
+      id,
+      store: JSON.stringify(updatedSetWithIds),
+    });
+  }
 
   return {
     set: updatedSet,
