@@ -100,7 +100,7 @@ module.exports = declare((api, options) => {
       require('@babel/preset-react'),
       {
         development,
-        runtime: 'automatic'
+        runtime: 'automatic',
       }
     ]
   ];
