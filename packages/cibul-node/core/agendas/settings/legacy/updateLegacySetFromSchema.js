@@ -11,7 +11,7 @@ const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
 
 const Operations = services => {
   const {
-    legacy
+    legacy,
   } = services;
 
   const getTags = legacy?.tagsAndCustom?.getTagSet ?? (() => log('warn', 'agendaTags was not initialized'));
@@ -22,23 +22,23 @@ const Operations = services => {
   return {
     tags: {
       get: getTags,
-      generate: generateTags
+      generate: generateTags,
     },
     categories: {
       get: getCategories,
-      generate: generateCategories
-    }
+      generate: generateCategories,
+    },
   };
 };
 
 module.exports = async (core, agendaOrUid, type, options = {}) => {
   const config = core.getConfig();
   const {
-    services
+    services,
   } = core;
 
   const {
-    lang
+    lang,
   } = options;
 
   const operations = Operations(services);
@@ -51,7 +51,7 @@ module.exports = async (core, agendaOrUid, type, options = {}) => {
 
   if (!schema) {
     return {
-      message: `No schema was found for agenda ${agenda.uid}`
+      message: `No schema was found for agenda ${agenda.uid}`,
     };
   }
 
@@ -62,14 +62,14 @@ module.exports = async (core, agendaOrUid, type, options = {}) => {
   const {
     set: updatedLegacySet,
     messages,
-    fields
+    fields,
   } = await operations[type].generate(id, schema, legacySet, {
-    lang: agenda.settings.contribution.defaultLang ?? lang
+    lang: agenda.settings.contribution.defaultLang ?? lang,
   });
 
   const res = {
     messages,
-    [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']: updatedLegacySet
+    [type === 'tags' ? 'updatedTagSet' : 'updatedCategorySet']: updatedLegacySet,
   };
 
   if (!updatedLegacySet) {
@@ -89,7 +89,7 @@ module.exports = async (core, agendaOrUid, type, options = {}) => {
   if (updatedLegacySet) {
     const {
       message: schemaUpdateMessage,
-      schema: updatedSchema
+      schema: updatedSchema,
     } = await setSchemaFieldOrigins(services, agenda, fields.map(f => f.field), type);
 
     res.messages.push(schemaUpdateMessage);
