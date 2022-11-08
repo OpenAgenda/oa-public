@@ -1,4 +1,3 @@
-import React from 'react';
 import { defineMessages } from 'react-intl';
 
 import AgendaSearchInput from '../../AgendaSearchInput';
@@ -18,7 +17,7 @@ const messages = defineMessages({
   connectionBtn: {
     id: 'connection-btn',
     defaultMessage: 'Sign In',
-  }
+  },
 });
 
 export default function OpenAgendaShare(props) {
@@ -27,7 +26,7 @@ export default function OpenAgendaShare(props) {
     res,
     event,
     preFetch,
-    intl
+    intl,
   } = props;
 
   return (
