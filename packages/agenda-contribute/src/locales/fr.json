@@ -37,7 +37,7 @@
   "AgendaContribute.EventWasSuccessfullyShared.goTo": "Voir l'événement",
   "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": "L'événement a été publié dans ''{agenda}''",
   "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": "L'événement a été partagé dans ''{agenda}''. Il doit être vu par un administrateur avant sa publication.",
-  "AgendaContribute.Member.share": "",
+  "AgendaContribute.Member.share": "Cet agenda requiert que vous remplissiez les informations suivantes avant de pouvoir contribuer des événements.",
   "AgendaContribute.Member.subtitle": "Présentez-vous avant de saisir vos événements",
   "AgendaContribute.Member.title": "Bienvenue !",
   "AgendaContribute.RequestEditionRights.noEditionRights": "Vous n'avez pas les droits d'édition sur cet événement.",
