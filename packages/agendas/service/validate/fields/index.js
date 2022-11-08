@@ -307,11 +307,6 @@ module.exports = [{
     type: 'boolean',
     default: true
   }, {
-    field: 'useAgendaSchema',
-    description: 'Use agenda schema app to customize fields',
-    type: 'boolean',
-    default: true
-  }, {
     field: 'premiumCustomFields',
     description: 'Allow adding multiple custom fields to agenda form',
     type: 'boolean',
@@ -319,11 +314,6 @@ module.exports = [{
   }, {
     field: 'moderators',
     description: 'Add Moderator to member roles',
-    type: 'boolean',
-    default: false
-  }, {
-    field: 'tags',
-    description: 'Agenda tags are made available.',
     type: 'boolean',
     default: false
   }, {
@@ -336,11 +326,6 @@ module.exports = [{
     description: 'Integrated agendas: Custom templates can be defined',
     type: 'boolean',
     default: true
-  }, {
-    field: 'indesign',
-    description: 'Burn this with fire.',
-    type: 'boolean',
-    default: false
   }, {
     field: 'activatingInvitations',
     description: 'When the user with no account is invited to the agenda, no activation mail is required to complete signup',
@@ -367,18 +352,8 @@ module.exports = [{
     type: 'boolean',
     default: false
   }, {
-    field: 'calendarView',
-    description: 'Agenda calendar view',
-    type: 'boolean',
-    default: false
-  }, {
     field: 'eventOwnershipTransfer',
     description: 'Transfer ownership of event from one member to another within an agenda',
-    type: 'boolean',
-    default: false
-  }, {
-    field: 'graphs',
-    description: 'Display graph tab on agenda admin',
     type: 'boolean',
     default: false
   }, {

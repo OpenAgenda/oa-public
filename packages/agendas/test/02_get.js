@@ -223,21 +223,16 @@ describe( 'agendas - functional (server): get', function() {
 
       _.get( agenda, 'credentials' ).should.eql( {
         useContributeApp: true,
-        useAgendaSchema: true,
         premiumCustomFields: false,
         activatingInvitations: false,
         embedsHead: true,
         embedsTemplates: true,
-        indesign: false,
         moderators: false,
-        tags: false,
         aggregator: false,
         prioritizedAggregator: false,
         invitationMessage: false,
-        calendarView: false,
         docxExport: false,
         eventOwnershipTransfer: false,
-        graphs: false,
         useJSONBridge: false
       } );
 
