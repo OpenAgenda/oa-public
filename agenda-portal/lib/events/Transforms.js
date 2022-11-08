@@ -17,7 +17,7 @@ function _preEventTransform(options, event, req, res) {
     flatten.bind(
       null,
       ['dateRange', 'range', 'title', 'description', 'longDescription', 'html', 'conditions', 'location.access', 'location.description'],
-      res.locals.lang
+      res.locals.lang,
     ),
     defineEventTimezone.bind(null, options),
     _.partialRight(relativeTimings, { lang: res.locals.lang }),
@@ -46,7 +46,7 @@ module.exports = options => {
         req,
         res,
         listContext,
-        postTransform(transformed, req, res)
+        postTransform(transformed, req, res),
       );
     },
 
@@ -58,13 +58,13 @@ module.exports = options => {
       transformed.months = spreadPerMonthPerDay(
         transformed.timings,
         transformed.timezone || transformed.location.timezone,
-        res.locals.lang
+        res.locals.lang,
       );
 
       if (_.get(req, 'params.timing')) {
         transformed.timing = _.find(
           transformed.timings,
-          t => `${new Date(getBeginValue(t)).getTime()}` === req.params.timing
+          t => `${new Date(getBeginValue(t)).getTime()}` === req.params.timing,
         );
       }
 
