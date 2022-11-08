@@ -2,5 +2,6 @@
   "map": "crwdns12772:0crwdne12772:0",
   "passed": "crwdns12774:0crwdne12774:0",
   "location": "crwdns12776:0crwdne12776:0",
-  "fromTo": "crwdns12778:0%start%crwdnd12778:0%end%crwdne12778:0"
+  "fromTo": "crwdns12778:0%start%crwdnd12778:0%end%crwdne12778:0",
+  "selection": "crwdns32504:0crwdne32504:0"
 }

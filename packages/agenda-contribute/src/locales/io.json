@@ -49,5 +49,6 @@
   "AgendaContribute.Stepper.event": "crwdns16357:0crwdne16357:0",
   "AgendaContribute.Stepper.member": "crwdns16359:0crwdne16359:0",
   "AgendaContribute.ErrorMessage.description": "crwdns32376:0crwdne32376:0",
-  "AgendaContribute.ErrorMessage.title": "crwdns32378:0crwdne32378:0"
+  "AgendaContribute.ErrorMessage.title": "crwdns32378:0crwdne32378:0",
+  "AgendaContribute.Member.share": "crwdns32446:0crwdne32446:0"
 }
