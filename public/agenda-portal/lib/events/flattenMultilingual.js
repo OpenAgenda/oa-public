@@ -17,10 +17,10 @@ module.exports = (fields, preferredlang, obj) => ih(
         $set: _.get(
           fieldValue,
           preferredlang,
-          _.get(fieldValue, _.first(_.keys(fieldValue)))
+          _.get(fieldValue, _.first(_.keys(fieldValue))),
         ),
       });
     },
-    {}
-  )
+    {},
+  ),
 );
