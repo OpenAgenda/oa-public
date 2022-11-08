@@ -51,7 +51,7 @@ const EventShareModal = ({
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
       <div className="export-form">
-        <button className="eclose" type="button" onClick={onClose}>
+        <button className="close" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
         {segment.includes('openagenda') && (
