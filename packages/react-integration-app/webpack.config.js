@@ -41,7 +41,7 @@ const modulesToInclude = [
   'yallist',
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(
-  `node_modules/(?!(${modulesToInclude.join('|')}))`
+  `node_modules/(?!(${modulesToInclude.join('|')}))`,
 );
 
 const region = 'eu-west-1';
@@ -78,7 +78,7 @@ module.exports = (env = {}, argv = {}) => {
       webapp: path.join(__dirname, 'client/index.js'),
       outdated: '@openagenda/outdated-browser',
       vendors: ['react', 'react-dom'].concat(
-        envName === 'development' && argv.hot ? ['react-refresh/runtime'] : []
+        envName === 'development' && argv.hot ? ['react-refresh/runtime'] : [],
       ),
     },
     output: {
@@ -194,9 +194,6 @@ module.exports = (env = {}, argv = {}) => {
     resolve: {
       // symlinks: false,
       extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
-      alias: {
-        react: require.resolve('react'),
-      },
       fallback: {
         buffer: require.resolve('buffer'),
       },
@@ -265,7 +262,7 @@ module.exports = (env = {}, argv = {}) => {
       .concat(
         envName === 'development' && argv.hot
           ? [new ReactRefreshWebpackPlugin()]
-          : []
+          : [],
       )
       .concat(
         pushToCDN
@@ -305,7 +302,7 @@ module.exports = (env = {}, argv = {}) => {
               // directory: 'dist/gz'
             }),
           ]
-          : []
+          : [],
       )
       .filter(Boolean),
   };
