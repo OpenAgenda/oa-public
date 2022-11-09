@@ -25,11 +25,11 @@ export default function useFilters(intl, agendaSchema, opts = {}) {
       { name: 'attendanceMode' },
       { name: 'region' },
       { name: 'department' },
-      { name: 'city' },
       { name: 'adminLevel3' },
+      { name: 'city' },
+      { name: 'district' },
       { name: 'keyword' },
       { name: 'status' },
-      { name: 'district' },
       { name: 'accessibility' }
     ];
 
@@ -39,7 +39,7 @@ export default function useFilters(intl, agendaSchema, opts = {}) {
         name: fieldSchema.field,
         fieldSchema
       }));
-
+      
     return standardFilters
       .concat(additionalFilters)
       .map(filter => withDefaultFilterConfig(filter, intl, {
