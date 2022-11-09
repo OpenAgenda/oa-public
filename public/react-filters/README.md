@@ -1,18 +1,32 @@
 # @openagenda/react-filters
 
-## Exemple
+This library works with OpenAgenda-compatible query structures. It provides a controller that loads calendar filters in designated placeholders presented on a webpage. It is used on the [OpenAgenda](https://openagenda.com) platform as well as by the following libraries:
+
+ * The OpenAgenda [Wordpress plugin](https://fr.wordpress.org/plugins/openagenda/)
+ * The OpenAgenda [Drupal plugin](https://www.drupal.org/project/openagenda)
+ * The OpenAgenda [agenda-portal](https://www.npmjs.com/package/@openagenda/agenda-portal) event portal library
+
+Table of contents:
+
+ * [General principles](#principles)
+ * [Available filters](#filters)
+
+## Principles
+
+Configuration is provided to the controller through a `window.oa` object that must be initialized before the filter library is loaded. 
 
 ```html
 <html>
   <head></head>
   <body>
+    <!-- place filter <div /> anchor points in your webpage -->
     <script>
-      // les paramètres qui seront utilisés par le script
       window.oa = {
-        // ref,
         res: '/events',
         locale: 'fr',
-
+        onLoad: () => {}, // ...
+        onFilterChange: (), // ...
+        // ...
       };
     </script>
     <script src="https://unpkg.com/@openagenda/react-filters@2.4.2/dist/main.js"></script>
@@ -20,7 +34,34 @@
 </html>
 ```
 
-Un filtre est défini en plaçant un div avec des paramètres passés en attributs. Exemple d'un filtre "city":
+The [OpenAgenda plugins](https://developers.openagenda.com/tag/60-plugins/) load this object with the configuration provided in their backend. When used, initializing the `window.oa` separately should not be done. In this case, your focus should be on the [filters part](#filters) of this documentation.
+
+If you need to use this library outside of the context of a plugin, see the contents of the `example` folder of the repo for details on the parameters to be provided to the `window.oa` object. In that case, requests can be sent directly to the [OpenAgenda API endpoints](https://developers.openagenda.com/10-lecture/)
+
+### Controller options
+
+This are loaded through the `window.oa` object.
+
+ * **res**: The path where the controller will retrieve aggregated data to populate the filters with
+ * **locale**: The locale in which the filters should be loaded
+ * **locales**: Optional. The filter labels to be loaded over defaults. Use the following as base: `https://github.com/OpenAgenda/oa-public/blob/main/react-filters/src/locales/fr.json`
+ * **aggregations**: Optional. The aggregated data object to be used by the controller at initialisation.
+ * **total**: The current total displayed events
+ * **defaultViewport**: Viewport to be used when no results are found. Format: `{ bottomRight: { latitude, longitude }, topLeft: { latitude, longitude } }`
+ * **query**: Optional. Filter value to be loaded at initialization.
+ * **onFilterChange**: The function to be called each time a filter value changes. This function should be in charge of loading the matching events in the list and updating the URL.
+ * **onLoad**: This function is called when the controller has been loaded.
+ * **apiClient**: An optional axios instance. Useful for tests.
+ * **ref**: A React ref. Useful if the controller is to be used with the `FilterManager` component (not documented). See `React.createRef()` or `React.useRef()`
+
+## Filters
+
+A filter is defined by placing a `div` with `data-oa-filter` and `data-oa-filter-params` attributes in the webpage. At page load, the controler scans for any divs containing those attributes and attempts to load the corresponding filter.
+
+ * `data-oa-filter` should contain a unique identifier for the filter on the site where it is loaded
+ * `data-oa-filter-params` should container the parameters for the filter encoded in JSON and escaped (ex `{"name": "city"}` becomes `{&quot;name&quot;:&quot;city&quot;}`).
+
+Most filters can be loaded using the following basic configuration (here, a filter that provides a list of cities from which the user can filter the event selection to focus on the requested cities):
 
 ```
 <div
@@ -29,93 +70,40 @@ Un filtre est défini en plaçant un div avec des paramètres passés en attribu
 ></div>
 ```
 
- * L'attribut 'data-oa-filter' doit être unique sur la page.
- * L'attribut 'data-oa-filter-params' prend la configuration du filtre encodé en JSON.
+Here is a non-comprehensive list of the filters that can be loaded (to be placed in the `name` parameter):
 
-## Paramètres
+ * `search`: A search text input.
+ * `map`: A map for filtering based on events geolocation data. See below for details.
+ * `locationUid`: Loads a list of location names.
+ * `city`: as shown in the example. Provides a list of cities.
+ * `region`: Loads a list of regions (equivalent of administrative level 1)
+ * `department`: Loads a list of department (equivalent of administrative level 2)
+ * `adminLevel3`: Loads a list of city groups (administrative level 3)
+ * `city`: Loads a list of cities.
+ * `keyword`: Loads a list of keywords.
+ * `accessibility`: Loads a list of accessibility installation filters.
+ * `attendanceMode`: Loads a filter to filter from `online`, `offline` or `mixed` events.
+ * `featured`: Filter between featured and non-featured events.
+ * `relative`: Filter between passed, ongoing and upcoming events
+ * `timings`: Loads a calendar picker when the type is `dateRange` and range links (today, tomorrow, this weekend, ...) when the type is `definedRange`. See below for details.
 
-Le gestionnaire de filtre est configuré à partir des valeurs défines sur window.oa
+For all filters that take the form of a list of checkboxes, the parameter `inputType` can be set to `radio` if the required behavior is to limit filtering to one value at a time per field.
 
-### `res`
+### Map
 
-De type chaine de caractères, c'est le chemin de l'api utilisé pour faire un `GET` des agrégations (totaux et valeurs affichées par les filtres).
+The map filter displays a map at the location of the container div that will allow the user to focus the selection of events according to their geographical locations. Parameters are:
 
-Exemple:
+ * **name**: 'geo'. Tells the controller the map filter is to be loaded.
+ * **mapClass**: The class to be given to the map component container div.
+ * **tileUrl**: The tiles to be used. Ex: `//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`
+ * **tileAttribution**: The attribution for the tiles. Ex: `Map data © OpenStreetMap contributors`
+ * **searchWithMap**: Boolean. Whether the event selection should be reloaded as the user navigates through the map.
+ * **searchMessage**: Text to be displayed next to the checkbox controlling whether the selection should be reloaded with map navigation.
 
-```
-window.oa = {
-  // ...
-  res: '/events'
-  // ...
-}
-```
+### Timings
 
-### `locale`
+The timings filter displays a calendar or range links that allow the user to filter the event selection to those occuring during the selected time range.
 
-La langue à appliquer, en 2 lettres: `fr`, `en`, `es`...
-
-### `locales`
-
-Les messages à ajouter ou surcharger, au format suivant:
-```js
-const locales = {
-  fr: {
-    key: 'message'
-  }
-};
-```
-
-Les locales en français de la dernière version se trouvent [ici](https://github.com/OpenAgenda/oa-public/blob/main/react-filters/src/locales/fr.json).
-
-### `aggregations`
-
-L'objet des agrégations utiles aux filtres.
-
-### `total`
-
-Le nombre total d'événements correspondants aux filtres
-
-### `defaultViewport`
-
-Un objet décrivant les limites de la carte lorsqu'aucun événement ne correspond aux filtres, au format suivant:
-
-```js
-const defaultViewport = {
-  bottomRight: {
-    latitude,
-    longitude
-  },
-  topLeft: {
-    latitude,
-    longitude
-  }
-};
-```
-
-### `query`
-
-L'objet des valeurs des filtres, qui vient généralement de l'url mais peut aussi être utilisé à des fins de test.
-
-### `onFilterChange`
-
-La fonction qui est appelée à chaque changement de filtre, c'est ici qu'il faut mettre à jour l'url, recharger la liste d'événements ou la page.
-
-### `apiClient`
-
-Une instance d'axios, surtout utile pour les tests.
-
-Voir [`@openagenda/axios-mock-adapter`](https://www.npmjs.com/package/@openagenda/axios-mock-adapter).
-
-### `ref`
-
-De type référence React, elle permet d'utiliser le gestionnaire de filtres (`FiltersManager`) pour récupérer ou modifier des données.
-
-Voir `React.createRef()` ou `React.useRef()`
-
-## Paramètres par type de filtres
-
-### definedRange
-
-Affiche des liens cliquables pour filtrer sur des périodes relatives au présent (aujourd'hui, demain...)
-
- * **staticRanges**: pour préciser la liste à afficher. Valeurs possibles: `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`
+ * **name**: 'timings'
+ * **type**: 'dateRange' for the calendar, 'definedRange' for predefined range links (today, tomorrow, this weekend)
+ * **staticRanges**: when the type is 'definedRange', specifies which ranges to be displayed. Possible values are `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`
