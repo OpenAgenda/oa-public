@@ -711,11 +711,11 @@ module.exports = {
     "es": "no seleccionado",
     "it": "non selezionato"
   },
-  "LikedField": {
-    "fr": "Champ lié au champ",
-    "en": "Linked field to",
-    "es": "Campo relacionado con el campo",
-    "it": "Campo relativo al campo"
+  "linkedField": {
+    "fr": "Lié au champ",
+    "en": "Linked to",
+    "es": "Relacionado con el campo",
+    "it": "Relativo al campo"
   },
   "ifField": {
     "fr": "Si le champ",
@@ -740,5 +740,17 @@ module.exports = {
     "en": "is optional",
     "es": "es opcional",
     "it": "è facoltativo"
+  },
+  "isActivated": {
+    "fr": "est activé",
+    "en": "is activated",
+    "es": "se activa",
+    "it": "è attivato"
+  },
+  "isEntered": {
+    "fr": "est saisi",
+    "en": "is entered",
+    "es": "se introduce",
+    "it": "è inserito"
   },
 }
