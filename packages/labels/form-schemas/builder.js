@@ -503,15 +503,18 @@ module.exports = {
   },
   "chooseFieldTypePlaceholder": {
     "fr": "Choisissez un type de champ",
-    "en": "Choose a field type"
+    "en": "Choose a field type",
+    "io": "crwdns32764:0crwdne32764:0"
   },
   "chooseOtherType": {
     "fr": "Choisir un autre type",
-    "en": "Choose another type"
+    "en": "Choose another type",
+    "io": "crwdns32766:0crwdne32766:0"
   },
   "isLabelDuplicateError": {
     "fr": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
-    "en": "The title for this field is already taken by another of the form. Modify it before trying to add it again."
+    "en": "The title for this field is already taken by another of the form. Modify it before trying to add it again.",
+    "io": "crwdns32768:0crwdne32768:0"
   },
   "confirmFieldType": {
     "fr": "Configurer le champ",

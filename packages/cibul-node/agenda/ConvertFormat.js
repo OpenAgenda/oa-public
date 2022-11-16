@@ -95,15 +95,21 @@ module.exports = function ConvertFormat({
       events: convertedEvents,
     };
 
-    if (sendJSON) {
+    const readme = 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/';
+
+    if (sendJSON && req.query.callback) {
+      res.send(`${req.query.callback}(${JSON.stringify({
+        readme,
+        ...response,
+      })})`);
+    } else if (sendJSON) {
       res.json({
-        readme: 'Results are paginated. See: https://developers.openagenda.com/export-json-dun-agenda/',
+        readme,
         ...response,
       });
-      return;
+    } else {
+      Object.assign(req, response);
+      next();
     }
-
-    Object.assign(req, response);
-    next();
   };
 };

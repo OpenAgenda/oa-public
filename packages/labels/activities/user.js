@@ -232,6 +232,7 @@ module.exports = {
   "history": {
     "en": "History",
     "fr": "Historique",
+    "io": "crwdns32760:0crwdne32760:0"
   },
   "next": {
     "en": "Next",

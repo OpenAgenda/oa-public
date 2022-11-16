@@ -803,7 +803,8 @@ module.exports = {
   },
   "history": {
     "en": "History",
-    "fr": "Historique"
+    "fr": "Historique",
+    "io": "crwdns32758:0crwdne32758:0"
   },
   "inbox": {
     "en": "Inbox",

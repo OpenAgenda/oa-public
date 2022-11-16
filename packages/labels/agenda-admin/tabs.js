@@ -36,7 +36,8 @@ module.exports = {
   },
   "history": {
     "en": "History",
-    "fr": "Historique"
+    "fr": "Historique",
+    "io": "crwdns32762:0crwdne32762:0"
   },
   "newTab": {
     "en": "New !",
