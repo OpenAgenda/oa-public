@@ -403,6 +403,9 @@ Displays the total of events matching the current selection
 {{widget name='total' message='eventsTotal'}}
 ```
 
+##### About filters
+
+The filters library is published and documented [here](https://www.npmjs.com/package/@openagenda/react-filters).
 
 #### Progressive load
 

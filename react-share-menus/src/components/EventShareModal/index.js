@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, useIntl } from 'react-intl';
 
@@ -7,12 +7,12 @@ import { Modal } from '@openagenda/react-shared';
 import OpenAgendaShare from './lib/OpenAgendaShare';
 import {
   EmailShareMenu,
-  EmailSentMessage
+  EmailSentMessage,
 } from './lib/EmailShare';
 import CalendarShare from './lib/CalendarShare';
 
 const EventShareModal = ({
-  onClose, res, segment, event, userLogged
+  onClose, res, segment, event, userLogged,
 }) => {
   const [emailState, setEmailState] = useState({ sent: false, count: 0, email: '' });
 
@@ -22,7 +22,7 @@ const EventShareModal = ({
     shareTitle: {
       id: 'share-title',
       defaultMessage: 'Share this event',
-    }
+    },
   });
 
   const onEmailSubmit = async e => {
@@ -31,7 +31,7 @@ const EventShareModal = ({
     setEmailState({
       sent: true,
       count: response.data.count,
-      email: ''
+      email: '',
     });
   };
 
@@ -51,7 +51,7 @@ const EventShareModal = ({
   return (
     <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={onClose} disableBodyScroll>
       <div className="export-form">
-        <button className="eclose" type="button" onClick={onClose}>
+        <button className="close" type="button" onClick={onClose}>
           <i className="fa fa-times fa-lg" />
         </button>
         {segment.includes('openagenda') && (
@@ -68,7 +68,7 @@ const EventShareModal = ({
             intl={intl}
             onChange={email => setEmailState({
               ...emailState,
-              email
+              email,
             })}
             onSubmit={onEmailSubmit}
           />
@@ -94,12 +94,12 @@ EventShareModal.propTypes = {
     agendaTitle: PropTypes.string,
     agendaSlug: PropTypes.string,
     lang: PropTypes.string,
-    root: PropTypes.string
+    root: PropTypes.string,
   }).isRequired,
   onClose: PropTypes.func.isRequired,
   res: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.array
+    PropTypes.array,
   ]),
   segment: PropTypes.string,
   userLogged: PropTypes.bool,

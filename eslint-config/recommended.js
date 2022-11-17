@@ -123,6 +123,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
     'react/static-property-placement': ['error', 'static public field'],
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
 
     'jsx-a11y/label-has-for': [
       'error',
@@ -175,6 +177,7 @@ module.exports = {
             enforceForArrowConditionals: false,
           },
         ],
+        'react/require-default-props': 'off'
       },
     },
     {

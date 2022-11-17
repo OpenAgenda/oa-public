@@ -79,7 +79,7 @@ function applyContextLink(req, res, listContext, event) {
   }
 
   event.link = `${link}?${qs.stringify(
-    Object.assign(query, { nc: stringifyContext(context) })
+    Object.assign(query, { nc: stringifyContext(context) }),
   )}`;
 
   return event;

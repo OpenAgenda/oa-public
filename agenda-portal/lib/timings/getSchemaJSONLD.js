@@ -1,9 +1,9 @@
 'use strict';
 
 const { tz } = require('moment-timezone');
+const imageToUrl = require('../../utils/imageToUrl');
 const getJSONDuration = require('./getJSONDuration');
 const { getValue: getBeginValue } = require('./begin');
-const imageToUrl = require('../../utils/imageToUrl');
 
 module.exports = (event, timing, defaultTimezone) => {
   const { end, permalink } = timing;
@@ -29,14 +29,14 @@ module.exports = (event, timing, defaultTimezone) => {
       startDate: tz(begin, timezone).format('YYYY-MM-DDTHH:mm'),
       endDate: tz(end, timezone).format('YYYY-MM-DDTHH:mm'),
       duration: getJSONDuration(begin, end),
-      ...(event.registration.some(r => r.type === 'link')
+      ...event.registration.some(r => r.type === 'link')
         ? {
           offers: {
             '@type': 'Offer',
             url: event.registration.find(r => r.type === 'link').value,
           },
         }
-        : {}),
+        : {},
       typicalAgeRange: event.age ? [event.age.min, event.age.max].join('-') : undefined,
       location: event.location ? {
         '@type': 'Place',
@@ -57,6 +57,6 @@ module.exports = (event, timing, defaultTimezone) => {
       } : null,
     },
     null,
-    2
+    2,
   );
 };

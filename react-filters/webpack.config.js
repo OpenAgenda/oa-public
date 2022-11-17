@@ -103,12 +103,6 @@ module.exports = (env = {}, argv = {}) => {
     resolve: {
       // symlinks: false,
       extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
-      alias: {
-        react: require.resolve('react'),
-        'react-dom/server': require.resolve('react-dom/server'),
-        'react-dom/client': require.resolve('react-dom/client'),
-        'react-dom': require.resolve('react-dom'),
-      },
       fallback: {
         buffer: require.resolve('buffer'),
       },
