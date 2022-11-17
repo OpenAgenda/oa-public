@@ -131,4 +131,20 @@ describe('convert legacy filters', () => {
       },
     });
   });
+
+  test('relative is not forced when time filters are already set in general query', () => {
+    const converted = convertLegacyFilter({}, {
+      query: { timings: { gte: new Date(), lte: new Date() } },
+    });
+
+    expect(converted.relative).toBeUndefined();
+  });
+
+  test('relative is forced when no time filters are already set in general query', () => {
+    const converted = convertLegacyFilter({}, {
+      query: {},
+    });
+
+    expect(converted.relative).toEqual(['current', 'upcoming']);
+  });
 });

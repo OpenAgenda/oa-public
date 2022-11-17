@@ -58,7 +58,7 @@ module.exports = function ConvertFormat({
     };
 
     req.query = _.omit({
-      ...convertLegacyFilter(req.query.oaq ?? {}, { formSchema, tagSet, categorySet }),
+      ...convertLegacyFilter(req.query.oaq ?? {}, { formSchema, tagSet, categorySet, query: req.query }),
       ...req.query,
     }, ['page', 'oaq']);
 
