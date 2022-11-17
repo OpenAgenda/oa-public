@@ -1,6 +1,6 @@
 import axios from 'axios';
 import moment from 'moment-timezone';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { defineMessages } from 'react-intl';
 
 import Radio from '../../Radio';
@@ -24,14 +24,14 @@ const messages = defineMessages({
   import: {
     id: 'import',
     defaultMessage: 'Import',
-  }
+  },
 });
 
 export default function CalendarShare(props) {
   const {
     intl,
     onClose,
-    event
+    event,
   } = props;
 
   const [link, setLink] = useState('');
@@ -53,7 +53,7 @@ export default function CalendarShare(props) {
     setCalendarValue(name);
 
     const response = await axios.get(
-      `/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=${service}`
+      `/${event.agendaSlug}/events/${event.uid}/action/dates?lang=${event.lang}&service=${service}`,
     );
 
     const today = moment().tz(response.data.event.timezone).format('YYYY-MM-DD');
