@@ -403,6 +403,32 @@ export function IsLinked() {
               fieldType: 'radio',
               optional: false,
               enableWith: null,
+              options: [
+                {
+                  id: 1,
+                  value: 'structure-medico-sociale',
+                  label: {
+                    fr: 'Structure médico-sociale',
+                    en: 'Medical and social structure',
+                  },
+                },
+                {
+                  id: 2,
+                  value: 'theatre-salle-de-spectacle',
+                  label: {
+                    fr: 'Théâtre / salle de spectacle',
+                    en: 'Theater',
+                  },
+                },
+                {
+                  id: 3,
+                  value: 'autre',
+                  label: {
+                    fr: 'Autre',
+                    en: 'Other',
+                  },
+                },
+              ],
             },
             {
               field: 'autre-type-d-organisateur',
@@ -411,7 +437,7 @@ export function IsLinked() {
               optional: true,
               enableWith: {
                 field: 'type-d-organisateur',
-                value: 35,
+                value: 3,
               },
             },
           ],
