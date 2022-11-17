@@ -8,35 +8,35 @@ const textValidator = require('@openagenda/validators/text');
 schema.register({
   boolean: booleanValidator,
   pass: passValidator,
-  text: textValidator
+  text: textValidator,
 });
 
 module.exports = schema({
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   aggregations: {
     type: 'pass',
-    default: null
+    default: null,
   },
   useAfterKey: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   monolingual: {
     type: 'text',
-    max: 2
+    max: 2,
   },
   access: {
-    type: 'text'
+    type: 'text',
   },
   parser: {
-    type: 'pass'
+    type: 'pass',
   },
   includeFields: {
     type: 'text',
-    list: { default: null }
+    list: { default: null },
   },
   includeLabels: {
     type: 'boolean',
@@ -44,14 +44,14 @@ module.exports = schema({
   },
   includeImageTimestamps: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeLocationImagePath: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   useDefaultImage: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

@@ -4,12 +4,21 @@ const moment = require('moment-timezone');
 
 const flattenTagSet = require('../utils/flattenTagSet');
 
-module.exports = (legacyFilter, sets = {}) => {
+module.exports = (legacyFilter, options = {}) => {
   const keys = Object.keys(legacyFilter);
 
-  const { formSchema, tagSet, categorySet } = sets;
+  const {
+    formSchema,
+    tagSet,
+    categorySet,
+    query = {},
+  } = options;
 
-  const convertedQuery = { relative: ['current', 'upcoming'] };
+  const convertedQuery = {};
+
+  if (!['timings', 'relative', 'date'].some(k => Object.keys(query).includes(k))) {
+    convertedQuery.relative = ['current', 'upcoming'];
+  }
 
   const tags = flattenTagSet(tagSet, formSchema);
 

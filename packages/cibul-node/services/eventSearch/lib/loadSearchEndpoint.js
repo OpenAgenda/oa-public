@@ -51,6 +51,7 @@ module.exports = (core, options = {}) => async (req, res, next) => {
           formSchema: await req.app.core.agendas(req.params.agendaUid).settings.get({ access: 'internal' }),
           tagSet: req.searchQuery?.oaq?.tags ? await tagsAndCustom.getTagSet(req.params.agendaUid) : null,
           categorySet: req.searchQuery?.oaq?.category ? await tagsAndCustom.getCategorySet(req.params.agendaUid) : null,
+          query: req.searchQuery,
         },
       ),
       ...req.searchQuery,

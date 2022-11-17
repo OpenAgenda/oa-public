@@ -5,6 +5,8 @@ const {
   BadRequest
 } = require('@openagenda/verror');
 
+const convertTimingsRange = require('./convertTimingsRange');
+
 module.exports = produce((query = {}) => {
   try {
     ['state', 'status'].forEach(f => {
@@ -43,5 +45,9 @@ module.exports = produce((query = {}) => {
   if (query.date && (query.date.gte || query.date.lte)) {
     query.timings = query.date;
     delete query.date;
+  }
+
+  if (query.timings?.range) {
+    query.timings = convertTimingsRange(query.timings);
   }
 });
