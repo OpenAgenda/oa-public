@@ -1,4 +1,3 @@
-import React from 'react';
 import FormSchemaComponent from '../client/src/index';
 import Options from '../client/src/FormSchemaBuilder/Options';
 import FieldAdd from '../client/src/FormSchemaBuilder/FieldAdd';
@@ -508,7 +507,7 @@ export function IsLinked() {
                     es: 'Mezclado',
                     de: 'Gemischt',
                     br: 'Kemmesk',
-                    io: 'crwdns14270:0crwdne14270:0'
+                    io: 'crwdns14270:0crwdne14270:0',
                   },
                 },
               ],

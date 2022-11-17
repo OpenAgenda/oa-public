@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Accordion from '@openagenda/react-shared/lib/components/Accordion';
 import { getLocaleValue } from '@openagenda/intl';
@@ -457,6 +457,6 @@ export default class FieldPreview extends Component {
   render() {
     const { field } = this.props;
 
-    return (field?.display ?? true) ? this.renderDisplayed() : this.renderHidden();
+    return field?.display ?? true ? this.renderDisplayed() : this.renderHidden();
   }
 }
