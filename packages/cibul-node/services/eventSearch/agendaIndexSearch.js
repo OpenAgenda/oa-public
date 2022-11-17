@@ -17,7 +17,7 @@ module.exports = (eventSearch, agenda) => {
 
     return searchIndex.search(query, nav, {
       ...validateAgendaSearchOptions(options),
-      formSchema
+      formSchema,
     });
   }
 
@@ -28,7 +28,7 @@ module.exports = (eventSearch, agenda) => {
 
     return searchIndex.search.stream(query, {
       ...validateAgendaSearchOptions(options),
-      formSchema
+      formSchema,
     });
   }
 
