@@ -53,17 +53,9 @@ const renderOptionsInfo = (options, lang) => {
   );
 };
 
-const isMultilingual = (languages, lang) => {
+const isMultilingual = languages => {
   if (Array.isArray(languages)) {
-    return (
-      <span className="form-tooltip-icon icon-hide margin-right-xs">
-        <i className="multilingual fa fa-globe"> </i>
-        <div className="tooltip right" role="tooltip">
-          <div className="tooltip-arrow"> </div>
-          <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
-        </div>
-      </span>
-    );
+    return true;
   }
 };
 const isLinked = field => {
@@ -111,49 +103,84 @@ export default class FieldPreview extends Component {
       schema,
     } = this.props;
 
+    function foundLabel() {
+      if (field.enableWith) {
+        if (typeof field.enableWith === 'string') {
+          return schema.fields.findIndex(el => el.field === field.enableWith);
+        }
+        if (typeof field.enableWith === 'object') {
+          return schema.fields.findIndex(el => el.field === field.enableWith.field);
+        }
+      }
+      if (field.optionalWith) {
+        return schema.fields.findIndex(el => el.options?.map(obj => obj.id === field.optionalWith.value));
+      }
+    }
+    function foundValue() {
+      if (field.enableWith && typeof field.enableWith === 'object') {
+        return schema.fields.map(obj => obj.options?.filter(obj2 => obj2.id === field.enableWith.value).map(obj2 => obj2.label));
+      }
+      if (field.optionalWith) {
+        return schema.fields.map(el => el.options?.filter(obj => obj.id === field.optionalWith.value).map(obj2 => obj2.label));
+      }
+    }
+
+    const label = foundLabel();
+
+    function getRelatedFieldName() {
+      return getLocaleValue(schema.fields[label].label, lang);
+    }
+    function getFieldName() {
+      return getLocaleValue(schema.fields[label].label, lang);
+    }
+
+    const value = foundValue();
+
+    function getSpecificValue() {
+      if (value) {
+        return getLocaleValue(value[0][0], lang);
+      }
+    }
+
+    const relatedFieldName = getRelatedFieldName();
+    const fieldName = getFieldName();
+    const specificValue = getSpecificValue();
+
     if (open) {
       if (field.enableWith) {
         if (typeof field.enableWith === 'string') {
-          const foundLabel = schema.fields.findIndex(el => el.field === field.enableWith);
           return (
-            <span className="linked-label">{getLabel('ifField', lang)} &quot;{getLocaleValue(schema.fields[foundLabel].label, lang)}&quot; {getLabel('isEntered', lang)} {getLabel('thenField', lang)} &quot;{getLocaleValue(field.label, lang)}&quot; {getLabel('isActivated', lang)}</span>
+            getLabel('enabledWhenRelatedFieldHasValue', { relatedFieldName }, lang)
           );
         }
         if (typeof field.enableWith === 'object') {
-          const foundLabel = schema.fields.findIndex(el => el.field === field.enableWith.field);
-          const foundValue = schema.fields.map(obj => obj.options?.filter(obj2 => obj2.id === field.enableWith.value).map(obj2 => obj2.label));
           return (
-            <span className="linked-label">{getLabel('ifField', lang)} &quot;{getLocaleValue(schema.fields[foundLabel].label, lang)}&quot; {getLabel('isSet', lang)} &quot;{getLocaleValue(foundValue[0][0], lang)}&quot; {getLabel('thenField', lang)} &quot;{getLocaleValue(field.label, lang)}&quot; {getLabel('isActivated', lang)}</span>
+            getLabel('enabledWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
           );
         }
       }
       if (field.optionalWith) {
-        const foundLabel = schema.fields.findIndex(el => el.options?.map(obj => obj.id === field.optionalWith.value));
-        const foundValue = schema.fields.map(el => el.options?.filter(obj => obj.id === field.optionalWith.value).map(obj2 => obj2.label));
         return (
-          <span className="linked-label">{getLabel('ifField', lang)} &quot;{getLocaleValue(schema.fields[foundLabel].label, lang)}&quot; {getLabel('isSet', lang)} &quot;{getLocaleValue(foundValue[0][0], lang)}&quot; {getLabel('thenField', lang)} &quot;{getLocaleValue(field.label, lang)}&quot; {getLabel('isOptional', lang)}</span>
+          getLabel('optionalWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
         );
       }
     }
 
     if (field.enableWith) {
       if (typeof field.enableWith === 'string') {
-        const foundLabel = schema.fields.findIndex(el => el.field === field.enableWith);
         return (
-          <div className="tooltip-inner">{getLabel('linkedField', lang)} &quot;{getLocaleValue(schema.fields[foundLabel].label, lang)}&quot;</div>
+          getLabel('linkedTo', { fieldName }, lang)
         );
       }
       if (typeof field.enableWith === 'object') {
-        const foundLabel = schema.fields.findIndex(el => el.field === field.enableWith.field);
         return (
-          <div className="tooltip-inner">{getLabel('linkedField', lang)} &quot;{getLocaleValue(schema.fields[foundLabel].label, lang)}&quot;</div>
+          getLabel('linkedTo', { fieldName }, lang)
         );
       }
     }
     if (field.optionalWith) {
-      const foundLabel = schema.fields.findIndex(el => el.options?.map(obj => obj.id === field.optionalWith.value));
       return (
-        <div className="tooltip-inner">{getLabel('linkedField', lang)} &quot;{getLocaleValue(schema.fields[foundLabel].label, lang)}&quot;</div>
+        getLabel('linkedTo', { fieldName }, lang)
       );
     }
   }
@@ -220,25 +247,32 @@ export default class FieldPreview extends Component {
                   </div>
                 </span>
               ) : null}
-              {isMultilingual(field.languages) ? isMultilingual(field.languages) : null}
+              {isMultilingual(field.languages) ? (
+                <span className="form-tooltip-icon icon-hide margin-right-xs">
+                  <i className="multilingual fa fa-globe"> </i>
+                  <div className="tooltip right" role="tooltip">
+                    <div className="tooltip-arrow"> </div>
+                    <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
+                  </div>
+                </span>
+              ) : null}
               {isLinked(field) ? (
                 <span className="form-tooltip-icon icon-hide">
                   <i className="linked"> </i>
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
-                    {this.getLinkedField()}
+                    <div className="tooltip-inner">{this.getLinkedField()}</div>
                   </div>
                 </span>
               ) : null}
-              {renderSchemaInfo(schemaInfo, lang)}
+              {field.purpose ? (
+                <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
+              ) : renderSchemaInfo(schemaInfo, lang)}
               {renderOptionsInfo(field.options)}
             </>
           )}
           content={(
             <>
-              {field.purpose ? (
-                <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
-              ) : null }
               <div className="margin-top-xs">
                 {this.isFieldOptional() ? null
                   : (
@@ -260,10 +294,16 @@ export default class FieldPreview extends Component {
                   </span>
                 ) : null}
                 {isLinked(field) ? (
-                  <span className="form-icon margin-right-sm">
-                    <i className="linked"> </i>
-                    {this.getLinkedField(true)}
-                  </span>
+                  <>
+                    <span className="form-tooltip-icon icon-hide form-icon">
+                      <i className="linked"> </i>
+                      <div className="tooltip right" role="tooltip">
+                        <div className="tooltip-arrow"> </div>
+                        <div className="tooltip-inner">{this.getLinkedField(true)}</div>
+                      </div>
+                    </span>
+                    <span className="linked-label">{this.getLinkedField()}</span>
+                  </>
                 ) : null}
               </div>
               {field.field ? (
@@ -374,9 +414,17 @@ export default class FieldPreview extends Component {
                     </div>
                   </span>
                 ) : null}
-                {isMultilingual(field.languages) ? isMultilingual(field.languages) : null}
+                {isMultilingual(field.languages) ? (
+                  <span className="form-tooltip-icon icon-hide margin-right-xs">
+                    <i className="multilingual fa fa-globe"> </i>
+                    <div className="tooltip right" role="tooltip">
+                      <div className="tooltip-arrow"> </div>
+                      <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
+                    </div>
+                  </span>
+                ) : null}
                 {isLinked(field) ? (
-                  <span className="form-tooltip-icon icon-hide">
+                  <span className="form-tooltip-icon icon-hide margin-right-xs">
                     <i className="linked"> </i>
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
@@ -384,15 +432,14 @@ export default class FieldPreview extends Component {
                     </div>
                   </span>
                 ) : null}
-                {renderSchemaInfo(schemaInfo, lang)}
+                {field.purpose ? (
+                  <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
+                ) : renderSchemaInfo(schemaInfo, lang)}
                 {renderOptionsInfo(field.options)}
               </>
             )}
             content={(
               <>
-                {field.purpose ? (
-                  <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
-                ) : null }
                 <div className="margin-top-xs">
                   {this.isFieldOptional() ? null
                     : (
@@ -418,10 +465,16 @@ export default class FieldPreview extends Component {
                     </span>
                   ) : null}
                   {isLinked(field) ? (
-                    <span className="form-icon margin-right-sm">
-                      <i className="linked"> </i>
-                      <span className="linked-label">{this.getLinkedField(true)}</span>
-                    </span>
+                    <>
+                      <span className="form-tooltip-icon icon-hide form-icon">
+                        <i className="linked"> </i>
+                        <div className="tooltip right" role="tooltip">
+                          <div className="tooltip-arrow"> </div>
+                          <div className="tooltip-inner">{this.getLinkedField(true)}</div>
+                        </div>
+                      </span>
+                      <span className="linked-label">{this.getLinkedField()}</span>
+                    </>
                   ) : null}
                 </div>
                 {field.field ? (

@@ -714,46 +714,28 @@ module.exports = {
     "es": "no seleccionado",
     "it": "non selezionato"
   },
-  "linkedField": {
-    "fr": "Lié au champ",
-    "en": "Linked to",
-    "es": "Relacionado con el campo",
-    "it": "Relativo al campo"
+  "enabledWhenRelatedFieldHasValue": {
+    "fr": "Actif lorsque le champ %relatedFieldName% est saisi",
+    "en": "Active when %relatedFieldName% field is entered",
+    "es": "Activo cuando se introduce el campo %relatedFieldName%",
+    "it": "Attivo quando viene inserito il campo %relatedFieldName%"
   },
-  "ifField": {
-    "fr": "Si le champ",
-    "en": "If the field",
-    "es": "Si el campo",
-    "it": "Se il campo"
+  "enabledWhenRelatedFieldHasSpecificValue": {
+    "fr": "Actif lorsque le champ %relatedFieldName% prend la valeur %specificValue%",
+    "en": "Active when the %relatedFieldName% field is set to %specificValue%",
+    "es": "Activo cuando el campo %relatedFieldName% toma el valor %specificValue%",
+    "it": "Attivo quando il campo %relatedFieldName% assume il valore %specificValue%"
   },
-  "isSet": {
-    "fr": "prend la valeur",
-    "en": "is set to",
-    "es": "toma el valor",
-    "it": "assume il valore"
+  "optionalWhenRelatedFieldHasSpecificValue": {
+    "fr": "Optionel lorsque le champ %relatedFieldName% prend la valeur %specificValue%",
+    "en": "Optional when the %relatedFieldName% field is set to %specificValue%",
+    "es": "Optional cuando el campo %relatedFieldName% toma el valor %specificValue%",
+    "it": "Opzionale quando il campo %relatedFieldName% assume il valore %specificValue%"
   },
-  "thenField": {
-    "fr": "alors le champ",
-    "en": "then the field",
-    "es": "entonces el campo ",
-    "it": "allora il campo"
-  },
-  "isOptional": {
-    "fr": "est optionnel",
-    "en": "is optional",
-    "es": "es opcional",
-    "it": "è facoltativo"
-  },
-  "isActivated": {
-    "fr": "est activé",
-    "en": "is activated",
-    "es": "se activa",
-    "it": "è attivato"
-  },
-  "isEntered": {
-    "fr": "est saisi",
-    "en": "is entered",
-    "es": "se introduce",
-    "it": "è inserito"
-  },
+  "linkedTo": {
+    "fr": "Lié au champ %fieldName%",
+    "en": "Linked to %fieldName% field",
+    "es": "Relacionado con el campo %fieldName%",
+    "it": "Relativo al campo %fieldName%"
+  }
 }
