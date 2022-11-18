@@ -26,7 +26,7 @@ module.exports = (legacyFilter, options = {}) => {
     switch (key) {
       case 'from': {
         delete convertedQuery.relative;
-        const date = moment(legacyFilter.from).subtract(1, 'days').tz('Europe/paris').format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]');
+        const date = moment(legacyFilter.from).subtract(1, 'days').tz('Europe/paris').format();
         convertedQuery.timings = { ...convertedQuery.timings, gte: date };
         break;
       }
@@ -34,7 +34,7 @@ module.exports = (legacyFilter, options = {}) => {
         const date = moment(legacyFilter.to).hour(23).minute(59).second(59)
           .millisecond(999)
           .tz('Europe/paris')
-          .format('YYYY-MM-DDTHH:mm:ss.SSSS[Z]');
+          .format();
         convertedQuery.timings = { ...convertedQuery.timings, lte: date };
         break;
       }

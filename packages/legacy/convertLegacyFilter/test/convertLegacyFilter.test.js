@@ -14,7 +14,12 @@ describe('convert legacy filters', () => {
       to: '2021-09-20',
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' } });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({
+      timings: {
+        gte: '2021-09-19T00:00:00+02:00',
+        lte: '2021-09-20T23:59:59+02:00',
+      },
+    });
   });
 
   test('convert search', () => {
@@ -126,8 +131,8 @@ describe('convert legacy filters', () => {
       'thematiques-bordeaux-metropole': [9],
       locationUid: 65918542,
       timings: {
-        gte: '2021-09-19T00:00:00.0000Z',
-        lte: '2021-09-20T23:59:59.9990Z',
+        gte: '2021-09-19T00:00:00+02:00',
+        lte: '2021-09-20T23:59:59+02:00',
       },
     });
   });
