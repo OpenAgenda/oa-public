@@ -18,6 +18,6 @@ export default function useGetTotal(aggregations) {
 
       return 0;
     },
-    [aggregations]
+    [aggregations],
   );
 }
