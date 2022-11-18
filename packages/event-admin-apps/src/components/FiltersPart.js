@@ -57,8 +57,8 @@ function FiltersPart({ agenda, filters, query, page }) {
     },
   );
 
-  const { aggregations: filterAggs } = filtersQuery.data;
-  const { aggregations } = data;
+  const { aggregations: filterAggs } = filtersQuery.data ?? {};
+  const { aggregations } = data ?? { aggregations: {} };
 
   const getOptions = useGetFilterOptions(intl, filterAggs, aggregations);
   const getTotal = useGetTotal(aggregations);
