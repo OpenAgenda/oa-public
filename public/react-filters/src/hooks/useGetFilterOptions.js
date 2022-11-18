@@ -6,8 +6,8 @@ import { getLocaleValue } from '@openagenda/intl';
 const messages = defineMessages({
   emptyOption: {
     id: 'ReactFilters.useGetFilterOptions.emptyOption',
-    defaultMessage: '(Without value)'
-  }
+    defaultMessage: '(Without value)',
+  },
 });
 
 export default function useGetFilterOptions(intl, filtersBase, aggregations) {
@@ -26,7 +26,7 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
         return missingOption ? [{
           label: missingLabel,
           key: filter.missingValue,
-          value: filter.missingValue
+          value: filter.missingValue,
         }].concat(filter.options) : filter.options;
       }
 
@@ -53,10 +53,10 @@ export default function useGetFilterOptions(intl, filtersBase, aggregations) {
         return {
           ...entry,
           label: labelValue === filter.missingValue ? missingLabel : getLocaleValue(labelValue, intl.locale),
-          value: String(entry[dataKey])
+          value: String(entry[dataKey]),
         };
       });
     },
-    [intl, aggregations, filtersBase]
+    [intl, aggregations, filtersBase],
   );
 }
