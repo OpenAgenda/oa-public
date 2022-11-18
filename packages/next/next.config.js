@@ -30,15 +30,6 @@ const config = async () => {
       ],
     },
     experimental: {
-      images: {
-        allowFutureImage: true,
-        // remotePatterns: [
-        //   {
-        //     protocol: 'https',
-        //     hostname: 'openagenda.com',
-        //   },
-        // ],
-      },
       isrMemoryCacheSize: 0, // Defaults to 50MB
     },
     async rewrites() {
