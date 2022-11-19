@@ -16,7 +16,7 @@ describe('convert legacy filters', () => {
 
     expect(convertLegacyFilter(oaq)).toStrictEqual({
       timings: {
-        gte: '2021-09-19T00:00:00+02:00',
+        gte: '2021-09-20T00:00:00+02:00',
         lte: '2021-09-20T23:59:59+02:00',
       },
     });
@@ -122,7 +122,7 @@ describe('convert legacy filters', () => {
       tags: ['spectacle', 'concert', 'culture'],
       location: 65918542,
       passed: '1',
-      from: '2021-09-20',
+      from: '2021-09-19',
       to: '2021-09-20',
     };
 

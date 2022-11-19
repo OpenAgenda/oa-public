@@ -26,14 +26,21 @@ module.exports = (legacyFilter, options = {}) => {
     switch (key) {
       case 'from': {
         delete convertedQuery.relative;
-        const date = moment(legacyFilter.from).subtract(1, 'days').tz('Europe/paris').format();
+        const date = moment(legacyFilter.from)
+          .tz('Europe/paris')
+          .hour(0)
+          .minute(0)
+          .second(0)
+          .format();
         convertedQuery.timings = { ...convertedQuery.timings, gte: date };
         break;
       }
       case 'to': {
-        const date = moment(legacyFilter.to).hour(23).minute(59).second(59)
-          .millisecond(999)
+        const date = moment(legacyFilter.to)
           .tz('Europe/paris')
+          .hour(23)
+          .minute(59)
+          .second(59)
           .format();
         convertedQuery.timings = { ...convertedQuery.timings, lte: date };
         break;
