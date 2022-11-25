@@ -107,7 +107,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         agenda.schema.fields
           .map(f => f.field)
           .filter(f => f === 'organisation-interne')
-          .length
+          .length,
       ).toBe(1);
     });
 
@@ -122,7 +122,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         agenda.schema.fields
           .map(f => f.field)
           .filter(f => f === 'organisation-interne')
-          .length
+          .length,
       ).toBe(1);
     });
 
@@ -138,7 +138,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         agenda.schema.fields
           .map(f => f.field)
           .filter(f => f === 'languages')
-          .length
+          .length,
       ).toBe(1);
     });
 
@@ -149,7 +149,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       expect(
-        _.uniq(agenda.schema.fields.map(f => f.schemaType))
+        _.uniq(agenda.schema.fields.map(f => f.schemaType)),
       ).toEqual(['agenda', 'event']);
     });
 
@@ -164,7 +164,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       expect(
-        !!agenda.schema.fields.find(el => el.field === 'state')
+        !!agenda.schema.fields.find(el => el.field === 'state'),
       ).toBe(true);
     });
 
@@ -240,7 +240,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       beforeAll(async () => {
         const result = await axios.get(
-          `http://localhost:3000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`
+          `http://localhost:3000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
         );
         agenda = result.data;
       });
