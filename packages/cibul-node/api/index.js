@@ -71,6 +71,16 @@ module.exports = core => {
     '/agendas/:agendaUid',
   ], mw.redirectIfPrivate);
 
+  app.patch(
+    '/agendas/:agendaUid',
+    mw.member.load,
+    mw.member.allow(['administrator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid)
+      .update(req.parsedData)
+      .then(agenda => res.json(agenda), next),
+  );
+
   app.get([
     '/agendas/slug/:agendaSlug',
     '/agendas/:agendaUid',
