@@ -1,16 +1,13 @@
 'use strict';
 
-const fs = require('fs');
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
+
+const load = loadObjectFromFile({ cwd: __dirname });
 
 const {
   knex,
-  resetAndCreateTables
+  resetAndCreateTables,
 } = require('./sql');
-
-const load = (path, data = {}) => ({
-  ...JSON.parse(fs.readFileSync(`${__dirname}/${path}`, 'utf-8')),
-  ...data,
-});
 
 const raw = resetAndCreateTables();
 
