@@ -56,14 +56,6 @@
     ]
   },
   {
-    "name": "customized",
-    "section": "settings",
-    "route": "/settings/customize",
-    "roles": [
-      "administrator"
-    ]
-  },
-  {
     "name": "settings_contribution",
     "section": "settings",
     "route": "/settings/contribution",
