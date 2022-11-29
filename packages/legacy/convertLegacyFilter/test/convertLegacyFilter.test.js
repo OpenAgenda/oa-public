@@ -145,6 +145,14 @@ describe('convert legacy filters', () => {
     expect(converted.relative).toBeUndefined();
   });
 
+  test('relative is not forced when slug filter is set in general query', () => {
+    const converted = convertLegacyFilter({}, {
+      query: { slug: 'ladida' },
+    });
+
+    expect(converted.relative).toBeUndefined();
+  });
+
   test('relative is forced when no time filters are already set in general query', () => {
     const converted = convertLegacyFilter({}, {
       query: {},

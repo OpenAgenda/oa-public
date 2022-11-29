@@ -16,7 +16,7 @@ module.exports = (legacyFilter, options = {}) => {
 
   const convertedQuery = {};
 
-  if (!['timings', 'relative', 'date'].some(k => Object.keys(query).includes(k))) {
+  if (!['timings', 'relative', 'date', 'slug'].some(k => Object.keys(query).includes(k))) {
     convertedQuery.relative = ['current', 'upcoming'];
   }
 
