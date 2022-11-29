@@ -472,6 +472,16 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       expect(new Date(event.timings[0].begin).getUTCHours()).toBe(17);
       expect(new Date(event.timings[0].begin).getMinutes()).toBe(28);
     });
+
+    it('online event location can be removed through patch', async () => {
+      const event = await core.agendas(17026855).events.patch(19201989, {
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        location: null,
+      }, { access: 'administrator' });
+
+      expect(event.locationUid).toBeUndefined();
+    });
   });
 
   describe('api', () => {
