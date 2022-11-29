@@ -47,8 +47,12 @@ const validateDraft = schema({
 module.exports = options => value => {
   const optional = _.get(options, 'optional', true);
 
-  if (optional && !value) {
+  if (optional && value === undefined) {
     return _.get(options, 'default');
+  }
+
+  if (optional && value === null) {
+    return null;
   }
 
   try {

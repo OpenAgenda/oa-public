@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
 const eventSchema = require('../src/schema');
 
@@ -109,5 +110,21 @@ describe('event-form eventSchema', () => {
     });
 
     expect(es.fields.filter(f => privateFields.includes(f.field)).length).toEqual(privateFields.length);
+  });
+
+  test('location can be explicitely set to null', () => {
+    const es = eventSchema({
+      languages: [],
+    });
+
+    const validate = new FormSchema(es).getValidate();
+
+    const clean = validate.part({
+      attendanceMode: 2,
+      onlineAccessLink: 'https://openagenda.com',
+      location: null,
+    });
+
+    expect(clean.location).toBeNull();
   });
 });
