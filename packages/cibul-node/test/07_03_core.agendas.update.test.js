@@ -61,7 +61,7 @@ describe('07 - core - functional (server): core.agendas().update', () => {
         }),
       });
 
-      expect(updatedSettings.settings.contribution.messages.instructions).toBe('Une instruction');
+      expect(updatedSettings.contribution.messages.instructions).toBe('Une instruction');
       expect(title).toBe(unchangedTitle);
     });
   });
