@@ -1,13 +1,17 @@
 import classNames from 'classnames';
 import { Component } from 'react';
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Accordion from '@openagenda/react-shared/lib/components/Accordion';
 import { getLocaleValue } from '@openagenda/intl';
 
-import labels from './lib/labels';
-import getFieldTypeLabel from './lib/getFieldTypeLabel';
+import getFieldTypeLabel from '../lib/getFieldTypeLabel';
 
-const getLabel = makeLabelGetter(labels);
+import {
+  isFieldLinked,
+  isFieldEditable,
+  isFieldMultilingual,
+  getLabel,
+  getDefaultValueLabel,
+} from './utils';
 
 const renderSchemaInfo = (schemaInfo, lang) => {
   if (!schemaInfo) {
@@ -20,18 +24,6 @@ const renderSchemaInfo = (schemaInfo, lang) => {
     >{getLocaleValue(schemaInfo.label, lang)}
     </div>
   );
-};
-
-const defineIsEditable = (field, { isOwn, editableExtensions }) => {
-  if (isOwn) {
-    return true;
-  }
-
-  if (Array.isArray(editableExtensions)) {
-    return editableExtensions.includes(field.field);
-  }
-
-  return editableExtensions;
 };
 
 const renderOptionsInfo = (options, lang) => {
@@ -52,33 +44,6 @@ const renderOptionsInfo = (options, lang) => {
     </div>
   );
 };
-
-const isMultilingual = languages => {
-  if (Array.isArray(languages)) {
-    return true;
-  }
-};
-const isLinked = field => {
-  if (field.enableWith || field.optionalWith) {
-    return true;
-  }
-};
-
-function getDefaultLabel(field, lang) {
-  if (field.options) {
-    const defaultOption = field.options.find(option => option.id === field.default);
-    return getLocaleValue(defaultOption.label, lang);
-  }
-
-  if (typeof field.default === 'boolean') {
-    if (field.default === true) {
-      return getLabel('isSelected', lang);
-    }
-    return getLabel('notSelected', lang);
-  }
-
-  return getLocaleValue(field.default, lang);
-}
 
 export default class FieldPreview extends Component {
   getInfoLabel() {
@@ -210,7 +175,7 @@ export default class FieldPreview extends Component {
       schema,
     } = this.props;
 
-    const editable = defineIsEditable(field, { isOwn, editableExtensions });
+    const editable = isFieldEditable(field, { isOwn, editableExtensions });
     const isDisabled = !editable || disabled;
 
     return (
@@ -247,7 +212,7 @@ export default class FieldPreview extends Component {
                   </div>
                 </span>
               ) : null}
-              {isMultilingual(field.languages) ? (
+              {isFieldMultilingual(field) ? (
                 <span className="form-tooltip-icon icon-hide margin-right-xs">
                   <i className="multilingual fa fa-globe"> </i>
                   <div className="tooltip right" role="tooltip">
@@ -256,7 +221,7 @@ export default class FieldPreview extends Component {
                   </div>
                 </span>
               ) : null}
-              {isLinked(field) ? (
+              {isFieldLinked(field) ? (
                 <span className="form-tooltip-icon icon-hide">
                   <i className="linked"> </i>
                   <div className="tooltip right" role="tooltip">
@@ -287,13 +252,13 @@ export default class FieldPreview extends Component {
                     <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                   </span>
                 ) : null }
-                {isMultilingual(field.languages) ? (
+                {isFieldMultilingual(field) ? (
                   <span className="form-icon margin-right-sm">
                     <i className="multilingual fa fa-globe"> </i>
                     <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                   </span>
                 ) : null}
-                {isLinked(field) ? (
+                {isFieldLinked(field) ? (
                   <>
                     <span className="form-tooltip-icon icon-hide form-icon">
                       <i className="linked"> </i>
@@ -310,7 +275,7 @@ export default class FieldPreview extends Component {
                 <div className="margin-top-xs" title="Code du champ">{getLabel('jsonKey', lang)}: {field.field}</div>
               ) : null }
               {'default' in field ? (
-                <div className="margin-top-xs" title="Valeur par défaut">{getLabel('defaultValue', lang)}: {String(getDefaultLabel(field, lang))}</div>
+                <div className="margin-top-xs" title="Valeur par défaut">{getLabel('defaultValue', lang)}: {String(getDefaultValueLabel(field, lang))}</div>
               ) : null }
               {field.max ? (
                 <div className="margin-top-xs" title="Longueur du champ">{getLabel('maxLength', lang)}: {field.max}</div>
@@ -414,7 +379,7 @@ export default class FieldPreview extends Component {
                     </div>
                   </span>
                 ) : null}
-                {isMultilingual(field.languages) ? (
+                {isFieldMultilingual(field) ? (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
                     <i className="multilingual fa fa-globe"> </i>
                     <div className="tooltip right" role="tooltip">
@@ -423,7 +388,7 @@ export default class FieldPreview extends Component {
                     </div>
                   </span>
                 ) : null}
-                {isLinked(field) ? (
+                {isFieldLinked(field) ? (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
                     <i className="linked"> </i>
                     <div className="tooltip right" role="tooltip">
@@ -458,13 +423,13 @@ export default class FieldPreview extends Component {
                       <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                     </span>
                   ) : null }
-                  {isMultilingual(field.languages) ? (
+                  {isFieldMultilingual(field) ? (
                     <span className="form-icon margin-right-sm">
                       <i className="multilingual fa fa-globe"> </i>
                       <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                     </span>
                   ) : null}
-                  {isLinked(field) ? (
+                  {isFieldLinked(field) ? (
                     <>
                       <span className="form-tooltip-icon icon-hide form-icon">
                         <i className="linked"> </i>
@@ -481,7 +446,7 @@ export default class FieldPreview extends Component {
                   <div className="margin-top-xs" title="Code du champ">{getLabel('jsonKey', lang)}: {field.field}</div>
                 ) : null }
                 {'default' in field ? (
-                  <div className="margin-top-xs" title="Valeur par défaut">{getLabel('defaultValue', lang)}: {String(getDefaultLabel(field, lang))}</div>
+                  <div className="margin-top-xs" title="Valeur par défaut">{getLabel('defaultValue', lang)}: {String(getDefaultValueLabel(field, lang))}</div>
                 ) : null }
                 {field.max ? (
                   <div className="margin-top-xs" title="Longueur du champ">{getLabel('maxLength', lang)}: {field.max}</div>
