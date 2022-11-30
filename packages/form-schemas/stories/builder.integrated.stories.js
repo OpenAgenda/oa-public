@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
 
 import SimpleRowDecorator from './decorators/SimpleRow';
