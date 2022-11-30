@@ -11,6 +11,7 @@ import {
   isFieldMultilingual,
   getLabel,
   getDefaultValueLabel,
+  getLinkedField,
 } from './utils';
 
 const renderSchemaInfo = (schemaInfo, lang) => {
@@ -68,19 +69,6 @@ export default class FieldPreview extends Component {
       schema,
     } = this.props;
 
-    function getLinkedFieldIndex() {
-      if (field.enableWith) {
-        if (typeof field.enableWith === 'string') {
-          return schema.fields.findIndex(el => el.field === field.enableWith);
-        }
-        if (typeof field.enableWith === 'object') {
-          return schema.fields.findIndex(el => el.field === field.enableWith.field);
-        }
-      }
-      if (field.optionalWith) {
-        return schema.fields.findIndex(el => el.options?.map(obj => obj.id === field.optionalWith.value));
-      }
-    }
     function foundValue() {
       if (field.enableWith && typeof field.enableWith === 'object') {
         return schema.fields.map(obj => obj.options?.filter(obj2 => obj2.id === field.enableWith.value).map(obj2 => obj2.label));
@@ -90,14 +78,7 @@ export default class FieldPreview extends Component {
       }
     }
 
-    const linkedFieldIndex = getLinkedFieldIndex();
-
-    function getRelatedFieldName() {
-      return getLocaleValue(schema.fields[linkedFieldIndex].label, lang);
-    }
-    function getFieldName() {
-      return getLocaleValue(schema.fields[linkedFieldIndex].label, lang);
-    }
+    const linkedField = getLinkedField({ field, schema });
 
     const value = foundValue();
 
@@ -107,8 +88,8 @@ export default class FieldPreview extends Component {
       }
     }
 
-    const relatedFieldName = getRelatedFieldName();
-    const fieldName = getFieldName();
+    const relatedFieldName = getLocaleValue(linkedField.label, lang);
+    const fieldName = getLocaleValue(linkedField.label, lang);
     const specificValue = getSpecificValue();
 
     if (open) {
