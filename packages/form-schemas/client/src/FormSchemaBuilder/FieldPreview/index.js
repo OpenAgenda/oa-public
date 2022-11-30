@@ -68,7 +68,7 @@ export default class FieldPreview extends Component {
       schema,
     } = this.props;
 
-    function foundLabel() {
+    function getLinkedFieldIndex() {
       if (field.enableWith) {
         if (typeof field.enableWith === 'string') {
           return schema.fields.findIndex(el => el.field === field.enableWith);
@@ -90,13 +90,13 @@ export default class FieldPreview extends Component {
       }
     }
 
-    const label = foundLabel();
+    const linkedFieldIndex = getLinkedFieldIndex();
 
     function getRelatedFieldName() {
-      return getLocaleValue(schema.fields[label].label, lang);
+      return getLocaleValue(schema.fields[linkedFieldIndex].label, lang);
     }
     function getFieldName() {
-      return getLocaleValue(schema.fields[label].label, lang);
+      return getLocaleValue(schema.fields[linkedFieldIndex].label, lang);
     }
 
     const value = foundValue();
