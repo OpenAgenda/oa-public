@@ -31,3 +31,28 @@ export function getSpecificValue({ field, schema, lang }) {
     return matchingOption ? getLocaleValue(matchingOption.label, lang) : undefined;
   }).filter(l => !!l).join(', ');
 }
+
+export function getDetailed({
+  field,
+  lang,
+  schema,
+}) {
+  const linkedField = getLinkedField({ field, schema });
+  const linkedFieldName = getLocaleValue(linkedField.label, lang);
+  const specificValue = getSpecificValue({ field, lang, schema });
+  const linkType = field.optionalWith ? 'optionalWith' : 'enableWith';
+
+  if (typeof field[linkType] === 'string') {
+    return getLabel(
+      linkType === 'enableWith' ? 'enabledWhenLinkedFieldHasValue' : 'optionalWhenLinkedFieldHasValue',
+      { linkedFieldName },
+      lang,
+    );
+  }
+
+  return getLabel(
+    linkType === 'enableWith' ? 'enabledWhenLinkedFieldHasSpecificValue' : 'optionalWhenLinkedFieldHasSpecificValue',
+    { linkedFieldName, specificValue },
+    lang,
+  );
+}

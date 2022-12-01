@@ -11,12 +11,11 @@ import {
   isFieldMultilingual,
   getLabel,
   getDefaultValueLabel,
-  getLinkedField,
 } from './utils';
 
 import {
   getSummary as getLinkedFieldSummaryLabel,
-  getSpecificValue as getLinkedFieldSpecificValueLabel,
+  getDetailed as getLinkedFieldDetailedLabel,
 } from './linkedFieldLabels';
 
 const renderSchemaInfo = (schemaInfo, lang) => {
@@ -65,36 +64,6 @@ export default class FieldPreview extends Component {
       return null;
     }
     return getLabel('editFieldInfo', lang);
-  }
-
-  getLinkedField() {
-    const {
-      field,
-      lang,
-      schema,
-    } = this.props;
-
-    const linkedField = getLinkedField({ field, schema });
-    const linkedFieldName = getLocaleValue(linkedField.label, lang);
-    const specificValue = getLinkedFieldSpecificValueLabel({ field, lang, schema });
-
-    if (field.enableWith) {
-      if (typeof field.enableWith === 'string') {
-        return (
-          getLabel('enabledWhenLinkedFieldHasValue', { linkedFieldName }, lang)
-        );
-      }
-      if (typeof field.enableWith === 'object') {
-        return (
-          getLabel('enabledWhenLinkedFieldHasSpecificValue', { linkedFieldName, specificValue }, lang)
-        );
-      }
-    }
-    if (field.optionalWith) {
-      return (
-        getLabel('optionalWhenLinkedFieldHasSpecificValue', { linkedFieldName, specificValue }, lang)
-      );
-    }
   }
 
   isFieldOptional() {
@@ -213,7 +182,7 @@ export default class FieldPreview extends Component {
                       <i className="linked"> </i>
                       <div className="tooltip right" role="tooltip">
                         <div className="tooltip-arrow"> </div>
-                        <div className="tooltip-inner">{this.getLinkedField()}</div>
+                        <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
                       </div>
                     </span>
                     <span className="linked-label">{getLinkedFieldSummaryLabel({ field, lang, schema })}</span>
@@ -342,7 +311,7 @@ export default class FieldPreview extends Component {
                     <i className="linked"> </i>
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
-                      <div className="tooltip-inner">{this.getLinkedField()}</div>
+                      <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
                     </div>
                   </span>
                 ) : null}
@@ -384,7 +353,7 @@ export default class FieldPreview extends Component {
                         <i className="linked"> </i>
                         <div className="tooltip right" role="tooltip">
                           <div className="tooltip-arrow"> </div>
-                          <div className="tooltip-inner">{this.getLinkedField()}</div>
+                          <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
                         </div>
                       </span>
                       <span className="linked-label">{getLinkedFieldSummaryLabel({ field, lang, schema })}</span>
