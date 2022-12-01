@@ -282,7 +282,8 @@ export default class FormSchemaBuilder extends Component {
       extendedFrom,
       lang,
       customFieldConfigurationSchemas,
-      components
+      components,
+      displaySidebar = true,
     } = this.props;
 
     const {
@@ -300,28 +301,30 @@ export default class FormSchemaBuilder extends Component {
 
     return (
       <div className="form-schema-builder row">
-        <div className="col-sm-12 col-md-5 col-md-push-7">
-          <div className="wsq padding-all-sm">
-            {settingsEnabled ? (
-              <LabelLanguages
-                disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
-                lang={lang}
-                labelLanguages={labelLanguages}
-                onUpdate={update => this.onLabelLanguagesChange(update)}
-              />
-            ) : null}
-            <div className="padding-bottom-sm">
-              <SaveButton
-                disabled={mode}
-                lang={lang}
-                onClick={() => this.onSave()}
-                saveState={saveState}
-                block
-              />
+        {displaySidebar ? (
+          <div className="col-sm-12 col-md-5 col-md-push-7">
+            <div className="wsq padding-all-sm">
+              {settingsEnabled ? (
+                <LabelLanguages
+                  disabled={this.isDisabled(modes.EDITLABELLANGUAGES)}
+                  lang={lang}
+                  labelLanguages={labelLanguages}
+                  onUpdate={update => this.onLabelLanguagesChange(update)}
+                />
+              ) : null}
+              <div className="padding-bottom-sm">
+                <SaveButton
+                  disabled={mode}
+                  lang={lang}
+                  onClick={() => this.onSave()}
+                  saveState={saveState}
+                  block
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-sm-12 col-md-7 col-md-pull-5">
+        ) : null}
+        <div className={displaySidebar ? 'col-sm-12 col-md-7 col-md-pull-5' : 'col-sm-12'}>
           {editedField ? (
             <FieldEdit
               isOwnField={isOwnField(schema, editedField)}
