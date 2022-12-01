@@ -714,23 +714,29 @@ module.exports = {
     "es": "no seleccionado",
     "it": "non selezionato"
   },
-  "enabledWhenRelatedFieldHasValue": {
-    "fr": "Actif lorsque le champ %relatedFieldName% est saisi",
-    "en": "Active when %relatedFieldName% field is entered",
-    "es": "Activo cuando se introduce el campo %relatedFieldName%",
-    "it": "Attivo quando viene inserito il campo %relatedFieldName%"
+  "enabledWhenLinkedFieldHasValue": {
+    "fr": "Actif lorsque le champ %linkedFieldName% est saisi",
+    "en": "Active when %linkedFieldName% field is entered",
+    "es": "Activo cuando se introduce el campo %linkedFieldName%",
+    "it": "Attivo quando viene inserito il campo %linkedFieldName%"
   },
-  "enabledWhenRelatedFieldHasSpecificValue": {
-    "fr": "Actif lorsque le champ %relatedFieldName% prend la valeur %specificValue%",
-    "en": "Active when the %relatedFieldName% field is set to %specificValue%",
-    "es": "Activo cuando el campo %relatedFieldName% toma el valor %specificValue%",
-    "it": "Attivo quando il campo %relatedFieldName% assume il valore %specificValue%"
+  "enabledWhenLinkedFieldHasSpecificValue": {
+    "fr": "Actif lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
+    "en": "Active when the %linkedFieldName% field is set to %specificValue%",
+    "es": "Activo cuando el campo %linkedFieldName% toma el valor %specificValue%",
+    "it": "Attivo quando il campo %linkedFieldName% assume il valore %specificValue%"
   },
-  "optionalWhenRelatedFieldHasSpecificValue": {
-    "fr": "Optionel lorsque le champ %relatedFieldName% prend la valeur %specificValue%",
-    "en": "Optional when the %relatedFieldName% field is set to %specificValue%",
-    "es": "Optional cuando el campo %relatedFieldName% toma el valor %specificValue%",
-    "it": "Opzionale quando il campo %relatedFieldName% assume il valore %specificValue%"
+  "optionalWhenLinkedFieldHasValue": {
+    "fr": "Optionnel lorsque le champ %linkedFieldName% est saisi",
+    "en": "Optional when the field %linkedFieldName% is entered",
+    "es": "Opcional cuando se introduce el campo %linkedFieldName%",
+    "it": "Opzionale quando viene inserito il campo %linkedFieldName%"
+  },
+  "optionalWhenLinkedFieldHasSpecificValue": {
+    "fr": "Optionnel lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
+    "en": "Optional when the %linkedFieldName% field is set to %specificValue%",
+    "es": "Opcional cuando el campo %linkedFieldName% toma el valor %specificValue%",
+    "it": "Opzionale quando il campo %linkedFieldName% assume il valore %specificValue%"
   },
   "linkedTo": {
     "fr": "Lié au champ %fieldName%",
