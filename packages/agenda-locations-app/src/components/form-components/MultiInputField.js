@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TagsInput from 'react-tagsinput';
 
 const MultiInputField = ({
@@ -10,11 +10,10 @@ const MultiInputField = ({
     link: 'fa fa-link',
     phone: 'fa fa-phone',
     email: 'fa fa-envelope',
-    error: 'fa fa-exclamation-circle'
+    error: 'fa fa-exclamation-circle',
   },
   getLabel,
   onChange,
-  info,
 }) => {
   const decorate = v => validator.decorate(v);
   const values = decorate(value || []);
@@ -67,7 +66,7 @@ const MultiInputField = ({
           onBlur,
           onChange: onInputChange,
           value: inputValue,
-          disabled: !enabled
+          disabled: !enabled,
         }}
       />
       <span className={error ? 'error' : 'info'}>{ error ? getLabel('multi-input.error') : getLabel('multi-input.info')}</span>
