@@ -151,7 +151,7 @@ export default class FieldPreview extends Component {
               {field.purpose ? (
                 <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
               ) : renderSchemaInfo(schemaInfo, lang)}
-              {renderOptionsInfo(field.options)}
+              {renderOptionsInfo(field.options, lang)}
             </>
           )}
           content={(
@@ -318,7 +318,7 @@ export default class FieldPreview extends Component {
                 {field.purpose ? (
                   <div className="margin-top-xs">{getLocaleValue(field.purpose, lang)}</div>
                 ) : renderSchemaInfo(schemaInfo, lang)}
-                {renderOptionsInfo(field.options)}
+                {renderOptionsInfo(field.options, lang)}
               </>
             )}
             content={(
