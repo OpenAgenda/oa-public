@@ -371,9 +371,52 @@ function getBuilderProps(fields) {
 export function FieldPreview() {
   return (
     <div className="container-fluid top-margined">
-      <div className="row">
 
-        <div className="col-lg-3">
+      <div className="row">
+        <h2 className="text-center margin-v-md">Basic cases</h2>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Optional text field with purpose</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                field: 'sometextfield',
+                label: { fr: 'Un champ texte' },
+                purpose: {
+                  fr: 'Ce champ sert à montrer que le role du champ s\'affiche lorsqu\'il est défini',
+                },
+                fieldType: 'text',
+              },
+            ])}
+          />
+        </div>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Required multilingual textarea</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: { fr: 'Languages' },
+                field: 'languages',
+                fieldType: 'languages',
+              },
+              {
+                field: 'somemultilinguatextfield',
+                label: { fr: 'Un champ texte multingue' },
+                optional: false,
+                languages: [],
+                fieldType: 'text',
+              },
+            ])}
+          />
+        </div>
+
+      </div>
+
+      <div className="row">
+        <h2 className="text-center margin-v-md">Linked fields</h2>
+
+        <div className="col-lg-4 col-md-6">
           <strong>enableWith is the name of the linked field</strong>
           <FormSchemaBuilder
             {...getBuilderProps([
@@ -394,7 +437,7 @@ export function FieldPreview() {
           />
         </div>
 
-        <div className="col-lg-3">
+        <div className="col-lg-4 col-md-6">
           <strong>enableWith is an object containing the name of the linked field and the values triggering the enable</strong>
           <FormSchemaBuilder
             {...getBuilderProps([
@@ -445,7 +488,7 @@ export function FieldPreview() {
           />
         </div>
 
-        <div className="col-lg-3">
+        <div className="col-lg-4 col-md-6">
           <strong>optionalWith is an object containing the name of the linked field and the values triggering the optionalization</strong>
           <FormSchemaBuilder
             {...getBuilderProps([
