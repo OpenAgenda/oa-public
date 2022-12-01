@@ -118,7 +118,7 @@ export default class FieldPreview extends Component {
               {this.isFieldOptional() ? null
                 : (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
-                    <i className="obligatoire"> </i>
+                    <i className="obligatoire" />
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
                       <div className="tooltip-inner">{getLabel('requiredField', lang)}</div>
@@ -127,7 +127,7 @@ export default class FieldPreview extends Component {
                 )}
               {field.fieldType ? (
                 <span className="form-tooltip-icon icon-hide margin-right-xs">
-                  {hasIcon ? <i className={iconClassName}> </i> : null }
+                  {hasIcon ? <i className={iconClassName} /> : null }
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
                     <div className="tooltip-inner">{getFieldTypeLabel(field, lang)}</div>
@@ -136,7 +136,7 @@ export default class FieldPreview extends Component {
               ) : null}
               {isFieldMultilingual(field) ? (
                 <span className="form-tooltip-icon icon-hide margin-right-xs form-icon">
-                  <i className="languages"> </i>
+                  <i className="languages" />
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
                     <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
@@ -145,7 +145,7 @@ export default class FieldPreview extends Component {
               ) : null}
               {isFieldLinked(field) ? (
                 <span className="form-tooltip-icon icon-hide">
-                  <i className="linked"> </i>
+                  <i className="linked" />
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
                     <div className="tooltip-inner">
@@ -166,26 +166,26 @@ export default class FieldPreview extends Component {
                 {this.isFieldOptional() ? null
                   : (
                     <span className="form-icon margin-right-sm">
-                      <i className="obligatoire"> </i>
+                      <i className="obligatoire" />
                       <span className="optional">{getLabel('requiredField', lang)}</span>
                     </span>
                   )}
                 {field.fieldType ? (
                   <span className="form-icon margin-right-sm">
-                    {hasIcon ? <i className={iconClassName}> </i> : null}
+                    {hasIcon ? <i className={iconClassName} /> : null}
                     <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                   </span>
                 ) : null }
                 {isFieldMultilingual(field) ? (
                   <span className="form-icon margin-right-sm">
-                    <i className="languages"> </i>
+                    <i className="languages" />
                     <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                   </span>
                 ) : null}
                 {isFieldLinked(field) ? (
                   <>
                     <span className="form-tooltip-icon icon-hide form-icon">
-                      <i className="linked"> </i>
+                      <i className="linked" />
                       <div className="tooltip right" role="tooltip">
                         <div className="tooltip-arrow"> </div>
                         <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
@@ -280,7 +280,7 @@ export default class FieldPreview extends Component {
                 {this.isFieldOptional() ? null
                   : (
                     <span className="form-tooltip-icon icon-hide margin-right-xs">
-                      <i className="obligatoire"> </i>
+                      <i className="obligatoire" />
                       <div className="tooltip right" role="tooltip">
                         <div className="tooltip-arrow"> </div>
                         <div className="tooltip-inner">{getLabel('requiredField', lang)}</div>
@@ -288,7 +288,7 @@ export default class FieldPreview extends Component {
                     </span>
                   )}
                 <span className="form-tooltip-icon icon-hide margin-right-xs">
-                  <i className="hidden-field"> </i>
+                  <i className="hidden-field" />
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
                     <div className="tooltip-inner">{getLabel('hiddenField', lang)}</div>
@@ -296,7 +296,7 @@ export default class FieldPreview extends Component {
                 </span>
                 {field.fieldType ? (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
-                    <i className={field.fieldType}> </i>
+                    <i className={field.fieldType} />
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
                       <div className="tooltip-inner">{getFieldTypeLabel(field, lang)}</div>
@@ -305,7 +305,7 @@ export default class FieldPreview extends Component {
                 ) : null}
                 {isFieldMultilingual(field) ? (
                   <span className="form-tooltip-icon icon-hide margin-right-xs form-icon">
-                    <i className="languages"> </i>
+                    <i className="languages" />
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
                       <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
@@ -314,7 +314,7 @@ export default class FieldPreview extends Component {
                 ) : null}
                 {isFieldLinked(field) ? (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
-                    <i className="linked"> </i>
+                    <i className="linked" />
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
                       <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
@@ -333,30 +333,30 @@ export default class FieldPreview extends Component {
                   {this.isFieldOptional() ? null
                     : (
                       <span className="form-icon margin-right-sm">
-                        <i className="obligatoire"> </i>
+                        <i className="obligatoire" />
                         <span className="optional">{getLabel('requiredField', lang)}</span>
                       </span>
                     )}
                   <span className="form-icon margin-right-sm">
-                    <i className="hidden-field"> </i>
+                    <i className="hidden-field" />
                     <span className="optional">{getLabel('hiddenField', lang)}</span>
                   </span>
                   {field.fieldType ? (
                     <span className="form-icon margin-right-sm">
-                      <i className={field.fieldType}> </i>
+                      <i className={field.fieldType} />
                       <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                     </span>
                   ) : null }
                   {isFieldMultilingual(field) ? (
                     <span className="margin-right-sm">
-                      <i className="languages"> </i>
+                      <i className="languages" />
                       <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                     </span>
                   ) : null}
                   {isFieldLinked(field) ? (
                     <>
                       <span className="form-tooltip-icon icon-hide form-icon">
-                        <i className="linked"> </i>
+                        <i className="linked" />
                         <div className="tooltip right" role="tooltip">
                           <div className="tooltip-arrow"> </div>
                           <div className="tooltip-inner">{getLinkedFieldDetailedLabel({ field, lang, schema })}</div>
