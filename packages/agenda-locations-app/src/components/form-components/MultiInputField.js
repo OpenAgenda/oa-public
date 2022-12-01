@@ -14,6 +14,7 @@ const MultiInputField = ({
   },
   getLabel,
   onChange,
+  info,
 }) => {
   const decorate = v => validator.decorate(v);
   const values = decorate(value || []);
@@ -57,6 +58,9 @@ const MultiInputField = ({
   return (
     <div className={enabled ? 'multi-input' : 'multi-input disabled'}>
       <label htmlFor={name}>{getLabel(name) }</label>
+      {info && getLabel(info)
+        ? <div>{getLabel(info)}</div>
+        : null}
       <TagsInput
         value={values}
         renderTag={renderItem}
