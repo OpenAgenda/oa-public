@@ -57,3 +57,16 @@ export function getLinkedField({ field, schema }) {
 
   return schema.fields[fieldIndex];
 }
+
+export function getFieldTypeIcon(field) {
+  if (field.fieldType === 'languages') {
+    return {
+      has: false,
+    };
+  }
+
+  return {
+    has: true,
+    className: field.fieldType,
+  };
+}

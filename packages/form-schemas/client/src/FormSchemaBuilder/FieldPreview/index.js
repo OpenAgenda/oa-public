@@ -11,6 +11,7 @@ import {
   isFieldMultilingual,
   getLabel,
   getDefaultValueLabel,
+  getFieldTypeIcon,
 } from './utils';
 
 import {
@@ -94,6 +95,11 @@ export default class FieldPreview extends Component {
     const editable = isFieldEditable(field, { isOwn, editableExtensions });
     const isDisabled = !editable || disabled;
 
+    const {
+      has: hasIcon,
+      className: iconClassName,
+    } = getFieldTypeIcon(field);
+
     return (
       <div
         className={classNames({
@@ -121,7 +127,7 @@ export default class FieldPreview extends Component {
                 )}
               {field.fieldType ? (
                 <span className="form-tooltip-icon icon-hide margin-right-xs">
-                  <i className={field.fieldType}> </i>
+                  {hasIcon ? <i className={iconClassName}> </i> : null }
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
                     <div className="tooltip-inner">{getFieldTypeLabel(field, lang)}</div>
@@ -129,8 +135,8 @@ export default class FieldPreview extends Component {
                 </span>
               ) : null}
               {isFieldMultilingual(field) ? (
-                <span className="form-tooltip-icon icon-hide margin-right-xs">
-                  <i className="multilingual fa fa-globe"> </i>
+                <span className="form-tooltip-icon icon-hide margin-right-xs form-icon">
+                  <i className="languages"> </i>
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
                     <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
@@ -166,13 +172,13 @@ export default class FieldPreview extends Component {
                   )}
                 {field.fieldType ? (
                   <span className="form-icon margin-right-sm">
-                    <i className={field.fieldType}> </i>
+                    {hasIcon ? <i className={iconClassName}> </i> : null}
                     <span className="fieldtype">{getFieldTypeLabel(field, lang)}</span>
                   </span>
                 ) : null }
                 {isFieldMultilingual(field) ? (
                   <span className="form-icon margin-right-sm">
-                    <i className="multilingual fa fa-globe"> </i>
+                    <i className="languages"> </i>
                     <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                   </span>
                 ) : null}
@@ -298,8 +304,8 @@ export default class FieldPreview extends Component {
                   </span>
                 ) : null}
                 {isFieldMultilingual(field) ? (
-                  <span className="form-tooltip-icon icon-hide margin-right-xs">
-                    <i className="multilingual fa fa-globe"> </i>
+                  <span className="form-tooltip-icon icon-hide margin-right-xs form-icon">
+                    <i className="languages"> </i>
                     <div className="tooltip right" role="tooltip">
                       <div className="tooltip-arrow"> </div>
                       <div className="tooltip-inner">{getLabel('isMultilingual', lang)}</div>
@@ -342,8 +348,8 @@ export default class FieldPreview extends Component {
                     </span>
                   ) : null }
                   {isFieldMultilingual(field) ? (
-                    <span className="form-icon margin-right-sm">
-                      <i className="multilingual fa fa-globe"> </i>
+                    <span className="margin-right-sm">
+                      <i className="languages"> </i>
                       <span className="multilingual-label">{getLabel('isMultilingual', lang)}</span>
                     </span>
                   ) : null}
