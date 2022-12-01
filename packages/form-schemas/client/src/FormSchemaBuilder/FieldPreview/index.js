@@ -16,6 +16,7 @@ import {
 
 import {
   getSummary as getLinkedFieldSummaryLabel,
+  getSpecificValue as getLinkedFieldSpecificValueLabel,
 } from './linkedFieldLabels';
 
 const renderSchemaInfo = (schemaInfo, lang) => {
@@ -73,27 +74,9 @@ export default class FieldPreview extends Component {
       schema,
     } = this.props;
 
-    function foundValue() {
-      if (field.enableWith && typeof field.enableWith === 'object') {
-        return schema.fields.map(obj => obj.options?.filter(obj2 => obj2.id === field.enableWith.value).map(obj2 => obj2.label));
-      }
-      if (field.optionalWith) {
-        return schema.fields.map(el => el.options?.filter(obj => obj.id === field.optionalWith.value).map(obj2 => obj2.label));
-      }
-    }
-
     const linkedField = getLinkedField({ field, schema });
-
-    const value = foundValue();
-
-    function getSpecificValue() {
-      if (value) {
-        return getLocaleValue(value[0][0], lang);
-      }
-    }
-
     const linkedFieldName = getLocaleValue(linkedField.label, lang);
-    const specificValue = getSpecificValue();
+    const specificValue = getLinkedFieldSpecificValueLabel({ field, lang, schema });
 
     if (field.enableWith) {
       if (typeof field.enableWith === 'string') {
