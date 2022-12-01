@@ -92,24 +92,24 @@ export default class FieldPreview extends Component {
       }
     }
 
-    const relatedFieldName = getLocaleValue(linkedField.label, lang);
+    const linkedFieldName = getLocaleValue(linkedField.label, lang);
     const specificValue = getSpecificValue();
 
     if (field.enableWith) {
       if (typeof field.enableWith === 'string') {
         return (
-          getLabel('enabledWhenRelatedFieldHasValue', { relatedFieldName }, lang)
+          getLabel('enabledWhenLinkedFieldHasValue', { linkedFieldName }, lang)
         );
       }
       if (typeof field.enableWith === 'object') {
         return (
-          getLabel('enabledWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
+          getLabel('enabledWhenLinkedFieldHasSpecificValue', { linkedFieldName, specificValue }, lang)
         );
       }
     }
     if (field.optionalWith) {
       return (
-        getLabel('optionalWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
+        getLabel('optionalWhenLinkedFieldHasSpecificValue', { linkedFieldName, specificValue }, lang)
       );
     }
   }
