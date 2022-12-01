@@ -14,6 +14,10 @@ import {
   getLinkedField,
 } from './utils';
 
+import {
+  getSummary as getLinkedFieldSummaryLabel,
+} from './linkedFieldLabels';
+
 const renderSchemaInfo = (schemaInfo, lang) => {
   if (!schemaInfo) {
     return null;
@@ -62,7 +66,7 @@ export default class FieldPreview extends Component {
     return getLabel('editFieldInfo', lang);
   }
 
-  getLinkedField(open) {
+  getLinkedField() {
     const {
       field,
       lang,
@@ -89,44 +93,23 @@ export default class FieldPreview extends Component {
     }
 
     const relatedFieldName = getLocaleValue(linkedField.label, lang);
-    const fieldName = getLocaleValue(linkedField.label, lang);
     const specificValue = getSpecificValue();
-
-    if (open) {
-      if (field.enableWith) {
-        if (typeof field.enableWith === 'string') {
-          return (
-            getLabel('enabledWhenRelatedFieldHasValue', { relatedFieldName }, lang)
-          );
-        }
-        if (typeof field.enableWith === 'object') {
-          return (
-            getLabel('enabledWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
-          );
-        }
-      }
-      if (field.optionalWith) {
-        return (
-          getLabel('optionalWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
-        );
-      }
-    }
 
     if (field.enableWith) {
       if (typeof field.enableWith === 'string') {
         return (
-          getLabel('linkedTo', { fieldName }, lang)
+          getLabel('enabledWhenRelatedFieldHasValue', { relatedFieldName }, lang)
         );
       }
       if (typeof field.enableWith === 'object') {
         return (
-          getLabel('linkedTo', { fieldName }, lang)
+          getLabel('enabledWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
         );
       }
     }
     if (field.optionalWith) {
       return (
-        getLabel('linkedTo', { fieldName }, lang)
+        getLabel('optionalWhenRelatedFieldHasSpecificValue', { relatedFieldName, specificValue }, lang)
       );
     }
   }
@@ -207,7 +190,9 @@ export default class FieldPreview extends Component {
                   <i className="linked"> </i>
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
-                    <div className="tooltip-inner">{this.getLinkedField()}</div>
+                    <div className="tooltip-inner">
+                      {getLinkedFieldSummaryLabel({ field, lang, schema })}
+                    </div>
                   </div>
                 </span>
               ) : null}
@@ -245,10 +230,10 @@ export default class FieldPreview extends Component {
                       <i className="linked"> </i>
                       <div className="tooltip right" role="tooltip">
                         <div className="tooltip-arrow"> </div>
-                        <div className="tooltip-inner">{this.getLinkedField(true)}</div>
+                        <div className="tooltip-inner">{this.getLinkedField()}</div>
                       </div>
                     </span>
-                    <span className="linked-label">{this.getLinkedField()}</span>
+                    <span className="linked-label">{getLinkedFieldSummaryLabel({ field, lang, schema })}</span>
                   </>
                 ) : null}
               </div>
@@ -416,10 +401,10 @@ export default class FieldPreview extends Component {
                         <i className="linked"> </i>
                         <div className="tooltip right" role="tooltip">
                           <div className="tooltip-arrow"> </div>
-                          <div className="tooltip-inner">{this.getLinkedField(true)}</div>
+                          <div className="tooltip-inner">{this.getLinkedField()}</div>
                         </div>
                       </span>
-                      <span className="linked-label">{this.getLinkedField()}</span>
+                      <span className="linked-label">{getLinkedFieldSummaryLabel({ field, lang, schema })}</span>
                     </>
                   ) : null}
                 </div>
