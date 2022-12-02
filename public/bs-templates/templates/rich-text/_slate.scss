@@ -5,6 +5,10 @@
 
     .btn {
       margin-right: 0.4em;
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 
@@ -37,4 +41,26 @@
     }
   }
 
+  &.fullscreen {
+    position: fixed;
+    background: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+    display: flex;
+    padding: 1em;
+    margin: 1em;
+    flex-direction: column;
+
+    .textarea-canvas {
+      flex: 1;
+      overflow-y: scroll;
+
+      > div {
+        height: 100%
+      }
+    }
+  }
 }
