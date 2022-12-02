@@ -65,7 +65,7 @@ export const NoHeader = () => {
         >
           <form className="export-form">
             <button
-              className="export-close"
+              className="close"
               type="button"
               onClick={() => setDisplay(false)}
             >
