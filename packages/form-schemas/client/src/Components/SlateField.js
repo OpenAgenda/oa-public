@@ -28,6 +28,33 @@ const DEFAULT_DOC = {
 
 const log = debug('SlateField');
 
+const shortcuts = [{
+  type: 'heading-two',
+  label: 'ctrl+1',
+  keys: ['1', '&'],
+  method: 'toggleBlock',
+}, {
+  type: 'heading-three',
+  label: 'ctrl+2',
+  keys: ['2', 'é'],
+  method: 'toggleBlock',
+}, {
+  type: 'bold',
+  label: 'ctrl+b',
+  keys: ['b'],
+  method: 'toggleMark',
+}, {
+  type: 'italic',
+  label: 'ctrl+i',
+  keys: ['i'],
+  method: 'toggleMark',
+}, {
+  type: 'link',
+  label: 'ctrl+k',
+  keys: ['k'],
+  method: 'toggleBlock',
+}];
+
 function renderMark(props) {
   const {
     children,
@@ -123,6 +150,20 @@ export default class SlateField extends Component {
     if (!changed) return;
 
     onChange(raw ? value : value.toJSON());
+  }
+
+  onKeyDown(e) {
+    if (!e.ctrlKey) {
+      return;
+    }
+
+    const match = shortcuts.find(s => s.keys.includes(e.key));
+
+    if (!match) {
+      return;
+    }
+
+    this[match.method](match.type, e);
   }
 
   toggleMark(type, e) {
@@ -272,6 +313,7 @@ export default class SlateField extends Component {
     return (
       <button
         type="button"
+        title={shortcuts.find(s => s.type === type)?.label}
         className={classNames({
           btn: true,
           'btn-default': !isActive,
@@ -294,6 +336,7 @@ export default class SlateField extends Component {
     return (
       <button
         type="button"
+        title={shortcuts.find(s => s.type === type)?.label}
         className={classNames({
           btn: true,
           'btn-default': !isActive,
@@ -350,6 +393,7 @@ export default class SlateField extends Component {
             renderMark={renderMark}
             renderNode={renderNode}
             onChange={params => this.onChange(params)}
+            onKeyDown={(ev, ed) => this.onKeyDown(ev, ed)}
           />
         </div>
       </div>
