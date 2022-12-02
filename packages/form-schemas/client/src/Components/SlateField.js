@@ -332,8 +332,7 @@ export default class SlateField extends Component {
       <button
         type="button"
         title={shortcuts.find(s => s.type === type)?.label}
-        className={classNames({
-          btn: true,
+        className={classNames('btn', {
           'btn-default': !isActive,
           'btn-primary': isActive,
         })}
@@ -374,8 +373,7 @@ export default class SlateField extends Component {
       <button
         type="button"
         title={shortcuts.find(s => s.type === type)?.label}
-        className={classNames({
-          btn: true,
+        className={classNames('btn', {
           'btn-default': !isActive,
           'btn-primary': isActive,
         })}
@@ -398,7 +396,7 @@ export default class SlateField extends Component {
       <>
         <label
           htmlFor={field.field}
-          className={classNames('control-label', {})}
+          className="control-label"
         >
           {field.label}
         </label>
@@ -444,9 +442,7 @@ export default class SlateField extends Component {
 
     return (
       <div
-        className={classNames({
-          'rich-textarea': true,
-          'margin-top-xs': true,
+        className={classNames('rich-textarea margin-top-xs', {
           fullscreen,
         })}
       >
