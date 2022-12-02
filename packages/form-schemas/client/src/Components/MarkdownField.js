@@ -33,8 +33,8 @@ export default class MarkdownField extends Component {
     const appliedValue = (value === null) && defaultValue ? defaultValue : value;
 
     return (
-      <SlateField {
-        ...ih(this.props, {
+      <SlateField
+        {...ih(this.props, {
           value: {
             $set: HTMLSerializer.deserialize(markdown.from(appliedValue)),
           },
@@ -45,6 +45,7 @@ export default class MarkdownField extends Component {
             $set: true,
           },
         })}
+        parentValue={appliedValue}
       />
     );
   }

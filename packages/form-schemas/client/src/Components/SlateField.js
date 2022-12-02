@@ -9,7 +9,13 @@ import { Value } from 'slate';
 
 import richTextLabels from '@openagenda/labels/form-schemas/richText';
 import flatten from '@openagenda/labels/flatten';
-import { nl2br } from '@openagenda/react-shared';
+import { nl2br, bodyScroll } from '@openagenda/react-shared';
+
+import FieldCounter from './FieldCounter';
+import Info from './Info';
+import Sub from './Sub';
+
+const flattenFieldLabels = require('../lib/flatten');
 
 const DEFAULT_NODE = 'paragraph';
 
@@ -164,6 +170,18 @@ export default class SlateField extends Component {
     }
 
     this[match.method](match.type, e);
+  }
+
+  setFullscreen(fullscreen) {
+    if (fullscreen) {
+      bodyScroll.disable();
+    } else {
+      bodyScroll.enable();
+    }
+
+    this.setState({
+      fullscreen,
+    });
   }
 
   toggleMark(type, e) {
@@ -326,6 +344,25 @@ export default class SlateField extends Component {
     );
   }
 
+  renderFullscreenButton() {
+    const {
+      fullscreen = false,
+    } = this.state;
+
+    return (
+      <button
+        type="button"
+        className={classNames('btn pull-right', {
+          'btn-default': !fullscreen,
+          'btn-primary': fullscreen,
+        })}
+        onClick={() => this.setFullscreen(!fullscreen)}
+      >
+        <i className="fa fa-arrows-alt" />
+      </button>
+    );
+  }
+
   renderMarkButton(type) {
     const {
       value,
@@ -349,9 +386,49 @@ export default class SlateField extends Component {
     );
   }
 
+  renderFullscreenTop() {
+    const {
+      field: fieldFromProps,
+      lang,
+    } = this.props;
+
+    const field = flattenFieldLabels(fieldFromProps, lang);
+
+    return (
+      <>
+        <label
+          htmlFor={field.field}
+          className={classNames('control-label', {})}
+        >
+          {field.label}
+        </label>
+        {field.info ? <Info value={field.info} /> : null}
+      </>
+    );
+  }
+
+  renderFullscreenBottom() {
+    const {
+      field: fieldFromProps,
+      lang,
+      parentValue,
+      error,
+    } = this.props;
+
+    const field = flattenFieldLabels(fieldFromProps, lang);
+
+    return (
+      <>
+        {field.max ? <FieldCounter value={parentValue} max={field.max} /> : null}
+        {field.sub || field.error ? <Sub label={field.sub} error={error} /> : null}
+      </>
+    );
+  }
+
   render() {
     const {
       value,
+      fullscreen,
     } = this.state;
 
     const {
@@ -366,7 +443,14 @@ export default class SlateField extends Component {
     const labels = flatten(richTextLabels, lang, true);
 
     return (
-      <div className="rich-textarea margin-top-xs">
+      <div
+        className={classNames({
+          'rich-textarea': true,
+          'margin-top-xs': true,
+          fullscreen,
+        })}
+      >
+        {fullscreen ? this.renderFullscreenTop() : null}
         <div className="toolbar">
           {this.renderBlockButton('heading-two', labels.heading)}
           {this.renderBlockButton('heading-three', labels.subHeading)}
@@ -374,6 +458,7 @@ export default class SlateField extends Component {
           {this.renderMarkButton('italic')}
           {this.renderBlockButton('bulleted-list', <i className="fa fa-list" />)}
           {this.renderBlockButton('link', <i className="fa fa-link" />)}
+          {this.renderFullscreenButton()}
         </div>
         <div className="textarea-canvas">
           { this.isEmpty() && placeholder ? (
@@ -396,6 +481,7 @@ export default class SlateField extends Component {
             onKeyDown={(ev, ed) => this.onKeyDown(ev, ed)}
           />
         </div>
+        {fullscreen ? this.renderFullscreenBottom() : null}
       </div>
     );
   }
