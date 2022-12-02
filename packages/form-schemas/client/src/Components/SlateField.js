@@ -356,13 +356,15 @@ export default class SlateField extends Component {
     return (
       <button
         type="button"
-        className={classNames('btn pull-right', {
-          'btn-default': !fullscreen,
-          'btn-primary': fullscreen,
-        })}
+        className="btn btn-default pull-right"
         onClick={() => this.setFullscreen(!fullscreen)}
       >
-        <i className="fa fa-arrows-alt" />
+        <i
+          className={classNames('fa', {
+            'fa-maximize': !fullscreen,
+            'fa-minimize': fullscreen,
+          })}
+        />
       </button>
     );
   }
