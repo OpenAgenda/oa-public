@@ -19,3 +19,4 @@ export { default as AgendaContextBar } from './AgendaContextBar';
 export { default as AgendaAdminModContextBar } from './AgendaAdminModContextBar';
 export { default as Dropdown } from './Dropdown';
 export { default as Accordion } from './Accordion';
+export * as bodyScroll from './body-scroll';
