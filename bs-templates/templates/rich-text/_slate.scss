@@ -20,6 +20,9 @@
 
     > div {
       min-height: 120px;
+      > div {
+        padding-bottom: 0.6em;
+      }
     }
 
     .textarea-placeholder {
