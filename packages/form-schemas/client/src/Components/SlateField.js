@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
-import React, { Component } from 'react';
+import debug from 'debug';
+import { Component } from 'react';
 import { Editor } from 'slate-react';
 
 import classNames from 'classnames';
@@ -19,17 +20,19 @@ const DEFAULT_DOC = {
       type: 'paragraph',
       nodes: [{
         object: 'text',
-        leaves: [{ text: '' }]
-      }]
-    }]
-  }
+        leaves: [{ text: '' }],
+      }],
+    }],
+  },
 };
+
+const log = debug('SlateField');
 
 function renderMark(props) {
   const {
     children,
     mark,
-    attributes
+    attributes,
   } = props;
 
   if (mark.type === 'bold') {
@@ -45,7 +48,7 @@ function renderNode(props) {
   const {
     attributes,
     children,
-    node
+    node,
   } = props;
 
   if (node.type === 'bulleted-list') {
@@ -79,7 +82,7 @@ export default class SlateField extends Component {
 
     let update;
     const {
-      value
+      value,
     } = this.props;
 
     if (value instanceof Value) {
@@ -94,7 +97,7 @@ export default class SlateField extends Component {
 
     this.state = {
       value: update,
-      changed: false
+      changed: false,
     };
   }
 
@@ -103,12 +106,12 @@ export default class SlateField extends Component {
   onChange({ value }) {
     const {
       onChange,
-      raw
+      raw,
     } = this.props;
 
     const {
       changed: stateChangedValue,
-      value: stateValue
+      value: stateValue,
     } = this.state;
 
     const changed = stateChangedValue || (
@@ -126,7 +129,7 @@ export default class SlateField extends Component {
     if (e) e.preventDefault();
 
     const {
-      value
+      value,
     } = this.state;
 
     this.onChange(value.change().toggleMark(type));
@@ -142,7 +145,7 @@ export default class SlateField extends Component {
 
       change.wrapInline({
         type: 'link',
-        data: { href }
+        data: { href },
       });
     } else {
       /* eslint-disable */
@@ -161,14 +164,14 @@ export default class SlateField extends Component {
   }
 
   toggleList({
-    value, change, document, type
+    value, change, document, type,
   }) {
     // Handle the extra wrapping required for list buttons.
     const isList = this.hasBlock('list-item');
 
-    const isType = value.blocks.some(block => (
-      !!document.getClosest(block.key, parent => parent.type === type)
-    ));
+    const isType = value.blocks.some(
+      block => !!document.getClosest(block.key, parent => parent.type === type),
+    );
 
     if (isList && isType) {
       change
@@ -178,7 +181,7 @@ export default class SlateField extends Component {
     } else if (isList) {
       change
         .unwrapBlock(
-          type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list'
+          type === 'bulleted-list' ? 'numbered-list' : 'bulleted-list',
         )
         .wrapBlock(type);
     } else {
@@ -197,7 +200,7 @@ export default class SlateField extends Component {
       this.toggleLink({ value, change });
     } else if (['bulleted-list', 'numbered-list'].includes(type)) {
       this.toggleList({
-        value, change, document, type
+        value, change, document, type,
       });
     } else {
       const isActive = this.hasBlock(type);
@@ -219,7 +222,7 @@ export default class SlateField extends Component {
 
   hasLinks() {
     const {
-      value
+      value,
     } = this.state;
 
     return value.inlines.some(inline => inline.type === 'link');
@@ -227,7 +230,7 @@ export default class SlateField extends Component {
 
   hasBlock(type) {
     const {
-      value
+      value,
     } = this.state;
 
     return value.blocks.some(node => node.type === type);
@@ -237,7 +240,7 @@ export default class SlateField extends Component {
     let empty = false;
 
     const {
-      value
+      value,
     } = this.state;
 
     try {
@@ -249,7 +252,7 @@ export default class SlateField extends Component {
         empty = true;
       }
     } catch (e) {
-      console.error(e);
+      log.error(e);
     }
 
     return empty;
@@ -272,7 +275,7 @@ export default class SlateField extends Component {
         className={classNames({
           btn: true,
           'btn-default': !isActive,
-          'btn-primary': isActive
+          'btn-primary': isActive,
         })}
         onMouseDown={this.toggleBlock.bind(this, type)}
       >
@@ -283,7 +286,7 @@ export default class SlateField extends Component {
 
   renderMarkButton(type) {
     const {
-      value
+      value,
     } = this.state;
 
     const isActive = value.activeMarks.some(mark => mark.type === type);
@@ -294,7 +297,7 @@ export default class SlateField extends Component {
         className={classNames({
           btn: true,
           'btn-default': !isActive,
-          'btn-primary': isActive
+          'btn-primary': isActive,
         })}
         onMouseDown={this.toggleMark.bind(this, type)}
       >
@@ -305,16 +308,16 @@ export default class SlateField extends Component {
 
   render() {
     const {
-      value
+      value,
     } = this.state;
 
     const {
       lang,
-      field
+      field,
     } = this.props;
 
     const {
-      placeholder
+      placeholder,
     } = field;
 
     const labels = flatten(richTextLabels, lang, true);
