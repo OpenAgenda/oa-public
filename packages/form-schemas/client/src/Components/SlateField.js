@@ -59,6 +59,11 @@ const shortcuts = [{
   label: 'ctrl+k',
   keys: ['k'],
   method: 'toggleBlock',
+}, {
+  type: 'bulleted-list',
+  label: 'ctrl+l',
+  keys: ['l'],
+  method: 'toggleBlock',
 }];
 
 function renderMark(props) {
