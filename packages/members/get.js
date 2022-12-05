@@ -19,7 +19,8 @@ function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
   const cleanOptions = cleanGetOptions(options);
 
   const where = _.isObject(identifier)
-    ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) => _.snakeCase(k))
+    ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) =>
+      _.snakeCase(k))
     : { id: identifier };
 
   return {
@@ -34,7 +35,7 @@ function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
           'deleted_user',
           'actions_counter',
           'updated_at',
-        ].concat(cleanOptions.legacy ? ['user_id', 'review_id'] : [])
+        ].concat(cleanOptions.legacy ? ['user_id', 'review_id'] : []),
       )
       .where(where),
     options: cleanOptions,
@@ -45,7 +46,7 @@ async function get(config, identifier, options = {}) {
   const { query, options: cleanOptions } = _getQueryAndOptions(
     config,
     identifier,
-    options
+    options,
   );
 
   const member = await fromDB(
@@ -53,7 +54,7 @@ async function get(config, identifier, options = {}) {
       customDataAtRoot: cleanOptions.customDataAtRoot,
       includeLegacyFields: cleanOptions.legacy,
     },
-    await query
+    await query,
   );
 
   if (!member && cleanOptions.throwOnNotFound) {
@@ -70,7 +71,7 @@ async function get(config, identifier, options = {}) {
 async function getByEmail(config, identifier, options = {}) {
   if (!_.isObject(identifier)) {
     throw new Error(
-      'Bad request: identifier must be an object containing at least an email and another identifier'
+      'Bad request: identifier must be an object containing at least an email and another identifier',
     );
   } else if (!identifier.email) {
     throw new Error('Bad request: email is missing in identifier');
@@ -79,14 +80,14 @@ async function getByEmail(config, identifier, options = {}) {
   const { query, options: cleanOptions } = await _getQueryAndOptions(
     config,
     identifier,
-    options
+    options,
   );
 
   let member = fromDB(
     {
       includeLegacyFields: cleanOptions.legacy,
     },
-    await query.where('store', 'like', `%${identifier.email}%`)
+    await query.where('store', 'like', `%${identifier.email}%`),
   );
 
   if (!member && _.get(config, 'interfaces.getUserByEmail')) {
@@ -94,7 +95,13 @@ async function getByEmail(config, identifier, options = {}) {
       .getUserByEmail(identifier.email)
       .then(u => (u ? u.uid : null));
 
-    member = userUid ? get(config, { ...identifier, userUid }, options) : null;
+    member = userUid
+      ? await get(config, { ...identifier, userUid }, options)
+      : null;
+  }
+
+  if (!member && cleanOptions.throwOnNotFound) {
+    throw new NotFound('member not found');
   }
 
   if (member && cleanOptions.detailed) {
