@@ -31,6 +31,8 @@ export default class Modal extends Component {
   constructor(props) {
     super(props);
     this.ref = React.createRef();
+
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -126,7 +128,11 @@ export default class Modal extends Component {
           {title ? (
             <header className="popup-title">
               <h2>{title}</h2>
-              <button type="button" onClick={this.handleClose} className="close-link" onKeyPress={this.onKeyPress}>
+              <button
+                type="button"
+                onClick={this.handleClose}
+                className="close-link"
+              >
                 <i className="fa fa-times fa-lg" />
               </button>
             </header>
