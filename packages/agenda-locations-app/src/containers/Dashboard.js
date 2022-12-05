@@ -496,8 +496,11 @@ function Dashboard() {
           search={betterQsStringify({ ...search, page })}
           prefix={prefix}
           closeDetail={() => {
-            if (!mergeMode) history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });
-            else setOpenDetails(false);
+            if (!mergeMode) {
+              history.push({ pathname: `${prefix}`, search: betterQsStringify({ ...search, page }) });
+            } else {
+              setOpenDetails(false);
+            }
           }}
         />
       ) : null}
