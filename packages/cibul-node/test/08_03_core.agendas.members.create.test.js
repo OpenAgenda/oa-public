@@ -201,6 +201,26 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         expect(entry.credential).toBe(2);
         expect(JSON.parse(entry.store).custom_fields.contact_name).toBe('Hélène');
       });
+
+      it('member invite', async () => {
+        const res = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/agendas/2/members/invite',
+          headers: {
+            'access-token': adminAccessToken,
+            nonce: 1238979,
+            'content-type': 'application/json',
+          },
+          data: {
+            role: 1,
+            emails: ['clement.lecroart@openagenda.com', 'clement.lecro@bidul.chouette'],
+          },
+        });
+        const member = await services.members.get.byEmail({ agendaUid: 2, email: 'clement.lecroart@openagenda.com' });
+        const member2 = await services.members.get.byEmail({ agendaUid: 2, email: 'clement.lecro@bidul.chouette' });
+        expect(member.id).toBeTruthy();
+        expect(member2.id).toBeTruthy();
+      });
     });
 
     describe('non member call', () => {
