@@ -10,7 +10,7 @@
   "license": "ISC",
   "main": "",
   "scripts": {
-    "start": "start-storybook -p 9001",
+    "start": "start-storybook -p 9001 --ci",
     "extract-messages": "yarn oa-intl",
     "build": "babel --copy-files src -d dist -s",
     "prepack": "yarn oa-intl compile && yarn build"
@@ -61,6 +61,8 @@
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/files": "^3.1.0",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/react": "^6.5.9",
     "babel-loader": "^8.2.2",
     "multer": "^1.3.1",

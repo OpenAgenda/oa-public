@@ -1,5 +1,5 @@
 import {
-  createApp
+  createApp,
 } from '@openagenda/react-shared';
 
 import getRoutes from './getRoutes';
@@ -15,7 +15,7 @@ export default function (options) {
     initialState,
     apiRoot,
     prefix,
-    getRoutes
+    getRoutes,
   });
 
   const app = getApp();

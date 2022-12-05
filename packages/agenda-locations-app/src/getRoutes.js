@@ -1,5 +1,5 @@
 import {
-  loadable
+  loadable,
 } from '@openagenda/react-shared';
 
 const App = loadable(() => import(
@@ -28,7 +28,7 @@ const UpdateForm = loadable(() => import(
   './containers/UpdateForm'
 ));
 
-export default (prefix = '') => ([
+export default (prefix = '') => [
   {
     path: prefix,
     component: App,
@@ -36,32 +36,32 @@ export default (prefix = '') => ([
       {
         path: `${prefix}/create`,
         exact: true,
-        component: CreateForm
+        component: CreateForm,
       },
       {
         path: `${prefix}`,
         exact: true,
-        component: Dashboard
+        component: Dashboard,
       },
       {
         path: `${prefix}/merge`,
         exact: true,
-        component: Dashboard
+        component: Dashboard,
       },
       {
         path: `${prefix}/tmp`,
         exact: true,
-        component: Temporary
+        component: Temporary,
       },
       {
         path: `${prefix}/:locationUid`,
         exact: true,
-        component: Dashboard // with detailed modal open
+        component: Dashboard, // with detailed modal open
       },
       {
         path: `${prefix}/:locationUid/edit`,
         exact: true,
-        component: UpdateForm
-      }]
-  }
-]);
+        component: UpdateForm,
+      }],
+  },
+];

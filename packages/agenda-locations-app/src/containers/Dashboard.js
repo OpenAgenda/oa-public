@@ -1,8 +1,8 @@
-import React, {
+import {
   useMemo,
   useCallback,
   useState,
-  useEffect
+  useEffect,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router';
@@ -55,7 +55,7 @@ const messages = defineMessages({
   },
   verifiedInfo: {
     id: 'AgendaLocations.AgendaAdminLocation.verifiedInfo',
-    defaultMessage: 'Locations that were created on the fly on the event form get a "to be verified" status to allow agenda administrators to control them'
+    defaultMessage: 'Locations that were created on the fly on the event form get a "to be verified" status to allow agenda administrators to control them',
   },
   create: {
     id: 'AgendaLocations.AgendaAdminLocation.create',
@@ -162,7 +162,7 @@ function Dashboard() {
     const { page: retrivedPage, ...searchObj } = parsed;
     return {
       search: searchObj,
-      page: parseInt(retrivedPage || '1', 10)
+      page: parseInt(retrivedPage || '1', 10),
     };
   }, [historyLocation.search]);
 
@@ -177,14 +177,14 @@ function Dashboard() {
 
   const nextPage = useCallback(() => {
     history.push({
-      search: betterQsStringify({ ...search, page: page + 1 })
+      search: betterQsStringify({ ...search, page: page + 1 }),
     });
   }, [history, page, search]);
 
   const previousPage = useCallback(() => {
     if (page > 1) {
       history.push({
-        search: betterQsStringify({ ...search, page: page - 1 })
+        search: betterQsStringify({ ...search, page: page - 1 }),
       });
     }
   }, [history, page, search]);
@@ -198,8 +198,8 @@ function Dashboard() {
       search: betterQsStringify({
         ...search,
         page: 1,
-        hasNull: search.hasNull.filter(e => e !== field)
-      })
+        hasNull: search.hasNull.filter(e => e !== field),
+      }),
     });
   }, [history, search]);
 
@@ -208,8 +208,8 @@ function Dashboard() {
       search: betterQsStringify({
         ...search,
         page: 1,
-        hasNull: [...search.hasNull || [], field]
-      })
+        hasNull: [...search.hasNull || [], field],
+      }),
     });
   }, [history, search]);
 
@@ -235,7 +235,7 @@ function Dashboard() {
       const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
       history.push({
         pathname: `${prefix}/${location.uid}/edit`,
-        state: nq
+        state: nq,
       });
     } else {
       setAccessModal({ action: 'edit', location });
@@ -329,7 +329,7 @@ function Dashboard() {
                     const nq = `${pathname}${betterQsStringify({ ...search, page })}`;
                     history.push({
                       pathname: `${prefix}/create`,
-                      state: nq
+                      state: nq,
                     });
                   }
                 }}
@@ -368,10 +368,10 @@ function Dashboard() {
                     onChange={value => {
                       if (value !== '') {
                         return history.push({
-                          search: betterQsStringify({ ...search, page: 1, search: value })
+                          search: betterQsStringify({ ...search, page: 1, search: value }),
                         });
                       } return history.push({
-                        search: betterQsStringify({ ...search, page: 1, search: null })
+                        search: betterQsStringify({ ...search, page: 1, search: null }),
                       });
                     }}
                     placeholder={intl.formatMessage(messages.filterList)}
@@ -386,7 +386,7 @@ function Dashboard() {
                         if (search.state) removeFilter('state');
                         else {
                           history.push({
-                            search: betterQsStringify({ ...search, page, state: 0 })
+                            search: betterQsStringify({ ...search, page, state: 0 }),
                           });
                         }
                       }}
