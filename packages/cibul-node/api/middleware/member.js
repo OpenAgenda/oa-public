@@ -1,7 +1,11 @@
 'use strict';
-
+const _ = require('lodash');
 const { Forbidden } = require('@openagenda/verror');
 const log = require('@openagenda/logs')('api/middleware/member');
+
+const {
+  isSuperiorTo
+} = require('@openagenda/members').utils.compareRoles;
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
@@ -52,8 +56,28 @@ async function load(req, _res, next) {
   next();
 }
 
+function moderatorCannotInviteAdministrator(req, res, next) {
+  if (isSuperiorTo(req.body.role, req.member.role)) {
+    return res.status(400).json({ error: 'You cannot invite administrators' });
+  }
+  return next();
+}
+
+function loadContext(req, res, next) {
+  req.context = _.merge({
+    lang: req.lang,
+    sender: {
+      userUid: req.user.uid,
+      memberName: _.get(req, 'member.custom.contactName') || req.user.name,
+    },
+  }, req.body.context);
+  next();
+}
+
 module.exports = {
   load,
   verify: verify.bind(null, defaultRoles),
-  allow: roles => verify.bind(null, roles)
+  allow: roles => verify.bind(null, roles),
+  moderatorCannotInviteAdministrator,
+  loadContext,
 };

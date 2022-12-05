@@ -182,12 +182,31 @@ module.exports = core => {
   ]);
 
   app.post(
+    '/agendas/:agendaUid/members/invite',
+    mw.member.load,
+    mw.member.moderatorCannotInviteAdministrator,
+    mw.member.loadContext,
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => core
+      .agendas(req.agenda.uid).members
+      .invite({ role: req.body.role, emails: req.body.emails, context: req.context })
+      .then(data => res.json(data), next),
+  );
+
+  app.post(
     '/agendas/:agendaUid/members',
     (req, res, next) => core
       .agendas(req.agenda.uid).members
       .create(req.body.userUid ?? req.user.uid, req.body.role, req.parsedData, { userUid: req.user.uid })
       .then(member => res.json(member), next),
   );
+
+  app.get('/agendas/:agendaUid/members/email/:email', [
+    mw.member.load,
+    (req, res, next) => core.agendas(req.agenda.uid).members.get({
+      email: req.params.email,
+    }, { userUid: req.user.uid }).then(data => res.json({ ...data, success: true }), next),
+  ]);
 
   app.get('/agendas/:agendaUid/members/:userUid', [
     mw.member.load,
