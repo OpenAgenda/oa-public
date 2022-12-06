@@ -38,7 +38,7 @@ function MemberItemComponent({
 
   const { getLabel } = i18n;
 
-  const canEditMember = isSuperiorToOrEqual(userRole, role);
+  const canEditMember = isSuperiorToOrEqual(userRole, role) && !invited;
 
   const memberType = (() => {
     if (invited && !deletedUser) return 'invited';
