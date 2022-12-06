@@ -165,7 +165,7 @@ export default class FieldPreview extends Component {
             <>
               <label
                 className="margin-right-xs margin-top-xs"
-                htmlFor={field?.display ?? true ? `edit-${field.field}` : `show-${field.field}`}
+                htmlFor={this.isFieldDisplayed() ? `edit-${field.field}` : `show-${field.field}`}
               >
                 {getLocaleValue(field.label, lang)}
               </label>
