@@ -327,7 +327,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             data: form,
           });
         } catch (e) {
-          // console.log(e.response.data);
+          console.log(e.response.data);
         }
       });
 
@@ -566,7 +566,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       it('by default, only uid, name, address, latitude longitude and state are provided', () => {
         expect(Object.keys(result.locations[0])).toEqual(
-          ['uid', 'name', 'address', 'latitude', 'longitude', 'state']
+          ['uid', 'name', 'address', 'latitude', 'longitude', 'state'],
         );
       });
 
@@ -599,7 +599,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             'extId', 'duplicateCandidates',
             'disqualifiedDuplicates',
             'mergedIn',
-          ]
+          ],
         );
       });
 
@@ -694,7 +694,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           locations
             .map(i => i.name)
             .sort((a, b) => a.localeCompare(b))
-            .join(' - ')
+            .join(' - '),
         );
 
         expect(after[0]).toBe(locations[locations.length - 1].name);
