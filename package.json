@@ -35,7 +35,7 @@
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
     "@commitlint/config-lerna-scopes": "^12.1.1",
-    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/cz-conventional-changelog": "^3.2.1",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
