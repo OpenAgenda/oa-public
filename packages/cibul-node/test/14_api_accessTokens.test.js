@@ -16,10 +16,12 @@ describe('14 - core - functional(server): api get accessToken', () => {
   let server;
   let accessToken;
 
-  beforeAll(() => loadFixtures(testConfig.db, '015.sql'));
+  const config = testConfig.extendWith({ cachePrefix: 'c14_api_accessTokens_test' });
+
+  beforeAll(() => loadFixtures(config.db, '015.sql'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -42,7 +44,7 @@ describe('14 - core - functional(server): api get accessToken', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
   });
 
   beforeAll(async () => {
