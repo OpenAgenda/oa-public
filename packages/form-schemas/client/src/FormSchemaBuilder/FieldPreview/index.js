@@ -19,6 +19,8 @@ import {
   getDetailed as getLinkedFieldDetailedLabel,
 } from './linkedFieldLabels';
 
+const MAX_DISPLAYED_OPTIONS = 4;
+
 const renderSchemaInfo = (schemaInfo, lang) => {
   if (!schemaInfo) {
     return null;
@@ -36,17 +38,17 @@ const renderOptionsInfo = (options, lang) => {
   if (!options) {
     return null;
   }
-  if (options.length >= 4) {
+  if (options.length >= MAX_DISPLAYED_OPTIONS) {
     return (
       <div className="margin-top-xs text-muted">
-        {options?.slice(0, 4).map(option => <span key={getLocaleValue(option.label, lang)}>{getLocaleValue(option.label, lang)},</span>)}
-        <span> + {options.length - 4} {getLabel('moreOptions', lang)}</span>
+        {options?.slice(0, MAX_DISPLAYED_OPTIONS).map((option, index) => <span key={getLocaleValue(option.label, lang)}>{getLocaleValue(option.label, lang)}{index <= MAX_DISPLAYED_OPTIONS ? ', ' : ''}</span>)}
+        <span> + {options.length - MAX_DISPLAYED_OPTIONS} {getLabel('moreOptions', lang)}</span>
       </div>
     );
   }
   return (
     <div className="margin-top-xs text-muted">
-      {options?.map(option => <span key={getLocaleValue(option.label, lang)}>{getLocaleValue(option.label, lang)},</span>)}
+      {options?.map((option, index) => <span key={getLocaleValue(option.label, lang)}>{getLocaleValue(option.label, lang)}{index < options.length - 1 ? ', ' : ''}</span>)}
     </div>
   );
 };
@@ -270,7 +272,7 @@ export default class FieldPreview extends Component {
                 <div className="margin-top-xs" title={getLabel('jsonKey', lang)}>{getLabel('jsonKey', lang)}: {field.field}</div>
               ) : null }
               {'default' in field ? (
-                <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>{getLabel('defaultValue', lang)}: {String(getDefaultValueLabel(field, lang))}</div>
+                <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>{getLabel('defaultValue', lang)} : {String(getDefaultValueLabel(field, lang))}</div>
               ) : null }
               {field.max ? (
                 <div className="margin-top-xs" title={getLabel('maxLength', lang)}>{getLabel('maxLength', lang)}: {field.max}</div>
@@ -281,7 +283,7 @@ export default class FieldPreview extends Component {
                 </ul>
               ) : (
                 <div className="form-item-actions padding-h-xs">
-                  {this.isFieldDisplayed ? (
+                  {this.isFieldDisplayed() ? (
                     <button
                       type="button"
                       name={`edit-${field.field}`}
