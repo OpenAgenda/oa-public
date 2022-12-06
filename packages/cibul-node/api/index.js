@@ -205,7 +205,7 @@ module.exports = core => {
     mw.member.load,
     (req, res, next) => core.agendas(req.agenda.uid).members.get({
       email: req.params.email,
-    }, { userUid: req.user.uid }).then(data => res.json({ ...data, success: true }), next),
+    }, { userUid: req.user.uid }).then(data => res.json(data), next),
   ]);
 
   app.get('/agendas/:agendaUid/members/:userUid', [
