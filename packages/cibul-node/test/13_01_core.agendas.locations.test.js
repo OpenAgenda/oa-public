@@ -5,6 +5,7 @@ const _ = require('lodash');
 const axios = require('axios');
 const FormData = require('form-data');
 const qs = require('qs');
+const logs = require('@openagenda/logs');
 
 const api = require('../api');
 const Services = require('../services/init');
@@ -16,6 +17,7 @@ const testConfig = require('./testConfig');
 
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
+  const log = logs('13_01');
 
   const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
 
@@ -306,8 +308,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('successful create with an image', () => {
       beforeAll(async () => {
         try {
-          fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
-            .pipe(fs.createWriteStream('/tmp/pirates.jpg'));
+          fs.copyFileSync(`${__dirname}/fixtures/pirates.jpg`, '/tmp/pirates.jpg');
 
           const form = new FormData();
 
@@ -327,7 +328,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             data: form,
           });
         } catch (e) {
-          console.log(e.response.data);
+          log('error', e);
         }
       });
 
