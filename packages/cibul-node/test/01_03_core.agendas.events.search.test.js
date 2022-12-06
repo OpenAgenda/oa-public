@@ -145,7 +145,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(events[0].uid).toBe(1);
       expect(sort).toBe('timingsWithFeatured.asc');
-      expect(after).toEqual([0, 32503680000000, 1569578400000, 1]);
+      expect(after).toEqual([0, 32503683600000, 1569578400000, 1]);
 
       const result = await core.agendas(2).events.search({ state: null }, { size: 1, after }, {
         userUid: 63170200,
