@@ -3260,6 +3260,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/babel-plugin@npm:^11.10.5":
+  version: 11.10.5
+  resolution: "@emotion/babel-plugin@npm:11.10.5"
+  dependencies:
+    "@babel/helper-module-imports": ^7.16.7
+    "@babel/plugin-syntax-jsx": ^7.17.12
+    "@babel/runtime": ^7.18.3
+    "@emotion/hash": ^0.9.0
+    "@emotion/memoize": ^0.8.0
+    "@emotion/serialize": ^1.1.1
+    babel-plugin-macros: ^3.1.0
+    convert-source-map: ^1.5.0
+    escape-string-regexp: ^4.0.0
+    find-root: ^1.1.0
+    source-map: ^0.5.7
+    stylis: 4.1.3
+  peerDependencies:
+    "@babel/core": ^7.0.0
+  checksum: e3353499c76c4422d6e900c0dfab73607056d9da86161a3f27c3459c193c4908050c5d252c68fcde231e13f02a9d8e0dc07d260317ae0e5206841e331cc4caae
+  languageName: node
+  linkType: hard
+
 "@emotion/babel-preset-css-prop@npm:^11.2.0":
   version: 11.2.0
   resolution: "@emotion/babel-preset-css-prop@npm:11.2.0"
@@ -3419,6 +3441,19 @@ __metadata:
     "@emotion/utils": ^1.2.0
     csstype: ^3.0.2
   checksum: 8f22f83194ad76cb3bbee481daa57fdc65ca3078a5db9e219c04151341ef93af80c7057aea17b64446682d275918f7ecc0c20e977c1af153c79a1485503fe717
+  languageName: node
+  linkType: hard
+
+"@emotion/serialize@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@emotion/serialize@npm:1.1.1"
+  dependencies:
+    "@emotion/hash": ^0.9.0
+    "@emotion/memoize": ^0.8.0
+    "@emotion/unitless": ^0.8.0
+    "@emotion/utils": ^1.2.0
+    csstype: ^3.0.2
+  checksum: 24cfd5b16e6f2335c032ca33804a876e0442aaf8f9c94d269d23735ebd194fb1ed142542dd92191a3e6ef8bad5bd560dfc5aaf363a1b70954726dbd4dd93085c
   languageName: node
   linkType: hard
 
@@ -5132,7 +5167,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@casl/ability": ^2.4.2
     "@openagenda/agendas": ^1.7.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -5185,7 +5220,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/intl": ^1.1.3
     "@openagenda/labels": ^2.3.0
@@ -5219,7 +5254,7 @@ __metadata:
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
     "@openagenda/activities": ^2.3.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/intl": ^1.1.3
@@ -5289,7 +5324,7 @@ __metadata:
     "@babel/node": ^7.13.13
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/agendas": ^1.7.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/files": ^3.1.0
@@ -5355,7 +5390,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/common-labels": ^1.0.0
     "@openagenda/event-form": ^1.5.1
@@ -5425,7 +5460,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/logs": ^1.1.9
     angular-expressions: ^0.3.0
@@ -5500,11 +5535,12 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
+    "@emotion/babel-plugin": ^11.10.5
     "@emotion/react": ^11.10.0
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
     "@openagenda/agenda-locations": ^2.1.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/countries": ^0.1.1
     "@openagenda/files": ^3.1.0
@@ -5603,7 +5639,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/component": ^5.14.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/browserslist-config": ^1.0.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -5678,7 +5714,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/event-form": ^1.5.1
     "@openagenda/form-schemas": ^1.9.2
@@ -5721,7 +5757,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@elastic/elasticsearch": ^7.0.0
     "@openagenda/agendas": ^1.7.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/labels": ^2.3.0
@@ -5772,7 +5808,7 @@ __metadata:
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
     "@openagenda/agendas": ^1.7.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/files": ^3.1.0
     "@openagenda/intl": ^1.1.3
@@ -5834,7 +5870,7 @@ __metadata:
     "@emotion/react": ^11.10.0
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-search": ^2.8.0
@@ -5920,7 +5956,7 @@ __metadata:
     "@loadable/component": ^5.14.1
     "@openagenda/agendas": ^1.7.0
     "@openagenda/axios-mock-adapter": ^1.21.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -6006,7 +6042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/babel-preset@^1.4.1, @openagenda/babel-preset@workspace:public/babel-preset":
+"@openagenda/babel-preset@^1.5.0, @openagenda/babel-preset@workspace:public/babel-preset":
   version: 0.0.0-use.local
   resolution: "@openagenda/babel-preset@workspace:public/babel-preset"
   dependencies:
@@ -6110,7 +6146,7 @@ __metadata:
     "@openagenda/agenda-search": ^1.4.0
     "@openagenda/agenda-settings": ^1.4.0
     "@openagenda/aggregator-sources": ^1.3.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/home": ^2.2.1
@@ -6340,7 +6376,7 @@ __metadata:
     "@loadable/component": ^5.14.1
     "@openagenda/agenda-docx": ^1.2.1
     "@openagenda/axios-mock-adapter": ^1.21.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/common-labels": ^1.0.0
     "@openagenda/eslint-config": ^1.3.1
@@ -6397,7 +6433,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/agenda-locations": ^2.1.2
     "@openagenda/agenda-locations-app": ^0.0.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/events": ^2.0.0
     "@openagenda/form-schemas": ^1.9.2
@@ -6472,7 +6508,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/files": ^3.1.0
     "@openagenda/form-schemas": ^1.9.1
@@ -6570,7 +6606,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/labels": ^2.3.0
@@ -6651,7 +6687,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -6708,7 +6744,7 @@ __metadata:
     "@babel/node": ^7.13.13
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/babel-plugin": ^5.13.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/inboxes": ^1.1.14
@@ -6783,7 +6819,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.9
@@ -6821,7 +6857,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.13.17
     "@formatjs/cli": ^4.8.3
     "@formatjs/intl": ^1.6.7
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     core-js: ^3.10.2
     dedent: ^0.7.0
@@ -6933,7 +6969,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/babel-plugin": ^5.13.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/intl": ^1.1.3
     "@openagenda/logs": ^1.1.9
@@ -7045,7 +7081,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/component": ^5.14.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/eslint-config": ^1.3.1
@@ -7106,7 +7142,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/labels": ^2.3.0
     "@openagenda/logs": ^1.1.9
@@ -7146,7 +7182,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/event-form": ^1.5.1
     "@openagenda/form-schemas": ^1.9.2
@@ -7253,7 +7289,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/validators": ^2.4.0
     axios: ^0.21.1
@@ -7371,7 +7407,7 @@ __metadata:
     "@emotion/react": ^11.10.0
     "@formatjs/cli": ^2.11.3
     "@openagenda/axios-mock-adapter": ^1.21.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
     "@openagenda/react-portal-ssr": ^1.0.1
@@ -7439,7 +7475,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/utils": ^1.3.0
     "@openagenda/validators": ^2.4.0
@@ -7481,7 +7517,7 @@ __metadata:
     "@openagenda/agenda-settings": ^1.4.0
     "@openagenda/agenda-stats": ^1.10.2
     "@openagenda/aggregator-sources": ^1.3.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/event-admin-apps": ^0.0.0
     "@openagenda/home": ^2.2.1
@@ -7551,7 +7587,7 @@ __metadata:
     "@emotion/react": ^11.10.0
     "@openagenda/activity-apps": ^1.2.1
     "@openagenda/axios-mock-adapter": ^1.21.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -7600,7 +7636,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     cheerio: ^1.0.0-rc.10
     core-js: ^3.10.2
@@ -7624,7 +7660,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@loadable/babel-plugin": ^5.13.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -7662,7 +7698,7 @@ __metadata:
     "@emotion/babel-preset-css-prop": ^11.2.0
     "@emotion/react": ^11.10.0
     "@loadable/component": ^5.14.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
@@ -7741,7 +7777,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/intl": ^1.1.3
     "@openagenda/react-shared": ^2.4.0
@@ -7800,7 +7836,7 @@ __metadata:
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
     "@openagenda/axios-mock-adapter": ^1.21.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/eslint-config": ^1.3.1
     axios: ^0.26.1
     babel-jest: ^26.6.3
@@ -7837,7 +7873,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/logs": ^1.1.9
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/utils": ^1.3.0
@@ -7911,7 +7947,7 @@ __metadata:
     "@emotion/react": ^11.10.0
     "@loadable/babel-plugin": ^5.13.2
     "@loadable/component": ^5.14.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/eslint-config": ^1.3.1
     "@openagenda/form-schemas": ^1.9.2
@@ -7970,7 +8006,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     async: ^2.1.2
     babel-jest: ^26.6.3
     core-js: ^3.10.2
@@ -8058,7 +8094,7 @@ __metadata:
     "@loadable/babel-plugin": ^5.13.2
     "@openagenda/abilities": ^1.3.1
     "@openagenda/axios-mock-adapter": ^1.21.2
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/bs-templates": ^2.5.0
     "@openagenda/dom-utils": ^2.2.12
     "@openagenda/labels": ^2.3.0
@@ -8147,7 +8183,7 @@ __metadata:
     "@babel/cli": ^7.13.16
     "@babel/core": ^7.13.16
     "@babel/runtime-corejs3": ^7.13.17
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/utils": ^1.3.0
     babel-jest: ^26.6.3
     core-js: ^3.10.2
@@ -31362,7 +31398,7 @@ fsevents@~2.1.1:
     "@commitlint/cli": ^12.1.1
     "@commitlint/config-conventional": ^12.1.1
     "@commitlint/config-lerna-scopes": ^12.1.1
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/cz-conventional-changelog": ^3.2.1
     "@types/react": ^18.0.21
     "@types/react-dom": ^18.0.6
@@ -31388,7 +31424,7 @@ fsevents@~2.1.1:
     "@commitlint/config-conventional": ^12.1.1
     "@commitlint/config-lerna-scopes": ^12.1.1
     "@crowdin/crowdin-api-client": ^1.16.0
-    "@openagenda/babel-preset": ^1.4.1
+    "@openagenda/babel-preset": ^1.5.0
     "@openagenda/cz-conventional-changelog": ^3.2.1
     "@types/react": ^18.0.21
     "@types/react-dom": ^18.0.6

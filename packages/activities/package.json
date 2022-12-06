@@ -37,7 +37,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
-    "@openagenda/babel-preset": "^1.4.1",
+    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/fixtures": "^2.0.2",
     "jest": "^28.1.2",
     "knex": "^0.19.5",
