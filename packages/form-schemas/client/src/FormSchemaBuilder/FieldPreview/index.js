@@ -163,21 +163,12 @@ export default class FieldPreview extends Component {
         <Accordion
           head={(
             <>
-              {field?.display ?? true ? (
-                <label
-                  className="margin-right-xs margin-top-xs"
-                  htmlFor={`edit-${field.field}`}
-                >
-                  {getLocaleValue(field.label, lang)}
-                </label>
-              ) : (
-                <label
-                  htmlFor={`show-${field.field}`}
-                  className="margin-right-xs margin-top-xs"
-                >
-                  {getLocaleValue(field.label, lang)}
-                </label>
-              )}
+              <label
+                className="margin-right-xs margin-top-xs"
+                htmlFor={field?.display ?? true ? `edit-${field.field}` : `show-${field.field}`}
+              >
+                {getLocaleValue(field.label, lang)}
+              </label>
               {this.isFieldOptional() ? null
                 : (
                   <span className="form-tooltip-icon icon-hide margin-right-xs">
