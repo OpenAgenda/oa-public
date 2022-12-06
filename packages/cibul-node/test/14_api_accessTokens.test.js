@@ -16,10 +16,12 @@ describe('14 - core - functional(server): api get accessToken', () => {
   let server;
   let accessToken;
 
-  beforeAll(() => loadFixtures(testConfig.db, '015.sql'));
+  const config = testConfig.extendWith({ cachePrefix: 'c14_api_accessTokens_test' });
+
+  beforeAll(() => loadFixtures(config.db, '015.sql'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -38,11 +40,11 @@ describe('14 - core - functional(server): api get accessToken', () => {
         'networks',
         'legacy',
         'users',
-        'keys'
-      ]
+        'keys',
+      ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
   });
 
   beforeAll(async () => {
@@ -53,11 +55,11 @@ describe('14 - core - functional(server): api get accessToken', () => {
     method: 'post',
     url: 'http://localhost:3000/requestAccessToken',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
     },
     data: {
-      code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-    }
+      code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+    },
   };
 
   beforeAll(async () => {
@@ -76,7 +78,7 @@ describe('14 - core - functional(server): api get accessToken', () => {
   it('lastSignin timestamp of user account is refreshed when access token is obtained', async () => {
     const user = await core.users.get(1, { detailed: true });
 
-    const lastSigninTimeFromNow = (new Date()).getTime() - (new Date(user.lastSignin)).getTime();
+    const lastSigninTimeFromNow = new Date().getTime() - new Date(user.lastSignin).getTime();
 
     expect(lastSigninTimeFromNow).toBeLessThan(1000);
   });
@@ -90,14 +92,14 @@ describe('14 - core - functional(server): api get accessToken', () => {
       method: 'post',
       url: 'http://localhost:3000/requestAccessToken',
       headers: form.getHeaders(),
-      data: form
+      data: form,
     }).then(r => r.data.access_token);
 
     expect(typeof otherAccessToken).toBe('string');
   });
 
   it('expiry is pushed back when new request is made', async () => {
-    await (new Promise(rs => setTimeout(rs, 1000)));
+    await new Promise(rs => setTimeout(rs, 1000));
 
     const { data } = await axios(axiosJSONPayload);
 

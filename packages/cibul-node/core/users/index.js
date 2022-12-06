@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  getForUserOnAgenda: getUserAuthorizationsOnAgenda
+  getForUserOnAgenda: getUserAuthorizationsOnAgenda,
 } = require('../utils/authorizations');
 
 const listUserAgendas = require('./listUserAgendas');
@@ -20,19 +20,19 @@ module.exports = core => Object.assign(identifier => ({
     getAuthorizations: getUserAuthorizationsOnAgenda.bind(null, core, identifier, agendaUid),
     getContext: (options = {}) => getAgendaUserContext(core, identifier, agendaUid, options),
     events: Object.assign(eventOrUid => ({
-      getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventOrUid, options)
+      getContext: (options = {}) => getEventUserContext(core, identifier, agendaUid, eventOrUid, options),
     }), {
       search: userEventsSearch.bind(null, core, identifier, agendaUid),
-      drafts: userDraftEvents.bind(null, core, identifier, agendaUid)
-    })
+      drafts: userDraftEvents.bind(null, core, identifier, agendaUid),
+    }),
   }), {
-    list: listUserAgendas(core, identifier)
+    list: listUserAgendas(core, identifier),
   }),
   generateToken: generateToken.bind(null, core, identifier),
-  canEditEvent: canEditEvent.bind(null, core, identifier)
+  canEditEvent: canEditEvent.bind(null, core, identifier),
 }), {
   get: Object.assign(get(core), {
     byAccessToken: (token, nonce) => core.services.accessTokens.getUser(token, nonce),
-    byPublicKey: key => core.services.accessTokens.getUserFromKey(key)
-  })
+    byPublicKey: key => core.services.accessTokens.getUserFromKey(key),
+  }),
 });

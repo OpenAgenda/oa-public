@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -11,7 +11,7 @@ const LocationDetailModal = ({
   settings,
   agenda,
   closeDetail,
-  lang
+  lang,
 }) => {
   const staticTiles = useSelector(state => state.settings.staticTiles);
   const [detailedLocation, setDetailedLocation] = useState();
