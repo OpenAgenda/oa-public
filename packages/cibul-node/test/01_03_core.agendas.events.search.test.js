@@ -165,9 +165,9 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       expect(
-        new Date(events.pop().updatedAt).getTime()
+        new Date(events.pop().updatedAt).getTime(),
       ).toBe(
-        new Date('2022-06-30T09:00:00.000Z').getTime()
+        new Date('2022-06-30T09:00:00.000Z').getTime(),
       );
     });
 
@@ -249,8 +249,8 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(
           Object.keys(response)
             .filter(
-              key => ['success', 'sort', 'total', 'after', 'events'].includes(key)
-            ).length
+              key => ['success', 'sort', 'total', 'after', 'events'].includes(key),
+            ).length,
         ).toEqual(5);
       });
 
