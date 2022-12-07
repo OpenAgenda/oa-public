@@ -703,16 +703,16 @@ module.exports = {
     "it": "chiave JSON"
   },
 "isSelected": {
-    "fr": "sélectionné",
-    "en": "selected",
-    "es": "seleccionado",
-    "it": "selezionato"
+    "fr": "Sélectionné",
+    "en": "Selected",
+    "es": "Seleccionado",
+    "it": "Selezionato"
   },
   "notSelected": {
-    "fr": "non séléctionné",
-    "en": "not selected",
-    "es": "no seleccionado",
-    "it": "non selezionato"
+    "fr": "Non séléctionné",
+    "en": "Not selected",
+    "es": "No seleccionado",
+    "it": "Non selezionato"
   },
   "enabledWhenLinkedFieldHasValue": {
     "fr": "Actif lorsque le champ %linkedFieldName% est saisi",
