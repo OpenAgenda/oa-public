@@ -139,7 +139,7 @@ module.exports = produce((event, options = {}) => {
   if (event.member) {
     event.member = {
       uid: event.member?.userUid ?? null,
-      name: event.member?.custom?.contactName ?? null,
+      name: event.member?.custom?.contactName || event.user?.fullName,
       role: event.member?.role ?? null,
       organization: event.member?.custom?.organization ?? null,
       position: event.member?.custom?.contactPosition ?? null,

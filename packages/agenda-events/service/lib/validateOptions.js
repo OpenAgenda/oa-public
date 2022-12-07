@@ -37,7 +37,7 @@ const base = {
   },
   decorate: {
     type: 'choice',
-    options: ['member', 'sourceAgendas']
+    options: ['member', 'sourceAgendas', 'user']
   },
   throwOnNotFound: {
     type: 'boolean',
