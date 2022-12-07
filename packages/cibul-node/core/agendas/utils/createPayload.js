@@ -54,6 +54,7 @@ async function getCompiledEvent(services, data, key = 'after', access = null, fo
     agendaEvent: true,
     agenda: true,
     member: true,
+    user: true,
   };
   const includeFields = access === null ? null : (
     formSchema || getFormSchema(data.agendas.current, access)
@@ -63,6 +64,7 @@ async function getCompiledEvent(services, data, key = 'after', access = null, fo
     includeFields,
     originAgenda: await getOriginAgenda(services, data),
     member: data.member,
+    user: data.user,
     load,
   });
 }

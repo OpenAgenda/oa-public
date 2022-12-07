@@ -9,15 +9,18 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     originAgenda,
     includeFields,
     member,
+    user,
     load,
   } = {
     includeFields: null,
     originAgenda: null,
     member: null,
+    user: null,
     load: {
       event: true,
       custom: true,
       agendaEvent: true,
+      user: true,
     },
     ...options,
   };
@@ -65,6 +68,14 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
 
   if (member) {
     compiled.member = member;
+  }
+
+  if (load.user && agendaEvent) {
+    compiled.user = agendaEvent.user;
+  }
+
+  if (!compiled.user && user) {
+    compiled.user = user;
   }
 
   return compiled;

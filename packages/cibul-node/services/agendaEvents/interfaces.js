@@ -5,6 +5,26 @@ const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const onRemove = require('./onRemove');
 
+async function getUsers({ services }, aes) {
+  const {
+    users,
+  } = services;
+
+  const { data } = await users.find({
+    query: {
+      uid: {
+        $in: [].concat(aes).map(ae => ae.userUid).filter(uid => !!uid),
+      },
+    },
+  });
+
+  return data.map(user => ({
+    uid: user.uid,
+    fullName: user.fullName,
+    culture: user.culture,
+  }));
+}
+
 module.exports = function interfaces({ services, config }) {
   return {
     onCreate: onCreate.bind(null, { config, services }),
@@ -15,6 +35,7 @@ module.exports = function interfaces({ services, config }) {
       agendaUid: aes?.[0]?.agendaUid,
       userUid: aes.map(ae => ae.userUid).filter(userUid => !!userUid),
     }),
+    getUsers: getUsers.bind(null, { services }),
     getSourceAgendas: uids => services.agendas
       .list({ uid: uids })
       .then(({ agendas }) => agendas),

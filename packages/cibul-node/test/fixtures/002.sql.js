@@ -45,7 +45,13 @@ raw.push(knex('form_schema').insert([{
 }]));
 
 raw.push(knex('reviewer').insert([
-  load('sql/members/71385.json'),
+  load('sql/members/71385.json', {
+    store: JSON.stringify({
+      custom_fields: {
+        organization: 'Le Chat Fume',
+      },
+    }),
+  }),
   load('sql/members/71386.json'),
   load('sql/members/kev.admin.json'),
 ]));

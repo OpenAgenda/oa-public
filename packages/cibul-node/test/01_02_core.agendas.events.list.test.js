@@ -126,6 +126,10 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
       });
     });
 
+    it('user is provided', () => {
+      expect(events[0].user.fullName).toBe('Janine P.');
+    });
+
     it('sourceAgendas are provided', async () => {
       const twoEvents = await core.agendas(2).events.list({}, { limit: 2 }, { detailed: true });
       expect(twoEvents[1].sourceAgendas.length).toBe(1);

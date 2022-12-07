@@ -14,6 +14,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     custom,
     agendas,
     members,
+    users,
   } = services;
 
   const {
@@ -36,6 +37,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       agendaEvent: true,
       custom: true,
       member: true,
+      user: true,
     },
     returnPayload: false,
     access: 'public',
@@ -98,11 +100,27 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     })).agendas.map(a => _.omit(a, ['id', 'indexed']));
   }
 
+  const userUids = detailed && agendaEvents.length ? agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid) : [];
+
   if (detailed && load.member && agendaEvents.length) {
     fetched.members = await members.list({
       agendaUid: agenda.uid,
-      userUid: agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid),
+      userUid: userUids,
     }, { limit }).then(rows => rows.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
+  }
+
+  if (detailed && load.user && agendaEvents.length) {
+    fetched.users = await users.find({
+      query: {
+        uid: {
+          $in: userUids,
+        },
+        $limit: agendaEvents.length,
+      },
+      detailed: false,
+    }).then(({
+      data,
+    }) => data.map(d => _.pick(d, ['uid', 'fullName', 'culture'])));
   }
 
   const compiledEvents = eventUids.map((uid, index) => {
@@ -123,7 +141,8 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       }, {
         includeFields: formSchema.fields.map(f => f.field),
         originAgenda: load.event ? _.find(fetched.originAgendas, { uid: event.agendaUid }) : null,
-        member: load.event ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
+        member: load.member ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
+        user: load.user && fetched.users ? fetched.users.find(u => u.uid === fetched.agendaEvents[index].userUid) : null,
         load,
       }),
     };

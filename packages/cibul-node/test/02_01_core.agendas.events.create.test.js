@@ -202,6 +202,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         try {
           result = await core.agendas(17026855).events.search({
             uid: event.uid,
+          }, {}, {
+            detailed: true,
+            access: 'administrator',
           });
         } catch (e) {
           // console.log(e);
@@ -212,6 +215,10 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         expect(result.total).toBe(1);
 
         expect(result.events[0].uid).toBe(event.uid);
+      });
+
+      it('indexed member name is user name when member name is not defined', () => {
+        expect(result.events[0].member.name).toBe('steve');
       });
     });
   });
