@@ -52,7 +52,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     agenda.formSchema,
     {
       access: access !== null ? { read: access } : null,
-    }
+    },
   );
 
   const {

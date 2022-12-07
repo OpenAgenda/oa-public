@@ -31,8 +31,8 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         'networks',
         'legacy',
         'users',
-        'keys'
-      ]
+        'keys',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -95,7 +95,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         'website', 'email', 'phone', 'links', 'access',
         'state', 'imageCredits', 'extId',
         'duplicateCandidates', 'disqualifiedDuplicates',
-        'mergedIn', 'agendaUid'
+        'mergedIn', 'agendaUid',
       ]);
     });
 
@@ -112,7 +112,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         'updatedAt',
         'createdAt',
         'officializedAt',
-        'private'
+        'private',
       ]);
     });
 
@@ -121,8 +121,8 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
         role: 1,
         userUid: 1,
         custom: {
-          contactName: 'Jan'
-        }
+          contactName: 'Jan',
+        },
       });
     });
 
@@ -190,11 +190,11 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
     beforeAll(async () => {
       adminResult = await core.agendas(2).events.list({}, { limit: 1 }, {
         returnPayload: true,
-        access: 'administrator'
+        access: 'administrator',
       });
       internalResult = await core.agendas(2).events.list({}, { limit: 1 }, {
         returnPayload: true,
-        access: 'internal'
+        access: 'internal',
       });
     });
 
@@ -204,7 +204,7 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
 
     it('admin fields are given in schema', () => {
       expect(
-        adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length
+        adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length,
       ).toBe(2);
     });
 
@@ -240,9 +240,9 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
       const events = await core.agendas(2).events.list();
 
       expect(
-        events.filter(e => e.uid === 1).pop().updatedAt.getTime()
+        events.filter(e => e.uid === 1).pop().updatedAt.getTime(),
       ).toBe(
-        (new Date('2022-06-30T09:00:00.000Z')).getTime()
+        new Date('2022-06-30T09:00:00.000Z').getTime(),
       );
     });
   });
