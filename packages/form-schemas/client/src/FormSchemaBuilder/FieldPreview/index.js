@@ -201,7 +201,7 @@ export default class FieldPreview extends Component {
                 </span>
               ) : null}
               {isFieldMultilingual(field) ? (
-                <span className="form-tooltip-icon icon-hide margin-right-xs form-icon">
+                <span className="form-tooltip-icon icon-hide margin-right-xs">
                   <i className="languages" />
                   <div className="tooltip right" role="tooltip">
                     <div className="tooltip-arrow"> </div>
@@ -272,7 +272,7 @@ export default class FieldPreview extends Component {
                 <div className="margin-top-xs" title={getLabel('jsonKey', lang)}>{getLabel('jsonKey', lang)}: {field.field}</div>
               ) : null }
               {'default' in field ? (
-                <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>{getLabel('defaultValue', lang)} : {String(getDefaultValueLabel(field, lang))}</div>
+                <div className="margin-top-xs" title={getLabel('defaultValue', lang)}>{getLabel('defaultValue', lang)} : {getDefaultValueLabel(field, lang)}</div>
               ) : null }
               {field.max ? (
                 <div className="margin-top-xs" title={getLabel('maxLength', lang)}>{getLabel('maxLength', lang)}: {field.max}</div>
