@@ -36,7 +36,7 @@ function plugApp(parentApp) {
     .use(
       loadAgendaMw,
       loadEventMw,
-      loadAgendaEventMw
+      loadAgendaEventMw,
     );
 
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state', [

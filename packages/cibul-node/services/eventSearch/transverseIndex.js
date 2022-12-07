@@ -21,16 +21,16 @@ async function transverseIndexUpdate(searchIndex, event) {
 
 async function transverseIndexRebuild(services, searchIndex, options = {}) {
   const {
-    events: eventsSvc
+    events: eventsSvc,
   } = services;
 
   const {
     createdSince,
-    stopAtCount
+    stopAtCount,
   } = {
     createdSince: 180, // days
     stopAtCount: null,
-    ...options
+    ...options,
   };
 
   const createdAt = new Date();
@@ -48,27 +48,27 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       if (stop) {
         return {
           lastId: -1,
-          events: []
+          events: [],
         };
       }
 
       const {
         items: events,
-        after: newLastId
+        after: newLastId,
       } = await eventsSvc.list({}, {
         after: lastId === 0 ? initialLastId : lastId,
-        limit
+        limit,
       }, {
         useAfter: true,
         detailed: true,
-        access: 'internal'
+        access: 'internal',
       });
 
       log('listed %s events for reindexing in transverse index (%s)', events.length, lastId);
 
       return {
         lastId: newLastId === null ? -1 : newLastId,
-        events
+        events,
       };
     },
     on: {
@@ -80,8 +80,8 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       },
       error: ({ result, lastId }) => {
         log('error', 'bulk failed', { result, lastId });
-      }
-    }
+      },
+    },
   });
 }
 
@@ -91,7 +91,7 @@ module.exports = (services, eventSearch, queue) => {
   queue.register({
     transverseIndexRebuild: transverseIndexRebuild.bind(null, services, searchIndex),
     transverseIndexUpdate: transverseIndexUpdate.bind(null, searchIndex),
-    transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex)
+    transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex),
   });
 
   return searchIndex.search;

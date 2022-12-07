@@ -17,8 +17,8 @@ function getFormSchema(agenda, dirtyAccess = null) {
     agenda?.network?.formSchema,
     agenda?.formSchema,
     {
-      access: access !== null ? { read: access } : null
-    }
+      access: access !== null ? { read: access } : null,
+    },
   );
 }
 
@@ -33,7 +33,7 @@ async function getOriginAgenda(services, data) {
     data.agendas.origin = data.agendas.current;
   } else if (!data.agendas.origin) {
     data.agendas.origin = await services.agendas.get({
-      uid: event.agendaUid
+      uid: event.agendaUid,
     }, { private: null });
   }
 
@@ -43,17 +43,17 @@ async function getOriginAgenda(services, data) {
     'title',
     'description',
     'image',
-    'url'
+    'url',
   ]);
 }
 
-async function getCompiledEvent(services, data, key = 'after', access = null, formSchema = null, loadOption) {
+async function getCompiledEvent(services, data, key = 'after', access = null, formSchema = null, loadOption = null) {
   const load = loadOption || {
     custom: true,
     event: true,
     agendaEvent: true,
     agenda: true,
-    member: true
+    member: true,
   };
   const includeFields = access === null ? null : (
     formSchema || getFormSchema(data.agendas.current, access)
@@ -63,7 +63,7 @@ async function getCompiledEvent(services, data, key = 'after', access = null, fo
     includeFields,
     originAgenda: await getOriginAgenda(services, data),
     member: data.member,
-    load
+    load,
   });
 }
 
@@ -83,7 +83,7 @@ function makeGetResponse(services, data) {
   return async (primaryKey = 'event', options = {}) => {
     const {
       access,
-      load
+      load,
     } = {
       access: null,
       load: {
@@ -91,9 +91,9 @@ function makeGetResponse(services, data) {
         event: true,
         agendaEvent: true,
         agenda: true,
-        member: true
+        member: true,
       },
-      ...(typeof options === 'object' ? options : { access: options })
+      ...typeof options === 'object' ? options : { access: options },
     };
 
     const formSchema = getFormSchema(data.agendas.current, access);
@@ -109,7 +109,7 @@ function makeGetResponse(services, data) {
       member,
       formSchema,
       [primaryKey]: await getCompiledEvent(services, data, 'after', access, formSchema, load),
-      before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
+      before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null,
     };
   };
 }
@@ -123,12 +123,12 @@ module.exports = function createPayload(services, agenda, primaryKey) {
   const data = {
     agendas: {
       current: agenda,
-      origin: null
+      origin: null,
     },
     services: {
       before: {},
-      after: {}
-    }
+      after: {},
+    },
   };
 
   const getItem = key => _.get(data.services.after, key);
@@ -143,6 +143,6 @@ module.exports = function createPayload(services, agenda, primaryKey) {
     getFormSchema: getFormSchema.bind(null, data.agendas.current),
     getItem,
     hasItem: key => getItem(key),
-    getPrimaryKey: () => primaryKey
+    getPrimaryKey: () => primaryKey,
   };
 };
