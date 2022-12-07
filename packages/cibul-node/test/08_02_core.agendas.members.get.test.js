@@ -167,18 +167,15 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
       });
       expect(res.data).toEqual({
-        actionsCounter: 1,
-        agendaUid: 2,
-        custom: {
-          contactName: 'Lise',
-        },
-        deletedUser: false,
-        id: 555555,
-        invited: false,
-        role: 2,
-        success: true,
-        updatedAt: '2017-10-30T13:21:07.000Z',
         userUid: 50073466,
+        deletedUser: false,
+        name: 'Lise',
+        phone: null,
+        email: null,
+        organization: null,
+        position: null,
+        role: 'administrator',
+        updatedAt: '2017-10-30T13:21:07.000Z',
       });
     });
 
@@ -224,7 +221,6 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
         expect(error.response.status).toBe(404);
       });
-
 
       it('Non-member does not have access to get', async () => {
         let response;
