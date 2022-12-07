@@ -411,6 +411,19 @@ export function FieldPreview() {
           />
         </div>
 
+        <div className="col-lg-4 col-md-6">
+          <strong>Field Hidden</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Image',
+                fieldType: 'image',
+                display: false,
+              },
+            ])}
+          />
+        </div>
+
       </div>
 
       <div className="row">
@@ -538,19 +551,10 @@ export function FieldPreview() {
             ])}
           />
         </div>
+      </div>
 
-        <div className="col-lg-4 col-md-6">
-          <strong>Field Hidden</strong>
-          <FormSchemaBuilder
-            {...getBuilderProps([
-              {
-                label: 'Image',
-                fieldType: 'image',
-                display: false,
-              },
-            ])}
-          />
-        </div>
+      <div className="row">
+        <h2 className="text-center margin-v-md">Default value</h2>
 
         <div className="col-lg-4 col-md-6">
           <strong>Field with string default value</strong>
@@ -564,6 +568,7 @@ export function FieldPreview() {
             ])}
           />
         </div>
+
         <div className="col-lg-4 col-md-6">
           <strong>Field with object default value</strong>
           <FormSchemaBuilder
@@ -581,6 +586,7 @@ export function FieldPreview() {
             ])}
           />
         </div>
+
         <div className="col-lg-4 col-md-6">
           <strong>Field with default value from options</strong>
           <FormSchemaBuilder
