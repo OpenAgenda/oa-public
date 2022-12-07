@@ -1,70 +1,75 @@
 'use strict';
 
 const fs = require('fs');
+const loadObjectFromFile = require('@openagenda/utils/loadObjectFromFile');
+
+const load = loadObjectFromFile({
+  cwd: __dirname,
+});
 
 const {
   knex,
-  resetAndCreateTables
+  resetAndCreateTables,
 } = require('./sql');
 
 const raw = resetAndCreateTables();
 
 raw.push(knex('review').insert([
-  require('./sql/agendas/218.json'),
-  require('./sql/agendas/219.json'),
-  require('./sql/agendas/220.json'),
-  require('./sql/agendas/conges.json')
+  load('sql/agendas/218.json'),
+  load('sql/agendas/219.json'),
+  load('sql/agendas/220.json'),
+  load('sql/agendas/conges.json'),
 ]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/50304.json'),
-  require('./sql/users/50300.json'),
-  require('./sql/users/01.json'),
-  require('./sql/users/kevin.json')
+  load('sql/users/50304.json'),
+  load('sql/users/50300.json'),
+  load('sql/users/01.json'),
+  load('sql/users/kevin.json'),
 ]));
 
 raw.push(knex('api_key_set').insert([
-  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 },
-  { ...require('./sql/apiKeySets/02.json'), user_id: 1 }
+  { ...load('sql/apiKeySets/01.json'), user_id: 50304 },
+  { ...load('sql/apiKeySets/02.json'), user_id: 1 },
 ]));
 
 raw.push(knex('form_schema').insert([{
   id: 2,
-  store: fs.readFileSync(`${__dirname}/form-schemas/1.json`)
+  store: fs.readFileSync(`${__dirname}/form-schemas/1.json`),
 }, {
   id: 3,
   store: JSON.stringify({
     fields: [],
-    nextOptionId: 1
-  })
+    nextOptionId: 1,
+  }),
 }]));
 
 raw.push(knex('reviewer').insert([
-  require('./sql/members/71385.json'),
-  require('./sql/members/71386.json'),
-  require('./sql/members/kev.admin.json')
+  load('sql/members/71385.json'),
+  load('sql/members/71386.json'),
+  load('sql/members/kev.admin.json'),
 ]));
 
 raw.push(knex('location').insert([
-  require('./sql/locations/1.json')
+  load('sql/locations/1.json'),
 ]));
 
 const {
-  review_category,
-  category_set,
-  tag_set
+  review_category: reviewCategory,
+  category_set: categorySet,
+  tag_set: tagSet,
 } = require('./sql/legacy/218.json');
 
-raw.push(knex('review_category').insert(review_category));
+raw.push(knex('review_category').insert(reviewCategory));
 
 raw.push(knex('category_set').insert([{
   id: 218,
-  store: JSON.stringify(category_set)
+  store: JSON.stringify(categorySet),
 }]));
 
 raw.push(knex('tag_set').insert([{
   id: 218,
-  store: JSON.stringify(tag_set),
+  store: JSON.stringify(tagSet),
 }]));
 
-module.exports = raw.join(';\n') + ';';
+module.exports = `${raw.join(';\n')};`;
