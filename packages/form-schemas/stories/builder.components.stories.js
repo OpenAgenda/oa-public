@@ -538,6 +538,126 @@ export function FieldPreview() {
             ])}
           />
         </div>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Field Hidden</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Image',
+                fieldType: 'image',
+                display: false,
+              },
+            ])}
+          />
+        </div>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with string default value</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Location',
+                fieldType: 'location',
+                default: '70831886',
+              },
+            ])}
+          />
+        </div>
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with object default value</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Location',
+                fieldType: 'location',
+                default: {
+                  countryCode: 'CH',
+                  city: 'Genève',
+                  latitude: 46.2050579,
+                  longitude: 6.126579,
+                },
+              },
+            ])}
+          />
+        </div>
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with default value from options</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Organisateurs',
+                fieldType: 'radio',
+                default: 1,
+                options: [
+                  {
+                    id: 1,
+                    label: {
+                      fr: 'Premier organisateur',
+                      en: 'First organisator',
+                    },
+                  },
+                  {
+                    id: 2,
+                    label: {
+                      fr: 'Deuxième organisateur',
+                      en: 'Second organisator',
+                    },
+                  },
+                ],
+              },
+            ])}
+          />
+        </div>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with multiple default values from options</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Un champ checkbox',
+                fieldType: 'checkbox',
+                default: [1, 2],
+                options: [
+                  {
+                    id: 1,
+                    label: {
+                      fr: 'Premier choix',
+                      en: 'First choice',
+                    },
+                  },
+                  {
+                    id: 2,
+                    label: {
+                      fr: 'Deuxième choix',
+                      en: 'Second choice',
+                    },
+                  },
+                  {
+                    id: 2,
+                    label: {
+                      fr: 'Troisième choix',
+                      en: 'Third choice',
+                    },
+                  },
+                ],
+              },
+            ])}
+          />
+        </div>
+
+        <div className="col-lg-4 col-md-6">
+          <strong>Field with boolean default value</strong>
+          <FormSchemaBuilder
+            {...getBuilderProps([
+              {
+                label: 'Un champ booléen',
+                fieldType: 'boolean',
+                default: true,
+              },
+            ])}
+          />
+        </div>
       </div>
     </div>
   );

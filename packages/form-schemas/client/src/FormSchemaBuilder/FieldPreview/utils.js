@@ -26,9 +26,8 @@ export const isFieldMultilingual = ({ languages }) => !!Array.isArray(languages)
 export const getLabel = makeLabelGetter(labels);
 
 export function getDefaultValueLabel(field, lang) {
-  if (field.options) {
-    const defaultOption = field.options.find(option => option.id === field.default);
-    return getLocaleValue(defaultOption.label, lang);
+  if (typeof field.default === 'string') {
+    return getLocaleValue(field.default, lang);
   }
 
   if (typeof field.default === 'boolean') {
@@ -37,8 +36,22 @@ export function getDefaultValueLabel(field, lang) {
     }
     return getLabel('notSelected', lang);
   }
+  if (Array.isArray(field.default)) {
+    if (field.fieldType === 'checkbox') {
+      return field.default.map(value => {
+        const option = field.options.find(obj => obj.id === value);
+        return getLocaleValue(option.label, lang);
+      }).join(', ');
+    }
+  }
+  if (field.default !== null && typeof field.default === 'object') {
+    return Object.values(field.default).join(', ');
+  }
 
-  return getLocaleValue(field.default, lang);
+  const defaultValue = field.default;
+  const specificValuesFromOptions = field.options.find(obj => obj.id === defaultValue);
+
+  return getLocaleValue(specificValuesFromOptions.label, lang);
 }
 
 export function getLinkedField({ field, schema }) {
