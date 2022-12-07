@@ -44,8 +44,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         'tracker',
         'images',
         'files',
-        'imageFiles'
-      ]
+        'imageFiles',
+      ],
     });
 
     core = Core(services, testConfig);
@@ -54,7 +54,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
   afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test'
+        index: 'test',
       });
     } catch (e) { /* */ }
   });
@@ -71,30 +71,30 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       event = await core.agendas(17026855).events.create({
         title: {
-          fr: 'Un événement'
+          fr: 'Un événement',
         },
         description: {
-          fr: 'Test de la lib core'
+          fr: 'Test de la lib core',
         },
         timings: [{
           begin: new Date('2019-05-06T10:00:00'),
-          end: new Date('2019-05-06T11:00:00')
+          end: new Date('2019-05-06T11:00:00'),
         }],
         keywords: {
-          fr: ['un', 'deux', 'trois']
+          fr: ['un', 'deux', 'trois'],
         },
         location: {
-          uid: 123
+          uid: 123,
         },
         accessibility: { ii: true },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole': [3, 4],
-        custom_description: 'Oui bah non'
+        custom_description: 'Oui bah non',
       }, {
         context: {
-          userUid: memberUserUid
+          userUid: memberUserUid,
         },
-        access: 'contributor'
+        access: 'contributor',
       });
     });
 
@@ -121,7 +121,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
 
       it('event owner is contributing member', async () => {
         const eventSvcEvent = await core.services.events.get(event.uid, {
-          access: 'internal'
+          access: 'internal',
         });
 
         expect(eventSvcEvent.ownerUid).toBe(63170203);
@@ -165,7 +165,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           hi: false,
           pi: false,
           vi: false,
-          ii: true
+          ii: true,
         });
 
         expect(legacyAccessibility).toEqual('["ii"]');
@@ -190,7 +190,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
 
         expect(reviewTagArticles.map(rta => rta.review_tag_id)).toEqual([
           9661, // Administration (2.3)
-          9662 // Aéronautique (2.4)
+          9662, // Aéronautique (2.4)
         ]);
       });
     });
@@ -201,7 +201,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       beforeAll(async () => {
         try {
           result = await core.agendas(17026855).events.search({
-            uid: event.uid
+            uid: event.uid,
           });
         } catch (e) {
           // console.log(e);
@@ -222,26 +222,26 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       result = await core.agendas(17026855).events.create({
         title: {
-          fr: 'Un événement'
+          fr: 'Un événement',
         },
         description: {
-          fr: 'Test de la lib core'
+          fr: 'Test de la lib core',
         },
         timings: [{
           begin: new Date('2019-05-06T10:00:00'),
-          end: new Date('2019-05-06T11:00:00')
+          end: new Date('2019-05-06T11:00:00'),
         }],
         location: {
-          uid: 123
+          uid: 123,
         },
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole': [3, 4]
+        'thematiques-bordeaux-metropole': [3, 4],
       }, {
         context: {
-          userUid: 63170200
+          userUid: 63170200,
         },
         returnPayload: true,
-        access: 'contributor'
+        access: 'contributor',
       });
     });
 
@@ -292,22 +292,22 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     it('create on agenda with published default state creates published event', async () => {
       const event = await core.agendas(17026855).events.create({
         title: {
-          fr: 'Titre'
+          fr: 'Titre',
         },
         description: {
-          fr: 'Desc'
+          fr: 'Desc',
         },
         timings: [{
           begin: now,
-          end: inAnHour
+          end: inAnHour,
         }],
         location: {
-          uid: 123
+          uid: 123,
         },
-        'categories-agenda-metropolitain': 42
+        'categories-agenda-metropolitain': 42,
       }, {
         context: { userUid: 63170200 },
-        access: 'contributor'
+        access: 'contributor',
       });
 
       expect(event.state).toBe(2);
@@ -318,9 +318,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         title: { fr: 'T' },
         description: { fr: 'D' },
         timings: [{ begin: now, end: inAnHour }],
-        location: { uid: 123 }
+        location: { uid: 123 },
       }, {
-        access: 'contributor'
+        access: 'contributor',
       });
 
       expect(event.state).toBe(0);
@@ -334,9 +334,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           description: { fr: 'D' },
           timings: [{ begin: now, end: inAnHour }],
           location: { uid: 123 },
-          state: 2
+          state: 2,
         }, {
-          access: 'contributor'
+          access: 'contributor',
         });
       } catch (e) {
         error = e;
@@ -350,9 +350,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         description: { fr: 'D' },
         timings: [{ begin: now, end: inAnHour }],
         location: { uid: 123 },
-        state: 2
+        state: 2,
       }, {
-        access: 'administrator'
+        access: 'administrator',
       });
 
       expect(event.state).toBe(2);
@@ -363,23 +363,23 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     it('create on agenda with published default state creates published event', async () => {
       const event = await core.agendas(17026855).events.create({
         title: {
-          fr: 'Titre'
+          fr: 'Titre',
         },
         description: {
-          fr: 'Desc'
+          fr: 'Desc',
         },
         status: 3,
         timings: [{
           begin: new Date('2021-05-28T12:00:00+0100'),
-          end: new Date('2021-05-28T14:00:00+0100')
+          end: new Date('2021-05-28T14:00:00+0100'),
         }],
         location: {
-          uid: 123
+          uid: 123,
         },
-        'categories-agenda-metropolitain': 42
+        'categories-agenda-metropolitain': 42,
       }, {
         context: { userUid: 63170200 },
-        access: 'contributor'
+        access: 'contributor',
       });
 
       expect(event.status).toBe(3);
@@ -392,25 +392,25 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       result = await core.agendas(17026855).events.create({
         title: {
-          fr: 'Un événement'
+          fr: 'Un événement',
         },
         description: {
-          fr: 'Test de la lib core'
+          fr: 'Test de la lib core',
         },
         timings: [{
           begin: new Date('2019-05-06T10:00:00'),
-          end: new Date('2019-05-06T11:00:00')
+          end: new Date('2019-05-06T11:00:00'),
         }],
         'categories-agenda-metropolitain': 42,
         location: {
-          uid: 123
-        }
+          uid: 123,
+        },
       }, {
         context: {
-          userUid: 63170200
+          userUid: 63170200,
         },
         returnPayload: true,
-        access: 'moderator'
+        access: 'moderator',
       });
     });
 
@@ -430,16 +430,16 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       event = await core.agendas(agendaUid).events.create({
         title: {
-          fr: 'Un événement privé'
+          fr: 'Un événement privé',
         },
         description: { fr: 'D' },
         timings: [{
           begin: new Date('2021-05-28T12:00:00+0100'),
-          end: new Date('2021-05-28T14:00:00+0100')
+          end: new Date('2021-05-28T14:00:00+0100'),
         }],
         location: { uid: 123 },
       }, {
-        userUid: memberUserUid
+        userUid: memberUserUid,
       });
     });
 
@@ -457,22 +457,22 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       event = await core.agendas(agendaUid).events.create({
         title: {
-          fr: 'Un événement en ligne'
+          fr: 'Un événement en ligne',
         },
         attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         description: { fr: 'Voilà' },
         timings: [{
           begin: new Date('2021-05-28T12:00:00+0100'),
-          end: new Date('2021-05-28T14:00:00+0100')
+          end: new Date('2021-05-28T14:00:00+0100'),
         }],
         'categories-agenda-metropolitain': 42,
       }, {
         context: {
-          userUid: memberUserUid
+          userUid: memberUserUid,
         },
         detailed: 1,
-        access: 'moderator'
+        access: 'moderator',
       });
     });
 
@@ -490,15 +490,15 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       event = await core.agendas(agendaUid).events.create({
         title: {
-          fr: 'Un événement brouillon'
+          fr: 'Un événement brouillon',
         },
-        custom_description: ':\')'
+        custom_description: ':\')',
       }, {
         context: {
-          userUid: memberUserUid
+          userUid: memberUserUid,
         },
         access: 'moderator',
-        draft: true
+        draft: true,
       });
     });
 
@@ -515,16 +515,16 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     it('incomplete event with default location data and undefined location can be saved', async () => {
       const incompleteEvent = await core.agendas(agendaUid).events.create({
         title: {
-          fr: 'Un autre événement brouillon'
+          fr: 'Un autre événement brouillon',
         },
         location: {
-          countryCode: 'CH'
-        }
+          countryCode: 'CH',
+        },
       }, {
         context: {
-          userUid: memberUserUid
+          userUid: memberUserUid,
         },
-        draft: true
+        draft: true,
       });
 
       expect(incompleteEvent.title.fr).toEqual('Un autre événement brouillon');
@@ -539,20 +539,20 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       const data = await core.services.custom(2).get(event.uid);
 
       expect(data).toEqual({
-        custom_description: ":')"
+        custom_description: ":')",
       });
     });
 
     it('draft event without title can be created', async () => {
       const noTitleDraft = await core.agendas(agendaUid).events.create({
         description: {
-          fr: 'Un brouillon sans titre'
-        }
+          fr: 'Un brouillon sans titre',
+        },
       }, {
         context: {
-          userUid: memberUserUid
+          userUid: memberUserUid,
         },
-        draft: true
+        draft: true,
       });
 
       expect(noTitleDraft.title).toBeUndefined();
@@ -565,35 +565,35 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
     beforeAll(async () => {
       event = await core.agendas(17026855).events.create({
         title: {
-          fr: 'Un événement'
+          fr: 'Un événement',
         },
         description: {
-          fr: 'Autre format d\'horaires'
+          fr: 'Autre format d\'horaires',
         },
         image: {
-          url: 'https://openagenda.com/images/openagenda.png'
+          url: 'https://openagenda.com/images/openagenda.png',
         },
         timings: [{
           begin: {
             date: '2019-12-06',
             hours: 11,
-            minutes: 23
+            minutes: 23,
           },
           end: {
             date: '2019-12-06',
             hours: 11,
-            minutes: 50
-          }
+            minutes: 50,
+          },
         }],
         'categories-agenda-metropolitain': 42,
         location: {
-          uid: 123
-        }
+          uid: 123,
+        },
       }, {
         context: {
-          userUid: 63170200
+          userUid: 63170200,
         },
-        access: 'contributor'
+        access: 'contributor',
       });
     });
 
@@ -609,34 +609,34 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
   describe('errors and exceptions', () => {
     const validData = {
       title: {
-        fr: 'Un événement'
+        fr: 'Un événement',
       },
       description: {
-        fr: 'Un tout petit événement'
+        fr: 'Un tout petit événement',
       },
       timings: [{
         begin: new Date('2019-05-06T10:00:00'),
-        end: new Date('2019-05-06T11:00:00')
+        end: new Date('2019-05-06T11:00:00'),
       }],
       location: {
-        uid: 123
+        uid: 123,
       },
       'categories-agenda-metropolitain': 42,
-      'thematiques-bordeaux-metropole': [3, 4]
+      'thematiques-bordeaux-metropole': [3, 4],
     };
 
     const options = {
       context: {
-        userUid: 63170200
+        userUid: 63170200,
       },
-      access: 'contributor'
+      access: 'contributor',
     };
 
     it('something about a validation error', async () => {
       let error;
       try {
         await core.agendas(17026855).events.create(ih(validData, {
-          $unset: ['title']
+          $unset: ['title'],
         }), options);
       } catch (e) {
         error = e;
@@ -647,7 +647,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         code: 'required',
         message: 'a string is required',
         origin: '',
-        step: 'validation'
+        step: 'validation',
       });
     });
 
@@ -656,8 +656,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       try {
         await core.agendas(17026855).events.create(ih(validData, {
           location: {
-            $set: { uid: 124 }
-          }
+            $set: { uid: 124 },
+          },
         }), options);
       } catch (e) {
         error = e;
@@ -668,7 +668,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         code: 'invalid',
         message: 'provided location uid is invalid',
         origin: undefined,
-        step: 'validation'
+        step: 'validation',
       }]);
     });
 
@@ -676,7 +676,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
       let error;
       try {
         await core.agendas(17026855).events.create(ih(validData, {
-          $unset: ['location']
+          $unset: ['location'],
         }), options);
       } catch (e) {
         error = e;
@@ -686,7 +686,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         message: 'a integer is required',
         origin: undefined,
         field: 'location',
-        step: 'validation'
+        step: 'validation',
       }]);
     });
 
@@ -704,20 +704,20 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           timings: [
             {
               begin: '2020-10-02T00:00:00+0200',
-              end: '2020-11-19T00:00:00+0100'
+              end: '2020-11-19T00:00:00+0100',
             },
             {
               begin: '2020-10-03T00:00:00+0200',
-              end: '2020-11-20T00:00:00+0100'
-            }
+              end: '2020-11-20T00:00:00+0100',
+            },
           ],
           image: {
-            url: 'http://institutions.ville-geneve.ch/uploads/media/Reconnexion980.jpg'
+            url: 'http://institutions.ville-geneve.ch/uploads/media/Reconnexion980.jpg',
           },
           imageCredits: 'DR',
           image_alt_text: 'Textealternatif',
           conditions: '',
-          accessibility: {}
+          accessibility: {},
         }, options);
       } catch (e) {
         error = e;
@@ -742,11 +742,11 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         method: 'post',
         url: 'http://localhost:3000/requestAccessToken',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-        }
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
       }).then(r => r.data.access_token);
     });
 
@@ -759,33 +759,33 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
             headers: {
               'access-token': accessToken,
               nonce: 123,
-              'content-type': 'application/json'
+              'content-type': 'application/json',
             },
             data: {
               title: {
-                fr: 'Un événement créé par API'
+                fr: 'Un événement créé par API',
               },
               description: {
-                fr: 'Un tout petit événement'
+                fr: 'Un tout petit événement',
               },
               image: {
                 url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
-                credits: 'Les crédits'
+                credits: 'Les crédits',
               },
               timings: [{
                 begin: new Date('2019-05-06T10:00:00'),
-                end: new Date('2019-05-06T11:00:00')
+                end: new Date('2019-05-06T11:00:00'),
               }],
               keywords: {
-                fr: ['un', 'deux', 'trois']
+                fr: ['un', 'deux', 'trois'],
               },
               location: {
-                uid: 123
+                uid: 123,
               },
               'categories-agenda-metropolitain': 42,
               'thematiques-bordeaux-metropole': [3, 4],
-              accessibility: { sl: true }
-            }
+              accessibility: { sl: true },
+            },
           }).then(r => r.data);
         } catch (e) {
           // console.log(e.response.data);
@@ -794,7 +794,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
 
       it('image is uploaded to cdn when provided by url', async () => {
         const uploadedHead = await request.head(response.event.image.base + response.event.image.filename).then(res => res.header);
-        const sinceLastModified = (new Date()).getTime() - (new Date(uploadedHead['last-modified'])).getTime();
+        const sinceLastModified = new Date().getTime() - new Date(uploadedHead['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(10000);
       });
 
@@ -818,7 +818,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           .set('access-token', accessToken)
           .set('nonce', _.random(10 ** 6))
           .field({
-            data: JSON.stringify(_.omit(eventsFixtures[3], ['state']))
+            data: JSON.stringify(_.omit(eventsFixtures[3], ['state'])),
           });
 
         expect(createResponse.body.success).toBe(true);
@@ -831,32 +831,32 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           headers: {
             'access-token': accessToken,
             nonce: 39209390,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
             title: {
-              fr: 'Un événement créé par API'
+              fr: 'Un événement créé par API',
             },
             description: {
-              fr: 'Un tout petit événement'
+              fr: 'Un tout petit événement',
             },
             image: {
               url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
-              credits: 'Les crédits'
+              credits: 'Les crédits',
             },
             timings: [{
               begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00')
+              end: new Date('2019-05-06T11:00:00'),
             }],
             keywords: {
-              fr: ['un', 'deux', 'trois']
+              fr: ['un', 'deux', 'trois'],
             },
             attendanceMode: 2,
             onlineAccessLink: 'https://openagenda.com',
             'categories-agenda-metropolitain': 42,
             'thematiques-bordeaux-metropole': [3, 4],
-            accessibility: { sl: true }
-          }
+            accessibility: { sl: true },
+          },
         }).then(r => r.data);
 
         expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
@@ -872,7 +872,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
             .set('access-token', accessToken)
             .set('nonce', _.random(10 ** 6))
             .field({
-              data: JSON.stringify(eventsFixtures[3])
+              data: JSON.stringify(eventsFixtures[3]),
             });
         } catch (e) {
           error = e;
@@ -891,15 +891,15 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
         description: 'Un tout petit événement',
         timings: [{
           begin: new Date('2019-05-06T10:00:00'),
-          end: new Date('2019-05-06T11:00:00')
+          end: new Date('2019-05-06T11:00:00'),
         }],
         keywords: ['un', 'deux', 'trois'],
         location: {
-          uid: 123
+          uid: 123,
         },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole': [3, 4],
-        accessibility: { sl: true }
+        accessibility: { sl: true },
       };
 
       beforeAll(() => new Promise(rs => {
@@ -921,7 +921,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
             method: 'post',
             url: 'http://localhost:3000/agendas/17026855/events',
             data: form,
-            headers: form.getHeaders()
+            headers: form.getHeaders(),
           }).then(r => r.data);
         } catch (e) {
           /* console.log(JSON.stringify(e.      let oneLanguageResponse
@@ -931,13 +931,13 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
 
       it('Event is created in english if lang is not specified', async () => {
         expect(oneLanguageResponse.event.title).toEqual({
-          en: 'Un autre événement créé par API'
+          en: 'Un autre événement créé par API',
         });
       });
 
       it('image is uploaded to cdn when provided by file given as multipart', async () => {
         const uploadedHead = await request.head(oneLanguageResponse.event.image.base + oneLanguageResponse.event.image.filename).then(res => res.header);
-        const sinceLastModified = (new Date()).getTime() - (new Date(uploadedHead['last-modified'])).getTime();
+        const sinceLastModified = new Date().getTime() - new Date(uploadedHead['last-modified']).getTime();
         expect(sinceLastModified).toBeLessThan(20000);
       });
 
@@ -949,13 +949,13 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
             'access-token': accessToken,
             nonce: 1234567,
             'content-type': 'application/json',
-            lang: 'fr'
+            lang: 'fr',
           },
-          data: _.omit(data, ['image'])
+          data: _.omit(data, ['image']),
         }).then(r => r.data);
 
         expect(frenchResponse.event.title).toEqual({
-          fr: 'Un autre événement créé par API'
+          fr: 'Un autre événement créé par API',
         });
       });
     });
@@ -970,19 +970,19 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           headers: {
             'access-token': accessToken,
             nonce: 1234,
-            'content-type': 'application/json'
+            'content-type': 'application/json',
           },
           data: {
             title: {
-              fr: 'Un événement créé par API'
+              fr: 'Un événement créé par API',
             },
             timings: [],
             location: {
-              uid: 123
+              uid: 123,
             },
             'categories-agenda-metropolitain': 42,
-            'thematiques-bordeaux-metropole': [3, 4]
-          }
+            'thematiques-bordeaux-metropole': [3, 4],
+          },
         }).catch(e => {
           errorResponse = e.response;
         });
@@ -999,13 +999,13 @@ describe('02 - core - functional (server): core.agendas().events.create()', () =
           code: 'required',
           message: 'a string is required',
           origin: '',
-          step: 'validation'
+          step: 'validation',
         }, {
           code: 'timings.min.1',
           message: 'at least one timing is required',
           field: 'timings',
           origin: [],
-          step: 'validation'
+          step: 'validation',
         }]);
       });
     });
