@@ -48,7 +48,7 @@ function init(c, services) {
       getAgendasByUid: getAgendasByUid.bind(null, services),
       onCreate: onCreate.bind(null, { services, config, activityQueue }),
       onRemove: onRemove.bind(null, { services, members, activityQueue }),
-      onPatch: onPatch.bind(null, { services, config, activityQueue })
+      onPatch: onPatch.bind(null, { services, config, activityQueue }),
     },
   }));
 
@@ -85,7 +85,7 @@ function init(c, services) {
           options: mw.loadTarget.options.bind(null, members),
         }),
       },
-    }
+    },
   );
 }
 
@@ -114,7 +114,7 @@ function plugApp(app) {
     (req, res, next) => {
       req.order = 'actionsCounter.desc';
       next();
-    }
+    },
   );
 
   app.get(
@@ -123,12 +123,12 @@ function plugApp(app) {
       req.order = req.query.order || req.order;
       next();
     },
-    mw.list.bind(null, members)
+    mw.list.bind(null, members),
   );
 
   app.get(
     '/:agendaSlug/admin/members/stats',
-    mw.list.stats.bind(null, members)
+    mw.list.stats.bind(null, members),
   );
 
   app.get([
@@ -140,13 +140,13 @@ function plugApp(app) {
     '/:agendaSlug/admin/members/invite',
     mw.authorize.moderatorCannotInviteAdministrator,
     mw.loadContext,
-    mw.invite.bind(null, members)
+    mw.invite.bind(null, members),
   );
 
   app.post(
     '/:agendaSlug/admin/members/send-message',
     mw.authorize.agendaHasCredential.bind(null, 'invitationMessage'),
-    mw.sendMessage
+    mw.sendMessage,
   );
 
   // keep 'details' part as long as there are controllers in agenda/members.back.js
@@ -161,7 +161,7 @@ function plugApp(app) {
         'custom',
       ]),
       user: _.pick(req.targetMember.user, ['uid', 'fullName']),
-    })
+    }),
   );
 
   app.delete(
@@ -172,7 +172,7 @@ function plugApp(app) {
       context: { user: req.user },
     }).then(() => {
       res.status(200).json({ message: 'done.' });
-    }, next)
+    }, next),
   );
 
   app.patch(
@@ -185,7 +185,7 @@ function plugApp(app) {
       requireCustom: false,
     }).then(result => {
       res.status(200).json(_.pick(result.member, ['custom', 'role']));
-    }, next)
+    }, next),
   );
 
   app.put(
@@ -213,7 +213,7 @@ function plugApp(app) {
     }, {
       agenda: req.agenda,
       member: req.targetMember,
-    }).then(() => res.status(200).json({ message: 'pabim.' }), next)
+    }).then(() => res.status(200).json({ message: 'pabim.' }), next),
   );
 
   // should be put
@@ -227,7 +227,7 @@ function plugApp(app) {
     mw.loadTarget.byEmail.bind(null, members),
     (req, res, next) => transferEvent(req.app.services, req.event, req.targetMember).then(() => {
       res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
-    }, next)
+    }, next),
   );
 
   app.get('/:agendaSlug/admin/members.csv', streamCsv);

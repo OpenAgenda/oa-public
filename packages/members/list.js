@@ -27,27 +27,28 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
   return query
     .select(knex.raw('credential as role, count( id ) as total'))
     .groupBy('role')
-    .then(rows => rows.reduce(
-      ({ total, totalPerRole }, row) => ({
-        totalPerRole: _.set(
-          totalPerRole,
-          getRoleSlug(row.role),
-          _.get(totalPerRole, getRoleSlug(row.role), 0) + row.total
-        ),
-        total: total + row.total,
-      }),
-      {
-        total: 0,
-        totalPerRole: {},
-      }
-    ));
+    .then(rows =>
+      rows.reduce(
+        ({ total, totalPerRole }, row) => ({
+          totalPerRole: _.set(
+            totalPerRole,
+            getRoleSlug(row.role),
+            _.get(totalPerRole, getRoleSlug(row.role), 0) + row.total,
+          ),
+          total: total + row.total,
+        }),
+        {
+          total: 0,
+          totalPerRole: {},
+        },
+      ));
 }
 
 module.exports = async (
   { knex, schema, interfaces },
   query,
   nav = {},
-  options = {}
+  options = {},
 ) => {
   log('processing', query, nav, options);
 
@@ -67,18 +68,19 @@ module.exports = async (
     knex,
     k,
     includeTotal,
-    detailed
+    detailed,
   );
 
   const { orderField } = addPaginationAndOrder(k, nav);
 
-  const members = await k.then(rows => rows.map(
-    fromDB.bind(null, {
-      includeLegacyFields: legacy,
-      orderField,
-      customDataAtRoot,
-    })
-  ));
+  const members = await k.then(rows =>
+    rows.map(
+      fromDB.bind(null, {
+        includeLegacyFields: legacy,
+        orderField,
+        customDataAtRoot,
+      }),
+    ));
 
   if (detailed) {
     members.forEach(m => Object.assign(m, { eventCount: 0 }));
@@ -96,7 +98,7 @@ module.exports = async (
 
   if (detailed && _.get(interfaces, 'getAgendasByUid') && members.length) {
     const agendas = await interfaces.getAgendasByUid(
-      members.map(m => m.agendaUid).filter(m => !!m)
+      members.map(m => m.agendaUid).filter(m => !!m),
     );
     members.forEach(m => {
       m.agenda = _.find(agendas, { uid: m.agendaUid });
@@ -111,7 +113,7 @@ module.exports = async (
     (
       await interfaces.getEventCountByUserUid(
         query.agendaUid,
-        members.map(m => m.userUid)
+        members.map(m => m.userUid),
       )
     ).forEach(stat => {
       _.find(members, { userUid: stat.userUid }).eventCount = stat.count;
@@ -121,8 +123,8 @@ module.exports = async (
   return includeTotal || legacy
     ? {
       [legacy ? 'stakeholders' : 'members']: members,
-      ...(total ? { total } : {}),
-      ...(totalPerRole ? { totalPerRole } : {}),
+      ...total ? { total } : {},
+      ...totalPerRole ? { totalPerRole } : {},
     }
     : members;
 };

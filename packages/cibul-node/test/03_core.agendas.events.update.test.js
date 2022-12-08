@@ -150,6 +150,10 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       it('indexed document is updated', () => {
         expect(result.events[0]['thematiques-bordeaux-metropole']).toEqual([3]);
       });
+
+      it('indexed member name is account full name when member name is unspecified', async () => {
+        expect(result.events[0].member.name).toBe('steve');
+      });
     });
 
     describe('fixes', () => {

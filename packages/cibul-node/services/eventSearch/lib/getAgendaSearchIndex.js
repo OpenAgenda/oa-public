@@ -1,5 +1,3 @@
 'use strict';
 
-module.exports = (eventSearch, agendaUid) => {
-  return eventSearch(`agendas_${agendaUid}`);
-}
+module.exports = (eventSearch, agendaUid) => eventSearch(`agendas_${agendaUid}`);

@@ -8,6 +8,7 @@ const config = require('../testconfig');
 
 const fixtures = require('./fixtures');
 const membersFixtures = require('./fixtures/members.json');
+const usersFixtures = require('./fixtures/users.json');
 const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
 
 describe('agendaEvents - 02 - functional (server): get', function() {
@@ -30,6 +31,10 @@ describe('agendaEvents - 02 - functional (server): get', function() {
           agendaUid: ae.agendaUid,
           userUid: ae.userUid
         })),
+        getUsers: async aes => ([]
+          .concat(aes)
+          .map(ae => usersFixtures.find(u => u.uid === ae.userUid))
+        ),
         getSourceAgendas: async sourceAgendaUids => sourceAgendasFixtures
           .filter(agenda => sourceAgendaUids.includes(agenda.uid))
       }
@@ -84,6 +89,20 @@ describe('agendaEvents - 02 - functional (server): get', function() {
         agendaUid: 62792452,
         userUid: 12312312,
         role: 1
+      }
+    );
+  });
+
+  it('get with decorate to get user details', async () => {
+    const ref = await svc(62792452).get(10974548, {
+      decorate: ['user']
+    });
+
+    assert.deepEqual(
+      ref.user,
+      {
+        uid: 12312312,
+        fullName: 'Kevin',
       }
     );
   });

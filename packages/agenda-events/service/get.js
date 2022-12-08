@@ -40,6 +40,10 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
     ae.member = ae.userUid ? _.get(await config.interfaces.getMembers([ae]), '0') : null;
   }
 
+  if (decorate.includes('user') && config.interfaces.getUsers) {
+    ae.user = ae.userUid ? (await config.interfaces.getUsers(ae))?.[0] : null;
+  }
+
   if (decorate.includes('sourceAgendas') && config.interfaces.getSourceAgendas) {
     ae.sourceAgendas = await config.interfaces.getSourceAgendas(
       (ae.sourcePaths || []).map(p => p[p.length-1])

@@ -8,7 +8,7 @@ function eventsList(core, agenda) {
   let count = 0;
   return (lastId, limit) => core.agendas(agenda.uid).events.list({}, {
     lastId,
-    limit
+    limit,
   }, {
     returnPayload: true,
     detailed: true,
@@ -21,7 +21,7 @@ function eventsList(core, agenda) {
 
 module.exports = async (services, eventSearch, agenda) => {
   const {
-    core
+    core,
   } = services;
 
   const logPrefix = `${agenda.slug} (${agenda.uid}):`;
@@ -37,10 +37,10 @@ module.exports = async (services, eventSearch, agenda) => {
       },
       error: ({ lastId }) => {
         log('error', `${logPrefix} bulk failed`, { result, lastId });
-      }
+      },
     },
     eventsList: eventsList(core, agenda),
-    formSchema: await core.agendas(agenda.uid).settings.schema.getMerged()
+    formSchema: await core.agendas(agenda.uid).settings.schema.getMerged(),
   });
 
   log(`${logPrefix} done`, result);

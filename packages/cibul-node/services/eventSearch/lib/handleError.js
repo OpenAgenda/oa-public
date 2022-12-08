@@ -1,14 +1,14 @@
 'use strict';
 
 const log = require('@openagenda/logs')(
-  'services/eventSearch/handleError'
+  'services/eventSearch/handleError',
 );
 
 module.exports = (err, req, res, next) => {
   log('error', err);
   if (err?.name === 'NotAuthenticated') {
     return res.status(err.code).json({
-      message: err.message
+      message: err.message,
     });
   }
   if (err?.name === 'NotFound') {
@@ -18,7 +18,7 @@ module.exports = (err, req, res, next) => {
   if (err?.name === 'BadRequest') {
     return res.status(err.code).json({
       error: err.info,
-      requested: req.query.aggregations
+      requested: req.query.aggregations,
     });
   }
 
