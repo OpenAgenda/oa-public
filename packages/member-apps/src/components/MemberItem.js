@@ -125,7 +125,7 @@ function MemberItemComponent({
               {getLabel('editProfile')}
             </button>
           )}
-          {user?.uid !== member.userUid ? (
+          {user?.uid !== member.userUid && !invited ? (
             <a
               className="btn btn-link padding-left-z"
               href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
