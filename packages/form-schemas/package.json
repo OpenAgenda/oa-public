@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.13.17",
+    "@openagenda/intl": "^1.1.2",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-shared": "^2.4.0",

@@ -12,7 +12,7 @@ module.exports = async (
   },
   aggregatorAgenda,
   sourceIdOrAgenda,
-  options = {}
+  options = {},
 ) => {
   const { evaluate = false, context = {} } = options;
 
@@ -21,7 +21,7 @@ module.exports = async (
     : sourceIdOrAgenda;
 
   const log = Log(
-    `removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`
+    `removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`,
   );
 
   const source = await getSourceEntry(sourceId, { detailed: true });
@@ -37,7 +37,7 @@ module.exports = async (
     if (typeof onRemoveSource === 'function') {
       await onRemoveSource(
         { aggregatorAgenda, sourceAgenda: source.agenda },
-        context
+        context,
       );
     }
   } catch (e) {
