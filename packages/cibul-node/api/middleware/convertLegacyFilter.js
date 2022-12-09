@@ -5,8 +5,8 @@ const convert = require('@openagenda/legacy/convertLegacyFilter');
 module.exports = async (req, res, next) => {
   const {
     legacy: {
-      tagsAndCustom
-    }
+      tagsAndCustom,
+    },
   } = req.app.services;
   const { query } = req;
 
