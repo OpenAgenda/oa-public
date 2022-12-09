@@ -1,4 +1,5 @@
 'use strict';
+
 const _ = require('lodash');
 const { Forbidden } = require('@openagenda/verror');
 const log = require('@openagenda/logs')('api/middleware/member');
@@ -65,11 +66,12 @@ function moderatorCannotInviteAdministrator(req, res, next) {
 
 function loadContext(req, res, next) {
   req.context = _.merge({
-    lang: req.lang,
+    lang: req.lang || 'fr',
     sender: {
       userUid: req.user.uid,
       memberName: _.get(req, 'member.custom.contactName') || req.user.name,
     },
+    message: req.body?.message || null,
   }, req.body.context);
   next();
 }
