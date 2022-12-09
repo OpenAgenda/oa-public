@@ -20,7 +20,7 @@ describe('13 - schema.org', () => {
     ],
     image: {
       base: 'https://cibul.s3.amazonaws.com/',
-      filename: '73a0e0e58db448ffbd6e21dee5151642.base.image.jpg'
+      filename: '73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
     },
     location: {
       name: 'Château-musée de Gien',
@@ -33,6 +33,9 @@ describe('13 - schema.org', () => {
       longitude: 2.630589,
       timezone: 'Europe/Paris',
     },
+    onlineAccessLink: 'https://openagenda.com',
+    attendanceMode: 3,
+    status: 5,
     timings: [
       {
         start: '2019-06-15T06:30:00.000Z',
@@ -50,18 +53,36 @@ describe('13 - schema.org', () => {
 
     it('identifier is the event page permalink when no permalink is defined for timing', () => {
       expect(parsedEventJSONLD['@id']).toBe(
-        'https://openagenda.com/agendas/36668061/events/53601020'
+        'https://openagenda.com/agendas/36668061/events/53601020',
       );
     });
 
     it('url is the same as the identifier', () => {
       expect(parsedEventJSONLD.url).toBe(
-        'https://openagenda.com/agendas/36668061/events/53601020'
+        'https://openagenda.com/agendas/36668061/events/53601020',
       );
     });
 
     it('location country code is Alpha-2 code', () => {
       expect(parsedEventJSONLD.location.address.addressCountry).toBe('FR');
+    });
+
+    it('eventAttendanceMode is mixed', () => {
+      expect(
+        parsedEventJSONLD.eventAttendanceMode
+      ).toBe('https://schema.org/MixedEventAttendanceMode');
+    });
+
+    it('availability is sold out', () => {
+      expect(
+        parsedEventJSONLD.offers.availability,
+      ).toBe('https://schema.org/SoldOut');
+    });
+
+    it('eventStatus is scheduled', () => {
+      expect(
+        parsedEventJSONLD.eventStatus,
+      ).toBe('https://schema.org/EventScheduled');
     });
   });
 
@@ -75,13 +96,13 @@ describe('13 - schema.org', () => {
 
       it('location.address is a schema.org PostalAddress', () => {
         expect(parsedEventJSONLD.location.address['@type']).toBe(
-          'PostalAddress'
+          'PostalAddress',
         );
       });
 
       it('location.address.streetAddress is the complete street address', () => {
         expect(parsedEventJSONLD.location.address.streetAddress).toBe(
-          '5 Place du Château, 45500 Gien'
+          '5 Place du Château, 45500 Gien',
         );
       });
 
@@ -97,7 +118,7 @@ describe('13 - schema.org', () => {
     describe('recommended properties', () => {
       it('description - clear and concise', () => {
         expect(parsedEventJSONLD.description).toBe(
-          'Exposition temporaire dédiée aux oeuvres du sculpteur animalier Florentin Brigaud'
+          'Exposition temporaire dédiée aux oeuvres du sculpteur animalier Florentin Brigaud',
         );
       });
 
@@ -119,7 +140,7 @@ describe('13 - schema.org', () => {
 
       it('offers.url - The URL of a page providing the ability to buy tickets', () => {
         expect(parsedEventJSONLD.offers.url).toBe(
-          'https://www.voulez-vous.fr/'
+          'https://www.voulez-vous.fr/',
         );
       });
     });
