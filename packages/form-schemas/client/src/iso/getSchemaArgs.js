@@ -1,27 +1,23 @@
-'use strict';
-
 const _ = require('lodash');
-const debug = require('debug');
-const log = debug('getSchema');
 
 const schema = require('@openagenda/validators/schema');
 
 const getValidatorFromField = require('./getValidatorFromField');
 const isObject = require('./isObject');
 
-module.exports = (fields, accessType = null, accessLevel = null, options = {}) => {
+module.exports = (fields, accessType = null, al = null, options = {}) => {
   const params = {
     includeUnspecified: true,
     custom: {},
     draft: false,
-    ...options
+    ...options,
   };
 
   if (isObject(params.custom)) {
     schema.register(params.custom);
   }
 
-  accessLevel = accessLevel === null ? [] : [].concat(accessLevel);
+  const accessLevel = al === null ? [] : [].concat(al);
 
   return fields.filter(f => {
     if (accessType === null) return true;
@@ -32,10 +28,10 @@ module.exports = (fields, accessType = null, accessLevel = null, options = {}) =
       .filter(t => accessLevel.includes(t))
       .length;
   })
-  .filter(f => f.fieldType !== 'abstract')
-  .map(f => {
-    const validatorConfiguration = getValidatorFromField(f, params);
+    .filter(f => f.fieldType !== 'abstract')
+    .map(f => {
+      const validatorConfiguration = getValidatorFromField(f, params);
 
-    return validatorConfiguration;
-  }).reduce((schemaConfiguration, f) => _.set(schemaConfiguration, f.field, f), {});
+      return validatorConfiguration;
+    }).reduce((schemaConfiguration, f) => _.set(schemaConfiguration, f.field, f), {});
 };

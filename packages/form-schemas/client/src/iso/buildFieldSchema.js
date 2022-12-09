@@ -1,13 +1,13 @@
 const {
   optionedTypes,
-  minMaxedTypes
+  minMaxedTypes,
 } = require('./fieldTypes');
 
 function buildFieldSchema(type, options = {}) {
   const {
     defaultLabelLanguage = null,
     isMultilingual = true,
-    requireLabels = true
+    requireLabels = true,
   } = options;
 
   const labelFieldType = isMultilingual || defaultLabelLanguage ? 'multilingual' : 'text';
@@ -19,14 +19,14 @@ function buildFieldSchema(type, options = {}) {
     field: {
       type: 'text',
       optional: false,
-      max: 255
+      max: 255,
     },
 
     // the label to be displayed in the form
     label: {
       type: labelFieldType,
       optional: !requireLabels,
-      defaultLanguage: defaultLabelLanguage
+      defaultLanguage: defaultLabelLanguage,
     },
 
     // the optional help text
@@ -34,24 +34,24 @@ function buildFieldSchema(type, options = {}) {
       type: labelFieldType,
       optional: true,
       default: null,
-      defaultLanguage: defaultLabelLanguage
+      defaultLanguage: defaultLabelLanguage,
     },
 
     helpLink: {
       type: 'link',
       optional: true,
-      default: null
+      default: null,
     },
 
     helpContent: {
       type: 'text',
       optional: true,
-      default: null
+      default: null,
     },
 
     default: {
       type: 'pass', // dependent on type of field
-      optional: true
+      optional: true,
     },
 
     // an informative text can be added adjacent to the form item
@@ -60,14 +60,14 @@ function buildFieldSchema(type, options = {}) {
       max: 1000,
       optional: true,
       default: null,
-      defaultLanguage: defaultLabelLanguage
+      defaultLanguage: defaultLabelLanguage,
     },
 
     sub: {
       type: labelFieldType,
       optional: true,
       default: null,
-      defaultLanguage: defaultLabelLanguage
+      defaultLanguage: defaultLabelLanguage,
     },
 
     placeholder: {
@@ -75,33 +75,33 @@ function buildFieldSchema(type, options = {}) {
       max: 400,
       optional: true,
       default: null,
-      defaultLanguage: defaultLabelLanguage
+      defaultLanguage: defaultLabelLanguage,
     },
 
     write: {
       type: 'text',
       optional: true,
-      list: { default: null }
+      list: { default: null },
     },
 
     read: {
       type: 'text',
       optional: true,
-      list: { default: null }
+      list: { default: null },
     },
 
     optional: {
-      type: 'boolean'
+      type: 'boolean',
     },
 
     display: {
       type: 'boolean',
-      default: true
+      default: true,
     },
 
     enable: {
       type: 'boolean',
-      default: true
+      default: true,
     },
 
     // when the field was defined elsewhere (tag, category or custom)
@@ -109,43 +109,43 @@ function buildFieldSchema(type, options = {}) {
       type: 'choice',
       default: null,
       unique: true,
-      options: ['tags', 'categories', 'custom']
+      options: ['tags', 'categories', 'custom'],
     },
 
     // other field that defines if this field should be enabled
     enableWith: {
       type: 'pass',
-      default: null
+      default: null,
     },
 
     optionalWith: {
       type: 'pass',
-      default: null
+      default: null,
     },
 
     related: {
       enable: {
         type: 'text',
         default: [],
-        list: true
+        list: true,
       },
       optional: {
         type: 'text',
         default: [],
-        list: true
-      }
+        list: true,
+      },
     },
 
     constraints: {
       type: 'pass',
-      optional: true
+      optional: true,
     },
 
     selfHandled: {
       type: 'choice',
       optional: true,
-      options: ['label', 'help', 'max', 'info', 'sub']
-    }
+      options: ['label', 'help', 'max', 'info', 'sub'],
+    },
 
   };
 
@@ -154,13 +154,13 @@ function buildFieldSchema(type, options = {}) {
       min: {
         type: 'integer',
         optional: true,
-        default: null
+        default: null,
       },
       max: {
         type: 'integer',
         optional: true,
-        default: null
-      }
+        default: null,
+      },
     });
   }
 
@@ -169,27 +169,27 @@ function buildFieldSchema(type, options = {}) {
       extensions: {
         type: 'text',
         optional: true,
-        list: true
+        list: true,
       },
       store: { // store variables depend on type (s3 needs a region and a bucket)
         type: 'pass',
-        optional: true
+        optional: true,
       },
       allowURL: {
         type: 'boolean',
         optional: true,
-        default: false
+        default: false,
       },
       allowPath: {
         type: 'boolean',
         optional: true,
-        default: false
+        default: false,
       },
       imageWithSizeAndVariants: {
         type: 'boolean',
         optional: true,
-        default: false
-      }
+        default: false,
+      },
     });
   }
 
@@ -197,33 +197,33 @@ function buildFieldSchema(type, options = {}) {
     Object.assign(structure, {
       options: {
         list: {
-          min: 1
+          min: 1,
         },
         fields: {
           id: {
-            type: 'integer'
+            type: 'integer',
           },
           value: {
             type: 'text',
-            optional: false
+            optional: false,
           },
           label: {
             type: labelFieldType,
             optional: false,
-            defaultLanguage: defaultLabelLanguage
+            defaultLanguage: defaultLabelLanguage,
           },
           info: {
             type: labelFieldType,
             optional: true,
             default: null,
-            defaultLanguage: defaultLabelLanguage
+            defaultLanguage: defaultLabelLanguage,
           },
           display: {
             type: 'boolean',
-            default: true
-          }
-        }
-      }
+            default: true,
+          },
+        },
+      },
     });
   }
 
