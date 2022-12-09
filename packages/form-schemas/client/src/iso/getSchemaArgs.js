@@ -28,7 +28,12 @@ module.exports = (fields, accessType = null, al = null, options = {}) => {
       .filter(t => accessLevel.includes(t))
       .length;
   })
-    .filter(f => f.fieldType !== 'abstract')
+    .filter(f => {
+      if (f.type && f.type !== 'field') {
+        return false;
+      }
+      return f.fieldType !== 'abstract';
+    })
     .map(f => {
       const validatorConfiguration = getValidatorFromField(f, params);
 

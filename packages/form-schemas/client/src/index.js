@@ -2,6 +2,7 @@ import _ from 'lodash';
 import debug from 'debug';
 import ih from 'immutability-helper';
 import { Component } from 'react';
+import classNames from 'classnames';
 
 import formSchemaLabels from '@openagenda/labels/form-schemas';
 
@@ -14,7 +15,8 @@ import getErrorLabel from './iso/getErrorLabel';
 
 import submit from './lib/submit';
 import getRelatedFieldValues from './lib/getRelatedFieldValues';
-import isFieldDisplayed from './lib/isFieldDisplayed';
+import isItemDisplayed from './lib/isItemDisplayed';
+import Section from './Components/Section';
 
 const log = debug('FormSchemaComponent');
 const Field = require('./Components/Field');
@@ -421,7 +423,7 @@ export default class FormSchemaComponent extends Component {
     return (
       <div style={{ position: 'relative' }} className={_.get(this.props, 'classNames.bottomActionsCanvas') || 'form-group'}>
         {onCancel ? <button type="button" className="btn btn-default" onClick={() => onCancel()}>{labels.main.cancel}</button> : null}
-        <div className={onCancel ? 'pull-right' : null}>
+        <div className={classNames('margin-top-sm', { 'pull-right': onCancel })}>
           {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
           <button className={loading ? 'btn btn-default' : 'btn btn-primary'} type="submit" disabled={loading} onClick={this.onSubmit}>{labels.main.submit}</button>
         </div>
@@ -457,7 +459,7 @@ export default class FormSchemaComponent extends Component {
   render() {
     const {
       lang,
-      classNames,
+      classNames: propsClassNames,
       components,
       role,
     } = this.props;
@@ -491,23 +493,34 @@ export default class FormSchemaComponent extends Component {
 
     return (
       <div className="oa-form">
-        <div className={_.get(classNames, 'fieldsCanvas', '')}>
-          {this._getFormSchema().getFields().filter(isFieldDisplayed.bind(null, role)).map(f => (
-            <Field
-              disabled={loading}
-              className={_.get(classNames, 'field', 'form-group')}
-              customComponents={components}
-              lang={lang}
-              labels={labels.main}
-              type={f.fieldType}
-              key={`field${f.field}`}
-              field={f}
-              value={_.get(values, f.field, null)}
-              relatedValues={getRelatedFieldValues(f, cleanValues === null ? values : cleanValues)}
-              error={errors.filter(e => e.field === f.field).shift()?.label}
-              onChange={(value, files) => this.onChange(f.field, value, files)}
-            />
-          ))}
+        <div className={_.get(propsClassNames, 'fieldsCanvas', '')}>
+          {this._getFormSchema().getFields().filter(isItemDisplayed.bind(null, role)).map(f => {
+            if (f.type === 'section') {
+              return (
+                <Section
+                  lang={lang}
+                  section={f}
+                />
+              );
+            }
+
+            return (
+              <Field
+                disabled={loading}
+                className={_.get(propsClassNames, 'field', 'form-group')}
+                customComponents={components}
+                lang={lang}
+                labels={labels.main}
+                type={f.fieldType}
+                key={`field${f.field}`}
+                field={f}
+                value={_.get(values, f.field, null)}
+                relatedValues={getRelatedFieldValues(f, cleanValues === null ? values : cleanValues)}
+                error={errors.filter(e => e.field === f.field).shift()?.label}
+                onChange={(value, files) => this.onChange(f.field, value, files)}
+              />
+            );
+          })}
         </div>
         {this.renderGroupedErrors()}
         {this.renderBottomActions()}

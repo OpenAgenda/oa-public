@@ -8,6 +8,7 @@ const {
 } = require('./fieldOptions');
 
 const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionIds');
+const validateSection = require('./validateSection');
 
 const getSchema = require('./getSchema');
 const getWithFieldName = require('./getWithFieldName');
@@ -53,6 +54,11 @@ function validate(data, options = {}) {
   // clean each field
   dirty.fields.forEach(f => {
     try {
+      if (f.type === 'section') {
+        clean.fields.push(validateSection(f));
+        return;
+      }
+
       const {
         field: cleanField,
         nextOptionId: updatedNextOptionId,

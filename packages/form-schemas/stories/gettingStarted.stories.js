@@ -230,6 +230,44 @@ export function FormWithLoadedValues() {
   );
 }
 
+export function FormWithSections() {
+  return (
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent
+          lang="fr"
+          schema={{
+            fields: [{
+              type: 'section',
+              label: 'Identification',
+            }, {
+              field: 'firstName',
+              fieldType: 'text',
+              label: 'First name',
+            }, {
+              field: 'surname',
+              fieldType: 'integer',
+              label: 'Surname',
+              max: 100,
+            }, {
+              type: 'section',
+              label: 'Your home',
+            }, {
+              field: 'address',
+              fieldType: 'text',
+              label: 'Your address',
+            }, {
+              field: 'city',
+              fieldType: 'text',
+              label: 'Your city',
+            }],
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FieldsWithDifferentWriteAccesses() {
   const props = {
     lang: 'fr',
