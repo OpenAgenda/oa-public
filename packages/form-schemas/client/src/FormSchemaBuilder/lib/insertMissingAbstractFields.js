@@ -10,12 +10,12 @@ export default function insertMissingAbstractFields(schema, updatedMerge) {
         if (fieldIndex === -1) {
           return {
             field: f.field,
-            fieldType: 'abstract'
+            fieldType: 'abstract',
           };
         }
 
         return schema.fields[fieldIndex];
-      })
-    }
+      }),
+    },
   });
 }

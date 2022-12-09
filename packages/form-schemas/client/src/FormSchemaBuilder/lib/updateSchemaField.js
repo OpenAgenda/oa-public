@@ -16,7 +16,7 @@ const standardFieldKeys = [
   'read',
   'write',
   'enableWith',
-  'optionalWith'
+  'optionalWith',
 ];
 
 export default function updateSchemaField(schema, field, updatedFieldValues) {
@@ -40,8 +40,8 @@ export default function updateSchemaField(schema, field, updatedFieldValues) {
       return {
         ...carry,
         [fieldKey]: {
-          $set: updatedFieldValues[fieldKey]
-        }
+          $set: updatedFieldValues[fieldKey],
+        },
       };
     }, {});
 
@@ -52,6 +52,6 @@ export default function updateSchemaField(schema, field, updatedFieldValues) {
   }
 
   return ih(schema, {
-    fields: { $splice: [[fieldIndex, 1, updatedField]] }
+    fields: { $splice: [[fieldIndex, 1, updatedField]] },
   });
 }

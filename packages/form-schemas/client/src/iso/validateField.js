@@ -15,12 +15,12 @@ const multilingualValidator = require('@openagenda/validators/multilingual');
 const integerValidator = require('@openagenda/validators/integer');
 
 const types = Object.keys(require('./types'));
-const areFieldLabelsMultilingual = require('./areFieldLabelsMultilingual');
+const areLabelsMultilingual = require('./areLabelsMultilingual');
 const getWithFieldName = require('./getWithFieldName');
 const {
   optionedTypes,
   minMaxedTypes,
-  multilingualTypes
+  multilingualTypes,
 } = require('./fieldTypes');
 const buildFieldSchema = require('./buildFieldSchema');
 
@@ -35,14 +35,14 @@ schema.register({
   date: dateValidator,
   multilingual: multilingualValidator,
   integer: integerValidator,
-  choice
+  choice,
 });
 
 const validateStandardType = choice({
   optional: false,
   options: types,
   default: 'text',
-  unique: true
+  unique: true,
 });
 
 const stripUndefinedSchemaFields = (fieldSchema, value) => Object.keys(fieldSchema)
@@ -82,9 +82,9 @@ function validate(value, options = {}) {
     isCustomField ? 'custom' : type,
     {
       defaultLabelLanguage: options.defaultLabelLanguage,
-      isMultilingual: areFieldLabelsMultilingual(value),
-      requireLabels
-    }
+      isMultilingual: areLabelsMultilingual(value),
+      requireLabels,
+    },
   );
 
   const clean = schema(isAbstract ? stripUndefinedSchemaFields(fieldSchema, value) : fieldSchema)(value);
@@ -123,7 +123,7 @@ function validate(value, options = {}) {
         field: 'options',
         code: 'duplicate',
         message: 'option values must be unique',
-        origin: value
+        origin: value,
       });
     }
   }
@@ -135,7 +135,7 @@ function validate(value, options = {}) {
         field: 'max',
         code: 'smallerthan.min',
         message: 'max cannot be smaller than min',
-        origin: value
+        origin: value,
       });
     }
   }

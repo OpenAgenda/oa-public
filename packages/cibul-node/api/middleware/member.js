@@ -5,19 +5,19 @@ const { Forbidden } = require('@openagenda/verror');
 const log = require('@openagenda/logs')('api/middleware/member');
 
 const {
-  isSuperiorTo
+  isSuperiorTo,
 } = require('@openagenda/members').utils.compareRoles;
 
 const defaultRoles = ['reader', 'contributor', 'moderator', 'administrator'];
 
 async function verify(roles, req, res, next) {
   const {
-    members
+    members,
   } = req.app.services;
 
   req.member = await members.get({
     agendaUid: req.agenda.uid,
-    userUid: req.user.uid
+    userUid: req.user.uid,
   });
 
   if (!req.member) {
@@ -29,7 +29,7 @@ async function verify(roles, req, res, next) {
   if (!roles.includes(req.access)) {
     return res.status(403).json({
       error: 'user is not authorized to contribute to agenda',
-      agendaUid: req.params.agendaUid
+      agendaUid: req.params.agendaUid,
     });
   }
 
@@ -38,12 +38,12 @@ async function verify(roles, req, res, next) {
 
 async function load(req, _res, next) {
   const {
-    members
+    members,
   } = req.app.services;
 
   req.member = req.user ? await members.get({
     agendaUid: req.agenda.uid,
-    userUid: req.user.uid
+    userUid: req.user.uid,
   }) : null;
 
   if (!req.member) {

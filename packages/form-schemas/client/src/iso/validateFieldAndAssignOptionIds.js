@@ -3,7 +3,7 @@ const validateField = require('./validateField');
 const {
   fieldHasUnnassignedOptions,
   fieldAssignOptionIds,
-  fieldHasSuperiorOptions
+  fieldHasSuperiorOptions,
 } = require('./fieldOptions');
 
 module.exports = function validateFieldAndAssignOptionIds(
@@ -12,15 +12,15 @@ module.exports = function validateFieldAndAssignOptionIds(
     custom,
     defaultLabelLanguage,
     nextOptionId,
-    requireLabels
-  }
+    requireLabels,
+  },
 ) {
   let updatedNextOptionId = nextOptionId;
 
   const cleanField = validateField(dirtyField, {
     custom,
     defaultLabelLanguage,
-    requireLabels
+    requireLabels,
   });
 
   if (fieldHasUnnassignedOptions(cleanField)) {
@@ -28,12 +28,12 @@ module.exports = function validateFieldAndAssignOptionIds(
   } else if (fieldHasSuperiorOptions(cleanField, nextOptionId)) {
     updatedNextOptionId = cleanField.options.reduce(
       (max, o) => (max < o.id ? o.id : max),
-      updatedNextOptionId
+      updatedNextOptionId,
     ) + 1;
   }
 
   return {
     nextOptionId: updatedNextOptionId,
-    field: cleanField
+    field: cleanField,
   };
 };
