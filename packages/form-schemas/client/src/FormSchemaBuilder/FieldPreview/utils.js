@@ -55,20 +55,17 @@ export function getDefaultValueLabel(field, lang) {
 }
 
 export function getLinkedField({ field, schema }) {
-  let fieldIndex = -1;
-  if (field.enableWith && typeof field.enableWith === 'string') {
-    fieldIndex = schema.fields.findIndex(el => el.field === field.enableWith);
-  } else if (field.enableWith && typeof field.enableWith === 'object') {
-    fieldIndex = schema.fields.findIndex(el => el.field === field.enableWith.field);
-  } else if (field.optionalWith) {
-    fieldIndex = schema.fields.findIndex(el => el.options?.map(obj => obj.id === field.optionalWith.value));
-  }
+  const linkType = field.enableWith ? 'enableWith' : 'optionalWith';
 
-  if (fieldIndex === -1) {
+  if (!field[linkType]) {
     return null;
   }
 
-  return schema.fields[fieldIndex];
+  if (typeof field[linkType] === 'string') {
+    return schema.fields.find(el => el.field === field[linkType]);
+  }
+
+  return schema.fields.find(el => el.field === field[linkType].field);
 }
 
 export function getFieldTypeIcon(field) {

@@ -6,6 +6,8 @@ import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidat
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder';
 import SimpleRowDecorator from './decorators/SimpleRow';
 
+import schemaWithLinkedFields from './fixtures/schemaWithLinkedFields.json';
+
 export default {
   title: 'Form builder components',
   decorators: [SimpleRowDecorator],
@@ -502,53 +504,13 @@ export function FieldPreview() {
         </div>
 
         <div className="col-lg-4 col-md-6">
-          <strong>optionalWith is an object containing the name of the linked field and the values triggering the optionalization</strong>
+          <strong>Location is optional when attendance mode has given value</strong>
           <FormSchemaBuilder
-            {...getBuilderProps([
-              {
-                field: 'attendanceMode',
-                label: 'Mode de participation',
-                fieldType: 'radio',
-                optional: false,
-                options: [
-                  {
-                    id: 1,
-                    value: 'offline',
-                    label: {
-                      fr: 'Sur place',
-                      en: 'Offline',
-                    },
-                  },
-                  {
-                    id: 2,
-                    value: 'online',
-                    label: {
-                      fr: 'En ligne',
-                      en: 'Online',
-                    },
-                  },
-                  {
-                    id: 3,
-                    value: 'mixed',
-                    label: {
-                      fr: 'Mixte',
-                      en: 'Mixed',
-                    },
-                  },
-                ],
-              },
-              {
-                field: 'location',
-                label: 'Lieu',
-                fieldType: 'location',
-                optional: false,
-                enableWith: null,
-                optionalWith: {
-                  field: 'attendanceMode',
-                  value: 2,
-                },
-              },
-            ])}
+            maxFields={1}
+            lang="fr"
+            displaySidebar={false}
+            extendedFrom={schemaWithLinkedFields.extensions}
+            schema={schemaWithLinkedFields.schema}
           />
         </div>
       </div>
