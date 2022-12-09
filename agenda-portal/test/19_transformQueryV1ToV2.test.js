@@ -9,7 +9,7 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
         from: '2020-05-17',
         to: '2020-05-22',
       },
-      { timezone: 'Europe/Paris' }
+      { timezone: 'Europe/Paris' },
     );
 
     expect(v2Query).toEqual({
@@ -22,11 +22,11 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
 
   test('oaq featured filter is maintained', () => {
     const v2Query = transformQueryV1ToV2({
-      featured: 1
+      featured: 1,
     }, { timezone: 'Europe/Paris' });
 
     expect(v2Query).toEqual({
-      featured: 1
+      featured: 1,
     });
   });
 
@@ -35,7 +35,7 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
       {
         passed: '1',
       },
-      { timezone: 'Europe/Paris' }
+      { timezone: 'Europe/Paris' },
     );
 
     expect(v2Query).toEqual({
@@ -60,7 +60,7 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
             slug: 'animation',
           },
         ],
-      }
+      },
     );
 
     expect(v2Query).toEqual({ 'type-devenement': 34 });

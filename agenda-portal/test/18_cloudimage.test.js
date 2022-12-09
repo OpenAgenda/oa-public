@@ -20,7 +20,7 @@ describe('18 - utils - cloudimage', () => {
     const link = cloudimage(BASE, event);
 
     expect(link).toBe(
-      'https://{youraccountkey}.cloudimg.io/v7/https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg'
+      'https://{youraccountkey}.cloudimg.io/v7/https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg',
     );
   });
 
@@ -28,7 +28,7 @@ describe('18 - utils - cloudimage', () => {
     const link = cloudimage(BASE, eventV2ExportFormat);
 
     expect(link).toBe(
-      'https://{youraccountkey}.cloudimg.io/v7/https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg'
+      'https://{youraccountkey}.cloudimg.io/v7/https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg',
     );
   });
 
@@ -39,7 +39,7 @@ describe('18 - utils - cloudimage', () => {
     });
 
     expect(link).toBe(
-      'https://{youraccountkey}.cloudimg.io/v7/https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg?width=400&grey=1'
+      'https://{youraccountkey}.cloudimg.io/v7/https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg?width=400&grey=1',
     );
   });
 });
