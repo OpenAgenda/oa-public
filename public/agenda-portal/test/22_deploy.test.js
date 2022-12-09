@@ -26,7 +26,7 @@ describe('22 - deploy script', () => {
       `{
   "dependencies": {
   }
-}`
+}`,
     );
   });
 
@@ -38,7 +38,7 @@ describe('22 - deploy script', () => {
       PORTAL_KEY: 'myoaaccountkey',
       PORTAL_PORT: '3000',
       PORTAL_IFRAMABLE: '1',
-      PORTAL_USE_AGENDA_GA_ID: '1'
+      PORTAL_USE_AGENDA_GA_ID: '1',
     });
   });
 
@@ -46,7 +46,7 @@ describe('22 - deploy script', () => {
     expect(
       fs
         .readFileSync(`${cwd}/server.js`, 'utf-8')
-        .indexOf("require('@openagenda/agenda-portal')")
+        .indexOf("require('@openagenda/agenda-portal')"),
     ).not.toEqual(-1);
   });
 
@@ -54,7 +54,7 @@ describe('22 - deploy script', () => {
     expect(
       fs
         .readFileSync(`${cwd}/server.js`, 'utf-8')
-        .indexOf("require('@openagenda/agenda-portal/lib/Log')")
+        .indexOf("require('@openagenda/agenda-portal/lib/Log')"),
     ).not.toEqual(-1);
   });
 

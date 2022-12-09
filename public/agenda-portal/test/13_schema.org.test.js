@@ -69,7 +69,7 @@ describe('13 - schema.org', () => {
 
     it('eventAttendanceMode is mixed', () => {
       expect(
-        parsedEventJSONLD.eventAttendanceMode
+        parsedEventJSONLD.eventAttendanceMode,
       ).toBe('https://schema.org/MixedEventAttendanceMode');
     });
 

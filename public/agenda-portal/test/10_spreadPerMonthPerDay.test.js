@@ -4,8 +4,8 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const spreadPerMonth = require('../lib/events/spreadPerMonthPerDay');
-const inputTimings = require('./fixtures/timings');
-const inputTimings2 = require('./fixtures/timings.2');
+const inputTimings = require('./fixtures/timings.json');
+const inputTimings2 = require('./fixtures/timings.2.json');
 
 describe('10 - spreadPerMonthPerDay', () => {
   describe('basics', () => {
