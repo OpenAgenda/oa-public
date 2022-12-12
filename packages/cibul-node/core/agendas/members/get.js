@@ -48,7 +48,7 @@ async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}
       userUid: identifier,
     }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null))
     : await members.get.byEmail({
-      agendaOrUid: agenda.uid,
+      agendaUid: agenda.uid,
       ...identifier,
     }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null));
 
