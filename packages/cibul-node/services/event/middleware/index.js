@@ -9,6 +9,8 @@ const es = require('../../elasticsearch');
 const membersSvc = require('../../members');
 const config = require( '../../../config' );
 const p = require( '../../../lib/promises' );
+const getStatusLabel = require('../../../lib/getStatusLabel');
+
 const w = p.w;
 const { getRoleSlug } = membersSvc.utils;
 
@@ -64,6 +66,9 @@ async function loadMissing(req) {
   req.event.pricingInfo = flatten(JSON.parse(record?.conditions || '{}'), req.lang);
 
   req.event.status = record?.status === undefined ? 1 : record?.status;
+
+  req.event.statusLabel = getStatusLabel(req.event.status, req.lang);
+  req.event.isNotScheduled = req.event.status !== 1;
 }
 
 

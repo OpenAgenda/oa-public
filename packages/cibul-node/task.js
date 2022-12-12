@@ -9,65 +9,65 @@ module.exports = (config, core, services) => {
 
   tfy(services.elasticsearch.refresh, {
     period: 'daily',
-    time: '00:00'
+    time: '00:00',
   });
 
   tfy(services.agendaSearch.rebuild, {
     period: 'weekly',
     day: 'sunday',
-    time: '01:00'
+    time: '01:00',
   });
 
   tfy(services.agendaSearch.resyncUpdated, {
-    period: 'hourly'
+    period: 'hourly',
   });
 
   tfy(services.activities.tasks.activities.cleanOld, {
     // bootOffset: 1000,
     period: 'daily',
-    time: '01:00'
+    time: '01:00',
   });
 
   tfy(services.activities.tasks.notifications.cleanOld, {
     // bootOffset: 1000,
     period: 'daily',
-    time: '01:30'
+    time: '01:30',
   });
 
   tfy(services.activities.tasks.notifications.prepareSummary, {
     // bootOffset: 1000,
     period: 'daily',
-    time: '05:00'
+    time: '05:00',
   });
 
   tfy(services.activities.tasks.notifications.sendSummary.task, {
     // bootOffset: 5000,
     period: 'daily',
-    time: '08:00'
+    time: '08:00',
   });
 
   tfy(services.users.tasks.notifyAndRemove, {
     period: 'daily',
-    time: '10:00'
+    time: '10:00',
   });
 
   tfy(services.inboxes.tasks.sync, {
     // bootOffset: 5000,
     period: 'weekly',
     day: 'sunday',
-    time: '11:00'
+    time: '11:00',
   });
 
   tfy(services.activities.tasks.rebuild, {
     period: 'weekly',
     day: 'monday',
-    time: '03:00'
+    time: '03:00',
   });
 
   tfy(services.mails.unsubscription.task, {
     period: 'weekly',
     day: 'saturday',
-    time: '03:00'
+    time: '03:00',
   });
 
   services.agendaDocx.task();
@@ -88,7 +88,7 @@ module.exports = (config, core, services) => {
 
   services.agendaLocations.task({
     duplicationDetection: config.locationDuplicationDetection,
-    reset: false
+    reset: false,
   });
 
   services.members.task();

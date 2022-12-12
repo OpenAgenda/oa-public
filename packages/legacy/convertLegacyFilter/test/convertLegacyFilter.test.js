@@ -14,7 +14,12 @@ describe('convert legacy filters', () => {
       to: '2021-09-20',
     };
 
-    expect(convertLegacyFilter(oaq)).toStrictEqual({ timings: { gte: '2021-09-19T00:00:00.0000Z', lte: '2021-09-20T23:59:59.9990Z' } });
+    expect(convertLegacyFilter(oaq)).toStrictEqual({
+      timings: {
+        gte: '2021-09-20T00:00:00+02:00',
+        lte: '2021-09-20T23:59:59+02:00',
+      },
+    });
   });
 
   test('convert search', () => {
@@ -117,7 +122,7 @@ describe('convert legacy filters', () => {
       tags: ['spectacle', 'concert', 'culture'],
       location: 65918542,
       passed: '1',
-      from: '2021-09-20',
+      from: '2021-09-19',
       to: '2021-09-20',
     };
 
@@ -126,9 +131,33 @@ describe('convert legacy filters', () => {
       'thematiques-bordeaux-metropole': [9],
       locationUid: 65918542,
       timings: {
-        gte: '2021-09-19T00:00:00.0000Z',
-        lte: '2021-09-20T23:59:59.9990Z',
+        gte: '2021-09-19T00:00:00+02:00',
+        lte: '2021-09-20T23:59:59+02:00',
       },
     });
+  });
+
+  test('relative is not forced when time filters are already set in general query', () => {
+    const converted = convertLegacyFilter({}, {
+      query: { timings: { gte: new Date(), lte: new Date() } },
+    });
+
+    expect(converted.relative).toBeUndefined();
+  });
+
+  test('relative is not forced when slug filter is set in general query', () => {
+    const converted = convertLegacyFilter({}, {
+      query: { slug: 'ladida' },
+    });
+
+    expect(converted.relative).toBeUndefined();
+  });
+
+  test('relative is forced when no time filters are already set in general query', () => {
+    const converted = convertLegacyFilter({}, {
+      query: {},
+    });
+
+    expect(converted.relative).toEqual(['current', 'upcoming']);
   });
 });

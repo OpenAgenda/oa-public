@@ -3,7 +3,7 @@
 const flatExports = require('@openagenda/flat-exports');
 
 const {
-  MarkdownStream
+  MarkdownStream,
 } = flatExports;
 
 function getFirstSortField(query) {
@@ -22,7 +22,7 @@ module.exports = (req, res) => {
   res.writeHead(200, {
     'Content-Type': 'text/plain',
     charset: 'utf-8',
-    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.${req.params.format}"`
+    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.${req.params.format}"`,
   });
 
   const stream = new MarkdownStream({
@@ -33,7 +33,7 @@ module.exports = (req, res) => {
     identifier: req.agenda.uid,
     title: req.agenda.title,
     description: req.agenda.description,
-    genUrl: e => `https://openagenda.com/${req.agenda.slug}/events/${e.slug}`
+    genUrl: e => `https://openagenda.com/${req.agenda.slug}/events/${e.slug}`,
   });
 
   req.stream.pipe(stream).pipe(res);

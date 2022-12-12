@@ -20,7 +20,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
 
-  const { intlMessages } = pageProps;
+  const { intlMessages } = pageProps as any;
 
   return (
     <>

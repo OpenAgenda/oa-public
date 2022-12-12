@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import passValidator from '@openagenda/validators/pass';
 import FormSchemaComponent from '..';
 
@@ -14,7 +14,7 @@ import optionsValidator from './lib/optionsValidator';
 const assignConstraintsToFields = (schema, parents) => schema.fields.reduce((carriedSchema, field) => {
   carriedSchema.fields.push({
     ...field,
-    constraints: parents ? parents[field.field] : null
+    constraints: parents ? parents[field.field] : null,
   });
   return carriedSchema;
 }, { ...schema, fields: [] });
@@ -22,37 +22,40 @@ const assignConstraintsToFields = (schema, parents) => schema.fields.reduce((car
 const fieldOrder = order => ({ fields: order.map(f => ({ field: f, fieldType: 'abstract' })) });
 
 const fieldSchemaTypes = {
-  labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
+  labels: options => ({ labelLanguages }) => fg.labels({ ...options, labelLanguages }),
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
     parentsField ? null : fg.minMax({ min: 0, max: 255 }),
-    (!parentsField || (parentsField?.optional ?? true)) ? fg.optional() : null,
-    fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub'])
+    !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
+    fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub']),
   ),
   radioLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
-    (!parentsField || (parentsField?.optional ?? true)) ? fg.optional() : null,
+    !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
     parentsField ? null : fg.options({ labelLanguages }),
-    fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub'])
+    fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub']),
   ),
   customLike: customFieldSchema => ({ labelLanguages }) => merge(
     customFieldSchema.fields.some(f => f.field === 'label') ? fg.labels({ labelLanguages }) : null,
     customFieldSchema.fields.some(f => f.field === 'optional') ? fg.optional() : null,
-    customFieldSchema
-  )
+    customFieldSchema,
+  ),
 };
 
-const schemas = (fieldType, { customFieldConfigurationSchemas }) => {
-  if (['text', 'textarea', 'markdown', 'link', 'boolean', 'email', 'integer'].includes(fieldType)) {
+const schemas = (type, { customFieldConfigurationSchemas }) => {
+  if (type === 'section') {
+    return fieldSchemaTypes.labels({ pick: ['label'], allOptional: true });
+  }
+  if (['text', 'textarea', 'markdown', 'link', 'boolean', 'email', 'integer'].includes(type)) {
     return fieldSchemaTypes.textLike;
   }
-  if (['radio', 'checkbox', 'select', 'multiselect'].includes(fieldType)) {
+  if (['radio', 'checkbox', 'select', 'multiselect'].includes(type)) {
     return fieldSchemaTypes.radioLike;
   }
-  if (customFieldConfigurationSchemas && customFieldConfigurationSchemas[fieldType]) {
-    return fieldSchemaTypes.customLike(customFieldConfigurationSchemas[fieldType]);
+  if (customFieldConfigurationSchemas && customFieldConfigurationSchemas[type]) {
+    return fieldSchemaTypes.customLike(customFieldConfigurationSchemas[type]);
   }
-  return fieldSchemaTypes.labels;
+  return fieldSchemaTypes.labels();
 };
 
 export default class FieldForm extends Component {
@@ -63,7 +66,7 @@ export default class FieldForm extends Component {
 
     this.state = {
       values: labelLanguages.length ? unflattenLabels(field, labelLanguages) : flattenLabels(field, lang),
-      errors: []
+      errors: [],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -79,22 +82,30 @@ export default class FieldForm extends Component {
       field,
       initFieldType,
       labelLanguages,
-      onSubmit
+      onSubmit,
     } = this.props;
 
-    const { values } = this.state;
+    const { values, errors: stateErrors } = this.state;
     const { errors } = sanitize(values);
+    const fieldType = field?.fieldType ?? initFieldType;
 
     if (errors.length) {
       return this.setState({ errors });
     }
 
-    if (!values || (this.state?.errors || []).length) return;
+    if (!values || (stateErrors || []).length) return;
 
-    onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
-      fieldType: field?.fieldType ?? initFieldType,
-      field: field?.field || slugFromLabel(values.label, lang)
-    }));
+    const item = restrictLabelLanguages(values, labelLanguages);
+
+    if (fieldType === 'section') {
+      item.type = 'section';
+    } else {
+      item.fieldType = fieldType;
+    }
+
+    item.field = field?.field || slugFromLabel(values.label, lang);
+
+    onSubmit(item);
   }
 
   render() {
@@ -107,17 +118,17 @@ export default class FieldForm extends Component {
       customFieldConfigurationSchemas, // new
       components, // new
       parentsField,
-      enable = true
+      enable = true,
     } = this.props;
     const { values, errors } = this.state;
 
     const field = propsField ?? {
-      fieldType: initFieldType
+      fieldType: initFieldType,
     };
 
     const schema = assignConstraintsToFields(
       schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
-      parentsField
+      parentsField,
     );
 
     if (!enable) {
@@ -140,7 +151,7 @@ export default class FieldForm extends Component {
           errors={errors}
           components={{
             options: Options,
-            ...components
+            ...components,
           }}
           onChange={this.onChange}
           lang={lang}
@@ -148,8 +159,8 @@ export default class FieldForm extends Component {
           actionComponents={[{
             position: 'bottom',
             Component: ({ sanitize }) => actionComponent({
-              onSubmit: this.onSubmit.bind(this, sanitize)
-            })
+              onSubmit: this.onSubmit.bind(this, sanitize),
+            }),
           }]}
         />
       </div>

@@ -14,7 +14,7 @@ module.exports = async (
   aggregatorAgenda,
   sourceAgenda,
   sourceRules = [],
-  options = {}
+  options = {},
 ) => {
   const log = Log(`adding ${sourceAgenda.slug} to ${aggregatorAgenda.slug}`);
   const { query = null, context = {} } = options;
@@ -27,7 +27,7 @@ module.exports = async (
   const { aggregator, source } = await addSourceEntry(
     aggregatorAgenda,
     sourceAgenda,
-    sourceRules
+    sourceRules,
   );
 
   try {

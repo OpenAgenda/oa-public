@@ -1,22 +1,22 @@
-import _ from 'lodash';
-
-import labels from './labels';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-const getLabel = makeLabelGetter( labels );
+import labels from './labels';
 
-export default ( field, preferredLang ) => {
+const getLabel = makeLabelGetter(labels);
 
-  const { fieldType, languages } = field;
+export default (field, preferredLang) => {
+  const {
+    fieldType,
+    languages,
+  } = field;
 
   let labelCode = [
     fieldType,
     languages ? 'Multilingual' : '',
-    'FieldType'
-  ].join( '' );
+    'FieldType',
+  ].join('');
 
-  if ( !labels[ labelCode ] ) labelCode = 'unknownFieldType';
+  if (!labels[labelCode]) labelCode = 'unknownFieldType';
 
-  return getLabel( labelCode, preferredLang );
-
-}
+  return getLabel(labelCode, preferredLang);
+};

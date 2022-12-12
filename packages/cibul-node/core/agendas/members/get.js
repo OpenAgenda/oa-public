@@ -15,7 +15,7 @@ function validateMemberData(data, schema) {
   return !!clean;
 }
 
-async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
+async function get(core, preloadedOptions, agendaOrUid, identifier, options = {}) {
   const { services } = core;
   const {
     members,
@@ -34,14 +34,7 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
     userUid: actingUserUid,
   }) : null;
 
-  if (!canRead(services, {
-    access,
-    actingMember,
-    actingUserUid,
-    userUid,
-  })) {
-    throw new Forbidden('Not authorized to access member');
-  }
+  if (access !== 'internal' && actingMember === null && parseInt(identifier, 10) !== parseInt(actingUserUid, 10)) throw new Forbidden('Not authorized to access member');
 
   const agenda = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid : await core.agendas(agendaOrUid).get({
     detailed: true,
@@ -49,33 +42,47 @@ async function get(core, preloadedOptions, agendaOrUid, userUid, options = {}) {
     private: null,
   });
 
-  const memberRes = await members.get({
-    agendaUid: agenda.uid,
-    userUid,
-  }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null));
+  const memberRes = identifier?.constructor.name !== 'Object'
+    ? await members.get({
+      agendaUid: agenda.uid,
+      userUid: identifier,
+    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null))
+    : await members.get.byEmail({
+      agendaUid: agenda.uid,
+      ...identifier,
+    }, { ...preloadedOptions, ...options }).then(m => (m ? format(services.members, m, {}) : null));
+
+  if (!canRead(services, {
+    access,
+    actingMember,
+    actingUserUid,
+    userUid: memberRes?.userUid || identifier,
+  })) {
+    throw new Forbidden('Not authorized to access member');
+  }
 
   const schemas = await getMemberSchema(services, agenda.uid, { access, actingMember });
 
   if (!schemas.agendaSchema) {
     return !isValid ? memberRes : { member: memberRes, isValid: validateMemberData(memberRes, schemas.merged) };
   }
-  const customRes = await custom(schemas.agendaSchema.id).get(userUid);
+  const customRes = await custom(schemas.agendaSchema.id).get(memberRes.userUid);
   const completedMemberData = { ...memberRes, ...customRes };
   return !isValid ? completedMemberData : { member: completedMemberData, isValid: validateMemberData({ ...memberRes, ...customRes }, schemas.merged) };
 }
 
-module.exports = Object.assign((services, agendaOrUid, userUid, options) => get(
+module.exports = Object.assign((services, agendaOrUid, identifier, options) => get(
   services,
   { throwOnNotFound: true },
   agendaOrUid,
-  userUid,
+  identifier,
   options,
 ), {
-  is: (services, agendaOrUid, userUid, options = {}) => get(
+  is: (services, agendaOrUid, identifier, options = {}) => get(
     services,
     { includeFields: ['id'] },
     agendaOrUid,
-    userUid,
+    identifier,
     options,
   ).then(m => !!m),
 });

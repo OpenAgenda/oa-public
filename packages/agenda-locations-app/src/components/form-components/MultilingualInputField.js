@@ -1,5 +1,3 @@
-import React from 'react';
-
 import utils from '@openagenda/utils';
 
 const MultilingualInputField = ({
@@ -18,11 +16,11 @@ const MultilingualInputField = ({
   const classes = ['multilingual-input-field', 'form-group'];
   if (enabled && !enabled.length) classes.push('disable');
 
-  const myOnChange = lang => (e => {
+  const myOnChange = lang => e => {
     const newValue = JSON.parse(JSON.stringify(value));
     newValue[lang] = e.target.value;
     onChange(name, newValue);
-  });
+  };
 
   const isEnabled = lang => {
     if (!utils.isArray(enabled)) return true;

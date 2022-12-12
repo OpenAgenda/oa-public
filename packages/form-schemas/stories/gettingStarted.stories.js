@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ih from 'immutability-helper';
 import '@openagenda/bs-templates/compiled/main.css';
 
@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Link,
-  Route
+  Route,
 } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { locales } from '@openagenda/react-shared';
@@ -41,8 +41,8 @@ export function OneRequiredField() {
       optional: false,
       label: 'Pas tout à fait n\'importe quoi',
       min: 3,
-      max: 10
-    }]
+      max: 10,
+    }],
   };
   return (
     <div className="row">
@@ -62,8 +62,8 @@ export function OneFieldWithDefaultValue() {
       field: 'anything',
       fieldType: 'text',
       label: 'Si rien, alors quelque chose',
-      default: 'Quelque chose!'
-    }]
+      default: 'Quelque chose!',
+    }],
   };
   return (
     <div className="row">
@@ -79,7 +79,7 @@ export function OneFieldWithDefaultValue() {
 
 export function OneDisabledFieldWithValue() {
   const [values, setUpdatedValues] = useState({
-    disabledfield: 'This value is not editable'
+    disabledfield: 'This value is not editable',
   });
 
   const schema = {
@@ -87,8 +87,8 @@ export function OneDisabledFieldWithValue() {
       field: 'disabledfield',
       fieldType: 'text',
       label: 'This field should be disabled',
-      enable: false
-    }]
+      enable: false,
+    }],
   };
   return (
     <div className="row">
@@ -102,7 +102,7 @@ export function OneDisabledFieldWithValue() {
             lang="fr"
             schema={schema}
             values={{
-              disabledfield: 'This value is not editable'
+              disabledfield: 'This value is not editable',
             }}
             onUpdate={v => setUpdatedValues(v)}
             onSubmit={({ clean }) => setUpdatedValues(clean)}
@@ -126,13 +126,13 @@ export function OneFieldWithInfoText() {
       field: 'one',
       fieldType: 'text',
       label: 'Un premier champ',
-      info: 'Un texte d\'information'
+      info: 'Un texte d\'information',
     }, {
       field: 'two',
       fieldType: 'text',
       label: 'Un deuxième champ',
-      info: 'Un texte d\'information\nSur plusieurs lignes'
-    }]
+      info: 'Un texte d\'information\nSur plusieurs lignes',
+    }],
   };
   return (
     <div className="row">
@@ -153,19 +153,19 @@ export function OneFieldWithHelpLink() {
       fieldType: 'text',
       label: 'The label',
       help: 'This is the help message.',
-      helpLink: 'https://openagenda.com'
+      helpLink: 'https://openagenda.com',
     }, {
       field: 'anythingelse',
       fieldType: 'text',
       label: 'The other label',
       help: 'The link is an email',
-      helpLink: 'mailto:support@openagenda.com'
+      helpLink: 'mailto:support@openagenda.com',
     }, {
       field: 'randomthings',
       fieldType: 'text',
       label: 'A hover on help',
-      helpContent: 'Explain the things [here](https://openagenda.com)'
-    }]
+      helpContent: 'Explain the things [here](https://openagenda.com)',
+    }],
   };
   return (
     <div className="row">
@@ -184,7 +184,7 @@ export function FormWithLoadedValues() {
     lang: 'fr',
     values: {
       name: 'Janine',
-      age: 122
+      age: 122,
     },
     schema: {
       fields: [{
@@ -193,17 +193,17 @@ export function FormWithLoadedValues() {
         optional: false,
         label: {
           fr: 'Votre nom',
-          en: 'Your name'
-        }
+          en: 'Your name',
+        },
       }, {
         field: 'age',
         fieldType: 'integer',
         optional: false,
         label: {
           fr: 'Votre age',
-          en: 'Your age'
+          en: 'Your age',
         },
-        max: 100
+        max: 100,
       }, {
         field: 'multimessage',
         fieldType: 'text',
@@ -211,20 +211,58 @@ export function FormWithLoadedValues() {
         languages: ['fr', 'en'],
         label: {
           fr: 'Un court message',
-          en: 'A short message'
+          en: 'A short message',
         },
         sub: {
           fr: 'Vraiment court',
-          en: 'Really short'
+          en: 'Really short',
         },
-        max: 50
-      }]
-    }
+        max: 50,
+      }],
+    },
   };
   return (
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
         <FormSchemaComponent {...props} />
+      </div>
+    </div>
+  );
+}
+
+export function FormWithSections() {
+  return (
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent
+          lang="fr"
+          schema={{
+            fields: [{
+              type: 'section',
+              label: 'Identification',
+            }, {
+              field: 'firstName',
+              fieldType: 'text',
+              label: 'First name',
+            }, {
+              field: 'surname',
+              fieldType: 'integer',
+              label: 'Surname',
+              max: 100,
+            }, {
+              type: 'section',
+              label: 'Your home',
+            }, {
+              field: 'address',
+              fieldType: 'text',
+              label: 'Your address',
+            }, {
+              field: 'city',
+              fieldType: 'text',
+              label: 'Your city',
+            }],
+          }}
+        />
       </div>
     </div>
   );
@@ -237,24 +275,24 @@ export function FieldsWithDifferentWriteAccesses() {
       fields: [{
         field: 'regularfield',
         fieldType: 'text',
-        label: 'Un champ sans restriction d\'accès'
+        label: 'Un champ sans restriction d\'accès',
       }, {
         field: 'restrictedtoarole',
         fieldType: 'text',
         label: 'Un champ restreint au role fourchette',
-        write: ['fourchette']
+        write: ['fourchette'],
       }, {
         field: 'restrictedtoanotherrole',
         fieldType: 'text',
         label: 'Un événement restreint au role couteau',
-        write: ['couteau']
+        write: ['couteau'],
       }, {
         field: 'restrictedtobothroles',
         fieldType: 'text',
         label: 'Un événement restreint aux rôles couteau et fourchette',
-        write: ['couteau', 'fourchette']
-      }]
-    }
+        write: ['couteau', 'fourchette'],
+      }],
+    },
   };
   return (
     <div className="container margin-top-lg">
@@ -288,15 +326,15 @@ export function LeavePageWarning() {
     lang: 'fr',
     unloadWarning: {
       page: true,
-      router: true
+      router: true,
     },
     schema: {
       fields: [{
         field: 'bewarned',
         fieldType: 'text',
-        label: 'Soyez avertis'
-      }]
-    }
+        label: 'Soyez avertis',
+      }],
+    },
   };
   return (
     <IntlProvider locale="fr" key="fr" messages={locales.fr}>
@@ -336,37 +374,37 @@ export function MemberFormUseCase() {
         field: 'organization',
         label: 'Organization',
         fieldType: 'text',
-        optional: false
+        optional: false,
       },
       {
         field: 'contactNumber',
         label: 'Telephone',
         fieldType: 'phone',
-        optional: false
+        optional: false,
       },
       {
         field: 'contactName',
         label: 'Name Surname',
         fieldType: 'text',
-        optional: false
+        optional: false,
       },
       {
         field: 'contactPosition',
         label: 'Position',
         fieldType: 'text',
-        optional: false
+        optional: false,
       },
       {
         field: 'email',
         label: 'Email',
         fieldType: 'email',
-        optional: false
-      }]
+        optional: false,
+      }],
     },
     onCancel: () => {
       // eslint-disable-next-line no-console
       console.log('cancelled');
-    }
+    },
   };
   return (
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
@@ -381,7 +419,7 @@ export function ProtoEventFormUseCase() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     schema: {
@@ -392,17 +430,17 @@ export function ProtoEventFormUseCase() {
         optional: false,
         label: {
           fr: 'Titre',
-          en: 'Title'
+          en: 'Title',
         },
         max: 140,
         placeholder: {
           fr: 'Le titre de votre événement',
-          en: 'Title of your event'
+          en: 'Title of your event',
         },
         sub: {
           fr: 'Ce champ est requis.',
-          en: 'This field is required'
-        }
+          en: 'This field is required',
+        },
       }, {
         field: 'description',
         fieldType: 'text',
@@ -410,37 +448,37 @@ export function ProtoEventFormUseCase() {
         optional: false,
         label: {
           fr: 'Description courte',
-          en: 'Short description'
+          en: 'Short description',
         },
         placeholder: {
           fr: 'Une courte description de votre événement',
-          en: 'A short description of your event'
-        }
+          en: 'A short description of your event',
+        },
       }, {
         field: 'longDescription',
         fieldType: 'textarea',
         languages: ['fr', 'en'],
         label: {
           fr: 'Description longue',
-          en: 'Long description'
+          en: 'Long description',
         },
         sub: {
           fr: 'Ce champ ne doit pas exceder 10000 caractères',
-          en: 'This field should not exceed 10000 characters'
-        }
+          en: 'This field should not exceed 10000 characters',
+        },
       }, {
         field: 'conditions',
         fieldType: 'text',
         label: {
           fr: 'Conditions de participation, tarifs',
-          en: 'Attendence conditions, pricing'
+          en: 'Attendence conditions, pricing',
         },
         sub: {
           fr: 'Tel format est accepté',
-          en: 'Some specific format is accepted'
-        }
-      }]
-    }
+          en: 'Some specific format is accepted',
+        },
+      }],
+    },
   };
   return (
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">

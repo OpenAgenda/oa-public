@@ -82,4 +82,4 @@ raw.push(knex('custom').insert([
   require('./sql/custom/01.json'), // id 1, identifier 6887,
 ]));
 
-module.exports = raw.join(';\n') + ';';
+module.exports = `${raw.join(';\n')};`;

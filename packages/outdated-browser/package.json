@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "main": "index.js",
-  "scripts": {},
   "dependencies": {
     "browserslist-useragent": "^3.0.3",
     "lodash": "^4.17.15",

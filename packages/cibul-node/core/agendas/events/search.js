@@ -43,7 +43,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
   const authorizedQuery = filterAuthorizedSearchFields(
     core,
     preCleanSearchQuery(query),
-    access
+    access,
   );
 
   const parsers = [];

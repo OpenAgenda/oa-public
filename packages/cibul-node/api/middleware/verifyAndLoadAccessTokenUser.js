@@ -1,17 +1,16 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('api/middleware/verifyAndLoadAccessTokenUser');
 
 module.exports = async (req, res, next) => {
   if (req.user) {
     return next();
   }
-  
+
   try {
     req.user = await req.app.core.users.get.byAccessToken(
       _.get(req, 'headers.access-token', _.get(req, 'body.access_token')),
-      _.get(req, 'headers.nonce', _.get(req, 'body.nonce'))
+      _.get(req, 'headers.nonce', _.get(req, 'body.nonce')),
     );
 
     if (!req.user) {
@@ -19,9 +18,9 @@ module.exports = async (req, res, next) => {
     }
   } catch (e) {
     return res.status(403).json({
-      error: e.message
+      error: e.message,
     });
   }
 
   next();
-}
+};

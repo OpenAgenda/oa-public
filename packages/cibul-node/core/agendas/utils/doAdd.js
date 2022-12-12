@@ -64,7 +64,7 @@ module.exports = async (core, payload, clean, options = {}) => {
           userUid,
           duplicateOrigin,
         },
-        decorate: ['member', 'sourceAgendas'],
+        decorate: ['member', 'sourceAgendas', 'user'],
       });
 
       payload.setItem('agendaEvent', before, created);

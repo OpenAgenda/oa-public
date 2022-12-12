@@ -9,10 +9,10 @@ module.exports = async (services, userUids, userOptions = {}) => {
   const { data } = await services.users.find({
     query: {
       uid: {
-        $in: [].concat(userUids)
-      }
+        $in: [].concat(userUids),
+      },
     },
-    ...userOptions
+    ...userOptions,
   });
 
   // For agenda-admin

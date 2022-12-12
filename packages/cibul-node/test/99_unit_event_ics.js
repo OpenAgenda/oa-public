@@ -1,23 +1,20 @@
 'use strict';
 
-const sinon = require( 'sinon' );
-const moment = require( 'moment' );
-const { agenda, event } = require('./fixtures/99_event_ics');
+const sinon = require('sinon');
+const moment = require('moment');
 const toIcs = require('../services/events/lib/ics');
+const { agenda, event } = require('./fixtures/99_event_ics');
 
 describe('event ics', () => {
   const now = new Date();
 
-  before( () => {
-    global.clock = sinon.useFakeTimers( { now: (now - now % 1000) } );
+  beforeAll(() => {
+    global.clock = sinon.useFakeTimers({ now: now - now % 1000 });
+  });
 
-  } );
-
-  after( () => {
-
+  afterAll(() => {
     global.clock.restore();
-
-  } );
+  });
 
   it('create valid ics', () => {
     return console.log('ignoring as does not work in different timezone');

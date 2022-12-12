@@ -1,11 +1,13 @@
 import _ from 'lodash';
-
-import React, { useState } from 'react';
-import FormSchemaComponent from '../client/src/index';
-import SimpleRowDecorator from './decorators/SimpleRow';
+import { useState } from 'react';
 import '@openagenda/bs-templates/compiled/main.css';
 
-if (module.hot) module.hot.accept();
+import FormSchemaComponent from '../client/src/index';
+import SimpleRowDecorator from './decorators/SimpleRow';
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
+}
 
 export default {
   title: 'Field types',
@@ -14,49 +16,49 @@ export default {
 
 export function TextArea() {
   const props = {
-      res: {
-        post: '',
-        redirect: '/'
-      },
-      lang: 'fr',
-      schema: {
-        fields: [{
-          field: 'singlelangfield',
-          fieldType: 'textarea',
-          label: {
-            fr: 'C\'est un champ avec une langue'
-          },
-          info: {
-            fr: 'Le texte info'
-          },
-          sub: {
-            fr: 'Le texte dessous'
-          },
-          max: 10000
-        }, {
-          field: 'multilangfield',
-          fieldType: 'textarea',
-          languages: ['fr', 'en'],
-          optional: false,
-          label: {
-            fr: 'Un champ multilingue'
-          },
-          info: {
-            fr: 'Le texte info'
-          },
-          placeholder: {
-            fr: 'Une courte description de votre événement'
-          },
-          sub: {
-            fr: 'Le texte dessous'
-          },
-          max: 400
-        }]
-      }
+    res: {
+      post: '',
+      redirect: '/',
+    },
+    lang: 'fr',
+    schema: {
+      fields: [{
+        field: 'singlelangfield',
+        fieldType: 'textarea',
+        label: {
+          fr: 'C\'est un champ avec une langue',
+        },
+        info: {
+          fr: 'Le texte info',
+        },
+        sub: {
+          fr: 'Le texte dessous',
+        },
+        max: 10000,
+      }, {
+        field: 'multilangfield',
+        fieldType: 'textarea',
+        languages: ['fr', 'en'],
+        optional: false,
+        label: {
+          fr: 'Un champ multilingue',
+        },
+        info: {
+          fr: 'Le texte info',
+        },
+        placeholder: {
+          fr: 'Une courte description de votre événement',
+        },
+        sub: {
+          fr: 'Le texte dessous',
+        },
+        max: 400,
+      }],
+    },
   };
-    
+
   return (
-      <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
         <p>Here we have two textarea fields. One simple, one multilingual</p>
         <FormSchemaComponent {...props} />
@@ -66,18 +68,17 @@ export function TextArea() {
 }
 
 export function SlateField() {
-
   const [state, setState] = useState('');
 
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     values: {
       // this is what a slate value looks like.
-      singlelangfield: JSON.stringify( {
+      singlelangfield: JSON.stringify({
         document: {
           nodes: [
             {
@@ -96,34 +97,34 @@ export function SlateField() {
             },
           ],
         },
-      } )
+      }),
     },
     schema: {
-      "fields" : [ {
-        "field" : "singlelangfield",
-        "fieldType" : "slate",
-        "label" : {
-          "fr" : "C'est un champ qui pond un doc slate"
+      fields: [{
+        field: 'singlelangfield',
+        fieldType: 'slate',
+        label: {
+          fr: 'C\'est un champ qui pond un doc slate',
         },
-        "info" : {
-          "fr" : "Le texte info"
+        info: {
+          fr: 'Le texte info',
         },
-        "sub" : {
-          "fr" : "Le texte dessous"
-        }
+        sub: {
+          fr: 'Le texte dessous',
+        },
       }, {
-        "field" : "emptyfieldwithlongplaceholder",
-        "fieldType" : "slate",
-        "optional" : false,
-        "label" : {
-          "fr" : "C'est un champ avec un gros placeholder"
+        field: 'emptyfieldwithlongplaceholder',
+        fieldType: 'slate',
+        optional: false,
+        label: {
+          fr: 'C\'est un champ avec un gros placeholder',
         },
-        "info" : "Le placeholder s'étale sur plusieurs lignes",
-        "placeholder" : {
-          "fr" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed non risus.\nSuspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.\nCras elementum ultrices diam.\nMaecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie"
-        }
-      } ]
-    }
+        info: 'Le placeholder s\'étale sur plusieurs lignes',
+        placeholder: {
+          fr: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed non risus.\nSuspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.\nCras elementum ultrices diam.\nMaecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie',
+        },
+      }],
+    },
   };
 
   return (
@@ -132,15 +133,16 @@ export function SlateField() {
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>An Slate field.</p>
-            <FormSchemaComponent { ...props } onChange={(v) => setState(v)} />
+            <FormSchemaComponent {...props} onChange={v => setState(v)} />
           </div>
         </div>
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
-            { _.get( state, 'values.singlelangfield' ) ?
-            <pre style={{minHeight: 400}}>
-              { JSON.stringify( _.get( state, 'values.singlelangfield' ), null, 2 )}
-            </pre> : null }
+            {state?.values?.singlelangfield ? (
+              <pre style={{ minHeight: 400 }}>
+                {JSON.stringify(state?.values?.singlelangfield, null, 2)}
+              </pre>
+            ) : null }
           </div>
         </div>
       </div>
@@ -149,9 +151,8 @@ export function SlateField() {
 }
 
 export function HTMLField() {
-
   const [values, setFormValues] = useState({
-    singlelangfield: '<p>Et boum</p>'
+    singlelangfield: '<p>Et boum</p>',
   });
 
   const [loaded, setLoaded] = useState(true);
@@ -159,7 +160,7 @@ export function HTMLField() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     values,
@@ -168,30 +169,30 @@ export function HTMLField() {
         field: 'singlelangfield',
         fieldType: 'html',
         label: {
-          fr: 'C\'est un champ qui pond du html'
+          fr: 'C\'est un champ qui pond du html',
         },
         info: {
-          fr: 'Le texte info'
+          fr: 'Le texte info',
         },
         sub: {
-          fr: 'Le texte dessous'
+          fr: 'Le texte dessous',
         },
-        max: 10000
+        max: 10000,
       }, {
         field: 'withdefault',
         fieldType: 'html',
         label: {
-          fr: 'Un champ avec une valeur par défaut'
+          fr: 'Un champ avec une valeur par défaut',
         },
-        default: '<p>Valeur par défaut</p>'
-      }]
-    }
+        default: '<p>Valeur par défaut</p>',
+      }],
+    },
   };
 
   if (!loaded) {
     return <p>Not loaded</p>;
   }
-  
+
   return (
     <div className="container top-margined">
       <div className="row">
@@ -202,7 +203,7 @@ export function HTMLField() {
             setLoaded(false);
 
             setFormValues({
-              singlelangfield: '<p></p>'
+              singlelangfield: '<p></p>',
             });
             setTimeout(() => {
               setLoaded(true);
@@ -214,18 +215,19 @@ export function HTMLField() {
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>An HTML field.</p>
-            <FormSchemaComponent {...props} onChange={(v) =>  { 
-              setFormValues(v.values)
-            }}/>
+            <FormSchemaComponent
+              {...props}
+              onChange={v => setFormValues(v.values)}
+            />
           </div>
         </div>
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
-          {values?.singlelangfield ? (
-            <pre style={{minHeight: 400}}>
-              {values.singlelangfield}
-            </pre> 
-          ) : null }
+            {values?.singlelangfield ? (
+              <pre style={{ minHeight: 400 }}>
+                {values.singlelangfield}
+              </pre>
+            ) : null}
           </div>
         </div>
       </div>
@@ -234,36 +236,35 @@ export function HTMLField() {
 }
 
 export function IntegerFields() {
-
-  const onSubmit = ( { values }) => {
-    alert( JSON.stringify( values, null, 2 ) );
-  }
+  const onSubmit = ({ values }) => {
+    alert(JSON.stringify(values, null, 2));
+  };
 
   const props = {
     lang: 'fr',
-    onSubmit: (v) => onSubmit(v),
+    onSubmit: v => onSubmit(v),
     schema: {
-      fields: [ {
+      fields: [{
         field: 'anintegerfield',
         fieldType: 'integer',
         label: 'Type an integer',
         max: 100,
-        min: 50
+        min: 50,
       }, {
         field: 'arequiredintegerfield',
         fieldType: 'integer',
         label: 'A required integer',
         max: 10,
-        optional: false
-      } ]
-    }
-  }
+        optional: false,
+      }],
+    },
+  };
 
   return (
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
         <p>A number and an integer</p>
-        <FormSchemaComponent { ...props } />
+        <FormSchemaComponent {...props} />
       </div>
     </div>
   );
@@ -273,11 +274,11 @@ export function NumbersFields() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     values: {
-      afieldwithavalue: 0
+      afieldwithavalue: 0,
     },
     schema: {
       fields: [{
@@ -285,13 +286,13 @@ export function NumbersFields() {
         fieldType: 'number',
         label: 'Type a number',
         max: 100,
-        min: 50
+        min: 50,
       }, {
         field: 'afieldwithavalue',
         fieldType: 'number',
-        label: 'Should load with a 0'
-      }]
-    }
+        label: 'Should load with a 0',
+      }],
+    },
   };
 
   return (
@@ -305,36 +306,35 @@ export function NumbersFields() {
 }
 
 export function TextFields() {
-  
-  const onSubmit = ( { values }) => {
+  const onSubmit = ({ values }) => {
     console.log(values);
-  }
-  
+  };
+
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
-    lang: "fr",
-    onSubmit: (v) => onSubmit(v),
-    schema:{
+    lang: 'fr',
+    onSubmit: v => onSubmit(v),
+    schema: {
       fields: [{
         field: 'atextfield',
         fieldType: 'text',
-        label: 'Type a bunch of text'
+        label: 'Type a bunch of text',
       }, {
         field: 'requiredtextfield',
         fieldType: 'text',
         optional: false,
-        label: 'Here too.'
-      }]
-    }
+        label: 'Here too.',
+      }],
+    },
   };
 
   return (
     <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
-        <FormSchemaComponent {...props}/>
+        <FormSchemaComponent {...props} />
       </div>
     </div>
   );
@@ -348,8 +348,8 @@ export function LinkFields() {
         field: 'anintegerfield',
         fieldType: 'link',
         label: 'Type a link',
-      }]
-    }
+      }],
+    },
   };
 
   return (
@@ -365,31 +365,31 @@ export function DateFields() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     schema: {
       fields: [{
         field: 'adatefield',
         fieldType: 'date',
-        label: 'Pick a date'
+        label: 'Pick a date',
       }, {
         field: 'adisableddatefield',
         fieldType: 'date',
         label: {
           fr: 'Une date désactivée',
-          en: 'A disabled date'
+          en: 'A disabled date',
         },
-        enableWith: 'adatefield'
+        enableWith: 'adatefield',
       }, {
         field: 'afieldwithavalue',
         fieldType: 'date',
-        label: 'Une date avec une valeur'
-      }]
+        label: 'Une date avec une valeur',
+      }],
     },
     values: {
-      afieldwithavalue: '2021-11-04T23:00:00.000Z'
-    }
+      afieldwithavalue: '2021-11-04T23:00:00.000Z',
+    },
   };
 
   return (
@@ -407,7 +407,7 @@ export function SelectFields() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     schema: {
@@ -420,21 +420,21 @@ export function SelectFields() {
         options: [{
           id: 1,
           value: 'option-one',
-          label: 'Option one'
+          label: 'Option one',
         }, {
           id: 2,
           value: 'option-two',
-          label: 'Option two'
+          label: 'Option two',
         }, {
           id: 3,
           value: 'option-three',
-          label: 'Option three'
+          label: 'Option three',
         }, {
           id: 4,
           value: 'option-four',
           label: 'Option Four',
-          display: false
-        }]
+          display: false,
+        }],
       }, {
         field: 'anoptionalreadiofieldwithinfo',
         fieldType: 'select',
@@ -444,18 +444,21 @@ export function SelectFields() {
           id: 5,
           value: 'elephant',
           label: 'Elephant',
-          info: 'Big and gray, not very hairy.'
+          info: 'Big and gray, not very hairy.',
         }, {
           id: 6,
           value: 'spider',
           label: 'Spider',
-          info: 'Never small enough, with 8 feet and 8 eyes'
+          info: 'Never small enough, with 8 feet and 8 eyes',
         }, {
           id: 7,
           value: 'fork',
           label: 'Fork',
-          info: { en: 'Why is this even here?', fr: 'Pourquoi?' }
-        }]
+          info: {
+            en: 'Why is this even here?',
+            fr: 'Pourquoi?',
+          },
+        }],
       }, {
         field: 'animplicitelyoptionalradiofield',
         fieldType: 'select',
@@ -463,8 +466,8 @@ export function SelectFields() {
         options: [{
           id: 8,
           value: 'tbag',
-          label: 'Tea bag'
-        }]
+          label: 'Tea bag',
+        }],
       }, {
         field: 'requiredwithoutvalueatloadisrequired',
         fieldType: 'select',
@@ -474,15 +477,15 @@ export function SelectFields() {
         options: [{
           id: 9,
           value: 'scorbut',
-          label: 'Scorbut'
+          label: 'Scorbut',
         }, {
           id: 10,
           value: 'wall',
-          label: 'Wall'
-        }]
-      }]
+          label: 'Wall',
+        }],
+      }],
     },
-    onChange: setValues
+    onChange: setValues,
   };
 
   return (
@@ -506,7 +509,7 @@ export function RadioFields() {
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     schema: {
@@ -519,21 +522,21 @@ export function RadioFields() {
         options: [{
           id: 1,
           value: 'option-one',
-          label: 'Option one'
+          label: 'Option one',
         }, {
           id: 2,
           value: 'option-two',
-          label: 'Option two'
+          label: 'Option two',
         }, {
           id: 3,
           value: 'option-three',
-          label: 'Option three'
+          label: 'Option three',
         }, {
           id: 4,
           value: 'option-four',
           label: 'Option Four',
-          display: false
-        }]
+          display: false,
+        }],
       }, {
         field: 'anoptionalreadiofieldwithinfo',
         fieldType: 'radio',
@@ -543,18 +546,18 @@ export function RadioFields() {
           id: 5,
           value: 'elephant',
           label: 'Elephant',
-          info: 'Big and gray, not very hairy.'
+          info: 'Big and gray, not very hairy.',
         }, {
           id: 6,
           value: 'spider',
           label: 'Spider',
-          info: 'Never small enough, with 8 feet and 8 eyes'
+          info: 'Never small enough, with 8 feet and 8 eyes',
         }, {
           id: 7,
           value: 'fork',
           label: 'Fork',
-          info: { en: 'Why is this even here?', fr: 'Pourquoi?' }
-        }]
+          info: { en: 'Why is this even here?', fr: 'Pourquoi?' },
+        }],
       }, {
         field: 'animplicitelyoptionalradiofield',
         fieldType: 'radio',
@@ -562,8 +565,8 @@ export function RadioFields() {
         options: [{
           id: 8,
           value: 'tbag',
-          label: 'Tea bag'
-        }]
+          label: 'Tea bag',
+        }],
       }, {
         field: 'requiredwithoutvalueatloadisrequired',
         fieldType: 'radio',
@@ -573,14 +576,14 @@ export function RadioFields() {
         options: [{
           id: 9,
           value: 'scorbut',
-          label: 'Scorbut'
+          label: 'Scorbut',
         }, {
           id: 10,
           value: 'wall',
-          label: 'Wall'
-        }]
-      }]
-    }
+          label: 'Wall',
+        }],
+      }],
+    },
   };
 
   return (
@@ -594,11 +597,10 @@ export function RadioFields() {
 }
 
 export function Checkboxes() {
-  
-  const alertOnSubmit = ( { values, clean } ) => {
-    alert( JSON.stringify( clean, null, 2 ) );
-  }
-  
+  const alertOnSubmit = ({ values, clean }) => {
+    alert(JSON.stringify({ values, clean }, null, 2));
+  };
+
   const props = {
     onSubmit: alertOnSubmit,
     lang: 'fr',
@@ -612,21 +614,21 @@ export function Checkboxes() {
         options: [{
           id: 1,
           value: 'option-one',
-          label: 'Option one'
+          label: 'Option one',
         }, {
           id: 2,
           value: 'option-two',
-          label: 'Option two'
+          label: 'Option two',
         }, {
           id: 3,
           value: 'option-three',
-          label: 'Option three'
+          label: 'Option three',
         }, {
           id: 4,
           value: 'option-four',
           label: 'Option four',
-          display: false
-        }]
+          display: false,
+        }],
       }, {
         field: 'acheckboxfieldwithmax',
         fieldType: 'checkbox',
@@ -636,16 +638,16 @@ export function Checkboxes() {
         options: [{
           id: 6,
           value: 'option-six',
-          label: 'Option six'
+          label: 'Option six',
         }, {
           id: 7,
           value: 'option-seven',
-          label: 'Option seven'
+          label: 'Option seven',
         }, {
           id: 8,
           value: 'option-eight',
-          label: 'Option eight'
-        }]
+          label: 'Option eight',
+        }],
       }, {
         field: 'arequiredcheckboxfieldwithoutdefaults',
         fieldType: 'checkbox',
@@ -654,10 +656,10 @@ export function Checkboxes() {
         options: [{
           id: 5,
           value: 'option-five',
-          label: 'Option Five'
-        }]
-      }]
-    }
+          label: 'Option Five',
+        }],
+      }],
+    },
   };
 
   return (
@@ -671,38 +673,37 @@ export function Checkboxes() {
 }
 
 export function Boolean() {
-
-  const onChange = ( { values }) => {
+  const onChange = ({ values }) => {
     console.log(values);
-  }
+  };
 
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
-    onChange: (v) => onChange(v),
+    onChange: v => onChange(v),
     schema: {
       fields: [{
         field: 'ayesorno',
         fieldType: 'boolean',
         label: 'Well ok',
-        optional: false
+        optional: false,
       }, {
         field: 'longlabelwithinfoandhelp',
         fieldType: 'boolean',
         label: 'This is an extremely long label that will take up more than one line in the form. The first line of the label should still appear on the line of the checkbox itself',
         info: 'An info text displayed under the label',
         help: 'Click here for more info',
-        helpLink: 'https://openagenda.com'
+        helpLink: 'https://openagenda.com',
       }, {
         field: 'checkedbydefault',
         fieldType: 'boolean',
         label: 'This should be checked by default',
-        default: true
-      }]
-    }
+        default: true,
+      }],
+    },
   };
 
   return (
@@ -716,58 +717,57 @@ export function Boolean() {
 }
 
 export function MarkdownField() {
-
   const [state, setState] = useState('');
 
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     values: {
       singlelangfield: 'Avant\n\nhttp://le\\_monde.com\n\net après',
-      multilangfield: { fr: '*Et boum*' }
+      multilangfield: { fr: '*Et boum*' },
     },
     schema: {
       fields: [{
         field: 'simpletextfield',
         fieldType: 'text',
         label: {
-          fr: 'C\'est un champ basique'
-        }
+          fr: 'C\'est un champ basique',
+        },
       }, {
         field: 'singlelangfield',
         fieldType: 'markdown',
         optional: false,
         label: {
-          fr: 'C\'est un champ qui pond du markdown'
+          fr: 'C\'est un champ qui pond du markdown',
         },
         info: {
-          fr: 'Le texte info'
+          fr: 'Le texte info',
         },
         sub: {
-          fr: 'Le texte dessous'
+          fr: 'Le texte dessous',
         },
-        max: 10000
+        max: 10000,
       }, {
         field: 'multilangfield',
         fieldType: 'markdown',
         optional: false,
         languages: ['en', 'fr'],
         label: {
-          fr: 'C\'est pareil, mais multilingue'
+          fr: 'C\'est pareil, mais multilingue',
         },
         info: {
-          fr: 'Le texte info'
+          fr: 'Le texte info',
         },
         placeholder: {
-          fr: "S'affiche dans le champ"
+          fr: 'S\'affiche dans le champ',
         },
         sub: {
-          fr: 'Le texte dessous'
+          fr: 'Le texte dessous',
         },
-        max: 4000
+        max: 4000,
       }, {
         field: 'monolingualmarkdown',
         optional: false,
@@ -775,9 +775,9 @@ export function MarkdownField() {
         info: 'With some ',
         placeholder: 'Type in stuff\n on multiple lines\nAs placeholder',
         label: 'Monolingual markdown field',
-        default: '**Some default text**'
-      }]
-    }
+        default: '**Some default text**',
+      }],
+    },
   };
 
   return (
@@ -786,7 +786,7 @@ export function MarkdownField() {
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>Some markdown fields.</p>
-            <FormSchemaComponent {...props} onChange={(v) => setState(v)} />
+            <FormSchemaComponent {...props} onChange={v => setState(v)} />
           </div>
         </div>
         <div className="wsq col-lg-5 col-lg-offset-1">
@@ -804,13 +804,10 @@ export function MarkdownField() {
 }
 
 export function FileUploadField() {
-
-  const [values, setState] = useState('');
-
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     lang: 'fr',
     fileKey: 'uniquefilekey123',
@@ -818,36 +815,36 @@ export function FileUploadField() {
       somefile: {
         originalName: 'alorsalors.jpg',
         extension: 'jpg',
-        filename: 'uniquefilekey123.somefile.jpg'
-      }
+        filename: 'uniquefilekey123.somefile.jpg',
+      },
     },
     schema: {
-      fields : [{
-        "field" : "somefile",
-        "fieldType" : "file",
-        "extensions" : [ 'jpg', 'pdf' ],
-        "store" : {
-          "type" : "s3",
-          "bucket" : "oadev"
+      fields: [{
+        field: 'somefile',
+        fieldType: 'file',
+        extensions: ['jpg', 'pdf'],
+        store: {
+          type: 's3',
+          bucket: 'oadev',
         },
-        "label" : {
-          "fr" : "C'est un champ qui permet de charger un fichier"
+        label: {
+          fr: 'C\'est un champ qui permet de charger un fichier',
         },
-        "info" : {
-          "fr" : "Le texte info"
+        info: {
+          fr: 'Le texte info',
         },
-        "sub" : {
-          "fr" : "Le texte dessous"
-        }
+        sub: {
+          fr: 'Le texte dessous',
+        },
       }, {
         field: 'someotherfield',
         fieldType: 'text',
         label: {
           fr: 'Libre',
-          en: 'Free'
-        }
-      }]
-    }
+          en: 'Free',
+        },
+      }],
+    },
   };
 
   return (
@@ -856,7 +853,7 @@ export function FileUploadField() {
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>A file upload field.</p>
-            <FormSchemaComponent { ...props } onChange={(v) => setState(values)} />
+            <FormSchemaComponent {...props} onChange={() => {}} />
           </div>
         </div>
       </div>
@@ -865,13 +862,10 @@ export function FileUploadField() {
 }
 
 export function ImageUploadField() {
-
-  const [values, setState] = useState('');
-  
   const props = {
     res: {
       post: '',
-      redirect: '/'
+      redirect: '/',
     },
     maxFileSize: 20,
     lang: 'fr',
@@ -880,8 +874,8 @@ export function ImageUploadField() {
       someimage: {
         originalName: 'large_monkey-shoulder-thumb.jpg',
         extension: 'jpg',
-        filename: 'uniquefilekey.someimage.jpg'
-      }
+        filename: 'uniquefilekey.someimage.jpg',
+      },
     },
     schema: {
       fields: [{
@@ -890,36 +884,36 @@ export function ImageUploadField() {
         extensions: ['jpg', 'bmp', 'png'],
         store: {
           type: 's3',
-          bucket: 'oadev'
+          bucket: 'oadev',
         },
         label: {
-          fr: 'C\'est un champ qui permet de charger une image'
+          fr: 'C\'est un champ qui permet de charger une image',
         },
         info: {
-          fr: 'Le texte info'
+          fr: 'Le texte info',
         },
         sub: {
-          fr: 'Le texte dessous'
-        }
+          fr: 'Le texte dessous',
+        },
       }, {
         field: 'somerequiredimage',
         fieldType: 'image',
         extensions: ['jpg'],
         optional: false,
-        label: 'A required image'
+        label: 'A required image',
       }, {
         label: 'Les crédits',
         field: 'imageCredits',
         fieldType: 'text',
-        enableWith: 'somerequiredimage'
+        enableWith: 'somerequiredimage',
       }, {
         field: 'somedisabledimage',
         fieldType: 'image',
         extensions: ['jpg'],
         enable: false,
-        label: 'A disabled image field'
-      }]
-    }
+        label: 'A disabled image field',
+      }],
+    },
   };
 
   return (
@@ -928,7 +922,7 @@ export function ImageUploadField() {
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>An image upload field.</p>
-            <FormSchemaComponent { ...props } onChange={(v) => setState(values)} />
+            <FormSchemaComponent {...props} onChange={() => {}} />
           </div>
         </div>
       </div>

@@ -10,7 +10,10 @@ const legacyAccessType = require('./legacyAccessType');
 const includeTypes = ['radio', 'select', 'checkbox', 'multiselect'];
 const uniques = ['radio', 'select'];
 
-function defineTags(schemaId, currentTags = [], fieldOptions = [], { lang }) {
+function defineTags(schemaId, currentTags = [], fieldOptions = [], options = {}) {
+  const {
+    lang,
+  } = options;
   return fieldOptions.map(o => {
     let matchingTagIndex = -1;
 
@@ -30,21 +33,21 @@ function defineTags(schemaId, currentTags = [], fieldOptions = [], { lang }) {
       return ih(currentTags[matchingTagIndex], {
         slug: { $set: slug },
         label: { $set: label },
-        schemaOptionId: { $set: schemaOptionId }
+        schemaOptionId: { $set: schemaOptionId },
       });
     }
 
     return {
       slug,
       label,
-      schemaOptionId
+      schemaOptionId,
     };
   });
 }
 
 module.exports = (schema, currentTagSet = null, options = {}) => {
   const {
-    lang
+    lang,
   } = options;
   const currentTagGroups = _.get(currentTagSet, 'groups', []);
 
@@ -64,15 +67,15 @@ module.exports = (schema, currentTagSet = null, options = {}) => {
       required: !f.optional,
       unique: uniques.includes(f.fieldType),
       access: legacyAccessType(f, 'contributor'),
-      tags: defineTags(f.schemaId, index === -1 ? [] : currentTagGroups[index].tags, f.options, options)
+      tags: defineTags(f.schemaId, index === -1 ? [] : currentTagGroups[index].tags, f.options, options),
     };
   });
 
   return {
     set: updatedGroups.length ? {
-      groups: updatedGroups
+      groups: updatedGroups,
     } : null,
     messages,
-    fields: tagSettableFields
+    fields: tagSettableFields,
   };
 };

@@ -7,7 +7,7 @@ const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences')
 
 module.exports = (services, queue, eventSearch) => {
   const {
-    agendaEvents
+    agendaEvents,
   } = services;
 
   return async ({ agenda, member, formSchema, event }) => {
@@ -17,7 +17,7 @@ module.exports = (services, queue, eventSearch) => {
 
     const data = {
       ...event,
-      member
+      member,
     };
 
     const result = await searchIndex.add(data, { refresh: true, formSchema, agenda });
@@ -34,5 +34,5 @@ module.exports = (services, queue, eventSearch) => {
     }
 
     log('done');
-  }
-}
+  };
+};

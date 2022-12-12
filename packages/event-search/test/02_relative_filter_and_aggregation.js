@@ -30,6 +30,7 @@ describe('02 - event search - functional: relative filter', () => {
     const inAnHour = new Date();
     inAnHour.setHours(inAnHour.getHours() + 1);
 
+    // last event occurs today, started an hour ago and will finish in an hour
     fixtures.events[fixtures.events.length - 1].timings = [{
       begin: JSON.stringify(anHourAgo).replace(/"/g, ''),
       end: JSON.stringify(inAnHour).replace(/"/g, '')
@@ -73,6 +74,15 @@ describe('02 - event search - functional: relative filter', () => {
     });
 
     assert.equal(events.map(e => e.uid).includes(4), true);
+  });
+
+  it('filter on events occurring today', async () => {
+    const { events, total } = await service('relative').search({
+      timings: { range: 'today', timezone: 'Europe/Paris' }
+    });
+
+    assert.equal(total, 1);
+    assert.equal(events[0].uid, 4);
   });
 
   it('aggregation', async () => {

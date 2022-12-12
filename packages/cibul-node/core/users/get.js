@@ -1,13 +1,20 @@
 'use strict';
 
-module.exports = core => (userUid, options = {}) => {
-  const {
-    users: usersSvc
-  } = core.services;
+const logs = require('@openagenda/logs');
 
-  const {
-    detailed = false
-  } = options;
+module.exports = core => {
+  const log = logs('core/users/get');
 
-  return usersSvc.findOne({ query: { uid: userUid }, detailed });
+  return (userUid, options = {}) => {
+    log('getting user %s', userUid);
+    const {
+      users: usersSvc,
+    } = core.services;
+
+    const {
+      detailed = false,
+    } = options;
+
+    return usersSvc.findOne({ query: { uid: userUid }, detailed });
+  };
 };

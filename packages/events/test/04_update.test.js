@@ -85,6 +85,18 @@ describe('events - functional - update', () => {
     });
   });
 
+  describe('other patches', () => {
+    it('patch to remove location on online event', async () => {
+      const patched = await svc.patch({ slug: 'musiques-electroniques-et-cinema' }, {
+        attendanceMode: 2,
+        onlineAccessLink: 'https://oa.com',
+        location: null
+      });
+
+      expect(patched.locationUid).toBeUndefined();
+    });
+  })
+
   describe('update with image', () => {
     let svc;
 

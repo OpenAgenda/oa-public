@@ -228,6 +228,32 @@ describe('11 - event-search - unit: formatEvent', function() {
     should(formatEvent(newEvent, { formSchema })._exclusiveUpdatedAt).equal(undefined);
   });
 
+  it('if member contains contactName, it is used as name in member data', () => {
+    formatEvent(produce(event, draft => {
+      draft.member = {
+        custom: {
+          contactName: 'Elf'
+        }
+      }
+      draft.user = {
+        fullName: 'Inashelf'
+      }
+    })).member.name.should.equal('Elf');
+  });
+
+  it('if member does not contain contactName, user fullName is used as member name', () => {
+    formatEvent(produce(event, draft => {
+      draft.member = {
+        custom: {
+          contactName: null
+        }
+      }
+      draft.user = {
+        fullName: 'Inashelf'
+      }
+    })).member.name.should.equal('Inashelf');
+  });
+
   it('fix: registration already with type is handled', () => {
     const newEvent = produce(event, draft => {
       draft.registration = [

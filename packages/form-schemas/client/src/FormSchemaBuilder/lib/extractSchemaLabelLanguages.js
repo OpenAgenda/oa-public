@@ -5,9 +5,9 @@ function amendWithFieldLanguages(field, existingLanguages = []) {
     (languages, key) => languages.concat(
       (field[key] && (field[key] instanceof Object) ? Object.keys(field[key]) : [])
         .filter(l => !languages.includes(l))
-        .filter(l => !!(field[key][l] ?? '').length)
+        .filter(l => !!(field[key][l] ?? '').length),
     ),
-    existingLanguages
+    existingLanguages,
   );
 
   (field?.options ?? []).forEach(option => {
@@ -20,6 +20,6 @@ function amendWithFieldLanguages(field, existingLanguages = []) {
 export default function extractSchemaLabelLanguages(schema) {
   return (schema?.fields ?? []).reduce(
     (languages, field) => amendWithFieldLanguages(field, languages),
-    []
+    [],
   );
 }

@@ -4,10 +4,11 @@ const ih = require('immutability-helper');
 const isObject = require('./isObject');
 
 const {
-  extractNextOptionId
+  extractNextOptionId,
 } = require('./fieldOptions');
 
 const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionIds');
+const validateSection = require('./validateSection');
 
 const getSchema = require('./getSchema');
 const getWithFieldName = require('./getWithFieldName');
@@ -17,13 +18,13 @@ const isNew = data => data.id === null;
 function validate(data, options = {}) {
   const {
     client,
-    requireLabels
+    requireLabels,
   } = {
     client: false,
     requireLabels: true,
-    ...(typeof options === 'boolean' ? {
-      client: options
-    } : options)
+    ...typeof options === 'boolean' ? {
+      client: options,
+    } : options,
   };
 
   let errors = [];
@@ -35,7 +36,7 @@ function validate(data, options = {}) {
     res: null,
     custom: null,
     defaultLabelLanguage: null,
-    ...(data || {})
+    ...data || {},
   };
 
   // these we take as is
@@ -43,7 +44,7 @@ function validate(data, options = {}) {
     'id',
     'res',
     'custom',
-    'defaultLabelLanguage'
+    'defaultLabelLanguage',
   ]);
 
   clean.nextOptionId = extractNextOptionId(data);
@@ -53,14 +54,19 @@ function validate(data, options = {}) {
   // clean each field
   dirty.fields.forEach(f => {
     try {
+      if (f.type === 'section') {
+        clean.fields.push(validateSection(f));
+        return;
+      }
+
       const {
         field: cleanField,
-        nextOptionId: updatedNextOptionId
+        nextOptionId: updatedNextOptionId,
       } = validateFieldAndAssignOptionIds(f, {
         requireLabels,
         custom: clean.custom,
         defaultLabelLanguage: clean.defaultLabelLanguage,
-        nextOptionId: clean.nextOptionId
+        nextOptionId: clean.nextOptionId,
       });
 
       clean.nextOptionId = updatedNextOptionId;
@@ -70,7 +76,7 @@ function validate(data, options = {}) {
       if (!Array.isArray(e)) {
         const error = {
           ...e,
-          message: `Validation of field ${f.field} failed: ${e.message}`
+          message: `Validation of field ${f.field} failed: ${e.message}`,
         };
         throw error;
       }
@@ -91,7 +97,7 @@ module.exports = class {
     // { fields, nextOptionId, res, id, custom }
     this.data = validate(data, {
       client: true,
-      ...(typeof options === 'boolean' ? { client: options } : options)
+      ...typeof options === 'boolean' ? { client: options } : options,
     });
   }
 
@@ -103,9 +109,9 @@ module.exports = class {
   addField(fieldData) {
     const {
       field: clean,
-      nextOptionId
+      nextOptionId,
     } = validateFieldAndAssignOptionIds(fieldData, _.pick(this.data, [
-      'custom', 'defaultLabelLanguage', 'nextOptionId'
+      'custom', 'defaultLabelLanguage', 'nextOptionId',
     ]));
 
     if (!this.isFieldNameAvailable(clean.field)) {
@@ -121,9 +127,9 @@ module.exports = class {
   updateField(fieldData) {
     const {
       field: clean,
-      nextOptionId
+      nextOptionId,
     } = validateFieldAndAssignOptionIds(fieldData, _.pick(this.data, [
-      'custom', 'defaultLabelLanguage', 'nextOptionId'
+      'custom', 'defaultLabelLanguage', 'nextOptionId',
     ]));
 
     const fieldIndex = this._getFieldIndex(clean.field);
@@ -241,11 +247,11 @@ module.exports = class {
     const args = isObject(accessType) ? {
       accessType: null,
       accessLevel: null,
-      options: accessType
+      options: accessType,
     } : {
       accessType,
       accessLevel,
-      options
+      options,
     };
 
     return getSchema(
@@ -254,9 +260,9 @@ module.exports = class {
       args.accessLevel,
       ih(args.options, {
         custom: {
-          $set: this.data.custom
-        }
-      })
+          $set: this.data.custom,
+        },
+      }),
     );
   }
 

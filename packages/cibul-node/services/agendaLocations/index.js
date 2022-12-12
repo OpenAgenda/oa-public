@@ -28,7 +28,7 @@ module.exports.init = async (config, services) => {
   const { geocoder } = services;
 
   queue.register({
-    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas(services)
+    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas(services),
   });
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
@@ -47,15 +47,15 @@ module.exports.init = async (config, services) => {
       geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language }),
       getAgendaLocationSettings: getAgendaLocationSettings(services),
       getLinkedAgendas: getLinkedAgendas(services),
-      getAgendaUidsByIds: getAgendaUidsByIds(services)
+      getAgendaUidsByIds: getAgendaUidsByIds(services),
     },
     Files: services.files,
-    logger: config.getLogConfig('svc', 'agendaLocations')
+    logger: config.getLogConfig('svc', 'agendaLocations'),
   });
   return Object.assign(instance, {
     apps: Object.assign(plugApp.bind(null, { ...config, geocoder }, services, instance), {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
-      agenda: plugAgendaApp.bind(null, services, instance)
+      agenda: plugAgendaApp.bind(null, services, instance),
     }),
     shutdown: async (options = {}) => {
       if (!taskRunning) return;
@@ -68,7 +68,7 @@ module.exports.init = async (config, services) => {
     task: async (options = {}) => {
       const {
         duplicationDetection,
-        reset = false
+        reset = false,
       } = options;
       taskRunning = true;
       log('task');
@@ -80,6 +80,6 @@ module.exports.init = async (config, services) => {
         await queue.clear();
       }
       queue.run();
-    }
+    },
   });
 };

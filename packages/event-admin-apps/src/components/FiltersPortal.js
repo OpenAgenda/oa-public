@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useConstant } from '@openagenda/react-shared';
 import ReactDOM from 'react-dom';
@@ -32,6 +32,6 @@ export default function FiltersPortal({ filtersContainerRef, ...rest }) {
 
       <FiltersPart {...rest} />
     </div>,
-    filtersContainer
+    filtersContainer,
   );
 }
