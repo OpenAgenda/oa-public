@@ -23,6 +23,10 @@ export const isFieldEditable = (field, { isOwn, editableExtensions }) => {
 
 export const isFieldMultilingual = ({ languages }) => !!Array.isArray(languages);
 
+export const isFieldOptional = field => field?.optional ?? true;
+
+export const isFieldDisplayed = field => field?.display ?? true;
+
 export const getLabel = makeLabelGetter(labels);
 
 export function getDefaultValueLabel(field, lang) {

@@ -22,7 +22,7 @@ const assignConstraintsToFields = (schema, parents) => schema.fields.reduce((car
 const fieldOrder = order => ({ fields: order.map(f => ({ field: f, fieldType: 'abstract' })) });
 
 const fieldSchemaTypes = {
-  labels: options => ({ labelLanguages }) => fg.labels({ ...options, labelLanguages }),
+  labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
     parentsField ? null : fg.minMax({ min: 0, max: 255 }),
@@ -44,7 +44,7 @@ const fieldSchemaTypes = {
 
 const schemas = (type, { customFieldConfigurationSchemas }) => {
   if (type === 'section') {
-    return fieldSchemaTypes.labels({ pick: ['label'], allOptional: true });
+    return fg.section;
   }
   if (['text', 'textarea', 'markdown', 'link', 'boolean', 'email', 'integer'].includes(type)) {
     return fieldSchemaTypes.textLike;
@@ -55,7 +55,7 @@ const schemas = (type, { customFieldConfigurationSchemas }) => {
   if (customFieldConfigurationSchemas && customFieldConfigurationSchemas[type]) {
     return fieldSchemaTypes.customLike(customFieldConfigurationSchemas[type]);
   }
-  return fieldSchemaTypes.labels();
+  return fieldSchemaTypes.labels;
 };
 
 export default class FieldForm extends Component {
