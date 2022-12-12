@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import passValidator from '@openagenda/validators/pass';
 import FormSchemaComponent from '..';
 
@@ -14,7 +14,7 @@ import optionsValidator from './lib/optionsValidator';
 const assignConstraintsToFields = (schema, parents) => schema.fields.reduce((carriedSchema, field) => {
   carriedSchema.fields.push({
     ...field,
-    constraints: parents ? parents[field.field] : null
+    constraints: parents ? parents[field.field] : null,
   });
   return carriedSchema;
 }, { ...schema, fields: [] });
@@ -26,20 +26,20 @@ const fieldSchemaTypes = {
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
     parentsField ? null : fg.minMax({ min: 0, max: 255 }),
-    (!parentsField || (parentsField?.optional ?? true)) ? fg.optional() : null,
-    fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub'])
+    !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
+    fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub']),
   ),
   radioLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
-    (!parentsField || (parentsField?.optional ?? true)) ? fg.optional() : null,
+    !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
     parentsField ? null : fg.options({ labelLanguages }),
-    fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub'])
+    fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub']),
   ),
   customLike: customFieldSchema => ({ labelLanguages }) => merge(
     customFieldSchema.fields.some(f => f.field === 'label') ? fg.labels({ labelLanguages }) : null,
     customFieldSchema.fields.some(f => f.field === 'optional') ? fg.optional() : null,
-    customFieldSchema
-  )
+    customFieldSchema,
+  ),
 };
 
 const schemas = (fieldType, { customFieldConfigurationSchemas }) => {
@@ -63,7 +63,7 @@ export default class FieldForm extends Component {
 
     this.state = {
       values: labelLanguages.length ? unflattenLabels(field, labelLanguages) : flattenLabels(field, lang),
-      errors: []
+      errors: [],
     };
 
     this.onChange = this.onChange.bind(this);
@@ -79,21 +79,21 @@ export default class FieldForm extends Component {
       field,
       initFieldType,
       labelLanguages,
-      onSubmit
+      onSubmit,
     } = this.props;
 
-    const { values } = this.state;
+    const { values, errors: stateErrors } = this.state;
     const { errors } = sanitize(values);
 
     if (errors.length) {
       return this.setState({ errors });
     }
 
-    if (!values || (this.state?.errors || []).length) return;
+    if (!values || (stateErrors || []).length) return;
 
     onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
       fieldType: field?.fieldType ?? initFieldType,
-      field: field?.field || slugFromLabel(values.label, lang)
+      field: field?.field || slugFromLabel(values.label, lang),
     }));
   }
 
@@ -107,17 +107,17 @@ export default class FieldForm extends Component {
       customFieldConfigurationSchemas, // new
       components, // new
       parentsField,
-      enable = true
+      enable = true,
     } = this.props;
     const { values, errors } = this.state;
 
     const field = propsField ?? {
-      fieldType: initFieldType
+      fieldType: initFieldType,
     };
 
     const schema = assignConstraintsToFields(
       schemas(field.fieldType, { customFieldConfigurationSchemas })({ labelLanguages, parentsField }),
-      parentsField
+      parentsField,
     );
 
     if (!enable) {
@@ -140,7 +140,7 @@ export default class FieldForm extends Component {
           errors={errors}
           components={{
             options: Options,
-            ...components
+            ...components,
           }}
           onChange={this.onChange}
           lang={lang}
@@ -148,8 +148,8 @@ export default class FieldForm extends Component {
           actionComponents={[{
             position: 'bottom',
             Component: ({ sanitize }) => actionComponent({
-              onSubmit: this.onSubmit.bind(this, sanitize)
-            })
+              onSubmit: this.onSubmit.bind(this, sanitize),
+            }),
           }]}
         />
       </div>

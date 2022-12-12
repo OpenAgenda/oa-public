@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import { Modal } from '@openagenda/react-shared';
 
@@ -15,18 +15,18 @@ const Canvas = ({ children, modal, onClose }) => (modal ? (
   >
     {children}
   </Modal>
-) : <>{children}</>);
+) : children);
 
 const isDuplicateLabel = (schema, field) => {
   const fieldLabels = typeof field.label === 'string' ? [field.label] : Object.values(field.label);
   return !!schema.fields.reduce(
     (existingLabels, schemaField) => existingLabels.concat(typeof schemaField.label === 'string' ? [schemaField.label] : Object.values(schemaField.label)),
-    []
+    [],
   ).filter(label => fieldLabels.includes(label)).length;
 };
 
 const ErrorSummary = ({
-  errors
+  errors,
 }) => (
   <div className="error-summary boxed margin-top-sm padding-h-sm padding-v-xs">
     {errors.map(e => e.label).join(', ')}
@@ -40,7 +40,7 @@ const DisabledFieldForm = ({ lang }) => (
     onSubmit={() => {}}
     lang={lang}
     labelLanguages={[]}
-    actionComponent={() => (<></>)}
+    actionComponent={() => null}
   />
 );
 
@@ -50,7 +50,7 @@ export default function FieldAdd({
   onClose,
   lang,
   modal = true,
-  labelLanguages
+  labelLanguages,
 }) {
   const [fieldType, setFieldType] = useState(null);
   const [errors, setErrors] = useState([]);
@@ -59,7 +59,7 @@ export default function FieldAdd({
     // slug is not defined here: it cannot be used as a basis for duplicate detection
     if (isDuplicateLabel(schema, field)) {
       setErrors([{
-        label: getLabel('isLabelDuplicateError', lang)
+        label: getLabel('isLabelDuplicateError', lang),
       }]);
       return;
     }
