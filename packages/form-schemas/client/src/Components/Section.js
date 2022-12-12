@@ -11,6 +11,6 @@ export default function Section(props) {
   } = flattenSectionLabels(section, lang);
 
   return (
-    <h3 className="margin-top-sm margin-v-md">{label}</h3>
+    <h3 className="margin-v-md">{label}</h3>
   );
 }

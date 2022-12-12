@@ -18,6 +18,9 @@ const Canvas = ({ children, modal, onClose }) => (modal ? (
 ) : children);
 
 const isDuplicateLabel = (schema, field) => {
+  if (field.type === 'section') {
+    return false;
+  }
   const fieldLabels = typeof field.label === 'string' ? [field.label] : Object.values(field.label);
   return !!schema.fields.reduce(
     (existingLabels, schemaField) => existingLabels.concat(typeof schemaField.label === 'string' ? [schemaField.label] : Object.values(schemaField.label)),

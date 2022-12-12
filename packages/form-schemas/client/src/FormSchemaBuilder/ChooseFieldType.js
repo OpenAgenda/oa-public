@@ -63,6 +63,11 @@ const fieldTypeChoices = [{
   value: 'date',
   label: labels.dateFieldType,
   info: labels.dateFieldTypeInfo,
+}, {
+  id: 14,
+  value: 'section',
+  label: labels.sectionType,
+  info: labels.sectionTypeInfo,
 }];
 
 const flatChoices = lang => fieldTypeChoices.map(c => ({

@@ -22,7 +22,7 @@ const assignConstraintsToFields = (schema, parents) => schema.fields.reduce((car
 const fieldOrder = order => ({ fields: order.map(f => ({ field: f, fieldType: 'abstract' })) });
 
 const fieldSchemaTypes = {
-  labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
+  labels: options => ({ labelLanguages }) => fg.labels({ ...options, labelLanguages }),
   textLike: ({ labelLanguages, parentsField }) => merge(
     fg.labels({ labelLanguages }),
     parentsField ? null : fg.minMax({ min: 0, max: 255 }),
@@ -42,17 +42,20 @@ const fieldSchemaTypes = {
   ),
 };
 
-const schemas = (fieldType, { customFieldConfigurationSchemas }) => {
-  if (['text', 'textarea', 'markdown', 'link', 'boolean', 'email', 'integer'].includes(fieldType)) {
+const schemas = (type, { customFieldConfigurationSchemas }) => {
+  if (type === 'section') {
+    return fieldSchemaTypes.labels({ pick: ['label'], allOptional: true });
+  }
+  if (['text', 'textarea', 'markdown', 'link', 'boolean', 'email', 'integer'].includes(type)) {
     return fieldSchemaTypes.textLike;
   }
-  if (['radio', 'checkbox', 'select', 'multiselect'].includes(fieldType)) {
+  if (['radio', 'checkbox', 'select', 'multiselect'].includes(type)) {
     return fieldSchemaTypes.radioLike;
   }
-  if (customFieldConfigurationSchemas && customFieldConfigurationSchemas[fieldType]) {
-    return fieldSchemaTypes.customLike(customFieldConfigurationSchemas[fieldType]);
+  if (customFieldConfigurationSchemas && customFieldConfigurationSchemas[type]) {
+    return fieldSchemaTypes.customLike(customFieldConfigurationSchemas[type]);
   }
-  return fieldSchemaTypes.labels;
+  return fieldSchemaTypes.labels();
 };
 
 export default class FieldForm extends Component {
@@ -84,6 +87,7 @@ export default class FieldForm extends Component {
 
     const { values, errors: stateErrors } = this.state;
     const { errors } = sanitize(values);
+    const fieldType = field?.fieldType ?? initFieldType;
 
     if (errors.length) {
       return this.setState({ errors });
@@ -91,10 +95,17 @@ export default class FieldForm extends Component {
 
     if (!values || (stateErrors || []).length) return;
 
-    onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
-      fieldType: field?.fieldType ?? initFieldType,
-      field: field?.field || slugFromLabel(values.label, lang),
-    }));
+    const item = restrictLabelLanguages(values, labelLanguages);
+
+    if (fieldType === 'section') {
+      item.type = 'section';
+    } else {
+      item.fieldType = fieldType;
+    }
+
+    item.field = field?.field || slugFromLabel(values.label, lang);
+
+    onSubmit(item);
   }
 
   render() {
