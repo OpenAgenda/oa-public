@@ -347,6 +347,14 @@ module.exports = {
     "it": "Un calendario per selezionare una data",
     "io": "crwdns16464:0crwdne16464:0"
   },
+  "sectionType": {
+    "fr": "Titre de section",
+    "en": "Section title"
+  },
+  "sectionTypeInfo": {
+    "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
+    "en": "Displays a section head in the form creating a visual separation between the fields above and below"
+  },
   "imageFieldType": {
     "fr": "Image",
     "en": "Image",
