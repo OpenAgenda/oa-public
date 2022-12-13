@@ -6078,7 +6078,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/babel-preset@^1.5.0, @openagenda/babel-preset@workspace:public/babel-preset":
+"@openagenda/babel-preset@^1.4.1, @openagenda/babel-preset@^1.5.0, @openagenda/babel-preset@workspace:public/babel-preset":
   version: 0.0.0-use.local
   resolution: "@openagenda/babel-preset@workspace:public/babel-preset"
   dependencies:
