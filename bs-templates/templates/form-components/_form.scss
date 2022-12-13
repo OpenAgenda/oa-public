@@ -20,6 +20,11 @@
     padding-bottom: 0;
   }
 
+  .divider {
+    height: 1px;
+    background-color: $oa-gray-light;
+  }
+
   .checkbox .checkbox-sub-menu{
     margin-left: 20px;
   }
