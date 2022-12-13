@@ -266,7 +266,7 @@ export function getSchema(agenda) {
     types: [GET_SCHEMA, GET_SCHEMA_SUCCESS, GET_SCHEMA_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
-      return client.get(res.getSchema.replace(':agendaUid', agenda.uid));
+      return client.get(res.getSchema.replace(':agendaUid', agenda.uid), { params: { merged: 1 } });
     },
   };
 }
